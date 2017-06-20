@@ -267,8 +267,10 @@ class SaleTest < ActiveSupport::TestCase
   end
 
   test 'default_currency is nature\'s currency if currency is not specified' do
+    Payslip.delete_all
     Catalog.delete_all
     SaleNature.delete_all
+    OutgoingPayment.delete_all
     Entity.delete_all
     Sale.delete_all
 
