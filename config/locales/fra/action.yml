@@ -6,6 +6,7 @@ fra:
       edit: "Changer votre mot de passe"
       new: "Nouveau mot de passe"
     authentication/registrations:
+      edit: "S’inscrire"
       new: "Inscription"
     authentication/sessions:
       destroy: "Se déconnecter"
@@ -860,6 +861,7 @@ fra:
     add_catalog_price: "Ajouter un prix catalogue"
     add_child: "Ajouter un sous-composant"
     add_choice: "Ajouter un choix"
+    add_compensation_entry: "Ajouter une écriture de compensation"
     add_component: "Ajouter un composant"
     add_condition: "Ajouter la condition"
     add_conditions: "Ajoutez des conditions"
@@ -1254,7 +1256,7 @@ fra:
     edit: "Modifier"
     edit_budget: "Modifier le budget"
     ekylibre: "www.ekylibre.org"
-    elapsed_interventions_times_by_activities: "Temps passé par activité" #?
+    elapsed_interventions_times_by_activities: "Temps passé par activité"
     email: "Email:"
     emissions_and_reevaluation_gaps: "Ecart de réévaluation, primes d’émission"
     employee: "Employé" #?
@@ -1431,6 +1433,7 @@ fra:
     insert_actual_password: "Saisissez votre mot de passe actuel" #?
     insert_password: "Saisissez votre nouveau mot de passe" #?
     inspections: "Agréages"
+    interactive_maps: "Une librairie JavaScript pour des cartes interactives"
     interface_preferences: "Préférences de l’interface"
     internal_error: "Oups, quelque chose s’est mal passé."
     interval: "Intervalle personnalisé"
@@ -2501,6 +2504,7 @@ fra:
       access_denied: "Vous n’avez pas le droit d’accéder à cette page. %{reason} (%{url})"
       accountant_notified: "Le comptable a bien été notifié"
       accountant_without_email: "Merci de renseigner l’email du comptable"
+      all_fixed_assets_must_be_depreciable: "Tous les immobilisations doivent être amortissables"
       all_parcels_must_be_invoiceable_and_of_same_nature_and_third: "Tous les colis doivent être facturables de la même nature et au même tiers"
       all_purchases_must_be_ordered: "Tous les achats doivent être commandés ou facturés." #?
       all_purchases_must_be_ordered_or_invoiced: "Tous les achats doivent être commandés ou facturés."
@@ -2522,10 +2526,9 @@ fra:
       closed_financial_year_exchange: "L’échange a été correctement clôturé"
       closed_financial_years: "L’exercice a été correctement clôturé"
       columns_are_already_uses: "Une ou plusieurs colonnes à importer sont sélectionnées plusieurs fois"
+      # could_not_attach_x_or_y_to_affair: "Could not attach %{x} or %{y} to affair"
       dashboard_is_being_developed: "Les tableaux de bord sont en cours d’élaboration"
       density_is_not_computable_in_counting: "La densité de semis n’a pas pu être calculée pour ce comptage. Veuillez compléter les informations manquantes dans le comptage ou dans les indicateurs du semoir."
-      depreciation_failed: "Les immobilisations n’ont pas pu être dépréciées."
-      depreciation_successful: "Les immobilisations ont correctement été dépréciées."
       draft_journal_entries_have_been_validated:
         one: "%{count} écriture du brouillard validée"
         other: "%{count} écritures du brouillard validées"
@@ -2584,6 +2587,7 @@ fra:
       no_depositable_payments: "Il n’y a pas de réglements à remettre en banque"
       no_existing_mandates: "Il n’y a pas de responsabilités enregistrées pour l’instant" #?
       no_financial_year: "Aucun exercice enregistré" #?
+      no_fixed_assets_given: "Pas d’immobilisations données"
       no_inspections_given: "Aucune inspection donnée"
       no_interventions_given: "Aucune intervention donnée"
       no_items_found: "Aucun produit n’a été ajouté à la commande " #?
@@ -2631,6 +2635,7 @@ fra:
       synchronization_operation_in_progress: "L’opération %{operation_name} est en cours"
       the_automatic_lettering_cannot_be_done_in_accountancy: "Le lettrage automatique ne peut pas être fait en comptabilité"
       the_automatic_lettering_cannot_be_done_in_accountancy_because_too_many_thirds_are_present: "Le lettrage automatique ne peut pas être fait en comptabilité parce que trop de tiers sont présents"
+      the_bookkeep_date_format_is_invalid: "Le format de la date de comptabilisation n’est pas valide"
       the_sales_invoice_is_not_cancellable: "La facture ne peut pas être passée en avoir"
       this_service_is_not_activated: "Ce service n’est pas activé"
       unavailable_resource: "%{type} indisponible ou inexistant(e) #%{id}"
@@ -2640,6 +2645,12 @@ fra:
       unvalid_version_for_restore: "La version du logiciel utilisé pour effectuer la sauvegarde ne correspond pas à la version actuelle du logiciel" #?
       update_is_done: "La mise à jour a été effectuée"
       validates_old_inventories: "Il est conseillé de supprimer ou de valider les inventaires non validés avant d’en faire un nouveau" #?
+      x_fixed_asset_depreciations_have_been_bookkept_successfully:
+        one: "%{count} amortissement d'immobilisation a été comptabilisé avec succès"
+        other: "%{count} amortissements d'immobilisations ont été comptabilisés avec succès"
+      x_loan_repayments_have_been_bookkept_successfully:
+        one: "%{count} remboursement a été comptabilisé avec succès"
+        other: "%{count} remboursements ont été comptabilisés avec succès"
       x_unpointed_journal_entry_items:
         one: "Il y a une écriture à pointer"
         other: "Il y a %{count} écritures à pointer"

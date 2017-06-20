@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-ruby '2.2.3'
+ruby '>= 2.2.3', '< 3.0.0'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.8'
@@ -21,7 +21,7 @@ gem 'possibly'
 
 # Code manipulation
 gem 'charlock_holmes'
-gem 'code_string'
+gem 'code_string', '>= 0.0.1'
 
 gem 'browser'
 
@@ -44,7 +44,9 @@ gem 'therubyracer', platforms: :ruby
 
 # Exception analysis and metrics
 gem 'binding_of_caller'
+gem 'redis-namespace' # Fix for missing dependency in skylight
 gem 'sentry-raven', require: false
+gem 'sidekiq-skylight'
 gem 'skylight'
 
 # Use jquery as the JavaScript library
@@ -95,7 +97,7 @@ gem 'unicorn', group: :production
 gem 'exception_notification'
 
 # Views helpers
-gem 'active_list', '>= 6.9.1' # , path: "../active_list"
+gem 'active_list', '>= 6.9.2' # , path: "../active_list"
 gem 'haml'
 gem 'simple_calendar'
 
@@ -186,6 +188,9 @@ group :development do
   gem 'quiet_assets'
   # gem 'rack-mini-profiler'
 
+  # Get the time of a process
+  gem 'ruby-prof'
+
   # Code metrics
   gem 'rails_best_practices', require: false
   gem 'rubocop', '~> 0.49.1', require: false
@@ -209,7 +214,8 @@ group :development, :test do
   gem 'teaspoon-jasmine'
 
   # Exception message tips
-  gem 'did_you_mean', '~> 0.9'
+
+  gem 'did_you_mean', '~> 0.9', platforms: [:ruby_22]
 end
 
 group :test do

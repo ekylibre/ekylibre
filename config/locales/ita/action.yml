@@ -3,9 +3,10 @@ ita:
     authentication/invitations:
       edit: "Accetta l'invito"
     authentication/passwords:
-      # edit: "Edit password: %{name}"
+      edit: "Nuova password"
       new: "Nuova password"
     authentication/registrations:
+      edit: "Registrazione"
       new: "Registrazione"
     authentication/sessions:
       destroy: "Disconnettersi"
@@ -794,6 +795,7 @@ ita:
     add_catalog_price: "Aggiungere prezzo di catalogo"
     add_child: "Aggiungere un componente figlio"
     add_choice: "Aggiungere scelta"
+    add_compensation_entry: "Aggiungere una voce di compensazione"
     add_component: "Aggiungere componente"
     add_condition: "Aggiungere condizioni"
     add_conditions: "Aggiungere condizioni"
@@ -1095,7 +1097,7 @@ ita:
     edit: "Modifica"
     edit_budget: "Modifica budget"
     ekylibre: "Www.ekylibre.org"
-    elapsed_interventions_times_by_activities: "interventi trascorsi i tempi di attività" #?
+    elapsed_interventions_times_by_activities: "interventi trascorsi i tempi di attività"
     email: "E-mail:"
     emissions_and_reevaluation_gaps: "Emissioni e lacune rivalutazione delle"
     employee_and_wages: "Dipendenti e salari"
@@ -1220,6 +1222,7 @@ ita:
     input_cost_per_hectare: "costo di ingresso per ettaro" #?
     inputs: "ingressi"
     inspections: "ispezioni"
+    # interactive_maps: "A JS library for interactive maps"
     interface_preferences: "Preferenze di interfaccia"
     internal_error: "Ops, qualcosa è successo."
     interval: "Intervallo personalizzato"
@@ -1976,6 +1979,7 @@ ita:
       # access_denied: "Access denied. %{reason} (%{url})"
       accountant_notified: "Il ragioniere è stato notificato"
       accountant_without_email: "Si prega di impostare l’e-mail commercialista"
+      all_fixed_assets_must_be_depreciable: "Tutte le immobilizzazioni devono essere ammortizzabili"
       all_parcels_must_be_invoiceable_and_of_same_nature_and_third: "Tutti i pacchi devono essere fatturabile e della stessa natura e terzo"
       all_purchases_must_be_ordered_or_invoiced: "Tutti gli acquisti devono essere ordinati e fatturati."
       all_tax_declarations_have_already_existing: "Tutte le dichiarazioni fiscali sono già esistenti"
@@ -1992,10 +1996,9 @@ ita:
       closed_financial_year_exchange: "Lo scambio esercizio è stato chiuso con successo"
       closed_financial_years: "L'esercizio è stato chiuso con successo"
       columns_are_already_uses: "Una o molte colonne sono selezionati più volte"
+      # could_not_attach_x_or_y_to_affair: "Could not attach %{x} or %{y} to affair"
       dashboard_is_being_developed: "Dashboard è in grande sviluppo"
       density_is_not_computable_in_counting: "Impossibile calcolare la densità per questo conteggio. I valori mancanti dovrebbero essere completate nelle proprietà del conteggio o indicatori del seminatore."
-      depreciation_failed: "Le attività non possono essere ammortizzati."
-      depreciation_successful: "Le attività sono state ammortizzate con successo."
       draft_journal_entries_have_been_validated:
         one: "Una voce è stata convalidata"
         # other: "%{count} entries have been validated"
@@ -2036,6 +2039,7 @@ ita:
       no_budget_defined_for_current_campaign: "Nessun bilancio definito per la campagna in corso"
       no_closable_journal: "Nessun ufficiale chiudibile"
       no_depositable_payments: "Non ci sono alcun pagamento per depositare"
+      no_fixed_assets_given: "Nessuna immobilizzazione data"
       no_inspections_given: "Non ci sono controlli date"
       no_interventions_given: "Nessun dato interventi"
       no_parcels_given: "Nessun dato pacchi"
@@ -2066,11 +2070,18 @@ ita:
       # synchronization_operation_in_progress: "Operation %{operation_name} in progress"
       the_automatic_lettering_cannot_be_done_in_accountancy: "La scritta automatica non può essere fatto in contabilità"
       the_automatic_lettering_cannot_be_done_in_accountancy_because_too_many_thirds_are_present: "La scritta automatica non può essere fatto in contabilità perché troppi terzi sono presenti"
+      the_bookkeep_date_format_is_invalid: "Il formato di data di contabilità non è valido"
       the_sales_invoice_is_not_cancellable: "La fattura di vendita non è cancellabile"
       this_service_is_not_activated: "Questo servizio non è attivato"
       # unavailable_resource: "Nonexistent %{type} #%{id}"
       # unexpected_resource_type: "Unexpected resource type: %{type}"
       update_is_done: "L'aggiornamento è stato fatto"
+      x_fixed_asset_depreciations_have_been_bookkept_successfully:
+        # one: "%{count} fixed asset depreciation has been bookkept successfully"
+        # other: "%{count} fixed asset depreciations have been bookkept successfully"
+      x_loan_repayments_have_been_bookkept_successfully:
+        # one: "%{count} loan repayment has been bookkept successfully"
+        # other: "%{count} loan repayments have been bookkept successfully"
       x_unpointed_journal_entry_items:
         one: "C'è una voce per indicare"
         # other: "There are %{count} entries to point"
