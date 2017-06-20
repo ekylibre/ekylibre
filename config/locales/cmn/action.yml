@@ -1566,6 +1566,7 @@ cmn:
     sex: "性别"
     shape: "形状"
     ship: "船"
+    # shipments: "Shipments"
     show: "显示"
     sign_out: "登出"
     simplified: "简化会计"

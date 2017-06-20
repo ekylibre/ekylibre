@@ -1664,7 +1664,7 @@ eng:
     parameter_error_miscibility: "Missing MAAID number"
     parameters: "Parameters"
     parcel_items: "Parcel items"
-    parcels: "Parcels"
+    parcels: "Parcels" #?
     partially_lettered: "Partially lettered" #?
     participants: "Participants"
     participations: "Participations"
@@ -1834,7 +1834,7 @@ eng:
     sex: "Sex" #?
     shape: "Shape" #?
     ship: "Ship" #?
-    # shipments: "Shipments"
+    shipments: "Shipments"
     show: "Show"
     sign_out: "Sign out" #?
     simplified: "Simplified Accounting" #?

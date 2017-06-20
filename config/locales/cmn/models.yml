@@ -1267,6 +1267,7 @@ cmn:
     reception_cash: "接待现金"
     reception_currency: "接待币"
     reception_journal_entry: "接待日记帐分录"
+    # receptions: "Receptions"
     recipient: "接受者"
     recommended: "推荐"
     recommender: "导购"
@@ -1813,6 +1814,15 @@ cmn:
     purchase_payment:
       # bookkeep: "[%{resource} %{number}] %{mode} %{check_number} for %{payee}"
       # label: "%{number}. %{amount}, %{mode} for %{payee} on %{date}"
+    reception:
+      state_machine:
+        states:
+          # draft: "Draft"
+          # given: "Given"
+          # in_preparation: "In preparation"
+          # ordered: "Ordered"
+          # prepared: "Prepared"
+          # received: "Received"
     role:
       default:
         administrator: "管理员"
@@ -1892,6 +1902,15 @@ cmn:
         sales_invoices: "SI[year|4][number|6]"
         subscriptions: "SUB[number|8]"
         transports: "TR[number|8]"
+    shipment:
+      state_machine:
+        states:
+          # draft: "Draft"
+          # given: "Given"
+          # in_preparation: "In preparation"
+          # ordered: "Ordered"
+          # prepared: "Prepared"
+          # received: "Received"
     task:
       state_machine:
         states:

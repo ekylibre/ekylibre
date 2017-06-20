@@ -1298,6 +1298,7 @@ ita:
     reception_cash: "contanti reception"
     reception_currency: "valuta reception"
     reception_journal_entry: "voce di diario Reception"
+    # receptions: "Receptions"
     recipient: "Destinatario"
     recommended: "Consigliato"
     # recommender: "Recommender"
@@ -1844,6 +1845,15 @@ ita:
     purchase_payment:
       # bookkeep: "[%{resource} %{number}] %{mode} %{check_number} for %{payee}"
       # label: "%{number}. %{amount}, %{mode} for %{payee} on %{date}"
+    reception:
+      state_machine:
+        states:
+          # draft: "Draft"
+          # given: "Given"
+          # in_preparation: "In preparation"
+          # ordered: "Ordered"
+          # prepared: "Prepared"
+          # received: "Received"
     role:
       default:
         administrator: "Amministratore"
@@ -1923,6 +1933,15 @@ ita:
         sales_invoices: "SI[year|4][number|6]"
         subscriptions: "SUB[number|8]"
         transports: "TR[number|8]"
+    shipment:
+      state_machine:
+        states:
+          # draft: "Draft"
+          # given: "Given"
+          # in_preparation: "In preparation"
+          # ordered: "Ordered"
+          # prepared: "Prepared"
+          # received: "Received"
     task:
       state_machine:
         states:

@@ -1267,6 +1267,7 @@ deu:
     reception_cash: "Rezeption Bargeld"
     reception_currency: "Rezeption Währung"
     reception_journal_entry: "Rezeption Journaleintrag"
+    # receptions: "Receptions"
     recipient: "Empfänger"
     recommended: "empfohlen"
     recommender: "Empfehlender"
@@ -1812,6 +1813,15 @@ deu:
     purchase_payment:
       # bookkeep: "[%{resource} %{number}] %{mode} %{check_number} for %{payee}"
       # label: "%{number}. %{amount}, %{mode} for %{payee} on %{date}"
+    reception:
+      state_machine:
+        states:
+          # draft: "Draft"
+          # given: "Given"
+          # in_preparation: "In preparation"
+          # ordered: "Ordered"
+          # prepared: "Prepared"
+          # received: "Received"
     role:
       default:
         # administrator: "Administrator"
@@ -1891,6 +1901,15 @@ deu:
         sales_invoices: "SI[year|4][number|6]"
         subscriptions: "SUB[number|8]"
         transports: "TR[number|8]"
+    shipment:
+      state_machine:
+        states:
+          # draft: "Draft"
+          # given: "Given"
+          # in_preparation: "In preparation"
+          # ordered: "Ordered"
+          # prepared: "Prepared"
+          # received: "Received"
     task:
       state_machine:
         states:

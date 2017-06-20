@@ -1271,6 +1271,7 @@ spa:
     reception_cash: "Dinero en efectivo de recepción"
     reception_currency: "La recepción de divisas"
     reception_journal_entry: "La entrada de recepción revista"
+    # receptions: "Receptions"
     recipient: "Recipiente"
     recommended: "Recomendado"
     recommender: "Recomendador"
@@ -1817,6 +1818,15 @@ spa:
     purchase_payment:
       # bookkeep: "[%{resource} %{number}] %{mode} %{check_number} for %{payee}"
       # label: "%{number}. %{amount}, %{mode} for %{payee} on %{date}"
+    reception:
+      state_machine:
+        states:
+          # draft: "Draft"
+          # given: "Given"
+          # in_preparation: "In preparation"
+          # ordered: "Ordered"
+          # prepared: "Prepared"
+          # received: "Received"
     role:
       default:
         administrator: "Administrador"
@@ -1896,6 +1906,15 @@ spa:
         sales_invoices: "SI[year|4][number|6]"
         subscriptions: "SUB[number|8]"
         transports: "TR[number|8]"
+    shipment:
+      state_machine:
+        states:
+          # draft: "Draft"
+          # given: "Given"
+          # in_preparation: "In preparation"
+          # ordered: "Ordered"
+          # prepared: "Prepared"
+          # received: "Received"
     task:
       state_machine:
         states:

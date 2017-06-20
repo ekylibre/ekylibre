@@ -1533,6 +1533,7 @@ fra:
     reception_cash: "Trésorie réceptrice"
     reception_currency: "Monnaie de réception"
     reception_journal_entry: "Écriture de la réception"
+    receptions: "Réceptions"
     recipient: "Destinataire"
     recommended: "Prescrit"
     recommender: "Prescripteur"
@@ -2119,6 +2120,15 @@ fra:
     purchase_payment:
       bookkeep: "[%{resource} %{number}] %{mode} %{check_number} pour %{payee}"
       label: "%{number}. %{amount} du %{date} en %{mode} pour %{payee}"
+    reception:
+      state_machine:
+        states:
+          draft: "Brouillon"
+          given: "Donné"
+          in_preparation: "En préparation"
+          ordered: "Commandé"
+          prepared: "Prêt"
+          received: "Reçu"
     role:
       default:
         administrator: "Gérant"
@@ -2198,6 +2208,15 @@ fra:
         sales_invoices: "F[year|4][number|6]"
         subscriptions: "ABO[number|8]"
         transports: "TR[number|8]"
+    shipment:
+      state_machine:
+        states:
+          draft: "Brouillon"
+          given: "Donné"
+          in_preparation: "En préparation"
+          ordered: "Commandé"
+          prepared: "Prêt"
+          received: "Reçu"
     task:
       state_machine:
         states:

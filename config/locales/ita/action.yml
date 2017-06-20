@@ -1631,6 +1631,7 @@ ita:
     sex: "Sesso"
     shape: "Forma"
     ship: "Nave"
+    # shipments: "Shipments"
     show: "Mostrare"
     sign_out: "disconnessione"
     simplified: "contabilità semplificata"

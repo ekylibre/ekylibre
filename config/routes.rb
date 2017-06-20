@@ -393,6 +393,8 @@ Rails.application.routes.draw do
     resources :deliveries, concerns: %i[list unroll] do
       member do
         get :list_parcels
+        get :list_receptions
+        get :list_shipments
         post :order
         post :prepare
         post :check

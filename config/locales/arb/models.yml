@@ -2168,6 +2168,7 @@ arb:
     reception_cash: "استقبال النقدية"
     reception_currency: "العملة الاستقبال"
     reception_journal_entry: "دخول مجلة الاستقبال"
+    # receptions: "Receptions"
     recipient: "مستلم"
     recommended: "موصى به"
     recommender: "المزكي"
@@ -3086,6 +3087,15 @@ arb:
     purchase_payment:
       bookkeep: "[%{resource} %{number}] %{mode} %{check_number} ل %{payee} (%{expenses})"
       label: "%{number}. %{amount} (%{usable_amount} restants) من %{date} بواسطة %{mode} ل %{payee}"
+    reception:
+      state_machine:
+        states:
+          # draft: "Draft"
+          # given: "Given"
+          # in_preparation: "In preparation"
+          # ordered: "Ordered"
+          # prepared: "Prepared"
+          # received: "Received"
     role:
       default:
         administrator: "مدير"
@@ -3180,6 +3190,15 @@ arb:
         sales_invoices: "SI[year|4][number|6]"
         subscriptions: "SUB[number|8]"
         transports: "TR[number|8]"
+    shipment:
+      state_machine:
+        states:
+          # draft: "Draft"
+          # given: "Given"
+          # in_preparation: "In preparation"
+          # ordered: "Ordered"
+          # prepared: "Prepared"
+          # received: "Received"
     task:
       state_machine:
         states:

@@ -1565,6 +1565,7 @@ deu:
     # sex: "Sex"
     shape: "Gestalten"
     ship: "Schiff"
+    # shipments: "Shipments"
     # show: "Show"
     sign_out: "Ausloggen"
     simplified: "vereinfachte Buchhaltung"

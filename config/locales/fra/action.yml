@@ -2072,6 +2072,7 @@ fra:
     sex: "Sexe"
     shape: "Forme"
     ship: "Prévue le"
+    shipments: "Expéditions"
     show: "Afficher"
     sign_out: "Se déconnecter"
     simplified: "Régime du réel simplifié"

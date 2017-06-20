@@ -1637,6 +1637,7 @@ jpn:
     sex: "セックス"
     shape: "形状"
     ship: "船"
+    # shipments: "Shipments"
     show: "を表示"
     sign_out: "サインアウト"
     simplified: "簡便な会計"

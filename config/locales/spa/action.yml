@@ -1788,6 +1788,7 @@ spa:
     shape: "Forma"
     shelf: "Categoria" #?
     ship: "Enviar"
+    # shipments: "Shipments"
     show: "Espectáculo"
     sign_out: "Desconectar"
     simplified: "Regimen del real simplificado"
