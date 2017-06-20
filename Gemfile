@@ -182,6 +182,9 @@ gem 'savon'
 
 gem 'luhn'
 
+# For interval selector
+gem 'bootstrap-slider-rails'
+
 group :development do
   gem 'bullet'
 

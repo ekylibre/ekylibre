@@ -90,6 +90,8 @@ GEM
     bootstrap-sass (3.3.7)
       autoprefixer-rails (>= 5.2.1)
       sass (>= 3.3.4)
+    bootstrap-slider-rails (9.2.0)
+      railties (>= 3.2, < 6.0)
     bootstrap3-datetimepicker-rails (4.17.47)
       momentjs-rails (>= 2.8.1)
     browser (2.4.0)
@@ -572,6 +574,7 @@ DEPENDENCIES
   beardley-xml
   binding_of_caller
   bootstrap-sass (~> 3.1)
+  bootstrap-slider-rails
   bootstrap3-datetimepicker-rails
   browser
   bullet
