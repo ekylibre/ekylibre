@@ -1156,6 +1156,7 @@ deu:
     input_cost_per_hectare: "Inputkosten pro Hektar" #?
     inputs: "Eingänge"
     inspections: "Inspektionen"
+    # interactive_maps: "A JS library for interactive maps"
     interface_preferences: "Interface-Einstellungen"
     internal_error: "Hoppla, was passiert ist."
     interval: "Personalisierte Interval"

@@ -1161,6 +1161,7 @@ por:
     input_cost_per_hectare: "Custo de insumos por hectare" #?
     inputs: "Entradas"
     inspections: "inspeções"
+    # interactive_maps: "A JS library for interactive maps"
     interface_preferences: "Preferências de interface"
     internal_error: "Opa, algo aconteceu."
     interval: "Intervalo personalizado"
