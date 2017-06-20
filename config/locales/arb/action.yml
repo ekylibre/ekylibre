@@ -2520,6 +2520,9 @@ arb:
       one: "تم انجاز عمل واحد" #?
       other: "%{count} تم انجاز اعمال اخرى" #?
       zero: "لم يتم انجاز اي عمل" #?
+    x_purchase_payments:
+      # one: "%{count} purchase payment"
+      # other: "%{count} purchase payments"
     x_purchases:
       one: "1 شراء"
       # other: "%{count} purchases"
