@@ -41,7 +41,7 @@ module Backend
       t.column :activity, url: true
       t.column :support, url: true
       t.column :usage
-      t.column :grains_yield
+      t.column :grains_yield, datatype: :measure
       t.column :started_on
       t.column :stopped_on
     end

@@ -57,8 +57,12 @@ class LoanRepayment < Ekylibre::Record::Base
   # ]VALIDATORS]
   delegate :currency, :name, to: :loan
 
-  scope :accountable_repayments, lambda { |loans_ids, input_date|
-    where('loan_id IN (?) AND accountable = FALSE AND due_on <= ?', loans_ids, input_date)
+  scope :of_loans, lambda { |ids|
+    where(loan_id: ids)
+  }
+
+  scope :bookkeepable_before, lambda { |limit_on|
+    where('accountable IS FALSE AND journal_entry_id IS NULL AND due_on <= ?', limit_on)
   }
 
   before_validation do
@@ -66,19 +70,23 @@ class LoanRepayment < Ekylibre::Record::Base
   end
 
   # Prevents from deleting if entry exist
-  protect on: %i[destroy update] do
+  protect on: %i[destroy] do
     journal_entry
   end
 
   bookkeep do |b|
     # when payment arrive (due_on)
-    existing_financial_year = FinancialYear.on(due_on)
-    b.journal_entry(journal, printed_on: due_on, if: (!locked && accountable && amount > 0 && due_on <= Time.zone.today && existing_financial_year && loan.ongoing?)) do |entry|
-      label = tc(:bookkeep, resource: self.class.model_name.human, name: name, year: due_on.year, month: due_on.month, position: position)
-      entry.add_debit(label, unsuppress { loan.loan_account_id }, base_amount, as: :repayment)
-      entry.add_debit(label, unsuppress { loan.interest_account_id }, interest_amount, as: :interest)
-      entry.add_debit(label, unsuppress { loan.insurance_account_id }, insurance_amount, as: :insurance) if insurance_amount.nonzero?
-      entry.add_credit(label, cash.account_id, amount, as: :bank)
+    financial_year = FinancialYear.on(due_on)
+    # puts [journal.writable_on?(due_on), !locked, accountable, amount > 0, due_on <= Time.zone.today, financial_year.present?, loan.ongoing?].inspect.yellow
+    unsuppress do
+      b.journal_entry(journal, printed_on: due_on, if: (!locked && accountable && amount > 0 && due_on <= Time.zone.today && financial_year.present? && loan.ongoing?)) do |entry|
+        label = tc(:bookkeep, resource: self.class.model_name.human, name: name, year: due_on.year, month: due_on.month, position: position)
+        # puts label.inspect.magenta
+        entry.add_debit(label, unsuppress { loan.loan_account_id }, base_amount, as: :repayment)
+        entry.add_debit(label, unsuppress { loan.interest_account_id }, interest_amount, as: :interest)
+        entry.add_debit(label, unsuppress { loan.insurance_account_id }, insurance_amount, as: :insurance) if insurance_amount.nonzero?
+        entry.add_credit(label, cash.account_id, amount, as: :bank)
+      end
     end
     true
   end

@@ -62,6 +62,8 @@ class Account < Ekylibre::Record::Base
   has_many :charges_categories,           class_name: 'ProductNatureCategory', foreign_key: :charge_account_id
   has_many :purchase_items,               class_name: 'PurchaseItem', dependent: :restrict_with_exception
   has_many :sale_items,                   class_name: 'SaleItem'
+  has_many :payslip_natures, dependent: :restrict_with_exception
+  has_many :payslips, dependent: :restrict_with_exception
   has_many :products_categories,          class_name: 'ProductNatureCategory', foreign_key: :product_account_id
   has_many :stocks_categories,            class_name: 'ProductNatureCategory', foreign_key: :stock_account_id
   has_many :stocks_movement_categories,   class_name: 'ProductNatureCategory', foreign_key: :stock_movement_account_id
@@ -416,7 +418,10 @@ class Account < Ekylibre::Record::Base
   end
 
   def reconcilable_entry_items(period, started_at, stopped_at)
-    journal_entry_items.joins("JOIN #{JournalEntry.table_name} AS je ON (entry_id=je.id)").where(JournalEntry.period_condition(period, started_at, stopped_at, 'je')).reorder('je.printed_on, je.real_credit, je.real_debit')
+    relation_name = 'journal_entry_items'
+    journal_entry_items
+      .where(JournalEntry.period_condition(period, started_at, stopped_at, relation_name))
+      .reorder(relation_name + '.printed_on, ' + relation_name + '.real_credit, ' + relation_name + '.real_debit')
   end
 
   def new_letter
@@ -436,11 +441,22 @@ class Account < Ekylibre::Record::Base
   # Mark entry items with the given +letter+. If no +letter+ given, it uses a new letter.
   # Don't mark unless.all the marked items will be balanced together
   def mark(item_ids, letter = nil)
-    conditions = ['id IN (?) AND (letter IS NULL OR LENGTH(TRIM(letter)) <= 0)', item_ids]
+    conditions = ['id IN (?) AND (letter IS NULL OR LENGTH(TRIM(letter)) <= 0 OR (letter SIMILAR TO ?))', item_ids, '[A-z]*\*?']
     items = journal_entry_items.where(conditions)
     return nil unless item_ids.size > 1 && items.count == item_ids.size &&
                       items.collect { |l| l.debit - l.credit }.sum.to_f.zero?
+    letter ||= items.order(:letter).pluck(:letter).compact.first
     letter ||= new_letter
+    journal_entry_items.where(conditions).update_all(letter: letter)
+    letter
+  end
+
+  # Mark entry items with the given +letter+, even when the items are not balanced together.
+  # If no +letter+ given, it uses a new letter.
+  def mark!(item_ids, letter = nil)
+    return nil unless item_ids.is_a?(Array) && item_ids.any?
+    letter ||= new_letter
+    conditions = ['id IN (?) AND (letter IS NULL OR LENGTH(TRIM(COALESCE(letter, \'\'))) <= 0 OR letter SIMILAR TO \'[A-z]+\\*\')', item_ids]
     journal_entry_items.where(conditions).update_all(letter: letter)
     letter
   end

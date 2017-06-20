@@ -46,7 +46,7 @@
 #  quantity_gap_on_invoice_journal_entry_id :integer
 #  reference_number                         :string
 #  responsible_id                           :integer
-#  state                                    :string
+#  state                                    :string           not null
 #  supplier_id                              :integer          not null
 #  tax_payability                           :string           not null
 #  undelivered_invoice_journal_entry_id     :integer
@@ -58,6 +58,10 @@ require 'test_helper'
 
 class PurchaseTest < ActiveSupport::TestCase
   test_model_actions
+
+  setup do
+    @variant = ProductNatureVariant.import_from_nomenclature(:carrot)
+  end
 
   test 'rounds' do
     nature = PurchaseNature.first
@@ -160,10 +164,24 @@ class PurchaseTest < ActiveSupport::TestCase
     purchase.invoice!
   end
 
+  test 'cannot have an empty state - it is set to draft by default' do
+    nature   = PurchaseNature.create!(currency: 'EUR', name: 'Perishables')
+    max      = Entity.create!(first_name: 'Max', last_name: 'Rockatansky', nature: :contact)
+    purchase = Purchase.create!(supplier: max, nature: nature, currency: 'USD', state: nil)
+
+    assert_equal 'draft', purchase.state
+
+    purchase.update(state: nil)
+
+    assert_equal 'draft', purchase.state
+  end
+
   test 'default_currency is nature\'s currency if currency is not specified' do
-    PurchaseNature.delete_all
-    Entity.delete_all
+    Payslip.delete_all
     Purchase.delete_all
+    PurchaseNature.delete_all
+    OutgoingPayment.delete_all
+    Entity.delete_all
 
     nature     = PurchaseNature.create!(currency: 'EUR', name: 'Perishables')
     max        = Entity.create!(first_name: 'Max', last_name: 'Rockatansky', nature: :contact)

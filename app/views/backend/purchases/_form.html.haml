@@ -8,10 +8,9 @@
     = f.referenced_association :supplier, source: :employees, new: { employee: 1 }, label: Purchase.human_attribute_name(:employee)
   - else
     = f.referenced_association :supplier, source: :suppliers, new: { supplier: 1 }
-  = f.association :nature, as: :hidden
   = f.referenced_association :delivery_address, source: :own_mails, new: {entity_id: Entity.of_company.id}
+  = f.association :nature, as: :hidden
   = f.input :reference_number
-  = f.input :planned_at
   = f.input :invoiced_at
   = f.input :payment_delay
   = f.input :tax_payability, as: :radio_buttons
@@ -44,7 +43,7 @@
           %td#wta.decimal{data:{use: ".nested-fields .wta", calculate: "sum", calculate_round: precision}}= f.object.amount
           %td= f.object.currency
           %th
-      = f.simple_fields_for :items, f.object.items.order(:id) do |item|
+      = f.simple_fields_for :items, f.object.items.sort_by { |i| i.id.to_i } do |item|
         = render 'item_fields', f: item
 
 = f.attachments_field_set

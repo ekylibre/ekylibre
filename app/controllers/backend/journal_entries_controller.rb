@@ -48,6 +48,7 @@ module Backend
       # t.column :number, through: :account, url: true
       # t.column :name, through: :account, url: true
       # t.column :number, through: :bank_statement, url: true, hidden: true
+      t.column :variant, url: true
       t.column :letter, through: :journal_entry
       t.column :real_debit,  currency: :real_currency
       t.column :real_credit, currency: :real_currency
@@ -89,6 +90,32 @@ module Backend
         journal = Journal.find_by(id: params[:journal_id])
         @journal_entry = JournalEntry.new(journal: journal, real_currency: Maybe(journal).currency.or_else(nil))
         @journal_entry.printed_on = params[:printed_on] || Time.zone.today
+        # Check if the method is called from "account/:id/mark" view
+        if params[:journal_entry_items_ids]
+          journal_entry_items_ids = params[:journal_entry_items_ids].split(',')
+          journal_entry_items = JournalEntryItem.where(id: journal_entry_items_ids)
+
+          balance = journal_entry_items.sum('real_debit - real_credit')
+          balanced_credit = 0
+          balanced_debit = 0
+          if balance > 0
+            balanced_debit = balance
+          else
+            balanced_credit = -balance
+          end
+          # Create a line which will the one used to balance the credit and
+          # debit sum amounts of lines selected in "account/:id/mark" view
+          @journal_entry.items.new(
+            account: journal_entry_items.first.account,
+            real_debit: balanced_credit,
+            real_credit: balanced_debit
+          )
+          # Create a line to balance the previous line
+          @journal_entry.items.new(
+            real_debit: balanced_debit,
+            real_credit: balanced_credit
+          )
+        end
       end
       @journal_entry.real_currency_rate = if @journal_entry.need_currency_change?
                                             if params[:exchange_rate]
@@ -115,6 +142,21 @@ module Backend
           notify_success(:journal_entry_has_been_saved, number: @journal_entry.number)
         else
           notify_success(:journal_entry_has_been_saved_with_a_new_number, number: @journal_entry.number)
+        end
+
+        #TODO: Extract this somewhere else, this isn't SRP
+        # Check if the method is called from "account/:id/mark" view
+        if params[:journal_entry_items_ids].present?
+          # Get all journal_entry_items id selected from the view
+          journal_entry_items_ids = params[:journal_entry_items_ids].split(',').map(&:to_i)
+          journal_entry_items = JournalEntryItem.where(id: journal_entry_items_ids)
+          if journal_entry_items.any?
+            account = journal_entry_items.first.account
+            # Get the journal_entry_item id created to balance the previous ones
+            journal_entry_items_ids.push(@journal_entry.items.where(account: account).first.id)
+            # Mark the journal_entry_items
+            account.mark(journal_entry_items_ids)
+          end
         end
         redirect_to params[:redirect] || {
           controller: :journal_entries,
@@ -169,7 +211,7 @@ module Backend
     protected
 
     def permitted_params
-      params.require(:journal_entry).permit(:printed_on, :journal_id, :number, :real_currency_rate, items_attributes: %i[id name account_id real_debit real_credit activity_budget_id team_id _destroy])
+      params.require(:journal_entry).permit(:printed_on, :journal_id, :number, :real_currency_rate, items_attributes: %i[id name variant_id account_id real_debit real_credit activity_budget_id team_id _destroy])
     end
 
     def notify_global_errors

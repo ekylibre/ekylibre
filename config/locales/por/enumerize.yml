@@ -114,6 +114,10 @@ por:
         datetime: "Data e Hora"
         decimal: "Decimal"
         text: "Texto"
+    debt_transfer:
+      nature:
+        purchase_regularization: "Regularização de compra"
+        sale_regularization: "Venda regularização"
     delivery:
       mode:
         third: "Terceiro"
@@ -251,6 +255,7 @@ por:
         fixed_assets: "Ativo permanente"
         forward: "Carried-forward"
         purchases: "Compras"
+        result: "Resultado"
         sales: "Vendas"
         stocks: "Estoques"
         various: "Várias operações"
@@ -457,10 +462,10 @@ por:
         adaptative: "Adaptativo" #?
         quantity_tax: "Quantidade-Imposto" #?
         tax_quantity: "Imposto-Quantidade" #?
-    sale_item:
-      compute_from:
-        pretax_amount: "Montante pretax"
-        unit_pretax_amount: "Montante pretax unidade"
+    sale_item: #?
+      compute_from: #?
+        pretax_amount: "Montante pretax" #?
+        unit_pretax_amount: "Montante pretax unidade" #?
     sensor:
       retrieval_mode:
         integration: "Integração"
@@ -476,8 +481,10 @@ por:
         affairs: "Romances"
         analyses: "Análises"
         animals: "Animais"
+        campaigns: "Campanhas"
         cash_transfers: "As transferências de dinheiro"
         contracts: "Contratos"
+        debt_transfers: "Transferências de dívida"
         deliveries: "Entregas"
         deposits: "Depósitos"
         documents: "Documentos"
@@ -492,6 +499,7 @@ por:
         outgoing_payment_lists: "Listas de pagamento a efectuar"
         outgoing_payments: "Contas a pagar"
         parcels: "Parcelas"
+        plant_countings: "Contagem de plantas"
         plants: "Plantas"
         product_nature_categories: "Categorias natureza do produto"
         product_nature_variants: "Natureza do produto variantes"
@@ -540,6 +548,10 @@ por:
       nature: #?
         amount: "Total" #?
         percentage: "Percentagem" #?
+    tax_declaration:
+      mode:
+        debit: "Débito"
+        payment: "Forma de pagamento"
     tracking:
       usage_limit_nature:
         best_before: "Melhor antes da data"

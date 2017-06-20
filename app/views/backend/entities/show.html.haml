@@ -61,7 +61,7 @@
       - l.side :purchases, new: resource.supplier?, if: Proc.new {|r| r.purchases.any? || r.supplier? }
       - l.side :incoming_parcels, new: resource.supplier?, if: Proc.new {|r| r.incoming_parcels.any? || r.supplier? }
       - l.side :incoming_payments, new: false, if: Proc.new {|r| r.incoming_payments.any? || r.client? }
-      - l.side :outgoing_payments, new: false, if: Proc.new {|r| r.outgoing_payments.any? || r.supplier? }
+      - l.side :purchase_payments, new: false, if: Proc.new {|r| r.purchase_payments.any? || r.supplier? }
       - l.side :tasks, at: :due_at, new: false
       - l.side :direct_links, at: :started_at
       - l.side :indirect_links, new: false
@@ -184,11 +184,11 @@
         - if resource.incoming_parcels.any?
           = cobble_list(:incoming_parcels)
 
-      - c.cobble(:outgoing_payments, title: :x_outgoing_payments.tl(count: resource.outgoing_payments.count)) do
+      - c.cobble(:purchase_payments, title: :x_purchase_payments.tl(count: resource.purchase_payments.count)) do
         = cobble_toolbar do |t|
-          = t.new(params: {controller: :outgoing_payments, :payee_id => resource.id})
-        - if resource.outgoing_payments.any?
-          = cobble_list(:outgoing_payments)
+          = t.new(params: {controller: :purchase_payments, :payee_id => resource.id})
+        - if resource.purchase_payments.any?
+          = cobble_list(:purchase_payments)
 
       - c.cobble(:client_journal_entry_items, title: :x_client_journal_entry_items.tl(count: resource.client_journal_entry_items.count)) do
         = cobble_toolbar do |t|
@@ -217,9 +217,7 @@
 
           - content_for 'cobble_client-journal-entry-items_meta_toolbar'.to_sym do
             .active-list-actions
-              %input#letters-visibility{ type: :checkbox, checked: true }
-              %label#label-letters-visibility
-                = :mask_literate_elements.tl
+              = mask_lettered_items_button('client_journal_entry_items-list')
 
       - c.cobble(:supplier_journal_entry_items, title: :x_supplier_journal_entry_items.tl(count: resource.supplier_journal_entry_items.count)) do
         = cobble_toolbar do |t|
@@ -248,6 +246,4 @@
 
           - content_for 'cobble_supplier-journal-entry-items_meta_toolbar'.to_sym do
             .active-list-actions
-              %input#letters-visibility{ type: :checkbox, checked: true }
-              %label#label-letters-visibility
-                = :mask_literate_elements.tl
+              = mask_lettered_items_button('supplier_journal_entry_items-list')

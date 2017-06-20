@@ -73,6 +73,10 @@ require 'test_helper'
 class SaleTest < ActiveSupport::TestCase
   test_model_actions
 
+  setup do
+    @variant = ProductNatureVariant.import_from_nomenclature(:carrot)
+  end
+
   test 'rounds' do
     nature = SaleNature.find_or_create_by(with_accounting: true)
     assert nature
@@ -263,8 +267,10 @@ class SaleTest < ActiveSupport::TestCase
   end
 
   test 'default_currency is nature\'s currency if currency is not specified' do
+    Payslip.delete_all
     Catalog.delete_all
     SaleNature.delete_all
+    OutgoingPayment.delete_all
     Entity.delete_all
     Sale.delete_all
 
@@ -280,5 +286,34 @@ class SaleTest < ActiveSupport::TestCase
 
   test 'affair_class points to correct class' do
     assert_equal SaleAffair, Sale.affair_class
+  end
+
+  test 'Test variant specified when bookkeep' do
+    nature = SaleNature.first
+    standard_vat = Tax.create!(
+      name: 'Standard',
+      amount: 20,
+      nature: :normal_vat,
+      collect_account: Account.find_or_create_by_number('45661'),
+      deduction_account: Account.find_or_create_by_number('45671'),
+
+      country: :fr
+    )
+
+    sale = Sale.create!(nature: nature, client: Entity.normal.first, state: :order)
+    sale.items.create!(variant: @variant, quantity: 4, unit_pretax_amount: 100, tax: standard_vat)
+    sale.reload
+
+    assert sale.invoice
+
+    journal_entry_items = sale.journal_entry.items
+    account_ids = journal_entry_items.pluck(:account_id)
+
+    sale_account = Account.where(id: account_ids).where("number LIKE '7%'").first
+    jei_s = journal_entry_items.where(account_id: sale_account.id).first
+
+    # jei_s variant must be defined
+    assert_not jei_s.variant.nil?
+    assert_equal jei_s.variant, @variant
   end
 end

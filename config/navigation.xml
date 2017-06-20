@@ -19,7 +19,7 @@
         <page to="backend/entities#list_incoming_parcels"/>
         <page to="backend/entities#list_outgoing_parcels"/>
         <page to="backend/entities#list_observations"/>
-        <page to="backend/entities#list_outgoing_payments"/>
+        <page to="backend/entities#list_purchase_payments"/>
         <page to="backend/entities#list_purchases"/>
         <page to="backend/entities#list_sale_opportunities"/>
         <page to="backend/entities#list_sales"/>
@@ -27,6 +27,7 @@
         <page to="backend/entities#list_tasks"/>
         <page to="backend/entities#list_client_journal_entry_items"/>
         <page to="backend/entities#list_supplier_journal_entry_items"/>
+        <page to="backend/entities#mask_lettered_items"/>
         <page to="backend/entities#picture"/>
         <page to="backend/entities#unroll"/>
         <page to="backend/entities#merge"/>
@@ -165,7 +166,7 @@
         <page to="backend/fixed_assets#update"/>
         <page to="backend/fixed_asset_depreciations#show"/>
         <page to="backend/fixed_assets#depreciate"/>
-        <page to="backend/fixed_assets#depreciate_up_to"/>
+        <page to="backend/fixed_assets#depreciate_all"/>
         <page to="backend/fixed_assets#scrap"/>
         <page to="backend/fixed_assets#sell"/>
         <page to="backend/fixed_assets#start_up"/>
@@ -236,7 +237,7 @@
         <page to="backend/loans#show"/>
         <page to="backend/loans#unroll"/>
         <page to="backend/loans#update"/>
-        <page to="backend/loans#accounting"/>
+        <page to="backend/loans#bookkeep"/>
         <page to="backend/loans#confirm"/>
         <page to="backend/loans#repay"/>
         <page to="backend/loan_repayments#index"/>
@@ -433,15 +434,15 @@
         <page to="backend/incoming_payments#update"/>
       </item>
       <item name="outgoing_payments">
-        <page to="backend/outgoing_payments#index"/>
-        <page to="backend/outgoing_payments#create"/>
-        <page to="backend/outgoing_payments#destroy"/>
-        <page to="backend/outgoing_payments#edit"/>
-        <page to="backend/outgoing_payments#list"/>
-        <page to="backend/outgoing_payments#new"/>
-        <page to="backend/outgoing_payments#show"/>
-        <page to="backend/outgoing_payments#unroll"/>
-        <page to="backend/outgoing_payments#update"/>
+        <page to="backend/purchase_payments#index"/>
+        <page to="backend/purchase_payments#create"/>
+        <page to="backend/purchase_payments#destroy"/>
+        <page to="backend/purchase_payments#edit"/>
+        <page to="backend/purchase_payments#list"/>
+        <page to="backend/purchase_payments#new"/>
+        <page to="backend/purchase_payments#show"/>
+        <page to="backend/purchase_payments#unroll"/>
+        <page to="backend/purchase_payments#update"/>
       </item>
       <item name="deposits">
         <page to="backend/deposits#index"/>
@@ -744,6 +745,7 @@
         <page to="backend/interventions#new"/>
         <page to="backend/interventions#show"/>
         <page to="backend/interventions#update"/>
+        <page to="backend/interventions#change_page"/>
         <page to="backend/interventions#change_state"/>
         <page to="backend/interventions#modal"/>
         <page to="backend/interventions#list_product_parameters"/>
@@ -980,6 +982,44 @@
         <page to="backend/supervisions#show"/>
         <page to="backend/supervisions#unroll"/>
         <page to="backend/supervisions#update"/>
+      </item>
+    </group>
+  </part>
+  <part name="humans">
+    <page to="backend/dashboards#humans"/>
+    <group name="payslips" icon="archive">
+      <item name="payslips">
+        <page to="backend/payslips#index"/>
+        <page to="backend/payslips#create"/>
+        <page to="backend/payslips#destroy"/>
+        <page to="backend/payslips#edit"/>
+        <page to="backend/payslips#list"/>
+        <page to="backend/payslips#new"/>
+        <page to="backend/payslips#show"/>
+        <page to="backend/payslips#update"/>
+        <page to="backend/payslips#correct"/>
+        <page to="backend/payslips#invoice"/>
+        <page to="backend/payslips#unroll"/>
+        <page to="backend/payslip_affairs#index"/>
+        <page to="backend/payslip_affairs#attach"/>
+        <page to="backend/payslip_affairs#detach"/>
+        <page to="backend/payslip_affairs#detach_gaps"/>
+        <page to="backend/payslip_affairs#finish"/>
+        <page to="backend/payslip_affairs#list"/>
+        <page to="backend/payslip_affairs#select"/>
+        <page to="backend/payslip_affairs#show"/>
+        <page to="backend/payslip_affairs#unroll"/>
+      </item>
+      <item name="payslip_payments">
+        <page to="backend/payslip_payments#index"/>
+        <page to="backend/payslip_payments#create"/>
+        <page to="backend/payslip_payments#destroy"/>
+        <page to="backend/payslip_payments#edit"/>
+        <page to="backend/payslip_payments#list"/>
+        <page to="backend/payslip_payments#new"/>
+        <page to="backend/payslip_payments#show"/>
+        <page to="backend/payslip_payments#unroll"/>
+        <page to="backend/payslip_payments#update"/>
       </item>
     </group>
   </part>
@@ -1297,6 +1337,7 @@
     <group name="accountancy" icon="money">
       <item name="accounts">
         <page to="backend/accounts#index"/>
+        <page to="backend/accounts#mask_lettered_items"/>
         <page to="backend/accounts#create"/>
         <page to="backend/accounts#destroy"/>
         <page to="backend/accounts#edit"/>
@@ -1618,6 +1659,19 @@
         <page to="backend/settlements#update"/>
       </item>
     </group>
+    <group name="humans">
+      <item name="payslip_natures">
+        <page to="backend/payslip_natures#index"/>
+        <page to="backend/payslip_natures#create"/>
+        <page to="backend/payslip_natures#destroy"/>
+        <page to="backend/payslip_natures#edit"/>
+        <page to="backend/payslip_natures#list"/>
+        <page to="backend/payslip_natures#new"/>
+        <page to="backend/payslip_natures#show"/>
+        <page to="backend/payslip_natures#unroll"/>
+        <page to="backend/payslip_natures#update"/>
+      </item>
+    </group>
   </part>
   <inaccessible-actions>
     <group name="public">
@@ -1627,6 +1681,10 @@
       </item>
     </group>
     <group>
+      <item name="debt_transfers">
+        <page to="backend/debt_transfers#create"/>
+        <page to="backend/debt_transfers#destroy"/>
+      </item>
       <item name="georeadings">
         <page to="backend/georeadings#index"/>
         <page to="backend/georeadings#create"/>
@@ -1881,6 +1939,14 @@
       <item name="trade_counts_cells">
         <page to="backend/cells/trade_counts_cells#show"/>
       </item>
+      <item name="unbalanced_clients_cells">
+        <page to="backend/cells/unbalanced_clients_cells#list"/>
+        <page to="backend/cells/unbalanced_clients_cells#show"/>
+      </item>
+      <item name="unbalanced_suppliers_cells">
+        <page to="backend/cells/unbalanced_suppliers_cells#list"/>
+        <page to="backend/cells/unbalanced_suppliers_cells#show"/>
+      </item>
     </group>
     <group>
       <item name="helps">
@@ -1953,6 +2019,16 @@
         <page to="backend/attachments#create"/>
         <page to="backend/attachments#destroy"/>
         <page to="backend/attachments#show"/>
+      </item>
+      <item name="outgoing_payments">
+        <page to="backend/outgoing_payments#index"/>
+        <page to="backend/outgoing_payments#create"/>
+        <page to="backend/outgoing_payments#destroy"/>
+        <page to="backend/outgoing_payments#edit"/>
+        <page to="backend/outgoing_payments#new"/>
+        <page to="backend/outgoing_payments#show"/>
+        <page to="backend/outgoing_payments#unroll"/>
+        <page to="backend/outgoing_payments#update"/>
       </item>
     </group>
   </inaccessible-actions>

@@ -61,10 +61,12 @@
 #  resource_type             :string
 #  state                     :string           not null
 #  tax_declaration_item_id   :integer
+#  tax_declaration_mode      :string
 #  tax_id                    :integer
 #  team_id                   :integer
 #  updated_at                :datetime         not null
 #  updater_id                :integer
+#  variant_id                :integer
 #
 
 require 'test_helper'
@@ -98,6 +100,56 @@ class JournalEntryItemTest < ActiveSupport::TestCase
       assert item.real_debit, item.debit
       assert item.real_credit, item.credit
     end
+  end
+
+  test 'lettering is indicated as partial (*) when lettered items are not balanced' do
+    first_account = Account.create!(name: 'First account', number: '123FIRST')
+    random_account = Account.create!(name: 'Random account', number: '123RANDOM')
+    other_random = Account.create!(name: 'Random account bis', number: '123RANBIS')
+    journal = Journal.create!(name: 'Test journal JEI', code: 'JEITEST', currency: 'EUR')
+    entry = JournalEntry.create!(journal: journal, currency: 'EUR', printed_on: Date.today, items_attributes:
+      [{ account: first_account, name: 'Hello', real_debit: 10, letter: 'A' },
+       { account: random_account, name: 'Is it me', real_credit: 10 }])
+    assert_equal 'A*', entry.items.find_by(real_debit: 10).letter
+
+    entry.items.find_by(real_debit: 10).update_column(:letter, 'A')
+    assert_equal 'A*', entry.items.reload.find_by(real_debit: 10).letter
+
+    to_letter_with = JournalEntry.create!(
+      journal: journal,
+      currency: 'EUR',
+      printed_on: Date.today,
+      items_attributes:
+        [{ account: random_account, name: 'You\'re', real_debit: 10 },
+         { account: first_account, name: 'Looking for?', real_credit: 10, letter: 'A' }]
+    )
+    assert_equal 'A', entry.items.find_by(real_debit: 10).letter
+    assert_equal 'A', to_letter_with.items.find_by(real_credit: 10).letter
+
+    entry.items.find_by(real_debit: 10).update(real_debit: 11)
+    assert_equal 'A*', entry.items.find_by(real_debit: 11).letter
+    assert_equal 'A*', to_letter_with.items.find_by(real_credit: 10).letter
+
+    entry.items.find_by(real_debit: 11).update(real_debit: 10)
+    assert_equal 'A', entry.items.find_by(real_debit: 10).letter
+    assert_equal 'A', to_letter_with.items.find_by(real_credit: 10).letter
+
+    entry.items.find_by(real_debit: 10).update(letter: nil)
+    assert_equal 'A*', to_letter_with.items.find_by(real_credit: 10).letter
+
+    entry.items.find_by(real_debit: 10).update(letter: 'A')
+    assert_equal 'A', to_letter_with.items.find_by(real_credit: 10).letter
+
+    entry.items.find_by(real_debit: 10).update(letter: 'B')
+    assert_equal 'A*', to_letter_with.items.find_by(real_credit: 10).letter
+
+    entry.items.find_by(real_debit: 10).update(letter: 'A')
+    assert_equal 'A', entry.items.find_by(real_debit: 10).letter
+    assert_equal 'A', to_letter_with.items.find_by(real_credit: 10).letter
+
+    entry.items.find_by(real_debit: 10).update(account: other_random)
+    assert_equal 'A*', to_letter_with.items.find_by(real_credit: 10).letter
+    assert_nil entry.items.find_by(real_debit: 10).letter
   end
 
   # Test case when debit and credit are invalid
@@ -164,7 +216,7 @@ class JournalEntryItemTest < ActiveSupport::TestCase
     financial_year = financial_years(:financial_years_025)
     account = create(:account)
     employee = create(:entity, employee_account_id: account.id)
-    item = create(:journal_entry_item, account: account, financial_year: financial_years(:financial_years_025))
+    item = create(:journal_entry_item, account: account, financial_year: financial_year)
     assert_equal item.third_party, employee
   end
 
@@ -172,7 +224,7 @@ class JournalEntryItemTest < ActiveSupport::TestCase
     financial_year = financial_years(:financial_years_025)
     account = create(:account)
     client_employee_and_supplier = create(:entity, client_account_id: account.id, employee_account_id: account.id, supplier_account_id: account.id)
-    item = create(:journal_entry_item, account: account, financial_year: financial_years(:financial_years_025))
+    item = create(:journal_entry_item, account: account, financial_year: financial_year)
     assert_equal item.third_party, client_employee_and_supplier
   end
 
@@ -181,7 +233,7 @@ class JournalEntryItemTest < ActiveSupport::TestCase
     account = create(:account)
     create(:entity, employee_account_id: account.id)
     create(:entity, client_account_id: account.id)
-    item = create(:journal_entry_item, account: account, financial_year: financial_years(:financial_years_025))
+    item = create(:journal_entry_item, account: account, financial_year: financial_year)
     refute item.third_party
   end
 end

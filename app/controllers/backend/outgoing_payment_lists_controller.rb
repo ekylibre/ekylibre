@@ -18,7 +18,7 @@
 
 module Backend
   class OutgoingPaymentListsController < Backend::BaseController
-    manage_restfully only: %i[show index destroy]
+    manage_restfully only: %i[index destroy]
 
     respond_to :pdf, :odt, :docx, :xml, :json, :html, :csv
 
@@ -32,7 +32,7 @@ module Backend
       t.column :cached_total_sum, label: :total, datatype: :float, currency: true
     end
 
-    list(:payments, model: :outgoing_payment, conditions: { list_id: 'params[:id]'.c }) do |t|
+    list(:payments, model: :purchase_payment, conditions: { list_id: 'params[:id]'.c }) do |t|
       t.column :number, url: true
       t.column :payee, url: true
       t.column :paid_at
@@ -122,6 +122,12 @@ module Backend
       else
         redirect_to new_backend_outgoing_payment_list_path(params.slice(:started_at, :stopped_at, :outgoing_payment_list, :bank_check_number))
       end
+    end
+
+    def destroy
+      return unless @outgoing_payment_list = find_and_check
+      @outgoing_payment_list.remove if @outgoing_payment_list
+      redirect_to action: :index
     end
   end
 end

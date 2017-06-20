@@ -78,7 +78,9 @@
 require 'digest/sha2'
 
 class Entity < Ekylibre::Record::Base
-  include Versionable, Commentable, Attachable
+  include Attachable
+  include Commentable
+  include Versionable
   include Customizable
   attr_accessor :password_confirmation, :old_password
   refers_to :currency
@@ -113,7 +115,7 @@ class Entity < Ekylibre::Record::Base
   has_many :godchildren, class_name: 'Entity', foreign_key: 'proposer_id'
   has_many :incoming_payments, foreign_key: :payer_id, inverse_of: :payer
   has_many :indirect_links, class_name: 'EntityLink', foreign_key: :linked_id, dependent: :destroy
-  has_many :outgoing_payments, foreign_key: :payee_id
+  has_many :purchase_payments, foreign_key: :payee_id
   has_many :ownerships, class_name: 'ProductOwnership', foreign_key: :owner_id
   has_many :participations, class_name: 'EventParticipation', foreign_key: :participant_id, dependent: :destroy
   has_many :purchase_invoices, -> { where(state: 'invoice').order(created_at: :desc) },
@@ -150,6 +152,7 @@ class Entity < Ekylibre::Record::Base
     has_one :default_fax_address, -> { where(by_default: true, canal: 'fax') }
     has_one :default_website_address, -> { where(by_default: true, canal: 'website') }
   end
+  has_one :economic_situation, foreign_key: :id
   has_one :cash, class_name: 'Cash', foreign_key: :owner_id
   has_one :worker, foreign_key: :person_id
   has_one :user, foreign_key: :person_id
@@ -295,6 +298,20 @@ class Entity < Ekylibre::Record::Base
     save!
   end
 
+  def unbalanced?
+    EconomicSituation.unbalanced.pluck(:id).include? id
+  end
+
+  def client_accounting_balance
+    return 0.0 unless client?
+    economic_situation[:client_accounting_balance]
+  end
+
+  def supplier_accounting_balance
+    return 0.0 unless supplier?
+    economic_situation[:supplier_accounting_balance]
+  end
+
   # Returns an entity scope for.all other entities
   def others
     self.class.where('id != ?', (id || 0))
@@ -319,12 +336,7 @@ class Entity < Ekylibre::Record::Base
 
   #
   def balance
-    amount = 0.0
-    amount += incoming_payments.sum(:amount)
-    amount -= sales_invoices.sum(:amount)
-    amount -= outgoing_payments.sum(:amount)
-    amount += purchase_invoices.sum(:amount)
-    amount
+    economic_situation[:trade_balance]
   end
 
   def has_another_tracking?(serial, product_id)

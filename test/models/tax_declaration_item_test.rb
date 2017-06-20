@@ -45,5 +45,4 @@
 require 'test_helper'
 
 class TaxDeclarationItemTest < ActiveSupport::TestCase
-  # Add tests here...
 end

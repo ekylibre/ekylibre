@@ -16,6 +16,9 @@ spa:
         filename: "Archivo"
       document_template:
         managed: "Gestionado por el sistema"
+      entity:
+        client_accounting_balance: "Saldo de la cuenta del cliente"
+        supplier_accounting_balance: "Saldo de la cuenta del proveedor"
       equipment:
         born_at: "Puesto en servicio en"
         dead_at: "Desechado en"
@@ -37,7 +40,7 @@ spa:
         ongoing_at: "La recaudación de fondos en"
         started_on: "En primer lugar se inició el reembolso"
       outgoing_payment:
-        delivered: "Teniendo en cuenta para el destinatario"
+        delivered: "Dado al destinatario"
         list: "Lista de salida de pago"
       outgoing_payment_list:
         # payments_sum: "Total"
@@ -59,6 +62,9 @@ spa:
         seeding_density_value: "Densidad de siembra esperado"
       purchase:
         affair_balance: "Equilibrar"
+      purchase_payment: #?
+        delivered: "Teniendo en cuenta para el destinatario" #?
+        list: "Lista de salida de pago" #?
       sale:
         affair_balance: "Equilibrar"
         contact: "Dirección para la estimación"
@@ -113,6 +119,7 @@ spa:
         # odd: "%{attribute} must be odd"
         # on_or_after: "%{attribute} must be on or after %{restriction}"
         # on_or_before: "%{attribute} must be on or before %{restriction}"
+        # overlap: "%{attribute} overlaps an existing record"
         # overlap_sibling: "%{attribute} overlaps sibling"
         # posterior: "%{attribute} must be posterior to %{to}"
         # record_invalid: "Validations failed: %{errors}"
@@ -136,7 +143,7 @@ spa:
           # different_of_main_account: "%{attribute} must be different of main account (%{account})"
           unvalid_bban: "Unvalid BBAN. Uno o más elementos son incorrectos."
         deposit:
-          # must_be_a_bank_account: "%{field} must be a bank account and not a cash"
+          # must_be_a_bank_account: "%{attribute} must be a bank account and not a cash"
         entity:
           # missing_title: "%{attribute} must contains the title “%{title}”"
           # nature_do_not_allow_a_first_name: "The selectected type “%{nature}” does not allow a first name"
@@ -217,7 +224,7 @@ spa:
       # animal: "Animal"
       animal_group: "Grupo de animales"
       attachment: "Adjunto archivo"
-      bank_guarantee_account: "Cuenta de garantía bancaria"
+      bank_guarantee_account: "Cuenta de garantía bancaria" #?
       bank_statement: "Extracto de cuenta"
       bank_statement_item: "Línea del extracto bancario"
       bioproduct: "Producto vivo"
@@ -244,6 +251,7 @@ spa:
       custom_field: "Campo personalizado"
       custom_field_choice: "Elección campo personalizado"
       dashboard: "Tablero"
+      debt_transfer: "Transferencia de la deuda"
       delivery: "Entrega"
       delivery_tool: "Herramienta de entrega"
       deposit: "Depositar"
@@ -251,6 +259,7 @@ spa:
       document: "Documento"
       document_template: "Documento ejemplar"
       easement: "Comodidad"
+      economic_situation: "Situación económica"
       entity: "Entidad"
       entity_address: "Dirección"
       entity_link: "Entidad de enlace"
@@ -259,6 +268,7 @@ spa:
       event: "Evento"
       event_participation: "Participación en eventos"
       financial_year: "Año financiero"
+      financial_year_exchange: "Intercambio del ejercicio"
       fixed_asset: "Activo fijo"
       fixed_asset_depreciation: "Depreciación de los inmuebles"
       fungus: "Hongo"
@@ -275,9 +285,9 @@ spa:
       inspection: "graduación del producto"
       inspection_calibration: "inspección calibre"
       inspection_point: "verificación de la clasificación del producto"
-      insurance_account: "Cuenta de seguro"
+      insurance_account: "Cuenta de seguro" #?
       integration: "Integración"
-      interest_account: "Cuenta de interés"
+      interest_account: "Cuenta de interés" #?
       intervention: "Intervención"
       intervention_agent: "Agente de la intervención"
       intervention_doer: "Hacedor de intervención"
@@ -319,6 +329,10 @@ spa:
       outgoing_payment_mode: "Modo de desembolso"
       parcel: "Paquete"
       parcel_item: "Artículo El paquete"
+      payslip: "Paquete"
+      payslip_affair: "Asunto de la nómina"
+      payslip_nature: "Tipo de saldo"
+      payslip_payment: "Paquete de pago"
       plant: "Planta"
       plant_counting: "recuento de la planta"
       plant_counting_item: "Contador de entrada planta"
@@ -351,6 +365,7 @@ spa:
       purchase_gap: "Brecha de la compra"
       purchase_item: "Artículo de la compra"
       purchase_nature: "Tipo de compra"
+      purchase_payment: "Desembolso"
       regularization: "Regularización"
       role: "Papel"
       sale: "Venta"
@@ -374,6 +389,7 @@ spa:
       tax: "Impuesto"
       tax_declaration: "Declaración de impuestos"
       tax_declaration_item: "Elemento declaración fiscal"
+      tax_declaration_item_part: "Parte de la partida de declaración de impuestos"
       team: "Equipo"
       token: "Simbólico"
       tracking: "Rastreo"
@@ -401,6 +417,7 @@ spa:
     accountable_repayments_started_on: "Reembolsos responsables comenzaron el"
     accountant: "Contador"
     accounted_at: "Representaron en"
+    accounting_balance: "Saldo contable"
     accuracy: "Exactitud"
     achieved_at: "Alcanzado en"
     actions: "Comportamiento"
@@ -521,6 +538,8 @@ spa:
     city_name: "Nombre de la ciudad"
     client: "Cliente"
     client_account: "La cuenta del cliente"
+    client_accounting_balance: "Saldo contable cliente"
+    client_trade_balance: "Balanza comercial del cliente"
     clients: "Clientela"
     closed: "Cerrado"
     closed_at: "Cerrado en"
@@ -617,6 +636,9 @@ spa:
     dead_line_at: "Línea de muertos en"
     deals_count: "Ofertas cuentan"
     debit: "Débito"
+    debt_regularizations: "Regularización de la deuda"
+    debt_transfer_affair: "Asunto de la transferencia de la deuda"
+    debt_transfers: "Las transferencias de deuda"
     debtor: "Deudor"
     decimal_value: "Valor decimal"
     declarant: "Declarante"
@@ -675,6 +697,7 @@ spa:
     due_at: "Debido a"
     due_on: "Debido a"
     duration: "Duración"
+    economic_situation: "Situación económica"
     # email: "Email"
     emails: "Los correos electrónicos"
     embedded: "Incrustado"
@@ -682,6 +705,7 @@ spa:
     emission_cash: "Dinero en efectivo de emisión"
     emission_currency: "La moneda de emisión"
     emission_journal_entry: "Entrada en el diario de emisión"
+    emitted_on: "Emitido en"
     employed: "Empleado"
     employee: "Empleado"
     employee_account: "Cuenta de empleado"
@@ -793,6 +817,7 @@ spa:
     grading_sizes_unit: "unidad de tamaños de clasificación"
     grading_sizes_unit_name: "La clasificación tamaños nombre de la unidad"
     gradings: "gradaciones"
+    grains_yield: "rendimiento de grano"
     gravity: "Gravedad"
     gross_items: "recuento bruto" #?
     gross_items_count: "Cuentan artículos brutas"
@@ -1114,6 +1139,7 @@ spa:
     payment_mode_complement: "Complemento modo de pago"
     payments: "Pagos"
     payments_count: "Los pagos cuentan"
+    payslips: "Papeletas"
     period: "Período"
     person: "La persona"
     phases: "Fases"
@@ -1202,13 +1228,14 @@ spa:
     provisional_intervention: "La intervención provisional"
     purchasable: "Comprable"
     purchase: "Compra"
-    purchase_affair: "Compra asunto"
+    purchase_affair: "Compra asunto" #?
     purchase_affairs: "Asuntos de compra"
     purchase_amount: "Monto de la compra"
     purchase_invoices: "Facturas de compra"
     purchase_item: "Artículo de la compra"
     purchase_items: "Artículos de la compra"
     purchase_natures: "Tipos de compra"
+    purchase_payments: "Pagos de compras"
     purchase_taxations: "Tasaciones de compra"
     purchase_taxes: "Impuestos sobre las compras"
     purchased_on: "Comprado en"
@@ -1396,10 +1423,12 @@ spa:
     supervision: "Supervisión"
     supplier: "Proveedor"
     supplier_account: "Cuenta de proveedor"
+    supplier_accounting_balance: "Saldo contable con proveedor"
     supplier_address: "Dirección del proveedor"
     supplier_payment_delay: "Retraso en el pago de proveedores"
     supplier_payment_mode: "El modo de pago a proveedores"
     supplier_payment_modes: "Modos de pago a proveedores"
+    supplier_trade_balance: "Balanza comercial Proveedor"
     suppliers: "Proveedores"
     support: "Apoyo"
     support_nature: "Tipo de soporte"
@@ -1444,6 +1473,8 @@ spa:
     to: "A"
     to_bank_at: "Para realizar operaciones bancarias en"
     to_deposit: "Depositar"
+    to_pay_on_or_after: "Para pagar a partir del"
+    to_pay_on_or_before: "Para pagar en o antes"
     token: "Simbólico"
     tool: "Herramienta"
     tools: "Instrumentos"
@@ -1453,6 +1484,7 @@ spa:
     town_number: "Número ciudad"
     tracking: "Rastreo"
     trackings: "Trackings"
+    trade_balance: "Balanza comercial"
     transaction_number: "Número de transacción"
     transfered_at: "Transferido a"
     transfered_on: "Transferido en"
@@ -1723,6 +1755,11 @@ spa:
           prepared: "Preparado"
           received: "Recibido"
       # undelivered_invoice: "Undelivered invoice [%{resource} %{mode} %{number}] %{entity}"
+    payslip:
+      # bookkeep: "[%{resource} %{number}] %{employee} from %{started_on} to %{stopped_on}"
+      states:
+        draft: "Borrador"
+        invoice: "Factura"
     product:
       informations:
         # with_components: "%{product} (%{unit}) (transformed material)"
@@ -1773,6 +1810,9 @@ spa:
     purchase_nature:
       default:
         name: "Compra estándar"
+    purchase_payment:
+      # bookkeep: "[%{resource} %{number}] %{mode} %{check_number} for %{payee}"
+      # label: "%{number}. %{amount}, %{mode} for %{payee} on %{date}"
     role:
       default:
         administrator: "Administrador"
@@ -1844,6 +1884,7 @@ spa:
         opportunities: "OP[year|4][number|6]"
         outgoing_parcels: "EXP[year|4][number|6]"
         outgoing_payments: "D[year|4][number|4]"
+        payslips: "PS [año | 4] [mes | 2] [número | 4]"
         plants: "PLANT[year|4][number|4]"
         products: "PR[number|11]"
         purchases: "PU[year|4][month|2][number|6]"

@@ -112,6 +112,10 @@ jpn:
         datetime: "日時"
         decimal: "10進数"
         text: "テキスト"
+    debt_transfer:
+      nature:
+        purchase_regularization: "購入正則"
+        sale_regularization: "販売正則"
     delivery:
       mode:
         third: "三番"
@@ -249,6 +253,7 @@ jpn:
         fixed_assets: "固定資産"
         forward: "実施フォワード"
         purchases: "購入"
+        result: "結果"
         sales: "セールス"
         stocks: "ストック"
         various: "さまざまな操作"
@@ -445,10 +450,10 @@ jpn:
       nature:
         payslip: "給料明細書"
         purchase: "購入"
-    sale_item:
-      compute_from:
-        pretax_amount: "税引前金額"
-        unit_pretax_amount: "ユニット税引前金額"
+    sale_item: #?
+      compute_from: #?
+        pretax_amount: "税引前金額" #?
+        unit_pretax_amount: "ユニット税引前金額" #?
     sensor:
       retrieval_mode:
         integration: "統合"
@@ -464,8 +469,10 @@ jpn:
         affairs: "業務"
         analyses: "解析"
         animals: "動物"
+        campaigns: "キャンペーン"
         cash_transfers: "現金移転"
         contracts: "契約"
+        debt_transfers: "債務転送"
         deliveries: "出荷"
         deposits: "預金"
         documents: "ドキュメント"
@@ -480,6 +487,7 @@ jpn:
         outgoing_payment_lists: "支払リスト"
         outgoing_payments: "支払"
         parcels: "小包"
+        plant_countings: "プラント数"
         plants: "植物"
         product_nature_categories: "製品の性質のカテゴリ"
         product_nature_variants: "商品の性質上変種"
@@ -528,6 +536,10 @@ jpn:
       nature: #?
         amount: "量" #?
         percentage: "パーセンテージ" #?
+    tax_declaration:
+      mode:
+        debit: "デビット"
+        payment: "支払い"
     tracking:
       usage_limit_nature:
         best_before: "賞味期限"
