@@ -498,14 +498,14 @@ module Ekylibre
         IncomingPayment.create!(options)
       end
 
-      def create_outgoing_payment(options = {})
+      def create_purchase_payment(options = {})
         options[:currency] ||= options[:affair].currency if options[:affair]
         options[:mode] ||= find_or_create_outgoing_payment_mode(options.slice(:currency))
         options[:delivered] = true
         options[:to_bank_at] ||= Time.zone.now
         options[:paid_at] ||= Time.zone.now
         options[:responsible] ||= find_or_create_user(locked: false)
-        OutgoingPayment.create!(options)
+        PurchasePayment.create!(options)
       end
 
       def create_inventory
@@ -623,7 +623,7 @@ module Ekylibre
         # end
 
         # Inventory of end of year
-        if month == current_financial_year.stopped_on.month && 17 < mday && mday <= 24 && friday?
+        if month == current_financial_year.stopped_on.month && mday > 17 && mday <= 24 && friday?
           print 'h'.red if create_inventory
         end
 
@@ -681,7 +681,7 @@ module Ekylibre
             end
             next if purchase.affair.credit <= purchase.affair.debit # purchase.affair.closed?
             if rand > 0.5
-              create_outgoing_payment(payee: purchase.supplier, affair: purchase.affair, amount: purchase.amount)
+              create_purchase_payment(payee: purchase.supplier, affair: purchase.affair, amount: purchase.amount)
               print 'o'.cyan
             end
           end
@@ -709,7 +709,7 @@ module Ekylibre
               print 'q'.red if create_incoming_parcel(purchase: purchase)
             end
             if rand > 0.05 && purchase.invoice?
-              create_outgoing_payment(payee: supplier, affair: purchase.affair, amount: purchase.amount)
+              create_purchase_payment(payee: supplier, affair: purchase.affair, amount: purchase.amount)
               print 'o'.red
             end
           end

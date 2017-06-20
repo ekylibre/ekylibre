@@ -89,6 +89,7 @@ class Loan < Ekylibre::Record::Base
   validates :use_bank_guarantee, inclusion: { in: [true, false] }, allow_blank: true
   # ]VALIDATORS]
   validates :loan_account, :interest_account, presence: true
+  validates :insurance_account, presence: { if: -> { updateable? && insurance_percentage.present? && insurance_percentage.nonzero? } }
   validates :amount, numericality: { greater_than: 0 }
 
   state_machine :state, initial: :draft do
@@ -137,7 +138,7 @@ class Loan < Ekylibre::Record::Base
 
   # Prevents from deleting if entry exist
   protect on: :update do
-    repayments.any? && repayments.map(&:journal_entry).any?
+    !repayments.all?(&:updateable?)
   end
 
   bookkeep do |b|
@@ -154,8 +155,6 @@ class Loan < Ekylibre::Record::Base
       entry.add_debit(label, cash.account_id, amount, as: :bank)
       entry.add_credit(label, unsuppress { loan_account_id }, amount, as: :loan)
 
-      # puts entry.inspect.red
-
       if use_bank_guarantee?
         label_guarantee = tc(:bookkeep_guarantee_payment, resource: self.class.model_name.human, name: name)
         entry.add_debit(label_guarantee, unsuppress { bank_guarantee_account_id }, bank_guarantee_amount, as: :bank_guarantee)
@@ -164,6 +163,18 @@ class Loan < Ekylibre::Record::Base
     end
 
     true
+  end
+
+  # Bookkeep all repayments until today of given date which must anterior to
+  # today. :id parameter permit to filter on wanted loans.
+  def self.bookkeep_repayments(options = {})
+    limit_on = Time.zone.today
+    limit_on = [options[:until], limit_on].min if options[:until]
+    repayments = LoanRepayment.bookkeepable_before(limit_on)
+    repayments = repayments.of_loans(options[:id]) if options[:id]
+    count = repayments.count
+    repayments.find_each { |repayment| repayment.update(accountable: true) }
+    count
   end
 
   def generate_repayments

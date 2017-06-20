@@ -72,7 +72,7 @@ class CashTest < ActiveSupport::TestCase
 
   test 'next reconciliation letters on a cash with bank statements can skip a letter if its already present' do
     cash = cashes(:cashes_001)
-    assert_equal %w[G I J], cash.next_reconciliation_letters.take(3)
+    assert_equal %w[G K L], cash.next_reconciliation_letters.take(3)
   end
 
   test 'valid if bank_account and valid iban' do
@@ -126,7 +126,7 @@ class CashTest < ActiveSupport::TestCase
       currency: currency,
       main_account: main,
       suspense_account: suspense,
-      journal: Journal.find_or_create_by(nature: :bank, currency: currency)
+      journal: Journal.find_or_create_by(name: 'Banko', nature: :bank, currency: currency)
     )
     assert_equal main, cash.account
 
