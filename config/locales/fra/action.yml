@@ -2416,6 +2416,9 @@ fra:
     x_outgoing_payments:
       one: "%{count} décaissement"
       other: "%{count} décaissements"
+    x_purchase_payments:
+      one: "%{count} paiement d'achat"
+      other: "%{count} paiements d'achats"
     x_part_replacements: #?
       one: "%{count} changement de pièces effectué" #?
       other: "%{count} changement de pièces effectués" #?
