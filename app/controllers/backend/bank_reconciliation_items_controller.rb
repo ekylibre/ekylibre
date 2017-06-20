@@ -1,3 +1,4 @@
+
 module Backend
   # Handles bank reconciliation.
   class BankReconciliationItemsController < Backend::BaseController
@@ -14,7 +15,7 @@ module Backend
 
     def reconciliate_bank_statements
       return unless find_bank_statements
-  
+ 
       set_period!
       @bank_statements.each do |bank_statement|
         reconciliate(bank_statement)
@@ -45,7 +46,7 @@ module Backend
      
       journal_entry_items  = bank_statement.eligible_entries_in(@period_start, @period_end)
 
-      return no_entries if journal_entry_items.blank?
+      return no_entries if journal_entry_items.blank? && @bank_statements.nil?
 
       auto_reconciliate!(bank_statement, bank_statement_items, journal_entry_items)
 
@@ -53,8 +54,8 @@ module Backend
     end
 
     def set_period!
-      @period_start = @bank_statement.started_on - 20.days unless params[:bank_statement_id].nil?
-      @period_end   = @bank_statement.stopped_on + 20.days unless params[:bank_statement_id].nil?
+      @period_start = @bank_statement.started_on - 20.days if params[:bank_statement_id].present?
+      @period_end   = @bank_statement.stopped_on + 20.days if params[:bank_statement_id].present?
 
       %i[start end].each do |boundary|
         next unless params[:"period_#{boundary}"]
@@ -65,7 +66,7 @@ module Backend
 
     def no_entries
       notify_error :need_entries_to_reconciliate
-      redirect_to params[:redirect] unless params[:redirect].nil?
+      redirect_to params[:redirect] if params[:redirect].present?
       backend_bank_statement_path(@bank_statement) unless @bank_statement.nil?
       backend_bank_statements_path(@bank_statements) unless @bank_statements.nil?
     end

@@ -2,14 +2,22 @@ module Backend
   # Handles creation of 'Various Operations' from bank_statement_items + journal_entry_items.
   class BankReconciliationGapsController < Backend::BaseController
     def create
-      @bank_statement = BankStatement.find(params[:bank_statement_id])
-      @cash = Cash.find(params[:cash_id]) 
+      @period_start = params[:period_start]
+      @period_end = params[:period_end]
+
+      bank_statement_items = fetch_bank_items
+      journal_entry_items  = fetch_journal_items
+
+      if !params[:bank_statement_id].nil?
+        @bank_statement = BankStatement.find(params[:bank_statement_id])
+      else
+        @bank_statements = bank_statement_items.map(&:bank_statement).uniq
+      end
+      
+      @cash = Cash.find_by(id: params[:cash_id]) 
       
       return head :bad_request unless @cash
       # return head :bad_request unless @bank_statement
-      
-      bank_statement_items = fetch_bank_items
-      journal_entry_items  = fetch_journal_items
 
       gap = sold(bank_statement_items, journal_entry_items)
 
@@ -60,7 +68,10 @@ module Backend
     end
 
     def fuse_items(source_items, with_matching_items_of: [])
-      JournalEntryItem.where(id: source_items + with_matching_items_of.items.where(account_id: @bank_statement.cash_account_id))
+      cash_account_ids = [@bank_statement.cash_account_id] unless @bank_statement.nil?
+      cash_account_ids = @bank_statements.map(&:cash_account_id) unless @bank_statements.nil?
+      
+      JournalEntryItem.where(id: source_items + with_matching_items_of.items.where(account_id: cash_account_ids))
     end
 
     def item_for(amount, account, key)
@@ -74,9 +85,9 @@ module Backend
     def letter_and_redirect(bank_items, entry_items)
       head :bad_request unless @cash.letter_items(bank_items, entry_items)
 
-      redirect_to backend_bank_statement_bank_reconciliation_items_path(@bank_statement, scroll_to: bank_items.order(transfered_on: :asc).first.id) unless @bank_statement.nil?
+      backend_bank_statement_bank_reconciliation_items_path redirect_to backend_bank_reconciliation_items_path(@bank_statement, scroll_to: bank_items.order(transfered_on: :asc).first.id) unless @bank_statement.nil?
       
-      redirect_to reconciliate_bank_statements_backend_bank_reconciliation_items_path(cash_id: @cash.id, scroll_to: bank.items.order(transfered_on: :asc).first.id) unless @bank_statements.nil?
+      redirect_to reconciliate_bank_statements_backend_bank_reconciliation_items_path(cash_id: @cash.id, scroll_to: bank_items.order(transfered_on: :asc).first.id, period_start: @period_start, period_end: @period_end) unless @bank_statements.nil?
     end
 
     def debit_gap_account
