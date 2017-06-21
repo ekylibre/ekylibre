@@ -20,7 +20,7 @@ namespace :diagrams do
       production: [Activity, ActivityDistribution, Campaign, ActivityProduction, ActivityBudget, TargetDistribution, Intervention, InterventionParameter, InterventionWorkingPeriod, CultivableZone, Product, ActivitySeason, ActivityTactic],
       component: [ProductNature, ProductNatureVariant, ProductNatureVariantComponent, InterventionParameter, Intervention, Product],
       sale: [Sale, SaleNature, SaleItem, Parcel, ParcelItem, Delivery, IncomingPayment, IncomingPaymentMode, Deposit, Affair, Gap, GapItem],
-      purchase: [Purchase, PurchaseNature, PurchaseItem, Parcel, ParcelItem, OutgoingPayment, OutgoingPaymentMode, Affair, Gap, GapItem],
+      purchase: [Purchase, PurchaseNature, PurchaseItem, Parcel, ParcelItem, PurchasePayment, OutgoingPaymentMode, Affair, Gap, GapItem],
       cap_statement: [CapStatement, CapIslet, CapLandParcel, Entity, Campaign],
       delivery: [Delivery, Parcel, ParcelItem, Analysis, DeliveryTool] #
     }.each do |name, models|

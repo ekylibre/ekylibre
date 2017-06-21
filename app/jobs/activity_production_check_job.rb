@@ -1,5 +1,5 @@
 class ActivityProductionCheckJob < ScheduleJob
-  queue_as :default
+  queue_as :critical
 
   def perform_on_tenant
     today = Date.today

@@ -567,3 +567,16 @@ sequences_033:
   updated_at: 2016-12-20 18:27:12.402372000 Z
   updater_id: 1
   usage: plant_countings
+sequences_034:
+  created_at: 2017-06-07 16:14:22.843711000 Z
+  creator_id: 1
+  id: 34
+  lock_version: 0
+  name: Salaire
+  number_format: BS[year|4][month|2][number|4]
+  number_increment: 1
+  number_start: 1
+  period: year
+  updated_at: 2017-06-07 16:14:22.843711000 Z
+  updater_id: 1
+  usage: payslips
