@@ -70,7 +70,7 @@
                     - existings.each do |existing|
                       - l.item existing.label, { controller: affairs_controller, action: :attach, id: affair.id, deal_id: existing.id, deal_type: model, redirect: request.fullpath }, method: :post
                     - l.separator
-                  - l.item :new.tl, { controller: model.pluralize, action: :new, klass.deal_third.foreign_key => affair.third.id, amount: affair.balance.abs, redirect: request.fullpath, affair_id: affair.id }
+                  - l.item :new.tl, { controller: model.pluralize, action: :new, klass.deal_third.foreign_key => affair.third.id, amount: affair.balance.abs, redirect: request.fullpath, affair_id: affair.id }.merge(new_record_options[:"#{model}_attributes"] || {})
 
               - if affair.debt_transferable?
                 - model = affair.is_a?(SaleAffair) ? 'purchase' : 'sale'
