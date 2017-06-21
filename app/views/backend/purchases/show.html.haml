@@ -41,7 +41,7 @@
 
   - if resource.affair
     - c.cobble :affair do
-      = affair_of(resource, default: 'PurchasePayment')
+      = affair_of(resource, default: 'PurchasePayment', purchase_payment_attributes: { responsible_id: resource.responsible_id, paid_at: resource.planned_at, to_bank_at: resource.planned_at })
 
   - if resource.parcels.any?
     - c.cobble :parcels, title: Purchase.human_attribute_name(:parcels) do
