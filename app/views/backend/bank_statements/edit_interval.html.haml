@@ -1,4 +1,4 @@
-= form_tag(reconciliate_bank_statements_backend_bank_reconciliation_items_path, method: :get) do
+= form_tag(reconciliate_bank_statements_backend_bank_statements_reconciliation_items_path, id: "intervalReconciliationForm", method: :get) do
   = hidden_field_tag :cash_id, params[:cash_id]
   = field_set do
     = field :started_at.tl, date_field_tag(:period_start)

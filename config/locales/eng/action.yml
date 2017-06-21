@@ -87,16 +87,17 @@ eng:
       # take: "Take animal: %{name}"
     backend/attachments:
       # show: "Attachment: %{name}"
-    backend/bank_reconciliation_items:
-      index: "Reconciliate bank statement %{cash} #%{number} (from %{started_on} to %{stopped_on})"
-      reconciliate_bank_statements: "Reconciliate %{cash} bank statements (from %{started_on} to %{stopped_on})"
-    backend/bank_statement_items:
-      # new: "New bank statement item"
+    backend/bank_statements/items:
+      # new: "New item"
+    backend/bank_statements/reconciliation/items:
+      # bank_statements_items_count: "Bank statements items count item: %{name}"
+      # index: "Items"
+      # reconciliate_bank_statements: "Reconciliate bank statements item: %{name}"
     backend/bank_statements:
       edit: "Edit bank statement %{number}"
       import: "Import OFX file"
       index: "Bank statements"
-      interval_reconciliation: "Bank statements periods to reconciliate" #?
+      edit_interval: "Bank statements periods to reconciliate" #?
       new: "New bank statement"
       show: "Account statement N°%{number}"
     backend/beehives:
@@ -1400,7 +1401,7 @@ eng:
     input_cost: "Input cost"
     inputs: "Inputs"
     inspections: "Inspections"
-    interactive_maps: "A JS library for interactive maps"
+    interactive_maps: "A JS library for interactive maps" #?!
     interface_preferences: "Interface preferences"
     internal_error: "Oops, something happened."
     interval: "Personalized Interval" #?
@@ -2299,6 +2300,7 @@ eng:
       # add_to_variant: "Add to variant"
       attach: "Attach"
       # autocomplete: "Autocomplete"
+      # bank_statements_items_count: "Bank statements items count"
       bookkeep: "Bookkeep"
       cancel: "Cancel"
       # change: "Change"
@@ -2327,6 +2329,7 @@ eng:
       down: "Down"
       duplicate: "Duplicate"
       edit: "Edit"
+      edit_interval: "Reconciliate" #?
       edit_many: "Edit many"
       # ekylibre: "Ekylibre"
       evaluate: "Evaluate"
@@ -2341,7 +2344,6 @@ eng:
       import: "Import"
       incorporate: "Incorporate"
       index: "Index"
-      interval_reconciliation: "Reconciliate" #?
       invoice: "Invoice"
       journal_entries_csv_export: "Download CSV" #?
       # journal_entries_export: "Journal entries export"

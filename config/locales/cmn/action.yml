@@ -60,9 +60,6 @@ cmn:
       index: "动物"
       new: "新的动物"
       # show: "%{nature}: %{name}"
-    backend/bank_reconciliation_items:
-      # index: "Reconciliate bank statement %{cash} #%{number} (from %{started_on} to %{stopped_on})"
-      # reconciliate_bank_statements: "Reconciliate %{cash} bank statements (from %{started_on} to %{stopped_on})"
     backend/bank_statements:
       # edit: "Edit bank statement %{number}"
       import: "导入OFX文件"
@@ -1161,6 +1158,7 @@ cmn:
     input_cost_per_hectare: "每公顷投入成本" #?
     inputs: "输入"
     inspections: "检查"
+    # interactive_maps: "A JS library for interactive maps"
     interface_preferences: "界面首"
     internal_error: "哎呀，事情发生了。"
     interval: "个性化间隔"
@@ -2076,6 +2074,7 @@ cmn:
       down: "下"
       duplicate: "重复"
       edit: "编辑"
+      # edit_interval: "Reconciliate"
       edit_many: "很多编辑"
       evaluate: "评估"
       export: "出口"
@@ -2089,7 +2088,6 @@ cmn:
       incorporate: "合并"
       increment: "增量" #?
       index: "指数"
-      # interval_reconciliation: "Reconciliate"
       invoice: "发票"
       journal_entries_csv_export: "下载CSV"
       journal_entries_import: "导入CSV"

@@ -44,11 +44,11 @@ module Backend
 
     list(:bank_statements, conditions: { cash_id: 'params[:id]'.c }, order: { started_on: :desc }) do |t|
       t.action :edit
-      t.action :reconciliation, url: { controller: :bank_reconciliation_items, action: :index, bank_statement_id: 'r.id'.c }
+      t.action :reconciliation, url: { controller: '/backend/bank_statements/reconciliation/items', action: :index, bank_statement_id: 'r.id'.c }
       t.action :destroy
       t.action :new, on: :none, url: { cash_id: 'params[:id]'.c }
       t.action :import, on: :none, url: { cash_id: 'params[:id]'.c }
-      t.action :interval_reconciliation, on: :none, url: { cash_id: 'params[:id]'.c }
+      t.action :edit_interval, on: :none, url: { cash_id: 'params[:id]'.c }
       t.column :number, url: true
       t.column :started_on
       t.column :stopped_on

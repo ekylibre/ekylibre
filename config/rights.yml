@@ -30,7 +30,15 @@
 #     - "backend/attachments#create"
 #     - "backend/attachments#destroy"
 #     - "backend/attachments#show"
-#     - "backend/bank_reconciliation_items#reconciliate_bank_statements"
+#     - "backend/bank_statements/items#create"
+#     - "backend/bank_statements/items#destroy"
+#     - "backend/bank_statements/items#new"
+#     - "backend/bank_statements/letters#create"
+#     - "backend/bank_statements/letters#destroy"
+#     - "backend/bank_statements/reconciliation/gaps#create"
+#     - "backend/bank_statements/reconciliation/items#bank_statements_items_count"
+#     - "backend/bank_statements/reconciliation/items#index"
+#     - "backend/bank_statements/reconciliation/items#reconciliate_bank_statements"
 #     - "backend/beehives#reset"
 #     - "backend/beehives#update"
 #     - "backend/building_divisions#take"
@@ -107,6 +115,8 @@
 #     - "backend/helps#show"
 #     - "backend/helps#toggle"
 #     - "backend/inspections#export"
+#     - "backend/intervention_participations#create"
+#     - "backend/intervention_participations#participations_modal"
 #     - "backend/interventions#change_page"
 #     - "backend/januses#toggle"
 #     - "backend/kujakus#toggle"
@@ -381,7 +391,7 @@ animals:
 bank_statements:
   read:
     actions:
-    - "backend/bank_reconciliation_items#index"
+    - "backend/bank_reconciliation_items#index" #?
     - "backend/bank_statements#index"
     - "backend/bank_statements#list"
     - "backend/bank_statements#list_items"
@@ -391,12 +401,12 @@ bank_statements:
     dependencies:
     - read-bank_statements
     actions:
-    - "backend/bank_reconciliation_gaps#create"
-    - "backend/bank_statement_items#create"
-    - "backend/bank_statement_items#destroy"
-    - "backend/bank_statement_items#new"
-    - "backend/bank_statement_letters#create"
-    - "backend/bank_statement_letters#destroy"
+    - "backend/bank_reconciliation_gaps#create" #?
+    - "backend/bank_statement_items#create" #?
+    - "backend/bank_statement_items#destroy" #?
+    - "backend/bank_statement_items#new" #?
+    - "backend/bank_statement_letters#create" #?
+    - "backend/bank_statement_letters#destroy" #?
     - "backend/bank_statements#create"
     - "backend/bank_statements#destroy"
     - "backend/bank_statements#edit"

@@ -271,19 +271,24 @@ Rails.application.routes.draw do
     resources :attachments, only: %i[show create destroy]
 
     resources :bank_statements, concerns: %i[list unroll], path: 'bank-statements' do
-      resources :bank_statement_items, only: %i[new create destroy], path: 'items'
-
       collection do
         get :list_items
         match :import, via: %i[get post]
-        get :interval_reconciliation
-      
-        resources :bank_statement_letters, only: %i[create destroy], path: 'letters'
-        resources :bank_reconciliation_gaps, only: [:create], path: 'gaps'
+        get :edit_interval
+      end
+    end
 
-        resources :bank_reconciliation_items, only: [:index], path: 'reconciliation' do
+    namespace :bank_statements do
+      resources :items, only: %i[new create destroy]
+      resources :letters, only: %i[create destroy]
+
+      namespace :reconciliation do
+        resources :gaps, only: %i[new create destroy]
+
+        resources :items, only: [:index] do
           collection do
             get :reconciliate_bank_statements
+            get :bank_statements_items_count
           end
         end
       end

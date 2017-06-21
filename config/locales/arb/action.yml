@@ -66,9 +66,6 @@ arb:
       index: "الحيوانات"
       new: "حيوان جديد"
       # show: "%{nature}: %{name}"
-    backend/bank_reconciliation_items:
-      # index: "Reconciliate bank statement %{cash} #%{number} (from %{started_on} to %{stopped_on})"
-      # reconciliate_bank_statements: "Reconciliate %{cash} bank statements (from %{started_on} to %{stopped_on})"
     backend/bank_statements:
       edit: "تعديل الكشف المصرفي رقم%{number}"
       import: "ملف الاستيراد OFX"
@@ -1548,6 +1545,7 @@ arb:
     insert_actual_password: "أدخل كلمة المرور الحالية" #?
     insert_password: "أدخل كلمة المرور الجديدة" #?
     inspections: "عمليات التفتيش"
+    # interactive_maps: "A JS library for interactive maps"
     interface_preferences: "تفضيلات واجهة"
     internal_error: "عفوا، حدث شيء ما."
     international_normal_vat_collected: "معدل ضريبة القيمة المضافة الدولية العادية %8.5" #?
@@ -2853,6 +2851,7 @@ arb:
       down: "أسفل"
       duplicate: "مكرر"
       edit: "تحرير"
+      # edit_interval: "Reconciliate"
       edit_many: "تعديل العديد"
       evaluate: "تقييم"
       export: "تصدير"
@@ -2866,7 +2865,6 @@ arb:
       incorporate: "دمج"
       increment: "زيادة" #?
       index: "فهرس"
-      # interval_reconciliation: "Reconciliate"
       invoice: "فاتورة"
       journal_entries_csv_export: "تنزيل ملف CSV"
       journal_entries_import: "استيراد CSV"

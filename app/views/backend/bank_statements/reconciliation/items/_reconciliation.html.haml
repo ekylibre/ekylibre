@@ -10,12 +10,12 @@
       = dropdown_menu_button :payment_gap, icon: false do |menu|
         - Journal.various.each do |regul_journal|
           - url_params = { journal_id: regul_journal.id  }
-          - url_params[:cash_id] = cash_id 
+          - url_params[:cash_id] = cash_id
           - url_params[:bank_statement_id] = @bank_statement.id unless @bank_statement.nil?
           - url_params[:period_start] = params[:period_start] if params[:period_start].present?
           - url_params[:period_end] = params[:period_end] if params[:period_end].present?
 
-          - menu.item regul_journal.name, backend_bank_reconciliation_gaps_path(**url_params), method: :POST, tabindex: -1, class: 'from-selected-bank from-selected-journal gap-creation', title: regul_journal.name
+          - menu.item regul_journal.name, backend_bank_statements_reconciliation_gaps_path(**url_params), method: :POST, tabindex: -1, class: 'from-selected-bank from-selected-journal gap-creation', title: regul_journal.name
       = dropdown_menu_button :new_purchase, icon: false do |menu|
         - PurchaseNature.find_each do |nature|
           - menu.item nature.name, new_backend_quick_purchase_path(nature_id: nature.id, redirect: url_for), tabindex: -1, method: :get, class: 'from-selected-bank', title: nature.name
@@ -27,7 +27,7 @@
       %label
         %input#hide-lettered{ type: :checkbox, checked: true }
         = :hide_lettered_lines.tl
-  
+
   .list
     .legend
       %p= :initial_balance_of_bank_statement.tl
@@ -42,7 +42,7 @@
 
     -# JS template for DatePicker.
     .date-section.hidden
-      =# render 'date_header', date: nil, bank_statement: @bank_statement
+      = render 'date_header', date: nil, bank_statement: @bank_statement
     - @items_grouped_by_date.each do |date, items|
       .date-section
         = render 'date_header', date: date, bank_statement: @bank_statement
