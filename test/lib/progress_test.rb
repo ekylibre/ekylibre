@@ -115,4 +115,21 @@ class ProgressTest < ActiveSupport::TestCase
     assert_equal 5, read_only_ext.value
     assert read_only_ext.read_only?
   end
+
+  test 'progress#increment! is able to handle non-100 @maxs' do
+    lil_max = Progress.new('Little Max', max: 4)
+    lil_max.increment!
+    lil_max.increment!
+    lil_max.increment!
+
+    assert_equal 75, lil_max.value
+  end
+
+  test 'progress value can be expressed as a direct value (no percentage)' do
+    weird_max = Progress.new('Not 100', max: 5)
+    weird_max.value = 1
+
+    assert_equal 20, weird_max.value
+    assert_equal  1, weird_max.value(percentage: false)
+  end
 end

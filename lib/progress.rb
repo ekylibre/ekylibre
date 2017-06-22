@@ -71,10 +71,12 @@ class Progress
     File.exist?(progress_file)
   end
 
-  def value
+  def value(percentage: true)
     return 0 unless counting?
     magnitude = 10**PRECISION
-    (File.read(progress_file).to_f * magnitude).round / magnitude.to_f
+    value = File.read(progress_file).to_f
+    return value unless percentage
+    (value * magnitude).round / magnitude.to_f
   rescue
     0
   end
@@ -82,9 +84,10 @@ class Progress
   def value=(value)
     no_read_only!
     self.class.register(self)
-    @value = value.to_f / @max.to_f * 100
+    @value = value.to_f
+    percentage = value.to_f / @max.to_f * 100
     FileUtils.mkdir_p(progress_file.dirname)
-    File.write(progress_file, @value.to_s)
+    File.write(progress_file, percentage.to_s)
   end
   alias set_value value=
 
@@ -103,7 +106,7 @@ class Progress
   end
 
   def increment!
-    @value ||= value/100.0*4.0
+    @value ||= (value/100.0*@max.to_f)
     @value += 1
     self.value = @value
   end
