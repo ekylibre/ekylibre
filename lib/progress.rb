@@ -103,8 +103,9 @@ class Progress
   end
 
   def increment!
-    @value ||= value
-    set_value(@value + 1)
+    @value ||= value/100.0*4.0
+    @value += 1
+    self.value = @value
   end
 
   def read_only!
