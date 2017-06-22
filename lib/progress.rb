@@ -5,8 +5,9 @@ class Progress
   attr_reader :id
 
   PRECISION = 3
+  DEFAULT_ID = 0
 
-  def initialize(name, id:, max: 100)
+  def initialize(name, id: DEFAULT_ID, max: 100)
     @name = name.underscore
     @id = id
     @max = max
@@ -19,13 +20,13 @@ class Progress
       @progresses[progress.name][progress.id] = progress
     end
 
-    def unregister(name, id:)
+    def unregister(name, id: DEFAULT_ID)
       return true if @progresses.nil? || @progresses[name].nil?
       @progresses[name][id] = nil
       true
     end
 
-    def fetch(name, id:)
+    def fetch(name, id: DEFAULT_ID)
       registration(name, id) || fetch!(name, id: id)
     end
 
@@ -51,7 +52,7 @@ class Progress
 
     private
 
-    def fetch!(name, id:)
+    def fetch!(name, id: DEFAULT_ID)
       return nil unless File.exists?(file_for(name, id))
       build(name, id: id).tap do |prog|
         prog.read_only!
