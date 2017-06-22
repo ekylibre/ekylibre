@@ -8,8 +8,6 @@ class Progress
     @name = name.underscore
     @id = id
     @max = max
-    set_value(0)
-    self.class.register(self)
   end
 
   class << self
@@ -19,14 +17,50 @@ class Progress
       @progresses[progress.name][progress.id] = progress
     end
 
-    def unregister(progress)
-      return true if @progresses.nil?
-      @progresses[progress.name][progress.id] = nil
+    def unregister(name, id: id)
+      return true if @progresses.nil? || @progresses[name].nil?
+      @progresses[name][id] = nil
       true
     end
 
     def fetch(name, id:)
-      @progresses[name.underscore][id]
+      registration(name, id) || fetch!(name, id: id)
+    end
+
+    alias _new new
+    def new(*args, **kwargs, &block)
+      fetch(*args, **kwargs.slice(:id)) ||
+        super.tap { |inst| inst.value = 0 }
+    end
+
+    def build(*args, **kwargs, &block)
+      _new(*args, **kwargs, &block).tap do |inst|
+        register(inst)
+      end
+    end
+
+    def registered?(inst)
+      registration(inst.name, inst.id).present?
+    end
+
+    def file_for(name, id)
+      Ekylibre::Tenant.private_directory.join('tmp', 'imports', "#{name}-#{id}.progress")
+    end
+
+    private
+
+    def fetch!(name, id:)
+      return nil unless File.exists?(file_for(name, id))
+      build(name, id: id).tap do |prog|
+        prog.read_only!
+      end
+    end
+
+    def registration(name, id)
+      unregister(name, id: id)
+      @progresses &&
+        @progresses[name.underscore] &&
+        @progresses[name.underscore][id]
     end
   end
 
@@ -42,28 +76,45 @@ class Progress
     0
   end
 
-  def set_value(value)
+  def value=(value)
+    no_read_only!
     self.class.register(self)
     @value = value.to_f / @max.to_f * 100
     FileUtils.mkdir_p(progress_file.dirname)
     File.write(progress_file, @value.to_s)
   end
+  alias set_value value=
 
   def clear!
+    no_read_only!
     return true unless counting?
     FileUtils.rm_rf(progress_file)
-    self.class.unregister(self)
+    self.class.unregister(name, id: id)
     true
   end
   alias clean! clear!
 
   def progress_file
     return @progress_file if defined? @progress_file
-    @progress_file = Ekylibre::Tenant.private_directory.join('tmp', 'imports', "#{name}-#{id}.progress")
+    @progress_file = self.class.file_for(name, id)
   end
 
   def increment!
     @value ||= value
     set_value(@value + 1)
+  end
+
+  def read_only!
+    @read_only = true
+  end
+
+  def read_only?
+    @read_only
+  end
+
+  private
+
+  def no_read_only!
+    raise 'Can\'t perform operation for read-only progress.' if read_only?
   end
 end
