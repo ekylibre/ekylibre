@@ -1,5 +1,5 @@
 class Progress
-  class ReadOnlyError < Exception; end;
+  class ReadOnlyError < RuntimeError; end
 
   attr_reader :name
   attr_reader :id
@@ -53,14 +53,12 @@ class Progress
     private
 
     def fetch!(name, id: DEFAULT_ID)
-      return nil unless File.exists?(file_for(name, id))
-      build(name, id: id).tap do |prog|
-        prog.read_only!
-      end
+      return nil unless File.exist?(file_for(name, id))
+      build(name, id: id).tap(&:read_only!)
     end
 
     def registration(name, id)
-      unregister(name, id: id) unless File.exists?(file_for(name, id))
+      unregister(name, id: id) unless File.exist?(file_for(name, id))
       @progresses &&
         @progresses[name.underscore] &&
         @progresses[name.underscore][id]
@@ -75,7 +73,7 @@ class Progress
     return 0 unless counting?
     magnitude = 10**PRECISION
     value = File.read(progress_file).to_f
-    return value.to_f/100*@max.to_f unless percentage && @max
+    return value.to_f / 100 * @max.to_f unless percentage && @max
     (value * magnitude).round / magnitude.to_f
   rescue
     0
@@ -106,7 +104,7 @@ class Progress
   end
 
   def increment!
-    @value ||= (value/100.0*@max.to_f)
+    @value ||= (value / 100.0 * @max.to_f)
     @value += 1
     self.value = @value
   end
