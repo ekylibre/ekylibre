@@ -3,6 +3,7 @@ require 'test_helper'
 class ProgressTest < ActiveSupport::TestCase
   setup do
     FileUtils.rm_rf(Dir.glob(Ekylibre::Tenant.private_directory.join('tmp', 'imports', '*.progress')))
+    Progress.instance_variable_set(:@progresses, nil)
   end
 
   test 'progresses can be set values that can then be consulted later' do
@@ -126,7 +127,7 @@ class ProgressTest < ActiveSupport::TestCase
   end
 
   test 'progress value can be expressed as a direct value (no percentage)' do
-    weird_max = Progress.new('Not 100', max: 5)
+    weird_max = Progress.new('Direct', max: 5)
     weird_max.value = 1
 
     assert_equal 20, weird_max.value

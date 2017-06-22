@@ -75,7 +75,7 @@ class Progress
     return 0 unless counting?
     magnitude = 10**PRECISION
     value = File.read(progress_file).to_f
-    return value unless percentage
+    return value.to_f/100*@max.to_f unless percentage && @max
     (value * magnitude).round / magnitude.to_f
   rescue
     0
