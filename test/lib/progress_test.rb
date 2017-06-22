@@ -84,11 +84,35 @@ class ProgressTest < ActiveSupport::TestCase
     assert_equal 1, progress.value
   end
 
-  test 'cleared progresses have 0 value' do
+  test 'cleared progresses have 0 as value' do
     progress = Progress.new('Zero', id: 1)
     progress.value = 2
     progress.clear!
 
     assert_equal 0, progress.value
+  end
+
+  test 'progresses can be set to read_only which prevents the modification of the value' do
+    progress = Progress.new('Readonly', id: 1)
+    progress.value = 3
+    progress.read_only!
+
+    assert_equal 3, progress.value
+
+    assert_raise(Progress::ReadOnlyError) { progress.clear!     }
+    assert_raise(Progress::ReadOnlyError) { progress.value = 5  }
+    assert_raise(Progress::ReadOnlyError) { progress.increment! }
+  end
+
+  test 'fetch when a progress file exists but no Progress object instantiates a read-only progress' do
+    path_to_file = Ekylibre::Tenant.private_directory.join('tmp', 'imports', 'external-1.progress')
+    FileUtils.mkdir_p(path_to_file.dirname)
+    File.write(path_to_file, '5')
+
+    read_only_ext = Progress.fetch('External', id: 1)
+
+    assert_not_nil read_only_ext, "Progress#fetch didn't find External."
+    assert_equal 5, read_only_ext.value
+    assert read_only_ext.read_only?
   end
 end
