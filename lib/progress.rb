@@ -1,4 +1,6 @@
 class Progress
+  class ReadOnlyError < Exception; end;
+
   attr_reader :name
   attr_reader :id
 
@@ -17,7 +19,7 @@ class Progress
       @progresses[progress.name][progress.id] = progress
     end
 
-    def unregister(name, id: id)
+    def unregister(name, id:)
       return true if @progresses.nil? || @progresses[name].nil?
       @progresses[name][id] = nil
       true
@@ -44,7 +46,7 @@ class Progress
     end
 
     def file_for(name, id)
-      Ekylibre::Tenant.private_directory.join('tmp', 'imports', "#{name}-#{id}.progress")
+      Ekylibre::Tenant.private_directory.join('tmp', 'imports', "#{name.downcase.underscore}-#{id}.progress")
     end
 
     private
@@ -57,7 +59,7 @@ class Progress
     end
 
     def registration(name, id)
-      unregister(name, id: id)
+      unregister(name, id: id) unless File.exists?(file_for(name, id))
       @progresses &&
         @progresses[name.underscore] &&
         @progresses[name.underscore][id]
@@ -115,6 +117,6 @@ class Progress
   private
 
   def no_read_only!
-    raise 'Can\'t perform operation for read-only progress.' if read_only?
+    raise ReadOnlyError if read_only?
   end
 end
