@@ -62,9 +62,9 @@ ita:
       # show: "%{nature}: %{name}"
     backend/bank_statements:
       # edit: "Edit bank statement %{number}"
+      # edit_interval: "Bank statements periods to reconciliate"
       import: "importazione di file OFX"
       index: "estratti conto"
-      # interval_reconciliation: "Bank statements periods to reconciliate"
       new: "dichiarazione nuova banca"
       # show: "Account statement N°%{number}"
     backend/beehives:
@@ -926,6 +926,7 @@ ita:
     # canals: "Canals"
     cancel: "Annulla"
     cancelation: "cancellazione"
+    # cant_add_bank_statement_line: "You can't add a new line because you don't have bank statement on this day"
     cap_islets: "isolotti Cap"
     cap_land_parcels: "appezzamenti Cap"
     capitalised_production: "Produzione capitalizzati"

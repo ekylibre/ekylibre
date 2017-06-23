@@ -62,9 +62,9 @@ cmn:
       # show: "%{nature}: %{name}"
     backend/bank_statements:
       # edit: "Edit bank statement %{number}"
+      # edit_interval: "Bank statements periods to reconciliate"
       import: "导入OFX文件"
       index: "银行对账单"
-      # interval_reconciliation: "Bank statements periods to reconciliate"
       new: "新的银行对账单"
       # show: "Account statement N°%{number}"
     backend/beehives:
@@ -860,6 +860,7 @@ cmn:
     canals: "运河"
     cancel: "取消"
     cancelation: "取消"
+    # cant_add_bank_statement_line: "You can't add a new line because you don't have bank statement on this day"
     cap_islets: "盖小岛"
     cap_land_parcels: "盖地块"
     capitalised_production: "生产资本化"

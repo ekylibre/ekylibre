@@ -68,9 +68,9 @@ spa:
       # show: "%{nature}: %{name}"
     backend/bank_statements:
       edit: "Modificar el leventar N°%{number}"
+      # edit_interval: "Bank statements periods to reconciliate"
       import: "archivo de importación OFX"
       index: "Levantar de cuntos bancarios"
-      # interval_reconciliation: "Bank statements periods to reconciliate"
       new: "Despuntar un nuevo leventar de cuento"
       show: "Leventard de cuento N°%{number}"
     backend/beehives:
@@ -947,6 +947,7 @@ spa:
     cancel: "Cancelar"
     cancelation: "Cancelación"
     cancelled: "Pasar en activos" #?
+    # cant_add_bank_statement_line: "You can't add a new line because you don't have bank statement on this day"
     cap_islets: "Islotes Cap"
     cap_land_parcels: "Parcelas Cap"
     capitalised_production: "La producción capitalizada"

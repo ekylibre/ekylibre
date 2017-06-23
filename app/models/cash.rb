@@ -294,7 +294,7 @@ class Cash < Ekylibre::Record::Base
   def suspended_balance(_at = Time.zone.now)
     suspended_journal_entry_items.sum('real_debit - real_credit') || 0.0
   end
-  
+
   def letter_items(statement_items, journal_entry_items)
     new_letter = next_reconciliation_letter
     return false if (journal_entry_items + statement_items).length.zero?

@@ -95,9 +95,9 @@ eng:
       # reconciliate_bank_statements: "Reconciliate bank statements item: %{name}"
     backend/bank_statements:
       edit: "Edit bank statement %{number}"
+      edit_interval: "Bank statements periods to reconciliate" #?
       import: "Import OFX file"
       index: "Bank statements"
-      edit_interval: "Bank statements periods to reconciliate" #?
       new: "New bank statement"
       show: "Account statement N°%{number}"
     backend/beehives:
@@ -1100,6 +1100,7 @@ eng:
     canals: "Canals" #?
     cancel: "Cancel"
     cancelation: "Cancelation"
+    cant_add_bank_statement_line: "You can't add a new line because you don't have bank statement on this day" #?!
     cap_islets: "CAP islets"
     cap_land_parcels: "CAP land parcels"
     capitalised_production: "Capitalised production" #?!

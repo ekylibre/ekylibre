@@ -62,9 +62,9 @@ jpn:
       # show: "%{nature}: %{name}"
     backend/bank_statements:
       # edit: "Edit bank statement %{number}"
+      # edit_interval: "Bank statements periods to reconciliate"
       import: "インポートOFXファイル"
       index: "銀行取引明細書"
-      # interval_reconciliation: "Bank statements periods to reconciliate"
       new: "新銀行取引明細書"
       # show: "Account statement N°%{number}"
     backend/beehives:
@@ -927,6 +927,7 @@ jpn:
     canals: "運河"
     cancel: "取り消す"
     cancelation: "キャンセル"
+    # cant_add_bank_statement_line: "You can't add a new line because you don't have bank statement on this day"
     cap_islets: "キャップの島"
     cap_land_parcels: "キャップ土地区画"
     capitalised_production: "資産計上生産"

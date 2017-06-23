@@ -1,7 +1,6 @@
 module Backend
   module BankStatements
     module Reconciliation
-
       # Handles bank reconciliation.
       class ItemsController < Backend::BaseController
         def index
@@ -17,17 +16,19 @@ module Backend
 
         def reconciliate_bank_statements
           return unless find_bank_statements
-     
+
+          cash = Cash.find(params[:cash_id])
           set_period!
+
+          @items = cash.unpointed_journal_entry_items.between(@period_start, @period_end)
+
           @bank_statements.each do |bank_statement|
             reconciliate(bank_statement)
           end
-          
+
           @items_grouped_by_date = group_by_date(@items)
 
-          cash = Cash.find(params[:cash_id])
-
-          t3e cash: cash.name, started_on: @period_start, stopped_on: @period_end  
+          t3e cash: cash.name, started_on: @period_start, stopped_on: @period_end
         end
 
         def bank_statements_items_count
@@ -35,7 +36,7 @@ module Backend
 
           set_period!
 
-          bank_statements_items_count = @bank_statements.map{|bank_statement| bank_statement.items.transfered_between(@period_start, @period_end) }.flatten.count
+          bank_statements_items_count = @bank_statements.map { |bank_statement| bank_statement.items.transfered_between(@period_start, @period_end) }.flatten.count
 
           respond_to do |format|
             format.json { render json: bank_statements_items_count }
@@ -57,14 +58,16 @@ module Backend
         def reconciliate(bank_statement)
           bank_statement_items = bank_statement.items unless @bank_statement.nil?
           bank_statement_items = bank_statement.items.transfered_between(@period_start, @period_end) unless @bank_statements.nil?
-        
-          journal_entry_items  = bank_statement.eligible_entries_in(@period_start, @period_end)
+
+          journal_entry_items  = bank_statement.eligible_entries_in(@period_start, @period_end) unless @bank_statement.nil?
+          journal_entry_items  = JournalEntryItem.pointed_by(bank_statement).between(@period_start, @period_end) unless @bank_statements.nil?
 
           return no_entries if journal_entry_items.blank? && @bank_statements.nil?
 
           auto_reconciliate!(bank_statement, bank_statement_items, journal_entry_items)
 
-          @items = bank_statement_items + journal_entry_items
+          @items = [] if @items.nil?
+          @items += bank_statement_items + journal_entry_items
         end
 
         def set_period!

@@ -73,7 +73,7 @@ class InterventionTool < InterventionAgent
 
     drivers_times / (tractors_count + prepelled_equipments_count)
   end
-  
+
   def catalog_usage
     :travel_cost
   end

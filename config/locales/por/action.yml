@@ -62,9 +62,9 @@ por:
       show: "%{nature}: %{name}"
     backend/bank_statements:
       edit: "Editar extrato bancário %{number}"
+      # edit_interval: "Bank statements periods to reconciliate"
       import: "arquivo de importação de OFX"
       index: "Extratos bancários"
-      # interval_reconciliation: "Bank statements periods to reconciliate"
       new: "Novo extrato bancário"
       show: "Extrato bancário N°%{number}"
     backend/beehives:
@@ -865,6 +865,7 @@ por:
     # canals: "Canals"
     cancel: "Cancelar"
     cancelation: "Cancelamento"
+    # cant_add_bank_statement_line: "You can't add a new line because you don't have bank statement on this day"
     cap_islets: "Ilhotas tampão"
     cap_land_parcels: "Parcelas de terra Tampão"
     capitalised_production: "Produção capitalizadas"

@@ -13,11 +13,37 @@
       @_findAndCustomizeButton()
 
     _initializeDatePicker: ->
+      minDate = $(this.dateInput).attr('data-min-date')
+      maxDate = $(this.dateInput).attr('data-max-date')
+      bankStatementDatesRanges = $(this.dateInput).attr('data-bank-statement-dates-ranges')
+      
+      bankStatementDates = null
+      if bankStatementDatesRanges
+        bankStatementDates = JSON.parse("[" + bankStatementDatesRanges + "]")
+
       @dateInput.datepicker
         showOn: "button"
         buttonText: @dateInput.data("label")
         onSelect: @onSelect
         dateFormat: "yy-mm-dd"
+        minDate: minDate
+        maxDate: maxDate
+        beforeShowDay: (date) ->
+          if bankStatementDates
+            enableDateCase = false
+            bankStatementDates[0].some (item, index) ->
+              startDate = new Date(item.start)
+              startDate.setHours(0, 0, 0)
+              
+              endDate = new Date(item.end)
+              endDate.setHours(0, 0, 0)
+              
+              if date >= startDate && date <= endDate
+                enableDateCase = true
+                return true 
+            
+            return [enableDateCase, 'disabled']
+           
       @dateInput.attr "autocomplete", "off"
 
     _findAndCustomizeButton: ->
@@ -89,32 +115,32 @@
   $(document).on "change", "#hide-lettered", ->
     bankReconciliation.uiUpdate()
 
-  $(document).on "submit", "#intervalReconciliationForm", (event) ->
-
-    period_start = $('input[name="period_start"]').datepicker('getDate')
-    period_end = $('input[name="period_end"]').datepicker('getDate')
-
-    if !period_start || !period_end
-      event.preventDefault()
-      return
-
-    event.preventDefault()
-
-    $.ajax "/backend/bank_statements/reconciliation/items/bank_statements_items_count",
-      type: 'get'
-      dataType: 'JSON'
-      data:
-        cash_id: $('#cash_id').val()
-        period_start: moment(period_start).format('YYYY-MM-DD')
-        period_end: moment(period_end).format('YYYY-MM-DD')
-      success: (bank_statement_items_count) =>
-        if bank_statement_items_count > 1000
-          if !confirm("Vous venez se sélectionner plus de 1000 lignes avec l'intervalle que vous avez défini. Cela peut engendrer un temps de réponse plus long. Souhaitez-vous continuer ?")
-            $(this).unbind(event).submit()
-        else
-            $(this).unbind(event).submit()
-
-        return true
+  # $(document).on "submit", "#intervalReconciliationForm", (event) ->
+  #
+  #   period_start = $('input[name="period_start"]').datepicker('getDate')
+  #   period_end = $('input[name="period_end"]').datepicker('getDate')
+  #
+  #   if !period_start || !period_end
+  #     event.preventDefault()
+  #     return
+  #
+  #   event.preventDefault()
+  #
+  #   $.ajax "/backend/bank_statements/reconciliation/items/bank_statements_items_count",
+  #     type: 'get'
+  #     dataType: 'JSON'
+  #     data:
+  #       cash_id: $('#cash_id').val()
+  #       period_start: moment(period_start).format('YYYY-MM-DD')
+  #       period_end: moment(period_end).format('YYYY-MM-DD')
+  #     success: (bank_statement_items_count) =>
+  #       if bank_statement_items_count > 1000
+  #         if !confirm("Vous venez se sélectionner plus de 1000 lignes avec l'intervalle que vous avez défini. Cela peut engendrer un temps de réponse plus long. Souhaitez-vous continuer ?")
+  #           $(this).unbind(event).submit()
+  #       else
+  #           $(this).unbind(event).submit()
+  #
+  #       return true
 
 
   $(document).on "datepicker-change", "#set_period", (event, dates) ->
@@ -396,7 +422,7 @@
       bankLines = lines.filter(":not(.lettered)[data-type=bank_statement_item]")
       bankIds = bankLines.get().map (line) =>
         @_idForLine line
-      url = window.location.pathname.split('/').slice(0, -2).join('/') + '/letters'
+      url = window.location.pathname.split('/').slice(0, -3).join('/') + '/letters'
       $.ajax url,
         type: 'POST'
         dataType: 'JSON'
@@ -417,7 +443,7 @@
           return false
 
     _unletterItems: (letter) ->
-      url = window.location.pathname.split('/').slice(0, -1).join('/') + '/letters/' + letter
+      url = window.location.pathname.split('/').slice(0, -3).join('/') + '/letters/' + letter
       $.ajax url,
         type: 'DELETE'
         dataType: 'JSON'
