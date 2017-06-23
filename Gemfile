@@ -216,8 +216,10 @@ group :development, :test do
   gem 'pry-rails'
   gem 'teaspoon-jasmine'
 
-  # Exception message tips
+  # Parallelize tests
+  gem 'parallel_tests'
 
+  # Exception message tips
   gem 'did_you_mean', '~> 0.9', platforms: [:ruby_22]
 end
 
