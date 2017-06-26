@@ -17,10 +17,10 @@ module Backend
         end
       end
 
-      def destroy
+      def unletter
         return unless find_bank_statement
 
-        letter = params[:id]
+        letter = params[:letter]
         JournalEntryItem
           .pointed_by(@bank_statement)
           .where(bank_statement_letter: letter)

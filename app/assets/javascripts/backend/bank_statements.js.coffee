@@ -443,9 +443,10 @@
           return false
 
     _unletterItems: (letter) ->
-      url = window.location.pathname.split('/').slice(0, -3).join('/') + '/letters/' + letter
+      # url = window.location.pathname.split('/').slice(0, -3).join('/') + '/letters/' + letter
+      url = $(event.target).closest('#clear').attr('href')
       $.ajax url,
-        type: 'DELETE'
+        type: 'POST'
         dataType: 'JSON'
         success: (response) =>
           lines = @_linesWithReconciliationLetter(response.letter)

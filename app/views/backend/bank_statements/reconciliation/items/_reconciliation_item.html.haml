@@ -14,7 +14,8 @@
     .credit= item.credit
   .details
     .letter= letter
-    - link = :clear if letter
-    %a{ href: "#", id: link, data: { name: { clear: :clear.tl, complete: :complete.tl } } }
-      %i
-      %span= link && link.tl
+    - if letter
+      - link = :clear
+      = link_to unletter_backend_bank_statements_letters_path(letter: letter, bank_statement_id: item.bank_statement.id) do
+        %i
+        %span= link && link.tl

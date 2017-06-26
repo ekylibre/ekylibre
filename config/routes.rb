@@ -280,7 +280,12 @@ Rails.application.routes.draw do
 
     namespace :bank_statements do
       resources :items, only: %i[new create destroy]
-      resources :letters, only: %i[create destroy]
+
+      resources :letters, only: %i[create] do
+        collection do
+          post :unletter
+        end
+      end
 
       namespace :reconciliation do
         resources :gaps, only: %i[new create destroy]
