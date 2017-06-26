@@ -41,7 +41,7 @@ module Ekylibre
           puts 'Load imports...'
           load_imports
           puts 'Save state...'
-          ::Preference.set!('first_run.executed', false, :boolean)
+          ::Preference.set!('first_run.executed', true, :boolean)
         end
         @progress.clear!
       end
