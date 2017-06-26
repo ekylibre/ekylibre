@@ -4,6 +4,7 @@
   .reconciliation-item{ data: { id: item.id, type: type, form_id: f.hash } }
     .hidden
       = f.hidden_field :initiator_id, value: f.hash
+      = f.hidden_field :bank_statement_id, value: bank_statement.id
       = f.input :transfered_on, as: :hidden
       = f.input :initiated_on, as: :hidden
       = f.input :transaction_number, as: :hidden

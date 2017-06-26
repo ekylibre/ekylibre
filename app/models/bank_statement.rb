@@ -65,6 +65,10 @@ class BankStatement < Ekylibre::Record::Base
 
   delegate :name, :currency, :journal, :account, :account_id, :next_reconciliation_letters, to: :cash, prefix: true
 
+  scope :find_by_date, lambda { |started_on, stopped_on, cash_id|
+    find_by('started_on <= ? AND stopped_on >= ? AND cash_id = ?', started_on, stopped_on, cash_id)
+  }
+
   before_validation do
     self.currency = cash_currency if cash
     active_items = items.to_a.delete_if(&:marked_for_destruction?)

@@ -42,11 +42,10 @@
 
     -# JS template for DatePicker.
     .date-section.hidden
-      =# render 'date_header', date: nil, bank_statement: @bank_statement
     - @items_grouped_by_date.each do |date, items|
       .date-section
         - bank_statement = items.select{ |item| item.is_a?(BankStatementItem) }.map(&:bank_statement).uniq.first
-        = render 'date_header', date: date, bank_statement: bank_statement
+        = render 'date_header', date: date, bank_statement: bank_statement, cash_id: cash_id
         - items.each do |item|
           = render 'reconciliation_item', item: item
 
