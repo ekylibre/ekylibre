@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20170524094443">
+<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20170627081533">
   <nomenclature name="abilities" translateable="true">
     <properties>
       <property name="parameters" type="choice_list" choices="variety, issue_nature" required="true"/>
@@ -384,7 +384,7 @@
       <item name="participations" fr_pcg82="26" pt_snc="41"/>
       <item name="particular_operation_with_state" fr_pcg82="443"/>
       <item name="payment_guarantees" fr_pcg82="275"/>
-      <item name="pending_deposit_payments" fr_pcg82="511"/>
+      <item name="pending_deposit_payments" fr_pcg82="511" pt_snc="18"/>
       <item name="plant_derivative_stock" fr_pcga="374"/>
       <item name="plant_derivatives_revenues" fr_pcga="701"/>
       <item name="plant_medicine_matter_expenses" fr_pcga="6013"/>
