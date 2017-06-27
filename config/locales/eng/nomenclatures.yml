@@ -4553,6 +4553,8 @@ eng:
         arctium: "Arctium"                                 #< asteraceae
         arctium_lappa: "Arctium lappa"                     #< arctium
         arctium_minus: "Arctium minus"                     #< arctium
+        argania: "Argania"                                 #< sapotaceae
+        argania_spinosa: "Argan"                           #< argania
         artemisia: "Artemisia"                             #< asteraceae
         artemisia_dracunculus: "Artemisia dracunculus"     #< artemisia
         asparagaceae: "Asparagaceae"                       #< plant
@@ -4834,6 +4836,9 @@ eng:
         capsicum_frutescens: "Hot Pepper"                  #< capsicum
         capsicum_pubescens: "Rocoto"                       #< capsicum
         car: "Car"                                         #< motorized_vehicle
+        carica: "Carica"                                   #< caricaceae
+        carica_papaya: "Papaya"                            #< carica
+        caricaceae: "Caricaceae"                           #< plant
         carpinus: "Carpinus"                               #< betulaceae
         carpinus_betulus: "Carpinus betulus"               #< carpinus
         carpinus_caroliniana: "Carpinus caroliniana"       #< carpinus
@@ -4871,6 +4876,14 @@ eng:
         chenopodium_quinoa: "Chenopodium quinoa"           #< chenopodium
         chloris: "Chloris"                                 #< poaceae
         chloris_gayana: "Rhodes grass"                     #< chloris
+        chrysophyllum: "Goldenleaf"                        #< sapotaceae
+        chrysophyllum_africanum: "Chrysophyllum africanum" #< chrysophyllum
+        chrysophyllum_albidum: "White star apple"          #< chrysophyllum
+        chrysophyllum_argenteum: "Bastard redwood"         #< chrysophyllum
+        chrysophyllum_cainito: "Star apple"                #< chrysophyllum
+        chrysophyllum_mexicanum: "Mexican star apple"      #< chrysophyllum
+        chrysophyllum_oliviforme: "Saffron-tree"           #< chrysophyllum
+        chrysophyllum_pauciflorum: "Chrysophyllum pauciflorum" #< chrysophyllum
         chrysopogon: "Chrysopogon"                         #< poaceae
         chrysopogon_zizanioides: "Chrysopogon zizanioides" #< chrysopogon
         cicer: "Cicer"                                     #< fabaceae
@@ -4964,7 +4977,7 @@ eng:
         cucurbita_maxima_gros_jaune_de_paris: "Yellow Gourd" #< cucurbita_maxima
         cucurbita_maxima_honshu: "Squash Honshu"           #< cucurbita_maxima
         cucurbita_maxima_marina_di_chioggia: "Marina di Chioggia squash" #< cucurbita_maxima
-        cucurbita_maxima_maxima: "Common Winter squash "   #< cucurbita_maxima
+        cucurbita_maxima_maxima: "Common Winter squash"    #< cucurbita_maxima
         cucurbita_maxima_nelson: "Squash Nelson"           #< cucurbita_maxima
         cucurbita_maxima_noir_du_bresil: "Black Brasilian Pumpkin" #< cucurbita_maxima
         cucurbita_maxima_potimarron: "Potimarron"          #< cucurbita_maxima
@@ -5078,6 +5091,31 @@ eng:
         daucus_carota_yellow_doubs: "Carrot Yellow Doubs"  #< daucus_carota
         daucus_carota_yukon: "Carrot Yukon"                #< daucus_carota
         diervillaceae: "Diervillaceae"                     #< plant
+        dioscorea: "Yam"                                   #< dioscoreaceae
+        dioscorea_alata: "Winged yam"                      #< dioscorea
+        dioscorea_altissima: "Dunguey"                     #< dioscorea
+        dioscorea_bulbifera: "Air potato"                  #< dioscorea
+        dioscorea_cayenensis: "Yellow guinea yam"          #< dioscorea
+        dioscorea_dumetorum: "Bitter yam"                  #< dioscorea
+        dioscorea_elephantipes: "Hottentot-bread"          #< dioscorea
+        dioscorea_esculenta: "Lesser yam"                  #< dioscorea
+        dioscorea_floridana: "Florida yam"                 #< dioscorea
+        dioscorea_hispida: "Intoxicating yam"              #< dioscorea
+        dioscorea_japonica: "Japanese yam"                #< dioscorea
+        dioscorea_mexicana: "Dioscorea mexican yam"        #< dioscorea
+        dioscorea_nummularia: "Flattened yam"              #< dioscorea
+        dioscorea_oppositifolia: "Khmer yam"               #< dioscorea
+        dioscorea_pentaphylla: "Fiveleaf yam"              #< dioscorea
+        dioscorea_pilosiuscula: "Bulbous yam"              #< dioscorea
+        dioscorea_polygonoides: "Jamaican bitter yam"         #< dioscorea
+        dioscorea_polystachya: "Chinese yam"               #< dioscorea
+        dioscorea_praehensilis: "Bush yam"                 #< dioscorea
+        dioscorea_preussii: "Preuss' dioscorea"            #< dioscorea
+        dioscorea_rotundata: "Guinea yam"                  #< dioscorea
+        dioscorea_sansibarensis: "Zanzibar yam"            #< dioscorea
+        dioscorea_trifida: "Indian yam"                    #< dioscorea
+        dioscorea_villosa: "Wild yam"                      #< dioscorea
+        dioscoreaceae: "Yam family"                        #< plant
         easement: "Easement"                               #< zone
         egg: "Egg"                                         #< raw_matter
         elaeagnaceae: "Elaeagnaceae"                       #< plant
@@ -5376,6 +5414,8 @@ eng:
         ipomoea_batatas: "Sweet potato"                    #< ipomoea
         ipomoea_batatas_beauregard: "Sweet potato Beauregard" #< ipomoea_batatas
         iridaceae: "Iridaceae"                             #< plant
+        jarilla: "Jarilla"                                 #< caricaceae
+        jarilla_heterophylla: "Jarilla heterophylla"       #< jarilla
         juglandaceae: "Juglandaceae"                       #< plant
         juglans: "Juglans"                                 #< juglandaceae
         juglans_regia: "Common walnut"                     #< juglans
@@ -5699,6 +5739,7 @@ eng:
         mammalia: "Mammalia"                               #< animal
         mangifera: "Mangifera"                             #< anacardiaceae
         manihot: "Manioc"                                  #< euphorbiaceae
+        manilkara_zapota: "Sapodilla"                      #< sapotaceae
         manure: "Manure"                                   #< excrement
         matter: "Matter"                                   #< product
         meat: "Meat"                                       #< raw_matter
@@ -5824,11 +5865,59 @@ eng:
         ovis: "Ovis"                                       #< bovidae
         ovis_aries: "Sheep"                                #< ovis
         packaged_matter: "Packaged matter"                 #< preparation
+        palaquium: "Palaquium"                             #< sapotaceae
+        palaquium_gutta: "Gutta percha"                    #< palaquium
         panicum: "Panicum"                                 #< poaceae
         panicum_miliaceum: "Common millet"                 #< panicum
         papaver: "Papaver"                                 #< papaveraceae
         papaver_somniferum: "Papaver somniferum"           #< papaver
         papaveraceae: "Papaveraceae"                       #< plant
+        passiflora: "Passionflower family"                 #< passifloraceae
+        passiflora_affinis: "Bracted passionflower"        #< passiflora
+        passiflora_anadenia: "Tropical passionflower"      #< passiflora
+        passiflora_antioquiensis: "Antioquiensis passionflower" #< passiflora
+        passiflora_arizonica: "Arizona passionflower"      #< passiflora
+        passiflora_berteroana: "Berteroana passionflower"  #< passiflora
+        passiflora_bicornis: "wingleaf passionflower"      #< passiflora
+        passiflora_biflora: "Passiflora biflora"           #< passiflora
+        passiflora_bilobata: "Twoflower passionflower"     #< passiflora
+        passiflora_bryonioides: "Cupped passionflower"     #< passiflora
+        passiflora_caerulea: "Blue passionflower"          #< passiflora
+        passiflora_ciliata: "Fringed passionflower"        #< passiflora
+        passiflora_cincinnata: "Crato passionvine"         #< passiflora
+        passiflora_coccinea: "Scarlet passionflower"       #< passiflora
+        passiflora_edulis: "Passionflower"                 #< passiflora
+        passiflora_filipes: "Slender passionflower"        #< passiflora
+        passiflora_foetida: "Stinking passionflower"       #< passiflora
+        passiflora_gracilis: "Crinkled passionflower"      #< passiflora
+        passiflora_incarnata: "Purple passionflower"       #< passiflora
+        passiflora_laurifolia: "Golden bellapple"          #< passiflora
+        passiflora_ligularis: "Yellow passionfruit"        #< passiflora
+        passiflora_lutea: "Yellow passionflower"           #< passiflora
+        passiflora_maliformis: "Conch apple"               #< passiflora
+        passiflora_manicata: "Red passionflower"           #< passiflora
+        passiflora_mexicana: "Mexican passionflower"       #< passiflora
+        passiflora_mixta: "Mixta passionflower"            #< passiflora
+        passiflora_morifolia: "Woodland passionflower"     #< passiflora
+        passiflora_multiflora: "Whiteflower passionflower" #< passiflora
+        passiflora_murucuja: "Virgin Island passionflower" #< passiflora
+        passiflora_pallens: "Pineland passionflower"       #< passiflora
+        passiflora_pallida: "Corkystem passionflower"      #< passiflora
+        passiflora_quadrangularis: "Giant granadilla"      #< passiflora
+        passiflora_racemosa: "Racemes passionflower"       #< passiflora
+        passiflora_rubra: "Dutchman's laudanum"            #< passiflora
+        passiflora_serratodigitata: "Tagua Tagua"          #< passiflora
+        passiflora_sexflora: "Goatsfoot"                   #< passiflora
+        passiflora_suberosa: "Corky passionflower"         #< passiflora
+        passiflora_subpeltata: "White passionflower"       #< passiflora
+        passiflora_tarminiana: "Banana poka"               #< passiflora
+        passiflora_tenuiloba: "Birdwing passionflower"     #< passiflora
+        passiflora_tripartita: "Banana passionfruit"       #< passiflora
+        passiflora_tripartita_mollissima: "Banana passionflower" #< passiflora
+        passiflora_tuberosa: "Tuberous passionflower"      #< passiflora
+        passiflora_tulae: "Mountain love in the mist"      #< passiflora
+        passiflora_vitifolia: "Perfumed passionflower"     #< passiflora
+        passifloraceae: "Passifloraceae"                   #< plant
         pastinaca: "Pastinaca"                             #< apiaceae
         pastinaca_sativa: "Parsnip"                        #< pastinaca
         pastinaca_sativa_javelin: "Parsnip Javelin"        #< pastinaca_sativa
@@ -5876,6 +5965,10 @@ eng:
         phytoptus_avellanae: "Phytoptus avellanae"         #< insecta
         pimpinella: "Pimpinella"                           #< apiaceae
         pimpinella_anisum: "Pimpinella anisum"             #< pimpinella
+        piriqueta: "Stripeseed"                            #< passifloraceae
+        piriqueta_cistoides: "Pitted stripeseed"           #< piriqueta
+        piriqueta_racemosa: "Rigid stripeseed"             #< piriqueta
+        piriqueta_viscosa: "Purple stripeseed"             #< piriqueta
         pistacia: "Pistacia"                               #< anacardiaceae
         pistacia_vera: "Pistacia vera"                     #< pistacia
         pisum: "Pisum"                                     #< fabaceae
@@ -5910,6 +6003,11 @@ eng:
         poncirus: "Prickly lemon tree"                     #< rutaceae
         portable_equipment: "Portable equipment"           #< equipment
         potassium_ferrocyanide: "Potassium ferrocyanide"   #< raw_matter
+        pouteria: "Eggfruit"                               #< sapotaceae
+        pouteria_caimito: "Abiu"                           #< pouteria
+        pouteria_campechiana: "Canistel"                   #< pouteria
+        pouteria_lucuma: "Lucuma"                          #< pouteria
+        pouteria_sapota: "Mamey Sapote"                    #< pouteria
         preparation: "Preparation"                         #< matter
         primula: "Primula"                                 #< primulaceae
         primulaceae: "Primulaceae"                         #< plant
@@ -6092,6 +6190,8 @@ eng:
         pyrus_communis_william: "Pear tree William"        #< pyrus_communis
         pyrus_communis_william_bon_chretien: "Pear tree William Bon-Chretien" #< pyrus_communis
         quercus: "Oak"                                     #< fagaceae
+        rajania: "Rajania"                                 #< dioscoreaceae
+        rajania_cordata: "Himber"                          #< rajania
         raphanus: "Raphanus"                               #< brassicaceae
         raphanus_sativus: "Radish"                         #< raphanus
         raphanus_sativus_daïkon: "Radish daïkon"           #< raphanus_sativus
@@ -6155,6 +6255,7 @@ eng:
         sambucus_nigra: "Sambucus nigra"                   #< sambucus
         sand: "Sand"                                       #< raw_matter
         sapindaceae: "Sapindaceae"                         #< plant
+        sapotaceae: "Sapotaceae"                           #< plant
         satureja: "Satureja"                               #< lamiaceae
         scaphoideus_titanus: "Scaphoideus titanus"         #< insecta
         sclerotiniaceae: "Sclerotiniaceae"                 #< fungus
@@ -6602,6 +6703,8 @@ eng:
         theobroma_cacao: "Cocoa tree"                      #< theobroma
         theobroma_grandiflorum: "Theobroma grandiflorum"   #< theobroma
         thymus: "Thymus"                                   #< lamiaceae
+        tieghemella: "Tieghemella"                         #< sapotaceae
+        tieghemella_heckelii: "Cherry Mahogany"            #< tieghemella
         tilia: "Tilia"                                     #< malvaceae
         tilia_americana: "Tilia americana"                 #< tilia
         tilia_cordata: "Tilia cordata"                     #< tilia
@@ -6850,6 +6953,11 @@ eng:
         triticum_durum_yelodur: "Durum wheat Yelodur"      #< triticum_durum
         triticum_spelta: "Spelt"                           #< triticum
         truck: "Truck"                                     #< motorized_vehicle
+        turnera: "Turnera"                                 #< passifloraceae
+        turnera_coerula: "Turnera coerula"                 #< turnera
+        turnera_diffusa: "Damiana"                         #< turnera
+        turnera_pumilea: "Yellow alder"                    #< turnera
+        turnera_ulmifolia: "Ramgoat dashalong"            #< turnera
         uncinula: "Uncinula"                               #< erysiphaceae
         uncinula_necator: "Uncinula necator"               #< uncinula
         urtica: "Nettle"                                   #< urticaceae
@@ -6861,6 +6969,10 @@ eng:
         vanilla: "Vanilla"                                 #< orchidaceae
         vanilla_planifolia: "Vanilla planifolia"           #< vanilla
         vanilla_pompona: "Vanilla pompona"                 #< vanilla
+        vasconcellea: "Vasconcellea"                       #< caricaceae
+        vasconcellea_monoica: "Col de monte"               #< vasconcellea
+        vasconcellea_pubescens: "Mountain papaya"          #< vasconcellea
+        vasconcellea_quercifolia: "Oak leaf papaya"        #< vasconcellea
         vegetable: "Vegetable"                             #< raw_matter
         veronica: "Veronica"                               #< plantaginaceae
         vial: "Vial"                                       #< raw_matter
@@ -6882,6 +6994,8 @@ eng:
         violaceae: "Violaceae"                             #< plant
         virus: "Virus"                                     #< matter
         vitaceae: "Vitaceae"                               #< plant
+        vitellaria: "Vitellaria"                           #< sapotaceae
+        vitellaria_paradoxa: "Shea tree"                   #< vitellaria
         vitex: "Vitex"                                     #< lamiaceae
         vitex_agnus_castus: "Vitex agnus castus"           #< vitex
         vitis: "Vitis"                                     #< vitaceae
