@@ -1,8 +1,10 @@
 class SupportMailers < ActionMailer::Base
-  def first_run_errors(message)
+  def first_run_errors(message, time)
     @tenant = Ekylibre::Tenant.current
+    message = message.read
     message = message.split(',')
-    @time = message.first
+    error_time = DateTime.parse(message.first)
+    @time = time - error_time
     @progress = message.second
     mail(
       to: 'dev@ekylibre.com',

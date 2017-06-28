@@ -3,8 +3,10 @@
   = @tenant
   est bloque.
 
-%p Durée :
-  %span= @time
+%p
+  Durée :
+  %span= "#{@time.round(2)} s"
 
-%p Progression :
-  %span= @progress
+%p
+  Progression :
+  %span= "#{@progress}%"
