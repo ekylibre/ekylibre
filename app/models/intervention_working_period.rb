@@ -69,6 +69,14 @@ class InterventionWorkingPeriod < Ekylibre::Record::Base
     where(intervention_participation: intervention_participations)
   }
 
+  scope :without_participants_intervention, lambda { |role, object|
+    where.not(intervention_id: InterventionParticipation.of_actor(object).pluck(:intervention_id).compact)
+  }
+
+  scope :precise_working_periods, lambda{|role, object| 
+    where(id: (InterventionWorkingPeriod.with_intervention_parameter(role,object).without_participants_intervention(role,object).pluck(:id) + InterventionWorkingPeriod.of_intervention_participations(object.intervention_participations).pluck(:id)))
+  }
+
   scope :of_nature, lambda { |nature|
     where(nature: nature)
   }
