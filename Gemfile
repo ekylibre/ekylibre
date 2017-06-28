@@ -10,7 +10,7 @@ gem 'mail', '~> 2.6.6.rc1'
 
 # Database adapters
 gem 'activerecord-postgis-adapter', '>= 3.0.0'
-gem 'pg' # Needed for some tasks
+gem 'pg', '~> 0.20.0' # Needed for some tasks
 
 # Multi-tenancy
 gem 'apartment', '>= 1.2.0', '< 2.0'
@@ -140,13 +140,13 @@ gem 'treetop'
 
 # Reporting
 # Need rjb which need openjdk-7-jdk (sudo apt-get install openjdk-7-jdk)
-gem 'beardley', '~> 1.3.0' # , path: "../beardley"
-gem 'beardley-barcode'
-gem 'beardley-batik'
-gem 'beardley-charts'
-gem 'beardley-groovy'
-gem 'beardley-open_sans'
-gem 'beardley-xml'
+gem 'beardley', '~> 1.3', require: ENV['DISABLED_JAVA'] != '1'
+gem 'beardley-barcode', require: ENV['DISABLED_JAVA'] != '1'
+gem 'beardley-batik', require: ENV['DISABLED_JAVA'] != '1'
+gem 'beardley-charts', require: ENV['DISABLED_JAVA'] != '1'
+gem 'beardley-groovy', require: ENV['DISABLED_JAVA'] != '1'
+gem 'beardley-open_sans', require: ENV['DISABLED_JAVA'] != '1'
+gem 'beardley-xml', require: ENV['DISABLED_JAVA'] != '1'
 
 # Import/Export
 gem 'ekylibre-ofx-parser'
