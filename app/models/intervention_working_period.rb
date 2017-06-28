@@ -70,11 +70,11 @@ class InterventionWorkingPeriod < Ekylibre::Record::Base
   }
 
   scope :without_participants_intervention, lambda { |role, object|
-    where.not(intervention_id: InterventionParticipation.of_actor(object).collect(&:intervention_id).compact)
+    where.not(intervention_id: InterventionParticipation.of_actor(object).pluck(:intervention_id).compact)
   }
 
   scope :precise_working_periods, lambda{|role, object| 
-    where(id: (InterventionWorkingPeriod.with_intervention_parameter(role,object).without_participants_intervention(role,object).collect(&:id) + InterventionWorkingPeriod.of_intervention_participations(object.intervention_participations).collect(&:id)))
+    where(id: (InterventionWorkingPeriod.with_intervention_parameter(role,object).without_participants_intervention(role,object).pluck(:id) + InterventionWorkingPeriod.of_intervention_participations(object.intervention_participations).pluck(:id)))
   }
 
   scope :of_nature, lambda { |nature|
