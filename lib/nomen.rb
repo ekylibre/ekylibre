@@ -51,12 +51,14 @@ module Nomen
     end
 
     def reference_document
-      f = File.open(reference_path, 'rb')
-      document = Nokogiri::XML(f) do |config|
-        config.strict.nonet.noblanks.noent
+      unless @document 
+        f = File.open(reference_path, 'rb')
+        @document = Nokogiri::XML(f) do |config|
+          config.strict.nonet.noblanks.noent
+        end
+        f.close
       end
-      f.close
-      document
+      @document
     end
 
     # Returns list of Nomen::Migration
