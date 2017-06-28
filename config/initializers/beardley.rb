@@ -1,4 +1,4 @@
-if ENV['DISABLED_JAVA'].to_i.zero?
+if ENV['DISABLE_JAVA'].to_i.zero?
   # Adds extra path to JAVA classpath
   RjbLoader.before_load do |config|
     # This code changes the JVM classpath, so it has to run BEFORE loading Rjb.
