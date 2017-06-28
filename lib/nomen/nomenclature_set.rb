@@ -8,6 +8,12 @@ module Nomen
       @version = 0
     end
 
+    def load_data_from_xml(nomenclature_name)
+      puts "Loading #{nomenclature_name}...".yellow
+      element = Nomen.reference_document.xpath("/xmlns:nomenclatures/xmlns:nomenclature[@name='#{nomenclature_name}']")
+      harvest_nomenclature(element)
+    end
+
     def self.load_file(file)
       set = new
       f = File.open(file, 'rb')

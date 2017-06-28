@@ -76,16 +76,16 @@ module Nomen
 
     # Returns the names of the nomenclatures
     def names
-      @@set.nomenclature_names
+      set.nomenclature_names
     end
 
     def all
-      @@set.nomenclatures
+      set.nomenclatures
     end
 
     # Give access to named nomenclatures
     def [](name)
-      @@set[name]
+      set[name]
     end
 
     # Give access to named nomenclatures
@@ -93,38 +93,24 @@ module Nomen
       options = args.extract_options!
       name = args.shift
       if args.empty?
-        return @@set[name]
+        return set[name]
       elsif args.size == 1
-        return @@set[name].find(args.shift) if @@set[name]
+        return set[name].find(args.shift) if set[name]
       end
       nil
     end
 
     def find_or_initialize(name)
-      @@set[name] || Nomenclature.new(name, set: @@set)
+      set[name] || set.load_data_from_xml(name)
     end
 
     # Browse all nomenclatures
     def each(&block)
-      @@set.each(&block)
+      set.each(&block)
     end
 
-    def load
-      @@set = if reference_path.exist?
-                NomenclatureSet.load_file(reference_path)
-              else
-                NomenclatureSet.new
-              end
-      Rails.logger.info 'Loaded nomenclatures: ' + Nomen.names.to_sentence
-    end
-
-    # Returns the matching nomenclature
-    def const_missing(name)
-      n = name.to_s.tableize
-      return self[n] if @@set.exist?(n)
-      super
+    def set
+      @@set ||= NomenclatureSet.new
     end
   end
 end
-
-Nomen.load
