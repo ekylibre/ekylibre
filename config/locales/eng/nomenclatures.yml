@@ -4518,6 +4518,8 @@ eng:
         amaranthaceae: "Amaranthaceae"                     #< plant
         amaryllidaceae: "Amaryllidaceae"                   #< plant
         anacardiaceae: "Anacardiaceae"                     #< plant
+        anacardium: "Anacardium"                           #< anacardiaceae
+        anacardium_occidentale: "Cashew"                   #< anacardium
         ananas: "Ananas"                                   #< bromeliaceae
         ananas_comosus: "Pineapple"                        #< ananas
         anas: "Anas"                                       #< anatidae
@@ -4530,6 +4532,14 @@ eng:
         angelica: "Angelica"                               #< apiaceae
         animal: "Animal"                                   #< bioproduct
         animal_group: "Animal group"                       #< product_group
+        annona: "Annona"                                   #< annonaceae
+        annona_cherimola: "Cherimoya"                      #< annona
+        annona_glabra: "Pond apple"                        #< annona
+        annona_montana: "Mountain soursop"                 #< annona
+        annona_muricata: "Soursop"                         #< annona
+        annona_reticulata: "Custard apple"                 #< annona
+        annona_senegalensis: "Wild custard-apple"          #< annona
+        annona_squamosa: "Sweet sop"                       #< annona
         annonaceae: "Annonaceae"                           #< plant
         anser: "Anser"                                     #< anatidae
         anser_anser: "Anser anser"                         #< anser
@@ -4557,6 +4567,16 @@ eng:
         argania_spinosa: "Argan"                           #< argania
         artemisia: "Artemisia"                             #< asteraceae
         artemisia_dracunculus: "Artemisia dracunculus"     #< artemisia
+        artocarpus: "Breadfruit family"                    #< moraceae
+        artocarpus_altilis: "Breadfruit"                   #< artocarpus
+        artocarpus_elasticus: "Elasticus artocarpus"       #< artocarpus
+        artocarpus_heterophyllus: "Jackfruit"              #< artocarpus
+        artocarpus_hirsutus: "Wilde Jack "                 #< artocarpus
+        artocarpus_integer: "Chempedak"                    #< artocarpus
+        artocarpus_mariannensis: "Dugdug"                  #< artocarpus
+        artocarpus_odoratissimus: "Marang"                 #< artocarpus
+        artocarpus_rigidus: "Monkey Jack"                  #< artocarpus
+        artocarpus_tamaran: "Tamaran artocarpus"           #< artocarpus
         asparagaceae: "Asparagaceae"                       #< plant
         asparagus: "Asparagus"                             #< asparagaceae
         asparagus_africanus: "Asparagus africanus"         #< asparagus
@@ -4897,6 +4917,12 @@ eng:
         cichorium_endivia_mona: "Endive Mona"              #< cichorium_endivia
         cichorium_intybus: "Chicory Intybus"               #< cichorium
         cichorium_tete_d_anguille: "Chicory Tête d’anguille" #< cichorium
+        cinnamomum: "Cinnamon family"                      #< lauraceae
+        cinnamomum_burmannii: "Padang cassia"              #< cinnamomum
+        cinnamomum_camphora: "Camphortree"                 #< cinnamomum
+        cinnamomum_cassia: "Chinese cassia"                #< cinnamomum
+        cinnamomum_tamala: "Indian bark"                   #< cinnamomum
+        cinnamomum_verum: "Cinnamon"                       #< cinnamomum
         citrullus: "Watermelon"                            #< cucurbitaceae
         citrullus_colocynthis: "Colocynth"                 #< citrullus
         citrullus_lanatus: "Watermelon Common"             #< citrullus
@@ -5091,6 +5117,8 @@ eng:
         daucus_carota_yellow_doubs: "Carrot Yellow Doubs"  #< daucus_carota
         daucus_carota_yukon: "Carrot Yukon"                #< daucus_carota
         diervillaceae: "Diervillaceae"                     #< plant
+        dimocarpus: "Dimocarpus"                           #< sapindaceae
+        dimocarpus_longan: "Longan"                        #< dimocarpus
         dioscorea: "Yam"                                   #< dioscoreaceae
         dioscorea_alata: "Winged yam"                      #< dioscorea
         dioscorea_altissima: "Dunguey"                     #< dioscorea
@@ -5101,13 +5129,13 @@ eng:
         dioscorea_esculenta: "Lesser yam"                  #< dioscorea
         dioscorea_floridana: "Florida yam"                 #< dioscorea
         dioscorea_hispida: "Intoxicating yam"              #< dioscorea
-        dioscorea_japonica: "Japanese yam"                #< dioscorea
+        dioscorea_japonica: "Japanese yam"                 #< dioscorea
         dioscorea_mexicana: "Dioscorea mexican yam"        #< dioscorea
         dioscorea_nummularia: "Flattened yam"              #< dioscorea
         dioscorea_oppositifolia: "Khmer yam"               #< dioscorea
         dioscorea_pentaphylla: "Fiveleaf yam"              #< dioscorea
         dioscorea_pilosiuscula: "Bulbous yam"              #< dioscorea
-        dioscorea_polygonoides: "Jamaican bitter yam"         #< dioscorea
+        dioscorea_polygonoides: "Jamaican bitter yam"      #< dioscorea
         dioscorea_polystachya: "Chinese yam"               #< dioscorea
         dioscorea_praehensilis: "Bush yam"                 #< dioscorea
         dioscorea_preussii: "Preuss' dioscorea"            #< dioscorea
@@ -6113,6 +6141,12 @@ eng:
         prunus_salicina_anne_gold: "Prunus salicina Anne gold" #< prunus_salicina
         prunus_salicina_awaso: "Prunus salicina Awaso"     #< prunus_salicina
         prunus_salicina_beauty: "Prunus salicina Beauty"   #< prunus_salicina
+        psidium: "Guavas"                                  #< myrtaceae
+        psidium_amplexicaule: "Mountain guava"             #< psidium
+        psidium_calyptranthoides: "Luquillo Mountain guava" #< psidium
+        psidium_cattleianum: "Cattley guava"               #< psidium
+        psidium_friedrichsthalianum: "Wild guava"          #< psidium
+        psidium_guajava: "Guava"                           #< psidium
         pyrus: "Pyrus"                                     #< rosaceae
         pyrus_communis: "Pear tree"                        #< pyrus
         pyrus_communis_beurre_d_anjou: "Pear tree Beurée d’Anjou" #< pyrus_communis
@@ -6957,7 +6991,7 @@ eng:
         turnera_coerula: "Turnera coerula"                 #< turnera
         turnera_diffusa: "Damiana"                         #< turnera
         turnera_pumilea: "Yellow alder"                    #< turnera
-        turnera_ulmifolia: "Ramgoat dashalong"            #< turnera
+        turnera_ulmifolia: "Ramgoat dashalong"             #< turnera
         uncinula: "Uncinula"                               #< erysiphaceae
         uncinula_necator: "Uncinula necator"               #< uncinula
         urtica: "Nettle"                                   #< urticaceae

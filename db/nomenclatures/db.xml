@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20170614130921">
+<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20170627075545">
   <nomenclature name="abilities" translateable="true">
     <properties>
       <property name="parameters" type="choice_list" choices="variety, issue_nature" required="true"/>
@@ -9968,6 +9968,8 @@
       <item name="amaranthaceae" parent="plant" itis_tsn="20714"/>
       <item name="amaryllidaceae" parent="plant" itis_tsn="182703"/>
       <item name="anacardiaceae" parent="plant" itis_tsn="0"/>
+      <item name="anacardium" parent="anacardiaceae" itis_tsn="28792"/>
+      <item name="anacardium_occidentale" parent="anacardium" itis_tsn="28793"/>
       <item name="ananas" parent="bromeliaceae" itis_tsn="42334"/>
       <item name="ananas_comosus" parent="ananas" itis_tsn="42335"/>
       <item name="anas" parent="anatidae" itis_tsn="175062"/>
@@ -9980,6 +9982,14 @@
       <item name="angelica" parent="apiaceae" itis_tsn="29431"/>
       <item name="animal" parent="bioproduct"/>
       <item name="animal_group" parent="product_group" derivative_of="animal"/>
+      <item name="annona" parent="annonaceae" itis_tsn="18095"/>
+      <item name="annona_cherimola" parent="annona" itis_tsn="506198"/>
+      <item name="annona_glabra" parent="annona" itis_tsn="18101"/>
+      <item name="annona_montana" parent="annona" itis_tsn="0"/>
+      <item name="annona_muricata" parent="annona" itis_tsn="18098"/>
+      <item name="annona_reticulata" parent="annona" itis_tsn="18099"/>
+      <item name="annona_senegalensis" parent="annona" itis_tsn="506201"/>
+      <item name="annona_squamosa" parent="annona" itis_tsn="18100"/>
       <item name="annonaceae" parent="plant" itis_tsn="18092"/>
       <item name="anser" parent="anatidae" itis_tsn="175019"/>
       <item name="anser_anser" parent="anser" itis_tsn="175028"/>
@@ -10007,6 +10017,16 @@
       <item name="argania_spinosa" parent="argania"/>
       <item name="artemisia" parent="asteraceae" itis_tsn="35431"/>
       <item name="artemisia_dracunculus" parent="artemisia" itis_tsn="35462"/>
+      <item name="artocarpus_altilis" parent="artocarpus" itis_tsn="184181"/>
+      <item name="artocarpus" parent="moraceae" itis_tsn="19071"/>
+      <item name="artocarpus_elasticus" parent="artocarpus" itis_tsn="506552"/>
+      <item name="artocarpus_heterophyllus" parent="artocarpus" itis_tsn="184183"/>
+      <item name="artocarpus_hirsutus" parent="artocarpus" itis_tsn="506553"/>
+      <item name="artocarpus_integer" parent="artocarpus" itis_tsn="565608"/>
+      <item name="artocarpus_mariannensis" parent="artocarpus" itis_tsn="506555"/>
+      <item name="artocarpus_odoratissimus" parent="artocarpus" itis_tsn="506556"/>
+      <item name="artocarpus_rigidus" parent="artocarpus" itis_tsn="506557"/>
+      <item name="artocarpus_tamaran" parent="artocarpus" itis_tsn="506558"/>
       <item name="asparagaceae" parent="plant" itis_tsn="810124"/>
       <item name="asparagus" parent="asparagaceae" itis_tsn="42782"/>
       <item name="asparagus_africanus" parent="asparagus" itis_tsn="506479"/>
@@ -10347,6 +10367,12 @@
       <item name="cichorium_endivia_mona" parent="cichorium_endivia" itis_tsn="501522"/>
       <item name="cichorium_intybus" parent="cichorium" itis_tsn="36763"/>
       <item name="cichorium_tete_d_anguille" parent="cichorium" itis_tsn="36762"/>
+      <item name="cinnamomum" parent="lauraceae" itis_tsn="0"/>
+      <item name="cinnamomum_burmannii" parent="cinnamomum" itis_tsn="501525"/>
+      <item name="cinnamomum_camphora" parent="cinnamomum" itis_tsn="18175"/>
+      <item name="cinnamomum_cassia" parent="cinnamomum" itis_tsn="834866"/>
+      <item name="cinnamomum_tamala" parent="cinnamomum" itis_tsn="506207"/>
+      <item name="cinnamomum_verum" parent="cinnamomum" itis_tsn="501529"/>
       <item name="citrullus" parent="cucurbitaceae" itis_tsn="22355"/>
       <item name="citrullus_colocynthis" parent="citrullus" itis_tsn="501571"/>
       <item name="citrullus_lanatus" parent="citrullus" itis_tsn="22356"/>
@@ -10541,6 +10567,8 @@
       <item name="daucus_carota_yellow_doubs" parent="daucus_carota" itis_tsn="0"/>
       <item name="daucus_carota_yukon" parent="daucus_carota" itis_tsn="29477"/>
       <item name="diervillaceae" parent="plant" itis_tsn="823479"/>
+      <item name="dimocarpus" parent="sapindaceae" itis_tsn="500681"/>
+      <item name="dimocarpus_longan" parent="dimocarpus" itis_tsn="506072"/>
       <item name="dioscorea" parent="dioscoreaceae" itis_tsn="43366"/>
       <item name="dioscorea_alata" parent="dioscorea" itis_tsn="43372"/>
       <item name="dioscorea_altissima" parent="dioscorea" itis_tsn="43373"/>
@@ -11563,6 +11591,12 @@
       <item name="prunus_salicina_anne_gold" parent="prunus_salicina" itis_tsn="0"/>
       <item name="prunus_salicina_awaso" parent="prunus_salicina" itis_tsn="0"/>
       <item name="prunus_salicina_beauty" parent="prunus_salicina" itis_tsn="0"/>
+      <item name="psidium" parent="myrtaceae" itis_tsn="27238"/>
+      <item name="psidium_amplexicaule" parent="psidium" itis_tsn="27241"/>
+      <item name="psidium_calyptranthoides" parent="psidium" itis_tsn="504639"/>
+      <item name="psidium_cattleianum" parent="psidium" itis_tsn="27239"/>
+      <item name="psidium_friedrichsthalianum" parent="psidium" itis_tsn="506171"/>
+      <item name="psidium_guajava" parent="psidium" itis_tsn="27240"/>
       <item name="pyrus" parent="rosaceae" itis_tsn="25294"/>
       <item name="pyrus_communis" parent="pyrus" itis_tsn="25295"/>
       <item name="pyrus_communis_beurre_d_anjou" parent="pyrus_communis" itis_tsn="25295"/>
