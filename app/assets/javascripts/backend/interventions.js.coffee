@@ -187,7 +187,7 @@
       if hideFilters
         $('.feathers input[name*="nature"], .feathers input[name*="state"]').closest('.feather').hide()
       else
-      i  $('.feathers input[name*="nature"], .feathers input[name*="state"]').closest('.feather').show()
+        $('.feathers input[name*="nature"], .feathers input[name*="state"]').closest('.feather').show()
 
     showInterventionParticipationsModal: ->
       $(document).on 'click', '.has-intervention-participations', (event) ->

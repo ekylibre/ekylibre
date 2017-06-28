@@ -27,9 +27,9 @@
 
     newLine = $('<div class="participation"></div>')
 
-    $(newLine).append('<input type="hidden" value="' + period_nature + '" name="' + workingPeriodsAttributes  + '[nature]" data-is-nature-hidden-field="true"></input>')
-    $(newLine).append('<input type="hidden" name="' + workingPeriodsAttributes  + '[started_at]" data-is-hours-hidden-field="true"></input>')
-    $(newLine).append('<input type="hidden" name="' + workingPeriodsAttributes  + '[stopped_at]" data-is-minutes-hidden-field="true"></input>')
+    $(newLine).append('<input type="hidden" value="' + period_nature + '" name="working_period_nature" data-is-nature-hidden-field="true"></input>')
+    $(newLine).append('<input type="hidden" name="working_period_started_at" data-is-hours-hidden-field="true"></input>')
+    $(newLine).append('<input type="hidden" name="working_period_stopped_at" data-is-minutes-hidden-field="true"></input>')
 
     participation_icon = $('<div class="participation-icon"></div>')
     $(participation_icon).append('<div class="picto picto-timelapse"></div>')
@@ -39,12 +39,12 @@
     $(newLine).append('<div class="participation-form"></div>')
 
     hour_field = $('<div class="participation-field"></div>')
-    $(hour_field).append('<input type="text" name="' + workingPeriodsAttributes + '[hours]" class="participation-input" data-is-hours-field="true"></input>')
+    $(hour_field).append('<input type="text" name="working_period_hours" class="participation-input" data-is-hours-field="true"></input>')
     $(hour_field).append('<span class="participation-field-label">H</span>')
     $(newLine).find('.participation-form').append(hour_field)
 
     min_field = $('<div class="participation-field"></div>')
-    $(min_field).append('<input type="text" name="' + workingPeriodsAttributes + '[minutes]" class="participation-input" data-is-minutes-field="true"></input>')
+    $(min_field).append('<input type="text" name="working_period_minutes" class="participation-input" data-is-minutes-field="true"></input>')
     $(min_field).append('<span class="participation-field-label">Min</span>')
     $(newLine).find('.participation-form').append(min_field)
 
@@ -63,12 +63,45 @@
     return
 
 
-  $(document).on "submit", '.edit_intervention_participation', (event) ->
+  $(document).on "submit", '.edit_intervention_participation, .new_intervention_participation', (event) ->
+    event.preventDefault()
+    event.stopImmediatePropagation()
+
+    @workingTimesModal = new ekylibre.modal('#working_times')
+    @workingTimesModal.getModal().modal 'hide'
+
+    return false
+
+  $(document).on 'click', '#validParticipationsForm', (event) ->
+    element = $(event.target)
+
+    participation = new Object()
+    participation.intervention_id = $('#intervention_participation_intervention_id').val()
+    participation.product_id = $('#intervention_participation_product_id').val()
+
+    workingPeriods = []
+    participations = $('.participation')
+
+    $('.participation').each ->
+      workingPeriod = new Object()
+      workingPeriod.nature = $(this).find('input[name="working_period_nature"]').val()
+      workingPeriod.started_at = $(this).find('input[name="working_period_started_at"]').val()
+      workingPeriod.stopped_at = $(this).find('input[name="working_period_stopped_at"]').val()
+
+      workingPeriods.push(workingPeriod)
+
+    participation.working_periods = workingPeriods
+    jsonParticipation = JSON.stringify(participation)
+
+    participationsCount = $('input[name="intervention-participation"]').length
+
+    $('.edit_intervention .form-fields').append('<input type="hidden" class="intervention-participation" name="intervention[participations_attributes][' + participationsCount + ']" value=\'' + jsonParticipation + '\'></input>')
+    
     @workingTimesModal = new ekylibre.modal('#working_times')
     @workingTimesModal.getModal().modal 'hide'
 
 
-  $(document).on "change", '#working_times .participations input[type="text"]', (event) ->
+  $(document).on "keyup", '#working_times .participations input[type="text"]', (event) ->
     element = $(event.target)
 
     E.interventionParticipations.changeWorkingPeriod(element)

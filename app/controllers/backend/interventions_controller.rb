@@ -257,6 +257,20 @@ module Backend
 
       render(locals: { cancel_url: { action: :index }, with_continue: true })
     end
+    
+    def update
+      byebug
+      permitted_params[:participations_attributes] = JSON.parse(permitted_params[:participations_attributes])
+
+      @intervention = find_and_check
+
+      # if @intervention.update_attributes(**permitted_params.symbolize_keys)
+      if @intervention.update_attributes(permitted_params)
+        redirect_to :show
+      else
+        render :edit
+      end
+    end
 
     def sell
       interventions = params[:id].split(',')
