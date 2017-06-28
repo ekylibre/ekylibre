@@ -67,9 +67,6 @@
     position_space = new RegExp(".*scroll_to=(\\d+).*")
     position = position_space.exec location.search
     if position
-      $("#hide-lettered").attr('checked', false)
-      $("#hide-lettered").change()
-
       scrollTo = $("[data-type=bank_statement_item][data-id=#{position[1]}]").parents('.date-section')[0]
       $('.list').scrollTop(scrollTo.offsetTop - $('.list')[0].offsetTop)
 
