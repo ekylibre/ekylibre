@@ -112,34 +112,6 @@
   $(document).on "change", "#hide-lettered", ->
     bankReconciliation.uiUpdate()
 
-  # $(document).on "submit", "#intervalReconciliationForm", (event) ->
-  #
-  #   period_start = $('input[name="period_start"]').datepicker('getDate')
-  #   period_end = $('input[name="period_end"]').datepicker('getDate')
-  #
-  #   if !period_start || !period_end
-  #     event.preventDefault()
-  #     return
-  #
-  #   event.preventDefault()
-  #
-  #   $.ajax "/backend/bank_statements/reconciliation/items/bank_statements_items_count",
-  #     type: 'get'
-  #     dataType: 'JSON'
-  #     data:
-  #       cash_id: $('#cash_id').val()
-  #       period_start: moment(period_start).format('YYYY-MM-DD')
-  #       period_end: moment(period_end).format('YYYY-MM-DD')
-  #     success: (bank_statement_items_count) =>
-  #       if bank_statement_items_count > 1000
-  #         if !confirm("Vous venez se sélectionner plus de 1000 lignes avec l'intervalle que vous avez défini. Cela peut engendrer un temps de réponse plus long. Souhaitez-vous continuer ?")
-  #           $(this).unbind(event).submit()
-  #       else
-  #           $(this).unbind(event).submit()
-  #
-  #       return true
-
-
   $(document).on "datepicker-change", "#set_period", (event, dates) ->
     current_params = document.location.search
 
