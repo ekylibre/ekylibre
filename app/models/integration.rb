@@ -92,7 +92,7 @@ class Integration < Ekylibre::Record::Base
 
   class << self
     def active?(name)
-      find_by_nature(name).present?
+      find_by(nature: name).present?
     end
   end
 end

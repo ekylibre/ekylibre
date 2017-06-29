@@ -51,7 +51,7 @@ module Nomen
     end
 
     def reference_document
-      unless @document 
+      unless @document
         f = File.open(reference_path, 'rb')
         @document = Nokogiri::XML(f) do |config|
           config.strict.nonet.noblanks.noent
@@ -86,9 +86,7 @@ module Nomen
     end
 
     # Give access to named nomenclatures
-    def [](name)
-      set[name]
-    end
+    delegate :[], to: :set
 
     # Give access to named nomenclatures
     def find(*args)
