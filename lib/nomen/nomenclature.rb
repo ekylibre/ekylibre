@@ -30,6 +30,7 @@ module Nomen
         element.xpath('xmlns:items/xmlns:item').each do |item|
           nomenclature.harvest_item(item)
         end
+        nomenclature.list.each(&:fetch_parent)
         nomenclature.rebuild_tree!
         nomenclature
       end
