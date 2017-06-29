@@ -5,7 +5,7 @@ module Nomen
         def method_missing(*args)
           Nomen.find_or_initialize(name.tableize.gsub(/\Anomen\//, '')).send(*args)
         end
-        
+
         def respond_to?(method_name)
           Nomen.find_or_initialize(name.tableize.gsub(/\Anomen\//, '')).respond_to?(method_name) || super
         end
