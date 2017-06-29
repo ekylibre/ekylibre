@@ -7,7 +7,7 @@ class SupportMailers < ActionMailer::Base
     @time = time - error_time
     @progress = message.second
     mail(
-      to: 'dev@ekylibre.com',
+      to: 'support@ekylibre.com',
       subject: "Erreur durant l'import du first-run"
     )
   end
