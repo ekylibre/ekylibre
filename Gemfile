@@ -140,6 +140,9 @@ gem 'treetop'
 
 # Reporting
 # Need rjb which need openjdk-7-jdk (sudo apt-get install openjdk-7-jdk)
+# If you encounter a Segfault related to those gems you need to add
+# JAVA_TOOL_OPTIONS=-Xss1280k to your env vars
+# cf. https://bugs.launchpad.net/ubuntu/+source/linux/+bug/1699772
 gem 'beardley', '~> 1.3'
 gem 'beardley-barcode', '>= 1.0.1'
 gem 'beardley-batik', '>= 1.0.1'
