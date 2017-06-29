@@ -4714,7 +4714,9 @@ CREATE TABLE parcels (
     undelivered_invoice_journal_entry_id integer,
     contract_id integer,
     pretax_amount numeric(19,4) DEFAULT 0.0 NOT NULL,
-    responsible_id integer
+    responsible_id integer,
+    type character varying,
+    untimely_delivery boolean
 );
 
 
@@ -17852,4 +17854,8 @@ INSERT INTO schema_migrations (version) VALUES ('20170415163650');
 INSERT INTO schema_migrations (version) VALUES ('20170421131536');
 
 INSERT INTO schema_migrations (version) VALUES ('20170425145302');
+
+INSERT INTO schema_migrations (version) VALUES ('20170608081949');
+
+INSERT INTO schema_migrations (version) VALUES ('20170628125603');
 

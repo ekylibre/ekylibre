@@ -504,6 +504,18 @@ deu:
       new: "Neukauf / Zahlungsausgang"
     backend/quick_sales:
       new: "New Verkauf / Zahlungseingang"
+    backend/receptions:
+      # cancel: "Cancel reception: %{name}"
+      # check: "Check reception: %{name}"
+      # edit: "Edit reception: %{name}"
+      # give: "Give reception: %{name}"
+      # index: "Receptions"
+      # invoice: "Invoice reception: %{name}"
+      # new: "New reception"
+      # order: "Order reception: %{name}"
+      # prepare: "Prepare reception: %{name}"
+      # ship: "Ship reception: %{name}"
+      # show: "Reception: %{name}"
     backend/registrations:
       edit: "Bearbeiten Registrierung"
       index: "Anmeldungen"
@@ -547,6 +559,18 @@ deu:
       index: "Siedlungen"
       new: "neue Siedlung"
       # show: "Settlement: %{name}"
+    backend/shipments:
+      # cancel: "Cancel shipment: %{name}"
+      # check: "Check shipment: %{name}"
+      # edit: "Edit shipment: %{name}"
+      # give: "Give shipment: %{name}"
+      # index: "Shipments"
+      # invoice: "Invoice shipment: %{name}"
+      # new: "New shipment"
+      # order: "Order shipment: %{name}"
+      # prepare: "Prepare shipment: %{name}"
+      # ship: "Ship shipment: %{name}"
+      # show: "Shipment: %{name}"
     backend/subscription_natures:
       # edit: "Edit subscription type: %{name}"
       index: "Abonnement-Typen"
@@ -1325,6 +1349,8 @@ deu:
     new_production: "neue Produktions"
     # new_production_of_activity: "New production of %{activity}"
     new_quote: "New Zitat"
+    # new_reception: "New reception"
+    # new_shipment: "New shipment"
     new_writing: "neue Schreib"
     next: "Nächster"
     nitrogen_concentration: "Stickstoffkonzentration"
@@ -1474,8 +1500,13 @@ deu:
     readings: "Lesungen"
     ready: "Bereit"
     ready_to_harvest: "Bereit zur Ernte"
+    # receipt_date: "Receipt date"
+    # receipt_responsible: "Receipt responsible"
     received: "Empfangen"
+    # receiving_address: "Receiving address"
     recent_events: "Die jüngsten Ereignisse"
+    # reception_number: "Reception number"
+    # receptions: "Receptions"
     record: "Aufzeichnen"
     record_maintenance: "Nehmen Wartung"
     reflect: "Reflektieren"
@@ -1852,6 +1883,9 @@ deu:
     x_readings:
       # one: "%{count} reading"
       # other: "%{count} readings"
+    x_receptions:
+      # one: "%{count} reception"
+      # other: "%{count} receptions"
     x_results:
       # one: "%{count} result found"
       # other: "%{count} results found"
@@ -1867,6 +1901,9 @@ deu:
     x_seconds:
       # one: "%{count} second"
       # other: "%{count} seconds"
+    x_shipments:
+      # one: "%{count} shipment"
+      # other: "%{count} shipments"
     x_subscriptions:
       # one: "%{count} subscription"
       # other: "%{count} subscriptions"

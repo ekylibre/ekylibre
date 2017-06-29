@@ -97,6 +97,8 @@
 #     - "backend/dashboards#stocks"
 #     - "backend/dashboards#tools"
 #     - "backend/dashboards#trade"
+#     - "backend/entities#list_receptions"
+#     - "backend/entities#list_shipments"
 #     - "backend/equipments#take"
 #     - "backend/fungi#take"
 #     - "backend/golumns#reset"
@@ -123,6 +125,15 @@
 #     - "backend/outgoing_payments#show"
 #     - "backend/outgoing_payments#unroll"
 #     - "backend/outgoing_payments#update"
+#     - "backend/parcels#cancel"
+#     - "backend/parcels#check"
+#     - "backend/parcels#give"
+#     - "backend/parcels#index"
+#     - "backend/parcels#new"
+#     - "backend/parcels#order"
+#     - "backend/parcels#prepare"
+#     - "backend/parcels#ship"
+#     - "backend/parcels#show"
 #     - "backend/plants#take"
 #     - "backend/product_groups#take"
 #     - "backend/product_nature_variants#quantifiers"
@@ -735,12 +746,12 @@ entities:
     - "backend/entities#list"
     - "backend/entities#list_client_journal_entry_items"
     - "backend/entities#list_event_participations"
-    - "backend/entities#list_incoming_parcels"
+    - "backend/entities#list_incoming_parcels" #?
     - "backend/entities#list_incoming_payments"
     - "backend/entities#list_issues"
     - "backend/entities#list_links"
     - "backend/entities#list_observations"
-    - "backend/entities#list_outgoing_parcels"
+    - "backend/entities#list_outgoing_parcels" #?
     - "backend/entities#list_purchase_payments"
     - "backend/entities#list_purchases"
     - "backend/entities#list_sale_opportunities"
@@ -1071,26 +1082,25 @@ imports:
 incoming_deliveries:
   read:
     actions:
-    - "backend/parcels#index"
-    - "backend/parcels#list"
-    - "backend/parcels#list_incoming_items"
-    - "backend/parcels#list_outgoing_items"
-    - "backend/parcels#show"
-    - "backend/parcels#unroll"
+    - "backend/receptions#index"
+    - "backend/receptions#list"
+    - "backend/receptions#list_items"
+    - "backend/receptions#show"
+    - "backend/receptions#unroll"
   write:
     dependencies:
     - read-incoming_deliveries
     actions:
-    - "backend/parcels#cancel"
-    - "backend/parcels#check"
-    - "backend/parcels#create"
-    - "backend/parcels#destroy"
-    - "backend/parcels#edit"
-    - "backend/parcels#give"
-    - "backend/parcels#new"
-    - "backend/parcels#order"
-    - "backend/parcels#prepare"
-    - "backend/parcels#update"
+    - "backend/receptions#cancel"
+    - "backend/receptions#check"
+    - "backend/receptions#create"
+    - "backend/receptions#destroy"
+    - "backend/receptions#edit"
+    - "backend/receptions#give"
+    - "backend/receptions#new"
+    - "backend/receptions#order"
+    - "backend/receptions#prepare"
+    - "backend/receptions#update"
 
 incoming_payment_modes:
   read:
@@ -1539,26 +1549,25 @@ observations:
 outgoing_deliveries:
   read:
     actions:
-    - "backend/parcels#index"
-    - "backend/parcels#list"
-    - "backend/parcels#list_incoming_items"
-    - "backend/parcels#list_outgoing_items"
-    - "backend/parcels#show"
-    - "backend/parcels#unroll"
+    - "backend/shipments#index"
+    - "backend/shipments#list"
+    - "backend/shipments#list_items"
+    - "backend/shipments#show"
+    - "backend/shipments#unroll"
   write:
     dependencies:
     - read-outgoing_deliveries
     actions:
-    - "backend/parcels#cancel"
-    - "backend/parcels#check"
-    - "backend/parcels#create"
-    - "backend/parcels#destroy"
-    - "backend/parcels#edit"
-    - "backend/parcels#give"
-    - "backend/parcels#new"
-    - "backend/parcels#order"
-    - "backend/parcels#prepare"
-    - "backend/parcels#update"
+    - "backend/shipments#cancel"
+    - "backend/shipments#check"
+    - "backend/shipments#create"
+    - "backend/shipments#destroy"
+    - "backend/shipments#edit"
+    - "backend/shipments#give"
+    - "backend/shipments#new"
+    - "backend/shipments#order"
+    - "backend/shipments#prepare"
+    - "backend/shipments#update"
 
 outgoing_payment_lists:
   read:
@@ -1973,6 +1982,7 @@ purchases:
     - "backend/purchases#update"
     - "backend/quick_purchases#create"
     - "backend/quick_purchases#new"
+    - "backend/receptions#invoice"
 
 roles:
   read:
@@ -2078,6 +2088,7 @@ sales:
     - "backend/sales#propose_and_invoice"
     - "backend/sales#refuse"
     - "backend/sales#update"
+    - "backend/shipments#invoice"
   cancel:
     dependencies:
     - read-sales
@@ -2320,6 +2331,8 @@ transports:
     - "backend/deliveries#index"
     - "backend/deliveries#list"
     - "backend/deliveries#list_parcels"
+    - "backend/deliveries#list_receptions"
+    - "backend/deliveries#list_shipments"
     - "backend/deliveries#show"
     - "backend/deliveries#unroll"
   write:
@@ -2338,7 +2351,8 @@ transports:
     - "backend/deliveries#prepare"
     - "backend/deliveries#start"
     - "backend/deliveries#update"
-    - "backend/parcels#ship"
+    - "backend/receptions#ship"
+    - "backend/shipments#ship"
 
 users:
   read:

@@ -504,6 +504,18 @@ jpn:
       new: "新規購入/支払"
     backend/quick_sales:
       new: "新しいセール/入金"
+    backend/receptions:
+      # cancel: "Cancel reception: %{name}"
+      # check: "Check reception: %{name}"
+      # edit: "Edit reception: %{name}"
+      # give: "Give reception: %{name}"
+      # index: "Receptions"
+      # invoice: "Invoice reception: %{name}"
+      # new: "New reception"
+      # order: "Order reception: %{name}"
+      # prepare: "Prepare reception: %{name}"
+      # ship: "Ship reception: %{name}"
+      # show: "Reception: %{name}"
     backend/registrations:
       edit: "編集登録"
       index: "登録"
@@ -547,6 +559,18 @@ jpn:
       index: "決済"
       new: "新しい決済"
       # show: "Settlement: %{name}"
+    backend/shipments:
+      # cancel: "Cancel shipment: %{name}"
+      # check: "Check shipment: %{name}"
+      # edit: "Edit shipment: %{name}"
+      # give: "Give shipment: %{name}"
+      # index: "Shipments"
+      # invoice: "Invoice shipment: %{name}"
+      # new: "New shipment"
+      # order: "Order shipment: %{name}"
+      # prepare: "Prepare shipment: %{name}"
+      # ship: "Ship shipment: %{name}"
+      # show: "Shipment: %{name}"
     backend/subscription_natures:
       # edit: "Edit subscription type: %{name}"
       index: "サブスクリプションの種類"
@@ -1397,6 +1421,8 @@ jpn:
     new_production: "新生産"
     # new_production_of_activity: "New production of %{activity}"
     new_quote: "新しい引用"
+    # new_reception: "New reception"
+    # new_shipment: "New shipment"
     new_writing: "新規書き込み"
     next: "次"
     nitrogen_concentration: "窒素濃度"
@@ -1546,8 +1572,13 @@ jpn:
     readings: "音読み"
     ready: "レディー"
     ready_to_harvest: "収穫の準備完了"
+    # receipt_date: "Receipt date"
+    # receipt_responsible: "Receipt responsible"
     received: "受け"
+    # receiving_address: "Receiving address"
     recent_events: "最近のイベント"
+    # reception_number: "Reception number"
+    # receptions: "Receptions"
     record: "記録"
     record_maintenance: "記録管理"
     reflect: "反映します"
@@ -1925,6 +1956,9 @@ jpn:
     x_readings:
       # one: "%{count} reading"
       # other: "%{count} readings"
+    x_receptions:
+      # one: "%{count} reception"
+      # other: "%{count} receptions"
     x_results:
       # one: "%{count} result found"
       # other: "%{count} results found"
@@ -1940,6 +1974,9 @@ jpn:
     x_seconds:
       # one: "%{count} second"
       # other: "%{count} seconds"
+    x_shipments:
+      # one: "%{count} shipment"
+      # other: "%{count} shipments"
     x_subscriptions:
       # one: "%{count} subscription"
       # other: "%{count} subscriptions"

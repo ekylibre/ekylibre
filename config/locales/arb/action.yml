@@ -641,6 +641,18 @@ arb:
       new: "شراء الجديد / دفع المنتهية ولايته"
     backend/quick_sales:
       new: "بيع جديد / دفع الواردة"
+    backend/receptions:
+      # cancel: "Cancel reception: %{name}"
+      # check: "Check reception: %{name}"
+      # edit: "Edit reception: %{name}"
+      # give: "Give reception: %{name}"
+      # index: "Receptions"
+      # invoice: "Invoice reception: %{name}"
+      # new: "New reception"
+      # order: "Order reception: %{name}"
+      # prepare: "Prepare reception: %{name}"
+      # ship: "Ship reception: %{name}"
+      # show: "Reception: %{name}"
     backend/registrations:
       edit: "تسجيل تحرير"
       index: "التسجيلات"
@@ -695,6 +707,18 @@ arb:
       index: "المستوطنات"
       new: "مستوطنة جديدة"
       # show: "Settlement: %{name}"
+    backend/shipments:
+      # cancel: "Cancel shipment: %{name}"
+      # check: "Check shipment: %{name}"
+      # edit: "Edit shipment: %{name}"
+      # give: "Give shipment: %{name}"
+      # index: "Shipments"
+      # invoice: "Invoice shipment: %{name}"
+      # new: "New shipment"
+      # order: "Order shipment: %{name}"
+      # prepare: "Prepare shipment: %{name}"
+      # ship: "Ship shipment: %{name}"
+      # show: "Shipment: %{name}"
     backend/stock_moves: #?
       edit: "تعديل حركة سهم : %{name}" #?
       new: "التسجيل لحركة السهم" #?
@@ -1793,7 +1817,9 @@ arb:
     new_production: "إنتاج جديد"
     # new_production_of_activity: "New production of %{activity}"
     new_quote: "اقتباس جديد"
+    # new_reception: "New reception"
     new_sale: "بيعة جديدة" #?
+    # new_shipment: "New shipment"
     new_title: "عنوان جديد" #?
     new_value: "قيمة جديدة" #?
     new_writing: "الكتابة الجديدة"
@@ -2016,8 +2042,13 @@ arb:
     readings: "قراءات"
     ready: "جاهز"
     ready_to_harvest: "استعداد لموسم الحصاد"
+    # receipt_date: "Receipt date"
+    # receipt_responsible: "Receipt responsible"
     received: "مستلم"
+    # receiving_address: "Receiving address"
     recent_events: "الاحداث الاخيرة"
+    # reception_number: "Reception number"
+    # receptions: "Receptions"
     record: "سجل"
     record_has_been_correctly_removed: "قد تم حذف السجلات بشكل صحيح" #?
     record_has_not_been_removed: "لم يتم حذف السجلات" #?
@@ -2529,6 +2560,9 @@ arb:
     x_readings:
       # one: "%{count} reading"
       # other: "%{count} readings"
+    x_receptions:
+      # one: "%{count} reception"
+      # other: "%{count} receptions"
     x_results:
       # one: "%{count} result found"
       # other: "%{count} results found"
@@ -2545,6 +2579,9 @@ arb:
     x_seconds:
       # one: "%{count} second"
       # other: "%{count} seconds"
+    x_shipments:
+      # one: "%{count} shipment"
+      # other: "%{count} shipments"
     x_subscriptions:
       one: "اشتراك واحد"
       other: "%{count} اشتراكات اخرى"

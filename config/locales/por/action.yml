@@ -509,6 +509,18 @@ por:
       new: "Nova Compra / pagamento de saída"
     backend/quick_sales:
       new: "Novo Venda / entrada de pagamento"
+    backend/receptions:
+      # cancel: "Cancel reception: %{name}"
+      # check: "Check reception: %{name}"
+      # edit: "Edit reception: %{name}"
+      # give: "Give reception: %{name}"
+      # index: "Receptions"
+      # invoice: "Invoice reception: %{name}"
+      # new: "New reception"
+      # order: "Order reception: %{name}"
+      # prepare: "Prepare reception: %{name}"
+      # ship: "Ship reception: %{name}"
+      # show: "Reception: %{name}"
     backend/registrations:
       edit: "Registro Editar"
       index: "Inscrições"
@@ -552,6 +564,18 @@ por:
       index: "Assentamentos"
       new: "Novo assentamento"
       # show: "Settlement: %{name}"
+    backend/shipments:
+      # cancel: "Cancel shipment: %{name}"
+      # check: "Check shipment: %{name}"
+      # edit: "Edit shipment: %{name}"
+      # give: "Give shipment: %{name}"
+      # index: "Shipments"
+      # invoice: "Invoice shipment: %{name}"
+      # new: "New shipment"
+      # order: "Order shipment: %{name}"
+      # prepare: "Prepare shipment: %{name}"
+      # ship: "Ship shipment: %{name}"
+      # show: "Shipment: %{name}"
     backend/subscription_natures:
       # edit: "Edit subscription type: %{name}"
       index: "Tipos de assinatura"
@@ -1330,6 +1354,8 @@ por:
     new_production: "Nova produção"
     # new_production_of_activity: "New production of %{activity}"
     new_quote: "Nova citação"
+    # new_reception: "New reception"
+    # new_shipment: "New shipment"
     new_writing: "Nova redação"
     next: "Próximo"
     nitrogen_concentration: "A concentração de azoto"
@@ -1479,8 +1505,13 @@ por:
     readings: "Leituras"
     ready: "Pronto"
     ready_to_harvest: "Pronto para colher"
+    # receipt_date: "Receipt date"
+    # receipt_responsible: "Receipt responsible"
     received: "Recebido"
+    # receiving_address: "Receiving address"
     recent_events: "Eventos recentes"
+    # reception_number: "Reception number"
+    # receptions: "Receptions"
     record: "Registro"
     record_maintenance: "Manutenção de registros"
     reflect: "Refletir"
@@ -1857,6 +1888,9 @@ por:
     x_readings:
       # one: "%{count} reading"
       # other: "%{count} readings"
+    x_receptions:
+      # one: "%{count} reception"
+      # other: "%{count} receptions"
     x_results:
       # one: "%{count} result found"
       # other: "%{count} results found"
@@ -1872,6 +1906,9 @@ por:
     x_seconds:
       # one: "%{count} second"
       # other: "%{count} seconds"
+    x_shipments:
+      # one: "%{count} shipment"
+      # other: "%{count} shipments"
     x_subscriptions:
       # one: "%{count} subscription"
       # other: "%{count} subscriptions"

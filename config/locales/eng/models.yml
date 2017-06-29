@@ -358,6 +358,7 @@ eng:
       purchase_item: "Purchase item"
       purchase_nature: "Purchase type"
       purchase_payment: "Disbursement"
+      # reception: "Reception"
       regularization: "Regularization"
       role: "Role"
       sale: "Sale"
@@ -370,6 +371,7 @@ eng:
       sensor: "Sensor"
       sequence: "Sequence"
       settlement: "Settlement"
+      # shipment: "Shipment"
       sub_zone: "Sub-zone"
       subscription: "Subscription"
       subscription_nature: "Subscription type"
@@ -859,7 +861,7 @@ eng:
     in_preparation_at: "In preparation at"
     included: "Included" #?
     incoming_parcel_item: "Incoming delivery item"
-    incoming_parcels: "Incoming deliveries"
+    incoming_parcels: "Incoming deliveries" #?
     incoming_payment_modes: "Incoming payment modes"
     incoming_payments: "Incoming payments"
     indicator: "Indicator"
@@ -1123,7 +1125,7 @@ eng:
     outcoming_product: "Outcoming product"
     outgoing_parcel_item: "Outgoing parcel item"
     outgoing_parcel_items: "Outgoing parcel items" #?
-    outgoing_parcels: "Outgoing parcels"
+    outgoing_parcels: "Outgoing parcels" #?
     outgoing_payment_modes: "Disbursement modes"
     outgoing_payments: "Disbursements"
     outputs: "Outputs"
@@ -1296,6 +1298,7 @@ eng:
     reception_cash: "Reception cash"
     reception_currency: "Reception currency"
     reception_journal_entry: "Reception journal entry"
+    receptions: "Receptions"
     recipient: "Recipient"
     recommended: "Recommended" #?
     recommender: "Recommender"
@@ -1405,6 +1408,7 @@ eng:
     shape: "Shape"
     shift_duration: "Shift duration"
     shift_method: "Shift method"
+    shipments: "Shipments"
     sign_in_count: "Sign in count"
     signup_at: "Signup at"
     siren: "SIREN"
@@ -1553,6 +1557,7 @@ eng:
     # unpointed_main_journal_entry_items: "Unpointed main journal entry items"
     # unpointed_suspended_journal_entry_items: "Unpointed suspended journal entry items"
     unread_notifications: "Unread notifications"
+    untimely_delivery: "Untimely delivery"
     untreated_zone_margin: "Untreated zone margin" #?
     updated_at: "Updated at"
     updater: "Updater"

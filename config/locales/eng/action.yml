@@ -512,7 +512,7 @@ eng:
     backend/parcels:
       # cancel: "Cancel parcel: %{name}"
       # check: "Check parcel: %{name}"
-      edit: "Edit %{nature} parcel: %{number}"
+      edit: "Edit %{nature} parcel: %{number}" #?
       # give: "Give parcel: %{name}"
       index: "Parcels"
       # invoice: "Invoice parcel: %{name}"
@@ -655,6 +655,18 @@ eng:
       new: "New Purchase/Disbursement"
     backend/quick_sales:
       new: "New Sale/Incoming payment"
+    backend/receptions:
+      cancel: "Cancel reception: %{name}"
+      check: "Check reception: %{name}"
+      edit: "Edit reception: %{name}"
+      give: "Give reception: %{name}"
+      index: "Receptions"
+      invoice: "Invoice reception: %{name}"
+      new: "New reception"
+      order: "Order reception: %{name}"
+      prepare: "Prepare reception: %{name}"
+      ship: "Ship reception: %{name}"
+      show: "Reception: %{name}"
     backend/registrations:
       edit: "Edit registration"
       index: "Registrations"
@@ -747,6 +759,18 @@ eng:
       new: "New settlement"
       show: "Settlement: %{name}"
       # take: "Take settlement: %{name}"
+    backend/shipments:
+      cancel: "Cancel shipment: %{name}"
+      check: "Check shipment: %{name}"
+      edit: "Edit shipment: %{name}"
+      give: "Give shipment: %{name}"
+      index: "Shipments"
+      invoice: "Invoice shipment: %{name}"
+      new: "New shipment"
+      order: "Order shipment: %{name}"
+      prepare: "Prepare shipment: %{name}"
+      ship: "Ship shipment: %{name}"
+      show: "Shipment: %{name}"
     backend/snippets:
       # toggle: "Toggle snippet: %{name}"
     backend/subscription_natures:
@@ -1223,7 +1247,7 @@ eng:
     delete_request: "Delete also the request associate to the selected intervention(s)" #?
     delete_selected_interventions: "Delete the selected interventions"
     deliver: "Delivered on" #?
-    deliveries: "Deliveries" #?
+    deliveries: "Deliveries"
     delivery: "Delivery" #?
     delta: "+/-"
     deposit: "Deposit"
@@ -1564,6 +1588,8 @@ eng:
     new_production: "New production"
     new_production_of_activity: "New production of %{activity}"
     new_quote: "New quote"
+    new_reception: "New reception"
+    new_shipment: "New shipment"
     new_writing: "New writing"
     next: "Next"
     nitrogen_concentration: "Nitrogen concentration" #?
@@ -1623,7 +1649,7 @@ eng:
     parameter_error_miscibility: "Missing MAAID number"
     parameters: "Parameters"
     parcel_items: "Parcel items"
-    parcels: "Parcels"
+    parcels: "Parcels" #?
     partially_lettered: "Partially lettered" #?
     participants: "Participants"
     participations: "Participations"
@@ -1711,8 +1737,13 @@ eng:
     readings: "Readings"
     ready: "Ready"
     ready_to_harvest: "Ready to harvest"
+    receipt_date: "Receipt date"
+    receipt_responsible: "Receipt responsible"
     received: "Received" #?
+    receiving_address: "Receiving address"
     recent_events: "Recent events"
+    reception_number: "Reception number"
+    receptions: "Receptions"
     record: "Record" #?
     record_maintenance: "Record maintenance"
     reflect: "Reflect" #?
@@ -1792,6 +1823,7 @@ eng:
     sex: "Sex" #?
     shape: "Shape" #?
     ship: "Ship" #?
+    # shipments: "Shipments"
     show: "Show"
     sign_out: "Sign out" #?
     simplified: "Simplified Accounting" #?
@@ -2084,6 +2116,9 @@ eng:
     x_readings:
       one: "%{count} reading"
       other: "%{count} readings"
+    x_receptions:
+      one: "%{count} reception"
+      other: "%{count} receptions"
     x_results:
       one: "%{count} result found"
       other: "%{count} results found"
@@ -2099,6 +2134,9 @@ eng:
     x_seconds:
       one: "%{count} second"
       other: "%{count} seconds"
+    x_shipments:
+      one: "%{count} shipment"
+      other: "%{count} shipments"
     x_subscriptions:
       one: "%{count} subscription"
       other: "%{count} subscriptions"

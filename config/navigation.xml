@@ -16,8 +16,8 @@
         <page to="backend/entities#list_issues"/>
         <page to="backend/entities#list_links"/>
         <page to="backend/entities#list_contracts"/>
-        <page to="backend/entities#list_incoming_parcels"/>
-        <page to="backend/entities#list_outgoing_parcels"/>
+        <page to="backend/entities#list_incoming_parcels" nonexistent="true"/>
+        <page to="backend/entities#list_outgoing_parcels" nonexistent="true"/>
         <page to="backend/entities#list_observations"/>
         <page to="backend/entities#list_purchase_payments"/>
         <page to="backend/entities#list_purchases"/>
@@ -580,27 +580,49 @@
         <page to="backend/inventories#update"/>
       </item>
     </group>
-    <group name="movements" icon="truck">
-      <item name="parcels">
-        <page to="backend/parcels#index"/>
-        <page to="backend/parcels#create"/>
-        <page to="backend/parcels#destroy"/>
-        <page to="backend/parcels#edit"/>
-        <page to="backend/parcels#invoice"/>
-        <page to="backend/parcels#list"/>
-        <page to="backend/parcels#list_incoming_items"/>
-        <page to="backend/parcels#list_outgoing_items"/>
-        <page to="backend/parcels#new"/>
-        <page to="backend/parcels#ship"/>
-        <page to="backend/parcels#show"/>
-        <page to="backend/parcels#unroll"/>
-        <page to="backend/parcels#update"/>
-        <page to="backend/parcels#cancel"/>
-        <page to="backend/parcels#check"/>
-        <page to="backend/parcels#give"/>
-        <page to="backend/parcels#order"/>
-        <page to="backend/parcels#prepare"/>
+    <group name="receptions" icon="truck">
+      <item name="receptions">
+        <page to="backend/receptions#index"/>
+        <page to="backend/receptions#create"/>
+        <page to="backend/receptions#destroy"/>
+        <page to="backend/receptions#edit"/>
+        <page to="backend/receptions#invoice"/>
+        <page to="backend/receptions#list"/>
+        <page to="backend/receptions#new"/>
+        <page to="backend/receptions#ship"/>
+        <page to="backend/receptions#show"/>
+        <page to="backend/receptions#unroll"/>
+        <page to="backend/receptions#update"/>
+        <page to="backend/receptions#cancel"/>
+        <page to="backend/receptions#check"/>
+        <page to="backend/receptions#give"/>
+        <page to="backend/receptions#order"/>
+        <page to="backend/receptions#prepare"/>
+        <page to="backend/receptions#list_items"/>
       </item>
+    </group>
+    <group name="shipments" icon="truck">
+      <item name="shipments">
+        <page to="backend/shipments#index"/>
+        <page to="backend/shipments#create"/>
+        <page to="backend/shipments#destroy"/>
+        <page to="backend/shipments#edit"/>
+        <page to="backend/shipments#invoice"/>
+        <page to="backend/shipments#list"/>
+        <page to="backend/shipments#new"/>
+        <page to="backend/shipments#ship"/>
+        <page to="backend/shipments#show"/>
+        <page to="backend/shipments#unroll"/>
+        <page to="backend/shipments#update"/>
+        <page to="backend/shipments#cancel"/>
+        <page to="backend/shipments#check"/>
+        <page to="backend/shipments#give"/>
+        <page to="backend/shipments#order"/>
+        <page to="backend/shipments#prepare"/>
+        <page to="backend/shipments#list_items"/>
+      </item>
+    </group>
+    <group name="deliveries" icon="truck">
       <item name="deliveries">
         <page to="backend/deliveries#index"/>
         <page to="backend/deliveries#create"/>
@@ -608,6 +630,8 @@
         <page to="backend/deliveries#edit"/>
         <page to="backend/deliveries#list"/>
         <page to="backend/deliveries#list_parcels"/>
+        <page to="backend/deliveries#list_receptions"/>
+        <page to="backend/deliveries#list_shipments"/>
         <page to="backend/deliveries#new"/>
         <page to="backend/deliveries#show"/>
         <page to="backend/deliveries#unroll"/>
@@ -2030,9 +2054,28 @@
         <page to="backend/outgoing_payments#unroll"/>
         <page to="backend/outgoing_payments#update"/>
       </item>
+      <group>
+        <item name="parcels">
+          <page to="backend/parcels#index"/>
+          <page to="backend/parcels#cancel"/>
+          <page to="backend/parcels#check"/>
+          <page to="backend/parcels#give"/>
+          <page to="backend/parcels#invoice"/>
+          <page to="backend/parcels#new"/>
+          <page to="backend/parcels#order"/>
+          <page to="backend/parcels#prepare"/>
+          <page to="backend/parcels#ship"/>
+          <page to="backend/parcels#show"/>
+        </item>
+      </group>
     </group>
   </inaccessible-actions>
   <untreated-actions>
-    <group/>
+    <group>
+      <item name="entities">
+        <page to="backend/entities#list_receptions"/>
+        <page to="backend/entities#list_shipments"/>
+      </item>
+    </group>
   </untreated-actions>
 </navigation>

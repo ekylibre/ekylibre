@@ -504,6 +504,18 @@ ita:
       new: "Nuovo acquisto / pagamento in uscita"
     backend/quick_sales:
       new: "Nuova vendita / pagamento in entrata"
+    backend/receptions:
+      # cancel: "Cancel reception: %{name}"
+      # check: "Check reception: %{name}"
+      # edit: "Edit reception: %{name}"
+      # give: "Give reception: %{name}"
+      # index: "Receptions"
+      # invoice: "Invoice reception: %{name}"
+      # new: "New reception"
+      # order: "Order reception: %{name}"
+      # prepare: "Prepare reception: %{name}"
+      # ship: "Ship reception: %{name}"
+      # show: "Reception: %{name}"
     backend/registrations:
       edit: "Modifica registrazione"
       index: "Iscrizioni"
@@ -547,6 +559,18 @@ ita:
       index: "insediamenti"
       new: "nuovo insediamento"
       # show: "Settlement: %{name}"
+    backend/shipments:
+      # cancel: "Cancel shipment: %{name}"
+      # check: "Check shipment: %{name}"
+      # edit: "Edit shipment: %{name}"
+      # give: "Give shipment: %{name}"
+      # index: "Shipments"
+      # invoice: "Invoice shipment: %{name}"
+      # new: "New shipment"
+      # order: "Order shipment: %{name}"
+      # prepare: "Prepare shipment: %{name}"
+      # ship: "Ship shipment: %{name}"
+      # show: "Shipment: %{name}"
     backend/subscription_natures:
       # edit: "Edit subscription type: %{name}"
       index: "tipi di abbonamento"
@@ -1391,6 +1415,8 @@ ita:
     new_production: "nuova produzione"
     # new_production_of_activity: "New production of %{activity}"
     new_quote: "Nuovo preventivo"
+    # new_reception: "New reception"
+    # new_shipment: "New shipment"
     new_writing: "Nuovo iscritto"
     next: "Il prossimo"
     nitrogen_concentration: "concentrazione di azoto"
@@ -1540,8 +1566,13 @@ ita:
     readings: "letture"
     ready: "Pronto"
     ready_to_harvest: "Pronto a raccogliere"
+    # receipt_date: "Receipt date"
+    # receipt_responsible: "Receipt responsible"
     received: "ricevuto"
+    # receiving_address: "Receiving address"
     recent_events: "Eventi recenti"
+    # reception_number: "Reception number"
+    # receptions: "Receptions"
     record: "Disco"
     record_maintenance: "Record di manutenzione"
     reflect: "Riflettere"
@@ -1918,6 +1949,9 @@ ita:
     x_readings:
       # one: "%{count} reading"
       # other: "%{count} readings"
+    x_receptions:
+      # one: "%{count} reception"
+      # other: "%{count} receptions"
     x_results:
       # one: "%{count} result found"
       # other: "%{count} results found"
@@ -1933,6 +1967,9 @@ ita:
     x_seconds:
       # one: "%{count} second"
       # other: "%{count} seconds"
+    x_shipments:
+      # one: "%{count} shipment"
+      # other: "%{count} shipments"
     x_subscriptions:
       # one: "%{count} subscription"
       # other: "%{count} subscriptions"

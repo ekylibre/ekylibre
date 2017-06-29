@@ -209,7 +209,7 @@ module Backend
       t.column :bank_statement_number, through: :journal_entry, url: { controller: :bank_statements, id: 'RECORD.journal_entry.bank_statements.first.id'.c }, label: :bank_statement_number
     end
 
-    list(:incoming_parcels, model: :parcels, conditions: { sender_id: 'params[:id]'.c }, per_page: 5, order: { created_at: :desc }, line_class: :status) do |t|
+    list(:receptions, conditions: { sender_id: 'params[:id]'.c }, per_page: 5, order: { created_at: :desc }, line_class: :status) do |t|
       t.column :number, url: true
       t.column :content_sentence, label: :contains
       t.column :planned_at
@@ -218,7 +218,7 @@ module Backend
       t.column :purchase, url: true
     end
 
-    list(:outgoing_parcels, model: :parcels, conditions: { recipient_id: 'params[:id]'.c }, per_page: 5, order: { created_at: :desc }, line_class: :status) do |t|
+    list(:shipments, conditions: { recipient_id: 'params[:id]'.c }, per_page: 5, order: { created_at: :desc }, line_class: :status) do |t|
       t.column :number, url: true
       t.column :content_sentence, label: :contains
       t.column :planned_at

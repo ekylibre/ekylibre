@@ -437,6 +437,14 @@ eng:
       nature:
         payslip: "Payslip"
         purchase: "Purchase"
+    reception:
+      delivery_mode:
+        # third: "Third"
+        # transporter: "Transporter"
+        # us: "Us"
+      nature:
+        # incoming: "Incoming"
+        # outgoing: "Outgoing"
     sale_gap:
       direction:
         # loss: "Loss"
@@ -491,6 +499,14 @@ eng:
         sales_invoices: "Sales invoices"
         subscriptions: "Subscriptions"
         tax_declarations: "Tax declarations"
+    shipment:
+      delivery_mode:
+        # third: "Third"
+        # transporter: "Transporter"
+        # us: "Us"
+      nature:
+        # incoming: "Incoming"
+        # outgoing: "Outgoing"
     synchronization_operation:
       operation_name:
         authenticate: "Authentication"

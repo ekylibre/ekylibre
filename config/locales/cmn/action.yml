@@ -504,6 +504,18 @@ cmn:
       new: "新的采购/付款"
     backend/quick_sales:
       new: "新的销售/收款"
+    backend/receptions:
+      # cancel: "Cancel reception: %{name}"
+      # check: "Check reception: %{name}"
+      # edit: "Edit reception: %{name}"
+      # give: "Give reception: %{name}"
+      # index: "Receptions"
+      # invoice: "Invoice reception: %{name}"
+      # new: "New reception"
+      # order: "Order reception: %{name}"
+      # prepare: "Prepare reception: %{name}"
+      # ship: "Ship reception: %{name}"
+      # show: "Reception: %{name}"
     backend/registrations:
       edit: "编辑注册"
       index: "注册"
@@ -547,6 +559,18 @@ cmn:
       index: "住区"
       new: "新的解决"
       # show: "Settlement: %{name}"
+    backend/shipments:
+      # cancel: "Cancel shipment: %{name}"
+      # check: "Check shipment: %{name}"
+      # edit: "Edit shipment: %{name}"
+      # give: "Give shipment: %{name}"
+      # index: "Shipments"
+      # invoice: "Invoice shipment: %{name}"
+      # new: "New shipment"
+      # order: "Order shipment: %{name}"
+      # prepare: "Prepare shipment: %{name}"
+      # ship: "Ship shipment: %{name}"
+      # show: "Shipment: %{name}"
     backend/subscription_natures:
       # edit: "Edit subscription type: %{name}"
       index: "订阅类型"
@@ -1326,6 +1350,8 @@ cmn:
     new_production: "新的生产"
     # new_production_of_activity: "New production of %{activity}"
     new_quote: "新报价"
+    # new_reception: "New reception"
+    # new_shipment: "New shipment"
     new_writing: "新的写作"
     next: "下一个"
     nitrogen_concentration: "氮浓度"
@@ -1475,8 +1501,13 @@ cmn:
     readings: "阅读"
     ready: "准备"
     ready_to_harvest: "准备收获"
+    # receipt_date: "Receipt date"
+    # receipt_responsible: "Receipt responsible"
     received: "收到"
+    # receiving_address: "Receiving address"
     recent_events: "最近发生的事件"
+    # reception_number: "Reception number"
+    # receptions: "Receptions"
     record: "记录"
     record_maintenance: "维修记录"
     reflect: "反映"
@@ -1853,6 +1884,9 @@ cmn:
     x_readings:
       # one: "%{count} reading"
       # other: "%{count} readings"
+    x_receptions:
+      # one: "%{count} reception"
+      # other: "%{count} receptions"
     x_results:
       # one: "%{count} result found"
       # other: "%{count} results found"
@@ -1868,6 +1902,9 @@ cmn:
     x_seconds:
       # one: "%{count} second"
       # other: "%{count} seconds"
+    x_shipments:
+      # one: "%{count} shipment"
+      # other: "%{count} shipments"
     x_subscriptions:
       # one: "%{count} subscription"
       # other: "%{count} subscriptions"

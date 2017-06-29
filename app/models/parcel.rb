@@ -54,7 +54,9 @@
 #  state                                :string           not null
 #  storage_id                           :integer
 #  transporter_id                       :integer
+#  type                                 :string
 #  undelivered_invoice_journal_entry_id :integer
+#  untimely_delivery                    :boolean
 #  updated_at                           :datetime         not null
 #  updater_id                           :integer
 #  with_delivery                        :boolean          default(FALSE), not null
@@ -72,11 +74,7 @@ class Parcel < Ekylibre::Record::Base
   belongs_to :journal_entry, dependent: :destroy
   belongs_to :undelivered_invoice_journal_entry, class_name: 'JournalEntry', dependent: :destroy
   belongs_to :storage, class_name: 'Product'
-  belongs_to :sale, inverse_of: :parcels
-  belongs_to :purchase
-  belongs_to :recipient, class_name: 'Entity'
   belongs_to :responsible, class_name: 'User'
-  belongs_to :sender, class_name: 'Entity'
   belongs_to :transporter, class_name: 'Entity'
   belongs_to :contract
   has_many :items, class_name: 'ParcelItem', inverse_of: :parcel, foreign_key: :parcel_id, dependent: :destroy
@@ -92,14 +90,11 @@ class Parcel < Ekylibre::Record::Base
   validates :pretax_amount, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
   validates :reference_number, length: { maximum: 500 }, allow_blank: true
   validates :remain_owner, :with_delivery, inclusion: { in: [true, false] }
-  validates :separated_stock, inclusion: { in: [true, false] }, allow_blank: true
+  validates :separated_stock, :untimely_delivery, inclusion: { in: [true, false] }, allow_blank: true
   validates :state, presence: true, length: { maximum: 500 }
   # ]VALIDATORS]
   validates :delivery_mode, :address, presence: true
-  validates :recipient, presence: { if: :outgoing? }
-  validates :sender, presence: { if: :incoming? }
   validates :transporter, presence: { if: :delivery_mode_transporter? }
-  validates :storage, presence: { unless: :outgoing? }
 
   scope :without_transporter, -> { with_delivery_mode(:transporter).where(transporter_id: nil) }
   scope :with_delivery, -> { where(with_delivery: true) }
@@ -156,12 +151,6 @@ class Parcel < Ekylibre::Record::Base
       if delivery.transporter != transporter
         errors.add :transporter_id, :invalid
       end
-    end
-  end
-
-  after_initialize do
-    if new_record? && incoming?
-      self.address ||= Entity.of_company.default_mail_address
     end
   end
 
@@ -234,10 +223,6 @@ class Parcel < Ekylibre::Record::Base
     end
   end
 
-  def entity
-    incoming? ? sender : recipient
-  end
-
   def printed_at
     given_at || created_at || Time.zone.now
   end
@@ -294,6 +279,16 @@ class Parcel < Ekylibre::Record::Base
     nature.text
   end
 
+  def nature
+    ActiveSupport::Deprecation.warn('Parcel#nature is deprecated, please use Parcel#type instead. This method will be removed in next major release 3.0')
+    super
+  end
+
+  def nature=(value)
+    ActiveSupport::Deprecation.warn('Parcel#nature= is deprecated, please use STI instead. This method will be removed in next major release 3.0')
+    super(value)
+  end
+
   # Number of products delivered
   def items_quantity
     items.sum(:population)
@@ -321,14 +316,6 @@ class Parcel < Ekylibre::Record::Base
     else
       (issues? ? :stop : :caution)
     end
-  end
-
-  def third_id
-    (incoming? ? sender_id : recipient_id)
-  end
-
-  def third
-    (incoming? ? sender : recipient)
   end
 
   def order
@@ -424,115 +411,6 @@ class Parcel < Ekylibre::Record::Base
     # Returns an array of all the transporter ids for the given parcels
     def transporters_of(parcels)
       parcels.map(&:transporter_id).compact
-    end
-
-    # Convert parcels to one sale. Assume that all parcels are checked before.
-    # Sale is written in DB with default values
-    def convert_to_sale(parcels)
-      sale = nil
-      transaction do
-        parcels = parcels.collect do |d|
-          (d.is_a?(self) ? d : find(d))
-        end.sort_by(&:first_available_date)
-        third = detect_third(parcels)
-        planned_at = parcels.last.first_available_date || Time.zone.now
-        unless nature = SaleNature.actives.first
-          unless journal = Journal.sales.opened_on(planned_at).first
-            raise 'No sale journal'
-          end
-          nature = SaleNature.create!(
-            active: true,
-            currency: Preference[:currency],
-            with_accounting: true,
-            journal: journal,
-            by_default: true,
-            name: SaleNature.tc('default.name', default: SaleNature.model_name.human)
-          )
-        end
-        sale = Sale.create!(
-          client: third,
-          nature: nature,
-          # created_at: planned_at,
-          delivery_address: parcels.last.address
-        )
-
-        # Adds items
-        parcels.each do |parcel|
-          parcel.items.each do |item|
-            # raise "#{item.variant.name} cannot be sold" unless item.variant.saleable?
-            next unless item.variant.saleable? && item.population && item.population > 0
-            catalog_item = Catalog.by_default!(:sale).items.find_by(variant: item.variant)
-            item.sale_item = sale.items.create!(
-              variant: item.variant,
-              unit_pretax_amount: (catalog_item ? catalog_item.amount : 0.0),
-              tax: item.variant.category.sale_taxes.first || Tax.first,
-              quantity: item.population
-            )
-            item.save!
-          end
-          parcel.reload
-          parcel.sale_id = sale.id
-          parcel.save!
-        end
-
-        # Refreshes affair
-        sale.save!
-      end
-      sale
-    end
-
-    # Convert parcels to one purchase. Assume that all parcels are checked before.
-    # Purchase is written in DB with default values
-    def convert_to_purchase(parcels)
-      purchase = nil
-      transaction do
-        parcels = parcels.collect do |d|
-          (d.is_a?(self) ? d : find(d))
-        end.sort_by(&:first_available_date)
-        third = detect_third(parcels)
-        planned_at = parcels.last.first_available_date || Time.zone.now
-        unless nature = PurchaseNature.actives.first
-          unless journal = Journal.purchases.opened_on(planned_at).first
-            raise 'No purchase journal'
-          end
-          nature = PurchaseNature.create!(
-            active: true,
-            currency: Preference[:currency],
-            with_accounting: true,
-            journal: journal,
-            by_default: true,
-            name: PurchaseNature.tc('default.name', default: PurchaseNature.model_name.human)
-          )
-        end
-        purchase = Purchase.create!(
-          supplier: third,
-          nature: nature,
-          planned_at: planned_at,
-          delivery_address: parcels.last.address
-        )
-
-        # Adds items
-        parcels.each do |parcel|
-          parcel.items.each do |item|
-            next unless item.variant.purchasable? && item.population && item.population > 0
-            catalog_item = Catalog.by_default!(:purchase).items.find_by(variant: item.variant)
-            item.purchase_item = purchase.items.create!(
-              variant: item.variant,
-              unit_pretax_amount: (item.unit_pretax_amount.nil? || item.unit_pretax_amount.zero? ? (catalog_item ? catalog_item.amount : 0.0) : item.unit_pretax_amount),
-              tax: item.variant.category.purchase_taxes.first || Tax.first,
-              quantity: item.population
-            )
-            item.save!
-          end
-          parcel.reload
-          parcel.purchase = purchase
-          parcel.save!
-        end
-
-        # Refreshes affair
-        purchase.save!
-      end
-      purchase
     end
 
     def detect_third(parcels)

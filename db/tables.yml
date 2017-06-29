@@ -5049,9 +5049,13 @@ parcels:
   transporter_id:
     type: integer
     references: entity
+  type:
+    type: string
   undelivered_invoice_journal_entry_id:
     type: integer
     references: journal_entry
+  untimely_delivery:
+    type: boolean
   updated_at:
     type: datetime
     required: true

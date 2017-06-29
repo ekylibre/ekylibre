@@ -2164,6 +2164,7 @@ arb:
     reception_cash: "استقبال النقدية"
     reception_currency: "العملة الاستقبال"
     reception_journal_entry: "دخول مجلة الاستقبال"
+    # receptions: "Receptions"
     recipient: "مستلم"
     recommended: "موصى به"
     recommender: "المزكي"
@@ -2305,6 +2306,7 @@ arb:
     shape: "شكل"
     shift_duration: "مدة التحول"
     shift_method: "طريقة التحول"
+    # shipments: "Shipments"
     shipped: "المستلم" #?
     shipped_at: "شحنها يوم" #?
     sign_in_count: "تسجيل الدخول العد"
@@ -2486,6 +2488,7 @@ arb:
     unpointed_journal_entry_items: "البنود دخول مجلة مهمل"
     unquantifiable: "غير قابل للقياس" #?
     unread_notifications: "الإخطارات غير مقروءة"
+    # untimely_delivery: "Untimely delivery"
     untreated_zone_margin: "هامش منطقة غير المعالجة"
     updated_at: "تم تحديثه في"
     updater: "التحديث"
