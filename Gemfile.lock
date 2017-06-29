@@ -24,7 +24,7 @@ GEM
       rails-html-sanitizer (~> 1.0, >= 1.0.3)
     active_list (6.9.2)
       arel (>= 5.0.0)
-      code_string (>= 0.0.0)
+      code_string
       i18n-complements
       rails (>= 3.2, < 5.0.0)
       rubyzip (>= 1.0)
@@ -73,17 +73,17 @@ GEM
     beardley (1.4.2)
       rjb (>= 1.4.8)
       rjb-loader (>= 0.0.2)
-    beardley-barcode (1.0.0)
+    beardley-barcode (1.0.1)
       beardley
-    beardley-batik (1.0.0)
+    beardley-batik (1.0.1)
       beardley
-    beardley-charts (0.0.0)
+    beardley-charts (0.0.1)
       beardley
-    beardley-groovy (2.0.0)
+    beardley-groovy (2.0.1)
       beardley
-    beardley-open_sans (0.0.1)
+    beardley-open_sans (0.0.2)
       beardley
-    beardley-xml (1.1.1)
+    beardley-xml (1.1.2)
       beardley
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
@@ -514,7 +514,7 @@ GEM
     tilt (2.0.7)
     timecop (0.9.0)
     timeliness (0.3.8)
-    tins (1.14.0)
+    tins (1.15.0)
     treetop (1.6.8)
       polyglot (~> 0.3)
     turbolinks (2.5.3)
@@ -568,12 +568,12 @@ DEPENDENCIES
   apartment-sidekiq
   awesome_nested_set (~> 3.1.1)
   beardley (~> 1.3)
-  beardley-barcode
-  beardley-batik
-  beardley-charts
-  beardley-groovy
-  beardley-open_sans
-  beardley-xml
+  beardley-barcode (>= 1.0.1)
+  beardley-batik (>= 1.0.1)
+  beardley-charts (>= 0.0.1)
+  beardley-groovy (>= 2.0.1)
+  beardley-open_sans (>= 0.0.2)
+  beardley-xml (>= 1.1.2)
   binding_of_caller
   bootstrap-sass (~> 3.1)
   bootstrap-slider-rails
@@ -681,4 +681,4 @@ RUBY VERSION
    ruby 2.3.3p222
 
 BUNDLED WITH
-   1.14.6
+   1.15.1
