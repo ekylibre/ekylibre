@@ -156,6 +156,14 @@ class Preference < Ekylibre::Record::Base
     # Find and set preference with given value
     def set!(name, value, nature = nil)
       name = name.to_s
+
+      preferences = Preference.where(name: name).order(created_at: :asc)
+      if preferences.count > 1
+        removable_ids = preferences.ids
+        removable_ids.pop
+        Preference.delete_all(id: removable_ids)
+      end
+
       preference = Preference.find_by(name: name)
       if preference
         preference.reload
