@@ -141,12 +141,12 @@ gem 'treetop'
 # Reporting
 # Need rjb which need openjdk-7-jdk (sudo apt-get install openjdk-7-jdk)
 gem 'beardley', '~> 1.3', require: ENV['DISABLE_JAVA'] != '1'
-gem 'beardley-barcode', require: ENV['DISABLE_JAVA'] != '1'
-gem 'beardley-batik', require: ENV['DISABLE_JAVA'] != '1'
-gem 'beardley-charts', require: ENV['DISABLE_JAVA'] != '1'
-gem 'beardley-groovy', require: ENV['DISABLE_JAVA'] != '1'
-gem 'beardley-open_sans', require: ENV['DISABLE_JAVA'] != '1'
-gem 'beardley-xml', require: ENV['DISABLE_JAVA'] != '1'
+gem 'beardley-barcode', '>= 1.0.1', require: ENV['DISABLE_JAVA'] != '1'
+gem 'beardley-batik', '>= 1.0.1', require: ENV['DISABLE_JAVA'] != '1'
+gem 'beardley-charts', '>= 0.0.1', require: ENV['DISABLE_JAVA'] != '1'
+gem 'beardley-groovy', '>= 2.0.1', require: ENV['DISABLE_JAVA'] != '1'
+gem 'beardley-open_sans', '>= 0.0.2', require: ENV['DISABLE_JAVA'] != '1'
+gem 'beardley-xml', '>= 1.1.2', require: ENV['DISABLE_JAVA'] != '1'
 
 # Import/Export
 gem 'ekylibre-ofx-parser'
