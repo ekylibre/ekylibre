@@ -1222,6 +1222,7 @@ ita:
     input_cost_per_hectare: "costo di ingresso per ettaro" #?
     inputs: "ingressi"
     inspections: "ispezioni"
+    # interactive_maps: "A JS library for interactive maps"
     interface_preferences: "Preferenze di interfaccia"
     internal_error: "Ops, qualcosa è successo."
     interval: "Intervallo personalizzato"
@@ -1908,6 +1909,9 @@ ita:
     x_outgoing_payments:
       # one: "%{count} disbursement"
       # other: "%{count} disbursements"
+    x_purchase_payments:
+      # one: "%{count} purchase payment"
+      # other: "%{count} purchase payments"
     x_purchases:
       one: "1 acquisto"
       # other: "%{count} purchases"

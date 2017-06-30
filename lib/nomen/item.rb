@@ -1,3 +1,5 @@
+require 'set'
+
 module Nomen
   # An item of a nomenclature is the core data.
   class Item
@@ -18,6 +20,7 @@ module Nomen
         self.parent = parent
       end
       @attributes = {}.with_indifferent_access
+      @children = Set.new
       options.each do |k, v|
         set(k, v)
       end
@@ -29,6 +32,7 @@ module Nomen
 
     def parent=(item)
       old_parent_name = @parent_name
+      old_parent = @parent
       if item.nil?
         @parent = nil
         @parent_name = nil
@@ -39,13 +43,25 @@ module Nomen
         if item.nomenclature != nomenclature
           raise 'Item must come from same nomenclature'
         end
-        if item.parents.include?(self) || item == self
+        if item.parents.any? { |p| self == p } || self == item
           raise 'Circular dependency. Item can be parent of itself.'
         end
         @parent = item
         @parent_name = @parent.name.to_s
       end
-      @nomenclature.rebuild_tree! if old_parent_name != @parent_name
+      if old_parent_name != @parent_name
+        old_parent.delete_child(self) if old_parent
+        @parent.add_child(self) if @parent
+        @nomenclature.rebuild_tree!
+      end
+    end
+
+    def add_child(item)
+      @children << item
+    end
+
+    def delete_child(item)
+      @children.delete(item)
     end
 
     # Changes parent without rebuilding
@@ -59,7 +75,15 @@ module Nomen
     end
 
     def parent
-      @parent ||= @nomenclature.find(@parent_name)
+      return @parent if @parent
+      @parent = find_parent
+      @parent.add_child(self) if @parent
+      @parent
+    end
+    alias fetch_parent parent
+
+    def find_parent
+      @nomenclature.find(@parent_name)
     end
 
     def degree_of_kinship_with(other)
@@ -84,9 +108,7 @@ module Nomen
     def children(options = {})
       if options[:index].is_a?(FalseClass)
         if options[:recursively].is_a?(FalseClass)
-          nomenclature.list.select do |item|
-            (item.parent == self)
-          end
+          @children.to_a
         else
           children(index: false, recursive: false).each_with_object([]) do |item, list|
             list << item

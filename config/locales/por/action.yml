@@ -1161,6 +1161,7 @@ por:
     input_cost_per_hectare: "Custo de insumos por hectare" #?
     inputs: "Entradas"
     inspections: "inspeções"
+    # interactive_maps: "A JS library for interactive maps"
     interface_preferences: "Preferências de interface"
     internal_error: "Opa, algo aconteceu."
     interval: "Intervalo personalizado"
@@ -1847,6 +1848,9 @@ por:
     x_outgoing_payments:
       # one: "%{count} disbursement"
       # other: "%{count} disbursements"
+    x_purchase_payments:
+      # one: "%{count} purchase payment"
+      # other: "%{count} purchase payments"
     x_purchases:
       one: "1 de compra"
       # other: "%{count} purchases"

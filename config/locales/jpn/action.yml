@@ -1224,6 +1224,7 @@ jpn:
     input_cost_per_hectare: "ヘクタール当たりの入力コスト" #?
     inputs: "入力"
     inspections: "検査"
+    # interactive_maps: "A JS library for interactive maps"
     interface_preferences: "インターフェースのプリファレンス"
     internal_error: "おっと、何かが起こりました。"
     interval: "パーソナライズされた間隔"
@@ -1915,6 +1916,9 @@ jpn:
     x_outgoing_payments:
       # one: "%{count} disbursement"
       # other: "%{count} disbursements"
+    x_purchase_payments:
+      # one: "%{count} purchase payment"
+      # other: "%{count} purchase payments"
     x_purchases:
       one: "1購入"
       # other: "%{count} purchases"
