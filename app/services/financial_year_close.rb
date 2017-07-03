@@ -10,28 +10,31 @@ class FinancialYearClose
   end
 
   def execute
-    return false unless @year.closable?
-    ensure_closability!
+    begin
+      return false unless @year.closable?
+      ensure_closability!
 
-    ActiveRecord::Base.transaction do
-      @year.compute_balances!
+      ActiveRecord::Base.transaction do
+        @year.compute_balances!
 
-      generate_result_entry! if @result_journal
-      @progress.increment!
-
-      generate_carrying_forward_entry!
-      @progress.increment!
-
-      Journal.find_each do |journal|
-        journal.close!(@to_close_on) if journal.closed_on < @to_close_on
+        generate_result_entry! if @result_journal
         @progress.increment!
+
+        generate_carrying_forward_entry!
+        @progress.increment!
+
+        Journal.find_each do |journal|
+          journal.close!(@to_close_on) if journal.closed_on < @to_close_on
+          @progress.increment!
+        end
+
+        @year.update_attributes(stopped_on: @to_close_on, closed: true)
       end
 
-      @year.update_attributes(stopped_on: @to_close_on, closed: true)
+      true
+    ensure
+      @progress.clean!
     end
-    @progress.clean!
-
-    true
   end
 
   private
@@ -72,39 +75,42 @@ class FinancialYearClose
 
   # FIXME: Manage non-french accounts
   def generate_result_entry!
-    accounts = [:expenses, :revenues]
-    accounts = accounts.map { |acc| Nomen::Account.find(acc).send(Account.accounting_system) }
+    begin
+      accounts = [:expenses, :revenues]
+      accounts = accounts.map { |acc| Nomen::Account.find(acc).send(Account.accounting_system) }
 
-    total = account_balances_for(accounts).count + 1
-    progress = Progress.new(:close_result_entry, id: @year.id, max: total)
+      total = account_balances_for(accounts).count + 1
+      progress = Progress.new(:close_result_entry, id: @year.id, max: total)
 
-    items = account_balances_for(accounts).find_each.map do |account_balance|
-      progress.increment!
+      items = account_balances_for(accounts).find_each.map do |account_balance|
+        progress.increment!
 
-      {
-        account_id: account_balance.account_id,
-        name: account_balance.account.name,
-        real_debit: account_balance.balance_credit,
-        real_credit: account_balance.balance_debit
-      }
+        {
+          account_id: account_balance.account_id,
+          name: account_balance.account.name,
+          real_debit: account_balance.balance_credit,
+          real_credit: account_balance.balance_debit
+        }
+      end
+
+      return unless items.any?
+
+      # Since debit and credit are reversed, if result is positive, balance is a credit
+      # and so it's a profit
+      result = items.map { |i| i[:real_debit] - i[:real_credit] }.sum
+
+      items << loss_or_profit_item(result) unless result.zero?
+
+      @result_journal.entries.create!(
+        printed_on: @to_close_on,
+        currency: @result_journal.currency,
+        state: :confirmed,
+        items_attributes: items
+      )
+
+    ensure
+      progress.clean!
     end
-
-    return unless items.any?
-
-    # Since debit and credit are reversed, if result is positive, balance is a credit
-    # and so it's a profit
-    result = items.map { |i| i[:real_debit] - i[:real_credit] }.sum
-
-    items << loss_or_profit_item(result) unless result.zero?
-
-    @result_journal.entries.create!(
-      printed_on: @to_close_on,
-      currency: @result_journal.currency,
-      state: :confirmed,
-      items_attributes: items
-    )
-
-    progress.clean!
   end
 
   def loss_or_profit_item(result)
