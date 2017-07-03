@@ -8,16 +8,17 @@ class Progress
   DEFAULT_ID = 0
 
   def initialize(name, id: DEFAULT_ID, max: 100)
-    @name = name.underscore
+    @name = name.to_s.underscore
     @id = id
     @max = max
   end
 
   class << self
     def register(progress)
+      name = progress.name.to_s
       @progresses ||= {}
-      @progresses[progress.name] ||= {}
-      @progresses[progress.name][progress.id] = progress
+      @progresses[name] ||= {}
+      @progresses[name][progress.id] = progress
     end
 
     def unregister(name, id: DEFAULT_ID)
@@ -47,7 +48,7 @@ class Progress
     end
 
     def file_for(name, id)
-      Ekylibre::Tenant.private_directory.join('tmp', 'imports', "#{name.downcase.underscore}-#{id}.progress")
+      Ekylibre::Tenant.private_directory.join('tmp', 'imports', "#{name.to_s.downcase.underscore}-#{id}.progress")
     end
 
     private
@@ -58,6 +59,7 @@ class Progress
     end
 
     def registration(name, id)
+      name = name.to_s
       unregister(name, id: id) unless File.exist?(file_for(name, id))
       @progresses &&
         @progresses[name.underscore] &&
