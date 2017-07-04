@@ -74,25 +74,87 @@ class FinancialYearCloseTest < ActiveSupport::TestCase
 
   test 'products & expenses balance' do
     result = Journal.create!(name: 'Results TEST', code: 'RSTST', nature: :result)
-    test_account = Account.create!(name: 'Test601x', number: '6012')
-    JournalEntry.create!(journal: @dumpster_journal, printed_on:  @beginning + 2.days, items_attributes: [
-      {
-        name: 'Debit',
-        account: test_account,
-        real_debit: 5000
-      },
-      {
-        name: 'Credit',
-        account: @dumpster_account,
-        real_credit: 5000
-      }
-    ])
-    JournalEntry.find_each { |je| je.update(state: :confirmed) }
+    test_accounts = {
+      6012 => Account.create!(name: 'Test6x', number: '6012'),
+      6063 => Account.create!(name: 'Test6x2', number: '6063')
+    }
+
+    generate_entry(test_accounts[6012],  5000)
+    generate_entry(test_accounts[6063], -3000)
+    validate_fog
+
     close = FinancialYearClose.new(@year, @year.stopped_on, result_journal: result)
     close.execute
 
-    assert_equal 2, JournalEntry.count
-    assert_equal 0, test_account.journal_entry_items.sum('debit - credit')
-    assert_equal 5000, @losses.journal_entry_items.sum('debit - credit')
+    assert_equal 3, JournalEntry.count
+    assert_equal 0, test_accounts[6012].journal_entry_items.sum('debit - credit')
+    assert_equal 0, test_accounts[6063].journal_entry_items.sum('debit - credit')
+    assert_equal 2000, @losses.journal_entry_items.sum('debit - credit')
+  end
+
+  test 'Carry-forward letterable items' do
+    result = Journal.create!(name: 'Results TEST', code: 'RSTST', nature: :result)
+    closing = Journal.create!(name: 'Close TEST', code: 'CLOSTST', nature: :closure)
+    forward = Journal.create!(name: 'Forward TEST', code: 'FWDTST', nature: :forward)
+    test_accounts = [
+      nil,
+      Account.create!(name: 'Test1x', number: '1222'),
+      Account.create!(name: 'Test2x', number: '2111'),
+      Account.create!(name: 'Test3x', number: '3444'),
+      Account.create!(name: 'Test4x', number: '4333')
+    ]
+
+    generate_entry(test_accounts[1], 2000)
+    generate_entry(test_accounts[1],  300)
+    generate_entry(test_accounts[2], -500)
+    generate_entry(test_accounts[2], -300)
+    generate_entry(test_accounts[3],  200)
+    generate_entry(test_accounts[3],  200)
+    generate_entry(test_accounts[4], -465)
+    generate_entry(test_accounts[4], -300)
+    validate_fog
+
+    close = FinancialYearClose.new(@year, @year.stopped_on,
+                                   result_journal: result,
+                                   closure_journal: closing,
+                                   forward_journal: forward)
+    close.execute
+
+    assert_equal 10, @year.journal_entries.count
+
+    test_accounts[1..4].each do |account|
+      original_amount = account.journal_entry_items.order(:id).to_a[0..1].sum(&:balance)
+      this_years = account.journal_entry_items.where(financial_year: @year)
+      next_years = account.journal_entry_items.where(financial_year: @year.next)
+      assert_equal 3, this_years.count
+      assert_equal 1, next_years.count
+
+      assert_equal 0, this_years.sum('debit - credit')
+      assert_equal original_amount, next_years.sum('debit - credit')
+    end
+  end
+
+  private
+
+  def generate_entry(account, amount)
+    return if amount.zero?
+    side = amount > 0 ? :debit : :credit
+    other_side = amount < 0 ? :debit : :credit
+    JournalEntry.create!(journal: @dumpster_journal, printed_on:  @beginning + 2.days, items_attributes: [
+      {
+        name: side.to_s.capitalize,
+        account: account,
+        :"real_#{side}" => amount.abs
+      },
+      {
+        name: other_side.to_s.capitalize,
+        account: @dumpster_account,
+        :"real_#{other_side}" => amount.abs
+      }
+    ])
+  end
+
+  def validate_fog
+    JournalEntry.find_each { |je| je.update(state: :confirmed) }
   end
 end
