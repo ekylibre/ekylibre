@@ -1653,6 +1653,7 @@ arb:
     last_products: "آخر المنتجات"
     last_purchases: "مشاركة مشتريات"
     last_sales: "مشاركة المبيعات"
+    # late: "En retard"
     left_balance_amount: "ارجاء الرصيد السابق غير معلق وغير مكلف" #?
     letter: "مراسلة"
     letter_conclusion: ".أرجو أن تتقبلوا سادتي التعبير عن فائق احترامي" #?

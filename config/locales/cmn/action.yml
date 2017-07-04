@@ -1251,6 +1251,7 @@ cmn:
     last_products: "最新产品"
     last_purchases: "上次购买"
     last_sales: "去年销售"
+    # late: "En retard"
     letter: "信"
     # letterable: "Letterable"
     lettered: "英文字母"

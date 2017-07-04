@@ -12,7 +12,8 @@
     = f.referenced_association :transporter, source: :transporters, new: {transporter: 1}
   -#= f.referenced_association :sale
   = f.input :given_at, required: false, label: :receipt_date.tl
-  = f.input :untimely_delivery
+  = f.input :late_delivery, input_html: { data: { warn_if_checked: :late.tl.upcase } }
+  #warn-message
   = f.custom_fields
   = f.attachments
   -# = f.object.errors.inspect
@@ -26,7 +27,7 @@
           %th= ParcelItem.human_attribute_name(:product)
           %th= ParcelItem.human_attribute_name(:population)
           %th= ParcelItem.human_attribute_name(:unit_pretax_amount)
-          %th= ParcelItem.human_attribute_name(:analysis)
+          %th= ParcelItem.human_attribute_name(:storage)
 
       = f.simple_fields_for :items, f.object.items do |item|
         = render 'item_fields', f: item

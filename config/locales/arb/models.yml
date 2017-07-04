@@ -1762,6 +1762,7 @@ arb:
     last_transmission_at: "انتقال الماضي"
     last_value: "القيمة الأخيرة"
     last_year: "السنة السابقة"
+    # late_delivery: "Late delivery"
     latest: "آخر"
     latitude: "خطوط العرض" #?
     leaves_parameters: "يترك المعلمات"
@@ -2488,7 +2489,6 @@ arb:
     unpointed_journal_entry_items: "البنود دخول مجلة مهمل"
     unquantifiable: "غير قابل للقياس" #?
     unread_notifications: "الإخطارات غير مقروءة"
-    # untimely_delivery: "Untimely delivery"
     untreated_zone_margin: "هامش منطقة غير المعالجة"
     updated_at: "تم تحديثه في"
     updater: "التحديث"

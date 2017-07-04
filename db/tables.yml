@@ -4994,6 +4994,8 @@ parcels:
   journal_entry_id:
     type: integer
     references: journal_entry
+  late_delivery:
+    type: boolean
   lock_version:
     type: integer
     required: true
@@ -5054,8 +5056,6 @@ parcels:
   undelivered_invoice_journal_entry_id:
     type: integer
     references: journal_entry
-  untimely_delivery:
-    type: boolean
   updated_at:
     type: datetime
     required: true

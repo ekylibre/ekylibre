@@ -1316,6 +1316,7 @@ ita:
     last_products: "ultimi prodotti"
     last_purchases: "ultimi acquisti"
     last_sales: "ultimi vendite"
+    # late: "En retard"
     letter: "Lettera"
     # letterable: "Letterable"
     lettered: "Letterato"

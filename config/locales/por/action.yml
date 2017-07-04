@@ -1255,6 +1255,7 @@ por:
     last_products: "Últimos produtos"
     last_purchases: "Últimas compras"
     last_sales: "Últimos vendas"
+    # late: "En retard"
     letter: "Carta"
     # letterable: "Letterable"
     lettered: "Letrado"

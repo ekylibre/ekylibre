@@ -1318,6 +1318,7 @@ jpn:
     last_products: "最終製品"
     last_purchases: "最終購入"
     last_sales: "最終販売"
+    # late: "En retard"
     letter: "文字"
     # letterable: "Letterable"
     lettered: "文字入り"

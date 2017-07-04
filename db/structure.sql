@@ -4716,7 +4716,7 @@ CREATE TABLE parcels (
     pretax_amount numeric(19,4) DEFAULT 0.0 NOT NULL,
     responsible_id integer,
     type character varying,
-    untimely_delivery boolean
+    late_delivery boolean
 );
 
 
@@ -17858,4 +17858,6 @@ INSERT INTO schema_migrations (version) VALUES ('20170425145302');
 INSERT INTO schema_migrations (version) VALUES ('20170608081949');
 
 INSERT INTO schema_migrations (version) VALUES ('20170628125603');
+
+INSERT INTO schema_migrations (version) VALUES ('20170629133312');
 

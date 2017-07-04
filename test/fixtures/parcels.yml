@@ -35,6 +35,7 @@
 #  id                                   :integer          not null, primary key
 #  in_preparation_at                    :datetime
 #  journal_entry_id                     :integer
+#  late_delivery                        :boolean
 #  lock_version                         :integer          default(0), not null
 #  nature                               :string           not null
 #  number                               :string           not null
@@ -56,7 +57,6 @@
 #  transporter_id                       :integer
 #  type                                 :string
 #  undelivered_invoice_journal_entry_id :integer
-#  untimely_delivery                    :boolean
 #  updated_at                           :datetime         not null
 #  updater_id                           :integer
 #  with_delivery                        :boolean          default(FALSE), not null

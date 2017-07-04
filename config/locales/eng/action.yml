@@ -1489,6 +1489,7 @@ eng:
     last_products: "Last products" #?
     last_purchases: "Last purchases"
     last_sales: "Last sales"
+    late: "Late" #?
     letter: "Letter" #?
     letterable: "Letterable"
     lettered: "Lettered" #?

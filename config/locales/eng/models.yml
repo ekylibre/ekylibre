@@ -978,6 +978,7 @@ eng:
     last_transmission_at: "Last transmission"
     last_value: "Last value"
     last_year: "Last year"
+    late_delivery: "Late delivery"
     latest: "Latest"
     leaves_parameters: "Leaves parameters"
     lender: "Lender"
@@ -1557,7 +1558,6 @@ eng:
     # unpointed_main_journal_entry_items: "Unpointed main journal entry items"
     # unpointed_suspended_journal_entry_items: "Unpointed suspended journal entry items"
     unread_notifications: "Unread notifications"
-    untimely_delivery: "Untimely delivery"
     untreated_zone_margin: "Untreated zone margin" #?
     updated_at: "Updated at"
     updater: "Updater"
