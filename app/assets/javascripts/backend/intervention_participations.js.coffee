@@ -62,20 +62,11 @@
 
     return
 
-
-  $(document).on "submit", '.edit_intervention_participation, .new_intervention_participation', (event) ->
-    event.preventDefault()
-    event.stopImmediatePropagation()
-
-    @workingTimesModal = new ekylibre.modal('#working_times')
-    @workingTimesModal.getModal().modal 'hide'
-
-    return false
-
   $(document).on 'click', '#validParticipationsForm', (event) ->
     element = $(event.target)
 
     participation = new Object()
+    participation.id = $('#intervention_participation_id').val()
     participation.intervention_id = $('#intervention_participation_intervention_id').val()
     participation.product_id = $('#intervention_participation_product_id').val()
 
@@ -84,13 +75,14 @@
 
     $('.participation').each ->
       workingPeriod = new Object()
+      workingPeriod.id= $(this).find('input[name="working_period_id"]').val()
       workingPeriod.nature = $(this).find('input[name="working_period_nature"]').val()
       workingPeriod.started_at = $(this).find('input[name="working_period_started_at"]').val()
       workingPeriod.stopped_at = $(this).find('input[name="working_period_stopped_at"]').val()
 
       workingPeriods.push(workingPeriod)
 
-    participation.working_periods = workingPeriods
+    participation.working_periods_attributes = workingPeriods
     jsonParticipation = JSON.stringify(participation)
 
     participationsCount = $('input[name="intervention-participation"]').length

@@ -259,14 +259,17 @@ module Backend
     end
     
     def update
-      byebug
-      permitted_params[:participations_attributes] = JSON.parse(permitted_params[:participations_attributes])
+      participations = permitted_params[:participations_attributes]
+      participations.inject(participations){ |hash, (key, value)| hash[key] = JSON.parse(value) }
+      
+      permitted_params[:participations_attributes] = participations
 
       @intervention = find_and_check
 
-      # if @intervention.update_attributes(**permitted_params.symbolize_keys)
+      delete_working_periods(participations)
+
       if @intervention.update_attributes(permitted_params)
-        redirect_to :show
+        redirect_to action: :show
       else
         render :edit
       end
@@ -423,6 +426,26 @@ module Backend
         return nil
       end
       interventions
+    end
+
+    def delete_working_periods(form_participations)
+      working_periods_ids = form_participations
+                              .values
+                              .map{ |participation| participation["working_periods_attributes"].map{ |working_period| working_period["id"] }}
+                              .flatten
+                              .compact
+                              .uniq
+                              .map(&:to_i)
+      
+      saved_working_periods_ids = @intervention
+                                    .participations
+                                    .map{ |participation| participation.working_periods.map(&:id) }
+                                    .flatten
+      
+      working_periods_to_destroy = saved_working_periods_ids - working_periods_ids
+      InterventionWorkingPeriod.where(id: working_periods_to_destroy).destroy_all
+
+      @intervention.reload
     end
 
     def state_change_permitted_params

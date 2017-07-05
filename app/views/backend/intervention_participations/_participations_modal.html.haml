@@ -1,6 +1,7 @@
 - product_name = participation.product.nil? ? "" : participation.product.name
 = modal_header("Temps de travaux de \"#{ product_name  }\"")
 
+= hidden_field_tag "intervention_participation[id]", participation.id
 = hidden_field_tag "intervention_participation[intervention_id]", participation.intervention_id
 = hidden_field_tag "intervention_participation[product_id]", participation.product_id
 = hidden_field_tag 'intervention_started_at', participation.intervention.started_at.iso8601
