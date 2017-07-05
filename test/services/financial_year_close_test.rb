@@ -68,8 +68,11 @@ class FinancialYearCloseTest < ActiveSupport::TestCase
     @beginning = (Date.today - 1.month).beginning_of_month
     @end = (Date.today - 1.month).end_of_month
     @year = FinancialYear.create!(started_on: @beginning, stopped_on: @end)
+    @next_year = FinancialYear.ensure_exists_at! @end + 1.day
     @profits = Account.create!(name: 'FinancialYear result profit', number: '120')
     @losses = Account.create!(name: 'FinancialYear result loss', number: '129')
+    @open  = Account.create!(number: '89', name: 'Opening account')
+    @close = Account.create!(number: '891', name: 'Closing account')
   end
 
   test 'products & expenses balance' do
@@ -134,27 +137,81 @@ class FinancialYearCloseTest < ActiveSupport::TestCase
     end
   end
 
+  test 'lettered carry forward' do
+    result = Journal.create!(name: 'Results TEST', code: 'RSTST', nature: :result)
+    closing = Journal.create!(name: 'Close TEST', code: 'CLOSTST', nature: :closure)
+    forward = Journal.create!(name: 'Forward TEST', code: 'FWDTST', nature: :forward)
+    test_accounts = [
+      nil,
+      Account.create!(name: 'Test1x', number: '1222'),
+      Account.create!(name: 'Test2x', number: '2111'),
+      Account.create!(name: 'Test3x', number: '3444'),
+      Account.create!(name: 'Test4x', number: '4333')
+    ]
+
+    letter = test_accounts[4].new_letter
+    this_years = generate_entry(test_accounts[4],  400, letter: letter)
+    next_years = generate_entry(test_accounts[4], -400, letter: letter, printed_on: @end + 2.days)
+    validate_fog
+
+    close = FinancialYearClose.new(@year, @year.stopped_on,
+                                   result_journal: result,
+                                   closure_journal: closing,
+                                   forward_journal: forward)
+    close.execute
+
+    assert_equal 2, @year.journal_entries.count
+    assert_equal 2, @next_year.journal_entries.count
+
+    this_years_lettered_item = this_years.items.where.not(letter: nil).first
+    next_years_lettered_item = next_years.items.where.not(letter: nil).first
+
+    assert_equal     letter, this_years_lettered_item.letter
+    assert_not_equal letter, next_years_lettered_item.letter
+
+    assert_equal 0, this_years_lettered_item.letter_group.sum('debit - credit')
+    assert_equal 0, next_years_lettered_item.letter_group.sum('debit - credit')
+
+    next_years_matching = matching_lettered_item(next_years_lettered_item)
+    this_years_matching = matching_lettered_item(this_years_lettered_item)
+    assert_equal test_accounts[4], next_years_matching.account
+    assert_equal test_accounts[4], this_years_matching.account
+
+    assert_equal @open,  complementary_in_entry_of(next_years_matching).account
+    assert_equal @close, complementary_in_entry_of(this_years_matching).account
+  end
+
   private
 
-  def generate_entry(account, amount)
-    return if amount.zero?
-    side = amount > 0 ? :debit : :credit
-    other_side = amount < 0 ? :debit : :credit
-    JournalEntry.create!(journal: @dumpster_journal, printed_on:  @beginning + 2.days, items_attributes: [
+  def generate_entry(account, debit, letter: nil, printed_on: @beginning + 2.days)
+    return if debit.zero?
+    side = debit > 0 ? :debit : :credit
+    other_side = debit < 0 ? :debit : :credit
+    amount = debit.abs
+    JournalEntry.create!(journal: @dumpster_journal, printed_on:  printed_on, items_attributes: [
       {
         name: side.to_s.capitalize,
         account: account,
-        :"real_#{side}" => amount.abs
+        letter: letter,
+        :"real_#{side}" => amount
       },
       {
         name: other_side.to_s.capitalize,
         account: @dumpster_account,
-        :"real_#{other_side}" => amount.abs
+        :"real_#{other_side}" => amount
       }
     ])
   end
 
   def validate_fog
-    JournalEntry.find_each { |je| je.update(state: :confirmed) }
+    @year.journal_entries.find_each { |je| je.update(state: :confirmed) }
+  end
+
+  def matching_lettered_item(item)
+    (item.letter_group - [item]).first
+  end
+
+  def complementary_in_entry_of(item)
+    (item.entry.items - [item]).first
   end
 end
