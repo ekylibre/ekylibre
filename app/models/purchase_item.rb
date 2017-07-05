@@ -111,10 +111,15 @@ class PurchaseItem < Ekylibre::Record::Base
     self.quantity ||= 0
     self.reduction_percentage ||= 0
 
-    if preexisting_asset
-      self.depreciable_product = nil
+    if fixed
+      if preexisting_asset
+        self.depreciable_product = nil
+      else
+        self.fixed_asset = nil
+      end
     else
       self.fixed_asset = nil
+      self.depreciable_product = nil
     end
 
     if tax && unit_pretax_amount

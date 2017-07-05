@@ -18,7 +18,7 @@ If you are on Debian Jessie, please take a look at [detailed installation guide]
 
 ## 2. Ruby
 
-*   Install Ruby 2.2 or later. If your distribution isn't up-to-date, see
+*   Install Ruby 2.2. If your distribution isn't up-to-date, see
     [RVM](https://rvm.io) or [RbEnv](https://github.com/sstephenson/rbenv) to
     install the good version.
 
