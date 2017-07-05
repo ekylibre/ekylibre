@@ -260,7 +260,9 @@ module Backend
     
     def update
       participations = permitted_params[:participations_attributes]
-      participations.inject(participations){ |hash, (key, value)| hash[key] = JSON.parse(value) }
+      participations.each_pair do |key, value|
+        participations[key] = JSON.parse(value)
+      end
       
       permitted_params[:participations_attributes] = participations
 

@@ -69,9 +69,11 @@
     participation.id = $('#intervention_participation_id').val()
     participation.intervention_id = $('#intervention_participation_intervention_id').val()
     participation.product_id = $('#intervention_participation_product_id').val()
+    participation.state = "done"
 
     workingPeriods = []
     participations = $('.participation')
+    has_one_full_participation = false
 
     $('.participation').each ->
       workingPeriod = new Object()
@@ -80,15 +82,31 @@
       workingPeriod.started_at = $(this).find('input[name="working_period_started_at"]').val()
       workingPeriod.stopped_at = $(this).find('input[name="working_period_stopped_at"]').val()
 
+      if workingPeriod.started_at != "" && workingPeriod.stopped_at != ""
+        has_one_full_participation = true
+
       workingPeriods.push(workingPeriod)
 
     participation.working_periods_attributes = workingPeriods
     jsonParticipation = JSON.stringify(participation)
 
-    participationsCount = $('input[name="intervention-participation"]').length
+    participationsCount = $('input[type="hidden"].intervention-participation').length
+    existingParticipation = $('.intervention-participation[data-product-id="' + participation.product_id + '"]')
 
-    $('.edit_intervention .form-fields').append('<input type="hidden" class="intervention-participation" name="intervention[participations_attributes][' + participationsCount + ']" value=\'' + jsonParticipation + '\'></input>')
-    
+    if existingParticipation.length > 0
+      existingParticipation.val(jsonParticipation)
+    else
+      $('.edit_intervention .form-fields').append('<input type="hidden" class="intervention-participation" name="intervention[participations_attributes][' + participationsCount + ']" value=\'' + jsonParticipation + '\' data-product-id="' + participation.product_id  + '"></input>')
+   
+
+    concernedProductField = $('.nested-doers .nested-fields .selector .selector-value[value="' + participation.product_id + '"]')
+    nestedFieldBlock = concernedProductField.closest('.nested-fields')
+    productFieldPicto = nestedFieldBlock.find('.picto-timer-off')
+
+    if has_one_full_participation && productFieldPicto.length == 1
+      productFieldPicto.removeClass('picto-timer-off')
+      productFieldPicto.addClass('picto-timer')
+
     @workingTimesModal = new ekylibre.modal('#working_times')
     @workingTimesModal.getModal().modal 'hide'
 

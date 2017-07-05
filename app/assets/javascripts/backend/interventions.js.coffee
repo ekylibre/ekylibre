@@ -193,11 +193,12 @@
       $(document).on 'click', '.has-intervention-participations', (event) ->
 
         intervention_id = $('input[name="intervention_id"]').val()
-        product_id = $(event.target).closest('.nested-product-parameter').find(".scoped-parameter").attr('value')
+        product_id = $(event.target).closest('.nested-product-parameter').find(".selector .selector-value").val()
+        existingParticipation = $('.intervention-participation[data-product-id="' + product_id + '"]').val()
 
         $.ajax
           url: "/backend/intervention_participations/participations_modal",
-          data: { intervention_id: intervention_id, product_id: product_id }
+          data: { intervention_id: intervention_id, product_id: product_id, existing_participation: existingParticipation }
           success: (data, status, request) ->
 
             @workingTimesModal = new ekylibre.modal('#working_times')
@@ -273,22 +274,22 @@
     $(this).each ->
       E.interventions.updateAvailabilityInstant($(this).val())
 
-  $(document).on "click", ".nested-doers .nested-add", (e) ->
-    nestedField = $('.nested-doers .nested-fields').last()
+
+  $(document).on "selector:change", 'input[data-selector-id="intervention_doer_product_id"]', (event) ->
+    element = $(event.target)
+    blockElement = element.closest('.nested-fields')
+    
     pictoTimer = $('<div class="has-intervention-participations picto picto-timer-off"></div>')
 
-    $(nestedField).append(pictoTimer)
-    $(nestedField).find(".has-intervention-participations").trigger("click")
+    $(blockElement).append(pictoTimer)
 
-  # $(document).on "click", '.view-toolbar a', (event) ->
-  #   E.interventions.hideKujakuFilters($(event.target).is('[data-janus-href="cobbles"]'))
 
 
   $(document).ready ->
 
     # E.interventions.hideKujakuFilters($('.view-toolbar a[data-janus-href="cobbles"]').hasClass('active'))
 
-    if $('.edit_intervention').length > 0
+    if $('.new_intervention, .edit_intervention').length > 0
       E.interventions.showInterventionParticipationsModal()
 
     if $('.taskboard').length > 0

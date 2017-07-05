@@ -47,53 +47,18 @@ module Backend
       end
     end
 
-    def create
-      participation = InterventionParticipation.find_or_initialize_by(
-        product_id: permitted_params[:product_id],
-        intervention_id: permitted_params[:intervention_id]
-      )
-
-      participation.save if participation.new_record?
-
-      working_periods_ids = participation.working_periods.map(&:id)
-      params_ids = permitted_params[:working_periods_attributes].to_h.map { |param| param.second['id'].to_i }
-
-      working_periods_to_destroy = working_periods_ids - params_ids
-      InterventionWorkingPeriod.where(id: working_periods_to_destroy).destroy_all
-
-      permitted_params[:working_periods_attributes].values.each do |working_period_params|
-        nature = working_period_params[:nature]
-        started_at = Time.strptime(working_period_params[:started_at], t('time.formats.full'))
-        stopped_at = Time.strptime(working_period_params[:stopped_at], t('time.formats.full'))
-
-        next if nature.to_sym == :pause
-
-        if !working_period_params[:id].nil?
-          working_period = participation.working_periods.find(working_period_params[:id])
-          working_period.started_at = started_at
-          working_period.stopped_at = stopped_at
-          working_period.save
-        else
-          participation.working_periods.create!(
-            started_at: started_at,
-            stopped_at: stopped_at,
-            nature: nature.to_sym
-          )
-        end
-      end
-
-      participation.save
-
-      respond_to do |format|
-        format.js { render nothing: true }
-      end
-    end
-
     def participations_modal
-      participation = InterventionParticipation.find_or_initialize_by(
-        product_id: params[:product_id],
-        intervention_id: params[:intervention_id]
-      )
+      participation = nil
+
+      if params["existing_participation"].present?
+        json_participation = JSON.parse(params['existing_participation'])
+        participation = InterventionParticipation.new(json_participation)
+      else
+        participation = InterventionParticipation.find_or_initialize_by(
+          product_id: params[:product_id],
+          intervention_id: params[:intervention_id]
+        )
+      end
 
       render partial: 'backend/intervention_participations/participations_modal', locals: { participation: participation }
     end

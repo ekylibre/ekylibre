@@ -145,7 +145,8 @@ $preview-modal-height: 80vh;
   }
 }
 
-.edit_intervention {
+.edit_intervention,
+.new_intervention {
   .has-intervention-participations {
     position: relative;
     top: -$fs-large;
