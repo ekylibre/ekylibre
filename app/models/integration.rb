@@ -46,20 +46,22 @@ class Integration < Ekylibre::Record::Base
               converter: proc { |parameters| ActionIntegration::Parameters.cipher(parameters) }
 
   validate do
-    if integration_type
-      if authentication_mode == :check
-        check_connection attributes do |c|
-          c.redirect do
-            errors.add(:parameters, :check_redirected)
+    if ciphered_parameters_changed?
+      if integration_type
+        if authentication_mode == :check
+          check_connection attributes do |c|
+            c.redirect do
+              errors.add(:parameters, :check_redirected)
+            end
+            c.error do
+              errors.add(:parameters, :check_errored)
+            end
           end
-          c.error do
+        elsif authentication_mode == :check
+          list = parameters.keys.map(&:to_s)
+          unless parameters && !integration_type.parameters.detect { |p| list.include?(p.to_s) }
             errors.add(:parameters, :check_errored)
           end
-        end
-      elsif authentication_mode == :check
-        list = parameters.keys.map(&:to_s)
-        unless parameters && !integration_type.parameters.detect { |p| list.include?(p.to_s) }
-          errors.add(:parameters, :check_errored)
         end
       end
     end
@@ -88,5 +90,15 @@ class Integration < Ekylibre::Record::Base
 
   def name
     nature.to_s.camelize
+  end
+
+  def update_data(new_data)
+    update(data: data.merge(new_data))
+  end
+
+  class << self
+    def active?(name)
+      find_by(nature: name).present?
+    end
   end
 end

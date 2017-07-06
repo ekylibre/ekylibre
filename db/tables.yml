@@ -110,6 +110,8 @@ accounts:
   usages:
     type: text
 activities:
+  codes:
+    type: jsonb
   created_at:
     type: datetime
     required: true
@@ -1618,6 +1620,8 @@ crumbs:
     type: integer
     references: user
 cultivable_zones:
+  codes:
+    type: jsonb
   created_at:
     type: datetime
     required: true
@@ -6259,6 +6263,8 @@ products:
     type: integer
     references: product_nature_category
     required: true
+  codes:
+    type: jsonb
   country:
     type: string
   created_at:
