@@ -8,6 +8,7 @@ module ActionIntegration
     include_protocol ActionIntegration::Protocols::HTML
     include_protocol ActionIntegration::Protocols::JSON
     include_protocol ActionIntegration::Protocols::Savon
+    include_protocol ActionIntegration::Protocols::XML
 
     def initialize(call)
       # Call object to which we'll delegate the http requests making up

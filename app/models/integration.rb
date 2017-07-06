@@ -95,4 +95,10 @@ class Integration < Ekylibre::Record::Base
   def update_data(new_data)
     update(data: data.merge(new_data))
   end
+
+  class << self
+    def active?(name)
+      find_by(nature: name).present?
+    end
+  end
 end
