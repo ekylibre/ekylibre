@@ -608,6 +608,18 @@ eng:
       new: "New product type"
       pick: "Pick product type"
       show: "Product type: %{name}"
+    backend/product_receptions:
+      cancel: "Cancel various product reception: %{name}"
+      check: "Check various product reception: %{name}"
+      edit: "Edit various product reception: %{name}"
+      give: "Give various product reception: %{name}"
+      index: "Various product receptions"
+      invoice: "Invoice various product reception: %{name}"
+      new: "New various product reception"
+      order: "Order various product reception: %{name}"
+      prepare: "Prepare various product reception: %{name}"
+      ship: "Ship various product reception: %{name}"
+      show: "Various product reception: %{name}"
     backend/products:
       edit: "Edit product: %{name}"
       index: "Products"
@@ -751,6 +763,18 @@ eng:
       load: "Load missing sequences"
       new: "New sequence"
       # show: "Sequence: %{name}"
+    backend/service_receptions:
+      cancel: "Cancel various service reception: %{name}"
+      check: "Check various service reception: %{name}"
+      edit: "Edit various service reception: %{name}"
+      give: "Give various service reception: %{name}"
+      index: "Various service receptions"
+      invoice: "Invoice various service reception: %{name}"
+      new: "New various service reception"
+      order: "Order various service reception: %{name}"
+      prepare: "Prepare various service reception: %{name}"
+      ship: "Ship various service reception: %{name}"
+      show: "Various service reception: %{name}"
     backend/settings:
       about: "About Ekylibre"
     backend/settlements:
@@ -1489,7 +1513,7 @@ eng:
     last_products: "Last products" #?
     last_purchases: "Last purchases"
     last_sales: "Last sales"
-    late: "Late" #?
+    late: "Late"
     letter: "Letter" #?
     letterable: "Letterable"
     lettered: "Lettered" #?
@@ -1589,7 +1613,7 @@ eng:
     new_production: "New production"
     new_production_of_activity: "New production of %{activity}"
     new_quote: "New quote"
-    new_reception: "New reception"
+    new_reception: "New reception : %{type}"
     new_shipment: "New shipment"
     new_writing: "New writing"
     next: "Next"
@@ -1706,6 +1730,7 @@ eng:
     product_category: "Product category" #?
     product_name: "Product name" #?
     product_natures: "Product types"
+    product_reception: "Product reception" #?
     product_value: "Product value %{financial_year}"
     production: "Production"
     production_cost: "Production cost"
@@ -1817,6 +1842,7 @@ eng:
     send_test_mail: "Send test mail"
     sensor_model: "Sensor model"
     sensors: "Sensors" #?
+    service_reception: "Service reception" #?
     sessions: "Sessions" #?
     set_reconcilable_new_but_existing_third_accounts: "Set reconcilable the new but existing third accounts (clients, suppliers and attorneys)" #?
     settings: "Settings"

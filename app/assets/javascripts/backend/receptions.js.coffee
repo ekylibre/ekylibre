@@ -2,14 +2,14 @@
   'use strict'
 
   $(document).ready ->
-    warning_message = $('#reception_late_delivery').data('warn-if-checked')
-    $('#warn-message').hide()
-    $('#warn-message').text(warning_message)
-    $('input#reception_late_delivery').parent().append($('#warn-message'))
-    $('#reception_late_delivery').click ->
-      if $('#reception_late_delivery').prop('checked')
-        $('#warn-message').show()
-      else
-        $('#warn-message').hide()      
+    $('input[data-warn-if-checked]').each ->
+      input = $(this)
+      if input.parent().find('.warn-message').length is 0
+        input.parent().append($('<span class="warn-message"></span>').html(input.data('warn-if-checked')).hide())
+      input.click ->
+        if input.prop('checked')
+          $('.warn-message').show()
+        else
+          $('.warn-message').hide()
 
 ) jQuery

@@ -1,9 +1,12 @@
-div#warn-message {
-  height: 20px;
-  width: 7%;
-  line-height: 20px;
-  background-color: orange;
+.warn-message {
+  background-color: $caution-color;
 	display: inline-block;
-	margin-left: 2%;
-  text-align: center;
+	margin-left: $default-gap;
+	margin-right: $default-gap;
+	padding-left: $default-gap;
+	padding-right: $default-gap;
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: $fs-small;
+  color: white;
 }

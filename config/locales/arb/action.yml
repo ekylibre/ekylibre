@@ -588,6 +588,18 @@ arb:
       new: "اضافة منتج جديد"
       pick: "اختيار نوع المنتج"
       show: "المنتجات : %{name}"
+    backend/product_receptions:
+      # cancel: "Cancel various product reception: %{name}"
+      # check: "Check various product reception: %{name}"
+      # edit: "Edit various product reception: %{name}"
+      # give: "Give various product reception: %{name}"
+      # index: "Various product receptions"
+      # invoice: "Invoice various product reception: %{name}"
+      # new: "New various product reception"
+      # order: "Order various product reception: %{name}"
+      # prepare: "Prepare various product reception: %{name}"
+      # ship: "Ship various product reception: %{name}"
+      # show: "Various product reception: %{name}"
     backend/product_stock_moves: #?
       edit: "تعديل حركة سهم : %{name}" #?
       new: "التسجيل لحركة السهم" #?
@@ -697,6 +709,18 @@ arb:
       index: "التسلسلات"
       load: "تحميل المفقودين متواليات"
       new: "انشاء تسلسل جديد"
+    backend/service_receptions:
+      # cancel: "Cancel various service reception: %{name}"
+      # check: "Check various service reception: %{name}"
+      # edit: "Edit various service reception: %{name}"
+      # give: "Give various service reception: %{name}"
+      # index: "Various service receptions"
+      # invoice: "Invoice various service reception: %{name}"
+      # new: "New various service reception"
+      # order: "Order various service reception: %{name}"
+      # prepare: "Prepare various service reception: %{name}"
+      # ship: "Ship various service reception: %{name}"
+      # show: "Various service reception: %{name}"
     backend/sessions: #?
       destroy: "الخروج" #?
       new: "الدخول" #?
@@ -1653,7 +1677,7 @@ arb:
     last_products: "آخر المنتجات"
     last_purchases: "مشاركة مشتريات"
     last_sales: "مشاركة المبيعات"
-    # late: "En retard"
+    # late: "Late"
     left_balance_amount: "ارجاء الرصيد السابق غير معلق وغير مكلف" #?
     letter: "مراسلة"
     letter_conclusion: ".أرجو أن تتقبلوا سادتي التعبير عن فائق احترامي" #?
@@ -1818,7 +1842,7 @@ arb:
     new_production: "إنتاج جديد"
     # new_production_of_activity: "New production of %{activity}"
     new_quote: "اقتباس جديد"
-    # new_reception: "New reception"
+    # new_reception: "New reception : %{type}"
     new_sale: "بيعة جديدة" #?
     # new_shipment: "New shipment"
     new_title: "عنوان جديد" #?
@@ -1995,6 +2019,7 @@ arb:
     product_create: "اضافة منتج جديد" #?
     product_name: "المنتج"
     product_natures: "أنواع المنتجات"
+    # product_reception: "Product reception"
     product_update: "تعديل تفاصيل المنتج" #?
     # product_value: "Product value %{financial_year}"
     production: "ادارة الانتاج"
@@ -2186,6 +2211,7 @@ arb:
     sequence_create: "اضافة تسلسل" #?
     sequences: "التسلسل" #?
     sequences_load: "تحميل التسلسلات المفقودة" #?
+    # service_reception: "Service reception"
     sessions: "جلسات"
     set_reconcilable_new_but_existing_third_accounts: "تعيين مصالحتها حسابات الثالثة الجديدة ولكن القائمة (العملاء والموردين والمحامين)"
     settings: "إعدادات"

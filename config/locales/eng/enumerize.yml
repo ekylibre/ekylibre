@@ -425,6 +425,14 @@ eng:
         multi_polygon: "Multi-polygon"
         point: "Point"
         string: "String"
+    product_reception:
+      delivery_mode:
+        # third: "Third"
+        # transporter: "Transporter"
+        # us: "Us"
+      nature:
+        # incoming: "Incoming"
+        # outgoing: "Outgoing"
     purchase:
       tax_payability:
         at_invoicing: "At invoicing"
@@ -499,6 +507,14 @@ eng:
         sales_invoices: "Sales invoices"
         subscriptions: "Subscriptions"
         tax_declarations: "Tax declarations"
+    service_reception:
+      delivery_mode:
+        # third: "Third"
+        # transporter: "Transporter"
+        # us: "Us"
+      nature:
+        # incoming: "Incoming"
+        # outgoing: "Outgoing"
     shipment:
       delivery_mode:
         # third: "Third"

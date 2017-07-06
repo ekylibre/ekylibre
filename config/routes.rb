@@ -33,6 +33,21 @@ Rails.application.routes.draw do
     end
   end
 
+  concern :receptions do
+    concerns :list, :unroll
+    member do
+      post :invoice
+      get :list_items
+      post :ship
+
+      post :order
+      post :prepare
+      post :check
+      post :give
+      post :cancel
+    end
+  end
+
   concern :products do
     concerns :list, :unroll, :picture
     member do
@@ -734,19 +749,15 @@ Rails.application.routes.draw do
 
     # resources :contacts, concerns: :entities
 
-    resources :receptions, concerns: %i[list unroll] do
-      member do
-        post :invoice
-        get :list_items
-        post :ship
+    resources :receptions, concerns: :receptions
 
-        post :order
-        post :prepare
-        post :check
-        post :give
-        post :cancel
-      end
-    end
+    resources :product_receptions, concerns: :receptions
+
+    resources :service_receptions, concerns: :receptions
+
+    resources :input_receptions, concerns: :receptions
+
+    resources :maintenance_supply_receptions, concerns: :receptions
 
     resources :shipments, concerns: %i[list unroll] do
       member do
