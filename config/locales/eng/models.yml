@@ -1558,7 +1558,7 @@ eng:
     updater: "Updater"
     uploaded: "Uploaded"
     url: "URL"
-    usable_incoming_payments: "Usable incoming payments"
+    usable_incoming_payments: "Usable incoming payments" #?
     usage: "Usage"
     usage_limit_nature: "Used by type"
     usage_limit_on: "Used by on"

@@ -22,6 +22,7 @@
 #
 # == Table: cultivable_zones
 #
+#  codes                  :jsonb
 #  created_at             :datetime         not null
 #  creator_id             :integer
 #  custom_fields          :jsonb
