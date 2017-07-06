@@ -1,5 +1,6 @@
 require 'apartment'
 require 'ekylibre/schema'
+require 'shellwords'
 
 module Ekylibre
   class TenantError < StandardError
@@ -372,11 +373,11 @@ module Ekylibre
       end
 
       def dump_v2(name, options = {})
-        dump_process(name, options) { |opt| dump_tables_v2(opt[:tables_path]) }
+        dump_archive(name, options) { |opt| dump_tables_v2(opt[:tables_path]) }
       end
 
       def restore_v2(archive_path, name, options = {})
-        restore_process(archive_path, name, options) do |data_options|
+        restore_dump(archive_path, name, options) do |data_options|
           data_options = data_options.dup
           tenant_name = data_options.delete(:tenant_name)
           Fixturing.restore(tenant_name, **data_options)
@@ -384,14 +385,14 @@ module Ekylibre
       end
 
       def dump_v3(name, options = {})
-        dump_process(name, options) { |opt| dump_tables_v3(opt) }
+        dump_archive(name, options) { |opt| dump_tables_v3(opt) }
       end
 
       def restore_v3(archive_path, name, options = {})
-        restore_process(archive_path, name, options) { |opt| restore_tables_v3(opt) }
+        restore_dump(archive_path, name, options) { |opt| restore_tables_v3(opt) }
       end
 
-      def dump_process(name, options = {}, &table_dump)
+      def dump_archive(name, options = {})
         start = Time.current
         destination_path = options.delete(:path) || Rails.root.join('tmp', 'archives')
         switch(name) do
@@ -403,13 +404,10 @@ module Ekylibre
           FileUtils.rm_rf(archive_path)
           FileUtils.mkdir_p(archive_path)
 
-          dump_options = options.merge({
-            archive_path: archive_path,
-            tenant_name: name,
-            tables_path: tables_path
-          })
-          version = table_dump.call(dump_options)
-
+          dump_options = options.merge(archive_path: archive_path,
+                                       tenant_name: name,
+                                       tables_path: tables_path)
+          version = yield(dump_options)
 
           dump_files(files_path)
           dump_mimetype(archive_path)
@@ -424,7 +422,7 @@ module Ekylibre
         puts "Done! (#{duration.round(2)}s)".yellow
       end
 
-      def restore_process(archive_path, name, options = {}, &table_restore)
+      def restore_dump(archive_path, name, options = {})
         start = Time.current
 
         tables_path = archive_path.join('tables')
@@ -452,13 +450,13 @@ module Ekylibre
           end
 
           puts 'Restoring database and migrating...'.yellow if verbose
-          restore_options = options.merge({
+          restore_options = options.merge(
             tenant_name: name,
             version: database_version,
             path: tables_path,
             verbose: verbose
-          })
-          table_restore.call(restore_options)
+          )
+          yield(restore_options)
         end
 
         duration = Time.current - start
@@ -471,7 +469,7 @@ module Ekylibre
         end
       end
 
-      def dump_manifest(archive_path, version, options={})
+      def dump_manifest(archive_path, version, options = {})
         File.open(archive_path.join('manifest.yml'), 'wb') do |f|
           options.update(
             tenant: name,
@@ -530,7 +528,7 @@ module Ekylibre
         port     = db_config['port'] || '5432'
         dbname   = db_config['database']
         password = db_config['password']
-        "postgresql://#{user}:#{password}@#{host}:#{port}/#{dbname}"
+        Shellwords.escape("postgresql://#{user}:#{password}@#{host}:#{port}/#{dbname}")
       end
 
       def db_config
