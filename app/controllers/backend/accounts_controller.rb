@@ -74,7 +74,7 @@ module Backend
       code.c
     end
 
-    list(:journal_entry_items, joins: :entry, conditions: account_moves_conditions, line_class: "(RECORD.lettered? ? 'lettered-item' : '')".c, order: "entry_id DESC, #{JournalEntryItem.table_name}.position") do |t|
+    list(:journal_entry_items, joins: :entry, conditions: account_moves_conditions, line_class: "(RECORD.completely_lettered? ? 'lettered-item' : '')".c, order: "entry_id DESC, #{JournalEntryItem.table_name}.position") do |t|
       t.column :journal, url: true
       t.column :entry_number, url: true
       t.column :printed_on, datatype: :date, label: :column
@@ -86,8 +86,8 @@ module Backend
       t.column :real_credit, currency: :real_currency, hidden: true
       t.column :debit,  currency: true, hidden: true
       t.column :credit, currency: true, hidden: true
-      t.column :absolute_debit,  currency: :absolute_currency
-      t.column :absolute_credit, currency: :absolute_currency
+      t.column :absolute_debit,  currency: :absolute_currency, on_select: :sum
+      t.column :absolute_credit, currency: :absolute_currency, on_select: :sum
     end
 
     list(:entities, conditions: ['? IN (client_account_id, supplier_account_id)', 'params[:id]'.c], order: { created_at: :desc }) do |t|

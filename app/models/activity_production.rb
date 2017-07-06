@@ -50,7 +50,8 @@
 #
 
 class ActivityProduction < Ekylibre::Record::Base
-  include Customizable, Attachable
+  include Attachable
+  include Customizable
   enumerize :support_nature, in: %i[cultivation fallow_land buffer border none animal_group], default: :cultivation
   refers_to :usage, class_name: 'ProductionUsage'
   refers_to :size_indicator, class_name: 'Indicator'
@@ -204,7 +205,7 @@ class ActivityProduction < Ekylibre::Record::Base
   end
 
   after_destroy do
-    support.destroy if support.is_a?(LandParcel)
+    support.destroy if support.is_a?(LandParcel) && support.activity_productions.empty?
 
     Ekylibre::Hook.publish(:activity_production_destroy, activity_production_id: id)
   end

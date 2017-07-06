@@ -1,6 +1,6 @@
 class MergeDocumentArchivesToDocuments < ActiveRecord::Migration
   def id_partition(id)
-    ('%09d' % id.to_i).scan(/\d{3}/).join('/')
+    format('%09d', id.to_i).scan(/\d{3}/).join('/')
   end
 
   def change

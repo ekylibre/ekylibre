@@ -29,7 +29,7 @@ module Backend
     #   :q Text search
     #   :state State search
     #   :period Two dates with "_" separator
-    def self.purchases_conditions
+    def self.list_conditions
       code = ''
       code = search_conditions(purchases: %i[created_at pretax_amount amount number reference_number description state], entities: %i[number full_name]) + " ||= []\n"
       code << "if params[:period].present? && params[:period].to_s != 'all'\n"
@@ -64,7 +64,7 @@ module Backend
       code.c
     end
 
-    list(conditions: purchases_conditions, joins: %i[affair supplier], line_class: :status, order: { created_at: :desc, number: :desc }) do |t|
+    list(conditions: list_conditions, joins: %i[affair supplier], line_class: :status, order: { created_at: :desc, number: :desc }) do |t|
       t.action :payment_mode, on: :both, if: :payable?
       t.action :edit
       t.action :destroy, if: :destroyable?
@@ -123,7 +123,7 @@ module Backend
                               include: { delivery_address: { methods: [:mail_coordinate] },
                                          supplier: { methods: [:picture_path], include: { default_mail_address: { methods: [:mail_coordinate] } } },
                                          parcels: { include: :items },
-                                         affair: { methods: [:balance], include: [outgoing_payments: { include: :mode }] },
+                                         affair: { methods: [:balance], include: [purchase_payments: { include: :mode }] },
                                          items: { methods: %i[taxes_amount tax_name tax_short_label], include: [:variant] } }) do |format|
         format.html do
           t3e @purchase.attributes, supplier: @purchase.supplier.full_name, state: @purchase.state_label, label: @purchase.label
@@ -157,8 +157,9 @@ module Backend
     end
 
     def create
+      item_attributes = permitted_params[:items_attributes] || {}
       safe_params = permitted_params.merge(
-        items_attributes: permitted_params[:items_attributes].map do |id, item_attr|
+        items_attributes: item_attributes.map do |id, item_attr|
           [id, item_attr.except(:asset_exists)]
         end.to_h
       )

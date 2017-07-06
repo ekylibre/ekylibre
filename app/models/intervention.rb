@@ -52,7 +52,8 @@
 #
 
 class Intervention < Ekylibre::Record::Base
-  include PeriodicCalculable, CastGroupable
+  include CastGroupable
+  include PeriodicCalculable
   include Customizable
   attr_readonly :procedure_name, :production_id, :currency
   refers_to :currency
@@ -168,24 +169,24 @@ class Intervention < Ekylibre::Record::Base
 
     unless params[:period_interval].blank? && params[:period].blank?
 
-      period_interval = params[:period_interval]
+      period_interval = params[:period_interval].to_sym
       period = params[:period]
 
-      if period_interval.to_sym == :day
+      if period_interval == :day
         search_params << "EXTRACT(DAY FROM #{Intervention.table_name}.started_at) = #{period.to_date.day} AND EXTRACT(MONTH FROM #{Intervention.table_name}.started_at) = #{period.to_date.month} AND EXTRACT(YEAR FROM #{Intervention.table_name}.started_at) = #{period.to_date.year}"
       end
 
-      if period_interval.to_sym == :week
+      if period_interval == :week
         beginning_of_week = period.to_date.at_beginning_of_week.to_time.beginning_of_day
         end_of_week = period.to_date.at_end_of_week.to_time.end_of_day
         search_params << "#{Intervention.table_name}.started_at >= '#{beginning_of_week}' AND #{Intervention.table_name}.stopped_at <= '#{end_of_week}'"
       end
 
-      if period_interval.to_sym == :month
+      if period_interval == :month
         search_params << "EXTRACT(MONTH FROM #{Intervention.table_name}.started_at) = #{period.to_date.month} AND EXTRACT(YEAR FROM #{Intervention.table_name}.started_at) = #{period.to_date.year}"
       end
 
-      if period_interval.to_sym == :year
+      if period_interval == :year
         search_params << "EXTRACT(YEAR FROM #{Intervention.table_name}.started_at) = #{period.to_date.year}"
       end
     end
@@ -202,10 +203,15 @@ class Intervention < Ekylibre::Record::Base
       search_params << "#{Intervention.table_name}.state = '#{params[:state]}'"
     end
 
-    where(search_params.join(' AND '))
-      .includes(:doers)
-      .references(product_parameters: [:product])
-      .order(started_at: :desc)
+    page = params[:page]
+    page ||= 1
+
+    request = where(search_params.join(' AND '))
+              .includes(:doers)
+              .references(product_parameters: [:product])
+              .order(started_at: :desc)
+
+    { total_count: request.count, interventions: request.page(page) }
   }
 
   scope :with_targets, lambda { |*targets|

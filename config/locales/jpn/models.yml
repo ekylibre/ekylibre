@@ -40,7 +40,7 @@ jpn:
         ongoing_at: "資金調達"
         started_on: "最初の返済は、上の開始しました"
       outgoing_payment:
-        delivered: "受信者に与えられました"
+        delivered: "受取人に与えられる"
         list: "支払一覧"
       outgoing_payment_list:
         payments_sum: "合計"
@@ -62,6 +62,9 @@ jpn:
         seeding_density_value: "予想播種密度"
       purchase:
         affair_balance: "バランス"
+      purchase_payment: #?
+        delivered: "受信者に与えられました" #?
+        list: "支払一覧" #?
       sale:
         affair_balance: "バランス"
         contact: "見積もりの​​ための住所"
@@ -140,7 +143,7 @@ jpn:
           # different_of_main_account: "%{attribute} must be different of main account (%{account})"
           unvalid_bban: "Unvalid BBAN。一つ以上の要素が間違っています。"
         deposit:
-          # must_be_a_bank_account: "%{field} must be a bank account and not a cash"
+          # must_be_a_bank_account: "%{attribute} must be a bank account and not a cash"
         entity:
           # missing_title: "%{attribute} must contains the title “%{title}”"
           # nature_do_not_allow_a_first_name: "The selectected type “%{nature}” does not allow a first name"
@@ -264,6 +267,7 @@ jpn:
       event: "イベント"
       event_participation: "イベント参加"
       financial_year: "会計年度"
+      financial_year_exchange: "会計年度の交換"
       fixed_asset: "固定資産"
       fixed_asset_depreciation: "固定資産の減価償却"
       fungus: "菌"
@@ -319,11 +323,15 @@ jpn:
       net_service: "ネットサービス"
       notification: "お知らせ"
       observation: "観察"
-      outgoing_payment: "支出"
+      outgoing_payment: "支払い"
       outgoing_payment_list: "支払一覧"
       outgoing_payment_mode: "支払いモード"
       parcel: "小包"
       parcel_item: "小包アイテム"
+      payslip: "ペイプルップ"
+      payslip_affair: "ペイプルップ事件"
+      payslip_nature: "ペイプリップタイプ"
+      payslip_payment: "Payslipの支払い"
       plant: "工場"
       plant_counting: "植物カウント"
       plant_counting_item: "植物カウントエントリ"
@@ -356,6 +364,7 @@ jpn:
       purchase_gap: "購入ギャップ"
       purchase_item: "購入アイテム"
       purchase_nature: "購入タイプ"
+      purchase_payment: "支出"
       regularization: "正則化"
       role: "役割"
       sale: "販売"
@@ -379,6 +388,7 @@ jpn:
       tax: "税金"
       tax_declaration: "税金申告"
       tax_declaration_item: "税務申告項目"
+      tax_declaration_item_part: "納税申告項目部"
       team: "チーム"
       token: "トークン"
       tracking: "追跡"
@@ -691,6 +701,7 @@ jpn:
     emission_cash: "排出現金"
     emission_currency: "排出通貨"
     emission_journal_entry: "排出仕訳"
+    emitted_on: "発行日"
     employed: "採用"
     employee: "従業員"
     employee_account: "従業員のアカウント"
@@ -1124,6 +1135,7 @@ jpn:
     payment_mode_complement: "支払モード補数"
     payments: "支払い"
     payments_count: "支払いは数えます"
+    payslips: "ペイスリップス"
     period: "期間"
     person: "人"
     phases: "フェーズ"
@@ -1219,6 +1231,7 @@ jpn:
     purchase_item: "購入アイテム"
     purchase_items: "アイテムを購入します"
     purchase_natures: "購入タイプ"
+    purchase_payments: "購入の支払い"
     purchase_taxations: "購入taxations"
     purchase_taxes: "税金を購入"
     purchased_on: "で購入"
@@ -1738,6 +1751,11 @@ jpn:
           prepared: "準備"
           received: "受け"
       # undelivered_invoice: "Undelivered invoice [%{resource} %{mode} %{number}] %{entity}"
+    payslip:
+      # bookkeep: "[%{resource} %{number}] %{employee} from %{started_on} to %{stopped_on}"
+      states:
+        draft: "ドラフト"
+        invoice: "請求書"
     product:
       informations:
         # with_components: "%{product} (%{unit}) (transformed material)"
@@ -1788,6 +1806,9 @@ jpn:
     purchase_nature:
       default:
         name: "スタンダード購入"
+    purchase_payment:
+      # bookkeep: "[%{resource} %{number}] %{mode} %{check_number} for %{payee}"
+      # label: "%{number}. %{amount}, %{mode} for %{payee} on %{date}"
     role:
       default:
         administrator: "管理者"
@@ -1859,6 +1880,7 @@ jpn:
         opportunities: "OP[year|4][number|6]"
         outgoing_parcels: "EXP[year|4][number|6]"
         outgoing_payments: "D[year|4][number|4]"
+        payslips: "PS [年| 4] [月| 2] [番号| 4]"
         plants: "PLANT[year|4][number|4]"
         products: "PR[number|11]"
         purchases: "PU[year|4][month|2][number|6]"

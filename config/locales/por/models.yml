@@ -40,7 +40,7 @@ por:
         ongoing_at: "Angariação de fundos em"
         started_on: "Primeiro reembolso começou em"
       outgoing_payment:
-        delivered: "Dada a destinatário"
+        delivered: "Atribuído ao destinatário"
         list: "Lista de contas a pagar"
       outgoing_payment_list:
         # payments_sum: "Total"
@@ -62,6 +62,9 @@ por:
         seeding_density_value: "Densidade de semeadura esperado"
       purchase:
         affair_balance: "Equilibrar"
+      purchase_payment: #?
+        delivered: "Dada a destinatário" #?
+        list: "Lista de contas a pagar" #?
       sale:
         affair_balance: "Equilibrar"
         contact: "Endereço para a estimativa"
@@ -140,7 +143,7 @@ por:
           # different_of_main_account: "%{attribute} must be different of main account (%{account})"
           unvalid_bban: "Unvalid BBAN. Um ou mais elementos estão incorretas."
         deposit:
-          # must_be_a_bank_account: "%{field} must be a bank account and not a cash"
+          # must_be_a_bank_account: "%{attribute} must be a bank account and not a cash"
         entity:
           # missing_title: "%{attribute} must contains the title “%{title}”"
           # nature_do_not_allow_a_first_name: "The selectected type “%{nature}” does not allow a first name"
@@ -264,6 +267,7 @@ por:
       event: "Evento"
       event_participation: "Participação em eventos"
       financial_year: "Ano financeiro"
+      financial_year_exchange: "Intercâmbio do exercício"
       fixed_asset: "Ativo fixo"
       fixed_asset_depreciation: "Depreciação de ativos fixos"
       fungus: "Fungo"
@@ -324,6 +328,10 @@ por:
       outgoing_payment_mode: "Modo de desembolso"
       parcel: "Parcela"
       parcel_item: "Artigo Parcel"
+      payslip: "Folha de pagamento"
+      payslip_affair: "Caso de nostalgia"
+      payslip_nature: "Tipo de saldo em espécie"
+      payslip_payment: "Pagamento por saldo"
       plant: "Plantar"
       plant_counting: "contagem de planta"
       plant_counting_item: "entrada de contagem de planta"
@@ -356,6 +364,7 @@ por:
       purchase_gap: "Gap compra"
       purchase_item: "Artigo da compra"
       purchase_nature: "Tipo de compra"
+      purchase_payment: "Desembolso"
       regularization: "Regularização"
       role: "Função"
       sale: "Venda"
@@ -379,6 +388,7 @@ por:
       tax: "Imposto"
       tax_declaration: "Declaração de imposto"
       tax_declaration_item: "Item de declaração de imposto"
+      tax_declaration_item_part: "Parte do item da declaração fiscal"
       team: "Equipe"
       token: "Símbolo"
       tracking: "Rastreamento"
@@ -691,6 +701,7 @@ por:
     emission_cash: "Caixa de emissão"
     emission_currency: "Moeda de emissão"
     emission_journal_entry: "Entrada de diário de emissão"
+    emitted_on: "Emitido em"
     employed: "Empregado"
     employee: "Empregado"
     employee_account: "Conta de empregado"
@@ -1124,6 +1135,7 @@ por:
     payment_mode_complement: "Modo de pagamento do complemento"
     payments: "Pagamentos"
     payments_count: "Pagamentos contar"
+    payslips: "Listas de pagamento"
     period: "Período"
     person: "Pessoa"
     phases: "Fases"
@@ -1219,6 +1231,7 @@ por:
     purchase_item: "Artigo da compra"
     purchase_items: "Itens de compra"
     purchase_natures: "Tipos de compra"
+    purchase_payments: "Pagamentos de compras"
     purchase_taxations: "Taxations de compra"
     purchase_taxes: "Os impostos de compra"
     purchased_on: "Comprado em"
@@ -1738,6 +1751,11 @@ por:
           prepared: "Preparado"
           received: "Recebido"
       # undelivered_invoice: "Undelivered invoice [%{resource} %{mode} %{number}] %{entity}"
+    payslip:
+      # bookkeep: "[%{resource} %{number}] %{employee} from %{started_on} to %{stopped_on}"
+      states:
+        draft: "Esboço, projeto"
+        invoice: "Fatura"
     product:
       informations:
         # with_components: "%{product} (%{unit}) (transformed material)"
@@ -1788,6 +1806,9 @@ por:
     purchase_nature:
       default:
         name: "Compra padrão"
+    purchase_payment:
+      # bookkeep: "[%{resource} %{number}] %{mode} %{check_number} for %{payee}"
+      # label: "%{number}. %{amount}, %{mode} for %{payee} on %{date}"
     role:
       default:
         administrator: "Administrador"
@@ -1859,6 +1880,7 @@ por:
         opportunities: "OP[year|4][number|6]"
         outgoing_parcels: "EXP[year|4][number|6]"
         outgoing_payments: "D[year|4][number|4]"
+        payslips: "PS [ano | 4] [mês | 2] [número | 4]"
         plants: "PLANT[year|4][number|4]"
         products: "PR[number|11]"
         purchases: "PU[year|4][month|2][number|6]"

@@ -67,9 +67,15 @@ module Backend
       balance.each do |item|
         if item[1].to_i > 0
           account = Account.find(item[1])
+          account_name = account.name
+
+          if csv.encoding.eql?(Encoding::CP1252)
+            account_name = account_name.encode('CP1252', invalid: :replace, undef: :replace, replace: '?')
+          end
+
           csv << [
             account.number,
-            account.name,
+            account_name,
             item[2].to_f,
             item[3].to_f,
             item[4].to_f > 0 ? item[4].to_f : 0,

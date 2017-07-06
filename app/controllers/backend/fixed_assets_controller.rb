@@ -118,28 +118,16 @@ module Backend
                                  procs: proc { |options| options[:builder].tag!(:url, backend_fixed_asset_url(@fixed_asset)) })
     end
 
-    def depreciate_up_to
+    def depreciate_all
       begin
-        date = Date.parse(params[:'depreciation-date'])
+        bookkeep_until = Date.parse(params[:until])
       rescue
-        notify_error(:error_while_depreciating)
+        notify_error(:the_bookkeep_date_format_is_invalid)
         return redirect_to(params[:redirect] || { action: :index })
       end
 
-      depreciations = FixedAssetDepreciation.with_active_asset.up_to(date)
-      success = true
-
-      ActiveRecord::Base.transaction do
-        # trusting the bookkeep to take care of the accounting
-        depreciations.find_each { |dep| success &&= dep.update(accountable: true) }
-        raise ActiveRecord::Rollback unless success
-      end
-
-      if success
-        notify_success(:depreciation_successful)
-      else
-        notify_error(:depreciation_failed)
-      end
+      count = FixedAsset.depreciate(until: bookkeep_until)
+      notify_success(:x_fixed_asset_depreciations_have_been_bookkept_successfully, count: count)
       redirect_to(params[:redirect] || { action: :index })
     end
 

@@ -479,6 +479,7 @@ eng:
         outgoing_payment_lists: "Outgoing payment lists"
         outgoing_payments: "Outgoing payments"
         parcels: "Parcels"
+        # payslips: "Payslips"
         plant_countings: "Plant countings"
         plants: "Plants"
         product_nature_categories: "Product nature categories"
