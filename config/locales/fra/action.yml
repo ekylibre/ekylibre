@@ -1625,8 +1625,8 @@ fra:
     need_entities_to_consult_mandates: "Vous devez créer des fiches clients/fournisseurs avant" #?
     net_income: "Résultat d’exercice"
     net_margin: "Marge nette" #?
-    net_production_sales: "Ventes nettes de production"
     net_mass: "Masse nette"
+    net_production_sales: "Ventes nettes de production"
     net_surface_area: "Surface nette"
     net_vat_amount: "TVA nette due" #?
     net_volume: "Volume net" #?
