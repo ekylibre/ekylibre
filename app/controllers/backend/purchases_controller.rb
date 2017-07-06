@@ -25,10 +25,16 @@ module Backend
 
     unroll :number, :amount, :currency, :created_at, supplier: :full_name
 
+    after_action :update_affairs, only: [:update]
     # params:
     #   :q Text search
     #   :state State search
     #   :period Two dates with "_" separator
+
+    def update_affairs
+      @purchase.affair.update_attributes(third_id: params[:purchase][:supplier_id])
+    end
+
     def self.list_conditions
       code = ''
       code = search_conditions(purchases: %i[created_at pretax_amount amount number reference_number description state], entities: %i[number full_name]) + " ||= []\n"
