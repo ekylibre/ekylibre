@@ -3531,7 +3531,8 @@ CREATE TABLE integrations (
     updated_at timestamp without time zone NOT NULL,
     creator_id integer,
     updater_id integer,
-    lock_version integer DEFAULT 0 NOT NULL
+    lock_version integer DEFAULT 0 NOT NULL,
+    data jsonb
 );
 
 
@@ -17858,4 +17859,6 @@ INSERT INTO schema_migrations (version) VALUES ('20170421131536');
 INSERT INTO schema_migrations (version) VALUES ('20170425145302');
 
 INSERT INTO schema_migrations (version) VALUES ('20170530002312');
+
+INSERT INTO schema_migrations (version) VALUES ('20170602144753');
 
