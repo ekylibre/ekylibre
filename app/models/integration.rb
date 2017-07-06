@@ -89,4 +89,10 @@ class Integration < Ekylibre::Record::Base
   def name
     nature.to_s.camelize
   end
+
+  class << self
+    def active?(name)
+      find_by(nature: name).present?
+    end
+  end
 end

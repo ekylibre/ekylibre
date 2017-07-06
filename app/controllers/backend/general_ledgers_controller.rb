@@ -44,12 +44,12 @@ module Backend
       t.column :letter
       t.column :real_debit,  currency: :real_currency, hidden: true
       t.column :real_credit, currency: :real_currency, hidden: true
-      t.column :debit,  currency: true, hidden: true
-      t.column :credit, currency: true, hidden: true
-      t.column :absolute_debit,  currency: :absolute_currency
-      t.column :absolute_credit, currency: :absolute_currency
-      t.column :cumulated_absolute_debit,  currency: :absolute_currency
-      t.column :cumulated_absolute_credit, currency: :absolute_currency
+      t.column :debit,  currency: true, hidden: true, on_select: :sum
+      t.column :credit, currency: true, hidden: true, on_select: :sum
+      t.column :absolute_debit,  currency: :absolute_currency, on_select: :sum
+      t.column :absolute_credit, currency: :absolute_currency, on_select: :sum
+      t.column :cumulated_absolute_debit,  currency: :absolute_currency, on_select: :sum
+      t.column :cumulated_absolute_credit, currency: :absolute_currency, on_select: :sum
     end
 
     def show; end

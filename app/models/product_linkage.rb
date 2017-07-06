@@ -39,7 +39,8 @@
 #  updater_id      :integer
 #
 class ProductLinkage < Ekylibre::Record::Base
-  include Taskable, TimeLineable
+  include TimeLineable
+  include Taskable
   belongs_to :carrier, class_name: 'Product'
   belongs_to :carried, class_name: 'Product'
   enumerize :nature, in: %i[available unavailable occupied], default: :available, predicates: true

@@ -197,7 +197,7 @@ module Backend
       t.column :bank_statement_number, through: :journal_entry, url: { controller: :bank_statements, id: 'RECORD.journal_entry.bank_statements.first.id'.c }, label: :bank_statement_number
     end
 
-    list(:outgoing_payments, conditions: { payee_id: 'params[:id]'.c }, order: { created_at: :desc }, line_class: "(RECORD.affair_closed? ? nil : 'warning')".c) do |t|
+    list(:purchase_payments, conditions: { payee_id: 'params[:id]'.c }, order: { created_at: :desc }, line_class: "(RECORD.affair_closed? ? nil : 'warning')".c) do |t|
       t.action :edit
       t.action :destroy
       t.column :number, url: true
