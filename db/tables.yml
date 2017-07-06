@@ -3282,6 +3282,8 @@ integrations:
   creator_id:
     type: integer
     references: user
+  data:
+    type: jsonb
   id:
     type: integer
     required: true

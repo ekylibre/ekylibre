@@ -10,7 +10,7 @@ module ActionIntegration
     end
 
     def default_value
-      return nil unless @default_value.present?
+      return nil if @default_value.blank?
       @default_value.call
     end
   end

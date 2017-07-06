@@ -632,6 +632,7 @@ eng:
     customized_type: "Customized type"
     daily_nitrogen_production: "Daily nitrogen production"
     dashboards: "Dashboards"
+    # data: "Data"
     dead: "Dead"
     dead_at: "Dead on"
     dead_line_at: "Dead line at"
