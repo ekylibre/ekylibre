@@ -60,7 +60,13 @@ module Backend
         )
       end
 
-      render partial: 'backend/intervention_participations/participations_modal', locals: { participation: participation }
+      if participation.intervention.nil?
+        intervention_started_at = Time.parse(params["intervention_started_at"])
+      else
+        intervention_started_at = participation.intervention.started_at
+      end
+
+      render partial: 'backend/intervention_participations/participations_modal', locals: { participation: participation, intervention_started_at: intervention_started_at }
     end
 
     private

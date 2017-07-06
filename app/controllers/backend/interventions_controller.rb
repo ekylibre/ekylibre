@@ -249,7 +249,7 @@ module Backend
 
         p.set! nil
       end
-
+      
       @intervention = Intervention.new(options)
 
       from_request = Intervention.find_by(id: params[:request_intervention_id])
@@ -257,18 +257,43 @@ module Backend
 
       render(locals: { cancel_url: { action: :index }, with_continue: true })
     end
+
+    def create
+      unless permitted_params[:participations_attributes].nil?
+        participations = permitted_params[:participations_attributes]
+        
+        participations.each_pair do |key, value|
+          participations[key] = JSON.parse(value)
+        end
+        
+        permitted_params[:participations_attributes] = participations
+      end
+
+      @intervention = Intervention.new(permitted_params)
+
+      url = if params[:create_and_continue]
+              { action: :new, continue: true }
+            else
+              params[:redirect] || { action: :show, id: 'id'.c }
+            end
+
+      return if save_and_redirect(@intervention, url: url, notify: :record_x_created, identifier: :number)
+      render(locals: { cancel_url: { action: :index }, with_continue: true })
+    end
     
     def update
-      participations = permitted_params[:participations_attributes]
-      participations.each_pair do |key, value|
-        participations[key] = JSON.parse(value)
-      end
-      
-      permitted_params[:participations_attributes] = participations
-
       @intervention = find_and_check
-
-      delete_working_periods(participations)
+      
+      unless permitted_params[:participations_attributes].nil?
+        participations = permitted_params[:participations_attributes]
+        participations.each_pair do |key, value|
+          participations[key] = JSON.parse(value)
+        end
+        
+        permitted_params[:participations_attributes] = participations
+      
+        delete_working_periods(participations)
+      end
 
       if @intervention.update_attributes(permitted_params)
         redirect_to action: :show

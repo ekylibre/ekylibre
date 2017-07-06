@@ -195,10 +195,14 @@
         intervention_id = $('input[name="intervention_id"]').val()
         product_id = $(event.target).closest('.nested-product-parameter').find(".selector .selector-value").val()
         existingParticipation = $('.intervention-participation[data-product-id="' + product_id + '"]').val()
+        interventionStartedAt = null
+
+        if intervention_id == ""
+          interventionStartedAt = $('.intervention-started-at').val()
 
         $.ajax
           url: "/backend/intervention_participations/participations_modal",
-          data: { intervention_id: intervention_id, product_id: product_id, existing_participation: existingParticipation }
+          data: { intervention_id: intervention_id, product_id: product_id, existing_participation: existingParticipation, intervention_started_at: interventionStartedAt }
           success: (data, status, request) ->
 
             @workingTimesModal = new ekylibre.modal('#working_times')

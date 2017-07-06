@@ -76,16 +76,19 @@
     has_one_full_participation = false
 
     $('.participation').each ->
-      workingPeriod = new Object()
-      workingPeriod.id= $(this).find('input[name="working_period_id"]').val()
-      workingPeriod.nature = $(this).find('input[name="working_period_nature"]').val()
-      workingPeriod.started_at = $(this).find('input[name="working_period_started_at"]').val()
-      workingPeriod.stopped_at = $(this).find('input[name="working_period_stopped_at"]').val()
+      workingPeriodNature = $(this).find('input[name="working_period_nature"]').val()
+      
+      if workingPeriodNature != "pause"
+        workingPeriod = new Object()
+        workingPeriod.id= $(this).find('input[name="working_period_id"]').val()
+        workingPeriod.nature = workingPeriodNature
+        workingPeriod.started_at = $(this).find('input[name="working_period_started_at"]').val()
+        workingPeriod.stopped_at = $(this).find('input[name="working_period_stopped_at"]').val()
 
-      if workingPeriod.started_at != "" && workingPeriod.stopped_at != ""
-        has_one_full_participation = true
+        if workingPeriod.started_at != "" && workingPeriod.stopped_at != ""
+          has_one_full_participation = true
 
-      workingPeriods.push(workingPeriod)
+        workingPeriods.push(workingPeriod)
 
     participation.working_periods_attributes = workingPeriods
     jsonParticipation = JSON.stringify(participation)
@@ -96,7 +99,7 @@
     if existingParticipation.length > 0
       existingParticipation.val(jsonParticipation)
     else
-      $('.edit_intervention .form-fields').append('<input type="hidden" class="intervention-participation" name="intervention[participations_attributes][' + participationsCount + ']" value=\'' + jsonParticipation + '\' data-product-id="' + participation.product_id  + '"></input>')
+      $('.edit_intervention, .new_intervention').find('.form-fields').append('<input type="hidden" class="intervention-participation" name="intervention[participations_attributes][' + participationsCount + ']" value=\'' + jsonParticipation + '\' data-product-id="' + participation.product_id  + '"></input>')
    
 
     concernedProductField = $('.nested-doers .nested-fields .selector .selector-value[value="' + participation.product_id + '"]')

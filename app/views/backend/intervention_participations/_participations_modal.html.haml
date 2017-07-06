@@ -4,7 +4,7 @@
 = hidden_field_tag "intervention_participation[id]", participation.id
 = hidden_field_tag "intervention_participation[intervention_id]", participation.intervention_id
 = hidden_field_tag "intervention_participation[product_id]", participation.product_id
-= hidden_field_tag 'intervention_started_at', participation.intervention.started_at.iso8601
+= hidden_field_tag 'intervention_started_at', intervention_started_at.iso8601 
 
 .modal-body
   .indicators
@@ -12,7 +12,7 @@
       %span.title= Intervention.human_attribute_name(:started_at)
       %span.value
         %i.picto.picto-clock-o
-        = participation.intervention.started_at.l(format: :compact)
+        = intervention_started_at.l(format: :compact)
 
   .participations
     .participations-header

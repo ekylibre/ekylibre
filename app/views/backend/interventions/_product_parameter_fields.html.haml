@@ -16,11 +16,12 @@
     = f.referenced_association :product, label: reference.human_name, source: { scope: reference.scope_hash.merge(availables: [at: started_at.strftime("%Y-%m-%d %H:%M")]), keep: true }, input_html: { class: "scoped-parameter", data: { intervention_updater: prefix + 'product_id' } }, new: false
 
 
-  - if !f.object.new_record? && reference.doer?
-    - participation_picto = f.object.participation.nil? ? 'timer-off' : 'timer'
-    - datas = { participation: f.object.participation.id  } unless f.object.participation.nil?
+  - if reference.doer?
+    - if !f.object.new_record?
+      - participation_picto = f.object.participation.nil? ? 'timer-off' : 'timer'
+      - datas = { participation: f.object.participation.id  } unless f.object.participation.nil?
+      %div{ class: "has-intervention-participations picto picto-#{participation_picto}", data: datas }
 
-    %div{ class: "has-intervention-participations picto picto-#{participation_picto}", data: datas }
     = modal(id: "working_times", class: "working-times", size: :large) do
       .modal-body
       .modal-footer
