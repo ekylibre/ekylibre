@@ -361,6 +361,7 @@ class Intervention < Ekylibre::Record::Base
           { doers: :group },
           { inputs: :group },
           { outputs: :group },
+          { settings: :group },
           { targets: :group },
           { tools: :group },
           :working_periods
