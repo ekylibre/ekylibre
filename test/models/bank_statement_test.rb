@@ -400,9 +400,9 @@ class BankStatementTest < ActiveSupport::TestCase
     InterventionParticipation.delete_all
     ActivityBudget.delete_all
     Deposit.delete_all
-    JournalEntry.delete_all
     Payslip.delete_all
     PayslipNature.delete_all
+    JournalEntry.delete_all
     Journal.delete_all
     Tax.delete_all
     Product.delete_all
