@@ -295,7 +295,8 @@ CREATE TABLE activities (
     grading_sizes_unit_name character varying,
     production_system_name character varying,
     use_seasons boolean DEFAULT false,
-    use_tactics boolean DEFAULT false
+    use_tactics boolean DEFAULT false,
+    codes jsonb
 );
 
 
@@ -1795,7 +1796,8 @@ CREATE TABLE cultivable_zones (
     production_system_name character varying,
     soil_nature character varying,
     owner_id integer,
-    farmer_id integer
+    farmer_id integer,
+    codes jsonb
 );
 
 
@@ -3529,7 +3531,8 @@ CREATE TABLE integrations (
     updated_at timestamp without time zone NOT NULL,
     creator_id integer,
     updater_id integer,
-    lock_version integer DEFAULT 0 NOT NULL
+    lock_version integer DEFAULT 0 NOT NULL,
+    data jsonb
 );
 
 
@@ -5883,7 +5886,8 @@ CREATE TABLE products (
     origin_country character varying,
     origin_identification_number character varying,
     end_of_life_reason character varying,
-    originator_id integer
+    originator_id integer,
+    codes jsonb
 );
 
 
@@ -17853,4 +17857,8 @@ INSERT INTO schema_migrations (version) VALUES ('20170415163650');
 INSERT INTO schema_migrations (version) VALUES ('20170421131536');
 
 INSERT INTO schema_migrations (version) VALUES ('20170425145302');
+
+INSERT INTO schema_migrations (version) VALUES ('20170530002312');
+
+INSERT INTO schema_migrations (version) VALUES ('20170602144753');
 

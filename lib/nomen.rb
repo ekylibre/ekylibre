@@ -104,6 +104,11 @@ module Nomen
       set[name] || set.load_data_from_xml(name)
     end
 
+    # Force loading of nomenclatures
+    def load!
+      @@set = NomenclatureSet.load_file(reference_path)
+    end
+
     # Browse all nomenclatures
     def each(&block)
       set.each(&block)
