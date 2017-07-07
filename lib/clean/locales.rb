@@ -495,6 +495,7 @@ module Clean
         translation = "#{locale}:\n"
         translation << "  nomenclatures:\n"
         scrutator = scrut do |s|
+          Nomen.load!
           Nomen.names.sort.each do |name| #  { |a, b| a.to_s <=> b.to_s }
             nomenclature = Nomen[name]
             translation << "    #{nomenclature.name}:\n"

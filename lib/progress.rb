@@ -1,3 +1,6 @@
+# Progress class permits to monitor progression of process by
+# saving progress indicator value outside of an ActiveRecord transaction
+# in order to permit asynchronous access to the information
 class Progress
   class ReadOnlyError < RuntimeError; end
 
