@@ -1405,7 +1405,7 @@ eng:
     interactive_maps: "A JS library for interactive maps" #?!
     interface_preferences: "Interface preferences"
     internal_error: "Oops, something happened."
-    interval: "Personalized Interval" #?
+    interval: "Personalized interval"
     intervention: "Intervention"
     intervention_at: "%{intervention} at %{at}"
     intervention_message_miscibility: "Mixing allowed"
@@ -1536,7 +1536,7 @@ eng:
     natures: "Types" #?
     net_income: "Net income"
     net_mass: "Net mass"
-    # net_production_sales: "Net production sales"
+    net_production_sales: "Net production sales"
     net_surface_area: "Net surface area"
     new: "New"
     new_activity: "New activity"
@@ -2083,7 +2083,9 @@ eng:
     x_outgoing_payments:
       one: "%{count} disbursement"
       other: "%{count} disbursements"
-    # x_purchase_payments: "X purchase payments"
+    x_purchase_payments:
+      one: "%{count} purchase payment"
+      other: "%{count} purchase payments"
     x_purchases:
       one: "%{count} purchase"
       other: "%{count} purchases"
@@ -2168,8 +2170,8 @@ eng:
       cannot_mark_entry_items: "Cannot mark these entry lines"
       cannot_merge_an_entity_with_itself: "It's impossible to merge a person with itself"
       cannot_merge_entities: "It's impossible to merge these people."
-      changes_have_been_reflected: "The changes have been reflected in the stocks state"
-      changes_have_not_been_reflected: "The changes have not been reflected in the stocks state"
+      changes_have_been_reflected: "The changes have been reflected in the stocks state" #?
+      changes_have_not_been_reflected: "The changes have not been reflected in the stocks state" #?
       closed_financial_year_exchange: "The financial year exchange has been closed successfully"
       closed_financial_years: "The financial year has been closed successfully"
       columns_are_already_uses: "One or many columns are selected many times"
