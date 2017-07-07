@@ -150,8 +150,11 @@ class FinancialYearCloseTest < ActiveSupport::TestCase
     ]
 
     letter = test_accounts[4].new_letter
-    this_years = generate_entry(test_accounts[4],  400, letter: letter)
-    next_years = generate_entry(test_accounts[4], -400, letter: letter, printed_on: @end + 2.days)
+    this_years = {
+      300 => generate_entry(test_accounts[4],  500, letter: letter),
+      500 => generate_entry(test_accounts[4],  300, letter: letter)
+    }
+    next_years = generate_entry(test_accounts[4], -800, letter: letter, printed_on: @end + 2.days)
     validate_fog
 
     close = FinancialYearClose.new(@year, @year.stopped_on,
@@ -160,25 +163,31 @@ class FinancialYearCloseTest < ActiveSupport::TestCase
                                    forward_journal: forward)
     close.execute
 
-    assert_equal 2, @year.journal_entries.count
-    assert_equal 2, @next_year.journal_entries.count
+    assert_equal 4, @year.journal_entries.count
+    assert_equal 3, @next_year.journal_entries.count
 
-    this_years_lettered_item = this_years.items.where.not(letter: nil).first
+    assert_equal 2, @close.journal_entry_items.count
+    assert_equal 2, @open.journal_entry_items.count
+
+    this_years.each do |_amount, entry|
+      item = entry.items.where.not(letter: nil).first
+
+      assert_equal letter+'*', item.letter
+      assert_equal 800, item.letter_group.sum('debit - credit')
+
+      assert_not_empty @close.journal_entry_items.where(debit: item.debit, credit: item.credit)
+      assert_not_empty @open.journal_entry_items.where(debit: item.credit, credit: item.debit)
+    end
+
     next_years_lettered_item = next_years.items.where.not(letter: nil).first
 
-    assert_equal     letter, this_years_lettered_item.letter
     assert_not_equal letter, next_years_lettered_item.letter
-
-    assert_equal 0, this_years_lettered_item.letter_group.sum('debit - credit')
     assert_equal 0, next_years_lettered_item.letter_group.sum('debit - credit')
 
     next_years_matching = matching_lettered_item(next_years_lettered_item)
-    this_years_matching = matching_lettered_item(this_years_lettered_item)
-    assert_equal test_accounts[4], next_years_matching.account
-    assert_equal test_accounts[4], this_years_matching.account
 
+    assert_equal test_accounts[4], next_years_matching.account
     assert_equal @open,  complementary_in_entry_of(next_years_matching).account
-    assert_equal @close, complementary_in_entry_of(this_years_matching).account
   end
 
   private
