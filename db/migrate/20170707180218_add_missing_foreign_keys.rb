@@ -513,11 +513,7 @@ class AddMissingForeignKeys < ActiveRecord::Migration
     add_properly_foreign_key :outgoing_payments, :creator_id, :users, :nullify
     add_properly_foreign_key :outgoing_payments, :updater_id, :users, :nullify
     add_properly_foreign_key :outgoing_payments, :cash_id, :cashes, :cascade
-    add_properly_foreign_key :outgoing_payments, :journal_entry_id, :journal_entries, :restrict
-    add_properly_foreign_key :outgoing_payments, :mode_id, :outgoing_payment_modes, :restrict
-    add_properly_foreign_key :outgoing_payments, :payee_id, :entities, :cascade
     add_properly_foreign_key :outgoing_payments, :responsible_id, :users, :cascade
-    add_properly_foreign_key :outgoing_payments, :list_id, :outgoing_payment_lists, :nullify
     add_properly_foreign_key :outgoing_payments, :affair_id, :affairs, :nullify
     # OutgoingPaymentList
     add_properly_foreign_key :outgoing_payment_lists, :creator_id, :users, :nullify

@@ -17127,14 +17127,427 @@ CREATE TRIGGER synchronize_jeis_of_entry AFTER INSERT OR UPDATE ON journal_entri
 
 
 --
-<<<<<<< HEAD
--- Name: fk_rails_00f6e5b7b4; Type: FK CONSTRAINT; Schema: public; Owner: -
-=======
+-- Name: tasks fk_rails_00f6e5b7b4; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY tasks
+    ADD CONSTRAINT fk_rails_00f6e5b7b4 FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: cap_land_parcels fk_rails_014abe90d4; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY cap_land_parcels
+    ADD CONSTRAINT fk_rails_014abe90d4 FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: product_nature_categories fk_rails_0150e5fc85; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY product_nature_categories
+    ADD CONSTRAINT fk_rails_0150e5fc85 FOREIGN KEY (charge_account_id) REFERENCES accounts(id) ON UPDATE CASCADE ON DELETE RESTRICT;
+
+
+--
+-- Name: journal_entries fk_rails_016126bbd5; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY journal_entries
+    ADD CONSTRAINT fk_rails_016126bbd5 FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: document_templates fk_rails_016c5e233e; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY document_templates
+    ADD CONSTRAINT fk_rails_016c5e233e FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: activity_distributions fk_rails_017ab798be; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY activity_distributions
+    ADD CONSTRAINT fk_rails_017ab798be FOREIGN KEY (main_activity_id) REFERENCES activities(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: outgoing_payment_modes fk_rails_01c09fc3cf; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY outgoing_payment_modes
+    ADD CONSTRAINT fk_rails_01c09fc3cf FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: prescriptions fk_rails_02a06f182e; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY prescriptions
+    ADD CONSTRAINT fk_rails_02a06f182e FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
 -- Name: payslips fk_rails_02f6ec2213; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY payslips
     ADD CONSTRAINT fk_rails_02f6ec2213 FOREIGN KEY (nature_id) REFERENCES payslip_natures(id);
+
+
+--
+-- Name: purchase_items fk_rails_03176cbeef; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY purchase_items
+    ADD CONSTRAINT fk_rails_03176cbeef FOREIGN KEY (team_id) REFERENCES teams(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: products fk_rails_0337fef8bc; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY products
+    ADD CONSTRAINT fk_rails_0337fef8bc FOREIGN KEY (initial_container_id) REFERENCES products(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: manure_management_plan_zones fk_rails_03660d3acc; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY manure_management_plan_zones
+    ADD CONSTRAINT fk_rails_03660d3acc FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: parcels fk_rails_03d706b853; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY parcels
+    ADD CONSTRAINT fk_rails_03d706b853 FOREIGN KEY (address_id) REFERENCES entity_addresses(id) ON UPDATE CASCADE ON DELETE RESTRICT;
+
+
+--
+-- Name: cap_statements fk_rails_04fd2943ce; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY cap_statements
+    ADD CONSTRAINT fk_rails_04fd2943ce FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: teams fk_rails_054d4c650a; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY teams
+    ADD CONSTRAINT fk_rails_054d4c650a FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: dashboards fk_rails_05a0fe3602; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY dashboards
+    ADD CONSTRAINT fk_rails_05a0fe3602 FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: purchase_items fk_rails_061293054f; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY purchase_items
+    ADD CONSTRAINT fk_rails_061293054f FOREIGN KEY (tax_id) REFERENCES taxes(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: loans fk_rails_062a77958b; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY loans
+    ADD CONSTRAINT fk_rails_062a77958b FOREIGN KEY (insurance_account_id) REFERENCES accounts(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: sale_items fk_rails_069e9acf9f; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY sale_items
+    ADD CONSTRAINT fk_rails_069e9acf9f FOREIGN KEY (account_id) REFERENCES accounts(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: parcels fk_rails_069f9114d7; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY parcels
+    ADD CONSTRAINT fk_rails_069f9114d7 FOREIGN KEY (storage_id) REFERENCES products(id) ON UPDATE CASCADE ON DELETE RESTRICT;
+
+
+--
+-- Name: product_memberships fk_rails_07a90c7250; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY product_memberships
+    ADD CONSTRAINT fk_rails_07a90c7250 FOREIGN KEY (group_id) REFERENCES products(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: journal_entry_items fk_rails_07ab6c8b5b; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY journal_entry_items
+    ADD CONSTRAINT fk_rails_07ab6c8b5b FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: gaps fk_rails_07b5213437; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY gaps
+    ADD CONSTRAINT fk_rails_07b5213437 FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: interventions fk_rails_0810aa229a; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY interventions
+    ADD CONSTRAINT fk_rails_0810aa229a FOREIGN KEY (issue_id) REFERENCES issues(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: bank_statements fk_rails_088dda4f12; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY bank_statements
+    ADD CONSTRAINT fk_rails_088dda4f12 FOREIGN KEY (journal_entry_id) REFERENCES journal_entries(id) ON UPDATE CASCADE ON DELETE RESTRICT;
+
+
+--
+-- Name: incoming_payments fk_rails_095663aed2; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY incoming_payments
+    ADD CONSTRAINT fk_rails_095663aed2 FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: product_movements fk_rails_0970270702; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY product_movements
+    ADD CONSTRAINT fk_rails_0970270702 FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: sequences fk_rails_09d092bb77; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY sequences
+    ADD CONSTRAINT fk_rails_09d092bb77 FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: preferences fk_rails_0a71e763ae; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY preferences
+    ADD CONSTRAINT fk_rails_0a71e763ae FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: contracts fk_rails_0aa83e541e; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY contracts
+    ADD CONSTRAINT fk_rails_0aa83e541e FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: alert_phases fk_rails_0ce09753e6; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY alert_phases
+    ADD CONSTRAINT fk_rails_0ce09753e6 FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: intervention_parameters fk_rails_0d7dbac6ba; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY intervention_parameters
+    ADD CONSTRAINT fk_rails_0d7dbac6ba FOREIGN KEY (intervention_id) REFERENCES interventions(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: product_natures fk_rails_0dccdbdfad; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY product_natures
+    ADD CONSTRAINT fk_rails_0dccdbdfad FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: sensors fk_rails_0e05d16f09; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY sensors
+    ADD CONSTRAINT fk_rails_0e05d16f09 FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: analyses fk_rails_0e164d8565; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY analyses
+    ADD CONSTRAINT fk_rails_0e164d8565 FOREIGN KEY (sampler_id) REFERENCES entities(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: outgoing_payments fk_rails_0e263ab4e2; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY outgoing_payments
+    ADD CONSTRAINT fk_rails_0e263ab4e2 FOREIGN KEY (responsible_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: intervention_parameters fk_rails_0e39758b4c; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY intervention_parameters
+    ADD CONSTRAINT fk_rails_0e39758b4c FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: cash_transfers fk_rails_0f9172c3c4; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY cash_transfers
+    ADD CONSTRAINT fk_rails_0f9172c3c4 FOREIGN KEY (reception_journal_entry_id) REFERENCES journal_entries(id) ON UPDATE CASCADE ON DELETE RESTRICT;
+
+
+--
+-- Name: issues fk_rails_0f9f697d40; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY issues
+    ADD CONSTRAINT fk_rails_0f9f697d40 FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: product_nature_variant_readings fk_rails_0fe90aeb1d; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY product_nature_variant_readings
+    ADD CONSTRAINT fk_rails_0fe90aeb1d FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: plant_density_abaci fk_rails_104f78b99c; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY plant_density_abaci
+    ADD CONSTRAINT fk_rails_104f78b99c FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: contract_items fk_rails_10e09a9740; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY contract_items
+    ADD CONSTRAINT fk_rails_10e09a9740 FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: tax_declaration_item_parts fk_rails_1209c4e2b8; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY tax_declaration_item_parts
+    ADD CONSTRAINT fk_rails_1209c4e2b8 FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: account_balances fk_rails_12457329e7; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY account_balances
+    ADD CONSTRAINT fk_rails_12457329e7 FOREIGN KEY (financial_year_id) REFERENCES financial_years(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: product_links fk_rails_12a7a5513a; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY product_links
+    ADD CONSTRAINT fk_rails_12a7a5513a FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: inventories fk_rails_12b713bf34; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY inventories
+    ADD CONSTRAINT fk_rails_12b713bf34 FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: product_localizations fk_rails_134eaa866e; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY product_localizations
+    ADD CONSTRAINT fk_rails_134eaa866e FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: activity_budget_items fk_rails_137689e04b; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY activity_budget_items
+    ADD CONSTRAINT fk_rails_137689e04b FOREIGN KEY (variant_id) REFERENCES product_nature_variants(id) ON UPDATE CASCADE ON DELETE RESTRICT;
+
+
+--
+-- Name: activity_budget_items fk_rails_138ee77f1e; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY activity_budget_items
+    ADD CONSTRAINT fk_rails_138ee77f1e FOREIGN KEY (activity_budget_id) REFERENCES activity_budgets(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: outgoing_payment_lists fk_rails_139a1e9f6f; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY outgoing_payment_lists
+    ADD CONSTRAINT fk_rails_139a1e9f6f FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: incoming_payment_modes fk_rails_142e9deed5; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY incoming_payment_modes
+    ADD CONSTRAINT fk_rails_142e9deed5 FOREIGN KEY (cash_id) REFERENCES cashes(id) ON UPDATE CASCADE ON DELETE RESTRICT;
+
+
+--
+-- Name: sales fk_rails_14425ca67e; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY sales
+    ADD CONSTRAINT fk_rails_14425ca67e FOREIGN KEY (responsible_id) REFERENCES entities(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: fixed_assets fk_rails_1455a8f189; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY fixed_assets
+    ADD CONSTRAINT fk_rails_1455a8f189 FOREIGN KEY (scrapped_journal_entry_id) REFERENCES journal_entries(id) ON UPDATE CASCADE ON DELETE RESTRICT;
 
 
 --
@@ -17146,11 +17559,251 @@ ALTER TABLE ONLY outgoing_payments
 
 
 --
+-- Name: purchases fk_rails_15a2e294c8; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY purchases
+    ADD CONSTRAINT fk_rails_15a2e294c8 FOREIGN KEY (quantity_gap_on_invoice_journal_entry_id) REFERENCES journal_entries(id) ON UPDATE CASCADE ON DELETE RESTRICT;
+
+
+--
+-- Name: events fk_rails_15c34a9137; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY events
+    ADD CONSTRAINT fk_rails_15c34a9137 FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: tasks fk_rails_168094a0c1; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY tasks
+    ADD CONSTRAINT fk_rails_168094a0c1 FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: call_messages fk_rails_1697f59d9c; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY call_messages
+    ADD CONSTRAINT fk_rails_1697f59d9c FOREIGN KEY (call_id) REFERENCES calls(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: fixed_assets fk_rails_17bf9c0601; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY fixed_assets
+    ADD CONSTRAINT fk_rails_17bf9c0601 FOREIGN KEY (sold_journal_entry_id) REFERENCES journal_entries(id) ON UPDATE CASCADE ON DELETE RESTRICT;
+
+
+--
+-- Name: attachments fk_rails_18758b2fef; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY attachments
+    ADD CONSTRAINT fk_rails_18758b2fef FOREIGN KEY (document_id) REFERENCES documents(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: purchases fk_rails_188c23c1c8; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY purchases
+    ADD CONSTRAINT fk_rails_188c23c1c8 FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: tokens fk_rails_18df73d758; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY tokens
+    ADD CONSTRAINT fk_rails_18df73d758 FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: product_ownerships fk_rails_190dd3dd57; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY product_ownerships
+    ADD CONSTRAINT fk_rails_190dd3dd57 FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: product_movements fk_rails_1a1d1e5342; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY product_movements
+    ADD CONSTRAINT fk_rails_1a1d1e5342 FOREIGN KEY (product_id) REFERENCES products(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: entity_links fk_rails_1ab612d163; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY entity_links
+    ADD CONSTRAINT fk_rails_1ab612d163 FOREIGN KEY (entity_id) REFERENCES entities(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: loans fk_rails_1ad43ba3eb; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY loans
+    ADD CONSTRAINT fk_rails_1ad43ba3eb FOREIGN KEY (loan_account_id) REFERENCES accounts(id) ON UPDATE CASCADE ON DELETE RESTRICT;
+
+
+--
+-- Name: sales fk_rails_1c0cb152f3; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY sales
+    ADD CONSTRAINT fk_rails_1c0cb152f3 FOREIGN KEY (transporter_id) REFERENCES entities(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: target_distributions fk_rails_1d7b8128b8; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY target_distributions
+    ADD CONSTRAINT fk_rails_1d7b8128b8 FOREIGN KEY (activity_id) REFERENCES activities(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: plant_density_abacus_items fk_rails_1d9f8b1813; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY plant_density_abacus_items
+    ADD CONSTRAINT fk_rails_1d9f8b1813 FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: incoming_payment_modes fk_rails_1db06fd489; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY incoming_payment_modes
+    ADD CONSTRAINT fk_rails_1db06fd489 FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: loans fk_rails_1dd9d357c8; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY loans
+    ADD CONSTRAINT fk_rails_1dd9d357c8 FOREIGN KEY (cash_id) REFERENCES cashes(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: product_nature_variants fk_rails_1ddb522279; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY product_nature_variants
+    ADD CONSTRAINT fk_rails_1ddb522279 FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: cashes fk_rails_1df14f9496; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY cashes
+    ADD CONSTRAINT fk_rails_1df14f9496 FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: parcels fk_rails_1eed0181ba; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY parcels
+    ADD CONSTRAINT fk_rails_1eed0181ba FOREIGN KEY (purchase_id) REFERENCES purchases(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: incoming_payments fk_rails_1f156cee14; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY incoming_payments
+    ADD CONSTRAINT fk_rails_1f156cee14 FOREIGN KEY (affair_id) REFERENCES affairs(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: contracts fk_rails_1f8a9dfdaa; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY contracts
+    ADD CONSTRAINT fk_rails_1f8a9dfdaa FOREIGN KEY (supplier_id) REFERENCES entities(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
 -- Name: outgoing_payments fk_rails_1facec8a15; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY outgoing_payments
     ADD CONSTRAINT fk_rails_1facec8a15 FOREIGN KEY (list_id) REFERENCES outgoing_payment_lists(id);
+
+
+--
+-- Name: entity_addresses fk_rails_1fbfd5a9a6; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY entity_addresses
+    ADD CONSTRAINT fk_rails_1fbfd5a9a6 FOREIGN KEY (entity_id) REFERENCES entities(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: guides fk_rails_1ff9dc5ad7; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY guides
+    ADD CONSTRAINT fk_rails_1ff9dc5ad7 FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: parcel_items fk_rails_201ae150fe; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY parcel_items
+    ADD CONSTRAINT fk_rails_201ae150fe FOREIGN KEY (source_product_movement_id) REFERENCES product_movements(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: cultivable_zones fk_rails_203d1a69a7; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY cultivable_zones
+    ADD CONSTRAINT fk_rails_203d1a69a7 FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: intervention_parameters fk_rails_208dc35386; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY intervention_parameters
+    ADD CONSTRAINT fk_rails_208dc35386 FOREIGN KEY (group_id) REFERENCES intervention_parameters(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: product_memberships fk_rails_20a249d6c2; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY product_memberships
+    ADD CONSTRAINT fk_rails_20a249d6c2 FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: cashes fk_rails_20edf15064; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY cashes
+    ADD CONSTRAINT fk_rails_20edf15064 FOREIGN KEY (suspense_account_id) REFERENCES accounts(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: product_nature_variant_components fk_rails_21056dd55c; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY product_nature_variant_components
+    ADD CONSTRAINT fk_rails_21056dd55c FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
 
 
 --
@@ -17162,54 +17815,1414 @@ ALTER TABLE ONLY outgoing_payments
 
 
 --
--- Name: journal_entry_items fk_rails_3143e6e260; Type: FK CONSTRAINT; Schema: public; Owner: -
->>>>>>> master
+-- Name: parcel_items fk_rails_2164a1af56; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY tasks
-    ADD CONSTRAINT fk_rails_00f6e5b7b4 FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
-<<<<<<< HEAD
--- Name: fk_rails_014abe90d4; Type: FK CONSTRAINT; Schema: public; Owner: -
-=======
--- Name: crumbs fk_rails_434e943648; Type: FK CONSTRAINT; Schema: public; Owner: -
->>>>>>> master
---
-
-ALTER TABLE ONLY cap_land_parcels
-    ADD CONSTRAINT fk_rails_014abe90d4 FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+ALTER TABLE ONLY parcel_items
+    ADD CONSTRAINT fk_rails_2164a1af56 FOREIGN KEY (product_localization_id) REFERENCES product_localizations(id) ON UPDATE CASCADE ON DELETE SET NULL;
 
 
 --
-<<<<<<< HEAD
--- Name: fk_rails_0150e5fc85; Type: FK CONSTRAINT; Schema: public; Owner: -
-=======
--- Name: journal_entries fk_rails_5076105ec1; Type: FK CONSTRAINT; Schema: public; Owner: -
->>>>>>> master
+-- Name: notifications fk_rails_21798568ff; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY notifications
+    ADD CONSTRAINT fk_rails_21798568ff FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: product_nature_categories fk_rails_220dd93ab3; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY product_nature_categories
-    ADD CONSTRAINT fk_rails_0150e5fc85 FOREIGN KEY (charge_account_id) REFERENCES accounts(id) ON UPDATE CASCADE ON DELETE RESTRICT;
+    ADD CONSTRAINT fk_rails_220dd93ab3 FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
 
 
 --
-<<<<<<< HEAD
--- Name: fk_rails_016126bbd5; Type: FK CONSTRAINT; Schema: public; Owner: -
-=======
--- Name: tax_declaration_item_parts fk_rails_5be0cd019c; Type: FK CONSTRAINT; Schema: public; Owner: -
->>>>>>> master
+-- Name: purchases fk_rails_224bbae11f; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY purchases
+    ADD CONSTRAINT fk_rails_224bbae11f FOREIGN KEY (affair_id) REFERENCES affairs(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: activity_tactics fk_rails_22d0a3f0b8; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY activity_tactics
+    ADD CONSTRAINT fk_rails_22d0a3f0b8 FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: listing_nodes fk_rails_23228bc874; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY listing_nodes
+    ADD CONSTRAINT fk_rails_23228bc874 FOREIGN KEY (item_listing_node_id) REFERENCES listing_nodes(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: activity_budget_items fk_rails_23c8753b6d; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY activity_budget_items
+    ADD CONSTRAINT fk_rails_23c8753b6d FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: sales fk_rails_242f8003fd; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY sales
+    ADD CONSTRAINT fk_rails_242f8003fd FOREIGN KEY (address_id) REFERENCES entity_addresses(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: journal_entry_items fk_rails_247431dffd; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY journal_entry_items
+    ADD CONSTRAINT fk_rails_247431dffd FOREIGN KEY (journal_id) REFERENCES journals(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: identifiers fk_rails_24840fe287; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY identifiers
+    ADD CONSTRAINT fk_rails_24840fe287 FOREIGN KEY (net_service_id) REFERENCES net_services(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: product_localizations fk_rails_24b2772f2f; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY product_localizations
+    ADD CONSTRAINT fk_rails_24b2772f2f FOREIGN KEY (container_id) REFERENCES products(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: product_ownerships fk_rails_2522e3153b; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY product_ownerships
+    ADD CONSTRAINT fk_rails_2522e3153b FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: target_distributions fk_rails_2538369aad; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY target_distributions
+    ADD CONSTRAINT fk_rails_2538369aad FOREIGN KEY (target_id) REFERENCES products(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: product_readings fk_rails_254fde6f0b; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY product_readings
+    ADD CONSTRAINT fk_rails_254fde6f0b FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: activity_inspection_calibration_natures fk_rails_2550c1bd00; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY activity_inspection_calibration_natures
+    ADD CONSTRAINT fk_rails_2550c1bd00 FOREIGN KEY (scale_id) REFERENCES activity_inspection_calibration_scales(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: georeadings fk_rails_26a9328a42; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY georeadings
+    ADD CONSTRAINT fk_rails_26a9328a42 FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: interventions fk_rails_27135275f7; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY interventions
+    ADD CONSTRAINT fk_rails_27135275f7 FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: incoming_payments fk_rails_277a19f6f0; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY incoming_payments
+    ADD CONSTRAINT fk_rails_277a19f6f0 FOREIGN KEY (payer_id) REFERENCES entities(id) ON UPDATE CASCADE ON DELETE RESTRICT;
+
+
+--
+-- Name: manure_management_plans fk_rails_2781a3a6d4; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY manure_management_plans
+    ADD CONSTRAINT fk_rails_2781a3a6d4 FOREIGN KEY (recommender_id) REFERENCES entities(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: products fk_rails_2794712893; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY products
+    ADD CONSTRAINT fk_rails_2794712893 FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: taxes fk_rails_2817d767a7; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY taxes
+    ADD CONSTRAINT fk_rails_2817d767a7 FOREIGN KEY (intracommunity_payable_account_id) REFERENCES accounts(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: account_balances fk_rails_28aa047268; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY account_balances
+    ADD CONSTRAINT fk_rails_28aa047268 FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: product_nature_variant_components fk_rails_28f999c5b0; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY product_nature_variant_components
+    ADD CONSTRAINT fk_rails_28f999c5b0 FOREIGN KEY (part_product_nature_variant_id) REFERENCES product_nature_variants(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: tokens fk_rails_2922de5441; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY tokens
+    ADD CONSTRAINT fk_rails_2922de5441 FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: product_enjoyments fk_rails_2aa6b66bff; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY product_enjoyments
+    ADD CONSTRAINT fk_rails_2aa6b66bff FOREIGN KEY (product_id) REFERENCES products(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: activity_productions fk_rails_2aafe38ba4; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY activity_productions
+    ADD CONSTRAINT fk_rails_2aafe38ba4 FOREIGN KEY (activity_id) REFERENCES activities(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: fixed_asset_depreciations fk_rails_2acaa09f8d; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY fixed_asset_depreciations
+    ADD CONSTRAINT fk_rails_2acaa09f8d FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: contracts fk_rails_2d1499d0c4; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY contracts
+    ADD CONSTRAINT fk_rails_2d1499d0c4 FOREIGN KEY (responsible_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: journal_entry_items fk_rails_2d76b2f6e7; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY journal_entry_items
+    ADD CONSTRAINT fk_rails_2d76b2f6e7 FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: entities fk_rails_2e16afcdeb; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY entities
+    ADD CONSTRAINT fk_rails_2e16afcdeb FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: fixed_assets fk_rails_2e4b30bd46; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY fixed_assets
+    ADD CONSTRAINT fk_rails_2e4b30bd46 FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: product_nature_category_taxations fk_rails_2e6a787e29; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY product_nature_category_taxations
+    ADD CONSTRAINT fk_rails_2e6a787e29 FOREIGN KEY (product_nature_category_id) REFERENCES product_nature_categories(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: bank_statement_items fk_rails_2e8974028b; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY bank_statement_items
+    ADD CONSTRAINT fk_rails_2e8974028b FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: financial_years fk_rails_2edbffd09e; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY financial_years
+    ADD CONSTRAINT fk_rails_2edbffd09e FOREIGN KEY (last_journal_entry_id) REFERENCES journal_entries(id) ON UPDATE CASCADE ON DELETE RESTRICT;
+
+
+--
+-- Name: crumbs fk_rails_2f168d0833; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY crumbs
+    ADD CONSTRAINT fk_rails_2f168d0833 FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: product_nature_categories fk_rails_2f5b46f047; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY product_nature_categories
+    ADD CONSTRAINT fk_rails_2f5b46f047 FOREIGN KEY (fixed_asset_allocation_account_id) REFERENCES accounts(id) ON UPDATE CASCADE ON DELETE RESTRICT;
+
+
+--
+-- Name: plant_counting_items fk_rails_2fff36f0ae; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY plant_counting_items
+    ADD CONSTRAINT fk_rails_2fff36f0ae FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: parcel_items fk_rails_300666ff43; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY parcel_items
+    ADD CONSTRAINT fk_rails_300666ff43 FOREIGN KEY (product_enjoyment_id) REFERENCES product_enjoyments(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: purchase_items fk_rails_3060c35076; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY purchase_items
+    ADD CONSTRAINT fk_rails_3060c35076 FOREIGN KEY (fixed_asset_id) REFERENCES fixed_assets(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: sale_items fk_rails_30da003c0e; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY sale_items
+    ADD CONSTRAINT fk_rails_30da003c0e FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: parcel_items fk_rails_30ddd4e6d1; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY parcel_items
+    ADD CONSTRAINT fk_rails_30ddd4e6d1 FOREIGN KEY (product_movement_id) REFERENCES product_movements(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: journal_entries fk_rails_30f73ea054; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY journal_entries
-    ADD CONSTRAINT fk_rails_016126bbd5 FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+    ADD CONSTRAINT fk_rails_30f73ea054 FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
 
 
 --
-<<<<<<< HEAD
--- Name: fk_rails_016c5e233e; Type: FK CONSTRAINT; Schema: public; Owner: -
-=======
+-- Name: journal_entry_items fk_rails_3143e6e260; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY journal_entry_items
+    ADD CONSTRAINT fk_rails_3143e6e260 FOREIGN KEY (variant_id) REFERENCES product_nature_variants(id);
+
+
+--
+-- Name: activity_inspection_calibration_natures fk_rails_322e93834f; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY activity_inspection_calibration_natures
+    ADD CONSTRAINT fk_rails_322e93834f FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: products fk_rails_326639b9fb; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY products
+    ADD CONSTRAINT fk_rails_326639b9fb FOREIGN KEY (person_id) REFERENCES entities(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: intervention_parameter_readings fk_rails_32dd8bbd48; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY intervention_parameter_readings
+    ADD CONSTRAINT fk_rails_32dd8bbd48 FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: product_phases fk_rails_335f485521; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY product_phases
+    ADD CONSTRAINT fk_rails_335f485521 FOREIGN KEY (category_id) REFERENCES product_nature_categories(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: products fk_rails_33cd67b619; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY products
+    ADD CONSTRAINT fk_rails_33cd67b619 FOREIGN KEY (initial_enjoyer_id) REFERENCES entities(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: purchases fk_rails_33f673c5e9; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY purchases
+    ADD CONSTRAINT fk_rails_33f673c5e9 FOREIGN KEY (responsible_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: gap_items fk_rails_348f32c41e; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY gap_items
+    ADD CONSTRAINT fk_rails_348f32c41e FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: deliveries fk_rails_35511d7621; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY deliveries
+    ADD CONSTRAINT fk_rails_35511d7621 FOREIGN KEY (responsible_id) REFERENCES entities(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: tax_declaration_items fk_rails_359c9194c4; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY tax_declaration_items
+    ADD CONSTRAINT fk_rails_359c9194c4 FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: activity_seasons fk_rails_362681c4e1; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY activity_seasons
+    ADD CONSTRAINT fk_rails_362681c4e1 FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: supervision_items fk_rails_363f17ddbf; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY supervision_items
+    ADD CONSTRAINT fk_rails_363f17ddbf FOREIGN KEY (sensor_id) REFERENCES sensors(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: product_localizations fk_rails_378db267f0; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY product_localizations
+    ADD CONSTRAINT fk_rails_378db267f0 FOREIGN KEY (intervention_id) REFERENCES interventions(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: campaigns fk_rails_37d8197291; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY campaigns
+    ADD CONSTRAINT fk_rails_37d8197291 FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: gaps fk_rails_37ef9db5e6; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY gaps
+    ADD CONSTRAINT fk_rails_37ef9db5e6 FOREIGN KEY (entity_id) REFERENCES entities(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: listing_nodes fk_rails_388d269bc6; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY listing_nodes
+    ADD CONSTRAINT fk_rails_388d269bc6 FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: deposits fk_rails_39791a8128; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY deposits
+    ADD CONSTRAINT fk_rails_39791a8128 FOREIGN KEY (responsible_id) REFERENCES entities(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: product_nature_variant_readings fk_rails_3a0809c3e1; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY product_nature_variant_readings
+    ADD CONSTRAINT fk_rails_3a0809c3e1 FOREIGN KEY (variant_id) REFERENCES product_nature_variants(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: issues fk_rails_3ac2c1e009; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY issues
+    ADD CONSTRAINT fk_rails_3ac2c1e009 FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: event_participations fk_rails_3b1dff3097; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY event_participations
+    ADD CONSTRAINT fk_rails_3b1dff3097 FOREIGN KEY (participant_id) REFERENCES entities(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: incoming_payments fk_rails_3c12ca761d; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY incoming_payments
+    ADD CONSTRAINT fk_rails_3c12ca761d FOREIGN KEY (journal_entry_id) REFERENCES journal_entries(id) ON UPDATE CASCADE ON DELETE RESTRICT;
+
+
+--
+-- Name: journal_entry_items fk_rails_3c84db0730; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY journal_entry_items
+    ADD CONSTRAINT fk_rails_3c84db0730 FOREIGN KEY (team_id) REFERENCES teams(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: sale_items fk_rails_3c8cb12820; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY sale_items
+    ADD CONSTRAINT fk_rails_3c8cb12820 FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: imports fk_rails_3cce269863; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY imports
+    ADD CONSTRAINT fk_rails_3cce269863 FOREIGN KEY (importer_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: debt_transfers fk_rails_3cdf4c1b00; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY debt_transfers
+    ADD CONSTRAINT fk_rails_3cdf4c1b00 FOREIGN KEY (affair_id) REFERENCES affairs(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: activity_tactics fk_rails_3cfeb1455d; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY activity_tactics
+    ADD CONSTRAINT fk_rails_3cfeb1455d FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: parcel_items fk_rails_3d11def0dc; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY parcel_items
+    ADD CONSTRAINT fk_rails_3d11def0dc FOREIGN KEY (product_ownership_id) REFERENCES product_ownerships(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: product_nature_categories fk_rails_3d30cc141e; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY product_nature_categories
+    ADD CONSTRAINT fk_rails_3d30cc141e FOREIGN KEY (product_account_id) REFERENCES accounts(id) ON UPDATE CASCADE ON DELETE RESTRICT;
+
+
+--
+-- Name: inspections fk_rails_3d42a5dd2b; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY inspections
+    ADD CONSTRAINT fk_rails_3d42a5dd2b FOREIGN KEY (product_id) REFERENCES products(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: loan_repayments fk_rails_3d944e2450; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY loan_repayments
+    ADD CONSTRAINT fk_rails_3d944e2450 FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: cap_statements fk_rails_3da2ef6103; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY cap_statements
+    ADD CONSTRAINT fk_rails_3da2ef6103 FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: calls fk_rails_3e60af7d3b; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY calls
+    ADD CONSTRAINT fk_rails_3e60af7d3b FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: sales fk_rails_3fb137af04; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY sales
+    ADD CONSTRAINT fk_rails_3fb137af04 FOREIGN KEY (client_id) REFERENCES entities(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: affairs fk_rails_3fe2252496; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY affairs
+    ADD CONSTRAINT fk_rails_3fe2252496 FOREIGN KEY (cash_session_id) REFERENCES cash_sessions(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: parcels fk_rails_3fed567190; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY parcels
+    ADD CONSTRAINT fk_rails_3fed567190 FOREIGN KEY (undelivered_invoice_journal_entry_id) REFERENCES journal_entries(id) ON UPDATE CASCADE ON DELETE RESTRICT;
+
+
+--
+-- Name: product_nature_variants fk_rails_400aef7f4c; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY product_nature_variants
+    ADD CONSTRAINT fk_rails_400aef7f4c FOREIGN KEY (stock_account_id) REFERENCES accounts(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: cashes fk_rails_40551d1ee4; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY cashes
+    ADD CONSTRAINT fk_rails_40551d1ee4 FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: versions fk_rails_40bd680b0d; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY versions
+    ADD CONSTRAINT fk_rails_40bd680b0d FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: journals fk_rails_40d4de14e6; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY journals
+    ADD CONSTRAINT fk_rails_40d4de14e6 FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: subscription_natures fk_rails_40fdc7354a; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY subscription_natures
+    ADD CONSTRAINT fk_rails_40fdc7354a FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: entities fk_rails_410e584f30; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY entities
+    ADD CONSTRAINT fk_rails_410e584f30 FOREIGN KEY (proposer_id) REFERENCES entities(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: products fk_rails_41134536e7; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY products
+    ADD CONSTRAINT fk_rails_41134536e7 FOREIGN KEY (default_storage_id) REFERENCES products(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: analyses fk_rails_41ba474ceb; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY analyses
+    ADD CONSTRAINT fk_rails_41ba474ceb FOREIGN KEY (product_id) REFERENCES products(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: activity_inspection_calibration_scales fk_rails_424d4186e7; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY activity_inspection_calibration_scales
+    ADD CONSTRAINT fk_rails_424d4186e7 FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: regularizations fk_rails_4250515aed; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY regularizations
+    ADD CONSTRAINT fk_rails_4250515aed FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: bank_statement_items fk_rails_431666418f; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY bank_statement_items
+    ADD CONSTRAINT fk_rails_431666418f FOREIGN KEY (bank_statement_id) REFERENCES bank_statements(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: purchase_items fk_rails_43464d525c; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY purchase_items
+    ADD CONSTRAINT fk_rails_43464d525c FOREIGN KEY (activity_budget_id) REFERENCES activity_budgets(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: crumbs fk_rails_434e943648; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY crumbs
+    ADD CONSTRAINT fk_rails_434e943648 FOREIGN KEY (intervention_participation_id) REFERENCES intervention_participations(id);
+
+
+--
+-- Name: guide_analysis_points fk_rails_43961acabc; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY guide_analysis_points
+    ADD CONSTRAINT fk_rails_43961acabc FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: taxes fk_rails_4400e36150; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY taxes
+    ADD CONSTRAINT fk_rails_4400e36150 FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: product_enjoyments fk_rails_448f48d42c; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY product_enjoyments
+    ADD CONSTRAINT fk_rails_448f48d42c FOREIGN KEY (enjoyer_id) REFERENCES entities(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: activity_productions fk_rails_44aac32699; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY activity_productions
+    ADD CONSTRAINT fk_rails_44aac32699 FOREIGN KEY (season_id) REFERENCES activity_seasons(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: calls fk_rails_44d926fde4; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY calls
+    ADD CONSTRAINT fk_rails_44d926fde4 FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: purchases fk_rails_4593a151c9; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY purchases
+    ADD CONSTRAINT fk_rails_4593a151c9 FOREIGN KEY (contract_id) REFERENCES contracts(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: purchase_natures fk_rails_45943b239d; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY purchase_natures
+    ADD CONSTRAINT fk_rails_45943b239d FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: catalogs fk_rails_45abbf3721; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY catalogs
+    ADD CONSTRAINT fk_rails_45abbf3721 FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: affairs fk_rails_45de687588; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY affairs
+    ADD CONSTRAINT fk_rails_45de687588 FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: analyses fk_rails_45e790dee1; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY analyses
+    ADD CONSTRAINT fk_rails_45e790dee1 FOREIGN KEY (analyser_id) REFERENCES entities(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: purchase_natures fk_rails_4636191fcb; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY purchase_natures
+    ADD CONSTRAINT fk_rails_4636191fcb FOREIGN KEY (journal_id) REFERENCES journals(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: event_participations fk_rails_46b154cac6; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY event_participations
+    ADD CONSTRAINT fk_rails_46b154cac6 FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: incoming_payment_modes fk_rails_46e683c1c0; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY incoming_payment_modes
+    ADD CONSTRAINT fk_rails_46e683c1c0 FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: tax_declaration_items fk_rails_46ef37a26f; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY tax_declaration_items
+    ADD CONSTRAINT fk_rails_46ef37a26f FOREIGN KEY (tax_declaration_id) REFERENCES tax_declarations(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: manure_management_plan_zones fk_rails_48c90f8c33; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY manure_management_plan_zones
+    ADD CONSTRAINT fk_rails_48c90f8c33 FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: deposits fk_rails_49f670768f; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY deposits
+    ADD CONSTRAINT fk_rails_49f670768f FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: sale_natures fk_rails_4a6c8e1110; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY sale_natures
+    ADD CONSTRAINT fk_rails_4a6c8e1110 FOREIGN KEY (journal_id) REFERENCES journals(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: incoming_payments fk_rails_4aac06c209; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY incoming_payments
+    ADD CONSTRAINT fk_rails_4aac06c209 FOREIGN KEY (mode_id) REFERENCES incoming_payment_modes(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: notifications fk_rails_4aea6afa11; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY notifications
+    ADD CONSTRAINT fk_rails_4aea6afa11 FOREIGN KEY (recipient_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: entity_links fk_rails_4b5a861f47; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY entity_links
+    ADD CONSTRAINT fk_rails_4b5a861f47 FOREIGN KEY (linked_id) REFERENCES entities(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: cap_land_parcels fk_rails_4be5963038; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY cap_land_parcels
+    ADD CONSTRAINT fk_rails_4be5963038 FOREIGN KEY (cap_islet_id) REFERENCES cap_islets(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: sales fk_rails_4c2629dc35; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY sales
+    ADD CONSTRAINT fk_rails_4c2629dc35 FOREIGN KEY (credited_sale_id) REFERENCES sales(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: parcels fk_rails_4c3553ae69; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY parcels
+    ADD CONSTRAINT fk_rails_4c3553ae69 FOREIGN KEY (sender_id) REFERENCES entities(id) ON UPDATE CASCADE ON DELETE RESTRICT;
+
+
+--
+-- Name: custom_field_choices fk_rails_4c3e78700c; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY custom_field_choices
+    ADD CONSTRAINT fk_rails_4c3e78700c FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: parcel_items fk_rails_4c9ef7fd24; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY parcel_items
+    ADD CONSTRAINT fk_rails_4c9ef7fd24 FOREIGN KEY (variant_id) REFERENCES product_nature_variants(id) ON UPDATE CASCADE ON DELETE RESTRICT;
+
+
+--
+-- Name: cashes fk_rails_4ca49c94ec; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY cashes
+    ADD CONSTRAINT fk_rails_4ca49c94ec FOREIGN KEY (owner_id) REFERENCES entities(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: bank_statements fk_rails_4d03162e54; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY bank_statements
+    ADD CONSTRAINT fk_rails_4d03162e54 FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: intervention_parameter_readings fk_rails_4dd2cfe911; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY intervention_parameter_readings
+    ADD CONSTRAINT fk_rails_4dd2cfe911 FOREIGN KEY (parameter_id) REFERENCES intervention_parameters(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: products fk_rails_4ea5b8b05e; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY products
+    ADD CONSTRAINT fk_rails_4ea5b8b05e FOREIGN KEY (variant_id) REFERENCES product_nature_variants(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: product_nature_variants fk_rails_4eaedbf7c6; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY product_nature_variants
+    ADD CONSTRAINT fk_rails_4eaedbf7c6 FOREIGN KEY (nature_id) REFERENCES product_natures(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: catalog_items fk_rails_4f3833f3ac; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY catalog_items
+    ADD CONSTRAINT fk_rails_4f3833f3ac FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: product_links fk_rails_4ff360e94e; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY product_links
+    ADD CONSTRAINT fk_rails_4ff360e94e FOREIGN KEY (intervention_id) REFERENCES interventions(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: sale_items fk_rails_5059b3f008; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY sale_items
+    ADD CONSTRAINT fk_rails_5059b3f008 FOREIGN KEY (tax_id) REFERENCES taxes(id) ON UPDATE CASCADE ON DELETE RESTRICT;
+
+
+--
+-- Name: journal_entries fk_rails_5076105ec1; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY journal_entries
+    ADD CONSTRAINT fk_rails_5076105ec1 FOREIGN KEY (financial_year_exchange_id) REFERENCES financial_year_exchanges(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: incoming_payment_modes fk_rails_5098025622; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY incoming_payment_modes
+    ADD CONSTRAINT fk_rails_5098025622 FOREIGN KEY (depositables_account_id) REFERENCES accounts(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: activity_productions fk_rails_50befc8562; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY activity_productions
+    ADD CONSTRAINT fk_rails_50befc8562 FOREIGN KEY (campaign_id) REFERENCES campaigns(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: crumbs fk_rails_518fedc933; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY crumbs
+    ADD CONSTRAINT fk_rails_518fedc933 FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: deposits fk_rails_523551a98d; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY deposits
+    ADD CONSTRAINT fk_rails_523551a98d FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: parcels fk_rails_525201c121; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY parcels
+    ADD CONSTRAINT fk_rails_525201c121 FOREIGN KEY (responsible_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: product_nature_variant_components fk_rails_537959994f; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY product_nature_variant_components
+    ADD CONSTRAINT fk_rails_537959994f FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: sensors fk_rails_542f21374a; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY sensors
+    ADD CONSTRAINT fk_rails_542f21374a FOREIGN KEY (host_id) REFERENCES products(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: event_participations fk_rails_546c6caab4; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY event_participations
+    ADD CONSTRAINT fk_rails_546c6caab4 FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: product_movements fk_rails_556d239bea; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY product_movements
+    ADD CONSTRAINT fk_rails_556d239bea FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: custom_fields fk_rails_557da0b10d; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY custom_fields
+    ADD CONSTRAINT fk_rails_557da0b10d FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: subscription_natures fk_rails_55ba199c7f; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY subscription_natures
+    ADD CONSTRAINT fk_rails_55ba199c7f FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: cultivable_zones fk_rails_55e243996a; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY cultivable_zones
+    ADD CONSTRAINT fk_rails_55e243996a FOREIGN KEY (owner_id) REFERENCES entities(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: documents fk_rails_55f53ebbab; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY documents
+    ADD CONSTRAINT fk_rails_55f53ebbab FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: tasks fk_rails_56c5705d5e; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY tasks
+    ADD CONSTRAINT fk_rails_56c5705d5e FOREIGN KEY (sale_opportunity_id) REFERENCES affairs(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: product_memberships fk_rails_5744d494de; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY product_memberships
+    ADD CONSTRAINT fk_rails_5744d494de FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: cap_land_parcels fk_rails_581ee777fa; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY cap_land_parcels
+    ADD CONSTRAINT fk_rails_581ee777fa FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: call_messages fk_rails_591373f7d5; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY call_messages
+    ADD CONSTRAINT fk_rails_591373f7d5 FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: product_linkages fk_rails_5a35ce8a3c; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY product_linkages
+    ADD CONSTRAINT fk_rails_5a35ce8a3c FOREIGN KEY (carrier_id) REFERENCES products(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: parcels fk_rails_5b11b11b0d; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY parcels
+    ADD CONSTRAINT fk_rails_5b11b11b0d FOREIGN KEY (journal_entry_id) REFERENCES journal_entries(id) ON UPDATE CASCADE ON DELETE RESTRICT;
+
+
+--
+-- Name: parcels fk_rails_5b99b1a1b2; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY parcels
+    ADD CONSTRAINT fk_rails_5b99b1a1b2 FOREIGN KEY (transporter_id) REFERENCES entities(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: tax_declaration_item_parts fk_rails_5be0cd019c; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY tax_declaration_item_parts
+    ADD CONSTRAINT fk_rails_5be0cd019c FOREIGN KEY (account_id) REFERENCES accounts(id);
+
+
+--
+-- Name: affairs fk_rails_5c5556f807; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY affairs
+    ADD CONSTRAINT fk_rails_5c5556f807 FOREIGN KEY (third_id) REFERENCES entities(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: inspections fk_rails_5d7a8ba713; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY inspections
+    ADD CONSTRAINT fk_rails_5d7a8ba713 FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: sale_natures fk_rails_5d94a95551; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY sale_natures
+    ADD CONSTRAINT fk_rails_5d94a95551 FOREIGN KEY (catalog_id) REFERENCES catalogs(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: entities fk_rails_5e31fb5b82; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY entities
+    ADD CONSTRAINT fk_rails_5e31fb5b82 FOREIGN KEY (responsible_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: contracts fk_rails_5e71400e52; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY contracts
+    ADD CONSTRAINT fk_rails_5e71400e52 FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: listing_node_items fk_rails_5ec9de988b; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY listing_node_items
+    ADD CONSTRAINT fk_rails_5ec9de988b FOREIGN KEY (node_id) REFERENCES listing_nodes(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: products fk_rails_60713ca369; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY products
+    ADD CONSTRAINT fk_rails_60713ca369 FOREIGN KEY (tracking_id) REFERENCES trackings(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: activity_distributions fk_rails_607dd7f27e; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY activity_distributions
+    ADD CONSTRAINT fk_rails_607dd7f27e FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: product_links fk_rails_6097033ab2; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY product_links
+    ADD CONSTRAINT fk_rails_6097033ab2 FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: product_phases fk_rails_611c37bc8f; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY product_phases
+    ADD CONSTRAINT fk_rails_611c37bc8f FOREIGN KEY (nature_id) REFERENCES product_natures(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: product_nature_categories fk_rails_61b5d7a3a9; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY product_nature_categories
+    ADD CONSTRAINT fk_rails_61b5d7a3a9 FOREIGN KEY (fixed_asset_account_id) REFERENCES accounts(id) ON UPDATE CASCADE ON DELETE RESTRICT;
+
+
+--
+-- Name: fixed_assets fk_rails_61d23da42a; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY fixed_assets
+    ADD CONSTRAINT fk_rails_61d23da42a FOREIGN KEY (asset_account_id) REFERENCES accounts(id) ON UPDATE CASCADE ON DELETE RESTRICT;
+
+
+--
+-- Name: tax_declarations fk_rails_629d71b0bd; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY tax_declarations
+    ADD CONSTRAINT fk_rails_629d71b0bd FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: purchase_items fk_rails_62c1aa0bbe; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY purchase_items
+    ADD CONSTRAINT fk_rails_62c1aa0bbe FOREIGN KEY (purchase_id) REFERENCES purchases(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: cash_sessions fk_rails_62d4b7a5ff; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY cash_sessions
+    ADD CONSTRAINT fk_rails_62d4b7a5ff FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: inventory_items fk_rails_62d92932b7; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY inventory_items
+    ADD CONSTRAINT fk_rails_62d92932b7 FOREIGN KEY (product_id) REFERENCES products(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: postal_zones fk_rails_632a0088d6; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY postal_zones
+    ADD CONSTRAINT fk_rails_632a0088d6 FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: guide_analyses fk_rails_636b786ce8; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY guide_analyses
+    ADD CONSTRAINT fk_rails_636b786ce8 FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: plant_density_abacus_items fk_rails_636e8eef20; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY plant_density_abacus_items
+    ADD CONSTRAINT fk_rails_636e8eef20 FOREIGN KEY (plant_density_abacus_id) REFERENCES plant_density_abaci(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: inventories fk_rails_63bad1dcb6; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY inventories
+    ADD CONSTRAINT fk_rails_63bad1dcb6 FOREIGN KEY (financial_year_id) REFERENCES financial_years(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: users fk_rails_642f17018b; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY users
+    ADD CONSTRAINT fk_rails_642f17018b FOREIGN KEY (role_id) REFERENCES roles(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: inventories fk_rails_64472b9366; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY inventories
+    ADD CONSTRAINT fk_rails_64472b9366 FOREIGN KEY (responsible_id) REFERENCES entities(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: product_phases fk_rails_64625cb646; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY product_phases
+    ADD CONSTRAINT fk_rails_64625cb646 FOREIGN KEY (intervention_id) REFERENCES interventions(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: cashes fk_rails_64a1cb2780; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY cashes
+    ADD CONSTRAINT fk_rails_64a1cb2780 FOREIGN KEY (journal_id) REFERENCES journals(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: contract_items fk_rails_64cd22b0ee; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY contract_items
+    ADD CONSTRAINT fk_rails_64cd22b0ee FOREIGN KEY (variant_id) REFERENCES product_nature_variants(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: product_nature_categories fk_rails_6511f5959a; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY product_nature_categories
+    ADD CONSTRAINT fk_rails_6511f5959a FOREIGN KEY (stock_movement_account_id) REFERENCES accounts(id) ON UPDATE CASCADE ON DELETE RESTRICT;
+
+
+--
+-- Name: integrations fk_rails_6558ea2c9c; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY integrations
+    ADD CONSTRAINT fk_rails_6558ea2c9c FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: parcels fk_rails_65e7509f5d; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY parcels
+    ADD CONSTRAINT fk_rails_65e7509f5d FOREIGN KEY (delivery_id) REFERENCES deliveries(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: sale_natures fk_rails_664f5c7a4f; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY sale_natures
+    ADD CONSTRAINT fk_rails_664f5c7a4f FOREIGN KEY (payment_mode_id) REFERENCES incoming_payment_modes(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: crumbs fk_rails_66c0003a0f; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY crumbs
+    ADD CONSTRAINT fk_rails_66c0003a0f FOREIGN KEY (intervention_parameter_id) REFERENCES intervention_parameters(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: product_linkages fk_rails_675d471b70; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY product_linkages
+    ADD CONSTRAINT fk_rails_675d471b70 FOREIGN KEY (intervention_id) REFERENCES interventions(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
 -- Name: payslip_natures fk_rails_6835dfa420; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -17218,30 +19231,470 @@ ALTER TABLE ONLY payslip_natures
 
 
 --
+-- Name: gaps fk_rails_6840dd6b95; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY gaps
+    ADD CONSTRAINT fk_rails_6840dd6b95 FOREIGN KEY (journal_entry_id) REFERENCES journal_entries(id) ON UPDATE CASCADE ON DELETE RESTRICT;
+
+
+--
+-- Name: inventory_items fk_rails_69339a43d8; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY inventory_items
+    ADD CONSTRAINT fk_rails_69339a43d8 FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: inventory_items fk_rails_699b5b1299; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY inventory_items
+    ADD CONSTRAINT fk_rails_699b5b1299 FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: cap_statements fk_rails_69b4f722e3; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY cap_statements
+    ADD CONSTRAINT fk_rails_69b4f722e3 FOREIGN KEY (campaign_id) REFERENCES campaigns(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: campaigns fk_rails_6a6fe9ea9a; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY campaigns
+    ADD CONSTRAINT fk_rails_6a6fe9ea9a FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: product_linkages fk_rails_6a925852c1; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY product_linkages
+    ADD CONSTRAINT fk_rails_6a925852c1 FOREIGN KEY (carried_id) REFERENCES products(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: sales fk_rails_6a9fc1a17f; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY sales
+    ADD CONSTRAINT fk_rails_6a9fc1a17f FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: dashboards fk_rails_6aa578397c; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY dashboards
+    ADD CONSTRAINT fk_rails_6aa578397c FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: purchase_items fk_rails_6b1674aba3; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY purchase_items
+    ADD CONSTRAINT fk_rails_6b1674aba3 FOREIGN KEY (depreciable_product_id) REFERENCES products(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: product_nature_category_taxations fk_rails_6c553db953; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY product_nature_category_taxations
+    ADD CONSTRAINT fk_rails_6c553db953 FOREIGN KEY (tax_id) REFERENCES taxes(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: intervention_working_periods fk_rails_6ca49ff545; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY intervention_working_periods
+    ADD CONSTRAINT fk_rails_6ca49ff545 FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: debt_transfers fk_rails_6cc9da109c; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY debt_transfers
+    ADD CONSTRAINT fk_rails_6cc9da109c FOREIGN KEY (journal_entry_id) REFERENCES journal_entries(id) ON UPDATE CASCADE ON DELETE RESTRICT;
+
+
+--
+-- Name: products fk_rails_6fcbdd26dc; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY products
+    ADD CONSTRAINT fk_rails_6fcbdd26dc FOREIGN KEY (initial_movement_id) REFERENCES product_movements(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: taxes fk_rails_703472efb9; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY taxes
+    ADD CONSTRAINT fk_rails_703472efb9 FOREIGN KEY (deduction_account_id) REFERENCES accounts(id) ON UPDATE CASCADE ON DELETE RESTRICT;
+
+
+--
+-- Name: fixed_assets fk_rails_7043c25edd; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY fixed_assets
+    ADD CONSTRAINT fk_rails_7043c25edd FOREIGN KEY (allocation_account_id) REFERENCES accounts(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: guide_analyses fk_rails_7072c58d57; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY guide_analyses
+    ADD CONSTRAINT fk_rails_7072c58d57 FOREIGN KEY (guide_id) REFERENCES guides(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: outgoing_payments fk_rails_70b8f598a0; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY outgoing_payments
+    ADD CONSTRAINT fk_rails_70b8f598a0 FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: districts fk_rails_710966be99; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY districts
+    ADD CONSTRAINT fk_rails_710966be99 FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: journal_entries fk_rails_714e5a35d9; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY journal_entries
+    ADD CONSTRAINT fk_rails_714e5a35d9 FOREIGN KEY (journal_id) REFERENCES journals(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: journal_entry_items fk_rails_71b798326e; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY journal_entry_items
+    ADD CONSTRAINT fk_rails_71b798326e FOREIGN KEY (tax_declaration_item_id) REFERENCES tax_declaration_items(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: parcels fk_rails_72b04fc498; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY parcels
+    ADD CONSTRAINT fk_rails_72b04fc498 FOREIGN KEY (contract_id) REFERENCES contracts(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: cash_sessions fk_rails_734201d412; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY cash_sessions
+    ADD CONSTRAINT fk_rails_734201d412 FOREIGN KEY (cash_id) REFERENCES cashes(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: supervisions fk_rails_73738e690f; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY supervisions
+    ADD CONSTRAINT fk_rails_73738e690f FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: journal_entry_items fk_rails_7382f73d03; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY journal_entry_items
+    ADD CONSTRAINT fk_rails_7382f73d03 FOREIGN KEY (financial_year_id) REFERENCES financial_years(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: product_movements fk_rails_75333ccf01; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY product_movements
+    ADD CONSTRAINT fk_rails_75333ccf01 FOREIGN KEY (intervention_id) REFERENCES interventions(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: sequences fk_rails_75772b1f28; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY sequences
+    ADD CONSTRAINT fk_rails_75772b1f28 FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: documents fk_rails_75a29a42d4; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY documents
+    ADD CONSTRAINT fk_rails_75a29a42d4 FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: identifiers fk_rails_761362dbfb; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY identifiers
+    ADD CONSTRAINT fk_rails_761362dbfb FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: observations fk_rails_762630d0fb; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY observations
+    ADD CONSTRAINT fk_rails_762630d0fb FOREIGN KEY (author_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: purchases fk_rails_763bc367d1; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY purchases
+    ADD CONSTRAINT fk_rails_763bc367d1 FOREIGN KEY (nature_id) REFERENCES purchase_natures(id) ON UPDATE CASCADE ON DELETE RESTRICT;
+
+
+--
+-- Name: target_distributions fk_rails_7680a7dd17; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY target_distributions
+    ADD CONSTRAINT fk_rails_7680a7dd17 FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: sales fk_rails_76a9bd3581; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY sales
+    ADD CONSTRAINT fk_rails_76a9bd3581 FOREIGN KEY (delivery_address_id) REFERENCES entity_addresses(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: parcel_items fk_rails_77e039c42d; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY parcel_items
+    ADD CONSTRAINT fk_rails_77e039c42d FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: intervention_parameters fk_rails_7827a27f9e; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY intervention_parameters
+    ADD CONSTRAINT fk_rails_7827a27f9e FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: observations fk_rails_789fa67611; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY observations
+    ADD CONSTRAINT fk_rails_789fa67611 FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: product_natures fk_rails_798f6d11f1; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY product_natures
+    ADD CONSTRAINT fk_rails_798f6d11f1 FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: product_nature_variant_components fk_rails_7a738ebb13; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY product_nature_variant_components
+    ADD CONSTRAINT fk_rails_7a738ebb13 FOREIGN KEY (parent_id) REFERENCES product_nature_variant_components(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
 -- Name: alert_phases fk_rails_7a9749733c; Type: FK CONSTRAINT; Schema: public; Owner: -
->>>>>>> master
 --
 
-ALTER TABLE ONLY document_templates
-    ADD CONSTRAINT fk_rails_016c5e233e FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+ALTER TABLE ONLY alert_phases
+    ADD CONSTRAINT fk_rails_7a9749733c FOREIGN KEY (alert_id) REFERENCES alerts(id);
 
 
 --
-<<<<<<< HEAD
--- Name: fk_rails_017ab798be; Type: FK CONSTRAINT; Schema: public; Owner: -
-=======
+-- Name: loans fk_rails_7a9ac69852; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY loans
+    ADD CONSTRAINT fk_rails_7a9ac69852 FOREIGN KEY (interest_account_id) REFERENCES accounts(id) ON UPDATE CASCADE ON DELETE RESTRICT;
+
+
+--
+-- Name: bank_statement_items fk_rails_7af37c85ac; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY bank_statement_items
+    ADD CONSTRAINT fk_rails_7af37c85ac FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: plant_countings fk_rails_7b6be7d061; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY plant_countings
+    ADD CONSTRAINT fk_rails_7b6be7d061 FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: catalog_items fk_rails_7bbc7b4cef; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY catalog_items
+    ADD CONSTRAINT fk_rails_7bbc7b4cef FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: net_services fk_rails_7c50273054; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY net_services
+    ADD CONSTRAINT fk_rails_7c50273054 FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: entities fk_rails_7c7753d434; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY entities
+    ADD CONSTRAINT fk_rails_7c7753d434 FOREIGN KEY (supplier_account_id) REFERENCES accounts(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: activities fk_rails_7cbe6a011c; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY activities
+    ADD CONSTRAINT fk_rails_7cbe6a011c FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: sale_items fk_rails_7cc0ce7951; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY sale_items
+    ADD CONSTRAINT fk_rails_7cc0ce7951 FOREIGN KEY (variant_id) REFERENCES product_nature_variants(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: gap_items fk_rails_7d0c13ae80; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY gap_items
+    ADD CONSTRAINT fk_rails_7d0c13ae80 FOREIGN KEY (tax_id) REFERENCES taxes(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: users fk_rails_7dc39f42eb; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY users
+    ADD CONSTRAINT fk_rails_7dc39f42eb FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: call_messages fk_rails_7e4c597597; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY call_messages
+    ADD CONSTRAINT fk_rails_7e4c597597 FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: teams fk_rails_7ecf94116f; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY teams
+    ADD CONSTRAINT fk_rails_7ecf94116f FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: inspection_points fk_rails_7f031d8645; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY inspection_points
+    ADD CONSTRAINT fk_rails_7f031d8645 FOREIGN KEY (nature_id) REFERENCES activity_inspection_point_natures(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: entity_addresses fk_rails_7f53e72b34; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY entity_addresses
+    ADD CONSTRAINT fk_rails_7f53e72b34 FOREIGN KEY (mail_postal_zone_id) REFERENCES postal_zones(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
 -- Name: regularizations fk_rails_8043b7d279; Type: FK CONSTRAINT; Schema: public; Owner: -
->>>>>>> master
 --
 
-ALTER TABLE ONLY activity_distributions
-    ADD CONSTRAINT fk_rails_017ab798be FOREIGN KEY (main_activity_id) REFERENCES activities(id) ON UPDATE CASCADE ON DELETE CASCADE;
+ALTER TABLE ONLY regularizations
+    ADD CONSTRAINT fk_rails_8043b7d279 FOREIGN KEY (affair_id) REFERENCES affairs(id);
 
 
 --
-<<<<<<< HEAD
--- Name: fk_rails_01c09fc3cf; Type: FK CONSTRAINT; Schema: public; Owner: -
-=======
+-- Name: observations fk_rails_8121388822; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY observations
+    ADD CONSTRAINT fk_rails_8121388822 FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: deposits fk_rails_8131f7240d; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY deposits
+    ADD CONSTRAINT fk_rails_8131f7240d FOREIGN KEY (journal_entry_id) REFERENCES journal_entries(id) ON UPDATE CASCADE ON DELETE RESTRICT;
+
+
+--
+-- Name: financial_years fk_rails_81af047794; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY financial_years
+    ADD CONSTRAINT fk_rails_81af047794 FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: alert_phases fk_rails_81d009f630; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY alert_phases
+    ADD CONSTRAINT fk_rails_81d009f630 FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: manure_management_plans fk_rails_82ac1ec325; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY manure_management_plans
+    ADD CONSTRAINT fk_rails_82ac1ec325 FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
 -- Name: payslip_natures fk_rails_82e76fb89d; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -17250,54 +19703,894 @@ ALTER TABLE ONLY payslip_natures
 
 
 --
--- Name: intervention_participations fk_rails_930f08f448; Type: FK CONSTRAINT; Schema: public; Owner: -
->>>>>>> master
+-- Name: map_layers fk_rails_8351acf62c; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY outgoing_payment_modes
-    ADD CONSTRAINT fk_rails_01c09fc3cf FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
-<<<<<<< HEAD
--- Name: fk_rails_02a06f182e; Type: FK CONSTRAINT; Schema: public; Owner: -
-=======
--- Name: tax_declaration_item_parts fk_rails_9d08cd4dc8; Type: FK CONSTRAINT; Schema: public; Owner: -
->>>>>>> master
---
-
-ALTER TABLE ONLY prescriptions
-    ADD CONSTRAINT fk_rails_02a06f182e FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+ALTER TABLE ONLY map_layers
+    ADD CONSTRAINT fk_rails_8351acf62c FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
 
 
 --
-<<<<<<< HEAD
--- Name: fk_rails_03176cbeef; Type: FK CONSTRAINT; Schema: public; Owner: -
-=======
--- Name: alerts fk_rails_a31061effa; Type: FK CONSTRAINT; Schema: public; Owner: -
->>>>>>> master
+-- Name: fixed_asset_depreciations fk_rails_835ea028eb; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY purchase_items
-    ADD CONSTRAINT fk_rails_03176cbeef FOREIGN KEY (team_id) REFERENCES teams(id) ON UPDATE CASCADE ON DELETE SET NULL;
+ALTER TABLE ONLY fixed_asset_depreciations
+    ADD CONSTRAINT fk_rails_835ea028eb FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
 
 
 --
-<<<<<<< HEAD
--- Name: fk_rails_0337fef8bc; Type: FK CONSTRAINT; Schema: public; Owner: -
-=======
--- Name: intervention_working_periods fk_rails_a9b45798a3; Type: FK CONSTRAINT; Schema: public; Owner: -
->>>>>>> master
+-- Name: loan_repayments fk_rails_83b193d99d; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY loan_repayments
+    ADD CONSTRAINT fk_rails_83b193d99d FOREIGN KEY (loan_id) REFERENCES loans(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: interventions fk_rails_84e680e296; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY interventions
+    ADD CONSTRAINT fk_rails_84e680e296 FOREIGN KEY (request_intervention_id) REFERENCES interventions(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: product_labellings fk_rails_85183adb8f; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY product_labellings
+    ADD CONSTRAINT fk_rails_85183adb8f FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: events fk_rails_8619415b3f; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY events
+    ADD CONSTRAINT fk_rails_8619415b3f FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: manure_management_plan_zones fk_rails_86efedd5e8; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY manure_management_plan_zones
+    ADD CONSTRAINT fk_rails_86efedd5e8 FOREIGN KEY (activity_production_id) REFERENCES activity_productions(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: analysis_items fk_rails_8736bbc708; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY analysis_items
+    ADD CONSTRAINT fk_rails_8736bbc708 FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: activity_seasons fk_rails_8767e3fcaf; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY activity_seasons
+    ADD CONSTRAINT fk_rails_8767e3fcaf FOREIGN KEY (activity_id) REFERENCES activities(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: postal_zones fk_rails_87b5af7ee5; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY postal_zones
+    ADD CONSTRAINT fk_rails_87b5af7ee5 FOREIGN KEY (district_id) REFERENCES districts(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: preferences fk_rails_87f1c9c7bd; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY preferences
+    ADD CONSTRAINT fk_rails_87f1c9c7bd FOREIGN KEY (user_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: districts fk_rails_88921ec412; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY districts
+    ADD CONSTRAINT fk_rails_88921ec412 FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: fixed_asset_depreciations fk_rails_88b1b0398c; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY fixed_asset_depreciations
+    ADD CONSTRAINT fk_rails_88b1b0398c FOREIGN KEY (journal_entry_id) REFERENCES journal_entries(id) ON UPDATE CASCADE ON DELETE RESTRICT;
+
+
+--
+-- Name: parcel_items fk_rails_88ce500f27; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY parcel_items
+    ADD CONSTRAINT fk_rails_88ce500f27 FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: interventions fk_rails_88d513bf29; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY interventions
+    ADD CONSTRAINT fk_rails_88d513bf29 FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: alerts fk_rails_88e7174912; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY alerts
+    ADD CONSTRAINT fk_rails_88e7174912 FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: intervention_working_periods fk_rails_8903897a2c; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY intervention_working_periods
+    ADD CONSTRAINT fk_rails_8903897a2c FOREIGN KEY (intervention_id) REFERENCES interventions(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: loans fk_rails_8948164f25; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY loans
+    ADD CONSTRAINT fk_rails_8948164f25 FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: products fk_rails_89506052d0; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY products
-    ADD CONSTRAINT fk_rails_0337fef8bc FOREIGN KEY (initial_container_id) REFERENCES products(id) ON UPDATE CASCADE ON DELETE SET NULL;
+    ADD CONSTRAINT fk_rails_89506052d0 FOREIGN KEY (parent_id) REFERENCES products(id) ON UPDATE CASCADE ON DELETE SET NULL;
 
 
 --
-<<<<<<< HEAD
--- Name: fk_rails_03660d3acc; Type: FK CONSTRAINT; Schema: public; Owner: -
-=======
+-- Name: attachments fk_rails_8986b00a83; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY attachments
+    ADD CONSTRAINT fk_rails_8986b00a83 FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: analysis_items fk_rails_89a4ed37ee; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY analysis_items
+    ADD CONSTRAINT fk_rails_89a4ed37ee FOREIGN KEY (analysis_id) REFERENCES analyses(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: intervention_labellings fk_rails_8afb65e773; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY intervention_labellings
+    ADD CONSTRAINT fk_rails_8afb65e773 FOREIGN KEY (intervention_id) REFERENCES interventions(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: intervention_parameter_readings fk_rails_8c3e9ae316; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY intervention_parameter_readings
+    ADD CONSTRAINT fk_rails_8c3e9ae316 FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: crumbs fk_rails_8cfb047f14; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY crumbs
+    ADD CONSTRAINT fk_rails_8cfb047f14 FOREIGN KEY (user_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: outgoing_payments fk_rails_8d232610f0; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY outgoing_payments
+    ADD CONSTRAINT fk_rails_8d232610f0 FOREIGN KEY (cash_id) REFERENCES cashes(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: incoming_payments fk_rails_8d7e169b3d; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY incoming_payments
+    ADD CONSTRAINT fk_rails_8d7e169b3d FOREIGN KEY (responsible_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: incoming_payments fk_rails_8dc5597158; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY incoming_payments
+    ADD CONSTRAINT fk_rails_8dc5597158 FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: map_layers fk_rails_8f242fc2da; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY map_layers
+    ADD CONSTRAINT fk_rails_8f242fc2da FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: trackings fk_rails_8f4e5f48f5; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY trackings
+    ADD CONSTRAINT fk_rails_8f4e5f48f5 FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: products fk_rails_8f6c3c0890; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY products
+    ADD CONSTRAINT fk_rails_8f6c3c0890 FOREIGN KEY (initial_father_id) REFERENCES products(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: supervision_items fk_rails_8f87ec8500; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY supervision_items
+    ADD CONSTRAINT fk_rails_8f87ec8500 FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: listing_nodes fk_rails_8fc55593ba; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY listing_nodes
+    ADD CONSTRAINT fk_rails_8fc55593ba FOREIGN KEY (item_listing_id) REFERENCES listings(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: product_enjoyments fk_rails_8fde2f5f19; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY product_enjoyments
+    ADD CONSTRAINT fk_rails_8fde2f5f19 FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: accounts fk_rails_9012acf72a; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY accounts
+    ADD CONSTRAINT fk_rails_9012acf72a FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: prescriptions fk_rails_9030c3d14f; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY prescriptions
+    ADD CONSTRAINT fk_rails_9030c3d14f FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: incoming_payment_modes fk_rails_9069600c37; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY incoming_payment_modes
+    ADD CONSTRAINT fk_rails_9069600c37 FOREIGN KEY (commission_account_id) REFERENCES accounts(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: incoming_payment_modes fk_rails_9077e8306e; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY incoming_payment_modes
+    ADD CONSTRAINT fk_rails_9077e8306e FOREIGN KEY (depositables_journal_id) REFERENCES journals(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: entity_links fk_rails_90ef6576c4; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY entity_links
+    ADD CONSTRAINT fk_rails_90ef6576c4 FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: intervention_labellings fk_rails_90f914c9f6; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY intervention_labellings
+    ADD CONSTRAINT fk_rails_90f914c9f6 FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: document_templates fk_rails_91018e4d60; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY document_templates
+    ADD CONSTRAINT fk_rails_91018e4d60 FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: activity_distributions fk_rails_91e7d02ff1; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY activity_distributions
+    ADD CONSTRAINT fk_rails_91e7d02ff1 FOREIGN KEY (activity_id) REFERENCES activities(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: analyses fk_rails_920d2d0fd3; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY analyses
+    ADD CONSTRAINT fk_rails_920d2d0fd3 FOREIGN KEY (sensor_id) REFERENCES sensors(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: journal_entry_items fk_rails_92682e5545; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY journal_entry_items
+    ADD CONSTRAINT fk_rails_92682e5545 FOREIGN KEY (account_id) REFERENCES accounts(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: parcel_items fk_rails_926dc7cb5c; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY parcel_items
+    ADD CONSTRAINT fk_rails_926dc7cb5c FOREIGN KEY (analysis_id) REFERENCES analyses(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: outgoing_payment_modes fk_rails_929c0d57e2; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY outgoing_payment_modes
+    ADD CONSTRAINT fk_rails_929c0d57e2 FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: intervention_participations fk_rails_930f08f448; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY intervention_participations
+    ADD CONSTRAINT fk_rails_930f08f448 FOREIGN KEY (intervention_id) REFERENCES interventions(id);
+
+
+--
+-- Name: journal_entry_items fk_rails_934846f787; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY journal_entry_items
+    ADD CONSTRAINT fk_rails_934846f787 FOREIGN KEY (activity_budget_id) REFERENCES activity_budgets(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: parcels fk_rails_938eba6751; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY parcels
+    ADD CONSTRAINT fk_rails_938eba6751 FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: inventories fk_rails_93b19e800d; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY inventories
+    ADD CONSTRAINT fk_rails_93b19e800d FOREIGN KEY (journal_entry_id) REFERENCES journal_entries(id) ON UPDATE CASCADE ON DELETE RESTRICT;
+
+
+--
+-- Name: net_services fk_rails_94c0f53848; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY net_services
+    ADD CONSTRAINT fk_rails_94c0f53848 FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: sales fk_rails_952d21f266; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY sales
+    ADD CONSTRAINT fk_rails_952d21f266 FOREIGN KEY (quantity_gap_on_invoice_journal_entry_id) REFERENCES journal_entries(id) ON UPDATE CASCADE ON DELETE RESTRICT;
+
+
+--
+-- Name: listings fk_rails_95928219de; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY listings
+    ADD CONSTRAINT fk_rails_95928219de FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: delivery_tools fk_rails_95aaec528d; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY delivery_tools
+    ADD CONSTRAINT fk_rails_95aaec528d FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: synchronization_operations fk_rails_964829961a; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY synchronization_operations
+    ADD CONSTRAINT fk_rails_964829961a FOREIGN KEY (notification_id) REFERENCES notifications(id) ON UPDATE CASCADE ON DELETE RESTRICT;
+
+
+--
+-- Name: product_labellings fk_rails_966fdd868b; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY product_labellings
+    ADD CONSTRAINT fk_rails_966fdd868b FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: synchronization_operations fk_rails_9709540324; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY synchronization_operations
+    ADD CONSTRAINT fk_rails_9709540324 FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: cap_islets fk_rails_97b45071f0; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY cap_islets
+    ADD CONSTRAINT fk_rails_97b45071f0 FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: alerts fk_rails_98336a2803; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY alerts
+    ADD CONSTRAINT fk_rails_98336a2803 FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: product_labellings fk_rails_9926dd709a; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY product_labellings
+    ADD CONSTRAINT fk_rails_9926dd709a FOREIGN KEY (product_id) REFERENCES products(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: manure_management_plan_zones fk_rails_997b34ead2; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY manure_management_plan_zones
+    ADD CONSTRAINT fk_rails_997b34ead2 FOREIGN KEY (plan_id) REFERENCES manure_management_plans(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: purchase_natures fk_rails_9a2ac8cd4f; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY purchase_natures
+    ADD CONSTRAINT fk_rails_9a2ac8cd4f FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: entity_addresses fk_rails_9a513f6995; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY entity_addresses
+    ADD CONSTRAINT fk_rails_9a513f6995 FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: integrations fk_rails_9ac6f7d662; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY integrations
+    ADD CONSTRAINT fk_rails_9ac6f7d662 FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: tasks fk_rails_9b698982dd; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY tasks
+    ADD CONSTRAINT fk_rails_9b698982dd FOREIGN KEY (executor_id) REFERENCES entities(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: product_phases fk_rails_9b9d36a9a5; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY product_phases
+    ADD CONSTRAINT fk_rails_9b9d36a9a5 FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: loans fk_rails_9c0a384816; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY loans
+    ADD CONSTRAINT fk_rails_9c0a384816 FOREIGN KEY (bank_guarantee_account_id) REFERENCES accounts(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: tax_declaration_item_parts fk_rails_9d08cd4dc8; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY tax_declaration_item_parts
+    ADD CONSTRAINT fk_rails_9d08cd4dc8 FOREIGN KEY (tax_declaration_item_id) REFERENCES tax_declaration_items(id);
+
+
+--
+-- Name: inspection_calibrations fk_rails_9d50c7d5b5; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY inspection_calibrations
+    ADD CONSTRAINT fk_rails_9d50c7d5b5 FOREIGN KEY (inspection_id) REFERENCES inspections(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: activity_distributions fk_rails_9d5b19ba0c; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY activity_distributions
+    ADD CONSTRAINT fk_rails_9d5b19ba0c FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: cashes fk_rails_9d958cd7e3; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY cashes
+    ADD CONSTRAINT fk_rails_9d958cd7e3 FOREIGN KEY (main_account_id) REFERENCES accounts(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: sale_natures fk_rails_9e2551606f; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY sale_natures
+    ADD CONSTRAINT fk_rails_9e2551606f FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: delivery_tools fk_rails_9e8f4919fb; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY delivery_tools
+    ADD CONSTRAINT fk_rails_9e8f4919fb FOREIGN KEY (delivery_id) REFERENCES deliveries(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: product_ownerships fk_rails_9e9409872a; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY product_ownerships
+    ADD CONSTRAINT fk_rails_9e9409872a FOREIGN KEY (owner_id) REFERENCES entities(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: catalog_items fk_rails_9ec998a7c7; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY catalog_items
+    ADD CONSTRAINT fk_rails_9ec998a7c7 FOREIGN KEY (catalog_id) REFERENCES catalogs(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: dashboards fk_rails_9eef05dc48; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY dashboards
+    ADD CONSTRAINT fk_rails_9eef05dc48 FOREIGN KEY (owner_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: activity_budget_items fk_rails_9f2172c524; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY activity_budget_items
+    ADD CONSTRAINT fk_rails_9f2172c524 FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: account_balances fk_rails_9f8a555075; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY account_balances
+    ADD CONSTRAINT fk_rails_9f8a555075 FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: plant_countings fk_rails_a0a27ea478; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY plant_countings
+    ADD CONSTRAINT fk_rails_a0a27ea478 FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: deliveries fk_rails_a0f2b95a5c; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY deliveries
+    ADD CONSTRAINT fk_rails_a0f2b95a5c FOREIGN KEY (transporter_purchase_id) REFERENCES purchases(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: plant_countings fk_rails_a1a464afc1; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY plant_countings
+    ADD CONSTRAINT fk_rails_a1a464afc1 FOREIGN KEY (plant_density_abacus_id) REFERENCES plant_density_abaci(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: outgoing_payment_modes fk_rails_a20d5951d8; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY outgoing_payment_modes
+    ADD CONSTRAINT fk_rails_a20d5951d8 FOREIGN KEY (cash_id) REFERENCES cashes(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: sale_items fk_rails_a2563c1567; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY sale_items
+    ADD CONSTRAINT fk_rails_a2563c1567 FOREIGN KEY (sale_id) REFERENCES sales(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: alerts fk_rails_a31061effa; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY alerts
+    ADD CONSTRAINT fk_rails_a31061effa FOREIGN KEY (sensor_id) REFERENCES sensors(id);
+
+
+--
+-- Name: activities fk_rails_a3377f786b; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY activities
+    ADD CONSTRAINT fk_rails_a3377f786b FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: product_phases fk_rails_a3644fda81; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY product_phases
+    ADD CONSTRAINT fk_rails_a3644fda81 FOREIGN KEY (variant_id) REFERENCES product_nature_variants(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: debt_transfers fk_rails_a3b8e101cb; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY debt_transfers
+    ADD CONSTRAINT fk_rails_a3b8e101cb FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: synchronization_operations fk_rails_a46c002667; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY synchronization_operations
+    ADD CONSTRAINT fk_rails_a46c002667 FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: sales fk_rails_a4c2fc2286; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY sales
+    ADD CONSTRAINT fk_rails_a4c2fc2286 FOREIGN KEY (journal_entry_id) REFERENCES journal_entries(id) ON UPDATE CASCADE ON DELETE RESTRICT;
+
+
+--
+-- Name: listing_node_items fk_rails_a4e34a5691; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY listing_node_items
+    ADD CONSTRAINT fk_rails_a4e34a5691 FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: fixed_asset_depreciations fk_rails_a54e8f4ede; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY fixed_asset_depreciations
+    ADD CONSTRAINT fk_rails_a54e8f4ede FOREIGN KEY (financial_year_id) REFERENCES financial_years(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: product_memberships fk_rails_a5982f51a1; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY product_memberships
+    ADD CONSTRAINT fk_rails_a5982f51a1 FOREIGN KEY (intervention_id) REFERENCES interventions(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: analysis_items fk_rails_a5daca9b43; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY analysis_items
+    ADD CONSTRAINT fk_rails_a5daca9b43 FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: catalog_items fk_rails_a63582aef6; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY catalog_items
+    ADD CONSTRAINT fk_rails_a63582aef6 FOREIGN KEY (variant_id) REFERENCES product_nature_variants(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: bank_statements fk_rails_a693cb13d3; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY bank_statements
+    ADD CONSTRAINT fk_rails_a693cb13d3 FOREIGN KEY (cash_id) REFERENCES cashes(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: inventory_items fk_rails_a7d82208a6; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY inventory_items
+    ADD CONSTRAINT fk_rails_a7d82208a6 FOREIGN KEY (product_movement_id) REFERENCES product_movements(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: inventory_items fk_rails_a7dc109dcc; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY inventory_items
+    ADD CONSTRAINT fk_rails_a7dc109dcc FOREIGN KEY (inventory_id) REFERENCES inventories(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: tax_declaration_items fk_rails_a83e320232; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY tax_declaration_items
+    ADD CONSTRAINT fk_rails_a83e320232 FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: listing_nodes fk_rails_a8b4bacaf6; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY listing_nodes
+    ADD CONSTRAINT fk_rails_a8b4bacaf6 FOREIGN KEY (listing_id) REFERENCES listings(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: product_nature_category_taxations fk_rails_a8df640e2f; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY product_nature_category_taxations
+    ADD CONSTRAINT fk_rails_a8df640e2f FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: purchases fk_rails_a927142781; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY purchases
+    ADD CONSTRAINT fk_rails_a927142781 FOREIGN KEY (undelivered_invoice_journal_entry_id) REFERENCES journal_entries(id) ON UPDATE CASCADE ON DELETE RESTRICT;
+
+
+--
+-- Name: inspection_points fk_rails_a9a5bf49cb; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY inspection_points
+    ADD CONSTRAINT fk_rails_a9a5bf49cb FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: intervention_working_periods fk_rails_a9b45798a3; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY intervention_working_periods
+    ADD CONSTRAINT fk_rails_a9b45798a3 FOREIGN KEY (intervention_participation_id) REFERENCES intervention_participations(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: identifiers fk_rails_aa10c3a347; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY identifiers
+    ADD CONSTRAINT fk_rails_aa10c3a347 FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: catalog_items fk_rails_ab0dc98cd1; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY catalog_items
+    ADD CONSTRAINT fk_rails_ab0dc98cd1 FOREIGN KEY (reference_tax_id) REFERENCES taxes(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: roles fk_rails_ab70952940; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY roles
+    ADD CONSTRAINT fk_rails_ab70952940 FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: inspection_points fk_rails_ab751b897f; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY inspection_points
+    ADD CONSTRAINT fk_rails_ab751b897f FOREIGN KEY (inspection_id) REFERENCES inspections(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: trackings fk_rails_ab7802fc73; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY trackings
+    ADD CONSTRAINT fk_rails_ab7802fc73 FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: guide_analysis_points fk_rails_ab81bb3c66; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY guide_analysis_points
+    ADD CONSTRAINT fk_rails_ab81bb3c66 FOREIGN KEY (analysis_id) REFERENCES guide_analyses(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: analysis_items fk_rails_abab34866d; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY analysis_items
+    ADD CONSTRAINT fk_rails_abab34866d FOREIGN KEY (product_reading_id) REFERENCES product_readings(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: products fk_rails_abfd5fdb89; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY products
+    ADD CONSTRAINT fk_rails_abfd5fdb89 FOREIGN KEY (initial_mother_id) REFERENCES products(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: sales fk_rails_ac0d7cee29; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY sales
+    ADD CONSTRAINT fk_rails_ac0d7cee29 FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
 -- Name: payslips fk_rails_ac1b8c6e79; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -17306,47 +20599,531 @@ ALTER TABLE ONLY payslips
 
 
 --
--- Name: tax_declaration_item_parts fk_rails_adb1cc875c; Type: FK CONSTRAINT; Schema: public; Owner: -
->>>>>>> master
+-- Name: product_natures fk_rails_ac6f38d4ac; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY manure_management_plan_zones
-    ADD CONSTRAINT fk_rails_03660d3acc FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
-<<<<<<< HEAD
--- Name: fk_rails_03d706b853; Type: FK CONSTRAINT; Schema: public; Owner: -
-=======
--- Name: financial_years fk_rails_b170b89c1e; Type: FK CONSTRAINT; Schema: public; Owner: -
->>>>>>> master
---
-
-ALTER TABLE ONLY parcels
-    ADD CONSTRAINT fk_rails_03d706b853 FOREIGN KEY (address_id) REFERENCES entity_addresses(id) ON UPDATE CASCADE ON DELETE RESTRICT;
+ALTER TABLE ONLY product_natures
+    ADD CONSTRAINT fk_rails_ac6f38d4ac FOREIGN KEY (category_id) REFERENCES product_nature_categories(id) ON UPDATE CASCADE ON DELETE CASCADE;
 
 
 --
-<<<<<<< HEAD
--- Name: fk_rails_04fd2943ce; Type: FK CONSTRAINT; Schema: public; Owner: -
-=======
--- Name: journals fk_rails_be4d04c726; Type: FK CONSTRAINT; Schema: public; Owner: -
->>>>>>> master
+-- Name: cap_statements fk_rails_ac85e67549; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY cap_statements
-    ADD CONSTRAINT fk_rails_04fd2943ce FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+    ADD CONSTRAINT fk_rails_ac85e67549 FOREIGN KEY (declarant_id) REFERENCES entities(id) ON UPDATE CASCADE ON DELETE SET NULL;
 
 
 --
-<<<<<<< HEAD
--- Name: fk_rails_054d4c650a; Type: FK CONSTRAINT; Schema: public; Owner: -
-=======
+-- Name: cash_sessions fk_rails_ac8ddb6347; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY cash_sessions
+    ADD CONSTRAINT fk_rails_ac8ddb6347 FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: guide_analyses fk_rails_ad3756d355; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY guide_analyses
+    ADD CONSTRAINT fk_rails_ad3756d355 FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: users fk_rails_ad52186b75; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY users
+    ADD CONSTRAINT fk_rails_ad52186b75 FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: tax_declaration_item_parts fk_rails_adb1cc875c; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY tax_declaration_item_parts
+    ADD CONSTRAINT fk_rails_adb1cc875c FOREIGN KEY (journal_entry_item_id) REFERENCES journal_entry_items(id);
+
+
+--
+-- Name: plant_density_abaci fk_rails_adcb9942df; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY plant_density_abaci
+    ADD CONSTRAINT fk_rails_adcb9942df FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: inspection_points fk_rails_ade187df46; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY inspection_points
+    ADD CONSTRAINT fk_rails_ade187df46 FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: users fk_rails_ae14a5013f; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY users
+    ADD CONSTRAINT fk_rails_ae14a5013f FOREIGN KEY (invited_by_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: product_enjoyments fk_rails_ae656485f6; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY product_enjoyments
+    ADD CONSTRAINT fk_rails_ae656485f6 FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: purchases fk_rails_aec8ee8a4d; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY purchases
+    ADD CONSTRAINT fk_rails_aec8ee8a4d FOREIGN KEY (delivery_address_id) REFERENCES entity_addresses(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: activity_inspection_calibration_scales fk_rails_aeca6fd7f4; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY activity_inspection_calibration_scales
+    ADD CONSTRAINT fk_rails_aeca6fd7f4 FOREIGN KEY (activity_id) REFERENCES activities(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: subscriptions fk_rails_af2b916821; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY subscriptions
+    ADD CONSTRAINT fk_rails_af2b916821 FOREIGN KEY (subscriber_id) REFERENCES entities(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: activity_inspection_point_natures fk_rails_af37b1690e; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY activity_inspection_point_natures
+    ADD CONSTRAINT fk_rails_af37b1690e FOREIGN KEY (activity_id) REFERENCES activities(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: cash_transfers fk_rails_af9d0ee56f; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY cash_transfers
+    ADD CONSTRAINT fk_rails_af9d0ee56f FOREIGN KEY (emission_cash_id) REFERENCES cashes(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: activity_budgets fk_rails_afbef296b7; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY activity_budgets
+    ADD CONSTRAINT fk_rails_afbef296b7 FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: products fk_rails_afd13ecd2d; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY products
+    ADD CONSTRAINT fk_rails_afd13ecd2d FOREIGN KEY (address_id) REFERENCES entity_addresses(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: tax_declaration_item_parts fk_rails_afde822745; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY tax_declaration_item_parts
+    ADD CONSTRAINT fk_rails_afde822745 FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: plant_counting_items fk_rails_b0114aace7; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY plant_counting_items
+    ADD CONSTRAINT fk_rails_b0114aace7 FOREIGN KEY (plant_counting_id) REFERENCES plant_countings(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: event_participations fk_rails_b0b78337cd; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY event_participations
+    ADD CONSTRAINT fk_rails_b0b78337cd FOREIGN KEY (event_id) REFERENCES events(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: fixed_assets fk_rails_b0b9eeae24; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY fixed_assets
+    ADD CONSTRAINT fk_rails_b0b9eeae24 FOREIGN KEY (expenses_account_id) REFERENCES accounts(id) ON UPDATE CASCADE ON DELETE RESTRICT;
+
+
+--
+-- Name: sale_items fk_rails_b0d41baea4; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY sale_items
+    ADD CONSTRAINT fk_rails_b0d41baea4 FOREIGN KEY (credited_item_id) REFERENCES sale_items(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: teams fk_rails_b16e7ed972; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY teams
+    ADD CONSTRAINT fk_rails_b16e7ed972 FOREIGN KEY (parent_id) REFERENCES teams(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: financial_years fk_rails_b170b89c1e; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY financial_years
+    ADD CONSTRAINT fk_rails_b170b89c1e FOREIGN KEY (accountant_id) REFERENCES entities(id);
+
+
+--
+-- Name: activity_inspection_point_natures fk_rails_b2b9ed1c3c; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY activity_inspection_point_natures
+    ADD CONSTRAINT fk_rails_b2b9ed1c3c FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: users fk_rails_b2bbf87303; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY users
+    ADD CONSTRAINT fk_rails_b2bbf87303 FOREIGN KEY (team_id) REFERENCES teams(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: georeadings fk_rails_b30a4d9a0c; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY georeadings
+    ADD CONSTRAINT fk_rails_b30a4d9a0c FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: tax_declarations fk_rails_b33d50bba4; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY tax_declarations
+    ADD CONSTRAINT fk_rails_b33d50bba4 FOREIGN KEY (responsible_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: product_nature_category_taxations fk_rails_b357460f64; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY product_nature_category_taxations
+    ADD CONSTRAINT fk_rails_b357460f64 FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: deliveries fk_rails_b3cb6e366b; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY deliveries
+    ADD CONSTRAINT fk_rails_b3cb6e366b FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: catalogs fk_rails_b400e49c5b; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY catalogs
+    ADD CONSTRAINT fk_rails_b400e49c5b FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: journals fk_rails_b452653626; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY journals
+    ADD CONSTRAINT fk_rails_b452653626 FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: fixed_assets fk_rails_b579603a4f; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY fixed_assets
+    ADD CONSTRAINT fk_rails_b579603a4f FOREIGN KEY (product_id) REFERENCES products(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: activity_tactics fk_rails_b5bca24e73; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY activity_tactics
+    ADD CONSTRAINT fk_rails_b5bca24e73 FOREIGN KEY (activity_id) REFERENCES activities(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: tax_declarations fk_rails_b5fc2df3f2; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY tax_declarations
+    ADD CONSTRAINT fk_rails_b5fc2df3f2 FOREIGN KEY (journal_entry_id) REFERENCES journal_entries(id) ON UPDATE CASCADE ON DELETE RESTRICT;
+
+
+--
+-- Name: inspections fk_rails_b61d539c1e; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY inspections
+    ADD CONSTRAINT fk_rails_b61d539c1e FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: activity_productions fk_rails_b640153bf4; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY activity_productions
+    ADD CONSTRAINT fk_rails_b640153bf4 FOREIGN KEY (tactic_id) REFERENCES activity_tactics(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: subscriptions fk_rails_b64a681866; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY subscriptions
+    ADD CONSTRAINT fk_rails_b64a681866 FOREIGN KEY (nature_id) REFERENCES subscription_natures(id) ON UPDATE CASCADE ON DELETE RESTRICT;
+
+
+--
+-- Name: events fk_rails_b7a848d6c5; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY events
+    ADD CONSTRAINT fk_rails_b7a848d6c5 FOREIGN KEY (affair_id) REFERENCES affairs(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: sale_items fk_rails_b7d383496c; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY sale_items
+    ADD CONSTRAINT fk_rails_b7d383496c FOREIGN KEY (activity_budget_id) REFERENCES activity_budgets(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: delivery_tools fk_rails_b8dc1a0d87; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY delivery_tools
+    ADD CONSTRAINT fk_rails_b8dc1a0d87 FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: product_localizations fk_rails_b963294bf2; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY product_localizations
+    ADD CONSTRAINT fk_rails_b963294bf2 FOREIGN KEY (product_id) REFERENCES products(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: trackings fk_rails_b977a1531a; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY trackings
+    ADD CONSTRAINT fk_rails_b977a1531a FOREIGN KEY (producer_id) REFERENCES entities(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: intervention_working_periods fk_rails_baa0305f81; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY intervention_working_periods
+    ADD CONSTRAINT fk_rails_baa0305f81 FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: inventories fk_rails_bbf64ef98c; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY inventories
+    ADD CONSTRAINT fk_rails_bbf64ef98c FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: cash_transfers fk_rails_bc0f113a81; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY cash_transfers
+    ADD CONSTRAINT fk_rails_bc0f113a81 FOREIGN KEY (emission_journal_entry_id) REFERENCES journal_entries(id) ON UPDATE CASCADE ON DELETE RESTRICT;
+
+
+--
+-- Name: incoming_payments fk_rails_bc70e1376f; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY incoming_payments
+    ADD CONSTRAINT fk_rails_bc70e1376f FOREIGN KEY (commission_account_id) REFERENCES accounts(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: taxes fk_rails_bcbe95f2a5; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY taxes
+    ADD CONSTRAINT fk_rails_bcbe95f2a5 FOREIGN KEY (fixed_asset_deduction_account_id) REFERENCES accounts(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: contract_items fk_rails_be2c094f63; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY contract_items
+    ADD CONSTRAINT fk_rails_be2c094f63 FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: journals fk_rails_be4d04c726; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY journals
+    ADD CONSTRAINT fk_rails_be4d04c726 FOREIGN KEY (accountant_id) REFERENCES entities(id);
+
+
+--
+-- Name: product_nature_variants fk_rails_be7b82f7bc; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY product_nature_variants
+    ADD CONSTRAINT fk_rails_be7b82f7bc FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: listing_nodes fk_rails_beed244415; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY listing_nodes
+    ADD CONSTRAINT fk_rails_beed244415 FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: journal_entry_items fk_rails_bf17fb6e33; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY journal_entry_items
+    ADD CONSTRAINT fk_rails_bf17fb6e33 FOREIGN KEY (entry_id) REFERENCES journal_entries(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: purchases fk_rails_bf6a9f8864; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY purchases
+    ADD CONSTRAINT fk_rails_bf6a9f8864 FOREIGN KEY (journal_entry_id) REFERENCES journal_entries(id) ON UPDATE CASCADE ON DELETE RESTRICT;
+
+
+--
+-- Name: supervisions fk_rails_bfca04d991; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY supervisions
+    ADD CONSTRAINT fk_rails_bfca04d991 FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: affairs fk_rails_bfedaef179; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY affairs
+    ADD CONSTRAINT fk_rails_bfedaef179 FOREIGN KEY (journal_entry_id) REFERENCES journal_entries(id) ON UPDATE CASCADE ON DELETE RESTRICT;
+
+
+--
+-- Name: product_phases fk_rails_c097302cb9; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY product_phases
+    ADD CONSTRAINT fk_rails_c097302cb9 FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: accounts fk_rails_c0b1e2d9f4; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY accounts
+    ADD CONSTRAINT fk_rails_c0b1e2d9f4 FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: product_linkages fk_rails_c0d8bf56b7; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY product_linkages
+    ADD CONSTRAINT fk_rails_c0d8bf56b7 FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
 -- Name: payslips fk_rails_c0e66eeaff; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY payslips
     ADD CONSTRAINT fk_rails_c0e66eeaff FOREIGN KEY (employee_id) REFERENCES entities(id);
+
+
+--
+-- Name: products fk_rails_c1a4df2134; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY products
+    ADD CONSTRAINT fk_rails_c1a4df2134 FOREIGN KEY (nature_id) REFERENCES product_natures(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: product_readings fk_rails_c1fb5b1040; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY product_readings
+    ADD CONSTRAINT fk_rails_c1fb5b1040 FOREIGN KEY (product_id) REFERENCES products(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: gaps fk_rails_c26ae9ccd1; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY gaps
+    ADD CONSTRAINT fk_rails_c26ae9ccd1 FOREIGN KEY (affair_id) REFERENCES affairs(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: parcel_items fk_rails_c26affc045; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY parcel_items
+    ADD CONSTRAINT fk_rails_c26affc045 FOREIGN KEY (sale_item_id) REFERENCES sale_items(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: entity_links fk_rails_c28ea21f98; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY entity_links
+    ADD CONSTRAINT fk_rails_c28ea21f98 FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: entities fk_rails_c36368f019; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY entities
+    ADD CONSTRAINT fk_rails_c36368f019 FOREIGN KEY (employee_account_id) REFERENCES accounts(id) ON UPDATE CASCADE ON DELETE SET NULL;
 
 
 --
@@ -17358,18 +21135,638 @@ ALTER TABLE ONLY payslips
 
 
 --
+-- Name: listing_nodes fk_rails_c3e0671264; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY listing_nodes
+    ADD CONSTRAINT fk_rails_c3e0671264 FOREIGN KEY (parent_id) REFERENCES listing_nodes(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: interventions fk_rails_c41b1f2d2f; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY interventions
+    ADD CONSTRAINT fk_rails_c41b1f2d2f FOREIGN KEY (journal_entry_id) REFERENCES journal_entries(id) ON UPDATE CASCADE ON DELETE RESTRICT;
+
+
+--
+-- Name: fixed_asset_depreciations fk_rails_c5b1c295f7; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY fixed_asset_depreciations
+    ADD CONSTRAINT fk_rails_c5b1c295f7 FOREIGN KEY (fixed_asset_id) REFERENCES fixed_assets(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: fixed_assets fk_rails_c5cdda2c28; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY fixed_assets
+    ADD CONSTRAINT fk_rails_c5cdda2c28 FOREIGN KEY (journal_entry_id) REFERENCES journal_entries(id) ON UPDATE CASCADE ON DELETE RESTRICT;
+
+
+--
+-- Name: cap_islets fk_rails_c5fec06d9f; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY cap_islets
+    ADD CONSTRAINT fk_rails_c5fec06d9f FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: product_readings fk_rails_c606f6d9a6; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY product_readings
+    ADD CONSTRAINT fk_rails_c606f6d9a6 FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: parcel_items fk_rails_c7865e52f6; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY parcel_items
+    ADD CONSTRAINT fk_rails_c7865e52f6 FOREIGN KEY (parcel_id) REFERENCES parcels(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: labels fk_rails_c7b4c318e9; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY labels
+    ADD CONSTRAINT fk_rails_c7b4c318e9 FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: cultivable_zones fk_rails_c7d341d886; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY cultivable_zones
+    ADD CONSTRAINT fk_rails_c7d341d886 FOREIGN KEY (farmer_id) REFERENCES entities(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: plant_counting_items fk_rails_c8ab6746c4; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY plant_counting_items
+    ADD CONSTRAINT fk_rails_c8ab6746c4 FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: analyses fk_rails_c8efb2ba24; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY analyses
+    ADD CONSTRAINT fk_rails_c8efb2ba24 FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: activity_budgets fk_rails_c95edcd27c; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY activity_budgets
+    ADD CONSTRAINT fk_rails_c95edcd27c FOREIGN KEY (campaign_id) REFERENCES campaigns(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: product_nature_categories fk_rails_c9792c1723; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY product_nature_categories
+    ADD CONSTRAINT fk_rails_c9792c1723 FOREIGN KEY (stock_account_id) REFERENCES accounts(id) ON UPDATE CASCADE ON DELETE RESTRICT;
+
+
+--
+-- Name: outgoing_payments fk_rails_c9ced0a36d; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY outgoing_payments
+    ADD CONSTRAINT fk_rails_c9ced0a36d FOREIGN KEY (affair_id) REFERENCES affairs(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: product_enjoyments fk_rails_ca705bfe3e; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY product_enjoyments
+    ADD CONSTRAINT fk_rails_ca705bfe3e FOREIGN KEY (intervention_id) REFERENCES interventions(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
 -- Name: regularizations fk_rails_ca9854019b; Type: FK CONSTRAINT; Schema: public; Owner: -
->>>>>>> master
 --
 
-ALTER TABLE ONLY teams
-    ADD CONSTRAINT fk_rails_054d4c650a FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+ALTER TABLE ONLY regularizations
+    ADD CONSTRAINT fk_rails_ca9854019b FOREIGN KEY (journal_entry_id) REFERENCES journal_entries(id);
 
 
 --
-<<<<<<< HEAD
--- Name: fk_rails_05a0fe3602; Type: FK CONSTRAINT; Schema: public; Owner: -
-=======
+-- Name: products fk_rails_cad079f0aa; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY products
+    ADD CONSTRAINT fk_rails_cad079f0aa FOREIGN KEY (initial_owner_id) REFERENCES entities(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: affairs fk_rails_cb206cf597; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY affairs
+    ADD CONSTRAINT fk_rails_cb206cf597 FOREIGN KEY (responsible_id) REFERENCES entities(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: product_nature_categories fk_rails_cb31131f55; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY product_nature_categories
+    ADD CONSTRAINT fk_rails_cb31131f55 FOREIGN KEY (fixed_asset_expenses_account_id) REFERENCES accounts(id) ON UPDATE CASCADE ON DELETE RESTRICT;
+
+
+--
+-- Name: outgoing_payments fk_rails_cb5f89a8bf; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY outgoing_payments
+    ADD CONSTRAINT fk_rails_cb5f89a8bf FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: subscriptions fk_rails_cb96f325f8; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY subscriptions
+    ADD CONSTRAINT fk_rails_cb96f325f8 FOREIGN KEY (sale_item_id) REFERENCES sale_items(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: guides fk_rails_cc06328e61; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY guides
+    ADD CONSTRAINT fk_rails_cc06328e61 FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: gap_items fk_rails_cc58d98a36; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY gap_items
+    ADD CONSTRAINT fk_rails_cc58d98a36 FOREIGN KEY (gap_id) REFERENCES gaps(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: fixed_assets fk_rails_cc5a693262; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY fixed_assets
+    ADD CONSTRAINT fk_rails_cc5a693262 FOREIGN KEY (journal_id) REFERENCES journals(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: notifications fk_rails_cc62845c82; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY notifications
+    ADD CONSTRAINT fk_rails_cc62845c82 FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: debt_transfers fk_rails_cc917f1879; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY debt_transfers
+    ADD CONSTRAINT fk_rails_cc917f1879 FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: custom_field_choices fk_rails_ccb13dba93; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY custom_field_choices
+    ADD CONSTRAINT fk_rails_ccb13dba93 FOREIGN KEY (custom_field_id) REFERENCES custom_fields(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: activity_inspection_point_natures fk_rails_ccfbd2df30; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY activity_inspection_point_natures
+    ADD CONSTRAINT fk_rails_ccfbd2df30 FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: purchase_items fk_rails_cd24cbd865; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY purchase_items
+    ADD CONSTRAINT fk_rails_cd24cbd865 FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: gaps fk_rails_cd664bc9e5; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY gaps
+    ADD CONSTRAINT fk_rails_cd664bc9e5 FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: financial_year_exchanges fk_rails_cdd21f96e9; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY financial_year_exchanges
+    ADD CONSTRAINT fk_rails_cdd21f96e9 FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: taxes fk_rails_ce2caa1b49; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY taxes
+    ADD CONSTRAINT fk_rails_ce2caa1b49 FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: manure_management_plans fk_rails_ced7a3672d; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY manure_management_plans
+    ADD CONSTRAINT fk_rails_ced7a3672d FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: loans fk_rails_ceff8da867; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY loans
+    ADD CONSTRAINT fk_rails_ceff8da867 FOREIGN KEY (lender_id) REFERENCES entities(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: manure_management_plans fk_rails_cf4f610309; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY manure_management_plans
+    ADD CONSTRAINT fk_rails_cf4f610309 FOREIGN KEY (campaign_id) REFERENCES campaigns(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: activity_budgets fk_rails_cf62c420d0; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY activity_budgets
+    ADD CONSTRAINT fk_rails_cf62c420d0 FOREIGN KEY (activity_id) REFERENCES activities(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: product_phases fk_rails_cf7a077991; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY product_phases
+    ADD CONSTRAINT fk_rails_cf7a077991 FOREIGN KEY (product_id) REFERENCES products(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: product_linkages fk_rails_cfe6558602; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY product_linkages
+    ADD CONSTRAINT fk_rails_cfe6558602 FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: purchase_items fk_rails_d130aefd64; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY purchase_items
+    ADD CONSTRAINT fk_rails_d130aefd64 FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: trackings fk_rails_d156cd6a41; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY trackings
+    ADD CONSTRAINT fk_rails_d156cd6a41 FOREIGN KEY (product_id) REFERENCES products(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: cashes fk_rails_d1579746f0; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY cashes
+    ADD CONSTRAINT fk_rails_d1579746f0 FOREIGN KEY (container_id) REFERENCES products(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: sales fk_rails_d17f517176; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY sales
+    ADD CONSTRAINT fk_rails_d17f517176 FOREIGN KEY (nature_id) REFERENCES sale_natures(id) ON UPDATE CASCADE ON DELETE RESTRICT;
+
+
+--
+-- Name: products fk_rails_d27e499c6d; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY products
+    ADD CONSTRAINT fk_rails_d27e499c6d FOREIGN KEY (member_variant_id) REFERENCES product_nature_variants(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: intervention_labellings fk_rails_d2f0f97cca; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY intervention_labellings
+    ADD CONSTRAINT fk_rails_d2f0f97cca FOREIGN KEY (label_id) REFERENCES labels(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: tax_declaration_items fk_rails_d323fe0873; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY tax_declaration_items
+    ADD CONSTRAINT fk_rails_d323fe0873 FOREIGN KEY (tax_id) REFERENCES taxes(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: product_memberships fk_rails_d39b757070; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY product_memberships
+    ADD CONSTRAINT fk_rails_d39b757070 FOREIGN KEY (member_id) REFERENCES products(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: debt_transfers fk_rails_d52e70fbe8; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY debt_transfers
+    ADD CONSTRAINT fk_rails_d52e70fbe8 FOREIGN KEY (debt_transfer_affair_id) REFERENCES affairs(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: interventions fk_rails_d5a4a29aa1; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY interventions
+    ADD CONSTRAINT fk_rails_d5a4a29aa1 FOREIGN KEY (prescription_id) REFERENCES prescriptions(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: regularizations fk_rails_d65931a8e4; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY regularizations
+    ADD CONSTRAINT fk_rails_d65931a8e4 FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: analyses fk_rails_d6f7814e0e; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY analyses
+    ADD CONSTRAINT fk_rails_d6f7814e0e FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: product_nature_variants fk_rails_d7838b06ec; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY product_nature_variants
+    ADD CONSTRAINT fk_rails_d7838b06ec FOREIGN KEY (stock_movement_account_id) REFERENCES accounts(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: listing_node_items fk_rails_d799cedbe1; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY listing_node_items
+    ADD CONSTRAINT fk_rails_d799cedbe1 FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: subscriptions fk_rails_d79c9dc8ea; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY subscriptions
+    ADD CONSTRAINT fk_rails_d79c9dc8ea FOREIGN KEY (parent_id) REFERENCES subscriptions(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: cash_transfers fk_rails_d96ea1637c; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY cash_transfers
+    ADD CONSTRAINT fk_rails_d96ea1637c FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: interventions fk_rails_d97dabdc3c; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY interventions
+    ADD CONSTRAINT fk_rails_d97dabdc3c FOREIGN KEY (event_id) REFERENCES events(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: product_nature_categories fk_rails_d99acdd0d9; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY product_nature_categories
+    ADD CONSTRAINT fk_rails_d99acdd0d9 FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: sale_items fk_rails_d9c6a35b96; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY sale_items
+    ADD CONSTRAINT fk_rails_d9c6a35b96 FOREIGN KEY (team_id) REFERENCES teams(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: labels fk_rails_da0b90db9b; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY labels
+    ADD CONSTRAINT fk_rails_da0b90db9b FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: outgoing_payment_lists fk_rails_da15698b2e; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY outgoing_payment_lists
+    ADD CONSTRAINT fk_rails_da15698b2e FOREIGN KEY (mode_id) REFERENCES outgoing_payment_modes(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: sale_natures fk_rails_da924f0e62; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY sale_natures
+    ADD CONSTRAINT fk_rails_da924f0e62 FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: subscriptions fk_rails_daa87f3cf1; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY subscriptions
+    ADD CONSTRAINT fk_rails_daa87f3cf1 FOREIGN KEY (address_id) REFERENCES entity_addresses(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: journal_entry_items fk_rails_daccd84513; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY journal_entry_items
+    ADD CONSTRAINT fk_rails_daccd84513 FOREIGN KEY (bank_statement_id) REFERENCES bank_statements(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: gap_items fk_rails_dad8733537; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY gap_items
+    ADD CONSTRAINT fk_rails_dad8733537 FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: deliveries fk_rails_dbbcd08797; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY deliveries
+    ADD CONSTRAINT fk_rails_dbbcd08797 FOREIGN KEY (driver_id) REFERENCES entities(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: product_labellings fk_rails_dbd399fab4; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY product_labellings
+    ADD CONSTRAINT fk_rails_dbd399fab4 FOREIGN KEY (label_id) REFERENCES labels(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: imports fk_rails_dbd835ff0a; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY imports
+    ADD CONSTRAINT fk_rails_dbd835ff0a FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: fixed_assets fk_rails_dc4baa5334; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY fixed_assets
+    ADD CONSTRAINT fk_rails_dc4baa5334 FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: analyses fk_rails_dcb639d6eb; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY analyses
+    ADD CONSTRAINT fk_rails_dcb639d6eb FOREIGN KEY (host_id) REFERENCES products(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: parcel_items fk_rails_dd65d7922d; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY parcel_items
+    ADD CONSTRAINT fk_rails_dd65d7922d FOREIGN KEY (product_id) REFERENCES products(id) ON UPDATE CASCADE ON DELETE RESTRICT;
+
+
+--
+-- Name: parcels fk_rails_dd6a64e5ac; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY parcels
+    ADD CONSTRAINT fk_rails_dd6a64e5ac FOREIGN KEY (recipient_id) REFERENCES entities(id) ON UPDATE CASCADE ON DELETE RESTRICT;
+
+
+--
+-- Name: activity_productions fk_rails_de22eb0a5b; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY activity_productions
+    ADD CONSTRAINT fk_rails_de22eb0a5b FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: cash_transfers fk_rails_de51678599; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY cash_transfers
+    ADD CONSTRAINT fk_rails_de51678599 FOREIGN KEY (reception_cash_id) REFERENCES cashes(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: product_links fk_rails_de82d40cf3; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY product_links
+    ADD CONSTRAINT fk_rails_de82d40cf3 FOREIGN KEY (product_id) REFERENCES products(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: contract_items fk_rails_dfd3a85c11; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY contract_items
+    ADD CONSTRAINT fk_rails_dfd3a85c11 FOREIGN KEY (contract_id) REFERENCES contracts(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: purchase_items fk_rails_e190c1cbe3; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY purchase_items
+    ADD CONSTRAINT fk_rails_e190c1cbe3 FOREIGN KEY (variant_id) REFERENCES product_nature_variants(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: purchases fk_rails_e1ce72bdb3; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY purchases
+    ADD CONSTRAINT fk_rails_e1ce72bdb3 FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: entities fk_rails_e2618c6595; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY entities
+    ADD CONSTRAINT fk_rails_e2618c6595 FOREIGN KEY (client_account_id) REFERENCES accounts(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: tax_declarations fk_rails_e29563a8d1; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY tax_declarations
+    ADD CONSTRAINT fk_rails_e29563a8d1 FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: cash_transfers fk_rails_e2990326d4; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY cash_transfers
+    ADD CONSTRAINT fk_rails_e2990326d4 FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
 -- Name: payslips fk_rails_e319c31e6b; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -17378,18 +21775,270 @@ ALTER TABLE ONLY payslips
 
 
 --
+-- Name: sales fk_rails_e3914ad73f; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY sales
+    ADD CONSTRAINT fk_rails_e3914ad73f FOREIGN KEY (affair_id) REFERENCES affairs(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: activity_budgets fk_rails_e3dc9793dd; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY activity_budgets
+    ADD CONSTRAINT fk_rails_e3dc9793dd FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: tax_declarations fk_rails_e3e1503bdd; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY tax_declarations
+    ADD CONSTRAINT fk_rails_e3e1503bdd FOREIGN KEY (financial_year_id) REFERENCES financial_years(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: intervention_participations fk_rails_e41a4268d9; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY intervention_participations
+    ADD CONSTRAINT fk_rails_e41a4268d9 FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: activity_seasons fk_rails_e59af3b5a5; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY activity_seasons
+    ADD CONSTRAINT fk_rails_e59af3b5a5 FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: inspection_calibrations fk_rails_e65232891c; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY inspection_calibrations
+    ADD CONSTRAINT fk_rails_e65232891c FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: activity_productions fk_rails_e65e8daaae; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY activity_productions
+    ADD CONSTRAINT fk_rails_e65e8daaae FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: target_distributions fk_rails_e71a03ed65; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY target_distributions
+    ADD CONSTRAINT fk_rails_e71a03ed65 FOREIGN KEY (activity_production_id) REFERENCES activity_productions(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: deposits fk_rails_e71babc34b; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY deposits
+    ADD CONSTRAINT fk_rails_e71babc34b FOREIGN KEY (cash_id) REFERENCES cashes(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: intervention_labellings fk_rails_e77d3f8295; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY intervention_labellings
+    ADD CONSTRAINT fk_rails_e77d3f8295 FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: outgoing_payment_lists fk_rails_e7a9800a14; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY outgoing_payment_lists
+    ADD CONSTRAINT fk_rails_e7a9800a14 FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: product_nature_variant_readings fk_rails_e7bc99340e; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY product_nature_variant_readings
+    ADD CONSTRAINT fk_rails_e7bc99340e FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: delivery_tools fk_rails_e7cc2188c0; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY delivery_tools
+    ADD CONSTRAINT fk_rails_e7cc2188c0 FOREIGN KEY (tool_id) REFERENCES products(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: financial_years fk_rails_e7e2b4d76a; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY financial_years
+    ADD CONSTRAINT fk_rails_e7e2b4d76a FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
 -- Name: intervention_participations fk_rails_e81467e70f; Type: FK CONSTRAINT; Schema: public; Owner: -
->>>>>>> master
 --
 
-ALTER TABLE ONLY dashboards
-    ADD CONSTRAINT fk_rails_05a0fe3602 FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+ALTER TABLE ONLY intervention_participations
+    ADD CONSTRAINT fk_rails_e81467e70f FOREIGN KEY (product_id) REFERENCES products(id);
 
 
 --
-<<<<<<< HEAD
--- Name: fk_rails_061293054f; Type: FK CONSTRAINT; Schema: public; Owner: -
-=======
+-- Name: plant_density_abaci fk_rails_e85bcf0527; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY plant_density_abaci
+    ADD CONSTRAINT fk_rails_e85bcf0527 FOREIGN KEY (activity_id) REFERENCES activities(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: products fk_rails_e86614b748; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY products
+    ADD CONSTRAINT fk_rails_e86614b748 FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: sensors fk_rails_e86d77856a; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY sensors
+    ADD CONSTRAINT fk_rails_e86d77856a FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: activity_inspection_calibration_natures fk_rails_e86ef519fd; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY activity_inspection_calibration_natures
+    ADD CONSTRAINT fk_rails_e86ef519fd FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: journal_entries fk_rails_e91046c79d; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY journal_entries
+    ADD CONSTRAINT fk_rails_e91046c79d FOREIGN KEY (financial_year_id) REFERENCES financial_years(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: entity_addresses fk_rails_ea08878b20; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY entity_addresses
+    ADD CONSTRAINT fk_rails_ea08878b20 FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: deliveries fk_rails_ea79769f4e; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY deliveries
+    ADD CONSTRAINT fk_rails_ea79769f4e FOREIGN KEY (transporter_id) REFERENCES entities(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: cap_islets fk_rails_eb0115299a; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY cap_islets
+    ADD CONSTRAINT fk_rails_eb0115299a FOREIGN KEY (cap_statement_id) REFERENCES cap_statements(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: parcel_items fk_rails_eb82c567f6; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY parcel_items
+    ADD CONSTRAINT fk_rails_eb82c567f6 FOREIGN KEY (source_product_id) REFERENCES products(id) ON UPDATE CASCADE ON DELETE RESTRICT;
+
+
+--
+-- Name: cultivable_zones fk_rails_eb8abdd849; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY cultivable_zones
+    ADD CONSTRAINT fk_rails_eb8abdd849 FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: activity_inspection_calibration_scales fk_rails_eb9f5e479a; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY activity_inspection_calibration_scales
+    ADD CONSTRAINT fk_rails_eb9f5e479a FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: deposits fk_rails_ebed2fed37; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY deposits
+    ADD CONSTRAINT fk_rails_ebed2fed37 FOREIGN KEY (mode_id) REFERENCES incoming_payment_modes(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: taxes fk_rails_ec80cec384; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY taxes
+    ADD CONSTRAINT fk_rails_ec80cec384 FOREIGN KEY (fixed_asset_collect_account_id) REFERENCES accounts(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: custom_field_choices fk_rails_ed47671544; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY custom_field_choices
+    ADD CONSTRAINT fk_rails_ed47671544 FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: deliveries fk_rails_ed769d71f9; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY deliveries
+    ADD CONSTRAINT fk_rails_ed769d71f9 FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: target_distributions fk_rails_edc6917863; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY target_distributions
+    ADD CONSTRAINT fk_rails_edc6917863 FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: attachments fk_rails_ee442881bb; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY attachments
+    ADD CONSTRAINT fk_rails_ee442881bb FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: prescriptions fk_rails_ee7f4b868c; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY prescriptions
+    ADD CONSTRAINT fk_rails_ee7f4b868c FOREIGN KEY (prescriptor_id) REFERENCES entities(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
 -- Name: outgoing_payments fk_rails_ee973f6d0f; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -17398,4752 +22047,7 @@ ALTER TABLE ONLY outgoing_payments
 
 
 --
--- Name: financial_year_exchanges fk_rails_f0120f1957; Type: FK CONSTRAINT; Schema: public; Owner: -
->>>>>>> master
---
-
-ALTER TABLE ONLY purchase_items
-    ADD CONSTRAINT fk_rails_061293054f FOREIGN KEY (tax_id) REFERENCES taxes(id) ON UPDATE CASCADE ON DELETE CASCADE;
-
-
---
--- Name: fk_rails_062a77958b; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY loans
-    ADD CONSTRAINT fk_rails_062a77958b FOREIGN KEY (insurance_account_id) REFERENCES accounts(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_069e9acf9f; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY sale_items
-    ADD CONSTRAINT fk_rails_069e9acf9f FOREIGN KEY (account_id) REFERENCES accounts(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_069f9114d7; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY parcels
-    ADD CONSTRAINT fk_rails_069f9114d7 FOREIGN KEY (storage_id) REFERENCES products(id) ON UPDATE CASCADE ON DELETE RESTRICT;
-
-
---
--- Name: fk_rails_07a90c7250; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY product_memberships
-    ADD CONSTRAINT fk_rails_07a90c7250 FOREIGN KEY (group_id) REFERENCES products(id) ON UPDATE CASCADE ON DELETE CASCADE;
-
-
---
--- Name: fk_rails_07ab6c8b5b; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY journal_entry_items
-    ADD CONSTRAINT fk_rails_07ab6c8b5b FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_07b5213437; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY gaps
-    ADD CONSTRAINT fk_rails_07b5213437 FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_0810aa229a; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY interventions
-    ADD CONSTRAINT fk_rails_0810aa229a FOREIGN KEY (issue_id) REFERENCES issues(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_088dda4f12; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY bank_statements
-    ADD CONSTRAINT fk_rails_088dda4f12 FOREIGN KEY (journal_entry_id) REFERENCES journal_entries(id) ON UPDATE CASCADE ON DELETE RESTRICT;
-
-
---
--- Name: fk_rails_095663aed2; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY incoming_payments
-    ADD CONSTRAINT fk_rails_095663aed2 FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_0970270702; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY product_movements
-    ADD CONSTRAINT fk_rails_0970270702 FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_09d092bb77; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY sequences
-    ADD CONSTRAINT fk_rails_09d092bb77 FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_0a71e763ae; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY preferences
-    ADD CONSTRAINT fk_rails_0a71e763ae FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_0aa83e541e; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY contracts
-    ADD CONSTRAINT fk_rails_0aa83e541e FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_0ce09753e6; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY alert_phases
-    ADD CONSTRAINT fk_rails_0ce09753e6 FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_0d7dbac6ba; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY intervention_parameters
-    ADD CONSTRAINT fk_rails_0d7dbac6ba FOREIGN KEY (intervention_id) REFERENCES interventions(id) ON UPDATE CASCADE ON DELETE CASCADE;
-
-
---
--- Name: fk_rails_0dccdbdfad; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY product_natures
-    ADD CONSTRAINT fk_rails_0dccdbdfad FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_0e05d16f09; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY sensors
-    ADD CONSTRAINT fk_rails_0e05d16f09 FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_0e164d8565; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY analyses
-    ADD CONSTRAINT fk_rails_0e164d8565 FOREIGN KEY (sampler_id) REFERENCES entities(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_0e263ab4e2; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY outgoing_payments
-    ADD CONSTRAINT fk_rails_0e263ab4e2 FOREIGN KEY (responsible_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE CASCADE;
-
-
---
--- Name: fk_rails_0e39758b4c; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY intervention_parameters
-    ADD CONSTRAINT fk_rails_0e39758b4c FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_0f9172c3c4; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY cash_transfers
-    ADD CONSTRAINT fk_rails_0f9172c3c4 FOREIGN KEY (reception_journal_entry_id) REFERENCES journal_entries(id) ON UPDATE CASCADE ON DELETE RESTRICT;
-
-
---
--- Name: fk_rails_0f9f697d40; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY issues
-    ADD CONSTRAINT fk_rails_0f9f697d40 FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_0fe90aeb1d; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY product_nature_variant_readings
-    ADD CONSTRAINT fk_rails_0fe90aeb1d FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_104f78b99c; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY plant_density_abaci
-    ADD CONSTRAINT fk_rails_104f78b99c FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_10e09a9740; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY contract_items
-    ADD CONSTRAINT fk_rails_10e09a9740 FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_1209c4e2b8; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY tax_declaration_item_parts
-    ADD CONSTRAINT fk_rails_1209c4e2b8 FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_12457329e7; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY account_balances
-    ADD CONSTRAINT fk_rails_12457329e7 FOREIGN KEY (financial_year_id) REFERENCES financial_years(id) ON UPDATE CASCADE ON DELETE CASCADE;
-
-
---
--- Name: fk_rails_12a7a5513a; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY product_links
-    ADD CONSTRAINT fk_rails_12a7a5513a FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_12b713bf34; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY inventories
-    ADD CONSTRAINT fk_rails_12b713bf34 FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_134eaa866e; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY product_localizations
-    ADD CONSTRAINT fk_rails_134eaa866e FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_137689e04b; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY activity_budget_items
-    ADD CONSTRAINT fk_rails_137689e04b FOREIGN KEY (variant_id) REFERENCES product_nature_variants(id) ON UPDATE CASCADE ON DELETE RESTRICT;
-
-
---
--- Name: fk_rails_138ee77f1e; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY activity_budget_items
-    ADD CONSTRAINT fk_rails_138ee77f1e FOREIGN KEY (activity_budget_id) REFERENCES activity_budgets(id) ON UPDATE CASCADE ON DELETE CASCADE;
-
-
---
--- Name: fk_rails_139a1e9f6f; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY outgoing_payment_lists
-    ADD CONSTRAINT fk_rails_139a1e9f6f FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_142e9deed5; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY incoming_payment_modes
-    ADD CONSTRAINT fk_rails_142e9deed5 FOREIGN KEY (cash_id) REFERENCES cashes(id) ON UPDATE CASCADE ON DELETE RESTRICT;
-
-
---
--- Name: fk_rails_14425ca67e; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY sales
-    ADD CONSTRAINT fk_rails_14425ca67e FOREIGN KEY (responsible_id) REFERENCES entities(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_1455a8f189; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY fixed_assets
-    ADD CONSTRAINT fk_rails_1455a8f189 FOREIGN KEY (scrapped_journal_entry_id) REFERENCES journal_entries(id) ON UPDATE CASCADE ON DELETE RESTRICT;
-
-
---
--- Name: fk_rails_15244a5c09; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY outgoing_payments
-    ADD CONSTRAINT fk_rails_15244a5c09 FOREIGN KEY (mode_id) REFERENCES outgoing_payment_modes(id) ON UPDATE CASCADE ON DELETE RESTRICT;
-
-
---
--- Name: fk_rails_15a2e294c8; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY purchases
-    ADD CONSTRAINT fk_rails_15a2e294c8 FOREIGN KEY (quantity_gap_on_invoice_journal_entry_id) REFERENCES journal_entries(id) ON UPDATE CASCADE ON DELETE RESTRICT;
-
-
---
--- Name: fk_rails_15c34a9137; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY events
-    ADD CONSTRAINT fk_rails_15c34a9137 FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_168094a0c1; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY tasks
-    ADD CONSTRAINT fk_rails_168094a0c1 FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_1697f59d9c; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY call_messages
-    ADD CONSTRAINT fk_rails_1697f59d9c FOREIGN KEY (call_id) REFERENCES calls(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_17bf9c0601; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY fixed_assets
-    ADD CONSTRAINT fk_rails_17bf9c0601 FOREIGN KEY (sold_journal_entry_id) REFERENCES journal_entries(id) ON UPDATE CASCADE ON DELETE RESTRICT;
-
-
---
--- Name: fk_rails_18758b2fef; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY attachments
-    ADD CONSTRAINT fk_rails_18758b2fef FOREIGN KEY (document_id) REFERENCES documents(id) ON UPDATE CASCADE ON DELETE CASCADE;
-
-
---
--- Name: fk_rails_188c23c1c8; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY purchases
-    ADD CONSTRAINT fk_rails_188c23c1c8 FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_18df73d758; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY tokens
-    ADD CONSTRAINT fk_rails_18df73d758 FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_190dd3dd57; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY product_ownerships
-    ADD CONSTRAINT fk_rails_190dd3dd57 FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_1a1d1e5342; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY product_movements
-    ADD CONSTRAINT fk_rails_1a1d1e5342 FOREIGN KEY (product_id) REFERENCES products(id) ON UPDATE CASCADE ON DELETE CASCADE;
-
-
---
--- Name: fk_rails_1ab612d163; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY entity_links
-    ADD CONSTRAINT fk_rails_1ab612d163 FOREIGN KEY (entity_id) REFERENCES entities(id) ON UPDATE CASCADE ON DELETE CASCADE;
-
-
---
--- Name: fk_rails_1ad43ba3eb; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY loans
-    ADD CONSTRAINT fk_rails_1ad43ba3eb FOREIGN KEY (loan_account_id) REFERENCES accounts(id) ON UPDATE CASCADE ON DELETE RESTRICT;
-
-
---
--- Name: fk_rails_1c0cb152f3; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY sales
-    ADD CONSTRAINT fk_rails_1c0cb152f3 FOREIGN KEY (transporter_id) REFERENCES entities(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_1d7b8128b8; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY target_distributions
-    ADD CONSTRAINT fk_rails_1d7b8128b8 FOREIGN KEY (activity_id) REFERENCES activities(id) ON UPDATE CASCADE ON DELETE CASCADE;
-
-
---
--- Name: fk_rails_1d9f8b1813; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY plant_density_abacus_items
-    ADD CONSTRAINT fk_rails_1d9f8b1813 FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_1db06fd489; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY incoming_payment_modes
-    ADD CONSTRAINT fk_rails_1db06fd489 FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_1dd9d357c8; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY loans
-    ADD CONSTRAINT fk_rails_1dd9d357c8 FOREIGN KEY (cash_id) REFERENCES cashes(id) ON UPDATE CASCADE ON DELETE CASCADE;
-
-
---
--- Name: fk_rails_1ddb522279; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY product_nature_variants
-    ADD CONSTRAINT fk_rails_1ddb522279 FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_1df14f9496; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY cashes
-    ADD CONSTRAINT fk_rails_1df14f9496 FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_1eed0181ba; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY parcels
-    ADD CONSTRAINT fk_rails_1eed0181ba FOREIGN KEY (purchase_id) REFERENCES purchases(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_1f156cee14; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY incoming_payments
-    ADD CONSTRAINT fk_rails_1f156cee14 FOREIGN KEY (affair_id) REFERENCES affairs(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_1f8a9dfdaa; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY contracts
-    ADD CONSTRAINT fk_rails_1f8a9dfdaa FOREIGN KEY (supplier_id) REFERENCES entities(id) ON UPDATE CASCADE ON DELETE CASCADE;
-
-
---
--- Name: fk_rails_1facec8a15; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY outgoing_payments
-    ADD CONSTRAINT fk_rails_1facec8a15 FOREIGN KEY (list_id) REFERENCES outgoing_payment_lists(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_1fbfd5a9a6; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY entity_addresses
-    ADD CONSTRAINT fk_rails_1fbfd5a9a6 FOREIGN KEY (entity_id) REFERENCES entities(id) ON UPDATE CASCADE ON DELETE CASCADE;
-
-
---
--- Name: fk_rails_1ff9dc5ad7; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY guides
-    ADD CONSTRAINT fk_rails_1ff9dc5ad7 FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_201ae150fe; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY parcel_items
-    ADD CONSTRAINT fk_rails_201ae150fe FOREIGN KEY (source_product_movement_id) REFERENCES product_movements(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_203d1a69a7; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY cultivable_zones
-    ADD CONSTRAINT fk_rails_203d1a69a7 FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_208dc35386; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY intervention_parameters
-    ADD CONSTRAINT fk_rails_208dc35386 FOREIGN KEY (group_id) REFERENCES intervention_parameters(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_20a249d6c2; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY product_memberships
-    ADD CONSTRAINT fk_rails_20a249d6c2 FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_20edf15064; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY cashes
-    ADD CONSTRAINT fk_rails_20edf15064 FOREIGN KEY (suspense_account_id) REFERENCES accounts(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_21056dd55c; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY product_nature_variant_components
-    ADD CONSTRAINT fk_rails_21056dd55c FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_214eda6f83; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY outgoing_payments
-    ADD CONSTRAINT fk_rails_214eda6f83 FOREIGN KEY (payee_id) REFERENCES entities(id) ON UPDATE CASCADE ON DELETE CASCADE;
-
-
---
--- Name: fk_rails_2164a1af56; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY parcel_items
-    ADD CONSTRAINT fk_rails_2164a1af56 FOREIGN KEY (product_localization_id) REFERENCES product_localizations(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_21798568ff; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY notifications
-    ADD CONSTRAINT fk_rails_21798568ff FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_220dd93ab3; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY product_nature_categories
-    ADD CONSTRAINT fk_rails_220dd93ab3 FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_224bbae11f; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY purchases
-    ADD CONSTRAINT fk_rails_224bbae11f FOREIGN KEY (affair_id) REFERENCES affairs(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_22d0a3f0b8; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY activity_tactics
-    ADD CONSTRAINT fk_rails_22d0a3f0b8 FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_23228bc874; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY listing_nodes
-    ADD CONSTRAINT fk_rails_23228bc874 FOREIGN KEY (item_listing_node_id) REFERENCES listing_nodes(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_23c8753b6d; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY activity_budget_items
-    ADD CONSTRAINT fk_rails_23c8753b6d FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_242f8003fd; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY sales
-    ADD CONSTRAINT fk_rails_242f8003fd FOREIGN KEY (address_id) REFERENCES entity_addresses(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_247431dffd; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY journal_entry_items
-    ADD CONSTRAINT fk_rails_247431dffd FOREIGN KEY (journal_id) REFERENCES journals(id) ON UPDATE CASCADE ON DELETE CASCADE;
-
-
---
--- Name: fk_rails_24840fe287; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY identifiers
-    ADD CONSTRAINT fk_rails_24840fe287 FOREIGN KEY (net_service_id) REFERENCES net_services(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_24b2772f2f; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY product_localizations
-    ADD CONSTRAINT fk_rails_24b2772f2f FOREIGN KEY (container_id) REFERENCES products(id) ON UPDATE CASCADE ON DELETE CASCADE;
-
-
---
--- Name: fk_rails_2522e3153b; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY product_ownerships
-    ADD CONSTRAINT fk_rails_2522e3153b FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_2538369aad; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY target_distributions
-    ADD CONSTRAINT fk_rails_2538369aad FOREIGN KEY (target_id) REFERENCES products(id) ON UPDATE CASCADE ON DELETE CASCADE;
-
-
---
--- Name: fk_rails_254fde6f0b; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY product_readings
-    ADD CONSTRAINT fk_rails_254fde6f0b FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_2550c1bd00; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY activity_inspection_calibration_natures
-    ADD CONSTRAINT fk_rails_2550c1bd00 FOREIGN KEY (scale_id) REFERENCES activity_inspection_calibration_scales(id) ON UPDATE CASCADE ON DELETE CASCADE;
-
-
---
--- Name: fk_rails_26a9328a42; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY georeadings
-    ADD CONSTRAINT fk_rails_26a9328a42 FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_27135275f7; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY interventions
-    ADD CONSTRAINT fk_rails_27135275f7 FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_277a19f6f0; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY incoming_payments
-    ADD CONSTRAINT fk_rails_277a19f6f0 FOREIGN KEY (payer_id) REFERENCES entities(id) ON UPDATE CASCADE ON DELETE RESTRICT;
-
-
---
--- Name: fk_rails_2781a3a6d4; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY manure_management_plans
-    ADD CONSTRAINT fk_rails_2781a3a6d4 FOREIGN KEY (recommender_id) REFERENCES entities(id) ON UPDATE CASCADE ON DELETE CASCADE;
-
-
---
--- Name: fk_rails_2794712893; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY products
-    ADD CONSTRAINT fk_rails_2794712893 FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_2817d767a7; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY taxes
-    ADD CONSTRAINT fk_rails_2817d767a7 FOREIGN KEY (intracommunity_payable_account_id) REFERENCES accounts(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_28aa047268; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY account_balances
-    ADD CONSTRAINT fk_rails_28aa047268 FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_28f999c5b0; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY product_nature_variant_components
-    ADD CONSTRAINT fk_rails_28f999c5b0 FOREIGN KEY (part_product_nature_variant_id) REFERENCES product_nature_variants(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_2922de5441; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY tokens
-    ADD CONSTRAINT fk_rails_2922de5441 FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_2aa6b66bff; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY product_enjoyments
-    ADD CONSTRAINT fk_rails_2aa6b66bff FOREIGN KEY (product_id) REFERENCES products(id) ON UPDATE CASCADE ON DELETE CASCADE;
-
-
---
--- Name: fk_rails_2aafe38ba4; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY activity_productions
-    ADD CONSTRAINT fk_rails_2aafe38ba4 FOREIGN KEY (activity_id) REFERENCES activities(id) ON UPDATE CASCADE ON DELETE CASCADE;
-
-
---
--- Name: fk_rails_2acaa09f8d; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY fixed_asset_depreciations
-    ADD CONSTRAINT fk_rails_2acaa09f8d FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_2d1499d0c4; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY contracts
-    ADD CONSTRAINT fk_rails_2d1499d0c4 FOREIGN KEY (responsible_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE CASCADE;
-
-
---
--- Name: fk_rails_2d76b2f6e7; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY journal_entry_items
-    ADD CONSTRAINT fk_rails_2d76b2f6e7 FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_2e16afcdeb; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY entities
-    ADD CONSTRAINT fk_rails_2e16afcdeb FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_2e4b30bd46; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY fixed_assets
-    ADD CONSTRAINT fk_rails_2e4b30bd46 FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_2e6a787e29; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY product_nature_category_taxations
-    ADD CONSTRAINT fk_rails_2e6a787e29 FOREIGN KEY (product_nature_category_id) REFERENCES product_nature_categories(id) ON UPDATE CASCADE ON DELETE CASCADE;
-
-
---
--- Name: fk_rails_2e8974028b; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY bank_statement_items
-    ADD CONSTRAINT fk_rails_2e8974028b FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_2edbffd09e; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY financial_years
-    ADD CONSTRAINT fk_rails_2edbffd09e FOREIGN KEY (last_journal_entry_id) REFERENCES journal_entries(id) ON UPDATE CASCADE ON DELETE RESTRICT;
-
-
---
--- Name: fk_rails_2f168d0833; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY crumbs
-    ADD CONSTRAINT fk_rails_2f168d0833 FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_2f5b46f047; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY product_nature_categories
-    ADD CONSTRAINT fk_rails_2f5b46f047 FOREIGN KEY (fixed_asset_allocation_account_id) REFERENCES accounts(id) ON UPDATE CASCADE ON DELETE RESTRICT;
-
-
---
--- Name: fk_rails_2fff36f0ae; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY plant_counting_items
-    ADD CONSTRAINT fk_rails_2fff36f0ae FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_300666ff43; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY parcel_items
-    ADD CONSTRAINT fk_rails_300666ff43 FOREIGN KEY (product_enjoyment_id) REFERENCES product_enjoyments(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_3060c35076; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY purchase_items
-    ADD CONSTRAINT fk_rails_3060c35076 FOREIGN KEY (fixed_asset_id) REFERENCES fixed_assets(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_30da003c0e; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY sale_items
-    ADD CONSTRAINT fk_rails_30da003c0e FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_30ddd4e6d1; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY parcel_items
-    ADD CONSTRAINT fk_rails_30ddd4e6d1 FOREIGN KEY (product_movement_id) REFERENCES product_movements(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_30f73ea054; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY journal_entries
-    ADD CONSTRAINT fk_rails_30f73ea054 FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_3143e6e260; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY journal_entry_items
-    ADD CONSTRAINT fk_rails_3143e6e260 FOREIGN KEY (variant_id) REFERENCES product_nature_variants(id);
-
-
---
--- Name: fk_rails_322e93834f; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY activity_inspection_calibration_natures
-    ADD CONSTRAINT fk_rails_322e93834f FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_326639b9fb; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY products
-    ADD CONSTRAINT fk_rails_326639b9fb FOREIGN KEY (person_id) REFERENCES entities(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_32dd8bbd48; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY intervention_parameter_readings
-    ADD CONSTRAINT fk_rails_32dd8bbd48 FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_335f485521; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY product_phases
-    ADD CONSTRAINT fk_rails_335f485521 FOREIGN KEY (category_id) REFERENCES product_nature_categories(id) ON UPDATE CASCADE ON DELETE CASCADE;
-
-
---
--- Name: fk_rails_33cd67b619; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY products
-    ADD CONSTRAINT fk_rails_33cd67b619 FOREIGN KEY (initial_enjoyer_id) REFERENCES entities(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_33f673c5e9; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY purchases
-    ADD CONSTRAINT fk_rails_33f673c5e9 FOREIGN KEY (responsible_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_348f32c41e; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY gap_items
-    ADD CONSTRAINT fk_rails_348f32c41e FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_35511d7621; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY deliveries
-    ADD CONSTRAINT fk_rails_35511d7621 FOREIGN KEY (responsible_id) REFERENCES entities(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_359c9194c4; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY tax_declaration_items
-    ADD CONSTRAINT fk_rails_359c9194c4 FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_362681c4e1; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY activity_seasons
-    ADD CONSTRAINT fk_rails_362681c4e1 FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_363f17ddbf; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY supervision_items
-    ADD CONSTRAINT fk_rails_363f17ddbf FOREIGN KEY (sensor_id) REFERENCES sensors(id) ON UPDATE CASCADE ON DELETE CASCADE;
-
-
---
--- Name: fk_rails_378db267f0; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY product_localizations
-    ADD CONSTRAINT fk_rails_378db267f0 FOREIGN KEY (intervention_id) REFERENCES interventions(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_37d8197291; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY campaigns
-    ADD CONSTRAINT fk_rails_37d8197291 FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_37ef9db5e6; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY gaps
-    ADD CONSTRAINT fk_rails_37ef9db5e6 FOREIGN KEY (entity_id) REFERENCES entities(id) ON UPDATE CASCADE ON DELETE CASCADE;
-
-
---
--- Name: fk_rails_388d269bc6; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY listing_nodes
-    ADD CONSTRAINT fk_rails_388d269bc6 FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_39791a8128; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY deposits
-    ADD CONSTRAINT fk_rails_39791a8128 FOREIGN KEY (responsible_id) REFERENCES entities(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_3a0809c3e1; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY product_nature_variant_readings
-    ADD CONSTRAINT fk_rails_3a0809c3e1 FOREIGN KEY (variant_id) REFERENCES product_nature_variants(id) ON UPDATE CASCADE ON DELETE CASCADE;
-
-
---
--- Name: fk_rails_3ac2c1e009; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY issues
-    ADD CONSTRAINT fk_rails_3ac2c1e009 FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_3b1dff3097; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY event_participations
-    ADD CONSTRAINT fk_rails_3b1dff3097 FOREIGN KEY (participant_id) REFERENCES entities(id) ON UPDATE CASCADE ON DELETE CASCADE;
-
-
---
--- Name: fk_rails_3c12ca761d; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY incoming_payments
-    ADD CONSTRAINT fk_rails_3c12ca761d FOREIGN KEY (journal_entry_id) REFERENCES journal_entries(id) ON UPDATE CASCADE ON DELETE RESTRICT;
-
-
---
--- Name: fk_rails_3c84db0730; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY journal_entry_items
-    ADD CONSTRAINT fk_rails_3c84db0730 FOREIGN KEY (team_id) REFERENCES teams(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_3c8cb12820; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY sale_items
-    ADD CONSTRAINT fk_rails_3c8cb12820 FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_3cce269863; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY imports
-    ADD CONSTRAINT fk_rails_3cce269863 FOREIGN KEY (importer_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_3cdf4c1b00; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY debt_transfers
-    ADD CONSTRAINT fk_rails_3cdf4c1b00 FOREIGN KEY (affair_id) REFERENCES affairs(id) ON UPDATE CASCADE ON DELETE CASCADE;
-
-
---
--- Name: fk_rails_3cfeb1455d; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY activity_tactics
-    ADD CONSTRAINT fk_rails_3cfeb1455d FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_3d11def0dc; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY parcel_items
-    ADD CONSTRAINT fk_rails_3d11def0dc FOREIGN KEY (product_ownership_id) REFERENCES product_ownerships(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_3d30cc141e; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY product_nature_categories
-    ADD CONSTRAINT fk_rails_3d30cc141e FOREIGN KEY (product_account_id) REFERENCES accounts(id) ON UPDATE CASCADE ON DELETE RESTRICT;
-
-
---
--- Name: fk_rails_3d42a5dd2b; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY inspections
-    ADD CONSTRAINT fk_rails_3d42a5dd2b FOREIGN KEY (product_id) REFERENCES products(id) ON UPDATE CASCADE ON DELETE CASCADE;
-
-
---
--- Name: fk_rails_3d944e2450; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY loan_repayments
-    ADD CONSTRAINT fk_rails_3d944e2450 FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_3da2ef6103; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY cap_statements
-    ADD CONSTRAINT fk_rails_3da2ef6103 FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_3e60af7d3b; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY calls
-    ADD CONSTRAINT fk_rails_3e60af7d3b FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_3fb137af04; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY sales
-    ADD CONSTRAINT fk_rails_3fb137af04 FOREIGN KEY (client_id) REFERENCES entities(id) ON UPDATE CASCADE ON DELETE CASCADE;
-
-
---
--- Name: fk_rails_3fe2252496; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY affairs
-    ADD CONSTRAINT fk_rails_3fe2252496 FOREIGN KEY (cash_session_id) REFERENCES cash_sessions(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_3fed567190; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY parcels
-    ADD CONSTRAINT fk_rails_3fed567190 FOREIGN KEY (undelivered_invoice_journal_entry_id) REFERENCES journal_entries(id) ON UPDATE CASCADE ON DELETE RESTRICT;
-
-
---
--- Name: fk_rails_400aef7f4c; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY product_nature_variants
-    ADD CONSTRAINT fk_rails_400aef7f4c FOREIGN KEY (stock_account_id) REFERENCES accounts(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_40551d1ee4; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY cashes
-    ADD CONSTRAINT fk_rails_40551d1ee4 FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_40bd680b0d; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY versions
-    ADD CONSTRAINT fk_rails_40bd680b0d FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_40d4de14e6; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY journals
-    ADD CONSTRAINT fk_rails_40d4de14e6 FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_40fdc7354a; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY subscription_natures
-    ADD CONSTRAINT fk_rails_40fdc7354a FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_410e584f30; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY entities
-    ADD CONSTRAINT fk_rails_410e584f30 FOREIGN KEY (proposer_id) REFERENCES entities(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_41134536e7; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY products
-    ADD CONSTRAINT fk_rails_41134536e7 FOREIGN KEY (default_storage_id) REFERENCES products(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_41ba474ceb; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY analyses
-    ADD CONSTRAINT fk_rails_41ba474ceb FOREIGN KEY (product_id) REFERENCES products(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_424d4186e7; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY activity_inspection_calibration_scales
-    ADD CONSTRAINT fk_rails_424d4186e7 FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_4250515aed; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY regularizations
-    ADD CONSTRAINT fk_rails_4250515aed FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_431666418f; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY bank_statement_items
-    ADD CONSTRAINT fk_rails_431666418f FOREIGN KEY (bank_statement_id) REFERENCES bank_statements(id) ON UPDATE CASCADE ON DELETE CASCADE;
-
-
---
--- Name: fk_rails_43464d525c; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY purchase_items
-    ADD CONSTRAINT fk_rails_43464d525c FOREIGN KEY (activity_budget_id) REFERENCES activity_budgets(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_434e943648; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY crumbs
-    ADD CONSTRAINT fk_rails_434e943648 FOREIGN KEY (intervention_participation_id) REFERENCES intervention_participations(id);
-
-
---
--- Name: fk_rails_43961acabc; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY guide_analysis_points
-    ADD CONSTRAINT fk_rails_43961acabc FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_4400e36150; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY taxes
-    ADD CONSTRAINT fk_rails_4400e36150 FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_448f48d42c; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY product_enjoyments
-    ADD CONSTRAINT fk_rails_448f48d42c FOREIGN KEY (enjoyer_id) REFERENCES entities(id) ON UPDATE CASCADE ON DELETE CASCADE;
-
-
---
--- Name: fk_rails_44aac32699; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY activity_productions
-    ADD CONSTRAINT fk_rails_44aac32699 FOREIGN KEY (season_id) REFERENCES activity_seasons(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_44d926fde4; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY calls
-    ADD CONSTRAINT fk_rails_44d926fde4 FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_4593a151c9; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY purchases
-    ADD CONSTRAINT fk_rails_4593a151c9 FOREIGN KEY (contract_id) REFERENCES contracts(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_45943b239d; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY purchase_natures
-    ADD CONSTRAINT fk_rails_45943b239d FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_45abbf3721; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY catalogs
-    ADD CONSTRAINT fk_rails_45abbf3721 FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_45de687588; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY affairs
-    ADD CONSTRAINT fk_rails_45de687588 FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_45e790dee1; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY analyses
-    ADD CONSTRAINT fk_rails_45e790dee1 FOREIGN KEY (analyser_id) REFERENCES entities(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_4636191fcb; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY purchase_natures
-    ADD CONSTRAINT fk_rails_4636191fcb FOREIGN KEY (journal_id) REFERENCES journals(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_46b154cac6; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY event_participations
-    ADD CONSTRAINT fk_rails_46b154cac6 FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_46e683c1c0; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY incoming_payment_modes
-    ADD CONSTRAINT fk_rails_46e683c1c0 FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_46ef37a26f; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY tax_declaration_items
-    ADD CONSTRAINT fk_rails_46ef37a26f FOREIGN KEY (tax_declaration_id) REFERENCES tax_declarations(id) ON UPDATE CASCADE ON DELETE CASCADE;
-
-
---
--- Name: fk_rails_48c90f8c33; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY manure_management_plan_zones
-    ADD CONSTRAINT fk_rails_48c90f8c33 FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_49f670768f; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY deposits
-    ADD CONSTRAINT fk_rails_49f670768f FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_4a6c8e1110; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY sale_natures
-    ADD CONSTRAINT fk_rails_4a6c8e1110 FOREIGN KEY (journal_id) REFERENCES journals(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_4aac06c209; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY incoming_payments
-    ADD CONSTRAINT fk_rails_4aac06c209 FOREIGN KEY (mode_id) REFERENCES incoming_payment_modes(id) ON UPDATE CASCADE ON DELETE CASCADE;
-
-
---
--- Name: fk_rails_4aea6afa11; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY notifications
-    ADD CONSTRAINT fk_rails_4aea6afa11 FOREIGN KEY (recipient_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE CASCADE;
-
-
---
--- Name: fk_rails_4b5a861f47; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY entity_links
-    ADD CONSTRAINT fk_rails_4b5a861f47 FOREIGN KEY (linked_id) REFERENCES entities(id) ON UPDATE CASCADE ON DELETE CASCADE;
-
-
---
--- Name: fk_rails_4be5963038; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY cap_land_parcels
-    ADD CONSTRAINT fk_rails_4be5963038 FOREIGN KEY (cap_islet_id) REFERENCES cap_islets(id) ON UPDATE CASCADE ON DELETE CASCADE;
-
-
---
--- Name: fk_rails_4c2629dc35; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY sales
-    ADD CONSTRAINT fk_rails_4c2629dc35 FOREIGN KEY (credited_sale_id) REFERENCES sales(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_4c3553ae69; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY parcels
-    ADD CONSTRAINT fk_rails_4c3553ae69 FOREIGN KEY (sender_id) REFERENCES entities(id) ON UPDATE CASCADE ON DELETE RESTRICT;
-
-
---
--- Name: fk_rails_4c3e78700c; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY custom_field_choices
-    ADD CONSTRAINT fk_rails_4c3e78700c FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_4c9ef7fd24; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY parcel_items
-    ADD CONSTRAINT fk_rails_4c9ef7fd24 FOREIGN KEY (variant_id) REFERENCES product_nature_variants(id) ON UPDATE CASCADE ON DELETE RESTRICT;
-
-
---
--- Name: fk_rails_4ca49c94ec; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY cashes
-    ADD CONSTRAINT fk_rails_4ca49c94ec FOREIGN KEY (owner_id) REFERENCES entities(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_4d03162e54; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY bank_statements
-    ADD CONSTRAINT fk_rails_4d03162e54 FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_4dd2cfe911; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY intervention_parameter_readings
-    ADD CONSTRAINT fk_rails_4dd2cfe911 FOREIGN KEY (parameter_id) REFERENCES intervention_parameters(id) ON UPDATE CASCADE ON DELETE CASCADE;
-
-
---
--- Name: fk_rails_4ea5b8b05e; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY products
-    ADD CONSTRAINT fk_rails_4ea5b8b05e FOREIGN KEY (variant_id) REFERENCES product_nature_variants(id) ON UPDATE CASCADE ON DELETE CASCADE;
-
-
---
--- Name: fk_rails_4eaedbf7c6; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY product_nature_variants
-    ADD CONSTRAINT fk_rails_4eaedbf7c6 FOREIGN KEY (nature_id) REFERENCES product_natures(id) ON UPDATE CASCADE ON DELETE CASCADE;
-
-
---
--- Name: fk_rails_4f3833f3ac; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY catalog_items
-    ADD CONSTRAINT fk_rails_4f3833f3ac FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_4ff360e94e; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY product_links
-    ADD CONSTRAINT fk_rails_4ff360e94e FOREIGN KEY (intervention_id) REFERENCES interventions(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_5059b3f008; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY sale_items
-    ADD CONSTRAINT fk_rails_5059b3f008 FOREIGN KEY (tax_id) REFERENCES taxes(id) ON UPDATE CASCADE ON DELETE RESTRICT;
-
-
---
--- Name: fk_rails_5076105ec1; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY journal_entries
-    ADD CONSTRAINT fk_rails_5076105ec1 FOREIGN KEY (financial_year_exchange_id) REFERENCES financial_year_exchanges(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_5098025622; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY incoming_payment_modes
-    ADD CONSTRAINT fk_rails_5098025622 FOREIGN KEY (depositables_account_id) REFERENCES accounts(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_50befc8562; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY activity_productions
-    ADD CONSTRAINT fk_rails_50befc8562 FOREIGN KEY (campaign_id) REFERENCES campaigns(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_518fedc933; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY crumbs
-    ADD CONSTRAINT fk_rails_518fedc933 FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_523551a98d; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY deposits
-    ADD CONSTRAINT fk_rails_523551a98d FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_525201c121; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY parcels
-    ADD CONSTRAINT fk_rails_525201c121 FOREIGN KEY (responsible_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_537959994f; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY product_nature_variant_components
-    ADD CONSTRAINT fk_rails_537959994f FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_542f21374a; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY sensors
-    ADD CONSTRAINT fk_rails_542f21374a FOREIGN KEY (host_id) REFERENCES products(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_546c6caab4; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY event_participations
-    ADD CONSTRAINT fk_rails_546c6caab4 FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_556d239bea; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY product_movements
-    ADD CONSTRAINT fk_rails_556d239bea FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_557da0b10d; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY custom_fields
-    ADD CONSTRAINT fk_rails_557da0b10d FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_55ba199c7f; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY subscription_natures
-    ADD CONSTRAINT fk_rails_55ba199c7f FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_55e243996a; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY cultivable_zones
-    ADD CONSTRAINT fk_rails_55e243996a FOREIGN KEY (owner_id) REFERENCES entities(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_55f53ebbab; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY documents
-    ADD CONSTRAINT fk_rails_55f53ebbab FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_56c5705d5e; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY tasks
-    ADD CONSTRAINT fk_rails_56c5705d5e FOREIGN KEY (sale_opportunity_id) REFERENCES affairs(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_5744d494de; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY product_memberships
-    ADD CONSTRAINT fk_rails_5744d494de FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_581ee777fa; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY cap_land_parcels
-    ADD CONSTRAINT fk_rails_581ee777fa FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_591373f7d5; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY call_messages
-    ADD CONSTRAINT fk_rails_591373f7d5 FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_5a35ce8a3c; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY product_linkages
-    ADD CONSTRAINT fk_rails_5a35ce8a3c FOREIGN KEY (carrier_id) REFERENCES products(id) ON UPDATE CASCADE ON DELETE CASCADE;
-
-
---
--- Name: fk_rails_5b11b11b0d; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY parcels
-    ADD CONSTRAINT fk_rails_5b11b11b0d FOREIGN KEY (journal_entry_id) REFERENCES journal_entries(id) ON UPDATE CASCADE ON DELETE RESTRICT;
-
-
---
--- Name: fk_rails_5b99b1a1b2; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY parcels
-    ADD CONSTRAINT fk_rails_5b99b1a1b2 FOREIGN KEY (transporter_id) REFERENCES entities(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_5be0cd019c; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY tax_declaration_item_parts
-    ADD CONSTRAINT fk_rails_5be0cd019c FOREIGN KEY (account_id) REFERENCES accounts(id);
-
-
---
--- Name: fk_rails_5c5556f807; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY affairs
-    ADD CONSTRAINT fk_rails_5c5556f807 FOREIGN KEY (third_id) REFERENCES entities(id) ON UPDATE CASCADE ON DELETE CASCADE;
-
-
---
--- Name: fk_rails_5d7a8ba713; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY inspections
-    ADD CONSTRAINT fk_rails_5d7a8ba713 FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_5d94a95551; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY sale_natures
-    ADD CONSTRAINT fk_rails_5d94a95551 FOREIGN KEY (catalog_id) REFERENCES catalogs(id) ON UPDATE CASCADE ON DELETE CASCADE;
-
-
---
--- Name: fk_rails_5e31fb5b82; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY entities
-    ADD CONSTRAINT fk_rails_5e31fb5b82 FOREIGN KEY (responsible_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_5e71400e52; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY contracts
-    ADD CONSTRAINT fk_rails_5e71400e52 FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_5ec9de988b; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY listing_node_items
-    ADD CONSTRAINT fk_rails_5ec9de988b FOREIGN KEY (node_id) REFERENCES listing_nodes(id) ON UPDATE CASCADE ON DELETE CASCADE;
-
-
---
--- Name: fk_rails_60713ca369; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY products
-    ADD CONSTRAINT fk_rails_60713ca369 FOREIGN KEY (tracking_id) REFERENCES trackings(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_607dd7f27e; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY activity_distributions
-    ADD CONSTRAINT fk_rails_607dd7f27e FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_6097033ab2; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY product_links
-    ADD CONSTRAINT fk_rails_6097033ab2 FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_611c37bc8f; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY product_phases
-    ADD CONSTRAINT fk_rails_611c37bc8f FOREIGN KEY (nature_id) REFERENCES product_natures(id) ON UPDATE CASCADE ON DELETE CASCADE;
-
-
---
--- Name: fk_rails_61b5d7a3a9; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY product_nature_categories
-    ADD CONSTRAINT fk_rails_61b5d7a3a9 FOREIGN KEY (fixed_asset_account_id) REFERENCES accounts(id) ON UPDATE CASCADE ON DELETE RESTRICT;
-
-
---
--- Name: fk_rails_61d23da42a; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY fixed_assets
-    ADD CONSTRAINT fk_rails_61d23da42a FOREIGN KEY (asset_account_id) REFERENCES accounts(id) ON UPDATE CASCADE ON DELETE RESTRICT;
-
-
---
--- Name: fk_rails_629d71b0bd; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY tax_declarations
-    ADD CONSTRAINT fk_rails_629d71b0bd FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_62c1aa0bbe; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY purchase_items
-    ADD CONSTRAINT fk_rails_62c1aa0bbe FOREIGN KEY (purchase_id) REFERENCES purchases(id) ON UPDATE CASCADE ON DELETE CASCADE;
-
-
---
--- Name: fk_rails_62d4b7a5ff; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY cash_sessions
-    ADD CONSTRAINT fk_rails_62d4b7a5ff FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_62d92932b7; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY inventory_items
-    ADD CONSTRAINT fk_rails_62d92932b7 FOREIGN KEY (product_id) REFERENCES products(id) ON UPDATE CASCADE ON DELETE CASCADE;
-
-
---
--- Name: fk_rails_632a0088d6; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY postal_zones
-    ADD CONSTRAINT fk_rails_632a0088d6 FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_636b786ce8; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY guide_analyses
-    ADD CONSTRAINT fk_rails_636b786ce8 FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_636e8eef20; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY plant_density_abacus_items
-    ADD CONSTRAINT fk_rails_636e8eef20 FOREIGN KEY (plant_density_abacus_id) REFERENCES plant_density_abaci(id) ON UPDATE CASCADE ON DELETE CASCADE;
-
-
---
--- Name: fk_rails_63bad1dcb6; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY inventories
-    ADD CONSTRAINT fk_rails_63bad1dcb6 FOREIGN KEY (financial_year_id) REFERENCES financial_years(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_642f17018b; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY users
-    ADD CONSTRAINT fk_rails_642f17018b FOREIGN KEY (role_id) REFERENCES roles(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_64472b9366; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY inventories
-    ADD CONSTRAINT fk_rails_64472b9366 FOREIGN KEY (responsible_id) REFERENCES entities(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_64625cb646; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY product_phases
-    ADD CONSTRAINT fk_rails_64625cb646 FOREIGN KEY (intervention_id) REFERENCES interventions(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_64a1cb2780; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY cashes
-    ADD CONSTRAINT fk_rails_64a1cb2780 FOREIGN KEY (journal_id) REFERENCES journals(id) ON UPDATE CASCADE ON DELETE CASCADE;
-
-
---
--- Name: fk_rails_64cd22b0ee; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY contract_items
-    ADD CONSTRAINT fk_rails_64cd22b0ee FOREIGN KEY (variant_id) REFERENCES product_nature_variants(id) ON UPDATE CASCADE ON DELETE CASCADE;
-
-
---
--- Name: fk_rails_6511f5959a; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY product_nature_categories
-    ADD CONSTRAINT fk_rails_6511f5959a FOREIGN KEY (stock_movement_account_id) REFERENCES accounts(id) ON UPDATE CASCADE ON DELETE RESTRICT;
-
-
---
--- Name: fk_rails_6558ea2c9c; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY integrations
-    ADD CONSTRAINT fk_rails_6558ea2c9c FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_65e7509f5d; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY parcels
-    ADD CONSTRAINT fk_rails_65e7509f5d FOREIGN KEY (delivery_id) REFERENCES deliveries(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_664f5c7a4f; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY sale_natures
-    ADD CONSTRAINT fk_rails_664f5c7a4f FOREIGN KEY (payment_mode_id) REFERENCES incoming_payment_modes(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_66c0003a0f; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY crumbs
-    ADD CONSTRAINT fk_rails_66c0003a0f FOREIGN KEY (intervention_parameter_id) REFERENCES intervention_parameters(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_675d471b70; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY product_linkages
-    ADD CONSTRAINT fk_rails_675d471b70 FOREIGN KEY (intervention_id) REFERENCES interventions(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_6840dd6b95; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY gaps
-    ADD CONSTRAINT fk_rails_6840dd6b95 FOREIGN KEY (journal_entry_id) REFERENCES journal_entries(id) ON UPDATE CASCADE ON DELETE RESTRICT;
-
-
---
--- Name: fk_rails_69339a43d8; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY inventory_items
-    ADD CONSTRAINT fk_rails_69339a43d8 FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_699b5b1299; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY inventory_items
-    ADD CONSTRAINT fk_rails_699b5b1299 FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_69b4f722e3; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY cap_statements
-    ADD CONSTRAINT fk_rails_69b4f722e3 FOREIGN KEY (campaign_id) REFERENCES campaigns(id) ON UPDATE CASCADE ON DELETE CASCADE;
-
-
---
--- Name: fk_rails_6a6fe9ea9a; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY campaigns
-    ADD CONSTRAINT fk_rails_6a6fe9ea9a FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_6a925852c1; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY product_linkages
-    ADD CONSTRAINT fk_rails_6a925852c1 FOREIGN KEY (carried_id) REFERENCES products(id) ON UPDATE CASCADE ON DELETE CASCADE;
-
-
---
--- Name: fk_rails_6a9fc1a17f; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY sales
-    ADD CONSTRAINT fk_rails_6a9fc1a17f FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_6aa578397c; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY dashboards
-    ADD CONSTRAINT fk_rails_6aa578397c FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_6b1674aba3; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY purchase_items
-    ADD CONSTRAINT fk_rails_6b1674aba3 FOREIGN KEY (depreciable_product_id) REFERENCES products(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_6c553db953; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY product_nature_category_taxations
-    ADD CONSTRAINT fk_rails_6c553db953 FOREIGN KEY (tax_id) REFERENCES taxes(id) ON UPDATE CASCADE ON DELETE CASCADE;
-
-
---
--- Name: fk_rails_6ca49ff545; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY intervention_working_periods
-    ADD CONSTRAINT fk_rails_6ca49ff545 FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_6cc9da109c; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY debt_transfers
-    ADD CONSTRAINT fk_rails_6cc9da109c FOREIGN KEY (journal_entry_id) REFERENCES journal_entries(id) ON UPDATE CASCADE ON DELETE RESTRICT;
-
-
---
--- Name: fk_rails_6fcbdd26dc; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY products
-    ADD CONSTRAINT fk_rails_6fcbdd26dc FOREIGN KEY (initial_movement_id) REFERENCES product_movements(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_703472efb9; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY taxes
-    ADD CONSTRAINT fk_rails_703472efb9 FOREIGN KEY (deduction_account_id) REFERENCES accounts(id) ON UPDATE CASCADE ON DELETE RESTRICT;
-
-
---
--- Name: fk_rails_7043c25edd; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY fixed_assets
-    ADD CONSTRAINT fk_rails_7043c25edd FOREIGN KEY (allocation_account_id) REFERENCES accounts(id) ON UPDATE CASCADE ON DELETE CASCADE;
-
-
---
--- Name: fk_rails_7072c58d57; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY guide_analyses
-    ADD CONSTRAINT fk_rails_7072c58d57 FOREIGN KEY (guide_id) REFERENCES guides(id) ON UPDATE CASCADE ON DELETE CASCADE;
-
-
---
--- Name: fk_rails_70b8f598a0; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY outgoing_payments
-    ADD CONSTRAINT fk_rails_70b8f598a0 FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_710966be99; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY districts
-    ADD CONSTRAINT fk_rails_710966be99 FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_714e5a35d9; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY journal_entries
-    ADD CONSTRAINT fk_rails_714e5a35d9 FOREIGN KEY (journal_id) REFERENCES journals(id) ON UPDATE CASCADE ON DELETE CASCADE;
-
-
---
--- Name: fk_rails_71b798326e; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY journal_entry_items
-    ADD CONSTRAINT fk_rails_71b798326e FOREIGN KEY (tax_declaration_item_id) REFERENCES tax_declaration_items(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_72b04fc498; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY parcels
-    ADD CONSTRAINT fk_rails_72b04fc498 FOREIGN KEY (contract_id) REFERENCES contracts(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_734201d412; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY cash_sessions
-    ADD CONSTRAINT fk_rails_734201d412 FOREIGN KEY (cash_id) REFERENCES cashes(id) ON UPDATE CASCADE ON DELETE CASCADE;
-
-
---
--- Name: fk_rails_73738e690f; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY supervisions
-    ADD CONSTRAINT fk_rails_73738e690f FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_7382f73d03; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY journal_entry_items
-    ADD CONSTRAINT fk_rails_7382f73d03 FOREIGN KEY (financial_year_id) REFERENCES financial_years(id) ON UPDATE CASCADE ON DELETE CASCADE;
-
-
---
--- Name: fk_rails_75333ccf01; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY product_movements
-    ADD CONSTRAINT fk_rails_75333ccf01 FOREIGN KEY (intervention_id) REFERENCES interventions(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_75772b1f28; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY sequences
-    ADD CONSTRAINT fk_rails_75772b1f28 FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_75a29a42d4; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY documents
-    ADD CONSTRAINT fk_rails_75a29a42d4 FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_761362dbfb; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY identifiers
-    ADD CONSTRAINT fk_rails_761362dbfb FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_762630d0fb; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY observations
-    ADD CONSTRAINT fk_rails_762630d0fb FOREIGN KEY (author_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE CASCADE;
-
-
---
--- Name: fk_rails_763bc367d1; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY purchases
-    ADD CONSTRAINT fk_rails_763bc367d1 FOREIGN KEY (nature_id) REFERENCES purchase_natures(id) ON UPDATE CASCADE ON DELETE RESTRICT;
-
-
---
--- Name: fk_rails_7680a7dd17; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY target_distributions
-    ADD CONSTRAINT fk_rails_7680a7dd17 FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_76a9bd3581; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY sales
-    ADD CONSTRAINT fk_rails_76a9bd3581 FOREIGN KEY (delivery_address_id) REFERENCES entity_addresses(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_77e039c42d; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY parcel_items
-    ADD CONSTRAINT fk_rails_77e039c42d FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_7827a27f9e; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY intervention_parameters
-    ADD CONSTRAINT fk_rails_7827a27f9e FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_789fa67611; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY observations
-    ADD CONSTRAINT fk_rails_789fa67611 FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_798f6d11f1; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY product_natures
-    ADD CONSTRAINT fk_rails_798f6d11f1 FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_7a738ebb13; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY product_nature_variant_components
-    ADD CONSTRAINT fk_rails_7a738ebb13 FOREIGN KEY (parent_id) REFERENCES product_nature_variant_components(id) ON UPDATE CASCADE ON DELETE CASCADE;
-
-
---
--- Name: fk_rails_7a9749733c; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY alert_phases
-    ADD CONSTRAINT fk_rails_7a9749733c FOREIGN KEY (alert_id) REFERENCES alerts(id);
-
-
---
--- Name: fk_rails_7a9ac69852; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY loans
-    ADD CONSTRAINT fk_rails_7a9ac69852 FOREIGN KEY (interest_account_id) REFERENCES accounts(id) ON UPDATE CASCADE ON DELETE RESTRICT;
-
-
---
--- Name: fk_rails_7af37c85ac; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY bank_statement_items
-    ADD CONSTRAINT fk_rails_7af37c85ac FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_7b6be7d061; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY plant_countings
-    ADD CONSTRAINT fk_rails_7b6be7d061 FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_7bbc7b4cef; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY catalog_items
-    ADD CONSTRAINT fk_rails_7bbc7b4cef FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_7c50273054; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY net_services
-    ADD CONSTRAINT fk_rails_7c50273054 FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_7c7753d434; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY entities
-    ADD CONSTRAINT fk_rails_7c7753d434 FOREIGN KEY (supplier_account_id) REFERENCES accounts(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_7cbe6a011c; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY activities
-    ADD CONSTRAINT fk_rails_7cbe6a011c FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_7cc0ce7951; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY sale_items
-    ADD CONSTRAINT fk_rails_7cc0ce7951 FOREIGN KEY (variant_id) REFERENCES product_nature_variants(id) ON UPDATE CASCADE ON DELETE CASCADE;
-
-
---
--- Name: fk_rails_7d0c13ae80; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY gap_items
-    ADD CONSTRAINT fk_rails_7d0c13ae80 FOREIGN KEY (tax_id) REFERENCES taxes(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_7dc39f42eb; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY users
-    ADD CONSTRAINT fk_rails_7dc39f42eb FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_7e4c597597; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY call_messages
-    ADD CONSTRAINT fk_rails_7e4c597597 FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_7ecf94116f; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY teams
-    ADD CONSTRAINT fk_rails_7ecf94116f FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_7f031d8645; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY inspection_points
-    ADD CONSTRAINT fk_rails_7f031d8645 FOREIGN KEY (nature_id) REFERENCES activity_inspection_point_natures(id) ON UPDATE CASCADE ON DELETE CASCADE;
-
-
---
--- Name: fk_rails_7f53e72b34; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY entity_addresses
-    ADD CONSTRAINT fk_rails_7f53e72b34 FOREIGN KEY (mail_postal_zone_id) REFERENCES postal_zones(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_8043b7d279; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY regularizations
-    ADD CONSTRAINT fk_rails_8043b7d279 FOREIGN KEY (affair_id) REFERENCES affairs(id);
-
-
---
--- Name: fk_rails_8121388822; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY observations
-    ADD CONSTRAINT fk_rails_8121388822 FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_8131f7240d; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY deposits
-    ADD CONSTRAINT fk_rails_8131f7240d FOREIGN KEY (journal_entry_id) REFERENCES journal_entries(id) ON UPDATE CASCADE ON DELETE RESTRICT;
-
-
---
--- Name: fk_rails_81af047794; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY financial_years
-    ADD CONSTRAINT fk_rails_81af047794 FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_81d009f630; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY alert_phases
-    ADD CONSTRAINT fk_rails_81d009f630 FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_82ac1ec325; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY manure_management_plans
-    ADD CONSTRAINT fk_rails_82ac1ec325 FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_8351acf62c; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY map_layers
-    ADD CONSTRAINT fk_rails_8351acf62c FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_835ea028eb; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY fixed_asset_depreciations
-    ADD CONSTRAINT fk_rails_835ea028eb FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_83b193d99d; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY loan_repayments
-    ADD CONSTRAINT fk_rails_83b193d99d FOREIGN KEY (loan_id) REFERENCES loans(id) ON UPDATE CASCADE ON DELETE CASCADE;
-
-
---
--- Name: fk_rails_84e680e296; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY interventions
-    ADD CONSTRAINT fk_rails_84e680e296 FOREIGN KEY (request_intervention_id) REFERENCES interventions(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_85183adb8f; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY product_labellings
-    ADD CONSTRAINT fk_rails_85183adb8f FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_8619415b3f; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY events
-    ADD CONSTRAINT fk_rails_8619415b3f FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_86efedd5e8; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY manure_management_plan_zones
-    ADD CONSTRAINT fk_rails_86efedd5e8 FOREIGN KEY (activity_production_id) REFERENCES activity_productions(id) ON UPDATE CASCADE ON DELETE CASCADE;
-
-
---
--- Name: fk_rails_8736bbc708; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY analysis_items
-    ADD CONSTRAINT fk_rails_8736bbc708 FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_8767e3fcaf; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY activity_seasons
-    ADD CONSTRAINT fk_rails_8767e3fcaf FOREIGN KEY (activity_id) REFERENCES activities(id) ON UPDATE CASCADE ON DELETE CASCADE;
-
-
---
--- Name: fk_rails_87b5af7ee5; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY postal_zones
-    ADD CONSTRAINT fk_rails_87b5af7ee5 FOREIGN KEY (district_id) REFERENCES districts(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_87f1c9c7bd; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY preferences
-    ADD CONSTRAINT fk_rails_87f1c9c7bd FOREIGN KEY (user_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE CASCADE;
-
-
---
--- Name: fk_rails_88921ec412; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY districts
-    ADD CONSTRAINT fk_rails_88921ec412 FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_88b1b0398c; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY fixed_asset_depreciations
-    ADD CONSTRAINT fk_rails_88b1b0398c FOREIGN KEY (journal_entry_id) REFERENCES journal_entries(id) ON UPDATE CASCADE ON DELETE RESTRICT;
-
-
---
--- Name: fk_rails_88ce500f27; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY parcel_items
-    ADD CONSTRAINT fk_rails_88ce500f27 FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_88d513bf29; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY interventions
-    ADD CONSTRAINT fk_rails_88d513bf29 FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_88e7174912; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY alerts
-    ADD CONSTRAINT fk_rails_88e7174912 FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_8903897a2c; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY intervention_working_periods
-    ADD CONSTRAINT fk_rails_8903897a2c FOREIGN KEY (intervention_id) REFERENCES interventions(id) ON UPDATE CASCADE ON DELETE CASCADE;
-
-
---
--- Name: fk_rails_8948164f25; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY loans
-    ADD CONSTRAINT fk_rails_8948164f25 FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_89506052d0; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY products
-    ADD CONSTRAINT fk_rails_89506052d0 FOREIGN KEY (parent_id) REFERENCES products(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_8986b00a83; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY attachments
-    ADD CONSTRAINT fk_rails_8986b00a83 FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_89a4ed37ee; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY analysis_items
-    ADD CONSTRAINT fk_rails_89a4ed37ee FOREIGN KEY (analysis_id) REFERENCES analyses(id) ON UPDATE CASCADE ON DELETE CASCADE;
-
-
---
--- Name: fk_rails_8afb65e773; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY intervention_labellings
-    ADD CONSTRAINT fk_rails_8afb65e773 FOREIGN KEY (intervention_id) REFERENCES interventions(id) ON UPDATE CASCADE ON DELETE CASCADE;
-
-
---
--- Name: fk_rails_8c3e9ae316; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY intervention_parameter_readings
-    ADD CONSTRAINT fk_rails_8c3e9ae316 FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_8cfb047f14; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY crumbs
-    ADD CONSTRAINT fk_rails_8cfb047f14 FOREIGN KEY (user_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_8d232610f0; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY outgoing_payments
-    ADD CONSTRAINT fk_rails_8d232610f0 FOREIGN KEY (cash_id) REFERENCES cashes(id) ON UPDATE CASCADE ON DELETE CASCADE;
-
-
---
--- Name: fk_rails_8d7e169b3d; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY incoming_payments
-    ADD CONSTRAINT fk_rails_8d7e169b3d FOREIGN KEY (responsible_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_8dc5597158; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY incoming_payments
-    ADD CONSTRAINT fk_rails_8dc5597158 FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_8f242fc2da; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY map_layers
-    ADD CONSTRAINT fk_rails_8f242fc2da FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_8f4e5f48f5; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY trackings
-    ADD CONSTRAINT fk_rails_8f4e5f48f5 FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_8f6c3c0890; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY products
-    ADD CONSTRAINT fk_rails_8f6c3c0890 FOREIGN KEY (initial_father_id) REFERENCES products(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_8f87ec8500; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY supervision_items
-    ADD CONSTRAINT fk_rails_8f87ec8500 FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_8fc55593ba; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY listing_nodes
-    ADD CONSTRAINT fk_rails_8fc55593ba FOREIGN KEY (item_listing_id) REFERENCES listings(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_8fde2f5f19; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY product_enjoyments
-    ADD CONSTRAINT fk_rails_8fde2f5f19 FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_9012acf72a; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY accounts
-    ADD CONSTRAINT fk_rails_9012acf72a FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_9030c3d14f; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY prescriptions
-    ADD CONSTRAINT fk_rails_9030c3d14f FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_9069600c37; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY incoming_payment_modes
-    ADD CONSTRAINT fk_rails_9069600c37 FOREIGN KEY (commission_account_id) REFERENCES accounts(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_9077e8306e; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY incoming_payment_modes
-    ADD CONSTRAINT fk_rails_9077e8306e FOREIGN KEY (depositables_journal_id) REFERENCES journals(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_90ef6576c4; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY entity_links
-    ADD CONSTRAINT fk_rails_90ef6576c4 FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_90f914c9f6; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY intervention_labellings
-    ADD CONSTRAINT fk_rails_90f914c9f6 FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_91018e4d60; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY document_templates
-    ADD CONSTRAINT fk_rails_91018e4d60 FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_91e7d02ff1; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY activity_distributions
-    ADD CONSTRAINT fk_rails_91e7d02ff1 FOREIGN KEY (activity_id) REFERENCES activities(id) ON UPDATE CASCADE ON DELETE CASCADE;
-
-
---
--- Name: fk_rails_920d2d0fd3; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY analyses
-    ADD CONSTRAINT fk_rails_920d2d0fd3 FOREIGN KEY (sensor_id) REFERENCES sensors(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_92682e5545; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY journal_entry_items
-    ADD CONSTRAINT fk_rails_92682e5545 FOREIGN KEY (account_id) REFERENCES accounts(id) ON UPDATE CASCADE ON DELETE CASCADE;
-
-
---
--- Name: fk_rails_926dc7cb5c; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY parcel_items
-    ADD CONSTRAINT fk_rails_926dc7cb5c FOREIGN KEY (analysis_id) REFERENCES analyses(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_929c0d57e2; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY outgoing_payment_modes
-    ADD CONSTRAINT fk_rails_929c0d57e2 FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_930f08f448; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY intervention_participations
-    ADD CONSTRAINT fk_rails_930f08f448 FOREIGN KEY (intervention_id) REFERENCES interventions(id);
-
-
---
--- Name: fk_rails_934846f787; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY journal_entry_items
-    ADD CONSTRAINT fk_rails_934846f787 FOREIGN KEY (activity_budget_id) REFERENCES activity_budgets(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_938eba6751; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY parcels
-    ADD CONSTRAINT fk_rails_938eba6751 FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_93b19e800d; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY inventories
-    ADD CONSTRAINT fk_rails_93b19e800d FOREIGN KEY (journal_entry_id) REFERENCES journal_entries(id) ON UPDATE CASCADE ON DELETE RESTRICT;
-
-
---
--- Name: fk_rails_94c0f53848; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY net_services
-    ADD CONSTRAINT fk_rails_94c0f53848 FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_952d21f266; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY sales
-    ADD CONSTRAINT fk_rails_952d21f266 FOREIGN KEY (quantity_gap_on_invoice_journal_entry_id) REFERENCES journal_entries(id) ON UPDATE CASCADE ON DELETE RESTRICT;
-
-
---
--- Name: fk_rails_95928219de; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY listings
-    ADD CONSTRAINT fk_rails_95928219de FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_95aaec528d; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY delivery_tools
-    ADD CONSTRAINT fk_rails_95aaec528d FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_964829961a; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY synchronization_operations
-    ADD CONSTRAINT fk_rails_964829961a FOREIGN KEY (notification_id) REFERENCES notifications(id) ON UPDATE CASCADE ON DELETE RESTRICT;
-
-
---
--- Name: fk_rails_966fdd868b; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY product_labellings
-    ADD CONSTRAINT fk_rails_966fdd868b FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_9709540324; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY synchronization_operations
-    ADD CONSTRAINT fk_rails_9709540324 FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_97b45071f0; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY cap_islets
-    ADD CONSTRAINT fk_rails_97b45071f0 FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_98336a2803; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY alerts
-    ADD CONSTRAINT fk_rails_98336a2803 FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_9926dd709a; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY product_labellings
-    ADD CONSTRAINT fk_rails_9926dd709a FOREIGN KEY (product_id) REFERENCES products(id) ON UPDATE CASCADE ON DELETE CASCADE;
-
-
---
--- Name: fk_rails_997b34ead2; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY manure_management_plan_zones
-    ADD CONSTRAINT fk_rails_997b34ead2 FOREIGN KEY (plan_id) REFERENCES manure_management_plans(id) ON UPDATE CASCADE ON DELETE CASCADE;
-
-
---
--- Name: fk_rails_9a2ac8cd4f; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY purchase_natures
-    ADD CONSTRAINT fk_rails_9a2ac8cd4f FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_9a513f6995; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY entity_addresses
-    ADD CONSTRAINT fk_rails_9a513f6995 FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_9ac6f7d662; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY integrations
-    ADD CONSTRAINT fk_rails_9ac6f7d662 FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_9b698982dd; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY tasks
-    ADD CONSTRAINT fk_rails_9b698982dd FOREIGN KEY (executor_id) REFERENCES entities(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_9b9d36a9a5; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY product_phases
-    ADD CONSTRAINT fk_rails_9b9d36a9a5 FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_9c0a384816; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY loans
-    ADD CONSTRAINT fk_rails_9c0a384816 FOREIGN KEY (bank_guarantee_account_id) REFERENCES accounts(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_9d08cd4dc8; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY tax_declaration_item_parts
-    ADD CONSTRAINT fk_rails_9d08cd4dc8 FOREIGN KEY (tax_declaration_item_id) REFERENCES tax_declaration_items(id);
-
-
---
--- Name: fk_rails_9d50c7d5b5; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY inspection_calibrations
-    ADD CONSTRAINT fk_rails_9d50c7d5b5 FOREIGN KEY (inspection_id) REFERENCES inspections(id) ON UPDATE CASCADE ON DELETE CASCADE;
-
-
---
--- Name: fk_rails_9d5b19ba0c; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY activity_distributions
-    ADD CONSTRAINT fk_rails_9d5b19ba0c FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_9d958cd7e3; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY cashes
-    ADD CONSTRAINT fk_rails_9d958cd7e3 FOREIGN KEY (main_account_id) REFERENCES accounts(id) ON UPDATE CASCADE ON DELETE CASCADE;
-
-
---
--- Name: fk_rails_9e2551606f; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY sale_natures
-    ADD CONSTRAINT fk_rails_9e2551606f FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_9e8f4919fb; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY delivery_tools
-    ADD CONSTRAINT fk_rails_9e8f4919fb FOREIGN KEY (delivery_id) REFERENCES deliveries(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_9e9409872a; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY product_ownerships
-    ADD CONSTRAINT fk_rails_9e9409872a FOREIGN KEY (owner_id) REFERENCES entities(id) ON UPDATE CASCADE ON DELETE CASCADE;
-
-
---
--- Name: fk_rails_9ec998a7c7; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY catalog_items
-    ADD CONSTRAINT fk_rails_9ec998a7c7 FOREIGN KEY (catalog_id) REFERENCES catalogs(id) ON UPDATE CASCADE ON DELETE CASCADE;
-
-
---
--- Name: fk_rails_9eef05dc48; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY dashboards
-    ADD CONSTRAINT fk_rails_9eef05dc48 FOREIGN KEY (owner_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE CASCADE;
-
-
---
--- Name: fk_rails_9f2172c524; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY activity_budget_items
-    ADD CONSTRAINT fk_rails_9f2172c524 FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_9f8a555075; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY account_balances
-    ADD CONSTRAINT fk_rails_9f8a555075 FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_a0a27ea478; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY plant_countings
-    ADD CONSTRAINT fk_rails_a0a27ea478 FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_a0f2b95a5c; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY deliveries
-    ADD CONSTRAINT fk_rails_a0f2b95a5c FOREIGN KEY (transporter_purchase_id) REFERENCES purchases(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_a1a464afc1; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY plant_countings
-    ADD CONSTRAINT fk_rails_a1a464afc1 FOREIGN KEY (plant_density_abacus_id) REFERENCES plant_density_abaci(id) ON UPDATE CASCADE ON DELETE CASCADE;
-
-
---
--- Name: fk_rails_a20d5951d8; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY outgoing_payment_modes
-    ADD CONSTRAINT fk_rails_a20d5951d8 FOREIGN KEY (cash_id) REFERENCES cashes(id) ON UPDATE CASCADE ON DELETE CASCADE;
-
-
---
--- Name: fk_rails_a2563c1567; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY sale_items
-    ADD CONSTRAINT fk_rails_a2563c1567 FOREIGN KEY (sale_id) REFERENCES sales(id) ON UPDATE CASCADE ON DELETE CASCADE;
-
-
---
--- Name: fk_rails_a31061effa; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY alerts
-    ADD CONSTRAINT fk_rails_a31061effa FOREIGN KEY (sensor_id) REFERENCES sensors(id);
-
-
---
--- Name: fk_rails_a3377f786b; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY activities
-    ADD CONSTRAINT fk_rails_a3377f786b FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_a3644fda81; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY product_phases
-    ADD CONSTRAINT fk_rails_a3644fda81 FOREIGN KEY (variant_id) REFERENCES product_nature_variants(id) ON UPDATE CASCADE ON DELETE CASCADE;
-
-
---
--- Name: fk_rails_a3b8e101cb; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY debt_transfers
-    ADD CONSTRAINT fk_rails_a3b8e101cb FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_a46c002667; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY synchronization_operations
-    ADD CONSTRAINT fk_rails_a46c002667 FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_a4c2fc2286; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY sales
-    ADD CONSTRAINT fk_rails_a4c2fc2286 FOREIGN KEY (journal_entry_id) REFERENCES journal_entries(id) ON UPDATE CASCADE ON DELETE RESTRICT;
-
-
---
--- Name: fk_rails_a4e34a5691; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY listing_node_items
-    ADD CONSTRAINT fk_rails_a4e34a5691 FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_a54e8f4ede; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY fixed_asset_depreciations
-    ADD CONSTRAINT fk_rails_a54e8f4ede FOREIGN KEY (financial_year_id) REFERENCES financial_years(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_a5982f51a1; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY product_memberships
-    ADD CONSTRAINT fk_rails_a5982f51a1 FOREIGN KEY (intervention_id) REFERENCES interventions(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_a5daca9b43; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY analysis_items
-    ADD CONSTRAINT fk_rails_a5daca9b43 FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_a63582aef6; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY catalog_items
-    ADD CONSTRAINT fk_rails_a63582aef6 FOREIGN KEY (variant_id) REFERENCES product_nature_variants(id) ON UPDATE CASCADE ON DELETE CASCADE;
-
-
---
--- Name: fk_rails_a693cb13d3; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY bank_statements
-    ADD CONSTRAINT fk_rails_a693cb13d3 FOREIGN KEY (cash_id) REFERENCES cashes(id) ON UPDATE CASCADE ON DELETE CASCADE;
-
-
---
--- Name: fk_rails_a7d82208a6; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY inventory_items
-    ADD CONSTRAINT fk_rails_a7d82208a6 FOREIGN KEY (product_movement_id) REFERENCES product_movements(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_a7dc109dcc; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY inventory_items
-    ADD CONSTRAINT fk_rails_a7dc109dcc FOREIGN KEY (inventory_id) REFERENCES inventories(id) ON UPDATE CASCADE ON DELETE CASCADE;
-
-
---
--- Name: fk_rails_a83e320232; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY tax_declaration_items
-    ADD CONSTRAINT fk_rails_a83e320232 FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_a8b4bacaf6; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY listing_nodes
-    ADD CONSTRAINT fk_rails_a8b4bacaf6 FOREIGN KEY (listing_id) REFERENCES listings(id) ON UPDATE CASCADE ON DELETE CASCADE;
-
-
---
--- Name: fk_rails_a8df640e2f; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY product_nature_category_taxations
-    ADD CONSTRAINT fk_rails_a8df640e2f FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_a927142781; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY purchases
-    ADD CONSTRAINT fk_rails_a927142781 FOREIGN KEY (undelivered_invoice_journal_entry_id) REFERENCES journal_entries(id) ON UPDATE CASCADE ON DELETE RESTRICT;
-
-
---
--- Name: fk_rails_a9a5bf49cb; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY inspection_points
-    ADD CONSTRAINT fk_rails_a9a5bf49cb FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_a9b45798a3; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY intervention_working_periods
-    ADD CONSTRAINT fk_rails_a9b45798a3 FOREIGN KEY (intervention_participation_id) REFERENCES intervention_participations(id) ON UPDATE CASCADE ON DELETE CASCADE;
-
-
---
--- Name: fk_rails_aa10c3a347; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY identifiers
-    ADD CONSTRAINT fk_rails_aa10c3a347 FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_ab0dc98cd1; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY catalog_items
-    ADD CONSTRAINT fk_rails_ab0dc98cd1 FOREIGN KEY (reference_tax_id) REFERENCES taxes(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_ab70952940; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY roles
-    ADD CONSTRAINT fk_rails_ab70952940 FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_ab751b897f; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY inspection_points
-    ADD CONSTRAINT fk_rails_ab751b897f FOREIGN KEY (inspection_id) REFERENCES inspections(id) ON UPDATE CASCADE ON DELETE CASCADE;
-
-
---
--- Name: fk_rails_ab7802fc73; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY trackings
-    ADD CONSTRAINT fk_rails_ab7802fc73 FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_ab81bb3c66; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY guide_analysis_points
-    ADD CONSTRAINT fk_rails_ab81bb3c66 FOREIGN KEY (analysis_id) REFERENCES guide_analyses(id) ON UPDATE CASCADE ON DELETE CASCADE;
-
-
---
--- Name: fk_rails_abab34866d; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY analysis_items
-    ADD CONSTRAINT fk_rails_abab34866d FOREIGN KEY (product_reading_id) REFERENCES product_readings(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_abfd5fdb89; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY products
-    ADD CONSTRAINT fk_rails_abfd5fdb89 FOREIGN KEY (initial_mother_id) REFERENCES products(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_ac0d7cee29; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY sales
-    ADD CONSTRAINT fk_rails_ac0d7cee29 FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_ac6f38d4ac; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY product_natures
-    ADD CONSTRAINT fk_rails_ac6f38d4ac FOREIGN KEY (category_id) REFERENCES product_nature_categories(id) ON UPDATE CASCADE ON DELETE CASCADE;
-
-
---
--- Name: fk_rails_ac85e67549; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY cap_statements
-    ADD CONSTRAINT fk_rails_ac85e67549 FOREIGN KEY (declarant_id) REFERENCES entities(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_ac8ddb6347; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY cash_sessions
-    ADD CONSTRAINT fk_rails_ac8ddb6347 FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_ad3756d355; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY guide_analyses
-    ADD CONSTRAINT fk_rails_ad3756d355 FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_ad52186b75; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY users
-    ADD CONSTRAINT fk_rails_ad52186b75 FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_adb1cc875c; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY tax_declaration_item_parts
-    ADD CONSTRAINT fk_rails_adb1cc875c FOREIGN KEY (journal_entry_item_id) REFERENCES journal_entry_items(id);
-
-
---
--- Name: fk_rails_adcb9942df; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY plant_density_abaci
-    ADD CONSTRAINT fk_rails_adcb9942df FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_ade187df46; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY inspection_points
-    ADD CONSTRAINT fk_rails_ade187df46 FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_ae14a5013f; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY users
-    ADD CONSTRAINT fk_rails_ae14a5013f FOREIGN KEY (invited_by_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_ae656485f6; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY product_enjoyments
-    ADD CONSTRAINT fk_rails_ae656485f6 FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_aec8ee8a4d; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY purchases
-    ADD CONSTRAINT fk_rails_aec8ee8a4d FOREIGN KEY (delivery_address_id) REFERENCES entity_addresses(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_aeca6fd7f4; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY activity_inspection_calibration_scales
-    ADD CONSTRAINT fk_rails_aeca6fd7f4 FOREIGN KEY (activity_id) REFERENCES activities(id) ON UPDATE CASCADE ON DELETE CASCADE;
-
-
---
--- Name: fk_rails_af2b916821; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY subscriptions
-    ADD CONSTRAINT fk_rails_af2b916821 FOREIGN KEY (subscriber_id) REFERENCES entities(id) ON UPDATE CASCADE ON DELETE CASCADE;
-
-
---
--- Name: fk_rails_af37b1690e; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY activity_inspection_point_natures
-    ADD CONSTRAINT fk_rails_af37b1690e FOREIGN KEY (activity_id) REFERENCES activities(id) ON UPDATE CASCADE ON DELETE CASCADE;
-
-
---
--- Name: fk_rails_af9d0ee56f; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY cash_transfers
-    ADD CONSTRAINT fk_rails_af9d0ee56f FOREIGN KEY (emission_cash_id) REFERENCES cashes(id) ON UPDATE CASCADE ON DELETE CASCADE;
-
-
---
--- Name: fk_rails_afbef296b7; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY activity_budgets
-    ADD CONSTRAINT fk_rails_afbef296b7 FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_afd13ecd2d; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY products
-    ADD CONSTRAINT fk_rails_afd13ecd2d FOREIGN KEY (address_id) REFERENCES entity_addresses(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_afde822745; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY tax_declaration_item_parts
-    ADD CONSTRAINT fk_rails_afde822745 FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_b0114aace7; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY plant_counting_items
-    ADD CONSTRAINT fk_rails_b0114aace7 FOREIGN KEY (plant_counting_id) REFERENCES plant_countings(id) ON UPDATE CASCADE ON DELETE CASCADE;
-
-
---
--- Name: fk_rails_b0b78337cd; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY event_participations
-    ADD CONSTRAINT fk_rails_b0b78337cd FOREIGN KEY (event_id) REFERENCES events(id) ON UPDATE CASCADE ON DELETE CASCADE;
-
-
---
--- Name: fk_rails_b0b9eeae24; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY fixed_assets
-    ADD CONSTRAINT fk_rails_b0b9eeae24 FOREIGN KEY (expenses_account_id) REFERENCES accounts(id) ON UPDATE CASCADE ON DELETE RESTRICT;
-
-
---
--- Name: fk_rails_b0d41baea4; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY sale_items
-    ADD CONSTRAINT fk_rails_b0d41baea4 FOREIGN KEY (credited_item_id) REFERENCES sale_items(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_b16e7ed972; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY teams
-    ADD CONSTRAINT fk_rails_b16e7ed972 FOREIGN KEY (parent_id) REFERENCES teams(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_b170b89c1e; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY financial_years
-    ADD CONSTRAINT fk_rails_b170b89c1e FOREIGN KEY (accountant_id) REFERENCES entities(id);
-
-
---
--- Name: fk_rails_b2b9ed1c3c; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY activity_inspection_point_natures
-    ADD CONSTRAINT fk_rails_b2b9ed1c3c FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_b2bbf87303; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY users
-    ADD CONSTRAINT fk_rails_b2bbf87303 FOREIGN KEY (team_id) REFERENCES teams(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_b30a4d9a0c; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY georeadings
-    ADD CONSTRAINT fk_rails_b30a4d9a0c FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_b33d50bba4; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY tax_declarations
-    ADD CONSTRAINT fk_rails_b33d50bba4 FOREIGN KEY (responsible_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_b357460f64; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY product_nature_category_taxations
-    ADD CONSTRAINT fk_rails_b357460f64 FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_b3cb6e366b; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY deliveries
-    ADD CONSTRAINT fk_rails_b3cb6e366b FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_b400e49c5b; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY catalogs
-    ADD CONSTRAINT fk_rails_b400e49c5b FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_b452653626; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY journals
-    ADD CONSTRAINT fk_rails_b452653626 FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_b579603a4f; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY fixed_assets
-    ADD CONSTRAINT fk_rails_b579603a4f FOREIGN KEY (product_id) REFERENCES products(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_b5bca24e73; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY activity_tactics
-    ADD CONSTRAINT fk_rails_b5bca24e73 FOREIGN KEY (activity_id) REFERENCES activities(id) ON UPDATE CASCADE ON DELETE CASCADE;
-
-
---
--- Name: fk_rails_b5fc2df3f2; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY tax_declarations
-    ADD CONSTRAINT fk_rails_b5fc2df3f2 FOREIGN KEY (journal_entry_id) REFERENCES journal_entries(id) ON UPDATE CASCADE ON DELETE RESTRICT;
-
-
---
--- Name: fk_rails_b61d539c1e; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY inspections
-    ADD CONSTRAINT fk_rails_b61d539c1e FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_b640153bf4; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY activity_productions
-    ADD CONSTRAINT fk_rails_b640153bf4 FOREIGN KEY (tactic_id) REFERENCES activity_tactics(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_b64a681866; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY subscriptions
-    ADD CONSTRAINT fk_rails_b64a681866 FOREIGN KEY (nature_id) REFERENCES subscription_natures(id) ON UPDATE CASCADE ON DELETE RESTRICT;
-
-
---
--- Name: fk_rails_b7a848d6c5; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY events
-    ADD CONSTRAINT fk_rails_b7a848d6c5 FOREIGN KEY (affair_id) REFERENCES affairs(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_b7d383496c; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY sale_items
-    ADD CONSTRAINT fk_rails_b7d383496c FOREIGN KEY (activity_budget_id) REFERENCES activity_budgets(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_b8dc1a0d87; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY delivery_tools
-    ADD CONSTRAINT fk_rails_b8dc1a0d87 FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_b963294bf2; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY product_localizations
-    ADD CONSTRAINT fk_rails_b963294bf2 FOREIGN KEY (product_id) REFERENCES products(id) ON UPDATE CASCADE ON DELETE CASCADE;
-
-
---
--- Name: fk_rails_b977a1531a; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY trackings
-    ADD CONSTRAINT fk_rails_b977a1531a FOREIGN KEY (producer_id) REFERENCES entities(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_baa0305f81; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY intervention_working_periods
-    ADD CONSTRAINT fk_rails_baa0305f81 FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_bbf64ef98c; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY inventories
-    ADD CONSTRAINT fk_rails_bbf64ef98c FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_bc0f113a81; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY cash_transfers
-    ADD CONSTRAINT fk_rails_bc0f113a81 FOREIGN KEY (emission_journal_entry_id) REFERENCES journal_entries(id) ON UPDATE CASCADE ON DELETE RESTRICT;
-
-
---
--- Name: fk_rails_bc70e1376f; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY incoming_payments
-    ADD CONSTRAINT fk_rails_bc70e1376f FOREIGN KEY (commission_account_id) REFERENCES accounts(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_bcbe95f2a5; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY taxes
-    ADD CONSTRAINT fk_rails_bcbe95f2a5 FOREIGN KEY (fixed_asset_deduction_account_id) REFERENCES accounts(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_be2c094f63; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY contract_items
-    ADD CONSTRAINT fk_rails_be2c094f63 FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_be4d04c726; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY journals
-    ADD CONSTRAINT fk_rails_be4d04c726 FOREIGN KEY (accountant_id) REFERENCES entities(id);
-
-
---
--- Name: fk_rails_be7b82f7bc; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY product_nature_variants
-    ADD CONSTRAINT fk_rails_be7b82f7bc FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_beed244415; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY listing_nodes
-    ADD CONSTRAINT fk_rails_beed244415 FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_bf17fb6e33; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY journal_entry_items
-    ADD CONSTRAINT fk_rails_bf17fb6e33 FOREIGN KEY (entry_id) REFERENCES journal_entries(id) ON UPDATE CASCADE ON DELETE CASCADE;
-
-
---
--- Name: fk_rails_bf6a9f8864; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY purchases
-    ADD CONSTRAINT fk_rails_bf6a9f8864 FOREIGN KEY (journal_entry_id) REFERENCES journal_entries(id) ON UPDATE CASCADE ON DELETE RESTRICT;
-
-
---
--- Name: fk_rails_bfca04d991; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY supervisions
-    ADD CONSTRAINT fk_rails_bfca04d991 FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_bfedaef179; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY affairs
-    ADD CONSTRAINT fk_rails_bfedaef179 FOREIGN KEY (journal_entry_id) REFERENCES journal_entries(id) ON UPDATE CASCADE ON DELETE RESTRICT;
-
-
---
--- Name: fk_rails_c097302cb9; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY product_phases
-    ADD CONSTRAINT fk_rails_c097302cb9 FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_c0b1e2d9f4; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY accounts
-    ADD CONSTRAINT fk_rails_c0b1e2d9f4 FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_c0d8bf56b7; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY product_linkages
-    ADD CONSTRAINT fk_rails_c0d8bf56b7 FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_c1a4df2134; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY products
-    ADD CONSTRAINT fk_rails_c1a4df2134 FOREIGN KEY (nature_id) REFERENCES product_natures(id) ON UPDATE CASCADE ON DELETE CASCADE;
-
-
---
--- Name: fk_rails_c1fb5b1040; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY product_readings
-    ADD CONSTRAINT fk_rails_c1fb5b1040 FOREIGN KEY (product_id) REFERENCES products(id) ON UPDATE CASCADE ON DELETE CASCADE;
-
-
---
--- Name: fk_rails_c26ae9ccd1; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY gaps
-    ADD CONSTRAINT fk_rails_c26ae9ccd1 FOREIGN KEY (affair_id) REFERENCES affairs(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_c26affc045; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY parcel_items
-    ADD CONSTRAINT fk_rails_c26affc045 FOREIGN KEY (sale_item_id) REFERENCES sale_items(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_c28ea21f98; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY entity_links
-    ADD CONSTRAINT fk_rails_c28ea21f98 FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_c36368f019; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY entities
-    ADD CONSTRAINT fk_rails_c36368f019 FOREIGN KEY (employee_account_id) REFERENCES accounts(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_c3e0671264; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY listing_nodes
-    ADD CONSTRAINT fk_rails_c3e0671264 FOREIGN KEY (parent_id) REFERENCES listing_nodes(id) ON UPDATE CASCADE ON DELETE CASCADE;
-
-
---
--- Name: fk_rails_c41b1f2d2f; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY interventions
-    ADD CONSTRAINT fk_rails_c41b1f2d2f FOREIGN KEY (journal_entry_id) REFERENCES journal_entries(id) ON UPDATE CASCADE ON DELETE RESTRICT;
-
-
---
--- Name: fk_rails_c5b1c295f7; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY fixed_asset_depreciations
-    ADD CONSTRAINT fk_rails_c5b1c295f7 FOREIGN KEY (fixed_asset_id) REFERENCES fixed_assets(id) ON UPDATE CASCADE ON DELETE CASCADE;
-
-
---
--- Name: fk_rails_c5cdda2c28; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY fixed_assets
-    ADD CONSTRAINT fk_rails_c5cdda2c28 FOREIGN KEY (journal_entry_id) REFERENCES journal_entries(id) ON UPDATE CASCADE ON DELETE RESTRICT;
-
-
---
--- Name: fk_rails_c5fec06d9f; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY cap_islets
-    ADD CONSTRAINT fk_rails_c5fec06d9f FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_c606f6d9a6; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY product_readings
-    ADD CONSTRAINT fk_rails_c606f6d9a6 FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_c7865e52f6; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY parcel_items
-    ADD CONSTRAINT fk_rails_c7865e52f6 FOREIGN KEY (parcel_id) REFERENCES parcels(id) ON UPDATE CASCADE ON DELETE CASCADE;
-
-
---
--- Name: fk_rails_c7b4c318e9; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY labels
-    ADD CONSTRAINT fk_rails_c7b4c318e9 FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_c7d341d886; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY cultivable_zones
-    ADD CONSTRAINT fk_rails_c7d341d886 FOREIGN KEY (farmer_id) REFERENCES entities(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_c8ab6746c4; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY plant_counting_items
-    ADD CONSTRAINT fk_rails_c8ab6746c4 FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_c8efb2ba24; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY analyses
-    ADD CONSTRAINT fk_rails_c8efb2ba24 FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_c95edcd27c; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY activity_budgets
-    ADD CONSTRAINT fk_rails_c95edcd27c FOREIGN KEY (campaign_id) REFERENCES campaigns(id) ON UPDATE CASCADE ON DELETE CASCADE;
-
-
---
--- Name: fk_rails_c9792c1723; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY product_nature_categories
-    ADD CONSTRAINT fk_rails_c9792c1723 FOREIGN KEY (stock_account_id) REFERENCES accounts(id) ON UPDATE CASCADE ON DELETE RESTRICT;
-
-
---
--- Name: fk_rails_c9ced0a36d; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY outgoing_payments
-    ADD CONSTRAINT fk_rails_c9ced0a36d FOREIGN KEY (affair_id) REFERENCES affairs(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_ca705bfe3e; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY product_enjoyments
-    ADD CONSTRAINT fk_rails_ca705bfe3e FOREIGN KEY (intervention_id) REFERENCES interventions(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_ca9854019b; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY regularizations
-    ADD CONSTRAINT fk_rails_ca9854019b FOREIGN KEY (journal_entry_id) REFERENCES journal_entries(id);
-
-
---
--- Name: fk_rails_cad079f0aa; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY products
-    ADD CONSTRAINT fk_rails_cad079f0aa FOREIGN KEY (initial_owner_id) REFERENCES entities(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_cb206cf597; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY affairs
-    ADD CONSTRAINT fk_rails_cb206cf597 FOREIGN KEY (responsible_id) REFERENCES entities(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_cb31131f55; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY product_nature_categories
-    ADD CONSTRAINT fk_rails_cb31131f55 FOREIGN KEY (fixed_asset_expenses_account_id) REFERENCES accounts(id) ON UPDATE CASCADE ON DELETE RESTRICT;
-
-
---
--- Name: fk_rails_cb5f89a8bf; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY outgoing_payments
-    ADD CONSTRAINT fk_rails_cb5f89a8bf FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_cb96f325f8; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY subscriptions
-    ADD CONSTRAINT fk_rails_cb96f325f8 FOREIGN KEY (sale_item_id) REFERENCES sale_items(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_cc06328e61; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY guides
-    ADD CONSTRAINT fk_rails_cc06328e61 FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_cc58d98a36; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY gap_items
-    ADD CONSTRAINT fk_rails_cc58d98a36 FOREIGN KEY (gap_id) REFERENCES gaps(id) ON UPDATE CASCADE ON DELETE CASCADE;
-
-
---
--- Name: fk_rails_cc5a693262; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY fixed_assets
-    ADD CONSTRAINT fk_rails_cc5a693262 FOREIGN KEY (journal_id) REFERENCES journals(id) ON UPDATE CASCADE ON DELETE CASCADE;
-
-
---
--- Name: fk_rails_cc62845c82; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY notifications
-    ADD CONSTRAINT fk_rails_cc62845c82 FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_cc917f1879; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY debt_transfers
-    ADD CONSTRAINT fk_rails_cc917f1879 FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_ccb13dba93; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY custom_field_choices
-    ADD CONSTRAINT fk_rails_ccb13dba93 FOREIGN KEY (custom_field_id) REFERENCES custom_fields(id) ON UPDATE CASCADE ON DELETE CASCADE;
-
-
---
--- Name: fk_rails_ccfbd2df30; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY activity_inspection_point_natures
-    ADD CONSTRAINT fk_rails_ccfbd2df30 FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_cd24cbd865; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY purchase_items
-    ADD CONSTRAINT fk_rails_cd24cbd865 FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_cd664bc9e5; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY gaps
-    ADD CONSTRAINT fk_rails_cd664bc9e5 FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_cdd21f96e9; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY financial_year_exchanges
-    ADD CONSTRAINT fk_rails_cdd21f96e9 FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_ce2caa1b49; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY taxes
-    ADD CONSTRAINT fk_rails_ce2caa1b49 FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_ced7a3672d; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY manure_management_plans
-    ADD CONSTRAINT fk_rails_ced7a3672d FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_ceff8da867; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY loans
-    ADD CONSTRAINT fk_rails_ceff8da867 FOREIGN KEY (lender_id) REFERENCES entities(id) ON UPDATE CASCADE ON DELETE CASCADE;
-
-
---
--- Name: fk_rails_cf4f610309; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY manure_management_plans
-    ADD CONSTRAINT fk_rails_cf4f610309 FOREIGN KEY (campaign_id) REFERENCES campaigns(id) ON UPDATE CASCADE ON DELETE CASCADE;
-
-
---
--- Name: fk_rails_cf62c420d0; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY activity_budgets
-    ADD CONSTRAINT fk_rails_cf62c420d0 FOREIGN KEY (activity_id) REFERENCES activities(id) ON UPDATE CASCADE ON DELETE CASCADE;
-
-
---
--- Name: fk_rails_cf7a077991; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY product_phases
-    ADD CONSTRAINT fk_rails_cf7a077991 FOREIGN KEY (product_id) REFERENCES products(id) ON UPDATE CASCADE ON DELETE CASCADE;
-
-
---
--- Name: fk_rails_cfe6558602; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY product_linkages
-    ADD CONSTRAINT fk_rails_cfe6558602 FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_d130aefd64; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY purchase_items
-    ADD CONSTRAINT fk_rails_d130aefd64 FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_d156cd6a41; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY trackings
-    ADD CONSTRAINT fk_rails_d156cd6a41 FOREIGN KEY (product_id) REFERENCES products(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_d1579746f0; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY cashes
-    ADD CONSTRAINT fk_rails_d1579746f0 FOREIGN KEY (container_id) REFERENCES products(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_d17f517176; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY sales
-    ADD CONSTRAINT fk_rails_d17f517176 FOREIGN KEY (nature_id) REFERENCES sale_natures(id) ON UPDATE CASCADE ON DELETE RESTRICT;
-
-
---
--- Name: fk_rails_d27e499c6d; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY products
-    ADD CONSTRAINT fk_rails_d27e499c6d FOREIGN KEY (member_variant_id) REFERENCES product_nature_variants(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_d2f0f97cca; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY intervention_labellings
-    ADD CONSTRAINT fk_rails_d2f0f97cca FOREIGN KEY (label_id) REFERENCES labels(id) ON UPDATE CASCADE ON DELETE CASCADE;
-
-
---
--- Name: fk_rails_d323fe0873; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY tax_declaration_items
-    ADD CONSTRAINT fk_rails_d323fe0873 FOREIGN KEY (tax_id) REFERENCES taxes(id) ON UPDATE CASCADE ON DELETE CASCADE;
-
-
---
--- Name: fk_rails_d39b757070; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY product_memberships
-    ADD CONSTRAINT fk_rails_d39b757070 FOREIGN KEY (member_id) REFERENCES products(id) ON UPDATE CASCADE ON DELETE CASCADE;
-
-
---
--- Name: fk_rails_d52e70fbe8; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY debt_transfers
-    ADD CONSTRAINT fk_rails_d52e70fbe8 FOREIGN KEY (debt_transfer_affair_id) REFERENCES affairs(id) ON UPDATE CASCADE ON DELETE CASCADE;
-
-
---
--- Name: fk_rails_d5a4a29aa1; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY interventions
-    ADD CONSTRAINT fk_rails_d5a4a29aa1 FOREIGN KEY (prescription_id) REFERENCES prescriptions(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_d65931a8e4; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY regularizations
-    ADD CONSTRAINT fk_rails_d65931a8e4 FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_d6f7814e0e; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY analyses
-    ADD CONSTRAINT fk_rails_d6f7814e0e FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_d7838b06ec; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY product_nature_variants
-    ADD CONSTRAINT fk_rails_d7838b06ec FOREIGN KEY (stock_movement_account_id) REFERENCES accounts(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_d799cedbe1; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY listing_node_items
-    ADD CONSTRAINT fk_rails_d799cedbe1 FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_d79c9dc8ea; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY subscriptions
-    ADD CONSTRAINT fk_rails_d79c9dc8ea FOREIGN KEY (parent_id) REFERENCES subscriptions(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_d96ea1637c; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY cash_transfers
-    ADD CONSTRAINT fk_rails_d96ea1637c FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_d97dabdc3c; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY interventions
-    ADD CONSTRAINT fk_rails_d97dabdc3c FOREIGN KEY (event_id) REFERENCES events(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_d99acdd0d9; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY product_nature_categories
-    ADD CONSTRAINT fk_rails_d99acdd0d9 FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_d9c6a35b96; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY sale_items
-    ADD CONSTRAINT fk_rails_d9c6a35b96 FOREIGN KEY (team_id) REFERENCES teams(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_da0b90db9b; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY labels
-    ADD CONSTRAINT fk_rails_da0b90db9b FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_da15698b2e; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY outgoing_payment_lists
-    ADD CONSTRAINT fk_rails_da15698b2e FOREIGN KEY (mode_id) REFERENCES outgoing_payment_modes(id) ON UPDATE CASCADE ON DELETE CASCADE;
-
-
---
--- Name: fk_rails_da924f0e62; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY sale_natures
-    ADD CONSTRAINT fk_rails_da924f0e62 FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_daa87f3cf1; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY subscriptions
-    ADD CONSTRAINT fk_rails_daa87f3cf1 FOREIGN KEY (address_id) REFERENCES entity_addresses(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_daccd84513; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY journal_entry_items
-    ADD CONSTRAINT fk_rails_daccd84513 FOREIGN KEY (bank_statement_id) REFERENCES bank_statements(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_dad8733537; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY gap_items
-    ADD CONSTRAINT fk_rails_dad8733537 FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_dbbcd08797; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY deliveries
-    ADD CONSTRAINT fk_rails_dbbcd08797 FOREIGN KEY (driver_id) REFERENCES entities(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_dbd399fab4; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY product_labellings
-    ADD CONSTRAINT fk_rails_dbd399fab4 FOREIGN KEY (label_id) REFERENCES labels(id) ON UPDATE CASCADE ON DELETE CASCADE;
-
-
---
--- Name: fk_rails_dbd835ff0a; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY imports
-    ADD CONSTRAINT fk_rails_dbd835ff0a FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_dc4baa5334; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY fixed_assets
-    ADD CONSTRAINT fk_rails_dc4baa5334 FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_dcb639d6eb; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY analyses
-    ADD CONSTRAINT fk_rails_dcb639d6eb FOREIGN KEY (host_id) REFERENCES products(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_dd65d7922d; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY parcel_items
-    ADD CONSTRAINT fk_rails_dd65d7922d FOREIGN KEY (product_id) REFERENCES products(id) ON UPDATE CASCADE ON DELETE RESTRICT;
-
-
---
--- Name: fk_rails_dd6a64e5ac; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY parcels
-    ADD CONSTRAINT fk_rails_dd6a64e5ac FOREIGN KEY (recipient_id) REFERENCES entities(id) ON UPDATE CASCADE ON DELETE RESTRICT;
-
-
---
--- Name: fk_rails_de22eb0a5b; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY activity_productions
-    ADD CONSTRAINT fk_rails_de22eb0a5b FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_de51678599; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY cash_transfers
-    ADD CONSTRAINT fk_rails_de51678599 FOREIGN KEY (reception_cash_id) REFERENCES cashes(id) ON UPDATE CASCADE ON DELETE CASCADE;
-
-
---
--- Name: fk_rails_de82d40cf3; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY product_links
-    ADD CONSTRAINT fk_rails_de82d40cf3 FOREIGN KEY (product_id) REFERENCES products(id) ON UPDATE CASCADE ON DELETE CASCADE;
-
-
---
--- Name: fk_rails_dfd3a85c11; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY contract_items
-    ADD CONSTRAINT fk_rails_dfd3a85c11 FOREIGN KEY (contract_id) REFERENCES contracts(id) ON UPDATE CASCADE ON DELETE CASCADE;
-
-
---
--- Name: fk_rails_e190c1cbe3; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY purchase_items
-    ADD CONSTRAINT fk_rails_e190c1cbe3 FOREIGN KEY (variant_id) REFERENCES product_nature_variants(id) ON UPDATE CASCADE ON DELETE CASCADE;
-
-
---
--- Name: fk_rails_e1ce72bdb3; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY purchases
-    ADD CONSTRAINT fk_rails_e1ce72bdb3 FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_e2618c6595; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY entities
-    ADD CONSTRAINT fk_rails_e2618c6595 FOREIGN KEY (client_account_id) REFERENCES accounts(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_e29563a8d1; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY tax_declarations
-    ADD CONSTRAINT fk_rails_e29563a8d1 FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_e2990326d4; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY cash_transfers
-    ADD CONSTRAINT fk_rails_e2990326d4 FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_e3914ad73f; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY sales
-    ADD CONSTRAINT fk_rails_e3914ad73f FOREIGN KEY (affair_id) REFERENCES affairs(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_e3dc9793dd; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY activity_budgets
-    ADD CONSTRAINT fk_rails_e3dc9793dd FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_e3e1503bdd; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY tax_declarations
-    ADD CONSTRAINT fk_rails_e3e1503bdd FOREIGN KEY (financial_year_id) REFERENCES financial_years(id) ON UPDATE CASCADE ON DELETE CASCADE;
-
-
---
--- Name: fk_rails_e41a4268d9; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY intervention_participations
-    ADD CONSTRAINT fk_rails_e41a4268d9 FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_e59af3b5a5; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY activity_seasons
-    ADD CONSTRAINT fk_rails_e59af3b5a5 FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_e65232891c; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY inspection_calibrations
-    ADD CONSTRAINT fk_rails_e65232891c FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_e65e8daaae; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY activity_productions
-    ADD CONSTRAINT fk_rails_e65e8daaae FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_e71a03ed65; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY target_distributions
-    ADD CONSTRAINT fk_rails_e71a03ed65 FOREIGN KEY (activity_production_id) REFERENCES activity_productions(id) ON UPDATE CASCADE ON DELETE CASCADE;
-
-
---
--- Name: fk_rails_e71babc34b; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY deposits
-    ADD CONSTRAINT fk_rails_e71babc34b FOREIGN KEY (cash_id) REFERENCES cashes(id) ON UPDATE CASCADE ON DELETE CASCADE;
-
-
---
--- Name: fk_rails_e77d3f8295; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY intervention_labellings
-    ADD CONSTRAINT fk_rails_e77d3f8295 FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_e7a9800a14; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY outgoing_payment_lists
-    ADD CONSTRAINT fk_rails_e7a9800a14 FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_e7bc99340e; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY product_nature_variant_readings
-    ADD CONSTRAINT fk_rails_e7bc99340e FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_e7cc2188c0; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY delivery_tools
-    ADD CONSTRAINT fk_rails_e7cc2188c0 FOREIGN KEY (tool_id) REFERENCES products(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_e7e2b4d76a; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY financial_years
-    ADD CONSTRAINT fk_rails_e7e2b4d76a FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_e81467e70f; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY intervention_participations
-    ADD CONSTRAINT fk_rails_e81467e70f FOREIGN KEY (product_id) REFERENCES products(id);
-
-
---
--- Name: fk_rails_e85bcf0527; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY plant_density_abaci
-    ADD CONSTRAINT fk_rails_e85bcf0527 FOREIGN KEY (activity_id) REFERENCES activities(id) ON UPDATE CASCADE ON DELETE CASCADE;
-
-
---
--- Name: fk_rails_e86614b748; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY products
-    ADD CONSTRAINT fk_rails_e86614b748 FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_e86d77856a; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY sensors
-    ADD CONSTRAINT fk_rails_e86d77856a FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_e86ef519fd; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY activity_inspection_calibration_natures
-    ADD CONSTRAINT fk_rails_e86ef519fd FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_e91046c79d; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY journal_entries
-    ADD CONSTRAINT fk_rails_e91046c79d FOREIGN KEY (financial_year_id) REFERENCES financial_years(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_ea08878b20; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY entity_addresses
-    ADD CONSTRAINT fk_rails_ea08878b20 FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_ea79769f4e; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY deliveries
-    ADD CONSTRAINT fk_rails_ea79769f4e FOREIGN KEY (transporter_id) REFERENCES entities(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_eb0115299a; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY cap_islets
-    ADD CONSTRAINT fk_rails_eb0115299a FOREIGN KEY (cap_statement_id) REFERENCES cap_statements(id) ON UPDATE CASCADE ON DELETE CASCADE;
-
-
---
--- Name: fk_rails_eb82c567f6; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY parcel_items
-    ADD CONSTRAINT fk_rails_eb82c567f6 FOREIGN KEY (source_product_id) REFERENCES products(id) ON UPDATE CASCADE ON DELETE RESTRICT;
-
-
---
--- Name: fk_rails_eb8abdd849; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY cultivable_zones
-    ADD CONSTRAINT fk_rails_eb8abdd849 FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_eb9f5e479a; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY activity_inspection_calibration_scales
-    ADD CONSTRAINT fk_rails_eb9f5e479a FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_ebed2fed37; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY deposits
-    ADD CONSTRAINT fk_rails_ebed2fed37 FOREIGN KEY (mode_id) REFERENCES incoming_payment_modes(id) ON UPDATE CASCADE ON DELETE CASCADE;
-
-
---
--- Name: fk_rails_ec80cec384; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY taxes
-    ADD CONSTRAINT fk_rails_ec80cec384 FOREIGN KEY (fixed_asset_collect_account_id) REFERENCES accounts(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_ed47671544; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY custom_field_choices
-    ADD CONSTRAINT fk_rails_ed47671544 FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_ed769d71f9; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY deliveries
-    ADD CONSTRAINT fk_rails_ed769d71f9 FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_edc6917863; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY target_distributions
-    ADD CONSTRAINT fk_rails_edc6917863 FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_ee442881bb; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY attachments
-    ADD CONSTRAINT fk_rails_ee442881bb FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: fk_rails_ee7f4b868c; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY prescriptions
-    ADD CONSTRAINT fk_rails_ee7f4b868c FOREIGN KEY (prescriptor_id) REFERENCES entities(id) ON UPDATE CASCADE ON DELETE CASCADE;
-
-
---
--- Name: fk_rails_ee973f6d0f; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY outgoing_payments
-    ADD CONSTRAINT fk_rails_ee973f6d0f FOREIGN KEY (journal_entry_id) REFERENCES journal_entries(id) ON UPDATE CASCADE ON DELETE RESTRICT;
-
-
---
--- Name: fk_rails_ef730be79e; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: inspection_calibrations fk_rails_ef730be79e; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY inspection_calibrations
@@ -22151,7 +22055,7 @@ ALTER TABLE ONLY inspection_calibrations
 
 
 --
--- Name: fk_rails_eff13fccbc; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: preferences fk_rails_eff13fccbc; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY preferences
@@ -22159,7 +22063,7 @@ ALTER TABLE ONLY preferences
 
 
 --
--- Name: fk_rails_f0120f1957; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: financial_year_exchanges fk_rails_f0120f1957; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY financial_year_exchanges
@@ -22167,7 +22071,7 @@ ALTER TABLE ONLY financial_year_exchanges
 
 
 --
--- Name: fk_rails_f03743680a; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: inspection_calibrations fk_rails_f03743680a; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY inspection_calibrations
@@ -22175,7 +22079,7 @@ ALTER TABLE ONLY inspection_calibrations
 
 
 --
--- Name: fk_rails_f1020c5cb0; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: product_nature_variants fk_rails_f1020c5cb0; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY product_nature_variants
@@ -22183,7 +22087,7 @@ ALTER TABLE ONLY product_nature_variants
 
 
 --
--- Name: fk_rails_f115750855; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: parcels fk_rails_f115750855; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY parcels
@@ -22191,7 +22095,7 @@ ALTER TABLE ONLY parcels
 
 
 --
--- Name: fk_rails_f18fbd8fb0; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: parcels fk_rails_f18fbd8fb0; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY parcels
@@ -22199,7 +22103,7 @@ ALTER TABLE ONLY parcels
 
 
 --
--- Name: fk_rails_f26f955b38; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: loan_repayments fk_rails_f26f955b38; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY loan_repayments
@@ -22207,7 +22111,7 @@ ALTER TABLE ONLY loan_repayments
 
 
 --
--- Name: fk_rails_f2846f9b81; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: plant_density_abacus_items fk_rails_f2846f9b81; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY plant_density_abacus_items
@@ -22215,7 +22119,7 @@ ALTER TABLE ONLY plant_density_abacus_items
 
 
 --
--- Name: fk_rails_f2a3cf3b09; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: intervention_participations fk_rails_f2a3cf3b09; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY intervention_participations
@@ -22223,7 +22127,7 @@ ALTER TABLE ONLY intervention_participations
 
 
 --
--- Name: fk_rails_f2cfd10eca; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: supervision_items fk_rails_f2cfd10eca; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY supervision_items
@@ -22231,7 +22135,7 @@ ALTER TABLE ONLY supervision_items
 
 
 --
--- Name: fk_rails_f2ed409ccb; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: supervision_items fk_rails_f2ed409ccb; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY supervision_items
@@ -22239,7 +22143,7 @@ ALTER TABLE ONLY supervision_items
 
 
 --
--- Name: fk_rails_f306eb3f32; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: product_nature_variant_components fk_rails_f306eb3f32; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY product_nature_variant_components
@@ -22247,7 +22151,7 @@ ALTER TABLE ONLY product_nature_variant_components
 
 
 --
--- Name: fk_rails_f3078bcf9c; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: incoming_payments fk_rails_f3078bcf9c; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY incoming_payments
@@ -22255,7 +22159,7 @@ ALTER TABLE ONLY incoming_payments
 
 
 --
--- Name: fk_rails_f32346dd3c; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: affairs fk_rails_f32346dd3c; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY affairs
@@ -22263,7 +22167,7 @@ ALTER TABLE ONLY affairs
 
 
 --
--- Name: fk_rails_f32e0d6ebc; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: bank_statements fk_rails_f32e0d6ebc; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY bank_statements
@@ -22271,7 +22175,7 @@ ALTER TABLE ONLY bank_statements
 
 
 --
--- Name: fk_rails_f37c890ca8; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: product_natures fk_rails_f37c890ca8; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY product_natures
@@ -22279,7 +22183,7 @@ ALTER TABLE ONLY product_natures
 
 
 --
--- Name: fk_rails_f3923eee15; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: documents fk_rails_f3923eee15; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY documents
@@ -22287,7 +22191,7 @@ ALTER TABLE ONLY documents
 
 
 --
--- Name: fk_rails_f3e5781e9c; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: account_balances fk_rails_f3e5781e9c; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY account_balances
@@ -22295,7 +22199,7 @@ ALTER TABLE ONLY account_balances
 
 
 --
--- Name: fk_rails_f3e65f91cb; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: purchase_items fk_rails_f3e65f91cb; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY purchase_items
@@ -22303,7 +22207,7 @@ ALTER TABLE ONLY purchase_items
 
 
 --
--- Name: fk_rails_f408b4c430; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: subscriptions fk_rails_f408b4c430; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY subscriptions
@@ -22311,7 +22215,7 @@ ALTER TABLE ONLY subscriptions
 
 
 --
--- Name: fk_rails_f42ac4b14b; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: postal_zones fk_rails_f42ac4b14b; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY postal_zones
@@ -22319,7 +22223,7 @@ ALTER TABLE ONLY postal_zones
 
 
 --
--- Name: fk_rails_f47001aca4; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: sales fk_rails_f47001aca4; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY sales
@@ -22327,7 +22231,7 @@ ALTER TABLE ONLY sales
 
 
 --
--- Name: fk_rails_f4b8509a1c; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: inspections fk_rails_f4b8509a1c; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY inspections
@@ -22335,7 +22239,7 @@ ALTER TABLE ONLY inspections
 
 
 --
--- Name: fk_rails_f5abb16f3c; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: plant_countings fk_rails_f5abb16f3c; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY plant_countings
@@ -22343,7 +22247,7 @@ ALTER TABLE ONLY plant_countings
 
 
 --
--- Name: fk_rails_f6fc263383; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: product_ownerships fk_rails_f6fc263383; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY product_ownerships
@@ -22351,7 +22255,7 @@ ALTER TABLE ONLY product_ownerships
 
 
 --
--- Name: fk_rails_f7545f5b42; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: listings fk_rails_f7545f5b42; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY listings
@@ -22359,7 +22263,7 @@ ALTER TABLE ONLY listings
 
 
 --
--- Name: fk_rails_f764c609bb; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: activity_productions fk_rails_f764c609bb; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY activity_productions
@@ -22367,7 +22271,7 @@ ALTER TABLE ONLY activity_productions
 
 
 --
--- Name: fk_rails_f7974da644; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: activity_productions fk_rails_f7974da644; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY activity_productions
@@ -22375,7 +22279,7 @@ ALTER TABLE ONLY activity_productions
 
 
 --
--- Name: fk_rails_f7b1b0a735; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: journal_entry_items fk_rails_f7b1b0a735; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY journal_entry_items
@@ -22383,7 +22287,7 @@ ALTER TABLE ONLY journal_entry_items
 
 
 --
--- Name: fk_rails_f7c0078559; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: loans fk_rails_f7c0078559; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY loans
@@ -22391,7 +22295,7 @@ ALTER TABLE ONLY loans
 
 
 --
--- Name: fk_rails_f836ce4ee4; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: plant_countings fk_rails_f836ce4ee4; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY plant_countings
@@ -22399,7 +22303,7 @@ ALTER TABLE ONLY plant_countings
 
 
 --
--- Name: fk_rails_f89fd15b33; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: product_ownerships fk_rails_f89fd15b33; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY product_ownerships
@@ -22407,7 +22311,7 @@ ALTER TABLE ONLY product_ownerships
 
 
 --
--- Name: fk_rails_f985373083; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: tasks fk_rails_f985373083; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY tasks
@@ -22415,7 +22319,7 @@ ALTER TABLE ONLY tasks
 
 
 --
--- Name: fk_rails_fa0c0b3301; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: sensors fk_rails_fa0c0b3301; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY sensors
@@ -22423,7 +22327,7 @@ ALTER TABLE ONLY sensors
 
 
 --
--- Name: fk_rails_fa4b71925a; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: entities fk_rails_fa4b71925a; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY entities
@@ -22431,7 +22335,7 @@ ALTER TABLE ONLY entities
 
 
 --
--- Name: fk_rails_fa67535741; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: users fk_rails_fa67535741; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY users
@@ -22439,7 +22343,7 @@ ALTER TABLE ONLY users
 
 
 --
--- Name: fk_rails_fa6f4b7fad; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: sales fk_rails_fa6f4b7fad; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY sales
@@ -22447,7 +22351,7 @@ ALTER TABLE ONLY sales
 
 
 --
--- Name: fk_rails_fac9226698; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: parcel_items fk_rails_fac9226698; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY parcel_items
@@ -22455,7 +22359,7 @@ ALTER TABLE ONLY parcel_items
 
 
 --
--- Name: fk_rails_fad88f8a82; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: custom_fields fk_rails_fad88f8a82; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY custom_fields
@@ -22463,7 +22367,7 @@ ALTER TABLE ONLY custom_fields
 
 
 --
--- Name: fk_rails_fb06c390a8; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: taxes fk_rails_fb06c390a8; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY taxes
@@ -22471,7 +22375,7 @@ ALTER TABLE ONLY taxes
 
 
 --
--- Name: fk_rails_fb915499a4; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: products fk_rails_fb915499a4; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY products
@@ -22479,7 +22383,7 @@ ALTER TABLE ONLY products
 
 
 --
--- Name: fk_rails_fc1df6d1cb; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: guide_analysis_points fk_rails_fc1df6d1cb; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY guide_analysis_points
@@ -22487,7 +22391,7 @@ ALTER TABLE ONLY guide_analysis_points
 
 
 --
--- Name: fk_rails_fc71cb5550; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: subscriptions fk_rails_fc71cb5550; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY subscriptions
@@ -22495,7 +22399,7 @@ ALTER TABLE ONLY subscriptions
 
 
 --
--- Name: fk_rails_fc7673abb6; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: product_localizations fk_rails_fc7673abb6; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY product_localizations
@@ -22503,7 +22407,7 @@ ALTER TABLE ONLY product_localizations
 
 
 --
--- Name: fk_rails_fd0b101ea2; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: purchases fk_rails_fd0b101ea2; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY purchases
@@ -22511,7 +22415,7 @@ ALTER TABLE ONLY purchases
 
 
 --
--- Name: fk_rails_fd2486c15d; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: roles fk_rails_fd2486c15d; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY roles
@@ -22519,7 +22423,7 @@ ALTER TABLE ONLY roles
 
 
 --
--- Name: fk_rails_fd37432253; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: financial_year_exchanges fk_rails_fd37432253; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY financial_year_exchanges
@@ -22527,7 +22431,7 @@ ALTER TABLE ONLY financial_year_exchanges
 
 
 --
--- Name: fk_rails_fd381f1532; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: loans fk_rails_fd381f1532; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY loans
@@ -22535,7 +22439,7 @@ ALTER TABLE ONLY loans
 
 
 --
--- Name: fk_rails_fd3dbd16a6; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: product_links fk_rails_fd3dbd16a6; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY product_links
@@ -22543,7 +22447,7 @@ ALTER TABLE ONLY product_links
 
 
 --
--- Name: fk_rails_fea6a2ffc0; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: entities fk_rails_fea6a2ffc0; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY entities
@@ -22551,7 +22455,7 @@ ALTER TABLE ONLY entities
 
 
 --
--- Name: fk_rails_ff0246bf65; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: loan_repayments fk_rails_ff0246bf65; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY loan_repayments
@@ -22559,7 +22463,7 @@ ALTER TABLE ONLY loan_repayments
 
 
 --
--- Name: fk_rails_ff7432b90c; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: cap_land_parcels fk_rails_ff7432b90c; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY cap_land_parcels
@@ -22567,7 +22471,7 @@ ALTER TABLE ONLY cap_land_parcels
 
 
 --
--- Name: fk_rails_ff7aec82d3; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: imports fk_rails_ff7aec82d3; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY imports
@@ -23086,9 +22990,6 @@ INSERT INTO schema_migrations (version) VALUES ('20170415141801');
 
 INSERT INTO schema_migrations (version) VALUES ('20170415163650');
 
-<<<<<<< HEAD
-INSERT INTO schema_migrations (version) VALUES ('20170416180218');
-=======
 INSERT INTO schema_migrations (version) VALUES ('20170421131536');
 
 INSERT INTO schema_migrations (version) VALUES ('20170425145302');
@@ -23096,5 +22997,6 @@ INSERT INTO schema_migrations (version) VALUES ('20170425145302');
 INSERT INTO schema_migrations (version) VALUES ('20170530002312');
 
 INSERT INTO schema_migrations (version) VALUES ('20170602144753');
->>>>>>> master
+
+INSERT INTO schema_migrations (version) VALUES ('20170707180218');
 
