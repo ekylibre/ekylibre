@@ -312,15 +312,8 @@ arb:
         created_at: "انشأ في" #?
         updated_at: "تم تحديثها في" #?
       outgoing_payment:
-        amount: "القيمة" #?
-        created_at: "انشأ في" #?
-        delivered: "قدمت للمستفيد"
+        delivered: "نظرا للمستلم"
         list: "قائمة دفع المنتهية ولايته"
-        mode: "طريقة تسديد الدفعة" #?
-        number: "رقم" #?
-        updated_at: "تحديثه في" #?
-        updater: "التعديل" #?
-        updater_id: "تعديل" #?
       outgoing_payment_list:
         payments_sum: "مجموع"
       outgoing_payment_mode: #?
@@ -493,6 +486,16 @@ arb:
         tracking: "رقم الحصة" #?
         tracking_id: "رقم الحصة" #?
         unit_id: "الوحدة" #?
+      purchase_payment: #?
+        amount: "القيمة" #?
+        created_at: "انشأ في" #?
+        delivered: "قدمت للمستفيد" #?
+        list: "قائمة دفع المنتهية ولايته" #?
+        mode: "طريقة تسديد الدفعة" #?
+        number: "رقم" #?
+        updated_at: "تحديثه في" #?
+        updater: "التعديل" #?
+        updater_id: "تعديل" #?
       role: #?
         created_at: "انشأ في" #?
       sale:
@@ -735,6 +738,10 @@ arb:
               # invalid_date: "The depreciation must start on %{start} or on a beginning of month"
         incoming_parcel_item:
           # greater_than_undelivered_quantity: "The quantity of product %{product} to deliver is greater than undelivered quantity (%{maximum}%{unit})"
+        integration:
+          attributes:
+            parameters:
+              check_errored: "التحقق من خطأ كونيكسيون. يرجى التأكد من صلاحية الإدخال أو إعادة المحاولة لاحقا."
         journal:
           attributes:
             accountant:
@@ -944,13 +951,17 @@ arb:
       operation_item: "الواردات/الصادرات" #?
       operation_nature: "نوع العمل" #?
       operation_use: "الاداة المستخدمة" #?
-      outgoing_payment: "الدفعة"
+      outgoing_payment: "إنفاق"
       outgoing_payment_list: "قائمة دفع المنتهية ولايته"
       outgoing_payment_mode: "نوع الدفعة"
       outgoing_payment_use: "تأثير الدفعة" #?
       parameter: "الاعدادات" #?
       parcel: "جزء"
       parcel_item: "البند لا يتجزأ"
+      payslip: "قسيمة الدفع"
+      payslip_affair: "قضية بايسليب"
+      payslip_nature: "نوع بايسليب"
+      payslip_payment: "دفع بايسليب"
       plant: "نبات"
       plant_counting: "عدد النباتات"
       plant_counting_item: "دخول عدد مصنع"
@@ -996,6 +1007,7 @@ arb:
       purchase_gap: "الفجوة شراء"
       purchase_item: "طريقة طلب الشراء"
       purchase_nature: "نوع شراء"
+      purchase_payment: "الدفعة"
       regularization: "تسوية"
       role: "الدور"
       sale: "البيع"
@@ -1443,6 +1455,7 @@ arb:
     emission_cash: "النقد الانبعاثات"
     emission_currency: "العملة الانبعاثات"
     emission_journal_entry: "دخول مجلة الانبعاثات"
+    emitted_on: "المنبعث على"
     employed: "وظف من قبل الشركة"
     employee: "موظف"
     employee_account: "حساب الموظف"
@@ -1995,6 +2008,7 @@ arb:
     payments_count: "عدد الدفعات"
     payments_to_deposit: "دفعات الصندوق النقدي" #?
     payments_to_deposit_accounts: "حساب دفعات الصندوق النقدي" #?
+    payslips: "كشوف"
     period: "الفترة"
     period_name: "تواتري" #?
     person: "شخص"
@@ -2115,6 +2129,7 @@ arb:
     purchase_item: "البند شراء"
     purchase_items: "طرق طلب الشراء"
     purchase_natures: "أنواع شراء"
+    purchase_payments: "دفعات الشراء"
     purchase_taxations: "الأنظمة الضريبية شراء"
     purchase_taxes: "ضرائب الشراء"
     purchased_on: "شراء على"
@@ -2929,8 +2944,8 @@ arb:
     outgoing_parcel_item: #?
       sale: "%{number} المبيعات" #?
     outgoing_payment:
-      bookkeep: "[%{resource} %{number}] %{mode} %{check_number} ل %{payee} (%{expenses})"
-      label: "%{number}. %{amount} (%{usable_amount} restants) من %{date} بواسطة %{mode} ل %{payee}"
+      # bookkeep: "[%{resource} %{number}] %{mode} %{check_number} for %{payee}"
+      # label: "%{number}. %{amount}, %{mode} for %{payee} on %{date}"
     outgoing_payment_mode:
       default:
         cash:
@@ -2952,6 +2967,11 @@ arb:
           prepared: "أعدت"
           received: "تم الاستلام"
       # undelivered_invoice: "Undelivered invoice [%{resource} %{mode} %{number}] %{entity}"
+    payslip:
+      # bookkeep: "[%{resource} %{number}] %{employee} from %{started_on} to %{stopped_on}"
+      states:
+        draft: "مشروع"
+        invoice: "فاتورة"
     product:
       informations:
         with_components: "%{product} (%{unit}) (ليس هناك من فترة استراحة)"
@@ -3063,6 +3083,9 @@ arb:
     purchase_nature:
       default:
         name: "شراء قياسي"
+    purchase_payment:
+      bookkeep: "[%{resource} %{number}] %{mode} %{check_number} ل %{payee} (%{expenses})"
+      label: "%{number}. %{amount} (%{usable_amount} restants) من %{date} بواسطة %{mode} ل %{payee}"
     role:
       default:
         administrator: "مدير"
@@ -3149,6 +3172,7 @@ arb:
         opportunities: "OP[year|4][number|6]"
         outgoing_parcels: "EXP[year|4][number|6]"
         outgoing_payments: "D[year|4][number|4]"
+        payslips: "PS [السنة | 4] [الشهر | 2] [عدد | 4]"
         plants: "PLANT[year|4][number|4]"
         products: "PR[number|11]"
         purchases: "PU[year|4][month|2][number|6]"

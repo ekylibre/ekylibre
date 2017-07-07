@@ -6,6 +6,8 @@ class NavigationHelperTest < ActionView::TestCase
     IncomingPayment.delete_all
     Regularization.delete_all
     Deposit.delete_all
+    OutgoingPayment.delete_all
+    Payslip.delete_all
     Entity.delete_all # Making sure nobody ruins the order.
 
     @max      = Entity.create!(first_name: 'Max',      last_name: 'Rockatansky', nature: 'contact')

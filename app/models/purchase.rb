@@ -172,6 +172,10 @@ class Purchase < Ekylibre::Record::Base
     supplier.add_event(:purchase_creation, updater.person) if updater
   end
 
+  after_save do
+    items.each(&:update_fixed_asset) if invoice?
+  end
+
   # This callback permits to add journal entries corresponding to the purchase order/invoice
   # It depends on the preference which permit to activate the "automatic bookkeeping"
   bookkeep do |b|
@@ -317,7 +321,6 @@ class Purchase < Ekylibre::Record::Base
     reload
     self.invoiced_at ||= invoiced_at || Time.zone.now
     save!
-    items.each(&:update_fixed_asset)
     super
   end
 

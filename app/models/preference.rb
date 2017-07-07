@@ -156,6 +156,10 @@ class Preference < Ekylibre::Record::Base
     # Find and set preference with given value
     def set!(name, value, nature = nil)
       name = name.to_s
+
+      preference_ids = Preference.where(name: name).order(:id).offset(1).pluck(:id)
+      Preference.where(id: preference_ids).delete_all if preference_ids.any?
+
       preference = Preference.find_by(name: name)
       if preference
         preference.reload

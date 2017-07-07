@@ -183,6 +183,8 @@ class PurchaseTest < ActiveSupport::TestCase
     IncomingPayment.delete_all
     Regularization.delete_all
     Deposit.delete_all
+    Payslip.delete_all
+    OutgoingPayment.delete_all
     Entity.delete_all
 
     nature     = PurchaseNature.create!(currency: 'EUR', name: 'Perishables')

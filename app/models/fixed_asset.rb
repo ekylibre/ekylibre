@@ -326,6 +326,18 @@ class FixedAsset < Ekylibre::Record::Base
     end
   end
 
+  # Depreciate active fixed assets
+  def self.depreciate(options = {})
+    depreciations = FixedAssetDepreciation.with_active_asset
+    depreciations = depreciations.up_to(options[:until]) if options[:until]
+    transaction do
+      # trusting the bookkeep to take care of the accounting
+      depreciations.find_each do |dep|
+        dep.update!(accountable: true)
+      end
+    end
+  end
+
   def depreciate!
     planned_depreciations.clear
     # Computes periods

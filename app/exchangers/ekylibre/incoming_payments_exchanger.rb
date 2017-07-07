@@ -68,7 +68,7 @@ module Ekylibre
         # Check Outgoing payment presence
         incoming_payment = IncomingPayment.find_by(payer: entity, paid_at: paid_at, mode: payment_mode, amount: r.amount)
         if incoming_payment
-          w.info " Outgoing payment is already present with ID : #{outgoing_payment.id} "
+          w.info " Outgoing payment is already present with ID : #{purchase_payment.id} "
         end
 
         # Check affair presence
