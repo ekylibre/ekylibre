@@ -60,12 +60,8 @@ class InterventionTool < InterventionAgent
   def working_duration(nature: nil)
     tractors_count = InterventionParameter.of_variety(intervention.id, :tractor).count
     prepelled_equipments_count = InterventionParameter.of_variety(intervention.id, :self_prepelled_equipment).count
-
-    drivers_times = if nature.nil?
-                      intervention.drivers_times(not_nature: :travel)
-                    else
-                      intervention.drivers_times(nature: nature)
-                    end
+    
+    drivers_times = intervention.drivers_times(nature: :intervention)
 
     if intervention.participations.empty? || drivers_times == 0 || (tractors_count == 0 && prepelled_equipments_count == 0)
       return intervention_working_duration
