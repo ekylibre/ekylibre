@@ -1,0 +1,28 @@
+.range-slider {
+  .range-minimum, .range-maximum {
+    margin-left: $default-gap;
+    margin-right: $default-gap;
+    padding-left: $default-gap;
+    padding-right: $default-gap;
+  }
+
+  .slider.slider-horizontal {
+    width: $menu-width;
+  }
+
+  .slider-handle {
+    background-image: none;
+    @include background-active-gradient;
+  }
+
+  .slider-selection {
+    background: mix($caution-color, white, 30%);
+  }
+
+  .tooltip:hover {
+    &, & ~ .tooltip {
+      opacity: 0;
+    }
+  }
+}
+

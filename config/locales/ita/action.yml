@@ -1224,6 +1224,7 @@ ita:
     input_cost_per_hectare: "costo di ingresso per ettaro" #?
     inputs: "ingressi"
     inspections: "ispezioni"
+    interactive_maps: "Una libreria JS per mappe interattive"
     interface_preferences: "Preferenze di interfaccia"
     internal_error: "Ops, qualcosa è successo."
     interval: "Intervallo personalizzato"
@@ -1359,6 +1360,7 @@ ita:
     net_income: "Reddito netto"
     net_margin: "margine netto" #?
     net_mass: "massa netta"
+    net_production_sales: "Le vendite nette di produzione"
     net_surface_area: "superficie netta"
     new: "Nuovo"
     new_activity: "nuova attività"
@@ -1910,6 +1912,9 @@ ita:
     x_outgoing_payments:
       # one: "%{count} disbursement"
       # other: "%{count} disbursements"
+    x_purchase_payments:
+      # one: "%{count} purchase payment"
+      # other: "%{count} purchase payments"
     x_purchases:
       one: "1 acquisto"
       # other: "%{count} purchases"

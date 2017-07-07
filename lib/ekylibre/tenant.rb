@@ -1,5 +1,6 @@
 require 'apartment'
 require 'ekylibre/schema'
+require 'shellwords'
 
 module Ekylibre
   class TenantError < StandardError
@@ -160,7 +161,7 @@ module Ekylibre
       # Dump database and files data to a zip archive with specific places
       # This archive is database independent
       def dump(name, options = {})
-        dump_v2(name, options)
+        dump_v3(name, options)
       end
 
       # Restore an archive
@@ -372,6 +373,27 @@ module Ekylibre
       end
 
       def dump_v2(name, options = {})
+        dump_archive(name, options) { |opt| dump_tables_v2(opt[:tables_path]) }
+      end
+
+      def restore_v2(archive_path, name, options = {})
+        restore_dump(archive_path, name, options) do |data_options|
+          data_options = data_options.dup
+          tenant_name = data_options.delete(:tenant_name)
+          Fixturing.restore(tenant_name, **data_options)
+        end
+      end
+
+      def dump_v3(name, options = {})
+        dump_archive(name, options) { |opt| dump_tables_v3(opt) }
+      end
+
+      def restore_v3(archive_path, name, options = {})
+        restore_dump(archive_path, name, options) { |opt| restore_tables_v3(opt) }
+      end
+
+      def dump_archive(name, options = {})
+        start = Time.current
         destination_path = options.delete(:path) || Rails.root.join('tmp', 'archives')
         switch(name) do
           archive_file = destination_path.join("#{name}.zip")
@@ -380,44 +402,29 @@ module Ekylibre
           files_path = archive_path.join('files')
 
           FileUtils.rm_rf(archive_path)
+          FileUtils.mkdir_p(archive_path)
 
-          FileUtils.mkdir_p(tables_path)
-          version = Fixturing.extract(path: tables_path)
+          dump_options = options.merge(archive_path: archive_path,
+                                       tenant_name: name,
+                                       tables_path: tables_path)
+          version = yield(dump_options)
 
-          if private_directory.exist?
-            FileUtils.mkdir_p(files_path.dirname)
-            FileUtils.cp_r(private_directory.to_s, files_path.to_s)
-          end
-
-          File.open(archive_path.join('mimetype'), 'wb') do |f|
-            f.write 'application/vnd.ekylibre.tenant.archive'
-          end
-
-          File.open(archive_path.join('manifest.yml'), 'wb') do |f|
-            options.update(
-              tenant: name,
-              format_version: 2,
-              database_version: version,
-              creation_at: Time.zone.now,
-              created_with: "Ekylibre #{Ekylibre::VERSION}"
-            )
-            f.write options.stringify_keys.to_yaml
-          end
+          dump_files(files_path)
+          dump_mimetype(archive_path)
+          dump_manifest(archive_path, version, options)
 
           FileUtils.rm_rf(archive_file)
-          Zip::File.open(archive_file, Zip::File::CREATE) do |zile|
-            Dir.chdir archive_path do
-              Dir.glob('**/*').each do |path|
-                zile.add(path, archive_path.join(path))
-              end
-            end
-          end
-
+          zip_up(archive_path, into: archive_file)
           FileUtils.rm_rf(archive_path)
         end
+
+        duration = Time.current - start
+        puts "Done! (#{duration.round(2)}s)".yellow
       end
 
-      def restore_v2(archive_path, name, options = {})
+      def restore_dump(archive_path, name, options = {})
+        start = Time.current
+
         tables_path = archive_path.join('tables')
         files_path = archive_path.join('files')
 
@@ -443,14 +450,100 @@ module Ekylibre
           end
 
           puts 'Restoring database and migrating...'.yellow if verbose
-          Fixturing.restore(name, version: database_version, path: tables_path, verbose: verbose)
-          puts 'Done!'.yellow if verbose
+          restore_options = options.merge(
+            tenant_name: name,
+            version: database_version,
+            path: tables_path,
+            verbose: verbose
+          )
+          yield(restore_options)
+        end
+
+        duration = Time.current - start
+        puts "Done! (#{duration.round(2)}s)".yellow if verbose
+      end
+
+      def dump_mimetype(archive_path)
+        File.open(archive_path.join('mimetype'), 'wb') do |f|
+          f.write 'application/vnd.ekylibre.tenant.archive'
         end
       end
 
-      def dump_v3(name, options = {}); end
+      def dump_manifest(archive_path, version, options = {})
+        File.open(archive_path.join('manifest.yml'), 'wb') do |f|
+          options.update(
+            tenant: name,
+            format_version: 3,
+            database_version: version,
+            creation_at: Time.zone.now,
+            created_with: "Ekylibre #{Ekylibre::VERSION}"
+          )
+          f.write options.stringify_keys.to_yaml
+        end
+      end
 
-      def restore_v3(archive_path, name, options = {}); end
+      def dump_files(files_path)
+        return unless private_directory.exist?
+        FileUtils.mkdir_p(files_path.dirname)
+        FileUtils.cp_r(private_directory.to_s, files_path.to_s)
+      end
+
+      def dump_tables_v2(options)
+        tables_path = options[:tables_path]
+        FileUtils.mkdir_p(tables_path)
+        Fixturing.extract(path: tables_path)
+      end
+
+      def dump_tables_v3(options)
+        path = options[:archive_path]
+        tenant = options[:tenant_name]
+        Dir.chdir path do
+          `pg_dump -n #{tenant} -x -O --dbname=#{db_url} > #{tenant}.sql`
+          `sed -i '/^CREATE SCHEMA/,+1 d' #{tenant}.sql`
+          `sed -i '/^SET search_path = /,+1 d' #{tenant}.sql`
+        end
+      end
+
+      def restore_tables_v3(options)
+        path = options[:path]
+        file = options[:tenant_name]
+        Dir.chdir path.dirname do
+          # DROP/CREATE
+          `echo "SET client_min_messages TO WARNING; DROP SCHEMA \\"#{file}\\" CASCADE; SET client_min_messages TO NOTICE;" | psql --dbname=#{db_url}`
+          `echo "CREATE SCHEMA \\"#{file}\\";" | psql --dbname=#{db_url}`
+
+          # Prepend SET search_path to sql
+          `echo "SET search_path = \\"#{file}\\", pg_catalog;" > /tmp/set_search_#{file}`
+          `cat #{file}.sql >> /tmp/set_search_#{file}`
+          `mv /tmp/set_search_#{file} #{file}.sql`
+
+          # Restore
+          `cat #{file}.sql | psql --dbname=#{db_url}`
+        end
+      end
+
+      def db_url
+        user     = db_config['username']
+        host     = db_config['host']
+        port     = db_config['port'] || '5432'
+        dbname   = db_config['database']
+        password = db_config['password']
+        Shellwords.escape("postgresql://#{user}:#{password}@#{host}:#{port}/#{dbname}")
+      end
+
+      def db_config
+        Rails.application.config.database_configuration[Rails.env]
+      end
+
+      def zip_up(archive_path, into:)
+        Zip::File.open(into, Zip::File::CREATE) do |zile|
+          Dir.chdir archive_path do
+            Dir.glob('**/*').each do |path|
+              zile.add(path, archive_path.join(path))
+            end
+          end
+        end
+      end
     end
   end
 end
