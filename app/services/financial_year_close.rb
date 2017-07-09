@@ -189,7 +189,9 @@ class FinancialYearClose
 
         lettering_items = JournalEntry.find(entry_id)
                                       .items
-                                      .where(letter: letter, account_id: account.id)
+                                      .where('letter = ? OR letter = ? AND account_id = ?',
+                                             letter,
+                                             letter+'*', account.id)
                                       .find_each.map do |item|
                                         {
                                           account_id: account.id,
@@ -207,7 +209,6 @@ class FinancialYearClose
 
         entries
       end
-
     ensure
       progress.clean!
     end
@@ -227,7 +228,7 @@ class FinancialYearClose
 
     items = items.map do |item|
       item[:real_debit], item[:real_credit] = item[:real_credit], item[:real_debit]
-      item[:letter] = letter if letter
+      item[:letter] = nil
       item
     end
 
@@ -244,7 +245,11 @@ class FinancialYearClose
 
     updated_affairs = Hash.new
 
-    new_letter = account.new_letter
+    @letter_matcher ||= {}
+    @letter_matcher[account] ||= {}
+    @letter_matcher[account][letter] ||= account.new_letter
+    new_letter = @letter_matcher[account][letter]
+
     lettered_later = account.journal_entry_items.where('printed_on > ?', @to_close_on).where(letter: letter)
     lettered_later.update_all(letter: new_letter)
     lettered_later.each do |item|
