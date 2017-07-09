@@ -5,6 +5,19 @@ module Ekylibre
         base.extend(ClassMethods)
       end
 
+      class << self
+        def clean_for_active_record(value, options = {})
+          return nil if value.to_s =~ /\A[[:space:]]*\z/
+          value = if value.is_a?(Hash) || (value.is_a?(String) && value =~ /\A\{.*\}\z/)
+                    Charta.from_geojson(value)
+                  else
+                    Charta.new_geometry(value)
+                  end
+          value = value.convert_to(:multi_polygon) if options[:type]
+          value.to_rgeo
+        end
+      end
+
       module ClassMethods
         SRID = {
           wgs84: 4326,
@@ -24,10 +37,11 @@ module Ekylibre
 
         def has_geometry(*columns)
           options = columns.extract_options!
+          options[:type] ||= :multi_polygon
           columns.each do |column|
             col = column.to_s
             define_method "#{col}=" do |value|
-              self[col] = Charta.clean_for_active_record(value, options)
+              self[col] = Ekylibre::Record::HasShape.clean_for_active_record(value, options)
             end
 
             define_method col do
@@ -38,9 +52,9 @@ module Ekylibre
               define_method "#{col}_area" do |unit = nil|
                 return 0.in(unit || :square_meter) if send(col).nil?
                 if unit
-                  send(col).area.in(unit)
+                  send(col).area.in(:square_meter).in(unit)
                 else
-                  send(col).area
+                  send(col).area.in(:square_meter)
                 end
               end
 
@@ -113,7 +127,7 @@ module Ekylibre
           indicators = [:shape] if indicators.empty?
           column = :geometry_value
 
-          for indicator in indicators
+          indicators.each do |indicator|
             # code << "after_create :create_#{indicator}_images\n"
 
             # code << "before_update :update_#{indicator}_images\n"
@@ -162,23 +176,21 @@ module Ekylibre
             code << "  return [self.#{indicator}_x_min(options), -self.#{indicator}_y_max(options), self.#{indicator}_width(options), self.#{indicator}_height(options)]\n"
             code << "end\n"
 
-            for attr in %i[x_min x_max y_min y_max area to_svg to_svg_path to_gml to_kml to_geojson to_text to_binary to_ewkt centroid point_on_surface]
+            %i[x_min x_max y_min y_max to_svg to_svg_path to_gml to_kml to_geojson to_text to_binary to_ewkt centroid point_on_surface].each do |attr|
               code << "def #{indicator}_#{attr.to_s.downcase}(options = {})\n"
               code << "  return nil unless reading = self.reading(:#{indicator}, at: options[:at])\n"
               code << "  geometry = Charta.new_geometry(reading.#{column})\n"
               code << "  geometry = geometry.transform(options[:srid]) if options[:srid]\n"
               code << "  return geometry.#{attr}\n"
-              # code << "  expr = (options[:srid] ? \"ST_Transform(#{column}, \#{self.class.srid(options[:srid])})\" : '#{column}')\n"
-              # code << "  value = self.class.connection.select_value(\"SELECT ST_#{attr.to_s.camelcase}(\#{expr}) FROM \#{ProductReading.indicator_table_name(:#{indicator})} WHERE id = \#{reading.id}\")\n"
-              # if attr.to_s =~ /\Aas\_/
-              #   code << "  return value.to_s"
-              # else
-              #   code << "  return (value.blank? ? 0.0 : value.to_d)"
-              #   code << ".in_square_meter" if attr.to_s =~ /area\z/
-              # end
-              # code << "\n"
               code << "end\n"
             end
+
+            code << "def #{indicator}_area(options = {})\n"
+            code << "  return nil unless reading = self.reading(:#{indicator}, at: options[:at])\n"
+            code << "  geometry = Charta.new_geometry(reading.#{column})\n"
+            code << "  geometry = geometry.transform(options[:srid]) if options[:srid]\n"
+            code << "  return geometry.area.in_square_meter\n"
+            code << "end\n"
 
             # # add a method to convert polygon to point
             # # TODO : change geometry_value to a variable :column

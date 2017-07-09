@@ -1,4 +1,6 @@
 module Ekylibre
+  # Georeadings exchanger permit to import georeadings in Shapefile
+  # in WGS84 spatial reference system.
   class GeoreadingsExchanger < ActiveExchanger::Base
     def import
       # Unzip file
@@ -12,7 +14,7 @@ module Ekylibre
       mimetype = File.read(dir.join('mimetype')).to_s.strip
       nature = mimetype.split('.').last
 
-      RGeo::Shapefile::Reader.open(dir.join('georeading.shp').to_s) do |file|
+      RGeo::Shapefile::Reader.open(dir.join('georeading.shp').to_s, srid: 4326) do |file|
         # Set number of shapes
         w.count = file.size
 

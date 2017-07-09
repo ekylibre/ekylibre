@@ -772,10 +772,14 @@ class Product < Ekylibre::Record::Base
         options[:at] = born_at if born_at && born_at > Time.zone.now
       end
       shape = get(:shape, options)
-      area = shape.area.in(area_unit).round(3) if shape
+      area = shape.area.in_square_meter.in(area_unit).round(3) if shape
     else
       area = get(:net_surface_area, options)
     end
     area || 0.in(area_unit)
+  end
+
+  def initial_shape_area
+    ::Charta.new_geometry(initial_shape).area.in_square_meter
   end
 end

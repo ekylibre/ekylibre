@@ -76,6 +76,9 @@ gem 'kaminari'
 # Freeze time for demo and/or tests
 gem 'timecop'
 
+# Manipulate map data
+gem 'charta'
+
 # Manage daemons
 gem 'foreman'
 
