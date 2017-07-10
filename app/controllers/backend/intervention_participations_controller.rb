@@ -46,5 +46,4 @@ module Backend
         redirect_to backend_intervention_participations_path(worked_on: params[:worked_on])
       end
     end
-  end
 end
