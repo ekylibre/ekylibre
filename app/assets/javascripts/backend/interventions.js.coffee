@@ -191,14 +191,9 @@
 
     showInterventionParticipationsModal: ->
       $('.has-intervention-participations').on 'click', (event) ->
-
-        intervention_id = $('input[name="intervention_id"]').val()
-        product_id = $(event.target).closest('.nested-product-parameter').find(".scoped-parameter").attr('value')
-        # participation_id = $(event.target).attr('data-participation')
-
         $.ajax
           url: "/backend/intervention_participations/participations_modal",
-          data: { intervention_id: intervention_id, product_id: product_id }
+          data: {intervention_id: 2510}
           success: (data, status, request) ->
 
             @workingTimesModal = new ekylibre.modal('#working_times')

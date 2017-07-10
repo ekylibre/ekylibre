@@ -194,7 +194,6 @@ deu:
     formats:
       compact: "% M /% d /% Y% H:% M"
       default: "%A, %d. %B %Y, %H:%M Uhr"
-      # full: "%m/%d/%Y %H:%M:%S"
       long: "%A, %d. %B %Y, %H:%M Uhr"
       short: "%d. %B, %H:%M Uhr"
       time: "%H:%M" #?

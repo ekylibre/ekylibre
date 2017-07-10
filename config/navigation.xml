@@ -2033,28 +2033,5 @@
     </group>
   </inaccessible-actions>
   <untreated-actions>
-    <group>
-      <item name="items">
-        <page to="backend/bank_statements/items#create"/>
-        <page to="backend/bank_statements/items#destroy"/>
-        <page to="backend/bank_statements/items#new"/>
-      </item>
-      <item name="letters">
-        <page to="backend/bank_statements/letters#create"/>
-        <page to="backend/bank_statements/letters#destroy"/>
-      </item>
-      <item name="gaps">
-        <page to="backend/bank_statements/reconciliation/gaps#create"/>
-      </item>
-      <item name="items">
-        <page to="backend/bank_statements/reconciliation/items#index"/>
-        <page to="backend/bank_statements/reconciliation/items#bank_statements_items_count"/>
-        <page to="backend/bank_statements/reconciliation/items#reconciliate_bank_statements"/>
-      </item>
-      <item name="intervention_participations">
-        <page to="backend/intervention_participations#create"/>
-        <page to="backend/intervention_participations#participations_modal"/>
-      </item>
-    </group>
   </untreated-actions>
 </navigation>

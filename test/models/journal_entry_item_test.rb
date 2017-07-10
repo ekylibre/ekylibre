@@ -66,7 +66,6 @@
 #  team_id                   :integer
 #  updated_at                :datetime         not null
 #  updater_id                :integer
-#  variant_id                :integer
 #
 
 require 'test_helper'

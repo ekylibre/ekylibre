@@ -4044,7 +4044,7 @@ journal_entry_items:
     references: user
   variant_id:
     type: integer
-    references: product_nature_variant
+    references: ''
 journals:
   accountant_id:
     type: integer

@@ -174,17 +174,17 @@ class ParcelTest < ActiveSupport::TestCase
     # must have 0 on débit to SM ACCOUNT (6%)
     assert_equal 0, jei_sm.debit.to_i
     assert_equal 0, jei_sm.real_debit.to_i
-
+    
     # must have GTZ on credit to SM ACCOUNT (6%)
     assert_operator 0, :<, jei_sm.credit.to_i
     assert_operator 0, :<, jei_sm.real_credit.to_i
 
     # jei_s variant must be defined
-    assert_not jei_s.variant.nil?
+    assert_not jei_s.variant.nil? 
     assert_equal jei_s.variant, @variant
 
     # jei_sm variant must be defined
-    assert_not jei_sm.variant.nil?
+    assert_not jei_sm.variant.nil? 
     assert_equal jei_sm.variant, @variant
   end
 

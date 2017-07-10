@@ -1,5 +1,5 @@
 .working-times {
-
+  
   .indicators {
     @include flex-row();
     text-align: center;
@@ -7,8 +7,8 @@
   }
 
   .participations {
-    margin: 0 3em;
-
+    margin: 0 3em; 
+  
     &-header {
       @include flex-row(flex-start);
       border-bottom: $menu-border;
@@ -16,7 +16,7 @@
     }
 
     &-header .action-period {
-      flex-basis: 58%;
+      flex-basis: 70%;
     }
 
     &-header .action-header {
@@ -44,7 +44,11 @@
 
   .participation-form {
     @include flex-row(flex-start);
+<<<<<<< HEAD
     flex-basis: 48%;
+=======
+    flex-basis: 60%;
+>>>>>>> parent of e9d9806... Add existing intervention participations in modal
 
     .participation-field {
       @include flex-row(flex-end);

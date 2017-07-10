@@ -296,16 +296,16 @@ class SaleTest < ActiveSupport::TestCase
       nature: :normal_vat,
       collect_account: Account.find_or_create_by_number('45661'),
       deduction_account: Account.find_or_create_by_number('45671'),
-
+      
       country: :fr
     )
 
     sale = Sale.create!(nature: nature, client: Entity.normal.first, state: :order)
     sale.items.create!(variant: @variant, quantity: 4, unit_pretax_amount: 100, tax: standard_vat)
     sale.reload
-
+    
     assert sale.invoice
-
+    
     journal_entry_items = sale.journal_entry.items
     account_ids = journal_entry_items.pluck(:account_id)
 
@@ -313,7 +313,7 @@ class SaleTest < ActiveSupport::TestCase
     jei_s = journal_entry_items.where(account_id: sale_account.id).first
 
     # jei_s variant must be defined
-    assert_not jei_s.variant.nil?
+    assert_not jei_s.variant.nil? 
     assert_equal jei_s.variant, @variant
-  end
+  end 
 end
