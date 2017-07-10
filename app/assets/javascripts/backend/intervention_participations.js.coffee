@@ -49,17 +49,17 @@
     $(participationResult).append('<span class="previous-working-date"></span>')
     $(participationResult).append('<span> &#8594; </span>')
     $(participationResult).append('<span class="next-working-date"></span>')
-    $(new_line).append(participationResult)
+    $(newLine).append(participationResult)
 
-    $('#working_times .participations').append(new_line)
-
+    $('#working_times .participations').append(newLine)
+    
     return
 
 
-  $(document).on "submit", '.edit_intervention_participation input[type="submit"]', (event) ->
-    event.preventDefault()
+  $(document).on "submit", '.edit_intervention_participation', (event) ->
+    # event.preventDefault()
 
-    $('.edit_intervention_participation').submit()
+    # $('.edit_intervention_participation').submit()
 
     @workingTimesModal = new ekylibre.modal('#working_times')
     @workingTimesModal.getModal().modal 'hide'
