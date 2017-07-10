@@ -75,6 +75,8 @@ class InterventionParticipation < Ekylibre::Record::Base
     InterventionParticipation.where(product_id: product_id, nature: nature)
   }
 
+  scope :of_actor, ->(actor) { where(product_id: actor.id) }
+
   before_save do
     if intervention.present?
       intervention.update_state(id => state)

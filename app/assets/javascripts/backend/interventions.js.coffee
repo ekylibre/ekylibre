@@ -187,19 +187,7 @@
       if hideFilters
         $('.feathers input[name*="nature"], .feathers input[name*="state"]').closest('.feather').hide()
       else
-      i  $('.feathers input[name*="nature"], .feathers input[name*="state"]').closest('.feather').show()
-
-    showInterventionParticipationsModal: ->
-      $('.has-intervention-participations').on 'click', (event) ->
-        $.ajax
-          url: "/backend/intervention_participations/participations_modal",
-          data: {intervention_id: 2510}
-          success: (data, status, request) ->
-
-            @workingTimesModal = new ekylibre.modal('#working_times')
-            @workingTimesModal.removeModalContent()
-            @workingTimesModal.getModalContent().append(data)
-            @workingTimesModal.getModal().modal 'show'
+        $('.feathers input[name*="nature"], .feathers input[name*="state"]').closest('.feather').show()
 
     addLazyLoading: ->
       loadContent = false
@@ -276,9 +264,6 @@
   $(document).ready ->
 
     # E.interventions.hideKujakuFilters($('.view-toolbar a[data-janus-href="cobbles"]').hasClass('active'))
-
-    if $('.edit_intervention').length > 0
-      E.interventions.showInterventionParticipationsModal()
 
     if $('.taskboard').length > 0
 

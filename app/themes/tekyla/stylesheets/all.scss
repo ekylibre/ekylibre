@@ -19,6 +19,7 @@
 
 // Plugins
 @import "themes/tekyla/plugins";
+@import "bootstrap-slider";
 
 // Specific
 @import "abilities";
@@ -40,7 +41,6 @@
 @import "grid";
 @import "integrations";
 @import "interventions";
-@import "intervention_participations";
 @import "leaflet";
 @import "main";
 @import "map_layers";
@@ -50,6 +50,7 @@
 @import "taskboard";
 @import "timelines";
 @import "tour";
+@import "plants";
 
 // Optimization
 @import "symbolic_icons";

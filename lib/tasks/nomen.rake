@@ -126,6 +126,7 @@ namespace :nomen do
   task avatar: :environment do
     cache = {}
     avatars_dir = Rails.root.join('app', 'assets', 'images')
+    Nomen.load!
     Nomen.each do |nomenclature|
       folder = nomenclature.table_name
       dir = avatars_dir.join(folder)
