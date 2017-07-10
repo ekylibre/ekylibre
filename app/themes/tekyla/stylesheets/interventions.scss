@@ -144,21 +144,17 @@ $preview-modal-height: 80vh;
     }
   }
 }
-<<<<<<< HEAD
-=======
 
-.edit_intervention {
-  .has-intervention-participations {
-    position: relative;
-    top: -$fs-large;
-    left: $fs-awesome;
-    line-height: 0;
-    font-size: $fs-huge;
-    cursor: pointer;
+.product_parameters .cast {
+  padding: 0;
+  padding-left: $default-gap * 2;
+
+  .picture {
+    margin: $default-gap 0;
+    margin-right: $default-gap;
   }
 
-  .has-intervention-participations:hover {
-    color: $darkened-blue-grey;
+  .details {
+    padding-top: $default-gap;
   }
 }
->>>>>>> parent of 513182f... Add save / update methods for working periods

@@ -4,36 +4,36 @@
   - product = product_parameter.product
 
   - if intervention.participations.empty?
-    = add_working_period_cost(product_parameter)
-  - else
+    = add_working_period_cost(product_parameter)  
+  - else  
     - participation = product_parameter.participation if product_parameter.is_a?(InterventionDoer)
     - is_equipment = product.try(:tractor?) || product.try(:self_prepelled_equipment?)
     .periods
       - if (!participation.nil? && participation.has_period_with_nature?(nature: :preparation)) || is_equipment
         .period
-          .period-type
+          .period-type 
             = image_tag('intervention_participations/action-preparation.svg', class: "period-icon")
             %h3{ class: "period-label" } Préparation
-          = add_working_period_cost(product_parameter, nature: :preparation)
-
+          = add_working_period_cost(product_parameter, nature: :preparation)  
+      
       - if !participation.nil? && participation.has_period_with_nature?(nature: :travel)
         .period
-          .period-type
+          .period-type 
             = image_tag('intervention_participations/action-travel.svg', class: "period-icon")
-            %h3{ class: "period-label" } Déplacement
-          = add_working_period_cost(product_parameter, nature: :travel)
-
+            %h3{ class: "period-label" } Déplacement 
+          = add_working_period_cost(product_parameter, nature: :travel)  
+        
       - if (!participation.nil? && participation.has_period_with_nature?(nature: :intervention)) || is_equipment
         .period
-          .period-type
+          .period-type 
             = image_tag('intervention_participations/action-intervention.svg', class: "period-icon")
             %h3{ class: "period-label" } Intervention
-          = add_working_period_cost(product_parameter, nature: :intervention)
-
+          = add_working_period_cost(product_parameter, nature: :intervention)  
+        
         .total
-          %h3{ class: "total-label" } Total
-          = add_total_working_period(product_parameter)
-
+          %h3{ class: "total-label" } Total 
+          = add_total_working_period(product_parameter)  
+  
   - variant = product_parameter.variant
   - if actor
     .picture

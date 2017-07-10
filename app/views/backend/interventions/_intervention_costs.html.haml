@@ -19,13 +19,13 @@
           = link_to(computation.human_unit_amount, {controller: :catalog_items, action: :edit, id: computation.catalog_item.id, redirect: request.fullpath})
         - else
           = link_to(:add_catalog_price.tl, {controller: :catalog_items, action: :new, variant_id: product_parameter.product.variant.id, catalog_id: Catalog.by_default!(computation.catalog_usage).id, redirect: request.fullpath})
-      %span =
+      %span = 
       - if computation.amount?
         %span.amount= computation.human_amount
       - else
         %span.amount.no-amount
           %i.icon.icon-question
-
+            
   - if computation.quantity?
     .origin
       - if computation.sale?
