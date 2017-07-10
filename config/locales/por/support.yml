@@ -123,7 +123,4 @@ por:
       long: "%d de %B de %Y, %H:%M"
       short: "%d de %B, %H:%M"
       time: "%H:%M" #?
-    js_formats:
-      # compact: "MM/DD/YYYY HH:mm"
-      # full: "MM/DD/YYYY HH:mm:ss"
     pm: "pm"

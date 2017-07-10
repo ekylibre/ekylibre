@@ -128,7 +128,4 @@ cmn:
       long: "%Y年%b%d日 %H:%M"
       short: "%b%d日 %H:%M"
       time: "%H:%M" #?
-    js_formats:
-      # compact: "MM/DD/YYYY HH:mm"
-      # full: "MM/DD/YYYY HH:mm:ss"
     pm: "下午"
