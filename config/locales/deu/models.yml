@@ -40,7 +40,7 @@ deu:
         ongoing_at: "Mittelbeschaffung bei"
         started_on: "Erste Rückzahlung begann am"
       outgoing_payment:
-        delivered: "Da an Empfänger"
+        delivered: "Angesichts des Empfängers"
         list: "Abgehende Zahlungsliste"
       outgoing_payment_list:
         payments_sum: "Gesamt"
@@ -62,6 +62,9 @@ deu:
         seeding_density_value: "Erwartete Aussaatdichte"
       purchase:
         # affair_balance: "Balance"
+      purchase_payment: #?
+        delivered: "Da an Empfänger" #?
+        list: "Abgehende Zahlungsliste" #?
       sale:
         # affair_balance: "Balance"
         contact: "Adresse für die Schätzung"
@@ -140,7 +143,7 @@ deu:
           # different_of_main_account: "%{attribute} must be different of main account (%{account})"
           unvalid_bban: "Ungültige BBAN. Ein oder mehrere Elemente sind nicht korrekt."
         deposit:
-          # must_be_a_bank_account: "%{field} must be a bank account and not a cash"
+          # must_be_a_bank_account: "%{attribute} must be a bank account and not a cash"
         entity:
           # missing_title: "%{attribute} must contains the title “%{title}”"
           # nature_do_not_allow_a_first_name: "The selectected type “%{nature}” does not allow a first name"
@@ -166,6 +169,10 @@ deu:
               # invalid_date: "The depreciation must start on %{start} or on a beginning of month"
         incoming_parcel_item:
           # greater_than_undelivered_quantity: "The quantity of product %{product} to deliver is greater than undelivered quantity (%{maximum}%{unit})"
+        integration:
+          attributes:
+            parameters:
+              check_errored: "Connexion check fehlerhaft Bitte stellen Sie die Gültigkeit Ihrer Eingabe sicher oder versuchen Sie es später erneut."
         journal:
           attributes:
             accountant:
@@ -329,6 +336,10 @@ deu:
       outgoing_payment_mode: "Auszahlungsmodus"
       parcel: "Paket"
       parcel_item: "Parcel Artikel"
+      # payslip: "Payslip"
+      payslip_affair: "Payslip-Affäre"
+      payslip_nature: "Payslip-Typ"
+      payslip_payment: "Payslip Zahlung"
       plant: "Pflanze"
       plant_counting: "Anlagenzahl"
       plant_counting_item: "Anlagenzahl Eintrag"
@@ -362,6 +373,7 @@ deu:
       purchase_gap: "Kauf Lücke"
       purchase_item: "Kaufsache"
       purchase_nature: "Kauf Art"
+      purchase_payment: "Auszahlung"
       regularization: "Regularisierung"
       role: "Rolle"
       sale: "Verkauf"
@@ -698,6 +710,7 @@ deu:
     emission_cash: "Emissions Bargeld"
     emission_currency: "Emissionswährung"
     emission_journal_entry: "Emissionsjournaleintrag"
+    emitted_on: "Emittiert auf"
     employed: "Beschäftigt"
     employee: "Mitarbeiter"
     employee_account: "Mitarbeiterkonto"
@@ -1138,6 +1151,7 @@ deu:
     payment_mode_complement: "Zahlungsmodus Ergänzung"
     payments: "Zahlungen"
     payments_count: "Zahlungen rechnen"
+    # payslips: "Payslips"
     period: "Periode"
     # person: "Person"
     phases: "Phasen"
@@ -1234,6 +1248,7 @@ deu:
     purchase_item: "Kaufsache"
     purchase_items: "Kauf von Gegenständen"
     purchase_natures: "Kauftypen"
+    purchase_payments: "Kaufzahlungen"
     purchase_taxations: "Kauf Besteuerungen"
     purchase_taxes: "Umsatzsteuern"
     purchased_on: "erworben auf"
@@ -1753,6 +1768,11 @@ deu:
           prepared: "Bereit"
           received: "Empfangen"
       # undelivered_invoice: "Undelivered invoice [%{resource} %{mode} %{number}] %{entity}"
+    payslip:
+      # bookkeep: "[%{resource} %{number}] %{employee} from %{started_on} to %{stopped_on}"
+      states:
+        draft: "Entwurf"
+        invoice: "Rechnung"
     product:
       informations:
         # with_components: "%{product} (%{unit}) (transformed material)"
@@ -1803,6 +1823,9 @@ deu:
     purchase_nature:
       default:
         name: "Standard Kauf"
+    purchase_payment:
+      # bookkeep: "[%{resource} %{number}] %{mode} %{check_number} for %{payee}"
+      # label: "%{number}. %{amount}, %{mode} for %{payee} on %{date}"
     role:
       default:
         # administrator: "Administrator"
@@ -1874,6 +1897,7 @@ deu:
         opportunities: "OP[year|4][number|6]"
         outgoing_parcels: "EXP[year|4][number|6]"
         outgoing_payments: "D[year|4][number|4]"
+        payslips: "PS [Jahr | 4] [Monat | 2] [Anzahl | 4]"
         plants: "PLANT[year|4][number|4]"
         products: "PR[number|11]"
         purchases: "PU[year|4][month|2][number|6]"

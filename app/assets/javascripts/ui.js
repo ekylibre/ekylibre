@@ -159,7 +159,9 @@
 
   $(document).on("change keypress", "select[data-show-value]", $.fn.showValueElements);
   $(document).ready(function () {
-    $("select[data-show-value]").showValueElements();
+    $("select[data-show-value]").each(function(){
+      $(this).showValueElements();
+    });
   });
 
 

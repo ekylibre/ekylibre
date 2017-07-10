@@ -115,7 +115,7 @@ class Entity < Ekylibre::Record::Base
   has_many :godchildren, class_name: 'Entity', foreign_key: 'proposer_id'
   has_many :incoming_payments, foreign_key: :payer_id, inverse_of: :payer
   has_many :indirect_links, class_name: 'EntityLink', foreign_key: :linked_id, dependent: :destroy
-  has_many :outgoing_payments, foreign_key: :payee_id
+  has_many :purchase_payments, foreign_key: :payee_id
   has_many :ownerships, class_name: 'ProductOwnership', foreign_key: :owner_id
   has_many :participations, class_name: 'EventParticipation', foreign_key: :participant_id, dependent: :destroy
   has_many :purchase_invoices, -> { where(state: 'invoice').order(created_at: :desc) },
@@ -136,7 +136,6 @@ class Entity < Ekylibre::Record::Base
   has_many :trackings, foreign_key: :producer_id
   has_many :deliveries, foreign_key: :transporter_id, dependent: :restrict_with_error
   has_many :transporter_sales, -> { order(created_at: :desc) }, foreign_key: :transporter_id, class_name: 'Sale'
-  has_many :usable_incoming_payments, -> { where('used_amount < amount') }, class_name: 'IncomingPayment', foreign_key: :payer_id
   has_many :waiting_deliveries, -> { where(state: 'ready_to_send') }, class_name: 'Parcel', foreign_key: :transporter_id
   has_many :booked_journals, class_name: 'Journal', foreign_key: :accountant_id
   has_many :financial_years, class_name: 'FinancialYear', foreign_key: :accountant_id

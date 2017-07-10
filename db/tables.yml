@@ -110,6 +110,8 @@ accounts:
   usages:
     type: text
 activities:
+  codes:
+    type: jsonb
   created_at:
     type: datetime
     required: true
@@ -602,7 +604,6 @@ affairs:
     type: string
   number:
     type: string
-    required: true
   origin:
     type: string
   pretax_amount:
@@ -1619,6 +1620,8 @@ crumbs:
     type: integer
     references: user
 cultivable_zones:
+  codes:
+    type: jsonb
   created_at:
     type: datetime
     required: true
@@ -3279,6 +3282,8 @@ integrations:
   creator_id:
     type: integer
     references: user
+  data:
+    type: jsonb
   id:
     type: integer
     required: true
@@ -4831,11 +4836,11 @@ outgoing_payments:
   delivered:
     type: boolean
     required: true
-    default: true
+    default: false
   downpayment:
     type: boolean
     required: true
-    default: true
+    default: false
   id:
     type: integer
     required: true
@@ -4869,6 +4874,8 @@ outgoing_payments:
   to_bank_at:
     type: datetime
     required: true
+  type:
+    type: string
   updated_at:
     type: datetime
     required: true
@@ -5067,6 +5074,111 @@ parcels:
     type: boolean
     required: true
     default: false
+payslip_natures:
+  account_id:
+    type: integer
+    references: account
+  active:
+    type: boolean
+    required: true
+    default: false
+  by_default:
+    type: boolean
+    required: true
+    default: false
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  currency:
+    type: string
+    required: true
+  id:
+    type: integer
+    required: true
+  journal_id:
+    type: integer
+    references: journal
+    required: true
+  lock_version:
+    type: integer
+    required: true
+  name:
+    type: string
+    required: true
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+  with_accounting:
+    type: boolean
+    required: true
+    default: false
+payslips:
+  account_id:
+    type: integer
+    references: account
+  accounted_at:
+    type: datetime
+  affair_id:
+    type: integer
+    references: affair
+  amount:
+    type: decimal
+    precision: 19
+    scale: 4
+    required: true
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  currency:
+    type: string
+    required: true
+  custom_fields:
+    type: jsonb
+  emitted_on:
+    type: date
+  employee_id:
+    type: integer
+    references: entity
+  id:
+    type: integer
+    required: true
+  journal_entry_id:
+    type: integer
+    references: journal_entry
+  lock_version:
+    type: integer
+    required: true
+  nature_id:
+    type: integer
+    references: payslip_nature
+    required: true
+  number:
+    type: string
+    required: true
+  started_on:
+    type: date
+    required: true
+  state:
+    type: string
+    required: true
+  stopped_on:
+    type: date
+    required: true
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
 plant_counting_items:
   created_at:
     type: datetime
@@ -6189,6 +6301,8 @@ products:
     type: integer
     references: product_nature_category
     required: true
+  codes:
+    type: jsonb
   country:
     type: string
   created_at:
@@ -6538,6 +6652,7 @@ purchases:
     references: user
   state:
     type: string
+    required: true
   supplier_id:
     type: integer
     references: entity

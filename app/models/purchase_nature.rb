@@ -62,6 +62,7 @@ class PurchaseNature < Ekylibre::Record::Base
     if journal
       errors.add(:journal, :currency_does_not_match, currency: journal_currency) if currency != journal_currency
     end
+    errors.add(:nature, :invalid) if nature.present? && payslip?
   end
 
   class << self

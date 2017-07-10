@@ -86,6 +86,17 @@ module ToolbarHelper
       end
     end
 
+    def edit(*args)
+      options = args.extract_options!
+      if @template.resource
+        if @template.resource.updateable?
+          tool(options[:label] || :edit.ta, action: :edit, id: @template.resource.id, redirect: options[:redirect])
+        end
+      else
+        tool(options[:label] || :edit.ta, { action: :edit, redirect: options[:redirect] }, options.except(:redirect, :label))
+      end
+    end
+
     def action(name, *args)
       options = args.extract_options!
       record = args.shift

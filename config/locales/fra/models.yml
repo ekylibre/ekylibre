@@ -116,6 +116,9 @@ fra:
         contract: "Contrat"
       parcel_item:
         population: "Quantité"
+      payslip_payment: #?
+        delivered: "Remis au bénéficiaire" #?
+        list: "Lot de décaissements" #?
       plant:
         born_at: "Planté/semé le"
         nature: "Nature de la culture" #?
@@ -167,6 +170,9 @@ fra:
         planned_at: "Réception prévue le" #?
       purchase_item: #?
         amount: "Montant TTC" #?
+      purchase_payment: #?
+        delivered: "Remis au bénéficiaire" #?
+        list: "Lot de décaissements" #?
       sale:
         affair_balance: "Solde"
         amount: "Montant TTC" #?
@@ -269,7 +275,7 @@ fra:
           different_of_main_account: "%{attribute} doit être différent du compte comptable principal (%{account})"
           unvalid_bban: "La clé ne correspond pas. Un ou plusieurs éléments du RIB sont incorrects."
         deposit:
-          must_be_a_bank_account: "%{field} doit être un compte bancaire et non une caisse"
+          must_be_a_bank_account: "%{attribute} doit être un compte bancaire et non une caisse"
         entity:
           missing_title: "%{attribute} doit contenir la dénomination sociale «\_%{title}\_»"
           nature_do_not_allow_a_first_name: "Le type «\_%{nature}\_» sélectionné ne permet de renseigner un prénom"
@@ -295,6 +301,10 @@ fra:
               invalid_date: "La période d’amortissement doit débuter le %{start} ou en début de mois"
         incoming_parcel_item:
           greater_than_undelivered_quantity: "La quantité de produit %{product} à livrer dépasse la quantité non livrée (%{maximum}%{unit})"
+        integration:
+          attributes:
+            parameters:
+              check_errored: "La connexion au partenaire a échoué. Veuillez vérifier les informations saisies ou réessayer plus tard."
         journal:
           attributes:
             accountant:
@@ -459,6 +469,10 @@ fra:
       outgoing_payment_mode: "Mode de décaissement"
       parcel: "Colis"
       parcel_item: "Élément de colis"
+      payslip: "Salaire"
+      payslip_affair: "Affaire de salaire"
+      payslip_nature: "Type de salaire"
+      payslip_payment: "Paiement de salaire"
       plant: "Plante"
       plant_counting: "Comptage"
       plant_counting_item: "Mesure du nombre de plants"
@@ -493,6 +507,7 @@ fra:
       purchase_gap: "Écart d’achat"
       purchase_item: "Ligne d’achat"
       purchase_nature: "Type d’achat"
+      purchase_payment: "Décaissement d’achat"
       regularization: "Régularisation"
       role: "Rôle"
       sale: "Vente"
@@ -884,6 +899,7 @@ fra:
     emission_currency: "Devise émise"
     emission_currency_rate: "Taux de la devise émise" #?
     emission_journal_entry: "Écriture de l’émission"
+    emitted_on: "Émis le"
     employed: "Employé par la société"
     employee: "Employé"
     employee_account: "Compte employé"
@@ -1374,6 +1390,7 @@ fra:
     payments_count: "Nombre d’encaissements"
     payments_to_deposit: "Encaissements à encaisser" #?
     payments_to_deposit_accounts: "Comptes des encaissements à encaisser" #?
+    payslips: "Salaires"
     period: "Période"
     person: "Personne"
     phases: "Phases"
@@ -1495,6 +1512,7 @@ fra:
     purchase_item: "Ligne d’achat"
     purchase_items: "Lignes d’achat"
     purchase_natures: "Types d’achat"
+    purchase_payments: "Paiements d’achat"
     purchase_taxations: "Taxations d’achat"
     purchase_taxes: "Taxes à l’achat"
     purchased_on: "Acheté le"
@@ -2049,6 +2067,14 @@ fra:
           prepared: "Prêt"
           received: "Reçu"
       undelivered_invoice: "Facture non parvenue [%{resource} %{mode} %{number}] %{entity}"
+    payslip:
+      bookkeep: "[%{resource} %{number}] %{employee} du %{started_on} au %{stopped_on}"
+      states:
+        draft: "Brouillon"
+        invoice: "Facturé"
+    payslip_payment: #?
+      bookkeep: "[%{resource} %{number}] %{mode} %{check_number} pour %{payee}" #?
+      label: "%{number}. %{amount} du %{date} en %{mode} pour %{payee}" #?
     product:
       informations:
         with_components: "%{product} (%{unit}) (produit transformé)"
@@ -2099,6 +2125,9 @@ fra:
     purchase_nature:
       default:
         name: "Achat standard"
+    purchase_payment:
+      bookkeep: "[%{resource} %{number}] %{mode} %{check_number} pour %{payee}"
+      label: "%{number}. %{amount} du %{date} en %{mode} pour %{payee}"
     role:
       default:
         administrator: "Gérant"
@@ -2170,6 +2199,7 @@ fra:
         opportunities: "OP[year|4][number|6]"
         outgoing_parcels: "EXP[year|4][number|6]"
         outgoing_payments: "D[year|4][number|4]"
+        payslips: "BS[year|4][month|2][number|4]"
         plants: "PLANT[year|4][number|4]"
         products: "P[number|11]"
         purchases: "A[year|4][month|2][number|6]"
