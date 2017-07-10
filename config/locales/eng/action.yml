@@ -1092,7 +1092,6 @@ eng:
     budgets: "Budgets" #?
     by_year: "By year"
     calculate: "Calculate" #?
-    calculated_hours: "Calculated hours"
     calculators: "Calculators" #?
     calendar: "Calendar"
     campaign: "Campaign"

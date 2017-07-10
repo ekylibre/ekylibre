@@ -132,9 +132,6 @@ gem 'humanize'
 gem 'i18n-complements', '>= 0.0.14'
 gem 'i18n-js', '>= 3.0.0.rc12'
 
-# Manage dates
-gem 'time_diff'
-
 # XML Parsing/Writing, HTML extraction
 gem 'nokogiri', '~> 1.7.1'
 

@@ -512,10 +512,7 @@ GEM
     thor (0.19.4)
     thread_safe (0.3.6)
     tilt (2.0.7)
-    time_diff (0.3.0)
-      activesupport
-      i18n
-    timecop (0.9.1)
+    timecop (0.8.1)
     timeliness (0.3.8)
     tins (1.15.0)
     treetop (1.6.8)
@@ -670,7 +667,6 @@ DEPENDENCIES
   teaspoon-jasmine
   therubyracer
   thin
-  time_diff
   timecop
   treetop
   turbolinks (~> 2.0)
