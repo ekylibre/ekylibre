@@ -195,17 +195,12 @@
       taskHeight = 60
       halfTaskList = 12
 
-      urlParams = decodeURIComponent(window.location.search.substring(1)).split("&")
-      params = urlParams.reduce((map, obj) ->
-        param = obj.split("=")
-        map[param[0]] = param[1]
-        return map
-      , {})
+        participation_id = $(event.target).attr('data-participation')
 
-      $('#content').scroll ->
-        if !loadContent && $('#content').scrollTop() > (currentPage * halfTaskList) * taskHeight
-          currentPage++
-          params['page'] = currentPage
+        $.ajax
+          url: "/backend/intervention_participations/participations_modal",
+          data: { intervention_participation_id: participation_id }
+          success: (data, status, request) ->
 
           loadContent = true
 
