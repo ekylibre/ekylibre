@@ -121,11 +121,4 @@ spa:
       long: "%B %d, %Y %H:%M"
       short: "%d %b %H:%M"
       time: "%H:%M" #?
-<<<<<<< HEAD
     pm: "pm"
-=======
-    js_formats:
-      # compact: "MM/DD/YY HH:mm"
-      # full: "MM/DD/YY HH:mm:ss"
-    pm: "pm"
->>>>>>> parent of 98632f9... Change calculated gap for modal

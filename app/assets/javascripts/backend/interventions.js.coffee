@@ -195,21 +195,21 @@
       taskHeight = 60
       halfTaskList = 12
 
-        participation_id = $(event.target).attr('data-participation')
+      participation_id = $(event.target).attr('data-participation')
+
+      $.ajax
+        url: "/backend/intervention_participations/participations_modal",
+        data: { intervention_participation_id: participation_id }
+        success: (data, status, request) ->
+
+        loadContent = true
 
         $.ajax
-          url: "/backend/intervention_participations/participations_modal",
-          data: { intervention_participation_id: participation_id }
+          url: "/backend/interventions/change_page",
+          data: { interventions_taskboard: params }
           success: (data, status, request) ->
-
-          loadContent = true
-
-          $.ajax
-            url: "/backend/interventions/change_page",
-            data: { interventions_taskboard: params }
-            success: (data, status, request) ->
-              loadContent = false
-              taskboard.addTaskClickEvent()
+            loadContent = false
+            taskboard.addTaskClickEvent()
 
 
   ##############################################################################
