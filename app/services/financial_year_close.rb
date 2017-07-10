@@ -3,7 +3,7 @@ class FinancialYearClose
     @year = year
     @started_on = @year.started_on
     @to_close_on = to_close_on || options[:to_close_on] || @year.stopped_on
-    @progress = Progress.new(:close_main, id: @year.id, max: 2 + Journal.count)
+    @progress = Progress.new(:close_main, id: @year.id, max: 4)
     @errors = []
     @currency = @year.currency
     @options = options
@@ -16,6 +16,7 @@ class FinancialYearClose
 
       ActiveRecord::Base.transaction do
         @year.compute_balances!
+        @progress.increment!
 
         generate_result_entry! if @result_journal
         @progress.increment!
@@ -25,8 +26,8 @@ class FinancialYearClose
 
         Journal.find_each do |journal|
           journal.close!(@to_close_on) if journal.closed_on < @to_close_on
-          @progress.increment!
         end
+        @progress.increment!
 
         @year.update_attributes(stopped_on: @to_close_on, closed: true)
       end
@@ -89,7 +90,8 @@ class FinancialYearClose
           account_id: account_balance.account_id,
           name: account_balance.account.name,
           real_debit: account_balance.balance_credit,
-          real_credit: account_balance.balance_debit
+          real_credit: account_balance.balance_debit,
+          state: :confirmed
         }
       end
 
@@ -104,8 +106,8 @@ class FinancialYearClose
       @result_journal.entries.create!(
         printed_on: @to_close_on,
         currency: @result_journal.currency,
-        state: :confirmed,
-        items_attributes: items
+        items_attributes: items,
+        state: :confirmed
       )
 
     ensure
@@ -116,10 +118,10 @@ class FinancialYearClose
   def loss_or_profit_item(result)
     if result > 0
       profit = Account.find_in_nomenclature(:financial_year_result_profit)
-      return { account_id: profit.id, name: profit.name, real_debit: 0.0, real_credit: result }
+      return { account_id: profit.id, name: profit.name, real_debit: 0.0, real_credit: result, state: :confirmed }
     end
     losses = Account.find_in_nomenclature(:financial_year_result_loss)
-    { account_id: losses.id, name: losses.name, real_debit: result.abs, real_credit: 0.0 }
+    { account_id: losses.id, name: losses.name, real_debit: result.abs, real_credit: 0.0, state: :confirmed}
   end
 
   # FIXME: Manage non-french accounts
@@ -154,7 +156,8 @@ class FinancialYearClose
           account_id: a.id,
           name: a.name,
           real_debit: (balance > 0 ? balance : 0),
-          real_credit: (-balance > 0 ? -balance : 0)
+          real_credit: (-balance > 0 ? -balance : 0),
+          state: :confirmed
         }
         progress.increment!
       end
@@ -183,21 +186,20 @@ class FinancialYearClose
       unbalanced_letters = unbalanced_items_for(account)
       progress = Progress.new(:close_lettering, id: @year.id, max: unbalanced_letters.count)
 
-      unbalanced_letters.each_with_index do |info, index|
+      unbalanced_letters.each do |info|
         entry_id = info.first
         letter = info.last
 
         lettering_items = JournalEntry.find(entry_id)
                                       .items
-                                      .where('letter = ? OR letter = ? AND account_id = ?',
-                                             letter,
-                                             letter+'*', account.id)
+                                      .where(letter: [letter, letter + '*'], account: account)
                                       .find_each.map do |item|
                                         {
                                           account_id: account.id,
                                           name: item.name,
                                           real_debit: item.real_debit,
-                                          real_credit: item.real_credit
+                                          real_credit: item.real_credit,
+                                          state: :confirmed
                                         }
                                       end
 
@@ -205,7 +207,7 @@ class FinancialYearClose
 
         entries = generate_closing_and_opening_entry!(lettering_items, result, letter: letter)
 
-        progress.set_value(index + 1)
+        progress.increment!
 
         entries
       end
@@ -218,7 +220,7 @@ class FinancialYearClose
     return unless items.any?
     return unless result.nonzero?
 
-    items = reletter_items!(items, letter)
+    new_letter, items = reletter_items!(items, letter)
 
     generate_closing_or_opening_entry!(@forward_journal,
                                        { number: '890', name: 'Bilan d’ouverture' },
@@ -236,31 +238,39 @@ class FinancialYearClose
                                        { number: '891', name: 'Bilan de clôture' },
                                        items,
                                        result)
+
+    update_lettered_later!(letter, new_letter, items.first[:account_id])
   end
 
   def reletter_items!(items, letter)
-    return items unless letter
+    return  [nil, items] unless letter
 
-    account = Account.find(items.first[:account_id])
-
-    updated_affairs = Hash.new
+    account_id = items.first[:account_id]
 
     @letter_matcher ||= {}
-    @letter_matcher[account] ||= {}
-    @letter_matcher[account][letter] ||= account.new_letter
-    new_letter = @letter_matcher[account][letter]
+    @letter_matcher[account_id] ||= {}
+    @letter_matcher[account_id][letter] ||= Account.find(account_id).new_letter
+    new_letter = @letter_matcher[account_id][letter]
+
+    items = items.map { |item| item[:letter] = new_letter; item }
+
+    [new_letter, items]
+  end
+
+  def update_lettered_later!(letter, new_letter, account_id)
+    account = Account.find(account_id)
+
+    @updated_affairs ||= Hash.new
 
     lettered_later = account.journal_entry_items.where('printed_on > ?', @to_close_on).where(letter: letter)
     lettered_later.update_all(letter: new_letter)
     lettered_later.each do |item|
-      affair = item.entry.resource && item.entry.resource.affair
+      affair = item.entry.resource && item.entry.resource.respond_to?(:affair) && item.entry.resource.affair
       next unless affair && !updated_affairs[affair.id]
 
-      updated_affairs[affair.id] = true
-      affair.update(letter: new_letter)
+      @updated_affairs[affair.id] = true
+      affair.update_columns(letter: new_letter)
     end
-
-    items = items.map { |item| item[:letter] = new_letter; item }
   end
 
   def generate_closing_or_opening_entry!(journal, account_info, items, result, printed_on: @to_close_on)
@@ -268,12 +278,14 @@ class FinancialYearClose
     account = Account.find_or_create_by_number(account_info[:number], account_info[:name])
 
     journal.entries.create!(
+      state: :confirmed,
       printed_on: printed_on,
       currency: journal.currency,
       items_attributes: items + [{
         account_id: account.id,
         name: account.name,
-        (result > 0 ? :real_debit : :real_credit) => result.abs
+        (result > 0 ? :real_debit : :real_credit) => result.abs,
+        state: :confirmed
       }]
     )
   end
