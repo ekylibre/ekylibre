@@ -1127,6 +1127,7 @@ cmn:
     # hint: "Hint: %{value}"
     historic: "历史性"
     home: "家"
+    # hours: "H"
     human_working_duration: "工作时间"
     # humans: "HR"
     iban: "国际银行账户号码（IBAN）"
@@ -1158,6 +1159,7 @@ cmn:
     input_cost_per_hectare: "每公顷投入成本" #?
     inputs: "输入"
     inspections: "检查"
+    # interactive_maps: "A JS library for interactive maps"
     interface_preferences: "界面首"
     internal_error: "哎呀，事情发生了。"
     interval: "个性化间隔"
@@ -1275,6 +1277,7 @@ cmn:
     method: "方法"
     minimal_temperature: "最低温度"
     minimum_amount: "最低金额"
+    # minutes: "Min"
     missing_attributes: "有些属性丢失"
     missing_help: "缺页"
     mobile: "移动"
@@ -1745,6 +1748,7 @@ cmn:
     workers: "工人"
     working_duration: "工作时间"
     working_sets_stocks: "工作集股"
+    # working_times: "Working times of %{name}"
     x_cashes:
       # one: "%{count} cash"
       # other: "%{count} cashes"

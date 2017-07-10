@@ -948,7 +948,7 @@ eng:
     accounts: "Accounts"
     accounts_only_used_at: "Accounts only used at"
     accounts_to_load: "Accounts to load"
-    action_duration: "Action duration" #?!
+    action_duration: "Action duration"
     activate_entry_autocompletion: "Activate entry autocompletion"
     active: "Active" #?
     active_finishing_after: "Active finishing after" #?
@@ -1091,7 +1091,7 @@ eng:
     budgets: "Budgets" #?
     by_year: "By year"
     calculate: "Calculate" #?
-    calculated_hours: "Calculated hours" #?!
+    calculated_hours: "Calculated hours"
     calculators: "Calculators" #?
     calendar: "Calendar"
     campaign: "Campaign"
@@ -1369,6 +1369,7 @@ eng:
     historic: "Historic" #?
     home: "Home"
     # horizontal_timeline: "Horizontal timeline"
+    hours: "H" #?
     human_working_duration: "Working duration" #?
     humans: "HR"
     iban: "International Bank Account Number (IBAN)" #?
@@ -1399,7 +1400,7 @@ eng:
     input_cost: "Input cost"
     inputs: "Inputs"
     inspections: "Inspections"
-    interactive_maps: "A JS library for interactive maps"
+    interactive_maps: "A JS library for interactive maps" #?!
     interface_preferences: "Interface preferences"
     internal_error: "Oops, something happened."
     interval: "Personalized Interval" #?
@@ -1515,6 +1516,7 @@ eng:
     method: "Method" #?
     minimal_temperature: "Minimal temperature"
     minimum_amount: "Minimum amount"
+    minutes: "Min" #?
     missing_attributes: "Some attributes are missing" #?!
     missing_help: "Missing page"
     mobile: "Mobile" #?
@@ -1955,7 +1957,7 @@ eng:
     usage: "Usage" #?
     user_status: "Status" #?
     users: "Users"
-    valid: "Valid" #?
+    valid: "Valid"
     validate: "Validate"
     validate_crumbs_for_x_interventions:
       one: "Validate crumbs for %{count} intervention"
@@ -1978,6 +1980,7 @@ eng:
     workers: "Workers"
     working_duration: "Working duration"
     working_sets_stocks: "Working sets stocks" #?
+    working_times: "Working times of %{name}" #?
     x_cashes:
       one: "%{count} cash"
       other: "%{count} cashes"

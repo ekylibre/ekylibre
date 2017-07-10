@@ -1127,6 +1127,7 @@ deu:
     # hint: "Hint: %{value}"
     historic: "historisch"
     home: "Zuhause"
+    # hours: "H"
     human_working_duration: "Arbeitsdauer"
     # humans: "HR"
     iban: "Internationale Bankkontonummer (IBAN)"
@@ -1158,6 +1159,7 @@ deu:
     input_cost_per_hectare: "Inputkosten pro Hektar" #?
     inputs: "Eingänge"
     inspections: "Inspektionen"
+    # interactive_maps: "A JS library for interactive maps"
     interface_preferences: "Interface-Einstellungen"
     internal_error: "Hoppla, was passiert ist."
     interval: "Personalisierte Interval"
@@ -1274,6 +1276,7 @@ deu:
     method: "Verfahren"
     minimal_temperature: "minimale Temperatur"
     minimum_amount: "Mindestbetrag"
+    # minutes: "Min"
     missing_attributes: "Einige Attribute fehlen"
     missing_help: "fehlende Seite"
     # mobile: "Mobile"
@@ -1744,6 +1747,7 @@ deu:
     workers: "Arbeitskräfte"
     working_duration: "Arbeitsdauer"
     working_sets_stocks: "Arbeits setzt Aktien"
+    # working_times: "Working times of %{name}"
     x_cashes:
       # one: "%{count} cash"
       # other: "%{count} cashes"

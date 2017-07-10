@@ -27,6 +27,7 @@
 #  birth_farm_number            :string
 #  born_at                      :datetime
 #  category_id                  :integer          not null
+#  codes                        :jsonb
 #  country                      :string
 #  created_at                   :datetime         not null
 #  creator_id                   :integer
@@ -94,7 +95,6 @@ class Worker < Product
   before_validation do
     self.team_id = user.team_id if user && user.team
   end
-
 
   def participation(intervention)
     InterventionParticipation.find_by(product: self, intervention: intervention)

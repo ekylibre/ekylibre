@@ -1507,6 +1507,7 @@ arb:
       one: "مجموع الوقت المستخدم : ساعة واحدة" #?
       other: "مجموع الوقت المستخدم%{count} ساعات" #?
       zero: "" #?
+    # hours: "H"
     human_working_duration: "مدة العمل"
     # humans: "HR"
     iban: "رقم الحساب المصرفي الدولي (IBAN)"
@@ -1545,6 +1546,7 @@ arb:
     insert_actual_password: "أدخل كلمة المرور الحالية" #?
     insert_password: "أدخل كلمة المرور الجديدة" #?
     inspections: "عمليات التفتيش"
+    # interactive_maps: "A JS library for interactive maps"
     interface_preferences: "تفضيلات واجهة"
     internal_error: "عفوا، حدث شيء ما."
     international_normal_vat_collected: "معدل ضريبة القيمة المضافة الدولية العادية %8.5" #?
@@ -1722,6 +1724,7 @@ arb:
     method: "طريقة"
     minimal_temperature: "درجة الحرارة الحد الأدنى"
     minimum_amount: "اقل مبلغ"
+    # minutes: "Min"
     missing_attributes: "بعض سمات مفقودة"
     missing_help: "صفحات مفقودة"
     mobile: "التليفون المحمول"
@@ -2397,6 +2400,7 @@ arb:
     workers: "العمال"
     working_duration: "مدة العمل"
     working_sets_stocks: "مجموعات العمل الأسهم"
+    # working_times: "Working times of %{name}"
     x_cashes:
       one: "حساب بنكي واحد"
       other: "%{count} حسابات بنكية اخرى"

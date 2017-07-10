@@ -1,10 +1,11 @@
 - product_name = participation.product.nil? ? "" : participation.product.name
-= modal_header("Temps de travaux de \"#{ product_name  }\"")
+= modal_header(t('labels.working_times', name: product_name))
+=# modal_header("Temps de travaux de \"#{ product_name  }\"")
 
 = hidden_field_tag "intervention_participation[id]", participation.id
 = hidden_field_tag "intervention_participation[intervention_id]", participation.intervention_id
 = hidden_field_tag "intervention_participation[product_id]", participation.product_id
-= hidden_field_tag 'intervention_started_at', intervention_started_at.iso8601 
+= hidden_field_tag 'intervention_started_at', intervention_started_at.iso8601
 
 .modal-body
   .indicators
@@ -21,7 +22,7 @@
 
     - participation.working_periods.each do |working_period|
       = render 'working_periods_fields', { working_period: working_period }
-    
+
       - if working_period.pause_next?
         - pause_period = InterventionWorkingPeriod.new(nature: :pause, started_at: working_period.stopped_at, stopped_at: working_period.next_period.started_at)
         = render 'working_periods_fields', { working_period: pause_period }

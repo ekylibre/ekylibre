@@ -94,6 +94,7 @@ arb:
         purchase: "شراء"
         sale: "تخفيض السعر"
         stock: "مخزون"
+        # travel_cost: "Travel"
     crumb:
       nature:
         hard_start: "البداية الصعبة"

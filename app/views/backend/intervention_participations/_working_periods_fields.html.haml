@@ -16,11 +16,11 @@
     .participation-form
       .participation-field
         = text_field_tag "working_period_hours", working_period.hours_gap, { class: "participation-input", data: { 'is-hours-field': true  }}
-        %span H
+        %span= t('labels.hours')
 
       .participation-field
         = text_field_tag "working_period_minutes", working_period.minutes_gap, { class: "participation-input", data: { 'is-minutes-field': true  }}
-        %span Min
+        %span= t('labels.minutes')
 
     .participation-result
       %span{ class: "previous-working-date" }= working_period.started_at.l(format: :full)

@@ -13,25 +13,25 @@
         .period
           .period-type
             = image_tag('intervention_participations/action-preparation.svg', class: "period-icon")
-            %h3{ class: "period-label" } Préparation
+            %h3{ class: "period-label" }= t('enumerize.intervention_working_period.preparation') 
           = add_working_period_cost(product_parameter, nature: :preparation)
 
       - if !participation.nil? && participation.has_period_with_nature?(nature: :travel)
         .period
           .period-type
             = image_tag('intervention_participations/action-travel.svg', class: "period-icon")
-            %h3{ class: "period-label" } Déplacement
+            %h3{ class: "period-label" }= t('enumerize.intervention_working_period.travel')
           = add_working_period_cost(product_parameter, nature: :travel)
 
-      - if (!participation.nil? && participation.has_period_with_nature?(nature: :intervention)) || product.is_a?(Equipment) 
+      - if (!participation.nil? && participation.has_period_with_nature?(nature: :intervention)) || product.is_a?(Equipment)
         .period
           .period-type
             = image_tag('intervention_participations/action-intervention.svg', class: "period-icon")
-            %h3{ class: "period-label" } Intervention
+            %h3{ class: "period-label" }= t('enumerize.intervention_working_period.intervention')
           = add_working_period_cost(product_parameter, nature: :intervention)
 
         .total
-          %h3{ class: "total-label" } Total
+          %h3{ class: "total-label" }= t('labels.total')
           = add_total_working_period(product_parameter)
 
   - variant = product_parameter.variant

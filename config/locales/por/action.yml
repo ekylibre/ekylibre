@@ -1132,6 +1132,7 @@ por:
     # hint: "Hint: %{value}"
     historic: "Histórico"
     home: "Casa"
+    # hours: "H"
     human_working_duration: "Duração de trabalho"
     # humans: "HR"
     iban: "Banco Número Internacional de Conta (IBAN)"
@@ -1163,6 +1164,7 @@ por:
     input_cost_per_hectare: "Custo de insumos por hectare" #?
     inputs: "Entradas"
     inspections: "inspeções"
+    # interactive_maps: "A JS library for interactive maps"
     interface_preferences: "Preferências de interface"
     internal_error: "Opa, algo aconteceu."
     interval: "Intervalo personalizado"
@@ -1279,6 +1281,7 @@ por:
     method: "Método"
     minimal_temperature: "Temperatura mínima"
     minimum_amount: "Quantidade mínima"
+    # minutes: "Min"
     missing_attributes: "Alguns atributos estão faltando"
     missing_help: "Página perdida"
     mobile: "Móvel"
@@ -1749,6 +1752,7 @@ por:
     workers: "Trabalhadores"
     working_duration: "Duração de trabalho"
     working_sets_stocks: "Trabalho define stocks"
+    # working_times: "Working times of %{name}"
     x_cashes:
       # one: "%{count} cash"
       # other: "%{count} cashes"

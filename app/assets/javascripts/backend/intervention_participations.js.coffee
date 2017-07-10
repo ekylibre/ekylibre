@@ -77,7 +77,7 @@
 
     $('.participation').each ->
       workingPeriodNature = $(this).find('input[name="working_period_nature"]').val()
-      
+
       if workingPeriodNature != "pause"
         workingPeriod = new Object()
         workingPeriod.id= $(this).find('input[name="working_period_id"]').val()
@@ -100,7 +100,7 @@
       existingParticipation.val(jsonParticipation)
     else
       $('.edit_intervention, .new_intervention').find('.form-fields').append('<input type="hidden" class="intervention-participation" name="intervention[participations_attributes][' + participationsCount + ']" value=\'' + jsonParticipation + '\' data-product-id="' + participation.product_id  + '"></input>')
-   
+
 
     concernedProductField = $('.nested-doers .nested-fields .selector .selector-value[value="' + participation.product_id + '"]')
     nestedFieldBlock = concernedProductField.closest('.nested-fields')

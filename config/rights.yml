@@ -106,6 +106,8 @@
 #     - "backend/helps#show"
 #     - "backend/helps#toggle"
 #     - "backend/inspections#export"
+#     - "backend/intervention_participations#create"
+#     - "backend/intervention_participations#participations_modal"
 #     - "backend/interventions#change_page"
 #     - "backend/januses#toggle"
 #     - "backend/kujakus#toggle"

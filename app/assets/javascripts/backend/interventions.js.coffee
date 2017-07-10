@@ -282,7 +282,7 @@
   $(document).on "selector:change", 'input[data-selector-id="intervention_doer_product_id"]', (event) ->
     element = $(event.target)
     blockElement = element.closest('.nested-fields')
-    
+
     pictoTimer = $('<div class="has-intervention-participations picto picto-timer-off"></div>')
 
     $(blockElement).append(pictoTimer)

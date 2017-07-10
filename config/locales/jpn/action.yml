@@ -1195,6 +1195,7 @@ jpn:
     # hint: "Hint: %{value}"
     historic: "歴史的"
     home: "持て成しの手伝いに帰り"
+    # hours: "H"
     human_working_duration: "作業期間"
     # humans: "HR"
     iban: "国際銀行口座番号（IBAN）"
@@ -1226,6 +1227,7 @@ jpn:
     input_cost_per_hectare: "ヘクタール当たりの入力コスト" #?
     inputs: "入力"
     inspections: "検査"
+    # interactive_maps: "A JS library for interactive maps"
     interface_preferences: "インターフェースのプリファレンス"
     internal_error: "おっと、何かが起こりました。"
     interval: "パーソナライズされた間隔"
@@ -1346,6 +1348,7 @@ jpn:
     method: "方法"
     minimal_temperature: "最小限の温度"
     minimum_amount: "最小量"
+    # minutes: "Min"
     missing_attributes: "一部の属性は失われています"
     missing_help: "無意味なページ"
     mobile: "モバイル"
@@ -1817,6 +1820,7 @@ jpn:
     workers: "労働者"
     working_duration: "作業期間"
     working_sets_stocks: "作業は、株式を設定します"
+    # working_times: "Working times of %{name}"
     x_cashes:
       # one: "%{count} cash"
       # other: "%{count} cashes"
