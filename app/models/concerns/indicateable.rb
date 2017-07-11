@@ -95,12 +95,10 @@ module Indicateable
       elsif reading = self.reading(indicator.name, at: cast_or_time)
         value = reading.value
       elsif !options[:default].is_a?(FalseClass)
-        if indicator.datatype == :measure
-          value = 0.0.in(indicator.unit)
-        elsif indicator.datatype == :decimal
-          value = 0.0
-        elsif indicator.datatype == :integer
-          value = 0
+        value = case indicator.datatype
+        when :measure then  0.0.in(indicator.unit)
+        when :decimal then  0.0
+        when :integer then 0
         end
       end
       # Adjust value
