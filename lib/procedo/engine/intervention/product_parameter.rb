@@ -22,7 +22,7 @@ module Procedo
           end
           @readings = {}.with_indifferent_access
           if @attributes[:readings_attributes]
-            @r_attributes[:readings_r_attributes].each do |r_id, r_attributes|
+            @attributes[:readings_attributes].each do |r_id, r_attributes|
               add_reading(r_id, r_attributes)
             end
           end
