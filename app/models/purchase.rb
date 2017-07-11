@@ -164,7 +164,10 @@ class Purchase < Ekylibre::Record::Base
   end
 
   after_update do
-    affair.update_attributes(third_id: self.third.id) if affair
+    purchase_deal = affair.deals.collect(&:nature).map{|p| p  if (p.nature == "purchase")} if affair
+    if affair && !purchase_deal.compact.blank?
+      affair.update_attributes(third_id: self.third.id) 
+    end
     affair.reload_gaps if affair
     true
   end
