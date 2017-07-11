@@ -1164,7 +1164,7 @@ por:
     input_cost_per_hectare: "Custo de insumos por hectare" #?
     inputs: "Entradas"
     inspections: "inspeções"
-    # interactive_maps: "A JS library for interactive maps"
+    interactive_maps: "Uma biblioteca JS para mapas interativos"
     interface_preferences: "Preferências de interface"
     internal_error: "Opa, algo aconteceu."
     interval: "Intervalo personalizado"
@@ -1301,6 +1301,7 @@ por:
     net_income: "Resultado líquido"
     net_margin: "Margem líquida" #?
     net_mass: "Massa líquida"
+    net_production_sales: "Vendas líquidas de produção"
     net_surface_area: "Área de superfície líquida"
     new: "Novo"
     new_activity: "nova atividade"
@@ -1853,6 +1854,9 @@ por:
     x_outgoing_payments:
       # one: "%{count} disbursement"
       # other: "%{count} disbursements"
+    x_purchase_payments:
+      # one: "%{count} purchase payment"
+      # other: "%{count} purchase payments"
     x_purchases:
       one: "1 de compra"
       # other: "%{count} purchases"

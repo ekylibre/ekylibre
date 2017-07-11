@@ -1630,6 +1630,7 @@ fra:
     net_income: "Résultat d’exercice"
     net_margin: "Marge nette" #?
     net_mass: "Masse nette"
+    net_production_sales: "Ventes nettes de production"
     net_surface_area: "Surface nette"
     net_vat_amount: "TVA nette due" #?
     net_volume: "Volume net" #?
@@ -2430,6 +2431,9 @@ fra:
     x_prices: #?
       one: "%{count} prix" #?
       other: "%{count} prix" #?
+    x_purchase_payments:
+      one: "%{count} paiement d'achat"
+      other: "%{count} paiements d'achats"
     x_purchases:
       one: "%{count} achat"
       other: "%{count} achats"
