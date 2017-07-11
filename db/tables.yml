@@ -4888,6 +4888,8 @@ parcel_items:
   lock_version:
     type: integer
     required: true
+  non_compliant:
+    type: boolean
   parcel_id:
     type: integer
     references: parcel

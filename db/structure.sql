@@ -4651,7 +4651,8 @@ CREATE TABLE parcel_items (
     currency character varying,
     unit_pretax_stock_amount numeric(19,4) DEFAULT 0.0 NOT NULL,
     unit_pretax_amount numeric(19,4) DEFAULT 0.0 NOT NULL,
-    pretax_amount numeric(19,4) DEFAULT 0.0 NOT NULL
+    pretax_amount numeric(19,4) DEFAULT 0.0 NOT NULL,
+    non_compliant boolean
 );
 
 
@@ -17862,4 +17863,6 @@ INSERT INTO schema_migrations (version) VALUES ('20170628125603');
 INSERT INTO schema_migrations (version) VALUES ('20170704092631');
 
 INSERT INTO schema_migrations (version) VALUES ('20170706143642');
+
+INSERT INTO schema_migrations (version) VALUES ('20170707114455');
 

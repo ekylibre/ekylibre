@@ -28,6 +28,7 @@
 #  currency                      :string
 #  id                            :integer          not null, primary key
 #  lock_version                  :integer          default(0), not null
+#  non_compliant                 :boolean
 #  parcel_id                     :integer          not null
 #  parted                        :boolean          default(FALSE), not null
 #  population                    :decimal(19, 4)
@@ -73,6 +74,7 @@ class ParcelItem < Ekylibre::Record::Base
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :currency, :product_identification_number, :product_name, length: { maximum: 500 }, allow_blank: true
+  validates :non_compliant, inclusion: { in: [true, false] }, allow_blank: true
   validates :parted, inclusion: { in: [true, false] }
   validates :population, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }, allow_blank: true
   validates :pretax_amount, :unit_pretax_amount, :unit_pretax_stock_amount, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
