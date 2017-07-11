@@ -319,6 +319,8 @@ module Backend
             editor[:show] = union.to_json_object unless union.empty?
           end
         end
+        editor[:useFeatures] = true
+        # editor[:show] = Charta.new_geometry("SRID=4326;GEOMETRYCOLLECTION(#{ Charta.new_geometry(editor[:show]).to_wkt.split(';')[1] })").to_json_feature_collection
       end
       editor[:back] ||= MapLayer.available_backgrounds.collect(&:to_json_object)
       editor[:overlays] ||= MapLayer.available_overlays.collect(&:to_json_object)

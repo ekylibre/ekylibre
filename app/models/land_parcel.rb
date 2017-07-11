@@ -96,6 +96,7 @@ class LandParcel < Easement
       end
       if frozen_indicators_list.include?(:net_surface_area) && variant.net_surface_area.nonzero?
         self.initial_population = initial_shape_area / variant.net_surface_area
+        self.initial_population = initial_shape_area / variant.net_surface_area
       end
     end
   end

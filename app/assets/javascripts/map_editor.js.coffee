@@ -156,6 +156,7 @@
       this.element.attr "type", "hidden"
 
       $.extend(true, this.options, this.element.data("map-editor"))
+      console.log(this.options)
 
       this.mapElement = $("<div>", class: "map #{this.options.customClass}")
         .insertAfter(this.element)
@@ -518,7 +519,8 @@
     _refreshReferenceLayerGroup: ->
       if this.reference?
         this.map.removeLayer this.reference
-      if this.options.show? and this.options.show.layers.length > 0
+      console.log(this.options.useFeatures)
+      if this.options.show?
         if this.options.useFeatures
 
           if @options.show.series?
