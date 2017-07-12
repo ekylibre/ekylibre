@@ -16,8 +16,7 @@
             products = Product.where(id: product_ids)
             products = product_ids.zip(products).to_h
 
-          - @target_distributions.each_with_index do |distribution, i|
-            - puts "#{i}".yellow
+          - @target_distributions.each do |distribution|
             - target = products[distribution.target_id]
             %tr
               %td{style: "width: 50%"}

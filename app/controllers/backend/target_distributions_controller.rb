@@ -46,22 +46,31 @@ module Backend
     def edit_many
       targets = Product.mine_or_undefined
 
-      if params[:activity_id]
-        activity = Activity.find_by(id: params[:activity_id])
-        if activity
-          targets = targets.of_variety(activity.cultivation_variety, activity.support_variety)
-        end
+
+      if params[:activity_id] && activity = Activity.find_by(id: params[:activity_id])
+        targets = targets.of_variety(activity.cultivation_variety, activity.support_variety)
       else
-        targets = targets.where(type: %w[Animal AnimalGroup Plant LandParcel Equipment EquipmentFleet]) # .where(id: InterventionTarget.includes(:product)) #.where.not(product_id: TargetDistribution.select(:target_id)))
+        targets = targets.generic_supports
       end
 
       @target_distributions = TargetDistribution.where(target_id: targets).joins(:target).order('products.name')
-      new_id = -1
-      targets.order(:name).each do |target|
-        unless @target_distributions.detect { |d| d.target_id == target.id }
-          @target_distributions << @target_distributions.build(id: new_id, target: target, activity_production: target.best_activity_production)
-        end
-        new_id -= 1
+
+      targets = targets.where.not(id: @target_distributions.pluck(:target_id))
+
+      activity_productions = ActivityProduction.where(id:
+        targets.joins("JOIN activity_productions ON activity_productions.support_id = products.id")
+               .select("MAX(activity_productions.id)")
+               .group('products.id')
+      )
+
+      activity_productions = activity_productions.pluck(:support_id, :id).to_h
+
+      targets.order(:name).pluck(:id).each_with_index do |target_id, id|
+        @target_distributions << @target_distributions.build(
+          id: -id,
+          target_id: target_id,
+          activity_production_id: activity_productions[target_id]
+        )
       end
     end
 
