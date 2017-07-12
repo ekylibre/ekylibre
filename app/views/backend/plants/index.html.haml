@@ -20,7 +20,8 @@
 = janus do |j|
   - if current_campaign && Plant.of_campaign(current_campaign).any?
     - j.face :map do
-      = plants_map main: true
+      - Ekylibre.profile('plants') do
+        = plants_map main: true
 
   - j.face :list do
     = main_list

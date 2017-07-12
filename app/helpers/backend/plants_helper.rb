@@ -41,7 +41,7 @@ module Backend
         end
 
         # for inspection and marketable_quantity
-        inspection = p.inspections.reorder(sampled_at: :desc).first
+        inspection = p.inspections.max_by(&:sampled_at)
         if inspection
           activity = inspection.activity
           dimension = activity.unit_preference(current_user)
