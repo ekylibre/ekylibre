@@ -1392,6 +1392,7 @@ cmn:
     # no_right_defined_for_this_part_of_the_application: "No right defined for this part of the application (%{controller}#%{action})"
     no_right_defined_for_this_part_of_the_application_and_this_user: "没有应用程序，这这部分用户定义的权"
     nominal_storable_easement_area: "标称可存储地役权面积"
+    # non_compliant: "Non compliant"
     none: "无"
     normal: "正常"
     not_delivered: "没送到"

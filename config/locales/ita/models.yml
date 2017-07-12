@@ -1106,6 +1106,7 @@ ita:
     nitrogen_need: "necessità di azoto"
     node: "Nodo"
     nodes: "nodi"
+    # non_compliant: "Non compliant"
     noticed_start_amount: "importo inizio Notato"
     noticed_stop_amount: "importo fermata Notato"
     notification: "Notifica"

@@ -449,7 +449,6 @@ class Renamer
       ns.gsub!(/(list[\(\ ]+):#{old_record}\s*(\)|\,|$)/, '\1:' + new_record + '\2')
       ns.gsub!(/(require\_dependency[\(\ ]*)\'#{old_record}\'\s*([\)\ ]*$)/, '\1:' + new_record + '\2')
 
-
       ns.gsub!(/^(\ +)(search\_for)/, '\1# \2')
 
       update_file(file, ns) if ns != source

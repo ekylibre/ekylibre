@@ -1310,6 +1310,7 @@ fra:
     nitrogen_need: "Besoins de la culture (Pf)"
     node: "Nœud"
     nodes: "Nœuds d’extraction"
+    non_compliant: "Non conforme"
     noticed_start_amount: "Montant de début constaté"
     noticed_stop_amount: "Montant de fin constaté"
     notification: "Notification"

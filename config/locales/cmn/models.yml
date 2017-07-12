@@ -1075,6 +1075,7 @@ cmn:
     nitrogen_need: "需要氮"
     node: "节点"
     nodes: "节点"
+    # non_compliant: "Non compliant"
     noticed_start_amount: "注意到启动量"
     noticed_stop_amount: "注意止损金额"
     notification: "通知"

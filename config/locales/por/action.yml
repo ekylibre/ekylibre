@@ -1396,6 +1396,7 @@ por:
     # no_right_defined_for_this_part_of_the_application: "No right defined for this part of the application (%{controller}#%{action})"
     no_right_defined_for_this_part_of_the_application_and_this_user: "Nenhum direito definido para esta parte do pedido e este usuário"
     nominal_storable_easement_area: "Nominal armazenável área de servidão"
+    # non_compliant: "Non compliant"
     none: "Nenhum"
     # normal: "Normal"
     not_delivered: "Não entregue"

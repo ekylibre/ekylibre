@@ -1457,6 +1457,7 @@ ita:
     # no_right_defined_for_this_part_of_the_application: "No right defined for this part of the application (%{controller}#%{action})"
     no_right_defined_for_this_part_of_the_application_and_this_user: "Nessun diritto definito per questa parte della domanda e questo utente"
     nominal_storable_easement_area: "Nominale zona servitù memorizzabili"
+    # non_compliant: "Non compliant"
     none: "Nessuna"
     normal: "Normale"
     not_delivered: "Non consegnato"

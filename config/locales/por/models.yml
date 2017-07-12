@@ -1075,6 +1075,7 @@ por:
     nitrogen_need: "Necessidade de azoto"
     node: "Nó"
     # nodes: "Nodes"
+    # non_compliant: "Non compliant"
     noticed_start_amount: "Montante início notado"
     noticed_stop_amount: "Montante parada notado"
     notification: "Notificação"

@@ -1631,6 +1631,7 @@ eng:
     no_right_defined_for_this_part_of_the_application_and_this_user: "No right defined for this part of the application and this user"
     # no_worker_account: "No worker account"
     nominal_storable_easement_area: "Nominal storable easement area"
+    non_compliant: "Non compliant"
     none: "None"
     normal: "Normal" #?
     not_delivered: "Not delivered" #?

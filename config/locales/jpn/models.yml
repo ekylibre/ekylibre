@@ -1075,6 +1075,7 @@ jpn:
     nitrogen_need: "窒素の必要性"
     node: "ノード"
     nodes: "ノード"
+    # non_compliant: "Non compliant"
     noticed_start_amount: "気づい開始量"
     noticed_stop_amount: "気づいストップ量"
     notification: "お知らせ"

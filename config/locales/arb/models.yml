@@ -1910,6 +1910,7 @@ arb:
     node: "العقدة"
     node_id: "عقدة" #?
     nodes: "عقد الاستخراج"
+    # non_compliant: "Non compliant"
     noticed_start_amount: "كمية بداية لاحظت"
     noticed_stop_amount: "لاحظت كمية توقف"
     notification: "إعلام"

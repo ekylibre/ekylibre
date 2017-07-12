@@ -1555,6 +1555,7 @@ spa:
     # no_right_defined_for_this_part_of_the_application: "No right defined for this part of the application (%{controller}#%{action})"
     no_right_defined_for_this_part_of_the_application_and_this_user: "Ningún derecho definido para esta parte de la aplicación y este usuario"
     nominal_storable_easement_area: "Nominal zona de servidumbre almacenable"
+    # non_compliant: "Non compliant"
     none: "Ninguna"
     normal: "Regimen del real normal"
     not_assessable_operations: "Opéraciones no imposnibles" #?

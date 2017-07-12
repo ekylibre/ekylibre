@@ -1075,6 +1075,7 @@ deu:
     nitrogen_need: "Stickstoff Notwendigkeit"
     node: "Knoten"
     nodes: "Knoten"
+    # non_compliant: "Non compliant"
     noticed_start_amount: "Bemerkt Start Menge"
     noticed_stop_amount: "Bemerkt Anschlag Menge"
     notification: "Benachrichtigung"

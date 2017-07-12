@@ -1079,6 +1079,7 @@ spa:
     nitrogen_need: "Necesidad de nitrógeno"
     node: "Nodo"
     nodes: "Los nodos"
+    # non_compliant: "Non compliant"
     noticed_start_amount: "Cantidad inicio notado"
     noticed_stop_amount: "Cantidad notado parada"
     notification: "Notificación"

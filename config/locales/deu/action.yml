@@ -1391,6 +1391,7 @@ deu:
     # no_right_defined_for_this_part_of_the_application: "No right defined for this part of the application (%{controller}#%{action})"
     no_right_defined_for_this_part_of_the_application_and_this_user: "Kein Recht für diesen Teil der Anwendung definiert und diesem User"
     nominal_storable_easement_area: "Nenn speicherbar Dienstbarkeit Bereich"
+    # non_compliant: "Non compliant"
     none: "Keiner"
     # normal: "Normal"
     not_delivered: "Nicht zugestellt"
