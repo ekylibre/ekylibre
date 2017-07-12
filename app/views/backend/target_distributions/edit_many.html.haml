@@ -10,27 +10,25 @@
             %th= TargetDistribution.human_attribute_name(:activity_production)
         %tbody
           :ruby
-            if params[:activity_id] && (activity = Activity.find_by(id: params[:activity_id]))
-              activity_productions = activity.productions
-            end
-            activity_productions ||= ActivityProduction
-            activity_productions = activity_productions.all.map { |ap| [ap.name, ap.id] }.sort_by(&:first)
+            activity = Activity.find_by(id: params[:activity_id]) if params[:activity_id]
+
             product_ids = @target_distributions.map(&:target_id).compact.uniq
             products = Product.where(id: product_ids)
             products = product_ids.zip(products).to_h
 
           - @target_distributions.each_with_index do |distribution, i|
             - puts "#{i}".yellow
-            = simple_fields_for "target_distributions[]", distribution do |f|
-              - target = products[distribution.target_id]
-              %tr
-                %td
-                  = link_to target.name, backend_product_path(target)
-                  - name = "target_distributions[#{distribution.id}][target_id]"
-                  -# = f.input :target_id, as: :hidden, value: target.id
-                  = hidden_field_tag name, target.id
-                %td
-                  = f.association :activity_production, wrapper: :nested, collection: activity_productions, include_blank: true
+            - target = products[distribution.target_id]
+            %tr
+              %td{style: "width: 50%"}
+                = link_to target.name, backend_product_path(target)
+                - name = "target_distributions[#{distribution.id}][target_id]"
+                -# = f.input :target_id, as: :hidden, value: target.id
+                = hidden_field_tag name, target.id
+              %td{style: "width: 50%"}
+                - activity_scope = { of_activity: activity.id } if activity
+                = selector_tag :"target_distributions[#{distribution.id}][activity_production_id]", { controller: 'backend/activity_productions', action: :unroll, scope: activity_scope }, { value: distribution.activity_production_id }
+                -# = f.association :activity_production, wrapper: :nested, collection: activity_productions, include_blank: true
     = form_actions do
       = submit_tag(:update.tl, data: {disable_with: :please_wait.tl}, class: 'btn btn-primary')
       = link_to(:cancel.tl, (params[:redirect] || { controller: :activities, action: :index }), (params[:dialog] ? { class: 'btn', data: {close_dialog: params[:dialog]} } : { class: 'btn' }))
