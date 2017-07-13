@@ -27,7 +27,8 @@ module Backend
 
     def show
       unless klass = Aggeratio[params[:id]]
-        head :not_found
+        notify_error :aggeratio_not_found
+        redirect_to action: :index
         return
       end
 

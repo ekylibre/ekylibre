@@ -2260,6 +2260,7 @@ eng:
         other: "There are %{count} entries to point"
       you_must_have_an_email_column: "You must have an email address in your extraction"
       you_need_to_review_your_application_configuration: "You need to review your application configuration"
+      aggeratio_not_found: "Aggeratio not present found"
   preferences:
     accounting_system: "Accounting plan"
     bookkeep_automatically: "Activate the automatic bookkeeping"
