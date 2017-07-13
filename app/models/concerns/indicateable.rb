@@ -65,7 +65,6 @@ module Indicateable
       raise ArgumentError, "Unknown indicator #{indicator.inspect}. Expecting one of them: #{Nomen::Indicator.all.sort.to_sentence}."
     end
     read_at = options[:at] || Time.zone.now
-    indicator_name = indicator.name
     readings.where("indicator_name = ? AND read_at <= ?", indicator.name, read_at).max_by(&:read_at)
   end
 
@@ -96,8 +95,8 @@ module Indicateable
         value = reading.value
       elsif !options[:default].is_a?(FalseClass)
         value = case indicator.datatype
-        when :measure then  0.0.in(indicator.unit)
-        when :decimal then  0.0
+        when :measure then 0.0.in(indicator.unit)
+        when :decimal then 0.0
         when :integer then 0
         end
       end

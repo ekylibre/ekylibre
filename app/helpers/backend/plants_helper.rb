@@ -6,11 +6,10 @@ module Backend
       html_options ||= {}
       html_options[:class] = 'map-fullwidth' if options.delete(:main)
 
-      data = Plant.of_campaign(current_campaign).collect do |p|
+      data = Plant.of_campaign(current_campaign).includes(:inspections, :nature).collect do |p|
         next unless p.shape
 
         popup_content = []
-
         # for all plant
         popup_content << { label: Plant.human_attribute_name(:net_surface_area), value: p.net_surface_area.in_hectare.round(2).l }
         popup_content << { label: Nomen::Variety.find(p.nature.variety).human_name, value: Nomen::Variety.find(p.variety).human_name }
