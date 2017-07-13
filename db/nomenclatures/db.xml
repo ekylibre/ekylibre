@@ -2105,8 +2105,8 @@
       <item name="average_wind_direction" datatype="measure" unit="degree" sampling_temporal_mode="period"/>
       <item name="average_wind_speed" datatype="measure" unit="kilometer_per_hour" sampling_temporal_mode="period"/>
       <item name="best_before_period" datatype="measure" unit="day"/>
-      <!-- <item name="birth_date" datatype="string"/> -->
-      <!-- <item name="birth_farm_number" datatype="string"/> -->
+      <item name="birth_date" datatype="string"/>
+      <item name="birth_farm_number" datatype="string"/>
       <item name="boron_concentration" datatype="measure" unit="parts_per_million"/>
       <item name="calcium_concentration" datatype="measure" unit="mass_percent"/>
       <item name="calving_ease_index" datatype="measure" unit="unity"/>
@@ -2118,7 +2118,7 @@
       <item name="clostridial_spores_concentration" datatype="measure" unit="unity_per_liter"/>
       <item name="consumption_period" datatype="measure" unit="day"/>
       <item name="copper_concentration" datatype="measure" unit="parts_per_million"/>
-      <!-- <item name="country_code" datatype="string"/> -->
+      <item name="country_code" datatype="string"/>
       <item name="cpb_filiation_status" datatype="boolean"/>
       <item name="cumulated_rainfall" datatype="measure" unit="millimeter" sampling_temporal_mode="period"/>
       <item name="daily_average_working_time" datatype="measure" unit="hour"/>
@@ -2128,21 +2128,21 @@
       <item name="dry_matter_rate" datatype="measure" unit="mass_percent"/>
       <item name="easement_area" datatype="measure" unit="square_meter" gathering="proportional_to_population"/>
       <item name="economical_milk_index" datatype="measure" unit="unity"/>
-      <!-- <item name="end_of_life_witness" datatype="string"/> -->
+      <item name="end_of_life_witness" datatype="string"/>
       <item name="energy" datatype="measure" unit="kilowatt_hour"/>
-      <!-- <item name="entry_date" datatype="string"/> -->
-      <!-- <item name="entry_reason" datatype="string"/> -->
-      <!-- <item name="exit_date" datatype="string"/> -->
-      <!-- <item name="exit_reason" datatype="string"/> -->
+      <item name="entry_date" datatype="string"/>
+      <item name="entry_reason" datatype="string"/>
+      <item name="exit_date" datatype="string"/>
+      <item name="exit_reason" datatype="string"/>
       <item name="fat_matter_concentration_index" datatype="measure" unit="unity"/>
       <item name="fat_matters_concentration" datatype="measure" unit="gram_per_liter"/>
-      <!-- <item name="father_country_code" datatype="string"/> -->
-      <!-- <item name="father_identification_number" datatype="string"/> -->
-      <!-- <item name="father_race_code" datatype="string"/> -->
+      <item name="father_country_code" datatype="string"/>
+      <item name="father_identification_number" datatype="string"/>
+      <item name="father_race_code" datatype="string"/>
       <item name="fence_perimeter" datatype="choice" choices="fence_perimeters"/>
       <item name="fertility_index" datatype="measure" unit="unity"/>
       <item name="figure" datatype="choice" choices="figures"/>
-      <!-- <item name="first_calving_date" datatype="string"/> -->
+      <item name="first_calving_date" datatype="string"/>
       <item name="fodder_bales_count" datatype="integer"/>
       <item name="freezing_point_temperature" datatype="measure" unit="celsius"/>
       <item name="fresh_mass" datatype="measure" unit="kilogram" gathering="proportional_to_population"/>
@@ -2199,9 +2199,9 @@
       <item name="minimal_temperature" datatype="measure" unit="celsius" sampling_temporal_mode="period"/>
       <item name="minimal_wind_speed" datatype="measure" unit="kilometer_per_hour" sampling_temporal_mode="period"/>
       <item name="molybdenum_concentration" datatype="measure" unit="parts_per_million"/>
-      <!-- <item name="mother_country_code" datatype="string"/> -->
-      <!-- <item name="mother_identification_number" datatype="string"/> -->
-      <!-- <item name="mother_race_code" datatype="string"/> -->
+      <item name="mother_country_code" datatype="string"/>
+      <item name="mother_identification_number" datatype="string"/>
+      <item name="mother_race_code" datatype="string"/>
       <item name="motor_power" datatype="measure" unit="french_horsepower"/>
       <item name="net_length" datatype="measure" unit="meter" gathering="proportional_to_population"/>
       <item name="net_mass" datatype="measure" unit="kilogram" gathering="proportional_to_population"/>
@@ -2213,8 +2213,8 @@
       <item name="nominal_storable_net_mass" datatype="measure" unit="kilogram"/>
       <item name="nominal_storable_net_volume" datatype="measure" unit="liter"/>
       <item name="organic_matter_concentration" datatype="measure" unit="mass_percent"/>
-      <!-- <item name="origin_country_code" datatype="string"/> -->
-      <!-- <item name="origin_identification_number" datatype="string"/> -->
+      <item name="origin_country_code" datatype="string"/>
+      <item name="origin_identification_number" datatype="string"/>
       <item name="phosphate_concentration" datatype="measure" unit="mass_percent"/>
       <item name="phosphorus_analysis_method" datatype="choice" choices="phosphorus_analysis_methods"/>
       <item name="phosphorus_concentration" datatype="measure" unit="mass_percent"/>
