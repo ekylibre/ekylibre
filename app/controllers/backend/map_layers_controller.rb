@@ -10,8 +10,13 @@ module Backend
     end
 
     def load
+      begin
       MapLayer.load_defaults
       redirect_to params[:redirect] || { action: :index }
+      rescue Exception => e
+        notify_error :locking_vesrsion_error
+        redirect_to params[:redirect] || { action: :index }
+      end
     end
 
     def toggle
