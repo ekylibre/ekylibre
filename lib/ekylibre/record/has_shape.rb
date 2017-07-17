@@ -208,7 +208,6 @@ module Ekylibre
             code << "def #{indicator}_height(options = {})\n"
             code << "  return (self.#{indicator}_y_max(options) - self.#{indicator}_y_min(options))\n"
             code << "end\n"
-
           end
 
           # code.split(/\n/).each_with_index{|l, i| puts (i+1).to_s.rjust(4) + ": " + l}
