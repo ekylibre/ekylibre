@@ -3,33 +3,39 @@
 
   class Iceberg
     constructor: (@line) ->
+      # console.log 'this', this
       @display = @line.find('.item-display')
 
-      bindButtons(newForm)
+      @_bindButtons(@newForm())
 
-      @line.find('[data-edit="item-form"]').click ->
+      @line.find('*[data-edit="item-form"]').click =>
         @display.addClass('hidden')
 
-        clone = oldForm.clone()
-        clone.insertAfter(oldForm)
+        clone = @oldForm().clone()
+        clone.insertAfter(@oldForm())
+        clone.trigger('cocoon:after-insert')
         clone.removeClass('hidden')
-        bindButtons(newForm)
+        @_bindButtons(@newForm())
 
-    bindButtons: (form) ->
+    _bindButtons: (form) ->
+      # console.log '_bindButtons:this', this
+      that = this
       $(form).find('button[data-validate="item-form"]').each ->
         $(this).click (event) ->
-          validate
+          that.validate()
           event.preventDefault()
 
       $(form).find('button[data-cancel="item-form"]').each ->
         $(this).click (event) ->
-          cancel
+          that.cancel()
           event.preventDefault()
 
     validate: ->
+      # console.log 'validate:this', this
+      that = this
       @display.find('*[data-item-value]').each ->
         element = $(this)
-        target = $(newForm).find(element.data("item-value")).first()
+        target = $(that.newForm()).find(element.data("item-value")).first()
         if target.is("input")
           value = target.val()
         else
@@ -37,20 +43,23 @@
         element.html(value)
 
       @display.removeClass('hidden')
-      oldForm.remove()
-      newForm.addClass('hidden')
+      @oldForm().remove()
+      @newForm().addClass('hidden')
 
     cancel: ->
+      # console.log 'cancel:this', this
       @display.removeClass('hidden')
-      newForm.remove()
+      @newForm().remove()
 
     oldForm: ->
+      # console.log 'oldForm:this', this
       @line.find('.nested-item-form:hidden')
 
     newForm: ->
+      # console.log 'newForm:this', this
       @line.find('.nested-item-form:visible')
 
   $(document).ready ->
     $('table.list').on 'cocoon:after-insert', (event, inserted) ->
-      iceberg = Iceberg.new($(inserted))
+      new Iceberg($(inserted))
 ) jQuery
