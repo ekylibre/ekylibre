@@ -66,7 +66,7 @@ class Reception < Parcel
   belongs_to :purchase, inverse_of: :parcels
 
   validates :sender, presence: true
-  validates :storage, presence: true
+  # validates :storage, presence: true
 
   before_validation do
     self.nature = 'incoming'
