@@ -1532,6 +1532,7 @@ deu:
     received: "Empfangen"
     # receiving_address: "Receiving address"
     recent_events: "Die jüngsten Ereignisse"
+    # reception_incident: "Reception incident"
     # reception_number: "Reception number"
     # receptions: "Receptions"
     record: "Aufzeichnen"

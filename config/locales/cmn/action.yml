@@ -1533,6 +1533,7 @@ cmn:
     received: "收到"
     # receiving_address: "Receiving address"
     recent_events: "最近发生的事件"
+    # reception_incident: "Reception incident"
     # reception_number: "Reception number"
     # receptions: "Receptions"
     record: "记录"

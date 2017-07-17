@@ -1537,6 +1537,7 @@ por:
     received: "Recebido"
     # receiving_address: "Receiving address"
     recent_events: "Eventos recentes"
+    # reception_incident: "Reception incident"
     # reception_number: "Reception number"
     # receptions: "Receptions"
     record: "Registro"

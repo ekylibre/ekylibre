@@ -2074,6 +2074,7 @@ arb:
     received: "مستلم"
     # receiving_address: "Receiving address"
     recent_events: "الاحداث الاخيرة"
+    # reception_incident: "Reception incident"
     # reception_number: "Reception number"
     # receptions: "Receptions"
     record: "سجل"

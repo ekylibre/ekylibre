@@ -1604,6 +1604,7 @@ jpn:
     received: "受け"
     # receiving_address: "Receiving address"
     recent_events: "最近のイベント"
+    # reception_incident: "Reception incident"
     # reception_number: "Reception number"
     # receptions: "Receptions"
     record: "記録"

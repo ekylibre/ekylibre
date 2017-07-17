@@ -679,7 +679,7 @@ fra:
       # order: "Order various service reception: %{name}"
       # prepare: "Prepare various service reception: %{name}"
       # ship: "Ship various service reception: %{name}"
-      # show: "Various service reception: %{name}"
+      show: "Réception de service: %{number}"
     backend/settings:
       about: "À propos…"
     backend/settlements:
@@ -1957,6 +1957,7 @@ fra:
     receiving_address: "Adresse de réception"
     recent_events: "Derniers événements"
     recent_historic: "Historique récent" #?
+    reception_incident: "Réception en incident"
     reception_number: "N° du bon de réception"
     receptions: "Réceptions"
     record: "Enregistrement"

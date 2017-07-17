@@ -1717,6 +1717,7 @@ spa:
     received: "Recibido"
     # receiving_address: "Receiving address"
     recent_events: "Eventos recientes"
+    # reception_incident: "Reception incident"
     # reception_number: "Reception number"
     # receptions: "Receptions"
     record: "Grabar"
