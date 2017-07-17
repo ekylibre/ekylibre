@@ -22,23 +22,23 @@
     %td{colspan: 6}
       .item-form
         = f.input :purchase_item_id, as: :hidden
-        = f.referenced_association(:variant, wrapper: :nested, source: { scope: :stockables_or_depreciables }, input_html: { class: 'parcel-item-variant', data: {product_of_delivery_item: {url: backend_product_nature_variant_path("RECORD_ID", format: :json)}}})
+        = f.referenced_association(:variant, source: { scope: :stockables_or_depreciables }, input_html: { class: 'parcel-item-variant', data: {product_of_delivery_item: {url: backend_product_nature_variant_path("RECORD_ID", format: :json)}}})
         = f.input :non_compliant, input_html: { data: { warn_if_checked: :non_compliant.tl } }
         -# .errors= item.errors.inspect
         .item-quantifier
           .item-quantifier-population
-            = f.input :population, wrapper: :nested_append do
+            = f.input :population do
               = f.input_field :population, class: "item-population", placeholder: '0', data: {"when-item": "unitary", "when-set-value": 1, "when-prop-value": "disabled"}
               %span.add-on.item-population-unit-name
                 = variant.unit_name.or_else('#')
-        = f.input :unit_pretax_amount, wrapper: :nested, input_html: { class: 'item-pretax-amount', data: {"when-item": "price_contract_#{item.parcel.contract_id}", "when-set-value": "RECORD_VALUE" } }
+        = f.input :unit_pretax_amount, input_html: { class: 'item-pretax-amount', data: {"when-item": "price_contract_#{item.parcel.contract_id}", "when-set-value": "RECORD_VALUE" } }
         / = f.referenced_association :storage, source: :storage, required: true
 
         - display = "display: none;" unless variant.identifiable?.or_else(false)
         .no-border{style: display, data: {"when-item": "identifiable", "when-display-value": 'true'}}
-          = f.input :name, wrapper: :nested_append do
+          = f.input :name do
             = f.input_field :product_name, placeholder: ParcelItem.human_attribute_name(:product_name)
-          = f.input :identification_number, wrapper: :nested_append do
+          = f.input :identification_number do
             = f.input_field :product_identification_number, placeholder: ParcelItem.human_attribute_name(:product_identification_number)
         .buttons
           %button.btn{ data: { cancel: 'item-form' } }= :cancel.tl
