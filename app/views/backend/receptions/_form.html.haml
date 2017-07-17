@@ -1,3 +1,5 @@
+= content_for(:heading_toolbar) do
+  %h2.global-incident-warning.hidden{ data: { warn_if_checked: :reception_incident.tl } }
 = field_set :general_informations do
   = f.input :nature, as: :hidden
   = f.input :contract_id, as: :hidden

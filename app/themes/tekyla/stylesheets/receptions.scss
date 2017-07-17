@@ -10,3 +10,18 @@
   font-size: $fs-small;
   color: white;
 }
+
+.global-incident-warning {
+  background-color: $caution-color;
+	margin-top: $default-gap;
+	margin-left: $default-gap;
+	margin-right: $default-gap;
+	padding-left: $default-gap;
+	padding-right: $default-gap;
+	padding-top: $default-gap;
+	padding-bottom: $default-gap;
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: $fs-huge;
+  color: white;
+}
