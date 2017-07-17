@@ -94,7 +94,7 @@
       = render 'backend/inspections/unit_selector', activity: resource
       .chart-table
         - resource.inspection_calibration_scales.each do |scale|
-          -if scale.natures.any? { |n| n.inspection_calibrations.any? }
+          -if scale.natures.includes(:inspection_calibrations).any? { |n| n.inspection_calibrations.any? }
             - base_series = caliber_series(dimension, scale, resource.inspections)
             - stock_series = base_series[:stock]
             - yield_series = base_series[:yield]
