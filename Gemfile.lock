@@ -24,7 +24,7 @@ GEM
       rails-html-sanitizer (~> 1.0, >= 1.0.3)
     active_list (6.9.3)
       arel (>= 5.0.0)
-      code_string
+      code_string (>= 0.0.0)
       i18n-complements
       rails (>= 3.2, < 5.0.0)
       rubyzip (>= 1.0)
@@ -112,7 +112,7 @@ GEM
       capybara (>= 2.3.0, < 2.14.0)
       json
     charlock_holmes (0.7.3)
-    charta (0.1.0)
+    charta (0.1.1)
       json (>= 1.8.0)
       nokogiri (>= 1.7.0)
       rgeo (~> 0.6.0)
