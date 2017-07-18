@@ -7,6 +7,7 @@
       @display = @line.find('.item-display')
 
       @_bindButtons(@newForm())
+      $('.form-actions .primary').attr("disabled",true)
 
       @line.find('*[data-edit="item-form"]').click =>
         @display.addClass('hidden')
@@ -16,6 +17,7 @@
         clone.trigger('cocoon:after-insert')
         clone.removeClass('hidden')
         @_bindButtons(@newForm())
+        $('.form-actions .primary').attr("disabled",true)
 
     _bindButtons: (form) ->
       # console.log '_bindButtons:this', this
@@ -45,11 +47,20 @@
       @display.removeClass('hidden')
       @oldForm().remove()
       @newForm().addClass('hidden')
+      @isFormSubmitable()
 
     cancel: ->
       # console.log 'cancel:this', this
       @display.removeClass('hidden')
       @newForm().remove()
+      @isFormSubmitable()
+
+    isFormSubmitable: ->
+      debugger
+      if $('.nested-item-form:visible').length >= 1
+        $('.form-actions .primary').attr("disabled",true)
+      else
+        $('.form-actions .primary').attr("disabled",null)
 
     oldForm: ->
       # console.log 'oldForm:this', this
