@@ -271,7 +271,11 @@ module Nomen
           ["nomenclatures.#{@nomenclature.name}.item_lists.#{self.name}.#{name}.#{i}".t, i]
         end
       elsif property.nomenclature?
-        return Nomen[property(name)].list.collect do |i|
+        target_nomenclature = Nomen.find(property(name).to_sym)
+        unless target_nomenclature
+          raise "Cannot find nomenclature: for #{property(name).inspect}"
+        end
+        return target_nomenclature.list.collect do |i|
           [i.human_name, i.name]
         end
       else

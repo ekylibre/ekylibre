@@ -89,7 +89,7 @@ module Backend
 
     def new_geometry_collection(geometries)
       if geometries.is_a?(Array) && geometries.any?
-        Charta.new_geometry("SRID=4326;GEOMETRYCOLLECTION(#{geometries.map{ |geo| geo[:shape].to_wkt.split(';')[1] }.join(',')})")#.convert_to(:multi_polygon)
+        Charta.new_geometry("SRID=4326;GEOMETRYCOLLECTION(#{geometries.map { |geo| geo[:shape].to_wkt.split(';')[1] }.join(',')})") # .convert_to(:multi_polygon)
       else
         Charta.empty_geometry
       end
