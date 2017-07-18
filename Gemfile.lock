@@ -24,7 +24,7 @@ GEM
       rails-html-sanitizer (~> 1.0, >= 1.0.3)
     active_list (6.9.3)
       arel (>= 5.0.0)
-      code_string (>= 0.0.0)
+      code_string
       i18n-complements
       rails (>= 3.2, < 5.0.0)
       rubyzip (>= 1.0)
@@ -96,7 +96,7 @@ GEM
       momentjs-rails (>= 2.8.1)
     browser (2.4.0)
     builder (3.2.3)
-    bullet (5.6.0)
+    bullet (5.5.1)
       activesupport (>= 3.0.0)
       uniform_notifier (~> 1.10.0)
     burisu-docsplit (0.7.9)
@@ -591,7 +591,7 @@ DEPENDENCIES
   bootstrap-slider-rails
   bootstrap3-datetimepicker-rails
   browser
-  bullet
+  bullet (~> 5.5.0)
   capybara
   capybara-webkit
   charlock_holmes
