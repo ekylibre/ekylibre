@@ -9,15 +9,7 @@
       @_bindButtons(@newForm())
       $('.form-actions .primary').attr("disabled",true)
 
-      @line.find('*[data-edit="item-form"]').click =>
-        @display.addClass('hidden')
-
-        clone = @oldForm().clone()
-        clone.insertAfter(@oldForm())
-        clone.trigger('cocoon:after-insert')
-        clone.removeClass('hidden')
-        @_bindButtons(@newForm())
-        $('.form-actions .primary').attr("disabled",true)
+      @edit()
 
     _bindButtons: (form) ->
       # console.log '_bindButtons:this', this
@@ -31,6 +23,17 @@
         $(this).click (event) ->
           that.cancel()
           event.preventDefault()
+
+    edit: ->
+      @line.find('*[data-edit="item-form"]').click =>
+        @display.addClass('hidden')
+
+        clone = @oldForm().clone()
+        clone.insertAfter(@oldForm())
+        clone.trigger('cocoon:after-insert')
+        clone.removeClass('hidden')
+        @_bindButtons(@newForm())
+        $('.form-actions .primary').attr("disabled",true)
 
     validate: ->
       # console.log 'validate:this', this
@@ -56,7 +59,6 @@
       @isFormSubmitable()
 
     isFormSubmitable: ->
-      debugger
       if $('.nested-item-form:visible').length >= 1
         $('.form-actions .primary').attr("disabled",true)
       else
@@ -71,6 +73,8 @@
       @line.find('.nested-item-form:visible')
 
   $(document).ready ->
-    $('table.list').on 'cocoon:after-insert', (event, inserted) ->
+    $('*[data-iceberg]').each ->
+      new Iceberg($(this))
+    $('*[data-iceberg]').on 'cocoon:after-insert', (event, inserted) ->
       new Iceberg($(inserted))
 ) jQuery
