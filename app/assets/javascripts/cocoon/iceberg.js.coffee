@@ -54,8 +54,11 @@
 
     cancel: ->
       # console.log 'cancel:this', this
-      @display.removeClass('hidden')
-      @newForm().remove()
+      if @line.find('.nested-item-form').length is 1
+        @line.remove()
+      else
+        @display.removeClass('hidden')
+        @newForm().remove()
       @isFormSubmitable()
 
     isFormSubmitable: ->
