@@ -1,8 +1,10 @@
 - item ||= f.object
 - variant = Maybe(item.variant)
+- f.object.currency = Preference[:currency]
+- visibleBlock = f.object.errors.present? ? "item-display" : "item-form" 
 
 %tbody.nested-fields.delivery-item.incoming-parcel-item
-  %tr.item-display.hidden
+  %tr.item-display{ class: ("hidden" if visibleBlock == "item-form") }
     %td.act
       - if f.object.destroyable?
         = link_to_remove_association(content_tag(:i) + h(:destroy.tl), f, 'data-no-turbolink' => true, class: 'destroy remove remove-item')
@@ -18,7 +20,7 @@
         %span{ data: { item_value: "span.item-population-unit-name" } }= f.object.variant ? f.object.variant.unit_name : '#'
     %td
       %label{ data: { item_value: "input.item-pretax-amount" } }= f.object.unit_pretax_amount
-  %tr.nested-item-form
+  %tr.nested-item-form{ class: ("hidden" if visibleBlock == "item-display") }
     %td{colspan: 6}
       .item-form
         = f.input :purchase_item_id, as: :hidden
@@ -31,8 +33,13 @@
               = f.input_field :population, class: "item-population", placeholder: '0', data: {"when-item": "unitary", "when-set-value": 1, "when-prop-value": "disabled"}
               %span.add-on.item-population-unit-name
                 = variant.unit_name.or_else('#')
-        = f.input :unit_pretax_amount, input_html: { class: 'item-pretax-amount', data: {"when-item": "price_contract_#{item.parcel.contract_id}", "when-set-value": "RECORD_VALUE" } }
-        / = f.referenced_association :storage, source: :storage, required: true
+        .item-pretax-amount
+          .item-unit-pretax-amount  
+            = f.input :unit_pretax_amount do
+              = f.input_field :unit_pretax_amount, input_html: { class: 'item-pretax-amount', data: {"when-item": "price_contract_#{item.parcel.contract_id}", "when-set-value": "RECORD_VALUE" } }
+              %span.add-on.item-unit-pretax-amount-currency
+                = f.object.currency
+            / = f.referenced_association :storage, source: :storage, required: true
 
         - display = "display: none;" unless variant.identifiable?.or_else(false)
         .no-border{style: display, data: {"when-item": "identifiable", "when-display-value": 'true'}}
