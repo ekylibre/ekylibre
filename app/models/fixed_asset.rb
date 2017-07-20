@@ -335,7 +335,9 @@ class FixedAsset < Ekylibre::Record::Base
       depreciations.find_each do |dep|
         dep.update!(accountable: true)
       end
+      return depreciations.count
     end
+    0
   end
 
   def depreciate!
