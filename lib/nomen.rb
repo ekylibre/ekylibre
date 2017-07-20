@@ -92,10 +92,11 @@ module Nomen
     def find(*args)
       options = args.extract_options!
       name = args.shift
+      nomenclature = find_or_initialize(name)
       if args.empty?
-        return set[name]
+        return nomenclature
       elsif args.size == 1
-        return set[name].find(args.shift) if set[name]
+        return nomenclature.find(args.shift) if nomenclature
       end
       nil
     end

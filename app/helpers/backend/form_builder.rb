@@ -206,6 +206,7 @@ module Backend
       else
         raise 'Need selection'
       end
+      selection -= Indicateable::DEPRECATED if attribute_name == :variable_indicators_list || attribute_name == :frozen_indicators_list
       list = @object.send(attribute_name) || []
       input(attribute_name, options) do
         @template.content_tag(:span, class: 'control-group symbol-list') do
