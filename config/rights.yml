@@ -1079,20 +1079,19 @@ imports:
     - "backend/imports#abort"
     - "backend/imports#run"
 
-
 incoming_deliveries:
   read:
     actions:
-    - "backend/receptions#index"
-    - "backend/receptions#list"
-    - "backend/receptions#list_items"
-    - "backend/receptions#show"
-    - "backend/receptions#unroll"
     - "backend/product_receptions#index"
     - "backend/product_receptions#list"
     - "backend/product_receptions#list_items"
     - "backend/product_receptions#show"
     - "backend/product_receptions#unroll"
+    - "backend/receptions#index"
+    - "backend/receptions#list"
+    - "backend/receptions#list_items"
+    - "backend/receptions#show"
+    - "backend/receptions#unroll"
     - "backend/service_receptions#index"
     - "backend/service_receptions#list"
     - "backend/service_receptions#list_items"
@@ -1102,16 +1101,6 @@ incoming_deliveries:
     dependencies:
     - read-incoming_deliveries
     actions:
-    - "backend/receptions#cancel"
-    - "backend/receptions#check"
-    - "backend/receptions#create"
-    - "backend/receptions#destroy"
-    - "backend/receptions#edit"
-    - "backend/receptions#give"
-    - "backend/receptions#new"
-    - "backend/receptions#order"
-    - "backend/receptions#prepare"
-    - "backend/receptions#update"
     - "backend/product_receptions#cancel"
     - "backend/product_receptions#check"
     - "backend/product_receptions#create"
@@ -1122,6 +1111,16 @@ incoming_deliveries:
     - "backend/product_receptions#order"
     - "backend/product_receptions#prepare"
     - "backend/product_receptions#update"
+    - "backend/receptions#cancel"
+    - "backend/receptions#check"
+    - "backend/receptions#create"
+    - "backend/receptions#destroy"
+    - "backend/receptions#edit"
+    - "backend/receptions#give"
+    - "backend/receptions#new"
+    - "backend/receptions#order"
+    - "backend/receptions#prepare"
+    - "backend/receptions#update"
     - "backend/service_receptions#cancel"
     - "backend/service_receptions#check"
     - "backend/service_receptions#create"
@@ -1994,6 +1993,7 @@ purchases:
     - "backend/debt_transfers#destroy"
     - "backend/interventions#purchase"
     - "backend/parcels#invoice"
+    - "backend/product_receptions#invoice"
     - "backend/purchase_affairs#attach"
     - "backend/purchase_affairs#detach"
     - "backend/purchase_affairs#detach_gaps"
@@ -2014,7 +2014,6 @@ purchases:
     - "backend/quick_purchases#create"
     - "backend/quick_purchases#new"
     - "backend/receptions#invoice"
-    - "backend/product_receptions#invoice"
     - "backend/service_receptions#invoice"
 
 roles:
@@ -2384,10 +2383,10 @@ transports:
     - "backend/deliveries#prepare"
     - "backend/deliveries#start"
     - "backend/deliveries#update"
-    - "backend/receptions#ship"
-    - "backend/shipments#ship"
     - "backend/product_receptions#ship"
+    - "backend/receptions#ship"
     - "backend/service_receptions#ship"
+    - "backend/shipments#ship"
 
 users:
   read:
