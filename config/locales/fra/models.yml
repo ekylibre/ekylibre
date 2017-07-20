@@ -284,6 +284,7 @@ fra:
             accountant:
               frozen: "Le comptable ne peut être modifié lorsqu'un échange est en cours"
             started_on:
+              on_or_after: "La date de début doit être postérieure à la date de création de la société (%{restriction})"
               consecutive: "L’exercice comptable doit être consécutif à un autre. Il doit commencer au lendemain de la fin du précédent."
               frozen: "La date de l'exercice comptable ne peut être modifiée une fois qu'un échange a été créé."
             stopped_on:
