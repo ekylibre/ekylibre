@@ -46,22 +46,20 @@ module Backend
     def edit_many
       targets = Product.mine_or_undefined
 
-
-      if params[:activity_id] && activity = Activity.find_by(id: params[:activity_id])
-        targets = targets.of_variety(activity.cultivation_variety, activity.support_variety)
-      else
-        targets = targets.generic_supports
-      end
+      targets = if params[:activity_id] && activity = Activity.find_by(id: params[:activity_id])
+                  targets.of_variety(activity.cultivation_variety, activity.support_variety)
+                else
+                  targets.generic_supports
+                end
 
       @target_distributions = TargetDistribution.where(target_id: targets).joins(:target).order('products.name')
 
       targets = targets.where.not(id: @target_distributions.pluck(:target_id))
 
       activity_productions = ActivityProduction.where(id:
-        targets.joins("JOIN activity_productions ON activity_productions.support_id = products.id")
-               .select("MAX(activity_productions.id)")
-               .group('products.id')
-      )
+        targets.joins('JOIN activity_productions ON activity_productions.support_id = products.id')
+               .select('MAX(activity_productions.id)')
+               .group('products.id'))
 
       activity_productions = activity_productions.pluck(:support_id, :id).to_h
 
