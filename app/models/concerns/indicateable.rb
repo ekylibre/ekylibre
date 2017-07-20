@@ -258,4 +258,25 @@ module Indicateable
     end
     data.update_all(["VALUE = #{expr}".gsub('VALUE', "#{indicator.datatype}_value"), value])
   end
+
+  DEPRECATED = [
+    ['Entry date', 'entry_date'],
+    ['Entry reason', 'entry_reason'],
+    ['Exit reason', 'exit_reason'],
+    ['Father race code', 'father_race_code'],
+    ['Birth date', 'birth_date'],
+    ['End of life witness', 'end_of_life_witness'],
+    ['Entry reason', 'entry_reason'],
+    ['Father country code', 'father_country_code'],
+    ['First calving date', 'first_calving_date'],
+    ['Birth farm number', 'birth_farm_number'],
+    ['Country code', 'country_code'],
+    ['Exit date', 'exit_date'],
+    ['Father identification number', 'father_identification_number'],
+    ['Mother country code', 'mother_country_code'],
+    ['Mother identification number', 'mother_identification_number'],
+    ['Mother race code', 'mother_race_code'],
+    ['Origin country code', 'origin_country_code'],
+    ['Origin identification number', 'origin_identification_number']
+  ].freeze
 end
