@@ -27,4 +27,5 @@
 #
 
 class ProductNatureVariantValuing < ActiveRecord::Base
+  belongs_to :variant, class_name: 'ProductNatureVariant'
 end
