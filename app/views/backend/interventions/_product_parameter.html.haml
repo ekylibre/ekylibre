@@ -13,7 +13,7 @@
         .period
           .period-type
             = image_tag('intervention_participations/action-preparation.svg', class: "period-icon")
-            %h3{ class: "period-label" }= t('enumerize.intervention_working_period.preparation') 
+            %h3{ class: "period-label" }= t('enumerize.intervention_working_period.preparation')
           = add_working_period_cost(product_parameter, nature: :preparation)
 
       - if !participation.nil? && participation.has_period_with_nature?(nature: :travel)

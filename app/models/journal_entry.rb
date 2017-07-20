@@ -81,7 +81,7 @@ class JournalEntry < Ekylibre::Record::Base
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :absolute_credit, :absolute_debit, :balance, :credit, :debit, :real_balance, :real_credit, :real_debit, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
-  validates :absolute_currency,:currency, :journal, :real_currency, presence: true
+  validates :absolute_currency, :currency, :journal, :real_currency, presence: true
   validates :number, :state, presence: true, length: { maximum: 500 }
   validates :printed_on, presence: true, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 50.years }, type: :date }
   validates :real_currency_rate, presence: true, numericality: { greater_than: -1_000_000_000, less_than: 1_000_000_000 }
@@ -231,9 +231,7 @@ class JournalEntry < Ekylibre::Record::Base
       self.number ||= journal.next_number
     end
 
-    if financial_year.blank?
-      self.currency = absolute_currency
-    end
+    self.currency = absolute_currency if financial_year.blank?
   end
 
   validate(on: :update) do

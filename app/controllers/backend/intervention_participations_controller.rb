@@ -50,7 +50,7 @@ module Backend
     def participations_modal
       participation = nil
 
-      if params["existing_participation"].present?
+      if params['existing_participation'].present?
         json_participation = JSON.parse(params['existing_participation'])
         participation = InterventionParticipation.new(json_participation)
       else
@@ -60,13 +60,28 @@ module Backend
         )
       end
 
-      if participation.intervention.nil?
-        intervention_started_at = Time.parse(params["intervention_started_at"])
-      else
-        intervention_started_at = participation.intervention.started_at
+      intervention_started_at = if participation.intervention.nil?
+                                  Time.parse(params['intervention_started_at'])
+                                else
+                                  participation.intervention.started_at
+                                end
+
+      intervention_tool = nil
+      if Product.find(params[:product_id]).is_a?(Equipment)
+        intervention_tool = participation.intervention.tools.find_by(product_id: params[:product_id])
       end
 
-      render partial: 'backend/intervention_participations/participations_modal', locals: { participation: participation, intervention_started_at: intervention_started_at }
+      display_calcul_mode = params[:display_calcul_mode]
+      auto_calcul_mode = params[:auto_calcul_mode]
+
+      render partial: 'backend/intervention_participations/participations_modal',
+             locals: {
+               participation: participation,
+               intervention_started_at: intervention_started_at,
+               intervention_tool: intervention_tool,
+               display_calcul_mode: display_calcul_mode,
+               auto_calcul_mode: auto_calcul_mode
+             }
     end
 
     private

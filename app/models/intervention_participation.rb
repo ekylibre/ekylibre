@@ -74,7 +74,7 @@ class InterventionParticipation < Ekylibre::Record::Base
   scope :sum_periods, lambda { |product_id, nature|
     InterventionParticipation.where(product_id: product_id, nature: nature)
   }
-  
+
   scope :of_actor, ->(actor) { where(product_id: actor.id) }
 
   before_save do

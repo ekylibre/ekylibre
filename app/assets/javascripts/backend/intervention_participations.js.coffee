@@ -119,6 +119,11 @@
 
     E.interventionParticipations.changeWorkingPeriod(element)
 
+  $(document).on "click", '#participation_auto_calculate_equipments', (event) ->
+
+    isChecked = $(event.target).is(':checked')
+    $('input[name="auto-calcul-mode"]').val(isChecked)
+
 
   E.interventionParticipations =
     changeWorkingPeriod: (element) ->

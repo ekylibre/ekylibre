@@ -632,7 +632,7 @@ class Intervention < Ekylibre::Record::Base
     InterventionParticipation.of_intervention(self).of_product(product).first
   end
 
-  def drivers_times(nature: nil, not_nature: nil)
+  def worker_working_periods(nature: nil, not_nature: nil)
     participations.select { |participation| participation.product.is_a?(Worker) }
     working_periods = nil
 
@@ -644,8 +644,11 @@ class Intervention < Ekylibre::Record::Base
       working_periods = participations.map { |participation| participation.working_periods.where.not(nature: not_nature) }
     end
 
-    working_periods
-      .flatten
+    working_periods.flatten
+  end
+
+  def drivers_times(nature: nil, not_nature: nil)
+    worker_working_periods
       .map(&:duration)
       .reduce(0, :+)
   end

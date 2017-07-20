@@ -192,17 +192,40 @@
     showInterventionParticipationsModal: ->
       $(document).on 'click', '.has-intervention-participations', (event) ->
 
+        targetted_element = $(event.target)
         intervention_id = $('input[name="intervention_id"]').val()
         product_id = $(event.target).closest('.nested-product-parameter').find(".selector .selector-value").val()
         existingParticipation = $('.intervention-participation[data-product-id="' + product_id + '"]').val()
+        participations = $('intervention_participation')
         interventionStartedAt = null
 
         if intervention_id == ""
           interventionStartedAt = $('.intervention-started-at').val()
 
+        displayCalculMode = false
+        if $(targetted_element).closest('.nested-driver, .nested-doer').length > 0 && $('input[name="display-calcul-mode"]').length == 0
+          $('.simple_form').append('<input type="hidden" name="display-calcul-mode" value="false"></input>')
+          displayCalculMode = true
+
+        autoCalculMode = true
+        if $('input[name="auto-calcul-mode"]').length == 0
+          $('.simple_form').append('<input type="hidden" name="auto-calcul-mode" value="true"></input>')
+        else
+          autoCalculMode = $('input[name="auto-calcul-mode"]').val()
+
+
+        datas = {}
+        datas['intervention_id'] = intervention_id
+        datas['product_id'] = product_id
+        datas['existing_participation'] = existingParticipation
+        datas['participations'] = participations
+        datas['intervention_started_at'] = interventionStartedAt
+        datas['display_calcul_mode'] = displayCalculMode
+        datas['auto_calcul_mode'] = autoCalculMode
+
         $.ajax
           url: "/backend/intervention_participations/participations_modal",
-          data: { intervention_id: intervention_id, product_id: product_id, existing_participation: existingParticipation, intervention_started_at: interventionStartedAt }
+          data: datas
           success: (data, status, request) ->
 
             @workingTimesModal = new ekylibre.modal('#working_times')
@@ -279,7 +302,7 @@
       E.interventions.updateAvailabilityInstant($(this).val())
 
 
-  $(document).on "selector:change", 'input[data-selector-id="intervention_doer_product_id"]', (event) ->
+  $(document).on "selector:change", 'input[data-selector-id="intervention_doer_product_id"], input[data-selector-id="intervention_tool_product_id"]', (event) ->
     element = $(event.target)
     blockElement = element.closest('.nested-fields')
 
