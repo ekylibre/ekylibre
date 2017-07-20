@@ -4882,6 +4882,11 @@ parcel_items:
     references: user
   currency:
     type: string
+  delivery_id:
+    type: integer
+    references: delivery
+  delivery_mode:
+    type: string
   id:
     type: integer
     required: true
@@ -4943,6 +4948,9 @@ parcel_items:
   source_product_movement_id:
     type: integer
     references: product_movement
+  transporter_id:
+    type: integer
+    references: entity
   unit_pretax_amount:
     type: decimal
     precision: 19

@@ -4652,7 +4652,10 @@ CREATE TABLE parcel_items (
     unit_pretax_stock_amount numeric(19,4) DEFAULT 0.0 NOT NULL,
     unit_pretax_amount numeric(19,4) DEFAULT 0.0 NOT NULL,
     pretax_amount numeric(19,4) DEFAULT 0.0 NOT NULL,
-    non_compliant boolean
+    non_compliant boolean,
+    delivery_mode character varying,
+    delivery_id integer,
+    transporter_id integer
 );
 
 
@@ -13722,6 +13725,13 @@ CREATE INDEX index_parcel_items_on_creator_id ON parcel_items USING btree (creat
 
 
 --
+-- Name: index_parcel_items_on_delivery_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_parcel_items_on_delivery_id ON parcel_items USING btree (delivery_id);
+
+
+--
 -- Name: index_parcel_items_on_parcel_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -13789,6 +13799,13 @@ CREATE INDEX index_parcel_items_on_source_product_id ON parcel_items USING btree
 --
 
 CREATE INDEX index_parcel_items_on_source_product_movement_id ON parcel_items USING btree (source_product_movement_id);
+
+
+--
+-- Name: index_parcel_items_on_transporter_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_parcel_items_on_transporter_id ON parcel_items USING btree (transporter_id);
 
 
 --
@@ -17865,4 +17882,6 @@ INSERT INTO schema_migrations (version) VALUES ('20170704092631');
 INSERT INTO schema_migrations (version) VALUES ('20170706143642');
 
 INSERT INTO schema_migrations (version) VALUES ('20170707114455');
+
+INSERT INTO schema_migrations (version) VALUES ('20170720103002');
 

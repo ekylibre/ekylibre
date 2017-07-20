@@ -26,6 +26,8 @@
 #  created_at                    :datetime         not null
 #  creator_id                    :integer
 #  currency                      :string
+#  delivery_id                   :integer
+#  delivery_mode                 :string
 #  id                            :integer          not null, primary key
 #  lock_version                  :integer          default(0), not null
 #  non_compliant                 :boolean
@@ -45,6 +47,7 @@
 #  shape                         :geometry({:srid=>4326, :type=>"multi_polygon"})
 #  source_product_id             :integer
 #  source_product_movement_id    :integer
+#  transporter_id                :integer
 #  unit_pretax_amount            :decimal(19, 4)   default(0.0), not null
 #  unit_pretax_stock_amount      :decimal(19, 4)   default(0.0), not null
 #  updated_at                    :datetime         not null
@@ -54,6 +57,7 @@
 class ParcelItem < Ekylibre::Record::Base
   attr_readonly :parcel_id
   attr_accessor :product_nature_variant_id
+  enumerize :delivery_mode, in: %i[transporter us third], predicates: { prefix: true }, scope: true, default: :us
   belongs_to :analysis
   belongs_to :parcel, inverse_of: :items
   belongs_to :product
@@ -63,12 +67,12 @@ class ParcelItem < Ekylibre::Record::Base
   belongs_to :product_movement,           dependent: :destroy
   belongs_to :purchase_item
   belongs_to :sale_item
+  belongs_to :delivery
+  belongs_to :transporter, class_name: 'Entity'
   belongs_to :source_product, class_name: 'Product'
   belongs_to :source_product_movement, class_name: 'ProductMovement', dependent: :destroy
   belongs_to :variant, -> { of_variety :matter }, class_name: 'ProductNatureVariant'
-  has_one :category, through: :variant
   has_one :nature, through: :variant
-  has_one :delivery, through: :parcel
   has_one :storage, through: :parcel
   has_one :contract, through: :parcel
 
