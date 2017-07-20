@@ -96,7 +96,6 @@ class Worker < Product
     self.team_id = user.team_id if user && user.team
   end
 
-
   def participation(intervention)
     InterventionParticipation.find_by(product: self, intervention: intervention)
   end

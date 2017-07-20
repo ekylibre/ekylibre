@@ -75,13 +75,9 @@ class InterventionDoer < InterventionAgent
   end
 
   def working_duration(nature: nil)
-    unless participation
-      return intervention_working_duration
-    end
+    return intervention_working_duration unless participation
 
-    if nature.nil?
-      return participation.working_periods.sum(:duration)
-    end
+    return participation.working_periods.sum(:duration) if nature.nil?
 
     participation.sum_periods_of_nature(nature)
   end

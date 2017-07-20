@@ -21,7 +21,7 @@
       - url_redirect_params[:bank_statement_id] = @bank_statement.id unless @bank_statement.nil?
       - url_redirect_params[:period_start] = params[:period_start] if params[:period_start].present?
       - url_redirect_params[:period_end] = params[:period_end] if params[:period_end].present?
-      
+
       = dropdown_menu_button :new_purchase, icon: false do |menu|
         - PurchaseNature.find_each do |nature|
           - menu.item nature.name, new_backend_quick_purchase_path(nature_id: nature.id, redirect: url_for(**url_redirect_params)), tabindex: -1, method: :get, class: 'from-selected-bank', title: nature.name

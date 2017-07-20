@@ -16,7 +16,7 @@
       minDate = $(this.dateInput).attr('data-min-date')
       maxDate = $(this.dateInput).attr('data-max-date')
       bankStatementDatesRanges = $(this.dateInput).attr('data-bank-statement-dates-ranges')
-      
+
       bankStatementDates = null
       if bankStatementDatesRanges
         bankStatementDates = JSON.parse("[" + bankStatementDatesRanges + "]")
@@ -34,16 +34,16 @@
             bankStatementDates[0].some (item, index) ->
               startDate = new Date(item.start)
               startDate.setHours(0, 0, 0)
-              
+
               endDate = new Date(item.end)
               endDate.setHours(0, 0, 0)
-              
+
               if date >= startDate && date <= endDate
                 enableDateCase = true
-                return true 
-            
+                return true
+
             return [enableDateCase, 'disabled']
-           
+
       @dateInput.attr "autocomplete", "off"
 
     _findAndCustomizeButton: ->

@@ -4034,6 +4034,8 @@ journal_entry_items:
   tax_declaration_item_id:
     type: integer
     references: tax_declaration_item
+  tax_declaration_mode:
+    type: string
   tax_id:
     type: integer
     references: tax
@@ -4048,7 +4050,7 @@ journal_entry_items:
     references: user
   variant_id:
     type: integer
-    references: ''
+    references: product_nature_variant
 journals:
   accountant_id:
     type: integer
@@ -7327,6 +7329,60 @@ tasks:
     references: sale_opportunity
   state:
     type: string
+    required: true
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+tax_declaration_item_parts:
+  account_id:
+    type: integer
+    references: account
+    required: true
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  direction:
+    type: string
+    required: true
+  id:
+    type: integer
+    required: true
+  journal_entry_item_id:
+    type: integer
+    references: journal_entry_item
+    required: true
+  lock_version:
+    type: integer
+    required: true
+  pretax_amount:
+    type: decimal
+    precision: 19
+    scale: 4
+    required: true
+  tax_amount:
+    type: decimal
+    precision: 19
+    scale: 4
+    required: true
+  tax_declaration_item_id:
+    type: integer
+    references: tax_declaration_item
+    required: true
+  total_pretax_amount:
+    type: decimal
+    precision: 19
+    scale: 4
+    required: true
+  total_tax_amount:
+    type: decimal
+    precision: 19
+    scale: 4
     required: true
   updated_at:
     type: datetime

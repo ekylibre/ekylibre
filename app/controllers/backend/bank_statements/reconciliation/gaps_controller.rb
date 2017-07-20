@@ -1,7 +1,6 @@
 module Backend
   module BankStatements
     module Reconciliation
-
       # Handles creation of 'Various Operations' from bank_statement_items + journal_entry_items.
       class GapsController < Backend::BaseController
         def create

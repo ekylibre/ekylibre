@@ -1,7 +1,7 @@
 - date ||= 'tmpl-date'
 .date-header
   %p#header{ data: { date: date } }= date
-  
+
   - bank_statement = BankStatement.find_by_date(date, date, cash_id) if bank_statement.nil? || !bank_statement.is_a?(BankStatement)
   - if bank_statement.nil? || !bank_statement.is_a?(BankStatement)
     %p.label-important= :cant_add_bank_statement_line.tl

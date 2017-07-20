@@ -638,9 +638,9 @@ class Intervention < Ekylibre::Record::Base
 
     if nature.nil? && not_nature.nil?
       working_periods = participations.map(&:working_periods)
-    elsif !nature.nil? 
+    elsif !nature.nil?
       working_periods = participations.map { |participation| participation.working_periods.where(nature: nature) }
-    elsif !not_nature.nil? 
+    elsif !not_nature.nil?
       working_periods = participations.map { |participation| participation.working_periods.where.not(nature: not_nature) }
     end
 

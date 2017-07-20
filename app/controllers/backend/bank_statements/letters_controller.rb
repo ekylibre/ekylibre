@@ -1,6 +1,5 @@
 module Backend
   module BankStatements
-
     # Handles bank reconciliation lettering.
     class LettersController < Backend::BaseController
       def create

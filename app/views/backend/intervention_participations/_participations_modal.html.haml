@@ -16,7 +16,7 @@
     .participations
       .participations-header
         %h3{ class: "action-header action-period" }= :action_duration.tl
-        %h3{ class: "action-header" }= :calculated_hours.tl 
+        %h3{ class: "action-header" }= :calculated_hours.tl
 
 
       = f.simple_fields_for :working_periods do |working_periods_form|
@@ -31,19 +31,19 @@
     .actions
       = button_tag nil, class: "btn btn-default action" do
         =image_tag('intervention_participations/action-preparation.svg', class: "action-icon")
-        %span= I18n.t('enumerize.intervention_working_period.nature.preparation') 
+        %span= I18n.t('enumerize.intervention_working_period.nature.preparation')
 
       = button_tag nil, class: "btn btn-default action" do
         =image_tag('intervention_participations/action-travel.svg', class: "action-icon")
-        %span= I18n.t('enumerize.intervention_working_period.nature.travel') 
+        %span= I18n.t('enumerize.intervention_working_period.nature.travel')
 
       = button_tag nil, class: "btn btn-default action" do
         =image_tag('intervention_participations/action-intervention.svg', class: "action-icon")
-        %span= I18n.t('enumerize.intervention_working_period.nature.intervention') 
+        %span= I18n.t('enumerize.intervention_working_period.nature.intervention')
 
       = button_tag nil, class: "btn btn-default action" do
         .picto.picto-pause-circle-outline
-        %span= I18n.t('enumerize.intervention_working_period.nature.pause') 
+        %span= I18n.t('enumerize.intervention_working_period.nature.pause')
 
 
   .modal-footer

@@ -776,6 +776,7 @@ ita:
     accounts: "conti"
     accounts_only_used_at: "Conti utilizzati solo a"
     accounts_to_load: "Conti per caricare"
+    # action_duration: "Action duration"
     activate_entry_autocompletion: "Attivare l’ingresso completamento automatico"
     active: "Attivo"
     active_finishing_after: "Finitura attivo dopo"

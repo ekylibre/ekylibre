@@ -710,6 +710,7 @@ deu:
     # accounts: "Accounts"
     accounts_only_used_at: "Konten nur verwendet, um"
     accounts_to_load: "Konten zu laden"
+    # action_duration: "Action duration"
     activate_entry_autocompletion: "Aktivieren Sie Eintrag Auto-Vervollständigung"
     active: "Aktiv"
     active_finishing_after: "Aktive Veredelung nach"

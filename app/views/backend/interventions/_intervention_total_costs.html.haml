@@ -8,7 +8,7 @@
     - elsif computation.quantity?
       %span.quantity= computation.quantity.round(1).l(precision: 0)
       %span.unit-name= computation.unit_name
-      %span / 
+      %span /
       - if computation.amount?
         %span.amount= computation.human_amount
       - else

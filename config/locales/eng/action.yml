@@ -89,6 +89,8 @@ eng:
       # show: "Attachment: %{name}"
     backend/bank_statements/items:
       # new: "New item"
+    backend/bank_statements/letters:
+      # unletter: "Unletter letter: %{name}"
     backend/bank_statements/reconciliation/items:
       # bank_statements_items_count: "Bank statements items count item: %{name}"
       # index: "Items"
@@ -1092,13 +1094,14 @@ eng:
     budgets: "Budgets" #?
     by_year: "By year"
     calculate: "Calculate" #?
+    # calculated_hours: "Calculated hours"
     calculators: "Calculators" #?
     calendar: "Calendar"
     campaign: "Campaign"
     canals: "Canals" #?
     cancel: "Cancel"
     cancelation: "Cancelation"
-    cant_add_bank_statement_line: "You can't add a new line because you don't have bank statement on this day" #?!
+    cant_add_bank_statement_line: "You can't add a new line because you don't have bank statement on this day"
     cap_islets: "CAP islets"
     cap_land_parcels: "CAP land parcels"
     capitalised_production: "Capitalised production" #?!
@@ -1130,7 +1133,7 @@ eng:
     choose_delete_interventions_options: "Would you :"
     choose_mail_column: "Choose email column"
     choose_options_is_needed: "You must choose the status for the following interventions:"
-    clear: "Clear"
+    clear: "Clear" #?
     click_to_mail: "Click to email with your own mail software"
     client: "Client" #?
     client_informations: "Client informations"
@@ -1144,7 +1147,7 @@ eng:
     columns: "Columns to import"
     commission: "Commission"
     company: "Society"
-    complete: "Complete"
+    complete: "Complete" #?
     completed: "Completed"
     # components: "Components"
     conditions:
@@ -1411,7 +1414,6 @@ eng:
     interventions: "Interventions"
     interventions_count: "Interventions count"
     interventions_paths: "Interventions paths" #?
-    # invalid_date: "Invalid date"
     invalid_file: "Invalid file" #?
     invalid_format: "Invalid format" #?
     inventories: "Inventories" #?
@@ -2413,6 +2415,7 @@ eng:
       takeover: "Take over"
       toggle: "Toggle"
       # toggle_autocompletion: "Toggle autocompletion"
+      # unletter: "Unletter"
       unlock: "Unlock"
       unmark: "Unmark"
       unroll: "Unroll"

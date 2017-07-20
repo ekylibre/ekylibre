@@ -61,10 +61,12 @@
 #  resource_type             :string
 #  state                     :string           not null
 #  tax_declaration_item_id   :integer
+#  tax_declaration_mode      :string
 #  tax_id                    :integer
 #  team_id                   :integer
 #  updated_at                :datetime         not null
 #  updater_id                :integer
+#  variant_id                :integer
 #
 
 require 'test_helper'
