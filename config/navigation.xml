@@ -2107,5 +2107,6 @@
     </group>
   </inaccessible-actions>
   <untreated-actions>
+    <group/>
   </untreated-actions>
 </navigation>

@@ -19,7 +19,7 @@
         h2 = $(this)
         h2.html(h2.data('warn-if-checked'))
         $('input[data-warn-if-checked]').click ->
-          if $('input[data-warn-if-checked]:checked').length >= 1 
+          if $('input[data-warn-if-checked]:checked').length >= 1
             h2.show()
           else
             h2.hide()
