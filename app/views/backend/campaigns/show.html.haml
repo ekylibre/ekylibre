@@ -1,7 +1,7 @@
 - activities = Activity.of_campaign(current_campaign)
 
 - main_toolbar do |t|
-  - availables = Activity.availables.where.not(id: activities)
+  - availables = Activity.availables
   - if availables.any?
     = t.menu :open, icon: false do |menu|
       - availables.order(:name).each do |a|
