@@ -94,4 +94,15 @@ class ProductTest < ActiveSupport::TestCase
       assert Product.of_working_set(item.name).count >= 0
     end
   end
+
+  test 'sets' do
+    p = Plant.last
+    p.id = nil
+    p.number = nil
+    prod = Plant.new(p.attributes)
+    assert_equal true, prod.valid?
+    # binding.pry
+    prod.save
+    assert_equal '1.955 hectare', prod.net_surface_area.to_s
+  end
 end

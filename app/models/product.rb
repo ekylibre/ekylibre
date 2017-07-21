@@ -294,6 +294,8 @@ class Product < Ekylibre::Record::Base
   validate :born_at_in_interventions, if: ->(product) { product.born_at? && product.interventions_used_in.pluck(:started_at).any? }
   validate :dead_at_in_interventions, if: ->(product) { product.dead_at? && product.interventions.pluck(:stopped_at).any? }
 
+  store_accessor :reading_cache, Nomen::Indicator.all
+
   # [DEPRECATIONS[
   #  - fixed_asset_id
   # ]DEPRECATIONS]
@@ -342,6 +344,7 @@ class Product < Ekylibre::Record::Base
     self.initial_born_at = self.born_at
     self.initial_dead_at = dead_at
     self.uuid ||= UUIDTools::UUID.random_create.to_s
+    # self.net_surface_area = initial_shape.area.in(:hectare).round(3)
   end
 
   before_validation :set_default_values, on: :create
@@ -441,6 +444,7 @@ class Product < Ekylibre::Record::Base
   end
 
   # set initial owner and localization
+  # after_save
   def set_initial_values
     # Add first owner on a product
     ownership = ownerships.first_of_all || ownerships.build
@@ -490,6 +494,14 @@ class Product < Ekylibre::Record::Base
         reading.save!
       end
     end
+  end
+
+  def shape=(new_shape)
+    binding.pry
+    self.reading_cache[:shape] = new_shape
+
+    self.net_surface_area = calculation_of_net_surface_area
+    self.shape
   end
 
   # Try to find the best name for the new products
@@ -761,21 +773,37 @@ class Product < Ekylibre::Record::Base
     list
   end
 
+  def net_surface_area
+    computed_surface = self.reading_cache[:net_surface_area]
+    return computed_surface if computed_surface
+    self.net_surface_area = calculation_of_net_surface_area
+  end
+
   # Override net_surface_area indicator to compute it from shape if
   # product has shape indicator unless options :strict is given
-  def net_surface_area(options = {})
+  def calculation_of_net_surface_area(options = {})
     # TODO: Manage global preferred surface unit or system
     area_unit = options[:unit] || :hectare
+    binding.pry
     if !options.keys.detect { |k| %i[gathering interpolate cast].include?(k) } &&
        has_indicator?(:shape) && !options[:compute].is_a?(FalseClass)
       unless options[:strict]
         options[:at] = born_at if born_at && born_at > Time.zone.now
       end
-      shape = get(:shape, options)
-      area = shape.area.in(area_unit).round(3) if shape
+      self.shape = get(:shape, options)
+      area = shape.area.in(area_unit).round(3)
     else
       area = get(:net_surface_area, options)
     end
     area || 0.in(area_unit)
+  end
+
+  def get(indicator, *args)
+    return super if args.present?
+    in_cache = reading_cache[indicator.to_s]
+    return in_cache if in_cache
+    indicator_value = super
+    update_column(:reading_cache, reading_cache.merge(indicator.to_s => indicator_value))
+    indicator_value
   end
 end
