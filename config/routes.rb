@@ -288,7 +288,7 @@ Rails.application.routes.draw do
       end
 
       namespace :reconciliation do
-        resources :gaps, only: %i[new create destroy]
+        resources :gaps, only: %i[create]
 
         resources :items, only: [:index] do
           collection do
