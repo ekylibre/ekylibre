@@ -399,11 +399,11 @@ entities_011:
   dead_at: 2004-07-11 22:00:00.000000000 Z
   deliveries_conditions: ''
   employee: false
-  first_name: "ユイ"
+  first_name: ユイ
   full_name: Mme ユイ 碇
   id: 11
   language: jpn
-  last_name: "碇"
+  last_name: 碇
   lock_version: 4
   locked: false
   meeting_origin: ''
@@ -517,7 +517,7 @@ entities_014:
   full_name: M.  Περικλῆς
   id: 14
   language: fra
-  last_name: "Περικλῆς"
+  last_name: Περικλῆς
   lock_version: 2
   locked: false
   meeting_origin: Acropole inauguration
@@ -633,7 +633,7 @@ entities_018:
     bla_dsfk_jioh_sdf: ''
   deliveries_conditions: ''
   employee: false
-  first_name: "Éçékiel"
+  first_name: Éçékiel
   full_name: M. Éçékiel Möêbìûŝ
   iban: ''
   id: 18
