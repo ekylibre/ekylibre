@@ -42,7 +42,10 @@
         element = $(this)
         target = $(that.newForm()).find(element.data("item-value")).first()
         if target.is("input")
-          value = target.val()
+          if target.is("input[type='radio']")
+            value = target.parent().text()
+          else
+            value = target.val()
         else
           value = target.html()
         element.html(value)

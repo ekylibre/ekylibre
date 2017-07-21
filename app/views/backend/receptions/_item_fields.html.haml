@@ -1,7 +1,7 @@
 - item ||= f.object
 - variant = Maybe(item.variant)
 - f.object.currency = Preference[:currency]
-- visibleBlock = f.object.errors.present? ? "item-display" : "item-form" 
+- visibleBlock = f.object.errors.present? ? "item-display" : "item-form"
 
 %tbody.nested-fields.delivery-item.incoming-parcel-item
   %tr.item-display{ class: ("hidden" if visibleBlock == "item-form") }
@@ -20,6 +20,8 @@
         %span{ data: { item_value: "span.item-population-unit-name" } }= f.object.variant ? f.object.variant.unit_name : '#'
     %td
       %label{ data: { item_value: "input.item-pretax-amount" } }= f.object.unit_pretax_amount
+    %td
+      %label{ data: { item_value: "input.item-delivery-mode:checked" } }= f.object.delivery_mode
   %tr.nested-item-form{ class: ("hidden" if visibleBlock == "item-display") }
     %td{colspan: 6}
       .item-form
@@ -34,12 +36,15 @@
               %span.add-on.item-population-unit-name
                 = variant.unit_name.or_else('#')
         .item-pretax-amount
-          .item-unit-pretax-amount  
+          .item-unit-pretax-amount
             = f.input :unit_pretax_amount do
               = f.input_field :unit_pretax_amount, input_html: { class: 'item-pretax-amount', data: {"when-item": "price_contract_#{item.parcel.contract_id}", "when-set-value": "RECORD_VALUE" } }
               %span.add-on.item-unit-pretax-amount-currency
                 = f.object.currency
-            / = f.referenced_association :storage, source: :storage, required: true
+        .item-delivery_mode
+          = f.input :delivery_mode, as: :radio_buttons, show: '.{{value}}-delivery-mode-options', input_html: { class: 'item-delivery-mode' }
+          .transporter-delivery-mode-options
+            = f.referenced_association :transporter, source: :transporters, new: {transporter: 1}
 
         - display = "display: none;" unless variant.identifiable?.or_else(false)
         .no-border{style: display, data: {"when-item": "identifiable", "when-display-value": 'true'}}

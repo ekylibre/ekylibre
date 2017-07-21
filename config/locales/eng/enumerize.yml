@@ -295,6 +295,11 @@ eng:
       nature:
         incoming: "Incoming"
         outgoing: "Outgoing"
+    parcel_item:
+      delivery_mode:
+        third: "Transported by recipient"
+        transporter: "Transported by transporter"
+        us: "Transported by us"
     plant_counting:
       nature:
         germination: "At germination"

@@ -9,9 +9,6 @@
     = f.referenced_association :address, source: :mails, input_html: {data: {"when-item": "address_id", "when-set-value": "RECORD_VALUE"}}, new: { canal: :mail }, label: :receiving_address.tl
   = f.input :reference_number, label: :reception_number.tl
   = f.referenced_association :responsible, source: :employees, new: { employed: 1 }, label: :receipt_responsible.tl
-  = f.input :delivery_mode, as: :radio_buttons
-  #delivery-mode-transporter
-    = f.referenced_association :transporter, source: :transporters, new: {transporter: 1}
   -#= f.referenced_association :sale
   = f.input :given_at, as: :date, required: false, label: :receipt_date.tl
   = f.input :late_delivery, input_html: { data: { warn_if_checked: :late.tl, show: '#due-on' } }
@@ -31,6 +28,7 @@
           %th= ParcelItem.human_attribute_name(:product)
           %th= ParcelItem.human_attribute_name(:population)
           %th= ParcelItem.human_attribute_name(:unit_pretax_amount)
+          %th= ParcelItem.human_attribute_name(:delivery_mode)
           / %th= ParcelItem.human_attribute_name(:storage)
 
       = f.simple_fields_for :items, f.object.items do |item|
@@ -38,7 +36,7 @@
       - if f.object.allow_items_update?
         %tfoot#items_anchor
           %tr.total
-            %th{colspan: 5}= link_to_add_association :add_item.tl, f, :items, partial: 'item_fields', 'data-association-insertion-node' => '#items_anchor', 'data-association-insertion-method' => :before, class: "btn primary"
+            %th{colspan: 6}= link_to_add_association :add_item.tl, f, :items, partial: 'item_fields', 'data-association-insertion-node' => '#items_anchor', 'data-association-insertion-method' => :before, class: "btn primary"
 / -else
 /   = field_set f.object.class.human_attribute_name(:items) do
 /     = "Items cannot be edited in current parcel state."

@@ -296,6 +296,11 @@ fra:
       nature:
         incoming: "Entrant"
         outgoing: "Sortant"
+    parcel_item:
+      delivery_mode:
+        third: "Par le tiers"
+        transporter: "Par tranporteur"
+        us: "Par nos soins"
     plant_counting:
       nature:
         germination: "À la levée"
