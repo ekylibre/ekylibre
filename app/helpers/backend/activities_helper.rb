@@ -154,7 +154,7 @@ module Backend
       last_i
         .scales
         .map do |scale|
-        dataset = last_i.calibrations.includes(nature: :scale).of_scale(scale).reorder(:id)
+          dataset = last_i.calibrations.includes(nature: :scale).of_scale(scale).reorder(:id)
           dataset.map do |calibration|
             {
               label: calibration.name,
