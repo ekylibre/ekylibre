@@ -71,7 +71,8 @@ class DebtTransfer < Ekylibre::Record::Base
                     elsif debt_transfer_affair.is_a?(SaleAffair) && affair.is_a?(PurchaseAffair)
                       :purchase_regularization
                     else
-                      raise 'Cannot run a debt transfer with homogeneous affairs'
+                      # raise 'Cannot run a debt transfer with homogeneous affairs'
+                      :other_regularization
                     end
   end
 
