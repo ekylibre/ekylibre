@@ -263,16 +263,24 @@ class ParcelItem < Ekylibre::Record::Base
 
   def calculate_average_cost_amount
     variant = ProductNatureVariant.find(:variant_id)
+    pu = self.unit_pretax_amount
     quantity_action = self.population
     old_product_nature_variant_valuing = ProductNatureVariantValuing.where(variant: variant.id)
     old_amount = old_product_nature_variant_valuing.amount
-    pu = self.unit_pretax_amount
 
-    quantity_new = variant.stock_account.last + quantity_action
-    amount = old_amount + quantity_action * pu
-    average_cost_amount = amount / quantity_new
+    if old_product_nature_variant_valuing == nil
+      amount = quantity_action * pu
+      average_cost_amount = amount / quantity_new
 
-    @product_nature_variant_valuing = ProductNatureVariantValuing.new(amount: amount, average_cost_amount: average_cost_amount, variant_id: @variant.id)
-    @product_nature_variant_valuing.save
+      product_nature_variant_valuing = ProductNatureVariantValuing.new(amount: amount, average_cost_amount: average_cost_amount, variant_id: @variant.id)
+      product_nature_variant_valuing.save
+    else
+      quantity_new = variant.stock_account.last + quantity_action
+      amount = old_amount + quantity_action * pu
+      average_cost_amount = amount / quantity_new
+
+      product_nature_variant_valuing = ProductNatureVariantValuing.new(amount: amount, average_cost_amount: average_cost_amount, variant_id: @variant.id)
+      product_nature_variant_valuing.save
+    end
   end
 end
