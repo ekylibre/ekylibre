@@ -176,16 +176,17 @@ class FinancialYearClose
   end
 
   def generate_lettering_carry_forward!(account)
-    unbalanced_letters = unbalanced_items_for(account)
+    unbalanced_letters = unbalanced_items_for(account, include_nil: true)
     progress = Progress.new(:close_lettering, id: @year.id, max: unbalanced_letters.count)
 
     unbalanced_letters.each do |info|
       entry_id = info.first
       letter = info.last
+      letter_match = letter ? [letter, letter + '*'] : nil
 
       lettering_items = JournalEntry.find(entry_id)
                                     .items
-                                    .where(letter: [letter, letter + '*'], account: account)
+                                    .where(letter: letter_match, account: account)
                                     .find_each.map do |item|
                                       {
                                         account_id: account.id,
@@ -258,7 +259,7 @@ class FinancialYearClose
     lettered_later.update_all(letter: new_letter)
     lettered_later.each do |item|
       affair = item.entry.resource && item.entry.resource.respond_to?(:affair) && item.entry.resource.affair
-      next unless affair && !updated_affairs[affair.id]
+      next unless affair && !@updated_affairs[affair.id]
 
       @updated_affairs[affair.id] = true
       affair.update_columns(letter: new_letter)
