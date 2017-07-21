@@ -22,10 +22,18 @@
 #
 # == Table: product_nature_variant_valuings
 #
-#  average_cost_amount                   :decimal           not null
-#  amount                                :decimal           not null
+#  average_cost_amount       :decimal          not null
+#  amount                    :decimal          not null
+#  created_at                :datetime         not null
+#  id                        :integer          not null, primary key
+#  updated_at                :datetime         not null
+#  variant_id                :integer          not null
 #
+
 
 class ProductNatureVariantValuing < ActiveRecord::Base
   belongs_to :variant, class_name: 'ProductNatureVariant'
+
+  validates :average_cost_amount, presence: true
+  validates :amount, presence: true
 end

@@ -5561,6 +5561,39 @@ ALTER SEQUENCE product_nature_variant_readings_id_seq OWNED BY product_nature_va
 
 
 --
+-- Name: product_nature_variant_valuings; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE product_nature_variant_valuings (
+    id integer NOT NULL,
+    average_cost_amount numeric(19,4) NOT NULL,
+    amount numeric(19,4) NOT NULL,
+    variant_id integer NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: product_nature_variant_valuings_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE product_nature_variant_valuings_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: product_nature_variant_valuings_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE product_nature_variant_valuings_id_seq OWNED BY product_nature_variant_valuings.id;
+
+
+--
 -- Name: product_nature_variants; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -7730,6 +7763,13 @@ ALTER TABLE ONLY product_nature_variant_readings ALTER COLUMN id SET DEFAULT nex
 
 
 --
+-- Name: product_nature_variant_valuings id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY product_nature_variant_valuings ALTER COLUMN id SET DEFAULT nextval('product_nature_variant_valuings_id_seq'::regclass);
+
+
+--
 -- Name: product_nature_variants id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -8887,6 +8927,14 @@ ALTER TABLE ONLY product_nature_variant_components
 
 ALTER TABLE ONLY product_nature_variant_readings
     ADD CONSTRAINT product_nature_variant_readings_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: product_nature_variant_valuings product_nature_variant_valuings_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY product_nature_variant_valuings
+    ADD CONSTRAINT product_nature_variant_valuings_pkey PRIMARY KEY (id);
 
 
 --
@@ -15082,6 +15130,13 @@ CREATE INDEX index_product_nature_variant_readings_on_variant_id ON product_natu
 
 
 --
+-- Name: index_product_nature_variant_valuings_on_variant_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_product_nature_variant_valuings_on_variant_id ON product_nature_variant_valuings USING btree (variant_id);
+
+
+--
 -- Name: index_product_nature_variants_on_category_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -17861,4 +17916,6 @@ INSERT INTO schema_migrations (version) VALUES ('20170425145302');
 INSERT INTO schema_migrations (version) VALUES ('20170530002312');
 
 INSERT INTO schema_migrations (version) VALUES ('20170602144753');
+
+INSERT INTO schema_migrations (version) VALUES ('20170720125756');
 
