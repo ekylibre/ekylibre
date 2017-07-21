@@ -94,7 +94,7 @@
       = render 'backend/inspections/unit_selector', activity: resource
       .chart-table
         - resource.inspection_calibration_scales.each do |scale|
-          -if scale.natures.includes(:inspection_calibrations).any? { |n| n.inspection_calibrations.any? }
+          - if scale.natures.includes(:inspection_calibrations).any? { |n| n.inspection_calibrations.any? }
             - base_series = caliber_series(dimension, scale, resource.inspections)
             - stock_series = base_series[:stock]
             - yield_series = base_series[:yield]
@@ -107,7 +107,7 @@
                 - [stock_chart, yield_chart, evolt_chart].each do |chart|
                   .chart-cell
                     = chart
-                =# even_cells(stock_chart, yield_chart, evolt_chart, cell_class: "chart-cell")
+                -# = even_cells(stock_chart, yield_chart, evolt_chart, cell_class: "chart-cell")
 
     - c.cobble(:inspections) do
       = cobble_list :inspections
