@@ -96,6 +96,9 @@ GEM
       momentjs-rails (>= 2.8.1)
     browser (2.4.0)
     builder (3.2.3)
+    bullet (5.5.1)
+      activesupport (>= 3.0.0)
+      uniform_notifier (~> 1.10.0)
     burisu-docsplit (0.7.9)
     byebug (9.0.6)
     capybara (2.13.0)
@@ -172,7 +175,7 @@ GEM
     execjs (2.7.0)
     factory_girl (4.8.0)
       activesupport (>= 3.0.0)
-    faraday (0.12.1)
+    faraday (0.12.2)
       multipart-post (>= 1.2, < 3)
     faraday_middleware (0.11.0.1)
       faraday (>= 0.7.4, < 1.0)
@@ -270,7 +273,7 @@ GEM
     mime-types-data (3.2016.0521)
     mimemagic (0.3.2)
     mini_portile2 (2.1.0)
-    minitest (5.10.2)
+    minitest (5.10.3)
     minitest-reporters (1.1.14)
       ansi
       builder
@@ -544,6 +547,7 @@ GEM
     unicorn (5.3.0)
       kgio (~> 2.6)
       raindrops (~> 0.7)
+    uniform_notifier (1.10.0)
     uuidtools (2.1.5)
     warden (1.2.7)
       rack (>= 1.0)
@@ -582,6 +586,7 @@ DEPENDENCIES
   bootstrap-slider-rails
   bootstrap3-datetimepicker-rails
   browser
+  bullet (< 5.6.0)
   capybara
   capybara-webkit
   charlock_holmes
