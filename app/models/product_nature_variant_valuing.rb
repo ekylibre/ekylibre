@@ -36,4 +36,45 @@ class ProductNatureVariantValuing < ActiveRecord::Base
 
   validates :average_cost_amount, presence: true
   validates :amount, presence: true
+
+  def initialize(pu, quantity_action, variant_id)
+    @pu = pu
+    @quantity_action = quantity_action
+    @variant = ProductNatureVariant.find(variant_id)
+
+# belongs_to :stock_account, class_name: 'Account'
+    @old_quantity = @variant.stock_account.last
+
+    @old_product_nature_variant_valuing = ProductNatureVariantValuing.where(variant: @variant)
+    @old_amount = @old_product_nature_variant_valuing.amount
+    @old_cump = @old_product_nature_variant_valuing.cump
+  end
+# some logical, verification in process
+  def calculate_output
+    quantity_new = @variant.stock_account.last + @quantity_action
+    amount = @old_amount + @quantity_action * @pu
+    cump = amount / quantity_new
+
+    @product_nature_variant_valuing = ProductNatureVariantValuing.new(amount: amount, cump: cump, variant_id: @variant.id)
+    @product_nature_variant_valuing.save
+  end
+
+  def calculate_input
+    quantity_new = old_quantity - quantity_action
+    amount = @old_amount - quantity_action * @old_cump
+    cump = amount / quantity_new
+
+    @product_nature_variant_valuing = ProductNatureVariantValuing.new(amount: amount, cump: cump, variant_id: @variant_id)
+    @product_nature_variant_valuing.save
+  end
+
+  def calculate_inventory
+    quantity_actual = @old_quantity
+    amount = quantity_actual * @old_cump
+    cump = amount / quantity_actual
+
+    @product_nature_variant_valuing = ProductNatureVariantValuing.new(amount: amount, cump: cump, variant_id: @variant_id)
+    @product_nature_variant_valuing.save
+  end
+
 end
