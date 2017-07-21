@@ -65,5 +65,7 @@ module Backend
         render :new
       end
     end
+
+    def edit_interval; end
   end
 end

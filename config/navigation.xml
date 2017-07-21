@@ -201,7 +201,6 @@
         <page to="backend/cashes#show"/>
         <page to="backend/cashes#unroll"/>
         <page to="backend/cashes#update"/>
-        <page to="backend/bank_statement_items#new" nonexistent="true"/>
         <page to="backend/bank_statements#index"/>
         <page to="backend/bank_statements#create"/>
         <page to="backend/bank_statements#destroy"/>
@@ -213,18 +212,22 @@
         <page to="backend/bank_statements#unroll"/>
         <page to="backend/bank_statements#update"/>
         <page to="backend/bank_statements#import"/>
-        <page to="backend/bank_reconciliation_gaps#create" nonexistent="true"/>
+        <page to="backend/bank_statements#edit_interval"/>
+        <page to="backend/bank_statements/items#create"/>
+        <page to="backend/bank_statements/items#destroy"/>
+        <page to="backend/bank_statements/items#new"/>
+        <page to="backend/bank_statements/letters#create"/>
+        <page to="backend/bank_statements/letters#unletter"/>
+        <page to="backend/bank_statements/reconciliation/gaps#create"/>
+        <page to="backend/bank_statements/reconciliation/items#index"/>
+        <page to="backend/bank_statements/reconciliation/items#bank_statements_items_count"/>
+        <page to="backend/bank_statements/reconciliation/items#reconciliate_bank_statements"/>
         <page to="backend/quick_affairs#create"/>
         <page to="backend/quick_affairs#new"/>
         <page to="backend/quick_purchases#new"/>
         <page to="backend/quick_purchases#create"/>
         <page to="backend/quick_sales#new"/>
         <page to="backend/quick_sales#create"/>
-        <page to="backend/bank_statement_letters#create" nonexistent="true"/>
-        <page to="backend/bank_statement_letters#destroy" nonexistent="true"/>
-        <page to="backend/bank_reconciliation_items#index" nonexistent="true"/>
-        <page to="backend/bank_statement_items#create" nonexistent="true"/>
-        <page to="backend/bank_statement_items#destroy" nonexistent="true"/>
       </item>
       <item name="loans">
         <page to="backend/loans#index"/>
@@ -2033,24 +2036,6 @@
     </group>
   </inaccessible-actions>
   <untreated-actions>
-    <group>
-      <item name="items">
-        <page to="backend/bank_statements/items#create"/>
-        <page to="backend/bank_statements/items#destroy"/>
-        <page to="backend/bank_statements/items#new"/>
-      </item>
-      <item name="letters">
-        <page to="backend/bank_statements/letters#create"/>
-        <page to="backend/bank_statements/letters#unletter"/>
-      </item>
-      <item name="gaps">
-        <page to="backend/bank_statements/reconciliation/gaps#create"/>
-      </item>
-      <item name="items">
-        <page to="backend/bank_statements/reconciliation/items#index"/>
-        <page to="backend/bank_statements/reconciliation/items#bank_statements_items_count"/>
-        <page to="backend/bank_statements/reconciliation/items#reconciliate_bank_statements"/>
-      </item>
-    </group>
+    <group/>
   </untreated-actions>
 </navigation>

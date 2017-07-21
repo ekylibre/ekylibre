@@ -97,7 +97,7 @@ eng:
       # reconciliate_bank_statements: "Reconciliate bank statements item: %{name}"
     backend/bank_statements:
       edit: "Edit bank statement %{number}"
-      edit_interval: "Bank statements periods to reconciliate" #?
+      edit_interval: "Bank statements periods to reconciliate"
       import: "Import OFX file"
       index: "Bank statements"
       new: "New bank statement"
@@ -2333,7 +2333,7 @@ eng:
       down: "Down"
       duplicate: "Duplicate"
       edit: "Edit"
-      edit_interval: "Reconciliate" #?
+      edit_interval: "Reconciliate"
       edit_many: "Edit many"
       # ekylibre: "Ekylibre"
       evaluate: "Evaluate"
