@@ -37,44 +37,44 @@ class ProductNatureVariantValuing < ActiveRecord::Base
   validates :average_cost_amount, presence: true
   validates :amount, presence: true
 
-  def initialize(pu, quantity_action, variant_id)
-    @pu = pu
-    @quantity_action = quantity_action
-    @variant = ProductNatureVariant.find(variant_id)
+#   def initialize(pu, quantity_action, variant_id)
+#     @pu = pu
+#     @quantity_action = quantity_action
+#     @variant = ProductNatureVariant.find(variant_id)
 
-# belongs_to :stock_account, class_name: 'Account'
-    @old_quantity = @variant.stock_account.last
+# # belongs_to :stock_account, class_name: 'Account'
+#     @old_quantity = @variant.stock_account.last
 
-    @old_product_nature_variant_valuing = ProductNatureVariantValuing.where(variant: @variant)
-    @old_amount = @old_product_nature_variant_valuing.amount
-    @old_average_cost_amount = @old_product_nature_variant_valuing.average_cost_amount
-  end
-# some logical, verification in process
-  def calculate_output
-    quantity_new = @variant.stock_account.last + @quantity_action
-    amount = @old_amount + @quantity_action * @pu
-    average_cost_amount = amount / quantity_new
+#     @old_product_nature_variant_valuing = ProductNatureVariantValuing.where(variant: @variant)
+#     @old_amount = @old_product_nature_variant_valuing.amount
+#     @old_average_cost_amount = @old_product_nature_variant_valuing.average_cost_amount
+#   end
+# # some logical, verification in process
+#   def calculate_output
+#     quantity_new = @variant.stock_account.last + @quantity_action
+#     amount = @old_amount + @quantity_action * @pu
+#     average_cost_amount = amount / quantity_new
 
-    @product_nature_variant_valuing = ProductNatureVariantValuing.new(amount: amount, average_cost_amount: average_cost_amount, variant_id: @variant.id)
-    @product_nature_variant_valuing.save
-  end
+#     @product_nature_variant_valuing = ProductNatureVariantValuing.new(amount: amount, average_cost_amount: average_cost_amount, variant_id: @variant.id)
+#     @product_nature_variant_valuing.save
+#   end
 
-  def calculate_input
-    quantity_new = old_quantity - quantity_action
-    amount = @old_amount - quantity_action * @old_average_cost_amount
-    average_cost_amount = amount / quantity_new
+#   def calculate_input
+#     quantity_new = old_quantity - quantity_action
+#     amount = @old_amount - quantity_action * @old_average_cost_amount
+#     average_cost_amount = amount / quantity_new
 
-    @product_nature_variant_valuing = ProductNatureVariantValuing.new(amount: amount, average_cost_amount: average_cost_amount, variant_id: @variant_id)
-    @product_nature_variant_valuing.save
-  end
+#     @product_nature_variant_valuing = ProductNatureVariantValuing.new(amount: amount, average_cost_amount: average_cost_amount, variant_id: @variant_id)
+#     @product_nature_variant_valuing.save
+#   end
 
-  def calculate_inventory
-    quantity_actual = @old_quantity
-    amount = quantity_actual * @old_average_cost_amount
-    average_cost_amount = amount / quantity_actual
+#   def calculate_inventory
+#     quantity_actual = @old_quantity
+#     amount = quantity_actual * @old_average_cost_amount
+#     average_cost_amount = amount / quantity_actual
 
-    @product_nature_variant_valuing = ProductNatureVariantValuing.new(amount: amount, average_cost_amount: average_cost_amount, variant_id: @variant_id)
-    @product_nature_variant_valuing.save
-  end
+#     @product_nature_variant_valuing = ProductNatureVariantValuing.new(amount: amount, average_cost_amount: average_cost_amount, variant_id: @variant_id)
+#     @product_nature_variant_valuing.save
+#   end
 
 end
