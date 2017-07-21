@@ -96,6 +96,7 @@ class SaleItem < Ekylibre::Record::Base
   # ]VALIDATORS]
   validates :currency, length: { allow_nil: true, maximum: 3 }
   validates :tax, presence: true
+  validates :quantity, presence: true
 
   # return all sale items  between two dates
   scope :between, lambda { |started_at, stopped_at|
@@ -122,6 +123,7 @@ class SaleItem < Ekylibre::Record::Base
       self.quantity = -1 * credited_quantity
     end
     if tax
+      self.quantity ||= 0
       precision = Maybe(Nomen::Currency.find(currency)).precision.or_else(2)
       if compute_from_unit_pretax_amount?
         if credited_item
