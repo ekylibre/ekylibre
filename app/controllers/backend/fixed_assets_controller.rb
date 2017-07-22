@@ -127,7 +127,7 @@ module Backend
       end
 
       count = FixedAsset.depreciate(until: bookkeep_until)
-      notify_success(:x_fixed_asset_depreciations_have_been_bookkept_successfully, count: count)
+      notify_success(:"x_fixed_asset_depreciations_have_been_bookkept_successfully", count: count)
       redirect_to(params[:redirect] || { action: :index })
     end
 
