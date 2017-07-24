@@ -135,14 +135,16 @@ class OutgoingPaymentList < Ekylibre::Record::Base
   def self.build_from_affairs(affairs, mode, responsible, initial_check_number = nil, ignore_empty_affair = false)
     thirds = affairs.map(&:third).uniq
     position = 0
-    purchase_payments = thirds.map.with_index do |third|
+
+    purchase_payments = thirds.map do |third|
       third_affairs = affairs.select { |a| a.third == third }.sort_by(&:created_at)
-      first_affair = third_affairs.first
-      third_affairs.each_with_index do |affair, index|
-        first_affair.absorb!(affair) if index > 0
-      end
+      first_affair = third_affairs.shift
+
+      third_affairs.map{ |affair| first_affair.absorb!(affair) }
+
       next if first_affair.balanced?
       next if ignore_empty_affair && first_affair.third_credit_balance <= 0
+
       op = PurchasePayment.new(
         affair: first_affair,
         amount: first_affair.third_credit_balance,
@@ -157,10 +159,12 @@ class OutgoingPaymentList < Ekylibre::Record::Base
         bank_check_number: initial_check_number.blank? ? nil : initial_check_number.to_i,
         position: position
       )
+
       initial_check_number = initial_check_number.to_i + 1 if initial_check_number.present?
       position += 1
       op
     end.compact
+
     new(payments: purchase_payments, mode: mode) unless purchase_payments.empty?
   end
 end
