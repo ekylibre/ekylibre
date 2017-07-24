@@ -4870,6 +4870,35 @@ outgoing_payments:
   updater_id:
     type: integer
     references: user
+parcel_item_storings:
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: ''
+  id:
+    type: integer
+    required: true
+  lock_version:
+    type: integer
+    required: true
+  parcel_item_id:
+    type: integer
+    references: parcel_item
+    required: true
+  quantity:
+    type: integer
+  storage_id:
+    type: integer
+    references: ''
+    required: true
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: ''
 parcel_items:
   analysis_id:
     type: integer
