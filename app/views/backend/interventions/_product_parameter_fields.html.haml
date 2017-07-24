@@ -38,7 +38,7 @@
     - else
       = f.input :new_variant_id, input_html: { data: { intervention_updater: prefix + 'new_variant_id' }}
 
-  - if reference.attribute(:working_zone)
+  - if reference.attribute(:working_zone) && current_user.preference('interface.interventions.map_show').value
     :ruby
       # TODO move into controller
       lp_json = { type: 'FeatureCollection', features: [] }
