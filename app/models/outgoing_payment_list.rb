@@ -140,7 +140,7 @@ class OutgoingPaymentList < Ekylibre::Record::Base
       third_affairs = affairs.select { |a| a.third == third }.sort_by(&:created_at)
       first_affair = third_affairs.shift
 
-      third_affairs.map{ |affair| first_affair.absorb!(affair) }
+      third_affairs.map { |affair| first_affair.absorb!(affair) }
 
       next if first_affair.balanced?
       next if ignore_empty_affair && first_affair.third_credit_balance <= 0
