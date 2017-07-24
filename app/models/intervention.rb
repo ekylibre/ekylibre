@@ -648,9 +648,14 @@ class Intervention < Ekylibre::Record::Base
   end
 
   def drivers_times(nature: nil, not_nature: nil)
-    worker_working_periods
+    worker_working_periods(nature: nature, not_nature: not_nature)
       .map(&:duration)
       .reduce(0, :+)
+  end
+
+  def first_worker_working_period(nature: nil, not_nature: nil)
+    test = worker_working_periods(nature: nature, not_nature: not_nature)
+    byebug
   end
 
   class << self

@@ -74,13 +74,23 @@ module Backend
       display_calcul_mode = params[:display_calcul_mode]
       auto_calcul_mode = params[:auto_calcul_mode]
 
+      form_participations = []
+      if params[:participations].present?
+        params[:participations].each do |participation|
+          form_participations << InterventionParticipation.new(JSON.parse(participation))
+        end
+        #form_participations = params[:participations]
+        #                        .map{ |participation| InterventionParticipation.new(JSON.parse(participation)) }
+      end
+
       render partial: 'backend/intervention_participations/participations_modal',
              locals: {
                participation: participation,
                intervention_started_at: intervention_started_at,
                intervention_tool: intervention_tool,
                display_calcul_mode: display_calcul_mode,
-               auto_calcul_mode: auto_calcul_mode
+               auto_calcul_mode: auto_calcul_mode,
+               form_participations: form_participations
              }
     end
 

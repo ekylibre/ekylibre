@@ -199,6 +199,10 @@
         participations = $('intervention_participation')
         interventionStartedAt = null
 
+        participations = []
+        $('.intervention-participation').each ->
+          participations.push($(this).val())
+
         if intervention_id == ""
           interventionStartedAt = $('.intervention-started-at').val()
 
