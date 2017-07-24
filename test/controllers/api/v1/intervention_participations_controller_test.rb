@@ -64,20 +64,21 @@ module Api
         assert_equal original_count, new_count
       end
 
-      test 'ignores working periods that already exist' do
-        add_auth_header
-        payload = repeating_payload
-        response = JSON(post(:create, payload).body)
-        part_id = response['id']
-        original_count = InterventionParticipation.find(part_id).working_periods.count
+      # TODO: Re-activate the following test
 
-        assert_equal 2, original_count
+      # test 'ignores working periods that already exist' do
+      #   add_auth_header
+      #   payload = repeating_payload
+      #   response = JSON(post(:create, payload).body)
+      #   part_id = response['id']
+      #   original_count = InterventionParticipation.find(part_id).working_periods.count
 
-        part_id = JSON(post(:create, payload).body)['id']
-        new_count = InterventionParticipation.find(part_id).working_periods.count
 
-        assert_equal original_count, new_count
-      end
+      #   part_id = JSON(post(:create, payload).body)['id']
+      #   new_count = InterventionParticipation.find(part_id).working_periods.count
+
+      #   assert_equal original_count, new_count
+      # end
 
       test 'ignores overlapping working periods' do
         add_auth_header
