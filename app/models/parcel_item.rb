@@ -266,22 +266,19 @@ class ParcelItem < Ekylibre::Record::Base
     pu = self.unit_pretax_amount
     quantity_action = self.population
 
-#check the condition
-  #first entrance
+# check the condition
+  # first entrance
     if parcel.nature == "incoming"
       amount = quantity_action * pu
       average_cost_amount = amount / quantity_action
-      product_nature_variant_valuing = ProductNatureVariantValuing.new(amount: amount, average_cost_amount: average_cost_amount, variant_id: @variant.id)
-      product_nature_variant_valuing.save
     else
       old_product_nature_variant_valuing = ProductNatureVariantValuing.where(variant: variant.id)
       old_amount = old_product_nature_variant_valuing.amount
       quantity_new = variant.stock_account.last + quantity_action
       amount = old_amount + quantity_action * pu
       average_cost_amount = amount / quantity_new
-
-      product_nature_variant_valuing = ProductNatureVariantValuing.new(amount: amount, average_cost_amount: average_cost_amount, variant_id: @variant.id)
-      product_nature_variant_valuing.save
     end
+    product_nature_variant_valuing = ProductNatureVariantValuing.new(amount: amount, average_cost_amount: average_cost_amount, variant_id: @variant.id)
+    product_nature_variant_valuing.save
   end
 end

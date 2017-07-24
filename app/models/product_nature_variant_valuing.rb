@@ -30,8 +30,7 @@
 #  variant_id                :integer          not null
 #
 
-
-class ProductNatureVariantValuing < ActiveRecord::Base
+class ProductNatureVariantValuing < Ekylibre::Record::Base
   belongs_to :variant, class_name: 'ProductNatureVariant'
 
   validates :average_cost_amount, presence: true
