@@ -538,7 +538,7 @@ class ActivityProduction < Ekylibre::Record::Base
     global_coef_harvest_yield = []
 
     if harvest_interventions.any?
-      harvest_interventions.find_each do |harvest|
+      harvest_interventions.includes(:outputs).includes(:targets).find_each do |harvest|
         harvest_working_area = []
         harvest.targets.each do |target|
           harvest_working_area << ::Charta.new_geometry(target.working_zone).area.in(:square_meter)
