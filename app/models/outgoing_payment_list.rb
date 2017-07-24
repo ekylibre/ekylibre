@@ -139,7 +139,6 @@ class OutgoingPaymentList < Ekylibre::Record::Base
     purchase_payments = thirds.map do |third|
       third_affairs = affairs.select { |a| a.third == third }.sort_by(&:created_at)
       first_affair = third_affairs.shift
-
       third_affairs.map { |affair| first_affair.absorb!(affair) }
 
       next if first_affair.balanced?
@@ -159,12 +158,10 @@ class OutgoingPaymentList < Ekylibre::Record::Base
         bank_check_number: initial_check_number.blank? ? nil : initial_check_number.to_i,
         position: position
       )
-
       initial_check_number = initial_check_number.to_i + 1 if initial_check_number.present?
       position += 1
       op
     end.compact
-
     new(payments: purchase_payments, mode: mode) unless purchase_payments.empty?
   end
 end
