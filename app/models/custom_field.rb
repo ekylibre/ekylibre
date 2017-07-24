@@ -76,7 +76,7 @@ class CustomField < Ekylibre::Record::Base
   end
 
   validate do
-    unless customized_type.to_s.constantize.respond_to?(:custom_fields)
+    unless customized_type.nil? || customized_type.to_s.constantize.respond_to?(:custom_fields)
       errors.add(:customized_type, :invalid)
     end
   end
