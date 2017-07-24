@@ -128,7 +128,10 @@ class ParcelItem < Ekylibre::Record::Base
     true
   end
 
-  before_save :calculate_average_cost_amount
+  # after_create :calculate_average_cost_amount
+  after_save :calculate_average_cost_amount
+  after_update :calculate_average_cost_amount
+
 
   after_save do
     if Preference[:catalog_price_item_addition_if_blank]
@@ -265,20 +268,32 @@ class ParcelItem < Ekylibre::Record::Base
     variant = ProductNatureVariant.find(variant_id)
     pu = self.unit_pretax_amount
     quantity_action = self.population
-
-# check the condition
-  # first entrance
-    if parcel.nature == "incoming"
+  # check the condition
+    # first entrance
+    if parcel.nature == 'incoming' && ProductNatureVariantValuing.where(variant: variant_id) == []
       amount = quantity_action * pu
       average_cost_amount = amount / quantity_action
+      raise
+    # input
+    elsif parcel.nature == 'outcomings'
+      old_product_nature_variant_valuing = ProductNatureVariantValuing.where(variant: variant.id)
+      old_amount = old_product_nature_variant_valuing[0].amount
+      old_average_cost_amount = old_product_nature_variant_valuing[0].average_cost_amount
+      quantity_new = variant.stock_account.last - quantity_action
+      amount = old_amount - quantity_action * old_average_cost_amount
+      average_cost_amount = amount / quantity_new
+      raise
+    # update
     else
       old_product_nature_variant_valuing = ProductNatureVariantValuing.where(variant: variant.id)
-      old_amount = old_product_nature_variant_valuing.amount
-      quantity_new = variant.stock_account.last + quantity_action
+      old_amount = old_product_nature_variant_valuing[0].amount
+      quantity_new = parcel.storage.initial_population + quantity_action
       amount = old_amount + quantity_action * pu
       average_cost_amount = amount / quantity_new
+      raise
     end
-    product_nature_variant_valuing = ProductNatureVariantValuing.new(amount: amount, average_cost_amount: average_cost_amount, variant_id: @variant.id)
+    product_nature_variant_valuing = ProductNatureVariantValuing.new(amount: amount, average_cost_amount: average_cost_amount, variant_id: variant.id)
     product_nature_variant_valuing.save
+    product = ProductNatureVariantValuing.all
   end
 end
