@@ -271,7 +271,6 @@ class ParcelItem < Ekylibre::Record::Base
     if parcel.nature == "incoming"
       amount = quantity_action * pu
       average_cost_amount = amount / quantity_action
-      raise
       product_nature_variant_valuing = ProductNatureVariantValuing.new(amount: amount, average_cost_amount: average_cost_amount, variant_id: @variant.id)
       product_nature_variant_valuing.save
     else
