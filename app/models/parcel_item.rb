@@ -268,6 +268,7 @@ class ParcelItem < Ekylibre::Record::Base
     old_product_nature_variant_valuing = ProductNatureVariantValuing.where(variant: variant.id)
     old_amount = old_product_nature_variant_valuing.amount
 
+    #check the condition
     if old_product_nature_variant_valuing == nil
       amount = quantity_action * pu
       average_cost_amount = amount / quantity_new
