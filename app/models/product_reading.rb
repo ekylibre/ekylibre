@@ -91,7 +91,6 @@ class ProductReading < Ekylibre::Record::Base
   end
 
   after_save do
-  binding.pry
   last_reading = product.readings.where(indicator_name: indicator_name).last
     if last_reading.read_at <= read_at
       product.send("#{indicator_name}=", value)

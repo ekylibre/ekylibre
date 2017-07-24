@@ -294,7 +294,8 @@ class Product < Ekylibre::Record::Base
   validate :born_at_in_interventions, if: ->(product) { product.born_at? && product.interventions_used_in.pluck(:started_at).any? }
   validate :dead_at_in_interventions, if: ->(product) { product.dead_at? && product.interventions.pluck(:stopped_at).any? }
 
-  store_accessor :reading_cache, Nomen::Indicator.all
+  byebug
+  store_accessor :reading_cache, *Nomen::Indicator.all
 
   # [DEPRECATIONS[
   #  - fixed_asset_id
@@ -497,10 +498,10 @@ class Product < Ekylibre::Record::Base
   end
 
   def shape=(new_shape)
-    binding.pry
     self.reading_cache[:shape] = new_shape
 
     self.net_surface_area = calculation_of_net_surface_area
+    byebug
     self.shape
   end
 
@@ -784,13 +785,12 @@ class Product < Ekylibre::Record::Base
   def calculation_of_net_surface_area(options = {})
     # TODO: Manage global preferred surface unit or system
     area_unit = options[:unit] || :hectare
-    binding.pry
     if !options.keys.detect { |k| %i[gathering interpolate cast].include?(k) } &&
        has_indicator?(:shape) && !options[:compute].is_a?(FalseClass)
       unless options[:strict]
         options[:at] = born_at if born_at && born_at > Time.zone.now
       end
-      self.shape = get(:shape, options)
+      self.reading_cache[:shape] = get(:shape, options)
       area = shape.area.in(area_unit).round(3)
     else
       area = get(:net_surface_area, options)

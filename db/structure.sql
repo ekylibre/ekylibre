@@ -5887,7 +5887,7 @@ CREATE TABLE products (
     end_of_life_reason character varying,
     originator_id integer,
     codes jsonb,
-    reading_cache jsonb
+    reading_cache jsonb DEFAULT '{}'::jsonb NOT NULL
 );
 
 
