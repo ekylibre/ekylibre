@@ -95,14 +95,6 @@ class Equipment < Matter
     ActivityProduction.where(support: groups_at(at)).at(at).first || super
   end
 
-  def tractor?
-    variety == :tractor
-  end
-
-  def self_prepelled_equipment?
-    variety == :self_prepelled_equipment
-  end
-
   ##################################################
   ### Statuses #####################################
 

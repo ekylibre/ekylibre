@@ -144,17 +144,3 @@ $preview-modal-height: 80vh;
     }
   }
 }
-
-.product_parameters .cast {
-  padding: 0;
-  padding-left: $default-gap * 2;
-
-  .picture {
-    margin: $default-gap 0;
-    margin-right: $default-gap;
-  }
-
-  .details {
-    padding-top: $default-gap;
-  }
-}

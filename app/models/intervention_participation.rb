@@ -67,14 +67,6 @@ class InterventionParticipation < Ekylibre::Record::Base
     where(intervention_id: intervention)
   }
 
-  scope :of_product, lambda { |product_id|
-    where(product_id: product_id)
-  }
-
-  scope :sum_periods, lambda { |product_id, nature|
-    InterventionParticipation.where(product_id: product_id, nature: nature)
-  }
-
   scope :of_actor, ->(actor) { where(product_id: actor.id) }
 
   before_save do
@@ -90,14 +82,6 @@ class InterventionParticipation < Ekylibre::Record::Base
 
   def human_name
     intervention ? intervention.name : procedure_name ? I18n.t(procedure_name, scope: :procedures) : nil
-  end
-
-  def sum_periods_of_nature(nature)
-    working_periods.where(nature: nature).sum(:duration)
-  end
-
-  def has_period_with_nature?(nature: nil)
-    !working_periods.where(nature: nature).empty?
   end
 
   def qualified_human_name

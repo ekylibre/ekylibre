@@ -94,7 +94,6 @@ cmn:
         purchase: "采购"
         sale: "拍卖"
         stock: "股票"
-        # travel_cost: "Travel"
     crumb:
       nature:
         hard_start: "硬启动"

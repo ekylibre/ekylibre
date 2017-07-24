@@ -951,7 +951,7 @@ eng:
     accounts: "Accounts"
     accounts_only_used_at: "Accounts only used at"
     accounts_to_load: "Accounts to load"
-    action_duration: "Action duration"
+    action_duration: "Action duration" #?!
     activate_entry_autocompletion: "Activate entry autocompletion"
     active: "Active" #?
     active_finishing_after: "Active finishing after" #?
@@ -1094,7 +1094,6 @@ eng:
     budgets: "Budgets" #?
     by_year: "By year"
     calculate: "Calculate" #?
-    # calculated_hours: "Calculated hours"
     calculators: "Calculators" #?
     calendar: "Calendar"
     campaign: "Campaign"

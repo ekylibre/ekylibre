@@ -94,7 +94,6 @@ spa:
         purchase: "Compra"
         sale: "Venta"
         stock: "Valores"
-        # travel_cost: "Travel"
     crumb:
       nature:
         hard_start: "Inicio difícil,"

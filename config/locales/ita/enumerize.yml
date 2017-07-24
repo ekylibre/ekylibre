@@ -94,7 +94,6 @@ ita:
         purchase: "Acquista"
         sale: "Vendita"
         stock: "Azione"
-        # travel_cost: "Travel"
     crumb:
       nature:
         hard_start: "Inizio difficile"

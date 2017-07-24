@@ -71,7 +71,7 @@ class InterventionAgent < InterventionProductParameter
   end
 
   # compute working duration from participation if exist or from intervention directly
-  def working_duration(nature: nil)
+  def working_duration
     if participation
       participation.working_periods.sum(:duration)
     else
@@ -79,24 +79,14 @@ class InterventionAgent < InterventionProductParameter
     end
   end
 
-  def cost_amount_computation(nature: nil)
+  def cost_amount_computation
     return InterventionParameter::AmountComputation.failed unless product
-
-    quantity = working_duration(nature: nature).to_d / 3600
-    unit_name = Nomen::Unit.find(:hour).human_name
-
-    unit_name = unit_name.pluralize if quantity > 1
-
     options = {
-      catalog_usage: catalog_usage,
-      quantity: quantity,
-      unit_name: unit_name
+      catalog_usage: :cost,
+      quantity: working_duration.to_d / 3600,
+      unit_name: Nomen::Unit.find(:hour).human_name
     }
     options[:catalog_item] = product.default_catalog_item(options[:catalog_usage])
     InterventionParameter::AmountComputation.quantity(:catalog, options)
-  end
-
-  def catalog_usage
-    :cost
   end
 end

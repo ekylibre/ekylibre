@@ -96,7 +96,6 @@ por:
         purchase: "Compra"
         sale: "Venda"
         stock: "Estoque"
-        # travel_cost: "Travel"
     crumb:
       nature:
         hard_start: "Início difícil"

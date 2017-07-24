@@ -94,7 +94,6 @@ jpn:
         purchase: "購入"
         sale: "販売"
         stock: "株式"
-        # travel_cost: "Travel"
     crumb:
       nature:
         hard_start: "ハードスタート"

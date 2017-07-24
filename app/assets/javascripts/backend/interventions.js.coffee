@@ -195,21 +195,26 @@
       taskHeight = 60
       halfTaskList = 12
 
-      participation_id = $(event.target).attr('data-participation')
+      urlParams = decodeURIComponent(window.location.search.substring(1)).split("&")
+      params = urlParams.reduce((map, obj) ->
+        param = obj.split("=")
+        map[param[0]] = param[1]
+        return map
+      , {})
 
-      $.ajax
-        url: "/backend/intervention_participations/participations_modal",
-        data: { intervention_participation_id: participation_id }
-        success: (data, status, request) ->
+      $('#content').scroll ->
+        if !loadContent && $('#content').scrollTop() > (currentPage * halfTaskList) * taskHeight
+          currentPage++
+          params['page'] = currentPage
 
-        loadContent = true
+          loadContent = true
 
-        $.ajax
-          url: "/backend/interventions/change_page",
-          data: { interventions_taskboard: params }
-          success: (data, status, request) ->
-            loadContent = false
-            taskboard.addTaskClickEvent()
+          $.ajax
+            url: "/backend/interventions/change_page",
+            data: { interventions_taskboard: params }
+            success: (data, status, request) ->
+              loadContent = false
+              taskboard.addTaskClickEvent()
 
 
   ##############################################################################

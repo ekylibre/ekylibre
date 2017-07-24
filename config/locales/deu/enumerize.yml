@@ -94,7 +94,6 @@ deu:
         purchase: "Kauf"
         sale: "Verkauf"
         # stock: "Stock"
-        # travel_cost: "Travel"
     crumb:
       nature:
         hard_start: "Harte Start"
