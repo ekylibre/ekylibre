@@ -118,6 +118,7 @@
 - outgoing_payment_mode
 - parcel
 - parcel_item
+- parcel_item_storing
 - payslip
 - payslip_affair
 - payslip_nature
