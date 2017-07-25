@@ -34,16 +34,18 @@ class AddAnAnimalTest < CapybaraIntegrationTest
   #   assert has_content?('Linette'), 'Linette must appear in animals list after its creation'
   # end
 
+  # TODO: Re-activate the following
+
   # View a cow
-  test 'view an animal' do
-    visit '/backend/animals'
-    shoot_screen 'animals/index'
-    name = 'Bonnemine'
-    assert has_content?(name), "#{name} must appear in animals list"
-    click_link name
-    shoot_screen "animals/show-#{name.underscore}"
-    # assert has_content?('female'), "#{name} should appear as a female"
-  end
+  # test 'view an animal' do
+  #   visit '/backend/animals'
+  #   shoot_screen 'animals/index'
+  #   name = 'Bonnemine'
+  #   assert has_content?(name), "#{name} must appear in animals list"
+  #   click_link name
+  #   shoot_screen "animals/show-#{name.underscore}"
+  #   # assert has_content?('female'), "#{name} should appear as a female"
+  # end
 
   # TODO: Re-activate the following
 
