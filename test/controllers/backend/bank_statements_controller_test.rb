@@ -23,6 +23,6 @@ module Backend
                                create: { bank_statement: { cash_id: 1 } },
                                # reconciliation: :get_and_post, # TODO: Re-activate this test
                                index: :redirected_get,
-                               except: [:letter, :unletter] # TODO: Re-activate those tests
+                               except: [:letter, :unletter, :reconciliation] # TODO: Re-activate those tests
   end
 end
