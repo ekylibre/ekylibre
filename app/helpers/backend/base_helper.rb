@@ -256,6 +256,10 @@ module Backend
       end
     end
 
+    def form_action_content(side = :after, &block)
+      content_for(:"#{side}_form_actions", &block)
+    end
+
     def period_selector(*intervals)
       options = intervals.extract_options!
       current_period = current_user.current_period.to_date

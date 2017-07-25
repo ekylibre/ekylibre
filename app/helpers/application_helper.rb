@@ -873,7 +873,10 @@ module ApplicationHelper
   end
 
   def form_actions(&block)
-    content_tag(:div, capture(&block), class: 'form-actions')
+    html = content_for(:before_form_actions) || ''.html_safe
+    html += capture(&block)
+    html += content_for(:after_form_actions) || ''.html_safe
+    content_tag(:div, html, class: 'form-actions')
   end
 
   def form_fields(&block)

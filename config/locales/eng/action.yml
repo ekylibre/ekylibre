@@ -1664,6 +1664,7 @@ eng:
     potassium_concentration: "Potassium concentration" #?
     potential_hydrogen: "Potential hydrogen" #?
     precipitation: "Precipitation"
+    preference: "Preference"
     preferences: "Preferences"
     prescription: "Prescription" #?
     prescriptions: "Prescriptions" #?
@@ -1793,6 +1794,7 @@ eng:
     shape: "Shape" #?
     ship: "Ship" #?
     show: "Show"
+    show_map_intervention: "View map when creating an intervention"
     sign_out: "Sign out" #?
     simplified: "Simplified Accounting" #?
     simplified_linear_options: "Simplified linear options"
