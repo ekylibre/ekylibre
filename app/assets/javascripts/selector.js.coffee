@@ -13,41 +13,47 @@
     id: null
 
     _create: ->
-      @element.wrap $("<div>", class: "selector")
-
-      @element.attr "autocomplete", "off"
-      @element.addClass('selector-search')
-
-      # Create drop down button
-      @dropDownButton = $ "<a>",
-          href: "##{@element.attr('id')}"
-          rel: 'dropdown'
-          tabindex: -1
-          class: 'selector-dropdown btn btn-default dropdown-toggle sr-only'
-        .insertAfter @element
       @lastSearch = @element.val()
-
-      # Create drop down menu
-      @dropDownMenu = $ "<div>",
-          class: "items-menu selector-choices-list"
-        .hide()
-        .insertAfter(@element)
-
-      # Create value field if it doesn't exist
-      if @element.data("valueField")?
-        @valueField = $ @element.data("valueField")
+      if @element.parent().is('.selector')
+        parent = @element.parent()
+        @dropDownButton = parent.find('.selector-dropdown[rel="dropdown"]').first()
+        @dropDownMenu = parent.find('.selector-choices-list').first()
+        @valueField = parent.find('.selector-value').first()
       else
-        @valueField = $ "<input>",
-          type: "hidden"
-          name: @element.attr('name')
-          class: 'selector-value'
-          'data-parameter-name': @element.attr('data-value-parameter-name')
-        @element.after @valueField
-      @element.removeAttr "name"
-      if @element.attr("required") is "true"
-        @valueField.attr "required", "true"
-      unless @valueField.val()? and @valueField.val() != ''
-        @valueField.attr("value", @element.val())
+        @element.wrap $("<div>", class: "selector")
+
+        @element.attr "autocomplete", "off"
+        @element.addClass('selector-search')
+
+        # Create drop down button
+        @dropDownButton = $ "<a>",
+            href: "##{@element.attr('id')}"
+            rel: 'dropdown'
+            tabindex: -1
+            class: 'selector-dropdown btn btn-default dropdown-toggle sr-only'
+          .insertAfter @element
+
+        # Create drop down menu
+        @dropDownMenu = $ "<div>",
+            class: "items-menu selector-choices-list"
+          .hide()
+          .insertAfter(@element)
+
+        # Create value field if it doesn't exist
+        if @element.data("valueField")?
+          @valueField = $ @element.data("valueField")
+        else
+          @valueField = $ "<input>",
+            type: "hidden"
+            name: @element.attr('name')
+            class: 'selector-value'
+            'data-parameter-name': @element.attr('data-value-parameter-name')
+          @element.after @valueField
+        @element.removeAttr "name"
+        if @element.attr("required") is "true"
+          @valueField.attr "required", "true"
+        unless @valueField.val()? and @valueField.val() != ''
+          @valueField.attr("value", @element.val())
       this._on @element,
         keypress: "_keypress"
         keyup: "_keyup"
