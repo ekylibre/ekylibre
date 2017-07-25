@@ -40,8 +40,8 @@
             = render 'storing_fields', f: storing
           #storings-footer
           = link_to_add_association :add_storing.tl, f, :storings, partial: 'storing_fields', 'data-association-insertion-node' => '#storings-footer', 'data-association-insertion-method' => :before, class: "btn primary"
-        .item-delivery_mode
-          = f.input :delivery_mode, as: :radio_buttons, show: '.{{value}}-delivery-mode-options', input_html: { class: 'item-delivery-mode' }
+        .item-delivery-mode
+          = f.input :delivery_mode, as: :radio_buttons#, show: '.{{value}}-delivery-mode-options', input_html: { class: 'item-delivery-mode' }
           .transporter-delivery-mode-options
             = f.referenced_association :transporter, source: :transporters, new: {transporter: 1}
 
