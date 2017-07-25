@@ -35,12 +35,11 @@
               = f.input_field :population, class: "item-population", placeholder: '0', data: {"when-item": "unitary", "when-set-value": 1, "when-prop-value": "disabled"}
               %span.add-on.item-population-unit-name
                 = variant.unit_name.or_else('#')
-        .item-pretax-amount
-          .item-unit-pretax-amount
-            = f.input :unit_pretax_amount do
-              = f.input_field :unit_pretax_amount, input_html: { class: 'item-pretax-amount', data: {"when-item": "price_contract_#{item.parcel.contract_id}", "when-set-value": "RECORD_VALUE" } }
-              %span.add-on.item-unit-pretax-amount-currency
-                = f.object.currency
+        #item-add-storing
+          = f.simple_fields_for :storings, f.object.storings do |storing|
+            = render 'storing_fields', f: storing
+          #storings-footer
+          = link_to_add_association :add_storing.tl, f, :storings, partial: 'storing_fields', 'data-association-insertion-node' => '#storings-footer', 'data-association-insertion-method' => :before, class: "btn primary"
         .item-delivery_mode
           = f.input :delivery_mode, as: :radio_buttons, show: '.{{value}}-delivery-mode-options', input_html: { class: 'item-delivery-mode' }
           .transporter-delivery-mode-options
