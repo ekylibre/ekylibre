@@ -75,6 +75,7 @@ class ParcelItem < Ekylibre::Record::Base
   has_one :nature, through: :variant
   has_one :storage, through: :parcel
   has_one :contract, through: :parcel
+  has_many :storings, class_name: 'ParcelItemStoring', inverse_of: :parcel_item, foreign_key: :parcel_item_id, dependent: :destroy
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :currency, :product_identification_number, :product_name, length: { maximum: 500 }, allow_blank: true
@@ -99,6 +100,8 @@ class ParcelItem < Ekylibre::Record::Base
   alias_attribute :quantity, :population
 
   accepts_nested_attributes_for :product
+  accepts_nested_attributes_for :storings
+  
   # delegate :net_mass, to: :product
   delegate :allow_items_update?, :remain_owner, :planned_at, :draft?,
            :ordered_at, :recipient, :in_preparation?, :in_preparation_at,
