@@ -3,7 +3,6 @@ bundler_args: "--full-index --without development"
 cache: bundler
 rvm:
 - 2.2.7
-- 2.3.4
 env:
 - TEST_SUITE=libs
 - TEST_SUITE=models
@@ -19,7 +18,3 @@ notifications:
   email: false
   slack:
     secure: v1/ya/fyroy3BmW9FDMmKi3lwamnzY6ktQAU/vEJCg4AgvauY0QJthMsLXOBb3RnhFWao2Kj2H40XjI7VtH3z46VEq6DPLURBqmAc24c30ZMi/XIM9YqauYeEPHPhM0nDQY+s0ovU2uX/1w7uv/atNjy0n643An61Em+qPwIW5U=
-addons:
-  apt:
-    packages:
-    - libqtwebkit-dev
