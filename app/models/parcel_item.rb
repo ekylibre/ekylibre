@@ -128,10 +128,7 @@ class ParcelItem < Ekylibre::Record::Base
     true
   end
 
-  # after_create :calculate_average_cost_amount
   after_save :calculate_average_cost_amount
-  after_update :calculate_average_cost_amount
-
 
   after_save do
     if Preference[:catalog_price_item_addition_if_blank]
@@ -273,7 +270,7 @@ class ParcelItem < Ekylibre::Record::Base
     if parcel.nature == 'incoming' && ProductNatureVariantValuing.where(variant: variant_id) == []
       amount = quantity_action * pu
       average_cost_amount = amount / quantity_action
-      raise
+      # raise
     # input
     elsif parcel.nature == 'outcomings'
       old_product_nature_variant_valuing = ProductNatureVariantValuing.where(variant: variant.id)
@@ -282,7 +279,7 @@ class ParcelItem < Ekylibre::Record::Base
       quantity_new = variant.stock_account.last - quantity_action
       amount = old_amount - quantity_action * old_average_cost_amount
       average_cost_amount = amount / quantity_new
-      raise
+      # raise
     # update
     else
       old_product_nature_variant_valuing = ProductNatureVariantValuing.where(variant: variant.id)
@@ -290,7 +287,7 @@ class ParcelItem < Ekylibre::Record::Base
       quantity_new = parcel.storage.initial_population + quantity_action
       amount = old_amount + quantity_action * pu
       average_cost_amount = amount / quantity_new
-      raise
+      # raise
     end
     product_nature_variant_valuing = ProductNatureVariantValuing.new(amount: amount, average_cost_amount: average_cost_amount, variant_id: variant.id)
     product_nature_variant_valuing.save
