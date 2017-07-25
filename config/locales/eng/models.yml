@@ -321,6 +321,7 @@ eng:
       outgoing_payment_mode: "Disbursement mode"
       parcel: "Parcel"
       parcel_item: "Parcel item"
+      # parcel_item_storing: "Parcel item storing"
       payslip: "Payslip"
       payslip_affair: "Payslip affair"
       payslip_nature: "Payslip type"
@@ -1141,6 +1142,7 @@ eng:
     parameter_name: "Parameter name" #?
     parameters: "Parameters"
     parcel: "Parcel"
+    # parcel_item: "Parcel item"
     parcel_items: "Parcel items"
     parcels: "Parcels"
     parent: "Parent"
@@ -1450,6 +1452,7 @@ eng:
     storable: "Storable"
     storage: "Storage"
     storages: "Storages" #?
+    # storings: "Storings"
     story: "Story"
     string_value: "Storable"
     subdomains: "Subdomains"
