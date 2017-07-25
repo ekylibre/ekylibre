@@ -63,11 +63,9 @@
           = dropdown_menu_button(category.human_name, class: 'btn-group-lg procedure-dropdown', icon: false) do |menu|
             - Procedo::Procedure.of_main_category(category.name.to_sym).sort{|a,b| a.human_name <=> b.human_name }.each do |procedure|
               - menu.item procedure.human_name, { procedure_name: procedure.name, redirect: params[:redirect], nature: params[:nature] }
-                
-  .activity-family
-    .activity-family-heading
-      %h2.activity-family-title Preference
-    .activity-family-body
-      = check_box_tag('Show map', @show_map.value, @show_map.value, data: { remote: true, url: backend_interventions_update_map_preference_path, method: 'POST' })
-      Afficher la carte ?
+
+  - form_action_content(:after, 'align-right') do
+    = check_box_tag('show-map', @show_map.value, @show_map.value, data: { remote: true, url: backend_interventions_update_map_preference_path, method: 'POST' })
+    = label_tag('show-map', :show_map_intervention.tl)
   - f.clear_actions!
+

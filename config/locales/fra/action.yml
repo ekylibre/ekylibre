@@ -1810,6 +1810,7 @@ fra:
     potassium_concentration_per_hectare: "Teneur en potassium par hectare" #?
     potential_hydrogen: "Potentiel hydrogène (pH)"
     precipitation: "Précipitations"
+    preference: "Préférence"
     preferences: "Préférences"
     prescription: "Prescription"
     prescriptions: "Prescriptions"
@@ -2048,6 +2049,7 @@ fra:
     shape: "Forme"
     ship: "Prévue le"
     show: "Afficher"
+    show_map_intervention: "Afficher la carte lors de la création d'intervention"
     sign_out: "Se déconnecter"
     simplified: "Régime du réel simplifié"
     simplified_linear_options: "Options linéaire simplifié"
