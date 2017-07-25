@@ -29,7 +29,7 @@
         @display.addClass('hidden')
 
         clone = @oldForm().clone()
-        clone.insertAfter(@oldForm())
+        clone.insertBefore(@oldForm())
         clone.trigger('cocoon:after-insert')
         clone.removeClass('hidden')
         @_bindButtons(@newForm())
