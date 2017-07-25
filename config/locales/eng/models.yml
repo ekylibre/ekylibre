@@ -166,6 +166,10 @@ eng:
               invalid_date: "The depreciation must start on %{start} or on a beginning of month"
         incoming_parcel_item:
           greater_than_undelivered_quantity: "The quantity of product %{product} to deliver is greater than undelivered quantity (%{maximum}%{unit})"
+        integration:
+          attributes:
+            parameters:
+              check_errored: "Connexion check errored. Please ensure the validity of your input or try again later."
         journal:
           attributes:
             accountant:
@@ -633,6 +637,7 @@ eng:
     customized_type: "Customized type"
     daily_nitrogen_production: "Daily nitrogen production"
     dashboards: "Dashboards"
+    # data: "Data"
     dead: "Dead"
     dead_at: "Dead on"
     dead_line_at: "Dead line at"
@@ -1569,7 +1574,7 @@ eng:
     updater: "Updater"
     uploaded: "Uploaded"
     url: "URL"
-    usable_incoming_payments: "Usable incoming payments"
+    usable_incoming_payments: "Usable incoming payments" #?
     usage: "Usage"
     usage_limit_nature: "Used by type"
     usage_limit_on: "Used by on"

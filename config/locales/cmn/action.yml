@@ -1205,7 +1205,7 @@ cmn:
     input_cost_per_hectare: "每公顷投入成本" #?
     inputs: "输入"
     inspections: "检查"
-    # interactive_maps: "A JS library for interactive maps"
+    interactive_maps: "一个用于交互式地图的JS库"
     interface_preferences: "界面首"
     internal_error: "哎呀，事情发生了。"
     interval: "个性化间隔"
@@ -1343,6 +1343,7 @@ cmn:
     net_income: "净收入"
     net_margin: "净利率" #?
     net_mass: "净质量"
+    net_production_sales: "净产销量"
     net_surface_area: "净面积"
     new: "新"
     new_activity: "新活动"

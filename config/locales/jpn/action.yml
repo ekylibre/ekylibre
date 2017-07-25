@@ -1273,7 +1273,7 @@ jpn:
     input_cost_per_hectare: "ヘクタール当たりの入力コスト" #?
     inputs: "入力"
     inspections: "検査"
-    # interactive_maps: "A JS library for interactive maps"
+    interactive_maps: "インタラクティブマップ用のJSライブラリ"
     interface_preferences: "インターフェースのプリファレンス"
     internal_error: "おっと、何かが起こりました。"
     interval: "パーソナライズされた間隔"
@@ -1414,6 +1414,7 @@ jpn:
     net_income: "当期純利益"
     net_margin: "売上純利益率" #?
     net_mass: "正味質量"
+    net_production_sales: "純生産販売"
     net_surface_area: "正味の表面積"
     new: "新しい"
     new_activity: "新しいアクティビティ"

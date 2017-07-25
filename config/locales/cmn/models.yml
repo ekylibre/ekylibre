@@ -169,6 +169,10 @@ cmn:
               # invalid_date: "The depreciation must start on %{start} or on a beginning of month"
         incoming_parcel_item:
           # greater_than_undelivered_quantity: "The quantity of product %{product} to deliver is greater than undelivered quantity (%{maximum}%{unit})"
+        integration:
+          attributes:
+            parameters:
+              check_errored: "连接检查错误。请确保输入的有效性或稍后再试。"
         journal:
           attributes:
             accountant:
