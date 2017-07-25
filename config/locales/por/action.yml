@@ -829,6 +829,7 @@ por:
     add_sale: "Adicione venda"
     add_sale_taxation: "Adicione venda tributação"
     add_season: "Adicionar temporada"
+    # add_storing: "Add storing"
     # add_subscription_for_sale_line: "Add subscription for sale line #%{position}"
     add_support: "Adicionar suporte"
     add_tactic: "Adicionar Técnica manejo da cultura"

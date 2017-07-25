@@ -824,6 +824,7 @@ cmn:
     add_sale: "添加销售"
     add_sale_taxation: "添加销售税收"
     add_season: "添加赛季"
+    # add_storing: "Add storing"
     # add_subscription_for_sale_line: "Add subscription for sale line #%{position}"
     add_support: "添加支持"
     add_tactic: "添加作物管理技术"

@@ -960,6 +960,7 @@ fra:
     add_sale: "Ajouter une vente"
     add_sale_taxation: "Ajouter une taxe de vente"
     add_season: "Ajouter une saison"
+    add_storing: "Ajouter une zone de stockage"
     add_subscription_for_sale_line: "Ajouter un abonnement pour la ligne N°%{position}"
     add_support: "Ajouter un support de production"
     add_tactic: "Ajouter un itinéraire technique"

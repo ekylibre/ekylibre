@@ -1084,6 +1084,7 @@ arb:
     add_sale: "إضافة بيع"
     add_sale_taxation: "إضافة بيع الضرائب"
     add_season: "إضافة الموسم"
+    # add_storing: "Add storing"
     # add_subscription_for_sale_line: "Add subscription for sale line #%{position}"
     add_support: "إضافة دعم"
     add_tactic: "إضافة تقنيات إدارة المحاصيل"

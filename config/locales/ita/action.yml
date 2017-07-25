@@ -890,6 +890,7 @@ ita:
     add_sale: "Aggiungere vendita"
     add_sale_taxation: "Aggiungere vendita tassazione"
     add_season: "Aggiungere stagione"
+    # add_storing: "Add storing"
     # add_subscription_for_sale_line: "Add subscription for sale line #%{position}"
     add_support: "Aggiungere il supporto"
     add_tactic: "Aggiungere tecnica di gestione delle colture"

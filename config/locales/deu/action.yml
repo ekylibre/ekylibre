@@ -824,6 +824,7 @@ deu:
     add_sale: "Sale"
     add_sale_taxation: "In Verkauf Besteuerung"
     add_season: "In Saison"
+    # add_storing: "Add storing"
     # add_subscription_for_sale_line: "Add subscription for sale line #%{position}"
     add_support: "In Unterstützung"
     add_tactic: "Fügen Sie Ernte-Management-Technik"

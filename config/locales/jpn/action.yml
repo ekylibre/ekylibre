@@ -890,6 +890,7 @@ jpn:
     add_sale: "売却を追加"
     add_sale_taxation: "販売課税を追加します。"
     add_season: "シーズンを追加"
+    # add_storing: "Add storing"
     # add_subscription_for_sale_line: "Add subscription for sale line #%{position}"
     add_support: "サポートを追加"
     add_tactic: "作物管理技術を追加します。"

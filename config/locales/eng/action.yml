@@ -1061,6 +1061,7 @@ eng:
     add_sale: "Add sale"
     add_sale_taxation: "Add sale taxation"
     add_season: "Add season"
+    add_storing: "Add storing"
     add_subscription_for_sale_line: "Add subscription for sale line #%{position}"
     add_support: "Add support"
     add_tactic: "Add cropping technique"
