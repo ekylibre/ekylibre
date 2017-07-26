@@ -262,31 +262,18 @@ class ParcelItem < Ekylibre::Record::Base
   end
 
   def calculate_average_cost_amount
-    variant = ProductNatureVariant.find(variant_id)
-    pu = self.unit_pretax_amount
+    unit_pretax_amount = self.unit_pretax_amount
     quantity_action = self.population
-    old_stock = variant.current_stock
     # first entrance
     if parcel.nature == 'incoming' && ProductNatureVariantValuing.where(variant: variant_id) == []
-      amount = quantity_action * pu
-      average_cost_amount = amount / quantity_action
+      ProductNatureVariantValuing.calculate_first_entrance(unit_pretax_amount, quantity_action, variant_id)
     # output
     elsif parcel.nature == 'incoming'
-      old_product_nature_variant_valuing = ProductNatureVariantValuing.where(variant: variant.id)
-      old_amount = old_product_nature_variant_valuing.last.amount
-      quantity_new = old_stock + quantity_action
-      amount = old_amount + quantity_action * pu
-      average_cost_amount = amount / quantity_new
+      ProductNatureVariantValuing.calculate_output(unit_pretax_amount, quantity_action, variant_id)
+
     # input
     elsif parcel.nature == 'outgoing'
-      old_product_nature_variant_valuing = ProductNatureVariantValuing.where(variant: variant.id)
-      old_amount = old_product_nature_variant_valuing.last.amount
-      old_average_cost_amount = old_product_nature_variant_valuing.last.average_cost_amount
-      quantity_new = old_stock - quantity_action
-      amount = old_amount - quantity_action * old_average_cost_amount
-      average_cost_amount = amount / quantity_new
+      ProductNatureVariantValuing.calculate_input(quantity_action, variant_id)
     end
-    product_nature_variant_valuing = ProductNatureVariantValuing.new(amount: amount, average_cost_amount: average_cost_amount, variant_id: variant.id)
-    product_nature_variant_valuing.save
   end
 end
