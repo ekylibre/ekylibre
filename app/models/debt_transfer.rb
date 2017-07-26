@@ -57,6 +57,7 @@ class DebtTransfer < Ekylibre::Record::Base
   validates :affair, :debt_transfer_affair, :nature, presence: true
   validates :number, length: { maximum: 500 }, allow_blank: true
   # ]VALIDATORS]
+  validates :debt_transfer_affair_id, presence: true
   validates :debt_transfer_affair_id, uniqueness: { scope: :affair_id }
 
   acts_as_affairable :third
