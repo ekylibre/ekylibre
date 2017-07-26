@@ -21,6 +21,6 @@ require 'test_helper'
 module Backend
   class FixedAssetsControllerTest < ActionController::TestCase
     # TODO: Re-activate the #depreciate, #depreciate_all, #sell, #start_up and #scrap test
-    test_restfully_all_actions except: [:depreciate, :depreciate_all, :sell, :start_up, :scrap]
+    test_restfully_all_actions except: %i[depreciate depreciate_all sell start_up scrap]
   end
 end

@@ -3,7 +3,7 @@ require 'test_helper'
 module Backend
   class LoansControllerTest < ActionController::TestCase
     # TODO: Re-activate #bookkeep and #repay tests
-    test_restfully_all_actions except: [:bookkeep, :repay]
+    test_restfully_all_actions except: %i[bookkeep repay]
 
     test 'create without ongoing_at' do
       user = User.where(administrator: true).last

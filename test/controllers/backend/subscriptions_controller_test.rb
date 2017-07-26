@@ -21,6 +21,6 @@ require 'test_helper'
 module Backend
   class SubscriptionsControllerTest < ActionController::TestCase
     # TODO: Re-activate #suspend, #takeover and #renew tests
-    test_restfully_all_actions except: [:suspend, :takeover, :renew]
+    test_restfully_all_actions except: %i[suspend takeover renew]
   end
 end
