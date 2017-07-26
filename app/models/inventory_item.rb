@@ -70,6 +70,7 @@ class InventoryItem < Ekylibre::Record::Base
     end
   end
 
+  after_create :calculate_average_cost_amount
   after_save do
     if reflected?
       movement = product_movement || build_product_movement
@@ -91,5 +92,12 @@ class InventoryItem < Ekylibre::Record::Base
 
   def actual_pretax_stock_amount
     actual_population * unit_pretax_stock_amount
+  end
+
+  protected
+
+  def calculate_average_cost_amount
+    ProductNatureVariantValuing.calculate_inventory(inventory.items, variant.id)
+    raise
   end
 end

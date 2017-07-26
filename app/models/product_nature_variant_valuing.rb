@@ -74,13 +74,20 @@ class ProductNatureVariantValuing < Ekylibre::Record::Base
     product_nature_variant_valuing.save
   end
 
-#   def calculate_inventory
-#     quantity_actual = @old_quantity
-#     amount = quantity_actual * @old_average_cost_amount
-#     average_cost_amount = amount / quantity_actual
+  def self.calculate_inventory(inventory_items, variant_id)
+    old_product_nature_variant_valuing = ProductNatureVariantValuing.where(variant: variant_id).last
+    old_average_cost_amount = old_product_nature_variant_valuing.average_cost_amount
 
-#     @product_nature_variant_valuing = ProductNatureVariantValuing.new(amount: amount, average_cost_amount: average_cost_amount, variant_id: @variant_id)
-#     @product_nature_variant_valuing.save
-#   end
+    population = []
+    inventory_items.each do |inventory_item|
+      population << inventory_item.actual_population
+    end
+    quantity_actual = population.sum
+    amount = quantity_actual * old_average_cost_amount
+    average_cost_amount = amount / quantity_actual
+
+    product_nature_variant_valuing = ProductNatureVariantValuing.new(amount: amount, average_cost_amount: average_cost_amount, variant_id: variant_id)
+    product_nature_variant_valuing.save
+  end
 
 end
