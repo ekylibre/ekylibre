@@ -271,21 +271,20 @@ class ParcelItem < Ekylibre::Record::Base
       amount = quantity_action * pu
       average_cost_amount = amount / quantity_action
     # output
-    elsif parcel.nature == 'outcomings'
+    elsif parcel.nature == 'incoming'
+      old_product_nature_variant_valuing = ProductNatureVariantValuing.where(variant: variant.id)
+      old_amount = old_product_nature_variant_valuing.last.amount
+      quantity_new = old_stock + quantity_action
+      amount = old_amount + quantity_action * pu
+      average_cost_amount = amount / quantity_new
+    # input
+    elsif parcel.nature == 'outgoing'
       old_product_nature_variant_valuing = ProductNatureVariantValuing.where(variant: variant.id)
       old_amount = old_product_nature_variant_valuing.last.amount
       old_average_cost_amount = old_product_nature_variant_valuing.last.average_cost_amount
       quantity_new = old_stock - quantity_action
       amount = old_amount - quantity_action * old_average_cost_amount
       average_cost_amount = amount / quantity_new
-    # input
-    elsif parcel.nature == 'incoming'
-      old_product_nature_variant_valuing = ProductNatureVariantValuing.where(variant: variant.id)
-      old_amount = old_product_nature_variant_valuing[0].amount
-      quantity_new = old_stock + quantity_action
-      amount = old_amount + quantity_action * pu
-      average_cost_amount = amount / quantity_new
-    else
     end
     product_nature_variant_valuing = ProductNatureVariantValuing.new(amount: amount, average_cost_amount: average_cost_amount, variant_id: variant.id)
     product_nature_variant_valuing.save
