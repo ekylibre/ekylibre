@@ -209,10 +209,15 @@ class ParcelItem < Ekylibre::Record::Base
   def give
     calculate_average_cost_amount
 
+    give_outgoing if parcel_outgoing?
+    give_incoming if parcel_incoming?
+  end
+
+
     # moved the next method in calculate_average_cost_amount for save the stock in this moment
       # give_outgoing if parcel_outgoing?
       # give_incoming if parcel_incoming?
-  end
+  # end
 
   protected
 
@@ -268,55 +273,42 @@ class ParcelItem < Ekylibre::Record::Base
     many_items = many_items.to_a
 
     many_items.each do |items|
-      if items.length > 1
-        items.last.each do |item|
-          quantity_action = item.population
-          unit_pretax_amount = ( item.unit_pretax_amount * item.population )
-          variant_id_array = item.variant_id
-          # need to save this population in the stock
-
-          create_variant_valuing(quantity_action, unit_pretax_amount, variant_id)
-          give_outgoing if parcel_outgoing?
-          give_incoming if parcel_incoming?
-        end
-      else
-        items.each do |item|
-          quantity_action = item.population
-          unit_pretax_amount = item.unit_pretax_amount
-          variant_id_array = item.variant_id
-          create_variant_valuing(quantity_action, unit_pretax_amount, variant_id)
-          give_outgoing if parcel_outgoing?
-          give_incoming if parcel_incoming?
+      items.last.each do |item|
+        quantity_action = item.population
+        unit_pretax_amount = item.unit_pretax_amount
+        variant_id = item.variant_id
+        if parcel.nature == 'incoming'
+          if item == items.last.first
+            @quantity_new = variant.current_stock + quantity_action
+            create_variant_valuing(@quantity_new, quantity_action, unit_pretax_amount, variant_id)
+          else
+            @quantity_new = @quantity_new + quantity_action
+            create_variant_valuing(@quantity_new, quantity_action, unit_pretax_amount, variant_id)
+          end
+        elsif parcel.nature == 'outgoing'
+          if item == item.first
+            @quantity_new = variant.current_stock - quantity_action
+            create_variant_valuing(@quantity_new, quantity_action, variant_id)
+          else
+            @quantity_new = @quantity_new - quantity_action
+            create_variant_valuing(@quantity_new, quantity_action, unit_pretax_amount, variant_id)
+          end
         end
       end
-
-      # variant_id = variant_id_array.uniq.first
-      # quantity_action = quantity_action.sum
-      # unit_pretax_amount = unit_pretax_amount.sum
-
-      # if parcel.nature == 'incoming' && ProductNatureVariantValuing.where(variant: variant_id) == []
-      #   ProductNatureVariantValuing.calculate_first_entrance(unit_pretax_amount, quantity_action, variant_id)
-      # # output
-      # elsif parcel.nature == 'incoming'
-      #   ProductNatureVariantValuing.calculate_output(unit_pretax_amount, quantity_action, variant_id)
-      # # input
-      # elsif parcel.nature == 'outgoing'
-      #   ProductNatureVariantValuing.calculate_input(quantity_action, variant_id)
-      # end
     end
   end
 
-  def create_variant_valuing(quantity_action, unit_pretax_amount, variant_id)
-    raise
+
+  def create_variant_valuing(quantity_new, quantity_action, unit_pretax_amount, variant_id)
     # first entrance
     if parcel.nature == 'incoming' && ProductNatureVariantValuing.where(variant: variant_id) == []
       ProductNatureVariantValuing.calculate_first_entrance(unit_pretax_amount, quantity_action, variant_id)
     # output
     elsif parcel.nature == 'incoming'
-      ProductNatureVariantValuing.calculate_output(unit_pretax_amount, quantity_action, variant_id)
+      ProductNatureVariantValuing.calculate_output(unit_pretax_amount, quantity_new, quantity_action, variant_id)
     # input
     elsif parcel.nature == 'outgoing'
-      ProductNatureVariantValuing.calculate_input(quantity_action, variant_id)
+      ProductNatureVariantValuing.calculate_input(quantity_new, quantity_action, variant_id)
     end
   end
 end
