@@ -29,20 +29,14 @@
         = f.referenced_association(:variant, source: { scope: :stockables_or_depreciables }, input_html: { class: 'parcel-item-variant', data: {product_of_delivery_item: {url: backend_product_nature_variant_path("RECORD_ID", format: :json)}}})
         = f.input :non_compliant, input_html: { data: { warn_if_checked: :non_compliant.tl } }
         -# .errors= item.errors.inspect
-        .item-quantifier
-          .item-quantifier-population
-            = f.input :population do
-              = f.input_field :population, class: "item-population", placeholder: '0', data: {"when-item": "unitary", "when-set-value": 1, "when-prop-value": "disabled"}
-              %span.add-on.item-population-unit-name
-                = variant.unit_name.or_else('#')
-        #item-add-storing
+        .item-add-storing
           = f.simple_fields_for :storings, f.object.storings do |storing|
             = render 'storing_fields', f: storing
-          #storings-footer
-          = link_to_add_association :add_storing.tl, f, :storings, partial: 'storing_fields', 'data-association-insertion-node' => '#storings-footer', 'data-association-insertion-method' => :before, class: "btn primary"
+          .storings-footer  
+            = link_to_add_association :add_storing.tl, f, :storings, partial: 'storing_fields', 'data-association-insertion-node' => '#storings-footer', 'data-association-insertion-method' => :before, class: "btn primary"
         .item-delivery-mode
-          = f.input :delivery_mode, as: :radio_buttons#, show: '.{{value}}-delivery-mode-options', input_html: { class: 'item-delivery-mode' }
-          .transporter-delivery-mode-options
+          = f.input :delivery_mode, as: :radio_buttons, input_html: { class: 'item-delivery-mode', data: {  field: 'item-delivery-mode' } }
+          .transporter-delivery-mode.hidden
             = f.referenced_association :transporter, source: :transporters, new: {transporter: 1}
 
         - display = "display: none;" unless variant.identifiable?.or_else(false)

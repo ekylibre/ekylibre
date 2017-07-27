@@ -11,6 +11,8 @@
 
       @edit()
 
+      @toggleTransporterInput()
+
     _bindButtons: (form) ->
       # console.log '_bindButtons:this', this
       that = this
@@ -34,6 +36,7 @@
         clone.removeClass('hidden')
         @_bindButtons(@newForm())
         $('.form-actions .primary').attr("disabled",true)
+        @toggleTransporterInput()
 
     validate: ->
       # console.log 'validate:this', this
@@ -69,6 +72,14 @@
         $('.form-actions .primary').attr("disabled",true)
       else
         $('.form-actions .primary').attr("disabled",null)
+
+    toggleTransporterInput: ->
+      @line.find('*[data-field="item-delivery-mode"]').click (event) =>
+        target = event.target
+        if target.value == 'transporter'
+          @line.find('.transporter-delivery-mode').removeClass('hidden')
+        else
+          @line.find('.transporter-delivery-mode').addClass('hidden')
 
     oldForm: ->
       # console.log 'oldForm:this', this
