@@ -125,9 +125,9 @@ class InterventionOutput < InterventionProductParameter
   def calculate_average_cost_amount
     unit_pretax_stock_amount = []
     quantity_action = []
-    product.???.each do |???|
-      quantity_action << ???.quantity_population
-      unit_pretax_stock_amount << ???.unit_pretax_stock_amount
+    product.uk.each do |uk|
+      quantity_action << uk.quantity_population
+      unit_pretax_stock_amount << uk.unit_pretax_stock_amount
     end
     quantity_action = quantity_action.sum
     unit_pretax_amount = unit_pretax_stock_amount.sum
