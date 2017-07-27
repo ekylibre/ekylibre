@@ -63,6 +63,8 @@ class InterventionOutput < InterventionProductParameter
   has_one :product_movement, as: :originator, dependent: :destroy
   validates :variant, :quantity_population, presence: true
 
+  before_create :calculate_average_cost_amount
+
   after_save do
     unless destroyed?
       output = product
@@ -116,5 +118,11 @@ class InterventionOutput < InterventionProductParameter
     else
       return InterventionParameter::AmountComputation.failed
     end
+  end
+
+  protected
+
+  def calculate_average_cost_amount
+    raise
   end
 end

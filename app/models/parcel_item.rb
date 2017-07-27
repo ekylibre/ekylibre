@@ -128,7 +128,6 @@ class ParcelItem < Ekylibre::Record::Base
     true
   end
 
-  before_create :calculate_average_cost_amount
 
   after_save do
     if Preference[:catalog_price_item_addition_if_blank]
@@ -208,6 +207,8 @@ class ParcelItem < Ekylibre::Record::Base
   # Mark items as given, and so change enjoyer and ownership if needed at
   # this moment.
   def give
+    calculate_average_cost_amount
+
     give_outgoing if parcel_outgoing?
     give_incoming if parcel_incoming?
   end
