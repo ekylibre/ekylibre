@@ -1025,6 +1025,7 @@ Rails.application.routes.draw do
     post 'invitations', to: 'invitations#create'
 
     resources :registrations, only: %i[index edit update destroy], concerns: [:list]
+    resources :gaps, only: %i[index show destroy]
   end
 
   namespace :public do
