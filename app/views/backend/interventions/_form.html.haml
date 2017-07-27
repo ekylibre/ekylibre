@@ -64,9 +64,8 @@
             - Procedo::Procedure.of_main_category(category.name.to_sym).sort{|a,b| a.human_name <=> b.human_name }.each do |procedure|
               - menu.item procedure.human_name, { procedure_name: procedure.name, redirect: params[:redirect], nature: params[:nature] }
 
-  - form_action_content(:after) do
-    %span.map-preference
-      = check_box_tag('show-map', @show_map.value, @show_map.value, data: { remote: true, url: backend_interventions_update_map_preference_path, method: 'POST' })
-      = label_tag('show-map', :show_map_intervention.tl)
+  - form_action_content(:after, 'align-right') do
+    = check_box_tag('show-map', @show_map.value, @show_map.value, data: { remote: true, url: backend_interventions_update_map_preference_path, method: 'POST' })
+    = label_tag('show-map', :show_map_intervention.tl)
   - f.clear_actions!
 
