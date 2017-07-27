@@ -209,8 +209,9 @@ class ParcelItem < Ekylibre::Record::Base
   def give
     calculate_average_cost_amount
 
-    give_outgoing if parcel_outgoing?
-    give_incoming if parcel_incoming?
+    # moved the next method in calculate_average_cost_amount for save the stock in this moment
+      # give_outgoing if parcel_outgoing?
+      # give_incoming if parcel_incoming?
   end
 
   protected
@@ -263,15 +264,50 @@ class ParcelItem < Ekylibre::Record::Base
   end
 
   def calculate_average_cost_amount
-    unit_pretax_amount = []
-    quantity_action = []
+    many_items = parcel.items.group_by {|item| item.variant_id }
+    many_items = many_items.to_a
 
-    parcel.items.each do |item|
-      quantity_action << item.population
-      unit_pretax_amount << item.unit_pretax_amount
+    many_items.each do |items|
+      if items.length > 1
+        items.last.each do |item|
+          quantity_action = item.population
+          unit_pretax_amount = ( item.unit_pretax_amount * item.population )
+          variant_id_array = item.variant_id
+          # need to save this population in the stock
+
+          create_variant_valuing(quantity_action, unit_pretax_amount, variant_id)
+          give_outgoing if parcel_outgoing?
+          give_incoming if parcel_incoming?
+        end
+      else
+        items.each do |item|
+          quantity_action = item.population
+          unit_pretax_amount = item.unit_pretax_amount
+          variant_id_array = item.variant_id
+          create_variant_valuing(quantity_action, unit_pretax_amount, variant_id)
+          give_outgoing if parcel_outgoing?
+          give_incoming if parcel_incoming?
+        end
+      end
+
+      # variant_id = variant_id_array.uniq.first
+      # quantity_action = quantity_action.sum
+      # unit_pretax_amount = unit_pretax_amount.sum
+
+      # if parcel.nature == 'incoming' && ProductNatureVariantValuing.where(variant: variant_id) == []
+      #   ProductNatureVariantValuing.calculate_first_entrance(unit_pretax_amount, quantity_action, variant_id)
+      # # output
+      # elsif parcel.nature == 'incoming'
+      #   ProductNatureVariantValuing.calculate_output(unit_pretax_amount, quantity_action, variant_id)
+      # # input
+      # elsif parcel.nature == 'outgoing'
+      #   ProductNatureVariantValuing.calculate_input(quantity_action, variant_id)
+      # end
     end
-    quantity_action = quantity_action.sum
-    unit_pretax_amount = unit_pretax_amount.sum
+  end
+
+  def create_variant_valuing(quantity_action, unit_pretax_amount, variant_id)
+    raise
     # first entrance
     if parcel.nature == 'incoming' && ProductNatureVariantValuing.where(variant: variant_id) == []
       ProductNatureVariantValuing.calculate_first_entrance(unit_pretax_amount, quantity_action, variant_id)
