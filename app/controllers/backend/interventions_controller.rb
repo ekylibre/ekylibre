@@ -255,15 +255,7 @@ module Backend
       from_request = Intervention.find_by(id: params[:request_intervention_id])
       @intervention = from_request.initialize_record if from_request
 
-      @show_map = current_user.preference('interface.interventions.map_show', true)
-
       render(locals: { cancel_url: { action: :index }, with_continue: true })
-    end
-
-    def update_map_preference
-      preference = current_user.preference('interface.interventions.map_show')
-      current_user.prefer!('interface.interventions.map_show', !preference.boolean_value)
-      render nothing: true
     end
 
     def sell
