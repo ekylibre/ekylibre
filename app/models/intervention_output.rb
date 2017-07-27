@@ -123,6 +123,21 @@ class InterventionOutput < InterventionProductParameter
   protected
 
   def calculate_average_cost_amount
+    unit_pretax_stock_amount = []
+    quantity_action = []
+    product.???.each do |???|
+      quantity_action << ???.quantity_population
+      unit_pretax_stock_amount << ???.unit_pretax_stock_amount
+    end
+    quantity_action = quantity_action.sum
+    unit_pretax_amount = unit_pretax_stock_amount.sum
+
+    # first entrance
+    if ProductNatureVariantValuing.where(variant: variant_id) == []
+      ProductNatureVariantValuing.calculate_first_entrance(unit_pretax_stock_amount, quantity_action, variant_id)
+    else
+      ProductNatureVariantValuing.calculate_output(unit_pretax_stock_amount, quantity_action, variant_id)
+    end
     raise
   end
 end

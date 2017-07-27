@@ -71,6 +71,8 @@ class InterventionInput < InterventionProductParameter
     self.variant = product.variant if product
   end
 
+  before_save :calculate_average_cost_amount
+
   after_save do
     if product && intervention.record?
       movement = product_movement ||
@@ -145,5 +147,16 @@ class InterventionInput < InterventionProductParameter
       options[:catalog_item] = product.default_catalog_item(options[:catalog_usage])
       return InterventionParameter::AmountComputation.quantity(:catalog, options)
     end
+  end
+
+  def calculate_average_cost_amount
+    quantity_action = []
+    product.???.each do |???|
+      quantity_action << ???.quantity_population
+    end
+    quantity_action = quantity_action.sum
+
+    ProductNatureVariantValuing.calculate_input(quantity_action, variant_id)
+    raise
   end
 end

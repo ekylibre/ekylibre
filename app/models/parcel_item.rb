@@ -263,15 +263,21 @@ class ParcelItem < Ekylibre::Record::Base
   end
 
   def calculate_average_cost_amount
-    unit_pretax_amount = self.unit_pretax_amount
-    quantity_action = self.population
+    unit_pretax_amount = []
+    quantity_action = []
+
+    parcel.items.each do |item|
+      quantity_action << item.population
+      unit_pretax_amount << item.unit_pretax_amount
+    end
+    quantity_action = quantity_action.sum
+    unit_pretax_amount = unit_pretax_amount.sum
     # first entrance
     if parcel.nature == 'incoming' && ProductNatureVariantValuing.where(variant: variant_id) == []
       ProductNatureVariantValuing.calculate_first_entrance(unit_pretax_amount, quantity_action, variant_id)
     # output
     elsif parcel.nature == 'incoming'
       ProductNatureVariantValuing.calculate_output(unit_pretax_amount, quantity_action, variant_id)
-
     # input
     elsif parcel.nature == 'outgoing'
       ProductNatureVariantValuing.calculate_input(quantity_action, variant_id)

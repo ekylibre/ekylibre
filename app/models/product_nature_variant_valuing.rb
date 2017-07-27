@@ -41,7 +41,7 @@ class ProductNatureVariantValuing < Ekylibre::Record::Base
     amount = quantity_action * unit_pretax_amount
     average_cost_amount = amount / quantity_action
 
-    product_nature_variant_valuing = ProductNatureVariantValuing.new(amount: amount, average_cost_amount: average_cost_amount, variant_id: variant.id)
+    product_nature_variant_valuing = ProductNatureVariantValuing.new(amount: amount, average_cost_amount: average_cost_amount, variant_id: variant_id)
     product_nature_variant_valuing.save
   end
 
