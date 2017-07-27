@@ -411,7 +411,7 @@ module Ekylibre
 
           dump_files(files_path)
           dump_mimetype(archive_path)
-          dump_manifest(archive_path, version, options)
+          dump_manifest(archive_path, version, name, options)
 
           FileUtils.rm_rf(archive_file)
           zip_up(archive_path, into: archive_file)
@@ -469,7 +469,7 @@ module Ekylibre
         end
       end
 
-      def dump_manifest(archive_path, version, options = {})
+      def dump_manifest(archive_path, version, name, options = {})
         File.open(archive_path.join('manifest.yml'), 'wb') do |f|
           options.update(
             tenant: name,
@@ -502,6 +502,7 @@ module Ekylibre
           `sed -i '/^CREATE SCHEMA/,+1 d' #{tenant}.sql`
           `sed -i '/^SET search_path = /,+1 d' #{tenant}.sql`
         end
+        ActiveRecord::Migrator.current_version
       end
 
       def restore_tables_v3(options)
