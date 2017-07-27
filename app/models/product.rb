@@ -221,6 +221,8 @@ class Product < Ekylibre::Record::Base
     raw_products.concat(contents).flatten.uniq
   }
 
+  scope :generic_supports, -> { where(type: %w[Animal AnimalGroup Plant LandParcel Equipment EquipmentFleet]) }
+
   scope :supports_of_campaign, lambda { |campaign|
     joins(:supports).merge(ActivityProduction.of_campaign(campaign))
   }

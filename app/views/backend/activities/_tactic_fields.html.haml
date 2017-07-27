@@ -1,5 +1,5 @@
 .nested-fields
-  - bulk_units = Nomen::Units.where(dimension: :mass).selection.reverse
+  - bulk_units = Nomen::Unit.where(dimension: :mass).selection.reverse
   = link_to_remove_nested_association(:tactics, f)
   = f.input :name
   = f.input :mode, as: :radio_buttons

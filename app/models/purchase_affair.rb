@@ -52,6 +52,7 @@
 #
 class PurchaseAffair < Affair
   belongs_to :supplier, class_name: 'Entity', foreign_key: :third_id
+  has_many :purchase_payments, inverse_of: :affair, foreign_key: :affair_id
 
   # Permit to attach a deal from affair
   def attach(deal)
