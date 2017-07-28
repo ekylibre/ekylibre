@@ -553,18 +553,6 @@ fra:
       new: "Nouveau type de produit"
       pick: "Importer un type de produit"
       show: "Type de produit\_: %{name}"
-    backend/product_receptions:
-      # cancel: "Cancel various product reception: %{name}"
-      # check: "Check various product reception: %{name}"
-      # edit: "Edit various product reception: %{name}"
-      # give: "Give various product reception: %{name}"
-      # index: "Various product receptions"
-      # invoice: "Invoice various product reception: %{name}"
-      new: "Nouvelle réception de produits"
-      # order: "Order various product reception: %{name}"
-      # prepare: "Prepare various product reception: %{name}"
-      # ship: "Ship various product reception: %{name}"
-      # show: "Various product reception: %{name}"
     backend/productions: #?
       edit: "Modifier la production\_: %{name}" #?
       index: "Productions" #?
@@ -668,18 +656,6 @@ fra:
       index: "Séquences"
       load: "Charger les séquences manquantes"
       new: "Nouvelle séquence"
-    backend/service_receptions:
-      # cancel: "Cancel various service reception: %{name}"
-      # check: "Check various service reception: %{name}"
-      # edit: "Edit various service reception: %{name}"
-      # give: "Give various service reception: %{name}"
-      # index: "Various service receptions"
-      # invoice: "Invoice various service reception: %{name}"
-      new: "Nouvelle réception de services"
-      # order: "Order various service reception: %{name}"
-      # prepare: "Prepare various service reception: %{name}"
-      # ship: "Ship various service reception: %{name}"
-      show: "Réception de service: %{number}"
     backend/settings:
       about: "À propos…"
     backend/settlements:
@@ -1723,7 +1699,7 @@ fra:
     new_purchase: "Nouvel achat" #?
     new_purchase_price: "Créer un prix d’achat" #?
     new_quote: "Nouvelle estimation"
-    new_reception: "Nouvelle réception\_: %{type}"
+    new_reception: "Nouvelle réception"
     new_reservoir: "Ajouter un réservoir" #?
     new_sale: "Nouvelle vente" #?
     new_sales_price: "Ajouter un prix de vente" #?
@@ -1900,7 +1876,6 @@ fra:
     product_natures: "Types de produit"
     product_price_listings: "Listes de prix" #?
     product_price_templates: "Types de prix" #?
-    product_reception: "Réception de produits"
     product_value: "Chiffre d’affaire de l’exercice %{financial_year}"
     production: "Production"
     production_cost: "Coût de production"
@@ -2104,7 +2079,6 @@ fra:
     sensor_model: "Modèle du capteur"
     sensors: "Capteurs"
     sequences_load: "Charger les séquences manquantes" #?
-    service_reception: "Réception de services"
     sessions: "Sessions"
     set_reconcilable_new_but_existing_third_accounts: "Rendre lettrables les nouveaux comptes tiers déjà existants"
     settings: "Configuration"

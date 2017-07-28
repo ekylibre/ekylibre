@@ -509,18 +509,6 @@ spa:
       new: "Nuevo tipo de producto"
       pick: "Escoja el tipo de producto"
       # show: "Product type: %{name}"
-    backend/product_receptions:
-      # cancel: "Cancel various product reception: %{name}"
-      # check: "Check various product reception: %{name}"
-      # edit: "Edit various product reception: %{name}"
-      # give: "Give various product reception: %{name}"
-      # index: "Various product receptions"
-      # invoice: "Invoice various product reception: %{name}"
-      # new: "New various product reception"
-      # order: "Order various product reception: %{name}"
-      # prepare: "Prepare various product reception: %{name}"
-      # ship: "Ship various product reception: %{name}"
-      # show: "Various product reception: %{name}"
     backend/products:
       # edit: "Edit product: %{name}"
       index: "Productos"
@@ -602,18 +590,6 @@ spa:
       index: "Sequencias"
       load: "Secuencias de carga faltante"
       new: "Creación de une nueva sequencia"
-    backend/service_receptions:
-      # cancel: "Cancel various service reception: %{name}"
-      # check: "Check various service reception: %{name}"
-      # edit: "Edit various service reception: %{name}"
-      # give: "Give various service reception: %{name}"
-      # index: "Various service receptions"
-      # invoice: "Invoice various service reception: %{name}"
-      # new: "New various service reception"
-      # order: "Order various service reception: %{name}"
-      # prepare: "Prepare various service reception: %{name}"
-      # ship: "Ship various service reception: %{name}"
-      # show: "Various service reception: %{name}"
     backend/settings:
       about: "A propocito de Ekylibre"
     backend/settlements:
@@ -1539,7 +1515,7 @@ spa:
     new_production: "Nueva producción"
     # new_production_of_activity: "New production of %{activity}"
     new_quote: "Nueva cita"
-    # new_reception: "New reception : %{type}"
+    # new_reception: "New reception"
     # new_shipment: "New shipment"
     new_writing: "Nueva escritura"
     next: "Siguiente"
@@ -1673,7 +1649,6 @@ spa:
     product_category: "Categoria de producto"
     product_name: "Nombre del producto"
     product_natures: "Tipos de productos"
-    # product_reception: "Product reception"
     # product_value: "Product value %{financial_year}"
     production: "Administración de la producción"
     production_cost: "Costo de producción"
@@ -1834,7 +1809,6 @@ spa:
     sequence_create: "Añadir une sequencia" #?
     sequences: "Séquencias" #?
     sequences_load: "Cargar las secuencias faltantes" #?
-    # service_reception: "Service reception"
     sessions: "Sesiones"
     set_reconcilable_new_but_existing_third_accounts: "Establecer conciliables las nuevas cuentas, pero existentes terceros (clientes, proveedores y abogados)"
     settings: "Ajustes"

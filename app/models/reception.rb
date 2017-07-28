@@ -196,7 +196,3 @@ class Reception < Parcel
     end
   end
 end
-
-# FIXME: Remove these dependencies requirement
-require_dependency 'service_reception'
-require_dependency 'product_reception'

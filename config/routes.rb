@@ -751,14 +751,6 @@ Rails.application.routes.draw do
 
     resources :receptions, concerns: :receptions
 
-    resources :product_receptions, concerns: :receptions
-
-    resources :service_receptions, concerns: :receptions
-
-    resources :input_receptions, concerns: :receptions
-
-    resources :maintenance_supply_receptions, concerns: :receptions
-
     resources :shipments, concerns: %i[list unroll] do
       member do
         post :invoice

@@ -28,10 +28,6 @@
   - k.choice *([[:all.tl, :all], [:invoiced.tl, :invoiced], [:uninvoiced.tl, :uninvoiced]]), name: :invoice_status, label: :invoice_status.tl
 
 - main_toolbar do |t|
-  :ruby
-    reception_types = Reception.subclasses.map do |type|
-      [:new_reception.tl(type: type.name.underscore.tl), {action: :new, controller: type.name.underscore.pluralize}]
-    end
-  = t.new variants: reception_types, params: { redirect: nil }
+  = t.new params: { redirect: nil }, label: :new_reception.tl
 
 = main_list

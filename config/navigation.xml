@@ -601,40 +601,6 @@
         <page to="backend/receptions#order"/>
         <page to="backend/receptions#prepare"/>
         <page to="backend/receptions#list_items"/>
-        <page to="backend/product_receptions#index"/>
-        <page to="backend/product_receptions#cancel"/>
-        <page to="backend/product_receptions#check"/>
-        <page to="backend/product_receptions#create"/>
-        <page to="backend/product_receptions#destroy"/>
-        <page to="backend/product_receptions#edit"/>
-        <page to="backend/product_receptions#give"/>
-        <page to="backend/product_receptions#invoice"/>
-        <page to="backend/product_receptions#list"/>
-        <page to="backend/product_receptions#list_items"/>
-        <page to="backend/product_receptions#new"/>
-        <page to="backend/product_receptions#order"/>
-        <page to="backend/product_receptions#prepare"/>
-        <page to="backend/product_receptions#ship"/>
-        <page to="backend/product_receptions#show"/>
-        <page to="backend/product_receptions#unroll"/>
-        <page to="backend/product_receptions#update"/>
-        <page to="backend/service_receptions#index"/>
-        <page to="backend/service_receptions#cancel"/>
-        <page to="backend/service_receptions#check"/>
-        <page to="backend/service_receptions#create"/>
-        <page to="backend/service_receptions#destroy"/>
-        <page to="backend/service_receptions#edit"/>
-        <page to="backend/service_receptions#give"/>
-        <page to="backend/service_receptions#invoice"/>
-        <page to="backend/service_receptions#list"/>
-        <page to="backend/service_receptions#list_items"/>
-        <page to="backend/service_receptions#new"/>
-        <page to="backend/service_receptions#order"/>
-        <page to="backend/service_receptions#prepare"/>
-        <page to="backend/service_receptions#ship"/>
-        <page to="backend/service_receptions#show"/>
-        <page to="backend/service_receptions#unroll"/>
-        <page to="backend/service_receptions#update"/>
       </item>
     </group>
     <group name="shipments" icon="truck">
