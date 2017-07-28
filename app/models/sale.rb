@@ -449,10 +449,6 @@ class Sale < Ekylibre::Record::Base
     amount - pretax_amount
   end
 
-  def usable_payments
-    client.incoming_payments.where('COALESCE(used_amount, 0)<COALESCE(amount, 0)').joins(mode: :cash).where(currency: self.currency).order('to_bank_at')
-  end
-
   def sales_mentions
     # get preference for sales conditions
     preference_sales_conditions = Preference.global.find_by(name: :sales_conditions)

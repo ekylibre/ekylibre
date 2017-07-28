@@ -164,12 +164,17 @@ class Purchase < Ekylibre::Record::Base
   end
 
   after_update do
+    affair.update_attributes(third_id: third.id) if affair && affair.deals.count == 1
     affair.reload_gaps if affair
     true
   end
 
   after_create do
     supplier.add_event(:purchase_creation, updater.person) if updater
+  end
+
+  after_save do
+    items.each(&:update_fixed_asset) if invoice?
   end
 
   # This callback permits to add journal entries corresponding to the purchase order/invoice
@@ -317,7 +322,6 @@ class Purchase < Ekylibre::Record::Base
     reload
     self.invoiced_at ||= invoiced_at || Time.zone.now
     save!
-    items.each(&:update_fixed_asset)
     super
   end
 

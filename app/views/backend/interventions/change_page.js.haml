@@ -1,0 +1,22 @@
+:ruby
+  @tasks = {}
+
+  @interventions_by_state.each do |state, interventions|
+    if interventions.empty?
+      @tasks[state] = []
+      next
+    end
+
+    tasks_by_state = []
+
+    interventions[:interventions].each do |intervention|
+      tasks_by_state << task(*taskboard_task(intervention))
+    end
+
+    @tasks[state] = tasks_by_state
+  end
+
+- @tasks.each do |state, tasks|
+  - tasks.each do |task|
+    :plain
+      $(".taskboard-column.#{state.to_s} .tasks").append("#{escape_javascript(render partial: '/backend/shared/taskboard/task', locals: { task: task } )}");

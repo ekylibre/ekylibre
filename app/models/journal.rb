@@ -100,7 +100,6 @@ class Journal < Ekylibre::Record::Base
 
   # this method is .alled before creation or validation method.
   before_validation do
-    self.name = nature.l if name.blank? && nature
     if eoc = Entity.of_company
       self.currency ||= eoc.currency
     end
@@ -231,6 +230,11 @@ class Journal < Ekylibre::Record::Base
         )
       end
     end
+  end
+
+  def writable_on?(printed_on)
+    printed_on > self.closed_on &&
+      FinancialYearExchange.where('? BETWEEN started_on AND stopped_on', printed_on).empty?
   end
 
   # Test if journal is closable

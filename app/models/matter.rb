@@ -86,6 +86,7 @@
 #
 class Matter < Product
   refers_to :variety, scope: :matter
+  validates :initial_population, presence: true
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   # ]VALIDATORS]
 end

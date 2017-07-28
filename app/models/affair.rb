@@ -96,7 +96,6 @@ class Affair < Ekylibre::Record::Base
   # ]VALIDATORS]
   validates :currency, length: { allow_nil: true, maximum: 3 }
 
-  acts_as_numbered
   scope :closeds, -> { where(closed: true) }
   scope :opened, -> { where(closed: false) }
 
@@ -119,6 +118,10 @@ class Affair < Ekylibre::Record::Base
   end
 
   before_save :letter_journal_entries
+
+  def number
+    "A#{id.to_s.rjust(7, '0')}"
+  end
 
   def work_name
     number.to_s

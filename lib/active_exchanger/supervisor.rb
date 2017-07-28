@@ -1,6 +1,6 @@
 module ActiveExchanger
   class Supervisor
-    attr_reader :color
+    attr_reader :color, :cursor
 
     def initialize(mode = :normal, &block)
       if block_given?

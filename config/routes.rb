@@ -480,7 +480,7 @@ Rails.application.routes.draw do
 
     resources :fixed_assets, concerns: %i[list unroll], path: 'fixed-assets' do
       collection do
-        get :depreciate_up_to
+        post :depreciate, action: :depreciate_all
       end
 
       member do
@@ -577,6 +577,7 @@ Rails.application.routes.draw do
         patch :compute
         get :modal
         post :change_state
+        get :change_page
       end
       member do
         post :sell
@@ -663,7 +664,7 @@ Rails.application.routes.draw do
 
     resources :loans, concerns: %i[list unroll] do
       collection do
-        get :accounting
+        post :bookkeep
       end
 
       member do
