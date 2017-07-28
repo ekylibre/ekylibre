@@ -209,7 +209,6 @@ module Backend
       end
       return no_data if series.empty?
 
-
       line_highcharts(series, legend: {}, y_axis: { title: { text: :indicator.tl } }, x_axis: { type: 'datetime', title: { enabled: true, text: :months.tl }, min: min.to_usec })
     end
 
