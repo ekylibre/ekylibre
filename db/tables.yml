@@ -4897,7 +4897,7 @@ parcel_item_storings:
     type: integer
   storage_id:
     type: integer
-    references: ''
+    references: product
     required: true
   updated_at:
     type: datetime
