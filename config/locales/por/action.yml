@@ -1513,7 +1513,7 @@ por:
     results: #?
       one: "1 resultado" #?
     revenues: "Faturamento"
-    revenues_by_product_nature: "As receitas por tipo de produto" #?
+    revenues_by_product_nature: "As receitas por tipo de produto"
     reverse: "Condição inversa"
     rights: "Direitos"
     risk_and_charges_provisions: "Provisões para riscos e encargos"

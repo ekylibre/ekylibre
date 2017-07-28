@@ -110,6 +110,8 @@ accounts:
   usages:
     type: text
 activities:
+  codes:
+    type: jsonb
   created_at:
     type: datetime
     required: true
@@ -602,7 +604,6 @@ affairs:
     type: string
   number:
     type: string
-    required: true
   origin:
     type: string
   pretax_amount:
@@ -1619,6 +1620,8 @@ crumbs:
     type: integer
     references: user
 cultivable_zones:
+  codes:
+    type: jsonb
   created_at:
     type: datetime
     required: true
@@ -3279,6 +3282,8 @@ integrations:
   creator_id:
     type: integer
     references: user
+  data:
+    type: jsonb
   id:
     type: integer
     required: true
@@ -6260,6 +6265,8 @@ products:
     type: integer
     references: product_nature_category
     required: true
+  codes:
+    type: jsonb
   country:
     type: string
   created_at:
@@ -6378,6 +6385,9 @@ products:
     type: integer
   picture_updated_at:
     type: datetime
+  reading_cache:
+    type: jsonb
+    required: true
   team_id:
     type: integer
     references: team

@@ -1509,7 +1509,7 @@ cmn:
     results: #?
       one: "1结果" #?
     revenues: "收入"
-    revenues_by_product_nature: "按产品类型的收入" #?
+    revenues_by_product_nature: "按产品类型的收入"
     reverse: "反转条件"
     rights: "权利"
     risk_and_charges_provisions: "风险和费用的规定"

@@ -1508,7 +1508,7 @@ deu:
     results: #?
       one: "1 Ergebnis" #?
     revenues: "Die Umsatzerlöse"
-    revenues_by_product_nature: "Umsatz nach Produkttyp" #?
+    revenues_by_product_nature: "Umsatz nach Produkttyp"
     reverse: "Reverse-Zustand"
     rights: "Rechte"
     risk_and_charges_provisions: "Risiko und Kosten Rückstellungen"

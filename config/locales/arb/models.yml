@@ -2149,6 +2149,7 @@ arb:
     rank_number: "عدد رتبة"
     rate: "معدل سعر الصرف" #?
     read_at: "قراءة في"
+    # reading_cache: "Reading cache"
     reading_tasks: "مهام القراءة"
     readings: "قراءات"
     real_balance: "التوازن الحقيقي"

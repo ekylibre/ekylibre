@@ -2062,7 +2062,7 @@ arb:
       other: "%{count} نتائج" #?
       zero: "ولا نتيجة" #?
     revenues: "إيرادات"
-    revenues_by_product_nature: "الإيرادات حسب نوع المنتج" #?
+    revenues_by_product_nature: "الإيرادات حسب نوع المنتج"
     reverse: "تطبيق الحالة العكسية"
     right_parts: #?
       accountancy: "حقوق المحاسبة" #?

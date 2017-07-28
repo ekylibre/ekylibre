@@ -1405,8 +1405,8 @@ fra:
     incoming: "Entrant" #?
     incoming_parcels: "Colis entrants"
     incoming_payment: "Encaissement"
-    incoming_payment_conditions: "Conditions d’encaissement" #?
     incoming_payment_amount: "Encaissements" #?
+    incoming_payment_conditions: "Conditions d’encaissement" #?
     incoming_payments: "Encaissements"
     incoming_payments_states: #?
       all: "Tous" #?

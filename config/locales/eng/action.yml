@@ -1379,7 +1379,7 @@ eng:
     income_statement: "Income Statement" #?
     incoming_parcels: "Incoming parcels"
     incoming_payment: "Incoming payment" #?
-    # incoming_payment_duty_free: "Incoming payment duty free"
+    # incoming_payment_amount: "Incoming payment amount"
     incoming_payments: "Incoming payments"
     incoming_payments_to_deposit: "Incoming payments to deposit" #?
     incorporeal_assets: "Incorporeal assets" #?
@@ -1612,8 +1612,8 @@ eng:
     outgoing_parcel_quantities: "Quantities (Outgoing parcel)"
     outgoing_parcels: "Outgoing parcels"
     outgoing_payment: "Outgoing payment" #?
-    # outgoing_payment_duty_free: "Outgoing payment duty free"
-    outgoing_payments: "Outgoing payments"
+    # outgoing_payment_amount: "Outgoing payment amount"
+    outgoing_payments: "Outgoing payments" #?
     page_title: "%{company_code} · %{menu} · %{action}"
     page_title_by_default: "Ekylibre · %{action}"
     page_title_special: "%{company_code} · %{action}"
@@ -1744,7 +1744,7 @@ eng:
     restore: "Restore" #?
     result: "Result" #?
     revenues: "Revenues" #?
-    revenues_by_product_nature: "Revenues by product type"
+    revenues_by_product_nature: "Revenues by product type" #?
     reverse: "Reverse condition"
     rights: "Rights"
     risk_and_charges_provisions: "Risk and charges provisions" #?!
@@ -1876,8 +1876,8 @@ eng:
     total: "Total"
     total_amount: "Total amount" #??
     total_cost: "Total cost"
-    total_pretax_expenses: "Total pre-tax expenses" #?!
-    total_pretax_revenues: "Total pre-tax revenues" #?!
+    total_pretax_expenses: "Total pre-tax expenses"
+    total_pretax_revenues: "Total pre-tax revenues"
     # total_purchases: "Total purchases"
     total_quantity: "Total quantity" #?
     # total_sales: "Total sales"

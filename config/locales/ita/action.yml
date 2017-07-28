@@ -1574,7 +1574,7 @@ ita:
     results: #?
       one: "1 risultato" #?
     revenues: "ricavi"
-    revenues_by_product_nature: "Ricavi per tipologia di prodotto" #?
+    revenues_by_product_nature: "Ricavi per tipologia di prodotto"
     reverse: "condizione di inversione"
     rights: "Diritti"
     risk_and_charges_provisions: "Fondi rischi e oneri"

@@ -1701,7 +1701,7 @@ spa:
       one: "1 resultado" #?
       other: "%{count} resultado" #?
     revenues: "Los ingresos"
-    revenues_by_product_nature: "Los ingresos por tipo de producto" #?
+    revenues_by_product_nature: "Los ingresos por tipo de producto"
     reverse: "Condición inversa"
     right_parts: #?
       accountancy: "Derechos modulo contabilidad" #?
