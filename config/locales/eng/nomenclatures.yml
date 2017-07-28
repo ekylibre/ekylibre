@@ -2310,61 +2310,112 @@ eng:
       items:
         acarine_gall_mite: "Acarine gall mite"             #< insecta_disease
         accident: "Accident"                               #< issue
+        alternaria: "Alternaria"                           #< fungus_disease
+        amaranthus: "Amaranth"                             #< plant_disease
         anthracnose: "Anthracnose"                         #< fungus_disease
         aphid: "Aphid"                                     #< insecta_disease
         bacteria_disease: "Bacteria disease"               #< disease
+        bacterial_disease: "Bacterial disease"             #< bacteria_disease
         bacterial_leaf_blight: "Bacterial leaf blight"     #< bacteria_disease
         bacterial_streak: "Bacterial streak"               #< bacteria_disease
         bacteriosis: "Bacteriosis"                         #< bacteria_disease
         bad_vegetative_growth_conditions: "Bad vegetative growth conditions" #< disease
+        barley_helminthosporiosis: "Barley helminthosporiosis" #< fungus_disease
+        bidens_tripartita: "Three-lobe beggarticks"        #< plant_disease
         black_rust: "Black rust"                           #< fungus_disease
+        brown_rust: "Brown rust"                           #< fungus_disease
+        cabbage_maggot: "Cabbage maggot"                   #< insecta_disease
+        capsella: "Capsella"                               #< plant_disease
+        carrot_fly: "Carrot fly"                           #< insecta_disease
+        carrot_mildiew: "Carrot mildiew"                   #< fungus_disease
+        carrot_powdery_mildew: "Carrot powdery mildew"     #< fungus_disease
+        cassidinae: "Cassidinae"                           #< insecta_disease
+        caterpillar: "Caterpillar"                         #< insecta_disease
+        cercosporiosis: "Cercosporiosis"                   #< fungus_disease
+        cereal_mildiew: "Cereal mildiew"                   #< fungus_disease
         chenopodium_album: "Chenopodium album"             #< plant_disease
         climate_issue: "Climate issue"                     #< issue
         codling_moth: "Codling moth"                       #< insecta_disease
+        colorado_potato_beetle: "Colorado potato beetle"   #< insecta_disease
         common_bunt: "Common bunt"                         #< fungus_disease
+        corn_helminthosporiosis: "Corn helminthosporiosis" #< fungus_disease
+        cotton_bollworm: "Cotton bollworm"                 #< insecta_disease
         cough: "Cough"                                     #< disease
         croesus_septentrionalis: "Croesus septentrionalis" #< insecta_disease
+        cutworm: "Cutworm"                                 #< insecta_disease
+        cyperus_esculentus: "Cyperus esculentus"           #< plant_disease
+        datura: "Datura"                                   #< plant_disease
         defoliant_caterpillar: "Defoliant caterpillar"     #< insecta_disease
         diarrhea: "Diarrhea"                               #< disease
+        digitaria: "Digitaria"                             #< plant_disease
         disease: "Disease"                                 #< issue
         drought: "Drought"                                 #< climate_issue
         edema: "Edema"                                     #< disease
         empoasca_vitis_leafhopper: "Empoasca vitis leafhopper" #< insecta_disease
         empty_fuel_tank: "Empty fuel tank"                 #< mechanical_issue
         equipment_crash: "Equipment crash"                 #< accident
+        erigeron: "Erigeron"                               #< plant_disease
         escape: "Escape"                                   #< issue
+        european_corn_borer: "European corn borer"         #< insecta_disease
+        european_sawfly: "European sawfly"                 #< insecta_disease
         fecondity_problem: "Fecondity problem"             #< disease
         fever: "Fever"                                     #< disease
         field_edge_male_seed_corn_defect: "Field edge male seed corn default" #< plant_issue
+        flea_beetle: "Flea beetle"                         #< insecta_disease
         flooding: "Flooding"                               #< climate_issue
         fomitiporia: "Fomitiporia"                         #< fungus_disease
         fungus_disease: "Fungus disease"                   #< disease
+        fusarium: "Fusarium"                               #< fungus_disease
         fusarium_head_blight: "Fusarium head blight"       #< fungus_disease
+        galium_aparine: "Galium aparine"                   #< plant_disease
         grapevine_yellows: "Grapevine yellows"             #< bacteria_disease
         husk_fly: "Husk fly"                               #< insecta_disease
         insecta_disease: "Insecta disease"                 #< disease
         issue: "Issue"
+        large_white: "Large white"                         #< insecta_disease
         limping: "Limping"                                 #< disease
         longhorn_beetle: "Longhorn beetle"                 #< insecta_disease
         mammite: "Mammite"                                 #< bacteria_disease
         mechanical_issue: "Mechanical issue"               #< issue
+        mediterranean_corn_borer: "Mediterranean corn borer" #< insecta_disease
+        moth: "Moth"                                       #< insecta_disease
+        nematoda: "Nematoda"                               #< insecta_disease
         nematoda_disease: "Nematoda disease"               #< disease
+        nightshade: "Nightshade"                           #< plant_disease
         noble_rot: "Noble rot"                             #< fungus_disease
         nut_weevil: "Nut weevil"                           #< insecta_disease
+        panicum: "Panicum"                                 #< plant_disease
         phytophthora: "Phytophthora"                       #< fungus_disease
         piece_breakdown: "Piece breakdown"                 #< mechanical_issue
         plant_disease: "Plant disease"                     #< disease
         plant_issue: "Plant issue"
+        poa: "Poa"                                         #< plant_disease
+        polygonum: "Knotweed"                              #< plant_disease
+        portulaca_oleracea: "Common purslane"              #< plant_disease
+        potato_mildew: "Potato late blight"                #< fungus_disease
+        potato_powdery_mildew: "Potato powdery mildew"     #< fungus_disease
         pourridie_rot: "Pourridie rot"                     #< fungus_disease
+        previous_crop_regrowth: "Previous crop regrowth"   #< plant_disease
         protozoa_disease: "Protozoa disease"               #< disease
+        pseudomonas_syringae: "Pseudomonas syringae"       #< bacteria_disease
         respiratory_problem: "Respiratory problem"         #< disease
+        rhizoctonia: "Rhizoctonia"                         #< fungus_disease
+        rumex_crispus: "Rumex crispus"                     #< plant_disease
         scale_insect: "Scale insect"                       #< insecta_disease
         scaphoideus_titanus_leafhopper: "Scaphoideus titanus leafhopper" #< insecta_disease
+        sclerotinia: "Sclerotinia"                         #< fungus_disease
         seed_corn_castration_defect: "Seed corn castration default" #< plant_issue
+        seedcorn_maggot: "Seedcorn maggot"                 #< insecta_disease
+        senecio_vulgaris: "Groundsel"                      #< plant_disease
         septoria_blotch: "Septoria blotch"                 #< fungus_disease
+        sorghum_halepense: "Johnson grass"                 #< plant_disease
         support_issue: "Support issue"                     #< issue
+        tipburn: "Tipburn"                                 #< disease
+        tomato_mildew: "Tomato mildew"                     #< fungus_disease
+        vegetation_cover_regrowth: "Vegetation cover regrowth" #< plant_disease
         vine_mildew: "Vine mildew"                         #< fungus_disease
         vine_powdery_mildew: "Vine powdery mildew"         #< fungus_disease
+        wheat_helminthosporiosis: "Wheat helminthosporiosis" #< fungus_disease
         wheat_powdery_mildew: "Wheat powdery mildew"       #< fungus_disease
         wild_animal_ravage: "Wild animal ravage"           #< issue
         wood_leopard_moth: "Wood leopard moth"             #< insecta_disease
