@@ -7,6 +7,7 @@
       @display = @line.find('.item-display')
 
       @_bindButtons(@newForm())
+
       $('.form-actions .primary').attr("disabled",true)
 
       @edit()

@@ -32,8 +32,11 @@
         .item-add-storing
           = f.simple_fields_for :storings, f.object.storings do |storing|
             = render 'storing_fields', f: storing
-          .storings-footer  
-            = link_to_add_association :add_storing.tl, f, :storings, partial: 'storing_fields', 'data-association-insertion-node' => '#storings-footer', 'data-association-insertion-method' => :before, class: "btn primary"
+          .storings-footer
+          = link_to_add_association :add_storing.tl, f, :storings, partial: 'storing_fields', 'data-association-insertion-node' => '.storings-footer', 'data-association-insertion-method' => :before, 'data-association-insertion-traversal' => 'prev', class: "btn primary"
+          %label
+            %span= :total.tl
+            %span.total-quantity{ data: { calculate: "sum", use: ".item-storing-quantity", use_closest: ".nested-item-form" } }= f.object.population
         .item-delivery-mode
           = f.input :delivery_mode, as: :radio_buttons, input_html: { class: 'item-delivery-mode', data: {  field: 'item-delivery-mode' } }
           .transporter-delivery-mode.hidden

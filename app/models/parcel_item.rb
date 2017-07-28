@@ -101,7 +101,7 @@ class ParcelItem < Ekylibre::Record::Base
 
   accepts_nested_attributes_for :product
   accepts_nested_attributes_for :storings
-  
+
   # delegate :net_mass, to: :product
   delegate :allow_items_update?, :remain_owner, :planned_at, :draft?,
            :ordered_at, :recipient, :in_preparation?, :in_preparation_at,
