@@ -296,7 +296,8 @@ CREATE TABLE activities (
     production_system_name character varying,
     use_seasons boolean DEFAULT false,
     use_tactics boolean DEFAULT false,
-    codes jsonb
+    codes jsonb,
+    time_spent jsonb
 );
 
 
@@ -17861,4 +17862,8 @@ INSERT INTO schema_migrations (version) VALUES ('20170425145302');
 INSERT INTO schema_migrations (version) VALUES ('20170530002312');
 
 INSERT INTO schema_migrations (version) VALUES ('20170602144753');
+
+INSERT INTO schema_migrations (version) VALUES ('20170728072916');
+
+INSERT INTO schema_migrations (version) VALUES ('20170728134454');
 
