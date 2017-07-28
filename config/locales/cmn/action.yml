@@ -423,7 +423,7 @@ cmn:
       new: "新的支付费用"
       # show: "Payslip payment: %{number}"
     backend/payslips:
-      # edit: "Edit payslip: %{name}"
+      # edit: "Edit payslip: %{number}"
       index: "工资单"
       new: "新工资单"
       # show: "Payslip: %{number}"

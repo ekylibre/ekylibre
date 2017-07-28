@@ -423,7 +423,7 @@ jpn:
       new: "新しいペイチップの支払い"
       # show: "Payslip payment: %{number}"
     backend/payslips:
-      # edit: "Edit payslip: %{name}"
+      # edit: "Edit payslip: %{number}"
       index: "ペイスリップス"
       new: "新しいペイプルップ"
       # show: "Payslip: %{number}"

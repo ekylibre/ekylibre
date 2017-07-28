@@ -73,7 +73,6 @@ module Api
       #   part_id = response['id']
       #   original_count = InterventionParticipation.find(part_id).working_periods.count
 
-
       #   part_id = JSON(post(:create, payload).body)['id']
       #   new_count = InterventionParticipation.find(part_id).working_periods.count
 

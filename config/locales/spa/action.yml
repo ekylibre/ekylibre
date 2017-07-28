@@ -460,7 +460,7 @@ spa:
       new: "Nuevo pago de la nómina"
       # show: "Payslip payment: %{number}"
     backend/payslips:
-      # edit: "Edit payslip: %{name}"
+      # edit: "Edit payslip: %{number}"
       index: "Papeletas"
       new: "Nuevo salario"
       # show: "Payslip: %{number}"

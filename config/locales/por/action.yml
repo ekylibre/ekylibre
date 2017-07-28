@@ -428,7 +428,7 @@ por:
       new: "Novo pagamento de salário"
       # show: "Payslip payment: %{number}"
     backend/payslips:
-      # edit: "Edit payslip: %{name}"
+      # edit: "Edit payslip: %{number}"
       index: "Listas de pagamento"
       new: "Novo salário"
       # show: "Payslip: %{number}"
