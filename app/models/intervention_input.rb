@@ -150,13 +150,12 @@ class InterventionInput < InterventionProductParameter
   end
 
   def calculate_average_cost_amount
-    quantity_action = []
-    product.uk.each do |uk|
-      quantity_action << uk.quantity_population
-    end
-    quantity_action = quantity_action.sum
+    # quantity_action = []
+    # product.uk.each do |uk|
+    #   quantity_action << uk.quantity_population
+    # end
+    # quantity_action = quantity_action.sum
 
-    ProductNatureVariantValuing.calculate_input(quantity_action, variant_id)
-    raise
+    # ProductNatureVariantValuing.calculate_input(quantity_action, variant_id)
   end
 end

@@ -286,12 +286,15 @@ class ParcelItem < Ekylibre::Record::Base
             create_variant_valuing(@quantity_new, quantity_action, unit_pretax_amount, variant_id)
           end
         elsif parcel.nature == 'outgoing'
-          if item == item.first
+          if item == items.last.first
+            variant = ProductNatureVariant.where(id: variant_id).first
             @quantity_new = variant.current_stock - quantity_action
+            unit_pretax_amount = 0
             create_variant_valuing(@quantity_new, quantity_action, variant_id)
           else
             @quantity_new = @quantity_new - quantity_action
-            create_variant_valuing(@quantity_new, quantity_action, unit_pretax_amount, variant_id)
+            unit_pretax_amount = 0
+            create_variant_valuing(@quantity_new, quantity_action, variant_id, unit_pretax_amount)
           end
         end
       end
@@ -299,9 +302,9 @@ class ParcelItem < Ekylibre::Record::Base
   end
 
 
-  def create_variant_valuing(quantity_new, quantity_action, unit_pretax_amount, variant_id)
+  def create_variant_valuing(quantity_new, quantity_action, variant_id, unit_pretax_amount)
     # first entrance
-    if parcel.nature == 'incoming' && ProductNatureVariantValuing.where(variant: variant_id) == []
+    if parcel.nature == 'incoming' && ProductNatureVariantValuing.where(variant_id: variant_id) == []
       ProductNatureVariantValuing.calculate_first_entrance(unit_pretax_amount, quantity_action, variant_id)
     # output
     elsif parcel.nature == 'incoming'

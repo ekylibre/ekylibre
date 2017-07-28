@@ -46,37 +46,30 @@ class ProductNatureVariantValuing < Ekylibre::Record::Base
   end
 
   def self.calculate_output(unit_pretax_amount, quantity_new, quantity_action, variant_id)
-    variant = ProductNatureVariant.find(variant_id)
-    # old_stock = variant.current_stock
-    old_product_nature_variant_valuing = ProductNatureVariantValuing.where(variant: variant.id).last
+    old_product_nature_variant_valuing = ProductNatureVariantValuing.where(variant: variant_id).last
     old_amount = old_product_nature_variant_valuing.amount
 
-    # quantity_new = old_stock + quantity_action
     amount = old_amount + quantity_action * unit_pretax_amount
     average_cost_amount = amount / quantity_new
 
-    product_nature_variant_valuing = ProductNatureVariantValuing.new(amount: amount, average_cost_amount: average_cost_amount, variant_id: variant.id)
+    product_nature_variant_valuing = ProductNatureVariantValuing.new(amount: amount, average_cost_amount: average_cost_amount, variant_id: variant_id)
     product_nature_variant_valuing.save
   end
 
   def self.calculate_input(quantity_new, quantity_action, variant_id)
-    raise
-    variant = ProductNatureVariant.find(variant_id)
-    # old_stock = variant.current_stock
-    old_product_nature_variant_valuing = ProductNatureVariantValuing.where(variant: variant.id).last
+    old_product_nature_variant_valuing = ProductNatureVariantValuing.where(variant_id: variant_id).last
     old_amount = old_product_nature_variant_valuing.amount
     old_average_cost_amount = old_product_nature_variant_valuing.average_cost_amount
 
-    # quantity_new = old_stock - quantity_action
     amount = old_amount - quantity_action * old_average_cost_amount
     average_cost_amount = amount / quantity_new
 
-    product_nature_variant_valuing = ProductNatureVariantValuing.new(amount: amount, average_cost_amount: average_cost_amount, variant_id: variant.id)
+    product_nature_variant_valuing = ProductNatureVariantValuing.new(amount: amount, average_cost_amount: average_cost_amount, variant_id: variant_id)
     product_nature_variant_valuing.save
   end
 
   def self.calculate_inventory(inventory_items, variant_id)
-    old_product_nature_variant_valuing = ProductNatureVariantValuing.where(variant: variant_id).last
+    old_product_nature_variant_valuing = ProductNatureVariantValuing.where(variant_id: variant_id).last
     old_average_cost_amount = old_product_nature_variant_valuing.average_cost_amount
 
     population = []
