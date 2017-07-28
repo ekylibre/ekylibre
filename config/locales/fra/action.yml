@@ -1946,6 +1946,7 @@ fra:
       one: "%{count} résultat" #?
       other: "%{count} résultats" #?
     revenues: "Recettes"
+    revenues_by_product_nature: "Chiffre d’affaire par type de produit"
     reverse: "Appliquer la condition inverse"
     right_parts: #?
       accountancy: "Droits module Comptabilité" #?
@@ -2166,8 +2167,8 @@ fra:
     total_earn_per_working_unit: "Gain total par unité d’œuvre" #?
     total_invoiced_amount: "Total montant facturé" #?
     total_paid_amount: "Montant total payé" #?
-    # total_pretax_expenses: "Total pre-tax expenses"
-    # total_pretax_revenues: "Total pre-tax revenues"
+    total_pretax_expenses: "Dépenses (HT)"
+    total_pretax_revenues: "Revenus (HT)"
     total_purchases: "Achats (HT)" #?
     total_quantity: "Quantité totale"
     total_sales: "Ventes (HT)" #?

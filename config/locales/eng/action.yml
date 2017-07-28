@@ -1744,6 +1744,7 @@ eng:
     restore: "Restore" #?
     result: "Result" #?
     revenues: "Revenues" #?
+    revenues_by_product_nature: "Revenues by product type"
     reverse: "Reverse condition"
     rights: "Rights"
     risk_and_charges_provisions: "Risk and charges provisions" #?!
