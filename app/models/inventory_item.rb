@@ -97,6 +97,15 @@ class InventoryItem < Ekylibre::Record::Base
   protected
 
   def calculate_average_cost_amount
-    ProductNatureVariantValuing.calculate_inventory(inventory.items, variant.id)
+    many_items = inventory.items.group_by {|item| item.variant.id }
+    many_items = many_items.to_a
+
+    many_items.each do |items|
+      items.last.each do |item|
+        quantity_entry = item.actual_population
+        variant_id = item.variant.id
+        ProductNatureVariantValuing.calculate_inventory(quantity_entry, variant.id)
+      end
+    end
   end
 end
