@@ -150,6 +150,7 @@ class InterventionInput < InterventionProductParameter
   end
 
   def calculate_average_cost_amount
+    raise
     # quantity_action = []
     # product.uk.each do |uk|
     #   quantity_action << uk.quantity_population
