@@ -70,6 +70,8 @@ class InventoryItem < Ekylibre::Record::Base
     end
   end
 
+  before_save :calculate_average_cost_amount
+
   after_save do
     if reflected?
       movement = product_movement || build_product_movement
@@ -82,7 +84,6 @@ class InventoryItem < Ekylibre::Record::Base
       ProductMovement.destroy(product_movement)
       update_columns(product_movement_id: nil)
     end
-    calculate_average_cost_amount
   end
 
   # Returns the delta population between actual and expectedp populations
@@ -97,10 +98,9 @@ class InventoryItem < Ekylibre::Record::Base
   protected
 
   def calculate_average_cost_amount
-    many_items = inventory.items.group_by {|item| item.variant.id }
-    many_items = many_items.to_a
-
-    many_items.each do |items|
+    many_inventory_items = inventory.items.group_by {|item| item.variant.id }
+    many_inventory_items = many_inventory_items.to_a
+    many_inventory_items.each do |items|
       items.last.each do |item|
         quantity_entry = item.actual_population
         variant_id = item.variant.id
