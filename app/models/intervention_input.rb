@@ -71,7 +71,7 @@ class InterventionInput < InterventionProductParameter
     self.variant = product.variant if product
   end
 
-  before_save :calculate_average_cost_amount
+  # before_save :calculate_average_cost_amount
 
   after_save do
     if product && intervention.record?
@@ -150,6 +150,7 @@ class InterventionInput < InterventionProductParameter
   end
 
   def calculate_average_cost_amount
+    raise
     # quantity_action = []
     # product.uk.each do |uk|
     #   quantity_action << uk.quantity_population
