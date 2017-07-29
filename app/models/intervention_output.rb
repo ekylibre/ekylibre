@@ -123,7 +123,6 @@ class InterventionOutput < InterventionProductParameter
   protected
 
   def calculate_average_cost_amount
-    raise
     # unit_pretax_stock_amount = []
     # quantity_action = []
     # product.uk.each do |uk|
