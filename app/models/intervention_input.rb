@@ -71,7 +71,7 @@ class InterventionInput < InterventionProductParameter
     self.variant = product.variant if product
   end
 
-  # before_save :calculate_average_cost_amount
+  before_save :calculate_average_cost_amount
 
   after_save do
     if product && intervention.record?
@@ -150,13 +150,26 @@ class InterventionInput < InterventionProductParameter
   end
 
   def calculate_average_cost_amount
-    raise
-    # quantity_action = []
-    # product.uk.each do |uk|
-    #   quantity_action << uk.quantity_population
-    # end
-    # quantity_action = quantity_action.sum
+    many_intervention_items = intervention.inputs.group_by {|item| item.variant_id }
+    many_intervention_items = many_intervention_items.to_a
+    many_intervention_items.each do |items|
+      items.last.each do |item|
+        quantity_action = item.quantity_population
+        variant_id = item.variant_id
+        if item == items.last.first
+          variant = ProductNatureVariant.where(id: variant_id).first
+          @quantity_new = variant.current_stock - quantity_action
+          create_variant_valuing(@quantity_new, quantity_action, variant_id)
+        else
+          @quantity_new = @quantity_new - quantity_action
+          create_variant_valuing(@quantity_new, quantity_action, variant_id)
+        end
+      end
+    end
+  end
 
-    # ProductNatureVariantValuing.calculate_input(quantity_action, variant_id)
+  def create_variant_valuing(quantity_new, quantity_action, variant_id)
+  # input
+    ProductNatureVariantValuing.calculate_input(quantity_new, quantity_action, variant_id)
   end
 end

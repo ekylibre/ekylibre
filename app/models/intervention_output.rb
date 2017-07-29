@@ -63,6 +63,8 @@ class InterventionOutput < InterventionProductParameter
   has_one :product_movement, as: :originator, dependent: :destroy
   validates :variant, :quantity_population, presence: true
 
+  before_save :calculate_average_cost_amount
+
   after_save do
     unless destroyed?
       output = product
@@ -123,11 +125,8 @@ class InterventionOutput < InterventionProductParameter
   protected
 
   def calculate_average_cost_amount
-    many_intervention_items = []
-  intervention.inputs.group_by {|item| item.variant_id }
-    # many_intervention_items = many_intervention_items.to_a
-    raise
-
+    many_intervention_items = intervention.inputs.group_by {|item| item.variant_id }
+    many_intervention_items = many_intervention_items.to_a
     many_intervention_items.each do |items|
       items.last.each do |item|
         quantity_action = item.quantity_population
@@ -135,12 +134,22 @@ class InterventionOutput < InterventionProductParameter
         variant_id = item.variant_id
         if item == items.last.first
           @quantity_new = variant.current_stock + quantity_action
-          create_variant_valuing(@quantity_new, quantity_action, variant_id, unit_pretax_amount)
+          create_variant_valuing(@quantity_new, quantity_action, variant_id, unitary_price)
         else
           @quantity_new = @quantity_new + quantity_action
-          create_variant_valuing(@quantity_new, quantity_action, unit_pretax_amount, variant_id)
+          create_variant_valuing(@quantity_new, quantity_action, variant_id, unitary_price)
         end
       end
+    end
+  end
+
+  def create_variant_valuing(quantity_new, quantity_action, variant_id, unitary_price)
+    # first entrance
+    if ProductNatureVariantValuing.where(variant_id: variant_id) == []
+      ProductNatureVariantValuing.calculate_first_entrance(unitary_price, quantity_action, variant_id)
+    # output
+    else
+      ProductNatureVariantValuing.calculate_output(unitary_price, quantity_new, quantity_action, variant_id)
     end
   end
 end

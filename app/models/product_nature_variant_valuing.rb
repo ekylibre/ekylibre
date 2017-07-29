@@ -37,19 +37,19 @@ class ProductNatureVariantValuing < Ekylibre::Record::Base
   validates :amount, presence: true
 
 # # some logical, verification in process
-  def self.calculate_first_entrance(unit_pretax_amount, quantity_action, variant_id)
-    amount = quantity_action * unit_pretax_amount
+  def self.calculate_first_entrance(unitary_price, quantity_action, variant_id)
+    amount = quantity_action * unitary_price
     average_cost_amount = amount / quantity_action
 
     product_nature_variant_valuing = ProductNatureVariantValuing.new(amount: amount, average_cost_amount: average_cost_amount, variant_id: variant_id)
     product_nature_variant_valuing.save
   end
 
-  def self.calculate_output(unit_pretax_amount, quantity_new, quantity_action, variant_id)
+  def self.calculate_output(unitary_price, quantity_new, quantity_action, variant_id)
     old_product_nature_variant_valuing = ProductNatureVariantValuing.where(variant: variant_id).last
     old_amount = old_product_nature_variant_valuing.amount
 
-    amount = old_amount + quantity_action * unit_pretax_amount
+    amount = old_amount + quantity_action * unitary_price
     average_cost_amount = amount / quantity_new
 
     product_nature_variant_valuing = ProductNatureVariantValuing.new(amount: amount, average_cost_amount: average_cost_amount, variant_id: variant_id)
