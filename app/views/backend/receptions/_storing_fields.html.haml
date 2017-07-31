@@ -1,7 +1,12 @@
-- item ||= f.object
+- item_storing ||= f.object
+- variant = Maybe(item_storing.parcel_item.variant)
 
 .nested-fields.item-storing-fields
-  = f.input :quantity, input_html: { class: 'item-storing-quantity' }
+  .item-storing-quantifier
+    = f.input :quantity, wrapper: :append do 
+      = f.input_field :quantity, class: 'item-storing-quantity', placeholder: '0'
+      %span.add-on.item-population-unit-name
+        = variant.unit_name.or_else('#')
   = f.referenced_association :storage, source: :storage
   .act
     - if f.object.destroyable?
