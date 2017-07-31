@@ -15,7 +15,7 @@
           - url_params[:period_start] = params[:period_start] if params[:period_start].present?
           - url_params[:period_end] = params[:period_end] if params[:period_end].present?
 
-          - menu.item regul_journal.name, backend_bank_statements_reconciliation_gaps_path(**url_params), method: :POST, tabindex: -1, class: 'from-selected-bank from-selected-journal gap-creation', title: regul_journal.name
+          - menu.item regul_journal.name, backend_bank_reconciliation_gaps_path(**url_params), method: :POST, tabindex: -1, class: 'from-selected-bank from-selected-journal gap-creation', title: regul_journal.name
 
       - url_redirect_params = { cash_id: cash_id.first }
       - url_redirect_params[:bank_statement_id] = @bank_statement.id unless @bank_statement.nil?

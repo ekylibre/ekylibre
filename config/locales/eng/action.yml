@@ -87,21 +87,19 @@ eng:
       # take: "Take animal: %{name}"
     backend/attachments:
       # show: "Attachment: %{name}"
-    backend/bank_statements/items:
-      # new: "New item"
-    backend/bank_statements/letters:
-      # unletter: "Unletter letter: %{name}"
-    backend/bank_statements/reconciliation/items:
-      # bank_statements_items_count: "Bank statements items count item: %{name}"
-      # index: "Items"
-      # reconciliate_bank_statements: "Reconciliate bank statements item: %{name}"
+    backend/bank_reconciliation/items:
+      # count: "Count item: %{name}"
+      index: "Reconciliate bank statement %{cash} %{number} (from %{started_on} to %{stopped_on})"
+      reconciliate: "Bank statements of %{cash} (from %{started_on} to %{stopped_on})"
+    backend/bank_statement_items:
+      # new: "New bank statement item"
     backend/bank_statements:
       edit: "Edit bank statement %{number}"
       edit_interval: "Bank statements periods to reconciliate"
       import: "Import OFX file"
       index: "Bank statements"
       new: "New bank statement"
-      show: "Account statement N°%{number}"
+      show: "Bank statement #%{number}"
     backend/beehives:
       reset: "Reset beehive: %{name}"
     backend/building_divisions:
@@ -951,7 +949,6 @@ eng:
     accounts: "Accounts"
     accounts_only_used_at: "Accounts only used at"
     accounts_to_load: "Accounts to load"
-    action_duration: "Action duration" #?!
     activate_entry_autocompletion: "Activate entry autocompletion"
     active: "Active" #?
     active_finishing_after: "Active finishing after" #?
@@ -1070,7 +1067,6 @@ eng:
     attach_deal: "Add a deal"
     attachment: "Attachment"
     attachments: "Attachments"
-    auto_reconciliate: "Auto reconciliate" #?
     automatic: "Auto" #?
     available: "Available"
     available_columns: "Available columns: %{columns}"
@@ -1100,7 +1096,6 @@ eng:
     canals: "Canals" #?
     cancel: "Cancel"
     cancelation: "Cancelation"
-    cant_add_bank_statement_line: "You can't add a new line because you don't have bank statement on this day"
     cap_islets: "CAP islets"
     cap_land_parcels: "CAP land parcels"
     capitalised_production: "Capitalised production" #?!
@@ -1132,7 +1127,7 @@ eng:
     choose_delete_interventions_options: "Would you :"
     choose_mail_column: "Choose email column"
     choose_options_is_needed: "You must choose the status for the following interventions:"
-    clear: "Clear" #?
+    clear: "Clear"
     click_to_mail: "Click to email with your own mail software"
     client: "Client" #?
     client_informations: "Client informations"
@@ -1146,7 +1141,6 @@ eng:
     columns: "Columns to import"
     commission: "Commission"
     company: "Society"
-    complete: "Complete" #?
     completed: "Completed"
     # components: "Components"
     conditions:
@@ -1809,7 +1803,6 @@ eng:
     start: "From" #?
     start_new_intervention_here: "Start new intervention here"
     started: "Started"
-    started_at: "Started at"
     state: "State"
     state_debts: "State debts" #?!
     state_receivables: "State receivables" #?!
@@ -1824,7 +1817,6 @@ eng:
     stocks: "Stocks"
     stop: "Stop" #?
     stopped: "Stopped"
-    stopped_at: "Stopped at"
     stopped_on: "Stopped on"
     storage: "Storage" #?
     subject: "Subject"
@@ -2164,6 +2156,7 @@ eng:
       all_tax_declarations_have_already_existing: "All tax declarations have already existing"
       bookkeeping_is_finished: "The commercial data transfer is finished."
       bookkeeping_works_only_with: "The transfer to accountancy can be done only for: %{list}."
+      cannot_add_bank_statement_item: "You can’t add a new line because there is no available bank statement on this day"
       cannot_find_deal_to_attach: "Cannot find deal to attach"
       cannot_find_deal_to_detach: "Cannot find deal to detach"
       cannot_finish_affair: "Cannot finish affair"
@@ -2303,7 +2296,6 @@ eng:
       # add_to_variant: "Add to variant"
       attach: "Attach"
       # autocomplete: "Autocomplete"
-      # bank_statements_items_count: "Bank statements items count"
       bookkeep: "Bookkeep"
       cancel: "Cancel"
       # change: "Change"
@@ -2319,6 +2311,7 @@ eng:
       contacts: "Contacts"
       convert: "Convert"
       correct: "Correct"
+      # count: "Count"
       create: "Create"
       # csv: "Csv"
       # currency_state: "Currency state"
@@ -2387,7 +2380,7 @@ eng:
       qualify: "Qualify"
       # quantifiers: "Quantifiers"
       quote: "Quote"
-      # reconciliate_bank_statements: "Reconciliate bank statements"
+      # reconciliate: "Reconciliate"
       reconciliation: "Reconciliate"
       reflect: "Reflect"
       refresh: "Refresh"
@@ -2414,7 +2407,6 @@ eng:
       takeover: "Take over"
       toggle: "Toggle"
       # toggle_autocompletion: "Toggle autocompletion"
-      # unletter: "Unletter"
       unlock: "Unlock"
       unmark: "Unmark"
       unroll: "Unroll"

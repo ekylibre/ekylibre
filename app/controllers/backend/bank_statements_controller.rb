@@ -21,13 +21,13 @@ module Backend
     manage_restfully(
       started_on: 'Cash.find(params[:cash_id]).last_bank_statement.stopped_on + 1 rescue (Time.zone.today-1.month-2.days)'.c,
       stopped_on: 'Cash.find(params[:cash_id]).last_bank_statement.stopped_on >> 1 rescue (Time.zone.today-2.days)'.c,
-      redirect_to: "{controller: [:reconciliation, :items], action: :index, id: 'id'.c}".c
+      redirect_to: "{controller: '/backend/bank_reconciliation/items', action: :index, id: 'id'.c}".c
     )
 
     unroll
 
     list(order: { started_on: :desc }) do |t|
-      t.action :index, url: { controller: '/backend/bank_statements/reconciliation/items' }
+      t.action :index, url: { controller: '/backend/bank_reconciliation/items' }
       t.action :edit
       t.action :destroy
       t.column :number, url: true

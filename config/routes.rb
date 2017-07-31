@@ -270,6 +270,17 @@ Rails.application.routes.draw do
 
     resources :attachments, only: %i[show create destroy]
 
+    namespace :bank_reconciliation do
+      resources :gaps, only: %i[create]
+      resources :items, only: [:index] do
+        collection do
+          get :reconciliate
+          get :count
+        end
+      end
+      resources :letters, only: %i[create destroy]
+    end
+
     resources :bank_statements, concerns: %i[list unroll], path: 'bank-statements' do
       collection do
         get :list_items
@@ -278,26 +289,7 @@ Rails.application.routes.draw do
       end
     end
 
-    namespace :bank_statements do
-      resources :items, only: %i[new create destroy]
-
-      resources :letters, only: %i[create] do
-        collection do
-          post :unletter
-        end
-      end
-
-      namespace :reconciliation do
-        resources :gaps, only: %i[create]
-
-        resources :items, only: [:index] do
-          collection do
-            get :reconciliate_bank_statements
-            get :bank_statements_items_count
-          end
-        end
-      end
-    end
+    resources :bank_statement_items, only: %i[new create destroy], path: 'bank-statement-items'
 
     resources :beehives, only: [:update] do
       member do

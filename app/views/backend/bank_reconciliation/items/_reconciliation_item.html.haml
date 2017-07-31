@@ -7,7 +7,7 @@
     - unless type == 'journal_entry_item'
       %i
   .title
-    %i#type-icon{class: type.dasherize}=# type.humanize
+    %i#type-icon{class: type.dasherize}= # type.humanize
     .name= item.name
   .amounts
     .debit= item.debit
@@ -15,7 +15,6 @@
   .details
     .letter= letter
     - if letter
-      - link = :clear
-      = link_to unletter_backend_bank_statements_letters_path(letter: letter, bank_statement_id: item.bank_statement.id) do
+      = link_to backend_bank_reconciliation_letters_path(letter: letter, bank_statement_id: item.bank_statement.id), method: :delete do
         %i
-        %span= link && link.tl
+        %span= :clear.tl

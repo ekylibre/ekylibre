@@ -70,6 +70,9 @@ fra:
       index: "Animaux"
       new: "Nouvel animal"
       show: "%{nature}\_: %{name}"
+    backend/bank_reconciliation/items:
+      index: "Pointer le relevé %{cash} n°%{number} (du %{started_on} au %{stopped_on})"
+      reconciliate: "Relevés de la trésorerie %{cash} (du %{started_on} au %{stopped_on})"
     backend/bank_statements:
       edit: "Modifier le relevé N°%{number}"
       edit_interval: "Périodes des relevés bancaires a rapprocher"
@@ -77,9 +80,6 @@ fra:
       index: "Relevés de compte bancaire"
       new: "Pointer un nouveau relevé de compte"
       show: "Relevé de compte N°%{number}"
-    backend/bank_statements/reconciliation/items: #?
-      index: "Pointer le relevé %{cash} n°%{number} (du %{started_on} au %{stopped_on})" #?
-      reconciliate_bank_statements: "Relevés de la trésorerie %{cash} (du %{started_on} au %{stopped_on})" #?
     backend/beehives:
       reset: "Ré-initialiser la cellule: %{name}"
     backend/building_divisions:
@@ -841,7 +841,6 @@ fra:
     accounts: "Comptes comptables"
     accounts_only_used_at: "Comptes utilisés seulement sur"
     accounts_to_load: "Plan de compte à charger"
-    # action_duration: "Action duration"
     activate_entry_autocompletion: "Autocompléter l’écriture"
     active: "Actif"
     active_balance_sheet: "Bilan actif" #?
@@ -988,7 +987,6 @@ fra:
     attachment: "Pièce jointe"
     attachments: "Pièces jointes"
     attorney: "Informations mandataire" #?
-    auto_reconciliate: "Auto réconcilier"
     automatic: "Auto"
     available: "Disponible"
     available_columns: "Champs disponibles\_: %{columns}"
@@ -1023,8 +1021,7 @@ fra:
     cancel: "Annuler"
     cancelation: "Annulation"
     cancelled: "Passées en avoir" #?
-    cant_add_bank_statement_line: "Vous ne pouvez pas ajouter de nouvelle ligne parce que vous n'avez pas de relevé bancaire ce jour-là."
-    cap_islets: "Ilots PAC"
+    cap_islets: "Îlots PAC"
     cap_land_parcels: "Parcelles PAC"
     capitalised_production: "Production immobilisée"
     capitals: "Capital social"
@@ -1086,7 +1083,6 @@ fra:
     company: "Société"
     complement_sort: "Trier les choix par nom" #?
     complements: "Champs personnalisés" #?
-    complete: "Compléter"
     completed: "Terminées"
     completely_filled: "Complétée" #?
     component: "Composant" #?
@@ -2067,7 +2063,6 @@ fra:
     start: "Du"
     start_new_intervention_here: "Commencer une nouvelle intervention ici"
     started: "Nouveaux"
-    started_at: "Débuté le"
     state: "État"
     state_debts: "Dettes fiscales"
     state_receivables: "Créances fiscales"
@@ -2089,7 +2084,6 @@ fra:
     stocks_preferences: "Gestion des stocks" #?
     stop: "Jusqu’au"
     stopped: "Arrêtés"
-    stopped_at: "Arrêté le"
     stopped_on: "Nous nous sommes arrêtés sur"
     storage: "Support"
     string_case: "Options pour le texte" #?
@@ -2523,6 +2517,7 @@ fra:
       bad_file: "Le fichier ne semble pas correspondre." #?
       bookkeeping_is_finished: "La bascule en comptabilité est finie."
       bookkeeping_works_only_with: "La bascule en comptabilité ne peut se faire actuellement que pour\_: %{list}."
+      cannot_add_bank_statement_item: "Vous ne pouvez pas ajouter de nouvelle ligne parce que vous n’avez pas de relevé bancaire ce jour-là."
       cannot_delete_entity: "Il n’est pas possible de supprimer cette fiche car elle possède un historique comptable" #?
       cannot_find_deal_to_attach: "Impossible de trouver la transaction à rattacher"
       cannot_find_deal_to_detach: "Impossible de trouver la transaction à détacher"

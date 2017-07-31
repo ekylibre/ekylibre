@@ -1,7 +1,7 @@
 require 'test_helper'
 
 module Backend
-  module BankStatements
+  module BankReconciliation
     # Tests the lettering/unlettering.
     class LettersControllerTest < ActionController::TestCase
       setup do
@@ -9,7 +9,7 @@ module Backend
         signin
 
         @now     = Time.zone.now
-        journal  = Journal.create!
+        journal  = Journal.create!(name: 'Pretty Journal')
         fuel_act = Account.create!(name: 'Fuel', number: '6')
         caps_act = Account.create!(name: 'Caps', number: '5')
         bank_statement_setup(account: fuel_act, journal: journal)
@@ -55,9 +55,10 @@ module Backend
       protected
 
       def empty_db
-        [Journal, Account, Cash, BankStatement,
-         BankStatementItem, Role, User, Regularization,
-         JournalEntryItem, JournalEntry].each(&:delete_all)
+        [OutgoingPayment, OutgoingPaymentMode, Payslip, PayslipNature,
+         BankStatementItem, BankStatement, Cash,
+         Role, User, Regularization,
+         JournalEntryItem, JournalEntry, Journal, Account].each(&:delete_all)
       end
 
       def signin

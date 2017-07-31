@@ -1,5 +1,5 @@
 module Backend
-  module BankStatements
+  module BankReconciliation
     # Handles bank reconciliation lettering.
     class LettersController < Backend::BaseController
       def create
@@ -16,7 +16,7 @@ module Backend
         end
       end
 
-      def unletter
+      def destroy
         return unless find_bank_statement
 
         letter = params[:letter]

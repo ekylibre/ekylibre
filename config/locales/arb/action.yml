@@ -66,9 +66,12 @@ arb:
       index: "الحيوانات"
       new: "حيوان جديد"
       # show: "%{nature}: %{name}"
+    backend/bank_reconciliation/items:
+      # index: "Reconciliate bank statement %{cash} %{number} (from %{started_on} to %{stopped_on})"
+      # reconciliate: "Bank statements of %{cash} (from %{started_on} to %{stopped_on})"
     backend/bank_statements:
       edit: "تعديل الكشف المصرفي رقم%{number}"
-      # edit_interval: "Bank statements periods to reconciliate"
+      edit_interval: "فترات البيانات المصرفية للتوفيق"
       import: "ملف الاستيراد OFX"
       index: "بيان الحساب المصرفي"
       new: "الاشارة لكشف حساب جديد"
@@ -966,7 +969,6 @@ arb:
     accounts: "حسابات المحاسب المستخدمة"
     accounts_only_used_at: "حسابات تستخدم فقط في"
     accounts_to_load: "حسابات لتحميل"
-    # action_duration: "Action duration"
     activate_entry_autocompletion: "تفعيل تكملة دخول"
     active: "فعال"
     active_balance_sheet: "رصيد دائر" #?
@@ -1103,7 +1105,6 @@ arb:
     attachment: "المرفق"
     attachments: "مرفقات"
     attorney: "معلومات الوكيل" #?
-    auto_reconciliate: "مصالحة بين السيارات"
     automatic: "السيارات"
     available: "متاح"
     available_columns: "الحقول المتاحة : %{columns}"
@@ -1151,7 +1152,6 @@ arb:
     cancel: "الغاء"
     cancelation: "إلغاء"
     cancelled: "تم الالغاء" #?
-    # cant_add_bank_statement_line: "You can't add a new line because you don't have bank statement on this day"
     cap_islets: "الجزر كاب"
     cap_land_parcels: "قطع الأراضي كاب"
     capitalised_production: "إنتاج يبلغ رأس مال"
@@ -1205,7 +1205,6 @@ arb:
     columns: "اعمدة الاستيراد"
     commission: "عمولة"
     company: "المجتمع"
-    complete: "كامل"
     completed: "منجز"
     components: "العناصر" #?
     conditions:
@@ -2175,7 +2174,6 @@ arb:
     start: "ابتداء من"
     start_new_intervention_here: "بدء التدخل الجديد هنا"
     started: "بدأت"
-    # started_at: "Started at"
     state: "الحالة"
     state_debts: "الديون الخارجية"
     state_receivables: "ذمم الدولة"
@@ -2193,7 +2191,6 @@ arb:
     stocks: "ادارة الاسهم"
     stop: "لغاية"
     stopped: "توقفت"
-    # stopped_at: "Stopped at"
     stopped_on: "توقفت على"
     storage: "تخزين"
     string_case: "خيارات للنص" #?
@@ -2611,6 +2608,7 @@ arb:
       bad_file: "لا يبدو ان الملفات متطابقة" #?
       bookkeeping_is_finished: "نهاية نطاق المحاسبة"
       bookkeeping_works_only_with: "يمكن جعل نطاق الماسبة الحالية ل : %{list}."
+      cannot_add_bank_statement_item: "لا يمكنك إضافة سطر جديد لأنه لا يوجد كشف مصرفي متاح في هذا اليوم"
       cannot_delete_entity: "غير ممكن حذف هذا الملف لاحتوائه على محاسبة هامة" #?
       cannot_find_deal_to_attach: "لا يمكن العثور على التعامل إرفاق"
       cannot_find_deal_to_detach: "لا يمكن العثور على التعامل فصل"
@@ -2855,7 +2853,7 @@ arb:
       down: "أسفل"
       duplicate: "مكرر"
       edit: "تحرير"
-      # edit_interval: "Reconciliate"
+      edit_interval: "مصالحة بين"
       edit_many: "تعديل العديد"
       evaluate: "تقييم"
       export: "تصدير"
