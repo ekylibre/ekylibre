@@ -189,7 +189,7 @@ gem 'luhn'
 gem 'bootstrap-slider-rails'
 
 group :development do
-  gem 'bullet', '< 5.6.0'
+  gem 'bullet', '~> 5.5.0'
 
   gem 'quiet_assets'
   # gem 'rack-mini-profiler'
