@@ -38,8 +38,15 @@ class ProductNatureVariantValuing < Ekylibre::Record::Base
 
 # # some logical, verification in process
   def self.calculate_first_entrance(unitary_price, quantity_action, variant_id)
-    amount = quantity_action * unitary_price
-    average_cost_amount = amount / quantity_action
+    variant = ProductNatureVariant.find(variant_id)
+    if variant.current_stock == 0
+      amount = quantity_action * unitary_price
+      average_cost_amount = amount / quantity_action
+    else
+      quantity_new = variant.current_stock + quantity_action
+      amount = quantity_action * unitary_price
+      average_cost_amount = amount / quantity_new
+    end
 
     product_nature_variant_valuing = ProductNatureVariantValuing.new(amount: amount, average_cost_amount: average_cost_amount, variant_id: variant_id)
     product_nature_variant_valuing.save
@@ -51,6 +58,8 @@ class ProductNatureVariantValuing < Ekylibre::Record::Base
 
     amount = old_amount + quantity_action * unitary_price
     average_cost_amount = amount / quantity_new
+
+    raise
 
     product_nature_variant_valuing = ProductNatureVariantValuing.new(amount: amount, average_cost_amount: average_cost_amount, variant_id: variant_id)
     product_nature_variant_valuing.save
