@@ -33,6 +33,7 @@
           unit = item.find(".item-population-unit-name")
           if data.unit_name
             unit.html(data.unit_name)
+            item.attr('data-unit-name', data.unit_name)
           else
             unit.html('#')
           if data.variant

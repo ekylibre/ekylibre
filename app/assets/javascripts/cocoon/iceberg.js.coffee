@@ -95,4 +95,6 @@
       new Iceberg($(this))
     $('*[data-iceberg]').on 'cocoon:after-insert', (event, inserted) ->
       new Iceberg($(inserted))
+      $('*[data-unit-name]').each ->
+        $(this).find('.item-population-unit-name').html($(this).attr('data-unit-name'))
 ) jQuery
