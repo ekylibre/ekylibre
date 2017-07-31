@@ -42,7 +42,9 @@
             = link_to(resource.outgoing_parcel_item.parcel.number, controller: :parcels, action: :show, id: resource.outgoing_parcel_item.parcel.id)
       .med-info.important
         %span.title CUMP
-        %span.value= resource.variant.valuings.last.average_cost_amount
+        %span.value
+          = resource.variant.valuings.last.average_cost_amount
+          €
 
       .med-info.important
         %span.title Variant
