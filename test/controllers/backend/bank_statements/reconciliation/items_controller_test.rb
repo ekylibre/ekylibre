@@ -1,3 +1,5 @@
+# coding: utf-8
+
 require 'test_helper'
 
 # Tests if the whole period_start/end system works.
@@ -74,7 +76,7 @@ module Backend
   module BankStatements
     module Reconciliation
       # Tests for BankReconciliation
-      class BankReconciliationItemsControllerTest < ActionController::TestCase
+      class ItemsControllerTest < ActionController::TestCase
         include ::ReconciliationPeriodTest
         include ::ReconciliationRenderingTest
         include ::AutoLetteringTest
