@@ -60,27 +60,35 @@ module Backend
         )
       end
 
-      intervention_started_at = if participation.intervention.nil?
+      intervention = participation.intervention
+
+      intervention_started_at = if intervention.nil?
                                   Time.parse(params['intervention_started_at'])
                                 else
-                                  participation.intervention.started_at
+                                  intervention.started_at
                                 end
 
       intervention_tool = nil
       if Product.find(params[:product_id]).is_a?(Equipment)
-        intervention_tool = participation.intervention.tools.find_by(product_id: params[:product_id])
+        intervention_tool = intervention.tools.find_by(product_id: params[:product_id])
       end
 
       display_calcul_mode = params[:display_calcul_mode]
       auto_calcul_mode = params[:auto_calcul_mode]
 
+      participations = intervention.participations
+      calculate_working_periods = []
       form_participations = []
       if params[:participations].present?
-        params[:participations].each do |participation|
-          form_participations << InterventionParticipation.new(JSON.parse(participation))
+        params[:participations].each do |form_participation|
+          form_participations << InterventionParticipation.new(JSON.parse(form_participation))
         end
-        #form_participations = params[:participations]
-        #                        .map{ |participation| InterventionParticipation.new(JSON.parse(participation)) }
+
+        Interventions::WorkingDurationService
+          .new(intervention: intervention,
+               participations: form_participations,
+               product: participation.product)
+          .duration_in_hours(nature: :travel)
       end
 
       render partial: 'backend/intervention_participations/participations_modal',
