@@ -18,10 +18,13 @@
 
 module Backend
   class StocksController < Backend::BaseController
-    # list
-    def index
 
-    end
+      # list(model: :product_nature_variant_valuings,
+      #      order: :amount) do |t|
+      #   t.column :amount
+      #   t.column :average_cost_amount
+      # end
+
   end
 end
 
