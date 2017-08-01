@@ -19,12 +19,12 @@
 module Backend
   class StocksController < Backend::BaseController
 
-      # list(model: :product_nature_variant_valuings,
-      #      order: :amount) do |t|
-      #   t.column :amount
-      #   t.column :average_cost_amount
-      # end
-
+    list(model: :product_nature_variant_valuings) do |t|
+      t.column :name, through: :variant, label_method: :name, url: true
+      t.column :amount
+      t.column :average_cost_amount
+      t.column :created_at, datatype: :datetime
+    end
   end
 end
 

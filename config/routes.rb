@@ -1015,7 +1015,7 @@ Rails.application.routes.draw do
 
     resources :workers, concerns: :products
 
-    resources :stocks, only: [:index], path: 'stocks', action: :index
+    resources :stocks, concerns: [:list]
 
     get :search, controller: :dashboards, as: :search
 
