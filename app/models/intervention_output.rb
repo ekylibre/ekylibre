@@ -96,7 +96,6 @@ class InterventionOutput < InterventionProductParameter
     end
   end
 
-
   def stock_amount
     product_movement ? product_movement.population * unit_pretax_stock_amount : 0
   end
@@ -125,7 +124,7 @@ class InterventionOutput < InterventionProductParameter
   protected
 
   def calculate_average_cost_amount
-    many_intervention_items = intervention.inputs.group_by {|item| item.variant_id }
+    many_intervention_items = intervention.inputs.group_by { |item| item.variant_id }
     many_intervention_items = many_intervention_items.to_a
     many_intervention_items.each do |items|
       items.last.each do |item|
@@ -134,17 +133,16 @@ class InterventionOutput < InterventionProductParameter
         variant_id = item.variant_id
         if item == items.last.first
           @quantity_new = variant.current_stock + quantity_action
-          create_variant_valuing(@quantity_new, quantity_action, variant_id, unitary_price)
         else
-          @quantity_new = @quantity_new + quantity_action
-          create_variant_valuing(@quantity_new, quantity_action, variant_id, unitary_price)
+          @quantity_new += quantity_action
         end
+        create_variant_valuing(@quantity_new, quantity_action, variant_id, unitary_price)
       end
     end
   end
 
   def create_variant_valuing(quantity_new, quantity_action, variant_id, unitary_price)
-    # first entrance
+  # first entrance
     if ProductNatureVariantValuing.where(variant_id: variant_id) == []
       ProductNatureVariantValuing.calculate_first_entrance(unitary_price, quantity_action, variant_id)
     # output

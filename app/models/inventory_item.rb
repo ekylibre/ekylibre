@@ -98,7 +98,7 @@ class InventoryItem < Ekylibre::Record::Base
   protected
 
   def calculate_average_cost_amount
-    many_inventory_items = inventory.items.group_by {|item| item.variant.id }
+    many_inventory_items = inventory.items.group_by { |item| item.variant.id }
     many_inventory_items = many_inventory_items.to_a
     many_inventory_items.each do |items|
       items.last.each do |item|

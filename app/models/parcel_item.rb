@@ -263,7 +263,7 @@ class ParcelItem < Ekylibre::Record::Base
   end
 
   def calculate_average_cost_amount
-    many_items = parcel.items.group_by {|item| item.variant_id }
+    many_items = parcel.items.group_by { |item| item.variant_id }
     many_items = many_items.to_a
     many_items.each do |items|
       items.last.each do |item|
@@ -274,36 +274,32 @@ class ParcelItem < Ekylibre::Record::Base
         if parcel.nature == 'incoming'
           if item == items.last.first
             @quantity_new = variant.current_stock + quantity_action
-            create_variant_valuing(@quantity_new, quantity_action, variant_id, unitary_price)
           else
-            @quantity_new = @quantity_new + quantity_action
-            create_variant_valuing(@quantity_new, quantity_action, variant_id, unitary_price)
+            @quantity_new += quantity_action
           end
         elsif parcel.nature == 'outgoing'
           if item == items.last.first
-            variant = ProductNatureVariant.where(id: variant_id).first
+            variant = ProductNatureVariant.find(variant_id)
             @quantity_new = variant.current_stock - quantity_action
             unitary_price = 0
-            create_variant_valuing(@quantity_new, quantity_action, variant_id, unitary_price)
           else
-            @quantity_new = @quantity_new - quantity_action
+            @quantity_new -= quantity_action
             unitary_price = 0
-            create_variant_valuing(@quantity_new, quantity_action, variant_id, unitary_price)
           end
         end
+        create_variant_valuing(@quantity_new, quantity_action, variant_id, unitary_price)
       end
     end
   end
 
-
   def create_variant_valuing(quantity_new, quantity_action, variant_id, unitary_price)
-    # first entrance
+  # first entrance
     if parcel.nature == 'incoming' && ProductNatureVariantValuing.where(variant_id: variant_id) == []
       ProductNatureVariantValuing.calculate_first_entrance(unitary_price, quantity_action, variant_id)
-    # output
+  # output
     elsif parcel.nature == 'incoming'
       ProductNatureVariantValuing.calculate_output(unitary_price, quantity_new, quantity_action, variant_id)
-    # input
+  # input
     elsif parcel.nature == 'outgoing'
       ProductNatureVariantValuing.calculate_input(quantity_new, quantity_action, variant_id)
     end
