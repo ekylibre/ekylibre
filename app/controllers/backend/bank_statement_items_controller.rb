@@ -22,10 +22,10 @@ module Backend
     end
 
     def destroy
-      @bank_statement = BankStatement.find(params[:bank_statement_id])
-      @bank_statement_item = @bank_statement.items.find(params[:id])
+      @bank_statement_item = BankStatementItem.find(params[:id])
+
       id = @bank_statement_item.id
-      return head :bad_request unless @bank_statement && @bank_statement_item
+      return head :bad_request unless @bank_statement_item
       return head :failed unless @bank_statement_item.destroy
       respond_to do |format|
         format.js { render json: { id: id } }

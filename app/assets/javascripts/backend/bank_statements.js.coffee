@@ -391,7 +391,7 @@
       bankLines = lines.filter(":not(.lettered)[data-type=bank_statement_item]")
       bankIds = bankLines.get().map (line) =>
         @_idForLine line
-      url = window.location.pathname.split('/').slice(0, -3).join('/') + '/letters'
+      url = window.location.pathname.split('/').slice(0, -3).join('/') + '/bank_reconciliation/letters'
       $.ajax url,
         type: 'POST'
         dataType: 'JSON'
@@ -412,7 +412,7 @@
           return false
 
     _unletterItems: (letter) ->
-      # url = window.location.pathname.split('/').slice(0, -3).join('/') + '/letters/' + letter
+      # url = window.location.pathname.split('/').slice(0, -3).join('/') + '/bank_reconciliation/letters/' + letter
       url = $(event.target).closest('#clear').attr('href')
       $.ajax url,
         type: 'POST'
@@ -430,7 +430,7 @@
           return false
 
     _deleteLine: (line) ->
-      url = (window.location.pathname.split('/').slice(0, -1).concat ['bank-statement-items', line.data('id')]).join('/')
+      url = window.location.pathname.split('/').slice(0, -3).join('/') + '/bank-statement-items/' + line.data('id')
       $.ajax url,
         type: 'DELETE'
         dataType: 'JSON'

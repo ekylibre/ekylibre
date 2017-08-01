@@ -12,12 +12,20 @@ module Backend
       end
 
       test 'creates a \'various operation\' to match the gap between journal items and bank items' do
-        post :create, bank_statement_id: @bank_statement, bank_statement_item_ids: @tanks.map(&:id), journal_entry_item_ids: @entry.items.last, journal_id: @journal.id
+        post :create, bank_statement_id: @bank_statement,
+                      bank_statement_item_ids: @tanks.map(&:id),
+                      journal_entry_item_ids: @entry.items.last,
+                      journal_id: @journal.id
+
         assert_equal(121, JournalEntry.last.items.find_by(account_id: @bank_statement.cash_account_id).balance)
       end
 
       test 'ensures the operation is properly lettered' do
-        post :create, bank_statement_id: @bank_statement, bank_statement_item_ids: @tanks.map(&:id), journal_entry_item_ids: @entry.items.last, journal_id: @journal.id
+        post :create, bank_statement_id: @bank_statement,
+                      bank_statement_item_ids: @tanks.map(&:id),
+                      journal_entry_item_ids: @entry.items.last,
+                      journal_id: @journal.id
+
         assert_equal('A', JournalEntry.last.items.find_by(account_id: @bank_statement.cash_account_id).bank_statement_letter)
         assert_equal('A', @tanks.first.reload.letter)
         assert_equal('A', @tanks.last.reload.letter)
@@ -107,6 +115,7 @@ module Backend
           name: 'Main tank',
           bank_statement: @bank_statement,
           transfered_on: now - 5.days,
+          cash: @warrig_tank,
           amount_attr => 42
         )
 
@@ -114,6 +123,7 @@ module Backend
           name: 'Backup tank',
           bank_statement: @bank_statement,
           transfered_on: now - 5.days,
+          cash: @warrig_tank,
           amount_attr => amount
         )
       end

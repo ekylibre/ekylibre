@@ -15,6 +15,6 @@
   .details
     .letter= letter
     - if letter
-      = link_to backend_bank_reconciliation_letters_path(letter: letter, bank_statement_id: item.bank_statement.id), method: :delete do
+      = link_to backend_bank_reconciliation_letter_path(letter: letter, bank_statement_id: item.bank_statement.id), method: :delete do
         %i
         %span= :clear.tl
