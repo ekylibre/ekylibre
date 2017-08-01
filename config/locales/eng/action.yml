@@ -541,7 +541,7 @@ eng:
       show: "Payslip payment: %{number}"
     backend/payslips:
       # correct: "Correct payslip: %{name}"
-      edit: "Edit payslip: %{name}"
+      edit: "Edit payslip: %{number}"
       index: "Payslips"
       # invoice: "Invoice payslip: %{name}"
       new: "New payslip"
@@ -2442,7 +2442,7 @@ eng:
     backend/entity_links: "%{started_at}"
     backend/events: "%{name}"
     backend/incoming_payments: "%{number}. %{mode_name} from %{payer_full_name} of %{amount} %{currency}"
-    backend/interventions: "%{number}. %{name}"
+    backend/interventions: "%{number}"
     backend/journal_entry_items: "%{entry_number} %{name} %{account_number} D%{real_debit} C%{real_credit} %{currency}"
     backend/matters: "%{name} ‒ %{work_number}"
     backend/observations: "%{content}"
