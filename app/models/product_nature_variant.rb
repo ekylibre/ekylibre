@@ -76,7 +76,8 @@ class ProductNatureVariant < Ekylibre::Record::Base
   has_many :journal_entry_items, foreign_key: :variant_id, inverse_of: :variant, dependent: :restrict_with_exception
   has_many :readings, class_name: 'ProductNatureVariantReading', foreign_key: :variant_id, inverse_of: :variant
   has_many :phases, class_name: 'ProductPhase', foreign_key: :variant_id, inverse_of: :variant
-  has_many :valuings, class_name: 'ProductNatureVariantValuing', foreign_key: :variant_id
+  # has_many :valuings, class_name: 'ProductNatureVariantValuing', foreign_key: :variant_id
+  belongs_to :valuing, class_name: 'ProductNatureVariantValuing'
   has_picture
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.

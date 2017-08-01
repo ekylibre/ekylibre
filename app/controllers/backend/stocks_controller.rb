@@ -18,10 +18,10 @@
 
 module Backend
   class StocksController < Backend::BaseController
-
+    # list
     def index
-    end
 
+    end
   end
 end
 

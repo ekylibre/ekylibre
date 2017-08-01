@@ -43,6 +43,10 @@ module Backend
       code << "  c[0] << \" AND product_nature_variants.category_id = ?\"\n"
       code << "  c << params[:category_id].to_i\n"
       code << "end\n"
+      code << "if params[:valuing_id].to_i > O\n"
+      code << "  c[0] << \" AND produc_nature_variant.valuing_id = ?\"\n"
+      code << "  c << params[:valuing].to_i\n"
+      code << "end\n"
       code << "c\n"
       code.c
     end
@@ -60,6 +64,7 @@ module Backend
       t.column :variety
       t.column :derivative_of
       t.column :active
+      t.column (:valuing[:amount])
     end
 
     list(:catalog_items, conditions: { variant_id: 'params[:id]'.c }) do |t|

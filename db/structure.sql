@@ -5622,7 +5622,8 @@ CREATE TABLE product_nature_variants (
     number character varying NOT NULL,
     stock_account_id integer,
     stock_movement_account_id integer,
-    france_maaid character varying
+    france_maaid character varying,
+    valuing_id integer
 );
 
 
@@ -15200,6 +15201,13 @@ CREATE INDEX index_product_nature_variants_on_updater_id ON product_nature_varia
 
 
 --
+-- Name: index_product_nature_variants_on_valuing_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_product_nature_variants_on_valuing_id ON product_nature_variants USING btree (valuing_id);
+
+
+--
 -- Name: index_product_natures_on_category_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -17918,4 +17926,6 @@ INSERT INTO schema_migrations (version) VALUES ('20170530002312');
 INSERT INTO schema_migrations (version) VALUES ('20170602144753');
 
 INSERT INTO schema_migrations (version) VALUES ('20170720125756');
+
+INSERT INTO schema_migrations (version) VALUES ('20170801091621');
 

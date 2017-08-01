@@ -38,6 +38,7 @@ class ProductNatureVariantValuing < Ekylibre::Record::Base
 
 # # some logical, verification in process
   def self.calculate_first_entrance(unitary_price, quantity_action, variant_id)
+
     variant = ProductNatureVariant.find(variant_id)
     if variant.current_stock == 0
       amount = quantity_action * unitary_price
@@ -50,6 +51,13 @@ class ProductNatureVariantValuing < Ekylibre::Record::Base
 
     product_nature_variant_valuing = ProductNatureVariantValuing.new(amount: amount, average_cost_amount: average_cost_amount, variant_id: variant_id)
     product_nature_variant_valuing.save
+
+    variant = ProductNatureVariant.where(id: variant_id)
+    new_info = Hash.new
+    new_info[:valuing_id] = product_nature_variant_valuing.id
+
+    variant.last.update(new_info)
+
   end
 
   def self.calculate_output(unitary_price, quantity_new, quantity_action, variant_id)
@@ -59,13 +67,19 @@ class ProductNatureVariantValuing < Ekylibre::Record::Base
     amount = old_amount + quantity_action * unitary_price
     average_cost_amount = amount / quantity_new
 
-    raise
-
     product_nature_variant_valuing = ProductNatureVariantValuing.new(amount: amount, average_cost_amount: average_cost_amount, variant_id: variant_id)
     product_nature_variant_valuing.save
+
+    # update only in environement dev
+    variant = ProductNatureVariant.where(id: variant_id)
+    new_info = Hash.new
+    new_info[:valuing_id] = product_nature_variant_valuing.id
+
+    variant.last.update(new_info)
   end
 
   def self.calculate_input(quantity_new, quantity_action, variant_id)
+    raise
     old_product_nature_variant_valuing = ProductNatureVariantValuing.where(variant_id: variant_id).last
     old_amount = old_product_nature_variant_valuing.amount
     old_average_cost_amount = old_product_nature_variant_valuing.average_cost_amount
@@ -78,6 +92,7 @@ class ProductNatureVariantValuing < Ekylibre::Record::Base
   end
 
   def self.calculate_inventory(quantity_entry, variant_id)
+    raise
     old_product_nature_variant_valuing = ProductNatureVariantValuing.where(variant_id: variant_id).last
     old_average_cost_amount = old_product_nature_variant_valuing.average_cost_amount
 
