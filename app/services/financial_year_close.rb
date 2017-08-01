@@ -10,32 +10,30 @@ class FinancialYearClose
   end
 
   def execute
-    begin
-      return false unless @year.closable?
-      ensure_closability!
+    return false unless @year.closable?
+    ensure_closability!
 
-      ActiveRecord::Base.transaction do
-        @year.compute_balances!
-        @progress.increment!
+    ActiveRecord::Base.transaction do
+      @year.compute_balances!
+      @progress.increment!
 
-        generate_result_entry! if @result_journal
-        @progress.increment!
+      generate_result_entry! if @result_journal
+      @progress.increment!
 
-        generate_carrying_forward_entry!
-        @progress.increment!
+      generate_carrying_forward_entry!
+      @progress.increment!
 
-        Journal.find_each do |journal|
-          journal.close!(@to_close_on) if journal.closed_on < @to_close_on
-        end
-        @progress.increment!
-
-        @year.update_attributes(stopped_on: @to_close_on, closed: true)
+      Journal.find_each do |journal|
+        journal.close!(@to_close_on) if journal.closed_on < @to_close_on
       end
+      @progress.increment!
 
-      true
-    ensure
-      @progress.clean!
+      @year.update_attributes(stopped_on: @to_close_on, closed: true)
     end
+
+    true
+  ensure
+    @progress.clean!
   end
 
   private
@@ -76,43 +74,41 @@ class FinancialYearClose
 
   # FIXME: Manage non-french accounts
   def generate_result_entry!
-    begin
-      accounts = [:expenses, :revenues]
-      accounts = accounts.map { |acc| Nomen::Account.find(acc).send(Account.accounting_system) }
+    accounts = [:expenses, :revenues]
+    accounts = accounts.map { |acc| Nomen::Account.find(acc).send(Account.accounting_system) }
 
-      total = account_balances_for(accounts).count + 1
-      progress = Progress.new(:close_result_entry, id: @year.id, max: total)
+    total = account_balances_for(accounts).count + 1
+    progress = Progress.new(:close_result_entry, id: @year.id, max: total)
 
-      items = account_balances_for(accounts).find_each.map do |account_balance|
-        progress.increment!
+    items = account_balances_for(accounts).find_each.map do |account_balance|
+      progress.increment!
 
-        {
-          account_id: account_balance.account_id,
-          name: account_balance.account.name,
-          real_debit: account_balance.balance_credit,
-          real_credit: account_balance.balance_debit,
-          state: :confirmed
-        }
-      end
-
-      return unless items.any?
-
-      # Since debit and credit are reversed, if result is positive, balance is a credit
-      # and so it's a profit
-      result = items.map { |i| i[:real_debit] - i[:real_credit] }.sum
-
-      items << loss_or_profit_item(result) unless result.zero?
-
-      @result_journal.entries.create!(
-        printed_on: @to_close_on,
-        currency: @result_journal.currency,
-        items_attributes: items,
+      {
+        account_id: account_balance.account_id,
+        name: account_balance.account.name,
+        real_debit: account_balance.balance_credit,
+        real_credit: account_balance.balance_debit,
         state: :confirmed
-      )
-
-    ensure
-      progress.clean!
+      }
     end
+
+    return unless items.any?
+
+    # Since debit and credit are reversed, if result is positive, balance is a credit
+    # and so it's a profit
+    result = items.map { |i| i[:real_debit] - i[:real_credit] }.sum
+
+    items << loss_or_profit_item(result) unless result.zero?
+
+    @result_journal.entries.create!(
+      printed_on: @to_close_on,
+      currency: @result_journal.currency,
+      items_attributes: items,
+      state: :confirmed
+    )
+
+  ensure
+    progress.clean!
   end
 
   def loss_or_profit_item(result)
@@ -126,94 +122,91 @@ class FinancialYearClose
 
   # FIXME: Manage non-french accounts
   def generate_carrying_forward_entry!
-    begin
-      account_radices = %w[1 2 3 4 5]
-      unlettered_items = []
+    account_radices = %w[1 2 3 4 5]
+    unlettered_items = []
 
-      accounts = Account.where('accounts.number ~ ?', "^(#{account_radices.join('|')})")
-                        .joins(:journal_entry_items)
-                        .where('journal_entry_items.printed_on BETWEEN ? AND ?', @started_on, @to_close_on)
-                        .where('journal_entry_items.financial_year_id = ?', @year.id)
+    accounts = Account.where('accounts.number ~ ?', "^(#{account_radices.join('|')})")
+                      .joins(:journal_entry_items)
+                      .where('journal_entry_items.printed_on BETWEEN ? AND ?', @started_on, @to_close_on)
+                      .where('journal_entry_items.financial_year_id = ?', @year.id)
 
-      letterable_accounts = accounts.joins(:journal_entry_items)
-                                    .where('journal_entry_items.letter IS NOT NULL OR reconcilable')
+    letterable_accounts = accounts.joins(:journal_entry_items)
+                                  .where('journal_entry_items.letter IS NOT NULL OR reconcilable')
+                                  .uniq
+
+    unletterable_accounts = accounts.joins(:journal_entry_items)
+                                    .where('journal_entry_items.letter IS NULL AND NOT reconcilable')
                                     .uniq
 
-      unletterable_accounts = accounts.joins(:journal_entry_items)
-                                      .where('journal_entry_items.letter IS NULL AND NOT reconcilable')
-                                      .uniq
-
-      progress = Progress.new(:close_carry_forward, id: @year.id, max: letterable_accounts.count + unletterable_accounts.count)
+    progress = Progress.new(:close_carry_forward, id: @year.id, max: letterable_accounts.count + unletterable_accounts.count)
 
 
-      unletterable_accounts.find_each do |a|
-        entry_items = a.journal_entry_items
-                       .where(financial_year_id: @year.id)
-                       .between(@started_on, @to_close_on)
-        balance = entry_items.where(letter: nil).sum('debit - credit')
-        next if balance.zero?
-        unlettered_items << {
-          account_id: a.id,
-          name: a.name,
-          real_debit: (balance > 0 ? balance : 0),
-          real_credit: (-balance > 0 ? -balance : 0),
-          state: :confirmed
-        }
-        progress.increment!
-      end
-
-      letterable_accounts.find_each do |a|
-        generate_lettering_carry_forward!(a)
-
-        progress.increment!
-      end
-
-      debit_result = unlettered_items.map { |i| i[:real_debit] }.sum
-      credit_result = unlettered_items.map { |i| i[:real_credit] }.sum
-
-      debit_items = unlettered_items.select { |i| i[:real_debit].nonzero? }
-      credit_items = unlettered_items.select { |i| i[:real_credit].nonzero? }
-
-      generate_closing_and_opening_entry!(debit_items, debit_result)
-      generate_closing_and_opening_entry!(credit_items, -credit_result)
-    ensure
-      progress.clean!
+    unletterable_accounts.find_each do |a|
+      entry_items = a.journal_entry_items
+                     .where(financial_year_id: @year.id)
+                     .between(@started_on, @to_close_on)
+      balance = entry_items.where(letter: nil).sum('debit - credit')
+      next if balance.zero?
+      unlettered_items << {
+        account_id: a.id,
+        name: a.name,
+        real_debit: (balance > 0 ? balance : 0),
+        real_credit: (-balance > 0 ? -balance : 0),
+        state: :confirmed
+      }
+      progress.increment!
     end
+
+    letterable_accounts.find_each do |a|
+      generate_lettering_carry_forward!(a)
+
+      progress.increment!
+    end
+
+    debit_result = unlettered_items.map { |i| i[:real_debit] }.sum
+    credit_result = unlettered_items.map { |i| i[:real_credit] }.sum
+
+    debit_items = unlettered_items.select { |i| i[:real_debit].nonzero? }
+    credit_items = unlettered_items.select { |i| i[:real_credit].nonzero? }
+
+    generate_closing_and_opening_entry!(debit_items, debit_result)
+    generate_closing_and_opening_entry!(credit_items, -credit_result)
+  ensure
+    progress.clean!
   end
 
   def generate_lettering_carry_forward!(account)
-    begin
-      unbalanced_letters = unbalanced_items_for(account)
-      progress = Progress.new(:close_lettering, id: @year.id, max: unbalanced_letters.count)
+    unbalanced_letters = unbalanced_items_for(account, include_nil: true)
+    progress = Progress.new(:close_lettering, id: @year.id, max: unbalanced_letters.count)
 
-      unbalanced_letters.each do |info|
-        entry_id = info.first
-        letter = info.last
+    unbalanced_letters.each do |info|
+      entry_id = info.first
+      letter = info.last
+      letter_match = letter ? [letter, letter + '*'] : nil
 
-        lettering_items = JournalEntry.find(entry_id)
-                                      .items
-                                      .where(letter: [letter, letter + '*'], account: account)
-                                      .find_each.map do |item|
-                                        {
-                                          account_id: account.id,
-                                          name: item.name,
-                                          real_debit: item.real_debit,
-                                          real_credit: item.real_credit,
-                                          state: :confirmed
-                                        }
-                                      end
+      lettering_items = JournalEntry.find(entry_id)
+                                    .items
+                                    .where(letter: letter_match, account: account)
+                                    .find_each.map do |item|
+                                      {
+                                        account_id: account.id,
+                                        name: item.name,
+                                        real_debit: item.real_debit,
+                                        real_credit: item.real_credit,
+                                        state: :confirmed
+                                      }
+                                    end
 
-        result = lettering_items.map { |i| i[:real_debit] - i[:real_credit] }.sum
+      result = lettering_items.map { |i| i[:real_debit] - i[:real_credit] }.sum
 
-        entries = generate_closing_and_opening_entry!(lettering_items, result, letter: letter)
+      entries = generate_closing_and_opening_entry!(lettering_items, result, letter: letter)
 
-        progress.increment!
+      progress.increment!
 
-        entries
-      end
-    ensure
-      progress.clean!
+      entries
     end
+  ensure
+    progress.clean!
   end
 
   def generate_closing_and_opening_entry!(items, result, letter: nil)
@@ -266,7 +259,7 @@ class FinancialYearClose
     lettered_later.update_all(letter: new_letter)
     lettered_later.each do |item|
       affair = item.entry.resource && item.entry.resource.respond_to?(:affair) && item.entry.resource.affair
-      next unless affair && !updated_affairs[affair.id]
+      next unless affair && !@updated_affairs[affair.id]
 
       @updated_affairs[affair.id] = true
       affair.update_columns(letter: new_letter)
