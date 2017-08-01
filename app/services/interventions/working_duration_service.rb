@@ -19,10 +19,14 @@ module Interventions
 
       times = workers_times(nature: nature, not_nature: not_nature)
 
+      byebug
+
       if times == 0 ||
           (tractors_count == 0 && prepelled_equipments_count == 0)
         return @intervention.working_duration
       end
+
+      byebug
 
       times / (tractors_count + prepelled_equipments_count)
     end
@@ -50,6 +54,18 @@ module Interventions
       @product.is_a?(Worker)
     end
 
+    def tractor?
+      @product.is_a?(Equipment) && @product.try(:tractor?)
+    end
+
+    def self_prepelled_equipment?
+      @product.variety.to_sym == :self_prepelled_equipment
+    end
+
+    def tool?
+      @product.is_a?(Equipment)
+    end
+
     def tractors_count
       @participations
         .select{ |participation| participation.product.try(:tractor?) }
@@ -63,9 +79,8 @@ module Interventions
     end
 
     def workers_times(nature: nil, not_nature: nil)
-      byebug
       worker_working_periods(nature, not_nature)
-        .map(&:duration)
+        .map(&:hours_gap)
         .reduce(0, :+)
     end
 
