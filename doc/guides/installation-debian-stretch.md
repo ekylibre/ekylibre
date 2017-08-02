@@ -106,12 +106,12 @@ Rjb gem use Java OpenJDK, so we need to set JAVA_HOME to install gem.
 
 *   Install gems with bundler:
 
-        JAVA_HOME=/usr/lib/jvm/java-7-openjdk-amd64 bundle install
+        JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64 bundle install
 
     Or you can add the following lines in your +~/.bashrc+ in your home
     directory and run +bundle install+ after:
 
-        export JAVA_HOME=/usr/lib/jvm/java-7-openjdk-amd64
+        export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
 
 
 The last operation could take time.
