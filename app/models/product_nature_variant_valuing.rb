@@ -33,6 +33,7 @@
 class ProductNatureVariantValuing < Ekylibre::Record::Base
   belongs_to :variant, class_name: 'ProductNatureVariant'
 
+  validates :average_cost_amount, :amount, presence: true
   # some logical, verification in process
   def self.calculate_first_entrance(unitary_price, quantity_action, variant_id)
     variant = ProductNatureVariant.find(variant_id)
