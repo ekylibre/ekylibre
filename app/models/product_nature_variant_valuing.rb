@@ -46,10 +46,11 @@ class ProductNatureVariantValuing < Ekylibre::Record::Base
     end
     product_nature_variant_valuing = ProductNatureVariantValuing.new(amount: amount, average_cost_amount: average_cost_amount, variant_id: variant_id)
     product_nature_variant_valuing.save
-    variant = ProductNatureVariant.where(id: variant_id)
+    # update, if is the first time interaction with ProductNatureVariantValuing
+    variant = ProductNatureVariant.find(variant_id)
     new_info = {}
     new_info[:valuing_id] = product_nature_variant_valuing.id
-    variant.last.update(new_info)
+    variant.update(new_info)
   end
 
   def self.calculate_output(unitary_price, quantity_new, quantity_action, variant_id)
@@ -59,12 +60,11 @@ class ProductNatureVariantValuing < Ekylibre::Record::Base
     average_cost_amount = amount / quantity_new
     product_nature_variant_valuing = ProductNatureVariantValuing.new(amount: amount, average_cost_amount: average_cost_amount, variant_id: variant_id)
     product_nature_variant_valuing.save
-    # update, if the variant are many products saved
-    variant = ProductNatureVariant.where(id: variant_id)
+    # update, if is the first time interaction with ProductNatureVariantValuing
+    variant = ProductNatureVariant.find(variant_id)
     new_info = {}
     new_info[:valuing_id] = product_nature_variant_valuing.id
-
-    variant.last.update(new_info)
+    variant.update(new_info)
   end
 
   def self.calculate_input(quantity_new, quantity_action, variant_id)
@@ -77,6 +77,10 @@ class ProductNatureVariantValuing < Ekylibre::Record::Base
 
     product_nature_variant_valuing = ProductNatureVariantValuing.new(amount: amount, average_cost_amount: average_cost_amount, variant_id: variant_id)
     product_nature_variant_valuing.save
+    # update, if is the first time interaction with ProductNatureVariantValuing
+    new_info = {}
+    new_info[:valuing_id] = product_nature_variant_valuing.id
+    variant.update(new_info)
   end
 
   def self.calculate_inventory(quantity_entry, variant_id)
@@ -88,5 +92,9 @@ class ProductNatureVariantValuing < Ekylibre::Record::Base
 
     product_nature_variant_valuing = ProductNatureVariantValuing.new(amount: amount, average_cost_amount: average_cost_amount, variant_id: variant_id)
     product_nature_variant_valuing.save
+     # update, if is the first time interaction with ProductNatureVariantValuing
+    new_info = {}
+    new_info[:valuing_id] = product_nature_variant_valuing.id
+    variant.update(new_info)
   end
 end
