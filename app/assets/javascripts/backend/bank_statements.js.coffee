@@ -87,8 +87,9 @@
     return if $(event.target).is("input,a")
     bankReconciliation.deselectLine $(@)
 
-  $(document).on "click", ".reconciliation-item a#clear", ->
+  $(document).on "click", ".reconciliation-item a#clear", (event) ->
     # Clear reconciliation letter
+    event.stopPropagation();
     button = $(@)
     line = bankReconciliation.closestLine(button)
     bankReconciliation.clearReconciliationLetterFromLine line
@@ -415,7 +416,7 @@
       # url = window.location.pathname.split('/').slice(0, -3).join('/') + '/bank_reconciliation/letters/' + letter
       url = $(event.target).closest('#clear').attr('href')
       $.ajax url,
-        type: 'POST'
+        type: 'DELETE'
         dataType: 'JSON'
         success: (response) =>
           lines = @_linesWithReconciliationLetter(response.letter)

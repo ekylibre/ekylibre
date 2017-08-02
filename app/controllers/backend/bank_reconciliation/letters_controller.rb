@@ -17,7 +17,10 @@ module Backend
       end
 
       def destroy
-        return unless find_bank_statement
+        return unless request.xhr?
+
+        @bank_statement = BankStatement.find_by(id: params[:id])
+        return unless @bank_statement
 
         letter = params[:letter]
         JournalEntryItem

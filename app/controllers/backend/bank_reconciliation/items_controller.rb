@@ -16,7 +16,8 @@ module Backend
       def reconciliate
         return unless find_bank_statements
 
-        cash = Cash.find(params[:cash_id]).first
+        cash = Cash.find(params[:cash_id])
+        cash = cash.first if cash.is_a?(Array)
         set_period!
 
         @items = cash.unpointed_journal_entry_items.between(@period_start, @period_end)
