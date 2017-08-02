@@ -36,7 +36,7 @@ class ProductNatureVariantValuing < Ekylibre::Record::Base
   validates :average_cost_amount, presence: true
   validates :amount, presence: true
 
-# some logical, verification in process
+  # some logical, verification in process
   def self.calculate_first_entrance(unitary_price, quantity_action, variant_id)
     variant = ProductNatureVariant.find(variant_id)
     if variant.current_stock == 0
@@ -47,30 +47,24 @@ class ProductNatureVariantValuing < Ekylibre::Record::Base
       amount = quantity_action * unitary_price
       average_cost_amount = amount / quantity_new
     end
-
     product_nature_variant_valuing = ProductNatureVariantValuing.new(amount: amount, average_cost_amount: average_cost_amount, variant_id: variant_id)
     product_nature_variant_valuing.save
-
     variant = ProductNatureVariant.where(id: variant_id)
     new_info = Hash.new
     new_info[:valuing_id] = product_nature_variant_valuing.id
-
     variant.last.update(new_info)
   end
 
   def self.calculate_output(unitary_price, quantity_new, quantity_action, variant_id)
     old_product_nature_variant_valuing = ProductNatureVariantValuing.where(variant: variant_id).last
     old_amount = old_product_nature_variant_valuing.amount
-
     amount = old_amount + quantity_action * unitary_price
     average_cost_amount = amount / quantity_new
-
     product_nature_variant_valuing = ProductNatureVariantValuing.new(amount: amount, average_cost_amount: average_cost_amount, variant_id: variant_id)
     product_nature_variant_valuing.save
-
-    # update only in environement dev
+    # update, if the variant are many products saved
     variant = ProductNatureVariant.where(id: variant_id)
-    new_info = Hash.new
+    new_info = {}
     new_info[:valuing_id] = product_nature_variant_valuing.id
 
     variant.last.update(new_info)

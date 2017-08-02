@@ -207,7 +207,7 @@ class ParcelItem < Ekylibre::Record::Base
   # Mark items as given, and so change enjoyer and ownership if needed at
   # this moment.
   def give
-    calculate_average_cost_amount
+    average_cost_amount
 
     give_outgoing if parcel_outgoing?
     give_incoming if parcel_incoming?
@@ -262,8 +262,8 @@ class ParcelItem < Ekylibre::Record::Base
     product_in_storage
   end
 
-  def calculate_average_cost_amount
-    many_items = parcel.items.group_by { |item| item.variant_id }
+  def average_cost_amount
+    many_items = parcel.items.group_by{variant_id}
     many_items = many_items.to_a
     many_items.each do |items|
       items.last.each do |item|
@@ -281,11 +281,10 @@ class ParcelItem < Ekylibre::Record::Base
           if item == items.last.first
             variant = ProductNatureVariant.find(variant_id)
             @quantity_new = variant.current_stock - quantity_action
-            unitary_price = 0
           else
             @quantity_new -= quantity_action
-            unitary_price = 0
           end
+          unitary_price = 0
         end
         create_variant_valuing(@quantity_new, quantity_action, variant_id, unitary_price)
       end
@@ -293,13 +292,13 @@ class ParcelItem < Ekylibre::Record::Base
   end
 
   def create_variant_valuing(quantity_new, quantity_action, variant_id, unitary_price)
-  # first entrance
+    # first entrance
     if parcel.nature == 'incoming' && ProductNatureVariantValuing.where(variant_id: variant_id) == []
       ProductNatureVariantValuing.calculate_first_entrance(unitary_price, quantity_action, variant_id)
-  # output
+    # output
     elsif parcel.nature == 'incoming'
       ProductNatureVariantValuing.calculate_output(unitary_price, quantity_new, quantity_action, variant_id)
-  # input
+    # input
     elsif parcel.nature == 'outgoing'
       ProductNatureVariantValuing.calculate_input(quantity_new, quantity_action, variant_id)
     end
