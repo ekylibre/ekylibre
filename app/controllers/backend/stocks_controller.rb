@@ -18,7 +18,6 @@
 
 module Backend
   class StocksController < Backend::BaseController
-
     list(model: :product_nature_variant_valuings) do |t|
       t.column :name, through: :variant, label_method: :name, url: true
       t.column :amount

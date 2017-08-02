@@ -142,7 +142,7 @@ class InterventionOutput < InterventionProductParameter
   end
 
   def create_variant_valuing(quantity_new, quantity_action, variant_id, unitary_price)
-  # first entrance
+    # first entrance
     if ProductNatureVariantValuing.where(variant_id: variant_id) == []
       ProductNatureVariantValuing.calculate_first_entrance(unitary_price, quantity_action, variant_id)
     # output

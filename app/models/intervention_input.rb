@@ -168,7 +168,7 @@ class InterventionInput < InterventionProductParameter
   end
 
   def create_variant_valuing(quantity_new, quantity_action, variant_id)
-# input
+    # input
     ProductNatureVariantValuing.calculate_input(quantity_new, quantity_action, variant_id)
   end
 end

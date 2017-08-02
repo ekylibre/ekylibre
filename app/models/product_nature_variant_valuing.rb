@@ -33,13 +33,10 @@
 class ProductNatureVariantValuing < Ekylibre::Record::Base
   belongs_to :variant, class_name: 'ProductNatureVariant'
 
-  validates :average_cost_amount, presence: true
-  validates :amount, presence: true
-
   # some logical, verification in process
   def self.calculate_first_entrance(unitary_price, quantity_action, variant_id)
     variant = ProductNatureVariant.find(variant_id)
-    if variant.current_stock == 0
+    if variant.current_stock.zero?
       amount = quantity_action * unitary_price
       average_cost_amount = amount / quantity_action
     else
@@ -50,7 +47,7 @@ class ProductNatureVariantValuing < Ekylibre::Record::Base
     product_nature_variant_valuing = ProductNatureVariantValuing.new(amount: amount, average_cost_amount: average_cost_amount, variant_id: variant_id)
     product_nature_variant_valuing.save
     variant = ProductNatureVariant.where(id: variant_id)
-    new_info = Hash.new
+    new_info = {}
     new_info[:valuing_id] = product_nature_variant_valuing.id
     variant.last.update(new_info)
   end

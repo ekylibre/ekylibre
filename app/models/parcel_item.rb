@@ -128,7 +128,6 @@ class ParcelItem < Ekylibre::Record::Base
     true
   end
 
-
   after_save do
     if Preference[:catalog_price_item_addition_if_blank]
       if parcel_incoming?
@@ -263,13 +262,12 @@ class ParcelItem < Ekylibre::Record::Base
   end
 
   def average_cost_amount
-    many_items = parcel.items.group_by{variant_id}
+    many_items = parcel.items.group_by{ variant_id }
     many_items = many_items.to_a
     many_items.each do |items|
       items.last.each do |item|
         quantity_action = item.population
         unitary_price = item.unit_pretax_amount
-        variant_id = item.variant_id
         variant = item.variant
         if parcel.nature == 'incoming'
           if item == items.last.first
@@ -286,7 +284,7 @@ class ParcelItem < Ekylibre::Record::Base
           end
           unitary_price = 0
         end
-        create_variant_valuing(@quantity_new, quantity_action, variant_id, unitary_price)
+        create_variant_valuing(@quantity_new, quantity_action, variant.id, unitary_price)
       end
     end
   end
