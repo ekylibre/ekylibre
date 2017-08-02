@@ -15,19 +15,9 @@ Logout and login and you can sudo.
 
 ## 1. Dependencies
 
-Before all, add PostgreSQL APT repository (See
-http://www.postgresql.org/download/linux/debian/ for more information):
-
-``` bash
-echo 'deb http://apt.postgresql.org/pub/repos/apt/ jessie-pgdg main' | sudo tee --append /etc/apt/sources.list
-wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
-sudo apt-get update
-```
-
 Then, install all distribution dependencies:
 
-    sudo apt-get install imagemagick graphicsmagick tesseract-ocr tesseract-ocr-ara tesseract-ocr-jpn tesseract-ocr-fra tesseract-ocr-eng tesseract-ocr-spa pdftk libreoffice poppler-utils poppler-data ghostscript openjdk-7-jdk libicu52 redis-server postgresql-9.5-postgis-2.2 postgresql-contrib-9.5 libcurl4-openssl-dev openjdk-7-jdk libgeos-dev libgeos++-dev libproj-dev libpq-dev libxml2-dev libxslt1-dev zlib1g-dev libicu-dev libqtwebkit-dev
-
+    sudo apt-get install imagemagick graphicsmagick tesseract-ocr tesseract-ocr-ara tesseract-ocr-jpn tesseract-ocr-fra tesseract-ocr-eng tesseract-ocr-spa pdftk libreoffice poppler-utils poppler-data ghostscript openjdk-8-jdk libicu57 redis-server postgresql-9.6-postgis-2.3 postgresql-contrib-9.6 libcurl4-openssl-dev libgeos-dev libgeos++-dev libproj-dev libpq-dev libxml2-dev libxslt1-dev zlib1g-dev libicu-dev libqtwebkit-dev build-essential
 
 
 ## 2. Ruby
