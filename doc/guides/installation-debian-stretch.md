@@ -1,4 +1,4 @@
-# Installation for developers on Debian 8 (Jessie)
+# Installation for developers on Debian 9 (Stretch)
 
 This a short explanation on installation steps for developers.
 
