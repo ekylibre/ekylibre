@@ -94,3 +94,5 @@ Procfile.*
 
 custom_plan.rb
 zeus.json
+
+private/test/*
