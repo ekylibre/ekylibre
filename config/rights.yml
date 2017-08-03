@@ -124,6 +124,7 @@
 #     - "backend/outgoing_payments#unroll"
 #     - "backend/outgoing_payments#update"
 #     - "backend/plants#take"
+#     - "backend/preferences#update"
 #     - "backend/product_groups#take"
 #     - "backend/product_nature_variants#quantifiers"
 #     - "backend/products#take"

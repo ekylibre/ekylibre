@@ -2385,6 +2385,7 @@ arb:
     vat_collected: "صافي قيمة الضريبة المضافة" #?
     vat_paid: "خصم قيمة الضريبة المضافة" #?
     view: "معاينة"
+    view_map_when_creating_an_intervention: "عرض الخريطة عند إنشاء التدخل"
     virtual_quantity: "الكمية العملية" #?
     wages: "أجور"
     waiting: "أ€ التسدسد لاحقا" #?

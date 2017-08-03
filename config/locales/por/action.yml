@@ -1740,6 +1740,7 @@ por:
     variants: "Variantes"
     vat: "CUBA"
     view: "Visão"
+    view_map_when_creating_an_intervention: "Visualize o mapa ao criar uma intervenção"
     wages: "Salário"
     watering_concentration: "O uso da água"
     weather: "Clima"

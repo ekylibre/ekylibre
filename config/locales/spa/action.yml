@@ -1973,6 +1973,7 @@ spa:
     variants: "Variantes"
     vat: "TINA"
     view: "Ver"
+    view_map_when_creating_an_intervention: "Ver mapa al crear una intervención"
     wages: "Salario"
     watering_concentration: "Uso del agua"
     weather: "Clima"

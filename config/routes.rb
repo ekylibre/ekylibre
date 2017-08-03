@@ -788,6 +788,8 @@ Rails.application.routes.draw do
 
     resources :plant_countings, concerns: [:list]
 
+    resources :preferences, only: %i[update]
+
     resources :product_groups, concerns: :products
 
     resources :product_localizations, except: %i[index show]

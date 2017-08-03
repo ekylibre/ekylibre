@@ -1736,6 +1736,7 @@ cmn:
     variants: "变种"
     vat: "增值税"
     view: "视图"
+    view_map_when_creating_an_intervention: "创建干预时查看地图"
     wages: "工资"
     watering_concentration: "水的使用"
     weather: "天气"

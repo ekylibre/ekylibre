@@ -38,7 +38,7 @@
     - else
       = f.input :new_variant_id, input_html: { data: { intervention_updater: prefix + 'new_variant_id' }}
 
-  - if reference.attribute(:working_zone)
+  - if reference.attribute(:working_zone) && current_user.preference(User::PREFERENCE_SHOW_MAP_INTERVENTION_FORM).value
     :ruby
       # TODO move into controller
       land_parcels = LandParcel.at(started_at).collect do |l|

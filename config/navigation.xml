@@ -2031,6 +2031,11 @@
         <page to="backend/outgoing_payments#update"/>
       </item>
     </group>
+    <group>
+      <item name="preferences">
+        <page to="backend/preferences#update"/>
+      </item>
+    </group>
   </inaccessible-actions>
   <untreated-actions>
     <group/>

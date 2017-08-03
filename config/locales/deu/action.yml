@@ -1735,6 +1735,7 @@ deu:
     variants: "Varianten"
     vat: "Mehrwertsteuer"
     view: "Aussicht"
+    view_map_when_creating_an_intervention: "View map bei der Erstellung einer Intervention"
     wages: "Lohn"
     watering_concentration: "Der Wasserverbrauch"
     weather: "Wetter"

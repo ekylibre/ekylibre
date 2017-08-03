@@ -1808,6 +1808,7 @@ jpn:
     variants: "バリアント"
     vat: "バット"
     view: "ビュー"
+    view_map_when_creating_an_intervention: "介入を作成するときに地図を表示する"
     wages: "賃金"
     watering_concentration: "水利用"
     weather: "天気"
