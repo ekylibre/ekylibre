@@ -65,8 +65,8 @@
               - menu.item procedure.human_name, { procedure_name: procedure.name, redirect: params[:redirect], nature: params[:nature] }
 
   - form_action_content(:after) do
-    %span.map-preference
+    %span.pull-right
       = check_box_tag('show-map', @show_map.value, @show_map.value, data: { remote: true, url: backend_interventions_update_map_preference_path, method: 'POST' })
-      = label_tag('show-map', :show_map_intervention.tl)
+      = label_tag('show-map', :view_map_when_creating_an_intervention.tl)
   - f.clear_actions!
 
