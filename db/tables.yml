@@ -6385,9 +6385,6 @@ products:
     type: integer
   picture_updated_at:
     type: datetime
-  reading_cache:
-    type: jsonb
-    required: true
   team_id:
     type: integer
     references: team
