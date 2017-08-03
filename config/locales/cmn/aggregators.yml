@@ -4,12 +4,15 @@ cmn:
     started_on: "开始于"
     stopped_on: "停在"
   aggregator_properties:
+    active: "活性"
     area: "区"
     area_in_hectare: "区公顷"
     born_at: "出生于"
     breeding_number: "养殖数量"
     campaigns: "活动"
     capitalised_production: "生产资本化" #?
+    catalog_name: "目录名称"
+    charge_account_label: "收费帐户标签"
     company: "公司"
     container_name: "容器名称"
     current_result_before_taxes: "税前当前结果"
@@ -63,6 +66,7 @@ cmn:
     other_purchases: "其他购买" #?
     owner_name: "所有者名称"
     payment_ratio: "付款比例"
+    person_name: "人名"
     pictogram: "形符"
     picture_path: "图片路径"
     plan: "计划"
@@ -86,6 +90,7 @@ cmn:
     sex: "性别"
     social_expenses: "社会性支出" #?
     soil_varieties: "土品种" #?
+    stock_account_label: "库存帐户标签"
     stock_production: "按库存生产" #?
     stocks_variation: "库存变化" #?
     subsidies: "补贴" #?
@@ -96,3 +101,4 @@ cmn:
     vine_yield: "葡萄产量"
     wages: "工资" #?
     working_area: "工作区域"
+    working_duration_in_hours: "工作时间（小时）"
