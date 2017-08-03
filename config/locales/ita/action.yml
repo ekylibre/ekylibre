@@ -1801,6 +1801,7 @@ ita:
     variants: "varianti"
     vat: "I.V.A."
     view: "vista"
+    view_map_when_creating_an_intervention: "Guarda la mappa quando crea un intervento"
     wages: "Salari"
     watering_concentration: "L’uso dell’acqua"
     weather: "Tempo"
