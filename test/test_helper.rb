@@ -742,6 +742,11 @@ class PseudoEnvironment < SimpleDelegator
 
     define_env_response(@real_env, false)
     define_env_response(@current_env, true)
+    return new_env unless block_given?
+
+    yield
+
+    unset
   end
 
   def unset
@@ -751,11 +756,13 @@ class PseudoEnvironment < SimpleDelegator
       undef_method env_test if defined?(env_test)
     end
     Rails.instance_variable_set(:@_env, real_env)
+    real_env
   end
 
   def inspect
     main_env = @current_env || @real_env
-    return label = "#{main_env}" unless explicit_label
+    label = "#{main_env}"
+    return label unless explicit_label
     "#{label} (actual: #{real_env})"
   end
 
@@ -770,3 +777,7 @@ class PseudoEnvironment < SimpleDelegator
   end
 end
 
+def without_output(&block)
+  main = TOPLEVEL_BINDING.eval('self')
+  main.stub :puts, Proc.new, &block
+end
