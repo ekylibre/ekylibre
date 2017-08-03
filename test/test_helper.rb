@@ -726,6 +726,9 @@ class CapybaraIntegrationTest < ActionDispatch::IntegrationTest
 end
 
 def without_output(&block)
-  main = TOPLEVEL_BINDING.eval('self')
   main.stub :puts, Proc.new, &block
+end
+
+def main
+  TOPLEVEL_BINDING.eval('self')
 end

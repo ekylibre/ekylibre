@@ -7,21 +7,23 @@ module Ekylibre
         @pseudo_env = PseudoEnvironment.new(self)
         @pseudo_env.set_to(:production)
         ENV['TENANT'] = 'my_awesome_tenant'
+
+        # Reload rake tasks so Rake doesn't ignore the `invoke`
+        # thinking it's already been run.
         Rake::Task.clear
         Ekylibre::Application.load_tasks
       end
 
-      test 'restore shouldn\'t be possible in production env' do
+      test 'restore shouldn\'t be possible in production env without DANGEROUS_MODE set' do
         ENV['DANGEROUS_MODE'] = nil
         assert_raises Ekylibre::ForbiddenImport do
           Rake::Task['tenant:restore'].invoke
         end
       end
 
-      test 'restore allowed if DANGEROUS_MODE is set but asks a ludicrous amount of confirmations' do
+      test 'when run in production restore confirms A LOT before overwriting existing tenants' do
         ENV['DANGEROUS_MODE'] = 'on'
         @question_count = 0
-        main = TOPLEVEL_BINDING.eval('self')
         main.stub :confirm, method(:confirm_and_count) do
           Ekylibre::Tenant.stub :restore, true do
             Ekylibre::Tenant.stub :exist?, true do
