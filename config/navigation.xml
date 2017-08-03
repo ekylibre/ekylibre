@@ -166,7 +166,7 @@
         <page to="backend/fixed_assets#update"/>
         <page to="backend/fixed_asset_depreciations#show"/>
         <page to="backend/fixed_assets#depreciate"/>
-        <page to="backend/fixed_assets#depreciate_up_to"/>
+        <page to="backend/fixed_assets#depreciate_all"/>
         <page to="backend/fixed_assets#scrap"/>
         <page to="backend/fixed_assets#sell"/>
         <page to="backend/fixed_assets#start_up"/>
@@ -745,6 +745,7 @@
         <page to="backend/interventions#new"/>
         <page to="backend/interventions#show"/>
         <page to="backend/interventions#update"/>
+        <page to="backend/interventions#change_page"/>
         <page to="backend/interventions#change_state"/>
         <page to="backend/interventions#modal"/>
         <page to="backend/interventions#list_product_parameters"/>

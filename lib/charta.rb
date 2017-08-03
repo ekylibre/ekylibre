@@ -46,6 +46,8 @@ module Charta
       if geom_ewkt.blank?
         raise ArgumentError, "Invalid data: coordinates=#{coordinates.inspect}, srid=#{srid.inspect}"
       end
+      make_valid = "SELECT ST_AsEwkt(ST_MakeValid(ST_GeomFromEWKT('#{geom_ewkt.to_s}'))) AS shape;"
+      geom_ewkt  = ActiveRecord::Base.connection.execute(make_valid).first['shape']
       type = select_value("SELECT GeometryType(ST_GeomFromEWKT('#{geom_ewkt}'))").to_s.strip
       geom = case type
              when 'POINT' then

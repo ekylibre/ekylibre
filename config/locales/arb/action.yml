@@ -516,7 +516,7 @@ arb:
       new: "دفعة دفع جديدة"
       # show: "Payslip payment: %{number}"
     backend/payslips:
-      # edit: "Edit payslip: %{name}"
+      # edit: "Edit payslip: %{number}"
       index: "كشوف"
       new: "جديد قسيمة الدفع"
       # show: "Payslip: %{number}"
@@ -989,6 +989,7 @@ arb:
     add_catalog_price: "إضافة سعر كتالوج"
     add_child: "إضافة عنصر الطفل"
     add_choice: "إضافة خيار"
+    add_compensation_entry: "إضافة إدخال التعويض"
     add_component: "إضافة عنصر"
     add_condition: "اضافة شرط"
     add_conditions: "اضف شروط"
@@ -1542,6 +1543,7 @@ arb:
     insert_actual_password: "أدخل كلمة المرور الحالية" #?
     insert_password: "أدخل كلمة المرور الجديدة" #?
     inspections: "عمليات التفتيش"
+    interactive_maps: "مكتبة جس للخرائط التفاعلية"
     interface_preferences: "تفضيلات واجهة"
     internal_error: "عفوا، حدث شيء ما."
     international_normal_vat_collected: "معدل ضريبة القيمة المضافة الدولية العادية %8.5" #?
@@ -1755,6 +1757,7 @@ arb:
     net_income: "صافي الدخل"
     net_margin: "هامش صافي" #?
     net_mass: "الكتلة الصافية"
+    net_production_sales: "صافي مبيعات الإنتاج"
     net_surface_area: "مساحة صافية"
     net_vat_amount: "صافي قيمة الضريبة الاضافية المستحقة" #?
     new: "انشاء دفعة جديدة"
@@ -2518,6 +2521,9 @@ arb:
       one: "تم انجاز عمل واحد" #?
       other: "%{count} تم انجاز اعمال اخرى" #?
       zero: "لم يتم انجاز اي عمل" #?
+    x_purchase_payments:
+      # one: "%{count} purchase payment"
+      # other: "%{count} purchase payments"
     x_purchases:
       one: "1 شراء"
       # other: "%{count} purchases"
@@ -2594,6 +2600,7 @@ arb:
       access_denied: " ليس لديك الصلاحية لبلوغ هذه الصفحة %{reason} (%{url})"
       accountant_notified: "وقد تم إخطار محاسب"
       accountant_without_email: "الرجاء ضبط البريد الإلكتروني محاسب"
+      all_fixed_assets_must_be_depreciable: "يجب أن تكون جميع الأصول الثابتة قابلة للاستهلاك"
       all_parcels_must_be_invoiceable_and_of_same_nature_and_third: "يجب أن تكون جميع الطرود invoiceable ومن نفس الطبيعة والثالث"
       all_purchases_must_be_ordered_or_invoiced: "جميع المشتريات يجب أن يؤمر أو فواتير."
       all_tax_declarations_have_already_existing: "جميع الإعلانات الضريبية موجودة بالفعل"
@@ -2612,10 +2619,9 @@ arb:
       closed_financial_year_exchange: "تم إغلاق الصرف في العام المالي بنجاح"
       closed_financial_years: "تم اغلاق السنة المالية بشكل صحيح"
       columns_are_already_uses: "تم اخيار عامود او اكثر للتحميل لمرات عدة"
+      # could_not_attach_x_or_y_to_affair: "Could not attach %{x} or %{y} to affair"
       dashboard_is_being_developed: "لوحة أجهزة القياس هي قيد التطوير الثقيلة"
       density_is_not_computable_in_counting: "لا يمكن حساب كثافة لهذا العد. وينبغي الانتهاء من القيم المفقودة في خصائص العد أو مؤشرات الزارع و."
-      depreciation_failed: "لا يمكن استهلاك الأصول."
-      depreciation_successful: "وقد انخفضت قيمة الأصول بنجاح."
       draft_journal_entries_have_been_validated:
         one: "تم التحقق من صحة الملفات واخراجها من قائمة المسودات"
         other: "واخراجها من قائمة المسودات %{count} تم التحقق من صحة الملفات الاخرى"
@@ -2676,6 +2682,7 @@ arb:
       no_depositable_payments: "لا يوجد دفعات لتقديمها للبنك"
       no_existing_mandates: "ليس هنالك من تفويض مسجل في الوقت الحاضر" #?
       no_financial_year: "لم يتم تسجيل اي سنة مالية" #?
+      no_fixed_assets_given: "لم يتم إعطاء أية أصول ثابتة"
       no_inspections_given: "لا عمليات التفتيش الممنوحة"
       no_interventions_given: "لا تدخلات الممنوحة"
       no_items_found: "لم يتم اضافة اي منتج الى الطلب" #?
@@ -2733,6 +2740,9 @@ arb:
       unvalid_version_for_restore: "ان اصدار البرنامج المستخدم لتنفيذ النسخ الاحتياطية لا يطابق اصدار البرنامج الحالي" #?
       update_is_done: "قد انجز اعداد التحديث"
       validates_old_inventories: "ينصح بالغاء أو التحقق من صحة قوائم الجرد قبل اتخاذ جديد" #?
+      x_fixed_asset_depreciations_have_been_bookkept_successfully:
+        # one: "%{count} fixed asset depreciation has been bookkept successfully"
+        # other: "%{count} fixed asset depreciations have been bookkept successfully"
       x_loan_repayments_have_been_bookkept_successfully:
         # one: "%{count} loan repayment has been bookkept successfully"
         # other: "%{count} loan repayments have been bookkept successfully"
@@ -2933,7 +2943,7 @@ arb:
     # backend/entity_links: "%{started_at}"
     # backend/events: "%{name}"
     # backend/incoming_payments: "%{number}. %{mode_name} from %{payer_full_name} of %{amount} %{currency}"
-    # backend/interventions: "%{number}. %{name}"
+    # backend/interventions: "%{number}"
     # backend/journal_entry_items: "%{entry_number} %{name} %{account_number} D%{real_debit} C%{real_credit} %{currency}"
     # backend/matters: "%{name} ‒ %{work_number}"
     # backend/observations: "%{content}"

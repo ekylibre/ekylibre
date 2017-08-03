@@ -39,7 +39,7 @@
 #  letter                 :string
 #  lock_version           :integer          default(0), not null
 #  name                   :string
-#  number                 :string           not null
+#  number                 :string
 #  origin                 :string
 #  pretax_amount          :decimal(19, 4)   default(0.0)
 #  probability_percentage :decimal(19, 4)   default(0.0)
@@ -91,12 +91,11 @@ class Affair < Ekylibre::Record::Base
   validates :currency, :third, presence: true
   validates :description, length: { maximum: 500_000 }, allow_blank: true
   validates :letter, :name, :origin, :state, length: { maximum: 500 }, allow_blank: true
-  validates :number, presence: true, uniqueness: true, length: { maximum: 500 }
+  validates :number, uniqueness: true, length: { maximum: 500 }, allow_blank: true
   validates :pretax_amount, :probability_percentage, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }, allow_blank: true
   # ]VALIDATORS]
   validates :currency, length: { allow_nil: true, maximum: 3 }
 
-  acts_as_numbered
   scope :closeds, -> { where(closed: true) }
   scope :opened, -> { where(closed: false) }
 
@@ -119,6 +118,10 @@ class Affair < Ekylibre::Record::Base
   end
 
   before_save :letter_journal_entries
+
+  def number
+    "A#{id.to_s.rjust(7, '0')}"
+  end
 
   def work_name
     number.to_s
