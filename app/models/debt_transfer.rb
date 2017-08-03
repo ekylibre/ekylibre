@@ -47,8 +47,8 @@ class DebtTransfer < Ekylibre::Record::Base
   enumerize :nature, in: %i[sale_regularization purchase_regularization], predicates: true
 
   belongs_to :journal_entry, class_name: 'JournalEntry', dependent: :destroy
-  belongs_to :affair, class_name: 'Affair', inverse_of: :debt_transfers , dependent: :destroy
-  belongs_to :debt_transfer_affair, class_name: 'Affair', inverse_of: :debt_regularizations , dependent: :destroy
+  belongs_to :affair, class_name: 'Affair', inverse_of: :debt_transfers, dependent: :destroy
+  belongs_to :debt_transfer_affair, class_name: 'Affair', inverse_of: :debt_regularizations, dependent: :destroy
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :accounted_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
@@ -80,7 +80,6 @@ class DebtTransfer < Ekylibre::Record::Base
     errors.add(:currency, :invalid) unless affair.currency == debt_transfer_affair.currency
     errors.add(:amount, :empty) unless amount.present? && (amount != 0)
   end
-
 
   # before_destroy do
   #   DebtTransfer.where(
