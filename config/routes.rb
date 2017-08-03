@@ -788,6 +788,8 @@ Rails.application.routes.draw do
 
     resources :plant_countings, concerns: [:list]
 
+    resources :preferences, only: %i[update]
+
     resources :product_groups, concerns: :products
 
     resources :product_localizations, except: %i[index show]
@@ -1023,8 +1025,6 @@ Rails.application.routes.draw do
     get 'invitations/list', to: 'invitations#list'
     get 'invitations/new', to: 'invitations#new'
     post 'invitations', to: 'invitations#create'
-
-    post 'interventions/update_map_preference', to: 'interventions#update_map_preference'
 
     resources :registrations, only: %i[index edit update destroy], concerns: [:list]
   end

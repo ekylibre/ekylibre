@@ -472,6 +472,11 @@ module Backend
       end
     end
 
+    def user_preference_value(name)
+      preference = current_user.preferences.find_by(name: name)
+      preference ? preference.value : nil
+    end
+
     # Build a JSON for a data-tour parameter and put it on <body> element
     def tour(name, _options = {})
       preference = current_user.preference("interface.tours.#{name}.finished", false, :boolean)

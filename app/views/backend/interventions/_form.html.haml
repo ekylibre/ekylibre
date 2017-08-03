@@ -66,7 +66,8 @@
 
   - form_action_content(:after) do
     %span.pull-right
-      = check_box_tag('show-map', @show_map.value, @show_map.value, data: { remote: true, url: backend_interventions_update_map_preference_path, method: 'POST' })
-      = label_tag('show-map', :view_map_when_creating_an_intervention.tl)
+      = label_tag do
+        = check_box_tag('show-map', 'true', user_preference_value(User::PREFERENCE_SHOW_MAP_INTERVENTION_FORM), data: { remote: true, url: backend_preference_path(id: User::PREFERENCE_SHOW_MAP_INTERVENTION_FORM), method: 'PATCH' })
+        = :view_map_when_creating_an_intervention.tl
   - f.clear_actions!
 
