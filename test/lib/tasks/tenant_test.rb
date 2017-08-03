@@ -28,7 +28,7 @@ module Ekylibre
           invoke_task('tenant:restore')
         end
 
-        assert_equal 0,  @question_count
+        assert_equal 0, @question_count
         ENV['FORCE'] = nil
       end
 

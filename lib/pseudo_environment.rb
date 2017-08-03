@@ -3,7 +3,7 @@
 class PseudoEnvironment < SimpleDelegator
   attr_reader :real_env, :current_env, :scope, :explicit_label
 
-  def initialize(caller, explicit_label=true)
+  def initialize(caller, explicit_label = true)
     @scope = caller
     @real_env = Rails.env
     @explicit_label = explicit_label
@@ -27,7 +27,7 @@ class PseudoEnvironment < SimpleDelegator
 
   def unset
     set_to(nil)
-    return unless current_env.present?
+    return if current_env.blank?
     class << self
       env_test = :"#{Rails.env.to_s}?"
       undef_method env_test if defined?(env_test)
@@ -46,14 +46,12 @@ class PseudoEnvironment < SimpleDelegator
     main_env.to_s
   end
 
-  def ===(other_env)
-    current_env === other_env
-  end
+  delegate :===, to: :current_env
 
   private
 
   def define_env_response(env, response)
-    return unless env.present?
+    return if env.blank?
     define_singleton_method(:"#{env}?") do
       in_caller = binding.callers.find { |binding| binding.eval('self') == scope }
       return response if in_caller

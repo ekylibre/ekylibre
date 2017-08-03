@@ -7,7 +7,7 @@ class PseudoEnvironmentTest < ActiveSupport::TestCase
 
     # Tests will be pointless if we're pseudo-ing
     # from production to production.
-    assert_not_equal :production,  @real_env
+    assert_not_equal :production, @real_env
   end
 
   test '#set_to(env) allows us to pretend we\'re in another env' do
@@ -30,8 +30,8 @@ class PseudoEnvironmentTest < ActiveSupport::TestCase
 
   test '#inspect contains info about both environments' do
     @pseudo_env.set_to(:production)
-    assert_match Regexp.new("production"),   @pseudo_env.inspect
-    assert_match Regexp.new("#{@real_env}"), @pseudo_env.inspect
+    assert_match Regexp.new('production'),   @pseudo_env.inspect
+    assert_match Regexp.new(@real_env.to_s), @pseudo_env.inspect
   end
 
   test 'doesn\'t impact other processes/threads' do
@@ -41,7 +41,7 @@ class PseudoEnvironmentTest < ActiveSupport::TestCase
       class ProcessInProd
         def execute(tester)
           PseudoEnvironment.new(self).set_to(:production)
-          tester.assert Rails.env.production?  # Not unset
+          tester.assert Rails.env.production? # Not unset
           tester.thread_done(Thread.current)
           tester.wait_for_non_prod { Thread.pass } # Ensure development & unaware run w/ bad env set
         end
@@ -60,7 +60,6 @@ class PseudoEnvironmentTest < ActiveSupport::TestCase
           tester.thread_done(Thread.current)
         end
       end
-
 
       UnawareProcess.new.execute(tester)
     end

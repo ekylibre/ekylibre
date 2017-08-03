@@ -1,4 +1,4 @@
-require "minitest/mock"
+require 'minitest/mock'
 
 if ENV['CI']
   require 'codacy-coverage'
