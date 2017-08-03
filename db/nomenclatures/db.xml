@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20170718131724">
+<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20170803164344">
   <nomenclature name="abilities" translateable="true">
     <properties>
       <property name="parameters" type="choice_list" choices="variety, issue_nature"/>
@@ -2735,6 +2735,7 @@
       <item name="oil_replacement"/>
       <item name="organic_fertilization"/>
       <item name="organic_matter_burying"/>
+      <item name="packaging"/>
       <item name="partial_wine_transfer"/>
       <item name="parturition"/>
       <item name="pivot_troubleshooting"/>
@@ -2816,6 +2817,7 @@
       <item name="irrigating" activity_family="plant_farming"/>
       <item name="land_maintenance" activity_family="animal_farming, tool_maintaining, plant_farming"/>
       <item name="meat_transformation" activity_family="processing"/>
+      <item name="packaging" activity_family="processing"/>
       <item name="planting" activity_family="plant_farming"/>
       <item name="plants_transformation" activity_family="processing"/>
       <item name="soil_working" activity_family="plant_farming"/>
