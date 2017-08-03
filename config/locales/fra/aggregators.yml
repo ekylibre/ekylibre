@@ -4,6 +4,7 @@ fra:
     started_on: "Débuté le"
     stopped_on: "Arrếté on"
   aggregator_properties:
+    active: "Actif"
     activity_family: "Famille d'activité" #?
     actor_name: "Nom de l'acteur" #?
     animal_group_name: "Nom du groupe d'animaux" #?
@@ -14,17 +15,16 @@ fra:
     born_at: "Né(e) à"
     breeding_number: "Numéro d'élevage"
     campaigns: "Campagnes"
-    catalog_name: "Nom du catalogue"
     capitalised_production: "Production capitalisée" #?
+    catalog_name: "Nom du catalogue"
+    charge_account_label: "Étiquette du compte de frais"
     company: "Entreprise"
     container_name: "Nom de l'emplacement"
     current_result_before_taxes: "Résultat en cours avant taxes"
-    derivative: "Dérivé"
-    active: "Actif"
     depreciations_inputations_expenses: "Charges des imputations des dépréciations" #?
-    doer: "Opérateur"
+    derivative: "Dérivé" #?
+    doer: "Opérateur" #?
     doer_cost: "Cout de main d'oeuvre"
-    charge_account_label: "Étiquette du compte de frais"
     doer_name: "Acteur"
     doers_name: "Nom des acteurs"
     duration_in_hour: "Durée (heures)"
