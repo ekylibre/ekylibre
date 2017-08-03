@@ -1625,8 +1625,8 @@ fra:
     need_entities_to_consult_mandates: "Vous devez créer des fiches clients/fournisseurs avant" #?
     net_income: "Résultat d’exercice"
     net_margin: "Marge nette" #?
-    net_production_sales: "Ventes nettes de production"
     net_mass: "Masse nette"
+    net_production_sales: "Ventes nettes de production"
     net_surface_area: "Surface nette"
     net_vat_amount: "TVA nette due" #?
     net_volume: "Volume net" #?
@@ -2807,7 +2807,7 @@ fra:
     backend/entity_links: "%{started_at}"
     backend/events: "%{name}"
     backend/incoming_payments: "%{number}. %{mode_name} de %{payer_full_name} de %{amount} %{currency}"
-    backend/interventions: "%{number}. %{name}"
+    backend/interventions: "%{number}"
     backend/journal_entry_items: "[%{entry_number}] %{name} (%{account_number}) D%{real_debit}/C%{real_credit} %{currency}"
     backend/matters: "%{name} ‒ %{work_number}"
     backend/observations: "%{content}"

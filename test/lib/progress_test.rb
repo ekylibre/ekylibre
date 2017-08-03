@@ -131,6 +131,6 @@ class ProgressTest < ActiveSupport::TestCase
     weird_max.value = 1
 
     assert_equal 20, weird_max.value
-    assert_equal  1, weird_max.value(percentage: false)
+    assert_equal 1,  weird_max.value(percentage: false)
   end
 end

@@ -423,7 +423,7 @@ deu:
       new: "Neue payslip Zahlung"
       # show: "Payslip payment: %{number}"
     backend/payslips:
-      # edit: "Edit payslip: %{name}"
+      # edit: "Edit payslip: %{number}"
       # index: "Payslips"
       new: "Neue Payslip"
       # show: "Payslip: %{number}"
@@ -1156,7 +1156,7 @@ deu:
     input_cost_per_hectare: "Inputkosten pro Hektar" #?
     inputs: "Eingänge"
     inspections: "Inspektionen"
-    # interactive_maps: "A JS library for interactive maps"
+    interactive_maps: "Eine JS-Bibliothek für interaktive Karten"
     interface_preferences: "Interface-Einstellungen"
     internal_error: "Hoppla, was passiert ist."
     interval: "Personalisierte Interval"
@@ -1292,6 +1292,7 @@ deu:
     net_income: "Nettoeinkommen"
     net_margin: "Nettomarge" #?
     net_mass: "Eigenmasse"
+    net_production_sales: "Netto-Produktionsverkäufe"
     net_surface_area: "Nettofläche"
     new: "Neu"
     new_activity: "neue Aktivität"
@@ -2163,7 +2164,7 @@ deu:
     # backend/entity_links: "%{started_at}"
     # backend/events: "%{name}"
     # backend/incoming_payments: "%{number}. %{mode_name} from %{payer_full_name} of %{amount} %{currency}"
-    # backend/interventions: "%{number}. %{name}"
+    # backend/interventions: "%{number}"
     # backend/journal_entry_items: "%{entry_number} %{name} %{account_number} D%{real_debit} C%{real_credit} %{currency}"
     # backend/matters: "%{name} ‒ %{work_number}"
     # backend/observations: "%{content}"

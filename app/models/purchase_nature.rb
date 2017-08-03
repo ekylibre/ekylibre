@@ -57,6 +57,10 @@ class PurchaseNature < Ekylibre::Record::Base
 
   scope :actives, -> { where(active: true) }
 
+  before_validation do
+    self.nature = :purchase
+  end
+
   validate do
     self.journal = nil unless with_accounting?
     if journal

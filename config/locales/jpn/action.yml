@@ -423,7 +423,7 @@ jpn:
       new: "新しいペイチップの支払い"
       # show: "Payslip payment: %{number}"
     backend/payslips:
-      # edit: "Edit payslip: %{name}"
+      # edit: "Edit payslip: %{number}"
       index: "ペイスリップス"
       new: "新しいペイプルップ"
       # show: "Payslip: %{number}"
@@ -1224,7 +1224,7 @@ jpn:
     input_cost_per_hectare: "ヘクタール当たりの入力コスト" #?
     inputs: "入力"
     inspections: "検査"
-    # interactive_maps: "A JS library for interactive maps"
+    interactive_maps: "インタラクティブマップ用のJSライブラリ"
     interface_preferences: "インターフェースのプリファレンス"
     internal_error: "おっと、何かが起こりました。"
     interval: "パーソナライズされた間隔"
@@ -1364,6 +1364,7 @@ jpn:
     net_income: "当期純利益"
     net_margin: "売上純利益率" #?
     net_mass: "正味質量"
+    net_production_sales: "純生産販売"
     net_surface_area: "正味の表面積"
     new: "新しい"
     new_activity: "新しいアクティビティ"
@@ -2240,7 +2241,7 @@ jpn:
     # backend/entity_links: "%{started_at}"
     # backend/events: "%{name}"
     # backend/incoming_payments: "%{number}. %{mode_name} from %{payer_full_name} of %{amount} %{currency}"
-    # backend/interventions: "%{number}. %{name}"
+    # backend/interventions: "%{number}"
     # backend/journal_entry_items: "%{entry_number} %{name} %{account_number} D%{real_debit} C%{real_credit} %{currency}"
     # backend/matters: "%{name} ‒ %{work_number}"
     # backend/observations: "%{content}"
