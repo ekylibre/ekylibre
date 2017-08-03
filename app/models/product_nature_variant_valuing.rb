@@ -70,9 +70,14 @@ class ProductNatureVariantValuing < Ekylibre::Record::Base
   end
 
   def self.calculate_input(quantity_new, quantity_action, variant_id)
-    old_product_nature_variant_valuing = ProductNatureVariantValuing.where(variant_id: variant_id).last
-    old_amount = old_product_nature_variant_valuing.amount
-    old_average_cost_amount = old_product_nature_variant_valuing.average_cost_amount
+    old_product_nature_variant_valuing = ProductNatureVariantValuing.where(variant: variant_id).last
+    if old_product_nature_variant_valuing == nil
+      old_amount = 0
+      old_average_cost_amount = 0
+    else
+      old_amount = old_product_nature_variant_valuing.amount
+      old_average_cost_amount = old_product_nature_variant_valuing.average_cost_amount
+    end
 
     amount = old_amount - quantity_action * old_average_cost_amount
     average_cost_amount = amount / quantity_new
@@ -86,8 +91,14 @@ class ProductNatureVariantValuing < Ekylibre::Record::Base
   end
 
   def self.calculate_inventory(quantity_entry, variant_id)
-    old_product_nature_variant_valuing = ProductNatureVariantValuing.where(variant_id: variant_id).last
-    old_average_cost_amount = old_product_nature_variant_valuing.average_cost_amount
+    old_product_nature_variant_valuing = ProductNatureVariantValuing.where(variant: variant_id).last
+    if old_product_nature_variant_valuing == nil
+      old_amount = 0
+      old_average_cost_amount = 0
+    else
+      old_amount = old_product_nature_variant_valuing.amount
+      old_average_cost_amount = old_product_nature_variant_valuing.average_cost_amount
+    end
 
     amount = quantity_entry * old_average_cost_amount
     average_cost_amount = amount / quantity_entry
