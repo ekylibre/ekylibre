@@ -16,7 +16,7 @@ module Ekylibre
 
       test 'restore asks before overwriting existing tenants' do
         with_fully_mocked_restore tenant_exists: true do
-          Rake::Task['tenant:restore'].invoke
+          invoke_task('tenant:restore')
         end
 
         assert_operator @question_count, :>=, 1
