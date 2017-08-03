@@ -18,6 +18,7 @@
     #wrap{attrs}
       %aside#side.visible
         .inner
+          = extensions_tag(:side_top)
           - if Preference[:use_global_search]
             .snippet.snippet-search
               = form_tag(backend_search_path, :method => :get, :class => "search snippet-content") do
@@ -26,6 +27,7 @@
           = side_tag
           - if content_for?(:aside)
             = content_for(:aside)
+          = extensions_tag(:side_bottom)
           %footer#legals= legals_sentence
       #main
         %header.header
