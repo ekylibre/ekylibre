@@ -16,9 +16,11 @@ module ReconciliationPeriodTest
     test 'period can be set by params' do
       start = Date.new(2016, 12, 20)
       stop  = Date.new(2016, 12, 25)
+
       get :index, bank_statement_id: @bank_statement.id,
                   period_start: start.strftime('%Y-%m-%d'),
                   period_end:   stop.strftime('%Y-%m-%d')
+
       assert_equal start, ivar_value(:@period_start)
       assert_equal stop,  ivar_value(:@period_end)
     end
@@ -111,6 +113,7 @@ module Backend
         user = User.create!(first_name: 'Furiosa', last_name: 'Vuvalini',
                             email: 'furiosa@greenland.org',
                             password: 'youkilledtheworld',
+                            administrator: true,
                             role: role)
         sign_in user
       end

@@ -111,6 +111,10 @@ module Backend
       end
 
       def group_by_date(items)
+        if items.nil?
+          return []
+        end
+
         items.each(&:reload).group_by do |item|
           attributes = item.attributes
           attributes['transfered_on'] || attributes['printed_on']

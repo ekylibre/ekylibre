@@ -58,8 +58,13 @@
   .totals
     #matching
       .title
-        - bank_statements = @items_grouped_by_date.values.flatten.select{|object| object.is_a?(BankStatementItem)}
-        - bank_statement_dates_ranges = bank_statements.map{|bank_statement| { start: bank_statement.started_on, end: bank_statement.stopped_on }}.uniq
+        - bank_statements = []
+        - bank_statement_dates_ranges = {}
+        - unless @items_grouped_by_date.empty?
+          - bank_statements = @items_grouped_by_date.values.flatten.select{|object| object.is_a?(BankStatementItem)}
+
+        - unless bank_statements.empty?
+          - bank_statement_dates_ranges = bank_statements.map{|bank_statement| { start: bank_statement.started_on, end: bank_statement.stopped_on }}.uniq
 
         #new-item= date_field_tag "add-bank-statement-item-date", nil, id: "add-bank-statement-item-date", data: { label: :add_line.tl, classes: "btn btn-new icn", bank_statement_dates_ranges: bank_statement_dates_ranges, min_date: @period_start.to_s, max_date: @period_end.to_s }
         %p= :balance_of_selection.tl

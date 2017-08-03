@@ -4,6 +4,9 @@ module Backend
   module BankReconciliation
     # Tests the lettering/unlettering.
     class LettersControllerTest < ActionController::TestCase
+
+      LETTER = 'B'
+
       setup do
         empty_db
         signin
@@ -17,7 +20,7 @@ module Backend
                     journal: journal, accounts: [caps_act, fuel_act])
         entry_setup(amount: 1337, date: @now + 4.days,
                     journal: journal, accounts: [caps_act, fuel_act],
-                    letter: 'B')
+                    letter: LETTER)
       end
 
       test 'can letter' do
@@ -27,25 +30,29 @@ module Backend
         assert_nil journal_forty_two.bank_statement_letter
 
         post :create, format: :json,
-                      bank_statement_id: @bank_statement.id,
+                      cash_id: @bank_statement.cash_id,
                       bank_statement_items: [bank_forty_two],
                       journal_entry_items:  [journal_forty_two]
-        assert_equal 'A', JSON(@response.body)['letter']
-        assert_equal 'A', bank_forty_two.reload.letter
-        assert_equal 'A', journal_forty_two.reload.bank_statement_letter
+
+        new_letter = LETTER.next
+
+        assert_equal new_letter, JSON(@response.body)['letter']
+        assert_equal new_letter, bank_forty_two.reload.letter
+        assert_equal new_letter, journal_forty_two.reload.bank_statement_letter
       end
 
       test 'can unletter' do
         bank_leet    =  @bank_statement.items.find_by(debit: 1337)
         journal_leet =  JournalEntryItem.find_by(real_credit: 1337)
-        assert_equal 'B', bank_leet.letter
-        assert_equal 'B', journal_leet.bank_statement_letter
+        assert_equal LETTER, bank_leet.letter
+        assert_equal LETTER, journal_leet.bank_statement_letter
         assert_equal @bank_statement, journal_leet.bank_statement
 
-        delete :destroy, format: :json,
-                         bank_statement_id: @bank_statement.id,
-                         id: :B
-        assert_equal 'B', JSON(@response.body)['letter']
+        xhr :delete, :destroy, format: :json,
+                         id: @bank_statement.id,
+                         letter: :B
+
+        assert_equal LETTER, JSON(@response.body)['letter']
 
         assert_nil bank_leet.reload.letter
         assert_nil journal_leet.reload.bank_statement_letter
@@ -66,6 +73,7 @@ module Backend
         user = User.create!(first_name: 'Furiosa', last_name: 'Vuvalini',
                             email: 'furiosa@greenland.org',
                             password: 'youkilledtheworld',
+                            administrator: true,
                             role: role)
         sign_in user
       end

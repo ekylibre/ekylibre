@@ -15,6 +15,7 @@ module Backend
         post :create, bank_statement_id: @bank_statement,
                       bank_statement_item_ids: @tanks.map(&:id),
                       journal_entry_item_ids: @entry.items.last,
+                      cash_id: @bank_statement.cash_id,
                       journal_id: @journal.id
 
         assert_equal(121, JournalEntry.last.items.find_by(account_id: @bank_statement.cash_account_id).balance)
@@ -24,6 +25,7 @@ module Backend
         post :create, bank_statement_id: @bank_statement,
                       bank_statement_item_ids: @tanks.map(&:id),
                       journal_entry_item_ids: @entry.items.last,
+                      cash_id: @bank_statement.cash_id,
                       journal_id: @journal.id
 
         assert_equal('A', JournalEntry.last.items.find_by(account_id: @bank_statement.cash_account_id).bank_statement_letter)
@@ -38,6 +40,7 @@ module Backend
         user = User.create!(first_name: 'Furiosa', last_name: 'Vuvalini',
                             email: 'furiosa@greenland.org',
                             password: 'youkilledtheworld',
+                            administrator: true,
                             role: role)
         sign_in user
       end
