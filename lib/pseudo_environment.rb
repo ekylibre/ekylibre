@@ -11,23 +11,25 @@ class PseudoEnvironment < SimpleDelegator
   end
 
   def set_to(new_env)
-    unset
+    unset unless new_env.nil?
     @current_env = new_env
     Rails.instance_variable_set(:@_env, self)
 
-    define_env_response(@real_env, false)
-    define_env_response(@current_env, true)
+    define_env_response(real_env, false)
+    define_env_response(current_env, true)
     return new_env unless block_given?
 
     yield
 
     unset
   end
+  alias set set_to
 
   def unset
+    set_to(nil)
     return unless current_env.present?
     class << self
-      env_test = :"#{Rails.env.current_env}?"
+      env_test = :"#{Rails.env.to_s}?"
       undef_method env_test if defined?(env_test)
     end
     Rails.instance_variable_set(:@_env, real_env)
@@ -35,15 +37,23 @@ class PseudoEnvironment < SimpleDelegator
   end
 
   def inspect
-    main_env = @current_env || @real_env
-    label = "#{main_env}"
-    return label unless explicit_label
-    "#{label} (actual: #{real_env})"
+    return to_s unless explicit_label
+    "#{self} (actual: #{real_env})"
+  end
+
+  def to_s
+    main_env = current_env || real_env
+    main_env.to_s
+  end
+
+  def ===(other_env)
+    current_env === other_env
   end
 
   private
 
   def define_env_response(env, response)
+    return unless env.present?
     define_singleton_method(:"#{env}?") do
       in_caller = binding.callers.find { |binding| binding.eval('self') == scope }
       return response if in_caller
