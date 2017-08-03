@@ -67,9 +67,15 @@ module Interventions
     end
 
     def tractors_count
-      @participations
+      count = @participations
         .select{ |participation| participation.product.try(:tractor?) }
         .size
+
+      if tractor?
+        count++
+      end
+
+      count
     end
 
     def prepelled_equipments_count
