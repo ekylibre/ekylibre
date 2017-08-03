@@ -4,12 +4,15 @@ jpn:
     started_on: "上の開始"
     stopped_on: "上の停止"
   aggregator_properties:
+    active: "アクティブ"
     area: "エリア"
     area_in_hectare: "ヘクタールでエリア"
     born_at: "で生まれました"
     breeding_number: "繁殖数"
     campaigns: "キャンペーン"
     capitalised_production: "資産計上生産" #?
+    catalog_name: "カタログ名"
+    charge_account_label: "課金ラベル"
     company: "会社"
     container_name: "コンテナ名"
     current_result_before_taxes: "税金等調整前現在の結果"
@@ -63,6 +66,7 @@ jpn:
     other_purchases: "その他の購入" #?
     owner_name: "所有者名"
     payment_ratio: "配当比率"
+    person_name: "人名"
     pictogram: "絵文字"
     picture_path: "画像のパス"
     plan: "計画"
@@ -86,6 +90,7 @@ jpn:
     sex: "セックス"
     social_expenses: "交際費" #?
     soil_varieties: "土壌の品種" #?
+    stock_account_label: "株券ラベル"
     stock_production: "在庫生産" #?
     stocks_variation: "株式の変動" #?
     subsidies: "補助金" #?
@@ -96,3 +101,4 @@ jpn:
     vine_yield: "バイン収量"
     wages: "賃金" #?
     working_area: "作業領域"
+    working_duration_in_hours: "作業時間（時間単位）"

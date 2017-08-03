@@ -423,7 +423,7 @@ jpn:
       new: "新しいペイチップの支払い"
       # show: "Payslip payment: %{number}"
     backend/payslips:
-      # edit: "Edit payslip: %{name}"
+      # edit: "Edit payslip: %{number}"
       index: "ペイスリップス"
       new: "新しいペイプルップ"
       # show: "Payslip: %{number}"
@@ -2241,7 +2241,7 @@ jpn:
     # backend/entity_links: "%{started_at}"
     # backend/events: "%{name}"
     # backend/incoming_payments: "%{number}. %{mode_name} from %{payer_full_name} of %{amount} %{currency}"
-    # backend/interventions: "%{number}. %{name}"
+    # backend/interventions: "%{number}"
     # backend/journal_entry_items: "%{entry_number} %{name} %{account_number} D%{real_debit} C%{real_credit} %{currency}"
     # backend/matters: "%{name} ‒ %{work_number}"
     # backend/observations: "%{content}"
