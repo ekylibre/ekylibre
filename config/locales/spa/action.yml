@@ -646,7 +646,7 @@ spa:
       index: "Utilizador"
       lock: "Bloqueo de usuarios"
       new: "Creación de nuevo utilizador"
-      show: "Utilizador\_: %{first_name} %{last_name} (%{name})"
+      show: "Utilizador\_: %{first_name} %{last_name}"
       unlock: "Desbloquear usuario"
     backend/wine_tanks:
       index: "Tanques del vino"
