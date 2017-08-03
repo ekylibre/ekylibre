@@ -16,7 +16,7 @@
         end
         popup_content << { label: Crumb.human_attribute_name(:read_at), value: crumb.read_at.l }
         unless crumb.start? or crumb.stop?
-          popup_content << render('form', crumb: crumb)
+          # popup_content << render('form', crumb: crumb)
         end
         {
           name:         name,
