@@ -903,6 +903,14 @@ financial_years:
     - "backend/financial_years#new"
     - "backend/financial_years#update"
 
+first_run:
+  write:
+    dependencies:
+    - read-first_run
+  execute:
+    dependencies:
+    - read-first_run
+
 fixed_assets:
   read:
     actions:
