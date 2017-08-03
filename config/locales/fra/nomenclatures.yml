@@ -2826,6 +2826,7 @@ fra:
         oil_replacement: "Vidange"
         organic_fertilization: "Fertilisation organique"
         organic_matter_burying: "Enfouissage matière organique"
+        packaging: "Conditionnement"
         partial_wine_transfer: "Transfert de vin (partiel)"
         parturition: "Mise bas"
         pivot_troubleshooting: "Dépannage pivot"
@@ -2903,6 +2904,7 @@ fra:
         irrigating: "Irrigation"
         land_maintenance: "Travaux fonciers sur parcelles"
         meat_transformation: "Transformation produits à base de viande et escargots"
+        packaging: "Conditionnement"
         planting: "Implantation des cultures"
         plants_transformation: "Transformation produits végétaux"
         soil_working: "Travail du sol"
@@ -2973,6 +2975,7 @@ fra:
         nuts_harvest: "Récolte de fruits à coques"
         nuts_transport: "Transport de fruits à coques"
         oviparous_birth: "Reproduction (ovipare)"
+        packaging: "Packaging" #?
         pasturing: "Pâturage"
         physical_weed_killing: "Désherbage physique"
         piece_replacement: "Remplacement de pièces"
