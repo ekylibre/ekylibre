@@ -24,6 +24,21 @@
         %span.value
           %i.picto{class: "picto-stock"}
           = resource.current_stock.to_s + " " + resource.unit_name
+    - if resource.current_stock == 0
+      .med-info.important
+        %span.title CUMP
+        %span.value 0 €
+      .med-info.important
+        %span.title Valeur du stock
+        %span.value 0 €
+    - if resource.valuing == nil
+      .med-info.important
+        %span.title CUMP
+        %span.value 0 €
+      .med-info.important
+        %span.title Valeur du stock
+        %span.value 0 €
+    - if resource.valuing
       .med-info.important
         %span.title CUMP
         %span.value
@@ -34,13 +49,6 @@
         %span.value
           =resource.valuing.amount
           €
-    - if resource.current_stock == 0
-      .med-info.important
-        %span.title CUMP
-        %span.value 0 €
-      .med-info.important
-        %span.title Valeur du stock
-        %span.value 0 €
     - if resource.france_maaid?
       = resource_info(:france_maaid) do |france_maaid|
         %i.picto{class: "picto-flask"}
