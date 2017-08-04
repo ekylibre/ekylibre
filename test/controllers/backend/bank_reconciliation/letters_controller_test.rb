@@ -4,8 +4,7 @@ module Backend
   module BankReconciliation
     # Tests the lettering/unlettering.
     class LettersControllerTest < ActionController::TestCase
-
-      LETTER = 'B'
+      LETTER = 'B'.freeze
 
       setup do
         empty_db
@@ -49,8 +48,8 @@ module Backend
         assert_equal @bank_statement, journal_leet.bank_statement
 
         xhr :delete, :destroy, format: :json,
-                         id: @bank_statement.id,
-                         letter: :B
+                               id: @bank_statement.id,
+                               letter: :B
 
         assert_equal LETTER, JSON(@response.body)['letter']
 
