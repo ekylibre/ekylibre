@@ -1,24 +1,21 @@
 require 'minitest/mock'
 
-if ENV['CI']
-  require 'codacy-coverage'
-  require 'coveralls'
-else
-  require 'simplecov'
-end
 ENV['RAILS_ENV'] ||= 'test'
 
 if ENV['CI']
+  require 'coveralls'
+
   Coveralls.setup!
 
   SimpleCov.formatters = [
-    Codacy::Formatter,
     Coveralls::SimpleCov::Formatter
   ]
 
   Coveralls.start!('rails') unless ENV['COVERALL'] == 'off'
   SimpleCov.start
 else
+  require 'simplecov'
+
   SimpleCov.start do
     load_profile 'rails'
     add_group 'Exchangers', 'app/exchangers'
