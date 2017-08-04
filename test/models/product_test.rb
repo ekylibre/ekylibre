@@ -94,4 +94,31 @@ class ProductTest < ActiveSupport::TestCase
       assert Product.of_working_set(item.name).count >= 0
     end
   end
+
+  test 'intervention_participations association' do
+    category = ProductNatureCategory.create!(name: "Category name")
+    nature = ProductNature.create!(
+               name: "Nature name",
+               category: category,
+               population_counting: "unitary",
+               variety: "cultivable_zone"
+             )
+    variant = ProductNatureVariant.create!(
+                unit_name: "Variant unit name",
+                category: category,
+                nature: nature,
+                variety: "cultivable_zone"
+              )
+    product = Product.create!(
+                category: category,
+                nature: nature,
+                variant: variant,
+                variety: "cultivable_zone"
+              )
+    intervention_participation = InterventionParticipation.create!(
+                                   product: product,
+                                   state: "in_progress"
+                                   )
+    assert_equal(1, product.intervention_participations.length)
+  end
 end
