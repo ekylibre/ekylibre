@@ -95,7 +95,7 @@ class ProductTest < ActiveSupport::TestCase
     end
   end
 
-  test 'intervention_participations association' do
+  test 'product has a way to get its intervention_participations' do
     category = ProductNatureCategory.create!(name: "Category name")
     nature = ProductNature.create!(
                name: "Nature name",
@@ -119,6 +119,6 @@ class ProductTest < ActiveSupport::TestCase
                                    product: product,
                                    state: "in_progress"
                                    )
-    assert_equal(1, product.intervention_participations.length)
+    assert_includes product.intervention_participations, intervention_participation
   end
 end
