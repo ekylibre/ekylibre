@@ -1,16 +1,16 @@
 # coding: utf-8
 source 'https://rubygems.org'
 
-ruby '2.2.3'
+ruby '>= 2.2.3', '< 3.0.0'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '5.0.2'
+gem 'rails', '5.1.2'
 
 # Security fix for mail
 gem 'mail', '~> 2.6.6.rc1'
 
 # Database adapters
-gem 'activerecord-postgis-adapter', '~> 4.0'
+gem 'activerecord-postgis-adapter', '~> 5.0'
 gem 'pg' # Needed for some tasks
 
 # Multi-tenancy
@@ -22,7 +22,7 @@ gem 'possibly'
 
 # Code manipulation
 gem 'charlock_holmes'
-gem 'code_string'
+gem 'code_string', '>= 0.0.1'
 
 gem 'browser'
 
@@ -45,8 +45,10 @@ gem 'therubyracer', platforms: :ruby
 
 # Exception analysis and metrics
 gem 'binding_of_caller'
-gem 'honeybadger'
+gem 'redis-namespace' # Fix for missing dependency in skylight
 gem 'sentry-raven', require: false
+gem 'sidekiq-skylight'
+gem 'skylight'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
@@ -139,16 +141,19 @@ gem 'treetop'
 
 # Reporting
 # Need rjb which need openjdk-7-jdk (sudo apt-get install openjdk-7-jdk)
-gem 'beardley', '~> 1.3.0' # , path: "../beardley"
-gem 'beardley-barcode'
-gem 'beardley-batik'
-gem 'beardley-charts'
-gem 'beardley-groovy'
-gem 'beardley-open_sans'
-gem 'beardley-xml'
+# If you encounter a Segfault related to those gems you need to add
+# JAVA_TOOL_OPTIONS=-Xss1280k to your env vars
+# cf. https://bugs.launchpad.net/ubuntu/+source/linux/+bug/1699772
+gem 'beardley', '~> 1.3'
+gem 'beardley-barcode', '>= 1.0.1'
+gem 'beardley-batik', '>= 1.0.1'
+gem 'beardley-charts', '>= 0.0.1'
+gem 'beardley-groovy', '>= 2.0.1'
+gem 'beardley-open_sans', '>= 0.0.2'
+gem 'beardley-xml', '>= 1.1.2'
 
 # Import/Export
-gem 'ofx-parser', git: 'https://github.com/lcoq/ofx-parser.git', branch: 'master'
+gem 'ekylibre-ofx-parser'
 gem 'rgeo-geojson'
 gem 'rgeo-shapefile'
 gem 'roo'
@@ -181,15 +186,21 @@ gem 'savon'
 
 gem 'luhn'
 
+# For interval selector
+gem 'bootstrap-slider-rails'
+
 group :development do
-  gem 'bullet'
+  gem 'bullet', '~> 5.5.0'
 
   # gem 'quiet_assets'
   # gem 'rack-mini-profiler'
 
+  # Get the time of a process
+  gem 'ruby-prof'
+
   # Code metrics
   gem 'rails_best_practices', require: false
-  gem 'rubocop', '~> 0.48.1', require: false
+  gem 'rubocop', '~> 0.49.1', require: false
 
   # Webservers
   gem 'puma'
@@ -209,6 +220,12 @@ group :development, :test do
   gem 'pry-inline'
   gem 'pry-rails'
   gem 'teaspoon-jasmine'
+
+  # Parallelize tests
+  gem 'parallel_tests'
+
+  # Exception message tips
+  gem 'did_you_mean', '~> 0.9', platforms: [:ruby_22]
 end
 
 group :test do

@@ -1065,7 +1065,7 @@ accounts_079:
   id: 422
   label: 6063 - Électricité
   lock_version: 0
-  name: "Électricité"
+  name: Électricité
   number: '6063'
   reconcilable: false
   updated_at: 2014-12-24 11:08:52.563988000 Z
@@ -2859,7 +2859,7 @@ accounts_217:
   id: 563
   label: 445 - État ‒ Taxes sur le chiffre d’affaire
   lock_version: 0
-  name: "État ‒ Taxes sur le chiffre d’affaire"
+  name: État ‒ Taxes sur le chiffre d’affaire
   number: '445'
   reconcilable: false
   updated_at: 2014-12-24 11:08:53.220936000 Z
@@ -2977,7 +2977,7 @@ accounts_226:
   label: 411P00000004 - Περικλῆς
   last_letter: D
   lock_version: 0
-  name: "Περικλῆς"
+  name: Περικλῆς
   number: 411P00000004
   reconcilable: true
   updated_at: 2015-04-21 08:29:05.307046000 Z
@@ -4176,3 +4176,44 @@ accounts_333:
   number: '70100000001'
   reconcilable: false
   updated_at: 2014-10-31 17:19:32.000000000 Z
+accounts_334:
+  created_at: 2017-06-07 16:14:22.881215000 Z
+  creator_id: 1
+  debtor: false
+  id: 680
+  label: 421193 - M. Gendo IKARI
+  last_letter: A
+  lock_version: 0
+  name: M. Gendo IKARI
+  number: '421193'
+  reconcilable: true
+  updated_at: 2017-06-07 16:14:22.881215000 Z
+  updater_id: 1
+  usages: staff_due_remunerations
+accounts_335:
+  created_at: 2017-06-07 16:15:26.756640000 Z
+  creator_id: 1
+  debtor: false
+  id: 681
+  label: 421194 - M. Kōzō FUYUTSUKI
+  last_letter: A
+  lock_version: 0
+  name: M. Kōzō FUYUTSUKI
+  number: '421194'
+  reconcilable: true
+  updated_at: 2017-06-07 16:15:26.756640000 Z
+  updater_id: 1
+  usages: staff_due_remunerations
+accounts_336:
+  created_at: 2017-06-07 16:21:11.941427000 Z
+  creator_id: 1
+  debtor: false
+  id: 682
+  label: 421P00000002 - Mme Yui IKARI
+  lock_version: 0
+  name: Mme Yui IKARI
+  number: 421P00000002
+  reconcilable: true
+  updated_at: 2017-06-07 16:21:11.941427000 Z
+  updater_id: 1
+  usages: staff_due_remunerations

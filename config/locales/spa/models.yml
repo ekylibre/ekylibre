@@ -40,7 +40,7 @@ spa:
         ongoing_at: "La recaudación de fondos en"
         started_on: "En primer lugar se inició el reembolso"
       outgoing_payment:
-        delivered: "Teniendo en cuenta para el destinatario"
+        delivered: "Dado al destinatario"
         list: "Lista de salida de pago"
       outgoing_payment_list:
         # payments_sum: "Total"
@@ -62,6 +62,9 @@ spa:
         seeding_density_value: "Densidad de siembra esperado"
       purchase:
         affair_balance: "Equilibrar"
+      purchase_payment: #?
+        delivered: "Teniendo en cuenta para el destinatario" #?
+        list: "Lista de salida de pago" #?
       sale:
         affair_balance: "Equilibrar"
         contact: "Dirección para la estimación"
@@ -140,7 +143,7 @@ spa:
           # different_of_main_account: "%{attribute} must be different of main account (%{account})"
           unvalid_bban: "Unvalid BBAN. Uno o más elementos son incorrectos."
         deposit:
-          # must_be_a_bank_account: "%{field} must be a bank account and not a cash"
+          # must_be_a_bank_account: "%{attribute} must be a bank account and not a cash"
         entity:
           # missing_title: "%{attribute} must contains the title “%{title}”"
           # nature_do_not_allow_a_first_name: "The selectected type “%{nature}” does not allow a first name"
@@ -166,6 +169,10 @@ spa:
               # invalid_date: "The depreciation must start on %{start} or on a beginning of month"
         incoming_parcel_item:
           # greater_than_undelivered_quantity: "The quantity of product %{product} to deliver is greater than undelivered quantity (%{maximum}%{unit})"
+        integration:
+          attributes:
+            parameters:
+              check_errored: "Comprobación de conexión errónea. Asegúrese de que la entrada es válida o vuelva a intentarlo más tarde."
         journal:
           attributes:
             accountant:
@@ -326,6 +333,10 @@ spa:
       outgoing_payment_mode: "Modo de desembolso"
       parcel: "Paquete"
       parcel_item: "Artículo El paquete"
+      payslip: "Paquete"
+      payslip_affair: "Asunto de la nómina"
+      payslip_nature: "Tipo de saldo"
+      payslip_payment: "Paquete de pago"
       plant: "Planta"
       plant_counting: "recuento de la planta"
       plant_counting_item: "Contador de entrada planta"
@@ -358,6 +369,7 @@ spa:
       purchase_gap: "Brecha de la compra"
       purchase_item: "Artículo de la compra"
       purchase_nature: "Tipo de compra"
+      purchase_payment: "Desembolso"
       regularization: "Regularización"
       role: "Papel"
       sale: "Venta"
@@ -697,6 +709,7 @@ spa:
     emission_cash: "Dinero en efectivo de emisión"
     emission_currency: "La moneda de emisión"
     emission_journal_entry: "Entrada en el diario de emisión"
+    emitted_on: "Emitido en"
     employed: "Empleado"
     employee: "Empleado"
     employee_account: "Cuenta de empleado"
@@ -1130,6 +1143,7 @@ spa:
     payment_mode_complement: "Complemento modo de pago"
     payments: "Pagos"
     payments_count: "Los pagos cuentan"
+    payslips: "Papeletas"
     period: "Período"
     person: "La persona"
     phases: "Fases"
@@ -1225,6 +1239,7 @@ spa:
     purchase_item: "Artículo de la compra"
     purchase_items: "Artículos de la compra"
     purchase_natures: "Tipos de compra"
+    purchase_payments: "Pagos de compras"
     purchase_taxations: "Tasaciones de compra"
     purchase_taxes: "Impuestos sobre las compras"
     purchased_on: "Comprado en"
@@ -1744,6 +1759,11 @@ spa:
           prepared: "Preparado"
           received: "Recibido"
       # undelivered_invoice: "Undelivered invoice [%{resource} %{mode} %{number}] %{entity}"
+    payslip:
+      # bookkeep: "[%{resource} %{number}] %{employee} from %{started_on} to %{stopped_on}"
+      states:
+        draft: "Borrador"
+        invoice: "Factura"
     product:
       informations:
         # with_components: "%{product} (%{unit}) (transformed material)"
@@ -1794,6 +1814,9 @@ spa:
     purchase_nature:
       default:
         name: "Compra estándar"
+    purchase_payment:
+      # bookkeep: "[%{resource} %{number}] %{mode} %{check_number} for %{payee}"
+      # label: "%{number}. %{amount}, %{mode} for %{payee} on %{date}"
     role:
       default:
         administrator: "Administrador"
@@ -1865,6 +1888,7 @@ spa:
         opportunities: "OP[year|4][number|6]"
         outgoing_parcels: "EXP[year|4][number|6]"
         outgoing_payments: "D[year|4][number|4]"
+        payslips: "PS [año | 4] [mes | 2] [número | 4]"
         plants: "PLANT[year|4][number|4]"
         products: "PR[number|11]"
         purchases: "PU[year|4][month|2][number|6]"

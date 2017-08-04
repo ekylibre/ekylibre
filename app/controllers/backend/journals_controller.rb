@@ -142,10 +142,10 @@ module Backend
                             rescue
                               (params[:stopped_on] - 1.year).beginning_of_month
                             end
-      @natures = %i[sale incoming_payment deposit purchase outgoing_payment
+      @natures = %i[sale incoming_payment deposit purchase purchase_payment
                     cash_transfer parcel intervention inventory tax_declaration
                     loan intervention parcel inventory bank_statement
-                    sale_gap purchase_gap]
+                    sale_gap purchase_gap payslip payslip_payment]
 
       if request.get?
         notify_now(:bookkeeping_works_only_with, list: @natures.map { |x| x.to_s.classify.constantize.model_name.human }.to_sentence)

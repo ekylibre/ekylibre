@@ -71,7 +71,7 @@ class JournalEntry < Ekylibre::Record::Base
   has_many :fixed_asset_depreciations, dependent: :nullify
   has_many :useful_items, -> { where('balance != ?', 0.0) }, foreign_key: :entry_id, class_name: 'JournalEntryItem'
   has_many :items, foreign_key: :entry_id, dependent: :delete_all, class_name: 'JournalEntryItem', inverse_of: :entry
-  has_many :outgoing_payments, dependent: :nullify
+  has_many :purchase_payments, dependent: :nullify
   has_many :incoming_payments, dependent: :nullify
   has_many :purchases, dependent: :nullify
   has_many :regularizations, dependent: :nullify
@@ -181,12 +181,12 @@ class JournalEntry < Ekylibre::Record::Base
 
     items.to_a.each(&:compute)
 
-    self.real_debit   = items.to_a.reduce(0) { |sum, item| sum + (item.real_debit  || 0) }
-    self.real_credit  = items.to_a.reduce(0) { |sum, item| sum + (item.real_credit || 0) }
+    self.real_debit   = items.to_a.reduce(0) { |sum, item| sum + (item.marked_for_destruction? ? 0 : item.real_debit  || 0) }
+    self.real_credit  = items.to_a.reduce(0) { |sum, item| sum + (item.marked_for_destruction? ? 0 : item.real_credit || 0) }
     self.real_balance = real_debit - real_credit
 
-    self.debit   = items.to_a.reduce(0) { |sum, item| sum + (item.debit  || 0) }
-    self.credit  = items.to_a.reduce(0) { |sum, item| sum + (item.credit || 0) }
+    self.debit   = items.to_a.reduce(0) { |sum, item| sum + (item.marked_for_destruction? ? 0 : item.debit  || 0) }
+    self.credit  = items.to_a.reduce(0) { |sum, item| sum + (item.marked_for_destruction? ? 0 : item.credit || 0) }
 
     self.balance = debit - credit
 
@@ -230,6 +230,8 @@ class JournalEntry < Ekylibre::Record::Base
     elsif journal
       self.number ||= journal.next_number
     end
+
+    self.currency = absolute_currency if financial_year.blank?
   end
 
   validate(on: :update) do

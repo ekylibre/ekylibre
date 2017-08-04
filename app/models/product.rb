@@ -27,6 +27,7 @@
 #  birth_farm_number            :string
 #  born_at                      :datetime
 #  category_id                  :integer          not null
+#  codes                        :jsonb
 #  country                      :string
 #  created_at                   :datetime         not null
 #  creator_id                   :integer
@@ -86,7 +87,9 @@
 require 'ffaker'
 
 class Product < Ekylibre::Record::Base
-  include Versionable, Indicateable, Attachable
+  include Attachable
+  include Indicateable
+  include Versionable
   include Customizable
   refers_to :variety
   refers_to :derivative_of, class_name: 'Variety'
@@ -217,6 +220,8 @@ class Product < Ekylibre::Record::Base
     contents = raw_products.map(&:contents) unless options[:no_contents]
     raw_products.concat(contents).flatten.uniq
   }
+
+  scope :generic_supports, -> { where(type: %w[Animal AnimalGroup Plant LandParcel Equipment EquipmentFleet]) }
 
   scope :supports_of_campaign, lambda { |campaign|
     joins(:supports).merge(ActivityProduction.of_campaign(campaign))

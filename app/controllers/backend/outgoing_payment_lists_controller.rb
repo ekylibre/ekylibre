@@ -32,7 +32,7 @@ module Backend
       t.column :cached_total_sum, label: :total, datatype: :float, currency: true
     end
 
-    list(:payments, model: :outgoing_payment, conditions: { list_id: 'params[:id]'.c }) do |t|
+    list(:payments, model: :purchase_payment, conditions: { list_id: 'params[:id]'.c }) do |t|
       t.column :number, url: true
       t.column :payee, url: true
       t.column :paid_at
@@ -51,25 +51,43 @@ module Backend
 
       @entity_of_company_full_name = Entity.of_company.full_name
 
-      respond_with(@outgoing_payment_list,
-                   methods: %i[currency payments_sum entity],
-                   include: {
-                     payer: {
-                       methods: [:picture_path],
-                       include: { default_mail_address: { methods: [:mail_coordinate] }, websites: {}, emails: {}, mobiles: {} }
-                     },
-                     payments: {
-                       methods: %i[amount_to_letter label affair_reference_numbers],
-                       include: {
-                         responsible: {},
-                         affair: { include: { purchases: {} } },
-                         mode: {},
-                         payee: {
-                           include: { default_mail_address: { methods: [:mail_coordinate] }, websites: {}, emails: {}, mobiles: {} }
-                         }
-                       }
-                     }
-                   })
+      if %w[pdf odt docx xml csv].include? params[:format].to_s
+        respond_with(
+          @outgoing_payment_list,
+          methods: %i[currency payments_sum entity],
+          include: {
+            payer: {
+              methods: [:picture_path],
+              include: {
+                default_mail_address: {
+                  methods: [:mail_coordinate]
+                },
+                websites: {},
+                emails: {},
+                mobiles: {}
+              }
+            },
+            payments: {
+              methods: %i[amount_to_letter label affair_reference_numbers],
+              include: {
+                responsible: {},
+                affair: { include: { purchases: {} } },
+                mode: {},
+                payee: {
+                  include: {
+                    default_mail_address: {
+                      methods: [:mail_coordinate]
+                    },
+                    websites: {},
+                    emails: {},
+                    mobiles: {}
+                  }
+                }
+              }
+            }
+          }
+        )
+      end
     end
 
     def export_to_sepa
@@ -111,7 +129,7 @@ module Backend
       params[:purchase_affairs] ||= []
       params[:purchase_affairs].reject!(&:empty?)
 
-      if params[:purchase_affairs] && params[:purchase_affairs].present?
+      if params[:purchase_affairs].is_a?(Array) && params[:purchase_affairs].any?
         affairs = PurchaseAffair.where(id: params[:purchase_affairs].compact).uniq
 
         mode_id = params[:outgoing_payment_list][:mode_id] if params[:outgoing_payment_list] && params[:outgoing_payment_list][:mode_id]

@@ -50,7 +50,8 @@
 #
 
 class ActivityProduction < Ekylibre::Record::Base
-  include Customizable, Attachable
+  include Attachable
+  include Customizable
   enumerize :support_nature, in: %i[cultivation fallow_land buffer border none animal_group], default: :cultivation
   refers_to :usage, class_name: 'ProductionUsage'
   refers_to :size_indicator, class_name: 'Indicator'
@@ -204,7 +205,7 @@ class ActivityProduction < Ekylibre::Record::Base
   end
 
   after_destroy do
-    support.destroy if support.is_a?(LandParcel)
+    support.destroy if support.is_a?(LandParcel) && support.activity_productions.empty?
 
     Ekylibre::Hook.publish(:activity_production_destroy, activity_production_id: id)
   end
@@ -537,7 +538,7 @@ class ActivityProduction < Ekylibre::Record::Base
     global_coef_harvest_yield = []
 
     if harvest_interventions.any?
-      harvest_interventions.find_each do |harvest|
+      harvest_interventions.includes(:outputs).includes(:targets).find_each do |harvest|
         harvest_working_area = []
         harvest.targets.each do |target|
           harvest_working_area << ::Charta.new_geometry(target.working_zone).area.in(:square_meter)

@@ -57,7 +57,8 @@ module RestfullyManageable
       after_save_url ||= options[:cancel_url].inspect
 
       t3e_code = "t3e(@#{record_name}.attributes"
-      if t3e = options[:t3e]
+      t3e = options[:t3e]
+      if t3e
         t3e_code << '.merge(' + t3e.collect do |k, v|
           "#{k}: (" + (v.is_a?(Symbol) ? "@#{record_name}.#{v}" : v.inspect.gsub(/RECORD/, '@' + record_name)) + ')'
         end.join(', ') + ')'
@@ -306,12 +307,12 @@ module RestfullyManageable
       code << "def pick\n"
       code << "  @#{record_name} = resource_model.new(#{values})\n"
       code << "  already_imported = #{model}.pluck(:reference_name).uniq.compact\n"
-      code << "  @items = Nomen::#{controller_name.camelcase}.without(already_imported).selection\n"
+      code << "  @items = Nomen::#{controller_name.classify}.without(already_imported).selection\n"
       code << "end\n"
 
       code << "def incorporate\n"
       code << "  reference_name = params[:#{record_name}][:reference_name]\n"
-      code << "  if Nomen::#{controller_name.camelcase}[reference_name]\n"
+      code << "  if Nomen::#{controller_name.classify}[reference_name]\n"
       code << "     begin\n"
       code << "       @#{record_name} = #{model.name}.import_from_nomenclature(reference_name, true)\n"
       code << "       notify_success(:record_has_been_imported)\n"
@@ -321,7 +322,7 @@ module RestfullyManageable
       code << "     redirect_to(params[:redirect] || :back) and return\n"
       code << "  else\n"
       code << "    @#{record_name} = resource_model.new(#{values})\n"
-      code << "    @items = Nomen::#{controller_name.camelcase}.selection\n"
+      code << "    @items = Nomen::#{controller_name.classify}.selection\n"
       code << "    notify_error :invalid_reference_name\n"
       code << "  end\n"
       code << "  render 'pick'\n"
