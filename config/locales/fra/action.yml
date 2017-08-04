@@ -2004,6 +2004,7 @@ fra:
     saved_but_couldnt_letter_x_and_y: "Les %{trade}/%{payment} ont été enregistrés mais n’ont pas pu être lettrés."
     scheduled: "Échéance"
     scrapped_on: "Mise au rebut le"
+    closed_financial_periods: "L'immobilisation se déroule sur des périodes comptables clôturée."
     search: "Rechercher"
     search_account: "Rechercher un compte" #?
     search_for_available_prices: "%{code} - %{name}%s: %{pretax_amount}/%{amount} (HT/TTC)" #?

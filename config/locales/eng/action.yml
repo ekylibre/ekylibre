@@ -1767,6 +1767,7 @@ eng:
     saved_but_couldnt_letter_x_and_y: "Successfully saved %{trade} and %{payment} but couldn't letter them."
     scheduled: "Scheduled" #?
     scrapped_on: "Scrapped on"
+    closed_financial_periods: "The fixed asset's duration spans across closed financial periods"
     search: "Search"
     search_placeholder: "Search…"
     section_x: "Section %{x}"
