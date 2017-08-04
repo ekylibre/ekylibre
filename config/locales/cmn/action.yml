@@ -60,13 +60,16 @@ cmn:
       index: "动物"
       new: "新的动物"
       # show: "%{nature}: %{name}"
+    backend/bank_reconciliation/items:
+      # index: "Reconciliate bank statement %{cash} %{number} (from %{started_on} to %{stopped_on})"
+      # reconciliate: "Bank statements of %{cash} (from %{started_on} to %{stopped_on})"
     backend/bank_statements:
       # edit: "Edit bank statement %{number}"
+      edit_interval: "银行对账单进行调节"
       import: "导入OFX文件"
       index: "银行对账单"
       new: "新的银行对账单"
-      # reconciliation: "Reconciliate bank statement %{cash} #%{number} (from %{started_on} to %{stopped_on})"
-      # show: "Account statement N°%{number}"
+      # show: "Bank statement #%{number}"
     backend/beehives:
       # reset: "Reset beehive: %{name}"
     backend/building_divisions:
@@ -829,7 +832,6 @@ cmn:
     attach_deal: "添加一个交易"
     attachment: "附件"
     attachments: "附件"
-    auto_reconciliate: "汽车reconciliate"
     automatic: "汽车"
     available: "可用的"
     # available_columns: "Available columns: %{columns}"
@@ -902,7 +904,6 @@ cmn:
     columns: "列进口"
     commission: "佣金"
     company: "社会"
-    complete: "完成"
     completed: "完成"
     conditions:
       filter_on_attribute_of_class: "在类的属性过滤器"
@@ -1736,6 +1737,7 @@ cmn:
     variants: "变种"
     vat: "增值税"
     view: "视图"
+    view_map_when_creating_an_intervention: "创建干预时查看地图"
     wages: "工资"
     watering_concentration: "水的使用"
     weather: "天气"
@@ -1924,6 +1926,7 @@ cmn:
       all_tax_declarations_have_already_existing: "所有税务申报已经存在"
       bookkeeping_is_finished: "商业数据传送已完成。"
       # bookkeeping_works_only_with: "The transfer to accountancy can be done only for: %{list}."
+      cannot_add_bank_statement_item: "您不能添加新行，因为这一天没有可用的银行对帐单"
       cannot_find_deal_to_attach: "找不到处理附加"
       cannot_find_deal_to_detach: "无法找到应对分离"
       cannot_finish_affair: "不能完成的事情"
@@ -2074,6 +2077,7 @@ cmn:
       down: "下"
       duplicate: "重复"
       edit: "编辑"
+      # edit_interval: "Reconciliate"
       edit_many: "很多编辑"
       evaluate: "评估"
       export: "出口"
