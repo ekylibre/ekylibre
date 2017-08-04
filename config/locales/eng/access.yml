@@ -38,6 +38,7 @@ eng:
       exports: "Exports"
       financial_year_exchanges: "Financial year exchanges"
       financial_years: "Financial years"
+      # first_run: "First run"
       fixed_assets: "Fixed assets"
       fungi: "Fungi"
       gaps: "Gaps"

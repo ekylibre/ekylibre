@@ -1257,7 +1257,6 @@ spa:
     query: "Consulta"
     rank_number: "Número de rango"
     read_at: "Lea por lo"
-    # reading_cache: "Reading cache"
     reading_tasks: "Tareas de lectura"
     readings: "Lecturas"
     real_balance: "Equilibrio real"

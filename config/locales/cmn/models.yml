@@ -1253,7 +1253,6 @@ cmn:
     query: "询问"
     rank_number: "排名"
     read_at: "在阅读"
-    # reading_cache: "Reading cache"
     reading_tasks: "阅读任务"
     readings: "阅读"
     real_balance: "真正的平衡"

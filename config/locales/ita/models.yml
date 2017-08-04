@@ -1284,7 +1284,6 @@ ita:
     query: "domanda"
     rank_number: "numero Classifica"
     read_at: "Leggi a"
-    # reading_cache: "Reading cache"
     reading_tasks: "compiti di lettura"
     readings: "letture"
     real_balance: "equilibrio reale"

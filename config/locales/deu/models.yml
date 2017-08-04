@@ -1253,7 +1253,6 @@ deu:
     query: "Abfrage"
     rank_number: "Rang Nummer"
     read_at: "lesen Sie bei"
-    # reading_cache: "Reading cache"
     reading_tasks: "Leseaufgaben"
     readings: "Lesungen"
     real_balance: "Echt Balance"

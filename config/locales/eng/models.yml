@@ -1286,7 +1286,6 @@ eng:
     query: "Query"
     rank_number: "Rank number"
     read_at: "Read at"
-    reading_cache: "Reading cache" #?
     reading_tasks: "Reading tasks" #?
     readings: "Readings"
     real_balance: "Real balance"
