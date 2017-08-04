@@ -94,10 +94,8 @@ class ProductNatureVariantValuing < Ekylibre::Record::Base
   def self.calculate_inventory(quantity_entry, variant_id)
     old_product_nature_variant_valuing = ProductNatureVariantValuing.where(variant: variant_id).last
     if old_product_nature_variant_valuing == nil
-      old_amount = 0
       old_average_cost_amount = 0
     else
-      old_amount = old_product_nature_variant_valuing.amount
       old_average_cost_amount = old_product_nature_variant_valuing.average_cost_amount
     end
 
@@ -106,7 +104,7 @@ class ProductNatureVariantValuing < Ekylibre::Record::Base
 
     product_nature_variant_valuing = ProductNatureVariantValuing.new(amount: amount, average_cost_amount: average_cost_amount, variant_id: variant_id)
     product_nature_variant_valuing.save
-     # update, if is the first time interaction with ProductNatureVariantValuing
+    # update, if is the first time interaction with ProductNatureVariantValuing
     variant = ProductNatureVariant.find(variant_id)
     new_info = {}
     new_info[:valuing_id] = product_nature_variant_valuing.id
