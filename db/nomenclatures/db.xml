@@ -2380,7 +2380,7 @@
       <item name="pourridie_rot" parent="fungus_disease" cause="fungus" target="corylus"/>
       <item name="previous_crop_regrowth" parent="plant_disease" target="plant"/>
       <item name="protozoa_disease" parent="disease" target="bioproduct"/>
-      <item name="pseudomonas_syringae" parent="bacteria_disease" cause="bacteria" target="aallium_porrum"/>
+      <item name="pseudomonas_syringae" parent="bacteria_disease" cause="bacteria" target="allium_porrum"/>
       <item name="respiratory_problem" parent="disease" target="bioproduct"/>
       <item name="rhizoctonia" parent="fungus_disease" cause="rhizoctonia" target="plant"/>
       <item name="rumex_crispus" parent="plant_disease" cause="rumex_crispus" target="plant"/>

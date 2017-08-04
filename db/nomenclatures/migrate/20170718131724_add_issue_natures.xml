@@ -2,7 +2,7 @@
 <migration name="Add issue natures">
 	<item-creation item="issue_natures#alternaria" parent="fungus_disease" cause="fungus" target="plant"/>
 	<item-creation item="issue_natures#sclerotinia" parent="fungus_disease" cause="sclerotiniaceae" target="plant"/>
-	<item-creation item="issue_natures#pseudomonas_syringae" parent="bacteria_disease" cause="bacteria" target="aallium_porrum"/>
+	<item-creation item="issue_natures#pseudomonas_syringae" parent="bacteria_disease" cause="bacteria" target="allium_porrum"/>
 	<item-creation item="issue_natures#potato_mildew" parent="fungus_disease" cause="phytophthora_infestans" target="solanum_tuberosum"/>
 	<item-creation item="issue_natures#tomato_mildew" parent="fungus_disease" cause="phytophthora_infestans" target="solanum_lycopersicum"/>
 	<item-creation item="issue_natures#cereal_mildiew" parent="fungus_disease" cause="sclerophthora_macrospora" target="poaceae"/>
