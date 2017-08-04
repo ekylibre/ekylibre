@@ -10,7 +10,7 @@ module Ekylibre
 
         # Reload rake tasks so Rake doesn't ignore the `invoke`
         # thinking it's already been run.
-        Rake::Task.clear
+        ::Rake::Task.clear
         Ekylibre::Application.load_tasks
       end
 
@@ -68,7 +68,7 @@ module Ekylibre
       end
 
       def invoke_task(task, with_output: false)
-        task = Rake::Task[task]
+        task = ::Rake::Task[task]
         return task.invoke if with_output
         without_output { task.invoke }
       end

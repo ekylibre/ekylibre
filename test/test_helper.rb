@@ -1,4 +1,5 @@
 require 'minitest/mock'
+require 'rake'
 
 ENV['RAILS_ENV'] ||= 'test'
 
