@@ -28,8 +28,6 @@ Then, install all distribution dependencies:
 
     sudo apt-get install imagemagick graphicsmagick tesseract-ocr tesseract-ocr-ara tesseract-ocr-jpn tesseract-ocr-fra tesseract-ocr-eng tesseract-ocr-spa pdftk libreoffice poppler-utils poppler-data ghostscript openjdk-7-jdk libicu52 redis-server postgresql-9.5-postgis-2.2 postgresql-contrib-9.5 libcurl4-openssl-dev openjdk-7-jdk libgeos-dev libgeos++-dev libproj-dev libpq-dev libxml2-dev libxslt1-dev zlib1g-dev libicu-dev libqtwebkit-dev
 
-
-
 ## 2. Ruby
 
 Install Ruby 2.2.3. If your distribution isn't up-to-date, you need to install
@@ -105,7 +103,6 @@ Install Ruby 2.2.3. If your distribution isn't up-to-date, you need to install
     parameter to 127.0.0.1
 
 
-
 ## 5. Configure ruby dependencies
 
 Rjb gem use Java OpenJDK, so we need to set JAVA_HOME to install gem.
@@ -153,3 +150,4 @@ See [rails guide](http://guides.rubyonrails.org/active_record_migrations.html#ru
         foreman start
 
 *   Open your web browser and go to http://my-little-farm.ekylibre.lan:8080
+
