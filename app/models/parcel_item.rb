@@ -292,7 +292,7 @@ class ParcelItem < Ekylibre::Record::Base
   def create_variant_valuing(quantity_new, quantity_action, variant_id, unitary_price)
     # first entrance
     if parcel.nature == 'incoming' && ProductNatureVariantValuing.where(variant_id: variant_id) == []
-      ProductNatureVariantValuing.calculate_first_entrance(unitary_price, quantity_action, variant_id)
+      ProductNatureVariantValuing.calculate_first_entrance(unitary_price, quantity_new, quantity_action, variant_id)
     # output
     elsif parcel.nature == 'incoming'
       ProductNatureVariantValuing.calculate_output(unitary_price, quantity_new, quantity_action, variant_id)
