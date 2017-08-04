@@ -326,7 +326,7 @@ module Backend
 
       no_map = options.delete(:no_map)
       map_options = {}
-      map_options =  { input_html: { data: { map_editor: editor } }} unless no_map
+      map_options = { input_html: { data: { map_editor: editor } } } unless no_map
       input(attribute_name, options.deep_merge(map_options))
     end
 
