@@ -1,4 +1,4 @@
-class SettingPreferenceNatureToBooleanForShowMapOnInterventionForm < ActiveRecord::Migration
+class SetPreferenceNatureToBooleanForShowMapOnInterventionForm < ActiveRecord::Migration
   def change
     reversible do |dir|
       dir.up do
@@ -11,7 +11,7 @@ class SettingPreferenceNatureToBooleanForShowMapOnInterventionForm < ActiveRecor
               decimal_value     = null,
               record_value_id   = null,
               record_value_type = null
-          WHERE name = 'show_map_on_intervention_form';
+          WHERE name = 'show_map_on_intervention_form' AND nature != 'boolean';
         SQL
       end
 
