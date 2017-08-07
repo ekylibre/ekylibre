@@ -9,11 +9,11 @@ module Backend
       preference = current_user.preferences.find_or_initialize_by(name: name)
       preference.nature = User::PREFERENCES[name]
       preference.value = case preference.nature
-                         when :boolean
+                         when /^boolean$/
                            %w[true TRUE 1 t].include?(params[:value])
-                         when :decimal
+                         when /^decimal$/
                            params[:value].to_d
-                         when :integer
+                         when /^integer$/
                            params[:value].to_i
                          else
                            params[:value]
