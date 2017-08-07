@@ -31,20 +31,22 @@ class SequenceManager
     value
   end
 
+  def unique_reliable
+    value = sequence.next_value!
+    value = sequence.next_value! while @managed.find_by(@column => value)
+    value
+  end
+
   def load_predictable_into(record)
-    return true if @force && number_of(record).present?
+    return true unless @force || number_of(record).nil?
     set_number(record, unique_predictable)
     true
   end
 
   def load_reliable_into(record)
-    return true if !@force && number_of(record)
-
+    return true unless @force || number_of(record).nil?
     return load_predictable_into(record) unless sequence
-
-    value = sequence.next_value!
-    value = sequence.next_value! while @managed.find_by(@column => value)
-    set_number(record, value)
+    set_number(record, unique_reliable)
     true
   end
 
