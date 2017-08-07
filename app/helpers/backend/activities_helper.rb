@@ -7,13 +7,13 @@ module Backend
         .includes(:cultivable_zone)
         .includes(:campaign)
         .find_each
-        .map do |support|
-          next unless support.support_shape
+        .map do |production|
+          next unless production.support_shape
           {
-            name:         support.name,
-            shape:        support.support_shape,
-            shape_color:  support.activity.color,
-            grain_yield:  support.grains_yield.to_s.to_f.round(2)
+            name:         production.name,
+            shape:        production.support_shape,
+            shape_color:  activity.color,
+            grain_yield:  production.grains_yield.to_s.to_f.round(2)
           }
         end
         .compact
@@ -110,6 +110,27 @@ module Backend
         .uniq
         .sort
     end
+
+  def chart_style(title, symbol)
+    bar_chart_options = {
+      x_axis: { categories: [''] },
+      y_axis: {
+        reversed_stacks: false,
+        stack_labels: { enabled: true }
+      },
+      legend: true,
+      plot_options: {
+        column: { stacking: 'normal', data_labels: { enabled: true } }
+      }
+    }
+
+    bar_chart_options.deep_merge(
+      title: { text: title },
+      y_axis: {
+        title: { text: symbol.to_s },
+        tooltip: { point_format: "{point.y: 1f} #{symbol}" }
+      })
+  end
 
     private
 
