@@ -1,5 +1,7 @@
 class SequenceManager
   def initialize(klass, options)
+    options = { force: true }.merge(options)
+
     @managed  = klass
 
     @start    = options[:start]
