@@ -51,6 +51,8 @@ class ProductNatureVariantValuing < Ekylibre::Record::Base
     new_info = {}
     new_info[:valuing_id] = product_nature_variant_valuing.id
     variant.update(new_info)
+
+    product_nature_variant_valuing
   end
 
   def self.calculate_output(unitary_price, quantity_new, quantity_action, variant_id)

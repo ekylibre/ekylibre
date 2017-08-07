@@ -47,7 +47,7 @@
 #  updater_id                :integer
 #  variety                   :string           not null
 #  work_number               :string
-#
+#  valuing_id                :integer
 
 class ProductNatureVariant < Ekylibre::Record::Base
   include Attachable
@@ -57,6 +57,7 @@ class ProductNatureVariant < Ekylibre::Record::Base
   refers_to :derivative_of, class_name: 'Variety'
   belongs_to :nature, class_name: 'ProductNature', inverse_of: :variants
   belongs_to :category, class_name: 'ProductNatureCategory', inverse_of: :variants
+  belongs_to :valuing, class_name: 'ProductNatureVariantValuing'
   has_many :catalog_items, foreign_key: :variant_id, dependent: :destroy
 
   has_many :root_components, -> { where(parent: nil) }, class_name: 'ProductNatureVariantComponent', dependent: :destroy, inverse_of: :product_nature_variant, foreign_key: :product_nature_variant_id
@@ -76,8 +77,6 @@ class ProductNatureVariant < Ekylibre::Record::Base
   has_many :journal_entry_items, foreign_key: :variant_id, inverse_of: :variant, dependent: :restrict_with_exception
   has_many :readings, class_name: 'ProductNatureVariantReading', foreign_key: :variant_id, inverse_of: :variant
   has_many :phases, class_name: 'ProductPhase', foreign_key: :variant_id, inverse_of: :variant
-  # has_many :valuings, class_name: 'ProductNatureVariantValuing', foreign_key: :variant_id
-  belongs_to :valuing, class_name: 'ProductNatureVariantValuing'
   has_picture
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
