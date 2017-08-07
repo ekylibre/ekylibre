@@ -54,5 +54,20 @@ require 'test_helper'
 
 class ParcelItemTest < ActiveSupport::TestCase
   test_model_actions
+  test "method for calculate average cost amount" do
+    p = parcel_items(:parcel_items_001)
+    refute_nil p.send(:average_cost_amount)
+    assert p.send(:average_cost_amount)
+  end
+
+  test "create variant valuing" do
+    p = parcel_items(:parcel_items_001)
+    quantity_new = 200
+    quantity_action = 100
+    variant_id = 1
+    unitary_price = 15
+    refute_nil p.send(:create_variant_valuing, quantity_new, quantity_action, variant_id, unitary_price)
+    assert p.send(:create_variant_valuing, quantity_new, quantity_action, variant_id, unitary_price)
+  end
   # Add tests here...
 end

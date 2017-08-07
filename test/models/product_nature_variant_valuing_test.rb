@@ -10,20 +10,8 @@ class ProductNatureVariantValuingTest < ActiveSupport::TestCase
     unitary_price: 15,
     quantity_action: 200,
     quantity_entry: 200,
-    quantity_new: 0
-  }
-
-  static_value_2 = {
-    unitary_price: 15,
-    quantity_action: 200,
-    quantity_entry: 200,
     quantity_new: 350
   }
-
-  # test 'valid variant_id' do
-  #   refute_nil ProductNatureVariant.find(@valuing.variant_id)
-  #   assert ProductNatureVariant.find(static_value_2[:variant_id])
-  # end
 
   test "invalid without amount / average_cost_amount" do
     @valuing.amount = nil
@@ -49,21 +37,21 @@ class ProductNatureVariantValuingTest < ActiveSupport::TestCase
     assert ProductNatureVariantValuing.calculate_first_entrance(static_value_1[:unitary_price], static_value_1[:quantity_action], static_value_1[:quantity_new], variant_1.id)
 
     # test when the stock == 0
-    valuing = ProductNatureVariantValuing.calculate_first_entrance(static_value_2[:unitary_price], static_value_1[:quantity_new], static_value_2[:quantity_action], variant_1.id)
+    valuing = ProductNatureVariantValuing.calculate_first_entrance(static_value_1[:unitary_price], static_value_1[:quantity_new], static_value_1[:quantity_action], variant_1.id)
     assert_equal valuing.amount, 3000
     assert_equal valuing.average_cost_amount, 15
     # when current_stock >= 0
-    valuing = ProductNatureVariantValuing.calculate_first_entrance(static_value_2[:unitary_price], static_value_2[:quantity_new], static_value_2[:quantity_action], variant_7.id)
+    valuing = ProductNatureVariantValuing.calculate_first_entrance(static_value_1[:unitary_price], static_value_1[:quantity_new], static_value_1[:quantity_action], variant_7.id)
     assert_equal valuing.amount, 3000
     assert_equal valuing.average_cost_amount, 8
   end
 
   test "method calculate_output" do
-    variant = product_nature_variants(:product_nature_variants_001)
+    variant = product_nature_variants(:product_nature_variants_003)
     # old_valuing = product_nature_variant_valuings(:product_nature_variant_valuings_003)
 
     # assert_equal old_valuing.amount, 100.34
-    # valuing = ProductNatureVariantValuing.calculate_output(static_value_1[:unitary_price], static_value_1[:quantity_action], static_value_2[:quantity_new], old_valuing.variant_id)
+    # valuing = ProductNatureVariantValuing.calculate_output(static_value_1[:unitary_price], static_value_1[:quantity_action], static_value_1[:quantity_new], variant.id)
     # assert_equal valuing.amount, 3100.34
     # # assert_equal valuing.average_cost_amount, 0.7267
     refute_nil ProductNatureVariantValuing.calculate_output(static_value_1[:unitary_price], static_value_1[:quantity_action], static_value_1[:quantity_new], variant.id)

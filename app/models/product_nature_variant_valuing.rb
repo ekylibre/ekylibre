@@ -37,13 +37,8 @@ class ProductNatureVariantValuing < Ekylibre::Record::Base
   validates :average_cost_amount, :amount, numericality: true
   # some logical, verification in process
   def self.calculate_first_entrance(unitary_price, quantity_new, quantity_action, variant_id)
-    if quantity_new.zero?
-      amount = quantity_action * unitary_price
-      average_cost_amount = amount / quantity_action
-    else
-      amount = quantity_action * unitary_price
-      average_cost_amount = amount / quantity_new
-    end
+    amount = quantity_action * unitary_price
+    average_cost_amount = amount / quantity_new
     product_nature_variant_valuing = ProductNatureVariantValuing.new(amount: amount, average_cost_amount: average_cost_amount, variant_id: variant_id)
     product_nature_variant_valuing.save
     # update, if is the first time interaction with ProductNatureVariantValuing

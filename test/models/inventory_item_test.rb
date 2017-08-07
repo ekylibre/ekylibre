@@ -41,5 +41,11 @@ require 'test_helper'
 
 class InventoryItemTest < ActiveSupport::TestCase
   test_model_actions
+
+  test "method average_cost_amount" do
+    i = inventory_items(:inventory_items_001)
+    refute_nil i.send(:average_cost_amount)
+    assert i.send(:average_cost_amount)
+  end
   # Add tests here...
 end

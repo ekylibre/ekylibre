@@ -58,5 +58,12 @@ require 'test_helper'
 
 class InterventionOutputTest < ActiveSupport::TestCase
   test_model_actions
+
+  # test "method average_cost_amount" do
+  #   i = InterventionOutput.new
+
+  #   refute_nil i.send(:average_cost_amount)
+  #   assert i.send(:average_cost_amount)
+  # end
   # Add tests here...
 end
