@@ -96,29 +96,11 @@ class ProductTest < ActiveSupport::TestCase
   end
 
   test 'product has a way to get its intervention_participations' do
-    category = ProductNatureCategory.create!(name: "Category name")
-    nature = ProductNature.create!(
-               name: "Nature name",
-               category: category,
-               population_counting: "unitary",
-               variety: "cultivable_zone"
-             )
-    variant = ProductNatureVariant.create!(
-                unit_name: "Variant unit name",
-                category: category,
-                nature: nature,
-                variety: "cultivable_zone"
-              )
-    product = Product.create!(
-                category: category,
-                nature: nature,
-                variant: variant,
-                variety: "cultivable_zone"
-              )
-    intervention_participation = InterventionParticipation.create!(
-                                   product: product,
-                                   state: "in_progress"
-                                   )
+    category = create :product_nature_category
+    nature   = create(:product_nature, category: category)
+    variant  = create(:product_nature_variant, category: category, nature: nature)
+    product  = create(:product, category: category, nature: nature, variant: variant)
+    intervention_participation = create(:intervention_participation, product: product)
     assert_includes product.intervention_participations, intervention_participation
   end
 end
