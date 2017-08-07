@@ -7,7 +7,7 @@
     = f.referenced_association :sender, required: true
     = f.input :purchase_id, as: :hidden
     = f.referenced_association :address, source: :mails, input_html: {data: {"when-item": "address_id", "when-set-value": "RECORD_VALUE"}}, new: { canal: :mail }, label: :receiving_address.tl
-  = f.input :reference_number, label: :reception_number.tl
+    = f.input :reference_number, label: :reception_number.tl
   = f.referenced_association :responsible, source: :employees, new: { employed: 1 }, label: :receipt_responsible.tl
   -#= f.referenced_association :sale
   = f.input :given_at, as: :date, required: false, label: :receipt_date.tl
@@ -20,14 +20,14 @@
 
 - if f.object.allow_items_update?
   = field_set f.object.class.human_attribute_name(:items) do
-    %table.list{ data: { iceberg: true } }
+    %table.list
       %thead
         %tr
           %th.act
           %th.act
           %th= ParcelItem.human_attribute_name(:product)
           %th= ParcelItem.human_attribute_name(:population)
-          %th= ParcelItem.human_attribute_name(:unit_pretax_amount)
+          %th= ParcelItem.human_attribute_name(:storage)
           %th= ParcelItem.human_attribute_name(:delivery_mode)
           / %th= ParcelItem.human_attribute_name(:storage)
 

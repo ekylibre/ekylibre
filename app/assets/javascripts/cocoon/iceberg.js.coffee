@@ -2,17 +2,20 @@
   'use strict'
 
   class Iceberg
-    constructor: (@line) ->
+    constructor: (@line, mode) ->
       # console.log 'this', this
       @display = @line.find('.item-display')
 
       @_bindButtons(@newForm())
 
-      $('.form-actions .primary').attr("disabled",true)
+      @_bindEditEvent()
 
-      @edit()
-
-      @toggleTransporterInput()
+      unless mode is "add" or @line.find('.error').length > 0
+        @display.removeClass('hidden')
+        @oldForm().remove()
+        @_bindSelectorsInitialization()
+        @newForm().addClass('hidden')
+        @setFormSubmitable()
 
     _bindButtons: (form) ->
       # console.log '_bindButtons:this', this
@@ -27,8 +30,9 @@
           that.cancel()
           event.preventDefault()
 
-    edit: ->
+    _bindEditEvent: ->
       @line.find('*[data-edit="item-form"]').click =>
+        # console.log @line, this
         @display.addClass('hidden')
 
         clone = @oldForm().clone()
@@ -36,28 +40,43 @@
         clone.trigger('cocoon:after-insert')
         clone.removeClass('hidden')
         @_bindButtons(@newForm())
-        $('.form-actions .primary').attr("disabled",true)
+        @setFormSubmitable()
         @toggleTransporterInput()
+
+    _bindSelectorsInitialization: ->
+      that = this
+      form = @newForm()
+      form.find('*[data-selector]').parent().each ->
+        $(this).on 'selector:change', ->
+          that.interpolate(form)
 
     validate: ->
       # console.log 'validate:this', this
-      that = this
-      @display.find('*[data-item-value]').each ->
-        element = $(this)
-        target = $(that.newForm()).find(element.data("item-value")).first()
-        if target.is("input")
-          if target.is("input[type='radio']")
-            value = target.parent().text()
-          else
-            value = target.val()
-        else
-          value = target.html()
-        element.html(value)
+      @interpolate()
 
       @display.removeClass('hidden')
       @oldForm().remove()
       @newForm().addClass('hidden')
-      @isFormSubmitable()
+      @setFormSubmitable()
+
+    interpolate: (form = @newForm()) ->
+      @display.find('*[data-item-value]').each ->
+        element = $(this)
+        unless element.closest("*[data-item-loop]").length >= 1
+          target = $(form).find(element.data("item-value")).first()
+          if target.is("input")
+            if target.is("input[type='radio']")
+              value = target.parent().text()
+            else if target.is("input[type='checkbox']")
+              if target.is('input[data-warn-if-checked]:checked')
+                value = $('<span class="warn-message"></span>').html(target.data('warn-if-checked'))
+              else
+                value = ""
+            else
+              value = target.val()
+          else
+            value = target.html()
+        element.html(value)
 
     cancel: ->
       # console.log 'cancel:this', this
@@ -66,9 +85,9 @@
       else
         @display.removeClass('hidden')
         @newForm().remove()
-      @isFormSubmitable()
+      @setFormSubmitable()
 
-    isFormSubmitable: ->
+    setFormSubmitable: ->
       if $('.nested-item-form:visible').length >= 1
         $('.form-actions .primary').attr("disabled",true)
       else
@@ -90,11 +109,30 @@
       # console.log 'newForm:this', this
       @line.find('.nested-item-form:visible')
 
+
   $(document).ready ->
     $('*[data-iceberg]').each ->
       new Iceberg($(this))
-    $('*[data-iceberg]').on 'cocoon:after-insert', (event, inserted) ->
-      new Iceberg($(inserted))
+
+    $('table.list').on 'cocoon:after-insert', (event, inserted) ->
+      new Iceberg($(inserted), "add") if inserted?
       $('*[data-unit-name]').each ->
         $(this).find('.item-population-unit-name').html($(this).attr('data-unit-name'))
+
+    # app = new Vue {
+    #   el: '#app',
+    #   data: {
+    #     storings: [],
+    #     selected: 'dfsdf'
+    #   }
+    #   methods: {
+    #     fillStoringsTab: -> {
+    #       storings.push({
+    #         quantity: 8
+    #         })
+    #     }
+    #   }
+    # }
+
+
 ) jQuery

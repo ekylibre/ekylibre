@@ -74,9 +74,9 @@
 
       @initializing = true
       if @valueField.val()? and @valueField.val().length > 0
-        this._set @valueField.val()
+        this._set @valueField.val(), true
       else if @element.val()? and @element.val().length > 0
-        this._set @element.val()
+        this._set @element.val(), true
       else
         @initializing = false
       @element.prop("widgetInitialized", true)
