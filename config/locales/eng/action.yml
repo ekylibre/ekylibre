@@ -1767,7 +1767,6 @@ eng:
     saved_but_couldnt_letter_x_and_y: "Successfully saved %{trade} and %{payment} but couldn't letter them."
     scheduled: "Scheduled" #?
     scrapped_on: "Scrapped on"
-    closed_financial_periods: "The fixed asset's duration spans across closed financial periods"
     search: "Search"
     search_placeholder: "Search…"
     section_x: "Section %{x}"
@@ -2171,6 +2170,7 @@ eng:
       closed_financial_years: "The financial year has been closed successfully"
       columns_are_already_uses: "One or many columns are selected many times"
       could_not_attach_x_or_y_to_affair: "Could not attach %{x} or %{y} to affair"
+      closed_financial_periods: "The fixed asset's duration spans across closed financial periods."
       dashboard_is_being_developed: "Dashboard is under heavy development"
       density_is_not_computable_in_counting: "Could not compute the density for this counting. The missing values should be completed in the counting's properties or the sower's indicators."
       draft_journal_entries_have_been_validated:

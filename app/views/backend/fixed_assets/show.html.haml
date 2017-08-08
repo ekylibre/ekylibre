@@ -1,6 +1,3 @@
-- if resource.started_on <= resource.journal.closed_on
-  .flash.warning
-    %h3.title= :closed_financial_periods.tl
 - main_toolbar do |t|
   = t.edit resource if resource.updateable?
   = t.destroy resource if resource.destroyable?
