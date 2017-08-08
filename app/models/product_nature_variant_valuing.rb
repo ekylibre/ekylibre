@@ -46,7 +46,6 @@ class ProductNatureVariantValuing < Ekylibre::Record::Base
     new_info = {}
     new_info[:valuing_id] = product_nature_variant_valuing.id
     variant.update(new_info)
-
     product_nature_variant_valuing
   end
 
@@ -85,6 +84,7 @@ class ProductNatureVariantValuing < Ekylibre::Record::Base
     new_info = {}
     new_info[:valuing_id] = product_nature_variant_valuing.id
     variant.update(new_info)
+    product_nature_variant_valuing
   end
 
   def self.calculate_inventory(quantity_entry, variant_id)
@@ -105,5 +105,6 @@ class ProductNatureVariantValuing < Ekylibre::Record::Base
     new_info = {}
     new_info[:valuing_id] = product_nature_variant_valuing.id
     variant.update(new_info)
+    product_nature_variant_valuing
   end
 end
