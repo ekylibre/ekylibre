@@ -114,7 +114,7 @@ class FixedAsset < Ekylibre::Record::Base
     state :sold
     state :scrapped
     event :start_up do
-      transition draft: :in_use
+      transition draft: :in_use , if: :any_financial?
     end
     event :sell do
       transition in_use: :sold
@@ -192,6 +192,11 @@ class FixedAsset < Ekylibre::Record::Base
     # end
     depreciate! if @auto_depreciate
   end
+
+  def any_financial?
+    self.started_on <= self.journal.closed_on ? false : true
+  end
+
 
   def status
     return :go if in_use?

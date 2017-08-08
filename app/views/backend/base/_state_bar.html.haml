@@ -10,11 +10,7 @@
       - classes << "active"
       %span{class: classes}= localized_name
     - elsif transition = transitions.detect{|t| t.to == state.name.to_s }
-      - if (resource.class == FixedAsset && resource.started_on <= resource.journal.closed_on)
-        - classes << "inaccessible"
-        %span{class: classes}= localized_name
-      - else
-        = link_to(localized_name, {action: transition.event, id: resource.id}, class: classes, method: :post, data: {confirm: :are_you_sure.tl}, title: transition.event.to_sym.ta)
+      = link_to(localized_name, {action: transition.event, id: resource.id}, class: classes, method: :post, data: {confirm: :are_you_sure.tl}, title: transition.event.to_sym.ta)
     - else
       - classes << "inaccessible"
       %span{class: classes}= localized_name
