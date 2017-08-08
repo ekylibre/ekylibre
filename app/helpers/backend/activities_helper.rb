@@ -20,8 +20,7 @@ module Backend
     end
 
     def inspection_series(dimension, inspections)
-      plant_ids = inspections.pluck(:product_id).uniq
-      Plant.where(id: plant_ids).includes(:nature).map do |plant|
+      Plant.where(id: inspections.select(:product_id)).includes(:nature).map do |plant|
         next unless plant.shape
 
         in_qual               = inspection_quality(dimension, plant)
