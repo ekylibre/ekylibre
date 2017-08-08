@@ -1,54 +1,52 @@
 module Interventions
   class WorkingDurationService
-    attr_reader :intervention, :participations, :product
+    attr_reader :intervention, :participations, :participation, :product
 
-    def initialize(intervention: nil, participations: {}, product: nil)
+    def initialize(intervention: nil, participations: [], participation: nil, product: nil)
       @intervention = intervention
       @participations = participations
+      @participation = participation
       @product = product
     end
 
-    def duration(nature: nil, not_nature: nil)
-      return @intervention.working_duration if @participations.empty?
+    def perform(nature: nil, not_nature: nil)
+      return @intervention.working_duration.to_d / 3600 if @participations.empty? && @participation.nil?
 
-      if worker?
-        return @participations
-          .map{|participation| participation.working_periods.sum(:duration) }
-          .inject(0, :+)
-      end
+      return worker_working_duration(nature) if worker?
 
       times = workers_times(nature: nature, not_nature: not_nature)
 
-      byebug
-
       if times == 0 ||
-          (tractors_count == 0 && prepelled_equipments_count == 0)
+          (tractors_count == 0 && prepelled_equipments_count == 0 && tools_count == 0)
         return @intervention.working_duration
       end
 
-      byebug
+      if tool?
+        return times.to_d / tools_count
+      end
 
-      times / (tractors_count + prepelled_equipments_count)
+      times.to_d / (tractors_count + prepelled_equipments_count)
     end
 
-    def duration_in_hours(nature: nil, not_nature: nil)
-      quantity = duration(nature: nature, not_nature: not_nature).to_d / 3600
-
-      unit_name = Nomen::Unit.find(:hour).human_name
-      unit_name = unit_name.pluralize if quantity > 1
-
-      options = {
-        catalog_usage: worker? ? :cost : :travel_cost,
-        quantity: quantity,
-        unit_name: unit_name
-      }
-
-      options[:catalog_item] = @product.default_catalog_item(options[:catalog_usage])
-      byebug
-      InterventionParameter::AmountComputation.quantity(:catalog, options)
-    end
 
     private
+
+    def worker_working_duration(nature)
+      duration = if nature.nil?
+                   @participation
+                   .working_periods
+                   .map(&:duration)
+                   .inject(0, :+)
+                 else
+                   @participation
+                   .working_periods
+                   .select{ |working_period| working_period.nature.to_sym == nature }
+                   .map(&:duration)
+                   .inject(0, :+)
+                 end
+
+      duration / 3600
+    end
 
     def worker?
       @product.is_a?(Worker)
@@ -63,7 +61,7 @@ module Interventions
     end
 
     def tool?
-      @product.is_a?(Equipment)
+      @product.is_a?(Equipment) && product.try(:tractor?) == false
     end
 
     def tractors_count
@@ -71,11 +69,29 @@ module Interventions
         .select{ |participation| participation.product.try(:tractor?) }
         .size
 
-      if tractor?
-        count++
+      if tractor? && !product_participation?
+        count += 1
       end
 
       count
+    end
+
+    def tools_count
+      count = @participations
+        .select{ |participation| participation.product.is_a?(Equipment) && participation.product.try(:tractor?) == false }
+        .size
+
+      if !tractor? && tool? && !product_participation?
+        count += 1
+      end
+
+      count
+    end
+
+    def product_participation?
+      @participations
+        .select{ |participation| participation.product == @product }
+        .present?
     end
 
     def prepelled_equipments_count

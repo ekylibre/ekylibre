@@ -214,6 +214,8 @@
         autoCalculMode = true
         if $('input[name="auto-calcul-mode"]').length == 0
           $('.simple_form').append('<input type="hidden" name="auto-calcul-mode" value="true"></input>')
+        #else if existingParticipation && existingParticipation != ""
+          #autoCalculMode = false
         else
           autoCalculMode = $('input[name="auto-calcul-mode"]').val()
 

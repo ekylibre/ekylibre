@@ -48,64 +48,99 @@ module Backend
     end
 
     def participations_modal
-      participation = nil
+      @participation = nil
 
       if params['existing_participation'].present?
         json_participation = JSON.parse(params['existing_participation'])
-        participation = InterventionParticipation.new(json_participation)
+        @participation = InterventionParticipation.new(json_participation)
       else
-        participation = InterventionParticipation.find_or_initialize_by(
+        @participation = InterventionParticipation.find_or_initialize_by(
           product_id: params[:product_id],
           intervention_id: params[:intervention_id]
         )
       end
 
-      intervention = participation.intervention
+      @intervention = @participation.intervention
 
-      intervention_started_at = if intervention.nil?
+      intervention_started_at = if @intervention.nil?
                                   Time.parse(params['intervention_started_at'])
                                 else
-                                  intervention.started_at
+                                  @intervention.started_at
                                 end
-
-      intervention_tool = nil
-      if Product.find(params[:product_id]).is_a?(Equipment)
-        intervention_tool = intervention.tools.find_by(product_id: params[:product_id])
-      end
 
       display_calcul_mode = params[:display_calcul_mode]
       auto_calcul_mode = params[:auto_calcul_mode]
 
-      participations = intervention.participations
-      calculate_working_periods = []
-      form_participations = []
-      if params[:participations].present?
-        params[:participations].each do |form_participation|
-          form_participations << InterventionParticipation.new(JSON.parse(form_participation))
-        end
-
-        Interventions::WorkingDurationService
-          .new(intervention: intervention,
-               participations: form_participations,
-               product: participation.product)
-          .duration_in_hours(nature: :travel)
-      end
-
       render partial: 'backend/intervention_participations/participations_modal',
              locals: {
-               participation: participation,
+               participation: @participation,
                intervention_started_at: intervention_started_at,
-               intervention_tool: intervention_tool,
+               tool: intervention_tool,
                display_calcul_mode: display_calcul_mode,
                auto_calcul_mode: auto_calcul_mode,
-               form_participations: form_participations
+               calculate_working_periods: calculate_working_periods
              }
     end
 
     private
 
     def permitted_params
-      params[:intervention_participation].permit(:intervention_id, :product_id, working_periods_attributes: %i[id started_at stopped_at nature])
+      params[:intervention_participation].permit(:intervention_id,
+                                                 :product_id,
+                                                 working_periods_attributes: %i[id started_at stopped_at nature])
+    end
+
+    def form_participations
+      form_participations = []
+
+      return form_participations if params[:participations].blank?
+
+      params[:participations].each do |form_participation|
+        form_participations << InterventionParticipation.new(JSON.parse(form_participation))
+      end
+
+      form_participations
+    end
+
+    def intervention_tool
+      product = Product.find(params[:product_id])
+
+      return nil unless product.is_a?(Equipment)
+
+      product
+    end
+
+    def calculate_working_periods
+      participations = form_participations
+      tool = intervention_tool
+      auto_calcul_mode = params[:auto_calcul_mode]
+
+      return [] if auto_calcul_mode.to_sym == :false ||
+                    participations.blank? || tool.nil?
+
+      working_periods = []
+      intervention_started_at = @intervention.started_at
+      working_duration_params = { intervention: @intervention,
+                                  participations: participations,
+                                  product: @participation.product }
+
+      natures = %i[travel intervention] if tool.try(:tractor?)
+      natures = %i[intervention] unless tool.try(:tractor?)
+
+      natures.each do |nature|
+        duration = Interventions::WorkingDurationService
+                    .new(**working_duration_params)
+                    .perform(nature: nature)
+
+        stopped_at = intervention_started_at + (duration * 60 * 60)
+
+        working_periods << InterventionWorkingPeriod
+                             .new(nature: nature,
+                                  started_at: intervention_started_at,
+                                  stopped_at: stopped_at)
+      end
+
+      working_periods
     end
   end
 end

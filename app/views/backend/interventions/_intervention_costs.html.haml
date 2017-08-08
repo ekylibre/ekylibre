@@ -7,7 +7,7 @@
     - elsif computation.none?
       = '&mdash;'.html_safe
     - elsif computation.quantity?
-      %span.quantity= computation.quantity.round(1).l(precision: 0)
+      %span.quantity= computation.quantity.round(3).l(precision: 0)
       %span.unit-name= computation.unit_name
       %span x
       - if computation.sale?

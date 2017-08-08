@@ -5,6 +5,7 @@
 = hidden_field_tag "intervention_participation[intervention_id]", participation.intervention_id
 = hidden_field_tag "intervention_participation[product_id]", participation.product_id
 = hidden_field_tag 'intervention_started_at', intervention_started_at.iso8601
+= hidden_field_tag 'intervention_tool', !tool.nil? unless tool.nil?
 
 .modal-body
   .indicators
@@ -20,22 +21,19 @@
       %h3{ class: "action-header" }= :calculated_hours.tl
 
 
-    -#  if auto_calcul_mode.to_sym == :true && !form_participations.nil? && !intervention_tool.nil?
-      - if intervention_tool.product.tractor?
-        - byebug
-        %span= intervention_tool.cost_amount_computation(nature: :intervention).quantity.round(1).l(precision: 0)
-        - tool_period = InterventionWorkingPeriod.new(nature: :pause,
-                                                    started_at: working_period.stopped_at,
-                                                    stopped_at: working_period.next_period.started_at)
-        = render 'working_periods_fields', { working_period: tool_period }
+    - if auto_calcul_mode.to_sym == :true && !calculate_working_periods.blank?
+      - calculate_working_periods.each do |calculate_working_period|
+        = render 'working_periods_fields', { working_period: calculate_working_period }
 
-    -# elsif !participation.nil?
-    - participation.working_periods.each do |working_period|
-      = render 'working_periods_fields', { working_period: working_period }
+    - elsif !participation.nil?
+      - participation.working_periods.each do |working_period|
+        = render 'working_periods_fields', { working_period: working_period }
 
-      - if working_period.pause_next?
-        - pause_period = InterventionWorkingPeriod.new(nature: :pause, started_at: working_period.stopped_at, stopped_at: working_period.next_period.started_at)
-        = render 'working_periods_fields', { working_period: pause_period }
+        - if working_period.pause_next?
+          - pause_period = InterventionWorkingPeriod.new(nature: :pause,
+                                                         started_at: working_period.stopped_at,
+                                                         stopped_at: working_period.next_period.started_at)
+          = render 'working_periods_fields', { working_period: pause_period }
 
 
   .actions
@@ -60,6 +58,10 @@
     = check_box 'participation', "auto_calculate_equipments", checked: true
     %span Mode de calcul automatique
     %p En mode automatique, les périodes de déplacement et d'intervention des tracteurs et outils seront calculés à partir de la moyenne des périodes des opérateurs.
+
+  - unless tool.nil?
+    %div{ class: "auto-calculate-equipments"}
+      %p Une modification manuelle désactivera le mode de calcul automatique.
 
 .modal-footer
   = button_tag :valid.tl, class: "btn btn-primary", id: "validParticipationsForm"

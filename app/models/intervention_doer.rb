@@ -85,4 +85,10 @@ class InterventionDoer < InterventionAgent
 
     participation.sum_periods_of_nature(nature)
   end
+
+  def working_duration_params
+    { intervention: intervention,
+      participation: participation,
+      product: product }
+  end
 end

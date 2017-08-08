@@ -102,7 +102,7 @@
       $('.edit_intervention, .new_intervention').find('.form-fields').append('<input type="hidden" class="intervention-participation" name="intervention[participations_attributes][' + participationsCount + ']" value=\'' + jsonParticipation + '\' data-product-id="' + participation.product_id  + '"></input>')
 
 
-    concernedProductField = $('.nested-doers .nested-fields .selector .selector-value[value="' + participation.product_id + '"]')
+    concernedProductField = $('.nested-fields .selector .selector-value[value="' + participation.product_id + '"]')
     nestedFieldBlock = concernedProductField.closest('.nested-fields')
     productFieldPicto = nestedFieldBlock.find('.picto-timer-off')
 
@@ -117,7 +117,11 @@
   $(document).on "keyup", '#working_times .participations input[type="text"]', (event) ->
     element = $(event.target)
 
+    if $('#working_times #intervention_tool').length == 1
+      $('input[name="auto-calcul-mode"]').val("false")
+
     E.interventionParticipations.changeWorkingPeriod(element)
+
 
   $(document).on "click", '#participation_auto_calculate_equipments', (event) ->
 
