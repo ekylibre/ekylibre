@@ -55,31 +55,6 @@ require 'test_helper'
 class InterventionTest < ActiveSupport::TestCase
   test_model_actions
 
-  setup do
-    @intervention = Intervention.create!(
-      procedure_name: :sowing,
-      actions: [:sowing],
-      request_compliant: false,
-      working_periods: fake_working_periods
-    )
-
-    @alice = Worker.create!(
-      name: 'Alice',
-      variety: 'worker',
-      variant: ProductNatureVariant.first,
-      person: Entity.contacts.first
-    )
-
-    @john = Worker.create!(
-      name: 'John',
-      variety: 'worker',
-      variant: ProductNatureVariant.first,
-      person: Entity.contacts.first
-    )
-
-    @intervention.reload
-  end
-
   test 'scopes' do
     parameter = InterventionProductParameter.first # intervention_parameters(:intervention_parameters_001)
     actor = parameter.product
@@ -183,64 +158,6 @@ class InterventionTest < ActiveSupport::TestCase
     last_intervention.destroy
     plant.reload
     assert plant.dead_at.nil?, 'Dead_at of plant should be nil when no death registered'
-  end
-
-  test 'drivers times' do
-    now = Time.zone.now
-
-    InterventionParticipation.create!(
-      intervention: @intervention,
-      state: :done,
-      request_compliant: false,
-      procedure_name: :sowing,
-      product: @alice,
-      working_periods_attributes: [
-        {
-          started_at: now - 1.hour,
-          stopped_at: now - 30.minutes,
-          nature: 'travel'
-        },
-        {
-          started_at: now - 30.minutes,
-          stopped_at: now - 15.minutes,
-          nature: 'intervention'
-        },
-        {
-          started_at: now - 10.minutes,
-          stopped_at: now,
-          nature: 'intervention'
-        }
-      ]
-    )
-
-    @intervention.reload
-
-    assert_equal @intervention.drivers_times(nature: :travel), 30.minutes.to_i
-    assert_equal @intervention.drivers_times(nature: :intervention), 25.minutes.to_i
-    assert_equal @intervention.drivers_times(not_nature: :intervention), 30.minutes.to_i
-    assert_equal @intervention.drivers_times, 55.minutes.to_i
-
-    InterventionParticipation.create!(
-      intervention: @intervention,
-      state: :done,
-      request_compliant: false,
-      procedure_name: :sowing,
-      product: @john,
-      working_periods_attributes: [
-        {
-          started_at: now - 30.minutes,
-          stopped_at: now - 15.minutes,
-          nature: 'intervention'
-        }
-      ]
-    )
-
-    @intervention.reload
-
-    assert_equal @intervention.drivers_times(nature: :travel), 30.minutes.to_i
-    assert_equal @intervention.drivers_times(nature: :intervention), 40.minutes.to_i
-    assert_equal @intervention.drivers_times(not_nature: :travel), 40.minutes.to_i
-    assert_equal @intervention.drivers_times, 70.minutes.to_i
   end
 
   def add_harvesting_intervention(target, stopped_at)

@@ -81,9 +81,9 @@ class InterventionAgent < InterventionProductParameter
     unit_name = unit_name.pluralize if quantity > 1
 
     options = {
-      catalog_usage: catalog_usage,
-      quantity: quantity,
-      unit_name: unit_name
+      catalog_usage: :cost,
+      quantity: working_duration.to_d / 3600,
+      unit_name: Nomen::Unit.find(:hour).human_name
     }
     options[:catalog_item] = product.default_catalog_item(options[:catalog_usage])
     InterventionParameter::AmountComputation.quantity(:catalog, options)

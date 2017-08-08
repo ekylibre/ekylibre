@@ -121,11 +121,7 @@ jpn:
     formats:
       compact: "％のM /％D /％Y％のH：％M"
       default: "%Y/%m/%d %H:%M:%S"
-      # full: "%m/%d/%Y %H:%M:%S"
       long: "%Y年%m月%d日(%a) %H時%M分%S秒 %z"
       short: "%y/%m/%d %H:%M"
       time: "%H:%M" #?
-    js_formats:
-      # compact: "MM/DD/YYYY HH:mm"
-      # full: "MM/DD/YYYY HH:mm:ss"
     pm: "午後"

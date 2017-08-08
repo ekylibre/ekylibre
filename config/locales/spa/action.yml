@@ -66,12 +66,15 @@ spa:
       index: "Animales"
       new: "Nuevo animal"
       # show: "%{nature}: %{name}"
+    backend/bank_reconciliation/items:
+      # index: "Reconciliate bank statement %{cash} %{number} (from %{started_on} to %{stopped_on})"
+      # reconciliate: "Bank statements of %{cash} (from %{started_on} to %{stopped_on})"
     backend/bank_statements:
       edit: "Modificar el leventar N°%{number}"
+      edit_interval: "Períodos de estados bancarios para conciliar"
       import: "archivo de importación OFX"
       index: "Levantar de cuntos bancarios"
       new: "Despuntar un nuevo leventar de cuento"
-      # reconciliation: "Reconciliate bank statement %{cash} #%{number} (from %{started_on} to %{stopped_on})"
       show: "Leventard de cuento N°%{number}"
     backend/beehives:
       # reset: "Reset beehive: %{name}"
@@ -460,7 +463,7 @@ spa:
       new: "Nuevo pago de la nómina"
       # show: "Payslip payment: %{number}"
     backend/payslips:
-      # edit: "Edit payslip: %{name}"
+      # edit: "Edit payslip: %{number}"
       index: "Papeletas"
       new: "Nuevo salario"
       # show: "Payslip: %{number}"
@@ -643,7 +646,7 @@ spa:
       index: "Utilizador"
       lock: "Bloqueo de usuarios"
       new: "Creación de nuevo utilizador"
-      show: "Utilizador\_: %{first_name} %{last_name} (%{name})"
+      show: "Utilizador\_: %{first_name} %{last_name}"
       unlock: "Desbloquear usuario"
     backend/wine_tanks:
       index: "Tanques del vino"
@@ -770,7 +773,6 @@ spa:
     accounts: "Cuentos contables utilizados"
     accounts_only_used_at: "Solo las utilizan en"
     accounts_to_load: "Cuentas para cargar"
-    # action_duration: "Action duration"
     activate_entry_autocompletion: "Activar la terminación automática de entrada"
     active: "Activo"
     active_balance_sheet: "Balance activo" #?
@@ -900,7 +902,6 @@ spa:
     attach_deal: "Añadir un acuerdo"
     attachment: "Pieza juntada"
     attachments: "Archivos adjuntos"
-    auto_reconciliate: "reconciliar Auto"
     # automatic: "Auto"
     available: "Disponible"
     available_columns: "Campos disponibles\_: %{columns}"
@@ -939,7 +940,6 @@ spa:
     building_update: "Modifiar el lugar de deposito" #?
     by_year: "Por año"
     calculate: "Calcular"
-    # calculated_hours: "Calculated hours"
     calculators: "Calculadoras"
     calendar: "Calendario"
     campaign: "Campaña"
@@ -996,7 +996,6 @@ spa:
     columns: "Columnas para importar"
     commission: "Comisión"
     company: "Sociedad"
-    complete: "Completar"
     completed: "Terminado"
     conditions:
       filter_on_attribute_of_class: "Filtro de atributo de la clase"
@@ -1977,6 +1976,7 @@ spa:
     variants: "Variantes"
     vat: "TINA"
     view: "Ver"
+    view_map_when_creating_an_intervention: "Ver mapa al crear una intervención"
     wages: "Salario"
     watering_concentration: "Uso del agua"
     weather: "Clima"
@@ -2170,6 +2170,7 @@ spa:
       bad_file: "El fichero no parece corresponder" #?
       bookkeeping_is_finished: "La basula en contabilidad esta terminada."
       bookkeeping_works_only_with: "La bascula en contabilidad puede hacerse actualmente solo para\_: %{list}."
+      cannot_add_bank_statement_item: "No puede agregar una nueva línea porque no hay ningún estado de cuenta bancaria disponible en este día"
       cannot_delete_entity: "No es posible suprimir esta papeleta porque tiene reseña historica contable" #?
       cannot_find_deal_to_attach: "No se puede encontrar tratar de adjuntar"
       cannot_find_deal_to_detach: "No se puede encontrar tratar de separar"
@@ -2371,6 +2372,7 @@ spa:
       down: "Abajo"
       duplicate: "Duplicar"
       edit: "Editar"
+      edit_interval: "Reconciliar"
       edit_many: "Editar muchos"
       evaluate: "Evaluar"
       export: "Exportar"
@@ -2463,7 +2465,7 @@ spa:
     # backend/entity_links: "%{started_at}"
     # backend/events: "%{name}"
     # backend/incoming_payments: "%{number}. %{mode_name} from %{payer_full_name} of %{amount} %{currency}"
-    # backend/interventions: "%{number}. %{name}"
+    # backend/interventions: "%{number}"
     # backend/journal_entry_items: "%{entry_number} %{name} %{account_number} D%{real_debit} C%{real_credit} %{currency}"
     # backend/matters: "%{name} ‒ %{work_number}"
     # backend/observations: "%{content}"

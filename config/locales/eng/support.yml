@@ -118,10 +118,6 @@ eng:
     formats:
       compact: "%m/%d/%Y %H:%M"
       default: "%b. %d, %Y at %H:%M:%S"
-      full: "%m/%d/%Y %H:%M:%S"
       long: "%B %d, %Y %H:%M"
       short: "%d %b %H:%M"
-    js_formats:
-      compact: "MM/DD/YYYY HH:mm"
-      full: "MM/DD/YYYY HH:mm:ss"
     pm: "pm"

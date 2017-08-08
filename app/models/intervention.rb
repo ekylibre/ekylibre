@@ -628,6 +628,7 @@ class Intervention < Ekylibre::Record::Base
     update(request_compliant: true) if (compliances.values - [true]).empty?
   end
 
+<<<<<<< HEAD
   def participation(product)
     InterventionParticipation.of_intervention(self).of_product(product).first
   end
@@ -658,6 +659,8 @@ class Intervention < Ekylibre::Record::Base
     byebug
   end
 
+=======
+>>>>>>> a0cf9a99e45e0839be671ad8f564ddbe2aee227e
   class << self
     def used_procedures
       select(:procedure_name).distinct.pluck(:procedure_name).map do |name|
