@@ -81,36 +81,29 @@ module Backend
     #   end
     # end
 
-    test 'currency_state uses the FinancialYear matching params\' date as a target currency' do
+    test 'currency_state returns the right exchange_rate according to financial_year currency' do
       FinancialYear.delete_all
-      get :currency_state
-      p @response.body
-      # from: EUR
-      # factory_call currency: 'FRF'
-      # get
-      # assertions de contenu
-      #  => rate ==  6.55957
-
-      # from: EUR
-      # factory_update currency: 'BEF'
-      # get
-      # assertions de contenu
-      #  => rate ==  40.3399
+      create(:financial_year, currency: "FRF")
+      user = create(:user)
+      sign_in(user)
+      get :currency_state, on: "01/06/1994", from: "EUR"
+      assert_equal 6.55957, JSON.parse(@response.body)["exchange_rate"]
     end
 
-    # test 'currency_state returns 1 if target currency is the same as source currency' do
-    #   FinancialYear.delete_all
-    #   # factory_call currency: 'EUR'
-    #   # get
-    #   # assertions de contenu
-    #   #  => rate == 1
-    # end
+    test 'currency_state returns 1 if target currency is the same as source currency' do
+      FinancialYear.delete_all
+      create(:financial_year, currency: "EUR")
+      user = create(:user)
+      sign_in(user)
+      get :currency_state, on: "01/06/1994", from: "EUR"
+      assert_equal 1, JSON.parse(@response.body)["exchange_rate"]
+    end
 
-    # test 'currency_state returns empty object when no financial_year is present' do
-    #   FinancialYear.delete_all
-    #   # get
-    #   # assertion empty
-    # end
+    test 'currency_state returns empty object when no financial_year is present' do
+      FinancialYear.delete_all
+      # get
+      # assertion empty
+    end
 
     # test 'currency_state computes the exchange rate from params`\' :from currency to params\' :to currency' do
     #   FinancialYear.delete_all
