@@ -1519,6 +1519,7 @@ fra:
     rank_number: "Numéro de Rang"
     read_at: "Mesuré à"
     reading: "Relevé" #?
+    # reading_cache: "Reading cache"
     reading_tasks: "Relevé de valeur"
     readings: "Relevés"
     real_balance: "Solde réel"

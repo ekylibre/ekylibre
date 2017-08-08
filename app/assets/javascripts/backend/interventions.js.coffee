@@ -236,6 +236,10 @@
     $(this).each ->
       E.interventions.refresh $(this)
 
+  $(document).ready ->
+    $('*[data-intervention-updater]').each ->
+      E.interventions.refresh $(this)
+
   #  selector:initialized
   $(document).on 'selector:change', '*[data-intervention-updater]', ->
     $(this).each ->

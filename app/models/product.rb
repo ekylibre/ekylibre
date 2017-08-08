@@ -73,6 +73,7 @@
 #  picture_file_name            :string
 #  picture_file_size            :integer
 #  picture_updated_at           :datetime
+#  reading_cache                :jsonb            default("{}"), not null
 #  team_id                      :integer
 #  tracking_id                  :integer
 #  type                         :string
@@ -133,6 +134,7 @@ class Product < Ekylibre::Record::Base
   has_many :inspections, class_name: 'Inspection', foreign_key: :product_id, dependent: :destroy
   has_many :parcel_items, dependent: :restrict_with_exception
   has_many :phases, class_name: 'ProductPhase', dependent: :destroy
+  has_many :intervention_participations, class_name: 'InterventionParticipation', dependent: :destroy
   has_many :sensors
   has_many :supports, class_name: 'ActivityProduction', foreign_key: :support_id, inverse_of: :support
   has_many :trackings, class_name: 'Tracking', foreign_key: :product_id, inverse_of: :product
@@ -287,7 +289,7 @@ class Product < Ekylibre::Record::Base
   validates :name, presence: true, length: { maximum: 500 }
   validates :number, presence: true, uniqueness: true, length: { maximum: 500 }
   validates :picture_file_size, numericality: { only_integer: true, greater_than: -2_147_483_649, less_than: 2_147_483_648 }, allow_blank: true
-  validates :category, :nature, :variant, :variety, presence: true
+  validates :category, :nature, :reading_cache, :variant, :variety, presence: true
   # ]VALIDATORS]
   validates :derivative_of, :variety, length: { allow_nil: true, maximum: 120 }
   validates :nature, :variant, :name, :uuid, presence: true
@@ -499,11 +501,11 @@ class Product < Ekylibre::Record::Base
   end
 
   def shape=(new_shape)
-    self.reading_cache[:shape] = new_shape
+    reading_cache[:shape] = new_shape
 
     self.net_surface_area = calculation_of_net_surface_area
-    self.save!
-    self.shape
+    save!
+    shape
   end
 
   # Try to find the best name for the new products
@@ -776,7 +778,7 @@ class Product < Ekylibre::Record::Base
   end
 
   def net_surface_area
-    computed_surface = self.reading_cache[:net_surface_area] || self.reading_cache['net_surface_area']
+    computed_surface = reading_cache[:net_surface_area] || reading_cache['net_surface_area']
     return computed_surface if computed_surface
     self.net_surface_area = calculation_of_net_surface_area
   end
@@ -791,8 +793,8 @@ class Product < Ekylibre::Record::Base
       unless options[:strict]
         options[:at] = born_at if born_at && born_at > Time.zone.now
       end
-      self.reading_cache[:shape] = get(:shape, options)
-      area = self.reading_cache[:shape].area.in(area_unit).round(3)
+      reading_cache[:shape] = get(:shape, options)
+      area = reading_cache[:shape].area.in(area_unit).round(3)
     else
       area = get(:net_surface_area, options)
     end

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<migration name="Add issue natures">
+	<item-creation item="issue_natures#alternaria" parent="fungus_disease" cause="fungus" target="plant"/>
+	<item-creation item="issue_natures#sclerotinia" parent="fungus_disease" cause="sclerotiniaceae" target="plant"/>
+	<item-creation item="issue_natures#pseudomonas_syringae" parent="bacteria_disease" cause="bacteria" target="allium_porrum"/>
+	<item-creation item="issue_natures#potato_mildew" parent="fungus_disease" cause="phytophthora_infestans" target="solanum_tuberosum"/>
+	<item-creation item="issue_natures#tomato_mildew" parent="fungus_disease" cause="phytophthora_infestans" target="solanum_lycopersicum"/>
+	<item-creation item="issue_natures#cereal_mildiew" parent="fungus_disease" cause="sclerophthora_macrospora" target="poaceae"/>
+	<item-creation item="issue_natures#carrot_mildiew" parent="fungus_disease" cause="plasmopara_nivea" target="daucus"/>
+	<item-creation item="issue_natures#potato_powdery_mildew" parent="fungus_disease" cause="golovinomyces_cichoracearum" target="solanum_tuberosum"/>
+	<item-creation item="issue_natures#carrot_powdery_mildew" parent="fungus_disease" cause="erysiphe" target="daucus"/>
+	<item-creation item="issue_natures#corn_helminthosporiosis" parent="fungus_disease" cause="setosphaeria_turcica" target="zea_mays"/>
+	<item-creation item="issue_natures#wheat_helminthosporiosis" parent="fungus_disease" cause="drechslera_tritici_repentis" target="triticum"/>
+	<item-creation item="issue_natures#barley_helminthosporiosis" parent="fungus_disease" cause="drechslera_graminea" target="hordeum"/>
+	<item-creation item="issue_natures#brown_rust" parent="fungus_disease" cause="puccinia_recondita" target="poaceae"/>
+	<item-creation item="issue_natures#tipburn" parent="disease" target="lactuca"/>
+	<item-creation item="issue_natures#rhizoctonia" parent="fungus_disease" cause="rhizoctonia" target="plant"/>
+	<item-creation item="issue_natures#cercosporiosis" parent="fungus_disease" cause="cercospora" target="plant"/>
+	<item-creation item="issue_natures#bacterial_disease" parent="bacteria_disease" target="plant"/>
+	<item-creation item="issue_natures#fusarium" parent="fungus_disease" cause="fusarium" target="plant"/>
+	<item-creation item="issue_natures#cabbage_maggot" parent="insecta_disease" cause="delia_radicum" target="brassica_oleracea"/>
+	<item-creation item="issue_natures#carrot_fly" parent="insecta_disease" cause="psila_rosae" target="daucus"/>
+	<item-creation item="issue_natures#european_corn_borer" parent="insecta_disease" cause="ostrinia_nubilalis" target="zea_mays"/>
+	<item-creation item="issue_natures#mediterranean_corn_borer" parent="insecta_disease" cause="sesamia_nonagrioides" target="zea_mays"/>
+	<item-creation item="issue_natures#cotton_bollworm" parent="insecta_disease" cause="noctuidae" target="plant"/>
+	<item-creation item="issue_natures#cutworm" parent="insecta_disease" cause="noctuidae" target="plant"/>
+	<item-creation item="issue_natures#nematoda" parent="insecta_disease" cause="nematoda" target="plant"/>
+	<item-creation item="issue_natures#colorado_potato_beetle" parent="insecta_disease" cause="leptinotarsa_decemlineata" target="solanum"/>
+	<item-creation item="issue_natures#seedcorn_maggot" parent="insecta_disease" cause="delia_platura" target="plant"/>
+	<item-creation item="issue_natures#european_sawfly" parent="insecta_disease" cause="hymenoptera" target="plant"/>
+	<item-creation item="issue_natures#flea_beetle" parent="insecta_disease" cause="alticinae" target="plant"/>
+	<item-creation item="issue_natures#caterpillar" parent="insecta_disease" cause="lepidoptera" target="plant"/>
+	<item-creation item="issue_natures#cassidinae" parent="insecta_disease" cause="cassidinae" target="plant"/>
+	<item-creation item="issue_natures#moth" parent="insecta_disease" cause="lepidoptera" target="plant"/>
+	<item-creation item="issue_natures#large_white" parent="insecta_disease" cause="pieris_brassicae" target="brassica"/>
+	<item-creation item="issue_natures#nightshade" parent="plant_disease" cause="solanum" target="plant"/>
+	<item-creation item="issue_natures#datura" parent="plant_disease" cause="solanaceae" target="plant"/>
+	<item-creation item="issue_natures#digitaria" parent="plant_disease" cause="digitaria" target="plant"/>
+	<item-creation item="issue_natures#senecio_vulgaris" parent="plant_disease" cause="senecio_vulgaris" target="plant"/>
+	<item-creation item="issue_natures#poa" parent="plant_disease" cause="poa" target="plant"/>
+	<item-creation item="issue_natures#bidens_tripartita" parent="plant_disease" cause="bidens_tripartita" target="plant"/>
+	<item-creation item="issue_natures#panicum" parent="plant_disease" cause="panicum" target="plant"/>
+	<item-creation item="issue_natures#erigeron" parent="plant_disease" cause="erigeron" target="plant"/>
+	<item-creation item="issue_natures#capsella" parent="plant_disease" cause="capsella" target="plant"/>
+	<item-creation item="issue_natures#rumex_crispus" parent="plant_disease" cause="rumex_crispus" target="plant"/>
+	<item-creation item="issue_natures#previous_crop_regrowth" parent="plant_disease" target="plant"/>
+	<item-creation item="issue_natures#vegetation_cover_regrowth" parent="plant_disease" target="plant"/>
+	<item-creation item="issue_natures#galium_aparine" parent="plant_disease" cause="galium_aparine" target="plant"/>
+	<item-creation item="issue_natures#polygonum" parent="plant_disease" cause="polygonum" target="plant"/>
+	<item-creation item="issue_natures#cyperus_esculentus" parent="plant_disease" cause="cyperus_ esculentus" target="plant"/>
+	<item-creation item="issue_natures#portulaca_oleracea" parent="plant_disease" cause="portulaca_oleracea" target="plant"/>
+	<item-creation item="issue_natures#sorghum_halepense" parent="plant_disease" cause="sorghum_halepense" target="plant"/>
+	<item-creation item="issue_natures#amaranthus" parent="plant_disease" cause="amaranthus" target="plant"/>
+</migration>

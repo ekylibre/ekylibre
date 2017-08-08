@@ -73,6 +73,7 @@
 #  picture_file_name            :string
 #  picture_file_size            :integer
 #  picture_updated_at           :datetime
+#  reading_cache                :jsonb            default("{}"), not null
 #  team_id                      :integer
 #  tracking_id                  :integer
 #  type                         :string
@@ -104,5 +105,13 @@ class ProductTest < ActiveSupport::TestCase
     binding.pry
     assert_equal '1.955 hectare', prod.net_surface_area.to_s
   end
-  
+
+  test 'product has a way to get its intervention_participations' do
+    category = create :product_nature_category
+    nature   = create(:product_nature, category: category)
+    variant  = create(:product_nature_variant, category: category, nature: nature)
+    product  = create(:product, category: category, nature: nature, variant: variant)
+    intervention_participation = create(:intervention_participation, product: product)
+    assert_includes product.intervention_participations, intervention_participation
+  end
 end

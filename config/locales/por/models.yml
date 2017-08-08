@@ -1253,6 +1253,7 @@ por:
     query: "Pergunta"
     rank_number: "Número de classificação"
     read_at: "Leia pelo"
+    # reading_cache: "Reading cache"
     reading_tasks: "Tarefas de leitura"
     readings: "Leituras"
     real_balance: "SALDO"

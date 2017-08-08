@@ -1253,6 +1253,7 @@ jpn:
     query: "クエリー"
     rank_number: "ランク番号"
     read_at: "読みます"
+    # reading_cache: "Reading cache"
     reading_tasks: "読書のタスク"
     readings: "音読み"
     real_balance: "実質残高"
