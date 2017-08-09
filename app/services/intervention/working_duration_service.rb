@@ -10,7 +10,7 @@ class Intervention
     end
 
     def perform(nature: nil, not_nature: nil)
-      return @intervention.working_duration.to_d if @participations.empty? && @participation.nil?
+      return intervention_working_duration if @participations.empty? && @participation.nil?
 
       return worker_working_duration(nature) if worker?
 
@@ -45,7 +45,11 @@ class Intervention
                    .inject(0, :+)
                  end
 
-      duration / 3600
+      duration.to_d / 3600
+    end
+
+    def intervention_working_duration
+      @intervention.working_duration.to_d / 3600
     end
 
     def worker?
@@ -102,7 +106,7 @@ class Intervention
 
     def workers_times(nature: nil, not_nature: nil)
       worker_working_periods(nature, not_nature)
-        .map(&:hours_gap)
+        .map(&:duration_gap)
         .reduce(0, :+)
     end
 

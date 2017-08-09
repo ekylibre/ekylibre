@@ -53,9 +53,9 @@
       .picto.picto-pause-circle-outline
       %span= I18n.t('enumerize.intervention_working_period.nature.pause')
 
-  - classes = 'hidden' if display_calcul_mode.to_sym == :false
+  - classes = 'hidden' unless tool.nil?
   %div{ class: "auto-calculate-equipments #{ classes }"}
-    = check_box 'participation', "auto_calculate_equipments", checked: true
+    = check_box 'participation', "auto_calculate_equipments", checked: auto_calcul_mode.to_sym == :true
     %span Mode de calcul automatique
     %p En mode automatique, les périodes de déplacement et d'intervention des tracteurs et outils seront calculés à partir de la moyenne des périodes des opérateurs.
 

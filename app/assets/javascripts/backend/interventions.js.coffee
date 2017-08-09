@@ -206,16 +206,9 @@
         if intervention_id == ""
           interventionStartedAt = $('.intervention-started-at').val()
 
-        displayCalculMode = false
-        if $(targetted_element).closest('.nested-driver, .nested-doer').length > 0 && $('input[name="display-calcul-mode"]').length == 0
-          $('.simple_form').append('<input type="hidden" name="display-calcul-mode" value="false"></input>')
-          displayCalculMode = true
-
         autoCalculMode = true
         if $('input[name="auto-calcul-mode"]').length == 0
           $('.simple_form').append('<input type="hidden" name="auto-calcul-mode" value="true"></input>')
-        #else if existingParticipation && existingParticipation != ""
-          #autoCalculMode = false
         else
           autoCalculMode = $('input[name="auto-calcul-mode"]').val()
 
@@ -226,7 +219,6 @@
         datas['existing_participation'] = existingParticipation
         datas['participations'] = participations
         datas['intervention_started_at'] = interventionStartedAt
-        datas['display_calcul_mode'] = displayCalculMode
         datas['auto_calcul_mode'] = autoCalculMode
 
         $.ajax

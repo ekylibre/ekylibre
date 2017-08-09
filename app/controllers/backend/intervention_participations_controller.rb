@@ -62,7 +62,6 @@ module Backend
 
       @intervention = @participation.intervention
 
-      display_calcul_mode = params[:display_calcul_mode]
       auto_calcul_mode = params[:auto_calcul_mode]
 
       render partial: 'backend/intervention_participations/participations_modal',
@@ -70,7 +69,6 @@ module Backend
                participation: @participation,
                intervention_started_at: intervention_started_at,
                tool: intervention_tool,
-               display_calcul_mode: display_calcul_mode,
                auto_calcul_mode: auto_calcul_mode,
                calculate_working_periods: calculate_working_periods
              }

@@ -132,6 +132,10 @@ class InterventionWorkingPeriod < Ekylibre::Record::Base
     stopped_at < working_period.started_at
   end
 
+  def duration_gap
+    (stopped_at - started_at) / 3600
+  end
+
   private
 
   def gap
