@@ -969,6 +969,7 @@ arb:
     accounts: "حسابات المحاسب المستخدمة"
     accounts_only_used_at: "حسابات تستخدم فقط في"
     accounts_to_load: "حسابات لتحميل"
+    # action_duration: "Action duration"
     activate_entry_autocompletion: "تفعيل تكملة دخول"
     active: "فعال"
     active_balance_sheet: "رصيد دائر" #?
@@ -1145,6 +1146,7 @@ arb:
     building_update: "تعديل موقع التخزين" #?
     by_year: "وبحلول العام"
     calculate: "حساب"
+    # calculated_hours: "Calculated hours"
     calculators: "الآلات الحاسبة"
     calendar: "تقويم"
     campaign: "حملة"

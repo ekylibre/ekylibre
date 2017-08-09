@@ -244,6 +244,7 @@ jpn:
     intervention_working_period:
       nature:
         intervention: "介入"
+        # pause: "Pause"
         preparation: "準備"
         travel: "旅行"
     journal:

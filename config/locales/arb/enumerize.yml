@@ -243,6 +243,7 @@ arb:
     intervention_working_period:
       nature:
         intervention: "تدخل"
+        # pause: "Pause"
         preparation: "تجهيز"
         travel: "سفر"
     journal:

@@ -4,7 +4,7 @@ fra:
     started_on: "Débuté le"
     stopped_on: "Arrếté on"
   aggregator_properties:
-    active: "Actif" #?
+    active: "Actif"
     activity_family: "Famille d'activité" #?
     actor_name: "Nom de l'acteur" #?
     animal_group_name: "Nom du groupe d'animaux" #?
@@ -16,8 +16,8 @@ fra:
     breeding_number: "Numéro d'élevage"
     campaigns: "Campagnes"
     capitalised_production: "Production capitalisée" #?
-    catalog_name: "Nom du catalogue" #?
-    charge_account_label: "Étiquette du compte de frais" #?
+    catalog_name: "Nom du catalogue"
+    charge_account_label: "Étiquette du compte de frais"
     company: "Entreprise"
     container_name: "Nom de l'emplacement"
     current_result_before_taxes: "Résultat en cours avant taxes"
@@ -83,7 +83,7 @@ fra:
     pasturing_period: "Période pâturage" #?
     pasturing_working_area: "Zone de pâturage" #?
     payment_ratio: "Ratio de paiement"
-    person_name: "Nom" #?
+    person_name: "Nom"
     pictogram: "Pictogramme"
     picture_path: "Chemin d'image"
     # plan: "Plan"
@@ -113,7 +113,7 @@ fra:
     social_expenses: "Charges sociales" #?
     soil_varieties: "Variétés de sol" #?
     sowed_at: "Semé le" #?
-    stock_account_label: "Étiquette du compte de stock" #?
+    stock_account_label: "Étiquette du compte de stock"
     stock_production: "Production de stock" #?
     stocks_variation: "Variation de stocks" #?
     subsidies: "Subventions" #?
@@ -124,6 +124,6 @@ fra:
     vine_yield: "Rendement en vin"
     wages: "Salaires" #?
     working_area: "Superficie travaillée"
-    working_duration_in_hours: "Durée travaillée en heures" #?
+    working_duration_in_hours: "Durée travaillée en heures"
   aggregators: #?
     vat_register: "Registre de TVA" #?

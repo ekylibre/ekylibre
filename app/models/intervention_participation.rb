@@ -92,6 +92,14 @@ class InterventionParticipation < Ekylibre::Record::Base
     intervention ? intervention.name : procedure_name ? I18n.t(procedure_name, scope: :procedures) : nil
   end
 
+  def sum_periods_of_nature(nature)
+    working_periods.where(nature: nature).sum(:duration)
+  end
+
+  def has_period_with_nature?(nature: nil)
+    !working_periods.where(nature: nature).empty?
+  end
+
   def qualified_human_name
     return if human_name.nil? || product.name.nil?
     working_periods.empty? ? "#{human_name} (#{product.name})" : "#{:intervention_at.tl(intervention: human_name, at: working_periods.minimum(:started_at).l)} (#{product.name})"

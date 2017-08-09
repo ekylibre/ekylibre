@@ -841,6 +841,7 @@ fra:
     accounts: "Comptes comptables"
     accounts_only_used_at: "Comptes utilisés seulement sur"
     accounts_to_load: "Plan de compte à charger"
+    action_duration: "Durée de l'action"
     activate_entry_autocompletion: "Autocompléter l’écriture"
     active: "Actif"
     active_balance_sheet: "Bilan actif" #?
@@ -1014,6 +1015,7 @@ fra:
     buildings_map: "Carte des bâtiments" #?
     by_year: "Par an"
     calculate: "Calculer"
+    calculated_hours: "Horaries calculées"
     calculators: "Calculateurs"
     calendar: "Calendrier"
     campaign: "Campagne"

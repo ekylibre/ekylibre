@@ -244,6 +244,7 @@ cmn:
     intervention_working_period:
       nature:
         intervention: "介入"
+        # pause: "Pause"
         preparation: "制备"
         travel: "旅行"
     journal:
