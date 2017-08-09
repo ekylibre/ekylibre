@@ -62,6 +62,7 @@
 
     return
 
+
   $(document).on 'click', '#validParticipationsForm', (event) ->
     element = $(event.target)
 
