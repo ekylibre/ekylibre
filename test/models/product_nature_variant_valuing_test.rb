@@ -28,10 +28,10 @@ class ProductNatureVariantValuingTest < ActiveSupport::TestCase
   end
 
   test "method calculate_first_entrance" do
-    refute_nil ProductNatureVariantValuing.calculate_first_entrance(static_value_1[:unitary_price], static_value_1[:quantity_action], static_value_1[:quantity_new], variant_1.id)
-    assert ProductNatureVariantValuing.calculate_first_entrance(static_value_1[:unitary_price], static_value_1[:quantity_action], static_value_1[:quantity_new], variant_1.id)
+    refute_nil ProductNatureVariantValuing.calculate_first_entrance(static_value_1[:unitary_price], static_value_1[:quantity_action], static_value_1[:quantity_new], @valuing.variant_id)
+    assert ProductNatureVariantValuing.calculate_first_entrance(static_value_1[:unitary_price], static_value_1[:quantity_action], static_value_1[:quantity_new], @valuing.variant_id)
 
-    valuing = ProductNatureVariantValuing.calculate_first_entrance(static_value_1[:unitary_price], static_value_1[:quantity_new], static_value_1[:quantity_action], variant_7.id)
+    valuing = ProductNatureVariantValuing.calculate_first_entrance(static_value_1[:unitary_price], static_value_1[:quantity_new], static_value_1[:quantity_action], @valuing.variant_id)
     assert_equal valuing.amount, 150
     assert_equal valuing.average_cost_amount, 3
   end
