@@ -1,4 +1,4 @@
-module Interventions
+class Intervention
   class WorkingDurationService
     attr_reader :intervention, :participations, :participation, :product
 
@@ -10,7 +10,7 @@ module Interventions
     end
 
     def perform(nature: nil, not_nature: nil)
-      return @intervention.working_duration.to_d / 3600 if @participations.empty? && @participation.nil?
+      return @intervention.working_duration.to_d if @participations.empty? && @participation.nil?
 
       return worker_working_duration(nature) if worker?
 

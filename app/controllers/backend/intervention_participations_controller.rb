@@ -62,12 +62,6 @@ module Backend
 
       @intervention = @participation.intervention
 
-      intervention_started_at = if @intervention.nil?
-                                  Time.parse(params['intervention_started_at'])
-                                else
-                                  @intervention.started_at
-                                end
-
       display_calcul_mode = params[:display_calcul_mode]
       auto_calcul_mode = params[:auto_calcul_mode]
 
@@ -110,6 +104,12 @@ module Backend
       product
     end
 
+    def intervention_started_at
+      return @intervention.started_at unless @intervention.nil?
+
+      Time.parse(params['intervention_started_at'])
+    end
+
     def calculate_working_periods
       participations = form_participations
       tool = intervention_tool
@@ -119,7 +119,6 @@ module Backend
                     participations.blank? || tool.nil?
 
       working_periods = []
-      intervention_started_at = @intervention.started_at
       working_duration_params = { intervention: @intervention,
                                   participations: participations,
                                   product: @participation.product }
@@ -128,7 +127,7 @@ module Backend
       natures = %i[intervention] unless tool.try(:tractor?)
 
       natures.each do |nature|
-        duration = Interventions::WorkingDurationService
+        duration = Intervention::WorkingDurationService
                     .new(**working_duration_params)
                     .perform(nature: nature)
 

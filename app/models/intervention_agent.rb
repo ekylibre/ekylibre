@@ -73,7 +73,7 @@ class InterventionAgent < InterventionProductParameter
   def cost_amount_computation(nature: nil)
     return InterventionParameter::AmountComputation.failed unless product
 
-    quantity = Interventions::WorkingDurationService
+    quantity = Intervention::WorkingDurationService
                .new(**working_duration_params)
                .perform(nature: nature)
 
@@ -82,7 +82,7 @@ class InterventionAgent < InterventionProductParameter
 
     options = {
       catalog_usage: catalog_usage,
-      quantity: quantity,
+      quantity: quantity.to_d,
       unit_name: unit_name
     }
     options[:catalog_item] = product.default_catalog_item(options[:catalog_usage])
