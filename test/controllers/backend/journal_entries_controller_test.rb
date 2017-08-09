@@ -101,8 +101,10 @@ module Backend
 
     test 'currency_state returns empty object when no financial_year is present' do
       FinancialYear.delete_all
-      # get
-      # assertion empty
+      user = create(:user)
+      sign_in(user)
+      get :currency_state, on: "01/06/1900", from: "EUR"
+      assert_empty JSON.parse(@response.body)
     end
 
     # test 'currency_state computes the exchange rate from params`\' :from currency to params\' :to currency' do
