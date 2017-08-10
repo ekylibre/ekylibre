@@ -1,4 +1,4 @@
-class Intervention
+module Interventions
   class WorkingDurationService
     attr_reader :intervention, :participations, :participation, :product
 

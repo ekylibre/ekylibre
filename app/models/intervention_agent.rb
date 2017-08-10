@@ -73,7 +73,7 @@ class InterventionAgent < InterventionProductParameter
   def cost_amount_computation(nature: nil)
     return InterventionParameter::AmountComputation.failed unless product
 
-    quantity = Intervention::WorkingDurationService
+    quantity = Interventions::WorkingDurationService
                .new(**working_duration_params)
                .perform(nature: nature)
 

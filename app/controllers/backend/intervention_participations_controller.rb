@@ -125,7 +125,7 @@ module Backend
       natures = %i[intervention] unless tool.try(:tractor?)
 
       natures.each do |nature|
-        duration = Intervention::WorkingDurationService
+        duration = Interventions::WorkingDurationService
                     .new(**working_duration_params)
                     .perform(nature: nature)
 
