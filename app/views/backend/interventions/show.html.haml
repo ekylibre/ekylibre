@@ -75,12 +75,12 @@
         %span.title= Intervention.human_attribute_name(:working_duration)
         %span.value
           %i.picto.picto-timelapse
-          = human_duration(resource.working_duration)
+          = human_duration(resource.drivers_times(nature: :intervention))
       .med-info
         %span.title= Intervention.human_attribute_name(:whole_duration)
         %span.value
           %i.picto.picto-timelapse
-          = human_duration(resource.whole_duration)
+          = human_duration(resource.drivers_times(nature: nil))
       .med-info
         %span.title= I18n.t('enumerize.intervention_working_period.nature.preparation')
         %span.value
