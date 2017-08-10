@@ -262,7 +262,7 @@ class ParcelItem < Ekylibre::Record::Base
   end
 
   def average_cost_amount
-    many_items = parcel.items.group_by{ variant_id }
+    many_items = parcel.items.group_by { |item| item.variant_id }
     many_items = many_items.to_a
     many_items.each do |items|
       items.last.each do |item|

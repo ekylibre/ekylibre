@@ -6,7 +6,7 @@ class ProductNatureVariantValuingTest < ActiveSupport::TestCase
     @valuing = ProductNatureVariantValuing.create!(amount: 100, average_cost_amount: 5, variant_id: 1)
   end
 
-  static_value_1 = {
+  static_value = {
     unitary_price: 15,
     quantity_action: 10,
     quantity_entry: 50,
@@ -27,38 +27,38 @@ class ProductNatureVariantValuingTest < ActiveSupport::TestCase
   end
 
   test 'method calculate_first_entrance' do
-    refute_nil ProductNatureVariantValuing.calculate_first_entrance(static_value_1[:unitary_price], static_value_1[:quantity_action], static_value_1[:quantity_new], @valuing.variant_id)
-    assert ProductNatureVariantValuing.calculate_first_entrance(static_value_1[:unitary_price], static_value_1[:quantity_action], static_value_1[:quantity_new], @valuing.variant_id)
+    refute_nil ProductNatureVariantValuing.calculate_first_entrance(static_value[:unitary_price], static_value[:quantity_action], static_value[:quantity_new], @valuing.variant_id)
+    assert ProductNatureVariantValuing.calculate_first_entrance(static_value[:unitary_price], static_value[:quantity_action], static_value[:quantity_new], @valuing.variant_id)
 
-    valuing = ProductNatureVariantValuing.calculate_first_entrance(static_value_1[:unitary_price], static_value_1[:quantity_new], static_value_1[:quantity_action], @valuing.variant_id)
+    valuing = ProductNatureVariantValuing.calculate_first_entrance(static_value[:unitary_price], static_value[:quantity_new], static_value[:quantity_action], @valuing.variant_id)
     assert_equal valuing.amount, 150
     assert_equal valuing.average_cost_amount, 3
   end
 
   test 'method calculate_output' do
     assert_equal @valuing.amount, 100
-    valuing = ProductNatureVariantValuing.calculate_output(static_value_1[:unitary_price], static_value_1[:quantity_new], static_value_1[:quantity_action], @valuing.variant_id)
+    valuing = ProductNatureVariantValuing.calculate_output(static_value[:unitary_price], static_value[:quantity_new], static_value[:quantity_action], @valuing.variant_id)
     assert_equal valuing.amount, 250
     assert_equal valuing.average_cost_amount, 5
-    refute_nil ProductNatureVariantValuing.calculate_output(static_value_1[:unitary_price], static_value_1[:quantity_new], static_value_1[:quantity_action], @valuing.variant_id)
-    assert ProductNatureVariantValuing.calculate_output(static_value_1[:unitary_price], static_value_1[:quantity_new], static_value_1[:quantity_action], @valuing.variant_id)
+    refute_nil ProductNatureVariantValuing.calculate_output(static_value[:unitary_price], static_value[:quantity_new], static_value[:quantity_action], @valuing.variant_id)
+    assert ProductNatureVariantValuing.calculate_output(static_value[:unitary_price], static_value[:quantity_new], static_value[:quantity_action], @valuing.variant_id)
   end
 
   test 'method calculate_input' do
     # self.calculate_input(quantity_new, quantity_action, variant_id)
-    valuing = ProductNatureVariantValuing.calculate_input(static_value_1[:quantity_new], static_value_1[:quantity_action], @valuing.variant_id)
+    valuing = ProductNatureVariantValuing.calculate_input(static_value[:quantity_new], static_value[:quantity_action], @valuing.variant_id)
     assert_equal valuing.amount, 50
     assert_equal valuing.average_cost_amount, 1
-    refute_nil ProductNatureVariantValuing.calculate_input(static_value_1[:quantity_new], static_value_1[:quantity_action], @valuing.variant_id)
-    assert ProductNatureVariantValuing.calculate_input(static_value_1[:quantity_new], static_value_1[:quantity_action], @valuing.variant_id)
+    refute_nil ProductNatureVariantValuing.calculate_input(static_value[:quantity_new], static_value[:quantity_action], @valuing.variant_id)
+    assert ProductNatureVariantValuing.calculate_input(static_value[:quantity_new], static_value[:quantity_action], @valuing.variant_id)
   end
 
   test 'method calculate_inventory' do
     # self.calculate_inventory(quantity_entry, variant_id)
-    valuing = ProductNatureVariantValuing.calculate_inventory(static_value_1[:quantity_entry], @valuing.variant_id)
+    valuing = ProductNatureVariantValuing.calculate_inventory(static_value[:quantity_entry], @valuing.variant_id)
     assert_equal valuing.amount, 250
     assert_equal valuing.average_cost_amount, 5
-    refute_nil ProductNatureVariantValuing.calculate_inventory(static_value_1[:quantity_entry], @valuing.variant_id)
-    assert ProductNatureVariantValuing.calculate_inventory(static_value_1[:quantity_entry], @valuing.variant_id)
+    refute_nil ProductNatureVariantValuing.calculate_inventory(static_value[:quantity_entry], @valuing.variant_id)
+    assert ProductNatureVariantValuing.calculate_inventory(static_value[:quantity_entry], @valuing.variant_id)
   end
 end

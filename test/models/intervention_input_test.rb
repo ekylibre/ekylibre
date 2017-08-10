@@ -59,7 +59,7 @@ require 'test_helper'
 class InterventionInputTest < ActiveSupport::TestCase
   test_model_actions
 
-    test "method average_cost_amount" do
+  test 'method average_cost_amount' do
     i = {
       creator_id: 1,
       dead: false,

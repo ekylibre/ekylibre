@@ -124,7 +124,7 @@ class InterventionOutput < InterventionProductParameter
   protected
 
   def average_cost_amount
-    many_intervention_items = intervention.outputs.group_by { variant_id }
+    many_intervention_items = intervention.outputs.group_by { |item| item.variant_id }
     many_intervention_items = many_intervention_items.to_a
     many_intervention_items.each do |items|
       items.last.each do |item|
