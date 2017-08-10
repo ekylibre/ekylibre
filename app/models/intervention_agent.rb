@@ -70,12 +70,14 @@ class InterventionAgent < InterventionProductParameter
     end
   end
 
-  def cost_amount_computation(nature: nil)
+  def cost_amount_computation(nature: nil, natures: {})
     return InterventionParameter::AmountComputation.failed unless product
 
-    quantity = Interventions::WorkingDurationService
-               .new(**working_duration_params)
-               .perform(nature: nature)
+    if natures.empty?
+      quantity = nature_quantity(nature)
+    else
+      quantity = natures_quantity(natures)
+    end
 
     unit_name = Nomen::Unit.find(:hour).human_name
     unit_name = unit_name.pluralize if quantity > 1
@@ -85,6 +87,7 @@ class InterventionAgent < InterventionProductParameter
       quantity: quantity.to_d,
       unit_name: unit_name
     }
+
     options[:catalog_item] = product.default_catalog_item(options[:catalog_usage])
     InterventionParameter::AmountComputation.quantity(:catalog, options)
   end
@@ -93,6 +96,22 @@ class InterventionAgent < InterventionProductParameter
     { intervention: intervention,
       participations: intervention.participations,
       product: product }
+  end
+
+  def natures_quantity(natures)
+    quantity = 0
+
+    natures.each do |nature|
+      quantity += nature_quantity(nature)
+    end
+
+    quantity
+  end
+
+  def nature_quantity(nature)
+    Interventions::WorkingDurationService
+      .new(**working_duration_params)
+      .perform(nature: nature)
   end
 
   def catalog_usage

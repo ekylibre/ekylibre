@@ -91,8 +91,8 @@ module Backend
       render partial: 'intervention_costs', locals: { product_parameter: product_parameter, nature: nature }
     end
 
-    def add_total_working_period(product_parameter)
-      render partial: 'intervention_total_costs', locals: { product_parameter: product_parameter }
+    def add_total_working_period(product_parameter, natures: {})
+      render partial: 'intervention_total_costs', locals: { product_parameter: product_parameter, natures: natures }
     end
   end
 end

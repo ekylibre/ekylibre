@@ -32,7 +32,13 @@
 
         .total
           %h3{ class: "total-label" }= t('labels.total')
-          = add_total_working_period(product_parameter)
+
+          - if product.is_a?(Worker)
+            = add_total_working_period(product_parameter)
+          - elsif product.try(:tractor?)
+            = add_total_working_period(product_parameter, natures: %i[travel intervention])
+          - else
+            = add_total_working_period(product_parameter, natures: %i[intervention])
 
   - variant = product_parameter.variant
   - if actor

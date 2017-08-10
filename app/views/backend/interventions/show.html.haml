@@ -85,17 +85,17 @@
         %span.title= I18n.t('enumerize.intervention_working_period.nature.preparation')
         %span.value
           %i.picto.picto-clock-o
-          = human_duration(resource.working_duration_of_nature(:preparation))
+          = human_duration(resource.drivers_times(nature: :preparation))
       .med-info
         %span.title= I18n.t('enumerize.intervention_working_period.nature.travel')
         %span.value
           %i.picto.picto-clock-o
-          = human_duration(resource.working_duration_of_nature(:travel))
+          = human_duration(resource.drivers_times(nature: :travel))
       .med-info
         %span.title= I18n.t('enumerize.intervention_working_period.nature.intervention')
         %span.value
           %i.picto.picto-clock-o
-          = human_duration(resource.working_duration_of_nature(:intervention))
+          = human_duration(resource.drivers_times(nature: :intervention))
 
     -# if resource.production_support
       .info
