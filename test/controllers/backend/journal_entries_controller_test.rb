@@ -106,14 +106,5 @@ module Backend
       get :currency_state, on: "01/06/1900", from: "EUR"
       assert_empty JSON.parse(@response.body)
     end
-
-    # test 'currency_state computes the exchange rate from params`\' :from currency to params\' :to currency' do
-    #   FinancialYear.delete_all
-    #   # from: EUR
-    #   # factory_call currency: 'FRF'
-    #   # get
-    #   # assertions de contenu
-    #   #  => rate ==  6.55957
-    # end
   end
 end
