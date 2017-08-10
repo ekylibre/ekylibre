@@ -150,7 +150,6 @@
 - product_phase
 - product_population
 - product_reading
-- product_reception
 - purchase
 - purchase_affair
 - purchase_gap
@@ -169,7 +168,6 @@
 - sale_ticket
 - sensor
 - sequence
-- service_reception
 - settlement
 - shipment
 - sub_zone

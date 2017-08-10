@@ -3,7 +3,7 @@
 
 .nested-fields.storing-fields
   .storing-quantifier
-    = f.input :quantity, wrapper: :append do 
+    = f.input :quantity, wrapper: :append do
       = f.input_field :quantity, class: 'storing-quantity', placeholder: '0'
       %span.add-on.item-population-unit-name
         = variant.unit_name.or_else('#')
