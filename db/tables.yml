@@ -4930,6 +4930,8 @@ parcel_items:
     required: true
   non_compliant:
     type: boolean
+  non_compliant_detail:
+    type: string
   parcel_id:
     type: integer
     references: parcel

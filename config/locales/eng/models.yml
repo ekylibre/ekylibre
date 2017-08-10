@@ -1106,6 +1106,7 @@ eng:
     node: "Node"
     nodes: "Nodes"
     non_compliant: "Non compliant"
+    # non_compliant_detail: "Non compliant detail"
     noticed_start_amount: "Noticed start amount"
     noticed_stop_amount: "Noticed stop amount"
     notification: "Notification"

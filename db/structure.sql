@@ -4694,7 +4694,8 @@ CREATE TABLE parcel_items (
     non_compliant boolean,
     delivery_mode character varying,
     delivery_id integer,
-    transporter_id integer
+    transporter_id integer,
+    non_compliant_detail character varying
 );
 
 
@@ -17989,4 +17990,6 @@ INSERT INTO schema_migrations (version) VALUES ('20170720103002');
 INSERT INTO schema_migrations (version) VALUES ('20170721145630');
 
 INSERT INTO schema_migrations (version) VALUES ('20170728091811');
+
+INSERT INTO schema_migrations (version) VALUES ('20170810085626');
 

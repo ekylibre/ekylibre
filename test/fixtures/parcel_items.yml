@@ -31,6 +31,7 @@
 #  id                            :integer          not null, primary key
 #  lock_version                  :integer          default(0), not null
 #  non_compliant                 :boolean
+#  non_compliant_detail          :string
 #  parcel_id                     :integer          not null
 #  parted                        :boolean          default(FALSE), not null
 #  population                    :decimal(19, 4)

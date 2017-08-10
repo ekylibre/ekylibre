@@ -14,7 +14,9 @@
         = :edit.tl
     %td
       %label{ data: { item_value: "input.parcel-item-variant" } }= f.object.variant ? f.object.variant.name : '??????'
+      %br
       %label{ data: { item_value: "input.item-non-compliant" } }= non_compliant_message if f.object.non_compliant?
+      %label{ data: { item_value: "input.item-non-compliant-detail" } }= non_compliant_detail if f.object.non_compliant_detail?
     %td
       %label
         %span{ data: { item_value: "span.total-quantity" } }= f.object.population
@@ -31,7 +33,10 @@
       .item-form
         = f.input :purchase_item_id, as: :hidden
         = f.referenced_association(:variant, source: { scope: :stockables_or_depreciables }, input_html: { class: 'parcel-item-variant', data: {product_of_delivery_item: {url: backend_product_nature_variant_path("RECORD_ID", format: :json)}}})
-        = f.input :non_compliant, input_html: { class: 'item-non-compliant', data: { warn_if_checked: non_compliant_message } }
+        .non-compliant
+          = f.input :non_compliant, input_html: { class: 'item-non-compliant', data: { warn_if_checked: non_compliant_message, input_to_show: '.non_compliant_detail_text', with_value: true } }
+          .non_compliant_detail_text.hidden
+            = f.input :non_compliant_detail, label: :detail.tl, input_html: { class: 'item-non-compliant-detail' }
         -# .errors= item.errors.inspect
         .item-add-storing
           = f.simple_fields_for :storings, f.object.storings do |storing|
@@ -44,7 +49,7 @@
             %span.item-population-unit-name
               = variant.unit_name.or_else('#')
         .item-delivery-mode
-          = f.input :delivery_mode, as: :radio_buttons, input_html: { class: 'item-delivery-mode', data: {  field: 'item-delivery-mode' } }
+          = f.input :delivery_mode, as: :radio_buttons, input_html: { class: 'item-delivery-mode', data: {  input_to_show: '.transporter-delivery-mode', with_value: "transporter" } }
           .transporter-delivery-mode.hidden
             = f.referenced_association :transporter, source: :transporters, new: {transporter: 1}
 
