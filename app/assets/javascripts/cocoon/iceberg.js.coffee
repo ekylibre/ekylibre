@@ -77,6 +77,7 @@
           else
             value = target.html()
         element.html(value)
+      @interpolateStoring()
 
     cancel: ->
       # console.log 'cancel:this', this
@@ -109,30 +110,29 @@
       # console.log 'newForm:this', this
       @line.find('.nested-item-form:visible')
 
+    interpolateStoring: ->
+      zones = []
+      @newForm().find('.storing-fields').each ->
+        zones.push
+          quantity: $(this).find('input.storing-quantity').val()
+          unit: $(this).find('.item-population-unit-name').html()
+          name: $(this).find('input.storing-storage').val()
+      data = zones: zones
+
+      unless @vm?
+        @vm = new Vue {
+          el: @line.find('#storing-display')[0]
+          data: data
+        }
+      @vm.$data.zones = zones
 
   $(document).ready ->
     $('*[data-iceberg]').each ->
       new Iceberg($(this))
 
     $('table.list').on 'cocoon:after-insert', (event, inserted) ->
-      new Iceberg($(inserted), "add") if inserted?
+        iceberg = new Iceberg($(inserted), "add") if inserted?
       $('*[data-unit-name]').each ->
         $(this).find('.item-population-unit-name').html($(this).attr('data-unit-name'))
-
-    # app = new Vue {
-    #   el: '#app',
-    #   data: {
-    #     storings: [],
-    #     selected: 'dfsdf'
-    #   }
-    #   methods: {
-    #     fillStoringsTab: -> {
-    #       storings.push({
-    #         quantity: 8
-    #         })
-    #     }
-    #   }
-    # }
-
-
+      
 ) jQuery

@@ -20,11 +20,10 @@
         %span{ data: { item_value: "span.total-quantity" } }= f.object.population
         %span{ data: { item_value: "span.item-population-unit-name" } }= f.object.variant ? f.object.variant.unit_name : '#'
     %td
-      / .storings{ data: { item_loop: ".storing-fields" } }
-      /   - f.object.storings.each do |storing|
-      /     .storing{ data: { item_loop_block: true } }
-      /       %label{ data: { item_value: "input.storing-quantity" } }= storing.quantity
-      /       %label{ data: { item_value: "input.storing-storage" } }= storing.storage.name
+      #storing-display
+        %p{ "v-for" => "zone in zones"}
+          %strong= "{{zone.quantity}} {{zone.unit}}"
+          = "{{zone.name}}"
     %td
       %label{ data: { item_value: "input.item-delivery-mode:checked" } }= f.object.delivery_mode
   %tr.nested-item-form
