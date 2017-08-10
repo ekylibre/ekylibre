@@ -194,7 +194,7 @@ class FixedAsset < Ekylibre::Record::Base
   end
 
   def on_unclosed_periods?
-    self.started_on <= self.journal.closed_on ? false : true
+    self.started_on > self.journal.closed_on
   end
 
   def status
