@@ -42,10 +42,7 @@ class ProductNatureVariantValuing < Ekylibre::Record::Base
     product_nature_variant_valuing = ProductNatureVariantValuing.new(amount: amount, average_cost_amount: average_cost_amount, variant_id: variant_id)
     product_nature_variant_valuing.save
     # update, if is the first time interaction with ProductNatureVariantValuing
-    variant = ProductNatureVariant.find(variant_id)
-    new_info = {}
-    new_info[:valuing_id] = product_nature_variant_valuing.id
-    variant.update(new_info)
+    product_nature_variant_valuing.update_variant(variant_id, product_nature_variant_valuing.id)
     product_nature_variant_valuing
   end
 
@@ -56,55 +53,49 @@ class ProductNatureVariantValuing < Ekylibre::Record::Base
     average_cost_amount = amount / quantity_new
     product_nature_variant_valuing = ProductNatureVariantValuing.new(amount: amount, average_cost_amount: average_cost_amount, variant_id: variant_id)
     product_nature_variant_valuing.save
-    # update, if is the first time interaction with ProductNatureVariantValuing
-    variant = ProductNatureVariant.find(variant_id)
-    new_info = {}
-    new_info[:valuing_id] = product_nature_variant_valuing.id
-    variant.update(new_info)
+    # update, needed to stay up to date with variant
+    product_nature_variant_valuing.update_variant(variant_id, product_nature_variant_valuing.id)
     product_nature_variant_valuing
   end
 
   def self.calculate_input(quantity_new, quantity_action, variant_id)
     old_product_nature_variant_valuing = ProductNatureVariantValuing.where(variant: variant_id).last
-    if old_product_nature_variant_valuing == nil
+    if old_product_nature_variant_valuing.nil?
       old_amount = 0
       old_average_cost_amount = 0
     else
       old_amount = old_product_nature_variant_valuing.amount
       old_average_cost_amount = old_product_nature_variant_valuing.average_cost_amount
     end
-
     amount = old_amount - quantity_action * old_average_cost_amount
     average_cost_amount = amount / quantity_new
-
     product_nature_variant_valuing = ProductNatureVariantValuing.new(amount: amount, average_cost_amount: average_cost_amount, variant_id: variant_id)
     product_nature_variant_valuing.save
     # update, if is the first interaction with ProductNatureVariantValuing
-    variant = ProductNatureVariant.find(variant_id)
-    new_info = {}
-    new_info[:valuing_id] = product_nature_variant_valuing.id
-    variant.update(new_info)
+    product_nature_variant_valuing.update_variant(variant_id, product_nature_variant_valuing.id)
     product_nature_variant_valuing
   end
 
   def self.calculate_inventory(quantity_entry, variant_id)
     old_product_nature_variant_valuing = ProductNatureVariantValuing.where(variant: variant_id).last
-    if old_product_nature_variant_valuing == nil
+    if old_product_nature_variant_valuing.nil?
       old_average_cost_amount = 0
     else
       old_average_cost_amount = old_product_nature_variant_valuing.average_cost_amount
     end
-
     amount = quantity_entry * old_average_cost_amount
     average_cost_amount = amount / quantity_entry
-
     product_nature_variant_valuing = ProductNatureVariantValuing.new(amount: amount, average_cost_amount: average_cost_amount, variant_id: variant_id)
     product_nature_variant_valuing.save
     # update, if is the first time interaction with ProductNatureVariantValuing
+    product_nature_variant_valuing.update_variant(variant_id, product_nature_variant_valuing.id)
+    product_nature_variant_valuing
+  end
+
+  def update_variant(variant_id, valuing_id)
     variant = ProductNatureVariant.find(variant_id)
     new_info = {}
-    new_info[:valuing_id] = product_nature_variant_valuing.id
+    new_info[:valuing_id] = valuing_id
     variant.update(new_info)
-    product_nature_variant_valuing
   end
 end
