@@ -655,7 +655,6 @@ class Intervention < Ekylibre::Record::Base
 
   def first_worker_working_period(nature: nil, not_nature: nil)
     test = worker_working_periods(nature: nature, not_nature: not_nature)
-    byebug
   end
 
   class << self
