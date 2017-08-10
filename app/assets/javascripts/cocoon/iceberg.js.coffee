@@ -10,6 +10,8 @@
 
       @_bindEditEvent()
 
+      @toggleInputVisibility()
+
       unless mode is "add" or @line.find('.error').length > 0
         @display.removeClass('hidden')
         @oldForm().remove()
@@ -41,7 +43,7 @@
         clone.removeClass('hidden')
         @_bindButtons(@newForm())
         @setFormSubmitable()
-        @toggleTransporterInput()
+        @toggleInputVisibility()
 
     _bindSelectorsInitialization: ->
       that = this
@@ -94,13 +96,19 @@
       else
         $('.form-actions .primary').attr("disabled",null)
 
-    toggleTransporterInput: ->
-      @line.find('*[data-field="item-delivery-mode"]').click (event) =>
-        target = event.target
-        if target.value == 'transporter'
-          @line.find('.transporter-delivery-mode').removeClass('hidden')
-        else
-          @line.find('.transporter-delivery-mode').addClass('hidden')
+    toggleInputVisibility: ->
+      @line.find('input[data-input-to-show]').click (event) =>
+        element = $(event.target)
+        if element.is("input[type='checkbox']")
+          if element.is(':checked') == element.data('with-value')
+            @line.find(element.data('input-to-show')).removeClass('hidden')
+          else
+            @line.find(element.data('input-to-show')).addClass('hidden')
+        else if element.is("input[type='radio']")
+          if element.val() == element.data('with-value')
+            @line.find(element.data('input-to-show')).removeClass('hidden')
+          else
+            @line.find(element.data('input-to-show')).addClass('hidden')
 
     oldForm: ->
       # console.log 'oldForm:this', this
@@ -134,5 +142,5 @@
         iceberg = new Iceberg($(inserted), "add") if inserted?
       $('*[data-unit-name]').each ->
         $(this).find('.item-population-unit-name').html($(this).attr('data-unit-name'))
-      
+
 ) jQuery
