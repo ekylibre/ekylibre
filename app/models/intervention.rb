@@ -633,15 +633,15 @@ class Intervention < Ekylibre::Record::Base
   end
 
   def worker_working_periods(nature: nil, not_nature: nil)
-    participations.select { |participation| participation.product.is_a?(Worker) }
+    workers_participations = participations.select { |participation| participation.product.is_a?(Worker) }
     working_periods = nil
 
     if nature.nil? && not_nature.nil?
-      working_periods = participations.map(&:working_periods)
+      working_periods = workers_participations.map(&:working_periods)
     elsif !nature.nil?
-      working_periods = participations.map { |participation| participation.working_periods.where(nature: nature) }
+      working_periods = workers_participations.map { |participation| participation.working_periods.where(nature: nature) }
     elsif !not_nature.nil?
-      working_periods = participations.map { |participation| participation.working_periods.where.not(nature: not_nature) }
+      working_periods = workers_participations.map { |participation| participation.working_periods.where.not(nature: not_nature) }
     end
 
     working_periods.flatten
