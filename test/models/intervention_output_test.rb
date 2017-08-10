@@ -75,7 +75,6 @@ class InterventionOutputTest < ActiveSupport::TestCase
       updater_id: 1,
       variant_id: 65
     }
-    i_p = InterventionParameter.new(i)
     i_o = InterventionOutput.new(i)
 
     refute_nil i_o.send(:average_cost_amount)

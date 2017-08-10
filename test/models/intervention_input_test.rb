@@ -58,5 +58,30 @@ require 'test_helper'
 
 class InterventionInputTest < ActiveSupport::TestCase
   test_model_actions
+
+    test "method average_cost_amount" do
+    i = {
+      creator_id: 1,
+      dead: false,
+      id: 61,
+      intervention_id: 15,
+      lock_version: 1,
+      outcoming_product_id: 96,
+      position: 2,
+      product_id: 57,
+      quantity_handler: 'population',
+      quantity_population: 4.1745,
+      quantity_value: 4.1745,
+      reference_name: 'plant_medicine',
+      type: 'InterventionInput',
+      unit_pretax_stock_amount: 0.0,
+      updater_id: 1,
+      variant_id: 20
+    }
+    i_o = InterventionInput.new(i)
+
+    refute_nil i_o.send(:average_cost_amount)
+    assert i_o.send(:average_cost_amount)
+  end
   # Add tests here...
 end
