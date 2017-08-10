@@ -156,6 +156,13 @@ class FixedAssetTest < ActiveSupport::TestCase
     assert_equal @sold_on, fixed_asset.sold_journal_entry.printed_on
   end
 
+  test 'depreciate class method returns the amount of depreciations according to until option provided' do
+    fixed_asset = create(:fixed_asset)
+    fixed_asset.update(state: 'in_use')
+    create(:fixed_asset_depreciation, fixed_asset: fixed_asset)
+    assert_equal 1, FixedAsset.depreciate(until: Date.parse('2020-08-15'))
+  end
+
   private
 
   def depreciate_up_to(depreciations, date)
