@@ -45,7 +45,6 @@ class ProductNatureVariantValuingTest < ActiveSupport::TestCase
   end
 
   test 'method calculate_input' do
-    # self.calculate_input(quantity_new, quantity_action, variant_id)
     valuing = ProductNatureVariantValuing.calculate_input(static_value[:quantity_new], static_value[:quantity_action], @valuing.variant_id)
     assert_equal valuing.amount, 50
     assert_equal valuing.average_cost_amount, 1
@@ -54,7 +53,6 @@ class ProductNatureVariantValuingTest < ActiveSupport::TestCase
   end
 
   test 'method calculate_inventory' do
-    # self.calculate_inventory(quantity_entry, variant_id)
     valuing = ProductNatureVariantValuing.calculate_inventory(static_value[:quantity_entry], @valuing.variant_id)
     assert_equal valuing.amount, 250
     assert_equal valuing.average_cost_amount, 5
