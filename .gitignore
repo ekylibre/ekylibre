@@ -94,4 +94,3 @@ Procfile.*
 
 custom_plan.rb
 zeus.json
-postegres_config
