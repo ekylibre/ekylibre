@@ -73,11 +73,11 @@ class InterventionAgent < InterventionProductParameter
   def cost_amount_computation(nature: nil, natures: {})
     return InterventionParameter::AmountComputation.failed unless product
 
-    if natures.empty?
-      quantity = nature_quantity(nature)
-    else
-      quantity = natures_quantity(natures)
-    end
+    quantity = if natures.empty?
+                 nature_quantity(nature)
+               else
+                 natures_quantity(natures)
+               end
 
     unit_name = Nomen::Unit.find(:hour).human_name
     unit_name = unit_name.pluralize if quantity > 1
@@ -109,7 +109,7 @@ class InterventionAgent < InterventionProductParameter
   end
 
   def nature_quantity(nature)
-    Interventions::WorkingDurationService
+    InterventionWorkingTimeDurationCalculationService
       .new(**working_duration_params)
       .perform(nature: nature)
   end

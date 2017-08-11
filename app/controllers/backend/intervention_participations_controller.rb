@@ -114,7 +114,7 @@ module Backend
       auto_calcul_mode = params[:auto_calcul_mode]
 
       return [] if auto_calcul_mode.to_sym == :false ||
-                    participations.blank? || tool.nil?
+                   participations.blank? || tool.nil?
 
       working_periods = []
       working_duration_params = { intervention: @intervention,
@@ -125,16 +125,16 @@ module Backend
       natures = %i[intervention] unless tool.try(:tractor?)
 
       natures.each do |nature|
-        duration = Interventions::WorkingDurationService
-                    .new(**working_duration_params)
-                    .perform(nature: nature)
+        duration = InterventionWorkingTimeDurationCalculationService
+                   .new(**working_duration_params)
+                   .perform(nature: nature)
 
         stopped_at = intervention_started_at + (duration * 60 * 60)
 
         working_periods << InterventionWorkingPeriod
-                             .new(nature: nature,
-                                  started_at: intervention_started_at,
-                                  stopped_at: stopped_at)
+                           .new(nature: nature,
+                                started_at: intervention_started_at,
+                                stopped_at: stopped_at)
       end
 
       working_periods

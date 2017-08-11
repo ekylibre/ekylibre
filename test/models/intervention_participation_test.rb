@@ -152,7 +152,6 @@ class InterventionParticipationTest < ActiveSupport::TestCase
       started_at: now,
       stopped_at: now + 1.hour
     )
-
     assert_raises do
       @participation.working_periods.create!(
         nature: :intervention,
