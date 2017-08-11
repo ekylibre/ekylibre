@@ -145,6 +145,23 @@ class InterventionParticipationTest < ActiveSupport::TestCase
     assert_equal false, non_comp_int.request_compliant
   end
 
+  test 'working periods in a participation shouldn\'t be able to overlap' do
+    now = Time.zone.now
+    @participation.working_periods.create!(
+      nature: :travel,
+      started_at: now,
+      stopped_at: now + 1.hour
+    )
+
+    assert_raises do
+      @participation.working_periods.create!(
+        nature: :intervention,
+        started_at: now - 30.minutes,
+        stopped_at: now + 30.minutes
+      )
+    end
+  end
+
   def fake_working_periods
     now = Time.zone.now
     [
