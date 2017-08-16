@@ -23,7 +23,7 @@
           <!-- looking for all Interventions in current campaign and activity -->
           <matrix name="interventions" for="intervention" in="Intervention.real.where(state: 'done').of_activity(activity).of_campaign(campaign).order(:started_at)">
             <cell name="id" of="intervention" level="api"/>
-            <cell name="ratio" value="intervention.ratio_for(activity).to_s.to_f" level="api"/>
+            <cell name="ratio" value="intervention.activity_imputation(activity).to_s.to_f" level="api"/>
             <cell name="name" of="intervention" of-type="record"/>
             <cell name="production_support" value="intervention.activity_productions.map{ |ap| ap.name }.to_sentence" of-type="record"/>
             <cell name="production_support_area_value_in_hectare" value="intervention.activity_productions.map{ |ap| ap.support_shape ? ap.support_shape.area.in(:hectare) : 0.in(:hectare) }.sum.in(:hectare).round(2)" level="api"/>

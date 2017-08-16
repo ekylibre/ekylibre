@@ -576,18 +576,15 @@ class Intervention < Ekylibre::Record::Base
     working_zone_area(unit)
   end
   
-  def ratio_for(activity)
+  def activity_imputation(activity)
     if activity.size_indicator == :net_surface_area
       unit = :hectare
       precision = 2
       if targets.any?
         at = targets.of_activity(activity).with_working_zone.map(&:working_zone_area).sum.in(unit)
         coeff = (at.to_d / working_zone_area.to_d) if working_zone_area.to_d != 0.0
-        if coeff
-          return coeff.round(precision)
-        else
-          return 1.00
-        end
+        return nil unless coeff
+        coeff.round(precision)
       end
     end
   end
