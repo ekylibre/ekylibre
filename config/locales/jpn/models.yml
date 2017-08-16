@@ -154,6 +154,7 @@ jpn:
             started_on:
               consecutive: "会計年度はconsecutivesでなければなりません。これは、前回の終了後に開始する必要があります。"
               frozen: "交換が作成されたときの会計年度の日付を変更することはできません。"
+              # on_or_after: "The date selected must be posterior to society's creation date (%{restriction})"
             stopped_on:
               # end_of_month: "%{attribute} must be an end of month"
           # overlap: "%{attribute} overlaps an existing financial year"

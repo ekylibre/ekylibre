@@ -154,6 +154,7 @@ deu:
             started_on:
               consecutive: "Die Geschäftsjahre muss consecutives sein. Es muß nach dem Ende des vorhergehenden starten."
               frozen: "Das Geschäftsjahr Datum kann nicht geändert werden, wenn ein Austausch erstellt wurde."
+              # on_or_after: "The date selected must be posterior to society's creation date (%{restriction})"
             stopped_on:
               # end_of_month: "%{attribute} must be an end of month"
           # overlap: "%{attribute} overlaps an existing financial year"
