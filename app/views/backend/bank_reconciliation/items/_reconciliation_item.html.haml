@@ -7,14 +7,14 @@
     - unless type == 'journal_entry_item'
       %i
   .title
-    %i#type-icon{class: type.dasherize}=# type.humanize
+    %i#type-icon{class: type.dasherize}= # type.humanize
     .name= item.name
   .amounts
     .debit= item.debit
     .credit= item.credit
   .details
     .letter= letter
-    - link = :clear if letter
-    %a{ href: "#", id: link, data: { name: { clear: :clear.tl, complete: :complete.tl } } }
-      %i
-      %span= link && link.tl
+    - if letter
+      = link_to backend_bank_reconciliation_letter_path(id: item.bank_statement.id, letter: letter), method: :delete, remote: true do
+        %i
+        %span= :clear.tl

@@ -60,13 +60,16 @@ deu:
       index: "Tiere"
       new: "neue Tier"
       # show: "%{nature}: %{name}"
+    backend/bank_reconciliation/items:
+      # index: "Reconciliate bank statement %{cash} %{number} (from %{started_on} to %{stopped_on})"
+      # reconciliate: "Bank statements of %{cash} (from %{started_on} to %{stopped_on})"
     backend/bank_statements:
       # edit: "Edit bank statement %{number}"
+      edit_interval: "Bankauszugszeiträume, um sich zu versöhnen"
       import: "Import OFX-Datei"
       index: "Kontoauszüge"
       new: "Neue Kontoauszug"
-      # reconciliation: "Reconciliate bank statement %{cash} #%{number} (from %{started_on} to %{stopped_on})"
-      # show: "Account statement N°%{number}"
+      # show: "Bank statement #%{number}"
     backend/beehives:
       # reset: "Reset beehive: %{name}"
     backend/building_divisions:
@@ -829,7 +832,6 @@ deu:
     attach_deal: "In einen Deal"
     attachment: "Befestigung"
     attachments: "Zubehör"
-    auto_reconciliate: "Auto versöhnen"
     # automatic: "Auto"
     available: "Erhältlich"
     # available_columns: "Available columns: %{columns}"
@@ -902,7 +904,6 @@ deu:
     columns: "Spalten zu importieren"
     commission: "Kommission"
     company: "Gesellschaft"
-    complete: "Komplett"
     completed: "Fertiggestellt"
     conditions:
       filter_on_attribute_of_class: "Filter auf Attribut der Klasse"
@@ -1735,6 +1736,7 @@ deu:
     variants: "Varianten"
     vat: "Mehrwertsteuer"
     view: "Aussicht"
+    view_map_when_creating_an_intervention: "View map bei der Erstellung einer Intervention"
     wages: "Lohn"
     watering_concentration: "Der Wasserverbrauch"
     weather: "Wetter"
@@ -1923,6 +1925,7 @@ deu:
       all_tax_declarations_have_already_existing: "Alle Steuererklärungen sind bereits vorhanden"
       bookkeeping_is_finished: "Die kommerzielle Datenübertragung beendet ist."
       # bookkeeping_works_only_with: "The transfer to accountancy can be done only for: %{list}."
+      cannot_add_bank_statement_item: "Sie können keine neue Zeile hinzufügen, da an diesem Tag kein verfügbarer Kontoauszug vorhanden ist"
       cannot_find_deal_to_attach: "Kann nicht finden, befestigen umzugehen"
       cannot_find_deal_to_detach: "Kann nicht finden, lösen umzugehen"
       cannot_finish_affair: "Kann nicht Angelegenheit beenden"
@@ -2072,6 +2075,7 @@ deu:
       down: "nach unten"
       duplicate: "Duplikat"
       edit: "Bearbeiten"
+      edit_interval: "Versöhnen"
       edit_many: "Bearbeiten Sie viele"
       evaluate: "Bewerten"
       # export: "Export"
