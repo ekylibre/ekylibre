@@ -594,6 +594,9 @@ Rails.application.routes.draw do
       collection do
         get :participations_modal
       end
+      member do
+        post :convert
+      end
     end
 
     resources :inventories, concerns: %i[list unroll] do

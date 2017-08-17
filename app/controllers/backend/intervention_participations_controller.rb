@@ -95,6 +95,8 @@ module Backend
     end
 
     def intervention_tool
+      return nil if params[:product_id].nil?
+
       product = Product.find(params[:product_id])
 
       return nil unless product.is_a?(Equipment)
@@ -105,7 +107,8 @@ module Backend
     def intervention_started_at
       return @intervention.started_at unless @intervention.nil?
 
-      Time.parse(params['intervention_started_at'])
+      Time.parse(params['intervention_started_at']) if params['intervention_started_at'].present?
+      Time.now
     end
 
     def calculate_working_periods
@@ -113,7 +116,8 @@ module Backend
       tool = intervention_tool
       auto_calcul_mode = params[:auto_calcul_mode]
 
-      return [] if auto_calcul_mode.to_sym == :false ||
+      return [] if !auto_calcul_mode.nil? &&
+                   auto_calcul_mode.to_sym == :false ||
                    participations.blank? || tool.nil?
 
       working_periods = []
