@@ -32,17 +32,18 @@
     %td{colspan: 6}
       .item-form
         = f.input :purchase_item_id, as: :hidden
-        = f.referenced_association(:variant, source: { scope: :stockables_or_depreciables }, input_html: { class: 'parcel-item-variant', data: {product_of_delivery_item: {url: backend_product_nature_variant_path("RECORD_ID", format: :json)}}})
-        .non-compliant
-          = f.input :non_compliant, input_html: { class: 'item-non-compliant', data: { warn_if_checked: non_compliant_message, input_to_show: '.non_compliant_detail_text', with_value: true } }
-          .non_compliant_detail_text.hidden
-            = f.input :non_compliant_detail, label: :detail.tl, input_html: { class: 'item-non-compliant-detail' }
+        .merchandise
+          = f.referenced_association(:variant, source: { scope: :stockables_or_depreciables }, input_html: { class: 'parcel-item-variant', data: {product_of_delivery_item: {url: backend_product_nature_variant_path("RECORD_ID", format: :json)}}})
+          .non-compliant
+            = f.input :non_compliant, label: :non_compliant_with_request.tl, input_html: { class: 'item-non-compliant', data: { warn_if_checked: non_compliant_message, input_to_show: '.non_compliant_detail_text', with_value: true } }
+            .non_compliant_detail_text.hidden
+              = f.input :non_compliant_detail, label: :detail.tl, input_html: { class: 'item-non-compliant-detail' }
         -# .errors= item.errors.inspect
         .item-add-storing
           = f.simple_fields_for :storings, f.object.storings do |storing|
             = render 'storing_fields', f: storing
           .storings-footer
-          = link_to_add_association :add_storing.tl, f, :storings, partial: 'storing_fields', 'data-association-insertion-node' => '.storings-footer', 'data-association-insertion-method' => :before, 'data-association-insertion-traversal' => 'prev', class: "btn primary"
+          = link_to_add_association :add_storing.tl, f, :storings, partial: 'storing_fields', 'data-association-insertion-node' => '.storings-footer', 'data-association-insertion-method' => :before, 'data-association-insertion-traversal' => 'prev'#, class: "btn primary"
           %label
             %span= :total.tl
             %span.total-quantity{ data: { calculate: "sum", use: ".storing-quantity", use_closest: ".nested-item-form" } }= 0.0
@@ -59,6 +60,6 @@
             = f.input_field :product_name, placeholder: ParcelItem.human_attribute_name(:product_name)
           = f.input :identification_number do
             = f.input_field :product_identification_number, placeholder: ParcelItem.human_attribute_name(:product_identification_number)
-        .buttons
-          %button.btn{ data: { cancel: 'item-form' } }= :cancel.tl
-          %button.btn.btn-primary{ data: { validate: 'item-form' } }= :validate.tl
+      .buttons
+        %button.btn{ data: { cancel: 'item-form' } }= :cancel.tl
+        %button.btn.btn-primary{ data: { validate: 'item-form' } }= :validate.tl

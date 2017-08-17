@@ -1733,6 +1733,7 @@ fra:
     no_transfers: "Aucun transfert à réaliser" #?
     nominal_storable_easement_area: "Surface de stockage au sol"
     non_compliant: "Non conforme"
+    non_compliant_with_request: "Non conforme par rapport à l'attente" #?
     none: "Aucun"
     normal: "Régime du réel normal"
     not_assessable_operations: "Opérations non imposables" #?

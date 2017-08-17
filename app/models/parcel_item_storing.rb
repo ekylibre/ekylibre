@@ -33,7 +33,6 @@
 #  updater_id     :integer
 #
 class ParcelItemStoring < Ekylibre::Record::Base
-
   belongs_to :parcel_item, inverse_of: :storings
   belongs_to :storage, class_name: 'Product'
 

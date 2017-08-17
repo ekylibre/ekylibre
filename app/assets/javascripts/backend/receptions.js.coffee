@@ -5,9 +5,9 @@
     $('input[data-warn-if-checked]').behave 'load', ->
       $('input[data-warn-if-checked]').each ->
         input = $(this)
-        container = input.parent()
+        container = input.closest('.non-compliant')
         if container.find('.warn-message').length is 0
-          container.append($('<span class="warn-message"></span>').html(input.data('warn-if-checked')).hide())
+          container.prepend($('<span class="warn-message"></span>').html(input.data('warn-if-checked')).hide())
         input.click ->
           if input.prop('checked')
             container.find('.warn-message').show()

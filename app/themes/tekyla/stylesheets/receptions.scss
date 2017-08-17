@@ -25,3 +25,63 @@
   font-size: $fs-huge;
   color: white;
 }
+
+.new_reception .nested-item-form {
+  .item-form {
+    display: flex;
+
+    .merchandise {
+      @include flex-column(flex-start);
+	  flex: 25%;
+	}
+
+	.item-add-storing {
+	  flex: 25%;
+	}
+
+	.item-delivery-mode {
+	  flex: 25%;
+	}
+
+	.control-label {
+	  margin: 0;
+	  margin-bottom: $default-gap;
+	  max-width: none;
+	  width: 100%;
+	}
+
+	.controls {
+	  margin: 0;
+	}
+
+	.non-compliant {
+	  @include flex-column();
+	}
+
+	.reception_items_non_compliant {
+	  display: flex;
+	  flex-direction: row-reverse;
+	  justify-content: center;
+	  align-content: center;
+	  width: 100%;
+	}
+
+	.reception_items_non_compliant .control-label {
+	  margin-left: $default-gap;
+	  margin-bottom: 0;
+	}
+
+	.reception_items_non_compliant_detail {
+	  @include flex-row(flex-start);
+	}
+
+	.reception_items_non_compliant_detail .control-label {
+	  max-width: 4em;
+	  @include flex-row(flex-start);
+	}
+  }
+
+  .buttons {
+    float: right;
+  }
+}

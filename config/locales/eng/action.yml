@@ -1609,6 +1609,7 @@ eng:
     # no_worker_account: "No worker account"
     nominal_storable_easement_area: "Nominal storable easement area"
     non_compliant: "Non compliant"
+    non_compliant_with_request: "Non compliant with request"
     none: "None"
     normal: "Normal" #?
     not_delivered: "Not delivered" #?
