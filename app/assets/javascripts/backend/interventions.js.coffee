@@ -168,12 +168,10 @@
           data: form.serialize()
           beforeSend: ->
             computing.prop 'state', 'waiting'
-            $('.form-actions .primary').attr("disabled", true)
           error: (request, status, error) ->
             computing.prop 'state', 'ready'
             false
           success: (data, status, request) ->
-            $('.form-actions .primary').attr("disabled", null)
             console.group('Unserialize intervention updated by ' + updaterId)
             # Updates elements with new values
             E.interventions.toggleHandlers(form, data.handlers, 'intervention_')
@@ -189,23 +187,76 @@
       if hideFilters
         $('.feathers input[name*="nature"], .feathers input[name*="state"]').closest('.feather').hide()
       else
-      i  $('.feathers input[name*="nature"], .feathers input[name*="state"]').closest('.feather').show()
+        $('.feathers input[name*="nature"], .feathers input[name*="state"]').closest('.feather').show()
 
     showInterventionParticipationsModal: ->
       $(document).on 'click', '.has-intervention-participations', (event) ->
 
+        targetted_element = $(event.target)
         intervention_id = $('input[name="intervention_id"]').val()
-        product_id = $(event.target).closest('.nested-product-parameter').find(".scoped-parameter").attr('value')
+        product_id = $(event.target).closest('.nested-product-parameter').find(".selector .selector-value").val()
+        existingParticipation = $('.intervention-participation[data-product-id="' + product_id + '"]').val()
+        participations = $('intervention_participation')
+        interventionStartedAt = null
+
+        participations = []
+        $('.intervention-participation').each ->
+          participations.push($(this).val())
+
+        if intervention_id == ""
+          interventionStartedAt = $('.intervention-started-at').val()
+
+        autoCalculMode = true
+        if $('input[name="auto-calcul-mode"]').length == 0
+          $('.simple_form').append('<input type="hidden" name="auto-calcul-mode" value="true"></input>')
+        else
+          autoCalculMode = $('input[name="auto-calcul-mode"]').val()
+
+
+        datas = {}
+        datas['intervention_id'] = intervention_id
+        datas['product_id'] = product_id
+        datas['existing_participation'] = existingParticipation
+        datas['participations'] = participations
+        datas['intervention_started_at'] = interventionStartedAt
+        datas['auto_calcul_mode'] = autoCalculMode
 
         $.ajax
           url: "/backend/intervention_participations/participations_modal",
-          data: { intervention_id: intervention_id, product_id: product_id }
+          data: datas
           success: (data, status, request) ->
 
             @workingTimesModal = new ekylibre.modal('#working_times')
             @workingTimesModal.removeModalContent()
             @workingTimesModal.getModalContent().append(data)
             @workingTimesModal.getModal().modal 'show'
+
+    addLazyLoading: ->
+      loadContent = false
+      currentPage = 1
+      taskHeight = 60
+      halfTaskList = 12
+
+      urlParams = decodeURIComponent(window.location.search.substring(1)).split("&")
+      params = urlParams.reduce((map, obj) ->
+        param = obj.split("=")
+        map[param[0]] = param[1]
+        return map
+      , {})
+
+      $('#content').scroll ->
+        if !loadContent && $('#content').scrollTop() > (currentPage * halfTaskList) * taskHeight
+          currentPage++
+          params['page'] = currentPage
+
+          loadContent = true
+
+          $.ajax
+            url: "/backend/interventions/change_page",
+            data: { interventions_taskboard: params }
+            success: (data, status, request) ->
+              loadContent = false
+              taskboard.addTaskClickEvent()
 
 
   ##############################################################################
@@ -225,6 +276,10 @@
 
   $(document).on 'mapchange', '*[data-intervention-updater]', ->
     $(this).each ->
+      E.interventions.refresh $(this)
+
+  $(document).ready ->
+    $('*[data-intervention-updater]').each ->
       E.interventions.refresh $(this)
 
   #  selector:initialized
@@ -248,28 +303,30 @@
     $(this).each ->
       E.interventions.updateAvailabilityInstant($(this).val())
 
-  $(document).on "click", ".nested-doers .nested-add", (e) ->
-    nestedField = $('.nested-doers .nested-fields').last()
+
+  $(document).on "selector:change", 'input[data-selector-id="intervention_doer_product_id"], input[data-selector-id="intervention_tool_product_id"]', (event) ->
+    element = $(event.target)
+    blockElement = element.closest('.nested-fields')
+
     pictoTimer = $('<div class="has-intervention-participations picto picto-timer-off"></div>')
 
-    $(nestedField).append(pictoTimer)
-    $(nestedField).find(".has-intervention-participations").trigger("click")
+    $(blockElement).append(pictoTimer)
 
-  # $(document).on "click", '.view-toolbar a', (event) ->
-  #   E.interventions.hideKujakuFilters($(event.target).is('[data-janus-href="cobbles"]'))
 
 
   $(document).ready ->
 
     # E.interventions.hideKujakuFilters($('.view-toolbar a[data-janus-href="cobbles"]').hasClass('active'))
 
-    if $('.edit_intervention').length > 0
+    if $('.new_intervention, .edit_intervention').length > 0
       E.interventions.showInterventionParticipationsModal()
 
     if $('.taskboard').length > 0
 
       taskboard = new InterventionsTaskboard
       taskboard.initTaskboard()
+
+      E.interventions.addLazyLoading()
 
 
   class InterventionsTaskboard

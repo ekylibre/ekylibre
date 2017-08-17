@@ -5,9 +5,9 @@
   .participation
     = hidden_field_tag 'working_period_id', working_period.id
 
-    = hidden_field_tag "#{working_periods_attributes}[#{index}][nature]", working_period.nature, data: { 'is-nature-hidden-field': true }
-    = hidden_field_tag "#{working_periods_attributes}[#{index}][started_at]", working_period.started_at.l(format: :full), data: { 'is-hours-hidden-field': true  }
-    = hidden_field_tag "#{working_periods_attributes}[#{index}][stopped_at]", working_period.stopped_at.l(format: :full), data: { 'is-minutes-hidden-field': true }
+    = hidden_field_tag "working_period_nature", working_period.nature, data: { 'is-nature-hidden-field': true }
+    = hidden_field_tag "working_period_started_at", working_period.started_at.l(format: :full), data: { 'is-hours-hidden-field': true  }
+    = hidden_field_tag "working_period_stopped_at", working_period.stopped_at.l(format: :full), data: { 'is-minutes-hidden-field': true }
 
     .participation-icon
       .picto.picto-timelapse
@@ -15,12 +15,12 @@
 
     .participation-form
       .participation-field
-        = text_field_tag "#{working_periods_attributes}[#{index}][hours]", working_period.hours_gap, { class: "participation-input", data: { 'is-hours-field': true  }}
-        %span H
+        = text_field_tag "working_period_hours", working_period.hours_gap, { class: "participation-input", data: { 'is-hours-field': true  }}
+        %span= t('labels.hours')
 
       .participation-field
-        = text_field_tag "#{working_periods_attributes}[#{index}][minutes]", working_period.minutes_gap, { class: "participation-input", data: { 'is-minutes-field': true  }}
-        %span Min
+        = text_field_tag "working_period_minutes", working_period.minutes_gap, { class: "participation-input", data: { 'is-minutes-field': true  }}
+        %span= t('labels.minutes')
 
     .participation-result
       %span{ class: "previous-working-date" }= working_period.started_at.l(format: :full)

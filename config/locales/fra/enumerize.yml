@@ -502,9 +502,9 @@ fra:
         outgoing_email: "Courriel sortant"
         outgoing_mail: "Courrier sortant"
       state:
-        doing: "Faire"
+        doing: "En cours"
         done: "Terminé"
-        todo: "Faire"
+        todo: "À faire"
     tax_declaration:
       mode:
         debit: "Débit"

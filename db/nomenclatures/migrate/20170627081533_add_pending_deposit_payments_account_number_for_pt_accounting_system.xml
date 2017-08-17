@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<migration name="Add pending deposit payments account number for pt accounting system">
+  <item-change item="accounts#pending_deposit_payments" fr_pcg82="511" pt_snc="18"/>
+</migration>

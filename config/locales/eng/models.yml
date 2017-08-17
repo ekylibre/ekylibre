@@ -140,7 +140,7 @@ eng:
           different_of_main_account: "%{attribute} must be different of main account (%{account})"
           unvalid_bban: "Unvalid BBAN. One or more elements are incorrect."
         deposit:
-          must_be_a_bank_account: "%{field} must be a bank account and not a cash"
+          must_be_a_bank_account: "%{attribute} must be a bank account and not a cash"
         entity:
           missing_title: "%{attribute} must contains the title “%{title}”"
           nature_do_not_allow_a_first_name: "The selectected type “%{nature}” does not allow a first name"
@@ -166,6 +166,10 @@ eng:
               invalid_date: "The depreciation must start on %{start} or on a beginning of month"
         incoming_parcel_item:
           greater_than_undelivered_quantity: "The quantity of product %{product} to deliver is greater than undelivered quantity (%{maximum}%{unit})"
+        integration:
+          attributes:
+            parameters:
+              check_errored: "Connexion check errored. Please ensure the validity of your input or try again later."
         journal:
           attributes:
             accountant:
@@ -628,6 +632,7 @@ eng:
     customized_type: "Customized type"
     daily_nitrogen_production: "Daily nitrogen production"
     dashboards: "Dashboards"
+    # data: "Data"
     dead: "Dead"
     dead_at: "Dead on"
     dead_line_at: "Dead line at"
@@ -1558,7 +1563,7 @@ eng:
     updater: "Updater"
     uploaded: "Uploaded"
     url: "URL"
-    usable_incoming_payments: "Usable incoming payments"
+    usable_incoming_payments: "Usable incoming payments" #?
     usage: "Usage"
     usage_limit_nature: "Used by type"
     usage_limit_on: "Used by on"

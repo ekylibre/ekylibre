@@ -69,6 +69,14 @@ class InterventionWorkingPeriod < Ekylibre::Record::Base
     where(intervention_participation: intervention_participations)
   }
 
+  scope :without_participants_intervention, lambda { |_role, object|
+    where.not(intervention_id: InterventionParticipation.of_actor(object).pluck(:intervention_id).compact)
+  }
+
+  scope :precise_working_periods, lambda { |role, object|
+    where(id: (InterventionWorkingPeriod.with_intervention_parameter(role, object).without_participants_intervention(role, object).pluck(:id) + InterventionWorkingPeriod.of_intervention_participations(object.intervention_participations).pluck(:id)))
+  }
+
   scope :of_nature, lambda { |nature|
     where(nature: nature)
   }
@@ -84,10 +92,11 @@ class InterventionWorkingPeriod < Ekylibre::Record::Base
     if started_at && stopped_at && stopped_at <= started_at
       errors.add(:stopped_at, :posterior, to: started_at.l)
     end
+
     if intervention_participation.present?
       siblings = intervention_participation.working_periods.where.not(id: id || 0)
-      errors.add(:started_at, :overlap_sibling) if siblings.where('started_at < ? AND ? < stopped_at', started_at, started_at).any?
-      errors.add(:stopped_at, :overlap_sibling) if siblings.where('started_at < ? AND ? < stopped_at', stopped_at, stopped_at).any?
+      errors.add(:started_at, :overlap_sibling) if siblings.where('started_at <= ? AND ? < stopped_at', started_at, started_at).any?
+      errors.add(:stopped_at, :overlap_sibling) if siblings.where('started_at < ? AND ? <= stopped_at', stopped_at, stopped_at).any?
     end
   end
 
@@ -127,6 +136,10 @@ class InterventionWorkingPeriod < Ekylibre::Record::Base
 
   def gap_with_period?(working_period)
     stopped_at < working_period.started_at
+  end
+
+  def duration_gap
+    (stopped_at - started_at) / 3600
   end
 
   private

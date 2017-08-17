@@ -4,12 +4,15 @@ spa:
     started_on: "Comenzó en"
     stopped_on: "Detenido en"
   aggregator_properties:
+    active: "Activo"
     area: "Zona"
     area_in_hectare: "Área en hectáreas"
     born_at: "Nacido en"
     breeding_number: "Número de cría"
     campaigns: "Campañas"
     capitalised_production: "La producción capitalizada" #?
+    catalog_name: "Nombre de catálogo"
+    charge_account_label: "Cargar la etiqueta de la cuenta"
     company: "Empresa"
     container_name: "Nombre de contenedor"
     current_result_before_taxes: "Resultado actual antes de impuestos"
@@ -63,6 +66,7 @@ spa:
     other_purchases: "Otras compras" #?
     owner_name: "Nombre del dueño"
     payment_ratio: "Ratio de pago"
+    person_name: "Nombre de la persona"
     pictogram: "Pictograma"
     picture_path: "Pathimagen"
     # plan: "Plan"
@@ -86,6 +90,7 @@ spa:
     sex: "Sexo"
     social_expenses: "Los gastos sociales" #?
     soil_varieties: "Variedades de suelos" #?
+    stock_account_label: "Etiqueta de cuenta de stock"
     stock_production: "De la producción" #?
     stocks_variation: "Variación de las existencias" #?
     subsidies: "Subsidios" #?
@@ -96,3 +101,4 @@ spa:
     vine_yield: "El rendimiento de la vid"
     wages: "Salario" #?
     working_area: "Área de trabajo"
+    working_duration_in_hours: "Duración del trabajo en horas"

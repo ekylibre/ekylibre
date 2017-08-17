@@ -166,7 +166,7 @@
         <page to="backend/fixed_assets#update"/>
         <page to="backend/fixed_asset_depreciations#show"/>
         <page to="backend/fixed_assets#depreciate"/>
-        <page to="backend/fixed_assets#depreciate_up_to"/>
+        <page to="backend/fixed_assets#depreciate_all"/>
         <page to="backend/fixed_assets#scrap"/>
         <page to="backend/fixed_assets#sell"/>
         <page to="backend/fixed_assets#start_up"/>
@@ -201,7 +201,6 @@
         <page to="backend/cashes#show"/>
         <page to="backend/cashes#unroll"/>
         <page to="backend/cashes#update"/>
-        <page to="backend/bank_statement_items#new"/>
         <page to="backend/bank_statements#index"/>
         <page to="backend/bank_statements#create"/>
         <page to="backend/bank_statements#destroy"/>
@@ -212,19 +211,23 @@
         <page to="backend/bank_statements#show"/>
         <page to="backend/bank_statements#unroll"/>
         <page to="backend/bank_statements#update"/>
-        <page to="backend/bank_statements#reconciliation"/>
         <page to="backend/bank_statements#import"/>
-        <page to="backend/bank_reconciliation_gaps#create"/>
+        <page to="backend/bank_statements#edit_interval"/>
+        <page to="backend/bank_statement_items#create"/>
+        <page to="backend/bank_statement_items#destroy"/>
+        <page to="backend/bank_statement_items#new"/>
+        <page to="backend/bank_reconciliation/letters#create"/>
+        <page to="backend/bank_reconciliation/letters#destroy"/>
+        <page to="backend/bank_reconciliation/gaps#create"/>
+        <page to="backend/bank_reconciliation/items#index"/>
+        <page to="backend/bank_reconciliation/items#count"/>
+        <page to="backend/bank_reconciliation/items#reconciliate"/>
         <page to="backend/quick_affairs#create"/>
         <page to="backend/quick_affairs#new"/>
         <page to="backend/quick_purchases#new"/>
         <page to="backend/quick_purchases#create"/>
         <page to="backend/quick_sales#new"/>
         <page to="backend/quick_sales#create"/>
-        <page to="backend/bank_statements#letter"/>
-        <page to="backend/bank_statements#unletter"/>
-        <page to="backend/bank_statement_items#create"/>
-        <page to="backend/bank_statement_items#destroy"/>
       </item>
       <item name="loans">
         <page to="backend/loans#index"/>
@@ -745,6 +748,7 @@
         <page to="backend/interventions#new"/>
         <page to="backend/interventions#show"/>
         <page to="backend/interventions#update"/>
+        <page to="backend/interventions#change_page"/>
         <page to="backend/interventions#change_state"/>
         <page to="backend/interventions#modal"/>
         <page to="backend/interventions#list_product_parameters"/>
@@ -760,6 +764,7 @@
         <page to="backend/intervention_participations#convert"/>
         <page to="backend/intervention_participations#destroy"/>
         <page to="backend/intervention_participations#update"/>
+        <page to="backend/intervention_participations#participations_modal"/>
         <page to="backend/prescriptions#index"/>
         <page to="backend/prescriptions#create"/>
         <page to="backend/prescriptions#destroy"/>
@@ -2030,13 +2035,13 @@
         <page to="backend/outgoing_payments#update"/>
       </item>
     </group>
-  </inaccessible-actions>
-  <untreated-actions>
     <group>
-      <item name="intervention_participations">
-        <page to="backend/intervention_participations#create"/>
-        <page to="backend/intervention_participations#participations_modal"/>
+      <item name="preferences">
+        <page to="backend/preferences#update"/>
       </item>
     </group>
+  </inaccessible-actions>
+  <untreated-actions>
+    <group/>
   </untreated-actions>
 </navigation>

@@ -27,9 +27,9 @@
 
     newLine = $('<div class="participation"></div>')
 
-    $(newLine).append('<input type="hidden" value="' + period_nature + '" name="' + workingPeriodsAttributes  + '[nature]" data-is-nature-hidden-field="true"></input>')
-    $(newLine).append('<input type="hidden" name="' + workingPeriodsAttributes  + '[started_at]" data-is-hours-hidden-field="true"></input>')
-    $(newLine).append('<input type="hidden" name="' + workingPeriodsAttributes  + '[stopped_at]" data-is-minutes-hidden-field="true"></input>')
+    $(newLine).append('<input type="hidden" value="' + period_nature + '" name="working_period_nature" data-is-nature-hidden-field="true"></input>')
+    $(newLine).append('<input type="hidden" name="working_period_started_at" data-is-hours-hidden-field="true"></input>')
+    $(newLine).append('<input type="hidden" name="working_period_stopped_at" data-is-minutes-hidden-field="true"></input>')
 
     participation_icon = $('<div class="participation-icon"></div>')
     $(participation_icon).append('<div class="picto picto-timelapse"></div>')
@@ -39,12 +39,12 @@
     $(newLine).append('<div class="participation-form"></div>')
 
     hour_field = $('<div class="participation-field"></div>')
-    $(hour_field).append('<input type="text" name="' + workingPeriodsAttributes + '[hours]" class="participation-input" data-is-hours-field="true"></input>')
+    $(hour_field).append('<input type="text" name="working_period_hours" class="participation-input" data-is-hours-field="true"></input>')
     $(hour_field).append('<span class="participation-field-label">H</span>')
     $(newLine).find('.participation-form').append(hour_field)
 
     min_field = $('<div class="participation-field"></div>')
-    $(min_field).append('<input type="text" name="' + workingPeriodsAttributes + '[minutes]" class="participation-input" data-is-minutes-field="true"></input>')
+    $(min_field).append('<input type="text" name="working_period_minutes" class="participation-input" data-is-minutes-field="true"></input>')
     $(min_field).append('<span class="participation-field-label">Min</span>')
     $(newLine).find('.participation-form').append(min_field)
 
@@ -63,15 +63,71 @@
     return
 
 
-  $(document).on "submit", '.edit_intervention_participation', (event) ->
+  $(document).on 'click', '#validParticipationsForm', (event) ->
+    element = $(event.target)
+
+    participation = new Object()
+    participation.id = $('#intervention_participation_id').val()
+    participation.intervention_id = $('#intervention_participation_intervention_id').val()
+    participation.product_id = $('#intervention_participation_product_id').val()
+    participation.state = "done"
+
+    workingPeriods = []
+    participations = $('.participation')
+    has_one_full_participation = false
+
+    $('.participation').each ->
+      workingPeriodNature = $(this).find('input[name="working_period_nature"]').val()
+
+      if workingPeriodNature != "pause"
+        workingPeriod = new Object()
+        workingPeriod.id= $(this).find('input[name="working_period_id"]').val()
+        workingPeriod.nature = workingPeriodNature
+        workingPeriod.started_at = $(this).find('input[name="working_period_started_at"]').val()
+        workingPeriod.stopped_at = $(this).find('input[name="working_period_stopped_at"]').val()
+
+        if workingPeriod.started_at != "" && workingPeriod.stopped_at != ""
+          has_one_full_participation = true
+
+        workingPeriods.push(workingPeriod)
+
+    participation.working_periods_attributes = workingPeriods
+    jsonParticipation = JSON.stringify(participation)
+
+    participationsCount = $('input[type="hidden"].intervention-participation').length
+    existingParticipation = $('.intervention-participation[data-product-id="' + participation.product_id + '"]')
+
+    if existingParticipation.length > 0
+      existingParticipation.val(jsonParticipation)
+    else
+      $('.edit_intervention, .new_intervention').find('.form-fields').append('<input type="hidden" class="intervention-participation" name="intervention[participations_attributes][' + participationsCount + ']" value=\'' + jsonParticipation + '\' data-product-id="' + participation.product_id  + '"></input>')
+
+
+    concernedProductField = $('.nested-fields .selector .selector-value[value="' + participation.product_id + '"]')
+    nestedFieldBlock = concernedProductField.closest('.nested-fields')
+    productFieldPicto = nestedFieldBlock.find('.picto-timer-off')
+
+    if has_one_full_participation && productFieldPicto.length == 1
+      productFieldPicto.removeClass('picto-timer-off')
+      productFieldPicto.addClass('picto-timer')
+
     @workingTimesModal = new ekylibre.modal('#working_times')
     @workingTimesModal.getModal().modal 'hide'
 
 
-  $(document).on "change", '#working_times .participations input[type="text"]', (event) ->
+  $(document).on "keyup", '#working_times .participations input[type="text"]', (event) ->
     element = $(event.target)
 
+    if $('#working_times #intervention_tool').length == 1
+      $('input[name="auto-calcul-mode"]').val("false")
+
     E.interventionParticipations.changeWorkingPeriod(element)
+
+
+  $(document).on "click", '#participation_auto_calculate_equipments', (event) ->
+
+    isChecked = $(event.target).is(':checked')
+    $('input[name="auto-calcul-mode"]').val(isChecked)
 
 
   E.interventionParticipations =

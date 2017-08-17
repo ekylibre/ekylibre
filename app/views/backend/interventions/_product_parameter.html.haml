@@ -9,30 +9,36 @@
     - participation = product_parameter.participation if product_parameter.is_a?(InterventionDoer)
     - is_equipment = product.try(:tractor?) || product.try(:self_prepelled_equipment?)
     .periods
-      - if (!participation.nil? && participation.has_period_with_nature?(nature: :preparation)) || is_equipment
+      - if (!participation.nil? && participation.has_period_with_nature?(nature: :preparation))
         .period
           .period-type
             = image_tag('intervention_participations/action-preparation.svg', class: "period-icon")
-            %h3{ class: "period-label" } Préparation
+            %h3{ class: "period-label" }= t('enumerize.intervention_working_period.nature.preparation')
           = add_working_period_cost(product_parameter, nature: :preparation)
 
-      - if !participation.nil? && participation.has_period_with_nature?(nature: :travel)
+      - if !participation.nil? && participation.has_period_with_nature?(nature: :travel) || product.try(:tractor?)
         .period
           .period-type
             = image_tag('intervention_participations/action-travel.svg', class: "period-icon")
-            %h3{ class: "period-label" } Déplacement
+            %h3{ class: "period-label" }= t('enumerize.intervention_working_period.nature.travel')
           = add_working_period_cost(product_parameter, nature: :travel)
 
-      - if (!participation.nil? && participation.has_period_with_nature?(nature: :intervention)) || is_equipment
+      - if (!participation.nil? && participation.has_period_with_nature?(nature: :intervention)) || product.is_a?(Equipment)
         .period
           .period-type
             = image_tag('intervention_participations/action-intervention.svg', class: "period-icon")
-            %h3{ class: "period-label" } Intervention
+            %h3{ class: "period-label" }= t('enumerize.intervention_working_period.nature.intervention')
           = add_working_period_cost(product_parameter, nature: :intervention)
 
         .total
-          %h3{ class: "total-label" } Total
-          = add_total_working_period(product_parameter)
+          %h3{ class: "total-label" }= t('labels.total')
+
+          - if product.is_a?(Worker)
+            = add_total_working_period(product_parameter)
+          - elsif product.try(:tractor?)
+            = add_total_working_period(product_parameter, natures: %i[travel intervention])
+          - else
+            = add_total_working_period(product_parameter, natures: %i[intervention])
 
   - variant = product_parameter.variant
   - if actor

@@ -275,7 +275,7 @@ fra:
           different_of_main_account: "%{attribute} doit être différent du compte comptable principal (%{account})"
           unvalid_bban: "La clé ne correspond pas. Un ou plusieurs éléments du RIB sont incorrects."
         deposit:
-          must_be_a_bank_account: "%{field} doit être un compte bancaire et non une caisse"
+          must_be_a_bank_account: "%{attribute} doit être un compte bancaire et non une caisse"
         entity:
           missing_title: "%{attribute} doit contenir la dénomination sociale «\_%{title}\_»"
           nature_do_not_allow_a_first_name: "Le type «\_%{nature}\_» sélectionné ne permet de renseigner un prénom"
@@ -301,6 +301,10 @@ fra:
               invalid_date: "La période d’amortissement doit débuter le %{start} ou en début de mois"
         incoming_parcel_item:
           greater_than_undelivered_quantity: "La quantité de produit %{product} à livrer dépasse la quantité non livrée (%{maximum}%{unit})"
+        integration:
+          attributes:
+            parameters:
+              check_errored: "La connexion au partenaire a échoué. Veuillez vérifier les informations saisies ou réessayer plus tard."
         journal:
           attributes:
             accountant:

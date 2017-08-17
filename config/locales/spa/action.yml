@@ -3,9 +3,10 @@ spa:
     authentication/invitations:
       edit: "Aceptar la invitacion"
     authentication/passwords:
-      # edit: "Edit password: %{name}"
+      edit: "Nueva contraseña"
       new: "Nueva contraseña"
     authentication/registrations:
+      edit: "Regístrate"
       new: "Regístrate"
     authentication/sessions:
       destroy: "Cerrar sesión"
@@ -65,12 +66,15 @@ spa:
       index: "Animales"
       new: "Nuevo animal"
       # show: "%{nature}: %{name}"
+    backend/bank_reconciliation/items:
+      # index: "Reconciliate bank statement %{cash} %{number} (from %{started_on} to %{stopped_on})"
+      # reconciliate: "Bank statements of %{cash} (from %{started_on} to %{stopped_on})"
     backend/bank_statements:
       edit: "Modificar el leventar N°%{number}"
+      edit_interval: "Períodos de estados bancarios para conciliar"
       import: "archivo de importación OFX"
       index: "Levantar de cuntos bancarios"
       new: "Despuntar un nuevo leventar de cuento"
-      # reconciliation: "Reconciliate bank statement %{cash} #%{number} (from %{started_on} to %{stopped_on})"
       show: "Leventard de cuento N°%{number}"
     backend/beehives:
       # reset: "Reset beehive: %{name}"
@@ -459,7 +463,7 @@ spa:
       new: "Nuevo pago de la nómina"
       # show: "Payslip payment: %{number}"
     backend/payslips:
-      # edit: "Edit payslip: %{name}"
+      # edit: "Edit payslip: %{number}"
       index: "Papeletas"
       new: "Nuevo salario"
       # show: "Payslip: %{number}"
@@ -642,7 +646,7 @@ spa:
       index: "Utilizador"
       lock: "Bloqueo de usuarios"
       new: "Creación de nuevo utilizador"
-      show: "Utilizador\_: %{first_name} %{last_name} (%{name})"
+      show: "Utilizador\_: %{first_name} %{last_name}"
       unlock: "Desbloquear usuario"
     backend/wine_tanks:
       index: "Tanques del vino"
@@ -793,6 +797,7 @@ spa:
     add_catalog_price: "Añadir precio de catálogo"
     add_child: "Añadir un componente secundario"
     add_choice: "Añadir elección"
+    add_compensation_entry: "Añadir entrada de compensación"
     add_component: "Añadir componente"
     add_condition: "Añadir condición"
     add_conditions: "Añadir condiciones"
@@ -898,7 +903,6 @@ spa:
     attach_deal: "Añadir un acuerdo"
     attachment: "Pieza juntada"
     attachments: "Archivos adjuntos"
-    auto_reconciliate: "reconciliar Auto"
     # automatic: "Auto"
     available: "Disponible"
     available_columns: "Campos disponibles\_: %{columns}"
@@ -994,7 +998,6 @@ spa:
     columns: "Columnas para importar"
     commission: "Comisión"
     company: "Sociedad"
-    complete: "Completar"
     completed: "Terminado"
     conditions:
       filter_on_attribute_of_class: "Filtro de atributo de la clase"
@@ -1145,7 +1148,7 @@ spa:
     edit: "Editar"
     edit_budget: "Editar presupuesto"
     ekylibre: "www.ekylibre.org"
-    elapsed_interventions_times_by_activities: "Intervenciones transcurridos veces por actividades" #?
+    elapsed_interventions_times_by_activities: "Intervenciones transcurridos veces por actividades"
     # email: "Email:"
     emissions_and_reevaluation_gaps: "Emisiones y lagunas de reevaluación"
     employee_and_wages: "Los empleados y los salarios"
@@ -1251,6 +1254,7 @@ spa:
     # hint: "Hint: %{value}"
     historic: "Histórico"
     home: "Vuelta a la cogida de la ayuda"
+    # hours: "H"
     human_working_duration: "Duración de trabajo"
     humans: "HORA"
     iban: "Numero de cuento bancario internacional (IBAN)"
@@ -1284,6 +1288,7 @@ spa:
     insert_actual_password: "Coja su contraseña actual" #?
     insert_password: "Coja su nueva contraseña" #?
     inspections: "inspecciones"
+    interactive_maps: "Una biblioteca JS para mapas interactivos"
     interface_preferences: "Preferencias de la interfaz"
     internal_error: "Vaya, algo sucedió."
     international_normal_vat_collected: "Tasa normal a 8,5%" #?
@@ -1424,6 +1429,7 @@ spa:
     method: "Método"
     minimal_temperature: "Temperatura mínima"
     minimum_amount: "Monto minimo"
+    # minutes: "Min"
     missing_attributes: "Algunos atributos faltan"
     missing_help: "La página no existe"
     mobile: "Móvil"
@@ -1453,6 +1459,7 @@ spa:
     net_income: "Lngresos netos"
     net_margin: "Margen neto" #?
     net_mass: "Masa neta"
+    net_production_sales: "Ventas netas de producción"
     net_surface_area: "Área de superficie Net"
     net_vat_amount: "TVA neta deuda" #?
     new: "Nuevo"
@@ -1971,6 +1978,7 @@ spa:
     variants: "Variantes"
     vat: "TINA"
     view: "Ver"
+    view_map_when_creating_an_intervention: "Ver mapa al crear una intervención"
     wages: "Salario"
     watering_concentration: "Uso del agua"
     weather: "Clima"
@@ -1981,6 +1989,7 @@ spa:
     workers: "Trabajadores"
     working_duration: "Duración de trabajo"
     working_sets_stocks: "Trabajo establece las existencias"
+    # working_times: "Working times of %{name}"
     x_cashes:
       # one: "%{count} cash"
       # other: "%{count} cashes"
@@ -2081,6 +2090,9 @@ spa:
     x_outgoing_payments:
       # one: "%{count} disbursement"
       # other: "%{count} disbursements"
+    x_purchase_payments:
+      # one: "%{count} purchase payment"
+      # other: "%{count} purchase payments"
     x_purchases:
       one: "1 compra"
       # other: "%{count} purchases"
@@ -2153,12 +2165,14 @@ spa:
       access_denied: "No tiene drecho de acceso para esta pagina. %{reason} (%{url})"
       accountant_notified: "El contador se ha notificado"
       accountant_without_email: "Por favor, configurar el correo electrónico contador"
+      all_fixed_assets_must_be_depreciable: "Todos los activos fijos deben ser amortizables"
       all_parcels_must_be_invoiceable_and_of_same_nature_and_third: "Todos los paquetes deben ser facturable y de la misma naturaleza y el tercer"
       all_purchases_must_be_ordered_or_invoiced: "Todas las compras se deben ordenar o facturar."
       all_tax_declarations_have_already_existing: "Todas las declaraciones de impuestos ya existen"
       bad_file: "El fichero no parece corresponder" #?
       bookkeeping_is_finished: "La basula en contabilidad esta terminada."
       bookkeeping_works_only_with: "La bascula en contabilidad puede hacerse actualmente solo para\_: %{list}."
+      cannot_add_bank_statement_item: "No puede agregar una nueva línea porque no hay ningún estado de cuenta bancaria disponible en este día"
       cannot_delete_entity: "No es posible suprimir esta papeleta porque tiene reseña historica contable" #?
       cannot_find_deal_to_attach: "No se puede encontrar tratar de adjuntar"
       cannot_find_deal_to_detach: "No se puede encontrar tratar de separar"
@@ -2171,10 +2185,9 @@ spa:
       closed_financial_year_exchange: "El cambio de ejercicio se ha cerrado con éxito"
       closed_financial_years: "El ejercicio ha sido correctamente cerrado"
       columns_are_already_uses: "Una o varias columnas que hay que importar son seleccionados muchas veces"
+      # could_not_attach_x_or_y_to_affair: "Could not attach %{x} or %{y} to affair"
       dashboard_is_being_developed: "Dashboard es en fuerte desarrollo"
       density_is_not_computable_in_counting: "No se pudo calcular la densidad de este conteo. Los valores que faltan deben ser completados en las propiedades del conteo o indicadores del sembrador."
-      depreciation_failed: "Activos no podían ser amortizados."
-      depreciation_successful: "Los activos se han depreciado con éxito."
       draft_entries_are_validated: #?
         one: "La pieza ha sido validada y es sacada de la niebla" #?
         other: "%{count} han sido validadas y son sacadas de la niebla" #?
@@ -2239,6 +2252,7 @@ spa:
       no_depositable_payments: "No hay pago para entregar en banco"
       no_existing_mandates: "No hay responsabilidades registradas por el momento" #?
       no_financial_year: "Ningun ejercicio registrado" #?
+      no_fixed_assets_given: "No hay activos fijos dados"
       no_inspections_given: "No se dan las inspecciones"
       no_interventions_given: "No se dan las intervenciones"
       no_lines_found: "Ningun producto ha sido añadido al encargo" #?
@@ -2296,6 +2310,9 @@ spa:
       unvalid_version_for_restore: "La version del software utilisado para hacer la slvaguardia no corresponde a la version actueal del software" #?
       update_is_done: "La puesta al día ha sido efectuada"
       validates_old_inventories: "Es aconsejado suprimir o validar los inventarios que no lo son antes de hacer nuevos" #?
+      x_fixed_asset_depreciations_have_been_bookkept_successfully:
+        # one: "%{count} fixed asset depreciation has been bookkept successfully"
+        # other: "%{count} fixed asset depreciations have been bookkept successfully"
       x_loan_repayments_have_been_bookkept_successfully:
         # one: "%{count} loan repayment has been bookkept successfully"
         # other: "%{count} loan repayments have been bookkept successfully"
@@ -2303,7 +2320,7 @@ spa:
         one: "Hay escritura a puntar" #?
         other: "hay %{number} escrituras a puntar" #?
       x_unpointed_journal_entry_items:
-        one: "Hay una entrada para señalar"
+        # one: "There is %{count} entry to point"
         # other: "There are %{count} entries to point"
       you_must_have_an_email_column: "Se debe terner una columna Correos Electronicos en su extracción"
       you_must_select_a_file_to_import: "Se debe seleccionar un fichero para importar" #?
@@ -2357,6 +2374,7 @@ spa:
       down: "Abajo"
       duplicate: "Duplicar"
       edit: "Editar"
+      edit_interval: "Reconciliar"
       edit_many: "Editar muchos"
       evaluate: "Evaluar"
       export: "Exportar"
@@ -2449,7 +2467,7 @@ spa:
     # backend/entity_links: "%{started_at}"
     # backend/events: "%{name}"
     # backend/incoming_payments: "%{number}. %{mode_name} from %{payer_full_name} of %{amount} %{currency}"
-    # backend/interventions: "%{number}. %{name}"
+    # backend/interventions: "%{number}"
     # backend/journal_entry_items: "%{entry_number} %{name} %{account_number} D%{real_debit} C%{real_credit} %{currency}"
     # backend/matters: "%{name} ‒ %{work_number}"
     # backend/observations: "%{content}"

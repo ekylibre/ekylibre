@@ -65,13 +65,10 @@ module Backend
       redirect_to action: :edit, id: @inventory.id
     end
 
+    # Call a job wich change the number of all the different product
     def reflect
       return unless @inventory = find_and_check
-      if @inventory.reflect
-        notify_success(:changes_have_been_reflected)
-      else
-        notify_error(:changes_have_not_been_reflected)
-      end
+      ReflectInventoryJob.perform_later(@inventory, current_user)
       redirect_to action: :index
     end
   end

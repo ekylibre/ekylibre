@@ -145,7 +145,8 @@ $preview-modal-height: 80vh;
   }
 }
 
-.edit_intervention {
+.edit_intervention,
+.new_intervention {
   .has-intervention-participations {
     position: relative;
     top: -$fs-large;
@@ -202,6 +203,7 @@ $preview-modal-height: 80vh;
 
   .total {
     background-color: rgba(black, 0.03);
+    min-width: 7em;
 
     .total-label {
       height: $fs-huge * 1.1;

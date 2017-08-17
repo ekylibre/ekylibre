@@ -3,9 +3,10 @@ ita:
     authentication/invitations:
       edit: "Accetta l'invito"
     authentication/passwords:
-      # edit: "Edit password: %{name}"
+      edit: "Nuova password"
       new: "Nuova password"
     authentication/registrations:
+      edit: "Registrazione"
       new: "Registrazione"
     authentication/sessions:
       destroy: "Disconnettersi"
@@ -59,13 +60,16 @@ ita:
       index: "Animali"
       new: "nuovo animale"
       # show: "%{nature}: %{name}"
+    backend/bank_reconciliation/items:
+      # index: "Reconciliate bank statement %{cash} %{number} (from %{started_on} to %{stopped_on})"
+      # reconciliate: "Bank statements of %{cash} (from %{started_on} to %{stopped_on})"
     backend/bank_statements:
       # edit: "Edit bank statement %{number}"
+      edit_interval: "Periodi di dichiarazione bancaria per riconciliarsi"
       import: "importazione di file OFX"
       index: "estratti conto"
       new: "dichiarazione nuova banca"
-      # reconciliation: "Reconciliate bank statement %{cash} #%{number} (from %{started_on} to %{stopped_on})"
-      # show: "Account statement N°%{number}"
+      # show: "Bank statement #%{number}"
     backend/beehives:
       # reset: "Reset beehive: %{name}"
     backend/building_divisions:
@@ -422,7 +426,7 @@ ita:
       new: "Nuovo pagamento payslip"
       # show: "Payslip payment: %{number}"
     backend/payslips:
-      # edit: "Edit payslip: %{name}"
+      # edit: "Edit payslip: %{number}"
       index: "Buste paga"
       new: "Nuovo payslip"
       # show: "Payslip: %{number}"
@@ -795,6 +799,7 @@ ita:
     add_catalog_price: "Aggiungere prezzo di catalogo"
     add_child: "Aggiungere un componente figlio"
     add_choice: "Aggiungere scelta"
+    add_compensation_entry: "Aggiungere una voce di compensazione"
     add_component: "Aggiungere componente"
     add_condition: "Aggiungere condizioni"
     add_conditions: "Aggiungere condizioni"
@@ -894,7 +899,6 @@ ita:
     attach_deal: "Aggiungere un accordo"
     attachment: "Allegati"
     attachments: "allegati"
-    auto_reconciliate: "riconciliare Auto"
     # automatic: "Auto"
     available: "A disposizione"
     # available_columns: "Available columns: %{columns}"
@@ -968,7 +972,6 @@ ita:
     columns: "Colonne di importare"
     commission: "Commissione"
     company: "Società"
-    complete: "Completare"
     completed: "Completato"
     conditions:
       filter_on_attribute_of_class: "Filtro su attributo della classe"
@@ -1097,7 +1100,7 @@ ita:
     edit: "Modifica"
     edit_budget: "Modifica budget"
     ekylibre: "Www.ekylibre.org"
-    elapsed_interventions_times_by_activities: "interventi trascorsi i tempi di attività" #?
+    elapsed_interventions_times_by_activities: "interventi trascorsi i tempi di attività"
     email: "E-mail:"
     emissions_and_reevaluation_gaps: "Emissioni e lacune rivalutazione delle"
     employee_and_wages: "Dipendenti e salari"
@@ -1191,6 +1194,7 @@ ita:
     # hint: "Hint: %{value}"
     historic: "Storico"
     home: "Casa"
+    # hours: "H"
     human_working_duration: "durata di funzionamento"
     # humans: "HR"
     # iban: "International Bank Account Number (IBAN)"
@@ -1222,6 +1226,7 @@ ita:
     input_cost_per_hectare: "costo di ingresso per ettaro" #?
     inputs: "ingressi"
     inspections: "ispezioni"
+    interactive_maps: "Una libreria JS per mappe interattive"
     interface_preferences: "Preferenze di interfaccia"
     internal_error: "Ops, qualcosa è successo."
     interval: "Intervallo personalizzato"
@@ -1338,6 +1343,7 @@ ita:
     method: "metodo"
     minimal_temperature: "temperatura minima"
     minimum_amount: "Quantità minima"
+    # minutes: "Min"
     missing_attributes: "Alcuni attributi mancano"
     missing_help: "pagina mancante"
     # mobile: "Mobile"
@@ -1357,6 +1363,7 @@ ita:
     net_income: "Reddito netto"
     net_margin: "margine netto" #?
     net_mass: "massa netta"
+    net_production_sales: "Le vendite nette di produzione"
     net_surface_area: "superficie netta"
     new: "Nuovo"
     new_activity: "nuova attività"
@@ -1799,6 +1806,7 @@ ita:
     variants: "varianti"
     vat: "I.V.A."
     view: "vista"
+    view_map_when_creating_an_intervention: "Guarda la mappa quando crea un intervento"
     wages: "Salari"
     watering_concentration: "L’uso dell’acqua"
     weather: "Tempo"
@@ -1808,6 +1816,7 @@ ita:
     workers: "Lavoratori"
     working_duration: "durata di funzionamento"
     working_sets_stocks: "Working set scorte"
+    # working_times: "Working times of %{name}"
     x_cashes:
       # one: "%{count} cash"
       # other: "%{count} cashes"
@@ -1908,6 +1917,9 @@ ita:
     x_outgoing_payments:
       # one: "%{count} disbursement"
       # other: "%{count} disbursements"
+    x_purchase_payments:
+      # one: "%{count} purchase payment"
+      # other: "%{count} purchase payments"
     x_purchases:
       one: "1 acquisto"
       # other: "%{count} purchases"
@@ -1978,11 +1990,13 @@ ita:
       # access_denied: "Access denied. %{reason} (%{url})"
       accountant_notified: "Il ragioniere è stato notificato"
       accountant_without_email: "Si prega di impostare l’e-mail commercialista"
+      all_fixed_assets_must_be_depreciable: "Tutte le immobilizzazioni devono essere ammortizzabili"
       all_parcels_must_be_invoiceable_and_of_same_nature_and_third: "Tutti i pacchi devono essere fatturabile e della stessa natura e terzo"
       all_purchases_must_be_ordered_or_invoiced: "Tutti gli acquisti devono essere ordinati e fatturati."
       all_tax_declarations_have_already_existing: "Tutte le dichiarazioni fiscali sono già esistenti"
       bookkeeping_is_finished: "Il trasferimento dei dati è terminata commerciale."
       # bookkeeping_works_only_with: "The transfer to accountancy can be done only for: %{list}."
+      cannot_add_bank_statement_item: "Non è possibile aggiungere una nuova riga perché non esiste un’istruzione bancaria disponibile in questo giorno"
       cannot_find_deal_to_attach: "Non riesci a trovare trattare per attaccare"
       cannot_find_deal_to_detach: "Non riesci a trovare occuparsi di staccare"
       cannot_finish_affair: "Non può finire vicenda"
@@ -1994,10 +2008,9 @@ ita:
       closed_financial_year_exchange: "Lo scambio esercizio è stato chiuso con successo"
       closed_financial_years: "L'esercizio è stato chiuso con successo"
       columns_are_already_uses: "Una o molte colonne sono selezionati più volte"
+      # could_not_attach_x_or_y_to_affair: "Could not attach %{x} or %{y} to affair"
       dashboard_is_being_developed: "Dashboard è in grande sviluppo"
       density_is_not_computable_in_counting: "Impossibile calcolare la densità per questo conteggio. I valori mancanti dovrebbero essere completate nelle proprietà del conteggio o indicatori del seminatore."
-      depreciation_failed: "Le attività non possono essere ammortizzati."
-      depreciation_successful: "Le attività sono state ammortizzate con successo."
       draft_journal_entries_have_been_validated:
         one: "Una voce è stata convalidata"
         # other: "%{count} entries have been validated"
@@ -2038,6 +2051,7 @@ ita:
       no_budget_defined_for_current_campaign: "Nessun bilancio definito per la campagna in corso"
       no_closable_journal: "Nessun ufficiale chiudibile"
       no_depositable_payments: "Non ci sono alcun pagamento per depositare"
+      no_fixed_assets_given: "Nessuna immobilizzazione data"
       no_inspections_given: "Non ci sono controlli date"
       no_interventions_given: "Nessun dato interventi"
       no_parcels_given: "Nessun dato pacchi"
@@ -2074,6 +2088,9 @@ ita:
       # unavailable_resource: "Nonexistent %{type} #%{id}"
       # unexpected_resource_type: "Unexpected resource type: %{type}"
       update_is_done: "L'aggiornamento è stato fatto"
+      x_fixed_asset_depreciations_have_been_bookkept_successfully:
+        # one: "%{count} fixed asset depreciation has been bookkept successfully"
+        # other: "%{count} fixed asset depreciations have been bookkept successfully"
       x_loan_repayments_have_been_bookkept_successfully:
         # one: "%{count} loan repayment has been bookkept successfully"
         # other: "%{count} loan repayments have been bookkept successfully"
@@ -2130,6 +2147,7 @@ ita:
       down: "Giù"
       duplicate: "Duplicare"
       edit: "Modifica"
+      edit_interval: "Riconciliare"
       edit_many: "Modificare molti"
       evaluate: "Valutare"
       export: "Esportare"
@@ -2222,7 +2240,7 @@ ita:
     # backend/entity_links: "%{started_at}"
     # backend/events: "%{name}"
     # backend/incoming_payments: "%{number}. %{mode_name} from %{payer_full_name} of %{amount} %{currency}"
-    # backend/interventions: "%{number}. %{name}"
+    # backend/interventions: "%{number}"
     # backend/journal_entry_items: "%{entry_number} %{name} %{account_number} D%{real_debit} C%{real_credit} %{currency}"
     # backend/matters: "%{name} ‒ %{work_number}"
     # backend/observations: "%{content}"
