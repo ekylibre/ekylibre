@@ -113,9 +113,7 @@ class InterventionWorkingTimeDurationCalculationService
       return participations.map(&:working_periods).flatten
     end
 
-    unless nature.nil?
-      return working_periods_of_nature(participations, nature)
-    end
+    return working_periods_of_nature(participations, nature) unless nature.nil?
 
     working_periods_not_nature(participations, nature)
   end

@@ -138,11 +138,11 @@ class InterventionWorkingTimeDurationCalculationServiceTest < ActiveSupport::Tes
   def sum_working_periods_of(participation: nil, participations: {}, nature: nil)
     unless participations.empty?
       return participations
-              .map(&:working_periods)
-              .flatten
-              .select { |working_period| working_period.nature == nature }
-              .map(&:duration_gap)
-              .inject(0, :+)
+             .map(&:working_periods)
+             .flatten
+             .select { |working_period| working_period.nature == nature }
+             .map(&:duration_gap)
+             .inject(0, :+)
     end
 
     participation

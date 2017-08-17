@@ -773,7 +773,7 @@ spa:
     accounts: "Cuentos contables utilizados"
     accounts_only_used_at: "Solo las utilizan en"
     accounts_to_load: "Cuentas para cargar"
-    # action_duration: "Action duration"
+    action_duration: "Duración de la acción"
     activate_entry_autocompletion: "Activar la terminación automática de entrada"
     active: "Activo"
     active_balance_sheet: "Balance activo" #?
@@ -941,7 +941,7 @@ spa:
     building_update: "Modifiar el lugar de deposito" #?
     by_year: "Por año"
     calculate: "Calcular"
-    # calculated_hours: "Calculated hours"
+    calculated_hours: "Horas calculadas"
     calculators: "Calculadoras"
     calendar: "Calendario"
     campaign: "Campaña"
@@ -1254,7 +1254,7 @@ spa:
     # hint: "Hint: %{value}"
     historic: "Histórico"
     home: "Vuelta a la cogida de la ayuda"
-    # hours: "H"
+    hours: "MARIDO"
     human_working_duration: "Duración de trabajo"
     humans: "HORA"
     iban: "Numero de cuento bancario internacional (IBAN)"

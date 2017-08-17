@@ -94,7 +94,7 @@ spa:
         purchase: "Compra"
         sale: "Venta"
         stock: "Valores"
-        # travel_cost: "Travel"
+        travel_cost: "Viajar"
     crumb:
       nature:
         hard_start: "Inicio difícil,"
@@ -244,7 +244,7 @@ spa:
     intervention_working_period:
       nature:
         intervention: "Intervención"
-        # pause: "Pause"
+        pause: "Pausa"
         preparation: "Preparación"
         travel: "Viajar"
     journal:

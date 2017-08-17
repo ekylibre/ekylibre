@@ -969,7 +969,7 @@ arb:
     accounts: "حسابات المحاسب المستخدمة"
     accounts_only_used_at: "حسابات تستخدم فقط في"
     accounts_to_load: "حسابات لتحميل"
-    # action_duration: "Action duration"
+    action_duration: "مدة الإجراء"
     activate_entry_autocompletion: "تفعيل تكملة دخول"
     active: "فعال"
     active_balance_sheet: "رصيد دائر" #?
@@ -1146,7 +1146,7 @@ arb:
     building_update: "تعديل موقع التخزين" #?
     by_year: "وبحلول العام"
     calculate: "حساب"
-    # calculated_hours: "Calculated hours"
+    calculated_hours: "الساعات المحسوبة"
     calculators: "الآلات الحاسبة"
     calendar: "تقويم"
     campaign: "حملة"
@@ -1725,7 +1725,7 @@ arb:
     method: "طريقة"
     minimal_temperature: "درجة الحرارة الحد الأدنى"
     minimum_amount: "اقل مبلغ"
-    # minutes: "Min"
+    minutes: "دقيقة"
     missing_attributes: "بعض سمات مفقودة"
     missing_help: "صفحات مفقودة"
     mobile: "التليفون المحمول"

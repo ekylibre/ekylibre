@@ -94,7 +94,7 @@ arb:
         purchase: "شراء"
         sale: "تخفيض السعر"
         stock: "مخزون"
-        # travel_cost: "Travel"
+        travel_cost: "السفر"
     crumb:
       nature:
         hard_start: "البداية الصعبة"
@@ -243,7 +243,7 @@ arb:
     intervention_working_period:
       nature:
         intervention: "تدخل"
-        # pause: "Pause"
+        pause: "وقفة"
         preparation: "تجهيز"
         travel: "سفر"
     journal:

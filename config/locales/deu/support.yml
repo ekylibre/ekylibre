@@ -192,13 +192,13 @@ deu:
   time:
     am: "vormittags"
     formats:
-      compact: "% M /% d /% Y% H:% M"
+      compact: "%M /%d /%Y%H:%M"
       default: "%A, %d. %B %Y, %H:%M Uhr"
-      # full: "%m/%d/%Y %H:%M:%S"
+      full: "%M /%d /%Y%H:%M:%S"
       long: "%A, %d. %B %Y, %H:%M Uhr"
       short: "%d. %B, %H:%M Uhr"
       time: "%H:%M" #?
     js_formats:
-      # compact: "MM/DD/YYYY HH:mm"
-      # full: "MM/DD/YYYY HH:mm:ss"
+      compact: "MM/DD/YYYY HH:mm"
+      full: "MM/DD/YYYY HH:mm:ss"
     pm: "nachmittags"
