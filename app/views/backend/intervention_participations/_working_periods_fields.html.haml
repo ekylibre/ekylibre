@@ -22,10 +22,12 @@
         = text_field_tag "working_period_minutes", working_period.minutes_gap, { class: "participation-input", data: { 'is-minutes-field': true  }}
         %span= t('labels.minutes')
 
+    - classes = "hidden" unless tool.nil?
     .participation-result
-      %span{ class: "previous-working-date" }= working_period.started_at.l(format: :full)
-      %span &#8594;
-      %span{ class: "next-working-date" }= working_period.stopped_at.l(format: :full)
+      %div{ class: "results #{classes}"}
+        %span{ class: "previous-working-date" }= working_period.started_at.l(format: :full)
+        %span &#8594;
+        %span{ class: "next-working-date" }= working_period.stopped_at.l(format: :full)
 
     .clear-period
       %i.picto.picto-clear
