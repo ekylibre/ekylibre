@@ -48,10 +48,16 @@
     $(min_field).append('<span class="participation-field-label">Min</span>')
     $(newLine).find('.participation-form').append(min_field)
 
+    classes = ""
+    if $('#intervention_tool').val() == "true"
+      classes = "hidden"
+
     participationResult = $('<div class="participation-result"></div>')
-    $(participationResult).append('<span class="previous-working-date"></span>')
-    $(participationResult).append('<span> &#8594; </span>')
-    $(participationResult).append('<span class="next-working-date"></span>')
+    results = $('<div class="results ' + classes + '"></div>')
+    $(results).append('<span class="previous-working-date"></span>')
+    $(results).append('<span> &#8594; </span>')
+    $(results).append('<span class="next-working-date"></span>')
+    $(participationResult).append(results)
     $(newLine).append(participationResult)
 
     clearPeriod = $('<div class="clear-period"></div>')

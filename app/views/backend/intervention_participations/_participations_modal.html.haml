@@ -23,17 +23,17 @@
 
     - if !auto_calcul_mode.nil? && auto_calcul_mode.to_sym == :true && !calculate_working_periods.blank?
       - calculate_working_periods.each do |calculate_working_period|
-        = render 'working_periods_fields', { working_period: calculate_working_period }
+        = render 'working_periods_fields', { working_period: calculate_working_period, tool: tool }
 
     - elsif !participation.nil?
       - participation.working_periods.each do |working_period|
-        = render 'working_periods_fields', { working_period: working_period }
+        = render 'working_periods_fields', { working_period: working_period, tool: tool }
 
         - if working_period.pause_next?
           - pause_period = InterventionWorkingPeriod.new(nature: :pause,
                                                          started_at: working_period.stopped_at,
                                                          stopped_at: working_period.next_period.started_at)
-          = render 'working_periods_fields', { working_period: pause_period }
+          = render 'working_periods_fields', { working_period: pause_period, tool: tool }
 
 
   .actions
