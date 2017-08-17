@@ -969,6 +969,7 @@ arb:
     accounts: "حسابات المحاسب المستخدمة"
     accounts_only_used_at: "حسابات تستخدم فقط في"
     accounts_to_load: "حسابات لتحميل"
+    # action_duration: "Action duration"
     activate_entry_autocompletion: "تفعيل تكملة دخول"
     active: "فعال"
     active_balance_sheet: "رصيد دائر" #?
@@ -1145,6 +1146,7 @@ arb:
     building_update: "تعديل موقع التخزين" #?
     by_year: "وبحلول العام"
     calculate: "حساب"
+    # calculated_hours: "Calculated hours"
     calculators: "الآلات الحاسبة"
     calendar: "تقويم"
     campaign: "حملة"
@@ -1506,6 +1508,7 @@ arb:
       one: "مجموع الوقت المستخدم : ساعة واحدة" #?
       other: "مجموع الوقت المستخدم%{count} ساعات" #?
       zero: "" #?
+    # hours: "H"
     human_working_duration: "مدة العمل"
     # humans: "HR"
     iban: "رقم الحساب المصرفي الدولي (IBAN)"
@@ -1722,6 +1725,7 @@ arb:
     method: "طريقة"
     minimal_temperature: "درجة الحرارة الحد الأدنى"
     minimum_amount: "اقل مبلغ"
+    # minutes: "Min"
     missing_attributes: "بعض سمات مفقودة"
     missing_help: "صفحات مفقودة"
     mobile: "التليفون المحمول"
@@ -2399,6 +2403,7 @@ arb:
     workers: "العمال"
     working_duration: "مدة العمل"
     working_sets_stocks: "مجموعات العمل الأسهم"
+    # working_times: "Working times of %{name}"
     x_cashes:
       one: "حساب بنكي واحد"
       other: "%{count} حسابات بنكية اخرى"

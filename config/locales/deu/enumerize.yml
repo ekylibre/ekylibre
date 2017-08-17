@@ -94,6 +94,7 @@ deu:
         purchase: "Kauf"
         sale: "Verkauf"
         # stock: "Stock"
+        # travel_cost: "Travel"
     crumb:
       nature:
         hard_start: "Harte Start"
@@ -243,6 +244,7 @@ deu:
     intervention_working_period:
       nature:
         # intervention: "Intervention"
+        # pause: "Pause"
         preparation: "Vorbereitung"
         travel: "Reise"
     journal:
