@@ -77,4 +77,14 @@ class ProductNatureVariantTest < ActiveSupport::TestCase
   test 'import from nomenclature seedling' do
     assert_nothing_raised { ProductNatureVariant.import_from_nomenclature(:seedling) }
   end
+
+  test 'current_outgoing_stock_ordered_not_delivered returns the right amount of variants depending on parcels state' do
+    variant = create(:product_nature_variant)
+    sale = create(:sale)
+    sale.update(state: 'order')
+    sale_item = create(:sale_item, sale: sale, variant: variant, quantity: 50.to_d)
+    parcel = create(:parcel, sale: sale)
+    parcel.update(state: 'prepared')
+    assert_equal 50.0, variant.current_outgoing_stock_ordered_not_delivered
+  end
 end
