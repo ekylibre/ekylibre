@@ -10,6 +10,7 @@ module Procedo
 
       # Assign value in all cases
       def assign!(attribute, value)
+        update_intervention(@attributes,value) if attribute == "working_zone"          
         send(attribute.to_s + '=', value)
       end
 
@@ -21,6 +22,10 @@ module Procedo
       # Re-assign value in all cases
       def reassign!(attribute)
         assign!(attribute, send(attribute))
+      end
+
+      def update_intervention(attributes,value)
+        InterventionProductParameter.find(attributes[:id]).update(working_zone: value) rescue ""
       end
     end
   end
