@@ -445,7 +445,6 @@ class Account < Ekylibre::Record::Base
     items = journal_entry_items.where(conditions)
     return nil unless item_ids.size > 1 && items.count == item_ids.size &&
                       items.collect { |l| l.debit - l.credit }.sum.to_f.zero?
-    letter ||= items.order(:letter).pluck(:letter).compact.first
     letter ||= new_letter
     journal_entry_items.where(conditions).update_all(letter: letter)
     letter
