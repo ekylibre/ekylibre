@@ -45,26 +45,6 @@ module Backend
         sign_in user
       end
 
-      def wipe_db
-        Payslip.delete_all
-        IncomingPayment.delete_all
-        OutgoingPayment.delete_all
-        Regularization.delete_all
-
-        JournalEntryItem.delete_all
-        JournalEntry.delete_all
-        BankStatementItem.delete_all
-        BankStatement.delete_all
-        Cash.delete_all
-        PayslipNature.delete_all
-        Entity.delete_all
-        IncomingPaymentMode.delete_all
-        OutgoingPaymentMode.delete_all
-
-        Journal.delete_all
-        Account.delete_all
-      end
-
       def setup_accountancy(**options)
         ::Preference.set!(:bookkeep_automatically, options[:no_journal_entry].blank?)
         @journal  = Journal.create!(name: 'Pretty Journal')

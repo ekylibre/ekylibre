@@ -83,7 +83,7 @@ module Backend
       include ::AutoLetteringTest
 
       setup do
-        empty_db
+        wipe_db
         signin
 
         @now     = Time.zone.now
@@ -100,13 +100,6 @@ module Backend
       end
 
       protected
-
-      def empty_db
-        [OutgoingPayment, OutgoingPaymentMode, Payslip, PayslipNature,
-         Journal, Account, Cash, BankStatement,
-         BankStatementItem, Role, User, Regularization,
-         JournalEntryItem, JournalEntry].each(&:delete_all)
-      end
 
       def signin
         role = Role.create!(name: 'Imperator')

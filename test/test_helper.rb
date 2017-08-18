@@ -127,6 +127,20 @@ module ActiveSupport
       attrs['id'].to_i
     end
 
+    def wipe_db
+      [OutgoingPayment, OutgoingPaymentMode,
+       IncomingPayment, IncomingPaymentMode,
+       Deposit,
+       Payslip, PayslipNature, Gap, Purchase, Sale,
+       BankStatement, Cash, Contract,
+       Role, User, Regularization,
+       Crumb, InterventionParticipation, ActivityBudget,
+       Parcel, Intervention, Analysis, Sensor,
+       JournalEntry,
+       Product, ProductNatureVariant, ProductNature, ProductNatureCategory,
+       Journal, Tax, Account].each(&:delete_all)
+    end
+
     def fixture_file(*levels)
       fixture_files_path.join(*levels)
     end

@@ -56,9 +56,7 @@ class Version < ActiveRecord::Base
 
   before_save do
     self.item_type = item.class.base_class.name if item
-    self.created_at ||= Time.zone.now
-    self.creator ||= Version.current_user
-    self.creator_name ||= self.creator.name if self.creator
+    self.created_at = Time.zone.now
     self.item_object = item.version_object
     if previous
       self.item_changes = self.class.diff(previous.item_object, item_object)
@@ -73,6 +71,11 @@ class Version < ActiveRecord::Base
     raise StandardError, 'Cannot destroy a past version'
   end
 
+  def set_creator_attribute
+    self.creator = Version.current_user
+    self.creator_name = creator.name if creator
+  end
+
   def self.diff(a, b)
     # return a.diff(b)
     a.dup
@@ -85,11 +88,11 @@ class Version < ActiveRecord::Base
   end
 
   def following
-    @following ||= siblings.after(self.created_at).first
+    @following ||= siblings.after(created_at).first
   end
 
   def previous
-    @previous ||= siblings.before(self.created_at).first
+    @previous ||= siblings.before(created_at).first
   end
 
   def changes

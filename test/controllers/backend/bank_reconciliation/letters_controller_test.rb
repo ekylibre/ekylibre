@@ -7,7 +7,7 @@ module Backend
       LETTER = 'B'.freeze
 
       setup do
-        empty_db
+        wipe_db
         signin
 
         @now     = Time.zone.now
@@ -59,13 +59,6 @@ module Backend
       end
 
       protected
-
-      def empty_db
-        [OutgoingPayment, OutgoingPaymentMode, Payslip, PayslipNature,
-         BankStatementItem, BankStatement, Cash,
-         Role, User, Regularization,
-         JournalEntryItem, JournalEntry, Journal, Account].each(&:delete_all)
-      end
 
       def signin
         role = Role.create!(name: 'Imperator')
