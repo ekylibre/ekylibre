@@ -1,6 +1,7 @@
 - item ||= f.object
 - variant = Maybe(item.variant)
 - f.object.currency = Preference[:currency]
+- if defined?(role) then f.object.role = role end
 - non_compliant_message = :non_compliant.tl
 
 %tbody.nested-fields.delivery-item.incoming-parcel-item{ data: { iceberg: true } }
@@ -31,27 +32,39 @@
   %tr.nested-item-form
     %td{colspan: 6}
       .item-form
+        = f.input :role, as: :hidden
         = f.input :purchase_item_id, as: :hidden
-        = f.referenced_association(:variant, source: { scope: :stockables_or_depreciables }, input_html: { class: 'parcel-item-variant', data: {product_of_delivery_item: {url: backend_product_nature_variant_path("RECORD_ID", format: :json)}}})
+        - if f.object.role == 'merchandise'
+          = f.referenced_association(:variant, source: { scope: :stockables_or_depreciables }, input_html: { class: 'parcel-item-variant', data: {product_of_delivery_item: {url: backend_product_nature_variant_path("RECORD_ID", format: :json)}}})
+        - elsif f.object.role == 'service'
+          = f.referenced_association(:variant, source: { scope: :services }, input_html: { class: 'parcel-item-variant', data: {product_of_delivery_item: {url: backend_product_nature_variant_path("RECORD_ID", format: :json)}}})
         .non-compliant
           = f.input :non_compliant, input_html: { class: 'item-non-compliant', data: { warn_if_checked: non_compliant_message, input_to_show: '.non_compliant_detail_text', with_value: true } }
           .non_compliant_detail_text.hidden
             = f.input :non_compliant_detail, label: :detail.tl, input_html: { class: 'item-non-compliant-detail' }
         -# .errors= item.errors.inspect
-        .item-add-storing
-          = f.simple_fields_for :storings, f.object.storings do |storing|
-            = render 'storing_fields', f: storing
-          .storings-footer
-          = link_to_add_association :add_storing.tl, f, :storings, partial: 'storing_fields', 'data-association-insertion-node' => '.storings-footer', 'data-association-insertion-method' => :before, 'data-association-insertion-traversal' => 'prev', class: "btn primary"
-          %label
-            %span= :total.tl
-            %span.total-quantity{ data: { calculate: "sum", use: ".storing-quantity", use_closest: ".nested-item-form" } }= 0.0
-            %span.item-population-unit-name
-              = variant.unit_name.or_else('#')
-        .item-delivery-mode
-          = f.input :delivery_mode, as: :radio_buttons, input_html: { class: 'item-delivery-mode', data: {  input_to_show: '.transporter-delivery-mode', with_value: "transporter" } }
-          .transporter-delivery-mode.hidden
-            = f.referenced_association :transporter, source: :transporters, new: {transporter: 1}
+        - if f.object.role == 'merchandise'
+          .item-add-storing
+            = f.simple_fields_for :storings, f.object.storings do |storing|
+              = render 'storing_fields', f: storing
+            .storings-footer
+            = link_to_add_association :add_storing.tl, f, :storings, partial: 'storing_fields', 'data-association-insertion-node' => '.storings-footer', 'data-association-insertion-method' => :before, 'data-association-insertion-traversal' => 'prev', class: "btn primary"
+            %label
+              %span= :total.tl
+              %span.total-quantity{ data: { calculate: "sum", use: ".storing-quantity", use_closest: ".nested-item-form" } }= 0.0
+              %span.item-population-unit-name
+                = variant.unit_name.or_else('#')
+          .item-delivery-mode
+            = f.input :delivery_mode, as: :radio_buttons, input_html: { class: 'item-delivery-mode', data: {  input_to_show: '.transporter-delivery-mode', with_value: "transporter" } }
+            .transporter-delivery-mode.hidden
+              = f.referenced_association :transporter, source: :transporters, new: {transporter: 1}
+        - if f.object.role == 'service'
+          .item-quantifier
+            .item-quantifier-population
+              = f.input :population, wrapper: :append do
+                = f.input_field :population, class: "item-population", placeholder: '0', data: {"when-item": "unitary", "when-set-value": 1, "when-prop-value": "disabled"}
+                %span.add-on.item-population-unit-name
+                  = variant.unit_name.or_else('#')
 
         - display = "display: none;" unless variant.identifiable?.or_else(false)
         .no-border{style: display, data: {"when-item": "identifiable", "when-display-value": 'true'}}
