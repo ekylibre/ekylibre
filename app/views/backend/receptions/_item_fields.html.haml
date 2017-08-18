@@ -38,10 +38,13 @@
           = f.referenced_association(:variant, source: { scope: :stockables_or_depreciables }, input_html: { class: 'parcel-item-variant', data: {product_of_delivery_item: {url: backend_product_nature_variant_path("RECORD_ID", format: :json)}}})
         - elsif f.object.role == 'service'
           = f.referenced_association(:variant, source: { scope: :services }, input_html: { class: 'parcel-item-variant', data: {product_of_delivery_item: {url: backend_product_nature_variant_path("RECORD_ID", format: :json)}}})
-        .non-compliant
-          = f.input :non_compliant, input_html: { class: 'item-non-compliant', data: { warn_if_checked: non_compliant_message, input_to_show: '.non_compliant_detail_text', with_value: true } }
-          .non_compliant_detail_text.hidden
-            = f.input :non_compliant_detail, label: :detail.tl, input_html: { class: 'item-non-compliant-detail' }
+        - elsif f.object.role == 'fees'
+          = f.referenced_association(:variant, source: { scope: :services }, input_html: { class: 'parcel-item-variant', data: {product_of_delivery_item: {url: backend_product_nature_variant_path("RECORD_ID", format: :json)}}})
+        - if f.object.role == 'merchandise' || f.object.role == 'service'
+          .non-compliant
+            = f.input :non_compliant, input_html: { class: 'item-non-compliant', data: { warn_if_checked: non_compliant_message, input_to_show: '.non_compliant_detail_text', with_value: true } }
+            .non_compliant_detail_text.hidden
+              = f.input :non_compliant_detail, label: :detail.tl, input_html: { class: 'item-non-compliant-detail' }
         -# .errors= item.errors.inspect
         - if f.object.role == 'merchandise'
           .item-add-storing
@@ -58,7 +61,7 @@
             = f.input :delivery_mode, as: :radio_buttons, input_html: { class: 'item-delivery-mode', data: {  input_to_show: '.transporter-delivery-mode', with_value: "transporter" } }
             .transporter-delivery-mode.hidden
               = f.referenced_association :transporter, source: :transporters, new: {transporter: 1}
-        - if f.object.role == 'service'
+        - if f.object.role == 'service' || f.object.role == 'fees'
           .item-quantifier
             .item-quantifier-population
               = f.input :population, wrapper: :append do
