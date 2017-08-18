@@ -24,7 +24,7 @@ GEM
       rails-html-sanitizer (~> 1.0, >= 1.0.3)
     active_list (6.9.3)
       arel (>= 5.0.0)
-      code_string
+      code_string (>= 0.0.0)
       i18n-complements
       rails (>= 3.2, < 5.0.0)
       rubyzip (>= 1.0)
@@ -689,7 +689,7 @@ DEPENDENCIES
   web-console (~> 3.0)
 
 RUBY VERSION
-   ruby 2.2.3p173
+   ruby 2.3.4p301
 
 BUNDLED WITH
-   1.15.3
+   1.14.6
