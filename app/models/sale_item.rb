@@ -164,7 +164,7 @@ class SaleItem < Ekylibre::Record::Base
     end
     if variant
       self.account_id = variant.nature.category.product_account_id
-      self.label ||= variant.commercial_name
+      self.label = variant.commercial_name
     end
   end
 
