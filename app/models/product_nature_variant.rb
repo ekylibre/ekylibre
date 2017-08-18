@@ -434,8 +434,9 @@ class ProductNatureVariant < Ekylibre::Record::Base
 
   # Return current quantity of all products link to the variant currently ordered or invoiced but not delivered
   def current_outgoing_stock_ordered_not_delivered
-    sales_not_delivered = Sale.where(state: %w(order invoice)).includes(:parcels).where(parcels: { state: %w(draft ordered in_preparation prepared) })
-    SaleItem.where(variant_id: id, sale_id: sales_not_delivered.pluck(:id)).sum(:quantity).to_f
+    quantity_ordered = self.sale_items.includes(:sale).where(sales: { state: %w[order invoice] }).sum(:quantity)
+    quantity_delivered = self.parcel_items.includes(:parcel).where(parcels: { state: 'given', nature: 'outgoing' }).sum(:population)
+    (quantity_ordered - quantity_delivered).to_f
   end
 
   def picture_path(style = :original)
