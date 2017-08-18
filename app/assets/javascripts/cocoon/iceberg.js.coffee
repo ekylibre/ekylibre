@@ -140,7 +140,7 @@
       new Iceberg($(this))
 
     $('table.list').on 'cocoon:after-insert', (event, inserted) ->
-        iceberg = new Iceberg($(inserted), "add") if inserted?
+      iceberg = new Iceberg($(inserted), "add") if inserted?
       $('*[data-unit-name]').each ->
         $(this).find('.item-population-unit-name').html($(this).attr('data-unit-name'))
 
