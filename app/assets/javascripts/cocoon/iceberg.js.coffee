@@ -12,13 +12,12 @@
 
       @toggleInputVisibility()
 
-      @setFormSubmitable()
-
       unless mode is "add" or @line.find('.error').length > 0
         @display.removeClass('hidden')
         @oldForm().remove()
         @_bindSelectorsInitialization()
         @newForm().addClass('hidden')
+        @setFormSubmitable()
 
     _bindButtons: (form) ->
       # console.log '_bindButtons:this', this

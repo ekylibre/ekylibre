@@ -20,7 +20,7 @@
       %label{ data: { item_value: "input.item-non-compliant-detail" } }= f.object.non_compliant_detail
     %td
       %label
-        %span{ data: { item_value: "span.total-quantity" } }= f.object.population
+        %span{ data: { item_value: ".total-quantity" } }= f.object.population
         %span{ data: { item_value: "span.item-population-unit-name" } }= f.object.variant ? f.object.variant.unit_name : '#'
     %td
       #storing-display
@@ -65,7 +65,7 @@
           .item-quantifier
             .item-quantifier-population
               = f.input :population, wrapper: :append do
-                = f.input_field :population, class: "item-population", placeholder: '0', data: {"when-item": "unitary", "when-set-value": 1, "when-prop-value": "disabled"}
+                = f.input_field :population, class: "total-quantity", placeholder: '0', data: {"when-item": "unitary", "when-set-value": 1, "when-prop-value": "disabled"}
                 %span.add-on.item-population-unit-name
                   = variant.unit_name.or_else('#')
 
