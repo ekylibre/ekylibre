@@ -335,7 +335,9 @@ class FixedAsset < Ekylibre::Record::Base
       depreciations.find_each do |dep|
         dep.update!(accountable: true)
       end
+      return depreciations.count
     end
+    0
   end
 
   def depreciate!
@@ -359,6 +361,9 @@ class FixedAsset < Ekylibre::Record::Base
     when /quarterly/
       new_trimesters = new_months.select { |date| date.month.multiple_of? 3 }
       starts += new_trimesters
+    when /yearly/
+      new_years = new_months.select { |date| date.month == 1 }
+      starts += new_years
     end
 
     starts = starts.uniq.sort
