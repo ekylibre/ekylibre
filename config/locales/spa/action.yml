@@ -833,6 +833,7 @@ spa:
     add_exit: "Añadir salida"
     add_expense: "Añadir expensas"
     add_fax: "Añadir fax"
+    # add_fees: "Add fees"
     add_filter: "Añadir filtro"
     add_grading_check: "Añadir comprobación de calificaciones"
     add_incoming_payment: "Añadir pago recibido"

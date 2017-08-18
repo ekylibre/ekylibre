@@ -835,6 +835,7 @@ jpn:
     add_exit: "exitを追加します"
     add_expense: "費用を追加"
     add_fax: "ファックスを追加"
+    # add_fees: "Add fees"
     add_filter: "フィルタを追加します。"
     add_grading_check: "グレーディングチェックを追加"
     add_incoming_payment: "入金を追加"
