@@ -18783,6 +18783,14 @@ ALTER TABLE ONLY catalog_items
 
 
 --
+-- Name: payslip_natures fk_rails_4fb16e2e40; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY payslip_natures
+    ADD CONSTRAINT fk_rails_4fb16e2e40 FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
 -- Name: product_links fk_rails_4ff360e94e; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -21559,6 +21567,14 @@ ALTER TABLE ONLY subscriptions
 
 
 --
+-- Name: payslip_natures fk_rails_d8c00e9ff5; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY payslip_natures
+    ADD CONSTRAINT fk_rails_d8c00e9ff5 FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
 -- Name: cash_transfers fk_rails_d96ea1637c; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -21719,11 +21735,27 @@ ALTER TABLE ONLY product_links
 
 
 --
+-- Name: payslips fk_rails_dfbbe9ae4a; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY payslips
+    ADD CONSTRAINT fk_rails_dfbbe9ae4a FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
 -- Name: contract_items fk_rails_dfd3a85c11; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY contract_items
     ADD CONSTRAINT fk_rails_dfd3a85c11 FOREIGN KEY (contract_id) REFERENCES contracts(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: payslips fk_rails_e06a8abd44; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY payslips
+    ADD CONSTRAINT fk_rails_e06a8abd44 FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
 
 
 --
@@ -22998,7 +23030,7 @@ INSERT INTO schema_migrations (version) VALUES ('20170530002312');
 
 INSERT INTO schema_migrations (version) VALUES ('20170602144753');
 
-INSERT INTO schema_migrations (version) VALUES ('20170707180218');
-
 INSERT INTO schema_migrations (version) VALUES ('20170804101025');
+
+INSERT INTO schema_migrations (version) VALUES ('20170807180218');
 

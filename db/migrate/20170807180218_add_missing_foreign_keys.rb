@@ -554,6 +554,12 @@ class AddMissingForeignKeys < ActiveRecord::Migration
     add_properly_foreign_key :parcel_items, :source_product_id, :products, :restrict
     add_properly_foreign_key :parcel_items, :source_product_movement_id, :product_movements, :nullify
     add_properly_foreign_key :parcel_items, :variant_id, :product_nature_variants, :restrict
+    # Payslip
+    add_properly_foreign_key :payslips, :creator_id, :users, :nullify
+    add_properly_foreign_key :payslips, :updater_id, :users, :nullify
+    # PayslipNature
+    add_properly_foreign_key :payslip_natures, :creator_id, :users, :nullify
+    add_properly_foreign_key :payslip_natures, :updater_id, :users, :nullify
     # Plant
     # PlantCounting
     add_properly_foreign_key :plant_countings, :creator_id, :users, :nullify
