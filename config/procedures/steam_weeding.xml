@@ -13,8 +13,8 @@
                  backward="POPULATION * PRODUCT..net_volume(liter)"
                  forward="VALUE / PRODUCT..net_volume(liter)"/>
       </input>
-      <tool name="steam_engine" filter="can store_liquid and can kill(plant)" cardinality="*"/>
       <doer name="worker" filter="is worker" cardinality="*"/>
+      <tool name="steam_engine" filter="can store_liquid and can kill(plant)" cardinality="*"/>
     </parameters>
   </procedure>
 </procedures>
