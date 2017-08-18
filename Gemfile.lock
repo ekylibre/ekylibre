@@ -120,7 +120,7 @@ GEM
     cocoon (1.2.10)
     codacy-coverage (1.1.6)
       simplecov
-    code_analyzer (0.4.7)
+    code_analyzer (0.4.8)
       sexp_processor
     code_string (0.0.1)
     coderay (1.1.1)
@@ -168,16 +168,16 @@ GEM
     erubis (2.7.0)
     et-orbi (1.0.5)
       tzinfo
-    eventmachine (1.2.3)
+    eventmachine (1.2.5)
     exception_notification (4.2.1)
       actionmailer (>= 4.0, < 6)
       activesupport (>= 4.0, < 6)
     execjs (2.7.0)
     factory_girl (4.8.0)
       activesupport (>= 3.0.0)
-    faraday (0.12.1)
+    faraday (0.12.2)
       multipart-post (>= 1.2, < 3)
-    faraday_middleware (0.11.0.1)
+    faraday_middleware (0.12.2)
       faraday (>= 0.7.4, < 1.0)
     feedjira (2.1.2)
       faraday (>= 0.9)
@@ -198,7 +198,7 @@ GEM
       activesupport (>= 4.2.0)
     gyoku (1.3.1)
       builder (>= 2.1.2)
-    haml (5.0.1)
+    haml (5.0.2)
       temple (>= 0.8.0)
       tilt
     hashie (3.5.6)
@@ -213,7 +213,7 @@ GEM
     i18n (0.8.6)
     i18n-complements (1.1.0)
       i18n (>= 0.6)
-    i18n-js (3.0.0)
+    i18n-js (3.0.1)
       i18n (~> 0.6, >= 0.6.6)
     iban-tools (1.1.0)
     interception (0.5)
@@ -273,7 +273,7 @@ GEM
     mime-types-data (3.2016.0521)
     mimemagic (0.3.2)
     mini_portile2 (2.1.0)
-    minitest (5.10.2)
+    minitest (5.10.3)
     minitest-reporters (1.1.14)
       ansi
       builder
@@ -313,7 +313,7 @@ GEM
     paperclip-document (0.0.10)
       burisu-docsplit (>= 0.7.9)
       paperclip (>= 3.1, < 5.2)
-    parallel (1.11.2)
+    parallel (1.12.0)
     parallel_tests (2.14.2)
       parallel
     parser (2.4.0.0)
@@ -363,9 +363,9 @@ GEM
       rails-deprecated_sanitizer (>= 1.0.1)
     rails-html-sanitizer (1.0.3)
       loofah (~> 2.0)
-    rails_best_practices (1.18.1)
+    rails_best_practices (1.19.0)
       activesupport
-      code_analyzer (>= 0.4.3)
+      code_analyzer (>= 0.4.8)
       erubis
       i18n
       json
@@ -441,7 +441,7 @@ GEM
       sprockets (>= 2.8, < 4.0)
       sprockets-rails (>= 2.0, < 4.0)
       tilt (>= 1.1, < 3)
-    savon (2.11.1)
+    savon (2.11.2)
       akami (~> 1.2)
       builder (>= 2.1.2)
       gyoku (~> 1.2)
@@ -456,7 +456,7 @@ GEM
     selenium-webdriver (3.4.4)
       childprocess (~> 0.5)
       rubyzip (~> 1.0)
-    sentry-raven (2.6.0)
+    sentry-raven (2.6.2)
       faraday (>= 0.7.6, < 1.0)
     sepa_king (0.9.0)
       activemodel (>= 3.0.0)
@@ -518,7 +518,10 @@ GEM
       rack (>= 1, < 3)
     thor (0.19.4)
     thread_safe (0.3.6)
-    tilt (2.0.7)
+    tilt (2.0.8)
+    time_diff (0.3.0)
+      activesupport
+      i18n
     timecop (0.9.1)
     timeliness (0.3.8)
     tins (1.15.0)
@@ -675,6 +678,7 @@ DEPENDENCIES
   teaspoon-jasmine
   therubyracer
   thin
+  time_diff
   timecop
   treetop
   turbolinks (~> 2.0)
