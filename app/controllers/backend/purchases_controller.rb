@@ -90,7 +90,7 @@ module Backend
       # t.action :new, on: :none, url: {purchase_id: 'params[:id]'.c}, if: :draft?
       # t.action :edit, if: :draft?
       # t.action :destroy, if: :draft?
-      t.column :variant, url: true
+      t.column :label
       t.column :annotation
       t.column :quantity
       t.column :unit_pretax_amount, currency: true
