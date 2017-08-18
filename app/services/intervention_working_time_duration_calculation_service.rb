@@ -20,6 +20,7 @@ class InterventionWorkingTimeDurationCalculationService
 
     if times == 0 ||
        (tractors_count == 0 && prepelled_equipments_count == 0 && tools_count == 0)
+      return 0 if @intervention.nil?
       return @intervention.working_duration
     end
 
