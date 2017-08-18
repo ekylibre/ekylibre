@@ -36,7 +36,8 @@
       - if f.object.allow_items_update?
         %tfoot#items-footer
           %tr.total
-            %th{colspan: 6}= link_to_add_association :add_item.tl, f, :items, partial: 'item_fields', 'data-association-insertion-node' => '#items-footer', 'data-association-insertion-method' => :before, class: "btn primary"
+            %th{colspan: 3}= link_to_add_association :add_merchandise.tl, f, :items, partial: 'item_fields', 'data-association-insertion-node' => '#items-footer', 'data-association-insertion-method' => :before, class: "btn primary"
+            %th{colspan: 3}= link_to_add_association :add_service.tl, f, :items, partial: 'service_item_fields', 'data-association-insertion-node' => '#items-footer', 'data-association-insertion-method' => :before, class: "btn primary"
 / -else
 /   = field_set f.object.class.human_attribute_name(:items) do
 /     = "Items cannot be edited in current parcel state."

@@ -1,0 +1,48 @@
+- item ||= f.object
+- variant = Maybe(item.variant)
+- f.object.currency = Preference[:currency]
+- non_compliant_message = :non_compliant.tl
+
+%tbody.nested-fields.delivery-item.incoming-parcel-item{ data: { iceberg: true } }
+  %tr.item-display.hidden
+    %td.act
+      - if f.object.destroyable?
+        = link_to_remove_association(content_tag(:i) + h(:destroy.tl), f, 'data-no-turbolink' => true, class: 'destroy remove remove-item')
+    %td.act
+      = link_to("#", class: 'edit edit-item', data: { edit: "item-form" }) do
+        %i
+        = :edit.tl
+    %td
+      %label{ data: { item_value: "input.parcel-item-variant" } }= f.object.variant ? f.object.variant.name : '??????'
+      %br
+      %label{ data: { item_value: "input.item-non-compliant" } }= non_compliant_message if f.object.non_compliant?
+      %label{ data: { item_value: "input.item-non-compliant-detail" } }= f.object.non_compliant_detail
+    %td
+      %label
+        %span{ data: { item_value: "input.item-population" } }= f.object.population
+        %span{ data: { item_value: "span.item-population-unit-name" } }= f.object.variant ? f.object.variant.unit_name : '#'
+  %tr.nested-item-form
+    %td{colspan: 6}
+      .item-form
+        = f.input :purchase_item_id, as: :hidden
+        = f.referenced_association(:variant, source: { scope: :services }, input_html: { class: 'parcel-item-variant', data: {product_of_delivery_item: {url: backend_product_nature_variant_path("RECORD_ID", format: :json)}}})
+        .non-compliant
+          = f.input :non_compliant, input_html: { class: 'item-non-compliant', data: { warn_if_checked: non_compliant_message, input_to_show: '.non_compliant_detail_text', with_value: true } }
+          .non_compliant_detail_text.hidden
+            = f.input :non_compliant_detail, label: :detail.tl, input_html: { class: 'item-non-compliant-detail' }
+        .item-quantifier
+          .item-quantifier-population
+            = f.input :population, wrapper: :append do
+              = f.input_field :population, class: "item-population", placeholder: '0', data: {"when-item": "unitary", "when-set-value": 1, "when-prop-value": "disabled"}
+              %span.add-on.item-population-unit-name
+                = variant.unit_name.or_else('#')
+
+        - display = "display: none;" unless variant.identifiable?.or_else(false)
+        .no-border{style: display, data: {"when-item": "identifiable", "when-display-value": 'true'}}
+          = f.input :name do
+            = f.input_field :product_name, placeholder: ParcelItem.human_attribute_name(:product_name)
+          = f.input :identification_number do
+            = f.input_field :product_identification_number, placeholder: ParcelItem.human_attribute_name(:product_identification_number)
+        .buttons
+          %button.btn{ data: { cancel: 'item-form' } }= :cancel.tl
+          %button.btn.btn-primary{ data: { validate: 'item-form' } }= :validate.tl
