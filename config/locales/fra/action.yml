@@ -905,6 +905,7 @@ fra:
     add_exit: "Ajouter une sortie"
     add_expense: "Ajouter une dépense"
     add_fax: "Ajouter un n° de fax"
+    add_fees: "Ajouter des frais"
     add_filter: "Ajouter un filtre"
     add_grading_check: "Ajouter un critère d’agréage"
     add_incoming_payment: "Ajouter un encaissement"

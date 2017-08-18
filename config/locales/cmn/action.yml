@@ -769,6 +769,7 @@ cmn:
     add_exit: "添加退出"
     add_expense: "添加费用"
     add_fax: "添加传真"
+    # add_fees: "Add fees"
     add_filter: "添加过滤器"
     add_grading_check: "添加分级检查"
     add_incoming_payment: "添加收款"

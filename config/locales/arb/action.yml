@@ -1029,6 +1029,7 @@ arb:
     add_exit: "إضافة الخروج"
     add_expense: "إضافة حساب"
     add_fax: "إضافة الفاكس"
+    # add_fees: "Add fees"
     add_filter: "إضافة فلتر"
     add_grading_check: "إضافة الاختيار الدرجات"
     add_incoming_payment: "إضافة دفع الواردة"

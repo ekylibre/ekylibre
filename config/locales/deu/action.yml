@@ -769,6 +769,7 @@ deu:
     add_exit: "In Ausfahrt"
     add_expense: "In Kosten"
     add_fax: "In Fax"
+    # add_fees: "Add fees"
     add_filter: "Filter hinzufügen"
     add_grading_check: "In Grading-Check"
     add_incoming_payment: "In Zahlungseingang"

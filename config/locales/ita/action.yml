@@ -835,6 +835,7 @@ ita:
     add_exit: "Aggiungere uscita"
     add_expense: "Aggiungere spesa"
     add_fax: "Aggiungere fax"
+    # add_fees: "Add fees"
     add_filter: "Aggiungi filtro"
     add_grading_check: "Aggiungere controllo di classificazione"
     add_incoming_payment: "Aggiungere pagamento in entrata"

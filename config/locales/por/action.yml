@@ -774,6 +774,7 @@ por:
     add_exit: "Adicionar saída"
     add_expense: "Adicionar despesa"
     add_fax: "Adicionar fax"
+    # add_fees: "Add fees"
     add_filter: "Adicionar filtro"
     add_grading_check: "Adicionar verificação de classificação"
     add_incoming_payment: "Adicionar entrada de pagamento"
