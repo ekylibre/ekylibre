@@ -14,7 +14,6 @@ namespace :diagrams do
       end.map(&:classify).map(&:constantize) + [Tracking],
       cash: [Cash, CashSession, CashTransfer, BankStatement, BankStatementItem, Deposit, IncomingPaymentMode, OutgoingPaymentMode, Loan, LoanRepayment],
       entity: [Entity, EntityLink, EntityAddress, Task, Event, EventParticipation, Observation, PostalZone, District],
-      intervention: [Intervention, InterventionProductParameter, InterventionGroupParameter, InterventionParameterReading, TargetDistribution, ActivityProduction, Activity, InterventionWorkingPeriod, InterventionParticipation, Product, InterventionLabelling, Label],
       journal: [Journal, JournalEntry, JournalEntryItem, Account, FinancialYear, AccountBalance, Loan, LoanRepayment, BankStatement, Cash, FixedAsset, FixedAssetDepreciation], # , CashTransfer, CashSession]
       plant_counting: [Plant, Product, PlantCounting, PlantCountingItem, PlantDensityAbacus, PlantDensityAbacusItem, Activity],
       product_nature: [Product, ProductNature, ProductNatureVariant, ProductNatureCategory, ProductNatureVariantReading, ProductNatureCategoryTaxation],
