@@ -230,4 +230,58 @@ class PurchaseTest < ActiveSupport::TestCase
     purchase.save!
     assert_equal Date.civil(2015, 3, 1), purchase.payment_at
   end
+
+  test 'updating third updates third in affair if purchase is alone in the deals' do
+    original_supplier = Entity.create(first_name: 'First', last_name: 'Supplier', supplier: true)
+    replacement_supplier = Entity.create(first_name: 'Second', last_name: 'Supplier', supplier: true)
+
+    purchase = Purchase.create!(
+      nature: PurchaseNature.first,
+      planned_at: Date.civil(2015, 1, 1),
+      supplier: original_supplier,
+      items_attributes: {
+        '0' => {
+          tax: Tax.find_by!(amount: 20),
+          variant: ProductNatureVariant.first,
+          unit_pretax_amount: 100,
+          quantity: 1
+        },
+        '1' => {
+          tax: Tax.find_by!(amount: 0),
+          variant_id: ProductNatureVariant.first.id,
+          unit_pretax_amount: 450,
+          quantity: 2
+        }
+      }
+    )
+    assert_equal original_supplier, purchase.affair.third
+
+    purchase.update(supplier: replacement_supplier)
+    assert_equal replacement_supplier, purchase.affair.third
+
+    purchase.affair.purchases.create!(
+      nature: PurchaseNature.first,
+      planned_at: Date.civil(2015, 1, 1),
+      supplier: replacement_supplier,
+      items_attributes: {
+        '0' => {
+          tax: Tax.find_by!(amount: 20),
+          variant: ProductNatureVariant.first,
+          unit_pretax_amount: 100,
+          quantity: 1
+        },
+        '1' => {
+          tax: Tax.find_by!(amount: 0),
+          variant_id: ProductNatureVariant.first.id,
+          unit_pretax_amount: 450,
+          quantity: 2
+        }
+      }
+    )
+
+    assert_equal replacement_supplier, purchase.affair.third
+
+    purchase.update(supplier: original_supplier)
+    assert_equal replacement_supplier, purchase.affair.third
+  end
 end
