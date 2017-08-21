@@ -27,6 +27,7 @@
 #  birth_farm_number            :string
 #  born_at                      :datetime
 #  category_id                  :integer          not null
+#  codes                        :jsonb
 #  country                      :string
 #  created_at                   :datetime         not null
 #  creator_id                   :integer
@@ -92,6 +93,14 @@ class Equipment < Matter
   def best_activity_production(options = {})
     at = options[:at] || Time.zone.now
     ActivityProduction.where(support: groups_at(at)).at(at).first || super
+  end
+
+  def tractor?
+    variety == :tractor
+  end
+
+  def self_prepelled_equipment?
+    variety == :self_prepelled_equipment
   end
 
   ##################################################

@@ -70,12 +70,15 @@ fra:
       index: "Animaux"
       new: "Nouvel animal"
       show: "%{nature}\_: %{name}"
+    backend/bank_reconciliation/items:
+      index: "Pointer le relevé %{cash} n°%{number} (du %{started_on} au %{stopped_on})"
+      reconciliate: "Relevés de la trésorerie %{cash} (du %{started_on} au %{stopped_on})"
     backend/bank_statements:
       edit: "Modifier le relevé N°%{number}"
+      edit_interval: "Périodes des relevés bancaires a rapprocher"
       import: "Importer un fichier OFX"
       index: "Relevés de compte bancaire"
       new: "Pointer un nouveau relevé de compte"
-      reconciliation: "Pointer le relevé %{cash} n°%{number} (du %{started_on} au %{stopped_on})"
       show: "Relevé de compte N°%{number}"
     backend/beehives:
       reset: "Ré-initialiser la cellule: %{name}"
@@ -838,6 +841,7 @@ fra:
     accounts: "Comptes comptables"
     accounts_only_used_at: "Comptes utilisés seulement sur"
     accounts_to_load: "Plan de compte à charger"
+    action_duration: "Durée de l'action"
     activate_entry_autocompletion: "Autocompléter l’écriture"
     active: "Actif"
     active_balance_sheet: "Bilan actif" #?
@@ -984,7 +988,6 @@ fra:
     attachment: "Pièce jointe"
     attachments: "Pièces jointes"
     attorney: "Informations mandataire" #?
-    auto_reconciliate: "Auto réconcilier"
     automatic: "Auto"
     available: "Disponible"
     available_columns: "Champs disponibles\_: %{columns}"
@@ -1012,6 +1015,7 @@ fra:
     buildings_map: "Carte des bâtiments" #?
     by_year: "Par an"
     calculate: "Calculer"
+    calculated_hours: "Horaires calculées"
     calculators: "Calculateurs"
     calendar: "Calendrier"
     campaign: "Campagne"
@@ -1019,7 +1023,7 @@ fra:
     cancel: "Annuler"
     cancelation: "Annulation"
     cancelled: "Passées en avoir" #?
-    cap_islets: "Ilots PAC"
+    cap_islets: "Îlots PAC"
     cap_land_parcels: "Parcelles PAC"
     capitalised_production: "Production immobilisée"
     capitals: "Capital social"
@@ -1081,7 +1085,6 @@ fra:
     company: "Société"
     complement_sort: "Trier les choix par nom" #?
     complements: "Champs personnalisés" #?
-    complete: "Compléter"
     completed: "Terminées"
     completely_filled: "Complétée" #?
     component: "Composant" #?
@@ -1384,6 +1387,7 @@ fra:
     hint: "Astuce\_: %{value}"
     historic: "Historique"
     home: "Accueil"
+    hours: "H"
     human_target_names: "Nom des cibles" #?
     human_working_duration: "Temps de travail"
     human_working_zone_area: "Zone travaillée" #?
@@ -1602,6 +1606,7 @@ fra:
     min_level: "Niveau minimum" #?
     minimal_temperature: "Température minimale"
     minimum_amount: "Montant minimum"
+    minutes: "Min"
     missing_attributes: "Des champs sont manquants"
     missing_help: "Page inexistante"
     mistake_on_quantities_sum: "La somme des quantités n’est pas égale à la quantité totale produite" #?
@@ -1625,8 +1630,8 @@ fra:
     need_entities_to_consult_mandates: "Vous devez créer des fiches clients/fournisseurs avant" #?
     net_income: "Résultat d’exercice"
     net_margin: "Marge nette" #?
-    net_production_sales: "Ventes nettes de production"
     net_mass: "Masse nette"
+    net_production_sales: "Ventes nettes de production"
     net_surface_area: "Surface nette"
     net_vat_amount: "TVA nette due" #?
     net_volume: "Volume net" #?
@@ -2291,6 +2296,7 @@ fra:
     vat_paid: "TVA DEDUCTIBLE" #?
     video: "Vidéo" #?
     view: "Affichage"
+    view_map_when_creating_an_intervention: "Afficher la carte lors de la création d'intervention"
     view_modes: #?
       printable: "Mode «\_Imprimable\_»" #?
       resized: "Mode «\_Tout à l’écran\_»" #?
@@ -2310,6 +2316,7 @@ fra:
     working_area: "Surface travaillée" #?
     working_duration: "Temps de travail"
     working_sets_stocks: "Stocks d’ensembles de produits"
+    working_times: "Temps de travaux de %{name}"
     working_zone: "Zone travaillée" #?
     x_cashes:
       one: "1 compte bancaire"
@@ -2516,6 +2523,7 @@ fra:
       bad_file: "Le fichier ne semble pas correspondre." #?
       bookkeeping_is_finished: "La bascule en comptabilité est finie."
       bookkeeping_works_only_with: "La bascule en comptabilité ne peut se faire actuellement que pour\_: %{list}."
+      cannot_add_bank_statement_item: "Vous ne pouvez pas ajouter de nouvelle ligne parce que vous n’avez pas de relevé bancaire ce jour-là."
       cannot_delete_entity: "Il n’est pas possible de supprimer cette fiche car elle possède un historique comptable" #?
       cannot_find_deal_to_attach: "Impossible de trouver la transaction à rattacher"
       cannot_find_deal_to_detach: "Impossible de trouver la transaction à détacher"
@@ -2713,6 +2721,7 @@ fra:
       draft: "Brouillon" #?
       duplicate: "Dupliquer"
       edit: "Modifier"
+      edit_interval: "Rapprocher"
       edit_many: "Modifier plusieurs"
       evaluate: "Évaluer"
       export: "Exporter"
@@ -2726,6 +2735,7 @@ fra:
       incorporate: "Incorporer"
       increment: "Incrémenter" #?
       index: "Index"
+      interval_reconciliation: "Rapprocher" #?
       invoice: "Facturer"
       journal_entries_csv_export: "Télécharger le CSV"
       journal_entries_import: "Importer un CSV"
@@ -2807,7 +2817,7 @@ fra:
     backend/entity_links: "%{started_at}"
     backend/events: "%{name}"
     backend/incoming_payments: "%{number}. %{mode_name} de %{payer_full_name} de %{amount} %{currency}"
-    backend/interventions: "%{number}. %{name}"
+    backend/interventions: "%{number}"
     backend/journal_entry_items: "[%{entry_number}] %{name} (%{account_number}) D%{real_debit}/C%{real_credit} %{currency}"
     backend/matters: "%{name} ‒ %{work_number}"
     backend/observations: "%{content}"

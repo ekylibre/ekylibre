@@ -230,6 +230,8 @@ class JournalEntry < Ekylibre::Record::Base
     elsif journal
       self.number ||= journal.next_number
     end
+
+    self.currency = absolute_currency if financial_year.blank?
   end
 
   validate(on: :update) do

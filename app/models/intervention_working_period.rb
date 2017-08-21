@@ -41,7 +41,7 @@ class InterventionWorkingPeriod < Ekylibre::Record::Base
   belongs_to :intervention
   belongs_to :intervention_participation
   has_one    :intervention_participated_to, through: :intervention_participation, source: :intervention
-  enumerize :nature, in: %i[preparation travel intervention]
+  enumerize :nature, in: %i[preparation travel intervention pause]
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :duration, presence: true, numericality: { only_integer: true, greater_than: -2_147_483_649, less_than: 2_147_483_648 }
   validates :started_at, presence: true, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }
@@ -69,6 +69,14 @@ class InterventionWorkingPeriod < Ekylibre::Record::Base
     where(intervention_participation: intervention_participations)
   }
 
+  scope :without_participants_intervention, lambda { |_role, object|
+    where.not(intervention_id: InterventionParticipation.of_actor(object).pluck(:intervention_id).compact)
+  }
+
+  scope :precise_working_periods, lambda { |role, object|
+    where(id: (InterventionWorkingPeriod.with_intervention_parameter(role, object).without_participants_intervention(role, object).pluck(:id) + InterventionWorkingPeriod.of_intervention_participations(object.intervention_participations).pluck(:id)))
+  }
+
   scope :of_nature, lambda { |nature|
     where(nature: nature)
   }
@@ -84,13 +92,71 @@ class InterventionWorkingPeriod < Ekylibre::Record::Base
     if started_at && stopped_at && stopped_at <= started_at
       errors.add(:stopped_at, :posterior, to: started_at.l)
     end
+
     if intervention_participation.present?
       siblings = intervention_participation.working_periods.where.not(id: id || 0)
-      errors.add(:started_at, :overlap_sibling) if siblings.where('started_at < ? AND ? < stopped_at', started_at, started_at).any?
-      errors.add(:stopped_at, :overlap_sibling) if siblings.where('started_at < ? AND ? < stopped_at', stopped_at, stopped_at).any?
+      errors.add(:started_at, :overlap_sibling) if siblings.where('started_at <= ? AND ? < stopped_at', started_at, started_at).any?
+      errors.add(:stopped_at, :overlap_sibling) if siblings.where('started_at < ? AND ? <= stopped_at', stopped_at, stopped_at).any?
     end
   end
 
   after_commit :update_temporality, unless: -> { intervention.blank? }
   after_destroy :update_temporality, unless: -> { intervention.blank? }
+
+  def hide?
+    started_at.to_i == stopped_at.to_i
+  end
+
+  def hours_gap
+    (gap[:day] * 24) + gap[:hour]
+  end
+
+  def minutes_gap
+    gap[:minute]
+  end
+
+  def previous_period
+    return if first?
+
+    previous_index = index - 1
+    intervention_participation.working_periods.fetch(previous_index)
+  end
+
+  def next_period
+    return if last?
+
+    next_index = index + 1
+    intervention_participation.working_periods.fetch(next_index)
+  end
+
+  def pause_next?
+    return false if last?
+    gap_with_period?(next_period)
+  end
+
+  def gap_with_period?(working_period)
+    stopped_at < working_period.started_at
+  end
+
+  def duration_gap
+    (stopped_at - started_at) / 3600
+  end
+
+  private
+
+  def gap
+    Time.diff(stopped_at, started_at)
+  end
+
+  def first?
+    intervention_participation.working_periods.first == self
+  end
+
+  def last?
+    intervention_participation.working_periods.last == self
+  end
+
+  def index
+    intervention_participation.working_periods.find_index(self)
+  end
 end
