@@ -96,20 +96,6 @@ class ProductTest < ActiveSupport::TestCase
     end
   end
 
-  test 'sets' do
-    p = Plant.last
-    # p.id = nil
-    # p.number = nil
-    # prod = Plant.new(p.attributes)
-    # assert_equal true, prod.valid?
-    assert_equal '1.955 hectare', p.net_surface_area.to_s
-  end
-
-  test 'shape render value' do
-    p = Plant.last
-    assert p.shape != nil
-  end
-
   test 'product has a way to get its intervention_participations' do
     category = create :product_nature_category
     nature   = create(:product_nature, category: category)

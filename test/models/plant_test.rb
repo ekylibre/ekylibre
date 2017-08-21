@@ -93,4 +93,14 @@ class PlantTest < ActiveSupport::TestCase
       assert %i[go caution stop].include?(plant.status)
     end
   end
+
+  test 'sets' do
+    p = Plant.last
+    assert_equal '1.955 hectare', p.net_surface_area.to_s
+  end
+
+  test 'shape render value' do
+    p = Plant.last
+    assert p.shape != nil
+  end
 end

@@ -303,6 +303,14 @@ class Product < Ekylibre::Record::Base
   # [DEPRECATIONS[
   #  - fixed_asset_id
   # ]DEPRECATIONS]
+  def read_store_attribute(store_attribute, key)
+    store = self.send(store_attribute)
+    if store.has_key?(key)
+      super
+    else
+      get(key)
+    end
+  end
 
   def born_at_in_interventions
     return true unless first_intervention = interventions_used_in.order(started_at: :asc).first

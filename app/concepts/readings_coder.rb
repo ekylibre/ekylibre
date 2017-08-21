@@ -1,10 +1,11 @@
 class ReadingsCoder
+
   def self.load(json)
     return {} if json.blank?
     hash = JSON.parse(json.to_json)
     hash = {} unless hash.is_a?(Hash)
     hash.each do |indicator, value|
-      hash[indicator] = value.class
+      hash[indicator] = Measure.from_hash(value) if value.is_a?(Hash) && Measure.is_valid?(value)
     end
     hash
   end
