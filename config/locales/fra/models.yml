@@ -87,6 +87,7 @@ fra:
         quantity: "Quantité constatée" #?
       journal_entry_item: #?
         closed: "Cloturée" #?
+        name: "Libellé de l'écriture"
       land_parcel:
         born_at: "Créé le"
         children: "Sous-parcelle" #?

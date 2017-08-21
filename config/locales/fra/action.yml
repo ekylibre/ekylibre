@@ -1006,7 +1006,6 @@ fra:
     beta: "Beta"
     beta_description: "Cette fonctionnalité est en cours de développement et ne doit pas être considérée comme source fiable d’information."
     body: "Corps du message"
-    booking_text: "Libellé de l'écriture"
     bookkeep: "Comptabiliser"
     bookkeep_with_payment: "Comptabiliser avec paiement"
     budget: "Budget"
