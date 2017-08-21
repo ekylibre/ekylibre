@@ -60,7 +60,8 @@ class InterventionOutputTest < ActiveSupport::TestCase
   test_model_actions
 
   test 'method average_cost_amount' do
-    i = {
+
+    intervention = InterventionOutput.new(
       creator_id: 1,
       dead: false,
       id: 151,
@@ -74,11 +75,9 @@ class InterventionOutputTest < ActiveSupport::TestCase
       unit_pretax_stock_amount: 0.0,
       updater_id: 1,
       variant_id: 65
-    }
-    i_o = InterventionOutput.new(i)
+      )
 
-    refute_nil i_o.send(:average_cost_amount)
-    assert i_o.send(:average_cost_amount)
+    refute_nil intervention.send(:compute_average_cost_amount)
+    assert intervention.send(:compute_average_cost_amount)
   end
-  # Add tests here...
 end

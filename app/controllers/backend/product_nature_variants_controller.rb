@@ -60,8 +60,8 @@ module Backend
       t.column :variety
       t.column :derivative_of
       t.column :active
-      t.column :amount, through: :valuing, label_method: :amount
-      t.column :average_cost_amount, through: :valuing, label_method: :average_cost_amount
+      t.column :amount, through: :valuing
+      t.column :average_cost_amount, through: :valuing
     end
 
     list(:catalog_items, conditions: { variant_id: 'params[:id]'.c }) do |t|

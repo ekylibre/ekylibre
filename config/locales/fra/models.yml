@@ -625,7 +625,7 @@ fra:
     author: "Auteur"
     authorized_payments_count: "Nombre d’encaissements autorisés"
     auto_updateable_addresses: "Adresses mises à jour automatiquement"
-    average_cost_amount: "cump"
+    average_cost_amount: "cump" #?
     average_value: "Valeur moyenne"
     balance: "Solde"
     balance_amount: "Solde" #?

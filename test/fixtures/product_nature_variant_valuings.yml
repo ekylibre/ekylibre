@@ -22,12 +22,16 @@
 #
 # == Table: product_nature_variant_valuings
 #
-#  average_cost_amount       :decimal          not null
-#  amount                    :decimal          not null
-#  created_at                :datetime         not null
-#  id                        :integer          not null, primary key
-#  updated_at                :datetime         not null
-#  variant_id                :integer          not null
+#  amount              :decimal(19, 4)   not null
+#  average_cost_amount :decimal(19, 4)   not null
+#  computed_at         :datetime         not null
+#  created_at          :datetime         not null
+#  creator_id          :integer
+#  id                  :integer          not null, primary key
+#  lock_version        :integer          default(0), not null
+#  updated_at          :datetime         not null
+#  updater_id          :integer
+#  variant_id          :integer          not null
 #
 ---
 product_nature_variant_valuings_001:
@@ -37,6 +41,7 @@ product_nature_variant_valuings_001:
   updated_at: 2017-08-03 10:19:33.000000000 Z
   id: 1
   variant_id: 1
+  computed_at: 2017-08-21 16:51:13
 product_nature_variant_valuings_002:
   average_cost_amount: 344.5
   amount: 167.34
@@ -44,6 +49,7 @@ product_nature_variant_valuings_002:
   updated_at: 2017-08-03 10:19:33.000000000 Z
   id: 2
   variant_id: 2
+  computed_at: 2017-08-21 16:51:13
 product_nature_variant_valuings_003:
   average_cost_amount: 114.5
   amount: 100.34
@@ -51,4 +57,5 @@ product_nature_variant_valuings_003:
   updated_at: 2017-08-03 10:19:33.000000000 Z
   id: 3
   variant_id: 3
+  computed_at: 2017-08-21 16:51:13
 

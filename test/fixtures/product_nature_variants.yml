@@ -45,6 +45,7 @@
 #  unit_name                 :string           not null
 #  updated_at                :datetime         not null
 #  updater_id                :integer
+#  valuing_id                :integer
 #  variety                   :string           not null
 #  work_number               :string
 #

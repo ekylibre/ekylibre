@@ -63,7 +63,7 @@ class InterventionOutput < InterventionProductParameter
   has_one :product_movement, as: :originator, dependent: :destroy
   validates :variant, :quantity_population, presence: true
 
-  before_save :average_cost_amount
+  before_save :compute_average_cost_amount
 
   after_save do
     unless destroyed?
@@ -123,8 +123,8 @@ class InterventionOutput < InterventionProductParameter
 
   protected
 
-  def average_cost_amount
-    many_intervention_items = intervention.outputs.group_by { |item| item.variant_id }
+  def compute_average_cost_amount
+    many_intervention_items = intervention.outputs.group_by(&:variant_id)
     many_intervention_items = many_intervention_items.to_a
     many_intervention_items.each do |items|
       items.last.each do |item|

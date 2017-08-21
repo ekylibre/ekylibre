@@ -71,7 +71,7 @@ class InterventionInput < InterventionProductParameter
     self.variant = product.variant if product
   end
 
-  before_save :average_cost_amount
+  before_save :compute_average_cost_amount
 
   after_save do
     if product && intervention.record?
@@ -149,8 +149,8 @@ class InterventionInput < InterventionProductParameter
     end
   end
 
-  def average_cost_amount
-    many_intervention_items = intervention.inputs.group_by { |item| item.variant_id }
+  def compute_average_cost_amount
+    many_intervention_items = intervention.inputs.group_by(&:variant_id)
     many_intervention_items = many_intervention_items.to_a
     many_intervention_items.each do |items|
       items.last.each do |item|

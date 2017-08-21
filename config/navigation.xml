@@ -2042,6 +2042,10 @@
     </group>
   </inaccessible-actions>
   <untreated-actions>
-    <group/>
+    <group>
+      <item name="stocks">
+        <page to="backend/stocks#list"/>
+      </item>
+    </group>
   </untreated-actions>
 </navigation>

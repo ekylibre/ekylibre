@@ -206,7 +206,7 @@ class ParcelItem < Ekylibre::Record::Base
   # Mark items as given, and so change enjoyer and ownership if needed at
   # this moment.
   def give
-    average_cost_amount
+    compute_average_cost_amount
 
     give_outgoing if parcel_outgoing?
     give_incoming if parcel_incoming?
@@ -261,8 +261,8 @@ class ParcelItem < Ekylibre::Record::Base
     product_in_storage
   end
 
-  def average_cost_amount
-    many_items = parcel.items.group_by { |item| item.variant_id }
+  def compute_average_cost_amount
+    many_items = parcel.items.group_by(&:variant_id)
     many_items = many_items.to_a
     many_items.each do |items|
       items.last.each do |item|
