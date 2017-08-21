@@ -197,14 +197,11 @@
         product_id = $(event.target).closest('.nested-product-parameter').find(".selector .selector-value").val()
         existingParticipation = $('.intervention-participation[data-product-id="' + product_id + '"]').val()
         participations = $('intervention_participation')
-        interventionStartedAt = null
+        interventionStartedAt = $('#intervention_working_periods_attributes_0_started_at').val()
 
         participations = []
         $('.intervention-participation').each ->
           participations.push($(this).val())
-
-        if intervention_id == ""
-          interventionStartedAt = $('.intervention-started-at').val()
 
         autoCalculMode = true
         if $('input[name="auto-calcul-mode"]').length == 0
