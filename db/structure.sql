@@ -3917,7 +3917,8 @@ CREATE TABLE journal_entries (
     lock_version integer DEFAULT 0 NOT NULL,
     real_balance numeric(19,4) DEFAULT 0.0 NOT NULL,
     resource_prism character varying,
-    financial_year_exchange_id integer
+    financial_year_exchange_id integer,
+    reference_number character varying
 );
 
 
@@ -17863,4 +17864,8 @@ INSERT INTO schema_migrations (version) VALUES ('20170530002312');
 INSERT INTO schema_migrations (version) VALUES ('20170602144753');
 
 INSERT INTO schema_migrations (version) VALUES ('20170804101025');
+
+INSERT INTO schema_migrations (version) VALUES ('20170818134454');
+
+INSERT INTO schema_migrations (version) VALUES ('20170821140739');
 
