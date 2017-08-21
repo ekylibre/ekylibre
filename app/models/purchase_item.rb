@@ -136,7 +136,7 @@ class PurchaseItem < Ekylibre::Record::Base
     end
 
     if variant
-      self.label ||= variant.commercial_name
+      self.label = variant.commercial_name
       self.account = if fixed && purchase.purchased?
                        # select outstanding_assets during purchase
                        Account.find_or_import_from_nomenclature(:outstanding_assets)

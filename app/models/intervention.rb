@@ -108,7 +108,7 @@ class Intervention < Ekylibre::Record::Base
   calculable period: :month, column: :working_duration, at: :started_at, name: :sum
 
   acts_as_numbered
-  accepts_nested_attributes_for :group_parameters, :doers, :inputs, :outputs, :targets, :tools, :working_periods, allow_destroy: true
+  accepts_nested_attributes_for :group_parameters, :participations, :doers, :inputs, :outputs, :targets, :tools, :working_periods, allow_destroy: true
   accepts_nested_attributes_for :labellings, allow_destroy: true
 
   scope :between, lambda { |started_at, stopped_at|
@@ -626,6 +626,35 @@ class Intervention < Ekylibre::Record::Base
     compliances[modifier.keys.first] = modifier.values.first
     update(request_compliant: false) if compliances.values.index(false)
     update(request_compliant: true) if (compliances.values - [true]).empty?
+  end
+
+  def participation(product)
+    InterventionParticipation.of_intervention(self).of_product(product).first
+  end
+
+  def worker_working_periods(nature: nil, not_nature: nil)
+    workers_participations = participations.select { |participation| participation.product.is_a?(Worker) }
+    working_periods = nil
+
+    if nature.nil? && not_nature.nil?
+      working_periods = workers_participations.map(&:working_periods)
+    elsif !nature.nil?
+      working_periods = workers_participations.map { |participation| participation.working_periods.where(nature: nature) }
+    elsif !not_nature.nil?
+      working_periods = workers_participations.map { |participation| participation.working_periods.where.not(nature: not_nature) }
+    end
+
+    working_periods.flatten
+  end
+
+  def drivers_times(nature: nil, not_nature: nil)
+    worker_working_periods(nature: nature, not_nature: not_nature)
+      .map(&:duration)
+      .reduce(0, :+)
+  end
+
+  def first_worker_working_period(nature: nil, not_nature: nil)
+    test = worker_working_periods(nature: nature, not_nature: not_nature)
   end
 
   class << self
