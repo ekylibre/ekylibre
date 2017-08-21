@@ -30,7 +30,7 @@ module Backend
       t.action :reopen, if: :reopenable?, image: :lock
       t.action :edit
       t.action :destroy
-      t.column :name, url: true
+      t.column :name, label: :booking_text, url: true
       t.column :code, url: true
       t.column :nature
       t.column :currency
