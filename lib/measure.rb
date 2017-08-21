@@ -274,6 +274,7 @@ class Measure
 
   # For implicit serialization
   def as_json(options = nil)
+    value = self.value.zero? ? 0 : self.value
     { class: self.class.name,
       value: value,
       unit: unit }
@@ -286,7 +287,7 @@ class Measure
   end
 
   def self.from_hash(args)
-    self.new(args['value'], args['unit'])
+    self.new(Rational(args['value']), args['unit'])
   end
 
   # Localize a measure

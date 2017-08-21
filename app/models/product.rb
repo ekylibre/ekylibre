@@ -511,7 +511,7 @@ class Product < Ekylibre::Record::Base
   def shape=(new_shape)
     reading_cache[:shape] = new_shape
 
-    self.net_surface_area = calculation_of_net_surface_area
+    self.net_surface_area = calculate_net_surface_area
     save!
     shape
   end
@@ -788,12 +788,12 @@ class Product < Ekylibre::Record::Base
   def net_surface_area
     computed_surface = reading_cache[:net_surface_area] || reading_cache['net_surface_area']
     return computed_surface if computed_surface
-    self.net_surface_area = calculation_of_net_surface_area
+    self.net_surface_area = calculate_net_surface_area
   end
 
   # Override net_surface_area indicator to compute it from shape if
   # product has shape indicator unless options :strict is given
-  def calculation_of_net_surface_area(options = {})
+  def calculate_net_surface_area(options = {})
     # TODO: Manage global preferred surface unit or system
     area_unit = options[:unit] || :hectare
     if !options.keys.detect { |k| %i[gathering interpolate cast].include?(k) } &&
