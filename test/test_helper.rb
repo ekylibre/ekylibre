@@ -5,10 +5,12 @@ ENV['RAILS_ENV'] ||= 'test'
 
 if ENV['CI']
   require 'coveralls'
+  require 'codacy-coverage'
 
   Coveralls.setup!
 
   SimpleCov.formatters = [
+    Codacy::Formatter,
     Coveralls::SimpleCov::Formatter
   ]
 
