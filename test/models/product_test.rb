@@ -73,7 +73,7 @@
 #  picture_file_name            :string
 #  picture_file_size            :integer
 #  picture_updated_at           :datetime
-#  reading_cache                :jsonb            default("{}"), not null
+#  reading_cache                :jsonb
 #  team_id                      :integer
 #  tracking_id                  :integer
 #  type                         :string
@@ -102,8 +102,12 @@ class ProductTest < ActiveSupport::TestCase
     # p.number = nil
     # prod = Plant.new(p.attributes)
     # assert_equal true, prod.valid?
-    binding.pry
-    assert_equal '1.955 hectare', prod.net_surface_area.to_s
+    assert_equal '1.955 hectare', p.net_surface_area.to_s
+  end
+
+  test 'shape render value' do
+    p = Plant.last
+    assert p.shape != nil
   end
 
   test 'product has a way to get its intervention_participations' do

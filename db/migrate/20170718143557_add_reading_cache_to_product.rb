@@ -1,5 +1,5 @@
 class AddReadingCacheToProduct < ActiveRecord::Migration
   def change
-    add_column :products, :reading_cache, :jsonb, null: false, default: '{}'
+    add_column :products, :reading_cache, :jsonb
   end
 end

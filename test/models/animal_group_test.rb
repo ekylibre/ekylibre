@@ -73,7 +73,7 @@
 #  picture_file_name            :string
 #  picture_file_size            :integer
 #  picture_updated_at           :datetime
-#  reading_cache                :jsonb            default("{}"), not null
+#  reading_cache                :jsonb
 #  team_id                      :integer
 #  tracking_id                  :integer
 #  type                         :string

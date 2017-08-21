@@ -4,7 +4,6 @@ class ReadingsCoder
     hash = JSON.parse(json.to_json)
     hash = {} unless hash.is_a?(Hash)
     hash.each do |indicator, value|
-      binding.pry
       hash[indicator] = value.class
     end
     hash
