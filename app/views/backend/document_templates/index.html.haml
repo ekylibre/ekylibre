@@ -1,5 +1,5 @@
 - main_toolbar do |t|
-  = t.new
+  = t.new params: { redirect: nil }
   = t.action :load, "data-confirm" => :are_you_sure.tl, method: :post
 
 = main_list

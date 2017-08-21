@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2016 Brice Texier, David Joulin
+# Copyright (C) 2012-2017 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -42,7 +42,13 @@ class PlantDensityAbacusItem < Ekylibre::Record::Base
   validates :plant_density_abacus, presence: true
   # ]VALIDATORS]
 
+  scope :of_abacus, ->(id) { where(plant_density_abacus_id: id) }
+
   protect on: :destroy do
     plant_countings.any?
+  end
+
+  def to_s
+    "#{plants_count} - #{seeding_density_value.in(plant_density_abacus.seeding_density_unit).l}"
   end
 end

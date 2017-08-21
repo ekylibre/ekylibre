@@ -46,6 +46,11 @@ module WorkingSet
         item = find_nomenclature_item(:varieties, object.variety_name.text_value)
         compliants = item.self_and_children.map { |i| "'#{i.name}'" }.join(', ')
         "#{column_for(column)} IN (#{compliants})"
+      elsif object.is_a?(WorkingSet::QueryLanguage::InclusionTest)
+        column = :derivative_of
+        item = find_nomenclature_item(:varieties, object.variety_name.text_value)
+        compliants = item.self_and_parents.map { |i| "'#{i.name}'" }.join(', ')
+        "#{column_for(column)} IN (#{compliants})"
       elsif object.is_a?(WorkingSet::QueryLanguage::NonEssenceTest) || object.is_a?(WorkingSet::QueryLanguage::NonDerivativeTest)
         column = object.is_a?(WorkingSet::QueryLanguage::NonEssenceTest) ? :variety : :derivative_of
         item = find_nomenclature_item(:varieties, object.variety_name.text_value)
@@ -54,15 +59,17 @@ module WorkingSet
       elsif object.is_a?(WorkingSet::QueryLanguage::AbilityTest)
         ability = object.ability
         unless ability_item = Nomen::Ability.find(ability.ability_name.text_value)
-          raise "Unknown ability: #{ability.ability_name.text_value}"
+          raise InvalidExpression, "Unknown ability: #{ability.ability_name.text_value}"
         end
         parameters = []
         if ability.ability_parameters.present? && ability.ability_parameters.parameters.present?
           ps = ability.ability_parameters.parameters
           parameters << ps.first_parameter
-          for other_parameter in ps.other_parameters.elements
-            parameters << other_parameter.parameter
-          end if ps.other_parameters
+          if ps.other_parameters
+            for other_parameter in ps.other_parameters.elements
+              parameters << other_parameter.parameter
+            end
+          end
         end
         if ability_item.parameters
           if parameters.any?
@@ -73,14 +80,14 @@ module WorkingSet
               elsif parameter == :issue_nature
                 item = find_nomenclature_item(:issue_natures, parameters[index].text_value)
               else
-                raise "What parameter type: #{parameter}?"
+                raise InvalidExpression, "What parameter type: #{parameter}?"
               end
               # lists << item.self_and_children.map(&:name)
               lists << item.self_and_parents.map(&:name)
             end
             "#{column_for(:abilities_list)} ~ E'\\\\m#{ability_item.name}\\\\(\\\\s*" + lists.map { |l| '(' + l.join('|') + ')' }.join('\\\\s*,\\\\s*') + "\\\\s*\\\\)\\\\Y'"
           else
-            raise "Argument expected for ability #{ability_item.name}"
+            raise InvalidExpression, "Argument expected for ability #{ability_item.name}"
           end
         else
           if parameters.any?
@@ -110,7 +117,7 @@ module WorkingSet
 
     def find_nomenclature_item(nomenclature, name)
       unless item = Nomen[nomenclature].find(name)
-        raise "Unknown item in #{nomenclature} nomenclature: #{name}"
+        raise InvalidExpression, "Unknown item in #{nomenclature} nomenclature: #{name}"
       end
       item
     end

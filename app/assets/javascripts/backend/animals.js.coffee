@@ -1,454 +1,104 @@
 #= require bootstrap/modal
 
-(($) ->
+((E, G, $) ->
 
   $(document).ajaxSend (e, xhr, options) ->
     token = $('meta[name=\'csrf-token\']').attr('content')
     xhr.setRequestHeader 'X-CSRF-Token', token
     return
 
-  ko.bindingHandlers.checkbox =
-    init: (element, valueAccessor, allBindings, data, context) ->
-      observable = valueAccessor()
-      if !ko.isWriteableObservable(observable)
-        throw 'You must pass an observable or writeable computed'
-      $element = $(element)
-      $element.on 'click', ->
-        observable !observable()
-        return
-      ko.computed
-        disposeWhenNodeIsRemoved: element
-        read: ->
-          $element.toggleClass 'active', observable()
-          return
-      return
 
-  ko.bindingHandlers.modal =
-    init: (element, valueAccessor) ->
-      $(element).modal show: false
-      value = valueAccessor()
-      if typeof value == 'function'
-        $(element).on 'hide.bs.modal', ->
-          value false
-          return
-      ko.utils.domNodeDisposal.addDisposeCallback element, ->
-        $(element).modal 'destroy'
-        return
-      return
-    update: (element, valueAccessor) ->
-      value = valueAccessor()
-      if ko.utils.unwrapObservable(value)
-        $(element).modal 'show'
-      else
-        $(element).modal 'hide'
-      return
-
-
-  class dashboardViewModel
+  class golumn
     constructor: (id) ->
       @id = id
 
-      @showAnimalDetailsModal = ko.observable false
-      @showNewContainerModal = ko.observable false
-      @showMoveAnimalModal = ko.observable false
-      @showNewGroupModal = ko.observable false
-
-      @animalDetailsModalOptions = ko.observable false
-      @containerModalOptions = ko.observable false
-
-      @newContainer = ko.observable ''
-
-      @moveAnimalModalOptions =
-        animals: ko.observableArray []
-        started_at: ko.observable ''
-        stopped_at: ko.observable ''
-        worker: ko.observable undefined
-        variant: ko.observable undefined
-        production_support: ko.observable undefined
-        group: ko.observable undefined
-        container: ko.observable undefined
-        alert: ko.observable false
-        checkNature: ko.observable false
-
-      @moveAnimalModalOptions.checkNature.subscribe (value) =>
-        if value != 1
-          @moveAnimalModalOptions.variant undefined
-
-      @newGroupModalOptions =
-        group: ko.observable ''
-        variantId: ko.observable ''
-
-
-      @cancelAnimalDetails = () =>
-        @animalDetailsModalOptions false
-        @showAnimalDetailsModal false
-
-      @cancelNewGroup = () =>
-        @showNewGroupModal false
-
-      @addContainer = =>
-        newContainer = new dashboardViewModel.Container(@newContainer().id, @newContainer().name, @containerModalOptions())
-        @containers.push newContainer
-
-        if @droppedAnimals().length > 0
-          #Send animals by values instead of observableArray reference
-          animals = []
-          ko.utils.arrayForEach @droppedAnimals(), (a) =>
-            animals.push a
-
-          @toggleMoveAnimalModal(animals,newContainer);
-
-
-
-        @resetContainerAdding()
-
-
-      @containers_list = ko.observableArray []
-      @workers_list = ko.observableArray []
-      @natures_list = ko.observableArray []
-      @production_support_list = ko.observableArray []
-
+      @selectedItemsIndex = {}
 
       @groups = ko.observableArray []
       @containers = ko.observableArray []
       @animals = ko.observableArray []
 
+      @counter = ko.observable 0
 
-      @drop = ko.observable
-      @hoverdrop = ko.observable
-      @droppedAnimals = ko.observableArray []
-
-
-
-
-      @displayedContainers = (group) =>
-
-        c = ko.utils.arrayFilter @containers(), (c) =>
-          c.group_id() == group.id
-
-        return @sortContainerByPosition c
-
-
-      @sortContainerByPosition = (containers) =>
-        containers.sort (a,b) =>
-          if a.position() == b.position()
-            res = 0
-          else if a.position() < b.position()
-            res = -1
-          else
-            res = 1
-          return res
-
-      @toggleAnimalDetailsModal = (animal) =>
-        @animalDetailsModalOptions animal
-        @showAnimalDetailsModal true
-        return
-
-      @toggleNewGroupModal = () =>
-        @showNewGroupModal true
-        return
-
-      @toggleNewContainerModal = (group) =>
-        @containerModalOptions group.id
-        @showNewContainerModal true
-        #Be sure only one modal is displayed
-        @showMoveAnimalModal false
-        $.ajax '/backend/animals/load_containers',
-          type: 'GET',
-          dataType: 'JSON',
-          success: (json_data) ->
-            ko.utils.arrayForEach json_data, (j) =>
-              window.app.containers_list.push j
-            return true
-
-      @toggleMoveAnimalModal = (animals, container) =>
-        @moveAnimalModalOptions.animals animals
-        @moveAnimalModalOptions.container container
-        group = ko.utils.arrayFirst @groups(), (g) =>
-          g.id == container.group_id()
-        @moveAnimalModalOptions.group group
-
-        @showMoveAnimalModal true
-        $.ajax '/backend/animals/load_workers',
-          type: 'GET',
-          dataType: 'JSON',
-          success: (json_data) ->
-            ko.utils.arrayForEach json_data, (j) =>
-              window.app.workers_list.push j
-            return true
+      @keeper_id = undefined
 
-        $.ajax '/backend/animals/load_natures',
-          type: 'GET',
-          dataType: 'JSON',
-          success: (json_data) ->
-            ko.utils.arrayForEach json_data, (j) =>
-              window.app.natures_list.push j
-            return true
-
-        $.ajax '/backend/animals/load_production_supports',
-          type: 'GET',
-          dataType: 'JSON',
-          data: {group_id: group.id},
-          success: (json_data) ->
-            ko.utils.arrayForEach json_data, (j) =>
-              window.app.production_support_list.push j
-            return true
-
-      @moveContainer = (container, sourceGroup, sourceIndex, targetGroup, targetIndex) =>
-        #Allow to update multiple containers
-        offset = container.length || 1
-
-        #update target group
-        container.group_id targetGroup.id
-        container.position targetIndex
-
-        supContainers = ko.utils.arrayFilter @containers(), (c) =>
-          c.group_id() == targetGroup.id and c.position() > targetIndex and c.id != container.id
-
-        ko.utils.arrayForEach supContainers, (f) =>
-          f.position f.position()+offset
-
-        infContainers = ko.utils.arrayFilter @containers(), (c) =>
-          c.group_id() == targetGroup.id and c.position() <= targetIndex and c.id != container.id
-
-        ko.utils.arrayForEach infContainers, (f) =>
-          f.position f.position()-offset
-
-        if sourceGroup != targetGroup
-          #two swaps, we need to reorganize source group without removed container and change the owner group
-
-          supContainers = ko.utils.arrayFilter @containers(), (c) =>
-            c.group_id() == sourceGroup.id and c.position() > sourceIndex and c.id != container.id
-
-          ko.utils.arrayForEach supContainers, (f) =>
-            f.position f.position()-offset
 
-        #update preferences
-        @updatePreferences();
+      @enableDropZones = (state = false) =>
+        ko.utils.arrayForEach @groups(), (group) =>
+          group.droppable state
+          ko.utils.arrayForEach group.containers(), (container) =>
+            container.droppable state unless container.protect
 
-
-      @moveAnimals = () =>
+      @moveAnimals = (container, group) =>
 
-        animals_id = ko.utils.arrayMap @moveAnimalModalOptions.animals(), (a) =>
-          return a.id
+        params = {}
+        params['new_container'] = container.id() unless container is undefined
+        params['parameters'] = true
 
-#        if animals_id.length > 0 and @moveAnimalModalOptions.container() != undefined and @moveAnimalModalOptions.group() != undefined and @moveAnimalModalOptions.worker() != undefined and @moveAnimalModalOptions.started_at() != '' and @moveAnimalModalOptions.stopped_at() != '' and @moveAnimalModalOptions.production_support() != undefined
-        if animals_id.length > 0 and @moveAnimalModalOptions.container() != undefined and @moveAnimalModalOptions.group() != undefined and @moveAnimalModalOptions.worker() != undefined and @moveAnimalModalOptions.started_at() != '' and @moveAnimalModalOptions.stopped_at() != ''
+        # find if any group changed
+        for id, item of @selectedItemsIndex
+          if item.parent.parent.id != group.id and group isnt undefined
+            params['new_group'] = group.id
 
-          data =
-            animals_id: animals_id.join(',')
-            container_id: @moveAnimalModalOptions.container().id
-            worker_id: @moveAnimalModalOptions.worker().id
-            started_at: @moveAnimalModalOptions.started_at()
-            stopped_at: @moveAnimalModalOptions.stopped_at()
+        E.dialog.open @rebuildUrl(params),
+          returns:
+            success: (frame, data, status, request) =>
+              Turbolinks.visit '#', action: 'replace'
 
-          if @moveAnimalModalOptions.group().id != @moveAnimalModalOptions.animals()[0].group_id()
-            data['group_id'] = @moveAnimalModalOptions.group().id
+              frame.dialog "close"
+              return
 
-          if @moveAnimalModalOptions.variant()
-             data['variant_id'] =  @moveAnimalModalOptions.variant().id
+            invalid: (frame, data, status, request) ->
+              frame.html request.responseText
+              return
 
-          if @moveAnimalModalOptions.production_support()
-            data['production_support_id'] = @moveAnimalModalOptions.production_support().id
+      # by default, build url to move animals
+      @rebuildUrl = =>
 
-          $.ajax '/backend/animals/change',
-            type: 'PUT',
-  #          type: 'GET',
-            dataType: 'JSON',
-            data: data,
-            success: (res) =>
-              @showMoveAnimalModal false
-
-              # maj
-              ko.utils.arrayForEach @moveAnimalModalOptions.animals(), (a) =>
-                 id = a.id
-                 name = a.name
-                 img = a.img
-                 status = a.status
-                 sex = a.sex
-                 num = a.number_id
-                 @animals.remove a
-                 @animals.push new dashboardViewModel.Animal(id, name, img, status, sex, num, @moveAnimalModalOptions.container().id, @moveAnimalModalOptions.group().id)
-
-
-              @resetAnimalsMoving()
-
-
-              return true
-
-            error: (res) =>
-              @showMoveAnimalModal false
-              alert res.statusText
-              @cancelAnimalsMoving()
-              return false
-        else
-          @moveAnimalModalOptions.alert true
-
-      @cancelAnimalsMoving = () =>
+        options = Array.from(arguments).shift()
 
-        ko.utils.arrayForEach @moveAnimalModalOptions.animals(), (a) =>
-          id = a.id
-          name = a.name
-          img = a.img
-          status = a.status
-          sex = a.sex
-          num = a.number_id
-          container = a.container_id()
-          group = a.group_id()
-          @animals.remove a
-          @animals.push new dashboardViewModel.Animal(id, name, img, status, sex, num, container, group)
+        base_url = options['base_url'] || $('a[data-target=animal_group_changing]').attr('href')
+        parameters = options['parameters'] || false
 
-        @showMoveAnimalModal false
-
-        @resetAnimalsMoving()
+        options = Array.from(arguments).shift()
+        options['reference_name'] ||= 'animal'
+        options['keeper_id'] = @keeper_id if Object.keys(@selectedItemsIndex).length and @keeper_id
 
-      @resetAnimalsMoving = () =>
-        @moveAnimalModalOptions.animals.removeAll()
+        delete options['parameters']
 
-        @moveAnimalModalOptions.container undefined
-        @moveAnimalModalOptions.started_at ''
-        @moveAnimalModalOptions.stopped_at ''
-        @moveAnimalModalOptions.worker undefined
-        @moveAnimalModalOptions.variant undefined
-        @moveAnimalModalOptions.group undefined
-        @moveAnimalModalOptions.alert false
-        @moveAnimalModalOptions.checkNature false
-        @production_support_list.removeAll()
-        @workers_list.removeAll()
-        @natures_list.removeAll()
+        base_url += "&#{$.param(options)}" if parameters
 
-      @cancelContainerAdding = () =>
-        @resetContainerAdding()
-
-
-      @resetContainerAdding = () =>
-        @newContainer = ko.observable false
-        @containerModalOptions = ko.observable false
-        @containers_list.removeAll()
-        @showNewContainerModal false
-        @droppedAnimals.removeAll()
-
-      @updatePreferences = () =>
-
-        data = []
-
-        ko.utils.arrayForEach @groups(), (g) =>
-          group = {id: g.id, containers: []}
-          curContainers = ko.utils.arrayFilter @containers(), (c) =>
-            c.group_id() == g.id
-
-          containers = ko.utils.arrayMap curContainers, (c) =>
-            {id: c.id, position: c.position()}
-
-          containers = containers.sort (a,b)->
-            if a.position > b.position
-              return 1
-            else
-              return -1
-
-          ko.utils.arrayForEach containers, (item) ->
-            group.containers.push item.id
-          data.push group
-
-        $.ajax
-          url: "/backend/golumns/#{@id}"
-          type: 'PATCH'
-          data:
-            positions: data
-
-      @showAddGroup = (item) =>
-        return item() == @groups().length-1
-
-      @addGroup = () =>
-        if group = @newGroupModalOptions.group
-
-          $.ajax '/backend/animals/add_group',
-            type: 'PUT',
-#            type: 'GET',
-            dataType: 'JSON',
-            data: {name:group(),variant_id: @newGroupModalOptions.variantId()},
-            success: (res) =>
-              if res.id
-                @groups.push new dashboardViewModel.Group(res.id, res.name)
-
-              @showNewGroupModal false
-              return true
-
-            error: (res) =>
-              @showNewGroupModal false
-              return false
-
-
-    @Group: (id, name) ->
-      @id = id
-      @name = name
-      @toggleItems = ko.observable false
-      @toggleItems.subscribe (newValue) =>
-
-        container_array = ko.utils.arrayFilter window.app.containers(), (c) =>
-          c.group_id() == @id
-
-        ko.utils.arrayForEach container_array, (c) =>
-          ko.utils.arrayForEach window.app.animals(), (a) =>
-            if a.container_id() == c.id and a.group_id() == @id
-              a.checked newValue
-
-      return
-
-    @Container: (id, name, group_id) ->
-      @id = id
-      @name = name
-      @group_id = ko.observable group_id
-
-      @animalCount = ko.pureComputed () =>
-        array = ko.utils.arrayFilter window.app.animals(), (a) =>
-          a.container_id() == @id && a.group_id() == @group_id()
-
-        array.length
-
-      @hidden = ko.observable false
-      @toggle = () =>
-        @hidden(!@hidden())
-        return
-
-      @position = ko.observable 0
-      return
-
-    @Animal: (id, name, img, status, sex, number_id, container_id, group_id) ->
-      @id = id
-      @name = name
-      @img = ko.pureComputed () =>
-        img
-      @status = status
-      @sex = sex
-      @animalSexClass = ko.pureComputed () =>
-        #TODO get sex key from backend instead of human name
-        if @sex == 'Mâle'
-          className = "icon-mars"
-        if @sex == 'Femelle'
-          className = "icon-venus"
-        className
-      #@number_id = number_id
-      @animalStatusClass = ko.pureComputed () =>
-        return "status-#{@status}"
-
-      @animalFlagClass = ko.pureComputed () =>
-        return "lights-#{@status}"
-      @showUrl = ko.pureComputed () =>
-        "/backend/animals/#{@id}"
-
-      @container_id = ko.observable container_id
-      @group_id = ko.observable group_id
-      @checked = ko.observable false
-
-      return
-
-  @loadData = (golumn, element) =>
+        base_url
+
+      @impactOnSelection = =>
+
+        @counter Object.keys(@selectedItemsIndex).length
+
+        $.post $('*[data-keep-animals-path]').first().data('keep-animals-path'), id: Object.keys(@selectedItemsIndex).join(',') , (data) =>
+          @keeper_id = data.id if data.id? and data.id
+
+        $.get $('*[data-matching-interventions-path]').first().data('matching-interventions-path'), id: Object.keys(@selectedItemsIndex).join(',')
+
+
+      @resetSelectedItems = =>
+        for id, item  of @selectedItemsIndex
+          item.checked(false)
+
+
+        $.post $('*[data-keep-animals-path]').first().data('keep-animals-path'), id: [], (data) =>
+          @keeper_id = undefined if data.id?
+
+
+        @selectedItemsIndex = {}
+
+
+  @loadData = (golumn, scope, element) =>
     $.ajax '/backend/animals/load_animals',
       type: 'GET'
       dataType: 'JSON'
       data:
         golumn_id: golumn
+        scope: scope
       beforeSend: () ->
         element.addClass("loading")
         return
@@ -456,27 +106,43 @@
         element.removeClass("loading")
         return
       success: (json_data) ->
-        ko.utils.arrayForEach json_data, (j) =>
-          if j.group
-            window.app.groups.push new dashboardViewModel.Group(j.group.id, j.group.name)
-          if j.places_and_animals and j.places_and_animals.length > 0
-            ko.utils.arrayForEach j.places_and_animals, (container) =>
-              if container.place
-                window.app.containers.push new dashboardViewModel.Container(container.place.id, container.place.name, j.group.id)
-              if container.animals
-                ko.utils.arrayForEach $.parseJSON(container.animals), (animal) =>
-                  window.app.animals.push new dashboardViewModel.Animal(animal.id, animal.name, '', animal.status, animal.sex_text, animal.identification_number, container.place.id, j.group.id)
+        groups = ko.utils.arrayMap json_data.groups, (jGroup) =>
 
-          if j.others
+          group = new G.Group(jGroup.id, jGroup.name, jGroup.edit_path, [])
 
-            window.app.groups.push new dashboardViewModel.Group(0, 'A classer')
-            window.app.containers.push new dashboardViewModel.Container(0, 'A classer', 0) #305 = vaches laitières
+          group.containers ko.utils.arrayMap jGroup.places, (jPlace) =>
 
-            ko.utils.arrayForEach j.others, (other) =>
-              if other.animal
-                animal = $.parseJSON(other.animal)
-                window.app.animals.push new dashboardViewModel.Animal(animal.id, animal.name, '', animal.status, animal.sex_text, animal.identification_number, 0, 0)
+            container = new G.Container(jPlace.id, jPlace.name, [], group)
 
+            container.items ko.utils.arrayMap jPlace.animals, (animal) =>
+              new G.Item(animal.id, animal.name, animal.status, animal.sex, animal.show_path, container)
+
+            container
+
+          #items without place:
+          if jGroup.without_place
+            new_container = new G.Container(jGroup.without_place.id, jGroup.without_place.name, [], group)
+            new_container.items ko.utils.arrayMap jGroup.without_place.animals, (animal) =>
+              new G.Item(animal.id, animal.name, animal.status, animal.sex, animal.show_path, new_container)
+
+            group.containers.push new_container
+
+          group
+
+        if json_data.without_group
+          new_group = new G.Group(json_data.without_group.id, json_data.without_group.name, json_data.without_group.edit_path, [])
+
+          #items without place:
+          if json_data.without_group.without_place
+            new_container = new G.Container(json_data.without_group.without_place.id, json_data.without_group.without_place.name, [], new_group)
+            new_container.items ko.utils.arrayMap json_data.without_group.without_place.animals, (animal) =>
+              new G.Item(animal.id, animal.name, animal.status, animal.sex, animal.show_path, new_container)
+
+            new_group.containers.push new_container
+
+            groups.push new_group
+
+        window.app.groups = ko.observableArray(groups)
 
         ko.applyBindings window.app
 
@@ -487,6 +153,52 @@
 
     return
 
+  $(document).on 'click', 'a[data-toggle=dialog]', (e) =>
+
+    dropdown = $(e.currentTarget).closest('.dropdown-menu').siblings('.dropdown-toggle')
+
+    if dropdown?
+      dropdown.dropdown('toggle')
+
+    E.dialog.open app.rebuildUrl({base_url: e.currentTarget.getAttribute('href'), parameters: $(e.currentTarget).data('parameters'), reference_name: $(e.currentTarget).data('reference-name')}),
+      returns:
+        success: (frame, data, status, request) ->
+
+          frame.dialog "close"
+
+          if $(e.currentTarget).data('refresh')
+            window.onLoad()
+
+          return
+
+        invalid: (frame, data, status, request) ->
+          frame.html request.responseText
+          return
+
+    window.app.resetSelectedItems()
+
+    false
+
+  @onLoad = ->
+    $("*[data-golumns='animal']").each ->
+      golumn_id = $(this).data("golumns")
+      ko.unapplyBindings($(document.body))
+
+      scope = $('[data-scoped-items].active').data('scoped-items')
+
+      window.app = new golumn(golumn_id)
+      window.loadData(golumn_id, scope, $(this))
+
+  $(document).on 'click', '[data-scoped-items]', (e) =>
+    scope = $(e.currentTarget).data('scoped-items')
+
+    $(e.currentTarget).data('scope', true)
+    $('[data-toggle=item-scope]').removeClass('active')
+    $(e.currentTarget).addClass('active')
+
+    window.onLoad()
+    e.preventDefault()
+
 
   $(document).ready ->
     # $("*[data-golumns]").mousewheel (event, delta) ->
@@ -494,10 +206,18 @@
     #     @scrollLeft -= (delta * 30)
     #     event.preventDefault()
 
+    window.onLoad()
+    $('.golumn-columns').scroll () =>
+      $('.golumn-items-counter').css('right', - $('.golumn-columns').scrollLeft() )
 
-    $("*[data-golumns='animal']").each ->
-      golumn_id = $(this).data("golumns")
-      window.app = new dashboardViewModel(golumn_id)
-      window.loadData(golumn_id, $(this))
 
-) jQuery
+  ko.unapplyBindings = ($node, remove) =>
+    $node.find('*').each () ->
+      $(@).unbind()
+
+    if remove
+      ko.removeNode $node[0]
+    else
+      ko.cleanNode $node[0]
+
+) ekylibre, golumn, jQuery

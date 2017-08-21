@@ -13,6 +13,9 @@ module Ekylibre
     # -- all .rb files in that directory are automatically loaded.
     config.autoload_paths << Rails.root.join('lib')
 
+    # We want to use the structure.sql file
+    config.active_record.schema_format = :sql
+
     # Set Time.zone default to the specified zone and make Active Record auto-convert to this zone.
     # Run "rake -D time" for a list of tasks for finding time zone names. Default is UTC.
     # config.time_zone = 'Central Time (US & Canada)'
@@ -20,7 +23,7 @@ module Ekylibre
     # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     # config.i18n.default_locale = :de
-    config.i18n.available_locales = [:arb, :cmn, :deu, :eng, :fra, :ita, :jpn, :por, :spa]
+    config.i18n.available_locales = %i[arb cmn deu eng fra ita jpn por spa]
     I18n.config.enforce_available_locales = false
     config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '**', '*.{rb,yml}').to_s]
     config.i18n.default_locale = :eng

@@ -27,7 +27,7 @@ por:
         none: "Nenhum"
     activity_production:
       support_nature:
-        # animal_group: "Animal group"
+        animal_group: "Grupo de animais"
         border: "Fronteira"
         buffer: "Amortecedor"
         cultivation: "Cultivo"
@@ -37,10 +37,6 @@ por:
       mode:
         harvested: "Colheita época de semeadura"
         sowed: "semeadura provisória"
-    affair:
-      third_role:
-        client: "Cliente"
-        supplier: "Fornecedor"
     analysis:
       retrieval_status:
         controller_error: "Erro de controlador"
@@ -59,6 +55,20 @@ por:
         multi_polygon: "Polígono multi"
         point: "Ponto"
         string: "Corda"
+    animal:
+      birth_date_completeness:
+        full_date: "Data completa"
+        month_year: "Mês ano"
+        year: "Ano"
+      end_of_life_reason:
+        calculated_date: "Data calculada"
+        cutting_up: "Cortando"
+        death: "Morte"
+        slaughter: "Chacina"
+      filiation_status:
+        certified: "Certificado"
+        uncertified: "Não certificada"
+        unknown: "Desconhecido"
     call_message:
       nature:
         incoming: "Entrada"
@@ -86,6 +96,7 @@ por:
         purchase: "Compra"
         sale: "Venda"
         stock: "Estoque"
+        travel_cost: "Viagem"
     crumb:
       nature:
         hard_start: "Início difícil"
@@ -104,6 +115,10 @@ por:
         datetime: "Data e Hora"
         decimal: "Decimal"
         text: "Texto"
+    debt_transfer:
+      nature:
+        purchase_regularization: "Regularização de compra"
+        sale_regularization: "Venda regularização"
     delivery:
       mode:
         third: "Terceiro"
@@ -137,18 +152,31 @@ por:
         informative: "Informativo"
         refused: "Recusado"
         waiting: "Esperando"
+    financial_year:
+      tax_declaration_frequency:
+        monthly: "Por mês"
+        none: "Nenhum"
+        # quaterly: "Quaterly"
+        yearly: "Anual"
+      tax_declaration_mode:
+        debit: "Débito"
+        none: "Nenhum"
+        payment: "Pagamento"
     fixed_asset:
       depreciation_method:
         graduated: "Gradual" #?
         linear: "Linear"
+        none: "Nenhum"
+        regressive: "Regressivo"
         simplified_linear: "Linear simplificado"
+      depreciation_period:
+        monthly: "Por mês"
+        quarterly: "Trimestral"
+        yearly: "Anual"
     gap:
       direction:
         loss: "Perda"
         profit: "Lucro"
-      entity_role:
-        client: "Cliente"
-        supplier: "Fornecedor"
     georeading:
       nature:
         line: "Linha" #?
@@ -170,7 +198,7 @@ por:
         failed: "Fracassado"
         passed: "Passado"
         passed_with_warnings: "Aprovada com avisos"
-      status:  #?
+      status: #?
         errored: "Com erros" #?
         failed: "Falhou" #?
         passed: "Passou" #?
@@ -195,8 +223,10 @@ por:
       state:
         done: "Finalizado"
         in_progress: "Em progresso"
-        squeezed: "Apertado"
-        undone: "Desfeito"
+        rejected: "Rejeitado"
+        squeezed: "Apertado" #?
+        undone: "Desfeito" #?
+        validated: "Validado"
     intervention_parameter_reading:
       indicator_datatype:
         # boolean: "Boolean"
@@ -208,13 +238,28 @@ por:
         multi_polygon: "Polígono multi"
         point: "Ponto"
         string: "Corda"
+    intervention_participation:
+      state:
+        done: "Feito"
+        in_progress: "Em progresso"
+        validated: "Validado"
+    intervention_working_period:
+      nature:
+        intervention: "Intervenção"
+        pause: "Pausa"
+        preparation: "Preparação"
+        travel: "Viagem"
     journal:
       nature:
         bank: "Banco"
         cash: "Dinheiro"
+        closure: "Fecho"
+        fixed_assets: "Ativo permanente"
         forward: "Carried-forward"
         purchases: "Compras"
+        result: "Resultado"
         sales: "Vendas"
+        stocks: "Estoques"
         various: "Várias operações"
     listing_node:
       nature:
@@ -228,15 +273,24 @@ por:
         root: "Raiz"
         string: "Corda"
     loan:
+      insurance_repayment_method:
+        initial: "Com base em capital inicial"
+        to_repay: "Com base no capital deixou de reembolsar"
       repayment_method:
         constant_amount: "Total constante"
         constant_rate: "Taxa constante"
       repayment_period:
         month: "Mês"
+        semester: "Semestre"
+        trimester: "Trimestre"
         year: "Ano"
       shift_method:
         anatocism: "Anatocismo"
         immediate_payment: "Pagamento imediato"
+    map_layer:
+      nature:
+        background: "Fundo"
+        # overlay: "Overlay"
     notification:
       level:
         error: "Erro"
@@ -258,12 +312,16 @@ por:
         incoming: "Entrada"
         internal: "Interno" #?
         outgoing: "Extrovertido"
-      state:  #?
+      state: #?
         draft: "Esboço" #?
         given: "Dado" #?
         in_preparation: "Em preparação" #?
         ordered: "Pedido" #?
         prepared: "Preparado" #?
+    plant_counting:
+      nature:
+        germination: "Na germinação"
+        sowing: "Na semeadura"
     preference:
       nature:
         accounting_system: "Sistema de contabilidade"
@@ -298,6 +356,15 @@ por:
       nature:
         # exterior: "Exterior"
         # interior: "Interior"
+    product_movement:
+      description:
+        birth: "Nascimento"
+        butchery: "Açougue"
+        consumption: "Consumo"
+        death: "Morte"
+        loan: "Empréstimo"
+        purchase: "Compra"
+        sale: "Venda"
     product_nature:
       population_counting:
         # decimal: "Decimal"
@@ -379,29 +446,28 @@ por:
         multi_polygon: "Polígono multi"
         point: "Ponto"
         string: "Corda"
-    purchase:  #?
+    purchase:
       computation_method: #?
         adaptative: "Adaptativo" #?
         manual: "Manual" #?
         quantity_tax: "Quantidade-Imposto" #?
         tax_quantity: "Imposto-Quantidade" #?
+      tax_payability:
+        at_invoicing: "No facturação"
+        at_paying: "Ao pagar"
     purchase_nature:
       nature:
         payslip: "Recibo de Pagamento"
         purchase: "Compra"
-    sale:  #?
+    sale: #?
       computation_method: #?
         adaptative: "Adaptativo" #?
         quantity_tax: "Quantidade-Imposto" #?
         tax_quantity: "Imposto-Quantidade" #?
-    sale_opportunity:
-      third_role:
-        client: "Cliente"
-        supplier: "Fornecedor"
-    sale_ticket:
-      third_role:
-        client: "Cliente"
-        supplier: "Fornecedor"
+    sale_item: #?
+      compute_from: #?
+        pretax_amount: "Montante pretax" #?
+        unit_pretax_amount: "Montante pretax unidade" #?
     sensor:
       retrieval_mode:
         integration: "Integração"
@@ -414,37 +480,40 @@ por:
         number: "Sem periodicidade"
         year: "Ano"
       usage:
-        affairs: "Numeração de negociações"
-        analyses: "Numeração de análises"
-        animals: "Numeração de animais"
-        campaigns: "Numeração de campanhas"
-        cash_transfers: "Numeração de transferências de dinheiro"
+        affairs: "Romances"
+        analyses: "Análises"
+        animals: "Animais"
+        campaigns: "Campanhas"
+        cash_transfers: "As transferências de dinheiro"
+        contracts: "Contratos"
+        debt_transfers: "Transferências de dívida"
         deliveries: "Entregas"
-        deposits: "Numeração de depósitos"
-        documents: "Numeração de documentos"
-        entities: "Numeration of people"
-        fixed_assets: "Numeration of fixed assets"
-        gaps: "Numeração de lacunas"
-        incoming_parcels: "Numeração de entradas" #?
-        incoming_payments: "Numeração de pagamentos"
+        deposits: "Depósitos"
+        documents: "Documentos"
+        entities: "Terços"
+        fixed_assets: "Ativo permanente"
+        gaps: "Lacunas"
+        incoming_payments: "Pagamentos recebidos"
         inspections: "Inspeções"
-        interventions: "Numeração de intervenções"
+        interventions: "Intervenções"
         inventories: "Os estoques"
         opportunities: "Oportunidades"
-        outgoing_deliveries: "Numeração de entregas" #?
-        outgoing_payments: "Numeraçaõ de pagamentos"
+        outgoing_payment_lists: "Listas de pagamento a efectuar"
+        outgoing_payments: "Contas a pagar"
         parcels: "Parcelas"
-        plants: "Numeração de plantação"
-        product_nature_categories: "Numeração das categorias de produtos naturais"
-        product_nature_variants: "Numeração das variantes de natureza do produto"
-        product_natures: "Numeração dos produtos naturais"
-        products: "Numeração de produtos"
-        purchases: "Numeração de compras"
-        sales: "Numeração de vendas"
-        sales_invoices: "Numeração de faturas de venda"
-        subscriptions: "Numeração de subscrições"
+        plant_countings: "Contagem de plantas"
+        plants: "Plantas"
+        product_nature_categories: "Categorias natureza do produto"
+        product_nature_variants: "Natureza do produto variantes"
+        product_natures: "Naturezas produtos"
+        products: "Produtos"
+        purchases: "Compras"
+        sales: "Vendas"
+        sales_invoices: "Facturas de vendas"
+        subscriptions: "Assinaturas"
+        tax_declarations: "Declarações fiscais"
         transports: "Numeração de transportes" #?
-    subscription_nature:  #?
+    subscription_nature: #?
       entity_link_direction: #?
         all: "Bidirecional" #?
         direct: "Direto" #?
@@ -452,6 +521,17 @@ por:
       nature: #?
         period: "Subscrição por data" #?
         quantity: "Subscrição por número" #?
+    synchronization_operation:
+      operation_name:
+        authenticate: "Autenticação"
+        get_inventory: "Obter inventário"
+        get_urls: "Obter urls"
+      state:
+        aborted: "Abortado"
+        # errored: "Errored"
+        finished: "Acabado"
+        in_progress: "Em progresso"
+        undone: "Desfeito"
     task:
       nature:
         document: "Documento" #?
@@ -466,10 +546,14 @@ por:
         doing: "Fazendo"
         done: "Feito"
         todo: "Façam"
-    tax:  #?
+    tax: #?
       nature: #?
         amount: "Total" #?
         percentage: "Percentagem" #?
+    tax_declaration:
+      mode:
+        debit: "Débito"
+        payment: "Forma de pagamento"
     tracking:
       usage_limit_nature:
         best_before: "Melhor antes da data"

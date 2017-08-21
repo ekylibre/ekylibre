@@ -18,10 +18,11 @@
     padding: $fs-normal;
     position: relative;
 
-   .integration-destroy {
+    .integration-destroy {
       position: absolute;
       right: 1em;
       top: 1em;
+      padding: 0.3em 0.4em;
     }
 
     .integration-card {
@@ -31,12 +32,7 @@
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      filter: grayscale(90%);
       transition: filter 0.2s ease-in-out 0s;
-
-      &:hover, &.integration-active {
-        filter: grayscale(0%);
-      }
 
       .integration-body {
         display: block;
@@ -52,6 +48,7 @@
         padding: $fs-normal;
         width: 100%;
         @include box-sizing(border-box);
+        @include border-top-radius($default-border-radius - $menu-border-width);
 
         img {
           width: 0.6 * $integration-width;
@@ -69,6 +66,7 @@
         @include box-sizing(border-box);
         border-top: $menu-border;
         background: $white;
+        @include border-bottom-radius($default-border-radius - $menu-border-width);
 
         h3 {
           color: $text-color;
@@ -86,6 +84,30 @@
         }
       }
     }
+
+    &.integration-active {
+      .integration-card {
+        border-color: $active-color;
+        .integration-description {
+          border-color: $active-color;
+          background-color: $active-color;
+          h3, p {
+            color: $white;
+          }
+        }
+      }
+
+    }
+
+    &.integration-disabled {
+      filter: contrast(75%) grayscale(100%);
+      a {
+        @include user-select(none);
+        pointer-events: none;
+        cursor: not-allowed;
+      }
+    }
+
   }
 }
 

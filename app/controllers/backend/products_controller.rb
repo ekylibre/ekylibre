@@ -28,13 +28,13 @@ module Backend
     before_action :check_variant_availability, only: :new
     before_action :clean_attachments, only: [:update]
 
-    unroll :name, :number, :work_number, :identification_number # , 'population:!', 'unit_name:!'
+    unroll :name, :number, :work_number, :identification_number, container: :name # , 'population:!', 'unit_name:!'
 
     # params:
     #   :q Text search
     #   :working_set
     def self.list_conditions
-      code = search_conditions(products: [:name, :work_number, :number, :description, :uuid], product_nature_variants: [:name]) + " ||= []\n"
+      code = search_conditions(products: %i[name work_number number description uuid], product_nature_variants: [:name]) + " ||= []\n"
       code << "unless params[:working_set].blank?\n"
       code << "  item = Nomen::WorkingSet.find(params[:working_set])\n"
       code << "  c[0] << \" AND products.nature_id IN (SELECT id FROM product_natures WHERE \#{WorkingSet.to_sql(item.expression)})\"\n"
@@ -57,11 +57,11 @@ module Backend
       code << "if params[:period].to_s != 'all'\n"
       code << "  started_on = params[:started_on]\n"
       code << "  stopped_on = params[:stopped_on]\n"
-      code << "  c[0] << ' AND #{Product.table_name}.born_at BETWEEN ? AND ?'\n"
+      code << "  c[0] << ' AND #{Product.table_name}.born_at::DATE BETWEEN ? AND ?'\n"
       code << "  c << started_on\n"
       code << "  c << stopped_on\n"
       code << "  if params[:s] == 'consume'\n"
-      code << "    c[0] << ' AND #{Product.table_name}.dead_at BETWEEN ? AND ?'\n"
+      code << "    c[0] << ' AND #{Product.table_name}.dead_at::DATE BETWEEN ? AND ?'\n"
       code << "    c << started_on\n"
       code << "    c << stopped_on\n"
       code << "  end\n"
@@ -82,6 +82,7 @@ module Backend
       t.column :unit_name
       t.column :container, url: true
       t.column :description
+      t.column :derivative_of
     end
 
     # Lists contained products of the current product
@@ -111,6 +112,18 @@ module Backend
       t.column :intervention, url: true
       t.column :started_at
       t.column :stopped_at
+    end
+
+    # Lists fixed_assets of a product
+    list(:fixed_assets, conditions: { product_id: 'params[:id]'.c }, order: { started_on: :desc }) do |t|
+      t.action :edit
+      t.action :destroy
+      t.column :number, url: true
+      t.column :name, url: true
+      t.column :depreciable_amount, currency: true
+      t.column :net_book_value, currency: true
+      t.column :started_on
+      t.column :stopped_on
     end
 
     # Lists groups of the current product
@@ -160,6 +173,15 @@ module Backend
       t.column :stopped_at
     end
 
+    # Lists parcel items of the current product
+    list(:parcel_items, conditions: { product_id: 'params[:id]'.c }, order: { created_at: :desc }) do |t|
+      t.column :parcel, url: true
+      t.column :nature, through: :parcel
+      t.column :given_at, through: :parcel, datatype: :datetime
+      t.column :population
+      t.column :product_identification_number
+    end
+
     # Lists localizations of the current product
     list(:places, model: :product_localizations, conditions: { product_id: 'params[:id]'.c }, order: { started_at: :desc }) do |t|
       t.action :edit
@@ -177,6 +199,18 @@ module Backend
       t.column :value
     end
 
+    # Lists readings of the current product
+    list(:trackings, conditions: { product_id: 'params[:id]'.c }, order: { created_at: :desc }) do |t|
+      t.action :edit
+      t.action :destroy, if: :destroyable?
+      t.column :active
+      t.column :name, url: true
+      t.column :created_at
+      t.column :description
+      t.column :serial
+      t.column :producer, hidden: true
+    end
+
     # Returns value of an indicator
     def take
       return unless @product = find_and_check
@@ -192,7 +226,7 @@ module Backend
           value = value.convert(unit)
         end
         value = { unit: value.unit, value: value.to_d.round(4) }
-      elsif [:integer, :decimal].include? indicator.datatype
+      elsif %i[integer decimal].include? indicator.datatype
         value = { value: value.to_d.round(4) }
       end
       render json: value
@@ -203,14 +237,16 @@ module Backend
     def check_variant_availability
       unless ProductNatureVariant.of_variety(controller_name.to_s.underscore.singularize).any?
         redirect_to new_backend_product_nature_path
-        return false
+        false
       end
     end
 
     def clean_attachments
-      permitted_params['attachments_attributes'].each do |k, v|
-        permitted_params['attachments_attributes'].delete(k) if v.key?('id') && !Attachment.exists?(v['id'])
-      end if permitted_params.include?('attachments_attributes')
+      if permitted_params.include?('attachments_attributes')
+        permitted_params['attachments_attributes'].each do |k, v|
+          permitted_params['attachments_attributes'].delete(k) if v.key?('id') && !Attachment.exists?(v['id'])
+        end
+      end
     end
   end
 end

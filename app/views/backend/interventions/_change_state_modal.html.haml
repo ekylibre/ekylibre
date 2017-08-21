@@ -1,0 +1,38 @@
+= form_tag(change_state_backend_interventions_path, method: :post) do
+
+  = modal_header(:change_state.tl)
+
+  .modal-body
+
+    .modal-introduction
+      %p= :choose_options_is_needed.tl
+      %ul
+        - interventions.each do |intervention|
+          %li= intervention.name
+
+
+    .modal-intervention
+
+      - interventions_ids = interventions.map(&:id)
+
+      = hidden_field_tag('intervention[interventions_ids]', interventions_ids.to_json)
+
+      = field Intervention.human_attribute_name(:status), nil do |check_box|
+
+        - Intervention.state.options.each do |state, option|
+
+          - checked = false
+
+          - if interventions.first.nature.to_sym == :request
+            - checked = true if option.to_sym == :in_progress
+          - elsif interventions.first.nature.to_sym == :record
+            - checked = true if option.to_sym == :done && interventions.first.state.to_sym == :in_progress
+            - checked = true if option.to_sym == :validated && interventions.first.state.to_sym == :done
+
+          - if option.to_sym != :rejected
+            %label.radio
+              = radio_button_tag('intervention[state]', option, checked)
+              %span= state
+
+  .modal-footer
+    = submit_tag :edit.tl, class: 'primary'

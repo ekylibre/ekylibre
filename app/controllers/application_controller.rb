@@ -21,6 +21,10 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
 
+  before_action :set_raven_context if ENV['SENTRY_DSN']
+
+  skip_before_action :verify_authenticity_token, if: :session_controller?
+
   before_action :set_theme
   before_action :set_locale
   before_action :set_time_zone
@@ -40,6 +44,11 @@ class ApplicationController < ActionController::Base
       path = Ekylibre::Plugin.after_login_path(resource)
     end
     path || super
+  end
+
+  hide_action :session_controller?
+  def session_controller?
+    controller_name == 'sessions' && action_name == 'create'
   end
 
   def self.human_action_name(action, options = {})
@@ -72,7 +81,7 @@ class ApplicationController < ActionController::Base
     return true if url_options == '#' || current_user.administrator?
     if url_options.is_a?(Hash)
       url_options[:controller] ||= controller_path
-      url_options[:action] ||= :index
+      url_options[:action] ||= action_name
     elsif url_options.is_a?(String) && url_options.match(/\#/)
       action = url_options.split('#')
       url_options = { controller: action[0].to_sym, action: action[1].to_sym }
@@ -81,7 +90,7 @@ class ApplicationController < ActionController::Base
     end
     unless url_options[:controller] =~ /\/\w+/
       namespace = controller_path.gsub(/\/\w+$/, '')
-      unless namespace.blank?
+      if namespace.present?
         url_options[:controller] = "/#{namespace}/#{url_options[:controller]}"
       end
     end
@@ -195,5 +204,12 @@ class ApplicationController < ActionController::Base
   def configure_application(exception)
     title = exception.class.name.underscore.t(scope: 'exceptions')
     render '/public/configure_application', layout: 'exception', locals: { title: title, message: exception.message, class_name: exception.class.name }, status: 500
+  end
+
+  def set_raven_context
+    if current_user
+      Raven.user_context(id: current_user.id) # or anything else in session
+    end
+    Raven.extra_context(params: params.to_unsafe_h, url: request.url)
   end
 end

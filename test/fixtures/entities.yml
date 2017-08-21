@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2016 Brice Texier, David Joulin
+# Copyright (C) 2012-2017 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -25,9 +25,12 @@
 #  active                    :boolean          default(TRUE), not null
 #  activity_code             :string
 #  authorized_payments_count :integer
+#  bank_account_holder_name  :string
+#  bank_identifier_code      :string
 #  born_at                   :datetime
 #  client                    :boolean          default(FALSE), not null
 #  client_account_id         :integer
+#  codes                     :jsonb
 #  country                   :string
 #  created_at                :datetime         not null
 #  creator_id                :integer
@@ -41,6 +44,7 @@
 #  first_met_at              :datetime
 #  first_name                :string
 #  full_name                 :string           not null
+#  iban                      :string
 #  id                        :integer          not null, primary key
 #  language                  :string           not null
 #  last_name                 :string           not null
@@ -61,6 +65,8 @@
 #  siret_number              :string
 #  supplier                  :boolean          default(FALSE), not null
 #  supplier_account_id       :integer
+#  supplier_payment_delay    :string
+#  supplier_payment_mode_id  :integer
 #  title                     :string
 #  transporter               :boolean          default(FALSE), not null
 #  updated_at                :datetime         not null
@@ -72,7 +78,7 @@
 entities_001:
   active: true
   activity_code: ''
-  born_at: 2015-01-06 09:00:00.000000000 Z
+  born_at: 1992-11-17 00:00:00.000000000 Z
   client: false
   country: fr
   created_at: 2014-10-31 17:19:32.000000000 Z
@@ -107,6 +113,7 @@ entities_001:
 entities_002:
   active: false
   client: false
+  client_account_id: 672
   country: in
   created_at: 2014-10-31 19:28:25.976860000 Z
   creator_id: 1
@@ -156,6 +163,8 @@ entities_003:
 entities_004:
   active: true
   activity_code: ''
+  bank_account_holder_name: BAKTOUBI Inc.
+  bank_identifier_code: ABNANL2AXXX
   client: false
   country: az
   created_at: 2014-10-31 20:10:25.992209000 Z
@@ -165,6 +174,7 @@ entities_004:
   employee: false
   first_name: ''
   full_name: BAKTOUBI Inc.
+  iban: NL72ABNA0897960274
   id: 4
   language: aze
   last_name: BAKTOUBI Inc.
@@ -298,46 +308,69 @@ entities_008:
   vat_subjected: true
 entities_009:
   active: true
+  bank_account_holder_name: M. Gendo IKARI
+  bank_identifier_code: ''
   client: true
+  client_account_id: 671
+  country: fr
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator_id: 1
   currency: EUR
-  employee: false
+  custom_fields:
+    bpozesopdf: ''
+    sdqdqsdq_sd_qsq: ''
+    bla_dsfk_jioh_sdf: ''
+  deliveries_conditions: ''
+  description: ''
+  employee: true
+  employee_account_id: 680
   first_name: Gendo
   full_name: M. Gendo IKARI
+  iban: ''
   id: 9
   language: fra
   last_name: IKARI
-  lock_version: 0
+  lock_version: 1
   locked: false
+  meeting_origin: ''
   nature: contact
   number: '193'
   of_company: false
   prospect: false
   reminder_submissive: false
   supplier: false
+  supplier_payment_delay: 30 days
   title: M.
   transporter: false
-  updated_at: 2014-10-31 17:19:32.000000000 Z
+  updated_at: 2017-06-07 16:12:21.286406000 Z
   updater_id: 1
   vat_subjected: true
 entities_010:
   active: true
   activity_code: ''
+  bank_account_holder_name: M. Kozo FUYUTSUKI
+  bank_identifier_code: ''
   client: true
   client_account_id: 210
   country: fr
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator_id: 1
   currency: EUR
+  custom_fields:
+    bpozesopdf: ''
+    sdqdqsdq_sd_qsq: ''
+    bla_dsfk_jioh_sdf: ''
   deliveries_conditions: ''
-  employee: false
+  description: ''
+  employee: true
+  employee_account_id: 681
   first_name: Kōzō
   full_name: M. Kōzō FUYUTSUKI
+  iban: ''
   id: 10
   language: fra
   last_name: FUYUTSUKI
-  lock_version: 2
+  lock_version: 3
   locked: false
   meeting_origin: ''
   nature: contact
@@ -347,9 +380,10 @@ entities_010:
   reminder_submissive: false
   siret_number: ''
   supplier: false
+  supplier_payment_delay: 30 days
   title: M.
   transporter: false
-  updated_at: 2015-04-21 08:21:32.421029000 Z
+  updated_at: 2017-06-07 16:14:00.014531000 Z
   updater_id: 1
   vat_number: ''
   vat_subjected: true
@@ -365,11 +399,11 @@ entities_011:
   dead_at: 2004-07-11 22:00:00.000000000 Z
   deliveries_conditions: ''
   employee: false
-  first_name: "ユイ"
+  first_name: ユイ
   full_name: Mme ユイ 碇
   id: 11
   language: jpn
-  last_name: "碇"
+  last_name: 碇
   lock_version: 4
   locked: false
   meeting_origin: ''
@@ -388,19 +422,28 @@ entities_011:
   vat_subjected: true
 entities_012:
   active: true
+  bank_account_holder_name: Mme Yui IKARI
+  bank_identifier_code: ''
   client: false
   country: fr
   created_at: 2014-11-03 16:56:06.570291000 Z
   creator_id: 1
   currency: EUR
+  custom_fields:
+    bpozesopdf: ''
+    sdqdqsdq_sd_qsq: ''
+    bla_dsfk_jioh_sdf: ''
   deliveries_conditions: ''
-  employee: false
+  description: ''
+  employee: true
+  employee_account_id: 682
   first_name: Yui
   full_name: Mme Yui IKARI
+  iban: ''
   id: 12
   language: fra
   last_name: IKARI
-  lock_version: 1
+  lock_version: 2
   locked: false
   meeting_origin: ''
   nature: contact
@@ -409,14 +452,17 @@ entities_012:
   prospect: false
   reminder_submissive: false
   supplier: false
+  supplier_payment_delay: 30 days
   title: Mme
   transporter: false
-  updated_at: 2015-06-13 16:54:12.709222000 Z
+  updated_at: 2017-06-07 16:11:29.399798000 Z
   updater_id: 1
   vat_subjected: true
 entities_013:
   active: false
   activity_code: ''
+  bank_account_holder_name: Coop Ain Coop'In
+  bank_identifier_code: TRIONL2UXXX
   born_at: 1962-08-11 23:00:00.000000000 Z
   client: true
   client_account_id: 209
@@ -432,6 +478,7 @@ entities_013:
   employee: false
   first_name: ''
   full_name: Coop Ain Coop'In
+  iban: NL64TRIO0393404405
   id: 13
   language: fra
   last_name: Coop Ain Coop'In
@@ -455,6 +502,7 @@ entities_014:
   active: true
   activity_code: ''
   client: true
+  client_account_id: 572
   country: fr
   created_at: 2015-04-21 08:27:39.814863000 Z
   creator_id: 1
@@ -469,7 +517,7 @@ entities_014:
   full_name: M.  Περικλῆς
   id: 14
   language: fra
-  last_name: "Περικλῆς"
+  last_name: Περικλῆς
   lock_version: 2
   locked: false
   meeting_origin: Acropole inauguration
@@ -570,3 +618,75 @@ entities_017:
   transporter: false
   updated_at: 2016-01-21 14:05:46.143246000 Z
   vat_subjected: true
+entities_018:
+  active: true
+  bank_account_holder_name: M. Ezekiel Moebius
+  bank_identifier_code: ''
+  client: false
+  country: fr
+  created_at: 2016-11-05 08:55:21.223505000 Z
+  creator_id: 1
+  currency: EUR
+  custom_fields:
+    bpozesopdf: ''
+    sdqdqsdq_sd_qsq: ''
+    bla_dsfk_jioh_sdf: ''
+  deliveries_conditions: ''
+  employee: false
+  first_name: Éçékiel
+  full_name: M. Éçékiel Möêbìûŝ
+  iban: ''
+  id: 18
+  language: fra
+  last_name: Möêbìûŝ
+  lock_version: 1
+  locked: false
+  meeting_origin: ''
+  nature: contact
+  number: EI00000002
+  of_company: false
+  prospect: false
+  reminder_submissive: false
+  supplier: false
+  supplier_payment_delay: 30 days
+  title: M.
+  transporter: false
+  updated_at: 2016-11-05 09:00:32.277658000 Z
+  updater_id: 1
+  vat_subjected: false
+entities_019:
+  active: true
+  bank_account_holder_name: Mme Andrew BAKTOUBI
+  bank_identifier_code: ''
+  client: false
+  country: fr
+  created_at: 2016-11-05 09:09:52.282492000 Z
+  creator_id: 1
+  currency: EUR
+  custom_fields:
+    bpozesopdf: ''
+    sdqdqsdq_sd_qsq: ''
+    bla_dsfk_jioh_sdf: ''
+  deliveries_conditions: ''
+  employee: false
+  first_name: Andrew
+  full_name: Mme Andrew BAKTOUBI
+  iban: ''
+  id: 19
+  language: fra
+  last_name: BAKTOUBI
+  lock_version: 0
+  locked: false
+  meeting_origin: ''
+  nature: contact
+  number: EI00000003
+  of_company: false
+  prospect: false
+  reminder_submissive: false
+  supplier: false
+  supplier_payment_delay: 30 days
+  title: Mme
+  transporter: false
+  updated_at: 2016-11-05 09:09:52.282492000 Z
+  updater_id: 1
+  vat_subjected: false

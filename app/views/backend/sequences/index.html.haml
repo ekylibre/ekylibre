@@ -2,5 +2,5 @@
   - missings = Sequence.usage.values - Sequence.pluck(:usage)
   = t.new variants: missings.map { |u| [Sequence.usage.human_value_name(u), { usage: u }] }
   - if missings.any?
-    = t.action :load, "data-confirm" => :are_you_sure.tl, method: :post
+    = t.action :load, "data-confirm" => :are_you_sure.tl, method: :post, params: { redirect: nil }
 = main_list

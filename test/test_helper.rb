@@ -1,6 +1,32 @@
-require 'coveralls'
-Coveralls.wear!('rails') unless ENV['COVERALL'] == 'off'
+if ENV['CI']
+  require 'codacy-coverage'
+  require 'coveralls'
+else
+  require 'simplecov'
+end
 ENV['RAILS_ENV'] ||= 'test'
+
+if ENV['CI']
+  Coveralls.setup!
+
+  SimpleCov.formatters = [
+    Codacy::Formatter,
+    Coveralls::SimpleCov::Formatter
+  ]
+
+  Coveralls.start!('rails') unless ENV['COVERALL'] == 'off'
+  SimpleCov.start
+else
+  SimpleCov.start do
+    load_profile 'rails'
+    add_group 'Exchangers', 'app/exchangers'
+    add_group 'Inputs', 'app/inputs'
+    add_group 'Integrations', 'app/integrations'
+    add_group 'Services', 'app/services'
+    add_group 'Validators', 'app/validators'
+  end
+end
+
 require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
 require 'capybara/rails'
@@ -15,8 +41,10 @@ I18n.locale = ENV['LOCALE'] if ENV['LOCALE']
 Ekylibre::Tenant.setup!('sekindovall')
 Ekylibre::Tenant.setup!('test', keep_files: true)
 
+FactoryGirl.find_definitions
+
 class FixtureRetriever
-  ROLES = %w(zeroth first second third fourth fifth sixth seventh eighth nineth tenth).freeze
+  ROLES = %w[zeroth first second third fourth fifth sixth seventh eighth nineth tenth].freeze
   @@truc = {}
 
   def initialize(model, options = {}, fixture_options = nil)
@@ -59,17 +87,17 @@ class FixtureRetriever
       unless name = @@truc[@table][value]
         raise "Cannot find fixture in #{@table} with id=#{value.inspect}"
       end
-      return name
+      name
     elsif value.is_a?(Symbol)
       if ROLES.include?(value.to_s)
-        return "#{@prefix}_#{ROLES.index(value.to_s).to_s.rjust(3, '0')}".to_sym
+        "#{@prefix}_#{ROLES.index(value.to_s).to_s.rjust(3, '0')}".to_sym
       elsif value.to_s =~ /^\d+$/
-        return "#{@prefix}_#{value.to_s.rjust(3, '0')}".to_sym
+        "#{@prefix}_#{value.to_s.rjust(3, '0')}".to_sym
       else
-        return value
+        value
       end
     elsif value.is_a?(CodeString)
-      return value
+      value
     else
       raise "What kind of value (#{value.class.name}:#{value.inspect})"
     end
@@ -78,6 +106,8 @@ end
 
 module ActiveSupport
   class TestCase
+    include FactoryGirl::Syntax::Methods
+
     # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
     fixtures :all
 
@@ -214,8 +244,9 @@ module ActionController
             end
           end
           attributes = model.content_columns.map(&:name).map(&:to_sym).delete_if do |c|
-            [:depth, :lft, :rgt].include?(c)
+            %i[depth lft rgt].include?(c)
           end
+
           attributes += options.delete(:other_attributes) || []
           attributes = ('{' + attributes.map(&:to_sym).uniq.collect do |a|
                                 if file_columns[a]
@@ -245,6 +276,7 @@ module ActionController
         # code << "  DocumentTemplate.load_defaults(locale: I18n.locale)\n"
         unless options[:sign_in].is_a?(FalseClass)
           # Connect user
+          code << "  @request.env['HTTP_REFERER'] = 'http://test.ekylibre.farm/backend'\n"
           code << "  @user = users(:users_001)\n"
           code << "  @user.update_column(:language, @locale)\n"
           code << "  sign_in(@user)\n"
@@ -376,7 +408,7 @@ module ActionController
             test_code << "assert_equal 1, #{model_name}.where(id: #{record}.id).count\n"
             test_code << "get :#{action}, #{sanitized_params[id: 'RECORD.id'.c]}\n"
             test_code << "assert_response :success, #{context}\n"
-            [:csv, :ods].each do |format| # :xcsv,
+            %i[csv ods].each do |format| # :xcsv,
               test_code << "get :#{action}, #{sanitized_params[id: 'RECORD.id'.c, format: format]}\n"
               test_code << "assert_response :success, 'Action #{action} does not export in format #{format}'\n"
             end
@@ -394,7 +426,7 @@ module ActionController
           elsif mode == :list
             test_code << "get :#{action}, #{sanitized_params[]}\n"
             test_code << "assert_response :success, \"The action #{action.inspect} does not seem to support GET method \#{redirect_to_url} / \#{flash.inspect}\"\n"
-            [:csv, :ods].each do |format| # , :xcsv
+            %i[csv ods].each do |format| # , :xcsv
               test_code << "get :#{action}, #{sanitized_params[format: format]}\n"
               test_code << "assert_response :success, 'Action #{action} does not export in format #{format}'\n"
             end
@@ -501,7 +533,7 @@ module ActionController
           end
 
           code << "test '#{action} action"
-          code << "in #{mode}" if action != mode
+          code << " in #{mode}" if action != mode
           code << "' do\n"
           # code << "  puts '#{controller_path.to_s.yellow}##{action.to_s.red}'\n"
           code << test_code.dig
@@ -576,6 +608,7 @@ Capybara.javascript_driver = Capybara.default_driver
 # Capybara.server_port = 3333
 
 Capybara::Webkit.configure do |config|
+  config.allow_url 'secure.gravatar.com'
   config.allow_url 'a.tile.openstreetmap.fr'
   config.allow_url 'b.tile.openstreetmap.fr'
   config.allow_url 'c.tile.openstreetmap.fr'
@@ -604,7 +637,7 @@ class CapybaraIntegrationTest < ActionDispatch::IntegrationTest
     I18n.locale = ENV['LOCALE'] || I18n.default_locale
     user = users(:users_001)
     user.language = I18n.locale
-    visit("/authentication/sign_in?locale=#{I18n.locale}")
+    visit("/sign-in?locale=#{I18n.locale}")
     resize_window(1366, 768)
     # shoot_screen 'authentication/sign_in'
     login_as(user, scope: :user) # , run_callbacks: false
@@ -630,6 +663,7 @@ class CapybaraIntegrationTest < ActionDispatch::IntegrationTest
     file = Rails.root.join('tmp', 'screenshots', "#{name}.png")
     FileUtils.mkdir_p(file.dirname) unless file.dirname.exist?
     wait_for_ajax
+    page.save_screenshot(file)
     save_page file.to_s.gsub(/\.png\z/, '.html')
     # , full: true
   end

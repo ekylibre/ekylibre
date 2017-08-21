@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2016 Brice Texier, David Joulin
+# Copyright (C) 2012-2017 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -57,16 +57,3 @@ imports_002:
   state: undone
   updated_at: 2014-10-31 17:19:32.000000000 Z
   updater_id: 1
-imports_003:
-  archive_content_type: application/xml
-  archive_file_name: declaration_2015.xml
-  archive_file_size: 63870
-  archive_updated_at: 2016-01-21 14:05:46.004510000 Z
-  created_at: 2016-01-21 14:05:46.031370000 Z
-  id: 3
-  imported_at: 2016-01-21 14:05:51.855157000 Z
-  lock_version: 0
-  nature: telepac_v2015_cap_statements
-  progression_percentage: 100.0
-  state: finished
-  updated_at: 2016-01-21 14:05:46.031370000 Z

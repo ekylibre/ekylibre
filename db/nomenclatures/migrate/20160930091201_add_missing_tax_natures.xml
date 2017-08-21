@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<migration name="Add missing tax natures">
+  <item-creation item="tax_natures#import_export_vat" computation_method="percentage" deduction_account="deductible_vat" collect_account="collected_vat" fixed_asset_deduction_account="deductible_asset_vat" suffix="6"/>
+  <item-change item="tax_natures#reduced_vat" suffix="5"/>
+  <item-creation item="tax_natures#eu_vat" computation_method="percentage" deduction_account="deductible_vat" fixed_asset_deduction_account="deductible_asset_vat" collect_account="collected_vat" suffix="2"/>
+  <item-creation item="taxes#french_vat_eu" country="fr" nature="eu_vat" started_on="1954-04-10" amount="0.0"/>
+  <item-creation item="taxes#french_vat_import_export" country="fr" nature="import_export_vat" started_on="1954-04-10" amount="0.0"/>
+  <item-creation item="taxes#portugal_vat_eu" country="pt" nature="eu_vat" started_on="1954-04-10" amount="0.0"/>
+  <item-creation item="taxes#portugal_vat_import_export" country="pt" nature="import_export_vat" started_on="1954-04-10" amount="0.0"/>
+  <item-creation item="taxes#portugal_vat_normal" country="pt" nature="normal_vat" started_on="1954-04-10" amount="23.0"/>
+  <item-creation item="taxes#portugal_vat_reduced" country="pt" nature="intermediate_vat" started_on="1954-04-10" amount="13.0"/>
+  <item-creation item="taxes#portugal_vat_particular" country="pt" nature="reduced_vat" started_on="1954-04-10" amount="6.0"/>
+  <item-creation item="taxes#portugal_vat_null" country="pt" nature="null_vat" started_on="1954-04-10" amount="0.0"/>
+  <item-creation item="taxes#spain_vat_eu" country="es" nature="eu_vat" started_on="1954-04-10" amount="0.0"/>
+  <item-creation item="taxes#spain_vat_import_export" country="es" nature="import_export_vat" started_on="1954-04-10" amount="0.0"/>
+  <item-creation item="taxes#spain_vat_null" country="es" nature="null_vat" started_on="1954-04-10" amount="0.0"/>
+</migration>

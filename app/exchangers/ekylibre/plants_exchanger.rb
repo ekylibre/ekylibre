@@ -20,11 +20,11 @@ module Ekylibre
         }.to_struct
 
         # find or import from variant reference_nameclature the correct ProductNatureVariant
-        unless variant = ProductNatureVariant.find_by(number: r.variant) || ProductNatureVariant.find_by(reference_name: r.variant.to_sym)
+        unless variant = ProductNatureVariant.find_by(work_number: r.variant) || ProductNatureVariant.find_by(reference_name: r.variant.to_sym)
           variant = ProductNatureVariant.import_from_nomenclature(r.variant.to_sym)
         end
         # find the container
-        unless container = Product.find_by_work_number(r.container_number)
+        unless container = Product.find_by(work_number: r.container_number)
           raise 'No container for cultivation!'
         end
 

@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2016 Brice Texier, David Joulin
+# Copyright (C) 2012-2017 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -41,9 +41,9 @@
 
 class Preference < Ekylibre::Record::Base
   # attr_accessible :nature, :name, :value
-  enumerize :nature, in: [:accounting_system, :country, :currency, :boolean,
-                          :decimal, :language, :integer, :record,
-                          :spatial_reference_system, :string], predicates: true
+  enumerize :nature, in: %i[accounting_system country currency boolean
+                            decimal language integer record
+                            spatial_reference_system string], predicates: true
   @@conversions = { float: :decimal, true_class: :boolean, false_class: :boolean, fixnum: :integer }
   cattr_reader :reference
   attr_readonly :user_id, :name, :nature
@@ -62,6 +62,8 @@ class Preference < Ekylibre::Record::Base
   validates :nature, length: { allow_nil: true, maximum: 60 }
   validates :nature, inclusion: { in: nature.values }
   validates :name, uniqueness: { scope: [:user_id] }
+
+  self.lock_optimistically = false
 
   alias_attribute :accounting_system_value, :string_value
   alias_attribute :country_value, :string_value
@@ -96,11 +98,11 @@ class Preference < Ekylibre::Record::Base
       klass = object.class.to_s
       if object.is_a?(Nomen::Item) && nature = object.nomenclature.name.to_s.singularize.to_sym && nature.values.include?(nature)
         nature
-      elsif %w(String Symbol NilClass).include? klass
+      elsif %w[String Symbol NilClass].include? klass
         :string
-      elsif %w(Integer Fixnum Bignum).include? klass
+      elsif %w[Integer Fixnum Bignum].include? klass
         :integer
-      elsif %w(TrueClass FalseClass Boolean).include? klass
+      elsif %w[TrueClass FalseClass Boolean].include? klass
         :boolean
       elsif ['BigDecimal'].include? klass
         :decimal
@@ -154,6 +156,10 @@ class Preference < Ekylibre::Record::Base
     # Find and set preference with given value
     def set!(name, value, nature = nil)
       name = name.to_s
+
+      preference_ids = Preference.where(name: name).order(:id).offset(1).pluck(:id)
+      Preference.where(id: preference_ids).delete_all if preference_ids.any?
+
       preference = Preference.find_by(name: name)
       if preference
         preference.reload
@@ -168,19 +174,34 @@ class Preference < Ekylibre::Record::Base
     end
   end
 
+  prefer :entry_autocompletion, :boolean, true
   prefer :bookkeep_automatically, :boolean, true
+  prefer :permanent_stock_inventory, :boolean, true
+  prefer :unbilled_payables, :boolean, false
   prefer :bookkeep_in_draft, :boolean, true
   prefer :detail_payments_in_deposit_bookkeeping, :boolean, true
-  prefer :host, :string, 'erp.example.com'
+  prefer :use_global_search, :boolean, false
+  prefer :use_contextual_help, :boolean, false
   prefer :use_entity_codes_for_account_numbers, :boolean, true
   prefer :sales_conditions, :string, ''
   prefer :accounting_system, :accounting_system, Nomen::AccountingSystem.default
   prefer :language, :language, Nomen::Language.default
   prefer :country,  :country, Nomen::Country.default
   prefer :currency, :currency, Nomen::Currency.default
-  # prefer :map_measure_srid, :integer, 0
   prefer :map_measure_srs, :spatial_reference_system, Nomen::SpatialReferenceSystem.default
   prefer :create_activities_from_telepac, :boolean, false
+  prefer :catalog_price_item_addition_if_blank, :boolean, true
+  prefer :client_account_radix, :string, ''
+  prefer :supplier_account_radix, :string, ''
+  prefer :employee_account_radix, :string, ''
+  # TODO: manage period as list selector
+  prefer :default_depreciation_period, :string, 'yearly'
+
+  prefer :distribute_sales_and_purchases_on_activities, :boolean, false
+  prefer :distribute_sales_and_purchases_on_teams, :boolean, false
+
+  # DEPRECATED PREFERENCES
+  prefer :host, :string, 'erp.example.com'
 
   # Returns the name of the column used to store preference data
   def value_attribute

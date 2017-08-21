@@ -1,4 +1,5 @@
 # coding: utf-8
+
 module Ekylibre
   class InterventionsExchanger < ActiveExchanger::Base
     def check
@@ -38,7 +39,7 @@ module Ekylibre
 
         # PROCEDURE GIVE A CAMPAIGN WHO DOES NOT EXIST IN DB
         #
-        unless campaign = Campaign.find_by_name(r.campaign_code)
+        unless campaign = Campaign.find_by(name: r.campaign_code)
           w.warn "#{prompt} #{r.campaign_code} will be created as a campaign"
         end
 
@@ -97,7 +98,7 @@ module Ekylibre
           elsif actor.variant.is_a?(ProductNatureVariant)
             valid = true
           # w.info "#{prompt} Actor ##{i + 1} exist in DB as a variant (#{actor.variant.name})"
-          elsif item = Nomen::ProductNatureVariants.find(actor.target_variant)
+          elsif item = Nomen::ProductNatureVariant.find(actor.target_variant)
             valid = true
           # w.info "#{prompt} Actor ##{i + 1} exist in NOMENCLATURE as a variant (#{item.name})"
           else
@@ -108,10 +109,10 @@ module Ekylibre
           # PROCEDURE GIVE PRODUCTS OR VARIANTS BUT NOT EXIST IN DB
           #
           unit_name = actor.input_unit_name
-          if Nomen::Units[unit_name]
+          if Nomen::Unit[unit_name]
             valid = true
           # w.info "#{prompt} #{unit_name} exist in NOMENCLATURE as a unit"
-          elsif u = Nomen::Units.find_by(symbol: unit_name)
+          elsif u = Nomen::Unit.find_by(symbol: unit_name)
             valid = true
           # w.info "#{prompt} #{unit_name} exist in NOMENCLATURE as a symbol of #{u.name}"
           else
@@ -160,17 +161,17 @@ module Ekylibre
           # a same cultivable zone could be a support of many productions
           # ex : corn_crop, zea_mays_lg452, ZC42 have to return all supports with corn_crop of variety zea_mays_lg452 in ZC42
           p_ids = []
-          for product in r.supports
+          r.supports.each do |support|
             # case A1 : CZ
-            if product.is_a?(CultivableZone)
-              ap = ActivityProduction.of_campaign(r.campaign).where(cultivable_zone: product)
+            if support.is_a?(CultivableZone)
+              ap = ActivityProduction.of_campaign(r.campaign).where(cultivable_zone: support)
               ap = ap.of_cultivation_variety(r.target_variety) if r.target_variety
               ps = ap.map(&:support)
             # case A2 : Product
-            elsif product.is_a?(Product)
-              ps = [product]
+            elsif support.is_a?(Product)
+              ps = [support]
             end
-            p_ids << ps.map(&:id)
+            p_ids += ps.map(&:id)
           end
           w.debug p_ids.inspect.blue
           supports = Product.find(p_ids)
@@ -241,15 +242,15 @@ module Ekylibre
         u = unit
       end
       # case units are symbol
-      if u && !Nomen::Units[u]
-        if u = Nomen::Units.find_by(symbol: u)
+      if u && !Nomen::Unit[u]
+        if u = Nomen::Unit.find_by(symbol: u)
           u = u.name.to_s
         else
           raise ActiveExchanger::NotWellFormedFileError, "Unknown unit #{u.inspect}."
         end
       end
       u = u.to_sym if u
-      nomen_unit = Nomen::Units[u] if u
+      nomen_unit = Nomen::Unit[u] if u
       if value >= 0.0 && nomen_unit
         measure = Measure.new(value, u)
         return measure
@@ -273,15 +274,15 @@ module Ekylibre
       value = population
       nomen_unit = nil
       # convert symbol into unit if needed
-      if unit.present? && !Nomen::Units[unit]
-        if u = Nomen::Units.find_by(symbol: unit)
+      if unit.present? && !Nomen::Unit[unit]
+        if u = Nomen::Unit.find_by(symbol: unit)
           unit = u.name.to_s
         else
           raise ActiveExchanger::NotWellFormedFileError, "Unknown unit #{unit.inspect} for variant #{item_variant.name.inspect}."
         end
       end
       unit = unit.to_sym if unit
-      nomen_unit = Nomen::Units[unit] if unit
+      nomen_unit = Nomen::Unit[unit] if unit
       #
       w.debug value.inspect.yellow
       if value >= 0.0 && nomen_unit
@@ -397,13 +398,13 @@ module Ekylibre
         end
       )
       # Get campaign
-      unless r.campaign = Campaign.find_by_name(r.campaign_code)
+      unless r.campaign = Campaign.find_by(name: r.campaign_code)
         r.campaign = Campaign.create!(name: r.campaign_code, harvest_year: r.campaign_code)
       end
       # Get supports
       w.debug "Support code in method parse_row #{r.support_codes}".inspect.green
       r.supports = parse_record_list(r.support_codes, CultivableZone, :work_number)
-      r.supports ||= parse_record_list(r.support_codes.delete_if { |s| %w(EXPLOITATION).include?(s) }, Product, :work_number)
+      r.supports ||= parse_record_list(r.support_codes.delete_if { |s| %w[EXPLOITATION].include?(s) }, Product, :work_number)
       w.debug "Support code in method parse_record list #{r.supports.map(&:name)}".inspect.green
       # Get equipments
       r.equipments = parse_record_list(r.equipment_codes, Equipment, :work_number)
@@ -415,7 +416,7 @@ module Ekylibre
         target_variant = ProductNatureVariant.find_or_import!(r.target_variety).first
       end
       if target_variant.nil? && r.target_variant
-        unless target_variant = ProductNatureVariant.find_by(number: r.target_variant)
+        unless target_variant = ProductNatureVariant.find_by(work_number: r.target_variant)
           target_variant = ProductNatureVariant.import_from_nomenclature(r.target_variant)
         end
       end
@@ -432,10 +433,10 @@ module Ekylibre
         input_unit_target_dose: (row[index + 3].blank? ? nil : row[index + 3].to_s.downcase)
       )
       if a.product_code
-        a.variant = if a.product = Product.find_by_work_number(a.product_code)
+        a.variant = if a.product = Product.find_by(work_number: a.product_code)
                       a.product.variant
                     else
-                      ProductNatureVariant.find_by_number(a.product_code)
+                      ProductNatureVariant.find_by(work_number: a.product_code)
                     end
       end
       a
@@ -541,7 +542,10 @@ module Ekylibre
       procedure ||= Procedo.find(r.procedure_name)
 
       # check if procedure is simple or not (with group parameter or output)
-      if procedure.parameters.detect { |parameter| parameter.is_a?(Procedo::Procedure::GroupParameter) || (parameter.is_a?(Procedo::Procedure::ProductParameter) && parameter.output?) }
+      if procedure.parameters.detect do |parameter|
+           parameter.is_a?(Procedo::Procedure::GroupParameter) ||
+           (parameter.is_a?(Procedo::Procedure::ProductParameter) && parameter.output?)
+         end
         return record_complex_intervention(r, targets, procedure)
       else
         return record_default_intervention(r, targets, procedure)
@@ -550,10 +554,19 @@ module Ekylibre
 
     def record_default_intervention(r, targets, procedure)
       # build base procedure
-      attributes = { procedure_name: procedure.name, actions: procedure.mandatory_actions.map(&:name), description: r.description }
+      attributes = {
+        procedure_name: procedure.name,
+        actions: procedure.mandatory_actions.map(&:name),
+        description: r.description
+      }
 
       ## working_periods
-      attributes[:working_periods_attributes] = { '0' => { started_at: r.intervention_started_at.strftime('%Y-%m-%d %H:%M'), stopped_at: r.intervention_stopped_at.strftime('%Y-%m-%d %H:%M') } }
+      attributes[:working_periods_attributes] = {
+        '0' => {
+          started_at: r.intervention_started_at.strftime('%Y-%m-%d %H:%M'),
+          stopped_at: r.intervention_stopped_at.strftime('%Y-%m-%d %H:%M')
+        }
+      }
 
       w.debug "targets : #{targets.map(&:name)}".inspect.yellow
 
@@ -562,7 +575,11 @@ module Ekylibre
         procedure.parameters_of_type(:target).each do |support|
           # next unless target.of_expression(support.filter)
           attributes[:targets_attributes] ||= {}
-          attributes[:targets_attributes][index.to_s] = { reference_name: support.name, product_id: target.id, working_zone: target.shape.to_geojson }
+          attributes[:targets_attributes][index.to_s] = {
+            reference_name: support.name,
+            product_id: target.id,
+            working_zone: target.shape.to_geojson
+          }
           # break
         end
       end
@@ -584,7 +601,12 @@ module Ekylibre
                     end
           next unless actor.product.of_expression(input.filter)
           attributes[:inputs_attributes] ||= {}
-          attributes[:inputs_attributes][index.to_s] = { reference_name: input.name, product_id: actor.product.id, quantity_handler: handler, quantity_value: product_measure.to_f }
+          attributes[:inputs_attributes][index.to_s] = {
+            reference_name: input.name,
+            product_id: actor.product.id,
+            quantity_handler: handler,
+            quantity_value: product_measure.to_f
+          }
           updaters << "inputs[#{index}]quantity_value"
           break
         end
@@ -595,7 +617,10 @@ module Ekylibre
         procedure.parameters_of_type(:tool).each do |tool|
           next unless equipment.of_expression(tool.filter)
           attributes[:tools_attributes] ||= {}
-          attributes[:tools_attributes][index.to_s] = { reference_name: tool.name, product_id: equipment.id }
+          attributes[:tools_attributes][index.to_s] = {
+            reference_name: tool.name,
+            product_id: equipment.id
+          }
           break
         end
       end
@@ -605,19 +630,22 @@ module Ekylibre
         procedure.parameters_of_type(:doer).each do |doer|
           next unless worker.of_expression(doer.filter)
           attributes[:doers_attributes] ||= {}
-          attributes[:doers_attributes][index.to_s] = { reference_name: doer.name, product_id: worker.id }
+          attributes[:doers_attributes][index.to_s] = {
+            reference_name: doer.name,
+            product_id: worker.id
+          }
           break
         end
       end
 
-      # # impact
+      ## impact
       intervention = Procedo::Engine.new_intervention(attributes)
       updaters.each do |updater|
         intervention.impact_with!(updater)
       end
 
       ## save
-      ::Intervention.create!(intervention.to_hash)
+      ::Intervention.create!(intervention.to_attributes)
     end
 
     def record_complex_intervention(r, targets, procedure)
@@ -702,7 +730,7 @@ module Ekylibre
         w.debug 'SOWING'.inspect.red
 
         ## save
-        ::Intervention.create!(intervention.to_hash)
+        ::Intervention.create!(intervention.to_attributes)
         w.debug "############################# #{Plant.count}".blue
         w.debug ''
 
@@ -784,7 +812,7 @@ module Ekylibre
         w.debug 'HARVESTING'.inspect.red
 
         ## save
-        ::Intervention.create!(intervention.to_hash)
+        ::Intervention.create!(intervention.to_attributes)
       else
         w.debug 'Problem to recognize intervention and create it ' + procedure.name.inspect
       end

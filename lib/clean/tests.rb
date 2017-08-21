@@ -43,10 +43,58 @@ module Clean
       def write_job_test_file(klass)
         code = ''
         code << "require 'test_helper'\n\n"
-        code << modularize(klass, 'ActionJob::TestCase') do |c|
+        code << modularize(klass, 'ActiveJob::TestCase') do |c|
           c << "# Add tests here...\n"
         end
         file = Rails.root.join('test', 'jobs', klass.underscore + '.rb')
+        FileUtils.mkdir_p(file.dirname)
+        File.open(file, 'wb') do |f|
+          f.write(code)
+        end
+      end
+
+      def write_exchanger_test_file(klass)
+        code = ''
+        code << "require 'test_helper'\n\n"
+        main_klass = klass.gsub(/Test$/, '')
+        code << modularize(klass, 'ActiveExchanger::TestCase') do |c|
+          path = Rails.root.join('test', 'fixture-files', 'imports', main_klass.underscore.gsub(/\_exchanger\z/, '') + '.*').to_s
+          files = Dir.glob(path)
+          extension = 'csv'
+          extension = files.first.split('.').last if files.any?
+          x = "test 'import' do\n"
+          x << "  #{main_klass}.import(fixture_files_path.join('imports', '" + main_klass.underscore.gsub(/\_exchanger\z/, '').split(/\//).join("', '") + ".#{extension}'))\n"
+          x << "end\n"
+          x.gsub!(/^/, '# ') if files.empty?
+          c << x
+        end
+        file = Rails.root.join('test', 'exchangers', klass.underscore + '.rb')
+        FileUtils.mkdir_p(file.dirname)
+        File.open(file, 'wb') do |f|
+          f.write(code)
+        end
+      end
+
+      def write_service_test_file(klass)
+        code = ''
+        code << "require 'test_helper'\n\n"
+        code << modularize(klass, 'ActiveSupport::TestCase') do |c|
+          c << "# Add tests here...\n"
+        end
+        file = Rails.root.join('test', 'services', klass.underscore + '.rb')
+        FileUtils.mkdir_p(file.dirname)
+        File.open(file, 'wb') do |f|
+          f.write(code)
+        end
+      end
+
+      def write_concept_test_file(klass)
+        code = ''
+        code << "require 'test_helper'\n\n"
+        code << modularize(klass, 'ActiveSupport::TestCase') do |c|
+          c << "# Add tests here...\n"
+        end
+        file = Rails.root.join('test', 'concepts', klass.underscore + '.rb')
         FileUtils.mkdir_p(file.dirname)
         File.open(file, 'wb') do |f|
           f.write(code)
@@ -93,7 +141,7 @@ module Clean
           errors_count += 1
           log.write(" - Error: Unexpected test file: #{Pathname.new(file).relative_path_from(Rails.root)}\n")
         end
-        log.write("   > git rm #{files.join(' ')}\n") if files.any?
+        log.write("   > git rm #{files.map { |f| Pathname.new(f).relative_path_from(Rails.root) } .join(' ')}\n") if files.any?
         errors_count
       end
 
@@ -107,7 +155,7 @@ module Clean
         if compounds.size > 1
           # TODO: More reliability shoud be appreciable
           compounds.each_with_index do |name, depth|
-            return false unless source =~ /^#{'  ' * depth}(module|class)\s+#{name}(\s+|\s*\<|$)/
+            return false unless source =~ /^#{'  ' * depth}(module|class)\s+#{name}(\s+|\s*\<|$)/i
           end
           return true
         end

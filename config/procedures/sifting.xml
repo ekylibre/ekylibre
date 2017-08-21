@@ -5,9 +5,10 @@
       <target name="land_parcel" filter="is land_parcel and has indicator shape">
         <attribute name="working_zone" default-value="PRODUCT.shape" if="PRODUCT?"/>
       </target>
-      <tool name="sieve_shaker"  filter="can sieve"/>
-      <tool name="tractor" filter="can tow(equipment) and can move"/>
-      <doer name="driver"  filter="can drive(equipment) and can move"/>
+      <doer name="driver" filter="can drive(equipment) and can move" cardinality="*"/>
+      <tool name="tractor" filter="can tow(equipment) and can move" cardinality="*"/>
+      <tool name="sieve_shaker" filter="can sieve" cardinality="*"/>
+      <tool name="trailer" filter="is equipment and can move and (can store(silage) or can store(raw_matter) or can store(grass) or can store(grain) or can store_fluid)" cardinality="*"/>
     </parameters>
   </procedure>
 </procedures>

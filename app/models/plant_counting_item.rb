@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2016 Brice Texier, David Joulin
+# Copyright (C) 2012-2017 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -42,14 +42,23 @@ class PlantCountingItem < Ekylibre::Record::Base
   validates :value, presence: true, numericality: { only_integer: true, greater_than: -2_147_483_649, less_than: 2_147_483_648 }
   validates :plant_counting, presence: true
   # ]VALIDATORS]
+  validates :value, numericality: { only_integer: true, greater_than: 0, less_than: 2_147_483_648 }
+
+  delegate :rows_count, :implanter_working_width, to: :plant_counting
 
   def update_average_value
+    plant_counting.reload
     items = plant_counting.items
-    average_value = items.any? ? items.average(:value) : nil
+    average_value = items.any? ? items.average(:value) : 0
     plant_counting.update_column(:average_value, average_value)
   end
 
   def siblings
     plant_counting.items
+  end
+
+  def measured_seeding_density
+    density = value * 10_000 / implanter_working_width.to_d(:meter)
+    density.in :unity_per_hectare
   end
 end

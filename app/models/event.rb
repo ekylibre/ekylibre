@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2016 Brice Texier, David Joulin
+# Copyright (C) 2012-2017 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -88,8 +88,8 @@ class Event < Ekylibre::Record::Base
     if nature = Nomen::EventNature[self.nature]
       self.duration ||= nature.default_duration.to_i
     end
-    if self.stopped_at && self.started_at
-      self.duration = (self.stopped_at - self.started_at).to_i
+    if stopped_at && self.started_at
+      self.duration = (stopped_at - self.started_at).to_i
     elsif self.started_at && self.duration
       self.stopped_at = self.started_at + self.duration
     else
@@ -98,15 +98,15 @@ class Event < Ekylibre::Record::Base
   end
 
   validate do
-    if self.started_at && self.stopped_at
-      if self.stopped_at < self.started_at
+    if self.started_at && stopped_at
+      if stopped_at < self.started_at
         errors.add(:stopped_at, :posterior, to: self.started_at.l)
       end
     end
   end
 
   def updateable?
-    !intervention.present?
+    intervention.blank?
   end
 
   # TODO: Make it better if possible

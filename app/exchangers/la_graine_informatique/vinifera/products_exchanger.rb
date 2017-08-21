@@ -1,4 +1,5 @@
 # coding: utf-8
+
 module LaGraineInformatique
   module Vinifera
     class ProductsExchanger < ActiveExchanger::Base
@@ -66,7 +67,7 @@ module LaGraineInformatique
 
           if number
             # find variant in DB by number
-            unless variant = ProductNatureVariant.find_by_number(number)
+            unless variant = ProductNatureVariant.find_by(number: number)
               # or import variant in DB by transcoding number from NOMENCLATURE
               variant = ProductNatureVariant.import_from_nomenclature(variants_transcode[number], true) if variants_transcode[number]
               w.info variant.name.inspect.green if variant

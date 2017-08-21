@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2016 Brice Texier, David Joulin
+# Copyright (C) 2012-2017 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -22,30 +22,36 @@
 #
 # == Table: purchases
 #
-#  accounted_at        :datetime
-#  affair_id           :integer
-#  amount              :decimal(19, 4)   default(0.0), not null
-#  confirmed_at        :datetime
-#  created_at          :datetime         not null
-#  creator_id          :integer
-#  currency            :string           not null
-#  custom_fields       :jsonb
-#  delivery_address_id :integer
-#  description         :text
-#  id                  :integer          not null, primary key
-#  invoiced_at         :datetime
-#  journal_entry_id    :integer
-#  lock_version        :integer          default(0), not null
-#  nature_id           :integer
-#  number              :string           not null
-#  planned_at          :datetime
-#  pretax_amount       :decimal(19, 4)   default(0.0), not null
-#  reference_number    :string
-#  responsible_id      :integer
-#  state               :string
-#  supplier_id         :integer          not null
-#  updated_at          :datetime         not null
-#  updater_id          :integer
+#  accounted_at                             :datetime
+#  affair_id                                :integer
+#  amount                                   :decimal(19, 4)   default(0.0), not null
+#  confirmed_at                             :datetime
+#  contract_id                              :integer
+#  created_at                               :datetime         not null
+#  creator_id                               :integer
+#  currency                                 :string           not null
+#  custom_fields                            :jsonb
+#  delivery_address_id                      :integer
+#  description                              :text
+#  id                                       :integer          not null, primary key
+#  invoiced_at                              :datetime
+#  journal_entry_id                         :integer
+#  lock_version                             :integer          default(0), not null
+#  nature_id                                :integer
+#  number                                   :string           not null
+#  payment_at                               :datetime
+#  payment_delay                            :string
+#  planned_at                               :datetime
+#  pretax_amount                            :decimal(19, 4)   default(0.0), not null
+#  quantity_gap_on_invoice_journal_entry_id :integer
+#  reference_number                         :string
+#  responsible_id                           :integer
+#  state                                    :string           not null
+#  supplier_id                              :integer          not null
+#  tax_payability                           :string           not null
+#  undelivered_invoice_journal_entry_id     :integer
+#  updated_at                               :datetime         not null
+#  updater_id                               :integer
 #
 ---
 purchases_001:
@@ -65,15 +71,16 @@ purchases_001:
   reference_number: ''
   state: draft
   supplier_id: 13
+  tax_payability: at_invoicing
   updated_at: 2014-11-05 13:40:18.863437000 Z
   updater_id: 1
 purchases_002:
   accounted_at: 2014-11-05 10:46:06.149701000 Z
-  affair_id: 16
+  affair_id: 17
   amount: 1850.0
   created_at: 2014-11-05 10:46:06.121855000 Z
   creator_id: 1
-  currency: USD
+  currency: EUR
   description: ''
   id: 7
   lock_version: 0
@@ -84,6 +91,7 @@ purchases_002:
   reference_number: ''
   state: draft
   supplier_id: 4
+  tax_payability: at_invoicing
   updated_at: 2014-11-05 10:46:06.135573000 Z
   updater_id: 1
 purchases_003:
@@ -106,6 +114,7 @@ purchases_003:
   reference_number: ''
   state: invoice
   supplier_id: 13
+  tax_payability: at_invoicing
   updated_at: 2014-11-07 15:58:47.167810000 Z
   updater_id: 1
 purchases_004:
@@ -129,6 +138,7 @@ purchases_004:
   reference_number: ''
   state: invoice
   supplier_id: 13
+  tax_payability: at_invoicing
   updated_at: 2014-11-07 16:52:57.564797000 Z
   updater_id: 1
 purchases_005:
@@ -153,6 +163,7 @@ purchases_005:
   responsible_id: 1
   state: invoice
   supplier_id: 5
+  tax_payability: at_invoicing
   updated_at: 2015-03-19 17:18:58.189234000 Z
   updater_id: 1
 purchases_006:
@@ -176,5 +187,112 @@ purchases_006:
   responsible_id: 1
   state: invoice
   supplier_id: 8
+  tax_payability: at_invoicing
   updated_at: 2016-07-01 20:22:54.211014000 Z
+  updater_id: 1
+purchases_007:
+  accounted_at: 2016-11-20 22:14:42.439738000 Z
+  affair_id: 49
+  amount: 717.12
+  created_at: 2016-11-20 22:14:38.742117000 Z
+  creator_id: 1
+  currency: EUR
+  delivery_address_id: 9
+  description: ''
+  id: 14
+  invoiced_at: 2016-11-20 22:13:00.000000000 Z
+  journal_entry_id: 102
+  lock_version: 2
+  nature_id: 1
+  number: A201611000002
+  payment_at: 2017-09-16 22:13:00.000000000 Z
+  payment_delay: 300 days
+  planned_at: 2016-11-20 22:13:00.000000000 Z
+  pretax_amount: 597.6
+  quantity_gap_on_invoice_journal_entry_id: 103
+  reference_number: ''
+  responsible_id: 1
+  state: invoice
+  supplier_id: 5
+  tax_payability: at_invoicing
+  updated_at: 2016-11-20 22:14:42.346687000 Z
+  updater_id: 1
+purchases_008:
+  accounted_at: 2016-11-20 22:15:24.435646000 Z
+  affair_id: 51
+  amount: 1200.0
+  created_at: 2016-11-20 22:15:20.509474000 Z
+  creator_id: 1
+  currency: EUR
+  delivery_address_id: 9
+  description: ''
+  id: 15
+  invoiced_at: 2016-11-20 22:15:00.000000000 Z
+  journal_entry_id: 105
+  lock_version: 2
+  nature_id: 1
+  number: A201611000003
+  payment_at: 2016-11-20 22:15:00.000000000 Z
+  payment_delay: ''
+  planned_at: 2016-11-20 22:15:00.000000000 Z
+  pretax_amount: 1000.0
+  quantity_gap_on_invoice_journal_entry_id: 106
+  reference_number: ''
+  responsible_id: 1
+  state: invoice
+  supplier_id: 4
+  tax_payability: at_invoicing
+  updated_at: 2016-11-20 22:15:24.353307000 Z
+  updater_id: 1
+purchases_009:
+  accounted_at: 2016-12-20 18:16:13.294397000 Z
+  affair_id: 53
+  amount: 4878.72
+  created_at: 2016-12-20 18:16:09.138800000 Z
+  creator_id: 1
+  currency: EUR
+  delivery_address_id: 9
+  description: ''
+  id: 16
+  invoiced_at: 2016-12-20 18:15:00.000000000 Z
+  journal_entry_id: 112
+  lock_version: 2
+  nature_id: 1
+  number: A201612000004
+  payment_at: 2016-12-20 18:15:00.000000000 Z
+  payment_delay: ''
+  planned_at: 2016-12-20 18:15:00.000000000 Z
+  pretax_amount: 4435.2
+  reference_number: ''
+  responsible_id: 1
+  state: invoice
+  supplier_id: 5
+  tax_payability: at_invoicing
+  updated_at: 2016-12-20 18:16:13.187112000 Z
+  updater_id: 1
+purchases_010:
+  accounted_at: 2016-12-20 18:17:05.131532000 Z
+  affair_id: 54
+  amount: 489.75
+  created_at: 2016-12-20 18:16:56.920935000 Z
+  creator_id: 1
+  currency: EUR
+  delivery_address_id: 9
+  description: ''
+  id: 17
+  invoiced_at: 2016-12-20 18:16:00.000000000 Z
+  journal_entry_id: 114
+  lock_version: 2
+  nature_id: 1
+  number: A201612000005
+  payment_at: 2016-12-20 18:16:00.000000000 Z
+  payment_delay: ''
+  planned_at: 2016-12-20 18:16:00.000000000 Z
+  pretax_amount: 445.23
+  reference_number: ''
+  responsible_id: 1
+  state: invoice
+  supplier_id: 4
+  tax_payability: at_invoicing
+  updated_at: 2016-12-20 18:17:05.049190000 Z
   updater_id: 1

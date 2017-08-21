@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2016 Brice Texier, David Joulin
+# Copyright (C) 2012-2017 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -22,6 +22,7 @@
 #
 # == Table: activities
 #
+#  codes                        :jsonb
 #  created_at                   :datetime         not null
 #  creator_id                   :integer
 #  cultivation_variety          :string
@@ -61,7 +62,7 @@
 class Activity < Ekylibre::Record::Base
   include Attachable
   include Customizable
-  refers_to :family, class_name: 'ActivityFamily'
+  refers_to :family, class_name: 'ActivityFamily', predicates: true
   refers_to :cultivation_variety, class_name: 'Variety'
   refers_to :support_variety, class_name: 'Variety'
   refers_to :size_unit, class_name: 'Unit'
@@ -70,9 +71,9 @@ class Activity < Ekylibre::Record::Base
   refers_to :grading_sizes_indicator, -> { where(datatype: :measure) }, class_name: 'Indicator'
   refers_to :grading_sizes_unit, -> { where(dimension: :distance) }, class_name: 'Unit'
   refers_to :production_system
-  enumerize :nature, in: [:main, :auxiliary, :standalone], default: :main, predicates: true
-  enumerize :production_cycle, in: [:annual, :perennial], predicates: true
-  enumerize :production_campaign, in: [:at_cycle_start, :at_cycle_end], default: :at_cycle_end, predicates: true
+  enumerize :nature, in: %i[main auxiliary standalone], default: :main, predicates: true
+  enumerize :production_cycle, in: %i[annual perennial], predicates: true
+  enumerize :production_campaign, in: %i[at_cycle_start at_cycle_end], default: :at_cycle_end, predicates: true
   with_options dependent: :destroy, inverse_of: :activity do
     has_many :budgets, class_name: 'ActivityBudget'
     has_many :distributions, class_name: 'ActivityDistribution'
@@ -86,6 +87,9 @@ class Activity < Ekylibre::Record::Base
     has_many :inspection_calibration_natures, class_name: 'ActivityInspectionCalibrationNature', through: :inspection_calibration_scales, source: :natures
   end
   has_many :supports, through: :productions
+
+  has_and_belongs_to_many :interventions
+  has_and_belongs_to_many :campaigns
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :description, length: { maximum: 500_000 }, allow_blank: true
@@ -106,15 +110,11 @@ class Activity < Ekylibre::Record::Base
   scope :actives, -> { availables.where(id: ActivityProduction.where(state: :opened).select(:activity_id)) }
   scope :availables, -> { where.not('suspended') }
   scope :main, -> { where(nature: 'main') }
-  scope :of_intervention, lambda { |intervention|
-    where(id: TargetDistribution.select(:activity_id).where(target_id: InterventionTarget.select(:product_id).where(intervention_id: intervention)))
-  }
+
   scope :of_campaign, lambda { |campaign|
     if campaign
       c = campaign.is_a?(Campaign) || campaign.is_a?(ActiveRecord::Relation) ? campaign : campaign.map { |c| c.is_a?(Campaign) ? c : Campaign.find(c) }
-      prods = where(id: ActivityProduction.select(:activity_id).of_campaign(c))
-      budgets = where(id: ActivityBudget.select(:activity_id).of_campaign(c))
-      where(id: prods.select(:id) + budgets.select(:id))
+      where(id: HABTM_Campaigns.select(:activity_id).where(campaign: c))
     else
       none
     end
@@ -134,7 +134,7 @@ class Activity < Ekylibre::Record::Base
   accepts_nested_attributes_for :distributions, reject_if: :all_blank, allow_destroy: true
   accepts_nested_attributes_for :inspection_point_natures, allow_destroy: true
   accepts_nested_attributes_for :inspection_calibration_scales, allow_destroy: true
-  accepts_nested_attributes_for :seasons, update_only: true, reject_if: -> (par) { par[:name].blank? }
+  accepts_nested_attributes_for :seasons, update_only: true, reject_if: ->(par) { par[:name].blank? }
   accepts_nested_attributes_for :tactics, allow_destroy: true, reject_if: :all_blank
   accepts_nested_attributes_for :plant_density_abaci, allow_destroy: true, reject_if: :all_blank
   # protect(on: :update) do
@@ -146,8 +146,7 @@ class Activity < Ekylibre::Record::Base
   end
 
   before_validation do
-    family = Nomen::ActivityFamily.find(self.family)
-    if family
+    if Nomen::ActivityFamily.find(family)
       # FIXME: Need to use nomenclatures to set that data!
       if plant_farming?
         self.with_supports ||= true
@@ -170,9 +169,6 @@ class Activity < Ekylibre::Record::Base
         self.cultivation_variety ||= :equipment
         self.size_indicator_name = 'members_population' if size_indicator_name.blank?
         self.size_unit_name = 'unity' if size_unit_name.blank?
-      else
-        self.with_supports = false
-        self.with_cultivation = false
       end
       # if with_supports || family.support_variety
       #   self.with_supports = true
@@ -187,20 +183,23 @@ class Activity < Ekylibre::Record::Base
       #   self.with_cultivation = false
       # end
     end
+    self.with_supports = false if with_supports.nil?
+    self.with_cultivation = false if with_cultivation.nil?
     true
   end
 
   validate do
-    if family = Nomen::ActivityFamily[self.family]
-      if with_supports && variety = Nomen::Variety[support_variety] && family.support_variety
-        errors.add(:support_variety, :invalid) unless variety <= family.support_variety
+    if family_item = Nomen::ActivityFamily[family]
+      if with_supports && variety = Nomen::Variety[support_variety] && family_item.support_variety
+        errors.add(:support_variety, :invalid) unless variety <= family_item.support_variety
       end
       if with_cultivation && variety = Nomen::Variety[cultivation_variety]
-        unless family.cultivation_variety.blank?
-          errors.add(:cultivation_variety, :invalid) unless variety <= family.cultivation_variety
+        if family_item.cultivation_variety.present?
+          errors.add(:cultivation_variety, :invalid) unless variety <= family_item.cultivation_variety
         end
       end
     end
+    errors.add :use_gradings, :checked_off_with_inspections if inspections.any? && !use_gradings
     if use_gradings
       unless measure_something?
         errors.add :use_gradings, :checked_without_measures
@@ -333,7 +332,7 @@ class Activity < Ekylibre::Record::Base
       if activity_family <= :plant_farming
         list = COLORS['varieties']
         return 'Gray' unless list
-        variety.rise { |i| list[i.name] }
+        variety.rise { |i| list[i.name] } unless variety.nil?
       elsif activity_family <= :animal_farming
         'Brown'
       elsif activity_family <= :administering
@@ -398,21 +397,25 @@ class Activity < Ekylibre::Record::Base
     Nomen::ActivityFamily[self.family] <= family
   end
 
+  def inspectionable?
+    use_gradings && inspection_calibration_scales.any? && inspections.any?
+  end
+
   def measure_something?
     measure_grading_items_count || measure_grading_net_mass || measure_grading_sizes
   end
 
   def unit_choices
-    [:items, :mass]
-      .reject { |e| e == :items && !measure_grading_items_count }
-      .reject { |e| e == :mass && !measure_grading_net_mass }
+    %i[items_count net_mass]
+      .reject { |e| e == :items_count && !measure_grading_items_count }
+      .reject { |e| e == :net_mass && !measure_grading_net_mass }
   end
 
   def unit_preference(user, unit = nil)
     unit_preference_name = "activity_#{id}_inspection_view_unit"
     user.prefer!(unit_preference_name, unit.to_sym) if unit.present?
     pref = user.preference(unit_preference_name).value
-    pref ||= :mass
+    pref ||= :items_count
     pref = unit_choices.find { |c| c.to_sym == pref.to_sym }
     pref ||= unit_choices.first
   end

@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2016 Brice Texier, David Joulin
+# Copyright (C) 2012-2017 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -36,132 +36,87 @@
 #  description            :text
 #  id                     :integer          not null, primary key
 #  journal_entry_id       :integer
+#  letter                 :string
 #  lock_version           :integer          default(0), not null
 #  name                   :string
-#  number                 :string           not null
+#  number                 :string
 #  origin                 :string
 #  pretax_amount          :decimal(19, 4)   default(0.0)
 #  probability_percentage :decimal(19, 4)   default(0.0)
 #  responsible_id         :integer
 #  state                  :string
 #  third_id               :integer          not null
-#  third_role             :string           not null
 #  type                   :string
 #  updated_at             :datetime         not null
 #  updater_id             :integer
 #
 ---
-affairs_001:
-  accounted_at: 2014-11-05 09:30:00.003467000 Z
-  closed: false
-  created_at: 2014-10-31 17:19:32.000000000 Z
+payslip_affairs_001:
+  closed: true
+  closed_at: 2017-06-07 16:14:55.172263000 Z
+  created_at: 2017-06-07 16:14:23.019282000 Z
   creator_id: 1
-  credit: 6000.0
+  credit: 1234.0
+  currency: EUR
+  deals_count: 2
+  debit: 1234.0
+  id: 55
+  letter: A
+  lock_version: 2
+  number: A000000000048
+  pretax_amount: 0.0
+  probability_percentage: 0.0
+  third_id: 9
+  type: PayslipAffair
+  updated_at: 2017-06-07 16:14:55.198719000 Z
+  updater_id: 1
+payslip_affairs_002:
+  closed: true
+  closed_at: 2017-06-07 16:15:58.292323000 Z
+  created_at: 2017-06-07 16:15:26.790498000 Z
+  creator_id: 1
+  credit: 1200.0
+  currency: EUR
+  deals_count: 2
+  debit: 1200.0
+  id: 56
+  letter: A
+  lock_version: 2
+  number: A000000000049
+  pretax_amount: 0.0
+  probability_percentage: 0.0
+  third_id: 10
+  type: PayslipAffair
+  updated_at: 2017-06-07 16:15:58.322559000 Z
+  updater_id: 1
+payslip_affairs_003:
+  closed: true
+  closed_at: 2017-06-07 16:21:12.008206000 Z
+  created_at: 2017-06-07 16:21:12.025902000 Z
+  creator_id: 1
+  credit: 0.0
   currency: EUR
   deals_count: 1
   debit: 0.0
-  id: 4
-  lock_version: 1
-  number: A000004
-  pretax_amount: 0.0
-  probability_percentage: 0.0
-  state: won
-  third_id: 6
-  third_role: client
-  type: Affair
-  updated_at: 2014-11-05 09:29:59.992533000 Z
-  updater_id: 1
-affairs_002:
-  closed: false
-  created_at: 2014-10-31 17:19:32.000000000 Z
-  creator_id: 1
-  credit: 236.0
-  currency: EUR
-  deals_count: 0
-  debit: 1158.0
-  id: 5
+  id: 57
   lock_version: 0
-  number: A000005
+  number: A000000000050
   pretax_amount: 0.0
   probability_percentage: 0.0
-  state: won
-  third_id: 6
-  third_role: client
-  type: Affair
-  updated_at: 2014-10-31 17:19:32.000000000 Z
+  third_id: 12
+  type: PayslipAffair
+  updated_at: 2017-06-07 16:21:12.025902000 Z
   updater_id: 1
-affairs_003:
-  accounted_at: 2014-11-05 09:58:26.803289000 Z
-  closed: true
-  closed_at: 2014-11-05 09:58:26.789660000 Z
-  created_at: 2014-11-05 09:52:05.651665000 Z
-  creator_id: 1
-  credit: 1164.0
-  currency: EUR
-  deals_count: 2
-  debit: 1164.0
-  id: 10
-  lock_version: 5
-  number: A000000000004
-  pretax_amount: 0.0
-  probability_percentage: 0.0
-  state: won
-  third_id: 7
-  third_role: client
-  type: Affair
-  updated_at: 2014-11-05 09:58:26.794031000 Z
-  updater_id: 1
-affairs_004:
-  accounted_at: 2014-11-06 18:25:07.940847000 Z
-  closed: false
-  created_at: 2014-11-05 10:01:39.917982000 Z
-  creator_id: 1
-  credit: 792.0
-  currency: EUR
-  deals_count: 2
-  debit: 300.0
-  id: 12
-  lock_version: 1
-  number: A000000000006
-  pretax_amount: 0.0
-  probability_percentage: 0.0
-  state: won
-  third_id: 13
-  third_role: client
-  type: Affair
-  updated_at: 2014-11-05 10:02:28.482875000 Z
-  updater_id: 1
-affairs_005:
-  accounted_at: 2014-11-05 13:35:14.625131000 Z
-  closed: true
-  closed_at: 2014-11-05 13:35:14.611051000 Z
-  created_at: 2014-11-05 10:03:06.014961000 Z
-  creator_id: 1
-  credit: 11.23
-  currency: EUR
-  deals_count: 2
-  debit: 11.23
-  id: 14
-  lock_version: 3
-  number: A000000000008
-  pretax_amount: 0.0
-  probability_percentage: 0.0
-  state: won
-  third_id: 10
-  third_role: client
-  type: Affair
-  updated_at: 2014-11-05 13:35:14.615292000 Z
-  updater_id: 1
-affairs_006:
+purchase_affairs_001:
   accounted_at: 2014-11-05 13:40:57.922047000 Z
   closed: true
   closed_at: 2014-11-05 13:40:57.905739000 Z
   created_at: 2014-11-05 10:44:42.282299000 Z
   creator_id: 1
-  credit: 171.6
+  credit: 0.0
   currency: EUR
   deals_count: 2
-  debit: 171.6
+  debit: 0.0
   id: 15
   lock_version: 2
   number: A000000000009
@@ -169,19 +124,18 @@ affairs_006:
   probability_percentage: 0.0
   state: won
   third_id: 13
-  third_role: supplier
-  type: Affair
+  type: PurchaseAffair
   updated_at: 2014-11-05 13:40:57.910272000 Z
   updater_id: 1
-affairs_007:
+purchase_affairs_002:
   accounted_at: 2014-11-05 10:46:06.183488000 Z
   closed: false
   created_at: 2014-11-05 10:46:06.163028000 Z
   creator_id: 1
-  credit: 0.0
+  credit: 1850.0
   currency: USD
   deals_count: 1
-  debit: 1850.0
+  debit: 0.0
   id: 16
   lock_version: 0
   number: A000000000010
@@ -189,144 +143,50 @@ affairs_007:
   probability_percentage: 0.0
   state: won
   third_id: 4
-  third_role: supplier
-  type: Affair
+  type: PurchaseAffair
   updated_at: 2014-11-05 10:46:06.163028000 Z
   updater_id: 1
-affairs_008:
-  accounted_at: 2014-11-05 13:36:51.555823000 Z
-  closed: true
-  closed_at: 2014-11-05 13:36:51.536711000 Z
-  created_at: 2014-11-05 13:36:09.026401000 Z
-  creator_id: 1
-  credit: 20.0
-  currency: EUR
-  deals_count: 3
-  debit: 20.0
-  id: 17
-  lock_version: 4
-  number: A000000000011
-  pretax_amount: 0.0
-  probability_percentage: 0.0
-  state: won
-  third_id: 10
-  third_role: client
-  type: Affair
-  updated_at: 2014-11-05 13:36:51.542064000 Z
-  updater_id: 1
-affairs_009:
-  accounted_at: 2014-11-05 14:07:53.349357000 Z
-  closed: false
-  created_at: 2014-11-05 14:05:57.528434000 Z
-  credit: 0.0
-  currency: EUR
-  deals_count: 1
-  debit: 123.0
-  id: 20
-  lock_version: 1
-  number: A000000000014
-  pretax_amount: 0.0
-  probability_percentage: 0.0
-  state: won
-  third_id: 6
-  third_role: client
-  type: Affair
-  updated_at: 2014-11-05 14:05:57.543080000 Z
-affairs_010:
-  accounted_at: 2014-11-05 14:07:45.804138000 Z
-  closed: false
-  created_at: 2014-11-05 14:06:06.158342000 Z
-  credit: 0.0
-  currency: EUR
-  deals_count: 1
-  debit: 100.0
-  id: 21
-  lock_version: 1
-  number: A000000000015
-  pretax_amount: 0.0
-  probability_percentage: 0.0
-  state: won
-  third_id: 8
-  third_role: client
-  type: Affair
-  updated_at: 2014-11-05 14:06:06.173578000 Z
-affairs_011:
-  accounted_at: 2014-11-05 14:07:42.859080000 Z
-  closed: false
-  created_at: 2014-11-05 14:06:11.319314000 Z
-  credit: 0.0
-  currency: EUR
-  deals_count: 1
-  debit: 448.98
-  id: 22
-  lock_version: 1
-  number: A000000000016
-  pretax_amount: 0.0
-  probability_percentage: 0.0
-  state: won
-  third_id: 8
-  third_role: client
-  type: Affair
-  updated_at: 2014-11-05 14:06:11.334075000 Z
-affairs_012:
+purchase_affairs_003:
   accounted_at: 2014-11-07 13:58:25.770377000 Z
   closed: false
   created_at: 2014-11-05 14:11:50.235322000 Z
   creator_id: 1
-  credit: 116.0
+  credit: 0.0
   currency: EUR
   deals_count: 1
-  debit: 0.0
+  debit: 116.0
   id: 23
+  letter: A
   lock_version: 1
   number: A000000000017
   pretax_amount: 0.0
   probability_percentage: 0.0
   state: won
   third_id: 6
-  third_role: client
-  type: Affair
+  type: PurchaseAffair
   updated_at: 2014-11-05 14:11:50.255067000 Z
   updater_id: 1
-affairs_013:
-  accounted_at: 2014-11-07 13:55:38.873436000 Z
-  closed: false
-  created_at: 2014-11-07 13:55:38.852252000 Z
-  credit: 0.0
-  currency: EUR
-  deals_count: 1
-  debit: 150.0
-  id: 24
-  lock_version: 1
-  number: A000000000018
-  pretax_amount: 0.0
-  probability_percentage: 0.0
-  state: won
-  third_id: 6
-  third_role: client
-  type: Affair
-  updated_at: 2014-11-07 13:55:38.866825000 Z
-affairs_014:
+purchase_affairs_004:
   accounted_at: 2014-11-07 13:58:35.237502000 Z
   closed: false
   created_at: 2014-11-07 13:58:35.214828000 Z
   creator_id: 1
-  credit: 156.0
+  credit: 0.0
   currency: EUR
   deals_count: 1
-  debit: 0.0
+  debit: 156.0
   id: 25
+  letter: B
   lock_version: 0
   number: A000000000019
   pretax_amount: 0.0
   probability_percentage: 0.0
   state: won
   third_id: 6
-  third_role: client
-  type: Affair
+  type: PurchaseAffair
   updated_at: 2014-11-07 13:58:35.214828000 Z
   updater_id: 1
-affairs_015:
+purchase_affairs_005:
   accounted_at: 2014-11-07 15:58:47.273853000 Z
   closed: true
   closed_at: 2014-11-07 15:58:47.261242000 Z
@@ -335,184 +195,559 @@ affairs_015:
   credit: 1848.0
   currency: EUR
   deals_count: 2
-  debit: 1848.0
+  debit: 0.0
   id: 26
+  letter: A
   lock_version: 6
   number: A000000000020
   pretax_amount: 0.0
   probability_percentage: 0.0
   state: won
   third_id: 13
-  third_role: supplier
-  type: Affair
+  type: PurchaseAffair
   updated_at: 2014-11-07 15:58:47.265018000 Z
   updater_id: 1
-affairs_016:
-  accounted_at: 2014-11-07 16:53:27.408639000 Z
+purchase_affairs_006:
+  accounted_at: 2016-10-26 15:31:44.334202000 Z
   closed: false
   created_at: 2014-11-07 16:52:05.277386000 Z
   creator_id: 1
-  credit: 9000.0
+  credit: 20520.0
   currency: EUR
-  deals_count: 2
+  deals_count: 3
   debit: 20520.0
   id: 30
-  lock_version: 4
+  letter: B
+  lock_version: 5
   number: A000000000022
   pretax_amount: 0.0
   probability_percentage: 0.0
   state: won
   third_id: 13
-  third_role: supplier
-  type: Affair
-  updated_at: 2014-11-07 16:53:27.399316000 Z
+  type: PurchaseAffair
+  updated_at: 2016-10-26 15:31:44.177582000 Z
   updater_id: 1
-affairs_017:
+purchase_affairs_007:
   accounted_at: 2015-03-19 17:19:00.044907000 Z
   closed: false
   created_at: 2015-03-19 17:18:42.077881000 Z
   creator_id: 1
-  credit: 0.0
+  credit: 1848.0
   currency: USD
   deals_count: 1
-  debit: 1848.0
+  debit: 0.0
   id: 31
+  letter: C
   lock_version: 0
   number: A000000000024
   pretax_amount: 0.0
   probability_percentage: 0.0
   state: won
   third_id: 5
-  third_role: supplier
-  type: Affair
+  type: PurchaseAffair
   updated_at: 2015-03-19 17:18:42.077881000 Z
   updater_id: 1
-affairs_018:
-  accounted_at: 2015-04-21 23:49:34.612101000 Z
-  closed: false
-  created_at: 2015-04-21 23:49:19.404347000 Z
-  creator_id: 1
-  credit: 319.6
-  currency: EUR
-  deals_count: 1
-  debit: 0.0
-  id: 36
-  lock_version: 0
-  number: A000000000029
-  pretax_amount: 0.0
-  probability_percentage: 0.0
-  third_id: 10
-  third_role: client
-  updated_at: 2015-04-21 23:49:19.404347000 Z
-  updater_id: 1
-affairs_019:
-  accounted_at: 2015-05-30 20:00:46.964460000 Z
-  closed: true
-  closed_at: 2015-05-30 20:00:46.791503000 Z
-  created_at: 2015-05-30 20:00:27.978022000 Z
-  creator_id: 1
-  credit: 500.0
-  currency: EUR
-  deals_count: 2
-  debit: 500.0
-  id: 37
-  lock_version: 2
-  number: A000000000030
-  pretax_amount: 0.0
-  probability_percentage: 0.0
-  third_id: 15
-  third_role: client
-  updated_at: 2015-05-30 20:00:46.794751000 Z
-  updater_id: 1
-affairs_020:
-  accounted_at: 2015-09-17 13:25:52.318201000 Z
-  closed: false
-  created_at: 2015-09-17 13:25:40.531173000 Z
-  creator_id: 1
-  credit: 54000.0
-  currency: EUR
-  deals_count: 1
-  debit: 0.0
-  id: 38
-  lock_version: 0
-  number: A000000000031
-  pretax_amount: 0.0
-  probability_percentage: 0.0
-  third_id: 15
-  third_role: client
-  updated_at: 2015-09-17 13:25:40.531173000 Z
-  updater_id: 1
-affairs_021:
-  accounted_at: 2016-05-26 21:26:19.642104000 Z
-  closed: false
-  created_at: 2016-05-26 21:26:07.880426000 Z
-  creator_id: 1
-  credit: 142.94
-  currency: EUR
-  deals_count: 1
-  debit: 0.0
-  id: 39
-  lock_version: 0
-  number: A000000000032
-  pretax_amount: 0.0
-  probability_percentage: 0.0
-  third_id: 14
-  third_role: client
-  updated_at: 2016-05-26 21:26:07.880426000 Z
-  updater_id: 1
-affairs_022:
-  accounted_at: 2016-05-26 21:27:13.884165000 Z
-  closed: false
-  created_at: 2016-05-26 21:26:57.791625000 Z
-  creator_id: 1
-  credit: 71.47
-  currency: EUR
-  deals_count: 1
-  debit: 0.0
-  id: 40
-  lock_version: 1
-  number: A000000000033
-  pretax_amount: 0.0
-  probability_percentage: 0.0
-  third_id: 14
-  third_role: client
-  updated_at: 2016-05-26 21:27:06.164102000 Z
-  updater_id: 1
-affairs_023:
-  accounted_at: 2016-07-01 20:12:48.729623000 Z
-  closed: false
-  created_at: 2016-07-01 20:12:41.393208000 Z
-  creator_id: 1
-  credit: 148.8
-  currency: EUR
-  deals_count: 1
-  debit: 0.0
-  id: 41
-  lock_version: 0
-  number: A000000000034
-  pretax_amount: 0.0
-  probability_percentage: 0.0
-  third_id: 10
-  third_role: client
-  updated_at: 2016-07-01 20:12:41.393208000 Z
-  updater_id: 1
-affairs_024:
+purchase_affairs_008:
   accounted_at: 2016-07-01 20:22:55.407180000 Z
   closed: false
   created_at: 2016-07-01 20:22:49.220701000 Z
   creator_id: 1
-  credit: 0.0
+  credit: 17329.62
   currency: USD
   deals_count: 1
-  debit: 17329.62
+  debit: 0.0
   id: 42
+  letter: A
   lock_version: 0
   number: A000000000035
   pretax_amount: 0.0
   probability_percentage: 0.0
   third_id: 8
-  third_role: supplier
+  type: PurchaseAffair
   updated_at: 2016-07-01 20:22:49.220701000 Z
+  updater_id: 1
+purchase_affairs_009:
+  accounted_at: 2016-11-20 22:14:53.938564000 Z
+  closed: true
+  closed_at: 2016-11-20 22:14:53.924839000 Z
+  created_at: 2016-11-20 22:14:38.808315000 Z
+  creator_id: 1
+  credit: 717.12
+  currency: EUR
+  deals_count: 2
+  debit: 717.12
+  id: 49
+  letter: A
+  lock_version: 1
+  number: A000000000042
+  pretax_amount: 0.0
+  probability_percentage: 0.0
+  third_id: 5
+  type: PurchaseAffair
+  updated_at: 2016-11-20 22:14:53.928938000 Z
+  updater_id: 1
+purchase_affairs_010:
+  accounted_at: 2016-11-20 22:15:36.596230000 Z
+  closed: true
+  closed_at: 2016-11-20 22:15:36.392007000 Z
+  created_at: 2016-11-20 22:15:20.572284000 Z
+  creator_id: 1
+  credit: 2400.0
+  currency: EUR
+  deals_count: 2
+  debit: 0.0
+  id: 51
+  letter: B
+  lock_version: 1
+  number: A000000000044
+  pretax_amount: 0.0
+  probability_percentage: 0.0
+  third_id: 4
+  type: PurchaseAffair
+  updated_at: 2016-11-20 22:15:36.396067000 Z
+  updater_id: 1
+purchase_affairs_011:
+  closed: true
+  closed_at: 2016-12-20 18:16:18.057488000 Z
+  created_at: 2016-12-20 18:16:09.337497000 Z
+  creator_id: 1
+  credit: 4878.72
+  currency: EUR
+  deals_count: 2
+  debit: 4878.72
+  id: 53
+  letter: B
+  lock_version: 2
+  number: A000000000046
+  pretax_amount: 0.0
+  probability_percentage: 0.0
+  third_id: 5
+  type: PurchaseAffair
+  updated_at: 2016-12-20 18:16:18.069735000 Z
+  updater_id: 1
+purchase_affairs_012:
+  closed: true
+  closed_at: 2016-12-20 18:17:24.174194000 Z
+  created_at: 2016-12-20 18:16:57.030930000 Z
+  creator_id: 1
+  credit: 500.0
+  currency: EUR
+  deals_count: 3
+  debit: 500.0
+  id: 54
+  letter: A
+  lock_version: 3
+  number: A000000000047
+  pretax_amount: 0.0
+  probability_percentage: 0.0
+  third_id: 4
+  type: PurchaseAffair
+  updated_at: 2016-12-20 18:17:24.186626000 Z
+  updater_id: 1
+sale_affairs_001:
+  accounted_at: 2014-11-05 09:30:00.003467000 Z
+  closed: false
+  created_at: 2014-10-31 17:19:32.000000000 Z
+  creator_id: 1
+  credit: 0.0
+  currency: EUR
+  deals_count: 1
+  debit: 6000.0
+  id: 4
+  lock_version: 1
+  number: A000004
+  pretax_amount: 0.0
+  probability_percentage: 0.0
+  state: won
+  third_id: 6
+  type: SaleAffair
+  updated_at: 2014-11-05 09:29:59.992533000 Z
+  updater_id: 1
+sale_affairs_002:
+  closed: false
+  created_at: 2014-10-31 17:19:32.000000000 Z
+  creator_id: 1
+  credit: 1158.0
+  currency: EUR
+  deals_count: 0
+  debit: 236.0
+  id: 5
+  lock_version: 0
+  number: A000005
+  pretax_amount: 0.0
+  probability_percentage: 0.0
+  state: won
+  third_id: 6
+  type: SaleAffair
+  updated_at: 2014-10-31 17:19:32.000000000 Z
+  updater_id: 1
+sale_affairs_003:
+  accounted_at: 2014-11-05 09:58:26.803289000 Z
+  closed: true
+  closed_at: 2014-11-05 09:58:26.789660000 Z
+  created_at: 2014-11-05 09:52:05.651665000 Z
+  creator_id: 1
+  credit: 1164.0
+  currency: EUR
+  deals_count: 2
+  debit: 0.0
+  id: 10
+  letter: A
+  lock_version: 5
+  number: A000000000004
+  pretax_amount: 0.0
+  probability_percentage: 0.0
+  state: won
+  third_id: 7
+  type: SaleAffair
+  updated_at: 2014-11-05 09:58:26.794031000 Z
+  updater_id: 1
+sale_affairs_004:
+  accounted_at: 2014-11-06 18:25:07.940847000 Z
+  closed: false
+  created_at: 2014-11-05 10:01:39.917982000 Z
+  creator_id: 1
+  credit: 0.0
+  currency: EUR
+  deals_count: 2
+  debit: 0.0
+  id: 12
+  letter: A
+  lock_version: 1
+  number: A000000000006
+  pretax_amount: 0.0
+  probability_percentage: 0.0
+  state: won
+  third_id: 13
+  type: SaleAffair
+  updated_at: 2014-11-05 10:02:28.482875000 Z
+  updater_id: 1
+sale_affairs_005:
+  accounted_at: 2014-11-05 13:35:14.625131000 Z
+  closed: true
+  closed_at: 2014-11-05 13:35:14.611051000 Z
+  created_at: 2014-11-05 10:03:06.014961000 Z
+  creator_id: 1
+  credit: 0.0
+  currency: EUR
+  deals_count: 2
+  debit: 11.23
+  id: 14
+  letter: C
+  lock_version: 3
+  number: A000000000008
+  pretax_amount: 0.0
+  probability_percentage: 0.0
+  state: won
+  third_id: 10
+  type: SaleAffair
+  updated_at: 2014-11-05 13:35:14.615292000 Z
+  updater_id: 1
+sale_affairs_006:
+  accounted_at: 2014-11-05 13:36:51.555823000 Z
+  closed: true
+  closed_at: 2014-11-05 13:36:51.536711000 Z
+  created_at: 2014-11-05 13:36:09.026401000 Z
+  creator_id: 1
+  credit: 0.0
+  currency: EUR
+  deals_count: 3
+  debit: 0.8
+  id: 17
+  lock_version: 4
+  number: A000000000011
+  pretax_amount: 0.0
+  probability_percentage: 0.0
+  state: won
+  third_id: 10
+  type: SaleAffair
+  updated_at: 2014-11-05 13:36:51.542064000 Z
+  updater_id: 1
+sale_affairs_007:
+  accounted_at: 2014-11-05 14:07:53.349357000 Z
+  closed: false
+  created_at: 2014-11-05 14:05:57.528434000 Z
+  credit: 123.0
+  currency: EUR
+  deals_count: 1
+  debit: 0.0
+  id: 20
+  letter: A
+  lock_version: 1
+  number: A000000000014
+  pretax_amount: 0.0
+  probability_percentage: 0.0
+  state: won
+  third_id: 6
+  type: SaleAffair
+  updated_at: 2014-11-05 14:05:57.543080000 Z
+sale_affairs_008:
+  accounted_at: 2014-11-05 14:07:45.804138000 Z
+  closed: false
+  created_at: 2014-11-05 14:06:06.158342000 Z
+  credit: 100.0
+  currency: EUR
+  deals_count: 1
+  debit: 0.0
+  id: 21
+  letter: B
+  lock_version: 1
+  number: A000000000015
+  pretax_amount: 0.0
+  probability_percentage: 0.0
+  state: won
+  third_id: 8
+  type: SaleAffair
+  updated_at: 2014-11-05 14:06:06.173578000 Z
+sale_affairs_009:
+  accounted_at: 2014-11-05 14:07:42.859080000 Z
+  closed: false
+  created_at: 2014-11-05 14:06:11.319314000 Z
+  credit: 0.0
+  currency: EUR
+  deals_count: 1
+  debit: 0.0
+  id: 22
+  letter: A
+  lock_version: 1
+  number: A000000000016
+  pretax_amount: 0.0
+  probability_percentage: 0.0
+  state: won
+  third_id: 8
+  type: SaleAffair
+  updated_at: 2014-11-05 14:06:11.334075000 Z
+sale_affairs_010:
+  accounted_at: 2014-11-07 13:55:38.873436000 Z
+  closed: false
+  created_at: 2014-11-07 13:55:38.852252000 Z
+  credit: 150.0
+  currency: EUR
+  deals_count: 1
+  debit: 0.0
+  id: 24
+  letter: B
+  lock_version: 1
+  number: A000000000018
+  pretax_amount: 0.0
+  probability_percentage: 0.0
+  state: won
+  third_id: 6
+  type: SaleAffair
+  updated_at: 2014-11-07 13:55:38.866825000 Z
+sale_affairs_011:
+  accounted_at: 2015-04-21 23:49:34.612101000 Z
+  closed: false
+  created_at: 2015-04-21 23:49:19.404347000 Z
+  creator_id: 1
+  credit: 0.0
+  currency: EUR
+  deals_count: 1
+  debit: 0.0
+  id: 36
+  letter: D
+  lock_version: 0
+  number: A000000000029
+  pretax_amount: 0.0
+  probability_percentage: 0.0
+  third_id: 10
+  type: SaleAffair
+  updated_at: 2015-04-21 23:49:19.404347000 Z
+  updater_id: 1
+sale_affairs_012:
+  accounted_at: 2015-05-30 20:00:46.964460000 Z
+  closed: true
+  closed_at: 2015-05-30 20:00:46.791503000 Z
+  created_at: 2015-05-30 20:00:27.978022000 Z
+  creator_id: 1
+  credit: 0.0
+  currency: EUR
+  deals_count: 2
+  debit: 0.0
+  id: 37
+  letter: A
+  lock_version: 2
+  number: A000000000030
+  pretax_amount: 0.0
+  probability_percentage: 0.0
+  third_id: 15
+  type: SaleAffair
+  updated_at: 2015-05-30 20:00:46.794751000 Z
+  updater_id: 1
+sale_affairs_013:
+  accounted_at: 2015-09-17 13:25:52.318201000 Z
+  closed: false
+  created_at: 2015-09-17 13:25:40.531173000 Z
+  creator_id: 1
+  credit: 0.0
+  currency: EUR
+  deals_count: 1
+  debit: 0.0
+  id: 38
+  letter: B
+  lock_version: 0
+  number: A000000000031
+  pretax_amount: 0.0
+  probability_percentage: 0.0
+  third_id: 15
+  type: SaleAffair
+  updated_at: 2015-09-17 13:25:40.531173000 Z
+  updater_id: 1
+sale_affairs_014:
+  accounted_at: 2016-05-26 21:26:19.642104000 Z
+  closed: false
+  created_at: 2016-05-26 21:26:07.880426000 Z
+  creator_id: 1
+  credit: 0.0
+  currency: EUR
+  deals_count: 2
+  debit: 12.0
+  id: 39
+  letter: B
+  lock_version: 1
+  number: A000000000032
+  pretax_amount: 0.0
+  probability_percentage: 0.0
+  third_id: 14
+  type: SaleAffair
+  updated_at: 2016-12-20 08:52:57.365818000 Z
+  updater_id: 1
+sale_affairs_015:
+  accounted_at: 2016-05-26 21:27:13.884165000 Z
+  closed: false
+  created_at: 2016-05-26 21:26:57.791625000 Z
+  creator_id: 1
+  credit: 0.0
+  currency: EUR
+  deals_count: 1
+  debit: 0.0
+  id: 40
+  letter: D
+  lock_version: 1
+  number: A000000000033
+  pretax_amount: 0.0
+  probability_percentage: 0.0
+  third_id: 14
+  type: SaleAffair
+  updated_at: 2016-05-26 21:27:06.164102000 Z
+  updater_id: 1
+sale_affairs_016:
+  accounted_at: 2016-07-01 20:12:48.729623000 Z
+  closed: false
+  created_at: 2016-07-01 20:12:41.393208000 Z
+  creator_id: 1
+  credit: 0.0
+  currency: EUR
+  deals_count: 1
+  debit: 0.0
+  id: 41
+  letter: A
+  lock_version: 0
+  number: A000000000034
+  pretax_amount: 0.0
+  probability_percentage: 0.0
+  third_id: 10
+  type: SaleAffair
+  updated_at: 2016-07-01 20:12:41.393208000 Z
+  updater_id: 1
+sale_affairs_017:
+  accounted_at: 2016-11-20 22:09:41.973523000 Z
+  closed: true
+  closed_at: 2016-11-20 22:09:41.959614000 Z
+  created_at: 2016-11-20 22:08:58.365769000 Z
+  creator_id: 1
+  credit: 447.12
+  currency: EUR
+  deals_count: 2
+  debit: 447.12
+  id: 43
+  letter: A
+  lock_version: 1
+  number: A000000000036
+  pretax_amount: 0.0
+  probability_percentage: 0.0
+  third_id: 14
+  type: SaleAffair
+  updated_at: 2016-11-20 22:09:41.962729000 Z
+  updater_id: 1
+sale_affairs_018:
+  accounted_at: 2016-11-20 22:10:54.310940000 Z
+  closed: true
+  closed_at: 2016-11-20 22:10:54.296374000 Z
+  created_at: 2016-11-20 22:10:17.248311000 Z
+  creator_id: 1
+  credit: 37.44
+  currency: EUR
+  deals_count: 2
+  debit: 37.44
+  id: 45
+  letter: A
+  lock_version: 1
+  number: A000000000038
+  pretax_amount: 0.0
+  probability_percentage: 0.0
+  third_id: 9
+  type: SaleAffair
+  updated_at: 2016-11-20 22:10:54.300286000 Z
+  updater_id: 1
+sale_affairs_019:
+  accounted_at: 2016-11-20 22:11:32.734020000 Z
+  closed: true
+  closed_at: 2016-11-20 22:11:32.599261000 Z
+  created_at: 2016-11-20 22:11:25.147532000 Z
+  creator_id: 1
+  credit: 3.74
+  currency: EUR
+  deals_count: 2
+  debit: 3.74
+  id: 47
+  letter: B
+  lock_version: 1
+  number: A000000000040
+  pretax_amount: 0.0
+  probability_percentage: 0.0
+  third_id: 9
+  type: SaleAffair
+  updated_at: 2016-11-20 22:11:32.603592000 Z
+  updater_id: 1
+sale_affairs_020:
+  accounted_at: 2016-11-20 22:12:46.325801000 Z
+  closed: true
+  closed_at: 2016-11-20 22:12:25.327869000 Z
+  created_at: 2016-11-20 22:12:15.483952000 Z
+  creator_id: 1
+  credit: 2676.0
+  currency: EUR
+  deals_count: 2
+  debit: 2676.0
+  id: 48
+  letter: A
+  lock_version: 1
+  number: A000000000041
+  pretax_amount: 0.0
+  probability_percentage: 0.0
+  third_id: 2
+  type: SaleAffair
+  updated_at: 2016-11-20 22:12:25.331521000 Z
+  updater_id: 1
+sale_affairs_021:
+  closed: true
+  closed_at: 2016-12-20 08:58:53.185220000 Z
+  created_at: 2016-12-20 08:53:53.410411000 Z
+  creator_id: 1
+  credit: 463.25
+  currency: EUR
+  deals_count: 3
+  debit: 463.25
+  id: 52
+  letter: C
+  lock_version: 3
+  number: A000000000045
+  pretax_amount: 0.0
+  probability_percentage: 0.0
+  third_id: 9
+  type: SaleAffair
+  updated_at: 2016-12-20 08:58:53.198531000 Z
   updater_id: 1
 sale_opportunities_001:
   accounted_at: 2015-04-20 21:54:28.932522000 Z
@@ -536,7 +771,6 @@ sale_opportunities_001:
   responsible_id: 9
   state: prospecting
   third_id: 4
-  third_role: client
   type: SaleOpportunity
   updated_at: 2015-04-20 21:54:28.913373000 Z
   updater_id: 1
@@ -562,7 +796,6 @@ sale_opportunities_002:
   responsible_id: 9
   state: prospecting
   third_id: 7
-  third_role: client
   type: SaleOpportunity
   updated_at: 2015-04-20 21:55:11.992672000 Z
   updater_id: 1
@@ -571,17 +804,17 @@ sale_tickets_001:
   closed: false
   created_at: 2015-04-21 08:22:33.240093000 Z
   creator_id: 1
-  credit: 24.0
+  credit: 0.0
   currency: EUR
   deals_count: 1
   debit: 0.0
   id: 34
+  letter: B
   lock_version: 0
   number: A000000000027
   pretax_amount: 0.0
   probability_percentage: 0.0
   third_id: 10
-  third_role: client
   type: SaleTicket
   updated_at: 2015-04-21 08:22:33.240093000 Z
   updater_id: 1
@@ -590,17 +823,17 @@ sale_tickets_002:
   closed: false
   created_at: 2015-04-21 08:29:05.229047000 Z
   creator_id: 1
-  credit: 187.2
+  credit: 0.0
   currency: EUR
   deals_count: 1
   debit: 0.0
   id: 35
+  letter: C
   lock_version: 0
   number: A000000000028
   pretax_amount: 0.0
   probability_percentage: 0.0
   third_id: 14
-  third_role: client
   type: SaleTicket
   updated_at: 2015-04-21 08:29:05.229047000 Z
   updater_id: 1

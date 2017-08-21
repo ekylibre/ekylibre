@@ -36,10 +36,6 @@ eng:
       mode:
         harvested: "From harvesting date"
         sowed: "From sowing date"
-    affair:
-      third_role:
-        client: "Client"
-        supplier: "Supplier"
     analysis:
       retrieval_status:
         controller_error: "Controller error"
@@ -58,6 +54,20 @@ eng:
         multi_polygon: "Multi-polygon"
         point: "Point"
         string: "String"
+    animal:
+      birth_date_completeness:
+        full_date: "Full date"
+        month_year: "Month year"
+        year: "Year"
+      end_of_life_reason:
+        calculated_date: "Calculated date"
+        cutting_up: "Cutting up"
+        death: "Death"
+        slaughter: "Slaughter"
+      filiation_status:
+        certified: "Certified"
+        uncertified: "Uncertified"
+        unknown: "Unknown"
     call_message:
       nature:
         incoming: "Incoming"
@@ -84,6 +94,7 @@ eng:
         purchase: "Purchase"
         sale: "Sale"
         stock: "Stock"
+        travel_cost: "Travel"
     crumb:
       nature:
         hard_start: "Hard start"
@@ -102,6 +113,10 @@ eng:
         datetime: "Date and time"
         decimal: "Decimal"
         text: "Text"
+    debt_transfer:
+      nature:
+        purchase_regularization: "Purchase regularization"
+        sale_regularization: "Sale regularization"
     delivery:
       mode:
         third: "Third"
@@ -133,17 +148,30 @@ eng:
         informative: "Informative"
         refused: "Refused"
         waiting: "Waiting"
+    financial_year:
+      tax_declaration_frequency:
+        monthly: "Monthly"
+        none: "None"
+        quaterly: "Quaterly"
+        yearly: "Yearly"
+      tax_declaration_mode:
+        debit: "Debit"
+        none: "None"
+        payment: "Payment"
     fixed_asset:
       depreciation_method:
         linear: "Linear"
+        none: "None"
+        regressive: "Regressive"
         simplified_linear: "Simplified linear"
+      depreciation_period:
+        monthly: "Monthly"
+        quarterly: "Quarterly"
+        yearly: "Yearly"
     gap:
       direction:
         loss: "Loss"
         profit: "Profit"
-      entity_role:
-        client: "Client"
-        supplier: "Supplier"
     georeading:
       nature:
         linestring: "Linestring"
@@ -184,8 +212,8 @@ eng:
       state:
         done: "Done"
         in_progress: "In progress"
-        squeezed: "Squeezed"
-        undone: "Undone"
+        rejected: "Rejected"
+        validated: "Validated"
     intervention_parameter_reading:
       indicator_datatype:
         boolean: "Boolean"
@@ -197,13 +225,28 @@ eng:
         multi_polygon: "Multi-polygon"
         point: "Point"
         string: "String"
+    intervention_participation:
+      state:
+        done: "Done"
+        in_progress: "In progress"
+        validated: "Validated"
+    intervention_working_period:
+      nature:
+        intervention: "Intervention"
+        pause: "Pause"
+        preparation: "Preparation"
+        travel: "Travel"
     journal:
       nature:
         bank: "Bank"
         cash: "Cash"
+        closure: "Closure"
+        fixed_assets: "Fixed assets"
         forward: "Carried-forward"
         purchases: "Purchases"
+        result: "Result"
         sales: "Sales"
+        stocks: "Stocks"
         various: "Various operations"
     listing_node:
       nature:
@@ -217,15 +260,24 @@ eng:
         root: "Root"
         string: "String"
     loan:
+      insurance_repayment_method:
+        initial: "Based on initial capital"
+        to_repay: "Based on capital left to repay"
       repayment_method:
         constant_amount: "Constant amount"
         constant_rate: "Constant rate"
       repayment_period:
         month: "Month"
+        semester: "Semester"
+        trimester: "Trimester"
         year: "Year"
       shift_method:
         anatocism: "Anatocism"
         immediate_payment: "Immediate payment"
+    map_layer:
+      nature:
+        background: "Background"
+        overlay: "Overlay"
     notification:
       level:
         error: "Error"
@@ -245,6 +297,10 @@ eng:
       nature:
         incoming: "Incoming"
         outgoing: "Outgoing"
+    plant_counting:
+      nature:
+        germination: "At germination"
+        sowing: "At sowing"
     preference:
       nature:
         accounting_system: "Accounting system"
@@ -279,6 +335,15 @@ eng:
       nature:
         exterior: "Exterior"
         interior: "Interior"
+    product_movement:
+      description:
+        birth: "Birth"
+        butchery: "Butchery"
+        consumption: "Consumption"
+        death: "Death"
+        loan: "Loan"
+        purchase: "Purchase"
+        sale: "Sale"
     product_nature:
       population_counting:
         decimal: "Decimal"
@@ -362,23 +427,32 @@ eng:
         multi_polygon: "Multi-polygon"
         point: "Point"
         string: "String"
+    purchase:
+      tax_payability:
+        at_invoicing: "At invoicing"
+        at_paying: "At paying"
+    purchase_gap:
+      direction:
+        # loss: "Loss"
+        # profit: "Profit"
     purchase_nature:
       nature:
         payslip: "Payslip"
         purchase: "Purchase"
-    sale_opportunity:
-      third_role:
-        client: "Client"
-        supplier: "Supplier"
-    sale_ticket:
-      third_role:
-        client: "Client"
-        supplier: "Supplier"
+    sale_gap:
+      direction:
+        # loss: "Loss"
+        # profit: "Profit"
+    sale_item:
+      compute_from:
+        # amount: "Amount"
+        # pretax_amount: "Pretax amount"
+        # unit_pretax_amount: "Unit pretax amount"
     sensor:
       retrieval_mode:
         integration: "Integration"
-        listening: "Listening"
-        requesting: "Requesting"
+        listening: "Direct"
+        requesting: "Automatic"
     sequence:
       period:
         cweek: "Commercial week"
@@ -386,33 +460,50 @@ eng:
         number: "No periodicity"
         year: "Year"
       usage:
-        affairs: "Numeration of affairs"
-        analyses: "Numeration of analyses"
-        animals: "Numeration of animals"
-        campaigns: "Numeration of campaigns"
-        cash_transfers: "Numeration of cash transfers"
-        deliveries: "Numeration of deliveries"
-        deposits: "Numeration of deposits"
-        documents: "Numeration of documents"
-        entities: "Numeration of people"
-        fixed_assets: "Numeration of fixed assets"
-        gaps: "Numeration of gaps"
-        incoming_payments: "Numeration of payments"
-        inspections: "Numeration of inspections"
-        interventions: "Numeration of interventions"
-        inventories: "Numeration of inventories"
-        opportunities: "Numeration of opportunities"
-        outgoing_payments: "Numeration of payments"
-        parcels: "Numeration of parcels"
-        plants: "Numeration of plants"
-        product_nature_categories: "Numeration of product type categories"
-        product_nature_variants: "Numeration of product type variants"
-        product_natures: "Numeration of product types"
-        products: "Numeration of products"
-        purchases: "Numeration of purchases"
-        sales: "Numeration of sales"
-        sales_invoices: "Numeration of sales invoices"
-        subscriptions: "Numeration of subscriptions"
+        affairs: "Affairs"
+        analyses: "Analyses"
+        animals: "Animals"
+        campaigns: "Campaigns"
+        cash_transfers: "Cash transfers"
+        contracts: "Contracts"
+        debt_transfers: "Debt transfers"
+        deliveries: "Deliveries"
+        deposits: "Deposits"
+        documents: "Documents"
+        entities: "Thirds"
+        fixed_assets: "Fixed assets"
+        gaps: "Gaps"
+        incoming_payments: "Incoming payments"
+        inspections: "Inspections"
+        interventions: "Interventions"
+        inventories: "Inventories"
+        opportunities: "Opportunities"
+        outgoing_payment_lists: "Outgoing payment lists"
+        outgoing_payments: "Outgoing payments"
+        parcels: "Parcels"
+        # payslips: "Payslips"
+        plant_countings: "Plant countings"
+        plants: "Plants"
+        product_nature_categories: "Product nature categories"
+        product_nature_variants: "Product nature variants"
+        product_natures: "Product natures"
+        products: "Products"
+        purchases: "Purchases"
+        sales: "Sales"
+        sales_invoices: "Sales invoices"
+        subscriptions: "Subscriptions"
+        tax_declarations: "Tax declarations"
+    synchronization_operation:
+      operation_name:
+        authenticate: "Authentication"
+        get_inventory: "Get inventory"
+        get_urls: "Get urls"
+      state:
+        aborted: "Aborted"
+        errored: "Errored"
+        finished: "Finished"
+        in_progress: "In progress"
+        undone: "Undone"
     task:
       nature:
         incoming_call: "Incoming call"
@@ -425,6 +516,16 @@ eng:
         doing: "Doing"
         done: "Done"
         todo: "Todo"
+    tax_declaration:
+      mode:
+        debit: "Debit"
+        payment: "Payment"
+    tax_declaration_item_part:
+      direction:
+        # collected: "Collected"
+        # deductible: "Deductible"
+        # fixed_asset_deductible: "Fixed asset deductible"
+        # intracommunity_payable: "Intracommunity payable"
     tracking:
       usage_limit_nature:
         best_before: "Best before date"

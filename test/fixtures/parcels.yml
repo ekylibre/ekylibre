@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2016 Brice Texier, David Joulin
+# Copyright (C) 2012-2017 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -22,35 +22,42 @@
 #
 # == Table: parcels
 #
-#  address_id        :integer
-#  created_at        :datetime         not null
-#  creator_id        :integer
-#  custom_fields     :jsonb
-#  delivery_id       :integer
-#  delivery_mode     :string
-#  given_at          :datetime
-#  id                :integer          not null, primary key
-#  in_preparation_at :datetime
-#  lock_version      :integer          default(0), not null
-#  nature            :string           not null
-#  number            :string           not null
-#  ordered_at        :datetime
-#  planned_at        :datetime         not null
-#  position          :integer
-#  prepared_at       :datetime
-#  purchase_id       :integer
-#  recipient_id      :integer
-#  reference_number  :string
-#  remain_owner      :boolean          default(FALSE), not null
-#  sale_id           :integer
-#  sender_id         :integer
-#  separated_stock   :boolean
-#  state             :string           not null
-#  storage_id        :integer
-#  transporter_id    :integer
-#  updated_at        :datetime         not null
-#  updater_id        :integer
-#  with_delivery     :boolean          default(FALSE), not null
+#  accounted_at                         :datetime
+#  address_id                           :integer
+#  contract_id                          :integer
+#  created_at                           :datetime         not null
+#  creator_id                           :integer
+#  currency                             :string
+#  custom_fields                        :jsonb
+#  delivery_id                          :integer
+#  delivery_mode                        :string
+#  given_at                             :datetime
+#  id                                   :integer          not null, primary key
+#  in_preparation_at                    :datetime
+#  journal_entry_id                     :integer
+#  lock_version                         :integer          default(0), not null
+#  nature                               :string           not null
+#  number                               :string           not null
+#  ordered_at                           :datetime
+#  planned_at                           :datetime         not null
+#  position                             :integer
+#  prepared_at                          :datetime
+#  pretax_amount                        :decimal(19, 4)   default(0.0), not null
+#  purchase_id                          :integer
+#  recipient_id                         :integer
+#  reference_number                     :string
+#  remain_owner                         :boolean          default(FALSE), not null
+#  responsible_id                       :integer
+#  sale_id                              :integer
+#  sender_id                            :integer
+#  separated_stock                      :boolean
+#  state                                :string           not null
+#  storage_id                           :integer
+#  transporter_id                       :integer
+#  undelivered_invoice_journal_entry_id :integer
+#  updated_at                           :datetime         not null
+#  updater_id                           :integer
+#  with_delivery                        :boolean          default(FALSE), not null
 #
 ---
 parcels_001:
@@ -65,6 +72,7 @@ parcels_001:
   nature: outgoing
   number: BL2014000002
   planned_at: 2014-11-05 14:15:20.016507000 Z
+  pretax_amount: 0.0
   recipient_id: 13
   remain_owner: false
   state: draft
@@ -84,6 +92,7 @@ parcels_002:
   nature: outgoing
   number: BL2014000003
   planned_at: 2014-11-05 14:16:19.773131000 Z
+  pretax_amount: 0.0
   recipient_id: 11
   remain_owner: false
   state: given
@@ -103,6 +112,7 @@ parcels_003:
   nature: outgoing
   number: BL2014000004
   planned_at: 2014-11-05 14:16:48.643201000 Z
+  pretax_amount: 0.0
   recipient_id: 13
   remain_owner: false
   state: given
@@ -119,6 +129,7 @@ parcels_004:
   nature: outgoing
   number: BL2014000005
   planned_at: 2014-11-07 14:13:05.515052000 Z
+  pretax_amount: 0.0
   recipient_id: 8
   remain_owner: false
   state: in_preparation
@@ -138,6 +149,7 @@ parcels_005:
   nature: incoming
   number: INDEL000001
   planned_at: 2014-10-31 17:19:32.000000000 Z
+  pretax_amount: 0.0
   remain_owner: false
   sender_id: 6
   state: given
@@ -157,6 +169,7 @@ parcels_006:
   nature: incoming
   number: INDEL000002
   planned_at: 2014-10-31 17:19:32.000000000 Z
+  pretax_amount: 0.0
   reference_number: ''
   remain_owner: false
   sender_id: 4
@@ -177,6 +190,7 @@ parcels_007:
   nature: incoming
   number: INDEL000003
   planned_at: 2014-10-31 17:19:32.000000000 Z
+  pretax_amount: 0.0
   remain_owner: false
   sender_id: 6
   state: given
@@ -196,6 +210,7 @@ parcels_008:
   nature: incoming
   number: INDEL000004
   planned_at: 2014-10-31 20:23:37.027824000 Z
+  pretax_amount: 0.0
   reference_number: '1282'
   remain_owner: false
   sender_id: 4
@@ -216,6 +231,7 @@ parcels_009:
   nature: incoming
   number: BR20140001
   planned_at: 2014-11-01 16:00:08.015634000 Z
+  pretax_amount: 0.0
   reference_number: DFS1282
   remain_owner: false
   sender_id: 4
@@ -236,6 +252,7 @@ parcels_010:
   nature: incoming
   number: RRCBR20140004
   planned_at: 2014-11-01 19:29:58.086427000 Z
+  pretax_amount: 0.0
   reference_number: VD
   remain_owner: false
   sender_id: 4
@@ -256,6 +273,7 @@ parcels_011:
   nature: incoming
   number: INWRRCBR20140007
   planned_at: 2014-11-01 19:35:50.370591000 Z
+  pretax_amount: 0.0
   reference_number: EDSDFSF
   remain_owner: false
   sender_id: 5
@@ -276,6 +294,7 @@ parcels_012:
   nature: incoming
   number: YINWRRCBR20140008
   planned_at: 2014-11-01 20:19:35.352913000 Z
+  pretax_amount: 0.0
   reference_number: ''
   remain_owner: false
   sender_id: 8
@@ -296,6 +315,7 @@ parcels_013:
   nature: incoming
   number: ID20140009
   planned_at: 2014-11-07 15:25:51.188992000 Z
+  pretax_amount: 0.0
   reference_number: '2012110001458'
   remain_owner: false
   sender_id: 13
@@ -316,6 +336,7 @@ parcels_014:
   nature: incoming
   number: ID20140010
   planned_at: 2014-11-07 15:44:20.453162000 Z
+  pretax_amount: 0.0
   reference_number: '2007090001213'
   remain_owner: false
   sender_id: 13
@@ -336,6 +357,7 @@ parcels_015:
   nature: incoming
   number: ID20140012
   planned_at: 2014-11-07 16:47:34.635509000 Z
+  pretax_amount: 0.0
   purchase_id: 11
   reference_number: '2008030001215'
   remain_owner: false
@@ -356,6 +378,7 @@ parcels_016:
   nature: incoming
   number: ID20140013
   planned_at: 2014-11-07 19:05:46.884082000 Z
+  pretax_amount: 0.0
   reference_number: '201210'
   remain_owner: false
   sender_id: 13
@@ -375,6 +398,7 @@ parcels_017:
   nature: incoming
   number: ID20140014
   planned_at: 2014-11-07 19:12:04.935666000 Z
+  pretax_amount: 0.0
   reference_number: '2013100000546'
   remain_owner: false
   sender_id: 13
@@ -394,6 +418,7 @@ parcels_018:
   nature: incoming
   number: ID20140015
   planned_at: 2014-11-07 19:22:38.074904000 Z
+  pretax_amount: 0.0
   reference_number: '2013100000598'
   remain_owner: false
   sender_id: 13
@@ -413,6 +438,7 @@ parcels_019:
   nature: incoming
   number: ID20140017
   planned_at: 2014-11-07 19:34:09.453724000 Z
+  pretax_amount: 0.0
   reference_number: '2013100000750'
   remain_owner: false
   sender_id: 13
@@ -432,6 +458,7 @@ parcels_020:
   number: P000000000001
   planned_at: 2015-09-17 13:24:00.000000000 Z
   position: 1
+  pretax_amount: 0.0
   recipient_id: 11
   remain_owner: false
   state: draft
@@ -454,6 +481,7 @@ parcels_021:
   planned_at: 2015-09-16 22:00:00.000000000 Z
   position: 1
   prepared_at: 2015-09-17 13:38:07.151525000 Z
+  pretax_amount: 0.0
   recipient_id: 15
   remain_owner: false
   sale_id: 16
@@ -476,6 +504,7 @@ parcels_022:
   planned_at: 2016-06-30 22:00:00.000000000 Z
   position: 2
   prepared_at: 2016-07-01 19:23:47.522750000 Z
+  pretax_amount: 0.0
   remain_owner: false
   sender_id: 14
   separated_stock: false
@@ -499,6 +528,7 @@ parcels_023:
   planned_at: 2016-06-30 22:00:00.000000000 Z
   position: 3
   prepared_at: 2016-07-01 20:13:23.808717000 Z
+  pretax_amount: 0.0
   recipient_id: 10
   remain_owner: false
   state: given
@@ -520,6 +550,7 @@ parcels_024:
   planned_at: 2016-06-30 22:00:00.000000000 Z
   position: 4
   prepared_at: 2016-07-01 20:23:20.986644000 Z
+  pretax_amount: 0.0
   remain_owner: false
   sender_id: 8
   separated_stock: false
@@ -543,6 +574,7 @@ parcels_025:
   planned_at: 2016-08-10 14:26:00.000000000 Z
   position: 5
   prepared_at: 2016-08-10 14:27:49.798212000 Z
+  pretax_amount: 0.0
   reference_number: ''
   remain_owner: false
   sender_id: 15

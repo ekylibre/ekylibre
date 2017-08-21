@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2016 Brice Texier, David Joulin
+# Copyright (C) 2012-2017 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -39,7 +39,8 @@
 #  variant_id      :integer          not null
 #
 class ProductPhase < Ekylibre::Record::Base
-  include Taskable, TimeLineable
+  include TimeLineable
+  include Taskable
   belongs_to :product
   belongs_to :variant,  class_name: 'ProductNatureVariant'
   belongs_to :nature,   class_name: 'ProductNature'
@@ -69,7 +70,7 @@ class ProductPhase < Ekylibre::Record::Base
   # Updates product
   before_destroy do
     if last_for_now?
-      if previous = self.previous
+      if previous
         product.update_columns(variant_id: previous.variant_id, nature_id: previous.nature_id, category_id: previous.category_id)
       else
         raise 'Cannot destroy this product phase' unless destroyed_by_association

@@ -1,5 +1,5 @@
 #= require jquery.blank
-#= require jquery-ui/sortable
+#= require jquery-ui/widgets/sortable
 
 (($) ->
   "use strict";

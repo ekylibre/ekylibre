@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2016 Brice Texier, David Joulin
+# Copyright (C) 2012-2017 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -35,7 +35,7 @@
 #  updater_id   :integer
 #
 class ActivityTactic < Ekylibre::Record::Base
-  enumerize :mode, in: [:sowed, :harvested], default: :sowed
+  enumerize :mode, in: %i[sowed harvested], default: :sowed
 
   belongs_to :activity, class_name: 'Activity', inverse_of: :tactics
   has_many :productions, class_name: 'ActivityProduction', inverse_of: :tactic, foreign_key: :tactic_id
@@ -46,6 +46,10 @@ class ActivityTactic < Ekylibre::Record::Base
   validates :planned_on, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 50.years }, type: :date }, allow_blank: true
   validates :activity, presence: true
   # ]VALIDATORS]
+
+  def of_family
+    Activity.where(id: activity_id).map(&:family).join.to_sym
+  end
 
   def mode_unit_name
     :day

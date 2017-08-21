@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2016 Brice Texier, David Joulin
+# Copyright (C) 2012-2017 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -39,7 +39,7 @@
 
 class Catalog < Ekylibre::Record::Base
   refers_to :currency
-  enumerize :usage, in: [:purchase, :sale, :stock, :cost], default: :sale
+  enumerize :usage, in: %i[purchase sale stock cost travel_cost], default: :sale
   # has_many :active_items, -> { where(active: true) }, class_name: "CatalogItem"
   has_many :items, class_name: 'CatalogItem', dependent: :destroy, inverse_of: :catalog
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
@@ -66,10 +66,10 @@ class Catalog < Ekylibre::Record::Base
     self.code = code[0..19]
   end
 
-  def self.by_default!(usage)
-    catalog = by_default(usage)
+  def self.by_default!(usage, options = {})
+    catalog = where(options).by_default(usage)
     unless catalog
-      catalog = create!(name: usage.t(scope: 'enumerize.catalog.usage'), usage: usage, by_default: true)
+      catalog = create!(options.merge(name: usage.t(scope: 'enumerize.catalog.usage'), usage: usage, by_default: true))
     end
     catalog
   end

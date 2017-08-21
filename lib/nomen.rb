@@ -1,7 +1,7 @@
 module Nomen
   XMLNS = 'http://www.ekylibre.org/XML/2013/nomenclatures'.freeze
   NS_SEPARATOR = '-'.freeze
-  PROPERTY_TYPES = [:boolean, :item, :item_list, :choice, :choice_list, :string_list, :date, :decimal, :integer, :nomenclature, :string, :symbol].freeze
+  PROPERTY_TYPES = %i[boolean item item_list choice choice_list string_list date decimal integer nomenclature string symbol].freeze
 
   class Error < ::StandardError
   end
@@ -51,12 +51,14 @@ module Nomen
     end
 
     def reference_document
-      f = File.open(reference_path, 'rb')
-      document = Nokogiri::XML(f) do |config|
-        config.strict.nonet.noblanks.noent
+      unless @document
+        f = File.open(reference_path, 'rb')
+        @document = Nokogiri::XML(f) do |config|
+          config.strict.nonet.noblanks.noent
+        end
+        f.close
       end
-      f.close
-      document
+      @document
     end
 
     # Returns list of Nomen::Migration
@@ -76,55 +78,45 @@ module Nomen
 
     # Returns the names of the nomenclatures
     def names
-      @@set.nomenclature_names
+      set.nomenclature_names
     end
 
     def all
-      @@set.nomenclatures
+      set.nomenclatures
     end
 
     # Give access to named nomenclatures
-    def [](name)
-      @@set[name]
-    end
+    delegate :[], to: :set
 
     # Give access to named nomenclatures
     def find(*args)
       options = args.extract_options!
       name = args.shift
+      nomenclature = find_or_initialize(name)
       if args.empty?
-        return @@set[name]
+        return nomenclature
       elsif args.size == 1
-        return @@set[name].find(args.shift) if @@set[name]
+        return nomenclature.find(args.shift) if nomenclature
       end
       nil
     end
 
     def find_or_initialize(name)
-      @@set[name] || Nomenclature.new(name, set: @@set)
+      set[name] || set.load_data_from_xml(name)
+    end
+
+    # Force loading of nomenclatures
+    def load!
+      @@set = NomenclatureSet.load_file(reference_path)
     end
 
     # Browse all nomenclatures
     def each(&block)
-      @@set.each(&block)
+      set.each(&block)
     end
 
-    def load
-      @@set = if reference_path.exist?
-                NomenclatureSet.load_file(reference_path)
-              else
-                NomenclatureSet.new
-              end
-      Rails.logger.info 'Loaded nomenclatures: ' + Nomen.names.to_sentence
-    end
-
-    # Returns the matching nomenclature
-    def const_missing(name)
-      n = name.to_s.tableize
-      return self[n] if @@set.exist?(n)
-      super
+    def set
+      @@set ||= NomenclatureSet.new
     end
   end
 end
-
-Nomen.load

@@ -1,0 +1,1681 @@
+10110000,Capital souscrit-non appelé
+10120000,Capital souscrit-appelé non versé
+10130000,"Capital souscrit-appelé, versé"
+10130000,CAPITAL APPELE VERSE
+10130000,CAPITAL APPELE VERSE          
+10130000,"CAPITAL SOUSCRIT-APPELÉ, VERSÉ"
+10180000,Capital soumis à réglementation
+10410000,Primes d'émission
+10410000,PRIMES D'EMISSION
+10415000,Primes d'émission titres participat
+10420000,Primes de fusion
+10420000,PRIME FUSION
+10430000,Primes d'apport
+10430000,PRIME D APPORT                
+10440000,Primes de conv. obligat. en actions
+10450000,Bons de souscription d'actions
+10510000,Réserve spéciale de réévaluation
+10520000,Ecart de réévaluation libre
+10530000,Réserve de réévaluation
+10550000,Ecarts de réévaluation
+10570000,Autres écarts de réévaluation (FR)
+10580000,Autres écarts réévaluation (ETR)
+10610000,Réserve légale
+10610000,RÉSERVE LÉGALE                
+10611000,Réserve légale proprement dite
+10611000,RESERVE LEGALE PROP.
+10611000,RESERVE LEGALE PROP.DITE      
+10612000,Réserve légale (+ value à LT)
+10620000,Réserves disponibles
+10620000,RESERVES INDISPONIBLES        
+10630000,Réserves statutaires ou contract.
+10640000,Réserves réglementées
+10641000,Réserve pour + Values à LT
+10648000,Autres réserves réglementées
+10680000,Autres réserves
+10680000,AUTRES RESERVES
+10680000,AUTRES RESERVES               
+10680000,AUTRES RÉSERVES               
+10681000,Réserve de propre assureur
+10688000,Réserves diverses
+10700000,Ecart d'équivalence
+10800000,Compte de l'exploitant
+10900000,Actionnaires : capit.sousc.n/appelé
+11000000,Report à nouveau (solde créditeur)
+11000000,REPORT A NOUVEAU
+11000000,REPORT A NOUVEAU              
+11900000,Report à nouveau (solde débiteur)
+12000000,Bénéfice
+12000000,RESULTAT DE L'EXERCICE
+12000000,COMPTE DE RESULTAT            
+12000000,BÉNÉFICE                      
+12800000,Acomptes sur les dividendes
+12900000,Perte
+13100000,Subventions d'équipement
+13100000,SUBVENTION D EQUIPEM
+13100000,SUBVENTIONS D'ÉQUIPEMENT      
+13800000,Autres subventions d'investissement
+13900000,Subventions inscrites au C/R
+13900000,SUBV.INVEST.INSCRITE RESULTAT
+13910000,Sub. d'équipement inscrites au C/R
+13980000,Autres sub d'équip inscrites au C/R
+14230000,Provisions reconstit.gisemt.miniers
+14240000,Provisions pour investissement
+14310000,Provisions pour hausse des prix
+14320000,Provisions fluctuation des cours
+14400000,Provis.réglement.relat.aut.élém.act
+14410000,Provision pour prêts d'installation
+14500000,Amortissements dérogatoires
+14600000,Provision spéciale de réévaluation
+14700000,Plus-values réinvesties
+14800000,Autres provisions réglementées
+14860000,Provision implantation à l'étranger
+14865000,Provisions implantation dans CEE
+15110000,Provisions pour litiges
+15120000,Provisions pour garanties clients
+15130000,Provisions pertes s/ marché à terme
+15140000,Provisions amendes et pénalités
+15150000,Provisions perte de change
+15160000,Provisions particip en équivalence
+15170000,Provisions pour restructuration
+15300000,Provisions pensions & obligat.simil
+15400000,Provision pour restructuration
+15500000,Provisions pour impots
+15600000,Provision pour renouvel.immobilisat
+15720000,Prov. gros entretien grandes révis°
+15800000,Autres provisions pour charges
+15820000,Provisions pour charges sur congés
+15880000,Provisions pour charges diverses
+16100000,Emprunts obligataires convertibles
+16300000,Autres emprunts obligataires
+16400000,Emprunts auprès établ. de crédit
+16410000,Emprunts ets de crédit à + 5 ans
+16410000,LIGNE DE CREDIT 1000 000€ CIC 
+16411000,Emprunt n°1 (LT)
+16411000,PRET BPSO N° 07231883         
+16411100,PRET BPACA N° 08724523        
+16411200,PRET BPACA N°08724524         
+16411300,PRET BPACA N°8724525          
+16411400,PRET BPSO 8814204 DE 76200€   
+16412000,Emprunt n°2 (LT)
+16412000,PRET BPSO N° 07231886         
+16413000,Emprunt n°3 (LT)
+16413000,PRET BPSO N°07231885          
+16414000,Emprunt n°4 (LT)
+16414000,PRET BPSO N° 07231884         
+16415000,Emprunt n°5 (LT)
+16415000,PRET BPSO 7242859 DE 229000€  
+16415000,PRET BPSO N°7236827 136000€   
+16416000,PRET BPSO 254200€             
+16416000,PRET CIC N° 79652202 756000€  
+16417000,PRET BPSO N°07231435          
+16417000,PRET CIC N°79652203 810000€   
+16418000,PRET BPSO 7254595             
+16418000,EMPRUNT OSEO 810000€          
+16419000,PRET BPSO 8814204             
+16419000,AVANCE CONSEIL GENERAL        
+16444000,PRETB/BPSO 07235202 DE 112000€
+16444100,PRETB/BPSO 07244510 DE 450000€
+16444200,PRETB/BPSO 07248781 DE 250000€
+16444900,PRETB/CA 0094043223 DE 250000€
+16445000,PRETB/BPSO 07235201 DE 120000€
+16446000,PRETB/BPSO 147125 DE 113000€
+16448000,PRETB/CIC 88316003 DE 96000€
+16470000,Emprunts ets de crédit à de 1-5 ans
+16471000,Emprunt n°1 (MT)
+16471000,PRET CRCA N° 076334062 373000€
+16471100,PRET BPSO 7233625 DE 680000€
+16472000,Emprunt n°2 (MT)
+16472000,PRET CRCA N° 076335444 742000€
+16473000,Emprunt n°3 (MT)
+16473000,PRET CRCA N° 076782633  299000
+16474000,Emprunt n°4 (MT)
+16474000,PRET CRCA N° 076781430 169000€
+16474100,PRET BPSO 7235038 353000€
+16474200,PRET BPSO 0147126 120000€
+16474300,PRET BPSO 7242711 DE 300000€
+16474400,PRET BPSO 724517 DE 300000€
+16474500,PRET BPSO 7248800 DE 250000€
+16474600,LIGNE DE CREDIT CA 200000€
+16475000,Emprunt n°5 (MT)
+16475000,PRET CRCA 10000104326         
+16476000,PRET CRCA 10000180641         
+16476100,PRET CIC 94175802 DE 250000€
+16476200,PRET BPSO 700000€ N°8813527
+16478110,PRET CA 00093754150 DE 325000€
+16479000,PRET CA 88037051 DE 640000 €
+16479116,PRET CA 93752530 DE 402000€
+16479117,PRET AGCO 88440058999/0001
+16479118,PRET AGCO 88440059006/0001
+16479119,PRET 88440059014/0001
+16479120,PRET AGCO 88440055022/0001
+16479121,LIGNE CREDIT CIC 750000 €
+16479122,LIGNE DE CREDIT BPSO 428000€
+16479123,PRET CA 10000319385
+16479124,PRET CA 10000319386
+16479125,PRET CIC 10011835990 DE 86000€
+16479126,PRET CA 10000479889 DE 600000€
+16479127,PRET CA 10000479918 DE 400000€
+16479128,PRET POUY 102013901 DE 250000€
+16480000,Emprunts ets de crédit à - 1 an
+16481000,Emprunt n°1 (CT)
+16482000,Emprunt n°2 (CT)
+16483000,Emprunt n°3 (CT)
+16484000,Emprunt n°4 (CT)
+16485000,Emprunt n°5 (CT)
+16488700,PRET BPI 65723                
+16500000,Dépôts et cautionnements reçus
+16510000,Dépôts reçus
+16550000,Cautionnements reçus
+16600000,Participation des salariés
+16610000,Participation - Comptes bloqués
+16620000,Fonds de participation
+16670000,Participation des salariés (MT)
+16680000,Participation des salariés (CT)
+16710000,Emissions titres participatifs
+16740000,Avances conditionnées de l'état
+16750000,Emprunts participatifs
+16760000,Emprunts à conditions particulières
+16810000,Autres emprunts
+16850000,Rentes viagères capitalisées
+16851000,Rentes viagères (LT)
+16857000,Rentes viagères (MT)
+16858000,Rentes viagères (CT)
+16870000,Autres dettes
+16871100,Autres dettes 1 (LT)
+16871200,Autres dettes 2 (LT)
+16871300,Autres dettes 3 (LT)
+16877100,Autres dettes 1 (MT)
+16877200,Autres dettes 2 (MT)
+16877300,Autres dettes 3 (MT)
+16878100,Autres dettes 1 (CT)
+16878200,Autres dettes 2 (CT)
+16878300,Autres dettes 3 (CT)
+16880000,Intérêts courus
+16881000,Int.courus s/emp.oblig.convertibles
+16882000,Int.courus s/autres emp.oblig.
+16883000,Int.courus s/aut.emp.obligataires
+16884000,Int.courus s/emp.aup.etablt.crédit
+16884000,INT.COURUS/EMPRUNT E
+16884000,INT.COURUS/EMPRUNT ETAB.C     
+16884000,INT.COURUS S/EMP.AUP.ETABLT.CR
+16885000,Int.courus s/dépôts/caut. reçus
+16886000,Int.courus s/particip.salariés
+16887000,Int.courus s/emp.dettes cond.partic
+16887500,Int.courus s/emprunts participatifs
+16888000,int.courus s/aut.emprunts
+16900000,Primes de rembourst des obligations
+17100000,Dettes rattach. participations (Grp
+17111000,Dette 1 (LT)
+17112000,Dette 2 (LT)
+17171000,Dette 1 (MT)
+17172000,Dette 2 (MT)
+17181000,Dette 1 (CT)
+17182000,Dette 2 (CT)
+17400000,Dettes rattach. participations (HG)
+17411000,Dette 1 (LT)
+17471000,Dette 1 (MT)
+17481000,Dette 1 (CT)
+17800000,Dettes rattachées ste en particip.
+17810000,Principal
+17880000,Intérêts courus
+18100000,Comptes de liaison établissements
+18600000,Biens & services échangés (charges)
+18700000,Biens & services échangés (produit)
+18800000,Comptes de liaison stes
+20110000,Frais de constitution
+20120000,Frais de premier établissement
+20130000,Frais d'augmentation de capital
+20300000,Frais de recherche et développement
+20500000,Concessions et droits similaires
+20500000,IMMOB.INCORP: LOGICI
+20510000,Logiciels
+20510000,LOGICIELS                     
+20510000,LOGICIELS                     
+20600000,Droit au bail
+20700000,Fonds commercial
+20700000,FONDS DE COMMERCE
+20800000,Autres immobilisat. incorporelles
+20800000,AUTRES IMMOB.INCORPO
+20800000,AUTRES IMMOB.INCORPORELLE     
+21100000,Terrains
+21100000,TERRAINS                      
+21200000,Agenct. & aménagt. terrains
+21310000,Batiments
+21310000,CONSTRUCTIONS BATIME
+21350000,Installations générales
+21380000,Ouvrages d'infrastructure
+21410000,Constructions sur sol d'autrui
+21410000,PHOTOVOLTAIQUE                
+21411000,BATIMENTS                     
+21450000,Agencements const s/ sol d'autrui
+21500000,MATERIEL ET OUTILLAG
+21510000,Installations complexes spécialis.
+21511000,MAT ET OUT:CHAINE CA
+21512000,MAT ET OUTIL CANTINE
+21530000,Installations à caractère spécifiq.
+21530000,MATERIEL ET OUTILLAGE :SECHOIR
+21540000,Matériel industriel
+21540000,MATERIEL INDUSTRIEL           
+21550000,Outillage industriel
+21570000,Agenct.aménagt.mat. & outil. indust
+21700000,Comptes spécifiques
+21810000,"Instal.gales, agenct, aménagt.div."
+21810000,INST AGENCT DIVERS
+21810000,"INSTAL.GALES, AGENCT, AMÉNAGT."
+21820000,Matériel de transport
+21820000,MAT.DE TRANSPORT
+21830000,Matériel de bureau
+21830000,MATERIEL DE BUREAU &
+21830000,MATÉRIEL DE BUREAU            
+21831000,Matériel informatique
+21831000,MATÉRIEL INFORMATIQUE         
+21840000,Mobilier
+21840000,MOBILIER
+21850000,Cheptel
+21850000,CHEPTEL
+21860000,Emballages récupérables
+21880000,Autres matériels
+22000000,Immobilisations mises en concession
+22900000,Apport du concédant à titre gratuit
+23100000,Immobilisat. corporelles en cours
+23110100,UNITE DE METHANISATION        
+23112000,IMMO EN COURS LOGICIEL
+23112000,PISSOS B 2                    
+23120000,Terrains en cours
+23130000,Constructions en cours
+23150000,Installations techniques en cours
+23180000,Autres immobilisations en cours
+23200000,Immobilisat. incorporelles en cours
+23700000,Avances sur immobilisat. incorporel
+23800000,Avances sur immobilisat. corporel.
+23820000,Avances sur terrains
+23830000,Avances sur constructions
+23850000,Avances sur installations technique
+23880000,Avances sur autres immobilisations
+26100000,Titres de participation
+26100000,PARTS SOCIALES VICAMPO
+26110000,PARTS SOCIALES TUTTI VERDI
+26110000,TITRE PART SCEA PHISALAND     
+26111000,TITRES DUPONT INTERNATIONAL  
+26112000,TITRES BVLH INVEST            
+26120000,PARTS SOCIALES BIOTINEL
+26120000,TITRE PART SCEA CASTAGN L     
+26130000,TITRE PART SARL DUPONT       
+26140000,PARTS SOCIALES CUMA DEPART LAN
+26140000,TITRE PART SCI DU CASSIOT     
+26150000,PARTS SOCIALES CUMA PERLOFRAIS
+26150000,TITRE PART SCEA DES CHAMP     
+26160000,PARTS NATURA 2004             
+26180000,PARTS SCEA LAGOUARE           
+26190000,PARTS SCI DE MARLENX          
+26191000,PARTS EURL DUPONT ENVIRONNEME
+26192000,PARTS SCEA LANDES BIO         
+26193000,PARTS GRAND CHAMP             
+26195000,PARTS SARL FARM DISCOUNT      
+26196000,PS SARL DUPONT BIOROUSSILLON 
+26200000,Participations évaluées équivalence
+26600000,Autres formes de participation
+26700000,Créances rattach. à des participat.
+26710000,Créances rattach particip. (Grpe)
+26717000,Part du groupe (à plus d'un an)
+26718000,Part du groupe (à moins d'un an)
+26740000,Créances rattach particip. (Hors G)
+26747000,Hors groupe (à plus d'un an)
+26748000,Hors groupe (à moins d'un an)
+26750000,Versts d'apports non capitalisés
+26760000,Avances consolidables
+26770000,Autres créances rattach. participat
+26780000,Intérêts courus s/créances rattaché
+26800000,Créances rattach. stés en particip.
+26900000,Verst.restant à effect.s/tit.n/lib.
+26970000,Versements à  effectuer à + 1 an
+26980000,Versements à  effectuer à - 1 an
+27100000,Titres immobilisés (droit propriét)
+27100000,PARTS TERROIRS AQUITAINS
+27110000,Actions
+27180000,Autres titres
+27200000,Titres immobilisés (droit créance)
+27210000,Obligations
+27220000,Bons
+27300000,Titres (Activité de portefeuille)
+27410000,Prêts participatifs
+27420000,Prêts aux associés
+27430000,Prêts au personnel
+27437000,Prêts au personnel (+ 1 an)
+27438000,Prêts au personnel (- 1 an)
+27480000,Autres prêts
+27487000,Autres prêts (part à plus d'un an)
+27488000,Autres prêts (part à moins d'un an)
+27500000,Dépôts et cautionnements
+27500000,DEPOT CAUTIONNEMENT
+27510000,Dépots
+27511000,DEPOT GARANTIE EULER
+27550000,Cautionnements
+27610000,Créances diverses
+27680000,Intérêts courus
+27682000,Int.courus s/titres immobilisés
+27684000,Int.courus s/prêts
+27685000,Int.courus s/dépôts et cautionnem.
+27688000,Int.courus s/créances diverses
+27700000,Actions propres ou parts propres
+27900000,Versemt. rest.à effect.s/tit.imm.NL
+27970000,Versements à effectuer (+ 1 an)
+27980000,Versements à effectuer (- 1 an)
+28010000,Amortis. frais d'établissement
+28030000,Amortis. frais recherche & dévelop.
+28050000,Amortis. concess. & droits simil.
+28050000,AMORT IMMOB INCORP : LOGICIEL
+28050000,AMORTIS. CONCESS. & DROITS SIM
+28051000,AMORTISSEMENTS LOGICIELS      
+28070000,Amortis. fonds commercial
+28080000,Amortis. autres immobil. incorpor.
+28080000,AMORT.IMMOB.INCORPOR
+28080000,AMORT AUTRES IMMOB INCORP     
+28120000,Amortis. agenct. aménagt. de terr.
+28131000,Amortis. constructions
+28131000,AMORT CONSTRUCTION BIOLEYRE
+28135000,Amortis. agencements constructions
+28141000,Amortis. constructions sol d'autrui
+28141000,AMORT PHOTOVOLTAIQUE          
+28141100,AMORT BATIMENT                
+28145000,Amortis. agencements constructions
+28150000,Amortis. matériel et outillage
+28150000,AMORT.MATERIEL&OUTIL
+28151100,AMORT CHAINE CAROTTE
+28151200,AMORT.MAT. OUT.CANTINE
+28153000,AMORT MAT.OUTILLAGE SECHOIR
+28181000,"Amortis. instal. gales, agenct. div"
+28181000,AMORT.INST.AGENCT DI
+28181000,"AMORTIS. INSTAL. GALES, AGENCT"
+28182000,Amortis. matériel de transport
+28182000,AMORT MAT DE TRANSPO
+28183000,Amortis. matér.bureau et informat.
+28183000,AMORT MAT BUREAU
+28183000,AMORTIS. MATÉR.BUREAU ET INFOR
+28184000,Amortis. mobilier
+28184000,AMORT.MOBILIER
+28186000,Amortis. emballages récupérables
+28200000,Amortis immobilis en concession
+29050000,"Provis. dépréc. marques, procédés"
+29060000,Provis. dépréc. droit au bail
+29070000,Provis. dépréc. fonds commercial
+29080000,Provis. dépréc. aut. immob. incorp.
+29110000,Dépréciations terrains
+29130000,Dépréciations constructions
+29150000,Dépréciations matériel
+29180000,Dépréciations autres immobilis.
+29200000,Dépréciations immob. en concess.
+29310000,Dépréciations immob.corpor. cours
+29610000,Dépréciations titres participat.
+29610000,PROVIS. DÉPRÉC. TITRES PARTICI
+29620000,Dépréciations partic. équivalence
+29660000,Dépréciations aut. formes partic.
+29670000,Dépréciations créances ratt.parti
+29680000,Dépréciations cr.ratt.stés part.
+29710000,Dépréciations titres immobilisés
+29720000,Dépréciations tit. immob. créance
+29730000,Dépréciations titres activ. port.
+29740000,Dépréciations des prêts
+29741000,Dépréciations prêts participatifs
+29742000,Dépréciations prêts aux associés
+29743000,Dépréciations prêts au personnel
+29748000,Dépréciations autres prêts
+29750000,Dépréciations dépots et cautions
+29751000,Dépréciations dépots
+29755000,Dépréciations cautionnements
+29760000,Dépréciations créances diverses
+31000000,Stocks matières premières
+31000000,STOCK MAT PREMIERE
+31100000,Matière première (ou groupe) A
+31200000,Matière première (ou groupe) B
+31700000,"Fournitures A, B, C..."
+32000000,STOCK APPROVISIONNEM
+32100000,Stocks matières consommables
+32110000,Matière consommable (ou groupe) C
+32120000,Matière consommable (ou groupe) D
+32200000,Fournitures consommables
+32210000,Fourn. consomm. combustible
+32220000,Fourn. consomm. produits entretien
+32230000,Fourn. consomm. d'atelier & usine
+32240000,Fourn. consomm. de magasin
+32250000,Fournitures de bureau
+32600000,Stocks d'emballages
+33000000,EN COURS PROD DE BIE
+33100000,Production en cours
+33500000,Travaux en cours
+34100000,Etudes en cours
+34500000,Prestations de services en cours
+34800000,Appels d'offres en cours
+35000000,ABNT STOCK SURGELES
+35100000,Stocks de produits intermédiaires
+35110000,Produit interm. (ou groupe) A
+35120000,Produit interm. (ou groupe) B
+35500000,Stocks de produits finis
+35510000,Produit finis (ou groupe) A
+35520000,Produit finis (ou groupe) B
+35800000,Stocks de produits résiduels
+36000000,Stocks provenant d'immobilisations
+37000000,Stocks de marchandises
+37100000,Marchandise (ou groupe) A
+37200000,Marchandise (ou groupe) B
+39100000,Dépréciations matières premières
+39200000,Dépréciations autres approvisiont.
+39300000,Dépréciations en-cours production
+39400000,Dépréciations en-cours produc. sces
+39500000,Dépréciations stocks de produits
+39700000,Dépréciations stocks de marchand.
+40100000,Fournisseurs
+40110000,Fournisseurs
+40133NET  ,33 NETTOYAGE                  
+40170000,Fournisseurs - retenue de garantie
+401AAE    ,AUDIT AQUITAINE EXPERTISES    
+401ACTUE  ,ACTUEL BURO                   
+401AGEFO  ,AGEFOS PME AQUITAINE          
+401AJC    ,AJC                           
+401AVIVA  ,AVIVA                         
+401CCI    ,CCI AQUITAINE                 
+401DFCI   ,DFCI                          
+401DIVER  ,DIVERS FOURNISSEURS           
+401EXAS   ,EXAS CONSULTANT               
+401FAFSE  ,FAFSEA                        
+401FDC    ,FDC                           
+401FERNA  ,FERNANDO CARPINTEIRO ALBINO   
+401FLAT   ,FLAT LEASE GROUP              
+401GREFF  ,GREFFE                        
+401GRENK  ,GRENKE                        
+401ISAGRI ,ISAGRI                        
+401LASO   ,LASO TRANSPORTES              
+401MANCI  ,MANCIET MARIE GENEVIEVE       
+401MARTI  ,MARTINS RODRIGUES SABINO      
+401NATIX  ,NATIXIS                       
+401NOTAI  ,NOTAIRE ROBIN                 
+401PROTE  ,PROTEINE MANAGEMENT           
+401QUALI  ,QUALISUD                      
+401QUATU  ,QUATUOR PATRIMOINE            
+401RIOS   ,RIOS E AQUIFEROS              
+401SCICA  ,SCI DU CASSIOT                
+401SERVI  ,SERVICE DE SANTE AU TRAVAIL   
+401SIEME  ,SIEMENS                       
+401TRESOR ,TRESOR PUBLIC                 
+401VWVW   ,VW ET VW                      
+40200000,FOURNISSEURS
+40300000,Fournisseurs - effets à payer
+40410000,Fournisseurs d'immobilisations
+40417000,Fournisseurs d'immobilisations (CT)
+40418000,Fournisseurs d'immobilisations (MT)
+40470000,Fournisseurs immobilis. reten. gara
+40500000,Fournisseurs d'immobilisat. - effet
+40810000,Fournisseurs - fact. non parvenues
+40810000,FRS FACT NON PARVENU
+40810000,FOURNIS.FACT.NON PARVENUE     
+40810000,FOURNISSEURS - FACT. NON PARVE
+40810100,Achats matières premières NP
+40810200,Achats consommables NP
+40810400,Achats de sous-traitance NP
+40810600,Electricité NP
+40810700,Achats de marchandises NP
+40811400,FNP CAROTTE BIO
+40811600,FNP POIREAU BIO
+40811700,FNP CHOUX BIO
+40811800,FNP NAVET BIO
+40812100,FNP CHOUDOU BIO
+40812400,FNP RADIS NOIR BIO
+40812500,FNP PANIBIO
+40812700,FNP POTIMARON BIO
+40812900,FNP BROCOLIS BIO
+40813100,FNP POMME DE TERRE BIO
+40813200,Locations immobilières NP
+40813300,Location Gérance NP
+40813500,Locations immobilières NP
+40813800,FNP BETTERAVE BIO
+40814000,Charges locatives NP
+40815200,Entretien immobilier NP
+40815500,Entretien mobilier NP
+40815600,Maintenance NP
+40816000,Assurances NP
+40821000,Personnel extérieur NP
+40821400,FNP CAROTTE CONV
+40821800,FNP NAVET CONV
+40822000,Commissions NP
+40822100,FNP CHOUDOU CONV
+40822600,Honoraires NP
+40825300,FNP PATATES DOUCES
+40826000,Frais de télécommunications NP
+40840000,Frs immobil. - fact. non parvenues
+40880000,Fournisseurs - intérêts courus
+40910000,Fournisseurs - acomptes s/commandes
+40910000,FRS ACOMPTE/COMMANDE
+40910000,FOURNISSEURS - ACOMPTES S/COMM
+40960000,Fournisseurs - emballages à rendre
+40960000,FRS EMBALLAGE CONSIG
+40961000,CONSIGNE TOURET
+40962000,CONSIGNE CUVE
+40970000,Fournisseurs - autres avoirs
+40980000,Fournisseurs - RRR à obtenir
+40980000,AVOIR A RECEVOIR
+41100000,Clients
+41100000,CLIENTS
+41110000,Clients
+41160000,Créances professionnelles cédées
+41170000,Clients - retenues de garantie
+411CASSIO ,SCI DU CASSIOT                
+411CASTA  ,SCEA CASTAGN'LAND             
+411ENVIR  ,DUPONT ENVIRONNEMENT         
+411GRAN   ,SCEA LE GRAND CHAMP           
+411LAGOU  ,SCEA LAGOUARRE                
+411LANDE  ,SCEA LANDE BIO                
+411LESCH  ,SCEA LES CHAMPS NEUFS         
+411MARLE  ,SCI DE MARLENX                
+411NATUR  ,NATURA 2004                   
+411PHISA  ,SCEA PHISALAND                
+411SARL   ,SARL DUPONT ET FILS          
+41200000,CLIENTS
+41300000,Clients - effets à recevoir
+41600000,Clients douteux ou litigieux
+41600000,CLIENTS DOUTEUX OU L
+41700000,Créances s/travaux non facturables
+41810000,Clients - factures à établir
+41810000,CLIENTS FACT. A ETAB
+41810000,CLIENTS FACT. A ETABLIR       
+41810000,CLIENTS - FACTURES À ÉTABLIR  
+41810100,Ventes de produits finis FAE
+41810400,Ventes de travaux FAE
+41810500,Ventes d'études FAE
+41810600,Prestations de services FAE
+41810700,Ventes de marchandises FAE
+41810800,Activités annexes FAE
+41880000,Clients - intérêts courus
+41910000,Clients - acomptes sur commandes
+41960000,Clients - emballages consignés
+41970000,Clients - autres avoirs
+41980000,Clients - RRR à accorder
+41980000,CLIENTS AVOIR A ETAB
+42100000,Personnel - rémunérations dues
+42100000,PERSONNEL - RÉMUNÉRATIONS DUES
+42101000,SALAIRE JANVIER
+42102000,SALAIRE FEVRIER
+42103000,SALAIRE MARS
+42104000,SALAIRE AVRIL
+42105000,SALAIRE MAI
+42106000,SALAIRE JUIN
+42107000,SALAIRE JUILLET
+42108000,SALAIRE AOUT
+42109000,SALAIRE SEPTEMBRE
+42110000,Personnel - rémunérations dues
+42110000,SALAIRE OCTOBRE
+42111000,SALAIRE NOVEMBRE
+42112000,SALAIRE DECEMBRE
+42200000,Comité d'entreprise
+42200000,COMITE ENTREPRISE
+42460000,Participation - réserve spéciale
+42480000,Participation - comptes courants
+42500000,Personnel - avances et acomptes
+42500000,AVANCE LATASTE
+42500002,AV FONSECA LURDES
+42500003,AV LEVEQUE ANDRE
+42500005,DAGUINOS ROGER
+42500011,ACOMPTE SAL TROP PERCU
+42500014,AV CASIEZ ROBERT
+42500021,AV JOCOU JULIEN
+42500027,AV CAPY STEPHANE
+42500028,ACOMPTE CLAVE CLAUDE
+42500031,AV DUBREUIL MYRIAM
+42500033,AV GUILHEM TONY
+42500034,AV LAGARDELLE JORIS
+42500035,AV KHENAFOU DJEMEL
+42500036,AV MORIZUR JEAN LUC
+42500037,AV TORTELIER REMI
+42500038,AV GEST KEVIN
+42500040,AV FLINOIS LORIS
+42500041,AV DUPONT PHILIPPE
+42500100,AV POLONAIS
+42500110,AVANCE ESPAGNOL
+42507000,AVANCE FLEURY ARNAUD
+42515000,AVANCE VALOGNES MYRIAM
+42520000,AVANCE RAYMOND MANO
+42524000,AVANCE FLINOIS REMI
+42531800,AVANCE VERDIER PATRICIA
+42532300,AV OLIJNIK NICOLAS
+42600000,Personnel - dépots
+42700000,Personnel - oppositions
+42700000,RETENUE SUR SALAIRE
+42820000,Dettes provis. pr congés à payer
+42820000,CONGES A PAYER
+42820000,DETTES PROVIS. PR CONGÉS À PAY
+42821000,AUTRE CHARGE DE PERSONNEL
+42840000,Dettes provis. pr partic. salariés
+42840000,PROV PARTICIPATION SALARIES
+42860000,Personnel - autres charges à payer
+42861000,Primes de bilan CAP
+42862000,Rappel de Salaires CAP
+42862500,Frais de déplacement CAP
+42870000,Personnel - produits à recevoir
+43100000,Sécurité sociale
+43100000,COTISATIONS C.M.S.A.
+43100000,SÉCURITÉ SOCIALE              
+43700000,Autres organismes sociaux
+43710000,Caisse de retraite cadres
+43710000,COTIS.CAISSE CPCEA C
+43720000,Caisse de retraite salariés
+43726000,PREVOYANCE                    
+43726100,PREVOYANCE APRIL              
+43730000,ASSEDIC
+43731000,CAISSE DE RETRAITE AGIRC      
+43732000,CAISSE DE RETRAITE ARRCO      
+43740000,Caisse de congés payés
+43780000,Autres caisses
+43820000,Charges sociales s/congés à payer
+43820000,CHARGES SOCIALES S/CONGÉS À PA
+43860000,Charges sociales - charges à payer
+43860000,ORGANISMES SOCIAUX A
+43861000,URSSAF CAP
+43861100,ASSEDIC CAP
+43861200,Retraite complémentaire CAP
+43861300,Retraite cadres CAP
+43861400,Caisse congés payés BTP CAP
+43862000,Charges sociales sur primes prov.
+43870000,Charges sociales - produits à recev
+44100000,Etat - subvention à recevoir
+44110000,Subventions d'investissement
+44170000,Subventions d'exploitation
+44180000,Subventions d'équilibre
+44190000,Avances sur subventions
+44200000,Etat - impôts et taxes recouv.s/tie
+44240000,Impôts recouvrables s/obligataires
+44250000,Impôts recouvrables s/associés
+44300000,Etat - opérations particulières
+44310000,Créances suppression décalage TVA
+44380000,Intérêts courus sur créances
+44400000,Etat - impôts sur les bénéfices
+44400000,ETAT IMPOTS S/BENEFI
+44400000,ETAT IMPOTS S/BENEFICES       
+44400000,ETAT - IMPÔTS SUR LES BÉNÉFICE
+44420000,Créances sur l'Etat - carry back
+44520000,TVA due intracommunautaire
+44551000,TVA à décaisser
+44551000,TVA A DECAISSER               
+44558000,Taxes assimilées à TVA à décaisser
+44562000,TVA déductible s/immobilisations
+44562000,TVA DEDUCT.S/IMMO.
+44562000,TVA DÉDUCTIBLE S/IMMOBILISATIO
+44562300,TVA/ACQUISITION INTR
+44562300,TVA DEDUCT.IMMOB INTRAC       
+44563000,TVA transf. par autres entreprises
+44566000,TVA déductible s/aut.biens et sces
+44566100,TVA déductible sur achats
+44566100,TVA S/ACHATS & FRS G
+44566100,TVA DEDUCT.S/ACHATS           
+44566100,TVA DÉDUCTIBLE SUR ACHATS     
+44566200,TVA déductible sur frais généraux
+44566300,TVA/ACQUISITION INTR
+44566300,TVA DEDUCTIBLE S/ACHATS INTRAC
+44566300,TVA DED/B & S INTRACOM        
+44567000,Crédit de TVA à reporter
+44567000,REMB DE TVA DEMANDE
+44567000,CREDIT DE TVA                 
+44567000,CRÉDIT DE TVA À REPORTER      
+44568000,Taxes déductibles assimilées à TVA
+44571000,TVA collectée
+44571000,TVA SUR CESSION IMMO
+44571000,TVA COLLECTEE                 
+44571100,TVA COLLECTEE 5.5%
+44571200,TVA COLLECTEE A 0%
+44571300,TVA COLLECTEE CEE             
+44571300,TVA COLLECTEE INTRAC          
+44571600,TVA COLLECTEE A 10%
+44571700,TVA COLLECTEE A 20%
+44571910,TVA INTRA COLL 5.5
+44571911,TVA COLLECTEE INTRA 10%
+44571920,TVA COLLECTEE INTRA 20%
+44578000,Taxes collectées assimilées à TVA
+44580000,Régularisation de TVA collectée
+44580000,tva a reg sur charges
+44580100,Régularisation de TVA déductible
+44580100,REGUL TVA COLLECTEE
+44580200,REGUL TVA DEDUCTIBLE
+44580300,TVA DED A REGULARISER SUR IMMO
+44581000,Acomptes TVA réel simplifié
+44581000,TVA  DEDUC /B ETS A REGUL
+44582000,Acomptes régime de forfait
+44583000,Remboursement de TVA demandé
+44583000,Rbst crédit de tva            
+44583000,REMBOURSEMENT DE TVA DEMANDÉ  
+44584000,TVA récupérée d'avance
+44586000,TVA sur factures non parvenues
+44586000,TVA/FACT NON PARVENU
+44586000,TVA S/FACT.NON PARVENUES      
+44586000,TVA SUR FACTURES NON PARVENUES
+44586100,TVA/AVOIR A RECEVOIR
+44587000,TVA sur factures à établir
+44587000,TVA/FACT A ETABLIR
+44587000,TVA S/FACT.A ETABLIR          
+44600000,Obligations cautionnées
+44610000,Obligations cautionnées
+44700000,Autres impôts taxes et verst. assim
+44820000,Charges fiscales s/congés à payer
+44860000,Etat - autres charges à payer
+44860500,ETAT AGEFIP CAP
+44861000,TX APPRENTISSAGE CAP
+44861000,ETAT TP CAP                   
+44862000,ETAT FPC  CAP
+44862000,ETAT TX FONCIERE CAP          
+44863000,ETAT TP CAP
+44863100,Taxe sur les salaires CAP
+44863200,Taxe d'apprentissage CAP
+44863200,TAXE D'APPRENTISSAGE CAP      
+44863300,Formation continue CAP
+44863300,FORMATION CONTINUE CAP        
+44863400,Effort de logement CAP
+44863500,Taxe professionnelle CAP
+44863500,TAXE PROFESSIONNELLE CAP      
+44863600,Taxe foncière CAP
+44863700,T.V.T.S CAP
+44863800,Autres droits CAP
+44863900,Versement transport CAP
+44864000,ORGANIC CAP
+44864000,ETAT TVTS CAP
+44865000,ORGANIC CAP
+44870000,Etat - produits à recevoir
+44870000,ETAT PRODUIT A RECEV
+44870000,ETAT PRODUITS A RECEVOIR      
+44900000,Quotas d'émission à resti.à l'état
+45100000,Groupe
+45100000,SARL DUPONT ET FILS          
+45200000,DUPONT INTERNATIONAL         
+45500000,Associés
+45510000,Associés - comptes courants
+45517000,Associés - comptes courants (MT)
+45517000,ASSOCIES SCI DU CASSIOT       
+45517100,DUPONT JOSE
+45517100,C/C DUPONT INVEST            
+45517200,DUPONT PHILIPPE
+45517200,COMPTE COURANT RAYMONDE       
+45517300,COMPTE COURANT JOSE           
+45517400,CC SARL DUPONT INVE
+45517400,COMPTE COURANT PHILIPPE       
+45517500,C/C DUPONT PATRICK
+45517500,COMPTE COURANT PATRICK        
+45517600,CPT CT SCEA CASTAGN'LAND      
+45517700,CPT CT SCEA PHISALAND         
+45517800,CC/SEP DUPONT BIO
+45517800,CPTE CT SCEA LES CHAMPS N     
+45518000,Associés - comptes courants (CT)
+45518000,CC/ FERME DE L'EYRE
+45518000,CT CT LAGOUARE                
+45518100,CT CT SCI DE MARLENX          
+45518200,EURL DUPONT ENVIRONNEMENT    
+45518300,C/C SCEA LES GRANDS CHAMPS    
+45518500,SCEA LANDES BIO               
+45518700,CPT CT SARL NATURA 2004       
+45518800,C/C SARL DUPONT BIOROUSSILLON
+45518900,FERME DE L'EYRE               
+45580000,Associés - intérêts courus
+45580000,ASSOCIE INTERET COURUS
+45580000,ASSOCIÉS - INTÉRÊTS COURUS    
+45586000,ASS.INT.COURUS A PAYER        
+45587000,ASS.INT.COURUS A RECEVOIR     
+45600000,Associés - opérations s/le capital
+45611000,Associés - apports en nature
+45615000,Associés - apports en numéraire
+45621000,Capital appelé non versé
+45700000,Associés - dividendes à payer
+45800000,Associés - opérations en commun/GIE
+45810000,Associés - opérations courantes co.
+45880000,Associés - intérêts courus
+46200000,Créances s/cessions d'immobilisat.
+46270000,Créances sur cession à moyen terme
+46280000,Créances sur cession à court terme
+46400000,Dettes s/acquisitions VMP
+46500000,Créances s/cessions VMP
+46700000,Autres comptes débiteurs/créditeurs
+46700000,DEBITEURS CREDIT.DIVERS       
+46700000,SCI DU CASSIOT                
+46700100,DIVERS
+46710000,Autres comptes débiteurs/créditeurs
+46711000,SCEA CHAMPS NEUFS
+46711000,SERRES PHOTOVOLTAIQUE         
+46711000,DUPONT PHILIPPE              
+46712000,SCI JUSYLANDES
+46712000,SAS LORT                      
+46712000,DUPONT PATRICK               
+46713000,CROPINVEST                    
+46713000,DUPONT JOSE                  
+46714000,LEVEQUE CHRISTOPHE PRET
+46714000,AVCE PLEIN DE NATURE          
+46715000,CROP INVEST/CC
+46715000,HML ORGANIC                   
+46715000,SCI DE MARLENX                
+46716000,CC/ DUPONT BIOROUSSILLON
+46716000,HML AGRO                      
+46717000,BVLH INVEST                   
+46720000,CREDITEUR ISABELLE DUPONT    
+46721000,DUPONT BERTRAND              
+46730000,SCEA PHISALAND
+46730000,SCI JPP                       
+46731000,LBPA                          
+46740000,SCEA CASTAGN'LAND
+46740000,CREDITEURS VERONIQUE DUPONT  
+46740000,CHAMPS NEUFS                  
+46750000,SEP DUPONT AGRO              
+46760000,SEP DUPONT BIO               
+46760000,SAS DUPONT ET FILS           
+46770000,Opérations d'affacturage
+46780000,SCI DU CASSIOT
+46783000,EURL DUPONT ENVIRONNEMENT
+46860000,Divers - charges à payer
+46860000,DIVERS - CHARGES À PAYER      
+46870000,Divers - produits à recevoir
+46870000,DIVERS PROD.A RECEVO
+47100000,Compte général d'attente
+47100000,COMPTE D'ATTENTE
+47100000,COMPTE GÉNÉRAL D'ATTENTE      
+47200000,Compte d'attente
+47200000,COMPTE D'ATTENTE              
+47610000,Diff. convers. diminution créances
+47620000,Diff. convers. augmentation dettes
+47680000,Diff. convers. compensées couvertur
+47710000,Diff. convers. augmentation créance
+47720000,Diff. convers. diminution dettes
+47780000,Diff. convers. compensées couvertur
+47800000,Comptes transitoires
+47800000,COMPTE D'ATTENTE              
+47800000,Compte d'attente              
+47861310,ABT LOCATION DE TERRES
+47861600,ABONNEMENT ASSURANCE
+47866116,ABONNEMENT INTERETS EMPRUNTS
+47870000,Indemnités d'assurance à recevoir
+48110000,Charges différées
+48120000,Frais d'acquisition immobilisations
+48160000,Frais d'émission des emprunts
+48180000,Charges à étaler
+48600000,Charges constatées d'avance
+48600000,CHARGES CONSTAT.D'AV
+48600000,CHARGES CONSTAT.D'AVANCE      
+48600000,CHARGES CONSTATÉES D'AVANCE   
+48606000,Stock de fournitures
+48612000,Crédit bail d'avance
+48613200,Locations immobilières d'avance
+48613300,Location gérance d'avance
+48613500,Locations mobilières d'avance
+48615000,Entretiens effectués d'avance
+48615600,"Maintenance, période d'avance"
+48616000,"Assurances, période d'avance"
+48622000,Commissions versées en avance
+48623400,Stock Cadeaux d'entreprise
+48626000,Abonnements téléphones d'avance
+48627000,Frais bancaires d'avance
+48635100,Taxe Professionnelle d'avance
+48661000,Frais financiers d'avance
+48700000,Produits constatés d'avance
+48860000,Charges - répartit. périodique
+48870000,Produits - répartit. périodique
+49091000,Dépréciations avances versées
+49100000,Dépréciations comptes clients
+49100000,PROV.DEPREC.CLIENTS
+49500000,Dépréciations groupe & associés
+49600000,Dépréciations débiteurs divers
+49620000,Dépréciations créances cess. immo
+49650000,Dépréciations créances cess. VMP
+49670000,Dépréciations autres cptes debit.
+49670000,PROV DEPR CT DEBIT
+49674000,Dépréciations fournisseurs débit
+49674200,Dépréciations personnel
+49674400,Dépréciations autres créances
+50100000,Parts dans des entreprises liées
+50200000,Actions propres
+50300000,Actions
+50400000,Autres titres conférant droit prop.
+50500000,Obligations rachetées
+50600000,Obligations
+50700000,Bons du trésor & bons de caisse CT
+50710000,Certificats de dépôt
+50740000,Bons du trésor
+50750000,Billets de trésorerie
+50770000,Autres titres de créances négociab.
+50780000,Bons de caisse
+50810000,Autres valeurs mobilières
+50880000,Intérêts courus s/valeurs mobilière
+50900000,Versements rest. à effect.s/VMP NL
+51110000,Coupons échus à l'encaissement
+51120000,Chèques à encaisser
+51130000,Effets à l'encaissement
+51140000,Effets à l'escompte
+51180000,Cartes de crédit à encaisser
+51200000,Banque
+51200000,CHEQUES NON DEBITES
+51200000,BANQUE POPULAIRE              
+51200000,BANQUE POPULAIRE              
+51210000,Comptes en monnaie nationale
+51210000,BANQUE POPULAIRE  AQUITAINE
+51210000,CREDIT AGRICOLE               
+51212000,BPSO BIOLEYRE
+51220000,CREDIT AGRICOLE               
+51221000,CIC BIOLEYRE
+51230000,C I C                         
+51240000,Comptes en devises
+51240000,CREDIT AGRICOLE
+51240000,CIC SUD OUEST                 
+51241000,CA BIOLEYRE
+51250000,C.I.C
+51260000,BANQUE POUYANNE
+51400000,Chèques postaux
+51600000,Sociétés de bourse
+51700000,Autres organismes financiers
+51810000,Banque - Intérets courus à payer
+51810000,BANQUE - INTÉRETS COURUS À PAY
+51810000,BANQUE - INTÉRETS COURUS À PAY
+51860000,BANQUES INTERETS COU
+51880000,Banque - Intérêts courus à recevoir
+51910000,Crédit mobilis.créanc.ciales (CMCC)
+51920000,Concours bancaires courants
+51930000,Mobilisations créances étrangères
+51940000,Crédits garanties par créances prof
+51970000,Autres concours bancaires
+51980000,Concours bancaires - intérêts couru
+52000000,Instruments de trésorerie
+53000000,Caisse
+53000000,CAISSE
+53110000,Caisse en monnaie nationale
+53140000,Caisse en devises
+54000000,Régie d'avances et accréditifs
+58000000,Virements internes
+58000000,VIREMENTS INTERNES
+58000000,VIREMENTS INTERNES            
+58000000,VIREMENTS INTERNES            
+59000000,Dépréciations valeurs mobilières
+59030000,Dépréciations actions (VMP)
+59060000,Dépréciations obligations (VMP)
+60100000,Achats matières premières
+60100000,ACHATS MATIÈRES PREMIÈRES     
+60110000,Achats matières  (ou groupe) A
+60110000,ACHAT ENGRAIS
+60120000,Achats matières (ou groupe) B
+60120000,ACHAT PHYTOS
+60132000,ACHAT GRAINES LEGUMES
+60132100,ACHAT SEMENCES CULTURES
+60146000,ACHAT PLANT LEGUMES
+60170000,"Achats fournitures A, B, C..."
+60180010,ACHAT LEGUMES CEE
+60180011,ACHAT LEGUMES H CEE
+60180110,ACHAT LEGUMES  NEGOCIANT
+60182200,ACHAT PAILLE
+60188010,ACHAT LEGUMES PRODUCTEU
+60190000,Prélèvements de matières
+60192000,Matières premières CEE
+60194000,Matières premières hors CEE
+60200000,ACHAT FILM PLASTIQUE
+60201000,ACHAT CEE FILM PLAST
+60210000,Achats de matieres consommables
+60211000,Achats matiere consomm.(ou gpe) C
+60212000,Achats matiere consomm.(ou gpe) D
+60220000,Achats de fournitures consommables
+60221000,Achats fourn. cons. combustibles
+60221000,ACHAT STOCKE FIOUL
+60222000,Achats fourn. cons. produits entret
+60222000,ACHAT STOCKE GAS OIL
+60223000,ACHAT STOCKE LUBRIFI
+60224000,Achats fourn. cons. de magasin
+60224000,ACHAT STOCKE GAZ
+60225000,Achats fournitures de bureau
+60260000,Achats emballages
+60260000,ACHATS CORNIERE-FEUI
+60260100,ACHAT PALETTES
+60260200,ACHAT PALETTES CEE
+60260300,ACHAT SACS
+60260320,ACHAT SAC CAROTTE
+60260400,ACHAT PLATEAU-CARTON
+60260410,ACHAT PLATEAUX BOIS
+60260500,ACHAT CAISSES PLASTI
+60260600,ACHAT ETIQUETTES
+60260700,ACHAT FILM EMBALLAGE
+60260800,ACHAT COLLE
+60261000,ACHAT EMBALLAGE CEE
+60261100,EMBALLAGES PERDUS
+60262000,ACHAT BIG BAG
+60263000,ACHAT AGRAFES
+60290000,Prélèvements de fournitures
+60292000,Autres appro.CEE
+60294000,Autres appro.hors CEE
+60310000,Variat. stocks Mat. premières/fourn
+60310000,VARIAT.STOCKS MAT.PR
+60320000,Variat. stocks autres approvist.
+60320000,VARIATION STOCK APPR
+60370000,Variat. stocks marchandises
+60400000,Achats d'études et prestations
+60400000,ACHAT PRESTATIONS SERVICE
+60492000,Etudes et prestations CEE
+60494000,Etudes et prestations hors CEE
+60500000,Achats matériel et travaux
+60510000,ACHAT MAT ET TRVX METHANISATIO
+60511000,ACHAT MAT ET TRVX METHANISATIO
+60592000,Matériel et travaux CEE
+60594000,Matériel et travaux hors CEE
+60610000,Achats fournitures non stockable
+60611000,Fournitures électricité
+60611000,FOURN.NON STOCK.(ELE
+60611000,ELECTRICITÉ B10 EVA N°279860  
+60611100,ELECTRICITÉ B1 CALLEN N°232378
+60611200,ELECTRICITE METANISEUR        
+60611300,ELECTRICITE METANISEUR N°44215
+60611400,ELECTRICITÉ B4 LUE N°233076   
+60611500,ELECTRICITÉ B 5 CABIRO N°23309
+60611600,ELECTRICITÉ B6 DOUC N°233113  
+60611700,ELECTRICITÉ B7  PROL.STAT N°39
+60611800,ELECTRICITÉ B8 PARENTIS N°2798
+60611900,ELECTRICITÉ B9 LUE N°279600   
+60611910,ELECTRICITE B2 PISSOS N°456468
+60612000,Fournitures eau
+60612000,FOURN.NON STOCK.(EAU
+60613000,Fournitures gaz
+60613000,FOURN.NON STOCK.(GAZ
+60614000,Fournitures carburant
+60614000,FOURNITURES CARBURANT         
+60614200,ACHAT NON STOCKE:GAS
+60614300,ACHAT NON STOCKE:LUB
+60614700,ACHAT PLANT DIVERS
+60614900,Evaluation forfaitaire carburant
+60615000,Fournitures combustibles
+60626000,Emballages
+60630000,Achats de petit équipement
+60630000,FOURN.ENTRET.&PETIT
+60630000,ACHATS DE PETIT ÉQUIPEMENT    
+60630100,FOURNITURE REPAS
+60630200,FOURN.VET.TRAVAIL
+60630300,FOURNIT.ENTRET.DIVERS
+60630500,FOURN ENT & PETIT MAT ATELIER
+60630600,FOURN ENT& PETIT MAT CH CA
+60630700,FOURN ENT&PETIT EQUIP VEHICULE
+60631000,FOURNITURE ATELIER ACHAT CEE
+60632000,ACHAT CEE CHAINE CA
+60639000,ACHAT FOURNITURES CEE         
+60640000,Achats fournitures administratives
+60640000,FOURNIT.ADMINISTRATI
+60641000,FRAIS COPIES - PHOTOCOPIEUR   
+60690000,Prélèvements personnels
+60692000,Matières et fournitures CEE
+60694000,Matières et fournitures hors CEE
+60700000,Achats de marchandises
+60710000,Achats marchandise (ou groupe) A
+60720000,Achats marchandise (ou groupe) B
+60790000,Prélèvements de marchandises
+60792000,Marchandises CEE
+60794000,Marchandises hors CEE
+60810000,Frais accessoires s/matières 1ers
+60820000,Frais accessoires s/approvision.
+60840000,Frais accessoires s/études
+60850000,Frais accessoires s/matériel
+60860000,Frais accessoires s/fournitures
+60870000,Frais accessoires s/marchandises
+60900000,"Rabais, remises & ristourn. obtenus"
+60900000,BASE TVA INTRA
+60910000,R.R.R.obtenus s/ach.mat.premières
+60920000,R.R.R.obtenus s/ach.aut.approv.stoc
+60940000,R.R.R.obtenus s/ach.étud. & pr.sces
+60950000,R.R.R. obtenus s/ach.mat.équip.tvx
+60960000,R.R.R.obtenus s/ach.approv.n/stocké
+60970000,R.R.R.obtenus s/ach.de marchandises
+60980000,R.R.R.obtenus non affectés
+60980000,RRRO/ACH.NON AFFECTE
+61100000,Sous-traitance générale
+61100000,SOUS TRAITANCE GENER
+61100000,SOUS TRAITANCE GENERALE       
+61100100,SOUS TRAITANCE PRODUCTION
+61100200,SOUS TRAITANCE STATION
+61101000,SOUS TRAITANCE GENER CEE
+61111000,PRESTATIONS ADMINISTRATIVES
+61111000,PRESTATIONS ADMINISTRATIVES   
+61120000,PRESTATIONS CAROTTES CEE
+61194000,Sous-traitance hors CEE
+61220000,Redevances crédit-bail mobilier
+61220000,CREDIT BAIL
+61222000,Redevances crédit-bail mat. transp.
+61250000,Redevances crédit-bail immobilier
+61300000,Locations
+61320000,Locations immobilières
+61320000,LOCATIONS IMMOBILIERES        
+61320000,LOCATIONS IMMOBILIÈRES        
+61321000,LOCATION IMMOBILIERE SANS TVA 
+61330000,Redevances de gérance libre
+61332200,LOCATION SICA DU CASSIOT
+61350000,Locations mobilières
+61350000,LOCATIONS MOBILIERES STATION
+61350000,LOCATIONS MOBILIERES          
+61350000,LOCATIONS MOBILIÈRES          
+61350100,LOCATION MOBILIERE PRODUCTION
+61350200,LOCATION MOBILIERE GENERALE
+61351000,Locations de matériel technique
+61351000,LOCATIONS DE MATÉRIEL TECHNIQU
+61352000,Locations de matériel de transport
+61352000,LOCATION GERANCE CAU
+61353000,Locations de matériel de bureau
+61353000,LOCATION IFCO
+61353100,LOCATION CAISSE COGIT
+61353200,LOCATION CAISSE EURO POOL
+61357100,LOC FRIGO / SURGELATION
+61358000,LOCATION PALETTES IPP LOGIPAL
+61400000,Charges locatives & copropriété
+61500000,Entretien et réparations
+61520000,Entretien immobilier
+61520000,ENT. ET REP. LOCAUX
+61520000,ENTRETIEN IMMOBILIER          
+61520000,ENTRETIEN IMMOBILIER          
+61550000,Entretien sur biens mobiliers
+61550000,ENTRETIEN ETA
+61551000,Entretien du matériel technique
+61551000,ENTRETIEN MATERIEL
+61551000,ENTRETIEN DU MATÉRIEL TECHNIQU
+61551100,ENTRETIEN MATERIEL CHAINE
+61552000,Entretien du matériel de transport
+61552000,ENTRETIEN MAT.TRANSP
+61553000,Entretien du matériel de bureau
+61553000,ENTRETIEN  MAT ATELIER
+61553100,ENT MATERIEL ATELIER CEE
+61554000,ENTRETIEN MAT CH CA
+61560000,Maintenance
+61560000,MAINTENANCE GENERALE
+61560000,MAINTENANCE APAVE             
+61560100,MAINTENANCE B 1 CALLEN        
+61560200,MAINTENANCE B2                
+61560400,MAINTENANCE B4 LUE MARLENX    
+61560500,MAINTENANCE B 5 CABIRO        
+61560600,MAINTENANCE B 6 DOUC          
+61560700,MAINTENANCE B 7 DOUC PROL.STAT
+61560800,MAINTENANCE B8 PARENTIS       
+61560900,MAINTENANCE B9 LUE            
+61561000,MAINTENANCE PRODUCTION
+61561000,MAINTENANCE B10 EVA LIPOSTHEY 
+61561100,MAINTENANCE METHANISEUR       
+61561200,MAINTENANCE CENTRALE 9KW      
+61562000,MAINTENANCE STATION
+61600000,Primes d'assurance
+61600000,PRIMES D'ASSURANCES
+61600000,PRIMES D'ASSURANCES           
+61600000,PRIMES D'ASSURANCE            
+61610000,Assurances multirisques
+61610000,ASSURANCE EULER H.SF
+61610000,ASSURANCES MULTIRISQUES       
+61620000,Assurances dommage-construction
+61630000,Assurance matériel de transport
+61640000,Risques d'exploitation
+61650000,Insolvabilité clients
+61660000,Assurance COFACE
+61670000,Assurance des risques de pollution
+61680000,Primes d'assurance responsab. civil
+61700000,Etudes et recherches
+61810000,Documentation générale
+61810000,DOCUMENTATION GENERA
+61810000,DOCUMENTATION GENERALE        
+61830000,Documentation technique
+61850000,"Frais de colloques, de séminaires"
+61850000,FRAIS DE CONGRES
+61900000,R.R.R. obtenus sur services extér.
+62100000,PERS.EXTERIEUR A L'E
+62101000,PERSON EST A L'ENTREP CEE
+62110000,Personnel intérimaire
+62140000,Personnel prêté
+62210000,Commissions et courtages sur achats
+62210000,COMMISSIONS ET COURTAGES SUR A
+62220000,Commissions et courtages sur ventes
+62220000,COMMISSIONS COURTAGE
+62221000,COMMISSION/VTE CEE
+62228000,Com. et courtages s/ventes retroc.
+62240000,Rémunérations des transitaires
+62250000,Rémunérations d'affacturage
+62260000,Honoraires
+62260000,HONORAIRES
+62260000,HONORAIRES                    
+62260000,HONORAIRES                    
+62260100,HONORAIRES EXCEPTIONNELS
+62261000,HONORAIRES CEE
+62261000,HONORAIRES EXCEPTIONNELS      
+62261000,HONORAIRES EXCEPTIONNELS      
+62261100,HONORAIRES EXCEPTIONNELS CEE  
+62268000,Retrocessions d'honoraires
+62269000,HONORAIRES CEE                
+62270000,Frais d'actes et contentieux
+62270000,FRAIS ACTES & CONTEN
+62270000,FRAIS ACTES & CONTENTIEUX     
+62270000,FRAIS D'ACTES ET CONTENTIEUX  
+62280000,Rémun. & Honoraires divers
+62300000,Publicité
+62310000,Annonces et insertions
+62310000,ANNONCES ET INSERTIO
+62310000,ANNONCES ET INSERTIONS        
+62320000,Echantillons
+62320000,PUBLICITE
+62321000,MARKETING EMBALLAGE
+62330000,Foires et expositions
+62330000,FOIRES ET EXPOSITION
+62340000,Cadeaux à la clientèle
+62340000,CADEAUX A LA CLIENTE
+62340000,CADEAUX A LA CLIENTELE        
+62350000,Primes
+62360000,Catalogues et imprimés
+62370000,Pubications
+62380000,"Divers (pourboires, dons courants)"
+62380000,POURBOIRES DONS COUR
+62410000,Transports sur achats
+62410000,TRANSPORTS S/ACHATS
+62410000,TRANSPORT SUR ACHATS          
+62417000,PORT CEE SUR ACHAT
+62420000,Transports sur ventes
+62420000,TRANSPORTS S/VENTES
+62427000,TRANSPORTEUR CEE/VTE
+62470000,Transports collectifs du personnel
+62480000,Transports divers
+62480000,TRANSPORT DIVERS
+62480000,TRANSPORTS DIVERS             
+62487000,TRANSPORT DIVERS CEE
+62489000,TRANSPORT DIVERS CEE          
+62510000,Voyages et déplacements
+62510000,VOYAGES ET DEPLACEME
+62520000,Frais accessoires des véhicules
+62530000,Forfait kilométriques
+62550000,Frais et déménagement
+62560000,Missions
+62560000,MISSIONS
+62570000,Réceptions
+62570000,RECEPTIONS
+62570000,RÉCEPTIONS                    
+62600000,Frais postaux
+62610000,Frais de télécommunication
+62610000,FRAIS POSTAUX
+62610000,FRAIS DE TÉLÉCOMMUNICATION    
+62620000,FRAIS TELEPHONE
+62621000,FRAIS INTERNET NORDNET
+62710000,Frais sur titres
+62720000,Commissions sur emprunts
+62750000,Frais sur effets
+62750000,SERVICES BANCAIRES
+62750000,SERVICES BANCAIRES            
+62760000,Locations de coffres
+62770000,Commissions sur lettres de crédit
+62780000,Prestations de services bancaires
+62780000,PREST. DE SERVICES BANCAIRES  
+62800000,FRAIS DE STAGE
+62810000,Cotisation CGA
+62810000,COTISATIONS
+62810000,COTISATIONS                   
+62811000,Cotisations professionnelles
+62811000,COTISATIONS PROFESSIONNELLES  
+62811000,COTISATIONS PROFESSIONNELLES  
+62820000,Sous-Traitance comptable
+62830000,Travaux de gardiennage
+62840000,Frais de recrutement de personnel
+62900000,R.R.R. obtenus s/autres sces exter.
+63110000,Taxe sur les salaires
+63120000,Taxe d'apprentissage
+63120000,TAXE APPRENTISSAGE
+63120000,TAXE APPRENTISSAGE            
+63130000,Formation continue (Trésor)
+63140000,Défaut d'investissement construct.
+63180000,Autres taxes versées aux impôts
+63310000,Versement de transport
+63320000,Allocation logement
+63330000,Formation continue (organisme)
+63330000,PART.FORM.CONTINUE
+63330000,PART.FORM.CONTINUE(ORGAN.     
+63340000,Effort de construction
+63350000,Taxe d'apprentissage (verst libér.)
+63380000,Autres taxes versées organismes
+63380000,CONTRIBUTION TRAVAIL. HANDICAP
+63460000,Taxe intérieure s/pdts pétroliers
+63511000,Contribut° économique territoriale
+63511000,TAXE PROFESSIONNELLE
+63511000,TAXE PROFESSIONNELLE          
+63511000,TAXE PROFESSIONNELLE          
+63512000,Taxes foncières
+63512000,TAXE INTERFEL
+63512000,TAXES FONCIERES               
+63513000,Autres impôts locaux
+63514000,Taxes sur les véhicules sociétés
+63514000,TAXES S/VEHICULES SO
+63520000,TVA non récupérables
+63530000,Impôts indirects
+63540000,Vignettes automobiles
+63541000,Droits de mutation
+63542000,Timbres fiscaux
+63543000,Cartes grises
+63560000,Taxes d'usage reversées collectiv.
+63580000,Autres droits
+63580000,AUTRES DROITS
+63580000,AUTRES DROITS                 
+63710000,Contribution sociale de solidarité
+63710000,ORGANIC
+63720000,Taxes perçues org. publics internat
+63730000,CSG Déductible
+63740000,Impôts taxes exigibles à l'étranger
+63780000,Taxes diverses
+64100009,SALAIRE VARIABLE
+64110000,Salaires appointements
+64110000,SALAIRES APPOINT.COM
+64110000,SALAIRES APPOINTEMENTS COMMISS
+64115000,Salaires administrateurs gérance
+64120000,Congés payés
+64120000,CONGES PAYES
+64120000,CONGÉS PAYÉS                  
+64130000,Primes et gratifications
+64130000,PRIMES ET GRATIFICATIONS
+64140000,Indemnités et avantages divers
+64140000,INDEM.ET AVANTAGES D
+64150000,Supplément familial
+64150000,INDEMNITES AUX STAGI
+64170000,Avantages en nature
+64180000,Salaires provisionnés
+64199999,SALAIRE FIXE
+64400000,Rémunération de l'exploitant
+64510000,Cotisations à l'URSSAF
+64510000,COTISATIONS À L'URSSAF        
+64520000,Cotisations aux mutuelles
+64526000,COTISATIONS PRÉVOYANCE        
+64526100,PREVOYANCE APRIL              
+64530000,Cotisations aux caisses de retraite
+64531000,Cotisations retraites (cadres)
+64531000,CAISSE CADRE CPCEA
+64531000,COTISATIONS RETRAITES AGIRC   
+64532000,Cotisations retraites (salariés)
+64532000,COTISATIONS RETRAITES ARCCO   
+64533000,Cotisations Prévoyance
+64540000,Cotisations Pôle Emploi
+64540000,COTISATIONS AUX ASSEDIC       
+64580000,Cotisations autres organism. socx
+64581000,CHARGES SOCIALES / CONGES PAYE
+64600000,Cotisations sociales person.exploit
+64610000,Allocations familiales
+64620000,Maladie
+64630000,Vieillesse
+64640000,Retraite complémentaire et facultat
+64650000,Complémentaire maladie
+64660000,Perte d'emploi
+64700000,Autres charges sociales
+64700000,AUTRES CHARGES SOCIA
+64710000,Prestations directes
+64711000,CH.SOCIALES/CONGES P
+64720000,Comité d'entreprise
+64720000,VERSEMENT COMITE ENTREPRISE
+64730000,Dotations CHSCT
+64740000,Dotations oeuvres sociales
+64750000,Médecine du travail et pharmacie
+64750000,MÉDECINE DU TRAVAIL ET PHARMAC
+64760000,Cartes de transport
+64770000,Tickets restaurants
+64780000,Stages formation perfectionnement
+64800000,Autres charges de personnel
+64800000,AUTRES CHARGES DE PERSONNEL
+64900000,Crédit d'impôt compétitivité entrep
+64900000,CREDIT D'IMPOT CICE
+64900000,CREDIT IMPOT CICE             
+65100000,"Redevances pour brevets, licences"
+65100000,REDEVANCE EXPORT LEG
+65110000,Redevances pour brevets
+65110000,REDEVANCE AGENCE DE L'EAU
+65120000,Redevances SACEM
+65120000,REDEVANCE BRL EXPLOITATION
+65130000,Redevances de franchissage
+65160000,Droits d'auteurs
+65180000,Autres droits et valeurs similaires
+65300000,Jetons de présence
+65400000,Pertes s/créances irrécouvrables
+65410000,Pertes sur créances de l'exercice
+65440000,Pertes sur créances antérieures
+65500000,Quote part de résultat s/opér.comm.
+65800000,Charges diverses gestion courante
+65800000,CHARGES DIVERSES
+65800000,CHARGES DIV.GEST.COURANTE     
+65800000,CHARGES DIVERSES GESTION COURA
+65810000,Démarque inconnue
+66110000,Intérêts des emprunts et dettes
+66110000,Intérêts des emprunts
+66116000,Intérêts sur emprunts et dettes
+66116000,INTERETS EMPRUNTS &DETTES     
+66117000,Intérêts sur dettes participations
+66150000,Intérêts comptes courants dépôts CR
+66150000,INTERETS COMPTES COU
+66150000,INTERETS COMPTES COURANTS     
+66160000,Intérêts bancaires
+66160000,INTERETS BANCAIRES&A
+66160000,INTERETS BANCAIRES &S/ESC     
+66161000,Intérêts d'escompte
+66161000,INT ESCPT LIGNE DE C
+66170000,Intérêts obligations cautionnées
+66180000,Intérêts des autres dettes
+66180000,INTERET AUTRES DETTE
+66181000,ntérêts des dettes commerciales
+66188000,Intérêts des dettes diverses
+66400000,Pertes s/créances liées à particip.
+66500000,Escomptes accordés
+66600000,Pertes de change
+66700000,Charges sur cession de V.M.P
+66800000,Autres charges financières
+66870000,Commission financière d'affacturage
+66880000,Ecart de conversion EURO
+67100000,Charges exception. s/opérat.gestion
+67110000,Pénalités sur marché
+67120000,Pénalités et amendes
+67120000,PENALITES ET AMENDES
+67130000,Dons et libéralités
+67140000,Créances devenues irrécouvrables
+67150000,Subventions accordées
+67170000,Rappel d'impôts hors IS
+67180000,Autres charges except. de gestion
+67180000,AUTRES CHAR.EXCEP.GE
+67181000,Vols
+67182000,Annulation de créances
+67200000,Charges sur exercices antérieurs
+67410000,Op. liées à la constit. fiducie
+67420000,Op. liées à la liquid. fiducie
+67500000,Valeurs compt. éléments actif cédés
+67500000,VAL.NET.COMPT.ELEM.C
+67510000,VNC actifs cédés - Immo incorp.
+67520000,VNC actifs cédés - Immo corporelles
+67560000,VNC actifs cédés - Immo financières
+67800000,Ecart de règlement Débit
+67800000,Ecart de règlement Débit      
+67880000,Charges exceptionnelles diverses
+68111000,Dot. amort. s/immobil. incorporel.
+68111000,DOT.AMORT.IMMOB.INCO
+68112000,Dot. amort. s/immobil. corporel.
+68112000,DOT.AMORT.IMMO. CORP
+68120000,Dot. amort. ch. exploit. à répartir
+68150000,Dot. prov. risques & ch. exploit.
+68161000,Dot. prov. s/immobil. incorporel.
+68162000,Dot. prov. s/immobil. corporel.
+68173000,Dot. prov. dépréc. stocks en-cours
+68174000,Dot. prov. dépréc. créances clients
+68174500,Dot. prov. dépréc. autres créances
+68610000,Dot. prov. amort.prime rembourst
+68640000,Dot. prov. risques part. équivalenc
+68650000,Dot. prov. risques financiers
+68662000,Dot. prov. dépréc. immob. financ.
+68664000,Dot. prov. dépréc. T.I.A.P
+68665000,Dot. prov. dépréc. V.M.P
+68711000,Dot. amort. exce s/immob incorpore.
+68712000,Dot. amort. exce s/immob corporel.
+68720000,Dot. provisions réglementées
+68725000,Dot. amortissements dérogatoires
+68730000,Dot. provisions réglementées
+68740000,Dot. autres provisions réglementées
+68750000,Dot. prov. risques et charges excep
+68760000,Dot. prov. dépréciat. exceptionnel.
+68900000,Dot. provisions pour impôts
+69100000,Participation des salariés
+69100000,PARTICIPATION DES SALARIES
+69500000,Impôts sur les bénéfices
+69600000,Contribution supplémentaire de 10 %
+69700000,Impôsition forfaitaire annuelle
+69810000,Intégration fiscale - charges
+69890000,Intégration fiscale - produits
+69900000,Produits - reports arrière déficits
+69950000,Crédit d'impôt recherche
+69960000,Crédit d'impôt formation
+70100000,Ventes de produits finis
+70100100,VENTE LEGUMES
+70100110,VENTE LEGUMES CEE
+70100300,VENTES LEGUMES DONS
+70101000,VENTE ELECTRICITE B1 CALLEN   
+70102000,VENTE ELECTRICITE METHANISEUR 
+70110000,Ventes produit finis (ou groupe) A
+70120000,Ventes produit finis (ou groupe) B
+70190000,Ventes de produits finis (export)
+70192000,Ventes de produits finis (intracom)
+70200000,Ventes de produits intermédiaires
+70290000,Ventes pdts intermédiaires (export)
+70292000,Ventes pdts intermédiaires (intrac)
+70300000,Ventes de produits résiduels
+70390000,Ventes produits résiduels (export)
+70392000,Ventes produits résiduels (intrac)
+70400000,Travaux
+70490000,Travaux (Export)
+70492000,Travaux (intracom)
+70500000,Etudes
+70590000,Etudes (export)
+70592000,Etudes (intracom)
+70600000,Prestations de services
+70610000,PRESTATIONS DE SERVICE 20%    
+70620000,PREST.SERVICES HT 20
+70621000,PREST SERV 10%
+70631000,PREST.CONDITIONNEMEN
+70640000,PREST SERV CEE
+70680000,Service au % revenant au personnel
+70690000,Prestations de services (export)
+70692000,Prestations de services (intracom)
+70700000,Ventes de marchandises
+70708000,Retrocessions à prix coûtant
+70708400,RETROC.PRIX COUTANT 20%
+70708500,RETROC PRIX COUTANT 10%
+70710000,Ventes de marchandise A
+70720000,Ventes de marchandise B
+70730000,VENTE PALETTES
+70790000,Ventes de marchandises (export)
+70792000,Ventes de marchandises (intracom)
+70800000,Produits des activités annexes
+70802000,VENTE DECHET FER
+70803000,VENTES EMBALLAGES
+70804000,VENTE DECHET EMBALLAGES
+70808900,RETROCESSION PRIX COUTANT CEE
+70810000,CTIFL
+70820000,Commissions et courtages
+70829000,Commissions et courtages (export)
+70830000,Locations
+70830000,LOCATIONS
+70830100,LOC DE TERRE A 20%            
+70832000,Produits des locations immobilières
+70839000,Locations diverses (export)
+70840000,Mise à disposition de personnel
+70840000,VENTE FOURN ET EQUIP
+70849000,Mise disposition personnel (export)
+70849000,VENTE FOURNITURES CEE
+70850000,Ports et frais facturés
+70859000,Ports et frais facturés (export)
+70880000,Autres produits activités annexes
+70889000,Autres produits annexes (export)
+70910000,R.R.R.accordés s/vtes prod. finis
+70910000,RRR S/PROD FINIS CAR
+70919000,R.R.R.accordés s/vtes prod. (export
+70919000,RRR /SUR PRODUITS CEE
+70920000,R.R.R.accordés s/vtes prod. interm.
+70929000,R.R.R.accordés s/vtes interm. (expo
+70940000,R.R.R.accordés s/travaux
+70949000,R.R.R.accordés s/travaux (export)
+70950000,R.R.R.accordés s/études
+70959000,R.R.R.accordés s/études (export)
+70960000,R.R.R.accordés s/prestat. de sces
+70969000,R.R.R.accordés s/prestat. (export)
+70970000,R.R.R.accordés s/vtes de marchand.
+70979000,R.R.R.accordés s/ventes (export)
+70980000,R.R.R.accordés s/prod. activ. ann.
+70989000,R.R.R.accordés s/annexes (export)
+71330000,Variation encours product. biens
+71330000,VARIAT.EN COURS PROD
+71340000,Variation encours product. services
+71350000,Variation stocks produits
+71350000,VARIATION STOCK PROD FINIS
+72000000,Production immobilisée
+72100000,Production immobilisée incorporelle
+72200000,Production immobilisée corporelle
+73000000,Produits nets partiels opér. LT
+74000000,Subventions d'exploitation
+74000000,SUBVENTIONS EXPLOITA
+74200000,INDEMNITES D'ASSURAN
+75100000,"Redevances pour brevets, licences"
+75110000,Redevances pour brevets
+75160000,Droits d'auteurs
+75200000,Revenus immeubl. n/affect. act.prof
+75300000,Jetons présence & rémun. administ.
+75500000,Quotes-parts résult. faites commun
+75800000,Produits divers gestion courante
+75800000,PRODUITS DIV.GESTION
+75800000,PRODUITS DIV.GESTION COUR     
+76100000,Produits de participations
+76100000,PRODUITS DE PARTICIPATION     
+76200000,Produits autres immobilis.financ.
+76210000,Revenus des titres immobilisés
+76240000,Revenus des prêts
+76270000,Revenus des créances immobilisées
+76300000,Revenus autres créances
+76310000,Revenus des créances commerciales
+76380000,Revenus des autres créances
+76400000,Revenus des VMP
+76500000,Escomptes obtenus
+76600000,Gains de change
+76700000,Produits nets s/cessions VMP
+76800000,Autres produits financiers
+76880000,Ecart de conversion EURO
+77100000,Produits except. s/opér. gestion
+77110000,Dédits et pénalités perçus
+77130000,Libéralités perçues
+77140000,Rentrées sur créances amorties
+77150000,Subventions d'équilibre
+77170000,Dégrèvements d'impôts hors IS
+77180000,Autres produits except. de gestion
+77180000,AUTRES PROD.EXCEP.GE
+77200000,Produits des exercices antérieurs
+77500000,Produits cessions éléments d'actif
+77500000,PRODUITS CESS ELEM.C
+77510000,Prod cessions actifs - Immo incorp
+77520000,Prod cessions actifs - Immo corp
+77560000,Prod cessions actifs - Immo Fi.
+77560000,PROD CESSION IMMO FINANCIERE
+77700000,Quote-part des subventions virées
+77800000,Produits exceptionnels divers
+77800000,Ecart de règlement Crédit
+77800000,Ecart de règlement Crédit     
+77880000,Produits exceptionnels divers
+78111000,Repris.s/amort. immob. incorporelle
+78112000,Repris.s/amort. immob. corporelle
+78150000,Repris.s/provis.risques & charges
+78161000,Repris.s/prov.dépréc.immob. incorp.
+78162000,Repris.s/prov.dépréc.immob. corp.
+78173000,Repris.s/prov.dépréc. stocks
+78174000,Repris.s/prov.dépréc. créances
+78174500,Repris.s/prov.dépréc.aut.créances
+78640000,Repris.s/prov.parti. mise en équiv.
+78650000,Repris.s/prov.risques financiers
+78662000,Repris.s/prov.dépréc.immob. financ.
+78664000,Repris.s/prov.dépréc. titres IAP
+78665000,Repris.s/prov.dépréc.valeurs placem
+78711000,Repris.s/amort.immob.incorpo (exce)
+78712000,Repris.s/amort.immob.corpor. (exce)
+78720000,Repris.s/prov.réglementées immob.
+78725000,Reprises amortissements dérogatoire
+78726000,Provision spéciale de réévaluation
+78727000,Plus-values réinvestis
+78730000,Repris.s/prov.réglementées stocks
+78740000,Repris.s/prov.réglementées autres
+78750000,Repris.s/prov.risques charges excep
+78760000,Repris.s/prov.dépréc.exception.
+78900000,Repris.s/provisions pour impôts
+79100000,Transfert de charges d'exploitation
+79100000,TRANSFERT CH.D'EXPLO REMB ASSU
+79110000,Transfert affectant marge comm.
+79110000,REPAS CANTINE
+79114000,TRANSF CHARGES REMB TIPP
+79120000,AVANTAGE EN NATURE VOITURE
+79130000,Transfert affectant valeur ajoutée
+79140000,Transfert affectant EBE
+79150000,Transferts non affectables
+79600000,Transfert de charges financières
+79700000,Transfert de charges exceptionnell.
+79744000,Réintégration rémun. exploitant
+89000000,Compte de bilan

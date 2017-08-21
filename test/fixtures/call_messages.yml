@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2016 Brice Texier, David Joulin
+# Copyright (C) 2012-2017 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -27,7 +27,7 @@
 #  created_at   :datetime         not null
 #  creator_id   :integer
 #  format       :string
-#  headers      :string
+#  headers      :text
 #  id           :integer          not null, primary key
 #  ip_address   :string
 #  lock_version :integer          default(0), not null
@@ -177,6 +177,174 @@ call_requests_009:
   updated_at: 2016-09-09 09:25:45.286899000 Z
   url: gateway.cloud.helileo.com/api/devices/H0000XXX0000000/hooks?access-token=HdSIlEFoFM
   verb: POST
+call_requests_010:
+  body: "#<StringIO:0x007fe7c3033f10>"
+  created_at: 2017-01-04 13:51:55.388878000 Z
+  format: application/json
+  headers: "#<ActionDispatch::Http::Headers:0x007fe7c3040170>"
+  id: 19
+  ip_address: 192.168.1.44
+  lock_version: 0
+  nature: incoming
+  ssl: f
+  type: CallRequest
+  updated_at: 2017-01-04 13:51:55.388878000 Z
+  url: http://192.168.1.2:3000/api/v1/tokens
+  verb: POST
+call_requests_011:
+  body: "#<StringIO:0x007fe7c0cf99a0>"
+  created_at: 2017-01-04 13:51:57.043771000 Z
+  format: application/json
+  headers: "#<ActionDispatch::Http::Headers:0x007fe7bf2a7ea8>"
+  id: 21
+  ip_address: 192.168.1.44
+  lock_version: 0
+  nature: incoming
+  ssl: f
+  type: CallRequest
+  updated_at: 2017-01-04 13:51:57.043771000 Z
+  url: http://192.168.1.2:3000/api/v1/plant_density_abaci
+  verb: GET
+call_requests_012:
+  body: "#<StringIO:0x007fe7bf58e6f8>"
+  created_at: 2017-01-04 13:51:58.023384000 Z
+  format: application/json
+  headers: "#<ActionDispatch::Http::Headers:0x007fe7c07d0d70>"
+  id: 23
+  ip_address: 192.168.1.44
+  lock_version: 0
+  nature: incoming
+  ssl: f
+  type: CallRequest
+  updated_at: 2017-01-04 13:51:58.023384000 Z
+  url: http://192.168.1.2:3000/api/v1/plants
+  verb: GET
+call_requests_013:
+  body: "#<StringIO:0x007fe7ba5ff150>"
+  created_at: 2017-01-04 13:51:59.461522000 Z
+  format: application/json
+  headers: "#<ActionDispatch::Http::Headers:0x007fe7ce155398>"
+  id: 25
+  ip_address: 192.168.1.44
+  lock_version: 0
+  nature: incoming
+  ssl: f
+  type: CallRequest
+  updated_at: 2017-01-04 13:51:59.461522000 Z
+  url: http://192.168.1.2:3000/api/v1/interventions?nature=request&user_email=admin@ekylibre.org&without_interventions=true
+  verb: GET
+call_requests_014:
+  body: "#<StringIO:0x007fe7d0cb24f0>"
+  created_at: 2017-01-04 13:55:58.734916000 Z
+  format: application/json
+  headers: "#<ActionDispatch::Http::Headers:0x007fe7d1516768>"
+  id: 27
+  ip_address: 192.168.1.44
+  lock_version: 0
+  nature: incoming
+  ssl: f
+  type: CallRequest
+  updated_at: 2017-01-04 13:55:58.734916000 Z
+  url: http://192.168.1.2:3000/api/v1/plant_density_abaci
+  verb: GET
+call_requests_015:
+  body: "#<StringIO:0x007fe7d1b96ca0>"
+  created_at: 2017-01-04 13:55:59.014697000 Z
+  format: application/json
+  headers: "#<ActionDispatch::Http::Headers:0x007fe7d236af80>"
+  id: 29
+  ip_address: 192.168.1.44
+  lock_version: 0
+  nature: incoming
+  ssl: f
+  type: CallRequest
+  updated_at: 2017-01-04 13:55:59.014697000 Z
+  url: http://192.168.1.2:3000/api/v1/plants
+  verb: GET
+call_requests_016:
+  body: "#<StringIO:0x007fe7d08aa7b8>"
+  created_at: 2017-01-04 13:55:59.265303000 Z
+  format: application/json
+  headers: "#<ActionDispatch::Http::Headers:0x007fe7ce3d1040>"
+  id: 31
+  ip_address: 192.168.1.44
+  lock_version: 0
+  nature: incoming
+  ssl: f
+  type: CallRequest
+  updated_at: 2017-01-04 13:55:59.265303000 Z
+  url: http://192.168.1.2:3000/api/v1/interventions?nature=request&user_email=admin@ekylibre.org&without_interventions=true
+  verb: GET
+call_requests_017:
+  body: "#<StringIO:0x007fe7cdb59930>"
+  created_at: 2017-01-04 13:55:59.401001000 Z
+  format: application/json
+  headers: "#<ActionDispatch::Http::Headers:0x007fe7cdb59980>"
+  id: 33
+  ip_address: 192.168.1.44
+  lock_version: 0
+  nature: incoming
+  ssl: f
+  type: CallRequest
+  updated_at: 2017-01-04 13:55:59.401001000 Z
+  url: http://192.168.1.2:3000/api/v1/intervention_participations
+  verb: POST
+call_requests_018:
+  body: "#<StringIO:0x007fe7cf9eb808>"
+  created_at: 2017-01-04 13:55:59.540085000 Z
+  format: application/json
+  headers: "#<ActionDispatch::Http::Headers:0x007fe7cf9eb858>"
+  id: 35
+  ip_address: 192.168.1.44
+  lock_version: 0
+  nature: incoming
+  ssl: f
+  type: CallRequest
+  updated_at: 2017-01-04 13:55:59.540085000 Z
+  url: http://192.168.1.2:3000/api/v1/intervention_participations
+  verb: POST
+call_requests_019:
+  body: "#<StringIO:0x007fe7bdf5cce0>"
+  created_at: 2017-01-04 14:03:09.132713000 Z
+  format: application/json
+  headers: "#<ActionDispatch::Http::Headers:0x007fe7bdd73f00>"
+  id: 37
+  ip_address: 192.168.1.44
+  lock_version: 0
+  nature: incoming
+  ssl: f
+  type: CallRequest
+  updated_at: 2017-01-04 14:03:09.132713000 Z
+  url: http://192.168.1.2:3000/api/v1/plant_density_abaci
+  verb: GET
+call_requests_020:
+  body: "#<StringIO:0x007fe7bb6bed88>"
+  created_at: 2017-01-04 14:03:09.298779000 Z
+  format: application/json
+  headers: "#<ActionDispatch::Http::Headers:0x007fe7baad57d8>"
+  id: 39
+  ip_address: 192.168.1.44
+  lock_version: 0
+  nature: incoming
+  ssl: f
+  type: CallRequest
+  updated_at: 2017-01-04 14:03:09.298779000 Z
+  url: http://192.168.1.2:3000/api/v1/plants
+  verb: GET
+call_requests_021:
+  body: "#<StringIO:0x007fe7d1bbf268>"
+  created_at: 2017-01-04 14:03:09.560285000 Z
+  format: application/json
+  headers: "#<ActionDispatch::Http::Headers:0x007fe7d0f2eb70>"
+  id: 41
+  ip_address: 192.168.1.44
+  lock_version: 0
+  nature: incoming
+  ssl: f
+  type: CallRequest
+  updated_at: 2017-01-04 14:03:09.560285000 Z
+  url: http://192.168.1.2:3000/api/v1/interventions?nature=request&user_email=admin@ekylibre.org&without_interventions=true
+  verb: GET
 call_responses_001:
   body: "{\"type\": \"FeatureCollection\",\"lien\": \"http://sd-89062.dedibox.fr/Pieges/index.php?app_key=508707f634e0879ca5e4548c4c5c2f33\",\"version\":
     \"2.0.1\",\"features\": [{ \"geometry\": {\"type\":\"Point\",\"coordinates\":[-0.6062,44.8066]},\n\t\t\t
@@ -2066,3 +2234,174 @@ call_responses_009:
   status: '200'
   type: CallResponse
   updated_at: 2016-09-09 09:25:45.401641000 Z
+call_responses_010:
+  body: '{"token":"kytP1qGY8xubaxAu7yj_"}'
+  created_at: 2017-01-04 13:51:55.489949000 Z
+  format: application/json
+  headers: '{"X-Frame-Options"=>"SAMEORIGIN", "X-XSS-Protection"=>"1; mode=block",
+    "X-Content-Type-Options"=>"nosniff", "X-Ekylibre-Media-Type"=>"ekylibre.v1"}'
+  id: 20
+  lock_version: 0
+  nature: outgoing
+  request_id: 19
+  status: '200'
+  type: CallResponse
+  updated_at: 2017-01-04 13:51:55.489949000 Z
+call_responses_011:
+  body: '[{"id":2,"name":"sdfrtgyujklmù","germination_percentage":"23.0","sampling_length_unit":"centimeter","seeding_density_unit":"thousand_per_hectare","variety_name":"daucus","activity_id":22,"items":[{"id":6,"seeding_density_value":"12.0","plants_count":12}]},{"id":1,"name":"
+    Carotte 3 rangs","germination_percentage":"80.0","sampling_length_unit":"meter","seeding_density_unit":"thousand_per_hectare","variety_name":"daucus","activity_id":22,"items":[{"id":1,"seeding_density_value":"1.5","plants_count":75},{"id":2,"seeding_density_value":"1.6","plants_count":80},{"id":3,"seeding_density_value":"1.7","plants_count":90},{"id":4,"seeding_density_value":"1.8","plants_count":100},{"id":5,"seeding_density_value":"2.0","plants_count":25}]}]'
+  created_at: 2017-01-04 13:51:57.099717000 Z
+  format: application/json
+  headers: '{"X-Frame-Options"=>"SAMEORIGIN", "X-XSS-Protection"=>"1; mode=block",
+    "X-Content-Type-Options"=>"nosniff", "X-Ekylibre-Media-Type"=>"ekylibre.v1"}'
+  id: 22
+  lock_version: 0
+  nature: outgoing
+  request_id: 21
+  status: '200'
+  type: CallResponse
+  updated_at: 2017-01-04 13:51:57.099717000 Z
+call_responses_012:
+  body: '[{"id":181,"name":"sdfghj,k;l:!","number":"PR00000000125","identification_number":null,"work_number":null,"born_at":"2016-04-06T17:23:00.000Z","dead_at":null,"uuid":"a9137f7d-85fc-4d0d-964b-741fc11f9734","variety":"triticum_aestivum","derivative_of":null,"variant_id":16,"nature_id":15,"category_id":8,"activity_id":22},{"id":110,"name":"Culture
+    de vigne [mars. 2008] (La Boutanche)","number":"PR00000000054","identification_number":null,"work_number":null,"born_at":"2008-03-15T15:39:00.000Z","dead_at":null,"uuid":"09251135-3e58-49e6-9d55-70dfa0b3a59b","variety":"vitis_vinifera","derivative_of":null,"variant_id":44,"nature_id":36,"category_id":8,"activity_id":6},{"id":103,"name":"Culture
+    de prairie permanente [sept. 2007] (La Michardière)","number":"PR00000000047","identification_number":null,"work_number":null,"born_at":"2007-09-29T10:59:00.000Z","dead_at":null,"uuid":"7a730c0d-e83b-48a7-88c6-1a09c49ed019","variety":"poa","derivative_of":null,"variant_id":40,"nature_id":34,"category_id":8,"activity_id":3},{"id":92,"name":"Culture
+    de blé [oct. 2012] (La Queue du Loup)","number":"PR00000000036","identification_number":null,"work_number":null,"born_at":"2012-10-17T10:09:00.000Z","dead_at":null,"uuid":"0f085a27-7a0b-4f10-8936-8c8042609feb","variety":"triticum_aestivum","derivative_of":null,"variant_id":16,"nature_id":15,"category_id":8,"activity_id":1},{"id":90,"name":"Culture
+    de blé [nov. 2013] (La Crédanpouille)","number":"PR00000000034","identification_number":null,"work_number":null,"born_at":"2013-11-10T12:01:30.000Z","dead_at":null,"uuid":"83874c39-7047-43e1-9588-b418f207646f","variety":"triticum_aestivum","derivative_of":null,"variant_id":16,"nature_id":15,"category_id":8,"activity_id":null}]'
+  created_at: 2017-01-04 13:51:58.151776000 Z
+  format: application/json
+  headers: '{"X-Frame-Options"=>"SAMEORIGIN", "X-XSS-Protection"=>"1; mode=block",
+    "X-Content-Type-Options"=>"nosniff", "X-Ekylibre-Media-Type"=>"ekylibre.v1"}'
+  id: 24
+  lock_version: 0
+  nature: outgoing
+  request_id: 23
+  status: '200'
+  type: CallResponse
+  updated_at: 2017-01-04 13:51:58.151776000 Z
+call_responses_013:
+  body: "[]"
+  created_at: 2017-01-04 13:51:59.510228000 Z
+  format: application/json
+  headers: '{"X-Frame-Options"=>"SAMEORIGIN", "X-XSS-Protection"=>"1; mode=block",
+    "X-Content-Type-Options"=>"nosniff", "X-Ekylibre-Media-Type"=>"ekylibre.v1"}'
+  id: 26
+  lock_version: 0
+  nature: outgoing
+  request_id: 25
+  status: '200'
+  type: CallResponse
+  updated_at: 2017-01-04 13:51:59.510228000 Z
+call_responses_014:
+  body: '[{"id":2,"name":"sdfrtgyujklmù","germination_percentage":"23.0","sampling_length_unit":"centimeter","seeding_density_unit":"thousand_per_hectare","variety_name":"daucus","activity_id":22,"items":[{"id":6,"seeding_density_value":"12.0","plants_count":12}]},{"id":1,"name":"
+    Carotte 3 rangs","germination_percentage":"80.0","sampling_length_unit":"meter","seeding_density_unit":"thousand_per_hectare","variety_name":"daucus","activity_id":22,"items":[{"id":1,"seeding_density_value":"1.5","plants_count":75},{"id":2,"seeding_density_value":"1.6","plants_count":80},{"id":3,"seeding_density_value":"1.7","plants_count":90},{"id":4,"seeding_density_value":"1.8","plants_count":100},{"id":5,"seeding_density_value":"2.0","plants_count":25}]}]'
+  created_at: 2017-01-04 13:55:58.771617000 Z
+  format: application/json
+  headers: '{"X-Frame-Options"=>"SAMEORIGIN", "X-XSS-Protection"=>"1; mode=block",
+    "X-Content-Type-Options"=>"nosniff", "X-Ekylibre-Media-Type"=>"ekylibre.v1"}'
+  id: 28
+  lock_version: 0
+  nature: outgoing
+  request_id: 27
+  status: '200'
+  type: CallResponse
+  updated_at: 2017-01-04 13:55:58.771617000 Z
+call_responses_015:
+  body: '[{"id":181,"name":"sdfghj,k;l:!","number":"PR00000000125","identification_number":null,"work_number":null,"born_at":"2016-04-06T17:23:00.000Z","dead_at":null,"uuid":"a9137f7d-85fc-4d0d-964b-741fc11f9734","variety":"triticum_aestivum","derivative_of":null,"variant_id":16,"nature_id":15,"category_id":8,"activity_id":22},{"id":110,"name":"Culture
+    de vigne [mars. 2008] (La Boutanche)","number":"PR00000000054","identification_number":null,"work_number":null,"born_at":"2008-03-15T15:39:00.000Z","dead_at":null,"uuid":"09251135-3e58-49e6-9d55-70dfa0b3a59b","variety":"vitis_vinifera","derivative_of":null,"variant_id":44,"nature_id":36,"category_id":8,"activity_id":6},{"id":103,"name":"Culture
+    de prairie permanente [sept. 2007] (La Michardière)","number":"PR00000000047","identification_number":null,"work_number":null,"born_at":"2007-09-29T10:59:00.000Z","dead_at":null,"uuid":"7a730c0d-e83b-48a7-88c6-1a09c49ed019","variety":"poa","derivative_of":null,"variant_id":40,"nature_id":34,"category_id":8,"activity_id":3},{"id":92,"name":"Culture
+    de blé [oct. 2012] (La Queue du Loup)","number":"PR00000000036","identification_number":null,"work_number":null,"born_at":"2012-10-17T10:09:00.000Z","dead_at":null,"uuid":"0f085a27-7a0b-4f10-8936-8c8042609feb","variety":"triticum_aestivum","derivative_of":null,"variant_id":16,"nature_id":15,"category_id":8,"activity_id":1},{"id":90,"name":"Culture
+    de blé [nov. 2013] (La Crédanpouille)","number":"PR00000000034","identification_number":null,"work_number":null,"born_at":"2013-11-10T12:01:30.000Z","dead_at":null,"uuid":"83874c39-7047-43e1-9588-b418f207646f","variety":"triticum_aestivum","derivative_of":null,"variant_id":16,"nature_id":15,"category_id":8,"activity_id":null}]'
+  created_at: 2017-01-04 13:55:59.056733000 Z
+  format: application/json
+  headers: '{"X-Frame-Options"=>"SAMEORIGIN", "X-XSS-Protection"=>"1; mode=block",
+    "X-Content-Type-Options"=>"nosniff", "X-Ekylibre-Media-Type"=>"ekylibre.v1"}'
+  id: 30
+  lock_version: 0
+  nature: outgoing
+  request_id: 29
+  status: '200'
+  type: CallResponse
+  updated_at: 2017-01-04 13:55:59.056733000 Z
+call_responses_016:
+  body: "[]"
+  created_at: 2017-01-04 13:55:59.287883000 Z
+  format: application/json
+  headers: '{"X-Frame-Options"=>"SAMEORIGIN", "X-XSS-Protection"=>"1; mode=block",
+    "X-Content-Type-Options"=>"nosniff", "X-Ekylibre-Media-Type"=>"ekylibre.v1"}'
+  id: 32
+  lock_version: 0
+  nature: outgoing
+  request_id: 31
+  status: '200'
+  type: CallResponse
+  updated_at: 2017-01-04 13:55:59.287883000 Z
+call_responses_017:
+  body: '{"id":2}'
+  created_at: 2017-01-04 13:55:59.437657000 Z
+  format: application/json
+  headers: '{"X-Frame-Options"=>"SAMEORIGIN", "X-XSS-Protection"=>"1; mode=block",
+    "X-Content-Type-Options"=>"nosniff", "X-Ekylibre-Media-Type"=>"ekylibre.v1"}'
+  id: 34
+  lock_version: 0
+  nature: outgoing
+  request_id: 33
+  status: '201'
+  type: CallResponse
+  updated_at: 2017-01-04 13:55:59.437657000 Z
+call_responses_018:
+  body: '{"id":3}'
+  created_at: 2017-01-04 13:55:59.847334000 Z
+  format: application/json
+  headers: '{"X-Frame-Options"=>"SAMEORIGIN", "X-XSS-Protection"=>"1; mode=block",
+    "X-Content-Type-Options"=>"nosniff", "X-Ekylibre-Media-Type"=>"ekylibre.v1"}'
+  id: 36
+  lock_version: 0
+  nature: outgoing
+  request_id: 35
+  status: '201'
+  type: CallResponse
+  updated_at: 2017-01-04 13:55:59.847334000 Z
+call_responses_019:
+  body: '[{"id":2,"name":"sdfrtgyujklmù","germination_percentage":"23.0","sampling_length_unit":"centimeter","seeding_density_unit":"thousand_per_hectare","variety_name":"daucus","activity_id":22,"items":[{"id":6,"seeding_density_value":"12.0","plants_count":12}]},{"id":1,"name":"
+    Carotte 3 rangs","germination_percentage":"80.0","sampling_length_unit":"meter","seeding_density_unit":"thousand_per_hectare","variety_name":"daucus","activity_id":22,"items":[{"id":1,"seeding_density_value":"1.5","plants_count":75},{"id":2,"seeding_density_value":"1.6","plants_count":80},{"id":3,"seeding_density_value":"1.7","plants_count":90},{"id":4,"seeding_density_value":"1.8","plants_count":100},{"id":5,"seeding_density_value":"2.0","plants_count":25}]}]'
+  created_at: 2017-01-04 14:03:09.163930000 Z
+  format: application/json
+  headers: '{"X-Frame-Options"=>"SAMEORIGIN", "X-XSS-Protection"=>"1; mode=block",
+    "X-Content-Type-Options"=>"nosniff", "X-Ekylibre-Media-Type"=>"ekylibre.v1"}'
+  id: 38
+  lock_version: 0
+  nature: outgoing
+  request_id: 37
+  status: '200'
+  type: CallResponse
+  updated_at: 2017-01-04 14:03:09.163930000 Z
+call_responses_020:
+  body: '[{"id":181,"name":"sdfghj,k;l:!","number":"PR00000000125","identification_number":null,"work_number":null,"born_at":"2016-04-06T19:23:00.000+02:00","dead_at":null,"uuid":"a9137f7d-85fc-4d0d-964b-741fc11f9734","variety":"triticum_aestivum","derivative_of":null,"variant_id":16,"nature_id":15,"category_id":8,"activity_id":22},{"id":110,"name":"Culture
+    de vigne [mars. 2008] (La Boutanche)","number":"PR00000000054","identification_number":null,"work_number":null,"born_at":"2008-03-15T16:39:00.000+01:00","dead_at":null,"uuid":"09251135-3e58-49e6-9d55-70dfa0b3a59b","variety":"vitis_vinifera","derivative_of":null,"variant_id":44,"nature_id":36,"category_id":8,"activity_id":6},{"id":103,"name":"Culture
+    de prairie permanente [sept. 2007] (La Michardière)","number":"PR00000000047","identification_number":null,"work_number":null,"born_at":"2007-09-29T12:59:00.000+02:00","dead_at":null,"uuid":"7a730c0d-e83b-48a7-88c6-1a09c49ed019","variety":"poa","derivative_of":null,"variant_id":40,"nature_id":34,"category_id":8,"activity_id":3},{"id":92,"name":"Culture
+    de blé [oct. 2012] (La Queue du Loup)","number":"PR00000000036","identification_number":null,"work_number":null,"born_at":"2012-10-17T12:09:00.000+02:00","dead_at":null,"uuid":"0f085a27-7a0b-4f10-8936-8c8042609feb","variety":"triticum_aestivum","derivative_of":null,"variant_id":16,"nature_id":15,"category_id":8,"activity_id":1},{"id":90,"name":"Culture
+    de blé [nov. 2013] (La Crédanpouille)","number":"PR00000000034","identification_number":null,"work_number":null,"born_at":"2013-11-10T13:01:30.000+01:00","dead_at":null,"uuid":"83874c39-7047-43e1-9588-b418f207646f","variety":"triticum_aestivum","derivative_of":null,"variant_id":16,"nature_id":15,"category_id":8,"activity_id":null}]'
+  created_at: 2017-01-04 14:03:09.345673000 Z
+  format: application/json
+  headers: '{"X-Frame-Options"=>"SAMEORIGIN", "X-XSS-Protection"=>"1; mode=block",
+    "X-Content-Type-Options"=>"nosniff", "X-Ekylibre-Media-Type"=>"ekylibre.v1"}'
+  id: 40
+  lock_version: 0
+  nature: outgoing
+  request_id: 39
+  status: '200'
+  type: CallResponse
+  updated_at: 2017-01-04 14:03:09.345673000 Z
+call_responses_021:
+  body: "[]"
+  created_at: 2017-01-04 14:03:09.584792000 Z
+  format: application/json
+  headers: '{"X-Frame-Options"=>"SAMEORIGIN", "X-XSS-Protection"=>"1; mode=block",
+    "X-Content-Type-Options"=>"nosniff", "X-Ekylibre-Media-Type"=>"ekylibre.v1"}'
+  id: 42
+  lock_version: 0
+  nature: outgoing
+  request_id: 41
+  status: '200'
+  type: CallResponse
+  updated_at: 2017-01-04 14:03:09.584792000 Z

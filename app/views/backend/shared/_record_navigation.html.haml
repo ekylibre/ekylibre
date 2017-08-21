@@ -1,0 +1,7 @@
+.btn-group
+  - if previous[:record]
+    - link_helper = "backend_#{previous[:record].class.name.underscore}_path".to_sym
+    = link_to(previous[:name], send(link_helper, previous[:record]), class: 'btn btn-previous icn icn-before')
+  - if following[:record]
+    - link_helper = "backend_#{following[:record].class.name.underscore}_path".to_sym
+    = link_to(following[:name], send(link_helper, following[:record]), class: 'btn btn-next icn icn-after')

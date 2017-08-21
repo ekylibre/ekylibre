@@ -18,7 +18,9 @@
 
 module Backend
   class BaseController < ::BaseController
-    include Unrollable, RestfullyManageable, Autocomplete
+    include Autocomplete
+    include RestfullyManageable
+    include Unrollable
     protect_from_forgery
 
     layout :dialog_or_not
@@ -27,10 +29,15 @@ module Backend
     before_action :authorize_user!
     before_action :set_versioner
     before_action :set_current_campaign
+    before_action :set_current_period_interval
+    before_action :set_current_period
+    before_action :publish_backend_action
 
     include Userstamp
 
     helper_method :current_campaign
+    helper_method :current_period_interval
+    helper_method :current_period
 
     protected
 
@@ -49,12 +56,42 @@ module Backend
       end
     end
 
+    def current_period_interval
+      @current_period_interval ||= current_user.current_period_interval
+    end
+
+    def set_current_period_interval
+      if params[:current_period_interval]
+        period_interval = params[:current_period_interval].to_sym
+        current_period_interval = current_user.current_period_interval.to_sym
+        if period_interval != current_period_interval
+          @current_period_interval = period_interval
+          current_user.current_period_interval = @current_period_interval
+        end
+      end
+    end
+
+    def current_period
+      @current_period ||= current_user.current_period
+    end
+
+    def set_current_period
+      if params[:current_period]
+        period = params[:current_period].to_date
+        current_period = current_user.current_period.to_date
+        if period != current_period
+          @current_period = period
+          current_user.current_period = @current_period.to_s
+        end
+      end
+    end
+
     # Overrides respond_with method in order to use specific parameters for reports
     # Adds :with and :key, :name parameters
     def respond_with_with_template(*resources, &block)
       resources << {} unless resources.last.is_a?(Hash)
       resources[-1][:with] = (params[:template].to_s =~ /^\d+$/ ? params[:template].to_i : params[:template].to_s) if params[:template]
-      for param in [:key, :name]
+      for param in %i[key name]
         resources[-1][param] = params[param] if params[param]
       end
       respond_with_without_template(*resources, &block)
@@ -79,7 +116,9 @@ module Backend
         notify_error(:unexpected_resource_type, type: klass.model_name)
         return false
       end
-      unless record = klass.find_by(id: id)
+      list = options[:scope] ? klass.send(options[:scope]) : klass
+      record = list.find_by(id: id)
+      unless record
         notify_error(:unavailable_resource, type: klass.model_name.human, id: id)
         redirect_to_back
         return false
@@ -87,32 +126,31 @@ module Backend
       record
     end
 
-    def save_and_redirect(record, options = {}, &_block)
+    def save_and_redirect(record, options = {})
       record.attributes = options[:attributes] if options[:attributes]
       ActiveRecord::Base.transaction do
         if options[:saved] || record.send(:save)
-          yield record if block_given?
           response.headers['X-Return-Code'] = 'success'
           response.headers['X-Saved-Record-Id'] = record.id.to_s
           if params[:dialog]
             head :ok
-          else
-            # TODO: notify if success
-            if options[:url] == :back
-              redirect_to_back
-            elsif params[:redirect]
-              redirect_to params[:redirect]
-            else
-              url = options[:url]
-              record.reload
-              if url.is_a? Hash
-                url.each do |k, v|
-                  url[k] = (v.is_a?(CodeString) ? record.send(v) : v)
-                end
-              end
-              redirect_to(url)
+            return true
+          end
+          if options[:notify]
+            model = record.class
+            notify_success(options[:notify],
+                           record: model.model_name.human,
+                           column: model.human_attribute_name(options[:identifier]),
+                           name: record.send(options[:identifier]))
+          end
+          url = options[:url]
+          record.reload
+          if url.is_a? Hash
+            url.each do |k, v|
+              url[k] = (v.is_a?(CodeString) ? record.send(v) : v)
             end
           end
+          redirect_to(url)
           return true
         end
       end
@@ -158,7 +196,7 @@ module Backend
     def set_theme
       # TODO: Dynamic theme choosing
       if current_user
-        if %w(margarita tekyla tekyla-sunrise).include?(params[:theme])
+        if %w[margarita tekyla tekyla-sunrise].include?(params[:theme])
           current_user.prefer!('theme', params[:theme])
         end
         @current_theme = current_user.preference('theme', 'tekyla').value
@@ -177,6 +215,10 @@ module Backend
       true
     end
 
+    def publish_backend_action
+      Ekylibre::Hook.publish(:backend_action, action: action_name, controller: controller_name, user: current_user)
+    end
+
     def search_article(article = nil)
       # session[:help_history] = [] unless session[:help_history].is_a? [].class
       article ||= "#{controller_path}-#{action_name}"
@@ -185,7 +227,7 @@ module Backend
         for f, attrs in Ekylibre.helps
           next if attrs[:locale].to_s != locale.to_s
           file_name = [article, article.split('-')[0] + '-index'].detect { |name| attrs[:name] == name }
-          (file = f) && break unless file_name.blank?
+          (file = f) && break if file_name.present?
         end
         break unless file.nil?
       end
@@ -213,7 +255,10 @@ module Backend
 
     def fire_event(event)
       return unless record = find_and_check
-      record.send(event)
+      state, msg = record.send(event)
+      if state == false && msg.respond_to?(:map)
+        notify_error(map.collect(&:messages).map(&:values).flatten.join(', '))
+      end
       redirect_to params[:redirect] || { action: :show, id: record.id }
     end
 
@@ -224,7 +269,7 @@ module Backend
         options[:except] ||= []
         options[:filters] ||= {}
         variable ||= options[:variable] || 'params[:q]'
-        tables = search.keys.select { |t| !options[:except].include? t }
+        tables = search.keys.reject { |t| options[:except].include? t }
         code = "\n#{conditions} = ['1=1']\n"
         columns = search.collect do |table, filtered_columns|
           filtered_columns.collect do |column|
@@ -236,12 +281,12 @@ module Backend
         code << "#{variable}.to_s.lower.split(/\\s+/).each do |kw|\n"
         code << "  kw = '%'+kw+'%'\n"
         filters = columns.collect do |x|
-          'LOWER(CAST(' + x.to_s + ' AS VARCHAR)) ILIKE ?'
+          'unaccent(' + x.to_s + '::VARCHAR) ILIKE unaccent(?)'
         end
         exp_count = columns.size
         if options[:expressions]
           filters += options[:expressions].collect do |x|
-            x.to_s + ' ILIKE ?'
+            'unaccent(' + x.to_s + ') ILIKE unaccent(?)'
           end
           exp_count += options[:expressions].count
         end
@@ -251,8 +296,10 @@ module Backend
           v = '[' + v.join(', ') + ']' if v.is_a? Array
           values += '+' + v
         end
-        code << "  #{conditions}[0] += \" AND (#{filters.join(' OR ')})\"\n"
-        code << "  #{conditions} += #{values}\n"
+        if filters.any?
+          code << "  #{conditions}[0] += \" AND (#{filters.join(' OR ')})\"\n"
+          code << "  #{conditions} += #{values}\n"
+        end
         code << "end\n"
         code << conditions.to_s
         code.c
@@ -271,7 +318,7 @@ module Backend
       def crit_params(hash)
         nh = {}
         keys = JournalEntry.state_machine.states.collect(&:name)
-        keys += [:period, :started_at, :stopped_at, :accounts, :centralize]
+        keys += %i[period started_at stopped_at accounts centralize]
         for k, v in hash
           nh[k] = hash[k] if k.to_s.match(/^(journal|level)_\d+$/) || keys.include?(k.to_sym)
         end
@@ -299,6 +346,68 @@ module Backend
         variable = "params[:#{variable}]" unless variable.is_a? String
         code = ''
         code << "#{conditions}[0] += ' AND '+JournalEntry.journal_condition(#{variable}[:journals])\n"
+        code.c
+      end
+
+      def journal_letter_crit(variable, _conditions = 'c', _table_name = nil)
+        variable = "params[:#{variable}]" unless variable.is_a? String
+        code = ''
+        code << "unless #{variable}[:lettering_state].blank?\n"
+        code << "  #{variable}[:lettering_state].each_with_index do |current_lettering_state, index|\n"
+        code << "    if index == 0\n"
+        code << "      c[0] << ' AND('\n"
+        code << "      if current_lettering_state == 'lettered'\n"
+        code << "        c[0] << '(#{JournalEntryItem.table_name}.letter IS NOT NULL AND #{JournalEntryItem.table_name}.letter NOT ILIKE ?)'\n"
+        code << "        c << '%*'\n"
+        code << "      end\n"
+
+        code << "      if current_lettering_state == 'unlettered'\n"
+        code << "        c[0] << '#{JournalEntryItem.table_name}.letter IS NULL'\n"
+        code << "      end\n"
+
+        code << "      if current_lettering_state == 'partially_lettered'\n"
+        code << "        c[0] << '(#{JournalEntryItem.table_name}.letter IS NOT NULL AND #{JournalEntryItem.table_name}.letter ILIKE ?)'\n"
+        code << "        c << '%*'\n"
+        code << "      end\n"
+        code << "    else\n"
+        code << "      if current_lettering_state == 'lettered'\n"
+        code << "        c[0] << ' OR (#{JournalEntryItem.table_name}.letter IS NOT NULL AND #{JournalEntryItem.table_name}.letter NOT ILIKE ?)'\n"
+        code << "        c << '%*'\n"
+        code << "      end\n"
+
+        code << "      if current_lettering_state == 'unlettered'\n"
+        code << "        c[0] << ' OR #{JournalEntryItem.table_name}.letter IS NULL'\n"
+        code << "      end\n"
+
+        code << "      if current_lettering_state == 'partially_lettered'\n"
+        code << "        c[0] << ' OR (#{JournalEntryItem.table_name}.letter IS NOT NULL AND #{JournalEntryItem.table_name}.letter ILIKE ?)'\n"
+        code << "        c << '%*'\n"
+        code << "      end\n"
+        code << "    end\n"
+        code << "  end\n"
+        code << "  c[0] << ')'\n"
+        code << "end\n"
+        code.c
+      end
+
+      def amount_range_crit(variable, _conditions = 'c')
+        variable = "params[:#{variable}]" unless variable.is_a? String
+        code = ''
+        code << "unless #{variable}[:minimum_amount].blank? && #{variable}[:maximum_amount].blank?\n"
+        code << "  if #{variable}[:minimum_amount].blank?\n"
+        code << "    c[0] << ' AND (#{JournalEntryItem.table_name}.absolute_credit <= ' + params[:maximum_amount] + ' AND #{JournalEntryItem.table_name}.absolute_debit <= ' + params[:maximum_amount] + ')'\n"
+        code << "  end\n"
+
+        code << "  if #{variable}[:maximum_amount].blank?\n"
+        code << "    c[0] << ' AND (#{JournalEntryItem.table_name}.absolute_credit >= ' + params[:minimum_amount] + ' OR #{JournalEntryItem.table_name}.absolute_debit >= ' + params[:minimum_amount] + ')'\n"
+        code << "  end\n"
+
+        code << "  if !#{variable}[:minimum_amount].blank? && !#{variable}[:maximum_amount].blank?\n"
+        code << "    c[0] << ' AND ((#{JournalEntryItem.table_name}.absolute_credit >= ' + params[:minimum_amount] + ' AND #{JournalEntryItem.table_name}.absolute_credit <= ' + params[:maximum_amount] + ') OR (#{JournalEntryItem.table_name}.absolute_debit >= ' + params[:minimum_amount] + ' AND #{JournalEntryItem.table_name}.absolute_debit <= ' + params[:maximum_amount] +'))'\n"
+        code << "  end\n"
+
+        code << "end\n"
+
         code.c
       end
     end

@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2016 Brice Texier, David Joulin
+# Copyright (C) 2012-2017 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -22,6 +22,7 @@
 #
 # == Table: loan_repayments
 #
+#  accountable      :boolean          default(FALSE), not null
 #  accounted_at     :datetime
 #  amount           :decimal(19, 4)   not null
 #  base_amount      :decimal(19, 4)   not null
@@ -34,6 +35,7 @@
 #  journal_entry_id :integer
 #  loan_id          :integer          not null
 #  lock_version     :integer          default(0), not null
+#  locked           :boolean          default(FALSE), not null
 #  position         :integer          not null
 #  remaining_amount :decimal(19, 4)   not null
 #  updated_at       :datetime         not null
@@ -41,1255 +43,4456 @@
 #
 ---
 loan_repayments_001:
-  accounted_at: 2016-07-01 20:10:29.128288000 Z
+  accountable: false
+  accounted_at: 2017-06-15 14:31:59.893373000 Z
   amount: 2.07
   base_amount: 0.0
   created_at: 2015-05-07 23:15:03.756298000 Z
   creator_id: 1
-  due_on: 2015-06-01
+  due_on: 2015-05-01
   id: 1
   insurance_amount: 2.07
   interest_amount: 0.0
-  journal_entry_id: 69
   loan_id: 1
-  lock_version: 1
+  lock_version: 2
+  locked: false
   position: 1
   remaining_amount: 2068.0
-  updated_at: 2016-07-01 20:10:29.067439000 Z
+  updated_at: 2017-06-15 14:31:59.822309000 Z
   updater_id: 1
 loan_repayments_002:
-  accounted_at: 2016-07-01 20:10:29.229742000 Z
+  accountable: false
+  accounted_at: 2017-06-15 14:31:59.988915000 Z
   amount: 1088.6
   base_amount: 1016.22
   created_at: 2015-05-07 23:15:03.769771000 Z
   creator_id: 1
-  due_on: 2016-06-01
+  due_on: 2016-05-01
   id: 2
   insurance_amount: 2.07
   interest_amount: 70.31
-  journal_entry_id: 70
   loan_id: 1
-  lock_version: 1
+  lock_version: 2
+  locked: false
   position: 2
   remaining_amount: 1051.78
-  updated_at: 2016-07-01 20:10:29.134489000 Z
+  updated_at: 2017-06-15 14:31:59.897529000 Z
   updater_id: 1
 loan_repayments_003:
-  accounted_at: 2016-07-01 20:10:29.240357000 Z
+  accountable: false
+  accounted_at: 2017-06-15 14:32:00.001737000 Z
   amount: 1088.59
   base_amount: 1051.78
   created_at: 2015-05-07 23:15:03.778392000 Z
   creator_id: 1
-  due_on: 2017-06-01
+  due_on: 2017-05-01
   id: 3
   insurance_amount: 1.05
   interest_amount: 35.76
   loan_id: 1
-  lock_version: 1
+  lock_version: 2
+  locked: false
   position: 3
   remaining_amount: 0.0
-  updated_at: 2016-07-01 20:10:29.235866000 Z
+  updated_at: 2017-06-15 14:31:59.993392000 Z
   updater_id: 1
 loan_repayments_004:
-  accounted_at: 2016-07-01 20:34:23.144610000 Z
+  accountable: false
+  accounted_at: 2017-06-15 14:32:14.325263000 Z
   amount: 109.69
   base_amount: 0.0
   created_at: 2015-05-07 23:16:54.060021000 Z
   creator_id: 1
-  due_on: 2012-04-24
+  due_on: 2012-03-24
   id: 4
   insurance_amount: 29.71
   interest_amount: 79.98
-  journal_entry_id: 32
   loan_id: 2
-  lock_version: 1
+  lock_version: 2
+  locked: false
   position: 1
   remaining_amount: 45700.0
-  updated_at: 2016-07-01 20:34:23.027631000 Z
+  updated_at: 2017-06-15 14:32:14.233737000 Z
   updater_id: 1
 loan_repayments_005:
-  accounted_at: 2016-07-01 20:34:23.257751000 Z
+  accountable: false
+  accounted_at: 2017-06-15 14:32:14.417039000 Z
   amount: 109.69
   base_amount: 0.0
   created_at: 2015-05-07 23:16:55.129554000 Z
   creator_id: 1
-  due_on: 2012-05-24
+  due_on: 2012-04-24
   id: 5
   insurance_amount: 29.71
   interest_amount: 79.98
-  journal_entry_id: 33
   loan_id: 2
-  lock_version: 1
+  lock_version: 2
+  locked: false
   position: 2
   remaining_amount: 45700.0
-  updated_at: 2016-07-01 20:34:23.152685000 Z
+  updated_at: 2017-06-15 14:32:14.329271000 Z
   updater_id: 1
 loan_repayments_006:
-  accounted_at: 2016-07-01 20:34:23.498397000 Z
+  accountable: false
+  accounted_at: 2017-06-15 14:32:14.512479000 Z
   amount: 109.69
   base_amount: 0.0
   created_at: 2015-05-07 23:16:56.086592000 Z
   creator_id: 1
-  due_on: 2012-06-24
+  due_on: 2012-05-24
   id: 6
   insurance_amount: 29.71
   interest_amount: 79.98
-  journal_entry_id: 34
   loan_id: 2
-  lock_version: 1
+  lock_version: 2
+  locked: false
   position: 3
   remaining_amount: 45700.0
-  updated_at: 2016-07-01 20:34:23.265990000 Z
+  updated_at: 2017-06-15 14:32:14.421229000 Z
   updater_id: 1
 loan_repayments_007:
-  accounted_at: 2016-07-01 20:34:23.619736000 Z
+  accountable: false
+  accounted_at: 2017-06-15 14:32:14.607878000 Z
   amount: 109.69
   base_amount: 0.0
   created_at: 2015-05-07 23:16:57.066389000 Z
   creator_id: 1
-  due_on: 2012-07-24
+  due_on: 2012-06-24
   id: 7
   insurance_amount: 29.71
   interest_amount: 79.98
-  journal_entry_id: 35
   loan_id: 2
-  lock_version: 1
+  lock_version: 2
+  locked: false
   position: 4
   remaining_amount: 45700.0
-  updated_at: 2016-07-01 20:34:23.505612000 Z
+  updated_at: 2017-06-15 14:32:14.516963000 Z
   updater_id: 1
 loan_repayments_008:
-  accounted_at: 2016-07-01 20:34:23.747656000 Z
+  accountable: false
+  accounted_at: 2017-06-15 14:32:14.703027000 Z
   amount: 109.69
   base_amount: 0.0
   created_at: 2015-05-07 23:16:58.012861000 Z
   creator_id: 1
-  due_on: 2012-08-24
+  due_on: 2012-07-24
   id: 8
   insurance_amount: 29.71
   interest_amount: 79.98
-  journal_entry_id: 36
   loan_id: 2
-  lock_version: 1
+  lock_version: 2
+  locked: false
   position: 5
   remaining_amount: 45700.0
-  updated_at: 2016-07-01 20:34:23.634114000 Z
+  updated_at: 2017-06-15 14:32:14.612539000 Z
   updater_id: 1
 loan_repayments_009:
-  accounted_at: 2016-07-01 20:34:23.877964000 Z
+  accountable: false
+  accounted_at: 2017-06-15 14:32:14.858604000 Z
   amount: 109.69
   base_amount: 0.0
   created_at: 2015-05-07 23:16:58.953894000 Z
   creator_id: 1
-  due_on: 2012-09-24
+  due_on: 2012-08-24
   id: 9
   insurance_amount: 29.71
   interest_amount: 79.98
-  journal_entry_id: 37
   loan_id: 2
-  lock_version: 1
+  lock_version: 2
+  locked: false
   position: 6
   remaining_amount: 45700.0
-  updated_at: 2016-07-01 20:34:23.759548000 Z
+  updated_at: 2017-06-15 14:32:14.707545000 Z
   updater_id: 1
 loan_repayments_010:
-  accounted_at: 2016-07-01 20:34:23.999456000 Z
+  accountable: false
+  accounted_at: 2017-06-15 14:32:14.953001000 Z
   amount: 109.69
   base_amount: 0.0
   created_at: 2015-05-07 23:16:59.910470000 Z
   creator_id: 1
-  due_on: 2012-10-24
+  due_on: 2012-09-24
   id: 10
   insurance_amount: 29.71
   interest_amount: 79.98
-  journal_entry_id: 38
   loan_id: 2
-  lock_version: 1
+  lock_version: 2
+  locked: false
   position: 7
   remaining_amount: 45700.0
-  updated_at: 2016-07-01 20:34:23.884531000 Z
+  updated_at: 2017-06-15 14:32:14.863155000 Z
   updater_id: 1
 loan_repayments_011:
-  accounted_at: 2016-07-01 20:34:24.122839000 Z
+  accountable: false
+  accounted_at: 2017-06-15 14:32:15.050806000 Z
   amount: 109.69
   base_amount: 0.0
   created_at: 2015-05-07 23:17:00.883089000 Z
   creator_id: 1
-  due_on: 2012-11-24
+  due_on: 2012-10-24
   id: 11
   insurance_amount: 29.71
   interest_amount: 79.98
-  journal_entry_id: 39
   loan_id: 2
-  lock_version: 1
+  lock_version: 2
+  locked: false
   position: 8
   remaining_amount: 45700.0
-  updated_at: 2016-07-01 20:34:24.007336000 Z
+  updated_at: 2017-06-15 14:32:14.957416000 Z
   updater_id: 1
 loan_repayments_012:
-  accounted_at: 2016-07-01 20:34:24.280985000 Z
+  accountable: false
+  accounted_at: 2017-06-15 14:32:15.180286000 Z
   amount: 771.16
   base_amount: 661.47
   created_at: 2015-05-07 23:17:01.847227000 Z
   creator_id: 1
-  due_on: 2012-12-24
+  due_on: 2012-11-24
   id: 12
   insurance_amount: 29.71
   interest_amount: 79.98
-  journal_entry_id: 40
   loan_id: 2
-  lock_version: 1
+  lock_version: 2
+  locked: false
   position: 9
   remaining_amount: 45038.53
-  updated_at: 2016-07-01 20:34:24.128657000 Z
+  updated_at: 2017-06-15 14:32:15.054946000 Z
   updater_id: 1
 loan_repayments_013:
-  accounted_at: 2016-07-01 20:34:24.443066000 Z
+  accountable: false
+  accounted_at: 2017-06-15 14:32:15.301951000 Z
   amount: 771.16
   base_amount: 663.06
   created_at: 2015-05-07 23:17:03.089614000 Z
   creator_id: 1
-  due_on: 2013-01-24
+  due_on: 2012-12-24
   id: 13
   insurance_amount: 29.28
   interest_amount: 78.82
-  journal_entry_id: 41
   loan_id: 2
-  lock_version: 1
+  lock_version: 2
+  locked: false
   position: 10
   remaining_amount: 44375.47
-  updated_at: 2016-07-01 20:34:24.286648000 Z
+  updated_at: 2017-06-15 14:32:15.184814000 Z
   updater_id: 1
 loan_repayments_014:
-  accounted_at: 2016-07-01 20:34:24.602869000 Z
+  accountable: false
+  accounted_at: 2017-06-15 14:32:15.437374000 Z
   amount: 771.16
   base_amount: 664.66
   created_at: 2015-05-07 23:17:04.086659000 Z
   creator_id: 1
-  due_on: 2013-02-24
+  due_on: 2013-01-24
   id: 14
   insurance_amount: 28.84
   interest_amount: 77.66
-  journal_entry_id: 42
   loan_id: 2
-  lock_version: 1
+  lock_version: 2
+  locked: false
   position: 11
   remaining_amount: 43710.81
-  updated_at: 2016-07-01 20:34:24.450650000 Z
+  updated_at: 2017-06-15 14:32:15.306070000 Z
   updater_id: 1
 loan_repayments_015:
-  accounted_at: 2016-07-01 20:34:24.760177000 Z
+  accountable: false
+  accounted_at: 2017-06-15 14:32:15.568017000 Z
   amount: 771.16
   base_amount: 666.26
   created_at: 2015-05-07 23:17:05.905728000 Z
   creator_id: 1
-  due_on: 2013-03-24
+  due_on: 2013-02-24
   id: 15
   insurance_amount: 28.41
   interest_amount: 76.49
-  journal_entry_id: 43
   loan_id: 2
-  lock_version: 1
+  lock_version: 2
+  locked: false
   position: 12
   remaining_amount: 43044.55
-  updated_at: 2016-07-01 20:34:24.611663000 Z
+  updated_at: 2017-06-15 14:32:15.442633000 Z
   updater_id: 1
 loan_repayments_016:
-  accounted_at: 2016-07-01 20:34:24.912475000 Z
+  accountable: false
+  accounted_at: 2017-06-15 14:32:15.711784000 Z
   amount: 771.16
   base_amount: 667.85
   created_at: 2015-05-07 23:17:06.911896000 Z
   creator_id: 1
-  due_on: 2013-04-24
+  due_on: 2013-03-24
   id: 16
   insurance_amount: 27.98
   interest_amount: 75.33
-  journal_entry_id: 44
   loan_id: 2
-  lock_version: 1
+  lock_version: 2
+  locked: false
   position: 13
   remaining_amount: 42376.7
-  updated_at: 2016-07-01 20:34:24.766339000 Z
+  updated_at: 2017-06-15 14:32:15.572830000 Z
   updater_id: 1
 loan_repayments_017:
-  accounted_at: 2016-07-01 20:34:25.062482000 Z
+  accountable: false
+  accounted_at: 2017-06-15 14:32:15.849169000 Z
   amount: 771.16
   base_amount: 669.46
   created_at: 2015-05-07 23:17:07.886122000 Z
   creator_id: 1
-  due_on: 2013-05-24
+  due_on: 2013-04-24
   id: 17
   insurance_amount: 27.54
   interest_amount: 74.16
-  journal_entry_id: 45
   loan_id: 2
-  lock_version: 1
+  lock_version: 2
+  locked: false
   position: 14
   remaining_amount: 41707.24
-  updated_at: 2016-07-01 20:34:24.918385000 Z
+  updated_at: 2017-06-15 14:32:15.716785000 Z
   updater_id: 1
 loan_repayments_018:
-  accounted_at: 2016-07-01 20:34:25.217120000 Z
+  accountable: false
+  accounted_at: 2017-06-15 14:32:15.991352000 Z
   amount: 771.16
   base_amount: 671.06
   created_at: 2015-05-07 23:17:08.852845000 Z
   creator_id: 1
-  due_on: 2013-06-24
+  due_on: 2013-05-24
   id: 18
   insurance_amount: 27.11
   interest_amount: 72.99
-  journal_entry_id: 46
   loan_id: 2
-  lock_version: 1
+  lock_version: 2
+  locked: false
   position: 15
   remaining_amount: 41036.18
-  updated_at: 2016-07-01 20:34:25.072681000 Z
+  updated_at: 2017-06-15 14:32:15.853891000 Z
   updater_id: 1
 loan_repayments_019:
-  accounted_at: 2016-07-01 20:34:25.372690000 Z
+  accountable: false
+  accounted_at: 2017-06-15 14:32:16.167348000 Z
   amount: 771.16
   base_amount: 672.68
   created_at: 2015-05-07 23:17:09.909329000 Z
   creator_id: 1
-  due_on: 2013-07-24
+  due_on: 2013-06-24
   id: 19
   insurance_amount: 26.67
   interest_amount: 71.81
-  journal_entry_id: 47
   loan_id: 2
-  lock_version: 1
+  lock_version: 2
+  locked: false
   position: 16
   remaining_amount: 40363.5
-  updated_at: 2016-07-01 20:34:25.225717000 Z
+  updated_at: 2017-06-15 14:32:15.996648000 Z
   updater_id: 1
 loan_repayments_020:
-  accounted_at: 2016-07-01 20:34:25.520505000 Z
+  accountable: false
+  accounted_at: 2017-06-15 14:32:16.312485000 Z
   amount: 771.16
   base_amount: 674.28
   created_at: 2015-05-07 23:17:10.900653000 Z
   creator_id: 1
-  due_on: 2013-08-24
+  due_on: 2013-07-24
   id: 20
   insurance_amount: 26.24
   interest_amount: 70.64
-  journal_entry_id: 48
   loan_id: 2
-  lock_version: 1
+  lock_version: 2
+  locked: false
   position: 17
   remaining_amount: 39689.22
-  updated_at: 2016-07-01 20:34:25.378816000 Z
+  updated_at: 2017-06-15 14:32:16.173301000 Z
   updater_id: 1
 loan_repayments_021:
-  accounted_at: 2016-07-01 20:34:25.673232000 Z
+  accountable: false
+  accounted_at: 2017-06-15 14:32:16.447439000 Z
   amount: 771.16
   base_amount: 675.9
   created_at: 2015-05-07 23:17:11.859864000 Z
   creator_id: 1
-  due_on: 2013-09-24
+  due_on: 2013-08-24
   id: 21
   insurance_amount: 25.8
   interest_amount: 69.46
-  journal_entry_id: 49
   loan_id: 2
-  lock_version: 1
+  lock_version: 2
+  locked: false
   position: 18
   remaining_amount: 39013.32
-  updated_at: 2016-07-01 20:34:25.526028000 Z
+  updated_at: 2017-06-15 14:32:16.317684000 Z
   updater_id: 1
 loan_repayments_022:
-  accounted_at: 2016-07-01 20:34:25.820949000 Z
+  accountable: false
+  accounted_at: 2017-06-15 14:32:16.587590000 Z
   amount: 771.16
   base_amount: 677.53
   created_at: 2015-05-07 23:17:12.819710000 Z
   creator_id: 1
-  due_on: 2013-10-24
+  due_on: 2013-09-24
   id: 22
   insurance_amount: 25.36
   interest_amount: 68.27
-  journal_entry_id: 50
   loan_id: 2
-  lock_version: 1
+  lock_version: 2
+  locked: false
   position: 19
   remaining_amount: 38335.79
-  updated_at: 2016-07-01 20:34:25.680547000 Z
+  updated_at: 2017-06-15 14:32:16.452108000 Z
   updater_id: 1
 loan_repayments_023:
-  accounted_at: 2016-07-01 20:34:25.964826000 Z
+  accountable: false
+  accounted_at: 2017-06-15 14:32:16.724513000 Z
   amount: 771.16
   base_amount: 679.15
   created_at: 2015-05-07 23:17:13.798569000 Z
   creator_id: 1
-  due_on: 2013-11-24
+  due_on: 2013-10-24
   id: 23
   insurance_amount: 24.92
   interest_amount: 67.09
-  journal_entry_id: 51
   loan_id: 2
-  lock_version: 1
+  lock_version: 2
+  locked: false
   position: 20
   remaining_amount: 37656.64
-  updated_at: 2016-07-01 20:34:25.826663000 Z
+  updated_at: 2017-06-15 14:32:16.592534000 Z
   updater_id: 1
 loan_repayments_024:
-  accounted_at: 2016-07-01 20:34:26.110937000 Z
+  accountable: false
+  accounted_at: 2017-06-15 14:32:16.863872000 Z
   amount: 771.16
   base_amount: 680.78
   created_at: 2015-05-07 23:17:14.830991000 Z
   creator_id: 1
-  due_on: 2013-12-24
+  due_on: 2013-11-24
   id: 24
   insurance_amount: 24.48
   interest_amount: 65.9
-  journal_entry_id: 52
   loan_id: 2
-  lock_version: 1
+  lock_version: 2
+  locked: false
   position: 21
   remaining_amount: 36975.86
-  updated_at: 2016-07-01 20:34:25.970595000 Z
+  updated_at: 2017-06-15 14:32:16.729676000 Z
   updater_id: 1
 loan_repayments_025:
-  accounted_at: 2016-07-01 20:34:26.255577000 Z
+  accountable: false
+  accounted_at: 2017-06-15 14:32:16.984982000 Z
   amount: 771.16
   base_amount: 682.42
   created_at: 2015-05-07 23:17:15.817273000 Z
   creator_id: 1
-  due_on: 2014-01-24
+  due_on: 2013-12-24
   id: 25
   insurance_amount: 24.03
   interest_amount: 64.71
-  journal_entry_id: 53
   loan_id: 2
-  lock_version: 1
+  lock_version: 2
+  locked: false
   position: 22
   remaining_amount: 36293.44
-  updated_at: 2016-07-01 20:34:26.116060000 Z
+  updated_at: 2017-06-15 14:32:16.868393000 Z
   updater_id: 1
 loan_repayments_026:
-  accounted_at: 2016-07-01 20:34:26.403789000 Z
+  accountable: false
+  accounted_at: 2017-06-15 14:32:17.101781000 Z
   amount: 771.16
   base_amount: 684.06
   created_at: 2015-05-07 23:17:16.785192000 Z
   creator_id: 1
-  due_on: 2014-02-24
+  due_on: 2014-01-24
   id: 26
   insurance_amount: 23.59
   interest_amount: 63.51
-  journal_entry_id: 54
   loan_id: 2
-  lock_version: 1
+  lock_version: 2
+  locked: false
   position: 23
   remaining_amount: 35609.38
-  updated_at: 2016-07-01 20:34:26.262954000 Z
+  updated_at: 2017-06-15 14:32:16.989033000 Z
   updater_id: 1
 loan_repayments_027:
-  accounted_at: 2016-07-01 20:34:26.693686000 Z
+  accountable: false
+  accounted_at: 2017-06-15 14:32:17.219339000 Z
   amount: 771.16
   base_amount: 685.69
   created_at: 2015-05-07 23:17:17.779473000 Z
   creator_id: 1
-  due_on: 2014-03-24
+  due_on: 2014-02-24
   id: 27
   insurance_amount: 23.15
   interest_amount: 62.32
-  journal_entry_id: 55
   loan_id: 2
-  lock_version: 1
+  lock_version: 2
+  locked: false
   position: 24
   remaining_amount: 34923.69
-  updated_at: 2016-07-01 20:34:26.415168000 Z
+  updated_at: 2017-06-15 14:32:17.105944000 Z
   updater_id: 1
 loan_repayments_028:
-  accounted_at: 2016-07-01 20:34:26.856086000 Z
+  accountable: false
+  accounted_at: 2017-06-15 14:32:17.333162000 Z
   amount: 771.16
   base_amount: 687.34
   created_at: 2015-05-07 23:17:18.764121000 Z
   creator_id: 1
-  due_on: 2014-04-24
+  due_on: 2014-03-24
   id: 28
   insurance_amount: 22.7
   interest_amount: 61.12
-  journal_entry_id: 56
   loan_id: 2
-  lock_version: 1
+  lock_version: 2
+  locked: false
   position: 25
   remaining_amount: 34236.35
-  updated_at: 2016-07-01 20:34:26.699454000 Z
+  updated_at: 2017-06-15 14:32:17.223688000 Z
   updater_id: 1
 loan_repayments_029:
-  accounted_at: 2016-07-01 20:34:27.018117000 Z
+  accountable: false
+  accounted_at: 2017-06-15 14:32:17.447446000 Z
   amount: 771.16
   base_amount: 689.0
   created_at: 2015-05-07 23:17:19.790429000 Z
   creator_id: 1
-  due_on: 2014-05-24
+  due_on: 2014-04-24
   id: 29
   insurance_amount: 22.25
   interest_amount: 59.91
-  journal_entry_id: 57
   loan_id: 2
-  lock_version: 1
+  lock_version: 2
+  locked: false
   position: 26
   remaining_amount: 33547.35
-  updated_at: 2016-07-01 20:34:26.862232000 Z
+  updated_at: 2017-06-15 14:32:17.337100000 Z
   updater_id: 1
 loan_repayments_030:
-  accounted_at: 2016-07-01 20:34:27.189074000 Z
+  accountable: false
+  accounted_at: 2017-06-15 14:32:17.563618000 Z
   amount: 771.16
   base_amount: 690.64
   created_at: 2015-05-07 23:17:20.798792000 Z
   creator_id: 1
-  due_on: 2014-06-24
+  due_on: 2014-05-24
   id: 30
   insurance_amount: 21.81
   interest_amount: 58.71
-  journal_entry_id: 58
   loan_id: 2
-  lock_version: 1
+  lock_version: 2
+  locked: false
   position: 27
   remaining_amount: 32856.71
-  updated_at: 2016-07-01 20:34:27.024655000 Z
+  updated_at: 2017-06-15 14:32:17.453213000 Z
   updater_id: 1
 loan_repayments_031:
-  accounted_at: 2016-07-01 20:34:27.363821000 Z
+  accountable: false
+  accounted_at: 2017-06-15 14:32:17.680622000 Z
   amount: 771.16
   base_amount: 692.3
   created_at: 2015-05-07 23:17:21.802229000 Z
   creator_id: 1
-  due_on: 2014-07-24
+  due_on: 2014-06-24
   id: 31
   insurance_amount: 21.36
   interest_amount: 57.5
-  journal_entry_id: 59
   loan_id: 2
-  lock_version: 1
+  lock_version: 2
+  locked: false
   position: 28
   remaining_amount: 32164.41
-  updated_at: 2016-07-01 20:34:27.201570000 Z
+  updated_at: 2017-06-15 14:32:17.567597000 Z
   updater_id: 1
 loan_repayments_032:
-  accounted_at: 2016-07-01 20:34:27.521207000 Z
+  accountable: false
+  accounted_at: 2017-06-15 14:32:17.888619000 Z
   amount: 771.16
   base_amount: 693.96
   created_at: 2015-05-07 23:17:22.873703000 Z
   creator_id: 1
-  due_on: 2014-08-24
+  due_on: 2014-07-24
   id: 32
   insurance_amount: 20.91
   interest_amount: 56.29
-  journal_entry_id: 60
   loan_id: 2
-  lock_version: 1
+  lock_version: 2
+  locked: false
   position: 29
   remaining_amount: 31470.45
-  updated_at: 2016-07-01 20:34:27.369465000 Z
+  updated_at: 2017-06-15 14:32:17.684472000 Z
   updater_id: 1
 loan_repayments_033:
-  accounted_at: 2016-07-01 20:34:27.684148000 Z
+  accountable: false
+  accounted_at: 2017-06-15 14:32:18.012256000 Z
   amount: 771.16
   base_amount: 695.63
   created_at: 2015-05-07 23:17:23.848957000 Z
   creator_id: 1
-  due_on: 2014-09-24
+  due_on: 2014-08-24
   id: 33
   insurance_amount: 20.46
   interest_amount: 55.07
-  journal_entry_id: 61
   loan_id: 2
-  lock_version: 1
+  lock_version: 2
+  locked: false
   position: 30
   remaining_amount: 30774.82
-  updated_at: 2016-07-01 20:34:27.532635000 Z
+  updated_at: 2017-06-15 14:32:17.893401000 Z
   updater_id: 1
 loan_repayments_034:
-  accounted_at: 2016-07-01 20:34:27.841382000 Z
+  accountable: false
+  accounted_at: 2017-06-15 14:32:18.144465000 Z
   amount: 771.16
   base_amount: 697.3
   created_at: 2015-05-07 23:17:24.906555000 Z
   creator_id: 1
-  due_on: 2014-10-24
+  due_on: 2014-09-24
   id: 34
   insurance_amount: 20.0
   interest_amount: 53.86
-  journal_entry_id: 62
   loan_id: 2
-  lock_version: 1
+  lock_version: 2
+  locked: false
   position: 31
   remaining_amount: 30077.52
-  updated_at: 2016-07-01 20:34:27.689979000 Z
+  updated_at: 2017-06-15 14:32:18.017068000 Z
   updater_id: 1
 loan_repayments_035:
-  accounted_at: 2016-07-01 20:34:27.999241000 Z
+  accountable: false
+  accounted_at: 2017-06-15 14:32:18.266251000 Z
   amount: 771.16
   base_amount: 698.97
   created_at: 2015-05-07 23:17:25.890226000 Z
   creator_id: 1
-  due_on: 2014-11-24
+  due_on: 2014-10-24
   id: 35
   insurance_amount: 19.55
   interest_amount: 52.64
-  journal_entry_id: 63
   loan_id: 2
-  lock_version: 1
+  lock_version: 2
+  locked: false
   position: 32
   remaining_amount: 29378.55
-  updated_at: 2016-07-01 20:34:27.847180000 Z
+  updated_at: 2017-06-15 14:32:18.149280000 Z
   updater_id: 1
 loan_repayments_036:
-  accounted_at: 2016-07-01 20:34:28.153384000 Z
+  accountable: false
+  accounted_at: 2017-06-15 14:32:18.389140000 Z
   amount: 771.16
   base_amount: 700.65
   created_at: 2015-05-07 23:17:26.882738000 Z
   creator_id: 1
-  due_on: 2014-12-24
+  due_on: 2014-11-24
   id: 36
   insurance_amount: 19.1
   interest_amount: 51.41
-  journal_entry_id: 64
   loan_id: 2
-  lock_version: 1
+  lock_version: 2
+  locked: false
   position: 33
   remaining_amount: 28677.9
-  updated_at: 2016-07-01 20:34:28.005061000 Z
+  updated_at: 2017-06-15 14:32:18.270906000 Z
   updater_id: 1
 loan_repayments_037:
-  accounted_at: 2016-07-01 20:34:28.306925000 Z
+  accountable: false
+  accounted_at: 2017-06-15 14:32:18.510855000 Z
   amount: 771.16
   base_amount: 702.33
   created_at: 2015-05-07 23:17:27.894280000 Z
   creator_id: 1
-  due_on: 2015-01-24
+  due_on: 2014-12-24
   id: 37
   insurance_amount: 18.64
   interest_amount: 50.19
-  journal_entry_id: 65
   loan_id: 2
-  lock_version: 1
+  lock_version: 2
+  locked: false
   position: 34
   remaining_amount: 27975.57
-  updated_at: 2016-07-01 20:34:28.158836000 Z
+  updated_at: 2017-06-15 14:32:18.393777000 Z
   updater_id: 1
 loan_repayments_038:
-  accounted_at: 2016-07-01 20:34:28.466174000 Z
+  accountable: false
+  accounted_at: 2017-06-15 14:32:18.629125000 Z
   amount: 771.16
   base_amount: 704.02
   created_at: 2015-05-07 23:17:28.886125000 Z
   creator_id: 1
-  due_on: 2015-02-24
+  due_on: 2015-01-24
   id: 38
   insurance_amount: 18.18
   interest_amount: 48.96
-  journal_entry_id: 66
   loan_id: 2
-  lock_version: 1
+  lock_version: 2
+  locked: false
   position: 35
   remaining_amount: 27271.55
-  updated_at: 2016-07-01 20:34:28.312645000 Z
+  updated_at: 2017-06-15 14:32:18.515577000 Z
   updater_id: 1
 loan_repayments_039:
-  accounted_at: 2016-07-01 20:34:28.623107000 Z
+  accountable: false
+  accounted_at: 2017-06-15 14:32:18.744479000 Z
   amount: 771.16
   base_amount: 705.7
   created_at: 2015-05-07 23:17:29.936423000 Z
   creator_id: 1
-  due_on: 2015-03-24
+  due_on: 2015-02-24
   id: 39
   insurance_amount: 17.73
   interest_amount: 47.73
-  journal_entry_id: 67
   loan_id: 2
-  lock_version: 1
+  lock_version: 2
+  locked: false
   position: 36
   remaining_amount: 26565.85
-  updated_at: 2016-07-01 20:34:28.471875000 Z
+  updated_at: 2017-06-15 14:32:18.633745000 Z
   updater_id: 1
 loan_repayments_040:
-  accounted_at: 2016-07-01 20:34:28.798299000 Z
+  accountable: false
+  accounted_at: 2017-06-15 14:32:18.857952000 Z
   amount: 771.16
   base_amount: 707.4
   created_at: 2015-05-07 23:17:31.018418000 Z
   creator_id: 1
-  due_on: 2015-04-24
+  due_on: 2015-03-24
   id: 40
   insurance_amount: 17.27
   interest_amount: 46.49
-  journal_entry_id: 68
   loan_id: 2
-  lock_version: 1
+  lock_version: 2
+  locked: false
   position: 37
   remaining_amount: 25858.45
-  updated_at: 2016-07-01 20:34:28.628404000 Z
+  updated_at: 2017-06-15 14:32:18.748647000 Z
   updater_id: 1
 loan_repayments_041:
-  accounted_at: 2016-07-01 20:34:29.674253000 Z
+  accountable: false
+  accounted_at: 2017-06-15 14:32:18.971396000 Z
   amount: 771.16
   base_amount: 709.1
   created_at: 2015-05-07 23:17:31.993729000 Z
   creator_id: 1
-  due_on: 2015-05-24
+  due_on: 2015-04-24
   id: 41
   insurance_amount: 16.81
   interest_amount: 45.25
-  journal_entry_id: 72
   loan_id: 2
-  lock_version: 1
+  lock_version: 2
+  locked: false
   position: 38
   remaining_amount: 25149.35
-  updated_at: 2016-07-01 20:34:28.809227000 Z
+  updated_at: 2017-06-15 14:32:18.862421000 Z
   updater_id: 1
 loan_repayments_042:
-  accounted_at: 2016-07-01 20:34:30.767546000 Z
+  accountable: false
+  accounted_at: 2017-06-15 14:32:19.085459000 Z
   amount: 771.16
   base_amount: 710.8
   created_at: 2015-05-07 23:17:32.002163000 Z
   creator_id: 1
-  due_on: 2015-06-24
+  due_on: 2015-05-24
   id: 42
   insurance_amount: 16.35
   interest_amount: 44.01
-  journal_entry_id: 73
   loan_id: 2
-  lock_version: 1
+  lock_version: 2
+  locked: false
   position: 39
   remaining_amount: 24438.55
-  updated_at: 2016-07-01 20:34:29.686613000 Z
+  updated_at: 2017-06-15 14:32:18.975832000 Z
   updater_id: 1
 loan_repayments_043:
-  accounted_at: 2016-07-01 20:34:31.711028000 Z
+  accountable: false
+  accounted_at: 2017-06-15 14:32:19.196942000 Z
   amount: 771.16
   base_amount: 712.5
   created_at: 2015-05-07 23:17:32.009591000 Z
   creator_id: 1
-  due_on: 2015-07-24
+  due_on: 2015-06-24
   id: 43
   insurance_amount: 15.89
   interest_amount: 42.77
-  journal_entry_id: 74
   loan_id: 2
-  lock_version: 1
+  lock_version: 2
+  locked: false
   position: 40
   remaining_amount: 23726.05
-  updated_at: 2016-07-01 20:34:30.772825000 Z
+  updated_at: 2017-06-15 14:32:19.090263000 Z
   updater_id: 1
 loan_repayments_044:
-  accounted_at: 2016-07-01 20:34:32.698103000 Z
+  accountable: false
+  accounted_at: 2017-06-15 14:32:19.308109000 Z
   amount: 771.16
   base_amount: 714.22
   created_at: 2015-05-07 23:17:32.016572000 Z
   creator_id: 1
-  due_on: 2015-08-24
+  due_on: 2015-07-24
   id: 44
   insurance_amount: 15.42
   interest_amount: 41.52
-  journal_entry_id: 75
   loan_id: 2
-  lock_version: 1
+  lock_version: 2
+  locked: false
   position: 41
   remaining_amount: 23011.83
-  updated_at: 2016-07-01 20:34:31.716667000 Z
+  updated_at: 2017-06-15 14:32:19.201127000 Z
   updater_id: 1
 loan_repayments_045:
-  accounted_at: 2016-07-01 20:34:34.592744000 Z
+  accountable: false
+  accounted_at: 2017-06-15 14:32:19.414950000 Z
   amount: 771.16
   base_amount: 715.93
   created_at: 2015-05-07 23:17:32.023719000 Z
   creator_id: 1
-  due_on: 2015-09-24
+  due_on: 2015-08-24
   id: 45
   insurance_amount: 14.96
   interest_amount: 40.27
-  journal_entry_id: 76
   loan_id: 2
-  lock_version: 1
+  lock_version: 2
+  locked: false
   position: 42
   remaining_amount: 22295.9
-  updated_at: 2016-07-01 20:34:32.703501000 Z
+  updated_at: 2017-06-15 14:32:19.312244000 Z
   updater_id: 1
 loan_repayments_046:
-  accounted_at: 2016-07-01 20:34:35.488787000 Z
+  accountable: false
+  accounted_at: 2017-06-15 14:32:19.520814000 Z
   amount: 771.16
   base_amount: 717.65
   created_at: 2015-05-07 23:17:32.031120000 Z
   creator_id: 1
-  due_on: 2015-10-24
+  due_on: 2015-09-24
   id: 46
   insurance_amount: 14.49
   interest_amount: 39.02
-  journal_entry_id: 77
   loan_id: 2
-  lock_version: 1
+  lock_version: 2
+  locked: false
   position: 43
   remaining_amount: 21578.25
-  updated_at: 2016-07-01 20:34:34.598138000 Z
+  updated_at: 2017-06-15 14:32:19.418924000 Z
   updater_id: 1
 loan_repayments_047:
-  accounted_at: 2016-07-01 20:34:36.457973000 Z
+  accountable: false
+  accounted_at: 2017-06-15 14:32:19.626904000 Z
   amount: 771.16
   base_amount: 719.37
   created_at: 2015-05-07 23:17:32.037578000 Z
   creator_id: 1
-  due_on: 2015-11-24
+  due_on: 2015-10-24
   id: 47
   insurance_amount: 14.03
   interest_amount: 37.76
-  journal_entry_id: 78
   loan_id: 2
-  lock_version: 1
+  lock_version: 2
+  locked: false
   position: 44
   remaining_amount: 20858.88
-  updated_at: 2016-07-01 20:34:35.495019000 Z
+  updated_at: 2017-06-15 14:32:19.525754000 Z
   updater_id: 1
 loan_repayments_048:
-  accounted_at: 2016-07-01 20:34:37.402647000 Z
+  accountable: false
+  accounted_at: 2017-06-15 14:32:19.760208000 Z
   amount: 771.16
   base_amount: 721.1
   created_at: 2015-05-07 23:17:32.044751000 Z
   creator_id: 1
-  due_on: 2015-12-24
+  due_on: 2015-11-24
   id: 48
   insurance_amount: 13.56
   interest_amount: 36.5
-  journal_entry_id: 79
   loan_id: 2
-  lock_version: 1
+  lock_version: 2
+  locked: false
   position: 45
   remaining_amount: 20137.78
-  updated_at: 2016-07-01 20:34:36.470101000 Z
+  updated_at: 2017-06-15 14:32:19.630873000 Z
   updater_id: 1
 loan_repayments_049:
-  accounted_at: 2016-07-01 20:34:38.378275000 Z
+  accountable: false
+  accounted_at: 2017-06-15 14:32:19.865332000 Z
   amount: 771.16
   base_amount: 722.83
   created_at: 2015-05-07 23:17:32.051682000 Z
   creator_id: 1
-  due_on: 2016-01-24
+  due_on: 2015-12-24
   id: 49
   insurance_amount: 13.09
   interest_amount: 35.24
-  journal_entry_id: 80
   loan_id: 2
-  lock_version: 1
+  lock_version: 2
+  locked: false
   position: 46
   remaining_amount: 19414.95
-  updated_at: 2016-07-01 20:34:37.408270000 Z
+  updated_at: 2017-06-15 14:32:19.764643000 Z
   updater_id: 1
 loan_repayments_050:
-  accounted_at: 2016-07-01 20:34:39.274429000 Z
+  accountable: false
+  accounted_at: 2017-06-15 14:32:19.966246000 Z
   amount: 771.16
   base_amount: 724.56
   created_at: 2015-05-07 23:17:32.059852000 Z
   creator_id: 1
-  due_on: 2016-02-24
+  due_on: 2016-01-24
   id: 50
   insurance_amount: 12.62
   interest_amount: 33.98
-  journal_entry_id: 81
   loan_id: 2
-  lock_version: 1
+  lock_version: 2
+  locked: false
   position: 47
   remaining_amount: 18690.39
-  updated_at: 2016-07-01 20:34:38.386206000 Z
+  updated_at: 2017-06-15 14:32:19.869370000 Z
   updater_id: 1
 loan_repayments_051:
-  accounted_at: 2016-07-01 20:34:40.237502000 Z
+  accountable: false
+  accounted_at: 2017-06-15 14:32:20.072050000 Z
   amount: 771.16
   base_amount: 726.3
   created_at: 2015-05-07 23:17:32.066745000 Z
   creator_id: 1
-  due_on: 2016-03-24
+  due_on: 2016-02-24
   id: 51
   insurance_amount: 12.15
   interest_amount: 32.71
-  journal_entry_id: 82
   loan_id: 2
-  lock_version: 1
+  lock_version: 2
+  locked: false
   position: 48
   remaining_amount: 17964.09
-  updated_at: 2016-07-01 20:34:39.285466000 Z
+  updated_at: 2017-06-15 14:32:19.970426000 Z
   updater_id: 1
 loan_repayments_052:
-  accounted_at: 2016-07-01 20:34:41.180809000 Z
+  accountable: false
+  accounted_at: 2017-06-15 14:32:20.174906000 Z
   amount: 771.16
   base_amount: 728.04
   created_at: 2015-05-07 23:17:32.073372000 Z
   creator_id: 1
-  due_on: 2016-04-24
+  due_on: 2016-03-24
   id: 52
   insurance_amount: 11.68
   interest_amount: 31.44
-  journal_entry_id: 83
   loan_id: 2
-  lock_version: 1
+  lock_version: 2
+  locked: false
   position: 49
   remaining_amount: 17236.05
-  updated_at: 2016-07-01 20:34:40.242730000 Z
+  updated_at: 2017-06-15 14:32:20.076182000 Z
   updater_id: 1
 loan_repayments_053:
-  accounted_at: 2016-07-01 20:34:42.114125000 Z
+  accountable: false
+  accounted_at: 2017-06-15 14:32:20.279051000 Z
   amount: 771.16
   base_amount: 729.8
   created_at: 2015-05-07 23:17:32.079926000 Z
   creator_id: 1
-  due_on: 2016-05-24
+  due_on: 2016-04-24
   id: 53
   insurance_amount: 11.2
   interest_amount: 30.16
-  journal_entry_id: 84
   loan_id: 2
-  lock_version: 1
+  lock_version: 2
+  locked: false
   position: 50
   remaining_amount: 16506.25
-  updated_at: 2016-07-01 20:34:41.186432000 Z
+  updated_at: 2017-06-15 14:32:20.178807000 Z
   updater_id: 1
 loan_repayments_054:
-  accounted_at: 2016-07-01 20:34:43.000884000 Z
+  accountable: false
+  accounted_at: 2017-06-15 14:32:20.380696000 Z
   amount: 771.16
   base_amount: 731.54
   created_at: 2015-05-07 23:17:32.087697000 Z
   creator_id: 1
-  due_on: 2016-06-24
+  due_on: 2016-05-24
   id: 54
   insurance_amount: 10.73
   interest_amount: 28.89
-  journal_entry_id: 85
   loan_id: 2
-  lock_version: 1
+  lock_version: 2
+  locked: false
   position: 51
   remaining_amount: 15774.71
-  updated_at: 2016-07-01 20:34:42.119452000 Z
+  updated_at: 2017-06-15 14:32:20.283430000 Z
   updater_id: 1
 loan_repayments_055:
-  accounted_at: 2016-07-01 20:34:43.010834000 Z
+  accountable: true
+  accounted_at: 2017-06-15 14:32:20.392779000 Z
   amount: 771.16
   base_amount: 733.3
   created_at: 2015-05-07 23:17:32.096028000 Z
   creator_id: 1
-  due_on: 2016-07-24
+  due_on: 2016-06-24
   id: 55
   insurance_amount: 10.25
   interest_amount: 27.61
   loan_id: 2
-  lock_version: 1
+  lock_version: 3
+  locked: false
   position: 52
   remaining_amount: 15041.41
-  updated_at: 2016-07-01 20:34:43.006433000 Z
+  updated_at: 2017-06-15 14:32:20.384695000 Z
   updater_id: 1
 loan_repayments_056:
-  accounted_at: 2016-07-01 20:34:43.020058000 Z
+  accountable: true
+  accounted_at: 2017-06-15 14:32:20.404434000 Z
   amount: 771.16
   base_amount: 735.06
   created_at: 2015-05-07 23:17:32.102874000 Z
   creator_id: 1
-  due_on: 2016-08-24
+  due_on: 2016-07-24
   id: 56
   insurance_amount: 9.78
   interest_amount: 26.32
   loan_id: 2
-  lock_version: 1
+  lock_version: 3
+  locked: false
   position: 53
   remaining_amount: 14306.35
-  updated_at: 2016-07-01 20:34:43.015984000 Z
+  updated_at: 2017-06-15 14:32:20.396725000 Z
   updater_id: 1
 loan_repayments_057:
-  accounted_at: 2016-07-01 20:34:43.028811000 Z
+  accountable: true
+  accounted_at: 2017-06-15 14:32:20.414896000 Z
   amount: 771.16
   base_amount: 736.82
   created_at: 2015-05-07 23:17:32.109887000 Z
   creator_id: 1
-  due_on: 2016-09-24
+  due_on: 2016-08-24
   id: 57
   insurance_amount: 9.3
   interest_amount: 25.04
   loan_id: 2
-  lock_version: 1
+  lock_version: 3
+  locked: false
   position: 54
   remaining_amount: 13569.53
-  updated_at: 2016-07-01 20:34:43.025103000 Z
+  updated_at: 2017-06-15 14:32:20.408280000 Z
   updater_id: 1
 loan_repayments_058:
-  accounted_at: 2016-07-01 20:34:43.037429000 Z
+  accountable: true
+  accounted_at: 2017-06-15 14:32:20.425059000 Z
   amount: 771.16
   base_amount: 738.59
   created_at: 2015-05-07 23:17:32.117400000 Z
   creator_id: 1
-  due_on: 2016-10-24
+  due_on: 2016-09-24
   id: 58
   insurance_amount: 8.82
   interest_amount: 23.75
   loan_id: 2
-  lock_version: 1
+  lock_version: 3
+  locked: false
   position: 55
   remaining_amount: 12830.94
-  updated_at: 2016-07-01 20:34:43.033911000 Z
+  updated_at: 2017-06-15 14:32:20.418505000 Z
   updater_id: 1
 loan_repayments_059:
-  accounted_at: 2016-07-01 20:34:43.046121000 Z
+  accountable: true
+  accounted_at: 2017-06-15 14:32:20.437576000 Z
   amount: 771.16
   base_amount: 740.37
   created_at: 2015-05-07 23:17:32.125014000 Z
   creator_id: 1
-  due_on: 2016-11-24
+  due_on: 2016-10-24
   id: 59
   insurance_amount: 8.34
   interest_amount: 22.45
   loan_id: 2
-  lock_version: 1
+  lock_version: 3
+  locked: false
   position: 56
   remaining_amount: 12090.57
-  updated_at: 2016-07-01 20:34:43.042349000 Z
+  updated_at: 2017-06-15 14:32:20.430075000 Z
   updater_id: 1
 loan_repayments_060:
-  accounted_at: 2016-07-01 20:34:43.054965000 Z
+  accountable: true
+  accounted_at: 2017-06-15 14:32:20.448234000 Z
   amount: 771.16
   base_amount: 742.14
   created_at: 2015-05-07 23:17:32.131798000 Z
   creator_id: 1
-  due_on: 2016-12-24
+  due_on: 2016-11-24
   id: 60
   insurance_amount: 7.86
   interest_amount: 21.16
   loan_id: 2
-  lock_version: 1
+  lock_version: 3
+  locked: false
   position: 57
   remaining_amount: 11348.43
-  updated_at: 2016-07-01 20:34:43.051120000 Z
+  updated_at: 2017-06-15 14:32:20.441707000 Z
   updater_id: 1
 loan_repayments_061:
-  accounted_at: 2016-07-01 20:34:43.063955000 Z
+  accountable: true
+  accounted_at: 2017-06-15 14:32:20.458141000 Z
   amount: 771.16
   base_amount: 743.92
   created_at: 2015-05-07 23:17:32.138553000 Z
   creator_id: 1
-  due_on: 2017-01-24
+  due_on: 2016-12-24
   id: 61
   insurance_amount: 7.38
   interest_amount: 19.86
   loan_id: 2
-  lock_version: 1
+  lock_version: 3
+  locked: false
   position: 58
   remaining_amount: 10604.51
-  updated_at: 2016-07-01 20:34:43.060218000 Z
+  updated_at: 2017-06-15 14:32:20.451990000 Z
   updater_id: 1
 loan_repayments_062:
-  accounted_at: 2016-07-01 20:34:43.073452000 Z
+  accountable: true
+  accounted_at: 2017-06-15 14:32:20.470867000 Z
   amount: 771.16
   base_amount: 745.71
   created_at: 2015-05-07 23:17:32.197812000 Z
   creator_id: 1
-  due_on: 2017-02-24
+  due_on: 2017-01-24
   id: 62
   insurance_amount: 6.89
   interest_amount: 18.56
   loan_id: 2
-  lock_version: 1
+  lock_version: 3
+  locked: false
   position: 59
   remaining_amount: 9858.8
-  updated_at: 2016-07-01 20:34:43.069226000 Z
+  updated_at: 2017-06-15 14:32:20.462604000 Z
   updater_id: 1
 loan_repayments_063:
-  accounted_at: 2016-07-01 20:34:43.082337000 Z
+  accountable: true
+  accounted_at: 2017-06-15 14:32:20.481442000 Z
   amount: 771.16
   base_amount: 747.5
   created_at: 2015-05-07 23:17:32.204718000 Z
   creator_id: 1
-  due_on: 2017-03-24
+  due_on: 2017-02-24
   id: 63
   insurance_amount: 6.41
   interest_amount: 17.25
   loan_id: 2
-  lock_version: 1
+  lock_version: 3
+  locked: false
   position: 60
   remaining_amount: 9111.3
-  updated_at: 2016-07-01 20:34:43.078419000 Z
+  updated_at: 2017-06-15 14:32:20.474941000 Z
   updater_id: 1
 loan_repayments_064:
-  accounted_at: 2016-07-01 20:34:43.090726000 Z
+  accountable: true
+  accounted_at: 2017-06-15 14:32:20.492113000 Z
   amount: 771.16
   base_amount: 749.3
   created_at: 2015-05-07 23:17:32.212749000 Z
   creator_id: 1
-  due_on: 2017-04-24
+  due_on: 2017-03-24
   id: 64
   insurance_amount: 5.92
   interest_amount: 15.94
   loan_id: 2
-  lock_version: 1
+  lock_version: 3
+  locked: false
   position: 61
   remaining_amount: 8362.0
-  updated_at: 2016-07-01 20:34:43.087277000 Z
+  updated_at: 2017-06-15 14:32:20.485023000 Z
   updater_id: 1
 loan_repayments_065:
-  accounted_at: 2016-07-01 20:34:43.098901000 Z
+  accountable: true
+  accounted_at: 2017-06-15 14:32:20.503101000 Z
   amount: 771.16
   base_amount: 751.09
   created_at: 2015-05-07 23:17:32.219683000 Z
   creator_id: 1
-  due_on: 2017-05-24
+  due_on: 2017-04-24
   id: 65
   insurance_amount: 5.44
   interest_amount: 14.63
   loan_id: 2
-  lock_version: 1
+  lock_version: 3
+  locked: false
   position: 62
   remaining_amount: 7610.91
-  updated_at: 2016-07-01 20:34:43.095342000 Z
+  updated_at: 2017-06-15 14:32:20.496196000 Z
   updater_id: 1
 loan_repayments_066:
-  accounted_at: 2016-07-01 20:34:43.106974000 Z
+  accountable: false
+  accounted_at: 2017-06-15 14:32:20.513610000 Z
   amount: 771.16
   base_amount: 752.89
   created_at: 2015-05-07 23:17:32.226079000 Z
   creator_id: 1
-  due_on: 2017-06-24
+  due_on: 2017-05-24
   id: 66
   insurance_amount: 4.95
   interest_amount: 13.32
   loan_id: 2
-  lock_version: 1
+  lock_version: 2
+  locked: false
   position: 63
   remaining_amount: 6858.02
-  updated_at: 2016-07-01 20:34:43.103488000 Z
+  updated_at: 2017-06-15 14:32:20.506863000 Z
   updater_id: 1
 loan_repayments_067:
-  accounted_at: 2016-07-01 20:34:43.250359000 Z
+  accountable: false
+  accounted_at: 2017-06-15 14:32:20.524298000 Z
   amount: 771.16
   base_amount: 754.7
   created_at: 2015-05-07 23:17:32.232415000 Z
   creator_id: 1
-  due_on: 2017-07-24
+  due_on: 2017-06-24
   id: 67
   insurance_amount: 4.46
   interest_amount: 12.0
   loan_id: 2
-  lock_version: 1
+  lock_version: 2
+  locked: false
   position: 64
   remaining_amount: 6103.32
-  updated_at: 2016-07-01 20:34:43.121941000 Z
+  updated_at: 2017-06-15 14:32:20.517210000 Z
   updater_id: 1
 loan_repayments_068:
-  accounted_at: 2016-07-01 20:34:43.263101000 Z
+  accountable: false
+  accounted_at: 2017-06-15 14:32:20.535757000 Z
   amount: 771.16
   base_amount: 756.51
   created_at: 2015-05-07 23:17:32.241654000 Z
   creator_id: 1
-  due_on: 2017-08-24
+  due_on: 2017-07-24
   id: 68
   insurance_amount: 3.97
   interest_amount: 10.68
   loan_id: 2
-  lock_version: 1
+  lock_version: 2
+  locked: false
   position: 65
   remaining_amount: 5346.81
-  updated_at: 2016-07-01 20:34:43.257716000 Z
+  updated_at: 2017-06-15 14:32:20.528619000 Z
   updater_id: 1
 loan_repayments_069:
-  accounted_at: 2016-07-01 20:34:43.274496000 Z
+  accountable: false
+  accounted_at: 2017-06-15 14:32:20.547390000 Z
   amount: 771.16
   base_amount: 758.32
   created_at: 2015-05-07 23:17:32.248728000 Z
   creator_id: 1
-  due_on: 2017-09-24
+  due_on: 2017-08-24
   id: 69
   insurance_amount: 3.48
   interest_amount: 9.36
   loan_id: 2
-  lock_version: 1
+  lock_version: 2
+  locked: false
   position: 66
   remaining_amount: 4588.49
-  updated_at: 2016-07-01 20:34:43.269348000 Z
+  updated_at: 2017-06-15 14:32:20.540901000 Z
   updater_id: 1
 loan_repayments_070:
-  accounted_at: 2016-07-01 20:34:43.284975000 Z
+  accountable: false
+  accounted_at: 2017-06-15 14:32:20.559263000 Z
   amount: 771.16
   base_amount: 760.15
   created_at: 2015-05-07 23:17:32.255643000 Z
   creator_id: 1
-  due_on: 2017-10-24
+  due_on: 2017-09-24
   id: 70
   insurance_amount: 2.98
   interest_amount: 8.03
   loan_id: 2
-  lock_version: 1
+  lock_version: 2
+  locked: false
   position: 67
   remaining_amount: 3828.34
-  updated_at: 2016-07-01 20:34:43.280235000 Z
+  updated_at: 2017-06-15 14:32:20.551868000 Z
   updater_id: 1
 loan_repayments_071:
-  accounted_at: 2016-07-01 20:34:43.295567000 Z
+  accountable: false
+  accounted_at: 2017-06-15 14:32:20.569337000 Z
   amount: 771.16
   base_amount: 761.97
   created_at: 2015-05-07 23:17:32.262391000 Z
   creator_id: 1
-  due_on: 2017-11-24
+  due_on: 2017-10-24
   id: 71
   insurance_amount: 2.49
   interest_amount: 6.7
   loan_id: 2
-  lock_version: 1
+  lock_version: 2
+  locked: false
   position: 68
   remaining_amount: 3066.37
-  updated_at: 2016-07-01 20:34:43.291125000 Z
+  updated_at: 2017-06-15 14:32:20.563146000 Z
   updater_id: 1
 loan_repayments_072:
-  accounted_at: 2016-07-01 20:34:43.305821000 Z
+  accountable: false
+  accounted_at: 2017-06-15 14:32:20.580760000 Z
   amount: 771.16
   base_amount: 763.8
   created_at: 2015-05-07 23:17:32.269452000 Z
   creator_id: 1
-  due_on: 2017-12-24
+  due_on: 2017-11-24
   id: 72
   insurance_amount: 1.99
   interest_amount: 5.37
   loan_id: 2
-  lock_version: 1
+  lock_version: 2
+  locked: false
   position: 69
   remaining_amount: 2302.57
-  updated_at: 2016-07-01 20:34:43.301029000 Z
+  updated_at: 2017-06-15 14:32:20.574045000 Z
   updater_id: 1
 loan_repayments_073:
-  accounted_at: 2016-07-01 20:34:43.315805000 Z
+  accountable: false
+  accounted_at: 2017-06-15 14:32:20.592430000 Z
   amount: 771.16
   base_amount: 765.63
   created_at: 2015-05-07 23:17:32.276507000 Z
   creator_id: 1
-  due_on: 2018-01-24
+  due_on: 2017-12-24
   id: 73
   insurance_amount: 1.5
   interest_amount: 4.03
   loan_id: 2
-  lock_version: 1
+  lock_version: 2
+  locked: false
   position: 70
   remaining_amount: 1536.94
-  updated_at: 2016-07-01 20:34:43.311692000 Z
+  updated_at: 2017-06-15 14:32:20.585081000 Z
   updater_id: 1
 loan_repayments_074:
-  accounted_at: 2016-07-01 20:34:43.326981000 Z
+  accountable: false
+  accounted_at: 2017-06-15 14:32:20.603977000 Z
   amount: 771.16
   base_amount: 767.47
   created_at: 2015-05-07 23:17:32.282807000 Z
   creator_id: 1
-  due_on: 2018-02-24
+  due_on: 2018-01-24
   id: 74
   insurance_amount: 1.0
   interest_amount: 2.69
   loan_id: 2
-  lock_version: 1
+  lock_version: 2
+  locked: false
   position: 71
   remaining_amount: 769.47
-  updated_at: 2016-07-01 20:34:43.321872000 Z
+  updated_at: 2017-06-15 14:32:20.596344000 Z
   updater_id: 1
 loan_repayments_075:
-  accounted_at: 2016-07-01 20:34:43.338781000 Z
+  accountable: false
+  accounted_at: 2017-06-15 14:32:20.616501000 Z
   amount: 771.32
   base_amount: 769.47
   created_at: 2015-05-07 23:17:32.289524000 Z
   creator_id: 1
-  due_on: 2018-03-24
+  due_on: 2018-02-24
   id: 75
   insurance_amount: 0.5
   interest_amount: 1.35
   loan_id: 2
-  lock_version: 1
+  lock_version: 2
+  locked: false
   position: 72
   remaining_amount: 0.0
-  updated_at: 2016-07-01 20:34:43.333132000 Z
+  updated_at: 2017-06-15 14:32:20.608890000 Z
+  updater_id: 1
+loan_repayments_076:
+  accountable: false
+  accounted_at: 2017-06-09 20:58:14.168065000 Z
+  amount: 109.69
+  base_amount: 0.0
+  created_at: 2017-06-09 20:19:56.232218000 Z
+  creator_id: 1
+  due_on: 2012-03-24
+  id: 76
+  insurance_amount: 29.71
+  interest_amount: 79.98
+  loan_id: 3
+  lock_version: 0
+  locked: false
+  position: 1
+  remaining_amount: 45700.0
+  updated_at: 2017-06-09 20:19:56.232218000 Z
+  updater_id: 1
+loan_repayments_077:
+  accountable: false
+  accounted_at: 2017-06-09 20:58:14.181623000 Z
+  amount: 109.69
+  base_amount: 0.0
+  created_at: 2017-06-09 20:19:56.245663000 Z
+  creator_id: 1
+  due_on: 2012-04-24
+  id: 77
+  insurance_amount: 29.71
+  interest_amount: 79.98
+  loan_id: 3
+  lock_version: 0
+  locked: false
+  position: 2
+  remaining_amount: 45700.0
+  updated_at: 2017-06-09 20:19:56.245663000 Z
+  updater_id: 1
+loan_repayments_078:
+  accountable: false
+  accounted_at: 2017-06-09 20:58:14.193616000 Z
+  amount: 109.69
+  base_amount: 0.0
+  created_at: 2017-06-09 20:19:56.256962000 Z
+  creator_id: 1
+  due_on: 2012-05-24
+  id: 78
+  insurance_amount: 29.71
+  interest_amount: 79.98
+  loan_id: 3
+  lock_version: 0
+  locked: false
+  position: 3
+  remaining_amount: 45700.0
+  updated_at: 2017-06-09 20:19:56.256962000 Z
+  updater_id: 1
+loan_repayments_079:
+  accountable: false
+  accounted_at: 2017-06-09 20:58:14.206935000 Z
+  amount: 109.69
+  base_amount: 0.0
+  created_at: 2017-06-09 20:19:56.267586000 Z
+  creator_id: 1
+  due_on: 2012-06-24
+  id: 79
+  insurance_amount: 29.71
+  interest_amount: 79.98
+  loan_id: 3
+  lock_version: 0
+  locked: false
+  position: 4
+  remaining_amount: 45700.0
+  updated_at: 2017-06-09 20:19:56.267586000 Z
+  updater_id: 1
+loan_repayments_080:
+  accountable: false
+  accounted_at: 2017-06-09 20:58:14.220361000 Z
+  amount: 109.69
+  base_amount: 0.0
+  created_at: 2017-06-09 20:19:56.278826000 Z
+  creator_id: 1
+  due_on: 2012-07-24
+  id: 80
+  insurance_amount: 29.71
+  interest_amount: 79.98
+  loan_id: 3
+  lock_version: 0
+  locked: false
+  position: 5
+  remaining_amount: 45700.0
+  updated_at: 2017-06-09 20:19:56.278826000 Z
+  updater_id: 1
+loan_repayments_081:
+  accountable: false
+  accounted_at: 2017-06-09 20:58:14.234174000 Z
+  amount: 109.69
+  base_amount: 0.0
+  created_at: 2017-06-09 20:19:56.289892000 Z
+  creator_id: 1
+  due_on: 2012-08-24
+  id: 81
+  insurance_amount: 29.71
+  interest_amount: 79.98
+  loan_id: 3
+  lock_version: 0
+  locked: false
+  position: 6
+  remaining_amount: 45700.0
+  updated_at: 2017-06-09 20:19:56.289892000 Z
+  updater_id: 1
+loan_repayments_082:
+  accountable: false
+  accounted_at: 2017-06-09 20:58:14.247238000 Z
+  amount: 109.69
+  base_amount: 0.0
+  created_at: 2017-06-09 20:19:56.300330000 Z
+  creator_id: 1
+  due_on: 2012-09-24
+  id: 82
+  insurance_amount: 29.71
+  interest_amount: 79.98
+  loan_id: 3
+  lock_version: 0
+  locked: false
+  position: 7
+  remaining_amount: 45700.0
+  updated_at: 2017-06-09 20:19:56.300330000 Z
+  updater_id: 1
+loan_repayments_083:
+  accountable: false
+  accounted_at: 2017-06-09 20:58:14.259350000 Z
+  amount: 109.69
+  base_amount: 0.0
+  created_at: 2017-06-09 20:19:56.311339000 Z
+  creator_id: 1
+  due_on: 2012-10-24
+  id: 83
+  insurance_amount: 29.71
+  interest_amount: 79.98
+  loan_id: 3
+  lock_version: 0
+  locked: false
+  position: 8
+  remaining_amount: 45700.0
+  updated_at: 2017-06-09 20:19:56.311339000 Z
+  updater_id: 1
+loan_repayments_084:
+  accountable: false
+  accounted_at: 2017-06-09 20:58:14.271456000 Z
+  amount: 628.53
+  base_amount: 518.84
+  created_at: 2017-06-09 20:19:56.321690000 Z
+  creator_id: 1
+  due_on: 2012-11-24
+  id: 84
+  insurance_amount: 29.71
+  interest_amount: 79.98
+  loan_id: 3
+  lock_version: 1
+  locked: false
+  position: 9
+  remaining_amount: 45181.16
+  updated_at: 2017-06-09 20:58:14.263364000 Z
+  updater_id: 1
+loan_repayments_085:
+  accountable: false
+  accounted_at: 2017-06-09 20:58:14.283870000 Z
+  amount: 628.53
+  base_amount: 520.09
+  created_at: 2017-06-09 20:19:56.332183000 Z
+  creator_id: 1
+  due_on: 2012-12-24
+  id: 85
+  insurance_amount: 29.37
+  interest_amount: 79.07
+  loan_id: 3
+  lock_version: 1
+  locked: false
+  position: 10
+  remaining_amount: 44661.07
+  updated_at: 2017-06-09 20:58:14.275587000 Z
+  updater_id: 1
+loan_repayments_086:
+  accountable: false
+  accounted_at: 2017-06-09 20:58:14.296153000 Z
+  amount: 628.53
+  base_amount: 521.34
+  created_at: 2017-06-09 20:19:56.342471000 Z
+  creator_id: 1
+  due_on: 2013-01-24
+  id: 86
+  insurance_amount: 29.03
+  interest_amount: 78.16
+  loan_id: 3
+  lock_version: 1
+  locked: false
+  position: 11
+  remaining_amount: 44139.73
+  updated_at: 2017-06-09 20:58:14.287853000 Z
+  updater_id: 1
+loan_repayments_087:
+  accountable: false
+  accounted_at: 2017-06-09 20:58:14.308556000 Z
+  amount: 628.53
+  base_amount: 522.6
+  created_at: 2017-06-09 20:19:56.352584000 Z
+  creator_id: 1
+  due_on: 2013-02-24
+  id: 87
+  insurance_amount: 28.69
+  interest_amount: 77.24
+  loan_id: 3
+  lock_version: 1
+  locked: false
+  position: 12
+  remaining_amount: 43617.13
+  updated_at: 2017-06-09 20:58:14.300303000 Z
+  updater_id: 1
+loan_repayments_088:
+  accountable: false
+  accounted_at: 2017-06-09 20:58:14.320894000 Z
+  amount: 628.53
+  base_amount: 523.85
+  created_at: 2017-06-09 20:19:56.363862000 Z
+  creator_id: 1
+  due_on: 2013-03-24
+  id: 88
+  insurance_amount: 28.35
+  interest_amount: 76.33
+  loan_id: 3
+  lock_version: 1
+  locked: false
+  position: 13
+  remaining_amount: 43093.28
+  updated_at: 2017-06-09 20:58:14.312550000 Z
+  updater_id: 1
+loan_repayments_089:
+  accountable: false
+  accounted_at: 2017-06-09 20:58:14.333378000 Z
+  amount: 628.53
+  base_amount: 525.11
+  created_at: 2017-06-09 20:19:56.374137000 Z
+  creator_id: 1
+  due_on: 2013-04-24
+  id: 89
+  insurance_amount: 28.01
+  interest_amount: 75.41
+  loan_id: 3
+  lock_version: 1
+  locked: false
+  position: 14
+  remaining_amount: 42568.17
+  updated_at: 2017-06-09 20:58:14.325406000 Z
+  updater_id: 1
+loan_repayments_090:
+  accountable: false
+  accounted_at: 2017-06-09 20:58:14.345387000 Z
+  amount: 628.53
+  base_amount: 526.37
+  created_at: 2017-06-09 20:19:56.384123000 Z
+  creator_id: 1
+  due_on: 2013-05-24
+  id: 90
+  insurance_amount: 27.67
+  interest_amount: 74.49
+  loan_id: 3
+  lock_version: 1
+  locked: false
+  position: 15
+  remaining_amount: 42041.8
+  updated_at: 2017-06-09 20:58:14.337321000 Z
+  updater_id: 1
+loan_repayments_091:
+  accountable: false
+  accounted_at: 2017-06-09 20:58:14.358441000 Z
+  amount: 628.53
+  base_amount: 527.63
+  created_at: 2017-06-09 20:19:56.394370000 Z
+  creator_id: 1
+  due_on: 2013-06-24
+  id: 91
+  insurance_amount: 27.33
+  interest_amount: 73.57
+  loan_id: 3
+  lock_version: 1
+  locked: false
+  position: 16
+  remaining_amount: 41514.17
+  updated_at: 2017-06-09 20:58:14.349424000 Z
+  updater_id: 1
+loan_repayments_092:
+  accountable: false
+  accounted_at: 2017-06-09 20:58:14.370860000 Z
+  amount: 628.53
+  base_amount: 528.9
+  created_at: 2017-06-09 20:19:56.404507000 Z
+  creator_id: 1
+  due_on: 2013-07-24
+  id: 92
+  insurance_amount: 26.98
+  interest_amount: 72.65
+  loan_id: 3
+  lock_version: 1
+  locked: false
+  position: 17
+  remaining_amount: 40985.27
+  updated_at: 2017-06-09 20:58:14.362498000 Z
+  updater_id: 1
+loan_repayments_093:
+  accountable: false
+  accounted_at: 2017-06-09 20:58:14.383035000 Z
+  amount: 628.53
+  base_amount: 530.17
+  created_at: 2017-06-09 20:19:56.416941000 Z
+  creator_id: 1
+  due_on: 2013-08-24
+  id: 93
+  insurance_amount: 26.64
+  interest_amount: 71.72
+  loan_id: 3
+  lock_version: 1
+  locked: false
+  position: 18
+  remaining_amount: 40455.1
+  updated_at: 2017-06-09 20:58:14.374971000 Z
+  updater_id: 1
+loan_repayments_094:
+  accountable: false
+  accounted_at: 2017-06-09 20:58:14.395844000 Z
+  amount: 628.53
+  base_amount: 531.43
+  created_at: 2017-06-09 20:19:56.427646000 Z
+  creator_id: 1
+  due_on: 2013-09-24
+  id: 94
+  insurance_amount: 26.3
+  interest_amount: 70.8
+  loan_id: 3
+  lock_version: 1
+  locked: false
+  position: 19
+  remaining_amount: 39923.67
+  updated_at: 2017-06-09 20:58:14.387389000 Z
+  updater_id: 1
+loan_repayments_095:
+  accountable: false
+  accounted_at: 2017-06-09 20:58:14.408208000 Z
+  amount: 628.53
+  base_amount: 532.71
+  created_at: 2017-06-09 20:19:56.437714000 Z
+  creator_id: 1
+  due_on: 2013-10-24
+  id: 95
+  insurance_amount: 25.95
+  interest_amount: 69.87
+  loan_id: 3
+  lock_version: 1
+  locked: false
+  position: 20
+  remaining_amount: 39390.96
+  updated_at: 2017-06-09 20:58:14.399882000 Z
+  updater_id: 1
+loan_repayments_096:
+  accountable: false
+  accounted_at: 2017-06-09 20:58:14.421162000 Z
+  amount: 628.53
+  base_amount: 534.0
+  created_at: 2017-06-09 20:19:56.447932000 Z
+  creator_id: 1
+  due_on: 2013-11-24
+  id: 96
+  insurance_amount: 25.6
+  interest_amount: 68.93
+  loan_id: 3
+  lock_version: 1
+  locked: false
+  position: 21
+  remaining_amount: 38856.96
+  updated_at: 2017-06-09 20:58:14.412272000 Z
+  updater_id: 1
+loan_repayments_097:
+  accountable: false
+  accounted_at: 2017-06-09 20:58:14.434087000 Z
+  amount: 628.53
+  base_amount: 535.27
+  created_at: 2017-06-09 20:19:56.458466000 Z
+  creator_id: 1
+  due_on: 2013-12-24
+  id: 97
+  insurance_amount: 25.26
+  interest_amount: 68.0
+  loan_id: 3
+  lock_version: 1
+  locked: false
+  position: 22
+  remaining_amount: 38321.69
+  updated_at: 2017-06-09 20:58:14.426011000 Z
+  updater_id: 1
+loan_repayments_098:
+  accountable: false
+  accounted_at: 2017-06-09 20:58:14.446331000 Z
+  amount: 628.53
+  base_amount: 536.56
+  created_at: 2017-06-09 20:19:56.468974000 Z
+  creator_id: 1
+  due_on: 2014-01-24
+  id: 98
+  insurance_amount: 24.91
+  interest_amount: 67.06
+  loan_id: 3
+  lock_version: 1
+  locked: false
+  position: 23
+  remaining_amount: 37785.13
+  updated_at: 2017-06-09 20:58:14.438105000 Z
+  updater_id: 1
+loan_repayments_099:
+  accountable: false
+  accounted_at: 2017-06-09 20:58:14.458963000 Z
+  amount: 628.53
+  base_amount: 537.85
+  created_at: 2017-06-09 20:19:56.479623000 Z
+  creator_id: 1
+  due_on: 2014-02-24
+  id: 99
+  insurance_amount: 24.56
+  interest_amount: 66.12
+  loan_id: 3
+  lock_version: 1
+  locked: false
+  position: 24
+  remaining_amount: 37247.28
+  updated_at: 2017-06-09 20:58:14.450100000 Z
+  updater_id: 1
+loan_repayments_100:
+  accountable: false
+  accounted_at: 2017-06-09 20:58:14.471213000 Z
+  amount: 628.53
+  base_amount: 539.14
+  created_at: 2017-06-09 20:19:56.490068000 Z
+  creator_id: 1
+  due_on: 2014-03-24
+  id: 100
+  insurance_amount: 24.21
+  interest_amount: 65.18
+  loan_id: 3
+  lock_version: 1
+  locked: false
+  position: 25
+  remaining_amount: 36708.14
+  updated_at: 2017-06-09 20:58:14.463137000 Z
+  updater_id: 1
+loan_repayments_101:
+  accountable: false
+  accounted_at: 2017-06-09 20:58:14.483225000 Z
+  amount: 628.53
+  base_amount: 540.43
+  created_at: 2017-06-09 20:19:56.500438000 Z
+  creator_id: 1
+  due_on: 2014-04-24
+  id: 101
+  insurance_amount: 23.86
+  interest_amount: 64.24
+  loan_id: 3
+  lock_version: 1
+  locked: false
+  position: 26
+  remaining_amount: 36167.71
+  updated_at: 2017-06-09 20:58:14.475390000 Z
+  updater_id: 1
+loan_repayments_102:
+  accountable: false
+  accounted_at: 2017-06-09 20:58:14.494961000 Z
+  amount: 628.53
+  base_amount: 541.73
+  created_at: 2017-06-09 20:19:56.511223000 Z
+  creator_id: 1
+  due_on: 2014-05-24
+  id: 102
+  insurance_amount: 23.51
+  interest_amount: 63.29
+  loan_id: 3
+  lock_version: 1
+  locked: false
+  position: 27
+  remaining_amount: 35625.98
+  updated_at: 2017-06-09 20:58:14.487106000 Z
+  updater_id: 1
+loan_repayments_103:
+  accountable: false
+  accounted_at: 2017-06-09 20:58:14.509358000 Z
+  amount: 628.53
+  base_amount: 543.02
+  created_at: 2017-06-09 20:19:56.521449000 Z
+  creator_id: 1
+  due_on: 2014-06-24
+  id: 103
+  insurance_amount: 23.16
+  interest_amount: 62.35
+  loan_id: 3
+  lock_version: 1
+  locked: false
+  position: 28
+  remaining_amount: 35082.96
+  updated_at: 2017-06-09 20:58:14.498763000 Z
+  updater_id: 1
+loan_repayments_104:
+  accountable: false
+  accounted_at: 2017-06-09 20:58:14.523115000 Z
+  amount: 628.53
+  base_amount: 544.33
+  created_at: 2017-06-09 20:19:56.531875000 Z
+  creator_id: 1
+  due_on: 2014-07-24
+  id: 104
+  insurance_amount: 22.8
+  interest_amount: 61.4
+  loan_id: 3
+  lock_version: 1
+  locked: false
+  position: 29
+  remaining_amount: 34538.63
+  updated_at: 2017-06-09 20:58:14.514176000 Z
+  updater_id: 1
+loan_repayments_105:
+  accountable: false
+  accounted_at: 2017-06-09 20:58:14.535765000 Z
+  amount: 628.53
+  base_amount: 545.64
+  created_at: 2017-06-09 20:19:56.544368000 Z
+  creator_id: 1
+  due_on: 2014-08-24
+  id: 105
+  insurance_amount: 22.45
+  interest_amount: 60.44
+  loan_id: 3
+  lock_version: 1
+  locked: false
+  position: 30
+  remaining_amount: 33992.99
+  updated_at: 2017-06-09 20:58:14.527379000 Z
+  updater_id: 1
+loan_repayments_106:
+  accountable: false
+  accounted_at: 2017-06-09 20:58:14.549933000 Z
+  amount: 628.53
+  base_amount: 546.94
+  created_at: 2017-06-09 20:19:56.555684000 Z
+  creator_id: 1
+  due_on: 2014-09-24
+  id: 106
+  insurance_amount: 22.1
+  interest_amount: 59.49
+  loan_id: 3
+  lock_version: 1
+  locked: false
+  position: 31
+  remaining_amount: 33446.05
+  updated_at: 2017-06-09 20:58:14.540284000 Z
+  updater_id: 1
+loan_repayments_107:
+  accountable: false
+  accounted_at: 2017-06-09 20:58:14.564962000 Z
+  amount: 628.53
+  base_amount: 548.26
+  created_at: 2017-06-09 20:19:56.565539000 Z
+  creator_id: 1
+  due_on: 2014-10-24
+  id: 107
+  insurance_amount: 21.74
+  interest_amount: 58.53
+  loan_id: 3
+  lock_version: 1
+  locked: false
+  position: 32
+  remaining_amount: 32897.79
+  updated_at: 2017-06-09 20:58:14.554391000 Z
+  updater_id: 1
+loan_repayments_108:
+  accountable: false
+  accounted_at: 2017-06-09 20:58:14.577771000 Z
+  amount: 628.53
+  base_amount: 549.58
+  created_at: 2017-06-09 20:19:56.575775000 Z
+  creator_id: 1
+  due_on: 2014-11-24
+  id: 108
+  insurance_amount: 21.38
+  interest_amount: 57.57
+  loan_id: 3
+  lock_version: 1
+  locked: false
+  position: 33
+  remaining_amount: 32348.21
+  updated_at: 2017-06-09 20:58:14.569254000 Z
+  updater_id: 1
+loan_repayments_109:
+  accountable: false
+  accounted_at: 2017-06-09 20:58:14.590090000 Z
+  amount: 628.53
+  base_amount: 550.89
+  created_at: 2017-06-09 20:19:56.586326000 Z
+  creator_id: 1
+  due_on: 2014-12-24
+  id: 109
+  insurance_amount: 21.03
+  interest_amount: 56.61
+  loan_id: 3
+  lock_version: 1
+  locked: false
+  position: 34
+  remaining_amount: 31797.32
+  updated_at: 2017-06-09 20:58:14.581947000 Z
+  updater_id: 1
+loan_repayments_110:
+  accountable: false
+  accounted_at: 2017-06-09 20:58:14.602740000 Z
+  amount: 628.53
+  base_amount: 552.21
+  created_at: 2017-06-09 20:19:56.597109000 Z
+  creator_id: 1
+  due_on: 2015-01-24
+  id: 110
+  insurance_amount: 20.67
+  interest_amount: 55.65
+  loan_id: 3
+  lock_version: 1
+  locked: false
+  position: 35
+  remaining_amount: 31245.11
+  updated_at: 2017-06-09 20:58:14.594386000 Z
+  updater_id: 1
+loan_repayments_111:
+  accountable: false
+  accounted_at: 2017-06-09 20:58:14.614626000 Z
+  amount: 628.53
+  base_amount: 553.54
+  created_at: 2017-06-09 20:19:56.608514000 Z
+  creator_id: 1
+  due_on: 2015-02-24
+  id: 111
+  insurance_amount: 20.31
+  interest_amount: 54.68
+  loan_id: 3
+  lock_version: 1
+  locked: false
+  position: 36
+  remaining_amount: 30691.57
+  updated_at: 2017-06-09 20:58:14.607086000 Z
+  updater_id: 1
+loan_repayments_112:
+  accountable: false
+  accounted_at: 2017-06-09 20:58:14.626480000 Z
+  amount: 628.53
+  base_amount: 554.87
+  created_at: 2017-06-09 20:19:56.618272000 Z
+  creator_id: 1
+  due_on: 2015-03-24
+  id: 112
+  insurance_amount: 19.95
+  interest_amount: 53.71
+  loan_id: 3
+  lock_version: 1
+  locked: false
+  position: 37
+  remaining_amount: 30136.7
+  updated_at: 2017-06-09 20:58:14.618738000 Z
+  updater_id: 1
+loan_repayments_113:
+  accountable: false
+  accounted_at: 2017-06-09 20:58:14.638321000 Z
+  amount: 628.53
+  base_amount: 556.2
+  created_at: 2017-06-09 20:19:56.628623000 Z
+  creator_id: 1
+  due_on: 2015-04-24
+  id: 113
+  insurance_amount: 19.59
+  interest_amount: 52.74
+  loan_id: 3
+  lock_version: 1
+  locked: false
+  position: 38
+  remaining_amount: 29580.5
+  updated_at: 2017-06-09 20:58:14.630312000 Z
+  updater_id: 1
+loan_repayments_114:
+  accountable: false
+  accounted_at: 2017-06-09 20:58:14.650111000 Z
+  amount: 628.53
+  base_amount: 557.53
+  created_at: 2017-06-09 20:19:56.641730000 Z
+  creator_id: 1
+  due_on: 2015-05-24
+  id: 114
+  insurance_amount: 19.23
+  interest_amount: 51.77
+  loan_id: 3
+  lock_version: 1
+  locked: false
+  position: 39
+  remaining_amount: 29022.97
+  updated_at: 2017-06-09 20:58:14.642381000 Z
+  updater_id: 1
+loan_repayments_115:
+  accountable: false
+  accounted_at: 2017-06-09 20:58:14.662427000 Z
+  amount: 628.53
+  base_amount: 558.88
+  created_at: 2017-06-09 20:19:56.652017000 Z
+  creator_id: 1
+  due_on: 2015-06-24
+  id: 115
+  insurance_amount: 18.86
+  interest_amount: 50.79
+  loan_id: 3
+  lock_version: 1
+  locked: false
+  position: 40
+  remaining_amount: 28464.09
+  updated_at: 2017-06-09 20:58:14.653933000 Z
+  updater_id: 1
+loan_repayments_116:
+  accountable: false
+  accounted_at: 2017-06-09 20:58:14.674443000 Z
+  amount: 628.53
+  base_amount: 560.22
+  created_at: 2017-06-09 20:19:56.663095000 Z
+  creator_id: 1
+  due_on: 2015-07-24
+  id: 116
+  insurance_amount: 18.5
+  interest_amount: 49.81
+  loan_id: 3
+  lock_version: 1
+  locked: false
+  position: 41
+  remaining_amount: 27903.87
+  updated_at: 2017-06-09 20:58:14.666523000 Z
+  updater_id: 1
+loan_repayments_117:
+  accountable: false
+  accounted_at: 2017-06-09 20:58:14.686522000 Z
+  amount: 628.53
+  base_amount: 561.56
+  created_at: 2017-06-09 20:19:56.674784000 Z
+  creator_id: 1
+  due_on: 2015-08-24
+  id: 117
+  insurance_amount: 18.14
+  interest_amount: 48.83
+  loan_id: 3
+  lock_version: 1
+  locked: false
+  position: 42
+  remaining_amount: 27342.31
+  updated_at: 2017-06-09 20:58:14.678457000 Z
+  updater_id: 1
+loan_repayments_118:
+  accountable: false
+  accounted_at: 2017-06-09 20:58:14.698382000 Z
+  amount: 628.53
+  base_amount: 562.91
+  created_at: 2017-06-09 20:19:56.685591000 Z
+  creator_id: 1
+  due_on: 2015-09-24
+  id: 118
+  insurance_amount: 17.77
+  interest_amount: 47.85
+  loan_id: 3
+  lock_version: 1
+  locked: false
+  position: 43
+  remaining_amount: 26779.4
+  updated_at: 2017-06-09 20:58:14.690513000 Z
+  updater_id: 1
+loan_repayments_119:
+  accountable: false
+  accounted_at: 2017-06-09 20:58:14.710780000 Z
+  amount: 628.53
+  base_amount: 564.26
+  created_at: 2017-06-09 20:19:56.696185000 Z
+  creator_id: 1
+  due_on: 2015-10-24
+  id: 119
+  insurance_amount: 17.41
+  interest_amount: 46.86
+  loan_id: 3
+  lock_version: 1
+  locked: false
+  position: 44
+  remaining_amount: 26215.14
+  updated_at: 2017-06-09 20:58:14.702297000 Z
+  updater_id: 1
+loan_repayments_120:
+  accountable: false
+  accounted_at: 2017-06-09 20:58:14.723017000 Z
+  amount: 628.53
+  base_amount: 565.61
+  created_at: 2017-06-09 20:19:56.707110000 Z
+  creator_id: 1
+  due_on: 2015-11-24
+  id: 120
+  insurance_amount: 17.04
+  interest_amount: 45.88
+  loan_id: 3
+  lock_version: 1
+  locked: false
+  position: 45
+  remaining_amount: 25649.53
+  updated_at: 2017-06-09 20:58:14.714999000 Z
+  updater_id: 1
+loan_repayments_121:
+  accountable: false
+  accounted_at: 2017-06-09 20:58:14.734784000 Z
+  amount: 628.53
+  base_amount: 566.97
+  created_at: 2017-06-09 20:19:56.718362000 Z
+  creator_id: 1
+  due_on: 2015-12-24
+  id: 121
+  insurance_amount: 16.67
+  interest_amount: 44.89
+  loan_id: 3
+  lock_version: 1
+  locked: false
+  position: 46
+  remaining_amount: 25082.56
+  updated_at: 2017-06-09 20:58:14.726928000 Z
+  updater_id: 1
+loan_repayments_122:
+  accountable: false
+  accounted_at: 2017-06-09 20:58:14.747118000 Z
+  amount: 628.53
+  base_amount: 568.34
+  created_at: 2017-06-09 20:19:56.730243000 Z
+  creator_id: 1
+  due_on: 2016-01-24
+  id: 122
+  insurance_amount: 16.3
+  interest_amount: 43.89
+  loan_id: 3
+  lock_version: 1
+  locked: false
+  position: 47
+  remaining_amount: 24514.22
+  updated_at: 2017-06-09 20:58:14.738867000 Z
+  updater_id: 1
+loan_repayments_123:
+  accountable: false
+  accounted_at: 2017-06-09 20:58:14.758764000 Z
+  amount: 628.53
+  base_amount: 569.7
+  created_at: 2017-06-09 20:19:56.741185000 Z
+  creator_id: 1
+  due_on: 2016-02-24
+  id: 123
+  insurance_amount: 15.93
+  interest_amount: 42.9
+  loan_id: 3
+  lock_version: 1
+  locked: false
+  position: 48
+  remaining_amount: 23944.52
+  updated_at: 2017-06-09 20:58:14.750976000 Z
+  updater_id: 1
+loan_repayments_124:
+  accountable: false
+  accounted_at: 2017-06-09 20:58:14.770499000 Z
+  amount: 628.53
+  base_amount: 571.07
+  created_at: 2017-06-09 20:19:56.752045000 Z
+  creator_id: 1
+  due_on: 2016-03-24
+  id: 124
+  insurance_amount: 15.56
+  interest_amount: 41.9
+  loan_id: 3
+  lock_version: 1
+  locked: false
+  position: 49
+  remaining_amount: 23373.45
+  updated_at: 2017-06-09 20:58:14.762701000 Z
+  updater_id: 1
+loan_repayments_125:
+  accountable: false
+  accounted_at: 2017-06-09 20:58:14.783315000 Z
+  amount: 628.53
+  base_amount: 572.44
+  created_at: 2017-06-09 20:19:56.762991000 Z
+  creator_id: 1
+  due_on: 2016-04-24
+  id: 125
+  insurance_amount: 15.19
+  interest_amount: 40.9
+  loan_id: 3
+  lock_version: 1
+  locked: false
+  position: 50
+  remaining_amount: 22801.01
+  updated_at: 2017-06-09 20:58:14.774757000 Z
+  updater_id: 1
+loan_repayments_126:
+  accountable: false
+  accounted_at: 2017-06-09 20:58:14.795209000 Z
+  amount: 628.53
+  base_amount: 573.81
+  created_at: 2017-06-09 20:19:56.774106000 Z
+  creator_id: 1
+  due_on: 2016-05-24
+  id: 126
+  insurance_amount: 14.82
+  interest_amount: 39.9
+  loan_id: 3
+  lock_version: 1
+  locked: false
+  position: 51
+  remaining_amount: 22227.2
+  updated_at: 2017-06-09 20:58:14.787310000 Z
+  updater_id: 1
+loan_repayments_127:
+  accountable: false
+  accounted_at: 2017-06-09 20:58:14.807468000 Z
+  amount: 628.53
+  base_amount: 575.18
+  created_at: 2017-06-09 20:19:56.784650000 Z
+  creator_id: 1
+  due_on: 2016-06-24
+  id: 127
+  insurance_amount: 14.45
+  interest_amount: 38.9
+  loan_id: 3
+  lock_version: 1
+  locked: false
+  position: 52
+  remaining_amount: 21652.02
+  updated_at: 2017-06-09 20:58:14.799176000 Z
+  updater_id: 1
+loan_repayments_128:
+  accountable: false
+  accounted_at: 2017-06-09 20:58:14.819251000 Z
+  amount: 628.53
+  base_amount: 576.57
+  created_at: 2017-06-09 20:19:56.794997000 Z
+  creator_id: 1
+  due_on: 2016-07-24
+  id: 128
+  insurance_amount: 14.07
+  interest_amount: 37.89
+  loan_id: 3
+  lock_version: 1
+  locked: false
+  position: 53
+  remaining_amount: 21075.45
+  updated_at: 2017-06-09 20:58:14.811497000 Z
+  updater_id: 1
+loan_repayments_129:
+  accountable: false
+  accounted_at: 2017-06-09 20:58:14.831926000 Z
+  amount: 628.53
+  base_amount: 577.95
+  created_at: 2017-06-09 20:19:56.805527000 Z
+  creator_id: 1
+  due_on: 2016-08-24
+  id: 129
+  insurance_amount: 13.7
+  interest_amount: 36.88
+  loan_id: 3
+  lock_version: 1
+  locked: false
+  position: 54
+  remaining_amount: 20497.5
+  updated_at: 2017-06-09 20:58:14.823660000 Z
+  updater_id: 1
+loan_repayments_130:
+  accountable: false
+  accounted_at: 2017-06-09 20:58:14.844027000 Z
+  amount: 628.53
+  base_amount: 579.34
+  created_at: 2017-06-09 20:19:56.816507000 Z
+  creator_id: 1
+  due_on: 2016-09-24
+  id: 130
+  insurance_amount: 13.32
+  interest_amount: 35.87
+  loan_id: 3
+  lock_version: 1
+  locked: false
+  position: 55
+  remaining_amount: 19918.16
+  updated_at: 2017-06-09 20:58:14.836083000 Z
+  updater_id: 1
+loan_repayments_131:
+  accountable: false
+  accounted_at: 2017-06-09 20:58:14.856546000 Z
+  amount: 628.53
+  base_amount: 580.72
+  created_at: 2017-06-09 20:19:56.827358000 Z
+  creator_id: 1
+  due_on: 2016-10-24
+  id: 131
+  insurance_amount: 12.95
+  interest_amount: 34.86
+  loan_id: 3
+  lock_version: 1
+  locked: false
+  position: 56
+  remaining_amount: 19337.44
+  updated_at: 2017-06-09 20:58:14.847950000 Z
+  updater_id: 1
+loan_repayments_132:
+  accountable: false
+  accounted_at: 2017-06-09 20:58:14.869124000 Z
+  amount: 628.53
+  base_amount: 582.12
+  created_at: 2017-06-09 20:19:56.837774000 Z
+  creator_id: 1
+  due_on: 2016-11-24
+  id: 132
+  insurance_amount: 12.57
+  interest_amount: 33.84
+  loan_id: 3
+  lock_version: 1
+  locked: false
+  position: 57
+  remaining_amount: 18755.32
+  updated_at: 2017-06-09 20:58:14.860718000 Z
+  updater_id: 1
+loan_repayments_133:
+  accountable: false
+  accounted_at: 2017-06-09 20:58:14.955779000 Z
+  amount: 628.53
+  base_amount: 583.52
+  created_at: 2017-06-09 20:19:56.848342000 Z
+  creator_id: 1
+  due_on: 2016-12-24
+  id: 133
+  insurance_amount: 12.19
+  interest_amount: 32.82
+  loan_id: 3
+  lock_version: 1
+  locked: false
+  position: 58
+  remaining_amount: 18171.8
+  updated_at: 2017-06-09 20:58:14.873807000 Z
+  updater_id: 1
+loan_repayments_134:
+  accountable: false
+  accounted_at: 2017-06-09 20:58:14.967994000 Z
+  amount: 628.53
+  base_amount: 584.92
+  created_at: 2017-06-09 20:19:56.862718000 Z
+  creator_id: 1
+  due_on: 2017-01-24
+  id: 134
+  insurance_amount: 11.81
+  interest_amount: 31.8
+  loan_id: 3
+  lock_version: 1
+  locked: false
+  position: 59
+  remaining_amount: 17586.88
+  updated_at: 2017-06-09 20:58:14.960161000 Z
+  updater_id: 1
+loan_repayments_135:
+  accountable: false
+  accounted_at: 2017-06-09 20:58:14.980157000 Z
+  amount: 628.53
+  base_amount: 586.32
+  created_at: 2017-06-09 20:19:56.874349000 Z
+  creator_id: 1
+  due_on: 2017-02-24
+  id: 135
+  insurance_amount: 11.43
+  interest_amount: 30.78
+  loan_id: 3
+  lock_version: 1
+  locked: false
+  position: 60
+  remaining_amount: 17000.56
+  updated_at: 2017-06-09 20:58:14.972319000 Z
+  updater_id: 1
+loan_repayments_136:
+  accountable: false
+  accounted_at: 2017-06-09 20:58:14.991979000 Z
+  amount: 628.53
+  base_amount: 587.73
+  created_at: 2017-06-09 20:19:56.884901000 Z
+  creator_id: 1
+  due_on: 2017-03-24
+  id: 136
+  insurance_amount: 11.05
+  interest_amount: 29.75
+  loan_id: 3
+  lock_version: 1
+  locked: false
+  position: 61
+  remaining_amount: 16412.83
+  updated_at: 2017-06-09 20:58:14.984044000 Z
+  updater_id: 1
+loan_repayments_137:
+  accountable: false
+  accounted_at: 2017-06-09 20:58:15.003724000 Z
+  amount: 628.53
+  base_amount: 589.14
+  created_at: 2017-06-09 20:19:56.895471000 Z
+  creator_id: 1
+  due_on: 2017-04-24
+  id: 137
+  insurance_amount: 10.67
+  interest_amount: 28.72
+  loan_id: 3
+  lock_version: 1
+  locked: false
+  position: 62
+  remaining_amount: 15823.69
+  updated_at: 2017-06-09 20:58:14.995990000 Z
+  updater_id: 1
+loan_repayments_138:
+  accountable: false
+  accounted_at: 2017-06-09 20:58:15.015504000 Z
+  amount: 628.53
+  base_amount: 590.55
+  created_at: 2017-06-09 20:19:56.906321000 Z
+  creator_id: 1
+  due_on: 2017-05-24
+  id: 138
+  insurance_amount: 10.29
+  interest_amount: 27.69
+  loan_id: 3
+  lock_version: 1
+  locked: false
+  position: 63
+  remaining_amount: 15233.14
+  updated_at: 2017-06-09 20:58:15.007968000 Z
+  updater_id: 1
+loan_repayments_139:
+  accountable: false
+  accounted_at: 2017-06-09 20:58:15.028470000 Z
+  amount: 628.53
+  base_amount: 591.97
+  created_at: 2017-06-09 20:19:56.917336000 Z
+  creator_id: 1
+  due_on: 2017-06-24
+  id: 139
+  insurance_amount: 9.9
+  interest_amount: 26.66
+  loan_id: 3
+  lock_version: 1
+  locked: false
+  position: 64
+  remaining_amount: 14641.17
+  updated_at: 2017-06-09 20:58:15.019422000 Z
+  updater_id: 1
+loan_repayments_140:
+  accountable: false
+  accounted_at: 2017-06-09 20:58:15.043879000 Z
+  amount: 628.53
+  base_amount: 593.39
+  created_at: 2017-06-09 20:19:56.974223000 Z
+  creator_id: 1
+  due_on: 2017-07-24
+  id: 140
+  insurance_amount: 9.52
+  interest_amount: 25.62
+  loan_id: 3
+  lock_version: 1
+  locked: false
+  position: 65
+  remaining_amount: 14047.78
+  updated_at: 2017-06-09 20:58:15.033072000 Z
+  updater_id: 1
+loan_repayments_141:
+  accountable: false
+  accounted_at: 2017-06-09 20:58:15.057742000 Z
+  amount: 628.53
+  base_amount: 594.82
+  created_at: 2017-06-09 20:19:56.985688000 Z
+  creator_id: 1
+  due_on: 2017-08-24
+  id: 141
+  insurance_amount: 9.13
+  interest_amount: 24.58
+  loan_id: 3
+  lock_version: 1
+  locked: false
+  position: 66
+  remaining_amount: 13452.96
+  updated_at: 2017-06-09 20:58:15.048831000 Z
+  updater_id: 1
+loan_repayments_142:
+  accountable: false
+  accounted_at: 2017-06-09 20:58:15.070973000 Z
+  amount: 628.53
+  base_amount: 596.25
+  created_at: 2017-06-09 20:19:56.996128000 Z
+  creator_id: 1
+  due_on: 2017-09-24
+  id: 142
+  insurance_amount: 8.74
+  interest_amount: 23.54
+  loan_id: 3
+  lock_version: 1
+  locked: false
+  position: 67
+  remaining_amount: 12856.71
+  updated_at: 2017-06-09 20:58:15.062307000 Z
+  updater_id: 1
+loan_repayments_143:
+  accountable: false
+  accounted_at: 2017-06-09 20:58:15.083080000 Z
+  amount: 628.53
+  base_amount: 597.67
+  created_at: 2017-06-09 20:19:57.016563000 Z
+  creator_id: 1
+  due_on: 2017-10-24
+  id: 143
+  insurance_amount: 8.36
+  interest_amount: 22.5
+  loan_id: 3
+  lock_version: 1
+  locked: false
+  position: 68
+  remaining_amount: 12259.04
+  updated_at: 2017-06-09 20:58:15.075234000 Z
+  updater_id: 1
+loan_repayments_144:
+  accountable: false
+  accounted_at: 2017-06-09 20:58:15.094931000 Z
+  amount: 628.53
+  base_amount: 599.11
+  created_at: 2017-06-09 20:19:57.027421000 Z
+  creator_id: 1
+  due_on: 2017-11-24
+  id: 144
+  insurance_amount: 7.97
+  interest_amount: 21.45
+  loan_id: 3
+  lock_version: 1
+  locked: false
+  position: 69
+  remaining_amount: 11659.93
+  updated_at: 2017-06-09 20:58:15.086906000 Z
+  updater_id: 1
+loan_repayments_145:
+  accountable: false
+  accounted_at: 2017-06-09 20:58:15.106660000 Z
+  amount: 628.53
+  base_amount: 600.55
+  created_at: 2017-06-09 20:19:57.039132000 Z
+  creator_id: 1
+  due_on: 2017-12-24
+  id: 145
+  insurance_amount: 7.58
+  interest_amount: 20.4
+  loan_id: 3
+  lock_version: 1
+  locked: false
+  position: 70
+  remaining_amount: 11059.38
+  updated_at: 2017-06-09 20:58:15.098984000 Z
+  updater_id: 1
+loan_repayments_146:
+  accountable: false
+  accounted_at: 2017-06-09 20:58:15.118436000 Z
+  amount: 628.53
+  base_amount: 601.99
+  created_at: 2017-06-09 20:19:57.051890000 Z
+  creator_id: 1
+  due_on: 2018-01-24
+  id: 146
+  insurance_amount: 7.19
+  interest_amount: 19.35
+  loan_id: 3
+  lock_version: 1
+  locked: false
+  position: 71
+  remaining_amount: 10457.39
+  updated_at: 2017-06-09 20:58:15.110435000 Z
+  updater_id: 1
+loan_repayments_147:
+  accountable: false
+  accounted_at: 2017-06-09 20:58:15.129849000 Z
+  amount: 628.53
+  base_amount: 603.43
+  created_at: 2017-06-09 20:19:57.064414000 Z
+  creator_id: 1
+  due_on: 2018-02-24
+  id: 147
+  insurance_amount: 6.8
+  interest_amount: 18.3
+  loan_id: 3
+  lock_version: 1
+  locked: false
+  position: 72
+  remaining_amount: 9853.96
+  updated_at: 2017-06-09 20:58:15.122386000 Z
+  updater_id: 1
+loan_repayments_148:
+  accountable: false
+  accounted_at: 2017-06-09 20:58:15.143008000 Z
+  amount: 628.53
+  base_amount: 604.88
+  created_at: 2017-06-09 20:58:15.134263000 Z
+  creator_id: 1
+  due_on: 2018-03-24
+  id: 148
+  insurance_amount: 6.41
+  interest_amount: 17.24
+  loan_id: 3
+  lock_version: 0
+  locked: false
+  position: 73
+  remaining_amount: 9249.08
+  updated_at: 2017-06-09 20:58:15.134263000 Z
+  updater_id: 1
+loan_repayments_149:
+  accountable: false
+  accounted_at: 2017-06-09 20:58:15.154798000 Z
+  amount: 628.53
+  base_amount: 606.33
+  created_at: 2017-06-09 20:58:15.146729000 Z
+  creator_id: 1
+  due_on: 2018-04-24
+  id: 149
+  insurance_amount: 6.01
+  interest_amount: 16.19
+  loan_id: 3
+  lock_version: 0
+  locked: false
+  position: 74
+  remaining_amount: 8642.75
+  updated_at: 2017-06-09 20:58:15.146729000 Z
+  updater_id: 1
+loan_repayments_150:
+  accountable: false
+  accounted_at: 2017-06-09 20:58:15.166129000 Z
+  amount: 628.53
+  base_amount: 607.79
+  created_at: 2017-06-09 20:58:15.158447000 Z
+  creator_id: 1
+  due_on: 2018-05-24
+  id: 150
+  insurance_amount: 5.62
+  interest_amount: 15.12
+  loan_id: 3
+  lock_version: 0
+  locked: false
+  position: 75
+  remaining_amount: 8034.96
+  updated_at: 2017-06-09 20:58:15.158447000 Z
+  updater_id: 1
+loan_repayments_151:
+  accountable: false
+  accounted_at: 2017-06-09 20:58:15.178034000 Z
+  amount: 628.53
+  base_amount: 609.25
+  created_at: 2017-06-09 20:58:15.169697000 Z
+  creator_id: 1
+  due_on: 2018-06-24
+  id: 151
+  insurance_amount: 5.22
+  interest_amount: 14.06
+  loan_id: 3
+  lock_version: 0
+  locked: false
+  position: 76
+  remaining_amount: 7425.71
+  updated_at: 2017-06-09 20:58:15.169697000 Z
+  updater_id: 1
+loan_repayments_152:
+  accountable: false
+  accounted_at: 2017-06-09 20:58:15.190308000 Z
+  amount: 628.53
+  base_amount: 610.71
+  created_at: 2017-06-09 20:58:15.181730000 Z
+  creator_id: 1
+  due_on: 2018-07-24
+  id: 152
+  insurance_amount: 4.83
+  interest_amount: 12.99
+  loan_id: 3
+  lock_version: 0
+  locked: false
+  position: 77
+  remaining_amount: 6815.0
+  updated_at: 2017-06-09 20:58:15.181730000 Z
+  updater_id: 1
+loan_repayments_153:
+  accountable: false
+  accounted_at: 2017-06-09 20:58:15.202332000 Z
+  amount: 628.53
+  base_amount: 612.17
+  created_at: 2017-06-09 20:58:15.194086000 Z
+  creator_id: 1
+  due_on: 2018-08-24
+  id: 153
+  insurance_amount: 4.43
+  interest_amount: 11.93
+  loan_id: 3
+  lock_version: 0
+  locked: false
+  position: 78
+  remaining_amount: 6202.83
+  updated_at: 2017-06-09 20:58:15.194086000 Z
+  updater_id: 1
+loan_repayments_154:
+  accountable: false
+  accounted_at: 2017-06-09 20:58:15.228601000 Z
+  amount: 628.53
+  base_amount: 613.65
+  created_at: 2017-06-09 20:58:15.207630000 Z
+  creator_id: 1
+  due_on: 2018-09-24
+  id: 154
+  insurance_amount: 4.03
+  interest_amount: 10.85
+  loan_id: 3
+  lock_version: 0
+  locked: false
+  position: 79
+  remaining_amount: 5589.18
+  updated_at: 2017-06-09 20:58:15.207630000 Z
+  updater_id: 1
+loan_repayments_155:
+  accountable: false
+  accounted_at: 2017-06-09 20:58:15.241107000 Z
+  amount: 628.53
+  base_amount: 615.12
+  created_at: 2017-06-09 20:58:15.232606000 Z
+  creator_id: 1
+  due_on: 2018-10-24
+  id: 155
+  insurance_amount: 3.63
+  interest_amount: 9.78
+  loan_id: 3
+  lock_version: 0
+  locked: false
+  position: 80
+  remaining_amount: 4974.06
+  updated_at: 2017-06-09 20:58:15.232606000 Z
+  updater_id: 1
+loan_repayments_156:
+  accountable: false
+  accounted_at: 2017-06-09 20:58:15.252970000 Z
+  amount: 628.53
+  base_amount: 616.6
+  created_at: 2017-06-09 20:58:15.244853000 Z
+  creator_id: 1
+  due_on: 2018-11-24
+  id: 156
+  insurance_amount: 3.23
+  interest_amount: 8.7
+  loan_id: 3
+  lock_version: 0
+  locked: false
+  position: 81
+  remaining_amount: 4357.46
+  updated_at: 2017-06-09 20:58:15.244853000 Z
+  updater_id: 1
+loan_repayments_157:
+  accountable: false
+  accounted_at: 2017-06-09 20:58:15.264699000 Z
+  amount: 628.53
+  base_amount: 618.07
+  created_at: 2017-06-09 20:58:15.257050000 Z
+  creator_id: 1
+  due_on: 2018-12-24
+  id: 157
+  insurance_amount: 2.83
+  interest_amount: 7.63
+  loan_id: 3
+  lock_version: 0
+  locked: false
+  position: 82
+  remaining_amount: 3739.39
+  updated_at: 2017-06-09 20:58:15.257050000 Z
+  updater_id: 1
+loan_repayments_158:
+  accountable: false
+  accounted_at: 2017-06-09 20:58:15.277057000 Z
+  amount: 628.53
+  base_amount: 619.56
+  created_at: 2017-06-09 20:58:15.268603000 Z
+  creator_id: 1
+  due_on: 2019-01-24
+  id: 158
+  insurance_amount: 2.43
+  interest_amount: 6.54
+  loan_id: 3
+  lock_version: 0
+  locked: false
+  position: 83
+  remaining_amount: 3119.83
+  updated_at: 2017-06-09 20:58:15.268603000 Z
+  updater_id: 1
+loan_repayments_159:
+  accountable: false
+  accounted_at: 2017-06-09 20:58:15.288841000 Z
+  amount: 628.53
+  base_amount: 621.04
+  created_at: 2017-06-09 20:58:15.280804000 Z
+  creator_id: 1
+  due_on: 2019-02-24
+  id: 159
+  insurance_amount: 2.03
+  interest_amount: 5.46
+  loan_id: 3
+  lock_version: 0
+  locked: false
+  position: 84
+  remaining_amount: 2498.79
+  updated_at: 2017-06-09 20:58:15.280804000 Z
+  updater_id: 1
+loan_repayments_160:
+  accountable: false
+  accounted_at: 2017-06-09 20:58:15.300706000 Z
+  amount: 628.53
+  base_amount: 622.54
+  created_at: 2017-06-09 20:58:15.292539000 Z
+  creator_id: 1
+  due_on: 2019-03-24
+  id: 160
+  insurance_amount: 1.62
+  interest_amount: 4.37
+  loan_id: 3
+  lock_version: 0
+  locked: false
+  position: 85
+  remaining_amount: 1876.25
+  updated_at: 2017-06-09 20:58:15.292539000 Z
+  updater_id: 1
+loan_repayments_161:
+  accountable: false
+  accounted_at: 2017-06-09 20:58:15.313272000 Z
+  amount: 628.53
+  base_amount: 624.03
+  created_at: 2017-06-09 20:58:15.304916000 Z
+  creator_id: 1
+  due_on: 2019-04-24
+  id: 161
+  insurance_amount: 1.22
+  interest_amount: 3.28
+  loan_id: 3
+  lock_version: 0
+  locked: false
+  position: 86
+  remaining_amount: 1252.22
+  updated_at: 2017-06-09 20:58:15.304916000 Z
+  updater_id: 1
+loan_repayments_162:
+  accountable: false
+  accounted_at: 2017-06-09 20:58:15.327030000 Z
+  amount: 628.53
+  base_amount: 625.53
+  created_at: 2017-06-09 20:58:15.318062000 Z
+  creator_id: 1
+  due_on: 2019-05-24
+  id: 162
+  insurance_amount: 0.81
+  interest_amount: 2.19
+  loan_id: 3
+  lock_version: 0
+  locked: false
+  position: 87
+  remaining_amount: 626.69
+  updated_at: 2017-06-09 20:58:15.318062000 Z
+  updater_id: 1
+loan_repayments_163:
+  accountable: false
+  accounted_at: 2017-06-09 20:58:15.339185000 Z
+  amount: 628.2
+  base_amount: 626.69
+  created_at: 2017-06-09 20:58:15.330838000 Z
+  creator_id: 1
+  due_on: 2019-06-24
+  id: 163
+  insurance_amount: 0.41
+  interest_amount: 1.1
+  loan_id: 3
+  lock_version: 0
+  locked: false
+  position: 88
+  remaining_amount: 0.0
+  updated_at: 2017-06-09 20:58:15.330838000 Z
+  updater_id: 1
+loan_repayments_164:
+  accountable: true
+  accounted_at: 2017-06-09 20:59:57.832431000 Z
+  amount: 171.1
+  base_amount: 138.27
+  created_at: 2017-06-09 20:59:36.170398000 Z
+  creator_id: 1
+  due_on: 2010-01-02
+  id: 164
+  insurance_amount: 0.0
+  interest_amount: 32.83
+  journal_entry_id: 123
+  loan_id: 4
+  lock_version: 1
+  locked: false
+  position: 1
+  remaining_amount: 12173.73
+  updated_at: 2017-06-09 20:59:57.737103000 Z
+  updater_id: 1
+loan_repayments_165:
+  accountable: true
+  accounted_at: 2017-06-09 20:59:58.001737000 Z
+  amount: 171.1
+  base_amount: 138.64
+  created_at: 2017-06-09 20:59:36.185522000 Z
+  creator_id: 1
+  due_on: 2010-02-02
+  id: 165
+  insurance_amount: 0.0
+  interest_amount: 32.46
+  journal_entry_id: 124
+  loan_id: 4
+  lock_version: 1
+  locked: false
+  position: 2
+  remaining_amount: 12035.09
+  updated_at: 2017-06-09 20:59:57.841779000 Z
+  updater_id: 1
+loan_repayments_166:
+  accountable: true
+  accounted_at: 2017-06-09 20:59:58.108585000 Z
+  amount: 171.1
+  base_amount: 139.01
+  created_at: 2017-06-09 20:59:36.200423000 Z
+  creator_id: 1
+  due_on: 2010-03-02
+  id: 166
+  insurance_amount: 0.0
+  interest_amount: 32.09
+  journal_entry_id: 125
+  loan_id: 4
+  lock_version: 1
+  locked: false
+  position: 3
+  remaining_amount: 11896.08
+  updated_at: 2017-06-09 20:59:58.011143000 Z
+  updater_id: 1
+loan_repayments_167:
+  accountable: true
+  accounted_at: 2017-06-09 20:59:58.202134000 Z
+  amount: 171.1
+  base_amount: 139.38
+  created_at: 2017-06-09 20:59:36.213404000 Z
+  creator_id: 1
+  due_on: 2010-04-02
+  id: 167
+  insurance_amount: 0.0
+  interest_amount: 31.72
+  journal_entry_id: 126
+  loan_id: 4
+  lock_version: 1
+  locked: false
+  position: 4
+  remaining_amount: 11756.7
+  updated_at: 2017-06-09 20:59:58.124458000 Z
+  updater_id: 1
+loan_repayments_168:
+  accountable: true
+  accounted_at: 2017-06-09 20:59:58.294756000 Z
+  amount: 171.1
+  base_amount: 139.75
+  created_at: 2017-06-09 20:59:36.227034000 Z
+  creator_id: 1
+  due_on: 2010-05-02
+  id: 168
+  insurance_amount: 0.0
+  interest_amount: 31.35
+  journal_entry_id: 127
+  loan_id: 4
+  lock_version: 1
+  locked: false
+  position: 5
+  remaining_amount: 11616.95
+  updated_at: 2017-06-09 20:59:58.216076000 Z
+  updater_id: 1
+loan_repayments_169:
+  accountable: true
+  accounted_at: 2017-06-09 20:59:58.391361000 Z
+  amount: 171.1
+  base_amount: 140.12
+  created_at: 2017-06-09 20:59:36.240320000 Z
+  creator_id: 1
+  due_on: 2010-06-02
+  id: 169
+  insurance_amount: 0.0
+  interest_amount: 30.98
+  journal_entry_id: 128
+  loan_id: 4
+  lock_version: 1
+  locked: false
+  position: 6
+  remaining_amount: 11476.83
+  updated_at: 2017-06-09 20:59:58.308856000 Z
+  updater_id: 1
+loan_repayments_170:
+  accountable: true
+  accounted_at: 2017-06-09 20:59:58.477267000 Z
+  amount: 171.1
+  base_amount: 140.5
+  created_at: 2017-06-09 20:59:36.254006000 Z
+  creator_id: 1
+  due_on: 2010-07-02
+  id: 170
+  insurance_amount: 0.0
+  interest_amount: 30.6
+  journal_entry_id: 129
+  loan_id: 4
+  lock_version: 1
+  locked: false
+  position: 7
+  remaining_amount: 11336.33
+  updated_at: 2017-06-09 20:59:58.398870000 Z
+  updater_id: 1
+loan_repayments_171:
+  accountable: true
+  accounted_at: 2017-06-09 20:59:58.573117000 Z
+  amount: 171.1
+  base_amount: 140.87
+  created_at: 2017-06-09 20:59:36.267503000 Z
+  creator_id: 1
+  due_on: 2010-08-02
+  id: 171
+  insurance_amount: 0.0
+  interest_amount: 30.23
+  journal_entry_id: 130
+  loan_id: 4
+  lock_version: 1
+  locked: false
+  position: 8
+  remaining_amount: 11195.46
+  updated_at: 2017-06-09 20:59:58.491066000 Z
+  updater_id: 1
+loan_repayments_172:
+  accountable: true
+  accounted_at: 2017-06-09 20:59:58.656163000 Z
+  amount: 171.1
+  base_amount: 141.25
+  created_at: 2017-06-09 20:59:36.281619000 Z
+  creator_id: 1
+  due_on: 2010-09-02
+  id: 172
+  insurance_amount: 0.0
+  interest_amount: 29.85
+  journal_entry_id: 131
+  loan_id: 4
+  lock_version: 1
+  locked: false
+  position: 9
+  remaining_amount: 11054.21
+  updated_at: 2017-06-09 20:59:58.580177000 Z
+  updater_id: 1
+loan_repayments_173:
+  accountable: true
+  accounted_at: 2017-06-09 20:59:58.739626000 Z
+  amount: 171.1
+  base_amount: 141.62
+  created_at: 2017-06-09 20:59:36.294543000 Z
+  creator_id: 1
+  due_on: 2010-10-02
+  id: 173
+  insurance_amount: 0.0
+  interest_amount: 29.48
+  journal_entry_id: 132
+  loan_id: 4
+  lock_version: 1
+  locked: false
+  position: 10
+  remaining_amount: 10912.59
+  updated_at: 2017-06-09 20:59:58.662573000 Z
+  updater_id: 1
+loan_repayments_174:
+  accountable: true
+  accounted_at: 2017-06-09 20:59:58.825082000 Z
+  amount: 171.1
+  base_amount: 142.0
+  created_at: 2017-06-09 20:59:36.308708000 Z
+  creator_id: 1
+  due_on: 2010-11-02
+  id: 174
+  insurance_amount: 0.0
+  interest_amount: 29.1
+  journal_entry_id: 133
+  loan_id: 4
+  lock_version: 1
+  locked: false
+  position: 11
+  remaining_amount: 10770.59
+  updated_at: 2017-06-09 20:59:58.745740000 Z
+  updater_id: 1
+loan_repayments_175:
+  accountable: true
+  accounted_at: 2017-06-09 20:59:58.921041000 Z
+  amount: 171.1
+  base_amount: 142.38
+  created_at: 2017-06-09 20:59:36.321857000 Z
+  creator_id: 1
+  due_on: 2010-12-02
+  id: 175
+  insurance_amount: 0.0
+  interest_amount: 28.72
+  journal_entry_id: 134
+  loan_id: 4
+  lock_version: 1
+  locked: false
+  position: 12
+  remaining_amount: 10628.21
+  updated_at: 2017-06-09 20:59:58.831986000 Z
+  updater_id: 1
+loan_repayments_176:
+  accountable: true
+  accounted_at: 2017-06-09 20:59:59.015201000 Z
+  amount: 171.1
+  base_amount: 142.76
+  created_at: 2017-06-09 20:59:36.335760000 Z
+  creator_id: 1
+  due_on: 2011-01-02
+  id: 176
+  insurance_amount: 0.0
+  interest_amount: 28.34
+  journal_entry_id: 135
+  loan_id: 4
+  lock_version: 1
+  locked: false
+  position: 13
+  remaining_amount: 10485.45
+  updated_at: 2017-06-09 20:59:58.927817000 Z
+  updater_id: 1
+loan_repayments_177:
+  accountable: true
+  accounted_at: 2017-06-09 20:59:59.124025000 Z
+  amount: 171.1
+  base_amount: 143.14
+  created_at: 2017-06-09 20:59:36.348786000 Z
+  creator_id: 1
+  due_on: 2011-02-02
+  id: 177
+  insurance_amount: 0.0
+  interest_amount: 27.96
+  journal_entry_id: 136
+  loan_id: 4
+  lock_version: 1
+  locked: false
+  position: 14
+  remaining_amount: 10342.31
+  updated_at: 2017-06-09 20:59:59.022419000 Z
+  updater_id: 1
+loan_repayments_178:
+  accountable: true
+  accounted_at: 2017-06-09 20:59:59.221866000 Z
+  amount: 171.1
+  base_amount: 143.52
+  created_at: 2017-06-09 20:59:36.361490000 Z
+  creator_id: 1
+  due_on: 2011-03-02
+  id: 178
+  insurance_amount: 0.0
+  interest_amount: 27.58
+  journal_entry_id: 137
+  loan_id: 4
+  lock_version: 1
+  locked: false
+  position: 15
+  remaining_amount: 10198.79
+  updated_at: 2017-06-09 20:59:59.132600000 Z
+  updater_id: 1
+loan_repayments_179:
+  accountable: true
+  accounted_at: 2017-06-09 20:59:59.376832000 Z
+  amount: 171.1
+  base_amount: 143.9
+  created_at: 2017-06-09 20:59:36.375977000 Z
+  creator_id: 1
+  due_on: 2011-04-02
+  id: 179
+  insurance_amount: 0.0
+  interest_amount: 27.2
+  journal_entry_id: 138
+  loan_id: 4
+  lock_version: 1
+  locked: false
+  position: 16
+  remaining_amount: 10054.89
+  updated_at: 2017-06-09 20:59:59.229002000 Z
+  updater_id: 1
+loan_repayments_180:
+  accountable: true
+  accounted_at: 2017-06-09 20:59:59.465270000 Z
+  amount: 171.1
+  base_amount: 144.29
+  created_at: 2017-06-09 20:59:36.388994000 Z
+  creator_id: 1
+  due_on: 2011-05-02
+  id: 180
+  insurance_amount: 0.0
+  interest_amount: 26.81
+  journal_entry_id: 139
+  loan_id: 4
+  lock_version: 1
+  locked: false
+  position: 17
+  remaining_amount: 9910.6
+  updated_at: 2017-06-09 20:59:59.385001000 Z
+  updater_id: 1
+loan_repayments_181:
+  accountable: true
+  accounted_at: 2017-06-09 20:59:59.556086000 Z
+  amount: 171.1
+  base_amount: 144.67
+  created_at: 2017-06-09 20:59:36.402598000 Z
+  creator_id: 1
+  due_on: 2011-06-02
+  id: 181
+  insurance_amount: 0.0
+  interest_amount: 26.43
+  journal_entry_id: 140
+  loan_id: 4
+  lock_version: 1
+  locked: false
+  position: 18
+  remaining_amount: 9765.93
+  updated_at: 2017-06-09 20:59:59.471857000 Z
+  updater_id: 1
+loan_repayments_182:
+  accountable: true
+  accounted_at: 2017-06-09 20:59:59.643811000 Z
+  amount: 171.1
+  base_amount: 145.06
+  created_at: 2017-06-09 20:59:36.414746000 Z
+  creator_id: 1
+  due_on: 2011-07-02
+  id: 182
+  insurance_amount: 0.0
+  interest_amount: 26.04
+  journal_entry_id: 141
+  loan_id: 4
+  lock_version: 1
+  locked: false
+  position: 19
+  remaining_amount: 9620.87
+  updated_at: 2017-06-09 20:59:59.562669000 Z
+  updater_id: 1
+loan_repayments_183:
+  accountable: true
+  accounted_at: 2017-06-09 20:59:59.729627000 Z
+  amount: 171.1
+  base_amount: 145.44
+  created_at: 2017-06-09 20:59:36.428782000 Z
+  creator_id: 1
+  due_on: 2011-08-02
+  id: 183
+  insurance_amount: 0.0
+  interest_amount: 25.66
+  journal_entry_id: 142
+  loan_id: 4
+  lock_version: 1
+  locked: false
+  position: 20
+  remaining_amount: 9475.43
+  updated_at: 2017-06-09 20:59:59.650403000 Z
+  updater_id: 1
+loan_repayments_184:
+  accountable: true
+  accounted_at: 2017-06-09 20:59:59.824362000 Z
+  amount: 171.1
+  base_amount: 145.83
+  created_at: 2017-06-09 20:59:36.442821000 Z
+  creator_id: 1
+  due_on: 2011-09-02
+  id: 184
+  insurance_amount: 0.0
+  interest_amount: 25.27
+  journal_entry_id: 143
+  loan_id: 4
+  lock_version: 1
+  locked: false
+  position: 21
+  remaining_amount: 9329.6
+  updated_at: 2017-06-09 20:59:59.736187000 Z
+  updater_id: 1
+loan_repayments_185:
+  accountable: true
+  accounted_at: 2017-06-09 20:59:59.915850000 Z
+  amount: 171.1
+  base_amount: 146.22
+  created_at: 2017-06-09 20:59:36.454747000 Z
+  creator_id: 1
+  due_on: 2011-10-02
+  id: 185
+  insurance_amount: 0.0
+  interest_amount: 24.88
+  journal_entry_id: 144
+  loan_id: 4
+  lock_version: 1
+  locked: false
+  position: 22
+  remaining_amount: 9183.38
+  updated_at: 2017-06-09 20:59:59.830864000 Z
+  updater_id: 1
+loan_repayments_186:
+  accountable: true
+  accounted_at: 2017-06-09 21:00:00.005697000 Z
+  amount: 171.1
+  base_amount: 146.61
+  created_at: 2017-06-09 20:59:36.466999000 Z
+  creator_id: 1
+  due_on: 2011-11-02
+  id: 186
+  insurance_amount: 0.0
+  interest_amount: 24.49
+  journal_entry_id: 145
+  loan_id: 4
+  lock_version: 1
+  locked: false
+  position: 23
+  remaining_amount: 9036.77
+  updated_at: 2017-06-09 20:59:59.922089000 Z
+  updater_id: 1
+loan_repayments_187:
+  accountable: true
+  accounted_at: 2017-06-09 21:00:00.105449000 Z
+  amount: 171.1
+  base_amount: 147.0
+  created_at: 2017-06-09 20:59:36.480046000 Z
+  creator_id: 1
+  due_on: 2011-12-02
+  id: 187
+  insurance_amount: 0.0
+  interest_amount: 24.1
+  journal_entry_id: 146
+  loan_id: 4
+  lock_version: 1
+  locked: false
+  position: 24
+  remaining_amount: 8889.77
+  updated_at: 2017-06-09 21:00:00.012273000 Z
+  updater_id: 1
+loan_repayments_188:
+  accountable: true
+  accounted_at: 2017-06-09 21:00:00.197499000 Z
+  amount: 171.1
+  base_amount: 147.39
+  created_at: 2017-06-09 20:59:36.493167000 Z
+  creator_id: 1
+  due_on: 2012-01-02
+  id: 188
+  insurance_amount: 0.0
+  interest_amount: 23.71
+  journal_entry_id: 147
+  loan_id: 4
+  lock_version: 1
+  locked: false
+  position: 25
+  remaining_amount: 8742.38
+  updated_at: 2017-06-09 21:00:00.111908000 Z
+  updater_id: 1
+loan_repayments_189:
+  accountable: true
+  accounted_at: 2017-06-09 21:00:00.293195000 Z
+  amount: 171.1
+  base_amount: 147.79
+  created_at: 2017-06-09 20:59:36.505170000 Z
+  creator_id: 1
+  due_on: 2012-02-02
+  id: 189
+  insurance_amount: 0.0
+  interest_amount: 23.31
+  journal_entry_id: 148
+  loan_id: 4
+  lock_version: 1
+  locked: false
+  position: 26
+  remaining_amount: 8594.59
+  updated_at: 2017-06-09 21:00:00.204159000 Z
+  updater_id: 1
+loan_repayments_190:
+  accountable: true
+  accounted_at: 2017-06-09 21:00:00.394225000 Z
+  amount: 171.1
+  base_amount: 148.18
+  created_at: 2017-06-09 20:59:36.517787000 Z
+  creator_id: 1
+  due_on: 2012-03-02
+  id: 190
+  insurance_amount: 0.0
+  interest_amount: 22.92
+  journal_entry_id: 149
+  loan_id: 4
+  lock_version: 1
+  locked: false
+  position: 27
+  remaining_amount: 8446.41
+  updated_at: 2017-06-09 21:00:00.300219000 Z
+  updater_id: 1
+loan_repayments_191:
+  accountable: true
+  accounted_at: 2017-06-09 21:00:00.499701000 Z
+  amount: 171.1
+  base_amount: 148.58
+  created_at: 2017-06-09 20:59:36.531446000 Z
+  creator_id: 1
+  due_on: 2012-04-02
+  id: 191
+  insurance_amount: 0.0
+  interest_amount: 22.52
+  journal_entry_id: 150
+  loan_id: 4
+  lock_version: 1
+  locked: false
+  position: 28
+  remaining_amount: 8297.83
+  updated_at: 2017-06-09 21:00:00.407848000 Z
+  updater_id: 1
+loan_repayments_192:
+  accountable: true
+  accounted_at: 2017-06-09 21:00:00.669257000 Z
+  amount: 171.1
+  base_amount: 148.97
+  created_at: 2017-06-09 20:59:36.545812000 Z
+  creator_id: 1
+  due_on: 2012-05-02
+  id: 192
+  insurance_amount: 0.0
+  interest_amount: 22.13
+  journal_entry_id: 151
+  loan_id: 4
+  lock_version: 1
+  locked: false
+  position: 29
+  remaining_amount: 8148.86
+  updated_at: 2017-06-09 21:00:00.506463000 Z
+  updater_id: 1
+loan_repayments_193:
+  accountable: true
+  accounted_at: 2017-06-09 21:00:00.780042000 Z
+  amount: 171.1
+  base_amount: 149.37
+  created_at: 2017-06-09 20:59:36.558681000 Z
+  creator_id: 1
+  due_on: 2012-06-02
+  id: 193
+  insurance_amount: 0.0
+  interest_amount: 21.73
+  journal_entry_id: 152
+  loan_id: 4
+  lock_version: 1
+  locked: false
+  position: 30
+  remaining_amount: 7999.49
+  updated_at: 2017-06-09 21:00:00.685647000 Z
+  updater_id: 1
+loan_repayments_194:
+  accountable: true
+  accounted_at: 2017-06-09 21:00:00.898253000 Z
+  amount: 171.1
+  base_amount: 149.77
+  created_at: 2017-06-09 20:59:36.572245000 Z
+  creator_id: 1
+  due_on: 2012-07-02
+  id: 194
+  insurance_amount: 0.0
+  interest_amount: 21.33
+  journal_entry_id: 153
+  loan_id: 4
+  lock_version: 1
+  locked: false
+  position: 31
+  remaining_amount: 7849.72
+  updated_at: 2017-06-09 21:00:00.799563000 Z
+  updater_id: 1
+loan_repayments_195:
+  accountable: true
+  accounted_at: 2017-06-09 21:00:01.002895000 Z
+  amount: 171.1
+  base_amount: 150.17
+  created_at: 2017-06-09 20:59:36.586170000 Z
+  creator_id: 1
+  due_on: 2012-08-02
+  id: 195
+  insurance_amount: 0.0
+  interest_amount: 20.93
+  journal_entry_id: 154
+  loan_id: 4
+  lock_version: 1
+  locked: false
+  position: 32
+  remaining_amount: 7699.55
+  updated_at: 2017-06-09 21:00:00.906250000 Z
+  updater_id: 1
+loan_repayments_196:
+  accountable: true
+  accounted_at: 2017-06-09 21:00:01.120761000 Z
+  amount: 171.1
+  base_amount: 150.57
+  created_at: 2017-06-09 20:59:36.598988000 Z
+  creator_id: 1
+  due_on: 2012-09-02
+  id: 196
+  insurance_amount: 0.0
+  interest_amount: 20.53
+  journal_entry_id: 155
+  loan_id: 4
+  lock_version: 1
+  locked: false
+  position: 33
+  remaining_amount: 7548.98
+  updated_at: 2017-06-09 21:00:01.013739000 Z
+  updater_id: 1
+loan_repayments_197:
+  accountable: true
+  accounted_at: 2017-06-09 21:00:01.222821000 Z
+  amount: 171.1
+  base_amount: 150.97
+  created_at: 2017-06-09 20:59:36.612577000 Z
+  creator_id: 1
+  due_on: 2012-10-02
+  id: 197
+  insurance_amount: 0.0
+  interest_amount: 20.13
+  journal_entry_id: 156
+  loan_id: 4
+  lock_version: 1
+  locked: false
+  position: 34
+  remaining_amount: 7398.01
+  updated_at: 2017-06-09 21:00:01.128226000 Z
+  updater_id: 1
+loan_repayments_198:
+  accountable: true
+  accounted_at: 2017-06-09 21:00:01.332013000 Z
+  amount: 171.1
+  base_amount: 151.37
+  created_at: 2017-06-09 20:59:36.625252000 Z
+  creator_id: 1
+  due_on: 2012-11-02
+  id: 198
+  insurance_amount: 0.0
+  interest_amount: 19.73
+  journal_entry_id: 157
+  loan_id: 4
+  lock_version: 1
+  locked: false
+  position: 35
+  remaining_amount: 7246.64
+  updated_at: 2017-06-09 21:00:01.236076000 Z
+  updater_id: 1
+loan_repayments_199:
+  accountable: true
+  accounted_at: 2017-06-09 21:00:01.467797000 Z
+  amount: 171.1
+  base_amount: 151.78
+  created_at: 2017-06-09 20:59:36.638300000 Z
+  creator_id: 1
+  due_on: 2012-12-02
+  id: 199
+  insurance_amount: 0.0
+  interest_amount: 19.32
+  journal_entry_id: 158
+  loan_id: 4
+  lock_version: 1
+  locked: false
+  position: 36
+  remaining_amount: 7094.86
+  updated_at: 2017-06-09 21:00:01.343257000 Z
+  updater_id: 1
+loan_repayments_200:
+  accountable: true
+  accounted_at: 2017-06-09 21:00:01.704405000 Z
+  amount: 171.1
+  base_amount: 152.18
+  created_at: 2017-06-09 20:59:36.650572000 Z
+  creator_id: 1
+  due_on: 2013-01-02
+  id: 200
+  insurance_amount: 0.0
+  interest_amount: 18.92
+  journal_entry_id: 159
+  loan_id: 4
+  lock_version: 1
+  locked: false
+  position: 37
+  remaining_amount: 6942.68
+  updated_at: 2017-06-09 21:00:01.480552000 Z
+  updater_id: 1
+loan_repayments_201:
+  accountable: true
+  accounted_at: 2017-06-09 21:00:01.886199000 Z
+  amount: 171.1
+  base_amount: 152.59
+  created_at: 2017-06-09 20:59:36.663395000 Z
+  creator_id: 1
+  due_on: 2013-02-02
+  id: 201
+  insurance_amount: 0.0
+  interest_amount: 18.51
+  journal_entry_id: 160
+  loan_id: 4
+  lock_version: 1
+  locked: false
+  position: 38
+  remaining_amount: 6790.09
+  updated_at: 2017-06-09 21:00:01.728194000 Z
+  updater_id: 1
+loan_repayments_202:
+  accountable: true
+  accounted_at: 2017-06-09 21:00:02.062289000 Z
+  amount: 171.1
+  base_amount: 152.99
+  created_at: 2017-06-09 20:59:36.678122000 Z
+  creator_id: 1
+  due_on: 2013-03-02
+  id: 202
+  insurance_amount: 0.0
+  interest_amount: 18.11
+  journal_entry_id: 161
+  loan_id: 4
+  lock_version: 1
+  locked: false
+  position: 39
+  remaining_amount: 6637.1
+  updated_at: 2017-06-09 21:00:01.900519000 Z
+  updater_id: 1
+loan_repayments_203:
+  accountable: true
+  accounted_at: 2017-06-09 21:00:02.223466000 Z
+  amount: 171.1
+  base_amount: 153.4
+  created_at: 2017-06-09 20:59:36.691214000 Z
+  creator_id: 1
+  due_on: 2013-04-02
+  id: 203
+  insurance_amount: 0.0
+  interest_amount: 17.7
+  journal_entry_id: 162
+  loan_id: 4
+  lock_version: 1
+  locked: false
+  position: 40
+  remaining_amount: 6483.7
+  updated_at: 2017-06-09 21:00:02.075301000 Z
+  updater_id: 1
+loan_repayments_204:
+  accountable: true
+  accounted_at: 2017-06-09 21:00:02.405806000 Z
+  amount: 171.1
+  base_amount: 153.81
+  created_at: 2017-06-09 20:59:36.703042000 Z
+  creator_id: 1
+  due_on: 2013-05-02
+  id: 204
+  insurance_amount: 0.0
+  interest_amount: 17.29
+  journal_entry_id: 163
+  loan_id: 4
+  lock_version: 1
+  locked: false
+  position: 41
+  remaining_amount: 6329.89
+  updated_at: 2017-06-09 21:00:02.244211000 Z
+  updater_id: 1
+loan_repayments_205:
+  accountable: true
+  accounted_at: 2017-06-09 21:00:02.589877000 Z
+  amount: 171.1
+  base_amount: 154.22
+  created_at: 2017-06-09 20:59:36.714946000 Z
+  creator_id: 1
+  due_on: 2013-06-02
+  id: 205
+  insurance_amount: 0.0
+  interest_amount: 16.88
+  journal_entry_id: 164
+  loan_id: 4
+  lock_version: 1
+  locked: false
+  position: 42
+  remaining_amount: 6175.67
+  updated_at: 2017-06-09 21:00:02.416239000 Z
+  updater_id: 1
+loan_repayments_206:
+  accountable: true
+  accounted_at: 2017-06-09 21:00:02.688569000 Z
+  amount: 171.1
+  base_amount: 154.63
+  created_at: 2017-06-09 20:59:36.728975000 Z
+  creator_id: 1
+  due_on: 2013-07-02
+  id: 206
+  insurance_amount: 0.0
+  interest_amount: 16.47
+  journal_entry_id: 165
+  loan_id: 4
+  lock_version: 1
+  locked: false
+  position: 43
+  remaining_amount: 6021.04
+  updated_at: 2017-06-09 21:00:02.598264000 Z
+  updater_id: 1
+loan_repayments_207:
+  accountable: true
+  accounted_at: 2017-06-09 21:00:02.782984000 Z
+  amount: 171.1
+  base_amount: 155.04
+  created_at: 2017-06-09 20:59:36.741883000 Z
+  creator_id: 1
+  due_on: 2013-08-02
+  id: 207
+  insurance_amount: 0.0
+  interest_amount: 16.06
+  journal_entry_id: 166
+  loan_id: 4
+  lock_version: 1
+  locked: false
+  position: 44
+  remaining_amount: 5866.0
+  updated_at: 2017-06-09 21:00:02.695284000 Z
+  updater_id: 1
+loan_repayments_208:
+  accountable: true
+  accounted_at: 2017-06-09 21:00:02.879449000 Z
+  amount: 171.1
+  base_amount: 155.46
+  created_at: 2017-06-09 20:59:36.753856000 Z
+  creator_id: 1
+  due_on: 2013-09-02
+  id: 208
+  insurance_amount: 0.0
+  interest_amount: 15.64
+  journal_entry_id: 167
+  loan_id: 4
+  lock_version: 1
+  locked: false
+  position: 45
+  remaining_amount: 5710.54
+  updated_at: 2017-06-09 21:00:02.790328000 Z
+  updater_id: 1
+loan_repayments_209:
+  accountable: true
+  accounted_at: 2017-06-09 21:00:02.969232000 Z
+  amount: 171.1
+  base_amount: 155.87
+  created_at: 2017-06-09 20:59:36.765997000 Z
+  creator_id: 1
+  due_on: 2013-10-02
+  id: 209
+  insurance_amount: 0.0
+  interest_amount: 15.23
+  journal_entry_id: 168
+  loan_id: 4
+  lock_version: 1
+  locked: false
+  position: 46
+  remaining_amount: 5554.67
+  updated_at: 2017-06-09 21:00:02.885717000 Z
+  updater_id: 1
+loan_repayments_210:
+  accountable: true
+  accounted_at: 2017-06-09 21:00:03.069728000 Z
+  amount: 171.1
+  base_amount: 156.29
+  created_at: 2017-06-09 20:59:36.780465000 Z
+  creator_id: 1
+  due_on: 2013-11-02
+  id: 210
+  insurance_amount: 0.0
+  interest_amount: 14.81
+  journal_entry_id: 169
+  loan_id: 4
+  lock_version: 1
+  locked: false
+  position: 47
+  remaining_amount: 5398.38
+  updated_at: 2017-06-09 21:00:02.975878000 Z
+  updater_id: 1
+loan_repayments_211:
+  accountable: true
+  accounted_at: 2017-06-09 21:00:03.174715000 Z
+  amount: 171.1
+  base_amount: 156.7
+  created_at: 2017-06-09 20:59:36.865272000 Z
+  creator_id: 1
+  due_on: 2013-12-02
+  id: 211
+  insurance_amount: 0.0
+  interest_amount: 14.4
+  journal_entry_id: 170
+  loan_id: 4
+  lock_version: 1
+  locked: false
+  position: 48
+  remaining_amount: 5241.68
+  updated_at: 2017-06-09 21:00:03.077373000 Z
+  updater_id: 1
+loan_repayments_212:
+  accountable: true
+  accounted_at: 2017-06-09 21:00:03.280699000 Z
+  amount: 171.1
+  base_amount: 157.12
+  created_at: 2017-06-09 20:59:36.879549000 Z
+  creator_id: 1
+  due_on: 2014-01-02
+  id: 212
+  insurance_amount: 0.0
+  interest_amount: 13.98
+  journal_entry_id: 171
+  loan_id: 4
+  lock_version: 1
+  locked: false
+  position: 49
+  remaining_amount: 5084.56
+  updated_at: 2017-06-09 21:00:03.184571000 Z
+  updater_id: 1
+loan_repayments_213:
+  accountable: true
+  accounted_at: 2017-06-09 21:00:03.385877000 Z
+  amount: 171.1
+  base_amount: 157.54
+  created_at: 2017-06-09 20:59:36.892687000 Z
+  creator_id: 1
+  due_on: 2014-02-02
+  id: 213
+  insurance_amount: 0.0
+  interest_amount: 13.56
+  journal_entry_id: 172
+  loan_id: 4
+  lock_version: 1
+  locked: false
+  position: 50
+  remaining_amount: 4927.02
+  updated_at: 2017-06-09 21:00:03.292769000 Z
+  updater_id: 1
+loan_repayments_214:
+  accountable: true
+  accounted_at: 2017-06-09 21:00:03.490857000 Z
+  amount: 171.1
+  base_amount: 157.96
+  created_at: 2017-06-09 20:59:36.904289000 Z
+  creator_id: 1
+  due_on: 2014-03-02
+  id: 214
+  insurance_amount: 0.0
+  interest_amount: 13.14
+  journal_entry_id: 173
+  loan_id: 4
+  lock_version: 1
+  locked: false
+  position: 51
+  remaining_amount: 4769.06
+  updated_at: 2017-06-09 21:00:03.393077000 Z
+  updater_id: 1
+loan_repayments_215:
+  accountable: true
+  accounted_at: 2017-06-09 21:00:03.598043000 Z
+  amount: 171.1
+  base_amount: 158.38
+  created_at: 2017-06-09 20:59:36.916458000 Z
+  creator_id: 1
+  due_on: 2014-04-02
+  id: 215
+  insurance_amount: 0.0
+  interest_amount: 12.72
+  journal_entry_id: 174
+  loan_id: 4
+  lock_version: 1
+  locked: false
+  position: 52
+  remaining_amount: 4610.68
+  updated_at: 2017-06-09 21:00:03.500292000 Z
+  updater_id: 1
+loan_repayments_216:
+  accountable: true
+  accounted_at: 2017-06-09 21:00:03.704180000 Z
+  amount: 171.1
+  base_amount: 158.8
+  created_at: 2017-06-09 20:59:36.930591000 Z
+  creator_id: 1
+  due_on: 2014-05-02
+  id: 216
+  insurance_amount: 0.0
+  interest_amount: 12.3
+  journal_entry_id: 175
+  loan_id: 4
+  lock_version: 1
+  locked: false
+  position: 53
+  remaining_amount: 4451.88
+  updated_at: 2017-06-09 21:00:03.605130000 Z
+  updater_id: 1
+loan_repayments_217:
+  accountable: true
+  accounted_at: 2017-06-09 21:00:03.811256000 Z
+  amount: 171.1
+  base_amount: 159.23
+  created_at: 2017-06-09 20:59:36.942962000 Z
+  creator_id: 1
+  due_on: 2014-06-02
+  id: 217
+  insurance_amount: 0.0
+  interest_amount: 11.87
+  journal_entry_id: 176
+  loan_id: 4
+  lock_version: 1
+  locked: false
+  position: 54
+  remaining_amount: 4292.65
+  updated_at: 2017-06-09 21:00:03.714410000 Z
+  updater_id: 1
+loan_repayments_218:
+  accountable: true
+  accounted_at: 2017-06-09 21:00:03.916587000 Z
+  amount: 171.1
+  base_amount: 159.65
+  created_at: 2017-06-09 20:59:36.954733000 Z
+  creator_id: 1
+  due_on: 2014-07-02
+  id: 218
+  insurance_amount: 0.0
+  interest_amount: 11.45
+  journal_entry_id: 177
+  loan_id: 4
+  lock_version: 1
+  locked: false
+  position: 55
+  remaining_amount: 4133.0
+  updated_at: 2017-06-09 21:00:03.821213000 Z
+  updater_id: 1
+loan_repayments_219:
+  accountable: true
+  accounted_at: 2017-06-09 21:00:04.024747000 Z
+  amount: 171.1
+  base_amount: 160.08
+  created_at: 2017-06-09 20:59:36.966735000 Z
+  creator_id: 1
+  due_on: 2014-08-02
+  id: 219
+  insurance_amount: 0.0
+  interest_amount: 11.02
+  journal_entry_id: 178
+  loan_id: 4
+  lock_version: 1
+  locked: false
+  position: 56
+  remaining_amount: 3972.92
+  updated_at: 2017-06-09 21:00:03.928907000 Z
+  updater_id: 1
+loan_repayments_220:
+  accountable: true
+  accounted_at: 2017-06-09 21:00:04.137575000 Z
+  amount: 171.1
+  base_amount: 160.51
+  created_at: 2017-06-09 20:59:36.980161000 Z
+  creator_id: 1
+  due_on: 2014-09-02
+  id: 220
+  insurance_amount: 0.0
+  interest_amount: 10.59
+  journal_entry_id: 179
+  loan_id: 4
+  lock_version: 1
+  locked: false
+  position: 57
+  remaining_amount: 3812.41
+  updated_at: 2017-06-09 21:00:04.036945000 Z
+  updater_id: 1
+loan_repayments_221:
+  accountable: true
+  accounted_at: 2017-06-09 21:00:04.253910000 Z
+  amount: 171.1
+  base_amount: 160.93
+  created_at: 2017-06-09 20:59:36.992584000 Z
+  creator_id: 1
+  due_on: 2014-10-02
+  id: 221
+  insurance_amount: 0.0
+  interest_amount: 10.17
+  journal_entry_id: 180
+  loan_id: 4
+  lock_version: 1
+  locked: false
+  position: 58
+  remaining_amount: 3651.48
+  updated_at: 2017-06-09 21:00:04.146462000 Z
+  updater_id: 1
+loan_repayments_222:
+  accountable: true
+  accounted_at: 2017-06-09 21:00:04.434026000 Z
+  amount: 171.1
+  base_amount: 161.36
+  created_at: 2017-06-09 20:59:37.003926000 Z
+  creator_id: 1
+  due_on: 2014-11-02
+  id: 222
+  insurance_amount: 0.0
+  interest_amount: 9.74
+  journal_entry_id: 181
+  loan_id: 4
+  lock_version: 1
+  locked: false
+  position: 59
+  remaining_amount: 3490.12
+  updated_at: 2017-06-09 21:00:04.266924000 Z
+  updater_id: 1
+loan_repayments_223:
+  accountable: true
+  accounted_at: 2017-06-09 21:00:04.535013000 Z
+  amount: 171.1
+  base_amount: 161.79
+  created_at: 2017-06-09 20:59:37.016925000 Z
+  creator_id: 1
+  due_on: 2014-12-02
+  id: 223
+  insurance_amount: 0.0
+  interest_amount: 9.31
+  journal_entry_id: 182
+  loan_id: 4
+  lock_version: 1
+  locked: false
+  position: 60
+  remaining_amount: 3328.33
+  updated_at: 2017-06-09 21:00:04.441901000 Z
+  updater_id: 1
+loan_repayments_224:
+  accountable: true
+  accounted_at: 2017-06-09 21:00:04.637685000 Z
+  amount: 171.1
+  base_amount: 162.22
+  created_at: 2017-06-09 20:59:37.030974000 Z
+  creator_id: 1
+  due_on: 2015-01-02
+  id: 224
+  insurance_amount: 0.0
+  interest_amount: 8.88
+  journal_entry_id: 183
+  loan_id: 4
+  lock_version: 1
+  locked: false
+  position: 61
+  remaining_amount: 3166.11
+  updated_at: 2017-06-09 21:00:04.543582000 Z
+  updater_id: 1
+loan_repayments_225:
+  accountable: true
+  accounted_at: 2017-06-09 21:00:04.761473000 Z
+  amount: 171.1
+  base_amount: 162.66
+  created_at: 2017-06-09 20:59:37.045512000 Z
+  creator_id: 1
+  due_on: 2015-02-02
+  id: 225
+  insurance_amount: 0.0
+  interest_amount: 8.44
+  journal_entry_id: 184
+  loan_id: 4
+  lock_version: 1
+  locked: false
+  position: 62
+  remaining_amount: 3003.45
+  updated_at: 2017-06-09 21:00:04.649750000 Z
+  updater_id: 1
+loan_repayments_226:
+  accountable: true
+  accounted_at: 2017-06-09 21:00:04.877509000 Z
+  amount: 171.1
+  base_amount: 163.09
+  created_at: 2017-06-09 20:59:37.057499000 Z
+  creator_id: 1
+  due_on: 2015-03-02
+  id: 226
+  insurance_amount: 0.0
+  interest_amount: 8.01
+  journal_entry_id: 185
+  loan_id: 4
+  lock_version: 1
+  locked: false
+  position: 63
+  remaining_amount: 2840.36
+  updated_at: 2017-06-09 21:00:04.770193000 Z
+  updater_id: 1
+loan_repayments_227:
+  accountable: true
+  accounted_at: 2017-06-09 21:00:04.991762000 Z
+  amount: 171.1
+  base_amount: 163.53
+  created_at: 2017-06-09 20:59:37.069917000 Z
+  creator_id: 1
+  due_on: 2015-04-02
+  id: 227
+  insurance_amount: 0.0
+  interest_amount: 7.57
+  journal_entry_id: 186
+  loan_id: 4
+  lock_version: 1
+  locked: false
+  position: 64
+  remaining_amount: 2676.83
+  updated_at: 2017-06-09 21:00:04.885583000 Z
+  updater_id: 1
+loan_repayments_228:
+  accountable: true
+  accounted_at: 2017-06-09 21:00:05.099973000 Z
+  amount: 171.1
+  base_amount: 163.96
+  created_at: 2017-06-09 20:59:37.083626000 Z
+  creator_id: 1
+  due_on: 2015-05-02
+  id: 228
+  insurance_amount: 0.0
+  interest_amount: 7.14
+  journal_entry_id: 187
+  loan_id: 4
+  lock_version: 1
+  locked: false
+  position: 65
+  remaining_amount: 2512.87
+  updated_at: 2017-06-09 21:00:05.000342000 Z
+  updater_id: 1
+loan_repayments_229:
+  accountable: true
+  accounted_at: 2017-06-09 21:00:05.202282000 Z
+  amount: 171.1
+  base_amount: 164.4
+  created_at: 2017-06-09 20:59:37.096736000 Z
+  creator_id: 1
+  due_on: 2015-06-02
+  id: 229
+  insurance_amount: 0.0
+  interest_amount: 6.7
+  journal_entry_id: 188
+  loan_id: 4
+  lock_version: 1
+  locked: false
+  position: 66
+  remaining_amount: 2348.47
+  updated_at: 2017-06-09 21:00:05.107805000 Z
+  updater_id: 1
+loan_repayments_230:
+  accountable: true
+  accounted_at: 2017-06-09 21:00:05.328000000 Z
+  amount: 171.1
+  base_amount: 164.84
+  created_at: 2017-06-09 20:59:37.109226000 Z
+  creator_id: 1
+  due_on: 2015-07-02
+  id: 230
+  insurance_amount: 0.0
+  interest_amount: 6.26
+  journal_entry_id: 189
+  loan_id: 4
+  lock_version: 1
+  locked: false
+  position: 67
+  remaining_amount: 2183.63
+  updated_at: 2017-06-09 21:00:05.209316000 Z
+  updater_id: 1
+loan_repayments_231:
+  accountable: true
+  accounted_at: 2017-06-09 21:00:05.437833000 Z
+  amount: 171.1
+  base_amount: 165.28
+  created_at: 2017-06-09 20:59:37.122253000 Z
+  creator_id: 1
+  due_on: 2015-08-02
+  id: 231
+  insurance_amount: 0.0
+  interest_amount: 5.82
+  journal_entry_id: 190
+  loan_id: 4
+  lock_version: 1
+  locked: false
+  position: 68
+  remaining_amount: 2018.35
+  updated_at: 2017-06-09 21:00:05.336398000 Z
+  updater_id: 1
+loan_repayments_232:
+  accountable: true
+  accounted_at: 2017-06-09 21:00:05.541531000 Z
+  amount: 171.1
+  base_amount: 165.72
+  created_at: 2017-06-09 20:59:37.135986000 Z
+  creator_id: 1
+  due_on: 2015-09-02
+  id: 232
+  insurance_amount: 0.0
+  interest_amount: 5.38
+  journal_entry_id: 191
+  loan_id: 4
+  lock_version: 1
+  locked: false
+  position: 69
+  remaining_amount: 1852.63
+  updated_at: 2017-06-09 21:00:05.445847000 Z
+  updater_id: 1
+loan_repayments_233:
+  accountable: true
+  accounted_at: 2017-06-09 21:00:05.643163000 Z
+  amount: 171.1
+  base_amount: 166.16
+  created_at: 2017-06-09 20:59:37.148659000 Z
+  creator_id: 1
+  due_on: 2015-10-02
+  id: 233
+  insurance_amount: 0.0
+  interest_amount: 4.94
+  journal_entry_id: 192
+  loan_id: 4
+  lock_version: 1
+  locked: false
+  position: 70
+  remaining_amount: 1686.47
+  updated_at: 2017-06-09 21:00:05.555486000 Z
+  updater_id: 1
+loan_repayments_234:
+  accountable: true
+  accounted_at: 2017-06-09 21:00:05.732974000 Z
+  amount: 171.1
+  base_amount: 166.6
+  created_at: 2017-06-09 20:59:37.160686000 Z
+  creator_id: 1
+  due_on: 2015-11-02
+  id: 234
+  insurance_amount: 0.0
+  interest_amount: 4.5
+  journal_entry_id: 193
+  loan_id: 4
+  lock_version: 1
+  locked: false
+  position: 71
+  remaining_amount: 1519.87
+  updated_at: 2017-06-09 21:00:05.650308000 Z
+  updater_id: 1
+loan_repayments_235:
+  accountable: true
+  accounted_at: 2017-06-09 21:00:05.822985000 Z
+  amount: 171.1
+  base_amount: 167.05
+  created_at: 2017-06-09 20:59:37.173335000 Z
+  creator_id: 1
+  due_on: 2015-12-02
+  id: 235
+  insurance_amount: 0.0
+  interest_amount: 4.05
+  journal_entry_id: 194
+  loan_id: 4
+  lock_version: 1
+  locked: false
+  position: 72
+  remaining_amount: 1352.82
+  updated_at: 2017-06-09 21:00:05.739678000 Z
+  updater_id: 1
+loan_repayments_236:
+  accountable: true
+  accounted_at: 2017-06-09 21:00:05.912989000 Z
+  amount: 171.1
+  base_amount: 167.49
+  created_at: 2017-06-09 20:59:37.186329000 Z
+  creator_id: 1
+  due_on: 2016-01-02
+  id: 236
+  insurance_amount: 0.0
+  interest_amount: 3.61
+  journal_entry_id: 195
+  loan_id: 4
+  lock_version: 1
+  locked: false
+  position: 73
+  remaining_amount: 1185.33
+  updated_at: 2017-06-09 21:00:05.829549000 Z
+  updater_id: 1
+loan_repayments_237:
+  accountable: true
+  accounted_at: 2017-06-09 21:00:06.002410000 Z
+  amount: 171.1
+  base_amount: 167.94
+  created_at: 2017-06-09 20:59:37.198941000 Z
+  creator_id: 1
+  due_on: 2016-02-02
+  id: 237
+  insurance_amount: 0.0
+  interest_amount: 3.16
+  journal_entry_id: 196
+  loan_id: 4
+  lock_version: 1
+  locked: false
+  position: 74
+  remaining_amount: 1017.39
+  updated_at: 2017-06-09 21:00:05.919368000 Z
+  updater_id: 1
+loan_repayments_238:
+  accountable: true
+  accounted_at: 2017-06-09 21:00:06.095616000 Z
+  amount: 171.1
+  base_amount: 168.39
+  created_at: 2017-06-09 20:59:37.210666000 Z
+  creator_id: 1
+  due_on: 2016-03-02
+  id: 238
+  insurance_amount: 0.0
+  interest_amount: 2.71
+  journal_entry_id: 197
+  loan_id: 4
+  lock_version: 1
+  locked: false
+  position: 75
+  remaining_amount: 849.0
+  updated_at: 2017-06-09 21:00:06.008583000 Z
+  updater_id: 1
+loan_repayments_239:
+  accountable: true
+  accounted_at: 2017-06-09 21:00:06.252943000 Z
+  amount: 171.1
+  base_amount: 168.84
+  created_at: 2017-06-09 20:59:37.224641000 Z
+  creator_id: 1
+  due_on: 2016-04-02
+  id: 239
+  insurance_amount: 0.0
+  interest_amount: 2.26
+  journal_entry_id: 198
+  loan_id: 4
+  lock_version: 1
+  locked: false
+  position: 76
+  remaining_amount: 680.16
+  updated_at: 2017-06-09 21:00:06.102599000 Z
+  updater_id: 1
+loan_repayments_240:
+  accountable: true
+  accounted_at: 2017-06-09 21:00:06.343337000 Z
+  amount: 171.1
+  base_amount: 169.29
+  created_at: 2017-06-09 20:59:37.238743000 Z
+  creator_id: 1
+  due_on: 2016-05-02
+  id: 240
+  insurance_amount: 0.0
+  interest_amount: 1.81
+  journal_entry_id: 199
+  loan_id: 4
+  lock_version: 1
+  locked: false
+  position: 77
+  remaining_amount: 510.87
+  updated_at: 2017-06-09 21:00:06.259862000 Z
+  updater_id: 1
+loan_repayments_241:
+  accountable: true
+  accounted_at: 2017-06-09 21:00:06.435080000 Z
+  amount: 171.1
+  base_amount: 169.74
+  created_at: 2017-06-09 20:59:37.251243000 Z
+  creator_id: 1
+  due_on: 2016-06-02
+  id: 241
+  insurance_amount: 0.0
+  interest_amount: 1.36
+  journal_entry_id: 200
+  loan_id: 4
+  lock_version: 1
+  locked: false
+  position: 78
+  remaining_amount: 341.13
+  updated_at: 2017-06-09 21:00:06.349471000 Z
+  updater_id: 1
+loan_repayments_242:
+  accountable: true
+  accounted_at: 2017-06-09 21:00:06.523485000 Z
+  amount: 171.1
+  base_amount: 170.19
+  created_at: 2017-06-09 20:59:37.263350000 Z
+  creator_id: 1
+  due_on: 2016-07-02
+  id: 242
+  insurance_amount: 0.0
+  interest_amount: 0.91
+  journal_entry_id: 201
+  loan_id: 4
+  lock_version: 1
+  locked: false
+  position: 79
+  remaining_amount: 170.94
+  updated_at: 2017-06-09 21:00:06.441419000 Z
+  updater_id: 1
+loan_repayments_243:
+  accountable: true
+  accounted_at: 2017-06-09 21:00:06.617388000 Z
+  amount: 171.4
+  base_amount: 170.94
+  created_at: 2017-06-09 20:59:37.277425000 Z
+  creator_id: 1
+  due_on: 2016-08-02
+  id: 243
+  insurance_amount: 0.0
+  interest_amount: 0.46
+  journal_entry_id: 202
+  loan_id: 4
+  lock_version: 1
+  locked: false
+  position: 80
+  remaining_amount: 0.0
+  updated_at: 2017-06-09 21:00:06.529914000 Z
   updater_id: 1

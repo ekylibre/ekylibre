@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<migration name="Add portuguese account config">
+  <item-change item="accounts#invoice_to_create_clients" pt_snc="215"/>
+</migration>

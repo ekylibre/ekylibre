@@ -1,5 +1,5 @@
 require 'test_helper'
 
-class ScheduleJobTest < ActionJob::TestCase
+class ScheduleJobTest < ActiveJob::TestCase
   # Add tests here...
 end

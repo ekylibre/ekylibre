@@ -8,6 +8,9 @@ jpn:
     human:
       false_class: "偽"
       true_class: "本当"
+    polar:
+      false_class: "はい"
+      true_class: "いいえ"
   date:
     abbr_day_names: ["日", "月", "火", "水", "木", "金", "土"]
     abbr_month_names: ["", "一", "二", "三", "四", "五", "六", "七", "八", "九", "十", "十一", "十二"]
@@ -19,6 +22,7 @@ jpn:
       month: "%Y年%m月"
       month_letter: "%d %B %Y"
       short: "%m/%d"
+      short_month: "%m/%d"
     month_names: ["", "1月", "2月", "3月", "4月", "5月", "6月", "7月", "8月", "9月", "10月", "11月", "12月"]
   datetime:
     distance_in_words:
@@ -56,6 +60,12 @@ jpn:
       x_seconds:
         one: "1秒"
         other: "%{count}秒"
+    periods:
+      day: "日"
+      month: "月"
+      today: "今日"
+      week: "週間"
+      year: "年"
     relative_distance_in_words:
       # in_sometime: "in %{distance}"
       # sometime_ago: "%{distance} ago"
@@ -64,6 +74,9 @@ jpn:
       internal_server_error:
         hint: "アプリケーションでは、問題が発生しました。管理者は、この問題のために通知されています。"
         title: "申し訳ございません。不具合が発生しました"
+      maintenance:
+        hint: "また後で来てください"
+        title: "サービスはメンテナンス中であり、現在では使用できません"
       not_found:
         hint: "あなたは、アドレスが間違って入力されているか、ページが移動した可能性があります。"
         title: "あなたが探していたページは存在しません。"
@@ -83,7 +96,7 @@ jpn:
       delimiter: ","
       precision: 3
       separator: "."
-    formats:  #?
+    formats: #?
       JPY: #?
         unit: "円" #?
     human:
@@ -97,12 +110,6 @@ jpn:
       format:
         delimiter: ""
   rank: "#%{number}"
-  simple_form:
-    hints:
-      purchase:
-        reference_number: "サプライヤーの請求書番号"
-    required:
-      text: "必須"
   support:
     array:
       last_word_connector: "と"
@@ -112,7 +119,13 @@ jpn:
   time:
     am: "午前"
     formats:
+      compact: "％のM /％D /％Y％のH：％M"
       default: "%Y/%m/%d %H:%M:%S"
+      full: "％m /％d /％Y％H：％M：％S"
       long: "%Y年%m月%d日(%a) %H時%M分%S秒 %z"
       short: "%y/%m/%d %H:%M"
+      time: "%H:%M" #?
+    js_formats:
+      compact: "MM / DD / YYYY HH：mm"
+      full: "MM / DD / YYYY HH：mm：ss"
     pm: "午後"

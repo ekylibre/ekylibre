@@ -1,7 +1,7 @@
 - main_toolbar do |t|
-  = t.new
+  = t.new params: { redirect: nil }
 
-- main_campaign_selector
+- main_period_selector(:year)
 
 = janus do |j|
   - if Equipment.any? && Equipment.with_given_readings(:shape).any?

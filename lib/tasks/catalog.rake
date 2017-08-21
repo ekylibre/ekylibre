@@ -47,15 +47,19 @@ namespace :catalog do
           attrs['unit-name'] = variant.unit_name
 
           xml.send('variant', attrs) do
-            variant.frozen_indicators_values.strip.split(/\s*\,\s*/).each do |couple|
-              indicator_name, value = couple.split(/\s*\:\s*/)[0..1]
-              indicator = Nomen::Indicator.find(indicator_name)
-              xml.indicator name: indicator.name, title: indicator.human_name, value: value, type: :frozen
-            end unless variant.frozen_indicators_values.blank?
-            nature.variable_indicators.each do |indicator_name|
-              indicator = Nomen::Indicator.find(indicator_name)
-              xml.indicator name: indicator.name, title: indicator.human_name, type: :variable
-            end if nature.variable_indicators
+            if variant.frozen_indicators_values.present?
+              variant.frozen_indicators_values.strip.split(/\s*\,\s*/).each do |couple|
+                indicator_name, value = couple.split(/\s*\:\s*/)[0..1]
+                indicator = Nomen::Indicator.find(indicator_name)
+                xml.indicator name: indicator.name, title: indicator.human_name, value: value, type: :frozen
+              end
+            end
+            if nature.variable_indicators
+              nature.variable_indicators.each do |indicator_name|
+                indicator = Nomen::Indicator.find(indicator_name)
+                xml.indicator name: indicator.name, title: indicator.human_name, type: :variable
+              end
+            end
           end
         end
       end

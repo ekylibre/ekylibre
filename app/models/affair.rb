@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2016 Brice Texier, David Joulin
+# Copyright (C) 2012-2017 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -36,69 +36,70 @@
 #  description            :text
 #  id                     :integer          not null, primary key
 #  journal_entry_id       :integer
+#  letter                 :string
 #  lock_version           :integer          default(0), not null
 #  name                   :string
-#  number                 :string           not null
+#  number                 :string
 #  origin                 :string
 #  pretax_amount          :decimal(19, 4)   default(0.0)
 #  probability_percentage :decimal(19, 4)   default(0.0)
 #  responsible_id         :integer
 #  state                  :string
 #  third_id               :integer          not null
-#  third_role             :string           not null
 #  type                   :string
 #  updated_at             :datetime         not null
 #  updater_id             :integer
 #
 
-# Where to put amounts. The point of view is us
+# Where to put amounts. The point of view is third's one.
 #       Deal      |  Debit  |  Credit |
-# Sale            |         |    X    |
-# SaleCredit      |    X    |         |
-# Purchase        |    X    |         |
-# PurchaseCredit  |         |    X    |
-# OutgoingPayment |         |    X    |
-# IncomingPayment |    X    |         |
-# LossGap         |    X    |         |
-# ProfitGap       |         |    X    |
+# Sale            |    X    |         |
+# SaleCredit      |         |    X    |
+# SaleGap         | Profit! |  Loss!  |
+# Payslip         |         |    X    |
+# Purchase        |         |    X    |
+# PurchaseCredit  |         |         |
+# PurchaseGap     | Profit! |  Loss!  |
+# OutgoingPayment |    X    |         |
+# IncomingPayment |         |    X    |
+# Regularization  |    ?    |    ?    |
 #
 class Affair < Ekylibre::Record::Base
   include Attachable
-  enumerize :third_role, in: [:client, :supplier], predicates: true
   refers_to :currency
   belongs_to :cash_session
   belongs_to :journal_entry
-  # belongs_to :originator, polymorphic: true
   belongs_to :responsible, -> { contacts }, class_name: 'Entity'
   belongs_to :third, class_name: 'Entity'
   # FIXME: Gap#affair_id MUST NOT be mandatory
   has_many :events
   has_many :gaps,              inverse_of: :affair # , dependent: :delete_all
-  has_many :sales,             inverse_of: :affair, dependent: :nullify
-  has_many :purchases,         inverse_of: :affair, dependent: :nullify
   has_many :incoming_payments, inverse_of: :affair, dependent: :nullify
   has_many :outgoing_payments, inverse_of: :affair, dependent: :nullify
+  has_many :payslips,          inverse_of: :affair, dependent: :nullify
+  has_many :purchases,         inverse_of: :affair, dependent: :nullify
+  has_many :sales,             inverse_of: :affair, dependent: :nullify
+  has_many :regularizations,   inverse_of: :affair, dependent: :destroy
+  has_many :debt_transfers, inverse_of: :affair, dependent: :nullify
+  has_many :debt_regularizations, inverse_of: :debt_transfer_affair, foreign_key: :debt_transfer_affair_id, class_name: 'DebtTransfer', dependent: :nullify
+
+  # has_many :tax_declarations,  inverse_of: :affair, dependent: :nullify
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :accounted_at, :closed_at, :dead_line_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
   validates :closed, inclusion: { in: [true, false] }
   validates :credit, :debit, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
-  validates :currency, :third, :third_role, presence: true
+  validates :currency, :third, presence: true
   validates :description, length: { maximum: 500_000 }, allow_blank: true
-  validates :name, :origin, :state, length: { maximum: 500 }, allow_blank: true
-  validates :number, presence: true, uniqueness: true, length: { maximum: 500 }
+  validates :letter, :name, :origin, :state, length: { maximum: 500 }, allow_blank: true
+  validates :number, uniqueness: true, length: { maximum: 500 }, allow_blank: true
   validates :pretax_amount, :probability_percentage, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }, allow_blank: true
   # ]VALIDATORS]
   validates :currency, length: { allow_nil: true, maximum: 3 }
-  # validates_inclusion_of :third_role, in: self.third_role.values
 
-  acts_as_numbered
   scope :closeds, -> { where(closed: true) }
+  scope :opened, -> { where(closed: false) }
 
   before_validation do
-    # if self.originator
-    #   self.originator_type = self.originator.class.base_class.name
-    # end
-    deals = self.deals
     self.debit = 0
     self.credit = 0
     self.deals_count = deals.count
@@ -116,42 +117,22 @@ class Affair < Ekylibre::Record::Base
     end
   end
 
-  # validate do
-  #   if self.originator
-  #     unless self.class.affairable_types.include?(self.originator_type.to_s)
-  #       errors.add(:originator, :invalid)
-  #       errors.add(:originator_id, :invalid)
-  #     end
-  #   end
-  # end
+  before_save :letter_journal_entries
 
-  bookkeep do |b|
-    label = tc(:bookkeep, resource: self.class.model_name.human, number: number, third: third.full_name)
-    all_deals = self.deals
-    thirds = all_deals.each_with_object({}) do |deal, hash|
-      if third = deal.deal_third
-        # account = third.account(deal.class.affairable_options[:third])
-        account = third.account(deal.deal_third_role.to_sym)
-        hash[account.id] ||= 0
-        hash[account.id] += deal.deal_debit_amount - deal.deal_credit_amount
-      end
-      hash
-    end.delete_if { |_k, v| v.zero? }
-    b.journal_entry(self.class.journal, printed_on: (all_deals.last ? all_deals.last.dealt_at : Time.zone.now).to_date, if: (balanced? && thirds.size > 1)) do |entry|
-      for account_id, amount in thirds
-        entry.add_debit(label, account_id, amount)
-      end
-    end
+  def number
+    "A#{id.to_s.rjust(7, '0')}"
   end
 
   def work_name
     number.to_s
   end
 
-  # return the first deal number for the given type
-  def deal_work_name(type = Purchase)
-    d = deals_of_type(type)
-    return d.first.number if d.count > 0
+  # Returns the first deal number for the given type as deal work name.
+  # FIXME: Not sure that's a good method. Why the first deal number is used as the
+  #        "deal work name".
+  def deal_work_name
+    d = deals_of_type(self.class.deal_class).first
+    return d.number if d
     nil
   end
 
@@ -170,15 +151,17 @@ class Affair < Ekylibre::Record::Base
 
     # Returns types of accepted deals
     def affairable_types
-      @affairable_types ||= %w(Gap Sale Purchase IncomingPayment OutgoingPayment).freeze
+      @affairable_types ||= %w[SaleGap PurchaseGap Sale Purchase Payslip IncomingPayment OutgoingPayment Regularization DebtTransfer].freeze
     end
 
     # Removes empty affairs in the whole table
     def clean_deads
-      where("journal_entry_id NOT IN (SELECT id FROM #{connection.quote_table_name(:journal_entries)})" + self.class.affairable_types.collect do |type|
-                                                                                                            model = type.constantize
-                                                                                                            " AND id NOT IN (SELECT #{model.reflect_on_association(:affair).foreign_key} FROM #{connection.quote_table_name(model.table_name)})"
-                                                                                                          end.join).delete_all
+      query = "journal_entry_id NOT IN (SELECT id FROM #{connection.quote_table_name(:journal_entries)})"
+      query << self.class.affairable_types.collect do |type|
+        model = type.constantize
+        " AND id NOT IN (SELECT #{model.reflect_on_association(:affair).foreign_key} FROM #{connection.quote_table_name(model.table_name)})"
+      end.join
+      where(query).delete_all
     end
 
     # Returns heterogen list of deals of the affair
@@ -201,12 +184,53 @@ class Affair < Ekylibre::Record::Base
   # Positive result is a profit
   # A contrario, negative result is a loss
   def balance
-    self.debit - self.credit
+    self.credit - self.debit
+  end
+
+  def absorb!(other)
+    unless other.is_a?(Affair)
+      raise "#{other.class.name} (ID=#{other.id}) cannot be merged in Affair"
+    end
+    return self if self == other
+    if other.currency != currency
+      raise ArgumentError, "The currency (#{currency}) is different of the affair currency(#{other.currency})"
+    end
+    Ekylibre::Record::Base.transaction do
+      other.deals.each do |deal|
+        deal.update_columns(affair_id: id)
+        deal.reload
+      end
+      refresh!
+      other.destroy!
+    end
+    self
+  end
+
+  def extract!(deal)
+    unless deals.include?(deal)
+      raise ArgumentError, 'Given deal is not one of the affair'
+    end
+    Ekylibre::Record::Base.transaction do
+      affair = self.class.create!(currency: deal.currency, third: deal.deal_third)
+      update_column(:affair_id, affair.id)
+      affair.refresh!
+      refresh!
+      destroy! if deals_count.zero?
+    end
+  end
+
+  def third_credit_balance
+    JournalEntryItem.where(entry: deals.map(&:journal_entry), account: third_account).sum('real_credit - real_debit')
+  end
+
+  # Check if debit is equal to credit
+  def unbalanced?
+    self.debit != self.credit
   end
 
   # Check if debit is equal to credit
   def balanced?
-    !!(self.debit == self.credit)
+    !unbalanced?
   end
 
   def status
@@ -221,7 +245,16 @@ class Affair < Ekylibre::Record::Base
 
   # Returns if the affair is bad for us...
   def losing?
-    self.debit < self.credit
+    self.debit > self.credit
+  end
+
+  def finishable?
+    unbalanced? && gap_class && !multi_thirds?
+  end
+
+  def debt_transferable?
+    # unbalanced
+    !closed && unbalanced?
   end
 
   # Adds a gap to close the affair
@@ -234,77 +267,89 @@ class Affair < Ekylibre::Record::Base
   # proportional to the VAT %s amounts in the debit/credit.
   def finish
     return false if balance.zero?
+    raise 'Cannot finish anymore multi-thirds affairs' if multi_thirds?
+    precision = Nomen::Currency.find(currency).precision
     self.class.transaction do
-      thirds.each do |third|
-        # Get all VAT-specified deals
-        deals_amount = deals_of(third).map do |deal|
-          [:debit, :credit].map do |mode|
-            # Get the items of the deal with their VAT %
-            # then add 0% VAT to untaxed deals
-            deal.deal_taxes(mode)
-                .each { |am| am[:tax] ||= Tax.used_for_untaxed_deals }
-          end
+      # Get all VAT-specified deals
+      deals_amount = deals.map do |deal|
+        %i[debit credit].map do |mode|
+          # Get the items of the deal with their VAT %
+          # then add 0% VAT to untaxed deals
+          deal.deal_taxes(mode)
+              .each { |am| am[:tax] ||= Tax.used_for_untaxed_deals }
         end
+      end
 
-        # Extract the debit ones from the credit ones / vice versa
-        debit_deals = deals_amount.map(&:first).flatten
-        credit_deals = deals_amount.map(&:last).flatten
+      # Extract the debit ones from the credit ones / vice versa
+      debit_deals = deals_amount.map(&:first).flatten
+      credit_deals = deals_amount.map(&:last).flatten
 
-        # Group the same-VAT-ed amounts.
-        grouped_debit = debit_deals
-                        .group_by { |d| d[:tax] } # Grouped amounts by tax
-                        .map { |tax, pairs| [tax, pairs.map { |p| p[:amount] }.sum] } # Sum the amounts
-                        .to_h # Convert back to hash
-        grouped_credit = credit_deals
-                         .group_by { |c| c[:tax] } # Grouped amounts by tax
-                         .map { |tax, pairs| [tax, pairs.map { |p| p[:amount] }.sum] } # Sum the amounts
-                         .to_h # Convert back to hash
+      # Group the same-VAT-ed amounts.
+      # Groups amounts by tax, sums the amounts, and converts back to hash
+      grouped_debit = debit_deals
+                      .group_by { |d| d[:tax] }
+                      .map { |tax, pairs| [tax, pairs.map { |p| p[:amount] }.sum] }
+                      .to_h
 
-        total_debit = grouped_debit.values.sum
-        total_credit = grouped_credit.values.flatten.sum
+      # Groups amounts by tax, sums the amounts, and converts back to hash
+      grouped_credit = credit_deals
+                       .group_by { |c| c[:tax] }
+                       .map { |tax, pairs| [tax, pairs.map { |p| p[:amount] }.sum] }
+                       .to_h
 
-        gap_amount = (total_debit - total_credit).abs
+      total_debit = grouped_debit.values.sum
+      total_credit = grouped_credit.values.sum
 
-        # Select which will be used as a reference for VAT % ratios on gap
-        bigger_total = [total_debit, total_credit].max
+      gap_amount = (total_debit - total_credit).abs
 
-        # Gap is always on the lesser column.
-        gap_is_credit = bigger_total == total_debit
+      # Select which will be used as a reference for VAT % ratios on gap
+      bigger_total = [total_debit, total_credit].max
 
-        bigger_deal_set = gap_is_credit ? grouped_debit : grouped_credit
+      # Gap is always on the lesser column.
+      gap_is_credit = bigger_total == total_debit
 
-        # Construct a GapItem per VAT % in the debit/credit
-        gap_items = bigger_deal_set.map do |tax, taxed_amount|
-          # Calculate percentage of the column taxed at `tax`
-          percentage_at_vat = taxed_amount / bigger_total
-          # Apply that percentage to the gap to get a proportional amount
-          taxed_amount_in_gap = percentage_at_vat * gap_amount
-          # Get that amount +/- depending if we're crediting or debiting
-          taxed_amount_in_gap *= -1 unless gap_is_credit
-          # Get the pre-tax value
-          pretaxed_amount_in_gap = tax.pretax_amount_of(taxed_amount_in_gap)
+      bigger_deal_set = gap_is_credit ? grouped_debit : grouped_credit
 
-          GapItem.new(
-            currency: currency,
-            amount: taxed_amount_in_gap,
-            tax: tax,
-            pretax_amount: pretaxed_amount_in_gap
-          )
-        end
+      # Construct a GapItem per VAT % in the debit/credit
+      gap_items = bigger_deal_set.map do |tax, taxed_amount|
+        # Calculate percentage of the column taxed at `tax`
+        percentage_at_vat = taxed_amount / bigger_total
+        # Apply that percentage to the gap to get a proportional amount
+        taxed_amount_in_gap = percentage_at_vat * gap_amount
+        # Get that amount +/- depending if we're crediting or debiting
+        # taxed_amount_in_gap *= -1 unless gap_is_credit
+        # Get the pre-tax value
+        pretaxed_amount_in_gap = tax.pretax_amount_of(taxed_amount_in_gap)
 
-        Gap.create!(
-          affair: self,
-          amount: gap_amount,
+        GapItem.new(
           currency: currency,
-          entity: third,
-          entity_role: third_role,
-          direction: (gap_is_credit ? :loss : :profit),
-          items: gap_items
+          tax: tax,
+          amount: taxed_amount_in_gap.round(precision),
+          pretax_amount: pretaxed_amount_in_gap.round(precision)
         )
       end
+
+      # TODO: Check that rounds fit exactly wanted amount
+
+      gap_class.create!(
+        affair: self,
+        amount: gap_amount,
+        currency: currency,
+        entity: third,
+        direction: (!gap_is_credit ? :profit : :loss),
+        items: gap_items
+      )
       refresh!
     end
     true
+  end
+
+  def gap_class
+    nil
+  end
+
+  def self.deal_class
+    name.gsub(/Affair$/, '').constantize
   end
 
   def originator
@@ -350,5 +395,77 @@ class Affair < Ekylibre::Record::Base
   # Returns the currency precision to use in affair
   def currency_precision(default = 2)
     FinancialYear.at.currency_precision || default
+  end
+
+  def third_role
+    raise NotImplementedError
+  end
+
+  def letterable?
+    !unletterable?
+  end
+
+  def unletterable?
+    multi_thirds?
+  end
+
+  def lettered?
+    letter?
+  end
+
+  def letter_journal_entries
+    letter_journal_entries! if letterable?
+  end
+
+  def third_account
+    third.account(third_role)
+  end
+  alias letterable_account third_account
+
+  def letterable_journal_entry_items
+    JournalEntryItem.where(account: letterable_account, entry: deals.map(&:journal_entry))
+  end
+
+  # Returns true if a part of items are already lettered by outside
+  def journal_entry_items_already_lettered?
+    letters = letterable_journal_entry_items.pluck(:letter).map { |letter| letter.delete('*') }
+    if (letter? && letters.detect { |x| x != letter }) ||
+       (!letter? && letters.detect(&:present?))
+      return true
+    end
+    false
+  end
+
+  # Returns true if a part of items are already lettered by outside
+  def journal_entry_items_balanced?
+    letterable_journal_entry_items.sum('debit - credit').zero?
+  end
+
+  # Returns true if a part of items are already lettered by outside
+  def journal_entry_items_unbalanced?
+    !journal_entry_items_balanced?
+  end
+
+  # Returns true if debit/credit are the same for third in journal entry items
+  def match_with_accountancy?
+    letterable_journal_entry_items.sum(:real_debit) == credit &&
+      letterable_journal_entry_items.sum(:real_credit) == debit
+  end
+
+  # Returns true if many thirds are involved in this affair
+  def multi_thirds?
+    thirds.count > 1
+  end
+
+  # Adds a letter on journal
+  def letter_journal_entries!
+    journal_entry_items = letterable_journal_entry_items
+    account = letterable_account
+
+    # Update letters
+    account.unmark(letter) if journal_entry_items.any?
+    self.letter = nil if letter.blank?
+    self.letter = account.mark!(journal_entry_items.pluck(:id), letter)
+    true
   end
 end

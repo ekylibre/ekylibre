@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2016 Brice Texier, David Joulin
+# Copyright (C) 2012-2017 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -27,7 +27,7 @@
 #  created_at   :datetime         not null
 #  creator_id   :integer
 #  format       :string
-#  headers      :string
+#  headers      :text
 #  id           :integer          not null, primary key
 #  ip_address   :string
 #  lock_version :integer          default(0), not null
@@ -45,11 +45,11 @@
 # Class representing any message linked to APIs in DB, whether ours or others.
 class CallMessage < Ekylibre::Record::Base
   belongs_to :operation, class_name: 'Call', foreign_key: :call_id
-  enumerize :nature, in: [:incoming, :outgoing], predicates: true
+  enumerize :nature, in: %i[incoming outgoing], predicates: true
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates :body, length: { maximum: 500_000 }, allow_blank: true
-  validates :format, :headers, :ip_address, :ssl, :status, :url, :verb, length: { maximum: 500 }, allow_blank: true
+  validates :body, :headers, length: { maximum: 500_000 }, allow_blank: true
+  validates :format, :ip_address, :ssl, :status, :url, :verb, length: { maximum: 500 }, allow_blank: true
   validates :nature, presence: true
   # ]VALIDATORS]
 end

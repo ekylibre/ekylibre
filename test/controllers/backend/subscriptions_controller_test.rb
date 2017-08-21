@@ -20,6 +20,7 @@
 require 'test_helper'
 module Backend
   class SubscriptionsControllerTest < ActionController::TestCase
-    test_restfully_all_actions show: :redirected_get
+    # TODO: Re-activate #suspend, #takeover and #renew tests
+    test_restfully_all_actions except: %i[suspend takeover renew]
   end
 end

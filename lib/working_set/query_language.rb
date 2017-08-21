@@ -247,52 +247,58 @@ module WorkingSet
                 r5 = SyntaxNode.new(input, (index-1)...index) if r5 == true
                 r0 = r5
               else
-                r6 = _nt_indicative
+                r6 = _nt_inclusion
                 if r6
                   r6 = SyntaxNode.new(input, (index-1)...index) if r6 == true
                   r0 = r6
                 else
-                  r7 = _nt_negative
+                  r7 = _nt_indicative
                   if r7
                     r7 = SyntaxNode.new(input, (index-1)...index) if r7 == true
                     r0 = r7
                   else
-                    i8, s8 = index, []
-                    if (match_len = has_terminal?("(", false, index))
-                      r9 = true
-                      @index += match_len
-                    else
-                      terminal_parse_failure('"("')
-                      r9 = nil
-                    end
-                    s8 << r9
-                    if r9
-                      r10 = _nt_boolean_expression
-                      s8 << r10
-                      if r10
-                        if (match_len = has_terminal?(")", false, index))
-                          r11 = true
-                          @index += match_len
-                        else
-                          terminal_parse_failure('")"')
-                          r11 = nil
-                        end
-                        s8 << r11
-                      end
-                    end
-                    if s8.last
-                      r8 = instantiate_node(BooleanExpression,input, i8...index, s8)
-                      r8.extend(Test0)
-                    else
-                      @index = i8
-                      r8 = nil
-                    end
+                    r8 = _nt_negative
                     if r8
                       r8 = SyntaxNode.new(input, (index-1)...index) if r8 == true
                       r0 = r8
                     else
-                      @index = i0
-                      r0 = nil
+                      i9, s9 = index, []
+                      if (match_len = has_terminal?("(", false, index))
+                        r10 = true
+                        @index += match_len
+                      else
+                        terminal_parse_failure('"("')
+                        r10 = nil
+                      end
+                      s9 << r10
+                      if r10
+                        r11 = _nt_boolean_expression
+                        s9 << r11
+                        if r11
+                          if (match_len = has_terminal?(")", false, index))
+                            r12 = true
+                            @index += match_len
+                          else
+                            terminal_parse_failure('")"')
+                            r12 = nil
+                          end
+                          s9 << r12
+                        end
+                      end
+                      if s9.last
+                        r9 = instantiate_node(BooleanExpression,input, i9...index, s9)
+                        r9.extend(Test0)
+                      else
+                        @index = i9
+                        r9 = nil
+                      end
+                      if r9
+                        r9 = SyntaxNode.new(input, (index-1)...index) if r9 == true
+                        r0 = r9
+                      else
+                        @index = i0
+                        r0 = nil
+                      end
                     end
                   end
                 end
@@ -561,6 +567,57 @@ module WorkingSet
       end
 
       node_cache[:non_derivative][start_index] = r0
+
+      r0
+    end
+
+    module Inclusion0
+      def spacer
+        elements[1]
+      end
+
+      def variety_name
+        elements[2]
+      end
+    end
+
+    def _nt_inclusion
+      start_index = index
+      if node_cache[:inclusion].has_key?(index)
+        cached = node_cache[:inclusion][index]
+        if cached
+          node_cache[:inclusion][index] = cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
+          @index = cached.interval.end
+        end
+        return cached
+      end
+
+      i0, s0 = index, []
+      if (match_len = has_terminal?("includes", false, index))
+        r1 = instantiate_node(SyntaxNode,input, index...(index + match_len))
+        @index += match_len
+      else
+        terminal_parse_failure('"includes"')
+        r1 = nil
+      end
+      s0 << r1
+      if r1
+        r2 = _nt_spacer
+        s0 << r2
+        if r2
+          r3 = _nt_variety_name
+          s0 << r3
+        end
+      end
+      if s0.last
+        r0 = instantiate_node(InclusionTest,input, i0...index, s0)
+        r0.extend(Inclusion0)
+      else
+        @index = i0
+        r0 = nil
+      end
+
+      node_cache[:inclusion][start_index] = r0
 
       r0
     end

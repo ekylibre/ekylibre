@@ -28,7 +28,7 @@ module Procedo
             end
           else
             val = attributes["#{datatype}_value".to_sym]
-            @value = if [:point, :geometry, :multi_polygon].include?(datatype)
+            @value = if %i[point geometry multi_polygon].include?(datatype)
                        if val.blank? || val == 'null'
                          Charta.empty_geometry
                        else
@@ -41,7 +41,7 @@ module Procedo
                      elsif datatype == :decimal
                        val.to_d
                      elsif datatype == :boolean
-                       %w(1 true t ok yes).include?(val.downcase)
+                       %w[1 true t ok yes].include?(val.downcase)
                      elsif datatype == :choice
                        val.blank? ? nil : val.to_sym
                      else
@@ -94,13 +94,14 @@ module Procedo
           if measure?
             hash[:measure_value_value] = @value.to_d.to_s.to_f
             hash[:measure_value_unit] = @value.unit
-          elsif [:point, :geometry, :multi_polygon].include?(datatype)
+          elsif %i[point geometry multi_polygon].include?(datatype)
             hash["#{datatype}_value".to_sym] = @value.to_json
           else
             hash["#{datatype}_value".to_sym] = @value
           end
           hash
         end
+        alias to_attributes to_hash
 
         def measure?
           datatype == :measure?

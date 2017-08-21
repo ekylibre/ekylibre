@@ -1,0 +1,207 @@
+- main_toolbar do |t|
+  = t.edit resource if resource.draft?
+  = t.destroy if resource.destroyable?
+
+= main_state_bar(resource)
+
+= main_informations attachment: true do
+  = attributes_list do |l|
+    - l.attribute :number
+    - l.attribute :started_on
+    - l.attribute :stopped_on
+    - l.attribute :mode
+    - l.attribute :financial_year, url: true
+    - l.attribute :reference_number unless resource.reference_number.blank?
+    - l.attribute :responsible, label: :full_name
+    - l.attribute :description unless resource.description.blank?
+    - l.attribute :journal_entry, url: true if resource.journal_entry
+
+= cobbles do |c|
+
+  - c.cobble :items, title: TaxDeclaration.human_attribute_name(:items) do
+    -# = cobble_list :items do
+    - columns = [:deductible, :fixed_asset_deductible, :collected, :intracommunity_payable, :balance]
+    - account_transcode = { collected: :collect_account_id, deductible: :deduction_account_id, fixed_asset_deductible: :fixed_asset_deduction_account_id, intracommunity_payable: :intracommunity_payable_account_id }
+
+    %table.list
+      %thead
+        %tr
+          %th= TaxDeclarationItem.human_attribute_name(:tax)
+          %th
+          - columns.each do |column|
+            %th.decimal= TaxDeclarationItem.human_attribute_name(column.to_sym)
+      %tfoot
+        %tr.total
+          %th{ colspan: 2 }= :totals.tl
+          - columns.each do |column|
+            %td.decimal
+              .tax-amount= resource.items.sum("#{column}_tax_amount").l(currency: resource.currency)
+              %small.pretax-amount= resource.items.sum("#{column}_pretax_amount").l(currency: resource.currency)
+        %tr.total
+          - to_pay = resource.items.sum(:balance_tax_amount)
+          - if to_pay >= 0
+            %th{ colspan: 6}= :to_pay.tl
+            %td= to_pay.l(currency: resource.currency)
+          - else
+            %th{ colspan: 6}= :to_reclaim.tl
+            %td= (-to_pay).l(currency: resource.currency)
+
+      - resource.items.order(:id).each do |item|
+        - tax = Tax.find(item.tax_id)
+        %tbody
+          %tr
+            %td= link_to(item.tax_name, { controller: :taxes, action: :show, id: item.tax_id })
+            %td.decimal= number_to_percentage(item.tax.amount)
+            - columns.each do |column|
+              - account_id = tax.send(account_transcode[column]) if account_transcode[column]
+              %td.decimal
+                .tax-amount= link_to(item.send("#{column}_tax_amount").l(currency: item.currency), { controller: :journal_entry_items, action: :index, tax_declaration_item_id: item.id, account_id: account_id})
+                %small.pretax-amount= item.send("#{column}_pretax_amount").l(currency: item.currency)
+
+  - c.cobble :out_of_range, title: :journal_entry_items_with_taxes_out_of_range.tl(count: resource.out_of_range_tax_journal_entry_items.count) do
+    %table.list
+      %thead
+        %tr
+          %th= JournalEntryItem.human_attribute_name(:account)
+          %th= JournalEntryItem.human_attribute_name(:entry)
+          %th= JournalEntryItem.human_attribute_name(:name)
+          %th= JournalEntry.human_attribute_name(:resource)
+          %th= JournalEntry.human_attribute_name(:printed_on)
+          %th= JournalEntry.human_attribute_name(:real_debit)
+          %th= JournalEntry.human_attribute_name(:real_credit)
+          %th= JournalEntry.human_attribute_name(:tax)
+      %tbody
+        - resource.out_of_range_tax_journal_entry_items.limit(500).each do |item|
+          %tr
+            %td
+              - if item.account
+                = link_to(item.account.label, { controller: :accounts, action: :show, id: item.account_id })
+              - else
+                = "-"
+            %td
+              - if item.entry
+                = link_to(item.entry.number, { controller: :journal_entries, action: :show, id: item.entry_id })
+              - else
+                = item.entry_number
+            %td= truncate(item.name, length: 50)
+            %td
+              - if item.entry && item.entry.resource
+                = link_to(item.entry.resource.number, { controller: item.entry.resource_type.tableize, action: :show, id: item.entry.resource_id })
+              - else
+                = '-'
+            %td= item.printed_on.l
+            %td.decimal= item.real_debit.l(currency: item.real_currency)
+            %td.decimal= item.real_credit.l(currency: item.real_currency)
+            %td
+              - if item.tax
+                = link_to(item.tax.name, { controller: :taxes, action: :show, id: item.tax_id })
+              - else
+                = "-"
+
+  - c.cobble :undeclared, title: :journal_entry_items_with_undeclared_taxes.tl(count: resource.undeclared_tax_journal_entry_items.count) do
+    %table.list
+      %thead
+        %tr
+          %th= JournalEntryItem.human_attribute_name(:account)
+          %th= JournalEntryItem.human_attribute_name(:entry)
+          %th= JournalEntryItem.human_attribute_name(:name)
+          %th= JournalEntry.human_attribute_name(:resource)
+          %th= JournalEntry.human_attribute_name(:printed_on)
+          %th= JournalEntry.human_attribute_name(:real_debit)
+          %th= JournalEntry.human_attribute_name(:real_credit)
+          %th= JournalEntry.human_attribute_name(:tax)
+      %tbody
+        - resource.undeclared_tax_journal_entry_items.limit(500).each do |item|
+          %tr
+            %td
+              - if item.account
+                = link_to(item.account.label, { controller: :accounts, action: :show, id: item.account_id })
+              - else
+                = "-"
+            %td
+              - if item.entry
+                = link_to(item.entry.number, { controller: :journal_entries, action: :show, id: item.entry_id })
+              - else
+                = item.entry_number
+            %td= truncate(item.name, length: 50)
+            %td
+              - if item.entry && item.entry.resource
+                = link_to(item.entry.resource.number, { controller: item.entry.resource_type.tableize, action: :show, id: item.entry.resource_id })
+              - else
+                = '-'
+            %td= item.printed_on.l
+            %td.decimal= item.real_debit.l(currency: item.real_currency)
+            %td.decimal= item.real_credit.l(currency: item.real_currency)
+            %td
+              - if item.tax
+                = link_to(item.tax.name, { controller: :taxes, action: :show, id: item.tax_id })
+              - else
+                = "-"
+
+  - c.cobble :revenues, title: :journal_entry_items_with_unidentified_revenues.tl(count: resource.unidentified_revenues_journal_entry_items.count) do
+    %table.list
+      %thead
+        %tr
+          %th= JournalEntryItem.human_attribute_name(:account)
+          %th= JournalEntryItem.human_attribute_name(:entry)
+          %th= JournalEntryItem.human_attribute_name(:name)
+          %th= JournalEntry.human_attribute_name(:resource)
+          %th= JournalEntry.human_attribute_name(:printed_on)
+          %th= JournalEntry.human_attribute_name(:real_debit)
+          %th= JournalEntry.human_attribute_name(:real_credit)
+      %tbody
+        - resource.unidentified_revenues_journal_entry_items.limit(500).each do |item|
+          %tr
+            %td
+              - if item.account
+                = link_to(item.account.label, { controller: :accounts, action: :show, id: item.account_id })
+              - else
+                = "-"
+            %td
+              - if item.entry
+                = link_to(item.entry.number, { controller: :journal_entries, action: :show, id: item.entry_id })
+              - else
+                = item.entry_number
+            %td= truncate(item.name, length: 50)
+            %td
+              - if item.entry && item.entry.resource
+                = link_to(item.entry.resource.number, { controller: item.entry.resource_type.tableize, action: :show, id: item.entry.resource_id })
+              - else
+                = '-'
+            %td= item.printed_on.l
+            %td.decimal= item.real_debit.l(currency: item.real_currency)
+            %td.decimal= item.real_credit.l(currency: item.real_currency)
+
+  - c.cobble :expenses, title: :journal_entry_items_with_unidentified_expenses.tl(count: resource.unidentified_expenses_journal_entry_items.count) do
+    %table.list
+      %thead
+        %tr
+          %th= JournalEntryItem.human_attribute_name(:account)
+          %th= JournalEntryItem.human_attribute_name(:entry)
+          %th= JournalEntryItem.human_attribute_name(:name)
+          %th= JournalEntry.human_attribute_name(:resource)
+          %th= JournalEntry.human_attribute_name(:printed_on)
+          %th= JournalEntry.human_attribute_name(:real_debit)
+          %th= JournalEntry.human_attribute_name(:real_credit)
+      %tbody
+        - resource.unidentified_expenses_journal_entry_items.limit(500).each do |item|
+          %tr
+            %td
+              - if item.account
+                = link_to(item.account.label, { controller: :accounts, action: :show, id: item.account_id })
+              - else
+                = "-"
+            %td
+              - if item.entry
+                = link_to(item.entry.number, { controller: :journal_entries, action: :show, id: item.entry_id })
+              - else
+                = item.entry_number
+            %td= truncate(item.name, length: 50)
+            %td
+              - if item.entry && item.entry.resource
+                = link_to(item.entry.resource.number, { controller: item.entry.resource_type.tableize, action: :show, id: item.entry.resource_id })
+              - else
+                = '-'
+            %td= item.printed_on.l
+            %td.decimal= item.real_debit.l(currency: item.real_currency)
+            %td.decimal= item.real_credit.l(currency: item.real_currency)

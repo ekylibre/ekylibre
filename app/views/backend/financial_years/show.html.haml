@@ -1,9 +1,11 @@
 - main_toolbar do |t|
+  = t.edit resource
   = t.export(:balance_sheet, :income_statement, :trial_balance, key: :code)
   = t.compute_balances resource, method: :post
+  = t.new(label: :new_financial_year_exchange.tl, params: { controller: :financial_year_exchanges, financial_year_id: resource.id }) if resource.can_create_exchange?
   - attrs = {}
   - attrs["data-confirm"] = :are_you_sure.tl if resource.last_journal_entry
-  = t.generate_last_journal_entry resource, attrs
+  -# = t.generate_last_journal_entry resource, attrs
   - if resource == resource_model.closable
     = t.close resource
 
@@ -14,6 +16,7 @@
     - l.attribute :stopped_on
     - l.attribute :closed
     - l.attribute :code
+    - l.attribute :accountant, url: true
     - l.attribute :last_journal_entry, url: true
 
 = cobbles do |c|
@@ -22,3 +25,6 @@
 
   - c.cobble(:fixed_asset_depreciations) do
     = cobble_list :fixed_asset_depreciations
+
+  - c.cobble(:exchanges) do
+    = cobble_list :exchanges

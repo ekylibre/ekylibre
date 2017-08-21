@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <migration name="Add product nature variants hoe weeder">
-    <item-change item="indicators#theoretical_working_speed" datatype="decimal" unit="hectare_per_hour"/>
-    <item-creation item="product_natures#hoe_weeder" category="equipment" variety="equipment" population_counting="unitary" abilities="kill(plant), spray" frozen_indicators="nominal_storable_net_volume, application_width, theoretical_working_speed" variable_indicators="geolocation"/>
-    <item-creation item="product_nature_variants#hoe_weeder" nature="hoe_weeder" frozen_indicators_values="theoretical_working_speed: 9.00hectare_per_hour" unit_name="equipment"/>
+  <item-change item="indicators#theoretical_working_speed" datatype="decimal" unit="hectare_per_hour"/>
+  <item-creation item="product_natures#hoe_weeder" category="equipment" variety="equipment" population_counting="unitary" abilities="kill(plant), spray" frozen_indicators="nominal_storable_net_volume, application_width, theoretical_working_speed" variable_indicators="geolocation"/>
+  <item-creation item="product_nature_variants#hoe_weeder" nature="hoe_weeder" frozen_indicators_values="theoretical_working_speed: 9.00hectare_per_hour" unit_name="equipment"/>
 </migration>

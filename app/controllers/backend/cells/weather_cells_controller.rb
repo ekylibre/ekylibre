@@ -13,7 +13,7 @@ module Backend
           res = http.get("/data/2.5/forecast/daily?lat=#{coordinates.first}&lon=#{coordinates.second}&cnt=14&mode=json&APPID=#{openweathermap_api_key.value}")
 
           json = begin
-                   JSON.load(res.body)
+                   JSON.parse(res.body)
                  rescue
                    nil
                  end
@@ -24,7 +24,7 @@ module Backend
                 day.deep_symbolize_keys!
                 {
                   at: Time.zone.at(day[:dt]),
-                  temperatures: [:day, :night, :min, :max, :eve, :morn].each_with_object({}) do |key, hash|
+                  temperatures: %i[day night min max eve morn].each_with_object({}) do |key, hash|
                     hash[key] = (day[:temp][key] || 0).in_kelvin
                     hash
                   end,

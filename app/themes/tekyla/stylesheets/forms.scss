@@ -111,7 +111,6 @@ $nested-field-border: $menu-border-width solid mix($menu-border-color, white);
       @include margin-right(0);
     }
 
-
   }
 
   &.collapsed {
@@ -189,6 +188,7 @@ $large-controls-margin-left: round($large-label-width * 1.1);
   }
   width: auto;
   .controls {
+    position: relative;
     @include margin-left($controls-margin-left);
     max-width: 100% - $controls-margin-left;
     input, select, textarea {
@@ -309,6 +309,7 @@ div.nested-fields {
 .nested-association {
   border: $nested-field-border;
   margin-bottom: $fs-normal;
+  clear: both;
   @include border-radius($default-border-radius);
   div.nested-fields {
     padding: 1px 0;

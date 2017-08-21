@@ -9,30 +9,31 @@ module ActionIntegration
         request(:authenticate, options, message)
       end
 
-      def call(operation, options, message = {})
-        request(operation, options, message)
+      def call(operation, options, message = {}, &block)
+        request(operation, options, message, &block)
       end
 
       private
 
       def request(operation, options, message = {})
-        client = Savon.client(options)
+        client = ::Savon.client(options[:globals])
 
         request_log = CallRequest.create_from_savon_httpi_request!(
-          s.build_request(operation, message: message),
+          client.build_request(operation, options[:locals].merge(message: message)),
           @format
         )
         messages << request_log
 
-        response = client.call(operation, message: message)
+        response = client.call(operation, options[:locals].merge(message: message))
 
         messages << CallResponse.create_from_savon_httpi_response!(
           response.http,
-          request_log,
-          @format
+          request_log
         )
 
-        ActionIntegration::Response.new_from_savon(response)
+        res = ActionIntegration::Response.new_from_savon(response)
+        yield res if block_given?
+        res
       end
     end
   end

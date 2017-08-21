@@ -44,24 +44,31 @@ module Backend
     end
 
     def edit_many
-      targets = Product.mine_or_undefined.includes(:last_intervention_target)
+      targets = Product.mine_or_undefined
 
-      if params[:activity_id]
-        activity = Activity.find_by(id: params[:activity_id])
-        if activity
-          targets = targets.of_variety(activity.cultivation_variety, activity.support_variety)
-        end
-      else
-        targets = targets.where(id: InterventionTarget.where.not(product_id: TargetDistribution.select(:target_id)).includes(:product))
-      end
+      targets = if params[:activity_id] && activity = Activity.find_by(id: params[:activity_id])
+                  targets.of_variety(activity.cultivation_variety, activity.support_variety)
+                else
+                  targets.generic_supports
+                end
 
       @target_distributions = TargetDistribution.where(target_id: targets).joins(:target).order('products.name')
-      new_id = -1
-      targets.order(:name).each do |target|
-        unless @target_distributions.detect { |d| d.target_id == target.id }
-          @target_distributions << @target_distributions.build(id: new_id, target: target, activity_production: Maybe(target.last_intervention_target).activity_production.id.or_else(nil))
-        end
-        new_id -= 1
+
+      targets = targets.where.not(id: @target_distributions.pluck(:target_id))
+
+      activity_productions = ActivityProduction.where(id:
+        targets.joins('JOIN activity_productions ON activity_productions.support_id = products.id')
+               .select('MAX(activity_productions.id)')
+               .group('products.id'))
+
+      activity_productions = activity_productions.pluck(:support_id, :id).to_h
+
+      targets.order(:name).pluck(:id).each_with_index do |target_id, id|
+        @target_distributions << @target_distributions.build(
+          id: -id,
+          target_id: target_id,
+          activity_production_id: activity_productions[target_id]
+        )
       end
     end
 
@@ -74,7 +81,7 @@ module Backend
           saved = false unless target_distribution.save
         end
         target_distribution
-      end.sort { |a, b| a.target_name <=> b.target_name }
+      end.sort_by(&:target_name)
       if saved
         redirect_to params[:redirect] || backend_activities_path
       else

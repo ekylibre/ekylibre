@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2016 Brice Texier, David Joulin
+# Copyright (C) 2012-2017 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -32,6 +32,7 @@
 #  initiated_on       :date
 #  letter             :string
 #  lock_version       :integer          default(0), not null
+#  memo               :string
 #  name               :string           not null
 #  transaction_number :string
 #  transfered_on      :date             not null
@@ -145,7 +146,7 @@ bank_statement_items_008:
   id: 8
   lock_version: 0
   name: "[Remboursement d’emprunt Tracteur de folie] Remboursement n°37"
-  transfered_on: 2015-04-24
+  transfered_on: 2015-10-24
   updated_at: 2016-06-29 05:49:23.204491000 Z
 bank_statement_items_009:
   bank_statement_id: 4
@@ -217,4 +218,171 @@ bank_statement_items_013:
   transaction_number: ''
   transfered_on: 2010-06-16
   updated_at: 2016-06-29 07:02:53.690729000 Z
+  updater_id: 1
+bank_statement_items_014:
+  bank_statement_id: 7
+  created_at: 2017-05-29 20:24:08.250517000 Z
+  creator_id: 1
+  credit: 37.44
+  currency: EUR
+  debit: 0.0
+  id: 28
+  lock_version: 1
+  memo: ''
+  name: "[Encaissement R2016000002] By check  de M. Gendo IKARI"
+  transaction_number: ''
+  transfered_on: 2016-11-20
+  updated_at: 2017-05-29 21:02:44.380162000 Z
+  updater_id: 1
+bank_statement_items_015:
+  bank_statement_id: 7
+  created_at: 2017-05-29 20:24:13.593887000 Z
+  creator_id: 1
+  credit: 37.44
+  currency: EUR
+  debit: 0.0
+  id: 29
+  lock_version: 1
+  memo: ''
+  name: "[Encaissement R2016000002] By check  de M. Gendo IKARI"
+  transaction_number: ''
+  transfered_on: 2016-11-20
+  updated_at: 2017-05-29 21:02:44.381313000 Z
+  updater_id: 1
+bank_statement_items_016:
+  bank_statement_id: 7
+  created_at: 2017-05-29 20:24:13.816702000 Z
+  creator_id: 1
+  credit: 37.44
+  currency: EUR
+  debit: 0.0
+  id: 30
+  lock_version: 1
+  memo: ''
+  name: "[Encaissement R2016000002] By check  de M. Gendo IKARI"
+  transaction_number: ''
+  transfered_on: 2016-11-20
+  updated_at: 2017-05-29 21:02:44.382310000 Z
+  updater_id: 1
+bank_statement_items_017:
+  bank_statement_id: 7
+  created_at: 2017-05-29 20:24:14.043617000 Z
+  creator_id: 1
+  credit: 37.44
+  currency: EUR
+  debit: 0.0
+  id: 31
+  lock_version: 1
+  memo: ''
+  name: "[Encaissement R2016000002] By check  de M. Gendo IKARI"
+  transaction_number: ''
+  transfered_on: 2016-11-20
+  updated_at: 2017-05-29 21:02:44.383239000 Z
+  updater_id: 1
+bank_statement_items_018:
+  bank_statement_id: 7
+  created_at: 2017-05-29 20:24:14.311392000 Z
+  creator_id: 1
+  credit: 37.44
+  currency: EUR
+  debit: 0.0
+  id: 32
+  lock_version: 1
+  memo: ''
+  name: "[Encaissement R2016000002] By check  de M. Gendo IKARI"
+  transaction_number: ''
+  transfered_on: 2016-11-20
+  updated_at: 2017-05-29 21:02:44.384266000 Z
+  updater_id: 1
+bank_statement_items_019:
+  bank_statement_id: 7
+  created_at: 2017-05-29 20:24:14.530500000 Z
+  creator_id: 1
+  credit: 37.44
+  currency: EUR
+  debit: 0.0
+  id: 33
+  letter: I
+  lock_version: 1
+  memo: ''
+  name: "[Encaissement R2016000002] By check  de M. Gendo IKARI"
+  transaction_number: ''
+  transfered_on: 2016-11-20
+  updated_at: 2017-05-29 21:02:44.389990000 Z
+  updater_id: 1
+bank_statement_items_020:
+  bank_statement_id: 7
+  created_at: 2017-05-29 20:24:28.909992000 Z
+  creator_id: 1
+  credit: 0.0
+  currency: EUR
+  debit: 138.72
+  id: 34
+  lock_version: 1
+  memo: ''
+  name: "[Disbursement D20160004] SEPA  for Coop Ain Coop'In"
+  transaction_number: ''
+  transfered_on: 2016-09-30
+  updated_at: 2017-05-29 21:02:44.385441000 Z
+  updater_id: 1
+bank_statement_items_021:
+  bank_statement_id: 7
+  created_at: 2017-05-29 20:24:29.673262000 Z
+  creator_id: 1
+  credit: 0.0
+  currency: EUR
+  debit: 138.72
+  id: 35
+  lock_version: 1
+  memo: ''
+  name: "[Disbursement D20160004] SEPA  for Coop Ain Coop'In"
+  transaction_number: ''
+  transfered_on: 2016-09-30
+  updated_at: 2017-05-29 21:02:44.386521000 Z
+  updater_id: 1
+bank_statement_items_022:
+  bank_statement_id: 7
+  created_at: 2017-05-29 20:24:29.906790000 Z
+  creator_id: 1
+  credit: 0.0
+  currency: EUR
+  debit: 138.72
+  id: 36
+  lock_version: 1
+  memo: ''
+  name: "[Disbursement D20160004] SEPA  for Coop Ain Coop'In"
+  transaction_number: ''
+  transfered_on: 2016-09-30
+  updated_at: 2017-05-29 21:02:44.387661000 Z
+  updater_id: 1
+bank_statement_items_023:
+  bank_statement_id: 7
+  created_at: 2017-05-29 20:24:45.477631000 Z
+  creator_id: 1
+  credit: 0.0
+  currency: EUR
+  debit: 138.72
+  id: 37
+  lock_version: 1
+  memo: ''
+  name: "[Disbursement D20160004] SEPA  for Coop Ain Coop'In"
+  transaction_number: ''
+  transfered_on: 2016-09-30
+  updated_at: 2017-05-29 21:02:44.388802000 Z
+  updater_id: 1
+bank_statement_items_024:
+  bank_statement_id: 7
+  created_at: 2017-05-29 20:26:11.000282000 Z
+  creator_id: 1
+  credit: 0.0
+  currency: EUR
+  debit: 176.16
+  id: 38
+  letter: J
+  lock_version: 1
+  memo: ''
+  name: "[Disbursement D20160004] SEPA  for Coop Ain Coop'In"
+  transaction_number: ''
+  transfered_on: 2016-09-30
+  updated_at: 2017-05-29 21:02:44.390987000 Z
   updater_id: 1

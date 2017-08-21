@@ -8,6 +8,9 @@ arb:
     human:
       false_class: "كاذب"
       true_class: "صحيح"
+    polar:
+      false_class: "نعم فعلا"
+      true_class: "لا"
   date:
     abbr_day_names: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
     abbr_month_names: ["", "jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"]
@@ -19,6 +22,7 @@ arb:
       month: "%B %Y"
       month_letter: "%d %B %Y"
       short: "%b %d"
+      short_month: "%d/%Y"
     month_names: ["", "january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "december"]
   datetime:
     distance_in_words:
@@ -100,6 +104,12 @@ arb:
         other: "%{count} ثانية"
         two: "ثانيتان" #?
         zero: "صفر ثواني" #?
+    periods:
+      day: "يوم"
+      month: "شهر"
+      today: "اليوم"
+      week: "أسبوع"
+      year: "عام"
     relative_distance_in_words:
       # in_sometime: "in %{distance}"
       # sometime_ago: "%{distance} ago"
@@ -108,6 +118,9 @@ arb:
       internal_server_error:
         hint: "واجه تطبيق المشاكل. تم إخطار المسؤولين عن هذه المشكلة."
         title: "نحن نعتذر، ولكن حدث خطأ ما"
+      maintenance:
+        hint: "يرجى العودة في وقت لاحق"
+        title: "الخدمة تحت الصيانة وغير متوفرة في الوقت الراهن"
       not_found:
         hint: "كنت قد أخطأت في كتابة عنوان أو الصفحة قد تحركت."
         title: "الصفحة التي تبحث عنها غير موجودة"
@@ -138,12 +151,6 @@ arb:
       format:
         delimiter: ""
   # rank: "#%{number}"
-  simple_form:
-    hints:
-      purchase:
-        reference_number: "رقم الفاتورة المورد"
-    required:
-      text: "مطلوب"
   support:
     array:
       last_word_connector: " و "
@@ -153,7 +160,13 @@ arb:
   time:
     am: "صباحا"
     formats:
+      compact: "%م /%د /%Y%H:%M"
       default: "%b. %d, %Y at %H:%M:%S"
+      full: "%m/%d/%Y %H:%M:%S"
       long: "%B %d, %Y %H:%M"
       short: "%d %b %H:%M"
+      time: "%H:%M" #?
+    js_formats:
+      compact: "MM/DD/YYYY HH:mm"
+      full: "MM/DD/YYYY HH:mm:ss"
     pm: "مساءا"

@@ -1,5 +1,5 @@
 - variants = Activity.where(use_gradings: true).order(:name).map { |a| [a.name, { activity_id: a.id }] }
-- main_toolbar do |t|
-  - if variants.any?
-    = t.new variants: variants
+- if variants.any?
+  - main_toolbar do |t|
+    = t.new variants: variants, params: { redirect: nil }
 = main_list

@@ -20,39 +20,43 @@ module EBP
         stopped_on = f.readline
         stopped_on = Date.civil(stopped_on[4..7].to_i, stopped_on[2..3].to_i, stopped_on[0..1].to_i).to_datetime.end_of_day
         ActiveRecord::Base.transaction do
+          entries = {}
           loop do
             begin
               line = f.readline.delete("\n")
             rescue
               break
             end
-            unless FinancialYear.find_by_started_on_and_stopped_on(started_on, stopped_on)
+            unless FinancialYear.find_by(started_on: started_on, stopped_on: stopped_on)
               FinancialYear.create!(started_on: started_on, stopped_on: stopped_on)
             end
             line = line.encode('utf-8').split(/\;/)
             if line[0] == 'C'
-              unless Account.find_by_number(line[1])
+              unless Account.find_by(number: line[1])
                 Account.create!(number: line[1], name: line[2])
               end
             elsif line[0] == 'E'
-              unless journal = Journal.find_by_code(line[3])
-                journal = Journal.create!(code: line[3], name: line[3], nature: :various, closed_on: (started_on - 1.day).end_of_day)
-              end
+              journal = Journal.create_with(name: line[3], nature: :various, closed_on: (started_on - 1.day).end_of_day).find_or_create_by!(code: line[3])
               number = line[4].blank? ? '000000' : line[4]
               line[2] = Date.civil(line[2][4..7].to_i, line[2][2..3].to_i, line[2][0..1].to_i).to_datetime
-              unless entry = journal.entries.find_by_number_and_printed_on(number, line[2])
-                entry = journal.entries.create!(number: number, printed_on: line[2])
+              unless entries[number]
+                entries[number] = {
+                  printed_on: line[2],
+                  journal: journal,
+                  number: number,
+                  currency: journal.currency,
+                  items: []
+                }
               end
-              unless account = Account.find_by_number(line[1])
-                account = Account.create!(number: line[1], name: line[1])
-              end
-              line[8] = line[8].strip.to_f
-              if line[7] == 'D'
-                entry.add_debit(line[6], account, line[8], letter: line[10])
-              else
-                entry.add_credit(line[6], account, line[8], letter: line[10])
-              end
+              account = Account.create_with(name: line[1]).find_or_create_by!(number: line[1])
+              entries[number][:items] << JournalEntryItem.new_for(line[6], account, line[8].strip.to_f, letter: line[10], credit: (line[7] != 'D'))
             end
+            w.check_point
+          end
+
+          w.reset!(entries.keys.count)
+          entries.each do |_number, entry|
+            JournalEntry.create!(entry)
             w.check_point
           end
         end

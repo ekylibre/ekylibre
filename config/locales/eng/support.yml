@@ -8,6 +8,9 @@ eng:
     human:
       false_class: "False"
       true_class: "True"
+    polar:
+      false_class: "Yes"
+      true_class: "No"
   date:
     abbr_day_names: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
     abbr_month_names: ["", "jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"]
@@ -19,6 +22,7 @@ eng:
       month: "%B %Y"
       month_letter: "%d %B %Y"
       short: "%b %d"
+      short_month: "%m/%Y"
     month_names: ["", "january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "december"]
   datetime:
     distance_in_words:
@@ -56,6 +60,12 @@ eng:
       x_seconds:
         one: "1 second"
         other: "%{count} seconds"
+    periods:
+      day: "Daily planification"
+      month: "Monthly planification"
+      today: "Today"
+      week: "Weekly planification"
+      year: "Annual planification"
     relative_distance_in_words:
       in_sometime: "in %{distance}"
       sometime_ago: "%{distance} ago"
@@ -64,6 +74,9 @@ eng:
       internal_server_error:
         hint: "The application encounters problems. Administrators have been notified for this problem."
         title: "We're sorry, but something went wrong"
+      maintenance:
+        hint: "Please come back later"
+        title: "The service is under maintenance and is unavailable for now"
       not_found:
         hint: "You may have mistyped the address or the page may have moved."
         title: "The page you were looking for doesn't exist"
@@ -94,12 +107,6 @@ eng:
       format:
         delimiter: ""
   rank: "#%{number}"
-  simple_form:
-    hints:
-      purchase:
-        reference_number: "Supplier invoice number"
-    required:
-      text: "Required"
   support:
     array:
       last_word_connector: " and "
@@ -109,7 +116,12 @@ eng:
   time:
     am: "am"
     formats:
+      compact: "%m/%d/%Y %H:%M"
       default: "%b. %d, %Y at %H:%M:%S"
+      full: "%m/%d/%Y %H:%M:%S"
       long: "%B %d, %Y %H:%M"
       short: "%d %b %H:%M"
+    js_formats:
+      compact: "MM/DD/YYYY HH:mm"
+      full: "MM/DD/YYYY HH:mm:ss"
     pm: "pm"

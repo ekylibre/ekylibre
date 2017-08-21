@@ -38,7 +38,7 @@ class CreateBase < ActiveRecord::Migration
       t.integer :depth
       t.stamps
       t.index :name
-      t.index [:lft, :rgt]
+      t.index %i[lft rgt]
     end
 
     create_table :affairs do |t|
@@ -165,7 +165,7 @@ class CreateBase < ActiveRecord::Migration
       t.datetime :stopped_at
       t.string :thread, limit: 20
       t.stamps
-      t.index [:started_at, :stopped_at]
+      t.index %i[started_at stopped_at]
     end
 
     create_table :catalogs do |t|
@@ -265,7 +265,7 @@ class CreateBase < ActiveRecord::Migration
       t.integer :archives_count, default: 0, null: false
       t.stamps
       t.index :name
-      t.index [:nature, :key], unique: true
+      t.index %i[nature key], unique: true
       t.index :nature
       t.index :number
     end
@@ -948,7 +948,7 @@ class CreateBase < ActiveRecord::Migration
       t.stamps
       t.index :started_at
       t.index :stopped_at
-      t.index [:originator_id, :originator_type], name: :index_product_localizations_on_originator
+      t.index %i[originator_id originator_type], name: :index_product_localizations_on_originator
     end
 
     create_table :product_memberships do |t|
@@ -999,7 +999,7 @@ class CreateBase < ActiveRecord::Migration
       t.reading null: false, index: true
       t.stamps
       t.index :read_at
-      t.index [:originator_id, :originator_type], name: :index_product_readings_on_originator
+      t.index %i[originator_id originator_type], name: :index_product_readings_on_originator
     end
 
     create_table :product_reading_tasks do |t|
@@ -1014,7 +1014,7 @@ class CreateBase < ActiveRecord::Migration
       t.stamps
       t.index :started_at
       t.index :stopped_at
-      t.index [:originator_id, :originator_type], name: :index_product_reading_tasks_on_originator
+      t.index %i[originator_id originator_type], name: :index_product_reading_tasks_on_originator
     end
 
     create_table :product_nature_categories do |t|

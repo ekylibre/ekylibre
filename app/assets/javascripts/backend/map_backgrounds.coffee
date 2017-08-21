@@ -11,20 +11,20 @@
       dataType: 'json'
       success: (data) =>
         $(@).toggleClass 'active'
-        $(@).find('.map-background-by-default').toggleClass('hide')
+        $(@).find('.map-layer-by-default').toggleClass('hide')
 
         if data.new_default?
-          $(@).find('.map-background-by-default.active').removeClass('active')
-          $('.map-backgrounds-viewport').find("[data-id=#{data.new_default}]").find('.map-background-by-default').addClass('active')
+          $(@).find('.map-layer-by-default.active').removeClass('active')
+          $('.map-layers-viewport').find("[data-id=#{data.new_default}]").find('.map-layer-by-default').addClass('active')
 
     )
 
-  $(document).on 'ajax:success', ".map-background-by-default", () ->
-    $('.map-background-by-default.active').removeClass('active')
+  $(document).on 'ajax:success', ".map-layer-by-default", () ->
+    $('.map-layer-by-default.active').removeClass('active')
     $(@).toggleClass 'active'
 
-  $(document).on 'ajax:success', ".map-background-delete a", () ->
-    $(@).closest('.map-background-container').remove()
+  $(document).on 'ajax:success', ".map-layer-delete a", () ->
+    $(@).closest('.map-layer-container').remove()
 
 
   return

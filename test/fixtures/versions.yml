@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2016 Brice Texier, David Joulin
+# Copyright (C) 2012-2017 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -157,8 +157,8 @@ versions_005:
     id: 8
     type: Person
     nature: madam
-    last_name: "碇"
-    first_name: "ユイ"
+    last_name: 碇
+    first_name: ユイ
     number: '195'
     active: true
     born_at: 1977-03-29 23:00:00.000000000 Z
@@ -206,8 +206,8 @@ versions_006:
     id: 8
     type: Person
     nature: madam
-    last_name: "碇"
-    first_name: "ユイ"
+    last_name: 碇
+    first_name: ユイ
     number: '195'
     active: true
     born_at: 1977-03-29 23:00:00.000000000 Z
@@ -255,8 +255,8 @@ versions_007:
     id: 8
     type: Person
     nature: madam
-    last_name: "碇"
-    first_name: "ユイ"
+    last_name: 碇
+    first_name: ユイ
     number: '195'
     active: false
     born_at: 1977-03-29 23:00:00.000000000 Z
@@ -1641,8 +1641,8 @@ versions_031:
     id: 10
     type: Person
     nature: madam
-    last_name: "碇"
-    first_name: "ユイ"
+    last_name: 碇
+    first_name: ユイ
     number: '195'
     active: false
     born_at: 1977-03-29 23:00:00.000000000 Z
@@ -5824,7 +5824,7 @@ versions_111:
   item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
     id: 97
     type: Equipment
-    name: "Épandeur ENGRAMAX 75"
+    name: Épandeur ENGRAMAX 75
     number: PR00000000041
     variant_id: 37
     nature_id: 31
@@ -10582,7 +10582,7 @@ versions_206:
     id: 14
     type:
     nature: sir
-    last_name: "Περικλῆς"
+    last_name: Περικλῆς
     first_name: ''
     number: P00000004
     active: true
@@ -10632,7 +10632,7 @@ versions_207:
     id: 14
     type:
     nature: sir
-    last_name: "Περικλῆς"
+    last_name: Περικλῆς
     first_name: ''
     number: P00000004
     active: true
@@ -14910,7 +14910,7 @@ versions_271:
   item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
     id: 14
     nature: contact
-    last_name: "Περικλῆς"
+    last_name: Περικλῆς
     first_name: ''
     number: P00000004
     active: true
@@ -15096,3 +15096,564 @@ versions_274:
     initial_movement_id:
     custom_fields:
   item_type: Product
+versions_275:
+  created_at: 2016-11-05 08:55:21.233408000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: create
+  id: 312
+  item_id: 18
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 18
+    nature: contact
+    last_name: Möêbìûŝ
+    first_name: Ézékiel
+    number: EI00000002
+    active: true
+    born_at:
+    dead_at:
+    client: false
+    client_account_id:
+    supplier: false
+    supplier_account_id:
+    transporter: false
+    prospect: false
+    vat_subjected: false
+    reminder_submissive: false
+    deliveries_conditions: ''
+    description:
+    language: fra
+    country: fr
+    currency: EUR
+    authorized_payments_count:
+    responsible_id:
+    proposer_id:
+    meeting_origin: ''
+    first_met_at:
+    activity_code:
+    vat_number:
+    siret_number:
+    locked: false
+    of_company: false
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    created_at: 2016-11-05 08:55:21.223505000 Z
+    creator_id: 1
+    title: M.
+    custom_fields: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      bpozesopdf: ''
+      sdqdqsdq_sd_qsq: ''
+      bla_dsfk_jioh_sdf: ''
+    employee: false
+    employee_account_id:
+    codes:
+    supplier_payment_delay: 30 days
+    bank_account_holder_name: M. Ezekiel Moebius
+    bank_identifier_code: ''
+    iban: ''
+    supplier_payment_mode_id:
+  item_type: Entity
+versions_276:
+  created_at: 2016-11-05 09:00:32.289688000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: update
+  id: 313
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    first_name: Ézékiel
+  item_id: 18
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 18
+    nature: contact
+    last_name: Möêbìûŝ
+    first_name: Éçékiel
+    number: EI00000002
+    active: true
+    born_at:
+    dead_at:
+    client: false
+    client_account_id:
+    supplier: false
+    supplier_account_id:
+    transporter: false
+    prospect: false
+    vat_subjected: false
+    reminder_submissive: false
+    deliveries_conditions: ''
+    description:
+    language: fra
+    country: fr
+    currency: EUR
+    authorized_payments_count:
+    responsible_id:
+    proposer_id:
+    meeting_origin: ''
+    first_met_at:
+    activity_code:
+    vat_number:
+    siret_number:
+    locked: false
+    of_company: false
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    created_at: 2016-11-05 08:55:21.223505000 Z
+    creator_id: 1
+    title: M.
+    custom_fields: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      bpozesopdf: ''
+      sdqdqsdq_sd_qsq: ''
+      bla_dsfk_jioh_sdf: ''
+    employee: false
+    employee_account_id:
+    codes:
+    supplier_payment_delay: 30 days
+    bank_account_holder_name: M. Ezekiel Moebius
+    bank_identifier_code: ''
+    iban: ''
+    supplier_payment_mode_id:
+  item_type: Entity
+versions_277:
+  created_at: 2016-11-05 09:09:52.292471000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: create
+  id: 314
+  item_id: 19
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 19
+    nature: contact
+    last_name: BAKTOUBI
+    first_name: Andrew
+    number: EI00000003
+    active: true
+    born_at:
+    dead_at:
+    client: false
+    client_account_id:
+    supplier: false
+    supplier_account_id:
+    transporter: false
+    prospect: false
+    vat_subjected: false
+    reminder_submissive: false
+    deliveries_conditions: ''
+    description:
+    language: fra
+    country: fr
+    currency: EUR
+    authorized_payments_count:
+    responsible_id:
+    proposer_id:
+    meeting_origin: ''
+    first_met_at:
+    activity_code:
+    vat_number:
+    siret_number:
+    locked: false
+    of_company: false
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    created_at: 2016-11-05 09:09:52.282492000 Z
+    creator_id: 1
+    title: Mme
+    custom_fields: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      bpozesopdf: ''
+      sdqdqsdq_sd_qsq: ''
+      bla_dsfk_jioh_sdf: ''
+    employee: false
+    employee_account_id:
+    codes:
+    supplier_payment_delay: 30 days
+    bank_account_holder_name: Mme Andrew BAKTOUBI
+    bank_identifier_code: ''
+    iban: ''
+    supplier_payment_mode_id:
+  item_type: Entity
+versions_278:
+  created_at: 2016-12-20 18:24:29.487391000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: create
+  id: 315
+  item_id: 181
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 181
+    type: Plant
+    name: sdfghj,k;l:!
+    number: PR00000000125
+    variant_id: 16
+    nature_id: 15
+    category_id: 8
+    initial_born_at: 2016-12-20 18:24:29.460445000 Z
+    initial_dead_at:
+    initial_container_id:
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population: !ruby/object:BigDecimal 18:0.0
+    initial_shape: !ruby/object:RGeo::Geos::CAPIMultiPolygonImpl
+      factory: !ruby/object:RGeo::Geos::CAPIFactory
+        has_z_coordinate: false
+        has_m_coordinate: false
+        srid: 4326
+        buffer_resolution: 1
+        lenient_multi_polygon_assertions: false
+        wkt_generator:
+          tag_format: wkt11
+          emit_ewkt_srid:
+          square_brackets: false
+          convert_case: upper
+        wkb_generator:
+          type_format: wkb11
+          emit_ewkb_srid:
+          hex_format: false
+          little_endian: false
+        wkt_parser:
+          support_ewkt: false
+          support_wkt12: false
+          strict_wkt11: false
+          ignore_extra_tokens: false
+          default_srid:
+        wkb_parser:
+          support_ewkb: false
+          support_wkb12: false
+          ignore_extra_bytes: false
+          default_srid:
+        auto_prepare: simple
+      wkt: MULTIPOLYGON (((-0.8006393909454350 45.8208891845532023, -0.8016023039817810
+        45.8207901146742032, -0.8015057444572450 45.8212873315344993, -0.8015513420104980
+        45.8215415459580981, -0.8019107580184940 45.8223359585506032, -0.8020234107971190
+        45.8230051255386996, -0.8007439970970150 45.8229901721743005, -0.8006393909454350
+        45.8208891845532023)))
+    initial_father_id:
+    initial_mother_id:
+    variety: triticum_aestivum
+    derivative_of:
+    tracking_id:
+    fixed_asset_id:
+    born_at: 2016-12-20 18:24:29.460445000 Z
+    dead_at:
+    description:
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number:
+    work_number:
+    address_id:
+    parent_id:
+    default_storage_id:
+    created_at: 2016-12-20 18:24:29.477242000 Z
+    creator_id: 1
+    person_id:
+    initial_geolocation:
+    uuid: a9137f7d-85fc-4d0d-964b-741fc11f9734
+    initial_movement_id:
+    custom_fields:
+    team_id:
+    member_variant_id:
+  item_type: Product
+versions_279:
+  created_at: 2016-12-20 18:24:29.738143000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: update
+  id: 316
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    initial_born_at: 2016-12-20 18:24:29.460445000 Z
+    initial_population: !ruby/object:BigDecimal 18:0.0
+    born_at: 2016-12-20 18:24:29.460445000 Z
+    initial_movement_id:
+  item_id: 181
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 181
+    type: Plant
+    name: sdfghj,k;l:!
+    number: PR00000000125
+    variant_id: 16
+    nature_id: 15
+    category_id: 8
+    initial_born_at: 2016-04-06 17:23:00.000000000 Z
+    initial_dead_at:
+    initial_container_id:
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population: !ruby/object:BigDecimal 18:0.19553E1
+    initial_shape: !ruby/object:RGeo::Geos::CAPIMultiPolygonImpl
+      factory: !ruby/object:RGeo::Geos::CAPIFactory
+        has_z_coordinate: false
+        has_m_coordinate: false
+        srid: 4326
+        buffer_resolution: 1
+        lenient_multi_polygon_assertions: false
+        wkt_generator:
+          tag_format: wkt11
+          emit_ewkt_srid:
+          square_brackets: false
+          convert_case: upper
+        wkb_generator:
+          type_format: wkb11
+          emit_ewkb_srid:
+          hex_format: false
+          little_endian: false
+        wkt_parser:
+          support_ewkt: false
+          support_wkt12: false
+          strict_wkt11: false
+          ignore_extra_tokens: false
+          default_srid:
+        wkb_parser:
+          support_ewkb: false
+          support_wkb12: false
+          ignore_extra_bytes: false
+          default_srid:
+        auto_prepare: simple
+      wkt: MULTIPOLYGON (((-0.8006393909454350 45.8208891845532023, -0.8016023039817810
+        45.8207901146742032, -0.8015057444572450 45.8212873315344993, -0.8015513420104980
+        45.8215415459580981, -0.8019107580184940 45.8223359585506032, -0.8020234107971190
+        45.8230051255386996, -0.8007439970970150 45.8229901721743005, -0.8006393909454350
+        45.8208891845532023)))
+    initial_father_id:
+    initial_mother_id:
+    variety: triticum_aestivum
+    derivative_of:
+    tracking_id:
+    fixed_asset_id:
+    born_at: 2016-04-06 17:23:00.000000000 Z
+    dead_at:
+    description:
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number:
+    work_number:
+    address_id:
+    parent_id:
+    default_storage_id:
+    created_at: 2016-12-20 18:24:29.477242000 Z
+    creator_id: 1
+    person_id:
+    initial_geolocation:
+    uuid: a9137f7d-85fc-4d0d-964b-741fc11f9734
+    initial_movement_id: 176
+    custom_fields:
+    team_id:
+    member_variant_id:
+  item_type: Product
+versions_280:
+  created_at: 2017-06-07 16:11:29.413513000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: update
+  id: 317
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    description:
+    siret_number:
+    custom_fields: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      bpozesopdf: ''
+      sdqdqsdq_sd_qsq: ''
+      bla_dsfk_jioh_sdf: ''
+    employee: true
+    employee_account_id:
+    codes:
+    supplier_payment_delay: 30 days
+    bank_account_holder_name: Mme Yui IKARI
+    bank_identifier_code: ''
+    iban: ''
+    supplier_payment_mode_id:
+  item_id: 12
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 12
+    nature: contact
+    last_name: IKARI
+    first_name: Yui
+    number: P00000002
+    active: true
+    born_at:
+    dead_at:
+    client: false
+    client_account_id:
+    supplier: false
+    supplier_account_id:
+    transporter: false
+    prospect: false
+    vat_subjected: true
+    reminder_submissive: false
+    deliveries_conditions: ''
+    description: ''
+    language: fra
+    country: fr
+    currency: EUR
+    authorized_payments_count:
+    responsible_id:
+    proposer_id:
+    meeting_origin: ''
+    first_met_at:
+    activity_code:
+    vat_number:
+    siret_number:
+    locked: false
+    of_company: false
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    created_at: 2014-11-03 16:56:06.570291000 Z
+    creator_id: 1
+    title: Mme
+    custom_fields: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      bpozesopdf: ''
+      sdqdqsdq_sd_qsq: ''
+      bla_dsfk_jioh_sdf: ''
+    employee: true
+    employee_account_id:
+    codes:
+    supplier_payment_delay: 30 days
+    bank_account_holder_name: Mme Yui IKARI
+    bank_identifier_code: ''
+    iban: ''
+    supplier_payment_mode_id:
+  item_type: Entity
+versions_281:
+  created_at: 2017-06-07 16:12:21.292171000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: update
+  id: 318
+  item_id: 9
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 9
+    nature: contact
+    last_name: IKARI
+    first_name: Gendo
+    number: '193'
+    active: true
+    born_at:
+    dead_at:
+    client: true
+    client_account_id: 671
+    supplier: false
+    supplier_account_id:
+    transporter: false
+    prospect: false
+    vat_subjected: true
+    reminder_submissive: false
+    deliveries_conditions: ''
+    description: ''
+    language: fra
+    country: fr
+    currency: EUR
+    authorized_payments_count:
+    responsible_id:
+    proposer_id:
+    meeting_origin: ''
+    first_met_at:
+    activity_code:
+    vat_number:
+    siret_number:
+    locked: false
+    of_company: false
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    created_at: 2014-10-31 17:19:32.000000000 Z
+    creator_id: 1
+    title: M.
+    custom_fields: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      bpozesopdf: ''
+      sdqdqsdq_sd_qsq: ''
+      bla_dsfk_jioh_sdf: ''
+    employee: true
+    employee_account_id:
+    codes:
+    supplier_payment_delay: 30 days
+    bank_account_holder_name: M. Gendo IKARI
+    bank_identifier_code: ''
+    iban: ''
+    supplier_payment_mode_id:
+  item_type: Entity
+versions_282:
+  created_at: 2017-06-07 16:14:00.024592000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: update
+  id: 319
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    type: Person
+    nature: sir
+    description:
+    siren: ''
+    siret_number: ''
+    title: M.
+    custom_fields: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      bpozesopdf: ''
+      sdqdqsdq_sd_qsq: ''
+      bla_dsfk_jioh_sdf: ''
+    employee: true
+    employee_account_id:
+    codes:
+    supplier_payment_delay: 30 days
+    bank_account_holder_name: M. Kozo FUYUTSUKI
+    bank_identifier_code: ''
+    iban: ''
+    supplier_payment_mode_id:
+  item_id: 10
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 10
+    nature: contact
+    last_name: FUYUTSUKI
+    first_name: Kōzō
+    number: '194'
+    active: true
+    born_at:
+    dead_at:
+    client: true
+    client_account_id: 210
+    supplier: false
+    supplier_account_id:
+    transporter: false
+    prospect: false
+    vat_subjected: true
+    reminder_submissive: false
+    deliveries_conditions: ''
+    description: ''
+    language: fra
+    country: fr
+    currency: EUR
+    authorized_payments_count:
+    responsible_id:
+    proposer_id:
+    meeting_origin: ''
+    first_met_at:
+    activity_code: ''
+    vat_number: ''
+    siret_number: ''
+    locked: false
+    of_company: false
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    created_at: 2014-10-31 17:19:32.000000000 Z
+    creator_id: 1
+    title: M.
+    custom_fields: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      bpozesopdf: ''
+      sdqdqsdq_sd_qsq: ''
+      bla_dsfk_jioh_sdf: ''
+    employee: true
+    employee_account_id:
+    codes:
+    supplier_payment_delay: 30 days
+    bank_account_holder_name: M. Kozo FUYUTSUKI
+    bank_identifier_code: ''
+    iban: ''
+    supplier_payment_mode_id:
+  item_type: Entity

@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2016 Brice Texier, David Joulin
+# Copyright (C) 2012-2017 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -22,6 +22,7 @@
 #
 # == Table: bank_statements
 #
+#  accounted_at           :datetime
 #  cash_id                :integer          not null
 #  created_at             :datetime         not null
 #  creator_id             :integer
@@ -32,6 +33,7 @@
 #  id                     :integer          not null, primary key
 #  initial_balance_credit :decimal(19, 4)   default(0.0), not null
 #  initial_balance_debit  :decimal(19, 4)   default(0.0), not null
+#  journal_entry_id       :integer
 #  lock_version           :integer          default(0), not null
 #  number                 :string           not null
 #  started_on             :date             not null
@@ -119,4 +121,21 @@ bank_statements_005:
   started_on: 2015-11-01
   stopped_on: 2016-06-27
   updated_at: 2016-06-29 06:18:44.064448000 Z
+  updater_id: 1
+bank_statements_006:
+  accounted_at: 2017-05-29 21:02:44.399234000 Z
+  cash_id: 1
+  created_at: 2017-05-29 20:23:47.162215000 Z
+  creator_id: 1
+  credit: 224.64
+  currency: EUR
+  debit: 731.04
+  id: 7
+  initial_balance_credit: 0.0
+  initial_balance_debit: 0.0
+  lock_version: 1
+  number: '123'
+  started_on: 2016-01-01
+  stopped_on: 2016-12-31
+  updated_at: 2017-05-29 21:02:44.378576000 Z
   updater_id: 1

@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
+  <procedure name="plant_cover_sowing" categories="crop_protection" actions="sowing, soil_structure_stabilisation">
+    <parameters>
+      <target name="cultivation" filter="(is plant or is land_parcel) and has indicator shape">
+        <attribute name="working_zone" default-value="PRODUCT.shape" if="PRODUCT?"/>
+      </target>
+      <input name="seeds" filter="is seed and derives from plant and can grow">
+        <handler name="population"/>
+        <handler indicator="net_mass" unit="kilogram"
+                 if="population_counting_is(PRODUCT, :decimal) > 0 and PRODUCT..net_mass?"
+                 backward="POPULATION * PRODUCT..net_mass(kilogram)"
+                 forward="VALUE / PRODUCT..net_mass(kilogram)"/>
+        <handler indicator="mass_area_density" unit="kilogram_per_hectare"
+                 if="PRODUCT..net_mass? and sum_working_zone_areas(cultivation) != 0"
+                 backward="(POPULATION * PRODUCT..net_mass(kilogram)) / sum_working_zone_areas(cultivation, :hectare)"
+                 forward="(VALUE * sum_working_zone_areas(cultivation, :hectare)) / PRODUCT..net_mass(kilogram)"/>
+        <handler indicator="grains_area_density" unit="unity_per_square_meter"
+                 if="PRODUCT..net_mass? and sum_working_zone_areas(cultivation) != 0 and PRODUCT..thousand_grains_mass?"
+                 backward="(((POPULATION * PRODUCT..net_mass(gram)) / sum_working_zone_areas(cultivation, :square_meter)) * 1000) / PRODUCT..thousand_grains_mass(gram)"
+                 forward="(((VALUE * PRODUCT..thousand_grains_mass(gram)) / 1000) * sum_working_zone_areas(cultivation, :square_meter)) / PRODUCT..net_mass(gram)"/>
+        <handler name="grains_area_density_in_thousand_per_hectare" indicator="grains_area_density" unit="thousand_per_hectare"
+                 if="PRODUCT..net_mass? and sum_working_zone_areas(cultivation) != 0 and PRODUCT..thousand_grains_mass?"
+                 backward="(POPULATION * PRODUCT..net_mass(gram)) / (sum_working_zone_areas(cultivation, :hectare) * PRODUCT..thousand_grains_mass(gram))"
+                 forward="(VALUE * PRODUCT..thousand_grains_mass(gram) * sum_working_zone_areas(cultivation, :hectare)) / PRODUCT..net_mass(gram)"/>
+        <handler indicator="grains_count" unit="thousand"
+                 if="PRODUCT..net_mass? and PRODUCT..thousand_grains_mass?"
+                 backward="(POPULATION * PRODUCT..net_mass(gram)) / PRODUCT..thousand_grains_mass(gram)"
+                 forward="(VALUE * PRODUCT..thousand_grains_mass(gram)) / PRODUCT..net_mass(gram)"/>
+      </input>
+      <doer name="driver"  filter="can drive(equipment) and can move" cardinality="*"/>
+      <doer name="doer" filter="is worker" cardinality="*"/>
+      <tool name="tractor" filter="can tow(equipment) and can move" cardinality="*"/>
+      <tool name="tool"   filter="is trailed_equipment" cardinality="*"/>
+    </parameters>
+  </procedure>
+</procedures>

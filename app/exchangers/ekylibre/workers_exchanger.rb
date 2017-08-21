@@ -36,7 +36,7 @@ module Ekylibre
         }.to_struct
 
         next unless r.variant_reference_name
-        next if variant = ProductNatureVariant.find_by(number: r.variant_reference_name)
+        next if variant = ProductNatureVariant.find_by(work_number: r.variant_reference_name)
         unless nomen = Nomen::ProductNatureVariant.find(r.variant_reference_name.downcase.to_sym)
           w.error "No variant exist in NOMENCLATURE for #{r.variant_reference_name.inspect}"
           valid = false
@@ -65,7 +65,7 @@ module Ekylibre
           email: row[10]
         }.to_struct
 
-        unless (variant = ProductNatureVariant.find_by(number: r.variant_reference_name))
+        unless (variant = ProductNatureVariant.find_by(work_number: r.variant_reference_name))
           if Nomen::ProductNatureVariant.find(r.variant_reference_name.downcase.to_sym)
             variant = ProductNatureVariant.import_from_nomenclature(r.variant_reference_name.downcase.to_sym)
           else
@@ -88,7 +88,7 @@ module Ekylibre
         person.emails.find_or_create_by!(coordinate: r.email) if r.email.present?
 
         # create the user
-        if person && r.email.present? && !User.where(person_id: person.id).any?
+        if person && r.email.present? && User.where(person_id: person.id).none?
           unless user = User.find_by(email: r.email)
             role = Role.order(:id).first
             role = Role.import_from_nomenclature(:farm_worker) unless role

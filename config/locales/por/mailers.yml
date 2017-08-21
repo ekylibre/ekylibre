@@ -1,0 +1,12 @@
+por:
+  mailers:
+    financial_year_exchange_export:
+      # notify_accountant: |
+      #   Hello,
+      #
+      #   New entries are available from %{name}. To download them : %{link}
+      #
+      #   Regards,
+      #
+      #   %{current_user_name}
+      # notify_accountant_subject: "New entries are available from %{name}"

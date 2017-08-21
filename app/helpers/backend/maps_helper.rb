@@ -84,13 +84,13 @@ module Backend
       end
       # FIXME: map_editors options cannot be in data/map_editors because it's pleonastic
       options[:data][:map_editor][:controls] ||= {}
-      options[:data][:map_editor][:controls][:importers] ||= { formats: [:gml, :kml, :geojson] }
+      options[:data][:map_editor][:controls][:importers] ||= { formats: %i[gml kml geojson] }
 
       if options[:data][:map_editor][:controls].key? :importers
         options.deep_merge!(data: { map_editor: { controls: { importers: { content: importer_form(options[:data][:map_editor][:controls][:importers][:formats]) } } } })
       end
 
-      options[:data][:map_editor][:back] ||= MapBackground.availables.collect(&:to_json_object)
+      options[:data][:map_editor][:back] ||= MapLayer.available_backgrounds.collect(&:to_json_object)
 
       options.deep_merge!(data: { map_editor: { edit: geometry.to_json_object } }) unless value.nil?
       text_field_tag(name, value, options.deep_merge(data: { map_editor: { box: box.jsonize_keys } }))
@@ -144,6 +144,7 @@ module Backend
 
     # Build a map with a given list of object
     def collection_map(data, options = {}, &_block)
+      html_options = {}
       return nil unless data.any?
       backgrounds = options.delete(:backgrounds) || []
       options = {
@@ -157,8 +158,9 @@ module Backend
       if options.delete(:main)
         options[:box] ||= {}
         options[:box][:height] = '100%'
+        html_options[:class] = 'map-fullwidth'
       end
-      visualization(options) do |v|
+      visualization(options, html_options) do |v|
         backgrounds.each do |b|
           v.background(b)
         end

@@ -3,7 +3,8 @@ module Backend
     # Show a chart with working time spent between different activities
     # It can accept :cobbler option to specify inclusion.
     def time_spent_by_activity(resource, options = {})
-      working_periods = InterventionWorkingPeriod.with_intervention_parameter(options[:as] || :tool, resource)
+      working_periods = InterventionWorkingPeriod.precise_working_periods(options[:as] || :tool, resource)
+
       working_periods = working_periods.of_campaign(current_campaign) if options[:current_campaign]
       return nil unless current_campaign && working_periods.any?
       stopped_at = working_periods.reorder(stopped_at: :desc).first.stopped_at.to_date
@@ -31,8 +32,19 @@ module Backend
             hash
           end
           series << { name: activity.name, data: normalize_serie(sums, categories.keys),
-                      tooltip: { value_suffix: unit.symbol } }
+                      tooltip: { value_suffix: unit.symbol }, color: activity.color }
         end
+      end
+
+      # Without activities
+      activity_periods = working_periods.without_activity.order(:started_at)
+      if activity_periods.any?
+        sums = activity_periods.sums_of_periods.sort.each_with_object({}) do |period, hash|
+          hash[period.expr.to_i.to_s] = period.sum.to_i.in_second.in(unit).round(2).to_f
+          hash
+        end
+        series << { name: :undefined_activity.tl, data: normalize_serie(sums, categories.keys),
+                    tooltip: { value_suffix: unit.symbol }, color: '#777777' }
       end
 
       if series.any?

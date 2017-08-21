@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<migration name="Update product nature categorie">
+  <item-change item="product_nature_categories#office_furniture_equipment" stock_account="workshop_supplies_stock" stock_movement_account="other_supply_stocks_variation"/>
+  <item-change item="product_nature_categories#wine_package_consumable" stock_movement_account="other_supply_stocks_variation"/>
+</migration>

@@ -8,6 +8,9 @@ cmn:
     human:
       false_class: "假"
       true_class: "真正"
+    polar:
+      false_class: "是"
+      true_class: "没有"
   date:
     abbr_day_names: ["周日", "周一", "周二", "周三", "周四", "周五", "周六"]
     abbr_month_names: ["", "1月", "2月", "3月", "4月", "5月", "6月", "7月", "8月", "9月", "10月", "11月", "12月"]
@@ -19,6 +22,7 @@ cmn:
       month: "%B %Y"
       month_letter: "%d %B %Y"
       short: "%b%d日"
+      short_month: "%m-%d"
     month_names: ["", "一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"]
   datetime:
     distance_in_words:
@@ -56,7 +60,13 @@ cmn:
       x_seconds:
         one: "一秒"
         other: "%{count} 秒"
-    prompts:  #?
+    periods:
+      day: "天"
+      month: "月"
+      today: "今天"
+      week: "周"
+      year: "年"
+    prompts: #?
       day: "日" #?
       hour: "时" #?
       minute: "分" #?
@@ -71,6 +81,9 @@ cmn:
       internal_server_error:
         hint: "应用程序遇到问题。管理员已经被告知了这个问题。"
         title: "我们很抱歉，但是出现了一些问题"
+      maintenance:
+        hint: "请待会再过来"
+        title: "该服务是在维护和不可用现在"
       not_found:
         hint: "您可能输入了错误的地址或网页可能已移动。"
         title: "您正在寻找不存在的页面"
@@ -101,12 +114,6 @@ cmn:
       format:
         delimiter: ""
   rank: "#%{number}"
-  simple_form:
-    hints:
-      purchase:
-        reference_number: "供应商发票号"
-    required:
-      text: "需要"
   support:
     array:
       last_word_connector: ", 和 "
@@ -116,7 +123,13 @@ cmn:
   time:
     am: "上午"
     formats:
+      compact: "％M /％D /％Y％H：％M"
       default: "%Y年%b%d日 %A %H:%M:%S %Z"
+      full: "％m /％d /％Y％H：％M：％S"
       long: "%Y年%b%d日 %H:%M"
       short: "%b%d日 %H:%M"
+      time: "%H:%M" #?
+    js_formats:
+      compact: "MM / DD / YYYY HH：mm"
+      full: "MM / DD / YYYY HH：mm：ss"
     pm: "下午"

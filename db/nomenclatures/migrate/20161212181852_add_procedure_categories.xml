@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<migration name="Add procedure categories">
+  <item-creation item="procedure_categories#handling" activity_family="tool_maintaining"/>
+  <item-creation item="procedure_categories#administrative_tasks" activity_family="administering"/>
+</migration>

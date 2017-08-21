@@ -131,7 +131,7 @@ module Backend
       unit_column = options[:unit_column] || "#{association}_unit"
       html_options = { data: { variant_quantifier: "#{@object.class.name.underscore}_#{reflection.foreign_key}" } }
       # Adds quantifier
-      [:population, :working_duration].each do |quantifier|
+      %i[population working_duration].each do |quantifier|
         html_options[:data]["quantifiers_#{quantifier}".to_sym] = true if options[quantifier]
       end
       # Specify scope
@@ -206,6 +206,7 @@ module Backend
       else
         raise 'Need selection'
       end
+      selection -= Indicateable::DEPRECATED if attribute_name == :variable_indicators_list || attribute_name == :frozen_indicators_list
       list = @object.send(attribute_name) || []
       input(attribute_name, options) do
         @template.content_tag(:span, class: 'control-group symbol-list') do
@@ -227,7 +228,7 @@ module Backend
       input(attribute_name, options) do
         data_lists = {}
         @template.content_tag(:span, class: 'control-group abilities-list') do
-          abilities_for_select = Nomen::Ability.list.sort { |a, b| a.human_name <=> b.human_name }.map do |a|
+          abilities_for_select = Nomen::Ability.list.sort_by(&:human_name).map do |a|
             attrs = { value: a.name }
             if a.parameters
               a.parameters.each do |parameter|
@@ -291,7 +292,7 @@ module Backend
       editor[:controls] ||= {}
       editor[:controls][:draw] ||= {}
       editor[:controls][:draw][:draw] = options[:draw] || {}
-      editor[:controls][:importers] ||= { formats: [:gml, :kml, :geojson], title: :import.tl, okText: :import.tl, cancelText: :close.tl }
+      editor[:controls][:importers] ||= { formats: %i[gml kml geojson], title: :import.tl, okText: :import.tl, cancelText: :close.tl }
       editor[:controls][:importers][:content] ||= @template.importer_form(editor[:controls][:importers][:formats])
 
       editor[:withoutLabel] = true
@@ -320,9 +321,13 @@ module Backend
           end
         end
       end
-      editor[:back] ||= MapBackground.availables.collect(&:to_json_object)
+      editor[:back] ||= MapLayer.available_backgrounds.collect(&:to_json_object)
+      editor[:overlays] ||= MapLayer.available_overlays.collect(&:to_json_object)
 
-      input(attribute_name, options.deep_merge(input_html: { data: { map_editor: editor } }))
+      no_map = options.delete(:no_map)
+      map_options = {}
+      map_options = { input_html: { data: { map_editor: editor } } } unless no_map
+      input(attribute_name, options.deep_merge(map_options))
     end
 
     def shape_field(attribute_name = :shape, options = {})
@@ -332,7 +337,8 @@ module Backend
       options[:input_html][:data] ||= {}
       options[:input_html][:data][:map_editor] ||= {}
       options[:input_html][:data][:map_editor] ||= {}
-      options[:input_html][:data][:map_editor][:back] ||= MapBackground.availables.collect(&:to_json_object)
+      options[:input_html][:data][:map_editor][:back] ||= MapLayer.available_backgrounds.collect(&:to_json_object)
+      options[:input_html][:data][:map_editor][:overlays] ||= MapLayer.available_overlays.collect(&:to_json_object)
 
       # return self.input(attribute_name, options.merge(input_html: {data: {spatial: geometry.to_json_object}}))
       input_field(attribute_name, options.merge(input_html: { data: { map_editor: { edit: geometry.to_json_object } } }))
@@ -360,7 +366,7 @@ module Backend
         end
         marker[:marker] = marker[:view][:center] if marker[:view]
       end
-      marker[:background] ||= MapBackground.availables.collect(&:to_json_object)
+      marker[:background] ||= MapLayer.available_backgrounds.collect(&:to_json_object)
       input(attribute_name, options.merge(input_html: { data: { map_marker: marker } }))
     end
 
@@ -378,8 +384,8 @@ module Backend
         end
         marker[:marker] = marker[:view][:center] if marker[:view]
       end
-      marker[:background] ||= MapBackground.availables.collect(&:to_json_object).first
-      marker[:background] &&= MapBackground.by_default.to_json_object
+      marker[:background] ||= MapLayer.available_backgrounds.collect(&:to_json_object).first
+      marker[:background] &&= MapLayer.default_background.to_json_object
       input_field(attribute_name, options.merge(data: { map_marker: marker }))
     end
 
@@ -478,7 +484,7 @@ module Backend
       if @template.params[:person_id]
         person = Entity.find(@template.params[:person_id])
         if person
-          f.object.born_at ||= person.born_at
+          @object.born_at ||= person.born_at
           full_name = Entity.find(@template.params[:person_id]).full_name
         end
       end
@@ -532,13 +538,15 @@ module Backend
 
         # Add first indicators
         indicators = variant.variable_indicators.delete_if do |i|
-          whole_indicators.include?(i) || [:geolocation, :shape].include?(i.name.to_sym)
+          whole_indicators.include?(i) || %i[geolocation shape].include?(i.name.to_sym)
         end
         if object.new_record? && indicators.any?
 
-          indicators.each do |indicator|
-            @object.readings.build(indicator_name: indicator.name)
-          end if @object.readings.empty?
+          if @object.readings.empty?
+            indicators.each do |indicator|
+              @object.readings.build(indicator_name: indicator.name)
+            end
+          end
 
           html << @template.field_set(:indicators) do
             fs = ''.html_safe
@@ -574,7 +582,7 @@ module Backend
             new_url[:controller] ||= @object.class.name.underscore.pluralize.downcase
             new_url[:action] ||= :new
 
-            choices[:scope] = { of_variety: @object.class.name.underscore.to_sym } unless @object.class.name.blank?
+            choices[:scope] = { of_variety: @object.class.name.underscore.to_sym } if @object.class.name.present?
 
             input_id = :variant_id
 
@@ -596,11 +604,22 @@ module Backend
 
     def variety(options = {})
       scope = options[:scope]
-      varieties         = Nomen::Variety.selection(scope ? scope.variety : nil)
-      @object.variety ||= (scope ? scope.variety : varieties.first ? varieties.first.last : nil)
+      varieties = Nomen::Variety.selection(scope ? scope.variety : nil)
+      child_scope = options[:child_scope]
+      if child_scope
+        varieties.keep_if { |(_l, n)| child_scope.all? { |c| c.variety? && Nomen::Variety.find(c.variety) <= n } }
+      end
+      @object.variety ||= scope.variety if scope
+      @object.variety ||= varieties.first.last if @object.new_record? && varieties.first
       if options[:derivative_of] || (scope && scope.derivative_of)
         derivatives = Nomen::Variety.selection(scope ? scope.derivative_of : nil)
-        @object.derivative_of ||= (scope ? scope.derivative_of : derivatives.first ? derivatives.first.last : nil)
+        @object.derivative_of ||= scope.derivative_of if scope
+        @object.derivative_of ||= derivatives.first.last if @object.new_record? && derivatives.first
+        if child_scope
+          derivatives.keep_if { |(_l, n)| child_scope.all? { |c| c.derivative_of? && Nomen::Variety.find(c.derivative_of) <= n } }
+        end
+      end
+      if !derivatives.nil? && derivatives.any?
         return input(:variety, wrapper: :append, class: :inline) do
           field = ('<span class="add-on">' <<
                    ERB::Util.h(:x_of_y.tl(x: '{@@@@VARIETY@@@@}', y: '{@@@@DERIVATIVE@@@@}')) <<
@@ -609,7 +628,7 @@ module Backend
           field.gsub!('@@}', '<span class="add-on">')
           field.gsub!('<span class="add-on"></span>', '')
           field.gsub!('@@VARIETY@@', input_field(:variety, as: :select, collection: varieties))
-          field.gsub!('@@DERIVATIVE@@', input_field(:derivative_of, as: :select, collection: derivatives))
+          field.gsub!('@@DERIVATIVE@@', input(:derivative_of, as: :select, collection: derivatives, wrapper: :nested))
           field.html_safe
         end
       else
@@ -650,6 +669,10 @@ module Backend
       @template.content_tag(:div, @template.render(partial, f: self), class: 'form-fields')
     end
 
+    def yes_no_radio(attribute_name, options = {})
+      input(attribute_name, options.merge(as: :radio_buttons, collection: [[::I18n.t('boolean.polar.true_class'), true], [I18n.t('boolean.polar.false_class'), false]]))
+    end
+
     def actions
       return nil unless @actions.any?
       @template.form_actions do
@@ -660,6 +683,7 @@ module Backend
                   else
                     @template.send(action[:type], *action[:args])
                   end
+          html += ' '.html_safe
         end
         html
       end
@@ -731,7 +755,6 @@ module Backend
       if units_values.is_a?(Array)
         return input(unit_name_attribute, collection: units_values, include_blank: false, wrapper: :simplest)
       end
-
       @template.content_tag(:span, units_values.tl, class: 'add-on')
     end
   end

@@ -1,0 +1,645 @@
+# = Informations
+#
+# == License
+#
+# Ekylibre - Simple agricultural ERP
+# Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
+# Copyright (C) 2010-2012 Brice Texier
+# Copyright (C) 2012-2017 Brice Texier, David Joulin
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Affero General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public License
+# along with this program.  If not, see http://www.gnu.org/licenses.
+#
+# == Table: tax_declaration_items
+#
+#  balance_pretax_amount                :decimal(19, 4)   default(0.0), not null
+#  balance_tax_amount                   :decimal(19, 4)   default(0.0), not null
+#  collected_pretax_amount              :decimal(19, 4)   default(0.0), not null
+#  collected_tax_amount                 :decimal(19, 4)   default(0.0), not null
+#  created_at                           :datetime         not null
+#  creator_id                           :integer
+#  currency                             :string           not null
+#  deductible_pretax_amount             :decimal(19, 4)   default(0.0), not null
+#  deductible_tax_amount                :decimal(19, 4)   default(0.0), not null
+#  fixed_asset_deductible_pretax_amount :decimal(19, 4)   default(0.0), not null
+#  fixed_asset_deductible_tax_amount    :decimal(19, 4)   default(0.0), not null
+#  id                                   :integer          not null, primary key
+#  intracommunity_payable_pretax_amount :decimal(19, 4)   default(0.0), not null
+#  intracommunity_payable_tax_amount    :decimal(19, 4)   default(0.0), not null
+#  lock_version                         :integer          default(0), not null
+#  tax_declaration_id                   :integer          not null
+#  tax_id                               :integer          not null
+#  updated_at                           :datetime         not null
+#  updater_id                           :integer
+#
+---
+tax_declaration_items_001:
+  balance_pretax_amount: 0.0
+  balance_tax_amount: 0.0
+  collected_pretax_amount: 0.0
+  collected_tax_amount: 0.0
+  created_at: 2016-12-20 09:05:18.009819000 Z
+  creator_id: 1
+  currency: EUR
+  deductible_pretax_amount: 0.0
+  deductible_tax_amount: 0.0
+  fixed_asset_deductible_pretax_amount: 0.0
+  fixed_asset_deductible_tax_amount: 0.0
+  id: 1
+  intracommunity_payable_pretax_amount: 0.0
+  intracommunity_payable_tax_amount: 0.0
+  lock_version: 0
+  tax_declaration_id: 1
+  tax_id: 1
+  updated_at: 2016-12-20 09:05:18.009819000 Z
+  updater_id: 1
+tax_declaration_items_002:
+  balance_pretax_amount: 0.0
+  balance_tax_amount: 0.0
+  collected_pretax_amount: 0.0
+  collected_tax_amount: 0.0
+  created_at: 2016-12-20 09:05:18.023717000 Z
+  creator_id: 1
+  currency: EUR
+  deductible_pretax_amount: 0.0
+  deductible_tax_amount: 0.0
+  fixed_asset_deductible_pretax_amount: 0.0
+  fixed_asset_deductible_tax_amount: 0.0
+  id: 2
+  intracommunity_payable_pretax_amount: 0.0
+  intracommunity_payable_tax_amount: 0.0
+  lock_version: 0
+  tax_declaration_id: 1
+  tax_id: 2
+  updated_at: 2016-12-20 09:05:18.023717000 Z
+  updater_id: 1
+tax_declaration_items_003:
+  balance_pretax_amount: 0.0
+  balance_tax_amount: 0.0
+  collected_pretax_amount: 0.0
+  collected_tax_amount: 0.0
+  created_at: 2016-12-20 09:05:18.037009000 Z
+  creator_id: 1
+  currency: EUR
+  deductible_pretax_amount: 0.0
+  deductible_tax_amount: 0.0
+  fixed_asset_deductible_pretax_amount: 0.0
+  fixed_asset_deductible_tax_amount: 0.0
+  id: 3
+  intracommunity_payable_pretax_amount: 0.0
+  intracommunity_payable_tax_amount: 0.0
+  lock_version: 0
+  tax_declaration_id: 1
+  tax_id: 3
+  updated_at: 2016-12-20 09:05:18.037009000 Z
+  updater_id: 1
+tax_declaration_items_004:
+  balance_pretax_amount: 0.0
+  balance_tax_amount: 0.0
+  collected_pretax_amount: 0.0
+  collected_tax_amount: 0.0
+  created_at: 2016-12-20 09:05:18.048823000 Z
+  creator_id: 1
+  currency: EUR
+  deductible_pretax_amount: 0.0
+  deductible_tax_amount: 0.0
+  fixed_asset_deductible_pretax_amount: 0.0
+  fixed_asset_deductible_tax_amount: 0.0
+  id: 4
+  intracommunity_payable_pretax_amount: 0.0
+  intracommunity_payable_tax_amount: 0.0
+  lock_version: 0
+  tax_declaration_id: 1
+  tax_id: 8
+  updated_at: 2016-12-20 09:05:18.048823000 Z
+  updater_id: 1
+tax_declaration_items_005:
+  balance_pretax_amount: 0.0
+  balance_tax_amount: 0.0
+  collected_pretax_amount: 0.0
+  collected_tax_amount: 0.0
+  created_at: 2016-12-20 09:05:18.060637000 Z
+  creator_id: 1
+  currency: EUR
+  deductible_pretax_amount: 0.0
+  deductible_tax_amount: 0.0
+  fixed_asset_deductible_pretax_amount: 0.0
+  fixed_asset_deductible_tax_amount: 0.0
+  id: 5
+  intracommunity_payable_pretax_amount: 0.0
+  intracommunity_payable_tax_amount: 0.0
+  lock_version: 0
+  tax_declaration_id: 1
+  tax_id: 9
+  updated_at: 2016-12-20 09:05:18.060637000 Z
+  updater_id: 1
+tax_declaration_items_006:
+  balance_pretax_amount: 0.0
+  balance_tax_amount: 0.0
+  collected_pretax_amount: 0.0
+  collected_tax_amount: 0.0
+  created_at: 2016-12-20 09:05:18.071669000 Z
+  creator_id: 1
+  currency: EUR
+  deductible_pretax_amount: 0.0
+  deductible_tax_amount: 0.0
+  fixed_asset_deductible_pretax_amount: 0.0
+  fixed_asset_deductible_tax_amount: 0.0
+  id: 6
+  intracommunity_payable_pretax_amount: 0.0
+  intracommunity_payable_tax_amount: 0.0
+  lock_version: 0
+  tax_declaration_id: 1
+  tax_id: 10
+  updated_at: 2016-12-20 09:05:18.071669000 Z
+  updater_id: 1
+tax_declaration_items_007:
+  balance_pretax_amount: 0.0
+  balance_tax_amount: 0.0
+  collected_pretax_amount: 0.0
+  collected_tax_amount: 0.0
+  created_at: 2016-12-20 09:05:31.258635000 Z
+  creator_id: 1
+  currency: EUR
+  deductible_pretax_amount: 0.0
+  deductible_tax_amount: 0.0
+  fixed_asset_deductible_pretax_amount: 0.0
+  fixed_asset_deductible_tax_amount: 0.0
+  id: 7
+  intracommunity_payable_pretax_amount: 0.0
+  intracommunity_payable_tax_amount: 0.0
+  lock_version: 0
+  tax_declaration_id: 2
+  tax_id: 1
+  updated_at: 2016-12-20 09:05:31.258635000 Z
+  updater_id: 1
+tax_declaration_items_008:
+  balance_pretax_amount: 0.0
+  balance_tax_amount: 0.0
+  collected_pretax_amount: 0.0
+  collected_tax_amount: 0.0
+  created_at: 2016-12-20 09:05:31.270604000 Z
+  creator_id: 1
+  currency: EUR
+  deductible_pretax_amount: 0.0
+  deductible_tax_amount: 0.0
+  fixed_asset_deductible_pretax_amount: 0.0
+  fixed_asset_deductible_tax_amount: 0.0
+  id: 8
+  intracommunity_payable_pretax_amount: 0.0
+  intracommunity_payable_tax_amount: 0.0
+  lock_version: 0
+  tax_declaration_id: 2
+  tax_id: 2
+  updated_at: 2016-12-20 09:05:31.270604000 Z
+  updater_id: 1
+tax_declaration_items_009:
+  balance_pretax_amount: 0.0
+  balance_tax_amount: 0.0
+  collected_pretax_amount: 0.0
+  collected_tax_amount: 0.0
+  created_at: 2016-12-20 09:05:31.282160000 Z
+  creator_id: 1
+  currency: EUR
+  deductible_pretax_amount: 0.0
+  deductible_tax_amount: 0.0
+  fixed_asset_deductible_pretax_amount: 0.0
+  fixed_asset_deductible_tax_amount: 0.0
+  id: 9
+  intracommunity_payable_pretax_amount: 0.0
+  intracommunity_payable_tax_amount: 0.0
+  lock_version: 0
+  tax_declaration_id: 2
+  tax_id: 3
+  updated_at: 2016-12-20 09:05:31.282160000 Z
+  updater_id: 1
+tax_declaration_items_010:
+  balance_pretax_amount: 0.0
+  balance_tax_amount: 0.0
+  collected_pretax_amount: 0.0
+  collected_tax_amount: 0.0
+  created_at: 2016-12-20 09:05:31.293465000 Z
+  creator_id: 1
+  currency: EUR
+  deductible_pretax_amount: 0.0
+  deductible_tax_amount: 0.0
+  fixed_asset_deductible_pretax_amount: 0.0
+  fixed_asset_deductible_tax_amount: 0.0
+  id: 10
+  intracommunity_payable_pretax_amount: 0.0
+  intracommunity_payable_tax_amount: 0.0
+  lock_version: 0
+  tax_declaration_id: 2
+  tax_id: 8
+  updated_at: 2016-12-20 09:05:31.293465000 Z
+  updater_id: 1
+tax_declaration_items_011:
+  balance_pretax_amount: 0.0
+  balance_tax_amount: 0.0
+  collected_pretax_amount: 0.0
+  collected_tax_amount: 0.0
+  created_at: 2016-12-20 09:05:31.305254000 Z
+  creator_id: 1
+  currency: EUR
+  deductible_pretax_amount: 0.0
+  deductible_tax_amount: 0.0
+  fixed_asset_deductible_pretax_amount: 0.0
+  fixed_asset_deductible_tax_amount: 0.0
+  id: 11
+  intracommunity_payable_pretax_amount: 0.0
+  intracommunity_payable_tax_amount: 0.0
+  lock_version: 0
+  tax_declaration_id: 2
+  tax_id: 9
+  updated_at: 2016-12-20 09:05:31.305254000 Z
+  updater_id: 1
+tax_declaration_items_012:
+  balance_pretax_amount: 0.0
+  balance_tax_amount: 0.0
+  collected_pretax_amount: 0.0
+  collected_tax_amount: 0.0
+  created_at: 2016-12-20 09:05:31.317136000 Z
+  creator_id: 1
+  currency: EUR
+  deductible_pretax_amount: 0.0
+  deductible_tax_amount: 0.0
+  fixed_asset_deductible_pretax_amount: 0.0
+  fixed_asset_deductible_tax_amount: 0.0
+  id: 12
+  intracommunity_payable_pretax_amount: 0.0
+  intracommunity_payable_tax_amount: 0.0
+  lock_version: 0
+  tax_declaration_id: 2
+  tax_id: 10
+  updated_at: 2016-12-20 09:05:31.317136000 Z
+  updater_id: 1
+tax_declaration_items_013:
+  balance_pretax_amount: 0.0
+  balance_tax_amount: 0.0
+  collected_pretax_amount: 0.0
+  collected_tax_amount: 0.0
+  created_at: 2017-05-01 23:43:40.922836000 Z
+  creator_id: 1
+  currency: FRF
+  deductible_pretax_amount: 0.0
+  deductible_tax_amount: 0.0
+  fixed_asset_deductible_pretax_amount: 0.0
+  fixed_asset_deductible_tax_amount: 0.0
+  id: 13
+  intracommunity_payable_pretax_amount: 0.0
+  intracommunity_payable_tax_amount: 0.0
+  lock_version: 0
+  tax_declaration_id: 3
+  tax_id: 1
+  updated_at: 2017-05-01 23:43:40.922836000 Z
+  updater_id: 1
+tax_declaration_items_014:
+  balance_pretax_amount: 0.0
+  balance_tax_amount: 0.0
+  collected_pretax_amount: 0.0
+  collected_tax_amount: 0.0
+  created_at: 2017-05-01 23:43:40.936627000 Z
+  creator_id: 1
+  currency: FRF
+  deductible_pretax_amount: 0.0
+  deductible_tax_amount: 0.0
+  fixed_asset_deductible_pretax_amount: 0.0
+  fixed_asset_deductible_tax_amount: 0.0
+  id: 14
+  intracommunity_payable_pretax_amount: 0.0
+  intracommunity_payable_tax_amount: 0.0
+  lock_version: 0
+  tax_declaration_id: 3
+  tax_id: 2
+  updated_at: 2017-05-01 23:43:40.936627000 Z
+  updater_id: 1
+tax_declaration_items_015:
+  balance_pretax_amount: 0.0
+  balance_tax_amount: 0.0
+  collected_pretax_amount: 0.0
+  collected_tax_amount: 0.0
+  created_at: 2017-05-01 23:43:40.951151000 Z
+  creator_id: 1
+  currency: FRF
+  deductible_pretax_amount: 0.0
+  deductible_tax_amount: 0.0
+  fixed_asset_deductible_pretax_amount: 0.0
+  fixed_asset_deductible_tax_amount: 0.0
+  id: 15
+  intracommunity_payable_pretax_amount: 0.0
+  intracommunity_payable_tax_amount: 0.0
+  lock_version: 0
+  tax_declaration_id: 3
+  tax_id: 3
+  updated_at: 2017-05-01 23:43:40.951151000 Z
+  updater_id: 1
+tax_declaration_items_016:
+  balance_pretax_amount: 0.0
+  balance_tax_amount: 0.0
+  collected_pretax_amount: 0.0
+  collected_tax_amount: 0.0
+  created_at: 2017-05-01 23:43:40.964928000 Z
+  creator_id: 1
+  currency: FRF
+  deductible_pretax_amount: 0.0
+  deductible_tax_amount: 0.0
+  fixed_asset_deductible_pretax_amount: 0.0
+  fixed_asset_deductible_tax_amount: 0.0
+  id: 16
+  intracommunity_payable_pretax_amount: 0.0
+  intracommunity_payable_tax_amount: 0.0
+  lock_version: 0
+  tax_declaration_id: 3
+  tax_id: 8
+  updated_at: 2017-05-01 23:43:40.964928000 Z
+  updater_id: 1
+tax_declaration_items_017:
+  balance_pretax_amount: 0.0
+  balance_tax_amount: 0.0
+  collected_pretax_amount: 0.0
+  collected_tax_amount: 0.0
+  created_at: 2017-05-01 23:43:40.978386000 Z
+  creator_id: 1
+  currency: FRF
+  deductible_pretax_amount: 0.0
+  deductible_tax_amount: 0.0
+  fixed_asset_deductible_pretax_amount: 0.0
+  fixed_asset_deductible_tax_amount: 0.0
+  id: 17
+  intracommunity_payable_pretax_amount: 0.0
+  intracommunity_payable_tax_amount: 0.0
+  lock_version: 0
+  tax_declaration_id: 3
+  tax_id: 9
+  updated_at: 2017-05-01 23:43:40.978386000 Z
+  updater_id: 1
+tax_declaration_items_018:
+  balance_pretax_amount: 0.0
+  balance_tax_amount: 0.0
+  collected_pretax_amount: 0.0
+  collected_tax_amount: 0.0
+  created_at: 2017-05-01 23:43:40.991777000 Z
+  creator_id: 1
+  currency: FRF
+  deductible_pretax_amount: 0.0
+  deductible_tax_amount: 0.0
+  fixed_asset_deductible_pretax_amount: 0.0
+  fixed_asset_deductible_tax_amount: 0.0
+  id: 18
+  intracommunity_payable_pretax_amount: 0.0
+  intracommunity_payable_tax_amount: 0.0
+  lock_version: 0
+  tax_declaration_id: 3
+  tax_id: 10
+  updated_at: 2017-05-01 23:43:40.991777000 Z
+  updater_id: 1
+tax_declaration_items_019:
+  balance_pretax_amount: 0.0
+  balance_tax_amount: 0.0
+  collected_pretax_amount: 0.0
+  collected_tax_amount: 0.0
+  created_at: 2017-05-01 23:43:53.992116000 Z
+  creator_id: 1
+  currency: FRF
+  deductible_pretax_amount: 0.0
+  deductible_tax_amount: 0.0
+  fixed_asset_deductible_pretax_amount: 0.0
+  fixed_asset_deductible_tax_amount: 0.0
+  id: 19
+  intracommunity_payable_pretax_amount: 0.0
+  intracommunity_payable_tax_amount: 0.0
+  lock_version: 0
+  tax_declaration_id: 4
+  tax_id: 1
+  updated_at: 2017-05-01 23:43:53.992116000 Z
+  updater_id: 1
+tax_declaration_items_020:
+  balance_pretax_amount: 0.0
+  balance_tax_amount: 0.0
+  collected_pretax_amount: 0.0
+  collected_tax_amount: 0.0
+  created_at: 2017-05-01 23:43:54.007479000 Z
+  creator_id: 1
+  currency: FRF
+  deductible_pretax_amount: 0.0
+  deductible_tax_amount: 0.0
+  fixed_asset_deductible_pretax_amount: 0.0
+  fixed_asset_deductible_tax_amount: 0.0
+  id: 20
+  intracommunity_payable_pretax_amount: 0.0
+  intracommunity_payable_tax_amount: 0.0
+  lock_version: 0
+  tax_declaration_id: 4
+  tax_id: 2
+  updated_at: 2017-05-01 23:43:54.007479000 Z
+  updater_id: 1
+tax_declaration_items_021:
+  balance_pretax_amount: 0.0
+  balance_tax_amount: 0.0
+  collected_pretax_amount: 0.0
+  collected_tax_amount: 0.0
+  created_at: 2017-05-01 23:43:54.021645000 Z
+  creator_id: 1
+  currency: FRF
+  deductible_pretax_amount: 0.0
+  deductible_tax_amount: 0.0
+  fixed_asset_deductible_pretax_amount: 0.0
+  fixed_asset_deductible_tax_amount: 0.0
+  id: 21
+  intracommunity_payable_pretax_amount: 0.0
+  intracommunity_payable_tax_amount: 0.0
+  lock_version: 0
+  tax_declaration_id: 4
+  tax_id: 3
+  updated_at: 2017-05-01 23:43:54.021645000 Z
+  updater_id: 1
+tax_declaration_items_022:
+  balance_pretax_amount: 0.0
+  balance_tax_amount: 0.0
+  collected_pretax_amount: 0.0
+  collected_tax_amount: 0.0
+  created_at: 2017-05-01 23:43:54.036605000 Z
+  creator_id: 1
+  currency: FRF
+  deductible_pretax_amount: 0.0
+  deductible_tax_amount: 0.0
+  fixed_asset_deductible_pretax_amount: 0.0
+  fixed_asset_deductible_tax_amount: 0.0
+  id: 22
+  intracommunity_payable_pretax_amount: 0.0
+  intracommunity_payable_tax_amount: 0.0
+  lock_version: 0
+  tax_declaration_id: 4
+  tax_id: 8
+  updated_at: 2017-05-01 23:43:54.036605000 Z
+  updater_id: 1
+tax_declaration_items_023:
+  balance_pretax_amount: 0.0
+  balance_tax_amount: 0.0
+  collected_pretax_amount: 0.0
+  collected_tax_amount: 0.0
+  created_at: 2017-05-01 23:43:54.050684000 Z
+  creator_id: 1
+  currency: FRF
+  deductible_pretax_amount: 0.0
+  deductible_tax_amount: 0.0
+  fixed_asset_deductible_pretax_amount: 0.0
+  fixed_asset_deductible_tax_amount: 0.0
+  id: 23
+  intracommunity_payable_pretax_amount: 0.0
+  intracommunity_payable_tax_amount: 0.0
+  lock_version: 0
+  tax_declaration_id: 4
+  tax_id: 9
+  updated_at: 2017-05-01 23:43:54.050684000 Z
+  updater_id: 1
+tax_declaration_items_024:
+  balance_pretax_amount: 0.0
+  balance_tax_amount: 0.0
+  collected_pretax_amount: 0.0
+  collected_tax_amount: 0.0
+  created_at: 2017-05-01 23:43:54.066290000 Z
+  creator_id: 1
+  currency: FRF
+  deductible_pretax_amount: 0.0
+  deductible_tax_amount: 0.0
+  fixed_asset_deductible_pretax_amount: 0.0
+  fixed_asset_deductible_tax_amount: 0.0
+  id: 24
+  intracommunity_payable_pretax_amount: 0.0
+  intracommunity_payable_tax_amount: 0.0
+  lock_version: 0
+  tax_declaration_id: 4
+  tax_id: 10
+  updated_at: 2017-05-01 23:43:54.066290000 Z
+  updater_id: 1
+tax_declaration_items_025:
+  balance_pretax_amount: 0.0
+  balance_tax_amount: 0.0
+  collected_pretax_amount: 0.0
+  collected_tax_amount: 0.0
+  created_at: 2017-05-01 23:45:04.490762000 Z
+  creator_id: 1
+  currency: FRF
+  deductible_pretax_amount: 0.0
+  deductible_tax_amount: 0.0
+  fixed_asset_deductible_pretax_amount: 0.0
+  fixed_asset_deductible_tax_amount: 0.0
+  id: 25
+  intracommunity_payable_pretax_amount: 0.0
+  intracommunity_payable_tax_amount: 0.0
+  lock_version: 0
+  tax_declaration_id: 5
+  tax_id: 1
+  updated_at: 2017-05-01 23:45:04.490762000 Z
+  updater_id: 1
+tax_declaration_items_026:
+  balance_pretax_amount: 0.0
+  balance_tax_amount: 0.0
+  collected_pretax_amount: 0.0
+  collected_tax_amount: 0.0
+  created_at: 2017-05-01 23:45:04.507296000 Z
+  creator_id: 1
+  currency: FRF
+  deductible_pretax_amount: 0.0
+  deductible_tax_amount: 0.0
+  fixed_asset_deductible_pretax_amount: 0.0
+  fixed_asset_deductible_tax_amount: 0.0
+  id: 26
+  intracommunity_payable_pretax_amount: 0.0
+  intracommunity_payable_tax_amount: 0.0
+  lock_version: 0
+  tax_declaration_id: 5
+  tax_id: 2
+  updated_at: 2017-05-01 23:45:04.507296000 Z
+  updater_id: 1
+tax_declaration_items_027:
+  balance_pretax_amount: 0.0
+  balance_tax_amount: 0.0
+  collected_pretax_amount: 0.0
+  collected_tax_amount: 0.0
+  created_at: 2017-05-01 23:45:04.523839000 Z
+  creator_id: 1
+  currency: FRF
+  deductible_pretax_amount: 0.0
+  deductible_tax_amount: 0.0
+  fixed_asset_deductible_pretax_amount: 0.0
+  fixed_asset_deductible_tax_amount: 0.0
+  id: 27
+  intracommunity_payable_pretax_amount: 0.0
+  intracommunity_payable_tax_amount: 0.0
+  lock_version: 0
+  tax_declaration_id: 5
+  tax_id: 3
+  updated_at: 2017-05-01 23:45:04.523839000 Z
+  updater_id: 1
+tax_declaration_items_028:
+  balance_pretax_amount: 0.0
+  balance_tax_amount: 0.0
+  collected_pretax_amount: 0.0
+  collected_tax_amount: 0.0
+  created_at: 2017-05-01 23:45:04.538973000 Z
+  creator_id: 1
+  currency: FRF
+  deductible_pretax_amount: 0.0
+  deductible_tax_amount: 0.0
+  fixed_asset_deductible_pretax_amount: 0.0
+  fixed_asset_deductible_tax_amount: 0.0
+  id: 28
+  intracommunity_payable_pretax_amount: 0.0
+  intracommunity_payable_tax_amount: 0.0
+  lock_version: 0
+  tax_declaration_id: 5
+  tax_id: 8
+  updated_at: 2017-05-01 23:45:04.538973000 Z
+  updater_id: 1
+tax_declaration_items_029:
+  balance_pretax_amount: 0.0
+  balance_tax_amount: 0.0
+  collected_pretax_amount: 0.0
+  collected_tax_amount: 0.0
+  created_at: 2017-05-01 23:45:04.554708000 Z
+  creator_id: 1
+  currency: FRF
+  deductible_pretax_amount: 0.0
+  deductible_tax_amount: 0.0
+  fixed_asset_deductible_pretax_amount: 0.0
+  fixed_asset_deductible_tax_amount: 0.0
+  id: 29
+  intracommunity_payable_pretax_amount: 0.0
+  intracommunity_payable_tax_amount: 0.0
+  lock_version: 0
+  tax_declaration_id: 5
+  tax_id: 9
+  updated_at: 2017-05-01 23:45:04.554708000 Z
+  updater_id: 1
+tax_declaration_items_030:
+  balance_pretax_amount: 0.0
+  balance_tax_amount: 0.0
+  collected_pretax_amount: 0.0
+  collected_tax_amount: 0.0
+  created_at: 2017-05-01 23:45:04.568789000 Z
+  creator_id: 1
+  currency: FRF
+  deductible_pretax_amount: 0.0
+  deductible_tax_amount: 0.0
+  fixed_asset_deductible_pretax_amount: 0.0
+  fixed_asset_deductible_tax_amount: 0.0
+  id: 30
+  intracommunity_payable_pretax_amount: 0.0
+  intracommunity_payable_tax_amount: 0.0
+  lock_version: 0
+  tax_declaration_id: 5
+  tax_id: 10
+  updated_at: 2017-05-01 23:45:04.568789000 Z
+  updater_id: 1

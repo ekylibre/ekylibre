@@ -8,6 +8,9 @@ spa:
     human:
       false_class: "Falso"
       true_class: "Verdadero"
+    polar:
+      false_class: "Sí"
+      true_class: "No"
   date:
     abbr_day_names: ["Do", "Lu", "Ma", "Mi", "Ju", "Vi", "Sá"]
     abbr_month_names: ["", "ene", "feb", "mar", "abr", "may", "jun", "jul", "ago", "sep", "oct", "nov", "dic"]
@@ -19,6 +22,7 @@ spa:
       month: "% B% Y"
       month_letter: "%d %B %Y"
       short: "%b %d"
+      short_month: "%m/%Y"
     month_names: ["", "enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre"]
   datetime:
     distance_in_words:
@@ -56,6 +60,12 @@ spa:
       x_seconds:
         one: "1 segundo"
         other: "%{count} segundos"
+    periods:
+      day: "Día"
+      month: "Mes"
+      today: "Hoy"
+      week: "Semana"
+      year: "Año"
     relative_distance_in_words:
       in_sometime: "en %{distance}"
       sometime_ago: "hace %{distance}"
@@ -64,6 +74,9 @@ spa:
       internal_server_error:
         hint: "La aplicación se encuentra con problemas. Los administradores han sido notificados para este problema."
         title: "Lo lamentamos, pero algo salió mal"
+      maintenance:
+        hint: "Por favor regresa más tarde"
+        title: "El servicio se encuentra en mantenimiento y no está disponible por el momento"
       not_found:
         hint: "Es posible que haya escrito mal la dirección o la página puede haber movido."
         title: "La página que estás buscando no existe"
@@ -94,12 +107,6 @@ spa:
       format:
         delimiter: ""
   # rank: "#%{number}"
-  simple_form:
-    hints:
-      purchase:
-        reference_number: "Número de factura del proveedor"
-    required:
-      text: "Necesario"
   support:
     array:
       last_word_connector: " y "
@@ -109,7 +116,13 @@ spa:
   time:
     am: "am"
     formats:
+      compact: "% M /% d /% Y% H:% M"
       default: "%d %b. %Y - %H:%M:%S"
+      full: "% M /% d /% Y% H:% M:% S"
       long: "%B %d, %Y %H:%M"
       short: "%d %b %H:%M"
+      time: "%H:%M" #?
+    js_formats:
+      compact: "MM / DD / AAAA HH: mm"
+      full: "MM / DD / AAAA HH: mm: ss"
     pm: "pm"

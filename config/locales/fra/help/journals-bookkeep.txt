@@ -1,6 +1,6 @@
 ====== Comptabilisation des opérations commerciales ======
 
-Si vous n'avez pas activé la bascule automatique des opérations commerciales dans la [[>backend/settings#edit|configuration de votre société]], vous pouvez utilisez la bascule manuelle pour créer automatiquement les pièces et les écritures associées à vos opérations.
+Si vous n'avez pas activé la bascule automatique des opérations commerciales dans la [[>backend/companies#edit|configuration de votre société]], vous pouvez utilisez la bascule manuelle pour créer automatiquement les pièces et les écritures associées à vos opérations.
 
 Vous choisissez jusqu'à quelle date vous voulez comptabiliser les opérations et une fois les dates sélectionnées vous validez si tout vous semble correct.
 

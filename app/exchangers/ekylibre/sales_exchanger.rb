@@ -28,7 +28,7 @@ module Ekylibre
 
         # find or import a variant
         if r.variant_code
-          variant = ProductNatureVariant.where(name: r.variant_code).first || ProductNatureVariant.where(number: r.variant_code).first
+          variant = ProductNatureVariant.where(name: r.variant_code).first || ProductNatureVariant.where(work_number: r.variant_code).first
           unless variant
             if Nomen::ProductNatureVariant.find(r.variant_code.to_sym)
               variant = ProductNatureVariant.import_from_nomenclature(r.variant_code.to_sym)
@@ -40,11 +40,13 @@ module Ekylibre
         if entity && r.invoiced_at && r.reference_number
           # see if purchase exist anyway
           unless sale = Sale.where(reference_number: r.reference_number).first
-            sale = Sale.create!(invoiced_at: r.invoiced_at,
-                                reference_number: r.reference_number,
-                                client_id: entity.id,
-                                nature: SaleNature.actives.first,
-                                description: r.description)
+            sale = Sale.create!(
+              invoiced_at: r.invoiced_at,
+              reference_number: r.reference_number,
+              client_id: entity.id,
+              nature: SaleNature.actives.first,
+              description: r.description
+            )
             sale_ids << sale.id
           end
         end
@@ -63,8 +65,17 @@ module Ekylibre
 
         # find or create a purchase line
         if sale && variant && r.unit_pretax_amount && r.quantity && sale_item_tax
-          unless sale_item = SaleItem.where(sale_id: sale.id, pretax_amount: r.pretax_amount, variant_id: variant.id).first
-            sale.items.create!(quantity: r.quantity, tax: sale_item_tax, unit_pretax_amount: r.unit_pretax_amount, variant: variant)
+          unless sale_item = SaleItem.where(
+            sale_id: sale.id,
+            pretax_amount: r.pretax_amount,
+            variant_id: variant.id
+          ).first
+            sale.items.create!(
+              quantity: r.quantity,
+              tax: sale_item_tax,
+              unit_pretax_amount: r.unit_pretax_amount,
+              variant: variant
+            )
           end
         end
 

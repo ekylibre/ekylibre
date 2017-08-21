@@ -14,6 +14,7 @@ module Ekylibre
   autoload :Support,           'ekylibre/support'
   autoload :Tenant,            'ekylibre/tenant'
   autoload :VERSION,           'ekylibre/version'
+  autoload :View,              'ekylibre/view'
 
   CSV = ::CSV.freeze
 
@@ -64,7 +65,7 @@ module Ekylibre
           path = Pathname.new(file).relative_path_from(locales_dir)
           File.open(file, 'rb:UTF-8') do |f|
             help = { title: f.read[/^======\s*(.*)\s*======$/, 1].strip, name: path.to_s.gsub(/\.txt$/, ''), file: file }
-            unless help[:title].blank?
+            if help[:title].present?
               @helps[locale][path.to_s.gsub(/\.txt$/, '')] = help
             end
           end

@@ -24,16 +24,16 @@ module Clean
         when NilClass                 then 'NULL'
         when TrueClass                then 'TRUE'
         when FalseClass               then 'FALSE'
-        when Float, Fixnum, Bignum    then value.to_s
+        when Float, Integer, Integer then value.to_s
         # BigDecimals need to be output in a non-normalized form and quoted.
-        when BigDecimal               then value.to_s('F')
+        when BigDecimal then value.to_s('F')
         else
           value.inspect
         end
       end
 
       def validable_column?(column)
-        ![:created_at, :creator_id, :creator, :updated_at, :updater_id, :updater, :position, :lock_version].include?(column.name.to_sym)
+        !%i[created_at creator_id creator updated_at updater_id updater position lock_version].include?(column.name.to_sym)
       end
 
       # Use the column information in an ActiveRecord class
@@ -47,7 +47,7 @@ module Clean
         #    info << "# Table name: #{klass.table_name}\n#\n"
 
         max_size = klass.column_names.collect(&:size).max
-        klass.columns.sort { |a, b| a.name <=> b.name }.each do |col|
+        klass.columns.sort_by(&:name).each do |col|
           next if col.name.to_s.start_with?('_') # Custom fields
           attrs = []
           if col.default
@@ -135,7 +135,7 @@ module Clean
 
         Clean::Support.set_search_path!
 
-        types  = [:models, :fixtures, :model_tests]
+        types  = %i[models fixtures model_tests]
         types &= [options.delete(:only)].flatten if options[:only]
         types -= [options.delete(:except)].flatten if options[:except]
 

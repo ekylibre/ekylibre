@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
+  <procedure name="identification" categories="animal_identification" actions="animal_identification" varieties="aves,mammalia">
+    <parameters>
+      <target name="animal" filter="is animal">
+        <attribute name="identification_number"/>
+      </target>
+      <doer name="doer" filter="is worker" cardinality="*"/>
+    </parameters>
+  </procedure>
+</procedures>

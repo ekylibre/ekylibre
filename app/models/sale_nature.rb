@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2016 Brice Texier, David Joulin
+# Copyright (C) 2012-2017 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -51,7 +51,7 @@ class SaleNature < Ekylibre::Record::Base
   belongs_to :catalog
   belongs_to :journal
   belongs_to :payment_mode, class_name: 'IncomingPaymentMode'
-  has_many :sales, foreign_key: :nature_id
+  has_many :sales, foreign_key: :nature_id, dependent: :restrict_with_exception
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :active, :by_default, :downpayment, :with_accounting, inclusion: { in: [true, false] }

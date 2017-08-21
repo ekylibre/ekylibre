@@ -1,4 +1,5 @@
 # coding: utf-8
+
 # = Informations
 #
 # == License
@@ -6,7 +7,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2016 Brice Texier, David Joulin
+# Copyright (C) 2012-2017 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -36,7 +37,7 @@
 
 class ActivityInspectionPointNature < Ekylibre::Record::Base
   belongs_to :activity
-  enumerize :category, in: [:disease, :deformity, :none], default: :none, predicates: true
+  enumerize :category, in: %i[disease deformity none], default: :none, predicates: true
   has_many :inspection_points, inverse_of: :nature, foreign_key: :nature_id, dependent: :restrict_with_exception
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :activity, :category, presence: true

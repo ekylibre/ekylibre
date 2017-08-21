@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2016 Brice Texier, David Joulin
+# Copyright (C) 2012-2017 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -44,7 +44,7 @@ class Guide < Ekylibre::Record::Base
   has_many :analyses, class_name: 'GuideAnalysis', dependent: :destroy
   has_one :last_analysis, -> { where(latest: true) }, class_name: 'GuideAnalysis'
   refers_to :nature, class_name: 'GuideNature'
-  enumerize :frequency, in: [:hourly, :daily, :weekly, :monthly, :yearly, :decadely, :none], default: :none
+  enumerize :frequency, in: %i[hourly daily weekly monthly yearly decadely none], default: :none
   enumerize :reference_name, in: []
 
   has_attached_file :reference_source, path: ':tenant/:class/:id/source.xml'
@@ -68,7 +68,7 @@ class Guide < Ekylibre::Record::Base
   end
 
   def run!(started_at = Time.zone.now)
-    statuses = [:passed, :passed_with_warnings, :failed]
+    statuses = %i[passed passed_with_warnings failed]
     global_status = statuses.sample
     analysis = analyses.create!(acceptance_status: global_status, started_at: started_at, stopped_at: started_at + 10)
     (4 * name.size).times do |i|

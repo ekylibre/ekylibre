@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2016 Brice Texier, David Joulin
+# Copyright (C) 2012-2017 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -69,7 +69,7 @@ class EntityLink < Ekylibre::Record::Base
 
   before_validation do
     self.started_at ||= Time.zone.now
-    if item = Nomen::EntityLinkNature[nature]
+    if (item = Nomen::EntityLinkNature[nature])
       self.entity_role = item.entity
       self.linked_role = item.linked
     end

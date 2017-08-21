@@ -1,0 +1,231 @@
+@import "bootstrap/labels";
+
+$preview-modal-height: 80vh;
+
+.interventions-modal {
+  .intervention-activities {
+    padding: $default-gap;
+
+    .label {
+      margin-right: round($default-gap * 1.4);
+    }
+  }
+  .indicators {
+    @include flex-row(space-around);
+    flex-wrap: wrap;
+
+    .med-info {
+      @include flex-column();
+      flex: 1 50%;
+      padding: 0;
+      margin-top: round($default-gap * 1.4);
+
+      .value {
+        line-height: $fs-awesome;
+      }
+    }
+
+    .med-info.total-cost {
+      font-weight: bold;
+    }
+  }
+
+  .blocks {
+    @include flex-row(flex-start, flex-start);
+    flex-wrap: wrap;
+    padding: $default-gap;
+
+    .block {
+      flex: 1 50%;
+      margin: $fs-normal 0;
+
+      .block-title {
+        border-bottom: $menu-border;
+        padding-bottom: $default-gap;
+        font-size: $fs-normal;
+        font-weight: bold;
+      }
+
+      .data {
+        padding: $default-gap;
+        @include flex-row(flex-start, center);
+      }
+
+      .data-title {
+        font-weight: bold;
+      }
+
+      .picture .picto {
+        font-size: $fs-huge;
+        line-height: initial;
+      }
+    }
+  }
+}
+
+.taskboard.interventions-taskboard {
+
+  .taskboard-column {
+
+    &.requests {
+      border: $menu-border-width dashed $text-color;
+      & .tasks {
+        border-top: $menu-border-width dashed $text-color;
+      }
+    }
+  }
+
+  .task {
+
+    .completely_filled {
+      margin-left: round($default-gap * 1.4);
+      color: $success-color;
+      font-size: $fs-large;
+      min-width: initial;
+      line-height: initial;
+    }
+
+    &-data.doers {
+      background-color: $darkened-blue-grey;
+      color: $white;
+    }
+  }
+}
+
+.delete-modal {
+  .modal-intervention {
+    padding: 0 1em;
+  }
+}
+
+.beta {
+  @include is-icon($fs-normal);
+  @include use-icon(flask);
+
+  color: $brand-warning;
+  margin: 10px;
+}
+
+.nested-parameters {
+  position: relative;
+  .errors {
+    position: absolute;
+    top: $spacing * 0.9;
+    @include right(40px);
+    & > * {
+      display: none;
+    }
+  }
+
+  .links {
+    position: relative;
+
+    .display-info {
+      position: absolute;
+
+      .status {
+        @include margin-left(10px);
+        display: inline-block;
+        border: 1px solid $neutral-color;
+        border-radius: 100%;
+        width: $lh-small;
+        height: $lh-small;
+
+        &[data-display-status=valid] {
+          background-color: lighten($brand-success, 10%);
+        }
+        &[data-display-status=incomplete] {
+          background-color: lighten($brand-warning, 10%);
+        }
+        &[data-display-status=invalid] {
+          background-color: lighten($brand-danger, 10%);
+        }
+      }
+    }
+  }
+}
+
+.edit_intervention,
+.new_intervention {
+  .has-intervention-participations {
+    position: relative;
+    top: -$fs-large;
+    left: $fs-awesome * 2.5;
+    line-height: 0;
+    font-size: $fs-huge;
+    cursor: pointer;
+  }
+
+  .has-intervention-participations:hover {
+    color: $darkened-blue-grey;
+  }
+}
+
+.product_parameters .cast {
+  padding: 0;
+  padding-left: $default-gap * 2;
+
+  .picture {
+    margin: $default-gap 0;
+    margin-right: $default-gap;
+  }
+
+  .details {
+    padding-top: $default-gap;
+  }
+}
+
+.product_parameters .periods {
+  @include flex-row(center, stretch);
+  float: right;
+  height: $fs-awesome * 1.6;
+
+  .period,
+  .total {
+    @include flex-column();
+    border-left: solid 1px #ddd;
+    padding: 0 1em;
+  }
+
+  .period-type {
+    @include flex-row();
+
+    .period-icon {
+      margin-right: 1em;
+      width: $fs-huge * 1.1;
+    }
+
+    .period-label {
+      font-weight: bold;
+      font-size: $fs-normal * 1.1;
+    }
+  }
+
+  .total {
+    background-color: rgba(black, 0.03);
+    min-width: 7em;
+
+    .total-label {
+      height: $fs-huge * 1.1;
+      font-size: $fs-large;
+      font-weight: bold;
+    }
+
+    .computation * {
+      font-size: 16px !important;
+    }
+  }
+
+  .cost {
+    @include flex-column();
+    padding: 0 !important;
+
+    .computation * {
+      font-size: $fs-normal !important;
+    }
+
+    .origin {
+      font-size: $fs-small;
+    }
+  }
+}

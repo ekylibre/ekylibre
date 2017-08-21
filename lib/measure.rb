@@ -180,6 +180,10 @@ class Measure
     @value.zero?
   end
 
+  def nonzero?
+    zero? ? nil : self
+  end
+
   # Returns the dimension of a other
   def +(other)
     unless other.is_a?(Measure)
@@ -235,7 +239,7 @@ class Measure
 
   def to_r(other_unit = nil, precision = 16)
     if other_unit.nil?
-      return value
+      value
     else
       other_unit = other_unit.name if other_unit.is_a?(Nomen::Item)
       unless @@units[other_unit]
@@ -250,7 +254,7 @@ class Measure
       reduced = ((ref.a * value.to_d(precision)) / ref.d) + ref.b
       # Coeff to dest
       ref = @@units[other_unit]
-      return (ref.d * ((reduced - ref.b) / ref.a)).to_r
+      (ref.d * ((reduced - ref.b) / ref.a)).to_r
     end
   end
 

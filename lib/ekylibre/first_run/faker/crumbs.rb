@@ -46,16 +46,16 @@ module Ekylibre
           cultivable_zone = CultivableZone.where(work_number: cultivable_zone_work_number).first
 
           plant = nil
-          members = cultivable_zone.contains(:plant, issue_observed_at) if cultivable_zone
-          plant = members.first.product if members
+          members = cultivable_zone.current_cultivations(issue_observed_at) if cultivable_zone
+          plant = members if members.any?
           if plant.nil?
             cultivable_zone_shape = Charta.new_geometry(cultivable_zone.shape) if cultivable_zone.shape
-            if cultivable_zone_shape && product_around = Plant.within_shape(cultivable_zone_shape).first
+            if cultivable_zone_shape && product_around = Plant.shape_within(cultivable_zone_shape).first
               plant = product_around
             end
           end
 
-          support = ActivityProduction.where(storage: cultivable_zone).of_campaign(campaign).first if cultivable_zone && campaign
+          support = ActivityProduction.where(cultivable_zone_id: cultivable_zone.id).of_campaign(campaign).first if cultivable_zone && campaign
           intrant = Product.where(name: product_name).first
           sprayer = Equipment.where(work_number: sprayer_work_number).first
           worker = Worker.where(work_number: worker_work_number).first
@@ -128,26 +128,90 @@ module Ekylibre
           end
 
           # 3 - CREATE A PROVISIONNAL SPRAYING INTERVENTION
-          # TODO
+
           intervention = nil
-          if support && intrant
-            Ekylibre::FirstRun::Booker.production = support.production
-            # Chemical weed
-            intervention = Ekylibre::FirstRun::Booker.intervene(:chemical_weed_killing, 2014, 6, 1, 1.07, support: support, parameters: { readings: { 'base-chemical_weed_killing-0-1-readstate' => 'covered' } }) do |i|
-              i.add_cast(reference_name: 'weedkiller', actor: intrant)
-              i.add_cast(reference_name: 'weedkiller_to_spray', population: intrant_population)
-              i.add_cast(reference_name: 'sprayer',     actor: sprayer)
-              i.add_cast(reference_name: 'driver',      actor: worker)
-              i.add_cast(reference_name: 'tractor',     actor: i.find(Product, can: 'catch(sprayer)'))
-              i.add_cast(reference_name: 'land_parcel', actor: cultivable_zone)
+
+          procedure = Procedo.find(:spraying)
+          started_at = '2014-06-01 09:00'
+          stopped_at = '2014-06-01 09:45'
+
+          # build base procedure
+          attributes = {
+            procedure_name: procedure.name,
+            actions: procedure.mandatory_actions.map(&:name)
+          }
+
+          ## working_periods
+          attributes[:working_periods_attributes] = {
+            '0' => {
+              started_at: started_at.to_time.strftime('%Y-%m-%d %H:%M'),
+              stopped_at: stopped_at.to_time.strftime('%Y-%m-%d %H:%M')
+            }
+          }
+
+          ## targets
+          attributes[:targets_attributes] ||= {}
+          attributes[:targets_attributes][0] = {
+            reference_name: 'cultivation',
+            product_id: plant.id,
+            working_zone: plant.shape.to_geojson
+          }
+
+          ## inputs
+          updaters = []
+
+          attributes[:inputs_attributes] ||= {}
+          attributes[:inputs_attributes][0] = {
+            reference_name: 'plant_medicine',
+            product_id: intrant.id,
+            quantity_handler: 'population',
+            quantity_value: intrant_population
+          }
+
+          updaters << 'inputs[0]quantity_value'
+
+          ## tools
+          eqs = []
+          eqs << sprayer
+          eqs.each_with_index do |equipment, index|
+            procedure.parameters_of_type(:tool).each do |tool|
+              next unless equipment.of_expression(tool.filter)
+              attributes[:tools_attributes] ||= {}
+              attributes[:tools_attributes][index.to_s] = {
+                reference_name: tool.name,
+                product_id: equipment.id
+              }
+              break
             end
-            if intervention
-              intervention.issue = issue if issue
-              intervention.prescription = prescription if prescription
-              intervention.recommended = true if prescriptor
-              intervention.recommender = prescriptor if prescriptor
-              intervention.save!
+          end
+
+          ## doers
+          doers = []
+          doers << worker
+          doers.each_with_index do |work, index|
+            procedure.parameters_of_type(:doer).each do |doer|
+              next unless work.of_expression(doer.filter)
+              attributes[:doers_attributes] ||= {}
+              attributes[:doers_attributes][index.to_s] = {
+                reference_name: doer.name,
+                product_id: work.id
+              }
+              break
             end
+          end
+
+          intervention = Procedo::Engine.new_intervention(attributes)
+          updaters.each do |updater|
+            intervention.impact_with!(updater)
+          end
+
+          ## save
+          intervention = ::Intervention.create!(intervention.to_hash)
+
+          if intervention
+            intervention.issue = issue if issue
+            intervention.prescription = prescription if prescription
+            intervention.save!
           end
 
           # 4 - COLLECT REAL INTERVENTION TRIP
@@ -193,7 +257,7 @@ module Ekylibre
                                 read_at: read_at + record.attributes['id'].to_i,
                                 user_id: user.id,
                                 device_uid: record.attributes['device_uid'] || 'demo:123854',
-                                intervention_cast: sprayer)
+                                intervention_parameter: sprayer)
                   # w.check_point
                 end
               end

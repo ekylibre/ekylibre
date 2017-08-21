@@ -1,4 +1,5 @@
 # coding: utf-8
+
 module Ekylibre
   class BankStatementsExchanger < ActiveExchanger::Base
     def import
@@ -48,15 +49,15 @@ module Ekylibre
         else
           # w.error 'Missing informations to get existing cash, you must update your file or create a cash before importing'
           account = Account.find_or_import_from_nomenclature(:banks)
-          cash = Cash.find_by(account: account)
+          cash = Cash.find_by(main_account: account)
           unless cash
             journal = Journal.find_or_create_by!(nature: :bank)
-            cash = Cash.create!(nature: :bank_account, name: cash_name, account: account, journal: journal)
+            cash = Cash.create!(nature: :bank_account, name: cash_name, main_account: account, journal: journal)
           end
         end
         raise 'Need cash to continue' unless cash
 
-        next if bank_statement_number.blank? && !movements.any?
+        next if bank_statement_number.blank? && movements.none?
 
         bank_statement_started_on ||= movements.map(&:value_date).min
         bank_statement_stopped_on ||= movements.map(&:value_date).max

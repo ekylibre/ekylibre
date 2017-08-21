@@ -1,0 +1,92 @@
+- precision = Nomen::Currency.find(currency).precision
+- cash_id = @bank_statements.map(&:cash_id).uniq unless @bank_statements.nil?
+- cash_id = @bank_statement.cash.id unless @bank_statement.nil?
+
+= hidden_field_tag :cash_id, cash_id
+.reconciliation-list{ data: { currency_precision: precision } }
+  .top-part
+    .buttons
+      = button_tag(:reset.tl, type: :button, "data-confirm": :are_you_sure.tl, class: "btn btn-default", id: "reset_reconciliation")
+      = dropdown_menu_button :payment_gap, icon: false do |menu|
+        - Journal.various.each do |regul_journal|
+          - url_params = { journal_id: regul_journal.id  }
+          - url_params[:cash_id] = cash_id
+          - url_params[:bank_statement_id] = @bank_statement.id unless @bank_statement.nil?
+          - url_params[:period_start] = params[:period_start] if params[:period_start].present?
+          - url_params[:period_end] = params[:period_end] if params[:period_end].present?
+
+          - menu.item regul_journal.name, backend_bank_reconciliation_gaps_path(**url_params), method: :POST, tabindex: -1, class: 'from-selected-bank from-selected-journal gap-creation', title: regul_journal.name
+
+      - url_redirect_params = { cash_id: cash_id }
+      - url_redirect_params[:bank_statement_id] = @bank_statement.id unless @bank_statement.nil?
+      - url_redirect_params[:period_start] = params[:period_start] if params[:period_start].present?
+      - url_redirect_params[:period_end] = params[:period_end] if params[:period_end].present?
+
+      = dropdown_menu_button :new_purchase, icon: false do |menu|
+        - PurchaseNature.find_each do |nature|
+          - menu.item nature.name, new_backend_quick_purchase_path(nature_id: nature.id, redirect: url_for(**url_redirect_params)), tabindex: -1, method: :get, class: 'from-selected-bank', title: nature.name
+      = dropdown_menu_button :new_sale, icon: false do |menu|
+        - SaleNature.find_each do |nature|
+          - menu.item nature.name, new_backend_quick_sale_path(nature_id: nature.id, redirect: url_for(**url_redirect_params)), tabindex: -1, method: :get, class: 'from-selected-bank', title: nature.name
+    .details
+      %input#set_period{ type: 'daterange', value: "#{@period_start} &ndash; #{@period_end}".html_safe }
+      %label
+        %input#hide-lettered{ type: :checkbox, checked: true }
+        = :hide_lettered_lines.tl
+
+  .list
+    .legend
+      %p= :initial_balance_of_bank_statement.tl
+      .amounts
+        .debit
+          %p.title= BankStatementItem.human_attribute_name(:debit)
+          .field= initial_balance_debit || 0.0
+        .credit
+          %p.title= BankStatementItem.human_attribute_name(:credit)
+          .field= initial_balance_credit || 0.0
+      .details
+
+    -# JS template for DatePicker.
+    .date-section.hidden
+    - @items_grouped_by_date.each do |date, items|
+      .date-section
+        - bank_statement = items.select{ |item| item.is_a?(BankStatementItem) }.map(&:bank_statement).uniq.first
+        = render 'date_header', date: date, bank_statement: bank_statement, cash_id: cash_id
+        - items.each do |item|
+          = render 'reconciliation_item', item: item
+
+  .totals
+    #matching
+      .title
+        - bank_statements = []
+        - bank_statement_dates_ranges = {}
+        - unless @items_grouped_by_date.empty?
+          - bank_statements = @items_grouped_by_date.values.flatten.select{|object| object.is_a?(BankStatementItem)}
+
+        - unless bank_statements.empty?
+          - bank_statement_dates_ranges = bank_statements.map{|bank_statement| { start: bank_statement.started_on, end: bank_statement.stopped_on }}.uniq
+
+        #new-item= date_field_tag "add-bank-statement-item-date", nil, id: "add-bank-statement-item-date", data: { label: :add_line.tl, classes: "btn btn-new icn", bank_statement_dates_ranges: bank_statement_dates_ranges, min_date: @period_start.to_s, max_date: @period_end.to_s }
+        %p= :balance_of_selection.tl
+      .amounts
+        .hidden.total_debit{data: {use: '.reconciliation-item.selected .amounts .debit', calculate: :sum, 'use-closest': '.reconciliation-list' }}= 0
+        .hidden.total_credit{data: {use: '.reconciliation-item.selected .amounts .credit', calculate: :sum, 'use-closest': '.reconciliation-list'}}= 0
+        .debit
+          %span.value{ data: { balance: '.total_credit - .total_debit', calculate_round: precision }}= 0
+        .credit
+          %span.value{ data: { balance: '.total_debit - .total_credit', calculate_round: precision }}= 0
+      .details
+    #to-match
+      .title
+        %p= :remaining_amount_to_reconcile.tl
+      .amounts
+        .debit{ data: { use: ".reconciliation-item:not(.lettered) .amounts .debit", calculate: :sum, calculate_round: precision } }= 0
+        .credit{ data: { use: ".reconciliation-item:not(.lettered) .amounts .credit", calculate: :sum, calculate_round: precision } }= 0
+      .details
+    #final
+      .title
+        %p= :final_balance.tl
+      .amounts
+        .debit{ data: { use: ".reconciliation-item .amounts .debit", calculate: :sum, calculate_round: precision } }= 0
+        .credit{ data: { use: ".reconciliation-item .amounts .credit", calculate: :sum, calculate_round: precision } }= 0
+      .details

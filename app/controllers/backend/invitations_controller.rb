@@ -29,8 +29,7 @@ module Backend
       t.column :invitation_status, label: :invitation_status
     end
 
-    def index
-    end
+    def index; end
 
     def new
       @invitation = User.new

@@ -1,0 +1,23 @@
+- main_toolbar do |t|
+  = t.edit
+  = t.destroy
+
+= main_state_bar(resource)
+
+= main_informations attachment: true do
+  = attributes_list do |l|
+    - l.attribute :employee, url: true
+    - l.attribute :started_on
+    - l.attribute :stopped_on
+    - l.attribute :emitted_on
+    - l.attribute :state
+    - l.attribute :nature
+    - l.attribute :journal_entry, url: true if resource.journal_entry
+    - l.attribute :affair, url: true, label: :number if resource.affair
+
+= cobbles do |c|
+
+  - if resource.affair
+    - c.cobble :affair do
+      = affair_of(resource, default: 'PayslipPayment')
+

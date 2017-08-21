@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2016 Brice Texier, David Joulin
+# Copyright (C) 2012-2017 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -82,7 +82,7 @@ class ManureManagementPlanZone < Ekylibre::Record::Base
 
   def compute
     for name, value in Calculus::ManureManagementPlan.compute(parameters)
-      if %w(absorbed_nitrogen_at_opening expected_yield humus_mineralization intermediate_cultivation_residue_mineralization irrigation_water_nitrogen maximum_nitrogen_input meadow_humus_mineralization mineral_nitrogen_at_opening nitrogen_at_closing nitrogen_input nitrogen_need organic_fertilizer_mineral_fraction previous_cultivation_residue_mineralization soil_production).include?(name.to_s)
+      if %w[absorbed_nitrogen_at_opening expected_yield humus_mineralization intermediate_cultivation_residue_mineralization irrigation_water_nitrogen maximum_nitrogen_input meadow_humus_mineralization mineral_nitrogen_at_opening nitrogen_at_closing nitrogen_input nitrogen_need organic_fertilizer_mineral_fraction previous_cultivation_residue_mineralization soil_production].include?(name.to_s)
         send("#{name}=", value.to_f(:kilogram_per_hectare))
       end
     end

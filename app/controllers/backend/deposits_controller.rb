@@ -63,7 +63,7 @@ module Backend
                                        { payments: { include: :payer } }])
     end
 
-    list(:depositable_payments, model: :incoming_payments, conditions: ['deposit_id=? OR (mode_id=? AND deposit_id IS NULL)', 'params[:id]'.c, '(resource.mode_id rescue params[:mode_id])'.c], paginate: false, order: [:to_bank_at, :created_at], line_class: "((resource.payments.exists?(RECORD.id) rescue false) ? 'success' : (RECORD.to_bank_at||Date.yesterday) > Time.zone.today ? 'critic' : '')".c) do |t|
+    list(:depositable_payments, model: :incoming_payments, conditions: ['deposit_id=? OR (mode_id=? AND deposit_id IS NULL)', 'params[:id]'.c, '(resource.mode_id rescue params[:mode_id])'.c], paginate: false, order: %i[to_bank_at created_at], line_class: "((resource.payments.exists?(RECORD.id) rescue false) ? 'success' : (RECORD.to_bank_at.to_date || Date.yesterday) > Time.zone.today ? 'critic' : '')".c) do |t|
       t.column :number, url: true
       t.column :payer, url: true
       t.column :bank_name
@@ -72,12 +72,17 @@ module Backend
       t.column :paid_at
       t.column :responsible
       t.column :amount, currency: true
-      t.check_box :to_deposit, value: '(resource.payments.exists?(RECORD.id) rescue false) || (RECORD.to_bank_at<=Time.zone.today and (params[:id].blank? ? (RECORD.responsible.nil? or RECORD.responsible_id == current_user.person_id) : (RECORD.deposit_id == params[:id])))'.c, label: :to_deposit.tl, form_name: 'deposit[payment_ids][]', form_value: 'RECORD.id'.c
+      t.check_box :to_deposit, value: '(resource.payments.exists?(RECORD.id) rescue false) || (RECORD.to_bank_at.to_date <= Time.zone.today && (params[:id].blank? ? (RECORD.responsible.nil? or RECORD.responsible_id == current_user.person_id) : (RECORD.deposit_id == params[:id])))'.c, label: :to_deposit.tl, form_name: 'deposit[payment_ids][]', form_value: 'RECORD.id'.c
     end
 
     def new
       return unless mode = find_mode
-      @deposit = Deposit.new(created_at: Time.zone.today, mode: mode, responsible: current_user.person)
+      @deposit = Deposit.new(
+        created_at: Time.zone.today,
+        mode: mode,
+        cash: mode.cash,
+        responsible: current_user.person
+      )
       t3e mode: @deposit.mode.name
     end
 
@@ -85,7 +90,7 @@ module Backend
       return unless find_mode
       @deposit = Deposit.new(permitted_params)
       unless @deposit.nil?
-        return if save_and_redirect(@deposit)
+        return if save_and_redirect(@deposit, url: { action: :index })
         t3e mode: @deposit.mode.name
       end
     end
@@ -106,7 +111,7 @@ module Backend
       t.column :amount
       t.column :payments_count
       t.column :cash, url: true
-      t.check_box :validated, value: 'RECORD.created_at<=Time.zone.today-(15)'.c
+      t.check_box :validated, value: 'RECORD.created_at <= Time.zone.today-(15)'.c
     end
 
     def unvalidateds

@@ -1,21 +1,6 @@
 #!/bin/bash
 
-# Qt5: https://gist.github.com/jreese/6207161
-
-echo ""
-echo "--------------------------------------------------------------------------------"
-echo "Configure PPA:"
-sudo apt-get install python-software-properties
-sudo apt-add-repository --yes ppa:sharpie/for-science
-sudo apt-add-repository --yes ppa:sharpie/postgis-stable
-sudo apt-add-repository --yes ppa:ubuntugis/ubuntugis-unstable
-# sudo apt-add-repository --yes ppa:ubuntu-sdk-team/ppa
 sudo apt-get update -qq
-
-echo ""
-echo "--------------------------------------------------------------------------------"
-echo "List postgis related packages:"
-sudo apt-cache search postgis
 
 echo ""
 echo "--------------------------------------------------------------------------------"
@@ -25,15 +10,23 @@ echo "Install packages:"
 sudo /etc/init.d/postgresql stop
 
 # Install needed packages including PostgreSQL
-sudo apt-get install -qq libgeos-dev libgeos++-dev libproj-dev postgresql-9.5-postgis-2.2 graphicsmagick tesseract-ocr tesseract-ocr-fra tesseract-ocr-eng tesseract-ocr-spa pdftk libreoffice poppler-utils poppler-data ghostscript postgresql-contrib-9.5
-# sudo apt-get install -qq qtbase5-dev qtdeclarative5-dev qt5-default qt5-qmake libqt5webkit5-dev libxcb-glx0-dev
+echo "Removing old Postgres versions."
+sudo apt-get remove postgresql-client-9.1 postgresql-client-9.2 postgresql-client-9.3 postgresql-client-9.4 postgresql-client-9.5
+echo""
+echo "Dependencies install..."
+echo""
+sudo apt-get install -f -qq postgresql-9.6-postgis-2.3 graphicsmagick tesseract-ocr tesseract-ocr-fra tesseract-ocr-eng tesseract-ocr-spa pdftk libreoffice poppler-utils poppler-data qt5-default libqt5webkit5-dev gstreamer1.0-x gstreamer1.0-tools gstreamer1.0-plugins-base
+
+echo ""
+echo "Dependencies installed!"
+echo ""
 
 # Configure PostgreSQL port to 5432
-sudo sed -i -r 's/port\s*=\s*[0-9]+/port = 5432/g' /etc/postgresql/9.5/main/postgresql.conf
+sudo sed -i -r 's/port\s*=\s*[0-9]+/port = 5432/g' /etc/postgresql/9.6/main/postgresql.conf
 
 # Grant access to all
-sudo sed -i '1i local all all trust' /etc/postgresql/9.5/main/pg_hba.conf
+sudo sed -i '1i local all all trust' /etc/postgresql/9.6/main/pg_hba.conf
 
 # Force PostgreSQL restart
 sudo /etc/init.d/postgresql stop
-sudo /etc/init.d/postgresql start 9.5
+sudo /etc/init.d/postgresql start 9.6

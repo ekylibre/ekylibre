@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2016 Brice Texier, David Joulin
+# Copyright (C) 2012-2017 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -25,6 +25,7 @@
 #  created_at      :datetime         not null
 #  creator_id      :integer
 #  delta           :decimal(19, 4)   not null
+#  description     :string
 #  id              :integer          not null, primary key
 #  intervention_id :integer
 #  lock_version    :integer          default(0), not null
@@ -40,7 +41,7 @@
 
 # A product move is a movement of population
 class ProductMovement < Ekylibre::Record::Base
-  include Taskable, TimeLineable
+  include Taskable
   belongs_to :intervention
   belongs_to :product
   has_one :container, through: :product
@@ -52,36 +53,19 @@ class ProductMovement < Ekylibre::Record::Base
   validates :product, presence: true
   # ]VALIDATORS]
 
+  enumerize :description, in: %i[birth purchase loan butchery consumption sale death]
+
   before_validation do
-    # errors.add(:delta, :invalid) if delta == 0.0
-    if delta
-      self.population = delta
-      self.population += previous.population if previous
-    end
+    # NOTE: -! Deprecated !- only there for it to work until 3.0
+    self.population = 0.0
+    self.stopped_at = started_at + 1.day
   end
 
-  before_update do
-    old_record.remove_delta_on_followings
+  def population
+    Maybe(product_population).value.or_else(0)
   end
 
-  after_save :add_delta_on_followings
-  after_destroy :remove_delta_on_followings
-
-  def remove_delta_on_followings
-    impact_on_followings(-delta)
-  end
-
-  def add_delta_on_followings
-    impact_on_followings(delta)
-  end
-
-  private
-
-  def impact_on_followings(quantity)
-    followings.update_all("population = population + (#{quantity})")
-  end
-
-  def siblings
-    product.movements
+  def product_population
+    ProductPopulation.find_by(product_id: product_id, started_at: started_at)
   end
 end

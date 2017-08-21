@@ -11,7 +11,7 @@ module Backend
           @events = @events.before(now).reorder(started_at: :desc)
         end
         count = params[:count].to_i
-        count = 5 unless 0 < count && count <= 50
+        count = 5 unless count > 0 && count <= 50
         @events = @events.limit(count)
       end
     end

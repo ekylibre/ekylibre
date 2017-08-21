@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2016 Brice Texier, David Joulin
+# Copyright (C) 2012-2017 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -40,7 +40,7 @@
 
 # Sources are stored in :private/reporting/:id/content.xml
 class DocumentTemplate < Ekylibre::Record::Base
-  enumerize :archiving, in: [:none_of_template, :first_of_template, :last_of_template, :none, :first, :last], default: :none, predicates: { prefix: true }
+  enumerize :archiving, in: %i[none_of_template first_of_template last_of_template none first last], default: :none, predicates: { prefix: true }
   refers_to :language
   refers_to :nature, class_name: 'DocumentNature'
   has_many :documents, class_name: 'Document', foreign_key: :template_id, dependent: :nullify, inverse_of: :template
@@ -87,29 +87,31 @@ class DocumentTemplate < Ekylibre::Record::Base
       FileUtils.mkdir_p(source_path.dirname)
       File.open(source_path, 'wb') do |f|
         # Updates source to make it working
-        document = Nokogiri::XML(@source) do |config|
-          config.noblanks.nonet.strict
-        end
-        # Removes comments
-        document.xpath('//comment()').remove
-        # Updates template
-        if document.root && document.root.namespace && document.root.namespace.href == 'http://jasperreports.sourceforge.net/jasperreports'
-          if template = document.root.xpath('xmlns:template').first
-            logger.info "Update <template> for document template #{self.nature}"
-            template.children.remove
-            style_file = Ekylibre::Tenant.private_directory.join('corporate_identity', 'reporting_style.xml')
-            # TODO: find a way to permit customization for users to restore that
-            if true # unless style_file.exist?
-              FileUtils.mkdir_p(style_file.dirname)
-              FileUtils.cp(Rails.root.join('config', 'corporate_identity', 'reporting_style.xml'), style_file)
-            end
-            template.add_child(Nokogiri::XML::CDATA.new(document, style_file.relative_path_from(source_path.dirname).to_s.inspect))
-          else
-            logger.info "Cannot find and update <template> in document template #{self.nature}"
+        begin
+          document = Nokogiri::XML(@source) do |config|
+            config.noblanks.nonet.strict
           end
+          # Removes comments
+          document.xpath('//comment()').remove
+          # Updates template
+          if document.root && document.root.namespace && document.root.namespace.href == 'http://jasperreports.sourceforge.net/jasperreports'
+            if template = document.root.xpath('xmlns:template').first
+              logger.info "Update <template> for document template #{nature}"
+              template.children.remove
+              style_file = Ekylibre::Tenant.private_directory.join('corporate_identity', 'reporting_style.xml')
+              # TODO: find a way to permit customization for users to restore that
+              if true # unless style_file.exist?
+                FileUtils.mkdir_p(style_file.dirname)
+                FileUtils.cp(Rails.root.join('config', 'corporate_identity', 'reporting_style.xml'), style_file)
+              end
+              template.add_child(Nokogiri::XML::CDATA.new(document, style_file.relative_path_from(source_path.dirname).to_s.inspect))
+            else
+              logger.info "Cannot find and update <template> in document template #{nature}"
+            end
+          end
+          # Writes source
+          f.write(document.to_s)
         end
-        # Writes source
-        f.write(document.to_s)
       end
       # Remove .jasper file to force reloading
       Dir.glob(source_path.dirname.join('*.jasper')).each do |file|
@@ -121,9 +123,9 @@ class DocumentTemplate < Ekylibre::Record::Base
   # Updates archiving methods of other templates of same nature
   after_save do
     if archiving.to_s =~ /\_of\_template$/
-      self.class.where('nature = ? AND NOT archiving LIKE ? AND id != ?', self.nature, '%_of_template', id).update_all("archiving = archiving || '_of_template'")
+      self.class.where('nature = ? AND NOT archiving LIKE ? AND id != ?', nature, '%_of_template', id).update_all("archiving = archiving || '_of_template'")
     else
-      self.class.where('nature = ? AND id != ?', self.nature, id).update_all(archiving: archiving)
+      self.class.where('nature = ? AND id != ?', nature, id).update_all(archiving: archiving)
     end
   end
 
@@ -265,7 +267,7 @@ class DocumentTemplate < Ekylibre::Record::Base
       locale = (options[:locale] || Preference[:language] || I18n.locale).to_s
       Ekylibre::Record::Base.transaction do
         manageds = where(managed: true).select(&:destroyable?)
-        for nature in self.nature.values
+        nature.values.each do |nature|
           if source = template_fallbacks(nature, locale).detect(&:exist?)
             File.open(source, 'rb:UTF-8') do |f|
               unless template = find_by(nature: nature, managed: true)

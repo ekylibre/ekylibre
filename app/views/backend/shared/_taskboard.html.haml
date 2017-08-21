@@ -1,0 +1,19 @@
+- if taskboard.columns.any?
+  .taskboard{ id: taskboard.id, class: "#{taskboard.name}-taskboard", data: { taskboard: 'true' } }
+
+    - taskboard.columns.each_with_index do |column, index|
+
+      .taskboard-column{ class: column.name, data: { column_index: index } }
+
+        .taskboard-header{ class: column.column_header.options[:class] }
+          %h4.title= column.column_header.title
+          .actions
+            - column.column_header.actions.each do |action|
+              = action
+
+        - if column.tasks.any?
+
+          .tasks{ data: { column_index: index } }
+
+            - column.tasks.each do |task|
+              = render partial: '/backend/shared/taskboard/task', locals: { task: task }

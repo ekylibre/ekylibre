@@ -1,4 +1,5 @@
 # coding: utf-8
+
 module Isagri
   module Isaculture
     class CsvImportExchanger < ActiveExchanger::Base
@@ -183,15 +184,15 @@ module Isagri
 
               production_array = r.production_informations.tr('/', ',').split(',').map(&:strip)
 
-              campaign = Campaign.find_by_harvest_year(production_array[1])
+              campaign = Campaign.find_by(harvest_year: production_array[1])
               campaign ||= Campaign.create!(name: production_array[1], harvest_year: production_array[1])
 
-              cultivable_zone = CultivableZone.find_by_work_number(cultivable_zones_transcode[r.cultivable_zone_code])
+              cultivable_zone = CultivableZone.find_by(work_number: cultivable_zones_transcode[r.cultivable_zone_code])
 
               equipments_work_number = []
               if r.equipments_name
                 for equipment_name in r.equipments_name
-                  equipment = Equipment.find_by_work_number(equipments_transcode[equipment_name.to_s])
+                  equipment = Equipment.find_by(work_number: equipments_transcode[equipment_name.to_s])
                   equipments_work_number << equipment.work_number if equipment
                 end
                 equipments_work_number.compact!
@@ -200,7 +201,7 @@ module Isagri
               workers_work_number = []
               if r.workers_name
                 for worker_name in r.workers_name
-                  worker = Worker.find_by_work_number(workers_transcode[worker_name.to_s.downcase])
+                  worker = Worker.find_by(work_number: workers_transcode[worker_name.to_s.downcase])
                   workers_work_number << worker.work_number if worker
                 end
                 workers_work_number.compact!

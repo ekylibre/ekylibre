@@ -8,6 +8,15 @@ module Nomen
       @version = 0
     end
 
+    def load_data_from_xml(nomenclature_name)
+      Rails.logger.info "Loading #{nomenclature_name}..."
+      start = Time.now
+      element = Nomen.reference_document.xpath("/xmlns:nomenclatures/xmlns:nomenclature[@name='#{nomenclature_name}']")
+      nomenclature = harvest_nomenclature(element)
+      Rails.logger.info "Loaded #{nomenclature_name} in #{(Time.now - start).round(2)} seconds..."
+      nomenclature
+    end
+
     def self.load_file(file)
       set = new
       f = File.open(file, 'rb')
@@ -82,16 +91,20 @@ module Nomen
         xml.nomenclatures(xmlns: Nomen::XMLNS, version: @version) do
           @nomenclatures.values.sort.each do |nomenclature|
             xml.nomenclature(nomenclature.to_xml_attrs) do
-              xml.properties do
-                nomenclature.properties.values.sort.each do |property|
-                  xml.property(property.to_xml_attrs)
+              if nomenclature.properties.any?
+                xml.properties do
+                  nomenclature.properties.values.sort.each do |property|
+                    xml.property(property.to_xml_attrs)
+                  end
                 end
-              end if nomenclature.properties.any?
-              xml.items do
-                nomenclature.items.values.sort { |a, b| a.name <=> b.name }.each do |item|
-                  xml.item(item.to_xml_attrs)
+              end
+              if nomenclature.items.any?
+                xml.items do
+                  nomenclature.items.values.sort_by(&:name).each do |item|
+                    xml.item(item.to_xml_attrs)
+                  end
                 end
-              end if nomenclature.items.any?
+              end
             end
           end
         end

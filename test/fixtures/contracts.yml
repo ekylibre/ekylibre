@@ -1,0 +1,73 @@
+# = Informations
+#
+# == License
+#
+# Ekylibre - Simple agricultural ERP
+# Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
+# Copyright (C) 2010-2012 Brice Texier
+# Copyright (C) 2012-2017 Brice Texier, David Joulin
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Affero General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public License
+# along with this program.  If not, see http://www.gnu.org/licenses.
+#
+# == Table: contracts
+#
+#  created_at       :datetime         not null
+#  creator_id       :integer
+#  currency         :string           not null
+#  custom_fields    :jsonb
+#  description      :string
+#  id               :integer          not null, primary key
+#  lock_version     :integer          default(0), not null
+#  number           :string
+#  pretax_amount    :decimal(19, 4)   default(0.0), not null
+#  reference_number :string
+#  responsible_id   :integer          not null
+#  started_on       :date
+#  state            :string
+#  stopped_on       :date
+#  supplier_id      :integer          not null
+#  updated_at       :datetime         not null
+#  updater_id       :integer
+#
+---
+contracts_001:
+  created_at: 2016-10-26 15:22:28.827656000 Z
+  creator_id: 1
+  currency: EUR
+  description: ''
+  id: 1
+  lock_version: 2
+  number: CT20160001
+  pretax_amount: 135.3
+  reference_number: FDG45645460001
+  responsible_id: 1
+  state: price_quote
+  supplier_id: 4
+  updated_at: 2016-10-26 15:24:17.907809000 Z
+  updater_id: 1
+contracts_002:
+  created_at: 2016-10-26 15:28:41.014500000 Z
+  creator_id: 1
+  currency: EUR
+  description: ''
+  id: 2
+  lock_version: 0
+  number: CT20160003
+  pretax_amount: 25000.0
+  reference_number: ''
+  responsible_id: 2
+  state: prospecting
+  supplier_id: 5
+  updated_at: 2016-10-26 15:28:41.026472000 Z
+  updater_id: 1

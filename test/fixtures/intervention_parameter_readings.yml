@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2016 Brice Texier, David Joulin
+# Copyright (C) 2012-2017 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -39,7 +39,7 @@
 #  measure_value_value          :decimal(19, 4)
 #  multi_polygon_value          :geometry({:srid=>4326, :type=>"multi_polygon"})
 #  parameter_id                 :integer          not null
-#  point_value                  :geometry({:srid=>4326, :type=>"point"})
+#  point_value                  :geometry({:srid=>4326, :type=>"st_point"})
 #  string_value                 :text
 #  updated_at                   :datetime         not null
 #  updater_id                   :integer
@@ -205,4 +205,19 @@ intervention_parameter_readings_013:
   lock_version: 0
   parameter_id: 98
   updated_at: 2014-11-07 16:50:07.620455000 Z
+  updater_id: 1
+intervention_parameter_readings_014:
+  boolean_value: false
+  created_at: 2016-12-20 18:24:29.444340000 Z
+  creator_id: 1
+  id: 24
+  indicator_datatype: multi_polygon
+  indicator_name: shape
+  lock_version: 0
+  multi_polygon_value: SRID=4326;MULTIPOLYGON(((-0.800639390945435 45.8208891845532,-0.801602303981781
+    45.8207901146742,-0.801505744457245 45.8212873315345,-0.801551342010498 45.8215415459581,-0.801910758018494
+    45.8223359585506,-0.802023410797119 45.8230051255387,-0.800743997097015 45.8229901721743,-0.800639390945435
+    45.8208891845532)))
+  parameter_id: 171
+  updated_at: 2016-12-20 18:24:29.444340000 Z
   updater_id: 1

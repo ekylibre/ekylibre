@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2016 Brice Texier, David Joulin
+# Copyright (C) 2012-2017 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -55,13 +55,26 @@ class FixedAssetDepreciation < Ekylibre::Record::Base
   validates :stopped_on, presence: true, timeliness: { on_or_after: ->(fixed_asset_depreciation) { fixed_asset_depreciation.started_on || Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 50.years }, type: :date }
   validates :fixed_asset, presence: true
   # ]VALIDATORS]
-  validates :financial_year, presence: true
-  delegate :currency, to: :fixed_asset
+  delegate :currency, :number, to: :fixed_asset
+
+  scope :with_active_asset, -> { joins(:fixed_asset).where(fixed_assets: { state: :in_use }) }
+  scope :up_to, ->(date) { where('fixed_asset_depreciations.stopped_on <= ?', date) }
 
   sums :fixed_asset, :depreciations, amount: :depreciated_amount
 
-  bookkeep(on: :nothing) do |b|
-    b.journal_entry do |_entry|
+  bookkeep do |b|
+    if fixed_asset.in_use?
+      b.journal_entry(fixed_asset.journal, printed_on: stopped_on.end_of_month, if: accountable && !locked) do |entry|
+        name = tc(:bookkeep, resource: FixedAsset.model_name.human, number: fixed_asset.number, name: fixed_asset.name, position: position, total: fixed_asset.depreciations.count)
+        entry.add_debit(name, fixed_asset.expenses_account, amount)
+        entry.add_credit(name, fixed_asset.allocation_account, amount)
+      end
+    elsif fixed_asset.sold? || fixed_asset.scrapped?
+      b.journal_entry(fixed_asset.journal, printed_on: stopped_on.end_of_month, if: accountable && !locked) do |entry|
+        name = tc(:bookkeep_partial, resource: FixedAsset.model_name.human, number: fixed_asset.number, name: fixed_asset.name, position: position, total: fixed_asset.depreciations.count)
+        entry.add_debit(name, fixed_asset.expenses_account, amount)
+        entry.add_credit(name, fixed_asset.allocation_account, amount)
+      end
     end
   end
 

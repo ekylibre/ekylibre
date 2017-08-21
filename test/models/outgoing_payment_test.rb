@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2016 Brice Texier, David Joulin
+# Copyright (C) 2012-2017 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -31,24 +31,25 @@
 #  creator_id        :integer
 #  currency          :string           not null
 #  custom_fields     :jsonb
-#  delivered         :boolean          default(TRUE), not null
-#  downpayment       :boolean          default(TRUE), not null
+#  delivered         :boolean          default(FALSE), not null
+#  downpayment       :boolean          default(FALSE), not null
 #  id                :integer          not null, primary key
 #  journal_entry_id  :integer
+#  list_id           :integer
 #  lock_version      :integer          default(0), not null
 #  mode_id           :integer          not null
 #  number            :string
 #  paid_at           :datetime
 #  payee_id          :integer          not null
+#  position          :integer
 #  responsible_id    :integer          not null
 #  to_bank_at        :datetime         not null
+#  type              :string
 #  updated_at        :datetime         not null
 #  updater_id        :integer
 #
-
 require 'test_helper'
 
 class OutgoingPaymentTest < ActiveSupport::TestCase
-  test_model_actions
   # Add tests here...
 end
