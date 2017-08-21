@@ -47,7 +47,11 @@
               = f.input :non_compliant_detail, label: :detail.tl, input_html: { class: 'item-non-compliant-detail' }
         -# .errors= item.errors.inspect
         - if f.object.role == 'merchandise'
-          .item-add-storing
+          - attrs = { class: "nested-association" }
+          - attrs[:data] ||= {}
+          - attrs[:data][:association_insertion_minimum] = 1
+          .item-add-storing{attrs}
+            - f.object.storings.new if f.object.storings.size == 0
             = f.simple_fields_for :storings, f.object.storings do |storing|
               = render 'storing_fields', f: storing
             .storings-footer
