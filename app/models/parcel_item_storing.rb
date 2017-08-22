@@ -41,4 +41,5 @@ class ParcelItemStoring < Ekylibre::Record::Base
   validates :quantity, numericality: { only_integer: true, greater_than: -2_147_483_649, less_than: 2_147_483_648 }, allow_blank: true
   validates :parcel_item, :storage, presence: true
   # ]VALIDATORS]
+  validates :quantity, presence: true
 end

@@ -88,10 +88,10 @@ class ParcelItem < Ekylibre::Record::Base
   validates :parcel, presence: true
   # ]VALIDATORS]
   validates :source_product, presence: { if: :parcel_outgoing? }
-  validates :variant, presence: { if: :parcel_incoming? }
+  validates :variant, presence: true
   validates :product, presence: { if: :parcel_prepared? }
 
-  validates :population, numericality: { less_than_or_equal_to: 1,
+  validates :population, presence: true, numericality: { less_than_or_equal_to: 1,
                                          if: :product_is_unitary?,
                                          message: 'activerecord.errors.messages.unitary_in_parcel'.t }
   validates :product_name, presence: { if: -> { product_is_identifiable? && parcel_incoming? } }
