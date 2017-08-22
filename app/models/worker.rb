@@ -97,7 +97,10 @@ class Worker < Product
     self.team_id = user.team_id if user && user.team
   end
 
-  # Returns working duration from interventions
+  def participation(intervention)
+    InterventionParticipation.find_by(product: self, intervention: intervention)
+  end
+
   def working_duration(_options = {})
     InterventionWorkingPeriod.with_intervention_parameter(:doer, self)
                              .sum(:duration).in_second
