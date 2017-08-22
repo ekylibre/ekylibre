@@ -12,12 +12,18 @@
 
       @toggleInputVisibility()
 
+      @setFormSubmitable()
+
+      @line.find('button[data-validate]').attr("disabled",true)
+      @setCocoonFormSubmitable()
+
       unless mode is "add" or @line.find('.error').length > 0
         @display.removeClass('hidden')
         @oldForm().remove()
         @_bindSelectorsInitialization()
         @newForm().addClass('hidden')
         @setFormSubmitable()
+        # @setCocoonFormSubmitable()
 
     _bindButtons: (form) ->
       # console.log '_bindButtons:this', this
@@ -42,8 +48,9 @@
         clone.trigger('cocoon:after-insert')
         clone.removeClass('hidden')
         @_bindButtons(@newForm())
-        @setFormSubmitable()
         @toggleInputVisibility()
+        @setFormSubmitable()
+        @setCocoonFormSubmitable()
 
     _bindSelectorsInitialization: ->
       that = this
@@ -96,6 +103,26 @@
       else
         $('.form-actions .primary').attr("disabled",null)
 
+    setCocoonFormSubmitable: ->
+      requiredFields = @line.find('input[data-required]')
+      validateItemButton = @line.find('button[data-validate]')
+      requiredFields.each ->
+        element = $(this)
+        element.on "selector:change", ->
+          requiredFields.each ->
+            if $(this).val() ==''
+              validateItemButton.attr("disabled",true)
+              return false
+            else
+              validateItemButton.attr("disabled",null)
+        element.change ->
+          requiredFields.each ->
+            if $(this).val() ==''
+              validateItemButton.attr("disabled",true)
+              return false
+            else
+              validateItemButton.attr("disabled",null)
+
     toggleInputVisibility: ->
       @line.find('input[data-input-to-show]').click (event) =>
         element = $(event.target)
@@ -140,6 +167,7 @@
 
     $('table.list').on 'cocoon:after-insert', (event, inserted) ->
       iceberg = new Iceberg($(inserted), "add") if inserted?
+
       $('*[data-unit-name]').each ->
         $(this).find('.item-population-unit-name').html($(this).attr('data-unit-name'))
 

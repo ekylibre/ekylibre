@@ -4,10 +4,10 @@
 .nested-fields.storing-fields
   .storing-quantifier
     = f.input :quantity, wrapper: :append do
-      = f.input_field :quantity, class: 'storing-quantity', placeholder: '0'
+      = f.input_field :quantity, class: 'storing-quantity', placeholder: '0', data: { required: true }
       %span.add-on.item-population-unit-name
         = variant.unit_name.or_else('#')
-  = f.referenced_association :storage, source: :storage, input_html: { class: 'storing-storage' }, presence: true
+  = f.referenced_association :storage, source: :storage, input_html: { class: 'storing-storage', data: { required: true }}
   .nested-remove.act
     - if f.object.destroyable?
       = link_to_remove_association(content_tag(:i) + h(:destroy.tl), f, 'data-no-turbolink' => true, class: 'destroy remove remove-item')
