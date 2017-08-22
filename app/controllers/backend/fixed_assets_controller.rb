@@ -100,6 +100,7 @@ module Backend
 
       return unless @fixed_asset = find_and_check
       t3e @fixed_asset
+      notify_warning_now(:closed_financial_periods) unless @fixed_asset.on_unclosed_periods?
       respond_with(@fixed_asset, methods: %i[net_book_value duration],
                                  include: [
                                    {
