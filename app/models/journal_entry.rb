@@ -104,13 +104,13 @@ class JournalEntry < Ekylibre::Record::Base
     state :draft
     state :confirmed
     state :closed
-    # event :confirm do
-    #   transition draft: :confirmed, if: :balanced?
-    # end
-    # event :close do
-    #   transition draft: :closed, if: :balanced?
-    #   transition confirmed: :closed, if: :balanced?
-    # end
+    event :confirm do
+      transition draft: :confirmed, if: :balanced?
+    end
+    event :close do
+      transition draft: :closed, if: :balanced?
+      transition confirmed: :closed, if: :balanced?
+    end
     # event :reopen do
     #   transition :closed => :confirmed
     # end

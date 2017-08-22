@@ -5,7 +5,7 @@
   = t.edit resource if resource.updateable?
   = t.destroy
 
-= main_state_bar(resource)
+= main_state_bar(resource, disable_transitions: true)
 
 = main_informations attachment: true do
   = attributes_list do |l|
