@@ -105,7 +105,9 @@
 
             - if resource.inspection_point_natures.any? && calibrations.exists?
               - evolt_series = spline_series(dimension, resource.inspections)
-              - evolt_chart  = spline_highcharts(evolt_series, chart_style(:unmarketable_inspection_categories_evolution.tl, '%').merge(plot_options: {}, x_axis: {categories: spline_categories(resource.inspections).map(&:l)}))
+              - x_labels     = spline_categories(resource.inspections).map(&:l)
+              - chart_style  = chart_style(:unmarketable_inspection_categories_evolution.tl, '%').merge(plot_options: {}, x_axis: { categories: x_labels })
+              - evolt_chart  = spline_highcharts(evolt_series, chart_style)
 
             - unless [stock_chart, yield_chart, evolt_chart].compact.blank?
               .chart-line
