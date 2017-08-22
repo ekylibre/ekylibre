@@ -801,8 +801,7 @@ class Product < Ekylibre::Record::Base
       unless options[:strict]
         options[:at] = born_at if born_at && born_at > Time.zone.now
       end
-      reading_cache[:shape] = get(:shape, options)
-      area = reading_cache[:shape].area.in(area_unit).round(3)
+      area = get(:shape).area.in(area_unit).round(3)
     else
       area = get(:net_surface_area, options)
     end
@@ -810,11 +809,13 @@ class Product < Ekylibre::Record::Base
   end
 
   def get(indicator, *args)
-    return super if args.present?
+    return super if args.any?(&:present?)
     in_cache = reading_cache[indicator.to_s]
     return in_cache if in_cache
     indicator_value = super
-    update_column(:reading_cache, reading_cache.merge(indicator.to_s => indicator_value))
+    unless self.new_record?
+      update_column(:reading_cache, reading_cache.merge(indicator.to_s => indicator_value))
+    end
     indicator_value
   end
 end

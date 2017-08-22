@@ -46,7 +46,7 @@ module Charta
     end
 
     def as_json(option = nil)
-      to_json
+      JSON(to_json)
     end
 
     def to_s

@@ -7,7 +7,6 @@ module Backend
       html_options[:class] = 'map-fullwidth' if options.delete(:main)
 
       data = Plant.of_campaign(current_campaign).includes(:inspections, :nature).collect do |p|
-        # binding.pry
         next unless p.shape
 
         popup_content = []

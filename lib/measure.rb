@@ -268,28 +268,6 @@ class Measure
     to_r(unit, precision).to_d(precision)
   end
 
-  def to_json
-    as_json.to_json
-  end
-
-  # For implicit serialization
-  def as_json(options = nil)
-    value = self.value.zero? ? 0 : self.value
-    { class: self.class.name,
-      value: value,
-      unit: unit }
-  end
-
-  def self.is_valid?(value)
-    value['class'] == self.name &&
-      value.has_key?('value') &&
-      value.has_key?('unit')
-  end
-
-  def self.from_hash(args)
-    self.new(Rational(args['value']), args['unit'])
-  end
-
   # Localize a measure
   # FIXME: Measure l10n must be configurable in translation files.
   def localize(options = {})
