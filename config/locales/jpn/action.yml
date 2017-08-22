@@ -1365,6 +1365,7 @@ jpn:
       parameters: "パラメーター" #?
       tools: "道具" #?
     menus: "メニュー"
+    # merchandise: "Merchandise"
     merchandises_purchases: "Merchandises購入"
     merchandises_purchases_stocks_variation: "Merchandises購入株式の変動"
     merge: "マージ"
@@ -1442,6 +1443,7 @@ jpn:
     no_right_defined_for_this_part_of_the_application_and_this_user: "アプリケーションとこのユーザーのこの部分のために定義された権利はありません"
     nominal_storable_easement_area: "公称記憶可能地役権エリア"
     # non_compliant: "Non compliant"
+    # non_compliant_with_request: "Non compliant with request"
     none: "なし"
     normal: "ノーマル"
     not_delivered: "配信されません"

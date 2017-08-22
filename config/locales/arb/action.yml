@@ -1741,6 +1741,7 @@ arb:
       production: "المنتج" #?
       relations: "العلاقات" #?
       trade: "التجارة" #?
+    # merchandise: "Merchandise"
     merchandises_purchases: "يروج مشتريات"
     merchandises_purchases_stocks_variation: "يروج بشراء أسهم الاختلاف"
     merge: "دمج"
@@ -1851,6 +1852,7 @@ arb:
     no_transfers: "لم يتم اي عملية نقل" #?
     nominal_storable_easement_area: "الاسمية منطقة الارتفاق للتخزين"
     # non_compliant: "Non compliant"
+    # non_compliant_with_request: "Non compliant with request"
     none: "لا شيء"
     normal: "نظام واقعي طبيعي"
     not_assessable_operations: "اجراءات غير ضريبية" #?

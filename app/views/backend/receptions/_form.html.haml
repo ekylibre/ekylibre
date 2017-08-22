@@ -22,13 +22,13 @@
   = field_set f.object.class.human_attribute_name(:items) do
     %table.list
       %thead
-        %tr
+        %tr.table-headers
           %th.act
           %th.act
-          %th= ParcelItem.human_attribute_name(:product)
-          %th= ParcelItem.human_attribute_name(:population)
-          %th= ParcelItem.human_attribute_name(:storage)
-          %th= ParcelItem.human_attribute_name(:delivery_mode)
+          %th.product-column= ParcelItem.human_attribute_name(:product)
+          %th.storage-column= :storage.tl
+          %th.quantity-column= ParcelItem.human_attribute_name(:population)
+          %th.delivery-mode-column= ParcelItem.human_attribute_name(:delivery_mode)
           / %th= ParcelItem.human_attribute_name(:storage)
 
       = f.simple_fields_for :items, f.object.items do |item|
@@ -36,7 +36,7 @@
       - if f.object.allow_items_update?
         %tfoot#items-footer
           %tr.total
-            %th{colspan: 6}= link_to_add_association :add_item.tl, f, :items, partial: 'item_fields', 'data-association-insertion-node' => '#items-footer', 'data-association-insertion-method' => :before, class: "btn primary"
+            %th{colspan: 6, class: "links"}= link_to_add_association :add_item.tl, f, :items, partial: 'item_fields', 'data-association-insertion-node' => '#items-footer', 'data-association-insertion-method' => :before
 / -else
 /   = field_set f.object.class.human_attribute_name(:items) do
 /     = "Items cannot be edited in current parcel state."
