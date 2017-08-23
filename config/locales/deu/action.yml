@@ -1252,6 +1252,7 @@ deu:
     last_purchases: "Letzte Einkäufe"
     last_sales: "Letzte Verkaufs"
     # late: "Late"
+    # late_delivery: "Late delivery"
     letter: "Brief"
     # letterable: "Letterable"
     lettered: "Beschriftet"

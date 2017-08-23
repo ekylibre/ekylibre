@@ -1390,6 +1390,7 @@ spa:
     last_purchases: "Últimas compras"
     last_sales: "Última oferta de venta"
     # late: "Late"
+    # late_delivery: "Late delivery"
     left_balance_amount: "Aplazamiento del credito anterior sin imputar ni reembolsar" #?
     letter: "Carta"
     # letterable: "Letterable"

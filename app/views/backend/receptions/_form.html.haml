@@ -11,9 +11,13 @@
   = f.referenced_association :responsible, source: :employees, new: { employed: 1 }, label: :receipt_responsible.tl
   -#= f.referenced_association :sale
   = f.input :given_at, as: :date, required: false, label: :receipt_date.tl
-  = f.input :late_delivery, input_html: { data: { warn_if_checked: :late.tl, show: '#due-on' } }
-  #due-on
-    = f.input :planned_at, as: :date, required: false
+
+  .late-delivery-block
+    = f.input :late_delivery, input_html: { data: { warn_if_checked: :late.tl, show: '#due-on' } }
+    #due-on
+      %span.warn-message= :late_delivery.tl.upcase
+      = f.input :planned_at, as: :date, required: false
+
   = f.custom_fields
   = f.attachments
   -# = f.object.errors.inspect

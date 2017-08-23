@@ -26,80 +26,116 @@
   color: white;
 }
 
-.new_reception .list {
-  @include flex-column();
-
-  thead {
-    @include flex-row();
-    width: 100%;
-    border-bottom: 1px solid #dedede;
-  }
-
-  tbody {
-    @include flex-column(flex-start);
-    border-top: none;
-    width: 100%;
-
-    .nested-item-form:not(.hidden) {
-      @include flex-row();
-      width: 100%;
-    }
-
-    .cell-form {
-      width: 100%;
-      border-top: none;
-    }
-
-    .item-display:not(.hidden) {
-      @include flex-row(flex-start);
-      width: 100%;
-    }
-  }
-
-  tfoot {
-    margin-top: $default-gap * 2;
-    width: 100%;
-
-    .total {
-      @include flex-row(flex-start);
-      background: #f7f7f7;
-      border: 1px solid #e8e8e8;
-	}
-
-	.links {
-	  @include flex-row(flex-start);
-	  flex-basis: 7%;
-	  padding: $default-gap / 2 $default-gap * 3;
-	  width: 100%;
-	  border: none;
-	}
-  }
-
-
-  .table-headers {
-    display: flex;
-    width: 100%;
-  }
-
-  .act {
-    width: 16px;
-  }
-
-  .product-column {
-    flex-basis: 33.8%;
-  }
-
-  .storage-column {
-    flex-basis: 16.4%;
-  }
-
-  .quantity-column {
-    flex-basis: 11.4%;
-  }
-}
 
 .new_reception,
 .edit_reception {
+
+	.late-delivery-block {
+	  @include flex-row(flex-start);
+
+	  .reception_late_delivery {
+	    flex-basis: 29.5%;
+        @include flex-row(flex-start);
+	  }
+
+	  .reception_late_delivery .control-label {
+	    flex-basis: 90%;
+        max-width: none;
+	  }
+
+	  .reception_late_delivery .controls {
+	    margin-left: 0;
+	    flex-basis: 4%;
+	  }
+
+	  #due-on {
+	    @include flex-row(flex-start);
+	    flex-basis: 70%;
+	  }
+
+	  #due-on .warn-message {
+	    margin-right: 2em;
+	  }
+
+	  #due-on .control-group {
+	    flex-basis: 25%;
+	  }
+	}
+
+  .list {
+    @include flex-column();
+
+    thead {
+      @include flex-row();
+      width: 100%;
+      border-bottom: 1px solid #dedede;
+    }
+
+    tbody {
+      @include flex-column(flex-start);
+      border-top: none;
+      width: 100%;
+
+      .nested-item-form:not(.hidden) {
+        @include flex-row();
+        width: 100%;
+      }
+
+      .cell-form {
+        width: 100%;
+        border-top: none;
+      }
+
+      .item-display:not(.hidden) {
+        @include flex-row(flex-start);
+        width: 100%;
+      }
+
+      .item-non-compliant-detail-label {
+        color: $lightened-grey;
+      }
+    }
+
+    tfoot {
+      margin-top: $default-gap * 2;
+      width: 100%;
+
+      .total {
+        @include flex-row(flex-start);
+        background: #f7f7f7;
+        border: 1px solid #e8e8e8;
+      }
+
+      .links {
+        @include flex-row(flex-start);
+        flex-basis: 7%;
+        padding: $default-gap / 2 $default-gap * 3;
+        width: 100%;
+        border: none;
+      }
+    }
+
+    .table-headers {
+      display: flex;
+      width: 100%;
+    }
+
+    .act {
+      width: 16px;
+    }
+
+    .product-column {
+      flex-basis: 33.8%;
+    }
+
+    .storage-column {
+      flex-basis: 16.4%;
+    }
+
+    .quantity-column {
+      flex-basis: 11.4%;
+    }
+  }
 
   .nested-item-form .item-form {
     @include flex-column();

@@ -1253,6 +1253,7 @@ cmn:
     last_purchases: "上次购买"
     last_sales: "去年销售"
     # late: "Late"
+    # late_delivery: "Late delivery"
     letter: "信"
     # letterable: "Letterable"
     lettered: "英文字母"

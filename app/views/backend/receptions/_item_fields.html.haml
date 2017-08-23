@@ -16,7 +16,7 @@
       %label{ data: { item_value: "input.parcel-item-variant" } }= f.object.variant ? f.object.variant.name : '??????'
       %br
       %label{ data: { item_value: "input.item-non-compliant" } }= non_compliant_message if f.object.non_compliant?
-      %label{ data: { item_value: "input.item-non-compliant-detail" } }= non_compliant_detail if f.object.non_compliant_detail?
+      %label{ class: "item-non-compliant-detail-label", data: { item_value: "input.item-non-compliant-detail" } }= f.object.non_compliant_detail if f.object.non_compliant_detail?
     %td.storage-column
       #storing-display
         %p{ "v-for" => "zone in zones"}

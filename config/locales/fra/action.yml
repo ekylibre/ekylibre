@@ -1550,6 +1550,7 @@ fra:
     last_purchases: "Derniers achats"
     last_sales: "Dernières ventes"
     late: "En retard"
+    late_delivery: "Hors délai"
     left_balance_amount: "Report du crédit antérieur non imputé et non remboursé" #?
     letter: "Lettrer"
     letter_options: "Lettre" #?

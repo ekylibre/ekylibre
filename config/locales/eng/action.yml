@@ -1491,6 +1491,7 @@ eng:
     last_purchases: "Last purchases"
     last_sales: "Last sales"
     late: "Late"
+    late_delivery: "Late delivery" #?
     letter: "Letter" #?
     letterable: "Letterable"
     lettered: "Lettered" #?
@@ -1532,7 +1533,7 @@ eng:
     maximum_amount: "Maximum amount"
     members: "Members"
     menus: "Menus"
-    merchandise: "Merchandise" #?
+    merchandise: "Merchandise"
     merchandises_purchases: "Merchandises purchases" #?!
     merchandises_purchases_stocks_variation: "Merchandises purchases stocks variation" #?!
     merge: "Merge"
