@@ -1798,6 +1798,7 @@ eng:
     shape: "Shape" #?
     ship: "Ship" #?
     show: "Show"
+    # show_export_preview: "Show export preview"
     sign_out: "Sign out" #?
     simplified: "Simplified Accounting" #?
     simplified_linear_options: "Simplified linear options"
@@ -2172,11 +2173,11 @@ eng:
       cannot_merge_entities: "It's impossible to merge these people."
       changes_have_been_reflected: "The changes have been reflected in the stocks state" #?
       changes_have_not_been_reflected: "The changes have not been reflected in the stocks state" #?
+      closed_financial_periods: "The fixed asset's duration spans across closed financial periods."
       closed_financial_year_exchange: "The financial year exchange has been closed successfully"
       closed_financial_years: "The financial year has been closed successfully"
       columns_are_already_uses: "One or many columns are selected many times"
       could_not_attach_x_or_y_to_affair: "Could not attach %{x} or %{y} to affair"
-      closed_financial_periods: "The fixed asset's duration spans across closed financial periods."
       dashboard_is_being_developed: "Dashboard is under heavy development"
       density_is_not_computable_in_counting: "Could not compute the density for this counting. The missing values should be completed in the counting's properties or the sower's indicators."
       draft_journal_entries_have_been_validated:
@@ -2406,6 +2407,7 @@ eng:
       sell: "Turn into sale"
       ship: "Ship"
       show: "Show"
+      show_export_preview: "View a preview of the document (may increase loading time)" #?
       sort: "Sort"
       star: "Star"
       start: "Start"
