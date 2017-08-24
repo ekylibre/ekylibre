@@ -114,7 +114,7 @@ class FixedAsset < Ekylibre::Record::Base
     state :sold
     state :scrapped
     event :start_up do
-      transition draft: :in_use
+      transition draft: :in_use , if: :on_unclosed_periods?
     end
     event :sell do
       transition in_use: :sold
@@ -191,6 +191,10 @@ class FixedAsset < Ekylibre::Record::Base
     # end
     # end
     depreciate! if @auto_depreciate
+  end
+
+  def on_unclosed_periods?
+    self.started_on > self.journal.closed_on
   end
 
   def status
@@ -335,7 +339,9 @@ class FixedAsset < Ekylibre::Record::Base
       depreciations.find_each do |dep|
         dep.update!(accountable: true)
       end
+      return depreciations.count
     end
+    0
   end
 
   def depreciate!
@@ -359,6 +365,9 @@ class FixedAsset < Ekylibre::Record::Base
     when /quarterly/
       new_trimesters = new_months.select { |date| date.month.multiple_of? 3 }
       starts += new_trimesters
+    when /yearly/
+      new_years = new_months.select { |date| date.month == 1 }
+      starts += new_years
     end
 
     starts = starts.uniq.sort

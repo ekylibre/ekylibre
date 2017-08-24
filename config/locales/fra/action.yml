@@ -841,6 +841,7 @@ fra:
     accounts: "Comptes comptables"
     accounts_only_used_at: "Comptes utilisés seulement sur"
     accounts_to_load: "Plan de compte à charger"
+    action_duration: "Durée de l'action"
     activate_entry_autocompletion: "Autocompléter l’écriture"
     active: "Actif"
     active_balance_sheet: "Bilan actif" #?
@@ -1014,6 +1015,7 @@ fra:
     buildings_map: "Carte des bâtiments" #?
     by_year: "Par an"
     calculate: "Calculer"
+    calculated_hours: "Horaires calculées"
     calculators: "Calculateurs"
     calendar: "Calendrier"
     campaign: "Campagne"
@@ -1385,6 +1387,7 @@ fra:
     hint: "Astuce\_: %{value}"
     historic: "Historique"
     home: "Accueil"
+    hours: "H"
     human_target_names: "Nom des cibles" #?
     human_working_duration: "Temps de travail"
     human_working_zone_area: "Zone travaillée" #?
@@ -1603,6 +1606,7 @@ fra:
     min_level: "Niveau minimum" #?
     minimal_temperature: "Température minimale"
     minimum_amount: "Montant minimum"
+    minutes: "Min"
     missing_attributes: "Des champs sont manquants"
     missing_help: "Page inexistante"
     mistake_on_quantities_sum: "La somme des quantités n’est pas égale à la quantité totale produite" #?
@@ -2312,6 +2316,7 @@ fra:
     working_area: "Surface travaillée" #?
     working_duration: "Temps de travail"
     working_sets_stocks: "Stocks d’ensembles de produits"
+    working_times: "Temps de travaux de %{name}"
     working_zone: "Zone travaillée" #?
     x_cashes:
       one: "1 compte bancaire"
@@ -2534,6 +2539,7 @@ fra:
       closed_financial_years: "L’exercice a été correctement clôturé"
       columns_are_already_uses: "Une ou plusieurs colonnes à importer sont sélectionnées plusieurs fois"
       # could_not_attach_x_or_y_to_affair: "Could not attach %{x} or %{y} to affair"
+      closed_financial_periods: "L'immobilisation se déroule sur des périodes comptables clôturée."
       dashboard_is_being_developed: "Les tableaux de bord sont en cours d’élaboration"
       density_is_not_computable_in_counting: "La densité de semis n’a pas pu être calculée pour ce comptage. Veuillez compléter les informations manquantes dans le comptage ou dans les indicateurs du semoir."
       draft_journal_entries_have_been_validated:

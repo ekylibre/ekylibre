@@ -94,6 +94,7 @@ eng:
         purchase: "Purchase"
         sale: "Sale"
         stock: "Stock"
+        travel_cost: "Travel"
     crumb:
       nature:
         hard_start: "Hard start"
@@ -232,6 +233,7 @@ eng:
     intervention_working_period:
       nature:
         intervention: "Intervention"
+        pause: "Pause"
         preparation: "Preparation"
         travel: "Travel"
     journal:
