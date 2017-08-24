@@ -94,6 +94,7 @@ ita:
         purchase: "Acquista"
         sale: "Vendita"
         stock: "Azione"
+        travel_cost: "Viaggio"
     crumb:
       nature:
         hard_start: "Inizio difficile"
@@ -243,6 +244,7 @@ ita:
     intervention_working_period:
       nature:
         intervention: "Intervento"
+        pause: "Pausa"
         preparation: "Preparazione"
         travel: "Viaggio"
     journal:
