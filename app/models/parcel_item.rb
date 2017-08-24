@@ -59,7 +59,7 @@
 class ParcelItem < Ekylibre::Record::Base
   attr_readonly :parcel_id
   attr_accessor :product_nature_variant_id
-  enumerize :delivery_mode, in: %i[transporter us third], predicates: { prefix: true }, scope: true, default: :us
+  enumerize :delivery_mode, in: %i[transporter us third none], predicates: { prefix: true }, scope: true, default: :us
   belongs_to :analysis
   belongs_to :parcel, inverse_of: :items
   belongs_to :product
