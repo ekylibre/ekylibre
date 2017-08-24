@@ -478,6 +478,7 @@
     <page to="backend/dashboards#stocks"/>
     <group name="stocks" icon="matter">
       <item name="stocks">
+        <page to="backend/stocks#index"/>
         <page to="backend/matters#index"/>
         <page to="backend/matters#create"/>
         <page to="backend/matters#destroy"/>
