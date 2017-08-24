@@ -1,4 +1,4 @@
-(($) ->
+((E, $) ->
   'use strict'
 
   $(document).ready ->
@@ -24,5 +24,13 @@
           else
             h2.hide()
 
+    $('table.list').on 'cocoon:after-insert', ->
+      $('*[data-iceberg]').on "iceberg:inserted", ->
+        that = $(this)
+        $(this).find('*[data-association]').each (i, cocoonBtn) ->
+          node = $(cocoonBtn).data('association-insertion-node')
+          storageContainer = $(node).parent()
+          storageContainer.on 'cocoon:after-insert cocoon:after-remove', ->
+            E.toggleValidateButton(that)
 
-) jQuery
+) ekylibre, jQuery
