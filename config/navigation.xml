@@ -2097,6 +2097,7 @@
     <group>
       <item name="preferences">
         <page to="backend/preferences#update"/>
+      </item>
       <item name="purchases">
         <page to="backend/purchases#create"/>
         <page to="backend/purchases#new"/>
