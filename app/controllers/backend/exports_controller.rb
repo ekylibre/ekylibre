@@ -41,7 +41,14 @@ module Backend
 
       @aggregator = klass.new(params)
       t3e name: klass.human_name
-      respond_with @aggregator
+      if params[:format] == 'pdf'
+        # binding.pry
+        # ExportJob.perform_later(@aggregator)
+        binding.pry
+        respond_with @aggregator
+      else
+        respond_with @aggregator
+      end
     end
   end
 end
