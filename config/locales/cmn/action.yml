@@ -1994,6 +1994,7 @@ cmn:
       cannot_merge_entities: "这是不可能合并这些人。"
       changes_have_been_reflected: "这些变化已经反映在股票的状态"
       changes_have_not_been_reflected: "这些变化尚未反映在股票的状态"
+      # closed_financial_periods: "The fixed asset's duration spans across closed financial periods."
       closed_financial_year_exchange: "财政年度交换已经成功关闭"
       closed_financial_years: "本财政年度已圆满闭幕"
       columns_are_already_uses: "一个或多个列选择多次"

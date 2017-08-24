@@ -2110,19 +2110,34 @@
     </group>
     <group>
       <item name="parcels">
-        <page to="backend/parcels#index"/>
-        <page to="backend/parcels#cancel"/>
-        <page to="backend/parcels#check"/>
-        <page to="backend/parcels#give"/>
-        <page to="backend/parcels#invoice"/>
-        <page to="backend/parcels#new"/>
-        <page to="backend/parcels#order"/>
-        <page to="backend/parcels#prepare"/>
-        <page to="backend/parcels#ship"/>
-        <page to="backend/parcels#show"/>
+        <page to="backend/parcels#index" nonexistent="true"/>
+        <page to="backend/parcels#cancel" nonexistent="true"/>
+        <page to="backend/parcels#check" nonexistent="true"/>
+        <page to="backend/parcels#give" nonexistent="true"/>
+        <page to="backend/parcels#invoice" nonexistent="true"/>
+        <page to="backend/parcels#new" nonexistent="true"/>
+        <page to="backend/parcels#order" nonexistent="true"/>
+        <page to="backend/parcels#prepare" nonexistent="true"/>
+        <page to="backend/parcels#ship" nonexistent="true"/>
+        <page to="backend/parcels#show" nonexistent="true"/>
       </item>
     </group>
   </inaccessible-actions>
   <untreated-actions>
+    <group>
+      <item name="purchase_orders">
+        <page to="backend/purchase_orders#list_parcels"/>
+      </item>
+      <item name="purchases">
+        <page to="backend/purchases#index"/>
+        <page to="backend/purchases#destroy"/>
+        <page to="backend/purchases#edit"/>
+        <page to="backend/purchases#list"/>
+        <page to="backend/purchases#list_items"/>
+        <page to="backend/purchases#list_parcels"/>
+        <page to="backend/purchases#unroll"/>
+        <page to="backend/purchases#update"/>
+      </item>
+    </group>
   </untreated-actions>
 </navigation>

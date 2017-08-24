@@ -43,6 +43,5 @@ module Backend
       t.column :created_at
       t.column :pretax_amount, currency: true, on_select: :sum, hidden: true
     end
-
   end
 end

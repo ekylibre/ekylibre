@@ -68,7 +68,7 @@ class Purchase < Ekylibre::Record::Base
   belongs_to :supplier, class_name: 'Entity'
   belongs_to :responsible, class_name: 'User'
   belongs_to :contract
-  has_many :parcels
+  has_many :parcels, class_name: 'Reception'
   has_many :items, class_name: 'PurchaseItem', dependent: :destroy, inverse_of: :purchase
   has_many :products, -> { uniq }, through: :items
   has_many :fixed_assets, through: :items
