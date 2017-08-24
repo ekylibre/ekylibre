@@ -18,10 +18,27 @@ class InterventionWorkingTimeDurationCalculationService
 
     times = workers_times(nature: nature, not_nature: not_nature)
 
-    if times == 0 ||
-       (tractors_count == 0 && prepelled_equipments_count == 0 && tools_count == 0)
+    #if times == 0 &&
+       #(!any_tractor? && !any_tool?)
+      #return 0 if @intervention.nil?
+      #return intervention_working_duration
+    #end
+
+    if times == 0 && any_tractor?
+      return tractor_working_periods(nature, not_nature)
+               .map(&:duration)
+               .inject(0, :+) / 3600
+    end
+
+    if times == 0 && any_tool?
+      return tool_working_periods(nature, not_nature)
+               .map(&:duration)
+               .inject(0, :+) / 3600
+    end
+
+    if times > 0 && (!any_tractor? && !any_tool?)
       return 0 if @intervention.nil?
-      return @intervention.working_duration
+      return intervention_working_duration
     end
 
     return times.to_d / tools_count if tool?
@@ -58,6 +75,14 @@ class InterventionWorkingTimeDurationCalculationService
 
   def tractor?
     @product.is_a?(Equipment) && @product.try(:tractor?)
+  end
+
+  def any_tractor?
+    tractors_count > 0 || prepelled_equipments_count > 0
+  end
+
+  def any_tool?
+    tools_count > 0
   end
 
   def self_prepelled_equipment?
@@ -108,6 +133,35 @@ class InterventionWorkingTimeDurationCalculationService
 
   def worker_working_periods(nature, not_nature)
     participations = @participations.select { |participation| participation.product.is_a?(Worker) }
+
+    working_periods(participations, nature, not_nature)
+    #working_periods = nil
+
+    #if nature.nil? && not_nature.nil?
+      #return participations.map(&:working_periods).flatten
+    #end
+
+    #return working_periods_of_nature(participations, nature) unless nature.nil?
+
+    #working_periods_not_nature(participations, nature)
+  end
+
+  def tractor_working_periods(nature, not_nature)
+    participations = @participations.select do |participation|
+      participation.product.variety == :tractor ||
+        participation.product.variety == :self_prepelled_equipment
+    end
+
+    working_periods(participations, nature, not_nature)
+  end
+
+  def tool_working_periods(nature, not_nature)
+    participations = @participations.select { |participation| participation.product.is_a?(Equipment) }
+
+    working_periods(participations, nature, not_nature)
+  end
+
+  def working_periods(participations, nature, not_nature)
     working_periods = nil
 
     if nature.nil? && not_nature.nil?
