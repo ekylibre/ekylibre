@@ -1,0 +1,35 @@
+= field_set do
+  = f.referenced_association :nature, as: :hidden
+  = f.referenced_association :supplier, source: :suppliers, new: { supplier: 1 }
+  = f.referenced_association :delivery_address, source: :own_mails, new: {entity_id: Entity.of_company.id}
+  = f.input :reference_number
+  = f.input :ordered_at
+  = f.referenced_association :responsible, source: :employees, new: { employed: 1 }
+  = f.input :description
+
+= field_set Purchase.human_attribute_name(:items) do
+  .items
+    %table#items-table
+      %thead
+        %tr
+          %th= PurchaseItem.human_attribute_name(:variant)
+          %th= PurchaseItem.human_attribute_name(:quantity)
+          %th= PurchaseItem.human_attribute_name(:unit_pretax_amount)
+          %th= PurchaseItem.human_attribute_name(:tax)
+          %th= PurchaseItem.human_attribute_name(:reduction_percentage)
+          %th= PurchaseItem.human_attribute_name(:pretax_amount)
+          %th= PurchaseItem.human_attribute_name(:currency)
+          %th
+      - precision = Nomen::Currency[f.object.currency].precision
+      %tfoot
+        %tr.total
+          %td= link_to_add_association :add_item.tl, f, :items, partial: 'item_fields', data: { association_insertion_node: '#items-table', association_insertion_method: :append }, class: "btn primary"
+          - colspan = 4
+          %th{colspan: 5}= :total.tl
+          %td#pta.decimal{data:{use: ".nested-fields .pta", calculate: "sum", calculate_round: precision}}= f.object.pretax_amount
+          %td= f.object.currency
+          %th
+      = f.simple_fields_for :items, f.object.items.sort_by { |i| i.id.to_i } do |item|
+        = render 'item_fields', f: item
+
+= f.attachments_field_set

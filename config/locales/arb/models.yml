@@ -1005,9 +1005,12 @@ arb:
       purchase: "الشراء"
       purchase_affair: "قضية شراء"
       purchase_gap: "الفجوة شراء"
+      # purchase_invoice: "Purchase invoice"
       purchase_item: "طريقة طلب الشراء"
       purchase_nature: "نوع شراء"
+      # purchase_order: "Purchase order"
       purchase_payment: "الدفعة"
+      # reception: "Reception"
       regularization: "تسوية"
       role: "الدور"
       sale: "البيع"
@@ -1022,6 +1025,7 @@ arb:
       sensor: "الاستشعار"
       sequence: "التسلسل"
       settlement: "مستوطنة"
+      # shipment: "Shipment"
       stock: "سهم الانتاج" #?
       stock_move: "حركة السهم" #?
       stock_transfer: "تحول او ضياع السهم" #?
@@ -3090,6 +3094,15 @@ arb:
     purchase_payment:
       bookkeep: "[%{resource} %{number}] %{mode} %{check_number} ل %{payee} (%{expenses})"
       label: "%{number}. %{amount} (%{usable_amount} restants) من %{date} بواسطة %{mode} ل %{payee}"
+    reception:
+      state_machine:
+        states:
+          # draft: "Draft"
+          # given: "Given"
+          # in_preparation: "In preparation"
+          # ordered: "Ordered"
+          # prepared: "Prepared"
+          # received: "Received"
     role:
       default:
         administrator: "مدير"
@@ -3184,6 +3197,15 @@ arb:
         sales_invoices: "SI[year|4][number|6]"
         subscriptions: "SUB[number|8]"
         transports: "TR[number|8]"
+    shipment:
+      state_machine:
+        states:
+          # draft: "Draft"
+          # given: "Given"
+          # in_preparation: "In preparation"
+          # ordered: "Ordered"
+          # prepared: "Prepared"
+          # received: "Received"
     task:
       state_machine:
         states:

@@ -166,7 +166,9 @@ spa:
       index: "Cuadros de mando"
       new: "Nuevo tablero de instrumentos"
       production: "Tablero de producción"
+      # purchases: "Purchases dashboard: %{name}"
       relationship: "Relación salpicadero"
+      # sales: "Sales dashboard: %{name}"
       # sandbox: "Sandbox dashboard: %{name}"
       # search: "Search for: %{searched}"
       settings: "Configuraciones del tablero"
@@ -517,6 +519,13 @@ spa:
       index: "Productos"
       new: "Nuevo producto"
       # show: "%{nature}: %{name}"
+    backend/purchase_invoices:
+      # edit: "Edit invoice: %{name}"
+      # index: "Invoices"
+      # new: "New invoice"
+      # pay: "Pay invoice: %{name}"
+      # payment_mode: "Payment mode invoice: %{name}"
+      # show: "Invoice: %{name}"
     backend/purchase_natures:
       edit: "Editar el tipo de compra"
       index: "Tipos de compra"
@@ -1825,6 +1834,7 @@ spa:
     shape: "Forma"
     shelf: "Categoria" #?
     ship: "Enviar"
+    # shipments: "Shipments"
     show: "Espectáculo"
     sign_out: "Desconectar"
     simplified: "Regimen del real simplificado"

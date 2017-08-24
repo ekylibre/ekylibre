@@ -163,9 +163,9 @@ fra:
       index: "Tableaux de bord"
       new: "Nouveau tableau de bord"
       production: "Tableau de bord de la production"
-      purchases: "Tableau de bord des achats" #?
+      purchases: "Tableau de bord des achats"
       relationship: "Tableau de bord de la gestion des relations"
-      sales: "Tableau de bord des ventes" #?
+      sales: "Tableau de bord des ventes"
       sandbox: "Bac à sable - tableau de bord: %{name}"
       search: "Recherche de\_: %{searched}"
       settings: "Configuration"
@@ -566,6 +566,13 @@ fra:
       index: "Produits"
       new: "Créer un produit"
       show: "%{nature}\_: %{name}"
+    backend/purchase_invoices:
+      edit: "Modifier la facture: %{number}"
+      index: "Factures"
+      new: "Nouvelle facture"
+      pay: "Payer"
+      payment_mode: "Selection du mode de paiement"
+      show: "Facture\_: %{number} au fournisseur %{supplier}"
     backend/purchase_items: #?
       edit: "Modifier une ligne de la commande" #?
       new: "Nouveau produit à la commande" #?
@@ -574,6 +581,11 @@ fra:
       index: "Types d’achat"
       new: "Nouveau type d’achat"
       show: "Type d’achat\_: %{name}"
+    backend/purchase_orders: #?
+      edit: "Modifier la commande\_: %{number}" #?
+      index: "Commandes" #?
+      new: "Nouvelle commande" #?
+      show: "Commande\_: %{number} au fournisseur %{supplier}" #?
     backend/purchase_payments:
       edit: "Modifier le décaissement\_: %{number}"
       index: "Décaissements"
@@ -607,7 +619,7 @@ fra:
       new: "Nouvelle réception"
       order: "Order reception: %{number}"
       prepare: "Prepare reception: %{number}"
-      ship: "Ship reception: %{number}"
+      ship: "Expédier la réception" #?
       show: "Réception: %{number}"
     backend/registrations:
       edit: "Modifier inscription"
@@ -676,7 +688,7 @@ fra:
       new: "Nouvelle expédition"
       order: "Order shipment: %{number}"
       prepare: "Préparation de l'expédition: %{number}"
-      ship: "Ship shipment: %{number}"
+      ship: "Expédier la réception" #?
       show: "Expédition\_: %{number}"
     backend/subscription_natures:
       edit: "Modifier le type d’abonnement\_: %{name}"
@@ -735,6 +747,8 @@ fra:
       index: "Produits transformés" #?
     backend/trial_balances:
       show: "Balance"
+    backend/unreceived_purchase_orders: #?
+      index: "Commandes à réceptionner" #?
     backend/users:
       edit: "Modifier l’utilisateur\_: %{first_name} %{last_name}"
       index: "Utilisateurs"
@@ -2094,6 +2108,7 @@ fra:
     sex: "Sexe"
     shape: "Forme"
     ship: "Prévue le"
+    shipments: "Expéditions"
     show: "Afficher"
     sign_out: "Se déconnecter"
     simplified: "Régime du réel simplifié"
@@ -2851,6 +2866,8 @@ fra:
     hints:
       purchase:
         reference_number: "Numéro de facture fournisseur"
+      purchase_order: #?
+        reference_number: "Numéro de commande fournisseur" #?
     required:
       text: "Obligatoire"
   unrolls:

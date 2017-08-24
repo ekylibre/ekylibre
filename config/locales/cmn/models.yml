@@ -366,9 +366,12 @@ cmn:
       purchase: "采购"
       purchase_affair: "购买外遇"
       purchase_gap: "采购差距"
+      # purchase_invoice: "Purchase invoice"
       purchase_item: "采购项目"
       purchase_nature: "购买类型"
+      # purchase_order: "Purchase order"
       purchase_payment: "支出"
+      # reception: "Reception"
       regularization: "正则"
       role: "角色"
       sale: "拍卖"
@@ -381,6 +384,7 @@ cmn:
       sensor: "传感器"
       sequence: "序列"
       settlement: "沉降"
+      # shipment: "Shipment"
       sub_zone: "子区"
       subscription: "订阅"
       subscription_nature: "订阅类型"
@@ -1817,6 +1821,15 @@ cmn:
     purchase_payment:
       # bookkeep: "[%{resource} %{number}] %{mode} %{check_number} for %{payee}"
       # label: "%{number}. %{amount}, %{mode} for %{payee} on %{date}"
+    reception:
+      state_machine:
+        states:
+          # draft: "Draft"
+          # given: "Given"
+          # in_preparation: "In preparation"
+          # ordered: "Ordered"
+          # prepared: "Prepared"
+          # received: "Received"
     role:
       default:
         administrator: "管理员"
@@ -1896,6 +1909,15 @@ cmn:
         sales_invoices: "SI[year|4][number|6]"
         subscriptions: "SUB[number|8]"
         transports: "TR[number|8]"
+    shipment:
+      state_machine:
+        states:
+          # draft: "Draft"
+          # given: "Given"
+          # in_preparation: "In preparation"
+          # ordered: "Ordered"
+          # prepared: "Prepared"
+          # received: "Received"
     task:
       state_machine:
         states:

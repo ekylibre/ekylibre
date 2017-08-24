@@ -264,8 +264,8 @@
       </item>
     </group>
   </part>
-  <part name="trade" icon="bar-chart">
-    <page to="backend/dashboards#trade"/>
+  <part name="sales" icon="bar-chart">
+    <page to="backend/dashboards#sales"/>
     <group name="sales" icon="bar-chart">
       <item name="sales">
         <page to="backend/sales#index"/>
@@ -371,28 +371,66 @@
         <page to="backend/subscriptions#takeover"/>
       </item>
     </group>
+    <group name="payments" icon="credit-card">
+      <item name="incoming_payments">
+        <page to="backend/incoming_payments#index"/>
+        <page to="backend/incoming_payments#create"/>
+        <page to="backend/incoming_payments#destroy"/>
+        <page to="backend/incoming_payments#edit"/>
+        <page to="backend/incoming_payments#list"/>
+        <page to="backend/incoming_payments#new"/>
+        <page to="backend/incoming_payments#show"/>
+        <page to="backend/incoming_payments#unroll"/>
+        <page to="backend/incoming_payments#update"/>
+      </item>
+      <item name="deposits">
+        <page to="backend/deposits#index"/>
+        <page to="backend/deposits#create"/>
+        <page to="backend/deposits#destroy"/>
+        <page to="backend/deposits#edit"/>
+        <page to="backend/deposits#unroll"/>
+        <page to="backend/deposits#list"/>
+        <page to="backend/deposits#list_depositable_payments"/>
+        <page to="backend/deposits#list_payments"/>
+        <page to="backend/deposits#list_unvalidateds"/>
+        <page to="backend/deposits#new"/>
+        <page to="backend/deposits#show"/>
+        <page to="backend/deposits#unvalidateds"/>
+        <page to="backend/deposits#update"/>
+      </item>
+    </group>
+  </part>
+  <part name="purchases" icon="bar-chart">
+    <page to="backend/dashboards#purchases"/>
     <group name="purchases" icon="shopping-cart">
-      <item name="purchases">
-        <page to="backend/purchases#index"/>
-        <page to="backend/purchases#abort"/>
-        <page to="backend/purchases#confirm"/>
-        <page to="backend/purchases#correct"/>
-        <page to="backend/purchases#create"/>
-        <page to="backend/purchases#destroy"/>
-        <page to="backend/purchases#edit"/>
-        <page to="backend/purchases#invoice"/>
-        <page to="backend/purchases#list"/>
-        <page to="backend/purchases#list_parcels"/>
-        <page to="backend/purchases#list_items"/>
-        <page to="backend/purchases#propose"/>
-        <page to="backend/purchases#propose_and_invoice"/>
-        <page to="backend/purchases#refuse"/>
-        <page to="backend/purchases#show"/>
-        <page to="backend/purchases#unroll"/>
-        <page to="backend/purchases#update"/>
-        <page to="backend/purchases#new"/>
-        <page to="backend/purchases#pay"/>
-        <page to="backend/purchases#payment_mode"/>
+      <item name="purchase_orders">
+        <page to="backend/purchase_orders#index"/>
+        <page to="backend/purchase_orders#create"/>
+        <page to="backend/purchase_orders#destroy"/>
+        <page to="backend/purchase_orders#edit"/>
+        <page to="backend/purchase_orders#new"/>
+        <page to="backend/purchase_orders#list"/>
+        <page to="backend/purchase_orders#list_items"/>
+        <page to="backend/purchase_orders#open"/>
+        <page to="backend/purchase_orders#close"/>
+        <page to="backend/purchase_orders#show"/>
+        <page to="backend/purchase_orders#unroll"/>
+        <page to="backend/purchase_orders#update"/>
+      </item>
+      <item name="purchase_invoices">
+        <page to="backend/purchase_invoices#index"/>
+        <page to="backend/purchase_invoices#create"/>
+        <page to="backend/purchase_invoices#destroy"/>
+        <page to="backend/purchase_invoices#edit"/>
+        <page to="backend/purchase_invoices#list"/>
+        <page to="backend/purchase_invoices#list_items"/>
+        <page to="backend/purchase_invoices#list_parcels"/>
+        <page to="backend/purchase_invoices#new"/>
+        <page to="backend/purchase_invoices#pay"/>
+        <page to="backend/purchase_invoices#payment_mode"/>
+        <page to="backend/purchase_invoices#show"/>
+        <page to="backend/purchase_invoices#unroll"/>
+        <page to="backend/purchase_invoices#update"/>
         <page to="backend/purchase_affairs#index"/>
         <page to="backend/purchase_affairs#attach"/>
         <page to="backend/purchase_affairs#detach"/>
@@ -427,17 +465,6 @@
       </item>
     </group>
     <group name="payments" icon="credit-card">
-      <item name="incoming_payments">
-        <page to="backend/incoming_payments#index"/>
-        <page to="backend/incoming_payments#create"/>
-        <page to="backend/incoming_payments#destroy"/>
-        <page to="backend/incoming_payments#edit"/>
-        <page to="backend/incoming_payments#list"/>
-        <page to="backend/incoming_payments#new"/>
-        <page to="backend/incoming_payments#show"/>
-        <page to="backend/incoming_payments#unroll"/>
-        <page to="backend/incoming_payments#update"/>
-      </item>
       <item name="outgoing_payments">
         <page to="backend/purchase_payments#index"/>
         <page to="backend/purchase_payments#create"/>
@@ -448,21 +475,6 @@
         <page to="backend/purchase_payments#show"/>
         <page to="backend/purchase_payments#unroll"/>
         <page to="backend/purchase_payments#update"/>
-      </item>
-      <item name="deposits">
-        <page to="backend/deposits#index"/>
-        <page to="backend/deposits#create"/>
-        <page to="backend/deposits#destroy"/>
-        <page to="backend/deposits#edit"/>
-        <page to="backend/deposits#unroll"/>
-        <page to="backend/deposits#list"/>
-        <page to="backend/deposits#list_depositable_payments"/>
-        <page to="backend/deposits#list_payments"/>
-        <page to="backend/deposits#list_unvalidateds"/>
-        <page to="backend/deposits#new"/>
-        <page to="backend/deposits#show"/>
-        <page to="backend/deposits#unvalidateds"/>
-        <page to="backend/deposits#update"/>
       </item>
       <item name="outgoing_payment_lists">
         <page to="backend/outgoing_payment_lists#index"/>
@@ -586,6 +598,13 @@
       </item>
     </group>
     <group name="receptions" icon="truck">
+      <item name="unreceived_purchase_orders">
+        <page to="backend/unreceived_purchase_orders#index"/>
+        <page to="backend/unreceived_purchase_orders#create"/>
+        <page to="backend/unreceived_purchase_orders#destroy"/>
+        <page to="backend/unreceived_purchase_orders#edit"/>
+        <page to="backend/unreceived_purchase_orders#list"/>
+      </item>
       <item name="receptions">
         <page to="backend/receptions#index"/>
         <page to="backend/receptions#create"/>
@@ -2078,10 +2097,31 @@
     <group>
       <item name="preferences">
         <page to="backend/preferences#update"/>
+      <item name="purchases">
+        <page to="backend/purchases#create"/>
+        <page to="backend/purchases#new"/>
+        <page to="backend/purchases#show"/>
+      </item>
+      <item name="unreceived_purchase_orders">
+        <page to="backend/unreceived_purchase_orders#show"/>
+        <page to="backend/unreceived_purchase_orders#update"/>
+      </item>
+    </group>
+    <group>
+      <item name="parcels">
+        <page to="backend/parcels#index"/>
+        <page to="backend/parcels#cancel"/>
+        <page to="backend/parcels#check"/>
+        <page to="backend/parcels#give"/>
+        <page to="backend/parcels#invoice"/>
+        <page to="backend/parcels#new"/>
+        <page to="backend/parcels#order"/>
+        <page to="backend/parcels#prepare"/>
+        <page to="backend/parcels#ship"/>
+        <page to="backend/parcels#show"/>
       </item>
     </group>
   </inaccessible-actions>
   <untreated-actions>
-    <group/>
   </untreated-actions>
 </navigation>

@@ -370,7 +370,7 @@ class Parcel < Ekylibre::Record::Base
   class << self
     # Ships parcels. Returns a delivery
     # options:
-    #   - delivery_mode: delivery mode
+    #   - deliver<y_mode: delivery mode
     #   - transporter_id: the transporter ID if delivery mode is :transporter
     #   - responsible_id: the responsible (Entity) ID for the delivery
     # raises:

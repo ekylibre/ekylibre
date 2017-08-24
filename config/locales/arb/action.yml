@@ -170,7 +170,9 @@ arb:
       index: "لوحات"
       new: "لوحة تحكم جديدة"
       production: "لوحة أجهزة القياس إنتاج"
+      # purchases: "Purchases dashboard: %{name}"
       relationship: "لوحة أجهزة القياس العلاقة"
+      # sales: "Sales dashboard: %{name}"
       # sandbox: "Sandbox dashboard: %{name}"
       # search: "Search for: %{searched}"
       settings: "إعدادات لوحة القيادة"
@@ -614,6 +616,13 @@ arb:
       index: "المنتجات" #?
       new: "اضافة منتج جديد" #?
       show: "المنتجات : %{name}" #?
+    backend/purchase_invoices:
+      # edit: "Edit invoice: %{name}"
+      # index: "Invoices"
+      # new: "New invoice"
+      # pay: "Pay invoice: %{name}"
+      # payment_mode: "Payment mode invoice: %{name}"
+      # show: "Invoice: %{name}"
     backend/purchase_items: #?
       edit: "تعديل تصميم الطلب" #?
       new: "اضافة طلب للمنتج : %{number}" #?
@@ -2205,6 +2214,7 @@ arb:
     sex: "جنس"
     shape: "شكل"
     ship: "بشريطة"
+    # shipments: "Shipments"
     show: "تبين"
     sign_out: "خروج"
     simplified: "نظام واقعي مبسط"

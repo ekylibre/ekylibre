@@ -90,7 +90,9 @@
 #     - "backend/dashboards#home"
 #     - "backend/dashboards#humans"
 #     - "backend/dashboards#production"
+#     - "backend/dashboards#purchases"
 #     - "backend/dashboards#relationship"
+#     - "backend/dashboards#sales"
 #     - "backend/dashboards#sandbox"
 #     - "backend/dashboards#search"
 #     - "backend/dashboards#settings"
@@ -140,10 +142,51 @@
 #     - "backend/product_groups#take"
 #     - "backend/product_nature_variants#quantifiers"
 #     - "backend/products#take"
+#     - "backend/receptions#cancel"
+#     - "backend/receptions#check"
+#     - "backend/receptions#create"
+#     - "backend/receptions#destroy"
+#     - "backend/receptions#edit"
+#     - "backend/receptions#give"
+#     - "backend/receptions#index"
+#     - "backend/receptions#invoice"
+#     - "backend/receptions#list"
+#     - "backend/receptions#list_items"
+#     - "backend/receptions#new"
+#     - "backend/receptions#order"
+#     - "backend/receptions#prepare"
+#     - "backend/receptions#ship"
+#     - "backend/receptions#show"
+#     - "backend/receptions#unroll"
+#     - "backend/receptions#update"
 #     - "backend/sensors#last_locations"
 #     - "backend/settlements#take"
+#     - "backend/shipments#cancel"
+#     - "backend/shipments#check"
+#     - "backend/shipments#create"
+#     - "backend/shipments#destroy"
+#     - "backend/shipments#edit"
+#     - "backend/shipments#give"
+#     - "backend/shipments#index"
+#     - "backend/shipments#invoice"
+#     - "backend/shipments#list"
+#     - "backend/shipments#list_items"
+#     - "backend/shipments#new"
+#     - "backend/shipments#order"
+#     - "backend/shipments#prepare"
+#     - "backend/shipments#ship"
+#     - "backend/shipments#show"
+#     - "backend/shipments#unroll"
+#     - "backend/shipments#update"
 #     - "backend/snippets#toggle"
 #     - "backend/tours#finish"
+#     - "backend/unreceived_purchase_orders#create"
+#     - "backend/unreceived_purchase_orders#destroy"
+#     - "backend/unreceived_purchase_orders#edit"
+#     - "backend/unreceived_purchase_orders#index"
+#     - "backend/unreceived_purchase_orders#list"
+#     - "backend/unreceived_purchase_orders#show"
+#     - "backend/unreceived_purchase_orders#update"
 #     - "backend/visuals#picture"
 #     - "backend/workers#take"
 #     - "devise/confirmations#create"
@@ -1092,6 +1135,12 @@ incoming_deliveries:
     - "backend/receptions#list_items"
     - "backend/receptions#show"
     - "backend/receptions#unroll"
+    - "backend/parcels#index"
+    - "backend/parcels#list" #?
+    - "backend/parcels#list_incoming_items" #?
+    - "backend/parcels#list_outgoing_items" #?
+    - "backend/parcels#show"
+    - "backend/parcels#unroll" #?
   write:
     dependencies:
     - read-incoming_deliveries
@@ -1106,6 +1155,16 @@ incoming_deliveries:
     - "backend/receptions#order"
     - "backend/receptions#prepare"
     - "backend/receptions#update"
+    - "backend/parcels#cancel"
+    - "backend/parcels#check"
+    - "backend/parcels#create" #?
+    - "backend/parcels#destroy" #?
+    - "backend/parcels#edit" #?
+    - "backend/parcels#give"
+    - "backend/parcels#new"
+    - "backend/parcels#order"
+    - "backend/parcels#prepare"
+    - "backend/parcels#update" #?
 
 incoming_payment_modes:
   read:
@@ -1559,6 +1618,12 @@ outgoing_deliveries:
     - "backend/shipments#list_items"
     - "backend/shipments#show"
     - "backend/shipments#unroll"
+    - "backend/parcels#index"
+    - "backend/parcels#list" #?
+    - "backend/parcels#list_incoming_items" #?
+    - "backend/parcels#list_outgoing_items" #?
+    - "backend/parcels#show"
+    - "backend/parcels#unroll" #?
   write:
     dependencies:
     - read-outgoing_deliveries
@@ -1573,6 +1638,16 @@ outgoing_deliveries:
     - "backend/shipments#order"
     - "backend/shipments#prepare"
     - "backend/shipments#update"
+    - "backend/parcels#cancel"
+    - "backend/parcels#check"
+    - "backend/parcels#create" #?
+    - "backend/parcels#destroy" #?
+    - "backend/parcels#edit" #?
+    - "backend/parcels#give"
+    - "backend/parcels#new"
+    - "backend/parcels#order"
+    - "backend/parcels#prepare"
+    - "backend/parcels#update" #?
 
 outgoing_payment_lists:
   read:
@@ -1589,8 +1664,8 @@ outgoing_payment_lists:
     - "backend/outgoing_payment_lists#create"
     - "backend/outgoing_payment_lists#destroy"
     - "backend/outgoing_payment_lists#new"
-    - "backend/purchases#pay"
-    - "backend/purchases#payment_mode"
+    - "backend/purchases#pay" #?
+    - "backend/purchases#payment_mode" #?
 
 outgoing_payment_modes:
   read:
@@ -1954,12 +2029,18 @@ purchases:
     - "backend/purchase_affairs#list"
     - "backend/purchase_affairs#show"
     - "backend/purchase_affairs#unroll"
-    - "backend/purchases#index"
-    - "backend/purchases#list"
-    - "backend/purchases#list_items"
-    - "backend/purchases#list_parcels"
+    - "backend/purchase_invoices#index"
+    - "backend/purchase_invoices#list"
+    - "backend/purchase_invoices#list_items"
+    - "backend/purchase_invoices#list_parcels"
+    - "backend/purchase_invoices#show"
+    - "backend/purchase_invoices#unroll"
+    - "backend/purchase_orders#index"
+    - "backend/purchase_orders#list"
+    - "backend/purchase_orders#list_items"
+    - "backend/purchase_orders#show"
+    - "backend/purchase_orders#unroll"
     - "backend/purchases#show"
-    - "backend/purchases#unroll"
   write:
     dependencies:
     - read-purchases
@@ -1973,18 +2054,22 @@ purchases:
     - "backend/purchase_affairs#detach_gaps"
     - "backend/purchase_affairs#finish"
     - "backend/purchase_affairs#select"
-    - "backend/purchases#abort"
-    - "backend/purchases#confirm"
-    - "backend/purchases#correct"
+    - "backend/purchase_invoices#create"
+    - "backend/purchase_invoices#destroy"
+    - "backend/purchase_invoices#edit"
+    - "backend/purchase_invoices#new"
+    - "backend/purchase_invoices#pay"
+    - "backend/purchase_invoices#payment_mode"
+    - "backend/purchase_invoices#update"
+    - "backend/purchase_orders#close"
+    - "backend/purchase_orders#create"
+    - "backend/purchase_orders#destroy"
+    - "backend/purchase_orders#edit"
+    - "backend/purchase_orders#new"
+    - "backend/purchase_orders#open"
+    - "backend/purchase_orders#update"
     - "backend/purchases#create"
-    - "backend/purchases#destroy"
-    - "backend/purchases#edit"
-    - "backend/purchases#invoice"
     - "backend/purchases#new"
-    - "backend/purchases#propose"
-    - "backend/purchases#propose_and_invoice"
-    - "backend/purchases#refuse"
-    - "backend/purchases#update"
     - "backend/quick_purchases#create"
     - "backend/quick_purchases#new"
     - "backend/receptions#invoice"

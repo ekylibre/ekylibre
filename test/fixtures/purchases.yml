@@ -39,6 +39,7 @@
 #  lock_version                             :integer          default(0), not null
 #  nature_id                                :integer
 #  number                                   :string           not null
+#  ordered_at                               :datetime
 #  payment_at                               :datetime
 #  payment_delay                            :string
 #  planned_at                               :datetime
@@ -49,6 +50,7 @@
 #  state                                    :string           not null
 #  supplier_id                              :integer          not null
 #  tax_payability                           :string           not null
+#  type                                     :string
 #  undelivered_invoice_journal_entry_id     :integer
 #  updated_at                               :datetime         not null
 #  updater_id                               :integer

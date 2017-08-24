@@ -366,9 +366,12 @@ por:
       purchase: "Compra"
       purchase_affair: "Caso de compra"
       purchase_gap: "Gap compra"
+      # purchase_invoice: "Purchase invoice"
       purchase_item: "Artigo da compra"
       purchase_nature: "Tipo de compra"
+      # purchase_order: "Purchase order"
       purchase_payment: "Desembolso"
+      # reception: "Reception"
       regularization: "Regularização"
       role: "Função"
       sale: "Venda"
@@ -381,6 +384,7 @@ por:
       # sensor: "Sensor"
       sequence: "Seqüência"
       settlement: "Assentamento"
+      # shipment: "Shipment"
       # sub_zone: "Sub-zone"
       subscription: "Subscrição"
       subscription_nature: "Tipo de assinatura"
@@ -1817,6 +1821,15 @@ por:
     purchase_payment:
       # bookkeep: "[%{resource} %{number}] %{mode} %{check_number} for %{payee}"
       # label: "%{number}. %{amount}, %{mode} for %{payee} on %{date}"
+    reception:
+      state_machine:
+        states:
+          # draft: "Draft"
+          # given: "Given"
+          # in_preparation: "In preparation"
+          # ordered: "Ordered"
+          # prepared: "Prepared"
+          # received: "Received"
     role:
       default:
         administrator: "Administrador"
@@ -1896,6 +1909,15 @@ por:
         sales_invoices: "SI[year|4][number|6]"
         subscriptions: "SUB[number|8]"
         transports: "TR[number|8]"
+    shipment:
+      state_machine:
+        states:
+          # draft: "Draft"
+          # given: "Given"
+          # in_preparation: "In preparation"
+          # ordered: "Ordered"
+          # prepared: "Prepared"
+          # received: "Received"
     task:
       state_machine:
         states:

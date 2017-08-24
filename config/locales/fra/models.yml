@@ -500,9 +500,12 @@ fra:
       purchase: "Achat"
       purchase_affair: "Affaire d’achat"
       purchase_gap: "Écart d’achat"
+      purchase_invoice: "Facture d’achat"
       purchase_item: "Ligne d’achat"
       purchase_nature: "Type d’achat"
+      purchase_order: "Commande d’achat"
       purchase_payment: "Décaissement d’achat"
+      reception: "Réception"
       regularization: "Régularisation"
       role: "Rôle"
       sale: "Vente"
@@ -515,6 +518,7 @@ fra:
       sensor: "Capteur"
       sequence: "Séquence"
       settlement: "Installation"
+      shipment: "Expédition"
       sub_zone: "Sous-zone"
       subscription: "Abonnement"
       subscription_nature: "Type d’abonnement"
@@ -1535,7 +1539,7 @@ fra:
     reception_cash: "Trésorie réceptrice"
     reception_currency: "Monnaie de réception"
     reception_journal_entry: "Écriture de la réception"
-    # receptions: "Receptions"
+    receptions: "Réceptions"
     recipient: "Destinataire"
     recommended: "Prescrit"
     recommender: "Prescripteur"
@@ -2115,9 +2119,23 @@ fra:
     purchase_nature:
       default:
         name: "Achat standard"
+    purchase_order: #?
+      states: #?
+        closed: "Fermée" #?
+        estimate: "Brouillon" #?
+        opened: "Ouverte" #?
     purchase_payment:
       bookkeep: "[%{resource} %{number}] %{mode} %{check_number} pour %{payee}"
       label: "%{number}. %{amount} du %{date} en %{mode} pour %{payee}"
+    reception:
+      state_machine:
+        states:
+          draft: "Brouillon"
+          given: "Donné"
+          in_preparation: "En préparation"
+          ordered: "Commandé"
+          prepared: "Prêt"
+          received: "Reçu"
     role:
       default:
         administrator: "Gérant"
@@ -2197,6 +2215,15 @@ fra:
         sales_invoices: "F[year|4][number|6]"
         subscriptions: "ABO[number|8]"
         transports: "TR[number|8]"
+    shipment:
+      state_machine:
+        states:
+          draft: "Brouillon"
+          given: "Donné"
+          in_preparation: "En préparation"
+          ordered: "Commandé"
+          prepared: "Prêt"
+          received: "Reçu"
     task:
       state_machine:
         states:

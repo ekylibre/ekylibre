@@ -397,9 +397,12 @@ ita:
       purchase: "Acquista"
       purchase_affair: "Acquisto vicenda"
       purchase_gap: "Gap Acquisto"
+      # purchase_invoice: "Purchase invoice"
       purchase_item: "voce Acquisto"
       purchase_nature: "tipo di Acquisto"
+      # purchase_order: "Purchase order"
       purchase_payment: "sborso"
+      # reception: "Reception"
       regularization: "Regolarizzazione"
       role: "Ruolo"
       sale: "Vendita"
@@ -412,6 +415,7 @@ ita:
       sensor: "Sensore"
       sequence: "Sequenza"
       settlement: "insediamento"
+      # shipment: "Shipment"
       sub_zone: "Sottozona"
       subscription: "Sottoscrizione"
       subscription_nature: "tipo di abbonamento"
@@ -1848,6 +1852,15 @@ ita:
     purchase_payment:
       # bookkeep: "[%{resource} %{number}] %{mode} %{check_number} for %{payee}"
       # label: "%{number}. %{amount}, %{mode} for %{payee} on %{date}"
+    reception:
+      state_machine:
+        states:
+          # draft: "Draft"
+          # given: "Given"
+          # in_preparation: "In preparation"
+          # ordered: "Ordered"
+          # prepared: "Prepared"
+          # received: "Received"
     role:
       default:
         administrator: "Amministratore"
@@ -1927,6 +1940,15 @@ ita:
         sales_invoices: "SI[year|4][number|6]"
         subscriptions: "SUB[number|8]"
         transports: "TR[number|8]"
+    shipment:
+      state_machine:
+        states:
+          # draft: "Draft"
+          # given: "Given"
+          # in_preparation: "In preparation"
+          # ordered: "Ordered"
+          # prepared: "Prepared"
+          # received: "Received"
     task:
       state_machine:
         states:
