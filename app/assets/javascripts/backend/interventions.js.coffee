@@ -309,6 +309,16 @@
 
     $(blockElement).append(pictoTimer)
 
+    participation = blockElement.find('.intervention-participation')
+
+    if participation.length > 0
+      newProductId = element.closest('.selector').find('.selector-value').val()
+      jsonParticipation = JSON.parse(participation.val())
+      jsonParticipation.product_id = newProductId
+
+      participation.val(JSON.stringify((jsonParticipation)))
+      participation.attr('data-product-id', newProductId)
+
 
 
   $(document).ready ->
