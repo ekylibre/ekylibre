@@ -4,14 +4,13 @@ module Pesticide
 
     def initialize(attributes = {})
       @name = attributes.delete(:name)
-      @dose = (attributes[:dose] && attributes[:dose] =~ /\A-?([\,\.]\d+|\d+([\,\.]\d+)?)\s*[^\s]+\z/) ? Measure.new(attributes.delete(:dose)) : attributes.delete(:dose)
+      @dose = Measure.new(attributes.delete(:dose)) if attributes[:dose]
       @subject = attributes.delete(:subject) || {}
       @mode = attributes.delete(:mode)
       @issue = attributes.delete(:issue)
       @pre_harvest_interval = attributes[:pre_harvest_interval].in(:day) if attributes[:pre_harvest_interval]
       @max_inputs_count = attributes[:max_inputs_count]
       if attributes[:untreated_zone_distance]
-        attributes[:untreated_zone_distance] += 'm' if attributes[:untreated_zone_distance] =~ /\A-?([\,\.]\d+|\d+([\,\.]\d+)?)\z/
         @untreated_zone_margin = Measure.new(attributes[:untreated_zone_distance])
       end
     end
