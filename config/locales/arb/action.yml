@@ -1442,6 +1442,7 @@ arb:
     export: "اصدار الوثائق"
     export_as_csv: "التصدير، CSV"
     export_as_ods: "التصدير، المواد المستنفدة للأوزون"
+    # export_as_odt: "Export as ODT"
     export_as_xcsv: "تصدير واكسل CSV"
     extract: "يستخرج" #?
     field_distribution: "مجال التوزيع"
@@ -2624,6 +2625,7 @@ arb:
       cannot_merge_entities: "Une erreur est survenue. غير ممكن دمج هذه الملفات"
       changes_have_been_reflected: "كانت تنعكس التغييرات بشكل صحيح على الوضع الحالي للاسهم"
       changes_have_not_been_reflected: "لم تكن تنعكس هذه التغييرات بشكل صحيح على الوضع الحالي للأسهم"
+      # closed_financial_periods: "The fixed asset's duration spans across closed financial periods."
       closed_financial_year_exchange: "تم إغلاق الصرف في العام المالي بنجاح"
       closed_financial_years: "تم اغلاق السنة المالية بشكل صحيح"
       columns_are_already_uses: "تم اخيار عامود او اكثر للتحميل لمرات عدة"
