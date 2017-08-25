@@ -63,7 +63,9 @@ class InterventionOutput < InterventionProductParameter
   has_one :product_movement, as: :originator, dependent: :destroy
   validates :variant, :quantity_population, presence: true
 
-  before_save :compute_average_cost_amount
+  after_save :compute_average_cost_amount
+  # before_update :compute_modify_average_cost_amount
+  before_destroy :compute_rollback_average_cost_amount
 
   after_save do
     unless destroyed?
@@ -80,7 +82,6 @@ class InterventionOutput < InterventionProductParameter
       output.save!
 
       if intervention.record?
-        # calculate_average_cost_amount
         movement = product_movement
         movement = build_product_movement(product: output) unless movement
         movement.delta = quantity_population
@@ -139,6 +140,43 @@ class InterventionOutput < InterventionProductParameter
         create_variant_valuing(@quantity_new, quantity_action, variant_id, unitary_price)
       end
     end
+  end
+
+  # def compute_modify_average_cost_amount
+  #   i = intervention.outputs.to_a
+  #   i.each do |item|
+  #     intervention = InterventionOutput.where(intervention_id: item.intervention_id)
+  #     if intervention.first.variant_id != item.variant_id
+  #       quantity_action = item.quantity_value
+  #       unitary_price = item.unit_pretax_stock_amount
+  #       variant_id = item.variant_id
+  #       quantity_new = variant.current_stock + quantity_action
+  #       create_variant_valuing(quantity_new, quantity_action, variant_id, unitary_price)
+  #     else
+  #       quantity_action = item.quantity_value
+  #       unitary_price = item.unit_pretax_stock_amount
+  #       variant_id = item.variant_id
+  #       actual_stock = variant.current_stock - item.quantity_population
+  #       quantity_new = actual_stock + quantity_action
+  #       update_valuing(unitary_price, quantity_new, quantity_action, variant_id)
+  #     end
+  #   end
+  # end
+
+  def compute_rollback_average_cost_amount
+    iinterventions = intervention.outputs.to_a
+    interventions.each do |item|
+      variant_id = item.variant_id
+      valuing_rollback(variant_id)
+    end
+  end
+
+  def update_valuing(unit_price_amount, new_quantity, action_quantity, variant_id)
+    ProductNatureVariantValuing.update_valuing_output(unit_price_amount, new_quantity, action_quantity, variant_id)
+  end
+
+  def valuing_rollback(variant_id)
+    ProductNatureVariantValuing.rollback_valuing(variant_id)
   end
 
   def create_variant_valuing(quantity_new, quantity_action, variant_id, unitary_price)

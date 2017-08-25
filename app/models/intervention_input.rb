@@ -72,6 +72,7 @@ class InterventionInput < InterventionProductParameter
   end
 
   before_save :compute_average_cost_amount
+  before_destroy :compute_rollback_average_cost_amount
 
   after_save do
     if product && intervention.record?
@@ -165,6 +166,19 @@ class InterventionInput < InterventionProductParameter
         create_variant_valuing(@quantity_new, quantity_action, variant_id)
       end
     end
+  end
+
+  def compute_rollback_average_cost_amount
+    i = intervention.inputs.to_a
+
+    i.each do |item|
+      variant_id = item.variant_id
+      valuing_rollback(variant_id)
+    end
+  end
+
+  def valuing_rollback(variant_id)
+    ProductNatureVariantValuing.rollback_valuing(variant_id)
   end
 
   def create_variant_valuing(quantity_new, quantity_action, variant_id)
