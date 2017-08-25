@@ -94,16 +94,16 @@ class InterventionWorkingPeriod < Ekylibre::Record::Base
     end
 
     if intervention_participation.present?
-      siblings = intervention_participation.working_periods.where.not(id: id || 0)
-
-      errors.add(:started_at, :overlap_sibling) if siblings.map do |sibling|
-                                                     sibling.started_at.to_f <= started_at.to_f &&
-                                                       started_at.to_f < sibling.stopped_at.to_f
+      errors.add(:started_at, :overlap_sibling) if intervention_participation.working_periods.select do |participation|
+                                                     participation.id != id &&
+                                                       participation.started_at.to_f <= started_at.to_f &&
+                                                       started_at.to_f < participation.stopped_at.to_f
                                                 end.any?
 
-      errors.add(:stopped_at, :overlap_sibling) if siblings.map do |sibling|
-                                                     sibling.started_at.to_f < stopped_at.to_f &&
-                                                       stopped_at.to_f <= sibling.stopped_at.to_f
+      errors.add(:stopped_at, :overlap_sibling) if intervention_participation.working_periods.select do |participation|
+                                                     participation.id != id &&
+                                                       participation.started_at.to_f < stopped_at.to_f &&
+                                                       stopped_at.to_f <= participation.stopped_at.to_f
                                                 end.any?
 
     end

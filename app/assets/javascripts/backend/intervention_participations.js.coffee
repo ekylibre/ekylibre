@@ -1,6 +1,15 @@
 ((E, $) ->
   'use strict'
 
+  $(document).on 'shown.bs.modal', '#working_times', (event) ->
+    participations = $(event.target).find('.participations .participation')
+
+    if participations.length > 0
+      element = $(event.target).find('.participations .participation').first()
+
+      E.interventionParticipations.changeWorkingPeriod(element)
+
+
   $(document).on 'click', '#working_times .clear-period', (event) ->
     element = $(event.target)
     participation = element.closest('.participation')
