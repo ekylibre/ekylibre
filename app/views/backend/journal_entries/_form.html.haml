@@ -37,7 +37,7 @@
 
           %tfoot
             %tr#total.total{ data: { valid_if_equality_between: "#entry-real-debit, #entry-real-credit", submit_if_valid: false } }
-              %th= link_to_add_association :add_item.tl, f, :items, partial: 'item_fields', data: { association_insertion_node: '#items-table', association_insertion_method: :append }, class: "btn primary", render_options: { locals: { currency: f.object.journal.currency } }
+              %th= link_to_add_association :add_item.tl, f, :items, partial: 'item_fields', data: { association_insertion_node: '#items-table', association_insertion_method: :append }, class: "btn primary", render_options: { locals: { currency: f.object.journal.currency, journal: f.object.journal } }
               %th{ colspan: 2 + budget_size + team_size }
                 .pull-left
                   = label_tag "preference_entry_autocompletion", class: 'control-label standalone-option' do
@@ -60,7 +60,7 @@
               %th.act
 
           = f.simple_fields_for :items, f.object.items.sort_by { |item| [item.position ? 0 : 1, item.position] } do |item|
-            = render 'item_fields', f: item, currency: f.object.journal.currency
+            = render 'item_fields', f: item, currency: f.object.journal.currency, journal: f.object.journal
 
   = f.attachments_field_set
 - else

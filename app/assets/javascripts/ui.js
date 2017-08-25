@@ -220,26 +220,52 @@
 
   // Adds a new row
   $(document).on("focusout", "input[data-add-item-unless]", function () {
+    var reference = $(this).closest('tr');
     var element = $(this);
     if (element.numericalValue() !== 0 && !$(element.data("add-item-unless")).hasClass("valid")) {
       if (element.data("toggled-by") === undefined || $(element.data("toggled-by")).is(':checked')) {
+        $(document).one('cocoon:after-insert', function(e, newRow) {
+          var accountInput = $(newRow).find('input[data-account-id]');
+          var accountId = accountInput.data('account-id');
+          if (accountId !== null) {
+            accountInput.data('ui-selector').value(accountId);
+          }
+          var getInput = function(input_name, in_element) {
+            return $(in_element).find('.journal_entry_items_' + input_name).find('input');
+          }
+          var name = getInput('name', reference).val();
+          getInput('name', newRow).val(name);
+          var debit = $('#entry-real-debit').numericalValue();
+          var credit = $('#entry-real-credit').numericalValue();
+          var fieldToFill = null;
+          if (debit > credit) {
+            fieldToFill = 'credit'
+          } else {
+            fieldToFill = 'debit'
+          }
+          getInput('real_' + fieldToFill, newRow).val(Math.abs(debit - credit));
+        });
         $('a[data-association-insertion-node]').click();
       }
     }
   });
 
   // Fills the new row generated
-  $(document).on('cocoon:after-insert', function(e, newRow) {
-    if ($('#preference_entry_autocompletion').is(':checked')) {
-      var name = $(newRow).closest('table').children('tbody').children('tr:first').children('td:first').children('span').children('input').val();
-      $(newRow).children('tr:first').children('td:first').children('span').children('input').val(name);
-      if ($('#entry-real-debit').numericalValue() > $('#entry-real-credit').numericalValue()) {
-        $(newRow).children('tr:first').children('td:nth-child(8)').children('span').children('input').val($('#entry-real-debit').numericalValue() - $('#entry-real-credit').numericalValue());
-      } else if ($('#entry-real-debit').numericalValue() < $('#entry-real-credit').numericalValue()) {
-        $(newRow).children('tr:first').children('td:nth-child(6)').children('span').children('input').val($('#entry-real-credit').numericalValue() - $('#entry-real-debit').numericalValue());
-      }
-    }
-  });
+  // $(document).on('cocoon:after-insert', function(e, newRow) {
+  //   if ($('#preference_entry_autocompletion').is(':checked')) {
+  //     var name = $(newRow).closest('table').children('tbody').children('tr:first').children('td:first').children('span').children('input').val();
+  //     $(newRow).children('tr:first').children('td:first').children('span').children('input').val(name);
+  //     var accountId = $('input[data-account-id]').data('account-id');
+  //     if (accountId !== null) {
+  //       $('input[data-account-id]').data('ui-selector').value(accountId);
+  //     }
+  //     if ($('#entry-real-debit').numericalValue() > $('#entry-real-credit').numericalValue()) {
+  //       $(newRow).children('tr:first').children('td:nth-child(8)').children('span').children('input').val($('#entry-real-debit').numericalValue() - $('#entry-real-credit').numericalValue());
+  //     } else if ($('#entry-real-debit').numericalValue() < $('#entry-real-credit').numericalValue()) {
+  //       $(newRow).children('tr:first').children('td:nth-child(6)').children('span').children('input').val($('#entry-real-credit').numericalValue() - $('#entry-real-debit').numericalValue());
+  //     }
+  //   }
+  // });
 
   // Nullify sibling input
   $(document).on("keyup", "input[data-exclusive-nullify]", function () {

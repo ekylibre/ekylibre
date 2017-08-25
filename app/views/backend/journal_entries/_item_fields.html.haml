@@ -1,11 +1,12 @@
 :ruby
   budget_size = budget_columns_count
   team_size = team_columns_count
+  account_id = journal.cashes.any? ? journal.cashes.first.main_account.id : nil
 
 %tbody.nested-fields
   %tr
     %td= f.input(:name, wrapper: :nested)
-    %td= f.referenced_association(:account, wrapper: :nested)
+    %td= f.referenced_association(:account, wrapper: :nested, input_html: { data: { account_id: account_id } })
     %td= f.referenced_association(:variant, wrapper: :nested)
     - if budget_size > 0
       %td= f.referenced_association(:activity_budget, wrapper: :nested)
