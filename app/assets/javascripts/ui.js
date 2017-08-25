@@ -199,36 +199,67 @@
   });
 
   // Adds a HTML
+  // $(document).on("focusout", "input[data-add-item-unless]", function () {
+  //   var element = $(this);
+  //   if (element.numericalValue() !== 0 && !$(element.data("add-item-unless")).hasClass("valid")) {
+  //     if (element.data("toggled-by") === undefined || $(element.data("toggled-by")).is(':checked')) {
+  //       if (element.data("with")) {
+  //         var params = {};
+  //         $(element.data("with")).each(function () {
+  //           var paramName = $(this).data("parameter-name") || $(this).attr("id");
+  //           if (paramName !== null && paramName !== undefined) {
+  //             params[paramName] = $(this).val() || $(this).html();
+  //           }
+  //         });
+  //         element.data("params", $.param(params));
+  //       }
+  //       $.rails.handleRemote(element);
+  //     }
+  //   }
+  // });
+
+  // Adds a new row
   $(document).on("focusout", "input[data-add-item-unless]", function () {
     var element = $(this);
     if (element.numericalValue() !== 0 && !$(element.data("add-item-unless")).hasClass("valid")) {
       if (element.data("toggled-by") === undefined || $(element.data("toggled-by")).is(':checked')) {
-        if (element.data("with")) {
-          var params = {};
-          $(element.data("with")).each(function () {
-            var paramName = $(this).data("parameter-name") || $(this).attr("id");
-            if (paramName !== null && paramName !== undefined) {
-              params[paramName] = $(this).val() || $(this).html();
-            }
-          });
-          element.data("params", $.param(params));
-        }
-        $.rails.handleRemote(element);
+        $('a[data-association-insertion-node]').click();
       }
     }
   });
 
-  // Nullify inputs if it filled
-  $(document).on("keyup", "input[data-exclusive-nullify]", function () {
-    var element = $(this);
-    var scope = $("html");
-    if (element.data("use-closest")) {
-      scope = element.closest(element.data("use-closest"));
-    }
-    if (element.numericalValue() !== 0) {
-      scope.find(element.data("exclusive-nullify")).val('');
+  // Fills the new row generated
+  $(document).on('cocoon:after-insert', function(e, newRow) {
+    if ($('#preference_entry_autocompletion').is(':checked')) {
+      var name = $(newRow).closest('table').children('tbody').children('tr:first').children('td:first').children('span').children('input').val();
+      $(newRow).children('tr:first').children('td:first').children('span').children('input').val(name);
+      if ($('#entry-real-debit').numericalValue() > $('#entry-real-credit').numericalValue()) {
+        $(newRow).children('tr:first').children('td:nth-child(8)').children('span').children('input').val($('#entry-real-debit').numericalValue() - $('#entry-real-credit').numericalValue());
+      } else if ($('#entry-real-debit').numericalValue() < $('#entry-real-credit').numericalValue()) {
+        $(newRow).children('tr:first').children('td:nth-child(6)').children('span').children('input').val($('#entry-real-credit').numericalValue() - $('#entry-real-debit').numericalValue());
+      }
     }
   });
+
+  // Nullify sibling input
+  $(document).on("keyup", "input[data-exclusive-nullify]", function () {
+    var element = $(this);
+    if (element.numericalValue() !== 0) {
+      $(element).closest('tr').find('input'+element.data('exclusive-nullify')).val('');
+    }
+  });
+
+  // Nullify inputs if it filled
+  // $(document).on("keyup", "input[data-exclusive-nullify]", function () {
+  //   var element = $(this);
+  //   var scope = $("html");
+  //   if (element.data("use-closest")) {
+  //     scope = element.closest(element.data("use-closest"));
+  //   }
+  //   if (element.numericalValue() !== 0) {
+  //     scope.find(element.data("exclusive-nullify")).val('');
+  //   }
+  // });
 
   $(document).on("click", "*[data-click]", function () {
     $($(this).data("click")).each(function () {
