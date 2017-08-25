@@ -43,10 +43,38 @@ module Backend
           end
           send_data(csv_string, filename: filename << '.csv')
         end
+        format.odt do
+          send_data to_odt(@balance, filename, params[:period]).generate, type: 'application/vnd.oasis.opendocument.text', disposition: 'attachment', filename: filename << '.odt'
+        end
       end
     end
 
     protected
+
+    def to_odt(balance, filename, period)
+      # TODO: add a generic template system path
+      report = ODFReport::Report.new(Rails.root.join('config', 'locales', 'fra', 'reporting', 'trial_balance.odt')) do |r|
+        # TODO: add a helper with generic metod to implemend header and footer
+
+        e = Entity.of_company
+        company_name = e.full_name
+        company_address = e.default_mail_address.coordinate
+
+        r.add_field 'COMPANY_ADDRESS', company_address
+        r.add_field 'FILE_NAME', filename
+        r.add_field 'PERIOD', period
+
+        r.add_table('Tableau2', balance, header: false) do |t|
+          t.add_column(:a) { |item| item[0] }
+          t.add_column(:b) do |item|
+            Account.find(item[1]).name if item[1].to_i > 0
+          end
+          t.add_column(:debit) { |item| item[2].to_f }
+          t.add_column(:credit) { |item| item[3].to_f }
+          t.add_column(:balance) { |item| item[4].to_f }
+        end
+      end
+    end
 
     def to_csv(balance, csv)
       csv << [
