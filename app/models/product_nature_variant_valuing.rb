@@ -67,19 +67,6 @@ class ProductNatureVariantValuing < Ekylibre::Record::Base
     product_nature_variant_valuing
   end
 
-  def self.update_valuing_output(unit_price_amount, new_quantity, action_quantity, variant_id)
-    valuing = ProductNatureVariantValuing.where(variant_id: variant_id)
-    old_product_nature_variant_valuing = valuing.last(2).first
-    old_amount = old_product_nature_variant_valuing.amount
-    amount = old_amount + action_quantity * unit_price_amount
-    average_cost_amount = amount / new_quantity
-    product_nature_variant_valuing = ProductNatureVariantValuing.new(amount: amount, average_cost_amount: average_cost_amount, variant_id: variant_id, computed_at: Time.now)
-    product_nature_variant_valuing.save
-    # update, needed to stay up to date with variant
-    product_nature_variant_valuing.update_variant(variant_id, product_nature_variant_valuing.id)
-    product_nature_variant_valuing
-  end
-
   def self.calculate_input(new_quantity, action_quantity, variant_id)
     old_product_nature_variant_valuing = ProductNatureVariantValuing.where(variant: variant_id).last
     if old_product_nature_variant_valuing.nil?

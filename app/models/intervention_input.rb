@@ -151,19 +151,41 @@ class InterventionInput < InterventionProductParameter
   end
 
   def compute_average_cost_amount
-    many_intervention_items = intervention.inputs.group_by(&:variant_id)
-    many_intervention_items = many_intervention_items.to_a
-    many_intervention_items.each do |items|
-      items.last.each do |item|
-        quantity_action = item.quantity_population
-        variant_id = item.variant_id
-        if item == items.last.first
-          variant = ProductNatureVariant.find(variant_id)
-          @quantity_new = variant.current_stock - quantity_action
-        else
-          @quantity_new -= quantity_action
+    if intervention.accounted_at.nil?
+      many_intervention_items = intervention.inputs.group_by(&:variant_id)
+      many_intervention_items = many_intervention_items.to_a
+      many_intervention_items.each do |items|
+        items.last.each do |item|
+          quantity_action = item.quantity_population
+          variant_id = item.variant_id
+          if item == items.last.first
+            variant = ProductNatureVariant.find(variant_id)
+            @quantity_new = variant.current_stock - quantity_action
+          else
+            @quantity_new -= quantity_action
+          end
+          create_variant_valuing(@quantity_new, quantity_action, variant_id)
         end
-        create_variant_valuing(@quantity_new, quantity_action, variant_id)
+      end
+    else
+      i = intervention.inputs.to_a
+      i.each do |item|
+        intervention = InterventionInput.where(intervention_id: item.intervention_id)
+
+        if intervention.first.variant_id != item.variant_id
+          quantity_action = item.quantity_value
+          variant_id = item.variant_id
+          quantity_new = variant.current_stock - quantity_action
+          create_variant_valuing(quantity_new, quantity_action, variant_id)
+          else
+
+          valuing_rollback(item.variant_id)
+          quantity_action = item.quantity_value
+          variant_id = item.variant_id
+          actual_stock = variant.current_stock + item.quantity_population
+          quantity_new = actual_stock - quantity_action
+          create_variant_valuing(quantity_new, quantity_action, variant_id)
+        end
       end
     end
   end
