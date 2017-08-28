@@ -56,8 +56,8 @@ class ParcelItemTest < ActiveSupport::TestCase
   test_model_actions
   test 'method for calculate average cost amount' do
     p = parcel_items(:parcel_items_001)
-    refute_nil p.send(:average_cost_amount)
-    assert p.send(:average_cost_amount)
+    refute_nil p.send(:compute_average_cost_amount)
+    assert p.send(:compute_average_cost_amount)
   end
 
   test 'create variant valuing' do

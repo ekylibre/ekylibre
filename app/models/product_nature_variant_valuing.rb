@@ -104,13 +104,17 @@ class ProductNatureVariantValuing < Ekylibre::Record::Base
   def self.rollback_valuing(variant_id)
     valuing = ProductNatureVariantValuing.where(variant_id: variant_id)
     valuing = valuing.last(2).first
-    valuing.reload
-    valuing.update_variant(variant_id, valuing.id).reload
-    valuing.reload
-    val = ProductNatureVariantValuing.where(variant_id: variant_id)
-    val = val.last
-    val.reload
-    val.destroy
+    if valuing.nil?
+
+    else
+      valuing.reload
+      valuing.update_variant(variant_id, valuing.id).reload
+      valuing.reload
+      val = ProductNatureVariantValuing.where(variant_id: variant_id)
+      val = val.last
+      val.reload
+      val.destroy
+    end
   end
 
   def update_variant(variant_id, valuing_id)

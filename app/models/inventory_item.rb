@@ -103,7 +103,6 @@ class InventoryItem < Ekylibre::Record::Base
       many_inventory_items = inventory.items.group_by { |item| item.variant.id }
       many_inventory_items = many_inventory_items.to_a
       many_inventory_items.each do |items|
-        raise
         items.last.each do |item|
           quantity_entry = item.actual_population
           variant_id = item.variant.id
