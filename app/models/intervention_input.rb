@@ -73,6 +73,7 @@ class InterventionInput < InterventionProductParameter
 
   before_save :compute_average_cost_amount
   before_destroy :compute_rollback_average_cost_amount
+  after_update :compute_update_average_cost_amount
 
   after_save do
     if product && intervention.record?
@@ -168,8 +169,8 @@ class InterventionInput < InterventionProductParameter
         end
       end
     else
-      i = intervention.inputs.to_a
-      i.each do |item|
+      intervention = intervention.inputs.to_a
+      intervention.each do |item|
         intervention = InterventionInput.where(intervention_id: item.intervention_id)
 
         if intervention.first.variant_id != item.variant_id
@@ -177,13 +178,13 @@ class InterventionInput < InterventionProductParameter
           variant_id = item.variant_id
           quantity_new = variant.current_stock - quantity_action
           create_variant_valuing(quantity_new, quantity_action, variant_id)
-          else
-
+        else
+          old_intervention = InterventionInput.where(variant_id: variant.id)
+          reset_stock = old_intervention.quantity_value + variant.current_stock
           valuing_rollback(item.variant_id)
           quantity_action = item.quantity_value
           variant_id = item.variant_id
-          actual_stock = variant.current_stock + item.quantity_population
-          quantity_new = actual_stock - quantity_action
+          quantity_new = reset_stock - quantity_action
           create_variant_valuing(quantity_new, quantity_action, variant_id)
         end
       end

@@ -71,6 +71,7 @@ class InventoryItem < Ekylibre::Record::Base
   end
 
   before_save :compute_average_cost_amount
+  before_destroy :compute_rollback_average_cost_amount
 
   after_save do
     if reflected?
@@ -98,14 +99,44 @@ class InventoryItem < Ekylibre::Record::Base
   protected
 
   def compute_average_cost_amount
-    many_inventory_items = inventory.items.group_by { |item| item.variant.id }
-    many_inventory_items = many_inventory_items.to_a
-    many_inventory_items.each do |items|
-      items.last.each do |item|
-        quantity_entry = item.actual_population
-        variant_id = item.variant.id
-        ProductNatureVariantValuing.calculate_inventory(quantity_entry, variant_id)
+    if inventory.accounted_at.nil?
+      many_inventory_items = inventory.items.group_by { |item| item.variant.id }
+      many_inventory_items = many_inventory_items.to_a
+      many_inventory_items.each do |items|
+        raise
+        items.last.each do |item|
+          quantity_entry = item.actual_population
+          variant_id = item.variant.id
+          ProductNatureVariantValuing.calculate_inventory(quantity_entry, variant_id)
+        end
+      end
+    else
+      many_inventory_items = inventory.items.group_by { |item| item.variant.id }
+      many_inventory_items = many_inventory_items.to_a
+      many_inventory_items.each do |items|
+        variant_id = items.first
+        valuing_rollback(variant_id)
+        items.last.each do |item|
+          quantity_entry = item.actual_population
+          variant_id = item.variant.id
+          ProductNatureVariantValuing.calculate_inventory(quantity_entry, variant_id)
+        end
       end
     end
+  end
+
+  def compute_rollback_average_cost_amount
+    product
+    inventories = inventory.items.to_a
+
+    inventories.each do |item|
+      product = Product.find(item.product_id).reload
+      variant = ProductNatureVariant.find(product.variant_id).reload
+      valuing_rollback(variant.id)
+    end
+  end
+
+  def valuing_rollback(variant_id)
+    ProductNatureVariantValuing.rollback_valuing(variant_id)
   end
 end
