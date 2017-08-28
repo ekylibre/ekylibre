@@ -190,13 +190,15 @@ module Backend
       state = {}
       checked_on = params[:on] ? Date.parse(params[:on]) : Time.zone.today
       financial_year = FinancialYear.on(checked_on)
-      state[:from] = params[:from]
-      state[:to] = financial_year.currency
-      state[:exchange_rate] = if state[:from] != state[:to]
-                                I18n.currency_rate(state[:from], state[:to])
-                              else
-                                1
-                              end
+      unless financial_year.nil?
+        state[:from] = params[:from]
+        state[:to] = financial_year.currency
+        state[:exchange_rate] = if state[:from] != state[:to]
+                                  I18n.currency_rate(state[:from], state[:to])
+                                else
+                                  1
+                                end
+      end
       render json: state.to_json
     end
 
