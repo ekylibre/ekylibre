@@ -111,9 +111,9 @@ class JournalEntry < Ekylibre::Record::Base
       transition draft: :closed, if: :balanced?
       transition confirmed: :closed, if: :balanced?
     end
-    #     event :reopen do
-    #       transition :closed => :confirmed
-    #     end
+    # event :reopen do
+    #   transition :closed => :confirmed
+    # end
   end
 
   # Build an SQL condition based on options which should contains acceptable states
