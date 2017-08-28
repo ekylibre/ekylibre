@@ -76,17 +76,16 @@ class InterventionWorkingTimeDurationCalculationServiceTest < ActiveSupport::Tes
                                              product: @tractor)
 
     travel_duration = InterventionWorkingTimeDurationCalculationService
-               .new(working_params)
-               .perform(nature: :travel)
+                      .new(working_params)
+                      .perform(nature: :travel)
 
     sum_working_periods = sum_working_periods_of(participations: @participations, nature: :travel)
 
     assert_equal travel_duration, (sum_working_periods.to_d / 1).to_d
 
-
     intervention_duration = InterventionWorkingTimeDurationCalculationService
-               .new(working_params)
-               .perform(nature: :intervention)
+                            .new(working_params)
+                            .perform(nature: :intervention)
 
     sum_working_periods = sum_working_periods_of(participations: @participations, nature: :intervention)
 
@@ -100,17 +99,16 @@ class InterventionWorkingTimeDurationCalculationServiceTest < ActiveSupport::Tes
                                              product: @tool)
 
     travel_duration = InterventionWorkingTimeDurationCalculationService
-               .new(working_params)
-               .perform(nature: :travel)
+                      .new(working_params)
+                      .perform(nature: :travel)
 
     sum_working_periods = sum_working_periods_of(participations: @participations, nature: :travel)
 
     assert_equal travel_duration, (sum_working_periods.to_d / 1).to_d
 
-
     intervention_duration = InterventionWorkingTimeDurationCalculationService
-               .new(working_params)
-               .perform(nature: :intervention)
+                            .new(working_params)
+                            .perform(nature: :intervention)
 
     sum_working_periods = sum_working_periods_of(participations: @participations, nature: :intervention)
 
@@ -342,12 +340,12 @@ class InterventionWorkingTimeDurationCalculationServiceTest < ActiveSupport::Tes
       product: @third_tractor,
       working_periods_attributes: [
         {
-          started_at: @now - 3.hour,
-          stopped_at: @now - 2.hour,
+          started_at: @now - 3.hours,
+          stopped_at: @now - 2.hours,
           nature: 'travel'
         },
         {
-          started_at: @now - 2.hour,
+          started_at: @now - 2.hours,
           stopped_at: @now - 30.minutes,
           nature: 'intervention'
         },
@@ -366,12 +364,12 @@ class InterventionWorkingTimeDurationCalculationServiceTest < ActiveSupport::Tes
       product: @second_tool,
       working_periods_attributes: [
         {
-          started_at: @now - 6.hour,
-          stopped_at: @now - 3.hour,
+          started_at: @now - 6.hours,
+          stopped_at: @now - 3.hours,
           nature: 'travel'
         },
         {
-          started_at: @now - 3.hour,
+          started_at: @now - 3.hours,
           stopped_at: @now,
           nature: 'intervention'
         }
