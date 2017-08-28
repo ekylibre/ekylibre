@@ -764,6 +764,7 @@
         <page to="backend/intervention_participations#convert"/>
         <page to="backend/intervention_participations#destroy"/>
         <page to="backend/intervention_participations#update"/>
+        <page to="backend/intervention_participations#participations_modal"/>
         <page to="backend/prescriptions#index"/>
         <page to="backend/prescriptions#create"/>
         <page to="backend/prescriptions#destroy"/>

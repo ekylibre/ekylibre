@@ -773,6 +773,7 @@ spa:
     accounts: "Cuentos contables utilizados"
     accounts_only_used_at: "Solo las utilizan en"
     accounts_to_load: "Cuentas para cargar"
+    action_duration: "Duración de la acción"
     activate_entry_autocompletion: "Activar la terminación automática de entrada"
     active: "Activo"
     active_balance_sheet: "Balance activo" #?
@@ -940,6 +941,7 @@ spa:
     building_update: "Modifiar el lugar de deposito" #?
     by_year: "Por año"
     calculate: "Calcular"
+    calculated_hours: "Horas calculadas"
     calculators: "Calculadoras"
     calendar: "Calendario"
     campaign: "Campaña"
@@ -1252,6 +1254,7 @@ spa:
     # hint: "Hint: %{value}"
     historic: "Histórico"
     home: "Vuelta a la cogida de la ayuda"
+    hours: "MARIDO"
     human_working_duration: "Duración de trabajo"
     humans: "HORA"
     iban: "Numero de cuento bancario internacional (IBAN)"
@@ -1426,6 +1429,7 @@ spa:
     method: "Método"
     minimal_temperature: "Temperatura mínima"
     minimum_amount: "Monto minimo"
+    # minutes: "Min"
     missing_attributes: "Algunos atributos faltan"
     missing_help: "La página no existe"
     mobile: "Móvil"
@@ -1985,6 +1989,7 @@ spa:
     workers: "Trabajadores"
     working_duration: "Duración de trabajo"
     working_sets_stocks: "Trabajo establece las existencias"
+    # working_times: "Working times of %{name}"
     x_cashes:
       # one: "%{count} cash"
       # other: "%{count} cashes"
