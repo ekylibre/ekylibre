@@ -1491,7 +1491,7 @@ eng:
     last_purchases: "Last purchases"
     last_sales: "Last sales"
     late: "Late"
-    late_delivery: "Late delivery" #?
+    late_delivery: "Late delivery"
     letter: "Letter" #?
     letterable: "Letterable"
     lettered: "Lettered" #?
