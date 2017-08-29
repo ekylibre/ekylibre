@@ -244,7 +244,7 @@ class Purchase < Ekylibre::Record::Base
     with_accounting &&
     invoice? &&
     items.any? &&
-    TaxDeclarationItemPart.where(journal_entry_item_id: journal_entries.last.items.map(&:id)).any?
+    TaxDeclarationItemPart.where(journal_entry_item_id: journal_entries.last.items.select(&:id)).any?
   end
 
   def third
