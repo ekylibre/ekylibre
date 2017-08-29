@@ -22,9 +22,9 @@ GEM
       erubis (~> 2.7.0)
       rails-dom-testing (~> 1.0, >= 1.0.5)
       rails-html-sanitizer (~> 1.0, >= 1.0.3)
-    active_list (6.9.2)
+    active_list (6.9.3)
       arel (>= 5.0.0)
-      code_string (>= 0.0.0)
+      code_string
       i18n-complements
       rails (>= 3.2, < 5.0.0)
       rubyzip (>= 1.0)
@@ -46,7 +46,7 @@ GEM
       minitest (~> 5.1)
       thread_safe (~> 0.3, >= 0.3.4)
       tzinfo (~> 1.1)
-    acts_as_list (0.9.5)
+    acts_as_list (0.9.7)
       activerecord (>= 3.0)
     addressable (2.5.1)
       public_suffix (~> 2.0, >= 2.0.2)
@@ -65,31 +65,33 @@ GEM
       sidekiq (>= 2.11)
     arel (6.0.4)
     ast (2.3.0)
-    autoprefixer-rails (7.1.1.2)
+    autoprefixer-rails (7.1.2.3)
       execjs
     awesome_nested_set (3.1.3)
       activerecord (>= 4.0.0, < 5.2)
     bcrypt (3.1.11)
-    beardley (1.3.0)
+    beardley (1.4.2)
       rjb (>= 1.4.8)
       rjb-loader (>= 0.0.2)
-    beardley-barcode (1.0.0)
+    beardley-barcode (1.0.1)
       beardley
-    beardley-batik (1.0.0)
+    beardley-batik (1.0.1)
       beardley
-    beardley-charts (0.0.0)
+    beardley-charts (0.0.1)
       beardley
-    beardley-groovy (2.0.0)
+    beardley-groovy (2.0.1)
       beardley
-    beardley-open_sans (0.0.1)
+    beardley-open_sans (0.0.2)
       beardley
-    beardley-xml (1.1.1)
+    beardley-xml (1.1.2)
       beardley
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
     bootstrap-sass (3.3.7)
       autoprefixer-rails (>= 5.2.1)
       sass (>= 3.3.4)
+    bootstrap-slider-rails (9.8.0)
+      railties (>= 3.2, < 6.0)
     bootstrap3-datetimepicker-rails (4.17.47)
       momentjs-rails (>= 2.8.1)
     browser (2.4.0)
@@ -110,7 +112,7 @@ GEM
       capybara (>= 2.3.0, < 2.14.0)
       json
     charlock_holmes (0.7.3)
-    childprocess (0.7.0)
+    childprocess (0.7.1)
       ffi (~> 1.0, >= 1.0.11)
     climate_control (0.2.0)
     cocaine (0.5.8)
@@ -118,7 +120,7 @@ GEM
     cocoon (1.2.10)
     codacy-coverage (1.1.6)
       simplecov
-    code_analyzer (0.4.7)
+    code_analyzer (0.4.8)
       sexp_processor
     code_string (0.0.1)
     coderay (1.1.1)
@@ -164,25 +166,25 @@ GEM
     enumerize (2.1.2)
       activesupport (>= 3.2)
     erubis (2.7.0)
-    et-orbi (1.0.4)
+    et-orbi (1.0.5)
       tzinfo
-    eventmachine (1.2.3)
+    eventmachine (1.2.5)
     exception_notification (4.2.1)
       actionmailer (>= 4.0, < 6)
       activesupport (>= 4.0, < 6)
     execjs (2.7.0)
     factory_girl (4.8.0)
       activesupport (>= 3.0.0)
-    faraday (0.12.1)
+    faraday (0.12.2)
       multipart-post (>= 1.2, < 3)
-    faraday_middleware (0.11.0.1)
+    faraday_middleware (0.12.2)
       faraday (>= 0.7.4, < 1.0)
     feedjira (2.1.2)
       faraday (>= 0.9)
       faraday_middleware (>= 0.9)
       loofah (>= 2.0)
       sax-machine (>= 1.0)
-    ffaker (2.5.0)
+    ffaker (2.6.0)
     ffi (1.9.18)
     figaro (1.1.1)
       thor (~> 0.14)
@@ -196,22 +198,22 @@ GEM
       activesupport (>= 4.2.0)
     gyoku (1.3.1)
       builder (>= 2.1.2)
-    haml (5.0.1)
+    haml (5.0.2)
       temple (>= 0.8.0)
       tilt
-    hashie (3.5.5)
+    hashie (3.5.6)
     hpricot (0.8.6)
     http-cookie (1.0.3)
       domain_name (~> 0.5)
-    http_accept_language (2.1.0)
+    http_accept_language (2.1.1)
     httpi (2.4.2)
       rack
       socksify
     humanize (1.4.0)
-    i18n (0.8.4)
+    i18n (0.8.6)
     i18n-complements (1.1.0)
       i18n (>= 0.6)
-    i18n-js (3.0.0)
+    i18n-js (3.0.1)
       i18n (~> 0.6, >= 0.6.6)
     iban-tools (1.1.0)
     interception (0.5)
@@ -271,7 +273,7 @@ GEM
     mime-types-data (3.2016.0521)
     mimemagic (0.3.2)
     mini_portile2 (2.1.0)
-    minitest (5.10.2)
+    minitest (5.10.3)
     minitest-reporters (1.1.14)
       ansi
       builder
@@ -311,10 +313,12 @@ GEM
     paperclip-document (0.0.10)
       burisu-docsplit (>= 0.7.9)
       paperclip (>= 3.1, < 5.2)
-    parallel (1.11.2)
+    parallel (1.12.0)
+    parallel_tests (2.14.2)
+      parallel
     parser (2.4.0.0)
       ast (~> 2.2)
-    pg (0.21.0)
+    pg (0.20.0)
     polyglot (0.3.5)
     possibly (1.0.1)
     powerpack (0.1.1)
@@ -359,9 +363,9 @@ GEM
       rails-deprecated_sanitizer (>= 1.0.1)
     rails-html-sanitizer (1.0.3)
       loofah (~> 2.0)
-    rails_best_practices (1.18.1)
+    rails_best_practices (1.19.0)
       activesupport
-      code_analyzer (>= 0.4.3)
+      code_analyzer (>= 0.4.8)
       erubis
       i18n
       json
@@ -376,6 +380,9 @@ GEM
       rake
     raindrops (0.18.0)
     rake (12.0.0)
+    rb-fsevent (0.10.2)
+    rb-inotify (0.9.10)
+      ffi (>= 0.5.0, < 2)
     rdoc (4.3.0)
     redis (3.3.3)
     redis-namespace (1.5.3)
@@ -423,14 +430,18 @@ GEM
     rubyzip (1.2.1)
     rufus-scheduler (3.4.2)
       et-orbi (~> 1.0)
-    sass (3.4.24)
+    sass (3.5.1)
+      sass-listen (~> 4.0.0)
+    sass-listen (4.0.0)
+      rb-fsevent (~> 0.9, >= 0.9.4)
+      rb-inotify (~> 0.9, >= 0.9.7)
     sass-rails (5.0.6)
       railties (>= 4.0.0, < 6)
       sass (~> 3.1)
       sprockets (>= 2.8, < 4.0)
       sprockets-rails (>= 2.0, < 4.0)
       tilt (>= 1.1, < 3)
-    savon (2.11.1)
+    savon (2.11.2)
       akami (~> 1.2)
       builder (>= 2.1.2)
       gyoku (~> 1.2)
@@ -442,23 +453,23 @@ GEM
     sdoc (0.4.2)
       json (~> 1.7, >= 1.7.7)
       rdoc (~> 4.0)
-    selenium-webdriver (3.4.1)
+    selenium-webdriver (3.4.4)
       childprocess (~> 0.5)
       rubyzip (~> 1.0)
-    sentry-raven (2.5.2)
+    sentry-raven (2.6.2)
       faraday (>= 0.7.6, < 1.0)
     sepa_king (0.9.0)
       activemodel (>= 3.0.0)
       builder
       iban-tools
-    sexp_processor (4.9.0)
+    sexp_processor (4.10.0)
     shoulda-context (1.2.2)
     sidekiq (4.2.10)
       concurrent-ruby (~> 1.0)
       connection_pool (~> 2.2, >= 2.2.0)
       rack-protection (>= 1.5.0)
       redis (~> 3.2, >= 3.2.1)
-    sidekiq-cron (0.6.0)
+    sidekiq-cron (0.6.3)
       rufus-scheduler (>= 3.3.0)
       sidekiq (>= 4.2.1)
     sidekiq-skylight (0.2.0)
@@ -467,7 +478,7 @@ GEM
     sidekiq-unique-jobs (4.0.18)
       sidekiq (>= 2.6)
       thor
-    simple_calendar (2.2.5)
+    simple_calendar (2.2.6)
       rails (>= 3.0)
     simple_form (3.5.0)
       actionpack (> 4, < 5.2)
@@ -501,16 +512,19 @@ GEM
     therubyracer (0.12.3)
       libv8 (~> 3.16.14.15)
       ref
-    thin (1.7.1)
+    thin (1.7.2)
       daemons (~> 1.0, >= 1.0.9)
       eventmachine (~> 1.0, >= 1.0.4)
       rack (>= 1, < 3)
     thor (0.19.4)
     thread_safe (0.3.6)
-    tilt (2.0.7)
-    timecop (0.8.1)
+    tilt (2.0.8)
+    time_diff (0.3.0)
+      activesupport
+      i18n
+    timecop (0.9.1)
     timeliness (0.3.8)
-    tins (1.14.0)
+    tins (1.15.0)
     treetop (1.6.8)
       polyglot (~> 0.3)
     turbolinks (2.5.3)
@@ -532,7 +546,7 @@ GEM
       unf_ext
     unf_ext (0.0.7.4)
     unicode (0.4.4.4)
-    unicode-display_width (1.2.1)
+    unicode-display_width (1.3.0)
     unicorn (5.3.0)
       kgio (~> 2.6)
       raindrops (~> 0.7)
@@ -556,25 +570,26 @@ PLATFORMS
 
 DEPENDENCIES
   actionpack-xml_parser
-  active_list (>= 6.9.2)
+  active_list (>= 6.9.3)
   activerecord-postgis-adapter (>= 3.0.0)
   acts_as_list
   agric (~> 3.0)
   apartment (>= 1.2.0, < 2.0)
   apartment-sidekiq
   awesome_nested_set (~> 3.1.1)
-  beardley (~> 1.3.0)
-  beardley-barcode
-  beardley-batik
-  beardley-charts
-  beardley-groovy
-  beardley-open_sans
-  beardley-xml
+  beardley (~> 1.3)
+  beardley-barcode (>= 1.0.1)
+  beardley-batik (>= 1.0.1)
+  beardley-charts (>= 0.0.1)
+  beardley-groovy (>= 2.0.1)
+  beardley-open_sans (>= 0.0.2)
+  beardley-xml (>= 1.1.2)
   binding_of_caller
   bootstrap-sass (~> 3.1)
+  bootstrap-slider-rails
   bootstrap3-datetimepicker-rails
   browser
-  bullet
+  bullet (< 5.6.0)
   capybara
   capybara-webkit
   charlock_holmes
@@ -622,7 +637,8 @@ DEPENDENCIES
   omniauth-oauth2
   paperclip
   paperclip-document (> 0.0.8)
-  pg
+  parallel_tests
+  pg (~> 0.20.0)
   possibly
   pry-byebug
   pry-inline
@@ -661,6 +677,7 @@ DEPENDENCIES
   teaspoon-jasmine
   therubyracer
   thin
+  time_diff
   timecop
   treetop
   turbolinks (~> 2.0)
@@ -672,7 +689,7 @@ DEPENDENCIES
   web-console (~> 3.0)
 
 RUBY VERSION
-   ruby 2.2.3p173
+   ruby 2.3.4p301
 
 BUNDLED WITH
-   1.14.6
+   1.15.3

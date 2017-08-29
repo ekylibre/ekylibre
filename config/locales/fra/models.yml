@@ -286,6 +286,7 @@ fra:
             started_on:
               consecutive: "L’exercice comptable doit être consécutif à un autre. Il doit commencer au lendemain de la fin du précédent."
               frozen: "La date de l'exercice comptable ne peut être modifiée une fois qu'un échange a été créé."
+              on_or_after: "La date de début doit être postérieure à la date de création de la société (%{restriction})"
             stopped_on:
               end_of_month: "%{attribute} doit être une date de fin de mois"
           overlap: "%{attribute} se trouve sur un exercice existant"
@@ -301,6 +302,10 @@ fra:
               invalid_date: "La période d’amortissement doit débuter le %{start} ou en début de mois"
         incoming_parcel_item:
           greater_than_undelivered_quantity: "La quantité de produit %{product} à livrer dépasse la quantité non livrée (%{maximum}%{unit})"
+        integration:
+          attributes:
+            parameters:
+              check_errored: "La connexion au partenaire a échoué. Veuillez vérifier les informations saisies ou réessayer plus tard."
         journal:
           attributes:
             accountant:

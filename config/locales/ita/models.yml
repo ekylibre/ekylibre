@@ -163,6 +163,7 @@ ita:
             started_on:
               consecutive: "Gli esercizi devono essere consecutivi. Si deve iniziare dopo la fine del precedente."
               frozen: "La data di esercizio non può essere modificato quando è stato creato uno scambio."
+              # on_or_after: "The date selected must be posterior to society's creation date (%{restriction})"
             stopped_on:
               # end_of_month: "%{attribute} must be an end of month"
           # overlap: "%{attribute} overlaps an existing financial year"
@@ -178,6 +179,10 @@ ita:
               # invalid_date: "The depreciation must start on %{start} or on a beginning of month"
         incoming_parcel_item:
           # greater_than_undelivered_quantity: "The quantity of product %{product} to deliver is greater than undelivered quantity (%{maximum}%{unit})"
+        integration:
+          attributes:
+            parameters:
+              check_errored: "Verifica di connessione errata. Assicurati la validità del tuo contributo o riprova più tardi."
         journal:
           attributes:
             accountant:

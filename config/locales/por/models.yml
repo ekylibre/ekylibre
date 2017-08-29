@@ -154,6 +154,7 @@ por:
             started_on:
               consecutive: "Os exercícios devem ser consecutivos. Deve iniciar após o final do anterior."
               frozen: "A data de exercício não pode ser alterado quando um intercâmbio foi criado."
+              # on_or_after: "The date selected must be posterior to society's creation date (%{restriction})"
             stopped_on:
               # end_of_month: "%{attribute} must be an end of month"
           # overlap: "%{attribute} overlaps an existing financial year"
@@ -169,6 +170,10 @@ por:
               # invalid_date: "The depreciation must start on %{start} or on a beginning of month"
         incoming_parcel_item:
           # greater_than_undelivered_quantity: "The quantity of product %{product} to deliver is greater than undelivered quantity (%{maximum}%{unit})"
+        integration:
+          attributes:
+            parameters:
+              check_errored: "Cheque de conexão com erro. Certifique-se da validade da sua entrada ou tente novamente mais tarde."
         journal:
           attributes:
             accountant:

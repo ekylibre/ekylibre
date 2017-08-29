@@ -143,15 +143,20 @@ module Backend
         else
           notify_success(:journal_entry_has_been_saved_with_a_new_number, number: @journal_entry.number)
         end
+
+        # TODO: Extract this somewhere else, this isn't SRP
         # Check if the method is called from "account/:id/mark" view
-        if params[:journal_entry_items_ids]
+        if params[:journal_entry_items_ids].present?
           # Get all journal_entry_items id selected from the view
           journal_entry_items_ids = params[:journal_entry_items_ids].split(',').map(&:to_i)
-          account = JournalEntryItem.where(id: journal_entry_items_ids).first.account
-          # Get the journal_entry_item id created to balance the previous ones
-          journal_entry_items_ids.push(@journal_entry.items.where(account: account).first.id)
-          # Mark the journal_entry_items
-          account.mark(journal_entry_items_ids)
+          journal_entry_items = JournalEntryItem.where(id: journal_entry_items_ids)
+          if journal_entry_items.any?
+            account = journal_entry_items.first.account
+            # Get the journal_entry_item id created to balance the previous ones
+            journal_entry_items_ids.push(@journal_entry.items.where(account: account).first.id)
+            # Mark the journal_entry_items
+            account.mark(journal_entry_items_ids)
+          end
         end
         redirect_to params[:redirect] || {
           controller: :journal_entries,
@@ -185,13 +190,15 @@ module Backend
       state = {}
       checked_on = params[:on] ? Date.parse(params[:on]) : Time.zone.today
       financial_year = FinancialYear.on(checked_on)
-      state[:from] = params[:from]
-      state[:to] = financial_year.currency
-      state[:exchange_rate] = if state[:from] != state[:to]
-                                I18n.currency_rate(state[:from], state[:to])
-                              else
-                                1
-                              end
+      unless financial_year.nil?
+        state[:from] = params[:from]
+        state[:to] = financial_year.currency
+        state[:exchange_rate] = if state[:from] != state[:to]
+                                  I18n.currency_rate(state[:from], state[:to])
+                                else
+                                  1
+                                end
+      end
       render json: state.to_json
     end
 
