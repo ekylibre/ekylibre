@@ -227,25 +227,17 @@
     }
   });
 
-  // Nullify sibling input
+  // Nullify inputs if it filled
   $(document).on("keyup", "input[data-exclusive-nullify]", function () {
     var element = $(this);
+    var scope = $("html");
+    if (element.data("use-closest")) {
+      scope = element.closest(element.data("use-closest"));
+    }
     if (element.numericalValue() !== 0) {
-      $(element).closest('tr').find('input'+element.data('exclusive-nullify')).val('');
+      scope.find(element.data("exclusive-nullify")).val('');
     }
   });
-
-  // Nullify inputs if it filled
-  // $(document).on("keyup", "input[data-exclusive-nullify]", function () {
-  //   var element = $(this);
-  //   var scope = $("html");
-  //   if (element.data("use-closest")) {
-  //     scope = element.closest(element.data("use-closest"));
-  //   }
-  //   if (element.numericalValue() !== 0) {
-  //     scope.find(element.data("exclusive-nullify")).val('');
-  //   }
-  // });
 
   $(document).on("click", "*[data-click]", function () {
     $($(this).data("click")).each(function () {
