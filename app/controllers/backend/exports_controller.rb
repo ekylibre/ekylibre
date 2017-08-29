@@ -41,13 +41,11 @@ module Backend
 
       @aggregator = klass.new(params)
       t3e name: klass.human_name
-      if params[:format] == 'pdfx'
-        binding.pry
-        ExportJob.perform_later(JSON(params))
-        # binding.pry
-        # respond_with @aggregator
+      if params[:format] == 'pdf'
+        ExportJob.perform_later(JSON(params), current_user.id)
+        notify_success(:document_in_preparation)
+        redirect_to :back
       else
-        # binding.pry
         respond_with @aggregator
       end
     end
