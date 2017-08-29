@@ -394,7 +394,6 @@ class Intervention < Ekylibre::Record::Base
     activities.map(&:name).to_sentence
   end
 
-
   # The Procedo::Procedure behind intervention
   def procedure
     Procedo.find(procedure_name)
