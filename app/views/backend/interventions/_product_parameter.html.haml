@@ -30,6 +30,7 @@
             %h3{ class: "period-label" }= t('enumerize.intervention_working_period.nature.intervention')
           = add_working_period_cost(product_parameter, nature: :intervention)
 
+      - if !participation.nil? || is_equipment || product.is_a?(Equipment)
         .total
           %h3{ class: "total-label" }= t('labels.total')
 
