@@ -1,6 +1,15 @@
 ((E, $) ->
   'use strict'
 
+  $(document).on 'shown.bs.modal', '#working_times', (event) ->
+    participations = $(event.target).find('.participations .participation')
+
+    if participations.length > 0
+      element = $(event.target).find('.participations .participation').first()
+
+      E.interventionParticipations.changeWorkingPeriod(element)
+
+
   $(document).on 'click', '#working_times .clear-period', (event) ->
     element = $(event.target)
     participation = element.closest('.participation')
@@ -100,16 +109,16 @@
     participation.working_periods_attributes = workingPeriods
     jsonParticipation = JSON.stringify(participation)
 
+    concernedProductField = $('.nested-fields .selector .selector-value[value="' + participation.product_id + '"]')
     participationsCount = $('input[type="hidden"].intervention-participation').length
     existingParticipation = $('.intervention-participation[data-product-id="' + participation.product_id + '"]')
 
     if existingParticipation.length > 0
       existingParticipation.val(jsonParticipation)
     else
-      $('.edit_intervention, .new_intervention').find('.form-fields').append('<input type="hidden" class="intervention-participation" name="intervention[participations_attributes][' + participationsCount + ']" value=\'' + jsonParticipation + '\' data-product-id="' + participation.product_id  + '"></input>')
+      $(concernedProductField).closest('.nested-fields').append('<input type="hidden" class="intervention-participation" name="intervention[participations_attributes][' + participationsCount + ']" value=\'' + jsonParticipation + '\' data-product-id="' + participation.product_id  + '"></input>')
 
 
-    concernedProductField = $('.nested-fields .selector .selector-value[value="' + participation.product_id + '"]')
     nestedFieldBlock = concernedProductField.closest('.nested-fields')
     productFieldPicto = nestedFieldBlock.find('.picto-timer-off')
 
