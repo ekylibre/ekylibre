@@ -7,4 +7,7 @@
   - k.number :amount_range_crit
   - k.multi_choice :lettering_state, [:lettered, :unlettered, :partially_lettered].map{ |s| [s.tl, s] }, label: :lettering_state.tl
 
+- main_toolbar do |t|
+  = link_to :export.tl, { controller: :exports, action: :show, id: controller_name.singularize }, { class: 'btn btn-default' }
+
 = main_list(:journal_entry_items)
