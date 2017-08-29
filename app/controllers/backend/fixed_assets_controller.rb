@@ -31,7 +31,6 @@ module Backend
     #   :variant_id
     #   :activity_id
     def self.fixed_assets_conditions
-      code = ''
       code = search_conditions(fixed_assets: %i[name number description]) + " ||= []\n"
       code << "if params[:period].present? && params[:period].to_s != 'all'\n"
       code << "  c[0] << ' AND #{FixedAsset.table_name}.started_on BETWEEN ? AND ?'\n"

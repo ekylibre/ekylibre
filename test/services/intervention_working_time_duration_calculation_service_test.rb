@@ -66,7 +66,53 @@ class InterventionWorkingTimeDurationCalculationServiceTest < ActiveSupport::Tes
                .new(working_params)
                .perform(nature: :intervention)
 
-    assert_equal duration, @intervention.working_duration
+    assert_equal duration, @intervention.working_duration.to_d / 3600
+  end
+
+  test 'tractor working duration without any workers return tractor times' do
+    @participations = [@second_tractor_participation]
+
+    working_params = working_duration_params(participations: @participations,
+                                             product: @tractor)
+
+    travel_duration = InterventionWorkingTimeDurationCalculationService
+                      .new(working_params)
+                      .perform(nature: :travel)
+
+    sum_working_periods = sum_working_periods_of(participations: @participations, nature: :travel)
+
+    assert_equal travel_duration, (sum_working_periods.to_d / 1).to_d
+
+    intervention_duration = InterventionWorkingTimeDurationCalculationService
+                            .new(working_params)
+                            .perform(nature: :intervention)
+
+    sum_working_periods = sum_working_periods_of(participations: @participations, nature: :intervention)
+
+    assert_equal intervention_duration, (sum_working_periods.to_d / 1).to_d
+  end
+
+  test 'tool working duration without any workers return tool times' do
+    @participations = [@second_tool_participation]
+
+    working_params = working_duration_params(participations: @participations,
+                                             product: @tool)
+
+    travel_duration = InterventionWorkingTimeDurationCalculationService
+                      .new(working_params)
+                      .perform(nature: :travel)
+
+    sum_working_periods = sum_working_periods_of(participations: @participations, nature: :travel)
+
+    assert_equal travel_duration, (sum_working_periods.to_d / 1).to_d
+
+    intervention_duration = InterventionWorkingTimeDurationCalculationService
+                            .new(working_params)
+                            .perform(nature: :intervention)
+
+    sum_working_periods = sum_working_periods_of(participations: @participations, nature: :intervention)
+
+    assert_equal intervention_duration, (sum_working_periods.to_d / 1).to_d
   end
 
   test 'test tractor calculated working duration' do
@@ -203,8 +249,20 @@ class InterventionWorkingTimeDurationCalculationServiceTest < ActiveSupport::Tes
       variant: ProductNatureVariant.where(variety: 'tractor').first
     )
 
+    @third_tractor = Equipment.create!(
+      name: 'Fake third tractor',
+      variety: 'tractor',
+      variant: ProductNatureVariant.where(variety: 'tractor').first
+    )
+
     @tool = Equipment.create!(
       name: 'Fake seeder',
+      variety: 'trailed_equipment',
+      variant: ProductNatureVariant.where(variety: 'trailed_equipment').first
+    )
+
+    @second_tool = Equipment.create!(
+      name: 'Fake second seeder',
       variety: 'trailed_equipment',
       variant: ProductNatureVariant.where(variety: 'trailed_equipment').first
     )
@@ -273,6 +331,49 @@ class InterventionWorkingTimeDurationCalculationServiceTest < ActiveSupport::Tes
       request_compliant: false,
       procedure_name: :sowing,
       product: @second_tractor
+    )
+
+    @third_tractor_participation = InterventionParticipation.create!(
+      state: :done,
+      request_compliant: false,
+      procedure_name: :sowing,
+      product: @third_tractor,
+      working_periods_attributes: [
+        {
+          started_at: @now - 3.hours,
+          stopped_at: @now - 2.hours,
+          nature: 'travel'
+        },
+        {
+          started_at: @now - 2.hours,
+          stopped_at: @now - 30.minutes,
+          nature: 'intervention'
+        },
+        {
+          started_at: @now - 30.minutes,
+          stopped_at: @now,
+          nature: 'intervention'
+        }
+      ]
+    )
+
+    @second_tool_participation = InterventionParticipation.create!(
+      state: :done,
+      request_compliant: false,
+      procedure_name: :sowing,
+      product: @second_tool,
+      working_periods_attributes: [
+        {
+          started_at: @now - 6.hours,
+          stopped_at: @now - 3.hours,
+          nature: 'travel'
+        },
+        {
+          started_at: @now - 3.hours,
+          stopped_at: @now,
+          nature: 'intervention'
+        }
+      ]
     )
 
     @participations = [@alice_participation, @john_participation]
