@@ -1085,7 +1085,6 @@ eng:
     beta: "Beta feature"
     beta_description: "This feature is currently under development and as such its results should not be taken at face value."
     body: "Body of the message"
-    booking_text: "Booking text"
     bookkeep: "Bookkeep" #?
     bookkeep_with_payment: "Bookkeep with payment" #?
     budget: "Budget"
@@ -1289,6 +1288,7 @@ eng:
     entries: "Entries" #?
     entries_to_point: "Entries pointing to" #?!
     entry_items: "Entry items" #?
+    entry_item_label: "Booking text"
     equipment: "Equipment" #?
     equipment_name: "Name of equipment" #?
     equipments: "Equipment"
