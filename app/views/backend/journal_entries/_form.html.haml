@@ -50,6 +50,9 @@
               %td#entry-real-credit.decimal{data: { use: "tbody.nested-fields input.real-credit", calculate_round: precision } }= f.object.real_credit
               %td.txt= f.object.journal.currency
               %th.act
+              %input#real-debit-balance{ type: :hidden, data: { balance: "#entry\-real\-debit - #entry\-real\-credit" } }
+              %input#real-credit-balance{ type: :hidden, data: { balance: "#entry\-real\-credit - #entry\-real\-debit" } }
+              %input#account-id{ type: :hidden, value: f.object.journal.cashes.any? ? f.object.journal.cashes.first.main_account.id : nil }
             %tr#subtotal.subtotal.currency-change{ data: { valid_if_equality_between: "#entry-debit, #entry-credit", submit_if_valid: false } }
               - financial_year_precision = financial_year ? Nomen::Currency[financial_year.currency].precision : 3
               %th{ colspan: 3 + budget_size + team_size }= :total.tl
