@@ -11,17 +11,17 @@ class ExportJob < ActiveJob::Base
     name = params['template'].to_i
 
     unless template = DocumentTemplate.find_active_template(name)
-      raise StandardError.new("Can not find template for \#{name.inspect}")
+      raise StandardError, "Can not find template for \#{name.inspect}"
     end
 
     filename = "#{klass.human_name}.#{format}"
 
     key = params['key'] || SecureRandom.hex(2)
-  # Export & send file
+    # Export & send file
     begin
       # Export the file
       path = template.export(aggregator.to_xml, key, format)
-      document_id = Document.find_by_key(key).id
+      document_id = Document.find_by(key: key).id
       # Send a notification to user
       notification = user.notifications.build(valid_generation_notification_params(path, filename, document_id))
     rescue => error
@@ -32,22 +32,21 @@ class ExportJob < ActiveJob::Base
   end
 end
 
-
-def error_generation_notification_params(filename, id, error)
+def error_generation_notification_params(_filename, id, error)
   {
     message: 'error_during_file_generation',
     level: :error,
     target_type: 'Document',
     target_url: backend_export_path(id),
     interpolations: {
-      error_message: error,
+      error_message: error
     }
   }
 end
 
-def valid_generation_notification_params(path, filename, document_id)
+def valid_generation_notification_params(_path, _filename, document_id)
   {
-    message: "file_generated",
+    message: 'file_generated',
     level: :success,
     target_type: 'Document',
     target_url: backend_document_path(document_id),

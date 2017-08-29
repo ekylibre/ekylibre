@@ -5,7 +5,7 @@ module Backend
     include ActiveJob::TestHelper
     test 'Show with pdf Should create a job' do
       sign_in_user
-      request.env["HTTP_REFERER"] = 'http://test.com/sessions/new'
+      request.env['HTTP_REFERER'] = 'http://test.com/sessions/new'
       get :show, id: 'fr_pcg82_balance_sheet', format: 'pdf'
       assert_enqueued_jobs 1
       assert_response :redirect
@@ -33,7 +33,7 @@ module Backend
     def set_pref(value)
       pref = @user.preferences.find_or_initialize_by(name: 'show_export_preview')
       pref.boolean_value = value
-      pref.nature= :boolean
+      pref.nature = :boolean
       pref.save
     end
   end

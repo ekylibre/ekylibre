@@ -68,10 +68,10 @@ class DocumentTemplate < Ekylibre::Record::Base
     where(nature: natures, active: true).order(:name)
   }
 
-  scope :find_active_template, -> (name) do
-    where(active:true)
-    .where(name.is_a?(Integer) ? {id: name.to_i} : {by_default: true, nature: name.to_s})
-    .first
+  scope :find_active_template, ->(name) do
+    where(active: true)
+      .where(name.is_a?(Integer) ? { id: name.to_i } : { by_default: true, nature: name.to_s })
+      .first
   end
 
   protect(on: :destroy) do

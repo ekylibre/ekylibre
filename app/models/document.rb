@@ -71,7 +71,6 @@ class Document < Ekylibre::Record::Base
   delegate :name, to: :template, prefix: true
   acts_as_numbered
 
-
   # Returns the matching unique document for the given nature and key
   def self.of(nature, key)
     where(nature: nature.to_s, key: key.to_s)
