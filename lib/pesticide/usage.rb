@@ -10,9 +10,8 @@ module Pesticide
       @issue = attributes.delete(:issue)
       @pre_harvest_interval = attributes[:pre_harvest_interval].in(:day) if attributes[:pre_harvest_interval]
       @max_inputs_count = attributes[:max_inputs_count]
-      if attributes[:untreated_zone_distance]
-        attributes[:untreated_zone_distance] += 'm' if attributes[:untreated_zone_distance] =~ /\A-?([\,\.]\d+|\d+([\,\.]\d+)?)\z/
-        @untreated_zone_margin = Measure.new(attributes[:untreated_zone_distance])
+      if untreated_zone = attributes[:untreated_zone_distance]
+        @untreated_zone_margin = untreated_zone =~ /\A-?([\,\.]\d+|\d+([\,\.]\d+)?)\z/ ? Measure.new(untreated_zone.to_f, :meter) : Measure.new(untreated_zone)
       end
     end
 
