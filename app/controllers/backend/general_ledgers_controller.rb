@@ -33,13 +33,15 @@ module Backend
       code.c
     end
 
-    list(:journal_entry_items, conditions: list_conditions, joins: %i[entry account], order: "accounts.number, journal_entries.number, #{JournalEntryItem.table_name}.position") do |t|
+    list(:journal_entry_items, conditions: list_conditions, joins: %i[entry account journal], order: "accounts.number, journal_entries.number, #{JournalEntryItem.table_name}.position") do |t|
       t.column :account, url: true
       t.column :account_number, through: :account, label_method: :number, url: true, hidden: true
       t.column :account_name, through: :account, label_method: :name, url: true, hidden: true
       t.column :entry_number, url: true
+      t.column :code, through: :journal, label: :journal
       t.column :printed_on
       t.column :name
+      t.column :reference_number, through: :entry
       t.column :variant, url: true, hidden: true
       t.column :letter
       t.column :real_debit,  currency: :real_currency, hidden: true
