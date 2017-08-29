@@ -5,12 +5,13 @@
   = t.edit resource if resource.updateable?
   = t.destroy
 
+= main_state_bar(resource, disable_transitions: true)
+
 = main_informations attachment: true do
   = attributes_list do |l|
     - l.attribute :number
     - l.attribute :printed_on
     - l.attribute :created_at
-    - l.attribute :state_label
     - if resource.resource
       - l.attribute :resource, url: true
     - l.attribute :journal, url: true
