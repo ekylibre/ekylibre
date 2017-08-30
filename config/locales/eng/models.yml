@@ -33,7 +33,7 @@ eng:
       fixed_asset_depreciation:
         asset_amount: "Accountable value"
       journal_entry_item:
-        name: "Booking text"
+        name: "Entry item label"
       land_parcel:
         born_at: "Created at"
       land_parcel_group:
