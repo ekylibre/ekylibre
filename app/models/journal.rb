@@ -100,7 +100,6 @@ class Journal < Ekylibre::Record::Base
 
   # this method is .alled before creation or validation method.
   before_validation do
-    self.name = nature.l if name.blank? && nature
     if eoc = Entity.of_company
       self.currency ||= eoc.currency
     end
@@ -231,6 +230,11 @@ class Journal < Ekylibre::Record::Base
         )
       end
     end
+  end
+
+  def writable_on?(printed_on)
+    printed_on > self.closed_on &&
+      FinancialYearExchange.where('? BETWEEN started_on AND stopped_on', printed_on).empty?
   end
 
   # Test if journal is closable
@@ -446,7 +450,7 @@ class Journal < Ekylibre::Record::Base
     items += conn.select_rows(query)
 
     # Sub-totals
-    for name, value in options.select { |k, v| k.to_s.match(/^level_\d+$/) && v.to_i == 1 }
+    options.select { |k, v| k.to_s.match(/^level_\d+$/) && v.to_i == 1 }.each do |name, _value|
       level = name.split(/\_/)[-1].to_i
       query = "SELECT SUBSTR(#{accounts}.number, 1, #{level}) AS subtotal, -2, sum(COALESCE(#{journal_entry_items}.debit, 0)), sum(COALESCE(#{journal_entry_items}.credit, 0)), sum(COALESCE(#{journal_entry_items}.debit, 0)) - sum(COALESCE(#{journal_entry_items}.credit, 0)), SUBSTR(#{accounts}.number, 1, #{level})||'#{'Z' * (16 - level)}' AS skey"
       query << from_where
@@ -478,6 +482,6 @@ class Journal < Ekylibre::Record::Base
       items += conn.select_rows(query)
     end
 
-    items.sort { |a, b| a[5] <=> b[5] }
+    items.sort_by { |a| a[5] }
   end
 end

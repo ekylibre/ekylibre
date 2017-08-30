@@ -111,10 +111,15 @@ class PurchaseItem < Ekylibre::Record::Base
     self.quantity ||= 0
     self.reduction_percentage ||= 0
 
-    if preexisting_asset
-      self.depreciable_product = nil
+    if fixed
+      if preexisting_asset
+        self.depreciable_product = nil
+      else
+        self.fixed_asset = nil
+      end
     else
       self.fixed_asset = nil
+      self.depreciable_product = nil
     end
 
     if tax && unit_pretax_amount
@@ -131,7 +136,7 @@ class PurchaseItem < Ekylibre::Record::Base
     end
 
     if variant
-      self.label ||= variant.commercial_name
+      self.label = variant.commercial_name
       self.account = if fixed && purchase.purchased?
                        # select outstanding_assets during purchase
                        Account.find_or_import_from_nomenclature(:outstanding_assets)
@@ -193,7 +198,7 @@ class PurchaseItem < Ekylibre::Record::Base
     }
     asset_name = parcel_items.collect(&:name).to_sentence if products.any?
     asset_name ||= name
-    name_duplicate_count = FixedAsset.where(name: asset_name).count
+    name_duplicate_count = FixedAsset.where('name ~ ?', "^#{Regexp.escape(name)} ?\\d*$").count
     unless name_duplicate_count.zero?
       unique_identifier = (name_duplicate_count + 1).to_s(36).upcase
       asset_name = "#{asset_name} #{unique_identifier}"

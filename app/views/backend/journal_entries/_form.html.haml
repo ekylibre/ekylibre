@@ -2,6 +2,7 @@
   = field_set do
     #journal-entry-form{ data: { with_change: (f.object.need_currency_change? ? 'true' : 'false'), change_url: currency_state_backend_journal_entries_path(from: f.object.journal.currency) } }
       = hidden_field_tag :affair_id, params[:affair_id]
+      = hidden_field_tag :journal_entry_items_ids, params[:journal_entry_items_ids]
       = f.association :journal, as: :hidden
       = field JournalEntry.human_attribute_name(:journal), f.object.journal.name
       - if f.object.new_record?
@@ -58,7 +59,7 @@
               %td.financial-year-currency.txt= financial_year ? financial_year.currency : '¤'
               %th.act
 
-          = f.simple_fields_for :items, f.object.items.sort_by { |i| i.position.to_i } do |item|
+          = f.simple_fields_for :items, f.object.items.sort_by { |item| [item.position ? 0 : 1, item.position] } do |item|
             = render 'item_fields', f: item, currency: f.object.journal.currency
 
   = f.attachments_field_set
@@ -75,3 +76,4 @@
       .activity-family-body
         - journals.where(nature: n).each do |journal|
           = link_to(journal.name, params.merge(journal_id: journal.id), class: 'btn btn-lg')
+  - f.clear_actions!

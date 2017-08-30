@@ -10,13 +10,11 @@
 - main_toolbar do |t|
   = t.new params: { redirect: nil }
   = t.export :fixed_asset_registry, key: Time.zone.now.to_s, resource: @fixed_assets
-  %span.depreciation-trigger.btn-group
-    - if reading_ltr?
-      = link_to :account_for.tl, { action: :depreciate_up_to, depreciation_date: params[:'depreciation-date'] }, { class: 'btn btn-default', id: 'depreciate_up_to', 'data-update-link-with': '#depreciation-date' }
-      = content_tag(:span, :up_to.tl.downcase, class: 'add-on')
-      %input#depreciation-date{ type: 'date', value: params[:'depreciation-date'] }
-    - else
-      %input#depreciation-date{ type: 'date', value: params[:'depreciation-date'] }
-      = content_tag(:span, :up_to.tl.downcase, class: 'add-on')
-      = link_to :account_for.tl, { action: :depreciate_up_to, depreciation_date: params[:'depreciation-date'] }, { class: 'btn btn-default', id: 'depreciate_up_to', 'data-update-link-with': '#depreciation-date' }
+
+  %span.btn-group.action-form
+    - depreciate_until = params[:until].to_s =~ /\A\d\d\d\d\-\d\d\-\d\d\z/ ? params[:until].to_date : (Time.zone.today - 1.month).end_of_month
+    = link_to :account_for.tl, { action: :depreciate_all, until: depreciate_until.iso8601, redirect: request.fullpath }, { class: 'btn btn-default', data: { confirm: :are_you_sure.tl, update_link_with: '#depreciate-fixed-assets-until' }, method: :post }
+    %span.add-on= :up_to.tl.downcase
+    = date_field_tag(:until, depreciate_until, id: 'depreciate-fixed-assets-until', data: { max_date: Time.zone.today.iso8601 })
+
 = main_list

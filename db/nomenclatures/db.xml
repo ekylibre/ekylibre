@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
-<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20170407214236">
+<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20170803164344">
   <nomenclature name="abilities" translateable="true">
     <properties>
-      <property name="parameters" type="choice_list" choices="variety, issue_nature" required="true"/>
+      <property name="parameters" type="choice_list" choices="variety, issue_nature"/>
     </properties>
     <items>
       <item name="acidify" parameters="variety"/>
@@ -81,10 +81,10 @@
   </nomenclature>
   <nomenclature name="accounts" translateable="true">
     <properties>
-      <property name="debtor" type="boolean" required="true" default="false"/>
-      <property name="fr_pcg82" type="string" required="true" fallbacks="fr_pcga"/>
-      <property name="fr_pcga" type="string" required="true" fallbacks="fr_pcg82"/>
-      <property name="pt_snc" type="string" required="true"/>
+      <property name="debtor" type="boolean" default="false"/>
+      <property name="fr_pcg82" type="string" fallbacks="fr_pcga"/>
+      <property name="fr_pcga" type="string" fallbacks="fr_pcg82"/>
+      <property name="pt_snc" type="string"/>
     </properties>
     <items>
       <item name="accrued_bank_interests" fr_pcg82="518"/>
@@ -384,7 +384,7 @@
       <item name="participations" fr_pcg82="26" pt_snc="41"/>
       <item name="particular_operation_with_state" fr_pcg82="443"/>
       <item name="payment_guarantees" fr_pcg82="275"/>
-      <item name="pending_deposit_payments" fr_pcg82="511"/>
+      <item name="pending_deposit_payments" fr_pcg82="511" pt_snc="18"/>
       <item name="plant_derivative_stock" fr_pcga="374"/>
       <item name="plant_derivatives_revenues" fr_pcga="701"/>
       <item name="plant_medicine_matter_expenses" fr_pcga="6013"/>
@@ -519,9 +519,9 @@
   </nomenclature>
   <nomenclature name="activity_families" translateable="true">
     <properties>
-      <property name="cultivation_variety" type="item" choices="varieties" required="true"/>
+      <property name="cultivation_variety" type="item" choices="varieties"/>
       <property name="nature" type="choice" choices="main, auxiliary, standalone" required="true" default="main"/>
-      <property name="support_variety" type="item" choices="varieties" required="true"/>
+      <property name="support_variety" type="item" choices="varieties"/>
     </properties>
     <items>
       <item name="administering" nature="auxiliary"/>
@@ -535,8 +535,8 @@
   </nomenclature>
   <nomenclature name="administrative_area_natures" translateable="true">
     <properties>
-      <property name="country" type="item" choices="countries" required="true"/>
-      <property name="parent" type="item" choices="administrative_area_natures" required="true"/>
+      <property name="country" type="item" choices="countries"/>
+      <property name="parent" type="item" choices="administrative_area_natures"/>
     </properties>
     <items>
       <item name="france_commune" parent="france_department" country="fr"/>
@@ -546,9 +546,9 @@
   </nomenclature>
   <nomenclature name="administrative_areas" translateable="true">
     <properties>
-      <property name="code" type="string" required="true"/>
-      <property name="nature" type="item" choices="administrative_area_natures" required="true"/>
-      <property name="parent_area" type="item" choices="administrative_areas" required="true"/>
+      <property name="code" type="string"/>
+      <property name="nature" type="item" choices="administrative_area_natures"/>
+      <property name="parent_area" type="item" choices="administrative_areas"/>
     </properties>
     <items>
       <item name="france_department_ain" code="FR-01" nature="france_department" parent_area="france_region_rhone_alpes"/>
@@ -684,7 +684,7 @@
   <nomenclature name="analysis_natures" translateable="true">
     <properties>
       <property name="items" type="item_list" choices="indicators" required="true"/>
-      <property name="target_derivative_of" type="item" choices="varieties" required="true"/>
+      <property name="target_derivative_of" type="item" choices="varieties"/>
       <property name="target_variety" type="item" choices="varieties" required="true"/>
     </properties>
     <items>
@@ -726,8 +726,8 @@
   </nomenclature>
   <nomenclature name="certifications" translateable="true">
     <properties>
-      <property name="labels" type="item_list" choices="certification_labels" required="true"/>
-      <property name="land" type="item" choices="lands" required="true"/>
+      <property name="labels" type="item_list" choices="certification_labels"/>
+      <property name="land" type="item" choices="lands"/>
     </properties>
     <items>
       <item name="bordeaux_blanc" labels="aop, aoc" land="bordeaux"/>
@@ -747,7 +747,7 @@
   </nomenclature>
   <nomenclature name="chemical_classifications" translateable="true">
     <properties>
-      <property name="code" type="string" required="true"/>
+      <property name="code" type="string"/>
     </properties>
     <items>
       <item name="dsd_corrosive" code="C"/>
@@ -1233,13 +1233,13 @@
     <properties>
       <property name="atomic_number" type="integer" required="true"/>
       <property name="atomic_weight" type="decimal" required="true"/>
-      <property name="boil_temperature" type="decimal" required="true"/>
-      <property name="electro_negativity" type="decimal" required="true"/>
-      <property name="group" type="integer" required="true"/>
-      <property name="mass_density" type="decimal" required="true"/>
-      <property name="melt_temperature" type="decimal" required="true"/>
-      <property name="period" type="integer" required="true"/>
-      <property name="specific_heat_capacity" type="decimal" required="true"/>
+      <property name="boil_temperature" type="decimal"/>
+      <property name="electro_negativity" type="decimal"/>
+      <property name="group" type="integer"/>
+      <property name="mass_density" type="decimal"/>
+      <property name="melt_temperature" type="decimal"/>
+      <property name="period" type="integer"/>
+      <property name="specific_heat_capacity" type="decimal"/>
       <property name="symbol" type="string" required="true"/>
     </properties>
     <items>
@@ -1365,8 +1365,8 @@
   </nomenclature>
   <nomenclature name="countries" translateable="true">
     <properties>
-      <property name="ednotif_eu" type="boolean" required="true" default="false"/>
-      <property name="number" type="string" required="true"/>
+      <property name="ednotif_eu" type="boolean" default="false"/>
+      <property name="number" type="string"/>
     </properties>
     <items>
       <item name="ad"/>
@@ -1664,12 +1664,12 @@
   </nomenclature>
   <nomenclature name="currencies" translateable="true">
     <properties>
-      <property name="active" type="boolean" required="true" default="false"/>
-      <property name="cash" type="string_list" required="true"/>
-      <property name="countries" type="item_list" choices="countries" required="true"/>
+      <property name="active" type="boolean" default="false"/>
+      <property name="cash" type="string_list"/>
+      <property name="countries" type="item_list" choices="countries"/>
       <property name="number" type="string" required="true" default="2"/>
       <property name="precision" type="integer" required="true" default="2"/>
-      <property name="symbol" type="string" required="true"/>
+      <property name="symbol" type="string"/>
     </properties>
     <items>
       <item name="AED" precision="2" active="true" countries="ae" number="784"/>
@@ -1845,7 +1845,7 @@
   </nomenclature>
   <nomenclature name="delivery_modes" translateable="true">
     <properties>
-      <property name="incoterm" type="choice" choices="EXW, FCA, CPT, CIP, DAT, DAP, DDP, FAS, FOB, CFR, CIF" required="true"/>
+      <property name="incoterm" type="choice" choices="EXW, FCA, CPT, CIP, DAT, DAP, DDP, FAS, FOB, CFR, CIF"/>
     </properties>
     <items>
       <item name="delivered_at_place" incoterm="DAP"/>
@@ -1914,7 +1914,7 @@
   </nomenclature>
   <nomenclature name="document_natures" translateable="true">
     <properties>
-      <property name="category" type="item_list" choices="document_categories" required="true"/>
+      <property name="category" type="item_list" choices="document_categories"/>
     </properties>
     <items>
       <item name="account_journal_entry_sheet" category="accountancy"/>
@@ -1977,8 +1977,8 @@
   </nomenclature>
   <nomenclature name="entity_link_natures" translateable="true" notions="entity, linked">
     <properties>
-      <property name="entity" type="symbol" required="true"/>
-      <property name="linked" type="symbol" required="true"/>
+      <property name="entity" type="symbol"/>
+      <property name="linked" type="symbol"/>
       <property name="symmetric" type="boolean" required="true" default="false"/>
     </properties>
     <items>
@@ -2051,8 +2051,8 @@
   </nomenclature>
   <nomenclature name="identifier_natures" translateable="true">
     <properties>
-      <property name="fallbacks" type="string_list" required="true"/>
-      <property name="password" type="boolean" required="true"/>
+      <property name="fallbacks" type="string_list"/>
+      <property name="password" type="boolean"/>
     </properties>
     <items>
       <item name="cartodb_api_key"/>
@@ -2079,16 +2079,16 @@
   </nomenclature>
   <nomenclature name="indicators" translateable="true">
     <properties>
-      <property name="choices" type="nomenclature" required="true"/>
-      <property name="curve" type="choice" choices="line, spline, step, bar" required="true" default="spline"/>
+      <property name="choices" type="nomenclature"/>
+      <property name="curve" type="choice" choices="line, spline, step, bar" default="spline"/>
       <property name="datatype" type="choice" choices="string, integer, decimal, boolean, choice, measure, point, geometry, multi_polygon" required="true"/>
-      <property name="gathering" type="choice" choices="proportional_to_population" required="true"/>
-      <property name="individual_identifier" type="boolean" required="true"/>
-      <property name="interpolation" type="choice" choices="none, previous, nearest, linear, sine" required="true" default="previous"/>
+      <property name="gathering" type="choice" choices="proportional_to_population"/>
+      <property name="individual_identifier" type="boolean"/>
+      <property name="interpolation" type="choice" choices="none, previous, nearest, linear, sine" default="previous"/>
       <property name="probe" type="boolean" required="true" default="false"/>
-      <property name="related_to" type="choice" choices="whole, individual" required="true" default="individual"/>
+      <property name="related_to" type="choice" choices="whole, individual" default="individual"/>
       <property name="sampling_temporal_mode" type="choice" choices="instant, period" required="true" default="instant"/>
-      <property name="unit" type="item" choices="units" required="true"/>
+      <property name="unit" type="item" choices="units"/>
     </properties>
     <items>
       <item name="aluminium_concentration" datatype="measure" unit="parts_per_million"/>
@@ -2286,68 +2286,119 @@
   </nomenclature>
   <nomenclature name="issue_natures" translateable="true">
     <properties>
-      <property name="cause" type="item_list" choices="varieties" required="true"/>
+      <property name="cause" type="item_list" choices="varieties"/>
       <property name="target" type="item_list" choices="varieties" required="true"/>
-      <property name="treatments" type="item_list" choices="procedure_natures" required="true"/>
+      <property name="treatments" type="item_list" choices="procedure_natures"/>
     </properties>
     <items>
       <item name="acarine_gall_mite" parent="insecta_disease" cause="phytoptus_avellanae" target="corylus"/>
       <item name="accident" parent="issue"/>
+      <item name="alternaria" parent="fungus_disease" cause="fungus" target="plant"/>
+      <item name="amaranthus" parent="plant_disease" cause="amaranthus" target="plant"/>
       <item name="anthracnose" parent="fungus_disease" cause="fungus" target="juglans"/>
       <item name="aphid" parent="insecta_disease" cause="aphidoidea" target="plant"/>
       <item name="bacteria_disease" parent="disease" target="bioproduct"/>
+      <item name="bacterial_disease" parent="bacteria_disease" target="plant"/>
       <item name="bacterial_leaf_blight" parent="bacteria_disease" target="poa"/>
       <item name="bacterial_streak" parent="bacteria_disease" target="poa"/>
       <item name="bacteriosis" parent="bacteria_disease" cause="xanthomonas_arboricola" target="juglans"/>
       <item name="bad_vegetative_growth_conditions" parent="disease" target="plant"/>
+      <item name="barley_helminthosporiosis" parent="fungus_disease" cause="drechslera_graminea" target="hordeum"/>
+      <item name="bidens_tripartita" parent="plant_disease" cause="bidens_tripartita" target="plant"/>
       <item name="black_rust" parent="fungus_disease" cause="fungus" target="poa"/>
+      <item name="brown_rust" parent="fungus_disease" cause="puccinia_recondita" target="poaceae"/>
+      <item name="cabbage_maggot" parent="insecta_disease" cause="delia_radicum" target="brassica_oleracea"/>
+      <item name="capsella" parent="plant_disease" cause="capsella" target="plant"/>
+      <item name="carrot_fly" parent="insecta_disease" cause="psila_rosae" target="daucus"/>
+      <item name="carrot_mildiew" parent="fungus_disease" cause="plasmopara_nivea" target="daucus"/>
+      <item name="carrot_powdery_mildew" parent="fungus_disease" cause="erysiphe" target="daucus"/>
+      <item name="cassidinae" parent="insecta_disease" cause="cassidinae" target="plant"/>
+      <item name="caterpillar" parent="insecta_disease" cause="lepidoptera" target="plant"/>
+      <item name="cercosporiosis" parent="fungus_disease" cause="cercospora" target="plant"/>
+      <item name="cereal_mildiew" parent="fungus_disease" cause="sclerophthora_macrospora" target="poaceae"/>
       <item name="chenopodium_album" parent="plant_disease" target="zea"/>
       <item name="climate_issue" parent="issue"/>
       <item name="codling_moth" parent="insecta_disease" cause="cydia_pomonella" target="plant"/>
+      <item name="colorado_potato_beetle" parent="insecta_disease" cause="leptinotarsa_decemlineata" target="solanum"/>
       <item name="common_bunt" parent="fungus_disease" cause="fungus" target="poa"/>
+      <item name="corn_helminthosporiosis" parent="fungus_disease" cause="setosphaeria_turcica" target="zea_mays"/>
+      <item name="cotton_bollworm" parent="insecta_disease" cause="noctuidae" target="plant"/>
       <item name="cough" parent="disease" target="animal"/>
       <item name="croesus_septentrionalis" parent="insecta_disease" cause="croesus_septentrionalis" target="corylus"/>
+      <item name="cutworm" parent="insecta_disease" cause="noctuidae" target="plant"/>
+      <item name="cyperus_esculentus" parent="plant_disease" cause="cyperus_ esculentus" target="plant"/>
+      <item name="datura" parent="plant_disease" cause="solanaceae" target="plant"/>
       <item name="defoliant_caterpillar" parent="insecta_disease" cause="operophtera_brumata" target="corylus"/>
       <item name="diarrhea" parent="disease" target="animal"/>
+      <item name="digitaria" parent="plant_disease" cause="digitaria" target="plant"/>
       <item name="disease" parent="issue"/>
       <item name="drought" parent="climate_issue" target="plant"/>
       <item name="edema" parent="disease" target="animal"/>
       <item name="empoasca_vitis_leafhopper" parent="insecta_disease" cause="empoasca_vitis" target="vitis"/>
       <item name="empty_fuel_tank" parent="mechanical_issue" target="equipment"/>
       <item name="equipment_crash" parent="accident" target="equipment"/>
+      <item name="erigeron" parent="plant_disease" cause="erigeron" target="plant"/>
       <item name="escape" parent="issue"/>
+      <item name="european_sawfly" parent="insecta_disease" cause="hymenoptera" target="plant"/>
+      <item name="european_corn_borer" parent="insecta_disease" cause="ostrinia_nubilalis" target="zea_mays"/>
       <item name="fecondity_problem" parent="disease" target="bioproduct"/>
       <item name="fever" parent="disease" target="animal"/>
       <item name="field_edge_male_seed_corn_defect" parent="plant_issue" target="plant"/>
+      <item name="flea_beetle" parent="insecta_disease" cause="alticinae" target="plant"/>
       <item name="flooding" parent="climate_issue" cause="water" target="plant"/>
       <item name="fomitiporia" parent="fungus_disease" cause="fomitiporia" target="corylus"/>
       <item name="fungus_disease" parent="disease" target="bioproduct"/>
+      <item name="fusarium" parent="fungus_disease" cause="fusarium" target="plant"/>
       <item name="fusarium_head_blight" parent="fungus_disease" cause="fungus" target="poa"/>
+      <item name="galium_aparine" parent="plant_disease" cause="galium_aparine" target="plant"/>
       <item name="grapevine_yellows" parent="bacteria_disease" target="vitis"/>
       <item name="husk_fly" parent="insecta_disease" cause="rhagoletis_completa" target="juglans"/>
       <item name="insecta_disease" parent="disease" target="bioproduct"/>
       <item name="issue" target="product"/>
+      <item name="large_white" parent="insecta_disease" cause="pieris_brassicae" target="brassica"/>
       <item name="limping" parent="disease" target="animal"/>
       <item name="longhorn_beetle" parent="insecta_disease" cause="cerambycidae" target="corylus"/>
       <item name="mammite" parent="bacteria_disease" target="mammalia"/>
       <item name="mechanical_issue" parent="issue"/>
+      <item name="mediterranean_corn_borer" parent="insecta_disease" cause="sesamia_nonagrioides" target="zea_mays"/>
+      <item name="moth" parent="insecta_disease" cause="lepidoptera" target="plant"/>
+      <item name="nematoda" parent="insecta_disease" cause="nematoda" target="plant"/>
       <item name="nematoda_disease" parent="disease" target="bioproduct"/>
+      <item name="nightshade" parent="plant_disease" cause="solanum" target="plant"/>
       <item name="noble_rot" parent="fungus_disease" cause="botrytis_cinerea" target="grape"/>
       <item name="nut_weevil" parent="insecta_disease" cause="curculio_nucum" target="corylus"/>
+      <item name="panicum" parent="plant_disease" cause="panicum" target="plant"/>
       <item name="phytophthora" parent="fungus_disease" cause="fungus" target="juglans"/>
       <item name="piece_breakdown" parent="mechanical_issue" target="equipment"/>
       <item name="plant_disease" parent="disease" target="bioproduct"/>
       <item name="plant_issue" target="plant"/>
+      <item name="poa" parent="plant_disease" cause="poa" target="plant"/>
+      <item name="polygonum" parent="plant_disease" cause="polygonum" target="plant"/>
+      <item name="portulaca_oleracea" parent="plant_disease" cause="portulaca_oleracea" target="plant"/>
+      <item name="potato_mildew" parent="fungus_disease" cause="phytophthora_infestans" target="solanum_tuberosum"/>
+      <item name="potato_powdery_mildew" parent="fungus_disease" cause="golovinomyces_cichoracearum" target="solanum_tuberosum"/>
       <item name="pourridie_rot" parent="fungus_disease" cause="fungus" target="corylus"/>
+      <item name="previous_crop_regrowth" parent="plant_disease" target="plant"/>
       <item name="protozoa_disease" parent="disease" target="bioproduct"/>
+      <item name="pseudomonas_syringae" parent="bacteria_disease" cause="bacteria" target="allium_porrum"/>
       <item name="respiratory_problem" parent="disease" target="bioproduct"/>
+      <item name="rhizoctonia" parent="fungus_disease" cause="rhizoctonia" target="plant"/>
+      <item name="rumex_crispus" parent="plant_disease" cause="rumex_crispus" target="plant"/>
       <item name="scale_insect" parent="insecta_disease" cause="coccoidea" target="plant"/>
       <item name="scaphoideus_titanus_leafhopper" parent="insecta_disease" cause="scaphoideus_titanus" target="vitis"/>
+      <item name="sclerotinia" parent="fungus_disease" cause="sclerotiniaceae" target="plant"/>
       <item name="seed_corn_castration_defect" parent="plant_issue" target="plant"/>
+      <item name="seedcorn_maggot" parent="insecta_disease" cause="delia_platura" target="plant"/>
+      <item name="senecio_vulgaris" parent="plant_disease" cause="senecio_vulgaris" target="plant"/>
       <item name="septoria_blotch" parent="fungus_disease" cause="fungus" target="poa"/>
+      <item name="sorghum_halepense" parent="plant_disease" cause="sorghum_halepense" target="plant"/>
       <item name="support_issue" parent="issue"/>
+      <item name="tipburn" parent="disease" target="lactuca"/>
+      <item name="tomato_mildew" parent="fungus_disease" cause="phytophthora_infestans" target="solanum_lycopersicum"/>
+      <item name="vegetation_cover_regrowth" parent="plant_disease" target="plant"/>
       <item name="vine_mildew" parent="fungus_disease" cause="plasmopara_viticola" target="vitis"/>
       <item name="vine_powdery_mildew" parent="fungus_disease" cause="uncinula_necator" target="vitis"/>
+      <item name="wheat_helminthosporiosis" parent="fungus_disease" cause="drechslera_tritici_repentis" target="triticum"/>
       <item name="wheat_powdery_mildew" parent="fungus_disease" cause="fungus" target="poa"/>
       <item name="wild_animal_ravage" parent="issue" cause="animal" target="plant"/>
       <item name="wood_leopard_moth" parent="insecta_disease" cause="zeuzera_pyrina" target="corylus"/>
@@ -2490,7 +2541,7 @@
   </nomenclature>
   <nomenclature name="molecules" translateable="true">
     <properties>
-      <property name="formula" type="string" required="true"/>
+      <property name="formula" type="string"/>
     </properties>
     <items>
       <item name="ammonia" formula="N(H)(H)(H)"/>
@@ -2518,10 +2569,10 @@
   </nomenclature>
   <nomenclature name="net_services" translateable="true">
     <properties>
-      <property name="approach" type="choice" choices="human, rest, soap, email" required="true"/>
+      <property name="approach" type="choice" choices="human, rest, soap, email"/>
       <property name="identifiers" type="item_list" choices="identifier_natures" required="true"/>
       <property name="nature" type="item" choices="activity_families" required="true"/>
-      <property name="url" type="string" required="true"/>
+      <property name="url" type="string"/>
     </properties>
     <items>
       <item name="cartodb" nature="administering" url="https://cartodb.com" approach="human" identifiers="cartodb_login, password"/>
@@ -2684,6 +2735,7 @@
       <item name="oil_replacement"/>
       <item name="organic_fertilization"/>
       <item name="organic_matter_burying"/>
+      <item name="packaging"/>
       <item name="partial_wine_transfer"/>
       <item name="parturition"/>
       <item name="pivot_troubleshooting"/>
@@ -2740,7 +2792,7 @@
   </nomenclature>
   <nomenclature name="procedure_categories" translateable="true">
     <properties>
-      <property name="activity_family" type="item_list" choices="activity_families" required="true"/>
+      <property name="activity_family" type="item_list" choices="activity_families"/>
     </properties>
     <items>
       <item name="administrative_tasks" activity_family="administering"/>
@@ -2765,6 +2817,7 @@
       <item name="irrigating" activity_family="plant_farming"/>
       <item name="land_maintenance" activity_family="animal_farming, tool_maintaining, plant_farming"/>
       <item name="meat_transformation" activity_family="processing"/>
+      <item name="packaging" activity_family="processing"/>
       <item name="planting" activity_family="plant_farming"/>
       <item name="plants_transformation" activity_family="processing"/>
       <item name="soil_working" activity_family="plant_farming"/>
@@ -2777,7 +2830,7 @@
   <nomenclature name="procedure_natures" translateable="true">
     <properties>
       <property name="activity_families" type="item_list" choices="activity_families" required="true"/>
-      <property name="roles" type="item_list" choices="procedure_roles" required="true"/>
+      <property name="roles" type="item_list" choices="procedure_roles"/>
     </properties>
     <items>
       <item name="addition" parent="transformation" roles="input_origin, input, target, doer" activity_families="processing"/>
@@ -2887,19 +2940,19 @@
   </nomenclature>
   <nomenclature name="product_nature_categories" translateable="true">
     <properties>
-      <property name="charge_account" type="item" choices="accounts" required="true"/>
+      <property name="charge_account" type="item" choices="accounts"/>
       <property name="depreciable" type="boolean" required="true" default="false"/>
-      <property name="depreciation_percentage" type="decimal" required="true"/>
-      <property name="fixed_asset_account" type="item" choices="accounts" required="true"/>
-      <property name="fixed_asset_allocation_account" type="item" choices="accounts" required="true"/>
-      <property name="fixed_asset_expenses_account" type="item" choices="accounts" required="true"/>
-      <property name="pictogram" type="choice" choices="cc, fax, truck, laptop, land_parcels, wrench, wheat, tasks, subscription, plane, tractor, truck, umbrella, drop, plane, phone, mushroom, medkit, matter, male, legal, light_bulb, lemon, leaf, home, building, group, credit_card, cow, food, bug, beaker, car, barn, bolt, pill, desktop, gift, road, fish, user, undefined, money, bank, book" required="true"/>
-      <property name="product_account" type="item" choices="accounts" required="true"/>
+      <property name="depreciation_percentage" type="decimal"/>
+      <property name="fixed_asset_account" type="item" choices="accounts"/>
+      <property name="fixed_asset_allocation_account" type="item" choices="accounts"/>
+      <property name="fixed_asset_expenses_account" type="item" choices="accounts"/>
+      <property name="pictogram" type="choice" choices="cc, fax, truck, laptop, land_parcels, wrench, wheat, tasks, subscription, plane, tractor, truck, umbrella, drop, plane, phone, mushroom, medkit, matter, male, legal, light_bulb, lemon, leaf, home, building, group, credit_card, cow, food, bug, beaker, car, barn, bolt, pill, desktop, gift, road, fish, user, undefined, money, bank, book"/>
+      <property name="product_account" type="item" choices="accounts"/>
       <property name="purchasable" type="boolean" required="true" default="false"/>
       <property name="reductible" type="boolean" required="true" default="false"/>
       <property name="saleable" type="boolean" required="true" default="false"/>
-      <property name="stock_account" type="item" choices="accounts" required="true"/>
-      <property name="stock_movement_account" type="item" choices="accounts" required="true"/>
+      <property name="stock_account" type="item" choices="accounts"/>
+      <property name="stock_movement_account" type="item" choices="accounts"/>
       <property name="storable" type="boolean" required="true" default="false"/>
     </properties>
     <items>
@@ -3020,11 +3073,11 @@
   </nomenclature>
   <nomenclature name="product_nature_variants" translateable="true">
     <properties>
-      <property name="derivative_of" type="item" choices="varieties" required="true"/>
-      <property name="frozen_indicators_values" type="string" required="true"/>
+      <property name="derivative_of" type="item" choices="varieties"/>
+      <property name="frozen_indicators_values" type="string"/>
       <property name="nature" type="item" choices="product_natures" required="true"/>
       <property name="unit_name" type="choice" choices="month, server, domain, 100g_dose, dose, 1l_dose, quintal, 10ml_dose, 20ml_dose, 50ml_dose, 10kg_bag, 12kg_bag, 20kg_bag, 25kg_bag, 50tg_bag, 150tg_bag, 220tg_bag, bag, box, building, can, 24liter_can, cubic_meter, equipment, head, hectare, meal, night, square_meter, day, hour, kilogram, kilometer, kilowatt_hour, liter, person, room, ton, unit, hectoliter, band, round_bale, big_rectangular_bale, small_rectangular_bale, 75cl_bottle, 100cl_bottle, plant, gram, 2g_pill, 5g_pill, group, subject, herd, roll, stake, package" required="true" default="unit"/>
-      <property name="variety" type="item" choices="varieties" required="true"/>
+      <property name="variety" type="item" choices="varieties"/>
     </properties>
     <items>
       <item name="115g_jam" nature="packaged_process_food" derivative_of="fruit" frozen_indicators_values="net_mass: 115gram, net_volume: 115milliliter"/>
@@ -3727,15 +3780,15 @@
   </nomenclature>
   <nomenclature name="product_natures" translateable="true">
     <properties>
-      <property name="abilities" type="string" required="true"/>
+      <property name="abilities" type="string"/>
       <property name="category" type="item" choices="product_nature_categories" required="true"/>
-      <property name="derivative_of" type="string" required="true"/>
-      <property name="derivatives" type="item_list" choices="varieties" required="true"/>
-      <property name="frozen_indicators" type="item_list" choices="indicators" required="true"/>
-      <property name="linkage_points" type="choice_list" choices="rear, front" required="true"/>
+      <property name="derivative_of" type="string"/>
+      <property name="derivatives" type="item_list" choices="varieties"/>
+      <property name="frozen_indicators" type="item_list" choices="indicators"/>
+      <property name="linkage_points" type="choice_list" choices="rear, front"/>
       <property name="population_counting" type="choice" choices="unitary, integer, decimal" required="true"/>
       <property name="reductible" type="boolean" required="true" default="false"/>
-      <property name="variable_indicators" type="item_list" choices="indicators" required="true"/>
+      <property name="variable_indicators" type="item_list" choices="indicators"/>
       <property name="variety" type="item" choices="varieties" required="true"/>
     </properties>
     <items>
@@ -4052,9 +4105,9 @@
   <nomenclature name="production_natures" translateable="false">
     <properties>
       <property name="activity" type="item" choices="activity_families" required="true"/>
-      <property name="production_code" type="string" required="true"/>
-      <property name="telepac_crop_code" type="string" required="true"/>
-      <property name="variant_support" type="item" choices="product_nature_variants" required="true"/>
+      <property name="production_code" type="string"/>
+      <property name="telepac_crop_code" type="string"/>
+      <property name="variant_support" type="item" choices="product_nature_variants"/>
     </properties>
     <items>
       <item name="administrative" production_code="A100" activity="administering"/>
@@ -4167,7 +4220,7 @@
   </nomenclature>
   <nomenclature name="production_usages" translateable="true">
     <properties>
-      <property name="crop_sets" type="item_list" choices="crop_sets" required="true"/>
+      <property name="crop_sets" type="item_list" choices="crop_sets"/>
     </properties>
     <items>
       <item name="fallow_land"/>
@@ -4191,7 +4244,7 @@
   </nomenclature>
   <nomenclature name="roles" translateable="true">
     <properties>
-      <property name="accesses" type="string_list" required="true"/>
+      <property name="accesses" type="string_list"/>
     </properties>
     <items>
       <item name="accountant" accesses="accounts-all, bank_statements-all, journals-all, fixed_assets-all, financial_years-all"/>
@@ -4264,9 +4317,9 @@
   </nomenclature>
   <nomenclature name="spatial_reference_systems" translateable="false">
     <properties>
-      <property name="authority_reference" type="string" required="true"/>
+      <property name="authority_reference" type="string"/>
       <property name="srid" type="integer" required="true"/>
-      <property name="urn" type="string" required="true"/>
+      <property name="urn" type="string"/>
     </properties>
     <items>
       <item name="EPSG_2000" authority_reference="EPSG:2000" srid="2000"/>
@@ -9711,9 +9764,9 @@
       <property name="collect_account" type="item" choices="accounts" required="true"/>
       <property name="computation_method" type="choice" choices="percentage, amount" required="true" default="percentage"/>
       <property name="deduction_account" type="item" choices="accounts" required="true"/>
-      <property name="fixed_asset_collect_account" type="item" choices="accounts" required="true"/>
-      <property name="fixed_asset_deduction_account" type="item" choices="accounts" required="true"/>
-      <property name="suffix" type="string" required="true"/>
+      <property name="fixed_asset_collect_account" type="item" choices="accounts"/>
+      <property name="fixed_asset_deduction_account" type="item" choices="accounts"/>
+      <property name="suffix" type="string"/>
     </properties>
     <items>
       <item name="eu_vat" computation_method="percentage" deduction_account="deductible_vat" fixed_asset_deduction_account="deductible_asset_vat" collect_account="collected_vat" suffix="2"/>
@@ -9732,7 +9785,7 @@
       <property name="country" type="item" choices="countries" required="true"/>
       <property name="nature" type="item" choices="tax_natures" required="true"/>
       <property name="started_on" type="date" required="true"/>
-      <property name="stopped_on" type="date" required="true"/>
+      <property name="stopped_on" type="date"/>
     </properties>
     <items>
       <item name="algerian_vat_normal" country="dz" nature="normal_vat" amount="17.0" started_on="1962-07-05" stopped_on="2016-12-31"/>
@@ -9773,9 +9826,9 @@
   </nomenclature>
   <nomenclature name="units" translateable="true">
     <properties>
-      <property name="a" type="decimal" required="true" default="1"/>
-      <property name="b" type="decimal" required="true" default="0"/>
-      <property name="d" type="decimal" required="true" default="1"/>
+      <property name="a" type="decimal" default="1"/>
+      <property name="b" type="decimal" default="0"/>
+      <property name="d" type="decimal" default="1"/>
       <property name="dimension" type="item" choices="dimensions" required="true"/>
       <property name="symbol" type="string" required="true"/>
     </properties>
@@ -9891,10 +9944,10 @@
   </nomenclature>
   <nomenclature name="varieties" translateable="true">
     <properties>
-      <property name="derivative_of" type="item" choices="varieties" required="true"/>
-      <property name="europa_tsn" type="string" required="true"/>
-      <property name="french_race_code" type="string" required="true"/>
-      <property name="itis_tsn" type="integer" required="true"/>
+      <property name="derivative_of" type="item" choices="varieties"/>
+      <property name="europa_tsn" type="string"/>
+      <property name="french_race_code" type="string"/>
+      <property name="itis_tsn" type="integer"/>
     </properties>
     <items>
       <item name="acer" parent="sapindaceae" itis_tsn="28727"/>
@@ -9968,6 +10021,8 @@
       <item name="amaranthaceae" parent="plant" itis_tsn="20714"/>
       <item name="amaryllidaceae" parent="plant" itis_tsn="182703"/>
       <item name="anacardiaceae" parent="plant" itis_tsn="0"/>
+      <item name="anacardium" parent="anacardiaceae" itis_tsn="28792"/>
+      <item name="anacardium_occidentale" parent="anacardium" itis_tsn="28793"/>
       <item name="ananas" parent="bromeliaceae" itis_tsn="42334"/>
       <item name="ananas_comosus" parent="ananas" itis_tsn="42335"/>
       <item name="anas" parent="anatidae" itis_tsn="175062"/>
@@ -9980,6 +10035,14 @@
       <item name="angelica" parent="apiaceae" itis_tsn="29431"/>
       <item name="animal" parent="bioproduct"/>
       <item name="animal_group" parent="product_group" derivative_of="animal"/>
+      <item name="annona" parent="annonaceae" itis_tsn="18095"/>
+      <item name="annona_cherimola" parent="annona" itis_tsn="506198"/>
+      <item name="annona_glabra" parent="annona" itis_tsn="18101"/>
+      <item name="annona_montana" parent="annona" itis_tsn="0"/>
+      <item name="annona_muricata" parent="annona" itis_tsn="18098"/>
+      <item name="annona_reticulata" parent="annona" itis_tsn="18099"/>
+      <item name="annona_senegalensis" parent="annona" itis_tsn="506201"/>
+      <item name="annona_squamosa" parent="annona" itis_tsn="18100"/>
       <item name="annonaceae" parent="plant" itis_tsn="18092"/>
       <item name="anser" parent="anatidae" itis_tsn="175019"/>
       <item name="anser_anser" parent="anser" itis_tsn="175028"/>
@@ -10003,8 +10066,20 @@
       <item name="arctium" parent="asteraceae" itis_tsn="36544"/>
       <item name="arctium_lappa" parent="arctium" itis_tsn="36545"/>
       <item name="arctium_minus" parent="arctium" itis_tsn="36546"/>
+      <item name="argania" parent="sapotaceae"/>
+      <item name="argania_spinosa" parent="argania"/>
       <item name="artemisia" parent="asteraceae" itis_tsn="35431"/>
       <item name="artemisia_dracunculus" parent="artemisia" itis_tsn="35462"/>
+      <item name="artocarpus" parent="moraceae" itis_tsn="19071"/>
+      <item name="artocarpus_altilis" parent="artocarpus" itis_tsn="184181"/>
+      <item name="artocarpus_elasticus" parent="artocarpus" itis_tsn="506552"/>
+      <item name="artocarpus_heterophyllus" parent="artocarpus" itis_tsn="184183"/>
+      <item name="artocarpus_hirsutus" parent="artocarpus" itis_tsn="506553"/>
+      <item name="artocarpus_integer" parent="artocarpus" itis_tsn="565608"/>
+      <item name="artocarpus_mariannensis" parent="artocarpus" itis_tsn="506555"/>
+      <item name="artocarpus_odoratissimus" parent="artocarpus" itis_tsn="506556"/>
+      <item name="artocarpus_rigidus" parent="artocarpus" itis_tsn="506557"/>
+      <item name="artocarpus_tamaran" parent="artocarpus" itis_tsn="506558"/>
       <item name="asparagaceae" parent="plant" itis_tsn="810124"/>
       <item name="asparagus" parent="asparagaceae" itis_tsn="42782"/>
       <item name="asparagus_africanus" parent="asparagus" itis_tsn="506479"/>
@@ -10284,6 +10359,9 @@
       <item name="capsicum_frutescens" parent="capsicum" itis_tsn="565949"/>
       <item name="capsicum_pubescens" parent="capsicum" itis_tsn="505855"/>
       <item name="car" parent="motorized_vehicle"/>
+      <item name="carica" parent="caricaceae" itis_tsn="22323"/>
+      <item name="carica_papaya" parent="carica" itis_tsn="22324"/>
+      <item name="caricaceae" parent="plant" itis_tsn="22322"/>
       <item name="carpinus" parent="betulaceae" itis_tsn="19503"/>
       <item name="carpinus_betulus" parent="carpinus" itis_tsn="184204"/>
       <item name="carpinus_caroliniana" parent="carpinus" itis_tsn="19504"/>
@@ -10321,6 +10399,14 @@
       <item name="chenopodium_quinoa" parent="chenopodium" itis_tsn="506567"/>
       <item name="chloris" parent="poaceae"/>
       <item name="chloris_gayana" parent="chloris" itis_tsn="41565"/>
+      <item name="chrysophyllum" parent="sapotaceae" itis_tsn="23810"/>
+      <item name="chrysophyllum_africanum" parent="chrysophyllum" itis_tsn="823955"/>
+      <item name="chrysophyllum_albidum" parent="chrysophyllum" itis_tsn="505966"/>
+      <item name="chrysophyllum_argenteum" parent="chrysophyllum" itis_tsn="501506"/>
+      <item name="chrysophyllum_cainito" parent="chrysophyllum" itis_tsn="23811"/>
+      <item name="chrysophyllum_mexicanum" parent="chrysophyllum" itis_tsn="565965"/>
+      <item name="chrysophyllum_oliviforme" parent="chrysophyllum" itis_tsn="501507"/>
+      <item name="chrysophyllum_pauciflorum" parent="chrysophyllum" itis_tsn="501508"/>
       <item name="chrysopogon" parent="poaceae" itis_tsn="41576"/>
       <item name="chrysopogon_zizanioides" parent="chrysopogon" itis_tsn="782799"/>
       <item name="cicer" parent="fabaceae" itis_tsn="26536"/>
@@ -10334,6 +10420,12 @@
       <item name="cichorium_endivia_mona" parent="cichorium_endivia" itis_tsn="501522"/>
       <item name="cichorium_intybus" parent="cichorium" itis_tsn="36763"/>
       <item name="cichorium_tete_d_anguille" parent="cichorium" itis_tsn="36762"/>
+      <item name="cinnamomum" parent="lauraceae" itis_tsn="0"/>
+      <item name="cinnamomum_burmannii" parent="cinnamomum" itis_tsn="501525"/>
+      <item name="cinnamomum_camphora" parent="cinnamomum" itis_tsn="18175"/>
+      <item name="cinnamomum_cassia" parent="cinnamomum" itis_tsn="834866"/>
+      <item name="cinnamomum_tamala" parent="cinnamomum" itis_tsn="506207"/>
+      <item name="cinnamomum_verum" parent="cinnamomum" itis_tsn="501529"/>
       <item name="citrullus" parent="cucurbitaceae" itis_tsn="22355"/>
       <item name="citrullus_colocynthis" parent="citrullus" itis_tsn="501571"/>
       <item name="citrullus_lanatus" parent="citrullus" itis_tsn="22356"/>
@@ -10528,6 +10620,33 @@
       <item name="daucus_carota_yellow_doubs" parent="daucus_carota" itis_tsn="0"/>
       <item name="daucus_carota_yukon" parent="daucus_carota" itis_tsn="29477"/>
       <item name="diervillaceae" parent="plant" itis_tsn="823479"/>
+      <item name="dimocarpus" parent="sapindaceae" itis_tsn="500681"/>
+      <item name="dimocarpus_longan" parent="dimocarpus" itis_tsn="506072"/>
+      <item name="dioscorea" parent="dioscoreaceae" itis_tsn="43366"/>
+      <item name="dioscorea_alata" parent="dioscorea" itis_tsn="43372"/>
+      <item name="dioscorea_altissima" parent="dioscorea" itis_tsn="43373"/>
+      <item name="dioscorea_bulbifera" parent="dioscorea" itis_tsn="43369"/>
+      <item name="dioscorea_cayenensis" parent="dioscorea" itis_tsn="506485"/>
+      <item name="dioscorea_dumetorum" parent="dioscorea" itis_tsn="506488"/>
+      <item name="dioscorea_elephantipes" parent="dioscorea" itis_tsn="506489"/>
+      <item name="dioscorea_esculenta" parent="dioscorea" itis_tsn="502073"/>
+      <item name="dioscorea_floridana" parent="dioscorea" itis_tsn="502074"/>
+      <item name="dioscorea_hispida" parent="dioscorea" itis_tsn="506491"/>
+      <item name="dioscorea_japonica" parent="dioscorea" itis_tsn="506492"/>
+      <item name="dioscorea_mexicana" parent="dioscorea" itis_tsn="810117"/>
+      <item name="dioscorea_nummularia" parent="dioscorea" itis_tsn="506494"/>
+      <item name="dioscorea_oppositifolia" parent="dioscorea" itis_tsn="502075"/>
+      <item name="dioscorea_pentaphylla" parent="dioscorea" itis_tsn="43379"/>
+      <item name="dioscorea_pilosiuscula" parent="dioscorea" itis_tsn="43374"/>
+      <item name="dioscorea_polygonoides" parent="dioscorea" itis_tsn="43375"/>
+      <item name="dioscorea_polystachya" parent="dioscorea" itis_tsn="810115"/>
+      <item name="dioscorea_praehensilis" parent="dioscorea" itis_tsn="506495"/>
+      <item name="dioscorea_preussii" parent="dioscorea" itis_tsn="506496"/>
+      <item name="dioscorea_rotundata" parent="dioscorea" itis_tsn="43376"/>
+      <item name="dioscorea_sansibarensis" parent="dioscorea" itis_tsn="565136"/>
+      <item name="dioscorea_trifida" parent="dioscorea" itis_tsn="43378"/>
+      <item name="dioscorea_villosa" parent="dioscorea" itis_tsn="43367"/>
+      <item name="dioscoreaceae" parent="plant" itis_tsn="43365"/>
       <item name="easement" parent="zone"/>
       <item name="egg" parent="raw_matter" derivative_of="aves"/>
       <item name="elaeagnaceae" parent="plant" itis_tsn="27768"/>
@@ -10826,6 +10945,8 @@
       <item name="ipomoea_batatas" parent="ipomoea" itis_tsn="30764"/>
       <item name="ipomoea_batatas_beauregard" parent="ipomoea_batatas" itis_tsn="30764"/>
       <item name="iridaceae" parent="plant" itis_tsn="43190"/>
+      <item name="jarilla" parent="caricaceae" itis_tsn="500693"/>
+      <item name="jarilla_heterophylla" parent="jarilla" itis_tsn="506146"/>
       <item name="juglandaceae" parent="plant" itis_tsn="19222"/>
       <item name="juglans" parent="juglandaceae" itis_tsn="19248"/>
       <item name="juglans_regia" parent="juglans" itis_tsn="503244"/>
@@ -11149,6 +11270,7 @@
       <item name="mammalia" parent="animal" itis_tsn="179913"/>
       <item name="mangifera" parent="anacardiaceae" itis_tsn="28802"/>
       <item name="manihot" parent="euphorbiaceae" itis_tsn="28345"/>
+      <item name="manilkara_zapota" parent="sapotaceae" itis_tsn="23823"/>
       <item name="manure" parent="excrement" derivative_of="mammalia"/>
       <item name="matter" parent="product"/>
       <item name="meat" parent="raw_matter" derivative_of="animal"/>
@@ -11274,11 +11396,59 @@
       <item name="ovis" parent="bovidae" itis_tsn="180709"/>
       <item name="ovis_aries" parent="ovis" itis_tsn="552475"/>
       <item name="packaged_matter" parent="preparation"/>
+      <item name="palaquium" parent="sapotaceae" itis_tsn="500654"/>
+      <item name="palaquium_gutta" parent="palaquium" itis_tsn="505957"/>
       <item name="panicum" parent="poaceae" itis_tsn="40901"/>
       <item name="panicum_miliaceum" parent="panicum" itis_tsn="40946"/>
       <item name="papaver" parent="papaveraceae" itis_tsn="18881"/>
       <item name="papaver_somniferum" parent="papaver" itis_tsn="18894"/>
       <item name="papaveraceae" parent="plant" itis_tsn="18880"/>
+      <item name="passiflora" parent="passifloraceae" itis_tsn="22219"/>
+      <item name="passiflora_affinis" parent="passiflora" itis_tsn="22220"/>
+      <item name="passiflora_anadenia" parent="passiflora" itis_tsn="22234"/>
+      <item name="passiflora_antioquiensis" parent="passiflora" itis_tsn="506143"/>
+      <item name="passiflora_arizonica" parent="passiflora" itis_tsn="896786"/>
+      <item name="passiflora_berteroana" parent="passiflora" itis_tsn="896784"/>
+      <item name="passiflora_bicornis" parent="passiflora" itis_tsn="504136"/>
+      <item name="passiflora_biflora" parent="passiflora" itis_tsn="504137"/>
+      <item name="passiflora_bilobata" parent="passiflora" itis_tsn="22235"/>
+      <item name="passiflora_bryonioides" parent="passiflora" itis_tsn="22221"/>
+      <item name="passiflora_caerulea" parent="passiflora" itis_tsn="22245"/>
+      <item name="passiflora_ciliata" parent="passiflora" itis_tsn="504138"/>
+      <item name="passiflora_cincinnata" parent="passiflora" itis_tsn="506145"/>
+      <item name="passiflora_coccinea" parent="passiflora" itis_tsn="22222"/>
+      <item name="passiflora_edulis" parent="passiflora" itis_tsn="22223"/>
+      <item name="passiflora_filipes" parent="passiflora" itis_tsn="22224"/>
+      <item name="passiflora_foetida" parent="passiflora" itis_tsn="22225"/>
+      <item name="passiflora_gracilis" parent="passiflora" itis_tsn="507929"/>
+      <item name="passiflora_incarnata" parent="passiflora" itis_tsn="504139"/>
+      <item name="passiflora_laurifolia" parent="passiflora" itis_tsn="22236"/>
+      <item name="passiflora_ligularis" parent="passiflora" itis_tsn="504140"/>
+      <item name="passiflora_lutea" parent="passiflora" itis_tsn="22226"/>
+      <item name="passiflora_maliformis" parent="passiflora" itis_tsn="22237"/>
+      <item name="passiflora_manicata" parent="passiflora" itis_tsn="504141"/>
+      <item name="passiflora_mexicana" parent="passiflora" itis_tsn="22227"/>
+      <item name="passiflora_mixta" parent="passiflora" itis_tsn="506140"/>
+      <item name="passiflora_morifolia" parent="passiflora" itis_tsn="22228"/>
+      <item name="passiflora_multiflora" parent="passiflora" itis_tsn="22229"/>
+      <item name="passiflora_murucuja" parent="passiflora" itis_tsn="22238"/>
+      <item name="passiflora_pallens" parent="passiflora" itis_tsn="22230"/>
+      <item name="passiflora_pallida" parent="passiflora" itis_tsn="518524"/>
+      <item name="passiflora_quadrangularis" parent="passiflora" itis_tsn="22243"/>
+      <item name="passiflora_racemosa" parent="passiflora" itis_tsn="506141"/>
+      <item name="passiflora_rubra" parent="passiflora" itis_tsn="22239"/>
+      <item name="passiflora_serratodigitata" parent="passiflora" itis_tsn="504142"/>
+      <item name="passiflora_sexflora" parent="passiflora" itis_tsn="22231"/>
+      <item name="passiflora_suberosa" parent="passiflora" itis_tsn="22232"/>
+      <item name="passiflora_subpeltata" parent="passiflora" itis_tsn="22244"/>
+      <item name="passiflora_tarminiana" parent="passiflora" itis_tsn="896787"/>
+      <item name="passiflora_tenuiloba" parent="passiflora" itis_tsn="22233"/>
+      <item name="passiflora_tripartita" parent="passiflora" itis_tsn="896790"/>
+      <item name="passiflora_tripartita_mollissima" parent="passiflora" itis_tsn="896794"/>
+      <item name="passiflora_tuberosa" parent="passiflora" itis_tsn="504143"/>
+      <item name="passiflora_tulae" parent="passiflora" itis_tsn="22241"/>
+      <item name="passiflora_vitifolia" parent="passiflora" itis_tsn="504144"/>
+      <item name="passifloraceae" parent="plant" itis_tsn="22218"/>
       <item name="pastinaca" parent="apiaceae" itis_tsn="29621"/>
       <item name="pastinaca_sativa" parent="pastinaca" itis_tsn="29795"/>
       <item name="pastinaca_sativa_javelin" parent="pastinaca_sativa" itis_tsn="29795"/>
@@ -11326,6 +11496,10 @@
       <item name="phytoptus_avellanae" parent="insecta"/>
       <item name="pimpinella" parent="apiaceae" itis_tsn="29821"/>
       <item name="pimpinella_anisum" parent="pimpinella" itis_tsn="29822"/>
+      <item name="piriqueta" parent="passifloraceae" itis_tsn="22209"/>
+      <item name="piriqueta_cistoides" parent="piriqueta" itis_tsn="22211"/>
+      <item name="piriqueta_racemosa" parent="piriqueta" itis_tsn="504414"/>
+      <item name="piriqueta_viscosa" parent="piriqueta" itis_tsn="504415"/>
       <item name="pistacia" parent="anacardiaceae" itis_tsn="28806"/>
       <item name="pistacia_vera" parent="pistacia" itis_tsn="506470"/>
       <item name="pisum" parent="fabaceae" itis_tsn="26866"/>
@@ -11360,6 +11534,11 @@
       <item name="poncirus" parent="rutaceae" itis_tsn="28988"/>
       <item name="portable_equipment" parent="equipment"/>
       <item name="potassium_ferrocyanide" parent="raw_matter"/>
+      <item name="pouteria" parent="sapotaceae" itis_tsn="23829"/>
+      <item name="pouteria_caimito" parent="pouteria" itis_tsn="505962"/>
+      <item name="pouteria_campechiana" parent="pouteria" itis_tsn="23830"/>
+      <item name="pouteria_lucuma" parent="pouteria"/>
+      <item name="pouteria_sapota" parent="pouteria" itis_tsn="23836"/>
       <item name="preparation" parent="matter"/>
       <item name="primula" parent="primulaceae" itis_tsn="24014"/>
       <item name="primulaceae" parent="plant" itis_tsn="23929"/>
@@ -11465,6 +11644,12 @@
       <item name="prunus_salicina_anne_gold" parent="prunus_salicina" itis_tsn="0"/>
       <item name="prunus_salicina_awaso" parent="prunus_salicina" itis_tsn="0"/>
       <item name="prunus_salicina_beauty" parent="prunus_salicina" itis_tsn="0"/>
+      <item name="psidium" parent="myrtaceae" itis_tsn="27238"/>
+      <item name="psidium_amplexicaule" parent="psidium" itis_tsn="27241"/>
+      <item name="psidium_calyptranthoides" parent="psidium" itis_tsn="504639"/>
+      <item name="psidium_cattleianum" parent="psidium" itis_tsn="27239"/>
+      <item name="psidium_friedrichsthalianum" parent="psidium" itis_tsn="506171"/>
+      <item name="psidium_guajava" parent="psidium" itis_tsn="27240"/>
       <item name="pyrus" parent="rosaceae" itis_tsn="25294"/>
       <item name="pyrus_communis" parent="pyrus" itis_tsn="25295"/>
       <item name="pyrus_communis_beurre_d_anjou" parent="pyrus_communis" itis_tsn="25295"/>
@@ -11542,6 +11727,8 @@
       <item name="pyrus_communis_william" parent="pyrus_communis" itis_tsn="25295"/>
       <item name="pyrus_communis_william_bon_chretien" parent="pyrus_communis" itis_tsn="25295"/>
       <item name="quercus" parent="fagaceae" itis_tsn="19276"/>
+      <item name="rajania" parent="dioscoreaceae" itis_tsn="43380"/>
+      <item name="rajania_cordata" parent="rajania" itis_tsn="43381"/>
       <item name="raphanus" parent="brassicaceae" itis_tsn="23288"/>
       <item name="raphanus_sativus" parent="raphanus" itis_tsn="23290"/>
       <item name="raphanus_sativus_da&#xEF;kon" parent="raphanus_sativus" itis_tsn="23290"/>
@@ -11605,6 +11792,7 @@
       <item name="sambucus_nigra" parent="sambucus" itis_tsn="35324"/>
       <item name="sand" parent="raw_matter"/>
       <item name="sapindaceae" parent="plant" itis_tsn="28657"/>
+      <item name="sapotaceae" parent="plant" itis_tsn="23802"/>
       <item name="satureja" parent="lamiaceae" itis_tsn="32293"/>
       <item name="scaphoideus_titanus" parent="insecta"/>
       <item name="sclerotiniaceae" parent="fungus" itis_tsn="194121"/>
@@ -12052,6 +12240,8 @@
       <item name="theobroma_cacao" parent="theobroma" itis_tsn="505487"/>
       <item name="theobroma_grandiflorum" parent="theobroma" itis_tsn="506108"/>
       <item name="thymus" parent="lamiaceae" itis_tsn="32820"/>
+      <item name="tieghemella" parent="sapotaceae"/>
+      <item name="tieghemella_heckelii" parent="tieghemella"/>
       <item name="tilia" parent="malvaceae" itis_tsn="21535"/>
       <item name="tilia_americana" parent="tilia" itis_tsn="21536"/>
       <item name="tilia_cordata" parent="tilia" itis_tsn="505507"/>
@@ -12300,8 +12490,15 @@
       <item name="triticum_durum_yelodur" parent="triticum_durum" itis_tsn="42240"/>
       <item name="triticum_spelta" parent="triticum" itis_tsn="42243"/>
       <item name="truck" parent="motorized_vehicle"/>
+      <item name="turnera" parent="passifloraceae" itis_tsn="22214"/>
+      <item name="turnera_coerula" parent="turnera" itis_tsn="896792"/>
+      <item name="turnera_diffusa" parent="turnera" itis_tsn="22215"/>
+      <item name="turnera_pumilea" parent="turnera" itis_tsn="22217"/>
+      <item name="turnera_ulmifolia" parent="turnera" itis_tsn="22216"/>
       <item name="uncinula" parent="erysiphaceae" itis_tsn="194154"/>
       <item name="uncinula_necator" parent="uncinula" itis_tsn="194154"/>
+      <item name="urtica" parent="urticaceae" itis_tsn="19151"/>
+      <item name="urticaceae" parent="plant" itis_tsn="19119"/>
       <item name="valeriana" parent="valerianaceae" itis_tsn="35350"/>
       <item name="valerianaceae" parent="plant" itis_tsn="35349"/>
       <item name="valerianella" parent="valerianaceae" itis_tsn="35386"/>
@@ -12309,6 +12506,10 @@
       <item name="vanilla" parent="orchidaceae" itis_tsn="43714"/>
       <item name="vanilla_planifolia" parent="vanilla" itis_tsn="43719"/>
       <item name="vanilla_pompona" parent="vanilla" itis_tsn="505646"/>
+      <item name="vasconcellea" parent="caricaceae" itis_tsn="896485"/>
+      <item name="vasconcellea_monoica" parent="vasconcellea" itis_tsn="896486"/>
+      <item name="vasconcellea_pubescens" parent="vasconcellea" itis_tsn="896487"/>
+      <item name="vasconcellea_quercifolia" parent="vasconcellea" itis_tsn="896488"/>
       <item name="vegetable" parent="raw_matter" derivative_of="plant"/>
       <item name="veronica" parent="plantaginaceae" itis_tsn="33396"/>
       <item name="vial" parent="raw_matter" derivative_of="animal"/>
@@ -12330,6 +12531,8 @@
       <item name="violaceae" parent="plant" itis_tsn="22023"/>
       <item name="virus" parent="matter"/>
       <item name="vitaceae" parent="plant" itis_tsn="28600"/>
+      <item name="vitellaria" parent="sapotaceae" itis_tsn="500657"/>
+      <item name="vitellaria_paradoxa" parent="vitellaria" itis_tsn="505960"/>
       <item name="vitex" parent="lamiaceae" itis_tsn="32220"/>
       <item name="vitex_agnus_castus" parent="vitex" itis_tsn="32221"/>
       <item name="vitis" parent="vitaceae" itis_tsn="28606"/>
