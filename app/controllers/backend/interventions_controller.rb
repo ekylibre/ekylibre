@@ -273,14 +273,15 @@ module Backend
             }
           end
         end.compact
+        attributes = attributes.reduce(&:deep_merge)
+
+        attributes_root = attributes.keys.first
+        parameter_type = attributes_root.to_s.gsub('s_attributes', '')
+        suffix = parameter_type.to_sym == :group ? :_parameters : :s
+        targets = { "#{parameter_type}#{suffix}_attributes": attributes[attributes_root] }
       end
-      attributes = attributes.reduce(&:deep_merge)
-
-      attributes_root = attributes.keys.first
-      parameter_type = attributes_root.to_s.gsub('s_attributes', '')
-      suffix = parameter_type.to_sym == :group ? :_parameters : :s
-      targets = { "#{parameter_type}#{suffix}_attributes": attributes[attributes_root] }
-
+      targets ||= {}
+      
       @intervention = Intervention.new(options.merge(targets))
 
       from_request = Intervention.find_by(id: params[:request_intervention_id])
