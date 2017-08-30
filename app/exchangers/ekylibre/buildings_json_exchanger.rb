@@ -24,7 +24,7 @@ module Ekylibre
             properties = division['properties']
             shape = ::Charta.from_geojson(division)
             variant = ProductNatureVariant.import_from_nomenclature(:building_division)
-            div = BuildingDivision.create!(properties.slice('name').merge(initial_shape: shape, variant: variant, initial_owner: Entity.of_company))
+            BuildingDivision.create!(properties.slice('name').merge(initial_shape: shape, variant: variant, initial_owner: Entity.of_company))
             # FIXME: We lose level (storey) and building information on division recording
           end
         end

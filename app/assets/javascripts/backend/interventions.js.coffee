@@ -197,14 +197,11 @@
         product_id = $(event.target).closest('.nested-product-parameter').find(".selector .selector-value").val()
         existingParticipation = $('.intervention-participation[data-product-id="' + product_id + '"]').val()
         participations = $('intervention_participation')
-        interventionStartedAt = null
+        interventionStartedAt = $('#intervention_working_periods_attributes_0_started_at').val()
 
         participations = []
         $('.intervention-participation').each ->
           participations.push($(this).val())
-
-        if intervention_id == ""
-          interventionStartedAt = $('.intervention-started-at').val()
 
         autoCalculMode = true
         if $('input[name="auto-calcul-mode"]').length == 0
@@ -311,6 +308,16 @@
     pictoTimer = $('<div class="has-intervention-participations picto picto-timer-off"></div>')
 
     $(blockElement).append(pictoTimer)
+
+    participation = blockElement.find('.intervention-participation')
+
+    if participation.length > 0
+      newProductId = element.closest('.selector').find('.selector-value').val()
+      jsonParticipation = JSON.parse(participation.val())
+      jsonParticipation.product_id = newProductId
+
+      participation.val(JSON.stringify((jsonParticipation)))
+      participation.attr('data-product-id', newProductId)
 
 
 
