@@ -723,6 +723,7 @@ arb:
             started_on:
               consecutive: "يجب ان تكون محاسبة السنة المالية بصف آخر، ويجب ان تبدأ بعد نهاية العام السابق"
               frozen: "لا يمكن تغيير التاريخ العام المالي عندما تم إنشاء الصرف."
+              # on_or_after: "The date selected must be posterior to society's creation date (%{restriction})"
             stopped_on:
               end_of_month: "%{attribute} يجب ان يكون التاريخ في نهاية الشهر"
           overlap: "%{attribute} متواجد على قائمة السنة المالية الحالية"
@@ -738,6 +739,10 @@ arb:
               # invalid_date: "The depreciation must start on %{start} or on a beginning of month"
         incoming_parcel_item:
           # greater_than_undelivered_quantity: "The quantity of product %{product} to deliver is greater than undelivered quantity (%{maximum}%{unit})"
+        integration:
+          attributes:
+            parameters:
+              check_errored: "التحقق من خطأ كونيكسيون. يرجى التأكد من صلاحية الإدخال أو إعادة المحاولة لاحقا."
         journal:
           attributes:
             accountant:

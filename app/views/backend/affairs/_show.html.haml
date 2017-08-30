@@ -14,6 +14,7 @@
             - if many_thirds
               %th= deal_class.human_attribute_name(:third)
             %th= deal_class.human_attribute_name(:reference)
+            %th= deal_class.human_attribute_name(:reference_number)
             %th= deal_class.human_attribute_name(:amount)
         %tbody
           - affair.deals.sort_by{ |a| a.dealt_at || a.created_at }.each do |deal|
@@ -52,6 +53,7 @@
 
                 - else
                   = link_to(deal.number, controller: "/backend/" + deal.class.name.tableize, action: :show, id: deal.id)
+              %td= deal.has_attribute?(:reference_number) ? deal.reference_number : ""
               %td.amount{class: (deal.good_deal? ? "debit" : "credit")}
                 %span.value= deal.our_deal_balance.l(currency: deal.currency) if deal.journal_entry
 

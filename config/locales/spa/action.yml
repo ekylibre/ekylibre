@@ -66,12 +66,15 @@ spa:
       index: "Animales"
       new: "Nuevo animal"
       # show: "%{nature}: %{name}"
+    backend/bank_reconciliation/items:
+      # index: "Reconciliate bank statement %{cash} %{number} (from %{started_on} to %{stopped_on})"
+      # reconciliate: "Bank statements of %{cash} (from %{started_on} to %{stopped_on})"
     backend/bank_statements:
       edit: "Modificar el leventar N°%{number}"
+      edit_interval: "Períodos de estados bancarios para conciliar"
       import: "archivo de importación OFX"
       index: "Levantar de cuntos bancarios"
       new: "Despuntar un nuevo leventar de cuento"
-      # reconciliation: "Reconciliate bank statement %{cash} #%{number} (from %{started_on} to %{stopped_on})"
       show: "Leventard de cuento N°%{number}"
     backend/beehives:
       # reset: "Reset beehive: %{name}"
@@ -460,7 +463,7 @@ spa:
       new: "Nuevo pago de la nómina"
       # show: "Payslip payment: %{number}"
     backend/payslips:
-      # edit: "Edit payslip: %{name}"
+      # edit: "Edit payslip: %{number}"
       index: "Papeletas"
       new: "Nuevo salario"
       # show: "Payslip: %{number}"
@@ -643,7 +646,7 @@ spa:
       index: "Utilizador"
       lock: "Bloqueo de usuarios"
       new: "Creación de nuevo utilizador"
-      show: "Utilizador\_: %{first_name} %{last_name} (%{name})"
+      show: "Utilizador\_: %{first_name} %{last_name}"
       unlock: "Desbloquear usuario"
     backend/wine_tanks:
       index: "Tanques del vino"
@@ -770,6 +773,7 @@ spa:
     accounts: "Cuentos contables utilizados"
     accounts_only_used_at: "Solo las utilizan en"
     accounts_to_load: "Cuentas para cargar"
+    action_duration: "Duración de la acción"
     activate_entry_autocompletion: "Activar la terminación automática de entrada"
     active: "Activo"
     active_balance_sheet: "Balance activo" #?
@@ -899,7 +903,6 @@ spa:
     attach_deal: "Añadir un acuerdo"
     attachment: "Pieza juntada"
     attachments: "Archivos adjuntos"
-    auto_reconciliate: "reconciliar Auto"
     # automatic: "Auto"
     available: "Disponible"
     available_columns: "Campos disponibles\_: %{columns}"
@@ -938,6 +941,7 @@ spa:
     building_update: "Modifiar el lugar de deposito" #?
     by_year: "Por año"
     calculate: "Calcular"
+    calculated_hours: "Horas calculadas"
     calculators: "Calculadoras"
     calendar: "Calendario"
     campaign: "Campaña"
@@ -994,7 +998,6 @@ spa:
     columns: "Columnas para importar"
     commission: "Comisión"
     company: "Sociedad"
-    complete: "Completar"
     completed: "Terminado"
     conditions:
       filter_on_attribute_of_class: "Filtro de atributo de la clase"
@@ -1251,6 +1254,7 @@ spa:
     # hint: "Hint: %{value}"
     historic: "Histórico"
     home: "Vuelta a la cogida de la ayuda"
+    hours: "MARIDO"
     human_working_duration: "Duración de trabajo"
     humans: "HORA"
     iban: "Numero de cuento bancario internacional (IBAN)"
@@ -1284,7 +1288,7 @@ spa:
     insert_actual_password: "Coja su contraseña actual" #?
     insert_password: "Coja su nueva contraseña" #?
     inspections: "inspecciones"
-    # interactive_maps: "A JS library for interactive maps"
+    interactive_maps: "Una biblioteca JS para mapas interactivos"
     interface_preferences: "Preferencias de la interfaz"
     internal_error: "Vaya, algo sucedió."
     international_normal_vat_collected: "Tasa normal a 8,5%" #?
@@ -1425,6 +1429,7 @@ spa:
     method: "Método"
     minimal_temperature: "Temperatura mínima"
     minimum_amount: "Monto minimo"
+    # minutes: "Min"
     missing_attributes: "Algunos atributos faltan"
     missing_help: "La página no existe"
     mobile: "Móvil"
@@ -1454,6 +1459,7 @@ spa:
     net_income: "Lngresos netos"
     net_margin: "Margen neto" #?
     net_mass: "Masa neta"
+    net_production_sales: "Ventas netas de producción"
     net_surface_area: "Área de superficie Net"
     net_vat_amount: "TVA neta deuda" #?
     new: "Nuevo"
@@ -1972,6 +1978,7 @@ spa:
     variants: "Variantes"
     vat: "TINA"
     view: "Ver"
+    view_map_when_creating_an_intervention: "Ver mapa al crear una intervención"
     wages: "Salario"
     watering_concentration: "Uso del agua"
     weather: "Clima"
@@ -1982,6 +1989,7 @@ spa:
     workers: "Trabajadores"
     working_duration: "Duración de trabajo"
     working_sets_stocks: "Trabajo establece las existencias"
+    # working_times: "Working times of %{name}"
     x_cashes:
       # one: "%{count} cash"
       # other: "%{count} cashes"
@@ -2082,6 +2090,9 @@ spa:
     x_outgoing_payments:
       # one: "%{count} disbursement"
       # other: "%{count} disbursements"
+    x_purchase_payments:
+      # one: "%{count} purchase payment"
+      # other: "%{count} purchase payments"
     x_purchases:
       one: "1 compra"
       # other: "%{count} purchases"
@@ -2161,6 +2172,7 @@ spa:
       bad_file: "El fichero no parece corresponder" #?
       bookkeeping_is_finished: "La basula en contabilidad esta terminada."
       bookkeeping_works_only_with: "La bascula en contabilidad puede hacerse actualmente solo para\_: %{list}."
+      cannot_add_bank_statement_item: "No puede agregar una nueva línea porque no hay ningún estado de cuenta bancaria disponible en este día"
       cannot_delete_entity: "No es posible suprimir esta papeleta porque tiene reseña historica contable" #?
       cannot_find_deal_to_attach: "No se puede encontrar tratar de adjuntar"
       cannot_find_deal_to_detach: "No se puede encontrar tratar de separar"
@@ -2170,6 +2182,7 @@ spa:
       cannot_merge_entities: "Un error sobrevino. No es posible fusionar estas papeletas."
       changes_have_been_reflected: "Los cambios han sido repercutidos correctamente sobre el estatuto de depósitos actua"
       changes_have_not_been_reflected: "Los cambios no han sido repercutidos correctamente sobre el estatuto de depósitos actua"
+      closed_financial_periods: "La duración del activo fijo se extiende a través de períodos financieros cerrados."
       closed_financial_year_exchange: "El cambio de ejercicio se ha cerrado con éxito"
       closed_financial_years: "El ejercicio ha sido correctamente cerrado"
       columns_are_already_uses: "Una o varias columnas que hay que importar son seleccionados muchas veces"
@@ -2362,6 +2375,7 @@ spa:
       down: "Abajo"
       duplicate: "Duplicar"
       edit: "Editar"
+      edit_interval: "Reconciliar"
       edit_many: "Editar muchos"
       evaluate: "Evaluar"
       export: "Exportar"
@@ -2454,7 +2468,7 @@ spa:
     # backend/entity_links: "%{started_at}"
     # backend/events: "%{name}"
     # backend/incoming_payments: "%{number}. %{mode_name} from %{payer_full_name} of %{amount} %{currency}"
-    # backend/interventions: "%{number}. %{name}"
+    # backend/interventions: "%{number}"
     # backend/journal_entry_items: "%{entry_number} %{name} %{account_number} D%{real_debit} C%{real_credit} %{currency}"
     # backend/matters: "%{name} ‒ %{work_number}"
     # backend/observations: "%{content}"

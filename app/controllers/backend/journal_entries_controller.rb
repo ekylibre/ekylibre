@@ -144,7 +144,7 @@ module Backend
           notify_success(:journal_entry_has_been_saved_with_a_new_number, number: @journal_entry.number)
         end
 
-        #TODO: Extract this somewhere else, this isn't SRP
+        # TODO: Extract this somewhere else, this isn't SRP
         # Check if the method is called from "account/:id/mark" view
         if params[:journal_entry_items_ids].present?
           # Get all journal_entry_items id selected from the view
@@ -190,13 +190,15 @@ module Backend
       state = {}
       checked_on = params[:on] ? Date.parse(params[:on]) : Time.zone.today
       financial_year = FinancialYear.on(checked_on)
-      state[:from] = params[:from]
-      state[:to] = financial_year.currency
-      state[:exchange_rate] = if state[:from] != state[:to]
-                                I18n.currency_rate(state[:from], state[:to])
-                              else
-                                1
-                              end
+      unless financial_year.nil?
+        state[:from] = params[:from]
+        state[:to] = financial_year.currency
+        state[:exchange_rate] = if state[:from] != state[:to]
+                                  I18n.currency_rate(state[:from], state[:to])
+                                else
+                                  1
+                                end
+      end
       render json: state.to_json
     end
 

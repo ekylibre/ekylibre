@@ -10,7 +10,7 @@ gem 'mail', '~> 2.6.6.rc1'
 
 # Database adapters
 gem 'activerecord-postgis-adapter', '>= 3.0.0'
-gem 'pg' # Needed for some tasks
+gem 'pg', '~> 0.20.0' # Needed for some tasks
 
 # Multi-tenancy
 gem 'apartment', '>= 1.2.0', '< 2.0'
@@ -97,7 +97,7 @@ gem 'unicorn', group: :production
 gem 'exception_notification'
 
 # Views helpers
-gem 'active_list', '>= 6.9.2' # , path: "../active_list"
+gem 'active_list', '>= 6.9.3' # , path: "../active_list"
 gem 'haml'
 gem 'simple_calendar'
 
@@ -132,6 +132,9 @@ gem 'humanize'
 gem 'i18n-complements', '>= 0.0.14'
 gem 'i18n-js', '>= 3.0.0.rc12'
 
+# Dates management
+gem 'time_diff'
+
 # XML Parsing/Writing, HTML extraction
 gem 'nokogiri', '~> 1.7.1'
 
@@ -140,13 +143,16 @@ gem 'treetop'
 
 # Reporting
 # Need rjb which need openjdk-7-jdk (sudo apt-get install openjdk-7-jdk)
-gem 'beardley', '~> 1.3.0' # , path: "../beardley"
-gem 'beardley-barcode'
-gem 'beardley-batik'
-gem 'beardley-charts'
-gem 'beardley-groovy'
-gem 'beardley-open_sans'
-gem 'beardley-xml'
+# If you encounter a Segfault related to those gems you need to add
+# JAVA_TOOL_OPTIONS=-Xss1280k to your env vars
+# cf. https://bugs.launchpad.net/ubuntu/+source/linux/+bug/1699772
+gem 'beardley', '~> 1.3'
+gem 'beardley-barcode', '>= 1.0.1'
+gem 'beardley-batik', '>= 1.0.1'
+gem 'beardley-charts', '>= 0.0.1'
+gem 'beardley-groovy', '>= 2.0.1'
+gem 'beardley-open_sans', '>= 0.0.2'
+gem 'beardley-xml', '>= 1.1.2'
 
 # Import/Export
 gem 'ekylibre-ofx-parser'
@@ -186,7 +192,7 @@ gem 'luhn'
 gem 'bootstrap-slider-rails'
 
 group :development do
-  gem 'bullet'
+  gem 'bullet', '< 5.6.0'
 
   gem 'quiet_assets'
   # gem 'rack-mini-profiler'
@@ -216,8 +222,10 @@ group :development, :test do
   gem 'pry-rails'
   gem 'teaspoon-jasmine'
 
-  # Exception message tips
+  # Parallelize tests
+  gem 'parallel_tests'
 
+  # Exception message tips
   gem 'did_you_mean', '~> 0.9', platforms: [:ruby_22]
 end
 

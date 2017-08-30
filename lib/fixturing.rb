@@ -377,7 +377,8 @@ module Fixturing
                     RGeo::Geos::CAPIPolygonImpl,
                     RGeo::Cartesian::MultiPolygonImpl,
                     RGeo::Cartesian::Factory
-                  ])
+                  ]
+                )
               end
       value
     end
