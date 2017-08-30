@@ -135,6 +135,9 @@ gem 'humanize'
 gem 'i18n-complements', '>= 0.0.14'
 gem 'i18n-js', '>= 3.0.0.rc12'
 
+# Dates management
+gem 'time_diff'
+
 # XML Parsing/Writing, HTML extraction
 gem 'nokogiri', '~> 1.7.1'
 
@@ -192,7 +195,7 @@ gem 'luhn'
 gem 'bootstrap-slider-rails'
 
 group :development do
-  gem 'bullet', '~> 5.5.0'
+  gem 'bullet', '< 5.6.0'
 
   gem 'quiet_assets'
   # gem 'rack-mini-profiler'

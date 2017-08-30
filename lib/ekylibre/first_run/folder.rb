@@ -25,6 +25,10 @@ module Ekylibre
       end
 
       def run
+        step = 0
+        [@preferences, @imports, @company[:users], defaults].each { |d| step += d.try(:count) || 0 }
+        step += 1 if @preferences[:map_measure_srs].nil?
+        @progress = Progress.new('first_run', max: step)
         ActiveRecord::Base.transaction do
           puts 'Set locale...'
           ::I18n.locale = @preferences[:language] || :eng
@@ -37,8 +41,9 @@ module Ekylibre
           puts 'Load imports...'
           load_imports
           puts 'Save state...'
-          ::Preference.set!('first_run.executed', false, :boolean)
+          ::Preference.set!('first_run.executed', true, :boolean)
         end
+        @progress.clear!
       end
 
       # Load global preferences of the instance
@@ -50,18 +55,18 @@ module Ekylibre
           else
             Rails.logger.warn "Unknown preference: #{key}"
           end
+          @progress.increment!
         end
       end
 
       # Load default data of models with default data
       def load_defaults
-        %i[sequences accounts document_templates taxes journals cashes
-           sale_natures purchase_natures incoming_payment_modes
-           outgoing_payment_modes product_nature_variants map_layers].each do |dataset|
+        default_datasets.each do |dataset|
           next if @defaults[dataset].is_a?(FalseClass)
           puts "Load default #{dataset}..."
           model = dataset.to_s.classify.constantize
           model.load_defaults
+          @progress.increment!
         end
       end
 
@@ -93,6 +98,7 @@ module Ekylibre
           import[:nature] ||= name
           puts "Import #{import[:nature].to_s.yellow} from #{import[:file].to_s.blue}"
           Import.launch!(import[:nature], path.join('imports', import[:file]))
+          @progress.increment!
         end
       end
 
@@ -109,7 +115,14 @@ module Ekylibre
           unless User.find_by(email: email)
             User.create!(defaults.merge(attributes))
           end
+          @progress.increment!
         end
+      end
+
+      def default_datasets
+        %i[sequences accounts document_templates taxes journals cashes
+           sale_natures purchase_natures incoming_payment_modes
+           outgoing_payment_modes product_nature_variants map_layers]
       end
 
       protected

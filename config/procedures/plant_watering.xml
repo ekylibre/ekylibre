@@ -39,8 +39,9 @@
                  backward="(POPULATION * PRODUCT..net_mass(kilogram) * (PRODUCT.nitrogen_concentration(percent) / 100)) / sum_working_zone_areas(cultivation, :hectare)"
                  forward="(VALUE * sum_working_zone_areas(cultivation, :hectare)) / (PRODUCT..net_mass(kilogram) * PRODUCT.nitrogen_concentration(percent) / 100)"/>
       </input>
-      <tool name="spreader" filter="is equipment and can spread(water)" cardinality="*"/>
       <doer name="doer"  filter="is worker and can move" cardinality="*"/>
+      <tool name="tractor" filter="can tow(equipment) and can move" cardinality="*"/>
+      <tool name="spreader" filter="is equipment and can spread(water)" cardinality="*"/>
     </parameters>
   </procedure>
 </procedures>

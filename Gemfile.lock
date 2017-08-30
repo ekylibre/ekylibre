@@ -524,6 +524,9 @@ GEM
     thor (0.19.4)
     thread_safe (0.3.6)
     tilt (2.0.8)
+    time_diff (0.3.0)
+      activesupport
+      i18n
     timecop (0.9.1)
     timeliness (0.3.8)
     tins (1.15.0)
@@ -591,7 +594,7 @@ DEPENDENCIES
   bootstrap-slider-rails
   bootstrap3-datetimepicker-rails
   browser
-  bullet (~> 5.5.0)
+  bullet (< 5.6.0)
   capybara
   capybara-webkit
   charlock_holmes
@@ -680,6 +683,7 @@ DEPENDENCIES
   teaspoon-jasmine
   therubyracer
   thin
+  time_diff
   timecop
   treetop
   turbolinks (~> 2.0)
@@ -694,4 +698,4 @@ RUBY VERSION
    ruby 2.3.4p301
 
 BUNDLED WITH
-   1.15.1
+   1.15.4

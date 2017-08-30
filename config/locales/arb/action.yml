@@ -66,12 +66,15 @@ arb:
       index: "الحيوانات"
       new: "حيوان جديد"
       # show: "%{nature}: %{name}"
+    backend/bank_reconciliation/items:
+      # index: "Reconciliate bank statement %{cash} %{number} (from %{started_on} to %{stopped_on})"
+      # reconciliate: "Bank statements of %{cash} (from %{started_on} to %{stopped_on})"
     backend/bank_statements:
       edit: "تعديل الكشف المصرفي رقم%{number}"
+      edit_interval: "فترات البيانات المصرفية للتوفيق"
       import: "ملف الاستيراد OFX"
       index: "بيان الحساب المصرفي"
       new: "الاشارة لكشف حساب جديد"
-      # reconciliation: "Reconciliate bank statement %{cash} #%{number} (from %{started_on} to %{stopped_on})"
       show: "رقم كشف الحساب%{number}"
     backend/beehives:
       # reset: "Reset beehive: %{name}"
@@ -966,6 +969,7 @@ arb:
     accounts: "حسابات المحاسب المستخدمة"
     accounts_only_used_at: "حسابات تستخدم فقط في"
     accounts_to_load: "حسابات لتحميل"
+    action_duration: "مدة الإجراء"
     activate_entry_autocompletion: "تفعيل تكملة دخول"
     active: "فعال"
     active_balance_sheet: "رصيد دائر" #?
@@ -1102,7 +1106,6 @@ arb:
     attachment: "المرفق"
     attachments: "مرفقات"
     attorney: "معلومات الوكيل" #?
-    auto_reconciliate: "مصالحة بين السيارات"
     automatic: "السيارات"
     available: "متاح"
     available_columns: "الحقول المتاحة : %{columns}"
@@ -1143,6 +1146,7 @@ arb:
     building_update: "تعديل موقع التخزين" #?
     by_year: "وبحلول العام"
     calculate: "حساب"
+    calculated_hours: "الساعات المحسوبة"
     calculators: "الآلات الحاسبة"
     calendar: "تقويم"
     campaign: "حملة"
@@ -1203,7 +1207,6 @@ arb:
     columns: "اعمدة الاستيراد"
     commission: "عمولة"
     company: "المجتمع"
-    complete: "كامل"
     completed: "منجز"
     components: "العناصر" #?
     conditions:
@@ -1505,6 +1508,7 @@ arb:
       one: "مجموع الوقت المستخدم : ساعة واحدة" #?
       other: "مجموع الوقت المستخدم%{count} ساعات" #?
       zero: "" #?
+    # hours: "H"
     human_working_duration: "مدة العمل"
     # humans: "HR"
     iban: "رقم الحساب المصرفي الدولي (IBAN)"
@@ -1721,6 +1725,7 @@ arb:
     method: "طريقة"
     minimal_temperature: "درجة الحرارة الحد الأدنى"
     minimum_amount: "اقل مبلغ"
+    minutes: "دقيقة"
     missing_attributes: "بعض سمات مفقودة"
     missing_help: "صفحات مفقودة"
     mobile: "التليفون المحمول"
@@ -2385,6 +2390,7 @@ arb:
     vat_collected: "صافي قيمة الضريبة المضافة" #?
     vat_paid: "خصم قيمة الضريبة المضافة" #?
     view: "معاينة"
+    view_map_when_creating_an_intervention: "عرض الخريطة عند إنشاء التدخل"
     virtual_quantity: "الكمية العملية" #?
     wages: "أجور"
     waiting: "أ€ التسدسد لاحقا" #?
@@ -2397,6 +2403,7 @@ arb:
     workers: "العمال"
     working_duration: "مدة العمل"
     working_sets_stocks: "مجموعات العمل الأسهم"
+    # working_times: "Working times of %{name}"
     x_cashes:
       one: "حساب بنكي واحد"
       other: "%{count} حسابات بنكية اخرى"
@@ -2607,6 +2614,7 @@ arb:
       bad_file: "لا يبدو ان الملفات متطابقة" #?
       bookkeeping_is_finished: "نهاية نطاق المحاسبة"
       bookkeeping_works_only_with: "يمكن جعل نطاق الماسبة الحالية ل : %{list}."
+      cannot_add_bank_statement_item: "لا يمكنك إضافة سطر جديد لأنه لا يوجد كشف مصرفي متاح في هذا اليوم"
       cannot_delete_entity: "غير ممكن حذف هذا الملف لاحتوائه على محاسبة هامة" #?
       cannot_find_deal_to_attach: "لا يمكن العثور على التعامل إرفاق"
       cannot_find_deal_to_detach: "لا يمكن العثور على التعامل فصل"
@@ -2616,6 +2624,7 @@ arb:
       cannot_merge_entities: "Une erreur est survenue. غير ممكن دمج هذه الملفات"
       changes_have_been_reflected: "كانت تنعكس التغييرات بشكل صحيح على الوضع الحالي للاسهم"
       changes_have_not_been_reflected: "لم تكن تنعكس هذه التغييرات بشكل صحيح على الوضع الحالي للأسهم"
+      closed_financial_periods: "تمتد فترة األصول الثابتة عبر فترات مالية مغلقة."
       closed_financial_year_exchange: "تم إغلاق الصرف في العام المالي بنجاح"
       closed_financial_years: "تم اغلاق السنة المالية بشكل صحيح"
       columns_are_already_uses: "تم اخيار عامود او اكثر للتحميل لمرات عدة"
@@ -2851,6 +2860,7 @@ arb:
       down: "أسفل"
       duplicate: "مكرر"
       edit: "تحرير"
+      edit_interval: "مصالحة بين"
       edit_many: "تعديل العديد"
       evaluate: "تقييم"
       export: "تصدير"

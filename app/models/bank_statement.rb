@@ -65,6 +65,10 @@ class BankStatement < Ekylibre::Record::Base
 
   delegate :name, :currency, :journal, :account, :account_id, :next_reconciliation_letters, to: :cash, prefix: true
 
+  scope :find_by_date, lambda { |started_on, stopped_on, cash_id|
+    find_by('started_on <= ? AND stopped_on >= ? AND cash_id = ?', started_on, stopped_on, cash_id)
+  }
+
   before_validation do
     self.currency = cash_currency if cash
     active_items = items.to_a.delete_if(&:marked_for_destruction?)
@@ -162,9 +166,14 @@ class BankStatement < Ekylibre::Record::Base
   end
 
   def eligible_journal_entry_items
-    # margin = 20.days
-    unpointed = cash.unpointed_journal_entry_items # .between(started_on - margin, stopped_on + margin)
+    unpointed = cash.unpointed_journal_entry_items
     pointed = JournalEntryItem.pointed_by(self)
+    JournalEntryItem.where(id: unpointed.pluck(:id) + pointed.pluck(:id))
+  end
+
+  def eligible_entries_in(start, finish)
+    unpointed = cash.unpointed_journal_entry_items.between(start, finish)
+    pointed = JournalEntryItem.pointed_by(self).between(start, finish)
     JournalEntryItem.where(id: unpointed.pluck(:id) + pointed.pluck(:id))
   end
 
