@@ -8,7 +8,7 @@
   = f.referenced_association :delivery_address, source: :own_mails, new: { entity_id: Entity.of_company.id }
   = f.association :nature, as: :hidden
   = f.input :reference_number
-  = f.input :invoiced_at
+  = f.input :invoiced_at, autofocus: true
   = f.input :payment_delay
   = f.input :tax_payability, as: :radio_buttons
   = f.referenced_association :responsible, source: :employees, new: { employed: 1 }
