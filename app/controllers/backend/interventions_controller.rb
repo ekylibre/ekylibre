@@ -252,7 +252,7 @@ module Backend
           target_attributes[:targets_attributes][-index].merge!(new_attributes)
 
           procedure = Procedo::Procedure.find(params[:procedure_name])
-          element = procedure.find_element_with_name(target_name)
+          element = procedure.find_parameter_by_name(target_name)
 
           next target_attributes if element.cardinality != 1
 

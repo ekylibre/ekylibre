@@ -168,7 +168,7 @@
 
           if $(e.currentTarget).data('refresh')
             window.onLoad()
-          window.app.resetSelectedItems()
+            window.app.resetSelectedItems()
           return
 
         invalid: (frame, data, status, request) ->
