@@ -52,7 +52,8 @@
 #
 
 class Intervention < Ekylibre::Record::Base
-  include PeriodicCalculable, CastGroupable
+  include CastGroupable
+  include PeriodicCalculable
   include Customizable
   attr_readonly :procedure_name, :production_id, :currency
   refers_to :currency
@@ -107,7 +108,7 @@ class Intervention < Ekylibre::Record::Base
   calculable period: :month, column: :working_duration, at: :started_at, name: :sum
 
   acts_as_numbered
-  accepts_nested_attributes_for :group_parameters, :doers, :inputs, :outputs, :targets, :tools, :working_periods, allow_destroy: true
+  accepts_nested_attributes_for :group_parameters, :participations, :doers, :inputs, :outputs, :targets, :tools, :working_periods, allow_destroy: true
   accepts_nested_attributes_for :labellings, allow_destroy: true
 
   scope :between, lambda { |started_at, stopped_at|
@@ -168,24 +169,24 @@ class Intervention < Ekylibre::Record::Base
 
     unless params[:period_interval].blank? && params[:period].blank?
 
-      period_interval = params[:period_interval]
+      period_interval = params[:period_interval].to_sym
       period = params[:period]
 
-      if period_interval.to_sym == :day
+      if period_interval == :day
         search_params << "EXTRACT(DAY FROM #{Intervention.table_name}.started_at) = #{period.to_date.day} AND EXTRACT(MONTH FROM #{Intervention.table_name}.started_at) = #{period.to_date.month} AND EXTRACT(YEAR FROM #{Intervention.table_name}.started_at) = #{period.to_date.year}"
       end
 
-      if period_interval.to_sym == :week
+      if period_interval == :week
         beginning_of_week = period.to_date.at_beginning_of_week.to_time.beginning_of_day
         end_of_week = period.to_date.at_end_of_week.to_time.end_of_day
         search_params << "#{Intervention.table_name}.started_at >= '#{beginning_of_week}' AND #{Intervention.table_name}.stopped_at <= '#{end_of_week}'"
       end
 
-      if period_interval.to_sym == :month
+      if period_interval == :month
         search_params << "EXTRACT(MONTH FROM #{Intervention.table_name}.started_at) = #{period.to_date.month} AND EXTRACT(YEAR FROM #{Intervention.table_name}.started_at) = #{period.to_date.year}"
       end
 
-      if period_interval.to_sym == :year
+      if period_interval == :year
         search_params << "EXTRACT(YEAR FROM #{Intervention.table_name}.started_at) = #{period.to_date.year}"
       end
     end
@@ -202,10 +203,15 @@ class Intervention < Ekylibre::Record::Base
       search_params << "#{Intervention.table_name}.state = '#{params[:state]}'"
     end
 
-    where(search_params.join(' AND '))
-      .includes(:doers)
-      .references(product_parameters: [:product])
-      .order(started_at: :desc)
+    page = params[:page]
+    page ||= 1
+
+    request = where(search_params.join(' AND '))
+              .includes(:doers)
+              .references(product_parameters: [:product])
+              .order(started_at: :desc)
+
+    { total_count: request.count, interventions: request.page(page) }
   }
 
   scope :with_targets, lambda { |*targets|
@@ -620,6 +626,35 @@ class Intervention < Ekylibre::Record::Base
     compliances[modifier.keys.first] = modifier.values.first
     update(request_compliant: false) if compliances.values.index(false)
     update(request_compliant: true) if (compliances.values - [true]).empty?
+  end
+
+  def participation(product)
+    InterventionParticipation.of_intervention(self).of_product(product).first
+  end
+
+  def worker_working_periods(nature: nil, not_nature: nil)
+    workers_participations = participations.select { |participation| participation.product.is_a?(Worker) }
+    working_periods = nil
+
+    if nature.nil? && not_nature.nil?
+      working_periods = workers_participations.map(&:working_periods)
+    elsif !nature.nil?
+      working_periods = workers_participations.map { |participation| participation.working_periods.where(nature: nature) }
+    elsif !not_nature.nil?
+      working_periods = workers_participations.map { |participation| participation.working_periods.where.not(nature: not_nature) }
+    end
+
+    working_periods.flatten
+  end
+
+  def drivers_times(nature: nil, not_nature: nil)
+    worker_working_periods(nature: nature, not_nature: not_nature)
+      .map(&:duration)
+      .reduce(0, :+)
+  end
+
+  def first_worker_working_period(nature: nil, not_nature: nil)
+    test = worker_working_periods(nature: nature, not_nature: not_nature)
   end
 
   class << self

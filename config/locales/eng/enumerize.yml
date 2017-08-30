@@ -94,6 +94,7 @@ eng:
         purchase: "Purchase"
         sale: "Sale"
         stock: "Stock"
+        travel_cost: "Travel"
     crumb:
       nature:
         hard_start: "Hard start"
@@ -232,6 +233,7 @@ eng:
     intervention_working_period:
       nature:
         intervention: "Intervention"
+        pause: "Pause"
         preparation: "Preparation"
         travel: "Travel"
     journal:
@@ -479,6 +481,7 @@ eng:
         outgoing_payment_lists: "Outgoing payment lists"
         outgoing_payments: "Outgoing payments"
         parcels: "Parcels"
+        # payslips: "Payslips"
         plant_countings: "Plant countings"
         plants: "Plants"
         product_nature_categories: "Product nature categories"

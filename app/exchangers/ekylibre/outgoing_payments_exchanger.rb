@@ -53,8 +53,8 @@ module Ekylibre
         end
 
         # Check Outgoing payment presence
-        if outgoing_payment = OutgoingPayment.where(payee: entity, paid_at: paid_at, mode: payment_mode, amount: r.amount).first
-          w.info " Outgoing payment is already present with ID : #{outgoing_payment.id} "
+        if purchase_payment = PurchasePayment.where(payee: entity, paid_at: paid_at, mode: payment_mode, amount: r.amount).first
+          w.info " Outgoing payment is already present with ID : #{purchase_payment.id} "
         end
 
         # Check affair presence
@@ -111,8 +111,8 @@ module Ekylibre
 
         # find or create an outgoing payment
         if payment_mode && r.amount && paid_at && entity && responsible
-          unless outgoing_payment = OutgoingPayment.where(payee: entity, paid_at: paid_at, mode: payment_mode, amount: r.amount).first
-            outgoing_payment = OutgoingPayment.create!(
+          unless purchase_payment = PurchasePayment.where(payee: entity, paid_at: paid_at, mode: payment_mode, amount: r.amount).first
+            purchase_payment = PurchasePayment.create!(
               mode: payment_mode,
               paid_at: paid_at,
               to_bank_at: paid_at,
@@ -120,15 +120,15 @@ module Ekylibre
               payee: entity,
               responsible: responsible
             )
-            w.info "Outgoing payment was created with #{outgoing_payment.id}"
+            w.info "Outgoing payment was created with #{purchase_payment.id}"
           end
         end
 
         # find an affair througt purchase and link affair and payment
-        if r.reference_number && entity && outgoing_payment
+        if r.reference_number && entity && purchase_payment
           # see if purchase exist anyway
           if purchase = Purchase.where(supplier_id: entity.id, reference_number: r.reference_number).first
-            purchase.affair.attach(outgoing_payment) if purchase.affair
+            purchase.affair.attach(purchase_payment) if purchase.affair
           end
         end
 

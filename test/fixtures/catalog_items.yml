@@ -171,7 +171,7 @@ catalog_items_010:
   currency: EUR
   id: 22
   lock_version: 0
-  name: "Épandeur à engrais"
+  name: Épandeur à engrais
   updated_at: 2016-07-01 20:48:30.925872000 Z
   updater_id: 1
   variant_id: 37

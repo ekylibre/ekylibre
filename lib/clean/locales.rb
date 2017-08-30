@@ -113,7 +113,7 @@ module Clean
       end
 
       def clean_action!
-        untranslated = to_translate = translated = 0
+        untranslated = to_translate = 0
         warnings = []
         translation = "#{locale}:\n"
 
@@ -495,6 +495,7 @@ module Clean
         translation = "#{locale}:\n"
         translation << "  nomenclatures:\n"
         scrutator = scrut do |s|
+          Nomen.load!
           Nomen.names.sort.each do |name| #  { |a, b| a.to_s <=> b.to_s }
             nomenclature = Nomen[name]
             translation << "    #{nomenclature.name}:\n"

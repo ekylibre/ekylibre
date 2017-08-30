@@ -27,6 +27,7 @@
 #  birth_farm_number            :string
 #  born_at                      :datetime
 #  category_id                  :integer          not null
+#  codes                        :jsonb
 #  country                      :string
 #  created_at                   :datetime         not null
 #  creator_id                   :integer
@@ -89,7 +90,7 @@ class Animal < Bioproduct
   belongs_to :initial_mother, class_name: 'Animal'
   belongs_to :originator, class_name: 'SynchronizationOperation'
 
-  validates :identification_number, presence: true
+  # validates :identification_number, presence: true
   validates :identification_number, uniqueness: true
 
   scope :fathers, -> { indicate(sex: 'male', reproductor: true).order(:name) }

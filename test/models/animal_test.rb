@@ -27,6 +27,7 @@
 #  birth_farm_number            :string
 #  born_at                      :datetime
 #  category_id                  :integer          not null
+#  codes                        :jsonb
 #  country                      :string
 #  created_at                   :datetime         not null
 #  creator_id                   :integer
@@ -87,4 +88,14 @@ require 'test_helper'
 class AnimalTest < ActiveSupport::TestCase
   test_model_actions
   # Add tests here...
+  test 'animal without identification number' do
+    animal = Animal.new(
+      name: 'test_animal',
+      variant_id: ProductNatureVariant.where(variety: :bos).first.id,
+      variety: 'bos',
+      nature_id: ProductNature.where(variety: 'bos').first,
+
+    )
+    animal.valid?
+  end
 end

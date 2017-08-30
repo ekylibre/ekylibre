@@ -22,7 +22,7 @@ module Backend
   module KujakuHelper
     # Kujaku 孔雀
     # Search bar
-    def kujaku(*args, &_block)
+    def kujaku(*args)
       options = args.extract_options!
       url = options[:url] || {}
       name = args.shift || ("#{controller_path}-#{action_name}-" + caller.first.split(/\:/).second).parameterize
@@ -205,8 +205,9 @@ module Backend
       end
 
       # Custom search field based on rendering helper method
-      class HelperFeather < ChoiceFeather
+      class HelperFeather < Feather
         def configure(*args)
+          args << @options
           if @block
           elsif @name = args.shift
             @args = args

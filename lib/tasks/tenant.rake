@@ -104,9 +104,12 @@ namespace :tenant do
     Ekylibre::Tenant.create(tenant) unless Ekylibre::Tenant.exist?(tenant)
     Ekylibre::Tenant.switch(tenant) do
       # Set basic preferences
-      Preference.set! :language, ENV['LANGUAGE'] || 'fra'
-      Preference.set! :country, ENV['COUNTRY'] || 'fr'
-      Preference.set! :currency, ENV['CURRENCY'] || 'EUR'
+      language = Nomen::Language.find(ENV['LANGUAGE'])
+      Preference.set! :language, language ? language.name : 'fra'
+      country = Nomen::Country.find(ENV['COUNTRY'])
+      Preference.set! :country, country ? country.name : 'fr'
+      currency = Nomen::Currency.find(ENV['CURRENCY'])
+      Preference.set! :currency, currency ? currency.name : 'EUR'
       Preference.set! :map_measure_srs, ENV['MAP_MEASURE_SRS'] || ENV['SRS'] || 'WGS84'
       # Add user
       email = ENV['EMAIL'] || 'admin@ekylibre.org'
@@ -151,7 +154,30 @@ namespace :tenant do
     raise 'Need TENANT env variable to dump' unless tenant
     options = {}
     options[:path] = Pathname.new(archive) if archive
+    options[:path] ||= Rails.root.join('tmp', 'archives') if tenant
+    path_to_archive = options[:path] && options[:path].join("#{tenant}.zip")
+    if path_to_archive && path_to_archive.exist? && ENV['FORCE'].to_i.zero?
+      unless confirm("An archive #{path_to_archive.relative_path_from(Rails.root)} already exists. Do you want to overwrite it?", false)
+        puts 'Nothing dumped'.yellow
+        exit(0)
+      end
+    end
+    puts "Dumping #{tenant}".yellow
     Ekylibre::Tenant.dump(tenant, options)
+  end
+
+  def confirm(question, default)
+    puts question.yellow + ' Y/N'.red
+    STDOUT.flush
+    input = STDIN.gets.chomp
+    case input.upcase
+    when 'Y'
+      return true
+    when 'N'
+      return false
+    else
+      return default
+    end
   end
 
   task restore: :environment do
@@ -163,6 +189,13 @@ namespace :tenant do
       options[:tenant] = tenant
     end
     raise 'Need ARCHIVE env variable to find archive' unless archive
+    if Ekylibre::Tenant.exist?(tenant) && ENV['FORCE'].to_i.zero?
+      unless confirm("Tenant \"#{tenant}\" already exists. Do you really want to erase it and restore archive?", false) && confirm('Really sure?', false)
+        puts 'Nothing restored'.yellow
+        exit(0)
+      end
+    end
+    puts "Restoring #{tenant}".yellow
     Ekylibre::Tenant.restore(archive, options)
   end
 

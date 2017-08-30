@@ -16,9 +16,9 @@
                  backward="(POPULATION * PRODUCT.net_length(meter) * PRODUCT.width(meter)) / sum(cultivation, :net_surface_area, :square_meter)"
                  forward="(VALUE * sum(cultivation, :net_surface_area, :square_meter)) / (PRODUCT.net_length(meter) * PRODUCT.width(meter))"/>
       </input>
+      <doer name="doer" filter="is worker" cardinality="*"/>
       <tool name="tool" filter="is portable_equipment" cardinality="*"/>
       <tool name="tractor" filter="is equipment and can tow(equipment)" cardinality="*"/>
-      <doer name="doer" filter="is worker" cardinality="*"/>
     </parameters>
   </procedure>
 </procedures>
