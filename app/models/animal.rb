@@ -90,7 +90,6 @@ class Animal < Bioproduct
   belongs_to :initial_mother, class_name: 'Animal'
   belongs_to :originator, class_name: 'SynchronizationOperation'
 
-  # validates :identification_number, presence: true
   validates :identification_number, uniqueness: true
 
   scope :fathers, -> { indicate(sex: 'male', reproductor: true).order(:name) }
