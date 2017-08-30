@@ -35,7 +35,7 @@ module Backend
       end
       locals[:other_types] = locals[:types] - [locals[:default_type]]
       locals[:third_id] = options[:third] ? options[:third].id : Maybe(affair.deals.first).deal_third.or_else(nil)
-      locals[:new_record_options] = options.select { |k, v| k =~ /\w+_attributes/ }
+      locals[:new_record_options] = options[:url_options]
       render partial: 'backend/affairs/show', object: affair, locals: locals
     end
   end
