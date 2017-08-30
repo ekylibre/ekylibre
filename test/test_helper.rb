@@ -1,3 +1,5 @@
+require 'minitest/mock'
+
 if ENV['CI']
   require 'codacy-coverage'
   require 'coveralls'

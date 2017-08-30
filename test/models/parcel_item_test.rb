@@ -54,5 +54,20 @@ require 'test_helper'
 
 class ParcelItemTest < ActiveSupport::TestCase
   test_model_actions
-  # Add tests here...
+
+  test "give_incoming doesn't create ProductMovement and ProductLocalization if an error occurs when creating ProductEnjoyment"  do
+    product = create(:product)
+    parcel_item = create(:parcel_item, product: product, product_identification_number: '12345678', product_name: 'Product name')
+    ProductMovement.destroy_all
+    ProductLocalization.destroy_all
+    ProductEnjoyment.stub :create!, lambda { |*args| raise } do
+      begin
+        parcel_item.give
+      rescue
+        puts "Error message"
+      end
+      assert_empty ProductMovement.all
+      assert_empty ProductLocalization.all
+    end
+  end
 end

@@ -207,8 +207,16 @@ class ParcelItem < Ekylibre::Record::Base
   # Mark items as given, and so change enjoyer and ownership if needed at
   # this moment.
   def give
-    give_outgoing if parcel_outgoing?
-    give_incoming if parcel_incoming?
+    if parcel_outgoing?
+      transaction do
+        give_outgoing
+      end
+    end
+    if parcel_incoming?
+      transaction do
+        give_incoming
+      end
+    end
   end
 
   protected
