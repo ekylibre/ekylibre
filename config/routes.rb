@@ -271,7 +271,7 @@ Rails.application.routes.draw do
 
     resources :attachments, only: %i[show create destroy]
 
-    namespace :bank_reconciliation do
+    namespace :bank_reconciliation, path: 'bank-reconciliation' do
       resources :gaps, only: %i[create]
       resources :items, only: [:index] do
         collection do
@@ -592,6 +592,9 @@ Rails.application.routes.draw do
     end
 
     resources :intervention_participations, only: %i[index update destroy] do
+      collection do
+        get :participations_modal
+      end
       member do
         post :convert
       end

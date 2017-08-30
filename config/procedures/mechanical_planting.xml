@@ -36,10 +36,10 @@
                  backward="POPULATION * PRODUCT..items_count / 1000"
                  forward="VALUE * 1000 / PRODUCT..items_count"/>
       </input>
-      <tool name="tractor" filter="can tow(equipment) and can move" cardinality="*"/>
-      <tool name="implanter_tool" filter="can implant" cardinality="*"/>
       <doer name="driver" filter="can drive(equipment) and can move" cardinality="*"/>
       <doer name="doer" filter="is worker" cardinality="*"/>
+      <tool name="tractor" filter="can tow(equipment) and can move" cardinality="*"/>
+      <tool name="implanter_tool" filter="can implant" cardinality="*"/>
     </parameters>
   </procedure>
 </procedures>

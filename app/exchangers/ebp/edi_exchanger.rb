@@ -14,7 +14,7 @@ module EBP
         end
         encoding = f.readline
         f.readline
-        owner = f.readline
+        f.readline # => owner
         started_on = f.readline
         started_on = Date.civil(started_on[4..7].to_i, started_on[2..3].to_i, started_on[0..1].to_i).to_datetime.beginning_of_day
         stopped_on = f.readline

@@ -31,7 +31,6 @@ module Backend
     #   :variant_id
     #   :activity_id
     def self.fixed_assets_conditions
-      code = ''
       code = search_conditions(fixed_assets: %i[name number description]) + " ||= []\n"
       code << "if params[:period].present? && params[:period].to_s != 'all'\n"
       code << "  c[0] << ' AND #{FixedAsset.table_name}.started_on BETWEEN ? AND ?'\n"
@@ -100,6 +99,7 @@ module Backend
 
       return unless @fixed_asset = find_and_check
       t3e @fixed_asset
+      notify_warning_now(:closed_financial_periods) unless @fixed_asset.on_unclosed_periods?
       respond_with(@fixed_asset, methods: %i[net_book_value duration],
                                  include: [
                                    {
