@@ -58,5 +58,26 @@ require 'test_helper'
 
 class InterventionOutputTest < ActiveSupport::TestCase
   test_model_actions
-  # Add tests here...
+
+  test 'method average_cost_amount' do
+
+    intervention = InterventionOutput.new(
+      creator_id: 1,
+      dead: false,
+      id: 151,
+      intervention_id: 29,
+      lock_version: 1,
+      position: 11,
+      product_id: 142,
+      quantity_population: 1992.0,
+      reference_name: 'wine_bottles',
+      type: 'InterventionOutput',
+      unit_pretax_stock_amount: 0.0,
+      updater_id: 1,
+      variant_id: 65
+      )
+
+    refute_nil intervention.send(:compute_average_cost_amount)
+    assert intervention.send(:compute_average_cost_amount)
+  end
 end

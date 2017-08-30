@@ -650,6 +650,8 @@ fra:
       index: "Installations"
       new: "Nouvelle installation"
       show: "Installation\_: %{name}"
+    backend/stocks:
+      index: "Stocks"
     backend/subscription_natures:
       edit: "Modifier le type d’abonnement\_: %{name}"
       index: "Types d’abonnement"
@@ -992,6 +994,7 @@ fra:
     available: "Disponible"
     available_columns: "Champs disponibles\_: %{columns}"
     average: "Moyenne"
+    average_cost_amount: "Cump"
     back: "Revenir à la page précédente"
     backup: "Sauvegarder" #?
     backups: "Sauvegardes" #?

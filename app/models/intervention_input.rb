@@ -71,6 +71,10 @@ class InterventionInput < InterventionProductParameter
     self.variant = product.variant if product
   end
 
+  before_save :compute_average_cost_amount
+  before_destroy :compute_rollback_average_cost_amount
+  after_update :compute_update_average_cost_amount
+
   after_save do
     if product && intervention.record?
       movement = product_movement ||
@@ -145,5 +149,63 @@ class InterventionInput < InterventionProductParameter
       options[:catalog_item] = product.default_catalog_item(options[:catalog_usage])
       return InterventionParameter::AmountComputation.quantity(:catalog, options)
     end
+  end
+
+  def compute_average_cost_amount
+    if intervention.accounted_at.nil?
+      many_intervention_items = intervention.inputs.group_by(&:variant_id)
+      many_intervention_items = many_intervention_items.to_a
+      many_intervention_items.each do |items|
+        items.last.each do |item|
+          quantity_action = item.quantity_population
+          variant_id = item.variant_id
+          if item == items.last.first
+            variant = ProductNatureVariant.find(variant_id)
+            @quantity_new = variant.current_stock - quantity_action
+          else
+            @quantity_new -= quantity_action
+          end
+          create_variant_valuing(@quantity_new, quantity_action, variant_id)
+        end
+      end
+    else
+      intervention = intervention.inputs.to_a
+      intervention.each do |item|
+        intervention = InterventionInput.where(intervention_id: item.intervention_id)
+
+        if intervention.first.variant_id != item.variant_id
+          quantity_action = item.quantity_value
+          variant_id = item.variant_id
+          quantity_new = variant.current_stock - quantity_action
+          create_variant_valuing(quantity_new, quantity_action, variant_id)
+        else
+          old_intervention = InterventionInput.where(variant_id: variant.id)
+          reset_stock = old_intervention.quantity_value + variant.current_stock
+          valuing_rollback(item.variant_id)
+          quantity_action = item.quantity_value
+          variant_id = item.variant_id
+          quantity_new = reset_stock - quantity_action
+          create_variant_valuing(quantity_new, quantity_action, variant_id)
+        end
+      end
+    end
+  end
+
+  def compute_rollback_average_cost_amount
+    i = intervention.inputs.to_a
+
+    i.each do |item|
+      variant_id = item.variant_id
+      valuing_rollback(variant_id)
+    end
+  end
+
+  def valuing_rollback(variant_id)
+    ProductNatureVariantValuing.rollback_valuing(variant_id)
+  end
+
+  def create_variant_valuing(quantity_new, quantity_action, variant_id)
+    # input
+    ProductNatureVariantValuing.calculate_input(quantity_new, quantity_action, variant_id)
   end
 end

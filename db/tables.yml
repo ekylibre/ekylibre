@@ -5932,6 +5932,42 @@ product_nature_variant_readings:
     type: integer
     references: product_nature_variant
     required: true
+product_nature_variant_valuings:
+  amount:
+    type: decimal
+    precision: 19
+    scale: 4
+    required: true
+  average_cost_amount:
+    type: decimal
+    precision: 19
+    scale: 4
+    required: true
+  computed_at:
+    type: datetime
+    required: true
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  id:
+    type: integer
+    required: true
+  lock_version:
+    type: integer
+    required: true
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+  variant_id:
+    type: integer
+    references: product_nature_variant
+    required: true
 product_nature_variants:
   active:
     type: boolean
@@ -5995,6 +6031,9 @@ product_nature_variants:
   updater_id:
     type: integer
     references: user
+  valuing_id:
+    type: integer
+    references: product_nature_variant_valuing
   variety:
     type: string
     required: true

@@ -5561,6 +5561,43 @@ ALTER SEQUENCE product_nature_variant_readings_id_seq OWNED BY product_nature_va
 
 
 --
+-- Name: product_nature_variant_valuings; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE product_nature_variant_valuings (
+    id integer NOT NULL,
+    average_cost_amount numeric(19,4) NOT NULL,
+    amount numeric(19,4) NOT NULL,
+    variant_id integer NOT NULL,
+    computed_at timestamp without time zone NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    creator_id integer,
+    updater_id integer,
+    lock_version integer DEFAULT 0 NOT NULL
+);
+
+
+--
+-- Name: product_nature_variant_valuings_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE product_nature_variant_valuings_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: product_nature_variant_valuings_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE product_nature_variant_valuings_id_seq OWNED BY product_nature_variant_valuings.id;
+
+
+--
 -- Name: product_nature_variants; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -5589,7 +5626,8 @@ CREATE TABLE product_nature_variants (
     number character varying NOT NULL,
     stock_account_id integer,
     stock_movement_account_id integer,
-    france_maaid character varying
+    france_maaid character varying,
+    valuing_id integer
 );
 
 
@@ -7730,6 +7768,13 @@ ALTER TABLE ONLY product_nature_variant_readings ALTER COLUMN id SET DEFAULT nex
 
 
 --
+-- Name: product_nature_variant_valuings id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY product_nature_variant_valuings ALTER COLUMN id SET DEFAULT nextval('product_nature_variant_valuings_id_seq'::regclass);
+
+
+--
 -- Name: product_nature_variants id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -8887,6 +8932,14 @@ ALTER TABLE ONLY product_nature_variant_components
 
 ALTER TABLE ONLY product_nature_variant_readings
     ADD CONSTRAINT product_nature_variant_readings_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: product_nature_variant_valuings product_nature_variant_valuings_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY product_nature_variant_valuings
+    ADD CONSTRAINT product_nature_variant_valuings_pkey PRIMARY KEY (id);
 
 
 --
@@ -15082,6 +15135,34 @@ CREATE INDEX index_product_nature_variant_readings_on_variant_id ON product_natu
 
 
 --
+-- Name: index_product_nature_variant_valuings_on_created_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_product_nature_variant_valuings_on_created_at ON product_nature_variant_valuings USING btree (created_at);
+
+
+--
+-- Name: index_product_nature_variant_valuings_on_creator_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_product_nature_variant_valuings_on_creator_id ON product_nature_variant_valuings USING btree (creator_id);
+
+
+--
+-- Name: index_product_nature_variant_valuings_on_updated_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_product_nature_variant_valuings_on_updated_at ON product_nature_variant_valuings USING btree (updated_at);
+
+
+--
+-- Name: index_product_nature_variant_valuings_on_updater_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_product_nature_variant_valuings_on_updater_id ON product_nature_variant_valuings USING btree (updater_id);
+
+
+--
 -- Name: index_product_nature_variants_on_category_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -17159,6 +17240,14 @@ ALTER TABLE ONLY outgoing_payments
 
 
 --
+-- Name: product_nature_variant_valuings fk_rails_26288a66e8; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY product_nature_variant_valuings
+    ADD CONSTRAINT fk_rails_26288a66e8 FOREIGN KEY (variant_id) REFERENCES product_nature_variants(id);
+
+
+--
 -- Name: journal_entry_items fk_rails_3143e6e260; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -17260,6 +17349,14 @@ ALTER TABLE ONLY intervention_working_periods
 
 ALTER TABLE ONLY payslips
     ADD CONSTRAINT fk_rails_ac1b8c6e79 FOREIGN KEY (account_id) REFERENCES accounts(id);
+
+
+--
+-- Name: product_nature_variants fk_rails_ac9b2f148e; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY product_nature_variants
+    ADD CONSTRAINT fk_rails_ac9b2f148e FOREIGN KEY (valuing_id) REFERENCES product_nature_variant_valuings(id);
 
 
 --
@@ -17863,4 +17960,6 @@ INSERT INTO schema_migrations (version) VALUES ('20170530002312');
 INSERT INTO schema_migrations (version) VALUES ('20170602144753');
 
 INSERT INTO schema_migrations (version) VALUES ('20170804101025');
+
+INSERT INTO schema_migrations (version) VALUES ('20170821144206');
 

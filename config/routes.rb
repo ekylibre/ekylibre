@@ -944,6 +944,8 @@ Rails.application.routes.draw do
       end
     end
 
+    resources :stocks, concerns: [:list]
+
     resources :subscription_natures, concerns: %i[list unroll], path: 'subscription-natures' do
       member do
         get :list_subscriptions
