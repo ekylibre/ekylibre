@@ -105,9 +105,8 @@ module Backend
     end
 
     def intervention_started_at
-      return @intervention.started_at unless @intervention.nil?
+      return Time.parse(params['intervention_started_at']) if params['intervention_started_at'].present?
 
-      Time.parse(params['intervention_started_at']) if params['intervention_started_at'].present?
       Time.now
     end
 
