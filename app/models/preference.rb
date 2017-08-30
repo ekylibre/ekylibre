@@ -45,7 +45,7 @@ class Preference < Ekylibre::Record::Base
                             decimal language integer record
                             spatial_reference_system string], predicates: true
   @@conversions = { float: :decimal, true_class: :boolean, false_class: :boolean, fixnum: :integer }
-  cattr_reader :reference
+  attr_reader :reference
   attr_readonly :user_id, :name, :nature
   belongs_to :user, class_name: 'Entity'
   belongs_to :record_value, polymorphic: true

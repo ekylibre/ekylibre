@@ -42,5 +42,14 @@ module Backend
       code << ' ' << text_field_tag(id, params[id], size: 30)
       code.html_safe
     end
+
+    def find_items(preference_name = nil)
+      if preference_name && current_user.preference(preference_name).value
+        items = @account.reconcilable_entry_items(params[:period], params[:started_on], params[:stopped_on]).where(letter: nil)
+      else
+        items = @account.reconcilable_entry_items(params[:period], params[:started_on], params[:stopped_on])
+      end
+      items
+    end
   end
 end
