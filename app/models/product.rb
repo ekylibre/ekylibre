@@ -510,9 +510,8 @@ class Product < Ekylibre::Record::Base
 
   def shape=(new_shape)
     reading_cache[:shape] = new_shape
+    reading_cache[:net_surface_area] = calculate_net_surface_area
 
-    self.net_surface_area = calculate_net_surface_area
-    save!
     shape
   end
 
@@ -813,6 +812,7 @@ class Product < Ekylibre::Record::Base
     in_cache = reading_cache[indicator.to_s]
     return in_cache if in_cache
     indicator_value = super
+    self.reading_cache[indicator.to_s] = indicator_value
     unless self.new_record?
       update_column(:reading_cache, reading_cache.merge(indicator.to_s => indicator_value))
     end
