@@ -139,16 +139,22 @@ class ProductTest < ActiveSupport::TestCase
 
   test 'product can get a value from its readings: integer' do
     product = create :product
-    create :product_reading, :decimal,
+    create :product_reading, :integer,
       product: product,
       indicator_name: 'rows_count',
-      value: 12.5
+      value: 4
 
     assert_equal 4, product.get(:rows_count)
   end
 
   test 'product can get a value from its readings: measure' do
+    product = create :product
+    create :product_reading, :measure,
+      product: product,
+      indicator_name: 'diameter',
+      value: 5.in(:meter)
 
+    assert_equal 5.in(:meter), product.get(:diameter)
   end
 
   test 'product can get a value from its readings: multi_polygon' do
