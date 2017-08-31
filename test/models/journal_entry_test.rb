@@ -245,4 +245,13 @@ class JournalEntryTest < ActiveSupport::TestCase
       JournalEntryItem.new(account: Account.second, real_debit: 0, real_credit: amount, name: name)
     ]
   end
+
+  test "reference_number refers to resource's reference number" do
+    sale = create(:sale_with_accounting)
+    sale_item = create(:sale_item, sale: sale)
+    sale.propose
+    sale.invoice
+    journal_entry = JournalEntry.where(resource_id: sale.id, resource_type: "Sale").first
+    assert_equal sale.number, journal_entry.reference_number
+  end
 end
