@@ -1,7 +1,8 @@
 class ReadingsCoder
   SERIALIZE   = Hash.new { Proc.new { |_, value| value } }
-    .tap { |h| h[Charta::Geometry] = Proc.new { |_, value| value.to_ewkt }}
-    .tap { |h| h[Measure]          = Proc.new { |_, value| value.to_s    }}
+    .tap { |h| h[Measure]              = Proc.new { |_, value| value.to_s    }}
+    .tap { |h| h[Charta::Point]        = Proc.new { |_, value| value.to_ewkt }}
+    .tap { |h| h[Charta::MultiPolygon] = Proc.new { |_, value| value.to_ewkt }}
 
   UNSERIALIZE = Hash.new { Proc.new { |klass, value| klass.new(value) } }
     .tap { |h| h[FalseClass] = Proc.new { |_, _| false          }}
