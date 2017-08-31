@@ -39,7 +39,7 @@
 
         %tfoot
           %tr#total.valid.total{data: {valid_if_equality_between: "#total-debit, #total-credit", submit_if_valid: "true"}}
-            %th{colspan: 5 + (partial_lettering ? 1 : 0)}= :total.tl
+            %th{colspan: 5 + (partial_lettering ? 2 : 1)}= :total.tl
             %td#total-debit{data:  {use: "tr.selected .debit", calculate_round: precision}}=  0
             %td#total-credit{data: {use: "tr.selected .credit", calculate_round: precision}}= 0
 

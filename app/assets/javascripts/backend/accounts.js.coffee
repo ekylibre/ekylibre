@@ -16,7 +16,7 @@
         type: 'PATCH'
         data:
           masked: $input.is(':checked') ? 'true' : 'false'
-        success:
+        success: (data) ->
           unless $input.is(':checked')
             location.reload()
 ) ekylibre, jQuery
