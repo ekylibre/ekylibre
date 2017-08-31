@@ -46,7 +46,7 @@ FactoryGirl.define do
     end
 
     trait :point do
-      indicator_name     ''
+      indicator_name     'geolocation'
       point_value        Charta::Point.new("SRID=4326;POINT(-0.783801558989031 45.8279122127986)")
       indicator_datatype :point
     end
