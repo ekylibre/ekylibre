@@ -103,7 +103,13 @@ class ProductTest < ActiveSupport::TestCase
   end
 
   test 'product can get a value from its readings: boolean' do
+    product = create :product
+    create :product_reading, :boolean,
+      product: product,
+      indicator_name: 'healthy',
+      value: true
 
+    assert_equal true, product.get(:healthy)
   end
 
   test 'product can get a value from its readings: choice' do
