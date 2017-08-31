@@ -158,7 +158,14 @@ class ProductTest < ActiveSupport::TestCase
   end
 
   test 'product can get a value from its readings: multi_polygon' do
+    shape = Charta::Geometry.new("SRID=4326;MULTIPOLYGON(((-0.792698263903731 45.822036886905,-0.792483687182539 45.8222985746827,-0.792043804904097 45.8220069796521,-0.792430043002241 45.8215882764244,-0.792698263903731 45.822036886905)))")
+    product = create :product
+    create :product_reading, :multi_polygon,
+      product: product,
+      indicator_name: 'shape',
+      value: shape
 
+    assert_equal shape, product.get(:shape)
   end
 
   test 'product can get a value from its readings: point' do
