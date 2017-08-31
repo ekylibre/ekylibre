@@ -8,6 +8,8 @@
         container = input.parent()
         if container.find('.warn-message').length is 0
           container.append($('<span class="warn-message"></span>').html(input.data('warn-if-checked')).hide())
+        if input.prop('checked')
+          container.find('.warn-message').show()
         input.click ->
           if input.prop('checked')
             container.find('.warn-message').show()
@@ -18,6 +20,8 @@
       $('h2[data-warn-if-checked]').each ->
         h2 = $(this)
         h2.html(h2.data('warn-if-checked'))
+        if $('input[data-warn-if-checked]:checked').length >= 1
+          h2.show()
         $('input[data-warn-if-checked]').click ->
           if $('input[data-warn-if-checked]:checked:visible').length >= 1
             h2.show()
