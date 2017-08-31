@@ -462,10 +462,15 @@ module Backend
                             .flatten
                             .compact
                             .uniq
-                            .map(&:to_i)
+                            .map(&:to_i)#
+
+      intervention_participations_ids = form_participations
+                                          .values
+                                          .map{ |participation| participation[:id]}
 
       saved_working_periods_ids = @intervention
                                   .participations
+                                  .where(id: intervention_participations_ids)
                                   .map { |participation| participation.working_periods.map(&:id) }
                                   .flatten
 
