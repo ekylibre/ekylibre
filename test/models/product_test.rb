@@ -97,11 +97,44 @@ class ProductTest < ActiveSupport::TestCase
   end
 
   test 'product has a way to get its intervention_participations' do
-    category = create :product_nature_category
-    nature   = create(:product_nature, category: category)
-    variant  = create(:product_nature_variant, category: category, nature: nature)
-    product  = create(:product, category: category, nature: nature, variant: variant)
-    intervention_participation = create(:intervention_participation, product: product)
+    product  = create :product
+    intervention_participation = create :intervention_participation, product: product
     assert_includes product.intervention_participations, intervention_participation
+  end
+
+  test 'product can get a value from its readings: boolean' do
+
+  end
+
+  test 'product can get a value from its readings: choice' do
+
+  end
+
+  test 'product can get a value from its readings: decimal' do
+
+  end
+
+  test 'product can get a value from its readings: geometry' do
+
+  end
+
+  test 'product can get a value from its readings: integer' do
+
+  end
+
+  test 'product can get a value from its readings: measure' do
+
+  end
+
+  test 'product can get a value from its readings: multi_polygon' do
+
+  end
+
+  test 'product can get a value from its readings: point' do
+
+  end
+
+  test 'product can get a value from its readings: string' do
+
   end
 end
