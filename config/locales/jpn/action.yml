@@ -2059,6 +2059,7 @@ jpn:
       cannot_merge_entities: "それはこれらの人々をマージすることは不可能です。"
       changes_have_been_reflected: "変更は、在庫状況に反映されています"
       changes_have_not_been_reflected: "変更は、株式の状態に反映されていません"
+      closed_financial_periods: "固定資産の期間は、閉鎖された財務期間にわたって行われます。"
       closed_financial_year_exchange: "会計年度の交換が正常にクローズされました"
       closed_financial_years: "会計年度は正常にクローズされました"
       columns_are_already_uses: "一つまたは多くの列が何度も選択されています"

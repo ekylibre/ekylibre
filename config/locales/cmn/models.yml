@@ -154,6 +154,7 @@ cmn:
             started_on:
               consecutive: "该财政年度必须consecutives。它必须与先前的结束后开始。"
               frozen: "交易所已创建时的财政年度日期不能更改。"
+              # on_or_after: "The date selected must be posterior to society's creation date (%{restriction})"
             stopped_on:
               # end_of_month: "%{attribute} must be an end of month"
           # overlap: "%{attribute} overlaps an existing financial year"
