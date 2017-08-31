@@ -123,7 +123,13 @@ class ProductTest < ActiveSupport::TestCase
   end
 
   test 'product can get a value from its readings: decimal' do
+    product = create :product
+    create :product_reading, :decimal,
+      product: product,
+      indicator_name: 'members_population',
+      value: 12.5
 
+    assert_equal 12.5, product.get(:members_population)
   end
 
   test 'product can get a value from its readings: geometry' do
