@@ -110,6 +110,13 @@ class ProductTest < ActiveSupport::TestCase
       value: true
 
     assert_equal true, product.get(:healthy)
+
+    create :product_reading, :boolean,
+      product: product,
+      indicator_name: 'healthy',
+      value: false
+
+    assert_equal false, product.get(:healthy)
   end
 
   test 'product can get a value from its readings: choice' do
@@ -120,6 +127,13 @@ class ProductTest < ActiveSupport::TestCase
       value: 'cognac'
 
     assert_equal 'cognac', product.get(:certification)
+
+    create :product_reading, :choice,
+      product: product,
+      indicator_name: 'certification',
+      value: 'bordeaux blanc'
+
+    assert_equal 'bordeaux blanc', product.get(:certification)
   end
 
   test 'product can get a value from its readings: decimal' do
@@ -130,6 +144,13 @@ class ProductTest < ActiveSupport::TestCase
       value: 12.5
 
     assert_equal 12.5, product.get(:members_population)
+
+    create :product_reading, :decimal,
+      product: product,
+      indicator_name: 'members_population',
+      value: 13.2
+
+    assert_equal 13.2, product.get(:members_population)
   end
 
   # No indicators with datatype="geometry" yet.
@@ -145,6 +166,13 @@ class ProductTest < ActiveSupport::TestCase
       value: 4
 
     assert_equal 4, product.get(:rows_count)
+
+    create :product_reading, :integer,
+      product: product,
+      indicator_name: 'rows_count',
+      value: 6
+
+    assert_equal 6, product.get(:rows_count)
   end
 
   test 'product can get a value from its readings: measure' do
@@ -155,6 +183,13 @@ class ProductTest < ActiveSupport::TestCase
       value: 5.in(:meter)
 
     assert_equal 5.in(:meter), product.get(:diameter)
+
+    create :product_reading, :measure,
+      product: product,
+      indicator_name: 'diameter',
+      value: 4.in(:kilometer)
+
+    assert_equal 4.in(:kilometer), product.get(:diameter)
   end
 
   test 'product can get a value from its readings: multi_polygon' do
@@ -166,6 +201,14 @@ class ProductTest < ActiveSupport::TestCase
       value: shape
 
     assert_equal shape, product.get(:shape)
+
+    shape_bis = Charta::Geometry("SRID=4326;MULTIPOLYGON(((-0.910450280061923 45.8138005702091,-0.910439551225863 45.8139650841453,-0.910224974504672 45.8139650841453,-0.910246432176791 45.8137856143727,-0.910450280061923 45.8138005702091)))")
+    create :product_reading, :multi_polygon,
+      product: product,
+      indicator_name: 'shape',
+      value: shape_bis
+
+    assert_equal shape_bis, product.get(:shape)
   end
 
   test 'product can get a value from its readings: point' do
@@ -177,6 +220,14 @@ class ProductTest < ActiveSupport::TestCase
       value: point
 
     assert_equal point, product.get(:geolocation)
+
+    point_bis = Charta::Point.new("SRID=4326;POINT(-0.913002490997314 45.813931433607)")
+    create :product_reading, :point,
+      product: product,
+      indicator_name: 'geolocation',
+      value: point_bis
+
+    assert_equal point_bis, product.get(:geolocation)
   end
 
   test 'product can get a value from its readings: string' do
@@ -187,5 +238,12 @@ class ProductTest < ActiveSupport::TestCase
       value: 'John'
 
     assert_equal 'John', product.get(:witness)
+
+    create :product_reading, :string,
+      product: product,
+      indicator_name: 'witness',
+      value: 'Brice'
+
+    assert_equal 'Brice', product.get(:witness)
   end
 end
