@@ -82,6 +82,7 @@ class ProductNatureVariantTest < ActiveSupport::TestCase
     variant = create(:product_nature_variant)
     sale = create(:sale)
     sale.update(state: 'order')
+    create(:sale_item, sale: sale, variant: variant, quantity: 50.to_d)
     parcel = create(:parcel, sale: sale)
     parcel.update(state: 'prepared')
     assert_equal 50.0, variant.current_outgoing_stock_ordered_not_delivered
