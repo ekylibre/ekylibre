@@ -236,4 +236,13 @@ class JournalEntryItemTest < ActiveSupport::TestCase
     item = create(:journal_entry_item, account: account, financial_year: financial_year)
     refute item.third_party
   end
+
+  test "reference_number refers to resource's reference number" do
+    sale = create(:sale)
+    sale_item = create(:sale_item, sale: sale)
+    sale.propose
+    sale.invoice
+    journal_entry = JournalEntry.where(resource_id: sale.id, resource_type: "Sale").first
+    assert_equal sale.number, journal_entry.reference_number
+  end
 end

@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :sale do
-    # needs sale_nature
+    association :nature, factory: :sale_nature_with_accounting
     association :affair, factory: :sale_affair
     sequence(:number) { |n| "S00#{n}" }
     amount 5000.0
