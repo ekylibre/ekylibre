@@ -592,55 +592,6 @@
         <page to="backend/inventories#update"/>
       </item>
     </group>
-    <group name="receptions" icon="truck">
-      <item name="unreceived_purchase_orders">
-        <page to="backend/unreceived_purchase_orders#index"/>
-        <page to="backend/unreceived_purchase_orders#create"/>
-        <page to="backend/unreceived_purchase_orders#destroy"/>
-        <page to="backend/unreceived_purchase_orders#edit"/>
-        <page to="backend/unreceived_purchase_orders#list"/>
-      </item>
-      <item name="receptions">
-        <page to="backend/receptions#index"/>
-        <page to="backend/receptions#create"/>
-        <page to="backend/receptions#destroy"/>
-        <page to="backend/receptions#edit"/>
-        <page to="backend/receptions#invoice"/>
-        <page to="backend/receptions#list"/>
-        <page to="backend/receptions#new"/>
-        <page to="backend/receptions#ship"/>
-        <page to="backend/receptions#show"/>
-        <page to="backend/receptions#unroll"/>
-        <page to="backend/receptions#update"/>
-        <page to="backend/receptions#cancel"/>
-        <page to="backend/receptions#check"/>
-        <page to="backend/receptions#give"/>
-        <page to="backend/receptions#order"/>
-        <page to="backend/receptions#prepare"/>
-        <page to="backend/receptions#list_items"/>
-      </item>
-    </group>
-    <group name="shipments" icon="truck">
-      <item name="shipments">
-        <page to="backend/shipments#index"/>
-        <page to="backend/shipments#create"/>
-        <page to="backend/shipments#destroy"/>
-        <page to="backend/shipments#edit"/>
-        <page to="backend/shipments#invoice"/>
-        <page to="backend/shipments#list"/>
-        <page to="backend/shipments#new"/>
-        <page to="backend/shipments#ship"/>
-        <page to="backend/shipments#show"/>
-        <page to="backend/shipments#unroll"/>
-        <page to="backend/shipments#update"/>
-        <page to="backend/shipments#cancel"/>
-        <page to="backend/shipments#check"/>
-        <page to="backend/shipments#give"/>
-        <page to="backend/shipments#order"/>
-        <page to="backend/shipments#prepare"/>
-        <page to="backend/shipments#list_items"/>
-      </item>
-    </group>
     <group name="deliveries" icon="truck">
       <item name="deliveries">
         <page to="backend/deliveries#index"/>

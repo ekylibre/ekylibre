@@ -29,7 +29,7 @@
             %td= p.check_box
             %td= p.object.number
             %td= p.object.class.model_name.human
-            %td= Maybe(p.object.is_a?(Reception) ? p.object.sender : p.object.recipient).name.or_else('&ndash;'.html_safe)
+            %td= Maybe(p.object.sender || p.object.recipient).name.or_else('&ndash;'.html_safe)
             %td= p.object.content_sentence
 
 = f.attachments_field_set
