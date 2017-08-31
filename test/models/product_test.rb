@@ -113,7 +113,13 @@ class ProductTest < ActiveSupport::TestCase
   end
 
   test 'product can get a value from its readings: choice' do
+    product = create :product
+    create :product_reading, :choice,
+      product: product,
+      indicator_name: 'certification',
+      value: 'cognac'
 
+    assert_equal 'cognac', product.get(:certification)
   end
 
   test 'product can get a value from its readings: decimal' do
