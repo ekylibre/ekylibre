@@ -132,12 +132,19 @@ class ProductTest < ActiveSupport::TestCase
     assert_equal 12.5, product.get(:members_population)
   end
 
-  test 'product can get a value from its readings: geometry' do
-
-  end
+  # No indicators with datatype="geometry" yet.
+  # test 'product can get a value from its readings: geometry' do
+  #
+  # end
 
   test 'product can get a value from its readings: integer' do
+    product = create :product
+    create :product_reading, :decimal,
+      product: product,
+      indicator_name: 'rows_count',
+      value: 12.5
 
+    assert_equal 4, product.get(:rows_count)
   end
 
   test 'product can get a value from its readings: measure' do
