@@ -591,6 +591,9 @@ Rails.application.routes.draw do
     end
 
     resources :intervention_participations, only: %i[index update destroy] do
+      collection do
+        get :participations_modal
+      end
       member do
         post :convert
       end
