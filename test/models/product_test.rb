@@ -171,7 +171,7 @@ class ProductTest < ActiveSupport::TestCase
   test 'product can get a value from its readings: point' do
     point = Charta::Point.new("SRID=4326;POINT(-0.783801558989031 45.8279122127986)")
     product = create :product
-    create :product_reading, :multi_polygon,
+    create :product_reading, :point,
       product: product,
       indicator_name: 'geolocation',
       value: point
@@ -180,6 +180,12 @@ class ProductTest < ActiveSupport::TestCase
   end
 
   test 'product can get a value from its readings: string' do
+    product = create :product
+    create :product_reading, :string,
+      product: product,
+      indicator_name: 'witness',
+      value: 'John'
 
+    assert_equal 'John', product.get(:witness)
   end
 end
