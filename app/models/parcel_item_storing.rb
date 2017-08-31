@@ -42,4 +42,23 @@ class ParcelItemStoring < Ekylibre::Record::Base
   validates :parcel_item, :storage, presence: true
   # ]VALIDATORS]
   validates :quantity, presence: true
+
+  after_create do 
+  	population = parcel_item.population
+  	population += self.quantity
+	parcel_item.update_attributes(population: population)
+  end
+
+  after_update do
+  	population = parcel_item.population
+  	population -= self.quantity_was
+  	population += self.quantity
+	parcel_item.update_attributes(population: population)
+  end
+
+  after_destroy do
+	population = parcel_item.population
+  	population -= self.quantity_was
+	parcel_item.update_attributes(population: population)
+  end
 end
