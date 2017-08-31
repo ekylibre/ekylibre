@@ -154,6 +154,7 @@ spa:
             started_on:
               consecutive: "Los ejercicios deben ser consecutivos. Debe comenzar tras el fin de la anterior."
               frozen: "La fecha de ejercicio no se puede cambiar cuando se ha creado un intercambio."
+              # on_or_after: "The date selected must be posterior to society's creation date (%{restriction})"
             stopped_on:
               # end_of_month: "%{attribute} must be an end of month"
           # overlap: "%{attribute} overlaps an existing financial year"

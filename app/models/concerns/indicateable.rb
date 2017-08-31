@@ -65,7 +65,7 @@ module Indicateable
       raise ArgumentError, "Unknown indicator #{indicator.inspect}. Expecting one of them: #{Nomen::Indicator.all.sort.to_sentence}."
     end
     read_at = options[:at] || Time.zone.now
-    readings.where("indicator_name = ? AND read_at <= ?", indicator.name, read_at).order(read_at: :desc).first
+    readings.where(indicator_name: indicator.name).where('read_at <= ?', read_at).order(read_at: :desc).first
   end
 
   def first_reading(indicator_name)
