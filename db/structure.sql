@@ -5888,7 +5888,7 @@ CREATE TABLE products (
     end_of_life_reason character varying,
     originator_id integer,
     codes jsonb,
-    reading_cache jsonb
+    reading_cache jsonb DEFAULT '{}'::jsonb
 );
 
 
@@ -17863,7 +17863,7 @@ INSERT INTO schema_migrations (version) VALUES ('20170530002312');
 
 INSERT INTO schema_migrations (version) VALUES ('20170602144753');
 
-INSERT INTO schema_migrations (version) VALUES ('20170718143557');
-
 INSERT INTO schema_migrations (version) VALUES ('20170804101025');
+
+INSERT INTO schema_migrations (version) VALUES ('20170831180835');
 
