@@ -103,7 +103,8 @@ class ProductTest < ActiveSupport::TestCase
   end
 
   test 'product can get a value from its readings: boolean' do
-    product = create :product
+    nature_with_indicator = create(:product_nature, variable_indicators_list: [:healthy])
+    product = create :product, nature: nature_with_indicator
     create :product_reading, :boolean,
       product: product,
       indicator_name: 'healthy',
@@ -120,7 +121,8 @@ class ProductTest < ActiveSupport::TestCase
   end
 
   test 'product can get a value from its readings: choice' do
-    product = create :product
+    nature_with_indicator = create(:product_nature, variable_indicators_list: [:certification])
+    product = create :product, nature: nature_with_indicator
     create :product_reading, :choice,
       product: product,
       indicator_name: 'certification',
@@ -137,7 +139,8 @@ class ProductTest < ActiveSupport::TestCase
   end
 
   test 'product can get a value from its readings: decimal' do
-    product = create :product
+    nature_with_indicator = create(:product_nature, variable_indicators_list: [:members_population])
+    product = create :product, nature: nature_with_indicator
     create :product_reading, :decimal,
       product: product,
       indicator_name: 'members_population',
@@ -159,7 +162,8 @@ class ProductTest < ActiveSupport::TestCase
   # end
 
   test 'product can get a value from its readings: integer' do
-    product = create :product
+    nature_with_indicator = create(:product_nature, variable_indicators_list: [:rows_count])
+    product = create :product, nature: nature_with_indicator
     create :product_reading, :integer,
       product: product,
       indicator_name: 'rows_count',
@@ -176,7 +180,8 @@ class ProductTest < ActiveSupport::TestCase
   end
 
   test 'product can get a value from its readings: measure' do
-    product = create :product
+    nature_with_indicator = create(:product_nature, variable_indicators_list: [:diameter])
+    product = create :product, nature: nature_with_indicator
     create :product_reading, :measure,
       product: product,
       indicator_name: 'diameter',
@@ -194,7 +199,8 @@ class ProductTest < ActiveSupport::TestCase
 
   test 'product can get a value from its readings: multi_polygon' do
     shape = Charta::Geometry.new("SRID=4326;MULTIPOLYGON(((-0.792698263903731 45.822036886905,-0.792483687182539 45.8222985746827,-0.792043804904097 45.8220069796521,-0.792430043002241 45.8215882764244,-0.792698263903731 45.822036886905)))")
-    product = create :product
+    nature_with_indicator = create(:product_nature, variable_indicators_list: [:shape])
+    product = create :product, nature: nature_with_indicator
     create :product_reading, :multi_polygon,
       product: product,
       indicator_name: 'shape',
@@ -202,7 +208,7 @@ class ProductTest < ActiveSupport::TestCase
 
     assert_equal shape, product.get(:shape)
 
-    shape_bis = Charta::Geometry("SRID=4326;MULTIPOLYGON(((-0.910450280061923 45.8138005702091,-0.910439551225863 45.8139650841453,-0.910224974504672 45.8139650841453,-0.910246432176791 45.8137856143727,-0.910450280061923 45.8138005702091)))")
+    shape_bis = Charta::Geometry.new("SRID=4326;MULTIPOLYGON(((-0.910450280061923 45.8138005702091,-0.910439551225863 45.8139650841453,-0.910224974504672 45.8139650841453,-0.910246432176791 45.8137856143727,-0.910450280061923 45.8138005702091)))")
     create :product_reading, :multi_polygon,
       product: product,
       indicator_name: 'shape',
@@ -213,7 +219,8 @@ class ProductTest < ActiveSupport::TestCase
 
   test 'product can get a value from its readings: point' do
     point = Charta::Point.new("SRID=4326;POINT(-0.783801558989031 45.8279122127986)")
-    product = create :product
+    nature_with_indicator = create(:product_nature, variable_indicators_list: [:geolocation])
+    product = create :product, nature: nature_with_indicator
     create :product_reading, :point,
       product: product,
       indicator_name: 'geolocation',
@@ -231,7 +238,8 @@ class ProductTest < ActiveSupport::TestCase
   end
 
   test 'product can get a value from its readings: string' do
-    product = create :product
+    nature_with_indicator = create(:product_nature, variable_indicators_list: [:witness])
+    product = create :product, nature: nature_with_indicator
     create :product_reading, :string,
       product: product,
       indicator_name: 'witness',
@@ -245,5 +253,18 @@ class ProductTest < ActiveSupport::TestCase
       value: 'Brice'
 
     assert_equal 'Brice', product.get(:witness)
+  end
+
+  test 'getting the net_surface_area' do
+    nature_with_indicator = create(:product_nature, variable_indicators_list: [:shape])
+    product = create :product, nature: nature_with_indicator
+    shape = Charta::Geometry.new("SRID=4326;MULTIPOLYGON(((-0.910450280061923 45.8138005702091,-0.910439551225863 45.8139650841453,-0.910224974504672 45.8139650841453,-0.910246432176791 45.8137856143727,-0.910450280061923 45.8138005702091)))")
+    create :product_reading, :multi_polygon,
+      product: product,
+      indicator_name: 'shape',
+      value: shape
+
+    area = product.net_surface_area.in(:square_meter)
+    assert_in_delta 3204.10371, area.to_f, 0.001
   end
 end
