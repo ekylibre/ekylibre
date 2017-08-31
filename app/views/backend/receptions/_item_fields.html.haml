@@ -1,8 +1,8 @@
 - item ||= f.object
 - variant = Maybe(item.variant)
 - f.object.currency = Preference[:currency]
-- if defined?(role) then f.object.role = role end
-- if f.object.role == 'service' || f.object.role == 'fees' then f.object.delivery_mode = 'none' end
+- f.object.role = role if defined?(role)
+- f.object.delivery_mode = 'none' if f.object.role == 'service' || f.object.role == 'fees' 
 - non_compliant_message = :non_compliant.tl
 
 %tbody.nested-fields.delivery-item.incoming-parcel-item{ data: { iceberg: true } }
@@ -30,6 +30,7 @@
           = "{{zone.name}}"
     %td
       %label{ data: { item_value: "input.item-delivery-mode:checked" } }= f.object.delivery_mode if f.object.delivery_mode != "none"
+
   %tr.nested-item-form
     %td{colspan: 6}
       .item-form
@@ -61,9 +62,9 @@
               %span.item-population-unit-name
                 = variant.unit_name.or_else('#')
           .item-delivery-mode
-            = f.input :delivery_mode, as: :radio_buttons, collection: f.object.class.delivery_mode.values - ['none'], label_method: :l, input_html: { class: 'item-delivery-mode', data: {  input_to_show: '.transporter-delivery-mode', with_value: "transporter" } }
+            = f.input :delivery_mode, as: :radio_buttons, collection: f.object.class.delivery_mode.values - ['none'], label_method: :l, input_html: { class: 'item-delivery-mode', data: {  input_to_show: '.transporter-delivery-mode', with_value: "transporter", use_as_value: 'input.transporter-delivery-mode' } }
             .transporter-delivery-mode.hidden
-              = f.referenced_association :transporter, source: :transporters, new: {transporter: 1}
+              = f.referenced_association :transporter, source: :transporters, new: {transporter: 1}, input_html: { class: 'transporter-delivery-mode'}
         - if f.object.role == 'service' || f.object.role == 'fees'
           .item-quantifier
             .item-quantifier-population
