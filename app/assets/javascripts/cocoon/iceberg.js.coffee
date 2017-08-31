@@ -73,20 +73,31 @@
     interpolate: (form = @newForm()) ->
       @display.find('*[data-item-value]').each ->
         element = $(this)
-        unless element.closest("*[data-item-loop]").length >= 1
-          target = $(form).find(element.data("item-value")).first()
-          if target.is("input")
-            if target.is("input[type='radio']")
-              value = target.parent().text()
-            else if target.is("input[type='checkbox']")
-              if target.is('input[data-warn-if-checked]:checked')
-                value = $('<span class="warn-message"></span>').html(target.data('warn-if-checked'))
-              else
-                value = ""
+        target = $(form).find(element.data("item-value")).first()
+        if target.is("input[data-use-as-value]")
+          if target.val() == target.data("with-value")
+            value = $(form).find(target.data("use-as-value")).val()
+          else if target.is("input[type='radio']")
+            value = target.parent().text()
+          else if target.is("input[type='checkbox']")
+            if target.is('input[data-warn-if-checked]:checked')
+              value = $('<span class="warn-message"></span>').html(target.data('warn-if-checked'))
             else
-              value = target.val()
+              value = ""
           else
-            value = target.html()
+            value = target.val()
+        else if target.is("input:not([data-use-as-value])")
+          if target.is("input[type='radio']")
+            value = target.parent().text()
+          else if target.is("input[type='checkbox']")
+            if target.is('input[data-warn-if-checked]:checked')
+              value = $('<span class="warn-message"></span>').html(target.data('warn-if-checked'))
+            else
+              value = ""
+          else
+            value = target.val()
+        else
+          value = target.html()
         element.html(value)
       @interpolateStoring()
 
