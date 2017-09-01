@@ -3567,6 +3567,9 @@ interventions:
     type: datetime
   actions:
     type: string
+  auto_calculate_working_periods:
+    type: boolean
+    default: false
   created_at:
     type: datetime
     required: true
@@ -4876,6 +4879,35 @@ outgoing_payments:
   updater_id:
     type: integer
     references: user
+parcel_item_storings:
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: ''
+  id:
+    type: integer
+    required: true
+  lock_version:
+    type: integer
+    required: true
+  parcel_item_id:
+    type: integer
+    references: parcel_item
+    required: true
+  quantity:
+    type: integer
+  storage_id:
+    type: integer
+    references: ''
+    required: true
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: ''
 parcel_items:
   analysis_id:
     type: integer
@@ -4888,12 +4920,21 @@ parcel_items:
     references: user
   currency:
     type: string
+  delivery_id:
+    type: integer
+    references: delivery
+  delivery_mode:
+    type: string
   id:
     type: integer
     required: true
   lock_version:
     type: integer
     required: true
+  non_compliant:
+    type: boolean
+  non_compliant_detail:
+    type: string
   parcel_id:
     type: integer
     references: parcel
@@ -4947,6 +4988,9 @@ parcel_items:
   source_product_movement_id:
     type: integer
     references: product_movement
+  transporter_id:
+    type: integer
+    references: ''
   unit_pretax_amount:
     type: decimal
     precision: 19
@@ -5000,6 +5044,8 @@ parcels:
   journal_entry_id:
     type: integer
     references: journal_entry
+  late_delivery:
+    type: boolean
   lock_version:
     type: integer
     required: true
@@ -5055,6 +5101,8 @@ parcels:
   transporter_id:
     type: integer
     references: entity
+  type:
+    type: string
   undelivered_invoice_journal_entry_id:
     type: integer
     references: journal_entry

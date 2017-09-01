@@ -26,8 +26,12 @@
 #  created_at                    :datetime         not null
 #  creator_id                    :integer
 #  currency                      :string
+#  delivery_id                   :integer
+#  delivery_mode                 :string
 #  id                            :integer          not null, primary key
 #  lock_version                  :integer          default(0), not null
+#  non_compliant                 :boolean
+#  non_compliant_detail          :string
 #  parcel_id                     :integer          not null
 #  parted                        :boolean          default(FALSE), not null
 #  population                    :decimal(19, 4)
@@ -44,6 +48,7 @@
 #  shape                         :geometry({:srid=>4326, :type=>"multi_polygon"})
 #  source_product_id             :integer
 #  source_product_movement_id    :integer
+#  transporter_id                :integer
 #  unit_pretax_amount            :decimal(19, 4)   default(0.0), not null
 #  unit_pretax_stock_amount      :decimal(19, 4)   default(0.0), not null
 #  updated_at                    :datetime         not null

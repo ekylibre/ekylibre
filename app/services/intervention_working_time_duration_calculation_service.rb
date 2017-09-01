@@ -16,24 +16,18 @@ class InterventionWorkingTimeDurationCalculationService
 
     return worker_working_duration(nature) if worker?
 
+    if (any_tractor? || any_tool?) && !auto_calculate_working_periods?
+      return participation_working_durations_of_nature(nature).to_d / 3600
+    end
+
     times = workers_times(nature: nature, not_nature: not_nature)
 
-    # if times == 0 &&
-    # (!any_tractor? && !any_tool?)
-    # return 0 if @intervention.nil?
-    # return intervention_working_duration
-    # end
-
     if times == 0 && any_tractor?
-      return tractor_working_periods(nature, not_nature)
-             .map(&:duration)
-             .inject(0, :+) / 3600
+      return tractor_working_duration(nature, not_nature)
     end
 
     if times == 0 && any_tool?
-      return tool_working_periods(nature, not_nature)
-             .map(&:duration)
-             .inject(0, :+) / 3600
+      return tool_working_duration(nature, not_nature)
     end
 
     if times > 0 && (!any_tractor? && !any_tool?)
@@ -48,21 +42,55 @@ class InterventionWorkingTimeDurationCalculationService
 
   private
 
+  def auto_calculate_working_periods?
+    !@intervention.nil? && @intervention.auto_calculate_working_periods
+  end
+
   def worker_working_duration(nature)
     duration = if nature.nil?
-                 @participation
-                   .working_periods
-                   .map(&:duration)
-                   .inject(0, :+)
+                 participation_working_durations
                else
-                 @participation
-                   .working_periods
-                   .select { |working_period| working_period.nature.to_sym == nature }
-                   .map(&:duration)
-                   .inject(0, :+)
+                 participation_working_durations_of_nature(nature)
                end
 
     duration.to_d / 3600
+  end
+
+  def tractor_working_duration(nature, not_nature)
+    return tractor_working_periods(nature, not_nature)
+           .map(&:duration)
+           .inject(0, :+).to_d / 3600
+  end
+
+  def tool_working_duration(nature, not_nature)
+    return tool_working_periods(nature, not_nature)
+           .map(&:duration)
+           .inject(0, :+).to_d / 3600
+  end
+
+  def participation_working_durations
+    @participation
+      .working_periods
+      .map(&:duration)
+      .inject(0, :+)
+  end
+
+  def participation_working_durations_of_nature(nature)
+    unless @participation.nil?
+     return @participation
+              .working_periods
+              .select { |working_period| working_period.nature.to_sym == nature }
+              .map(&:duration)
+              .inject(0, :+)
+    end
+
+    return @participations
+             .select { |participation| participation.product == @product }
+             .map(&:working_periods)
+             .flatten
+             .select { |working_period| working_period.nature.to_sym == nature }
+             .map(&:duration)
+             .inject(0, :+)
   end
 
   def intervention_working_duration
@@ -135,15 +163,6 @@ class InterventionWorkingTimeDurationCalculationService
     participations = @participations.select { |participation| participation.product.is_a?(Worker) }
 
     working_periods(participations, nature, not_nature)
-    # working_periods = nil
-
-    # if nature.nil? && not_nature.nil?
-    # return participations.map(&:working_periods).flatten
-    # end
-
-    # return working_periods_of_nature(participations, nature) unless nature.nil?
-
-    # working_periods_not_nature(participations, nature)
   end
 
   def tractor_working_periods(nature, not_nature)

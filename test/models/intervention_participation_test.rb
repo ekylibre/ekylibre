@@ -22,6 +22,7 @@
 #
 # == Table: intervention_participations
 #
+#  auto_calculated   :boolean          default(FALSE)
 #  created_at        :datetime         not null
 #  creator_id        :integer
 #  id                :integer          not null, primary key
