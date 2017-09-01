@@ -478,9 +478,10 @@ class Intervention < Ekylibre::Record::Base
         stopped_at: self.stopped_at
       )
     end
-    outputs.find_each do |output|
+    outputs.each_with_index do |output,index|
       product = output.product
       next unless product
+      set_product_name(product,index) if product.name == "blank"
       product.born_at = self.started_at
       product.initial_born_at = product.born_at
       product.save!
@@ -508,6 +509,13 @@ class Intervention < Ekylibre::Record::Base
       movement.stopped_at = self.stopped_at
       movement.save!
     end
+  end
+
+  # Set product name if its blank
+  def set_product_name(product,index)
+    land_parcel_name = self.product_parameters.where(type: "InterventionTarget", reference_name: "land_parcel")[index].product.name rescue ""
+    culture_name = self.product_parameters.where(:type=> "InterventionOutput",reference_name: "plant")[index].variant.name rescue ""
+    product.name  = "#{land_parcel_name} #{culture_name} #{self.created_at.strftime('%Y')} #{self.id}" if (!land_parcel_name.blank? && !culture_name.blank?)
   end
 
   # Sums all intervention product parameter total_cost of a particular role
