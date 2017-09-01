@@ -55,7 +55,7 @@ require 'test_helper'
 class ParcelItemTest < ActiveSupport::TestCase
   test_model_actions
 
-  test "give_incoming doesn't create ProductMovement and ProductLocalization if an error occurs when creating ProductEnjoyment"  do
+  test "give doesn't create the dependent records if there is an exception during the process" do
     product = create(:product)
     parcel_item = create(:parcel_item, product: product, product_identification_number: '12345678', product_name: 'Product name')
     ProductMovement.destroy_all

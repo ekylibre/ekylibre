@@ -66,10 +66,10 @@ class ParcelItem < Ekylibre::Record::Base
   has_one :delivery, through: :parcel
   has_one :storage, through: :parcel
   has_one :contract, through: :parcel
-  has_one :product_enjoyment, class_name: "ProductEnjoyment", as: :originator, dependent: :destroy
-  has_one :product_localization, class_name: "ProductLocalization", as: :originator, dependent: :destroy
-  has_one :product_movement, class_name: "ProductMovement", as: :originator, dependent: :destroy
-  has_one :product_ownership, class_name: "ProductOwnership", as: :originator, dependent: :destroy
+  has_one :product_enjoyment, as: :originator, dependent: :destroy
+  has_one :product_localization, as: :originator, dependent: :destroy
+  has_one :product_movement, as: :originator, dependent: :destroy
+  has_one :product_ownership, as: :originator, dependent: :destroy
 
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
@@ -207,15 +207,9 @@ class ParcelItem < Ekylibre::Record::Base
   # Mark items as given, and so change enjoyer and ownership if needed at
   # this moment.
   def give
-    if parcel_outgoing?
-      transaction do
-        give_outgoing
-      end
-    end
-    if parcel_incoming?
-      transaction do
-        give_incoming
-      end
+    transaction do
+      give_outgoing if parcel_outgoing?
+      give_incoming if parcel_incoming?
     end
   end
 
