@@ -1276,6 +1276,7 @@ fra:
     entries: "Écritures"
     entries_to_point: "Écritures à pointer"
     entry_items: "Lignes d’écriture"
+    entry_item_label: "Libellé de l'écriture"
     equipment: "Équipement"
     equipment_name: "Nom de l’équipement"
     equipments: "Équipements"
