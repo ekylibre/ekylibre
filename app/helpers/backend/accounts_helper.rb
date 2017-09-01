@@ -45,7 +45,7 @@ module Backend
 
     def find_items(preference_name = nil)
       if preference_name && current_user.preference(preference_name).value
-        items = @account.reconcilable_entry_items(params[:period], params[:started_on], params[:stopped_on]).where(letter: nil)
+        items = @account.reconcilable_entry_items(params[:period], params[:started_on], params[:stopped_on]).where("letter IS NULL OR letter ILIKE '%*'")
       else
         items = @account.reconcilable_entry_items(params[:period], params[:started_on], params[:stopped_on])
       end
