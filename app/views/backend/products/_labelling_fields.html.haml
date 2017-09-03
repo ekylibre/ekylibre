@@ -1,3 +1,3 @@
 .nested-fields
-  = link_to_remove_nested_association('label', f)
-  = f.referenced_association :label
+  = link_to_remove_association(h('x'), f, class: "nested-remove")
+  = f.referenced_association :label, { label: false }

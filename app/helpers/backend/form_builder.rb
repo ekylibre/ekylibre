@@ -74,7 +74,12 @@ module Backend
           html_options[:data][:association_insertion_maximum] = options[:maximum]
         end
       end
-      @template.content_tag(:div, html, html_options)
+      @template.content_tag(:div, class: 'control-group') do
+        @template.content_tag(:label, item.pluralize.capitalize, class: 'string control-label') +
+          @template.content_tag(:div, class: 'controls') do
+            @template.content_tag(:div, html, html_options)
+          end
+      end
     end
 
     # Adds custom fields

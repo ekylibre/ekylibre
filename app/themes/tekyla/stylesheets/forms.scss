@@ -287,7 +287,7 @@ $form-actions-height: 48px;
 .nested-fields {
   .nested-remove {
     @include display(block);
-    font-size: 0;
+    //font-size: 0;
     i {
       @include is-icon;
       @include use-icon(times);
@@ -300,15 +300,23 @@ div.nested-fields {
   .nested-remove {
     position: absolute;
     z-index: 4;
-    @include right($spacing);
     top: $spacing * 0.9;
   }
 }
 
+.nested-labellings {
+	width: 22%;
+}
+
+.nested-attachments {
+	width: 22%;
+}
 
 .nested-association {
-  border: $nested-field-border;
+  border-top: $nested-field-border;
+  border-bottom: $nested-field-border;
   margin-bottom: $fs-normal;
+  margin-top: $fs-normal;
   clear: both;
   @include border-radius($default-border-radius);
   div.nested-fields {
@@ -331,13 +339,12 @@ div.nested-fields {
   .links {
     border-top: $nested-field-border;
     padding: round(0.5 * $spacing);
-    background: #F7F7F7;
     @include border-bottom-radius($default-border-radius);
     &:first-child {
       border-top: none;
     }
     .nested-add {
-      @include margin-left($controls-margin-left);
+      //@include margin-left($controls-margin-left);
     }
   }
 
