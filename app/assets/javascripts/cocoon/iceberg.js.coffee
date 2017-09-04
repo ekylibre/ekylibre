@@ -125,7 +125,6 @@
           if $(input).is(':checked') == $(input).data('with-value')
             @line.find($(input).data('input-to-show')).removeClass('hidden')
         else if $(input).is("input[type='radio']:checked")
-          debugger
           if $(input).val() == $(input).data('with-value')
             @line.find($(input).data('input-to-show')).removeClass('hidden')
       @line.find('input[data-input-to-show]').click (event) =>
