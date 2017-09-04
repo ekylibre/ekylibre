@@ -120,6 +120,14 @@
       E.toggleValidateButton(@line)
 
     toggleInputVisibility: ->
+      @line.find('input[data-input-to-show]').each (index, input) =>
+        if $(input).is("input[type='checkbox']")
+          if $(input).is(':checked') == $(input).data('with-value')
+            @line.find($(input).data('input-to-show')).removeClass('hidden')
+        else if $(input).is("input[type='radio']:checked")
+          debugger
+          if $(input).val() == $(input).data('with-value')
+            @line.find($(input).data('input-to-show')).removeClass('hidden')
       @line.find('input[data-input-to-show]').click (event) =>
         element = $(event.target)
         if element.is("input[type='checkbox']")
