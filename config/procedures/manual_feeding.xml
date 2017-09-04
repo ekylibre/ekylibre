@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
-  <procedure name="manual_feeding" categories="animal_feeding" actions="animal_feeding">
+  <procedure name="manual_feeding" categories="animal_feeding" actions="animal_feeding" deprecated="true">
     <parameters>
       <target name="herd"   filter="is animal_group and derives from bos" default-actor="storage"/>
       <input  name="silage" filter="is preparation and can feed(bos)">

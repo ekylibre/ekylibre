@@ -55,8 +55,11 @@
       box:
         height: 400
         width: null
+      minZoom: 0
+      maxZoom: 25
       customClass: ''
       back: []
+      overlays: []
       show:
         layers: {}
         layerDefaults:
@@ -157,7 +160,6 @@
       this.mapElement = $("<div>", class: "map #{this.options.customClass}")
         .insertAfter(this.element)
       this.map = L.map(this.mapElement[0],
-        maxZoom: 25
         zoomControl: false
         attributionControl: true
       )
@@ -383,9 +385,9 @@
         popup += "<div>"
         popup += "<label for='#{attribute.property_value}'>#{attribute.property_label} : </label>"
         switch attribute.type
-         when 'input'
-          popup += "<input type='text' name='#{attribute.property_value}' class='updateAttributesSerieLabelInput' value='#{feature.properties[attribute.property_value] || ""}'/>"
-         else
+          when 'input'
+            popup += "<input type='text' name='#{attribute.property_value}' class='updateAttributesSerieLabelInput' value='#{feature.properties[attribute.property_value] || ""}'/>"
+          else
             # include label
             popup += "<span>#{feature.properties[attribute.property_value] || ''}</span>"
         popup += "</div>"
@@ -463,8 +465,8 @@
             for layer, index in @options.back
               opts = {}
               opts['attribution'] = layer.attribution if layer.attribution?
-              opts['minZoom'] = layer.minZoom if layer.minZoom?
-              opts['maxZoom'] = layer.maxZoom if layer.maxZoom?
+              opts['minZoom'] = layer.minZoom || @options.minZoom
+              opts['maxZoom'] = layer.maxZoom || @options.maxZoom
               opts['subdomains'] = layer.subdomains if layer.subdomains?
               opts['tms'] = true if layer.tms
 
@@ -481,8 +483,25 @@
               backgroundLayer = L.tileLayer.provider(layer)
               baseLayers[layer] = backgroundLayer
               @map.addLayer(backgroundLayer) if index == 0
+            @map.fitWorld( { maxZoom: @options.maxZoom } )
 
-          @layerSelector = new L.Control.Layers(baseLayers)
+          overlayLayers = {}
+
+          if @options.overlays.length > 0
+            for layer, index in @options.overlays
+              opts = {}
+              opts['attribution'] = layer.attribution if layer.attribution?
+              opts['minZoom'] = layer.minZoom || @options.minZoom
+              opts['maxZoom'] = layer.maxZoom || @options.maxZoom
+              opts['subdomains'] = layer.subdomains if layer.subdomains?
+              opts['opacity'] = (layer.opacity / 100).toFixed(1) if layer.opacity? and !isNaN(layer.opacity)
+              opts['tms'] = true if layer.tms
+              console.log opts
+
+              overlayLayers[layer.name] =  L.tileLayer(layer.url, opts)
+
+
+          @layerSelector = new L.Control.Layers(baseLayers, overlayLayers)
           @map.addControl  @layerSelector
         else
           console.log "How to set background with #{this.options.back}?"
@@ -621,7 +640,7 @@
             @featureStyling feature
         })
 
-#      this.edition.setStyle this.options.editStyle
+      # this.edition.setStyle this.options.editStyle
       this.edition.addTo this.map
       this._refreshControls()
       this._saveUpdates()
@@ -670,10 +689,10 @@
           catch
             this._setDefaultView()
       else if view is 'edit'
-         try
+        try
           this.map.fitBounds this.edition.getLayers()[0].getBounds()
-         catch
-           this._setDefaultView()
+        catch
+          this._setDefaultView()
       else if view is 'default'
         this._setDefaultView()
       else if view.center?
@@ -746,7 +765,24 @@
                 if feature.alert?
                   $(modal._container).find('#alert').text(feature.alert)
                 else
-                  this.edition.addData feature
+                  try
+                    widget.edition.addData feature
+                  catch
+                    polys = []
+                    this.edition = L.geoJson(feature, {
+                      onEachFeature: (feature, layer) =>
+                        @onEachFeature(feature, layer)
+
+                      style: (feature) =>
+                        @featureStyling feature
+                      filter: (feature) =>
+                        if feature.type == 'MultiPolygon'
+                          for coordinates in feature.coordinates
+                            polys.push {type: 'Polygon', coordinates: coordinates}
+                        !(feature.type == 'MultiPolygon')
+                    })
+                    this.edition.addTo this.map
+
                   this.update()
                   modal.hide()
 

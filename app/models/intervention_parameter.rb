@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2016 Brice Texier, David Joulin
+# Copyright (C) 2012-2017 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -27,9 +27,11 @@
 #  created_at               :datetime         not null
 #  creator_id               :integer
 #  currency                 :string
+#  dead                     :boolean          default(FALSE), not null
 #  event_participation_id   :integer
 #  group_id                 :integer
 #  id                       :integer          not null, primary key
+#  identification_number    :string
 #  intervention_id          :integer          not null
 #  lock_version             :integer          default(0), not null
 #  new_container_id         :integer
@@ -59,7 +61,8 @@ class InterventionParameter < Ekylibre::Record::Base
   belongs_to :intervention, inverse_of: :parameters
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates :currency, :new_name, :quantity_handler, :quantity_indicator_name, :quantity_unit_name, length: { maximum: 500 }, allow_blank: true
+  validates :currency, :identification_number, :new_name, :quantity_handler, :quantity_indicator_name, :quantity_unit_name, length: { maximum: 500 }, allow_blank: true
+  validates :dead, inclusion: { in: [true, false] }
   validates :quantity_population, :quantity_value, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }, allow_blank: true
   validates :reference_name, presence: true, length: { maximum: 500 }
   validates :unit_pretax_stock_amount, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
@@ -75,7 +78,7 @@ class InterventionParameter < Ekylibre::Record::Base
   }
   scope :of_generic_role, lambda { |role|
     role = role.to_s
-    unless %w(doer input output target tool).include?(role)
+    unless %w[doer input output target tool].include?(role)
       raise ArgumentError, "Invalid role: #{role}"
     end
     where(type: "Intervention#{role.camelize}")
@@ -83,7 +86,7 @@ class InterventionParameter < Ekylibre::Record::Base
   scope :of_generic_roles, lambda { |roles|
     roles.collect! do |role|
       role = role.to_s
-      unless %w(doer input output target tool).include?(role)
+      unless %w[doer input output target tool].include?(role)
         raise ArgumentError, "Invalid role: #{role}"
       end
       "Intervention#{role.camelize}"
@@ -93,6 +96,11 @@ class InterventionParameter < Ekylibre::Record::Base
   }
 
   scope :of_actor, ->(actor) { where(product_id: actor.id) }
+
+  scope :of_variety, lambda { |intervention_id, variety|
+    product_nature_variant_ids = ProductNatureVariant.where(variety: variety).map(&:id)
+    where('intervention_id = ? AND variant_id IN (?)', intervention_id, product_nature_variant_ids).to_a
+  }
 
   before_validation do
     self.intervention ||= group.intervention if group
@@ -127,7 +135,7 @@ class InterventionParameter < Ekylibre::Record::Base
     true
   end
 
-  def cost_amount_computation
+  def cost_amount_computation(nature: nil, natures: {})
     AmountComputation.none
   end
 

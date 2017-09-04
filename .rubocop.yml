@@ -14,7 +14,19 @@ AllCops:
 Rails:
   Enabled: true
 
+Rails/HttpPositionalArguments:
+  Enabled: false
+
+Rails/ApplicationRecord:
+  Enabled: false
+
+Rails/ApplicationJob:
+  Enabled: false
+
 Metrics/LineLength:
+  Enabled: false
+
+Lint/AssignmentInCondition:
   Enabled: false
 
 Metrics/MethodLength:

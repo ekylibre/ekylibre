@@ -28,6 +28,7 @@ module Ekylibre
             work_number: r.code,
             identification_number: r.code,
             initial_born_at: r.born_at,
+            initial_population: 1.0,
             variant: ProductNatureVariant.import_from_nomenclature(r.nature),
             default_storage: BuildingDivision.find_by(work_number: r.place)
           )
@@ -38,7 +39,7 @@ module Ekylibre
           end
           animal.initial_population = animal.population
           animal.variety = r.variety if r.variety
-          if owner = Entity.find_by_full_name(r.initial_owner)
+          if owner = Entity.find_by(full_name: r.initial_owner)
             animal.initial_owner = owner
           end
           if r.group && animal_group = AnimalGroup.find_by(work_number: r.group)

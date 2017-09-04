@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2016 Brice Texier, David Joulin
+# Copyright (C) 2012-2017 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -48,7 +48,7 @@
 class Sensor < Ekylibre::Record::Base
   include Attachable
   include Customizable
-  enumerize :retrieval_mode, in: [:requesting, :listening, :integration], default: :requesting, predicates: true
+  enumerize :retrieval_mode, in: %i[requesting listening integration], default: :requesting, predicates: true
   belongs_to :product
   belongs_to :host, class_name: 'Product'
   has_many :analyses, class_name: 'Analysis', dependent: :nullify
@@ -64,6 +64,7 @@ class Sensor < Ekylibre::Record::Base
   # ]VALIDATORS]
   validates :name, uniqueness: true
   validates :token, presence: { if: :listening? }
+  validates :vendor_euid, :model_euid, presence: { unless: :listening? }
 
   # TODO: Check parameters presence
 
@@ -87,13 +88,13 @@ class Sensor < Ekylibre::Record::Base
   end
 
   def alert_on?(alert_nature)
-    alert = alerts.find_by_nature(alert_nature)
+    alert = alerts.find_by(nature: alert_nature)
     alert.present? && alert.level > 0
   end
 
   # Read sensor indicator and write an analysis
   def retrieve(options = {})
-    return if retrieval_mode == :integration
+    return if listening?
     raise "Unknown equipment: vendor=#{vendor_euid}, model=#{model_euid}" unless equipment
 
     connection = equipment.connect(access_parameters)
@@ -107,7 +108,7 @@ class Sensor < Ekylibre::Record::Base
       # Indicators
       values = []
       results[:values].each do |k, v|
-        values << { indicator_name: k, value: v } unless v.blank?
+        values << { indicator_name: k, value: v } if v.present?
       end
       attributes.update(
         sampled_at: options[:started_at],

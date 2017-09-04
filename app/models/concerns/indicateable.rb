@@ -65,7 +65,6 @@ module Indicateable
       raise ArgumentError, "Unknown indicator #{indicator.inspect}. Expecting one of them: #{Nomen::Indicator.all.sort.to_sentence}."
     end
     read_at = options[:at] || Time.zone.now
-    indicator_name = indicator.name
     readings.where(indicator_name: indicator.name).where('read_at <= ?', read_at).order(read_at: :desc).first
   end
 
@@ -88,7 +87,7 @@ module Indicateable
     if cast_or_time.is_a?(Time) || cast_or_time.is_a?(DateTime)
       # Find value
       if options[:interpolate]
-        if [:measure, :decimal, :integer].include?(indicator.datatype)
+        if %i[measure decimal integer].include?(indicator.datatype)
           raise NotImplementedError, 'Interpolation is not available for now'
         end
         raise StandardError, "Can not use :interpolate option with #{indicator.datatype.inspect} datatype"
@@ -258,4 +257,25 @@ module Indicateable
     end
     data.update_all(["VALUE = #{expr}".gsub('VALUE', "#{indicator.datatype}_value"), value])
   end
+
+  DEPRECATED = [
+    ['Entry date', 'entry_date'],
+    ['Entry reason', 'entry_reason'],
+    ['Exit reason', 'exit_reason'],
+    ['Father race code', 'father_race_code'],
+    ['Birth date', 'birth_date'],
+    ['End of life witness', 'end_of_life_witness'],
+    ['Entry reason', 'entry_reason'],
+    ['Father country code', 'father_country_code'],
+    ['First calving date', 'first_calving_date'],
+    ['Birth farm number', 'birth_farm_number'],
+    ['Country code', 'country_code'],
+    ['Exit date', 'exit_date'],
+    ['Father identification number', 'father_identification_number'],
+    ['Mother country code', 'mother_country_code'],
+    ['Mother identification number', 'mother_identification_number'],
+    ['Mother race code', 'mother_race_code'],
+    ['Origin country code', 'origin_country_code'],
+    ['Origin identification number', 'origin_identification_number']
+  ].freeze
 end

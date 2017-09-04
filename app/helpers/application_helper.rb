@@ -1,4 +1,5 @@
 # coding: utf-8
+
 # ##### BEGIN LICENSE BLOCK #####
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2009 Brice Texier, Thibaud Merigon
@@ -89,7 +90,7 @@ module ApplicationHelper
 
   def human_age(born_at, options = {})
     options[:default] ||= '&ndash;'.html_safe
-    return options[:default] if born_at.nil?
+    return options[:default] if born_at.nil? || !born_at.is_a?(Time)
     at = options[:at] || Time.zone.now
     sign = ''
     if born_at > at
@@ -98,7 +99,7 @@ module ApplicationHelper
     end
     vals = []
     remaining_at = born_at + 0.seconds
-    %w(year month day hour minute second).each do |magnitude|
+    %w[year month day hour minute second].each do |magnitude|
       count = 0
       while remaining_at + 1.send(magnitude) < at
         remaining_at += 1.send(magnitude)
@@ -195,8 +196,19 @@ module ApplicationHelper
       options      = args[1] || {}
       html_options = args[2] || {}
 
-      if options.is_a? Hash
-        return (html_options[:remove] ? '' : content_tag(:a, name, class: html_options[:class].to_s + ' forbidden', disabled: true)) unless authorized?(options)
+      if options.is_a?(Hash) && !authorized?(options)
+        if html_options[:remove]
+          return ''
+        else
+          html_options[:class] = if html_options[:class].is_a?(Array)
+                                   html_options[:class] + ['forbidden']
+                                 else
+                                   html_options[:class].to_s + ' forbidden'
+                                 end
+          html_options.delete('disabled')
+          html_options[:disabled] = true
+          return content_tag(:a, name, html_options)
+        end
       end
 
       html_options = convert_options_to_data_attributes(options, html_options)
@@ -299,11 +311,11 @@ module ApplicationHelper
       label = "activerecord.attributes.#{model_name}.#{attribute}".t(default: default)
       if value.is_a? ActiveRecord::Base
         record = value
-        value = record.send(options[:label] || [:label, :name, :code, :number, :inspect].detect { |x| record.respond_to?(x) })
+        value = record.send(options[:label] || %i[label name code number inspect].detect { |x| record.respond_to?(x) })
         options[:url] = { action: :show } if options[:url].is_a? TrueClass
         if options[:url].is_a? Hash
           options[:url][:id] ||= record.id
-          #  raise [model_name.pluralize, record, record.class.name.underscore.pluralize].inspect
+          # raise [model_name.pluralize, record, record.class.name.underscore.pluralize].inspect
           options[:url][:controller] ||= record.class.name.underscore.pluralize
         end
       elsif value.is_a? Nomen::Item
@@ -351,7 +363,7 @@ module ApplicationHelper
   def attributes_list(*args, &block)
     options = args.extract_options!
     record = args.shift || resource
-    columns = options[:columns] || 3
+    options[:columns] ||= []
     attribute_list = AttributesList.new(record)
     if block_given?
       unless block.arity == 1
@@ -370,16 +382,22 @@ module ApplicationHelper
       attribute_list.attribute :updated_at
       # attribute_list.attribute :lock_version
     end
+    unless options[:columns].empty?
+      options[:columns].each do |c|
+        next unless record.respond_to? c
+        attribute_list.attribute c
+      end
+    end
     code = ''
     items = attribute_list.items # .delete_if { |x| x[0] == :custom_fields }
     if items.any?
-      for item in items
+      items.each do |item|
         label, value = if item[0] == :custom
                          attribute_item(*item[1])
                        elsif item[0] == :attribute
                          attribute_item(record, *item[1])
                        end
-        if !value.blank? || (item[2].is_a?(Hash) && item[2][:show] == :always)
+        if value.present? || (item[2].is_a?(Hash) && item[2][:show] == :always)
           code << content_tag(:dl, content_tag(:dt, label) + content_tag(:dd, value))
         end
       end
@@ -407,7 +425,7 @@ module ApplicationHelper
       raise 'Cannot show custom fields on ' + @object.class.name unless @object.customizable?
       @object.class.custom_fields.each do |custom_field|
         value = @object.custom_value(custom_field)
-        custom(custom_field.name, value) unless value.blank?
+        custom(custom_field.name, value) if value.present?
       end
       @items << [:custom_fields]
     end
@@ -424,6 +442,7 @@ module ApplicationHelper
 
   def dropdown_toggle_button(name = nil, options = {})
     class_attribute = 'btn btn-default dropdown-toggle'
+    class_attribute << ' ' + options[:class].to_s if options[:class].present?
     class_attribute << ' sr-only' if name.blank?
     class_attribute << ' icn btn-' + options[:icon].to_s if options[:icon]
     content_tag(:button, name, class: class_attribute,
@@ -464,8 +483,15 @@ module ApplicationHelper
     end
     item_options = default_item.args.third if default_item
     item_options ||= {}
+    if options[:class]
+      if item_options[:class]
+        item_options[:class] << ' ' + options[:class].to_s
+      else
+        item_options[:class] = options[:class].to_s
+      end
+    end
     item_options[:tool] = options[:icon] if options.key?(:icon)
-    html_options = { class: 'btn-group' }
+    html_options = { class: 'btn-group' + (options[:dropup] ? ' dropup' : '') }
     html_options[:class] << ' ' + options[:class].to_s if options[:class]
     html_options[:id] = options[:id] if options[:id]
     content_tag(:div, html_options) do
@@ -482,7 +508,7 @@ module ApplicationHelper
                 (default_item.args.third || {}).merge(item_options),
                 &default_item.block)
       else
-        dropdown_toggle_button(name, icon: options[:icon], disable_with: options[:disable_with]) +
+        dropdown_toggle_button(name, options.slice(:icon, :disable_with, :class)) +
           dropdown_menu(menu.list)
       end
     end
@@ -554,39 +580,43 @@ module ApplicationHelper
     content_tag(:div, class: :search) do
       # Show results
       html = ''.html_safe
-      html << content_tag(:ul, class: :results) do
-        counter = 'a'
-        search[:records].collect do |result|
-          id = 'result-' + counter
-          counter.succ!
-          content_tag(:li, class: 'result', id: id) do
-            (block.arity == 2 ? capture(result, id, &block) : capture(result, &block)).html_safe
-          end
-        end.join.html_safe
-      end if search[:records]
+      if search[:records]
+        html << content_tag(:ul, class: :results) do
+          counter = 'a'
+          search[:records].collect do |result|
+            id = 'result-' + counter
+            counter.succ!
+            content_tag(:li, class: 'result', id: id) do
+              (block.arity == 2 ? capture(result, id, &block) : capture(result, &block)).html_safe
+            end
+          end.join.html_safe
+        end
+      end
 
       # Pagination
-      html << content_tag(:span, class: :pagination) do
-        padding = 9
-        gap = 4
-        page_min = params[:page].to_i - padding
-        page_min = 1 if page_min < gap
-        page_max = params[:page].to_i + padding
-        page_max = search[:last_page] if page_max > search[:last_page]
+      if search[:last_page] && search[:last_page] > 1
+        html << content_tag(:span, class: :pagination) do
+          padding = 9
+          gap = 4
+          page_min = params[:page].to_i - padding
+          page_min = 1 if page_min < gap
+          page_max = params[:page].to_i + padding
+          page_max = search[:last_page] if page_max > search[:last_page]
 
-        pagination = ''
-        if page_min > 1
-          pagination << link_to(content_tag(:i) + tl(:beginning), { q: params[:q], page: 1 }, class: :beginning)
-          pagination << content_tag(:span, '&hellip;'.html_safe) if page_min >= gap
+          pagination = ''
+          if page_min > 1
+            pagination << link_to(content_tag(:i) + tl(:beginning), { q: params[:q], page: 1 }, class: :beginning)
+            pagination << content_tag(:span, '&hellip;'.html_safe) if page_min >= gap
+          end
+          for p in page_min..page_max
+            attrs = {}
+            attrs[:class] = 'active' if p == params[:page]
+            pagination << link_to(p.to_s, { q: params[:q], page: p }, attrs)
+          end
+          pagination << content_tag(:span, '&hellip;'.html_safe) if page_max < search[:last_page]
+          pagination.html_safe
         end
-        for p in page_min..page_max
-          attrs = {}
-          attrs[:class] = 'active' if p == params[:page]
-          pagination << link_to(p.to_s, { q: params[:q], page: p }, attrs)
-        end
-        pagination << content_tag(:span, '&hellip;'.html_safe) if page_max < search[:last_page]
-        pagination.html_safe
-      end if search[:last_page] && search[:last_page] > 1
+      end
 
       # Return HTML
       html
@@ -662,7 +692,7 @@ module ApplicationHelper
         content_for(:main_title, value)
       end
     else
-      return (content_for?(:main_title) ? content_for(:main_title) : controller.human_action_name)
+      (content_for?(:main_title) ? content_for(:main_title) : controller.human_action_name)
     end
   end
 
@@ -736,7 +766,7 @@ module ApplicationHelper
       item = ''
       size = 0
     end
-    html << content_tag(:tr, item).html_safe unless item.blank?
+    html << content_tag(:tr, item).html_safe if item.present?
     content_tag(:table, html, html_options).html_safe
   end
 
@@ -812,7 +842,7 @@ module ApplicationHelper
 
   # Create the main toolbar with the same API as toolbar
   def main_toolbar(options = {}, &block)
-    content_for(:main_toolbar, toolbar(options.merge(wrap: false), &block))
+    content_for(:main_toolbar, toolbar(options.merge(wrap: false, name: :main), &block))
     nil
   end
 
@@ -822,15 +852,15 @@ module ApplicationHelper
     if (count = object.errors.size).zero?
       ''
     else
-      I18n.with_options scope: [:errors, :template] do |locale|
+      I18n.with_options scope: %i[errors template] do |locale|
         header_message = locale.t :header, count: count, model: object.class.model_name.human
         introduction = locale.t(:body)
         messages = object.errors.full_messages.map do |msg|
           content_tag(:li, msg)
         end.join.html_safe
         message = ''
-        message << content_tag(:h3, header_message) unless header_message.blank?
-        message << content_tag(:p, introduction) unless introduction.blank?
+        message << content_tag(:h3, header_message) if header_message.present?
+        message << content_tag(:p, introduction) if introduction.present?
         message << content_tag(:ul, messages)
 
         html = ''
@@ -843,7 +873,13 @@ module ApplicationHelper
   end
 
   def form_actions(&block)
-    content_tag(:div, capture(&block), class: 'form-actions')
+    content_tag(:div, class: 'form-actions') do
+      html = ''.html_safe
+      html << content_for(:before_form_actions) if content_for?(:before_form_actions)
+      html << capture(&block)
+      html << content_for(:after_form_actions) if content_for?(:after_form_actions)
+      html
+    end
   end
 
   def form_fields(&block)
@@ -909,9 +945,9 @@ module ApplicationHelper
     if condition =~ /^generic/
       klass = condition.split(/\-/)[1].pluralize.classify.constantize
       attribute = condition.split(/\-/)[2]
-      return tl('conditions.filter_on_attribute_of_class', attribute: klass.human_attribute_name(attribute), class: klass.model_name.human)
+      tl('conditions.filter_on_attribute_of_class', attribute: klass.human_attribute_name(attribute), class: klass.model_name.human)
     else
-      return tl("conditions.#{condition}")
+      tl("conditions.#{condition}")
     end
   end
 

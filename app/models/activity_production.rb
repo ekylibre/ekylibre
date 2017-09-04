@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2016 Brice Texier, David Joulin
+# Copyright (C) 2012-2017 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -50,8 +50,9 @@
 #
 
 class ActivityProduction < Ekylibre::Record::Base
-  include Customizable, Attachable
-  enumerize :support_nature, in: [:cultivation, :fallow_land, :buffer, :border, :none, :animal_group], default: :cultivation
+  include Attachable
+  include Customizable
+  enumerize :support_nature, in: %i[cultivation fallow_land buffer border none animal_group], default: :cultivation
   refers_to :usage, class_name: 'ProductionUsage'
   refers_to :size_indicator, class_name: 'Indicator'
   refers_to :size_unit, class_name: 'Unit'
@@ -73,7 +74,7 @@ class ActivityProduction < Ekylibre::Record::Base
   has_and_belongs_to_many :campaigns
 
   has_geometry :support_shape
-  composed_of :size, class_name: 'Measure', mapping: [%w(size_value to_d), %w(size_unit_name unit)]
+  composed_of :size, class_name: 'Measure', mapping: [%w[size_value to_d], %w[size_unit_name unit]]
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :irrigated, :nitrate_fixing, inclusion: { in: [true, false] }
@@ -120,6 +121,16 @@ class ActivityProduction < Ekylibre::Record::Base
     where(activity: Activity.of_families(*families))
   }
 
+  scope :of_crumbs, lambda { |*crumbs|
+    options = crumbs.extract_options!
+    options[:campaigns] ||= Campaign.current
+
+    of_campaign(options[:campaigns].first).distinct
+                                          .joins(:support)
+                                          .joins('INNER JOIN crumbs ON ST_Contains(ST_CollectionExtract(activity_productions.support_shape, 3), crumbs.geolocation)')
+                                          .where(crumbs.any? ? ['crumbs.id IN (?)', crumbs.flatten.map(&:id)] : 'crumbs.id IS NOT NULL')
+  }
+
   scope :at, ->(at) { where(':now BETWEEN COALESCE(started_on, :now) AND COALESCE(stopped_on, :now)', now: at.to_date) }
   scope :current, -> { at(Time.zone.now) }
 
@@ -157,12 +168,14 @@ class ActivityProduction < Ekylibre::Record::Base
       self.size_indicator_name ||= activity_size_indicator_name if activity_size_indicator_name
       self.size_unit_name = activity_size_unit_name
       self.rank_number ||= (activity.productions.maximum(:rank_number) ? activity.productions.maximum(:rank_number) : 0) + 1
-      if plant_farming?
-        initialize_land_parcel_support!
-      elsif animal_farming?
-        initialize_animal_group_support!
-      elsif tool_maintaining?
-        initialize_equipment_fleet_support!
+      if valid_period_for_support?
+        if plant_farming?
+          initialize_land_parcel_support!
+        elsif animal_farming?
+          initialize_animal_group_support!
+        elsif tool_maintaining?
+          initialize_equipment_fleet_support!
+        end
       end
     end
     true
@@ -192,6 +205,8 @@ class ActivityProduction < Ekylibre::Record::Base
   end
 
   after_destroy do
+    support.destroy if support.is_a?(LandParcel) && support.activity_productions.empty?
+
     Ekylibre::Hook.publish(:activity_production_destroy, activity_production_id: id)
   end
 
@@ -218,11 +233,24 @@ class ActivityProduction < Ekylibre::Record::Base
     end
   end
 
+  def valid_period_for_support?
+    if self.started_on
+      return false if self.started_on < Time.new(1, 1, 1).in_time_zone
+    end
+    if self.stopped_on
+      return false if self.stopped_on >= Time.zone.now + 50.years
+    end
+    if self.started_on && self.stopped_on
+      return false if self.started_on > self.stopped_on
+    end
+    true
+  end
+
   def initialize_land_parcel_support!
     self.support_shape ||= cultivable_zone.shape if cultivable_zone
     unless support
-      if support_shape
-        land_parcels = LandParcel.shape_matching(support_shape)
+      if self.support_shape
+        land_parcels = LandParcel.shape_matching(self.support_shape)
                                  .where.not(id: ActivityProduction.select(:support_id))
                                  .order(:id)
         self.support = land_parcels.first if land_parcels.any?
@@ -230,22 +258,27 @@ class ActivityProduction < Ekylibre::Record::Base
       self.support ||= LandParcel.new
     end
     support.name = computed_support_name
-    support.initial_shape = support_shape
+    support.initial_shape = self.support_shape
     support.initial_born_at = started_on
     support.initial_dead_at = stopped_on
+    support.born_at = started_on
+    support.dead_at = stopped_on
     support.variant ||= ProductNatureVariant.import_from_nomenclature(:land_parcel)
     support.save!
     reading = support.first_reading(:shape)
     if reading
-      reading.value = support_shape
+      reading.value = self.support_shape
+      reading.read_at = support.born_at
       reading.save!
     end
     self.size = support_shape_area.in(size_unit_name)
   end
 
   def initialize_animal_group_support!
-    self.support = AnimalGroup.new unless support
-    support.name = computed_support_name
+    unless support
+      self.support = AnimalGroup.new
+      support.name = computed_support_name
+    end
     # FIXME: Need to find better category and population_counting...
     unless support.variant
       nature = ProductNature.find_or_create_by!(
@@ -324,19 +357,11 @@ class ActivityProduction < Ekylibre::Record::Base
 
   def interventions_by_weeks
     interventions_by_week = {}
-
     interventions.each do |intervention|
       week_number = intervention.started_at.to_date.cweek
-
-      list = []
-      unless interventions_by_week[week_number].nil?
-        list = interventions_by_week[week_number]
-      end
-
-      list << intervention
-      interventions_by_week[week_number] = list
+      interventions_by_week[week_number] ||= []
+      interventions_by_week[week_number] << intervention
     end
-
     interventions_by_week
   end
 
@@ -513,12 +538,12 @@ class ActivityProduction < Ekylibre::Record::Base
     global_coef_harvest_yield = []
 
     if harvest_interventions.any?
-      harvest_interventions.find_each do |harvest|
+      harvest_interventions.includes(:targets).find_each do |harvest|
         harvest_working_area = []
         harvest.targets.each do |target|
           harvest_working_area << ::Charta.new_geometry(target.working_zone).area.in(:square_meter)
         end
-        harvest.outputs.each do |cast|
+        harvest.outputs.includes(:product).each do |cast|
           actor = cast.product
           next unless actor && actor.variety
           variety = Nomen::Variety.find(actor.variety)
@@ -574,9 +599,7 @@ class ActivityProduction < Ekylibre::Record::Base
   def current_cultivation
     # get the first object with variety 'plant', availables
     if cultivation = support.contents.where(type: Plant).of_variety(variant.variety).availables.reorder(:born_at).first
-      return cultivation
-    else
-      return nil
+      cultivation
     end
   end
 
@@ -588,15 +611,15 @@ class ActivityProduction < Ekylibre::Record::Base
   def current_size(options = {})
     options[:at] ||= self.started_on ? self.started_on.to_time : Time.zone.now
     value = support.get(size_indicator_name, options)
-    value = value.in(size_unit_name) unless size_unit_name.blank?
+    value = value.in(size_unit_name) if size_unit_name.present?
     value
   end
 
   def duplicate!(updates = {})
-    new_attributes = [
-      :activity, :campaign, :cultivable_zone, :irrigated, :nitrate_fixing,
-      :size_indicator_name, :size_unit_name, :size_value, :started_on,
-      :support_nature, :support_shape, :usage
+    new_attributes = %i[
+      activity campaign cultivable_zone irrigated nitrate_fixing
+      size_indicator_name size_unit_name size_value started_on
+      support_nature support_shape usage
     ].each_with_object({}) do |attr, h|
       h[attr] = send(attr)
       h
@@ -624,7 +647,7 @@ class ActivityProduction < Ekylibre::Record::Base
   end
 
   def get(*args)
-    unless support.present?
+    if support.blank?
       raise StandardError, "No support defined. Got: #{support.inspect}"
     end
     support.get(*args)

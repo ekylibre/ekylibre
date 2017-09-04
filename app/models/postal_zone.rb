@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2016 Brice Texier, David Joulin
+# Copyright (C) 2012-2017 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -55,7 +55,7 @@ class PostalZone < Ekylibre::Record::Base
     self.postal_code = ''
     self.city = ''
     self.city_name = ''
-    if words && !words.empty?
+    if words.present?
       self.postal_code = (words[0..start - 1] || []).join(' ')
       self.city = (words[start..-1] || []).join(' ')
       self.city_name = city
@@ -66,6 +66,6 @@ class PostalZone < Ekylibre::Record::Base
   end
 
   def self.exportable_columns
-    content_columns.delete_if { |c| ![:city, :postal_code].include?(c.name.to_sym) }
+    content_columns.delete_if { |c| !%i[city postal_code].include?(c.name.to_sym) }
   end
 end

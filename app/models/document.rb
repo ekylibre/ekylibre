@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2016 Brice Texier, David Joulin
+# Copyright (C) 2012-2017 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -50,8 +50,8 @@ class Document < Ekylibre::Record::Base
   has_many :attachments, dependent: :destroy
   has_attached_file :file, path: ':tenant/:class/:id_partition/:style.:extension',
                            styles: {
-                             default:   { format: :pdf, processors: [:reader, :counter, :freezer], clean: true },
-                             thumbnail: { format: :jpg, processors: [:sketcher, :thumbnail], geometry: '320x320>' }
+                             default:   { format: :pdf, processors: %i[reader counter freezer], clean: true },
+                             thumbnail: { format: :jpg, processors: %i[sketcher thumbnail], geometry: '320x320>' }
                            }
   refers_to :nature, class_name: 'DocumentNature'
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
@@ -79,5 +79,7 @@ class Document < Ekylibre::Record::Base
   before_validation do
     self.name ||= file.original_filename
     self.key ||= "#{Time.now.to_i}-#{file.original_filename}"
+    # DB limitation
+    self.file_content_text = file_content_text.truncate(500_000)
   end
 end

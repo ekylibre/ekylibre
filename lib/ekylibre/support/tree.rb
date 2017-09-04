@@ -8,8 +8,7 @@ module Ekylibre
         object
       end
 
-      def []=(*_args)
-      end
+      def []=(*_args); end
     end
   end
 end

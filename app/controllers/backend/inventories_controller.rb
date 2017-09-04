@@ -18,7 +18,7 @@
 
 module Backend
   class InventoriesController < Backend::BaseController
-    manage_restfully except: [:index, :show], achieved_at: 'Time.zone.now'.c, responsible_id: 'current_user.person.id'.c, name: 'Time.zone.now.year.to_s'.c
+    manage_restfully except: %i[index show], achieved_at: 'Time.zone.now'.c, responsible_id: 'current_user.person.id'.c, name: 'Time.zone.now.year.to_s'.c
 
     respond_to :pdf, :odt, :docx, :xml, :json, :html, :csv
 
@@ -47,7 +47,7 @@ module Backend
     def show
       return unless @inventory = find_and_check
       t3e @inventory
-      respond_with(@inventory, include: [:responsible, { items: { methods: :unit_name, include: [:product, :container] } }])
+      respond_with(@inventory, include: [:responsible, { items: { methods: :unit_name, include: %i[product container] } }])
     end
 
     list(:items, model: :inventory_items, conditions: { inventory_id: 'params[:id]'.c }, order: :id) do |t|
@@ -65,13 +65,10 @@ module Backend
       redirect_to action: :edit, id: @inventory.id
     end
 
+    # Call a job wich change the number of all the different product
     def reflect
       return unless @inventory = find_and_check
-      if @inventory.reflect
-        notify_success(:changes_have_been_reflected)
-      else
-        notify_error(:changes_have_not_been_reflected)
-      end
+      ReflectInventoryJob.perform_later(@inventory, current_user)
       redirect_to action: :index
     end
   end

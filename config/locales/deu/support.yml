@@ -8,6 +8,9 @@ deu:
     human:
       false_class: "Falsch"
       true_class: "Wahr"
+    polar:
+      false_class: "Ja"
+      true_class: "Nein"
   date:
     abbr_day_names: ["So", "Mo", "Di", "Mi", "Do", "Fr", "Sa"]
     abbr_month_names: ["", "Jan", "Feb", "Mär", "Apr", "Mai", "Jun", "Jul", "Aug", "Sep", "Okt", "Nov", "Dez"]
@@ -60,9 +63,10 @@ deu:
     periods:
       day: "Tag"
       month: "Monat"
+      today: "Heute"
       week: "Woche"
       year: "Jahr"
-    prompts:  #?
+    prompts: #?
       day: "Tag" #?
       hour: "Stunden" #?
       minute: "Minute" #?
@@ -72,7 +76,7 @@ deu:
     relative_distance_in_words:
       # in_sometime: "in %{distance}"
       # sometime_ago: "%{distance} ago"
-  errors:  #?
+  errors: #?
     format: "%{attribute} %{message}" #?
     messages: #?
       accepted: "muss akzeptiert werden" #?
@@ -108,7 +112,7 @@ deu:
       header: #?
         one: "Konnte %{model} nicht speichern: ein Fehler." #?
         other: "Konnte %{model} nicht speichern: %{count} Fehler." #?
-  helpers:  #?
+  helpers: #?
     select: #?
       prompt: "Bitte wählen" #?
     submit: #?
@@ -120,6 +124,9 @@ deu:
       internal_server_error:
         hint: "Die Anwendung begegnet Probleme. Administratoren wurden für dieses Problem informiert."
         title: "Es tut uns leid, aber etwas is schief gelaufen"
+      maintenance:
+        hint: "Bitte komme später zurück"
+        title: "Der Service ist unter Wartung und ist jetzt nicht verfügbar"
       not_found:
         hint: "Sie können die Adresse falsch eingegeben oder die Seite verschoben haben."
         title: "Die Seite, die Sie suchen ist nicht vorhanden"
@@ -140,7 +147,7 @@ deu:
       precision: 2
       separator: ","
     human:
-      decimal_units:  #?
+      decimal_units: #?
         format: "%n %u" #?
         units: #?
           billion: #?
@@ -158,7 +165,7 @@ deu:
         precision: 3
         significant: "true" #?
         strip_insignificant_zeros: "true" #?
-      storage_units:  #?
+      storage_units: #?
         format: "%n %u" #?
         units: #?
           byte: #?
@@ -176,12 +183,6 @@ deu:
       format:
         delimiter: ""
   rank: "#%{number}"
-  simple_form:
-    hints:
-      purchase:
-        reference_number: "Lieferant Rechnungsnummer"
-    required:
-      text: "Erforderlich"
   support:
     array:
       last_word_connector: " und "
@@ -191,9 +192,13 @@ deu:
   time:
     am: "vormittags"
     formats:
-      compact: "% M /% d /% Y% H:% M"
+      compact: "%M /%d /%Y%H:%M"
       default: "%A, %d. %B %Y, %H:%M Uhr"
+      full: "%M /%d /%Y%H:%M:%S"
       long: "%A, %d. %B %Y, %H:%M Uhr"
       short: "%d. %B, %H:%M Uhr"
       time: "%H:%M" #?
+    js_formats:
+      compact: "MM/DD/YYYY HH:mm"
+      full: "MM/DD/YYYY HH:mm:ss"
     pm: "nachmittags"

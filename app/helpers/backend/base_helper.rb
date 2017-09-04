@@ -36,7 +36,11 @@ module Backend
     end
 
     def root_models
-      Ekylibre::Schema.models.collect { |a| [Ekylibre::Record.human_name(a.to_s.singularize), a.to_s.singularize] }.sort { |a, b| a[0].ascii <=> b[0].ascii }
+      Ekylibre::Schema.models.collect { |a| [Ekylibre::Record.human_name(a.to_s.singularize), a.to_s.singularize] }.sort_by { |a| a[0].ascii }
+    end
+
+    def extensions_tag(place)
+      Ekylibre::View::Addon.render("extensions_#{place}", self)
     end
 
     def navigation_tag
@@ -131,7 +135,7 @@ module Backend
         html << content_tag(:li, link_to(options[:title], url, options), li_options) if authorized?(url)
       end
 
-      unless html.blank?
+      if html.present?
         html = content_tag(:ul, html)
         snippet(main_name, main_options) { html }
       end
@@ -185,7 +189,7 @@ module Backend
 
     # chart for variables readings
     def variable_readings(resource)
-      indicators = resource.variable_indicators.delete_if { |i| ![:measure, :decimal].include?(i.datatype) }
+      indicators = resource.variable_indicators.delete_if { |i| !%i[measure decimal].include?(i.datatype) }
       series = []
       now = (Time.zone.now + 7.days)
       window = 1.day
@@ -252,18 +256,40 @@ module Backend
       end
     end
 
+    def heading_toolbar(&block)
+      content_for(:heading_toolbar, &block)
+    end
+
+    def form_action_content(side = :after, &block)
+      content_for(:"#{side}_form_actions", &block)
+    end
+
     def period_selector(*intervals)
       options = intervals.extract_options!
       current_period = current_user.current_period.to_date
       current_interval = current_user.current_period_interval.to_sym
       current_user.current_campaign = Campaign.find_or_create_by!(harvest_year: current_period.year)
 
-      default_intervals = [:day, :week, :month, :year]
+      default_intervals = %i[day week month year]
       intervals = default_intervals if intervals.empty?
       intervals &= default_intervals
       current_interval = intervals.last unless intervals.include?(current_interval)
 
       render 'backend/shared/period_selector', current_period: current_period, intervals: intervals, period_interval: current_interval
+    end
+
+    def main_financial_year_selector(financial_year)
+      content_for(:heading_toolbar) do
+        financial_year_selector(financial_year)
+      end
+    end
+
+    def financial_year_selector(financial_year_id = nil, options = {})
+      unless FinancialYear.any?
+        @current_financial_year = FinancialYear.on(Date.current)
+      end
+      current_user.current_financial_year = @current_financial_year || FinancialYear.find_by(id: financial_year_id)
+      render 'backend/shared/financial_year_selector', financial_year: current_user.current_financial_year, param_name: options[:param_name] || :current_financial_year
     end
 
     def lights(status, html_options = {})
@@ -279,11 +305,11 @@ module Backend
       end
     end
 
-    def state_bar(resource, _options = {})
+    def state_bar(resource, options = {})
       machine = resource.class.state_machine
       state = resource.state
       state = machine.state(state.to_sym) unless state.is_a?(StateMachine::State) || state.nil?
-      render 'state_bar', states: machine.states, current_state: state, resource: resource, renamings: _options[:renamings]
+      render 'state_bar', states: machine.states, current_state: state, resource: resource, renamings: options[:renamings]
     end
 
     def main_state_bar(resource, options = {})
@@ -318,11 +344,16 @@ module Backend
       end
       active_face ||= faces_names.first
 
+      load_all_faces = false # For performance
+
       # Adds views
       html_code = faces.map do |face|
         face_name = face.args.first.to_s
         classes = ['face']
         classes << 'active' if active_face == face_name
+        unless load_all_faces || active_face == face_name # load_all_faces toggle a few lines above
+          next content_tag(:div, nil, id: "face-#{face_name}", data: { face: face_name }, class: classes)
+        end
         content_tag(:div, id: "face-#{face_name}", data: { face: face_name }, class: classes, &face.block)
       end.join.html_safe
 
@@ -334,8 +365,8 @@ module Backend
               face_name = face.args.first.to_s
               classes = ['btn', 'btn-default']
               classes << 'active' if face_name == active_face
-              get_url = url_for(controller: '/backend/januses', action: :toggle, id: name, face: face_name, redirect: url_for)
-              link_to(get_url, data: { "janus-href": face_name, toggle: 'face' }, class: classes, title: face_name.tl) do
+              get_url = url_for(controller: '/backend/januses', action: :toggle, default: faces_names.first, id: name, face: face_name, redirect: request.fullpath)
+              link_to(get_url, data: { janus_href: face_name, toggle: 'face' }, class: classes, title: face_name.tl) do
                 content_tag(:i, '', class: "icon icon-#{face_name}") + ' '.html_safe + face_name.tl
               end
             end.join.html_safe
@@ -443,6 +474,11 @@ module Backend
           end
         end
       end
+    end
+
+    def user_preference_value(name)
+      preference = current_user.preferences.find_by(name: name)
+      preference ? preference.value : nil
     end
 
     # Build a JSON for a data-tour parameter and put it on <body> element

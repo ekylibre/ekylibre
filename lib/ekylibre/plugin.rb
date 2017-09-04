@@ -106,9 +106,10 @@ module Ekylibre
             plugin.themes_assets.each do |name, addons|
               next unless name == theme || name == '*' || (name.respond_to?(:match) && theme.match(name))
               stylesheet << "// #{plugin.name}\n"
+              next unless addons[:stylesheets]
               addons[:stylesheets].each do |file|
                 stylesheet << "@import \"#{file}\";\n"
-              end if addons[:stylesheets]
+              end
             end
           end
           # <base_dir>/themes/<theme>/plugins.scss
@@ -243,7 +244,7 @@ module Ekylibre
             unless Rails.application.config.assets.paths.include?(assets_directory.join(type).to_s)
               Rails.application.config.assets.paths << assets_directory.join(type).to_s
             end
-            unless %w(javascript stylesheets).include? type
+            unless %w[javascript stylesheets].include? type
               files_to_compile = Dir[type + '/**/*'].select { |f| File.file? f }.map do |f|
                 Pathname.new(f).relative_path_from(Pathname.new(type)).to_s unless f == type
               end
@@ -279,7 +280,7 @@ module Ekylibre
     def app(*requirements)
       options = requirements.extract_options!
       requirements.each do |requirement|
-        unless requirement =~ /\A((~>|>=|>|<|<=)\s+)?\d.\d(\.[a-z0-9]+)*\z/
+        unless requirement =~ /\A((~>|>=|>|<|<=)\s+)?\d+.\d+(\.[a-z0-9]+)*\z/
           raise PluginRequirementError, "Invalid version requirement expression: #{requirement}"
         end
       end
@@ -312,6 +313,16 @@ module Ekylibre
     # Adds routes to access controllers
     def add_routes(&block)
       @routes = block
+    end
+
+    def add_toolbar_addon(partial_path, options = {})
+      # Config main toolbar by default because with current tools, no way to specify
+      # which toolbar use when many in the same page.
+      Ekylibre::View::Addon.add(:main_toolbar, partial_path, options)
+    end
+
+    def add_cobble_addon(partial_path, options = {})
+      Ekylibre::View::Addon.add(:cobbler, partial_path, options)
     end
 
     # Adds menus with DSL in Ekylibre backend nav

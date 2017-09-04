@@ -46,9 +46,7 @@ deu:
           sign_in: "Hier anmelden."
           subject: "Ihr Konto wurde genehmigt!"
         signed_up:
-          confirm: "Bitte bestätigen Sie es im Administrations-Bereich."
-          # details: "%{first_name} %{last_name} with email %{email} has just signed up."
-          subject: "Neu anmelden"
+          subject: "Neue Registrierung"
       reset_password_instructions:
         subject: "Passwort zurücksetzen Anweisungen"
       unlock_instructions:

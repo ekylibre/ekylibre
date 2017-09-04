@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2016 Brice Texier, David Joulin
+# Copyright (C) 2012-2017 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -44,11 +44,11 @@ class Listing < Ekylibre::Record::Base
   has_many :columns, -> { where('nature = ?', 'column') }, class_name: 'ListingNode'
   has_many :custom_fields_columns, -> { where('nature = ?', 'custom').order('position') }, class_name: 'ListingNode'
   has_many :exportable_columns, -> { where(nature: 'column', exportable: true).order('position') }, class_name: 'ListingNode'
-  has_many :exportable_fields, -> { where(nature: %w(column custom), exportable: true).order('position') }, class_name: 'ListingNode'
+  has_many :exportable_fields, -> { where(nature: %w[column custom], exportable: true).order('position') }, class_name: 'ListingNode'
   has_many :filtered_columns, -> { where("nature = ? AND condition_operator IS NOT NULL AND condition_operator != '' AND condition_operator != ? ", 'column', 'any') }, class_name: 'ListingNode'
   has_many :coordinate_columns, -> { where('name LIKE ? AND nature = ? ', '%.coordinate', 'column') }, class_name: 'ListingNode'
   has_many :nodes, class_name: 'ListingNode', dependent: :delete_all, inverse_of: :listing
-  has_many :reflection_nodes, -> { where(nature: %w(belongs_to has_many root)) }, class_name: 'ListingNode'
+  has_many :reflection_nodes, -> { where(nature: %w[belongs_to has_many root]) }, class_name: 'ListingNode'
   has_one :root_node, -> { where(parent_id: nil) }, class_name: 'ListingNode'
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
@@ -84,7 +84,7 @@ class Listing < Ekylibre::Record::Base
       columns_to_export = columns_to_export.sort_by(&:first).map(&:last)
       query = 'SELECT ' + columns_to_export.join(', ')
       query << " FROM #{root.model.table_name} AS #{root.name}" + root.compute_joins
-      query << ' WHERE ' + compute_where unless compute_where.blank?
+      query << ' WHERE ' + compute_where if compute_where.present?
       unless columns_to_export.size.zero?
         query << ' ORDER BY ' + exportable_fields.map { |n| conn.quote_column_name(n.label) }.join(', ')
       end
@@ -110,12 +110,12 @@ class Listing < Ekylibre::Record::Base
     return c unless reflection_nodes.any?
     # Filter on columns
     if filtered_columns.any?
-      c << ' AND ' unless c.blank?
+      c << ' AND ' if c.present?
       c << filtered_columns.map(&:condition).join(' AND ')
     end
     # General conditions
-    unless conditions.blank?
-      c << ' AND ' unless c.blank?
+    if conditions.present?
+      c << ' AND ' if c.present?
       c << '(' + conditions + ')'
     end
     c
@@ -123,7 +123,7 @@ class Listing < Ekylibre::Record::Base
 
   # Fully duplicate a listing
   def duplicate
-    listing = self.class.create!(attributes.merge(name: :copy_of.tl(source: name)).delete_if { |a| %w(id lock_version).include?(a.to_s) })
+    listing = self.class.create!(attributes.merge(name: :copy_of.tl(source: name)).delete_if { |a| %w[id lock_version].include?(a.to_s) })
     root_node.duplicate(listing)
     listing
   end

@@ -1,3 +1,5 @@
+require 'set'
+
 module Nomen
   # An item of a nomenclature is the core data.
   class Item
@@ -18,6 +20,7 @@ module Nomen
         self.parent = parent
       end
       @attributes = {}.with_indifferent_access
+      @children = Set.new
       options.each do |k, v|
         set(k, v)
       end
@@ -29,6 +32,7 @@ module Nomen
 
     def parent=(item)
       old_parent_name = @parent_name
+      old_parent = @parent
       if item.nil?
         @parent = nil
         @parent_name = nil
@@ -39,13 +43,25 @@ module Nomen
         if item.nomenclature != nomenclature
           raise 'Item must come from same nomenclature'
         end
-        if item.parents.include?(self) || item == self
+        if item.parents.any? { |p| self == p } || self == item
           raise 'Circular dependency. Item can be parent of itself.'
         end
         @parent = item
         @parent_name = @parent.name.to_s
       end
-      @nomenclature.rebuild_tree! if old_parent_name != @parent_name
+      if old_parent_name != @parent_name
+        old_parent.delete_child(self) if old_parent
+        @parent.add_child(self) if @parent
+        @nomenclature.rebuild_tree!
+      end
+    end
+
+    def add_child(item)
+      @children << item
+    end
+
+    def delete_child(item)
+      @children.delete(item)
     end
 
     # Changes parent without rebuilding
@@ -59,7 +75,15 @@ module Nomen
     end
 
     def parent
-      @parent ||= @nomenclature.find(@parent_name)
+      return @parent if @parent
+      @parent = find_parent
+      @parent.add_child(self) if @parent
+      @parent
+    end
+    alias fetch_parent parent
+
+    def find_parent
+      @nomenclature.find(@parent_name)
     end
 
     def degree_of_kinship_with(other)
@@ -84,11 +108,9 @@ module Nomen
     def children(options = {})
       if options[:index].is_a?(FalseClass)
         if options[:recursively].is_a?(FalseClass)
-          return nomenclature.list.select do |item|
-            (item.parent == self)
-          end
+          @children.to_a
         else
-          return children(index: false, recursive: false).each_with_object([]) do |item, list|
+          children(index: false, recursive: false).each_with_object([]) do |item, list|
             list << item
             list += item.children(index: false, recursive: true)
             list
@@ -96,12 +118,12 @@ module Nomen
         end
       else
         if options[:recursively].is_a?(FalseClass)
-          return nomenclature.list.select do |item|
+          nomenclature.list.select do |item|
             @left < item.left && item.right < @right && item.depth == @depth + 1
           end
         else
           # @children ||=
-          return nomenclature.list.select do |item|
+          nomenclature.list.select do |item|
             @left < item.left && item.right < @right
           end
         end
@@ -249,7 +271,11 @@ module Nomen
           ["nomenclatures.#{@nomenclature.name}.item_lists.#{self.name}.#{name}.#{i}".t, i]
         end
       elsif property.nomenclature?
-        return Nomen[property(name)].list.collect do |i|
+        target_nomenclature = Nomen.find(property(name).to_sym)
+        unless target_nomenclature
+          raise "Cannot find nomenclature: for #{property(name).inspect}"
+        end
+        return target_nomenclature.list.collect do |i|
           [i.human_name, i.name]
         end
       else
@@ -269,7 +295,7 @@ module Nomen
     end
 
     def set(name, value)
-      raise "Invalid property: #{name.inspect}" if [:name, :parent].include?(name.to_sym)
+      raise "Invalid property: #{name.inspect}" if %i[name parent].include?(name.to_sym)
       # # TODO: check format
       # if property = nomenclature.properties[name]
       #   value ||= [] if property.list?

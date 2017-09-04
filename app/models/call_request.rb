@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2016 Brice Texier, David Joulin
+# Copyright (C) 2012-2017 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -27,7 +27,7 @@
 #  created_at   :datetime         not null
 #  creator_id   :integer
 #  format       :string
-#  headers      :string
+#  headers      :text
 #  id           :integer          not null, primary key
 #  ip_address   :string
 #  lock_version :integer          default(0), not null
@@ -47,12 +47,14 @@ class CallRequest < CallMessage
   has_many :responses, class_name: 'CallResponse', foreign_key: :request_id
 
   def self.create_from_request!(request)
+    # We were hitting the char limit on the weird requests Rails does to test controllers.
+    url = Rails.env.test? ? request.host : request.original_url[0...500]
     create!(
       nature: :incoming, # Because we are in one of our own controllers here.
       headers: request.headers,
       body: request.body,
       ip_address: request.ip,
-      url: request.original_url,
+      url: url,
       format: request.format,
       verb: request.method,
       ssl: request.ssl?

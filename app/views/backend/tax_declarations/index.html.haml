@@ -1,0 +1,3 @@
+- main_toolbar do |t|
+  = t.new variants: FinancialYear.opened.with_tax_declaration.with_missing_tax_declaration.map { |fy| [fy.code.to_s, { financial_year_id: fy.id }] }, params: { redirect: nil }, icon: false
+= main_list

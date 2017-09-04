@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<migration name="Add milking robot in nomenclature">
+  <item-creation item="indicators#milker_clusters_number" datatype="integer"/>
+  <item-creation item="product_natures#milking_robot" category="equipment" variety="equipment" population_counting="unitary" abilities="milk(mammalia)" frozen_indicators="milker_clusters_number"/>
+  <item-creation item="product_nature_variants#milking_robot" nature="milking_robot"/>
+</migration>

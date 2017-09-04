@@ -1,0 +1,13 @@
+- main_toolbar
+
+= form_tag({}, multipart: true) do
+  - if @import && @import.error.present?
+    .flash.error
+      %h3= @import.error.message
+
+  = field_set(:select_file_to_upload) do
+    = field :file_to_upload.tl, file_field_tag(:upload)
+
+  = form_actions do
+    = submit_tag :save.tl
+    = link_to :cancel.tl, :back, class: "btn"

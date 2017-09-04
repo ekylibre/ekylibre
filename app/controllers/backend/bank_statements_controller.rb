@@ -21,13 +21,13 @@ module Backend
     manage_restfully(
       started_on: 'Cash.find(params[:cash_id]).last_bank_statement.stopped_on + 1 rescue (Time.zone.today-1.month-2.days)'.c,
       stopped_on: 'Cash.find(params[:cash_id]).last_bank_statement.stopped_on >> 1 rescue (Time.zone.today-2.days)'.c,
-      redirect_to: "{action: :reconciliation, id: 'id'.c}".c
+      redirect_to: "{controller: '/backend/bank_reconciliation/items', action: :index, id: 'id'.c}".c
     )
 
     unroll
 
     list(order: { started_on: :desc }) do |t|
-      t.action :reconciliation
+      t.action :index, url: { controller: '/backend/bank_reconciliation/items' }
       t.action :edit
       t.action :destroy
       t.column :number, url: true
@@ -44,60 +44,28 @@ module Backend
     end
 
     list(:items, model: :bank_statement_items, conditions: { bank_statement_id: 'params[:id]'.c }, order: :id) do |t|
-      t.column :journal, url: true
       t.column :transfered_on
       t.column :name
-      t.column :account, url: true
+      t.column :memo
       t.column :debit, currency: :currency
       t.column :credit, currency: :currency
     end
 
     def import
       @cash = Cash.find_by(id: params[:cash_id])
-      if request.post?
-        file = params[:upload]
-        @import = OfxImport.new(file, @cash)
-        if @import.run
-          redirect_to action: :show, id: @import.bank_statement.id
-        elsif @import.recoverable?
-          @cash = @import.cash
-          @bank_statement = @import.bank_statement
-          @bank_statement.errors.add(:cash, :no_cash_match_ofx) unless @cash.valid?
-          render :new
-        end
+      return unless request.post?
+      file = params[:upload]
+      @import = OfxImport.new(file, @cash)
+      if @import.run
+        redirect_to action: :show, id: @import.bank_statement.id
+      elsif @import.recoverable?
+        @cash = @import.cash
+        @bank_statement = @import.bank_statement
+        @bank_statement.errors.add(:cash, :no_cash_match_ofx) unless @cash.valid?
+        render :new
       end
     end
 
-    def reconciliation
-      return unless @bank_statement = find_and_check
-      if request.post?
-        @bank_statement.attributes = permitted_params
-        items = (params[:items] || {}).values
-        journal_entry_items = (params[:journal_entry_items] || {})
-        if @bank_statement.save_with_items(items)
-          journal_entry_items.each do |journal_entry_item_id, attributes|
-            letter = attributes[:bank_statement_letter].presence
-            JournalEntryItem.where(id: journal_entry_item_id).update_all(
-              bank_statement_id: @bank_statement.id,
-              bank_statement_letter: letter
-            )
-          end
-          redirect_to params[:redirect] || { action: :show, id: @bank_statement.id }
-          return
-        end
-      end
-      bank_statement_items = @bank_statement.items.order('ABS(debit-credit)')
-      journal_entry_items = @bank_statement.eligible_journal_entry_items.order('ABS(real_debit-real_credit)')
-      unless journal_entry_items.any?
-        notify_error :need_entries_to_reconciliate
-        redirect_to params[:redirect] || { action: :show, id: @bank_statement.id }
-        return
-      end
-      @items = bank_statement_items + journal_entry_items
-      @items_grouped_by_date = @items.group_by do |item|
-        BankStatementItem === item ? item.transfered_on : item.printed_on
-      end.sort
-      t3e @bank_statement, cash: @bank_statement.cash_name, started_on: @bank_statement.started_on, stopped_on: @bank_statement.stopped_on
-    end
+    def edit_interval; end
   end
 end

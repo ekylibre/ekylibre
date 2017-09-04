@@ -5,7 +5,8 @@
     - count = current_user.unread_notifications.count
     %li{class: (controller_name == 'notifications' ? :active : nil)}
       = link_to(content_tag(:i), backend_notifications_path(redirect: request.fullpath), data: {toggle: 'notifications'}, title: :x_notifications.tl(count: count), class: (!count.zero? ? 'with-notifications' : nil))
-  %li= link_to(content_tag(:i), toggle_backend_helps_path, data: {toggle: 'help'}, title: :help.tl, class: (help_shown? ? [:active] : []))
+  - if Preference[:use_contextual_help]
+    %li= link_to(content_tag(:i), toggle_backend_helps_path, data: {toggle: 'help'}, title: :help.tl, class: (help_shown? ? [:active] : []))
 %nav#top
 
   %ul#menu
@@ -17,7 +18,7 @@
     = :home.tl
 
   - if current_part
-    = link_to(current_part.human_name, {controller: "/backend/dashboards", action: current_part.name}, id: "part")
+    = link_to(current_part.human_name, { controller: "/backend/dashboards", action: current_part.name }, id: "part")
 
   .collapse
 

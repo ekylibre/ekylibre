@@ -18,7 +18,7 @@
 
 module Backend
   class SalesController < Backend::BaseController
-    manage_restfully except: [:index, :show, :new], redirect_to: '{action: :show, id: "id".c}'.c
+    manage_restfully except: %i[index show new], redirect_to: '{action: :show, id: "id".c}'.c, continue: [:nature_id]
 
     respond_to :csv, :ods, :xlsx, :pdf, :odt, :docx, :html, :xml, :json
 
@@ -26,10 +26,9 @@ module Backend
 
     # management -> sales_conditions
     def self.sales_conditions
-      code = ''
-      code = search_conditions(sales: [:pretax_amount, :amount, :number, :initial_number, :description], entities: [:number, :full_name]) + " ||= []\n"
+      code = search_conditions(sales: %i[pretax_amount amount number initial_number description], entities: %i[number full_name]) + " ||= []\n"
       code << "if params[:period].present? && params[:period].to_s != 'all'\n"
-      code << "  c[0] << ' AND #{Sale.table_name}.invoiced_at BETWEEN ? AND ?'\n"
+      code << "  c[0] << ' AND #{Sale.table_name}.invoiced_at::DATE BETWEEN ? AND ?'\n"
       code << "  if params[:period].to_s == 'interval'\n"
       code << "    c << params[:started_on]\n"
       code << "    c << params[:stopped_on]\n"
@@ -56,7 +55,7 @@ module Backend
       code.c
     end
 
-    list(conditions: sales_conditions, joins: [:client, :affair], order: { created_at: :desc, number: :desc }) do |t| # , :line_class => 'RECORD.tags'
+    list(conditions: sales_conditions, selectable: :true, joins: %i[client affair], order: { created_at: :desc, number: :desc }) do |t| # , :line_class => 'RECORD.tags'
       # t.action :show, url: {format: :pdf}, image: :print
       t.action :edit, if: :draft?
       t.action :cancel, if: :cancellable?
@@ -69,8 +68,9 @@ module Backend
       t.column :description, hidden: true
       t.status
       t.column :state_label
-      t.column :pretax_amount, currency: true
-      t.column :amount, currency: true
+      t.column :pretax_amount, currency: true, on_select: :sum
+      t.column :amount, currency: true, on_select: :sum
+      t.column :affair_balance, currency: true, on_select: :sum, hidden: true
     end
 
     # Displays the main page with the list of sales
@@ -124,7 +124,7 @@ module Backend
       # t.column :undelivered_quantity, :datatype => :decimal
     end
 
-    list(:items, model: :sale_items, conditions: { sale_id: 'params[:id]'.c }, order: :position, export: false, line_class: "((RECORD.variant.subscribing? and RECORD.subscriptions.sum(:quantity) != RECORD.quantity) ? 'warning' : '')".c, include: [:variant, :subscriptions]) do |t|
+    list(:items, model: :sale_items, conditions: { sale_id: 'params[:id]'.c }, order: { id: :asc }, export: false, line_class: "((RECORD.variant.subscribing? and RECORD.subscriptions.sum(:quantity) != RECORD.quantity) ? 'warning' : '')".c, include: %i[variant subscriptions]) do |t|
       # t.action :edit, if: 'RECORD.sale.draft? and RECORD.reduction_origin_id.nil? '
       # t.action :destroy, if: 'RECORD.sale.draft? and RECORD.reduction_origin_id.nil? '
       # t.column :name, through: :variant
@@ -136,6 +136,7 @@ module Backend
       t.column :unit_pretax_amount, currency: true
       t.column :unit_amount, currency: true, hidden: true
       t.column :reduction_percentage
+      t.column :tax, url: true, hidden: true
       t.column :pretax_amount, currency: true
       t.column :amount, currency: true
       t.column :activity_budget, hidden: true
@@ -146,20 +147,20 @@ module Backend
     def show
       return unless @sale = find_and_check
       @sale.other_deals
-      respond_with(@sale, methods: [:taxes_amount, :affair_closed, :client_number, :sales_conditions, :sales_mentions],
+      respond_with(@sale, methods: %i[taxes_amount affair_closed client_number sales_conditions sales_mentions],
                           include: { address: { methods: [:mail_coordinate] },
                                      nature: { include: { payment_mode: { include: :cash } } },
                                      supplier: { methods: [:picture_path], include: { default_mail_address: { methods: [:mail_coordinate] }, websites: {}, emails: {}, mobiles: {} } },
                                      responsible: {},
                                      credits: {},
-                                     parcels: { methods: [:human_delivery_mode, :human_delivery_nature, :items_quantity], include: {
+                                     parcels: { methods: %i[human_delivery_mode human_delivery_nature items_quantity], include: {
                                        address: {},
                                        sender: {},
                                        recipient: {}
                                      } },
                                      affair: { methods: [:balance], include: [incoming_payments: { include: :mode }] },
                                      invoice_address: { methods: [:mail_coordinate] },
-                                     items: { methods: [:taxes_amount, :tax_name, :tax_short_label], include: [:variant, parcel_items: { include: [:product, :parcel] }] } }) do |format|
+                                     items: { methods: %i[taxes_amount tax_name tax_short_label], include: [:variant, parcel_items: { include: %i[product parcel] }] } }) do |format|
         format.html do
           t3e @sale.attributes, client: @sale.client.full_name, state: @sale.state_label, label: @sale.label
         end
@@ -178,7 +179,7 @@ module Backend
                 Sale.new(nature: nature)
               end
       @sale.currency = @sale.nature.currency
-      if client = Entity.find_by_id(@sale.client_id || params[:client_id] || params[:entity_id] || session[:current_entity_id])
+      if client = Entity.find_by(id: @sale.client_id || params[:client_id] || params[:entity_id] || session[:current_entity_id])
         if client.default_mail_address
           cid = client.default_mail_address.id
           @sale.attributes = { address_id: cid, delivery_address_id: cid, invoice_address_id: cid }
@@ -191,6 +192,8 @@ module Backend
       @sale.function_title = :default_letter_function_title.tl
       @sale.introduction = :default_letter_introduction.tl
       @sale.conclusion = :default_letter_conclusion.tl
+      @sale.items_attributes = params[:items_attributes] if params[:items_attributes]
+      render locals: { with_continue: true }
     end
 
     def duplicate
@@ -219,18 +222,17 @@ module Backend
 
     def contacts
       if request.xhr?
-        client = nil
         address_id = nil
-        client = if params[:selected] && address = EntityAddress.find_by_id(params[:selected])
+        client = if params[:selected] && address = EntityAddress.find_by(id: params[:selected])
                    address.entity
                  else
-                   Entity.find_by_id(params[:client_id])
+                   Entity.find_by(id: params[:client_id])
                  end
         if client
           session[:current_entity_id] = client.id
           address_id = (address ? address.id : client.default_mail_address.id)
         end
-        @sale = Sale.find_by_id(params[:sale_id]) || Sale.new(address_id: address_id, delivery_address_id: address_id, invoice_address_id: address_id)
+        @sale = Sale.find_by(id: params[:sale_id]) || Sale.new(address_id: address_id, delivery_address_id: address_id, invoice_address_id: address_id)
         render partial: 'addresses_form', locals: { client: client, object: @sale }
       else
         redirect_to action: :index

@@ -5,7 +5,7 @@ De plus, c'est ici que vous pouvez paramétrer les règlements à remettre en ba
 
 ===== Comptabilité =====
 
-!!! La [[>backend/settings#edit|comptabilisation automatique]] doit être activée pour une comptabilisation en temps réel.
+!!! La [[>backend/companies#edit|comptabilisation automatique]] doit être activée pour une comptabilisation en temps réel.
 
 En général, les comptes associés sont différents pour chaque mode :
   * Espèces : //53. Caisse//

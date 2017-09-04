@@ -1,0 +1,69 @@
+- trade_model_name   = @trade.class.model_name
+- payment_model_name = @payment.class.model_name
+- url_helper = :"backend_quick_#{@trade.class.name.underscore.pluralize}_path"
+- payment_scope = { scope: { matching_cash: @bank_statement_items.first.bank_statement.cash_id } } if @bank_statement_items
+
+= backend_form_for @affair, as: :affair, url: send(url_helper, redirect: @redirect_to) do |a|
+  = field_set do
+    = a.referenced_association :third
+    - [:trade, :payment].each do |attribute|
+      .existing-inputs
+        .control-group
+          %label.string.required.control-label= instance_variable_get("@#{attribute}").class.model_name.human
+          .controls
+            - [:existing, :new].each do |label|
+              - mode = @mode_for || Hash.new('')
+              - checked = Regexp.new(mode[attribute]) =~ label
+              = radio_button_tag :"mode-#{attribute}", label.to_s, checked, { data: { show: ".#{label}-#{attribute}" } }
+              = label_tag :"mode-#{attribute}", label.tl
+
+  = field_set trade_model_name.human, class: 'new-trade hidden' do
+    = backend_fields_for :trade, @trade do |t|
+      = t.input :invoiced_at
+      = t.input_field :nature_id, as: :hidden
+
+      .items
+        %table#items-table
+          %thead
+            %tr
+              %th= PurchaseItem.human_attribute_name(:variant)
+              %th= PurchaseItem.human_attribute_name(:quantity)
+              %th= PurchaseItem.human_attribute_name(:unit_pretax_amount)
+              %th= PurchaseItem.human_attribute_name(:tax)
+              %th= PurchaseItem.human_attribute_name(:reduction_percentage)
+              %th= PurchaseItem.human_attribute_name(:amount)
+              %th{colspan: 3}= link_to_add_association :add_item.tl, t, :items, partial: 'item_fields', data: { association_insertion_node: '#items-table', association_insertion_method: :append }, class: "btn primary"
+          = t.simple_fields_for :items, t.object.items do |item|
+            = render 'item_fields', f: item
+      #trade_amount.hidden{ 'data-calculate': 'sum', 'data-use': '.items td.amount input', 'data-use-closest': '.fieldset-fields' }
+
+
+  = field_set trade_model_name.human, class: 'existing-trade hidden' do
+    .control-group
+      %label.string.required.control-label= trade_model_name.human
+      .controls.delivery-item
+        = selector_tag :"affair[trade_id]", { controller: 'backend/' + @trade.class.model_name.plural, action: :unroll, scope: { with_nature: @trade.nature_id } }, { value: @trade.id }, "data-product-of-delivery-item": {url: send(:"backend_#{@trade.class.name.underscore}_path", "RECORD_ID", format: :json) }.to_json
+        #trade_amount.hidden{ 'data-when-item': :amount, 'data-when-set-value': "RECORD_VALUE" }
+
+  = field_set payment_model_name.human, class: 'new-payment hidden' do
+    = backend_fields_for :payment, @payment do |p|
+      - if @bank_statement_items
+        = p.input_field :bank_statement_item_ids, value: @bank_statement_items.pluck(:id), as: :hidden
+      = p.referenced_association :mode, source: payment_scope.to_h.dup
+      = p.input :amount, wrapper: :append, required: true do
+        = p.input_field :amount
+        %span.add-on= @trade.currency || @trade.nature.currency
+
+  = field_set payment_model_name.human, class: 'existing-payment hidden' do
+    .control-group
+      %label.string.required.control-label= payment_model_name.human
+      .controls.delivery-item
+        = selector_tag :"affair[payment_id]", { controller: 'backend/' + payment_model_name.plural, action: :unroll, **(payment_scope.to_h.dup) }, { value: @payment.id }, "data-product-of-delivery-item": {url: send(:"backend_#{@payment.class.name.underscore}_path", "RECORD_ID", format: :json) }.to_json
+        #payment_amount.hidden{ 'data-when-item': :amount, 'data-when-set-value': "RECORD_VALUE" }
+
+  = form_actions do
+    %span.centered.validity{ 'data-valid-if-equality-between': '.fieldset-fields:visible #payment_amount, #amount_to_match, .fieldset-fields:visible #trade_amount' }
+      = a.button :submit, :save.tl, class: 'btn btn-primary'
+      #amount_to_match.hidden= @amount
+      %span#letterable= :letterable.tl
+      %span#nonletterable= :not_letterable.tl

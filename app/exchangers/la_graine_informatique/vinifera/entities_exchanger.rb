@@ -104,7 +104,7 @@ module LaGraineInformatique
 
           custom_fields.each do |cf|
             val = r.send(cf.name).to_s.strip.gsub(/[[:space:]\_]+/, '-')
-            person.set_custom_value(cf.field, val) unless val.blank?
+            person.set_custom_value(cf.field, val) if val.present?
           end
 
           person.save!
@@ -136,7 +136,7 @@ module LaGraineInformatique
           end
 
           # Add email if given
-          person.emails.create!(coordinate: r.email) unless r.email.blank?
+          person.emails.create!(coordinate: r.email) if r.email.present?
 
           w.check_point
         end
@@ -172,7 +172,7 @@ module LaGraineInformatique
 
       def create_custom_field(name, customized_type, options = {})
         # create custom field if not exist
-        unless cf = CustomField.find_by_name(name)
+        unless cf = CustomField.find_by(name: name)
           # create custom field
           cf = CustomField.create!(name: name, customized_type: customized_type,
                                    nature: options[:nature] || :string,

@@ -1,4 +1,5 @@
 # coding: utf-8
+
 module Procedo
   class Procedure
     # An Attribute defines an information to complete

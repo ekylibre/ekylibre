@@ -3,7 +3,7 @@
   = link_to("#", data: {toggle_visibility: "#config"}, class: "config", alt: :configure.tl) do
     %i
 
-- demo_mode = Preference.value(:demo, :boolean, false)
+- demo_mode = Preference.value(:demo, false, :boolean)
 = form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f|
 
   #config
@@ -37,3 +37,7 @@
 
     .field= link_to t('.sign_in_with_ekylibre', :default => 'Sign in with Ekylibre.com'), user_ekylibre_omniauth_authorize_path, class: 'btn btn-primary btn-lg btn-block'
 
+  - if demo_mode && !flash[:alert]
+    #autologin
+      :javascript
+        $(document).ready(function(){ window.setTimeout(function(){ $('#autologin').closest('form').submit(); }, 300); });

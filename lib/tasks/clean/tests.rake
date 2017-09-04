@@ -7,7 +7,6 @@ namespace :clean do
     log.write(">> Init\n") if verbose
 
     errors = { fixtures: 0 }
-    source = nil
 
     log.write(">> Start!\n") if verbose
 
@@ -31,6 +30,21 @@ namespace :clean do
     errors[:jobs] = Clean::Tests.check_class_test('jobs', log, verbose)
     Clean::Tests.print_stat :jobs, errors
 
+    # Check exchanger test files
+    print ' - Tests: '
+    errors[:exchangers] = Clean::Tests.check_class_test('exchangers', log, verbose)
+    Clean::Tests.print_stat :exchangers, errors
+
+    # Check services test files
+    print ' - Tests: '
+    errors[:services] = Clean::Tests.check_class_test('services', log, verbose)
+    Clean::Tests.print_stat :services, errors
+
+    # Check concepts test files
+    print ' - Tests: '
+    errors[:concepts] = Clean::Tests.check_class_test('concepts', log, verbose)
+    Clean::Tests.print_stat :concepts, errors
+
     # Check fixture files
     print ' - Tests: '
     yaml = nil
@@ -48,7 +62,6 @@ namespace :clean do
           next
         end
 
-        model = table.singularize.camelize.constantize
         attributes = columns.keys.map(&:to_s)
 
         required_attributes = columns.values.select { |c| !c.null? && c.default.nil? }.map(&:name).map(&:to_s)

@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2016 Brice Texier, David Joulin
+# Copyright (C) 2012-2017 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -25,8 +25,9 @@
 #  created_at           :datetime         not null
 #  creator_id           :integer
 #  custom_fields        :jsonb
+#  dead                 :boolean          default(FALSE)
 #  description          :text
-#  geolocation          :geometry({:srid=>4326, :type=>"point"})
+#  geolocation          :geometry({:srid=>4326, :type=>"st_point"})
 #  gravity              :integer
 #  id                   :integer          not null, primary key
 #  lock_version         :integer          default(0), not null
@@ -46,7 +47,9 @@
 #
 
 class Issue < Ekylibre::Record::Base
-  include Versionable, Commentable, Attachable
+  include Attachable
+  include Commentable
+  include Versionable
   include Customizable
   refers_to :nature, class_name: 'IssueNature'
   has_many :interventions
@@ -56,6 +59,7 @@ class Issue < Ekylibre::Record::Base
   has_picture
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  validates :dead, inclusion: { in: [true, false] }, allow_blank: true
   validates :description, length: { maximum: 500_000 }, allow_blank: true
   validates :gravity, :picture_file_size, :priority, numericality: { only_integer: true, greater_than: -2_147_483_649, less_than: 2_147_483_648 }, allow_blank: true
   validates :name, presence: true, length: { maximum: 500 }
@@ -125,6 +129,16 @@ class Issue < Ekylibre::Record::Base
     end
   end
 
+  after_save do
+    if target && dead && (!target.dead_at || target.dead_at > observed_at)
+      target.update_columns dead_at: observed_at
+    end
+  end
+
+  after_destroy do
+    target.update_columns(dead_at: target.dead_first_at) if target && dead
+  end
+
   protect(on: :destroy) do
     has_intervention?
   end
@@ -135,9 +149,9 @@ class Issue < Ekylibre::Record::Base
 
   def status
     if opened?
-      return (has_intervention? ? :caution : :stop)
+      (has_intervention? ? :caution : :stop)
     else
-      return :go
+      :go
     end
   end
 

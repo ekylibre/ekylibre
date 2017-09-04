@@ -21,7 +21,7 @@ module Nomen
       def harvest(element, options = {})
         notions = element.attr('notions').to_s.split(/\s*\,\s*/).map(&:to_sym)
         options[:notions] = notions if notions.any?
-        options[:translateable] = !(element.attr('translateable').to_s == 'false')
+        options[:translateable] = element.attr('translateable').to_s != 'false'
         name = element.attr('name').to_s
         nomenclature = new(name, options)
         element.xpath('xmlns:properties/xmlns:property').each do |property|
@@ -30,6 +30,7 @@ module Nomen
         element.xpath('xmlns:items/xmlns:item').each do |item|
           nomenclature.harvest_item(item)
         end
+        nomenclature.list.each(&:fetch_parent)
         nomenclature.rebuild_tree!
         nomenclature
       end
@@ -93,7 +94,7 @@ module Nomen
       name = element.attr('name').to_s
       parent = attributes[:parent] || (element.key?('parent') ? element['parent'] : nil)
       attributes = element.attributes.each_with_object(HashWithIndifferentAccess.new) do |(k, v), h|
-        next if %w(name parent).include?(k)
+        next if %w[name parent].include?(k)
         h[k] = cast_property(k, v.to_s)
       end
       attributes[:parent] = parent if parent
@@ -112,7 +113,7 @@ module Nomen
       if element.has_attribute?('default')
         options[:default] = element.attr('default').to_sym
       end
-      options[:required] = !!(element.attr('required').to_s == 'true')
+      options[:required] = !!(element.attr('required').to_s != 'true')
       # options[:inherit]  = !!(element.attr('inherit').to_s == 'true')
       if type == :list
         type = element.has_attribute?('nomenclature') ? :item_list : :choice_list
@@ -159,7 +160,7 @@ module Nomen
       new_parent = changes[:parent]
       new_name = changes[:name]
       changes.each do |k, v|
-        next if [:parent, :name].include? k
+        next if %i[parent name].include? k
         i.set(k, v)
       end
       if has_parent
@@ -221,7 +222,7 @@ module Nomen
     end
 
     def remove_item(name)
-      i = find!(name)
+      find!(name)
       @items.delete(name)
     end
 
@@ -327,9 +328,9 @@ module Nomen
     # List all item names. Can filter on a given item name and its children
     def to_a(item_name = nil)
       if item_name.present? && @items[item_name]
-        return @items[item_name].self_and_children.map(&:name)
+        @items[item_name].self_and_children.map(&:name)
       else
-        return @items.keys.sort
+        @items.keys.sort
       end
     end
     alias all to_a
@@ -460,8 +461,8 @@ module Nomen
 
     def without(*names)
       excluded = names.flatten.compact.map(&:to_sym)
-      list.select do |item|
-        !excluded.include?(item.name)
+      list.reject do |item|
+        excluded.include?(item.name)
       end
     end
 
@@ -491,7 +492,7 @@ module Nomen
 
     def cast_options(options)
       return {} if options.nil?
-      hash = options.each_with_object({}) do |(k, v), h|
+      options.each_with_object({}) do |(k, v), h|
         h[k.to_sym] = if properties[k]
                         cast_property(k, v.to_s)
                       else
@@ -524,7 +525,7 @@ module Nomen
           end
           value = value.to_sym
         end
-      elsif !%w(name parent aliases).include?(name.to_s)
+      elsif !%w[name parent aliases].include?(name.to_s)
         raise ArgumentError, "Undefined property '#{name}' in #{@name}"
       end
       value

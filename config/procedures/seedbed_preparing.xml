@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
+  <procedure name="seedbed_preparing" categories="soil_working" actions="seedbed_preparing">
+    <parameters>
+      <target name="land_parcel" filter="is land_parcel and has indicator shape">
+        <attribute name="working_zone" default-value="PRODUCT.shape" if="PRODUCT?"/>
+      </target>
+      <doer name="driver" filter="can drive(equipment) and can move" cardinality="*"/>
+      <tool name="tractor" filter="is equipment and can catch(equipment) and can move" cardinality="*"/>
+      <tool name="seedbed_preparator" filter="is equipment and can plow_superficially" cardinality="*"/>
+    </parameters>
+  </procedure>
+</procedures>

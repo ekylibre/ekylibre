@@ -15,14 +15,17 @@
 @import "reset";
 @import "fonts";
 @import "print";
+@import 'bootstrap-sprockets';
 
 // Plugins
 @import "themes/tekyla/plugins";
+@import "bootstrap-slider";
 
 // Specific
 @import "abilities";
 @import "accesses";
 @import "activities";
+@import "accounts";
 @import "attachments";
 @import "bank_statements";
 @import "budget";
@@ -30,6 +33,7 @@
 @import "beehives";
 @import "calendars";
 @import "charts";
+@import "daterangepicker";
 @import "datetimepickers";
 @import "equipments";
 @import "forms";
@@ -37,14 +41,17 @@
 @import "grid";
 @import "integrations";
 @import "interventions";
+@import "intervention_participations";
 @import "leaflet";
 @import "main";
-@import "map_backgrounds";
+@import "map_layers";
 @import "modals";
+@import "quick_trades";
 @import "tables";
 @import "taskboard";
 @import "timelines";
 @import "tour";
+@import "plants";
 
 // Optimization
 @import "symbolic_icons";

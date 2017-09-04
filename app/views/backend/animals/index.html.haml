@@ -1,6 +1,21 @@
 - main_toolbar do |t|
   = t.export :animal_list, key: Time.zone.now.to_s, resource: @animals
-  = t.new data: { target: '#new-animal', toggle: 'modal' }, href: "#", params: { redirect: nil }
+  = t.menu :new.tl do |menu|
+    - menu.item :add_entrance.tl, { controller: :parcels, action: :new, nature: :incoming }, data: { toggle: 'dialog', refresh: true }
+    - menu.item :add_exit.tl, { controller: :parcels, action: :new, nature: :outgoing }, data: { toggle: 'dialog', refresh: true }
+    - menu.separator
+    - menu.item :add_animal.tl, { controller: :animals, action: :new }, data: { toggle: 'dialog', refresh: true }
+    - menu.item :add_animal_group.tl, { controller: :animal_groups, action: :new }, data: { toggle: 'dialog', refresh: true }
+    - menu.item :add_building_division.tl, { controller: :building_divisions, action: :new }, data: { toggle: 'dialog' }
+
+  #animals-interventions-menu.btn-group{data: {matching_interventions_path: matching_interventions_backend_animals_path}}
+    = render partial: 'interventions_menu', locals: {t: t}
+
+  .btn-group
+    = t.new icon: false, label: :all.tl, data: { toggle: 'item-scope', scoped_items: 'all' }, href: ''
+    = t.new icon: false, label: :available.tl, data: { toggle: 'item-scope', scoped_items: 'now' }, href: '', class: 'active'
+
+
 
 = janus do |j|
   - j.face :list do
@@ -14,166 +29,39 @@
     = main_list
 
   - j.face :column do
-    .golumn.loading{data: {golumns: 'animal'}}
+    .golumn.loading{data: {golumns: 'animal', keep_animals_path: keep_backend_animals_path }}
 
       .golumn-loading
       .golumn-columns
-        .golumn-columns-container{data: { bind: "sortable: {template: 'golumn-column-template', data: groups, connectClass: 'group-dropzone', options: {handle: '.golumn-column-handle', cursor: 'move', tolerance: 'pointer', dropOnEmpty: true, opacity: 1, revert: true}}"}}
-        .golumn-addon
-          = link_to("#new-group", class: "golumn-column-add", data: { bind: 'click: $root.toggleNewGroupModal' }) do
-            %i
+        .golumn-columns-container{data: { bind: "template: {name: 'golumn-column-template', foreach: groups}" }}
+        .golumn-items-counter{data: { bind: "visible: counter, text: counter" }}
 
       %script#golumn-column-template{type: 'text/html'}
         .golumn-column
-          .golumn-column-header
-            .golumn-column-actions
-              .checker{data: {bind: 'checkbox: toggleItems'}}
+          .golumn-column-header{data: {bind: 'checkbox: toggleItems'}}
             .golumn-column-handle
-              %i.icon.icon-ellipsis-v
               %span.golumn-column-title{data: {bind: 'text: name'}}
+              = link_to '', nil, class: :edit, data: { bind: 'attr: { href: edit_path }', toggle: 'dialog', refresh: true }
+              %span.badge.golumn-column-badge{data: { bind: 'text: count'}}
           .golumn-column-body
-            .add-container{data: {bind: "droppable: {data: $root.drop, afterMove: $root.groupMoved, options: {accept: '.golumn-item', hoverClass: 'container-drop-hover', tolerance: 'intersect'}}" },style:'display:none'}
-              %button.btn.btn-link{type: 'button', data: { bind: 'click: $root.toggleNewContainerModal' }}
+            .add-container.dropzone{data: {bind: "droppable: {active: droppable, options: { hoverClass: 'container-drop-hover', tolerance: 'intersect' , scope: 'items'}}, visible: droppable" }}
+              %button.btn.btn-link{type: 'button'}
                 %i.icon.icon-plus.text-muted
-            %ul.golumn-groups{data: { bind: "sortable: {template: 'golumn-group-template', data: $root.displayedContainers($data), connectClass: 'container-dropzone', allowDrop: false, options: {handle: '.golumn-group-handle', cursor: 'move', tolerance: 'pointer', placeholder: 'sorting-container-placeholder', dropOnEmpty: false, forcePlaceholderSize: true, revert: true, opacity: 1}}"}}
-          -# = link_to('#', data: {target: '#new-animal', toggle: 'modal'}, class: "golumn-column-footer") do
-            %i.icon.icon-plus
-            %span= "actions.backend/animals.new".t
+            %ul.golumn-groups{data: { bind: "template: { name: 'golumn-group-template', foreach: containers }"}}
 
       %script#golumn-group-template{type: 'text/html'}
-        %li.golumn-group{data: {bind: "droppable: {data: $root.hoverdrop, options: {accept: '.golumn-item', tolerance: 'pointer'}}" }}
-          .golumn-group-header
+        %li.golumn-group{data: {bind: "droppable: {active: droppable, options: { hoverClass: 'container-drop-hover', tolerance: 'intersect' , scope: 'items'} }" }}
+          .golumn-group-header{data: {bind: 'checkbox: toggleItems'}}
             .golumn-group-actions
               .collapser{data: { bind: "click: toggle, css: {'active': !hidden()}"}}
-            %span.golumn-group-handle
-              %i.icon.icon-ellipsis-v
             %span.golumn-group-title{data: { bind: 'text: name'}}
-            %span.badge.golumn-group-badge{data: { bind: 'text: animalCount'}}
+            %span.badge.golumn-group-badge{data: { bind: 'text: count'}}
           .golumn-group-body{data: { bind: "css: {'hide':hidden}"}}
-            %div{data: { bind: "sortable: {template: 'golumn-item-template', data: $root.animals, connectClass: 'animal-dropzone', options: {handle: '.golumn-item-handle', cursor: 'move', placeholder: 'sorting-animal-placeholder', dropOnEmpty: true, forcePlaceholderSize: true, opacity: 1, revert: true, cursorAt: { left: 65 }, scrollSensitivity: 65, scrollSpeed: 30}}"}}
+            %div{data: { bind: "template: { name: 'golumn-item-template', foreach: items }"}}
 
       %script#golumn-item-template{type: 'text/html'}
-        /ko if: $parent.id == container_id() && $parent.group_id() == group_id()
-        .golumn-item{data: { bind: 'css: animalStatusClass'}}
+        .golumn-item{data: { bind: "draggable: {active: checked, options: {cursor: 'move', opacity: 1, revert: false, cursorAt: { left: 65 }, scrollSensitivity: 65, scrollSpeed: 30, scope: 'items'}}, checkbox: $data.checked, css: stateClass"}}
           .golumn-item-actions
-            .checker{data: { bind: 'checkbox: checked'}}
-          %span.golumn-item-handle
-            %i.icon.icon-ellipsis-v
-          %span.golumn-item-title{data: { bind: 'text: name, click: $root.toggleAnimalDetailsModal'}}
-          %i.sex.icon{data: {bind: 'css: animalSexClass'}}
-          -# .golumn-item-infos
-            %button.btn.btn-link.no-padding.xs-h-padding.golumn-item-name{data: { bind: 'click: $root.toggleAnimalDetailsModal'}, type: 'button'}
-              %span{data: { bind: 'text: name'}}
-            %i.icon.text-muted{data: {bind: 'css: animalSexClass'}}
-        / /ko
-
-
-    = modal(:new_animal) do
-      .modal-body
-        .placeholding-message= :choose_creation_mode.tl
-      .modal-footer
-        = link_to Parcel.model_name.human, new_backend_parcel_path(nature: :incoming), class: 'btn btn-default'
-        -# Procedo::Procedure.of_nature(:viviparous_birth).each do |procedure|
-          = link_to procedure.human_name, new_backend_intervention_path(reference_name: procedure.name), class: 'btn btn-default'
-        = link_to "actions.backend/animals.new".t, new_backend_animal_path, class: 'btn btn-default'
-
-
-    = modal(:new_group, data: {bind: 'modal: showNewGroupModal(), with: newGroupModalOptions', backdrop: 'static', keyboard: false}, close_html: {data: {bind: 'click: $root.cancelNewGroup'}}) do
-      .modal-body
-        .control-group
-          %label.control-label= ProductGroup.human_attribute_name(:name)
-          .controls
-            %input{type: 'text', data: { bind: 'value: group'}}
-        .control-group
-          %label.control-label= ProductGroup.human_attribute_name(:variant)
-          .controls
-            = select_tag(:variant_id, options_for_select(ProductNatureVariant.of_variety(:animal_group).map{|v| [v.name, v.id]}), data: {bind: 'value: variantId'})
-      .modal-footer
-        = link_to("#", data: {bind: 'click: $root.addGroup'}, class: "btn btn-default") do
-          = :add.tl
-
-
-    = modal(:move_animal, data: {bind: 'modal: showMoveAnimalModal(), with: moveAnimalModalOptions', backdrop: 'static', keyboard: false}, close_html: {data: {bind: 'click: $root.cancelAnimalsMoving'}}) do
-      .modal-body
-        .alert.alert-danger{data: {bind: 'visible: alert'}}= :missing_attributes.tl
-        %form.form-horizontal.v-spacer
-          .control-group
-            = label_tag(:moved, :move.ta, class: 'control-label')
-            .controls{data: {bind: 'foreach: animals()'}}
-              %span{data: {bind: 'text: name'} }
-          .control-group{data: {bind: 'if: group' } }
-            = label_tag(:group, 'enumerize.equipment.variety.animal_group'.t, class: 'control-label')
-            .controls{data: {bind: 'text: group().name'}}
-          .control-group{data: {bind: 'if: container' } }
-            = label_tag(:container, :container.tl, class: 'control-label')
-            .controls{data: {bind: 'text: container().name'}}
-          .control-group
-            = label_tag(:production_support, Intervention.human_attribute_name(:production_support), class: 'control-label')
-            .controls
-              = select_tag(:production_support, nil, data: { bind: "options: $root.production_support_list,
-                optionsText: 'name',
-                value: production_support" } )
-          .control-group
-            = label_tag(:started_at, Intervention.human_attribute_name(:started_at), class: 'control-label')
-            .controls
-              = datetime_field_tag(:started_at, nil, data: { bind: 'value: started_at'})
-          .control-group
-            = label_tag(:stopped_at, Intervention.human_attribute_name(:stopped_at), class: 'control-label')
-            .controls
-              = datetime_field_tag(:stopped_at, nil, data: { bind: 'value: stopped_at'})
-          .control-group
-            = label_tag(:worker, ::I18n.translate('procedure_parameters.caregiver'), class: 'control-label')
-            .controls
-              = select_tag(:worker, nil, data: {bind: "options: $root.workers_list,
-                optionsText: 'name',
-                value: worker,
-                optionsCaption: '#{:choices.tl}'" })
-          .control-group
-            .controls
-              = check_box_tag(:check_nature,'1', false, {data: {bind: 'checked: checkNature'}})
-              = label_tag(:check_nature, :nature_changed.tl)
-          .control-group
-            = label_tag(:nature, :nature.tl , class:'control-label')
-            .controls
-              = select_tag(:nature, nil, data: { bind: "options: $root.natures_list,
-                optionsText: 'name',
-                value: variant,
-                optionsCaption: '#{:choices.tl}', enable: checkNature" } )
-      .modal-footer
-        %button.btn.btn-default{type: 'button', data: {bind: 'click: $root.moveAnimals'}}
-          %i.icon.icon-plus
-          = :move.ta
-
-
-    = modal(:new_container, data: {bind: 'modal: showNewContainerModal(), with: containerModalOptions', backdrop: 'static', keyboard: false}, close_html: {data: {bind: 'click: $root.cancelContainerAdding'}}) do
-      .modal-body
-        = label_tag(:containers_list, :new_container.tl, class: 'control-label')
-        = select_tag(:containers_list, nil,  data: { bind: "options: $root.containers_list,
-          optionsText: 'name',
-          value: $root.newContainer,
-          optionsCaption: '#{:choices.tl}'" })
-      .modal-footer
-        %button.btn.btn-default{type: 'button', data: {bind: 'click: $root.addContainer'}}
-          %i.icon.icon-plus
-          = :add.tl
-
-
-    = modal(:animal_details, data: { bind: 'modal: showAnimalDetailsModal(), with: animalDetailsModalOptions', backdrop: 'static', keyboard: false}, close_html: {data: {bind: 'click: $root.cancelAnimalDetails'}}) do
-      .modal-body
-        .row
-          .col-md-9
-            %p
-              = Animal.human_attribute_name(:name)
-              %span{data: { bind: 'text: name'}}
-            %p
-              = :sex.tl
-              %i.icon{data: {bind: 'css: animalSexClass'}}
-            %p
-              = Animal.human_attribute_name(:status)
-              %span.lights{data: { bind: 'css: animalFlagClass'}}
-                %span.light-go
-                %span.light-caution
-                %span.light-stop
-      .modal-footer
-        = link_to("#", data: {bind: 'attr: {href: showUrl}'}, class: "btn btn-default") do
-          = :details.tl
+            = link_to '', nil, class: :details, data: { bind: 'attr: { href: show_path }', toggle: 'dialog' }
+          %i.sex.icon{data: {bind: 'css: $data.sexClass'}}
+          %span.golumn-item-title{data: { bind: 'text: $data.name'}}

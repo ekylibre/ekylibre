@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2016 Brice Texier, David Joulin
+# Copyright (C) 2012-2017 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -46,7 +46,7 @@ class Delivery < Ekylibre::Record::Base
   include Attachable
   include Customizable
   acts_as_numbered
-  enumerize :mode, in: [:transporter, :us, :third], predicates: true, default: :us
+  enumerize :mode, in: %i[transporter us third], predicates: true, default: :us
   belongs_to :driver, -> { contacts }, class_name: 'Entity'
   belongs_to :responsible, -> { contacts }, class_name: 'Entity'
   belongs_to :transporter, class_name: 'Entity'

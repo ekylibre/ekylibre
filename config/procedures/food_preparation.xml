@@ -1,13 +1,39 @@
 <?xml version="1.0"?>
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
-  <procedure name="food_preparation" categories="animal_feeding" actions="food_preparation">
+  <procedure name="food_preparation" categories="animal_feeding" actions="food_preparation" varieties="animal">
     <parameters>
-      <parameter name="food" type="input" variety="mix" abilities="feed(animal)">
-        <handler indicator="net_mass" unit="kilogram" if="PRODUCT.net_mass(kilogram) > 0" to="population" backward="POPULATION * PRODUCT..net_mass(kilogram)" forward="VALUE / PRODUCT..net_mass(kilogram)"/>
-        <handler name="net_mass_in_ton" indicator="net_mass" unit="ton" if="PRODUCT.net_mass(ton) > 0" to="population" backward="POPULATION * PRODUCT..net_mass(ton)" forward="VALUE / PRODUCT..net_mass(ton)"/>
-      </parameter>
-      <parameter name="worker" type="doer" variety="worker"/>
-      <parameter name="food_mix" type="output" variety="mix" default-name="{{variant}} [{{birth_day}}/{{birth_month}}/{{birth_year}}] ({{container}})"/>
+      <input name="food" filter="is preparation and can feed(animal)">
+        <handler name="population"/>
+        <handler indicator="net_mass" unit="kilogram"
+                 if="PRODUCT..net_mass?"
+                 backward="POPULATION * PRODUCT..net_mass(kilogram)"
+                 forward="VALUE / PRODUCT..net_mass(kilogram)"/>
+        <handler name="net_mass_in_ton" indicator="net_mass" unit="ton"
+                 if="PRODUCT..net_mass?"
+                 backward="POPULATION * PRODUCT..net_mass(ton)"
+                 forward="VALUE / PRODUCT..net_mass(ton)"/>
+        <handler indicator="net_volume" unit="liter"
+                 if="VARIANT? and VARIANT.net_volume?"
+                 backward="POPULATION * VARIANT.net_volume(liter)"
+                 forward="VALUE / VARIANT.net_volume(liter)"/>
+      </input>
+      <output name="food_mix" filter="is preparation and can feed(animal)" default-name="{{variant}} [{{birth_day}}/{{birth_month}}/{{birth_year}}] ({{container}})">
+        <attribute name="new_name"/>
+        <handler name="population"/>
+        <handler name="net_mass_in_kilogram" indicator="net_mass" unit="kilogram"
+                 if="VARIANT? and VARIANT.net_mass?"
+                 backward="POPULATION * VARIANT.net_mass(kilogram)"
+                 forward="VALUE / VARIANT.net_mass(kilogram)"/>
+        <handler name="net_mass_in_ton" indicator="net_mass" unit="ton"
+                 if="VARIANT? and VARIANT.net_mass?"
+                 backward="POPULATION * VARIANT.net_mass(ton)"
+                 forward="VALUE / VARIANT.net_mass(ton)"/>
+        <handler indicator="net_volume" unit="liter"
+                 if="VARIANT? and VARIANT.net_volume?"
+                 backward="POPULATION * VARIANT.net_volume(liter)"
+                 forward="VALUE / VARIANT.net_volume(liter)"/>
+      </output>
+      <doer name="doer" filter="is worker" cardinality="*"/>
     </parameters>
   </procedure>
 </procedures>

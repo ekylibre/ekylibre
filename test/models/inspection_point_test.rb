@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2016 Brice Texier, David Joulin
+# Copyright (C) 2012-2017 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -40,7 +40,7 @@ require 'test_helper'
 class InspectionPointTest < ActiveSupport::TestCase
   test_model_actions
 
-  DISEASES    = %w(Fusarium Mouche Pythium Rhizoctonia Sclérotinia).freeze
+  DISEASES    = %w[Fusarium Mouche Pythium Rhizoctonia Sclérotinia].freeze
   DEFORMITIES = [
     'Gel',
     'Défaut',
@@ -207,14 +207,19 @@ class InspectionPointTest < ActiveSupport::TestCase
       size_unit_name: 'millimeter'
     )
 
-    nature = @activity.inspection_calibration_scales.first.natures.create!(
+    c_nature = @activity.inspection_calibration_scales.first.natures.create!(
       marketable: true,
       minimal_value: 20,
       maximal_value: 30
     )
 
+    p_nature = @activity.inspection_point_natures.create!(
+      category: :disease,
+      name: 'inspection_point_test'
+    )
+
     @inspection.calibrations.create!(
-      nature_id: nature.id,
+      nature_id: c_nature.id,
       items_count_value: 10,
       net_mass_value: 1,
       minimal_size_value: 5,
@@ -222,7 +227,7 @@ class InspectionPointTest < ActiveSupport::TestCase
     )
 
     point = @inspection.points.create!(
-      nature_id: nature.id,
+      nature_id: p_nature.id,
       net_mass_value: 1
     )
 

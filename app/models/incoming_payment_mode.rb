@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2016 Brice Texier, David Joulin
+# Copyright (C) 2012-2017 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -71,6 +71,7 @@ class IncomingPaymentMode < Ekylibre::Record::Base
   delegate :journal, to: :cash, prefix: true
 
   scope :depositers, -> { where(with_deposit: true).order(:name) }
+  scope :matching_cash, ->(id) { where(cash_id: id) }
 
   before_validation do
     if cash && cash.cash_box?
@@ -103,7 +104,7 @@ class IncomingPaymentMode < Ekylibre::Record::Base
   end
 
   def self.load_defaults
-    %w(cash check transfer).each do |nature|
+    %w[cash check transfer].each do |nature|
       cash_nature = nature == 'cash' ? :cash_box : :bank_account
       cash = Cash.find_by(nature: cash_nature)
       next unless cash

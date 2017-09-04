@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2016 Brice Texier, David Joulin
+# Copyright (C) 2012-2017 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -22,6 +22,7 @@
 #
 # == Table: activities
 #
+#  codes                        :jsonb
 #  created_at                   :datetime         not null
 #  creator_id                   :integer
 #  cultivation_variety          :string
@@ -61,7 +62,7 @@
 class Activity < Ekylibre::Record::Base
   include Attachable
   include Customizable
-  refers_to :family, class_name: 'ActivityFamily'
+  refers_to :family, class_name: 'ActivityFamily', predicates: true
   refers_to :cultivation_variety, class_name: 'Variety'
   refers_to :support_variety, class_name: 'Variety'
   refers_to :size_unit, class_name: 'Unit'
@@ -70,9 +71,9 @@ class Activity < Ekylibre::Record::Base
   refers_to :grading_sizes_indicator, -> { where(datatype: :measure) }, class_name: 'Indicator'
   refers_to :grading_sizes_unit, -> { where(dimension: :distance) }, class_name: 'Unit'
   refers_to :production_system
-  enumerize :nature, in: [:main, :auxiliary, :standalone], default: :main, predicates: true
-  enumerize :production_cycle, in: [:annual, :perennial], predicates: true
-  enumerize :production_campaign, in: [:at_cycle_start, :at_cycle_end], default: :at_cycle_end, predicates: true
+  enumerize :nature, in: %i[main auxiliary standalone], default: :main, predicates: true
+  enumerize :production_cycle, in: %i[annual perennial], predicates: true
+  enumerize :production_campaign, in: %i[at_cycle_start at_cycle_end], default: :at_cycle_end, predicates: true
   with_options dependent: :destroy, inverse_of: :activity do
     has_many :budgets, class_name: 'ActivityBudget'
     has_many :distributions, class_name: 'ActivityDistribution'
@@ -133,7 +134,7 @@ class Activity < Ekylibre::Record::Base
   accepts_nested_attributes_for :distributions, reject_if: :all_blank, allow_destroy: true
   accepts_nested_attributes_for :inspection_point_natures, allow_destroy: true
   accepts_nested_attributes_for :inspection_calibration_scales, allow_destroy: true
-  accepts_nested_attributes_for :seasons, update_only: true, reject_if: -> (par) { par[:name].blank? }
+  accepts_nested_attributes_for :seasons, update_only: true, reject_if: ->(par) { par[:name].blank? }
   accepts_nested_attributes_for :tactics, allow_destroy: true, reject_if: :all_blank
   accepts_nested_attributes_for :plant_density_abaci, allow_destroy: true, reject_if: :all_blank
   # protect(on: :update) do
@@ -193,7 +194,7 @@ class Activity < Ekylibre::Record::Base
         errors.add(:support_variety, :invalid) unless variety <= family_item.support_variety
       end
       if with_cultivation && variety = Nomen::Variety[cultivation_variety]
-        unless family_item.cultivation_variety.blank?
+        if family_item.cultivation_variety.present?
           errors.add(:cultivation_variety, :invalid) unless variety <= family_item.cultivation_variety
         end
       end
@@ -331,7 +332,7 @@ class Activity < Ekylibre::Record::Base
       if activity_family <= :plant_farming
         list = COLORS['varieties']
         return 'Gray' unless list
-        variety.rise { |i| list[i.name] }
+        variety.rise { |i| list[i.name] } unless variety.nil?
       elsif activity_family <= :animal_farming
         'Brown'
       elsif activity_family <= :administering
@@ -405,7 +406,7 @@ class Activity < Ekylibre::Record::Base
   end
 
   def unit_choices
-    [:items_count, :net_mass]
+    %i[items_count net_mass]
       .reject { |e| e == :items_count && !measure_grading_items_count }
       .reject { |e| e == :net_mass && !measure_grading_net_mass }
   end

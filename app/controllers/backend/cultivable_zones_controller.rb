@@ -26,7 +26,7 @@ module Backend
 
     list do |t|
       t.action :edit
-      t.action :destroy
+      t.action :destroy, if: :destroyable?
       t.column :name, url: true
       t.column :work_number
       t.column :human_shape_area, datatype: :measure
@@ -43,7 +43,7 @@ module Backend
       t.column :activity, url: true
       t.column :support, url: true
       t.column :usage
-      t.column :grains_yield
+      t.column :grains_yield, datatype: :measure
       t.column :started_on
       t.column :stopped_on
     end

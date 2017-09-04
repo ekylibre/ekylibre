@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2016 Brice Texier, David Joulin
+# Copyright (C) 2012-2017 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -28,6 +28,7 @@
 #  bank_account_number   :string
 #  bank_check_number     :string
 #  bank_name             :string
+#  codes                 :jsonb
 #  commission_account_id :integer
 #  commission_amount     :decimal(19, 4)   default(0.0), not null
 #  created_at            :datetime         not null
@@ -56,11 +57,86 @@ require 'test_helper'
 
 class IncomingPaymentTest < ActiveSupport::TestCase
   test_model_actions
-  test 'the bookkeeping of a payment' do
-    payment = incoming_payments(:incoming_payments_001)
-    payment.bookkeep(:create)
-    assert_not_nil payment.journal_entry
-    assert_equal payment.amount, payment.journal_entry.real_debit
-    assert_equal payment.amount, payment.journal_entry.real_credit
+
+  test 'bookkeeping without commission' do
+    mode = IncomingPaymentMode.find_by!(with_accounting: true, with_commission: false)
+    payer = Entity.normal.find_by!(client: true)
+    payment = IncomingPayment.create!(mode: mode, payer: payer, amount: 504.12, received: true)
+    assert_equal 504.12, payment.amount
+    entry = payment.journal_entry
+    assert_not_nil entry
+    assert_equal 2, entry.items.count
+    assert_equal 504.12, entry.real_debit, entry.inspect
+    assert_equal 504.12, entry.real_credit, entry.inspect
+    # Update with confirmed entry
+    entry.confirm!
+    payment.update!(amount: 405.21)
+    entry_v2 = payment.journal_entry
+    assert_not_equal entry, entry_v2
+    entry.reload
+    assert_equal 504.12, entry.real_debit, entry.inspect
+    assert_equal 504.12, entry.real_credit, entry.inspect
+    entry_v2.reload
+    assert_equal 405.21, entry_v2.real_debit, entry_v2.inspect
+    assert_equal 405.21, entry_v2.real_credit, entry_v2.inspect
+    entry.close!
+    # Update with closed entry
+    entry_v2.confirm!
+    entry_v2.close!
+    assert_raise Ekylibre::Record::RecordNotUpdateable do
+      payment.update!(amount: 450.21)
+    end
+  end
+
+  test 'create without mode' do
+    incoming_payment = IncomingPayment.new(
+      amount: 56,
+      payer: Entity.clients.first,
+      received: true
+    )
+    # Should not save without exception raise
+    refute incoming_payment.save
+  end
+
+  test 'delete incoming payment delete journal entry' do
+    mode = IncomingPaymentMode.find_by!(with_accounting: true, with_commission: false)
+    payer = Entity.normal.find_by!(client: true)
+    payment = IncomingPayment.create!(mode: mode, payer: payer, amount: 504.12, received: true)
+
+    assert_not_nil payment
+    assert_equal 504.12, payment.amount
+
+    entry = payment.journal_entry
+
+    assert_not_nil entry
+    assert_equal 2, entry.items.count
+    assert_equal 504.12, entry.real_debit, entry.inspect
+    assert_equal 504.12, entry.real_credit, entry.inspect
+
+    # Update with confirmed entry
+    entry.confirm!
+
+    journal_entries_count = entry.journal.entries.count
+    payment.destroy
+    new_journal_entries_count = entry.journal.entries.count
+
+    assert_equal journal_entries_count + 1, new_journal_entries_count
+
+    cancel_entry = entry.journal.entries.reorder(id: :desc).first
+
+    assert_equal entry.items.count, cancel_entry.items.count, 'Cancel entry should have the same count of items of the cancelled entry'
+
+    entry.items.each do |item|
+      candidates_count = cancel_entry.items.where(
+        account: item.account,
+        debit:  item.credit,
+        credit: item.debit,
+        real_debit:  item.real_credit,
+        real_credit: item.real_debit,
+        absolute_debit:  item.absolute_credit,
+        absolute_credit: item.absolute_debit
+      ).count
+      assert_equal 1, candidates_count, "Could not find reversed item in cancel entry for #{item.account.number}"
+    end
   end
 end

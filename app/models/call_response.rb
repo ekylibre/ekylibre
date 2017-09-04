@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2016 Brice Texier, David Joulin
+# Copyright (C) 2012-2017 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -27,7 +27,7 @@
 #  created_at   :datetime         not null
 #  creator_id   :integer
 #  format       :string
-#  headers      :string
+#  headers      :text
 #  id           :integer          not null, primary key
 #  ip_address   :string
 #  lock_version :integer          default(0), not null
@@ -60,7 +60,7 @@ class CallResponse < CallMessage
     r.save!
     r
   rescue ActiveRecord::RecordInvalid => e
-    raise e unless r.errors.messages[:body].present?
+    raise e if r.errors.messages[:body].blank?
     create!(
       nature: :outgoing, # Because we come from a controller here.
       status: response.status,
@@ -83,7 +83,7 @@ class CallResponse < CallMessage
     r.save!
     r
   rescue ActiveRecord::RecordInvalid => e
-    raise e unless r.errors.messages[:body].present?
+    raise e if r.errors.messages[:body].blank?
     create!(
       nature: :incoming, # Because we are receiving an answer.
       status: response.code,
@@ -95,24 +95,24 @@ class CallResponse < CallMessage
   end
 
   def self.create_from_savon_httpi_response!(response, request)
-    r.new(
+    r = new(
       nature: :incoming, # Receiving an answer in protocol.
       status: response.code,
       headers: response.headers,
       body: response.raw_body,
-      format: response.headers.split(';').first,
+      format: response.headers['Content-Type'].split(';').first,
       request: request
     )
     r.save!
     r
   rescue ActiveRecord::RecordInvalid => e
-    raise e unless r.errors.messages[:body].present?
+    raise e if r.errors.messages[:body].blank?
     create!(
       nature: :incoming, # Receiving an answer in protocol.
       status: response.code,
       headers: response.headers,
       body: 'Body too long to be saved.',
-      format: response.headers.split(';').first,
+      format: response.headers['content-type'].split(';').first,
       request: request
     )
   end

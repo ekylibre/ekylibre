@@ -11,8 +11,7 @@ module Backend
         t.column :container, hidden: true
       end
 
-      def show
-      end
+      def show; end
     end
   end
 end

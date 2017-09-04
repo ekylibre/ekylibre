@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2016 Brice Texier, David Joulin
+# Copyright (C) 2012-2017 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -24,7 +24,7 @@
 #
 #  created_at   :datetime
 #  creator_id   :integer
-#  id           :integer
+#  id           :integer          primary key
 #  lock_version :integer
 #  product_id   :integer
 #  started_at   :datetime
@@ -35,9 +35,10 @@
 
 # Sum of all the deltas in product movements up to and including a date.
 class ProductPopulation < Ekylibre::Record::Base
+  self.primary_key = 'id'
+
   belongs_to :product
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates :id, numericality: { only_integer: true, greater_than: -2_147_483_649, less_than: 2_147_483_648 }, allow_blank: true
   validates :started_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
   validates :value, numericality: true, allow_blank: true
   # ]VALIDATORS]

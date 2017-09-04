@@ -1,49 +1,71 @@
 module Clean
   module Support
     class << self
+      def missing_prompt
+        '# '
+      end
+
       def set_search_path!
         Ekylibre::Tenant.reset_search_path!
       end
 
-      def hash_to_yaml(hash, depth = 0)
-        code = "\n"
-        x = hash.to_a.sort { |a, b| a[0].to_s.tr('_', ' ').strip <=> b[0].to_s.tr('_', ' ').strip }
-        x.each_index do |i|
-          k = x[i][0]
-          v = x[i][1]
-          code += '  ' * depth + k.to_s + ':' + (v.is_a?(Hash) ? hash_to_yaml(v, depth + 1) : ' ' + yaml_value(v)) + (i == x.size - 1 ? '' : "\n") if v
-        end
+      def hash_to_yaml(hash, depth = nil)
+        code = hash.sort_by { |a| a[0].to_s.tr('_', ' ').strip }.map do |k, v|
+          next unless v
+          pair_to_yaml(k, v)
+        end.join("\n")
+        code = "\n" + code.indent(depth).gsub(/^\s+$/, '') unless depth.nil?
         code
       end
 
+      def value_to_yaml(value)
+        if value.is_a?(Array)
+          '[' + value.map { |x| value_to_yaml(x) }.join(', ') + ']'
+        elsif value.is_a?(Symbol)
+          ':' + value.to_s
+        elsif value.is_a?(Hash)
+          hash_to_yaml(value)
+        elsif value.is_a?(Numeric)
+          value.to_s
+        else
+          v = value.to_s.gsub("\u00A0", '\\_')
+          value =~ /\n/ ? "|\n" + v.strip.indent : '"' + v + '"'
+        end
+      end
+
+      def pair_to_yaml(k, v)
+        if v.is_a?(Hash)
+          k.to_s + ":\n" + hash_to_yaml(v).indent
+        else
+          k.to_s + ': ' + value_to_yaml(v)
+        end
+      end
+
       def yaml_to_hash(filename)
-        hash = YAML.load(IO.read(filename).gsub(/^(\s*)(no|yes|false|true):(.*)$/, '\1__\2__:\3'))
+        hash = YAML.safe_load(IO.read(filename).gsub(/^(\s*)(no|yes|false|true):(.*)$/, '\1__\2__:\3'))
         deep_symbolize_keys(hash)
       end
 
-      def hash_sort_and_count(hash, depth = 0)
+      def hash_sort_and_count(hash)
         hash ||= {}
-        code = ''
         count = 0
-        hash.sort { |a, b| a[0].to_s <=> b[0].to_s }.each do |key, value|
+        code = hash.sort_by { |k, _| k.to_s }.map do |key, value|
           if value.is_a? Hash
-            scode, scount = hash_sort_and_count(value, depth + 1)
-            code += '  ' * depth + key.to_s + ":\n" + scode
+            scode, scount = hash_sort_and_count(value)
             count += scount
+            key.to_s + ":\n" + scode.indent
           else
-            code += '  ' * depth + key.to_s + ': ' + yaml_value(value, depth + 1) + "\n"
             count += 1
+            key.to_s + ': ' + value_to_yaml(value)
           end
-        end
+        end.join("\n")
         [code, count]
       end
 
       def hash_count(hash)
-        count = 0
-        hash.each do |_key, value|
+        hash.reduce(0) do |count, (_key, value)|
           count += (value.is_a?(Hash) ? hash_count(value) : 1)
         end
-        count
       end
 
       def deep_symbolize_keys(hash)
@@ -66,42 +88,41 @@ module Clean
           value.to_s
         else
           # "'"+value.to_s.gsub("'", "''")+"'"
-          '"' + value.to_s.gsub("\u00A0", '\\_') + '"'
+          v = value.to_s.gsub("\u00A0", '\\_')
+          value =~ /\n/ ? "|\n" + v.strip.dig(depth) : '"' + v + '"'
         end
       end
 
-      def hash_diff(hash, ref, depth = 0, mode = nil)
+      def hash_diff(hash, ref, mode = nil, _depth = nil)
         hash ||= {}
         ref ||= {}
-        keys = (ref.keys + hash.keys).uniq.sort { |a, b| a.to_s.tr('_', ' ').strip <=> b.to_s.tr('_', ' ').strip }
-        code = ''
+        keys = (ref.keys + hash.keys).uniq.sort_by { |a| a.to_s.tr('_', ' ').strip }
         count = 0
         total = 0
-        keys.each do |key|
+        code = keys.map do |key|
           h = hash[key]
           r = ref[key]
-          # total += 1 unless r.is_a? Hash
           if r.is_a?(Hash) && (h.is_a?(Hash) || h.nil?)
-            scode, scount, stotal = hash_diff(h, r, depth + 1, mode)
-            code << '  ' * depth + key.to_s + ":\n" + scode
+            scode, scount, stotal = hash_diff(h, r, mode)
             count += scount
             total += stotal
+            key.to_s + ":\n" + scode.indent
           elsif r && h.nil?
-            code << '  ' * depth + '# ' + key.to_s + ': ' + (mode == :humanize ? key.to_s.humanize : yaml_value(r, depth + 1)) + "\n"
             count += 1
             total += 1
+            (key.to_s + ': ' + (mode == :humanize ? key.to_s.humanize : value_to_yaml(r))).gsub(/^/, missing_prompt)
           elsif r && h && r.class == h.class
-            code << '  ' * depth + key.to_s + ': ' + yaml_value(h, depth + 1) + "\n"
             total += 1
+            pair_to_yaml(key, h)
           elsif r && h && r.class != h.class
-            code << '  ' * depth + key.to_s + ': ' + (yaml_value(h, depth) + "\n").gsub(/\n/, " #? #{r.class.name} excepted (#{h.class.name + ':' + h.inspect})\n")
             total += 1
+            pair_to_yaml(key, h).gsub(/$/, ' #?').sub(/$/, " #{r.class.name} expected (#{r.inspect})")
           elsif h && r.nil?
-            code << '  ' * depth + key.to_s + ': ' + (yaml_value(h, depth) + "\n").to_s.gsub(/\n/, " #?\n")
+            pair_to_yaml(key, h).gsub(/$/, ' #?')
           elsif r.nil?
-            code << '  ' * depth + key.to_s + ": #?\n"
+            key.to_s + ': #?'
           end
-        end
+        end.join("\n")
         [code, count, total]
       end
 
@@ -180,7 +201,7 @@ module Clean
                  controller_name.humanize.singularize + ': %{name}'
                elsif [:new].include? action_name
                  "#{action_name} #{controller_name.humanize.singularize}".humanize
-               elsif [:list, :import, :export].include? action_name
+               elsif %i[list import export].include? action_name
                  "#{action_name} #{controller_name}".humanize
                else
                  "#{action_name} #{controller_name.humanize.singularize}: %{name}".humanize
@@ -208,7 +229,7 @@ module Clean
         ObjectSpace
           .each_object(Class)
           .select { |klass| klass < ActiveRecord::Base }
-          .select { |x| !x.name.start_with?('ActiveRecord::') && !x.abstract_class? && !x.name.start_with?('HABTM_') }
+          .select { |x| !x.name.start_with?('ActiveRecord::') && !x.abstract_class? && !x.name.start_with?('HABTM_') && !x.name.start_with?('Apartment::') }
           .uniq
           .sort_by(&:name)
       end
@@ -237,6 +258,33 @@ module Clean
       # Lists jobs paths
       def jobs_in_file
         dir = Rails.root.join('app', 'jobs')
+        list = Dir.glob(dir.join('**', '*.rb')).collect do |h|
+          Pathname.new(h).relative_path_from(dir).to_s[0..-4]
+        end
+        list
+      end
+
+      # Lists exchangers paths
+      def exchangers_in_file
+        dir = Rails.root.join('app', 'exchangers')
+        list = Dir.glob(dir.join('**', '*.rb')).collect do |h|
+          Pathname.new(h).relative_path_from(dir).to_s[0..-4]
+        end
+        list
+      end
+
+      # Lists services paths
+      def services_in_file
+        dir = Rails.root.join('app', 'services')
+        list = Dir.glob(dir.join('**', '*.rb')).collect do |h|
+          Pathname.new(h).relative_path_from(dir).to_s[0..-4]
+        end
+        list
+      end
+
+      # Lists concepts paths
+      def concepts_in_file
+        dir = Rails.root.join('app', 'concepts')
         list = Dir.glob(dir.join('**', '*.rb')).collect do |h|
           Pathname.new(h).relative_path_from(dir).to_s[0..-4]
         end

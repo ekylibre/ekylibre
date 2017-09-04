@@ -63,12 +63,12 @@ module Backend
       activity = Activity.find(params[:activity_id])
       raise 'Cannot close used activity' if activity.productions.of_campaign(@campaign).any?
       activity_budget = activity.budgets.find_by(campaign: @campaign)
-      activity_budget.destroy
+      activity_budget.destroy if activity_budget
       redirect_to params[:redirect] || { action: :show, id: @campaign.id }
     end
 
     def current
-      unless current_campaign.present?
+      if current_campaign.blank?
         @current_campaign = Campaign.find_or_create_by!(harvest_year: Date.current.year)
         current_user.current_campaign = @current_campaign
       end

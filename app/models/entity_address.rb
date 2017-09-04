@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2016 Brice Texier, David Joulin
+# Copyright (C) 2012-2017 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -33,7 +33,7 @@
 #  lock_version        :integer          default(0), not null
 #  mail_auto_update    :boolean          default(FALSE), not null
 #  mail_country        :string
-#  mail_geolocation    :geometry({:srid=>4326, :type=>"point"})
+#  mail_geolocation    :geometry({:srid=>4326, :type=>"st_point"})
 #  mail_line_1         :string
 #  mail_line_2         :string
 #  mail_line_3         :string
@@ -53,11 +53,11 @@ class EntityAddress < Ekylibre::Record::Base
   belongs_to :mail_postal_zone, class_name: 'PostalZone'
   belongs_to :entity, inverse_of: :addresses
   has_many :buildings, foreign_key: :address_id
-  has_many :parcels, foreign_key: :address_id
+  has_many :parcels, foreign_key: :address_id, dependent: :restrict_with_exception
   has_many :purchases, foreign_key: :delivery_address_id
   has_many :sales, foreign_key: :address_id
   has_many :subscriptions, foreign_key: :address_id
-  enumerize :canal, in: [:mail, :email, :phone, :mobile, :fax, :website], default: :email, predicates: true
+  enumerize :canal, in: %i[mail email phone mobile fax website], default: :email, predicates: true
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :by_default, :mail_auto_update, inclusion: { in: [true, false] }
@@ -73,7 +73,7 @@ class EntityAddress < Ekylibre::Record::Base
   validates :canal, inclusion: { in: canal.values }
   validates :mail_country, presence: { if: :mail? }
 
-  selects_among_all scope: [:entity_id, :canal], subset: :actives
+  selects_among_all scope: %i[entity_id canal], subset: :actives
 
   # Use unscoped to get all historic
   default_scope -> { actives }
@@ -146,7 +146,7 @@ class EntityAddress < Ekylibre::Record::Base
   end
 
   def self.exportable_columns
-    content_columns.delete_if { |c| [:deleted_at, :closed_at, :lock_version, :thread, :created_at, :updated_at].include?(c.name.to_sym) }
+    content_columns.delete_if { |c| %i[deleted_at closed_at lock_version thread created_at updated_at].include?(c.name.to_sym) }
   end
 
   def label
@@ -172,7 +172,9 @@ class EntityAddress < Ekylibre::Record::Base
 
   def mail_lines(options = {})
     options = { separator: ', ', with_city: true, with_country: true }.merge(options)
-    lines = [mail_line_1, mail_line_2, mail_line_3, mail_line_4, mail_line_5]
+    lines = []
+    lines << mail_line_1 unless options[:without] == :line_1
+    lines += [mail_line_2, mail_line_3, mail_line_4, mail_line_5]
     lines << mail_line_6.to_s if options[:with_city]
     lines << (Nomen::Country[mail_country] ? Nomen::Country[mail_country].human_name : '') if options[:with_country]
     lines = lines.compact.collect { |x| x.gsub(options[:separator], ' ').gsub(/\ +/, ' ') }

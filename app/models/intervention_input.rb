@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2016 Brice Texier, David Joulin
+# Copyright (C) 2012-2017 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -27,9 +27,11 @@
 #  created_at               :datetime         not null
 #  creator_id               :integer
 #  currency                 :string
+#  dead                     :boolean          default(FALSE), not null
 #  event_participation_id   :integer
 #  group_id                 :integer
 #  id                       :integer          not null, primary key
+#  identification_number    :string
 #  intervention_id          :integer          not null
 #  lock_version             :integer          default(0), not null
 #  new_container_id         :integer
@@ -63,7 +65,7 @@ class InterventionInput < InterventionProductParameter
   validates :quantity_population, :product, presence: true
   # validates :component, presence: true, if: -> { reference.component_of? }
 
-  scope :of_component, -> (component) { where(component: component.self_and_parents) }
+  scope :of_component, ->(component) { where(component: component.self_and_parents) }
 
   before_validation do
     self.variant = product.variant if product
@@ -80,11 +82,58 @@ class InterventionInput < InterventionProductParameter
     end
   end
 
+  def reglementary_status(target)
+    dose = quantity.convert(:liter_per_hectare)
+
+    # if AMM number on product
+    if product.france_maaid
+
+      # get agent if exist
+      agent = Pesticide::Agent.find(product.france_maaid)
+
+      reglementary_doses = {}
+
+      if agent.usages.any?
+        # for each usages matching variety, get data in reglementary_doses hash
+        agent.usages.each_with_index do |usage, index|
+          next unless usage.subject_variety && usage.dose
+          # get variables
+          activity_variety = target.product.variety
+          activity_variety ||= target.best_activity_production.cultivation_variety if target.best_activity_production
+          uv = Nomen::Variety[usage.subject_variety.to_sym]
+
+          next unless activity_variety && (uv >= Nomen::Variety[activity_variety.to_sym])
+          reglementary_doses[index] = {}
+          reglementary_doses[index][:name] = usage.name.to_s.downcase
+          reglementary_doses[index][:variety] = uv.l
+          reglementary_doses[index][:level] = :activity_variety
+          reglementary_doses[index][:legal_dose] = usage.dose
+          reglementary_doses[index][:max_inputs_count] = usage.max_inputs_count
+          reglementary_doses[index][:untreated_zone_margin] = usage.untreated_zone_margin
+          reglementary_doses[index][:pre_harvest_interval] = usage.pre_harvest_interval
+          if usage.dose.is_a?(Measure) && quantity.is_a?(Measure) && usage.dose.dimension == :volume_area_density
+            if usage.dose.convert(:liter_per_hectare) < quantity.convert(:liter_per_hectare)
+              reglementary_doses[index][:status] = :stop
+            elsif usage.dose.convert(:liter_per_hectare) == quantity.convert(:liter_per_hectare)
+              reglementary_doses[index][:status] = :caution
+            elsif usage.dose.convert(:liter_per_hectare) > quantity.convert(:liter_per_hectare)
+              reglementary_doses[index][:status] = :go
+            end
+          end
+        end
+      end
+      # puts reglementary_doses.inspect.green
+
+      reglementary_doses
+
+    end
+  end
+
   def stock_amount
     quantity_population * unit_pretax_stock_amount
   end
 
-  def cost_amount_computation
+  def cost_amount_computation(nature: nil, natures: {})
     return InterventionParameter::AmountComputation.failed unless product
     incoming_parcel = product.incoming_parcel_item
     options = { quantity: quantity_population, unit_name: product.unit_name }

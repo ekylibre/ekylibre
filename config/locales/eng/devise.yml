@@ -46,9 +46,7 @@ eng:
           sign_in: "Sign in here."
           subject: "Your account has been approved!"
         signed_up:
-          confirm: "Please confirm it in the administration panel."
-          details: "%{first_name} %{last_name} with email %{email} has just signed up."
-          subject: "New sign up"
+          subject: "New registration"
       reset_password_instructions:
         subject: "Reset password instructions"
       unlock_instructions:

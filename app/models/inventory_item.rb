@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2016 Brice Texier, David Joulin
+# Copyright (C) 2012-2017 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -42,6 +42,8 @@ class InventoryItem < Ekylibre::Record::Base
   belongs_to :product
   belongs_to :product_movement, dependent: :destroy
   has_one :variant, class_name: 'ProductNatureVariant', through: :product
+  has_one :nature, class_name: 'ProductNature', through: :product
+  has_one :category, class_name: 'ProductNatureCategory', through: :product
   has_one :container, through: :product
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
@@ -70,7 +72,7 @@ class InventoryItem < Ekylibre::Record::Base
 
   after_save do
     if reflected?
-      movement = build_product_movement unless product_movement
+      movement = product_movement || build_product_movement
       movement.product = product
       movement.delta = delta
       movement.started_at = achieved_at
@@ -85,5 +87,9 @@ class InventoryItem < Ekylibre::Record::Base
   # Returns the delta population between actual and expectedp populations
   def delta
     actual_population - expected_population
+  end
+
+  def actual_pretax_stock_amount
+    actual_population * unit_pretax_stock_amount
   end
 end

@@ -18,7 +18,7 @@
 
 module Backend
   class GapsController < Backend::BaseController
-    manage_restfully only: [:index, :show, :destroy]
+    manage_restfully only: %i[index show destroy], subclass_inheritance: true
 
     list do |t|
       t.action :destroy

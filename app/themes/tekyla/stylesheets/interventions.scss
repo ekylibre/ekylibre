@@ -91,3 +91,148 @@ $preview-modal-height: 80vh;
     }
   }
 }
+
+.delete-modal {
+  .modal-intervention {
+    padding: 0 1em;
+  }
+}
+
+.beta {
+  @include is-icon($fs-normal);
+  @include use-icon(flask);
+
+  color: $brand-warning;
+  margin: 10px;
+}
+
+.nested-parameters {
+  position: relative;
+  .errors {
+    position: absolute;
+    top: $spacing * 0.9;
+    @include right(40px);
+    & > * {
+      display: none;
+    }
+  }
+
+  .links {
+    position: relative;
+
+    .display-info {
+      position: absolute;
+
+      .status {
+        @include margin-left(10px);
+        display: inline-block;
+        border: 1px solid $neutral-color;
+        border-radius: 100%;
+        width: $lh-small;
+        height: $lh-small;
+
+        &[data-display-status=valid] {
+          background-color: lighten($brand-success, 10%);
+        }
+        &[data-display-status=incomplete] {
+          background-color: lighten($brand-warning, 10%);
+        }
+        &[data-display-status=invalid] {
+          background-color: lighten($brand-danger, 10%);
+        }
+      }
+    }
+  }
+}
+
+.edit_intervention,
+.new_intervention {
+  .has-intervention-participations {
+    position: absolute;
+    top: $fs-large * 1.3;
+    left: $fs-awesome * 2.5;
+    line-height: 0;
+    font-size: $fs-huge;
+    cursor: pointer;
+  }
+
+  .has-intervention-participations:hover {
+    color: $darkened-blue-grey;
+  }
+
+  .has-intervention-participations.picto {
+    &.picto-timer::before,
+    &.picto-timer-off::before {
+      margin-left: $default-gap;
+   }
+  }
+}
+
+.product_parameters .cast {
+  padding: 0;
+  padding-left: $default-gap * 2;
+
+  .picture {
+    margin: $default-gap 0;
+    margin-right: $default-gap;
+  }
+
+  .details {
+    padding-top: $default-gap;
+  }
+}
+
+.product_parameters .periods {
+  @include flex-row(center, stretch);
+  float: right;
+  height: $fs-awesome * 1.6;
+
+  .period,
+  .total {
+    @include flex-column();
+    border-left: solid 1px #ddd;
+    padding: 0 1em;
+  }
+
+  .period-type {
+    @include flex-row();
+
+    .period-icon {
+      margin-right: 1em;
+      width: $fs-huge * 1.1;
+    }
+
+    .period-label {
+      font-weight: bold;
+      font-size: $fs-normal * 1.1;
+    }
+  }
+
+  .total {
+    background-color: rgba(black, 0.03);
+    min-width: 10em;
+
+    .total-label {
+      height: $fs-huge * 1.1;
+      font-size: $fs-large;
+      font-weight: bold;
+    }
+
+    .computation * {
+      font-size: 16px !important;
+    }
+  }
+
+  .cost {
+    @include flex-column();
+    padding: 0 !important;
+
+    .computation * {
+      font-size: $fs-normal !important;
+    }
+
+    .origin {
+      font-size: $fs-small;
+    }
+  }
+}

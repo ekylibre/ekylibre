@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2016 Brice Texier, David Joulin
+# Copyright (C) 2012-2017 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -38,7 +38,7 @@ class Version < ActiveRecord::Base
   cattr_accessor :current_user
   belongs_to :creator, class_name: 'User'
   belongs_to :item, polymorphic: true
-  enumerize :event, in: [:create, :update, :destroy], predicates: true
+  enumerize :event, in: %i[create update destroy], predicates: true
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   # ]VALIDATORS]
 

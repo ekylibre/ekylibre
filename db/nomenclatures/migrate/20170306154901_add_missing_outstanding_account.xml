@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<migration name="Add missing outstanding asset account">
+  <item-change item="accounts#outstanding_assets" fr_pcga="23" pt_snc="45"/>
+</migration>

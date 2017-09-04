@@ -35,6 +35,8 @@ module Fixturing
       path = options[:path] || directory
       version = options[:version] || current_version
       verbose = !options[:verbose].is_a?(FalseClass)
+      Ekylibre::Tenant.create_database_for!(tenant)
+      Ekylibre::Tenant.switch_to_database_for(tenant)
       Apartment.connection.execute("DROP SCHEMA IF EXISTS \"#{tenant}\" CASCADE")
       Apartment.connection.execute("CREATE SCHEMA \"#{tenant}\"")
       Ekylibre::Tenant.add(tenant)
@@ -331,7 +333,7 @@ module Fixturing
       value = if type == :float || type == :decimal || type == :integer
                 value
               elsif type == :boolean
-                (%w(1 t T true yes TRUE).include?(value) ? 'true' : 'false')
+                (%w[1 t T true yes TRUE].include?(value) ? 'true' : 'false')
               else
                 value.to_yaml.gsub(/^\-\-\-\s*/, '').strip
               end
@@ -342,7 +344,7 @@ module Fixturing
       value = value.to_s
       value = if type == :float
                 value.to_f
-              elsif type == :geometry || type == :point || type == :multi_polygon
+              elsif type == :geometry || type == :st_point || type == :point || type == :multi_polygon
                 Charta.new_geometry(value).to_ewkt
               elsif type == :decimal
                 value.to_f
@@ -353,12 +355,30 @@ module Fixturing
               elsif type == :datetime
                 value.to_time(:utc)
               elsif type == :boolean
-                (%w(1 t T true yes TRUE).include?(value) ? true : false)
+                (%w[1 t T true yes TRUE].include?(value) ? true : false)
               elsif type == :json || type == :jsonb
                 JSON.parse(value)
               else
-                puts "Unknown type to parse in fixtures: #{type.inspect}".red unless [:text, :string, :uuid].include?(type)
-                value =~ /\A\-\-\-(\s+|\z)/ ? YAML.load(value) : value
+                puts "Unknown type to parse in fixtures: #{type.inspect}".red unless %i[text string uuid].include?(type)
+                return value unless value =~ /\A\-\-\-(\s+|\z)/
+                YAML.safe_load(
+                  value,
+                  [
+                    ActionController::Parameters,
+                    ActiveSupport::HashWithIndifferentAccess,
+                    Symbol,
+                    Time,
+                    BigDecimal,
+                    RGeo::Geos::CAPIGeometryCollectionImpl,
+                    RGeo::Geos::CAPIFactory,
+                    RGeo::Geos::CAPIMultiPolygonImpl,
+                    OpenStruct,
+                    RGeo::Geos::CAPIPointImpl,
+                    RGeo::Geos::CAPIPolygonImpl,
+                    RGeo::Cartesian::MultiPolygonImpl,
+                    RGeo::Cartesian::Factory
+                  ]
+                )
               end
       value
     end

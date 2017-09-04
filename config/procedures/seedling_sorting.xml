@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
-  <procedure name="seedling_sorting" categories="plants_transformation" actions="field_plant_sorting">
+  <procedure name="seedling_sorting" categories="plants_transformation" actions="field_plant_sorting" deprecated="true">
     <parameters>
       <input name="seedlings" filter="is seedling and derives from plant">
         <handler name="population"/>
@@ -9,8 +9,8 @@
         <attribute name="new_name"/>
         <handler name="population"/>
       </output>
-      <tool name="equipment" filter="is equipment" cardinality="*"/>
       <doer name="doer"      filter="is worker and can move" cardinality="*"/>
+      <tool name="equipment" filter="is equipment" cardinality="*"/>
     </parameters>
   </procedure>
 </procedures>

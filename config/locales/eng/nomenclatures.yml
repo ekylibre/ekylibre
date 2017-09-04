@@ -78,6 +78,7 @@ eng:
       items:
         fr_pcg82: "French PCG82"
         fr_pcga: "French PCGA"
+        pt_snc: "Portuguese SNC"
       name: "Accounting systems"
     accounts:
       items:
@@ -242,6 +243,7 @@ eng:
         incorporeal_asset_depreciation_revenues: "Incorporeal asset depreciation revenues"
         incorporeal_asset_depreciations: "Incorporeal asset depreciations"
         incorporeal_asset_revenues: "Incorporeal asset revenues"
+        incorporeal_assets: "Incorporeal assets"
         incorporeals_depreciations_inputations_expenses: "Incorporeals depreciations inputations expenses"
         industrial_cooperative_participation_assets: "Industrial cooperative participation assets"
         infirmity_and_death_insurance_expenses: "Infirmity and death insurance expenses"
@@ -464,6 +466,7 @@ eng:
         subcontracting_expenses: "Subcontracting expenses"
         subsidies: "Subsidies"
         subsidy_to_receive: "Subsidy to receive"
+        sundry_debtors_and_creditors: "Sundry debtors and creditors"
         suppliers: "Suppliers"
         suppliers_balance_after_compensation: "Suppliers balance after compensation"
         suppliers_invoices_not_received: "Suppliers invoices not received"
@@ -496,6 +499,7 @@ eng:
         usual_bank_overdraft: "Usual bank overdraft"
         various_exceptional_revenues: "Various exceptional revenues"
         vat: "VAT"
+        vat_to_pay: "VAT to pay"
         vegetals_making_services_expenses: "Vegetals making services expenses"
         veterinary_fees_expenses: "Veterinary fees expenses"
         waiting_vat: "Waiting VAT"
@@ -511,6 +515,7 @@ eng:
         debtor: "Debtor"
         fr_pcg82: "French PCG82"
         fr_pcga: "French PCGA"
+        pt_snc: "Protuguese SNC"
     activity_families:
       choices:
         nature:
@@ -731,6 +736,488 @@ eng:
       property_natures:
         labels: "Labels"
         land: "Land"
+    chemical_classifications:
+      items:
+        dsd_corrosive: "Corrosive (EU)"
+        dsd_environmental_hazard: "Environmental hazard (EU)"
+        dsd_explosive: "Explosive (EU)"
+        dsd_extremely_flammable: "Extremely flammable (EU)"
+        dsd_harmful: "Harmful (EU)"
+        dsd_highly_flammable: "Highly flammable (EU)"
+        dsd_irritant: "Irritant"
+        dsd_oxidizing: "Oxidizing (EU)"
+        dsd_r1: "Explosive when dry (R1)"
+        dsd_r10: "Flammable (R10)"
+        dsd_r11: "Highly flammable (R11)"
+        dsd_r12: "Extremely flammable"
+        dsd_r13: "Extremely flammable liquefied gas"
+        dsd_r14: "Reacts violently with water (R14)"
+        dsd_r14_15: "Reacts violently with water, liberating extremely flammable gases"
+        dsd_r14_15_29: "Reacts violently with water, liberating toxic, extremely flammable gases"
+        dsd_r15: "Contact with water liberates extremely flammable gases"
+        dsd_r15_29: "Contact with water liberates toxic, extremely flammable gases"
+        dsd_r16: "Explosive when mixed with oxidising substances"
+        dsd_r17: "Spontaneously flammable in air"
+        dsd_r18: "In use, may form flammable/explosive vapour-air mixture"
+        dsd_r19: "May form explosive peroxides (R19)"
+        dsd_r2: "Risk of explosion by shock, friction, fire or other sources of ignition"
+        dsd_r20: "Harmful by inhalation"
+        dsd_r20_21: "Harmful by inhalation and in contact with skin"
+        dsd_r20_21_22: "Harmful by inhalation, in contact with skin and if swallowed"
+        dsd_r20_22: "Harmful by inhalation and if swallowed"
+        dsd_r21: "Harmful in contact with skin (R21)"
+        dsd_r21_22: "Harmful in contact with skin and if swallowed"
+        dsd_r22: "Harmful if swallowed (R22)"
+        dsd_r23: "Toxic by inhalation"
+        dsd_r23_24: "Toxic by inhalation and in contact with skin"
+        dsd_r23_24_25: "Toxic by inhalation, in contact with skin and if swallowed"
+        dsd_r23_25: "Toxic by inhalation and if swallowed"
+        dsd_r24: "Toxic in contact with skin (R24)"
+        dsd_r24_25: "Toxic in contact with skin and if swallowed"
+        dsd_r25: "Toxic if swallowed (R25)"
+        dsd_r26: "Very toxic by inhalation"
+        dsd_r26_27: "Very toxic by inhalation and in contact with skin"
+        dsd_r26_27_28: "Very toxic by inhalation, in contact with skin and if swallowed"
+        dsd_r26_28: "Very toxic by inhalation and if swallowed"
+        dsd_r27: "Very toxic in contact with skin"
+        dsd_r27_28: "Very toxic in contact with skin and if swallowed"
+        dsd_r28: "Very toxic if swallowed"
+        dsd_r29: "Contact with water liberates toxic gas (R29)"
+        dsd_r3: "Extreme risk of explosion by shock, friction, fire or other sources of ignition"
+        dsd_r30: "Can become highly flammable in use"
+        dsd_r31: "Contact with acids liberates toxic gas (R31)"
+        dsd_r32: "Contact with acids liberates very toxic gas (R32)"
+        dsd_r33: "Danger of cumulative effects"
+        dsd_r34: "Causes burns"
+        dsd_r35: "Causes severe burns"
+        dsd_r36: "Irritating to eyes"
+        dsd_r36_37: "Irritating to eyes and respiratory system"
+        dsd_r36_37_38: "Irritating to eyes, respiratory system and skin"
+        dsd_r36_38: "Irritating to eyes and skin"
+        dsd_r37: "Irritating to respiratory system"
+        dsd_r37_38: "Irritating to respiratory system and skin"
+        dsd_r38: "Irritating to skin"
+        dsd_r39: "Danger of very serious irreversible effects"
+        dsd_r39_23: "Toxic: danger of very serious irreversible effects through inhalation"
+        dsd_r39_23_24: "Toxic: danger of very serious irreversible effects through inhalation and in contact with skin"
+        dsd_r39_23_24_25: "Toxic: danger of very serious irreversible effects through inhalation, in contact with skin and if swallowed"
+        dsd_r39_23_25: "Toxic: danger of very serious irreversible effects through inhalation and if swallowed"
+        dsd_r39_24: "Toxic: danger of very serious irreversible effects in contact with skin"
+        dsd_r39_24_25: "Toxic: danger of very serious irreversible effects in contact with skin and if swallowed"
+        dsd_r39_25: "Toxic: danger of very serious irreversible effects if swallowed"
+        dsd_r39_26: "Very Toxic: danger of very serious irreversible effects through inhalation"
+        dsd_r39_26_27: "Very Toxic: danger of very serious irreversible effects through inhalation and in contact with skin"
+        dsd_r39_26_27_28: "Very Toxic: danger of very serious irreversible effects through inhalation, in contact with skin and if swallowed"
+        dsd_r39_26_28: "Very Toxic: danger of very serious irreversible effects through inhalation and if swallowed"
+        dsd_r39_27: "Very Toxic: danger of very serious irreversible effects in contact with skin"
+        dsd_r39_27_28: "Very Toxic: danger of very serious irreversible effects in contact with skin and if swallowed"
+        dsd_r39_28: "Very Toxic: danger of very serious irreversible effects if swallowed"
+        dsd_r4: "Forms very sensitive explosive metallic compounds"
+        dsd_r40: "Limited evidence of a carcinogenic effect"
+        dsd_r41: "Risk of serious damage to eyes"
+        dsd_r42: "May cause sensitisation by inhalation"
+        dsd_r42_43: "May cause sensitization by inhalation and skin contact"
+        dsd_r43: "May cause sensitisation by skin contact"
+        dsd_r44: "Risk of explosion if heated under confinement (R44)"
+        dsd_r45: "May cause cancer (R45)"
+        dsd_r45_46: "May cause cancer and heritable genetic damage"
+        dsd_r46: "May cause inheritable genetic damage"
+        dsd_r47: "May cause birth defects"
+        dsd_r48: "Danger of serious damage to health by prolonged exposure"
+        dsd_r48_20: "Harmful: danger of serious damage to health by prolonged exposure through inhalation"
+        dsd_r48_20_21: "Harmful: danger of serious damage to health by prolonged exposure through inhalation and in contact with skin"
+        dsd_r48_20_21_22: "Harmful: danger of serious damage to health by prolonged exposure through inhalation, in contact with skin and if swallowed"
+        dsd_r48_20_22: "Harmful: danger of serious damage to health by prolonged exposure through inhalation and if swallowed"
+        dsd_r48_21: "Harmful: danger of serious damage to health by prolonged exposure in contact with skin"
+        dsd_r48_21_22: "Harmful: danger of serious damage to health by prolonged exposure in contact with skin and if swallowed"
+        dsd_r48_22: "Harmful: danger of serious damage to health by prolonged exposure if swallowed"
+        dsd_r48_23: "Toxic: danger of serious damage to health by prolonged exposure through inhalation"
+        dsd_r48_23_24: "Toxic: danger of serious damage to health by prolonged exposure through inhalation and in contact with skin"
+        dsd_r48_23_24_25: "Toxic: danger of serious damage to health by prolonged exposure through inhalation, in contact with skin and if swallowed"
+        dsd_r48_23_25: "Toxic: danger of serious damage to health by prolonged exposure through inhalation and if swallowed"
+        dsd_r48_24: "Toxic: danger of serious damage to health by prolonged exposure in contact with skin"
+        dsd_r48_24_25: "Toxic: danger of serious damage to health by prolonged exposure in contact with skin and if swallowed"
+        dsd_r48_25: "Toxic: danger of serious damage to health by prolonged exposure if swallowed"
+        dsd_r49: "May cause cancer by inhalation"
+        dsd_r5: "Heating may cause an explosion (R5)"
+        dsd_r50: "Very toxic to aquatic organisms"
+        dsd_r50_53: "Very toxic to aquatic organisms, may cause long-term adverse effects in the aquatic environment"
+        dsd_r51: "Toxic to aquatic organisms"
+        dsd_r51_53: "Toxic to aquatic organisms, may cause long-term adverse effects in the aquatic environment"
+        dsd_r52: "Harmful to aquatic organisms"
+        dsd_r52_53: "Harmful to aquatic organisms, may cause long-term adverse effects in the aquatic environment"
+        dsd_r53: "May cause long-term adverse effects in the aquatic environment"
+        dsd_r54: "Toxic to flora"
+        dsd_r55: "Toxic to fauna"
+        dsd_r56: "Toxic to soil organisms"
+        dsd_r57: "Toxic to bees"
+        dsd_r58: "May cause long-term adverse effects in the environment"
+        dsd_r59: "Dangerous for the ozone layer"
+        dsd_r6: "Explosive with or without contact with air (R6)"
+        dsd_r60: "May impair fertility"
+        dsd_r61: "May cause harm to the unborn child"
+        dsd_r62: "Possible risk of impaired fertility"
+        dsd_r63: "Possible risk of harm to the unborn child"
+        dsd_r64: "May cause harm to breast-fed babies"
+        dsd_r65: "Harmful: may cause lung damage if swallowed"
+        dsd_r66: "Repeated exposure may cause skin dryness or cracking (R66)"
+        dsd_r67: "Vapours may cause drowsiness and dizziness"
+        dsd_r68: "Possible risk of irreversible effects"
+        dsd_r68_20: "Harmful: possible risk of irreversible effects through inhalation"
+        dsd_r68_20_21: "Harmful: possible risk of irreversible effects through inhalation and in contact with skin"
+        dsd_r68_20_21_22: "Harmful: possible risk of irreversible effects through inhalation, in contact with skin and if swallowed"
+        dsd_r68_20_22: "Harmful: possible risk of irreversible effects through inhalation and if swallowed"
+        dsd_r68_21: "Harmful: possible risk of irreversible effects in contact with skin"
+        dsd_r68_21_22: "Harmful: possible risk of irreversible effects in contact with skin and if swallowed"
+        dsd_r68_22: "Harmful: possible risk of irreversible effects if swallowed"
+        dsd_r7: "May cause fire"
+        dsd_r8: "Contact with combustible material may cause fire"
+        dsd_r84: "Contains isocyanates"
+        dsd_r9: "Explosive when mixed with combustible material"
+        dsd_s1: "Keep locked up"
+        dsd_s10: "Keep contents wet"
+        dsd_s11: "not specified"
+        dsd_s12: "Do not keep the container sealed"
+        dsd_s13: "Keep away from food, drink and animal foodstuffs"
+        dsd_s14: "Keep away from ... (incompatible materials to be indicated by the manufacturer)"
+        dsd_s15: "Keep away from heat"
+        dsd_s16: "Keep away from sources of ignition - No smoking"
+        dsd_s17: "Keep away from combustible material"
+        dsd_s18: "Handle and open container with care"
+        dsd_s1_2: "Keep locked up and out of the reach of children"
+        dsd_s2: "Keep out of the reach of children"
+        dsd_s20: "When using do not eat or drink"
+        dsd_s20_21: "When using do not eat, drink or smoke"
+        dsd_s21: "When using do not smoke"
+        dsd_s22: "Do not breathe dust"
+        dsd_s23: "Do not breathe gas/fumes/vapour/spray (appropriate wording to be specified by the manufacturer)"
+        dsd_s24: "Avoid contact with skin"
+        dsd_s24_25: "Avoid contact with skin and eyes"
+        dsd_s25: "Avoid contact with eyes"
+        dsd_s26: "In case of contact with eyes, rinse immediately with plenty of water and seek medical advice"
+        dsd_s27: "Take off immediately all contaminated clothing"
+        dsd_s27_28: "After contact with skin, take off immediately all contaminated clothing, and wash immediately with plenty of ... (to be specified by the manufacturer)"
+        dsd_s28: "After contact with skin, wash immediately with plenty of ... (to be specified by the manufacturer)"
+        dsd_s29: "Do not empty into drains"
+        dsd_s29_35: "Do not empty into drains; dispose of this material and its container in a safe way"
+        dsd_s29_56: "Do not empty into drains, dispose of this material and its container at hazardous or special waste collection point"
+        dsd_s3: "Keep in a cool place"
+        dsd_s30: "Never add water to this product"
+        dsd_s31: "Keep away from explosive material"
+        dsd_s33: "Take precautionary measures against static discharges"
+        dsd_s34: "Take precautionary measures against shock and friction"
+        dsd_s35: "This material and its container must be disposed of in a safe way"
+        dsd_s36: "Wear suitable protective clothing"
+        dsd_s36_37: "Wear suitable protective clothing and gloves"
+        dsd_s36_37_39: "Wear suitable protective clothing, gloves and eye/face protection"
+        dsd_s36_39: "Wear suitable protective clothing and eye/face protection"
+        dsd_s37: "Wear suitable gloves"
+        dsd_s37_39: "Wear suitable gloves and eye/face protection"
+        dsd_s38: "In case of insufficient ventilation wear suitable respiratory equipment"
+        dsd_s39: "Wear eye/face protection"
+        dsd_s3_14: "Keep in a cool place away from ... (incompatible materials to be indicated by the manufacturer)"
+        dsd_s3_7: "Keep container tightly closed in a cool place"
+        dsd_s3_7_9: "Keep container tightly closed in a cool, well-ventilated place"
+        dsd_s3_9_14: "Keep in a cool, well-ventilated place away from ... (incompatible materials to be indicated by the manufacturer)"
+        dsd_s3_9_14_49: "Keep only in the original container in a cool, well-ventilated place away from ... (incompatible materials to be indicated by the manufacturer)"
+        dsd_s3_9_49: "Keep only in the original container in a cool, well-ventilated place"
+        dsd_s4: "Keep away from living quarters"
+        dsd_s40: "To clean the floor and all objects contaminated by this material use ... (to be specified by the manufacturer)"
+        dsd_s41: "In case of fire and/or explosion do not breathe fumes"
+        dsd_s42: "During fumigation/spraying wear suitable respiratory equipment (appropriate wording to be specified by the manufacturer)"
+        dsd_s43: "In case of fire use ... (indicate in the space the precise type of fire-fighting equipment. If water increases the risk add - Never use water)"
+        dsd_s44: "In case of you feel unwell, seek medical advice immediately (show the label where possible)"
+        dsd_s45: "In case of accident or if you feel unwell, seek medical advice immediately (show the label where possible)"
+        dsd_s46: "If swallowed, seek medical advice immediately and show this container or label"
+        dsd_s47: "Keep at temperature not exceeding ... °C (to be specified by the manufacturer)"
+        dsd_s47_49: "Keep only in the original container at temperature not exceeding ... °C (to be specified by the manufacturer)"
+        dsd_s48: "Keep wet with ... (appropriate material to be specified by the manufacturer)"
+        dsd_s49: "Keep only in the original container"
+        dsd_s5: "Keep contents under ... (appropriate liquid to be specified by the manufacturer)"
+        dsd_s50: "Do not mix with ... (to be specified by the manufacturer)"
+        dsd_s51: "Use only in well-ventilated areas"
+        dsd_s52: "Not recommended for interior use on large surface areas"
+        dsd_s53: "Avoid exposure - obtain special instructions before use"
+        dsd_s56: "Dispose of this material and its container at hazardous or special waste collection point"
+        dsd_s57: "Use appropriate containment to avoid environmental contamination"
+        dsd_s59: "Refer to manufacturer/supplier for information on recovery/recycling"
+        dsd_s6: "Keep under ... (inert gas to be specified by the manufacturer)"
+        dsd_s60: "This material and its container must be disposed of as hazardous waste"
+        dsd_s61: "Avoid release to the environment. Refer to special instructions/safety data sheet"
+        dsd_s62: "If swallowed, do not induce vomiting: seek medical advice immediately and show this container or label where possible"
+        dsd_s63: "In case of accident by inhalation: remove casualty to fresh air and keep at rest"
+        dsd_s64: "If swallowed, rinse mouth with water (only if the person is conscious)"
+        dsd_s7: "Keep container tightly closed"
+        dsd_s7_47: "Keep container tightly closed and at temperature not exceeding ... °C (to be specified by the manufacturer)"
+        dsd_s7_8: "Keep container tightly closed and dry"
+        dsd_s7_9: "Keep container tightly closed and in a well-ventilated place"
+        dsd_s8: "Keep container dry"
+        dsd_s9: "Keep container in a well-ventilated place"
+        dsd_toxic: "Toxic (EU)"
+        dsd_very_toxic: "Very toxic (EU)"
+        ghs-h360fd2: "May damage fertility. May damage the unborn child"
+        ghs_compressed_gas: "Compressed gas"
+        ghs_corrosive: "Corrosive"
+        ghs_environmental_hazard: "Environmental hazard"
+        ghs_euh001: "Explosive when dry"
+        ghs_euh006: "Explosive with or without contact with air"
+        ghs_euh014: "Reacts violently with water"
+        ghs_euh018: "In use may form flammable/explosive vapour-air mixture"
+        ghs_euh019: "May form explosive peroxides"
+        ghs_euh029: "Contact with water liberates toxic gas"
+        ghs_euh031: "Contact with acids liberates toxic gas"
+        ghs_euh032: "Contact with acids liberates very toxic gas"
+        ghs_euh044: "Risk of explosion if heated under confinement"
+        ghs_euh059: "Hazardous to the ozone layer, superseded by GHS Class 5.1 in the second adaptation to technical progress of CLP."
+        ghs_euh066: "Repeated exposure may cause skin dryness or cracking"
+        ghs_euh070: "Toxic by eye contact"
+        ghs_euh071: "Corrosive to the respiratory tract"
+        ghs_euh201: "Contains lead. Should not be used on surfaces liable to be chewed or sucked by children."
+        ghs_euh201a: "Warning! Contains lead."
+        ghs_euh202: "Cyanoacrylate. Danger. Bonds skin and eyes in seconds. Keep out of the reach of children."
+        ghs_euh203: "Contains chromium(VI). May produce an allergic reaction."
+        ghs_euh204: "Contains isocyanates. May produce an allergic reaction."
+        ghs_euh205: "Contains epoxy constituents. May produce an allergic reaction."
+        ghs_euh206: "Warning! Do not use together with other products. May release dangerous gases (chlorine)."
+        ghs_euh207: "Warning! Contains cadmium. Dangerous fumes are formed during use. See information supplied by the manufacturer. Comply with the safety instructions."
+        ghs_euh208: "Contains <name of sensitising substance>. May produce an allergic reaction."
+        ghs_euh209: "Can become highly flammable in use."
+        ghs_euh209a: "Can become flammable in use."
+        ghs_euh210: "Safety data sheet available on request."
+        ghs_euh401: "To avoid risks to human health and the environment, comply with the instructions for use."
+        ghs_explosive: "Explosive"
+        ghs_flammable: "Flammable"
+        ghs_h200: "Unstable explosive"
+        ghs_h201: "Explosive; mass explosion hazard"
+        ghs_h202: "Explosive; severe projection hazard"
+        ghs_h203: "Explosive; fire, blast or projection hazard"
+        ghs_h204: "Fire or projection hazard"
+        ghs_h205: "May mass explode in fire"
+        ghs_h220: "Extremely flammable gas"
+        ghs_h221: "Flammable gas"
+        ghs_h222: "Extremely flammable aerosol"
+        ghs_h223: "Flammable aerosol"
+        ghs_h224: "Extremely flammable liquid and vapour"
+        ghs_h225: "Highly flammable liquid and vapour"
+        ghs_h226: "Flammable liquid and vapour"
+        ghs_h227: "Combustible liquid"
+        ghs_h228: "Flammable solid"
+        ghs_h229: "Pressurized container: may burst if heated"
+        ghs_h230: "May react explosively even in the absence of air"
+        ghs_h231: "May react explosively even in the absence of air at elevated pressure and/or temperature"
+        ghs_h240: "Heating may cause an explosion"
+        ghs_h241: "Heating may cause a fire or explosion"
+        ghs_h242: "Heating may cause a fire"
+        ghs_h250: "Catches fire spontaneously if exposed to air"
+        ghs_h251: "Self-heating; may catch fire"
+        ghs_h252: "Self-heating in large quantities; may catch fire"
+        ghs_h260: "In contact with water releases flammable gases which may ignite spontaneously"
+        ghs_h261: "In contact with water releases flammable gas"
+        ghs_h270: "May cause or intensify fire; oxidizer"
+        ghs_h271: "May cause fire or explosion; strong oxidizer"
+        ghs_h272: "May intensify fire; oxidizer"
+        ghs_h280: "Contains gas under pressure; may explode if heated"
+        ghs_h281: "Contains refrigerated gas; may cause cryogenic burns or injury"
+        ghs_h290: "May be corrosive to metals"
+        ghs_h300: "Fatal if swallowed"
+        ghs_h301: "Toxic if swallowed"
+        ghs_h302: "Harmful if swallowed"
+        ghs_h303: "May be harmful if swallowed"
+        ghs_h304: "May be fatal if swallowed and enters airways"
+        ghs_h305: "May be harmful if swallowed and enters airways"
+        ghs_h310: "Fatal in contact with skin"
+        ghs_h311: "Toxic in contact with skin"
+        ghs_h312: "Harmful in contact with skin"
+        ghs_h313: "May be harmful in contact with skin"
+        ghs_h314: "Causes severe skin burns and eye damage"
+        ghs_h315: "Causes skin irritation"
+        ghs_h316: "Causes mild skin irritation"
+        ghs_h317: "May cause an allergic skin reaction"
+        ghs_h318: "Causes serious eye damage"
+        ghs_h319: "Causes serious eye irritation"
+        ghs_h320: "Causes eye irritation"
+        ghs_h330: "Fatal if inhaled"
+        ghs_h331: "Toxic if inhaled"
+        ghs_h332: "Harmful if inhaled"
+        ghs_h333: "May be harmful if inhaled"
+        ghs_h334: "May cause allergy or asthma symptoms or breathing difficulties if inhaled"
+        ghs_h335: "May cause respiratory irritation"
+        ghs_h336: "May cause drowsiness or dizziness"
+        ghs_h340: "May cause genetic defects"
+        ghs_h341: "Suspected of causing genetic defects"
+        ghs_h350: "May cause cancer"
+        ghs_h350i: "May cause cancer if inhaled"
+        ghs_h351: "Suspected of causing cancer"
+        ghs_h360: "May damage fertility or the unborn child"
+        ghs_h360d: "May damage the unborn child"
+        ghs_h360df: "May damage the unborn child. Suspected of damaging fertility"
+        ghs_h360f: "May damage fertility"
+        ghs_h360fd: "May damage fertility. Suspected of damaging the unborn child"
+        ghs_h361: "Suspected of damaging fertility or the unborn child"
+        ghs_h361d: "Suspected of damaging the unborn child"
+        ghs_h361f: "Suspected of damaging fertility"
+        ghs_h361fd: "Suspected of damaging fertility. Suspected of damaging the unborn child"
+        ghs_h362: "May cause harm to breast-fed children"
+        ghs_h370: "Causes damage to organs"
+        ghs_h371: "May cause damage to organs"
+        ghs_h372: "Causes damage to organs through prolonged or repeated exposure"
+        ghs_h373: "May cause damage to organs through prolonged or repeated exposure"
+        ghs_h400: "Very toxic to aquatic life"
+        ghs_h401: "Toxic to aquatic life"
+        ghs_h402: "Harmful to aquatic life"
+        ghs_h410: "Very toxic to aquatic life with long-lasting effects"
+        ghs_h411: "Toxic to aquatic life with long-lasting effects"
+        ghs_h412: "Harmful to aquatic life with long-lasting effects"
+        ghs_h413: "May cause long-lasting harmful effects to aquatic life"
+        ghs_h420: "Harms public health and the environment by destroying ozone in the upper atmosphere"
+        ghs_harmful: "Harmful"
+        ghs_health_hazard: "Health hazard"
+        ghs_oxidizing: "Oxidizing"
+        ghs_p101: "If medical advice is needed, have product container or label at hand."
+        ghs_p102: "Keep out of reach of children."
+        ghs_p103: "Read label before use."
+        ghs_p201: "Obtain special instructions before use."
+        ghs_p202: "Do not handle until all safety precautions have been read and understood."
+        ghs_p210: "Keep away from heat, hot surfaces, sparks, open flames and other ignition sources. No smoking. [As modified by IV ATP[5]]"
+        ghs_p211: "Do not spray on an open flame or other ignition source."
+        ghs_p220: "Keep/Store away from clothing/…/combustible materials."
+        ghs_p221: "Take any precaution to avoid mixing with combustibles."
+        ghs_p222: "Do not allow contact with air."
+        ghs_p223: "Do not allow contact with water."
+        ghs_p230: "Keep wetted with …"
+        ghs_p231: "Handle under inert gas."
+        ghs_p231_p232: "Handle under inert gas. Protect from moisture"
+        ghs_p232: "Protect from moisture."
+        ghs_p233: "Keep container tightly closed."
+        ghs_p234: "Keep only in original container."
+        ghs_p235: "Keep cool.."
+        ghs_p235_p410: "Keep cool. Protect from sunlight"
+        ghs_p240: "Ground/bond container and receiving equipment."
+        ghs_p241: "Use explosion-proof electrical/ventilating/light/…/equipment."
+        ghs_p242: "Use only non-sparking tools."
+        ghs_p243: "Take precautionary measures against static discharge."
+        ghs_p244: "Keep valves and fittings free from oil and grease."
+        ghs_p250: "Do not subject to grinding/shock/…/friction."
+        ghs_p251: "Do not pierce or burn, even after use."
+        ghs_p260: "Do not breathe dust/fumes/gas/mist/vapours/spray."
+        ghs_p261: "Avoid breathing dust/fumes/gas/mist/vapours/spray."
+        ghs_p262: "Do not get in eyes, on skin, or on clothing."
+        ghs_p263: "Avoid contact during pregnancy/while nursing."
+        ghs_p264: "Wash … thoroughly after handling."
+        ghs_p270: "Do not eat, drink or smoke when using this product."
+        ghs_p271: "Use only outdoors or in a well-ventilated area."
+        ghs_p272: "Contaminated work clothing should not be allowed out of the workplace."
+        ghs_p273: "Avoid release to the environment."
+        ghs_p280: "Wear protective gloves/protective clothing/eye protection/face protection."
+        ghs_p281: "Use personal protective equipment as required."
+        ghs_p282: "Wear cold insulating gloves/face shield/eye protection."
+        ghs_p283: "Wear fire/flame resistant/retardant clothing."
+        ghs_p284: "[In case of inadequate ventilation] wear respiratory protection."
+        ghs_p285: "In case of inadequate ventilation wear respiratory protection."
+        ghs_p301: "IF SWALLOWED:"
+        ghs_p301_p310: "IF SWALLOWED: Immediately call a POISON CENTER/doctor/…"
+        ghs_p301_p312: "IF SWALLOWED: Call a POISON CENTER/doctor/…/if you feel unwell."
+        ghs_p301_p330_p331: "IF SWALLOWED: Rinse mouth. Do NOT induce vomiting."
+        ghs_p302: "IF ON SKIN:"
+        ghs_p302_p334: "IF ON SKIN: Immerse in cool water/wrap in wet bandages."
+        ghs_p302_p350: "IF ON SKIN: Gently wash with plenty of soap and water."
+        ghs_p302_p352: "IF ON SKIN: Wash with plenty of water/…"
+        ghs_p303: "IF ON SKIN (or hair):"
+        ghs_p303_p361_p353: "IF ON SKIN (or hair): Take off immediately all contaminated clothing. Rinse skin with water/ shower."
+        ghs_p304: "IF INHALED:"
+        ghs_p304_p312: "IF INHALED: Call a POISON CENTER or doctor/physician if you feel unwell."
+        ghs_p304_p340: "IF INHALED: Remove person to fresh air and keep comfortable for breathing."
+        ghs_p304_p341: "IF INHALED: If breathing is difficult, remove victim to fresh air and keep at rest in a position comfortable for breathing."
+        ghs_p305: "IF IN EYES:"
+        ghs_p305_p351_p338: "IF IN EYES: Rinse cautiously with water for several minutes. Remove contact lenses if present and easy to do – continue rinsing."
+        ghs_p306: "IF ON CLOTHING:"
+        ghs_p306_p360: "IF ON CLOTHING: Rinse immediately contaminated clothing and skin with plenty of water before removing clothes."
+        ghs_p307: "IF exposed:"
+        ghs_p307_p311: "IF exposed: Call a POISON CENTER or doctor/physician."
+        ghs_p308: "IF exposed or concerned:"
+        ghs_p308_p311: "IF exposed or concerned: Call a POISON CENTER/ doctor/…"
+        ghs_p308_p313: "IF exposed or concerned: Get medical advice/ attention."
+        ghs_p309: "IF exposed or if you feel unwell:"
+        ghs_p309_p311: "IF exposed or if you feel unwell: Call a POISON CENTER or doctor/physician."
+        ghs_p310: "Immediately call a POISON CENTER/doctor/…"
+        ghs_p311: "Call a POISON CENTER/ doctor/…"
+        ghs_p312: "Call a POISON CENTER/ doctor/…/if you feel unwell."
+        ghs_p313: "Get medical advice/attention."
+        ghs_p314: "Get Medical advice/attention if you feel unwell."
+        ghs_p315: "Get immediate medical advice/attention."
+        ghs_p320: "Specific treatment is urgent (see … on this label)."
+        ghs_p321: "Specific treatment (see … on this label)."
+        ghs_p322: "Specific measures (see … on this label)."
+        ghs_p330: "Rinse mouth."
+        ghs_p331: "Do NOT induce vomiting."
+        ghs_p332: "If skin irritation occurs:"
+        ghs_p332_p313: "If skin irritation occurs: Get medical advice/attention."
+        ghs_p333: "If skin irritation or a rash occurs:"
+        ghs_p333_p313: "If skin irritation or a rash occurs: Get medical advice/attention."
+        ghs_p334: "Immerse in cool water/wrap in wet bandages."
+        ghs_p335: "Brush off loose particles from skin."
+        ghs_p335_p334: "Brush off loose particles from skin. Immerse in cool water/wrap in wet bandages."
+        ghs_p336: "Thaw frosted parts with lukewarm water. Do not rub affected areas."
+        ghs_p337: "If eye irritation persists:"
+        ghs_p337_p313: "If eye irritation persists get medical advice/attention."
+        ghs_p338: "Remove contact lenses if present and easy to do. Continue rinsing."
+        ghs_p340: "Remove person to fresh air and keep comfortable for breathing."
+        ghs_p341: "If breathing is difficult, remove victim to fresh air and keep at rest in a position comfortable for breathing."
+        ghs_p342: "If experiencing respiratory symptoms:"
+        ghs_p342_p311: "If experiencing respiratory symptoms: Call a POISON CENTER/doctor/…"
+        ghs_p350: "Gently wash with plenty of soap and water."
+        ghs_p351: "Rinse cautiously with water for several minutes."
+        ghs_p352: "Wash with plenty of water/…"
+        ghs_p353: "Rinse skin with water/shower."
+        ghs_p360: "Rinse immediately contaminated clothing and skin with plenty of water before removing clothes."
+        ghs_p361: "Take off immediately all contaminated clothing."
+        ghs_p361_p364: "Take off immediately all contaminated clothing and wash it before reuse."
+        ghs_p362: "Take off contaminated clothing."
+        ghs_p362_p364: "Take off contaminated clothing and wash it before reuse."
+        ghs_p363: "Wash contaminated clothing before reuse."
+        ghs_p364: "And wash it before reuse."
+        ghs_p370: "In case of fire:"
+        ghs_p370_p376: "In case of fire: Stop leak if safe to do so."
+        ghs_p370_p378: "In case of fire: Use … to extinguish."
+        ghs_p370_p380: "In case of fire: Evacuate area."
+        ghs_p370_p380_p375: "In case of fire: Evacuate area. Fight fire remotely due to the risk of explosion."
+        ghs_p371: "In case of major fire and large quantities:"
+        ghs_p371_p380_p375: "In case of major fire and large quantities: Evacuate area. Fight fire remotely due to the risk of explosion."
+        ghs_p372: "Explosion risk in case of fire."
+        ghs_p373: "DO NOT fight fire when fire reaches explosives."
+        ghs_p374: "Fight fire with normal precautions from a reasonable distance."
+        ghs_p375: "Fight fire remotely due to the risk of explosion."
+        ghs_p376: "Stop leak if safe to do so."
+        ghs_p377: "Leaking gas fire – do not extinguish unless leak can be stopped safely."
+        ghs_p378: "Use … to extinguish."
+        ghs_p380: "Evacuate area."
+        ghs_p381: "Eliminate all ignition sources if safe to do so."
+        ghs_p390: "Absorb spillage to  prevent material  damage."
+        ghs_p391: "Collect spillage."
+        ghs_p401: "Store …"
+        ghs_p402: "Store in a dry place."
+        ghs_p402_p404: "Store in a dry place. Store in a closed container."
+        ghs_p403: "Store in a well ventilated place."
+        ghs_p403_p233: "Store in a well ventilated place. Keep container tightly closed."
+        ghs_p403_p235: "Store in a well ventilated place. Keep cool."
+        ghs_p404: "Store in a closed container."
+        ghs_p405: "Store locked up."
+        ghs_p406: "Store in a corrosive resistant/… container with a resistant inner liner."
+        ghs_p407: "Maintain air gap between stacks/pallets."
+        ghs_p410: "Protect from sunlight."
+        ghs_p410_p403: "Protect from sunlight. Store in a well-ventilated place."
+        ghs_p410_p412: "Protect from sunlight. Do not expose to temperatures exceeding 50 °C/122 °F."
+        ghs_p411: "Store at temperatures not exceeding … °C/… °F."
+        ghs_p411_p235: "Store at temperatures not exceeding … °C/… °F. Keep cool."
+        ghs_p412: "Do not expose to temperatures exceeding 50 °C/122 °F."
+        ghs_p413: "Store bulk masses greater than … kg/… lbs at temperatures not exceeding … °C/… °F."
+        ghs_p420: "Store away from other materials."
+        ghs_p422: "Store contents under …"
+        ghs_p501: "Dispose of contents/container to … [… in accordance with local/regional/national/international regulation (to be specified)]."
+        ghs_toxic: "Toxic"
+      name: "Chemical classifications"
+      property_natures:
+        code: "Code"
     chemical_elements:
       items:
         actinium: "Actinium"
@@ -1114,6 +1601,7 @@ eng:
         zw: "Zimbabwe"
       name: "Countries"
       property_natures:
+        # ednotif_eu: "Ednotif eu"
         number: "Number"
     crop_sets:
       items:
@@ -1414,6 +1902,7 @@ eng:
         acta_category: "Acta category"
     document_natures:
       items:
+        account_journal_entry_sheet: "Account journal entry sheet"
         activity_cost: "Activity cost"
         animal_husbandry_register: "Animal husbandry register"
         animal_list: "Animal list"
@@ -1423,6 +1912,12 @@ eng:
         entity_sheet: "Entity sheet"
         equipment_certification: "Equipment certification"
         exchange_accountancy_file_fr: "Exchange accountancy file fr"
+        fixed_asset_registry: "Fixed asset registry"
+        fixed_asset_sheet: "Fixed asset sheet"
+        fr_pcg82_balance_sheet: "French classical balance sheet"
+        fr_pcg82_profit_and_loss_statement: "French classical profit and loss statement"
+        fr_pcga_balance_sheet: "French agricultural balance sheet"
+        fr_pcga_profit_and_loss_statement: "French agricultural profit and loss statement"
         general_journal: "General journal"
         general_ledger: "General ledger"
         income_statement: "Profit and loss statement"
@@ -1431,11 +1926,14 @@ eng:
         intervention_sheet: "Intervention sheet"
         inventory_sheet: "Inventory sheet"
         journal: "Journal"
+        journal_entry_sheet: "Journal entry sheet"
         land_parcel_register: "Land parcel register"
+        loan_registry: "Loan registry"
         manure_management_plan: "Manure management plan"
         manure_management_plan_sheet: "Manure management plan (detail)"
         outgoing_deliveries_journal: "Outgoing deliveries journal"
         outgoing_delivery_docket: "Outgoing delivery docket"
+        outgoing_payment_list: "Outgoing payment list"
         phytosanitary_certification: "Phytosanitary certification"
         phytosanitary_register: "Phytosanitary register"
         prescription: "Prescription"
@@ -1619,6 +2117,8 @@ eng:
         average_wind_direction: "Average wind direction"
         average_wind_speed: "Average wind speed"
         best_before_period: "Best before period"
+        # birth_date: "Birth date"
+        # birth_farm_number: "Birth farm number"
         boron_concentration: "Boron concentration"
         calcium_concentration: "Calcium concentration"
         calving_ease_index: "Calving ease index"
@@ -1630,6 +2130,8 @@ eng:
         clostridial_spores_concentration: "Clostridial spores concentration"
         consumption_period: "Consumption period"
         copper_concentration: "Copper concentration"
+        # country_code: "Country code"
+        # cpb_filiation_status: "Cpb filiation status"
         cumulated_rainfall: "Cumulated rainfall"
         daily_average_working_time: "Daily average working time"
         daily_nitrogen_production: "Daily nitrogen production"
@@ -1638,17 +2140,27 @@ eng:
         dry_matter_rate: "Dry matter rate"
         easement_area: "Easement area"
         economical_milk_index: "Economical milk index"
+        # end_of_life_witness: "End of life witness"
         energy: "Energy"
+        # entry_date: "Entry date"
+        # entry_reason: "Entry reason"
+        # exit_date: "Exit date"
+        # exit_reason: "Exit reason"
         fat_matter_concentration_index: "Fat matter concentration index"
         fat_matters_concentration: "Fat matters concentration"
+        # father_country_code: "Father country code"
+        # father_identification_number: "Father identification number"
+        # father_race_code: "Father race code"
         fence_perimeter: "Fence perimeter"
         fertility_index: "Fertility index"
         figure: "Figure"
+        # first_calving_date: "First calving date"
         fodder_bales_count: "Fodder bales count"
         freezing_point_temperature: "Freezing point temperature"
         fresh_mass: "Fresh mass"
         fuel_consumption: "Fuel consumption"
         geolocation: "Geolocation"
+        germination_rate: "Germination rate"
         grains_area_density: "Grains area density"
         grains_count: "Grains count"
         hagberg_falling_number: "Hagberg falling number"
@@ -1660,6 +2172,7 @@ eng:
         inhibitors_presence: "Inhibitors presence"
         iron_concentration: "Iron concentration"
         irrigation_water_input_area_density: "Irrigation water input area density"
+        items_count: "Items count"
         lactating: "Lactating"
         last_birth_children_count: "Last birth children count"
         length: "Length"
@@ -1667,7 +2180,7 @@ eng:
         lipolysis: "Lipolysis"
         livestock_unit: "Livestock unit"
         magnesium_concentration: "Magnesium concentration"
-        mammalia_birth_condition: "Mammalia birth condition"
+        mammalia_birth_condition: "Mammalia parturtion condition"
         mammalia_birth_count: "Mammalia birth count"
         mammalia_reproduction_event_abortion: "Mammalia reproduction event abortion"
         mammalia_reproduction_method_embryo_transplant: "Mammalia reproduction method embryo transplant"
@@ -1691,12 +2204,16 @@ eng:
         members_population: "Members population"
         milk_daily_production: "Milk daily production"
         milk_withdrawal_period: "Milk withdrawal period"
+        milker_clusters_number: "Milker clusters number"
         minimal_atmospheric_pressure: "Minimal atmospheric pressure"
         minimal_relative_humidity: "Minimal relative humidity"
         minimal_solar_irradiance: "Minimal solar irradiance"
         minimal_temperature: "Minimal temperature"
         minimal_wind_speed: "Minimal wind speed"
         molybdenum_concentration: "Molybdenum concentration"
+        # mother_country_code: "Mother country code"
+        # mother_identification_number: "Mother identification number"
+        # mother_race_code: "Mother race code"
         motor_power: "Motor power"
         net_length: "Net length"
         net_mass: "Net mass"
@@ -1708,6 +2225,8 @@ eng:
         nominal_storable_net_mass: "Nominal storable net mass"
         nominal_storable_net_volume: "Nominal storable net volume"
         organic_matter_concentration: "Organic matter concentration"
+        # origin_country_code: "Origin country code"
+        # origin_identification_number: "Origin identification number"
         phosphate_concentration: "Phosphate concentration (P₂O₅)"
         phosphorus_analysis_method: "Phosphorus analysis method"
         phosphorus_concentration: "Phosphorus concentration"
@@ -1733,6 +2252,8 @@ eng:
         rows_count: "Rows count"
         rows_interval: "Rows interval"
         rows_orientation: "Rows orientation"
+        seedling_area_density: "Seedling area density"
+        seedling_count: "Seedling count"
         sex: "Sex"
         shape: "Shape"
         soil_cultural_state: "Soil cultural state"
@@ -1741,6 +2262,7 @@ eng:
         solar_irradiance: "Solar irradiance"
         somatic_cell_concentration: "Somatic cell concentration"
         spans_count: "Spans count"
+        species_purity: "Species purity"
         specific_weight: "Specific weight"
         stakes_count: "Stakes count"
         subsoil_nature: "Subsoil nature"
@@ -1768,6 +2290,7 @@ eng:
         width: "Width"
         wind_direction: "Wind direction"
         wind_speed: "Wind speed"
+        # witness: "Witness"
         woodstock_variety: "Woodstock variety"
         working_lifespan: "Working lifespan"
         zinc_concentration: "Zinc concentration"
@@ -1787,61 +2310,112 @@ eng:
       items:
         acarine_gall_mite: "Acarine gall mite"             #< insecta_disease
         accident: "Accident"                               #< issue
+        alternaria: "Alternaria"                           #< fungus_disease
+        amaranthus: "Amaranth"                             #< plant_disease
         anthracnose: "Anthracnose"                         #< fungus_disease
         aphid: "Aphid"                                     #< insecta_disease
         bacteria_disease: "Bacteria disease"               #< disease
+        bacterial_disease: "Bacterial disease"             #< bacteria_disease
         bacterial_leaf_blight: "Bacterial leaf blight"     #< bacteria_disease
         bacterial_streak: "Bacterial streak"               #< bacteria_disease
         bacteriosis: "Bacteriosis"                         #< bacteria_disease
         bad_vegetative_growth_conditions: "Bad vegetative growth conditions" #< disease
+        barley_helminthosporiosis: "Barley helminthosporiosis" #< fungus_disease
+        bidens_tripartita: "Three-lobe beggarticks"        #< plant_disease
         black_rust: "Black rust"                           #< fungus_disease
+        brown_rust: "Brown rust"                           #< fungus_disease
+        cabbage_maggot: "Cabbage maggot"                   #< insecta_disease
+        capsella: "Capsella"                               #< plant_disease
+        carrot_fly: "Carrot fly"                           #< insecta_disease
+        carrot_mildiew: "Carrot mildiew"                   #< fungus_disease
+        carrot_powdery_mildew: "Carrot powdery mildew"     #< fungus_disease
+        cassidinae: "Cassidinae"                           #< insecta_disease
+        caterpillar: "Caterpillar"                         #< insecta_disease
+        cercosporiosis: "Cercosporiosis"                   #< fungus_disease
+        cereal_mildiew: "Cereal mildiew"                   #< fungus_disease
         chenopodium_album: "Chenopodium album"             #< plant_disease
         climate_issue: "Climate issue"                     #< issue
         codling_moth: "Codling moth"                       #< insecta_disease
+        colorado_potato_beetle: "Colorado potato beetle"   #< insecta_disease
         common_bunt: "Common bunt"                         #< fungus_disease
+        corn_helminthosporiosis: "Corn helminthosporiosis" #< fungus_disease
+        cotton_bollworm: "Cotton bollworm"                 #< insecta_disease
         cough: "Cough"                                     #< disease
         croesus_septentrionalis: "Croesus septentrionalis" #< insecta_disease
+        cutworm: "Cutworm"                                 #< insecta_disease
+        cyperus_esculentus: "Cyperus esculentus"           #< plant_disease
+        datura: "Datura"                                   #< plant_disease
         defoliant_caterpillar: "Defoliant caterpillar"     #< insecta_disease
         diarrhea: "Diarrhea"                               #< disease
+        digitaria: "Digitaria"                             #< plant_disease
         disease: "Disease"                                 #< issue
         drought: "Drought"                                 #< climate_issue
         edema: "Edema"                                     #< disease
         empoasca_vitis_leafhopper: "Empoasca vitis leafhopper" #< insecta_disease
         empty_fuel_tank: "Empty fuel tank"                 #< mechanical_issue
         equipment_crash: "Equipment crash"                 #< accident
+        erigeron: "Erigeron"                               #< plant_disease
         escape: "Escape"                                   #< issue
+        european_corn_borer: "European corn borer"         #< insecta_disease
+        european_sawfly: "European sawfly"                 #< insecta_disease
         fecondity_problem: "Fecondity problem"             #< disease
         fever: "Fever"                                     #< disease
         field_edge_male_seed_corn_defect: "Field edge male seed corn default" #< plant_issue
+        flea_beetle: "Flea beetle"                         #< insecta_disease
         flooding: "Flooding"                               #< climate_issue
         fomitiporia: "Fomitiporia"                         #< fungus_disease
         fungus_disease: "Fungus disease"                   #< disease
+        fusarium: "Fusarium"                               #< fungus_disease
         fusarium_head_blight: "Fusarium head blight"       #< fungus_disease
+        galium_aparine: "Galium aparine"                   #< plant_disease
         grapevine_yellows: "Grapevine yellows"             #< bacteria_disease
         husk_fly: "Husk fly"                               #< insecta_disease
         insecta_disease: "Insecta disease"                 #< disease
         issue: "Issue"
+        large_white: "Large white"                         #< insecta_disease
         limping: "Limping"                                 #< disease
         longhorn_beetle: "Longhorn beetle"                 #< insecta_disease
         mammite: "Mammite"                                 #< bacteria_disease
         mechanical_issue: "Mechanical issue"               #< issue
+        mediterranean_corn_borer: "Mediterranean corn borer" #< insecta_disease
+        moth: "Moth"                                       #< insecta_disease
+        nematoda: "Nematoda"                               #< insecta_disease
         nematoda_disease: "Nematoda disease"               #< disease
+        nightshade: "Nightshade"                           #< plant_disease
         noble_rot: "Noble rot"                             #< fungus_disease
         nut_weevil: "Nut weevil"                           #< insecta_disease
+        panicum: "Panicum"                                 #< plant_disease
         phytophthora: "Phytophthora"                       #< fungus_disease
         piece_breakdown: "Piece breakdown"                 #< mechanical_issue
         plant_disease: "Plant disease"                     #< disease
         plant_issue: "Plant issue"
+        poa: "Poa"                                         #< plant_disease
+        polygonum: "Knotweed"                              #< plant_disease
+        portulaca_oleracea: "Common purslane"              #< plant_disease
+        potato_mildew: "Potato late blight"                #< fungus_disease
+        potato_powdery_mildew: "Potato powdery mildew"     #< fungus_disease
         pourridie_rot: "Pourridie rot"                     #< fungus_disease
+        previous_crop_regrowth: "Previous crop regrowth"   #< plant_disease
         protozoa_disease: "Protozoa disease"               #< disease
+        pseudomonas_syringae: "Pseudomonas syringae"       #< bacteria_disease
         respiratory_problem: "Respiratory problem"         #< disease
+        rhizoctonia: "Rhizoctonia"                         #< fungus_disease
+        rumex_crispus: "Rumex crispus"                     #< plant_disease
         scale_insect: "Scale insect"                       #< insecta_disease
         scaphoideus_titanus_leafhopper: "Scaphoideus titanus leafhopper" #< insecta_disease
+        sclerotinia: "Sclerotinia"                         #< fungus_disease
         seed_corn_castration_defect: "Seed corn castration default" #< plant_issue
+        seedcorn_maggot: "Seedcorn maggot"                 #< insecta_disease
+        senecio_vulgaris: "Groundsel"                      #< plant_disease
         septoria_blotch: "Septoria blotch"                 #< fungus_disease
+        sorghum_halepense: "Johnson grass"                 #< plant_disease
         support_issue: "Support issue"                     #< issue
+        tipburn: "Tipburn"                                 #< disease
+        tomato_mildew: "Tomato mildew"                     #< fungus_disease
+        vegetation_cover_regrowth: "Vegetation cover regrowth" #< plant_disease
         vine_mildew: "Vine mildew"                         #< fungus_disease
         vine_powdery_mildew: "Vine powdery mildew"         #< fungus_disease
+        wheat_helminthosporiosis: "Wheat helminthosporiosis" #< fungus_disease
         wheat_powdery_mildew: "Wheat powdery mildew"       #< fungus_disease
         wild_animal_ravage: "Wild animal ravage"           #< issue
         wood_leopard_moth: "Wood leopard moth"             #< insecta_disease
@@ -2079,10 +2653,12 @@ eng:
     procedure_actions:
       items:
         acaricide: "Acaricide"
+        administrative: "Administrative"
         animal_artificial_insemination: "Animal artificial insemination"
         animal_feeding: "Animal feeding"
         animal_group_changing: "Animal group changing"
         animal_housing_mulching: "Animal housing mulching"
+        animal_identification: "Animal identification"
         animal_penning: "Animal penning"
         animal_sorting: "Animal sorting"
         animal_training: "Animal training"
@@ -2132,6 +2708,7 @@ eng:
         greasing: "Greasing"
         greenhouse_assembling: "Greenhouse assembling"
         growth_regulator: "Growth regulator"
+        handling: "Handling"
         hardpan_destruction: "Hardpan destruction"
         harvest: "Harvest"
         herbicide: "Herbicide"
@@ -2144,6 +2721,11 @@ eng:
         indirect_silage: "Indirect silage"
         insect_repellent: "Insect repellent"
         insecticide: "Insecticide"
+        installation_cleaning: "Installation cleaning"
+        installation_construction: "Installation construction"
+        installation_maintenance: "Installation maintenance"
+        installation_renovation: "Installation renovation"
+        installation_repairing: "Installation repairing"
         irrigation: "Irrigation"
         irrigation_pump_lifting: "Irrigation pump lifting"
         irrigation_system_improvement: "Irrigation system improvement"
@@ -2165,6 +2747,7 @@ eng:
         oil_replacement: "Oil replacement"
         organic_fertilization: "Organic fertilization"
         organic_matter_burying: "Organic matter burying"
+        packaging: "Packaging"
         partial_wine_transfer: "Partial wine transfer"
         parturition: "Parturition"
         pivot_troubleshooting: "Pivot troubleshooting"
@@ -2172,6 +2755,7 @@ eng:
         plant_uncovering: "Plant uncovering"
         plantation_unfixing: "Plantation unfixing"
         planting: "Planting"
+        plants_sorting: "Plants sorting"
         plowing: "Plowing"
         pollinate: "Pollinate"
         preventive_maintenance: "Preventive maintenance"
@@ -2219,8 +2803,10 @@ eng:
       name: "Procedure actions"
     procedure_categories:
       items:
+        administrative_tasks: "Administrative tasks"
         animal_breeding: "Animal breeding"
         animal_feeding: "Animal feeding"
+        animal_identification: "Identification"
         animal_production: "Animal production"
         animal_treating: "Animal treating"
         building_maintenance: "Building maintenance"
@@ -2233,12 +2819,14 @@ eng:
         fertilizing: "Fertilization"
         fish_transformation: "Fish transformation"
         habitat_maintenance: "Habitat maintenance"
+        handling: "Handling"
         harvesting: "Harvesting"
         installations_modification: "Facilities modifications"
         irrigating: "Irrigation"
         land_maintenance: "Land maintenance"
         meat_transformation: "Meat transformation"
-        planting: "Plantation"
+        packaging: "Packaging"
+        planting: "Crop plantation"
         plants_transformation: "Plants transformation"
         soil_working: "Soil preparation"
         textile_transformation: "Textile transformation"
@@ -2405,8 +2993,11 @@ eng:
           wheat: "Wheat"
           wrench: "Wrench"
       items:
+        adult_cat: "Adult cat"
+        adult_dog: "Adult dog"
         animal_food: "Animal food"
         animal_housing_services: "Animal housing services"
+        animal_litter: "Animal litter"
         animal_medicine: "Animal medicine"
         animal_reproduction: "Animal reproduction"
         animals_making_services: "Animals making services"
@@ -2513,6 +3104,8 @@ eng:
         wine: "Wine"
         wine_package_consumable: "Wine package consumable"
         worker: "Worker"
+        young_cat: "Young cat"
+        young_dog: "Young dog"
       name: "Product nature categories"
       property_natures:
         charge_account: "Charge account"
@@ -2527,7 +3120,7 @@ eng:
         reductible: "Reductible"
         saleable: "Saleable"
         stock_account: "Stock account"
-        # stock_movement_account: "Stock movement account"
+        stock_movement_account: "Stock movement account"
         storable: "Storable"
     product_nature_variants:
       choices:
@@ -2608,6 +3201,7 @@ eng:
         animal_food_division: "Animal food division"
         animal_housing_cleaner: "Animal housing cleaner"
         animal_housing_service: "Animal housing service"
+        animal_litter: "Animal litter"
         animal_medicine_tank: "Animal medicine tank"
         animal_waste_building_division: "Animal waste building division"
         animals_making_service: "Animals making service"
@@ -2840,6 +3434,7 @@ eng:
         diesel: "Diesel"
         disc_harrow: "Disc harrow"
         discount_and_reduction: "Discount and reduction"
+        disinfectant_product: "Disinfectant product"
         domain_name_subscription: "Domain name subscription"
         drain: "Drain"
         drying_making_service: "Drying making service"
@@ -2865,8 +3460,10 @@ eng:
         fallow_crop: "Fallow crop"
         farm_teaching_service: "Farm teaching service"
         fee: "Fee"
+        female_adult_cat: "Female adult cat"
         female_adult_cattle_herd: "Female adult cattle herd"
         female_adult_cow: "Female adult cow"
+        female_adult_dog: "Female adult dog"
         female_adult_goat: "Female adult goat"
         female_adult_goat_herd: "Female adult goat herd"
         female_adult_horse: "Female adult horse"
@@ -2877,8 +3474,10 @@ eng:
         female_adult_sheep_herd: "Female adult sheep herd"
         female_hen_band: "Female hen band"
         female_pig_band: "Female pig band"
+        female_young_cat: "Female young cat"
         female_young_cattle_herd: "Female young cattle herd"
         female_young_cow: "Female young cow"
+        female_young_dog: "Female young dog"
         female_young_goat: "Female young goat"
         female_young_pig_band: "Female young pig band"
         female_young_sheep: "Female young sheep"
@@ -2970,7 +3569,7 @@ eng:
         howard_walnut: "Howard walnut"
         hydraulic_oil: "Hydraulic oil"
         ichn_subsidies: "Ichn subsidies"
-        # implanter: "Implanter"
+        implanter: "Implanter"
         infirmity_and_death_insurance: "Infirmity and death insurance"
         ink_cartridge: "Ink cartridge"
         insecticide: "Insecticide"
@@ -3014,8 +3613,10 @@ eng:
         lucerne_seed: "Lucerne seed"
         lupin_crop: "Lupin crop"
         maintenance: "Maintenance"
+        male_adult_cat: "Male adult cat"
         male_adult_cattle_herd: "Male adult cattle herd"
         male_adult_cow: "Male adult cow"
+        male_adult_dog: "Male adult dog"
         male_adult_goat: "Male adult goat"
         male_adult_goat_herd: "Male adult goat herd"
         male_adult_horse: "Male adult horse"
@@ -3025,8 +3626,10 @@ eng:
         male_adult_sheep: "Male adult sheep"
         male_hen_band: "Male hen band"
         male_pig_band: "Male pig band"
+        male_young_cat: "Male young cat"
         male_young_cattle_herd: "Male young cattle herd"
         male_young_cow: "Male young cow"
+        male_young_dog: "Male young dog"
         male_young_goat: "Male young goat"
         male_young_pig_band: "Male young pig band"
         male_young_sheep: "Male young sheep"
@@ -3043,6 +3646,7 @@ eng:
         milked_lamb_meat: "Milked lamb meat"
         milked_pork_meat: "Milked pork meat"
         milking_division: "Milking division"
+        milking_robot: "Milking robot"
         minced_beef_meat: "Minced beef meat"
         minced_ox_meat: "Minced ox meat"
         mineral_cleaner: "Mineral cleaner"
@@ -3300,6 +3904,7 @@ eng:
         animal_food_building_division: "Animal food building division"
         animal_housing_cleaner: "Animal housing cleaner"
         animal_housing_services: "Animal housing services"
+        animal_litter: "Animal litter"
         animal_medicine: "Animal medicine"
         animal_medicine_tank: "Animal medicine tank"
         animals_making_services: "Animals making services"
@@ -3346,6 +3951,7 @@ eng:
         crop_residue: "Crop residue"
         cultivable_zone: "Cultivable zone"
         discount_and_reduction: "Discount and reduction"
+        disinfectant_product: "Disinfectant product"
         draining_item: "Draining item"
         duck_band: "Duck band"
         duck_herd: "Duck herd"
@@ -3358,8 +3964,10 @@ eng:
         exploitation_subsidies: "Exploitation subsidies"
         farm_teaching_services: "Farm teaching services"
         fee: "Fee"
+        female_adult_cat: "Female adult cat"
         female_adult_cattle_herd: "Female adult cattle herd"
         female_adult_cow: "Female adult cow"
+        female_adult_dog: "Female adult dog"
         female_adult_goat: "Female adult goat"
         female_adult_goat_herd: "Female adult goat herd"
         female_adult_horse: "Female adult horse"
@@ -3367,7 +3975,9 @@ eng:
         female_adult_sheep: "Female adult sheep"
         female_adult_sheep_herd: "Female adult sheep herd"
         female_rabbit: "Female rabbit"
+        female_young_cat: "Female young cat"
         female_young_cow: "Female young cow"
+        female_young_dog: "Female young dog"
         female_young_goat: "Female young goat"
         female_young_sheep: "Female young sheep"
         fence: "Fence"
@@ -3422,7 +4032,7 @@ eng:
         honey: "Honey"
         horse_herd: "Horse herd"
         hydraulic_oil: "Hydraulic oil"
-        # implanter: "Implanter"
+        implanter: "Implanter"
         infirmity_and_death_insurance: "Infirmity and death insurance"
         insecticide: "Insecticide"
         inseminator: "Inseminator"
@@ -3445,14 +4055,18 @@ eng:
         loan_interest: "Loan interest"
         mail_subscription: "Mail subscription"
         maintenance: "Maintenance"
+        male_adult_cat: "Male adult cat"
         male_adult_cow: "Male adult cow"
+        male_adult_dog: "Male adult dog"
         male_adult_goat: "Male adult goat"
         male_adult_goat_herd: "Male adult goat herd"
         male_adult_horse: "Male adult horse"
         male_adult_pig: "Male adult pig"
         male_adult_sheep: "Male adult sheep"
         male_rabbit: "Male rabbit"
+        male_young_cat: "Male young cat"
         male_young_cow: "Male young cow"
+        male_young_dog: "Male young dog"
         male_young_goat: "Male young goat"
         male_young_sheep: "Male young sheep"
         manager: "Manager"
@@ -3465,6 +4079,7 @@ eng:
         melon_crop: "Melon crop"
         milk: "Milk"
         milk_tank: "Milk tank"
+        milking_robot: "Milking robot"
         mineral_cleaner: "Mineral cleaner"
         mixed_chemical_fertilizer: "Mixed chemical fertilizer"
         mixed_liquid_fertilizer: "Mixed liquid fertilizer"
@@ -3726,6 +4341,11 @@ eng:
         suffix: "Suffix"
     taxes:
       items:
+        algerian_vat_normal: "Algerian VAT normal"
+        algerian_vat_normal_2017: "Algerian VAT normal 2017"
+        algerian_vat_null: "Algerian VAT null"
+        algerian_vat_reduced: "Algerian VAT reduced"
+        algerian_vat_reduced_2017: "Algerian VAT reduced 2017"
         french_vat_eu: "France VAT EU"
         french_vat_import_export: "France VAT import/export"
         french_vat_intermediate_2012: "France VAT intermediate 2012"
@@ -3951,6 +4571,8 @@ eng:
         amaranthaceae: "Amaranthaceae"                     #< plant
         amaryllidaceae: "Amaryllidaceae"                   #< plant
         anacardiaceae: "Anacardiaceae"                     #< plant
+        anacardium: "Anacardium"                           #< anacardiaceae
+        anacardium_occidentale: "Cashew"                   #< anacardium
         ananas: "Ananas"                                   #< bromeliaceae
         ananas_comosus: "Pineapple"                        #< ananas
         anas: "Anas"                                       #< anatidae
@@ -3963,6 +4585,14 @@ eng:
         angelica: "Angelica"                               #< apiaceae
         animal: "Animal"                                   #< bioproduct
         animal_group: "Animal group"                       #< product_group
+        annona: "Annona"                                   #< annonaceae
+        annona_cherimola: "Cherimoya"                      #< annona
+        annona_glabra: "Pond apple"                        #< annona
+        annona_montana: "Mountain soursop"                 #< annona
+        annona_muricata: "Soursop"                         #< annona
+        annona_reticulata: "Custard apple"                 #< annona
+        annona_senegalensis: "Wild custard-apple"          #< annona
+        annona_squamosa: "Sweet sop"                       #< annona
         annonaceae: "Annonaceae"                           #< plant
         anser: "Anser"                                     #< anatidae
         anser_anser: "Anser anser"                         #< anser
@@ -3986,8 +4616,20 @@ eng:
         arctium: "Arctium"                                 #< asteraceae
         arctium_lappa: "Arctium lappa"                     #< arctium
         arctium_minus: "Arctium minus"                     #< arctium
+        argania: "Argania"                                 #< sapotaceae
+        argania_spinosa: "Argan"                           #< argania
         artemisia: "Artemisia"                             #< asteraceae
         artemisia_dracunculus: "Artemisia dracunculus"     #< artemisia
+        artocarpus: "Breadfruit family"                    #< moraceae
+        artocarpus_altilis: "Breadfruit"                   #< artocarpus
+        artocarpus_elasticus: "Elasticus artocarpus"       #< artocarpus
+        artocarpus_heterophyllus: "Jackfruit"              #< artocarpus
+        artocarpus_hirsutus: "Wilde Jack "                 #< artocarpus
+        artocarpus_integer: "Chempedak"                    #< artocarpus
+        artocarpus_mariannensis: "Dugdug"                  #< artocarpus
+        artocarpus_odoratissimus: "Marang"                 #< artocarpus
+        artocarpus_rigidus: "Monkey Jack"                  #< artocarpus
+        artocarpus_tamaran: "Tamaran artocarpus"           #< artocarpus
         asparagaceae: "Asparagaceae"                       #< plant
         asparagus: "Asparagus"                             #< asparagaceae
         asparagus_africanus: "Asparagus africanus"         #< asparagus
@@ -4100,6 +4742,7 @@ eng:
         brassica_napus: "Rapeseed"                         #< brassica
         brassica_napus_annua: "Brassica napus annua"       #< brassica_napus
         brassica_napus_napus: "Brassica napus napus"       #< brassica_napus
+        brassica_napus_napus_dk_exalte: "Brassica napus napus dk exalte" #< brassica_napus_napus
         brassica_napus_rapifera: "Rutabaga"                #< brassica_napus
         brassica_nigra: "Black mustard"                    #< brassica
         brassica_oleracea: "Cabbage"                       #< brassica
@@ -4182,8 +4825,12 @@ eng:
         cananga: "Cananga"                                 #< annonaceae
         cananga_odorata: "Cananga odorata"                 #< cananga
         canidae: "Canidae"                                 #< mammalia
+        canis: "Canis"                                     #< canidae
+        canis_lupus: "Canis lupus"                         #< canis
+        canis_lupus_familiaris: "Domestic dog"             #< canis_lupus
         cannabaceae: "Cannabaceae"                         #< plant
         cannabis: "Cannabis"                               #< cannabaceae
+        cannabis_antal: "Hemp Antal"                       #< cannabis
         cannabis_sativa: "Hemp"                            #< cannabis
         cannabis_sativa_armanca: "Hemp Armanca"            #< cannabis_sativa
         cannabis_sativa_benico: "Hemp Benico"              #< cannabis_sativa
@@ -4262,6 +4909,9 @@ eng:
         capsicum_frutescens: "Hot Pepper"                  #< capsicum
         capsicum_pubescens: "Rocoto"                       #< capsicum
         car: "Car"                                         #< motorized_vehicle
+        carica: "Carica"                                   #< caricaceae
+        carica_papaya: "Papaya"                            #< carica
+        caricaceae: "Caricaceae"                           #< plant
         carpinus: "Carpinus"                               #< betulaceae
         carpinus_betulus: "Carpinus betulus"               #< carpinus
         carpinus_caroliniana: "Carpinus caroliniana"       #< carpinus
@@ -4299,6 +4949,14 @@ eng:
         chenopodium_quinoa: "Chenopodium quinoa"           #< chenopodium
         chloris: "Chloris"                                 #< poaceae
         chloris_gayana: "Rhodes grass"                     #< chloris
+        chrysophyllum: "Goldenleaf"                        #< sapotaceae
+        chrysophyllum_africanum: "Chrysophyllum africanum" #< chrysophyllum
+        chrysophyllum_albidum: "White star apple"          #< chrysophyllum
+        chrysophyllum_argenteum: "Bastard redwood"         #< chrysophyllum
+        chrysophyllum_cainito: "Star apple"                #< chrysophyllum
+        chrysophyllum_mexicanum: "Mexican star apple"      #< chrysophyllum
+        chrysophyllum_oliviforme: "Saffron-tree"           #< chrysophyllum
+        chrysophyllum_pauciflorum: "Chrysophyllum pauciflorum" #< chrysophyllum
         chrysopogon: "Chrysopogon"                         #< poaceae
         chrysopogon_zizanioides: "Chrysopogon zizanioides" #< chrysopogon
         cicer: "Cicer"                                     #< fabaceae
@@ -4312,6 +4970,12 @@ eng:
         cichorium_endivia_mona: "Endive Mona"              #< cichorium_endivia
         cichorium_intybus: "Chicory Intybus"               #< cichorium
         cichorium_tete_d_anguille: "Chicory Tête d’anguille" #< cichorium
+        cinnamomum: "Cinnamon family"                      #< lauraceae
+        cinnamomum_burmannii: "Padang cassia"              #< cinnamomum
+        cinnamomum_camphora: "Camphortree"                 #< cinnamomum
+        cinnamomum_cassia: "Chinese cassia"                #< cinnamomum
+        cinnamomum_tamala: "Indian bark"                   #< cinnamomum
+        cinnamomum_verum: "Cinnamon"                       #< cinnamomum
         citrullus: "Watermelon"                            #< cucurbitaceae
         citrullus_colocynthis: "Colocynth"                 #< citrullus
         citrullus_lanatus: "Watermelon Common"             #< citrullus
@@ -4392,7 +5056,7 @@ eng:
         cucurbita_maxima_gros_jaune_de_paris: "Yellow Gourd" #< cucurbita_maxima
         cucurbita_maxima_honshu: "Squash Honshu"           #< cucurbita_maxima
         cucurbita_maxima_marina_di_chioggia: "Marina di Chioggia squash" #< cucurbita_maxima
-        cucurbita_maxima_maxima: "Common Winter squash "   #< cucurbita_maxima
+        cucurbita_maxima_maxima: "Common Winter squash"    #< cucurbita_maxima
         cucurbita_maxima_nelson: "Squash Nelson"           #< cucurbita_maxima
         cucurbita_maxima_noir_du_bresil: "Black Brasilian Pumpkin" #< cucurbita_maxima
         cucurbita_maxima_potimarron: "Potimarron"          #< cucurbita_maxima
@@ -4506,6 +5170,33 @@ eng:
         daucus_carota_yellow_doubs: "Carrot Yellow Doubs"  #< daucus_carota
         daucus_carota_yukon: "Carrot Yukon"                #< daucus_carota
         diervillaceae: "Diervillaceae"                     #< plant
+        dimocarpus: "Dimocarpus"                           #< sapindaceae
+        dimocarpus_longan: "Longan"                        #< dimocarpus
+        dioscorea: "Yam"                                   #< dioscoreaceae
+        dioscorea_alata: "Winged yam"                      #< dioscorea
+        dioscorea_altissima: "Dunguey"                     #< dioscorea
+        dioscorea_bulbifera: "Air potato"                  #< dioscorea
+        dioscorea_cayenensis: "Yellow guinea yam"          #< dioscorea
+        dioscorea_dumetorum: "Bitter yam"                  #< dioscorea
+        dioscorea_elephantipes: "Hottentot-bread"          #< dioscorea
+        dioscorea_esculenta: "Lesser yam"                  #< dioscorea
+        dioscorea_floridana: "Florida yam"                 #< dioscorea
+        dioscorea_hispida: "Intoxicating yam"              #< dioscorea
+        dioscorea_japonica: "Japanese yam"                 #< dioscorea
+        dioscorea_mexicana: "Dioscorea mexican yam"        #< dioscorea
+        dioscorea_nummularia: "Flattened yam"              #< dioscorea
+        dioscorea_oppositifolia: "Khmer yam"               #< dioscorea
+        dioscorea_pentaphylla: "Fiveleaf yam"              #< dioscorea
+        dioscorea_pilosiuscula: "Bulbous yam"              #< dioscorea
+        dioscorea_polygonoides: "Jamaican bitter yam"      #< dioscorea
+        dioscorea_polystachya: "Chinese yam"               #< dioscorea
+        dioscorea_praehensilis: "Bush yam"                 #< dioscorea
+        dioscorea_preussii: "Preuss' dioscorea"            #< dioscorea
+        dioscorea_rotundata: "Guinea yam"                  #< dioscorea
+        dioscorea_sansibarensis: "Zanzibar yam"            #< dioscorea
+        dioscorea_trifida: "Indian yam"                    #< dioscorea
+        dioscorea_villosa: "Wild yam"                      #< dioscorea
+        dioscoreaceae: "Yam family"                        #< plant
         easement: "Easement"                               #< zone
         egg: "Egg"                                         #< raw_matter
         elaeagnaceae: "Elaeagnaceae"                       #< plant
@@ -4540,6 +5231,9 @@ eng:
         fagopyrum_tataricum: "Japanese buckwheat"          #< fagopyrum
         fagus: "Beech"                                     #< fagaceae
         felidae: "Felidae"                                 #< mammalia
+        felis: "Felis"                                     #< felidae
+        felis_silvestris: "Felis silvestris"               #< felis
+        felis_silvestris_catus: "Domestic cat"             #< felis_silvestris
         fermented_juice: "Fermented juice"                 #< preparation
         fermented_milk: "Fermented milk"                   #< preparation
         festuca: "Fescue"                                  #< poaceae
@@ -4574,6 +5268,8 @@ eng:
         gallus_gallus_domesticus_gournay: "Domesticated chicken Gournay" #< gallus_gallus_domesticus
         gas: "Gas"                                         #< raw_matter
         gastropoda: "Gastropoda"                           #< animal
+        geraniaceae: "Geraniaceae"                         #< plant
+        geranium: "Geranium"                               #< geraniaceae
         gleditsia: "Gleditsia"                             #< fabaceae
         glycine: "Glycine"                                 #< fabaceae
         glycine_max: "Soy bean"                            #< glycine
@@ -4799,6 +5495,8 @@ eng:
         ipomoea_batatas: "Sweet potato"                    #< ipomoea
         ipomoea_batatas_beauregard: "Sweet potato Beauregard" #< ipomoea_batatas
         iridaceae: "Iridaceae"                             #< plant
+        jarilla: "Jarilla"                                 #< caricaceae
+        jarilla_heterophylla: "Jarilla heterophylla"       #< jarilla
         juglandaceae: "Juglandaceae"                       #< plant
         juglans: "Juglans"                                 #< juglandaceae
         juglans_regia: "Common walnut"                     #< juglans
@@ -5122,6 +5820,7 @@ eng:
         mammalia: "Mammalia"                               #< animal
         mangifera: "Mangifera"                             #< anacardiaceae
         manihot: "Manioc"                                  #< euphorbiaceae
+        manilkara_zapota: "Sapodilla"                      #< sapotaceae
         manure: "Manure"                                   #< excrement
         matter: "Matter"                                   #< product
         meat: "Meat"                                       #< raw_matter
@@ -5247,11 +5946,59 @@ eng:
         ovis: "Ovis"                                       #< bovidae
         ovis_aries: "Sheep"                                #< ovis
         packaged_matter: "Packaged matter"                 #< preparation
+        palaquium: "Palaquium"                             #< sapotaceae
+        palaquium_gutta: "Gutta percha"                    #< palaquium
         panicum: "Panicum"                                 #< poaceae
         panicum_miliaceum: "Common millet"                 #< panicum
         papaver: "Papaver"                                 #< papaveraceae
         papaver_somniferum: "Papaver somniferum"           #< papaver
         papaveraceae: "Papaveraceae"                       #< plant
+        passiflora: "Passionflower family"                 #< passifloraceae
+        passiflora_affinis: "Bracted passionflower"        #< passiflora
+        passiflora_anadenia: "Tropical passionflower"      #< passiflora
+        passiflora_antioquiensis: "Antioquiensis passionflower" #< passiflora
+        passiflora_arizonica: "Arizona passionflower"      #< passiflora
+        passiflora_berteroana: "Berteroana passionflower"  #< passiflora
+        passiflora_bicornis: "wingleaf passionflower"      #< passiflora
+        passiflora_biflora: "Passiflora biflora"           #< passiflora
+        passiflora_bilobata: "Twoflower passionflower"     #< passiflora
+        passiflora_bryonioides: "Cupped passionflower"     #< passiflora
+        passiflora_caerulea: "Blue passionflower"          #< passiflora
+        passiflora_ciliata: "Fringed passionflower"        #< passiflora
+        passiflora_cincinnata: "Crato passionvine"         #< passiflora
+        passiflora_coccinea: "Scarlet passionflower"       #< passiflora
+        passiflora_edulis: "Passionflower"                 #< passiflora
+        passiflora_filipes: "Slender passionflower"        #< passiflora
+        passiflora_foetida: "Stinking passionflower"       #< passiflora
+        passiflora_gracilis: "Crinkled passionflower"      #< passiflora
+        passiflora_incarnata: "Purple passionflower"       #< passiflora
+        passiflora_laurifolia: "Golden bellapple"          #< passiflora
+        passiflora_ligularis: "Yellow passionfruit"        #< passiflora
+        passiflora_lutea: "Yellow passionflower"           #< passiflora
+        passiflora_maliformis: "Conch apple"               #< passiflora
+        passiflora_manicata: "Red passionflower"           #< passiflora
+        passiflora_mexicana: "Mexican passionflower"       #< passiflora
+        passiflora_mixta: "Mixta passionflower"            #< passiflora
+        passiflora_morifolia: "Woodland passionflower"     #< passiflora
+        passiflora_multiflora: "Whiteflower passionflower" #< passiflora
+        passiflora_murucuja: "Virgin Island passionflower" #< passiflora
+        passiflora_pallens: "Pineland passionflower"       #< passiflora
+        passiflora_pallida: "Corkystem passionflower"      #< passiflora
+        passiflora_quadrangularis: "Giant granadilla"      #< passiflora
+        passiflora_racemosa: "Racemes passionflower"       #< passiflora
+        passiflora_rubra: "Dutchman's laudanum"            #< passiflora
+        passiflora_serratodigitata: "Tagua Tagua"          #< passiflora
+        passiflora_sexflora: "Goatsfoot"                   #< passiflora
+        passiflora_suberosa: "Corky passionflower"         #< passiflora
+        passiflora_subpeltata: "White passionflower"       #< passiflora
+        passiflora_tarminiana: "Banana poka"               #< passiflora
+        passiflora_tenuiloba: "Birdwing passionflower"     #< passiflora
+        passiflora_tripartita: "Banana passionfruit"       #< passiflora
+        passiflora_tripartita_mollissima: "Banana passionflower" #< passiflora
+        passiflora_tuberosa: "Tuberous passionflower"      #< passiflora
+        passiflora_tulae: "Mountain love in the mist"      #< passiflora
+        passiflora_vitifolia: "Perfumed passionflower"     #< passiflora
+        passifloraceae: "Passifloraceae"                   #< plant
         pastinaca: "Pastinaca"                             #< apiaceae
         pastinaca_sativa: "Parsnip"                        #< pastinaca
         pastinaca_sativa_javelin: "Parsnip Javelin"        #< pastinaca_sativa
@@ -5299,6 +6046,10 @@ eng:
         phytoptus_avellanae: "Phytoptus avellanae"         #< insecta
         pimpinella: "Pimpinella"                           #< apiaceae
         pimpinella_anisum: "Pimpinella anisum"             #< pimpinella
+        piriqueta: "Stripeseed"                            #< passifloraceae
+        piriqueta_cistoides: "Pitted stripeseed"           #< piriqueta
+        piriqueta_racemosa: "Rigid stripeseed"             #< piriqueta
+        piriqueta_viscosa: "Purple stripeseed"             #< piriqueta
         pistacia: "Pistacia"                               #< anacardiaceae
         pistacia_vera: "Pistacia vera"                     #< pistacia
         pisum: "Pisum"                                     #< fabaceae
@@ -5333,6 +6084,11 @@ eng:
         poncirus: "Prickly lemon tree"                     #< rutaceae
         portable_equipment: "Portable equipment"           #< equipment
         potassium_ferrocyanide: "Potassium ferrocyanide"   #< raw_matter
+        pouteria: "Eggfruit"                               #< sapotaceae
+        pouteria_caimito: "Abiu"                           #< pouteria
+        pouteria_campechiana: "Canistel"                   #< pouteria
+        pouteria_lucuma: "Lucuma"                          #< pouteria
+        pouteria_sapota: "Mamey Sapote"                    #< pouteria
         preparation: "Preparation"                         #< matter
         primula: "Primula"                                 #< primulaceae
         primulaceae: "Primulaceae"                         #< plant
@@ -5438,6 +6194,12 @@ eng:
         prunus_salicina_anne_gold: "Prunus salicina Anne gold" #< prunus_salicina
         prunus_salicina_awaso: "Prunus salicina Awaso"     #< prunus_salicina
         prunus_salicina_beauty: "Prunus salicina Beauty"   #< prunus_salicina
+        psidium: "Guavas"                                  #< myrtaceae
+        psidium_amplexicaule: "Mountain guava"             #< psidium
+        psidium_calyptranthoides: "Luquillo Mountain guava" #< psidium
+        psidium_cattleianum: "Cattley guava"               #< psidium
+        psidium_friedrichsthalianum: "Wild guava"          #< psidium
+        psidium_guajava: "Guava"                           #< psidium
         pyrus: "Pyrus"                                     #< rosaceae
         pyrus_communis: "Pear tree"                        #< pyrus
         pyrus_communis_beurre_d_anjou: "Pear tree Beurée d’Anjou" #< pyrus_communis
@@ -5515,6 +6277,8 @@ eng:
         pyrus_communis_william: "Pear tree William"        #< pyrus_communis
         pyrus_communis_william_bon_chretien: "Pear tree William Bon-Chretien" #< pyrus_communis
         quercus: "Oak"                                     #< fagaceae
+        rajania: "Rajania"                                 #< dioscoreaceae
+        rajania_cordata: "Himber"                          #< rajania
         raphanus: "Raphanus"                               #< brassicaceae
         raphanus_sativus: "Radish"                         #< raphanus
         raphanus_sativus_daïkon: "Radish daïkon"           #< raphanus_sativus
@@ -5578,6 +6342,7 @@ eng:
         sambucus_nigra: "Sambucus nigra"                   #< sambucus
         sand: "Sand"                                       #< raw_matter
         sapindaceae: "Sapindaceae"                         #< plant
+        sapotaceae: "Sapotaceae"                           #< plant
         satureja: "Satureja"                               #< lamiaceae
         scaphoideus_titanus: "Scaphoideus titanus"         #< insecta
         sclerotiniaceae: "Sclerotiniaceae"                 #< fungus
@@ -6025,6 +6790,8 @@ eng:
         theobroma_cacao: "Cocoa tree"                      #< theobroma
         theobroma_grandiflorum: "Theobroma grandiflorum"   #< theobroma
         thymus: "Thymus"                                   #< lamiaceae
+        tieghemella: "Tieghemella"                         #< sapotaceae
+        tieghemella_heckelii: "Cherry Mahogany"            #< tieghemella
         tilia: "Tilia"                                     #< malvaceae
         tilia_americana: "Tilia americana"                 #< tilia
         tilia_cordata: "Tilia cordata"                     #< tilia
@@ -6076,14 +6843,17 @@ eng:
         triticosecale: "Triticale"                         #< poaceae
         triticum: "Wheat"                                  #< poaceae
         triticum_aestivum: "Common wheat"                  #< triticum
+        triticum_aestivum_alixan: "Common wheat Alixan"    #< triticum_aestivum
         triticum_aestivum_allies: "Common wheat Alliès"    #< triticum_aestivum
         triticum_aestivum_apache: "Common wheat Apache"    #< triticum_aestivum
-        triticum_aestivum_arezzo: "Common wheat arezzo"    #< triticum_aestivum
+        triticum_aestivum_arezzo: "Common wheat Arezzo"    #< triticum_aestivum
+        triticum_aestivum_as_de_coeur: "Common wheat As de Cœur" #< triticum_aestivum
         triticum_aestivum_ascott: "Common wheat Ascott"    #< triticum_aestivum
         triticum_aestivum_autan: "Common wheat Autan"      #< triticum_aestivum
         triticum_aestivum_automne_rouge_barbu: "Common wheat Automne rouge barbu" #< triticum_aestivum
         triticum_aestivum_autrichien: "Common wheat Autrichien" #< triticum_aestivum
         triticum_aestivum_aztec: "Common wheat Aztec"      #< triticum_aestivum
+        triticum_aestivum_bermude: "Common wheat Bermude"  #< triticum_aestivum
         triticum_aestivum_blanc_de_flandre: "Common wheat Blanc de Flandre" #< triticum_aestivum
         triticum_aestivum_ble_de_crepi: "Common wheat Blé de Crépi" #< triticum_aestivum
         triticum_aestivum_ble_de_redon: "Common wheat Blé de Redon" #< triticum_aestivum
@@ -6121,10 +6891,12 @@ eng:
         triticum_aestivum_later: "Common wheat Later"      #< triticum_aestivum
         triticum_aestivum_levis: "Common wheat Levis"      #< triticum_aestivum
         triticum_aestivum_lona: "Common wheat Lona"        #< triticum_aestivum
+        triticum_aestivum_lyrik: "Common wheat Lyrik"      #< triticum_aestivum
         triticum_aestivum_manital: "Common wheat Manital"  #< triticum_aestivum
         triticum_aestivum_noe: "Common wheat Noé"          #< triticum_aestivum
         triticum_aestivum_nord_desprez: "Common wheat Nord-Desprez" #< triticum_aestivum
         triticum_aestivum_oratorio: "Common wheat Oratorio" #< triticum_aestivum
+        triticum_aestivum_oregrain: "Common wheat Oregrain" #< triticum_aestivum
         triticum_aestivum_picardie_desprez: "Common wheat Picardie-Desprez" #< triticum_aestivum
         triticum_aestivum_poulard_d_australie: "Common wheat Poulard d’Australie" #< triticum_aestivum
         triticum_aestivum_premio: "Common wheat Premio"    #< triticum_aestivum
@@ -6137,17 +6909,21 @@ eng:
         triticum_aestivum_quebon: "Common wheat Quebon"    #< triticum_aestivum
         triticum_aestivum_recital: "Common wheat Recital"  #< triticum_aestivum
         triticum_aestivum_renan: "Common wheat Renan"      #< triticum_aestivum
+        triticum_aestivum_rgt_sacramento: "Common wheat RGT Sacramento" #< triticum_aestivum
         triticum_aestivum_rouge_d_alsace: "Common wheat Rouge d’Alsace (synonyme Rouge d’Altkirch)" #< triticum_aestivum
         triticum_aestivum_rouge_de_bordeaux: "Common wheat Rouge de Bordeaux" #< triticum_aestivum
         triticum_aestivum_roux_des_ardennes: "Common wheat Roux des Ardennes" #< triticum_aestivum
         triticum_aestivum_rubisko: "Common wheat Rubisko"  #< triticum_aestivum
         triticum_aestivum_runal: "Common wheat Runal"      #< triticum_aestivum
+        triticum_aestivum_sherlock: "Common wheat Sherlock" #< triticum_aestivum
         triticum_aestivum_shireff_epis_carres: "Common wheat Shireff à épis carrés (synonyme Shireff squarehead)" #< triticum_aestivum
         triticum_aestivum_soissons: "Common wheat Soissons" #< triticum_aestivum
         triticum_aestivum_tamaro: "Common wheat Tamaro"    #< triticum_aestivum
+        triticum_aestivum_terroir: "Common wheat Terroir"  #< triticum_aestivum
         triticum_aestivum_teverson: "Common wheat Teverson" #< triticum_aestivum
         triticum_aestivum_texel: "Common wheat Texel"      #< triticum_aestivum
         triticum_aestivum_tremie: "Common wheat Tremie"    #< triticum_aestivum
+        triticum_aestivum_triomph: "Common wheat Triomph"  #< triticum_aestivum
         triticum_aestivum_victoria_d_automne: "Common wheat victoria d automne" #< triticum_aestivum
         triticum_aestivum_vilmorin_23: "Common wheat Vilmorin 23" #< triticum_aestivum
         triticum_aestivum_vilmorin_27: "Common wheat Vilmorin 27" #< triticum_aestivum
@@ -6173,6 +6949,7 @@ eng:
         triticum_durum_babylone: "Durum wheat Babylone"    #< triticum_durum
         triticum_durum_biensur: "Durum wheat Biensur"      #< triticum_durum
         triticum_durum_byblos: "Durum wheat Byblos"        #< triticum_durum
+        triticum_durum_byzance: "Durum wheat Byzance"      #< triticum_durum
         triticum_durum_casteldoux: "Durum wheat Casteldoux" #< triticum_durum
         triticum_durum_catervo: "Durum wheat Catervo"      #< triticum_durum
         triticum_durum_cesare: "Durum wheat Cesare"        #< triticum_durum
@@ -6195,6 +6972,7 @@ eng:
         triticum_durum_gainsur: "Durum wheat Gainsur"      #< triticum_durum
         triticum_durum_gibus: "Durum wheat Gibus"          #< triticum_durum
         triticum_durum_grazia: "Durum wheat Grazia"        #< triticum_durum
+        triticum_durum_haristide: "Durum wheat Haristide"  #< triticum_durum
         triticum_durum_isildur: "Durum wheat Isildur"      #< triticum_durum
         triticum_durum_ismur: "Durum wheat Ismur"          #< triticum_durum
         triticum_durum_joyau: "Durum wheat Joyau"          #< triticum_durum
@@ -6205,6 +6983,7 @@ eng:
         triticum_durum_latinur: "Durum wheat Latinur"      #< triticum_durum
         triticum_durum_lemur: "Durum wheat Lemur"          #< triticum_durum
         triticum_durum_levante: "Durum wheat Levante"      #< triticum_durum
+        triticum_durum_lg_boris: "Durum wheat LG Boris"    #< triticum_durum
         triticum_durum_liberdur: "Durum wheat Liberdur"    #< triticum_durum
         triticum_durum_lloyd: "Durum wheat Lloyd"          #< triticum_durum
         triticum_durum_luminur: "Durum wheat Luminur"      #< triticum_durum
@@ -6238,10 +7017,13 @@ eng:
         triticum_durum_relief: "Durum wheat Relief"        #< triticum_durum
         triticum_durum_rgt_albiozur: "Durum wheat RGT Albiozur" #< triticum_durum
         triticum_durum_rgt_fabionur: "Durum wheat RGT Fabionur" #< triticum_durum
+        triticum_durum_rgt_fiertimur: "Durum wheat RGT Fiertimur" #< triticum_durum
         triticum_durum_rgt_izaldur: "Durum wheat RGT Izaldur" #< triticum_durum
         triticum_durum_rgt_musclur: "Durum wheat RGT Musclur" #< triticum_durum
         triticum_durum_rgt_nomur: "Durum wheat RGT Nomur"  #< triticum_durum
+        triticum_durum_rgt_voilur: "Durum wheat RGT Voilur" #< triticum_durum
         triticum_durum_sachem: "Durum wheat Sachem"        #< triticum_durum
+        triticum_durum_santur: "Durum wheat Santur"        #< triticum_durum
         triticum_durum_saragolla: "Durum wheat Saragolla"  #< triticum_durum
         triticum_durum_sculptur: "Durum wheat Sculptur"    #< triticum_durum
         triticum_durum_sorriso: "Durum wheat Sorriso"      #< triticum_durum
@@ -6252,13 +7034,21 @@ eng:
         triticum_durum_sy_esperto: "Durum wheat SY Esperto" #< triticum_durum
         triticum_durum_tablur: "Durum wheat Tablur"        #< triticum_durum
         triticum_durum_tiziana: "Durum wheat Tiziana"      #< triticum_durum
+        triticum_durum_toscadou: "Durum wheat Toscadou"    #< triticum_durum
         triticum_durum_virgilio: "Durum wheat Virgilio"    #< triticum_durum
         triticum_durum_vivadur: "Durum wheat Vivadur"      #< triticum_durum
         triticum_durum_yelodur: "Durum wheat Yelodur"      #< triticum_durum
         triticum_spelta: "Spelt"                           #< triticum
         truck: "Truck"                                     #< motorized_vehicle
+        turnera: "Turnera"                                 #< passifloraceae
+        turnera_coerula: "Turnera coerula"                 #< turnera
+        turnera_diffusa: "Damiana"                         #< turnera
+        turnera_pumilea: "Yellow alder"                    #< turnera
+        turnera_ulmifolia: "Ramgoat dashalong"             #< turnera
         uncinula: "Uncinula"                               #< erysiphaceae
         uncinula_necator: "Uncinula necator"               #< uncinula
+        urtica: "Nettle"                                   #< urticaceae
+        urticaceae: "Urticaceae"                           #< plant
         valeriana: "Valeriana"                             #< valerianaceae
         valerianaceae: "Valerianaceae"                     #< plant
         valerianella: "Valerianella"                       #< valerianaceae
@@ -6266,6 +7056,10 @@ eng:
         vanilla: "Vanilla"                                 #< orchidaceae
         vanilla_planifolia: "Vanilla planifolia"           #< vanilla
         vanilla_pompona: "Vanilla pompona"                 #< vanilla
+        vasconcellea: "Vasconcellea"                       #< caricaceae
+        vasconcellea_monoica: "Col de monte"               #< vasconcellea
+        vasconcellea_pubescens: "Mountain papaya"          #< vasconcellea
+        vasconcellea_quercifolia: "Oak leaf papaya"        #< vasconcellea
         vegetable: "Vegetable"                             #< raw_matter
         veronica: "Veronica"                               #< plantaginaceae
         vial: "Vial"                                       #< raw_matter
@@ -6287,6 +7081,8 @@ eng:
         violaceae: "Violaceae"                             #< plant
         virus: "Virus"                                     #< matter
         vitaceae: "Vitaceae"                               #< plant
+        vitellaria: "Vitellaria"                           #< sapotaceae
+        vitellaria_paradoxa: "Shea tree"                   #< vitellaria
         vitex: "Vitex"                                     #< lamiaceae
         vitex_agnus_castus: "Vitex agnus castus"           #< vitex
         vitis: "Vitis"                                     #< vitaceae

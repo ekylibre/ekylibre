@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2016 Brice Texier, David Joulin
+# Copyright (C) 2012-2017 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -72,6 +72,7 @@ class Subscription < Ekylibre::Record::Base
   scope :stopped_between, ->(started_on, stopped_on) { where('stopped_on BETWEEN ? AND ? AND id NOT IN (SELECT parent_id FROM subscriptions WHERE parent_id IS NOT NULL)', started_on, stopped_on) }
   scope :renewed_between, ->(started_on, stopped_on) { where('stopped_on BETWEEN ? AND ? AND id IN (SELECT parent_id FROM subscriptions WHERE parent_id IS NOT NULL)', started_on, stopped_on) }
   scope :between, ->(started_on, stopped_on) { where('started_on BETWEEN ? AND ? OR stopped_on BETWEEN ? AND ? OR (started_on < ? AND ? < stopped_on)', started_on, stopped_on, started_on, stopped_on, started_on, stopped_on) }
+  scope :active, -> { where('NOT suspended AND ? BETWEEN started_on AND stopped_on', Time.zone.today) }
 
   delegate :name, to: :nature, prefix: true
 
@@ -122,24 +123,31 @@ class Subscription < Ekylibre::Record::Base
     sale_item && children.empty?
   end
 
-  # Create a Sale, a SaleItem and a Subscription linked to current subscription
-  # Inspired by Sale#duplicate
-  def renew!(attributes = {})
+  # Returns a hash to create a Sale with a SaleItem and a Subscription linked
+  # to current subscription
+  def renew_attributes(attributes = {})
     hash = {
       client_id: sale.client_id,
       nature_id: sale.nature_id,
       letter_format: false
     }
     # Items
-    attrs = [
-      :variant_id, :quantity, :amount, :label, :pretax_amount, :annotation,
-      :reduction_percentage, :tax_id, :unit_amount, :unit_pretax_amount
+    attrs = %i[
+      variant_id quantity amount label pretax_amount annotation
+      reduction_percentage tax_id unit_amount unit_pretax_amount
     ].each_with_object({}) do |field, h|
-      h[field] = sale_item.send(field)
+      v = sale_item.send(field)
+      h[field] = v if v.present?
     end
     attrs[:subscription_attributes] = following_attributes
     hash[:items_attributes] = { '0' => attrs }
-    Sale.create!(hash.with_indifferent_access.deep_merge(attributes))
+    hash.with_indifferent_access.deep_merge(attributes)
+  end
+
+  # Create a Sale, a SaleItem and a Subscription linked to current subscription
+  # Inspired by Sale#duplicate
+  def renew!(attributes = {})
+    Sale.create!(renew_attributes(attributes))
   end
 
   def following_attributes
@@ -165,7 +173,7 @@ class Subscription < Ekylibre::Record::Base
   end
 
   def suspendable?
-    !suspended
+    !suspended && active?
   end
 
   def active?

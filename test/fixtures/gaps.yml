@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2016 Brice Texier, David Joulin
+# Copyright (C) 2012-2017 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -30,18 +30,72 @@
 #  currency         :string           not null
 #  direction        :string           not null
 #  entity_id        :integer          not null
-#  entity_role      :string           not null
 #  id               :integer          not null, primary key
 #  journal_entry_id :integer
 #  lock_version     :integer          default(0), not null
 #  number           :string           not null
 #  pretax_amount    :decimal(19, 4)   default(0.0), not null
 #  printed_at       :datetime         not null
+#  type             :string
 #  updated_at       :datetime         not null
 #  updater_id       :integer
 #
 ---
-gaps_001:
+purchase_gaps_001:
+  accounted_at: 2016-11-20 22:15:36.529707000 Z
+  affair_id: 51
+  amount: 1200.0
+  created_at: 2016-11-20 22:15:36.371988000 Z
+  creator_id: 1
+  currency: EUR
+  direction: profit
+  entity_id: 4
+  id: 6
+  journal_entry_id: 107
+  lock_version: 0
+  number: E000000000005
+  pretax_amount: 1000.0
+  printed_at: 2016-11-20 22:15:36.363682000 Z
+  type: PurchaseGap
+  updated_at: 2016-11-20 22:15:36.371988000 Z
+  updater_id: 1
+purchase_gaps_002:
+  accounted_at: 2016-12-20 18:16:18.036138000 Z
+  affair_id: 53
+  amount: 4878.72
+  created_at: 2016-12-20 18:16:17.942214000 Z
+  creator_id: 1
+  currency: EUR
+  direction: profit
+  entity_id: 5
+  id: 7
+  journal_entry_id: 113
+  lock_version: 0
+  number: E000000000006
+  pretax_amount: 4435.2
+  printed_at: 2016-12-20 18:16:17.936105000 Z
+  type: PurchaseGap
+  updated_at: 2016-12-20 18:16:17.942214000 Z
+  updater_id: 1
+purchase_gaps_003:
+  accounted_at: 2016-12-20 18:17:24.151452000 Z
+  affair_id: 54
+  amount: 10.25
+  created_at: 2016-12-20 18:17:24.063177000 Z
+  creator_id: 1
+  currency: EUR
+  direction: loss
+  entity_id: 4
+  id: 8
+  journal_entry_id: 116
+  lock_version: 0
+  number: E000000000007
+  pretax_amount: 10.25
+  printed_at: 2016-12-20 18:17:24.055926000 Z
+  type: PurchaseGap
+  updated_at: 2016-12-20 18:17:24.063177000 Z
+  updater_id: 1
+sale_gaps_001:
   accounted_at: 2014-11-05 13:35:14.587933000 Z
   affair_id: 14
   amount: -11.23
@@ -50,16 +104,16 @@ gaps_001:
   currency: EUR
   direction: loss
   entity_id: 10
-  entity_role: client
   id: 3
   journal_entry_id: 18
   lock_version: 0
   number: E000000000002
   pretax_amount: -9.36
   printed_at: 2014-11-05 13:35:14.423643000 Z
+  type: SaleGap
   updated_at: 2014-11-05 13:35:14.448437000 Z
   updater_id: 1
-gaps_002:
+sale_gaps_002:
   accounted_at: 2014-11-05 13:36:51.461191000 Z
   affair_id: 17
   amount: 0.8
@@ -68,12 +122,30 @@ gaps_002:
   currency: EUR
   direction: profit
   entity_id: 10
-  entity_role: client
   id: 4
   journal_entry_id: 19
   lock_version: 0
   number: E000000000003
   pretax_amount: 0.8
   printed_at: 2014-11-05 13:36:51.319412000 Z
+  type: SaleGap
   updated_at: 2014-11-05 13:36:51.329768000 Z
+  updater_id: 1
+sale_gaps_003:
+  accounted_at: 2016-11-20 22:11:32.696576000 Z
+  affair_id: 47
+  amount: -3.74
+  created_at: 2016-11-20 22:11:32.582746000 Z
+  creator_id: 1
+  currency: EUR
+  direction: loss
+  entity_id: 9
+  id: 5
+  journal_entry_id: 97
+  lock_version: 0
+  number: E000000000004
+  pretax_amount: -3.1167
+  printed_at: 2016-11-20 22:11:32.575531000 Z
+  type: SaleGap
+  updated_at: 2016-11-20 22:11:32.582746000 Z
   updater_id: 1

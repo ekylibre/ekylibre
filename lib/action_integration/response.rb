@@ -25,8 +25,16 @@ module ActionIntegration
     def self.new_from_httpi(httpi_response)
       new(
         code: httpi_response.code,
-        headers: httpi.headers,
-        body: httpi.raw_body
+        headers: httpi_response.headers,
+        body: httpi_response.raw_body
+      )
+    end
+
+    def self.new_from_savon(savon_response)
+      new(
+        code: savon_response.http.code,
+        headers: savon_response.http.headers,
+        body: savon_response.body
       )
     end
 
@@ -39,7 +47,7 @@ module ActionIntegration
     end
 
     def error(error_code = nil, match = false, &block)
-      state_handling(:error, %w(4 5), error_code, match, &block)
+      state_handling(:error, %w[4 5], error_code, match, &block)
     end
 
     def client_error(error_code = nil, match = false, &block)
@@ -72,8 +80,8 @@ module ActionIntegration
     end
 
     def code_match?(code, http_codes)
-      return http_codes.include?(code.first.to_s) if http_codes.is_a? Array
-      http_codes.to_s == code.first.to_s
+      return http_codes.include?(code.to_s.first) if http_codes.is_a? Array
+      http_codes.to_s == code.to_s.first
     end
   end
 end

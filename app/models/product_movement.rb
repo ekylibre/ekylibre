@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2016 Brice Texier, David Joulin
+# Copyright (C) 2012-2017 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -25,6 +25,7 @@
 #  created_at      :datetime         not null
 #  creator_id      :integer
 #  delta           :decimal(19, 4)   not null
+#  description     :string
 #  id              :integer          not null, primary key
 #  intervention_id :integer
 #  lock_version    :integer          default(0), not null
@@ -51,6 +52,8 @@ class ProductMovement < Ekylibre::Record::Base
   validates :stopped_at, timeliness: { on_or_after: ->(product_movement) { product_movement.started_at || Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
   validates :product, presence: true
   # ]VALIDATORS]
+
+  enumerize :description, in: %i[birth purchase loan butchery consumption sale death]
 
   before_validation do
     # NOTE: -! Deprecated !- only there for it to work until 3.0

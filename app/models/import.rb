@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2016 Brice Texier, David Joulin
+# Copyright (C) 2012-2017 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -42,7 +42,7 @@
 class Import < Ekylibre::Record::Base
   belongs_to :importer, class_name: 'User'
   enumerize :nature, in: ActiveExchanger::Base.importers.keys, i18n_scope: ['exchangers']
-  enumerize :state, in: [:undone, :in_progress, :errored, :aborted, :finished], predicates: true, default: :undone
+  enumerize :state, in: %i[undone in_progress errored aborted finished], predicates: true, default: :undone
   has_attached_file :archive, path: ':tenant/:class/:id/:style.:extension'
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :archive_content_type, :archive_file_name, length: { maximum: 500 }, allow_blank: true
@@ -90,7 +90,7 @@ class Import < Ekylibre::Record::Base
     update_columns(state: :in_progress, progression_percentage: 0)
     File.write(progress_file, 0.to_s)
     Ekylibre::Record::Base.transaction do
-      ActiveExchanger::Base.import(nature.to_sym, archive.path) do |progression, count|
+      ActiveExchanger::Base.find_and_import(nature.to_sym, archive.path) do |progression, count|
         update_columns(progression_percentage: progression)
         raise InterruptRequest unless File.exist? progress_file
         File.write(progress_file, progression.to_i.to_s)

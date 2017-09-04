@@ -1,6 +1,6 @@
 ====== Automatic accounting of business operations ======
 
-If you have not enabled the //auto accounting// in the [[>backend/settings#edit|configuration of your company]], you can make it manually to create all the records corresponding to your operations.
+If you have not enabled the //auto accounting// in the [[>backend/companies#edit|configuration of your company]], you can make it manually to create all the records corresponding to your operations.
 
 You choose the date by which you want to record transactions and once selected you confirm if everything is correct.
 

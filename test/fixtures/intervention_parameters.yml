@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2016 Brice Texier, David Joulin
+# Copyright (C) 2012-2017 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -27,9 +27,11 @@
 #  created_at               :datetime         not null
 #  creator_id               :integer
 #  currency                 :string
+#  dead                     :boolean          default(FALSE), not null
 #  event_participation_id   :integer
 #  group_id                 :integer
 #  id                       :integer          not null, primary key
+#  identification_number    :string
 #  intervention_id          :integer          not null
 #  lock_version             :integer          default(0), not null
 #  new_container_id         :integer
@@ -56,6 +58,7 @@
 intervention_doers_001:
   created_at: 2014-11-04 18:31:09.305211000 Z
   creator_id: 1
+  dead: false
   event_participation_id: 13
   id: 30
   intervention_id: 9
@@ -72,6 +75,7 @@ intervention_doers_001:
 intervention_doers_002:
   created_at: 2014-11-04 18:41:39.752672000 Z
   creator_id: 1
+  dead: false
   event_participation_id: 14
   id: 35
   intervention_id: 10
@@ -88,6 +92,7 @@ intervention_doers_002:
 intervention_doers_003:
   created_at: 2014-11-05 15:39:35.626436000 Z
   creator_id: 1
+  dead: false
   event_participation_id: 23
   id: 41
   intervention_id: 11
@@ -104,6 +109,7 @@ intervention_doers_003:
 intervention_doers_004:
   created_at: 2014-11-06 17:47:16.022902000 Z
   creator_id: 1
+  dead: false
   event_participation_id: 24
   id: 45
   intervention_id: 12
@@ -120,6 +126,7 @@ intervention_doers_004:
 intervention_doers_005:
   created_at: 2014-11-06 17:49:34.382240000 Z
   creator_id: 1
+  dead: false
   event_participation_id: 25
   id: 52
   intervention_id: 13
@@ -136,6 +143,7 @@ intervention_doers_005:
 intervention_doers_006:
   created_at: 2014-11-07 14:44:11.029745000 Z
   creator_id: 1
+  dead: false
   event_participation_id: 26
   id: 59
   intervention_id: 14
@@ -152,6 +160,7 @@ intervention_doers_006:
 intervention_doers_007:
   created_at: 2014-11-07 15:02:12.160940000 Z
   creator_id: 1
+  dead: false
   event_participation_id: 27
   id: 64
   intervention_id: 15
@@ -168,6 +177,7 @@ intervention_doers_007:
 intervention_doers_008:
   created_at: 2014-11-07 15:26:35.559939000 Z
   creator_id: 1
+  dead: false
   event_participation_id: 28
   id: 69
   intervention_id: 16
@@ -184,6 +194,7 @@ intervention_doers_008:
 intervention_doers_009:
   created_at: 2014-11-07 15:45:30.924281000 Z
   creator_id: 1
+  dead: false
   event_participation_id: 29
   id: 75
   intervention_id: 17
@@ -200,6 +211,7 @@ intervention_doers_009:
 intervention_doers_010:
   created_at: 2014-11-07 16:20:51.439031000 Z
   creator_id: 1
+  dead: false
   event_participation_id: 30
   id: 88
   intervention_id: 20
@@ -216,6 +228,7 @@ intervention_doers_010:
 intervention_doers_011:
   created_at: 2014-11-07 16:49:41.942487000 Z
   creator_id: 1
+  dead: false
   event_participation_id: 31
   id: 94
   intervention_id: 21
@@ -232,6 +245,7 @@ intervention_doers_011:
 intervention_doers_012:
   created_at: 2014-11-07 16:49:41.951173000 Z
   creator_id: 1
+  dead: false
   event_participation_id: 32
   id: 95
   intervention_id: 21
@@ -248,6 +262,7 @@ intervention_doers_012:
 intervention_doers_013:
   created_at: 2014-11-07 16:58:54.144194000 Z
   creator_id: 1
+  dead: false
   event_participation_id: 33
   id: 103
   intervention_id: 22
@@ -264,6 +279,7 @@ intervention_doers_013:
 intervention_doers_014:
   created_at: 2014-11-07 17:07:15.612283000 Z
   creator_id: 1
+  dead: false
   event_participation_id: 34
   id: 105
   intervention_id: 23
@@ -280,6 +296,7 @@ intervention_doers_014:
 intervention_doers_015:
   created_at: 2014-11-07 19:02:48.901584000 Z
   creator_id: 1
+  dead: false
   event_participation_id: 36
   id: 122
   intervention_id: 25
@@ -296,6 +313,7 @@ intervention_doers_015:
 intervention_doers_016:
   created_at: 2014-11-07 19:08:38.797904000 Z
   creator_id: 1
+  dead: false
   event_participation_id: 37
   id: 129
   intervention_id: 26
@@ -312,6 +330,7 @@ intervention_doers_016:
 intervention_doers_017:
   created_at: 2014-11-07 19:12:37.538291000 Z
   creator_id: 1
+  dead: false
   event_participation_id: 38
   id: 135
   intervention_id: 27
@@ -328,6 +347,7 @@ intervention_doers_017:
 intervention_doers_018:
   created_at: 2014-11-07 19:23:41.928210000 Z
   creator_id: 1
+  dead: false
   event_participation_id: 39
   id: 140
   intervention_id: 28
@@ -344,6 +364,7 @@ intervention_doers_018:
 intervention_doers_019:
   created_at: 2014-11-07 19:36:53.137218000 Z
   creator_id: 1
+  dead: false
   event_participation_id: 40
   id: 148
   intervention_id: 29
@@ -360,6 +381,7 @@ intervention_doers_019:
 intervention_doers_020:
   created_at: 2016-07-01 20:46:56.153024000 Z
   creator_id: 1
+  dead: false
   event_participation_id: 61
   id: 157
   intervention_id: 30
@@ -375,6 +397,7 @@ intervention_doers_020:
 intervention_group_parameters_001:
   created_at: 2014-11-07 15:45:30.882661000 Z
   creator_id: 1
+  dead: false
   id: 154
   intervention_id: 17
   lock_version: 2
@@ -387,6 +410,7 @@ intervention_group_parameters_001:
 intervention_group_parameters_002:
   created_at: 2014-11-06 17:49:34.368349000 Z
   creator_id: 1
+  dead: false
   id: 155
   intervention_id: 13
   lock_version: 2
@@ -399,6 +423,7 @@ intervention_group_parameters_002:
 intervention_group_parameters_003:
   created_at: 2014-11-05 15:39:35.599908000 Z
   creator_id: 1
+  dead: false
   id: 156
   intervention_id: 11
   lock_version: 4
@@ -411,6 +436,7 @@ intervention_group_parameters_003:
 intervention_group_parameters_004:
   created_at: 2016-08-10 14:33:28.788139000 Z
   creator_id: 1
+  dead: false
   id: 167
   intervention_id: 33
   lock_version: 0
@@ -420,9 +446,23 @@ intervention_group_parameters_004:
   unit_pretax_stock_amount: 0.0
   updated_at: 2016-08-10 14:33:28.788139000 Z
   updater_id: 1
+intervention_group_parameters_005:
+  created_at: 2016-12-20 18:24:29.441152000 Z
+  creator_id: 1
+  dead: false
+  id: 170
+  intervention_id: 34
+  lock_version: 0
+  position: 1
+  reference_name: zone
+  type: InterventionGroupParameter
+  unit_pretax_stock_amount: 0.0
+  updated_at: 2016-12-20 18:24:29.441152000 Z
+  updater_id: 1
 intervention_inputs_001:
   created_at: 2014-11-05 15:39:35.605810000 Z
   creator_id: 1
+  dead: false
   id: 39
   intervention_id: 11
   lock_version: 3
@@ -441,6 +481,7 @@ intervention_inputs_001:
 intervention_inputs_002:
   created_at: 2014-11-06 17:49:34.371997000 Z
   creator_id: 1
+  dead: false
   id: 50
   intervention_id: 13
   lock_version: 1
@@ -459,6 +500,7 @@ intervention_inputs_002:
 intervention_inputs_003:
   created_at: 2014-11-07 14:44:11.013827000 Z
   creator_id: 1
+  dead: false
   id: 58
   intervention_id: 14
   lock_version: 1
@@ -477,6 +519,7 @@ intervention_inputs_003:
 intervention_inputs_004:
   created_at: 2014-11-07 15:02:12.148751000 Z
   creator_id: 1
+  dead: false
   id: 61
   intervention_id: 15
   lock_version: 1
@@ -495,6 +538,7 @@ intervention_inputs_004:
 intervention_inputs_005:
   created_at: 2014-11-07 15:26:35.544748000 Z
   creator_id: 1
+  dead: false
   id: 67
   intervention_id: 16
   lock_version: 1
@@ -513,6 +557,7 @@ intervention_inputs_005:
 intervention_inputs_006:
   created_at: 2014-11-07 15:45:30.886707000 Z
   creator_id: 1
+  dead: false
   id: 73
   intervention_id: 17
   lock_version: 1
@@ -531,6 +576,7 @@ intervention_inputs_006:
 intervention_inputs_007:
   created_at: 2014-11-07 16:20:51.424030000 Z
   creator_id: 1
+  dead: false
   id: 86
   intervention_id: 20
   lock_version: 0
@@ -548,6 +594,7 @@ intervention_inputs_007:
 intervention_inputs_008:
   created_at: 2014-11-07 16:49:41.929403000 Z
   creator_id: 1
+  dead: false
   id: 92
   intervention_id: 21
   lock_version: 1
@@ -566,6 +613,7 @@ intervention_inputs_008:
 intervention_inputs_009:
   created_at: 2014-11-07 16:58:54.129262000 Z
   creator_id: 1
+  dead: false
   id: 100
   intervention_id: 22
   lock_version: 1
@@ -584,6 +632,7 @@ intervention_inputs_009:
 intervention_inputs_010:
   created_at: 2014-11-07 19:02:48.881362000 Z
   creator_id: 1
+  dead: false
   id: 118
   intervention_id: 25
   lock_version: 1
@@ -602,6 +651,7 @@ intervention_inputs_010:
 intervention_inputs_011:
   created_at: 2014-11-07 19:08:38.783435000 Z
   creator_id: 1
+  dead: false
   id: 128
   intervention_id: 26
   lock_version: 1
@@ -620,6 +670,7 @@ intervention_inputs_011:
 intervention_inputs_012:
   created_at: 2014-11-07 19:12:37.531132000 Z
   creator_id: 1
+  dead: false
   id: 134
   intervention_id: 27
   lock_version: 1
@@ -638,6 +689,7 @@ intervention_inputs_012:
 intervention_inputs_013:
   created_at: 2014-11-07 19:23:41.914215000 Z
   creator_id: 1
+  dead: false
   id: 139
   intervention_id: 28
   lock_version: 1
@@ -656,6 +708,7 @@ intervention_inputs_013:
 intervention_inputs_014:
   created_at: 2014-11-07 19:36:53.125901000 Z
   creator_id: 1
+  dead: false
   id: 143
   intervention_id: 29
   lock_version: 1
@@ -674,6 +727,7 @@ intervention_inputs_014:
 intervention_inputs_015:
   created_at: 2014-11-07 19:36:53.127836000 Z
   creator_id: 1
+  dead: false
   id: 145
   intervention_id: 29
   lock_version: 1
@@ -692,6 +746,7 @@ intervention_inputs_015:
 intervention_inputs_016:
   created_at: 2014-11-07 19:36:53.129743000 Z
   creator_id: 1
+  dead: false
   id: 147
   intervention_id: 29
   lock_version: 1
@@ -710,6 +765,7 @@ intervention_inputs_016:
 intervention_inputs_017:
   created_at: 2016-07-01 20:46:56.155381000 Z
   creator_id: 1
+  dead: false
   id: 158
   intervention_id: 30
   lock_version: 0
@@ -731,6 +787,7 @@ intervention_inputs_018:
   component_id: 1
   created_at: 2016-08-10 14:33:28.789526000 Z
   creator_id: 1
+  dead: false
   group_id: 167
   id: 168
   intervention_id: 33
@@ -747,9 +804,31 @@ intervention_inputs_018:
   updated_at: 2016-08-10 14:33:28.789526000 Z
   updater_id: 1
   variant_id: 71
+intervention_inputs_019:
+  created_at: 2016-12-20 18:24:29.640968000 Z
+  creator_id: 1
+  currency: EUR
+  dead: false
+  id: 173
+  intervention_id: 34
+  lock_version: 0
+  position: 4
+  product_id: 54
+  quantity_handler: net_mass
+  quantity_indicator_name: net_mass
+  quantity_population: 10.0
+  quantity_unit_name: kilogram
+  quantity_value: 250.0
+  reference_name: seeds
+  type: InterventionInput
+  unit_pretax_stock_amount: 0.0
+  updated_at: 2016-12-20 18:24:29.640968000 Z
+  updater_id: 1
+  variant_id: 11
 intervention_outputs_001:
   created_at: 2014-11-05 15:39:35.633332000 Z
   creator_id: 1
+  dead: false
   group_id: 156
   id: 44
   intervention_id: 11
@@ -771,6 +850,7 @@ intervention_outputs_001:
 intervention_outputs_002:
   created_at: 2014-11-06 17:49:34.388295000 Z
   creator_id: 1
+  dead: false
   group_id: 155
   id: 55
   intervention_id: 13
@@ -793,6 +873,7 @@ intervention_outputs_002:
 intervention_outputs_003:
   created_at: 2014-11-07 15:45:30.931117000 Z
   creator_id: 1
+  dead: false
   group_id: 154
   id: 78
   intervention_id: 17
@@ -813,6 +894,7 @@ intervention_outputs_003:
 intervention_outputs_004:
   created_at: 2014-11-07 15:47:47.001216000 Z
   creator_id: 1
+  dead: false
   id: 81
   intervention_id: 18
   lock_version: 2
@@ -828,6 +910,7 @@ intervention_outputs_004:
 intervention_outputs_005:
   created_at: 2014-11-07 16:16:21.828011000 Z
   creator_id: 1
+  dead: false
   id: 84
   intervention_id: 19
   lock_version: 0
@@ -842,6 +925,7 @@ intervention_outputs_005:
 intervention_outputs_006:
   created_at: 2014-11-07 16:49:41.956818000 Z
   creator_id: 1
+  dead: false
   id: 98
   intervention_id: 21
   lock_version: 1
@@ -867,6 +951,7 @@ intervention_outputs_006:
 intervention_outputs_007:
   created_at: 2014-11-07 17:07:15.618160000 Z
   creator_id: 1
+  dead: false
   id: 108
   intervention_id: 23
   lock_version: 1
@@ -882,6 +967,7 @@ intervention_outputs_007:
 intervention_outputs_008:
   created_at: 2014-11-07 19:02:48.904367000 Z
   creator_id: 1
+  dead: false
   id: 123
   intervention_id: 25
   lock_version: 1
@@ -897,6 +983,7 @@ intervention_outputs_008:
 intervention_outputs_009:
   created_at: 2014-11-07 19:02:48.971735000 Z
   creator_id: 1
+  dead: false
   id: 124
   intervention_id: 25
   lock_version: 1
@@ -912,6 +999,7 @@ intervention_outputs_009:
 intervention_outputs_010:
   created_at: 2014-11-07 19:08:38.800479000 Z
   creator_id: 1
+  dead: false
   id: 130
   intervention_id: 26
   lock_version: 1
@@ -927,6 +1015,7 @@ intervention_outputs_010:
 intervention_outputs_011:
   created_at: 2014-11-07 19:36:53.141904000 Z
   creator_id: 1
+  dead: false
   id: 151
   intervention_id: 29
   lock_version: 1
@@ -939,16 +1028,36 @@ intervention_outputs_011:
   updated_at: 2014-11-07 19:36:59.273396000 Z
   updater_id: 1
   variant_id: 65
+intervention_outputs_012:
+  created_at: 2016-12-20 18:24:29.442938000 Z
+  creator_id: 1
+  currency: EUR
+  dead: false
+  group_id: 170
+  id: 171
+  intervention_id: 34
+  lock_version: 0
+  new_name: sdfghj,k;l:!
+  position: 3
+  product_id: 181
+  quantity_population: 1.9553
+  reference_name: plant
+  type: InterventionOutput
+  unit_pretax_stock_amount: 0.0
+  updated_at: 2016-12-20 18:24:29.442938000 Z
+  updater_id: 1
+  variant_id: 16
 intervention_targets_001:
   created_at: 2014-11-04 18:31:09.310469000 Z
   creator_id: 1
+  dead: false
   id: 32
   intervention_id: 9
   lock_version: 0
   position: 3
   product_id: 83
   quantity_population: 5.3806
-  reference_name: land_parcel
+  reference_name: cultivation
   type: InterventionTarget
   unit_pretax_stock_amount: 0.0
   updated_at: 2014-11-04 18:31:09.310469000 Z
@@ -962,6 +1071,7 @@ intervention_targets_001:
 intervention_targets_002:
   created_at: 2014-11-04 18:41:39.740739000 Z
   creator_id: 1
+  dead: false
   id: 34
   intervention_id: 10
   lock_version: 0
@@ -982,6 +1092,7 @@ intervention_targets_002:
 intervention_targets_003:
   created_at: 2014-11-05 15:39:35.631580000 Z
   creator_id: 1
+  dead: false
   group_id: 156
   id: 43
   intervention_id: 11
@@ -1003,13 +1114,14 @@ intervention_targets_003:
 intervention_targets_004:
   created_at: 2014-11-06 17:47:16.028274000 Z
   creator_id: 1
+  dead: false
   id: 47
   intervention_id: 12
   lock_version: 1
   position: 3
   product_id: 84
   quantity_population: 8.349
-  reference_name: land_parcel
+  reference_name: cultivation
   type: InterventionTarget
   unit_pretax_stock_amount: 0.0
   updated_at: 2014-11-06 17:47:42.946892000 Z
@@ -1024,6 +1136,7 @@ intervention_targets_004:
 intervention_targets_005:
   created_at: 2014-11-06 17:49:34.386680000 Z
   creator_id: 1
+  dead: false
   group_id: 155
   id: 54
   intervention_id: 13
@@ -1046,6 +1159,7 @@ intervention_targets_005:
 intervention_targets_006:
   created_at: 2014-11-07 14:44:11.011153000 Z
   creator_id: 1
+  dead: false
   id: 56
   intervention_id: 14
   lock_version: 0
@@ -1061,6 +1175,7 @@ intervention_targets_006:
 intervention_targets_007:
   created_at: 2014-11-07 15:02:12.164652000 Z
   creator_id: 1
+  dead: false
   id: 65
   intervention_id: 15
   lock_version: 0
@@ -1082,6 +1197,7 @@ intervention_targets_007:
 intervention_targets_008:
   created_at: 2014-11-07 15:26:35.564719000 Z
   creator_id: 1
+  dead: false
   id: 71
   intervention_id: 16
   lock_version: 0
@@ -1102,6 +1218,7 @@ intervention_targets_008:
 intervention_targets_009:
   created_at: 2014-11-07 15:45:30.929885000 Z
   creator_id: 1
+  dead: false
   group_id: 154
   id: 77
   intervention_id: 17
@@ -1122,6 +1239,7 @@ intervention_targets_009:
 intervention_targets_010:
   created_at: 2014-11-07 15:47:47.000211000 Z
   creator_id: 1
+  dead: false
   id: 80
   intervention_id: 18
   lock_version: 2
@@ -1141,6 +1259,7 @@ intervention_targets_010:
 intervention_targets_011:
   created_at: 2014-11-07 16:16:21.826306000 Z
   creator_id: 1
+  dead: false
   id: 83
   intervention_id: 19
   lock_version: 0
@@ -1160,6 +1279,7 @@ intervention_targets_011:
 intervention_targets_012:
   created_at: 2014-11-07 16:20:51.443760000 Z
   creator_id: 1
+  dead: false
   id: 90
   intervention_id: 20
   lock_version: 0
@@ -1181,6 +1301,7 @@ intervention_targets_012:
 intervention_targets_013:
   created_at: 2014-11-07 16:49:41.954984000 Z
   creator_id: 1
+  dead: false
   id: 97
   intervention_id: 21
   lock_version: 0
@@ -1206,6 +1327,7 @@ intervention_targets_013:
 intervention_targets_014:
   created_at: 2014-11-07 16:58:54.147211000 Z
   creator_id: 1
+  dead: false
   id: 104
   intervention_id: 22
   lock_version: 0
@@ -1231,6 +1353,7 @@ intervention_targets_014:
 intervention_targets_015:
   created_at: 2014-11-07 17:07:15.616923000 Z
   creator_id: 1
+  dead: false
   id: 107
   intervention_id: 23
   lock_version: 0
@@ -1256,6 +1379,7 @@ intervention_targets_015:
 intervention_targets_016:
   created_at: 2014-11-07 19:02:48.883101000 Z
   creator_id: 1
+  dead: false
   id: 119
   intervention_id: 25
   lock_version: 0
@@ -1271,6 +1395,7 @@ intervention_targets_016:
 intervention_targets_017:
   created_at: 2014-11-07 19:08:38.781584000 Z
   creator_id: 1
+  dead: false
   id: 126
   intervention_id: 26
   lock_version: 0
@@ -1286,6 +1411,7 @@ intervention_targets_017:
 intervention_targets_018:
   created_at: 2014-11-07 19:12:37.529155000 Z
   creator_id: 1
+  dead: false
   id: 132
   intervention_id: 27
   lock_version: 0
@@ -1301,6 +1427,7 @@ intervention_targets_018:
 intervention_targets_019:
   created_at: 2014-11-07 19:23:41.911235000 Z
   creator_id: 1
+  dead: false
   id: 137
   intervention_id: 28
   lock_version: 0
@@ -1316,6 +1443,7 @@ intervention_targets_019:
 intervention_targets_020:
   created_at: 2016-07-01 20:46:56.175144000 Z
   creator_id: 1
+  dead: false
   id: 159
   intervention_id: 30
   lock_version: 0
@@ -1340,6 +1468,7 @@ intervention_targets_020:
 intervention_targets_021:
   created_at: 2016-07-01 20:46:56.179000000 Z
   creator_id: 1
+  dead: false
   id: 160
   intervention_id: 30
   lock_version: 0
@@ -1358,6 +1487,7 @@ intervention_targets_021:
 intervention_targets_022:
   created_at: 2016-08-10 14:33:28.823451000 Z
   creator_id: 1
+  dead: false
   group_id: 167
   id: 169
   intervention_id: 33
@@ -1370,9 +1500,31 @@ intervention_targets_022:
   updated_at: 2016-08-10 14:33:28.823451000 Z
   updater_id: 1
   variant_id: 29
+intervention_targets_023:
+  created_at: 2016-12-20 18:24:29.637829000 Z
+  creator_id: 1
+  currency: EUR
+  dead: false
+  group_id: 170
+  id: 172
+  intervention_id: 34
+  lock_version: 0
+  position: 2
+  product_id: 176
+  reference_name: land_parcel
+  type: InterventionTarget
+  unit_pretax_stock_amount: 0.0
+  updated_at: 2016-12-20 18:24:29.637829000 Z
+  updater_id: 1
+  variant_id: 69
+  working_zone: SRID=4326;MULTIPOLYGON(((-0.800639390945435 45.8208891845532,-0.801602303981781
+    45.8207901146742,-0.801505744457245 45.8212873315345,-0.801551342010498 45.8215415459581,-0.801910758018494
+    45.8223359585506,-0.802023410797119 45.8230051255387,-0.800743997097015 45.8229901721743,-0.800639390945435
+    45.8208891845532)))
 intervention_tools_001:
   created_at: 2014-11-04 18:31:09.308816000 Z
   creator_id: 1
+  dead: false
   id: 31
   intervention_id: 9
   lock_version: 0
@@ -1388,6 +1540,7 @@ intervention_tools_001:
 intervention_tools_002:
   created_at: 2014-11-04 18:31:09.312157000 Z
   creator_id: 1
+  dead: false
   id: 33
   intervention_id: 9
   lock_version: 0
@@ -1403,6 +1556,7 @@ intervention_tools_002:
 intervention_tools_003:
   created_at: 2014-11-04 18:41:39.756098000 Z
   creator_id: 1
+  dead: false
   id: 36
   intervention_id: 10
   lock_version: 0
@@ -1418,6 +1572,7 @@ intervention_tools_003:
 intervention_tools_004:
   created_at: 2014-11-04 18:41:39.757856000 Z
   creator_id: 1
+  dead: false
   id: 37
   intervention_id: 10
   lock_version: 0
@@ -1433,6 +1588,7 @@ intervention_tools_004:
 intervention_tools_005:
   created_at: 2014-11-05 15:39:35.607997000 Z
   creator_id: 1
+  dead: false
   id: 40
   intervention_id: 11
   lock_version: 0
@@ -1448,6 +1604,7 @@ intervention_tools_005:
 intervention_tools_006:
   created_at: 2014-11-05 15:39:35.630192000 Z
   creator_id: 1
+  dead: false
   id: 42
   intervention_id: 11
   lock_version: 0
@@ -1463,6 +1620,7 @@ intervention_tools_006:
 intervention_tools_007:
   created_at: 2014-11-06 17:47:16.026916000 Z
   creator_id: 1
+  dead: false
   id: 46
   intervention_id: 12
   lock_version: 0
@@ -1478,6 +1636,7 @@ intervention_tools_007:
 intervention_tools_008:
   created_at: 2014-11-06 17:47:16.029670000 Z
   creator_id: 1
+  dead: false
   id: 48
   intervention_id: 12
   lock_version: 0
@@ -1493,6 +1652,7 @@ intervention_tools_008:
 intervention_tools_009:
   created_at: 2014-11-06 17:49:34.373467000 Z
   creator_id: 1
+  dead: false
   id: 51
   intervention_id: 13
   lock_version: 0
@@ -1508,6 +1668,7 @@ intervention_tools_009:
 intervention_tools_010:
   created_at: 2014-11-06 17:49:34.385387000 Z
   creator_id: 1
+  dead: false
   id: 53
   intervention_id: 13
   lock_version: 0
@@ -1523,6 +1684,7 @@ intervention_tools_010:
 intervention_tools_011:
   created_at: 2014-11-07 15:02:12.150087000 Z
   creator_id: 1
+  dead: false
   id: 62
   intervention_id: 15
   lock_version: 0
@@ -1538,6 +1700,7 @@ intervention_tools_011:
 intervention_tools_012:
   created_at: 2014-11-07 15:02:12.151232000 Z
   creator_id: 1
+  dead: false
   id: 63
   intervention_id: 15
   lock_version: 0
@@ -1553,6 +1716,7 @@ intervention_tools_012:
 intervention_tools_013:
   created_at: 2014-11-07 15:26:35.546491000 Z
   creator_id: 1
+  dead: false
   id: 68
   intervention_id: 16
   lock_version: 0
@@ -1568,6 +1732,7 @@ intervention_tools_013:
 intervention_tools_014:
   created_at: 2014-11-07 15:26:35.563438000 Z
   creator_id: 1
+  dead: false
   id: 70
   intervention_id: 16
   lock_version: 0
@@ -1583,6 +1748,7 @@ intervention_tools_014:
 intervention_tools_015:
   created_at: 2014-11-07 15:45:30.888448000 Z
   creator_id: 1
+  dead: false
   id: 74
   intervention_id: 17
   lock_version: 0
@@ -1598,6 +1764,7 @@ intervention_tools_015:
 intervention_tools_016:
   created_at: 2014-11-07 15:45:30.928585000 Z
   creator_id: 1
+  dead: false
   id: 76
   intervention_id: 17
   lock_version: 0
@@ -1613,6 +1780,7 @@ intervention_tools_016:
 intervention_tools_017:
   created_at: 2014-11-07 15:47:46.998727000 Z
   creator_id: 1
+  dead: false
   id: 79
   intervention_id: 18
   lock_version: 0
@@ -1628,6 +1796,7 @@ intervention_tools_017:
 intervention_tools_018:
   created_at: 2014-11-07 16:16:21.824119000 Z
   creator_id: 1
+  dead: false
   id: 82
   intervention_id: 19
   lock_version: 0
@@ -1643,6 +1812,7 @@ intervention_tools_018:
 intervention_tools_019:
   created_at: 2014-11-07 16:20:51.425202000 Z
   creator_id: 1
+  dead: false
   id: 87
   intervention_id: 20
   lock_version: 0
@@ -1658,6 +1828,7 @@ intervention_tools_019:
 intervention_tools_020:
   created_at: 2014-11-07 16:20:51.442456000 Z
   creator_id: 1
+  dead: false
   id: 89
   intervention_id: 20
   lock_version: 0
@@ -1673,6 +1844,7 @@ intervention_tools_020:
 intervention_tools_021:
   created_at: 2014-11-07 16:49:41.930712000 Z
   creator_id: 1
+  dead: false
   id: 93
   intervention_id: 21
   lock_version: 0
@@ -1688,6 +1860,7 @@ intervention_tools_021:
 intervention_tools_022:
   created_at: 2014-11-07 16:49:41.953808000 Z
   creator_id: 1
+  dead: false
   id: 96
   intervention_id: 21
   lock_version: 0
@@ -1703,6 +1876,7 @@ intervention_tools_022:
 intervention_tools_023:
   created_at: 2014-11-07 16:58:54.130462000 Z
   creator_id: 1
+  dead: false
   id: 101
   intervention_id: 22
   lock_version: 0
@@ -1718,6 +1892,7 @@ intervention_tools_023:
 intervention_tools_024:
   created_at: 2014-11-07 16:58:54.131571000 Z
   creator_id: 1
+  dead: false
   id: 102
   intervention_id: 22
   lock_version: 0
@@ -1733,6 +1908,7 @@ intervention_tools_024:
 intervention_tools_025:
   created_at: 2014-11-07 17:07:15.615508000 Z
   creator_id: 1
+  dead: false
   id: 106
   intervention_id: 23
   lock_version: 0
@@ -1748,6 +1924,7 @@ intervention_tools_025:
 intervention_tools_026:
   created_at: 2014-11-07 19:02:48.884235000 Z
   creator_id: 1
+  dead: false
   id: 120
   intervention_id: 25
   lock_version: 0
@@ -1763,6 +1940,7 @@ intervention_tools_026:
 intervention_tools_027:
   created_at: 2014-11-07 19:02:48.885290000 Z
   creator_id: 1
+  dead: false
   id: 121
   intervention_id: 25
   lock_version: 0
@@ -1778,6 +1956,7 @@ intervention_tools_027:
 intervention_tools_028:
   created_at: 2014-11-07 19:08:38.779989000 Z
   creator_id: 1
+  dead: false
   id: 125
   intervention_id: 26
   lock_version: 0
@@ -1793,6 +1972,7 @@ intervention_tools_028:
 intervention_tools_029:
   created_at: 2014-11-07 19:12:37.527848000 Z
   creator_id: 1
+  dead: false
   id: 131
   intervention_id: 27
   lock_version: 0
@@ -1808,6 +1988,7 @@ intervention_tools_029:
 intervention_tools_030:
   created_at: 2014-11-07 19:23:41.909497000 Z
   creator_id: 1
+  dead: false
   id: 136
   intervention_id: 28
   lock_version: 0
@@ -1823,6 +2004,7 @@ intervention_tools_030:
 intervention_tools_031:
   created_at: 2014-11-07 19:36:53.123476000 Z
   creator_id: 1
+  dead: false
   id: 141
   intervention_id: 29
   lock_version: 0
@@ -1838,6 +2020,7 @@ intervention_tools_031:
 intervention_tools_032:
   created_at: 2014-11-07 19:36:53.139991000 Z
   creator_id: 1
+  dead: false
   id: 149
   intervention_id: 29
   lock_version: 0
@@ -1853,6 +2036,7 @@ intervention_tools_032:
 intervention_tools_033:
   created_at: 2014-11-07 19:36:53.141079000 Z
   creator_id: 1
+  dead: false
   id: 150
   intervention_id: 29
   lock_version: 0
@@ -1868,6 +2052,7 @@ intervention_tools_033:
 intervention_tools_034:
   created_at: 2016-07-01 20:46:56.181474000 Z
   creator_id: 1
+  dead: false
   id: 161
   intervention_id: 30
   lock_version: 0
@@ -1882,6 +2067,7 @@ intervention_tools_034:
 intervention_tools_035:
   created_at: 2016-07-01 20:46:56.183226000 Z
   creator_id: 1
+  dead: false
   id: 162
   intervention_id: 30
   lock_version: 0

@@ -68,9 +68,9 @@ module Viniteca
           intervention_day = intervention_started_at.day
           intervention_stopped_at = r.intervention_stopped_at + 11.hours
 
-          campaign = Campaign.find_by_harvest_year(intervention_started_at.year)
+          campaign = Campaign.find_by(harvest_year: intervention_started_at.year)
           campaign ||= Campaign.create!(name: intervention_started_at.year, harvest_year: intervention_started_at.year)
-          plant = Plant.find_by_identification_number(r.cultivable_zone_name)
+          plant = Plant.find_by(identification_number: r.cultivable_zone_name)
 
           w.info "----------- #{w.count} -----------".blue
           w.info ' procedure : ' + procedures_transcode[r.procedure_name].inspect.green

@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2016 Brice Texier, David Joulin
+# Copyright (C) 2012-2017 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -28,7 +28,7 @@
 #  creator_id             :integer
 #  custom_fields          :jsonb
 #  description            :text
-#  geolocation            :geometry({:srid=>4326, :type=>"point"})
+#  geolocation            :geometry({:srid=>4326, :type=>"st_point"})
 #  host_id                :integer
 #  id                     :integer          not null, primary key
 #  lock_version           :integer          default(0), not null

@@ -1,0 +1,85 @@
+- main_toolbar do |t|
+  = t.edit resource
+  = t.destroy
+
+= main_informations do
+  = attributes_list do |l|
+    - l.attribute :number
+    - l.attribute :read_at
+    - l.attribute :sampling_area if resource.density_computable?
+    - l.attribute :activity, url: true
+    - l.attribute :plant, url: true
+
+= cobbles do |c|
+  - c.cobble :general_informations do
+    = infos do
+      .med-info
+        %span.title= PlantDensityAbacusItem.human_attribute_name :seeding_density_value
+        %span.value= resource.seeding_density_value.in(resource.seeding_density_unit).round(2).l(precision: 2)
+      .med-info
+        %span.title= PlantCounting.human_attribute_name :nature
+        %span.value= resource.nature.l
+      .med-info
+        %span.title= PlantDensityAbacus.human_attribute_name :germination_percentage
+        %span.value= "#{resource.germination_percentage}%"
+
+  - c.cobble :observations do
+    = infos do
+      .med-info= resource.comment
+
+  - c.cobble :totals do
+    .big-infos.full-height
+      .med-info
+        %span.title= PlantCounting.human_attribute_name :status
+        %span.value= lights(resource.status)
+
+      - unless resource.density_computable?
+        .med-info
+          %span.title= PlantCounting.human_attribute_name :expected_plants_count
+          %span.value= resource.expected_plants_count.floor
+
+        .med-info
+          %span.title= PlantCounting.human_attribute_name :plants_count
+          %span.value= resource.average_value.round(1)
+
+    .big-infos.wrappable
+      - if resource.density_computable?
+        .med-info
+          %span.title= PlantCounting.human_attribute_name :expected_seeding_density
+          %span.value= resource.expected_seeding_density.in(resource.seeding_density_unit).round(2).l(precision: 2)
+
+        .med-info
+          %span.title= PlantCounting.human_attribute_name :seeding_density_value
+          %span.value= resource.measured_seeding_density.in(resource.seeding_density_unit).round(2).l(precision: 2)
+
+        .med-info
+          %span.title= PlantCounting.human_attribute_name :expected_plants_count
+          %span.value= resource.expected_plants_count.floor
+
+        .med-info
+          %span.title= PlantCounting.human_attribute_name :plants_count
+          %span.value= resource.average_value.round(1)
+
+  - c.cobble :data do
+    %table
+      %thead
+        %tr
+          %th= PlantCountingItem.human_attribute_name :number
+          %th.decimal= PlantCounting.human_attribute_name :plants_count
+          %th.decimal= PlantCounting.human_attribute_name :expected_plants_count
+          %th.decimal= PlantCounting.human_attribute_name :seeding_density_value if resource.density_computable?
+          %th.decimal= PlantCounting.human_attribute_name :expected_seeding_density if resource.density_computable?
+      %tbody
+        - resource.items.order(:id).each_with_index do |item, index|
+          %tr
+            %td= index + 1
+            %td.decimal= item.value
+            %td.decimal= resource.expected_plants_count
+            %td.decimal= item.measured_seeding_density.in(resource.seeding_density_unit).round(2).l(precision: 2) if resource.density_computable?
+            %td.decimal= resource.expected_seeding_density.in(resource.seeding_density_unit).round(2).l(precision: 2) if resource.density_computable?
+      %tr.total
+        %th= :average.tl.capitalize
+        %th.decimal= resource.average_value.round(1)
+        %th.decimal= resource.expected_plants_count
+        %th.decimal= resource.measured_seeding_density.in(resource.seeding_density_unit).round(2).l(precision: 2) if resource.density_computable?
+        %th.decimal= resource.expected_seeding_density.in(resource.seeding_density_unit).round(2).l(precision: 2) if resource.density_computable?

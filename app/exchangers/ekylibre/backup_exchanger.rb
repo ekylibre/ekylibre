@@ -1,31 +1,33 @@
 module Ekylibre
   class BackupExchanger < ActiveExchanger::Base
+    self.deprecated = true
+
     class Backup < Hash
       class << self
         def models
-          [:account, :account_balance, :area, :asset, :asset_depreciation,
-           :bank_statement, :cash, :cash_transfer, :contact, :cultivation,
-           :custom_field, :custom_field_choice, :custom_field_datum, :delay,
-           :department, :deposit, :deposit_line, :district, :document,
-           :document_template, :entity, :entity_category, :entity_link,
-           :entity_link_nature, :entity_nature, :establishment, :event,
-           :event_nature, :financial_year, :incoming_delivery,
-           :incoming_delivery_line, :incoming_delivery_mode, :incoming_payment,
-           :incoming_payment_mode, :incoming_payment_use, :inventory,
-           :inventory_line, :journal, :journal_entry, :journal_entry_line,
-           :land_parcel, :land_parcel_group, :land_parcel_kinship, :listing,
-           :listing_node, :listing_node_item, :mandate, :observation,
-           :operation, :operation_line, :operation_nature, :operation_use,
-           :outgoing_delivery, :outgoing_delivery_line, :outgoing_delivery_mode,
-           :outgoing_payment, :outgoing_payment_mode, :outgoing_payment_use,
-           :preference, :price, :product, :product_category, :product_component,
-           :production_chain, :production_chain_conveyor,
-           :production_chain_work_center, :production_chain_work_center_use,
-           :profession, :purchase, :purchase_line, :purchase_nature, :role,
-           :sale, :sale_line, :sale_nature, :sequence, :stock, :stock_move,
-           :stock_transfer, :subscription, :subscription_nature, :tax,
-           :tax_declaration, :tool, :tracking, :tracking_state, :transfer,
-           :transport, :unit, :user, :warehouse]
+          %i[account account_balance area asset asset_depreciation
+             bank_statement cash cash_transfer contact cultivation
+             custom_field custom_field_choice custom_field_datum delay
+             department deposit deposit_line district document
+             document_template entity entity_category entity_link
+             entity_link_nature entity_nature establishment event
+             event_nature financial_year incoming_delivery
+             incoming_delivery_line incoming_delivery_mode incoming_payment
+             incoming_payment_mode incoming_payment_use inventory
+             inventory_line journal journal_entry journal_entry_line
+             land_parcel land_parcel_group land_parcel_kinship listing
+             listing_node listing_node_item mandate observation
+             operation operation_line operation_nature operation_use
+             outgoing_delivery outgoing_delivery_line outgoing_delivery_mode
+             outgoing_payment outgoing_payment_mode outgoing_payment_use
+             preference price product product_category product_component
+             production_chain production_chain_conveyor
+             production_chain_work_center production_chain_work_center_use
+             profession purchase purchase_line purchase_nature role
+             sale sale_line sale_nature sequence stock stock_move
+             stock_transfer subscription subscription_nature tax
+             tax_declaration tool tracking tracking_state transfer
+             transport unit user warehouse]
         end
 
         def schema
@@ -148,7 +150,7 @@ module Ekylibre
         keys = args
         keys << :name if keys.empty?
         columns = self.class.schema[backup_model.to_s.pluralize.to_sym].delete_if do |c|
-          [:company_id, :creator_id, :updater_id, :id, :lock_version].include? c
+          %i[company_id creator_id updater_id id lock_version].include? c
         end
         keys.each do |key|
           raise "Invalid key for record identification: #{key}" unless columns.include? key
@@ -159,10 +161,12 @@ module Ekylibre
         end
         converters = options.delete(:converters) || {}
         default_values = options[:default_values] || {}
-        options[:rename].each do |old_column, new_column|
-          raise "What is #{old_column}? #{columns.keys.sort.to_sentence} only are accepted." unless columns.keys.include?(old_column)
-          renamings[old_column] = new_column
-        end if options[:rename]
+        if options[:rename]
+          options[:rename].each do |old_column, new_column|
+            raise "What is #{old_column}? #{columns.keys.sort.to_sentence} only are accepted." unless columns.keys.include?(old_column)
+            renamings[old_column] = new_column
+          end
+        end
         model = options[:model] || backup_model
         klass = model.to_s.camelcase.constantize
 
@@ -188,8 +192,8 @@ module Ekylibre
           end
           record.attributes = attributes
           unless record.valid?
-            w.error attributes.inspect
-            w.error record.errors.inspect
+            Rails.logger.warn attributes.inspect
+            Rails.logger.warn record.errors.inspect
           end
           record.save!
           record.id
@@ -206,8 +210,8 @@ module Ekylibre
 
     def import
       # CAUTION Fixed manually by counting points
-      # grep -rin check_point app/exchangers/ekylibre/backup_exchanger.rb | wc -l
-      w.count = 20 - 1
+      # `grep -rinE "^\s*\w\.check_point" app/exchangers/ekylibre/backup_exchanger.rb | wc -l`
+      w.count = 18
 
       # Unzip file
       dir = w.tmp_dir
@@ -244,11 +248,11 @@ module Ekylibre
 
       # :accounts, :cultivations, :custom_fields, :delays, :districts, :document_templates, :entity_categories, :entity_link_natures, :entity_natures, :establishments, :event_natures, :incoming_delivery_modes, :journals, :land_parcel_groups, :listings, :operation_natures, :outgoing_delivery_modes, :production_chains, :professions, :roles, :sequences, :tools, :units
 
-      delays = data[:delay].each_with_object({}) do |item, hash|
-        hash[item.id] = item.expression
-        hash
-      end
-      w.check_point
+      # delays = data[:delay].each_with_object({}) do |item, hash|
+      #   hash[item.id] = item.expression
+      #   hash
+      # end
+      # w.check_point
 
       # Import accounts
       accounting_system = Preference[:accounting_system]
@@ -287,7 +291,7 @@ module Ekylibre
       data.import(:entity, :code, rename: { code: :number, category_id: nil, nature_id: nil, payment_delay_id: nil, payment_mode_id: nil, webpass: nil, vat_submissive: :vat_subjected, soundex: nil, salt: nil, hashed_password: nil, invoices_count: nil, origin: :meeting_origin, attorney: nil, attorney_account_id: nil, born_on: :born_at, dead_on: :dead_at, discount_rate: nil, reduction_rate: nil, reflation_submissive: :reminder_submissive, ean13: nil, excise: nil, first_met_on: :first_met_at, website: nil, photo: nil, siren: :siret_number }, default_values: { nature: 'organization' }, converters: { siren: ->(e) { e.siren =~ /\A\d{9}\z/ ? e.siren + Luhn.control_digit(e.siren.to_s + '0001').to_s : e.siren } })
       Entity.where('title ILIKE ? OR title ILIKE ? OR title ILIKE ?', '%Madame%', '%Monsieur%', 'M%').update_all(nature: 'contact')
       w.check_point
-      data.import(:cash, :account_id, rename: { iban_label: :spaced_iban, address: :bank_agency_address, agency_code: :bank_agency_code, bic: :bank_identifier_code, by_default: nil, entity_id: :owner_id, key: :bank_account_key, number: :bank_account_number })
+      data.import(:cash, :account_id, rename: { account_id: :main_account_id, iban_label: :spaced_iban, address: :bank_agency_address, agency_code: :bank_agency_code, bic: :bank_identifier_code, by_default: nil, entity_id: :owner_id, key: :bank_account_key, number: :bank_account_number })
       w.check_point
       data.import(:bank_statement, :cash_id, :number, rename: { started_on: :started_at, stopped_on: :stopped_at })
       w.check_point

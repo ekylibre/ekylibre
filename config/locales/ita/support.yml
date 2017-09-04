@@ -8,6 +8,9 @@ ita:
     human:
       false_class: "Falso"
       true_class: "Vero"
+    polar:
+      false_class: "Sì"
+      true_class: "No"
   date:
     abbr_day_names: ["dom", "lun", "mar", "mer", "gio", "ven", "sab"]
     abbr_month_names: ["", "gen", "feb", "mar", "apr", "mag", "giu", "lug", "ago", "set", "ott", "nov", "dic"]
@@ -60,9 +63,10 @@ ita:
     periods:
       day: "Giorno"
       month: "Mese"
+      today: "Oggi"
       week: "Settimana"
       year: "Anno"
-    prompts:  #?
+    prompts: #?
       day: "Giorno" #?
       hour: "Ora" #?
       minute: "Minuto" #?
@@ -72,7 +76,7 @@ ita:
     relative_distance_in_words:
       # in_sometime: "in %{distance}"
       # sometime_ago: "%{distance} ago"
-  helpers:  #?
+  helpers: #?
     select: #?
       prompt: "Seleziona..." #?
     submit: #?
@@ -84,6 +88,9 @@ ita:
       internal_server_error:
         hint: "L'applicazione incontra problemi. Gli amministratori sono stati notificati per questo problema."
         title: "Siamo spiacenti, ma qualcosa è andato storto"
+      maintenance:
+        hint: "Per favore ritorna più tardi"
+        title: "Il servizio è in manutenzione e non è disponibile per ora"
       not_found:
         hint: "Potreste aver digitato in modo errato l'indirizzo o la pagina potrebbe essere spostato."
         title: "La pagina che stavi cercando non esiste"
@@ -104,7 +111,7 @@ ita:
       precision: 2
       separator: ","
     human:
-      decimal_units:  #?
+      decimal_units: #?
         format: "%n %u" #?
         units: #?
           billion: "Miliardi" #?
@@ -118,7 +125,7 @@ ita:
         precision: 3
         significant: "true" #?
         strip_insignificant_zeros: "true" #?
-      storage_units:  #?
+      storage_units: #?
         format: "%n %u" #?
         units: #?
           byte: #?
@@ -136,12 +143,6 @@ ita:
       format:
         delimiter: ""
   # rank: "#%{number}"
-  simple_form:
-    hints:
-      purchase:
-        reference_number: "Numero di fattura del fornitore"
-    required:
-      text: "Richiesto"
   support:
     array:
       last_word_connector: " e "
@@ -153,7 +154,11 @@ ita:
     formats:
       compact: "% M /% d /% Y% H:% M"
       default: "%a %d %b %Y, %H:%M:%S %z"
+      full: "% M /% d /% Y% H:% M:% S"
       long: "%d %B %Y %H:%M"
       short: "%d %b %H:%M"
       time: "%H:%M" #?
+    js_formats:
+      compact: "MM/DD/YYYY HH:mm"
+      full: "MM/DD/YYYY HH:mm:ss"
     pm: "pm"

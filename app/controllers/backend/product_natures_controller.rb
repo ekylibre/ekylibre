@@ -25,13 +25,13 @@ module Backend
     unroll
 
     def self.product_natures_conditions(_options = {})
-      code = search_conditions(product_natures: [:number, :name, :description],
+      code = search_conditions(product_natures: %i[number name description],
                                product_nature_categories: [:name]) + "\n"
       code << "if params[:s] == 'active'\n"
-      code << "  c[0] += ' AND active = ?'\n"
+      code << "  c[0] += ' AND product_natures.active = ?'\n"
       code << "  c << true\n"
       code << "elsif params[:s] == 'inactive'\n"
-      code << "  c[0] += ' AND active = ?'\n"
+      code << "  c[0] += ' AND product_natures.active = ?'\n"
       code << "  c << false\n"
       code << "end\n"
       code << "c\n"

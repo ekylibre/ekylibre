@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2016 Brice Texier, David Joulin
+# Copyright (C) 2012-2017 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -65,18 +65,18 @@ class Deposit < Ekylibre::Record::Base
   scope :unvalidateds, -> { where(locked: false) }
 
   before_validation do
-    self.cash = mode.cash if mode
+    self.cash ||= mode.cash if mode
   end
 
   after_save do
     update_columns(amount: payments.sum(:amount), payments_count: payments.count)
   end
 
-  # validate do
-  #   if self.cash
-  #     error.add(:cash_id, :must_be_a_bank_account) unless self.cash.bank_account?
-  #   end
-  # end
+  validate do
+    if self.cash
+      errors.add(:cash_id, :must_be_a_bank_account) unless self.cash.bank_account?
+    end
+  end
 
   # This method permits to add journal entries corresponding to the payment
   # It depends on the preference which permit to activate the "automatic bookkeeping"
@@ -94,18 +94,18 @@ class Deposit < Ekylibre::Record::Base
 
       label = tc(:bookkeep, resource: self.class.model_name.human, number: number, count: payments_count, mode: mode.name, responsible: responsible.label, description: description)
 
-      entry.add_debit(label, cash.account_id, amount - commissions_amount)
+      entry.add_debit(label, cash.account_id, amount - commissions_amount, as: :bank)
       commissions.each do |commission_account_id, commission_amount|
-        entry.add_debit(label, commission_account_id.to_i, commission_amount) if commission_amount > 0
+        entry.add_debit(label, commission_account_id.to_i, commission_amount, as: :commission) if commission_amount > 0
       end
 
       if detail_payments # Preference[:detail_payments_in_deposit_bookkeeping]
         payments.each do |payment|
           label = tc(:bookkeep_with_payment, resource: self.class.model_name.human, number: number, mode: mode.name, payer: payment.payer.full_name, check_number: payment.bank_check_number, payment: payment.number)
-          entry.add_credit(label, mode.depositables_account_id, payment.amount)
+          entry.add_credit(label, mode.depositables_account_id, payment.amount, as: :deposited, resource: payment)
         end
       else
-        entry.add_credit(label, mode.depositables_account_id, amount)
+        entry.add_credit(label, mode.depositables_account_id, amount, as: :deposited)
       end
       true
     end

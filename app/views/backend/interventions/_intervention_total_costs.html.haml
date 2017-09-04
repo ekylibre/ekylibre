@@ -1,0 +1,16 @@
+.cost
+  - computation = product_parameter.cost_amount_computation(natures: natures)
+  .computation
+    - if computation.failed?
+      = 'FAILED'
+    - elsif computation.none?
+      = '&mdash;'.html_safe
+    - elsif computation.quantity?
+      %span.quantity= computation.quantity.round(1).l(precision: 0)
+      %span.unit-name= computation.unit_name
+      %span /
+      - if computation.amount?
+        %span.amount= computation.human_amount
+      - else
+        %span.amount.no-amount
+          %i.icon.icon-question

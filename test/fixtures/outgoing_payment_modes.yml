@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2016 Brice Texier, David Joulin
+# Copyright (C) 2012-2017 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -30,6 +30,7 @@
 #  lock_version    :integer          default(0), not null
 #  name            :string           not null
 #  position        :integer
+#  sepa            :boolean          default(FALSE), not null
 #  updated_at      :datetime         not null
 #  updater_id      :integer
 #  with_accounting :boolean          default(FALSE), not null
@@ -43,6 +44,7 @@ outgoing_payment_modes_001:
   id: 1
   lock_version: 1
   name: Par chèque
+  sepa: false
   updated_at: 2014-11-05 13:41:18.374090000 Z
   updater_id: 1
   with_accounting: true
@@ -54,6 +56,19 @@ outgoing_payment_modes_002:
   id: 2
   lock_version: 1
   name: En espèce
+  sepa: false
+  updated_at: 2014-11-05 13:41:30.136337000 Z
+  updater_id: 1
+  with_accounting: true
+outgoing_payment_modes_003:
+  active: false
+  cash_id: 1
+  created_at: 2014-10-31 17:19:32.000000000 Z
+  creator_id: 1
+  id: 3
+  lock_version: 1
+  name: SEPA
+  sepa: true
   updated_at: 2014-11-05 13:41:30.136337000 Z
   updater_id: 1
   with_accounting: true

@@ -11,14 +11,14 @@ module Clean
       def exp(hash, *keys)
         options = keys.extract_options!
         name = keys.last
-        value = rec(hash, *keys)
         @to_translate += 1
-        if value
-          return "#{name}: " + Clean::Support.yaml_value(value)
-        else
+        value = rec(hash, *keys)
+        yaml = Clean::Support.pair_to_yaml(name, value || options[:default] || name.to_s.humanize)
+        unless value
           @untranslated += 1
-          return "# #{name}: " + Clean::Support.yaml_value(options[:default] || name.to_s.humanize)
+          yaml.gsub!(/^/, Clean::Support.missing_prompt)
         end
+        yaml
       end
 
       def rec(hash, *keys)
@@ -48,7 +48,7 @@ module Clean
 
         ::I18n.locale = @locale
         FileUtils.makedirs(locale_dir) unless File.exist?(locale_dir)
-        %w(help reporting).each do |directory|
+        %w[help reporting].each do |directory|
           unless locale_dir.join(directory).exist?
             FileUtils.makedirs(locale_dir.join(directory))
           end
@@ -66,6 +66,7 @@ module Clean
         clean_file! 'exceptions'
         clean_exchangers!
         clean_file! 'formats'
+        clean_file! 'mailers'
         clean_models!
         clean_nomenclatures!
         clean_procedures!
@@ -75,6 +76,22 @@ module Clean
         log "  - Total:               #{(100 * @count / @total).round.to_s.rjust(3)}% (#{@count}/#{@total})\n"
         puts " - Locale: #{(100 * @count / @total).round.to_s.rjust(3)}% of #{::I18n.locale_label} translated"
       end
+
+      # def clean_access!
+      #   translate('access.yml') do |ref, translation, s|
+      #     s.node :access do      #       s.node :interactions do
+      #         Ekylibre::Access.interactions.each do |interaction|
+      #           s.expect(interaction)
+      #         end
+      #       end
+      #       s.node :resources do
+      #         Ekylibre::Access.resources.keys.each do |resource|
+      #           s.expect(resource)
+      #         end
+      #       end
+      #     end
+      #   end
+      # end
 
       def clean_access!
         translate('access.yml') do |ref, translation, s|
@@ -96,7 +113,7 @@ module Clean
       end
 
       def clean_action!
-        untranslated = to_translate = translated = 0
+        untranslated = to_translate = 0
         warnings = []
         translation = "#{locale}:\n"
 
@@ -110,7 +127,7 @@ module Clean
                                []
                              end
           translateable_actions = []
-          translateable_actions += (actions.delete_if { |a| [:update, :create, :picture, :destroy, :up, :down, :decrement, :increment, :duplicate, :reflect].include?(a.to_sym) || a.to_s.match(/^(list|unroll)(\_|$)/) } | existing_actions).sort
+          translateable_actions += (actions.delete_if { |a| %i[update create picture destroy up down decrement increment duplicate reflect].include?(a.to_sym) || a.to_s.match(/^(list|unroll)(\_|$)/) } | existing_actions).sort
           next unless translateable_actions.any?
           translation << '    ' + controller_path + ":\n"
           translateable_actions.each do |action_name|
@@ -250,6 +267,10 @@ module Clean
         end
         warnings << "#{unknown_actions.size} unknown REST actions" if unknown_actions.any?
 
+        # Simple form
+        to_translate += Clean::Support.hash_count(::I18n.translate('simple_form'))
+        translation << '  simple_form:' + Clean::Support.hash_to_yaml(::I18n.translate('simple_form'), 2) + "\n"
+
         # Unroll
         translation << "  unrolls:\n"
         unrolls = ::I18n.t('unrolls')
@@ -306,7 +327,7 @@ module Clean
         ref[:aggregator_properties] ||= {}
         all_properties = []
         Aggeratio.each_xml_aggregator do |element|
-          all_properties += Aggeratio::Base.new(element).properties.select { |e| e.attr('level').to_s != 'api' }.collect { |e| e.attr('name').to_sym }
+          all_properties += Aggeratio::Base.new(element).properties.reject { |e| e.attr('level').to_s == 'api' }.collect { |e| e.attr('name').to_sym }
         end
         all_properties.uniq!.sort!
         all_properties.each do |property_name|
@@ -445,7 +466,7 @@ module Clean
         end
         translation << "  attributes:\n"
         attributes.sort.each do |attribute, definition|
-          # unless attribute.to_s.match(/_id$/)
+          # unless attribute.to_s.match(%r(_id$))
           translation << '    '
           translation << missing_prompt if definition[1] == :undefined
           translation << "#{attribute}: " + Clean::Support.yaml_value(definition[0])
@@ -474,6 +495,7 @@ module Clean
         translation = "#{locale}:\n"
         translation << "  nomenclatures:\n"
         scrutator = scrut do |s|
+          Nomen.load!
           Nomen.names.sort.each do |name| #  { |a, b| a.to_s <=> b.to_s }
             nomenclature = Nomen[name]
             translation << "    #{nomenclature.name}:\n"
@@ -499,7 +521,7 @@ module Clean
                   end
                 end
               end
-              unless choices.blank?
+              if choices.present?
                 choices = "choices:\n" + choices.dig
                 trl[:choices] = choices.dig(3)
               end
@@ -539,7 +561,7 @@ module Clean
               end
             end
 
-            [:choices, :items, :name, :notions, :properties].each do |info|
+            %i[choices items name notions properties].each do |info|
               translation << trl[info] if trl[info]
             end
           end
@@ -573,6 +595,28 @@ module Clean
             translation << "    #~ #{handler}: " + Clean::Support.yaml_value(handler.to_s.humanize) + "\n"
           else
             translation << "    #{missing_prompt}#{handler}: " + Clean::Support.yaml_value(handler.to_s.humanize) + "\n"
+            untranslated += 1
+          end
+        end
+
+        translation << "  procedure_killable_parameters:\n"
+        killables = [
+          :is_it_completely_destroyed_by_intervention
+        ]
+        Procedo.each_product_parameter do |parameter|
+          next unless parameter.attribute(:killable)
+          key = "is_#{parameter.name}_completely_destroyed_by_#{parameter.procedure.name}".to_sym
+          killables << key
+          key = "is_#{parameter.name}_completely_destroyed_by_intervention".to_sym
+          killables << key unless killables.include? key
+        end
+        ref[:procedure_killable_parameters] ||= {}
+        killables.sort.each do |killable|
+          to_translate += 1
+          if (found = ref[:procedure_killable_parameters][killable])
+            translation << "    #{killable}: " + Clean::Support.yaml_value(found) + "\n"
+          else
+            translation << "    #{missing_prompt}#{killable}: " + Clean::Support.yaml_value(killable.to_s.humanize + '?') + "\n"
             untranslated += 1
           end
         end
@@ -620,23 +664,23 @@ module Clean
         total = 0
         count = 0
         Dir.glob(Rails.root.join('config', 'locales', reference_locale.to_s, '*.yml')).sort.each do |reference_path|
-          file_name = reference_path.split(/[\/\\]+/)[-1]
+          file_name = reference_path.split(%r{[\/\\]+})[-1]
           target_path = Rails.root.join('config', 'locales', locale.to_s, file_name)
           unless File.exist?(target_path)
             FileUtils.mkdir_p(target_path.dirname)
             File.open(target_path, 'wb') do |file|
-              file.write("#{locale}:\n")
+              file.write("#{locale}: {}\n")
             end
           end
           target = Clean::Support.yaml_to_hash(target_path).deep_compact
           reference = Clean::Support.yaml_to_hash(reference_path).deep_compact
-          translation, scount, stotal = Clean::Support.hash_diff(target[locale], reference[reference_locale], 1, (locale == :english ? :humanize : :localize))
+          translation, scount, stotal = Clean::Support.hash_diff(target[locale], reference[reference_locale], locale == :english ? :humanize : :localize)
           count += scount
           total += stotal
           log "  - #{(file_name + ':').ljust(20)} #{(stotal.zero? ? 0 : 100 * (stotal - scount) / stotal).round.to_s.rjust(3)}% (#{stotal - scount}/#{stotal})\n"
           File.open(target_path, 'wb') do |file|
             file.write("#{locale}:\n")
-            file.write(translation)
+            file.write(translation.indent.gsub(/\ +\n/, "\n"))
           end
         end
         log "  - Total:               #{(100 * (total - count) / total).round.to_s.rjust(3)}% (#{total - count}/#{total})\n"
@@ -645,7 +689,7 @@ module Clean
         # # log "  - help: # Missing files\n"
         # for controller, actions in useful_actions
         #   for action in actions
-        #     if File.exists?(Rails.root.join('app', 'views', controller.to_s, "#{action}.html.haml")) or (File.exists?("#{Rails.root.to_s}/app/views/#{controller}/_#{action.gsub(/_[^_]*$/,'')}_form.html.haml") and action.split("_")[-1].match(/create|update/))
+        #     if File.exists?(Rails.root.join('app', 'views', controller.to_s, "#{action}.html.haml")) or (File.exists?("#{Rails.root.to_s}/app/views/#{controller}/_#{action.gsub(%r(_[^_]*$), '')}_form.html.haml") and action.split("_")[-1].match(%r(create|update))
         #       help = "#{Rails.root.to_s}/config/locales/#{locale}/help/#{controller}-#{action}.txt"
         #       # log "    - #{help.gsub(Rails.root.to_s,'.')}\n" unless File.exists?(help)
         #     end
@@ -669,7 +713,7 @@ module Clean
 
       def write(file, translation, total, untranslated = 0)
         file = locale_dir.join(file) if file.is_a?(String)
-        File.write(file, translation.strip)
+        File.write(file, translation.strip.gsub(/\ +\n/, "\n"))
         log "  - #{(file.basename.to_s + ':').ljust(20)} #{(100 * (total - untranslated) / total).round.to_s.rjust(3)}% (#{total - untranslated}/#{total})\n"
         @total += total
         @count += total - untranslated
@@ -696,11 +740,12 @@ module Clean
       end
 
       def missing_prompt
-        '# '
+        Clean::Support.missing_prompt
       end
 
       def clean_file!(basename)
         yaml_file = locale_dir.join("#{basename}.yml")
+        return unless yaml_file.exist?
         translation, total = Clean::Support.hash_sort_and_count(Clean::Support.yaml_to_hash(yaml_file))
         write(yaml_file, translation, total)
       end

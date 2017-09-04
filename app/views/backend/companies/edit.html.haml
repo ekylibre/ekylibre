@@ -1,0 +1,40 @@
+= backend_form_for(resource, url: backend_company_path) do |f|
+  - if params[:redirect]
+    = hidden_field_tag(:redirect, params[:redirect])
+  - f.add(:submit, :update.tl, data: {disable_with: :please_wait.tl}, class: 'primary')
+  = field_set :company do
+    = f.input :last_name, label: Entity.human_attribute_name(:full_name)
+    = f.input :siret_number
+    = f.input :language
+    = f.input :activity_code
+    = f.input :vat_number
+    = f.input :born_at
+    = f.picture
+    = f.nested_association(:emails, partial: '/backend/entities/email_fields')
+    = f.nested_association(:mails, partial: '/backend/entities/mail_fields')
+    = f.nested_association(:phones, partial: '/backend/entities/phone_fields')
+    = f.nested_association(:mobiles, partial: '/backend/entities/mobile_fields')
+    = f.nested_association(:faxes, partial: '/backend/entities/fax_fields')
+    = f.nested_association(:websites, partial: '/backend/entities/website_fields')
+
+  - # NEVER SET currency and accounting_system HERE !!!
+  = field_set :global_preferences do
+    = render 'preferences_form', list: [:country, :language, :currency]
+    = field "currency_conversion_rate".tl, { datatype: :decimal, value: 1, name: "currency_change_rate" }, {label: {class: 'large-control-label'}, controls: {class: 'large-controls'}}
+
+  = field_set :interface_preferences do
+    = render 'preferences_form', list: [:use_global_search, :use_contextual_help]
+
+  = field_set :map_preferences do
+    = render 'preferences_form', list: [:map_measure_srs]
+
+  = field_set :accountancy_preferences do
+    = render 'preferences_form', list: [:bookkeep_automatically, :bookkeep_in_draft, :permanent_stock_inventory, :unbilled_payables, :detail_payments_in_deposit_bookkeeping, :use_entity_codes_for_account_numbers, :client_account_radix, :supplier_account_radix, :employee_account_radix, :default_depreciation_period]
+
+  = field_set :analytic_preferences do
+    = render 'preferences_form', list: [:distribute_sales_and_purchases_on_activities, :distribute_sales_and_purchases_on_teams]
+
+  = field_set :sales_preferences do
+    = render 'preferences_form', list: [:sales_conditions]
+
+  = f.actions

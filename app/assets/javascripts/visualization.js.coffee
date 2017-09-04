@@ -150,12 +150,11 @@
           fillOpacity: 1
           radius: 5
       map:
-        maxZoom: 25
-        minZoom:2
         scrollWheelZoom: false
         zoomControl: false
         attributionControl: true
         setDefaultBackground: false
+        setDefaultOverlay: false
         dragging: true
         touchZoom: true
         doubleClickZoom: true
@@ -164,24 +163,40 @@
       view:
         center:[]
         zoom : 13
+        maxZoom: 25
+        minZoom:2
       colors: V.colors
 
     _create: ->
       $.extend(true, @options, @element.data("visualization"))
-      @mapElement = $("<div>", class: "map").insertAfter(@element)
+      @mapElement = $("<div>", class: "map").appendTo(@element)
+
       @map = L.map(@mapElement[0], @options.map)
       @layers = []
 
       if @options.map.setDefaultBackground
         opts = {}
         opts['attribution'] = @options.backgrounds.attribution if @options.backgrounds.attribution?
-        opts['minZoom'] = @options.backgrounds.minZoom if @options.backgrounds.minZoom?
-        opts['maxZoom'] = @options.backgrounds.maxZoom if @options.backgrounds.maxZoom?
+        opts['minZoom'] = @options.backgrounds.minZoom || @options.view.minZoom
+        opts['maxZoom'] = @options.backgrounds.maxZoom || @options.view.maxZoom
         opts['subdomains'] = @options.backgrounds.subdomains if @options.backgrounds.subdomains?
         opts['tms'] = true if @options.backgrounds.tms
 
         backgroundLayer = L.tileLayer(@options.backgrounds.url, opts)
         backgroundLayer.addTo @map
+
+      if @options.map.setDefaultOverlay
+        opts = {}
+        opts['attribution'] = @options.overlays.attribution if @options.overlays.attribution?
+        opts['minZoom'] = @options.overlays.minZoom || @options.view.minZoom
+        opts['maxZoom'] = @options.overlays.maxZoom || @options.view.maxZoom
+        opts['subdomains'] = @options.overlays.subdomains if @options.overlays.subdomains?
+        opts['opacity'] = (@options.overlays.opacity / 100).toFixed(1) if @options.overlays.opacity? and !isNaN(@options.overlays.opacity)
+        opts['tms'] = true if @options.overlays.tms
+
+        OverlayLayer = L.tileLayer(@options.overlays.url, opts)
+        OverlayLayer.addTo @map
+
       @ghostLabelCluster = L.ghostLabelCluster(type: 'number', innerClassName: 'leaflet-ghost-label-collapsed')
       @ghostLabelCluster.addTo @map
 
@@ -275,8 +290,8 @@
         for layer, index in @options.backgrounds
           opts = {}
           opts['attribution'] = layer.attribution if layer.attribution?
-          opts['minZoom'] = layer.minZoom if layer.minZoom?
-          opts['maxZoom'] = layer.maxZoom if layer.maxZoom?
+          opts['minZoom'] = layer.minZoom || @options.view.minZoom
+          opts['maxZoom'] = layer.maxZoom || @options.view.maxZoom
           opts['subdomains'] = layer.subdomains if layer.subdomains?
           opts['tms'] = true if layer.tms
 
@@ -292,11 +307,19 @@
           backgroundLayer = L.tileLayer.provider(layer)
           baseLayers[layer] = backgroundLayer
           @map.addLayer(backgroundLayer) if index == 0
+        @map.fitWorld( { maxZoom: @options.view.maxZoom } )
 
 
       for layer in @options.overlays
-        overlayLayer = L.tileLayer.provider(layer.provider_name)
-        overlays[layer.name] = overlayLayer
+        opts = {}
+        opts['attribution'] = layer.attribution if layer.attribution?
+        opts['minZoom'] = layer.minZoom || @options.view.minZoom
+        opts['maxZoom'] = layer.maxZoom || @options.view.maxZoom
+        opts['subdomains'] = layer.subdomains if layer.subdomains?
+        opts['opacity'] = (layer.opacity / 100).toFixed(1) if layer.opacity? and !isNaN(layer.opacity)
+        opts['tms'] = true if layer.tms
+
+        overlays[layer.name] = L.tileLayer(layer.url, opts)
 
       legendControl = new L.control(position: "bottomright")
       legendControl.onAdd = (map) ->
@@ -448,7 +471,7 @@
     mapElement.data("refreshTimeout", timeoutId)
 
   $(document).ready $.loadVisualizations
-  $(document).on "page:load cocoon:after-insert cell:load", $.loadVisualizations
+  $(document).on "page:load cocoon:after-insert cell:load dialog:show", $.loadVisualizations
 
 ) visualization, jQuery
 

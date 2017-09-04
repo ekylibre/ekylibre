@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2016 Brice Texier, David Joulin
+# Copyright (C) 2012-2017 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -28,6 +28,7 @@
 #  creator_id                :integer
 #  custom_fields             :jsonb
 #  derivative_of             :string
+#  france_maaid              :string
 #  gtin                      :string
 #  id                        :integer          not null, primary key
 #  lock_version              :integer          default(0), not null
@@ -63,19 +64,23 @@ class ProductNatureVariant < Ekylibre::Record::Base
 
   has_many :part_product_nature_variant_id, class_name: 'ProductNatureVariantComponent'
 
-  belongs_to :stock_movement_account, class_name: 'Account', dependent: :destroy
-  belongs_to :stock_account, class_name: 'Account', dependent: :destroy
+  belongs_to :stock_movement_account, class_name: 'Account'
+  belongs_to :stock_account, class_name: 'Account'
 
+  has_many :contract_items, foreign_key: :variant_id, dependent: :restrict_with_exception
   has_many :parcel_items, foreign_key: :variant_id, dependent: :restrict_with_exception
   has_many :products, foreign_key: :variant_id, dependent: :restrict_with_exception
+  has_many :members, class_name: 'Product', foreign_key: :member_variant_id, dependent: :restrict_with_exception
   has_many :purchase_items, foreign_key: :variant_id, inverse_of: :variant, dependent: :restrict_with_exception
   has_many :sale_items, foreign_key: :variant_id, inverse_of: :variant, dependent: :restrict_with_exception
+  has_many :journal_entry_items, foreign_key: :variant_id, inverse_of: :variant, dependent: :restrict_with_exception
   has_many :readings, class_name: 'ProductNatureVariantReading', foreign_key: :variant_id, inverse_of: :variant
+  has_many :phases, class_name: 'ProductPhase', foreign_key: :variant_id, inverse_of: :variant
   has_picture
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :active, inclusion: { in: [true, false] }
-  validates :gtin, :name, :picture_content_type, :picture_file_name, :reference_name, :work_number, length: { maximum: 500 }, allow_blank: true
+  validates :france_maaid, :gtin, :name, :picture_content_type, :picture_file_name, :reference_name, :work_number, length: { maximum: 500 }, allow_blank: true
   validates :number, presence: true, uniqueness: true, length: { maximum: 500 }
   validates :picture_file_size, numericality: { only_integer: true, greater_than: -2_147_483_649, less_than: 2_147_483_648 }, allow_blank: true
   validates :picture_updated_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
@@ -105,6 +110,7 @@ class ProductNatureVariant < Ekylibre::Record::Base
   scope :purchaseables, -> { joins(:nature).merge(ProductNature.purchaseables) }
   scope :deliverables, -> { joins(:nature).merge(ProductNature.stockables) }
   scope :stockables_or_depreciables, -> { joins(:nature).merge(ProductNature.stockables_or_depreciables).order(:name) }
+  scope :depreciables, -> { joins(:nature).merge(ProductNature.depreciables).order(:name) }
   scope :identifiables, -> { where(nature: ProductNature.identifiables) }
 
   scope :derivative_of, proc { |*varieties| of_derivative_of(*varieties) }
@@ -135,15 +141,24 @@ class ProductNatureVariant < Ekylibre::Record::Base
 
   protect(on: :destroy) do
     products.any? || sale_items.any? || purchase_items.any? ||
-      parcel_items.any? || !destroyable_accounts?
+      parcel_items.any? || phases.any?
   end
 
   before_validation on: :create do
-    self.number = if ProductNatureVariant.any?
-                    ProductNatureVariant.order(number: :desc).first.number.succ
-                  else
-                    '00000001'
-                  end
+    if ProductNatureVariant.any?
+      self.category = nature.category if nature
+      if category
+        num = ProductNatureVariant.order('number::INTEGER DESC').first.number.to_i.to_s.rjust(6, '0').succ
+        if category.storable?
+          while Account.where(number: [category.stock_movement_account.number + num, category.stock_account.number + num]).any? || ProductNatureVariant.where(number: num).any?
+            num.succ!
+          end
+        end
+        self.number = num
+      end
+    else
+      self.number = '000001'
+    end
   end
 
   before_validation do # on: :create
@@ -165,9 +180,10 @@ class ProductNatureVariant < Ekylibre::Record::Base
 
   validate do
     if nature
-      unless Nomen::Variety.find(nature_variety) >= self.variety
+      nv = Nomen::Variety.find(nature_variety)
+      unless nv >= self.variety
         logger.debug "#{nature_variety}#{Nomen::Variety.all(nature_variety)} not include #{self.variety.inspect}"
-        errors.add(:variety, :invalid)
+        errors.add(:variety, :is, thing: nv.human_name)
       end
       if Nomen::Variety.find(nature_derivative_of)
         if self.derivative_of
@@ -199,20 +215,14 @@ class ProductNatureVariant < Ekylibre::Record::Base
     end
   end
 
-  def destroyable_accounts?
-    stock_movement_account.destroyable? && stock_account.destroyable?
-  end
-
   # create unique account for stock management in accountancy
   def create_unique_account(mode = :stock)
     account_key = mode.to_s + '_account'
-    unless storable?
-      raise ArgumentError, "Don't known how to create account for #{self.name.inspect}. You have to check category first"
-    end
 
     category_account = category.send(account_key)
     unless category_account
-      raise ArgumentError, "Account is not configure for #{self.name.inspect}. You have to check category first"
+      # We want to notice => raise.
+      raise "Account '#{account_key}' is not configured on category of #{self.name.inspect} variant. You have to check category first"
     end
 
     options = {}
@@ -276,9 +286,9 @@ class ProductNatureVariant < Ekylibre::Record::Base
   # check if a variant has an indicator which is frozen or not
   def has_frozen_indicator?(indicator)
     if indicator.is_a?(Nomen::Item)
-      return frozen_indicators.include?(indicator)
+      frozen_indicators.include?(indicator)
     else
-      return frozen_indicators_list.include?(indicator)
+      frozen_indicators_list.include?(indicator)
     end
   end
 
@@ -348,6 +358,14 @@ class ProductNatureVariant < Ekylibre::Record::Base
     list
   end
 
+  def contractual_prices
+    contract_items
+      .pluck(:contract_id, :unit_pretax_amount)
+      .to_h
+      .map { |contract_id, price| [Contract.find(contract_id), price] }
+      .to_h
+  end
+
   # Get indicator value
   # if option :at specify at which moment
   # if option :reading is true, it returns the ProductNatureVariantReading record
@@ -378,6 +396,14 @@ class ProductNatureVariant < Ekylibre::Record::Base
     matching_model.create!(attributes.merge(variant: self))
   end
 
+  def create_product(attributes = {})
+    attributes[:initial_owner] ||= Entity.of_company
+    attributes[:initial_born_at] ||= Time.zone.now
+    attributes[:born_at] ||= attributes[:initial_born_at]
+    attributes[:name] ||= "#{name} (#{attributes[:initial_born_at].to_date.l})"
+    matching_model.create(attributes.merge(variant: self))
+  end
+
   def take(quantity)
     products.mine.each_with_object({}) do |product, result|
       reminder = quantity - result.values.sum
@@ -394,7 +420,7 @@ class ProductNatureVariant < Ekylibre::Record::Base
   # and a given supplier if any, or nil if there's
   # no purchase item matching criterias
   def last_purchase_item_for(supplier = nil)
-    return purchase_items.last unless supplier.present?
+    return purchase_items.last if supplier.blank?
     purchase_items
       .joins(:purchase)
       .where('purchases.supplier_id = ?', Entity.find(supplier).id)
@@ -408,7 +434,7 @@ class ProductNatureVariant < Ekylibre::Record::Base
 
   # Return current quantity of all products link to the variant currently ordered or invoiced but not delivered
   def current_outgoing_stock_ordered_not_delivered
-    sales = Sale.where(state: %w(order invoice))
+    sales = Sale.where(state: %w[order invoice])
     sale_items = SaleItem.where(variant_id: id, sale_id: sales.pluck(:id)).includes(:parcel_items).where(parcel_items: { sale_item_id: nil })
     sale_items.map(&:quantity).compact.sum.to_f
   end
@@ -444,7 +470,7 @@ class ProductNatureVariant < Ekylibre::Record::Base
       variants.reload
     end
 
-    Item = Struct.new(:name, :variety, :derivative_of, :abilities_list, :indicators, :frozen_indicators, :variable_indicators)
+    ItemStruct = Struct.new(:name, :variety, :derivative_of, :abilities_list, :indicators, :frozen_indicators, :variable_indicators)
 
     # Returns core attributes of nomenclature merge with nature if necessary
     # name, variety, derivative_od, abilities
@@ -453,7 +479,7 @@ class ProductNatureVariant < Ekylibre::Record::Base
         nature = Nomen::ProductNature[item.nature]
         f = (nature.frozen_indicators || []).map(&:to_sym)
         v = (nature.variable_indicators || []).map(&:to_sym)
-        Item.new(
+        ItemStruct.new(
           item.name,
           Nomen::Variety.find(item.variety || nature.variety),
           Nomen::Variety.find(item.derivative_of || nature.derivative_of),
@@ -479,8 +505,8 @@ class ProductNatureVariant < Ekylibre::Record::Base
       unless nature_item = Nomen::ProductNature[item.nature]
         raise ArgumentError, "The nature of the product_nature_variant #{item.nature.inspect} is not known"
       end
-      unless !force && variant = ProductNatureVariant.find_by(reference_name: reference_name.to_s)
-        attributes = {
+      unless !force && (variant = ProductNatureVariant.find_by(reference_name: reference_name.to_s))
+        variant = new(
           name: item.human_name,
           active: true,
           nature: ProductNature.import_from_nomenclature(item.nature),
@@ -489,16 +515,13 @@ class ProductNatureVariant < Ekylibre::Record::Base
           # :frozen_indicators => item.frozen_indicators_values.to_s,
           variety: item.variety || nil,
           derivative_of: item.derivative_of || nil
-        }
-        variant = new(attributes)
-        # puts variant.name.inspect.green
+        )
         unless variant.save
           raise "Cannot import variant #{reference_name.inspect}: #{variant.errors.full_messages.join(', ')}"
         end
-
       end
 
-      unless item.frozen_indicators_values.to_s.blank?
+      if item.frozen_indicators_values.to_s.present?
         # create frozen indicator for each pair indicator, value ":population => 1unity"
         item.frozen_indicators_values.to_s.strip.split(/[[:space:]]*\,[[:space:]]*/)
             .collect { |i| i.split(/[[:space:]]*\:[[:space:]]*/) }.each do |i|

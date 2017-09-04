@@ -12,15 +12,16 @@
 //
 //= require modernizr
 //= require jquery
-//= require jquery-ui/datepicker
-//= require jquery-ui/datepicker-fr
-//= #require jquery-ui/datepicker-ar
-//= #require jquery-ui/datepicker-ja
-//= require jquery-ui/dialog
-//= require jquery-ui/slider
-//= require jquery-ui/accordion
-//= require jquery-ui/sortable
-//= require jquery-ui/droppable
+//= require jquery/jquery.lazy
+//= require jquery-ui/widgets/datepicker
+//= require jquery-ui/i18n/datepicker-fr
+// require jquery-ui/i18n/datepicker-ar
+// require jquery-ui/i18n/datepicker-ja
+//= require jquery-ui/widgets/dialog
+//= require jquery-ui/widgets/slider
+//= require jquery-ui/widgets/accordion
+//= require jquery-ui/widgets/sortable
+//= require jquery-ui/widgets/droppable
 //= require jquery_ujs
 //= require jquery.remotipart
 //= require jquery.turbolinks
@@ -33,6 +34,16 @@
 //= require i18n/locale
 //= require i18n/ext
 //= require ekylibre
+//= require moment
+//= require moment/ar
+//= require moment/de
+//= require moment/es
+//= require moment/fr
+//= require moment/it
+//= require moment/ja
+//= require moment/pt
+//= require moment/zh-cn
+//= require bootstrap-datetimepicker
 //= require formize/behave
 //= require form/dialog
 //= require formize/observe
@@ -40,6 +51,7 @@
 //= require form/dependents
 //= require form/toggle
 //= require form/dates
+//= require form/links
 //= require cocoon
 //= require jquery/ext
 //= require selector
@@ -64,11 +76,14 @@
 //= require plugins
 //= require_tree .
 //= require tour
+//= require bootstrap-slider
 
 var visualization = {};
 var mapeditor = {};
 var ekylibre = {};
 var calcul = {};
+
+var golumn = {};
 
 // FIX Browser interoperability
 // href function seems to be ineffective

@@ -1,13 +1,16 @@
 = field_set do
-  - if f.object.nature.payslip?
-    = f.referenced_association :supplier, source: :employees, new: { employee: 1 }, label: Purchase.human_attribute_name(:employee)
-  - else
-    = f.referenced_association :supplier, source: :suppliers, new: { supplier: 1 }
+  - if f.object.new_record?
+    - if params[:affair_id]
+      - f.object.affair = PurchaseAffair.find(params[:affair_id])
+    - if f.object.affair
+      = f.association :affair, as: :hidden
+  = f.referenced_association :supplier, source: :suppliers, new: { supplier: 1 }
+  = f.referenced_association :delivery_address, source: :own_mails, new: { entity_id: Entity.of_company.id }
   = f.association :nature, as: :hidden
-  = f.referenced_association :delivery_address, source: :own_mails, new: {entity_id: Entity.of_company.id}
   = f.input :reference_number
-  = f.input :planned_at
   = f.input :invoiced_at
+  = f.input :payment_delay
+  = f.input :tax_payability, as: :radio_buttons
   = f.referenced_association :responsible, source: :employees, new: { employed: 1 }
   = f.input :description
   = f.custom_fields
@@ -18,6 +21,7 @@
       %thead
         %tr
           %th= PurchaseItem.human_attribute_name(:variant)
+          %th= Parcel.human_attribute_name(:number) if f.object.parcels.any?
           %th= PurchaseItem.human_attribute_name(:quantity)
           %th= PurchaseItem.human_attribute_name(:unit_pretax_amount)
           %th= PurchaseItem.human_attribute_name(:tax)
@@ -30,12 +34,13 @@
       %tfoot
         %tr.total
           %td= link_to_add_association :add_item.tl, f, :items, partial: 'item_fields', data: { association_insertion_node: '#items-table', association_insertion_method: :append }, class: "btn primary"
-          %th{colspan: 4}= :total.tl
-          %td#pta.decimal{data:{use: ".pta", calculate: "sum", calculate_round: precision}}= f.object.pretax_amount
-          %td#wta.decimal{data:{use: ".wta", calculate: "sum", calculate_round: precision}}= f.object.amount
+          - colspan = f.object.parcels.any? ? 5 : 4
+          %th{ colspan: 4 }= :total.tl
+          %td#pta.decimal{ data:{ use: ".nested-fields .pta", calculate: "sum", calculate_round: precision } }= f.object.pretax_amount
+          %td#wta.decimal{ data:{ use: ".nested-fields .wta", calculate: "sum", calculate_round: precision } }= f.object.amount
           %td= f.object.currency
           %th
-      = f.simple_fields_for :items, f.object.items do |item|
+      = f.simple_fields_for :items, f.object.items.sort_by { |i| i.id.to_i } do |item|
         = render 'item_fields', f: item
 
 = f.attachments_field_set

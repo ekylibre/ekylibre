@@ -1,5 +1,9 @@
+- navigation resource, order: :number, naming_method: :label
+
 - main_toolbar do |t|
   = t.edit(resource)
+  = t.export :account_journal_entry_sheet
+  = t.destroy(resource)
   = t.mark(resource) if resource.reconcilable?
 
 = cobbles do |c|
@@ -15,11 +19,13 @@
 
   - c.cobble(:journal_entry_items) do
     = kujaku do |k|
-      - k.text :b
+      - k.text name: :b
       - k.helper :journal_period_crit, :p
       - k.helper :journal_entries_states_crit
 
-    - items = JournalEntryItem.joins(:entry).where(eval(controller.class.account_moves_conditions))
+
+
+    - items = JournalEntryItem.joins([:entry]).joins('LEFT OUTER JOIN "product_nature_variants" ON "product_nature_variants"."id" = "journal_entry_items"."variant_id"').where(eval(controller.class.account_moves_conditions))
     - totals = {}
     - totals[:debit]  = items.sum(:absolute_debit)
     - totals[:credit] = items.sum(:absolute_credit)
@@ -38,3 +44,7 @@
         %td.value= totals[:balance_debit].l(currency: currency)
         %td.value= totals[:balance_credit].l(currency: currency)
         %th
+
+    - content_for 'cobble_journal-entry-items_meta_toolbar'.to_sym do
+      .active-list-actions
+        = mask_lettered_items_button 'journal_entry_items-list'

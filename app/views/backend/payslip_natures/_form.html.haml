@@ -1,0 +1,9 @@
+= field_set do
+  = f.input :name
+  = f.input :active
+  = f.input :by_default
+  = f.input :currency
+  = f.input :with_accounting, show: :accountancy
+  #accountancy
+    = f.referenced_association :journal
+    = f.referenced_association :account

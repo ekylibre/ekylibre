@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2016 Brice Texier, David Joulin
+# Copyright (C) 2012-2017 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -28,6 +28,7 @@
 #  creator_id                :integer
 #  custom_fields             :jsonb
 #  derivative_of             :string
+#  france_maaid              :string
 #  gtin                      :string
 #  id                        :integer          not null, primary key
 #  lock_version              :integer          default(0), not null
@@ -63,5 +64,17 @@ class ProductNatureVariantTest < ActiveSupport::TestCase
     assert ProductNatureVariant.flattened_nomenclature.any?
     assert ProductNatureVariant.items_of_expression('is triticum').any?
     assert ProductNatureVariant.items_of_expression('is triticum or is bos_taurus').any?
+  end
+
+  test 'inner sequence' do
+    nature = ProductNature.first
+    v = nature.variants.create!(name: 'Titi', unit_name: 'Piaf')
+    v.destroy
+    v2 = nature.variants.create!(name: 'Gros minet', unit_name: 'Cat')
+    assert v.number != v2.number, 'Numbers should be different'
+  end
+
+  test 'import from nomenclature seedling' do
+    assert_nothing_raised { ProductNatureVariant.import_from_nomenclature(:seedling) }
   end
 end

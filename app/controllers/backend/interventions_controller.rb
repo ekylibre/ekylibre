@@ -20,7 +20,8 @@ require_dependency 'procedo'
 
 module Backend
   class InterventionsController < Backend::BaseController
-    manage_restfully t3e: { procedure_name: '(RECORD.procedure ? RECORD.procedure.human_name : nil)'.c }, group_parameters_attributes: 'params[:group_parameters_attributes] || []'.c
+    manage_restfully t3e: { procedure_name: '(RECORD.procedure ? RECORD.procedure.human_name : nil)'.c },
+                     continue: %i[nature procedure_name]
 
     respond_to :pdf, :odt, :docx, :xml, :json, :html, :csv
 
@@ -37,19 +38,26 @@ module Backend
       # , productions: [:name], campaigns: [:name], activities: [:name], products: [:name]
       expressions = []
       expressions << 'CASE ' + Procedo.selection.map { |l, n| "WHEN procedure_name = #{conn.quote(n)} THEN #{conn.quote(l)}" }.join(' ') + " ELSE '' END"
-      code = search_conditions({ interventions: [:state, :procedure_name, :number] }, expressions: expressions) + " ||= []\n"
+      code = search_conditions({ interventions: %i[state procedure_name number] }, expressions: expressions) + " ||= []\n"
       code << "unless params[:state].blank?\n"
       code << "  c[0] << ' AND #{Intervention.table_name}.state IN (?)'\n"
-      code << "  c << params[:state].flatten\n"
+      code << "  c << params[:state]\n"
       code << "end\n"
+
+      code << "unless params[:nature].blank?\n"
+      code << "  c[0] << ' AND #{Intervention.table_name}.nature IN (?)'\n"
+      code << "  c << params[:nature]\n"
+      code << "end\n"
+
+      code << "c[0] << ' AND ((#{Intervention.table_name}.nature = ? AND #{Intervention.table_name}.state != ? AND (#{Intervention.table_name}.request_intervention_id IS NULL OR #{Intervention.table_name}.request_intervention_id NOT IN (SELECT id from #{Intervention.table_name})) OR #{Intervention.table_name}.nature = ?))'\n"
+      code << "c << 'request'\n"
+      code << "c << '#{Intervention.state.rejected}'\n"
+      code << "c << 'record'\n"
+
       code << "unless params[:procedure_name].blank?\n"
       code << "  c[0] << ' AND #{Intervention.table_name}.procedure_name IN (?)'\n"
       code << "  c << params[:procedure_name]\n"
       code << "end\n"
-      code << "c[0] << ' AND ' + params[:nature].join(' AND ') unless params[:nature].blank?\n"
-      code << "c[0] << ' AND #{Intervention.table_name}.request_intervention_id IS NULL'\n"
-      code << "c[0] << ' AND #{Intervention.table_name}.state != ?'\n"
-      code << "  c << 'rejected'\n"
 
       # select the interventions according to the user current period
       code << "unless current_period_interval.blank? && current_period.blank?\n"
@@ -77,7 +85,7 @@ module Backend
 
       # Cultivable zones
       code << "  if params[:cultivable_zone_id].to_i > 0\n"
-      code << "    c[0] << ' AND #{Intervention.table_name}.id IN (SELECT #{Intervention.table_name}.id FROM #{Intervention.table_name} INNER JOIN #{InterventionParameter.table_name} ON #{InterventionParameter.table_name}.intervention_id = #{Intervention.table_name}.id INNER JOIN #{TargetDistribution.table_name} ON #{TargetDistribution.table_name}.target_id = #{InterventionParameter.table_name}.product_id INNER JOIN #{ActivityProduction.table_name} ON #{TargetDistribution.table_name}.activity_production_id = #{ActivityProduction.table_name}.id INNER JOIN #{CultivableZone.table_name} ON #{CultivableZone.table_name}.id = #{ActivityProduction.table_name}.cultivable_zone_id WHERE #{CultivableZone.table_name}.id = ' + params[:cultivable_zone_id] + ')'\n"
+      code << "    c[0] << ' AND #{Intervention.table_name}.id IN (SELECT intervention_id FROM activity_productions_interventions INNER JOIN #{ActivityProduction.table_name} ON #{ActivityProduction.table_name}.id = activity_production_id INNER JOIN #{CultivableZone.table_name} ON #{CultivableZone.table_name}.id = #{ActivityProduction.table_name}.cultivable_zone_id WHERE #{CultivableZone.table_name}.id = ' + params[:cultivable_zone_id] + ')'\n"
       code << "    c \n"
       code << "  end\n"
 
@@ -128,10 +136,11 @@ module Backend
       t.column :human_activities_names
       t.column :started_at
       t.column :stopped_at, hidden: true
-      t.column :human_working_duration
+      t.column :human_working_duration, on_select: :sum, value_method: 'working_duration.in(:second).in(:hour)', datatype: :decimal
+      t.status
       t.column :human_target_names
-      t.column :human_working_zone_area
-      t.column :total_cost, label_method: :human_total_cost, currency: true
+      t.column :human_working_zone_area, on_select: :sum, datatype: :decimal
+      t.column :total_cost, label_method: :human_total_cost, currency: true, on_select: :sum, datatype: :decimal
       t.column :nature
       t.column :issue, url: true
       t.column :trouble_encountered, hidden: true
@@ -165,18 +174,18 @@ module Backend
     def show
       return unless @intervention = find_and_check
       t3e @intervention, procedure_name: @intervention.procedure.human_name
-      respond_with(@intervention, methods: [:cost, :earn, :status, :name, :duration, :human_working_zone_area, :human_actions_names],
+      respond_with(@intervention, methods: %i[cost earn status name duration human_working_zone_area human_actions_names],
                                   include: [
                                     { leaves_parameters: {
-                                      methods: [:reference_name, :default_name, :working_zone_svg, :human_quantity, :human_working_zone_area],
+                                      methods: %i[reference_name default_name working_zone_svg human_quantity human_working_zone_area],
                                       include: {
                                         product: {
-                                          methods: [:picture_path, :nature_name, :unit_name]
+                                          methods: %i[picture_path nature_name unit_name]
                                         }
                                       }
                                     } }, {
                                       prescription: {
-                                        include: [:prescriptor, :attachments]
+                                        include: %i[prescriptor attachments]
                                       }
                                     }
                                   ],
@@ -185,51 +194,112 @@ module Backend
 
     def new
       options = {}
-      [:actions, :custom_fields, :description, :event_id, :issue_id,
-       :nature, :number, :prescription_id, :procedure_name,
-       :request_intervention_id, :started_at, :state,
-       :stopped_at, :trouble_description, :trouble_encountered,
-       :whole_duration, :working_duration].each do |param|
+      %i[actions custom_fields description event_id issue_id
+         nature number prescription_id procedure_name
+         request_intervention_id started_at state
+         stopped_at trouble_description trouble_encountered
+         whole_duration working_duration].each do |param|
         options[param] = params[param]
       end
-      options[:group_parameters_attributes] = params[:group_parameters_attributes] || []
+
+      # , :doers, :inputs, :outputs, :tools
+      %i[group_parameters targets].each do |param|
+        next unless params.include? :intervention
+        options[:"#{param}_attributes"] = permitted_params["#{param}_attributes"] || []
+
+        next unless options[:targets_attributes]
+
+        next if permitted_params.include? :working_periods
+        targets = if options[:targets_attributes].is_a? Array
+                    options[:targets_attributes].collect { |k, _| k[:product_id] }
+                  else
+                    options[:targets_attributes].collect { |_, v| v[:product_id] }
+                  end
+        availables = Product.where(id: targets).at(Time.zone.now - 1.hour).collect(&:id)
+
+        options[:targets_attributes].select! do |k, v|
+          obj = k.is_a?(Hash) ? k : v
+          obj.include?(:product_id) && availables.include?(obj[:product_id].to_i)
+        end
+      end
+
+      # consume preference and erase
+      if params[:keeper_id] && (p = current_user.preferences.get(params[:keeper_id])) && p.value.present?
+
+        options[:targets_attributes] = p.value.split(',').collect do |v|
+          hash = {}
+
+          hash[:product_id] = v if Product.find_by(id: v)
+
+          if params[:reference_name]
+            next unless params[:reference_name] == 'animal'
+            hash[:reference_name] = params[:reference_name]
+          end
+
+          if params[:new_group] && (g = Product.find_by(id: params[:new_group]))
+            hash[:new_group_id] = g.id
+          end
+
+          if params[:new_container] && (c = Product.find_by(id: params[:new_container]))
+            hash[:new_container_id] = c.id
+          end
+
+          hash
+        end.compact
+
+        p.set! nil
+      end
 
       @intervention = Intervention.new(options)
 
-      from_request = Intervention.find_by_id(params[:request_intervention_id])
-      if from_request
-        @intervention = from_request.deep_clone(
-          only: [:actions, :custom_fields, :description, :event_id, :issue_id,
-                 :nature, :number, :prescription_id, :procedure_name,
-                 :request_intervention_id, :started_at, :state,
-                 :stopped_at, :trouble_description, :trouble_encountered,
-                 :whole_duration, :working_duration],
-          include:
-            [
-              { group_parameters: [
-                :parameters,
-                :group_parameters,
-                :doers,
-                :inputs,
-                :outputs,
-                :targets,
-                :tools
-              ] },
-              { root_parameters: :group },
-              { parameters: :group },
-              { product_parameters: [:readings, :group] },
-              { doers: :group },
-              { inputs: :group },
-              { outputs: :group },
-              { targets: :group },
-              { tools: :group },
-              :working_periods
-            ]
-        )
-        @intervention.nature = :record
+      from_request = Intervention.find_by(id: params[:request_intervention_id])
+      @intervention = from_request.initialize_record if from_request
+
+      render(locals: { cancel_url: { action: :index }, with_continue: true })
+    end
+
+    def create
+      unless permitted_params[:participations_attributes].nil?
+        participations = permitted_params[:participations_attributes]
+
+        participations.each_pair do |key, value|
+          participations[key] = JSON.parse(value)
+        end
+
+        permitted_params[:participations_attributes] = participations
       end
 
-      render(locals: { cancel_url: { action: :index } })
+      @intervention = Intervention.new(permitted_params)
+
+      url = if params[:create_and_continue]
+              { action: :new, continue: true }
+            else
+              params[:redirect] || { action: :show, id: 'id'.c }
+            end
+
+      return if save_and_redirect(@intervention, url: url, notify: :record_x_created, identifier: :number)
+      render(locals: { cancel_url: { action: :index }, with_continue: true })
+    end
+
+    def update
+      @intervention = find_and_check
+
+      unless permitted_params[:participations_attributes].nil?
+        participations = permitted_params[:participations_attributes]
+        participations.each_pair do |key, value|
+          participations[key] = JSON.parse(value)
+        end
+
+        permitted_params[:participations_attributes] = participations
+
+        delete_working_periods(participations)
+      end
+
+      if @intervention.update_attributes(permitted_params)
+        redirect_to action: :show
+      else
+        render :edit
+      end
     end
 
     def sell
@@ -270,7 +340,7 @@ module Backend
         # raise intervention.to_hash.inspect
         respond_to do |format|
           # format.xml  { render xml: intervention.to_xml }
-          format.json { render json: { updater_id: updater_id, intervention: intervention, handlers: intervention.handlers_states }.to_json }
+          format.json { render json: { updater_id: updater_id, intervention: intervention, handlers: intervention.handlers_states, procedure_states: intervention.procedure_states }.to_json }
         end
       rescue Procedo::Error => e
         respond_to do |format|
@@ -288,7 +358,12 @@ module Backend
 
       if params[:interventions_ids]
         @interventions = Intervention.find(params[:interventions_ids].split(','))
-        render partial: 'backend/interventions/change_state_modal', locals: { interventions: @interventions }
+
+        if params[:modal_type] == 'delete'
+          render partial: 'backend/interventions/delete_modal', locals: { interventions: @interventions }
+        else
+          render partial: 'backend/interventions/change_state_modal', locals: { interventions: @interventions }
+        end
       end
     end
 
@@ -306,7 +381,28 @@ module Backend
       Intervention.transaction do
         @interventions.each do |intervention|
           if intervention.nature == :record && new_state == :rejected
+
+            unless intervention.request_intervention_id.nil?
+              intervention_request = Intervention.find(intervention.request_intervention_id)
+
+              if state_change_permitted_params[:delete_option].to_sym == :delete_request
+                intervention_request.destroy!
+              else
+                intervention_request.parameters = intervention.parameters
+                intervention_request.save!
+              end
+            end
+
             intervention.destroy!
+            next
+          end
+
+          if intervention.nature == :request && new_state == :rejected
+            intervention.state = new_state
+
+            next unless intervention.valid?
+            intervention.save!
+
             next
           end
 
@@ -315,6 +411,7 @@ module Backend
           if intervention.nature == :request
             new_intervention = intervention.dup
             new_intervention.parameters = intervention.parameters
+            new_intervention.request_intervention_id = intervention.id
           end
 
           new_intervention.state = new_state
@@ -322,15 +419,27 @@ module Backend
 
           next unless new_intervention.valid?
           new_intervention.save!
-
-          if intervention.nature == :request
-            intervention.request_intervention_id = new_intervention.id
-            intervention.save!
-          end
         end
       end
 
       redirect_to_back
+    end
+
+    # FIXME: Not linked directly to interventions
+    def change_page
+      options = params.require(:interventions_taskboard).permit(:q, :procedure_name, :product_id, :cultivable_zone_id, :period_interval, :period, :page)
+      options[:period_interval] ||= current_period_interval
+      options[:period] ||= current_period
+
+      @interventions_by_state = {
+        requests:  Intervention.with_unroll(options.merge(nature: :request)),
+        current:   Intervention.with_unroll(options.merge(nature: :record, state: :in_progress)),
+        finished:  Intervention.with_unroll(options.merge(nature: :record, state: :done)),
+        validated: Intervention.with_unroll(options.merge(nature: :record, state: :validated))
+      }
+      respond_to do |format|
+        format.js
+      end
     end
 
     private
@@ -346,8 +455,28 @@ module Backend
       interventions
     end
 
+    def delete_working_periods(form_participations)
+      working_periods_ids = form_participations
+                            .values
+                            .map { |participation| participation['working_periods_attributes'].map { |working_period| working_period['id'] } }
+                            .flatten
+                            .compact
+                            .uniq
+                            .map(&:to_i)
+
+      saved_working_periods_ids = @intervention
+                                  .participations
+                                  .map { |participation| participation.working_periods.map(&:id) }
+                                  .flatten
+
+      working_periods_to_destroy = saved_working_periods_ids - working_periods_ids
+      InterventionWorkingPeriod.where(id: working_periods_to_destroy).destroy_all
+
+      @intervention.reload
+    end
+
     def state_change_permitted_params
-      params.require(:intervention).permit(:interventions_ids, :state)
+      params.require(:intervention).permit(:interventions_ids, :state, :delete_option)
     end
   end
 end

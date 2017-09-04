@@ -12,7 +12,7 @@ module Abaci
       rows.each do |row|
         values = {}
         @columns.each_with_index do |c, i|
-          values[c.name] = c.cast(row[i].strip) unless row[i].blank?
+          values[c.name] = c.cast(row[i].strip) if row[i].present?
         end
         @rows << Row.new(values)
       end

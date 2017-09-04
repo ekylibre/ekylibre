@@ -16,6 +16,10 @@ deu:
         instruction_2: "Wenn Sie diese nicht angefordert haben, ignorieren Sie diese E-Mail."
         instruction_3: "Das Passwort wird nicht ändern, bis Sie auf den Link oben und schaffen Zugang ein neues."
         subject: "Passwort zurücksetzen Anweisungen"
+      signed_up:
+        confirm: "Bitte bestätigen Sie es im Administrations-Bereich."
+        # details: "%{first_name} %{last_name} with email %{email} has just signed up."
+        subject: "Neu anmelden"
       unlock_instructions:
         action: "Setzen Sie mein Konto"
         # greeting: "Hello %{recipient}!"

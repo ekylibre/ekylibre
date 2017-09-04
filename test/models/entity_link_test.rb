@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2016 Brice Texier, David Joulin
+# Copyright (C) 2012-2017 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -44,5 +44,17 @@ require 'test_helper'
 
 class EntityLinkTest < ActiveSupport::TestCase
   test_model_actions
-  # Add tests here...
+
+  test 'link end' do
+    e = Entity.create!(nature: :contact, first_name: 'Gerard', last_name: 'MARTIN')
+    l = Entity.create!(nature: :organization, last_name: 'MARTIN LTD')
+    el = EntityLink.create!(entity: e, linked: l, nature: :membership)
+
+    l.destroy!
+
+    e.reload
+
+    assert_equal 0, e.direct_links.count
+    assert_equal 0, e.indirect_links.count
+  end
 end

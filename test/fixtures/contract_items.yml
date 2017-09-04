@@ -1,0 +1,61 @@
+# = Informations
+#
+# == License
+#
+# Ekylibre - Simple agricultural ERP
+# Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
+# Copyright (C) 2010-2012 Brice Texier
+# Copyright (C) 2012-2017 Brice Texier, David Joulin
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Affero General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public License
+# along with this program.  If not, see http://www.gnu.org/licenses.
+#
+# == Table: contract_items
+#
+#  contract_id        :integer          not null
+#  created_at         :datetime         not null
+#  creator_id         :integer
+#  id                 :integer          not null, primary key
+#  lock_version       :integer          default(0), not null
+#  pretax_amount      :decimal(19, 4)   default(0.0), not null
+#  quantity           :decimal(19, 4)   default(0.0), not null
+#  unit_pretax_amount :decimal(19, 4)   not null
+#  updated_at         :datetime         not null
+#  updater_id         :integer
+#  variant_id         :integer          not null
+#
+---
+contract_items_001:
+  contract_id: 1
+  created_at: 2016-10-26 15:22:28.851117000 Z
+  creator_id: 1
+  id: 1
+  lock_version: 0
+  pretax_amount: 135.3
+  quantity: 110.0
+  unit_pretax_amount: 1.23
+  updated_at: 2016-10-26 15:22:28.851117000 Z
+  updater_id: 1
+  variant_id: 58
+contract_items_002:
+  contract_id: 2
+  created_at: 2016-10-26 15:28:41.028185000 Z
+  creator_id: 1
+  id: 2
+  lock_version: 0
+  pretax_amount: 25000.0
+  quantity: 20.0
+  unit_pretax_amount: 1250.0
+  updated_at: 2016-10-26 15:28:41.028185000 Z
+  updater_id: 1
+  variant_id: 68

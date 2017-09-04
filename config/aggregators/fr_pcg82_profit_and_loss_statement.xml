@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<aggregators xmlns="http://www.ekylibre.org/XML/2013/aggregators">
+  <aggregator name="fr_pcg82_profit_and_loss_statement" version="0.0" category="exploitation">
+    <parameters>
+      <parameter name="started_on" type="date" default="2016-01-01"/>
+      <parameter name="stopped_on" type="date" default="2016-12-31"/>
+    </parameters>
+    <section name="financial_years">
+      <variable name="company" value="Entity.of_company"/>
+      <variable name="financial_year" value="FinancialYear.on(started_on)"/>
+      <variable name="previous_financial_year" value="financial_year.previous"/>
+      <variable name="financial_year_compute" value="financial_year.compute_balances!"/>
+      <variable name="previous_started_on" value="started_on.to_date - 1.year"/>
+      <variable name="previous_stopped_on" value="stopped_on.to_date - 1.year"/>
+      <property name="entity_name" value="company.full_name"/>
+      <property name="address" value="company.default_mail_address.coordinate"/>
+      <property name="financial_year_name" value="financial_year.code"/>
+      <property name="started_on" value="started_on"/>
+      <property name="stopped_on" value="stopped_on"/>
+      <!-- profits 7 -->
+      <section name="title" legend="profits">
+        <property name="label" value=":profits.tl" level="api"/>
+        <section name="items">
+          <!-- 70/71 -->
+          <section name="item">
+            <cell name="group" value=":profits.tl" level="api"/>
+            <cell name="subgroup" value=":sales.tl" level="api"/>
+            <cell name="label" value=":productions_sales.tl" level="api"/>
+            <cell name="ordering" value=":A01" level="api"/>
+            <cell name="balance" value="financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :productions_sales, {started_on: started_on, stopped_on: stopped_on})" />
+            <cell name="depreciated_balance" value="financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :inventory_variations, {started_on: started_on, stopped_on: stopped_on})" />
+            <cell name="previous_balance" value="previous_financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :productions_sales, {started_on: previous_started_on, stopped_on: previous_stopped_on})" />
+            <cell name="depreciated_previous_balance" value="previous_financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :inventory_variations, {started_on: previous_started_on, stopped_on: previous_stopped_on})" />
+            <cell name="total_balance" value="financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :productions_sales, {started_on: started_on, stopped_on: stopped_on}) + financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :inventory_variations, {started_on: started_on, stopped_on: stopped_on})" />
+            <cell name="previous_total_balance" value="previous_financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :productions_sales, {started_on: previous_started_on, stopped_on: previous_stopped_on}) + previous_financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :inventory_variations, {started_on: previous_started_on, stopped_on: previous_stopped_on})" />
+          </section>
+          <!-- 72 -->
+          <section name="item">
+            <cell name="group" value=":profits.tl" level="api"/>
+            <cell name="subgroup" value=":others.tl" level="api"/>
+            <cell name="label" value=":capitalised_production.tl" level="api"/>
+            <cell name="ordering" value=":A02" level="api"/>
+            <cell name="balance" value="financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :capitalised_production, {started_on: started_on, stopped_on: stopped_on})" />
+            <cell name="previous_balance" value="previous_financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :capitalised_production, {started_on: previous_started_on, stopped_on: previous_stopped_on})" />
+            <cell name="total_balance" value="financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :capitalised_production, {started_on: started_on, stopped_on: stopped_on})" />
+            <cell name="previous_total_balance" value="previous_financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :capitalised_production, {started_on: previous_started_on, stopped_on: previous_stopped_on})" />
+          </section>
+          <!-- 74 -->
+          <section name="item">
+            <cell name="group" value=":profits.tl" level="api"/>
+            <cell name="subgroup" value=":others.tl" level="api"/>
+            <cell name="label" value=":subsidies.tl" level="api"/>
+            <cell name="ordering" value=":A03" level="api"/>
+            <cell name="balance" value="financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :subsidies, {started_on: started_on, stopped_on: stopped_on})" />
+            <cell name="previous_balance" value="previous_financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :subsidies, {started_on: previous_started_on, stopped_on: previous_stopped_on})" />
+            <cell name="total_balance" value="financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :subsidies, {started_on: started_on, stopped_on: stopped_on})" />
+            <cell name="previous_total_balance" value="previous_financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :subsidies, {started_on: previous_started_on, stopped_on: previous_stopped_on})" />
+          </section>
+          <!-- 78/79 -->
+          <section name="item">
+            <cell name="group" value=":profits.tl" level="api"/>
+            <cell name="subgroup" value=":others.tl" level="api"/>
+            <cell name="label" value=":provisions_revenues.tl" level="api"/>
+            <cell name="ordering" value=":A04" level="api"/>
+            <cell name="balance" value="financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :provisions_revenues, {started_on: started_on, stopped_on: stopped_on})" />
+            <cell name="previous_balance" value="previous_financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :provisions_revenues, {started_on: previous_started_on, stopped_on: previous_stopped_on})" />
+            <cell name="total_balance" value="financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :provisions_revenues, {started_on: started_on, stopped_on: stopped_on})" />
+            <cell name="previous_total_balance" value="previous_financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :provisions_revenues, {started_on: previous_started_on, stopped_on: previous_stopped_on})" />
+          </section>
+          <!-- 73/75-->
+          <section name="item">
+            <cell name="group" value=":profits.tl" level="api"/>
+            <cell name="subgroup" value=":others.tl" level="api"/>
+            <cell name="label" value=":other_products.tl" level="api"/>
+            <cell name="ordering" value=":A05" level="api"/>
+            <cell name="balance" value="financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :other_products, {started_on: started_on, stopped_on: stopped_on})" />
+            <cell name="previous_balance" value="previous_financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :other_products, {started_on: previous_started_on, stopped_on: previous_stopped_on})" />
+            <cell name="total_balance" value="financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :other_products, {started_on: started_on, stopped_on: stopped_on})" />
+            <cell name="previous_total_balance" value="previous_financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :other_products, {started_on: previous_started_on, stopped_on: previous_stopped_on})" />
+          </section>
+        </section>
+      </section>
+      <!-- losses 6 -->
+      <section name="title" legend="losses">
+        <property name="label" value=":losses.tl" level="api"/>
+        <section name="items">
+          <!-- 60/603 -->
+          <section name="item">
+            <cell name="group" value=":losses.tl" level="api"/>
+            <cell name="subgroup" value=":purchases.tl" level="api"/>
+            <cell name="label" value=":products_purchases.tl" level="api"/>
+            <cell name="ordering" value=":B01" level="api"/>
+            <cell name="balance" value="financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :products_purchases, {started_on: started_on, stopped_on: stopped_on})" />
+            <cell name="depreciated_balance" value="financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :purchases_stocks_variation, {started_on: started_on, stopped_on: stopped_on})" />
+            <cell name="previous_balance" value="previous_financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :products_purchases, {started_on: previous_started_on, stopped_on: previous_stopped_on})" />
+            <cell name="depreciated_previous_balance" value="previous_financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :purchases_stocks_variation, {started_on: previous_started_on, stopped_on: previous_stopped_on})" />
+            <cell name="total_balance" value="- (financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :products_purchases, {started_on: started_on, stopped_on: stopped_on}) + financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :purchases_stocks_variation, {started_on: started_on, stopped_on: stopped_on}))" />
+            <cell name="previous_total_balance" value="- (previous_financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :products_purchases, {started_on: previous_started_on, stopped_on: previous_stopped_on}) + previous_financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :purchases_stocks_variation, {started_on: previous_started_on, stopped_on: previous_stopped_on}))" />
+          </section>
+          <!-- 61-62-->
+          <section name="item">
+            <cell name="group" value=":losses.tl" level="api"/>
+            <cell name="subgroup" value=":purchases.tl" level="api"/>
+            <cell name="label" value=":other_purchases.tl" level="api"/>
+            <cell name="ordering" value=":B02" level="api"/>
+            <cell name="balance" value="financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :other_purchases, {started_on: started_on, stopped_on: stopped_on})" />
+            <cell name="previous_balance" value="previous_financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :other_purchases, {started_on: previous_started_on, stopped_on: previous_stopped_on})" />
+            <cell name="total_balance" value="- financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :other_purchases, {started_on: started_on, stopped_on: stopped_on})" />
+            <cell name="previous_total_balance" value="- previous_financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :other_purchases, {started_on: previous_started_on, stopped_on: previous_stopped_on})" />
+          </section>
+          <!-- 63 -->
+          <section name="item">
+            <cell name="group" value=":losses.tl" level="api"/>
+            <cell name="subgroup" value=":purchases.tl" level="api"/>
+            <cell name="label" value=":taxes.tl" level="api"/>
+            <cell name="ordering" value=":B03" level="api"/>
+            <cell name="balance" value="financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :taxes, {started_on: started_on, stopped_on: stopped_on})" />
+            <cell name="previous_balance" value="previous_financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :taxes, {started_on: previous_started_on, stopped_on: previous_stopped_on})" />
+            <cell name="total_balance" value="- financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :taxes, {started_on: started_on, stopped_on: stopped_on})" />
+            <cell name="previous_total_balance" value="- previous_financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :taxes, {started_on: previous_started_on, stopped_on: previous_stopped_on})" />
+          </section>
+          <!-- 641 644 -->
+          <section name="item">
+            <cell name="group" value=":losses.tl" level="api"/>
+            <cell name="subgroup" value=":purchases.tl" level="api"/>
+            <cell name="label" value=":wages.tl" level="api"/>
+            <cell name="ordering" value=":B04" level="api"/>
+            <cell name="balance" value="financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :wages, {started_on: started_on, stopped_on: stopped_on})" />
+            <cell name="previous_balance" value="previous_financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :wages, {started_on: previous_started_on, stopped_on: previous_stopped_on})" />
+            <cell name="total_balance" value="- financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :wages, {started_on: started_on, stopped_on: stopped_on})" />
+            <cell name="previous_total_balance" value="- previous_financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :wages, {started_on: previous_started_on, stopped_on: previous_stopped_on})" />
+          </section>
+          <!-- 645 -->
+          <section name="item">
+            <cell name="group" value=":losses.tl" level="api"/>
+            <cell name="subgroup" value=":purchases.tl" level="api"/>
+            <cell name="label" value=":social_expenses.tl" level="api"/>
+            <cell name="ordering" value=":B05" level="api"/>
+            <cell name="balance" value="financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :social_expenses, {started_on: started_on, stopped_on: stopped_on})" />
+            <cell name="previous_balance" value="previous_financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :social_expenses, {started_on: previous_started_on, stopped_on: previous_stopped_on})" />
+            <cell name="total_balance" value="- financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :social_expenses, {started_on: started_on, stopped_on: stopped_on})" />
+            <cell name="previous_total_balance" value="- previous_financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :social_expenses, {started_on: previous_started_on, stopped_on: previous_stopped_on})" />
+          </section>
+          <!-- 681 -->
+          <section name="item">
+            <cell name="group" value=":losses.tl" level="api"/>
+            <cell name="subgroup" value=":purchases.tl" level="api"/>
+            <cell name="label" value=":depreciations_inputations_expenses.tl" level="api"/>
+            <cell name="ordering" value=":B06" level="api"/>
+            <cell name="balance" value="financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :depreciations_inputations_expenses, {started_on: started_on, stopped_on: stopped_on})" />
+            <cell name="previous_balance" value="previous_financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :depreciations_inputations_expenses, {started_on: previous_started_on, stopped_on: previous_stopped_on})" />
+            <cell name="total_balance" value="- financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :depreciations_inputations_expenses, {started_on: started_on, stopped_on: stopped_on})" />
+            <cell name="previous_total_balance" value="- previous_financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :depreciations_inputations_expenses, {started_on: previous_started_on, stopped_on: previous_stopped_on})" />
+          </section>
+          <!-- 65 -->
+          <section name="item">
+            <cell name="group" value=":losses.tl" level="api"/>
+            <cell name="subgroup" value=":purchases.tl" level="api"/>
+            <cell name="label" value=":other_expenses.tl" level="api"/>
+            <cell name="ordering" value=":B07" level="api"/>
+            <cell name="balance" value="financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :other_expenses, {started_on: started_on, stopped_on: stopped_on})" />
+            <cell name="previous_balance" value="previous_financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :other_expenses, {started_on: previous_started_on, stopped_on: previous_stopped_on})" />
+            <cell name="total_balance" value="- financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :other_expenses, {started_on: started_on, stopped_on: stopped_on})" />
+            <cell name="previous_total_balance" value="- previous_financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :other_expenses, {started_on: previous_started_on, stopped_on: previous_stopped_on})" />
+          </section>
+        </section>
+      </section>
+      <section name="title" legend="exploitation_results">
+        <property name="label" value=":exploitation_results.tl" level="api"/>
+        <section name="items">
+          <!-- financial_products -->
+          <section name="item">
+            <cell name="group" value=":exploitation_results.tl" level="api"/>
+            <cell name="subgroup" value=":financial_products.tl" level="api"/>
+            <cell name="label" value=":financial_products.tl" level="api"/>
+            <cell name="ordering" value=":C01" level="api"/>
+            <cell name="balance" value="financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :financial_products, {started_on: started_on, stopped_on: stopped_on})" />
+            <cell name="previous_balance" value="previous_financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :financial_products, {started_on: previous_started_on, stopped_on: previous_stopped_on})" />
+            <cell name="total_balance" value="financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :financial_products, {started_on: started_on, stopped_on: stopped_on})" />
+            <cell name="previous_total_balance" value="previous_financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :financial_products, {started_on: previous_started_on, stopped_on: previous_stopped_on})" />
+          </section>
+          <section name="item">
+            <cell name="group" value=":exploitation_results.tl" level="api"/>
+            <cell name="subgroup" value=":financial_products.tl" level="api"/>
+            <cell name="label" value=":financial_expenses.tl" level="api"/>
+            <cell name="ordering" value=":C02" level="api"/>
+            <cell name="balance" value="financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :financial_expenses, {started_on: started_on, stopped_on: stopped_on})" />
+            <cell name="previous_balance" value="previous_financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :financial_expenses, {started_on: previous_started_on, stopped_on: previous_stopped_on})" />
+            <cell name="total_balance" value="- financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :financial_expenses, {started_on: started_on, stopped_on: stopped_on})" />
+            <cell name="previous_total_balance" value="- previous_financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :financial_expenses, {started_on: previous_started_on, stopped_on: previous_stopped_on})" />
+          </section>
+          <!-- exceptional_products -->
+          <section name="item">
+            <cell name="group" value=":exploitation_results.tl" level="api"/>
+            <cell name="subgroup" value=":exceptional_products.tl" level="api"/>
+            <cell name="label" value=":exceptional_products.tl" level="api"/>
+            <cell name="ordering" value=":C03" level="api"/>
+            <cell name="balance" value="financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :exceptional_products, {started_on: started_on, stopped_on: stopped_on})" />
+            <cell name="previous_balance" value="previous_financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :exceptional_products, {started_on: previous_started_on, stopped_on: previous_stopped_on})" />
+            <cell name="total_balance" value="financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :exceptional_products, {started_on: started_on, stopped_on: stopped_on})" />
+            <cell name="previous_total_balance" value="previous_financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :exceptional_products, {started_on: previous_started_on, stopped_on: previous_stopped_on})" />
+          </section>
+          <section name="item">
+            <cell name="group" value=":exploitation_results.tl" level="api"/>
+            <cell name="subgroup" value=":exceptional_products.tl" level="api"/>
+            <cell name="label" value=":exceptional_expenses.tl" level="api"/>
+            <cell name="ordering" value=":C04" level="api"/>
+            <cell name="balance" value="financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :exceptional_expenses, {started_on: started_on, stopped_on: stopped_on})" />
+            <cell name="previous_balance" value="previous_financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :exceptional_expenses, {started_on: previous_started_on, stopped_on: previous_stopped_on})" />
+            <cell name="total_balance" value="- financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :exceptional_expenses, {started_on: started_on, stopped_on: stopped_on})" />
+            <cell name="previous_total_balance" value="- previous_financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :exceptional_expenses, {started_on: previous_started_on, stopped_on: previous_stopped_on})" />
+          </section>
+          <!-- employee_and_wages -->
+          <section name="item">
+            <cell name="group" value=":exploitation_results.tl" level="api"/>
+            <cell name="subgroup" value=":employee_and_wages.tl" level="api"/>
+            <cell name="label" value=":employee_involvement.tl" level="api"/>
+            <cell name="ordering" value=":C03" level="api"/>
+            <cell name="balance" value="financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :employee_involvement, {started_on: started_on, stopped_on: stopped_on})" />
+            <cell name="previous_balance" value="previous_financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :employee_involvement, {started_on: previous_started_on, stopped_on: previous_stopped_on})" />
+            <cell name="total_balance" value="- financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :employee_involvement, {started_on: started_on, stopped_on: stopped_on})" />
+            <cell name="previous_total_balance" value="- previous_financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :employee_involvement, {started_on: previous_started_on, stopped_on: previous_stopped_on})" />
+          </section>
+          <section name="item">
+            <cell name="group" value=":exploitation_results.tl" level="api"/>
+            <cell name="subgroup" value=":employee_and_wages.tl" level="api"/>
+            <cell name="label" value=":profit_taxe.tl" level="api"/>
+            <cell name="ordering" value=":C04" level="api"/>
+            <cell name="balance" value="financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :profit_taxe, {started_on: started_on, stopped_on: stopped_on})" />
+            <cell name="previous_balance" value="previous_financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :profit_taxe, {started_on: previous_started_on, stopped_on: previous_stopped_on})" />
+            <cell name="total_balance" value="- financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :profit_taxe, {started_on: started_on, stopped_on: stopped_on})" />
+            <cell name="previous_total_balance" value="- previous_financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :profit_taxe, {started_on: previous_started_on, stopped_on: previous_stopped_on})" />
+          </section>
+        </section>
+      </section>
+    </section>
+  </aggregator>
+</aggregators>

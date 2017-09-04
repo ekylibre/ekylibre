@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2016 Brice Texier, David Joulin
+# Copyright (C) 2012-2017 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -22,31 +22,33 @@
 #
 # == Table: journal_entries
 #
-#  absolute_credit    :decimal(19, 4)   default(0.0), not null
-#  absolute_currency  :string           not null
-#  absolute_debit     :decimal(19, 4)   default(0.0), not null
-#  balance            :decimal(19, 4)   default(0.0), not null
-#  created_at         :datetime         not null
-#  creator_id         :integer
-#  credit             :decimal(19, 4)   default(0.0), not null
-#  currency           :string           not null
-#  debit              :decimal(19, 4)   default(0.0), not null
-#  financial_year_id  :integer
-#  id                 :integer          not null, primary key
-#  journal_id         :integer          not null
-#  lock_version       :integer          default(0), not null
-#  number             :string           not null
-#  printed_on         :date             not null
-#  real_balance       :decimal(19, 4)   default(0.0), not null
-#  real_credit        :decimal(19, 4)   default(0.0), not null
-#  real_currency      :string           not null
-#  real_currency_rate :decimal(19, 10)  default(0.0), not null
-#  real_debit         :decimal(19, 4)   default(0.0), not null
-#  resource_id        :integer
-#  resource_type      :string
-#  state              :string           not null
-#  updated_at         :datetime         not null
-#  updater_id         :integer
+#  absolute_credit            :decimal(19, 4)   default(0.0), not null
+#  absolute_currency          :string           not null
+#  absolute_debit             :decimal(19, 4)   default(0.0), not null
+#  balance                    :decimal(19, 4)   default(0.0), not null
+#  created_at                 :datetime         not null
+#  creator_id                 :integer
+#  credit                     :decimal(19, 4)   default(0.0), not null
+#  currency                   :string           not null
+#  debit                      :decimal(19, 4)   default(0.0), not null
+#  financial_year_exchange_id :integer
+#  financial_year_id          :integer
+#  id                         :integer          not null, primary key
+#  journal_id                 :integer          not null
+#  lock_version               :integer          default(0), not null
+#  number                     :string           not null
+#  printed_on                 :date             not null
+#  real_balance               :decimal(19, 4)   default(0.0), not null
+#  real_credit                :decimal(19, 4)   default(0.0), not null
+#  real_currency              :string           not null
+#  real_currency_rate         :decimal(19, 10)  default(0.0), not null
+#  real_debit                 :decimal(19, 4)   default(0.0), not null
+#  resource_id                :integer
+#  resource_prism             :string
+#  resource_type              :string
+#  state                      :string           not null
+#  updated_at                 :datetime         not null
+#  updater_id                 :integer
 #
 ---
 journal_entries_001:
@@ -325,6 +327,7 @@ journal_entries_011:
   real_currency_rate: 1.0
   real_debit: 11.23
   resource_id: 3
+  resource_prism: sale_gap
   resource_type: Gap
   state: draft
   updated_at: 2014-11-05 13:35:14.585292000 Z
@@ -351,6 +354,7 @@ journal_entries_012:
   real_currency_rate: 1.0
   real_debit: 0.8
   resource_id: 4
+  resource_prism: sale_gap
   resource_type: Gap
   state: draft
   updated_at: 2014-11-05 13:36:51.433690000 Z
@@ -533,6 +537,7 @@ journal_entries_019:
   real_currency_rate: 1.0
   real_debit: 1848.0
   resource_id: 8
+  resource_prism: purchase
   resource_type: Purchase
   state: draft
   updated_at: 2014-11-07 15:58:47.252934000 Z
@@ -583,6 +588,7 @@ journal_entries_021:
   real_currency_rate: 1.0
   real_debit: 20520.0
   resource_id: 11
+  resource_prism: purchase
   resource_type: Purchase
   state: draft
   updated_at: 2014-11-07 16:52:57.686178000 Z
@@ -609,6 +615,7 @@ journal_entries_022:
   real_currency_rate: 0.9397
   real_debit: 1848.0
   resource_id: 12
+  resource_prism: purchase
   resource_type: Purchase
   state: draft
   updated_at: 2015-03-19 17:19:00.022540000 Z
@@ -1701,6 +1708,7 @@ journal_entries_064:
   real_currency_rate: 0.8977
   real_debit: 17329.62
   resource_id: 13
+  resource_prism: purchase
   resource_type: Purchase
   state: draft
   updated_at: 2016-07-01 20:22:55.389621000 Z
@@ -1806,7 +1814,7 @@ journal_entries_068:
   real_debit: 771.16
   resource_id: 44
   resource_type: LoanRepayment
-  state: draft
+  state: confirmed
   updated_at: 2016-07-01 20:34:32.694431000 Z
   updater_id: 1
 journal_entries_069:
@@ -2066,6 +2074,4575 @@ journal_entries_078:
   real_debit: 771.16
   resource_id: 54
   resource_type: LoanRepayment
-  state: draft
+  state: confirmed
   updated_at: 2016-07-01 20:34:42.996943000 Z
+  updater_id: 1
+journal_entries_079:
+  absolute_credit: 1850.0
+  absolute_currency: EUR
+  absolute_debit: 1850.0
+  balance: 0.0
+  created_at: 2016-10-01 14:43:02.398595000 Z
+  creator_id: 1
+  credit: 1850.0
+  currency: EUR
+  debit: 1850.0
+  financial_year_id: 25
+  id: 86
+  journal_id: 2
+  lock_version: 7
+  number: BNK000010
+  printed_on: 2016-09-30
+  real_balance: 0.0
+  real_credit: 1850.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 1850.0
+  resource_id: 6
+  resource_type: OutgoingPayment
+  state: draft
+  updated_at: 2016-10-04 08:22:23.952334000 Z
+  updater_id: 1
+journal_entries_080:
+  absolute_credit: 176.16
+  absolute_currency: EUR
+  absolute_debit: 176.16
+  balance: 0.0
+  created_at: 2016-10-01 14:43:02.598941000 Z
+  creator_id: 1
+  credit: 176.16
+  currency: EUR
+  debit: 176.16
+  financial_year_id: 25
+  id: 87
+  journal_id: 2
+  lock_version: 7
+  number: BNK000011
+  printed_on: 2016-09-30
+  real_balance: 0.0
+  real_credit: 176.16
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 176.16
+  resource_id: 7
+  resource_type: OutgoingPayment
+  state: draft
+  updated_at: 2016-10-04 07:17:54.436178000 Z
+  updater_id: 1
+journal_entries_081:
+  absolute_credit: 176.16
+  absolute_currency: EUR
+  absolute_debit: 176.16
+  balance: 0.0
+  created_at: 2016-10-01 14:43:02.598941000 Z
+  creator_id: 1
+  credit: 176.16
+  currency: EUR
+  debit: 176.16
+  financial_year_id: 25
+  id: 88
+  journal_id: 10
+  lock_version: 7
+  number: BNK000012
+  printed_on: 2015-08-28
+  real_balance: 0.0
+  real_credit: 176.16
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 176.16
+  resource_id: 7
+  resource_type: OutgoingPayment
+  state: draft
+  updated_at: 2016-10-04 07:17:54.436178000 Z
+  updater_id: 1
+journal_entries_082:
+  absolute_credit: 447.12
+  absolute_currency: EUR
+  absolute_debit: 447.12
+  balance: 0.0
+  created_at: 2016-11-20 22:09:02.969190000 Z
+  creator_id: 1
+  credit: 447.12
+  currency: EUR
+  debit: 447.12
+  financial_year_id: 26
+  id: 89
+  journal_id: 3
+  lock_version: 5
+  number: SAL000001
+  printed_on: 2016-11-20
+  real_balance: 0.0
+  real_credit: 447.12
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 447.12
+  resource_id: 20
+  resource_prism: sale
+  resource_type: Sale
+  state: draft
+  updated_at: 2016-11-20 22:09:03.091650000 Z
+  updater_id: 1
+journal_entries_083:
+  absolute_credit: 0.0
+  absolute_currency: EUR
+  absolute_debit: 0.0
+  balance: 0.0
+  created_at: 2016-11-20 22:09:03.103634000 Z
+  creator_id: 1
+  credit: 0.0
+  currency: EUR
+  debit: 0.0
+  financial_year_id: 26
+  id: 90
+  journal_id: 8
+  lock_version: 0
+  number: RESE000001
+  printed_on: 2016-11-20
+  real_balance: 0.0
+  real_credit: 0.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 0.0
+  resource_id: 20
+  resource_type: Sale
+  state: draft
+  updated_at: 2016-11-20 22:09:03.103634000 Z
+  updater_id: 1
+journal_entries_084:
+  absolute_credit: 447.12
+  absolute_currency: EUR
+  absolute_debit: 447.12
+  balance: 0.0
+  created_at: 2016-11-20 22:09:40.170383000 Z
+  creator_id: 1
+  credit: 447.12
+  currency: EUR
+  debit: 447.12
+  financial_year_id: 26
+  id: 91
+  journal_id: 2
+  lock_version: 2
+  number: BNK000012
+  printed_on: 2016-11-20
+  real_balance: 0.0
+  real_credit: 447.12
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 447.12
+  resource_id: 8
+  resource_type: IncomingPayment
+  state: draft
+  updated_at: 2016-11-20 22:09:40.215123000 Z
+  updater_id: 1
+journal_entries_085:
+  absolute_credit: 37.44
+  absolute_currency: EUR
+  absolute_debit: 37.44
+  balance: 0.0
+  created_at: 2016-11-20 22:10:43.180886000 Z
+  creator_id: 1
+  credit: 37.44
+  currency: EUR
+  debit: 37.44
+  financial_year_id: 26
+  id: 92
+  journal_id: 3
+  lock_version: 3
+  number: SAL000002
+  printed_on: 2016-11-20
+  real_balance: 0.0
+  real_credit: 37.44
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 37.44
+  resource_id: 21
+  resource_prism: sale
+  resource_type: Sale
+  state: draft
+  updated_at: 2016-11-20 22:10:43.241520000 Z
+  updater_id: 1
+journal_entries_086:
+  absolute_credit: 0.0
+  absolute_currency: EUR
+  absolute_debit: 0.0
+  balance: 0.0
+  created_at: 2016-11-20 22:10:43.253901000 Z
+  creator_id: 1
+  credit: 0.0
+  currency: EUR
+  debit: 0.0
+  financial_year_id: 26
+  id: 93
+  journal_id: 8
+  lock_version: 0
+  number: RESE000002
+  printed_on: 2016-11-20
+  real_balance: 0.0
+  real_credit: 0.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 0.0
+  resource_id: 21
+  resource_type: Sale
+  state: draft
+  updated_at: 2016-11-20 22:10:43.253901000 Z
+  updater_id: 1
+journal_entries_087:
+  absolute_credit: 37.44
+  absolute_currency: EUR
+  absolute_debit: 37.44
+  balance: 0.0
+  created_at: 2016-11-20 22:10:52.953882000 Z
+  creator_id: 1
+  credit: 37.44
+  currency: EUR
+  debit: 37.44
+  financial_year_id: 26
+  id: 94
+  journal_id: 2
+  lock_version: 2
+  number: BNK000013
+  printed_on: 2016-11-20
+  real_balance: 0.0
+  real_credit: 37.44
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 37.44
+  resource_id: 9
+  resource_type: IncomingPayment
+  state: draft
+  updated_at: 2016-11-20 22:10:52.997052000 Z
+  updater_id: 1
+journal_entries_088:
+  absolute_credit: 3.74
+  absolute_currency: EUR
+  absolute_debit: 3.74
+  balance: 0.0
+  created_at: 2016-11-20 22:11:28.741808000 Z
+  creator_id: 1
+  credit: 3.74
+  currency: EUR
+  debit: 3.74
+  financial_year_id: 26
+  id: 95
+  journal_id: 3
+  lock_version: 3
+  number: SAL000003
+  printed_on: 2016-11-20
+  real_balance: 0.0
+  real_credit: 3.74
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 3.74
+  resource_id: 22
+  resource_prism: sale
+  resource_type: Sale
+  state: draft
+  updated_at: 2016-11-20 22:11:28.841590000 Z
+  updater_id: 1
+journal_entries_089:
+  absolute_credit: 0.0
+  absolute_currency: EUR
+  absolute_debit: 0.0
+  balance: 0.0
+  created_at: 2016-11-20 22:11:28.853995000 Z
+  creator_id: 1
+  credit: 0.0
+  currency: EUR
+  debit: 0.0
+  financial_year_id: 26
+  id: 96
+  journal_id: 8
+  lock_version: 0
+  number: RESE000003
+  printed_on: 2016-11-20
+  real_balance: 0.0
+  real_credit: 0.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 0.0
+  resource_id: 22
+  resource_type: Sale
+  state: draft
+  updated_at: 2016-11-20 22:11:28.853995000 Z
+  updater_id: 1
+journal_entries_090:
+  absolute_credit: 3.74
+  absolute_currency: EUR
+  absolute_debit: 3.74
+  balance: 0.0
+  created_at: 2016-11-20 22:11:32.624556000 Z
+  creator_id: 1
+  credit: 3.74
+  currency: EUR
+  debit: 3.74
+  financial_year_id: 26
+  id: 97
+  journal_id: 1
+  lock_version: 3
+  number: XYZ0015
+  printed_on: 2016-11-20
+  real_balance: 0.0
+  real_credit: 3.74
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 3.74
+  resource_id: 5
+  resource_prism: sale_gap
+  resource_type: Gap
+  state: draft
+  updated_at: 2016-11-20 22:11:32.693088000 Z
+  updater_id: 1
+journal_entries_091:
+  absolute_credit: 2676.0
+  absolute_currency: EUR
+  absolute_debit: 2676.0
+  balance: 0.0
+  created_at: 2016-11-20 22:12:19.123886000 Z
+  creator_id: 1
+  credit: 2676.0
+  currency: EUR
+  debit: 2676.0
+  financial_year_id: 26
+  id: 98
+  journal_id: 3
+  lock_version: 3
+  number: SAL000004
+  printed_on: 2016-11-20
+  real_balance: 0.0
+  real_credit: 2676.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 2676.0
+  resource_id: 23
+  resource_prism: sale
+  resource_type: Sale
+  state: draft
+  updated_at: 2016-11-20 22:12:19.180760000 Z
+  updater_id: 1
+journal_entries_092:
+  absolute_credit: 0.0
+  absolute_currency: EUR
+  absolute_debit: 0.0
+  balance: 0.0
+  created_at: 2016-11-20 22:12:19.193081000 Z
+  creator_id: 1
+  credit: 0.0
+  currency: EUR
+  debit: 0.0
+  financial_year_id: 26
+  id: 99
+  journal_id: 8
+  lock_version: 0
+  number: RESE000004
+  printed_on: 2016-11-20
+  real_balance: 0.0
+  real_credit: 0.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 0.0
+  resource_id: 23
+  resource_type: Sale
+  state: draft
+  updated_at: 2016-11-20 22:12:19.193081000 Z
+  updater_id: 1
+journal_entries_093:
+  absolute_credit: 2676.0
+  absolute_currency: EUR
+  absolute_debit: 2676.0
+  balance: 0.0
+  created_at: 2016-11-20 22:12:46.231703000 Z
+  creator_id: 1
+  credit: 2676.0
+  currency: EUR
+  debit: 2676.0
+  financial_year_id: 26
+  id: 100
+  journal_id: 3
+  lock_version: 3
+  number: SAL000005
+  printed_on: 2016-11-20
+  real_balance: 0.0
+  real_credit: 2676.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 2676.0
+  resource_id: 24
+  resource_prism: sale
+  resource_type: Sale
+  state: draft
+  updated_at: 2016-11-20 22:12:46.291136000 Z
+  updater_id: 1
+journal_entries_094:
+  absolute_credit: 0.0
+  absolute_currency: EUR
+  absolute_debit: 0.0
+  balance: 0.0
+  created_at: 2016-11-20 22:12:46.302626000 Z
+  creator_id: 1
+  credit: 0.0
+  currency: EUR
+  debit: 0.0
+  financial_year_id: 26
+  id: 101
+  journal_id: 8
+  lock_version: 0
+  number: RESE000005
+  printed_on: 2016-11-20
+  real_balance: 0.0
+  real_credit: 0.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 0.0
+  resource_id: 24
+  resource_type: Sale
+  state: draft
+  updated_at: 2016-11-20 22:12:46.302626000 Z
+  updater_id: 1
+journal_entries_095:
+  absolute_credit: 717.12
+  absolute_currency: EUR
+  absolute_debit: 717.12
+  balance: 0.0
+  created_at: 2016-11-20 22:14:42.356302000 Z
+  creator_id: 1
+  credit: 717.12
+  currency: EUR
+  debit: 717.12
+  financial_year_id: 26
+  id: 102
+  journal_id: 4
+  lock_version: 3
+  number: PUR000004
+  printed_on: 2016-11-20
+  real_balance: 0.0
+  real_credit: 717.12
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 717.12
+  resource_id: 14
+  resource_prism: purchase
+  resource_type: Purchase
+  state: draft
+  updated_at: 2016-11-20 22:14:42.421543000 Z
+  updater_id: 1
+journal_entries_096:
+  absolute_credit: 0.0
+  absolute_currency: EUR
+  absolute_debit: 0.0
+  balance: 0.0
+  created_at: 2016-11-20 22:14:42.434401000 Z
+  creator_id: 1
+  credit: 0.0
+  currency: EUR
+  debit: 0.0
+  financial_year_id: 26
+  id: 103
+  journal_id: 8
+  lock_version: 0
+  number: RESE000006
+  printed_on: 2016-11-20
+  real_balance: 0.0
+  real_credit: 0.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 0.0
+  resource_id: 14
+  resource_type: Purchase
+  state: draft
+  updated_at: 2016-11-20 22:14:42.434401000 Z
+  updater_id: 1
+journal_entries_097:
+  absolute_credit: 717.12
+  absolute_currency: EUR
+  absolute_debit: 717.12
+  balance: 0.0
+  created_at: 2016-11-20 22:14:52.583687000 Z
+  creator_id: 1
+  credit: 717.12
+  currency: EUR
+  debit: 717.12
+  financial_year_id: 26
+  id: 104
+  journal_id: 6
+  lock_version: 2
+  number: CUN000004
+  printed_on: 2016-11-20
+  real_balance: 0.0
+  real_credit: 717.12
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 717.12
+  resource_id: 9
+  resource_type: OutgoingPayment
+  state: draft
+  updated_at: 2016-11-20 22:14:52.627126000 Z
+  updater_id: 1
+journal_entries_098:
+  absolute_credit: 1200.0
+  absolute_currency: EUR
+  absolute_debit: 1200.0
+  balance: 0.0
+  created_at: 2016-11-20 22:15:24.362602000 Z
+  creator_id: 1
+  credit: 1200.0
+  currency: EUR
+  debit: 1200.0
+  financial_year_id: 26
+  id: 105
+  journal_id: 4
+  lock_version: 3
+  number: PUR000005
+  printed_on: 2016-11-20
+  real_balance: 0.0
+  real_credit: 1200.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 1200.0
+  resource_id: 15
+  resource_prism: purchase
+  resource_type: Purchase
+  state: draft
+  updated_at: 2016-11-20 22:15:24.420971000 Z
+  updater_id: 1
+journal_entries_099:
+  absolute_credit: 0.0
+  absolute_currency: EUR
+  absolute_debit: 0.0
+  balance: 0.0
+  created_at: 2016-11-20 22:15:24.432378000 Z
+  creator_id: 1
+  credit: 0.0
+  currency: EUR
+  debit: 0.0
+  financial_year_id: 26
+  id: 106
+  journal_id: 8
+  lock_version: 0
+  number: RESE000007
+  printed_on: 2016-11-20
+  real_balance: 0.0
+  real_credit: 0.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 0.0
+  resource_id: 15
+  resource_type: Purchase
+  state: draft
+  updated_at: 2016-11-20 22:15:24.432378000 Z
+  updater_id: 1
+journal_entries_100:
+  absolute_credit: 1200.0
+  absolute_currency: EUR
+  absolute_debit: 1200.0
+  balance: 0.0
+  created_at: 2016-11-20 22:15:36.421053000 Z
+  creator_id: 1
+  credit: 1200.0
+  currency: EUR
+  debit: 1200.0
+  financial_year_id: 26
+  id: 107
+  journal_id: 1
+  lock_version: 3
+  number: XYZ0016
+  printed_on: 2016-11-20
+  real_balance: 0.0
+  real_credit: 1200.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 1200.0
+  resource_id: 6
+  resource_type: Gap
+  state: draft
+  updated_at: 2016-11-20 22:15:36.524128000 Z
+  updater_id: 1
+journal_entries_101:
+  absolute_credit: 12.0
+  absolute_currency: EUR
+  absolute_debit: 12.0
+  balance: 0.0
+  created_at: 2016-12-20 08:52:57.274027000 Z
+  creator_id: 1
+  credit: 12.0
+  currency: EUR
+  debit: 12.0
+  financial_year_id: 26
+  id: 108
+  journal_id: 1
+  lock_version: 2
+  number: XYZ0017
+  printed_on: 2016-12-20
+  real_balance: 0.0
+  real_credit: 12.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 12.0
+  resource_id: 1
+  resource_type: Regularization
+  state: draft
+  updated_at: 2016-12-20 08:52:57.322238000 Z
+  updater_id: 1
+journal_entries_102:
+  absolute_credit: 400.0
+  absolute_currency: EUR
+  absolute_debit: 400.0
+  balance: 0.0
+  created_at: 2016-12-20 08:54:01.476185000 Z
+  creator_id: 1
+  credit: 400.0
+  currency: EUR
+  debit: 400.0
+  financial_year_id: 26
+  id: 109
+  journal_id: 3
+  lock_version: 3
+  number: SAL000006
+  printed_on: 2016-12-20
+  real_balance: 0.0
+  real_credit: 400.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 400.0
+  resource_id: 25
+  resource_prism: sale
+  resource_type: Sale
+  state: draft
+  updated_at: 2016-12-20 08:54:01.539473000 Z
+  updater_id: 1
+journal_entries_103:
+  absolute_credit: 63.25
+  absolute_currency: EUR
+  absolute_debit: 63.25
+  balance: 0.0
+  created_at: 2016-12-20 08:55:32.983759000 Z
+  creator_id: 1
+  credit: 63.25
+  currency: EUR
+  debit: 63.25
+  financial_year_id: 26
+  id: 110
+  journal_id: 1
+  lock_version: 2
+  number: XYZ0018
+  printed_on: 2016-12-20
+  real_balance: 0.0
+  real_credit: 63.25
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 63.25
+  resource_id: 2
+  resource_type: Regularization
+  state: draft
+  updated_at: 2016-12-20 08:55:33.030435000 Z
+  updater_id: 1
+journal_entries_104:
+  absolute_credit: 463.25
+  absolute_currency: EUR
+  absolute_debit: 463.25
+  balance: 0.0
+  created_at: 2016-12-20 08:58:53.047477000 Z
+  creator_id: 1
+  credit: 463.25
+  currency: EUR
+  debit: 463.25
+  financial_year_id: 26
+  id: 111
+  journal_id: 1
+  lock_version: 2
+  number: XYZ0019
+  printed_on: 2016-12-20
+  real_balance: 0.0
+  real_credit: 463.25
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 463.25
+  resource_id: 10
+  resource_prism: waiting_incoming_payment
+  resource_type: IncomingPayment
+  state: draft
+  updated_at: 2016-12-20 08:58:53.121152000 Z
+  updater_id: 1
+journal_entries_105:
+  absolute_credit: 4878.72
+  absolute_currency: EUR
+  absolute_debit: 4878.72
+  balance: 0.0
+  created_at: 2016-12-20 18:16:13.206799000 Z
+  creator_id: 1
+  credit: 4878.72
+  currency: EUR
+  debit: 4878.72
+  financial_year_id: 26
+  id: 112
+  journal_id: 4
+  lock_version: 3
+  number: PUR000006
+  printed_on: 2016-12-20
+  real_balance: 0.0
+  real_credit: 4878.72
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 4878.72
+  resource_id: 16
+  resource_prism: purchase
+  resource_type: Purchase
+  state: draft
+  updated_at: 2016-12-20 18:16:13.284270000 Z
+  updater_id: 1
+journal_entries_106:
+  absolute_credit: 4878.72
+  absolute_currency: EUR
+  absolute_debit: 4878.72
+  balance: 0.0
+  created_at: 2016-12-20 18:16:17.958778000 Z
+  creator_id: 1
+  credit: 4878.72
+  currency: EUR
+  debit: 4878.72
+  financial_year_id: 26
+  id: 113
+  journal_id: 1
+  lock_version: 3
+  number: XYZ0020
+  printed_on: 2016-12-20
+  real_balance: 0.0
+  real_credit: 4878.72
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 4878.72
+  resource_id: 7
+  resource_prism: purchase_gap
+  resource_type: Gap
+  state: draft
+  updated_at: 2016-12-20 18:16:18.028603000 Z
+  updater_id: 1
+journal_entries_107:
+  absolute_credit: 489.75
+  absolute_currency: EUR
+  absolute_debit: 489.75
+  balance: 0.0
+  created_at: 2016-12-20 18:17:05.059294000 Z
+  creator_id: 1
+  credit: 489.75
+  currency: EUR
+  debit: 489.75
+  financial_year_id: 26
+  id: 114
+  journal_id: 4
+  lock_version: 3
+  number: PUR000007
+  printed_on: 2016-12-20
+  real_balance: 0.0
+  real_credit: 489.75
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 489.75
+  resource_id: 17
+  resource_prism: purchase
+  resource_type: Purchase
+  state: draft
+  updated_at: 2016-12-20 18:17:05.120912000 Z
+  updater_id: 1
+journal_entries_108:
+  absolute_credit: 500.0
+  absolute_currency: EUR
+  absolute_debit: 500.0
+  balance: 0.0
+  created_at: 2016-12-20 18:17:18.708971000 Z
+  creator_id: 1
+  credit: 500.0
+  currency: EUR
+  debit: 500.0
+  financial_year_id: 26
+  id: 115
+  journal_id: 2
+  lock_version: 2
+  number: BNK000014
+  printed_on: 2016-12-20
+  real_balance: 0.0
+  real_credit: 500.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 500.0
+  resource_id: 10
+  resource_prism: outgoing_payment
+  resource_type: OutgoingPayment
+  state: draft
+  updated_at: 2016-12-20 18:17:18.749377000 Z
+  updater_id: 1
+journal_entries_109:
+  absolute_credit: 10.25
+  absolute_currency: EUR
+  absolute_debit: 10.25
+  balance: 0.0
+  created_at: 2016-12-20 18:17:24.077584000 Z
+  creator_id: 1
+  credit: 10.25
+  currency: EUR
+  debit: 10.25
+  financial_year_id: 26
+  id: 116
+  journal_id: 1
+  lock_version: 2
+  number: XYZ0021
+  printed_on: 2016-12-20
+  real_balance: 0.0
+  real_credit: 10.25
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 10.25
+  resource_id: 8
+  resource_prism: purchase_gap
+  resource_type: Gap
+  state: draft
+  updated_at: 2016-12-20 18:17:24.123512000 Z
+  updater_id: 1
+journal_entries_110:
+  absolute_credit: 123.0
+  absolute_currency: EUR
+  absolute_debit: 123.0
+  balance: 0.0
+  created_at: 2017-05-29 20:41:21.297993000 Z
+  creator_id: 1
+  credit: 123.0
+  currency: EUR
+  debit: 123.0
+  financial_year_id: 26
+  id: 117
+  journal_id: 2
+  lock_version: 0
+  number: BNK000015
+  printed_on: 2017-01-10
+  real_balance: 0.0
+  real_credit: 123.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 123.0
+  state: draft
+  updated_at: 2017-05-29 20:41:21.297993000 Z
+  updater_id: 1
+journal_entries_111:
+  absolute_credit: 1234.0
+  absolute_currency: EUR
+  absolute_debit: 1234.0
+  balance: 0.0
+  created_at: 2017-06-07 16:14:28.748638000 Z
+  creator_id: 1
+  credit: 1234.0
+  currency: EUR
+  debit: 1234.0
+  financial_year_id: 26
+  id: 118
+  journal_id: 13
+  lock_version: 0
+  number: SA000001
+  printed_on: 2017-06-07
+  real_balance: 0.0
+  real_credit: 1234.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 1234.0
+  resource_id: 1
+  resource_prism: payslip
+  resource_type: Payslip
+  state: draft
+  updated_at: 2017-06-07 16:14:28.748638000 Z
+  updater_id: 1
+journal_entries_112:
+  absolute_credit: 1234.0
+  absolute_currency: EUR
+  absolute_debit: 1234.0
+  balance: 0.0
+  created_at: 2017-06-07 16:14:55.110930000 Z
+  creator_id: 1
+  credit: 1234.0
+  currency: EUR
+  debit: 1234.0
+  financial_year_id: 26
+  id: 119
+  journal_id: 2
+  lock_version: 0
+  number: BNK000016
+  printed_on: 2017-01-31
+  real_balance: 0.0
+  real_credit: 1234.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 1234.0
+  resource_id: 11
+  resource_prism: payslip_payment
+  resource_type: OutgoingPayment
+  state: draft
+  updated_at: 2017-06-07 16:14:55.110930000 Z
+  updater_id: 1
+journal_entries_113:
+  absolute_credit: 1200.0
+  absolute_currency: EUR
+  absolute_debit: 1200.0
+  balance: 0.0
+  created_at: 2017-06-07 16:15:32.070754000 Z
+  creator_id: 1
+  credit: 1200.0
+  currency: EUR
+  debit: 1200.0
+  financial_year_id: 26
+  id: 120
+  journal_id: 13
+  lock_version: 0
+  number: SA000002
+  printed_on: 2017-06-07
+  real_balance: 0.0
+  real_credit: 1200.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 1200.0
+  resource_id: 2
+  resource_prism: payslip
+  resource_type: Payslip
+  state: draft
+  updated_at: 2017-06-07 16:15:32.070754000 Z
+  updater_id: 1
+journal_entries_114:
+  absolute_credit: 1200.0
+  absolute_currency: EUR
+  absolute_debit: 1200.0
+  balance: 0.0
+  created_at: 2017-06-07 16:15:58.228948000 Z
+  creator_id: 1
+  credit: 1200.0
+  currency: EUR
+  debit: 1200.0
+  financial_year_id: 26
+  id: 121
+  journal_id: 2
+  lock_version: 0
+  number: BNK000017
+  printed_on: 2017-01-26
+  real_balance: 0.0
+  real_credit: 1200.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 1200.0
+  resource_id: 12
+  resource_prism: payslip_payment
+  resource_type: OutgoingPayment
+  state: draft
+  updated_at: 2017-06-07 16:15:58.228948000 Z
+  updater_id: 1
+journal_entries_115:
+  absolute_credit: 36158.31
+  absolute_currency: EUR
+  absolute_debit: 36158.31
+  balance: 0.0
+  created_at: 2017-06-09 20:19:56.182968000 Z
+  creator_id: 1
+  credit: 36158.31
+  currency: EUR
+  debit: 36158.31
+  financial_year_id: 21
+  id: 122
+  journal_id: 7
+  lock_version: 0
+  number: BCA000053
+  printed_on: 2012-03-24
+  real_balance: 0.0
+  real_credit: 40650.15
+  real_currency: USD
+  real_currency_rate: 0.8895
+  real_debit: 40650.15
+  resource_id: 2
+  resource_type: Loan
+  state: draft
+  updated_at: 2017-06-09 20:19:56.182968000 Z
+  updater_id: 1
+journal_entries_116:
+  absolute_credit: 171.1
+  absolute_currency: EUR
+  absolute_debit: 171.1
+  balance: 0.0
+  created_at: 2017-06-09 20:59:57.788805000 Z
+  creator_id: 1
+  credit: 171.1
+  currency: EUR
+  debit: 171.1
+  financial_year_id: 19
+  id: 123
+  journal_id: 2
+  lock_version: 0
+  number: BNK000018
+  printed_on: 2010-01-02
+  real_balance: 0.0
+  real_credit: 171.1
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 171.1
+  resource_id: 164
+  resource_prism: loan_repayment
+  resource_type: LoanRepayment
+  state: draft
+  updated_at: 2017-06-09 20:59:57.788805000 Z
+  updater_id: 1
+journal_entries_117:
+  absolute_credit: 171.1
+  absolute_currency: EUR
+  absolute_debit: 171.1
+  balance: 0.0
+  created_at: 2017-06-09 20:59:57.975034000 Z
+  creator_id: 1
+  credit: 171.1
+  currency: EUR
+  debit: 171.1
+  financial_year_id: 19
+  id: 124
+  journal_id: 2
+  lock_version: 0
+  number: BNK000019
+  printed_on: 2010-02-02
+  real_balance: 0.0
+  real_credit: 171.1
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 171.1
+  resource_id: 165
+  resource_prism: loan_repayment
+  resource_type: LoanRepayment
+  state: draft
+  updated_at: 2017-06-09 20:59:57.975034000 Z
+  updater_id: 1
+journal_entries_118:
+  absolute_credit: 171.1
+  absolute_currency: EUR
+  absolute_debit: 171.1
+  balance: 0.0
+  created_at: 2017-06-09 20:59:58.084567000 Z
+  creator_id: 1
+  credit: 171.1
+  currency: EUR
+  debit: 171.1
+  financial_year_id: 19
+  id: 125
+  journal_id: 2
+  lock_version: 0
+  number: BNK000020
+  printed_on: 2010-03-02
+  real_balance: 0.0
+  real_credit: 171.1
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 171.1
+  resource_id: 166
+  resource_prism: loan_repayment
+  resource_type: LoanRepayment
+  state: draft
+  updated_at: 2017-06-09 20:59:58.084567000 Z
+  updater_id: 1
+journal_entries_119:
+  absolute_credit: 171.1
+  absolute_currency: EUR
+  absolute_debit: 171.1
+  balance: 0.0
+  created_at: 2017-06-09 20:59:58.179910000 Z
+  creator_id: 1
+  credit: 171.1
+  currency: EUR
+  debit: 171.1
+  financial_year_id: 19
+  id: 126
+  journal_id: 2
+  lock_version: 0
+  number: BNK000021
+  printed_on: 2010-04-02
+  real_balance: 0.0
+  real_credit: 171.1
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 171.1
+  resource_id: 167
+  resource_prism: loan_repayment
+  resource_type: LoanRepayment
+  state: draft
+  updated_at: 2017-06-09 20:59:58.179910000 Z
+  updater_id: 1
+journal_entries_120:
+  absolute_credit: 171.1
+  absolute_currency: EUR
+  absolute_debit: 171.1
+  balance: 0.0
+  created_at: 2017-06-09 20:59:58.272064000 Z
+  creator_id: 1
+  credit: 171.1
+  currency: EUR
+  debit: 171.1
+  financial_year_id: 19
+  id: 127
+  journal_id: 2
+  lock_version: 0
+  number: BNK000022
+  printed_on: 2010-05-02
+  real_balance: 0.0
+  real_credit: 171.1
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 171.1
+  resource_id: 168
+  resource_prism: loan_repayment
+  resource_type: LoanRepayment
+  state: draft
+  updated_at: 2017-06-09 20:59:58.272064000 Z
+  updater_id: 1
+journal_entries_121:
+  absolute_credit: 171.1
+  absolute_currency: EUR
+  absolute_debit: 171.1
+  balance: 0.0
+  created_at: 2017-06-09 20:59:58.368473000 Z
+  creator_id: 1
+  credit: 171.1
+  currency: EUR
+  debit: 171.1
+  financial_year_id: 19
+  id: 128
+  journal_id: 2
+  lock_version: 0
+  number: BNK000023
+  printed_on: 2010-06-02
+  real_balance: 0.0
+  real_credit: 171.1
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 171.1
+  resource_id: 169
+  resource_prism: loan_repayment
+  resource_type: LoanRepayment
+  state: draft
+  updated_at: 2017-06-09 20:59:58.368473000 Z
+  updater_id: 1
+journal_entries_122:
+  absolute_credit: 171.1
+  absolute_currency: EUR
+  absolute_debit: 171.1
+  balance: 0.0
+  created_at: 2017-06-09 20:59:58.455023000 Z
+  creator_id: 1
+  credit: 171.1
+  currency: EUR
+  debit: 171.1
+  financial_year_id: 19
+  id: 129
+  journal_id: 2
+  lock_version: 0
+  number: BNK000024
+  printed_on: 2010-07-02
+  real_balance: 0.0
+  real_credit: 171.1
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 171.1
+  resource_id: 170
+  resource_prism: loan_repayment
+  resource_type: LoanRepayment
+  state: draft
+  updated_at: 2017-06-09 20:59:58.455023000 Z
+  updater_id: 1
+journal_entries_123:
+  absolute_credit: 171.1
+  absolute_currency: EUR
+  absolute_debit: 171.1
+  balance: 0.0
+  created_at: 2017-06-09 20:59:58.550992000 Z
+  creator_id: 1
+  credit: 171.1
+  currency: EUR
+  debit: 171.1
+  financial_year_id: 19
+  id: 130
+  journal_id: 2
+  lock_version: 0
+  number: BNK000025
+  printed_on: 2010-08-02
+  real_balance: 0.0
+  real_credit: 171.1
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 171.1
+  resource_id: 171
+  resource_prism: loan_repayment
+  resource_type: LoanRepayment
+  state: draft
+  updated_at: 2017-06-09 20:59:58.550992000 Z
+  updater_id: 1
+journal_entries_124:
+  absolute_credit: 171.1
+  absolute_currency: EUR
+  absolute_debit: 171.1
+  balance: 0.0
+  created_at: 2017-06-09 20:59:58.635570000 Z
+  creator_id: 1
+  credit: 171.1
+  currency: EUR
+  debit: 171.1
+  financial_year_id: 20
+  id: 131
+  journal_id: 2
+  lock_version: 0
+  number: BNK000026
+  printed_on: 2010-09-02
+  real_balance: 0.0
+  real_credit: 171.1
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 171.1
+  resource_id: 172
+  resource_prism: loan_repayment
+  resource_type: LoanRepayment
+  state: draft
+  updated_at: 2017-06-09 20:59:58.635570000 Z
+  updater_id: 1
+journal_entries_125:
+  absolute_credit: 171.1
+  absolute_currency: EUR
+  absolute_debit: 171.1
+  balance: 0.0
+  created_at: 2017-06-09 20:59:58.719028000 Z
+  creator_id: 1
+  credit: 171.1
+  currency: EUR
+  debit: 171.1
+  financial_year_id: 20
+  id: 132
+  journal_id: 2
+  lock_version: 0
+  number: BNK000027
+  printed_on: 2010-10-02
+  real_balance: 0.0
+  real_credit: 171.1
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 171.1
+  resource_id: 173
+  resource_prism: loan_repayment
+  resource_type: LoanRepayment
+  state: draft
+  updated_at: 2017-06-09 20:59:58.719028000 Z
+  updater_id: 1
+journal_entries_126:
+  absolute_credit: 171.1
+  absolute_currency: EUR
+  absolute_debit: 171.1
+  balance: 0.0
+  created_at: 2017-06-09 20:59:58.802196000 Z
+  creator_id: 1
+  credit: 171.1
+  currency: EUR
+  debit: 171.1
+  financial_year_id: 20
+  id: 133
+  journal_id: 2
+  lock_version: 0
+  number: BNK000028
+  printed_on: 2010-11-02
+  real_balance: 0.0
+  real_credit: 171.1
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 171.1
+  resource_id: 174
+  resource_prism: loan_repayment
+  resource_type: LoanRepayment
+  state: draft
+  updated_at: 2017-06-09 20:59:58.802196000 Z
+  updater_id: 1
+journal_entries_127:
+  absolute_credit: 171.1
+  absolute_currency: EUR
+  absolute_debit: 171.1
+  balance: 0.0
+  created_at: 2017-06-09 20:59:58.897227000 Z
+  creator_id: 1
+  credit: 171.1
+  currency: EUR
+  debit: 171.1
+  financial_year_id: 20
+  id: 134
+  journal_id: 2
+  lock_version: 0
+  number: BNK000029
+  printed_on: 2010-12-02
+  real_balance: 0.0
+  real_credit: 171.1
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 171.1
+  resource_id: 175
+  resource_prism: loan_repayment
+  resource_type: LoanRepayment
+  state: draft
+  updated_at: 2017-06-09 20:59:58.897227000 Z
+  updater_id: 1
+journal_entries_128:
+  absolute_credit: 171.1
+  absolute_currency: EUR
+  absolute_debit: 171.1
+  balance: 0.0
+  created_at: 2017-06-09 20:59:58.992300000 Z
+  creator_id: 1
+  credit: 171.1
+  currency: EUR
+  debit: 171.1
+  financial_year_id: 20
+  id: 135
+  journal_id: 2
+  lock_version: 0
+  number: BNK000030
+  printed_on: 2011-01-02
+  real_balance: 0.0
+  real_credit: 171.1
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 171.1
+  resource_id: 176
+  resource_prism: loan_repayment
+  resource_type: LoanRepayment
+  state: draft
+  updated_at: 2017-06-09 20:59:58.992300000 Z
+  updater_id: 1
+journal_entries_129:
+  absolute_credit: 171.1
+  absolute_currency: EUR
+  absolute_debit: 171.1
+  balance: 0.0
+  created_at: 2017-06-09 20:59:59.097460000 Z
+  creator_id: 1
+  credit: 171.1
+  currency: EUR
+  debit: 171.1
+  financial_year_id: 20
+  id: 136
+  journal_id: 2
+  lock_version: 0
+  number: BNK000031
+  printed_on: 2011-02-02
+  real_balance: 0.0
+  real_credit: 171.1
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 171.1
+  resource_id: 177
+  resource_prism: loan_repayment
+  resource_type: LoanRepayment
+  state: draft
+  updated_at: 2017-06-09 20:59:59.097460000 Z
+  updater_id: 1
+journal_entries_130:
+  absolute_credit: 171.1
+  absolute_currency: EUR
+  absolute_debit: 171.1
+  balance: 0.0
+  created_at: 2017-06-09 20:59:59.196636000 Z
+  creator_id: 1
+  credit: 171.1
+  currency: EUR
+  debit: 171.1
+  financial_year_id: 20
+  id: 137
+  journal_id: 2
+  lock_version: 0
+  number: BNK000032
+  printed_on: 2011-03-02
+  real_balance: 0.0
+  real_credit: 171.1
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 171.1
+  resource_id: 178
+  resource_prism: loan_repayment
+  resource_type: LoanRepayment
+  state: draft
+  updated_at: 2017-06-09 20:59:59.196636000 Z
+  updater_id: 1
+journal_entries_131:
+  absolute_credit: 171.1
+  absolute_currency: EUR
+  absolute_debit: 171.1
+  balance: 0.0
+  created_at: 2017-06-09 20:59:59.354041000 Z
+  creator_id: 1
+  credit: 171.1
+  currency: EUR
+  debit: 171.1
+  financial_year_id: 20
+  id: 138
+  journal_id: 2
+  lock_version: 0
+  number: BNK000033
+  printed_on: 2011-04-02
+  real_balance: 0.0
+  real_credit: 171.1
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 171.1
+  resource_id: 179
+  resource_prism: loan_repayment
+  resource_type: LoanRepayment
+  state: draft
+  updated_at: 2017-06-09 20:59:59.354041000 Z
+  updater_id: 1
+journal_entries_132:
+  absolute_credit: 171.1
+  absolute_currency: EUR
+  absolute_debit: 171.1
+  balance: 0.0
+  created_at: 2017-06-09 20:59:59.443646000 Z
+  creator_id: 1
+  credit: 171.1
+  currency: EUR
+  debit: 171.1
+  financial_year_id: 20
+  id: 139
+  journal_id: 2
+  lock_version: 0
+  number: BNK000034
+  printed_on: 2011-05-02
+  real_balance: 0.0
+  real_credit: 171.1
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 171.1
+  resource_id: 180
+  resource_prism: loan_repayment
+  resource_type: LoanRepayment
+  state: draft
+  updated_at: 2017-06-09 20:59:59.443646000 Z
+  updater_id: 1
+journal_entries_133:
+  absolute_credit: 171.1
+  absolute_currency: EUR
+  absolute_debit: 171.1
+  balance: 0.0
+  created_at: 2017-06-09 20:59:59.529188000 Z
+  creator_id: 1
+  credit: 171.1
+  currency: EUR
+  debit: 171.1
+  financial_year_id: 20
+  id: 140
+  journal_id: 2
+  lock_version: 0
+  number: BNK000035
+  printed_on: 2011-06-02
+  real_balance: 0.0
+  real_credit: 171.1
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 171.1
+  resource_id: 181
+  resource_prism: loan_repayment
+  resource_type: LoanRepayment
+  state: draft
+  updated_at: 2017-06-09 20:59:59.529188000 Z
+  updater_id: 1
+journal_entries_134:
+  absolute_credit: 171.1
+  absolute_currency: EUR
+  absolute_debit: 171.1
+  balance: 0.0
+  created_at: 2017-06-09 20:59:59.621960000 Z
+  creator_id: 1
+  credit: 171.1
+  currency: EUR
+  debit: 171.1
+  financial_year_id: 20
+  id: 141
+  journal_id: 2
+  lock_version: 0
+  number: BNK000036
+  printed_on: 2011-07-02
+  real_balance: 0.0
+  real_credit: 171.1
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 171.1
+  resource_id: 182
+  resource_prism: loan_repayment
+  resource_type: LoanRepayment
+  state: draft
+  updated_at: 2017-06-09 20:59:59.621960000 Z
+  updater_id: 1
+journal_entries_135:
+  absolute_credit: 171.1
+  absolute_currency: EUR
+  absolute_debit: 171.1
+  balance: 0.0
+  created_at: 2017-06-09 20:59:59.707981000 Z
+  creator_id: 1
+  credit: 171.1
+  currency: EUR
+  debit: 171.1
+  financial_year_id: 20
+  id: 142
+  journal_id: 2
+  lock_version: 0
+  number: BNK000037
+  printed_on: 2011-08-02
+  real_balance: 0.0
+  real_credit: 171.1
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 171.1
+  resource_id: 183
+  resource_prism: loan_repayment
+  resource_type: LoanRepayment
+  state: draft
+  updated_at: 2017-06-09 20:59:59.707981000 Z
+  updater_id: 1
+journal_entries_136:
+  absolute_credit: 171.1
+  absolute_currency: EUR
+  absolute_debit: 171.1
+  balance: 0.0
+  created_at: 2017-06-09 20:59:59.800075000 Z
+  creator_id: 1
+  credit: 171.1
+  currency: EUR
+  debit: 171.1
+  financial_year_id: 21
+  id: 143
+  journal_id: 2
+  lock_version: 0
+  number: BNK000038
+  printed_on: 2011-09-02
+  real_balance: 0.0
+  real_credit: 171.1
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 171.1
+  resource_id: 184
+  resource_prism: loan_repayment
+  resource_type: LoanRepayment
+  state: draft
+  updated_at: 2017-06-09 20:59:59.800075000 Z
+  updater_id: 1
+journal_entries_137:
+  absolute_credit: 171.1
+  absolute_currency: EUR
+  absolute_debit: 171.1
+  balance: 0.0
+  created_at: 2017-06-09 20:59:59.892421000 Z
+  creator_id: 1
+  credit: 171.1
+  currency: EUR
+  debit: 171.1
+  financial_year_id: 21
+  id: 144
+  journal_id: 2
+  lock_version: 0
+  number: BNK000039
+  printed_on: 2011-10-02
+  real_balance: 0.0
+  real_credit: 171.1
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 171.1
+  resource_id: 185
+  resource_prism: loan_repayment
+  resource_type: LoanRepayment
+  state: draft
+  updated_at: 2017-06-09 20:59:59.892421000 Z
+  updater_id: 1
+journal_entries_138:
+  absolute_credit: 171.1
+  absolute_currency: EUR
+  absolute_debit: 171.1
+  balance: 0.0
+  created_at: 2017-06-09 20:59:59.982335000 Z
+  creator_id: 1
+  credit: 171.1
+  currency: EUR
+  debit: 171.1
+  financial_year_id: 21
+  id: 145
+  journal_id: 2
+  lock_version: 0
+  number: BNK000040
+  printed_on: 2011-11-02
+  real_balance: 0.0
+  real_credit: 171.1
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 171.1
+  resource_id: 186
+  resource_prism: loan_repayment
+  resource_type: LoanRepayment
+  state: draft
+  updated_at: 2017-06-09 20:59:59.982335000 Z
+  updater_id: 1
+journal_entries_139:
+  absolute_credit: 171.1
+  absolute_currency: EUR
+  absolute_debit: 171.1
+  balance: 0.0
+  created_at: 2017-06-09 21:00:00.082142000 Z
+  creator_id: 1
+  credit: 171.1
+  currency: EUR
+  debit: 171.1
+  financial_year_id: 21
+  id: 146
+  journal_id: 2
+  lock_version: 0
+  number: BNK000041
+  printed_on: 2011-12-02
+  real_balance: 0.0
+  real_credit: 171.1
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 171.1
+  resource_id: 187
+  resource_prism: loan_repayment
+  resource_type: LoanRepayment
+  state: draft
+  updated_at: 2017-06-09 21:00:00.082142000 Z
+  updater_id: 1
+journal_entries_140:
+  absolute_credit: 171.1
+  absolute_currency: EUR
+  absolute_debit: 171.1
+  balance: 0.0
+  created_at: 2017-06-09 21:00:00.172964000 Z
+  creator_id: 1
+  credit: 171.1
+  currency: EUR
+  debit: 171.1
+  financial_year_id: 21
+  id: 147
+  journal_id: 2
+  lock_version: 0
+  number: BNK000042
+  printed_on: 2012-01-02
+  real_balance: 0.0
+  real_credit: 171.1
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 171.1
+  resource_id: 188
+  resource_prism: loan_repayment
+  resource_type: LoanRepayment
+  state: draft
+  updated_at: 2017-06-09 21:00:00.172964000 Z
+  updater_id: 1
+journal_entries_141:
+  absolute_credit: 171.1
+  absolute_currency: EUR
+  absolute_debit: 171.1
+  balance: 0.0
+  created_at: 2017-06-09 21:00:00.267990000 Z
+  creator_id: 1
+  credit: 171.1
+  currency: EUR
+  debit: 171.1
+  financial_year_id: 21
+  id: 148
+  journal_id: 2
+  lock_version: 0
+  number: BNK000043
+  printed_on: 2012-02-02
+  real_balance: 0.0
+  real_credit: 171.1
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 171.1
+  resource_id: 189
+  resource_prism: loan_repayment
+  resource_type: LoanRepayment
+  state: draft
+  updated_at: 2017-06-09 21:00:00.267990000 Z
+  updater_id: 1
+journal_entries_142:
+  absolute_credit: 171.1
+  absolute_currency: EUR
+  absolute_debit: 171.1
+  balance: 0.0
+  created_at: 2017-06-09 21:00:00.368713000 Z
+  creator_id: 1
+  credit: 171.1
+  currency: EUR
+  debit: 171.1
+  financial_year_id: 21
+  id: 149
+  journal_id: 2
+  lock_version: 0
+  number: BNK000044
+  printed_on: 2012-03-02
+  real_balance: 0.0
+  real_credit: 171.1
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 171.1
+  resource_id: 190
+  resource_prism: loan_repayment
+  resource_type: LoanRepayment
+  state: draft
+  updated_at: 2017-06-09 21:00:00.368713000 Z
+  updater_id: 1
+journal_entries_143:
+  absolute_credit: 171.1
+  absolute_currency: EUR
+  absolute_debit: 171.1
+  balance: 0.0
+  created_at: 2017-06-09 21:00:00.473359000 Z
+  creator_id: 1
+  credit: 171.1
+  currency: EUR
+  debit: 171.1
+  financial_year_id: 21
+  id: 150
+  journal_id: 2
+  lock_version: 0
+  number: BNK000045
+  printed_on: 2012-04-02
+  real_balance: 0.0
+  real_credit: 171.1
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 171.1
+  resource_id: 191
+  resource_prism: loan_repayment
+  resource_type: LoanRepayment
+  state: draft
+  updated_at: 2017-06-09 21:00:00.473359000 Z
+  updater_id: 1
+journal_entries_144:
+  absolute_credit: 171.1
+  absolute_currency: EUR
+  absolute_debit: 171.1
+  balance: 0.0
+  created_at: 2017-06-09 21:00:00.643425000 Z
+  creator_id: 1
+  credit: 171.1
+  currency: EUR
+  debit: 171.1
+  financial_year_id: 21
+  id: 151
+  journal_id: 2
+  lock_version: 0
+  number: BNK000046
+  printed_on: 2012-05-02
+  real_balance: 0.0
+  real_credit: 171.1
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 171.1
+  resource_id: 192
+  resource_prism: loan_repayment
+  resource_type: LoanRepayment
+  state: draft
+  updated_at: 2017-06-09 21:00:00.643425000 Z
+  updater_id: 1
+journal_entries_145:
+  absolute_credit: 171.1
+  absolute_currency: EUR
+  absolute_debit: 171.1
+  balance: 0.0
+  created_at: 2017-06-09 21:00:00.754139000 Z
+  creator_id: 1
+  credit: 171.1
+  currency: EUR
+  debit: 171.1
+  financial_year_id: 21
+  id: 152
+  journal_id: 2
+  lock_version: 0
+  number: BNK000047
+  printed_on: 2012-06-02
+  real_balance: 0.0
+  real_credit: 171.1
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 171.1
+  resource_id: 193
+  resource_prism: loan_repayment
+  resource_type: LoanRepayment
+  state: draft
+  updated_at: 2017-06-09 21:00:00.754139000 Z
+  updater_id: 1
+journal_entries_146:
+  absolute_credit: 171.1
+  absolute_currency: EUR
+  absolute_debit: 171.1
+  balance: 0.0
+  created_at: 2017-06-09 21:00:00.872376000 Z
+  creator_id: 1
+  credit: 171.1
+  currency: EUR
+  debit: 171.1
+  financial_year_id: 21
+  id: 153
+  journal_id: 2
+  lock_version: 0
+  number: BNK000048
+  printed_on: 2012-07-02
+  real_balance: 0.0
+  real_credit: 171.1
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 171.1
+  resource_id: 194
+  resource_prism: loan_repayment
+  resource_type: LoanRepayment
+  state: draft
+  updated_at: 2017-06-09 21:00:00.872376000 Z
+  updater_id: 1
+journal_entries_147:
+  absolute_credit: 171.1
+  absolute_currency: EUR
+  absolute_debit: 171.1
+  balance: 0.0
+  created_at: 2017-06-09 21:00:00.976575000 Z
+  creator_id: 1
+  credit: 171.1
+  currency: EUR
+  debit: 171.1
+  financial_year_id: 21
+  id: 154
+  journal_id: 2
+  lock_version: 0
+  number: BNK000049
+  printed_on: 2012-08-02
+  real_balance: 0.0
+  real_credit: 171.1
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 171.1
+  resource_id: 195
+  resource_prism: loan_repayment
+  resource_type: LoanRepayment
+  state: draft
+  updated_at: 2017-06-09 21:00:00.976575000 Z
+  updater_id: 1
+journal_entries_148:
+  absolute_credit: 171.1
+  absolute_currency: EUR
+  absolute_debit: 171.1
+  balance: 0.0
+  created_at: 2017-06-09 21:00:01.092425000 Z
+  creator_id: 1
+  credit: 171.1
+  currency: EUR
+  debit: 171.1
+  financial_year_id: 22
+  id: 155
+  journal_id: 2
+  lock_version: 0
+  number: BNK000050
+  printed_on: 2012-09-02
+  real_balance: 0.0
+  real_credit: 171.1
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 171.1
+  resource_id: 196
+  resource_prism: loan_repayment
+  resource_type: LoanRepayment
+  state: draft
+  updated_at: 2017-06-09 21:00:01.092425000 Z
+  updater_id: 1
+journal_entries_149:
+  absolute_credit: 171.1
+  absolute_currency: EUR
+  absolute_debit: 171.1
+  balance: 0.0
+  created_at: 2017-06-09 21:00:01.195829000 Z
+  creator_id: 1
+  credit: 171.1
+  currency: EUR
+  debit: 171.1
+  financial_year_id: 22
+  id: 156
+  journal_id: 2
+  lock_version: 0
+  number: BNK000051
+  printed_on: 2012-10-02
+  real_balance: 0.0
+  real_credit: 171.1
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 171.1
+  resource_id: 197
+  resource_prism: loan_repayment
+  resource_type: LoanRepayment
+  state: draft
+  updated_at: 2017-06-09 21:00:01.195829000 Z
+  updater_id: 1
+journal_entries_150:
+  absolute_credit: 171.1
+  absolute_currency: EUR
+  absolute_debit: 171.1
+  balance: 0.0
+  created_at: 2017-06-09 21:00:01.305144000 Z
+  creator_id: 1
+  credit: 171.1
+  currency: EUR
+  debit: 171.1
+  financial_year_id: 22
+  id: 157
+  journal_id: 2
+  lock_version: 0
+  number: BNK000052
+  printed_on: 2012-11-02
+  real_balance: 0.0
+  real_credit: 171.1
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 171.1
+  resource_id: 198
+  resource_prism: loan_repayment
+  resource_type: LoanRepayment
+  state: draft
+  updated_at: 2017-06-09 21:00:01.305144000 Z
+  updater_id: 1
+journal_entries_151:
+  absolute_credit: 171.1
+  absolute_currency: EUR
+  absolute_debit: 171.1
+  balance: 0.0
+  created_at: 2017-06-09 21:00:01.433419000 Z
+  creator_id: 1
+  credit: 171.1
+  currency: EUR
+  debit: 171.1
+  financial_year_id: 22
+  id: 158
+  journal_id: 2
+  lock_version: 0
+  number: BNK000053
+  printed_on: 2012-12-02
+  real_balance: 0.0
+  real_credit: 171.1
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 171.1
+  resource_id: 199
+  resource_prism: loan_repayment
+  resource_type: LoanRepayment
+  state: draft
+  updated_at: 2017-06-09 21:00:01.433419000 Z
+  updater_id: 1
+journal_entries_152:
+  absolute_credit: 171.1
+  absolute_currency: EUR
+  absolute_debit: 171.1
+  balance: 0.0
+  created_at: 2017-06-09 21:00:01.632245000 Z
+  creator_id: 1
+  credit: 171.1
+  currency: EUR
+  debit: 171.1
+  financial_year_id: 22
+  id: 159
+  journal_id: 2
+  lock_version: 0
+  number: BNK000054
+  printed_on: 2013-01-02
+  real_balance: 0.0
+  real_credit: 171.1
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 171.1
+  resource_id: 200
+  resource_prism: loan_repayment
+  resource_type: LoanRepayment
+  state: draft
+  updated_at: 2017-06-09 21:00:01.632245000 Z
+  updater_id: 1
+journal_entries_153:
+  absolute_credit: 171.1
+  absolute_currency: EUR
+  absolute_debit: 171.1
+  balance: 0.0
+  created_at: 2017-06-09 21:00:01.853944000 Z
+  creator_id: 1
+  credit: 171.1
+  currency: EUR
+  debit: 171.1
+  financial_year_id: 22
+  id: 160
+  journal_id: 2
+  lock_version: 0
+  number: BNK000055
+  printed_on: 2013-02-02
+  real_balance: 0.0
+  real_credit: 171.1
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 171.1
+  resource_id: 201
+  resource_prism: loan_repayment
+  resource_type: LoanRepayment
+  state: draft
+  updated_at: 2017-06-09 21:00:01.853944000 Z
+  updater_id: 1
+journal_entries_154:
+  absolute_credit: 171.1
+  absolute_currency: EUR
+  absolute_debit: 171.1
+  balance: 0.0
+  created_at: 2017-06-09 21:00:02.021601000 Z
+  creator_id: 1
+  credit: 171.1
+  currency: EUR
+  debit: 171.1
+  financial_year_id: 22
+  id: 161
+  journal_id: 2
+  lock_version: 0
+  number: BNK000056
+  printed_on: 2013-03-02
+  real_balance: 0.0
+  real_credit: 171.1
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 171.1
+  resource_id: 202
+  resource_prism: loan_repayment
+  resource_type: LoanRepayment
+  state: draft
+  updated_at: 2017-06-09 21:00:02.021601000 Z
+  updater_id: 1
+journal_entries_155:
+  absolute_credit: 171.1
+  absolute_currency: EUR
+  absolute_debit: 171.1
+  balance: 0.0
+  created_at: 2017-06-09 21:00:02.186665000 Z
+  creator_id: 1
+  credit: 171.1
+  currency: EUR
+  debit: 171.1
+  financial_year_id: 22
+  id: 162
+  journal_id: 2
+  lock_version: 0
+  number: BNK000057
+  printed_on: 2013-04-02
+  real_balance: 0.0
+  real_credit: 171.1
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 171.1
+  resource_id: 203
+  resource_prism: loan_repayment
+  resource_type: LoanRepayment
+  state: draft
+  updated_at: 2017-06-09 21:00:02.186665000 Z
+  updater_id: 1
+journal_entries_156:
+  absolute_credit: 171.1
+  absolute_currency: EUR
+  absolute_debit: 171.1
+  balance: 0.0
+  created_at: 2017-06-09 21:00:02.356792000 Z
+  creator_id: 1
+  credit: 171.1
+  currency: EUR
+  debit: 171.1
+  financial_year_id: 22
+  id: 163
+  journal_id: 2
+  lock_version: 0
+  number: BNK000058
+  printed_on: 2013-05-02
+  real_balance: 0.0
+  real_credit: 171.1
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 171.1
+  resource_id: 204
+  resource_prism: loan_repayment
+  resource_type: LoanRepayment
+  state: draft
+  updated_at: 2017-06-09 21:00:02.356792000 Z
+  updater_id: 1
+journal_entries_157:
+  absolute_credit: 171.1
+  absolute_currency: EUR
+  absolute_debit: 171.1
+  balance: 0.0
+  created_at: 2017-06-09 21:00:02.564780000 Z
+  creator_id: 1
+  credit: 171.1
+  currency: EUR
+  debit: 171.1
+  financial_year_id: 22
+  id: 164
+  journal_id: 2
+  lock_version: 0
+  number: BNK000059
+  printed_on: 2013-06-02
+  real_balance: 0.0
+  real_credit: 171.1
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 171.1
+  resource_id: 205
+  resource_prism: loan_repayment
+  resource_type: LoanRepayment
+  state: draft
+  updated_at: 2017-06-09 21:00:02.564780000 Z
+  updater_id: 1
+journal_entries_158:
+  absolute_credit: 171.1
+  absolute_currency: EUR
+  absolute_debit: 171.1
+  balance: 0.0
+  created_at: 2017-06-09 21:00:02.660171000 Z
+  creator_id: 1
+  credit: 171.1
+  currency: EUR
+  debit: 171.1
+  financial_year_id: 22
+  id: 165
+  journal_id: 2
+  lock_version: 0
+  number: BNK000060
+  printed_on: 2013-07-02
+  real_balance: 0.0
+  real_credit: 171.1
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 171.1
+  resource_id: 206
+  resource_prism: loan_repayment
+  resource_type: LoanRepayment
+  state: draft
+  updated_at: 2017-06-09 21:00:02.660171000 Z
+  updater_id: 1
+journal_entries_159:
+  absolute_credit: 171.1
+  absolute_currency: EUR
+  absolute_debit: 171.1
+  balance: 0.0
+  created_at: 2017-06-09 21:00:02.756209000 Z
+  creator_id: 1
+  credit: 171.1
+  currency: EUR
+  debit: 171.1
+  financial_year_id: 22
+  id: 166
+  journal_id: 2
+  lock_version: 0
+  number: BNK000061
+  printed_on: 2013-08-02
+  real_balance: 0.0
+  real_credit: 171.1
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 171.1
+  resource_id: 207
+  resource_prism: loan_repayment
+  resource_type: LoanRepayment
+  state: draft
+  updated_at: 2017-06-09 21:00:02.756209000 Z
+  updater_id: 1
+journal_entries_160:
+  absolute_credit: 171.1
+  absolute_currency: EUR
+  absolute_debit: 171.1
+  balance: 0.0
+  created_at: 2017-06-09 21:00:02.852584000 Z
+  creator_id: 1
+  credit: 171.1
+  currency: EUR
+  debit: 171.1
+  financial_year_id: 23
+  id: 167
+  journal_id: 2
+  lock_version: 0
+  number: BNK000062
+  printed_on: 2013-09-02
+  real_balance: 0.0
+  real_credit: 171.1
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 171.1
+  resource_id: 208
+  resource_prism: loan_repayment
+  resource_type: LoanRepayment
+  state: draft
+  updated_at: 2017-06-09 21:00:02.852584000 Z
+  updater_id: 1
+journal_entries_161:
+  absolute_credit: 171.1
+  absolute_currency: EUR
+  absolute_debit: 171.1
+  balance: 0.0
+  created_at: 2017-06-09 21:00:02.944559000 Z
+  creator_id: 1
+  credit: 171.1
+  currency: EUR
+  debit: 171.1
+  financial_year_id: 23
+  id: 168
+  journal_id: 2
+  lock_version: 0
+  number: BNK000063
+  printed_on: 2013-10-02
+  real_balance: 0.0
+  real_credit: 171.1
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 171.1
+  resource_id: 209
+  resource_prism: loan_repayment
+  resource_type: LoanRepayment
+  state: draft
+  updated_at: 2017-06-09 21:00:02.944559000 Z
+  updater_id: 1
+journal_entries_162:
+  absolute_credit: 171.1
+  absolute_currency: EUR
+  absolute_debit: 171.1
+  balance: 0.0
+  created_at: 2017-06-09 21:00:03.041661000 Z
+  creator_id: 1
+  credit: 171.1
+  currency: EUR
+  debit: 171.1
+  financial_year_id: 23
+  id: 169
+  journal_id: 2
+  lock_version: 0
+  number: BNK000064
+  printed_on: 2013-11-02
+  real_balance: 0.0
+  real_credit: 171.1
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 171.1
+  resource_id: 210
+  resource_prism: loan_repayment
+  resource_type: LoanRepayment
+  state: draft
+  updated_at: 2017-06-09 21:00:03.041661000 Z
+  updater_id: 1
+journal_entries_163:
+  absolute_credit: 171.1
+  absolute_currency: EUR
+  absolute_debit: 171.1
+  balance: 0.0
+  created_at: 2017-06-09 21:00:03.145905000 Z
+  creator_id: 1
+  credit: 171.1
+  currency: EUR
+  debit: 171.1
+  financial_year_id: 23
+  id: 170
+  journal_id: 2
+  lock_version: 0
+  number: BNK000065
+  printed_on: 2013-12-02
+  real_balance: 0.0
+  real_credit: 171.1
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 171.1
+  resource_id: 211
+  resource_prism: loan_repayment
+  resource_type: LoanRepayment
+  state: draft
+  updated_at: 2017-06-09 21:00:03.145905000 Z
+  updater_id: 1
+journal_entries_164:
+  absolute_credit: 171.1
+  absolute_currency: EUR
+  absolute_debit: 171.1
+  balance: 0.0
+  created_at: 2017-06-09 21:00:03.252823000 Z
+  creator_id: 1
+  credit: 171.1
+  currency: EUR
+  debit: 171.1
+  financial_year_id: 23
+  id: 171
+  journal_id: 2
+  lock_version: 0
+  number: BNK000066
+  printed_on: 2014-01-02
+  real_balance: 0.0
+  real_credit: 171.1
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 171.1
+  resource_id: 212
+  resource_prism: loan_repayment
+  resource_type: LoanRepayment
+  state: draft
+  updated_at: 2017-06-09 21:00:03.252823000 Z
+  updater_id: 1
+journal_entries_165:
+  absolute_credit: 171.1
+  absolute_currency: EUR
+  absolute_debit: 171.1
+  balance: 0.0
+  created_at: 2017-06-09 21:00:03.361414000 Z
+  creator_id: 1
+  credit: 171.1
+  currency: EUR
+  debit: 171.1
+  financial_year_id: 23
+  id: 172
+  journal_id: 2
+  lock_version: 0
+  number: BNK000067
+  printed_on: 2014-02-02
+  real_balance: 0.0
+  real_credit: 171.1
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 171.1
+  resource_id: 213
+  resource_prism: loan_repayment
+  resource_type: LoanRepayment
+  state: draft
+  updated_at: 2017-06-09 21:00:03.361414000 Z
+  updater_id: 1
+journal_entries_166:
+  absolute_credit: 171.1
+  absolute_currency: EUR
+  absolute_debit: 171.1
+  balance: 0.0
+  created_at: 2017-06-09 21:00:03.466243000 Z
+  creator_id: 1
+  credit: 171.1
+  currency: EUR
+  debit: 171.1
+  financial_year_id: 23
+  id: 173
+  journal_id: 2
+  lock_version: 0
+  number: BNK000068
+  printed_on: 2014-03-02
+  real_balance: 0.0
+  real_credit: 171.1
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 171.1
+  resource_id: 214
+  resource_prism: loan_repayment
+  resource_type: LoanRepayment
+  state: draft
+  updated_at: 2017-06-09 21:00:03.466243000 Z
+  updater_id: 1
+journal_entries_167:
+  absolute_credit: 171.1
+  absolute_currency: EUR
+  absolute_debit: 171.1
+  balance: 0.0
+  created_at: 2017-06-09 21:00:03.575438000 Z
+  creator_id: 1
+  credit: 171.1
+  currency: EUR
+  debit: 171.1
+  financial_year_id: 23
+  id: 174
+  journal_id: 2
+  lock_version: 0
+  number: BNK000069
+  printed_on: 2014-04-02
+  real_balance: 0.0
+  real_credit: 171.1
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 171.1
+  resource_id: 215
+  resource_prism: loan_repayment
+  resource_type: LoanRepayment
+  state: draft
+  updated_at: 2017-06-09 21:00:03.575438000 Z
+  updater_id: 1
+journal_entries_168:
+  absolute_credit: 171.1
+  absolute_currency: EUR
+  absolute_debit: 171.1
+  balance: 0.0
+  created_at: 2017-06-09 21:00:03.677839000 Z
+  creator_id: 1
+  credit: 171.1
+  currency: EUR
+  debit: 171.1
+  financial_year_id: 23
+  id: 175
+  journal_id: 2
+  lock_version: 0
+  number: BNK000070
+  printed_on: 2014-05-02
+  real_balance: 0.0
+  real_credit: 171.1
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 171.1
+  resource_id: 216
+  resource_prism: loan_repayment
+  resource_type: LoanRepayment
+  state: draft
+  updated_at: 2017-06-09 21:00:03.677839000 Z
+  updater_id: 1
+journal_entries_169:
+  absolute_credit: 171.1
+  absolute_currency: EUR
+  absolute_debit: 171.1
+  balance: 0.0
+  created_at: 2017-06-09 21:00:03.786765000 Z
+  creator_id: 1
+  credit: 171.1
+  currency: EUR
+  debit: 171.1
+  financial_year_id: 23
+  id: 176
+  journal_id: 2
+  lock_version: 0
+  number: BNK000071
+  printed_on: 2014-06-02
+  real_balance: 0.0
+  real_credit: 171.1
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 171.1
+  resource_id: 217
+  resource_prism: loan_repayment
+  resource_type: LoanRepayment
+  state: draft
+  updated_at: 2017-06-09 21:00:03.786765000 Z
+  updater_id: 1
+journal_entries_170:
+  absolute_credit: 171.1
+  absolute_currency: EUR
+  absolute_debit: 171.1
+  balance: 0.0
+  created_at: 2017-06-09 21:00:03.891991000 Z
+  creator_id: 1
+  credit: 171.1
+  currency: EUR
+  debit: 171.1
+  financial_year_id: 23
+  id: 177
+  journal_id: 2
+  lock_version: 0
+  number: BNK000072
+  printed_on: 2014-07-02
+  real_balance: 0.0
+  real_credit: 171.1
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 171.1
+  resource_id: 218
+  resource_prism: loan_repayment
+  resource_type: LoanRepayment
+  state: draft
+  updated_at: 2017-06-09 21:00:03.891991000 Z
+  updater_id: 1
+journal_entries_171:
+  absolute_credit: 171.1
+  absolute_currency: EUR
+  absolute_debit: 171.1
+  balance: 0.0
+  created_at: 2017-06-09 21:00:03.998292000 Z
+  creator_id: 1
+  credit: 171.1
+  currency: EUR
+  debit: 171.1
+  financial_year_id: 23
+  id: 178
+  journal_id: 2
+  lock_version: 0
+  number: BNK000073
+  printed_on: 2014-08-02
+  real_balance: 0.0
+  real_credit: 171.1
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 171.1
+  resource_id: 219
+  resource_prism: loan_repayment
+  resource_type: LoanRepayment
+  state: draft
+  updated_at: 2017-06-09 21:00:03.998292000 Z
+  updater_id: 1
+journal_entries_172:
+  absolute_credit: 171.1
+  absolute_currency: EUR
+  absolute_debit: 171.1
+  balance: 0.0
+  created_at: 2017-06-09 21:00:04.112864000 Z
+  creator_id: 1
+  credit: 171.1
+  currency: EUR
+  debit: 171.1
+  financial_year_id: 24
+  id: 179
+  journal_id: 2
+  lock_version: 0
+  number: BNK000074
+  printed_on: 2014-09-02
+  real_balance: 0.0
+  real_credit: 171.1
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 171.1
+  resource_id: 220
+  resource_prism: loan_repayment
+  resource_type: LoanRepayment
+  state: draft
+  updated_at: 2017-06-09 21:00:04.112864000 Z
+  updater_id: 1
+journal_entries_173:
+  absolute_credit: 171.1
+  absolute_currency: EUR
+  absolute_debit: 171.1
+  balance: 0.0
+  created_at: 2017-06-09 21:00:04.218210000 Z
+  creator_id: 1
+  credit: 171.1
+  currency: EUR
+  debit: 171.1
+  financial_year_id: 24
+  id: 180
+  journal_id: 2
+  lock_version: 0
+  number: BNK000075
+  printed_on: 2014-10-02
+  real_balance: 0.0
+  real_credit: 171.1
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 171.1
+  resource_id: 221
+  resource_prism: loan_repayment
+  resource_type: LoanRepayment
+  state: draft
+  updated_at: 2017-06-09 21:00:04.218210000 Z
+  updater_id: 1
+journal_entries_174:
+  absolute_credit: 171.1
+  absolute_currency: EUR
+  absolute_debit: 171.1
+  balance: 0.0
+  created_at: 2017-06-09 21:00:04.408219000 Z
+  creator_id: 1
+  credit: 171.1
+  currency: EUR
+  debit: 171.1
+  financial_year_id: 24
+  id: 181
+  journal_id: 2
+  lock_version: 0
+  number: BNK000076
+  printed_on: 2014-11-02
+  real_balance: 0.0
+  real_credit: 171.1
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 171.1
+  resource_id: 222
+  resource_prism: loan_repayment
+  resource_type: LoanRepayment
+  state: draft
+  updated_at: 2017-06-09 21:00:04.408219000 Z
+  updater_id: 1
+journal_entries_175:
+  absolute_credit: 171.1
+  absolute_currency: EUR
+  absolute_debit: 171.1
+  balance: 0.0
+  created_at: 2017-06-09 21:00:04.509690000 Z
+  creator_id: 1
+  credit: 171.1
+  currency: EUR
+  debit: 171.1
+  financial_year_id: 24
+  id: 182
+  journal_id: 2
+  lock_version: 0
+  number: BNK000077
+  printed_on: 2014-12-02
+  real_balance: 0.0
+  real_credit: 171.1
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 171.1
+  resource_id: 223
+  resource_prism: loan_repayment
+  resource_type: LoanRepayment
+  state: draft
+  updated_at: 2017-06-09 21:00:04.509690000 Z
+  updater_id: 1
+journal_entries_176:
+  absolute_credit: 171.1
+  absolute_currency: EUR
+  absolute_debit: 171.1
+  balance: 0.0
+  created_at: 2017-06-09 21:00:04.614584000 Z
+  creator_id: 1
+  credit: 171.1
+  currency: EUR
+  debit: 171.1
+  financial_year_id: 24
+  id: 183
+  journal_id: 2
+  lock_version: 0
+  number: BNK000078
+  printed_on: 2015-01-02
+  real_balance: 0.0
+  real_credit: 171.1
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 171.1
+  resource_id: 224
+  resource_prism: loan_repayment
+  resource_type: LoanRepayment
+  state: draft
+  updated_at: 2017-06-09 21:00:04.614584000 Z
+  updater_id: 1
+journal_entries_177:
+  absolute_credit: 171.1
+  absolute_currency: EUR
+  absolute_debit: 171.1
+  balance: 0.0
+  created_at: 2017-06-09 21:00:04.732735000 Z
+  creator_id: 1
+  credit: 171.1
+  currency: EUR
+  debit: 171.1
+  financial_year_id: 24
+  id: 184
+  journal_id: 2
+  lock_version: 0
+  number: BNK000079
+  printed_on: 2015-02-02
+  real_balance: 0.0
+  real_credit: 171.1
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 171.1
+  resource_id: 225
+  resource_prism: loan_repayment
+  resource_type: LoanRepayment
+  state: draft
+  updated_at: 2017-06-09 21:00:04.732735000 Z
+  updater_id: 1
+journal_entries_178:
+  absolute_credit: 171.1
+  absolute_currency: EUR
+  absolute_debit: 171.1
+  balance: 0.0
+  created_at: 2017-06-09 21:00:04.849249000 Z
+  creator_id: 1
+  credit: 171.1
+  currency: EUR
+  debit: 171.1
+  financial_year_id: 24
+  id: 185
+  journal_id: 2
+  lock_version: 0
+  number: BNK000080
+  printed_on: 2015-03-02
+  real_balance: 0.0
+  real_credit: 171.1
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 171.1
+  resource_id: 226
+  resource_prism: loan_repayment
+  resource_type: LoanRepayment
+  state: draft
+  updated_at: 2017-06-09 21:00:04.849249000 Z
+  updater_id: 1
+journal_entries_179:
+  absolute_credit: 171.1
+  absolute_currency: EUR
+  absolute_debit: 171.1
+  balance: 0.0
+  created_at: 2017-06-09 21:00:04.962984000 Z
+  creator_id: 1
+  credit: 171.1
+  currency: EUR
+  debit: 171.1
+  financial_year_id: 24
+  id: 186
+  journal_id: 2
+  lock_version: 0
+  number: BNK000081
+  printed_on: 2015-04-02
+  real_balance: 0.0
+  real_credit: 171.1
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 171.1
+  resource_id: 227
+  resource_prism: loan_repayment
+  resource_type: LoanRepayment
+  state: draft
+  updated_at: 2017-06-09 21:00:04.962984000 Z
+  updater_id: 1
+journal_entries_180:
+  absolute_credit: 171.1
+  absolute_currency: EUR
+  absolute_debit: 171.1
+  balance: 0.0
+  created_at: 2017-06-09 21:00:05.076479000 Z
+  creator_id: 1
+  credit: 171.1
+  currency: EUR
+  debit: 171.1
+  financial_year_id: 24
+  id: 187
+  journal_id: 2
+  lock_version: 0
+  number: BNK000082
+  printed_on: 2015-05-02
+  real_balance: 0.0
+  real_credit: 171.1
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 171.1
+  resource_id: 228
+  resource_prism: loan_repayment
+  resource_type: LoanRepayment
+  state: draft
+  updated_at: 2017-06-09 21:00:05.076479000 Z
+  updater_id: 1
+journal_entries_181:
+  absolute_credit: 171.1
+  absolute_currency: EUR
+  absolute_debit: 171.1
+  balance: 0.0
+  created_at: 2017-06-09 21:00:05.176849000 Z
+  creator_id: 1
+  credit: 171.1
+  currency: EUR
+  debit: 171.1
+  financial_year_id: 24
+  id: 188
+  journal_id: 2
+  lock_version: 0
+  number: BNK000083
+  printed_on: 2015-06-02
+  real_balance: 0.0
+  real_credit: 171.1
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 171.1
+  resource_id: 229
+  resource_prism: loan_repayment
+  resource_type: LoanRepayment
+  state: draft
+  updated_at: 2017-06-09 21:00:05.176849000 Z
+  updater_id: 1
+journal_entries_182:
+  absolute_credit: 171.1
+  absolute_currency: EUR
+  absolute_debit: 171.1
+  balance: 0.0
+  created_at: 2017-06-09 21:00:05.296895000 Z
+  creator_id: 1
+  credit: 171.1
+  currency: EUR
+  debit: 171.1
+  financial_year_id: 24
+  id: 189
+  journal_id: 2
+  lock_version: 0
+  number: BNK000084
+  printed_on: 2015-07-02
+  real_balance: 0.0
+  real_credit: 171.1
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 171.1
+  resource_id: 230
+  resource_prism: loan_repayment
+  resource_type: LoanRepayment
+  state: draft
+  updated_at: 2017-06-09 21:00:05.296895000 Z
+  updater_id: 1
+journal_entries_183:
+  absolute_credit: 171.1
+  absolute_currency: EUR
+  absolute_debit: 171.1
+  balance: 0.0
+  created_at: 2017-06-09 21:00:05.411983000 Z
+  creator_id: 1
+  credit: 171.1
+  currency: EUR
+  debit: 171.1
+  financial_year_id: 24
+  id: 190
+  journal_id: 2
+  lock_version: 0
+  number: BNK000085
+  printed_on: 2015-08-02
+  real_balance: 0.0
+  real_credit: 171.1
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 171.1
+  resource_id: 231
+  resource_prism: loan_repayment
+  resource_type: LoanRepayment
+  state: draft
+  updated_at: 2017-06-09 21:00:05.411983000 Z
+  updater_id: 1
+journal_entries_184:
+  absolute_credit: 171.1
+  absolute_currency: EUR
+  absolute_debit: 171.1
+  balance: 0.0
+  created_at: 2017-06-09 21:00:05.518016000 Z
+  creator_id: 1
+  credit: 171.1
+  currency: EUR
+  debit: 171.1
+  financial_year_id: 25
+  id: 191
+  journal_id: 2
+  lock_version: 0
+  number: BNK000086
+  printed_on: 2015-09-02
+  real_balance: 0.0
+  real_credit: 171.1
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 171.1
+  resource_id: 232
+  resource_prism: loan_repayment
+  resource_type: LoanRepayment
+  state: draft
+  updated_at: 2017-06-09 21:00:05.518016000 Z
+  updater_id: 1
+journal_entries_185:
+  absolute_credit: 171.1
+  absolute_currency: EUR
+  absolute_debit: 171.1
+  balance: 0.0
+  created_at: 2017-06-09 21:00:05.622552000 Z
+  creator_id: 1
+  credit: 171.1
+  currency: EUR
+  debit: 171.1
+  financial_year_id: 25
+  id: 192
+  journal_id: 2
+  lock_version: 0
+  number: BNK000087
+  printed_on: 2015-10-02
+  real_balance: 0.0
+  real_credit: 171.1
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 171.1
+  resource_id: 233
+  resource_prism: loan_repayment
+  resource_type: LoanRepayment
+  state: draft
+  updated_at: 2017-06-09 21:00:05.622552000 Z
+  updater_id: 1
+journal_entries_186:
+  absolute_credit: 171.1
+  absolute_currency: EUR
+  absolute_debit: 171.1
+  balance: 0.0
+  created_at: 2017-06-09 21:00:05.713063000 Z
+  creator_id: 1
+  credit: 171.1
+  currency: EUR
+  debit: 171.1
+  financial_year_id: 25
+  id: 193
+  journal_id: 2
+  lock_version: 0
+  number: BNK000088
+  printed_on: 2015-11-02
+  real_balance: 0.0
+  real_credit: 171.1
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 171.1
+  resource_id: 234
+  resource_prism: loan_repayment
+  resource_type: LoanRepayment
+  state: draft
+  updated_at: 2017-06-09 21:00:05.713063000 Z
+  updater_id: 1
+journal_entries_187:
+  absolute_credit: 171.1
+  absolute_currency: EUR
+  absolute_debit: 171.1
+  balance: 0.0
+  created_at: 2017-06-09 21:00:05.802874000 Z
+  creator_id: 1
+  credit: 171.1
+  currency: EUR
+  debit: 171.1
+  financial_year_id: 25
+  id: 194
+  journal_id: 2
+  lock_version: 0
+  number: BNK000089
+  printed_on: 2015-12-02
+  real_balance: 0.0
+  real_credit: 171.1
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 171.1
+  resource_id: 235
+  resource_prism: loan_repayment
+  resource_type: LoanRepayment
+  state: draft
+  updated_at: 2017-06-09 21:00:05.802874000 Z
+  updater_id: 1
+journal_entries_188:
+  absolute_credit: 171.1
+  absolute_currency: EUR
+  absolute_debit: 171.1
+  balance: 0.0
+  created_at: 2017-06-09 21:00:05.891953000 Z
+  creator_id: 1
+  credit: 171.1
+  currency: EUR
+  debit: 171.1
+  financial_year_id: 25
+  id: 195
+  journal_id: 2
+  lock_version: 0
+  number: BNK000090
+  printed_on: 2016-01-02
+  real_balance: 0.0
+  real_credit: 171.1
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 171.1
+  resource_id: 236
+  resource_prism: loan_repayment
+  resource_type: LoanRepayment
+  state: draft
+  updated_at: 2017-06-09 21:00:05.891953000 Z
+  updater_id: 1
+journal_entries_189:
+  absolute_credit: 171.1
+  absolute_currency: EUR
+  absolute_debit: 171.1
+  balance: 0.0
+  created_at: 2017-06-09 21:00:05.981476000 Z
+  creator_id: 1
+  credit: 171.1
+  currency: EUR
+  debit: 171.1
+  financial_year_id: 25
+  id: 196
+  journal_id: 2
+  lock_version: 0
+  number: BNK000091
+  printed_on: 2016-02-02
+  real_balance: 0.0
+  real_credit: 171.1
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 171.1
+  resource_id: 237
+  resource_prism: loan_repayment
+  resource_type: LoanRepayment
+  state: draft
+  updated_at: 2017-06-09 21:00:05.981476000 Z
+  updater_id: 1
+journal_entries_190:
+  absolute_credit: 171.1
+  absolute_currency: EUR
+  absolute_debit: 171.1
+  balance: 0.0
+  created_at: 2017-06-09 21:00:06.074757000 Z
+  creator_id: 1
+  credit: 171.1
+  currency: EUR
+  debit: 171.1
+  financial_year_id: 25
+  id: 197
+  journal_id: 2
+  lock_version: 0
+  number: BNK000092
+  printed_on: 2016-03-02
+  real_balance: 0.0
+  real_credit: 171.1
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 171.1
+  resource_id: 238
+  resource_prism: loan_repayment
+  resource_type: LoanRepayment
+  state: draft
+  updated_at: 2017-06-09 21:00:06.074757000 Z
+  updater_id: 1
+journal_entries_191:
+  absolute_credit: 171.1
+  absolute_currency: EUR
+  absolute_debit: 171.1
+  balance: 0.0
+  created_at: 2017-06-09 21:00:06.231067000 Z
+  creator_id: 1
+  credit: 171.1
+  currency: EUR
+  debit: 171.1
+  financial_year_id: 25
+  id: 198
+  journal_id: 2
+  lock_version: 0
+  number: BNK000093
+  printed_on: 2016-04-02
+  real_balance: 0.0
+  real_credit: 171.1
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 171.1
+  resource_id: 239
+  resource_prism: loan_repayment
+  resource_type: LoanRepayment
+  state: draft
+  updated_at: 2017-06-09 21:00:06.231067000 Z
+  updater_id: 1
+journal_entries_192:
+  absolute_credit: 171.1
+  absolute_currency: EUR
+  absolute_debit: 171.1
+  balance: 0.0
+  created_at: 2017-06-09 21:00:06.322208000 Z
+  creator_id: 1
+  credit: 171.1
+  currency: EUR
+  debit: 171.1
+  financial_year_id: 25
+  id: 199
+  journal_id: 2
+  lock_version: 0
+  number: BNK000094
+  printed_on: 2016-05-02
+  real_balance: 0.0
+  real_credit: 171.1
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 171.1
+  resource_id: 240
+  resource_prism: loan_repayment
+  resource_type: LoanRepayment
+  state: draft
+  updated_at: 2017-06-09 21:00:06.322208000 Z
+  updater_id: 1
+journal_entries_193:
+  absolute_credit: 171.1
+  absolute_currency: EUR
+  absolute_debit: 171.1
+  balance: 0.0
+  created_at: 2017-06-09 21:00:06.414413000 Z
+  creator_id: 1
+  credit: 171.1
+  currency: EUR
+  debit: 171.1
+  financial_year_id: 25
+  id: 200
+  journal_id: 2
+  lock_version: 0
+  number: BNK000095
+  printed_on: 2016-06-02
+  real_balance: 0.0
+  real_credit: 171.1
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 171.1
+  resource_id: 241
+  resource_prism: loan_repayment
+  resource_type: LoanRepayment
+  state: draft
+  updated_at: 2017-06-09 21:00:06.414413000 Z
+  updater_id: 1
+journal_entries_194:
+  absolute_credit: 171.1
+  absolute_currency: EUR
+  absolute_debit: 171.1
+  balance: 0.0
+  created_at: 2017-06-09 21:00:06.502883000 Z
+  creator_id: 1
+  credit: 171.1
+  currency: EUR
+  debit: 171.1
+  financial_year_id: 25
+  id: 201
+  journal_id: 2
+  lock_version: 0
+  number: BNK000096
+  printed_on: 2016-07-02
+  real_balance: 0.0
+  real_credit: 171.1
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 171.1
+  resource_id: 242
+  resource_prism: loan_repayment
+  resource_type: LoanRepayment
+  state: draft
+  updated_at: 2017-06-09 21:00:06.502883000 Z
+  updater_id: 1
+journal_entries_195:
+  absolute_credit: 171.4
+  absolute_currency: EUR
+  absolute_debit: 171.4
+  balance: 0.0
+  created_at: 2017-06-09 21:00:06.595167000 Z
+  creator_id: 1
+  credit: 171.4
+  currency: EUR
+  debit: 171.4
+  financial_year_id: 25
+  id: 202
+  journal_id: 2
+  lock_version: 0
+  number: BNK000097
+  printed_on: 2016-08-02
+  real_balance: 0.0
+  real_credit: 171.4
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 171.4
+  resource_id: 243
+  resource_prism: loan_repayment
+  resource_type: LoanRepayment
+  state: draft
+  updated_at: 2017-06-09 21:00:06.595167000 Z
+  updater_id: 1
+journal_entries_196:
+  absolute_credit: 2000.0
+  absolute_currency: EUR
+  absolute_debit: 2000.0
+  balance: 0.0
+  created_at: 2017-06-15 14:31:59.771959000 Z
+  creator_id: 1
+  credit: 2000.0
+  currency: EUR
+  debit: 2000.0
+  financial_year_id: 24
+  id: 203
+  journal_id: 2
+  lock_version: 0
+  number: BNK000098
+  printed_on: 2015-05-01
+  real_balance: 0.0
+  real_credit: 2000.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 2000.0
+  resource_id: 1
+  resource_type: Loan
+  state: draft
+  updated_at: 2017-06-15 14:31:59.771959000 Z
+  updater_id: 1
+journal_entries_197:
+  absolute_credit: 2.07
+  absolute_currency: EUR
+  absolute_debit: 2.07
+  balance: 0.0
+  created_at: 2017-06-15 14:31:59.873331000 Z
+  creator_id: 1
+  credit: 2.07
+  currency: EUR
+  debit: 2.07
+  financial_year_id: 24
+  id: 204
+  journal_id: 2
+  lock_version: 0
+  number: BNK000099
+  printed_on: 2015-06-01
+  real_balance: 0.0
+  real_credit: 2.07
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 2.07
+  resource_id: 1
+  resource_type: LoanRepayment
+  state: draft
+  updated_at: 2017-06-15 14:31:59.873331000 Z
+  updater_id: 1
+journal_entries_198:
+  absolute_credit: 1088.6
+  absolute_currency: EUR
+  absolute_debit: 1088.6
+  balance: 0.0
+  created_at: 2017-06-15 14:31:59.966661000 Z
+  creator_id: 1
+  credit: 1088.6
+  currency: EUR
+  debit: 1088.6
+  financial_year_id: 25
+  id: 205
+  journal_id: 2
+  lock_version: 0
+  number: BNK000100
+  printed_on: 2016-06-01
+  real_balance: 0.0
+  real_credit: 1088.6
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 1088.6
+  resource_id: 2
+  resource_type: LoanRepayment
+  state: draft
+  updated_at: 2017-06-15 14:31:59.966661000 Z
+  updater_id: 1
+journal_entries_199:
+  absolute_credit: 36158.31
+  absolute_currency: EUR
+  absolute_debit: 36158.31
+  balance: 0.0
+  created_at: 2017-06-15 14:32:14.199782000 Z
+  creator_id: 1
+  credit: 36158.31
+  currency: EUR
+  debit: 36158.31
+  financial_year_id: 21
+  id: 206
+  journal_id: 7
+  lock_version: 0
+  number: BCA000054
+  printed_on: 2012-03-24
+  real_balance: 0.0
+  real_credit: 40650.15
+  real_currency: USD
+  real_currency_rate: 0.8895
+  real_debit: 40650.15
+  resource_id: 2
+  resource_type: Loan
+  state: draft
+  updated_at: 2017-06-15 14:32:14.199782000 Z
+  updater_id: 1
+journal_entries_200:
+  absolute_credit: 86.79
+  absolute_currency: EUR
+  absolute_debit: 86.79
+  balance: 0.0
+  created_at: 2017-06-15 14:32:14.293494000 Z
+  creator_id: 1
+  credit: 86.79
+  currency: EUR
+  debit: 86.79
+  financial_year_id: 21
+  id: 207
+  journal_id: 7
+  lock_version: 0
+  number: BCA000055
+  printed_on: 2012-04-24
+  real_balance: 0.0
+  real_credit: 97.57
+  real_currency: USD
+  real_currency_rate: 0.8895
+  real_debit: 97.57
+  resource_id: 4
+  resource_type: LoanRepayment
+  state: draft
+  updated_at: 2017-06-15 14:32:14.293494000 Z
+  updater_id: 1
+journal_entries_201:
+  absolute_credit: 86.79
+  absolute_currency: EUR
+  absolute_debit: 86.79
+  balance: 0.0
+  created_at: 2017-06-15 14:32:14.384957000 Z
+  creator_id: 1
+  credit: 86.79
+  currency: EUR
+  debit: 86.79
+  financial_year_id: 21
+  id: 208
+  journal_id: 7
+  lock_version: 0
+  number: BCA000056
+  printed_on: 2012-05-24
+  real_balance: 0.0
+  real_credit: 97.57
+  real_currency: USD
+  real_currency_rate: 0.8895
+  real_debit: 97.57
+  resource_id: 5
+  resource_type: LoanRepayment
+  state: draft
+  updated_at: 2017-06-15 14:32:14.384957000 Z
+  updater_id: 1
+journal_entries_202:
+  absolute_credit: 86.79
+  absolute_currency: EUR
+  absolute_debit: 86.79
+  balance: 0.0
+  created_at: 2017-06-15 14:32:14.478905000 Z
+  creator_id: 1
+  credit: 86.79
+  currency: EUR
+  debit: 86.79
+  financial_year_id: 21
+  id: 209
+  journal_id: 7
+  lock_version: 0
+  number: BCA000057
+  printed_on: 2012-06-24
+  real_balance: 0.0
+  real_credit: 97.57
+  real_currency: USD
+  real_currency_rate: 0.8895
+  real_debit: 97.57
+  resource_id: 6
+  resource_type: LoanRepayment
+  state: draft
+  updated_at: 2017-06-15 14:32:14.478905000 Z
+  updater_id: 1
+journal_entries_203:
+  absolute_credit: 86.79
+  absolute_currency: EUR
+  absolute_debit: 86.79
+  balance: 0.0
+  created_at: 2017-06-15 14:32:14.572564000 Z
+  creator_id: 1
+  credit: 86.79
+  currency: EUR
+  debit: 86.79
+  financial_year_id: 21
+  id: 210
+  journal_id: 7
+  lock_version: 0
+  number: BCA000058
+  printed_on: 2012-07-24
+  real_balance: 0.0
+  real_credit: 97.57
+  real_currency: USD
+  real_currency_rate: 0.8895
+  real_debit: 97.57
+  resource_id: 7
+  resource_type: LoanRepayment
+  state: draft
+  updated_at: 2017-06-15 14:32:14.572564000 Z
+  updater_id: 1
+journal_entries_204:
+  absolute_credit: 86.79
+  absolute_currency: EUR
+  absolute_debit: 86.79
+  balance: 0.0
+  created_at: 2017-06-15 14:32:14.668000000 Z
+  creator_id: 1
+  credit: 86.79
+  currency: EUR
+  debit: 86.79
+  financial_year_id: 21
+  id: 211
+  journal_id: 7
+  lock_version: 0
+  number: BCA000059
+  printed_on: 2012-08-24
+  real_balance: 0.0
+  real_credit: 97.57
+  real_currency: USD
+  real_currency_rate: 0.8895
+  real_debit: 97.57
+  resource_id: 8
+  resource_type: LoanRepayment
+  state: draft
+  updated_at: 2017-06-15 14:32:14.668000000 Z
+  updater_id: 1
+journal_entries_205:
+  absolute_credit: 86.79
+  absolute_currency: EUR
+  absolute_debit: 86.79
+  balance: 0.0
+  created_at: 2017-06-15 14:32:14.763165000 Z
+  creator_id: 1
+  credit: 86.79
+  currency: EUR
+  debit: 86.79
+  financial_year_id: 22
+  id: 212
+  journal_id: 7
+  lock_version: 0
+  number: BCA000060
+  printed_on: 2012-09-24
+  real_balance: 0.0
+  real_credit: 97.57
+  real_currency: USD
+  real_currency_rate: 0.8895
+  real_debit: 97.57
+  resource_id: 9
+  resource_type: LoanRepayment
+  state: draft
+  updated_at: 2017-06-15 14:32:14.763165000 Z
+  updater_id: 1
+journal_entries_206:
+  absolute_credit: 86.79
+  absolute_currency: EUR
+  absolute_debit: 86.79
+  balance: 0.0
+  created_at: 2017-06-15 14:32:14.919459000 Z
+  creator_id: 1
+  credit: 86.79
+  currency: EUR
+  debit: 86.79
+  financial_year_id: 22
+  id: 213
+  journal_id: 7
+  lock_version: 0
+  number: BCA000061
+  printed_on: 2012-10-24
+  real_balance: 0.0
+  real_credit: 97.57
+  real_currency: USD
+  real_currency_rate: 0.8895
+  real_debit: 97.57
+  resource_id: 10
+  resource_type: LoanRepayment
+  state: draft
+  updated_at: 2017-06-15 14:32:14.919459000 Z
+  updater_id: 1
+journal_entries_207:
+  absolute_credit: 86.79
+  absolute_currency: EUR
+  absolute_debit: 86.79
+  balance: 0.0
+  created_at: 2017-06-15 14:32:15.016007000 Z
+  creator_id: 1
+  credit: 86.79
+  currency: EUR
+  debit: 86.79
+  financial_year_id: 22
+  id: 214
+  journal_id: 7
+  lock_version: 0
+  number: BCA000062
+  printed_on: 2012-11-24
+  real_balance: 0.0
+  real_credit: 97.57
+  real_currency: USD
+  real_currency_rate: 0.8895
+  real_debit: 97.57
+  resource_id: 11
+  resource_type: LoanRepayment
+  state: draft
+  updated_at: 2017-06-15 14:32:15.016007000 Z
+  updater_id: 1
+journal_entries_208:
+  absolute_credit: 610.29
+  absolute_currency: EUR
+  absolute_debit: 610.29
+  balance: 0.0
+  created_at: 2017-06-15 14:32:15.127844000 Z
+  creator_id: 1
+  credit: 610.29
+  currency: EUR
+  debit: 610.29
+  financial_year_id: 22
+  id: 215
+  journal_id: 7
+  lock_version: 0
+  number: BCA000063
+  printed_on: 2012-12-24
+  real_balance: 0.0
+  real_credit: 686.02
+  real_currency: USD
+  real_currency_rate: 0.8896
+  real_debit: 686.02
+  resource_id: 12
+  resource_type: LoanRepayment
+  state: draft
+  updated_at: 2017-06-15 14:32:15.127844000 Z
+  updater_id: 1
+journal_entries_209:
+  absolute_credit: 610.29
+  absolute_currency: EUR
+  absolute_debit: 610.29
+  balance: 0.0
+  created_at: 2017-06-15 14:32:15.255038000 Z
+  creator_id: 1
+  credit: 610.29
+  currency: EUR
+  debit: 610.29
+  financial_year_id: 22
+  id: 216
+  journal_id: 7
+  lock_version: 0
+  number: BCA000064
+  printed_on: 2013-01-24
+  real_balance: 0.0
+  real_credit: 686.03
+  real_currency: USD
+  real_currency_rate: 0.8896
+  real_debit: 686.03
+  resource_id: 13
+  resource_type: LoanRepayment
+  state: draft
+  updated_at: 2017-06-15 14:32:15.255038000 Z
+  updater_id: 1
+journal_entries_210:
+  absolute_credit: 610.29
+  absolute_currency: EUR
+  absolute_debit: 610.29
+  balance: 0.0
+  created_at: 2017-06-15 14:32:15.385363000 Z
+  creator_id: 1
+  credit: 610.29
+  currency: EUR
+  debit: 610.29
+  financial_year_id: 22
+  id: 217
+  journal_id: 7
+  lock_version: 0
+  number: BCA000065
+  printed_on: 2013-02-24
+  real_balance: 0.0
+  real_credit: 686.03
+  real_currency: USD
+  real_currency_rate: 0.8896
+  real_debit: 686.03
+  resource_id: 14
+  resource_type: LoanRepayment
+  state: draft
+  updated_at: 2017-06-15 14:32:15.385363000 Z
+  updater_id: 1
+journal_entries_211:
+  absolute_credit: 610.29
+  absolute_currency: EUR
+  absolute_debit: 610.29
+  balance: 0.0
+  created_at: 2017-06-15 14:32:15.515586000 Z
+  creator_id: 1
+  credit: 610.29
+  currency: EUR
+  debit: 610.29
+  financial_year_id: 22
+  id: 218
+  journal_id: 7
+  lock_version: 0
+  number: BCA000066
+  printed_on: 2013-03-24
+  real_balance: 0.0
+  real_credit: 686.02
+  real_currency: USD
+  real_currency_rate: 0.8896
+  real_debit: 686.02
+  resource_id: 15
+  resource_type: LoanRepayment
+  state: draft
+  updated_at: 2017-06-15 14:32:15.515586000 Z
+  updater_id: 1
+journal_entries_212:
+  absolute_credit: 610.28
+  absolute_currency: EUR
+  absolute_debit: 610.28
+  balance: 0.0
+  created_at: 2017-06-15 14:32:15.656658000 Z
+  creator_id: 1
+  credit: 610.28
+  currency: EUR
+  debit: 610.28
+  financial_year_id: 22
+  id: 219
+  journal_id: 7
+  lock_version: 0
+  number: BCA000067
+  printed_on: 2013-04-24
+  real_balance: 0.0
+  real_credit: 686.02
+  real_currency: USD
+  real_currency_rate: 0.8896
+  real_debit: 686.02
+  resource_id: 16
+  resource_type: LoanRepayment
+  state: draft
+  updated_at: 2017-06-15 14:32:15.656658000 Z
+  updater_id: 1
+journal_entries_213:
+  absolute_credit: 610.29
+  absolute_currency: EUR
+  absolute_debit: 610.29
+  balance: 0.0
+  created_at: 2017-06-15 14:32:15.798216000 Z
+  creator_id: 1
+  credit: 610.29
+  currency: EUR
+  debit: 610.29
+  financial_year_id: 22
+  id: 220
+  journal_id: 7
+  lock_version: 0
+  number: BCA000068
+  printed_on: 2013-05-24
+  real_balance: 0.0
+  real_credit: 686.02
+  real_currency: USD
+  real_currency_rate: 0.8896
+  real_debit: 686.02
+  resource_id: 17
+  resource_type: LoanRepayment
+  state: draft
+  updated_at: 2017-06-15 14:32:15.798216000 Z
+  updater_id: 1
+journal_entries_214:
+  absolute_credit: 610.28
+  absolute_currency: EUR
+  absolute_debit: 610.28
+  balance: 0.0
+  created_at: 2017-06-15 14:32:15.936086000 Z
+  creator_id: 1
+  credit: 610.28
+  currency: EUR
+  debit: 610.28
+  financial_year_id: 22
+  id: 221
+  journal_id: 7
+  lock_version: 0
+  number: BCA000069
+  printed_on: 2013-06-24
+  real_balance: 0.0
+  real_credit: 686.02
+  real_currency: USD
+  real_currency_rate: 0.8896
+  real_debit: 686.02
+  resource_id: 18
+  resource_type: LoanRepayment
+  state: draft
+  updated_at: 2017-06-15 14:32:15.936086000 Z
+  updater_id: 1
+journal_entries_215:
+  absolute_credit: 610.29
+  absolute_currency: EUR
+  absolute_debit: 610.29
+  balance: 0.0
+  created_at: 2017-06-15 14:32:16.092832000 Z
+  creator_id: 1
+  credit: 610.29
+  currency: EUR
+  debit: 610.29
+  financial_year_id: 22
+  id: 222
+  journal_id: 7
+  lock_version: 0
+  number: BCA000070
+  printed_on: 2013-07-24
+  real_balance: 0.0
+  real_credit: 686.03
+  real_currency: USD
+  real_currency_rate: 0.8896
+  real_debit: 686.03
+  resource_id: 19
+  resource_type: LoanRepayment
+  state: draft
+  updated_at: 2017-06-15 14:32:16.092832000 Z
+  updater_id: 1
+journal_entries_216:
+  absolute_credit: 610.28
+  absolute_currency: EUR
+  absolute_debit: 610.28
+  balance: 0.0
+  created_at: 2017-06-15 14:32:16.261869000 Z
+  creator_id: 1
+  credit: 610.28
+  currency: EUR
+  debit: 610.28
+  financial_year_id: 22
+  id: 223
+  journal_id: 7
+  lock_version: 0
+  number: BCA000071
+  printed_on: 2013-08-24
+  real_balance: 0.0
+  real_credit: 686.02
+  real_currency: USD
+  real_currency_rate: 0.8896
+  real_debit: 686.02
+  resource_id: 20
+  resource_type: LoanRepayment
+  state: draft
+  updated_at: 2017-06-15 14:32:16.261869000 Z
+  updater_id: 1
+journal_entries_217:
+  absolute_credit: 610.15
+  absolute_currency: EUR
+  absolute_debit: 610.15
+  balance: 0.0
+  created_at: 2017-06-15 14:32:16.396984000 Z
+  creator_id: 1
+  credit: 610.15
+  currency: EUR
+  debit: 610.15
+  financial_year_id: 23
+  id: 224
+  journal_id: 7
+  lock_version: 0
+  number: BCA000072
+  printed_on: 2013-09-24
+  real_balance: 0.0
+  real_credit: 685.95
+  real_currency: USD
+  real_currency_rate: 0.8895
+  real_debit: 685.95
+  resource_id: 21
+  resource_type: LoanRepayment
+  state: draft
+  updated_at: 2017-06-15 14:32:16.396984000 Z
+  updater_id: 1
+journal_entries_218:
+  absolute_credit: 610.16
+  absolute_currency: EUR
+  absolute_debit: 610.16
+  balance: 0.0
+  created_at: 2017-06-15 14:32:16.539883000 Z
+  creator_id: 1
+  credit: 610.16
+  currency: EUR
+  debit: 610.16
+  financial_year_id: 23
+  id: 225
+  journal_id: 7
+  lock_version: 0
+  number: BCA000073
+  printed_on: 2013-10-24
+  real_balance: 0.0
+  real_credit: 685.95
+  real_currency: USD
+  real_currency_rate: 0.8895
+  real_debit: 685.95
+  resource_id: 22
+  resource_type: LoanRepayment
+  state: draft
+  updated_at: 2017-06-15 14:32:16.539883000 Z
+  updater_id: 1
+journal_entries_219:
+  absolute_credit: 610.16
+  absolute_currency: EUR
+  absolute_debit: 610.16
+  balance: 0.0
+  created_at: 2017-06-15 14:32:16.674850000 Z
+  creator_id: 1
+  credit: 610.16
+  currency: EUR
+  debit: 610.16
+  financial_year_id: 23
+  id: 226
+  journal_id: 7
+  lock_version: 0
+  number: BCA000074
+  printed_on: 2013-11-24
+  real_balance: 0.0
+  real_credit: 685.95
+  real_currency: USD
+  real_currency_rate: 0.8895
+  real_debit: 685.95
+  resource_id: 23
+  resource_type: LoanRepayment
+  state: draft
+  updated_at: 2017-06-15 14:32:16.674850000 Z
+  updater_id: 1
+journal_entries_220:
+  absolute_credit: 610.15
+  absolute_currency: EUR
+  absolute_debit: 610.15
+  balance: 0.0
+  created_at: 2017-06-15 14:32:16.815912000 Z
+  creator_id: 1
+  credit: 610.15
+  currency: EUR
+  debit: 610.15
+  financial_year_id: 23
+  id: 227
+  journal_id: 7
+  lock_version: 0
+  number: BCA000075
+  printed_on: 2013-12-24
+  real_balance: 0.0
+  real_credit: 685.95
+  real_currency: USD
+  real_currency_rate: 0.8895
+  real_debit: 685.95
+  resource_id: 24
+  resource_type: LoanRepayment
+  state: draft
+  updated_at: 2017-06-15 14:32:16.815912000 Z
+  updater_id: 1
+journal_entries_221:
+  absolute_credit: 610.16
+  absolute_currency: EUR
+  absolute_debit: 610.16
+  balance: 0.0
+  created_at: 2017-06-15 14:32:16.941797000 Z
+  creator_id: 1
+  credit: 610.16
+  currency: EUR
+  debit: 610.16
+  financial_year_id: 23
+  id: 228
+  journal_id: 7
+  lock_version: 0
+  number: BCA000076
+  printed_on: 2014-01-24
+  real_balance: 0.0
+  real_credit: 685.95
+  real_currency: USD
+  real_currency_rate: 0.8895
+  real_debit: 685.95
+  resource_id: 25
+  resource_type: LoanRepayment
+  state: draft
+  updated_at: 2017-06-15 14:32:16.941797000 Z
+  updater_id: 1
+journal_entries_222:
+  absolute_credit: 610.15
+  absolute_currency: EUR
+  absolute_debit: 610.15
+  balance: 0.0
+  created_at: 2017-06-15 14:32:17.060081000 Z
+  creator_id: 1
+  credit: 610.15
+  currency: EUR
+  debit: 610.15
+  financial_year_id: 23
+  id: 229
+  journal_id: 7
+  lock_version: 0
+  number: BCA000077
+  printed_on: 2014-02-24
+  real_balance: 0.0
+  real_credit: 685.95
+  real_currency: USD
+  real_currency_rate: 0.8895
+  real_debit: 685.95
+  resource_id: 26
+  resource_type: LoanRepayment
+  state: draft
+  updated_at: 2017-06-15 14:32:17.060081000 Z
+  updater_id: 1
+journal_entries_223:
+  absolute_credit: 610.15
+  absolute_currency: EUR
+  absolute_debit: 610.15
+  balance: 0.0
+  created_at: 2017-06-15 14:32:17.174381000 Z
+  creator_id: 1
+  credit: 610.15
+  currency: EUR
+  debit: 610.15
+  financial_year_id: 23
+  id: 230
+  journal_id: 7
+  lock_version: 0
+  number: BCA000078
+  printed_on: 2014-03-24
+  real_balance: 0.0
+  real_credit: 685.95
+  real_currency: USD
+  real_currency_rate: 0.8895
+  real_debit: 685.95
+  resource_id: 27
+  resource_type: LoanRepayment
+  state: draft
+  updated_at: 2017-06-15 14:32:17.174381000 Z
+  updater_id: 1
+journal_entries_224:
+  absolute_credit: 610.15
+  absolute_currency: EUR
+  absolute_debit: 610.15
+  balance: 0.0
+  created_at: 2017-06-15 14:32:17.290993000 Z
+  creator_id: 1
+  credit: 610.15
+  currency: EUR
+  debit: 610.15
+  financial_year_id: 23
+  id: 231
+  journal_id: 7
+  lock_version: 0
+  number: BCA000079
+  printed_on: 2014-04-24
+  real_balance: 0.0
+  real_credit: 685.95
+  real_currency: USD
+  real_currency_rate: 0.8895
+  real_debit: 685.95
+  resource_id: 28
+  resource_type: LoanRepayment
+  state: draft
+  updated_at: 2017-06-15 14:32:17.290993000 Z
+  updater_id: 1
+journal_entries_225:
+  absolute_credit: 610.15
+  absolute_currency: EUR
+  absolute_debit: 610.15
+  balance: 0.0
+  created_at: 2017-06-15 14:32:17.405064000 Z
+  creator_id: 1
+  credit: 610.15
+  currency: EUR
+  debit: 610.15
+  financial_year_id: 23
+  id: 232
+  journal_id: 7
+  lock_version: 0
+  number: BCA000080
+  printed_on: 2014-05-24
+  real_balance: 0.0
+  real_credit: 685.95
+  real_currency: USD
+  real_currency_rate: 0.8895
+  real_debit: 685.95
+  resource_id: 29
+  resource_type: LoanRepayment
+  state: draft
+  updated_at: 2017-06-15 14:32:17.405064000 Z
+  updater_id: 1
+journal_entries_226:
+  absolute_credit: 610.16
+  absolute_currency: EUR
+  absolute_debit: 610.16
+  balance: 0.0
+  created_at: 2017-06-15 14:32:17.522331000 Z
+  creator_id: 1
+  credit: 610.16
+  currency: EUR
+  debit: 610.16
+  financial_year_id: 23
+  id: 233
+  journal_id: 7
+  lock_version: 0
+  number: BCA000081
+  printed_on: 2014-06-24
+  real_balance: 0.0
+  real_credit: 685.95
+  real_currency: USD
+  real_currency_rate: 0.8895
+  real_debit: 685.95
+  resource_id: 30
+  resource_type: LoanRepayment
+  state: draft
+  updated_at: 2017-06-15 14:32:17.522331000 Z
+  updater_id: 1
+journal_entries_227:
+  absolute_credit: 610.01
+  absolute_currency: EUR
+  absolute_debit: 610.01
+  balance: 0.0
+  created_at: 2017-06-15 14:32:17.641087000 Z
+  creator_id: 1
+  credit: 610.01
+  currency: EUR
+  debit: 610.01
+  financial_year_id: 23
+  id: 234
+  journal_id: 7
+  lock_version: 0
+  number: BCA000082
+  printed_on: 2014-07-24
+  real_balance: 0.0
+  real_credit: 685.87
+  real_currency: USD
+  real_currency_rate: 0.8894
+  real_debit: 685.87
+  resource_id: 31
+  resource_type: LoanRepayment
+  state: draft
+  updated_at: 2017-06-15 14:32:17.641087000 Z
+  updater_id: 1
+journal_entries_228:
+  absolute_credit: 610.01
+  absolute_currency: EUR
+  absolute_debit: 610.01
+  balance: 0.0
+  created_at: 2017-06-15 14:32:17.838674000 Z
+  creator_id: 1
+  credit: 610.01
+  currency: EUR
+  debit: 610.01
+  financial_year_id: 23
+  id: 235
+  journal_id: 7
+  lock_version: 0
+  number: BCA000083
+  printed_on: 2014-08-24
+  real_balance: 0.0
+  real_credit: 685.87
+  real_currency: USD
+  real_currency_rate: 0.8894
+  real_debit: 685.87
+  resource_id: 32
+  resource_type: LoanRepayment
+  state: draft
+  updated_at: 2017-06-15 14:32:17.838674000 Z
+  updater_id: 1
+journal_entries_229:
+  absolute_credit: 610.01
+  absolute_currency: EUR
+  absolute_debit: 610.01
+  balance: 0.0
+  created_at: 2017-06-15 14:32:17.967626000 Z
+  creator_id: 1
+  credit: 610.01
+  currency: EUR
+  debit: 610.01
+  financial_year_id: 24
+  id: 236
+  journal_id: 7
+  lock_version: 0
+  number: BCA000084
+  printed_on: 2014-09-24
+  real_balance: 0.0
+  real_credit: 685.87
+  real_currency: USD
+  real_currency_rate: 0.8894
+  real_debit: 685.87
+  resource_id: 33
+  resource_type: LoanRepayment
+  state: draft
+  updated_at: 2017-06-15 14:32:17.967626000 Z
+  updater_id: 1
+journal_entries_230:
+  absolute_credit: 610.01
+  absolute_currency: EUR
+  absolute_debit: 610.01
+  balance: 0.0
+  created_at: 2017-06-15 14:32:18.099062000 Z
+  creator_id: 1
+  credit: 610.01
+  currency: EUR
+  debit: 610.01
+  financial_year_id: 24
+  id: 237
+  journal_id: 7
+  lock_version: 0
+  number: BCA000085
+  printed_on: 2014-10-24
+  real_balance: 0.0
+  real_credit: 685.87
+  real_currency: USD
+  real_currency_rate: 0.8894
+  real_debit: 685.87
+  resource_id: 34
+  resource_type: LoanRepayment
+  state: draft
+  updated_at: 2017-06-15 14:32:18.099062000 Z
+  updater_id: 1
+journal_entries_231:
+  absolute_credit: 610.01
+  absolute_currency: EUR
+  absolute_debit: 610.01
+  balance: 0.0
+  created_at: 2017-06-15 14:32:18.224082000 Z
+  creator_id: 1
+  credit: 610.01
+  currency: EUR
+  debit: 610.01
+  financial_year_id: 24
+  id: 238
+  journal_id: 7
+  lock_version: 0
+  number: BCA000086
+  printed_on: 2014-11-24
+  real_balance: 0.0
+  real_credit: 685.87
+  real_currency: USD
+  real_currency_rate: 0.8894
+  real_debit: 685.87
+  resource_id: 35
+  resource_type: LoanRepayment
+  state: draft
+  updated_at: 2017-06-15 14:32:18.224082000 Z
+  updater_id: 1
+journal_entries_232:
+  absolute_credit: 610.01
+  absolute_currency: EUR
+  absolute_debit: 610.01
+  balance: 0.0
+  created_at: 2017-06-15 14:32:18.347945000 Z
+  creator_id: 1
+  credit: 610.01
+  currency: EUR
+  debit: 610.01
+  financial_year_id: 24
+  id: 239
+  journal_id: 7
+  lock_version: 0
+  number: BCA000087
+  printed_on: 2014-12-24
+  real_balance: 0.0
+  real_credit: 685.87
+  real_currency: USD
+  real_currency_rate: 0.8894
+  real_debit: 685.87
+  resource_id: 36
+  resource_type: LoanRepayment
+  state: draft
+  updated_at: 2017-06-15 14:32:18.347945000 Z
+  updater_id: 1
+journal_entries_233:
+  absolute_credit: 610.01
+  absolute_currency: EUR
+  absolute_debit: 610.01
+  balance: 0.0
+  created_at: 2017-06-15 14:32:18.470040000 Z
+  creator_id: 1
+  credit: 610.01
+  currency: EUR
+  debit: 610.01
+  financial_year_id: 24
+  id: 240
+  journal_id: 7
+  lock_version: 0
+  number: BCA000088
+  printed_on: 2015-01-24
+  real_balance: 0.0
+  real_credit: 685.87
+  real_currency: USD
+  real_currency_rate: 0.8894
+  real_debit: 685.87
+  resource_id: 37
+  resource_type: LoanRepayment
+  state: draft
+  updated_at: 2017-06-15 14:32:18.470040000 Z
+  updater_id: 1
+journal_entries_234:
+  absolute_credit: 610.02
+  absolute_currency: EUR
+  absolute_debit: 610.02
+  balance: 0.0
+  created_at: 2017-06-15 14:32:18.589526000 Z
+  creator_id: 1
+  credit: 610.02
+  currency: EUR
+  debit: 610.02
+  financial_year_id: 24
+  id: 241
+  journal_id: 7
+  lock_version: 0
+  number: BCA000089
+  printed_on: 2015-02-24
+  real_balance: 0.0
+  real_credit: 685.88
+  real_currency: USD
+  real_currency_rate: 0.8894
+  real_debit: 685.88
+  resource_id: 38
+  resource_type: LoanRepayment
+  state: draft
+  updated_at: 2017-06-15 14:32:18.589526000 Z
+  updater_id: 1
+journal_entries_235:
+  absolute_credit: 610.02
+  absolute_currency: EUR
+  absolute_debit: 610.02
+  balance: 0.0
+  created_at: 2017-06-15 14:32:18.708049000 Z
+  creator_id: 1
+  credit: 610.02
+  currency: EUR
+  debit: 610.02
+  financial_year_id: 24
+  id: 242
+  journal_id: 7
+  lock_version: 0
+  number: BCA000090
+  printed_on: 2015-03-24
+  real_balance: 0.0
+  real_credit: 685.87
+  real_currency: USD
+  real_currency_rate: 0.8894
+  real_debit: 685.87
+  resource_id: 39
+  resource_type: LoanRepayment
+  state: draft
+  updated_at: 2017-06-15 14:32:18.708049000 Z
+  updater_id: 1
+journal_entries_236:
+  absolute_credit: 610.01
+  absolute_currency: EUR
+  absolute_debit: 610.01
+  balance: 0.0
+  created_at: 2017-06-15 14:32:18.821440000 Z
+  creator_id: 1
+  credit: 610.01
+  currency: EUR
+  debit: 610.01
+  financial_year_id: 24
+  id: 243
+  journal_id: 7
+  lock_version: 0
+  number: BCA000091
+  printed_on: 2015-04-24
+  real_balance: 0.0
+  real_credit: 685.87
+  real_currency: USD
+  real_currency_rate: 0.8894
+  real_debit: 685.87
+  resource_id: 40
+  resource_type: LoanRepayment
+  state: draft
+  updated_at: 2017-06-15 14:32:18.821440000 Z
+  updater_id: 1
+journal_entries_237:
+  absolute_credit: 621.45
+  absolute_currency: EUR
+  absolute_debit: 621.45
+  balance: 0.0
+  created_at: 2017-06-15 14:32:18.936365000 Z
+  creator_id: 1
+  credit: 621.45
+  currency: EUR
+  debit: 621.45
+  financial_year_id: 24
+  id: 244
+  journal_id: 7
+  lock_version: 0
+  number: BCA000092
+  printed_on: 2015-05-24
+  real_balance: 0.0
+  real_credit: 692.27
+  real_currency: USD
+  real_currency_rate: 0.8977
+  real_debit: 692.27
+  resource_id: 41
+  resource_type: LoanRepayment
+  state: draft
+  updated_at: 2017-06-15 14:32:18.936365000 Z
+  updater_id: 1
+journal_entries_238:
+  absolute_credit: 621.46
+  absolute_currency: EUR
+  absolute_debit: 621.46
+  balance: 0.0
+  created_at: 2017-06-15 14:32:19.049705000 Z
+  creator_id: 1
+  credit: 621.46
+  currency: EUR
+  debit: 621.46
+  financial_year_id: 24
+  id: 245
+  journal_id: 7
+  lock_version: 0
+  number: BCA000093
+  printed_on: 2015-06-24
+  real_balance: 0.0
+  real_credit: 692.28
+  real_currency: USD
+  real_currency_rate: 0.8977
+  real_debit: 692.28
+  resource_id: 42
+  resource_type: LoanRepayment
+  state: draft
+  updated_at: 2017-06-15 14:32:19.049705000 Z
+  updater_id: 1
+journal_entries_239:
+  absolute_credit: 621.45
+  absolute_currency: EUR
+  absolute_debit: 621.45
+  balance: 0.0
+  created_at: 2017-06-15 14:32:19.164053000 Z
+  creator_id: 1
+  credit: 621.45
+  currency: EUR
+  debit: 621.45
+  financial_year_id: 24
+  id: 246
+  journal_id: 7
+  lock_version: 0
+  number: BCA000094
+  printed_on: 2015-07-24
+  real_balance: 0.0
+  real_credit: 692.27
+  real_currency: USD
+  real_currency_rate: 0.8977
+  real_debit: 692.27
+  resource_id: 43
+  resource_type: LoanRepayment
+  state: draft
+  updated_at: 2017-06-15 14:32:19.164053000 Z
+  updater_id: 1
+journal_entries_240:
+  absolute_credit: 621.45
+  absolute_currency: EUR
+  absolute_debit: 621.45
+  balance: 0.0
+  created_at: 2017-06-15 14:32:19.276351000 Z
+  creator_id: 1
+  credit: 621.45
+  currency: EUR
+  debit: 621.45
+  financial_year_id: 24
+  id: 247
+  journal_id: 7
+  lock_version: 0
+  number: BCA000095
+  printed_on: 2015-08-24
+  real_balance: 0.0
+  real_credit: 692.27
+  real_currency: USD
+  real_currency_rate: 0.8977
+  real_debit: 692.27
+  resource_id: 44
+  resource_type: LoanRepayment
+  state: draft
+  updated_at: 2017-06-15 14:32:19.276351000 Z
+  updater_id: 1
+journal_entries_241:
+  absolute_credit: 621.45
+  absolute_currency: EUR
+  absolute_debit: 621.45
+  balance: 0.0
+  created_at: 2017-06-15 14:32:19.382362000 Z
+  creator_id: 1
+  credit: 621.45
+  currency: EUR
+  debit: 621.45
+  financial_year_id: 25
+  id: 248
+  journal_id: 7
+  lock_version: 0
+  number: BCA000096
+  printed_on: 2015-09-24
+  real_balance: 0.0
+  real_credit: 692.27
+  real_currency: USD
+  real_currency_rate: 0.8977
+  real_debit: 692.27
+  resource_id: 45
+  resource_type: LoanRepayment
+  state: draft
+  updated_at: 2017-06-15 14:32:19.382362000 Z
+  updater_id: 1
+journal_entries_242:
+  absolute_credit: 621.46
+  absolute_currency: EUR
+  absolute_debit: 621.46
+  balance: 0.0
+  created_at: 2017-06-15 14:32:19.491959000 Z
+  creator_id: 1
+  credit: 621.46
+  currency: EUR
+  debit: 621.46
+  financial_year_id: 25
+  id: 249
+  journal_id: 7
+  lock_version: 0
+  number: BCA000097
+  printed_on: 2015-10-24
+  real_balance: 0.0
+  real_credit: 692.27
+  real_currency: USD
+  real_currency_rate: 0.8977
+  real_debit: 692.27
+  resource_id: 46
+  resource_type: LoanRepayment
+  state: draft
+  updated_at: 2017-06-15 14:32:19.491959000 Z
+  updater_id: 1
+journal_entries_243:
+  absolute_credit: 621.45
+  absolute_currency: EUR
+  absolute_debit: 621.45
+  balance: 0.0
+  created_at: 2017-06-15 14:32:19.596561000 Z
+  creator_id: 1
+  credit: 621.45
+  currency: EUR
+  debit: 621.45
+  financial_year_id: 25
+  id: 250
+  journal_id: 7
+  lock_version: 0
+  number: BCA000098
+  printed_on: 2015-11-24
+  real_balance: 0.0
+  real_credit: 692.27
+  real_currency: USD
+  real_currency_rate: 0.8977
+  real_debit: 692.27
+  resource_id: 47
+  resource_type: LoanRepayment
+  state: draft
+  updated_at: 2017-06-15 14:32:19.596561000 Z
+  updater_id: 1
+journal_entries_244:
+  absolute_credit: 621.46
+  absolute_currency: EUR
+  absolute_debit: 621.46
+  balance: 0.0
+  created_at: 2017-06-15 14:32:19.731435000 Z
+  creator_id: 1
+  credit: 621.46
+  currency: EUR
+  debit: 621.46
+  financial_year_id: 25
+  id: 251
+  journal_id: 7
+  lock_version: 0
+  number: BCA000099
+  printed_on: 2015-12-24
+  real_balance: 0.0
+  real_credit: 692.27
+  real_currency: USD
+  real_currency_rate: 0.8977
+  real_debit: 692.27
+  resource_id: 48
+  resource_type: LoanRepayment
+  state: draft
+  updated_at: 2017-06-15 14:32:19.731435000 Z
+  updater_id: 1
+journal_entries_245:
+  absolute_credit: 621.45
+  absolute_currency: EUR
+  absolute_debit: 621.45
+  balance: 0.0
+  created_at: 2017-06-15 14:32:19.836683000 Z
+  creator_id: 1
+  credit: 621.45
+  currency: EUR
+  debit: 621.45
+  financial_year_id: 25
+  id: 252
+  journal_id: 7
+  lock_version: 0
+  number: BCA000100
+  printed_on: 2016-01-24
+  real_balance: 0.0
+  real_credit: 692.27
+  real_currency: USD
+  real_currency_rate: 0.8977
+  real_debit: 692.27
+  resource_id: 49
+  resource_type: LoanRepayment
+  state: draft
+  updated_at: 2017-06-15 14:32:19.836683000 Z
+  updater_id: 1
+journal_entries_246:
+  absolute_credit: 621.45
+  absolute_currency: EUR
+  absolute_debit: 621.45
+  balance: 0.0
+  created_at: 2017-06-15 14:32:19.939227000 Z
+  creator_id: 1
+  credit: 621.45
+  currency: EUR
+  debit: 621.45
+  financial_year_id: 25
+  id: 253
+  journal_id: 7
+  lock_version: 0
+  number: BCA000101
+  printed_on: 2016-02-24
+  real_balance: 0.0
+  real_credit: 692.27
+  real_currency: USD
+  real_currency_rate: 0.8977
+  real_debit: 692.27
+  resource_id: 50
+  resource_type: LoanRepayment
+  state: draft
+  updated_at: 2017-06-15 14:32:19.939227000 Z
+  updater_id: 1
+journal_entries_247:
+  absolute_credit: 621.45
+  absolute_currency: EUR
+  absolute_debit: 621.45
+  balance: 0.0
+  created_at: 2017-06-15 14:32:20.044472000 Z
+  creator_id: 1
+  credit: 621.45
+  currency: EUR
+  debit: 621.45
+  financial_year_id: 25
+  id: 254
+  journal_id: 7
+  lock_version: 0
+  number: BCA000102
+  printed_on: 2016-03-24
+  real_balance: 0.0
+  real_credit: 692.27
+  real_currency: USD
+  real_currency_rate: 0.8977
+  real_debit: 692.27
+  resource_id: 51
+  resource_type: LoanRepayment
+  state: draft
+  updated_at: 2017-06-15 14:32:20.044472000 Z
+  updater_id: 1
+journal_entries_248:
+  absolute_credit: 621.45
+  absolute_currency: EUR
+  absolute_debit: 621.45
+  balance: 0.0
+  created_at: 2017-06-15 14:32:20.149232000 Z
+  creator_id: 1
+  credit: 621.45
+  currency: EUR
+  debit: 621.45
+  financial_year_id: 25
+  id: 255
+  journal_id: 7
+  lock_version: 0
+  number: BCA000103
+  printed_on: 2016-04-24
+  real_balance: 0.0
+  real_credit: 692.27
+  real_currency: USD
+  real_currency_rate: 0.8977
+  real_debit: 692.27
+  resource_id: 52
+  resource_type: LoanRepayment
+  state: draft
+  updated_at: 2017-06-15 14:32:20.149232000 Z
+  updater_id: 1
+journal_entries_249:
+  absolute_credit: 621.45
+  absolute_currency: EUR
+  absolute_debit: 621.45
+  balance: 0.0
+  created_at: 2017-06-15 14:32:20.253084000 Z
+  creator_id: 1
+  credit: 621.45
+  currency: EUR
+  debit: 621.45
+  financial_year_id: 25
+  id: 256
+  journal_id: 7
+  lock_version: 0
+  number: BCA000104
+  printed_on: 2016-05-24
+  real_balance: 0.0
+  real_credit: 692.27
+  real_currency: USD
+  real_currency_rate: 0.8977
+  real_debit: 692.27
+  resource_id: 53
+  resource_type: LoanRepayment
+  state: draft
+  updated_at: 2017-06-15 14:32:20.253084000 Z
+  updater_id: 1
+journal_entries_250:
+  absolute_credit: 621.45
+  absolute_currency: EUR
+  absolute_debit: 621.45
+  balance: 0.0
+  created_at: 2017-06-15 14:32:20.357788000 Z
+  creator_id: 1
+  credit: 621.45
+  currency: EUR
+  debit: 621.45
+  financial_year_id: 25
+  id: 257
+  journal_id: 7
+  lock_version: 0
+  number: BCA000105
+  printed_on: 2016-06-24
+  real_balance: 0.0
+  real_credit: 692.27
+  real_currency: USD
+  real_currency_rate: 0.8977
+  real_debit: 692.27
+  resource_id: 54
+  resource_type: LoanRepayment
+  state: draft
+  updated_at: 2017-06-15 14:32:20.357788000 Z
   updater_id: 1

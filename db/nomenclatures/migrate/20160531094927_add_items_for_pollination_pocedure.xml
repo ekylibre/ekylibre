@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <migration name="Add items for pollination pocedure">
-    <item-creation item="product_natures#pollinator" category="equipment" variety="equipment" population_counting="unitary" abilities="pollinate(plant)"/>
-    <item-creation item="product_nature_variants#pollinator" nature="pollinator"/>
-    <item-creation item="product_natures#hive" category="equipment" variety="equipment" population_counting="unitary" abilities="store(apis), store(honey)"/>
-    <item-creation item="product_nature_variants#hive" nature="hive"/>
-    <item-creation item="product_natures#pollination_tool" category="small_equipment" population_counting="integer" variety="matter" abilities="pollinate(plant)"/>
-    <item-creation item="product_nature_variants#pollination_tool" nature="pollination_tool"/>
+  <item-creation item="product_natures#pollinator" category="equipment" variety="equipment" population_counting="unitary" abilities="pollinate(plant)"/>
+  <item-creation item="product_nature_variants#pollinator" nature="pollinator"/>
+  <item-creation item="product_natures#hive" category="equipment" variety="equipment" population_counting="unitary" abilities="store(apis), store(honey)"/>
+  <item-creation item="product_nature_variants#hive" nature="hive"/>
+  <item-creation item="product_natures#pollination_tool" category="small_equipment" population_counting="integer" variety="matter" abilities="pollinate(plant)"/>
+  <item-creation item="product_nature_variants#pollination_tool" nature="pollination_tool"/>
 </migration>

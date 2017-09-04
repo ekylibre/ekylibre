@@ -1,0 +1,34 @@
+= f.object.errors.inspect if Rails.env.development? && f.object.errors.any?
+
+= field_set do
+  = f.input :currency, as: :hidden
+  -# = f.referenced_association :tax_office, source: :suppliers, new: { supplier: 1 }
+  = f.input :reference_number
+  = f.input :invoiced_on
+  = f.input :started_on, disabled: true
+  = f.input :stopped_on, disabled: f.object.persisted?
+  = f.association :financial_year, as: :hidden
+  -# = f.referenced_association :responsible, source: :employees, new: { employed: 1 }
+  -# = f.input :description
+
+-#= field_set TaxDeclaration.human_attribute_name(:items) do
+  .items
+    %table#items-table
+      %thead
+        %tr
+          %th= TaxDeclarationItem.human_attribute_name(:tax)
+          %th= TaxDeclarationItem.human_attribute_name(:deductible_tax_amount)
+          %th= TaxDeclarationItem.human_attribute_name(:deductible_pretax_amount)
+          %th= TaxDeclarationItem.human_attribute_name(:collected_tax_amount)
+          %th= TaxDeclarationItem.human_attribute_name(:collected_pretax_amount)
+          %th
+      %tfoot
+        %tr.total
+          %td= link_to_add_association :add_item.tl, f, :items, partial: 'item_fields', data: { association_insertion_node: '#items-table', association_insertion_method: :append }, class: "btn primary"
+          %th{colspan: 4}= :total.tl
+          %td= f.object.currency
+          %th
+      = f.simple_fields_for :items, f.object.items do |item|
+        = render 'item_fields', f: item
+
+= f.attachments_field_set

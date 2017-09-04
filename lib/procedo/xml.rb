@@ -2,7 +2,7 @@
 
 module Procedo
   # The module parse XML procedures.
-  # More documentation on schema can be found on http://wiki.ekylibre.com
+  # More documentation on schema can be found on http://wiki.ekylibre.org
   # Sample:
   #
   #   <?xml version="1.0"?>
@@ -79,6 +79,11 @@ module Procedo
         options[:maintenance] = (element.attr('maintenance').to_s == 'true')
         options[:deprecated] = (element.attr('deprecated').to_s == 'true')
 
+        options[:varieties] = element.attr('varieties')
+                                     .to_s
+                                     .split(/[\s\,]+/)
+                                     .map(&:to_sym)
+
         procedure = Procedo::Procedure.new(name, options)
 
         # Adds parameters
@@ -101,7 +106,7 @@ module Procedo
         element.children.each do |child|
           if child.name == 'parameter' || Procedo::Procedure::ProductParameter::TYPES.include?(child.name.to_sym)
             parse_parameter(procedure, child, options)
-          elsif %w(group parameter-group).include?(child.name)
+          elsif %w[group parameter-group].include?(child.name)
             parse_parameter_group(procedure, child, options)
           elsif child.element?
             raise "Unexpected child: #{child.name}"
@@ -122,12 +127,12 @@ module Procedo
           type = element.attr('type').underscore.to_sym
         end
         raise "No type given for #{name} parameter" unless type
-        %w(filter cardinality).each do |info|
+        %w[filter cardinality].each do |info|
           if element.has_attribute?(info)
             locals[info.underscore.to_sym] = element.attr(info).to_s
           end
         end
-        %w(component-of).each do |attribute|
+        %w[component-of display-status].each do |attribute|
           if element.has_attribute?(attribute)
             locals[attribute.underscore.to_sym] = element.attr(attribute).to_s
           end
@@ -151,7 +156,7 @@ module Procedo
       # Parse <handler> of parameter
       def parse_handler(parameter, element)
         # Extract attributes from XML element
-        options = %w(forward backward indicator unit to name if datatype).each_with_object({}) do |attr, hash|
+        options = %w[forward backward indicator unit to name if datatype].each_with_object({}) do |attr, hash|
           hash[attr.to_sym] = element.attr(attr) if element.has_attribute?(attr)
           hash
         end
@@ -185,6 +190,9 @@ module Procedo
           options[:default_value] = element.attr('default-value')
         end
         options[:if] = element.attr('if') if element.has_attribute?('if')
+
+        options[:compute_filter] = element.attr('compute-filter') if element.has_attribute?('compute-filter')
+        options[:filter] = element.attr('filter') if element.has_attribute?('filter')
         setter = parameter.send("add_#{type}", name, options)
         parse_computations(setter, element)
       end

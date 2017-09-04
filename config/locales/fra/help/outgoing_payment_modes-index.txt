@@ -4,7 +4,7 @@ Les moyens paiements effectués auprès des fournisseurs sont relativement simpl
 
 ===== Comptabilité =====
 
-!!! La [[>backend/settings#edit|comptabilisation automatique]] doit être activée pour une comptabilisation en temps réel.
+!!! La [[>backend/companies#edit|comptabilisation automatique]] doit être activée pour une comptabilisation en temps réel.
 
 En général, les comptes associés sont~:
   * Espèces : //53. Caisse//
