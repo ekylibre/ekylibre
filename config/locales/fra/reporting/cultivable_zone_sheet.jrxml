@@ -96,7 +96,11 @@
 	<field name="cap-number" class="java.lang.String">
 		<fieldDescription><![CDATA[ancestor::cultivable-zone/cap-number]]></fieldDescription>
 	</field>
+	<field name="intervention-human-working-duration" class="java.lang.String">
+		<fieldDescription><![CDATA[human-working-duration]]></fieldDescription>
+	</field>
 	<sortField name="activity-production-name"/>
+	<sortField name="intervention-started-at"/>
 	<group name="activity-production" isStartNewPage="true" keepTogether="true">
 		<groupExpression><![CDATA[$F{activity-production-id}]]></groupExpression>
 		<groupHeader>
@@ -197,35 +201,35 @@
 					<textFieldExpression><![CDATA[$F{activity-production-harvested-at}]]></textFieldExpression>
 				</textField>
 				<staticText>
-					<reportElement style="label" x="178" y="105" width="61" height="22" uuid="ab4fd3fd-f81e-4d60-87ed-fc47be0257b6"/>
+					<reportElement style="label" x="140" y="105" width="61" height="22" uuid="ab4fd3fd-f81e-4d60-87ed-fc47be0257b6"/>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font fontName="Open Sans" size="10"/>
 					</textElement>
 					<text><![CDATA[Début]]></text>
 				</staticText>
 				<staticText>
-					<reportElement style="label" x="239" y="105" width="62" height="22" uuid="82c32968-7466-4bd2-8379-a07af2dd63e9"/>
+					<reportElement style="label" x="201" y="105" width="62" height="22" uuid="82c32968-7466-4bd2-8379-a07af2dd63e9"/>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font fontName="Open Sans" size="10"/>
 					</textElement>
-					<text><![CDATA[Fin]]></text>
+					<text><![CDATA[Durée]]></text>
 				</staticText>
 				<staticText>
-					<reportElement style="label" x="301" y="105" width="71" height="22" uuid="e0df7cc6-09e2-4a84-a5c0-52c692d3b4bc"/>
+					<reportElement style="label" x="263" y="105" width="71" height="22" uuid="e0df7cc6-09e2-4a84-a5c0-52c692d3b4bc"/>
 					<textElement verticalAlignment="Middle">
 						<font fontName="Open Sans" size="10"/>
 					</textElement>
 					<text><![CDATA[Zone travaillée]]></text>
 				</staticText>
 				<staticText>
-					<reportElement style="label" x="372" y="105" width="183" height="22" uuid="96eeacae-cbbc-48dd-8143-9c908d42576e"/>
+					<reportElement style="label" x="334" y="105" width="221" height="22" uuid="96eeacae-cbbc-48dd-8143-9c908d42576e"/>
 					<textElement verticalAlignment="Middle">
 						<font fontName="Open Sans" size="10"/>
 					</textElement>
 					<text><![CDATA[Intrants]]></text>
 				</staticText>
 				<staticText>
-					<reportElement style="label" x="0" y="105" width="178" height="22" uuid="52b78f32-03f4-4cc5-bb58-d1d874f9abaa"/>
+					<reportElement style="label" x="0" y="105" width="140" height="22" uuid="52b78f32-03f4-4cc5-bb58-d1d874f9abaa"/>
 					<textElement verticalAlignment="Middle">
 						<font fontName="Open Sans" size="10"/>
 					</textElement>
@@ -304,36 +308,29 @@
 	<detail>
 		<band height="25" splitType="Stretch">
 			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
-				<reportElement x="178" y="0" width="61" height="25" uuid="83dff9d7-566c-4fce-a02e-c7d0506f46e0"/>
+				<reportElement x="140" y="0" width="61" height="25" uuid="83dff9d7-566c-4fce-a02e-c7d0506f46e0"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Open Sans" size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{intervention-started-at}]]></textFieldExpression>
 			</textField>
-			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
-				<reportElement x="239" y="0" width="62" height="25" uuid="0cce06f4-8981-484e-85a7-d4bb7f2d9cb1"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Open Sans" size="8"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{intervention-stopped-at}]]></textFieldExpression>
-			</textField>
 			<textField>
-				<reportElement x="0" y="0" width="178" height="25" uuid="57fcb830-84a8-470e-8dc9-2d51ebcd2443"/>
+				<reportElement x="0" y="0" width="140" height="25" uuid="57fcb830-84a8-470e-8dc9-2d51ebcd2443"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Open Sans" size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{intervention-name}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="301" y="0" width="71" height="25" uuid="3541903d-6708-4d80-8295-ea88b9d4d271"/>
+				<reportElement x="263" y="0" width="71" height="25" uuid="3541903d-6708-4d80-8295-ea88b9d4d271"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Open Sans" size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{intervention-human-working-zone-area}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="372" y="0" width="183" height="25" uuid="e6d48ede-5ab6-423d-88b0-7b4d1b9ca2f5"/>
-				<textElement>
+				<reportElement x="334" y="0" width="221" height="25" uuid="e6d48ede-5ab6-423d-88b0-7b4d1b9ca2f5"/>
+				<textElement verticalAlignment="Middle">
 					<font fontName="Open Sans" size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{intervention-human-input-quantity-names}]]></textFieldExpression>
@@ -341,6 +338,13 @@
 			<line>
 				<reportElement x="1" y="24" width="553" height="1" uuid="3c71f8e5-cca9-4cfb-bb51-683e449ad9ba"/>
 			</line>
+			<textField pattern="###0.00" isBlankWhenNull="false">
+				<reportElement x="201" y="0" width="62" height="25" uuid="0cce06f4-8981-484e-85a7-d4bb7f2d9cb1"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Open Sans" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{intervention-human-working-duration}]]></textFieldExpression>
+			</textField>
 		</band>
 	</detail>
 	<columnFooter>

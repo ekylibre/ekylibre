@@ -424,14 +424,14 @@ class Intervention < Ekylibre::Record::Base
   def human_tool_names
     tools.map(&:product).compact.map(&:work_name).sort.to_sentence
   end
-  
+
   # Returns human inputs names and quantity
   def human_input_quantity_names
     names = []
     inputs.each do |input|
       names << "#{input.name} : #{input.human_quantity}"
     end
-    return names.sort.to_sentence
+    names.sort.to_sentence
   end
 
   # Returns human actions names

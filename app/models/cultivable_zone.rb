@@ -75,11 +75,11 @@ class CultivableZone < Ekylibre::Record::Base
   end
 
   alias net_surface_area shape_area
-  
+
   def shape_svg
     shape.to_svg(srid: 2154)
   end
-  
+
   # get the first object with variety 'plant', availables
   def current_cultivations(at = Time.zone.now)
     Plant.contained_by(current_supports, at)

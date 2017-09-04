@@ -1908,6 +1908,7 @@ eng:
         animal_list: "Animal list"
         animal_sheet: "Animal sheet"
         balance_sheet: "Balance sheet"
+        # cultivable_zone_sheet: "Cultivable zone sheet"
         deposit_list: "Deposit list"
         entity_sheet: "Entity sheet"
         equipment_certification: "Equipment certification"
