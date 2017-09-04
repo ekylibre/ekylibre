@@ -24,8 +24,6 @@
         @newForm().addClass('hidden')
         @setFormSubmitable()
 
-      
-
     _bindButtons: (form) ->
       # console.log '_bindButtons:this', this
       that = this
@@ -150,7 +148,8 @@
 
     interpolateStoring: ->
       zones = []
-      @newForm().find('.storing-fields').each ->
+      form = if @newForm().length > 0 then @newForm() else @oldForm()
+      form.find('.storing-fields').each ->
         zones.push
           quantity: $(this).find('input.storing-quantity').val()
           unit: $(this).find('.item-population-unit-name').html()
