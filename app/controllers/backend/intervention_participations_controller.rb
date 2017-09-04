@@ -65,8 +65,8 @@ module Backend
       auto_calcul_mode = true
       if params[:auto_calcul_mode].present?
         auto_calcul_mode = params[:auto_calcul_mode]
-      else
-        auto_calcul_mode = @intervention.auto_calcul_mode if !@intervention.nil? && !@intervention.new_record?
+      elsif !@intervention.nil? && !@intervention.new_record?
+        auto_calcul_mode = @intervention.auto_calcul_mode
       end
 
       render partial: 'backend/intervention_participations/participations_modal',
