@@ -92,8 +92,37 @@ class InterventionWorkingTimeDurationCalculationServiceTest < ActiveSupport::Tes
     assert_equal intervention_duration, (sum_working_periods.to_d / 1).to_d
   end
 
-  test 'tool working duration without any workers return tool times' do
+  test 'Manual tool working duration without any workers return tool times' do
     @participations = [@second_tool_participation]
+
+    @intervention.auto_calculate_working_periods = false
+    @intervention.save
+
+    working_params = working_duration_params(participation: @second_tool_participation,
+                                             product: @second_tool)
+
+    travel_duration = InterventionWorkingTimeDurationCalculationService
+                      .new(working_params)
+                      .perform(nature: :travel)
+
+    sum_working_periods = sum_working_periods_of(participation: @second_tool_participation, nature: :travel)
+
+    assert_equal travel_duration, (sum_working_periods.to_d / 3600).to_d
+
+    intervention_duration = InterventionWorkingTimeDurationCalculationService
+                            .new(working_params)
+                            .perform(nature: :intervention)
+
+    sum_working_periods = sum_working_periods_of(participation: @second_tool_participation, nature: :intervention)
+
+    assert_equal intervention_duration, (sum_working_periods.to_d / 3600).to_d
+  end
+
+  test 'Automatic tool working duration without any workers return tool times' do
+    @participations = [@second_tool_participation]
+
+    @intervention.auto_calculate_working_periods = true
+    @intervention.save
 
     working_params = working_duration_params(participations: @participations,
                                              product: @tool)
@@ -115,7 +144,35 @@ class InterventionWorkingTimeDurationCalculationServiceTest < ActiveSupport::Tes
     assert_equal intervention_duration, (sum_working_periods.to_d / 1).to_d
   end
 
-  test 'test tractor calculated working duration' do
+  test 'Manual tractor calculated working duration' do
+    @intervention.auto_calculate_working_periods = false
+    @intervention.save
+
+    working_params = working_duration_params(participation: @third_tractor_participation,
+                                             product: @third_tractor)
+
+    intervention_duration = InterventionWorkingTimeDurationCalculationService
+                            .new(working_params)
+                            .perform(nature: :intervention)
+
+    sum_working_periods = sum_working_periods_of(participation: @third_tractor_participation,
+                                                 nature: :intervention)
+
+    assert_equal intervention_duration, (sum_working_periods.to_d / 3600).to_d
+
+    travel_duration = InterventionWorkingTimeDurationCalculationService
+                      .new(working_params)
+                      .perform(nature: :travel)
+
+    sum_working_periods = sum_working_periods_of(participation: @third_tractor_participation, nature: :travel)
+
+    assert_equal travel_duration, (sum_working_periods.to_d / 3600).to_d
+  end
+
+  test 'Automatic tractor calculated working duration' do
+    @intervention.auto_calculate_working_periods = true
+    @intervention.save
+
     working_params = working_duration_params(participations: @participations,
                                              product: @tractor)
 
@@ -136,7 +193,10 @@ class InterventionWorkingTimeDurationCalculationServiceTest < ActiveSupport::Tes
     assert_equal travel_duration, (sum_working_periods.to_d / 1).to_d
   end
 
-  test 'divise calculated working duration by two if they have two tractors' do
+  test 'Automatic divise calculated working duration by two if they have two tractors' do
+    @intervention.auto_calculate_working_periods = true
+    @intervention.save
+
     working_params = working_duration_params(participations: @participations,
                                              product: @tractor)
 
@@ -158,7 +218,32 @@ class InterventionWorkingTimeDurationCalculationServiceTest < ActiveSupport::Tes
     assert_equal (sum_working_periods / 2).to_d.round(2), intervention_duration.round(2)
   end
 
-  test 'test tool calculated working duration' do
+  test 'Manual tool calculated working duration' do
+    @intervention.auto_calculate_working_periods = false
+    @intervention.save
+
+    working_params = working_duration_params(participation: @second_tool_participation,
+                                             product: @second_tool)
+
+    intervention_duration = InterventionWorkingTimeDurationCalculationService
+                            .new(working_params)
+                            .perform(nature: :intervention)
+
+    sum_working_periods = sum_working_periods_of(participation: @second_tool_participation, nature: :intervention)
+
+    assert_equal intervention_duration, (sum_working_periods.to_d / 3600).to_d
+
+    travel_duration = InterventionWorkingTimeDurationCalculationService
+                      .new(working_params)
+                      .perform(nature: :travel)
+
+    sum_working_periods = sum_working_periods_of(participation: @second_tool_participation, nature: :travel)
+
+    assert_equal travel_duration, (sum_working_periods.to_d / 3600).to_d
+  end
+
+  test 'Automatic tool calculated working duration' do
+    @intervention.auto_calculate_working_periods = true
     working_params = working_duration_params(participations: @participations,
                                              product: @tool)
 
