@@ -4626,42 +4626,6 @@ ALTER SEQUENCE outgoing_payments_id_seq OWNED BY outgoing_payments.id;
 
 
 --
--- Name: parcel_item_storings; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE parcel_item_storings (
-    id integer NOT NULL,
-    parcel_item_id integer NOT NULL,
-    storage_id integer NOT NULL,
-    quantity integer,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL,
-    creator_id integer,
-    updater_id integer,
-    lock_version integer DEFAULT 0 NOT NULL
-);
-
-
---
--- Name: parcel_item_storings_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE parcel_item_storings_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: parcel_item_storings_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE parcel_item_storings_id_seq OWNED BY parcel_item_storings.id;
-
-
---
 -- Name: parcel_items; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -4692,12 +4656,7 @@ CREATE TABLE parcel_items (
     currency character varying,
     unit_pretax_stock_amount numeric(19,4) DEFAULT 0.0 NOT NULL,
     unit_pretax_amount numeric(19,4) DEFAULT 0.0 NOT NULL,
-    pretax_amount numeric(19,4) DEFAULT 0.0 NOT NULL,
-    non_compliant boolean,
-    delivery_mode character varying,
-    delivery_id integer,
-    transporter_id integer,
-    non_compliant_detail character varying
+    pretax_amount numeric(19,4) DEFAULT 0.0 NOT NULL
 );
 
 
@@ -4760,9 +4719,7 @@ CREATE TABLE parcels (
     undelivered_invoice_journal_entry_id integer,
     contract_id integer,
     pretax_amount numeric(19,4) DEFAULT 0.0 NOT NULL,
-    responsible_id integer,
-    type character varying,
-    late_delivery boolean
+    responsible_id integer
 );
 
 
@@ -7620,13 +7577,6 @@ ALTER TABLE ONLY outgoing_payments ALTER COLUMN id SET DEFAULT nextval('outgoing
 
 
 --
--- Name: parcel_item_storings id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY parcel_item_storings ALTER COLUMN id SET DEFAULT nextval('parcel_item_storings_id_seq'::regclass);
-
-
---
 -- Name: parcel_items id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -8762,14 +8712,6 @@ ALTER TABLE ONLY outgoing_payment_modes
 
 ALTER TABLE ONLY outgoing_payments
     ADD CONSTRAINT outgoing_payments_pkey PRIMARY KEY (id);
-
-
---
--- Name: parcel_item_storings parcel_item_storings_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY parcel_item_storings
-    ADD CONSTRAINT parcel_item_storings_pkey PRIMARY KEY (id);
 
 
 --
@@ -13762,48 +13704,6 @@ CREATE INDEX index_outgoing_payments_on_updater_id ON outgoing_payments USING bt
 
 
 --
--- Name: index_parcel_item_storings_on_created_at; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_parcel_item_storings_on_created_at ON parcel_item_storings USING btree (created_at);
-
-
---
--- Name: index_parcel_item_storings_on_creator_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_parcel_item_storings_on_creator_id ON parcel_item_storings USING btree (creator_id);
-
-
---
--- Name: index_parcel_item_storings_on_parcel_item_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_parcel_item_storings_on_parcel_item_id ON parcel_item_storings USING btree (parcel_item_id);
-
-
---
--- Name: index_parcel_item_storings_on_storage_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_parcel_item_storings_on_storage_id ON parcel_item_storings USING btree (storage_id);
-
-
---
--- Name: index_parcel_item_storings_on_updated_at; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_parcel_item_storings_on_updated_at ON parcel_item_storings USING btree (updated_at);
-
-
---
--- Name: index_parcel_item_storings_on_updater_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_parcel_item_storings_on_updater_id ON parcel_item_storings USING btree (updater_id);
-
-
---
 -- Name: index_parcel_items_on_analysis_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -13822,13 +13722,6 @@ CREATE INDEX index_parcel_items_on_created_at ON parcel_items USING btree (creat
 --
 
 CREATE INDEX index_parcel_items_on_creator_id ON parcel_items USING btree (creator_id);
-
-
---
--- Name: index_parcel_items_on_delivery_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_parcel_items_on_delivery_id ON parcel_items USING btree (delivery_id);
 
 
 --
@@ -13899,13 +13792,6 @@ CREATE INDEX index_parcel_items_on_source_product_id ON parcel_items USING btree
 --
 
 CREATE INDEX index_parcel_items_on_source_product_movement_id ON parcel_items USING btree (source_product_movement_id);
-
-
---
--- Name: index_parcel_items_on_transporter_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_parcel_items_on_transporter_id ON parcel_items USING btree (transporter_id);
 
 
 --
@@ -17977,25 +17863,9 @@ INSERT INTO schema_migrations (version) VALUES ('20170530002312');
 
 INSERT INTO schema_migrations (version) VALUES ('20170602144753');
 
-INSERT INTO schema_migrations (version) VALUES ('20170608081949');
-
-INSERT INTO schema_migrations (version) VALUES ('20170628125603');
-
-INSERT INTO schema_migrations (version) VALUES ('20170704092631');
-
-INSERT INTO schema_migrations (version) VALUES ('20170706143642');
-
-INSERT INTO schema_migrations (version) VALUES ('20170707114455');
-
-INSERT INTO schema_migrations (version) VALUES ('20170720103002');
-
-INSERT INTO schema_migrations (version) VALUES ('20170721145630');
-
-INSERT INTO schema_migrations (version) VALUES ('20170728091811');
-
 INSERT INTO schema_migrations (version) VALUES ('20170804101025');
 
-INSERT INTO schema_migrations (version) VALUES ('20170810085626');
+INSERT INTO schema_migrations (version) VALUES ('20170818134454');
 
 INSERT INTO schema_migrations (version) VALUES ('20170831071726');
 
