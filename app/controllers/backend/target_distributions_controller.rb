@@ -52,7 +52,11 @@ module Backend
                   targets.generic_supports
                 end
 
-      @target_distributions = TargetDistribution.where(target_id: targets).joins(:target).order('products.name')
+      @target_distributions = if params[:activity_id] && activity = Activity.find_by(id: params[:activity_id])
+                                TargetDistribution.where(target_id: targets, activity: activity).joins(:target).order('products.name')
+                              else
+                                TargetDistribution.where(target_id: targets).joins(:target).order('products.name')
+                              end
 
       targets = targets.where.not(id: @target_distributions.pluck(:target_id))
 
@@ -77,8 +81,10 @@ module Backend
       @target_distributions = params[:target_distributions].map do |id, target_distribution_params|
         target_distribution = TargetDistribution.find_by(id: id) || TargetDistribution.new
         target_distribution.attributes = target_distribution_params.permit(:target_id, :activity_production_id)
-        if target_distribution_params[:activity_production_id].present?
+        if target_distribution_params[:activity_production_id].present? && target_distribution_params[:activity_production_id] != target_distribution.id
           saved = false unless target_distribution.save
+        elsif target_distribution_params[:activity_production_id].empty? && !target_distribution.id.nil?
+          saved = false unless target_distribution.destroy
         end
         target_distribution
       end.sort_by(&:target_name)
