@@ -44,7 +44,7 @@
           .non-compliant
             = f.input :non_compliant, input_html: { class: 'item-non-compliant', data: { warn_if_checked: non_compliant_message, input_to_show: '.non_compliant_detail_text', with_value: true } }
             .non_compliant_detail_text.hidden
-              = f.input :non_compliant_detail, label: :detail.tl, input_html: { class: 'item-non-compliant-detail' }
+              = f.input :non_compliant_detail, label: :detail.tl, input_html: { class: 'item-non-compliant-detail', data: { interpolate_if_input: 'input.item-non-compliant', with_value: true } }
         -# .errors= item.errors.inspect
         - if f.object.role == 'merchandise'
           - attrs = { class: "nested-association" }

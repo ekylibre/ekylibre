@@ -84,6 +84,14 @@
               value = ""
           else
             value = target.val()
+        else if target.is("input[data-interpolate-if-input]")
+          debugger
+          dependingInput = $(form).find(target.data('interpolate-if-input'))
+          if dependingInput.is("input[type='checkbox']")
+            if dependingInput.is(':checked') == target.data('with-value')
+              value = target.val()
+            else
+              value = ""
         else if target.is("input:not([data-use-as-value])")
           if target.is("input[type='radio']")
             value = target.parent().text()
