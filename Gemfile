@@ -135,6 +135,9 @@ gem 'i18n-js', '>= 3.0.0.rc12'
 # Dates management
 gem 'time_diff'
 
+# Bool management
+gem 'wannabe_bool'
+
 # XML Parsing/Writing, HTML extraction
 gem 'nokogiri', '~> 1.7.1'
 
