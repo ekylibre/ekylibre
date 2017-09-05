@@ -135,7 +135,7 @@ module Backend
       natures.each do |nature|
         duration = InterventionWorkingTimeDurationCalculationService
                    .new(**working_duration_params)
-                   .perform(nature: nature)
+                   .perform(nature: nature, modal: true)
 
         stopped_at = intervention_started_at + (duration * 60 * 60)
 

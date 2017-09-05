@@ -11,12 +11,12 @@ class InterventionWorkingTimeDurationCalculationService
   end
 
   # TODO: Documentation on not_nature parameter
-  def perform(nature: nil, not_nature: nil)
+  def perform(nature: nil, not_nature: nil, modal: false)
     return intervention_working_duration if @participations.empty? && @participation.nil?
 
     return worker_working_duration(nature) if worker?
 
-    if (any_tractor? || any_tool?) && !auto_calculate_working_periods?
+    if !modal && (any_tractor? || any_tool?) && !auto_calculate_working_periods?
       return participation_working_durations_of_nature(nature).to_d / 3600
     end
 
