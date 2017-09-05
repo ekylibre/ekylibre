@@ -1814,7 +1814,6 @@ fra:
     potassium_concentration: "Teneur en potassium (K)"
     potassium_concentration_per_hectare: "Teneur en potassium par hectare" #?
     potential_hydrogen: "Potentiel hydrogène (pH)"
-    purchase_payments: Décaissements
     precipitation: "Précipitations"
     preferences: "Préférences"
     prescription: "Prescription"
@@ -1874,6 +1873,7 @@ fra:
     purchase: "Achat"
     purchase_items: "Lignes de l’achat"
     purchase_number: "N° d’achat"
+    purchase_payments: "Décaissements"
     purchase_steps: #?
       deliveries: "Livraisons" #?
       products: "Création de l’achat" #?

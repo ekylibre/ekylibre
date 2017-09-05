@@ -1533,6 +1533,7 @@ ita:
     purchase: "Acquista"
     purchase_items: "articoli di acquisto"
     purchase_number: "Acquisto"
+    # purchase_payments: "Purchase payments"
     purchases: "acquisti"
     purchases_stocks_variation: "Scorte Acquisti variazione"
     quality: "Qualità"

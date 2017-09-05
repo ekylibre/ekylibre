@@ -1467,6 +1467,7 @@ deu:
     purchase: "Kauf"
     purchase_items: "Kauf von Gegenständen"
     purchase_number: "Ankauf"
+    # purchase_payments: "Purchase payments"
     purchases: "Käufe"
     purchases_stocks_variation: "Käufe Bestände Variation"
     quality: "Qualität"

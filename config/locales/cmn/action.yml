@@ -1468,6 +1468,7 @@ cmn:
     purchase: "采购"
     purchase_items: "购买物品"
     purchase_number: "购买数量"
+    # purchase_payments: "Purchase payments"
     purchases: "购买"
     purchases_stocks_variation: "采购库存变化"
     quality: "质量"

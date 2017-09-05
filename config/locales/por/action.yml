@@ -1472,6 +1472,7 @@ por:
     purchase: "Compra"
     purchase_items: "Itens de compra"
     purchase_number: "Número de compra"
+    # purchase_payments: "Purchase payments"
     purchases: "Compras"
     purchases_stocks_variation: "Variação Compras stocks"
     quality: "Qualidade"
