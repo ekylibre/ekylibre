@@ -1814,6 +1814,7 @@ fra:
     potassium_concentration: "Teneur en potassium (K)"
     potassium_concentration_per_hectare: "Teneur en potassium par hectare" #?
     potential_hydrogen: "Potentiel hydrogène (pH)"
+    purchase_payments: Décaissements
     precipitation: "Précipitations"
     preferences: "Préférences"
     prescription: "Prescription"
