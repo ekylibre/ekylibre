@@ -12,6 +12,10 @@
 
   = hidden_field_tag 'intervention_id', f.object.id
 
+- if f.object.new_record?
+  - f.object.auto_calculate_working_periods = true
+= f.input :auto_calculate_working_periods, as: :hidden
+
 -# Show the different kind of intervention, or the form to create intervention
 - if procedure
   = hidden_field_tag :updater, compute_backend_interventions_path(format: :json), data: {procedure_computing: procedure.name}
