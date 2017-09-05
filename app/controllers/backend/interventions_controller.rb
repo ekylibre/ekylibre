@@ -457,14 +457,14 @@ module Backend
 
     def delete_working_periods(form_participations)
       working_periods_ids = form_participations.values
-                              .map { |participation| participation['working_periods_attributes'].map { |working_period| working_period['id'] } }
-                              .flatten
-                              .compact
-                              .uniq
-                              .map(&:to_i)
+                                               .map { |participation| participation['working_periods_attributes'].map { |working_period| working_period['id'] } }
+                                               .flatten
+                                               .compact
+                                               .uniq
+                                               .map(&:to_i)
 
       intervention_participations_ids = form_participations.values
-                                          .map { |participation| participation[:id] }
+                                                           .map { |participation| participation[:id] }
 
       saved_working_periods_ids = @intervention
                                   .participations

@@ -26,9 +26,7 @@ class InterventionWorkingTimeDurationCalculationService
       return tractor_working_duration(nature, not_nature)
     end
 
-    if times == 0 && any_tool?
-      return tool_working_duration(nature, not_nature)
-    end
+    return tool_working_duration(nature, not_nature) if times == 0 && any_tool?
 
     if times > 0 && (!any_tractor? && !any_tool?)
       return 0 if @intervention.nil?
@@ -78,17 +76,17 @@ class InterventionWorkingTimeDurationCalculationService
   def participation_working_durations_of_nature(nature)
     unless @participation.nil?
       return @participation.working_periods
-               .select { |working_period| working_period.nature.to_sym == nature }
-               .map(&:duration)
-               .inject(0, :+)
+                           .select { |working_period| working_period.nature.to_sym == nature }
+                           .map(&:duration)
+                           .inject(0, :+)
     end
 
     @participations.select { |participation| participation.product == @product }
-      .map(&:working_periods)
-      .flatten
-      .select { |working_period| working_period.nature.to_sym == nature }
-      .map(&:duration)
-      .inject(0, :+)
+                   .map(&:working_periods)
+                   .flatten
+                   .select { |working_period| working_period.nature.to_sym == nature }
+                   .map(&:duration)
+                   .inject(0, :+)
   end
 
   def intervention_working_duration

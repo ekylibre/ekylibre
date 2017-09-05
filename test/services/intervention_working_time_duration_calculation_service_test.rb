@@ -68,7 +68,6 @@ class InterventionWorkingTimeDurationCalculationServiceTest < ActiveSupport::Tes
 
     assert_equal working_duration, (sum_working_periods.to_d / 1).to_d
 
-
     working_duration = working_duration_of(nature: :intervention,
                                            participations: @participations,
                                            product: @tractor)
@@ -91,7 +90,6 @@ class InterventionWorkingTimeDurationCalculationServiceTest < ActiveSupport::Tes
     sum_working_periods = sum_working_periods_of(participation: @second_tool_participation, nature: :travel)
 
     assert_equal working_duration, (sum_working_periods.to_d / 3600).to_d
-
 
     working_duration = working_duration_of(nature: :intervention,
                                            participation: @second_tool_participation,
@@ -116,7 +114,6 @@ class InterventionWorkingTimeDurationCalculationServiceTest < ActiveSupport::Tes
 
     assert_equal working_duration, (sum_working_periods.to_d / 1).to_d
 
-
     working_duration = working_duration_of(nature: :intervention,
                                            participations: @participations,
                                            product: @tool)
@@ -139,7 +136,6 @@ class InterventionWorkingTimeDurationCalculationServiceTest < ActiveSupport::Tes
 
     assert_equal working_duration, (sum_working_periods.to_d / 3600).to_d
 
-
     working_duration = working_duration_of(nature: :travel,
                                            participation: @third_tractor_participation,
                                            product: @third_tractor)
@@ -160,7 +156,6 @@ class InterventionWorkingTimeDurationCalculationServiceTest < ActiveSupport::Tes
     sum_working_periods = sum_working_periods_of(participations: @participations, nature: :intervention)
 
     assert_equal working_duration, (sum_working_periods.to_d / 1).to_d
-
 
     working_duration = working_duration_of(nature: :travel,
                                            participations: @participations,
@@ -198,7 +193,6 @@ class InterventionWorkingTimeDurationCalculationServiceTest < ActiveSupport::Tes
 
     assert_equal working_duration, (sum_working_periods.to_d / 3600).to_d
 
-
     working_duration = working_duration_of(nature: :travel,
                                            participation: @second_tool_participation,
                                            product: @second_tool)
@@ -230,7 +224,6 @@ class InterventionWorkingTimeDurationCalculationServiceTest < ActiveSupport::Tes
     sum_working_periods = sum_working_periods_of(participations: @participations, nature: :intervention)
 
     assert_equal working_duration, (sum_working_periods.to_d / 1).to_d
-
 
     working_duration = working_duration_of(nature: :travel,
                                            participations: @participations,
