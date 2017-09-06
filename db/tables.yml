@@ -3567,6 +3567,9 @@ interventions:
     type: datetime
   actions:
     type: string
+  auto_calculate_working_periods:
+    type: boolean
+    default: false
   created_at:
     type: datetime
     required: true

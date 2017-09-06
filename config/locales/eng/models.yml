@@ -475,6 +475,7 @@ eng:
     authentication_token: "Authentication token"
     author: "Author"
     authorized_payments_count: "Authorized payments count"
+    # auto_calculate_working_periods: "Auto calculate working periods"
     auto_updateable_addresses: "Auto updateable addresses"
     average_value: "Average value"
     balance: "Balance"
