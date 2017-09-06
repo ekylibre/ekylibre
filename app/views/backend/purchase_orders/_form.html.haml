@@ -7,6 +7,7 @@
   = f.input :command_mode
   = f.input :estimate_reception_date
   = f.custom_fields
+  = f.attachments
 
 = field_set Purchase.human_attribute_name(:items) do
   .items
@@ -32,5 +33,3 @@
           %th
       = f.simple_fields_for :items, f.object.items.sort_by { |i| i.id.to_i } do |item|
         = render 'item_fields', f: item
-
-= f.attachments_field_set
