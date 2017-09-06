@@ -95,9 +95,9 @@ class InterventionOutput < InterventionProductParameter
 
   def choose_default_name(output)
     if output.name.eql?("blank")
-      land_parcel_name = self.group.targets.first.product.name rescue ""
-      culture_name = self.variant.name rescue ""
-      output.name = "#{land_parcel_name} #{culture_name} #{self.group.intervention.created_at.strftime('%Y')} #{self.group.intervention.id}"
+      land_parcel_name = self.group.targets.try(:first).try(:product).try(:name)
+      culture_name = self.variant.try(:name)
+      output.name = "#{land_parcel_name} #{culture_name} #{self.group.intervention.created_at.strftime('%Y')} #{self.group.intervention.number}"
       output.save
     end
   end
