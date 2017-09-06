@@ -478,7 +478,7 @@ class Intervention < Ekylibre::Record::Base
         stopped_at: self.stopped_at
       )
     end
-    outputs.each_with_index do |output,index|
+    outputs.find_each  do |output|
       product = output.product
       next unless product
       product.born_at = self.started_at
