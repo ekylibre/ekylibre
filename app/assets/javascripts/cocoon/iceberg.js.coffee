@@ -156,7 +156,6 @@
     interpolateStoring: ->
       zones = []
       form = if @newForm().length > 0 then @newForm() else @oldForm()
-      debugger
       form.find('.storing-fields').not('.removed-nested-fields').each ->
         zones.push
           quantity: $(this).find('input.storing-quantity').val()
