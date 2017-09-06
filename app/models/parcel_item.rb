@@ -102,7 +102,7 @@ class ParcelItem < Ekylibre::Record::Base
   alias_attribute :quantity, :population
 
   accepts_nested_attributes_for :product
-  accepts_nested_attributes_for :storings
+  accepts_nested_attributes_for :storings, allow_destroy: true
 
   # delegate :net_mass, to: :product
   delegate :allow_items_update?, :remain_owner, :planned_at, :draft?,

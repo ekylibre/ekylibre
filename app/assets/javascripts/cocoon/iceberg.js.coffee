@@ -85,7 +85,6 @@
           else
             value = target.val()
         else if target.is("input[data-interpolate-if-input]")
-          debugger
           dependingInput = $(form).find(target.data('interpolate-if-input'))
           if dependingInput.is("input[type='checkbox']")
             if dependingInput.is(':checked') == target.data('with-value')
@@ -157,7 +156,8 @@
     interpolateStoring: ->
       zones = []
       form = if @newForm().length > 0 then @newForm() else @oldForm()
-      form.find('.storing-fields').each ->
+      debugger
+      form.find('.storing-fields').not('.removed-nested-fields').each ->
         zones.push
           quantity: $(this).find('input.storing-quantity').val()
           unit: $(this).find('.item-population-unit-name').html()
