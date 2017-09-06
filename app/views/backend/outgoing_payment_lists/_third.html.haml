@@ -1,10 +1,10 @@
 %table.payment{data: { outgoing_payment_third: true }}
   %thead
     %tr
-      %th{colspan: 4}= third.full_name
+      %th{colspan: 5}= third.full_name
     - if third.unbalanced?
       %tr.warning#unbalanced-entity
-        %th{colspan: 3}= :third_is_unbalanced.tl
+        %th{colspan: 4}= :third_is_unbalanced.tl
         %th
           = third.balance
           = " &ndash; ".html_safe
@@ -13,6 +13,6 @@
     = render partial: 'purchase_affair', collection: @affairs.where(supplier: third), locals: {f:f}
   %tfoot
     %tr.total
-      %td{colspan: 2}= :total.tl
+      %td{colspan: 3}= :total.tl
       %td{data: {outgoing_payment_total: true}}= 0.0
       %td= @currency
