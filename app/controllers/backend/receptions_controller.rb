@@ -93,5 +93,10 @@ module Backend
       t.column :product, url: true
       t.column :analysis, url: true
     end
+
+    def new
+      @reception = Reception.new
+      render locals: { with_continue: true }
+    end
   end
 end
