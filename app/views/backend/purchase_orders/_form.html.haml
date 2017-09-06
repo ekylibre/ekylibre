@@ -1,11 +1,11 @@
 = field_set do
   = f.referenced_association :nature, as: :hidden
   = f.referenced_association :supplier, source: :suppliers, new: { supplier: 1 }
-  = f.referenced_association :delivery_address, source: :own_mails, new: {entity_id: Entity.of_company.id}
   = f.input :reference_number
-  = f.input :ordered_at
   = f.referenced_association :responsible, source: :employees, new: { employed: 1 }
-  = f.input :description
+  = f.input :ordered_at
+  = f.input :command_mode
+  = f.input :estimate_reception_date
   = f.custom_fields
 
 = field_set Purchase.human_attribute_name(:items) do

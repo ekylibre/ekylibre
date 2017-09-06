@@ -3567,6 +3567,9 @@ interventions:
     type: datetime
   actions:
     type: string
+  auto_calculate_working_periods:
+    type: boolean
+    default: false
   created_at:
     type: datetime
     required: true
@@ -6602,6 +6605,8 @@ purchases:
     precision: 19
     scale: 4
     required: true
+  command_mode:
+    type: string
   confirmed_at:
     type: datetime
   contract_id:
@@ -6623,6 +6628,8 @@ purchases:
     references: entity_address
   description:
     type: text
+  estimate_reception_date:
+    type: datetime
   id:
     type: integer
     required: true

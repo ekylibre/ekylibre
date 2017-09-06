@@ -476,6 +476,7 @@ eng:
     authentication_token: "Authentication token"
     author: "Author"
     authorized_payments_count: "Authorized payments count"
+    # auto_calculate_working_periods: "Auto calculate working periods"
     auto_updateable_addresses: "Auto updateable addresses"
     average_value: "Average value"
     balance: "Balance"
@@ -564,6 +565,7 @@ eng:
     color: "Color"
     column_name: "Column name"
     columns: "Columns"
+    command_mode: "Command mode"
     comment: "Comment"
     commercial: "Commercial"
     commercial_description: "Commercial description"
@@ -738,6 +740,7 @@ eng:
     entry_number: "Entry number"
     entry_on: "Entry on" #?
     entry_reason: "Entry reason" #?
+    estimate_reception_date: "Estimate reception date"
     euid: "EUID"
     event: "Event"
     event_participation: "Event participation"

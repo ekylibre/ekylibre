@@ -25,6 +25,7 @@
 #  accounted_at                             :datetime
 #  affair_id                                :integer
 #  amount                                   :decimal(19, 4)   default(0.0), not null
+#  command_mode                             :string
 #  confirmed_at                             :datetime
 #  contract_id                              :integer
 #  created_at                               :datetime         not null
@@ -33,6 +34,7 @@
 #  custom_fields                            :jsonb
 #  delivery_address_id                      :integer
 #  description                              :text
+#  estimate_reception_date                  :datetime
 #  id                                       :integer          not null, primary key
 #  invoiced_at                              :datetime
 #  journal_entry_id                         :integer
@@ -56,6 +58,8 @@
 #  updater_id                               :integer
 #
 class PurchaseOrder < Purchase
+  enumerize :command_mode, in: %i[letter fax mail oral sms market_place], default: :mail
+
   state_machine :state, initial: :estimate do
     state :estimate
     state :opened

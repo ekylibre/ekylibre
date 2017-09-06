@@ -439,6 +439,14 @@ fra:
       nature:
         payslip: "Fiche de paie"
         purchase: "Achat"
+    purchase_order:
+      command_mode:
+        letter: "Courrier"
+        fax: "fax"
+        mail: "Email"
+        oral: "Verbal"
+        sms: "SMS"
+        market_place: ""
     sale_item: #?
       compute_from: #?
         pretax_amount: "Montant avant impôts" #?

@@ -2866,8 +2866,6 @@ fra:
     hints:
       purchase:
         reference_number: "Numéro de facture fournisseur"
-      purchase_order: #?
-        reference_number: "Numéro de commande fournisseur" #?
     required:
       text: "Obligatoire"
   unrolls:

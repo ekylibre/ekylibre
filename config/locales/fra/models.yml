@@ -170,6 +170,12 @@ fra:
         planned_at: "Réception prévue le" #?
       purchase_item: #?
         amount: "Montant TTC" #?
+      purchase_order:
+        command_mode: "Mode de commande"
+        estimate_reception_date: "Date prévisionnelle de réception"
+        ordered_at: "Date commande"
+        reference_number: "Référence fournisseur (n° commande)"
+        responsible: "Responsable de commande"
       purchase_payment: #?
         delivered: "Remis au bénéficiaire" #?
         list: "Lot de décaissements" #?

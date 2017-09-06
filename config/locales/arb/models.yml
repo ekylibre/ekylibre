@@ -1254,6 +1254,7 @@ arb:
     color: "اللون"
     column_name: "اسم العمود"
     columns: "الأعمدة"
+    # command_mode: "Command mode"
     comment: "التعليق"
     commercial: "نشاط تجاري"
     commercial_description: "وصف التجاري"
@@ -1492,6 +1493,7 @@ arb:
     establishment: "المؤسسة" #?
     establishment_id: "مؤسسة" #?
     establishments: "المؤسسات" #?
+    # estimate_reception_date: "Estimate reception date"
     # euid: "EUID"
     event: "حدث"
     event_natures: "نوع الحدث" #?
