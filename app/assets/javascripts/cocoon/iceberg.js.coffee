@@ -15,6 +15,7 @@
       @setFormSubmitable()
 
       @setCocoonFormSubmitable()
+      
       @line.trigger "iceberg:inserted"
 
       unless mode is "add" or @line.find('.error').length > 0

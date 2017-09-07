@@ -58,7 +58,7 @@
               = f.simple_fields_for :storings, f.object.storings do |storing|
                 = render 'storing_fields', f: storing
               .storings-footer
-                = link_to_add_association :add_storing.tl, f, :storings, partial: 'storing_fields', class: "link-add-storing", 'data-association-insertion-node' => '.storings-footer', 'data-association-insertion-method' => :before, 'data-association-insertion-traversal' => 'prev'
+                = link_to_add_association :add_storing.tl, f, :storings, partial: 'storing_fields', class: "link-add-storing", data: { :'association-insertion-traversal' => :closest, :'association-insertion-node' => '.storings-footer', :'association-insertion-method' => :before }
                 %label.total-labels
                   %span.total= :total.tl
                   %span.total-quantity{ data: { calculate: "sum", use: ".storing-fields:not(.removed-nested-fields) .storing-quantity", use_closest: ".nested-item-form" } }= 0.0
@@ -76,12 +76,12 @@
                   %span.add-on.item-population-unit-name
                     = variant.unit_name.or_else('#')
 
-          - display = "display: none;" unless variant.identifiable?.or_else(false)
-          .no-border{style: display, data: {"when-item": "identifiable", "when-display-value": 'true'}}
-            = f.input :name do
-              = f.input_field :product_name, placeholder: ParcelItem.human_attribute_name(:product_name)
-            = f.input :identification_number do
-              = f.input_field :product_identification_number, placeholder: ParcelItem.human_attribute_name(:product_identification_number)
+          / - display = "display: none;" unless variant.identifiable?.or_else(false)
+          / .no-border{style: display, data: {"when-item": "identifiable", "when-display-value": 'true'}}
+          /   = f.input :name do
+          /     = f.input_field :product_name, placeholder: ParcelItem.human_attribute_name(:product_name)
+          /   = f.input :identification_number do
+          /     = f.input_field :product_identification_number, placeholder: ParcelItem.human_attribute_name(:product_identification_number)
         .buttons
           %button.btn{ data: { cancel: 'item-form' } }= :cancel.tl
           %button.btn.btn-primary{ data: { validate: 'item-form' } }= :validate.tl
