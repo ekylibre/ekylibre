@@ -498,7 +498,7 @@ class Product < Ekylibre::Record::Base
   # Try to find the best name for the new products
   def choose_default_name
     return if name.present?
-    return self.name = "blank" if name.blank?
+    return if name.blank?
     if variant
       if last = variant.products.reorder(id: :desc).first
         self.name = last.name
