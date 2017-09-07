@@ -33,7 +33,6 @@
 #  updater_id     :integer
 #
 class ParcelItemStoring < Ekylibre::Record::Base
-
   belongs_to :parcel_item, inverse_of: :storings
   belongs_to :storage, class_name: 'Product'
 
@@ -43,22 +42,22 @@ class ParcelItemStoring < Ekylibre::Record::Base
   # ]VALIDATORS]
   validates :quantity, presence: true
 
-  after_create do 
-  	population = parcel_item.population
-  	population += self.quantity
-	parcel_item.update_attributes(population: population)
+  after_create do
+    population = parcel_item.population
+    population += quantity
+    parcel_item.update_attributes(population: population)
   end
 
   after_update do
-  	population = parcel_item.population
-  	population -= self.quantity_was
-  	population += self.quantity
-	parcel_item.update_attributes(population: population)
+    population = parcel_item.population
+    population -= quantity_was
+    population += quantity
+    parcel_item.update_attributes(population: population)
   end
 
   after_destroy do
-	population = parcel_item.population
-  	population -= self.quantity_was
-	parcel_item.update_attributes(population: population)
+    population = parcel_item.population
+    population -= quantity_was
+    parcel_item.update_attributes(population: population)
   end
 end
