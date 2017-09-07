@@ -1397,6 +1397,7 @@ spa:
     last_purchases: "Últimas compras"
     last_sales: "Última oferta de venta"
     # late: "Late"
+    # late_delivery: "Late delivery"
     left_balance_amount: "Aplazamiento del credito anterior sin imputar ni reembolsar" #?
     letter: "Carta"
     # letterable: "Letterable"
@@ -1452,6 +1453,7 @@ spa:
     maximum_amount: "Cantidad máxima"
     members: "Miembros"
     menus: "Menús"
+    # merchandise: "Merchandise"
     merchandises_purchases: "Compras de mercaderías"
     merchandises_purchases_stocks_variation: "Mercaderías compras variación de existencias"
     merge: "Unir"
@@ -1542,6 +1544,7 @@ spa:
     no_right_defined_for_this_part_of_the_application_and_this_user: "Ningún derecho definido para esta parte de la aplicación y este usuario"
     nominal_storable_easement_area: "Nominal zona de servidumbre almacenable"
     # non_compliant: "Non compliant"
+    # non_compliant_with_request: "Non compliant with request"
     none: "Ninguna"
     normal: "Regimen del real normal"
     not_assessable_operations: "Opéraciones no imposnibles" #?

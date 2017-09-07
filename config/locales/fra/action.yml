@@ -1557,6 +1557,7 @@ fra:
     last_purchases: "Derniers achats"
     last_sales: "Dernières ventes"
     late: "En retard"
+    late_delivery: "Hors délai"
     left_balance_amount: "Report du crédit antérieur non imputé et non remboursé" #?
     letter: "Lettrer"
     letter_options: "Lettre" #?
@@ -1631,6 +1632,7 @@ fra:
     members: "Membres"
     members_count: "Nombre de membres" #?
     menus: "Menus"
+    merchandise: "Marchandise"
     merchandises_purchases: "Marchandises"
     merchandises_purchases_stocks_variation: "Variation de stocks de marchandises"
     merge: "Fusionner"
@@ -1741,6 +1743,7 @@ fra:
     no_transfers: "Aucun transfert à réaliser" #?
     nominal_storable_easement_area: "Surface de stockage au sol"
     non_compliant: "Non conforme"
+    non_compliant_with_request: "Non conforme par rapport à l'attente"
     none: "Aucun"
     normal: "Régime du réel normal"
     not_assessable_operations: "Opérations non imposables" #?
