@@ -40,9 +40,9 @@
       - if f.object.allow_items_update?
         %tfoot#items-footer
           %tr.total
-            %th{colspan: 6, class: "links"}= link_to_add_association :add_item.tl, f, :items, partial: 'item_fields', render_options: { locals: { role: 'merchandise' } }, 'data-association-insertion-node' => '#items-footer', 'data-association-insertion-method' => :before
-            %th{colspan: 6, class: "links"}= link_to_add_association :add_item.tl, f, :items, partial: 'item_fields', render_options: { locals: { role: 'service' } }, 'data-association-insertion-node' => '#items-footer', 'data-association-insertion-method' => :before
-            %th{colspan: 6, class: "links"}= link_to_add_association :add_item.tl, f, :items, partial: 'item_fields', render_options: { locals: { role: 'fees' } }, 'data-association-insertion-node' => '#items-footer', 'data-association-insertion-method' => :before
+            %th{colspan: 6, class: "links"}= link_to_add_association :add_merchandise.tl, f, :items, partial: 'item_fields', render_options: { locals: { role: 'merchandise' } }, 'data-association-insertion-node' => '#items-footer', 'data-association-insertion-method' => :before
+            %th{colspan: 6, class: "links"}= link_to_add_association :add_service.tl, f, :items, partial: 'item_fields', render_options: { locals: { role: 'service' } }, 'data-association-insertion-node' => '#items-footer', 'data-association-insertion-method' => :before
+            %th{colspan: 6, class: "links"}= link_to_add_association :add_fees.tl, f, :items, partial: 'item_fields', render_options: { locals: { role: 'fees' } }, 'data-association-insertion-node' => '#items-footer', 'data-association-insertion-method' => :before
 / -else
 /   = field_set f.object.class.human_attribute_name(:items) do
 /     = "Items cannot be edited in current parcel state."

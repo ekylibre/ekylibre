@@ -2,7 +2,7 @@
 - variant = Maybe(storing.parcel_item.variant)
 
 .nested-fields.storing-fields
-  = f.referenced_association :storage, source: :storage, label: false, input_html: { class: 'storing-storage' }, presence: true
+  = f.referenced_association :storage, source: :storage, label: false, input_html: { class: 'storing-storage', data: { required: true } }
   .storing-quantifier
     = f.input :quantity, label: false, wrapper: :append do
       = f.input_field :quantity, class: 'storing-quantity', placeholder: '0', data: { required: true }

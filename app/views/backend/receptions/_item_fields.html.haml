@@ -58,7 +58,7 @@
               = f.simple_fields_for :storings, f.object.storings do |storing|
                 = render 'storing_fields', f: storing
               .storings-footer
-                = link_to_add_association :add_storing.tl, f, :storings, partial: 'storing_fields', 'data-association-insertion-node' => '.storings-footer', 'data-association-insertion-method' => :before, 'data-association-insertion-traversal' => 'prev'
+                = link_to_add_association :add_storing.tl, f, :storings, partial: 'storing_fields', class: "link-add-storing", 'data-association-insertion-node' => '.storings-footer', 'data-association-insertion-method' => :before, 'data-association-insertion-traversal' => 'prev'
                 %label.total-labels
                   %span.total= :total.tl
                   %span.total-quantity{ data: { calculate: "sum", use: ".storing-fields:not(.removed-nested-fields) .storing-quantity", use_closest: ".nested-item-form" } }= 0.0
