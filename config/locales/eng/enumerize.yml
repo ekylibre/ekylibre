@@ -449,6 +449,13 @@ eng:
         payslip: "Payslip"
         purchase: "Purchase"
     purchase_order:
+      command_mode:
+        # fax: "Fax"
+        # letter: "Letter"
+        # mail: "Mail"
+        # market_place: "Market place"
+        # oral: "Oral"
+        # sms: "Sms"
       tax_payability:
         # at_invoicing: "At invoicing"
         # at_paying: "At paying"

@@ -14,22 +14,18 @@
     %table#items-table
       %thead
         %tr
-          %th= PurchaseItem.human_attribute_name(:variant)
+          %th= :merchandises_services_costs.tl
           %th= PurchaseItem.human_attribute_name(:quantity)
-          %th= PurchaseItem.human_attribute_name(:unit_pretax_amount)
+          %th= :unit_amount.tl
           %th= PurchaseItem.human_attribute_name(:tax)
           %th= PurchaseItem.human_attribute_name(:reduction_percentage)
-          %th= PurchaseItem.human_attribute_name(:pretax_amount)
-          %th= PurchaseItem.human_attribute_name(:currency)
-          %th
-      - precision = Nomen::Currency[f.object.currency].precision
-      %tfoot
-        %tr.total
-          %td= link_to_add_association :add_item.tl, f, :items, partial: 'item_fields', data: { association_insertion_node: '#items-table', association_insertion_method: :append }, class: "btn primary"
-          - colspan = 4
-          %th{colspan: 5}= :total.tl
-          %td#pta.decimal{data:{use: ".nested-fields .pta", calculate: "sum", calculate_round: precision}}= f.object.pretax_amount
-          %td= f.object.currency
-          %th
+          %th= :vat_rate.tl
+
       = f.simple_fields_for :items, f.object.items.sort_by { |i| i.id.to_i } do |item|
         = render 'item_fields', f: item
+
+      %tfoot#items-footer
+        %tr.total
+          %th{colspan: 3}= link_to_add_association :add_merchandise.tl, f, :items, partial: 'item_fields', render_options: { locals: { role: 'merchandise' } }, 'data-association-insertion-node' => '#items-footer', 'data-association-insertion-method' => :before
+          %th{colspan: 2}= link_to_add_association :add_service.tl, f, :items, partial: 'item_fields', render_options: { locals: { role: 'service' } }, 'data-association-insertion-node' => '#items-footer', 'data-association-insertion-method' => :before
+          %th{colspan: 1}= link_to_add_association :add_fees.tl, f, :items, partial: 'item_fields', render_options: { locals: { role: 'fees' } }, 'data-association-insertion-node' => '#items-footer', 'data-association-insertion-method' => :before

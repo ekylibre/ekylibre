@@ -1038,6 +1038,7 @@ arb:
     add_exit: "إضافة الخروج"
     add_expense: "إضافة حساب"
     add_fax: "إضافة الفاكس"
+    # add_fees: "Add fees"
     add_filter: "إضافة فلتر"
     add_grading_check: "إضافة الاختيار الدرجات"
     add_incoming_payment: "إضافة دفع الواردة"
@@ -1051,6 +1052,7 @@ arb:
     add_line: "إضافة خط"
     add_linestring: "إضافة تنسيقي"
     add_mail: "إضافة عنوان البريدي"
+    # add_merchandise: "Add merchandise"
     add_mobile: "إضافة رقم الهاتف المحمول"
     add_new_record: "إضافة قياسيا جديدا"
     add_outgoing_payment: "إضافة دفع المنتهية ولايته"
@@ -1073,6 +1075,7 @@ arb:
     add_sale: "إضافة بيع"
     add_sale_taxation: "إضافة بيع الضرائب"
     add_season: "إضافة الموسم"
+    # add_service: "Add service"
     # add_storing: "Add storing"
     # add_subscription_for_sale_line: "Add subscription for sale line #%{position}"
     add_support: "إضافة دعم"
@@ -1758,6 +1761,7 @@ arb:
     # merchandise: "Merchandise"
     merchandises_purchases: "يروج مشتريات"
     merchandises_purchases_stocks_variation: "يروج بشراء أسهم الاختلاف"
+    # merchandises_services_costs: "Merchandises, services or costs"
     merge: "دمج"
     method: "طريقة"
     minimal_temperature: "درجة الحرارة الحد الأدنى"
@@ -2381,6 +2385,7 @@ arb:
     uninvoiced: "لم يتم تحرير فواتير"
     uninvoiced_amount: "قيمة غير مفوترة" #?
     unit: "الوحدة"
+    # unit_amount: "Unit cost excl. taxes"
     # unit_and_indicator: "%{unit} (%{indicator})"
     unit_create: "اضافة وحدة قياس جديدة" #?
     unit_price_amount: "PU HT" #?
@@ -2437,6 +2442,7 @@ arb:
     vat_amount: "الضرائب المستحقة" #?
     vat_collected: "صافي قيمة الضريبة المضافة" #?
     vat_paid: "خصم قيمة الضريبة المضافة" #?
+    # vat_rate: "VAT rate"
     view: "معاينة"
     view_map_when_creating_an_intervention: "عرض الخريطة عند إنشاء التدخل"
     virtual_quantity: "الكمية العملية" #?
