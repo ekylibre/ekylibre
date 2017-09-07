@@ -75,8 +75,8 @@ class InterventionOutput < InterventionProductParameter
       # output.attributes = product_attributes
       reading = readings.find_by(indicator_name: :shape)
       output.initial_shape = reading.value if reading
+      choose_default_name(output) if output.name.blank?
       output.save!
-
       if intervention.record?
         movement = product_movement
         movement = build_product_movement(product: output) unless movement
@@ -91,6 +91,12 @@ class InterventionOutput < InterventionProductParameter
       update_columns(product_id: output.id) # , movement_id: movement.id)
       true
     end
+  end
+
+  def choose_default_name(output)
+    land_parcel_name = self.group.targets.try(:first).try(:product).try(:name)
+    culture_name = self.variant.try(:name)
+    output.name = "#{land_parcel_name} #{culture_name} #{self.group.intervention.created_at.strftime('%Y')} #{self.group.intervention.number}"
   end
 
   def stock_amount
