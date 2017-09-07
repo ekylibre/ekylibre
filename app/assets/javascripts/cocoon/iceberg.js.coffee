@@ -1,4 +1,4 @@
-(($) ->
+((E, $) ->
   'use strict'
 
   class Iceberg
@@ -11,6 +11,11 @@
       @_bindEditEvent()
 
       @toggleInputVisibility()
+
+      @setFormSubmitable()
+
+      @setCocoonFormSubmitable()
+      @line.trigger "iceberg:inserted"
 
       unless mode is "add" or @line.find('.error').length > 0
         @display.removeClass('hidden')
@@ -42,8 +47,10 @@
         clone.trigger('cocoon:after-insert')
         clone.removeClass('hidden')
         @_bindButtons(@newForm())
-        @setFormSubmitable()
         @toggleInputVisibility()
+        @setFormSubmitable()
+        @setCocoonFormSubmitable()
+        @line.trigger "iceberg:inserted"
 
     _bindSelectorsInitialization: ->
       that = this
@@ -64,20 +71,38 @@
     interpolate: (form = @newForm()) ->
       @display.find('*[data-item-value]').each ->
         element = $(this)
-        unless element.closest("*[data-item-loop]").length >= 1
-          target = $(form).find(element.data("item-value")).first()
-          if target.is("input")
-            if target.is("input[type='radio']")
-              value = target.parent().text()
-            else if target.is("input[type='checkbox']")
-              if target.is('input[data-warn-if-checked]:checked')
-                value = $('<span class="warn-message"></span>').html(target.data('warn-if-checked'))
-              else
-                value = ""
+        target = $(form).find(element.data("item-value")).first()
+        if target.is("input[data-use-as-value]")
+          if target.val() == target.data("with-value")
+            value = $(form).find(target.data("use-as-value")).val()
+          else if target.is("input[type='radio']")
+            value = target.parent().text()
+          else if target.is("input[type='checkbox']")
+            if target.is('input[data-warn-if-checked]:checked')
+              value = $('<span class="warn-message"></span>').html(target.data('warn-if-checked'))
             else
-              value = target.val()
+              value = ""
           else
-            value = target.html()
+            value = target.val()
+        else if target.is("input[data-interpolate-if-input]")
+          dependingInput = $(form).find(target.data('interpolate-if-input'))
+          if dependingInput.is("input[type='checkbox']")
+            if dependingInput.is(':checked') == target.data('with-value')
+              value = target.val()
+            else
+              value = ""
+        else if target.is("input:not([data-use-as-value])")
+          if target.is("input[type='radio']")
+            value = target.parent().text()
+          else if target.is("input[type='checkbox']")
+            if target.is('input[data-warn-if-checked]:checked')
+              value = $('<span class="warn-message"></span>').html(target.data('warn-if-checked'))
+            else
+              value = ""
+          else
+            value = target.val()
+        else
+          value = target.html()
         element.html(value)
       @interpolateStoring()
 
@@ -96,7 +121,17 @@
       else
         $('.form-actions .primary').attr("disabled",null)
 
+    setCocoonFormSubmitable: ->
+      E.toggleValidateButton(@line)
+
     toggleInputVisibility: ->
+      @line.find('input[data-input-to-show]').each (index, input) =>
+        if $(input).is("input[type='checkbox']")
+          if $(input).is(':checked') == $(input).data('with-value')
+            @line.find($(input).data('input-to-show')).removeClass('hidden')
+        else if $(input).is("input[type='radio']:checked")
+          if $(input).val() == $(input).data('with-value')
+            @line.find($(input).data('input-to-show')).removeClass('hidden')
       @line.find('input[data-input-to-show]').click (event) =>
         element = $(event.target)
         if element.is("input[type='checkbox']")
@@ -120,7 +155,8 @@
 
     interpolateStoring: ->
       zones = []
-      @newForm().find('.storing-fields').each ->
+      form = if @newForm().length > 0 then @newForm() else @oldForm()
+      form.find('.storing-fields').not('.removed-nested-fields').each ->
         zones.push
           quantity: $(this).find('input.storing-quantity').val()
           unit: $(this).find('.item-population-unit-name').html()
@@ -136,11 +172,12 @@
 
   $(document).ready ->
     $('*[data-iceberg]').each ->
-      new Iceberg($(this))
+      iceberg = new Iceberg($(this))
 
     $('table.list').on 'cocoon:after-insert', (event, inserted) ->
-        iceberg = new Iceberg($(inserted), "add") if inserted?
+      iceberg = new Iceberg($(inserted), "add") if inserted?
+
       $('*[data-unit-name]').each ->
         $(this).find('.item-population-unit-name').html($(this).attr('data-unit-name'))
 
-) jQuery
+) ekylibre, jQuery
