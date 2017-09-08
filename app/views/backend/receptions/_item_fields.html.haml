@@ -2,7 +2,7 @@
 - variant = Maybe(item.variant)
 - f.object.currency = Preference[:currency]
 - f.object.role = role if defined?(role)
-- f.object.delivery_mode = 'none' if f.object.role == 'service' || f.object.role == 'fees' 
+- f.object.delivery_mode = 'none' if f.object.role == 'service' || f.object.role == 'fees'
 - non_compliant_message = :non_compliant.tl
 
 %tbody.nested-fields.delivery-item.incoming-parcel-item{ data: { iceberg: true } }
@@ -39,10 +39,10 @@
 
           .item-block.merchandise
             - if f.object.role == 'merchandise'
-              = f.referenced_association(:variant, source: { scope: :stockables_or_depreciables }, input_html: { class: 'parcel-item-variant', data: {product_of_delivery_item: {url: backend_product_nature_variant_path("RECORD_ID", format: :json)}, required: true}})
+              = f.referenced_association(:variant, source: { scope: :stockables_or_depreciables }, input_html: { class: 'parcel-item-variant', data: { product_of_delivery_item: {url: backend_product_nature_variant_path("RECORD_ID", format: :json)}, required: true }})
             - elsif f.object.role == 'service' || f.object.role == 'fees'
-              = f.referenced_association(:variant, source: { scope: :services }, input_html: { class: 'parcel-item-variant', data: {product_of_delivery_item: {url: backend_product_nature_variant_path("RECORD_ID", format: :json)}, required: true}})
-            
+              = f.referenced_association(:variant, source: { scope: :services }, input_html: { class: 'parcel-item-variant', data: { product_of_delivery_item: {url: backend_product_nature_variant_path("RECORD_ID", format: :json)}, required: true }})
+
             - if f.object.role == 'merchandise' || f.object.role == 'service'
               .non-compliant
                 = f.input :non_compliant, input_html: { class: 'item-non-compliant', data: { warn_if_checked: non_compliant_message, input_to_show: '.non_compliant_detail_text', with_value: true } }
@@ -68,9 +68,11 @@
                   %span.item-population-unit-name
                     = variant.unit_name.or_else('#')
             .item-block.item-delivery-mode
-              = f.input :delivery_mode, as: :radio_buttons, collection: f.object.class.delivery_mode.values - ['none'], label_method: :l, input_html: { class: 'item-delivery-mode', data: {  input_to_show: '.transporter-delivery-mode', with_value: "transporter", use_as_value: 'input.transporter-delivery-mode' } }
-              .transporter-delivery-mode.hidden
-                = f.referenced_association :transporter, source: :transporters, new: {transporter: 1}, input_html: { class: 'transporter-delivery-mode'}
+              = f.input :delivery_mode, as: :radio_buttons, collection: f.object.class.delivery_mode.values - ['none'], label_method: :l, input_html: { class: 'item-delivery-mode', data: {  input_to_show: '.transporter-delivery-mode', with_value: "transporter", use_as_value: '.delivery-item > input.hidden' } }
+              .transporter-delivery-mode.hidden.delivery-item
+                = f.referenced_association :transporter, source: :transporters, new: {transporter: 1}, input_html: { class: 'transporter-delivery-mode', data: { product_of_delivery_item: { url: backend_entity_path("RECORD_ID", format: :json) } } }
+                - full_name = f.object.transporter.full_name if f.object.transporter
+                %input.hidden{data: { 'when-item': 'full_name', 'when-set-value': 'RECORD_VALUE' }, value: full_name }
           - if f.object.role == 'service' || f.object.role == 'fees'
             .item-block.item-quantifier
               .item-quantifier-population
