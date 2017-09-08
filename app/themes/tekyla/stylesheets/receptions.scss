@@ -173,13 +173,14 @@
       padding: 0;
     }
 
+    .reception_items_variant .control-label,
+    .storing-labels .control-label {
+      width: initial;
+    }
+
     .merchandise {
       @include flex-column(flex-start);
       flex: 58%;
-
-      .reception_items_variant .control-label {
-        width: initial;
-      }
 
       .control-group {
         width: 100%;
