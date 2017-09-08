@@ -478,7 +478,7 @@ module Backend
     # Build a frame for all product _forms
     def product_form_frame(options = {}, &block)
       html = ''.html_safe
-
+      
       variant = @object.variant
       unless variant
         variant_id = @template.params[:variant_id]
@@ -502,6 +502,14 @@ module Backend
         whole_indicators = variant.whole_indicators
         # Add product type selector
         form = @template.field_set options[:input_html] do
+          
+          variants = ProductNatureVariant.of_variety(@object.class.name.underscore)
+          if variants.any?
+            html << @template.field_set(:choose_a_type_of_product) do
+              input_field(:variant_id, collection: variants)
+            end
+          end
+          
           fs = input(:variant_id, value: variant.id, as: :hidden)
           # Add name
           fs << (full_name.nil? ? input(:name) : input(:name, input_html: { value: full_name }))
@@ -597,6 +605,7 @@ module Backend
               @template.content_tag(:label, Product.human_attribute_name(:variant), class: 'control-label') +
                 @template.content_tag(:div, class: 'controls') do
                   input_field(:variant, html_options.deep_merge(as: :string, id: input_id, data: { selector: @template.url_for(choices), redirect_on_change_url: @template.url_for(new_url) }))
+                  input_field(:variant_id, collection: variants)
                 end
             end
           end
