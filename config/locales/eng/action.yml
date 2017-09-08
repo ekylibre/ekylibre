@@ -1540,7 +1540,7 @@ eng:
     maximum_amount: "Maximum amount"
     members: "Members"
     menus: "Menus"
-    merchandise: "Merchandise"
+    merchandise: "Merchandise" #?
     merchandises_purchases: "Merchandises purchases" #?!
     merchandises_purchases_stocks_variation: "Merchandises purchases stocks variation" #?!
     merge: "Merge"
@@ -1619,7 +1619,7 @@ eng:
     # no_worker_account: "No worker account"
     nominal_storable_easement_area: "Nominal storable easement area"
     non_compliant: "Non compliant"
-    non_compliant_with_request: "Non compliant with request"
+    non_compliant_with_request: "Non compliant with request" #?!
     none: "None"
     normal: "Normal" #?
     not_delivered: "Not delivered" #?
@@ -1744,7 +1744,7 @@ eng:
     purchases_stocks_variation: "Purchases stocks variation" #?!
     quality: "Quality"
     quandl: "Quandl" #?
-    quantity: "Quantity"
+    quantity: "Quantity" #?
     query: "Query:" #?
     raw_income: "Raw income"
     reading_tasks: "Reading tasks" #?
