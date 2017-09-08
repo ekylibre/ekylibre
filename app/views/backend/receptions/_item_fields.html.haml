@@ -59,10 +59,9 @@
             - attrs[:data] ||= {}
             - attrs[:data][:association_insertion_minimum] = 1
             .item-block.item-add-storing{attrs}
-              .storing-labels
-                = f.label :storage.tl, class: "storage-label required"
-                = f.label :quantity.tl, class: "quantity-label"
-
+              .storing-labels.control-group
+                = f.label :storage.tl, class: "storage-label control-label", required: true
+                = f.label :quantity.tl, class: "quantity-label control-label", required: true
               - f.object.storings.new if f.object.storings.size == 0
               = f.simple_fields_for :storings, f.object.storings do |storing|
                 = render 'storing_fields', f: storing
