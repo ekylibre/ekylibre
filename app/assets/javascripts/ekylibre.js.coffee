@@ -46,11 +46,9 @@
       else
         validateItemButton.attr("disabled",null)
     requiredFields.each ->
-      debugger
       element = $(this)
       element.on "selector:change", ->
         requiredFields.each ->
-          debugger
           if $(this).val() ==''
             validateItemButton.attr("disabled",true)
             return false
