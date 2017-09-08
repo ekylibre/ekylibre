@@ -7,15 +7,11 @@ end
 ENV['RAILS_ENV'] ||= 'test'
 
 if ENV['CI']
-  Coveralls.setup!
-
   SimpleCov.formatters = [
     SimpleCov::Formatter::Codecov,
-    Codacy::Formatter,
-    Coveralls::SimpleCov::Formatter
+    Codacy::Formatter
   ]
 
-  Coveralls.start!('rails') unless ENV['COVERALL'] == 'off'
   SimpleCov.start
 else
   SimpleCov.start do
