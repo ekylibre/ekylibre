@@ -91,7 +91,6 @@ class EntityTest < ActiveSupport::TestCase
 
   test 'have a number' do
     accountant = build(:entity, number: '')
-    binding.pry
     assert accountant.valid?
   end
 
