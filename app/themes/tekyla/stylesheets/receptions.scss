@@ -410,19 +410,30 @@
 // Responsive media queries
 @media (max-width: $medium-screen) {
 
-  .new_reception .list,
-  .edit_reception .list {
+  .new_reception,
+  .edit_reception {
 
-    .product-column {
-      flex-basis: 32.2%;
+    .list {
+
+      .product-column {
+	    flex-basis: 28.5%;
+	  }
+
+	  .storage-column {
+	    flex-basis: 22.8%;
+	  }
+
+	  .quantity-column {
+	    flex-basis: 14.7%;
+	  }
     }
 
-    .storage-column {
-      flex-basis: 30.6%;
+    .form-block .merchandise {
+      flex: 28% !important;
     }
 
-    .quantity-column {
-      flex-basis: 12.7%;
-    }
+    .form-block .item-add-storing {
+      flex: 54% !important;
+	}
   }
 }
