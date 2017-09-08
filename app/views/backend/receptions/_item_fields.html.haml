@@ -26,7 +26,7 @@
             = "{{zone.name}}"
     %td.quantity-column
       %label
-        %span{ data: { item_value: "span.total-quantity" } }= f.object.population
+        %span{ data: { item_value: ".total-quantity" } }= f.object.population
         %span{ data: { item_value: "span.item-population-unit-name" } }= f.object.variant ? f.object.variant.unit_name : '#'
     %td.delivery-mode-column
       %label{ data: { item_value: "input.item-delivery-mode:checked" } }= f.object.delivery_mode if f.object.delivery_mode != "none"
