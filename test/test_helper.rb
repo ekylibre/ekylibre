@@ -1,6 +1,6 @@
 if ENV['CI']
   require 'codacy-coverage'
-  require 'coveralls'
+  require 'codecov'
 else
   require 'simplecov'
 end
@@ -10,6 +10,7 @@ if ENV['CI']
   Coveralls.setup!
 
   SimpleCov.formatters = [
+    SimpleCov::Formatter::Codecov,
     Codacy::Formatter,
     Coveralls::SimpleCov::Formatter
   ]

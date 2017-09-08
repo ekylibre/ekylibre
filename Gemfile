@@ -240,7 +240,8 @@ group :test do
   gem 'selenium-webdriver'
 
   gem 'codacy-coverage', require: false
-  gem 'coveralls', '>= 0.6', require: false
+  # gem 'coveralls', '>= 0.6', require: false
+  gem 'codecov', require: false
   gem 'database_cleaner'
   gem 'simplecov', require: false
 
