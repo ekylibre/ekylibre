@@ -22,8 +22,8 @@
       %td.storage-column
         #storing-display
           %p{ "v-for" => "zone in zones"}
-            %strong= "{{zone.quantity}} {{zone.unit}}"
-            %p{ class: "storing-zone" }= "{{zone.name}}"
+            %strong{ class: "storage-quantity" }= "{{zone.quantity}} {{zone.unit}}"
+            %span{ class: "storage-zone" }= "{{zone.name}}"
     %td.quantity-column
       %label
         %span{ data: { item_value: "span.total-quantity" } }= f.object.population

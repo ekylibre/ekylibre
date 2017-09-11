@@ -99,6 +99,15 @@
       .item-non-compliant-detail-label {
         color: $lightened-grey;
       }
+
+      #storing-display .storage-quantity {
+        display: block;
+      }
+
+      #storing-display .storage-zone {
+        border-top: solid 1px #ddd;
+        border-bottom: solid 1px #ddd;
+      }
     }
 
     tfoot {
