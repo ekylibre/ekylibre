@@ -8,7 +8,7 @@
   .storing-quantifier
     = f.input :quantity, label: false, wrapper: :append do
       = f.input_field :quantity, class: 'storing-quantity', placeholder: '0', data: { required: true }
-      %span.add-on.storage-unit-name{data: { 'when-item': 'unit_name', 'when-set-value': 'RECORD_VALUE', 'when-scope': 'unit'}}
+      %span.add-on.item-population-unit-name.storage-unit-name{data: { 'when-item': 'unit_name', 'when-set-value': 'RECORD_VALUE', 'when-scope': 'unit'}}
         = variant.unit_name.or_else('#')
   .nested-remove.act
     - if f.object.destroyable?
