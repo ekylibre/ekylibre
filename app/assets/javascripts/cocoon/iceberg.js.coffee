@@ -160,8 +160,8 @@
       form.find('.storing-fields').not('.removed-nested-fields').each ->
         zones.push
           quantity: $(this).find('input.storing-quantity').val()
-          unit: $(this).find('.item-population-unit-name').html()
-          name: $(this).find('input.storing-storage').val()
+          unit: $(this).find('.storage-unit-name').html()
+          name: $(this).find('input.hidden').val()
       data = zones: zones
 
       unless @vm?
