@@ -3,7 +3,6 @@
 
   class Iceberg
     constructor: (@line, mode) ->
-      # console.log 'this', this
       @display = @line.find('.item-display')
 
       @_bindButtons(@newForm())
@@ -26,7 +25,6 @@
         @setFormSubmitable()
 
     _bindButtons: (form) ->
-      # console.log '_bindButtons:this', this
       that = this
       $(form).find('button[data-validate="item-form"]').each ->
         $(this).click (event) ->
@@ -40,7 +38,6 @@
 
     _bindEditEvent: ->
       @line.find('*[data-edit="item-form"]').click =>
-        # console.log @line, this
         @display.addClass('hidden')
 
         clone = @oldForm().clone()
@@ -61,7 +58,6 @@
           that.interpolate(form)
 
     validate: ->
-      # console.log 'validate:this', this
       @interpolate()
 
       @display.removeClass('hidden')
@@ -108,7 +104,6 @@
       @interpolateStoring()
 
     cancel: ->
-      # console.log 'cancel:this', this
       if @line.find('.nested-item-form').length is 1
         @line.remove()
       else
@@ -147,11 +142,9 @@
             @line.find(element.data('input-to-show')).addClass('hidden')
 
     oldForm: ->
-      # console.log 'oldForm:this', this
       @line.find('.nested-item-form:hidden')
 
     newForm: ->
-      # console.log 'newForm:this', this
       @line.find('.nested-item-form:visible')
 
     interpolateStoring: ->
