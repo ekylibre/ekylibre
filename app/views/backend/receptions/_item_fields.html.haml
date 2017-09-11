@@ -22,8 +22,8 @@
       %td.storage-column
         #storing-display
           %p{ "v-for" => "zone in zones"}
-            %strong= "{{zone.quantity}} {{zone.unit}}"
-            = "{{zone.name}}"
+            %strong{ class: "storage-quantity" }= "{{zone.quantity}} {{zone.unit}}"
+            %span{ class: "storage-zone" }= "{{zone.name}}"
     %td.quantity-column
       %label
         %span{ data: { item_value: ".total-quantity" } }= f.object.population
@@ -33,30 +33,37 @@
   %tr.nested-item-form
     %td.cell-form{colspan: 6}
       .item-form
-        .form-block
+        - classes = ""
+        - classes = " merchandise" if f.object.role == 'merchandise'
+        - classes = " service" if f.object.role == 'service'
+        - classes = " fees" if f.object.role == 'fees'
+        .form-block{ class: classes }
           = f.input :role, as: :hidden
           = f.input :purchase_item_id, as: :hidden
 
           .item-block.merchandise
             - if f.object.role == 'merchandise'
-              = f.referenced_association(:variant, source: { scope: :stockables_or_depreciables }, input_html: { class: 'parcel-item-variant', data: { product_of_delivery_item: {url: backend_product_nature_variant_path("RECORD_ID", format: :json), scope: 'unit'}, required: true }})
+              = f.referenced_association(:variant, label: :merchandise.tl, source: { scope: :stockables_or_depreciables }, input_html: { class: 'parcel-item-variant', data: { product_of_delivery_item: {url: backend_product_nature_variant_path("RECORD_ID", format: :json), scope: 'unit'}, required: true }})
             - elsif f.object.role == 'service' || f.object.role == 'fees'
-              = f.referenced_association(:variant, source: { scope: :services }, input_html: { class: 'parcel-item-variant', data: { product_of_delivery_item: {url: backend_product_nature_variant_path("RECORD_ID", format: :json), scope: 'unit'}, required: true }})
+              = f.referenced_association(:variant, label: :merchandise.tl, source: { scope: :services }, input_html: { class: 'parcel-item-variant', data: { product_of_delivery_item: {url: backend_product_nature_variant_path("RECORD_ID", format: :json), scope: 'unit'}, required: true }})
 
             - if f.object.role == 'merchandise' || f.object.role == 'service'
               .non-compliant
                 = f.input :non_compliant, input_html: { class: 'item-non-compliant', data: { warn_if_checked: non_compliant_message, input_to_show: '.non_compliant_detail_text', with_value: true } }
                 .non_compliant_detail_text.hidden
                   = f.input :non_compliant_detail, label: :detail.tl, input_html: { class: 'item-non-compliant-detail', data: { interpolate_if_input: 'input.item-non-compliant', with_value: true } }
-          -# .errors= item.errors.inspect
+
           - if f.object.role == 'merchandise'
             - attrs = { class: "nested-association" }
             - attrs[:data] ||= {}
             - attrs[:data][:association_insertion_minimum] = 1
             .item-block.item-add-storing{attrs}
               .storing-labels.control-group
-                = f.label :storage.tl, class: "storage-label control-label", required: true
-                = f.label :quantity.tl, class: "quantity-label control-label", required: true
+                .storage-label
+                  = f.label :storage.tl, class: "control-label", required: true
+                .quantity-label
+                  = f.label :quantity.tl, class: "control-label", required: true
+
               - f.object.storings.new if f.object.storings.size == 0
               = f.simple_fields_for :storings, f.object.storings do |storing|
                 = render 'storing_fields', f: storing
@@ -81,12 +88,6 @@
                   %span.add-on.item-population-unit-name
                     = variant.unit_name.or_else('#')
 
-          / - display = "display: none;" unless variant.identifiable?.or_else(false)
-          / .no-border{style: display, data: {"when-item": "identifiable", "when-display-value": 'true'}}
-          /   = f.input :name do
-          /     = f.input_field :product_name, placeholder: ParcelItem.human_attribute_name(:product_name)
-          /   = f.input :identification_number do
-          /     = f.input_field :product_identification_number, placeholder: ParcelItem.human_attribute_name(:product_identification_number)
         .buttons
           %button.btn{ data: { cancel: 'item-form' } }= :cancel.tl
           %button.btn.btn-primary{ data: { validate: 'item-form' } }= :validate.tl
