@@ -158,12 +158,18 @@ module Ekylibre
         end
 
         # Find or create a tax
-        # TODO: search country before for good tax request (country and amount)
         # country via supplier if information exist
+        tax = nil
         raise "Missing VAT at line #{line_index}" unless r.vat_percentage
-        item = Nomen::Tax.find_by(country: purchase.supplier.country.to_sym, amount: r.vat_percentage)
-        tax = Tax.import_from_nomenclature(item.name)
-
+        Nomen::Tax.where(country: purchase.supplier.country.to_sym, amount: r.vat_percentage).find_each do |item|
+          if item.stopped_on
+            next unless r.invoiced_at.to_date < item.stopped_on
+          end
+          tax = Tax.import_from_nomenclature(item.name)
+        end
+        
+        raise "No tax found for given #{r.vat_percentage}" unless tax
+        
         # find or create a purchase line
         unless purchase.items.find_by(pretax_amount: r.pretax_amount, variant_id: variant.id, tax_id: tax.id)
           raise "Missing quantity at line #{line_index}" unless r.quantity

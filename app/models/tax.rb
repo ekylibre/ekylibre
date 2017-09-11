@@ -162,12 +162,15 @@ class Tax < Ekylibre::Record::Base
         import_from_nomenclature(tax.name, true)
       end
     end
-
+    
     # Load default taxes of instance country
     def load_defaults
-      import_all_from_nomenclature(country: Preference[:country].to_sym)
+      import_all_from_nomenclature(country: Preference[:country].to_sym, active: true)
     end
+    
   end
+  
+  
 
   # Compute the tax amount
   # If +with_taxes+ is true, it's considered that the given amount

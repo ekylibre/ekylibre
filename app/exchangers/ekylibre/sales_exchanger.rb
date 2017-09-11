@@ -52,16 +52,17 @@ module Ekylibre
         end
 
         # find or create a tax
-        # TODO: search country before for good tax request (country and amount)
         # country via entity if information exist
-        if r.vat_rate && country
-          item = Nomen::Tax.where(country: country.to_sym, amount: r.vat_rate).first
-          if item
-            unless sale_item_tax = Tax.where(reference_name: item.name).first
-              sale_item_tax = Tax.import_from_nomenclature(item.name)
-            end
+        sale_item_tax = nil
+        raise "Missing VAT at line #{line_index}" unless r.vat_rate
+        Nomen::Tax.where(country: country.to_sym, amount: r.vat_rate).find_each do |item|
+          if item.stopped_on
+            next unless r.invoiced_at.to_date < item.stopped_on
           end
+          sale_item_tax = Tax.import_from_nomenclature(item.name)
         end
+        
+        raise "No tax found for given #{r.vat_rate}" unless sale_item_tax
 
         # find or create a purchase line
         if sale && variant && r.unit_pretax_amount && r.quantity && sale_item_tax

@@ -4593,29 +4593,19 @@ fra:
         algerian_vat_null: "TVA null Algérie"
         algerian_vat_reduced: "TVA algérienne réduite"
         algerian_vat_reduced_2017: "TVA algérienne réduite 2017"
-        fr_vat_intermediate: "TVA française intermédiaire" #?
-        fr_vat_normal: "TVA française normale" #?
-        fr_vat_null: "TVA française nulle" #?
-        fr_vat_particular: "TVA française particuliere" #?
-        fr_vat_reduced: "TVA française normale réduite" #?
-        french_vat_eu: "TVA française intra-communautaire"
-        french_vat_import_export: "TVA française import/export"
-        french_vat_intermediate_2012: "TVA française intermédiaire 2012"
-        french_vat_intermediate_2014: "TVA française intermédiaire 2014"
-        french_vat_normal_1966: "TVA française normale 1966"
-        french_vat_normal_1982: "TVA française normale 1982"
-        french_vat_normal_1995: "TVA française normale 1995"
-        french_vat_normal_2000: "TVA française normale 2000"
-        french_vat_normal_2014: "TVA française normale 2014"
-        french_vat_normal_asset_1966: "TVA française normale (immo.) 1966" #?
-        french_vat_normal_asset_1982: "TVA française normale (immo.) 1982" #?
-        french_vat_normal_asset_1995: "TVA française normale (immo.) 1995" #?
-        french_vat_normal_asset_2000: "TVA française normale (immo.) 2000" #?
-        french_vat_normal_asset_2014: "TVA française normale (immo.) 2014" #?
-        french_vat_null: "TVA française non-applicable"
-        french_vat_particular_1982: "TVA française particulière 1982"
-        french_vat_particular_1989: "TVA française particulière 1989"
-        french_vat_reduced: "TVA française réduite"
+        french_vat_eu: "TVA intra-communautaire"
+        french_vat_import_export: "TVA import/export"
+        french_vat_intermediate_2012: "TVA 7.0 % (2012)"
+        french_vat_intermediate_2014: "TVA 10.0 %"
+        french_vat_normal_1966: "TVA 17.6 % (1966)"
+        french_vat_normal_1982: "TVA 18.6 % (1982)"
+        french_vat_normal_1995: "TVA 20.6 % (1995)"
+        french_vat_normal_2000: "TVA 19.6 % (2000)"
+        french_vat_normal_2014: "TVA 20.0 %"
+        french_vat_null: "TVA non-applicable"
+        french_vat_particular_1982: "TVA 5.5 % (1982)"
+        french_vat_particular_1989: "TVA 2.1 %"
+        french_vat_reduced: "TVA 5.5 %"
         portugal_vat_eu: "TVA portugaise intra-communautaire"
         portugal_vat_import_export: "TVA portugaise import/export"
         portugal_vat_normal: "TVA portugaise normale"
