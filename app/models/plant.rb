@@ -147,7 +147,12 @@ class Plant < Bioproduct
   end
 
   def best_activity_production(options = {})
-    ActivityProduction.where(support: LandParcel.shape_intersecting(shape)).current.first || super
+    at = options[:at]
+    at ||= Time.now
+    intersecting = LandParcel.shape_intersecting(shape)
+    current_intersecting = intersecting.at(at)
+    biggest_intersecting = current_intersecting.max_by { |lp| lp.shape.intersection(self.shape).area }
+    biggest_intersecting || super
   end
 
   # INSPECTIONS RELATED
