@@ -1539,6 +1539,7 @@ jpn:
     purchase: "購入"
     purchase_items: "アイテムを購入します"
     purchase_number: "購入数"
+    # purchase_payments: "Purchase payments"
     purchases: "購入"
     purchases_stocks_variation: "購入株式の変動"
     quality: "品質"

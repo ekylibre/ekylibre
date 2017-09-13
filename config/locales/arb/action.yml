@@ -1999,6 +1999,7 @@ arb:
     purchase_item_create: "اضافة طلب للمنتج" #?
     purchase_items: "تعديل تصميم الشراء"
     purchase_number: "عدد شراء"
+    # purchase_payments: "Purchase payments"
     purchase_price_create: "انشاء سعر الشراء" #?
     purchase_print: "طباعة الطلب للممول" #?
     purchase_steps: #?

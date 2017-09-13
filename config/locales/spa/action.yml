@@ -1647,6 +1647,7 @@ spa:
     purchase: "Compra"
     purchase_items: "Artículos de la compra"
     purchase_number: "Número de compra"
+    # purchase_payments: "Purchase payments"
     purchase_steps: #?
       products: "Creación de la compra" #?
       summary: "Desembolsos" #?
