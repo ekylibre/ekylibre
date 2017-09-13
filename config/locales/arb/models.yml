@@ -1427,6 +1427,7 @@ arb:
     direction_label: "النوع" #?
     discount: "(%خصم (بنسبة  " #?
     discount_rate: "سعر الخصم" #?
+    # distributed_on_productions: "Distributed on productions"
     distributions: "التوزيعات"
     district: "المنطقة"
     district_id: "المنطقة الادارية" #?
@@ -2154,6 +2155,7 @@ arb:
     rank_number: "عدد رتبة"
     rate: "معدل سعر الصرف" #?
     read_at: "قراءة في"
+    # reading_cache: "Reading cache"
     reading_tasks: "مهام القراءة"
     readings: "قراءات"
     real_balance: "التوازن الحقيقي"

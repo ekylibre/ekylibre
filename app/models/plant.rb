@@ -73,6 +73,7 @@
 #  picture_file_name            :string
 #  picture_file_size            :integer
 #  picture_updated_at           :datetime
+#  reading_cache                :jsonb            default("{}")
 #  team_id                      :integer
 #  tracking_id                  :integer
 #  type                         :string
@@ -151,7 +152,7 @@ class Plant < Bioproduct
     at ||= Time.now
     intersecting = LandParcel.shape_intersecting(shape)
     current_intersecting = intersecting.at(at)
-    biggest_intersecting = current_intersecting.max_by { |lp| lp.shape.intersection(self.shape).area }
+    biggest_intersecting = current_intersecting.max_by { |lp| lp.shape.intersection(shape).area }
     biggest_intersecting || super
   end
 
