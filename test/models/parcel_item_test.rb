@@ -64,7 +64,6 @@ class ParcelItemTest < ActiveSupport::TestCase
       begin
         parcel_item.give
       rescue
-        puts "Error message"
       end
       assert_empty ProductMovement.all
       assert_empty ProductLocalization.all
