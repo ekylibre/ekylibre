@@ -434,28 +434,6 @@ class ProductNatureVariant < Ekylibre::Record::Base
 
   # Return current quantity of all products link to the variant currently ordered or invoiced but not delivered
   def current_outgoing_stock_ordered_not_delivered
-    # left_alone_parcel_items = parcel_items.includes(:parcel).where(parcels: { state: %w(ordered in_preparation prepared), nature: 'outgoing', sale_id: nil })
-
-    # initial_condition = "sales.state IN (?) AND (parcels.state IN (?) OR parcels.id IS NULL)"
-    # if left_alone_parcel_items.present?
-    #   condition = "#{initial_condition} AND parcel_items.id NOT IN (?)"
-    #   bind_variables = [[:order, :invoice], [:draft, :ordered, :in_preparation, :prepared], left_alone_parcel_items.pluck(:id)]
-    # else
-    #   condition = initial_condition
-    #   bind_variables = [[:order, :invoice], [:draft, :ordered, :in_preparation, :prepared]]
-    # end
-
-    # items = sale_items.joins(:sale)
-    #                   .joins("LEFT JOIN parcel_items ON parcel_items.sale_item_id = sale_items.id")
-    #                   .joins("LEFT JOIN parcels ON parcel_items.parcel_id = parcels.id")
-    #                   .where(condition, *bind_variables)
-
-    # delivered_items = parcel_items.includes(:parcel).where(parcels: { state: 'given' }).where.not(parcels: { sale_id: nil })
-
-    # byebug
-
-    # (left_alone_parcel_items.sum(:population) + items.sum(:quantity) - delivered_items.sum(:population)).abs.to_f
-
     undelivereds = sale_items.includes(:sale).map do |si|
       undelivered = 0
       variants_in_parcel_in_sale = ParcelItem.where(parcel_id: si.sale.parcels.select(:id), variant: self)
