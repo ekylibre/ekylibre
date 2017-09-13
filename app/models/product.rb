@@ -73,6 +73,7 @@
 #  picture_file_name            :string
 #  picture_file_size            :integer
 #  picture_updated_at           :datetime
+#  reading_cache                :jsonb            default("{}")
 #  team_id                      :integer
 #  tracking_id                  :integer
 #  type                         :string
@@ -113,6 +114,7 @@ class Product < Ekylibre::Record::Base
   has_many :content_localizations, class_name: 'ProductLocalization', foreign_key: :container_id
   has_many :contents, class_name: 'Product', through: :content_localizations, source: :product
   has_many :distributions, class_name: 'TargetDistribution', foreign_key: :target_id, inverse_of: :target, dependent: :destroy
+  has_many :distributed_on_productions, class_name: 'ActivityProduction', through: :distributions, source: :activity_production, dependent: :destroy
   has_many :enjoyments, class_name: 'ProductEnjoyment', foreign_key: :product_id, dependent: :destroy
   has_many :fixed_assets, inverse_of: :product
   # has_many :groups, :through => :memberships

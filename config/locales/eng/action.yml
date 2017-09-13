@@ -1704,7 +1704,7 @@ eng:
     purchase: "Purchase"
     purchase_items: "Purchase items" #?
     purchase_number: "Purchase number" #?
-    # purchase_payments: "Purchase payments"
+    purchase_payments: "Purchase payments"
     purchases: "Purchases"
     purchases_stocks_variation: "Purchases stocks variation" #?!
     quality: "Quality"
@@ -2189,6 +2189,7 @@ eng:
       equipment_component_is_worn_out: "The component %{component_name} of the equipment %{equipment_name} is worn out. Remaining work time: %{remaining_time}." #?
       equipment_is_at_end_of_life: "Equipment %{name} is reaching the end of its life. Remaining time: %{remaining_time}." #?
       equipment_is_worn_out: "Equipment %{name} is worn out. Remaining work time: %{remaining_time}." #?
+      error_client_account_empty: "Can not operate, client account is empty"
       error_during_file_generation: "An error occurred while generating a file" #?
       fails_to_extract_listing: "The listing can't be made: %{message}"
       file_generated: "Your file was successfully generated" #?

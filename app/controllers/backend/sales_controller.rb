@@ -253,8 +253,12 @@ module Backend
 
     def invoice
       return unless @sale = find_and_check
-      ActiveRecord::Base.transaction do
-        raise ActiveRecord::Rollback unless @sale.invoice
+      if @sale.client.client_account.present?
+        ActiveRecord::Base.transaction do
+          raise ActiveRecord::Rollback unless @sale.invoice
+        end
+      else
+        notify_error :error_client_account_empty
       end
       redirect_to action: :show, id: @sale.id
     end
