@@ -2,21 +2,18 @@ require 'minitest/mock'
 
 if ENV['CI']
   require 'codacy-coverage'
-  require 'coveralls'
+  require 'codecov'
 else
   require 'simplecov'
 end
 ENV['RAILS_ENV'] ||= 'test'
 
 if ENV['CI']
-  Coveralls.setup!
-
   SimpleCov.formatters = [
-    Codacy::Formatter,
-    Coveralls::SimpleCov::Formatter
+    SimpleCov::Formatter::Codecov,
+    Codacy::Formatter
   ]
 
-  Coveralls.start!('rails') unless ENV['COVERALL'] == 'off'
   SimpleCov.start
 else
   SimpleCov.start do

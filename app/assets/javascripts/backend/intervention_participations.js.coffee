@@ -134,7 +134,7 @@
     element = $(event.target)
 
     if $('#working_times #intervention_tool').length == 1
-      $('input[name="auto-calcul-mode"]').val("false")
+      E.interventionParticipations.changeCalculMode(false)
 
     E.interventionParticipations.changeWorkingPeriod(element)
 
@@ -142,10 +142,14 @@
   $(document).on "click", '#participation_auto_calculate_equipments', (event) ->
 
     isChecked = $(event.target).is(':checked')
-    $('input[name="auto-calcul-mode"]').val(isChecked)
+    E.interventionParticipations.changeCalculMode(isChecked)
 
 
   E.interventionParticipations =
+    changeCalculMode: (value) ->
+      $('#intervention_auto_calculate_working_periods').val(value)
+
+
     changeWorkingPeriod: (element) ->
       date_format = I18n.ext.datetimeFormat.fullJsFormat()
       participationsCount = $('.participations .participation').length
