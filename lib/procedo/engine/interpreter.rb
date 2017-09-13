@@ -137,6 +137,7 @@ module Procedo
           if node.is_a?(Procedo::Formula::Language::IndividualReading)
             product = product.variant
           end
+
           value = product.get(indicator.name.to_sym, @env['READ_AT'])
           if unit && value.respond_to?(:to_f)
             value = value.method(:to_f).arity.nonzero? ? value.to_f(unit) : value.to_f
