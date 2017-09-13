@@ -434,10 +434,45 @@ class ProductNatureVariant < Ekylibre::Record::Base
 
   # Return current quantity of all products link to the variant currently ordered or invoiced but not delivered
   def current_outgoing_stock_ordered_not_delivered
-    quantity_ordered = sale_items.includes(:sale).where(sales: { state: %w[order invoice] }).sum(:quantity)
-    quantity_delivered = parcel_items.includes(:parcel).where(parcels: { sale_id: sale_items.pluck(:sale_id), state: 'given', nature: 'outgoing' }).sum(:population)
-    parcel_items_not_delivered = parcel_items.where(sale_item_id: nil).includes(:parcel).where(parcels: { state: %w(draft ordered in_preparation prepared), nature: 'outgoing', sale_id: nil }).sum(:population)
-    (quantity_ordered - quantity_delivered + parcel_items_not_delivered).to_f
+    # left_alone_parcel_items = parcel_items.includes(:parcel).where(parcels: { state: %w(ordered in_preparation prepared), nature: 'outgoing', sale_id: nil })
+
+    # initial_condition = "sales.state IN (?) AND (parcels.state IN (?) OR parcels.id IS NULL)"
+    # if left_alone_parcel_items.present?
+    #   condition = "#{initial_condition} AND parcel_items.id NOT IN (?)"
+    #   bind_variables = [[:order, :invoice], [:draft, :ordered, :in_preparation, :prepared], left_alone_parcel_items.pluck(:id)]
+    # else
+    #   condition = initial_condition
+    #   bind_variables = [[:order, :invoice], [:draft, :ordered, :in_preparation, :prepared]]
+    # end
+
+    # items = sale_items.joins(:sale)
+    #                   .joins("LEFT JOIN parcel_items ON parcel_items.sale_item_id = sale_items.id")
+    #                   .joins("LEFT JOIN parcels ON parcel_items.parcel_id = parcels.id")
+    #                   .where(condition, *bind_variables)
+
+    # delivered_items = parcel_items.includes(:parcel).where(parcels: { state: 'given' }).where.not(parcels: { sale_id: nil })
+
+    # byebug
+
+    # (left_alone_parcel_items.sum(:population) + items.sum(:quantity) - delivered_items.sum(:population)).abs.to_f
+
+    undelivereds = sale_items.includes(:sale).map do |si|
+      undelivered = 0
+      variants_in_parcel_in_sale = ParcelItem.where(parcel_id: si.sale.parcels.select(:id), variant: self)
+      variants_in_transit_parcel_in_sale = ParcelItem.where(parcel_id: si.sale.parcels.where.not(state: %i(given draft)).select(:id), variant: self)
+      delivered_variants_in_parcel_in_sale = ParcelItem.where(parcel_id: si.sale.parcels.where(state: :given).select(:id), variant: self)
+
+      undelivered = si.quantity if variants_in_parcel_in_sale.none? && !si.sale.draft? && !si.sale.refused? && !si.sale.aborted?
+      undelivered = [undelivered, si.quantity - delivered_variants_in_parcel_in_sale.sum(:population)].max if variants_in_parcel_in_sale.present?
+      sale_not_canceled = (si.sale.draft? || si.sale.estimate? || si.sale.order? || si.sale.invoice?)
+      undelivered = [undelivered, variants_in_transit_parcel_in_sale.sum(:population)].max if sale_not_canceled && variants_in_transit_parcel_in_sale.present?
+
+      undelivered
+    end
+
+    undelivereds += parcel_items.joins(:parcel).where.not(parcels: { state: %i(given draft) }).where(parcels: { sale_id: nil, nature: :outgoing }).pluck(:population)
+
+    undelivereds.compact.sum
   end
 
   def picture_path(style = :original)
