@@ -102,6 +102,15 @@
                 else
                   $(this).hide()
 
+              if typeof $(this).data("when-filter-value") != "undefined"
+                key_filter = Object.keys($(this).data('when-filter-value'))[0]
+                scope = "scope[#{key_filter}]=#{data[$(this).data("when-item")]}"
+                selector_url = $(this).data('selector')
+                if selector_url.indexOf(scope) < 0
+                  if selector_url.indexOf('?') < 0 then selector_url += '?' else selector_url += '&'
+                  selector_url += scope
+                $(this).attr('data-selector', selector_url)
+
             else
               if typeof $(this).data("when-prop-value") != "undefined"
                 $(this).prop($(this).data("when-prop-value"), false)
