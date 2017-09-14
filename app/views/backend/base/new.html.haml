@@ -1,15 +1,35 @@
-- options = {}
-- options[:url] = @form_url if @form_url
-- options.deep_merge!(data: {dialog: params[:dialog]}) if params[:dialog]
-= backend_form_for(resource, options) do |f|
-  - if params[:redirect]
-    = hidden_field_tag(:redirect, params[:redirect])
-  - if local_assigns[:with_continue] && params[:continue]
-    - f.add(:submit, :create_and_continue.tl, data: { disable_with: :please_wait.tl }, class: 'primary', name: :create_and_continue)
-  - f.add(:submit, :create.tl, data: { disable_with: :please_wait.tl }, class: 'primary')
-  - if local_assigns[:with_continue] && !params[:continue]
-    - f.add(:submit, :create_and_continue.tl, data: { disable_with: :please_wait.tl }, class: 'primary', name: :create_and_continue)
+:javascript
+  function update_forms(variant){
+    var formid = variant.value;
+    $("form").each(function(){
+        $(this).hide();
+    });
+    $("."+formid).toggle();
+  }
 
-  = f.fields
-  - f.add(:link, :cancel.tl, (params[:redirect] || local_assigns[:cancel_url] || {action: :index}), (params[:dialog] ? {class: 'btn', data: {close_dialog: params[:dialog]}} : {class: 'btn'}))
-  = f.actions
+- variants = ProductNatureVariant.of_variety(@object.class.name.underscore)
+- if variants.any?
+  %div{class: "control-group"}
+    %label{class: "control-label"}
+      = Product.human_attribute_name(:variant)
+    %div{class: "controls"}
+      = select_tag(:variant_id, options_from_collection_for_select(variants, 'id', 'name'), onchange: 'update_forms(this)')
+  - variants.each do |variantt|
+    - options = {}
+    - options[:html] = {class: variantt.id, style: "display:none;"}
+    - options[:url] = @form_url if @form_url
+    - options.deep_merge!(data: {dialog: params[:dialog]}) if params[:dialog]
+    - options[:var_id] = variantt.id
+    = backend_form_for(resource, options) do |f|
+      = hidden_field_tag(:variant_id, variantt.id)
+      - if params[:redirect]
+        = hidden_field_tag(:redirect, params[:redirect])
+      - if local_assigns[:with_continue] && params[:continue]
+        - f.add(:submit, :create_and_continue.tl, data: { disable_with: :please_wait.tl }, class: 'primary', name: :create_and_continue)
+      - f.add(:submit, :create.tl, data: { disable_with: :please_wait.tl }, class: 'primary')
+      - if local_assigns[:with_continue] && !params[:continue]
+        - f.add(:submit, :create_and_continue.tl, data: { disable_with: :please_wait.tl }, class: 'primary', name: :create_and_continue)
+
+      = f.fields "form", variantt.id
+      - f.add(:link, :cancel.tl, (params[:redirect] || local_assigns[:cancel_url] || {action: :index}), (params[:dialog] ? {class: 'btn', data: {close_dialog: params[:dialog]}} : {class: 'btn'}))
+      = f.actions

@@ -474,16 +474,13 @@ module Backend
       end
       @template.render "backend/#{model.name.tableize}/form", f: self
     end
-
+    
     # Build a frame for all product _forms
     def product_form_frame(options = {}, &block)
       html = ''.html_safe
       
-      variant = @object.variant
-      unless variant
-        variant_id = @template.params[:variant_id]
-        variant = ProductNatureVariant.where(id: variant_id.to_i).first if variant_id
-      end
+      variant_id = options[:var_id]
+      variant = ProductNatureVariant.where(id: variant_id.to_i).first if variant_id
 
       full_name = nil
       if @template.params[:person_id]
@@ -493,129 +490,101 @@ module Backend
           full_name = Entity.find(@template.params[:person_id]).full_name
         end
       end
-
+      
       options[:input_html] ||= {}
       options[:input_html][:class] ||= ''
+ 
+      choices = {}
+      choices[:action] ||= :unroll
+      choices[:controller] ||= :product_nature_variants
+    
+      new_url = {}
+      new_url[:controller] ||= @object.class.name.underscore.pluralize.downcase
+      new_url[:action] ||= :new
+    
+      choices[:scope] = { of_variety: @object.class.name.underscore.to_sym } if @object.class.name.present?
+    
+      input_id = :variant_id
+    
+      html_options = {}
+      html_options[:data] ||= {}
+      
+      @object.nature ||= variant.nature
+      whole_indicators = variant.whole_indicators
 
-      if variant
-        @object.nature ||= variant.nature
-        whole_indicators = variant.whole_indicators
-        # Add product type selector
-        form = @template.field_set options[:input_html] do
-          
-          variants = ProductNatureVariant.of_variety(@object.class.name.underscore)
-          if variants.any?
-            html << @template.field_set(:choose_a_type_of_product) do
-              input_field(:variant_id, collection: variants)
+      form = @template.field_set options[:input_html] do
+
+        fs = input(:variant_id, value: variant.id, as: :hidden)
+        # Add name
+        fs << (full_name.nil? ? input(:name) : input(:name, input_html: { value: full_name }))
+        # Add work number
+        fs << input(:work_number) unless options[:work_number].is_a?(FalseClass)
+        # Add variant selector
+        fs << variety(scope: variant)
+
+        fs << input(:born_at)
+        fs << input(:dead_at)
+
+        fs << nested_association(:labellings)
+
+        # error message for indicators
+        if Rails.env.development?
+          fs << @object.errors.inspect if @object.errors.any?
+        end
+
+        # Adds owner fields
+        if @object.initializeable?
+          fs << @template.render(partial: 'backend/shared/initial_values_form', locals: { f: self })
+        end
+
+        # Add custom fields
+        fs << custom_fields
+
+        fs << attachments
+
+        fs
+      end
+      html << form
+
+      # Add form body
+      html += if block_given?
+                @template.capture(&block)
+              else
+                @template.render(partial: 'backend/shared/default_product_form', locals: { f: self })
+              end
+
+      # Add first indicators
+      indicators = variant.variable_indicators.delete_if do |i|
+        whole_indicators.include?(i) || %i[geolocation shape].include?(i.name.to_sym)
+      end
+      if object.new_record? && indicators.any?
+
+        if @object.readings.empty?
+          indicators.each do |indicator|
+            @object.readings.build(indicator_name: indicator.name)
+          end
+        end
+
+        html << @template.field_set(:indicators) do
+          fs = ''.html_safe
+          @object.readings.each do |reading|
+            indicator = reading.indicator
+            # error message for indicators
+            if Rails.env.development?
+              fs << reading.errors.inspect if reading.errors.any?
+            end
+            fs << backend_fields_for(:readings, reading) do |indfi|
+              indfi.input(:product_id, as: :hidden) + indfi.reading
             end
           end
-          
-          fs = input(:variant_id, value: variant.id, as: :hidden)
-          # Add name
-          fs << (full_name.nil? ? input(:name) : input(:name, input_html: { value: full_name }))
-          # Add work number
-          fs << input(:work_number) unless options[:work_number].is_a?(FalseClass)
-          # Add variant selector
-          fs << variety(scope: variant)
-
-          fs << input(:born_at)
-          fs << input(:dead_at)
-
-          fs << nested_association(:labellings)
-
-          # error message for indicators
-          if Rails.env.development?
-            fs << @object.errors.inspect if @object.errors.any?
-          end
-
-          # Adds owner fields
-          if @object.initializeable?
-            fs << @template.render(partial: 'backend/shared/initial_values_form', locals: { f: self })
-          end
-
-          # Add custom fields
-          fs << custom_fields
-
-          fs << attachments
-
           fs
         end
-        html << form
-
-        # Add form body
-        html += if block_given?
-                  @template.capture(&block)
-                else
-                  @template.render(partial: 'backend/shared/default_product_form', locals: { f: self })
-                end
-
-        # Add first indicators
-        indicators = variant.variable_indicators.delete_if do |i|
-          whole_indicators.include?(i) || %i[geolocation shape].include?(i.name.to_sym)
-        end
-        if object.new_record? && indicators.any?
-
-          if @object.readings.empty?
-            indicators.each do |indicator|
-              @object.readings.build(indicator_name: indicator.name)
-            end
-          end
-
-          html << @template.field_set(:indicators) do
-            fs = ''.html_safe
-            @object.readings.each do |reading|
-              indicator = reading.indicator
-              # error message for indicators
-              if Rails.env.development?
-                fs << reading.errors.inspect if reading.errors.any?
-              end
-              fs << backend_fields_for(:readings, reading) do |indfi|
-                indfi.input(:product_id, as: :hidden) + indfi.reading
-              end
-            end
-            fs
-          end
-        end
-
-      else
-        clear_actions!
-        variants = ProductNatureVariant.of_variety(@object.class.name.underscore)
-        if variants.any?
-          html << @template.field_set(:choose_a_type_of_product) do
-            #           buttons = ''.html_safe
-            #           for variant in ProductNatureVariant.of_variety(@object.class.name.underscore)
-            #             buttons << @template.link_to(variant.name, { action: :new, variant_id: variant.id }, class: 'btn')
-            #           end
-            #           buttons
-            choices = {}
-            choices[:action] ||= :unroll
-            choices[:controller] ||= :product_nature_variants
-
-            new_url = {}
-            new_url[:controller] ||= @object.class.name.underscore.pluralize.downcase
-            new_url[:action] ||= :new
-
-            choices[:scope] = { of_variety: @object.class.name.underscore.to_sym } if @object.class.name.present?
-
-            input_id = :variant_id
-
-            html_options = {}
-            html_options[:data] ||= {}
-            @template.content_tag(:div, class: 'control-group') do
-              @template.content_tag(:label, Product.human_attribute_name(:variant), class: 'control-label') +
-                @template.content_tag(:div, class: 'controls') do
-                  input_field(:variant, html_options.deep_merge(as: :string, id: input_id, data: { selector: @template.url_for(choices), redirect_on_change_url: @template.url_for(new_url) }))
-                  input_field(:variant_id, collection: variants)
-                end
-            end
-          end
-        end
-
+        
       end
 
       html
     end
-
+    
     def variety(options = {})
       scope = options[:scope]
       varieties = Nomen::Variety.selection(scope ? scope.variety : nil)
@@ -679,8 +648,8 @@ module Backend
       html
     end
 
-    def fields(partial = 'form')
-      @template.content_tag(:div, @template.render(partial, f: self), class: 'form-fields')
+    def fields(partial = 'form', var_id)
+      @template.content_tag(:div, @template.render(partial, f: self, var_id: var_id ), class: 'form-fields')
     end
 
     def yes_no_radio(attribute_name, options = {})
