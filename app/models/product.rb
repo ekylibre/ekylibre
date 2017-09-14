@@ -720,12 +720,12 @@ class Product < Ekylibre::Record::Base
 
     define_method indicator.to_sym do |*args|
       return get(indicator, *args) if args.present?
-      :"cache_#{indicator}"
+      send(:"cache_#{indicator}")
     end
 
     define_method :"#{indicator}!" do |*args|
       return get!(indicator, *args) if args.present?
-      :"cache_#{indicator}"
+      send(:"cache_#{indicator}")
     end
   end
 
