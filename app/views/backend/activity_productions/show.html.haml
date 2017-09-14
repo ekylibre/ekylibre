@@ -135,34 +135,27 @@
         series = []
         categories = [:input_cost.tl, :doer_cost.tl, :tool_cost.tl]
         global_cost_per_hectare = []
+        ordered_interventions = resource.interventions.includes(targets: :product, tools: [:product, :intervention], inputs: :product, doers: [:product, :intervention]).reorder(:started_at)
 
-        # data for bar chart costs by activities
-        resource.interventions.reorder(:started_at).find_each do |intervention|
-          data = []
+        data_pie = []
+        ordered_interventions.find_each do |intervention|
+          cost = []
+          data_bar = []
           for role in [:input, :doer, :tool]
-            if intervention.cost_per_area(role, unit)
-              cost_per_hectare = intervention.cost_per_area(role, unit)
+            intervention_cost = intervention.cost_per_area(role, unit)
+            if cost_per_hectare = intervention_cost
+              cost << intervention_cost
             else
               cost_per_hectare = 0.0
             end
-            data << cost_per_hectare.round(2).to_s.to_f
+            data_bar << cost_per_hectare.round(2).to_s.to_f
           end
-          series << { name: intervention.name, data: data }
+          cost_sum = cost.compact.sum.round(2).to_s.to_f
+          series << { name: intervention.name, data: data_bar }
+          data_pie << {name: intervention.name, y: cost_sum }
+          global_cost_per_hectare << cost_sum
         end
-
-        # data for total cost pie by intervention
-        data = []
-        resource.interventions.reorder(:started_at).find_each do |intervention|
-          cost = []
-          for role in [:input, :doer, :tool]
-            if intervention.cost_per_area(role, unit)
-              cost << intervention.cost_per_area(role, unit)
-            end
-          end
-          data << {name: intervention.name, y: cost.compact.sum.round(2).to_s.to_f }
-          global_cost_per_hectare << cost.compact.sum.round(2).to_s.to_f
-        end
-        series << {type: 'pie', name: :total.tl, data: data, center: [50, 50], size: 100, show_in_legend: false, data_labels: { enabled: false }}
+        series << {type: 'pie', name: :total.tl, data: data_pie, center: [50, 50], size: 100, show_in_legend: false, data_labels: { enabled: false }}
 
         # build chart title
         label_measure = currency_item.human_name + '/' + unit_item.human_name
