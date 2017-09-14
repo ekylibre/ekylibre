@@ -133,7 +133,7 @@ class InterventionInput < InterventionProductParameter
     quantity_population * unit_pretax_stock_amount
   end
 
-  def cost_amount_computation
+  def cost_amount_computation(nature: nil, natures: {})
     return InterventionParameter::AmountComputation.failed unless product
     incoming_parcel = product.incoming_parcel_item
     options = { quantity: quantity_population, unit_name: product.unit_name }

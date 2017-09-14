@@ -133,6 +133,12 @@ gem 'humanize'
 gem 'i18n-complements', '>= 0.0.14'
 gem 'i18n-js', '>= 3.0.0.rc12'
 
+# Dates management
+gem 'time_diff'
+
+# Bool management
+gem 'wannabe_bool'
+
 # XML Parsing/Writing, HTML extraction
 gem 'nokogiri'
 
@@ -190,7 +196,7 @@ gem 'luhn'
 gem 'bootstrap-slider-rails'
 
 group :development do
-  gem 'bullet', '~> 5.5.0'
+  gem 'bullet', '< 5.6.0'
 
   # gem 'quiet_assets'
   # gem 'rack-mini-profiler'
@@ -236,7 +242,7 @@ group :test do
   gem 'selenium-webdriver'
 
   gem 'codacy-coverage', require: false
-  gem 'coveralls', '>= 0.6', require: false
+  gem 'codecov', require: false
   gem 'database_cleaner'
   gem 'simplecov', require: false
 

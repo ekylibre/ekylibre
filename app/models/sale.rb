@@ -343,10 +343,9 @@ class Sale < Ekylibre::Record::Base
     items.any? && delivery_address && (order? || invoice?)
   end
 
-  # Remove all bad dependencies and return at draft state with no parcels
+  # Return at draft state
   def correct
     return false unless can_correct?
-    parcels.clear
     super
   end
 

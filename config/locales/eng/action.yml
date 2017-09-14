@@ -372,6 +372,7 @@ eng:
     backend/intervention_participations:
       convert: "Convert intervention participation: %{name}"
       index: "Intervention participations"
+      # participations_modal: "Participations modal intervention participation: %{name}"
     backend/interventions:
       # change_page: "Change page intervention: %{name}"
       # change_state: "Change state intervention: %{name}"
@@ -949,6 +950,7 @@ eng:
     accounts: "Accounts"
     accounts_only_used_at: "Accounts only used at"
     accounts_to_load: "Accounts to load"
+    action_duration: "Action duration"
     activate_entry_autocompletion: "Activate entry autocompletion"
     active: "Active" #?
     active_finishing_after: "Active finishing after" #?
@@ -1090,6 +1092,7 @@ eng:
     budgets: "Budgets" #?
     by_year: "By year"
     calculate: "Calculate" #?
+    calculated_hours: "Calculated hours"
     calculators: "Calculators" #?
     calendar: "Calendar"
     campaign: "Campaign"
@@ -1366,6 +1369,7 @@ eng:
     historic: "Historic" #?
     home: "Home"
     # horizontal_timeline: "Horizontal timeline"
+    hours: "H" #?
     human_working_duration: "Working duration" #?
     humans: "HR"
     iban: "International Bank Account Number (IBAN)" #?
@@ -1512,6 +1516,7 @@ eng:
     method: "Method" #?
     minimal_temperature: "Minimal temperature"
     minimum_amount: "Minimum amount"
+    minutes: "Min" #?
     missing_attributes: "Some attributes are missing" #?!
     missing_help: "Missing page"
     mobile: "Mobile" #?
@@ -1699,7 +1704,7 @@ eng:
     purchase: "Purchase"
     purchase_items: "Purchase items" #?
     purchase_number: "Purchase number" #?
-    # purchase_payments: "Purchase payments"
+    purchase_payments: "Purchase payments"
     purchases: "Purchases"
     purchases_stocks_variation: "Purchases stocks variation" #?!
     quality: "Quality"
@@ -1793,6 +1798,7 @@ eng:
     shape: "Shape" #?
     ship: "Ship" #?
     show: "Show"
+    # show_export_preview: "Show export preview"
     sign_out: "Sign out" #?
     simplified: "Simplified Accounting" #?
     simplified_linear_options: "Simplified linear options"
@@ -1952,7 +1958,7 @@ eng:
     usage: "Usage" #?
     user_status: "Status" #?
     users: "Users"
-    valid: "Valid" #?
+    valid: "Valid"
     validate: "Validate"
     validate_crumbs_for_x_interventions:
       one: "Validate crumbs for %{count} intervention"
@@ -1976,6 +1982,7 @@ eng:
     workers: "Workers"
     working_duration: "Working duration"
     working_sets_stocks: "Working sets stocks" #?
+    working_times: "Working times of %{name}" #?
     x_cashes:
       one: "%{count} cash"
       other: "%{count} cashes"
@@ -2166,12 +2173,14 @@ eng:
       cannot_merge_entities: "It's impossible to merge these people."
       changes_have_been_reflected: "The changes have been reflected in the stocks state" #?
       changes_have_not_been_reflected: "The changes have not been reflected in the stocks state" #?
+      closed_financial_periods: "The fixed asset's duration spans across closed financial periods."
       closed_financial_year_exchange: "The financial year exchange has been closed successfully"
       closed_financial_years: "The financial year has been closed successfully"
       columns_are_already_uses: "One or many columns are selected many times"
       could_not_attach_x_or_y_to_affair: "Could not attach %{x} or %{y} to affair"
       dashboard_is_being_developed: "Dashboard is under heavy development"
       density_is_not_computable_in_counting: "Could not compute the density for this counting. The missing values should be completed in the counting's properties or the sower's indicators."
+      document_in_preparation: "Your document is in preparation a notification will be sent to you when it is ready"
       draft_journal_entries_have_been_validated:
         one: "%{count} entry has been validated"
         other: "%{count} entries have been validated"
@@ -2180,7 +2189,10 @@ eng:
       equipment_component_is_worn_out: "The component %{component_name} of the equipment %{equipment_name} is worn out. Remaining work time: %{remaining_time}." #?
       equipment_is_at_end_of_life: "Equipment %{name} is reaching the end of its life. Remaining time: %{remaining_time}." #?
       equipment_is_worn_out: "Equipment %{name} is worn out. Remaining work time: %{remaining_time}." #?
+      error_client_account_empty: "Can not operate, client account is empty"
+      error_during_file_generation: "An error occurred while generating a file" #?
       fails_to_extract_listing: "The listing can't be made: %{message}"
+      file_generated: "Your file was successfully generated" #?
       financial_years_missing: "You must create every missing financial years since the first registered"
       financial_years_missing_tax_declarations: "You must create every declarations for the following financial years: %{codes}"
       implemented_with_dummy_data: "Implemented with dummy data"
@@ -2366,6 +2378,7 @@ eng:
       notify_accountant: "Notify accountant"
       open: "Open"
       order: "Order"
+      # participations_modal: "Participations modal"
       # passthru: "Passthru"
       pay: "Pay"
       payment_gap: "Payment gap" #?
@@ -2398,6 +2411,7 @@ eng:
       sell: "Turn into sale"
       ship: "Ship"
       show: "Show"
+      show_export_preview: "View a preview of the document (may increase loading time)" #?
       sort: "Sort"
       star: "Star"
       start: "Start"
