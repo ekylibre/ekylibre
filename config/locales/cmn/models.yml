@@ -685,6 +685,7 @@ cmn:
     device_uid: "设备UID"
     direct_links: "直接链接"
     direction: "方向"
+    # distributed_on_productions: "Distributed on productions"
     distributions: "分布"
     district: "区"
     document: "文件"

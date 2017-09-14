@@ -1427,6 +1427,7 @@ arb:
     direction_label: "النوع" #?
     discount: "(%خصم (بنسبة  " #?
     discount_rate: "سعر الخصم" #?
+    # distributed_on_productions: "Distributed on productions"
     distributions: "التوزيعات"
     district: "المنطقة"
     district_id: "المنطقة الادارية" #?

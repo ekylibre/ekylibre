@@ -869,6 +869,7 @@ fra:
     direct_links: "Liens directs"
     direction: "Type"
     discount_percentage: "Pourcentage d’escompte" #?
+    # distributed_on_productions: "Distributed on productions"
     distributions: "Répartitions"
     district: "Zone administrative"
     document: "Document"

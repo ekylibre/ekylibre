@@ -538,12 +538,12 @@ class ActivityProduction < Ekylibre::Record::Base
     global_coef_harvest_yield = []
 
     if harvest_interventions.any?
-      harvest_interventions.includes(:outputs).includes(:targets).find_each do |harvest|
+      harvest_interventions.includes(:targets).find_each do |harvest|
         harvest_working_area = []
         harvest.targets.each do |target|
           harvest_working_area << ::Charta.new_geometry(target.working_zone).area.in(:square_meter)
         end
-        harvest.outputs.each do |cast|
+        harvest.outputs.includes(:product).each do |cast|
           actor = cast.product
           next unless actor && actor.variety
           variety = Nomen::Variety.find(actor.variety)

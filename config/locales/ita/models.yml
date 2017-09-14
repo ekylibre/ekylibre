@@ -716,6 +716,7 @@ ita:
     device_uid: "UID dispositivo"
     direct_links: "collegamenti diretti"
     direction: "Direzione"
+    # distributed_on_productions: "Distributed on productions"
     distributions: "distribuzioni"
     district: "Quartiere"
     document: "Documento"

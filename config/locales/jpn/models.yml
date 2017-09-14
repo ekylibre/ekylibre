@@ -685,6 +685,7 @@ jpn:
     device_uid: "デバイスのUID"
     direct_links: "直接リンク"
     direction: "方向"
+    # distributed_on_productions: "Distributed on productions"
     distributions: "ディストリビューション"
     district: "地区"
     document: "資料"

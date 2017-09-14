@@ -566,7 +566,7 @@ equipments_008:
   initial_movement_id: 42
   initial_population: 0.0
   lock_version: 0
-  name: Épandeur ENGRAMAX 75
+  name: "Épandeur ENGRAMAX 75"
   nature_id: 31
   number: PR00000000041
   type: Equipment
@@ -2017,7 +2017,7 @@ matters_010:
   type: Matter
   updated_at: 2014-11-01 16:01:24.156172000 Z
   updater_id: 1
-  uuid: '084e03d7-874d-4fa7-8f3d-94912b447edc'
+  uuid: 084e03d7-874d-4fa7-8f3d-94912b447edc
   variant_id: 11
   variety: seed
 matters_011:
@@ -3082,7 +3082,7 @@ plants_004:
   type: Plant
   updated_at: 2014-11-07 16:50:07.190626000 Z
   updater_id: 1
-  uuid: '09251135-3e58-49e6-9d55-70dfa0b3a59b'
+  uuid: 09251135-3e58-49e6-9d55-70dfa0b3a59b
   variant_id: 44
   variety: vitis_vinifera
 plants_005:
@@ -3259,7 +3259,7 @@ workers_001:
   type: Worker
   updated_at: 2014-10-31 17:19:32.000000000 Z
   updater_id: 1
-  uuid: '083b01a3-e576-49ee-8ba2-602db54b681e'
+  uuid: 083b01a3-e576-49ee-8ba2-602db54b681e
   variant_id: 1
   variety: worker
   work_number: AB

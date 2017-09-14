@@ -685,6 +685,7 @@ deu:
     device_uid: "Geräte UID"
     direct_links: "direkte Links"
     direction: "Richtung"
+    # distributed_on_productions: "Distributed on productions"
     distributions: "Distributionen"
     district: "Kreis"
     document: "Dokument"

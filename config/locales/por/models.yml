@@ -685,6 +685,7 @@ por:
     device_uid: "UID dispositivo"
     direct_links: "As ligações directas"
     direction: "Direção"
+    # distributed_on_productions: "Distributed on productions"
     distributions: "Distribuições"
     district: "Distrito"
     document: "Documento"
