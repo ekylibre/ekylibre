@@ -44,6 +44,7 @@
 #  product_name                  :string
 #  product_ownership_id          :integer
 #  purchase_item_id              :integer
+#  role                          :string
 #  sale_item_id                  :integer
 #  shape                         :geometry({:srid=>4326, :type=>"multi_polygon"})
 #  source_product_id             :integer
@@ -79,7 +80,7 @@ class ParcelItem < Ekylibre::Record::Base
   has_many :storings, class_name: 'ParcelItemStoring', inverse_of: :parcel_item, foreign_key: :parcel_item_id, dependent: :destroy
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates :currency, :non_compliant_detail, :product_identification_number, :product_name, length: { maximum: 500 }, allow_blank: true
+  validates :currency, :non_compliant_detail, :product_identification_number, :product_name, :role, length: { maximum: 500 }, allow_blank: true
   validates :non_compliant, inclusion: { in: [true, false] }, allow_blank: true
   validates :parted, inclusion: { in: [true, false] }
   validates :population, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }, allow_blank: true
