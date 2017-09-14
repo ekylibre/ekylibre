@@ -3608,6 +3608,9 @@ interventions:
   procedure_name:
     type: string
     required: true
+  purchase_id:
+    type: integer
+    references: purchase
   request_compliant:
     type: boolean
   request_intervention_id:
@@ -4974,6 +4977,8 @@ parcel_items:
   purchase_item_id:
     type: integer
     references: purchase_item
+  role:
+    type: string
   sale_item_id:
     type: integer
     references: sale_item

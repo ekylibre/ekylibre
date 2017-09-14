@@ -39,6 +39,7 @@
 #  number                         :string
 #  prescription_id                :integer
 #  procedure_name                 :string           not null
+#  purchase_id                    :integer
 #  request_compliant              :boolean
 #  request_intervention_id        :integer
 #  started_at                     :datetime         not null
