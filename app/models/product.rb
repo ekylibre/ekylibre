@@ -713,16 +713,20 @@ class Product < Ekylibre::Record::Base
     containeds.select { |p| p.variant == variant }
   end
 
+
   # Returns value of an indicator if its name correspond to
-  def method_missing(method_name, *args)
-    if Nomen::Indicator.all.include?(method_name.to_s.gsub(/\!\z/, ''))
-      if method_name.to_s.end_with?('!')
-        return get!(method_name.to_s.gsub(/\!\z/, ''), *args)
-      else
-        return get(method_name, *args)
-      end
+  Nomen::Indicator.all.each do |indicator|
+    alias_method :"cache_#{indicator}", indicator
+
+    define_method indicator.to_sym do |*args|
+      return get(indicator, *args) if args.present?
+      :"cache_#{indicator}"
     end
-    super
+
+    define_method :"#{indicator}!" do |*args|
+      return get!(indicator, *args) if args.present?
+      :"cache_#{indicator}"
+    end
   end
 
   # Create a new product parted from self
