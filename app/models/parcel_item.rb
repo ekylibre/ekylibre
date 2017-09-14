@@ -71,7 +71,6 @@ class ParcelItem < Ekylibre::Record::Base
   has_one :product_movement, as: :originator, dependent: :destroy
   has_one :product_ownership, as: :originator, dependent: :destroy
 
-
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :currency, :product_identification_number, :product_name, length: { maximum: 500 }, allow_blank: true
   validates :parted, inclusion: { in: [true, false] }
