@@ -4,7 +4,7 @@ source 'https://rubygems.org'
 ruby '>= 2.2.3', '< 3.0.0'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '5.1.3'
+gem 'rails', '5.1.4'
 
 # Security fix for mail
 gem 'mail', '~> 2.6.6.rc1'
