@@ -258,6 +258,24 @@
               loadContent = false
               taskboard.addTaskClickEvent()
 
+    generateItemsArrayFromId: (input)->
+      id = input.parent().find('.selector-value').val()
+      $.get
+        url: "/backend/purchases/#{id}.json"
+        success: (data, status, request) ->
+          for item in data.items
+            $.get
+              url: "/backend/product_nature_variants/#{item.id}.json"
+              success: (data, status, request) ->
+                itemLine = []
+                itemLine.push("<span>" + data.name + "</span>")
+                itemLine.push("<input type='text' name='test' value ='#{item.quantity}'></input>")
+                itemLine.push("<span>" + item.pretax_amount + "</span>")
+                itemLine.push("<span>" + item.amount + "</span>")
+                $('.item-array').append('<li>'+ itemLine.join("--") + '</li>')
+                # HTMLArray.push('<span>'+data.amount+'</span>')
+
+
 
   ##############################################################################
   # Triggers
@@ -301,7 +319,7 @@
 
   $(document).on "keyup change dp.change", ".nested-fields.working-period:first-child input.intervention-started-at", (e) ->
     $(this).each ->
-      E.interventions.updateAvailabilityInstant($(this).val())
+      E.interventions.updateAvailabilityInstant()
 
 
   $(document).on "selector:change", 'input[data-selector-id="intervention_doer_product_id"], input[data-selector-id="intervention_tool_product_id"]', (event) ->
@@ -312,6 +330,9 @@
 
     $(blockElement).append(pictoTimer)
 
+  $(document).on "selector:change", 'input[data-generate-items]', ->
+    $(this).each ->
+      E.interventions.generateItemsArrayFromId($(this))
 
 
   $(document).ready ->
