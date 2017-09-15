@@ -792,7 +792,9 @@ class Product < Ekylibre::Record::Base
   def net_surface_area
     computed_surface = reading_cache[:net_surface_area] || reading_cache['net_surface_area']
     return computed_surface if computed_surface
-    self.net_surface_area = calculate_net_surface_area
+    calculated = calculate_net_surface_area
+    self.update(reading_cache: reading_cache.merge(net_surface_area: calculated))
+    self.net_surface_area = calculated
   end
 
   # Override net_surface_area indicator to compute it from shape if

@@ -91,9 +91,10 @@ class ProductReading < Ekylibre::Record::Base
   end
 
   after_save do
-  last_reading = product.readings.where(indicator_name: indicator_name).last
+    last_reading = product.readings.where(indicator_name: indicator_name).last
     if last_reading.read_at <= read_at
       product.send("#{indicator_name}=", value)
+      product.update(**product.attributes.slice(:reading_cache))
     end
 
     # if product && product.initial_shape_changed?
