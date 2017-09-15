@@ -65,7 +65,6 @@ RUN chown -R app:app /usr/src/app
 
 USER app
 RUN bundle install --retry 3
-RUN bundle update rake
 
 USER root
 ADD . /usr/src/app
