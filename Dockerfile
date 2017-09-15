@@ -19,22 +19,8 @@ RUN echo "deb http://apt.postgresql.org/pub/repos/apt/ jessie-pgdg main" >> /etc
 	wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add -
 
 RUN apt-get update -qq && apt-get install -yf \
-	locales \
-	libqt4-dev libqtwebkit-dev \
-	libcurl4-openssl-dev \
-	openjdk-7-jdk \
-	libgeos-dev \
-	libgeos++-dev \
-	libproj-dev \
-	libpq-dev \
-	libxml2-dev \
-	libxslt1-dev \
-	zlib1g-dev \
-	libicu-dev \
 	imagemagick \
 	graphicsmagick \
-	postgresql-9.5-postgis-2.2 \
-	postgresql-contrib \
 	tesseract-ocr \
 	tesseract-ocr-ara \
 	tesseract-ocr-jpn \
@@ -43,11 +29,25 @@ RUN apt-get update -qq && apt-get install -yf \
 	tesseract-ocr-spa \
 	pdftk \
 	libreoffice \
-	apt-utils \
 	poppler-utils \
 	poppler-data \
 	ghostscript \
-	libicu52 \
+	openjdk-8-jdk \
+	libicu57 \
+	redis-server \
+	postgresql-9.6-postgis-2.3 \
+	postgresql-contrib-9.6 \
+	libcurl4-openssl-dev \
+	libgeos-dev \
+	libgeos++-dev \
+	libproj-dev \
+	libpq-dev \
+	libxml2-dev \
+	libxslt1-dev \
+	zlib1g-dev \
+	libicu-dev \
+	libqtwebkit-dev \
+	build-essential \
 	&& apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 RUN echo "LC_ALL=en_US.UTF-8" >> /etc/default/locale && echo "LANG=en_US.UTF-8" >> /etc/default/locale && locale-gen en_US en_US.UTF-8 && \
