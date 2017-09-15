@@ -1,22 +1,4 @@
-FROM ruby:2.4.0
-
-ARG DEBIAN_FRONTEND=noninteractive
-ENV JAVA_HOME=/usr/lib/jvm/java-7-openjdk-amd64
-ENV BUNDLE_JOBS=4
-ENV NODE_VERSION="0.12.7"
-ENV BUNDLER_VERSION="1.15.4"
-
-RUN useradd -d /home/app -m app
-RUN mkdir -p /usr/src/app
-RUN chown -R app /usr/src/app /usr/local/bundle
-RUN gem install bundler --version "${BUNDLER_VERSION}"
-WORKDIR /usr/src/app
-
-# install node for asset precompilation
-RUN curl https://nodejs.org/dist/v${NODE_VERSION}/node-v${NODE_VERSION}-linux-x64.tar.gz | tar xzf - -C /usr/local --strip-components=1
-
-RUN echo "deb http://apt.postgresql.org/pub/repos/apt/ jessie-pgdg main" >> /etc/apt/sources.list && \
-	wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add -
+FROM debian:9
 
 RUN apt-get update -qq && apt-get install -yf \
 	imagemagick \
