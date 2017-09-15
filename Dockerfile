@@ -1,4 +1,4 @@
-FROM ruby:2.2.3
+FROM ruby:2.4.0
 
 ARG DEBIAN_FRONTEND=noninteractive
 ENV JAVA_HOME=/usr/lib/jvm/java-7-openjdk-amd64
