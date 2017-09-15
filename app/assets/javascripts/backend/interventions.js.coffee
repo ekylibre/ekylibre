@@ -260,6 +260,12 @@
 
     generateItemsArrayFromId: (input)->
       id = input.parent().find('.selector-value').val()
+      itemHeader = []
+      itemHeader.push("<span class='header-name'>Article</span>")
+      itemHeader.push("<span class='header-quantity'>Quantité</span>")
+      itemHeader.push("<span class='header-pretax-amount'>Prix U HT</span>")
+      itemHeader.push("<span class='header-amount'>Prix total</span>")
+      $('.purchase-items-array').append("<li class='header-line'>" + itemHeader.join('') + "</li>")
       $.get
         url: "/backend/purchases/#{id}.json"
         success: (data, status, request) ->
@@ -268,12 +274,11 @@
               url: "/backend/product_nature_variants/#{item.id}.json"
               success: (data, status, request) ->
                 itemLine = []
-                itemLine.push("<span>" + data.name + "</span>")
-                itemLine.push("<input type='text' name='test' value ='#{item.quantity}'></input>")
-                itemLine.push("<span>" + item.pretax_amount + "</span>")
-                itemLine.push("<span>" + item.amount + "</span>")
-                $('.item-array').append('<li>'+ itemLine.join("--") + '</li>')
-                # HTMLArray.push('<span>'+data.amount+'</span>')
+                itemLine.push("<span class='item-name'>" + data.name + "</span>")
+                itemLine.push("<span class='item-quantity'><input type='number' class='input-quantity' name='quantity' value ='#{item.quantity}'></input></span>")
+                itemLine.push("<span class='item-pretax-amount'>" + item.pretax_amount + "</span>")
+                itemLine.push("<span class='item-amount'>" + item.amount + "</span>")
+                $('.purchase-items-array').append("<li class='item-line'>" + itemLine.join('') + "</li>")
 
 
 
