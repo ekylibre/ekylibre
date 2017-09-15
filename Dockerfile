@@ -59,7 +59,7 @@ RUN echo "[url \"https://${GITHUB_OAUTH_TOKEN}@github.com/\"]\n  insteadOf = git
 # Copy Gemfile first, and run bundle install so that the result gets cached in
 # further runs if the Gemfile doesn't change.
 COPY Gemfile ./Gemfile
-# COPY Gemfile.* ./
+COPY Gemfile.* ./
 COPY vendor ./vendor
 RUN chown -R app:app /usr/src/app
 
