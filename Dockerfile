@@ -38,7 +38,11 @@ RUN gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A170311380
 
 RUN \curl -sSL https://get.rvm.io | bash -s stable --ruby
 
+RUN rvm rubygems current
+
 ENV JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
+
+
 
 RUN gem install bundler
 
