@@ -1,5 +1,5 @@
 postgis:
-  image: mdillon/postgis
+  image: mdillon/postgis:9.5
   volumes:
     - ./exports/postgresql:/var/lib/postgresql/data
   expose:
