@@ -22,6 +22,7 @@
 #
 # == Table: cultivable_zones
 #
+#  codes                  :jsonb
 #  created_at             :datetime         not null
 #  creator_id             :integer
 #  custom_fields          :jsonb
@@ -76,8 +77,8 @@ class CultivableZone < Ekylibre::Record::Base
   alias net_surface_area shape_area
 
   # get the first object with variety 'plant', availables
-  def current_cultivations
-    Plant.contained_by(current_supports)
+  def current_cultivations(at = Time.zone.now)
+    Plant.contained_by(current_supports, at)
   end
 
   # Returns last created islet number from cap statements

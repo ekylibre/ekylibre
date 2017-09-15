@@ -177,17 +177,22 @@
         if @element.closest('form').data('dialog') is undefined
           window.location = redirect + "?" + param + "="+ id
         else
+          dialog = $("##{@element.closest('form').data('dialog')}")
+
+          returns = dialog.prop('dialogSettings').returns || returns:
+            success: (frame, data, status, request) ->
+              frame.dialog "close"
+              return
+
+            invalid: (frame, data, status, request) ->
+              frame.html request.responseText
+              return
+
           # open it in a new dialog
           url = redirect + "?" + param + "="+ id
           E.dialog.open url,
-            returns:
-              success: (frame, data, status, request) ->
-                frame.dialog "close"
-                return
-
-              invalid: (frame, data, status, request) ->
-                frame.html request.responseText
-                return
+            returns: returns,
+            inherit: @element.closest('form').data('dialog')
 
       this
 

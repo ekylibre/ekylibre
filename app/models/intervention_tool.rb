@@ -27,9 +27,11 @@
 #  created_at               :datetime         not null
 #  creator_id               :integer
 #  currency                 :string
+#  dead                     :boolean          default(FALSE), not null
 #  event_participation_id   :integer
 #  group_id                 :integer
 #  id                       :integer          not null, primary key
+#  identification_number    :string
 #  intervention_id          :integer          not null
 #  lock_version             :integer          default(0), not null
 #  new_container_id         :integer
@@ -54,4 +56,8 @@
 #
 class InterventionTool < InterventionAgent
   belongs_to :intervention, inverse_of: :tools
+
+  def catalog_usage
+    :travel_cost
+  end
 end

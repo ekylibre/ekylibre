@@ -95,7 +95,7 @@ module SVF
           code << "    @#{c.name} = #{c.name}\n"
         end
       end
-      element.children.select { |c| c.range.max != 1 }.each do |c|
+      element.children.reject { |c| c.range.max == 1 }.each do |c|
         code << "    @#{c.name} = []\n"
       end
       code << "    @text = ''\n" if element.to

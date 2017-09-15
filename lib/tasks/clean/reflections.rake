@@ -6,7 +6,6 @@ namespace :clean do
     print ' - Reflections: '
 
     errors = 0
-    warnings = 0
     Clean::Support.models_in_file.each do |model|
       log.write "> #{model.name}...\n"
       reflections = model.reflect_on_all_associations(:has_many)
@@ -18,7 +17,7 @@ namespace :clean do
         unless r.polymorphic?
           begin
             foreign_model = r.class_name.constantize
-          rescue NameError => e
+          rescue NameError
             log.write "Cannot find model: #{r.class_name} used in #{model.name}##{r.name}\n"
             errors += 1
             next
@@ -36,8 +35,8 @@ namespace :clean do
           next if reflections.detect { |b| r != b && b.options[:dependent] }
           log.write "Missing dependent option on #{model.name}##{r.name}\n"
           errors += 1
-        elsif ![:destroy, :delete_all, :restrict_with_error, :restrict_with_exception].include?(dependent)
-          next if reflections.detect { |b| r != b && [:destroy, :delete_all, :restrict_with_error, :restrict_with_exception].include?(b.options[:dependent]) }
+        elsif !%i[destroy delete_all restrict_with_error restrict_with_exception].include?(dependent)
+          next if reflections.detect { |b| r != b && %i[destroy delete_all restrict_with_error restrict_with_exception].include?(b.options[:dependent]) }
           log.write "Invalid dependent option on #{model.name}##{r.name}: #{dependent}\n"
           errors += 1
         end

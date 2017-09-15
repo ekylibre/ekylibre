@@ -25,8 +25,9 @@
 #  created_at           :datetime         not null
 #  creator_id           :integer
 #  custom_fields        :jsonb
+#  dead                 :boolean          default(FALSE)
 #  description          :text
-#  geolocation          :geometry({:srid=>4326, :type=>"point"})
+#  geolocation          :geometry({:srid=>4326, :type=>"st_point"})
 #  gravity              :integer
 #  id                   :integer          not null, primary key
 #  lock_version         :integer          default(0), not null
@@ -48,5 +49,42 @@ require 'test_helper'
 
 class IssueTest < ActiveSupport::TestCase
   test_model_actions
-  # Add tests here...
+
+  test 'killing target' do
+    plant = Plant.all.detect { |p| p.dead_first_at.nil? && p.dead_at.nil? }
+    assert plant
+    now = Time.utc(2016, 10, 25, 20, 20, 20)
+
+    last_death_at = now + 1.year
+    last_issue = Issue.create!(target: plant, nature: :issue, observed_at: last_death_at, dead: true)
+    plant.reload
+    assert_equal last_death_at, plant.dead_at, 'Dead_at of plant should be updated'
+    assert_equal plant.dead_first_at, plant.dead_at, 'Dead_at should be equal to dead_first_at'
+
+    first_death_at = now + 1.month
+    first_issue = Issue.create!(target: plant, nature: :issue, observed_at: first_death_at, dead: true)
+    plant.reload
+    assert_equal first_death_at, plant.dead_at, 'Dead_at of plant should be updated'
+    assert_equal plant.dead_first_at, plant.dead_at, 'Dead_at should be equal to dead_first_at'
+
+    middle_death_at = now + 6.months
+    middle_issue = Issue.create!(target: plant, nature: :issue, observed_at: middle_death_at, dead: true)
+    plant.reload
+    assert_equal first_death_at, plant.dead_at, 'Dead_at of plant should not be updated'
+    assert_equal plant.dead_first_at, plant.dead_at, 'Dead_at should be equal to dead_first_at'
+
+    middle_issue.destroy
+    plant.reload
+    assert_equal first_death_at, plant.dead_at, 'Dead_at of plant should not be restored to middle death datetime'
+    assert_equal plant.dead_first_at, plant.dead_at, 'Dead_at should be equal to dead_first_at'
+
+    first_issue.destroy
+    plant.reload
+    assert_equal last_death_at, plant.dead_at, 'Dead_at of plant should be restored to last death datetime'
+    assert_equal plant.dead_first_at, plant.dead_at, 'Dead_at should be equal to dead_first_at'
+
+    last_issue.destroy
+    plant.reload
+    assert plant.dead_at.nil?, 'Dead_at of plant should be nil when no death registered'
+  end
 end

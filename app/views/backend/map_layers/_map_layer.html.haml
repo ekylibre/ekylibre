@@ -1,0 +1,42 @@
+.map-layer-container
+  .map-layer{ data: { id: map_layer.id, enable: { url: toggle_backend_map_layer_path(map_layer) } }, class: "#{map_layer.enabled ? 'active': ''}" }
+    :ruby
+      options = {
+        box: {
+          height: '100%',
+          width: '100%'
+        },
+        view: {
+          center: @bounds,
+          zoom: map_layer.max_zoom
+        },
+        map: {
+          attributionControl: false,
+          setDefaultBackground: true,
+          dragging: false,
+          touchZoom: false,
+          doubleClickZoom: false,
+          boxZoom: false,
+          tap: false
+        }
+      }
+
+      if map_layer.background?
+        options.merge!({ backgrounds: map_layer.to_json_object })
+      else
+        options.deep_merge!({
+          backgrounds: MapLayer.default_backgrounds,
+          overlays: map_layer.to_json_object,
+          map: {
+            setDefaultOverlay: true
+          }
+        })
+      end
+
+    .map-view{ data: { visualization: options.to_json } }
+    .map-layer-header
+      %span.map-layer-name= map_layer.managed ? map_layer.name : link_to(map_layer.name, edit_backend_map_layer_path(map_layer), class: 'map-layer-edit')
+      - unless map_layer.managed
+        %span.map-layer-delete= link_to '', backend_map_layer_path(map_layer), title: :delete.tl, class: "map-layer-icon", remote: true, "data-type" => "json", method: :delete
+      - if map_layer.background?
+        = link_to '', star_backend_map_layer_path(map_layer), title: MapLayer.human_attribute_name(:by_default), class: "map-layer-icon map-layer-by-default #{map_layer.by_default ? 'active': ''} #{map_layer.enabled ? '': 'hide'}", remote: true, "data-type" => "json", method: :put

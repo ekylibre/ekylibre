@@ -116,7 +116,7 @@ module Ekylibre
         end
 
         def complex_scopes
-          (scopes || []).select { |x| !x.arity.zero? }
+          (scopes || []).reject { |x| x.arity.zero? }
         end
 
         # Permits to consider something and something_id like the same
@@ -162,6 +162,7 @@ module Ekylibre
           @nomenclature_reflections ||= {}.with_indifferent_access
           @nomenclature_reflections[reflection.name] = reflection
           enumerize reflection.foreign_key, in: reflection.all(reflection.scope),
+                                            predicates: options[:predicates],
                                             i18n_scope: ["nomenclatures.#{reflection.nomenclature}.items"]
 
           if reflection.foreign_key != reflection.name

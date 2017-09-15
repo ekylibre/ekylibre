@@ -68,7 +68,7 @@ module Ekylibre
       end
 
       # Wrap code in a tenant creation transaction if wanted
-      def secure_tenant(name = nil, &_block)
+      def secure_tenant(name = nil)
         if name
           begin
             Ekylibre::Tenant.check!(name)

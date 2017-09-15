@@ -4,6 +4,7 @@
     <parameters>
       <target name="cultivation" filter="is plant and has indicator shape">
         <attribute name="working_zone" default-value="PRODUCT.shape" if="PRODUCT?"/>
+        <attribute name="killable"/>
         <handler indicator="shape">
           <compute to="shape" expr="intersection(VALUE, PRODUCT.shape)"/>
           <compute to="population" expr="area(VALUE) / PRODUCT..net_surface_area(square_meter)"/>
@@ -27,8 +28,8 @@
                  backward="(POPULATION * VARIANT.net_mass(ton)) / sum_working_zone_areas(cultivation, :hectare)"
                  forward="(VALUE * sum_working_zone_areas(cultivation, :hectare)) / VARIANT.net_mass(ton)"/>
       </output>
-      <tool name="forager" filter="can harvest(plant)" cardinality="*"/>
       <doer name="forager_driver" filter="can drive(equipment)" cardinality="*"/>
+      <tool name="forager" filter="can harvest(plant)" cardinality="*"/>
     </parameters>
   </procedure>
 </procedures>

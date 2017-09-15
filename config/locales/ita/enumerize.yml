@@ -54,6 +54,20 @@ ita:
         multi_polygon: "Multi poligono"
         point: "Punto"
         string: "Corda"
+    animal:
+      birth_date_completeness:
+        full_date: "Data completa"
+        month_year: "Mese anno"
+        year: "Anno"
+      end_of_life_reason:
+        calculated_date: "Data calcolato"
+        cutting_up: "Taglio"
+        death: "Morte"
+        slaughter: "Macello"
+      filiation_status:
+        certified: "Certificato"
+        uncertified: "Non certificato"
+        unknown: "Sconosciuto"
     call_message:
       nature:
         incoming: "In arrivo"
@@ -80,6 +94,7 @@ ita:
         purchase: "Acquista"
         sale: "Vendita"
         stock: "Azione"
+        travel_cost: "Viaggio"
     crumb:
       nature:
         hard_start: "Inizio difficile"
@@ -98,6 +113,10 @@ ita:
         datetime: "Data e ora"
         decimal: "Decimale"
         text: "Testo"
+    debt_transfer:
+      nature:
+        purchase_regularization: "Acquisto regolarizzazione"
+        sale_regularization: "Vendita regolarizzazione"
     delivery:
       mode:
         third: "Terzo"
@@ -145,7 +164,13 @@ ita:
       depreciation_method:
         graduated: "Laureato" #?
         linear: "Lineare"
+        none: "Nessuna"
+        regressive: "Regressivo"
         simplified_linear: "lineari semplificato"
+      depreciation_period:
+        monthly: "Mensile"
+        quarterly: "Trimestrale"
+        yearly: "Annuale"
     gap:
       direction:
         loss: "Perdita"
@@ -219,14 +244,18 @@ ita:
     intervention_working_period:
       nature:
         intervention: "Intervento"
+        pause: "Pausa"
         preparation: "Preparazione"
         travel: "Viaggio"
     journal:
       nature:
         bank: "Banca"
         cash: "Contanti"
+        closure: "Chiusura"
+        fixed_assets: "Immobilizzazioni"
         forward: "Portato avanti"
         purchases: "acquisti"
+        result: "Risultato"
         sales: "Vendite"
         stocks: "Riserve"
         various: "varie operazioni"
@@ -242,15 +271,24 @@ ita:
         root: "Radice"
         string: "Corda"
     loan:
+      insurance_repayment_method:
+        initial: "Sulla base di capitale iniziale"
+        to_repay: "Sulla base di capitale di sinistra per rimborsare"
       repayment_method:
         constant_amount: "quantità costante"
         constant_rate: "Tasso costante"
       repayment_period:
         month: "Mese"
+        semester: "Semestre"
+        trimester: "Trimestre"
         year: "Anno"
       shift_method:
         anatocism: "anatocismo"
         immediate_payment: "Pagamento immediato"
+    map_layer:
+      nature:
+        background: "Sfondo"
+        overlay: "Copertura"
     notification:
       level:
         error: "Errore"
@@ -316,6 +354,15 @@ ita:
       nature:
         exterior: "Esterno"
         interior: "Interno"
+    product_movement:
+      description:
+        birth: "Nascita"
+        butchery: "La macelleria"
+        consumption: "Consumo"
+        death: "Morte"
+        loan: "Prestito"
+        purchase: "Acquista"
+        sale: "Saldi"
     product_nature:
       population_counting:
         decimal: "Decimale"
@@ -405,10 +452,10 @@ ita:
       nature:
         payslip: "Busta paga"
         purchase: "Acquista"
-    sale_item:
-      compute_from:
-        pretax_amount: "Importo lordo delle imposte"
-        unit_pretax_amount: "Unità importo lordo delle imposte"
+    sale_item: #?
+      compute_from: #?
+        pretax_amount: "Importo lordo delle imposte" #?
+        unit_pretax_amount: "Unità importo lordo delle imposte" #?
     sensor:
       retrieval_mode:
         integration: "Integrazione"
@@ -424,8 +471,10 @@ ita:
         affairs: "Affari"
         analyses: "Analisi"
         animals: "Animali"
+        campaigns: "Campagne"
         cash_transfers: "Trasferimenti di denaro"
         contracts: "Contratti"
+        debt_transfers: "Trasferimenti di debito"
         deliveries: "Le consegne"
         deposits: "Depositi"
         documents: "Documenti"
@@ -440,6 +489,7 @@ ita:
         outgoing_payment_lists: "Elenchi di pagamento in uscita"
         outgoing_payments: "Pagamenti in uscita"
         parcels: "Pacchi"
+        plant_countings: "Conteggio delle piante"
         plants: "Piante"
         product_nature_categories: "Categorie Natura del prodotto"
         product_nature_variants: "La natura del prodotto Varianti"
@@ -487,6 +537,10 @@ ita:
       nature: #?
         amount: "Quantità" #?
         percentage: "Percentuale" #?
+    tax_declaration:
+      mode:
+        debit: "Addebito"
+        payment: "Pagamento"
     tracking:
       usage_limit_nature:
         best_before: "Data di scadenza"

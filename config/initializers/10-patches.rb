@@ -46,7 +46,7 @@ class ::Symbol
     args.each_with_index do |arg, _index|
       next unless arg.is_a?(Hash)
       for k, v in arg
-        unless [:locale, :scope, :default].include?(k)
+        unless %i[locale scope default].include?(k)
           arg[k] = (v.html_safe? ? v : ('<em>' + CGI.escapeHTML(v) + '</em>').html_safe)
         end
       end
@@ -82,6 +82,17 @@ class ::Numeric
     end
     count - integers_count
   end
+
+  def semester
+    months * 6
+  end
+
+  def trimester
+    months * 3
+  end
+
+  alias trimesters trimester
+  alias semesters semester
 end
 
 class ::BigDecimal

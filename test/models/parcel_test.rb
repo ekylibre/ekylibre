@@ -76,6 +76,7 @@ class ParcelTest < ActiveSupport::TestCase
       name: 'Parcel Test Stockage',
       initial_shape: Charta::MultiPolygon.new('SRID=4326;MULTIPOLYGON(((-0.813218951225281 45.5985699786537,-0.813113003969193 45.5985455816635,-0.81300538033247 45.5987766488858,-0.813106298446655 45.5987876744046,-0.813218951225281 45.5985699786537)))')
     )
+    Preference.set!('permanent_stock_inventory', true)
   end
 
   test 'ship giving a transporter' do
@@ -135,6 +136,94 @@ class ParcelTest < ActiveSupport::TestCase
     assert_equal 0, product.population
   end
 
+  # bookkeep on incoming
+  test 'bookeep incoming items with separated stock' do
+    @variant.products.create!(
+      initial_container: @storage,
+      initial_population: 50
+    )
+
+    # must have permanent_stock_inventory preference
+    assert_equal true, Preference.value('permanent_stock_inventory')
+
+    # must have stock_account on variant
+    assert_operator 0, :<, @variant.stock_account_id
+    assert_operator 0, :<, @variant.stock_movement_account_id
+
+    parcel = new_parcel
+    parcel.give!
+    @variant.reload
+
+    a_ids = parcel.journal_entry.items.pluck(:account_id)
+
+    sm = Account.where(id: a_ids).where("number LIKE '6%'").first
+    sm ||= Account.where(id: a_ids).where("number LIKE '7%'").first
+    jei_sm = parcel.journal_entry.items.where(account_id: sm.id).first
+
+    s = Account.where(id: a_ids).where("number LIKE '3%'").first
+    jei_s = parcel.journal_entry.items.where(account_id: s.id).first
+
+    # must have 0 on credit to S ACCOUNT (3%)
+    assert_equal 0, jei_s.credit.to_i
+    assert_equal 0, jei_s.real_credit.to_i
+
+    # must have GTZ on debit to S ACCOUNT (3%)
+    assert_operator 0, :<, jei_s.debit.to_i
+    assert_operator 0, :<, jei_s.real_debit.to_i
+
+    # must have 0 on débit to SM ACCOUNT (6%)
+    assert_equal 0, jei_sm.debit.to_i
+    assert_equal 0, jei_sm.real_debit.to_i
+
+    # must have GTZ on credit to SM ACCOUNT (6%)
+    assert_operator 0, :<, jei_sm.credit.to_i
+    assert_operator 0, :<, jei_sm.real_credit.to_i
+
+    # jei_s variant must be defined
+    assert_not jei_s.variant.nil?
+    assert_equal jei_s.variant, @variant
+
+    # jei_sm variant must be defined
+    assert_not jei_sm.variant.nil?
+    assert_equal jei_sm.variant, @variant
+  end
+
+  # bookkeep on outgoing
+  test 'bookeep outgoing parcels' do
+    product = @variant.products.create!(initial_population: 30)
+    to_send = [{
+      population: product.population,
+      source_product: product,
+      unit_pretax_stock_amount: 15
+    }]
+
+    parcel = new_parcel(nature: :outgoing, items_attributes: to_send)
+    parcel.give!
+
+    a_ids = parcel.journal_entry.items.pluck(:account_id)
+
+    sm = Account.where(id: a_ids).where("number LIKE '6%'").first
+    sm ||= Account.where(id: a_ids).where("number LIKE '7%'").first
+    jei_sm = parcel.journal_entry.items.where(account_id: sm.id).first
+
+    s = Account.where(id: a_ids).where("number LIKE '3%'").first
+    jei_s = parcel.journal_entry.items.where(account_id: s.id).first
+
+    # must have 0 on credit to SM ACCOUNT (6%)
+    assert_equal 0, jei_sm.credit.to_i
+    assert_equal 0, jei_sm.real_credit.to_i
+    # must have GTZ on debit to SM ACCOUNT (6%)
+    assert_operator 0, :<, jei_sm.debit.to_i
+    assert_operator 0, :<, jei_sm.real_debit.to_i
+
+    # must have 0 on débit to S ACCOUNT (3%)
+    assert_equal 0, jei_s.debit.to_i
+    assert_equal 0, jei_s.real_debit.to_i
+    # must have GTZ on credit to S ACCOUNT (3%)
+    assert_operator 0, :<, jei_s.credit.to_i
+    assert_operator 0, :<, jei_s.real_credit.to_i
+  end
+
   test 'unitary items in parcels' do
     unitary_variant = ProductNatureVariant.import_from_nomenclature(:female_adult_cow, true)
     unitary_variant.products.create!(
@@ -171,6 +260,7 @@ class ParcelTest < ActiveSupport::TestCase
 
     items_attributes ||= [{
       population: 20,
+      unit_pretax_stock_amount: 15,
       variant: @variant
     }]
 

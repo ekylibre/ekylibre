@@ -28,6 +28,7 @@
 #  creator_id                :integer
 #  custom_fields             :jsonb
 #  derivative_of             :string
+#  france_maaid              :string
 #  gtin                      :string
 #  id                        :integer          not null, primary key
 #  lock_version              :integer          default(0), not null
@@ -72,12 +73,14 @@ class ProductNatureVariant < Ekylibre::Record::Base
   has_many :members, class_name: 'Product', foreign_key: :member_variant_id, dependent: :restrict_with_exception
   has_many :purchase_items, foreign_key: :variant_id, inverse_of: :variant, dependent: :restrict_with_exception
   has_many :sale_items, foreign_key: :variant_id, inverse_of: :variant, dependent: :restrict_with_exception
+  has_many :journal_entry_items, foreign_key: :variant_id, inverse_of: :variant, dependent: :restrict_with_exception
   has_many :readings, class_name: 'ProductNatureVariantReading', foreign_key: :variant_id, inverse_of: :variant
+  has_many :phases, class_name: 'ProductPhase', foreign_key: :variant_id, inverse_of: :variant
   has_picture
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :active, inclusion: { in: [true, false] }
-  validates :gtin, :name, :picture_content_type, :picture_file_name, :reference_name, :work_number, length: { maximum: 500 }, allow_blank: true
+  validates :france_maaid, :gtin, :name, :picture_content_type, :picture_file_name, :reference_name, :work_number, length: { maximum: 500 }, allow_blank: true
   validates :number, presence: true, uniqueness: true, length: { maximum: 500 }
   validates :picture_file_size, numericality: { only_integer: true, greater_than: -2_147_483_649, less_than: 2_147_483_648 }, allow_blank: true
   validates :picture_updated_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
@@ -107,6 +110,7 @@ class ProductNatureVariant < Ekylibre::Record::Base
   scope :purchaseables, -> { joins(:nature).merge(ProductNature.purchaseables) }
   scope :deliverables, -> { joins(:nature).merge(ProductNature.stockables) }
   scope :stockables_or_depreciables, -> { joins(:nature).merge(ProductNature.stockables_or_depreciables).order(:name) }
+  scope :depreciables, -> { joins(:nature).merge(ProductNature.depreciables).order(:name) }
   scope :identifiables, -> { where(nature: ProductNature.identifiables) }
 
   scope :derivative_of, proc { |*varieties| of_derivative_of(*varieties) }
@@ -137,7 +141,7 @@ class ProductNatureVariant < Ekylibre::Record::Base
 
   protect(on: :destroy) do
     products.any? || sale_items.any? || purchase_items.any? ||
-      parcel_items.any?
+      parcel_items.any? || phases.any?
   end
 
   before_validation on: :create do
@@ -392,6 +396,14 @@ class ProductNatureVariant < Ekylibre::Record::Base
     matching_model.create!(attributes.merge(variant: self))
   end
 
+  def create_product(attributes = {})
+    attributes[:initial_owner] ||= Entity.of_company
+    attributes[:initial_born_at] ||= Time.zone.now
+    attributes[:born_at] ||= attributes[:initial_born_at]
+    attributes[:name] ||= "#{name} (#{attributes[:initial_born_at].to_date.l})"
+    matching_model.create(attributes.merge(variant: self))
+  end
+
   def take(quantity)
     products.mine.each_with_object({}) do |product, result|
       reminder = quantity - result.values.sum
@@ -408,7 +420,7 @@ class ProductNatureVariant < Ekylibre::Record::Base
   # and a given supplier if any, or nil if there's
   # no purchase item matching criterias
   def last_purchase_item_for(supplier = nil)
-    return purchase_items.last unless supplier.present?
+    return purchase_items.last if supplier.blank?
     purchase_items
       .joins(:purchase)
       .where('purchases.supplier_id = ?', Entity.find(supplier).id)
@@ -422,7 +434,7 @@ class ProductNatureVariant < Ekylibre::Record::Base
 
   # Return current quantity of all products link to the variant currently ordered or invoiced but not delivered
   def current_outgoing_stock_ordered_not_delivered
-    sales = Sale.where(state: %w(order invoice))
+    sales = Sale.where(state: %w[order invoice])
     sale_items = SaleItem.where(variant_id: id, sale_id: sales.pluck(:id)).includes(:parcel_items).where(parcel_items: { sale_item_id: nil })
     sale_items.map(&:quantity).compact.sum.to_f
   end
@@ -509,7 +521,7 @@ class ProductNatureVariant < Ekylibre::Record::Base
         end
       end
 
-      unless item.frozen_indicators_values.to_s.blank?
+      if item.frozen_indicators_values.to_s.present?
         # create frozen indicator for each pair indicator, value ":population => 1unity"
         item.frozen_indicators_values.to_s.strip.split(/[[:space:]]*\,[[:space:]]*/)
             .collect { |i| i.split(/[[:space:]]*\:[[:space:]]*/) }.each do |i|

@@ -37,10 +37,10 @@ module Customizable
           end
         elsif custom_field.decimal?
           value = value.to_d unless value.is_a?(Numeric)
-          unless custom_field.minimal_value.blank?
+          if custom_field.minimal_value.present?
             errors.add(:custom_fields, :greater_than, attribute: custom_field.name, count: custom_field.minimal_value) if value < custom_field.minimal_value
           end
-          unless custom_field.maximal_value.blank?
+          if custom_field.maximal_value.present?
             errors.add(:custom_fields, :less_than, attribute: custom_field.name, count: custom_field.maximal_value) if value > custom_field.maximal_value
           end
         end

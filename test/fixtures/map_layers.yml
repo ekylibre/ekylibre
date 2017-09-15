@@ -1,0 +1,721 @@
+# = Informations
+#
+# == License
+#
+# Ekylibre - Simple agricultural ERP
+# Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
+# Copyright (C) 2010-2012 Brice Texier
+# Copyright (C) 2012-2017 Brice Texier, David Joulin
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Affero General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public License
+# along with this program.  If not, see http://www.gnu.org/licenses.
+#
+# == Table: map_layers
+#
+#  attribution    :string
+#  by_default     :boolean          default(FALSE), not null
+#  created_at     :datetime         not null
+#  creator_id     :integer
+#  enabled        :boolean          default(FALSE), not null
+#  id             :integer          not null, primary key
+#  lock_version   :integer          default(0), not null
+#  managed        :boolean          default(FALSE), not null
+#  max_zoom       :integer
+#  min_zoom       :integer
+#  name           :string           not null
+#  nature         :string
+#  opacity        :integer
+#  position       :integer
+#  reference_name :string
+#  subdomains     :string
+#  tms            :boolean          default(FALSE), not null
+#  updated_at     :datetime         not null
+#  updater_id     :integer
+#  url            :string           not null
+#
+---
+map_layers_001:
+  attribution: '&copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors,
+    <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>'
+  by_default: false
+  created_at: 2016-05-10 19:09:46.822524000 Z
+  creator_id: 1
+  enabled: false
+  id: 1
+  lock_version: 1
+  managed: true
+  max_zoom: 19
+  name: OpenStreetMap Mapnik
+  nature: background
+  reference_name: open_street_map.mapnik
+  tms: false
+  updated_at: 2016-05-10 19:09:51.690119000 Z
+  updater_id: 1
+  url: http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png
+map_layers_002:
+  attribution: '&copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors,
+    <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>'
+  by_default: false
+  created_at: 2016-05-10 19:09:46.829621000 Z
+  creator_id: 1
+  enabled: true
+  id: 2
+  lock_version: 1
+  managed: true
+  max_zoom: 18
+  name: OpenStreetMap Black and white
+  nature: background
+  opacity: 50
+  reference_name: open_street_map.black_and_white
+  tms: false
+  updated_at: 2017-01-25 15:35:34.559736000 Z
+  updater_id: 1
+  url: http://{s}.www.toolserver.org/tiles/bw-mapnik/{z}/{x}/{y}.png
+map_layers_003:
+  attribution: '&copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors,
+    <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>'
+  by_default: false
+  created_at: 2016-05-10 19:09:46.835624000 Z
+  creator_id: 1
+  enabled: false
+  id: 3
+  lock_version: 2
+  managed: true
+  max_zoom: 18
+  name: OpenStreetMap De
+  nature: background
+  opacity: 50
+  reference_name: open_street_map.de
+  tms: false
+  updated_at: 2017-01-25 15:30:26.882746000 Z
+  updater_id: 1
+  url: http://{s}.tile.openstreetmap.de/tiles/osmde/{z}/{x}/{y}.png
+map_layers_004:
+  attribution: '&copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors,
+    <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Tiles courtesy
+    of <a href="http://hot.openstreetmap.org/" target="_blank">Humanitarian OpenStreetMap
+    Team</a>'
+  by_default: true
+  created_at: 2016-05-10 19:09:46.840786000 Z
+  creator_id: 1
+  enabled: true
+  id: 4
+  lock_version: 2
+  managed: true
+  max_zoom: 19
+  name: OpenStreetMap Hot
+  nature: background
+  opacity: 50
+  reference_name: open_street_map.hot
+  tms: false
+  updated_at: 2017-01-25 15:32:02.732233000 Z
+  updater_id: 1
+  url: http://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png
+map_layers_005:
+  attribution: Maps © <a href="http://www.thunderforest.com">Thunderforest</a>, Data
+    © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap contributors</a>
+  by_default: false
+  created_at: 2016-05-10 19:09:46.854463000 Z
+  creator_id: 1
+  enabled: false
+  id: 5
+  lock_version: 0
+  managed: true
+  name: Thunderforest Outdoors
+  nature: background
+  reference_name: thunderforest.outdoors
+  subdomains: abc
+  tms: false
+  updated_at: 2016-05-10 19:09:46.854463000 Z
+  updater_id: 1
+  url: https://{s}.tile.thunderforest.com/outdoors/{z}/{x}/{y}.png
+map_layers_006:
+  attribution: Maps © <a href="http://www.thunderforest.com">Thunderforest</a>, Data
+    © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap contributors</a>
+  by_default: false
+  created_at: 2016-05-10 19:09:46.861429000 Z
+  creator_id: 1
+  enabled: false
+  id: 6
+  lock_version: 0
+  managed: true
+  name: Thunderforest Cycle
+  nature: background
+  reference_name: thunderforest.cycle
+  subdomains: abc
+  tms: false
+  updated_at: 2016-05-10 19:09:46.861429000 Z
+  updater_id: 1
+  url: https://{s}.tile.thunderforest.com/cycle/{z}/{x}/{y}.png
+map_layers_007:
+  attribution: Maps © <a href="http://www.thunderforest.com">Thunderforest</a>, Data
+    © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap contributors</a>
+  by_default: false
+  created_at: 2016-05-10 19:09:46.867793000 Z
+  creator_id: 1
+  enabled: false
+  id: 7
+  lock_version: 0
+  managed: true
+  max_zoom: 19
+  name: Thunderforest Transport
+  nature: background
+  reference_name: thunderforest.transport
+  subdomains: abc
+  tms: false
+  updated_at: 2016-05-10 19:09:46.867793000 Z
+  updater_id: 1
+  url: https://{s}.tile.thunderforest.com/transport/{z}/{x}/{y}.png
+map_layers_008:
+  attribution: Maps © <a href="http://www.thunderforest.com">Thunderforest</a>, Data
+    © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap contributors</a>
+  by_default: false
+  created_at: 2016-05-10 19:09:46.872988000 Z
+  creator_id: 1
+  enabled: false
+  id: 8
+  lock_version: 0
+  managed: true
+  max_zoom: 19
+  name: Thunderforest Transport dark
+  nature: background
+  reference_name: thunderforest.transport_dark
+  subdomains: abc
+  tms: false
+  updated_at: 2016-05-10 19:09:46.872988000 Z
+  updater_id: 1
+  url: https://{s}.tile.thunderforest.com/transport-dark/{z}/{x}/{y}.png
+map_layers_009:
+  attribution: Maps © <a href="http://www.thunderforest.com">Thunderforest</a>, Data
+    © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap contributors</a>
+  by_default: false
+  created_at: 2016-05-10 19:09:46.878650000 Z
+  creator_id: 1
+  enabled: true
+  id: 9
+  lock_version: 3
+  managed: true
+  name: Thunderforest Landscape
+  nature: background
+  opacity: 50
+  reference_name: thunderforest.landscape
+  subdomains: abc
+  tms: false
+  updated_at: 2017-01-25 15:30:39.455310000 Z
+  updater_id: 1
+  url: https://{s}.tile.thunderforest.com/landscape/{z}/{x}/{y}.png
+map_layers_010:
+  attribution: Imagery from <a href="http://giscience.uni-hd.de/">GIScience Research
+    Group @ University of Heidelberg</a> &mdash; Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a>
+    contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>
+  by_default: false
+  created_at: 2016-05-10 19:09:46.884134000 Z
+  creator_id: 1
+  enabled: false
+  id: 10
+  lock_version: 0
+  managed: true
+  max_zoom: 19
+  name: OpenMapSurfer Roads
+  nature: background
+  reference_name: open_map_surfer.roads
+  tms: false
+  updated_at: 2016-05-10 19:09:46.884134000 Z
+  updater_id: 1
+  url: http://korona.geog.uni-heidelberg.de/tiles/roads/x={x}&y={y}&z={z}
+map_layers_011:
+  attribution: Imagery from <a href="http://giscience.uni-hd.de/">GIScience Research
+    Group @ University of Heidelberg</a> &mdash; Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a>
+    contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>
+  by_default: false
+  created_at: 2016-05-10 19:09:46.890015000 Z
+  creator_id: 1
+  enabled: false
+  id: 11
+  lock_version: 0
+  managed: true
+  max_zoom: 19
+  name: OpenMapSurfer Grayscale
+  nature: background
+  reference_name: open_map_surfer.grayscale
+  tms: false
+  updated_at: 2016-05-10 19:09:46.890015000 Z
+  updater_id: 1
+  url: http://korona.geog.uni-heidelberg.de/tiles/roadsg/x={x}&y={y}&z={z}
+map_layers_012:
+  attribution: Tiles Courtesy of <a href="http://www.mapquest.com/">MapQuest</a> &mdash;
+    Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors,
+    <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>
+  by_default: false
+  created_at: 2016-05-10 19:09:46.896242000 Z
+  creator_id: 1
+  enabled: false
+  id: 12
+  lock_version: 0
+  managed: true
+  name: MapQuestOpen
+  nature: background
+  reference_name: map_quest_open.default
+  subdomains: '1234'
+  tms: false
+  updated_at: 2016-05-10 19:09:46.896242000 Z
+  updater_id: 1
+  url: http://otile{s}.mqcdn.com/tiles/1.0.0/map/{z}/{x}/{y}.jpg
+map_layers_013:
+  attribution: Tiles Courtesy of <a href="http://www.mapquest.com/">MapQuest</a> &mdash;
+    Portions Courtesy NASA/JPL-Caltech and U.S. Depart. of Agriculture, Farm Service
+    Agency
+  by_default: false
+  created_at: 2016-05-10 19:09:46.907445000 Z
+  creator_id: 1
+  enabled: false
+  id: 13
+  lock_version: 0
+  managed: true
+  max_zoom: 11
+  name: MapQuestOpen Aerial
+  nature: background
+  reference_name: map_quest_open.aerial
+  subdomains: '1234'
+  tms: false
+  updated_at: 2016-05-10 19:09:46.907445000 Z
+  updater_id: 1
+  url: http://otile{s}.mqcdn.com/tiles/1.0.0/sat/{z}/{x}/{y}.jpg
+map_layers_014:
+  attribution: Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC
+    BY 3.0</a> &mdash; Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a>
+    contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>
+  by_default: false
+  created_at: 2016-05-10 19:09:46.951683000 Z
+  creator_id: 1
+  enabled: false
+  id: 14
+  lock_version: 2
+  managed: true
+  max_zoom: 17
+  min_zoom: 0
+  name: Stamen Toner
+  nature: background
+  opacity: 50
+  reference_name: stamen.toner
+  subdomains: abcd
+  tms: false
+  updated_at: 2017-01-25 15:30:28.742843000 Z
+  updater_id: 1
+  url: http://{s}.tile.stamen.com/toner/{z}/{x}/{y}.png
+map_layers_015:
+  attribution: Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC
+    BY 3.0</a> &mdash; Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a>
+    contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>
+  by_default: false
+  created_at: 2016-05-10 19:09:46.958195000 Z
+  creator_id: 1
+  enabled: false
+  id: 15
+  lock_version: 0
+  managed: true
+  max_zoom: 17
+  min_zoom: 0
+  name: Stamen Toner background
+  nature: background
+  reference_name: stamen.toner_background
+  subdomains: abcd
+  tms: false
+  updated_at: 2016-05-10 19:09:46.958195000 Z
+  updater_id: 1
+  url: http://{s}.tile.stamen.com/toner-background/{z}/{x}/{y}.png
+map_layers_016:
+  attribution: Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC
+    BY 3.0</a> &mdash; Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a>
+    contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>
+  by_default: false
+  created_at: 2016-05-10 19:09:46.964944000 Z
+  creator_id: 1
+  enabled: false
+  id: 16
+  lock_version: 0
+  managed: true
+  max_zoom: 17
+  min_zoom: 0
+  name: Stamen Toner lite
+  nature: background
+  reference_name: stamen.toner_lite
+  subdomains: abcd
+  tms: false
+  updated_at: 2016-05-10 19:09:46.964944000 Z
+  updater_id: 1
+  url: http://{s}.tile.stamen.com/toner-lite/{z}/{x}/{y}.png
+map_layers_017:
+  attribution: Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC
+    BY 3.0</a> &mdash; Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a>
+    contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>
+  by_default: false
+  created_at: 2016-05-10 19:09:46.970775000 Z
+  creator_id: 1
+  enabled: true
+  id: 17
+  lock_version: 4
+  managed: true
+  max_zoom: 15
+  min_zoom: 3
+  name: Stamen Watercolor
+  nature: background
+  opacity: 50
+  reference_name: stamen.watercolor
+  subdomains: abcd
+  tms: false
+  updated_at: 2017-01-25 15:30:47.483630000 Z
+  updater_id: 1
+  url: http://{s}.tile.stamen.com/watercolor/{z}/{x}/{y}.jpg
+map_layers_018:
+  attribution: 'Tiles &copy; Esri &mdash; Source: Esri, DeLorme, NAVTEQ, USGS, Intermap,
+    iPC, NRCAN, Esri Japan, METI, Esri China (Hong Kong), Esri (Thailand), TomTom,
+    2012'
+  by_default: false
+  created_at: 2016-05-10 19:09:46.976716000 Z
+  creator_id: 1
+  enabled: false
+  id: 18
+  lock_version: 2
+  managed: true
+  max_zoom: 19
+  name: Esri World street map
+  nature: background
+  opacity: 50
+  reference_name: esri.world_street_map
+  tms: false
+  updated_at: 2017-01-25 15:30:18.433195000 Z
+  updater_id: 1
+  url: http://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}
+map_layers_019:
+  attribution: 'Tiles &copy; Esri &mdash; Copyright: &copy;2012 DeLorme'
+  by_default: false
+  created_at: 2016-05-10 19:09:46.982652000 Z
+  creator_id: 1
+  enabled: false
+  id: 19
+  lock_version: 0
+  managed: true
+  max_zoom: 11
+  min_zoom: 1
+  name: Esri De lorme
+  nature: background
+  reference_name: esri.de_lorme
+  tms: false
+  updated_at: 2016-05-10 19:09:46.982652000 Z
+  updater_id: 1
+  url: http://server.arcgisonline.com/ArcGIS/rest/services/Specialty/DeLorme_World_Base_Map/MapServer/tile/{z}/{y}/{x}
+map_layers_020:
+  attribution: Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ, TomTom, Intermap,
+    iPC, USGS, FAO, NPS, NRCAN, GeoBase, Kadaster NL, Ordnance Survey, Esri Japan,
+    METI, Esri China (Hong Kong), and the GIS User Community
+  by_default: false
+  created_at: 2016-05-10 19:09:46.988252000 Z
+  creator_id: 1
+  enabled: false
+  id: 20
+  lock_version: 0
+  managed: true
+  max_zoom: 19
+  name: Esri World topo map
+  nature: background
+  reference_name: esri.world_topo_map
+  tms: false
+  updated_at: 2016-05-10 19:09:46.988252000 Z
+  updater_id: 1
+  url: http://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}
+map_layers_021:
+  attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX,
+    GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
+  by_default: false
+  created_at: 2016-05-10 19:09:46.994216000 Z
+  creator_id: 1
+  enabled: true
+  id: 21
+  lock_version: 5
+  managed: true
+  max_zoom: 19
+  name: Esri World imagery
+  nature: background
+  opacity: 50
+  reference_name: esri.world_imagery
+  tms: false
+  updated_at: 2017-01-25 15:31:52.692787000 Z
+  updater_id: 1
+  url: http://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}
+map_layers_022:
+  attribution: Tiles &copy; Esri &mdash; National Geographic, Esri, DeLorme, NAVTEQ,
+    UNEP-WCMC, USGS, NASA, ESA, METI, NRCAN, GEBCO, NOAA, iPC
+  by_default: false
+  created_at: 2016-05-10 19:09:46.999827000 Z
+  creator_id: 1
+  enabled: true
+  id: 22
+  lock_version: 1
+  managed: true
+  max_zoom: 12
+  name: Esri Nat geo world map
+  nature: background
+  opacity: 50
+  reference_name: esri.nat_geo_world_map
+  tms: false
+  updated_at: 2017-01-25 15:32:45.102534000 Z
+  updater_id: 1
+  url: http://services.arcgisonline.com/ArcGIS/rest/services/NatGeo_World_Map/MapServer/tile/{z}/{y}/{x}
+map_layers_023:
+  attribution: Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ
+  by_default: false
+  created_at: 2016-05-10 19:09:47.005483000 Z
+  creator_id: 1
+  enabled: false
+  id: 23
+  lock_version: 8
+  managed: true
+  max_zoom: 16
+  name: Esri World gray canvas
+  nature: background
+  opacity: 50
+  reference_name: esri.world_gray_canvas
+  tms: false
+  updated_at: 2017-01-25 15:30:23.951490000 Z
+  updater_id: 1
+  url: http://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}
+map_layers_024:
+  attribution: Weather from <a href="http://openweathermap.org/" alt="World Map and
+    worldwide Weather Forecast online">OpenWeatherMap</a>
+  by_default: false
+  created_at: 2017-01-24 13:17:51.133936000 Z
+  enabled: true
+  id: 24
+  lock_version: 1
+  managed: true
+  max_zoom: 18
+  name: OpenWeatherMap Clouds
+  nature: overlay
+  opacity: 100
+  reference_name: open_weather_map.clouds
+  tms: false
+  updated_at: 2017-01-25 15:32:15.151008000 Z
+  updater_id: 1
+  url: http://{s}.tile.openweathermap.org/map/clouds/{z}/{x}/{y}.png
+map_layers_025:
+  attribution: Weather from <a href="http://openweathermap.org/" alt="World Map and
+    worldwide Weather Forecast online">OpenWeatherMap</a>
+  by_default: false
+  created_at: 2017-01-24 13:17:51.133936000 Z
+  enabled: false
+  id: 25
+  lock_version: 2
+  managed: true
+  max_zoom: 18
+  name: OpenWeatherMap Clouds classic
+  nature: overlay
+  opacity: 100
+  reference_name: open_weather_map.clouds_classic
+  tms: false
+  updated_at: 2017-01-25 15:12:11.989773000 Z
+  updater_id: 1
+  url: http://{s}.tile.openweathermap.org/map/clouds_cls/{z}/{x}/{y}.png
+map_layers_026:
+  attribution: Weather from <a href="http://openweathermap.org/" alt="World Map and
+    worldwide Weather Forecast online">OpenWeatherMap</a>
+  by_default: false
+  created_at: 2017-01-24 13:17:51.133936000 Z
+  enabled: true
+  id: 26
+  lock_version: 1
+  managed: true
+  max_zoom: 18
+  name: OpenWeatherMap Precipitation
+  nature: overlay
+  opacity: 100
+  reference_name: open_weather_map.precipitation
+  tms: false
+  updated_at: 2017-01-25 15:11:56.301182000 Z
+  updater_id: 1
+  url: http://{s}.tile.openweathermap.org/map/precipitation/{z}/{x}/{y}.png
+map_layers_027:
+  attribution: Weather from <a href="http://openweathermap.org/" alt="World Map and
+    worldwide Weather Forecast online">OpenWeatherMap</a>
+  by_default: false
+  created_at: 2017-01-24 13:17:51.133936000 Z
+  enabled: false
+  id: 27
+  lock_version: 0
+  managed: true
+  max_zoom: 18
+  name: OpenWeatherMap Precipitation classic
+  nature: overlay
+  opacity: 100
+  reference_name: open_weather_map.precipitation_classic
+  tms: false
+  updated_at: 2017-01-24 13:17:51.133936000 Z
+  url: http://{s}.tile.openweathermap.org/map/precipitation_cls/{z}/{x}/{y}.png
+map_layers_028:
+  attribution: Weather from <a href="http://openweathermap.org/" alt="World Map and
+    worldwide Weather Forecast online">OpenWeatherMap</a>
+  by_default: false
+  created_at: 2017-01-24 13:17:51.133936000 Z
+  enabled: false
+  id: 28
+  lock_version: 0
+  managed: true
+  max_zoom: 18
+  name: OpenWeatherMap Rain
+  nature: overlay
+  opacity: 100
+  reference_name: open_weather_map.rain
+  tms: false
+  updated_at: 2017-01-24 13:17:51.133936000 Z
+  url: http://{s}.tile.openweathermap.org/map/rain/{z}/{x}/{y}.png
+map_layers_029:
+  attribution: Weather from <a href="http://openweathermap.org/" alt="World Map and
+    worldwide Weather Forecast online">OpenWeatherMap</a>
+  by_default: false
+  created_at: 2017-01-24 13:17:51.133936000 Z
+  enabled: false
+  id: 29
+  lock_version: 0
+  managed: true
+  max_zoom: 18
+  name: OpenWeatherMap Rain classic
+  nature: overlay
+  opacity: 100
+  reference_name: open_weather_map.rain_classic
+  tms: false
+  updated_at: 2017-01-24 13:17:51.133936000 Z
+  url: http://{s}.tile.openweathermap.org/map/rain_cls/{z}/{x}/{y}.png
+map_layers_030:
+  attribution: Weather from <a href="http://openweathermap.org/" alt="World Map and
+    worldwide Weather Forecast online">OpenWeatherMap</a>
+  by_default: false
+  created_at: 2017-01-24 13:17:51.133936000 Z
+  enabled: false
+  id: 30
+  lock_version: 0
+  managed: true
+  max_zoom: 18
+  name: OpenWeatherMap Pressure
+  nature: overlay
+  opacity: 100
+  reference_name: open_weather_map.pressure
+  tms: false
+  updated_at: 2017-01-24 13:17:51.133936000 Z
+  url: http://{s}.tile.openweathermap.org/map/pressure/{z}/{x}/{y}.png
+map_layers_031:
+  attribution: Weather from <a href="http://openweathermap.org/" alt="World Map and
+    worldwide Weather Forecast online">OpenWeatherMap</a>
+  by_default: false
+  created_at: 2017-01-24 13:17:51.133936000 Z
+  enabled: false
+  id: 31
+  lock_version: 0
+  managed: true
+  max_zoom: 18
+  name: OpenWeatherMap Pressure contour
+  nature: overlay
+  opacity: 100
+  reference_name: open_weather_map.pressure_contour
+  tms: false
+  updated_at: 2017-01-24 13:17:51.133936000 Z
+  url: http://{s}.tile.openweathermap.org/map/pressure_cntr/{z}/{x}/{y}.png
+map_layers_032:
+  attribution: Weather from <a href="http://openweathermap.org/" alt="World Map and
+    worldwide Weather Forecast online">OpenWeatherMap</a>
+  by_default: false
+  created_at: 2017-01-24 13:17:51.133936000 Z
+  enabled: false
+  id: 32
+  lock_version: 0
+  managed: true
+  max_zoom: 18
+  name: OpenWeatherMap Wind
+  nature: overlay
+  opacity: 100
+  reference_name: open_weather_map.wind
+  tms: false
+  updated_at: 2017-01-24 13:17:51.133936000 Z
+  url: http://{s}.tile.openweathermap.org/map/wind/{z}/{x}/{y}.png
+map_layers_033:
+  attribution: Weather from <a href="http://openweathermap.org/" alt="World Map and
+    worldwide Weather Forecast online">OpenWeatherMap</a>
+  by_default: false
+  created_at: 2017-01-24 13:17:51.133936000 Z
+  enabled: false
+  id: 33
+  lock_version: 0
+  managed: true
+  max_zoom: 18
+  name: OpenWeatherMap Temperature
+  nature: overlay
+  opacity: 100
+  reference_name: open_weather_map.temperature
+  tms: false
+  updated_at: 2017-01-24 13:17:51.133936000 Z
+  url: http://{s}.tile.openweathermap.org/map/temp/{z}/{x}/{y}.png
+map_layers_034:
+  attribution: Weather from <a href="http://openweathermap.org/" alt="World Map and
+    worldwide Weather Forecast online">OpenWeatherMap</a>
+  by_default: false
+  created_at: 2017-01-24 13:17:51.133936000 Z
+  enabled: false
+  id: 34
+  lock_version: 2
+  managed: true
+  max_zoom: 18
+  name: OpenWeatherMap Snow
+  nature: overlay
+  opacity: 100
+  reference_name: open_weather_map.snow
+  tms: false
+  updated_at: 2017-01-25 15:12:11.396838000 Z
+  updater_id: 1
+  url: http://{s}.tile.openweathermap.org/map/snow/{z}/{x}/{y}.png
+map_layers_035:
+  attribution: '&copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors,
+    <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>'
+  by_default: false
+  created_at: 2017-01-25 15:32:33.529119000 Z
+  creator_id: 1
+  enabled: false
+  id: 35
+  lock_version: 0
+  managed: true
+  max_zoom: 19
+  name: OpenStreetMap France
+  nature: background
+  opacity: 50
+  reference_name: open_street_map.france
+  tms: false
+  updated_at: 2017-01-25 15:32:33.529119000 Z
+  updater_id: 1
+  url: http://{s}.tile.openstreetmap.de/tiles/osmde/{z}/{x}/{y}.png
+map_layers_036:
+  attribution: Imagery from <a href="http://giscience.uni-hd.de/">GIScience Research
+    Group @ University of Heidelberg</a> &mdash; Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a>
+    contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>
+  by_default: true
+  created_at: 2017-01-25 15:32:33.541496000 Z
+  creator_id: 1
+  enabled: false
+  id: 36
+  lock_version: 0
+  managed: true
+  name: OpenMapSurfer Admin bounds
+  nature: overlay
+  opacity: 100
+  reference_name: open_map_surfer.admin_bounds
+  tms: false
+  updated_at: 2017-01-25 15:32:33.541496000 Z
+  updater_id: 1
+  url: http://korona.geog.uni-heidelberg.de/tiles/adminb/x={x}&y={y}&z={z}

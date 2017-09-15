@@ -28,6 +28,7 @@
 #  creator_id                :integer
 #  custom_fields             :jsonb
 #  derivative_of             :string
+#  france_maaid              :string
 #  gtin                      :string
 #  id                        :integer          not null, primary key
 #  lock_version              :integer          default(0), not null
@@ -71,5 +72,9 @@ class ProductNatureVariantTest < ActiveSupport::TestCase
     v.destroy
     v2 = nature.variants.create!(name: 'Gros minet', unit_name: 'Cat')
     assert v.number != v2.number, 'Numbers should be different'
+  end
+
+  test 'import from nomenclature seedling' do
+    assert_nothing_raised { ProductNatureVariant.import_from_nomenclature(:seedling) }
   end
 end

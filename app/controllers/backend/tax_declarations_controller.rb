@@ -18,12 +18,12 @@
 
 module Backend
   class TaxDeclarationsController < Backend::BaseController
-    manage_restfully except: [:new, :show]
+    manage_restfully except: %i[new show]
 
     unroll
 
     list(line_class: :status, order: { created_at: :desc, number: :desc }) do |t|
-      t.action :edit
+      t.action :edit, if: :editable?
       t.action :destroy, if: :destroyable?
       t.column :number, url: true
       t.column :responsible
@@ -53,7 +53,13 @@ module Backend
       financial_year = FinancialYear.find(params[:financial_year_id])
       if financial_year.tax_declaration_mode_none?
         redirect_to params[:redirect] || { action: :index }
-      else
+      elsif !financial_year.previous_consecutives?
+        notify_error :financial_years_missing
+        redirect_to params[:redirect] || { action: :index }
+      elsif (codes = financial_year.previous_codes_with_missing_tax_declaration).any?
+        notify_error :financial_years_missing_tax_declarations, codes: codes.join(', ')
+        redirect_to params[:redirect] || { action: :index }
+      elsif financial_year.missing_tax_declaration?
         if financial_year.tax_declaration_frequency_none?
           started_on = financial_year.next_tax_declaration_on
           @tax_declaration = TaxDeclaration.new(
@@ -67,6 +73,9 @@ module Backend
           tax_declaration = TaxDeclaration.create!(financial_year: financial_year)
           redirect_to action: :show, id: tax_declaration.id
         end
+      else
+        notify_error :all_tax_declarations_have_already_existing
+        redirect_to params[:redirect] || { action: :index }
       end
     end
 

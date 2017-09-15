@@ -1,7 +1,8 @@
 - main_toolbar do |t|
   = t.export :purchases_invoice
-  = t.edit resource if resource.draft?
-  - if current_user.can?(:write, :parcels) && resource.can_generate_parcel?
+  = t.edit resource if resource.updateable?
+  = t.new label: :duplicate.tl, params: { duplicate_of: resource.id, redirect: nil }
+  - if current_user.can?(:write, :incoming_deliveries) && resource.can_generate_parcel?
     = t.new(resource, params: { controller: :parcels, purchase_id: resource.id, nature: :incoming }, label: :generate_parcel.tl)
   = t.destroy
 
@@ -40,7 +41,7 @@
 
   - if resource.affair
     - c.cobble :affair do
-      = affair_of(resource, default: 'OutgoingPayment')
+      = affair_of(resource, default: 'PurchasePayment')
 
   - if resource.parcels.any?
     - c.cobble :parcels, title: Purchase.human_attribute_name(:parcels) do

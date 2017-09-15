@@ -1,4 +1,5 @@
 # coding: utf-8
+
 # == License
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2015 Brice Texier
@@ -21,7 +22,7 @@ module Backend
   module KujakuHelper
     # Kujaku 孔雀
     # Search bar
-    def kujaku(*args, &_block)
+    def kujaku(*args)
       options = args.extract_options!
       url = options[:url] || {}
       name = args.shift || ("#{controller_path}-#{action_name}-" + caller.first.split(/\:/).second).parameterize
@@ -92,6 +93,25 @@ module Backend
           html << ' '.html_safe
           html << @template.text_field_tag(@name, @template.params[@name])
           html
+        end
+      end
+
+      class NumberFeather < Feather
+        def configure(*_args)
+          @name = @options.delete(:name) || :n
+        end
+
+        def to_html
+          p = @template.current_user.pref("kujaku.feathers.#{@uid}.default", @template.params[@name])
+          @template.params[@name] ||= p.value
+          p.set!(@template.params[@name])
+          html = @template.content_tag(:label, @options[:label] || :minimum_amount.tl)
+          html << ' '.html_safe
+          html << @template.number_field_tag('minimum_amount', @template.params[:minimum_amount], min: 0, step: :any)
+          html << ' '.html_safe
+          html << @template.content_tag(:label, @options[:label] || :maximum_amount.tl)
+          html << ' '.html_safe
+          html << @template.number_field_tag('maximum_amount', @template.params[:maximum_amount], min: 0, step: :any)
         end
       end
 
@@ -185,8 +205,9 @@ module Backend
       end
 
       # Custom search field based on rendering helper method
-      class HelperFeather < ChoiceFeather
+      class HelperFeather < Feather
         def configure(*args)
+          args << @options
           if @block
           elsif @name = args.shift
             @args = args

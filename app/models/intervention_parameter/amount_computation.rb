@@ -2,8 +2,8 @@ class InterventionParameter < Ekylibre::Record::Base
   # Amount computation represents how a amount is computed for a cost or an earn
   # in an intervention
   class AmountComputation
-    NATURES = [:failed, :none, :quantity].freeze
-    ORIGINS = [:catalog, :purchase, :sale].freeze
+    NATURES = %i[failed none quantity].freeze
+    ORIGINS = %i[catalog purchase sale].freeze
 
     class << self
       def failed
@@ -38,7 +38,7 @@ class InterventionParameter < Ekylibre::Record::Base
       check_option_presence!(:sale_item) if sale?
     end
 
-    [:quantity, :unit_name, :catalog_usage, :catalog_item, :purchase_item, :sale_item].each do |nature|
+    %i[quantity unit_name catalog_usage catalog_item purchase_item sale_item].each do |nature|
       define_method nature do
         @options[nature]
       end

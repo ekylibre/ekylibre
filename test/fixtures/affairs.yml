@@ -39,7 +39,7 @@
 #  letter                 :string
 #  lock_version           :integer          default(0), not null
 #  name                   :string
-#  number                 :string           not null
+#  number                 :string
 #  origin                 :string
 #  pretax_amount          :decimal(19, 4)   default(0.0)
 #  probability_percentage :decimal(19, 4)   default(0.0)
@@ -51,16 +51,72 @@
 #  updater_id             :integer
 #
 ---
+payslip_affairs_001:
+  closed: true
+  closed_at: 2017-06-07 16:14:55.172263000 Z
+  created_at: 2017-06-07 16:14:23.019282000 Z
+  creator_id: 1
+  credit: 1234.0
+  currency: EUR
+  deals_count: 2
+  debit: 1234.0
+  id: 55
+  letter: A
+  lock_version: 2
+  number: A000000000048
+  pretax_amount: 0.0
+  probability_percentage: 0.0
+  third_id: 9
+  type: PayslipAffair
+  updated_at: 2017-06-07 16:14:55.198719000 Z
+  updater_id: 1
+payslip_affairs_002:
+  closed: true
+  closed_at: 2017-06-07 16:15:58.292323000 Z
+  created_at: 2017-06-07 16:15:26.790498000 Z
+  creator_id: 1
+  credit: 1200.0
+  currency: EUR
+  deals_count: 2
+  debit: 1200.0
+  id: 56
+  letter: A
+  lock_version: 2
+  number: A000000000049
+  pretax_amount: 0.0
+  probability_percentage: 0.0
+  third_id: 10
+  type: PayslipAffair
+  updated_at: 2017-06-07 16:15:58.322559000 Z
+  updater_id: 1
+payslip_affairs_003:
+  closed: true
+  closed_at: 2017-06-07 16:21:12.008206000 Z
+  created_at: 2017-06-07 16:21:12.025902000 Z
+  creator_id: 1
+  credit: 0.0
+  currency: EUR
+  deals_count: 1
+  debit: 0.0
+  id: 57
+  lock_version: 0
+  number: A000000000050
+  pretax_amount: 0.0
+  probability_percentage: 0.0
+  third_id: 12
+  type: PayslipAffair
+  updated_at: 2017-06-07 16:21:12.025902000 Z
+  updater_id: 1
 purchase_affairs_001:
   accounted_at: 2014-11-05 13:40:57.922047000 Z
   closed: true
   closed_at: 2014-11-05 13:40:57.905739000 Z
   created_at: 2014-11-05 10:44:42.282299000 Z
   creator_id: 1
-  credit: 176.16
+  credit: 0.0
   currency: EUR
   deals_count: 2
-  debit: 1971.6
+  debit: 0.0
   id: 15
   lock_version: 2
   number: A000000000009
@@ -100,6 +156,7 @@ purchase_affairs_003:
   deals_count: 1
   debit: 116.0
   id: 23
+  letter: A
   lock_version: 1
   number: A000000000017
   pretax_amount: 0.0
@@ -119,6 +176,7 @@ purchase_affairs_004:
   deals_count: 1
   debit: 156.0
   id: 25
+  letter: B
   lock_version: 0
   number: A000000000019
   pretax_amount: 0.0
@@ -137,8 +195,9 @@ purchase_affairs_005:
   credit: 1848.0
   currency: EUR
   deals_count: 2
-  debit: 1848.0
+  debit: 0.0
   id: 26
+  letter: A
   lock_version: 6
   number: A000000000020
   pretax_amount: 0.0
@@ -156,8 +215,9 @@ purchase_affairs_006:
   credit: 20520.0
   currency: EUR
   deals_count: 3
-  debit: 29520.0
+  debit: 20520.0
   id: 30
+  letter: B
   lock_version: 5
   number: A000000000022
   pretax_amount: 0.0
@@ -177,6 +237,7 @@ purchase_affairs_007:
   deals_count: 1
   debit: 0.0
   id: 31
+  letter: C
   lock_version: 0
   number: A000000000024
   pretax_amount: 0.0
@@ -196,6 +257,7 @@ purchase_affairs_008:
   deals_count: 1
   debit: 0.0
   id: 42
+  letter: A
   lock_version: 0
   number: A000000000035
   pretax_amount: 0.0
@@ -230,11 +292,12 @@ purchase_affairs_010:
   closed_at: 2016-11-20 22:15:36.392007000 Z
   created_at: 2016-11-20 22:15:20.572284000 Z
   creator_id: 1
-  credit: 1200.0
+  credit: 2400.0
   currency: EUR
   deals_count: 2
-  debit: 1200.0
+  debit: 0.0
   id: 51
+  letter: B
   lock_version: 1
   number: A000000000044
   pretax_amount: 0.0
@@ -327,8 +390,9 @@ sale_affairs_003:
   credit: 1164.0
   currency: EUR
   deals_count: 2
-  debit: 1164.0
+  debit: 0.0
   id: 10
+  letter: A
   lock_version: 5
   number: A000000000004
   pretax_amount: 0.0
@@ -343,11 +407,12 @@ sale_affairs_004:
   closed: false
   created_at: 2014-11-05 10:01:39.917982000 Z
   creator_id: 1
-  credit: 300.0
+  credit: 0.0
   currency: EUR
   deals_count: 2
-  debit: 792.0
+  debit: 0.0
   id: 12
+  letter: A
   lock_version: 1
   number: A000000000006
   pretax_amount: 0.0
@@ -363,11 +428,12 @@ sale_affairs_005:
   closed_at: 2014-11-05 13:35:14.611051000 Z
   created_at: 2014-11-05 10:03:06.014961000 Z
   creator_id: 1
-  credit: 11.23
+  credit: 0.0
   currency: EUR
   deals_count: 2
   debit: 11.23
   id: 14
+  letter: C
   lock_version: 3
   number: A000000000008
   pretax_amount: 0.0
@@ -383,10 +449,10 @@ sale_affairs_006:
   closed_at: 2014-11-05 13:36:51.536711000 Z
   created_at: 2014-11-05 13:36:09.026401000 Z
   creator_id: 1
-  credit: 1870.0
+  credit: 0.0
   currency: EUR
   deals_count: 3
-  debit: 1781.0
+  debit: 0.8
   id: 17
   lock_version: 4
   number: A000000000011
@@ -406,6 +472,7 @@ sale_affairs_007:
   deals_count: 1
   debit: 0.0
   id: 20
+  letter: A
   lock_version: 1
   number: A000000000014
   pretax_amount: 0.0
@@ -423,6 +490,7 @@ sale_affairs_008:
   deals_count: 1
   debit: 0.0
   id: 21
+  letter: B
   lock_version: 1
   number: A000000000015
   pretax_amount: 0.0
@@ -435,11 +503,12 @@ sale_affairs_009:
   accounted_at: 2014-11-05 14:07:42.859080000 Z
   closed: false
   created_at: 2014-11-05 14:06:11.319314000 Z
-  credit: 448.98
+  credit: 0.0
   currency: EUR
   deals_count: 1
   debit: 0.0
   id: 22
+  letter: A
   lock_version: 1
   number: A000000000016
   pretax_amount: 0.0
@@ -457,6 +526,7 @@ sale_affairs_010:
   deals_count: 1
   debit: 0.0
   id: 24
+  letter: B
   lock_version: 1
   number: A000000000018
   pretax_amount: 0.0
@@ -473,8 +543,9 @@ sale_affairs_011:
   credit: 0.0
   currency: EUR
   deals_count: 1
-  debit: 319.6
+  debit: 0.0
   id: 36
+  letter: D
   lock_version: 0
   number: A000000000029
   pretax_amount: 0.0
@@ -489,11 +560,12 @@ sale_affairs_012:
   closed_at: 2015-05-30 20:00:46.791503000 Z
   created_at: 2015-05-30 20:00:27.978022000 Z
   creator_id: 1
-  credit: 500.0
+  credit: 0.0
   currency: EUR
   deals_count: 2
-  debit: 500.0
+  debit: 0.0
   id: 37
+  letter: A
   lock_version: 2
   number: A000000000030
   pretax_amount: 0.0
@@ -510,8 +582,9 @@ sale_affairs_013:
   credit: 0.0
   currency: EUR
   deals_count: 1
-  debit: 54000.0
+  debit: 0.0
   id: 38
+  letter: B
   lock_version: 0
   number: A000000000031
   pretax_amount: 0.0
@@ -530,6 +603,7 @@ sale_affairs_014:
   deals_count: 2
   debit: 12.0
   id: 39
+  letter: B
   lock_version: 1
   number: A000000000032
   pretax_amount: 0.0
@@ -546,8 +620,9 @@ sale_affairs_015:
   credit: 0.0
   currency: EUR
   deals_count: 1
-  debit: 71.47
+  debit: 0.0
   id: 40
+  letter: D
   lock_version: 1
   number: A000000000033
   pretax_amount: 0.0
@@ -564,8 +639,9 @@ sale_affairs_016:
   credit: 0.0
   currency: EUR
   deals_count: 1
-  debit: 148.8
+  debit: 0.0
   id: 41
+  letter: A
   lock_version: 0
   number: A000000000034
   pretax_amount: 0.0
@@ -731,8 +807,9 @@ sale_tickets_001:
   credit: 0.0
   currency: EUR
   deals_count: 1
-  debit: 24.0
+  debit: 0.0
   id: 34
+  letter: B
   lock_version: 0
   number: A000000000027
   pretax_amount: 0.0
@@ -749,8 +826,9 @@ sale_tickets_002:
   credit: 0.0
   currency: EUR
   deals_count: 1
-  debit: 187.2
+  debit: 0.0
   id: 35
+  letter: C
   lock_version: 0
   number: A000000000028
   pretax_amount: 0.0

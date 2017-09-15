@@ -19,7 +19,7 @@
 module Backend
   class SettlementsController < Backend::MattersController
     def self.list_conditions
-      code = search_conditions(products: [:name, :work_number, :number, :description, :uuid], product_nature_variants: [:name]) + " ||= []\n"
+      code = search_conditions(products: %i[name work_number number description uuid], product_nature_variants: [:name]) + " ||= []\n"
       code.c
     end
     #

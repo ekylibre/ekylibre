@@ -47,7 +47,7 @@ class TaxDeclaration < Ekylibre::Record::Base
   include Attachable
   attr_readonly :currency
   refers_to :currency
-  enumerize :mode, in: [:debit, :payment], predicates: true
+  enumerize :mode, in: %i[debit payment], predicates: true
   belongs_to :financial_year
   belongs_to :journal_entry, dependent: :destroy
   belongs_to :responsible, class_name: 'User'
@@ -73,8 +73,14 @@ class TaxDeclaration < Ekylibre::Record::Base
            :tax_declaration_mode_payment?, :tax_declaration_mode_debit?,
            to: :financial_year
 
+  protect on: :update do
+    old = old_record
+    (old && old.sent?) || (old.validated? && draft?)
+  end
+
   protect on: :destroy do
-    (validated? || sent?)
+    old = old_record
+    old.sent?
   end
 
   state_machine :state, initial: :draft do
@@ -95,11 +101,13 @@ class TaxDeclaration < Ekylibre::Record::Base
       self.mode = financial_year.tax_declaration_mode
       self.currency = financial_year.currency
       # if tax_declarations exists for current financial_year, then get the last to compute started_on
-      self.started_on = financial_year.next_tax_declaration_on
+      self.started_on ||= financial_year.next_tax_declaration_on
+      # raise self.started_on.inspect
       # anyway, stopped_on is started_on + tax_declaration_frequency_duration
-    end
-    if started_on
-      self.stopped_on ||= financial_year.tax_declaration_end_date(started_on)
+      if started_on
+        self.stopped_on ||= financial_year.tax_declaration_stopped_on(started_on)
+        self.stopped_on = financial_year.stopped_on if self.stopped_on > financial_year.stopped_on
+      end
     end
     self.invoiced_on ||= self.stopped_on
   end
@@ -108,7 +116,28 @@ class TaxDeclaration < Ekylibre::Record::Base
     self.created_at ||= Time.zone.now
   end
 
-  after_save :compute!, if: :draft?
+  validate do
+    if self.started_on && stopped_on
+      if stopped_on <= self.started_on
+        errors.add(:stopped_on, :posterior, to: self.started_on.l)
+      end
+      if others.any?
+        errors.add(:started_on, :overlap) if others.where('? BETWEEN started_on AND stopped_on', started_on).any?
+        errors.add(:stopped_on, :overlap) if others.where('? BETWEEN started_on AND stopped_on', stopped_on).any?
+      end
+    end
+  end
+
+  after_create :compute!, if: :draft?
+
+  def destroy
+    ActiveRecord::Base.transaction do
+      ActiveRecord::Base.connection.execute("DELETE FROM tax_declaration_item_parts tdip USING tax_declaration_items tdi WHERE tdip.tax_declaration_item_id = tdi.id AND tdi.tax_declaration_id = #{id}")
+      ActiveRecord::Base.connection.execute("DELETE FROM tax_declaration_items WHERE tax_declaration_id = #{id}")
+      items.reload
+      super
+    end
+  end
 
   def has_content?
     items.any?
@@ -155,7 +184,22 @@ class TaxDeclaration < Ekylibre::Record::Base
 
   # FIXME: Too french
   def undeclared_tax_journal_entry_items
-    JournalEntryItem.includes(:entry, account: [:collected_taxes, :paid_taxes]).order('journal_entries.printed_on, accounts.number').where(printed_on: started_on..stopped_on, tax_declaration_item: nil).where('accounts.number LIKE ?', '445%')
+    JournalEntryItem
+      .includes(:entry, account: %i[collected_taxes paid_taxes])
+      .order('journal_entries.printed_on, accounts.number')
+      .where(printed_on: financial_year.started_on..stopped_on)
+      .where.not(id: TaxDeclarationItemPart.select('journal_entry_item_id'))
+      .where.not(resource_type: 'TaxDeclarationItem')
+      .where('accounts.number LIKE ?', '445%')
+  end
+
+  def out_of_range_tax_journal_entry_items
+    journal_entry_item_ids = TaxDeclarationItemPart.select('journal_entry_item_id').where(tax_declaration_item_id: items.select('id'))
+    JournalEntryItem
+      .includes(:entry)
+      .order('journal_entries.printed_on')
+      .where('journal_entry_items.printed_on < ?', started_on)
+      .where(id: journal_entry_item_ids)
   end
 
   # FIXME: Too french
@@ -182,12 +226,39 @@ class TaxDeclaration < Ekylibre::Record::Base
 
   # Compute tax declaration with its items
   def compute!
+    set_entry_items_tax_modes
+
     taxes = Tax.order(:name)
     # Removes unwanted tax declaration item
     items.where.not(tax: taxes).find_each(&:destroy)
     # Create or update other items
     taxes.find_each do |tax|
       items.find_or_initialize_by(tax: tax).compute!
+    end
+  end
+
+  private
+
+  def set_entry_items_tax_modes
+    all = JournalEntryItem
+          .where.not(tax_id: nil)
+          .where('printed_on <= ?', stopped_on)
+          .where(tax_declaration_mode: nil)
+    set_non_purchase_entry_items_tax_modes all.where.not(resource_type: 'PurchaseItem')
+    set_purchase_entry_items_tax_modes all.where(resource_type: 'PurchaseItem')
+  end
+
+  def set_non_purchase_entry_items_tax_modes(entry_items)
+    entry_items.update_all tax_declaration_mode: financial_year.tax_declaration_mode
+  end
+
+  def set_purchase_entry_items_tax_modes(entry_items)
+    { 'at_invoicing' => 'debit', 'at_paying' => 'payment' }.each do |tax_payability, declaration_mode|
+      entry_items
+        .joins('INNER JOIN purchase_items pi ON pi.id = journal_entry_items.resource_id')
+        .joins('INNER JOIN purchases p ON p.id = pi.purchase_id')
+        .where('p.tax_payability' => tax_payability)
+        .update_all tax_declaration_mode: declaration_mode
     end
   end
 end

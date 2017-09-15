@@ -83,7 +83,7 @@ Rails.application.configure do
   config.middleware.use ExceptionNotification::Rack, email: {
     email_prefix: ENV['EXCEPTION_NOTIFICATION_PREFIX'] || '[Exception] ',
     sender_address: ENV['EXCEPTION_NOTIFICATION_SENDER'] || %("Ekylibre" <notifications@ekylibre.org>),
-    exception_recipients: ENV['EXCEPTION_NOTIFICATION_RECIPIENT'] || %w(dev@ekylibre.org)
+    exception_recipients: ENV['EXCEPTION_NOTIFICATION_RECIPIENT'] || %w[dev@ekylibre.org]
   }
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to

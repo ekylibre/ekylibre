@@ -122,7 +122,7 @@ class Sale < Ekylibre::Record::Base
 
   scope :with_nature, ->(id) { where(nature_id: id) }
 
-  scope :unpaid, -> { where(state: %w(order invoice)).where.not(affair: Affair.closeds) }
+  scope :unpaid, -> { where(state: %w[order invoice]).where.not(affair: Affair.closeds) }
 
   state_machine :state, initial: :draft do
     state :draft
@@ -148,7 +148,7 @@ class Sale < Ekylibre::Record::Base
       transition estimate: :order, if: :has_content?
     end
     event :invoice do
-      transition [:draft, :estimate, :order] => :invoice, if: :has_content?
+      transition %i[draft estimate order] => :invoice, if: :has_content?
     end
     event :abort do
       transition draft: :aborted
@@ -188,7 +188,7 @@ class Sale < Ekylibre::Record::Base
     if invoiced_at
       errors.add(:invoiced_at, :before, restriction: Time.zone.now.l) if invoiced_at > Time.zone.now
     end
-    [:address, :delivery_address, :invoice_address].each do |mail_address|
+    %i[address delivery_address invoice_address].each do |mail_address|
       next unless send(mail_address)
       unless send(mail_address).mail?
         errors.add(mail_address, :must_be_a_mail_address)
@@ -209,8 +209,12 @@ class Sale < Ekylibre::Record::Base
     true
   end
 
+  protect on: :update do
+    old_record.invoice?
+  end
+
   protect on: :destroy do
-    invoice? || order? || !parcels.all?(&:destroyable?) || !subscriptions.all?(&:destroyable?)
+    old_record.invoice? || old_record.order? || !parcels.all?(&:destroyable?) || !subscriptions.all?(&:destroyable?)
   end
 
   # This callback bookkeeps the sale depending on its state
@@ -219,34 +223,31 @@ class Sale < Ekylibre::Record::Base
       label = tc(:bookkeep, resource: state_label, number: number, client: client.full_name, products: (description.blank? ? items.pluck(:label).to_sentence : description), sale: initial_number)
       entry.add_debit(label, client.account(:client).id, amount, as: :client)
       items.each do |item|
-        entry.add_credit(label, (item.account || item.variant.product_account).id, item.pretax_amount, activity_budget: item.activity_budget, team: item.team, as: :item_product, resource: item)
+        entry.add_credit(label, (item.account || item.variant.product_account).id, item.pretax_amount, activity_budget: item.activity_budget, team: item.team, as: :item_product, resource: item, variant: item.variant)
         tax = item.tax
-        entry.add_credit(label, tax.collect_account_id, item.taxes_amount, tax: tax, pretax_amount: item.pretax_amount, as: :item_tax, resource: item)
+        entry.add_credit(label, tax.collect_account_id, item.taxes_amount, tax: tax, pretax_amount: item.pretax_amount, as: :item_tax, resource: item, variant: item.variant)
       end
     end
 
     # For undelivered invoice
     # exchange undelivered invoice from parcel
     journal = unsuppress { Journal.used_for_unbilled_payables!(currency: self.currency) }
-    list = []
-    if with_accounting && invoice?
+    b.journal_entry(journal, printed_on: invoiced_on, as: :undelivered_invoice, if: (with_accounting && invoice?)) do |entry|
       parcels.each do |parcel|
         next unless parcel.undelivered_invoice_journal_entry
         label = tc(:exchange_undelivered_invoice, resource: parcel.class.model_name.human, number: parcel.number, entity: supplier.full_name, mode: parcel.nature.tl)
         undelivered_items = parcel.undelivered_invoice_journal_entry.items
         undelivered_items.each do |undelivered_item|
           next unless undelivered_item.real_balance.nonzero?
-          list << [:add_credit, label, undelivered_item.account.id, undelivered_item.real_balance, resource: undelivered_item, as: :item_product]
+          entry.add_credit(label, undelivered_item.account.id, undelivered_item.real_balance, resource: undelivered_item, as: :item_product, variant: undelivered_item.variant)
         end
       end
     end
-    b.journal_entry(journal, printed_on: invoiced_on, as: :undelivered_invoice, list: list)
 
     # For gap between parcel item quantity and sale item quantity
     # if more quantity on sale than parcel then i have value in C of stock account
     journal = unsuppress { Journal.used_for_permanent_stock_inventory!(currency: self.currency) }
-    list = []
-    if with_accounting && invoice? && items.any?
+    b.journal_entry(journal, printed_on: invoiced_on, as: :quantity_gap_on_invoice, if: (with_accounting && invoice? && items.any?)) do |entry|
       label = tc(:quantity_gap_on_invoice, resource: self.class.model_name.human, number: number, entity: client.full_name)
       items.each do |item|
         next unless item.variant && item.variant.storable?
@@ -256,11 +257,10 @@ class Sale < Ekylibre::Record::Base
         quantity = item.parcel_items.first.unit_pretax_stock_amount
         gap_value = gap * quantity
         next if gap_value.zero?
-        list << [:add_credit, label, item.variant.stock_account_id, gap_value, resource: item, as: :stock]
-        list << [:add_debit, label, item.variant.stock_movement_account_id, gap_value, resource: item, as: :stock_movement]
+        entry.add_credit(label, item.variant.stock_account_id, gap_value, resource: item, as: :stock, variant: item.variant)
+        entry.add_debit(label, item.variant.stock_movement_account_id, gap_value, resource: item, as: :stock_movement, variant: item.variant)
       end
     end
-    b.journal_entry(journal, printed_on: invoiced_on, as: :quantity_gap_on_invoice, list: list)
   end
 
   def invoiced_on
@@ -343,10 +343,9 @@ class Sale < Ekylibre::Record::Base
     items.any? && delivery_address && (order? || invoice?)
   end
 
-  # Remove all bad dependencies and return at draft state with no parcels
+  # Return at draft state
   def correct
     return false unless can_correct?
-    parcels.clear
     super
   end
 
@@ -370,7 +369,7 @@ class Sale < Ekylibre::Record::Base
       if sequence = Sequence.of(:sales_invoices)
         loop do
           self.number = sequence.next_value!
-          break unless self.class.find_by(number: number, state: 'invoice')
+          break unless self.class.find_by(number: number)
         end
       end
       save!
@@ -388,18 +387,18 @@ class Sale < Ekylibre::Record::Base
   # subscriptions
   def duplicate(attributes = {})
     raise StandardError, 'Uncancelable sale' unless duplicatable?
-    hash = [
-      :client_id, :nature_id, :letter_format, :annotation, :subject,
-      :function_title, :introduction, :conclusion, :description
+    hash = %i[
+      client_id nature_id letter_format annotation subject
+      function_title introduction conclusion description
     ].each_with_object({}) do |field, h|
       h[field] = send(field)
     end
     # Items
     items_attributes = {}
     items.order(:position).each_with_index do |item, index|
-      attrs = [
-        :variant_id, :quantity, :amount, :label, :pretax_amount, :annotation,
-        :reduction_percentage, :tax_id, :unit_amount, :unit_pretax_amount
+      attrs = %i[
+        variant_id quantity amount label pretax_amount annotation
+        reduction_percentage tax_id unit_amount unit_pretax_amount
       ].each_with_object({}) do |field, h|
         h[field] = item.send(field)
       end
@@ -449,10 +448,6 @@ class Sale < Ekylibre::Record::Base
     amount - pretax_amount
   end
 
-  def usable_payments
-    client.incoming_payments.where('COALESCE(used_amount, 0)<COALESCE(amount, 0)').joins(mode: :cash).where(currency: self.currency).order('to_bank_at')
-  end
-
   def sales_mentions
     # get preference for sales conditions
     preference_sales_conditions = Preference.global.find_by(name: :sales_conditions)
@@ -478,11 +473,7 @@ class Sale < Ekylibre::Record::Base
   end
 
   def products
-    p = []
-    for item in items
-      p << item.product.name
-    end
-    ps = p.join(', ')
+    items.map { |item| item.product.name }.join(', ')
   end
 
   # Returns true if sale is cancellable as an invoice
@@ -490,10 +481,16 @@ class Sale < Ekylibre::Record::Base
     !credit? && invoice? && amount + credits.sum(:amount) > 0
   end
 
+  def cancel!
+    s = build_credit
+    s.save!
+    s.invoice!
+  end
+
   # Build a new sale with new items ready for correction and save
   def build_credit
-    attrs = [:affair, :client, :address, :responsible, :nature,
-             :currency, :invoice_address, :transporter].each_with_object({}) do |attribute, hash|
+    attrs = %i[affair client address responsible nature
+               currency invoice_address transporter].each_with_object({}) do |attribute, hash|
       hash[attribute] = send(attribute) unless send(attribute).nil?
       hash
     end
@@ -503,12 +500,12 @@ class Sale < Ekylibre::Record::Base
     sale_credit = Sale.new(attrs)
     x = []
     items.each do |item|
-      attrs = [:account, :currency, :variant, :reduction_percentage, :tax,
-               :compute_from, :unit_pretax_amount, :unit_amount].each_with_object({}) do |attribute, hash|
+      attrs = %i[account currency variant reduction_percentage tax
+                 compute_from unit_pretax_amount unit_amount].each_with_object({}) do |attribute, hash|
         hash[attribute] = item.send(attribute) unless item.send(attribute).nil?
         hash
       end
-      [:pretax_amount, :amount].each do |v|
+      %i[pretax_amount amount].each do |v|
         attrs[v] = -1 * item.send(v)
       end
       attrs[:credited_quantity] = item.creditable_quantity

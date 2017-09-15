@@ -18,6 +18,8 @@
 
 module Backend
   class LoanRepaymentsController < Backend::BaseController
+    manage_restfully except: %i[create show destroy], t3e: { loan_name: :name }
+
     def index
       redirect_to backend_loans_path
     end

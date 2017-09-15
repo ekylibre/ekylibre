@@ -10,7 +10,7 @@ cmn:
     ekylibre_activities: "Ekylibre活动"
     ekylibre_animal_groups: "Ekylibre动物群"
     ekylibre_animals: "Ekylibre动物"
-    ekylibre_backup: "Ekylibre备份"
+    ekylibre_backup: "Ekylibre备份" #?
     ekylibre_bank_statements: "Ekylibre银行对账单"
     ekylibre_budgets: "Ekylibre预算"
     ekylibre_buildings_json: "Ekylibre建筑JSON"
@@ -36,6 +36,7 @@ cmn:
     ekylibre_zones: "Ekylibre区"
     # fiea_galactea: "FIEA galactea"
     isagri_isacompta_export: "Isagri isacompta出口"
+    isagri_isacompta_fixed_assets: "Isagri isacompta固定资产"
     isagri_isaculture_csv_import: "Isagri isaculture CSV导入"
     la_graine_informatique_vinifera_entities: "拉偏头痛INFORMATIQUE葡萄实体"
     la_graine_informatique_vinifera_products: "拉偏头痛INFORMATIQUE葡萄产品"

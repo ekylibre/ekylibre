@@ -26,7 +26,7 @@ module Backend
     #   :variant_id
     def self.list_conditions
       code = ''
-      code = search_conditions(products: [:name, :work_number, :number, :description, :uuid], product_nature_variants: [:name]) + " ||= []\n"
+      code = search_conditions(products: %i[name work_number number description uuid], product_nature_variants: [:name]) + " ||= []\n"
       code << "unless (params[:period].blank? or params[:period].is_a? Symbol)\n"
       code << "  if params[:period] != 'all'\n"
       code << "    interval = params[:period].split('_')\n"
@@ -66,7 +66,7 @@ module Backend
       t.column :work_number, url: true
       t.column :name, url: true
       t.column :born_at
-      t.column :sex
+      t.column :sex, label_method: :sex_text, label: :sex
       t.status
       t.column :net_mass, datatype: :measure
       t.column :container, url: true
@@ -155,14 +155,14 @@ module Backend
       @entity_of_company_full_name = Entity.of_company.full_name
       @entity_of_company_id = Entity.of_company.id
 
-      respond_with @animals, methods: [:picture_path, :sex_text, :variety_text], include: [:initial_father, :initial_mother, :nature, :variant]
+      respond_with @animals, methods: %i[picture_path sex_text variety_text], include: %i[initial_father initial_mother nature variant]
     end
 
     # Children list
-    list(:children, model: :product_links, conditions: { linked_id: 'params[:id]'.c, nature: %w(father mother) }, order: { started_at: :desc }) do |t|
+    list(:children, model: :product_links, conditions: { linked_id: 'params[:id]'.c, nature: %w[father mother] }, order: { started_at: :desc }) do |t|
       t.column :name, through: :product, url: true
       t.column :born_at, through: :product, datatype: :datetime
-      t.column :sex, through: :product
+      t.column :sex, through: :product, label_method: :sex_text, label: :sex
     end
 
     # Show one animal with params_id
@@ -172,24 +172,44 @@ module Backend
       params.delete('dialog')
 
       t3e @animal, nature: @animal.nature_name
-      respond_with(@animal, methods: [:picture_path, :sex_text, :variety_text], include: [:father, :mother, :variant, :nature, :variety,
-                                                                                          { readings: {} },
-                                                                                          { intervention_parameters: { include: :intervention } },
-                                                                                          { memberships: { include: :group } },
-                                                                                          { localizations: { include: :container } }])
+      respond_with(@animal, methods: %i[picture_path sex_text variety_text], include: [:father, :mother, :variant, :nature, :variety,
+                                                                                       { readings: {} },
+                                                                                       { intervention_product_parameters: { include: :intervention } },
+                                                                                       { memberships: { include: :group } },
+                                                                                       { localizations: { include: :container } }])
+    end
+
+    def keep
+      return head :unprocessable_entity unless params[:id].nil? || (params[:id] && find_all)
+
+      begin
+        current_user.prefer! 'products_for_intervention', params[:id], :string
+      end
+
+      render json: { id: 'products_for_intervention' }
+    end
+
+    def matching_interventions
+      return head :unprocessable_entity unless params[:id].nil? || (params[:id] && find_all)
+      varieties = Animal.where(id: @ids).pluck(:variety).uniq if @ids
+
+      respond_to do |format|
+        format.js { render partial: 'matching_interventions', locals: { varieties: varieties } }
+      end
     end
 
     def add_to_group
       return unless find_all
-      if request.post?
-        group = AnimalGroup.find(params[:group_id])
-        activity_production = ActivityProduction.find(params[:activity_production_id])
-        # TODO: fix intervention
-        group.add_animals(@ids, at: params[:started_at], activity_production: activity_production)
-        redirect_to params[:redirect] || backend_animal_group_path(group)
-      else
-        params[:started_at] ||= Time.zone.now
+      targets = @ids.collect do |id|
+        { product_id: id, reference_name: :animal }
       end
+      parameters = {
+        procedure_name: :animal_group_changing,
+        intervention: {
+          targets_attributes: targets
+        }
+      }
+      redirect_to new_backend_intervention_path(parameters)
     end
 
     def add_to_variant

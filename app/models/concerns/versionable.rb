@@ -9,7 +9,7 @@ module Versionable
     before_destroy :add_destruction_version
 
     class_attribute :versioning_excluded_attributes
-    self.versioning_excluded_attributes = [:updated_at, :updater_id, :lock_version]
+    self.versioning_excluded_attributes = %i[updated_at updater_id lock_version]
   end
 
   def add_creation_version

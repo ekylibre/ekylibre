@@ -4,13 +4,13 @@ module Ekylibre
       class Interventions < Base
         def run
           # interventions for all poaceae
-          autumn_sowables = [:poa, :hordeum_hibernum, :secale, :triticosecale, :triticum, :brassica_napus, :pisum_hibernum].collect do |n|
+          autumn_sowables = %i[poa hordeum_hibernum secale triticosecale triticum brassica_napus pisum_hibernum].collect do |n|
             Nomen::Variety[n]
           end
 
-          spring_sowables = [:hordeum_vernum, :pisum_vernum, :helianthus].collect do |n|
-            Nomen::Variety[n]
-          end
+          # spring_sowables = %i[hordeum_vernum pisum_vernum helianthus].collect do |n|
+          #   Nomen::Variety[n]
+          # end
 
           later_spring_sowables = [:zea].collect do |n|
             Nomen::Variety[n]

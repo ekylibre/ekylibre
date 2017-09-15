@@ -13,11 +13,37 @@
       @_findAndCustomizeButton()
 
     _initializeDatePicker: ->
+      minDate = $(this.dateInput).attr('data-min-date')
+      maxDate = $(this.dateInput).attr('data-max-date')
+      bankStatementDatesRanges = $(this.dateInput).attr('data-bank-statement-dates-ranges')
+
+      bankStatementDates = null
+      if bankStatementDatesRanges
+        bankStatementDates = JSON.parse("[" + bankStatementDatesRanges + "]")
+
       @dateInput.datepicker
         showOn: "button"
         buttonText: @dateInput.data("label")
         onSelect: @onSelect
         dateFormat: "yy-mm-dd"
+        minDate: minDate
+        maxDate: maxDate
+        beforeShowDay: (date) ->
+          if bankStatementDates
+            enableDateCase = false
+            bankStatementDates[0].some (item, index) ->
+              startDate = new Date(item.start)
+              startDate.setHours(0, 0, 0)
+
+              endDate = new Date(item.end)
+              endDate.setHours(0, 0, 0)
+
+              if date >= startDate && date <= endDate
+                enableDateCase = true
+                return true
+
+            return [enableDateCase, 'disabled']
+
       @dateInput.attr "autocomplete", "off"
 
     _findAndCustomizeButton: ->
@@ -41,9 +67,6 @@
     position_space = new RegExp(".*scroll_to=(\\d+).*")
     position = position_space.exec location.search
     if position
-      $("#hide-lettered").attr('checked', false)
-      $("#hide-lettered").change()
-
       scrollTo = $("[data-type=bank_statement_item][data-id=#{position[1]}]").parents('.date-section')[0]
       $('.list').scrollTop(scrollTo.offsetTop - $('.list')[0].offsetTop)
 
@@ -64,8 +87,9 @@
     return if $(event.target).is("input,a")
     bankReconciliation.deselectLine $(@)
 
-  $(document).on "click", ".reconciliation-item a#clear", ->
+  $(document).on "click", ".reconciliation-item a#clear", (event) ->
     # Clear reconciliation letter
+    event.stopPropagation();
     button = $(@)
     line = bankReconciliation.closestLine(button)
     bankReconciliation.clearReconciliationLetterFromLine line
@@ -78,9 +102,9 @@
     bankReconciliation.completeJournalEntryItems line
     return false
 
-  $(document).on "click", "#reset_reconciliation", ->
-    # Reset reconciliation
-    bankReconciliation.clearAllReconciliationLetters()
+  $(document).on "confirm:complete", "#reset_reconciliation", (e, response) ->
+    if response
+      bankReconciliation.clearAllReconciliationLetters()
 
   $(document).on "click", "#auto_reconciliation", ->
     # Automatic reconciliation
@@ -368,11 +392,12 @@
       bankLines = lines.filter(":not(.lettered)[data-type=bank_statement_item]")
       bankIds = bankLines.get().map (line) =>
         @_idForLine line
-      url = window.location.pathname.split('/').slice(0, -1).join('/') + '/letter'
+      url = '/backend/bank-reconciliation/letters'
       $.ajax url,
-        type: 'PATCH'
+        type: 'POST'
         dataType: 'JSON'
         data:
+          cash_id: $('#cash_id').val()
           journal_entry_items: journalIds
           bank_statement_items: bankIds
         success: (response) =>
@@ -388,12 +413,11 @@
           return false
 
     _unletterItems: (letter) ->
-      url = window.location.pathname.split('/').slice(0, -1).join('/') + '/unletter'
+      # url = '/backend/bank-reconciliation/letters/' + letter
+      url = $(event.target).closest('#clear').attr('href')
       $.ajax url,
-        type: 'PATCH'
+        type: 'DELETE'
         dataType: 'JSON'
-        data:
-          letter: letter
         success: (response) =>
           lines = @_linesWithReconciliationLetter(response.letter)
           lines.find(".details .letter").text ""
@@ -407,7 +431,7 @@
           return false
 
     _deleteLine: (line) ->
-      url = (window.location.pathname.split('/').slice(0, -1).concat ['bank-statement-items', line.data('id')]).join('/')
+      url = '/backend/bank-statement-items/' + line.data('id')
       $.ajax url,
         type: 'DELETE'
         dataType: 'JSON'

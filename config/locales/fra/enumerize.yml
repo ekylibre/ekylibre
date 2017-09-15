@@ -52,8 +52,22 @@ fra:
         integer: "Entier"
         measure: "Mesure"
         multi_polygon: "Multi polygone"
-        # point: "Point"
+        point: "Point"
         string: "Chaîne"
+    animal:
+      birth_date_completeness:
+        full_date: "Date complète"
+        month_year: "Mois et année"
+        year: "Année"
+      end_of_life_reason:
+        calculated_date: "Date calculée"
+        cutting_up: "Equarrissage"
+        death: "Mort"
+        slaughter: "Abattage"
+      filiation_status:
+        certified: "Certifié"
+        uncertified: "Non certifié"
+        unknown: "Inconnu"
     call_message:
       nature:
         incoming: "Nouveau"
@@ -80,6 +94,7 @@ fra:
         purchase: "Achat"
         sale: "Vente"
         stock: "Stock"
+        travel_cost: "Déplacement"
     crumb:
       nature:
         hard_start: "Dur début"
@@ -98,6 +113,10 @@ fra:
         datetime: "Date et heure"
         decimal: "Chiffre (décimal)"
         text: "Texte"
+    debt_transfer:
+      nature:
+        purchase_regularization: "Régularisation d'achat"
+        sale_regularization: "Régularisation de vente"
     delivery:
       mode:
         third: "Par le tiers"
@@ -141,9 +160,14 @@ fra:
         payment: "Encaissements"
     fixed_asset:
       depreciation_method:
-        graduated: "Dégressive" #?
         linear: "Linéaire"
+        none: "Aucune"
+        regressive: "Dégressive"
         simplified_linear: "Linéaire simplifiée"
+      depreciation_period:
+        monthly: "Mensuelle"
+        quarterly: "Trimestrielle"
+        yearly: "Annuelle"
     gap:
       direction:
         loss: "Perte"
@@ -210,14 +234,18 @@ fra:
     intervention_working_period:
       nature:
         intervention: "Intervention"
+        pause: "Pause"
         preparation: "Préparation"
         travel: "Déplacement"
     journal:
       nature:
         bank: "Banque"
         cash: "Caisse"
+        closure: "Clôture"
+        fixed_assets: "Immobilisations corporelles"
         forward: "Report à nouveaux"
         purchases: "Achats"
+        result: "Résultat"
         sales: "Ventes"
         stocks: "Réserves"
         various: "Opérations diverses"
@@ -233,15 +261,24 @@ fra:
         root: "Racine"
         string: "Chaîne"
     loan:
+      insurance_repayment_method:
+        initial: "Fraction du capital initial"
+        to_repay: "Fraction du capital à rembourser restant"
       repayment_method:
         constant_amount: "Montant constant"
         constant_rate: "Pourcentage constant"
       repayment_period:
         month: "Mois"
+        semester: "Semestre"
+        trimester: "Trimestre"
         year: "Année"
       shift_method:
         anatocism: "Capitalisation des intérêts (anatocisme)"
         immediate_payment: "Paiement immédiat des intérêts"
+    map_layer:
+      nature:
+        background: "Fond"
+        overlay: "Calque"
     notification:
       level:
         error: "Erreur"
@@ -299,6 +336,15 @@ fra:
       nature:
         exterior: "Extérieur"
         interior: "Intérieur"
+    product_movement:
+      description:
+        birth: "Naissance"
+        butchery: "Boucherie"
+        consumption: "Consommation"
+        death: "Mort"
+        loan: "Pension"
+        purchase: "Achat"
+        sale: "Vente"
     product_nature:
       population_counting:
         decimal: "Décimal"
@@ -388,10 +434,10 @@ fra:
       nature:
         payslip: "Fiche de paie"
         purchase: "Achat"
-    sale_item:
-      compute_from:
-        pretax_amount: "Montant avant impôts"
-        unit_pretax_amount: "Unité montant avant impôts"
+    sale_item: #?
+      compute_from: #?
+        pretax_amount: "Montant avant impôts" #?
+        unit_pretax_amount: "Unité montant avant impôts" #?
     sensor:
       retrieval_mode:
         integration: "Intégration"
@@ -407,9 +453,10 @@ fra:
         affairs: "Affaires"
         analyses: "Analyses"
         animals: "Animaux"
-        campaigns: "Campagnes de productions" #?
+        campaigns: "Campagnes de productions"
         cash_transfers: "Virements internes"
         contracts: "Contrats"
+        debt_transfers: "Transferts de dettes"
         deliveries: "Livraisons"
         deposits: "Remises en banque"
         documents: "Documents"
@@ -424,6 +471,7 @@ fra:
         outgoing_payment_lists: "Listes de paiement sortant"
         outgoing_payments: "Décaissements"
         parcels: "Colis"
+        plant_countings: "Comptage des plantes"
         plants: "Cultures"
         product_nature_categories: "Catégories de types de produits"
         product_nature_variants: "Variantes de types de produits"
@@ -454,9 +502,13 @@ fra:
         outgoing_email: "Courriel sortant"
         outgoing_mail: "Courrier sortant"
       state:
-        doing: "Faire"
+        doing: "En cours"
         done: "Terminé"
-        todo: "Faire"
+        todo: "À faire"
+    tax_declaration:
+      mode:
+        debit: "Débit"
+        payment: "Paiement"
     tracking:
       usage_limit_nature:
         best_before: "Date Limite d’Utilisation Optimale (DLUO)"

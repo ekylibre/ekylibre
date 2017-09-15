@@ -3,9 +3,7 @@ module Backend
     # Save golumn config in preferences
     def update
       unless params['positions'].nil?
-        positions = params['positions'].sort do |a, b|
-          a[0] <=> b[0]
-        end.map do |group|
+        positions = params['positions'].sort_by { |a| a[0] }.map do |group|
           next unless group.second['id'] && !group.second['id'].to_i.zero?
           g = { id: group.second['id'].to_i }
           if group.second['containers']
@@ -24,7 +22,7 @@ module Backend
 
     def show
       preference = current_user.preference("golumn.#{params[:id]}", {}.to_yaml)
-      render json: YAML.load(preference.value)
+      render json: YAML.safe_load(preference.value)
     end
 
     def reset

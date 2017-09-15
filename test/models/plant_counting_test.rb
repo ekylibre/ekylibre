@@ -1,4 +1,5 @@
 # coding: utf-8
+
 # = Informations
 #
 # == License
@@ -231,7 +232,7 @@ class PlantCountingTest < ActiveSupport::TestCase
       abilities_list: ['sow'],
       population_counting: 'unitary',
       variable_indicators_list: [:geolocation],
-      frozen_indicators_list: [:nominal_storable_net_volume, :application_width, :rows_count, :theoretical_working_speed]
+      frozen_indicators_list: %i[nominal_storable_net_volume application_width rows_count theoretical_working_speed]
     )
 
     variant = ProductNatureVariant.create!(

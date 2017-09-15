@@ -10,10 +10,15 @@ deu:
         born_at: "Hergestellt in"
       building:
         born_at: "Erbaut an"
+      cashes:
+        main_account: "Hauptaccount"
       document:
         filename: "Datei"
       document_template:
         managed: "Verwaltet vom System"
+      entity:
+        client_accounting_balance: "Client-Kontostand"
+        supplier_accounting_balance: "Lieferant Kontostand"
       equipment:
         born_at: "Setzen Sie im Dienst der"
         dead_at: "Verschrottet bei"
@@ -21,14 +26,21 @@ deu:
         initial_dead_at: "Verschrottet bei"
       financial_year:
         stopped_on: "Datum der Schließung"
+      fixed_asset:
+        asset_account: "Anlagekonto"
+        depreciation_period: "Abschreibungszeitraum"
+        started_on: "Update starten"
       fixed_asset_depreciation:
         asset_amount: "verantwortlich Wert"
       land_parcel:
         born_at: "Hergestellt in"
       land_parcel_group:
         born_at: "Hergestellt in"
+      loan:
+        ongoing_at: "Mittelbeschaffung bei"
+        started_on: "Erste Rückzahlung begann am"
       outgoing_payment:
-        delivered: "Da an Empfänger"
+        delivered: "Angesichts des Empfängers"
         list: "Abgehende Zahlungsliste"
       outgoing_payment_list:
         payments_sum: "Gesamt"
@@ -50,6 +62,9 @@ deu:
         seeding_density_value: "Erwartete Aussaatdichte"
       purchase:
         # affair_balance: "Balance"
+      purchase_payment: #?
+        delivered: "Da an Empfänger" #?
+        list: "Abgehende Zahlungsliste" #?
       sale:
         # affair_balance: "Balance"
         contact: "Adresse für die Schätzung"
@@ -104,6 +119,7 @@ deu:
         # odd: "%{attribute} must be odd"
         # on_or_after: "%{attribute} must be on or after %{restriction}"
         # on_or_before: "%{attribute} must be on or before %{restriction}"
+        # overlap: "%{attribute} overlaps an existing record"
         # overlap_sibling: "%{attribute} overlaps sibling"
         # posterior: "%{attribute} must be posterior to %{to}"
         # record_invalid: "Validations failed: %{errors}"
@@ -127,29 +143,48 @@ deu:
           # different_of_main_account: "%{attribute} must be different of main account (%{account})"
           unvalid_bban: "Ungültige BBAN. Ein oder mehrere Elemente sind nicht korrekt."
         deposit:
-          # must_be_a_bank_account: "%{field} must be a bank account and not a cash"
+          # must_be_a_bank_account: "%{attribute} must be a bank account and not a cash"
         entity:
           # missing_title: "%{attribute} must contains the title “%{title}”"
           # nature_do_not_allow_a_first_name: "The selectected type “%{nature}” does not allow a first name"
         financial_year:
           attributes:
+            accountant:
+              # frozen: "%{attribute} cannot be changed while an exchange is opened"
             started_on:
               consecutive: "Die Geschäftsjahre muss consecutives sein. Es muß nach dem Ende des vorhergehenden starten."
+              frozen: "Das Geschäftsjahr Datum kann nicht geändert werden, wenn ein Austausch erstellt wurde."
+              # on_or_after: "The date selected must be posterior to society's creation date (%{restriction})"
             stopped_on:
               # end_of_month: "%{attribute} must be an end of month"
           # overlap: "%{attribute} overlaps an existing financial year"
+        financial_year_exchange:
+          csv_file_entry_dates_invalid: "Einige Einträge in der CSV sind aus dem Geschäftsjahr Austausch Datumsbereich"
+          # csv_file_entry_invalid: "Some entries in the CSV are invalid ('%{entry_number}')"
+          csv_file_headers_invalid: "CSV-Header sind ungültig"
+          csv_file_invalid: "CSV-Datei ist ungültig"
+          # csv_file_journals_invalid: "Some journals are present in the CSV but not in Ekylibre : %{codes}"
         fixed_asset_depreciation:
           attributes:
             started_on:
               # invalid_date: "The depreciation must start on %{start} or on a beginning of month"
         incoming_parcel_item:
           # greater_than_undelivered_quantity: "The quantity of product %{product} to deliver is greater than undelivered quantity (%{maximum}%{unit})"
+        integration:
+          attributes:
+            parameters:
+              check_errored: "Connexion check fehlerhaft Bitte stellen Sie die Gültigkeit Ihrer Eingabe sicher oder versuchen Sie es später erneut."
         journal:
           attributes:
+            accountant:
+              # entity_frozen: "Booked journals of this %{attribute} cannot change while an exchange is opened for its financial years"
+              present: "Buchhalter kann nur für verschiedene Operationen Zeitschriften eingestellt werden"
+              # previous_entity_frozen: "Booked journals of the previous %{attribute} cannot change while an exchange is opened for its financial years"
             closed_on:
               # end_of_month: "%{attribute} must be an end of month (%{closed_on})"
         journal_entry:
           # closed_journal: "The journal %{journal} is closed on %{closed_on}. No updates are possible until this date."
+          frozen_by_financial_year_exchange: "Der Journaleintrag kann nicht in einer Periode erfasst werden, entsprechend einem Geschäftsjahr Austausch."
           out_of_existing_financial_year: "Der Journaleintrag muss in einem Zeitraum aufgezeichnet werden entsprechend einer bestehenden Geschäftsjahr."
           unbalanced: "Der Journaleintrag ist unausgewogen"
         journal_entry_item:
@@ -194,6 +229,7 @@ deu:
       animal: "Tier"
       animal_group: "Tiergruppe"
       attachment: "Befestigung"
+      bank_guarantee_account: "Bankgarantie Konto" #?
       bank_statement: "Kontoauszug"
       bank_statement_item: "Kontoauszug Reihe"
       bioproduct: "Wohnen Produkt"
@@ -219,6 +255,7 @@ deu:
       custom_field: "Benutzerdefinierte Feld"
       custom_field_choice: "Kundenfeld Wahl"
       dashboard: "Instrumententafel"
+      debt_transfer: "Schuldentransfer"
       delivery: "Lieferung"
       delivery_tool: "Liefer Werkzeug"
       deposit: "Anzahlung"
@@ -226,6 +263,7 @@ deu:
       document: "Dokument"
       document_template: "Dokumentvorlage"
       easement: "Erleichterung"
+      economic_situation: "Ökonomische Situation"
       entity: "Wesen"
       entity_address: "Adresse"
       entity_link: "Entity-Link"
@@ -234,6 +272,7 @@ deu:
       event: "Ereignis"
       event_participation: "Messe-Teilnahme"
       financial_year: "Geschäftsjahr"
+      financial_year_exchange: "Geschäftsjahresumsatz"
       fixed_asset: "Anlagevermögen"
       fixed_asset_depreciation: "Abschreibungen auf Sachanlagen"
       fungus: "Pilz"
@@ -250,7 +289,9 @@ deu:
       inspection: "Produktklassifizierung"
       inspection_calibration: "Inspektion Kaliber"
       inspection_point: "Produktsortierprüfung"
+      insurance_account: "Versicherungen Konto" #?
       # integration: "Integration"
+      interest_account: "Interesse Konto" #?
       # intervention: "Intervention"
       intervention_agent: "Interventionsmittel"
       intervention_doer: "Intervention Macher"
@@ -277,10 +318,12 @@ deu:
       listing_node: "Listing Knoten"
       listing_node_item: "Listing Knotenpunkt"
       loan: "Darlehen"
+      loan_account: "Kreditkonto"
       loan_repayment: "Kreditrückzahlung"
       manure_management_plan: "Gülle-Management-Plan"
       manure_management_plan_zone: "Gülle-Management-Plan Zone"
-      map_background: "Kartenhintergrund"
+      map_background: "Kartenhintergrund" #?
+      map_layer: "Karte Schicht"
       matter: "Angelegenheit"
       net_service: "Net Service"
       notification: "Mitteilung"
@@ -290,6 +333,10 @@ deu:
       outgoing_payment_mode: "Auszahlungsmodus"
       parcel: "Paket"
       parcel_item: "Parcel Artikel"
+      # payslip: "Payslip"
+      payslip_affair: "Payslip-Affäre"
+      payslip_nature: "Payslip-Typ"
+      payslip_payment: "Payslip Zahlung"
       plant: "Pflanze"
       plant_counting: "Anlagenzahl"
       plant_counting_item: "Anlagenzahl Eintrag"
@@ -322,6 +369,7 @@ deu:
       purchase_gap: "Kauf Lücke"
       purchase_item: "Kaufsache"
       purchase_nature: "Kauf Art"
+      purchase_payment: "Auszahlung"
       regularization: "Regularisierung"
       role: "Rolle"
       sale: "Verkauf"
@@ -345,6 +393,7 @@ deu:
       tax: "Besteuern"
       tax_declaration: "Steuererklärung"
       tax_declaration_item: "Steuererklärung Artikel"
+      tax_declaration_item_part: "Steuererklärung Artikelteil"
       team: "Mannschaft"
       token: "Zeichen"
       tracking: "Verfolgung"
@@ -369,7 +418,10 @@ deu:
     account_name: "Kontobezeichnung"
     account_number: "Accountnummer"
     accountable: "Verantwortlich"
+    accountable_repayments_started_on: "Rechenschafts Rückzahlungen begann am"
+    accountant: "Buchhalter"
     accounted_at: "entfielen auf"
+    accounting_balance: "Accounting Balance"
     accuracy: "Genauigkeit"
     achieved_at: "erreicht bei"
     actions: "Aktionen"
@@ -418,8 +470,11 @@ deu:
     archiving: "Archivierung"
     arguments: "Argumente"
     assembly: "Versammlung"
+    asset_account: "Aktivkonto"
+    asset_exists: "Asset existiert"
     attachments: "Zubehör"
     attribute_name: "Attributname"
+    attribution: "Zuschreibung"
     authentication_token: "Authentifizierungstoken"
     author: "Autor"
     authorized_payments_count: "Autorisierte Zahlungen rechnen"
@@ -436,6 +491,9 @@ deu:
     bank_agency_code: "Bank Agentur Code"
     bank_check_number: "Bankscheck Nummer"
     bank_code: "Bankleitzahl"
+    bank_guarantee_account: "Bankgarantie Konto"
+    bank_guarantee_amount: "Bankgarantiebetrag"
+    bank_guarantees_loans: "Bankgarantien Darlehen"
     bank_identifier_code: "Bankleitzahl"
     bank_name: "Bank Name"
     bank_statement: "Kontoauszug"
@@ -443,6 +501,8 @@ deu:
     bank_statements: "Kontoauszüge"
     base_amount: "Grundbetrag"
     battery_level: "Batterie Level"
+    birth_date_completeness: "Geburtsdatum Vollständigkeit"
+    birth_farm_number: "Geburt Bauernhof Nummer"
     body: "Körper"
     boolean_value: "Boolean-Wert"
     born_at: "geboren an"
@@ -482,10 +542,13 @@ deu:
     city_name: "Stadtname"
     client: "Klient"
     client_account: "Client-Konto"
+    client_accounting_balance: "Client-Kontensaldo"
+    client_trade_balance: "Client-Handelsbilanz"
     # clients: "Clients"
     closed: "Abgeschlossen"
     closed_at: "geschlossen an"
     closed_on: "geschlossen"
+    closure_journal: "Closure Zeitschrift"
     clusters_work_number: "Cluster arbeiten Nummer"
     # code: "Code"
     # codes: "Codes"
@@ -570,10 +633,14 @@ deu:
     customized_type: "Customized Art"
     daily_nitrogen_production: "Täglich Stickstoffproduktion"
     dashboards: "Armaturenbretter"
+    dead: "Tot"
     dead_at: "Exakt zutreffend"
     dead_line_at: "Anmeldeschluss an"
     deals_count: "Angeboten zählen"
     debit: "Soll"
+    debt_regularizations: "Schulden Regulationen"
+    debt_transfer_affair: "Schuldentransfer Affäre"
+    debt_transfers: "Schuldentransfers"
     debtor: "Schuldner"
     decimal_value: "Dezimalwert"
     declarant: "Anmelder"
@@ -604,9 +671,11 @@ deu:
     deposits: "Einlagen"
     depreciable: "Das Abschreibungs"
     depreciable_amount: "Das Abschreibungsvolumen"
+    depreciable_product: "Die abnutzbaren Produkt"
     depreciated_amount: "Abgeschrieben Menge"
     depreciation_method: "Abschreibungsmethode"
     depreciation_percentage: "Abschreibungsprozent"
+    depreciation_period: "Abschreibungszeitraum"
     depreciations: "Abschreibungen"
     depth: "Tiefe"
     derivative_of: "Derivative von"
@@ -616,6 +685,7 @@ deu:
     device_uid: "Geräte UID"
     direct_links: "direkte Links"
     direction: "Richtung"
+    # distributed_on_productions: "Distributed on productions"
     distributions: "Distributionen"
     district: "Kreis"
     document: "Dokument"
@@ -629,6 +699,7 @@ deu:
     due_at: "Bis zum"
     due_on: "Fällig am"
     duration: "Dauer"
+    economic_situation: "Ökonomische Situation"
     # email: "Email"
     emails: "E-Mails"
     embedded: "Eingebettet"
@@ -636,6 +707,7 @@ deu:
     emission_cash: "Emissions Bargeld"
     emission_currency: "Emissionswährung"
     emission_journal_entry: "Emissionsjournaleintrag"
+    emitted_on: "Emittiert auf"
     employed: "Beschäftigt"
     employee: "Mitarbeiter"
     employee_account: "Mitarbeiterkonto"
@@ -643,6 +715,7 @@ deu:
     employment: "Beschäftigung"
     enabled: "Aktiviert"
     encrypted_password: "verschlüsselte Passwort"
+    end_of_life_reason: "Ende des Lebens Grund"
     enjoyer: "enjoyer"
     enjoyments: "Genüsse"
     # entity: "Person 1"
@@ -653,6 +726,8 @@ deu:
     entry: "Eintrag"
     entry_items: "Eintrag Artikel"
     entry_number: "Eintrittsnummer"
+    entry_on: "Eintrag auf"
+    entry_reason: "Eintrag Grund"
     # euid: "EUID"
     event: "Ereignis"
     event_participation: "Messe-Teilnahme"
@@ -660,6 +735,8 @@ deu:
     # evolvable: "Evolvable"
     execution_number: "Ausführungsnummer"
     executor: "Testamentsvollstrecker"
+    exit_on: "Verlassen auf"
+    exit_reason: "Beenden Grund"
     expected_population: "Erwartete Bevölkerung"
     expected_shape: "erwartete Form"
     expected_stop_amount: "Erwartete Anschlag Menge"
@@ -678,6 +755,9 @@ deu:
     farm_name: "Farm Name"
     # farmer: "Farmer"
     father: "Vater"
+    father_country: "Vaterland"
+    father_identification_number: "Vater-Identifikationsnummer"
+    father_variety: "Vater Vielfalt"
     faxes: "Faxgeräte"
     fifth_producer: "fünfte Produzent" #?
     file: "Datei"
@@ -688,11 +768,13 @@ deu:
     file_fingerprint: "Datei-Fingerabdrucks"
     file_pages_count: "Seiten zählen"
     file_updated_at: "Aktualisiert am"
+    filiation_status: "Filiation Status"
     filtered_columns: "gefiltert Spalten"
     financial_year: "Geschäftsjahr"
     financial_year_as_last: "Geschäftsjahr (zuletzt Journaleintrag)"
     finish: "Fertig"
     finished_at: "Fertige auf"
+    first_calving_on: "Erste Kalben auf"
     first_met_at: "Zunächst trafen sich am"
     first_name: "Vorname"
     first_number: "erste Reihe"
@@ -713,7 +795,8 @@ deu:
     following: "Folgende"
     # format: "Format"
     formats: "Formate"
-    fourth_producer: "vierte Produzent" #?
+    forward_journal: "Vortragen Journal"
+    france_maaid: "Frankreich maaid"
     frequency: "Frequenz"
     frozen_indicators_list: "Gefrorene Indikatoren Liste"
     full_name: "Vollständiger Name"
@@ -736,6 +819,7 @@ deu:
     grading_sizes_unit: "Grading Größen Einheit"
     grading_sizes_unit_name: "Grading Größen Gerätenamen"
     gradings: "Sortierungen"
+    grains_yield: "Kornertrag"
     gravity: "Schwerkraft"
     gross_items: "Gross Zahl" #?
     gross_items_count: "Gross Artikel zählen"
@@ -793,6 +877,7 @@ deu:
     initial_number: "Anfangszahl"
     initial_owner: "Erste Besitzer"
     initial_population: "Anfangspopulation"
+    initial_releasing_amount: "Anfängliche Freisetzungsmenge"
     initial_shape: "Ausgangsform"
     initialization_vectors: "Initialisierung Vektoren"
     initiated_on: "Initiiert auf"
@@ -805,6 +890,7 @@ deu:
     inspections: "Inspektionen"
     insurance_amount: "Versicherungssumme"
     insurance_percentage: "Versicherungen Prozent"
+    insurance_repayment_method: "Versicherungen Rückzahlweg"
     integer_value: "Integer Wert"
     integration_name: "Integration Name"
     interest_amount: "Zinsbetrag"
@@ -916,6 +1002,7 @@ deu:
     # mail_postal_zone: "Mail postal_zone"
     # mails: "Mails"
     # main: "Main"
+    main_account: "Hauptaccount"
     main_activity: "Hauptaktivität"
     main_crop_code: "Hauptkultur Code"
     main_crop_commercialisation: "Hauptkultur Kommerzialisierung"
@@ -932,6 +1019,7 @@ deu:
     marketable_quantity: "Marktfähige Menge"
     marketable_yield: "Marktgängige Ausbeute"
     mass: "Masse (kg)"
+    max_inputs_count: "Maximale Eingänge zählen"
     max_zoom: "Max Zoom"
     maximal_grantable_reduction_percentage: "Maximal erfüllbar Kürzungssatz"
     maximal_length: "maximale Länge"
@@ -967,6 +1055,9 @@ deu:
     mode_delta: "Modendelta"
     model_euid: "Modell"
     mother: "Mutter"
+    mother_country: "Heimatland"
+    mother_identification_number: "Mutter-Identifikationsnummer"
+    mother_variety: "Mutter Vielfalt"
     movements: "Bewegungen"
     moves: "bewegt"
     multi_polygon_value: "Multi Polygon Wert"
@@ -1001,6 +1092,7 @@ deu:
     observed_at: "Beobachtung:"
     of_company: "Des Unternehmens"
     old_password: "Altes Passwort"
+    opacity: "Opazität"
     opened_at: "geöffnet an"
     operation: "Betrieb"
     operation_name: "Vorgangsname"
@@ -1008,6 +1100,8 @@ deu:
     ordered_at: "bestellt auf"
     organic_fertilizer_mineral_fraction: "Organische Dünger Mineralfraktion"
     origin: "Herkunft"
+    origin_country: "Herkunftsland"
+    origin_identification_number: "Origin-Identifikationsnummer"
     originator: "Urheber"
     originator_type: "Originator Art"
     outcoming_product: "austretende Produkt"
@@ -1047,6 +1141,7 @@ deu:
     payment_mode_complement: "Zahlungsmodus Ergänzung"
     payments: "Zahlungen"
     payments_count: "Zahlungen rechnen"
+    # payslips: "Payslips"
     period: "Periode"
     # person: "Person"
     phases: "Phasen"
@@ -1079,6 +1174,7 @@ deu:
     # post: "Post"
     postal_code: "Postleitzahl"
     postal_zones: "Post Zonen"
+    pre_harvest_interval: "Pre-Ernte Intervall"
     preferences: "Voreinstellungen"
     prepared_at: "vorbereitet auf"
     prescription: "Rezept"
@@ -1134,13 +1230,14 @@ deu:
     provisional_intervention: "Vorläufige Intervention"
     purchasable: "käuflich"
     purchase: "Kauf"
-    purchase_affair: "Kauf-Affäre"
+    purchase_affair: "Kauf-Affäre" #?
     purchase_affairs: "Purchase Angelegenheiten"
     purchase_amount: "Gesamtbetrag des Einkaufs"
     purchase_invoices: "Eingangsrechnungen"
     purchase_item: "Kaufsache"
     purchase_items: "Kauf von Gegenständen"
     purchase_natures: "Kauftypen"
+    purchase_payments: "Kaufzahlungen"
     purchase_taxations: "Kauf Besteuerungen"
     purchase_taxes: "Umsatzsteuern"
     purchased_on: "erworben auf"
@@ -1158,6 +1255,7 @@ deu:
     query: "Abfrage"
     rank_number: "Rang Nummer"
     read_at: "lesen Sie bei"
+    # reading_cache: "Reading cache"
     reading_tasks: "Leseaufgaben"
     readings: "Lesungen"
     real_balance: "Echt Balance"
@@ -1257,6 +1355,8 @@ deu:
     sampling_temporal_mode: "Sampling Temporalmodus"
     scale: "Rahmen"
     scheduled: "Geplant"
+    scrapped_journal_entry: "Verschrottet Journaleintrag"
+    scrapped_on: "Verschrottet auf"
     season: "Saisonalität"
     seasons: "Saisonalitäten"
     second_producer: "Zweitens Produzent" #?
@@ -1288,6 +1388,8 @@ deu:
     size_value: "Größenwert"
     soil_nature: "Bodenart"
     soil_production: "Boden Produktion"
+    sold_journal_entry: "Verkauft Journaleintrag"
+    sold_on: "Verkauft"
     source: "Quelle"
     source_product: "Source Produkt"
     # spaced_iban: "Spaced IBAN"
@@ -1324,10 +1426,12 @@ deu:
     supervision: "Aufsicht"
     supplier: "Lieferant"
     supplier_account: "Lieferant Konto"
+    supplier_accounting_balance: "Lieferant buchhaltung gleichgewicht"
     supplier_address: "Lieferant Adresse"
     supplier_payment_delay: "Lieferant Zahlungsverzug"
     supplier_payment_mode: "Lieferant Zahlungsmodus"
     supplier_payment_modes: "Lieferant Zahlungsmodi"
+    supplier_trade_balance: "Lieferant Handelsbilanz"
     suppliers: "Lieferanten"
     support: "Unterstützen"
     support_nature: "Unterstützung Art"
@@ -1337,7 +1441,10 @@ deu:
     support_variant_unit: "Unterstützung Variante Einheit"
     support_variety: "Unterstützung Vielfalt"
     supports: "Unterstützungen"
+    suspend_until_reconciliation: "Suspend bis Versöhnung"
     suspended: "Suspendiert"
+    suspended_journal_entry_items: "Abgehängte Journaleintrag Artikel"
+    suspense_account: "Konto gesperrt"
     tactic: "Crop-Management-Technik"
     tactics: "Taktik"
     target: "Ziel"
@@ -1369,6 +1476,8 @@ deu:
     to: "Nach"
     to_bank_at: "An die Bank an"
     to_deposit: "Deponieren"
+    to_pay_on_or_after: "Zu bezahlen auf oder nach"
+    to_pay_on_or_before: "Zu bezahlen oder vorher"
     token: "Zeichen"
     tool: "Werkzeug"
     tools: "Werkzeuge"
@@ -1378,6 +1487,7 @@ deu:
     town_number: "Stadt Zahl"
     tracking: "Verfolgung"
     trackings: "trackings"
+    trade_balance: "Handelsbilanz"
     transaction_number: "Transaktionsnummer"
     transfered_at: "übertragen auf"
     transfered_on: "Übertragen auf"
@@ -1403,6 +1513,7 @@ deu:
     unpaid_sales: "Unbezahlte Verkaufs"
     unpointed_journal_entry_items: "Unpointed Journaleintrag Artikel"
     unread_notifications: "ungelesenen Benachrichtigungen"
+    untreated_zone_margin: "Unbehandelte Zone Marge"
     updated_at: "Aktualisiert am"
     # updater: "Updater"
     uploaded: "hochgeladen"
@@ -1412,6 +1523,7 @@ deu:
     usage_limit_nature: "Wird von Typ"
     usage_limit_on: "Wird von auf"
     usages: "Nutzungen"
+    use_bank_guarantee: "Bankgarantie"
     use_countings: "Verwenden Zählungen"
     use_grading_calibre: "Verwenden Sie Grading Kaliber" #?
     use_gradings: "Verwenden Sie Sortierungen"
@@ -1530,6 +1642,20 @@ deu:
       code:
         # double: "FY%{first_year}/%{second_year}"
         # single: "FY%{first_year}"
+    fixed_asset:
+      # bookkeep_exceptionnal_scrapped_assets: "[%{resource} %{number}] Exceptionnal depreciation of %{name}"
+      # bookkeep_exit_assets: "[%{resource} %{number}] Scrapped of %{name}"
+      # bookkeep_in_sold_assets: "[%{resource} %{number}] Sold of %{name}"
+      # bookkeep_in_use_assets: "[%{resource} %{number}] In use of %{name}"
+      state_machine:
+        states:
+          draft: "Entwurf"
+          in_use: "In Benutzung"
+          scrapped: "Verschrottet"
+          sold: "Verkauft"
+    fixed_asset_depreciation:
+      # bookkeep: "[%{resource} %{number}] Depreciation of %{name} (%{position}/%{total})"
+      # bookkeep_partial: "[%{resource} %{number}] Partial depreciation of %{name} (%{position}/%{total})"
     gap:
       # bookkeep: "[%{resource} %{number}] %{entity}"
     incoming_payment:
@@ -1601,6 +1727,12 @@ deu:
       reflections: "gehörigen Tabellen"
     loan:
       # bookkeep: "[%{resource} %{name}] Fund reception"
+      # bookkeep_guarantee_payment: "[%{resource} %{name}] Guarantee payment"
+      state_machine:
+        states:
+          draft: "Entwurf"
+          ongoing: "Laufend"
+          repaid: "Vergolten"
     loan_repayment:
       # bookkeep: "[%{resource} %{name}] Repayment #%{position}"
     outgoing_payment:
@@ -1625,6 +1757,11 @@ deu:
           prepared: "Bereit"
           received: "Empfangen"
       # undelivered_invoice: "Undelivered invoice [%{resource} %{mode} %{number}] %{entity}"
+    payslip:
+      # bookkeep: "[%{resource} %{number}] %{employee} from %{started_on} to %{stopped_on}"
+      states:
+        draft: "Entwurf"
+        invoice: "Rechnung"
     product:
       informations:
         # with_components: "%{product} (%{unit}) (transformed material)"
@@ -1675,6 +1812,9 @@ deu:
     purchase_nature:
       default:
         name: "Standard Kauf"
+    purchase_payment:
+      # bookkeep: "[%{resource} %{number}] %{mode} %{check_number} for %{payee}"
+      # label: "%{number}. %{amount}, %{mode} for %{payee} on %{date}"
     role:
       default:
         # administrator: "Administrator"
@@ -1746,6 +1886,7 @@ deu:
         opportunities: "OP[year|4][number|6]"
         outgoing_parcels: "EXP[year|4][number|6]"
         outgoing_payments: "D[year|4][number|4]"
+        payslips: "PS [Jahr | 4] [Monat | 2] [Anzahl | 4]"
         plants: "PLANT[year|4][number|4]"
         products: "PR[number|11]"
         purchases: "PU[year|4][month|2][number|6]"

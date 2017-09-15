@@ -35,7 +35,7 @@
 class ProductNatureCategoryTaxation < Ekylibre::Record::Base
   belongs_to :product_nature_category, inverse_of: :taxations
   belongs_to :tax
-  enumerize :usage, in: [:sale, :purchase]
+  enumerize :usage, in: %i[sale purchase]
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :product_nature_category, :tax, :usage, presence: true
   # ]VALIDATORS]

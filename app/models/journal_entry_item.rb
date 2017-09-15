@@ -61,10 +61,12 @@
 #  resource_type             :string
 #  state                     :string           not null
 #  tax_declaration_item_id   :integer
+#  tax_declaration_mode      :string
 #  tax_id                    :integer
 #  team_id                   :integer
 #  updated_at                :datetime         not null
 #  updater_id                :integer
+#  variant_id                :integer
 #
 
 # What are the differents columns:
@@ -81,17 +83,19 @@ class JournalEntryItem < Ekylibre::Record::Base
   belongs_to :activity_budget
   belongs_to :bank_statement
   belongs_to :entry, class_name: 'JournalEntry', inverse_of: :items
+  belongs_to :variant, class_name: 'ProductNatureVariant', inverse_of: :journal_entry_items
   belongs_to :financial_year
   belongs_to :journal, inverse_of: :entry_items
   belongs_to :resource, polymorphic: true
   belongs_to :tax
   belongs_to :tax_declaration_item, inverse_of: :journal_entry_items
   belongs_to :team
+  has_many :tax_declaration_item_parts, inverse_of: :journal_entry_item, dependent: :restrict_with_exception
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :absolute_credit, :absolute_debit, :absolute_pretax_amount, :balance, :credit, :cumulated_absolute_credit, :cumulated_absolute_debit, :debit, :pretax_amount, :real_balance, :real_credit, :real_debit, :real_pretax_amount, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
   validates :absolute_currency, :account, :currency, :entry, :financial_year, :journal, :real_currency, presence: true
-  validates :bank_statement_letter, :letter, :resource_prism, :resource_type, length: { maximum: 500 }, allow_blank: true
+  validates :bank_statement_letter, :letter, :resource_prism, :resource_type, :tax_declaration_mode, length: { maximum: 500 }, allow_blank: true
   validates :description, length: { maximum: 500_000 }, allow_blank: true
   validates :entry_number, :name, :state, presence: true, length: { maximum: 500 }
   validates :printed_on, presence: true, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 50.years }, type: :date }
@@ -102,11 +106,10 @@ class JournalEntryItem < Ekylibre::Record::Base
   validates :state, length: { allow_nil: true, maximum: 30 }
   validates :debit, :credit, :real_debit, :real_credit, numericality: { greater_than_or_equal_to: 0 }
   validates :account, presence: true
-  # validates :letter, uniqueness: { scope: :account_id }, if: Proc.new {|x| !x.letter.blank? }
 
   delegate :balanced?, to: :entry, prefix: true
   delegate :name, :number, to: :account, prefix: true
-  delegate :entity_country, to: :entry
+  delegate :entity_country, :expected_financial_year, to: :entry
 
   acts_as_list scope: :entry
 
@@ -126,6 +129,8 @@ class JournalEntryItem < Ekylibre::Record::Base
     where(bank_statement_letter: letter).where(bank_statement_id: bank_statement.id)
   }
 
+  scope :with_letter, ->(letter) { where(letter: [letter.delete('*'), letter.delete('*') + '*']) }
+
   state_machine :state, initial: :draft do
     state :draft
     state :confirmed
@@ -139,58 +144,35 @@ class JournalEntryItem < Ekylibre::Record::Base
     self.bank_statement_letter = nil if bank_statement_letter.blank?
     # computes the values depending on currency rate
     # for debit and credit.
-    self.debit ||= 0
-    self.credit ||= 0
-    self.real_debit ||= 0
-    self.real_credit ||= 0
-    if entry
-      self.entry_number = entry.number
-      [:financial_year_id, :printed_on, :journal_id, :state, :currency,
-       :absolute_currency, :real_currency, :real_currency_rate].each do |replicated|
-        send("#{replicated}=", entry.send(replicated))
-      end
-      unless closed?
-        self.debit  = self.real_debit * real_currency_rate
-        self.credit = self.real_credit * real_currency_rate
-        self.pretax_amount = real_pretax_amount * real_currency_rate
-        if currency && Nomen::Currency.find(currency)
-          precision = Nomen::Currency.find(currency).precision
-          self.debit  = self.debit.round(precision)
-          self.credit = self.credit.round(precision)
-          self.pretax_amount = pretax_amount.round(precision)
-        end
-      end
-    end
 
-    self.absolute_currency = Preference[:currency]
-    if absolute_currency == currency
-      self.absolute_debit = debit
-      self.absolute_credit = credit
-      self.absolute_pretax_amount = pretax_amount
-    elsif absolute_currency == real_currency
-      self.absolute_debit = self.real_debit
-      self.absolute_credit = self.real_credit
-      self.absolute_pretax_amount = real_pretax_amount
-    else
-      # FIXME: We need to do something better when currencies don't match
-      if currency.present? && (absolute_currency.present? || real_currency.present?)
-        raise IncompatibleCurrencies, "You cannot create an entry where the absolute currency (#{absolute_currency.inspect}) is not the real (#{real_currency.inspect}) or current one (#{currency.inspect})"
-      end
-    end
-    self.cumulated_absolute_debit  = absolute_debit
-    self.cumulated_absolute_credit = absolute_credit
-    if previous
-      self.cumulated_absolute_debit += previous.cumulated_absolute_debit
-      self.cumulated_absolute_credit += previous.cumulated_absolute_credit
-    end
+    compute
 
-    self.balance = debit - credit
-    self.real_balance = self.real_debit - self.real_credit
+    # CAREFUL /!\ This is complementary to behaviour from postgres triggers that are in DB.
+    if letter.present?
+      letter_balance = letter_group.sum(:debit) - letter_group.sum(:credit)
+      letter_balance += (credit_was || 0) - (debit_was || 0)
+      letter_balance += debit - credit
+      self.letter += '*' unless letter_balance.zero?
+    end
+    # END OF DANGER ZONE
+
+    self.state = entry.state if entry
+  end
+
+  before_validation on: :update do
+    self.letter = nil unless account_id == account_id_was
   end
 
   validate(on: :update) do
     old = old_record
-    errors.add(:account_id, :entry_has_been_already_validated) if old.closed?
+    list = changed - %w[printed_on cumulated_absolute_debit cumulated_absolute_credit]
+    if old.closed? && list.any?
+      list.each do |attribute|
+        if !entry.respond_to?(attribute) || (entry.send(attribute) != send(attribute))
+          errors.add(attribute, :entry_has_been_already_validated)
+        end
+      end
+    end
     # Forbids to change "manually" the letter. Use Account#mark/unmark.
     # if old.letter != self.letter and not (old.balanced_letter? and self.balanced_letter?)
     #   errors.add(:letter, :invalid)
@@ -214,13 +196,80 @@ class JournalEntryItem < Ekylibre::Record::Base
 
   before_destroy :clear_bank_statement_reconciliation
 
+  protect do
+    closed? || (entry && entry.protected_on_update?)
+  end
+
+  def partially_lettered?
+    lettered? && letter.include?('*')
+  end
+
+  def completely_lettered?
+    lettered? && !partially_lettered?
+  end
+
+  def letter_radix
+    return nil unless letter
+    letter.delete('*')
+  end
+
+  def letter_group
+    return JournalEntryItem.none unless letter
+    account.journal_entry_items.where('letter = ? OR letter = ?', letter_radix, letter_radix + '*')
+  end
+
+  def compute
+    self.debit       ||= 0
+    self.credit      ||= 0
+    self.real_debit  ||= 0
+    self.real_credit ||= 0
+
+    if entry
+      self.entry_number = entry.number
+      %i[financial_year_id printed_on journal_id currency
+         absolute_currency real_currency real_currency_rate].each do |replicated|
+        send("#{replicated}=", entry.send(replicated))
+      end
+      unless closed?
+        self.debit  = real_debit * real_currency_rate
+        self.credit = real_credit * real_currency_rate
+        self.pretax_amount = real_pretax_amount * real_currency_rate
+        if currency && Nomen::Currency.find(currency)
+          precision = Nomen::Currency.find(currency).precision
+          self.debit  = debit.round(precision)
+          self.credit = credit.round(precision)
+          self.pretax_amount = pretax_amount.round(precision)
+        end
+      end
+    end
+    self.absolute_currency = Preference[:currency]
+    if absolute_currency == currency
+      self.absolute_debit = debit
+      self.absolute_credit = credit
+      self.absolute_pretax_amount = pretax_amount
+    elsif absolute_currency == real_currency
+      self.absolute_debit = real_debit
+      self.absolute_credit = real_credit
+      self.absolute_pretax_amount = real_pretax_amount
+    else
+      # FIXME: We need to do something better when currencies don't match
+      if currency.present? && (absolute_currency.present? || real_currency.present?)
+        raise JournalEntry::IncompatibleCurrencies, "You cannot create an entry where the absolute currency (#{absolute_currency.inspect}) is not the real (#{real_currency.inspect}) or current one (#{currency.inspect})"
+      end
+    end
+    self.cumulated_absolute_debit  = absolute_debit
+    self.cumulated_absolute_credit = absolute_credit
+    if previous
+      self.cumulated_absolute_debit += previous.cumulated_absolute_debit
+      self.cumulated_absolute_credit += previous.cumulated_absolute_credit
+    end
+    self.balance = debit - credit
+    self.real_balance = real_debit - real_credit
+  end
+
   def clear_bank_statement_reconciliation
     return unless bank_statement && bank_statement_letter
     bank_statement.items.where(letter: bank_statement_letter).update_all(letter: nil)
-  end
-
-  protect do
-    closed? || (entry && entry.protected_on_update?)
   end
 
   # Computes attribute for adding an item
@@ -274,9 +323,13 @@ class JournalEntryItem < Ekylibre::Record::Base
     end
   end
 
+  def lettered?
+    letter.present?
+  end
+
   # Unmark all the journal entry items with the same mark in the same account
   def unmark
-    account.unmark(letter) unless letter.blank?
+    account.unmark(letter) if letter.present?
   end
 
   # Returns the previous item
@@ -376,5 +429,11 @@ class JournalEntryItem < Ekylibre::Record::Base
       entry_item.real_debit = balance.abs
     end
     entry_item
+  end
+
+  def third_party
+    return unless account
+    third_parties = Entity.uniq.where('client_account_id = ? OR supplier_account_id = ? OR employee_account_id = ?', account.id, account.id, account.id)
+    third_parties.take if third_parties.count == 1
   end
 end

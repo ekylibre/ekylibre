@@ -57,7 +57,7 @@ module Backend
           text_field_tag("#{name}[value]", (value ? value.to_d : nil)) +
             select_tag("#{name}[unit]", options_for_select(Measure.siblings(unit).collect { |u| [Nomen::Unit[u].human_name, u] }, (value ? value.unit : unit)), html_options)
         end
-      elsif [:string, :integer, :decimal].include? datatype
+      elsif %i[string integer decimal].include? datatype
         text_field_tag(name, value, html_options)
       elsif datatype == :choice
         choices = options[:choices] || []
@@ -84,7 +84,7 @@ module Backend
           text_field_tag("#{name}[value]", (value ? value.to_d : nil)) +
             select_tag("#{name}[unit]", options_for_select(Measure.siblings(indicator.unit).collect { |u| [Nomen::Unit[u].human_name, u] }, (value ? value.unit : indicator.unit)))
         end
-      elsif [:string, :integer, :decimal].include? datatype
+      elsif %i[string integer decimal].include? datatype
         text_field_tag(name, value)
       elsif datatype == :choice
         select_tag(name, options_for_select(indicator.selection(:choices), value))

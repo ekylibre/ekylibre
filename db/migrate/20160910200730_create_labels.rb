@@ -11,14 +11,14 @@ class CreateLabels < ActiveRecord::Migration
       t.references :intervention, null: false, index: true
       t.references :label, null: false, index: true
       t.stamps
-      t.index [:intervention_id, :label_id], unique: true
+      t.index %i[intervention_id label_id], unique: true
     end
 
     create_table :product_labellings do |t|
       t.references :product, null: false, index: true
       t.references :label, null: false, index: true
       t.stamps
-      t.index [:product_id, :label_id], unique: true
+      t.index %i[product_id label_id], unique: true
     end
   end
 end

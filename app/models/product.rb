@@ -22,63 +22,80 @@
 #
 # == Table: products
 #
-#  address_id            :integer
-#  born_at               :datetime
-#  category_id           :integer          not null
-#  created_at            :datetime         not null
-#  creator_id            :integer
-#  custom_fields         :jsonb
-#  dead_at               :datetime
-#  default_storage_id    :integer
-#  derivative_of         :string
-#  description           :text
-#  fixed_asset_id        :integer
-#  id                    :integer          not null, primary key
-#  identification_number :string
-#  initial_born_at       :datetime
-#  initial_container_id  :integer
-#  initial_dead_at       :datetime
-#  initial_enjoyer_id    :integer
-#  initial_father_id     :integer
-#  initial_geolocation   :geometry({:srid=>4326, :type=>"point"})
-#  initial_mother_id     :integer
-#  initial_movement_id   :integer
-#  initial_owner_id      :integer
-#  initial_population    :decimal(19, 4)   default(0.0)
-#  initial_shape         :geometry({:srid=>4326, :type=>"multi_polygon"})
-#  lock_version          :integer          default(0), not null
-#  member_variant_id     :integer
-#  name                  :string           not null
-#  nature_id             :integer          not null
-#  number                :string           not null
-#  parent_id             :integer
-#  person_id             :integer
-#  picture_content_type  :string
-#  picture_file_name     :string
-#  picture_file_size     :integer
-#  picture_updated_at    :datetime
-#  team_id               :integer
-#  tracking_id           :integer
-#  type                  :string
-#  updated_at            :datetime         not null
-#  updater_id            :integer
-#  uuid                  :uuid
-#  variant_id            :integer          not null
-#  variety               :string           not null
-#  work_number           :string
+#  address_id                   :integer
+#  birth_date_completeness      :string
+#  birth_farm_number            :string
+#  born_at                      :datetime
+#  category_id                  :integer          not null
+#  codes                        :jsonb
+#  country                      :string
+#  created_at                   :datetime         not null
+#  creator_id                   :integer
+#  custom_fields                :jsonb
+#  dead_at                      :datetime
+#  default_storage_id           :integer
+#  derivative_of                :string
+#  description                  :text
+#  end_of_life_reason           :string
+#  father_country               :string
+#  father_identification_number :string
+#  father_variety               :string
+#  filiation_status             :string
+#  first_calving_on             :datetime
+#  fixed_asset_id               :integer
+#  id                           :integer          not null, primary key
+#  identification_number        :string
+#  initial_born_at              :datetime
+#  initial_container_id         :integer
+#  initial_dead_at              :datetime
+#  initial_enjoyer_id           :integer
+#  initial_father_id            :integer
+#  initial_geolocation          :geometry({:srid=>4326, :type=>"st_point"})
+#  initial_mother_id            :integer
+#  initial_movement_id          :integer
+#  initial_owner_id             :integer
+#  initial_population           :decimal(19, 4)   default(0.0)
+#  initial_shape                :geometry({:srid=>4326, :type=>"multi_polygon"})
+#  lock_version                 :integer          default(0), not null
+#  member_variant_id            :integer
+#  mother_country               :string
+#  mother_identification_number :string
+#  mother_variety               :string
+#  name                         :string           not null
+#  nature_id                    :integer          not null
+#  number                       :string           not null
+#  origin_country               :string
+#  origin_identification_number :string
+#  originator_id                :integer
+#  parent_id                    :integer
+#  person_id                    :integer
+#  picture_content_type         :string
+#  picture_file_name            :string
+#  picture_file_size            :integer
+#  picture_updated_at           :datetime
+#  team_id                      :integer
+#  tracking_id                  :integer
+#  type                         :string
+#  updated_at                   :datetime         not null
+#  updater_id                   :integer
+#  uuid                         :uuid
+#  variant_id                   :integer          not null
+#  variety                      :string           not null
+#  work_number                  :string
 #
 
 require 'ffaker'
 
 class Product < Ekylibre::Record::Base
-  include Versionable, Indicateable, Attachable
+  include Attachable
+  include Indicateable
+  include Versionable
   include Customizable
   refers_to :variety
   refers_to :derivative_of, class_name: 'Variety'
   belongs_to :address, class_name: 'EntityAddress'
   belongs_to :category, class_name: 'ProductNatureCategory'
   belongs_to :default_storage, class_name: 'Product'
-  belongs_to :fixed_asset
   belongs_to :initial_container, class_name: 'Product'
   belongs_to :initial_enjoyer, class_name: 'Entity'
   belongs_to :initial_movement, class_name: 'ProductMovement'
@@ -96,12 +113,14 @@ class Product < Ekylibre::Record::Base
   has_many :content_localizations, class_name: 'ProductLocalization', foreign_key: :container_id
   has_many :contents, class_name: 'Product', through: :content_localizations, source: :product
   has_many :distributions, class_name: 'TargetDistribution', foreign_key: :target_id, inverse_of: :target, dependent: :destroy
+  has_many :distributed_on_productions, class_name: 'ActivityProduction', through: :distributions, source: :activity_production, dependent: :destroy
   has_many :enjoyments, class_name: 'ProductEnjoyment', foreign_key: :product_id, dependent: :destroy
+  has_many :fixed_assets, inverse_of: :product
   # has_many :groups, :through => :memberships
   has_many :issues, as: :target, dependent: :destroy
-  has_many :intervention_product_parameters, -> { unscope(where: :type).of_generic_roles([:input, :output, :target, :doer, :tool]) }, foreign_key: :product_id, inverse_of: :product, dependent: :restrict_with_exception
+  has_many :intervention_product_parameters, -> { unscope(where: :type).of_generic_roles(%i[input output target doer tool]) }, foreign_key: :product_id, inverse_of: :product, dependent: :restrict_with_exception
   has_many :interventions, through: :intervention_product_parameters
-  has_many :used_intervention_parameters, -> { unscope(where: :type).of_generic_roles([:input, :target, :doer, :tool]) }, foreign_key: :product_id, inverse_of: :product, dependent: :restrict_with_exception, class_name: 'InterventionProductParameter'
+  has_many :used_intervention_parameters, -> { unscope(where: :type).of_generic_roles(%i[input target doer tool]) }, foreign_key: :product_id, inverse_of: :product, dependent: :restrict_with_exception, class_name: 'InterventionProductParameter'
   has_many :interventions_used_in, through: :used_intervention_parameters, source: :intervention
   has_many :labellings, class_name: 'ProductLabelling', dependent: :destroy, inverse_of: :product
   has_many :labels, through: :labellings
@@ -115,6 +134,7 @@ class Product < Ekylibre::Record::Base
   has_many :inspections, class_name: 'Inspection', foreign_key: :product_id, dependent: :destroy
   has_many :parcel_items, dependent: :restrict_with_exception
   has_many :phases, class_name: 'ProductPhase', dependent: :destroy
+  has_many :intervention_participations, class_name: 'InterventionParticipation', dependent: :destroy
   has_many :sensors
   has_many :supports, class_name: 'ActivityProduction', foreign_key: :support_id, inverse_of: :support
   has_many :trackings, class_name: 'Tracking', foreign_key: :product_id, inverse_of: :product
@@ -203,6 +223,8 @@ class Product < Ekylibre::Record::Base
     raw_products.concat(contents).flatten.uniq
   }
 
+  scope :generic_supports, -> { where(type: %w[Animal AnimalGroup Plant LandParcel Equipment EquipmentFleet]) }
+
   scope :supports_of_campaign, lambda { |campaign|
     joins(:supports).merge(ActivityProduction.of_campaign(campaign))
   }
@@ -225,8 +247,9 @@ class Product < Ekylibre::Record::Base
   # scope :saleables, -> { joins(:nature).where(:active => true, :product_natures => {:saleable => true}) }
   scope :saleables, -> { joins(:nature).merge(ProductNature.saleables) }
   scope :deliverables, -> { joins(:nature).merge(ProductNature.stockables) }
+  scope :depreciables, -> { joins(:nature).merge(ProductNature.depreciables) }
   scope :production_supports, -> { where(variety: ['cultivable_zone']) }
-  scope :supportables, -> { of_variety([:cultivable_zone, :animal_group, :equipment]) }
+  scope :supportables, -> { of_variety(%i[cultivable_zone animal_group equipment]) }
   scope :supporters, -> { where(id: ActivityProduction.pluck(:support_id)) }
   scope :available, -> {}
   scope :availables, ->(**args) {
@@ -256,10 +279,12 @@ class Product < Ekylibre::Record::Base
     where.not(id: ProductOwnership.select(:product_id).where(nature: :other).at(at))
   }
 
+  scope :usable_in_fixed_asset, -> { depreciables.joins('LEFT JOIN fixed_assets ON products.id = fixed_assets.product_id').where('fixed_assets.id IS NULL') }
+
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates :born_at, :dead_at, :initial_born_at, :initial_dead_at, :picture_updated_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
+  validates :birth_date_completeness, :birth_farm_number, :country, :end_of_life_reason, :father_country, :father_identification_number, :father_variety, :filiation_status, :identification_number, :mother_country, :mother_identification_number, :mother_variety, :origin_country, :origin_identification_number, :picture_content_type, :picture_file_name, :work_number, length: { maximum: 500 }, allow_blank: true
+  validates :born_at, :dead_at, :first_calving_on, :initial_born_at, :initial_dead_at, :picture_updated_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
   validates :description, length: { maximum: 500_000 }, allow_blank: true
-  validates :identification_number, :picture_content_type, :picture_file_name, :work_number, length: { maximum: 500 }, allow_blank: true
   validates :initial_population, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }, allow_blank: true
   validates :name, presence: true, length: { maximum: 500 }
   validates :number, presence: true, uniqueness: true, length: { maximum: 500 }
@@ -272,6 +297,10 @@ class Product < Ekylibre::Record::Base
 
   validate :born_at_in_interventions, if: ->(product) { product.born_at? && product.interventions_used_in.pluck(:started_at).any? }
   validate :dead_at_in_interventions, if: ->(product) { product.dead_at? && product.interventions.pluck(:stopped_at).any? }
+
+  # [DEPRECATIONS[
+  #  - fixed_asset_id
+  # ]DEPRECATIONS]
 
   def born_at_in_interventions
     return true unless first_intervention = interventions_used_in.order(started_at: :asc).first
@@ -296,7 +325,7 @@ class Product < Ekylibre::Record::Base
   delegate :serial_number, :producer, to: :tracking
   delegate :variety, :derivative_of, :name, :nature, :reference_name,
            to: :variant, prefix: true
-  delegate :unit_name, to: :variant
+  delegate :unit_name, :france_maaid, to: :variant
   delegate :able_to_each?, :able_to?, :of_expression, :subscribing?,
            :deliverable?, :asset_account, :product_account, :charge_account,
            :stock_account, :population_counting, :population_counting_unitary?,
@@ -364,6 +393,10 @@ class Product < Ekylibre::Record::Base
       new_without_cast(*attributes, &block)
     end
     alias_method_chain :new, :cast
+
+    def miscibility_of(products_and_variants)
+      PhytosanitaryMiscibility.new(products_and_variants).legality
+    end
   end
 
   def production(at = nil)
@@ -432,7 +465,7 @@ class Product < Ekylibre::Record::Base
       # Configure initial_movement
       movement = initial_movement || build_initial_movement
       movement.product = self
-      movement.delta = !initial_population && variant.population_counting_unitary? ? 1 : initial_population
+      movement.delta = !!initial_population && variant.population_counting_unitary? ? 1 : initial_population
       movement.started_at = born_at
       movement.save!
       update_column(:initial_movement_id, movement.id)
@@ -465,7 +498,7 @@ class Product < Ekylibre::Record::Base
 
   # Try to find the best name for the new products
   def choose_default_name
-    return unless name.blank?
+    return if name.present?
     if variant
       if last = variant.products.reorder(id: :desc).first
         self.name = last.name
@@ -490,7 +523,7 @@ class Product < Ekylibre::Record::Base
     if variant
       self.nature_id = variant.nature_id
       self.variety ||= variant.variety
-      if derivative_of.blank? && !variant.derivative_of.blank?
+      if derivative_of.blank? && variant.derivative_of.present?
         self.derivative_of = variant.derivative_of
       end
     end
@@ -501,6 +534,7 @@ class Product < Ekylibre::Record::Base
   def update_default_values
     if current_phase
       phase_variant = current_phase.variant
+      return if phase_variant.nil?
       self.nature_id = phase_variant.nature_id
       self.variety ||= phase_variant.variety
       if derivative_of.blank? && !phase_variant.derivative_of.nil?
@@ -569,7 +603,13 @@ class Product < Ekylibre::Record::Base
   end
 
   def dead?
-    !finish_way.nil?
+    dead_at.present?
+  end
+
+  def dead_first_at
+    list = issues.where(dead: true).order(:observed_at).limit(1).pluck(:observed_at) +
+           intervention_product_parameters.where(dead: true).joins(:intervention).order('interventions.stopped_at').limit(1).pluck('interventions.stopped_at')
+    list.any? ? list.min : nil
   end
 
   # Returns groups of the product at a given time (or now by default)
@@ -702,7 +742,7 @@ class Product < Ekylibre::Record::Base
   end
 
   def initializeable?
-    new_record? || !(parcel_items.any? || InterventionParameter.of_generic_roles([:input, :output, :target, :doer, :tool]).of_actor(self).any? || fixed_asset.present?)
+    new_record? || !(parcel_items.any? || InterventionParameter.of_generic_roles(%i[input output target doer tool]).of_actor(self).any? || fixed_assets.any?)
   end
 
   # TODO: Doc
@@ -730,7 +770,7 @@ class Product < Ekylibre::Record::Base
   def net_surface_area(options = {})
     # TODO: Manage global preferred surface unit or system
     area_unit = options[:unit] || :hectare
-    if !options.keys.detect { |k| [:gathering, :interpolate, :cast].include?(k) } &&
+    if !options.keys.detect { |k| %i[gathering interpolate cast].include?(k) } &&
        has_indicator?(:shape) && !options[:compute].is_a?(FalseClass)
       unless options[:strict]
         options[:at] = born_at if born_at && born_at > Time.zone.now

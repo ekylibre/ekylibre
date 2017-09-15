@@ -1,22 +1,23 @@
 <?xml version="1.0"?>
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
-  <procedure name="parturition" categories="animal_breeding" actions="parturition">
+  <procedure name="parturition" categories="animal_breeding" actions="parturition" optional-actions="animal_identification" varieties="mammalia">
     <parameters>
-      <target name="mother" filter="is bos and can produce(bos)" cardinality="1"/>
-      <output name="child" filter="is bos" cardinality="*">
-        <attribute name="new_name"/>
-        <!-- <attribute name="new_group"/>
-             <attribute name="father_id"/> METHOD : mother.last_transplantation.input.father || mother.last_insemination.input.producer
-             <attribute name="mother_id"/> METHOD : mother.last_transplantation.input.mother || mother
-             <attribute name="new_container"/> -->
-        <handler name="population"/>
-        <reading name="sex"/>
-        <reading name="net_mass"/>
-        <reading name="animal_life_state"/>
-        <reading name="healthy"/>
-        <reading name="mammalia_birth_condition"/>
-      </output>
-      <doer name="caregiver" filter="is worker" cardinality="*"/>
+      <group name="parturition">
+        <target name="mother" filter="is animal and can produce(animal)" cardinality="1"/>
+        <output name="child" filter="is animal">
+          <attribute name="new_name"/>
+          <attribute name="identification_number"/>
+          <!-- <attribute name="new_group"/>
+               <attribute name="father_id"/> METHOD : mother.last_transplantation.input.father || mother.last_insemination.input.producer
+               <attribute name="mother_id"/> METHOD : mother.last_transplantation.input.mother || mother
+               <attribute name="new_container"/> -->
+               <reading name="sex"/>
+               <reading name="net_mass"/>
+               <reading name="healthy"/>
+               <reading name="mammalia_birth_condition"/>
+        </output>
+      </group>
+      <doer name="caregiver" filter="is worker and can administer_care(animal)" cardinality="*"/>
     </parameters>
   </procedure>
 </procedures>

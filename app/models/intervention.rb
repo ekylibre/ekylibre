@@ -22,43 +22,45 @@
 #
 # == Table: interventions
 #
-#  accounted_at            :datetime
-#  actions                 :string
-#  created_at              :datetime         not null
-#  creator_id              :integer
-#  currency                :string
-#  custom_fields           :jsonb
-#  description             :text
-#  event_id                :integer
-#  id                      :integer          not null, primary key
-#  issue_id                :integer
-#  journal_entry_id        :integer
-#  lock_version            :integer          default(0), not null
-#  nature                  :string           not null
-#  number                  :string
-#  prescription_id         :integer
-#  procedure_name          :string           not null
-#  request_compliant       :boolean
-#  request_intervention_id :integer
-#  started_at              :datetime         not null
-#  state                   :string           not null
-#  stopped_at              :datetime         not null
-#  trouble_description     :text
-#  trouble_encountered     :boolean          default(FALSE), not null
-#  updated_at              :datetime         not null
-#  updater_id              :integer
-#  whole_duration          :integer          not null
-#  working_duration        :integer          not null
+#  accounted_at                   :datetime
+#  actions                        :string
+#  auto_calculate_working_periods :boolean          default(FALSE)
+#  created_at                     :datetime         not null
+#  creator_id                     :integer
+#  currency                       :string
+#  custom_fields                  :jsonb
+#  description                    :text
+#  event_id                       :integer
+#  id                             :integer          not null, primary key
+#  issue_id                       :integer
+#  journal_entry_id               :integer
+#  lock_version                   :integer          default(0), not null
+#  nature                         :string           not null
+#  number                         :string
+#  prescription_id                :integer
+#  procedure_name                 :string           not null
+#  request_compliant              :boolean
+#  request_intervention_id        :integer
+#  started_at                     :datetime         not null
+#  state                          :string           not null
+#  stopped_at                     :datetime         not null
+#  trouble_description            :text
+#  trouble_encountered            :boolean          default(FALSE), not null
+#  updated_at                     :datetime         not null
+#  updater_id                     :integer
+#  whole_duration                 :integer          not null
+#  working_duration               :integer          not null
 #
 
 class Intervention < Ekylibre::Record::Base
-  include PeriodicCalculable, CastGroupable
+  include CastGroupable
+  include PeriodicCalculable
   include Customizable
   attr_readonly :procedure_name, :production_id, :currency
   refers_to :currency
   enumerize :procedure_name, in: Procedo.procedure_names, i18n_scope: ['procedures']
-  enumerize :nature, in: [:request, :record], default: :record, predicates: true
-  enumerize :state, in: [:in_progress, :done, :validated, :rejected], default: :done, predicates: true
+  enumerize :nature, in: %i[request record], default: :record, predicates: true
+  enumerize :state, in: %i[in_progress done validated rejected], default: :done, predicates: true
   belongs_to :event, dependent: :destroy, inverse_of: :intervention
   belongs_to :request_intervention, -> { where(nature: :request) }, class_name: 'Intervention'
   belongs_to :issue
@@ -89,9 +91,9 @@ class Intervention < Ekylibre::Record::Base
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :accounted_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
   validates :actions, :number, length: { maximum: 500 }, allow_blank: true
+  validates :auto_calculate_working_periods, :request_compliant, inclusion: { in: [true, false] }, allow_blank: true
   validates :description, :trouble_description, length: { maximum: 500_000 }, allow_blank: true
   validates :nature, :procedure_name, :state, presence: true
-  validates :request_compliant, inclusion: { in: [true, false] }, allow_blank: true
   validates :started_at, presence: true, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }
   validates :stopped_at, presence: true, timeliness: { on_or_after: ->(intervention) { intervention.started_at || Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }
   validates :trouble_encountered, inclusion: { in: [true, false] }
@@ -107,7 +109,7 @@ class Intervention < Ekylibre::Record::Base
   calculable period: :month, column: :working_duration, at: :started_at, name: :sum
 
   acts_as_numbered
-  accepts_nested_attributes_for :group_parameters, :doers, :inputs, :outputs, :targets, :tools, :working_periods, allow_destroy: true
+  accepts_nested_attributes_for :group_parameters, :participations, :doers, :inputs, :outputs, :targets, :tools, :working_periods, allow_destroy: true
   accepts_nested_attributes_for :labellings, allow_destroy: true
 
   scope :between, lambda { |started_at, stopped_at|
@@ -144,7 +146,7 @@ class Intervention < Ekylibre::Record::Base
     params = args.extract_options!
     search_params = []
 
-    unless params[:q].blank?
+    if params[:q].present?
       procedures = Procedo.selection.select { |l, _n| l.downcase.include? params[:q].strip }.map { |_l, n| "'#{n}'" }.join(',')
 
       search_params << if procedures.empty?
@@ -154,58 +156,63 @@ class Intervention < Ekylibre::Record::Base
                       end
     end
 
-    unless params[:procedure_name].blank?
+    if params[:procedure_name].present?
       search_params << "#{Intervention.table_name}.procedure_name = '#{params[:procedure_name]}'"
     end
 
-    unless params[:product_id].blank?
+    if params[:product_id].present?
       search_params << "#{Intervention.table_name}.id IN (SELECT intervention_id FROM intervention_parameters WHERE type = 'InterventionTarget' AND product_id = '#{params[:product_id]}')"
     end
 
-    unless params[:cultivable_zone_id].blank?
+    if params[:cultivable_zone_id].present?
       search_params << "#{Intervention.table_name}.id IN (SELECT intervention_id FROM activity_productions_interventions INNER JOIN #{ActivityProduction.table_name} ON #{ActivityProduction.table_name}.id = activity_production_id INNER JOIN #{CultivableZone.table_name} ON #{CultivableZone.table_name}.id = #{ActivityProduction.table_name}.cultivable_zone_id WHERE #{CultivableZone.table_name}.id = '#{params[:cultivable_zone_id]}')"
     end
 
     unless params[:period_interval].blank? && params[:period].blank?
 
-      period_interval = params[:period_interval]
+      period_interval = params[:period_interval].to_sym
       period = params[:period]
 
-      if period_interval.to_sym == :day
+      if period_interval == :day
         search_params << "EXTRACT(DAY FROM #{Intervention.table_name}.started_at) = #{period.to_date.day} AND EXTRACT(MONTH FROM #{Intervention.table_name}.started_at) = #{period.to_date.month} AND EXTRACT(YEAR FROM #{Intervention.table_name}.started_at) = #{period.to_date.year}"
       end
 
-      if period_interval.to_sym == :week
+      if period_interval == :week
         beginning_of_week = period.to_date.at_beginning_of_week.to_time.beginning_of_day
         end_of_week = period.to_date.at_end_of_week.to_time.end_of_day
         search_params << "#{Intervention.table_name}.started_at >= '#{beginning_of_week}' AND #{Intervention.table_name}.stopped_at <= '#{end_of_week}'"
       end
 
-      if period_interval.to_sym == :month
+      if period_interval == :month
         search_params << "EXTRACT(MONTH FROM #{Intervention.table_name}.started_at) = #{period.to_date.month} AND EXTRACT(YEAR FROM #{Intervention.table_name}.started_at) = #{period.to_date.year}"
       end
 
-      if period_interval.to_sym == :year
+      if period_interval == :year
         search_params << "EXTRACT(YEAR FROM #{Intervention.table_name}.started_at) = #{period.to_date.year}"
       end
     end
 
     # CAUTION: params[:nature] is not used as in controller list filter
-    unless params[:nature].blank?
+    if params[:nature].present?
       search_params << "#{Intervention.table_name}.nature = '#{params[:nature]}'"
       if params[:nature] == :request
         search_params << "#{Intervention.table_name}.state != '#{Intervention.state.rejected}' AND #{Intervention.table_name}.id NOT IN (SELECT request_intervention_id from #{Intervention.table_name} WHERE request_intervention_id IS NOT NULL)"
       end
     end
 
-    unless params[:state].blank?
+    if params[:state].present?
       search_params << "#{Intervention.table_name}.state = '#{params[:state]}'"
     end
 
-    where(search_params.join(' AND '))
-      .includes(:doers)
-      .references(product_parameters: [:product])
-      .order(started_at: :desc)
+    page = params[:page]
+    page ||= 1
+
+    request = where(search_params.join(' AND '))
+              .includes(:doers)
+              .references(product_parameters: [:product])
+              .order(started_at: :desc)
+
+    { total_count: request.count, interventions: request.page(page) }
   }
 
   scope :with_targets, lambda { |*targets|
@@ -248,10 +255,7 @@ class Intervention < Ekylibre::Record::Base
 
   validate do
     if procedure
-      all_known = true
-      actions.each do |action|
-        all_known = false unless procedure.has_action?(action)
-      end
+      all_known = actions.all? { |action| procedure.has_action?(action) }
       errors.add(:actions, :invalid) unless all_known
     end
     if started_at && stopped_at && stopped_at <= started_at
@@ -287,6 +291,10 @@ class Intervention < Ekylibre::Record::Base
       if target.new_variant_id
         ProductPhase.find_or_create_by(product: target.product, variant: ProductNatureVariant.find(target.new_variant_id), intervention_id: target.intervention_id, started_at: working_periods.maximum(:stopped_at))
       end
+
+      if target.identification_number && target.product.identification_number.nil?
+        target.update_column! :identification_number, target.identification_number
+      end
     end
     participations.update_all(state: state) unless state == :in_progress
     participations.update_all(request_compliant: request_compliant) if request_compliant
@@ -311,27 +319,19 @@ class Intervention < Ekylibre::Record::Base
   # | inputs                 | stock_movement (603X/71X)  | stock (3X)                |
   bookkeep do |b|
     stock_journal = unsuppress { Journal.find_or_create_by!(nature: :stocks) }
-
-    list = []
-    if Preference[:permanent_stock_inventory] && record?
+    b.journal_entry(stock_journal, printed_on: printed_on, if: (Preference[:permanent_stock_inventory] && record?)) do |entry|
       write_parameter_entry_items = lambda do |parameter, input|
         variant      = parameter.variant
         stock_amount = parameter.stock_amount.round(2) if parameter.stock_amount
-        next unless parameter.product_movement && stock_amount.nonzero?
+        next unless parameter.product_movement && stock_amount.nonzero? && variant.storable?
         label = tc(:bookkeep, resource: name, name: parameter.product.name)
         debit_account   = input ? variant.stock_movement_account_id : variant.stock_account_id
         credit_account  = input ? variant.stock_account_id : variant.stock_movement_account_id
-        list << [:add_debit, label, debit_account, stock_amount, as: (input ? :stock_movement : :stock)]
-        list << [:add_credit, label, credit_account, stock_amount, as: (input ? :stock : :stock_movement)]
+        entry.add_debit(label, debit_account, stock_amount, as: (input ? :stock_movement : :stock))
+        entry.add_credit(label, credit_account, stock_amount, as: (input ? :stock : :stock_movement))
       end
-      inputs.each   { |input|   write_parameter_entry_items.call(input, true) }
-      outputs.each  { |output|  write_parameter_entry_items.call(output, false) }
-    end
-
-    b.journal_entry(stock_journal, printed_on: printed_at.to_date, if: list.any?) do |entry|
-      list.each do |item|
-        entry.send(*item)
-      end
+      inputs.each  { |input|  write_parameter_entry_items.call(input, true) }
+      outputs.each { |output| write_parameter_entry_items.call(output, false) }
     end
   end
 
@@ -339,25 +339,25 @@ class Intervention < Ekylibre::Record::Base
     raise 'Can only generate record for an intervention request' unless request?
     return record_interventions.first if record_interventions.any?
     new_record = deep_clone(
-      only: [:actions, :custom_fields, :description, :event_id, :issue_id,
-             :nature, :number, :prescription_id, :procedure_name,
-             :request_intervention_id, :started_at, :state,
-             :stopped_at, :trouble_description, :trouble_encountered,
-             :whole_duration, :working_duration],
+      only: %i[actions custom_fields description event_id issue_id
+               nature number prescription_id procedure_name
+               request_intervention_id started_at state
+               stopped_at trouble_description trouble_encountered
+               whole_duration working_duration],
       include:
         [
-          { group_parameters: [
-            :parameters,
-            :group_parameters,
-            :doers,
-            :inputs,
-            :outputs,
-            :targets,
-            :tools
+          { group_parameters: %i[
+            parameters
+            group_parameters
+            doers
+            inputs
+            outputs
+            targets
+            tools
           ] },
           { root_parameters: :group },
           { parameters: :group },
-          { product_parameters: [:readings, :group] },
+          { product_parameters: %i[readings group] },
           { doers: :group },
           { inputs: :group },
           { outputs: :group },
@@ -379,6 +379,10 @@ class Intervention < Ekylibre::Record::Base
     (stopped_at? ? stopped_at : created_at? ? created_at : Time.zone.now)
   end
 
+  def printed_on
+    printed_at.to_date
+  end
+
   def with_undestroyable_products?
     outputs.map(&:product).detect do |product|
       next unless product
@@ -389,10 +393,6 @@ class Intervention < Ekylibre::Record::Base
   # Returns human activity names
   def human_activities_names
     activities.map(&:name).to_sentence
-  end
-
-  def product_parameters
-    InterventionProductParameter.where(intervention: self)
   end
 
   # The Procedo::Procedure behind intervention
@@ -408,7 +408,7 @@ class Intervention < Ekylibre::Record::Base
   end
 
   def targets_list
-    targets.map(&:product).compact.map(&:work_name).sort
+    targets.includes(:product).map(&:product).compact.map(&:work_name).sort
   end
 
   # Returns human target names
@@ -514,23 +514,24 @@ class Intervention < Ekylibre::Record::Base
     nil
   end
 
-  def cost_per_area(role = :input, area_unit = :hectare)
-    if working_zone_area > 0.0.in_square_meter
+  def cost_per_area(role = :input, area_unit = :hectare, area = nil)
+    area ||= working_zone_area(area_unit)
+    if area > 0.0.in_square_meter
       params = product_parameters.of_generic_role(role)
-      return (params.map(&:cost).compact.sum / working_zone_area(area_unit).to_d) if params.any?
+      return (params.map(&:cost).compact.sum / area.to_d) if params.any?
       nil
     end
     nil
   end
 
   def total_cost
-    [:input, :tool, :doer].map do |type|
+    %i[input tool doer].map do |type|
       (cost(type) || 0.0).to_d
     end.sum
   end
 
   def human_total_cost
-    [:input, :tool, :doer].map do |type|
+    %i[input tool doer].map do |type|
       (cost(type) || 0.0).to_d
     end.sum.round(Nomen::Currency.find(currency).precision)
   end
@@ -623,6 +624,35 @@ class Intervention < Ekylibre::Record::Base
     compliances[modifier.keys.first] = modifier.values.first
     update(request_compliant: false) if compliances.values.index(false)
     update(request_compliant: true) if (compliances.values - [true]).empty?
+  end
+
+  def participation(product)
+    InterventionParticipation.of_intervention(self).of_product(product).first
+  end
+
+  def worker_working_periods(nature: nil, not_nature: nil)
+    workers_participations = participations.select { |participation| participation.product.is_a?(Worker) }
+    working_periods = nil
+
+    if nature.nil? && not_nature.nil?
+      working_periods = workers_participations.map(&:working_periods)
+    elsif !nature.nil?
+      working_periods = workers_participations.map { |participation| participation.working_periods.where(nature: nature) }
+    elsif !not_nature.nil?
+      working_periods = workers_participations.map { |participation| participation.working_periods.where.not(nature: not_nature) }
+    end
+
+    working_periods.flatten
+  end
+
+  def drivers_times(nature: nil, not_nature: nil)
+    worker_working_periods(nature: nature, not_nature: not_nature)
+      .map(&:duration)
+      .reduce(0, :+)
+  end
+
+  def first_worker_working_period(nature: nil, not_nature: nil)
+    test = worker_working_periods(nature: nature, not_nature: not_nature)
   end
 
   class << self
@@ -762,7 +792,7 @@ class Intervention < Ekylibre::Record::Base
                         .sort_by(&:stopped_at)
         planned_at = interventions.last.stopped_at
         owners = interventions.map(&:doers).map { |t| t.map(&:product).map(&:owner).compact }.flatten.uniq
-        supplier = owners.first unless owners.second.present?
+        supplier = owners.first if owners.second.blank?
         unless nature = PurchaseNature.actives.first
           unless journal = Journal.purchases.opened_at(planned_at).first
             raise 'No purchase journal'

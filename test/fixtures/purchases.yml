@@ -46,7 +46,7 @@
 #  quantity_gap_on_invoice_journal_entry_id :integer
 #  reference_number                         :string
 #  responsible_id                           :integer
-#  state                                    :string
+#  state                                    :string           not null
 #  supplier_id                              :integer          not null
 #  tax_payability                           :string           not null
 #  undelivered_invoice_journal_entry_id     :integer
@@ -205,8 +205,8 @@ purchases_007:
   lock_version: 2
   nature_id: 1
   number: A201611000002
-  payment_at: 2016-11-20 22:13:00.000000000 Z
-  payment_delay: ''
+  payment_at: 2017-09-16 22:13:00.000000000 Z
+  payment_delay: 300 days
   planned_at: 2016-11-20 22:13:00.000000000 Z
   pretax_amount: 597.6
   quantity_gap_on_invoice_journal_entry_id: 103

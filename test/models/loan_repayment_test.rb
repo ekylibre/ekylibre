@@ -22,6 +22,7 @@
 #
 # == Table: loan_repayments
 #
+#  accountable      :boolean          default(FALSE), not null
 #  accounted_at     :datetime
 #  amount           :decimal(19, 4)   not null
 #  base_amount      :decimal(19, 4)   not null
@@ -34,6 +35,7 @@
 #  journal_entry_id :integer
 #  loan_id          :integer          not null
 #  lock_version     :integer          default(0), not null
+#  locked           :boolean          default(FALSE), not null
 #  position         :integer          not null
 #  remaining_amount :decimal(19, 4)   not null
 #  updated_at       :datetime         not null

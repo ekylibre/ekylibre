@@ -44,8 +44,8 @@
 
 class ActivityBudgetItem < Ekylibre::Record::Base
   refers_to :currency
-  enumerize :direction, in: [:revenue, :expense], predicates: true
-  enumerize :computation_method, in: [:per_campaign, :per_production, :per_working_unit], default: :per_working_unit, predicates: true
+  enumerize :direction, in: %i[revenue expense], predicates: true
+  enumerize :computation_method, in: %i[per_campaign per_production per_working_unit], default: :per_working_unit, predicates: true
   # refers_to :variant_indicator, class_name: 'Indicator' # in: Activity.support_variant_indicator.values
   # refers_to :variant_unit, class_name: 'Unit'
 
@@ -83,10 +83,12 @@ class ActivityBudgetItem < Ekylibre::Record::Base
     if currency && unit_currency
       errors.add(:currency, :invalid) if currency != unit_currency
     end
+
+    errors.add(:unit_amount, :invalid) if unit_amount.blank?
   end
 
   after_validation do
-    self.amount = unit_amount * quantity * coefficient
+    self.amount = unit_amount * quantity * coefficient if unit_amount.present?
   end
 
   # Computes the coefficient to use for amount computation
@@ -103,10 +105,10 @@ class ActivityBudgetItem < Ekylibre::Record::Base
   # Duplicate an item in the same budget by default. Each attribute are
   # overwritable.
   def duplicate!(updates = {})
-    new_attributes = [
-      :activity_budget, :amount, :computation_method, :currency, :direction,
-      :quantity, :unit_amount, :unit_currency, :unit_population, :variant,
-      :variant_indicator, :variant_unit
+    new_attributes = %i[
+      activity_budget amount computation_method currency direction
+      quantity unit_amount unit_currency unit_population variant
+      variant_indicator variant_unit
     ].each_with_object({}) do |attr, h|
       h[attr] = send(attr)
       h

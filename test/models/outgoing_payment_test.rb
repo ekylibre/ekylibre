@@ -31,8 +31,8 @@
 #  creator_id        :integer
 #  currency          :string           not null
 #  custom_fields     :jsonb
-#  delivered         :boolean          default(TRUE), not null
-#  downpayment       :boolean          default(TRUE), not null
+#  delivered         :boolean          default(FALSE), not null
+#  downpayment       :boolean          default(FALSE), not null
 #  id                :integer          not null, primary key
 #  journal_entry_id  :integer
 #  list_id           :integer
@@ -44,22 +44,12 @@
 #  position          :integer
 #  responsible_id    :integer          not null
 #  to_bank_at        :datetime         not null
+#  type              :string
 #  updated_at        :datetime         not null
 #  updater_id        :integer
 #
-
 require 'test_helper'
 
 class OutgoingPaymentTest < ActiveSupport::TestCase
-  test_model_actions
-
-  test 'create without mode' do
-    outgoing_payment = OutgoingPayment.new(
-      amount: 56,
-      payee: Entity.suppliers.first,
-      delivered: true
-    )
-    # Should not save without exception raise
-    refute outgoing_payment.save
-  end
+  # Add tests here...
 end

@@ -48,7 +48,7 @@
 class Sensor < Ekylibre::Record::Base
   include Attachable
   include Customizable
-  enumerize :retrieval_mode, in: [:requesting, :listening, :integration], default: :requesting, predicates: true
+  enumerize :retrieval_mode, in: %i[requesting listening integration], default: :requesting, predicates: true
   belongs_to :product
   belongs_to :host, class_name: 'Product'
   has_many :analyses, class_name: 'Analysis', dependent: :nullify
@@ -94,7 +94,7 @@ class Sensor < Ekylibre::Record::Base
 
   # Read sensor indicator and write an analysis
   def retrieve(options = {})
-    return if retrieval_mode == :integration
+    return if listening?
     raise "Unknown equipment: vendor=#{vendor_euid}, model=#{model_euid}" unless equipment
 
     connection = equipment.connect(access_parameters)
@@ -108,7 +108,7 @@ class Sensor < Ekylibre::Record::Base
       # Indicators
       values = []
       results[:values].each do |k, v|
-        values << { indicator_name: k, value: v } unless v.blank?
+        values << { indicator_name: k, value: v } if v.present?
       end
       attributes.update(
         sampled_at: options[:started_at],

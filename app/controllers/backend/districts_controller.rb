@@ -22,7 +22,7 @@ module Backend
 
     unroll
 
-    list(children: :postal_zones, conditions: search_conditions(districts: [:code, :name]), order: :name) do |t|
+    list(children: :postal_zones, conditions: search_conditions(districts: %i[code name]), order: :name) do |t|
       t.action :new, url: { controller: :postal_zones, district_id: 'RECORD.id'.c, id: 'nil'.c }
       t.action :edit
       t.action :destroy

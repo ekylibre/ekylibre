@@ -17,12 +17,12 @@
 #
 
 module ChartsHelper
-  OPTIONS = [:colors, :credits, :exporting, :labels, :legend, :loading, :navigation, :pane, :plot_options, :series, :subtitle, :title, :tooltip, :x_axis, :y_axis].each_with_object({}) do |name, hash|
+  OPTIONS = %i[colors credits exporting labels legend loading navigation pane plot_options series subtitle title tooltip x_axis y_axis].each_with_object({}) do |name, hash|
     hash[name] = name.to_s.tr('_', '-') # camelize(:lower)
     hash
   end.freeze
 
-  TYPES = [:line, :spline, :area, :area_spline, :column, :bar, :pie, :scatter, :area_range, :area_spline_range, :column_range, :waterfall].each_with_object({}) do |name, hash|
+  TYPES = %i[line spline area area_spline column bar pie scatter area_range area_spline_range column_range waterfall].each_with_object({}) do |name, hash|
     hash[name] = name.to_s.delete('_')
     hash
   end.freeze
@@ -208,7 +208,7 @@ module ChartsHelper
     '#' + r.to_i.to_s(16).rjust(2, '0') + g.to_i.to_s(16).rjust(2, '0') + b.to_i.to_s(16).rjust(2, '0')
   end
 
-  for type, absolute_type in TYPES
+  TYPES.each do |type, absolute_type|
     code = "def #{type}_highcharts(series, options = {}, html_options = {})\n"
     code << "  options[:chart] ||= {}\n"
     code << "  options[:chart][:type] = '#{absolute_type}'\n"
@@ -224,8 +224,8 @@ module ChartsHelper
     code << "  end\n"
     code << "  series = [series] unless series.is_a?(Array)\n"
     code << "  options[:series] = series\n"
-    for name, absolute_name in OPTIONS
-      if [:legend, :credits].include?(name)
+    OPTIONS.each do |name, _absolute_name|
+      if %i[legend credits].include?(name)
         code << "  if options.has_key?(:#{name})\n"
         code << "    options[:#{name}] = {enabled: true} if options[:#{name}].is_a?(TrueClass)\n"
         code << "  end\n"

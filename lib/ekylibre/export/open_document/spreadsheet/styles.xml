@@ -44,48 +44,48 @@
     <style:page-layout style:name="pm1">
       <style:page-layout-properties fo:page-width="29.7cm" fo:page-height="21.001cm" style:num-format="1" style:print-orientation="landscape" fo:margin-top="1cm" fo:margin-bottom="1cm" fo:margin-left="1cm" fo:margin-right="1cm" style:writing-mode="lr-tb"/>
       <style:header-style>
-	<style:header-footer-properties fo:min-height="0.751cm" fo:margin-left="0cm" fo:margin-right="0cm" fo:margin-bottom="0.25cm"/>
+        <style:header-footer-properties fo:min-height="0.751cm" fo:margin-left="0cm" fo:margin-right="0cm" fo:margin-bottom="0.25cm"/>
       </style:header-style>
       <style:footer-style>
-	<style:header-footer-properties fo:min-height="0.751cm" fo:margin-left="0cm" fo:margin-right="0cm" fo:margin-top="0.25cm"/>
+        <style:header-footer-properties fo:min-height="0.751cm" fo:margin-left="0cm" fo:margin-right="0cm" fo:margin-top="0.25cm"/>
       </style:footer-style>
     </style:page-layout>
     <style:page-layout style:name="pm2">
       <style:page-layout-properties style:writing-mode="lr-tb"/>
       <style:header-style>
-	<style:header-footer-properties fo:min-height="0.751cm" fo:margin-left="0cm" fo:margin-right="0cm" fo:margin-bottom="0.25cm" fo:border="0.088cm solid #000000" fo:padding="0.018cm" fo:background-color="#c0c0c0">
-	  <style:background-image/>
-	</style:header-footer-properties>
+        <style:header-footer-properties fo:min-height="0.751cm" fo:margin-left="0cm" fo:margin-right="0cm" fo:margin-bottom="0.25cm" fo:border="0.088cm solid #000000" fo:padding="0.018cm" fo:background-color="#c0c0c0">
+          <style:background-image/>
+        </style:header-footer-properties>
       </style:header-style>
       <style:footer-style>
-	<style:header-footer-properties fo:min-height="0.751cm" fo:margin-left="0cm" fo:margin-right="0cm" fo:margin-top="0.25cm" fo:border="0.088cm solid #000000" fo:padding="0.018cm" fo:background-color="#c0c0c0">
-	  <style:background-image/>
-	</style:header-footer-properties>
+        <style:header-footer-properties fo:min-height="0.751cm" fo:margin-left="0cm" fo:margin-right="0cm" fo:margin-top="0.25cm" fo:border="0.088cm solid #000000" fo:padding="0.018cm" fo:background-color="#c0c0c0">
+          <style:background-image/>
+        </style:header-footer-properties>
       </style:footer-style>
     </style:page-layout>
   </office:automatic-styles>
   <office:master-styles>
     <style:master-page style:name="Default" style:page-layout-name="pm1">
       <style:header>
-	<text:p><text:sheet-name>???</text:sheet-name></text:p>
+        <text:p><text:sheet-name>???</text:sheet-name></text:p>
       </style:header>
       <style:header-left style:display="false"/>
       <style:footer>
-	<text:p>Page <text:page-number>1</text:page-number></text:p>
+        <text:p>Page <text:page-number>1</text:page-number></text:p>
       </style:footer>
       <style:footer-left style:display="false"/>
     </style:master-page>
     <style:master-page style:name="Report" style:page-layout-name="pm2">
       <style:header>
-	<style:region-left>
-	  <text:p><text:sheet-name>???</text:sheet-name> (<text:title>???</text:title>)</text:p></style:region-left>
-	<style:region-right>
-	  <text:p><text:date style:data-style-name="N2" text:date-value="2010-10-27">27/10/2010</text:date>, <text:time>23:52:55</text:time></text:p>
-	</style:region-right>
+        <style:region-left>
+        <text:p><text:sheet-name>???</text:sheet-name> (<text:title>???</text:title>)</text:p></style:region-left>
+        <style:region-right>
+          <text:p><text:date style:data-style-name="N2" text:date-value="2010-10-27">27/10/2010</text:date>, <text:time>23:52:55</text:time></text:p>
+        </style:region-right>
       </style:header>
       <style:header-left style:display="false"/>
       <style:footer>
-	<text:p>Page <text:page-number>1</text:page-number> / <text:page-count>99</text:page-count></text:p>
+        <text:p>Page <text:page-number>1</text:page-number> / <text:page-count>99</text:page-count></text:p>
       </style:footer>
       <style:footer-left style:display="false"/>
     </style:master-page>

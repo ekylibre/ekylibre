@@ -2,7 +2,7 @@ module Ekylibre
   module Record #:nodoc:
     module Bookkeep
       def self.actions
-        [:create, :update, :destroy]
+        %i[create update destroy]
       end
 
       class EntryRecorder
@@ -40,6 +40,14 @@ module Ekylibre
         end
 
         def journal_entry(journal, options = {}, &block)
+          if (options.keys & %i[if unless]).size > 1
+            raise ArgumentError, 'Options :if and :unless are incompatible.'
+          end
+          if options.key? :list
+            raise ArgumentError, 'Option :list is not supported anymore.'
+          end
+          raise ArgumentError, 'Block is missing' unless block_given?
+          condition = (options.key?(:if) ? options.delete(:if) : !options.delete(:unless))
           prism = options.delete(:as)
           column = options.delete(:column)
           if prism.blank?
@@ -47,22 +55,6 @@ module Ekylibre
             column ||= :journal_entry_id
           else
             column ||= "#{prism}_journal_entry_id".to_sym
-          end
-          if (options.keys & [:if, :unless, :list]).size > 1
-            raise ArgumentError, 'Options :if, :unless and :list are incompatible.'
-          end
-          list = nil
-          if options.key?(:list)
-            list = options.delete(:list)
-            if block_given?
-              raise ArgumentError, 'No block acceptable with :list option'
-            end
-            unless list.is_a?(Array) && !list.detect { |i| !i.is_a?(Array) }
-              raise ArgumentError, ':list option must be an Array of Array. Got: ' + list.inspect
-            end
-            condition = list.any?
-          else
-            condition = (options.key?(:if) ? options.delete(:if) : !options.delete(:unless))
           end
 
           attributes = options
@@ -82,10 +74,11 @@ module Ekylibre
 
           Ekylibre::Record::Base.transaction do
             journal_entry = JournalEntry.find_by(id: @resource.send(column))
-            list = record(&block) if block_given?
+            list = record(&block)
 
             if journal_entry && (!journal_entry.draft? || list.empty? ||
-                                 attributes[:journal_id] != journal_entry.journal_id)
+                                 attributes[:journal_id] != journal_entry.journal_id ||
+                                 @action == :destroy)
               journal_entry.cancel
               journal_entry = nil
             end
@@ -95,7 +88,7 @@ module Ekylibre
               attributes[:items] = []
               list.each do |cmd|
                 direction = cmd.shift
-                unless [:add_debit, :add_credit].include?(direction)
+                unless %i[add_debit add_credit].include?(direction)
                   raise 'Can accept only add_debit and add_credit commands'
                 end
                 cmd[3] ||= {}
@@ -147,25 +140,24 @@ module Ekylibre
             # raise StandardError, "#{configuration[:column]} is needed for #{self.name}::bookkeep"
           end
 
-          code = "include Ekylibre::Record::Bookkeep::InstanceMethods\n"
+          include Ekylibre::Record::Bookkeep::InstanceMethods
 
-          code << "def #{method_name}(action = :create, draft = nil)\n"
-          code << "  draft = ::Preference[:bookkeep_in_draft] if draft.nil?\n"
-          code << "  self.#{core_method_name}(Ekylibre::Record::Bookkeep::Base.new(self, action, draft))\n"
-          code << "  self.class.where(id: self.id).update_all(#{configuration[:column]}: Time.zone.now)\n"
-          code << "end\n"
+          define_method method_name do |action = :create, draft = nil|
+            draft = ::Preference[:bookkeep_in_draft] if draft.nil?
+            send(core_method_name, Ekylibre::Record::Bookkeep::Base.new(self, action, draft))
+            self.class.where(id: id).update_all(configuration[:column] => Time.zone.now)
+          end
 
           configuration[:on] = [configuration[:on]].flatten
           Ekylibre::Record::Bookkeep.actions.each do |action|
             next unless configuration[:on].include? action
-            code << "after_#{action} do \n"
-            code << "  if ::Preference[:bookkeep_automatically]\n"
-            code << "    self.#{method_name}(:#{action}, ::Preference[:bookkeep_in_draft])\n"
-            code << "  end\n"
-            code << "end\n"
+            send("after_#{action}") do
+              if ::Preference[:bookkeep_automatically]
+                send(method_name, action, ::Preference[:bookkeep_in_draft])
+              end
+              true
+            end
           end
-
-          class_eval code
 
           send(:define_method, core_method_name, &block)
         end

@@ -1,0 +1,16 @@
+code,label_fr,first_group,second_group,allowed
+M1,Mélange 1-1,1,1,false
+M2,Mélange 1-2,1,2,false
+M3,Mélange 1-3,1,3,false
+M4,Mélange 1-4,1,4,false
+M5,Mélange 1-5,1,5,false
+M6,Mélange 2-2,2,2,false
+M7,Mélange 2-3,2,3,true
+M8,Mélange 2-4,2,4,true
+M9,Mélange 2-5,2,5,true
+M10,Mélange 3-3,3,3,false
+M11,Mélange 3-4,3,4,true
+M12,Mélange 3-5,3,5,true
+M13,Mélange 4-4,4,4,false
+M14,Mélange 4-5,4,5,true
+M15,Mélange 5-5,5,5,true

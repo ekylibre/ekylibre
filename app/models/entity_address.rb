@@ -33,7 +33,7 @@
 #  lock_version        :integer          default(0), not null
 #  mail_auto_update    :boolean          default(FALSE), not null
 #  mail_country        :string
-#  mail_geolocation    :geometry({:srid=>4326, :type=>"point"})
+#  mail_geolocation    :geometry({:srid=>4326, :type=>"st_point"})
 #  mail_line_1         :string
 #  mail_line_2         :string
 #  mail_line_3         :string
@@ -57,7 +57,7 @@ class EntityAddress < Ekylibre::Record::Base
   has_many :purchases, foreign_key: :delivery_address_id
   has_many :sales, foreign_key: :address_id
   has_many :subscriptions, foreign_key: :address_id
-  enumerize :canal, in: [:mail, :email, :phone, :mobile, :fax, :website], default: :email, predicates: true
+  enumerize :canal, in: %i[mail email phone mobile fax website], default: :email, predicates: true
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :by_default, :mail_auto_update, inclusion: { in: [true, false] }
@@ -73,7 +73,7 @@ class EntityAddress < Ekylibre::Record::Base
   validates :canal, inclusion: { in: canal.values }
   validates :mail_country, presence: { if: :mail? }
 
-  selects_among_all scope: [:entity_id, :canal], subset: :actives
+  selects_among_all scope: %i[entity_id canal], subset: :actives
 
   # Use unscoped to get all historic
   default_scope -> { actives }
@@ -146,7 +146,7 @@ class EntityAddress < Ekylibre::Record::Base
   end
 
   def self.exportable_columns
-    content_columns.delete_if { |c| [:deleted_at, :closed_at, :lock_version, :thread, :created_at, :updated_at].include?(c.name.to_sym) }
+    content_columns.delete_if { |c| %i[deleted_at closed_at lock_version thread created_at updated_at].include?(c.name.to_sym) }
   end
 
   def label

@@ -54,6 +54,20 @@ deu:
         multi_polygon: "Multi Polygon"
         point: "Punkt"
         string: "Schnur"
+    animal:
+      birth_date_completeness:
+        full_date: "Voll Datum"
+        month_year: "Monat Jahr"
+        year: "Jahr"
+      end_of_life_reason:
+        calculated_date: "Berechnete Datum"
+        cutting_up: "Zerlegung"
+        death: "Tod"
+        slaughter: "Schlachten"
+      filiation_status:
+        certified: "Bescheinigt"
+        # uncertified: "Uncertified"
+        unknown: "Unbekannt"
     call_message:
       nature:
         incoming: "Eingehend"
@@ -80,6 +94,7 @@ deu:
         purchase: "Kauf"
         sale: "Verkauf"
         # stock: "Stock"
+        travel_cost: "Reise"
     crumb:
       nature:
         hard_start: "Harte Start"
@@ -98,6 +113,10 @@ deu:
         datetime: "Datum und Uhrzeit"
         decimal: "Dezimal"
         # text: "Text"
+    debt_transfer:
+      nature:
+        purchase_regularization: "Kauf Regularisierung"
+        sale_regularization: "Verkauf Regularisierung"
     delivery:
       mode:
         third: "Dritte"
@@ -145,7 +164,13 @@ deu:
       depreciation_method:
         graduated: "abgestufte" #?
         # linear: "Linear"
+        none: "Keiner"
+        regressive: "Regressiv"
         simplified_linear: "vereinfachte lineare"
+      depreciation_period:
+        monthly: "Monatlich"
+        quarterly: "Vierteljährlich"
+        yearly: "Jährlich"
     gap:
       direction:
         loss: "Verlust"
@@ -219,14 +244,18 @@ deu:
     intervention_working_period:
       nature:
         # intervention: "Intervention"
+        # pause: "Pause"
         preparation: "Vorbereitung"
         travel: "Reise"
     journal:
       nature:
         # bank: "Bank"
         cash: "Kasse"
+        closure: "Schließung"
+        fixed_assets: "Anlagevermögen"
         forward: "Vorwärts getragen"
         purchases: "Käufe"
+        result: "Ergebnis"
         sales: "Der Umsatz"
         stocks: "Bestände"
         various: "verschiedene Operationen"
@@ -242,15 +271,24 @@ deu:
         root: "Wurzel"
         string: "Schnur"
     loan:
+      insurance_repayment_method:
+        initial: "Basierend auf Anfangskapital"
+        to_repay: "Basierend auf Kapital links zur Rückzahlung"
       repayment_method:
         constant_amount: "konstante Menge"
         constant_rate: "Konstante Rate"
       repayment_period:
         month: "Monat"
+        # semester: "Semester"
+        # trimester: "Trimester"
         year: "Jahr"
       shift_method:
         anatocism: "anatocism"
         immediate_payment: "Sofortige Bezahlung"
+    map_layer:
+      nature:
+        background: "Hintergrund"
+        overlay: "Auflage"
     notification:
       level:
         error: "Fehler"
@@ -316,6 +354,15 @@ deu:
       nature:
         exterior: "Äußere"
         interior: "Innere"
+    product_movement:
+      description:
+        birth: "Geburt"
+        butchery: "Schlächterei"
+        consumption: "Verbrauch"
+        death: "Tod"
+        loan: "Darlehen"
+        purchase: "Kauf"
+        sale: "Verkauf"
     product_nature:
       population_counting:
         decimal: "Dezimal"
@@ -405,10 +452,10 @@ deu:
       nature:
         # payslip: "Payslip"
         purchase: "Kauf"
-    sale_item:
-      compute_from:
-        pretax_amount: "Vor Steuern in Höhe"
-        unit_pretax_amount: "Einheit vor Steuern Menge"
+    sale_item: #?
+      compute_from: #?
+        pretax_amount: "Vor Steuern in Höhe" #?
+        unit_pretax_amount: "Einheit vor Steuern Menge" #?
     sensor:
       retrieval_mode:
         # integration: "Integration"
@@ -424,8 +471,10 @@ deu:
         affairs: "Angelegenheiten"
         analyses: "Analysen"
         animals: "Tiere"
+        campaigns: "Kampagnen"
         cash_transfers: "Geldtransfers"
         contracts: "Verträge"
+        debt_transfers: "Schuldentransfers"
         deliveries: "Lieferungen"
         deposits: "Einlagen"
         documents: "Unterlagen"
@@ -440,6 +489,7 @@ deu:
         outgoing_payment_lists: "Abgehende Zahlungslisten"
         outgoing_payments: "Auszahlungen"
         # parcels: "Parcels"
+        plant_countings: "Pflanzenzählungen"
         plants: "Pflanzen"
         product_nature_categories: "Produkt Natur Kategorien"
         product_nature_variants: "Produktvarianten Natur"
@@ -487,6 +537,10 @@ deu:
       nature: #?
         amount: "Menge" #?
         percentage: "Prozentsatz" #?
+    tax_declaration:
+      mode:
+        debit: "Lastschrift"
+        payment: "Zahlung"
     tracking:
       usage_limit_nature:
         best_before: "Mindesthaltbarkeitsdatum"

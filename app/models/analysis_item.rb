@@ -40,7 +40,7 @@
 #  measure_value_unit           :string
 #  measure_value_value          :decimal(19, 4)
 #  multi_polygon_value          :geometry({:srid=>4326, :type=>"multi_polygon"})
-#  point_value                  :geometry({:srid=>4326, :type=>"point"})
+#  point_value                  :geometry({:srid=>4326, :type=>"st_point"})
 #  product_reading_id           :integer
 #  string_value                 :text
 #  updated_at                   :datetime         not null
@@ -74,7 +74,7 @@ class AnalysisItem < Ekylibre::Record::Base
   end
 
   after_save do
-    if product
+    if product && product.born_at <= sampled_at
       if reading = product_reading
         reading.read_at = sampled_at
         reading.value = value

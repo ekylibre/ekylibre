@@ -78,7 +78,7 @@
 entities_001:
   active: true
   activity_code: ''
-  born_at: 2015-01-06 09:00:00.000000000 Z
+  born_at: 1992-11-17 00:00:00.000000000 Z
   client: false
   country: fr
   created_at: 2014-10-31 17:19:32.000000000 Z
@@ -308,47 +308,69 @@ entities_008:
   vat_subjected: true
 entities_009:
   active: true
+  bank_account_holder_name: M. Gendo IKARI
+  bank_identifier_code: ''
   client: true
   client_account_id: 671
+  country: fr
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator_id: 1
   currency: EUR
-  employee: false
+  custom_fields:
+    bpozesopdf: ''
+    sdqdqsdq_sd_qsq: ''
+    bla_dsfk_jioh_sdf: ''
+  deliveries_conditions: ''
+  description: ''
+  employee: true
+  employee_account_id: 680
   first_name: Gendo
   full_name: M. Gendo IKARI
+  iban: ''
   id: 9
   language: fra
   last_name: IKARI
-  lock_version: 0
+  lock_version: 1
   locked: false
+  meeting_origin: ''
   nature: contact
   number: '193'
   of_company: false
   prospect: false
   reminder_submissive: false
   supplier: false
+  supplier_payment_delay: 30 days
   title: M.
   transporter: false
-  updated_at: 2014-10-31 17:19:32.000000000 Z
+  updated_at: 2017-06-07 16:12:21.286406000 Z
   updater_id: 1
   vat_subjected: true
 entities_010:
   active: true
   activity_code: ''
+  bank_account_holder_name: M. Kozo FUYUTSUKI
+  bank_identifier_code: ''
   client: true
   client_account_id: 210
   country: fr
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator_id: 1
   currency: EUR
+  custom_fields:
+    bpozesopdf: ''
+    sdqdqsdq_sd_qsq: ''
+    bla_dsfk_jioh_sdf: ''
   deliveries_conditions: ''
-  employee: false
+  description: ''
+  employee: true
+  employee_account_id: 681
   first_name: Kōzō
   full_name: M. Kōzō FUYUTSUKI
+  iban: ''
   id: 10
   language: fra
   last_name: FUYUTSUKI
-  lock_version: 2
+  lock_version: 3
   locked: false
   meeting_origin: ''
   nature: contact
@@ -358,9 +380,10 @@ entities_010:
   reminder_submissive: false
   siret_number: ''
   supplier: false
+  supplier_payment_delay: 30 days
   title: M.
   transporter: false
-  updated_at: 2015-04-21 08:21:32.421029000 Z
+  updated_at: 2017-06-07 16:14:00.014531000 Z
   updater_id: 1
   vat_number: ''
   vat_subjected: true
@@ -399,19 +422,28 @@ entities_011:
   vat_subjected: true
 entities_012:
   active: true
+  bank_account_holder_name: Mme Yui IKARI
+  bank_identifier_code: ''
   client: false
   country: fr
   created_at: 2014-11-03 16:56:06.570291000 Z
   creator_id: 1
   currency: EUR
+  custom_fields:
+    bpozesopdf: ''
+    sdqdqsdq_sd_qsq: ''
+    bla_dsfk_jioh_sdf: ''
   deliveries_conditions: ''
-  employee: false
+  description: ''
+  employee: true
+  employee_account_id: 682
   first_name: Yui
   full_name: Mme Yui IKARI
+  iban: ''
   id: 12
   language: fra
   last_name: IKARI
-  lock_version: 1
+  lock_version: 2
   locked: false
   meeting_origin: ''
   nature: contact
@@ -420,9 +452,10 @@ entities_012:
   prospect: false
   reminder_submissive: false
   supplier: false
+  supplier_payment_delay: 30 days
   title: Mme
   transporter: false
-  updated_at: 2015-06-13 16:54:12.709222000 Z
+  updated_at: 2017-06-07 16:11:29.399798000 Z
   updater_id: 1
   vat_subjected: true
 entities_013:

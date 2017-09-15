@@ -3,7 +3,8 @@ module Visualization
     def initialize(config = {})
       @config = config
       @categories_colors = @config.delete(:categories_colors)
-      @config[:backgrounds] = MapBackground.availables.collect(&:to_json_object)
+      @config[:backgrounds] = MapLayer.available_backgrounds.collect(&:to_json_object)
+      @config[:overlays] = MapLayer.available_overlays.collect(&:to_json_object)
     end
 
     def background(layer, options = {})
@@ -15,9 +16,12 @@ module Visualization
       @config[:backgrounds] << options
     end
 
-    def overlay(name, provider_name)
+    def overlay(layer, options = {})
+      options[:name] = layer.name if layer.name?
+      options[:url] = layer.url if layer.url?
+      options[:opacity] = layer.opacity if layer.opacity
       @config[:overlays] ||= []
-      @config[:overlays] << { name: name, provider_name: provider_name }
+      @config[:overlays] << options
     end
 
     # def layer(name, list = {})
@@ -111,7 +115,7 @@ module Visualization
       if object.is_a?(TrueClass)
         hash = { header: item[:name] }
         for key, value in item
-          unless [:header, :footer, :name, :shape].include?(key)
+          unless %i[header footer name shape].include?(key)
             hash[key] = value.to_s
           end
         end

@@ -50,8 +50,9 @@
 #
 
 class ActivityProduction < Ekylibre::Record::Base
-  include Customizable, Attachable
-  enumerize :support_nature, in: [:cultivation, :fallow_land, :buffer, :border, :none, :animal_group], default: :cultivation
+  include Attachable
+  include Customizable
+  enumerize :support_nature, in: %i[cultivation fallow_land buffer border none animal_group], default: :cultivation
   refers_to :usage, class_name: 'ProductionUsage'
   refers_to :size_indicator, class_name: 'Indicator'
   refers_to :size_unit, class_name: 'Unit'
@@ -73,7 +74,7 @@ class ActivityProduction < Ekylibre::Record::Base
   has_and_belongs_to_many :campaigns
 
   has_geometry :support_shape
-  composed_of :size, class_name: 'Measure', mapping: [%w(size_value to_d), %w(size_unit_name unit)]
+  composed_of :size, class_name: 'Measure', mapping: [%w[size_value to_d], %w[size_unit_name unit]]
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :irrigated, :nitrate_fixing, inclusion: { in: [true, false] }
@@ -204,7 +205,7 @@ class ActivityProduction < Ekylibre::Record::Base
   end
 
   after_destroy do
-    support.destroy if support.is_a?(LandParcel)
+    support.destroy if support.is_a?(LandParcel) && support.activity_productions.empty?
 
     Ekylibre::Hook.publish(:activity_production_destroy, activity_production_id: id)
   end
@@ -274,8 +275,10 @@ class ActivityProduction < Ekylibre::Record::Base
   end
 
   def initialize_animal_group_support!
-    self.support = AnimalGroup.new unless support
-    support.name = computed_support_name
+    unless support
+      self.support = AnimalGroup.new
+      support.name = computed_support_name
+    end
     # FIXME: Need to find better category and population_counting...
     unless support.variant
       nature = ProductNature.find_or_create_by!(
@@ -535,12 +538,12 @@ class ActivityProduction < Ekylibre::Record::Base
     global_coef_harvest_yield = []
 
     if harvest_interventions.any?
-      harvest_interventions.find_each do |harvest|
+      harvest_interventions.includes(:targets).find_each do |harvest|
         harvest_working_area = []
         harvest.targets.each do |target|
           harvest_working_area << ::Charta.new_geometry(target.working_zone).area.in(:square_meter)
         end
-        harvest.outputs.each do |cast|
+        harvest.outputs.includes(:product).each do |cast|
           actor = cast.product
           next unless actor && actor.variety
           variety = Nomen::Variety.find(actor.variety)
@@ -608,15 +611,15 @@ class ActivityProduction < Ekylibre::Record::Base
   def current_size(options = {})
     options[:at] ||= self.started_on ? self.started_on.to_time : Time.zone.now
     value = support.get(size_indicator_name, options)
-    value = value.in(size_unit_name) unless size_unit_name.blank?
+    value = value.in(size_unit_name) if size_unit_name.present?
     value
   end
 
   def duplicate!(updates = {})
-    new_attributes = [
-      :activity, :campaign, :cultivable_zone, :irrigated, :nitrate_fixing,
-      :size_indicator_name, :size_unit_name, :size_value, :started_on,
-      :support_nature, :support_shape, :usage
+    new_attributes = %i[
+      activity campaign cultivable_zone irrigated nitrate_fixing
+      size_indicator_name size_unit_name size_value started_on
+      support_nature support_shape usage
     ].each_with_object({}) do |attr, h|
       h[attr] = send(attr)
       h
@@ -644,7 +647,7 @@ class ActivityProduction < Ekylibre::Record::Base
   end
 
   def get(*args)
-    unless support.present?
+    if support.blank?
       raise StandardError, "No support defined. Got: #{support.inspect}"
     end
     support.get(*args)

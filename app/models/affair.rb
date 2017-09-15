@@ -39,7 +39,7 @@
 #  letter                 :string
 #  lock_version           :integer          default(0), not null
 #  name                   :string
-#  number                 :string           not null
+#  number                 :string
 #  origin                 :string
 #  pretax_amount          :decimal(19, 4)   default(0.0)
 #  probability_percentage :decimal(19, 4)   default(0.0)
@@ -56,6 +56,7 @@
 # Sale            |    X    |         |
 # SaleCredit      |         |    X    |
 # SaleGap         | Profit! |  Loss!  |
+# Payslip         |         |    X    |
 # Purchase        |         |    X    |
 # PurchaseCredit  |         |         |
 # PurchaseGap     | Profit! |  Loss!  |
@@ -75,9 +76,13 @@ class Affair < Ekylibre::Record::Base
   has_many :gaps,              inverse_of: :affair # , dependent: :delete_all
   has_many :incoming_payments, inverse_of: :affair, dependent: :nullify
   has_many :outgoing_payments, inverse_of: :affair, dependent: :nullify
+  has_many :payslips,          inverse_of: :affair, dependent: :nullify
   has_many :purchases,         inverse_of: :affair, dependent: :nullify
   has_many :sales,             inverse_of: :affair, dependent: :nullify
   has_many :regularizations,   inverse_of: :affair, dependent: :destroy
+  has_many :debt_transfers, inverse_of: :affair, dependent: :nullify
+  has_many :debt_regularizations, inverse_of: :debt_transfer_affair, foreign_key: :debt_transfer_affair_id, class_name: 'DebtTransfer', dependent: :nullify
+
   # has_many :tax_declarations,  inverse_of: :affair, dependent: :nullify
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :accounted_at, :closed_at, :dead_line_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
@@ -86,12 +91,11 @@ class Affair < Ekylibre::Record::Base
   validates :currency, :third, presence: true
   validates :description, length: { maximum: 500_000 }, allow_blank: true
   validates :letter, :name, :origin, :state, length: { maximum: 500 }, allow_blank: true
-  validates :number, presence: true, uniqueness: true, length: { maximum: 500 }
+  validates :number, uniqueness: true, length: { maximum: 500 }, allow_blank: true
   validates :pretax_amount, :probability_percentage, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }, allow_blank: true
   # ]VALIDATORS]
   validates :currency, length: { allow_nil: true, maximum: 3 }
 
-  acts_as_numbered
   scope :closeds, -> { where(closed: true) }
   scope :opened, -> { where(closed: false) }
 
@@ -113,14 +117,22 @@ class Affair < Ekylibre::Record::Base
     end
   end
 
+  before_save :letter_journal_entries
+
+  def number
+    "A#{id.to_s.rjust(7, '0')}"
+  end
+
   def work_name
     number.to_s
   end
 
-  # return the first deal number for the given type
-  def deal_work_name(type = Purchase)
-    d = deals_of_type(type)
-    return d.first.number if d.count > 0
+  # Returns the first deal number for the given type as deal work name.
+  # FIXME: Not sure that's a good method. Why the first deal number is used as the
+  #        "deal work name".
+  def deal_work_name
+    d = deals_of_type(self.class.deal_class).first
+    return d.number if d
     nil
   end
 
@@ -139,7 +151,7 @@ class Affair < Ekylibre::Record::Base
 
     # Returns types of accepted deals
     def affairable_types
-      @affairable_types ||= %w(SaleGap PurchaseGap Sale Purchase IncomingPayment OutgoingPayment Regularization).freeze
+      @affairable_types ||= %w[SaleGap PurchaseGap Sale Purchase Payslip IncomingPayment OutgoingPayment Regularization DebtTransfer].freeze
     end
 
     # Removes empty affairs in the whole table
@@ -213,7 +225,7 @@ class Affair < Ekylibre::Record::Base
 
   # Check if debit is equal to credit
   def unbalanced?
-    !(self.debit == self.credit)
+    self.debit != self.credit
   end
 
   # Check if debit is equal to credit
@@ -237,7 +249,12 @@ class Affair < Ekylibre::Record::Base
   end
 
   def finishable?
-    !multi_thirds? && unbalanced?
+    unbalanced? && gap_class && !multi_thirds?
+  end
+
+  def debt_transferable?
+    # unbalanced
+    !closed && unbalanced?
   end
 
   # Adds a gap to close the affair
@@ -255,7 +272,7 @@ class Affair < Ekylibre::Record::Base
     self.class.transaction do
       # Get all VAT-specified deals
       deals_amount = deals.map do |deal|
-        [:debit, :credit].map do |mode|
+        %i[debit credit].map do |mode|
           # Get the items of the deal with their VAT %
           # then add 0% VAT to untaxed deals
           deal.deal_taxes(mode)
@@ -328,7 +345,11 @@ class Affair < Ekylibre::Record::Base
   end
 
   def gap_class
-    raise NotImplementedError
+    nil
+  end
+
+  def self.deal_class
+    name.gsub(/Affair$/, '').constantize
   end
 
   def originator
@@ -380,19 +401,16 @@ class Affair < Ekylibre::Record::Base
     raise NotImplementedError
   end
 
-  before_save :letter_journal_entries!
-
   def letterable?
     !unletterable?
   end
 
   def unletterable?
-    unbalanced? || multi_thirds? || journal_entry_items_unbalanced? ||
-      journal_entry_items_already_lettered? || !match_with_accountancy?
+    multi_thirds?
   end
 
   def lettered?
-    letter? && journal_entry_items_balanced?
+    letter?
   end
 
   def letter_journal_entries
@@ -410,7 +428,7 @@ class Affair < Ekylibre::Record::Base
 
   # Returns true if a part of items are already lettered by outside
   def journal_entry_items_already_lettered?
-    letters = letterable_journal_entry_items.pluck(:letter)
+    letters = letterable_journal_entry_items.pluck(:letter).map { |letter| letter.delete('*') }
     if (letter? && letters.detect { |x| x != letter }) ||
        (!letter? && letters.detect(&:present?))
       return true
@@ -447,7 +465,7 @@ class Affair < Ekylibre::Record::Base
     # Update letters
     account.unmark(letter) if journal_entry_items.any?
     self.letter = nil if letter.blank?
-    self.letter = account.mark(journal_entry_items.pluck(:id), letter)
+    self.letter = account.mark!(journal_entry_items.pluck(:id), letter)
     true
   end
 end

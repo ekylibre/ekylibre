@@ -26,7 +26,7 @@
 #  created_at                    :datetime         not null
 #  creator_id                    :integer
 #  device_uid                    :string           not null
-#  geolocation                   :geometry({:srid=>4326, :type=>"point"}) not null
+#  geolocation                   :geometry({:srid=>4326, :type=>"st_point"}) not null
 #  id                            :integer          not null, primary key
 #  intervention_parameter_id     :integer
 #  intervention_participation_id :integer
@@ -40,7 +40,7 @@
 #
 
 class Crumb < Ekylibre::Record::Base
-  enumerize :nature, in: [:point, :start, :stop, :pause, :resume, :scan, :hard_start, :hard_stop], predicates: true
+  enumerize :nature, in: %i[point start stop pause resume scan hard_start hard_stop], predicates: true
   belongs_to :user
   belongs_to :intervention_participation
   belongs_to :intervention_parameter, class_name: 'InterventionProductParameter'

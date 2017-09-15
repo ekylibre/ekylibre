@@ -44,6 +44,7 @@
 - custom_field
 - custom_field_choice
 - dashboard
+- debt_transfer
 - delivery
 - delivery_tool
 - deposit
@@ -51,6 +52,7 @@
 - document
 - document_template
 - easement
+- economic_situation
 - entity
 - entity_address
 - entity_link
@@ -59,6 +61,7 @@
 - event
 - event_participation
 - financial_year
+- financial_year_exchange
 - fixed_asset
 - fixed_asset_depreciation
 - fungus
@@ -105,7 +108,7 @@
 - loan_repayment
 - manure_management_plan
 - manure_management_plan_zone
-- map_background
+- map_layer
 - matter
 - net_service
 - notification
@@ -115,6 +118,10 @@
 - outgoing_payment_mode
 - parcel
 - parcel_item
+- payslip
+- payslip_affair
+- payslip_nature
+- payslip_payment
 - plant
 - plant_counting
 - plant_counting_item
@@ -147,6 +154,7 @@
 - purchase_gap
 - purchase_item
 - purchase_nature
+- purchase_payment
 - regularization
 - role
 - sale
@@ -170,6 +178,7 @@
 - tax
 - tax_declaration
 - tax_declaration_item
+- tax_declaration_item_part
 - team
 - token
 - tracking

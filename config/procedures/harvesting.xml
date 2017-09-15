@@ -4,6 +4,7 @@
     <parameters>
       <target name="plant" filter="is plant and has indicator shape">
         <attribute name="working_zone" default-value="PRODUCT.shape" if="PRODUCT?"/>
+        <attribute name="killable"/>
         <handler indicator="shape">
           <compute to="shape" expr="intersection(VALUE, PRODUCT.shape)"/>
           <compute to="population" expr="area(VALUE) / PRODUCT..net_surface_area(square_meter)"/>
@@ -25,11 +26,11 @@
                  backward="(POPULATION * VARIANT.net_mass(quintal)) / sum_working_zone_areas(plant, :hectare)"
                  forward="(VALUE * sum_working_zone_areas(plant, :hectare)) / VARIANT.net_mass(quintal)"/>
       </output>
+      <doer name="driver" filter="is worker and can drive(equipment)" cardinality="*"/>
+      <doer name="doer" filter="is worker" cardinality="*"/>
       <tool name="tractor" filter="is equipment and can tow(equipment)" cardinality="*"/>
       <tool name="cropper" filter="can harvest(plant)" cardinality="*"/>
       <tool name="implement" filter="is portable_equipment or can store(raw_matter) or can store_liquid" cardinality="*"/>
-      <doer name="driver" filter="is worker and can drive(equipment)" cardinality="*"/>
-      <doer name="doer" filter="is worker" cardinality="*"/>
     </parameters>
   </procedure>
 </procedures>

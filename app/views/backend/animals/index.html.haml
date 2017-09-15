@@ -8,15 +8,8 @@
     - menu.item :add_animal_group.tl, { controller: :animal_groups, action: :new }, data: { toggle: 'dialog', refresh: true }
     - menu.item :add_building_division.tl, { controller: :building_divisions, action: :new }, data: { toggle: 'dialog' }
 
-
-  - family = Nomen::ActivityFamily[:animal_farming]
-  = t.menu :interventions, icon: false do |menu|
-    - Nomen::ProcedureCategory.select { |c| c.activity_family.include?(family.name.to_sym) }.sort{|a,b| a.human_name <=> b.human_name }.each_with_index do |category, index|
-      - procedures = Procedo::Procedure.of_main_category(category.name.to_sym)
-      - menu.separator if index > 0 && procedures.any?
-      - procedures.sort{|a,b| a.human_name <=> b.human_name }.each do |procedure|
-        - reference_name = procedure.parameters_of_type(:target, false).first
-        - menu.item procedure.human_name, { controller: :interventions, procedure_name: procedure.name, redirect: params[:redirect], action: :new }, data: {toggle: 'dialog', target: procedure.name, parameters: true, reference_name: reference_name.present? ? reference_name.name : '' }
+  #animals-interventions-menu.btn-group{data: {matching_interventions_path: matching_interventions_backend_animals_path}}
+    = render partial: 'interventions_menu', locals: {t: t}
 
   .btn-group
     = t.new icon: false, label: :all.tl, data: { toggle: 'item-scope', scoped_items: 'all' }, href: ''
@@ -36,7 +29,7 @@
     = main_list
 
   - j.face :column do
-    .golumn.loading{data: {golumns: 'animal'}}
+    .golumn.loading{data: {golumns: 'animal', keep_animals_path: keep_backend_animals_path }}
 
       .golumn-loading
       .golumn-columns

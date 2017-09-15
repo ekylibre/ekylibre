@@ -5,13 +5,13 @@ module Procedo
     class Intervention
       class Target < Procedo::Engine::Intervention::ProductParameter
         attr_reader :new_group, :new_container
-        attr_accessor :new_variant
+        attr_accessor :new_variant, :identification_number
 
         def initialize(intervention, id, attributes = {})
           super(intervention, id, attributes)
           attributes = Maybe(attributes)
-          @new_group = Product.find_by(id: attributes[:new_group_id].to_i.or_else(0))
-          @new_container = Product.find_by(id: attributes[:new_container_id].to_i.or_else(0))
+          @new_group = Product.find_by(id: attributes[:new_group].to_i.or_else(0))
+          @new_container = Product.find_by(id: attributes[:new_container].to_i.or_else(0))
         end
 
         def new_group_id
@@ -53,6 +53,16 @@ module Procedo
           hash[:new_group_id] = new_group_id if @new_group
           hash[:new_container_id] = new_container_id if @new_container
           hash[:new_variant_id] = new_variant_id unless new_variant_id.nil?
+          hash[:identification_number] = identification_number if @identification_number
+          hash
+        end
+
+        def to_attributes
+          hash = super
+          hash[:new_group_id] = new_group_id if @new_group
+          hash[:new_container_id] = new_container_id if @new_container
+          hash[:new_variant_id] = new_variant_id unless new_variant_id.nil?
+          hash[:identification_number] = identification_number if @identification_number
           hash
         end
 

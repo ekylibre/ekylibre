@@ -87,7 +87,7 @@ module Aggeratio
           unless child.has_attribute?('value')
             child['value'] = child.attr('name').to_s
           end
-          unless of.blank?
+          if of.present?
             child['of'] = if child.has_attribute?('of')
                             of + '.' + child.attr('of').to_s
                           else
@@ -109,9 +109,9 @@ module Aggeratio
       for section in element.xpath('//*[self::xmlns:section or self::xmlns:sections]')
         of = section.attr('of')
         of_type = section.attr('of-type')
-        section['if'] = of if section.name == 'section' && !of.blank?
+        section['if'] = of if section.name == 'section' && of.present?
         for child in section.children
-          unless of.blank?
+          if of.present?
             child['of'] = if child.has_attribute?('of')
                             of + '.' + child.attr('of').to_s
                           else
@@ -134,7 +134,6 @@ module Aggeratio
       code = "class #{agg.class_name} < Aggregator\n"
 
       parameters = agg.parameters
-      root = agg.root
 
       code << "  class << self\n"
 

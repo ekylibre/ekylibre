@@ -65,6 +65,10 @@ class BankStatement < Ekylibre::Record::Base
 
   delegate :name, :currency, :journal, :account, :account_id, :next_reconciliation_letters, to: :cash, prefix: true
 
+  scope :find_by_date, lambda { |started_on, stopped_on, cash_id|
+    find_by('started_on <= ? AND stopped_on >= ? AND cash_id = ?', started_on, stopped_on, cash_id)
+  }
+
   before_validation do
     self.currency = cash_currency if cash
     active_items = items.to_a.delete_if(&:marked_for_destruction?)
@@ -104,14 +108,14 @@ class BankStatement < Ekylibre::Record::Base
 
   bookkeep do |b|
     b.journal_entry(cash_journal, printed_on: stopped_on, if: cash.suspend_until_reconciliation) do |entry|
-      label = "BS #{cash.name} #{number}"
-      balance = items.sum('credit - debit')
+      # label = "BS #{cash.name} #{number}"
+      # balance = items.sum('credit - debit')
       items.each do |item|
         entry.add_debit(item.name, cash.main_account_id, item.credit_balance, as: :bank)
-        # entry.add_credit(item.name, cash.suspense_account_id, item.credit_balance, as: :suspended)
+        entry.add_credit(item.name, cash.suspense_account_id, item.credit_balance, as: :suspended, resource: item)
       end
       # entry.add_debit(label, cash.main_account_id, balance, as: :bank)
-      entry.add_credit(label, cash.suspense_account_id, balance, as: :suspended)
+      # entry.add_credit(label, cash.suspense_account_id, balance, as: :suspended)
     end
   end
 
@@ -140,12 +144,16 @@ class BankStatement < Ekylibre::Record::Base
   end
 
   def next_letter
-    cash_next_reconciliation_letters.next
+    cash.next_reconciliation_letter
   end
 
   def letter_items(statement_items, journal_entry_items)
     new_letter = next_letter
     return false if (journal_entry_items + statement_items).length.zero?
+
+    statement_entries = JournalEntryItem.where(resource: statement_items)
+    to_letter = journal_entry_items + statement_entries
+    cash.suspense_account.mark(to_letter) if cash.suspend_until_reconciliation
 
     saved = true
     saved &&= statement_items.update_all(letter: new_letter)
@@ -158,9 +166,14 @@ class BankStatement < Ekylibre::Record::Base
   end
 
   def eligible_journal_entry_items
-    # margin = 20.days
-    unpointed = cash.unpointed_journal_entry_items # .between(started_on - margin, stopped_on + margin)
+    unpointed = cash.unpointed_journal_entry_items
     pointed = JournalEntryItem.pointed_by(self)
+    JournalEntryItem.where(id: unpointed.pluck(:id) + pointed.pluck(:id))
+  end
+
+  def eligible_entries_in(start, finish)
+    unpointed = cash.unpointed_journal_entry_items.between(start, finish)
+    pointed = JournalEntryItem.pointed_by(self).between(start, finish)
     JournalEntryItem.where(id: unpointed.pluck(:id) + pointed.pluck(:id))
   end
 

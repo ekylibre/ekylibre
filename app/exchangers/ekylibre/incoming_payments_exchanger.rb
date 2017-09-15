@@ -25,7 +25,6 @@ module Ekylibre
 
       rows.each_with_index do |row, index|
         line_number = index + 2
-        prompt = "L#{line_number.to_s.yellow}"
         r = {
           invoiced_at:        (row[0].blank? ? nil : Date.parse(row[0].to_s)),
           payer_full_name:    (row[1].blank? ? nil : row[1]),
@@ -68,7 +67,7 @@ module Ekylibre
         # Check Outgoing payment presence
         incoming_payment = IncomingPayment.find_by(payer: entity, paid_at: paid_at, mode: payment_mode, amount: r.amount)
         if incoming_payment
-          w.info " Outgoing payment is already present with ID : #{outgoing_payment.id} "
+          w.info " Outgoing payment is already present with ID : #{purchase_payment.id} "
         end
 
         # Check affair presence
@@ -84,15 +83,16 @@ module Ekylibre
     end
 
     def import
-      rows = CSV.read(file, headers: true).delete_if { |r| r[0].blank? }
+      rows = CSV.read(file, headers: true)
       w.count = rows.size
       now = Time.zone.now
 
       # find an responsible
       responsible = User.employees.first
 
-      rows.each do |row|
-        next if row[0].blank?
+      rows.each_with_index do |row, index|
+        line_number = index + 2
+        w.check_point && next if row[0].blank?
         r = {
           invoiced_at:        (row[0].blank? ? nil : Date.parse(row[0].to_s)),
           payer_full_name:    (row[1].blank? ? nil : row[1]),

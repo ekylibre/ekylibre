@@ -1,4 +1,5 @@
 # coding: utf-8
+
 # = Informations
 #
 # == License
@@ -56,26 +57,28 @@ class CustomFieldTest < ActiveSupport::TestCase
 
   Ekylibre::Schema.models.each do |model_name|
     model = model_name.to_s.camelcase.constantize
-    test "custom fields on #{model_name}" do
-      I18n.locale = ENV['LOCALE'] || I18n.default_locale
-      if !model.customizable?
+    if !model.customizable?
+      test "should not add custom fields on #{model_name}" do
         assert_raise ActiveRecord::RecordInvalid, "Souldn't add custom field on not customizable models like #{model.name}" do
           CustomField.create!(name: 'たてがみ', nature: :text, customized_type: model.name)
         end
-      else
+      end
+    else
+      test "should manipulate custom fields on #{model_name}" do
+        I18n.locale = ENV['LOCALE'] || I18n.default_locale
         CustomField.nature.values.each do |nature|
-          field = CustomField.create!(name: "#{nature.capitalize} info", nature: nature, customized_type: model.name)
+          field = CustomField.create!(
+            name: "#{nature.capitalize} info",
+            nature: nature,
+            customized_type: model.name
+          )
+          first_column_name = field.column_name
           field.name = "#{nature.capitalize} インフォ"
           field.save!
+          assert_equal first_column_name, field.column_name, 'Column name should not change'
 
-          if field.choice?
-            5.times do |index|
-              field.choices.create!(name: "Marvelous ##{index}")
-            end
-          end
-
-          record = (model == Sale ? Sale.where.not(state: :invoice).first : model.first)
-          assert record.present?, "A #{model.name} record must exist to test custom field on it"
+          record = model.all.detect { |r| r.valid? && r.updateable? }
+          assert record.present?, 'A valid and updateable record must exist to test custom fields on it'
 
           # Set value
           method_name = "#{field.column_name}="
@@ -83,6 +86,9 @@ class CustomFieldTest < ActiveSupport::TestCase
           if STATIC_VALUES.key?(field.nature)
             record.custom_fields[field.column_name] = STATIC_VALUES[field.nature]
           elsif field.choice?
+            3.times do |index|
+              field.choices.create!(name: "Marvelous ##{index}")
+            end
             choice = field.choices.sample
             record.custom_fields[field.column_name] = choice.value
           else
@@ -91,6 +97,7 @@ class CustomFieldTest < ActiveSupport::TestCase
 
           record.save!
           record.reload
+          assert record.custom_fields.is_a?(Hash), 'Custom fields should be a Hash'
           value = record.custom_fields[field.column_name]
           assert value.present?, "A value must be present in custom field #{field.column_name.inspect} after update. Got: #{value.inspect} from #{record.custom_fields.inspect}:#{record.custom_fields.class.name}"
 

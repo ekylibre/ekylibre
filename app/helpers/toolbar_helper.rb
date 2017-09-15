@@ -75,13 +75,25 @@ module ToolbarHelper
       @template.dropdown_menu_button(name, options, &block)
     end
 
-    def destroy(options = {})
+    def destroy(*args)
+      options = args.extract_options!
       if @template.resource
         if @template.resource.destroyable?
           tool(options[:label] || :destroy.ta, { action: :destroy, id: @template.resource.id, redirect: options[:redirect] }, method: :delete, data: { confirm: :are_you_sure_you_want_to_delete.tl })
         end
       else
         tool(options[:label] || :destroy.ta, { action: :destroy, redirect: options[:redirect] }, { method: :delete }.merge(options.except(:redirect, :label)))
+      end
+    end
+
+    def edit(*args)
+      options = args.extract_options!
+      if @template.resource
+        if @template.resource.updateable?
+          tool(options[:label] || :edit.ta, action: :edit, id: @template.resource.id, redirect: options[:redirect])
+        end
+      else
+        tool(options[:label] || :edit.ta, { action: :edit, redirect: options[:redirect] }, options.except(:redirect, :label))
       end
     end
 
@@ -93,6 +105,7 @@ module ToolbarHelper
       url[:controller] ||= @template.controller_path
       url[:action] ||= name
       url[:id] = record.id if record && record.class < ActiveRecord::Base
+      url[:format] = options.delete(:format) if options.key?(:format)
       action_label = options[:label] || I18n.t(name, scope: 'rest.actions')
       url[:nature] = options[:nature] if options[:nature]
       if options[:variants]

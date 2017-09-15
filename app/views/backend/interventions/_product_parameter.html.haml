@@ -1,40 +1,46 @@
 %li.cast
-  .cost
-    - computation = product_parameter.cost_amount_computation
-    .computation
-      - if computation.failed?
-        = 'FAILED'
-      - elsif computation.none?
-        = '&mdash;'.html_safe
-      - elsif computation.quantity?
-        %span.quantity= computation.quantity.round(3).l(precision: 0)
-        %span.unit-name= computation.unit_name
-        = ' &times; '.html_safe
-        - if computation.catalog?
-          - if computation.catalog_item
-            = link_to(computation.human_unit_amount, {controller: :catalog_items, action: :edit, id: computation.catalog_item.id, redirect: request.fullpath})
-          - else
-            = link_to(:add_catalog_price.tl, {controller: :catalog_items, action: :new, variant_id: product_parameter.product.variant.id, catalog_id: Catalog.by_default!(computation.catalog_usage).id, redirect: request.fullpath})
-        - elsif computation.sale?
-          = link_to(computation.human_unit_amount, {controller: :sales, action: :show, id: computation.sale.id})
-        - elsif computation.purchase?
-          = link_to(computation.human_unit_amount, {controller: :purchases, action: :show, id: computation.purchase.id})
-        = ' = '.html_safe
-        - if computation.amount?
-          %span.amount= computation.human_amount
-        - else
-          %span.amount.no-amount
-            %i.icon.icon-question
-    - if computation.quantity?
-      .origin
-        - if computation.catalog? && computation.catalog_item && computation.catalog
-          = :amount_estimated_from.th(source: link_to(computation.catalog.name, {controller: :catalogs, action: :show, id: computation.catalog.id}, title: Catalog.model_name.human))
-        - elsif computation.sale?
-          = :amount_computed_from.th(source: link_to(computation.sale.number, {controller: :sales, action: :show, id: computation.sale.id}, title: Sale.model_name.human))
-        - elsif computation.purchase?
-          = :amount_computed_from.th(source: link_to(computation.purchase.number, {controller: :purchases, action: :show, id: computation.purchase.id}, title: Purchase.model_name.human))
-
   - actor = product_parameter.product
+  - intervention = product_parameter.intervention
+  - product = product_parameter.product
+
+  - if intervention.participations.empty?
+    = add_working_period_cost(product_parameter)
+  - else
+    - participation = product_parameter.participation if product_parameter.is_a?(InterventionDoer)
+    - is_equipment = product.try(:tractor?) || product.try(:self_prepelled_equipment?)
+    .periods
+      - if (!participation.nil? && participation.has_period_with_nature?(nature: :preparation))
+        .period
+          .period-type
+            = image_tag('intervention_participations/action-preparation.svg', class: "period-icon")
+            %h3{ class: "period-label" }= t('enumerize.intervention_working_period.nature.preparation')
+          = add_working_period_cost(product_parameter, nature: :preparation)
+
+      - if !participation.nil? && participation.has_period_with_nature?(nature: :travel) || product.try(:tractor?)
+        .period
+          .period-type
+            = image_tag('intervention_participations/action-travel.svg', class: "period-icon")
+            %h3{ class: "period-label" }= t('enumerize.intervention_working_period.nature.travel')
+          = add_working_period_cost(product_parameter, nature: :travel)
+
+      - if (!participation.nil? && participation.has_period_with_nature?(nature: :intervention)) || product.is_a?(Equipment)
+        .period
+          .period-type
+            = image_tag('intervention_participations/action-intervention.svg', class: "period-icon")
+            %h3{ class: "period-label" }= t('enumerize.intervention_working_period.nature.intervention')
+          = add_working_period_cost(product_parameter, nature: :intervention)
+
+      - if !participation.nil? || is_equipment || product.is_a?(Equipment)
+        .total
+          %h3{ class: "total-label" }= t('labels.total')
+
+          - if product.is_a?(Worker)
+            = add_total_working_period(product_parameter)
+          - elsif product.try(:tractor?)
+            = add_total_working_period(product_parameter, natures: %i[travel intervention])
+          - else
+            = add_total_working_period(product_parameter, natures: %i[intervention])
+
   - variant = product_parameter.variant
   - if actor
     .picture
@@ -46,13 +52,19 @@
         .picto{class: 'picto-question'}
 
     .details
-      %h3= link_to(actor.name, {controller: actor.class.table_name, action: :show, id: actor.id})
+      %h3
+        = link_to(actor.name, {controller: actor.class.table_name, action: :show, id: actor.id})
+        = lights('stop') if product_parameter.dead and product_parameter.product.dead_at
       %p= product_parameter.name
       %p= product_parameter.model_name.human
       - if actor.is_a?(Product) && !actor.population_counting_unitary? && variant && product_parameter.quantity_unit_name && product_parameter.quantity
         %p
           - if product_parameter.is_population?
             = :x_thing.tl(x: product_parameter.quantity.round(2).l(precision: 0), thing: variant.unit_name.mb_chars.downcase)
+          - elsif product_parameter.product.france_maaid && product_parameter.is_a?(InterventionInput)
+            .details
+              = product_parameter.product.france_maaid
+            = product_parameter.quantity.round(2).l(precision: 0)
           - else
             = product_parameter.quantity.round(2).l(precision: 0)
   - elsif variant

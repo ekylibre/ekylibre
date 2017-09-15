@@ -54,6 +54,20 @@ jpn:
         multi_polygon: "マルチポリゴン"
         point: "ポイント"
         string: "文字列"
+    animal:
+      birth_date_completeness:
+        full_date: "完全な日付"
+        month_year: "月の年"
+        year: "年"
+      end_of_life_reason:
+        calculated_date: "計算された日付"
+        cutting_up: "デコパージュ"
+        death: "死"
+        slaughter: "虐殺"
+      filiation_status:
+        certified: "認定されました"
+        uncertified: "保証されていません"
+        unknown: "未知の"
     call_message:
       nature:
         incoming: "入ってきます"
@@ -80,6 +94,7 @@ jpn:
         purchase: "購入"
         sale: "販売"
         stock: "株式"
+        travel_cost: "旅行"
     crumb:
       nature:
         hard_start: "ハードスタート"
@@ -98,6 +113,10 @@ jpn:
         datetime: "日時"
         decimal: "10進数"
         text: "テキスト"
+    debt_transfer:
+      nature:
+        purchase_regularization: "購入正則"
+        sale_regularization: "販売正則"
     delivery:
       mode:
         third: "三番"
@@ -145,7 +164,13 @@ jpn:
       depreciation_method:
         graduated: "目盛り付きの" #?
         linear: "リニア"
+        none: "なし"
+        regressive: "回帰"
         simplified_linear: "簡体リニア"
+      depreciation_period:
+        monthly: "毎月"
+        quarterly: "季刊"
+        yearly: "毎年"
     gap:
       direction:
         loss: "損失"
@@ -219,14 +244,18 @@ jpn:
     intervention_working_period:
       nature:
         intervention: "介入"
+        pause: "一時停止"
         preparation: "準備"
         travel: "旅行"
     journal:
       nature:
         bank: "バンク"
         cash: "現金"
+        closure: "閉鎖"
+        fixed_assets: "固定資産"
         forward: "実施フォワード"
         purchases: "購入"
+        result: "結果"
         sales: "セールス"
         stocks: "ストック"
         various: "さまざまな操作"
@@ -242,15 +271,24 @@ jpn:
         root: "ルート"
         string: "文字列"
     loan:
+      insurance_repayment_method:
+        initial: "初期資本に基づきます"
+        to_repay: "資本に基づいて返済する左"
       repayment_method:
         constant_amount: "一定量"
         constant_rate: "一定の割合"
       repayment_period:
         month: "月"
+        semester: "学期"
+        trimester: "学期"
         year: "年"
       shift_method:
         anatocism: "anatocism"
         immediate_payment: "即納"
+    map_layer:
+      nature:
+        background: "バックグラウンド"
+        overlay: "オーバーレイ"
     notification:
       level:
         error: "エラー"
@@ -316,6 +354,15 @@ jpn:
       nature:
         exterior: "外観"
         interior: "インテリア"
+    product_movement:
+      description:
+        birth: "誕生"
+        butchery: "肉屋"
+        consumption: "消費"
+        death: "死"
+        loan: "ローン"
+        purchase: "購入"
+        sale: "販売"
     product_nature:
       population_counting:
         decimal: "10進数"
@@ -405,10 +452,10 @@ jpn:
       nature:
         payslip: "給料明細書"
         purchase: "購入"
-    sale_item:
-      compute_from:
-        pretax_amount: "税引前金額"
-        unit_pretax_amount: "ユニット税引前金額"
+    sale_item: #?
+      compute_from: #?
+        pretax_amount: "税引前金額" #?
+        unit_pretax_amount: "ユニット税引前金額" #?
     sensor:
       retrieval_mode:
         integration: "統合"
@@ -424,8 +471,10 @@ jpn:
         affairs: "業務"
         analyses: "解析"
         animals: "動物"
+        campaigns: "キャンペーン"
         cash_transfers: "現金移転"
         contracts: "契約"
+        debt_transfers: "債務転送"
         deliveries: "出荷"
         deposits: "預金"
         documents: "ドキュメント"
@@ -440,6 +489,7 @@ jpn:
         outgoing_payment_lists: "支払リスト"
         outgoing_payments: "支払"
         parcels: "小包"
+        plant_countings: "プラント数"
         plants: "植物"
         product_nature_categories: "製品の性質のカテゴリ"
         product_nature_variants: "商品の性質上変種"
@@ -488,6 +538,10 @@ jpn:
       nature: #?
         amount: "量" #?
         percentage: "パーセンテージ" #?
+    tax_declaration:
+      mode:
+        debit: "デビット"
+        payment: "支払い"
     tracking:
       usage_limit_nature:
         best_before: "賞味期限"

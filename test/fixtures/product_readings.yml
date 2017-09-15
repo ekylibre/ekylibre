@@ -40,7 +40,7 @@
 #  multi_polygon_value          :geometry({:srid=>4326, :type=>"multi_polygon"})
 #  originator_id                :integer
 #  originator_type              :string
-#  point_value                  :geometry({:srid=>4326, :type=>"point"})
+#  point_value                  :geometry({:srid=>4326, :type=>"st_point"})
 #  product_id                   :integer          not null
 #  read_at                      :datetime         not null
 #  string_value                 :text
@@ -947,7 +947,7 @@ product_readings_061:
   indicator_name: soil_cultural_state
   lock_version: 0
   product_id: 81
-  read_at: 1965-01-22 23:00:00.000000000 Z
+  read_at: 2012-09-02 23:00:00.000000000 Z
   updated_at: 2014-11-04 17:15:04.604337000 Z
   updater_id: 1
 product_readings_062:
@@ -992,7 +992,7 @@ product_readings_064:
   indicator_name: soil_cultural_state
   lock_version: 0
   product_id: 82
-  read_at: 1975-06-01 23:00:00.000000000 Z
+  read_at: 2013-01-01 23:00:00.000000000 Z
   updated_at: 2014-11-04 17:17:04.669059000 Z
   updater_id: 1
 product_readings_065:
@@ -1036,7 +1036,7 @@ product_readings_067:
   indicator_name: soil_cultural_state
   lock_version: 0
   product_id: 83
-  read_at: 1983-12-11 23:00:00.000000000 Z
+  read_at: 2012-10-02 23:00:00.000000000 Z
   updated_at: 2014-11-04 17:19:31.130666000 Z
   updater_id: 1
 product_readings_068:
@@ -1052,7 +1052,7 @@ product_readings_068:
   measure_value_unit: hectare
   measure_value_value: 1.0
   product_id: 83
-  read_at: 1983-12-11 23:00:00.000000000 Z
+  read_at: 2012-10-02 23:00:00.000000000 Z
   updated_at: 2014-11-04 17:19:31.266286000 Z
   updater_id: 1
 product_readings_069:
@@ -1082,7 +1082,7 @@ product_readings_070:
   indicator_name: soil_cultural_state
   lock_version: 0
   product_id: 84
-  read_at: 1985-11-03 23:00:00.000000000 Z
+  read_at: 2012-10-02 23:00:00.000000000 Z
   updated_at: 2014-11-04 17:22:31.669214000 Z
   updater_id: 1
 product_readings_071:
@@ -1098,7 +1098,7 @@ product_readings_071:
   measure_value_unit: hectare
   measure_value_value: 1.0
   product_id: 84
-  read_at: 1985-11-03 23:00:00.000000000 Z
+  read_at: 2012-10-02 23:00:00.000000000 Z
   updated_at: 2014-11-04 17:22:31.704135000 Z
   updater_id: 1
 product_readings_072:
@@ -1818,7 +1818,7 @@ product_readings_118:
   indicator_name: soil_cultural_state
   lock_version: 0
   product_id: 106
-  read_at: 1971-06-17 23:00:00.000000000 Z
+  read_at: 2008-06-17 23:00:00.000000000 Z
   updated_at: 2014-11-07 16:26:53.133333000 Z
   updater_id: 1
 product_readings_119:
@@ -1834,7 +1834,7 @@ product_readings_119:
   measure_value_unit: hectare
   measure_value_value: 1.0
   product_id: 106
-  read_at: 1971-06-17 23:00:00.000000000 Z
+  read_at: 2008-06-17 23:00:00.000000000 Z
   updated_at: 2014-11-07 16:26:53.223075000 Z
   updater_id: 1
 product_readings_120:
@@ -1856,7 +1856,7 @@ product_readings_120:
     45.8265171857445,-0.798220038414001 45.8265863406396,-0.798332691192627 45.8266984835302,-0.798354148864746
     45.8268218404488)))
   product_id: 106
-  read_at: 1971-06-17 23:00:00.000000000 Z
+  read_at: 2008-06-17 23:00:00.000000000 Z
   updated_at: 2014-11-07 16:26:53.233581000 Z
   updater_id: 1
 product_readings_121:
@@ -3456,7 +3456,7 @@ product_readings_214:
   measure_value_unit: hectare
   measure_value_value: 1.0
   product_id: 176
-  read_at: 2016-02-29 23:00:00.000000000 Z
+  read_at: 2016-03-02 23:00:00.000000000 Z
   updated_at: 2016-05-10 19:12:52.826480000 Z
   updater_id: 1
 product_readings_215:

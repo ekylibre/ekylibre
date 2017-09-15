@@ -128,6 +128,30 @@ module Procedo
           end
           hash[:assembly_id] = assembly_id if assembly?
           hash[:component_id] = component_id if component?
+          hash[:errors] = {}
+          if reference.display_status.to_s.to_sym == :miscibility
+            hash[:errors][:miscibility] = true unless product? && product.france_maaid
+          end
+          hash
+        end
+
+        def to_attributes
+          hash = super
+          hash[:product_id] = product_id if product?
+          hash[:working_zone] = @working_zone.to_json if working_zone?
+          @readings.each do |id, reading|
+            next unless reference.reading(reading.name)
+            hash[:readings_attributes] ||= {}
+            hash[:readings_attributes][id] = reading.to_hash
+          end
+          reference.attributes.each do |attribute|
+            next unless attribute.compute_filter?
+            hash[:attributes] ||= {}
+            hash[:attributes][attribute.name] ||= {}
+            hash[:attributes][attribute.name][:dynascope] = attribute.scope_hash
+          end
+          hash[:assembly_id] = assembly_id if assembly?
+          hash[:component_id] = component_id if component?
           hash
         end
 

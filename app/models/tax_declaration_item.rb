@@ -1,4 +1,3 @@
-# coding: utf-8
 # = Informations
 #
 # == License
@@ -49,6 +48,7 @@ class TaxDeclarationItem < Ekylibre::Record::Base
   belongs_to :tax
   belongs_to :tax_declaration, class_name: 'TaxDeclaration'
   has_many :journal_entry_items, foreign_key: :tax_declaration_item_id, class_name: 'JournalEntryItem', inverse_of: :tax_declaration_item, dependent: :nullify
+  has_many :parts, foreign_key: :tax_declaration_item_id, class_name: 'TaxDeclarationItemPart', dependent: :destroy, inverse_of: :tax_declaration_item
   has_one :financial_year, through: :tax_declaration
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :balance_pretax_amount, :balance_tax_amount, :collected_pretax_amount, :collected_tax_amount, :deductible_pretax_amount, :deductible_tax_amount, :fixed_asset_deductible_pretax_amount, :fixed_asset_deductible_tax_amount, :intracommunity_payable_pretax_amount, :intracommunity_payable_tax_amount, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
@@ -62,54 +62,179 @@ class TaxDeclarationItem < Ekylibre::Record::Base
 
   before_validation do
     self.currency = tax_declaration_currency if tax_declaration
-    self.balance_pretax_amount = collected_pretax_amount - (deductible_pretax_amount + fixed_asset_deductible_pretax_amount + intracommunity_payable_pretax_amount)
+    self.balance_pretax_amount = collected_pretax_amount - (deductible_pretax_amount + fixed_asset_deductible_pretax_amount) # do not use intracommunity pretax as already in deductible
     self.balance_tax_amount = collected_tax_amount - (deductible_tax_amount + fixed_asset_deductible_tax_amount + intracommunity_payable_tax_amount)
   end
 
   def compute!
     raise 'Cannot compute item without its tax' unless tax
-    if tax_declaration_mode_payment?
-      compute_in_payment_mode!
-    elsif tax_declaration_mode_debit?
-      compute_in_debit_mode!
+    ActiveRecord::Base.transaction do
+      generate_parts
+      compute_amounts
+      save!
+    end
+  end
+
+  private
+
+  def generate_parts
+    parts.clear
+    generate_debit_parts
+    generate_payment_parts
+  end
+
+  def generate_debit_parts
+    entry_items = JournalEntryItem
+                  .where('printed_on <= ? ', stopped_on)
+                  .where(tax_declaration_mode: 'debit')
+                  .where(tax: tax)
+                  .where.not(resource_type: 'TaxDeclarationItem')
+                  .where.not(id: TaxDeclarationItemPart.select(:journal_entry_item_id))
+
+    tax_account_ids_by_direction.each do |direction, account_id|
+      balance =
+        if direction == :collected
+          'journal_entry_items.credit - journal_entry_items.debit'
+        else
+          'journal_entry_items.debit - journal_entry_items.credit'
+        end
+
+      select_sql = <<-SQL
+        journal_entry_items.id AS journal_entry_item_id,
+        journal_entry_items.account_id AS account_id,
+        (#{balance}) AS tax_amount,
+        (#{balance}) AS total_tax_amount,
+        journal_entry_items.pretax_amount AS pretax_amount,
+        journal_entry_items.pretax_amount AS total_pretax_amount
+      SQL
+
+      part_rows = entry_items.where(account_id: account_id).select(select_sql)
+      part_rows.each do |row|
+        parts.build(
+          journal_entry_item_id: row.journal_entry_item_id,
+          account_id: row.account_id,
+          tax_amount: row.tax_amount,
+          total_tax_amount: row.total_tax_amount,
+          pretax_amount: row.pretax_amount,
+          total_pretax_amount: row.total_pretax_amount,
+          direction: direction
+        )
+      end
+    end
+  end
+
+  def generate_payment_parts
+    tax_account_ids_by_direction.each do |direction, account_id|
+      generate_payments_parts_for_direction_and_account_id(direction, account_id)
+    end
+  end
+
+  def generate_payments_parts_for_direction_and_account_id(direction, account_id)
+    conditions_sql = <<-SQL
+      jei.tax_declaration_mode = ?
+      AND jei.tax_id = ?
+      AND jei.account_id = ?
+      AND jei.resource_type != ?
+    SQL
+
+    conditions_sql_values = [
+      'payment',
+      tax.id,
+      account_id,
+      'TaxDeclarationItem'
+    ]
+
+    conditions = [conditions_sql] + conditions_sql_values
+
+    if direction == :collected
+      balance = 'jei.credit - jei.debit'
+      total_balance = 'tjei.debit - tjei.credit'
+      paid_balance = 'pjei.credit - pjei.debit'
     else
-      raise 'No declaration mode given'
+      balance = 'jei.debit - jei.credit'
+      total_balance = 'tjei.credit - tjei.debit'
+      paid_balance = 'pjei.debit - pjei.credit'
+    end
+
+    sql = <<-SQL
+      SELECT     jei.id AS journal_entry_item_id,
+                 jei.account_id AS account_id,
+                 ROUND(((#{balance}) * SUM(#{paid_balance}) / total.balance), 2) - COALESCE(declared.tax_amount, 0) AS tax_amount,
+                 (#{balance}) AS total_tax_amount,
+                 ROUND((jei.pretax_amount * SUM(#{paid_balance}) / total.balance), 2) - COALESCE(declared.pretax_amount, 0) AS pretax_amount,
+                 jei.pretax_amount AS total_pretax_amount
+      FROM       journal_entry_items jei
+
+      INNER JOIN journal_entry_items iljei ON
+                   iljei.entry_id = jei.entry_id
+                   AND LENGTH(TRIM(iljei.letter)) > 0
+
+      INNER JOIN (
+        SELECT tjei.account_id,
+               tjei.letter,
+               SUM(#{total_balance}) AS balance
+        FROM   journal_entry_items tjei
+        WHERE  tjei.printed_on <= '#{stopped_on}'
+               AND EXISTS(
+                 SELECT 1
+                 FROM   journal_entry_items
+                 WHERE  entry_id = tjei.entry_id
+                        AND tax_id IS NOT NULL
+               )
+        GROUP BY account_id, letter
+      ) AS total ON total.letter = iljei.letter AND total.account_id = iljei.account_id
+
+      INNER JOIN journal_entry_items pjei ON
+                   pjei.letter = iljei.letter
+                   AND pjei.account_id = iljei.account_id
+                   AND pjei.printed_on <= '#{stopped_on}'
+                   AND NOT EXISTS(
+                     SELECT 1
+                     FROM   journal_entry_items
+                     WHERE  entry_id = pjei.entry_id
+                            AND tax_id IS NOT NULL
+                   )
+
+      LEFT JOIN (
+        SELECT   journal_entry_item_id,
+                 direction,
+                 SUM(tax_amount) AS tax_amount,
+                 SUM(pretax_amount) AS pretax_amount
+        FROM     tax_declaration_item_parts
+        GROUP BY journal_entry_item_id, direction
+      ) AS declared ON declared.journal_entry_item_id = jei.id AND declared.direction = '#{direction}'
+
+      WHERE #{TaxDeclarationItem.send(:sanitize_sql_for_conditions, conditions)}
+      GROUP BY jei.id, total.balance, declared.tax_amount, declared.pretax_amount
+      HAVING ROUND(((#{balance}) * SUM(#{paid_balance}) / total.balance), 2) - COALESCE(declared.tax_amount, 0) != 0.0
+    SQL
+
+    part_rows = ActiveRecord::Base.connection.execute(sql)
+    part_rows.to_a.each do |part_attributes|
+      parts.build part_attributes.merge direction: direction
     end
   end
 
-  def compute_in_payment_mode!
-    journal_entry_items = targeted_journal_entry_items(lettered: true)
-    compute_with_journal_entry_items! journal_entry_items
-  end
-
-  def compute_in_debit_mode!
-    journal_entry_items = targeted_journal_entry_items
-    compute_with_journal_entry_items! journal_entry_items
-  end
-
-  def compute_with_journal_entry_items!(journal_entry_items)
-    self.deductible_tax_amount = journal_entry_items.where(account: tax.deduction_account).sum('debit - credit')
-    self.deductible_pretax_amount = journal_entry_items.where(account: tax.deduction_account).sum(:pretax_amount)
-    self.fixed_asset_deductible_tax_amount = journal_entry_items.where(account: tax.fixed_asset_deduction_account).sum('debit - credit')
-    self.fixed_asset_deductible_pretax_amount = journal_entry_items.where(account: tax.fixed_asset_deduction_account).sum(:pretax_amount)
-    self.intracommunity_payable_tax_amount = journal_entry_items.where(account: tax.intracommunity_payable_account).sum('debit - credit')
-    self.intracommunity_payable_pretax_amount = journal_entry_items.where(account: tax.intracommunity_payable_account).sum(:pretax_amount)
-    self.collected_tax_amount = journal_entry_items.where(account: tax.collect_account).sum('credit - debit')
-    self.collected_pretax_amount = journal_entry_items.where(account: tax.collect_account).sum(:pretax_amount)
-    save!
-    self.journal_entry_items.where(tax_declaration_item_id: id).update_all(tax_declaration_item_id: nil)
-    journal_entry_items.update_all(tax_declaration_item_id: id)
-  end
-
-  protected
-
-  def targeted_journal_entry_items(options = {})
-    relation = JournalEntryItem.where(tax: tax)
-                               .where(printed_on: started_on..stopped_on)
-                               .where('tax_declaration_item_id IS NULL OR tax_declaration_item_id = ?', id || 0)
-    if options[:lettered].is_a?(TrueClass)
-      relation = relation.where(entry_id: JournalEntryItem.select(:entry_id).where('LENGTH(TRIM(letter)) > 0'))
+  def compute_amounts
+    directions.each do |direction|
+      direction_parts = parts.select { |part| part.direction == direction }
+      tax_amount = direction_parts.sum(&:tax_amount) || 0.0
+      pretax_amount = direction_parts.sum(&:pretax_amount) || 0.0
+      send "#{direction}_tax_amount=", tax_amount
+      send "#{direction}_pretax_amount=", pretax_amount
     end
-    relation
+  end
+
+  def tax_account_ids_by_direction
+    return unless tax
+    { deductible: tax.deduction_account_id,
+      collected: tax.collect_account_id,
+      fixed_asset_deductible: tax.fixed_asset_deduction_account_id,
+      intracommunity_payable: tax.intracommunity_payable_account_id }
+  end
+
+  def directions
+    return unless tax
+    tax_account_ids_by_direction.keys
   end
 end

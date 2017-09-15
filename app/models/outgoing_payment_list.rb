@@ -22,34 +22,36 @@
 #
 # == Table: outgoing_payment_lists
 #
-#  created_at   :datetime
-#  creator_id   :integer
-#  id           :integer          not null, primary key
-#  lock_version :integer          default(0), not null
-#  mode_id      :integer          not null
-#  number       :string
-#  updated_at   :datetime
-#  updater_id   :integer
+#  cached_payment_count :integer
+#  cached_total_sum     :decimal(, )
+#  created_at           :datetime
+#  creator_id           :integer
+#  id                   :integer          not null, primary key
+#  lock_version         :integer          default(0), not null
+#  mode_id              :integer          not null
+#  number               :string
+#  updated_at           :datetime
+#  updater_id           :integer
 #
 class OutgoingPaymentList < Ekylibre::Record::Base
   belongs_to :mode, class_name: 'OutgoingPaymentMode'
-  has_many :payments, class_name: 'OutgoingPayment', foreign_key: :list_id, inverse_of: :list, dependent: :destroy
+  has_many :payments, class_name: 'PurchasePayment', foreign_key: :list_id, inverse_of: :list, dependent: :destroy
   has_one :cash, through: :mode
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  validates :cached_total_sum, numericality: true, allow_blank: true
   validates :number, length: { maximum: 500 }, allow_blank: true
   validates :mode, presence: true
   # ]VALIDATORS]
 
   delegate :name, to: :mode, prefix: true
   delegate :sepa?, to: :mode
-  delegate :count, to: :payments, prefix: true
   delegate :currency, to: :cash
 
   acts_as_numbered
 
   protect(on: :destroy) do
-    JournalEntryItem.where(entry_id: payments.select(:entry_id)).where('LENGTH(TRIM(bank_statement_letter)) > 0').any?
+    payments.joins(journal_entry: :items).where('LENGTH(TRIM(journal_entry_items.bank_statement_letter)) > 0 OR journal_entry_items.state = ?', :closed).exists?
   end
 
   def to_sepa
@@ -84,8 +86,21 @@ class OutgoingPaymentList < Ekylibre::Record::Base
     sct.to_xml('pain.001.001.03')
   end
 
+  def remove
+    self.class.transaction do
+      payment_ids = payments.pluck(:id)
+      OutgoingPayment.where(id: payment_ids).update_all(list_id: nil)
+      OutgoingPayment.where(id: payment_ids).find_each(&:destroy!)
+      destroy!
+    end
+  end
+
   def payments_sum
-    payments.sum(:amount)
+    cached_total_sum
+  end
+
+  def payments_count
+    cached_payment_count
   end
 
   def payer
@@ -97,9 +112,9 @@ class OutgoingPaymentList < Ekylibre::Record::Base
   end
 
   def self.build_from_purchase_affairs(affairs, mode, responsible, initial_check_number = nil)
-    outgoing_payments = affairs.collect.with_index do |affair, index|
+    purchase_payments = affairs.collect.with_index do |affair, index|
       next if affair.third_credit_balance <= 0
-      OutgoingPayment.new(
+      PurchasePayment.new(
         affair: affair,
         amount: affair.third_credit_balance,
         cash: mode.cash,
@@ -114,21 +129,22 @@ class OutgoingPaymentList < Ekylibre::Record::Base
         position: index
       )
     end.compact
-    new(payments: outgoing_payments, mode: mode)
+    new(payments: purchase_payments, mode: mode)
   end
 
   def self.build_from_affairs(affairs, mode, responsible, initial_check_number = nil, ignore_empty_affair = false)
     thirds = affairs.map(&:third).uniq
     position = 0
-    outgoing_payments = thirds.map.with_index do |third|
+
+    purchase_payments = thirds.map do |third|
       third_affairs = affairs.select { |a| a.third == third }.sort_by(&:created_at)
-      first_affair = third_affairs.first
-      third_affairs.each_with_index do |affair, index|
-        first_affair.absorb!(affair) if index > 0
-      end
+      first_affair = third_affairs.shift
+      third_affairs.map { |affair| first_affair.absorb!(affair) }
+
       next if first_affair.balanced?
       next if ignore_empty_affair && first_affair.third_credit_balance <= 0
-      op = OutgoingPayment.new(
+
+      op = PurchasePayment.new(
         affair: first_affair,
         amount: first_affair.third_credit_balance,
         cash: mode.cash,
@@ -142,10 +158,10 @@ class OutgoingPaymentList < Ekylibre::Record::Base
         bank_check_number: initial_check_number.blank? ? nil : initial_check_number.to_i,
         position: position
       )
-      initial_check_number = initial_check_number.to_i + 1 unless initial_check_number.blank?
+      initial_check_number = initial_check_number.to_i + 1 if initial_check_number.present?
       position += 1
       op
     end.compact
-    new(payments: outgoing_payments, mode: mode) unless outgoing_payments.empty?
+    new(payments: purchase_payments, mode: mode) unless purchase_payments.empty?
   end
 end

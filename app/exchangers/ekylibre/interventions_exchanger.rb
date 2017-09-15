@@ -1,4 +1,5 @@
 # coding: utf-8
+
 module Ekylibre
   class InterventionsExchanger < ActiveExchanger::Base
     def check
@@ -97,7 +98,7 @@ module Ekylibre
           elsif actor.variant.is_a?(ProductNatureVariant)
             valid = true
           # w.info "#{prompt} Actor ##{i + 1} exist in DB as a variant (#{actor.variant.name})"
-          elsif item = Nomen::ProductNatureVariants.find(actor.target_variant)
+          elsif item = Nomen::ProductNatureVariant.find(actor.target_variant)
             valid = true
           # w.info "#{prompt} Actor ##{i + 1} exist in NOMENCLATURE as a variant (#{item.name})"
           else
@@ -108,10 +109,10 @@ module Ekylibre
           # PROCEDURE GIVE PRODUCTS OR VARIANTS BUT NOT EXIST IN DB
           #
           unit_name = actor.input_unit_name
-          if Nomen::Units[unit_name]
+          if Nomen::Unit[unit_name]
             valid = true
           # w.info "#{prompt} #{unit_name} exist in NOMENCLATURE as a unit"
-          elsif u = Nomen::Units.find_by(symbol: unit_name)
+          elsif u = Nomen::Unit.find_by(symbol: unit_name)
             valid = true
           # w.info "#{prompt} #{unit_name} exist in NOMENCLATURE as a symbol of #{u.name}"
           else
@@ -160,17 +161,17 @@ module Ekylibre
           # a same cultivable zone could be a support of many productions
           # ex : corn_crop, zea_mays_lg452, ZC42 have to return all supports with corn_crop of variety zea_mays_lg452 in ZC42
           p_ids = []
-          for product in r.supports
+          r.supports.each do |support|
             # case A1 : CZ
-            if product.is_a?(CultivableZone)
-              ap = ActivityProduction.of_campaign(r.campaign).where(cultivable_zone: product)
+            if support.is_a?(CultivableZone)
+              ap = ActivityProduction.of_campaign(r.campaign).where(cultivable_zone: support)
               ap = ap.of_cultivation_variety(r.target_variety) if r.target_variety
               ps = ap.map(&:support)
             # case A2 : Product
-            elsif product.is_a?(Product)
-              ps = [product]
+            elsif support.is_a?(Product)
+              ps = [support]
             end
-            p_ids << ps.map(&:id)
+            p_ids += ps.map(&:id)
           end
           w.debug p_ids.inspect.blue
           supports = Product.find(p_ids)
@@ -241,15 +242,15 @@ module Ekylibre
         u = unit
       end
       # case units are symbol
-      if u && !Nomen::Units[u]
-        if u = Nomen::Units.find_by(symbol: u)
+      if u && !Nomen::Unit[u]
+        if u = Nomen::Unit.find_by(symbol: u)
           u = u.name.to_s
         else
           raise ActiveExchanger::NotWellFormedFileError, "Unknown unit #{u.inspect}."
         end
       end
       u = u.to_sym if u
-      nomen_unit = Nomen::Units[u] if u
+      nomen_unit = Nomen::Unit[u] if u
       if value >= 0.0 && nomen_unit
         measure = Measure.new(value, u)
         return measure
@@ -273,15 +274,15 @@ module Ekylibre
       value = population
       nomen_unit = nil
       # convert symbol into unit if needed
-      if unit.present? && !Nomen::Units[unit]
-        if u = Nomen::Units.find_by(symbol: unit)
+      if unit.present? && !Nomen::Unit[unit]
+        if u = Nomen::Unit.find_by(symbol: unit)
           unit = u.name.to_s
         else
           raise ActiveExchanger::NotWellFormedFileError, "Unknown unit #{unit.inspect} for variant #{item_variant.name.inspect}."
         end
       end
       unit = unit.to_sym if unit
-      nomen_unit = Nomen::Units[unit] if unit
+      nomen_unit = Nomen::Unit[unit] if unit
       #
       w.debug value.inspect.yellow
       if value >= 0.0 && nomen_unit
@@ -403,7 +404,7 @@ module Ekylibre
       # Get supports
       w.debug "Support code in method parse_row #{r.support_codes}".inspect.green
       r.supports = parse_record_list(r.support_codes, CultivableZone, :work_number)
-      r.supports ||= parse_record_list(r.support_codes.delete_if { |s| %w(EXPLOITATION).include?(s) }, Product, :work_number)
+      r.supports ||= parse_record_list(r.support_codes.delete_if { |s| %w[EXPLOITATION].include?(s) }, Product, :work_number)
       w.debug "Support code in method parse_record list #{r.supports.map(&:name)}".inspect.green
       # Get equipments
       r.equipments = parse_record_list(r.equipment_codes, Equipment, :work_number)
@@ -644,7 +645,7 @@ module Ekylibre
       end
 
       ## save
-      ::Intervention.create!(intervention.to_hash)
+      ::Intervention.create!(intervention.to_attributes)
     end
 
     def record_complex_intervention(r, targets, procedure)
@@ -729,7 +730,7 @@ module Ekylibre
         w.debug 'SOWING'.inspect.red
 
         ## save
-        ::Intervention.create!(intervention.to_hash)
+        ::Intervention.create!(intervention.to_attributes)
         w.debug "############################# #{Plant.count}".blue
         w.debug ''
 
@@ -811,7 +812,7 @@ module Ekylibre
         w.debug 'HARVESTING'.inspect.red
 
         ## save
-        ::Intervention.create!(intervention.to_hash)
+        ::Intervention.create!(intervention.to_attributes)
       else
         w.debug 'Problem to recognize intervention and create it ' + procedure.name.inspect
       end

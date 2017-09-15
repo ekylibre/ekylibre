@@ -244,7 +244,7 @@ module Ekylibre
             unless Rails.application.config.assets.paths.include?(assets_directory.join(type).to_s)
               Rails.application.config.assets.paths << assets_directory.join(type).to_s
             end
-            unless %w(javascript stylesheets).include? type
+            unless %w[javascript stylesheets].include? type
               files_to_compile = Dir[type + '/**/*'].select { |f| File.file? f }.map do |f|
                 Pathname.new(f).relative_path_from(Pathname.new(type)).to_s unless f == type
               end
@@ -280,7 +280,7 @@ module Ekylibre
     def app(*requirements)
       options = requirements.extract_options!
       requirements.each do |requirement|
-        unless requirement =~ /\A((~>|>=|>|<|<=)\s+)?\d.\d(\.[a-z0-9]+)*\z/
+        unless requirement =~ /\A((~>|>=|>|<|<=)\s+)?\d+.\d+(\.[a-z0-9]+)*\z/
           raise PluginRequirementError, "Invalid version requirement expression: #{requirement}"
         end
       end

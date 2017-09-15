@@ -54,6 +54,20 @@ arb:
         multi_polygon: "مضلع متعددة"
         point: "نقطة"
         string: "خيط"
+    animal:
+      birth_date_completeness:
+        full_date: "التاريخ الكامل"
+        month_year: "شهر سنة"
+        year: "عام"
+      end_of_life_reason:
+        calculated_date: "تاريخ تحسب"
+        cutting_up: "تقطيع"
+        death: "الموت"
+        slaughter: "ذبح"
+      filiation_status:
+        certified: "معتمد"
+        uncertified: "غير مصدق"
+        unknown: "غير معروف"
     call_message:
       nature:
         incoming: "الوارد"
@@ -80,6 +94,7 @@ arb:
         purchase: "شراء"
         sale: "تخفيض السعر"
         stock: "مخزون"
+        travel_cost: "السفر"
     crumb:
       nature:
         hard_start: "البداية الصعبة"
@@ -98,6 +113,10 @@ arb:
         datetime: "التاريخ و الوقت"
         decimal: "عدد عشري"
         text: "نص"
+    debt_transfer:
+      nature:
+        purchase_regularization: "تنظيم شراء"
+        sale_regularization: "بيع تسوية"
     delivery:
       mode:
         third: "ثلث"
@@ -145,7 +164,13 @@ arb:
       depreciation_method:
         graduated: "تخرج" #?
         linear: "خطي"
+        none: "لا شيء"
+        regressive: "متردي"
         simplified_linear: "الخطية المبسطة"
+      depreciation_period:
+        monthly: "شهريا"
+        quarterly: "فصليا"
+        yearly: "سنوي"
     gap:
       direction:
         loss: "خسارة"
@@ -218,14 +243,18 @@ arb:
     intervention_working_period:
       nature:
         intervention: "تدخل"
+        pause: "وقفة"
         preparation: "تجهيز"
         travel: "سفر"
     journal:
       nature:
         bank: "بنك"
         cash: "السيولة النقدية"
+        closure: "إغلاق"
+        fixed_assets: "أصول ثابتة"
         forward: "نفذت إلى الأمام"
         purchases: "مشتريات"
+        result: "نتيجة"
         sales: "مبيعات"
         stocks: "مخازن"
         various: "عمليات مختلفة"
@@ -241,15 +270,24 @@ arb:
         root: "جذر"
         string: "خيط"
     loan:
+      insurance_repayment_method:
+        initial: "على أساس رأس المال الأولي"
+        to_repay: "وبناء على رأس المال من اليسار إلى سداد"
       repayment_method:
         constant_amount: "مبلغ ثابت"
         constant_rate: "معدل ثابت"
       repayment_period:
         month: "شهر"
+        semester: "نصف السنة"
+        trimester: "الثلث"
         year: "عام"
       shift_method:
         anatocism: "anatocism"
         immediate_payment: "الدفع الفوري"
+    map_layer:
+      nature:
+        background: "خلفية"
+        overlay: "غطاء"
     notification:
       level:
         error: "خطأ"
@@ -315,6 +353,15 @@ arb:
       nature:
         exterior: "الخارج"
         interior: "داخلي"
+    product_movement:
+      description:
+        birth: "ولادة"
+        butchery: "مجزرة"
+        consumption: "استهلاك"
+        death: "الموت"
+        loan: "قرض"
+        purchase: "شراء"
+        sale: "تخفيض السعر"
     product_nature:
       population_counting:
         decimal: "عدد عشري"
@@ -404,10 +451,10 @@ arb:
       nature:
         payslip: "قسيمة الدفع"
         purchase: "شراء"
-    sale_item:
-      compute_from:
-        pretax_amount: "كمية قبل خصم الضرائب"
-        unit_pretax_amount: "وحدة الكمية قبل خصم الضرائب"
+    sale_item: #?
+      compute_from: #?
+        pretax_amount: "كمية قبل خصم الضرائب" #?
+        unit_pretax_amount: "وحدة الكمية قبل خصم الضرائب" #?
     sensor:
       retrieval_mode:
         integration: "دمج"
@@ -423,8 +470,10 @@ arb:
         affairs: "شؤون"
         analyses: "تحليلات"
         animals: "الحيوانات"
+        campaigns: "الحملات"
         cash_transfers: "التحويلات النقدية"
         contracts: "عقود"
+        debt_transfers: "نقل الديون"
         deliveries: "التسليم"
         deposits: "الودائع"
         documents: "وثائق"
@@ -439,6 +488,7 @@ arb:
         outgoing_payment_lists: "قوائم دفع المنتهية ولايته"
         outgoing_payments: "المدفوعات الصادرة"
         parcels: "الطرود"
+        plant_countings: "نباتات العد"
         plants: "النباتات"
         product_nature_categories: "فئات طبيعة المنتج"
         product_nature_variants: "المتغيرات طبيعة المنتج"
@@ -487,6 +537,10 @@ arb:
       nature: #?
         amount: "كمية" #?
         percentage: "نسبة مئوية" #?
+    tax_declaration:
+      mode:
+        debit: "مدين"
+        payment: "دفع"
     tracking:
       usage_limit_nature:
         best_before: "الافضل قبل الموعد"

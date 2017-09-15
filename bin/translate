@@ -1,5 +1,9 @@
 #!/usr/bin/env ruby
 # coding: utf-8
+
+# Installation
+# gem install google-api-client
+
 require 'yaml'
 require 'pathname'
 require 'active_support'
@@ -121,7 +125,7 @@ class Translator
       response.translations.each_with_index do |t, i|
         text = t.translated_text
         next if text.blank?
-        if [:spa, :por, :eng, :fra, :ita, :deu].include?(@target)
+        if %i[spa por eng fra ita deu].include?(@target)
           text = (text.mb_chars.slice(0).upcase + text.mb_chars.slice(1..-1)).to_s
         end
         text.gsub!('&#39;', '’')
@@ -175,7 +179,7 @@ class Translator
 
   def load_file(path, locale)
     if path.exist?
-      hash = YAML.load(IO.read(path).gsub(/^(\s*)(no|yes|false|true):(.*)$/, '\1__\2__:\3'))
+      hash = YAML.safe_load(IO.read(path).gsub(/^(\s*)(no|yes|false|true):(.*)$/, '\1__\2__:\3'))
       deep_symbolize_keys(hash)[locale] || {}
     else
       {}

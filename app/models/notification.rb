@@ -41,7 +41,7 @@
 # Column message expect a string which is more an ID. It permits to be i18nized.
 # Notifications are used to inform users asynchronously.
 class Notification < Ekylibre::Record::Base
-  enumerize :level, in: [:information, :success, :warning, :error], default: :information
+  enumerize :level, in: %i[information success warning error], default: :information
   belongs_to :recipient, class_name: 'User'
   belongs_to :target, polymorphic: true
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.

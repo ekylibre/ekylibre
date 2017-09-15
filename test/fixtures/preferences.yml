@@ -1250,8 +1250,21 @@ preferences_107:
   lock_version: 0
   name: list._financial_years_list_financial_years_tag
   nature: string
-  string_value: {}
-  updated_at: 2014-10-31 19:07:38.648213000 Z
+  string_value:
+    content_for: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      actions: main_toolbar
+      pagination: meta_toolbar
+      settings: meta_toolbar
+    page: 1
+    only: content
+    redirect: "/backend/financial-years"
+    controller: backend/financial_years
+    action: list
+    hidden_columns: []
+    dir: ''
+    per_page: 20
+    sort: ''
+  updated_at: 2017-05-01 23:50:54.363077000 Z
   updater_id: 1
   user_id: 1
 preferences_108:
@@ -2860,8 +2873,24 @@ preferences_240:
   lock_version: 0
   name: list._loans_list_repayments_tag
   nature: string
-  string_value: {}
-  updated_at: 2015-05-07 23:15:06.433558000 Z
+  string_value:
+    content_for: !ruby/hash:ActionController::Parameters
+      actions: cobble_repayments_main_toolbar
+      pagination: cobble_repayments_meta_toolbar
+      settings: cobble_repayments_meta_toolbar
+    visibility: shown
+    column: journal_entry
+    controller: backend/loans
+    action: list_repayments
+    id: '4'
+    hidden_columns: []
+    dir: asc
+    page: 1
+    per_page: 20
+    sort: journal_entry
+    only: content
+    redirect: "/backend/loans/4"
+  updated_at: 2017-06-09 21:00:31.226739000 Z
   updater_id: 1
   user_id: 1
 preferences_241:
@@ -2871,8 +2900,8 @@ preferences_241:
   lock_version: 8
   name: kujaku.feathers.backend-entities-index-1:0.default
   nature: string
-  string_value: ''
-  updated_at: 2016-11-20 22:09:53.340436000 Z
+  string_value: fuyu
+  updated_at: 2017-06-07 16:13:47.250713000 Z
   updater_id: 1
   user_id: 1
 preferences_242:
@@ -4462,12 +4491,12 @@ preferences_384:
   updater_id: 1
   user_id: 1
 preferences_385:
+  boolean_value: false
   created_at: 2016-11-05 08:51:40.735006000 Z
   id: 385
   lock_version: 0
   name: demo
-  nature: string
-  string_value: boolean
+  nature: boolean
   updated_at: 2016-11-05 08:51:40.735006000 Z
 preferences_386:
   created_at: 2016-11-05 08:51:41.061458000 Z
@@ -4709,5 +4738,207 @@ preferences_409:
   nature: string
   string_value: {}
   updated_at: 2017-01-04 14:47:42.643427000 Z
+  updater_id: 1
+  user_id: 1
+preferences_410:
+  created_at: 2017-03-24 16:46:41.643427000 Z
+  creator_id: 1
+  id: 411
+  lock_version: 0
+  name: default_depreciation_period
+  nature: string
+  string_value: yearly
+  updated_at: 2017-03-24 16:46:41.643427000 Z
+  updater_id: 1
+  user_id: 1
+preferences_411:
+  created_at: 2017-03-24 17:52:59.000000000 Z
+  id: 412
+  lock_version: 0
+  name: default_depreciation_period
+  nature: string
+  string_value: yearly
+  updated_at: 2017-03-24 17:52:59.000000000 Z
+  updater_id: 1
+preferences_412:
+  created_at: 2017-05-01 23:36:03.640177000 Z
+  creator_id: 1
+  id: 413
+  lock_version: 0
+  name: cobbler.sale_gaps-show
+  nature: string
+  string_value: {}
+  updated_at: 2017-05-01 23:36:03.640177000 Z
+  updater_id: 1
+  user_id: 1
+preferences_413:
+  created_at: 2017-05-01 23:43:22.283549000 Z
+  creator_id: 1
+  id: 414
+  lock_version: 0
+  name: list._financial_years_list_exchanges_tag
+  nature: string
+  string_value: {}
+  updated_at: 2017-05-01 23:43:22.283549000 Z
+  updater_id: 1
+  user_id: 1
+preferences_414:
+  created_at: 2017-05-01 23:43:33.909903000 Z
+  creator_id: 1
+  id: 415
+  lock_version: 0
+  name: current_financial_year
+  nature: record
+  record_value_id: 26
+  record_value_type: FinancialYear
+  updated_at: 2017-05-01 23:43:33.909903000 Z
+  updater_id: 1
+  user_id: 1
+preferences_415:
+  boolean_value: true
+  created_at: 2017-05-29 20:40:27.958563000 Z
+  creator_id: 1
+  id: 416
+  lock_version: 0
+  name: entry_autocompletion
+  nature: boolean
+  updated_at: 2017-05-29 20:40:27.958563000 Z
+  updater_id: 1
+preferences_416:
+  boolean_value: false
+  created_at: 2017-06-07 16:07:11.431010000 Z
+  creator_id: 1
+  id: 417
+  lock_version: 0
+  name: interface.snippets.payslips.collapsed
+  nature: boolean
+  updated_at: 2017-06-07 16:07:11.431010000 Z
+  updater_id: 1
+  user_id: 1
+preferences_417:
+  created_at: 2017-06-07 16:07:13.223724000 Z
+  creator_id: 1
+  id: 418
+  lock_version: 0
+  name: list._payslips_list_payslips_tag
+  nature: string
+  string_value: {}
+  updated_at: 2017-06-07 16:07:13.223724000 Z
+  updater_id: 1
+  user_id: 1
+preferences_418:
+  boolean_value: false
+  created_at: 2017-06-07 16:07:18.245494000 Z
+  creator_id: 1
+  id: 419
+  lock_version: 0
+  name: interface.snippets.humans.collapsed
+  nature: boolean
+  updated_at: 2017-06-07 16:07:18.245494000 Z
+  updater_id: 1
+  user_id: 1
+preferences_419:
+  created_at: 2017-06-07 16:07:21.400474000 Z
+  creator_id: 1
+  id: 420
+  lock_version: 0
+  name: list._payslip_natures_list_payslip_natures_tag
+  nature: string
+  string_value: {}
+  updated_at: 2017-06-07 16:07:21.400474000 Z
+  updater_id: 1
+  user_id: 1
+preferences_420:
+  created_at: 2017-06-07 16:09:36.242099000 Z
+  creator_id: 1
+  id: 421
+  lock_version: 0
+  name: interface.journal.SP.view
+  nature: string
+  updated_at: 2017-06-07 16:09:36.242099000 Z
+  updater_id: 1
+  user_id: 1
+preferences_421:
+  created_at: 2017-06-07 16:09:48.938012000 Z
+  creator_id: 1
+  id: 422
+  lock_version: 0
+  name: interface.journal.SA.view
+  nature: string
+  updated_at: 2017-06-07 16:09:48.938012000 Z
+  updater_id: 1
+  user_id: 1
+preferences_422:
+  created_at: 2017-06-07 16:14:22.867684000 Z
+  creator_id: 1
+  id: 423
+  lock_version: 0
+  name: employee_account_radix
+  nature: string
+  string_value: ''
+  updated_at: 2017-06-07 16:14:22.867684000 Z
+  updater_id: 1
+preferences_423:
+  created_at: 2017-06-07 16:14:23.139560000 Z
+  creator_id: 1
+  id: 424
+  lock_version: 0
+  name: cobbler.payslips-show
+  nature: string
+  string_value: {}
+  updated_at: 2017-06-07 16:14:23.139560000 Z
+  updater_id: 1
+  user_id: 1
+preferences_424:
+  boolean_value: true
+  created_at: 2017-06-07 16:16:12.044163000 Z
+  creator_id: 1
+  id: 425
+  lock_version: 0
+  name: interface.kujakus.backend-payslip_payments-index-1.collapsed
+  nature: boolean
+  updated_at: 2017-06-07 16:16:12.044163000 Z
+  updater_id: 1
+  user_id: 1
+preferences_425:
+  created_at: 2017-06-07 16:16:12.054654000 Z
+  creator_id: 1
+  id: 426
+  lock_version: 0
+  name: kujaku.feathers.backend-payslip_payments-index-1:0.default
+  nature: string
+  updated_at: 2017-06-07 16:16:12.054654000 Z
+  updater_id: 1
+  user_id: 1
+preferences_426:
+  created_at: 2017-06-07 16:16:12.066533000 Z
+  creator_id: 1
+  id: 427
+  lock_version: 0
+  name: list._payslip_payments_list_payslip_payments_tag
+  nature: string
+  string_value: {}
+  updated_at: 2017-06-07 16:16:12.066533000 Z
+  updater_id: 1
+  user_id: 1
+preferences_427:
+  boolean_value: true
+  created_at: 2017-06-09 19:51:30.922719000 Z
+  creator_id: 1
+  id: 428
+  lock_version: 0
+  name: interface.kujakus.backend-loans-index-1.collapsed
+  nature: boolean
+  updated_at: 2017-06-09 19:51:30.922719000 Z
+  updater_id: 1
+  user_id: 1
+preferences_428:
+  created_at: 2017-06-09 19:51:30.961801000 Z
+  creator_id: 1
+  id: 429
+  lock_version: 0
+  name: kujaku.feathers.backend-loans-index-1:0.default
+  nature: string
+  updated_at: 2017-06-09 19:51:30.961801000 Z
   updater_id: 1
   user_id: 1

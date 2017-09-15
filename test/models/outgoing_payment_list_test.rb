@@ -1,4 +1,5 @@
 # coding: utf-8
+
 # = Informations
 #
 # == License
@@ -23,14 +24,16 @@
 #
 # == Table: outgoing_payment_lists
 #
-#  created_at   :datetime
-#  creator_id   :integer
-#  id           :integer          not null, primary key
-#  lock_version :integer          default(0), not null
-#  mode_id      :integer          not null
-#  number       :string
-#  updated_at   :datetime
-#  updater_id   :integer
+#  cached_payment_count :integer
+#  cached_total_sum     :decimal(, )
+#  created_at           :datetime
+#  creator_id           :integer
+#  id                   :integer          not null, primary key
+#  lock_version         :integer          default(0), not null
+#  mode_id              :integer          not null
+#  number               :string
+#  updated_at           :datetime
+#  updater_id           :integer
 #
 require 'test_helper'
 
@@ -38,15 +41,15 @@ class OutgoingPaymentListTest < ActiveSupport::TestCase
   setup { @list = outgoing_payment_lists(:outgoing_payment_lists_001) }
 
   test 'to_sepa' do
-    Timecop.freeze(Time.zone.local(2016, 10, 1, 9, 1, 35)) do
+    Timecop.freeze(Time.new(2016, 10, 1, 11, 1, 35, '+02:00')) do
       doc = Nokogiri::XML(@list.to_sepa)
       doc.collect_namespaces
       doc.remove_namespaces!
 
-      message_identification = "EKY-#{@list.number}-161001-0901"
+      message_identification = "EKY-#{@list.number}-#{Time.now.utc.strftime('%y%m%d-%H%M')}"
 
       assert_equal(message_identification, doc.xpath('//CstmrCdtTrfInitn/GrpHdr/MsgId').text)
-      assert_equal('2016-10-01T11:01:35+02:00', doc.xpath('//CstmrCdtTrfInitn/GrpHdr/CreDtTm').text)
+      assert_equal(Time.now.getlocal.iso8601, doc.xpath('//CstmrCdtTrfInitn/GrpHdr/CreDtTm').text)
       assert_equal('2', doc.xpath('//CstmrCdtTrfInitn/GrpHdr/NbOfTxs').text)
       assert_equal('3561.00', doc.xpath('//CstmrCdtTrfInitn/GrpHdr/CtrlSum').text)
       assert_equal('John Doe', doc.xpath('//CstmrCdtTrfInitn/GrpHdr/InitgPty/Nm').text)
@@ -57,7 +60,7 @@ class OutgoingPaymentListTest < ActiveSupport::TestCase
       assert_equal('2', doc.xpath('//CstmrCdtTrfInitn/PmtInf/NbOfTxs').text)
       assert_equal('3561.00', doc.xpath('//CstmrCdtTrfInitn/PmtInf/CtrlSum').text)
       assert_equal('SEPA', doc.xpath('//CstmrCdtTrfInitn/PmtInf/PmtTpInf/SvcLvl/Cd').text)
-      assert_equal('2016-10-01', doc.xpath('//CstmrCdtTrfInitn/PmtInf/ReqdExctnDt').text)
+      assert_equal(Time.zone.now.strftime('%Y-%m-%d').to_s, doc.xpath('//CstmrCdtTrfInitn/PmtInf/ReqdExctnDt').text)
       assert_equal('John Doe', doc.xpath('//CstmrCdtTrfInitn/PmtInf/Dbtr/Nm').text)
       assert_equal('FR7611111222223333333333391', doc.xpath('//CstmrCdtTrfInitn/PmtInf/DbtrAcct/Id/IBAN').text)
       assert_equal('GHBXFRPP', doc.xpath('//CstmrCdtTrfInitn/PmtInf/DbtrAgt/FinInstnId/BIC').text)
@@ -86,15 +89,15 @@ class OutgoingPaymentListTest < ActiveSupport::TestCase
       payment.payee.update!(bank_identifier_code: nil)
     end
 
-    Timecop.freeze(Time.zone.local(2016, 10, 1, 9, 1, 35)) do
+    Timecop.freeze(Time.new(2016, 10, 1, 11, 1, 35, '+02:00')) do
       doc = Nokogiri::XML(@list.to_sepa)
       doc.collect_namespaces
       doc.remove_namespaces!
 
-      message_identification = "EKY-#{@list.number}-161001-0901"
+      message_identification = "EKY-#{@list.number}-#{Time.now.utc.strftime('%y%m%d-%H%M')}"
 
       assert_equal(message_identification, doc.xpath('//CstmrCdtTrfInitn/GrpHdr/MsgId').text)
-      assert_equal('2016-10-01T11:01:35+02:00', doc.xpath('//CstmrCdtTrfInitn/GrpHdr/CreDtTm').text)
+      assert_equal(Time.now.getlocal.iso8601, doc.xpath('//CstmrCdtTrfInitn/GrpHdr/CreDtTm').text)
       assert_equal('2', doc.xpath('//CstmrCdtTrfInitn/GrpHdr/NbOfTxs').text)
       assert_equal('3561.00', doc.xpath('//CstmrCdtTrfInitn/GrpHdr/CtrlSum').text)
       assert_equal('John Doe', doc.xpath('//CstmrCdtTrfInitn/GrpHdr/InitgPty/Nm').text)
@@ -105,7 +108,7 @@ class OutgoingPaymentListTest < ActiveSupport::TestCase
       assert_equal('2', doc.xpath('//CstmrCdtTrfInitn/PmtInf/NbOfTxs').text)
       assert_equal('3561.00', doc.xpath('//CstmrCdtTrfInitn/PmtInf/CtrlSum').text)
       assert_equal('SEPA', doc.xpath('//CstmrCdtTrfInitn/PmtInf/PmtTpInf/SvcLvl/Cd').text)
-      assert_equal('2016-10-01', doc.xpath('//CstmrCdtTrfInitn/PmtInf/ReqdExctnDt').text)
+      assert_equal(Time.zone.now.strftime('%Y-%m-%d').to_s, doc.xpath('//CstmrCdtTrfInitn/PmtInf/ReqdExctnDt').text)
       assert_equal('John Doe', doc.xpath('//CstmrCdtTrfInitn/PmtInf/Dbtr/Nm').text)
       assert_equal('FR7611111222223333333333391', doc.xpath('//CstmrCdtTrfInitn/PmtInf/DbtrAcct/Id/IBAN').text)
       assert_equal('NOTPROVIDED', doc.xpath('//CstmrCdtTrfInitn/PmtInf/DbtrAgt/FinInstnId/BIC').text)
@@ -137,7 +140,6 @@ class OutgoingPaymentListTest < ActiveSupport::TestCase
       doc.collect_namespaces
       doc.remove_namespaces!
 
-      message_identification = "EKY-#{@list.number}-161001-0901"
       assert_equal('Cedric Attention', doc.xpath('//CstmrCdtTrfInitn/GrpHdr/InitgPty/Nm').text)
       assert_equal('Cedric Attention', doc.xpath('//CstmrCdtTrfInitn/PmtInf/Dbtr/Nm').text)
       assert_equal('Compte complique', doc.xpath('//CstmrCdtTrfInitn/PmtInf/CdtTrfTxInf')[0].xpath('Cdtr/Nm').text)
@@ -154,9 +156,14 @@ class OutgoingPaymentListTest < ActiveSupport::TestCase
   end
 
   test 'destroy with all bank_statement_letter blank' do
-    JournalEntryItem.where(entry_id: @list.payments.select(:entry_id)).update_all(bank_statement_letter: nil)
-    assert(@list.destroy)
-    assert_raise(ActiveRecord::RecordNotFound) { @list.reload }
+    list = OutgoingPaymentList.all.detect do |l|
+      JournalEntryItem.where(entry_id: l.payments.select(:entry_id))
+                      .where(state: :closed).empty?
+    end
+    assert list, 'Cannot find a destroyable list'
+    JournalEntryItem.where(entry_id: list.payments.select(:entry_id)).update_all(bank_statement_letter: nil)
+    assert(list.remove)
+    assert_raise(ActiveRecord::RecordNotFound) { list.reload }
   end
 
   test 'generate from purchase affairs' do

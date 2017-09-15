@@ -22,17 +22,21 @@
 #
 # == Table: outgoing_payment_lists
 #
-#  created_at   :datetime
-#  creator_id   :integer
-#  id           :integer          not null, primary key
-#  lock_version :integer          default(0), not null
-#  mode_id      :integer          not null
-#  number       :string
-#  updated_at   :datetime
-#  updater_id   :integer
+#  cached_payment_count :integer
+#  cached_total_sum     :decimal(, )
+#  created_at           :datetime
+#  creator_id           :integer
+#  id                   :integer          not null, primary key
+#  lock_version         :integer          default(0), not null
+#  mode_id              :integer          not null
+#  number               :string
+#  updated_at           :datetime
+#  updater_id           :integer
 #
 ---
 outgoing_payment_lists_001:
+  cached_payment_count: 2
+  cached_total_sum: 3561.0
   created_at: 2016-10-01 14:43:26.229792000 Z
   creator_id: 1
   id: 1
@@ -42,6 +46,8 @@ outgoing_payment_lists_001:
   updated_at: 2016-10-01 14:43:26.229792000 Z
   updater_id: 1
 outgoing_payment_lists_002:
+  cached_payment_count: 1
+  cached_total_sum: 20520.0
   created_at: 2016-10-26 15:31:44.103996000 Z
   creator_id: 1
   id: 2

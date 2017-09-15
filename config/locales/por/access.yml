@@ -38,6 +38,7 @@ por:
       establishments: "Estabelecimentos" #?
       events: "Eventos"
       exports: "Exportações"
+      financial_year_exchanges: "Trocas Exercício"
       financial_years: "Anos Fiscais"
       fixed_assets: "Ativos financeiros"
       fungi: "Fungos"
@@ -65,7 +66,8 @@ por:
       listings: "Listagens"
       loans: "Empréstimos"
       manure_management_plans: "Planos de manejo de dejetos"
-      map_backgrounds: "Mapa fundos"
+      map_backgrounds: "Mapa fundos" #?
+      map_layers: "Camadas do mapa"
       matters: "Matéria"
       myselves: "Meus"
       net_services: "Receita Liquida"
@@ -75,6 +77,9 @@ por:
       outgoing_payment_lists: "Listas de pagamento a efectuar"
       outgoing_payment_modes: "Modos de pagameto a fazer"
       outgoing_payments: "Pagamentos a fazer"
+      payslip_natures: "Tipos de saldo em espécie"
+      payslip_payments: "Pagamentos de salários"
+      payslips: "Listas de pagamento"
       plant_countings: "Contagens de plantas"
       plants: "Plantas"
       postal_zones: "Zonas postais"
