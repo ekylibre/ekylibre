@@ -64,7 +64,7 @@ COPY vendor ./vendor
 RUN chown -R app:app /usr/src/app
 
 USER app
-RUN sudo bundle install --retry 3
+bundle install --retry 3
 
 USER root
 ADD . /usr/src/app
