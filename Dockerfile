@@ -40,7 +40,7 @@ RUN \curl -sSL https://get.rvm.io | bash -s stable --ruby
 
 ENV JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
 
-RUN /bin/bash -l -c ". /etc/profile.d/rvm.sh && rvm install 2.4.1"
+RUN /bin/bash -l -c ". /etc/profile.d/rvm.sh && rvm install 2.4.0"
 
 RUN gem install bundler
 
