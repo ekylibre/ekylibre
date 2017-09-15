@@ -46,7 +46,3 @@ RUN /bin/bash -l -c "gem install bundler"
 COPY Gemfile ./Gemfile
 
 RUN /bin/bash -l -c "bundle install"
-
-
-
-CMD ["./docker/web"]
