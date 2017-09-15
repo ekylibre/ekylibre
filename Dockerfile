@@ -1,6 +1,7 @@
 FROM debian:9
 
 RUN apt-get update -qq && apt-get install -yf \
+	curl \
 	imagemagick \
 	graphicsmagick \
 	tesseract-ocr \
