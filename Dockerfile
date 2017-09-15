@@ -38,14 +38,10 @@ RUN gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A170311380
 
 RUN \curl -sSL https://get.rvm.io | bash -s stable --ruby
 
-RUN rvm install 2.4.0
 
-RUN rvm use 2.4.0
+RUN /bin/bash -l -c "gem install bundler --no-ri --no-rdoc"
 
-
-RUN gem install bundler
-
-RUN JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64 bundle install
+RUN /bin/bash -l -c "JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64 bundle install"
 
 
 
