@@ -64,6 +64,7 @@ COPY vendor ./vendor
 RUN chown -R app:app /usr/src/app
 
 USER app
+RUN gem install bundler
 RUN bundle install --retry 3
 
 USER root
