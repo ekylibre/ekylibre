@@ -4,7 +4,7 @@ ARG DEBIAN_FRONTEND=noninteractive
 ENV JAVA_HOME=/usr/lib/jvm/java-7-openjdk-amd64
 ENV BUNDLE_JOBS=4
 ENV NODE_VERSION="0.12.7"
-ENV BUNDLER_VERSION="1.15.4"
+# ENV BUNDLER_VERSION="1.15.4"
 
 RUN useradd -d /home/app -m app
 RUN mkdir -p /usr/src/app
