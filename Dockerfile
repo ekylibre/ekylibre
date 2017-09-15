@@ -43,7 +43,7 @@ ENV JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
 
 RUN /bin/bash -l -c "gem install bundler"
 
-RUN bundle install
+RUN /bin/bash -l -c "bundle install"
 
 
 
