@@ -319,7 +319,7 @@
 
   $(document).on "keyup change dp.change", ".nested-fields.working-period:first-child input.intervention-started-at", (e) ->
     $(this).each ->
-      E.interventions.updateAvailabilityInstant($(this).val())
+      E.interventions.updateAvailabilityInstant()
 
 
   $(document).on "selector:change", 'input[data-selector-id="intervention_doer_product_id"], input[data-selector-id="intervention_tool_product_id"]', (event) ->
@@ -333,7 +333,6 @@
   $(document).on "selector:change", 'input[data-generate-items]', ->
     $(this).each ->
       E.interventions.generateItemsArrayFromId($(this))
-
 
 
   $(document).ready ->
