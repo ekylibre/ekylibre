@@ -287,8 +287,23 @@
 
       $(this.mapElement).on 'click', '.updateAttributesSerieInPopup', @updateAttributesSeries
 
+      @map.on "viewreset", (e) =>
+        console.log "NEW BOUNDING BOX", e.target.getBounds().toBBoxString()
+        @setDynamicSeries()
+
+      @setDynamicSeries()
+
 
       widget.element.trigger "mapeditor:loaded"
+
+
+    setDynamicSeries: ->
+      return unless @options.dynamic_series?
+
+      $.getJSON @options.dynamic_series, (data) =>
+        $.extend(true, @options.show, data.show)
+        @_refreshReferenceLayerGroup()
+        @_refreshControls()
 
     updateFeature: (feature_id, attributeName, attributeValue) ->
       this.updateFeatureProperties(feature_id, attributeName, attributeValue)
@@ -523,7 +538,7 @@
 
           if @options.show.series?
 
-            @seriesReferencesLayers = {}
+            @seriesReferencesLayers ||= {}
 
             for layer in @options.show.layers
 
@@ -535,6 +550,10 @@
                 layerGroup = renderedLayer.buildLayerGroup(this, options)
                 layerGroup.name = layer.name
                 layerGroup.renderedLayer = renderedLayer
+
+                if @seriesReferencesLayers[layer.label]?
+                  @map.removeLayer(@seriesReferencesLayers[layer.label])
+
                 @seriesReferencesLayers[layer.label] = layerGroup
                 @map.addLayer(layerGroup)
 
