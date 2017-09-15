@@ -1,0 +1,40 @@
+#!/bin/bash
+# This script merges changes from core BRANCH into a PRODUCT BRANCH
+# If it detects a new tag from core, then it will only merge that tag and
+# ignore the next commits, which will be picked up later by another run of this
+# script.
+
+set -e
+
+DIR=$(cd $(dirname $0); dirname $(pwd))
+UPSTREAM="ekylibre/ekylibre"
+PUSH=${PUSH:="false"}
+BRANCH=${BRANCH:="master"}
+
+indent() {
+	echo "-------> $@"
+}
+
+indent "Adding git remote $UPSTREAM with name upstream..."
+( git remote | grep upstream ) || git remote add upstream https://github.com/$UPSTREAM.git
+git fetch origin
+git fetch upstream
+
+indent "Resetting current working dir..."
+git checkout -B $BRANCH origin/$BRANCH
+git reset --hard origin/$BRANCH
+
+echo "------> Merging upstream $BRANCH into $PRODUCT $BRANCH"
+git merge --strategy-option theirs upstream/$BRANCH
+
+indent "Updating Gemfile.lock..."
+bundle install
+git add Gemfile.lock
+git diff --staged --exit-code || git commit -m "Update Gemfile.lock"
+
+if [ "$PUSH" = "true" ]; then
+	indent "Pushing branch $BRANCH..."
+	git push origin "$BRANCH"
+fi
+
+indent "DONE"

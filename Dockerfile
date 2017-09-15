@@ -71,7 +71,6 @@ ADD . /usr/src/app
 RUN chown -R app:app /usr/src/app
 
 USER app
-RUN bundle exec gem install rake
 RUN CRON=0 DEVISE_SECRET_KEY=12345678 DATABASE_URL=postgres://foo:bar@127.0.0.1/foobar SECRET_TOKEN=foobar RAILS_ENV=production bundle exec rake assets:precompile
 
 # RUN DATABASE_URL=sqlite3:///tmp/fake.db bundle exec rake reporting:compile

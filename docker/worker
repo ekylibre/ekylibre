@@ -1,0 +1,3 @@
+#!/bin/bash -e
+
+exec bundle exec sidekiq -c 4
