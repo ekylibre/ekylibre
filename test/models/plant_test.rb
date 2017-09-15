@@ -73,7 +73,7 @@
 #  picture_file_name            :string
 #  picture_file_size            :integer
 #  picture_updated_at           :datetime
-#  reading_cache                :jsonb
+#  reading_cache                :jsonb            default("{}")
 #  team_id                      :integer
 #  tracking_id                  :integer
 #  type                         :string
@@ -101,6 +101,6 @@ class PlantTest < ActiveSupport::TestCase
 
   test 'shape render value' do
     p = Plant.last
-    assert p.shape != nil
+    assert !p.shape.nil?
   end
 end

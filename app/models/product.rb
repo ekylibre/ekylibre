@@ -73,7 +73,7 @@
 #  picture_file_name            :string
 #  picture_file_size            :integer
 #  picture_updated_at           :datetime
-#  reading_cache                :jsonb
+#  reading_cache                :jsonb            default("{}")
 #  team_id                      :integer
 #  tracking_id                  :integer
 #  type                         :string
@@ -305,8 +305,8 @@ class Product < Ekylibre::Record::Base
   #  - fixed_asset_id
   # ]DEPRECATIONS]
   def read_store_attribute(store_attribute, key)
-    store = self.send(store_attribute)
-    if store.has_key?(key)
+    store = send(store_attribute)
+    if store.key?(key)
       super
     else
       get(key)
@@ -713,8 +713,9 @@ class Product < Ekylibre::Record::Base
     containeds.select { |p| p.variant == variant }
   end
 
-
-  # Returns value of an indicator if its name correspond to
+  # Returns value of an indicator if its name correspond to an existing one.
+  # NOTE: Do NOT trust rubocop if it replaces the #each by
+  # a #find_each it is NOT an existing method.
   Nomen::Indicator.all.each do |indicator|
     alias_method :"cache_#{indicator}", indicator
 
@@ -793,7 +794,7 @@ class Product < Ekylibre::Record::Base
     computed_surface = reading_cache[:net_surface_area] || reading_cache['net_surface_area']
     return computed_surface if computed_surface
     calculated = calculate_net_surface_area
-    self.update(reading_cache: reading_cache.merge(net_surface_area: calculated))
+    update(reading_cache: reading_cache.merge(net_surface_area: calculated))
     self.net_surface_area = calculated
   end
 
@@ -819,8 +820,8 @@ class Product < Ekylibre::Record::Base
     in_cache = reading_cache[indicator.to_s]
     return in_cache if in_cache
     indicator_value = super
-    self.reading_cache[indicator.to_s] = indicator_value
-    unless self.new_record?
+    reading_cache[indicator.to_s] = indicator_value
+    unless new_record?
       update_column(:reading_cache, reading_cache.merge(indicator.to_s => indicator_value))
     end
     indicator_value
