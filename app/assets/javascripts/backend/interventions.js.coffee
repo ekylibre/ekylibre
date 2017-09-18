@@ -260,6 +260,7 @@
 
     generateItemsArrayFromId: (input)->
       id = input.parent().find('.selector-value').val()
+      $('.purchase-items-array').empty()
       itemHeader = []
       itemHeader.push("<span class='header-name'>Article</span>")
       itemHeader.push("<span class='header-quantity'>Quantité</span>")
@@ -280,7 +281,10 @@
                 itemLine.push("<span class='item-amount'>" + item.amount + "</span>")
                 $('.purchase-items-array').append("<li class='item-line'>" + itemLine.join('') + "</li>")
 
-
+    updateTotalAmount: (input) ->
+      quantity = input.val()
+      totalAmount = quantity * parseFloat(input.parents('li.item-line').find('.item-pretax-amount').html())
+      input.parents('li.item-line').find('.item-amount').html(totalAmount)
 
   ##############################################################################
   # Triggers
@@ -338,6 +342,10 @@
   $(document).on "selector:change", 'input[data-generate-items]', ->
     $(this).each ->
       E.interventions.generateItemsArrayFromId($(this))
+
+  $(document).on "keyup change", 'input.input-quantity', ->
+    $(this).each ->
+      E.interventions.updateTotalAmount($(this))
 
 
   $(document).ready ->
