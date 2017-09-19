@@ -5,9 +5,6 @@ ruby '2.4.1'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.8'
 
-# For dokku
-gem 'rails_12factor'
-
 # Security fix for mail
 gem 'mail', '~> 2.6.6.rc1'
 
