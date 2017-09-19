@@ -287,9 +287,9 @@
 
       $(this.mapElement).on 'click', '.updateAttributesSerieInPopup', @updateAttributesSeries
 
-      @map.on "viewreset", (e) =>
-        console.log "NEW BOUNDING BOX", e.target.getBounds().toBBoxString()
-        @setDynamicSeries()
+#      @map.on "viewreset", (e) =>
+#        console.log "NEW BOUNDING BOX", e.target.getBounds().toBBoxString()
+#        @setDynamicSeries()
 
       @setDynamicSeries()
 
@@ -304,6 +304,9 @@
         $.extend(true, @options.show, data.show)
         @_refreshReferenceLayerGroup()
         @_refreshControls()
+
+        #Ensure edition layer is on top
+        @edition.bringToFront() if @edition
 
     updateFeature: (feature_id, attributeName, attributeValue) ->
       this.updateFeatureProperties(feature_id, attributeName, attributeValue)
