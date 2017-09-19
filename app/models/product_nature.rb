@@ -146,6 +146,7 @@ class ProductNature < Ekylibre::Record::Base
     # end
     # self.indicators = self.indicators_array.map(&:name).sort.join(", ")
     # self.abilities_list = self.abilities_list.sort.join(", ")
+    self.number = unique_predictable_number if number.empty?
     self.subscription_years_count ||= 0
     self.subscription_months_count ||= 0
     self.subscription_days_count ||= 0
