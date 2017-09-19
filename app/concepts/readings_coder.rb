@@ -5,11 +5,13 @@ class ReadingsCoder
     .tap { |h| h[Charta::MultiPolygon] = Proc.new { |_, value| value.to_ewkt }}
 
   UNSERIALIZE = Hash.new { Proc.new { |klass, value| klass.new(value) } }
-    .tap { |h| h[FalseClass] = Proc.new { |_, _| false          }}
-    .tap { |h| h[TrueClass]  = Proc.new { |_, _| true           }}
-    .tap { |h| h[String]     = Proc.new { |_, value| value      }}
-    .tap { |h| h[Fixnum]     = Proc.new { |_, value| value.to_i }}
-    .tap { |h| h[Float]      = Proc.new { |_, value| value.to_f }}
+    .tap { |h| h[Charta::MultiPolygon] = Proc.new { |_, value| Charta.new_geometry(value) }}
+    .tap { |h| h[Charta::Point]        = Proc.new { |_, value| Charta.new_geometry(value) }}
+    .tap { |h| h[FalseClass]           = Proc.new { |_, _| false                          }}
+    .tap { |h| h[TrueClass]            = Proc.new { |_, _| true                           }}
+    .tap { |h| h[String]               = Proc.new { |_, value| value                      }}
+    .tap { |h| h[Fixnum]               = Proc.new { |_, value| value.to_i                 }}
+    .tap { |h| h[Float]                = Proc.new { |_, value| value.to_f                 }}
     .freeze
 
 
