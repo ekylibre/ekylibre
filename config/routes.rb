@@ -702,7 +702,7 @@ Rails.application.routes.draw do
 
     resources :map_editors, only: [] do
       collection do
-        get :shapes
+        get :shapes, format: :json
         post :upload
       end
     end
