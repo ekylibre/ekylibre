@@ -5,13 +5,11 @@ class MapEditorManager
     LAYERS = {
         land_parcels: {
             name: :land_parcels,
-            label: :land_parcels.tl,
             serie: :land_parcels_serie,
             type: :simple
         },
         plants: {
             name: :plants,
-            label: :plant.tl,
             serie: :plants_serie,
             reference: 'variety',
             stroke: 2,
@@ -37,7 +35,7 @@ class MapEditorManager
 
         layer_serie = "#{sym_layer}_serie"
         mapeditor[:show][:series][layer_serie] = send(layer_serie, options)
-        mapeditor[:show][:layers] << LAYERS[sym_layer]
+        mapeditor[:show][:layers] << LAYERS[sym_layer].merge(label: sym_layer.tl)
 
       end
       mapeditor
