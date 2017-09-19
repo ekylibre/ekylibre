@@ -693,6 +693,7 @@ eng:
     device_uid: "Device UID"
     direct_links: "Direct links"
     direction: "Direction"
+    distributed_on_productions: "Distributed on productions"
     distributions: "Distributions"
     district: "District"
     document: "Document"
@@ -1288,6 +1289,7 @@ eng:
     query: "Query"
     rank_number: "Rank number"
     read_at: "Read at"
+    reading_cache: "Reading cache" #?
     reading_tasks: "Reading tasks" #?
     readings: "Readings"
     real_balance: "Real balance"
