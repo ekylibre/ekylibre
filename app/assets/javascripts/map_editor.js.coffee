@@ -300,13 +300,25 @@
     setDynamicSeries: ->
       return unless @options.dynamic_series?
 
-      $.getJSON @options.dynamic_series, (data) =>
-        $.extend(true, @options.show, data.show)
-        @_refreshReferenceLayerGroup()
-        @_refreshControls()
+      $.ajax
+        method: 'GET'
+        dataType: 'json'
+        url: @options.dynamic_series
+        beforeSend: () =>
+          @dynamic_loading = new L.control(position: "bottomleft")
+          @dynamic_loading.onAdd = (map) =>
+            L.DomUtil.create('div', 'leaflet-dynamic-loading')
 
-        #Ensure edition layer is on top
-        @edition.bringToFront() if @edition
+          @map.addControl @dynamic_loading
+        success: (data) =>
+          $.extend(true, @options.show, data.show)
+          @_refreshReferenceLayerGroup()
+          @_refreshControls()
+        complete: () =>
+          @map.removeControl @dynamic_loading
+
+      #Ensure edition layer is on top
+      @edition.bringToFront() if @edition
 
     updateFeature: (feature_id, attributeName, attributeValue) ->
       this.updateFeatureProperties(feature_id, attributeName, attributeValue)
