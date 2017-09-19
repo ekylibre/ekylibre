@@ -42,10 +42,10 @@ development:
 #     url: <%= ENV['DATABASE_URL'] %>
 #
 production:
-  <<: *default
-  database: ekylibre_production
-  username: ekylibre
-  password: ekylibre
+  adapter: postgresql
+  url: <%= ENV['POSTGRESQL_URL'] %> #This is the environment variable created by our Dokku command earlier
+  encoding: unicode
+  pool: 5
 
 test:
   <<: *default
