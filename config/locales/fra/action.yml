@@ -2172,6 +2172,7 @@ fra:
     supplier_informations: "Informations fournisseur"
     supplier_payment_mode: "Mode de paiement du fournisseur"
     supplier_receivables: "Fournisseurs d'exploitations et comptes rattachés"
+    supplier_reference: "Référence fournisseur"
     supply: "Livraison"
     support: "Support"
     supports: "Supports de production"

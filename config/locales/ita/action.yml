@@ -1724,6 +1724,7 @@ ita:
     supplier_informations: "informazioni del fornitore"
     supplier_payment_mode: "Modalità di pagamento del fornitore"
     supplier_receivables: "I crediti dei fornitori"
+    # supplier_reference: "Supplier reference"
     supply: "Fornitura"
     support: "Supporto"
     supports: "supporti"

@@ -1658,6 +1658,7 @@ deu:
     supplier_informations: "Lieferant Informationen"
     supplier_payment_mode: "Zahlungsarten des Lieferanten"
     supplier_receivables: "Lieferant Forderungen"
+    # supplier_reference: "Supplier reference"
     supply: "Liefern"
     support: "Unterstützen"
     supports: "Unterstützungen"

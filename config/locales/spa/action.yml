@@ -1883,6 +1883,7 @@ spa:
     supplier_informations: "Información sobre los proveedores"
     supplier_payment_mode: "Modo de pago del proveedor"
     supplier_receivables: "Cobrar proveedor"
+    # supplier_reference: "Supplier reference"
     supply: "Suministro"
     support: "Apoyo"
     supports: "Soportes"

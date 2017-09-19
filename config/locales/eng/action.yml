@@ -1904,6 +1904,7 @@ eng:
     supplier_informations: "Supplier informations"
     supplier_payment_mode: "Supplier payment mode"
     supplier_receivables: "Supplier receivables" #?!
+    supplier_reference: "Supplier reference" #??
     supply: "Supply" #?
     support: "Support" #?
     supports: "Supports" #?

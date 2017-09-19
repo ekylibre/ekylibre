@@ -1730,6 +1730,7 @@ jpn:
     supplier_informations: "サプライヤー情報"
     supplier_payment_mode: "サプライヤー支払いモード"
     supplier_receivables: "サプライヤー債権"
+    # supplier_reference: "Supplier reference"
     supply: "供給"
     support: "サポート"
     supports: "サポート"

@@ -1659,6 +1659,7 @@ cmn:
     supplier_informations: "供应商信息"
     supplier_payment_mode: "供应商付款模式"
     supplier_receivables: "供应商应收款"
+    # supplier_reference: "Supplier reference"
     supply: "供应"
     support: "支持"
     supports: "支持"

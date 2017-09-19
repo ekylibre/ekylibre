@@ -2271,6 +2271,7 @@ arb:
     supplier_informations: "المعلومات المورد"
     supplier_payment_mode: "المورد وضع الدفع"
     supplier_receivables: "ذمم المورد"
+    # supplier_reference: "Supplier reference"
     supply: "التسليم"
     support: "الدعم"
     supports: "الدعم"
