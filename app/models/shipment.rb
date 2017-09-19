@@ -34,6 +34,7 @@
 #  given_at                             :datetime
 #  id                                   :integer          not null, primary key
 #  in_preparation_at                    :datetime
+#  intervention_id                      :integer
 #  journal_entry_id                     :integer
 #  late_delivery                        :boolean
 #  lock_version                         :integer          default(0), not null
