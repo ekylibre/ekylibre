@@ -73,4 +73,4 @@
         = :view_map_when_creating_an_intervention.tl
   - f.clear_actions!
 
-= render 'reception_form', f: f
+= f.nested_association(:receptions, maximum: 1)
