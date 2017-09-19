@@ -41,11 +41,11 @@ development:
 #   production:
 #     url: <%= ENV['DATABASE_URL'] %>
 #
-# production:
-#   <<: *default
-#   database: ekylibre_production
-#   username: ekylibre
-#   password: ekylibre
+production:
+  <<: *default
+  database: ekylibre_production
+  username: ekylibre
+  password: ekylibre
 
 test:
   <<: *default
