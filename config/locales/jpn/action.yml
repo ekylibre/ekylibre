@@ -876,6 +876,7 @@ jpn:
     add_purchase_taxation: "購入課税を追加します。"
     add_quickly_an_item: "素早く製品の行を追加します。"
     add_reading: "指標の値を追加します。"
+    # add_reception: "Add reception"
     add_regularization: "正則を追加"
     add_revenue: "収益を追加"
     add_sale: "売却を追加"
