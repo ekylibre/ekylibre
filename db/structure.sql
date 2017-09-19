@@ -4767,7 +4767,8 @@ CREATE TABLE parcels (
     pretax_amount numeric(19,4) DEFAULT 0.0 NOT NULL,
     responsible_id integer,
     type character varying,
-    late_delivery boolean
+    late_delivery boolean,
+    intervention_id integer
 );
 
 
@@ -13977,6 +13978,13 @@ CREATE INDEX index_parcels_on_delivery_id ON parcels USING btree (delivery_id);
 
 
 --
+-- Name: index_parcels_on_intervention_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_parcels_on_intervention_id ON parcels USING btree (intervention_id);
+
+
+--
 -- Name: index_parcels_on_journal_entry_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -17438,6 +17446,14 @@ ALTER TABLE ONLY payslips
 
 
 --
+-- Name: fk_rails_c4b289405e; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY parcels
+    ADD CONSTRAINT fk_rails_c4b289405e FOREIGN KEY (intervention_id) REFERENCES interventions(id);
+
+
+--
 -- Name: fk_rails_ca9854019b; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -18030,4 +18046,6 @@ INSERT INTO schema_migrations (version) VALUES ('20170831071726');
 INSERT INTO schema_migrations (version) VALUES ('20170906075927');
 
 INSERT INTO schema_migrations (version) VALUES ('20170912093930');
+
+INSERT INTO schema_migrations (version) VALUES ('20170918093216');
 

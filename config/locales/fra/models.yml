@@ -1124,6 +1124,7 @@ fra:
     interpolations: "Interpolations"
     intervention: "Intervention"
     intervention_cast: "Acteur de l’intervention"
+    # intervention_id: "Intervention"
     intervention_parameter: "Paramètre d’intervention"
     intervention_participation: "Participation d’intervention"
     intervention_participations: "Participations d’intervention"

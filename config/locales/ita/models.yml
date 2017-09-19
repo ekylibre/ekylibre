@@ -934,6 +934,7 @@ ita:
     interpolations: "interpolazioni"
     intervention: "Intervento"
     intervention_cast: "getto di intervento"
+    # intervention_id: "Intervention"
     intervention_parameter: "parametro intervento"
     intervention_participation: "Partecipazione intervento"
     intervention_participations: "Partecipazioni di intervento"

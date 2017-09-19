@@ -903,6 +903,7 @@ por:
     interpolations: "Interpolações"
     intervention: "Intervenção"
     intervention_cast: "Intervenção elenco"
+    # intervention_id: "Intervention"
     intervention_parameter: "Parâmetro de intervenção"
     intervention_participation: "Participação intervenção"
     intervention_participations: "Participações de intervenção"

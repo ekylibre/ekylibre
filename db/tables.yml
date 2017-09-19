@@ -5046,6 +5046,9 @@ parcels:
     required: true
   in_preparation_at:
     type: datetime
+  intervention_id:
+    type: integer
+    references: intervention
   journal_entry_id:
     type: integer
     references: journal_entry

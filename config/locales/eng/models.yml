@@ -918,6 +918,7 @@ eng:
     interpolations: "Interpolations"
     intervention: "Intervention"
     intervention_cast: "Intervention cast" #?
+    intervention_id: "Intervention"
     # intervention_labellings: "Intervention labellings"
     intervention_parameter: "Intervention parameter"
     # intervention_participated_to: "Intervention participated to"

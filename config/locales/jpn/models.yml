@@ -903,6 +903,7 @@ jpn:
     interpolations: "補間"
     intervention: "介入"
     intervention_cast: "介入キャスト"
+    # intervention_id: "Intervention"
     intervention_parameter: "介入パラメータ"
     intervention_participation: "介入参加"
     intervention_participations: "介入参加"

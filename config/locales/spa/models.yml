@@ -907,6 +907,7 @@ spa:
     interpolations: "Interpolaciones"
     intervention: "Intervención"
     intervention_cast: "Reparto de intervención"
+    # intervention_id: "Intervention"
     intervention_parameter: "Parámetro de la intervención"
     intervention_participation: "La participación de la intervención"
     intervention_participations: "Participaciones de intervención"

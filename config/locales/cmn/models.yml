@@ -903,6 +903,7 @@ cmn:
     interpolations: "插补"
     intervention: "介入"
     intervention_cast: "干预投"
+    # intervention_id: "Intervention"
     intervention_parameter: "干预参数"
     intervention_participation: "参与干预"
     intervention_participations: "干预参股"

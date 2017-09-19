@@ -903,6 +903,7 @@ deu:
     interpolations: "Interpolationen"
     # intervention: "Intervention"
     intervention_cast: "Intervention Guss"
+    # intervention_id: "Intervention"
     intervention_parameter: "Intervention Parameter"
     intervention_participation: "Intervention Teilnahme"
     intervention_participations: "Intervention Beteiligungen"
