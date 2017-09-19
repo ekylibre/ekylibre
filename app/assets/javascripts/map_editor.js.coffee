@@ -831,6 +831,8 @@
 
       this.map.addControl this.controls.legend
 
+      L.DomUtil.addClass(@controls.legend.getContainer(), 'leaflet-hidden-control')
+
 
       if this.options.multiLevels?
         legend = @controls.legend.getContainer()
@@ -882,8 +884,9 @@
           for label, layer of @seriesReferencesLayers
             selector.addOverlay(layer, label)
             @layersScheduler.insert layer._leaflet_id
-            @controls.legend.getContainer().innerHTML += layer.renderedLayer.buildLegend() if layer.renderedLayer.options.legend
-
+            if layer.renderedLayer.options.legend
+              @controls.legend.getContainer().innerHTML += layer.renderedLayer.buildLegend()
+              L.DomUtil.removeClass(@controls.legend.getContainer(), 'leaflet-hidden-control')
 
         if @edition? and @edition.getLayers().length > 0
           selector.addOverlay(@edition, @options.overlaySelector.editionLayer)
