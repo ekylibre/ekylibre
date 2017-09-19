@@ -478,7 +478,7 @@ module Backend
 
     def user_preference_value(name)
       preference = current_user.preferences.find_by(name: name)
-      preference ? preference.value : nil
+      preference ? preference.value : true
     end
 
     # Build a JSON for a data-tour parameter and put it on <body> element
