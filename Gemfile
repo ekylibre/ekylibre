@@ -199,7 +199,6 @@ gem 'luhn'
 gem 'bootstrap-slider-rails'
 
 group :development do
-
   gem 'bullet', '~> 5.5.0'
 
   gem 'quiet_assets'

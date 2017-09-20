@@ -554,7 +554,6 @@ GEM
     uuidtools (2.1.5)
     vuejs-rails (2.4.2)
     wannabe_bool (0.6.0)
->>>>>>> 2e1b52382e417c41954276a99eac834d5b45e583
     warden (1.2.7)
       rack (>= 1.0)
     wasabi (3.5.0)
