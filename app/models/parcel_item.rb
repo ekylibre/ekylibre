@@ -59,7 +59,7 @@
 class ParcelItem < Ekylibre::Record::Base
   attr_readonly :parcel_id
   attr_accessor :product_nature_variant_id
-  enumerize :delivery_mode, in: %i[transporter us third], predicates: { prefix: true }, scope: true, default: :us
+  enumerize :delivery_mode, in: %i[transporter us third none], predicates: { prefix: true }, scope: true, default: :us
   belongs_to :analysis
   belongs_to :parcel, inverse_of: :items
   belongs_to :product
@@ -88,12 +88,12 @@ class ParcelItem < Ekylibre::Record::Base
   validates :parcel, presence: true
   # ]VALIDATORS]
   validates :source_product, presence: { if: :parcel_outgoing? }
-  validates :variant, presence: { if: :parcel_incoming? }
+  validates :variant, presence: true
   validates :product, presence: { if: :parcel_prepared? }
 
-  validates :population, numericality: { less_than_or_equal_to: 1,
-                                         if: :product_is_unitary?,
-                                         message: 'activerecord.errors.messages.unitary_in_parcel'.t }
+  validates :population, presence: true, numericality: { less_than_or_equal_to: 1,
+                                                         if: :product_is_unitary?,
+                                                         message: 'activerecord.errors.messages.unitary_in_parcel'.t }
   validates :product_name, presence: { if: -> { product_is_identifiable? && parcel_incoming? } }
   validates :product_identification_number, presence: { if: -> { product_is_identifiable? && parcel_incoming? } }
 
@@ -102,7 +102,7 @@ class ParcelItem < Ekylibre::Record::Base
   alias_attribute :quantity, :population
 
   accepts_nested_attributes_for :product
-  accepts_nested_attributes_for :storings
+  accepts_nested_attributes_for :storings, allow_destroy: true
 
   # delegate :net_mass, to: :product
   delegate :allow_items_update?, :remain_owner, :planned_at, :draft?,

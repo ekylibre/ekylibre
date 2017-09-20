@@ -148,8 +148,8 @@ $preview-modal-height: 80vh;
 .edit_intervention,
 .new_intervention {
   .has-intervention-participations {
-    position: relative;
-    top: -$fs-large;
+    position: absolute;
+    top: $fs-large * 1.3;
     left: $fs-awesome * 2.5;
     line-height: 0;
     font-size: $fs-huge;
@@ -160,6 +160,13 @@ $preview-modal-height: 80vh;
     color: $darkened-blue-grey;
   }
 
+  .has-intervention-participations.picto {
+    &.picto-timer::before,
+    &.picto-timer-off::before {
+      margin-left: $default-gap;
+   }
+  }
+  
   .reception-form {
     .purchase-items-array {
       margin-top: $default-gap * 2;
@@ -199,7 +206,6 @@ $preview-modal-height: 80vh;
       width: 13%;
       color: $lightened-grey;
     }
-  }
 }
 
 .product_parameters .cast {
@@ -244,7 +250,7 @@ $preview-modal-height: 80vh;
 
   .total {
     background-color: rgba(black, 0.03);
-    min-width: 7em;
+    min-width: 10em;
 
     .total-label {
       height: $fs-huge * 1.1;

@@ -398,10 +398,6 @@ class Intervention < Ekylibre::Record::Base
     activities.map(&:name).to_sentence
   end
 
-  def product_parameters
-    InterventionProductParameter.where(intervention: self)
-  end
-
   # The Procedo::Procedure behind intervention
   def procedure
     Procedo.find(procedure_name)
@@ -415,7 +411,7 @@ class Intervention < Ekylibre::Record::Base
   end
 
   def targets_list
-    targets.map(&:product).compact.map(&:work_name).sort
+    targets.includes(:product).map(&:product).compact.map(&:work_name).sort
   end
 
   # Returns human target names
@@ -521,10 +517,11 @@ class Intervention < Ekylibre::Record::Base
     nil
   end
 
-  def cost_per_area(role = :input, area_unit = :hectare)
-    if working_zone_area > 0.0.in_square_meter
+  def cost_per_area(role = :input, area_unit = :hectare, area = nil)
+    area ||= working_zone_area(area_unit)
+    if area > 0.0.in_square_meter
       params = product_parameters.of_generic_role(role)
-      return (params.map(&:cost).compact.sum / working_zone_area(area_unit).to_d) if params.any?
+      return (params.map(&:cost).compact.sum / area.to_d) if params.any?
       nil
     end
     nil
