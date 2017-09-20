@@ -13,11 +13,11 @@
     - max = plants_max_area.in_hectare.to_f.ceil.in_hectare
     - label = Plant.human_attribute_name(:net_surface_area)
     = render('backend/shared/kujaku/range_slider',
-      max: max,
-      min: 0.in_hectare.l(precision: 0),
-      step: 0.1,
-      label: label,
-      name: :area)
+        max: max,
+        min: 0.in_hectare.l(precision: 0),
+        step: 0.1,
+        label: label,
+        name: :area)
 
 = janus do |j|
   - if current_campaign && Plant.of_campaign(current_campaign).any?
