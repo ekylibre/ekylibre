@@ -145,6 +145,10 @@ Rails.application.routes.draw do
 
     # resources :calculators, only: :index
 
+    namespace :async_contents do
+      resource :production_costs_async_contents, only: :show
+    end
+
     namespace :cells do
       resource :accountancy_balance_cell, only: :show
       resource :cashes_balance_cell, only: :show

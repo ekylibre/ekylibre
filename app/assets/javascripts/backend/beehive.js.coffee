@@ -182,6 +182,5 @@
           beehive_cell.addClass("errored")
           element.append($("<p class='cell-message'>#{element.data('cell-error-message')}</p>"))
           element.trigger('cell:error')
-
   true
 ) jQuery
