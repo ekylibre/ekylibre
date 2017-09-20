@@ -5,7 +5,6 @@ module Backend
         .productions
         .of_campaign(current_campaign)
         .includes(:cultivable_zone)
-        .includes(:campaign)
         .find_each
         .map do |production|
           next unless production.support_shape
