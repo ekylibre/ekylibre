@@ -52,8 +52,11 @@
 class PayslipPayment < OutgoingPayment
   acts_as_affairable :payee, dealt_at: :to_bank_at, debit: false, class_name: 'PayslipAffair'
 
+
   # This method permits to add journal entries corresponding to the payment
   # It depends on the preference which permit to activate the "automatic bookkeeping"
+
+
   bookkeep do |b|
     label = tc(:bookkeep, resource: self.class.model_name.human, number: number, payee: payee.full_name, mode: mode.name, check_number: bank_check_number)
     b.journal_entry(mode.cash.journal, printed_on: to_bank_at.to_date, if: (mode.with_accounting? && delivered)) do |entry|

@@ -1,0 +1,14 @@
+- value =  params[name]
+- if value.present?
+  - value = value.split(',')
+  - set_max_value = value.last
+  - set_min_value = value.first
+- else
+  - set_max_value = max
+  - set_min_value = min
+
+.range-slider
+  %label= label
+  %span.range-minimum= min.l(precision: 0)
+  %input{ name: name, data: { slider: { min: min.to_f.round, max: max.to_f.round, value: [set_min_value.to_f.round, set_max_value.to_f.round], step: step, tooltip_split: true} , provide: 'slider'} }
+  %span.range-maximum= max.l(precision: 0)

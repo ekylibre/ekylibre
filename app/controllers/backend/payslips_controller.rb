@@ -4,6 +4,8 @@ module Backend
 
     unroll :number, :amount, :currency, :created_at, employee: :full_name
 
+    
+
     list(joins: %i[affair employee], order: { emitted_on: :desc }) do |t|
       t.action :edit
       t.action :destroy

@@ -1,0 +1,19 @@
+= kujaku do |k|
+  - k.text
+  - k.multi_choice :mode, OutgoingPaymentMode.all.map{ |p| [p.name, p.id] }, label: PayslipPayment.human_attribute_name(:mode)
+  - k.helper do
+    - max = payslip_payments_max_payment.to_f
+    - min = payslip_payments_min_amount.to_f
+    - label = OutgoingPayment.human_attribute_name(:amount)
+    = render('backend/shared/kujaku/range_slider',
+        max: max,
+        min: min,
+        step: 10,
+        label: label,
+        name: :amount)
+
+
+
+- main_toolbar do |t|
+  = t.new params: { redirect: nil }
+= main_list

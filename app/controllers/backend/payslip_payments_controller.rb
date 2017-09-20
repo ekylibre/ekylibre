@@ -1,6 +1,23 @@
 module Backend
   class PayslipPaymentsController < Backend::OutgoingPaymentsController
-    list(joins: :payee, order: { to_bank_at: :desc }) do |t|
+
+    def self.list_conditions
+      code = search_conditions(payslip_payments: %i[amount number], entities: %i[full_name]) + " ||= []\n"
+      code << "if params[:mode].present?\n"
+      code << " c[0] << ' AND #{PayslipPayment.table_name}.mode_id IN (?)'\n"
+      code << " c << params[:mode]\n"
+      code << "end\n"
+      code << "if params[:amount].present?\n"
+      code << " interval = params[:amount].split(',')\n"
+      code << " c[0] << ' AND #{PayslipPayment.table_name}.amount BETWEEN ? AND ?'\n"
+      code << " c << interval.first.to_i\n"
+      code << " c << interval.last.to_i\n"
+      code << "end\n"
+      code << "c\n "
+      code.c
+    end
+
+    list(joins: :payee, order: { to_bank_at: :desc }, conditions: list_conditions) do |t|
       t.action :edit
       t.action :destroy
       t.column :number, url: true
