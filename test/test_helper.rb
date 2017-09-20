@@ -1,20 +1,17 @@
 if ENV['CI']
   require 'codacy-coverage'
-  require 'coveralls'
+  require 'codecov'
 else
   require 'simplecov'
 end
 ENV['RAILS_ENV'] ||= 'test'
 
 if ENV['CI']
-  Coveralls.setup!
-
   SimpleCov.formatters = [
-    Codacy::Formatter,
-    Coveralls::SimpleCov::Formatter
+    SimpleCov::Formatter::Codecov,
+    Codacy::Formatter
   ]
 
-  Coveralls.start!('rails') unless ENV['COVERALL'] == 'off'
   SimpleCov.start
 else
   SimpleCov.start do
@@ -141,7 +138,7 @@ module ActiveSupport
 
     def self.test_model_actions(_options = {})
       model = to_s.slice(0..-5).constantize
-      fixtures_to_use = FixtureRetriever.new(model)
+      FixtureRetriever.new(model)
 
       #     test 'create' do
       #       fixture = fixtures_to_use.invoke(:first)
@@ -237,7 +234,6 @@ module ActionController
         attributes = nil
         file_columns = {}
         if model && model < ActiveRecord::Base
-          table_name = model.table_name
           if model.respond_to?(:attachment_definitions)
             unless model.attachment_definitions.nil?
               file_columns = model.attachment_definitions
