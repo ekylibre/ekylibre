@@ -277,6 +277,7 @@ module Backend
               params[:redirect] || { action: :show, id: 'id'.c }
             end
 
+      @intervention.save 
       return if save_and_redirect(@intervention, url: url, notify: :record_x_created, identifier: :number)
       render(locals: { cancel_url: { action: :index }, with_continue: true })
     end
@@ -347,6 +348,18 @@ module Backend
           # format.xml  { render xml:  { errors: e.message }, status: 500 }
           format.json { render json: { errors: e.message }, status: 500 }
         end
+      end
+    end
+
+    def purchase_order_items
+      purchase_order = Purchase.find(params[:purchase_order_id])
+      purchase_order_hash = { id: purchase_order.id, pretax_amount: purchase_order.pretax_amount }
+      purchase_order.items.each do |item|
+        purchase_order_hash[:items] = [] if purchase_order_hash[:items].nil?
+        purchase_order_hash[:items] << { variant_id: item.variant_id, name: item.variant.name, quantity: item.quantity, pretax_amount: item.pretax_amount, amount: item.amount }
+      end
+      respond_to do |format|
+        format.json { render json: purchase_order_hash }
       end
     end
 
