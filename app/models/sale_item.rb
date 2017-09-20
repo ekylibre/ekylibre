@@ -198,7 +198,7 @@ class SaleItem < Ekylibre::Record::Base
   end
 
   def designation
-    d = self.label
+    d = label
     d << "\n" + annotation.to_s if annotation.present?
     d << "\n" + tc(:tracking, serial: tracking.serial.to_s) if tracking
     d
