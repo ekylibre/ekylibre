@@ -1,3 +1,6 @@
+require 'minitest/mock'
+require 'rake'
+
 if ENV['CI']
   require 'codacy-coverage'
   require 'codecov'
@@ -14,6 +17,8 @@ if ENV['CI']
 
   SimpleCov.start
 else
+  require 'simplecov'
+
   SimpleCov.start do
     load_profile 'rails'
     add_group 'Exchangers', 'app/exchangers'
@@ -718,4 +723,12 @@ class CapybaraIntegrationTest < ActionDispatch::IntegrationTest
     mail_body = ActionMailer::Base.deliveries.last.body.to_s
     URI(URI.extract(mail_body).first).request_uri
   end
+end
+
+def without_output(&block)
+  main.stub :puts, Proc.new, &block
+end
+
+def main
+  TOPLEVEL_BINDING.eval('self')
 end
