@@ -256,6 +256,10 @@ module Backend
       end
     end
 
+    def heading_toolbar(&block)
+      content_for(:heading_toolbar, &block)
+    end
+
     def form_action_content(side = :after, &block)
       content_for(:"#{side}_form_actions", &block)
     end

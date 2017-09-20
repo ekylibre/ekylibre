@@ -22,33 +22,34 @@
 #
 # == Table: interventions
 #
-#  accounted_at            :datetime
-#  actions                 :string
-#  created_at              :datetime         not null
-#  creator_id              :integer
-#  currency                :string
-#  custom_fields           :jsonb
-#  description             :text
-#  event_id                :integer
-#  id                      :integer          not null, primary key
-#  issue_id                :integer
-#  journal_entry_id        :integer
-#  lock_version            :integer          default(0), not null
-#  nature                  :string           not null
-#  number                  :string
-#  prescription_id         :integer
-#  procedure_name          :string           not null
-#  request_compliant       :boolean
-#  request_intervention_id :integer
-#  started_at              :datetime         not null
-#  state                   :string           not null
-#  stopped_at              :datetime         not null
-#  trouble_description     :text
-#  trouble_encountered     :boolean          default(FALSE), not null
-#  updated_at              :datetime         not null
-#  updater_id              :integer
-#  whole_duration          :integer          not null
-#  working_duration        :integer          not null
+#  accounted_at                   :datetime
+#  actions                        :string
+#  auto_calculate_working_periods :boolean          default(FALSE)
+#  created_at                     :datetime         not null
+#  creator_id                     :integer
+#  currency                       :string
+#  custom_fields                  :jsonb
+#  description                    :text
+#  event_id                       :integer
+#  id                             :integer          not null, primary key
+#  issue_id                       :integer
+#  journal_entry_id               :integer
+#  lock_version                   :integer          default(0), not null
+#  nature                         :string           not null
+#  number                         :string
+#  prescription_id                :integer
+#  procedure_name                 :string           not null
+#  request_compliant              :boolean
+#  request_intervention_id        :integer
+#  started_at                     :datetime         not null
+#  state                          :string           not null
+#  stopped_at                     :datetime         not null
+#  trouble_description            :text
+#  trouble_encountered            :boolean          default(FALSE), not null
+#  updated_at                     :datetime         not null
+#  updater_id                     :integer
+#  whole_duration                 :integer          not null
+#  working_duration               :integer          not null
 #
 
 class Intervention < Ekylibre::Record::Base
@@ -90,9 +91,9 @@ class Intervention < Ekylibre::Record::Base
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :accounted_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
   validates :actions, :number, length: { maximum: 500 }, allow_blank: true
+  validates :auto_calculate_working_periods, :request_compliant, inclusion: { in: [true, false] }, allow_blank: true
   validates :description, :trouble_description, length: { maximum: 500_000 }, allow_blank: true
   validates :nature, :procedure_name, :state, presence: true
-  validates :request_compliant, inclusion: { in: [true, false] }, allow_blank: true
   validates :started_at, presence: true, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }
   validates :stopped_at, presence: true, timeliness: { on_or_after: ->(intervention) { intervention.started_at || Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }
   validates :trouble_encountered, inclusion: { in: [true, false] }
@@ -394,10 +395,6 @@ class Intervention < Ekylibre::Record::Base
     activities.map(&:name).to_sentence
   end
 
-  def product_parameters
-    InterventionProductParameter.where(intervention: self)
-  end
-
   # The Procedo::Procedure behind intervention
   def procedure
     Procedo.find(procedure_name)
@@ -411,7 +408,7 @@ class Intervention < Ekylibre::Record::Base
   end
 
   def targets_list
-    targets.map(&:product).compact.map(&:work_name).sort
+    targets.includes(:product).map(&:product).compact.map(&:work_name).sort
   end
 
   # Returns human target names
@@ -517,10 +514,11 @@ class Intervention < Ekylibre::Record::Base
     nil
   end
 
-  def cost_per_area(role = :input, area_unit = :hectare)
-    if working_zone_area > 0.0.in_square_meter
+  def cost_per_area(role = :input, area_unit = :hectare, area = nil)
+    area ||= working_zone_area(area_unit)
+    if area > 0.0.in_square_meter
       params = product_parameters.of_generic_role(role)
-      return (params.map(&:cost).compact.sum / working_zone_area(area_unit).to_d) if params.any?
+      return (params.map(&:cost).compact.sum / area.to_d) if params.any?
       nil
     end
     nil
