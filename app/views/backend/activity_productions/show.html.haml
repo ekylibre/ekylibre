@@ -121,7 +121,7 @@
 
   - if resource.interventions.any? and Nomen::Variety[resource.activity.cultivation_variety] <= :plant
     - c.cobble :production_cost do
-      = async_content :production_costs, params: { id: resource.id }
+      = async_content backend_async_contents_production_costs_async_contents_path(id: resource.id)
   - else
     = no_data
 
