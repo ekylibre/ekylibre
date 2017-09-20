@@ -268,18 +268,16 @@
       itemHeader.push("<span class='header-amount'>Prix total</span>")
       $('.purchase-items-array').append("<li class='header-line'>" + itemHeader.join('') + "</li>")
       $.get
-        url: "/backend/purchases/#{id}.json"
+        url: "/backend/interventions/purchase_order_items"
+        data: { purchase_order_id: id}
         success: (data, status, request) ->
-          for item in data.items
-            $.get
-              url: "/backend/product_nature_variants/#{item.id}.json"
-              success: (data, status, request) ->
-                itemLine = []
-                itemLine.push("<span class='item-name'>" + data.name + "</span>")
-                itemLine.push("<span class='item-quantity'><input type='number' class='input-quantity' name='quantity' value ='#{item.quantity}'></input></span>")
-                itemLine.push("<span class='item-pretax-amount'>" + item.pretax_amount + "</span>")
-                itemLine.push("<span class='item-amount'>" + item.amount + "</span>")
-                $('.purchase-items-array').append("<li class='item-line'>" + itemLine.join('') + "</li>")
+          for item, index in data.items
+            itemLine = []
+            itemLine.push("<span class='item-name'><input name='intervention[receptions_attributes][0][items_attributes][#{-index}][variant_id]' value='#{item.variant_id}' type='hidden'></input>" + item.name + "</span>")
+            itemLine.push("<span class='item-quantity'><input type='number' class='input-quantity' name='intervention[receptions_attributes][0][items_attributes][#{-index}][population]' value ='#{item.quantity}'></input></span>")
+            itemLine.push("<span class='item-pretax-amount'><input name='intervention[receptions_attributes][0][items_attributes][#{-index}][pretax_amount]' value='#{item.pretax_amount}' type='hidden'></input>" + item.pretax_amount + "</span>")
+            itemLine.push("<span class='item-amount'>" + item.amount + "</span>")
+            $('.purchase-items-array').append("<li class='item-line'>" + itemLine.join('') + "</li>")
 
     updateTotalAmount: (input) ->
       quantity = input.val()
