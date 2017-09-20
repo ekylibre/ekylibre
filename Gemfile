@@ -135,6 +135,9 @@ gem 'i18n-js', '>= 3.0.0.rc12'
 # Dates management
 gem 'time_diff'
 
+# Bool management
+gem 'wannabe_bool'
+
 # XML Parsing/Writing, HTML extraction
 gem 'nokogiri', '~> 1.7.1'
 
@@ -237,7 +240,7 @@ group :test do
   gem 'selenium-webdriver'
 
   gem 'codacy-coverage', require: false
-  gem 'coveralls', '>= 0.6', require: false
+  gem 'codecov', require: false
   gem 'database_cleaner'
   gem 'simplecov', require: false
 
