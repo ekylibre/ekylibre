@@ -120,8 +120,7 @@
       = waterfall_highcharts(series, tooltip: {point_format: '{point.y: 1.3f}'}, title: {text: 'Budget prévisionnel'}, legend: {enabled: false}, x_axis: {type: 'category'}, y_axis: {title: {text: '€'}})
 
   - if resource.interventions.any? and Nomen::Variety[resource.activity.cultivation_variety] <= :plant
-    - c.cobble :production_cost do
-      = async_content backend_async_contents_production_costs_async_contents_path(id: resource.id)
+    - async_cobble :production_cost, { params: { id: resource.id }, cobble: c }
   - else
     = no_data
 

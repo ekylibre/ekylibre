@@ -1,5 +1,5 @@
 module Backend
-  module AsyncContents
+  module Cobbles
     class BaseController < Backend::BaseController
       layout false
     end

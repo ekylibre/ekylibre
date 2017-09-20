@@ -1,6 +1,6 @@
 module Backend
-  module AsyncContents
-    class ProductionCostsAsyncContentsController < Backend::AsyncContents::BaseController
+  module Cobbles
+    class ProductionCostCobblesController < Backend::Cobbles::BaseController
       def show
         @activity_production = ActivityProduction.find(params[:id])
       end

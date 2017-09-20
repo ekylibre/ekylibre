@@ -145,8 +145,8 @@ Rails.application.routes.draw do
 
     # resources :calculators, only: :index
 
-    namespace :async_contents do
-      resource :production_costs_async_contents, only: :show
+    namespace :cobbles do
+      resource :production_cost_cobble, only: :show
     end
 
     namespace :cells do
