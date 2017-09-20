@@ -47,7 +47,7 @@
 
 
 = cobbles do |c|
-  - if resource.france_maaid? && (agent = Pesticide::Agent.find(resource.france_maaid))
+  - if resource.france_maaid? && (agent = Pesticide::Agent.find(resource.france_maaid.to_s))
     - c.cobble(:phyto_data) do
       - if agent.risks.any?
         - avatars = []
