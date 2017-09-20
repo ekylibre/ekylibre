@@ -173,6 +173,7 @@ accounts:
     - "backend/accounts#list"
     - "backend/accounts#list_entities"
     - "backend/accounts#list_journal_entry_items"
+    - "backend/accounts#list_product_nature_variants"
     - "backend/accounts#list_reconciliation"
     - "backend/accounts#mask_lettered_items"
     - "backend/accounts#show"

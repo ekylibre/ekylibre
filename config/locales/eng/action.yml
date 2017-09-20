@@ -1683,6 +1683,7 @@ eng:
     product_account_number: "Product account number" #?
     product_category: "Product category" #?
     product_name: "Product name" #?
+    # product_nature_variants: "Product nature variants"
     product_natures: "Product types"
     product_value: "Product value %{financial_year}"
     production: "Production"
