@@ -153,7 +153,7 @@ eng:
               frozen: "The financial year date cannot be changed when an exchange has been created."
               on_or_after: "The date selected must be posterior to society's creation date (%{restriction})"
             stopped_on:
-              end_of_month: "%{attribute} must be an end of month"
+              end_of_month: "%{attribute} must be after company creation date"
           overlap: "%{attribute} overlaps an existing financial year"
         financial_year_exchange:
           csv_file_entry_dates_invalid: "Some entries in the CSV are out of the financial year exchange date range"
