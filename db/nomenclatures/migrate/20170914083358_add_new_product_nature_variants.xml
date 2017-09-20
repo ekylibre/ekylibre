@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<migration name="Add new product nature variants">
+    <item-creation item="product_nature_variants#carrot_seed" nature="seed" variety="seed" derivative_of="daucus_carota" frozen_indicators_values="net_mass: 1.00gram, grains_count: 1thousand, thousand_grains_mass: 1.00gram" unit_name="gram"/>
+    <item-creation item="product_nature_variants#soy_seed" nature="seed" variety="seed" derivative_of="glycine_max" frozen_indicators_values="net_mass: 190gram, grains_count: 1thousand, thousand_grains_mass: 190.00gram" unit_name="thousand"/>
+    <item-creation item="product_nature_variants#rye_seed" nature="seed" variety="seed" derivative_of="secale_cereale" frozen_indicators_values="net_mass: 1.00gram, grains_count: 33unity, thousand_grains_mass: 30.00gram" unit_name="gram"/>
+    <item-creation item="product_nature_variants#buckwheat_seed" nature="seed" variety="seed" derivative_of="fagopyrum" frozen_indicators_values="net_mass: 1.00gram, grains_count: 50unity, thousand_grains_mass: 20.00gram" unit_name="gram"/>
+    <item-creation item="product_nature_variants#triticale_seed" nature="seed" variety="seed" derivative_of="triticale" frozen_indicators_values="net_mass: 1.00gram, grains_count: 22unity, thousand_grains_mass: 45.00gram" unit_name="gram"/>
+    <item-creation item="product_natures#growth_regulator" category="plant_medicine" variety="preparation" population_counting="decimal" frozen_indicators="net_volume, net_mass" abilities="care(plant)"/>
+    <item-creation item="product_nature_variants#growth_regulator" nature="growth_regulator" frozen_indicators_values="net_volume: 1.00liter" unit_name="liter"/>
+    <item-creation item="product_nature_variants#oat_grain" nature="grain" variety="grain" derivative_of="avena" frozen_indicators_values="net_mass: 1.00ton" unit_name="ton"/>
+    <item-creation item="product_nature_variants#rye_grain" nature="grain" variety="grain" derivative_of="secale_cereale" frozen_indicators_values="net_mass: 1.00ton" unit_name="ton"/>
+    <item-creation item="product_nature_variants#rye_straw" nature="straw" variety="straw" derivative_of="secale_cereale" frozen_indicators_values="net_mass: 1.00ton" unit_name="ton"/>
+    <item-creation item="product_nature_variants#triticale_straw" nature="straw" variety="straw" derivative_of="triticale" frozen_indicators_values="net_mass: 1.00ton" unit_name="ton"/>
+</migration>

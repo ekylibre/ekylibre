@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 9.6.3
--- Dumped by pg_dump version 9.6.3
+-- Dumped from database version 9.6.4
+-- Dumped by pg_dump version 9.6.4
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -475,7 +475,8 @@ CREATE TABLE interventions (
     accounted_at timestamp without time zone,
     currency character varying,
     journal_entry_id integer,
-    request_compliant boolean
+    request_compliant boolean,
+    auto_calculate_working_periods boolean DEFAULT false
 );
 
 
@@ -17865,4 +17866,6 @@ INSERT INTO schema_migrations (version) VALUES ('20170602144753');
 INSERT INTO schema_migrations (version) VALUES ('20170804101025');
 
 INSERT INTO schema_migrations (version) VALUES ('20170818134454');
+
+INSERT INTO schema_migrations (version) VALUES ('20170831071726');
 
