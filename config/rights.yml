@@ -111,6 +111,7 @@
 #     - "backend/inspections#export"
 #     - "backend/intervention_participations#participations_modal"
 #     - "backend/interventions#change_page"
+#     - "backend/interventions#purchase_order_items"
 #     - "backend/januses#toggle"
 #     - "backend/kujakus#toggle"
 #     - "backend/land_parcels#take"
