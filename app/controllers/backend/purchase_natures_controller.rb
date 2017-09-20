@@ -27,6 +27,7 @@ module Backend
       t.action :destroy
       t.column :name, url: true
       t.column :active
+      t.column :by_default
       t.column :currency
       t.column :with_accounting
       t.column :journal, url: true

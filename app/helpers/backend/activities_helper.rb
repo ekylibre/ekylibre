@@ -4,6 +4,7 @@ module Backend
       activity
         .productions
         .of_campaign(current_campaign)
+        .includes(:cultivable_zone)
         .find_each
         .map do |support|
           next unless support.support_shape
@@ -19,7 +20,7 @@ module Backend
 
     def inspection_series(dimension, inspections)
       plant_ids = inspections.pluck(:product_id).uniq
-      Plant.where(id: plant_ids).map do |plant|
+      Plant.where(id: plant_ids).includes(:nature).map do |plant|
         next unless plant.shape
 
         in_qual               = inspection_quality(dimension, plant)
@@ -152,7 +153,7 @@ module Backend
       last_i
         .scales
         .map do |scale|
-          dataset = last_i.calibrations.of_scale(scale).reorder(:id)
+          dataset = last_i.calibrations.includes(nature: :scale).of_scale(scale).reorder(:id)
           dataset.map do |calibration|
             {
               label: calibration.name,

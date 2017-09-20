@@ -222,7 +222,7 @@ module Nomen
     end
 
     def remove_item(name)
-      i = find!(name)
+      find!(name)
       @items.delete(name)
     end
 
@@ -492,7 +492,7 @@ module Nomen
 
     def cast_options(options)
       return {} if options.nil?
-      hash = options.each_with_object({}) do |(k, v), h|
+      options.each_with_object({}) do |(k, v), h|
         h[k.to_sym] = if properties[k]
                         cast_property(k, v.to_s)
                       else

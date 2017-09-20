@@ -194,7 +194,7 @@ class FinancialYear < Ekylibre::Record::Base
 
   def tax_declaration_stopped_on(from_on)
     return nil if tax_declaration_frequency_none?
-    end_on = (from_on + tax_declaration_frequency_duration).end_of_month
+    end_on = (from_on + tax_declaration_frequency_duration).beginning_of_month - 1
     end_on = stopped_on if end_on > stopped_on
     end_on
   end

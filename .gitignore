@@ -35,20 +35,12 @@ db/first_runs
 /backup
 *~
 
-# Ignores datasources
-db/datasources
-
 # Ignore jasper files
 config/locales/*/reporting/*.jasper
 config/locales/*/reporting/*.pdf
 
 # Ignore private files
 private/*
-!private/test/
-private/test/tmp
-private/test/reporting
-# private/test/attachments
-private/test/plugins
 
 # Ignore compiled assets
 /public/assets
@@ -81,8 +73,8 @@ capybara*.html
 /.ruby-version
 /.ruby-gemset
 
+# Local Gemfile
 Gemfile.local
-Gemfile.local.lock
 
 Procfile.*
 
@@ -91,6 +83,3 @@ Procfile.*
 
 .byebug_history
 .gitconfig
-
-custom_plan.rb
-zeus.json

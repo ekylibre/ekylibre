@@ -5,4 +5,5 @@
 - main_toolbar do |t|
   = t.export @aggregator.class.aggregator_name, key: :key, resource: @aggregator
 
-.aggregator= @aggregator.to_html_fragment
+- if current_user.preference(User::PREFERENCE_SHOW_EXPORT_PREVIEW).value
+  .aggregator= @aggregator.to_html_fragment

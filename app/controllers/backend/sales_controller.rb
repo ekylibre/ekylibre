@@ -26,7 +26,6 @@ module Backend
 
     # management -> sales_conditions
     def self.sales_conditions
-      code = ''
       code = search_conditions(sales: %i[pretax_amount amount number initial_number description], entities: %i[number full_name]) + " ||= []\n"
       code << "if params[:period].present? && params[:period].to_s != 'all'\n"
       code << "  c[0] << ' AND #{Sale.table_name}.invoiced_at::DATE BETWEEN ? AND ?'\n"
@@ -223,7 +222,6 @@ module Backend
 
     def contacts
       if request.xhr?
-        client = nil
         address_id = nil
         client = if params[:selected] && address = EntityAddress.find_by(id: params[:selected])
                    address.entity
@@ -255,8 +253,12 @@ module Backend
 
     def invoice
       return unless @sale = find_and_check
-      ActiveRecord::Base.transaction do
-        raise ActiveRecord::Rollback unless @sale.invoice
+      if @sale.client.client_account.present?
+        ActiveRecord::Base.transaction do
+          raise ActiveRecord::Rollback unless @sale.invoice
+        end
+      else
+        notify_error :error_client_account_empty
       end
       redirect_to action: :show, id: @sale.id
     end
