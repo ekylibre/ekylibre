@@ -55,4 +55,22 @@ require 'test_helper'
 class ParcelItemTest < ActiveSupport::TestCase
   test_model_actions
   # Add tests here...
+
+  test 'parcel item have a valid factory' do
+    parcel_item = build(:parcel_item)
+    assert parcel_item.valid?
+  end
+
+  test 'parcel_item without population give take the population of the source_product population' do
+    parcel_item = create(:parcel_item)
+    assert_equal 1, parcel_item.population
+  end
+
+  test 'parcel_item with population have the given population' do
+    nature = create(:product_nature, population_counting: :decimal)
+    variant = create(:product_nature_variant, nature: nature)
+    product = create(:product, variant: variant)
+    parcel_item = create(:parcel_item, population: 12, source_product: product)
+    assert_equal 12, parcel_item.population
+  end
 end

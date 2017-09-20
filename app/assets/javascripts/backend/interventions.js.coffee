@@ -203,11 +203,7 @@
         $('.intervention-participation').each ->
           participations.push($(this).val())
 
-        autoCalculMode = true
-        if $('input[name="auto-calcul-mode"]').length == 0
-          $('.simple_form').append('<input type="hidden" name="auto-calcul-mode" value="true"></input>')
-        else
-          autoCalculMode = $('input[name="auto-calcul-mode"]').val()
+        autoCalculMode = $('#intervention_auto_calculate_working_periods').val()
 
 
         datas = {}

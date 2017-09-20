@@ -148,7 +148,7 @@ product_nature_variants_007:
   lock_version: 0
   name: Adexar 5 l
   nature_id: 8
-  number: '00000008'
+  number: 00000008
   reference_name: coop:adexar_5l
   stock_account_id: 626
   stock_movement_account_id: 663
@@ -167,7 +167,7 @@ product_nature_variants_008:
   lock_version: 0
   name: Botte de paille de blé ‒ balle ronde
   nature_id: 9
-  number: '00000009'
+  number: 00000009
   reference_name: wheat_straw_round_bales
   stock_account_id: 618
   stock_movement_account_id: 641
@@ -324,7 +324,7 @@ product_nature_variants_017:
   lock_version: 0
   name: Lait de vache
   nature_id: 17
-  number: '00000018'
+  number: 00000018
   reference_name: cow_milk
   stock_account_id: 599
   stock_movement_account_id: 651
@@ -343,7 +343,7 @@ product_nature_variants_018:
   lock_version: 0
   name: Graine de blé
   nature_id: 18
-  number: '00000019'
+  number: 00000019
   reference_name: wheat_grain
   stock_account_id: 617
   stock_movement_account_id: 642
@@ -433,7 +433,7 @@ product_nature_variants_023:
   nature_id: 21
   number: '00000024'
   reference_name: tractor
-  unit_name: Équipement
+  unit_name: "Équipement"
   updated_at: 2014-11-02 18:19:37.982583000 Z
   updater_id: 1
   variety: tractor
@@ -449,7 +449,7 @@ product_nature_variants_024:
   nature_id: 22
   number: '00000025'
   reference_name: grinder
-  unit_name: Équipement
+  unit_name: "Équipement"
   updated_at: 2014-11-02 18:19:51.698049000 Z
   updater_id: 1
   variety: trailed_equipment
@@ -465,7 +465,7 @@ product_nature_variants_025:
   nature_id: 21
   number: '00000026'
   reference_name: tractor
-  unit_name: Équipement
+  unit_name: "Équipement"
   updated_at: 2014-11-02 18:20:34.104515000 Z
   updater_id: 1
   variety: tractor
@@ -481,7 +481,7 @@ product_nature_variants_026:
   nature_id: 23
   number: '00000027'
   reference_name: plow
-  unit_name: Équipement
+  unit_name: "Équipement"
   updated_at: 2014-11-02 18:29:03.433574000 Z
   updater_id: 1
   variety: trailed_equipment
@@ -495,7 +495,7 @@ product_nature_variants_027:
   lock_version: 0
   name: Zone cultivable
   nature_id: 24
-  number: '00000028'
+  number: 00000028
   reference_name: cultivable_zone
   unit_name: Hectare
   updated_at: 2014-11-02 18:31:53.744596000 Z
@@ -511,9 +511,9 @@ product_nature_variants_028:
   lock_version: 1
   name: Semoir
   nature_id: 25
-  number: '00000029'
+  number: 00000029
   reference_name: sower
-  unit_name: Équipement
+  unit_name: "Équipement"
   updated_at: 2016-08-05 20:03:17.765627000 Z
   updater_id: 1
   variety: trailed_equipment
@@ -583,7 +583,7 @@ product_nature_variants_032:
   nature_id: 28
   number: '00000033'
   reference_name: superficial_plow
-  unit_name: Équipement
+  unit_name: "Équipement"
   updated_at: 2014-11-04 18:38:32.203593000 Z
   updater_id: 1
   variety: trailed_equipment
@@ -599,7 +599,7 @@ product_nature_variants_033:
   nature_id: 29
   number: '00000034'
   reference_name: hoe
-  unit_name: Équipement
+  unit_name: "Équipement"
   updated_at: 2014-11-04 18:40:21.570497000 Z
   updater_id: 1
   variety: trailed_equipment
@@ -631,7 +631,7 @@ product_nature_variants_035:
   nature_id: 30
   number: '00000036'
   reference_name: sprayer
-  unit_name: Équipement
+  unit_name: "Équipement"
   updated_at: 2014-11-07 15:00:45.280360000 Z
   updater_id: 1
   variety: trailed_equipment
@@ -643,11 +643,11 @@ product_nature_variants_036:
   creator_id: 1
   id: 37
   lock_version: 0
-  name: Épandeur à engrais
+  name: "Épandeur à engrais"
   nature_id: 31
   number: '00000037'
   reference_name: spreader
-  unit_name: Équipement
+  unit_name: "Équipement"
   updated_at: 2014-11-07 15:22:23.973592000 Z
   updater_id: 1
   variety: trailed_equipment
@@ -659,11 +659,11 @@ product_nature_variants_037:
   creator_id: 1
   id: 38
   lock_version: 0
-  name: Épandeur à fumier
+  name: "Épandeur à fumier"
   nature_id: 32
-  number: '00000038'
+  number: 00000038
   reference_name: spreader_trailer
-  unit_name: Équipement
+  unit_name: "Équipement"
   updated_at: 2014-11-07 15:22:31.413012000 Z
   updater_id: 1
   variety: trailed_equipment
@@ -677,7 +677,7 @@ product_nature_variants_038:
   lock_version: 0
   name: Ammonitre 33,5%  Big Bag
   nature_id: 33
-  number: '00000039'
+  number: 00000039
   reference_name: coop:ammonitre_33_5_____bb
   stock_account_id: 602
   stock_movement_account_id: 662
@@ -809,7 +809,7 @@ product_nature_variants_045:
   nature_id: 38
   number: '00000046'
   reference_name: implanter
-  unit_name: Équipement
+  unit_name: "Équipement"
   updated_at: 2014-11-07 16:48:34.937972000 Z
   updater_id: 1
   variety: trailed_equipment
@@ -825,7 +825,7 @@ product_nature_variants_046:
   nature_id: 39
   number: '00000047'
   reference_name: grape_reaper
-  unit_name: Équipement
+  unit_name: "Équipement"
   updated_at: 2014-11-07 17:04:02.267331000 Z
   updater_id: 1
   variety: trailed_equipment
@@ -840,7 +840,7 @@ product_nature_variants_047:
   lock_version: 0
   name: Grappe de raisin
   nature_id: 40
-  number: '00000048'
+  number: 00000048
   reference_name: vine_grape_berry
   stock_account_id: 615
   stock_movement_account_id: 644
@@ -859,7 +859,7 @@ product_nature_variants_048:
   lock_version: 0
   name: Vin
   nature_id: 41
-  number: '00000049'
+  number: 00000049
   reference_name: wine
   stock_account_id: 614
   stock_movement_account_id: 645
@@ -879,7 +879,7 @@ product_nature_variants_049:
   nature_id: 42
   number: '00000050'
   reference_name: stainless_steel_tank
-  unit_name: Équipement
+  unit_name: "Équipement"
   updated_at: 2014-11-07 17:14:18.214538000 Z
   updater_id: 1
   variety: tank
@@ -911,7 +911,7 @@ product_nature_variants_051:
   nature_id: 43
   number: '00000052'
   reference_name: wine_press
-  unit_name: Équipement
+  unit_name: "Équipement"
   updated_at: 2014-11-07 17:23:08.062270000 Z
   updater_id: 1
   variety: equipment
@@ -1019,7 +1019,7 @@ product_nature_variants_057:
   lock_version: 0
   name: Acide malique ‒ 25kg
   nature_id: 49
-  number: '00000058'
+  number: 00000058
   reference_name: malic_acid_25kg
   stock_account_id: 623
   stock_movement_account_id: 666
@@ -1038,7 +1038,7 @@ product_nature_variants_058:
   lock_version: 0
   name: Levure œnologique ‒ sachet de 500g
   nature_id: 50
-  number: '00000059'
+  number: 00000059
   reference_name: oenological_yeast_sc_500g
   stock_account_id: 622
   stock_movement_account_id: 667
@@ -1167,7 +1167,7 @@ product_nature_variants_065:
   nature_id: 56
   number: '00000066'
   reference_name: hand_drawn
-  unit_name: Équipement
+  unit_name: "Équipement"
   updated_at: 2014-11-07 19:35:20.887953000 Z
   updater_id: 1
   variety: equipment
@@ -1183,7 +1183,7 @@ product_nature_variants_066:
   nature_id: 57
   number: '00000067'
   reference_name: corker
-  unit_name: Équipement
+  unit_name: "Équipement"
   updated_at: 2014-11-07 19:35:28.672313000 Z
   updater_id: 1
   variety: equipment
@@ -1197,7 +1197,7 @@ product_nature_variants_067:
   lock_version: 0
   name: Blonde d'Aquitaine
   nature_id: 16
-  number: '00000068'
+  number: 00000068
   stock_account_id: 603
   stock_movement_account_id: 637
   unit_name: Vache
@@ -1213,7 +1213,7 @@ product_nature_variants_068:
   lock_version: 0
   name: Land parcel
   nature_id: 59
-  number: '00000069'
+  number: 00000069
   reference_name: land_parcel
   unit_name: Hectare
   updated_at: 2016-01-21 14:05:46.964632000 Z

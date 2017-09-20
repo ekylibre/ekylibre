@@ -43,7 +43,7 @@ prescriptions_001:
   id: 1
   lock_version: 1
   prescriptor_id: 5
-  reference_number: '012382'
+  reference_number: 012382
   updated_at: 2014-11-04 15:25:09.160058000 Z
   updater_id: 1
 prescriptions_002:
