@@ -2,9 +2,9 @@ module Backend
   class PayslipPaymentsController < Backend::OutgoingPaymentsController
 
     def self.list_conditions
-      fy = FinancialYear.current
       code = search_conditions(payslip_payments: %i[amount number], entities: %i[full_name]) + " ||= []\n"
       code << "if params[:mode].present?\n"
+      code << " fy = FinancialYear.current\n"
       code << " c[0] << ' AND #{PayslipPayment.table_name}.mode_id IN (?)'\n"
       code << " c << params[:mode]\n"
       code << "end\n"
@@ -24,11 +24,11 @@ module Backend
       code << "   if params[:paid_at_started_on].present? && params[:paid_at_stopped_on].present?\n"
       code << "     c << params[:paid_at_started_on]\n"
       code << "     c << params[:paid_at_stopped_on]\n"
-      code << "   elsif params[:paid_at_started_on].present? \n"
+      code << "   elsif params[:paid_at_started_on].present?\n"
       code << "     c << params[:paid_at_started_on]\n"
-      code << "     c << #{fy ? fy.stopped_on : Time.zone.today}\n"
+      code << "     c << (fy ? fy.stopped_on : Time.zone.today)\n"
       code << "   elsif params[:paid_at_stopped_on].present?\n"
-      code << "     c << #{fy ? fy.started_on : Time.zone.today}\n"
+      code << "     c << (fy ? fy.started_on : Time.zone.today)\n"
       code << "     c << params[:paid_at_stopped_on]\n"
       code << "   end\n"
       code << " else\n"
