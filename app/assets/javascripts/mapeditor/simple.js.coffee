@@ -8,7 +8,6 @@ class mapeditor.Simple
     else
       L.geoJson(@data, {
         onEachFeature: (feature, layer) =>
-          feature.properties ||= {}
           feature.properties['internal_id'] = new Date().getTime()
           if feature.properties.name
             label = new L.GhostLabel(className: 'leaflet-ghost-label', toBack: false).setContent(feature.properties.name).toCentroidOfBounds(layer.getLatLngs())
@@ -17,7 +16,7 @@ class mapeditor.Simple
           widget.popupizeSerie(feature, layer) if @layer.popup
 
         style: (feature) =>
-          $.extend({}, true, globalStyle, feature.properties) if feature.properties?
+          $.extend {}, true, globalStyle, feature.properties
       })
 
   buildLegend: () ->

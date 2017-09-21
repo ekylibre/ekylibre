@@ -518,7 +518,7 @@
     _refreshReferenceLayerGroup: ->
       if this.reference?
         this.map.removeLayer this.reference
-      if this.options.show?
+      if this.options.show? and this.options.show.layers.length > 0
         if this.options.useFeatures
 
           if @options.show.series?

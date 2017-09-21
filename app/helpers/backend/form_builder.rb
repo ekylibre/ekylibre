@@ -320,7 +320,6 @@ module Backend
             editor[:show] = union.to_json_object unless union.empty?
           end
         end
-        editor[:useFeatures] = true
       end
       editor[:back] ||= MapLayer.available_backgrounds.collect(&:to_json_object)
       editor[:overlays] ||= MapLayer.available_overlays.collect(&:to_json_object)
