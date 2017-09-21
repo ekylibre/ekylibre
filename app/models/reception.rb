@@ -65,7 +65,7 @@
 class Reception < Parcel
   belongs_to :sender, class_name: 'Entity'
   belongs_to :purchase, inverse_of: :parcels
-  has_one :intervention_id, class_name: 'Intervention'
+  belongs_to :intervention, class_name: 'Intervention'
 
   validates :sender, presence: true
   # validates :storage, presence: true
