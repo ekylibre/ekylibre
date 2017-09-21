@@ -22,33 +22,34 @@
 #
 # == Table: interventions
 #
-#  accounted_at            :datetime
-#  actions                 :string
-#  created_at              :datetime         not null
-#  creator_id              :integer
-#  currency                :string
-#  custom_fields           :jsonb
-#  description             :text
-#  event_id                :integer
-#  id                      :integer          not null, primary key
-#  issue_id                :integer
-#  journal_entry_id        :integer
-#  lock_version            :integer          default(0), not null
-#  nature                  :string           not null
-#  number                  :string
-#  prescription_id         :integer
-#  procedure_name          :string           not null
-#  request_compliant       :boolean
-#  request_intervention_id :integer
-#  started_at              :datetime         not null
-#  state                   :string           not null
-#  stopped_at              :datetime         not null
-#  trouble_description     :text
-#  trouble_encountered     :boolean          default(FALSE), not null
-#  updated_at              :datetime         not null
-#  updater_id              :integer
-#  whole_duration          :integer          not null
-#  working_duration        :integer          not null
+#  accounted_at                   :datetime
+#  actions                        :string
+#  auto_calculate_working_periods :boolean          default(FALSE)
+#  created_at                     :datetime         not null
+#  creator_id                     :integer
+#  currency                       :string
+#  custom_fields                  :jsonb
+#  description                    :text
+#  event_id                       :integer
+#  id                             :integer          not null, primary key
+#  issue_id                       :integer
+#  journal_entry_id               :integer
+#  lock_version                   :integer          default(0), not null
+#  nature                         :string           not null
+#  number                         :string
+#  prescription_id                :integer
+#  procedure_name                 :string           not null
+#  request_compliant              :boolean
+#  request_intervention_id        :integer
+#  started_at                     :datetime         not null
+#  state                          :string           not null
+#  stopped_at                     :datetime         not null
+#  trouble_description            :text
+#  trouble_encountered            :boolean          default(FALSE), not null
+#  updated_at                     :datetime         not null
+#  updater_id                     :integer
+#  whole_duration                 :integer          not null
+#  working_duration               :integer          not null
 #
 require 'test_helper'
 

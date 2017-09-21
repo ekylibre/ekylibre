@@ -276,7 +276,6 @@ module Backend
             else
               params[:redirect] || { action: :show, id: 'id'.c }
             end
-
       return if save_and_redirect(@intervention, url: url, notify: :record_x_created, identifier: :number)
       render(locals: { cancel_url: { action: :index }, with_continue: true })
     end
@@ -456,16 +455,19 @@ module Backend
     end
 
     def delete_working_periods(form_participations)
-      working_periods_ids = form_participations
-                            .values
-                            .map { |participation| participation['working_periods_attributes'].map { |working_period| working_period['id'] } }
-                            .flatten
-                            .compact
-                            .uniq
-                            .map(&:to_i)
+      working_periods_ids = form_participations.values
+                                               .map { |participation| participation['working_periods_attributes'].map { |working_period| working_period['id'] } }
+                                               .flatten
+                                               .compact
+                                               .uniq
+                                               .map(&:to_i)
+
+      intervention_participations_ids = form_participations.values
+                                                           .map { |participation| participation[:id] }
 
       saved_working_periods_ids = @intervention
                                   .participations
+                                  .where(id: intervention_participations_ids)
                                   .map { |participation| participation.working_periods.map(&:id) }
                                   .flatten
 

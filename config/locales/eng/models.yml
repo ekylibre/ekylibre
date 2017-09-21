@@ -472,6 +472,7 @@ eng:
     authentication_token: "Authentication token"
     author: "Author"
     authorized_payments_count: "Authorized payments count"
+    # auto_calculate_working_periods: "Auto calculate working periods"
     auto_updateable_addresses: "Auto updateable addresses"
     average_value: "Average value"
     balance: "Balance"
@@ -692,6 +693,7 @@ eng:
     device_uid: "Device UID"
     direct_links: "Direct links"
     direction: "Direction"
+    distributed_on_productions: "Distributed on productions"
     distributions: "Distributions"
     district: "District"
     document: "Document"
@@ -733,7 +735,7 @@ eng:
     entry_items: "Entry items"
     entry_number: "Entry number"
     entry_on: "Entry on" #?
-    entry_reason: "Entry reason" #?
+    entry_reason: "Entry reason"
     euid: "EUID"
     event: "Event"
     event_participation: "Event participation"
@@ -743,7 +745,7 @@ eng:
     execution_number: "Execution number"
     executor: "Executor"
     exit_on: "Exit on" #?
-    exit_reason: "Exit reason" #?
+    exit_reason: "Exit reason"
     expected_population: "Expected population"
     expected_shape: "Expected shape" #?
     expected_stop_amount: "Expected stop amount"
@@ -954,7 +956,7 @@ eng:
     item_type: "Item type"
     item_value: "Item value"
     items: "Items"
-    items_count: "Items count" #?
+    items_count: "Items count"
     items_count_value: "Items count value"
     journal: "Journal"
     journal_entries: "Journal entries"
@@ -1060,7 +1062,7 @@ eng:
     member: "Member"
     member_variant: "Member variant"
     members: "Members"
-    members_count: "Members count" #?
+    members_count: "Members count"
     memberships: "Memberships"
     memo: "Memo"
     message: "Message"
@@ -1087,7 +1089,7 @@ eng:
     nature: "Type"
     nature_name: "Type name"
     natures: "Types"
-    net_mass: "Net mass" #?
+    net_mass: "Net mass"
     net_mass_percentage: "Net mass percentage" #?
     net_mass_value: "Net mass value"
     net_mass_yield: "Net mass yield" #?
@@ -1287,6 +1289,7 @@ eng:
     query: "Query"
     rank_number: "Rank number"
     read_at: "Read at"
+    reading_cache: "Reading cache"
     reading_tasks: "Reading tasks" #?
     readings: "Readings"
     real_balance: "Real balance"
