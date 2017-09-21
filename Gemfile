@@ -77,7 +77,7 @@ gem 'kaminari'
 gem 'timecop'
 
 # Manipulate map data
-gem 'charta', path: "../charta"
+gem 'charta'
 
 # Manage daemons
 gem 'foreman'
