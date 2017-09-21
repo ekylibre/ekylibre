@@ -373,7 +373,6 @@ module Backend
           end
         end
       end
-
       html_code
     end
 

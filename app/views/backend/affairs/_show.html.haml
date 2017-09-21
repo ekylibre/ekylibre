@@ -48,8 +48,7 @@
               %td.name
                 - if deal.is_a? DebtTransfer
                   - foreign_deal = deal.debt_transfer_affair
-                  = foreign_deal.deals.reject{ |d| d.is_a?(DebtTransfer) }.map { |d| link_to(d.number, controller: "/backend/" + d.class.name.tableize, action: :show, id: d.id) }.to_sentence
-                  -# = ' ('.html_safe + link_to(Affair.model_name.human + ' ' + foreign_deal.number, controller: "/backend/" + foreign_deal.class.name.tableize, action: :show, id: foreign_deal.id) + ')'
+                  = (foreign_deal.deals.reject{ |d| d.is_a?(DebtTransfer) }.map { |d| link_to(d.number, controller: "/backend/" + d.class.name.tableize, action: :show, id: d.id) }.to_sentence).html_safe
 
                 - else
                   = link_to(deal.number, controller: "/backend/" + deal.class.name.tableize, action: :show, id: deal.id)
@@ -72,7 +71,7 @@
                     - existings.each do |existing|
                       - l.item existing.label, { controller: affairs_controller, action: :attach, id: affair.id, deal_id: existing.id, deal_type: model, redirect: request.fullpath }, method: :post
                     - l.separator
-                  - l.item :new.tl, { controller: model.pluralize, action: :new, klass.deal_third.foreign_key => affair.third.id, amount: affair.balance.abs, redirect: request.fullpath, affair_id: affair.id }
+                  - l.item :new.tl, { controller: model.pluralize, action: :new, klass.deal_third.foreign_key => affair.third.id, amount: affair.balance.abs, redirect: request.fullpath, affair_id: affair.id }.merge(new_record_options[model.to_s.to_sym] || {})
 
               - if affair.debt_transferable?
                 - model = affair.is_a?(SaleAffair) ? 'purchase' : 'sale'

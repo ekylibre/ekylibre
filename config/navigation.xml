@@ -1393,6 +1393,7 @@
         <page to="backend/accounts#list"/>
         <page to="backend/accounts#list_entities"/>
         <page to="backend/accounts#list_journal_entry_items"/>
+        <page to="backend/accounts#list_product_nature_variants"/>
         <page to="backend/accounts#load"/>
         <page to="backend/accounts#new"/>
         <page to="backend/accounts#show"/>

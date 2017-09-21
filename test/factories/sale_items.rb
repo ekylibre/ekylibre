@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :sale_item do
-    # needs tax
+    tax
     sale
     amount 5000.0
     pretax_amount 4180.602

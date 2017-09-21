@@ -11,7 +11,7 @@ module Ekylibre
     test 'launch of default first run' do
       tenant = 'test_default'
       Ekylibre::Tenant.drop(tenant) if Ekylibre::Tenant.exist?(tenant)
-      Rake::Task['first_run:default:generate'].invoke
+      ::Rake::Task['first_run:default:generate'].invoke
       Ekylibre::FirstRun.launch(name: tenant, path: Ekylibre::FirstRun.path.join('default'), verbose: false)
     end
 
