@@ -3,9 +3,8 @@
 - storage_name = storing.storage.name if storing.storage
 
 .nested-fields.storing-fields
-  .delivery-item
-    = f.referenced_association :storage, source: :storage, label: false, input_html: { class: 'storing-storage', data: { product_of_delivery_item: { url: backend_product_path("RECORD_ID", format: :json), scope: 'storage' }, required: true } }
-    %input.hidden{data: { 'when-item': 'name', 'when-set-value': 'RECORD_VALUE', 'when-scope': 'storage'}, value: storage_name}
+  = f.referenced_association :storage, source: :storage, label: false, input_html: { class: 'storing-storage', data: { product_of_delivery_item: { url: backend_product_path("RECORD_ID", format: :json), scope: 'storage' }, required: true } }
+  %input.hidden{data: { 'when-item': 'name', 'when-set-value': 'RECORD_VALUE', 'when-scope': 'storage'}, value: storage_name}
   .storing-quantifier
     = f.input :quantity, label: false, wrapper: :append do
       = f.input_field :quantity, class: 'storing-quantity', placeholder: '0', data: { required: true }
