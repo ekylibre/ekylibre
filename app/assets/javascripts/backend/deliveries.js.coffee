@@ -24,6 +24,7 @@
     options = element.data("product-of-delivery-item")
     product_id = element.selector('value')
     reg = new RegExp("\\bRECORD_ID\\b", "g")
+    scope = options['scope']
     if product_id?
       item = element.closest(".delivery-item")
       $.ajax
@@ -60,47 +61,46 @@
 
           item.find('*[data-when-item]').each ->
             if typeof data[$(this).data('when-item')] != "undefined"
-              if typeof $(this).data("when-set-value") != "undefined"
-                if $(this).data("when-set-value") == "RECORD_VALUE"
-                  newVal = data[$(this).data("when-item")]
-                  newVal = newVal.toLowerCase() if typeof newVal == "string"
+              if typeof $(this).data('when-scope') == "undefined" or $(this).data('when-scope') == scope
+                if typeof $(this).data("when-set-value") != "undefined"
+                  if $(this).data("when-set-value") == "RECORD_VALUE"
+                    newVal = data[$(this).data("when-item")]
 
-                  if $(this).is ":ui-selector"
-                    $(this).selector("value", newVal)
-                  else if $(this).is "input"
+                    if $(this).is ":ui-selector"
+                      $(this).selector("value", newVal)
+                    else if $(this).is "input"
+                      $(this).val(newVal)
+                    else
+                      $(this).html(newVal)
+
+                    $(this).trigger 'change'
+
+                    if typeof newVal == "string"
+                      element = $(@)
+                      element.is(":ui-mapeditor")
+                      try
+                        value = $.parseJSON(newVal)
+
+                        if (value.geometries? and value.geometries.length > 0) || (value.coordinates? and value.coordinates.length > 0)
+                          element.mapeditor "show", value
+                          element.mapeditor "edit", value
+                          try
+                            element.mapeditor "view", "edit"
+
+                      catch
+
                     $(this).val(newVal)
                   else
-                    $(this).html(newVal)
+                    $(this).val($(this).data("when-set-value"))
 
-                  $(this).trigger 'change'
+                if typeof $(this).data("when-prop-value") != "undefined"
+                  $(this).prop($(this).data("when-prop-value"), true)
 
-                  if typeof newVal == "string"
-                    element = $(@)
-                    element.is(":ui-mapeditor")
-                    try
-                      value = $.parseJSON(newVal)
-
-                      if (value.geometries? and value.geometries.length > 0) || (value.coordinates? and value.coordinates.length > 0)
-                        element.mapeditor "show", value
-                        element.mapeditor "edit", value
-                        try
-                          element.mapeditor "view", "edit"
-
-                    catch
-                      newVal = newVal.toLowerCase()
-
-                  $(this).val(newVal)
-                else
-                  $(this).val($(this).data("when-set-value"))
-
-              if typeof $(this).data("when-prop-value") != "undefined"
-                $(this).prop($(this).data("when-prop-value"), true)
-
-              if typeof $(this).data("when-display-value") != "undefined"
-                if $(this).data("when-display-value") == true
-                  $(this).show()
-                else
-                  $(this).hide()
+                if typeof $(this).data("when-display-value") != "undefined"
+                  if $(this).data("when-display-value") == true
+                    $(this).show()
+                  else
+                    $(this).hide()
 
             else
               if typeof $(this).data("when-prop-value") != "undefined"

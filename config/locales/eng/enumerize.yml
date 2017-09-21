@@ -299,6 +299,7 @@ eng:
         outgoing: "Outgoing"
     parcel_item:
       delivery_mode:
+        # none: "None"
         third: "Transported by recipient"
         transporter: "Transported by transporter"
         us: "Transported by us"

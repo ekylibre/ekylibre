@@ -151,6 +151,7 @@ eng:
             started_on:
               consecutive: "The financial years must be consecutives. It must start after the end of the previous."
               frozen: "The financial year date cannot be changed when an exchange has been created."
+              on_or_after: "The date selected must be posterior to society's creation date (%{restriction})"
             stopped_on:
               end_of_month: "%{attribute} must be an end of month"
           overlap: "%{attribute} overlaps an existing financial year"
@@ -476,6 +477,7 @@ eng:
     authentication_token: "Authentication token"
     author: "Author"
     authorized_payments_count: "Authorized payments count"
+    # auto_calculate_working_periods: "Auto calculate working periods"
     auto_updateable_addresses: "Auto updateable addresses"
     average_value: "Average value"
     balance: "Balance"

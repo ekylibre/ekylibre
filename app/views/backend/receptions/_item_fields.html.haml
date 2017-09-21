@@ -1,6 +1,8 @@
 - item ||= f.object
 - variant = Maybe(item.variant)
 - f.object.currency = Preference[:currency]
+- f.object.role = role if defined?(role)
+- f.object.delivery_mode = 'none' if f.object.role == 'service' || f.object.role == 'fees'
 - non_compliant_message = :non_compliant.tl
 
 %tbody.nested-fields.delivery-item.incoming-parcel-item{ data: { iceberg: true } }
@@ -16,53 +18,76 @@
       %label{ data: { item_value: "input.parcel-item-variant" } }= f.object.variant ? f.object.variant.name : '??????'
       %br
       %label{ data: { item_value: "input.item-non-compliant" } }= non_compliant_message if f.object.non_compliant?
-      %label{ class: "item-non-compliant-detail-label", data: { item_value: "input.item-non-compliant-detail" } }= f.object.non_compliant_detail if f.object.non_compliant_detail?
-    %td.storage-column
-      #storing-display
-        %p{ "v-for" => "zone in zones"}
-          %strong= "{{zone.quantity}} {{zone.unit}}"
-          = "{{zone.name}}"
+      %label{ class: "item-non-compliant-detail-label", data: { item_value: "input.item-non-compliant-detail" } }= f.object.non_compliant_detail
+      %td.storage-column
+        #storing-display
+          %p{ "v-for" => "zone in zones"}
+            %strong{ class: "storage-quantity" }= "{{zone.quantity}} {{zone.unit}}"
+            %span{ class: "storage-zone" }= "{{zone.name}}"
     %td.quantity-column
       %label
-        %span{ data: { item_value: "span.total-quantity" } }= f.object.population
+        %span{ data: { item_value: ".total-quantity" } }= f.object.population
         %span{ data: { item_value: "span.item-population-unit-name" } }= f.object.variant ? f.object.variant.unit_name : '#'
     %td.delivery-mode-column
-      %label{ data: { item_value: "input.item-delivery-mode:checked" } }= f.object.delivery_mode
+      %label{ data: { item_value: "input.item-delivery-mode:checked" } }= f.object.delivery_mode if f.object.delivery_mode != "none"
   %tr.nested-item-form
     %td.cell-form{colspan: 6}
       .item-form
-        .form-block
+        - classes = ""
+        - classes = " merchandise" if f.object.role == 'merchandise'
+        - classes = " service" if f.object.role == 'service'
+        - classes = " fees" if f.object.role == 'fees'
+        .form-block{ class: classes }
+          = f.input :role, as: :hidden
           = f.input :purchase_item_id, as: :hidden
+
           .item-block.merchandise
-            = f.referenced_association(:variant, label: :merchandise.tl, source: { scope: :stockables_or_depreciables }, input_html: { class: 'parcel-item-variant', data: {product_of_delivery_item: {url: backend_product_nature_variant_path("RECORD_ID", format: :json)}}})
-            .non-compliant
-              = f.input :non_compliant, label: :non_compliant_with_request.tl, input_html: { class: 'item-non-compliant', data: { warn_if_checked: non_compliant_message, input_to_show: '.non_compliant_detail_text', with_value: true } }
-              .non_compliant_detail_text.hidden
-                = f.input :non_compliant_detail, label: :detail.tl, input_html: { class: 'item-non-compliant-detail' }
-          -# .errors= item.errors.inspect
-          .item-block.item-add-storing
-            .storing-labels
-              = f.label :storage.tl, class: "storage-label required"
-              = f.label :quantity.tl, class: "quantity-label"
-            = f.simple_fields_for :storings, f.object.storings do |storing|
-              = render 'storing_fields', f: storing
-            .storings-footer
-              = link_to_add_association :add_storing.tl, f, :storings, partial: 'storing_fields', class: "link-add-storing", data: { :'association-insertion-traversal' => :closest, :'association-insertion-node' => '.storings-footer', :'association-insertion-method' => :before }
-              %label.total-labels
-                %span.total= :total.tl
-                %span.total-quantity{ data: { calculate: "sum", use: ".storing-quantity", use_closest: ".nested-item-form" } }= 0.0
-                %span.item-population-unit-name
-                  = variant.unit_name.or_else('#')
-          .item-block.item-delivery-mode
-            = f.input :delivery_mode, as: :radio_buttons, input_html: { class: 'item-delivery-mode', data: {  input_to_show: '.transporter-delivery-mode', with_value: "transporter" } }
-            .transporter-delivery-mode.hidden
-              = f.referenced_association :transporter, label: false, source: :transporters, new: {transporter: 1}
-          - display = "display: none;" unless variant.identifiable?.or_else(false)
-          .no-border{style: display, data: {"when-item": "identifiable", "when-display-value": 'true'}}
-            = f.input :name do
-              = f.input_field :product_name, placeholder: ParcelItem.human_attribute_name(:product_name)
-            = f.input :identification_number do
-              = f.input_field :product_identification_number, placeholder: ParcelItem.human_attribute_name(:product_identification_number)
+            - if f.object.role == 'merchandise'
+              = f.referenced_association(:variant, label: :merchandise.tl, source: { scope: :stockables_or_depreciables }, input_html: { class: 'parcel-item-variant', data: { product_of_delivery_item: {url: backend_product_nature_variant_path("RECORD_ID", format: :json), scope: 'unit'}, required: true }})
+            - elsif f.object.role == 'service' || f.object.role == 'fees'
+              = f.referenced_association(:variant, label: :merchandise.tl, source: { scope: :services }, input_html: { class: 'parcel-item-variant', data: { product_of_delivery_item: {url: backend_product_nature_variant_path("RECORD_ID", format: :json), scope: 'unit'}, required: true }})
+
+            - if f.object.role == 'merchandise' || f.object.role == 'service'
+              .non-compliant
+                = f.input :non_compliant, input_html: { class: 'item-non-compliant', data: { warn_if_checked: non_compliant_message, input_to_show: '.non_compliant_detail_text', with_value: true } }
+                .non_compliant_detail_text.hidden
+                  = f.input :non_compliant_detail, label: :detail.tl, input_html: { class: 'item-non-compliant-detail', data: { interpolate_if_input: 'input.item-non-compliant', with_value: true } }
+
+          - if f.object.role == 'merchandise'
+            - attrs = { class: "nested-association" }
+            - attrs[:data] ||= {}
+            - attrs[:data][:association_insertion_minimum] = 1
+            .item-block.item-add-storing{attrs}
+              .storing-labels.control-group
+                .storage-label
+                  = f.label :storage.tl, class: "control-label", required: true
+                .quantity-label
+                  = f.label :quantity.tl, class: "control-label", required: true
+
+              - f.object.storings.new if f.object.storings.size == 0
+              = f.simple_fields_for :storings, f.object.storings do |storing|
+                = render 'storing_fields', f: storing
+              .storings-footer
+                = link_to_add_association :add_storing.tl, f, :storings, partial: 'storing_fields', class: "link-add-storing", data: { :'association-insertion-traversal' => :closest, :'association-insertion-node' => '.storings-footer', :'association-insertion-method' => :before }
+                %label.total-labels
+                  %span.total= :total.tl
+                  %span.total-quantity{ data: { calculate: "sum", use: ".storing-fields:not(.removed-nested-fields) .storing-quantity", use_closest: ".nested-item-form" } }= 0.0
+                  %span.item-population-unit-name
+                    = variant.unit_name.or_else('#')
+            .item-block.item-delivery-mode
+              = f.input :delivery_mode, as: :radio_buttons, collection: f.object.class.delivery_mode.values - ['none'], label_method: :l, input_html: { class: 'item-delivery-mode', data: {  input_to_show: '.transporter-delivery-mode', with_value: "transporter", use_as_value: '.transporter-delivery-mode > input.hidden' } }
+              .transporter-delivery-mode.hidden.delivery-item
+                = f.referenced_association :transporter, source: :transporters, new: {transporter: 1}, input_html: { class: 'transporter-delivery-mode', data: { product_of_delivery_item: { url: backend_entity_path("RECORD_ID", format: :json) } } }
+                - full_name = f.object.transporter.full_name if f.object.transporter
+                %input.hidden{data: { 'when-item': 'full_name', 'when-set-value': 'RECORD_VALUE' }, value: full_name }
+          - if f.object.role == 'service' || f.object.role == 'fees'
+            .item-block.item-quantifier
+              .item-quantifier-population
+                = f.input :population, wrapper: :append do
+                  = f.input_field :population, class: "total-quantity", placeholder: '0', data: {"when-item": "unitary", "when-set-value": 1, "when-prop-value": "disabled", required: true}
+                  %span.add-on.item-population-unit-name
+                    = variant.unit_name.or_else('#')
+
         .buttons
           %button.btn{ data: { cancel: 'item-form' } }= :cancel.tl
           %button.btn.btn-primary{ data: { validate: 'item-form' } }= :validate.tl

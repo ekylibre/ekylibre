@@ -33,21 +33,6 @@ Rails.application.routes.draw do
     end
   end
 
-  concern :receptions do
-    concerns :list, :unroll
-    member do
-      post :invoice
-      get :list_items
-      post :ship
-
-      post :order
-      post :prepare
-      post :check
-      post :give
-      post :cancel
-    end
-  end
-
   concern :products do
     concerns :list, :unroll, :picture
     member do
@@ -607,7 +592,7 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :intervention_participations, only: %i[index create update destroy] do
+    resources :intervention_participations, only: %i[index update destroy] do
       collection do
         get :participations_modal
       end
@@ -756,9 +741,7 @@ Rails.application.routes.draw do
 
     # resources :contacts, concerns: :entities
 
-    resources :receptions, concerns: :receptions
-
-    resources :shipments, concerns: %i[list unroll] do
+    resources :receptions, concerns: %i[list unroll] do
       member do
         post :invoice
         get :list_items
@@ -774,10 +757,10 @@ Rails.application.routes.draw do
 
     resources :receptions, concerns: %i[list unroll] do
       member do
-        post :invoice
         get :list_items
-        post :ship
 
+        post :invoice
+        post :ship
         post :order
         post :prepare
         post :check
@@ -788,10 +771,10 @@ Rails.application.routes.draw do
 
     resources :shipments, concerns: %i[list unroll] do
       member do
-        post :invoice
         get :list_items
-        post :ship
 
+        post :invoice
+        post :ship
         post :order
         post :prepare
         post :check

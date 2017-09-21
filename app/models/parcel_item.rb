@@ -44,6 +44,7 @@
 #  product_name                  :string
 #  product_ownership_id          :integer
 #  purchase_item_id              :integer
+#  role                          :string
 #  sale_item_id                  :integer
 #  shape                         :geometry({:srid=>4326, :type=>"multi_polygon"})
 #  source_product_id             :integer
@@ -58,7 +59,7 @@
 class ParcelItem < Ekylibre::Record::Base
   attr_readonly :parcel_id
   attr_accessor :product_nature_variant_id
-  enumerize :delivery_mode, in: %i[transporter us third], predicates: { prefix: true }, scope: true, default: :us
+  enumerize :delivery_mode, in: %i[transporter us third none], predicates: { prefix: true }, scope: true, default: :us
   belongs_to :analysis
   belongs_to :parcel, inverse_of: :items
   belongs_to :product
@@ -72,14 +73,14 @@ class ParcelItem < Ekylibre::Record::Base
   belongs_to :transporter, class_name: 'Entity'
   belongs_to :source_product, class_name: 'Product'
   belongs_to :source_product_movement, class_name: 'ProductMovement', dependent: :destroy
-  belongs_to :variant, -> { of_variety :matter }, class_name: 'ProductNatureVariant'
+  belongs_to :variant, class_name: 'ProductNatureVariant'
   has_one :nature, through: :variant
   has_one :storage, through: :parcel
   has_one :contract, through: :parcel
   has_many :storings, class_name: 'ParcelItemStoring', inverse_of: :parcel_item, foreign_key: :parcel_item_id, dependent: :destroy
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates :currency, :non_compliant_detail, :product_identification_number, :product_name, length: { maximum: 500 }, allow_blank: true
+  validates :currency, :non_compliant_detail, :product_identification_number, :product_name, :role, length: { maximum: 500 }, allow_blank: true
   validates :non_compliant, inclusion: { in: [true, false] }, allow_blank: true
   validates :parted, inclusion: { in: [true, false] }
   validates :population, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }, allow_blank: true
@@ -87,12 +88,12 @@ class ParcelItem < Ekylibre::Record::Base
   validates :parcel, presence: true
   # ]VALIDATORS]
   validates :source_product, presence: { if: :parcel_outgoing? }
-  validates :variant, presence: { if: :parcel_incoming? }
+  validates :variant, presence: true
   validates :product, presence: { if: :parcel_prepared? }
 
-  validates :population, numericality: { less_than_or_equal_to: 1,
-                                         if: :product_is_unitary?,
-                                         message: 'activerecord.errors.messages.unitary_in_parcel'.t }
+  validates :population, presence: true, numericality: { less_than_or_equal_to: 1,
+                                                         if: :product_is_unitary?,
+                                                         message: 'activerecord.errors.messages.unitary_in_parcel'.t }
   validates :product_name, presence: { if: -> { product_is_identifiable? && parcel_incoming? } }
   validates :product_identification_number, presence: { if: -> { product_is_identifiable? && parcel_incoming? } }
 
@@ -101,7 +102,7 @@ class ParcelItem < Ekylibre::Record::Base
   alias_attribute :quantity, :population
 
   accepts_nested_attributes_for :product
-  accepts_nested_attributes_for :storings
+  accepts_nested_attributes_for :storings, allow_destroy: true
 
   # delegate :net_mass, to: :product
   delegate :allow_items_update?, :remain_owner, :planned_at, :draft?,

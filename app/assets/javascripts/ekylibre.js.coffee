@@ -37,7 +37,7 @@
         event.preventDefault()
 
   E.toggleValidateButton = (container) ->
-    requiredFields = container.find('input[data-required]')
+    requiredFields = container.find('input[data-required]:visible')
     validateItemButton = container.find('button[data-validate]')
     requiredFields.each ->
       if $(this).val() ==''
