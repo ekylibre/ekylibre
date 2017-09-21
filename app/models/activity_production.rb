@@ -456,22 +456,25 @@ class ActivityProduction < Ekylibre::Record::Base
   end
 
   def tool_cost(surface_unit_name = :hectare)
-    if net_surface_area.to_s.to_f > 0.0
-      return cost(:tool) / net_surface_area.to_d(surface_unit_name).to_s.to_f
+    surface_area = net_surface_area
+    if surface_area.to_s.to_f > 0.0
+      return cost(:tool) / surface_area.to_d(surface_unit_name).to_s.to_f
     end
     0.0
   end
 
   def input_cost(surface_unit_name = :hectare)
-    if net_surface_area.to_s.to_f > 0.0
-      return cost(:input) / net_surface_area.to_d(surface_unit_name).to_s.to_f
+    surface_area = net_surface_area
+    if surface_area.to_s.to_f > 0.0
+      return cost(:input) / surface_area.to_d(surface_unit_name).to_s.to_f
     end
     0.0
   end
 
   def time_cost(surface_unit_name = :hectare)
-    if net_surface_area.to_s.to_f > 0.0
-      return cost(:doer) / net_surface_area.to_d(surface_unit_name).to_s.to_f
+    surface_area = net_surface_area
+    if surface_area.to_s.to_f > 0.0
+      return cost(:doer) / surface_area.to_d(surface_unit_name).to_s.to_f
     end
     0.0
   end
@@ -518,7 +521,8 @@ class ActivityProduction < Ekylibre::Record::Base
     end
     surface_unit_name = options[:surface_unit_name] || :hectare
     procedure_category = options[:procedure_category] || :harvesting
-    unless net_surface_area && net_surface_area.to_d > 0
+    surface = net_surface_area
+    unless surface && surface.to_d > 0
       Rails.logger.warn 'No surface area. Cannot compute harvest yield'
       return nil
     end
@@ -543,7 +547,7 @@ class ActivityProduction < Ekylibre::Record::Base
         harvest.targets.each do |target|
           harvest_working_area << ::Charta.new_geometry(target.working_zone).area.in(:square_meter)
         end
-        harvest.outputs.includes(:product).each do |cast|
+        harvest.outputs.includes(product: :variant).each do |cast|
           actor = cast.product
           next unless actor && actor.variety
           variety = Nomen::Variety.find(actor.variety)
