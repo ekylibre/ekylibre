@@ -3,8 +3,8 @@ require 'ekylibre/schema'
 require 'shellwords'
 
 module Ekylibre
-  class TenantError < StandardError
-  end
+  class TenantError < StandardError; end
+  class ForbiddenImport < StandardError; end
 
   class Tenant
     AGGREGATION_NAME = '__all__'.freeze

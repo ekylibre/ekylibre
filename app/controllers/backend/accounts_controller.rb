@@ -97,6 +97,11 @@ module Backend
       t.column :supplier_account, url: true
     end
 
+    list(:product_nature_variants, joins: :category, conditions: ['? IN (product_nature_categories.charge_account_id, product_nature_categories.product_account_id, product_nature_categories.fixed_asset_account_id, product_nature_categories.stock_account_id)', 'params[:id]'.c], order: { created_at: :desc }) do |t|
+      t.column :number, url: true
+      t.column :name, url: true
+    end
+
     def self.account_reconciliation_conditions
       code = search_conditions(accounts: %i[name number description], journal_entries: [:number], JournalEntryItem.table_name => %i[name debit credit]) + "[0] += ' AND accounts.reconcilable = ?'\n"
       code << "c << true\n"
