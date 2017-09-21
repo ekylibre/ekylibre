@@ -368,9 +368,12 @@ spa:
       purchase: "Compra"
       purchase_affair: "Compra asunto"
       purchase_gap: "Brecha de la compra"
+      # purchase_invoice: "Purchase invoice"
       purchase_item: "Artículo de la compra"
       purchase_nature: "Tipo de compra"
+      # purchase_order: "Purchase order"
       purchase_payment: "Desembolso"
+      # reception: "Reception"
       regularization: "Regularización"
       role: "Papel"
       sale: "Venta"
@@ -383,6 +386,7 @@ spa:
       # sensor: "Sensor"
       sequence: "Secuencia"
       settlement: "Asentamiento"
+      # shipment: "Shipment"
       sub_zone: "Subzona"
       subscription: "Suscripción"
       subscription_nature: "Tipo de suscripción"
@@ -561,6 +565,7 @@ spa:
     # color: "Color"
     column_name: "Nombre de la columna"
     columns: "Columnas"
+    # command_mode: "Command mode"
     comment: "Comentario"
     commercial: "Comercial"
     commercial_description: "Descripción comercial"
@@ -732,6 +737,7 @@ spa:
     entry_number: "Número de entrada"
     entry_on: "La entrada en"
     entry_reason: "Razón por la entrada"
+    # estimate_reception_date: "Estimate reception date"
     # euid: "EUID"
     event: "Evento"
     event_participation: "Participación en eventos"
@@ -1824,6 +1830,15 @@ spa:
     purchase_payment:
       # bookkeep: "[%{resource} %{number}] %{mode} %{check_number} for %{payee}"
       # label: "%{number}. %{amount}, %{mode} for %{payee} on %{date}"
+    reception:
+      state_machine:
+        states:
+          # draft: "Draft"
+          # given: "Given"
+          # in_preparation: "In preparation"
+          # ordered: "Ordered"
+          # prepared: "Prepared"
+          # received: "Received"
     role:
       default:
         administrator: "Administrador"
@@ -1903,6 +1918,15 @@ spa:
         sales_invoices: "SI[year|4][number|6]"
         subscriptions: "SUB[number|8]"
         transports: "TR[number|8]"
+    shipment:
+      state_machine:
+        states:
+          # draft: "Draft"
+          # given: "Given"
+          # in_preparation: "In preparation"
+          # ordered: "Ordered"
+          # prepared: "Prepared"
+          # received: "Received"
     task:
       state_machine:
         states:

@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 9.6.4
--- Dumped by pg_dump version 9.6.4
+-- Dumped from database version 9.6.3
+-- Dumped by pg_dump version 9.6.3
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -2478,7 +2478,11 @@ CREATE TABLE purchases (
     payment_delay character varying,
     payment_at timestamp without time zone,
     contract_id integer,
-    tax_payability character varying NOT NULL
+    tax_payability character varying NOT NULL,
+    type character varying,
+    ordered_at timestamp without time zone,
+    command_mode character varying,
+    estimate_reception_date timestamp without time zone
 );
 
 
@@ -17975,7 +17979,11 @@ INSERT INTO schema_migrations (version) VALUES ('20170421131536');
 
 INSERT INTO schema_migrations (version) VALUES ('20170425145302');
 
+INSERT INTO schema_migrations (version) VALUES ('20170523101325');
+
 INSERT INTO schema_migrations (version) VALUES ('20170530002312');
+
+INSERT INTO schema_migrations (version) VALUES ('20170601093932');
 
 INSERT INTO schema_migrations (version) VALUES ('20170602144753');
 
@@ -18006,3 +18014,5 @@ INSERT INTO schema_migrations (version) VALUES ('20170818134454');
 INSERT INTO schema_migrations (version) VALUES ('20170831071726');
 
 INSERT INTO schema_migrations (version) VALUES ('20170831180835');
+
+INSERT INTO schema_migrations (version) VALUES ('20170906075927');

@@ -1,5 +1,6 @@
 = content_for(:heading_toolbar) do
   %h2.global-incident-warning.hidden{ data: { warn_if_checked: :reception_incident.tl } }
+
 = field_set :general_informations do
   = f.input :nature, as: :hidden
   = f.input :contract_id, as: :hidden
@@ -43,6 +44,3 @@
             %th{colspan: 6, class: "links"}= link_to_add_association :add_merchandise.tl, f, :items, partial: 'item_fields', render_options: { locals: { role: 'merchandise' } }, 'data-association-insertion-node' => '#items-footer', 'data-association-insertion-method' => :before
             %th{colspan: 6, class: "links"}= link_to_add_association :add_service.tl, f, :items, partial: 'item_fields', render_options: { locals: { role: 'service' } }, 'data-association-insertion-node' => '#items-footer', 'data-association-insertion-method' => :before
             %th{colspan: 6, class: "links"}= link_to_add_association :add_fees.tl, f, :items, partial: 'item_fields', render_options: { locals: { role: 'fees' } }, 'data-association-insertion-node' => '#items-footer', 'data-association-insertion-method' => :before
-/ -else
-/   = field_set f.object.class.human_attribute_name(:items) do
-/     = "Items cannot be edited in current parcel state."

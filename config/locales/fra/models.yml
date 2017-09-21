@@ -170,6 +170,13 @@ fra:
         planned_at: "Réception prévue le" #?
       purchase_item: #?
         amount: "Montant TTC" #?
+      purchase_order: #?
+        command_mode: "Mode de commande" #?
+        description: "Notes" #?
+        estimate_reception_date: "Date prévisionnelle de réception" #?
+        ordered_at: "Date commande" #?
+        reference_number: "Référence fournisseur (n° commande)" #?
+        responsible: "Responsable de commande" #?
       purchase_payment: #?
         delivered: "Remis au bénéficiaire" #?
         list: "Lot de décaissements" #?
@@ -501,9 +508,12 @@ fra:
       purchase: "Achat"
       purchase_affair: "Affaire d’achat"
       purchase_gap: "Écart d’achat"
+      purchase_invoice: "Facture d’achat"
       purchase_item: "Ligne d’achat"
       purchase_nature: "Type d’achat"
+      purchase_order: "Commande d’achat"
       purchase_payment: "Décaissement d’achat"
+      reception: "Réception"
       regularization: "Régularisation"
       role: "Rôle"
       sale: "Vente"
@@ -516,6 +526,7 @@ fra:
       sensor: "Capteur"
       sequence: "Séquence"
       settlement: "Installation"
+      shipment: "Expédition"
       sub_zone: "Sous-zone"
       subscription: "Abonnement"
       subscription_nature: "Type d’abonnement"
@@ -721,6 +732,7 @@ fra:
     color: "Couleur"
     column_name: "Nom de colonne"
     columns: "Colonnes"
+    # command_mode: "Command mode"
     comment: "Commentaire"
     commercial: "Activité commerciale"
     commercial_description: "Description commerciale"
@@ -920,6 +932,7 @@ fra:
     entry_on: "Entrée le"
     entry_reason: "Raison de l'entrée"
     establishment: "Établissement" #?
+    # estimate_reception_date: "Estimate reception date"
     # euid: "EUID"
     event: "Évènement"
     event_participation: "Participation à un évènement"
@@ -1538,7 +1551,7 @@ fra:
     reception_cash: "Trésorie réceptrice"
     reception_currency: "Monnaie de réception"
     reception_journal_entry: "Écriture de la réception"
-    # receptions: "Receptions"
+    receptions: "Réceptions"
     recipient: "Destinataire"
     recommended: "Prescrit"
     recommender: "Prescripteur"
@@ -2118,9 +2131,23 @@ fra:
     purchase_nature:
       default:
         name: "Achat standard"
+    purchase_order: #?
+      states: #?
+        closed: "Fermée" #?
+        estimate: "Brouillon" #?
+        opened: "Ouverte" #?
     purchase_payment:
       bookkeep: "[%{resource} %{number}] %{mode} %{check_number} pour %{payee}"
       label: "%{number}. %{amount} du %{date} en %{mode} pour %{payee}"
+    reception:
+      state_machine:
+        states:
+          draft: "Brouillon"
+          given: "Donné"
+          in_preparation: "En préparation"
+          ordered: "Commandé"
+          prepared: "Prêt"
+          received: "Reçu"
     role:
       default:
         administrator: "Gérant"
@@ -2200,6 +2227,15 @@ fra:
         sales_invoices: "F[year|4][number|6]"
         subscriptions: "ABO[number|8]"
         transports: "TR[number|8]"
+    shipment:
+      state_machine:
+        states:
+          draft: "Brouillon"
+          given: "Donné"
+          in_preparation: "En préparation"
+          ordered: "Commandé"
+          prepared: "Prêt"
+          received: "Reçu"
     task:
       state_machine:
         states:

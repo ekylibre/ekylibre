@@ -1,0 +1,53 @@
+- item ||= f.object
+%tbody.nested-fields.purchase-order-items{ data: { trade_item: "purchase", iceberg: true } }
+  %tr.item-display.hidden
+    %td.act
+      - if f.object.destroyable?
+        = link_to_remove_association(content_tag(:i) + h(:destroy.tl), f, 'data-no-turbolink' => true, class: 'destroy remove remove-item')
+    %td.act
+      = link_to("#", class: 'edit edit-item', data: { edit: "item-form" }) do
+        %i
+        = :edit.tl
+    %td.product-column
+      %label{ data: { item_value: "input.order-variant" } }= f.object.variant ? f.object.variant.name : '??????'
+    %td.quantity-column
+      %label{ data: { item_value: "input.order-quantity" } }= f.object.variant ? f.object.variant.name : '??????'
+    %td.unit-amount-column.two-rows-column
+      %label{ data: { item_value: "input.order-unit-amount" } }= f.object.variant ? f.object.variant.name : '??????'
+      %label{class: "order-second-row-label"}= :discount_without_percent.tl
+      %label{ data: { item_value: "input.order-discount-percentage" } }= f.object.variant ? f.object.variant.name : '??????'
+    %td.total-column.two-rows-column
+      %label{ class: 'amount-excluding-taxes', data: { item_value: "input.order-total" } }= f.object.variant ? f.object.variant.name : '??????'
+      %label{ class: "order-second-row-label"}= :vat_rate.tl
+      %label{ class: 'vat-rate', data: { item_value: "select.order-vat-total option:selected" } }= f.object.variant ? f.object.variant.name : '??????'
+
+  %tr.nested-item-form
+    %td.form-field.merchandise
+      = f.referenced_association(:variant, label: :merchandise.tl, source: {scope: :purchaseables}, input_html: {class: "order-variant", data: {variant_of_deal_item: {url: detail_backend_product_nature_variant_path("RECORD_ID", mode: :last_purchase_item)}}})
+    %td.form-field.decimal= f.input(:quantity, input_html: {class: "order-quantity", size: 7, data: {trade_component: "quantity"}})
+    %td.form-field= f.input(:unit_pretax_amount, label: :unit_amount.tl, input_html: {class: "order-unit-amount", data: {trade_component: "unit_pretax_amount"}})
+    %td.form-field= f.input(:reduction_percentage, label: :discount_without_percent.tl, input_html: {class: "order-discount-percentage", data: {trade_component: "reduction_percentage"}})
+    %td.form-field.decimal= f.input(:pretax_amount, input_html: {class: "pta order-total", data: {trade_component: "pretax_amount"}})
+    %td.form-field.decimal= f.input(:tax_id, label: :vat_rate.tl, collection: Tax.current.collect{|t| [t.short_label, t.id, {'data-rate' => ((100 + t.usable_amount)/100)}]}, selected: 1, input_html: { class: "order-vat-total", data: {value: 'rate', trade_component: "tax"}})
+    -#%td.action= link_to_remove_association(content_tag(:i) + h(:destroy.ta), f, 'data-no-turbolink' => true, class: 'remove-item')
+
+    %td.second-row
+      .merchandise-current-stock
+        %span.stock-label= :current_stock.tl
+        %span.stock-value= f.object.decorate.merchandise_current_stock
+        %span.stock-unit= f.object.decorate.merchandise_stock_unit
+      .merchandise-stock-after-order
+        %span.stock-label= :stock_after_order.tl
+        %span.stock-value= f.object.decorate.merchandise_stock_after_order
+        %span.stock-unit= f.object.decorate.merchandise_stock_unit
+
+    %td.form-field.third-row
+      .item-form
+        - if Preference[:distribute_sales_and_purchases_on_activities] && current_user.can?(:read, :activities) && ActivityBudget.opened.any?
+          = f.referenced_association(:activity_budget, new: false)
+        - if Preference[:distribute_sales_and_purchases_on_teams] && current_user.can?(:read, :teams)
+          = f.referenced_association(:team)
+
+    %td.buttons
+      %button.btn{ data: { cancel: 'item-form' } }= :cancel.tl
+      %button.btn.btn-primary{ data: { validate: 'item-form' } }= :validate.tl

@@ -71,16 +71,16 @@ module Backend
         end
       end
 
-      if params[:purchase_id]
-        purchase = Purchase.find(params[:purchase_id])
-        @parcel.sender = purchase.supplier
-        @parcel.address = purchase.delivery_address
+      if params[:purchase_order_id]
+        purchase_order = Purchase.find(params[:purchase_order_id])
+        @parcel.sender = purchase_order.supplier
+        @parcel.address = purchase_order.delivery_address
         preceding = Parcel
                     .where(nature: @parcel.nature, sender: @parcel.sender)
                     .order(planned_at: :desc).first
         @parcel.storage = preceding.storage if preceding
 
-        purchase.items.each do |item|
+        purchase_order.items.each do |item|
           @parcel.items.new(purchase_item_id: item.id, quantity: item.quantity, variant: item.variant)
         end
       end

@@ -367,9 +367,12 @@ jpn:
       purchase: "購入"
       purchase_affair: "購入事件"
       purchase_gap: "購入ギャップ"
+      # purchase_invoice: "Purchase invoice"
       purchase_item: "購入アイテム"
       purchase_nature: "購入タイプ"
+      # purchase_order: "Purchase order"
       purchase_payment: "支出"
+      # reception: "Reception"
       regularization: "正則化"
       role: "役割"
       sale: "販売"
@@ -382,6 +385,7 @@ jpn:
       sensor: "センサー"
       sequence: "シーケンス"
       settlement: "決済"
+      # shipment: "Shipment"
       sub_zone: "サブゾーン"
       subscription: "サブスクリプション"
       subscription_nature: "サブスクリプション・タイプ"
@@ -560,6 +564,7 @@ jpn:
     color: "色"
     column_name: "列名"
     columns: "コラム"
+    # command_mode: "Command mode"
     comment: "メモ"
     commercial: "コマーシャル"
     commercial_description: "コマーシャル説明"
@@ -728,6 +733,7 @@ jpn:
     entry_number: "エントリ番号"
     entry_on: "上のエントリ"
     entry_reason: "エントリ理由"
+    # estimate_reception_date: "Estimate reception date"
     # euid: "EUID"
     event: "イベント"
     event_participation: "イベント参加"
@@ -1820,6 +1826,15 @@ jpn:
     purchase_payment:
       # bookkeep: "[%{resource} %{number}] %{mode} %{check_number} for %{payee}"
       # label: "%{number}. %{amount}, %{mode} for %{payee} on %{date}"
+    reception:
+      state_machine:
+        states:
+          # draft: "Draft"
+          # given: "Given"
+          # in_preparation: "In preparation"
+          # ordered: "Ordered"
+          # prepared: "Prepared"
+          # received: "Received"
     role:
       default:
         administrator: "管理者"
@@ -1899,6 +1914,15 @@ jpn:
         sales_invoices: "SI[year|4][number|6]"
         subscriptions: "SUB[number|8]"
         transports: "TR[number|8]"
+    shipment:
+      state_machine:
+        states:
+          # draft: "Draft"
+          # given: "Given"
+          # in_preparation: "In preparation"
+          # ordered: "Ordered"
+          # prepared: "Prepared"
+          # received: "Received"
     task:
       state_machine:
         states:

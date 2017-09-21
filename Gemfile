@@ -53,6 +53,8 @@ gem 'skylight'
 gem 'jquery-rails'
 # Use Vue.js as Javascript framework
 gem 'vuejs-rails'
+# Use Vue.js as Javascript framework
+gem 'vuejs-rails'
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 gem 'jquery-turbolinks'
 gem 'turbolinks', '~> 2.0'
@@ -85,6 +87,9 @@ gem 'foreman'
 gem 'sidekiq', '~> 4.0'
 gem 'sidekiq-cron', '>= 0.4.0'
 gem 'sidekiq-unique-jobs', '~> 4.0'
+
+# Decorator pattern
+gem 'draper'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
@@ -197,7 +202,7 @@ gem 'luhn'
 gem 'bootstrap-slider-rails'
 
 group :development do
-  gem 'bullet', '~> 5.5.0'
+  gem 'bullet', '< 5.6.0'
 
   gem 'quiet_assets'
   # gem 'rack-mini-profiler'

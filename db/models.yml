@@ -153,8 +153,10 @@
 - purchase
 - purchase_affair
 - purchase_gap
+- purchase_invoice
 - purchase_item
 - purchase_nature
+- purchase_order
 - purchase_payment
 - reception
 - regularization

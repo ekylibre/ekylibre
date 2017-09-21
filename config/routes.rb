@@ -125,7 +125,7 @@ Rails.application.routes.draw do
 
     resources :dashboards, concerns: [:list] do
       collection do
-        %i[home relationship accountancy trade stocks production humans tools settings].each do |part|
+        %i[home relationship accountancy sales purchases stocks production humans tools settings].each do |part|
           get part
         end
         get :sandbox
@@ -756,10 +756,26 @@ Rails.application.routes.draw do
       end
     end
 
+    resources :receptions, concerns: %i[list unroll] do
+      member do
+        get :list_items
+
+        post :invoice
+        post :ship
+        post :order
+        post :prepare
+        post :check
+        post :give
+        post :cancel
+      end
+    end
+
     resources :shipments, concerns: %i[list unroll] do
       member do
         get :list_items
 
+        post :invoice
+        post :ship
         post :order
         post :prepare
         post :check
@@ -869,6 +885,23 @@ Rails.application.routes.draw do
         post :propose
         post :propose_and_invoice
         post :refuse
+      end
+    end
+
+    resources :purchase_orders, concerns: %i[list unroll] do
+      member do
+        get :list_items
+        post :open
+        post :close
+      end
+    end
+
+    resources :purchase_invoices, concerns: %i[list unroll] do
+      member do
+        get :list_items
+        get :list_parcels
+        get :payment_mode
+        post :pay
       end
     end
 
@@ -1027,6 +1060,13 @@ Rails.application.routes.draw do
       member do
         post :propose
         post :confirm
+      end
+    end
+
+    resources :unreceived_purchase_orders, concerns: [:list] do
+      member do
+        post :open
+        post :close
       end
     end
 

@@ -163,9 +163,9 @@ fra:
       index: "Tableaux de bord"
       new: "Nouveau tableau de bord"
       production: "Tableau de bord de la production"
-      purchases: "Tableau de bord des achats" #?
+      purchases: "Tableau de bord des achats"
       relationship: "Tableau de bord de la gestion des relations"
-      sales: "Tableau de bord des ventes" #?
+      sales: "Tableau de bord des ventes"
       sandbox: "Bac à sable - tableau de bord: %{name}"
       search: "Recherche de\_: %{searched}"
       settings: "Configuration"
@@ -566,6 +566,13 @@ fra:
       index: "Produits"
       new: "Créer un produit"
       show: "%{nature}\_: %{name}"
+    backend/purchase_invoices:
+      edit: "Modifier la facture: %{number}"
+      index: "Factures"
+      new: "Nouvelle facture"
+      pay: "Payer"
+      payment_mode: "Selection du mode de paiement"
+      show: "Facture\_: %{number} au fournisseur %{supplier}"
     backend/purchase_items: #?
       edit: "Modifier une ligne de la commande" #?
       new: "Nouveau produit à la commande" #?
@@ -574,6 +581,11 @@ fra:
       index: "Types d’achat"
       new: "Nouveau type d’achat"
       show: "Type d’achat\_: %{name}"
+    backend/purchase_orders: #?
+      edit: "Modifier la commande\_: %{number}" #?
+      index: "Commandes" #?
+      new: "Nouvelle commande" #?
+      show: "Commande\_: %{number} au fournisseur %{supplier}" #?
     backend/purchase_payments:
       edit: "Modifier le décaissement\_: %{number}"
       index: "Décaissements"
@@ -607,7 +619,7 @@ fra:
       new: "Nouvelle réception"
       order: "Order reception: %{number}"
       prepare: "Prepare reception: %{number}"
-      ship: "Ship reception: %{number}"
+      ship: "Expédier la réception"
       show: "Réception: %{number}"
     backend/registrations:
       edit: "Modifier inscription"
@@ -676,7 +688,7 @@ fra:
       new: "Nouvelle expédition"
       order: "Order shipment: %{number}"
       prepare: "Préparation de l'expédition: %{number}"
-      ship: "Ship shipment: %{number}"
+      ship: "Expédier la réception"
       show: "Expédition\_: %{number}"
     backend/subscription_natures:
       edit: "Modifier le type d’abonnement\_: %{name}"
@@ -735,6 +747,8 @@ fra:
       index: "Produits transformés" #?
     backend/trial_balances:
       show: "Balance"
+    backend/unreceived_purchase_orders: #?
+      index: "Commandes à réceptionner" #?
     backend/users:
       edit: "Modifier l’utilisateur\_: %{first_name} %{last_name}"
       index: "Utilisateurs"
@@ -1200,6 +1214,7 @@ fra:
     current_cultivation: "Culture actuelle"
     current_letter: "Lettre en cours\_: %{letter}" #?
     current_result_before_taxe: "Résulat courant avant impôts"
+    current_stock: "Stock actuel"
     current_stocks_by_variety: "État des stocks"
     currently_subscribed_to: "Actuellement abonné à"
     custom_fields: "Champs personnalisés"
@@ -1254,6 +1269,7 @@ fra:
     details: "Informations complémentaires"
     direct_margin: "Marge directe" #?
     discount: "Réduc. (%)"
+    discount_without_percent: "Remise"
     disease: "Maladie"
     disease_deformity_percentage: "Pourcentage de maladies et malformations"
     disease_percentage: "Maladies (%)"
@@ -1635,6 +1651,7 @@ fra:
     merchandise: "Marchandise"
     merchandises_purchases: "Marchandises"
     merchandises_purchases_stocks_variation: "Variation de stocks de marchandises"
+    merchandises_services_costs: "Marchandise, Service ou Frais"
     merge: "Fusionner"
     method: "Méthode"
     milk_withdrawal_period: "Période d’attente avant remise en vente de lait" #?
@@ -2098,6 +2115,7 @@ fra:
     sex: "Sexe"
     shape: "Forme"
     ship: "Prévue le"
+    shipments: "Expéditions"
     show: "Afficher"
     show_export_preview: "Afficher un aperçu du document (peut augmenter le temps de chargement)" #?
     sign_out: "Se déconnecter"
@@ -2121,6 +2139,7 @@ fra:
     status: "État" #?
     stewardship: "Assistant"
     stock: "Stock"
+    stock_after_order: "Stock après commande"
     stock_container_map: "Carte des lieux de stockage"
     stock_in_ground: "Stock en terre"
     stock_in_ground_by_calibration: "Stock en terre net par calibre"
@@ -2213,6 +2232,8 @@ fra:
     tools_list: "Liste d’outils" #?
     total: "Total"
     total_amount: "Montant total HT"
+    total_amount_with_taxes: "Total TTC"
+    total_amount_without_taxes: "Total HT"
     total_bacteria_concentration: "Dénombrement des germes totaux" #?
     total_cost: "Coût total"
     total_cost_per_working_unit: "Coût total par unité d’œuvre" #?
@@ -2283,6 +2304,7 @@ fra:
     uninvoiced: "Non facturés"
     uninvoiced_amount: "Montant non facturé" #?
     unit: "Unité"
+    unit_amount: "Prix unit. HT"
     unit_and_indicator: "%{unit} (%{indicator})"
     unit_price_amount: "PU HT" #?
     unit_price_amount_with_taxes: "PU TTC" #?
@@ -2341,6 +2363,7 @@ fra:
     vat_amount: "Taxe due" #?
     vat_collected: "TVA BRUTE" #?
     vat_paid: "TVA DEDUCTIBLE" #?
+    vat_rate: "Taux TVA"
     video: "Vidéo" #?
     view: "Affichage"
     view_map_when_creating_an_intervention: "Afficher la carte lors de la création d'intervention"

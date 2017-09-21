@@ -170,7 +170,9 @@ arb:
       index: "لوحات"
       new: "لوحة تحكم جديدة"
       production: "لوحة أجهزة القياس إنتاج"
+      # purchases: "Purchases dashboard: %{name}"
       relationship: "لوحة أجهزة القياس العلاقة"
+      # sales: "Sales dashboard: %{name}"
       # sandbox: "Sandbox dashboard: %{name}"
       # search: "Search for: %{searched}"
       settings: "إعدادات لوحة القيادة"
@@ -614,6 +616,13 @@ arb:
       index: "المنتجات" #?
       new: "اضافة منتج جديد" #?
       show: "المنتجات : %{name}" #?
+    backend/purchase_invoices:
+      # edit: "Edit invoice: %{name}"
+      # index: "Invoices"
+      # new: "New invoice"
+      # pay: "Pay invoice: %{name}"
+      # payment_mode: "Payment mode invoice: %{name}"
+      # show: "Invoice: %{name}"
     backend/purchase_items: #?
       edit: "تعديل تصميم الطلب" #?
       new: "اضافة طلب للمنتج : %{number}" #?
@@ -1301,6 +1310,7 @@ arb:
     current_cultivation: "زراعة الحالية"
     current_letter: "البيانات الحالية : %{letter}" #?
     current_result_before_taxe: "نتيجة الحالية قبل و taxe"
+    # current_stock: "Current stock"
     current_stocks_by_variety: "المخزونات الحالية من قبل متنوعة"
     currently_subscribed_to: "مشترك حاليا ل"
     custom_field_choice_create: "اضافة خيار جديد للقائمة" #?
@@ -1364,6 +1374,7 @@ arb:
     details: "معلومات اضافية"
     direct_margin: "هامش المباشر" #?
     discount: "الخصم (%)"
+    # discount_without_percent: "Discount"
     disease: "مرض"
     disease_deformity_percentage: "نسبة المرض والتشوه"
     disease_percentage: "مرض (٪)"
@@ -1752,6 +1763,7 @@ arb:
     # merchandise: "Merchandise"
     merchandises_purchases: "يروج مشتريات"
     merchandises_purchases_stocks_variation: "يروج بشراء أسهم الاختلاف"
+    # merchandises_services_costs: "Merchandises, services or costs"
     merge: "دمج"
     method: "طريقة"
     minimal_temperature: "درجة الحرارة الحد الأدنى"
@@ -2209,6 +2221,7 @@ arb:
     sex: "جنس"
     shape: "شكل"
     ship: "بشريطة"
+    # shipments: "Shipments"
     show: "تبين"
     sign_out: "خروج"
     simplified: "نظام واقعي مبسط"
@@ -2226,6 +2239,7 @@ arb:
     statistics: "إحصائيات"
     stewardship: "إدارة"
     stock: "مخزون"
+    # stock_after_order: "Stock after order"
     stock_container_map: "خريطة الأسهم"
     stock_in_ground: "الأسهم في الأرض"
     stock_in_ground_by_calibration: "أسهم في الأرض عن طريق المعايرة"
@@ -2309,6 +2323,8 @@ arb:
     tools: "مادة مستخدمة"
     total: "المجموع"
     total_amount: "صافي اجمالي الكمية"
+    # total_amount_with_taxes: "Total amount incl. taxes"
+    # total_amount_without_taxes: "Total amount excl. taxes"
     total_cost: "التكلفة الإجمالية"
     total_earn: "إجمالي كسب" #?
     total_invoiced_amount: "فواتير المبلغ الاجمالي" #?
@@ -2375,6 +2391,7 @@ arb:
     uninvoiced: "لم يتم تحرير فواتير"
     uninvoiced_amount: "قيمة غير مفوترة" #?
     unit: "الوحدة"
+    # unit_amount: "Unit cost excl. taxes"
     # unit_and_indicator: "%{unit} (%{indicator})"
     unit_create: "اضافة وحدة قياس جديدة" #?
     unit_price_amount: "PU HT" #?
@@ -2431,6 +2448,7 @@ arb:
     vat_amount: "الضرائب المستحقة" #?
     vat_collected: "صافي قيمة الضريبة المضافة" #?
     vat_paid: "خصم قيمة الضريبة المضافة" #?
+    # vat_rate: "VAT rate"
     view: "معاينة"
     view_map_when_creating_an_intervention: "عرض الخريطة عند إنشاء التدخل"
     virtual_quantity: "الكمية العملية" #?

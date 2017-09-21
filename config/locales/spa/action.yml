@@ -166,7 +166,9 @@ spa:
       index: "Cuadros de mando"
       new: "Nuevo tablero de instrumentos"
       production: "Tablero de producción"
+      # purchases: "Purchases dashboard: %{name}"
       relationship: "Relación salpicadero"
+      # sales: "Sales dashboard: %{name}"
       # sandbox: "Sandbox dashboard: %{name}"
       # search: "Search for: %{searched}"
       settings: "Configuraciones del tablero"
@@ -517,6 +519,13 @@ spa:
       index: "Productos"
       new: "Nuevo producto"
       # show: "%{nature}: %{name}"
+    backend/purchase_invoices:
+      # edit: "Edit invoice: %{name}"
+      # index: "Invoices"
+      # new: "New invoice"
+      # pay: "Pay invoice: %{name}"
+      # payment_mode: "Payment mode invoice: %{name}"
+      # show: "Invoice: %{name}"
     backend/purchase_natures:
       edit: "Editar el tipo de compra"
       index: "Tipos de compra"
@@ -1086,6 +1095,7 @@ spa:
     current_cultivation: "El cultivo actual"
     current_letter: "Carta en curso\_: %{letter}" #?
     current_result_before_taxe: "Resultado actual antes taxe"
+    # current_stock: "Current stock"
     current_stocks_by_variety: "Existencias actuales de variedad"
     currently_subscribed_to: "Actualmente suscrito"
     custom_fields: "Campos Personalizados"
@@ -1141,6 +1151,7 @@ spa:
     details: "Detalles"
     direct_margin: "Margen directo" #?
     discount: "Descuento (%)"
+    # discount_without_percent: "Discount"
     disease: "Enfermedad"
     disease_deformity_percentage: "Enfermedades y deformidad porcentaje"
     disease_percentage: "Enfermedad (%)"
@@ -1456,6 +1467,7 @@ spa:
     # merchandise: "Merchandise"
     merchandises_purchases: "Compras de mercaderías"
     merchandises_purchases_stocks_variation: "Mercaderías compras variación de existencias"
+    # merchandises_services_costs: "Merchandises, services or costs"
     merge: "Unir"
     method: "Método"
     minimal_temperature: "Temperatura mínima"
@@ -1829,6 +1841,7 @@ spa:
     shape: "Forma"
     shelf: "Categoria" #?
     ship: "Enviar"
+    # shipments: "Shipments"
     show: "Espectáculo"
     sign_out: "Desconectar"
     simplified: "Regimen del real simplificado"
@@ -1846,6 +1859,7 @@ spa:
     statistics: "Estadística"
     stewardship: "Administración"
     stock: "Valores"
+    # stock_after_order: "Stock after order"
     stock_container_map: "Foto mapa"
     stock_in_ground: "Stock en planta"
     stock_in_ground_by_calibration: "Las existencias en planta de calibración"
@@ -1917,6 +1931,8 @@ spa:
     tools: "Instrumentos"
     total: "Total"
     total_amount: "Total importe HT"
+    # total_amount_with_taxes: "Total amount incl. taxes"
+    # total_amount_without_taxes: "Total amount excl. taxes"
     total_cost: "Coste total"
     total_earn: "Ganan total" #?
     total_invoiced_amount: "Total importe facturado" #?
@@ -1974,6 +1990,7 @@ spa:
     undone: "Deshecho"
     uninvoiced: "No facturados"
     unit: "Unidad"
+    # unit_amount: "Unit cost excl. taxes"
     # unit_and_indicator: "%{unit} (%{indicator})"
     unit_create: "Añadir una nueva unidad de medida" #?
     unit_price_amount: "PU HT" #?
@@ -2019,6 +2036,7 @@ spa:
     variable_indicators: "Indicadores variables"
     variants: "Variantes"
     vat: "TINA"
+    # vat_rate: "VAT rate"
     view: "Ver"
     view_map_when_creating_an_intervention: "Ver mapa al crear una intervención"
     wages: "Salario"

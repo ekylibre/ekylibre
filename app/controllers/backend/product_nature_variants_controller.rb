@@ -115,7 +115,8 @@ module Backend
         depreciable: @product_nature_variant.depreciable?,
         unit: {
           name: @product_nature_variant.unit_name
-        }
+        },
+        stock: @product_nature_variant.current_stock
       }
       if product_nature.subscribing?
         entity = nil
