@@ -48,7 +48,7 @@ class ProductNatureVariantValuing < Ekylibre::Record::Base
   def self.calculate_first_entrance(unit_price_amount, new_quantity, action_quantity, variant_id)
     amount = action_quantity * unit_price_amount
     average_cost_amount = amount / new_quantity
-    product_nature_variant_valuing = ProductNatureVariantValuing.new(amount: amount, average_cost_amount: average_cost_amount, variant_id: variant_id, computed_at: Time.now)
+    product_nature_variant_valuing = ProductNatureVariantValuing.new(amount: amount, average_cost_amount: average_cost_amount, variant_id: variant_id, computed_at: Time.new(1, 1, 1).in_time_zone)
     product_nature_variant_valuing.save
     # update, needed to stay up to date with variant
     product_nature_variant_valuing.update_variant(variant_id, product_nature_variant_valuing.id)
@@ -60,7 +60,7 @@ class ProductNatureVariantValuing < Ekylibre::Record::Base
     old_amount = old_product_nature_variant_valuing.amount
     amount = old_amount + action_quantity * unit_price_amount
     average_cost_amount = amount / new_quantity
-    product_nature_variant_valuing = ProductNatureVariantValuing.new(amount: amount, average_cost_amount: average_cost_amount, variant_id: variant_id, computed_at: Time.now)
+    product_nature_variant_valuing = ProductNatureVariantValuing.new(amount: amount, average_cost_amount: average_cost_amount, variant_id: variant_id, computed_at: Time.new(1, 1, 1).in_time_zone)
     product_nature_variant_valuing.save
     # update, needed to stay up to date with variant
     product_nature_variant_valuing.update_variant(variant_id, product_nature_variant_valuing.id)
@@ -78,7 +78,7 @@ class ProductNatureVariantValuing < Ekylibre::Record::Base
     end
     amount = old_amount - action_quantity * old_average_cost_amount
     average_cost_amount = amount / new_quantity
-    product_nature_variant_valuing = ProductNatureVariantValuing.new(amount: amount, average_cost_amount: average_cost_amount, variant_id: variant_id, computed_at: Time.now)
+    product_nature_variant_valuing = ProductNatureVariantValuing.new(amount: amount, average_cost_amount: average_cost_amount, variant_id: variant_id, computed_at: Time.new(1, 1, 1).in_time_zone)
     product_nature_variant_valuing.save
     # update, needed to stay up to date with variant
     product_nature_variant_valuing.update_variant(variant_id, product_nature_variant_valuing.id)
@@ -94,7 +94,7 @@ class ProductNatureVariantValuing < Ekylibre::Record::Base
     end
     amount = quantity_entry * old_average_cost_amount
     average_cost_amount = amount / quantity_entry
-    product_nature_variant_valuing = ProductNatureVariantValuing.new(amount: amount, average_cost_amount: average_cost_amount, variant_id: variant_id, computed_at: Time.now)
+    product_nature_variant_valuing = ProductNatureVariantValuing.new(amount: amount, average_cost_amount: average_cost_amount, variant_id: variant_id, computed_at: Time.new(1, 1, 1).in_time_zone)
     product_nature_variant_valuing.save
     # update, needed to stay up to date with variant
     product_nature_variant_valuing.update_variant(variant_id, product_nature_variant_valuing.id)
