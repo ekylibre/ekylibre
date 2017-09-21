@@ -176,6 +176,7 @@ fra:
     oil: "Huile"
     oil_to_input: "Huile mise" #?
     operator: "Opérateur"
+    packaging_material: "Matériel d'emballage"
     parturition: "Mise bas"
     plant: "Culture"
     plant_medicine: "Produit phytosanitaire"
@@ -187,8 +188,9 @@ fra:
     pollinating_insects: "Insectes pollinisateurs"
     pollination_tool: "Outil de pollinisation"
     poultry: "Volailles"
+    prepared_product: "Produit préparé"
     press: "Presse"
-    product: "Produit" #?
+    product_to_prepare: "Produit à préparer"
     product_to_sort: "Produits à trier"
     protective_canvas: "Bâche de protection"
     protective_net: "Filet de protection"
@@ -196,6 +198,7 @@ fra:
     raised_manure: "Fumier collecté"
     replacement_part: "Pièce de remplacement"
     residue: "Residue"
+    responsible: "Responsable"
     second_chemical_input: "Second intrant de protection des végétaux" #?
     second_chemical_input_to_use: "Second intrant de protection des végétaux à utiliser" #?
     second_child: "Second nouveau né" #?
@@ -369,6 +372,7 @@ fra:
     net_removing: "Retrait de filet"
     oil_replacement: "Vidange d’huile"
     organic_fertilizing: "Fertilisation organique" #?
+    packaging: "Conditionnement"
     partial_wine_transfer: "Transfert de vin (Partiel)"
     parturition: "Mise bas"
     pasturing: "Pâturage"

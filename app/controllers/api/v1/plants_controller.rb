@@ -3,7 +3,7 @@ module Api
     # Plants API permits to access plants
     class PlantsController < Api::V1::BaseController
       def index
-        @plants = Plant.availables.order(id: :desc)
+        @plants = Plant.availables(at: Time.now).order(id: :desc)
       end
     end
   end

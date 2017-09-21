@@ -67,7 +67,7 @@ module Backend
         raise ArgumentError, 'Product expected, got ' + product.inspect
       end
       mini_map(product) do |r|
-        { name: r.name, shape: r.shape(at: [r.born_at, Time.zone.now].compact.max) }
+        { name: r.name, shape: r.shape }
       end
     end
 

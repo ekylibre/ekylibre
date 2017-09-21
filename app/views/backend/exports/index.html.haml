@@ -1,3 +1,7 @@
+- heading_toolbar do
+  = label_tag do
+    = check_box_tag('value', 'true', user_preference_value(User::PREFERENCE_SHOW_EXPORT_PREVIEW), data: { remote: true, url: backend_preference_path(id: User::PREFERENCE_SHOW_EXPORT_PREVIEW), method: 'PATCH' })
+    = :show_export_preview.tl
 - export_categories.each do |category|
   .activity-family
     .activity-family-heading

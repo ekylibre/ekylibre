@@ -137,11 +137,13 @@
         global_cost_per_hectare = []
 
         # data for bar chart costs by activities
-        resource.interventions.reorder(:started_at).find_each do |intervention|
+        resources = resource.interventions.includes(:targets).reorder(:started_at)
+        resources.find_each do |intervention|
+          area = intervention.working_zone_area
           data = []
-          for role in [:input, :doer, :tool]
-            if intervention.cost_per_area(role, unit)
-              cost_per_hectare = intervention.cost_per_area(role, unit)
+          [:input, :doer, :tool].each do |role|
+            if area_cost = intervention.cost_per_area(role, unit, area)
+              cost_per_hectare = area_cost
             else
               cost_per_hectare = 0.0
             end
@@ -152,11 +154,12 @@
 
         # data for total cost pie by intervention
         data = []
-        resource.interventions.reorder(:started_at).find_each do |intervention|
+        resources.find_each do |intervention|
+          area = intervention.working_zone_area
           cost = []
-          for role in [:input, :doer, :tool]
-            if intervention.cost_per_area(role, unit)
-              cost << intervention.cost_per_area(role, unit)
+          [:input, :doer, :tool].each do |role|
+            if area_cost = intervention.cost_per_area(role, unit, area)
+              cost << area_cost
             end
           end
           data << {name: intervention.name, y: cost.compact.sum.round(2).to_s.to_f }

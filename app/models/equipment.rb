@@ -73,6 +73,7 @@
 #  picture_file_name            :string
 #  picture_file_size            :integer
 #  picture_updated_at           :datetime
+#  reading_cache                :jsonb            default("{}")
 #  team_id                      :integer
 #  tracking_id                  :integer
 #  type                         :string
@@ -93,6 +94,14 @@ class Equipment < Matter
   def best_activity_production(options = {})
     at = options[:at] || Time.zone.now
     ActivityProduction.where(support: groups_at(at)).at(at).first || super
+  end
+
+  def tractor?
+    variety == :tractor
+  end
+
+  def self_prepelled_equipment?
+    variety == :self_prepelled_equipment
   end
 
   ##################################################

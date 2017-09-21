@@ -154,6 +154,7 @@ cmn:
             started_on:
               consecutive: "该财政年度必须consecutives。它必须与先前的结束后开始。"
               frozen: "交易所已创建时的财政年度日期不能更改。"
+              # on_or_after: "The date selected must be posterior to society's creation date (%{restriction})"
             stopped_on:
               # end_of_month: "%{attribute} must be an end of month"
           # overlap: "%{attribute} overlaps an existing financial year"
@@ -684,6 +685,7 @@ cmn:
     device_uid: "设备UID"
     direct_links: "直接链接"
     direction: "方向"
+    # distributed_on_productions: "Distributed on productions"
     distributions: "分布"
     district: "区"
     document: "文件"
@@ -1253,6 +1255,7 @@ cmn:
     query: "询问"
     rank_number: "排名"
     read_at: "在阅读"
+    # reading_cache: "Reading cache"
     reading_tasks: "阅读任务"
     readings: "阅读"
     real_balance: "真正的平衡"

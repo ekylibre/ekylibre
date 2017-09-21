@@ -6,7 +6,6 @@ module Backend
       options[:collection].each do |p|
         land_parcel_shape = p.shape
         next unless land_parcel_shape
-
         popup_content = []
 
         # for all land_parcel

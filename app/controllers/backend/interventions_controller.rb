@@ -258,6 +258,49 @@ module Backend
       render(locals: { cancel_url: { action: :index }, with_continue: true })
     end
 
+    def create
+      unless permitted_params[:participations_attributes].nil?
+        participations = permitted_params[:participations_attributes]
+
+        participations.each_pair do |key, value|
+          participations[key] = JSON.parse(value)
+        end
+
+        permitted_params[:participations_attributes] = participations
+      end
+
+      @intervention = Intervention.new(permitted_params)
+
+      url = if params[:create_and_continue]
+              { action: :new, continue: true }
+            else
+              params[:redirect] || { action: :show, id: 'id'.c }
+            end
+      return if save_and_redirect(@intervention, url: url, notify: :record_x_created, identifier: :number)
+      render(locals: { cancel_url: { action: :index }, with_continue: true })
+    end
+
+    def update
+      @intervention = find_and_check
+
+      unless permitted_params[:participations_attributes].nil?
+        participations = permitted_params[:participations_attributes]
+        participations.each_pair do |key, value|
+          participations[key] = JSON.parse(value)
+        end
+
+        permitted_params[:participations_attributes] = participations
+
+        delete_working_periods(participations)
+      end
+
+      if @intervention.update_attributes(permitted_params)
+        redirect_to action: :show
+      else
+        render :edit
+      end
+    end
+
     def sell
       interventions = params[:id].split(',')
       return unless interventions
@@ -409,6 +452,29 @@ module Backend
         return nil
       end
       interventions
+    end
+
+    def delete_working_periods(form_participations)
+      working_periods_ids = form_participations.values
+                                               .map { |participation| participation['working_periods_attributes'].map { |working_period| working_period['id'] } }
+                                               .flatten
+                                               .compact
+                                               .uniq
+                                               .map(&:to_i)
+
+      intervention_participations_ids = form_participations.values
+                                                           .map { |participation| participation[:id] }
+
+      saved_working_periods_ids = @intervention
+                                  .participations
+                                  .where(id: intervention_participations_ids)
+                                  .map { |participation| participation.working_periods.map(&:id) }
+                                  .flatten
+
+      working_periods_to_destroy = saved_working_periods_ids - working_periods_ids
+      InterventionWorkingPeriod.where(id: working_periods_to_destroy).destroy_all
+
+      @intervention.reload
     end
 
     def state_change_permitted_params
