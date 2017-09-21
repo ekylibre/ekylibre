@@ -170,7 +170,7 @@ $configuring-min-height: 400px;
 
 }
 
-.beehive .box .cell, *[data-cell] {
+.beehive .box .cell, *[data-cell], *[data-async-content] {
   .cell-indicator {
     color: $neutral-color;
     @include is-icon(6 * $fs-normal);

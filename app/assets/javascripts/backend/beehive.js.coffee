@@ -152,36 +152,5 @@
   $(document).ready ->
     # Adds error style on title if necessary
     $(".beehive .cell").raiseContentErrorToCellTitle()
-
-    # Initialize cells loading asynchronously their contents
-    $("*[data-cell]").each (index) ->
-      element = $(this)
-      beehive_cell = element.closest("*[data-beehive-cell]")
-      unless beehive_cell.length
-        beehive_cell = element
-      beehive_cell.addClass("loading")
-      element.html("<i class='cell-indicator'></i>")
-      $.ajax
-        url: element.data("cell")
-        dataType: "html"
-        success: (data, status, request) ->
-          beehive_cell.removeClass("loading")
-          # if $(data).hasClass 'no-data'
-          #   beehive_cell.find('.cell-content').append(data)
-          if $.isBlank(data)
-            beehive_cell.addClass("blank")
-            element.append($("<p class='cell-message'>#{element.data('cell-empty-message')}</p>"))
-            element.trigger('cell:empty')
-          else
-            element.html(data)
-            element.trigger('cell:load')
-            $(window).trigger('resize')
-        error: (request, status, error) ->
-          console.error("Error while retrieving #{element.data('cell')} cell content: #{status} #{error}")
-          beehive_cell.removeClass("loading")
-          beehive_cell.addClass("errored")
-          element.append($("<p class='cell-message'>#{element.data('cell-error-message')}</p>"))
-          element.trigger('cell:error')
-
   true
 ) jQuery
