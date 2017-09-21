@@ -514,12 +514,11 @@ class Intervention < Ekylibre::Record::Base
     nil
   end
 
-  def cost_per_area(role = :input, area_unit = :hectare)
-    zone_area = working_zone_area(area_unit)
-    if zone_area > 0.0.in(area_unit)
+  def cost_per_area(role = :input, area_unit = :hectare, area = nil)
+    area ||= working_zone_area(area_unit)
+    if area > 0.0.in_square_meter
       params = product_parameters.of_generic_role(role)
-      costs = params.map(&:cost).compact
-      return (costs.sum / zone_area.to_d) if costs.any?
+      return (params.map(&:cost).compact.sum / area.to_d) if params.any?
       nil
     end
     nil
