@@ -1064,6 +1064,7 @@ jpn:
     current_assets: "流動資産"
     current_cultivation: "現在の栽培"
     current_result_before_taxe: "taxe前に現在の結果"
+    # current_stock: "Current stock"
     current_stocks_by_variety: "種々の方法により、現在の株式"
     currently_subscribed_to: "現在に加入"
     custom_fields: "カスタムフィールド"
@@ -1107,6 +1108,7 @@ jpn:
     details: "細部"
     direct_margin: "ダイレクトマージン" #?
     discount: "割引（％）"
+    # discount_without_percent: "Discount"
     disease: "疾患"
     disease_deformity_percentage: "病気や奇形の割合"
     disease_percentage: "疾患（％）"
@@ -1705,6 +1707,7 @@ jpn:
     statistics: "統計"
     stewardship: "管理"
     stock: "株式"
+    # stock_after_order: "Stock after order"
     stock_container_map: "ストックマップ"
     stock_in_ground: "地面の株価"
     stock_in_ground_by_calibration: "キャリブレーションによって地面の株式"
@@ -1771,6 +1774,8 @@ jpn:
     tools: "ツール"
     total: "合計"
     total_amount: "合計金額"
+    # total_amount_with_taxes: "Total amount incl. taxes"
+    # total_amount_without_taxes: "Total amount excl. taxes"
     total_cost: "総費用"
     total_earn: "稼ぐ合計" #?
     total_paid_amount: "総支払額" #?

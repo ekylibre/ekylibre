@@ -1214,6 +1214,7 @@ fra:
     current_cultivation: "Culture actuelle"
     current_letter: "Lettre en cours\_: %{letter}" #?
     current_result_before_taxe: "Résulat courant avant impôts"
+    current_stock: "Stock actuel"
     current_stocks_by_variety: "État des stocks"
     currently_subscribed_to: "Actuellement abonné à"
     custom_fields: "Champs personnalisés"
@@ -1268,6 +1269,7 @@ fra:
     details: "Informations complémentaires"
     direct_margin: "Marge directe" #?
     discount: "Réduc. (%)"
+    discount_without_percent: "Remise"
     disease: "Maladie"
     disease_deformity_percentage: "Pourcentage de maladies et malformations"
     disease_percentage: "Maladies (%)"
@@ -2135,6 +2137,7 @@ fra:
     status: "État" #?
     stewardship: "Assistant"
     stock: "Stock"
+    stock_after_order: "Stock après commande"
     stock_container_map: "Carte des lieux de stockage"
     stock_in_ground: "Stock en terre"
     stock_in_ground_by_calibration: "Stock en terre net par calibre"
@@ -2227,6 +2230,8 @@ fra:
     tools_list: "Liste d’outils" #?
     total: "Total"
     total_amount: "Montant total HT"
+    total_amount_with_taxes: "Total TTC"
+    total_amount_without_taxes: "Total HT"
     total_bacteria_concentration: "Dénombrement des germes totaux" #?
     total_cost: "Coût total"
     total_cost_per_working_unit: "Coût total par unité d’œuvre" #?

@@ -172,6 +172,7 @@ fra:
         amount: "Montant TTC" #?
       purchase_order: #?
         command_mode: "Mode de commande" #?
+        description: "Notes" #?
         estimate_reception_date: "Date prévisionnelle de réception" #?
         ordered_at: "Date commande" #?
         reference_number: "Référence fournisseur (n° commande)" #?

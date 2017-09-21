@@ -88,6 +88,9 @@ gem 'sidekiq', '~> 4.0'
 gem 'sidekiq-cron', '>= 0.4.0'
 gem 'sidekiq-unique-jobs', '~> 4.0'
 
+# Decorator pattern
+gem 'draper'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 

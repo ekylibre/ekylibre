@@ -1002,6 +1002,7 @@ por:
     current_assets: "Ativos correntes"
     current_cultivation: "Cultivo atual"
     current_result_before_taxe: "Resultado atual antes taxe"
+    # current_stock: "Current stock"
     current_stocks_by_variety: "Estoques atuais de variedade"
     currently_subscribed_to: "Atualmente subscrito"
     custom_fields: "Os campos personalizados"
@@ -1045,6 +1046,7 @@ por:
     details: "Detalhes"
     direct_margin: "Margem direta" #?
     discount: "Desconto (%)"
+    # discount_without_percent: "Discount"
     disease: "Doença"
     disease_deformity_percentage: "Doença e deformidade percentual"
     disease_percentage: "Doença (%)"
@@ -1638,6 +1640,7 @@ por:
     statistics: "Estatística"
     stewardship: "Mordomia"
     stock: "Stocks"
+    # stock_after_order: "Stock after order"
     stock_container_map: "Estoque mapa"
     stock_in_ground: "Estoque em terra"
     stock_in_ground_by_calibration: "Stocks no chão por calibração"
@@ -1704,6 +1707,8 @@ por:
     tools: "Ferramentas"
     # total: "Total"
     total_amount: "Valor total"
+    # total_amount_with_taxes: "Total amount incl. taxes"
+    # total_amount_without_taxes: "Total amount excl. taxes"
     total_cost: "Custo total"
     total_earn: "Total de ganhar" #?
     total_paid_amount: "Montante total pago" #?

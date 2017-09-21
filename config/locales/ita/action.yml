@@ -1063,6 +1063,7 @@ ita:
     current_assets: "Attività correnti"
     current_cultivation: "la coltivazione di corrente"
     current_result_before_taxe: "Risultato corrente prima della taxe"
+    # current_stock: "Current stock"
     current_stocks_by_variety: "le scorte attuali di varietà"
     currently_subscribed_to: "Attualmente sottoscritto"
     custom_fields: "Campi personalizzati"
@@ -1106,6 +1107,7 @@ ita:
     details: "Dettagli"
     direct_margin: "margine diretto" #?
     discount: "Sconto (%)"
+    # discount_without_percent: "Discount"
     disease: "Malattia"
     disease_deformity_percentage: "percentuale di malattia e la deformità"
     disease_percentage: "Malattia (%)"
@@ -1699,6 +1701,7 @@ ita:
     statistics: "statistica"
     stewardship: "amministrazione"
     stock: "Azione"
+    # stock_after_order: "Stock after order"
     stock_container_map: "della mappa"
     stock_in_ground: "Azione in terra"
     stock_in_ground_by_calibration: "Azioni in terra di calibrazione"
@@ -1765,6 +1768,8 @@ ita:
     tools: "Utensili"
     total: "Totale"
     total_amount: "Importo totale"
+    # total_amount_with_taxes: "Total amount incl. taxes"
+    # total_amount_without_taxes: "Total amount excl. taxes"
     total_cost: "Costo totale"
     total_earn: "totale guadagnare" #?
     total_paid_amount: "importo totale versato" #?

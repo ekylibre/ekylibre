@@ -1310,6 +1310,7 @@ arb:
     current_cultivation: "زراعة الحالية"
     current_letter: "البيانات الحالية : %{letter}" #?
     current_result_before_taxe: "نتيجة الحالية قبل و taxe"
+    # current_stock: "Current stock"
     current_stocks_by_variety: "المخزونات الحالية من قبل متنوعة"
     currently_subscribed_to: "مشترك حاليا ل"
     custom_field_choice_create: "اضافة خيار جديد للقائمة" #?
@@ -1373,6 +1374,7 @@ arb:
     details: "معلومات اضافية"
     direct_margin: "هامش المباشر" #?
     discount: "الخصم (%)"
+    # discount_without_percent: "Discount"
     disease: "مرض"
     disease_deformity_percentage: "نسبة المرض والتشوه"
     disease_percentage: "مرض (٪)"
@@ -2236,6 +2238,7 @@ arb:
     statistics: "إحصائيات"
     stewardship: "إدارة"
     stock: "مخزون"
+    # stock_after_order: "Stock after order"
     stock_container_map: "خريطة الأسهم"
     stock_in_ground: "الأسهم في الأرض"
     stock_in_ground_by_calibration: "أسهم في الأرض عن طريق المعايرة"
@@ -2319,6 +2322,8 @@ arb:
     tools: "مادة مستخدمة"
     total: "المجموع"
     total_amount: "صافي اجمالي الكمية"
+    # total_amount_with_taxes: "Total amount incl. taxes"
+    # total_amount_without_taxes: "Total amount excl. taxes"
     total_cost: "التكلفة الإجمالية"
     total_earn: "إجمالي كسب" #?
     total_invoiced_amount: "فواتير المبلغ الاجمالي" #?

@@ -1245,6 +1245,7 @@ eng:
     current_assets: "Current assets" #?!
     current_cultivation: "Current cultivation"
     current_result_before_taxe: "Current result before taxe" #?!
+    current_stock: "Current stock"
     current_stocks_by_variety: "Current stocks by variety" #?
     currently_subscribed_to: "Currently subscribed to"
     custom_fields: "Custom fields"
@@ -1290,6 +1291,7 @@ eng:
     detail: "Detail"
     details: "Details"
     discount: "Discount (%)" #?
+    discount_without_percent: "Discount"
     disease: "Disease" #?
     disease_deformity_percentage: "Disease and deformity percentage"
     disease_percentage: "Disease (%)" #?
@@ -1876,6 +1878,7 @@ eng:
     statistics: "Statistics" #?
     stewardship: "Stewardship"
     stock: "Stock" #?
+    stock_after_order: "Stock after order"
     stock_container_map: "Stock map" #?
     stock_in_ground: "Stock in ground"
     stock_in_ground_by_calibration: "Stocks in ground by calibration"
@@ -1942,7 +1945,9 @@ eng:
     tool_cost: "Tool cost"
     tools: "Tools"
     total: "Total"
-    total_amount: "Total amount" #??
+    total_amount: "Total amount" #?
+    total_amount_with_taxes: "Total amount incl. taxes"
+    total_amount_without_taxes: "Total amount excl. taxes"
     total_cost: "Total cost"
     total_pretax_expenses: "Total pre-tax expenses"
     total_pretax_revenues: "Total pre-tax revenues"

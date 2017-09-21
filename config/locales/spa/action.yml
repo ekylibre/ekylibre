@@ -1095,6 +1095,7 @@ spa:
     current_cultivation: "El cultivo actual"
     current_letter: "Carta en curso\_: %{letter}" #?
     current_result_before_taxe: "Resultado actual antes taxe"
+    # current_stock: "Current stock"
     current_stocks_by_variety: "Existencias actuales de variedad"
     currently_subscribed_to: "Actualmente suscrito"
     custom_fields: "Campos Personalizados"
@@ -1150,6 +1151,7 @@ spa:
     details: "Detalles"
     direct_margin: "Margen directo" #?
     discount: "Descuento (%)"
+    # discount_without_percent: "Discount"
     disease: "Enfermedad"
     disease_deformity_percentage: "Enfermedades y deformidad porcentaje"
     disease_percentage: "Enfermedad (%)"
@@ -1856,6 +1858,7 @@ spa:
     statistics: "Estadística"
     stewardship: "Administración"
     stock: "Valores"
+    # stock_after_order: "Stock after order"
     stock_container_map: "Foto mapa"
     stock_in_ground: "Stock en planta"
     stock_in_ground_by_calibration: "Las existencias en planta de calibración"
@@ -1927,6 +1930,8 @@ spa:
     tools: "Instrumentos"
     total: "Total"
     total_amount: "Total importe HT"
+    # total_amount_with_taxes: "Total amount incl. taxes"
+    # total_amount_without_taxes: "Total amount excl. taxes"
     total_cost: "Coste total"
     total_earn: "Ganan total" #?
     total_invoiced_amount: "Total importe facturado" #?
