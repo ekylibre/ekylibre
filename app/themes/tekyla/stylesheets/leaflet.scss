@@ -969,6 +969,9 @@
     margin-top: 8px;
   }
 
+  &.leaflet-hidden-control {
+    display: none;
+  }
 }
 
 
@@ -1073,4 +1076,17 @@ span.leaflet-importer-geojson, span.leaflet-importer-gml {
     display: block;
     height: 44px;
   }
+}
+
+.leaflet-dynamic-loading {
+  color: $text-color;
+  @include is-icon;
+  @include use-icon(circle-o-notch);
+  @include animation(loading-rotate 2s infinite linear);
+  @include text-align(center);
+  width: $map-button-size;
+  height: $map-button-size;
+  line-height: $map-button-size;
+  background-color: $white;
+  border-radius: 50%;
 }
