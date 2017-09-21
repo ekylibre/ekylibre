@@ -1087,4 +1087,6 @@ span.leaflet-importer-geojson, span.leaflet-importer-gml {
   width: $map-button-size;
   height: $map-button-size;
   line-height: $map-button-size;
+  background-color: $white;
+  border-radius: 50%;
 }
