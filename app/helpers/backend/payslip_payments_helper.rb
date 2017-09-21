@@ -47,8 +47,9 @@ module Backend
       fy = FinancialYear.current
       params[name] = value ||= :all
       # params[:period] = value ||= :all # (fy ? fy.started_on.to_s + "_" + fy.stopped_on.to_s : :all)
-      custom_id = "#{configuration[:id]}_#{configuration[:custom]}"
+      custom_id = "#{configuration[:id]}"
       toggle_method = "toggle#{custom_id.camelcase}"
+
       if configuration[:custom]
         params["#{name}_started_on"] =
                               if params["#{name}_started_on"].present?
@@ -75,9 +76,7 @@ module Backend
 
       code << select_tag(name, options_for_select(list, value), :id => custom_id, 'data-show-value' => "##{configuration[:id]}_")
 
-      # if configuration[:custom]
       code << ' ' << content_tag(:span, :manual_period.tl(start: date_field_tag("#{name}_started_on".to_sym, params["#{name}_started_on"], size: 10), finish: date_field_tag("#{name}_stopped_on".to_sym, params["#{name}_stoped_on"], size: 10)).html_safe, id: "#{configuration[:id]}_interval")
-      # end
 
       code.html_safe
     end
