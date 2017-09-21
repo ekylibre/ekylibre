@@ -6388,8 +6388,6 @@ products:
     type: integer
   picture_updated_at:
     type: datetime
-  reading_cache:
-    type: jsonb
   team_id:
     type: integer
     references: team

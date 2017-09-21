@@ -2043,6 +2043,10 @@
     </group>
   </inaccessible-actions>
   <untreated-actions>
-    <group/>
+    <group>
+      <item name="map_editors">
+        <page to="backend/map_editors#shapes"/>
+      </item>
+    </group>
   </untreated-actions>
 </navigation>
