@@ -723,6 +723,7 @@ arb:
             started_on:
               consecutive: "يجب ان تكون محاسبة السنة المالية بصف آخر، ويجب ان تبدأ بعد نهاية العام السابق"
               frozen: "لا يمكن تغيير التاريخ العام المالي عندما تم إنشاء الصرف."
+              # on_or_after: "The date selected must be posterior to society's creation date (%{restriction})"
             stopped_on:
               end_of_month: "%{attribute} يجب ان يكون التاريخ في نهاية الشهر"
           overlap: "%{attribute} متواجد على قائمة السنة المالية الحالية"
@@ -1427,6 +1428,7 @@ arb:
     direction_label: "النوع" #?
     discount: "(%خصم (بنسبة  " #?
     discount_rate: "سعر الخصم" #?
+    # distributed_on_productions: "Distributed on productions"
     distributions: "التوزيعات"
     district: "المنطقة"
     district_id: "المنطقة الادارية" #?
@@ -2155,6 +2157,7 @@ arb:
     rank_number: "عدد رتبة"
     rate: "معدل سعر الصرف" #?
     read_at: "قراءة في"
+    # reading_cache: "Reading cache"
     reading_tasks: "مهام القراءة"
     readings: "قراءات"
     real_balance: "التوازن الحقيقي"

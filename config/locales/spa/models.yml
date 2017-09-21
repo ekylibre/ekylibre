@@ -154,6 +154,7 @@ spa:
             started_on:
               consecutive: "Los ejercicios deben ser consecutivos. Debe comenzar tras el fin de la anterior."
               frozen: "La fecha de ejercicio no se puede cambiar cuando se ha creado un intercambio."
+              # on_or_after: "The date selected must be posterior to society's creation date (%{restriction})"
             stopped_on:
               # end_of_month: "%{attribute} must be an end of month"
           # overlap: "%{attribute} overlaps an existing financial year"
@@ -688,6 +689,7 @@ spa:
     device_uid: "UID dispositivo"
     direct_links: "Los enlaces directos"
     direction: "Dirección"
+    # distributed_on_productions: "Distributed on productions"
     distributions: "Distribuciones"
     district: "Distrito"
     division: "X" #?
@@ -1259,6 +1261,7 @@ spa:
     query: "Consulta"
     rank_number: "Número de rango"
     read_at: "Lea por lo"
+    # reading_cache: "Reading cache"
     reading_tasks: "Tareas de lectura"
     readings: "Lecturas"
     real_balance: "Equilibrio real"

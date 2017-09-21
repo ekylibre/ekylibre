@@ -208,7 +208,7 @@ module ChartsHelper
     '#' + r.to_i.to_s(16).rjust(2, '0') + g.to_i.to_s(16).rjust(2, '0') + b.to_i.to_s(16).rjust(2, '0')
   end
 
-  for type, absolute_type in TYPES
+  TYPES.each do |type, absolute_type|
     code = "def #{type}_highcharts(series, options = {}, html_options = {})\n"
     code << "  options[:chart] ||= {}\n"
     code << "  options[:chart][:type] = '#{absolute_type}'\n"
@@ -224,7 +224,7 @@ module ChartsHelper
     code << "  end\n"
     code << "  series = [series] unless series.is_a?(Array)\n"
     code << "  options[:series] = series\n"
-    for name, absolute_name in OPTIONS
+    OPTIONS.each do |name, _absolute_name|
       if %i[legend credits].include?(name)
         code << "  if options.has_key?(:#{name})\n"
         code << "    options[:#{name}] = {enabled: true} if options[:#{name}].is_a?(TrueClass)\n"

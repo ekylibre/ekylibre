@@ -154,6 +154,7 @@ jpn:
             started_on:
               consecutive: "会計年度はconsecutivesでなければなりません。これは、前回の終了後に開始する必要があります。"
               frozen: "交換が作成されたときの会計年度の日付を変更することはできません。"
+              # on_or_after: "The date selected must be posterior to society's creation date (%{restriction})"
             stopped_on:
               # end_of_month: "%{attribute} must be an end of month"
           # overlap: "%{attribute} overlaps an existing financial year"
@@ -685,6 +686,7 @@ jpn:
     device_uid: "デバイスのUID"
     direct_links: "直接リンク"
     direction: "方向"
+    # distributed_on_productions: "Distributed on productions"
     distributions: "ディストリビューション"
     district: "地区"
     document: "資料"
@@ -1255,6 +1257,7 @@ jpn:
     query: "クエリー"
     rank_number: "ランク番号"
     read_at: "読みます"
+    # reading_cache: "Reading cache"
     reading_tasks: "読書のタスク"
     readings: "音読み"
     real_balance: "実質残高"

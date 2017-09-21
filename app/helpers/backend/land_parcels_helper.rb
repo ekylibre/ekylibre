@@ -4,7 +4,8 @@ module Backend
       options[:collection] ||= LandParcel.all
       main_serie = []
       options[:collection].each do |p|
-        next unless p.shape
+        land_parcel_shape = p.shape
+        next unless land_parcel_shape
         popup_content = []
 
         # for all land_parcel
@@ -15,27 +16,38 @@ module Backend
 
         # for indicators in list
         indicators = %i[soil_nature potential_hydrogen available_water_capacity_per_area soil_depth organic_matter_concentration]
-        indicators.each do |indicator|
-          next unless p.send(indicator).present? && (p.send(indicator).to_d > 0.0)
+        available_indicators = (p.readings.map(&:indicator_name).map(&:to_sym) & indicators)
+
+        serie = {
+          name: p.name,
+          shape: land_parcel_shape,
+          potential_hydrogen: 0.0,
+          organic_matter_concentration: 0.0,
+          available_water_capacity_per_area: 0.0,
+          soil_nature: :unknown.tl
+        }
+
+        available_indicators.each do |indicator|
+          indicator_value = p.send(indicator)
+          next unless indicator_value.present? && (indicator_value.to_d > 0.0)
+
+          if indicator == :soil_nature
+            soil_nature = Nomen::SoilNature[p.soil_nature]
+            serie[:soil_nature] = soil_nature ? soil_nature.human_name : :unknown.tl
+          else
+            serie[indicator] = indicator_value.to_d
+          end
+
           popup_content << {
             label: Nomen::Indicator[indicator].human_name,
-            value: p.send(indicator).l
+            value: indicator_value.l
           }
         end
+
         popup_content << render('popup', land_parcel: p)
 
-        main_serie << {
-          name: p.name,
-          shape: p.shape,
-          potential_hydrogen: p.potential_hydrogen.to_d,
-          organic_matter_concentration: p.organic_matter_concentration.to_d,
-          available_water_capacity_per_area: p.available_water_capacity_per_area.to_d,
-          soil_nature: (Nomen::SoilNature[p.soil_nature] ? Nomen::SoilNature[p.soil_nature].human_name : :unknown.tl),
-          popup: {
-            header: true,
-            content: popup_content
-          }
-        }
+        serie[:popup] = { header: true, content: popup_content }
+        main_serie << serie
       end
 
       if main_serie.any?

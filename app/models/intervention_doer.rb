@@ -75,4 +75,10 @@ class InterventionDoer < InterventionAgent
       event_participation.destroy!
     end
   end
+
+  def working_duration_params
+    { intervention: intervention,
+      participation: participation,
+      product: product }
+  end
 end

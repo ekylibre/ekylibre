@@ -7,7 +7,6 @@ namespace :clean do
     log.write(">> Init\n") if verbose
 
     errors = { fixtures: 0 }
-    source = nil
 
     log.write(">> Start!\n") if verbose
 
@@ -63,7 +62,6 @@ namespace :clean do
           next
         end
 
-        model = table.singularize.camelize.constantize
         attributes = columns.keys.map(&:to_s)
 
         required_attributes = columns.values.select { |c| !c.null? && c.default.nil? }.map(&:name).map(&:to_s)

@@ -206,7 +206,7 @@ module Backend
       else
         raise 'Need selection'
       end
-      selection = selection - Indicateable::DEPRECATED if attribute_name == :variable_indicators_list || attribute_name == :frozen_indicators_list
+      selection -= Indicateable::DEPRECATED if attribute_name == :variable_indicators_list || attribute_name == :frozen_indicators_list
       list = @object.send(attribute_name) || []
       input(attribute_name, options) do
         @template.content_tag(:span, class: 'control-group symbol-list') do
@@ -324,7 +324,10 @@ module Backend
       editor[:back] ||= MapLayer.available_backgrounds.collect(&:to_json_object)
       editor[:overlays] ||= MapLayer.available_overlays.collect(&:to_json_object)
 
-      input(attribute_name, options.deep_merge(input_html: { data: { map_editor: editor } }))
+      no_map = options.delete(:no_map)
+      map_options = {}
+      map_options = { input_html: { data: { map_editor: editor } } } unless no_map
+      input(attribute_name, options.deep_merge(map_options))
     end
 
     def shape_field(attribute_name = :shape, options = {})

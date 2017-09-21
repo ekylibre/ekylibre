@@ -164,7 +164,7 @@ class SaleItem < Ekylibre::Record::Base
     end
     if variant
       self.account_id = variant.nature.category.product_account_id
-      self.label ||= variant.commercial_name
+      self.label = variant.commercial_name
     end
   end
 
@@ -198,7 +198,7 @@ class SaleItem < Ekylibre::Record::Base
   end
 
   def designation
-    d = self.label
+    d = label
     d << "\n" + annotation.to_s if annotation.present?
     d << "\n" + tc(:tracking, serial: tracking.serial.to_s) if tracking
     d

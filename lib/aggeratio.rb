@@ -134,7 +134,6 @@ module Aggeratio
       code = "class #{agg.class_name} < Aggregator\n"
 
       parameters = agg.parameters
-      root = agg.root
 
       code << "  class << self\n"
 

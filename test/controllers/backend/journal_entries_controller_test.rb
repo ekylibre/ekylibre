@@ -80,5 +80,31 @@ module Backend
         assert_select 'tbody.nested-fields'
       end
     end
+
+    test 'currency_state returns the right exchange_rate according to financial_year currency' do
+      FinancialYear.delete_all
+      create(:financial_year, currency: 'FRF')
+      user = create(:user)
+      sign_in(user)
+      get :currency_state, on: '01/06/1994', from: 'EUR'
+      assert_equal 6.55957, JSON.parse(@response.body)['exchange_rate']
+    end
+
+    test 'currency_state returns 1 if target currency is the same as source currency' do
+      FinancialYear.delete_all
+      create(:financial_year, currency: 'EUR')
+      user = create(:user)
+      sign_in(user)
+      get :currency_state, on: '01/06/1994', from: 'EUR'
+      assert_equal 1, JSON.parse(@response.body)['exchange_rate']
+    end
+
+    test 'currency_state returns empty object when no financial_year is present' do
+      FinancialYear.delete_all
+      user = create(:user)
+      sign_in(user)
+      get :currency_state, on: '01/06/1900', from: 'EUR'
+      assert_empty JSON.parse(@response.body)
+    end
   end
 end

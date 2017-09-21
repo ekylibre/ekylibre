@@ -154,6 +154,7 @@ por:
             started_on:
               consecutive: "Os exercícios devem ser consecutivos. Deve iniciar após o final do anterior."
               frozen: "A data de exercício não pode ser alterado quando um intercâmbio foi criado."
+              # on_or_after: "The date selected must be posterior to society's creation date (%{restriction})"
             stopped_on:
               # end_of_month: "%{attribute} must be an end of month"
           # overlap: "%{attribute} overlaps an existing financial year"
@@ -685,6 +686,7 @@ por:
     device_uid: "UID dispositivo"
     direct_links: "As ligações directas"
     direction: "Direção"
+    # distributed_on_productions: "Distributed on productions"
     distributions: "Distribuições"
     district: "Distrito"
     document: "Documento"
@@ -1255,6 +1257,7 @@ por:
     query: "Pergunta"
     rank_number: "Número de classificação"
     read_at: "Leia pelo"
+    # reading_cache: "Reading cache"
     reading_tasks: "Tarefas de leitura"
     readings: "Leituras"
     real_balance: "SALDO"
