@@ -606,12 +606,12 @@ module Backend
       if child_scope
         varieties.keep_if { |(_l, n)| child_scope.all? { |c| c.variety? && Nomen::Variety.find(c.variety) <= n } }
       end
-      @object.variety ||= scope.variety if scope
-      @object.variety ||= varieties.first.last if @object.new_record? && varieties.first
+      @object.variety ||= scope.variety if scope && options[:as].blank?
+      @object.variety ||= varieties.first.last if @object.new_record? && varieties.first && options[:as].blank?
       if options[:derivative_of] || (scope && scope.derivative_of)
         derivatives = Nomen::Variety.selection(scope ? scope.derivative_of : nil)
-        @object.derivative_of ||= scope.derivative_of if scope
-        @object.derivative_of ||= derivatives.first.last if @object.new_record? && derivatives.first
+        @object.derivative_of ||= scope.derivative_of if scope && options[:as].blank?
+        @object.derivative_of ||= derivatives.first.last if @object.new_record? && derivatives.first && options[:as].blank?
         if child_scope
           derivatives.keep_if { |(_l, n)| child_scope.all? { |c| c.derivative_of? && Nomen::Variety.find(c.derivative_of) <= n } }
         end
@@ -621,15 +621,16 @@ module Backend
           field = ('<span class="add-on">' <<
                    ERB::Util.h(:x_of_y.tl(x: '{@@@@VARIETY@@@@}', y: '{@@@@DERIVATIVE@@@@}')) <<
                    '</span>')
+          field = '<span class="add-on">{@@@@VARIETY@@@@}{@@@@DERIVATIVE@@@@}</span>' if options[:as].present?
           field.gsub!('{@@', '</span>')
           field.gsub!('@@}', '<span class="add-on">')
           field.gsub!('<span class="add-on"></span>', '')
-          field.gsub!('@@VARIETY@@', input_field(:variety, as: :select, collection: varieties))
-          field.gsub!('@@DERIVATIVE@@', input(:derivative_of, as: :select, collection: derivatives, wrapper: :nested))
+          field.gsub!('@@VARIETY@@', input_field(:variety, as: (options[:as] || :select), collection: varieties))
+          field.gsub!('@@DERIVATIVE@@', input(:derivative_of, as: (options[:as] || :select), collection: derivatives, wrapper: (options[:as].present? ? nil : :nested)))
           field.html_safe
         end
       else
-        return input(:variety, collection: varieties)
+        return input(:variety, collection: varieties, as: options[:as])
       end
     end
 

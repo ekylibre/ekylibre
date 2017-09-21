@@ -34,6 +34,7 @@ module Procedo
       class Reading < Base; end # Abstract
       class IndividualReading < Reading; end
       class WholeReading < Reading; end
+      class FunctionCallTest < Base; end
       class FunctionCall < Base; end
       class FunctionName < Base; end
       class EnvironmentVariable < Base; end

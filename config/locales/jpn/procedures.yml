@@ -228,6 +228,7 @@ jpn:
     sifting: "精査"
     silage_unload: "サイレージのアンロード" #?
     sowing: "種蒔き"
+    # sowing_v2: "Seeding"
     sowing_with_spraying: "噴霧で播種"
     spraying: "吹きかけます"
     standard_enclosing: "標準囲んで"

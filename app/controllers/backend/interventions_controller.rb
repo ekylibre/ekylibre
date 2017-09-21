@@ -290,20 +290,20 @@ module Backend
         return
       end
       intervention = Procedo::Engine.new_intervention(intervention_params)
-      begin
-        intervention.impact_with!(params[:updater])
-        updater_id = 'intervention_' + params[:updater].gsub('[', '_attributes_').tr(']', '_')
-        # raise intervention.to_hash.inspect
-        respond_to do |format|
-          # format.xml  { render xml: intervention.to_xml }
-          format.json { render json: { updater_id: updater_id, intervention: intervention, handlers: intervention.handlers_states, procedure_states: intervention.procedure_states }.to_json }
-        end
-      rescue Procedo::Error => e
-        respond_to do |format|
-          # format.xml  { render xml:  { errors: e.message }, status: 500 }
-          format.json { render json: { errors: e.message }, status: 500 }
-        end
+      # begin
+      intervention.impact_with!(params[:updater])
+      updater_id = 'intervention_' + params[:updater].gsub('[', '_attributes_').tr(']', '_')
+      # raise intervention.to_hash.inspect
+      respond_to do |format|
+        # format.xml  { render xml: intervention.to_xml }
+        format.json { render json: { updater_id: updater_id, intervention: intervention, handlers: intervention.handlers_states, procedure_states: intervention.procedure_states }.to_json }
       end
+      # rescue Procedo::Error => e
+      #   respond_to do |format|
+      #     format.xml  { render xml:  { errors: e.message }, status: 500 }
+      #     format.json { render json: { errors: e.message }, status: 500 }
+      #   end
+      # end
     end
 
     def modal

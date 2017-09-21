@@ -228,6 +228,7 @@ deu:
     sifting: "Sichtung"
     silage_unload: "Silageentnahme" #?
     sowing: "Aussaat"
+    # sowing_v2: "Seeding"
     sowing_with_spraying: "Aussaat mit Spritzen"
     spraying: "Sprühen"
     standard_enclosing: "Standard einschließe"

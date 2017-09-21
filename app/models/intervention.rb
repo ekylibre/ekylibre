@@ -82,6 +82,7 @@ class Intervention < Ekylibre::Record::Base
     has_many :doers, class_name: 'InterventionDoer'
     has_many :inputs, class_name: 'InterventionInput'
     has_many :outputs, class_name: 'InterventionOutput'
+    has_many :settings, class_name: 'InterventionSetting'
     has_many :targets, class_name: 'InterventionTarget'
     has_many :tools, class_name: 'InterventionTool'
     has_many :working_periods, class_name: 'InterventionWorkingPeriod'
@@ -108,7 +109,7 @@ class Intervention < Ekylibre::Record::Base
   calculable period: :month, column: :working_duration, at: :started_at, name: :sum
 
   acts_as_numbered
-  accepts_nested_attributes_for :group_parameters, :doers, :inputs, :outputs, :targets, :tools, :working_periods, allow_destroy: true
+  accepts_nested_attributes_for :group_parameters, :doers, :inputs, :outputs, :targets, :settings, :tools, :working_periods, allow_destroy: true
   accepts_nested_attributes_for :labellings, allow_destroy: true
 
   scope :between, lambda { |started_at, stopped_at|
@@ -360,6 +361,7 @@ class Intervention < Ekylibre::Record::Base
           { doers: :group },
           { inputs: :group },
           { outputs: :group },
+          { settings: :group },
           { targets: :group },
           { tools: :group },
           :working_periods

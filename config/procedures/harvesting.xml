@@ -10,8 +10,9 @@
           <compute to="population" expr="area(VALUE) / PRODUCT..net_surface_area(square_meter)"/>
         </handler>
       </target>
-      <output name="matters" derivative-of="variety: plant" filter="is matter and derives from plant" default-name="{{variant}} [{{birth_day}}/{{birth_month}}/{{birth_year}}] ({{container}})">
+      <output name="matters" filter="is matter and derives from plant" compute-filter="'is matter and %{derives_from(variety_of(plant))}'" default-name="{{variant}} [{{birth_day}}/{{birth_month}}/{{birth_year}}] ({{container}})">
         <attribute name="new_name"/>
+        <attribute name="derivative_of" value="variety_of(plant)"/>
         <handler name="population"/>
         <handler indicator="net_mass" unit="quintal"
                  if="VARIANT? and VARIANT.net_mass?"

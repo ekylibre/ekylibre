@@ -2995,6 +2995,7 @@ fra:
         soil_cleaning: "Désinfection du sol"
         soil_enrichment: "Amendement"
         sowing: "Semis"
+        sowing_v2: "Semis" #?
         straw_processing: "Fenaisson et pressage de fourrages"
         straw_transport: "Transport de fourrages"
         technical_task: "Tâche technique"

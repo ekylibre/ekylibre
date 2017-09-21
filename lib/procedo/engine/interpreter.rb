@@ -67,6 +67,8 @@ module Procedo
           end
         elsif node.is_a?(Procedo::Formula::Language::NegativeTest)
           !run(node.negated_test)
+        elsif node.is_a?(Procedo::Formula::Language::FunctionCallTest)
+          !!run(node.function_call)
         elsif node.is_a?(Procedo::Formula::Language::FunctionCall)
           arguments = []
           args = node.args

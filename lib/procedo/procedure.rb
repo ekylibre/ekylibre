@@ -7,9 +7,9 @@ module Procedo
     ROOT_NAME = 'root_'.freeze
 
     attr_reader :id, :name, :categories, :mandatory_actions, :optional_actions, :varieties
-    delegate :add_product_parameter, :add_group_parameter, :find, :find!,
+    delegate :add_product_parameter, :add_group_parameter, :add_setting, :find, :find!,
              :each_product_parameter, :each_group_parameter, :each_parameter,
-             :product_parameters, :group_parameters,
+             :product_parameters, :group_parameters, :settings,
              :position_of, :parameters_of_type, to: :root_group
 
     class << self

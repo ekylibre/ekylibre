@@ -396,6 +396,7 @@ fra:
     silage_transport: "Transport d'ensilage" #?
     silage_unload: "Alimentation d’un troupeau via désileuse" #?
     sowing: "Semis"
+    sowing_v2: "Semis"
     sowing_with_insecticide_and_molluscicide: "Semis (avec insecticide et molluscicide)" #?
     sowing_with_spraying: "Semis avec pulvérisation"
     spraying: "Pulvérisation"

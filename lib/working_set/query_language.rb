@@ -31,12 +31,50 @@ module WorkingSet
           r2 = SyntaxNode.new(input, (index-1)...index) if r2 == true
           r0 = r2
         else
+          r3 = _nt_boolean_value
+          if r3
+            r3 = SyntaxNode.new(input, (index-1)...index) if r3 == true
+            r0 = r3
+          else
+            @index = i0
+            r0 = nil
+          end
+        end
+      end
+
+      node_cache[:boolean_expression][start_index] = r0
+
+      r0
+    end
+
+    def _nt_boolean_value
+      start_index = index
+      if node_cache[:boolean_value].has_key?(index)
+        cached = node_cache[:boolean_value][index]
+        if cached
+          node_cache[:boolean_value][index] = cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
+          @index = cached.interval.end
+        end
+        return cached
+      end
+
+      i0 = index
+      r1 = _nt_false
+      if r1
+        r1 = SyntaxNode.new(input, (index-1)...index) if r1 == true
+        r0 = r1
+      else
+        r2 = _nt_true
+        if r2
+          r2 = SyntaxNode.new(input, (index-1)...index) if r2 == true
+          r0 = r2
+        else
           @index = i0
           r0 = nil
         end
       end
 
-      node_cache[:boolean_expression][start_index] = r0
+      node_cache[:boolean_value][start_index] = r0
 
       r0
     end
@@ -1948,6 +1986,54 @@ module WorkingSet
       r0 = instantiate_node(SyntaxNode,input, i0...index, s0)
 
       node_cache[:space][start_index] = r0
+
+      r0
+    end
+
+    def _nt_false
+      start_index = index
+      if node_cache[:false].has_key?(index)
+        cached = node_cache[:false][index]
+        if cached
+          node_cache[:false][index] = cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
+          @index = cached.interval.end
+        end
+        return cached
+      end
+
+      if (match_len = has_terminal?("false", false, index))
+        r0 = instantiate_node(False,input, index...(index + match_len))
+        @index += match_len
+      else
+        terminal_parse_failure('"false"')
+        r0 = nil
+      end
+
+      node_cache[:false][start_index] = r0
+
+      r0
+    end
+
+    def _nt_true
+      start_index = index
+      if node_cache[:true].has_key?(index)
+        cached = node_cache[:true][index]
+        if cached
+          node_cache[:true][index] = cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
+          @index = cached.interval.end
+        end
+        return cached
+      end
+
+      if (match_len = has_terminal?("true", false, index))
+        r0 = instantiate_node(True,input, index...(index + match_len))
+        @index += match_len
+      else
+        terminal_parse_failure('"true"')
+        r0 = nil
+      end
+
+      node_cache[:true][start_index] = r0
 
       r0
     end

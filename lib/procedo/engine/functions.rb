@@ -5,6 +5,36 @@ module Procedo
     # This module all functions accessible through formula language
     module Functions
       class << self
+        def derives_from(value)
+          value.blank? ? '(false)' : "derives from #{value}"
+        end
+
+        def derivative_of(product_or_set)
+          return product_or_set.derivative_of if product_or_set.respond_to? :derivative_of
+          return nil if product_or_set.blank?
+          set = product_or_set.to_a
+          variety = set.present? ? Nomen::Variety.lowest_common_ancestor_of(*set.map(&:derivative_of).compact) : nil
+          variety && variety.name
+        rescue
+          raise Procedo::Errors::FailedFunctionCall
+        end
+
+        def variety_of(product_or_set)
+          return product_or_set.variety if product_or_set.respond_to? :variety
+          return nil if product_or_set.blank?
+          set = product_or_set.to_a
+          variety = set.present? ? Nomen::Variety.lowest_common_ancestor_of(*set.map(&:variety).compact) : nil
+          variety && variety.name
+        rescue
+          raise Procedo::Errors::FailedFunctionCall
+        end
+
+        def setting_value(settings)
+          return settings.value if settings.respond_to?(:value)
+          params = settings.parameters
+          params.length > 1 ? params.map(&:value) : params.first && params.first.value
+        end
+
         def miscibility(set)
           products = set.map do |parameter|
             next parameter.variant if parameter.respond_to? :variant
@@ -78,8 +108,34 @@ module Procedo
           set.first
         end
 
-        def first_product_of(set)
-          set.parameters.first.product if set.parameters.first
+        def first_product_of(set_or_product)
+          if set_or_product.respond_to?(:product) && !set_or_product.is_a?(Array)
+            parameter = set_or_product
+            parameter.product
+          else
+            set = set_or_product
+            set.respond_to?(:parameters) ? set.parameters.first.product : set.first.product
+          end
+        end
+
+        def last_product_of(set_or_product)
+          if set_or_product.respond_to?(:product) && !set_or_product.is_a?(Array)
+            parameter = set_or_product
+            parameter.product
+          else
+            set = set_or_product
+            set.respond_to?(:parameters) ? set.parameters.last.product : set.last.product
+          end
+        end
+
+        def products_of(set_or_product)
+          if set_or_product.respond_to?(:product) && !set_or_product.is_a?(Array)
+            parameter = set_or_product
+            [parameter.product]
+          else
+            set = set_or_product
+            set.respond_to?(:parameters) ? set.parameters.map(&:product) : set.map(&:product)
+          end
         end
 
         def parent(parameter)
@@ -140,17 +196,15 @@ module Procedo
           "#{name} n°#{ordered} #{born_at}"
         end
 
-        def variety_of(product)
-          return product.variety
-        rescue
-          raise Procedo::Errors::FailedFunctionCall
-        end
-
-        def variant_of(product)
-          return product.member_variant unless product.nil?
-          nil
-        rescue
-          raise Procedo::Errors::FailedFunctionCall
+        def variant_of(product_or_set)
+          if product_or_set.respond_to? :parameters
+            set = product_or_set
+            parameters = set.parameters
+            parameters.map { |param| param.respond_to?(:variant) ? param.variant : param.product && param.product.variant }
+          else
+            product = product_or_set
+            return product.member_variant unless product.nil?
+          end
         end
 
         def father_of(vial)

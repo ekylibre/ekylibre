@@ -287,14 +287,16 @@ module Nomen
       @name.to_s.pluralize
     end
 
+    def lowest_common_ancestor_of(*items)
+      return nil if items.blank?
+      items
+        .map { |item| item.is_a?(Nomen::Item) ? item : find(item) }
+        .map(&:self_and_parents).reduce(&:&).first
+    end
+
     # Returns hash with items in tree: {a => nil, b => {c => nil}}
     def tree
-      x = @roots.collect(&:tree).join
-      return x
-      i.attributes.merge(parent: i.parent_name, name: i.name, left: i.left, right: i.right, depth: i.depth).deep_stringify_keys
-      return x
-      @roots.map do |_i|
-      end
+      @roots.collect(&:tree).join
     end
 
     def translateable?

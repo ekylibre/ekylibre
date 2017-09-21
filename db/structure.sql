@@ -440,7 +440,9 @@ CREATE TABLE intervention_parameters (
     currency character varying,
     unit_pretax_stock_amount numeric(19,4) DEFAULT 0.0 NOT NULL,
     dead boolean DEFAULT false NOT NULL,
-    identification_number character varying
+    identification_number character varying,
+    variety character varying,
+    derivative_of character varying
 );
 
 
@@ -17831,6 +17833,8 @@ INSERT INTO schema_migrations (version) VALUES ('20170328125742');
 INSERT INTO schema_migrations (version) VALUES ('20170407143621');
 
 INSERT INTO schema_migrations (version) VALUES ('20170408094408');
+
+INSERT INTO schema_migrations (version) VALUES ('20170412154734');
 
 INSERT INTO schema_migrations (version) VALUES ('20170413073501');
 

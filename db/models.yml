@@ -90,6 +90,7 @@
 - intervention_parameter_reading
 - intervention_participation
 - intervention_product_parameter
+- intervention_setting
 - intervention_target
 - intervention_tool
 - intervention_working_period

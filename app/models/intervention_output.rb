@@ -28,6 +28,7 @@
 #  creator_id               :integer
 #  currency                 :string
 #  dead                     :boolean          default(FALSE), not null
+#  derivative_of            :string
 #  event_participation_id   :integer
 #  group_id                 :integer
 #  id                       :integer          not null, primary key
@@ -52,6 +53,7 @@
 #  updated_at               :datetime         not null
 #  updater_id               :integer
 #  variant_id               :integer
+#  variety                  :string
 #  working_zone             :geometry({:srid=>4326, :type=>"multi_polygon"})
 #
 
@@ -65,19 +67,20 @@ class InterventionOutput < InterventionProductParameter
 
   after_save do
     unless destroyed?
-      output = product
-      output ||= variant.products.new unless output
-      output.type = variant.matching_model.name
-      output.born_at = intervention.started_at
-      output.initial_born_at = output.born_at
-      output.name = new_name if new_name.present?
-      output.identification_number = identification_number if identification_number.present?
-      # output.attributes = product_attributes
-      reading = readings.find_by(indicator_name: :shape)
-      output.initial_shape = reading.value if reading
-      output.save!
-
       if intervention.record?
+        output = product
+        output ||= variant.products.new unless output
+        output.type = variant.matching_model.name
+        output.born_at = intervention.started_at
+        output.initial_born_at = output.born_at
+        output.name = new_name if new_name.present?
+        output.variety = variety if variety.present?
+        output.derivative_of = derivative_of if derivative_of.present?
+        # output.attributes = product_attributes
+        reading = readings.find_by(indicator_name: :shape)
+        output.initial_shape = reading.value if reading
+        output.save!
+
         movement = product_movement
         movement = build_product_movement(product: output) unless movement
         movement.delta = quantity_population
@@ -86,9 +89,9 @@ class InterventionOutput < InterventionProductParameter
         movement.stopped_at = intervention.stopped_at if intervention
         movement.stopped_at ||= movement.started_at + 1.hour
         movement.save!
-      end
 
-      update_columns(product_id: output.id) # , movement_id: movement.id)
+        update_columns(product_id: output.id) # , movement_id: movement.id)
+      end
       true
     end
   end

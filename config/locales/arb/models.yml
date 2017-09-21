@@ -918,6 +918,7 @@ arb:
       intervention_parameter_reading: "مهمة القراءة المنتج"
       intervention_participation: "مشاركة التدخل"
       intervention_product_parameter: "تدخل الزهر"
+      # intervention_setting: "Intervention setting"
       intervention_target: "هدف التدخل"
       intervention_tool: "أداة تدخل"
       intervention_working_period: "فترة العمل تدخل"
@@ -2034,6 +2035,7 @@ arb:
     plant_density_abaci: "الكثافة النباتية العدادات"
     plant_density_abacus: "الكثافة النباتية المعداد"
     plant_density_abacus_item: "مصنع كثافة البند المعداد"
+    # plant_variant: "Plant variant"
     plants_count: "عد النباتات"
     point: "نقطة"
     point_value: "قيمة النقطة"
@@ -2305,6 +2307,7 @@ arb:
     serial_number: "رقم سري"
     service_coeff: "معامل كمية الخدمة" #?
     sessions: "جلسات"
+    # settings: "Settings"
     sha256: "SHA256" #?
     shape: "شكل"
     shift_duration: "مدة التحول"

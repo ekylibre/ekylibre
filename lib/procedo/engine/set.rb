@@ -29,6 +29,12 @@ module Procedo
         sub([@list.first])
       end
 
+      def to_a
+        parameters
+      end
+
+      delegate :compact, to: :to_a
+
       private
 
       def sub(items)

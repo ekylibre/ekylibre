@@ -41,9 +41,7 @@
             unrollPath = unrollPath.replace(componentReg, "$1=#{assemblyId}$3")
             input.attr('data-selector', unrollPath)
             if assemblyId.toString() != oldAssemblyId.toString()
-              console.log "CLEAR"
               $(input).val('')
-
 
     handleDynascope: (form, attributes, prefix = '') ->
       for name, value of attributes
@@ -51,25 +49,41 @@
         if /\w+_attributes$/.test(name)
           for id, attrs of value
             E.interventions.handleDynascope(form, attrs, subprefix + '_' + id + '_')
-        else
-          if name is 'attributes' and value?
-            # for each attribute
-            for k, v of value
-              input = form.find("##{prefix}#{k}")
-              unrollPath = input.attr('data-selector')
-              if unrollPath
-                # for each scope
-                for scopeKey, scopeValue of v.dynascope
+        else if name is 'attributes' and value?
+          # for each attribute
+          for k, v of value
+            input = form.find("##{prefix}#{k}")
+            unrollPath = input.attr('data-selector')
+            if unrollPath
+              # for each scope
+              for scopeKey, scopeValue of v.dynascope
+                scopeReg = ///
+                (.* #root
+                unroll\\?.*scope.*#{scopeKey}[^=]*) # current scope
+                = ([^&]*) # current value to change
+                (&?.*)
+                ///
+                unrollPath = unrollPath.replace(scopeReg, "$1=#{encodeURIComponent(scopeValue)}$3")
 
-                  scopeReg = ///
-                  (.* #root
-                  unroll\\?.*scope.*#{scopeKey}[^=]*) # current scope
-                  = ([^&]*) # current value to change
-                  (&?.*)
-                  ///
-                  unrollPath = unrollPath.replace(scopeReg, "$1=#{encodeURIComponent(scopeValue)}$3")
+              input.attr('data-selector', unrollPath)
+        else if attributes.dynascope?
+          if prefix.match /output/
+            nature = 'variant'
+          else
+            nature = 'product'
+          input = form.find("##{prefix}#{nature}_id")
+          unrollPath = input.attr('data-selector')
+          if unrollPath
+            for scopeKey, scopeValue of attributes.dynascope
+              scopeReg = ///
+              (.* #root
+              unroll\\?.*scope.*#{scopeKey}[^=]*) # current scope
+              = ([^&]*) # current value to change
+              (&?.*)
+              ///
+              unrollPath = unrollPath.replace(scopeReg, "$1=#{encodeURIComponent(scopeValue)}$3")
 
-                input.attr('data-selector', unrollPath)
+            input.attr('data-selector', unrollPath)
 
     toggleHandlers: (form, attributes, prefix = '') ->
       for name, value of attributes

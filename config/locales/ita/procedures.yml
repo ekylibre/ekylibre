@@ -228,6 +228,7 @@ ita:
     sifting: "vaglio"
     silage_unload: "insilato scarico" #?
     sowing: "Semina"
+    # sowing_v2: "Seeding"
     sowing_with_spraying: "Semina con spruzzo"
     spraying: "Spruzzare"
     standard_enclosing: "racchiude standard"
