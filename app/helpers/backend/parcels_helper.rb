@@ -9,5 +9,4 @@ module Backend::ParcelsHelper
       nil
     end
   end
-
 end
