@@ -1,11 +1,5 @@
 FROM debian:9
 
-RUN useradd -d /home/app -m app
-RUN mkdir -p /usr/src/app
-RUN chown -R app /usr/src/app /usr/local/bundle
-RUN gem install bundler
-WORKDIR /usr/src/app
-
 RUN apt-get update -qq && apt-get install -yf \
 	curl \
 	imagemagick \
@@ -46,28 +40,18 @@ RUN \curl -sSL https://get.rvm.io | bash -s stable --ruby
 
 ENV JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
 
-# Copy Gemfile first, and run bundle install so that the result gets cached in
-# further runs if the Gemfile doesn't change
-COPY Gemfile ./Gemfile
-COPY Gemfile.* ./
-COPY gems ./gems
-RUN chown -R app:app /usr/src/app
-
-USER app
-RUN bundle install --retry 3
-
-USER root
-ADD . /usr/src/app
-RUN chown -R app:app /usr/src/app
+ENV BUNDLE_PATH /box
+ENV GEM_PATH /box
+ENV GEM_HOME /box
 
 #RUN /bin/bash -l -c "gem install bundler"
-#RUN gem install bundler
+RUN gem install bundler
 
-#COPY Gemfile ./Gemfile
+COPY Gemfile ./Gemfile
 COPY Procfile ./Procfile
 
 #RUN /bin/bash -l -c "bundle install"
-#RUN bundle install
+RUN bundle install
 
 #RUN /bin/bash -l -c "gem install foreman"
 RUN gem install foreman
