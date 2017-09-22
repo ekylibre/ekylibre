@@ -40,6 +40,7 @@ RUN \curl -sSL https://get.rvm.io | bash -s stable --ruby
 
 ENV JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
 
+RUN useradd -d /home/app -m app
 RUN mkdir -p /usr/src/app
 RUN chown -R app /usr/src/app /usr/local/bundle
 RUN gem install bundler
