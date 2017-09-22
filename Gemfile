@@ -149,13 +149,13 @@ gem 'treetop'
 # If you encounter a Segfault related to those gems you need to add
 # JAVA_TOOL_OPTIONS=-Xss1280k to your env vars
 # cf. https://bugs.launchpad.net/ubuntu/+source/linux/+bug/1699772
-gem 'beardley', '~> 1.3'
-gem 'beardley-barcode', '>= 1.0.1'
-gem 'beardley-batik', '>= 1.0.1'
-gem 'beardley-charts', '>= 0.0.1'
-gem 'beardley-groovy', '>= 2.0.1'
-gem 'beardley-open_sans', '>= 0.0.2'
-gem 'beardley-xml', '>= 1.1.2'
+#gem 'beardley', '~> 1.3'
+#gem 'beardley-barcode', '>= 1.0.1'
+#gem 'beardley-batik', '>= 1.0.1'
+#gem 'beardley-charts', '>= 0.0.1'
+#gem 'beardley-groovy', '>= 2.0.1'
+#gem 'beardley-open_sans', '>= 0.0.2'
+#gem 'beardley-xml', '>= 1.1.2'
 
 # Import/Export
 gem 'ekylibre-ofx-parser'
