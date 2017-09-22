@@ -1,13 +1,40 @@
-FROM debian:9
+FROM ruby:2.2.3
 
-ENV APP_HOME /ekylibre
-RUN mkdir $APP_HOME
-WORKDIR $APP_HOME
+ENV JAVA_HOME=/usr/lib/jvm/java-7-openjdk-amd64
+ENV BUNDLE_JOBS=4
+ENV NODE_VERSION="0.12.7"
+ENV BUNDLER_VERSION="1.13.7"
+
+RUN useradd -d /home/app -m app
+RUN mkdir -p /usr/src/app
+RUN chown -R app /usr/src/app /usr/local/bundle
+RUN gem install bundler --version "${BUNDLER_VERSION}"
+WORKDIR /usr/src/app
+
+RUN sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt/ jessie-pgdg main" >> /etc/apt/sources.list'
+RUN wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add -
+
+# install node for asset precompilation
+RUN curl https://nodejs.org/dist/v${NODE_VERSION}/node-v${NODE_VERSION}-linux-x64.tar.gz | tar xzf - -C /usr/local --strip-components=1
+
+RUN apt-get update && apt-get -y upgrade
 
 RUN apt-get update -qq && apt-get install -yf \
-	curl \
+  locales \
+	libqt4-dev libqtwebkit-dev \
+	libcurl4-openssl-dev \
+	openjdk-7-jdk \
+	libgeos-dev \
+	libgeos++-dev \
+	libproj-dev \
+	libpq-dev \
+	libxml2-dev \
+	libxslt1-dev \
+	zlib1g-dev \
+	libicu-dev \
 	imagemagick \
 	graphicsmagick \
+  postgresql-client-9.5 \
 	tesseract-ocr \
 	tesseract-ocr-ara \
 	tesseract-ocr-jpn \
@@ -19,50 +46,35 @@ RUN apt-get update -qq && apt-get install -yf \
 	poppler-utils \
 	poppler-data \
 	ghostscript \
-	openjdk-8-jdk \
-	libicu57 \
-	redis-server \
-	postgresql-9.6-postgis-2.3 \
-	postgresql-contrib-9.6 \
-	libcurl4-openssl-dev \
-	libgeos-dev \
-	libgeos++-dev \
-	libproj-dev \
-	libpq-dev \
-	libxml2-dev \
-	libxslt1-dev \
-	zlib1g-dev \
-	libicu-dev \
-	libqtwebkit-dev \
-	build-essential \
+	libicu52 \
 	&& apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 
-RUN gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 7D2BAF1CF37B13E2069D6956105BD0E739499BDB
+RUN sh -c 'echo "LC_ALL=en_US.UTF-8" >> /etc/default/locale'
+RUN sh -c 'echo "LANG=en_US.UTF-8" >> /etc/default/locale'
+RUN locale-gen en_US en_US.UTF-8
+RUN dpkg-reconfigure locales
 
-RUN \curl -sSL https://get.rvm.io | bash -s stable --ruby
 
-ENV JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
-
-ENV BUNDLE_PATH /bundle
-ENV GEM_PATH /bundle
-ENV GEM_HOME /bundle
-
-ADD . $APP_HOME
-
-#RUN /bin/bash -l -c "gem install bundler"
-RUN gem install bundler
-
+# Copy Gemfile first, and run bundle install so that the result gets cached in
+# further runs if the Gemfile doesn't change.
 COPY Gemfile ./Gemfile
-COPY Procfile ./Procfile
+COPY Gemfile.* ./
+COPY gems ./gems
+RUN chown -R app:app /usr/src/app
 
-#RUN /bin/bash -l -c "bundle install"
-RUN bundle install
+USER app
+RUN bundle install --retry 3
 
-#RUN /bin/bash -l -c "gem install foreman"
-RUN gem install foreman
+USER root
+ADD . /usr/src/app
+RUN chown -R app:app /usr/src/app
+
+USER app
+RUN CRON=0 DEVISE_SECRET_KEY=12345678 DATABASE_URL=postgres://foo:bar@127.0.0.1/foobar SECRET_TOKEN=foobar RAILS_ENV=production bundle exec rake assets:precompile
+
+#RUN DATABASE_URL=sqlite3:///tmp/fake.db bundle exec rake reporting:compile
 
 WORKDIR /app
 COPY . ./
 CMD ["bin/run-dev.sh"]
-#RUN /bin/bash -l -c "foreman s"
