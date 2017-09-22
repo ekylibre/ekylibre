@@ -1024,6 +1024,7 @@ Rails.application.routes.draw do
 
     namespace :visualizations do
       resource :plants_visualizations, only: :show
+      resource :map_cells_visualizations, only: :show
     end
 
     resources :wine_tanks, only: [:index], concerns: [:list]

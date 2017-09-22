@@ -1,0 +1,3 @@
+= button_group do
+  = tool_to(:show.ta, {action: :show, controller: "/backend/activity_productions", id: production.id, redirect: params[:redirect] }, tool: false)
+  = tool_to(:intervention.tl, {action: :new, controller: "/backend/interventions", activity_id: production.activity_id, redirect: params[:redirect] }, tool: 'new-intervention')
