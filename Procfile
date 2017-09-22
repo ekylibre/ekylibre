@@ -1,1 +1,1 @@
-web: foreman start
+web: bundle exec foreman start
