@@ -24,7 +24,7 @@ RUN apt-get update -qq && apt-get install -yf \
 >---libicu-dev \
 >---imagemagick \
 >---graphicsmagick \
-    postgresql-client-9.5 \
+    postgresql-client-9.6 \
 >---tesseract-ocr \
 >---tesseract-ocr-ara \
 >---tesseract-ocr-jpn \
