@@ -52,7 +52,9 @@ RUN /bin/bash -l -c "bundle install"
 RUN /bin/bash -l -c "gem install foreman"
 #RUN gem install foreman
 
-WORKDIR /app
-COPY . ./
-CMD ["bin/run-dev.sh"]
+#WORKDIR /app
+#COPY . ./
+#CMD ["bin/run-dev.sh"]
 #RUN /bin/bash -l -c "foreman s"
+
+RUN /bin/bash -l -c "foreman export inittab"

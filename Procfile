@@ -1,1 +1,1 @@
-web: /bin/bash -l -c "bundle exec foreman start"
+web: bundle exec foreman start
