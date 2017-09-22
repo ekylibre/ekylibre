@@ -468,6 +468,7 @@ eng:
       new: "New manure management plan"
       show: "Manure management plan: %{name}"
     backend/map_editors:
+      # shapes: "Shapes map editor: %{name}"
       # upload: "Upload map editor: %{name}"
     backend/map_layers:
       edit: "Edit map layer: %{name}"
@@ -1657,7 +1658,7 @@ eng:
     picture: "Picture" #?
     placeholder: "Placeholder" #?
     places: "Places"
-    plant: "Crop"
+    plant: "Crop" #?
     plant_counting: "Counting" #?
     plant_countings: "Countings" #?
     plantation_density: "Plantation density" #?
@@ -1683,6 +1684,7 @@ eng:
     product_account_number: "Product account number" #?
     product_category: "Product category" #?
     product_name: "Product name" #?
+    # product_nature_variants: "Product nature variants"
     product_natures: "Product types"
     product_value: "Product value %{financial_year}"
     production: "Production"
@@ -2409,6 +2411,7 @@ eng:
       search: "Search" #?
       select: "Select"
       sell: "Turn into sale"
+      # shapes: "Shapes"
       ship: "Ship"
       show: "Show"
       show_export_preview: "View a preview of the document (may increase loading time)" #?

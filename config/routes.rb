@@ -199,6 +199,7 @@ Rails.application.routes.draw do
         post :unmark
         get :list_journal_entry_items
         get :list_entities
+        get :list_product_nature_variants
       end
     end
 
@@ -702,6 +703,7 @@ Rails.application.routes.draw do
 
     resources :map_editors, only: [] do
       collection do
+        get :shapes, format: :json
         post :upload
       end
     end
