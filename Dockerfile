@@ -50,4 +50,4 @@ RUN /bin/bash -l -c "bundle install"
 
 RUN /bin/bash -l -c "gem install foreman"
 
-RUN /bin/bash -l -c "foreman s"
+#RUN /bin/bash -l -c "foreman s"
