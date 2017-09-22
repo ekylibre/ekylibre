@@ -1,3 +1,6 @@
+= kujaku do |k|
+  - k.text
+
 - main_toolbar do |t|
   = t.new variants: PayslipNature.reorder(:name).to_a.map{ |n| [n.name, {nature_id: n.id}, {by_default: n.by_default}] }, params: { redirect: nil }
 
