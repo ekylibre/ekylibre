@@ -1022,6 +1022,10 @@ Rails.application.routes.draw do
       match 'picture(/:style)', via: :get, action: :picture, as: :picture
     end
 
+    namespace :visualizations do
+      resource :plants_visualizations, only: :show
+    end
+
     resources :wine_tanks, only: [:index], concerns: [:list]
 
     resources :workers, concerns: :products
