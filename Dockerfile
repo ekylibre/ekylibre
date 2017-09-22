@@ -50,6 +50,8 @@ RUN gem install bundler
 #RUN /bin/bash -l -c "bundle install"
 RUN bundle install
 
+RUN gem update bundler
+
 #RUN /bin/bash -l -c "gem install foreman"
 RUN gem install foreman
 
