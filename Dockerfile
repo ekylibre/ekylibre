@@ -45,7 +45,8 @@ RUN apt-get update -qq && apt-get install -yf \
 
 #RUN /bin/bash -l -c "gem install bundler"
 RUN gem install bundler
-
+RUN gem install rubygems-bundler
+RUN gem regenerate_binstubs
 
 #RUN /bin/bash -l -c "bundle install"
 RUN bundle install
@@ -53,7 +54,7 @@ RUN bundle install
 RUN gem update bundler
 
 #RUN /bin/bash -l -c "gem install foreman"
-RUN gem install foreman
+#RUN gem install foreman
 
 ADD ./ /app
 
