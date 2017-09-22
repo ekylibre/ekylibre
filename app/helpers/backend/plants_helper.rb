@@ -9,8 +9,7 @@ module Backend
         v.control :scale
         v.control :fullscreen
         v.control :layer_selector
-        #TODO !!!!!
-        v.center [44.1799572846565, -0.75576301664114]
+        v.center Plant.first.shape_centroid
       end
     end
 

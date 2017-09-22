@@ -4,7 +4,6 @@
     - v.control :scale
     - v.control :fullscreen
     - v.control :layer_selector
-    -  #TODO !!!!!
-    - v.center [44.1799572846565, -0.75576301664114]
+    - v.center @activity_productions.first.support_shape_centroid
 - else
   .placeholding-message= :no_production_defined_for_current_campaign.tn
