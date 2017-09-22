@@ -1,5 +1,5 @@
 #FROM debian:9
-FROM ruby:2.2.8
+FROM ruby:2.4.2
 
 ENV JAVA_HOME=/usr/lib/jvm/java-7-openjdk-amd64
 
