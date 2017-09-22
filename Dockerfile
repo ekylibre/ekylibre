@@ -50,4 +50,7 @@ RUN /bin/bash -l -c "bundle install"
 
 RUN /bin/bash -l -c "gem install foreman"
 
+WORKDIR /app
+COPY . ./
+CMD ["bin/run-dev.sh"]
 #RUN /bin/bash -l -c "foreman s"
