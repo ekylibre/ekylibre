@@ -353,13 +353,15 @@ module Backend
 
     def purchase_order_items
       purchase_order = Purchase.find(params[:purchase_order_id])
-      purchase_order_hash = { id: purchase_order.id, pretax_amount: purchase_order.pretax_amount }
-      purchase_order.items.each do |item|
-        purchase_order_hash[:items] = [] if purchase_order_hash[:items].nil?
-        purchase_order_hash[:items] << { variant_id: item.variant_id, name: item.variant.name, quantity: item.quantity, pretax_amount: item.pretax_amount, amount: item.amount }
+      reception = Intervention.find(params[:intervention_id]).receptions.first if params[:intervention_id].present?
+      if reception.present? && reception.purchase_id == purchase_order.id
+        order_hash  = find_items(reception.id, reception.pretax_amount, reception.items)
+      else
+        order_hash = find_items(purchase_order.id, purchase_order.pretax_amount, purchase_order.items)
       end
+
       respond_to do |format|
-        format.json { render json: purchase_order_hash }
+        format.json { render json: order_hash }
       end
     end
 
@@ -493,6 +495,15 @@ module Backend
 
     def state_change_permitted_params
       params.require(:intervention).permit(:interventions_ids, :state, :delete_option)
+    end
+
+    def find_items(id, pretax_amount, items)
+      order_hash = { id: id, pretax_amount: pretax_amount }
+      items.each do |item|
+        order_hash[:items] = [] if order_hash[:items].nil?
+        order_hash[:items] << { variant_id: item.variant_id, name: item.variant.name, quantity: item.quantity, unit_pretax_amount: item.unit_pretax_amount }
+      end
+      order_hash
     end
   end
 end
