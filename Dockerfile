@@ -1,5 +1,9 @@
 FROM debian:9
 
+ENV APP_HOME /ekylibre
+RUN mkdir $APP_HOME
+WORKDIR $APP_HOME
+
 RUN apt-get update -qq && apt-get install -yf \
 	curl \
 	imagemagick \
@@ -40,9 +44,11 @@ RUN \curl -sSL https://get.rvm.io | bash -s stable --ruby
 
 ENV JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
 
-ENV BUNDLE_PATH /box
-ENV GEM_PATH /box
-ENV GEM_HOME /box
+ENV BUNDLE_PATH /bundle
+ENV GEM_PATH /bundle
+ENV GEM_HOME /bundle
+
+ADD . $APP_HOME
 
 #RUN /bin/bash -l -c "gem install bundler"
 RUN gem install bundler
