@@ -23,7 +23,7 @@ module Backend
     def shapes
       bb = []
 
-      params[:layers] ||= [:land_parcels, :plants]
+      params[:layers] ||= %i[land_parcels plants]
       params[:started_at] ||= DateTime.now
 
       shapes = MapEditorManager.shapes started_at: params[:started_at], bounding_box: bb, layers: params[:layers]

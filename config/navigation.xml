@@ -1745,6 +1745,7 @@
       </item>
       <item name="map_editors">
         <page to="backend/map_editors#upload"/>
+        <page to="backend/map_editors#shapes"/>
       </item>
       <item name="tours">
         <page to="backend/tours#finish"/>
@@ -2045,7 +2046,6 @@
   <untreated-actions>
     <group>
       <item name="map_editors">
-        <page to="backend/map_editors#shapes"/>
       </item>
     </group>
   </untreated-actions>

@@ -43,7 +43,7 @@ module Backend
 
       # Checks if land parcel serie is loaded and filled with land parcel shapes
       serie_name = layer['serie']
-      assert r['series'].has_key? serie_name
+      assert r['series'].key? serie_name
 
       assert_equal current_land_parcels, r['series'][serie_name]['features'].count
     end
@@ -63,7 +63,7 @@ module Backend
 
       # Checks if plant serie is loaded and filled with plant shapes
       serie_name = layer['serie']
-      assert r['series'].has_key? serie_name
+      assert r['series'].key? serie_name
 
       assert_equal current_plants, r['series'][serie_name]['features'].count
     end
