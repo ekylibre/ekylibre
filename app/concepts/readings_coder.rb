@@ -1,19 +1,20 @@
 class ReadingsCoder
-  SERIALIZE   = Hash.new { Proc.new { |_, value| value } }
-    .tap { |h| h[Measure]              = Proc.new { |_, value| value.to_s    }}
-    .tap { |h| h[Charta::Point]        = Proc.new { |_, value| value.to_ewkt }}
-    .tap { |h| h[Charta::MultiPolygon] = Proc.new { |_, value| value.to_ewkt }}
+  SERIALIZE   = Hash.new { proc { |_, value| value } }
+                    .tap { |h| h[Measure]              = proc { |_, value| value.to_s    } }
+                    .tap { |h| h[Charta::Point]        = proc { |_, value| value.to_ewkt } }
+                    .tap { |h| h[Charta::MultiPolygon] = proc { |_, value| value.to_ewkt } }
 
-  UNSERIALIZE = Hash.new { Proc.new { |klass, value| klass.new(value) } }
-    .tap { |h| h[Charta::MultiPolygon] = Proc.new { |_, value| Charta.new_geometry(value) }}
-    .tap { |h| h[Charta::Point]        = Proc.new { |_, value| Charta.new_geometry(value) }}
-    .tap { |h| h[FalseClass]           = Proc.new { |_, _| false                          }}
-    .tap { |h| h[TrueClass]            = Proc.new { |_, _| true                           }}
-    .tap { |h| h[String]               = Proc.new { |_, value| value                      }}
-    .tap { |h| h[Fixnum]               = Proc.new { |_, value| value.to_i                 }}
-    .tap { |h| h[Float]                = Proc.new { |_, value| value.to_f                 }}
-    .freeze
-
+  UNSERIALIZE = Hash.new { proc { |klass, value| klass.new(value) } }
+                    .tap { |h| h[Charta::MultiPolygon] = proc { |_, value| Charta.new_geometry(value) } }
+                    .tap { |h| h[Charta::Point]        = proc { |_, value| Charta.new_geometry(value) } }
+                    .tap { |h| h[FalseClass]           = proc { |_, _| false                          } }
+                    .tap { |h| h[TrueClass]            = proc { |_, _| true                           } }
+                    .tap { |h| h[String]               = proc { |_, value| value                      } }
+                    .tap { |h| h[Integer] = proc { |_, value| value.to_i } }
+                    .tap { |h| h[Bignum] = proc { |_, value| value.to_i } }
+                    .tap { |h| h[Fixnum] = proc { |_, value| value.to_i } }
+                    .tap { |h| h[Float] = proc { |_, value| value.to_f } }
+                    .freeze
 
   def self.load(json)
     return {} if json.blank?

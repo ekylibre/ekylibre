@@ -713,10 +713,7 @@ class Product < Ekylibre::Record::Base
     containeds.select { |p| p.variant == variant }
   end
 
-  # Returns value of an indicator if its name correspond to an existing one.
-  # NOTE: Do NOT trust rubocop if it replaces the #each by
-  # a #find_each it is NOT an existing method.
-  Nomen::Indicator.all.each do |indicator|
+  Nomen::Indicator.each do |indicator|
     alias_method :"cache_#{indicator}", indicator
 
     define_method indicator.to_sym do |*args|

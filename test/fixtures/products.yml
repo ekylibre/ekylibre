@@ -99,6 +99,7 @@ animals_001:
   name: Ionosphere
   nature_id: 1
   number: '7001'
+  reading_cache: {}
   type: Animal
   updated_at: 2014-10-31 17:19:32.000000000 Z
   updater_id: 1
@@ -116,6 +117,7 @@ animals_002:
   name: Segolene
   nature_id: 1
   number: '7003'
+  reading_cache: {}
   type: Animal
   updated_at: 2014-10-31 17:19:32.000000000 Z
   updater_id: 1
@@ -137,6 +139,7 @@ animals_003:
   name: Bonnemine
   nature_id: 16
   number: P00000000004
+  reading_cache: {}
   type: Animal
   updated_at: 2014-11-01 19:29:58.088036000 Z
   updater_id: 1
@@ -159,6 +162,7 @@ animals_004:
   name: Isabelle
   nature_id: 16
   number: P00000000005
+  reading_cache: {}
   type: Animal
   updated_at: 2014-11-01 19:35:50.372083000 Z
   updater_id: 1
@@ -182,6 +186,7 @@ animal_groups_001:
   name: Troupeau de génisses A
   nature_id: 27
   number: PR00000000029
+  reading_cache: {}
   type: AnimalGroup
   updated_at: 2014-11-07 15:49:47.929754000 Z
   updater_id: 1
@@ -203,6 +208,7 @@ animal_groups_002:
   name: Troupeau de génisses B
   nature_id: 27
   number: PR00000000030
+  reading_cache: {}
   type: AnimalGroup
   updated_at: 2014-11-04 17:32:45.765155000 Z
   updater_id: 1
@@ -220,6 +226,7 @@ buildings_001:
   name: Cabanon
   nature_id: 4
   number: '33002'
+  reading_cache: {}
   type: Building
   updated_at: 2014-10-31 17:19:32.000000000 Z
   updater_id: 1
@@ -236,6 +243,7 @@ buildings_002:
   name: Barn/Grange
   nature_id: 4
   number: '33003'
+  reading_cache: {}
   type: Building
   updated_at: 2014-10-31 17:19:32.000000000 Z
   updater_id: 1
@@ -254,6 +262,7 @@ buildings_003:
   name: Grange
   nature_id: 4
   number: '40004'
+  reading_cache: {}
   type: Building
   updated_at: 2014-10-31 20:12:30.889733000 Z
   updater_id: 1
@@ -278,6 +287,7 @@ buildings_004:
   name: Stabulation
   nature_id: 11
   number: '40005'
+  reading_cache: {}
   type: Building
   updated_at: 2014-11-07 14:30:00.476778000 Z
   updater_id: 1
@@ -304,6 +314,7 @@ buildings_005:
   name: Chai
   nature_id: 11
   number: PR00000000058
+  reading_cache: {}
   type: Building
   updated_at: 2014-11-07 17:18:25.687359000 Z
   updater_id: 1
@@ -330,6 +341,7 @@ building_divisions_001:
   name: Emplacement de stockage du matériel
   nature_id: 12
   number: '40006'
+  reading_cache: {}
   type: BuildingDivision
   updated_at: 2014-11-07 14:41:44.726701000 Z
   updater_id: 1
@@ -354,6 +366,7 @@ building_divisions_002:
   name: Zone de stockage des aliments et du matériels
   nature_id: 13
   number: '40007'
+  reading_cache: {}
   type: BuildingDivision
   updated_at: 2014-10-31 20:23:26.762717000 Z
   updater_id: 1
@@ -375,6 +388,7 @@ building_divisions_003:
   name: Hangar principal
   nature_id: 14
   number: '40009'
+  reading_cache: {}
   type: BuildingDivision
   updated_at: 2014-10-31 20:49:34.036786000 Z
   updater_id: 1
@@ -398,6 +412,7 @@ building_divisions_004:
   name: Case 1
   nature_id: 6
   number: PR00000000037
+  reading_cache: {}
   type: BuildingDivision
   updated_at: 2014-11-07 14:39:41.440984000 Z
   updater_id: 1
@@ -419,6 +434,7 @@ equipments_001:
   name: Tracteur BH-845
   nature_id: 21
   number: PR00000000016
+  reading_cache: {}
   type: Equipment
   updated_at: 2014-11-02 18:22:39.392745000 Z
   updater_id: 1
@@ -439,6 +455,7 @@ equipments_002:
   name: Broyeur ZK8000
   nature_id: 22
   number: PR00000000017
+  reading_cache: {}
   type: Equipment
   updated_at: 2014-11-02 18:23:36.524019000 Z
   updater_id: 1
@@ -459,6 +476,7 @@ equipments_003:
   name: Charrue T1000
   nature_id: 23
   number: PR00000000019
+  reading_cache: {}
   type: Equipment
   updated_at: 2014-11-02 18:29:41.469233000 Z
   updater_id: 1
@@ -481,6 +499,7 @@ equipments_004:
   name: Semoir TG74
   nature_id: 25
   number: PR00000000021
+  reading_cache: {}
   type: Equipment
   updated_at: 2014-11-02 18:37:22.384578000 Z
   updater_id: 1
@@ -503,6 +522,7 @@ equipments_005:
   name: Cultipacker CP360
   nature_id: 28
   number: PR00000000031
+  reading_cache: {}
   type: Equipment
   updated_at: 2014-11-04 18:39:58.300986000 Z
   updater_id: 1
@@ -525,6 +545,7 @@ equipments_006:
   name: Bineuse BIN3+
   nature_id: 29
   number: PR00000000032
+  reading_cache: {}
   type: Equipment
   updated_at: 2014-11-04 18:41:24.697151000 Z
   updater_id: 1
@@ -547,6 +568,7 @@ equipments_007:
   name: Pulveo 8000
   nature_id: 30
   number: PR00000000039
+  reading_cache: {}
   type: Equipment
   updated_at: 2014-11-07 15:01:32.169817000 Z
   updater_id: 1
@@ -566,9 +588,10 @@ equipments_008:
   initial_movement_id: 42
   initial_population: 0.0
   lock_version: 0
-  name: "Épandeur ENGRAMAX 75"
+  name: Épandeur ENGRAMAX 75
   nature_id: 31
   number: PR00000000041
+  reading_cache: {}
   type: Equipment
   updated_at: 2014-11-07 15:23:45.087173000 Z
   updater_id: 1
@@ -591,6 +614,7 @@ equipments_009:
   name: PLANTOVIGNE X20
   nature_id: 38
   number: PR00000000052
+  reading_cache: {}
   type: Equipment
   updated_at: 2014-11-07 16:49:26.139872000 Z
   updater_id: 1
@@ -613,6 +637,7 @@ equipments_010:
   name: VENDOPLUS 960
   nature_id: 39
   number: PR00000000056
+  reading_cache: {}
   type: Equipment
   updated_at: 2014-11-07 17:05:10.430947000 Z
   updater_id: 1
@@ -635,6 +660,7 @@ equipments_011:
   name: Cuve Jupiter
   nature_id: 42
   number: PR00000000059
+  reading_cache: {}
   type: Equipment
   updated_at: 2014-11-07 17:19:35.222129000 Z
   updater_id: 1
@@ -657,6 +683,7 @@ equipments_012:
   name: Cuve Saturne
   nature_id: 42
   number: PR00000000060
+  reading_cache: {}
   type: Equipment
   updated_at: 2014-11-07 17:20:23.962743000 Z
   updater_id: 1
@@ -679,6 +706,7 @@ equipments_013:
   name: Cuve Soleil
   nature_id: 42
   number: PR00000000061
+  reading_cache: {}
   type: Equipment
   updated_at: 2014-11-07 17:22:41.836712000 Z
   updater_id: 1
@@ -699,6 +727,7 @@ equipments_014:
   name: Pressoir XT96
   nature_id: 43
   number: PR00000000062
+  reading_cache: {}
   type: Equipment
   updated_at: 2014-11-07 17:23:41.373971000 Z
   updater_id: 1
@@ -719,6 +748,7 @@ equipments_015:
   name: Boucheuse manuelle
   nature_id: 57
   number: PR00000000082
+  reading_cache: {}
   type: Equipment
   updated_at: 2014-11-07 19:36:09.027415000 Z
   updater_id: 1
@@ -739,6 +769,7 @@ equipments_016:
   name: Tireuse Coop
   nature_id: 56
   number: PR00000000083
+  reading_cache: {}
   type: Equipment
   updated_at: 2014-11-07 19:36:29.977043000 Z
   updater_id: 1
@@ -755,6 +786,7 @@ equipment_fleets_001:
   name: Armada de l'Empire
   nature_id: 1
   number: '413'
+  reading_cache: {}
   type: EquipmentFleet
   updated_at: 2014-10-31 17:19:32.000000000 Z
   updater_id: 1
@@ -772,6 +804,7 @@ fungi_001:
   nature_id: 1
   number: '16101'
   parent_id: 65
+  reading_cache: {}
   type: Fungus
   updated_at: 2014-10-31 17:19:32.000000000 Z
   updater_id: 1
@@ -789,6 +822,7 @@ fungi_002:
   nature_id: 1
   number: '16102'
   parent_id: 65
+  reading_cache: {}
   type: Fungus
   updated_at: 2014-10-31 17:19:32.000000000 Z
   updater_id: 1
@@ -815,6 +849,7 @@ land_parcels_001:
   name: La Michardière
   nature_id: 24
   number: PR00000000024
+  reading_cache: {}
   type: LandParcel
   updated_at: 2014-11-04 17:12:23.238580000 Z
   updater_id: 1
@@ -842,6 +877,7 @@ land_parcels_002:
   name: Le Margoulin Maïs 2013 n°2
   nature_id: 24
   number: PR00000000025
+  reading_cache: {}
   type: LandParcel
   updated_at: 2014-11-04 17:15:04.591592000 Z
   updater_id: 1
@@ -868,6 +904,7 @@ land_parcels_003:
   name: Le Baltomire Blé tendre 2014 n°5
   nature_id: 24
   number: PR00000000026
+  reading_cache: {}
   type: LandParcel
   updated_at: 2014-11-04 17:17:04.657670000 Z
   updater_id: 1
@@ -896,6 +933,7 @@ land_parcels_004:
   name: La Crédanpouille Blé tendre 2014 n°3
   nature_id: 24
   number: PR00000000027
+  reading_cache: {}
   type: LandParcel
   updated_at: 2014-11-04 17:19:31.120097000 Z
   updater_id: 1
@@ -925,6 +963,7 @@ land_parcels_005:
   name: La Queue du Loup Blé tendre 2014 n°4
   nature_id: 24
   number: PR00000000028
+  reading_cache: {}
   type: LandParcel
   updated_at: 2014-11-04 17:22:31.656517000 Z
   updater_id: 1
@@ -958,6 +997,7 @@ land_parcels_006:
   name: La Boutanche
   nature_id: 24
   number: PR00000000049
+  reading_cache: {}
   type: LandParcel
   updated_at: 2014-11-07 16:26:53.115665000 Z
   updater_id: 1
@@ -995,6 +1035,7 @@ land_parcels_007:
   name: 'ZC-017005218-1-1 #1'
   nature_id: 59
   number: PR00000000089
+  reading_cache: {}
   type: LandParcel
   updated_at: 2016-01-21 14:05:47.074116000 Z
   uuid: ac06e128-1814-491b-b3b3-1a117d9b5699
@@ -1035,6 +1076,7 @@ land_parcels_008:
   name: 'ZC-017005218-2-1 #2'
   nature_id: 59
   number: PR00000000090
+  reading_cache: {}
   type: LandParcel
   updated_at: 2016-01-21 14:05:47.379437000 Z
   uuid: aeb8aa73-fff3-4767-88d5-04e3f1320b32
@@ -1060,6 +1102,7 @@ land_parcels_009:
   name: ZC-017005218-3-1 Maïs (zea_mays) 2015 n°1
   nature_id: 59
   number: PR00000000091
+  reading_cache: {}
   type: LandParcel
   updated_at: 2016-01-21 14:05:47.522400000 Z
   uuid: d8fe3b10-ea9d-4f5d-8c71-948b7ecd2bb2
@@ -1084,6 +1127,7 @@ land_parcels_010:
   name: ZC-017005218-4-1 Maïs (zea_mays) 2015 n°2
   nature_id: 59
   number: PR00000000092
+  reading_cache: {}
   type: LandParcel
   updated_at: 2016-01-21 14:05:47.656120000 Z
   uuid: e748adb7-f7b6-4b46-9897-84fa9b4896b1
@@ -1112,6 +1156,7 @@ land_parcels_011:
   name: 'ZC-017005218-5-1 #1'
   nature_id: 59
   number: PR00000000093
+  reading_cache: {}
   type: LandParcel
   updated_at: 2016-01-21 14:05:47.819779000 Z
   uuid: 44325646-f696-43ef-bef5-1c3d6fc99a74
@@ -1149,6 +1194,7 @@ land_parcels_012:
   name: 'ZC-017005218-6-1 #2'
   nature_id: 59
   number: PR00000000094
+  reading_cache: {}
   type: LandParcel
   updated_at: 2016-01-21 14:05:47.992691000 Z
   uuid: e97a8145-c788-4317-9970-859f42e89b74
@@ -1180,6 +1226,7 @@ land_parcels_013:
   name: 'ZC-017005218-7-1 #3'
   nature_id: 59
   number: PR00000000095
+  reading_cache: {}
   type: LandParcel
   updated_at: 2016-01-21 14:05:48.142936000 Z
   uuid: f9dd8d00-aa25-41d1-b07a-e27bbbc2e78d
@@ -1206,6 +1253,7 @@ land_parcels_014:
   name: 'ZC-017005218-8-3 #1'
   nature_id: 59
   number: PR00000000096
+  reading_cache: {}
   type: LandParcel
   updated_at: 2016-01-21 14:05:48.294847000 Z
   uuid: 5b13f438-ad8e-415b-9461-d2273c58bca4
@@ -1236,6 +1284,7 @@ land_parcels_015:
   name: 'ZC-017005218-8-1 #1'
   nature_id: 59
   number: PR00000000097
+  reading_cache: {}
   type: LandParcel
   updated_at: 2016-01-21 14:05:48.430151000 Z
   uuid: fb540599-fb24-4c93-a557-c5ebb13f8bff
@@ -1266,6 +1315,7 @@ land_parcels_016:
   name: 'ZC-017005218-8-2 #1'
   nature_id: 59
   number: PR00000000098
+  reading_cache: {}
   type: LandParcel
   updated_at: 2016-01-21 14:05:48.567356000 Z
   uuid: 13f0331c-bdb9-4909-b421-8a3d26caba30
@@ -1294,6 +1344,7 @@ land_parcels_017:
   name: 'ZC-017005218-9-1 #1'
   nature_id: 59
   number: PR00000000099
+  reading_cache: {}
   type: LandParcel
   updated_at: 2016-01-21 14:05:48.717643000 Z
   uuid: 32531e04-cdea-4bb2-8346-43451ab04e81
@@ -1321,6 +1372,7 @@ land_parcels_018:
   name: 'ZC-017005218-9-3 #1'
   nature_id: 59
   number: PR00000000100
+  reading_cache: {}
   type: LandParcel
   updated_at: 2016-01-21 14:05:48.862205000 Z
   uuid: cc290e08-99bb-4432-9a49-8ee3a627cc61
@@ -1352,6 +1404,7 @@ land_parcels_019:
   name: 'ZC-017005218-9-2 #2'
   nature_id: 59
   number: PR00000000101
+  reading_cache: {}
   type: LandParcel
   updated_at: 2016-01-21 14:05:49.046450000 Z
   uuid: 7e7cdf4e-26c8-4055-a8b5-efdfe22bd4a1
@@ -1377,6 +1430,7 @@ land_parcels_020:
   name: 'ZC-017005218-10-1 #1'
   nature_id: 59
   number: PR00000000102
+  reading_cache: {}
   type: LandParcel
   updated_at: 2016-01-21 14:05:49.212525000 Z
   uuid: aba4d8dc-ed58-4e01-81f6-3b9775fb1c78
@@ -1405,6 +1459,7 @@ land_parcels_021:
   name: ZC-017005218-11-1 Sorgho 2015 n°1
   nature_id: 59
   number: PR00000000103
+  reading_cache: {}
   type: LandParcel
   updated_at: 2016-01-21 14:05:49.396249000 Z
   uuid: a0325f47-32e6-4c14-a1d1-b2edcb00de6e
@@ -1433,6 +1488,7 @@ land_parcels_022:
   name: 'ZC-017005218-13-1 #1'
   nature_id: 59
   number: PR00000000104
+  reading_cache: {}
   type: LandParcel
   updated_at: 2016-01-21 14:05:49.614832000 Z
   uuid: 54d88643-e48e-4035-ad44-517c88f321ff
@@ -1462,6 +1518,7 @@ land_parcels_023:
   name: 'ZC-017005218-14-1 #4'
   nature_id: 59
   number: PR00000000105
+  reading_cache: {}
   type: LandParcel
   updated_at: 2016-01-21 14:05:49.780958000 Z
   uuid: d3860eb9-4913-4acb-bb57-e016c81ddf59
@@ -1487,6 +1544,7 @@ land_parcels_024:
   name: 'ZC-017005218-14-2 #2'
   nature_id: 59
   number: PR00000000106
+  reading_cache: {}
   type: LandParcel
   updated_at: 2016-01-21 14:05:49.918693000 Z
   uuid: 0f1297d5-80d8-4595-b9d5-e975f857ce67
@@ -1510,6 +1568,7 @@ land_parcels_025:
   name: ZC-017005218-15-1 Maïs ensilage 2015 n°1
   nature_id: 59
   number: PR00000000107
+  reading_cache: {}
   type: LandParcel
   updated_at: 2016-01-21 14:05:50.090478000 Z
   uuid: a5e4da1a-58f4-4380-893b-c6d68fca3a37
@@ -1532,6 +1591,7 @@ land_parcels_026:
   name: ZC-017005218-16-1 Maïs ensilage 2015 n°2
   nature_id: 59
   number: PR00000000108
+  reading_cache: {}
   type: LandParcel
   updated_at: 2016-01-21 14:05:50.268765000 Z
   uuid: be3582ad-7207-45c2-801c-954a5e73bd9b
@@ -1557,6 +1617,7 @@ land_parcels_027:
   name: ZC-017005218-17-1 Sorgho 2015 n°2
   nature_id: 59
   number: PR00000000109
+  reading_cache: {}
   type: LandParcel
   updated_at: 2016-01-21 14:05:50.398602000 Z
   uuid: b2028905-415c-4acc-8281-eca675766d77
@@ -1578,6 +1639,7 @@ land_parcels_028:
   name: 'ZC-017005218-19-1 #3'
   nature_id: 59
   number: PR00000000110
+  reading_cache: {}
   type: LandParcel
   updated_at: 2016-01-21 14:05:50.524778000 Z
   uuid: ea8e5c24-6cb6-475b-bb1b-46bef66d4567
@@ -1599,6 +1661,7 @@ land_parcels_029:
   name: 'ZC-017005218-20-1 #4'
   nature_id: 59
   number: PR00000000111
+  reading_cache: {}
   type: LandParcel
   updated_at: 2016-01-21 14:05:50.648074000 Z
   uuid: dfdf56e8-15bb-4e9b-bd26-406221998024
@@ -1627,6 +1690,7 @@ land_parcels_030:
   name: 'ZC-017005218-21-1 #5'
   nature_id: 59
   number: PR00000000112
+  reading_cache: {}
   type: LandParcel
   updated_at: 2016-01-21 14:05:50.781805000 Z
   uuid: 97bff77f-02cb-4c27-9929-d26a41b3fe9b
@@ -1650,6 +1714,7 @@ land_parcels_031:
   name: 'ZC-017005218-22-1 #6'
   nature_id: 59
   number: PR00000000113
+  reading_cache: {}
   type: LandParcel
   updated_at: 2016-01-21 14:05:50.914231000 Z
   uuid: f55433c6-29f9-4174-a6be-fe069e527b6b
@@ -1671,6 +1736,7 @@ land_parcels_032:
   name: 'ZC-017005218-23-1 #7'
   nature_id: 59
   number: PR00000000114
+  reading_cache: {}
   type: LandParcel
   updated_at: 2016-01-21 14:05:51.043055000 Z
   uuid: 7cb1c18b-d77b-4c50-9809-a6f4ee4df49e
@@ -1693,6 +1759,7 @@ land_parcels_033:
   name: ZC-017005218-24-1 Maïs (zea_mays) 2015 n°3
   nature_id: 59
   number: PR00000000115
+  reading_cache: {}
   type: LandParcel
   updated_at: 2016-01-21 14:05:51.174139000 Z
   uuid: 30373038-5696-42bf-882c-a50f6f670562
@@ -1717,6 +1784,7 @@ land_parcels_034:
   name: 'ZC-017005218-25-1 #1'
   nature_id: 59
   number: PR00000000116
+  reading_cache: {}
   type: LandParcel
   updated_at: 2016-01-21 14:05:51.335702000 Z
   uuid: 88633eeb-aae3-4529-89dc-5c4a551dce5e
@@ -1760,6 +1828,7 @@ land_parcels_035:
   name: ZC-017005218-26-1 Maïs (zea_mays) 2015 n°4
   nature_id: 59
   number: PR00000000117
+  reading_cache: {}
   type: LandParcel
   updated_at: 2016-01-21 14:05:51.487653000 Z
   uuid: eaf64270-2152-4bdc-91ba-3c3c29221c2c
@@ -1783,6 +1852,7 @@ land_parcels_036:
   name: 'ZC-017005218-27-1 #8'
   nature_id: 59
   number: PR00000000118
+  reading_cache: {}
   type: LandParcel
   updated_at: 2016-01-21 14:05:51.624402000 Z
   uuid: e93daaee-e364-47c6-bca0-915851ffd455
@@ -1806,6 +1876,7 @@ land_parcels_037:
   name: 'ZC-017005218-28-1 #1'
   nature_id: 59
   number: PR00000000119
+  reading_cache: {}
   type: LandParcel
   updated_at: 2016-01-21 14:05:51.759263000 Z
   uuid: 62a7405f-422a-42ef-988e-ee281139e5a2
@@ -1829,6 +1900,7 @@ land_parcels_038:
   name: Le Margoulin Carotte 2016 n°1
   nature_id: 59
   number: PR00000000120
+  reading_cache: {}
   type: LandParcel
   updated_at: 2016-05-10 19:12:52.671463000 Z
   updater_id: 1
@@ -1845,6 +1917,7 @@ matters_001:
   name: Sand
   nature_id: 1
   number: '1001'
+  reading_cache: {}
   type: Matter
   updated_at: 2014-10-31 17:19:32.000000000 Z
   updater_id: 1
@@ -1861,6 +1934,7 @@ matters_002:
   name: Book
   nature_id: 1
   number: '1002'
+  reading_cache: {}
   type: Matter
   updated_at: 2014-10-31 17:19:32.000000000 Z
   updater_id: 1
@@ -1877,6 +1951,7 @@ matters_003:
   name: Iron grid
   nature_id: 1
   number: '1003'
+  reading_cache: {}
   type: Matter
   updated_at: 2014-10-31 17:19:32.000000000 Z
   updater_id: 1
@@ -1893,6 +1968,7 @@ matters_004:
   name: Deuterium
   nature_id: 1
   number: '1004'
+  reading_cache: {}
   type: Matter
   updated_at: 2014-10-31 17:19:32.000000000 Z
   updater_id: 1
@@ -1909,6 +1985,7 @@ matters_005:
   name: Oxygen
   nature_id: 1
   number: '1005'
+  reading_cache: {}
   type: Matter
   updated_at: 2014-10-31 17:19:32.000000000 Z
   updater_id: 1
@@ -1925,6 +2002,7 @@ matters_006:
   name: Sand II
   nature_id: 1
   number: '1006'
+  reading_cache: {}
   type: Matter
   updated_at: 2014-10-31 17:19:32.000000000 Z
   updater_id: 1
@@ -1944,6 +2022,7 @@ matters_007:
   name: Semence de Blé tendre Rubisko (r1 gau red) sac de 25kg
   nature_id: 10
   number: '40008'
+  reading_cache: {}
   type: Matter
   updated_at: 2014-10-31 20:23:37.029761000 Z
   updater_id: 1
@@ -1974,6 +2053,7 @@ matters_008:
   name: Semence d’avoine d’hiver une de mai ‒ sac de 25kg
   nature_id: 10
   number: P00000000001
+  reading_cache: {}
   type: Matter
   updated_at: 2016-02-08 10:33:27.670999000 Z
   updater_id: 1
@@ -1994,6 +2074,7 @@ matters_009:
   name: Botte de paille de blé ‒ balle ronde
   nature_id: 9
   number: P00000000002
+  reading_cache: {}
   type: Matter
   updated_at: 2014-11-01 16:00:08.339341000 Z
   updater_id: 1
@@ -2014,10 +2095,11 @@ matters_010:
   name: Semence d’avoine d’hiver une de mai ‒ sac de 25kg (1)
   nature_id: 10
   number: P00000000003
+  reading_cache: {}
   type: Matter
   updated_at: 2014-11-01 16:01:24.156172000 Z
   updater_id: 1
-  uuid: 084e03d7-874d-4fa7-8f3d-94912b447edc
+  uuid: '084e03d7-874d-4fa7-8f3d-94912b447edc'
   variant_id: 11
   variety: seed
 matters_011:
@@ -2033,6 +2115,7 @@ matters_011:
   name: Microthiol sp disp
   nature_id: 8
   number: P00000000006
+  reading_cache: {}
   type: Matter
   updated_at: 2014-11-01 20:19:35.354902000 Z
   updater_id: 1
@@ -2052,6 +2135,7 @@ matters_012:
   name: Riflexine
   nature_id: 19
   number: ARLXP00000000006
+  reading_cache: {}
   type: Matter
   updated_at: 2014-11-01 20:23:54.912213000 Z
   updater_id: 1
@@ -2071,6 +2155,7 @@ matters_013:
   name: Acetal
   nature_id: 19
   number: WARLXP00000000007
+  reading_cache: {}
   type: Matter
   updated_at: 2014-11-01 20:23:55.247530000 Z
   updater_id: 1
@@ -2093,6 +2178,7 @@ matters_014:
   name: 'Semence de Blé tendre Rubisko (r1 gau red) sac de 25kg - [02/11/2014] - [Semence] '
   nature_id: 10
   number: PR00000000022
+  reading_cache: {}
   type: Matter
   updated_at: 2014-11-02 18:38:47.081597000 Z
   updater_id: 1
@@ -2116,6 +2202,7 @@ matters_015:
   name: 'Semence de Blé tendre Rubisko (r1 gau red) sac de 25kg - [10/11/2013] - [Semence] '
   nature_id: 10
   number: PR00000000033
+  reading_cache: {}
   type: Matter
   updated_at: 2014-11-05 15:40:15.688874000 Z
   updater_id: 1
@@ -2139,6 +2226,7 @@ matters_016:
   name: 'Semence de Blé tendre Rubisko (r1 gau red) sac de 25kg - [17/10/2012] - [Semence] '
   nature_id: 10
   number: PR00000000035
+  reading_cache: {}
   type: Matter
   updated_at: 2014-11-06 17:50:06.929964000 Z
   updater_id: 1
@@ -2161,6 +2249,7 @@ matters_017:
   name: Acetal [05/11/2014] (Gendo)
   nature_id: 19
   number: PR00000000038
+  reading_cache: {}
   type: Matter
   updated_at: 2014-11-07 14:44:18.818382000 Z
   updater_id: 1
@@ -2183,6 +2272,7 @@ matters_018:
   name: Microthiol sp disp - [08/02/2013]
   nature_id: 8
   number: PR00000000040
+  reading_cache: {}
   type: Matter
   updated_at: 2014-11-07 15:02:58.655370000 Z
   updater_id: 1
@@ -2202,6 +2292,7 @@ matters_019:
   name: Ammonitre 33,5%  Big Bag
   nature_id: 33
   number: PR00000000042
+  reading_cache: {}
   type: Matter
   updated_at: 2014-11-07 15:25:51.192693000 Z
   updater_id: 1
@@ -2224,6 +2315,7 @@ matters_020:
   name: Engrais
   nature_id: 33
   number: PR00000000043
+  reading_cache: {}
   type: Matter
   updated_at: 2014-11-07 15:26:50.522451000 Z
   updater_id: 1
@@ -2244,6 +2336,7 @@ matters_021:
   name: Semence de trèfle violet ‒ Ségur ‒ sac de 10kg
   nature_id: 10
   number: PR00000000044
+  reading_cache: {}
   type: Matter
   updated_at: 2014-11-07 15:44:20.455537000 Z
   updater_id: 1
@@ -2264,6 +2357,7 @@ matters_022:
   name: Semence mixte
   nature_id: 10
   number: PR00000000045
+  reading_cache: {}
   type: Matter
   updated_at: 2014-11-07 15:44:20.589234000 Z
   updater_id: 1
@@ -2287,6 +2381,7 @@ matters_023:
   name: 'Semence mixte - [29/09/2007] - [Semence] '
   nature_id: 10
   number: PR00000000046
+  reading_cache: {}
   type: Matter
   updated_at: 2014-11-07 15:45:45.728092000 Z
   updater_id: 1
@@ -2310,6 +2405,7 @@ matters_024:
   name: Herbe de prairie [01/08/2014] (La Michardière)
   nature_id: 35
   number: PR00000000048
+  reading_cache: {}
   type: Matter
   updated_at: 2014-11-07 15:50:04.415002000 Z
   updater_id: 1
@@ -2330,6 +2426,7 @@ matters_025:
   name: Plant de vigne So4/Sauvignon blanc
   nature_id: 37
   number: PR00000000051
+  reading_cache: {}
   tracking_id: 3
   type: Matter
   updated_at: 2014-11-07 16:47:34.638130000 Z
@@ -2354,6 +2451,7 @@ matters_026:
   name: Plant de vigne standard (So4) - [Plant]
   nature_id: 37
   number: PR00000000053
+  reading_cache: {}
   tracking_id: 3
   type: Matter
   updated_at: 2014-11-07 16:50:07.026840000 Z
@@ -2377,6 +2475,7 @@ matters_027:
   name: Microthiol sp disp - [17/04/2013]
   nature_id: 8
   number: PR00000000055
+  reading_cache: {}
   type: Matter
   updated_at: 2014-11-07 16:59:09.705128000 Z
   updater_id: 1
@@ -2399,6 +2498,7 @@ matters_028:
   name: Grappe de raisin 2013 (La Boutanche)
   nature_id: 40
   number: PR00000000057
+  reading_cache: {}
   type: Matter
   updated_at: 2014-11-07 17:08:50.419969000 Z
   updater_id: 1
@@ -2421,6 +2521,7 @@ matters_029:
   name: Raisin
   nature_id: 40
   number: PR00000000063
+  reading_cache: {}
   type: Matter
   updated_at: 2014-11-07 18:53:57.726666000 Z
   updater_id: 1
@@ -2443,6 +2544,7 @@ matters_030:
   name: Grappe de raisin 2013 (Cuve Jupiter)
   nature_id: 40
   number: PR00000000064
+  reading_cache: {}
   type: Matter
   updated_at: 2014-11-07 18:53:57.938037000 Z
   updater_id: 1
@@ -2465,6 +2567,7 @@ matters_031:
   name: Co-produit du raisin 2013 (Cuve Saturne)
   nature_id: 47
   number: PR00000000065
+  reading_cache: {}
   type: Matter
   updated_at: 2014-11-07 18:53:57.995416000 Z
   updater_id: 1
@@ -2487,6 +2590,7 @@ matters_032:
   name: Raisin
   nature_id: 40
   number: PR00000000066
+  reading_cache: {}
   type: Matter
   updated_at: 2014-11-07 19:02:56.067968000 Z
   updater_id: 1
@@ -2510,6 +2614,7 @@ matters_033:
   name: Jus de raisin 2013 (Cuve Jupiter)
   nature_id: 48
   number: PR00000000067
+  reading_cache: {}
   type: Matter
   updated_at: 2014-11-07 19:02:56.215117000 Z
   updater_id: 1
@@ -2532,6 +2637,7 @@ matters_034:
   name: Co-produit du raisin 2013 (Cuve Saturne)
   nature_id: 47
   number: PR00000000068
+  reading_cache: {}
   type: Matter
   updated_at: 2014-11-07 19:02:56.271910000 Z
   updater_id: 1
@@ -2551,6 +2657,7 @@ matters_035:
   name: Acide lactique ‒ 25kg
   nature_id: 49
   number: PR00000000069
+  reading_cache: {}
   type: Matter
   updated_at: 2014-11-07 19:05:46.886304000 Z
   updater_id: 1
@@ -2570,6 +2677,7 @@ matters_036:
   name: Acide malique ‒ 25kg
   nature_id: 49
   number: PR00000000070
+  reading_cache: {}
   type: Matter
   updated_at: 2014-11-07 19:05:46.968107000 Z
   updater_id: 1
@@ -2590,6 +2698,7 @@ matters_037:
   name: Levure œnologique ‒ sachet de 500g
   nature_id: 50
   number: PR00000000071
+  reading_cache: {}
   type: Matter
   updated_at: 2014-11-07 19:05:47.037645000 Z
   updater_id: 1
@@ -2613,6 +2722,7 @@ matters_038:
   name: Produit œnologique
   nature_id: 50
   number: PR00000000072
+  reading_cache: {}
   type: Matter
   updated_at: 2014-11-07 19:08:55.092680000 Z
   updater_id: 1
@@ -2635,6 +2745,7 @@ matters_039:
   name: Vin [oct. 2013] (Cuve Jupiter)
   nature_id: 41
   number: PR00000000073
+  reading_cache: {}
   type: Matter
   updated_at: 2014-11-07 19:08:55.237093000 Z
   updater_id: 1
@@ -2654,6 +2765,7 @@ matters_040:
   name: Sucre blanc ‒ 25kg
   nature_id: 51
   number: PR00000000074
+  reading_cache: {}
   type: Matter
   updated_at: 2014-11-07 19:12:04.938158000 Z
   updater_id: 1
@@ -2676,6 +2788,7 @@ matters_041:
   name: Sucre blanc ‒ 25kg (Cuve Jupiter)
   nature_id: 51
   number: PR00000000075
+  reading_cache: {}
   type: Matter
   updated_at: 2014-11-07 19:12:42.843046000 Z
   updater_id: 1
@@ -2695,6 +2808,7 @@ matters_042:
   name: SO₂ liquide 10%
   nature_id: 53
   number: PR00000000076
+  reading_cache: {}
   type: Matter
   updated_at: 2014-11-07 19:22:38.077250000 Z
   updater_id: 1
@@ -2717,6 +2831,7 @@ matters_043:
   name: Produit œnologique
   nature_id: 53
   number: PR00000000077
+  reading_cache: {}
   type: Matter
   updated_at: 2014-11-07 19:24:10.209263000 Z
   updater_id: 1
@@ -2737,6 +2852,7 @@ matters_044:
   name: Bouteilles vides
   nature_id: 54
   number: PR00000000080
+  reading_cache: {}
   type: Matter
   updated_at: 2014-11-07 19:34:09.456173000 Z
   updater_id: 1
@@ -2757,6 +2873,7 @@ matters_045:
   name: Bouchon naturel
   nature_id: 55
   number: PR00000000081
+  reading_cache: {}
   type: Matter
   updated_at: 2014-11-07 19:34:09.539919000 Z
   updater_id: 1
@@ -2780,6 +2897,7 @@ matters_046:
   name: Vin (Cuve Jupiter)
   nature_id: 41
   number: PR00000000084
+  reading_cache: {}
   type: Matter
   updated_at: 2014-11-07 19:36:59.034307000 Z
   updater_id: 1
@@ -2802,6 +2920,7 @@ matters_047:
   name: Bouteille Bordelaise 75cl (Hangar principal)
   nature_id: 54
   number: PR00000000085
+  reading_cache: {}
   type: Matter
   updated_at: 2014-11-07 19:36:59.103331000 Z
   updater_id: 1
@@ -2824,6 +2943,7 @@ matters_048:
   name: Bouchon naturel (Hangar principal)
   nature_id: 55
   number: PR00000000086
+  reading_cache: {}
   type: Matter
   updated_at: 2014-11-07 19:36:59.170065000 Z
   updater_id: 1
@@ -2846,6 +2966,7 @@ matters_049:
   name: Bouteille de vin (75cl) [oct. 2013] (Hangar principal)
   nature_id: 41
   number: PR00000000087
+  reading_cache: {}
   type: Matter
   updated_at: 2014-11-07 19:36:59.233966000 Z
   updater_id: 1
@@ -2871,6 +2992,7 @@ matters_050:
   name: Bouteille de vin (75cl) [oct. 2013] (Hangar principal)
   nature_id: 41
   number: PR00000010087
+  reading_cache: {}
   type: Matter
   updated_at: 2016-07-26 19:27:42.725364000 Z
   updater_id: 1
@@ -2893,6 +3015,7 @@ matters_051:
   name: Graine de blé
   nature_id: 18
   number: PR00000000088
+  reading_cache: {}
   type: Matter
   updated_at: 2015-09-17 13:38:07.255834000 Z
   updater_id: 1
@@ -2914,6 +3037,7 @@ matters_052:
   name: Adexar 5 l (P000000000003)
   nature_id: 8
   number: PR00000000121
+  reading_cache: {}
   type: Matter
   updated_at: 2016-07-01 19:23:47.556500000 Z
   updater_id: 1
@@ -2935,6 +3059,7 @@ matters_053:
   name: Riflexine (P000000000003)
   nature_id: 19
   number: PR00000000122
+  reading_cache: {}
   type: Matter
   updated_at: 2016-07-01 19:23:47.769812000 Z
   updater_id: 1
@@ -2956,6 +3081,7 @@ matters_054:
   name: Ammonitre 33,5%  Big Bag (P000000000005)
   nature_id: 33
   number: PR00000000123
+  reading_cache: {}
   type: Matter
   updated_at: 2016-07-01 20:23:21.033093000 Z
   updater_id: 1
@@ -2978,6 +3104,7 @@ matters_055:
   name: Pièce de machine
   nature_id: 61
   number: PR00000000124
+  reading_cache: {}
   type: Matter
   updated_at: 2016-08-10 14:27:49.841387000 Z
   updater_id: 1
@@ -3002,6 +3129,7 @@ plants_001:
   name: Culture de blé [nov. 2013] (La Crédanpouille)
   nature_id: 15
   number: PR00000000034
+  reading_cache: {}
   type: Plant
   updated_at: 2014-11-05 15:40:15.833985000 Z
   updater_id: 1
@@ -3027,6 +3155,7 @@ plants_002:
   name: Culture de blé [oct. 2012] (La Queue du Loup)
   nature_id: 15
   number: PR00000000036
+  reading_cache: {}
   type: Plant
   updated_at: 2014-11-06 17:50:07.013572000 Z
   updater_id: 1
@@ -3050,6 +3179,7 @@ plants_003:
   name: Culture de prairie permanente [sept. 2007] (La Michardière)
   nature_id: 34
   number: PR00000000047
+  reading_cache: {}
   type: Plant
   updated_at: 2014-11-07 15:45:45.794867000 Z
   updater_id: 1
@@ -3079,10 +3209,11 @@ plants_004:
   name: Culture de vigne [mars. 2008] (La Boutanche)
   nature_id: 36
   number: PR00000000054
+  reading_cache: {}
   type: Plant
   updated_at: 2014-11-07 16:50:07.190626000 Z
   updater_id: 1
-  uuid: 09251135-3e58-49e6-9d55-70dfa0b3a59b
+  uuid: '09251135-3e58-49e6-9d55-70dfa0b3a59b'
   variant_id: 44
   variety: vitis_vinifera
 plants_005:
@@ -3102,6 +3233,7 @@ plants_005:
   name: sdfghj,k;l:!
   nature_id: 15
   number: PR00000000125
+  reading_cache: {}
   type: Plant
   updated_at: 2016-12-20 18:24:29.729982000 Z
   updater_id: 1
@@ -3120,6 +3252,7 @@ products_001:
   name: 'Product #1'
   nature_id: 1
   number: '0001'
+  reading_cache: {}
   type: Product
   updated_at: 2014-10-31 17:19:32.000000000 Z
   updater_id: 1
@@ -3138,6 +3271,7 @@ products_002:
   name: 'Product #2'
   nature_id: 1
   number: '0002'
+  reading_cache: {}
   type: Product
   updated_at: 2014-10-31 17:19:32.000000000 Z
   updater_id: 1
@@ -3154,6 +3288,7 @@ product_groups_001:
   name: Troupeau 1
   nature_id: 1
   number: '3001'
+  reading_cache: {}
   type: ProductGroup
   updated_at: 2014-10-31 17:19:32.000000000 Z
   updater_id: 1
@@ -3170,6 +3305,7 @@ product_groups_002:
   name: Troupeau 2
   nature_id: 1
   number: '3002'
+  reading_cache: {}
   type: ProductGroup
   updated_at: 2014-10-31 17:19:32.000000000 Z
   updater_id: 1
@@ -3186,6 +3322,7 @@ product_groups_003:
   name: Troupeau 3
   nature_id: 1
   number: '3003'
+  reading_cache: {}
   type: ProductGroup
   updated_at: 2014-10-31 17:19:32.000000000 Z
   updater_id: 1
@@ -3203,6 +3340,7 @@ settlements_001:
   nature_id: 1
   number: '20001'
   parent_id: 65
+  reading_cache: {}
   type: Settlement
   updated_at: 2014-10-31 17:19:32.000000000 Z
   updater_id: 1
@@ -3220,6 +3358,7 @@ settlements_002:
   nature_id: 1
   number: '20002'
   parent_id: 65
+  reading_cache: {}
   type: Settlement
   updated_at: 2014-10-31 17:19:32.000000000 Z
   updater_id: 1
@@ -3237,6 +3376,7 @@ settlements_003:
   nature_id: 1
   number: '20003'
   parent_id: 65
+  reading_cache: {}
   type: Settlement
   updated_at: 2014-10-31 17:19:32.000000000 Z
   updater_id: 1
@@ -3255,11 +3395,12 @@ workers_001:
   number: '21001'
   parent_id: 65
   person_id: 9
+  reading_cache: {}
   team_id: 1
   type: Worker
   updated_at: 2014-10-31 17:19:32.000000000 Z
   updater_id: 1
-  uuid: 083b01a3-e576-49ee-8ba2-602db54b681e
+  uuid: '083b01a3-e576-49ee-8ba2-602db54b681e'
   variant_id: 1
   variety: worker
   work_number: AB
@@ -3275,6 +3416,7 @@ workers_002:
   number: '21002'
   parent_id: 65
   person_id: 10
+  reading_cache: {}
   type: Worker
   updated_at: 2014-10-31 17:19:32.000000000 Z
   updater_id: 1
@@ -3293,6 +3435,7 @@ workers_003:
   number: '21003'
   parent_id: 65
   person_id: 11
+  reading_cache: {}
   type: Worker
   updated_at: 2014-10-31 17:19:32.000000000 Z
   updater_id: 1
@@ -3314,6 +3457,7 @@ workers_004:
   nature_id: 20
   number: EIZLEIKBWARLXP00000000015
   person_id: 9
+  reading_cache: {}
   team_id: 1
   type: Worker
   updated_at: 2014-11-07 17:08:37.125582000 Z

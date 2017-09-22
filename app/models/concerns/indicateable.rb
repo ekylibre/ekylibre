@@ -95,9 +95,9 @@ module Indicateable
         value = reading.value
       elsif !options[:default].is_a?(FalseClass)
         value = case indicator.datatype
-        when :measure then 0.0.in(indicator.unit)
-        when :decimal then 0.0
-        when :integer then 0
+                when :measure then 0.0.in(indicator.unit)
+                when :decimal then 0.0
+                when :integer then 0
         end
       end
       # Adjust value
