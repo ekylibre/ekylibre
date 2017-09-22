@@ -38,7 +38,7 @@ module Backend
                 bottom_line << "<i class='icon icon-battery-alert' style='color: red;'></i>" if sensor.alert_on? "battery_life"
                 bottom_line << "<i class='icon icon-portable-wifi-off' style='color: red;'></i>" if sensor.alert_on? "lost_connection"
                 popup_lines << ("<div style='display: flex; justify-content: space-between'>"+bottom_line+"</div>").html_safe
-                header_content = "<span class='sensor-name'>#{sensor.name}</span>#{lights(sensor.alert_status)}".html_safe
+                header_content = "<span class='sensor-name'>#{sensor.name}</span>#{view_context.lights(sensor.alert_status)}".html_safe
                 {
                     sensor_id: sensor.id,
                     name: sensor.name,

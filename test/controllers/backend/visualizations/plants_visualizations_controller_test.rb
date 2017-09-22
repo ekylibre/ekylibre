@@ -15,10 +15,6 @@ module Backend
       end
 
       test 'async loading plants visualization' do
-        #TODO
-        # current_campaign = Campaign.find_or_create_by!(harvest_year: 2016)
-        binding.pry
-
         plants = Plant.of_campaign(@user.current_campaign)
         expected_plants_count = plants.count
 
