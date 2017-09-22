@@ -20,6 +20,19 @@ module Backend
       end
     end
 
+    def shapes
+      bb = []
+
+      params[:layers] ||= [:land_parcels, :plants]
+      params[:started_at] ||= DateTime.now
+
+      shapes = MapEditorManager.shapes started_at: params[:started_at], bounding_box: bb, layers: params[:layers]
+
+      respond_to do |format|
+        format.json { render json: (shapes || {}).to_json }
+      end
+    end
+
     protected
 
     def import_shapes(file, format)

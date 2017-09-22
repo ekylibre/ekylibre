@@ -31,11 +31,4 @@
 #  updater_id   :integer
 #  value        :string           not null
 #
----
-tokens_001:
-  created_at: 2016-09-09 09:25:45.250594000 Z
-  id: 1
-  lock_version: 0
-  name: helileo
-  updated_at: 2016-09-09 09:25:45.250594000 Z
-  value: oCdzbgdp6jD1O60iBKVt4hvcl-5B8Uyc-ke-AzDk-lI
+--- {}

@@ -7,7 +7,7 @@ FactoryGirl.define do
     factory :outgoing_parcel do
       nature :outgoing
       planned_at { Time.now }
-       # pretax_amount
+      # pretax_amount
       remain_owner false
       delivery_mode :us
       association :recipient, factory: :entity
