@@ -79,8 +79,6 @@ capybara*.html
 Gemfile.local
 Gemfile.local.lock
 
-Procfile.*
-
 # Vim
 *.sw?
 
