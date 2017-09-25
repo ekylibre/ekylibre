@@ -47,9 +47,10 @@ RUN apt-get update -qq && apt-get install -yf \
 RUN gem install bundler
 RUN gem install rubygems-bundler
 RUN gem regenerate_binstubs
+RUN gem install unicorn
 
 #RUN /bin/bash -l -c "bundle install"
-RUN bundle install --path vendor/cache
+RUN bundle install
 
 RUN gem update bundler
 
