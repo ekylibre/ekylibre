@@ -48,6 +48,8 @@ RUN gem install bundler
 RUN gem install rubygems-bundler
 RUN gem regenerate_binstubs
 
+RUN sudo rm -Rf vendor
+
 #RUN /bin/bash -l -c "bundle install"
 RUN bundle install
 
