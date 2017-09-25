@@ -16,6 +16,8 @@ echo""
 echo "Dependencies install..."
 echo""
 sudo apt-get install -f -qq postgresql-9.6-postgis-2.3 graphicsmagick tesseract-ocr tesseract-ocr-fra tesseract-ocr-eng tesseract-ocr-spa pdftk libreoffice poppler-utils poppler-data qt5-default libqt5webkit5-dev gstreamer1.0-x gstreamer1.0-tools gstreamer1.0-plugins-base libgeos-3.4.2 libgeos-dev libproj0 libproj-dev
+sudo ln -s /usr/lib/libgeos-3.4.2.so /usr/lib/libgeos.so
+sudo ln -s /usr/lib/libgeos-3.4.2.so /usr/lib/libgeos.so.1
 echo ""
 echo "Dependencies installed!"
 echo ""
