@@ -11,14 +11,19 @@
   - if Preference[:use_contextual_help]
     %li= link_to(content_tag(:i), toggle_backend_helps_path, data: {toggle: 'help'}, title: :help.tl, class: (help_shown? ? [:active] : []))
 
-= render "backend/shared/tour" if show_help
-    
+:css
+  .float-left{
+    float: left !important;
+  }
+
 %nav#top
 
   %ul#menu
     = main_tools
+    
+  %ul#menu.float-left
     %li= link_to(content_tag(:i), "#side", data: {toggle: "side"})
-
+  
   = link_to(backend_root_path, id: "home") do
     %i
     = :home.tl
@@ -56,3 +61,5 @@
             = link_to(destroy_user_session_path, :method => :delete, class: :signout) do
               %i
               = Authentication::SessionsController.human_action_name(:destroy)
+
+= render "backend/shared/tour" if show_help
