@@ -12,6 +12,5 @@ module Backend
 
       respond_with shapes
     end
-
   end
 end

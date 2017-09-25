@@ -467,8 +467,9 @@ eng:
       index: "Manure management plans"
       new: "New manure management plan"
       show: "Manure management plan: %{name}"
+    backend/map_editor_shapes:
+      # index: "Map editor shapes"
     backend/map_editors:
-      # shapes: "Shapes map editor: %{name}"
       # upload: "Upload map editor: %{name}"
     backend/map_layers:
       edit: "Edit map layer: %{name}"
@@ -2411,7 +2412,6 @@ eng:
       search: "Search" #?
       select: "Select"
       sell: "Turn into sale"
-      # shapes: "Shapes"
       ship: "Ship"
       show: "Show"
       show_export_preview: "View a preview of the document (may increase loading time)" #?
