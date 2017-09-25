@@ -1,0 +1,3 @@
+= toolbar do
+  = tool_to(Issue.model_name.human, {action: :new, controller: '/backend/issues', target_id: land_parcel.id, target_type: land_parcel.class.name}, tool: 'new-issue')
+  = tool_to(Analysis.model_name.human, {action: :new, controller: '/backend/analyses', product_id: land_parcel.id, nature: :soil_analysis}, tool: 'new-analysis')
