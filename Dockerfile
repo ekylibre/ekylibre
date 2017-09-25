@@ -60,6 +60,6 @@ RUN gem update bundler
 
 #ADD ./ /app
 
-RUN unicorn -D
-#CMD ["bin/run-dev.sh"]
+#RUN unicorn -D
+CMD ["bin/run-dev.sh"]
 #RUN /bin/bash -l -c "foreman s"
