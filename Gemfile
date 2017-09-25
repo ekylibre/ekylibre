@@ -78,7 +78,6 @@ gem 'timecop'
 
 # Manipulate map data
 gem 'charta', '>= 0.1.2'
-gem 'ffi-geos', '>= 1.2.0'
 
 # Manage daemons
 gem 'foreman'
