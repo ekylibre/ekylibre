@@ -1,0 +1,95 @@
+- tour = tours(params[:action])
+/ Tour Modal
+#welcome-tour.modal.fade{:role => "dialog"}
+  .modal-dialog.tour-modal-dialog.modal-backdrop
+    / Modal content
+    .modal-content.tour-modal-content
+      .modal-header.tour-modal-header
+        %button.close.tour-close{"data-dismiss" => "modal", :type => "button"} X
+      .modal-body
+        - if params[:action] == "home"
+          .modal-alert.modal-position1
+            .modal-dialog-new
+              .modal-content-new
+                .modal-header-blue
+                  %label.modal-title= tour[0].title
+                  .arrow-up-1
+                .modal-body-plain
+                  %label
+                    = tour[0].content
+          .modal-alert.modal-position2
+            .modal-dialog-new
+              .modal-content-new
+                .modal-header-blue
+                  %label.modal-title= tour[1].title
+                  .arrow-up-1
+                .modal-body-plain
+                  %label
+                    = tour[1].content
+          .modal-alert.modal-position3
+            .modal-dialog-new
+              .modal-content-new
+                .modal-header-blue
+                  %label.modal-title= tour[2].title
+                  .arrow-up-2
+                .modal-body-plain
+                  %label
+                    = tour[2].content
+          .modal-alert.modal-position4
+            .modal-dialog-new
+              .modal-content-new
+                .modal-header-blue
+                  %label.modal-title= tour[3].title
+                  .arrow-left-1
+                .modal-body-plain
+                  %label
+                    = tour[3].content
+          .modal-alert.modal-position5
+            .modal-dialog-new
+              .modal-content-new
+                .modal-header-blue
+                  %label.modal-title= tour[4].title
+                  .arrow-left-1
+                  .arrow-right-1
+                .modal-body-plain
+                  %label
+                    = tour[4].content
+                    
+        - else
+          .modal-alert.modal-position6
+            .modal-dialog-new
+              .modal-content-new
+                .modal-header-blue
+                  %label.modal-title= tour[0].title
+                  .arrow-left-1
+                .modal-body-plain
+                  %label
+                    = tour[0].content
+          .modal-alert.modal-position7
+            .modal-dialog-new
+              .modal-content-new
+                .modal-header-blue
+                  %label.modal-title= tour[1].title
+                  .arrow-left-1
+                .modal-body-plain
+                  %label
+                    = tour[1].content
+          .modal-alert.modal-position8
+            .modal-dialog-new
+              .modal-content-new
+                .modal-header-blue
+                  %label.modal-title= tour[2].title
+                  .arrow-left-1
+                .modal-body-plain
+                  %label
+                    = tour[2].content
+          .modal-alert.modal-position9
+            .modal-dialog-new
+              .modal-content-new
+                .modal-header-blue
+                  %label.modal-title= tour[3].title
+                  .arrow-left-1
+                .modal-body-plain
+                  %label
+                    = tour[3].content
+        

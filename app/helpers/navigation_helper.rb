@@ -27,6 +27,10 @@ module NavigationHelper
              following: named(nexts[:up], naming_method)
     end
   end
+  
+  def tours(page)
+    Tour.where(page: page, language: current_user.language)
+  end
 
   private
 
