@@ -73,6 +73,8 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 # gem 'rails-api'
 gem 'kaminari'
 
+gem 'rake', '~>12.0.0'
+
 # Freeze time for demo and/or tests
 gem 'timecop'
 
