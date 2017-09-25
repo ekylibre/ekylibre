@@ -35,4 +35,69 @@
 #  updated_at   :datetime         not null
 #  updater_id   :integer
 #
---- {}
+---
+observations_001:
+  author_id: 1
+  content: Simple notice
+  created_at: 2014-10-31 17:19:32.000000000 Z
+  creator_id: 1
+  id: 1
+  importance: normal
+  lock_version: 0
+  observed_at: 2009-07-19 15:13:59.000000000 Z
+  subject_id: 1
+  subject_type: Entity
+  updated_at: 2014-10-31 17:19:32.000000000 Z
+  updater_id: 1
+observations_002:
+  author_id: 1
+  content: Simple notice
+  created_at: 2014-10-31 17:19:32.000000000 Z
+  creator_id: 1
+  id: 2
+  importance: normal
+  lock_version: 0
+  observed_at: 2009-07-19 15:13:59.000000000 Z
+  subject_id: 1
+  subject_type: Entity
+  updated_at: 2014-10-31 17:19:32.000000000 Z
+  updater_id: 1
+observations_003:
+  author_id: 1
+  content: Nothing to say
+  created_at: 2014-11-14 22:03:22.349676000 Z
+  creator_id: 1
+  id: 3
+  importance: notice
+  lock_version: 0
+  observed_at: 2014-11-14 22:03:00.000000000 Z
+  subject_id: 13
+  subject_type: Entity
+  updated_at: 2014-11-14 22:03:22.349676000 Z
+  updater_id: 1
+observations_004:
+  author_id: 1
+  content: Already finished... too sad
+  created_at: 2015-06-07 15:37:03.533841000 Z
+  creator_id: 1
+  id: 4
+  importance: notice
+  lock_version: 0
+  observed_at: 2015-06-07 15:36:00.000000000 Z
+  subject_id: 2
+  subject_type: Task
+  updated_at: 2015-06-07 15:37:03.533841000 Z
+  updater_id: 1
+observations_005:
+  author_id: 1
+  content: It was cool
+  created_at: 2015-06-15 11:38:07.805201000 Z
+  creator_id: 1
+  id: 5
+  importance: notice
+  lock_version: 1
+  observed_at: 2015-03-23 12:37:00.000000000 Z
+  subject_id: 12
+  subject_type: Entity
+  updated_at: 2015-06-15 11:40:02.042159000 Z
+  updater_id: 1
