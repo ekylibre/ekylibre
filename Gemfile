@@ -142,7 +142,7 @@ gem 'time_diff'
 gem 'wannabe_bool'
 
 # XML Parsing/Writing, HTML extraction
-gem 'nokogiri', '~> 1.7.1'
+gem 'nokogiri', '~> 1.8.1'
 
 # Parse LALR or LR-1 grammars
 gem 'treetop'
