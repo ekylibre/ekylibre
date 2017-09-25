@@ -541,7 +541,9 @@ class ActivityProduction < Ekylibre::Record::Base
       harvest_interventions.includes(:targets).find_each do |harvest|
         harvest_working_area = []
         harvest.targets.each do |target|
-          harvest_working_area << ::Charta.new_geometry(target.working_zone).area.in(:square_meter)
+          if zone = target.working_zone
+            harvest_working_area << ::Charta.new_geometry(target.working_zone).area.in(:square_meter)
+          end
         end
         harvest.outputs.includes(:product).each do |cast|
           actor = cast.product
@@ -552,7 +554,7 @@ class ActivityProduction < Ekylibre::Record::Base
             total_quantity += quantity.convert(size_unit_name) if quantity
           end
         end
-        h = harvest_working_area.compact.sum.to_d(surface_unit_name).to_f
+        h = harvest_working_area.compact.sum.to_d.in(surface_unit_name).to_f
         if h && h > 0.0
           global_coef_harvest_yield << (h * (total_quantity.to_f / h))
           coef_area << h
