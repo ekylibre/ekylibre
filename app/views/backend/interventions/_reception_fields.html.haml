@@ -2,8 +2,8 @@
 	= field_set do
 		- @intervention.receptions.count >= 1 ? sender = @intervention.receptions.first.sender_id : sender = ""
 		- @intervention.receptions.count >= 1 ? purchase = @intervention.receptions.first.purchase_id : purchase = ""
-		= field Entity.human_attribute_name(:supplier), selector_tag(:supplier_id, {controller: :entities, action: :unroll, scope: :suppliers }, {}, name:"intervention[receptions_attributes][0][sender_id]", value: sender, data: { product_of_delivery_item: { url: backend_entity_path("RECORD_ID", format: :json) }})
+		= field Entity.human_attribute_name(:supplier), selector_tag(:supplier_id, {controller: :entities, action: :unroll, scope: :suppliers }, {}, class: "reception-supplier", name: "intervention[receptions_attributes][0][sender_id]", value: sender, data: { product_of_delivery_item: { url: backend_entity_path("RECORD_ID", format: :json) }})
 		.purchase-order-input
-			= f.referenced_association :purchase, label: :order.tl, input_html: { name:"intervention[receptions_attributes][0][purchase_id]", value: purchase, data: { 'when-item': 'id',  'when-filter-value': {of_supplier: 'RECORD_VALUE'}, 'generate-items': true}}, required: true
+			= f.referenced_association :purchase, label: :order.tl, input_html: { class: "reception-purchase", name: "intervention[receptions_attributes][0][purchase_id]", disabled: true, value: purchase, data: { 'when-item': 'id',  'when-filter-value': {of_supplier: 'RECORD_VALUE'}, 'generate-items': true}}, required: true
 		= f.input :reference_number, label: :supplier_reference.tl, input_html: {name:"intervention[receptions_attributes][0][reference_number]"}
 		.purchase-items-array

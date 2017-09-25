@@ -278,6 +278,13 @@
       totalAmount = quantity * parseFloat(input.parents('li.item-line').find('.item-unit-pretax-amount').text())
       input.parents('li.item-line').find('.item-amount').html(totalAmount.toFixed(2))
 
+    isPurchaseOrderSelectorEnabled: (input) ->
+      purchaseInput = input.parents('.fieldset-fields').find('.reception-purchase')
+      if input.val().length == 0
+        purchaseInput.attr("disabled",true)
+      else
+        purchaseInput.attr("disabled",false)
+
   ##############################################################################
   # Triggers
   #
@@ -348,6 +355,10 @@
   $(document).on "keyup change", 'input.input-quantity', ->
     $(this).each ->
       E.interventions.updateTotalAmount($(this))
+
+  $(document).on "selector:change change", 'input.reception-supplier', ->
+    $(this).each ->
+      E.interventions.isPurchaseOrderSelectorEnabled($(this))
 
   $(document).ready ->
 
