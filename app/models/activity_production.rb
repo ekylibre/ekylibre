@@ -542,7 +542,7 @@ class ActivityProduction < Ekylibre::Record::Base
         harvest_working_area = []
         harvest.targets.each do |target|
           if zone = target.working_zone
-            harvest_working_area << ::Charta.new_geometry(target.working_zone).area.in(:square_meter)
+            harvest_working_area << ::Charta.new_geometry(zone).area.in(:square_meter)
           end
         end
         harvest.outputs.includes(:product).each do |cast|
