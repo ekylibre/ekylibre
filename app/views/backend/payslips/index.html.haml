@@ -1,10 +1,18 @@
 = kujaku do |k|
   - k.text
+  - k.multi_choice :state, Payslip.states.map{ |p| [p.human_name, p.name]}, label: Payslip.human_attribute_name(:state)
+  - k.helper do
+    = payslip_period_crit(label: Payslip.human_attribute_name(:emitted_on), name: :emitted_on)
   - k.helper do
     - max = payslip_max_amount
-    - minimum = payslip_min_amount
+    - min = payslip_min_amount
     - label = Payslip.human_attribute_name(:amount)
-    = render('backend')
+    = render('backend/shared/kujaku/range_slider',
+      max: max,
+      min: min,
+      step: 10,
+      label: label,
+      name: :amount)
 - main_toolbar do |t|
   = t.new variants: PayslipNature.reorder(:name).to_a.map{ |n| [n.name, {nature_id: n.id}, {by_default: n.by_default}] }, params: { redirect: nil }
 

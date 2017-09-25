@@ -80,6 +80,10 @@ class Payslip < Ekylibre::Record::Base
     end
   end
 
+  def self.states
+    state_machine.states
+  end
+
   # This callback permits to add journal entries corresponding to the payslip
   # It depends on the preference which permit to activate the "automatic bookkeeping"
   bookkeep do |b|

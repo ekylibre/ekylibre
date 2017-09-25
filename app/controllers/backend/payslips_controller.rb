@@ -5,7 +5,38 @@ module Backend
     unroll :number, :amount, :currency, :created_at, employee: :full_name
 
     def self.list_conditions
-      code = search_conditions(payslip: [:number], entities: %i[last_name first_name full_name])
+      code = search_conditions(payslip: [:number], entities: %i[last_name first_name full_name]) + " ||= []\n"
+      code << "if params[:state].present?\n"
+      code << " fy = FinancialYear.current\n"
+      code << " c[0] << ' AND #{Payslip.table_name}.state IN (?)'\n"
+      code << " c << params[:state]\n"
+      code << "end\n"
+      code << "if params[:emitted_on].present? && params[:emitted_on].to_s != 'all'\n"
+      code << " c[0] << ' AND #{Payslip.table_name}.emitted_on::DATE BETWEEN ? AND ?'\n"
+      code << " if params[:emitted_on] == 'interval'\n"
+      code << "   if params[:emitted_on_started_on].present? && params[:emitted_on_stopped_on].present?\n"
+      code << "     c << params[:emitted_on_started_on]\n"
+      code << "     c << params[:emitted_on_stopped_on]\n"
+      code << "   elsif params[:emitted_on_started_on].present?\n"
+      code << "     c << params[:emitted_on_started_on]\n"
+      code << "     c << (fy ? fy.stopped_on : Time.zone.today)\n"
+      code << "   elsif params[:emitted_on_stopped_on].present?\n"
+      code << "     c << (fy ? fy.started_on : Time.zone.today)\n"
+      code << "     c << params[:emitted_on_stopped_on]\n"
+      code << "   end\n"
+      code << " else\n"
+      code << "   interval = params[:emitted_on].to_s.split('_')\n"
+      code << "   c << interval.first\n"
+      code << "   c << interval.last\n"
+      code << " end\n"
+      code << "end\n"
+      code << "if params[:amount].present?\n"
+      code << " interval = params[:amount].split(',')\n"
+      code << " c[0] << ' AND #{Payslip.table_name}.amount BETWEEN ? AND ?'\n"
+      code << " c << interval.first.to_i\n"
+      code << " c << interval.last.to_i\n"
+      code << "end\n"
+      code << "c\n"
       code.c
     end
 
