@@ -91,6 +91,7 @@ gem 'sidekiq-unique-jobs', '~> 4.0'
 
 # Use Unicorn as the app server
 gem 'unicorn'#, group: :production
+gem 'loofah'#, group: :production
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
