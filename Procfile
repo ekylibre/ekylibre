@@ -1,1 +1,1 @@
-web: bundle exec foreman s
+web: bundle exec unicorn_rails
