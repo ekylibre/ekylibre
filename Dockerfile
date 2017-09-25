@@ -57,7 +57,7 @@ RUN gem update bundler
 #RUN /bin/bash -l -c "gem install foreman"
 #RUN gem install foreman
 
-ADD ./ /app
+#ADD ./ /app
 
 RUN unicorn -D
 #CMD ["bin/run-dev.sh"]
