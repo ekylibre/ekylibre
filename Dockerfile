@@ -49,7 +49,7 @@ RUN gem install rubygems-bundler
 RUN gem regenerate_binstubs
 
 #RUN /bin/bash -l -c "bundle install"
-RUN bundle install
+RUN bundle install --path vendor/cache
 
 RUN gem update bundler
 
