@@ -3,7 +3,13 @@ module Backend
     manage_restfully
 
     unroll :number, :amount, :currency, :created_at, employee: :full_name
-    list(joins: %i[affair employee], order: { emitted_on: :desc }) do |t|
+
+    def self.list_conditions
+      code = search_conditions(payslip: [:number], entities: %i[last_name first_name full_name])
+      code.c
+    end
+
+    list(joins: %i[affair employee], order: { emitted_on: :desc }, conditions: list_conditions) do |t|
       t.action :edit
       t.action :destroy
       t.column :number, url: true
