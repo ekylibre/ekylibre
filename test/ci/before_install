@@ -26,6 +26,7 @@ echo ""
 echo "--- PROJ4 DEBUGGING ---"
 echo "$(which proj)"
 echo "$(find /usr/ | grep libproj.so)"
+sudo ln -s /usr/lib/libproj.so.0 /usr/lib/libproj.so.9
 echo "--- PROJ4 DEBUGGING ---"
 echo ""
 echo ""
