@@ -16,7 +16,7 @@ module Backend
 
       test 'async loading plants visualization' do
         campaign = Campaign.first
-        plants = Plant.of_campaign(campaign)
+        plants = Plant.of_campaign(campaign).order(born_at: :asc)
         expected_plants_count = plants.count
 
         get :show, current_campaign: campaign.harvest_year, xhr: true, format: :json

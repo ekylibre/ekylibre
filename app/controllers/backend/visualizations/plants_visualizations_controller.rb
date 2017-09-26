@@ -4,7 +4,7 @@ module Backend
       respond_to :json
 
       def show
-        data = Plant.includes(:nature).of_campaign(current_campaign).collect do |p|
+        data = Plant.includes(:nature).of_campaign(current_campaign).order(born_at: :asc).collect do |p|
           next unless p.shape
 
           popup_content = []
