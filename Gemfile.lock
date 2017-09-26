@@ -277,11 +277,7 @@ GEM
     mimemagic (0.3.2)
     mini_portile2 (2.1.0)
     minitest (5.10.3)
-<<<<<<< HEAD
-    minitest-reporters (1.1.17)
-=======
     minitest-reporters (1.1.18)
->>>>>>> db92dcd7f372e7eb1748bec604e92997db8f86a8
       ansi
       builder
       minitest (>= 5.0)
@@ -597,11 +593,7 @@ DEPENDENCIES
   bootstrap-slider-rails
   bootstrap3-datetimepicker-rails
   browser
-<<<<<<< HEAD
-  bullet (~> 5.5.0)
-=======
   bullet (< 5.6.0)
->>>>>>> db92dcd7f372e7eb1748bec604e92997db8f86a8
   capybara
   capybara-webkit
   charlock_holmes

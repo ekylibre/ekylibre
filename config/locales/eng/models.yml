@@ -741,7 +741,7 @@ eng:
     entry_items: "Entry items"
     entry_number: "Entry number"
     entry_on: "Entry on" #?
-    entry_reason: "Entry reason" #?
+    entry_reason: "Entry reason"
     estimate_reception_date: "Estimate reception date"
     euid: "EUID"
     event: "Event"
@@ -1301,7 +1301,7 @@ eng:
     query: "Query"
     rank_number: "Rank number"
     read_at: "Read at"
-    reading_cache: "Reading cache"
+    reading_cache: "Reading cache" #?
     reading_tasks: "Reading tasks" #?
     readings: "Readings"
     real_balance: "Real balance"
