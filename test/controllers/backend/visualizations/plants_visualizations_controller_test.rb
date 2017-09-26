@@ -15,10 +15,11 @@ module Backend
       end
 
       test 'async loading plants visualization' do
-        plants = Plant.of_campaign(@user.current_campaign)
+        campaign = Campaign.first
+        plants = Plant.of_campaign(campaign)
         expected_plants_count = plants.count
 
-        get :show, xhr: true, format: :json
+        get :show, current_campaign: campaign.harvest_year, xhr: true, format: :json
         r = JSON.parse(@response.body)
 
         assert r.key? 'series'
