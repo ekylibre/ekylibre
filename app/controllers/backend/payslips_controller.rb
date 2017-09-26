@@ -6,6 +6,7 @@ module Backend
 
     def self.list_conditions
       code = search_conditions(payslip: [:number], entities: %i[last_name first_name full_name]) + " ||= []\n"
+      # To finish
       code << "fy = FinancialYear.current\n"
       code << "if params[:status].present?\n"
       code << " unless params[:status].include?('go') && params[:status].include?('caution' || 'stop')\n"
