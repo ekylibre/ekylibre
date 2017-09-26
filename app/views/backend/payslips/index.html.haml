@@ -1,6 +1,6 @@
 = kujaku do |k|
   - k.text
-  - k.multi_choice :state, Payslip.states.map{ |p| [p.human_name, p.name]}, label: Payslip.human_attribute_name(:state)
+  - k.multi_choice :status, [['Réglé', :go], ['Partiellement réglé', :caution],['Non réglé', :stop]], label: Payslip.human_attribute_name(:status)
   - k.helper do
     = payslip_period_crit(label: Payslip.human_attribute_name(:emitted_on), name: :emitted_on)
   - k.helper do

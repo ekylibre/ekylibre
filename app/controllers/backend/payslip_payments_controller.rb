@@ -3,8 +3,8 @@ module Backend
 
     def self.list_conditions
       code = search_conditions(payslip_payments: %i[amount number], entities: %i[full_name]) + " ||= []\n"
+      code << "fy = FinancialYear.current\n"
       code << "if params[:mode].present?\n"
-      code << " fy = FinancialYear.current\n"
       code << " c[0] << ' AND #{PayslipPayment.table_name}.mode_id IN (?)'\n"
       code << " c << params[:mode]\n"
       code << "end\n"
