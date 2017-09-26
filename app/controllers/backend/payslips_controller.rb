@@ -6,14 +6,21 @@ module Backend
 
     def self.list_conditions
       code = search_conditions(payslip: [:number], entities: %i[last_name first_name full_name]) + " ||= []\n"
-      # To finish
       code << "fy = FinancialYear.current\n"
       code << "if params[:status].present?\n"
-      code << " unless params[:status].include?('go') && params[:status].include?('caution' || 'stop')\n"
+      code << " if params[:status].include?('go') && (params[:status].include?('caution') || params[:status].include?('stop'))\n"
+      code << "     c[0] << ' AND #{PayslipAffair.table_name}.id=#{Payslip.table_name}.affair_id AND #{PayslipAffair.table_name}.closed=true'\n"
+      code << "   if params[:status].include?('caution')\n"
+      code << "     c[0] << ' OR #{PayslipAffair.table_name}.deals_count>1'\n"
+      code << "   end\n"
+      code << "   if params[:status].include?('stop')\n"
+      code << "     c[0] << ' OR #{PayslipAffair.table_name}.deals_count<=1'\n"
+      code << "   end\n"
+      code << " else\n"
       code << "   if params[:status].include? 'go'\n"
       code << "     c[0] << ' AND #{PayslipAffair.table_name}.id=#{Payslip.table_name}.affair_id AND #{PayslipAffair.table_name}.closed=true'\n"
       code << "   end\n"
-      code << "   if params[:status].include? 'caution' && 'stop'\n"
+      code << "   if params[:status].include?('caution') && params[:status].include?('stop')\n"
       code << "     c[0] << ' AND #{PayslipAffair.table_name}.id=#{Payslip.table_name}.affair_id AND #{PayslipAffair.table_name}.closed=false'\n"
       code << "   else\n"
       code << "     if params[:status].include? 'caution'\n"
@@ -53,8 +60,6 @@ module Backend
       code << "c\n"
       code.c
     end
-    # Payslip.joins(:affair).where(affairs: {closed: true})
-    # Payslip.joins(:affair).where("affairs.deals_count > ?", 1)
 
     list(joins: %i[affair employee], order: { emitted_on: :desc }, conditions: list_conditions) do |t|
       t.action :edit
