@@ -744,8 +744,9 @@ Rails.application.routes.draw do
 
     resources :receptions, concerns: %i[list unroll] do
       member do
-        post :invoice
         get :list_items
+
+        post :invoice
         post :ship
 
         post :order
@@ -889,6 +890,9 @@ Rails.application.routes.draw do
     end
 
     resources :purchase_orders, concerns: %i[list unroll] do
+      collection do
+        get :reconciliate_modal
+      end
       member do
         get :list_items
         post :open

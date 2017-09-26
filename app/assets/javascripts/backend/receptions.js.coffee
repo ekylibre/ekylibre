@@ -37,4 +37,17 @@
           storageContainer.on 'cocoon:after-insert cocoon:after-remove', ->
             E.toggleValidateButton(that)
 
+    $('#showReconciliationModal').on 'click', ->
+      datas = {}
+
+      $.ajax
+        url: "/backend/purchase_orders/reconciliate_modal"
+        data: datas
+        success: (data, status, request) ->
+
+          @reconciliationModal= new ekylibre.modal('#reconciliation')
+          @reconciliationModal.removeModalContent()
+          @reconciliationModal.getModalContent().append(data)
+          @reconciliationModal.getModal().modal 'show'
+
 ) ekylibre, jQuery

@@ -1,0 +1,9 @@
+- purchase_orders.each do |purchase_order|
+  .purchase-order
+    = check_box_tag('', '1')
+    %span Réf fournisseur
+    %ul
+    - purchase_order.items.each do |purchase_order_item|
+      %li
+        = check_box_tag('', '1')
+        %span= purchase_order_item.variant.name

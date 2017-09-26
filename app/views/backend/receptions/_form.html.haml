@@ -23,6 +23,12 @@
   = f.attachments
   -# = f.object.errors.inspect
 
+  = button_tag 'test', id: 'showReconciliationModal', class: 'btn btn-default', type: :button
+
+  = modal(id: "reconciliation", class: "", size: :large) do
+    .modal-body
+    .modal-footer
+
 - if f.object.allow_items_update?
   = field_set f.object.class.human_attribute_name(:items) do
     %table.list
