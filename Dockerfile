@@ -4,7 +4,7 @@ FROM ruby:2.2.3
 ENV JAVA_HOME=/usr/lib/jvm/java-7-openjdk-amd64
 
 WORKDIR /app
-COPY . ./
+COPY . /app
 #COPY Gemfile /app/Gemfile
 #COPY Procfile /app/Procfile
 
