@@ -5,6 +5,7 @@ ENV JAVA_HOME=/usr/lib/jvm/java-7-openjdk-amd64
 
 WORKDIR /app
 COPY . ./
+RUN rm ./Gemfile.lock
 #COPY Gemfile /app/Gemfile
 #COPY Procfile /app/Procfile
 
