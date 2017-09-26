@@ -469,6 +469,8 @@ eng:
       index: "Manure management plans"
       new: "New manure management plan"
       show: "Manure management plan: %{name}"
+    backend/map_editor_shapes:
+      # index: "Map editor shapes"
     backend/map_editors:
       # upload: "Upload map editor: %{name}"
     backend/map_layers:
@@ -1714,7 +1716,7 @@ eng:
     picture: "Picture" #?
     placeholder: "Placeholder" #?
     places: "Places"
-    plant: "Crop"
+    plant: "Crop" #?
     plant_counting: "Counting" #?
     plant_countings: "Countings" #?
     plantation_density: "Plantation density" #?

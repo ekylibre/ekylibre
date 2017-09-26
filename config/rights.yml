@@ -114,6 +114,7 @@
 #     - "backend/januses#toggle"
 #     - "backend/kujakus#toggle"
 #     - "backend/land_parcels#take"
+#     - "backend/map_editor_shapes#index"
 #     - "backend/map_editors#upload"
 #     - "backend/matters#take"
 #     - "backend/notifications#destroy"

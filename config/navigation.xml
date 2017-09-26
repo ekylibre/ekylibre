@@ -1790,6 +1790,7 @@
       </item>
       <item name="map_editors">
         <page to="backend/map_editors#upload"/>
+        <page to="backend/map_editor_shapes#index"/>
       </item>
       <item name="tours">
         <page to="backend/tours#finish"/>

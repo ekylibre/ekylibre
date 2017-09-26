@@ -709,6 +709,8 @@ Rails.application.routes.draw do
       end
     end
 
+    resources :map_editor_shapes, only: :index
+
     resources :matters, concerns: :products
 
     resources :net_services, concerns: [:list] do
