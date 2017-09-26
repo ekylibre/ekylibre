@@ -1,7 +1,8 @@
 FactoryGirl.define do
   factory :product_nature_variant do
-    unit_name   "Millier de grains"
-    variety     "cultivable_zone"
+    unit_name   'Millier de grains'
+    variety     'cultivable_zone'
+
     association :nature, factory: :product_nature
     association :category, factory: :product_nature_category
 

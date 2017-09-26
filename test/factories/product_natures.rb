@@ -1,8 +1,9 @@
 FactoryGirl.define do
   factory :product_nature do
     sequence(:name)     { |n| "Semence #{n}" }
-    population_counting "unitary"
-    variety             "cultivable_zone"
+    population_counting 'unitary'
+    variety             'cultivable_zone'
+
     association         :category, factory: :product_nature_category
 
     factory :land_parcel_nature do
