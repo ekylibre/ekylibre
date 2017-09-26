@@ -362,6 +362,11 @@
     $(this).each ->
       E.interventions.isPurchaseOrderSelectorEnabled($(this))
 
+  $(document).behave "load", ".reception-supplier", ->
+    supplierLabel = $($(this).parents('.nested-receptions').find('.control-label')[0])
+    supplierLabel.addClass('required')
+    supplierLabel.prepend("<abbr title='Obligatoire'>*</abbr>")
+
   $(document).ready ->
 
     # E.interventions.hideKujakuFilters($('.view-toolbar a[data-janus-href="cobbles"]').hasClass('active'))
