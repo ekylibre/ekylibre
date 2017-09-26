@@ -20,6 +20,17 @@ echo ""
 echo "Dependencies installed!"
 echo ""
 
+echo ""
+echo ""
+echo ""
+echo "--- PROJ4 DEBUGGING ---"
+echo "$(which proj4)"
+echo "$(find /usr/ | grep libproj.so)"
+echo "--- PROJ4 DEBUGGING ---"
+echo ""
+echo ""
+echo ""
+
 # Configure PostgreSQL port to 5432
 sudo sed -i -r 's/port\s*=\s*[0-9]+/port = 5432/g' /etc/postgresql/9.6/main/postgresql.conf
 
