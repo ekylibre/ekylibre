@@ -21,7 +21,6 @@ module Backend
     include InspectionViewable
 
     def self.list_conditions
-
       code = ''
       code = search_conditions(products: %i[name work_number]) + " ||= []\n"
       code << "if params[:born_at].present? && params[:born_at].to_s != 'all'\n"
