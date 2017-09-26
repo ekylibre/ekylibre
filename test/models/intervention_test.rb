@@ -161,6 +161,14 @@ class InterventionTest < ActiveSupport::TestCase
     assert plant.dead_at.nil?, 'Dead_at of plant should be nil when no death registered'
   end
 
+  test 'cost_per_area' do
+    cultivable_zone = create(:cultivable_zone)
+    activity_production = create(:activity_production, cultivable_zone: cultivable_zone)
+    intervention = create(:intervention)
+    create(:intervention_target, intervention: intervention, product: activity_production.support, working_zone: activity_production.support.initial_shape)
+    assert_equal 0.0, intervention.cost_per_area(:target)
+  end
+
   def add_harvesting_intervention(target, stopped_at)
     Intervention.create!(
       procedure_name: :harvesting,
