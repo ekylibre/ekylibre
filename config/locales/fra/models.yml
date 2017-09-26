@@ -172,6 +172,7 @@ fra:
         amount: "Montant TTC" #?
       purchase_order: #?
         command_mode: "Mode de commande" #?
+        description: "Notes" #?
         estimate_reception_date: "Date prévisionnelle de réception" #?
         ordered_at: "Date commande" #?
         reference_number: "Référence fournisseur (n° commande)" #?
@@ -880,6 +881,7 @@ fra:
     direct_links: "Liens directs"
     direction: "Type"
     discount_percentage: "Pourcentage d’escompte" #?
+    # distributed_on_productions: "Distributed on productions"
     distributions: "Répartitions"
     district: "Zone administrative"
     document: "Document"
@@ -1535,6 +1537,7 @@ fra:
     rank_number: "Numéro de Rang"
     read_at: "Mesuré à"
     reading: "Relevé" #?
+    # reading_cache: "Reading cache"
     reading_tasks: "Relevé de valeur"
     readings: "Relevés"
     real_balance: "Solde réel"

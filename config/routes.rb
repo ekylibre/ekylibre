@@ -199,6 +199,7 @@ Rails.application.routes.draw do
         post :unmark
         get :list_journal_entry_items
         get :list_entities
+        get :list_product_nature_variants
       end
     end
 
@@ -756,12 +757,26 @@ Rails.application.routes.draw do
       end
     end
 
+    resources :receptions, concerns: %i[list unroll] do
+      member do
+        get :list_items
+
+        post :invoice
+        post :ship
+        post :order
+        post :prepare
+        post :check
+        post :give
+        post :cancel
+      end
+    end
+
     resources :shipments, concerns: %i[list unroll] do
       member do
-        post :invoice
         get :list_items
         post :ship
-
+        post :invoice
+        post :ship
         post :order
         post :prepare
         post :check

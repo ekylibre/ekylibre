@@ -999,6 +999,7 @@ deu:
     current_assets: "Umlaufvermögen"
     current_cultivation: "aktuelle Anbau"
     current_result_before_taxe: "Aktuelles Ergebnis vor taxe"
+    # current_stock: "Current stock"
     current_stocks_by_variety: "Aktuelle Bestände durch Vielfalt"
     currently_subscribed_to: "Derzeit abonniert"
     custom_fields: "Benutzerdefinierte Felder"
@@ -1042,6 +1043,7 @@ deu:
     details: "Einzelheiten"
     direct_margin: "Direkter Marge" #?
     discount: "Rabatt (%)"
+    # discount_without_percent: "Discount"
     disease: "Krankheit"
     disease_deformity_percentage: "Krankheit und Deformierung Prozentsatz"
     disease_percentage: "Krankheit (%)"
@@ -1514,6 +1516,7 @@ deu:
     purchase: "Kauf"
     purchase_items: "Kauf von Gegenständen"
     purchase_number: "Ankauf"
+    # purchase_payments: "Purchase payments"
     purchases: "Käufe"
     purchases_stocks_variation: "Käufe Bestände Variation"
     quality: "Qualität"
@@ -1636,6 +1639,7 @@ deu:
     statistics: "Statistiken"
     stewardship: "Verwaltung"
     # stock: "Stock"
+    # stock_after_order: "Stock after order"
     stock_container_map: "Auf Karte"
     stock_in_ground: "Auf in Boden"
     stock_in_ground_by_calibration: "Aktien im Boden durch Kalibrierung"
@@ -1703,6 +1707,8 @@ deu:
     tools: "Werkzeuge"
     total: "Gesamt"
     total_amount: "Gesamtmenge"
+    # total_amount_with_taxes: "Total amount incl. taxes"
+    # total_amount_without_taxes: "Total amount excl. taxes"
     total_cost: "Gesamtkosten"
     total_earn: "insgesamt verdienen" #?
     total_paid_amount: "Insgesamt gezahlte Betrag" #?
@@ -2019,6 +2025,7 @@ deu:
       # equipment_component_is_worn_out: "The component %{component_name} of the equipment %{equipment_name} is worn out. Remaining work time: %{remaining_time}."
       # equipment_is_at_end_of_life: "Equipment %{name} is reaching the end of its life. Remaining time: %{remaining_time}."
       # equipment_is_worn_out: "Equipment %{name} is worn out. Remaining work time: %{remaining_time}."
+      # error_client_account_empty: "Can not operate, client account is empty"
       # error_during_file_generation: "An error occurred while generating a file"
       # fails_to_extract_listing: "The listing can't be made: %{message}"
       # file_generated: "Your file was successfully generated"

@@ -76,6 +76,12 @@ class PurchaseInvoice < Purchase
     self.state = :invoice
   end
 
+  after_update do
+    affair.update_attributes(third_id: third.id) if affair && affair.deals.count == 1
+    affair.reload_gaps if affair
+    true
+  end
+
   validate do
     if invoiced_at
       errors.add(:invoiced_at, :before, restriction: Time.zone.now.l) if invoiced_at > Time.zone.now

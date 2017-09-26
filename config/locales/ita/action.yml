@@ -1065,6 +1065,7 @@ ita:
     current_assets: "Attività correnti"
     current_cultivation: "la coltivazione di corrente"
     current_result_before_taxe: "Risultato corrente prima della taxe"
+    # current_stock: "Current stock"
     current_stocks_by_variety: "le scorte attuali di varietà"
     currently_subscribed_to: "Attualmente sottoscritto"
     custom_fields: "Campi personalizzati"
@@ -1108,6 +1109,7 @@ ita:
     details: "Dettagli"
     direct_margin: "margine diretto" #?
     discount: "Sconto (%)"
+    # discount_without_percent: "Discount"
     disease: "Malattia"
     disease_deformity_percentage: "percentuale di malattia e la deformità"
     disease_percentage: "Malattia (%)"
@@ -1580,6 +1582,7 @@ ita:
     purchase: "Acquista"
     purchase_items: "articoli di acquisto"
     purchase_number: "Acquisto"
+    # purchase_payments: "Purchase payments"
     purchases: "acquisti"
     purchases_stocks_variation: "Scorte Acquisti variazione"
     quality: "Qualità"
@@ -1702,6 +1705,7 @@ ita:
     statistics: "statistica"
     stewardship: "amministrazione"
     stock: "Azione"
+    # stock_after_order: "Stock after order"
     stock_container_map: "della mappa"
     stock_in_ground: "Azione in terra"
     stock_in_ground_by_calibration: "Azioni in terra di calibrazione"
@@ -1769,6 +1773,8 @@ ita:
     tools: "Utensili"
     total: "Totale"
     total_amount: "Importo totale"
+    # total_amount_with_taxes: "Total amount incl. taxes"
+    # total_amount_without_taxes: "Total amount excl. taxes"
     total_cost: "Costo totale"
     total_earn: "totale guadagnare" #?
     total_paid_amount: "importo totale versato" #?
@@ -2085,6 +2091,7 @@ ita:
       # equipment_component_is_worn_out: "The component %{component_name} of the equipment %{equipment_name} is worn out. Remaining work time: %{remaining_time}."
       # equipment_is_at_end_of_life: "Equipment %{name} is reaching the end of its life. Remaining time: %{remaining_time}."
       # equipment_is_worn_out: "Equipment %{name} is worn out. Remaining work time: %{remaining_time}."
+      # error_client_account_empty: "Can not operate, client account is empty"
       # error_during_file_generation: "An error occurred while generating a file"
       # fails_to_extract_listing: "The listing can't be made: %{message}"
       # file_generated: "Your file was successfully generated"

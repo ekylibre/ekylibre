@@ -1,22 +1,24 @@
+require 'minitest/mock'
+require 'rake'
+
 if ENV['CI']
   require 'codacy-coverage'
-  require 'coveralls'
+  require 'codecov'
 else
   require 'simplecov'
 end
 ENV['RAILS_ENV'] ||= 'test'
 
 if ENV['CI']
-  Coveralls.setup!
-
   SimpleCov.formatters = [
-    Codacy::Formatter,
-    Coveralls::SimpleCov::Formatter
+    SimpleCov::Formatter::Codecov,
+    Codacy::Formatter
   ]
 
-  Coveralls.start!('rails') unless ENV['COVERALL'] == 'off'
   SimpleCov.start
 else
+  require 'simplecov'
+
   SimpleCov.start do
     load_profile 'rails'
     add_group 'Exchangers', 'app/exchangers'
@@ -33,6 +35,8 @@ require 'capybara/rails'
 
 require 'minitest/reporters'
 Minitest::Reporters.use! Minitest::Reporters::DefaultReporter.new
+# DefaultReporter => ...........
+# SpecRemporter   => Test names (1 test/line)
 
 # Permits to test locales
 I18n.locale = ENV['LOCALE'] if ENV['LOCALE']
@@ -117,8 +121,7 @@ module ActiveSupport
     def self.identify(label)
       # ActiveRecord::FixtureSet.identify(label)
       elements = label.to_s.split('_')
-      id = elements.delete_at(-1)
-      model = elements.join('_').classify.constantize
+      model = elements[0...-1].join('_').classify.constantize
       @@fixtures ||= {}
       @@fixtures[model.table_name] ||= YAML.load_file(Rails.root.join('test', 'fixtures', "#{model.table_name}.yml"))
       unless attrs = @@fixtures[model.table_name][label.to_s]
@@ -720,4 +723,12 @@ class CapybaraIntegrationTest < ActionDispatch::IntegrationTest
     mail_body = ActionMailer::Base.deliveries.last.body.to_s
     URI(URI.extract(mail_body).first).request_uri
   end
+end
+
+def without_output(&block)
+  main.stub :puts, Proc.new, &block
+end
+
+def main
+  TOPLEVEL_BINDING.eval('self')
 end
