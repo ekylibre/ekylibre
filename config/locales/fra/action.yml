@@ -958,6 +958,7 @@ fra:
     add_sale_taxation: "Ajouter une taxe de vente"
     add_season: "Ajouter une saison"
     add_service: "Ajouter un service"
+    add_service_delivering: "Ajouter une prestation de service"
     add_storing: "Ajouter une zone de stockage"
     add_subscription_for_sale_line: "Ajouter un abonnement pour la ligne N°%{position}"
     add_support: "Ajouter un support de production"
@@ -2106,6 +2107,7 @@ fra:
     sensor_model: "Modèle du capteur"
     sensors: "Capteurs"
     sequences_load: "Charger les séquences manquantes" #?
+    service_delivering: "Prestation de service"
     sessions: "Sessions"
     set_reconcilable_new_but_existing_third_accounts: "Rendre lettrables les nouveaux comptes tiers déjà existants"
     settings: "Configuration"

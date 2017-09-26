@@ -1065,6 +1065,7 @@ eng:
     add_sale_taxation: "Add sale taxation"
     add_season: "Add season"
     add_service: "Add service"
+    add_service_delivering: "Add service delivering"
     add_storing: "Add storing"
     add_subscription_for_sale_line: "Add subscription for sale line #%{position}"
     add_support: "Add support"
@@ -1854,6 +1855,7 @@ eng:
     send_test_mail: "Send test mail"
     sensor_model: "Sensor model"
     sensors: "Sensors" #?
+    service_delivering: "Service delivering"
     sessions: "Sessions" #?
     set_reconcilable_new_but_existing_third_accounts: "Set reconcilable the new but existing third accounts (clients, suppliers and attorneys)" #?
     settings: "Settings"

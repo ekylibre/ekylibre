@@ -881,6 +881,7 @@ spa:
     add_sale_taxation: "Añadir la venta imposición"
     add_season: "Añadir la temporada"
     # add_service: "Add service"
+    # add_service_delivering: "Add service delivering"
     # add_storing: "Add storing"
     # add_subscription_for_sale_line: "Add subscription for sale line #%{position}"
     add_support: "Añadir soporte"
@@ -1831,6 +1832,7 @@ spa:
     sequence_create: "Añadir une sequencia" #?
     sequences: "Séquencias" #?
     sequences_load: "Cargar las secuencias faltantes" #?
+    # service_delivering: "Service delivering"
     sessions: "Sesiones"
     set_reconcilable_new_but_existing_third_accounts: "Establecer conciliables las nuevas cuentas, pero existentes terceros (clientes, proveedores y abogados)"
     settings: "Ajustes"

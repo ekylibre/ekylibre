@@ -1077,6 +1077,7 @@ arb:
     add_sale_taxation: "إضافة بيع الضرائب"
     add_season: "إضافة الموسم"
     # add_service: "Add service"
+    # add_service_delivering: "Add service delivering"
     # add_storing: "Add storing"
     # add_subscription_for_sale_line: "Add subscription for sale line #%{position}"
     add_support: "إضافة دعم"
@@ -2212,6 +2213,7 @@ arb:
     sequence_create: "اضافة تسلسل" #?
     sequences: "التسلسل" #?
     sequences_load: "تحميل التسلسلات المفقودة" #?
+    # service_delivering: "Service delivering"
     sessions: "جلسات"
     set_reconcilable_new_but_existing_third_accounts: "تعيين مصالحتها حسابات الثالثة الجديدة ولكن القائمة (العملاء والموردين والمحامين)"
     settings: "إعدادات"
