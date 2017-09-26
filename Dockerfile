@@ -4,7 +4,7 @@ FROM ruby:2.2.3
 ENV JAVA_HOME=/usr/lib/jvm/java-7-openjdk-amd64
 
 WORKDIR /app
-COPY . /app
+COPY . ./
 #COPY Gemfile /app/Gemfile
 #COPY Procfile /app/Procfile
 
@@ -61,7 +61,7 @@ RUN gem update bundler
 #RUN /bin/bash -l -c "gem install foreman"
 #RUN gem install foreman
 
-#ADD ./ /app
+ADD ./ /app
 
 #RUN unicorn -D
 CMD ["bin/run-dev.sh"]
