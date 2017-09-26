@@ -50,7 +50,7 @@
           if ($(quantityElement).val() != "")
             quantity = $(quantityElement).val()
 
-          newStock = parseFloat(data.stock) - parseFloat(quantity)
+          newStock = parseFloat(data.stock) + parseFloat(quantity)
           $(currentForm).find('.merchandise-stock-after-order .stock-value').text(newStock)
           $(currentForm).find('.merchandise-stock-after-order .stock-unit').text(data.unit.name)
 
