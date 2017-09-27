@@ -77,7 +77,7 @@ gem 'kaminari'
 gem 'timecop'
 
 # Manipulate map data
-gem 'charta', '>= 0.1.2'
+gem 'charta', '>= 0.1.3'
 
 # Manage daemons
 gem 'foreman'
