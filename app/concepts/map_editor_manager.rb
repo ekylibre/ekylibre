@@ -1,22 +1,20 @@
 class MapEditorManager
-
   class << self
-
     LAYERS = {
-        land_parcels: {
-            name: :land_parcels,
-            serie: :land_parcels_serie,
-            type: :simple
-        },
-        plants: {
-            name: :plants,
-            serie: :plants_serie,
-            reference: 'variety',
-            stroke: 2,
-            fillOpacity: 0.7,
-            type: :categories
-        }
-    }
+      land_parcels: {
+        name: :land_parcels,
+        serie: :land_parcels_serie,
+        type: :simple
+      },
+      plants: {
+        name: :plants,
+        serie: :plants_serie,
+        reference: 'variety',
+        stroke: 2,
+        fillOpacity: 0.7,
+        type: :categories
+      }
+    }.freeze
 
     def shapes(options = {})
       options[:layers] ||= []
@@ -36,7 +34,6 @@ class MapEditorManager
         layer_serie = "#{sym_layer}_serie"
         mapeditor[:show][:series][layer_serie] = send(layer_serie, options)
         mapeditor[:show][:layers] << LAYERS[sym_layer].merge(label: sym_layer.tl)
-
       end
       mapeditor
     end
@@ -44,7 +41,7 @@ class MapEditorManager
     def land_parcels_serie(options = {})
       land_parcels = LandParcel.at(options[:started_at]).collect do |l|
         next if l.shape.nil?
-        {shape: l.shape}
+        { shape: l.shape }
       end.compact
 
       Charta.new_collection(land_parcels).to_json_object(true)
@@ -53,7 +50,7 @@ class MapEditorManager
     def plants_serie(options = {})
       plants = Plant.at(options[:started_at]).collect do |l|
         next if l.shape.nil?
-        {name: l.name, shape: l.shape, variety: Nomen::Variety[l.variety].human_name, color: Activity.color(:plant_farming, l.variety), fillColor: Activity.color(:plant_farming, l.variety)}
+        { name: l.name, shape: l.shape, variety: Nomen::Variety[l.variety].human_name, color: Activity.color(:plant_farming, l.variety), fillColor: Activity.color(:plant_farming, l.variety) }
       end.compact
 
       Charta.new_collection(plants).to_json_object(true)

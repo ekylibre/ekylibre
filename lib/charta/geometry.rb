@@ -45,7 +45,7 @@ module Charta
       @ewkt.to_s
     end
 
-    def as_json(option = nil)
+    def as_json(_option = nil)
       JSON(to_json)
     end
 

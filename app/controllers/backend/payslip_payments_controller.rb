@@ -1,6 +1,5 @@
 module Backend
   class PayslipPaymentsController < Backend::OutgoingPaymentsController
-
     def self.list_conditions
       code = search_conditions(payslip_payments: %i[amount number], entities: %i[full_name]) + " ||= []\n"
       code << "fy = FinancialYear.current\n"
@@ -16,7 +15,7 @@ module Backend
       code << "end\n"
       code << "if params[:bank_check_number].present?\n"
       code << " c[0] << ' AND #{PayslipPayment.table_name}.bank_check_number = ?'\n"
-      code << " c << params[:bank_check_number]"
+      code << ' c << params[:bank_check_number]'
       code << "end\n"
       code << "if params[:paid_at].present? && params[:paid_at].to_s != 'all'\n"
       code << " c[0] << ' AND #{PayslipPayment.table_name}.paid_at::DATE BETWEEN ? AND ?'\n"

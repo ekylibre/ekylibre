@@ -52,7 +52,6 @@
 class PayslipPayment < OutgoingPayment
   acts_as_affairable :payee, dealt_at: :to_bank_at, debit: false, class_name: 'PayslipAffair'
 
-
   # This method permits to add journal entries corresponding to the payment
   # It depends on the preference which permit to activate the "automatic bookkeeping"
   bookkeep do |b|

@@ -1,0 +1,7 @@
+fra:
+  backend:
+    payslips:
+      index:
+        rule: Rule
+        partialy_rule: Partially rule
+        not_rule: Not rule

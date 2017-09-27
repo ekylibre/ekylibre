@@ -1,6 +1,5 @@
 module Backend
   module PayslipPaymentsHelper
-
     def payslip_payments_max_payment
       PayslipPayment.maximum(:amount)
     end
@@ -47,22 +46,22 @@ module Backend
       fy = FinancialYear.current
       params[name] = value ||= :all
       # params[:period] = value ||= :all # (fy ? fy.started_on.to_s + "_" + fy.stopped_on.to_s : :all)
-      custom_id = "#{configuration[:id]}"
+      custom_id = (configuration[:id]).to_s
       toggle_method = "toggle#{custom_id.camelcase}"
 
       if configuration[:custom]
         params["#{name}_started_on"] =
-                              if params["#{name}_started_on"].present?
-                                params["#{name}_started_on"].to_date
-                              else
-                                (fy ? fy.started_on : Time.zone.today)
-                              end
+          if params["#{name}_started_on"].present?
+            params["#{name}_started_on"].to_date
+          else
+            (fy ? fy.started_on : Time.zone.today)
+          end
         params["#{name}_stoped_on"] =
-                              if params["#{name}_stopped_on"].present?
-                                params["#{name}_stopped_on"].to_date
-                              else
-                                (fy ? fy.stopped_on : Time.zone.today)
-                              end
+          if params["#{name}_stopped_on"].present?
+            params["#{name}_stopped_on"].to_date
+          else
+            (fy ? fy.stopped_on : Time.zone.today)
+          end
         params["#{name}_stoped_on"] = params["#{name}_started_on"] if params["#{name}_started_on"] > params["#{name}_stoped_on"]
         list.insert(0, [configuration[:custom].tl, configuration[:custom]])
       else

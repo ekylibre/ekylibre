@@ -142,17 +142,17 @@ module Backend
       toggle_method = "toggle#{custom_id.camelcase}"
       if configuration[:custom]
         params["#{name}_started_on"] =
-                              if params["#{name}_started_on"].present?
-                                params["#{name}_started_on"].to_date
-                              else
-                                (fy ? fy.started_on : Time.zone.today)
-                              end
+          if params["#{name}_started_on"].present?
+            params["#{name}_started_on"].to_date
+          else
+            (fy ? fy.started_on : Time.zone.today)
+          end
         params["#{name}_stoped_on"] =
-                              if params["#{name}_stopped_on"].present?
-                                params["#{name}_stopped_on"].to_date
-                              else
-                                (fy ? fy.stopped_on : Time.zone.today)
-                              end
+          if params["#{name}_stopped_on"].present?
+            params["#{name}_stopped_on"].to_date
+          else
+            (fy ? fy.stopped_on : Time.zone.today)
+          end
         params["#{name}_stoped_on"] = params["#{name}_started_on"] if params["#{name}_started_on"] > params["#{name}_stoped_on"]
         list.insert(0, [configuration[:custom].tl, configuration[:custom]])
       else

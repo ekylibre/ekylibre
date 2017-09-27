@@ -12,11 +12,11 @@ FactoryGirl.define do
 
     after(:create) do |instance|
       create :inspection_point,
-        inspection: instance,
-        nature: instance.activity.inspection_point_natures.first
+             inspection: instance,
+             nature: instance.activity.inspection_point_natures.first
       create :inspection_calibration,
-        inspection: instance,
-        nature: instance.activity.inspection_calibration_natures.first
+             inspection: instance,
+             nature: instance.activity.inspection_calibration_natures.first
     end
   end
 end
