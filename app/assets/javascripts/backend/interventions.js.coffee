@@ -251,6 +251,41 @@
               loadContent = false
               taskboard.addTaskClickEvent()
 
+    generateItemsArrayFromId: (input)->
+      intervention_id = input.parents().find('#intervention_id').val() if input.parents().find('#intervention_id').val().length > 0
+      purchase_id = input.parent().find('.selector-value').val()
+      $('.purchase-items-array').empty()
+      itemHeader = []
+      itemHeader.push("<span class='header-name'>Article</span>")
+      itemHeader.push("<span class='header-quantity'>Quantité</span>")
+      itemHeader.push("<span class='header-unit-pretax-amount'>Prix U HT</span>")
+      itemHeader.push("<span class='header-amount'>Prix total</span>")
+      $('.purchase-items-array').append("<li class='header-line'>" + itemHeader.join('') + "</li>")
+      $.get
+        url: "/backend/interventions/purchase_order_items"
+        data: { purchase_order_id: purchase_id, intervention_id: intervention_id}
+        success: (data, status, request) ->
+          for item, index in data.items
+            itemLine = []
+            if intervention_id?
+              itemLine.push("<span class='item-id'><input name='intervention[receptions_attributes][0][items_attributes][#{-index}][id]' value='#{item.id}' type='hidden'></input></span>")
+            itemLine.push("<span class='item-name'><input name='intervention[receptions_attributes][0][items_attributes][#{-index}][variant_id]' value='#{item.variant_id}' type='hidden'></input>" + item.name + "</span>")
+            itemLine.push("<span class='item-quantity'><input type='number' class='input-quantity' name='intervention[receptions_attributes][0][items_attributes][#{-index}][population]' value ='#{item.quantity}'></input></span>")
+            itemLine.push("<span class='item-unit-pretax-amount'><input name='intervention[receptions_attributes][0][items_attributes][#{-index}][unit_pretax_amount]' value='#{item.unit_pretax_amount}' type='hidden'></input>" + item.unit_pretax_amount + "</span>")
+            itemLine.push("<span class='item-amount'>" + item.unit_pretax_amount * item.quantity + "</span>")
+            $('.purchase-items-array').append("<li class='item-line'>" + itemLine.join('') + "</li>")
+
+    updateTotalAmount: (input) ->
+      quantity = input.val()
+      totalAmount = quantity * parseFloat(input.parents('li.item-line').find('.item-unit-pretax-amount').text())
+      input.parents('li.item-line').find('.item-amount').html(totalAmount.toFixed(2))
+
+    isPurchaseOrderSelectorEnabled: (input) ->
+      purchaseInput = input.parents('.fieldset-fields').find('.reception-purchase')
+      if input.val().length == 0
+        purchaseInput.attr("disabled",true)
+      else
+        purchaseInput.attr("disabled",false)
 
   ##############################################################################
   # Triggers
@@ -294,7 +329,7 @@
 
   $(document).on "keyup change dp.change", ".nested-fields.working-period:first-child input.intervention-started-at", (e) ->
     $(this).each ->
-      E.interventions.updateAvailabilityInstant($(this).val())
+      E.interventions.updateAvailabilityInstant()
 
 
   $(document).on "selector:change", 'input[data-selector-id="intervention_doer_product_id"], input[data-selector-id="intervention_tool_product_id"]', (event) ->
@@ -315,7 +350,22 @@
       participation.val(JSON.stringify((jsonParticipation)))
       participation.attr('data-product-id', newProductId)
 
+  $(document).on "selector:change", 'input[data-generate-items]', ->
+    $(this).each ->
+      E.interventions.generateItemsArrayFromId($(this))
 
+  $(document).on "keyup change", 'input.input-quantity', ->
+    $(this).each ->
+      E.interventions.updateTotalAmount($(this))
+
+  $(document).on "selector:change change", 'input.reception-supplier', ->
+    $(this).each ->
+      E.interventions.isPurchaseOrderSelectorEnabled($(this))
+
+  $(document).behave "load", ".reception-supplier", ->
+    supplierLabel = $($(this).parents('.nested-receptions').find('.control-label')[0])
+    supplierLabel.addClass('required')
+    supplierLabel.prepend("<abbr title='Obligatoire'>*</abbr>")
 
   $(document).ready ->
 

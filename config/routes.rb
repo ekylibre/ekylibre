@@ -584,6 +584,7 @@ Rails.application.routes.draw do
         get :modal
         post :change_state
         get :change_page
+        get :purchase_order_items
       end
       member do
         post :sell
@@ -775,7 +776,7 @@ Rails.application.routes.draw do
     resources :shipments, concerns: %i[list unroll] do
       member do
         get :list_items
-
+        post :ship
         post :invoice
         post :ship
         post :order

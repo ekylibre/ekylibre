@@ -390,6 +390,7 @@ eng:
       new_specified: "New %{procedure_name}" #?
       new_specified_request: "New requested %{procedure_name}" #?
       # purchase: "Purchase intervention: %{name}"
+      # purchase_order_items: "Purchase order items intervention: %{name}"
       # sell: "Sell intervention: %{name}"
       show: "%{procedure_name}"
     backend/inventories:
@@ -1059,12 +1060,14 @@ eng:
     add_purchase_taxation: "Add purchase taxation"
     add_quickly_an_item: "Add quickly a line of product"
     add_reading: "Add a value for an indicator"
+    add_reception: "Add reception"
     add_regularization: "Add regularization"
     add_revenue: "Add revenue"
     add_sale: "Add sale"
     add_sale_taxation: "Add sale taxation"
     add_season: "Add season"
     add_service: "Add service"
+    add_service_delivering: "Add service delivering"
     add_storing: "Add storing"
     add_subscription_for_sale_line: "Add subscription for sale line #%{position}"
     add_support: "Add support"
@@ -1563,7 +1566,7 @@ eng:
     maximum_amount: "Maximum amount"
     members: "Members"
     menus: "Menus"
-    merchandise: "Merchandise" #?
+    merchandise: "Merchandise"
     merchandises_purchases: "Merchandises purchases" #?!
     merchandises_purchases_stocks_variation: "Merchandises purchases stocks variation" #?!
     merchandises_services_costs: "Merchandises, services or costs"
@@ -1643,7 +1646,7 @@ eng:
     # no_worker_account: "No worker account"
     nominal_storable_easement_area: "Nominal storable easement area"
     non_compliant: "Non compliant"
-    non_compliant_with_request: "Non compliant with request" #?!
+    non_compliant_with_request: "Non compliant with request"
     none: "None"
     normal: "Normal" #?
     not_delivered: "Not delivered" #?
@@ -1666,6 +1669,7 @@ eng:
     operations: "Operations" #?
     options: "Options"
     or: "Or"
+    # order: "Order"
     organic_matter_concentration: "Organic matter concentration" #?
     original_component: "original"
     other_debts: "Other debts" #?!
@@ -1769,7 +1773,7 @@ eng:
     purchases_stocks_variation: "Purchases stocks variation" #?!
     quality: "Quality"
     quandl: "Quandl" #?
-    quantity: "Quantity" #?
+    quantity: "Quantity"
     query: "Query:" #?
     raw_income: "Raw income"
     reading_tasks: "Reading tasks" #?
@@ -1856,6 +1860,7 @@ eng:
     send_test_mail: "Send test mail"
     sensor_model: "Sensor model"
     sensors: "Sensors" #?
+    service_delivering: "Service delivering"
     sessions: "Sessions" #?
     set_reconcilable_new_but_existing_third_accounts: "Set reconcilable the new but existing third accounts (clients, suppliers and attorneys)" #?
     settings: "Settings"
@@ -1909,6 +1914,7 @@ eng:
     supplier_informations: "Supplier informations"
     supplier_payment_mode: "Supplier payment mode"
     supplier_receivables: "Supplier receivables" #?!
+    supplier_reference: "Supplier reference"
     supply: "Supply" #?
     support: "Support" #?
     supports: "Supports" #?
@@ -2469,6 +2475,7 @@ eng:
       propose_and_invoice: "Propose and invoice"
       prospect: "Prospect"
       purchase: "Turn into purchase"
+      # purchase_order_items: "Purchase order items"
       qualify: "Qualify"
       # quantifiers: "Quantifiers"
       quote: "Quote"

@@ -2127,6 +2127,9 @@
   </inaccessible-actions>
   <untreated-actions>
     <group>
+      <item name="interventions">
+        <page to="backend/interventions#purchase_order_items"/>
+      </item>
       <item name="purchase_orders">
         <page to="backend/purchase_orders#list_parcels"/>
       </item>
