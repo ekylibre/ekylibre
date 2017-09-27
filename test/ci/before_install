@@ -17,7 +17,7 @@ echo "Dependencies install..."
 echo""
 gem uninstall rgeo
 sudo apt-get install -f -qq postgresql-9.6-postgis-2.3 graphicsmagick tesseract-ocr tesseract-ocr-fra tesseract-ocr-eng tesseract-ocr-spa pdftk libreoffice poppler-utils poppler-data qt5-default libqt5webkit5-dev gstreamer1.0-x gstreamer1.0-tools gstreamer1.0-plugins-base libproj-dev libgeos-dev
-gem install rgeo --with-proj-dir=/usr/lib
+gem install rgeo -- --with-proj-dir=/usr/lib
 echo ""
 echo "Dependencies installed!"
 echo ""
