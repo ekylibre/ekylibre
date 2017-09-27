@@ -95,7 +95,7 @@ class ProductNature < Ekylibre::Record::Base
 
   accepts_nested_attributes_for :variants, reject_if: :all_blank, allow_destroy: true
 
-  acts_as_numbered force: false
+  acts_as_numbered
 
   delegate :deliverable?, :purchasable?, :to, to: :category
   delegate :fixed_asset_account, :product_account, :charge_account, :stock_account, to: :category
