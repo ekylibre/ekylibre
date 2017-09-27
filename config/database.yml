@@ -14,15 +14,15 @@ default: &default
   # To create additional roles in postgres see `$ createuser --help`.
   # When left blank, postgres will use the default role. This is
   # the same name as the operating system user that initialized the database.
-  username: ekylibre
+  #username: ekylibre
 
   # The password associated with the postgres role (username).
-  password: ekylibre
+  #password: ekylibre
 
   # Connect on a TCP socket. Omitted by default since the client uses a
   # domain socket that doesn't need configuration. Windows does not have
   # domain sockets, so uncomment these lines.
-  host: 127.0.0.1
+  #host: 127.0.0.1
 
 
 db_cluster: &db_cluster
@@ -99,11 +99,13 @@ development:
 production:
   <<: *default
   database: ekylibre_production_master
-  username: ekylibre
-  password: ekylibre
+  url: ENV['DATABASE_URL']
+  #username: ekylibre
+  #password: ekylibre
 
 test:
   <<: *default
   database: ekylibre_test_master
-  username: ekylibre
-  password: ekylibre
+  url: ENV['DATABASE_URL']
+  #username: ekylibre
+  #password: ekylibre
