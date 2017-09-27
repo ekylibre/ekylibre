@@ -17,7 +17,10 @@ RUN apt-get update && apt-get -y upgrade
 # Install Java
 RUN \
   apt-get update && \
-  apt-get install -y openjdk-7-jdk && \
+  apt-get install -y openjdk-7-jdk \
+    postgresql-client-9.6 \
+    postgresql-9.5.postgis-2.2 \
+    postgresql-contrib && \
   rm -rf /var/lib/apt/lists/*
 
 ENV JAVA_HOME /usr/lib/jvm/java-1.7.0-openjdk-amd64
@@ -38,9 +41,6 @@ RUN apt-get update -qq && apt-get install -yf \
 >---libicu-dev \
 >---imagemagick \
 >---graphicsmagick \
-    postgresql-client-9.6 \
-    postgresql-9.5.postgis-2.2 \
-    postgresql-contrib \
     redis-server \
 >---tesseract-ocr \
 >---tesseract-ocr-ara \
