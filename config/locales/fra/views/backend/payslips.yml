@@ -1,0 +1,7 @@
+fra:
+  backend:
+    payslips:
+      index:
+        ruled: Réglé
+        partialy_ruled: Partiellement réglé
+        not_ruled: Non réglé
