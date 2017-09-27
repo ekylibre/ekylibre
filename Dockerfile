@@ -53,7 +53,8 @@ RUN gem install rubygems-bundler
 RUN gem regenerate_binstubs
 
 #RUN /bin/bash -l -c "bundle install"
-RUN bundle install
+RUN JAVA_HOME=/usr/lib/jvm/java-1.7.0-openjdk-amd64 NOKOGIRI_USE_SYSTEM_LIBRARIES=1 bundle install
+#RUN bundle install
 
 RUN gem update bundler
 
