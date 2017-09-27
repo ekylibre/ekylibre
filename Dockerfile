@@ -15,9 +15,10 @@ RUN wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-k
 
 RUN apt-get update && apt-get -y upgrade
 
+RUN apt-get install apt-utils
+
 RUN apt-get update -qq && apt-get install -yf \
     locales \
-    apt-utils \
 >---libqt4-dev libqtwebkit-dev \
 >---libcurl4-openssl-dev \
 >---openjdk-7-jdk \
