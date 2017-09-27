@@ -99,13 +99,13 @@ development:
 production:
   <<: *default
   database: ekylibre_production_master
-  url: ENV['DATABASE_URL']
+  url: <%= ENV['DATABASE_URL'] %>
   #username: ekylibre
   #password: ekylibre
 
 test:
   <<: *default
   database: ekylibre_test_master
-  url: ENV['DATABASE_URL']
+  url: <%= ENV['DATABASE_URL'] %>
   #username: ekylibre
   #password: ekylibre
