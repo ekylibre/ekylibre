@@ -32,6 +32,7 @@ module Backend
     before_action :set_current_period_interval
     before_action :set_current_period
     before_action :publish_backend_action
+    before_action :first_run_or_backend
 
     include Userstamp
 
@@ -40,6 +41,12 @@ module Backend
     helper_method :current_period
 
     protected
+
+    def first_run_or_backend
+      unless(Preference.get('first_run.executed').value || params[:controller].include?('hajimari') || session[:allow_access_backend])
+        redirect_to hajimari_path
+      end
+    end
 
     def current_campaign
       @current_campaign ||= current_user.current_campaign
