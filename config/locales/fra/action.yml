@@ -1855,6 +1855,7 @@ fra:
     production_support: "Support de production"
     productions: "Productions"
     productions_map: "Carte des productions" #?
+    product_nature_variants: "Variantes de produits"
     productions_sales: "Ventes et variation d’inventaire"
     products: "Produits"
     products_purchases: "Approvisionnement"

@@ -246,10 +246,6 @@ GEM
       kaminari-core (= 1.0.1)
     kaminari-core (1.0.1)
     kgio (2.11.0)
-    launchy (2.4.3)
-      addressable (~> 2.3)
-    letter_opener (1.4.1)
-      launchy (~> 2.2)
     libv8 (3.16.14.19)
     loofah (2.0.3)
       nokogiri (>= 1.5.9)
@@ -623,7 +619,6 @@ DEPENDENCIES
   jquery-turbolinks
   jquery-ui-rails
   kaminari
-  letter_opener
   luhn
   mail (~> 2.6.6.rc1)
   mechanize
