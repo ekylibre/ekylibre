@@ -1,7 +1,7 @@
 #FROM debian:9
 FROM ruby:2.2.3
 
-ENV JAVA_HOME=/usr/lib/jvm/java-7-openjdk-amd64
+ENV JAVA_HOME=/usr/lib/jvm/java-1.7.0-openjdk-amd64
 
 WORKDIR /app
 COPY . ./
@@ -31,6 +31,9 @@ RUN apt-get update -qq && apt-get install -yf \
 >---imagemagick \
 >---graphicsmagick \
     postgresql-client-9.6 \
+    postgresql-9.5.postgis-2.2 \
+    postgresql-contrib \
+    redis-server \
 >---tesseract-ocr \
 >---tesseract-ocr-ara \
 >---tesseract-ocr-jpn \
