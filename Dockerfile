@@ -15,7 +15,7 @@ RUN wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-k
 
 RUN apt-get update && apt-get -y upgrade
 
-RUN apt-get install apt-utils
+RUN apt-get --assume-yes install apt-utils
 
 RUN apt-get update -qq && apt-get install -yf \
     locales \
