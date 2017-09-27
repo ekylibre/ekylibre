@@ -17,6 +17,7 @@ RUN apt-get update && apt-get -y upgrade
 
 RUN apt-get update -qq && apt-get install -yf \
     locales \
+    apt-utils \
 >---libqt4-dev libqtwebkit-dev \
 >---libcurl4-openssl-dev \
 >---openjdk-7-jdk \
