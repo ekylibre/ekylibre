@@ -334,13 +334,16 @@ html.backend {
           & > #side {
             display: block;
             & > .inner { @include border-right(none); }
-            width: 100%;
+            width: 30%;
+						position: fixed;
+						z-index: 99;
+						overflow: hidden;
             #user {
               display: block;
             }
           }
           & > #main {
-            display: none;
+            display: block;
           }
         }
         &.show-help {
