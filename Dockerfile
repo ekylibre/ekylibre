@@ -1,7 +1,6 @@
 #FROM debian:9
 FROM ruby:2.2.3
 
-ENV JAVA_HOME=/usr/lib/jvm/java-1.7.0-openjdk-amd64
 
 WORKDIR /app
 COPY . ./
@@ -15,13 +14,20 @@ RUN wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-k
 
 RUN apt-get update && apt-get -y upgrade
 
+# Install Java
+RUN \
+  apt-get update && \
+  apt-get install -y openjdk-7-jdk && \
+  rm -rf /var/lib/apt/lists/*
+
+ENV JAVA_HOME /usr/lib/jvm/java-1.7.0-openjdk-amd64
+
 RUN apt-get --assume-yes install apt-utils
 
 RUN apt-get update -qq && apt-get install -yf \
     locales \
 >---libqt4-dev libqtwebkit-dev \
 >---libcurl4-openssl-dev \
->---openjdk-7-jdk \
 >---libgeos-dev \
 >---libgeos++-dev \
 >---libproj-dev \
