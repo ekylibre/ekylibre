@@ -217,6 +217,9 @@ group :development do
   gem 'spring'
 
   gem 'letter_opener'
+
+  # Debug translation
+  gem 'i18n-debug'
 end
 
 group :development, :test do
