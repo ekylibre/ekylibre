@@ -83,3 +83,5 @@ Procfile.*
 
 .byebug_history
 .gitconfig
+
+.pryrc
