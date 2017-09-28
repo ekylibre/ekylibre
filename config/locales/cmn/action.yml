@@ -806,6 +806,7 @@ cmn:
     add_polygon: "添加多边形"
     add_production: "添加生产"
     add_purchase: "添加购买"
+    # add_purchase_invoice: "Add invoice"
     add_purchase_payment: "添加支付"
     add_purchase_taxation: "添加购买税收"
     add_quickly_an_item: "添加快速线产品"

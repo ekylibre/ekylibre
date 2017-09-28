@@ -811,6 +811,7 @@ por:
     add_polygon: "Adicionar polígono"
     add_production: "Adicionar a produção"
     add_purchase: "Adicionar compra"
+    # add_purchase_invoice: "Add invoice"
     add_purchase_payment: "Adicionar desembolso"
     add_purchase_taxation: "Adicionar tributação de compra"
     add_quickly_an_item: "Adicionar rapidamente uma linha de produto"

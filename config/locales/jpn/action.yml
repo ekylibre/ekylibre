@@ -872,6 +872,7 @@ jpn:
     add_polygon: "ポリゴンを追加"
     add_production: "生産を追加"
     add_purchase: "購入を追加"
+    # add_purchase_invoice: "Add invoice"
     add_purchase_payment: "支払いを追加する"
     add_purchase_taxation: "購入課税を追加します。"
     add_quickly_an_item: "素早く製品の行を追加します。"

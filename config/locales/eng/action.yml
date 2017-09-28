@@ -1055,6 +1055,7 @@ eng:
     add_polygon: "Add polygon"
     add_production: "Add production"
     add_purchase: "Add purchase"
+    add_purchase_invoice: "Add invoice"
     add_purchase_payment: "Add disbursement"
     add_purchase_taxation: "Add purchase taxation"
     add_quickly_an_item: "Add quickly a line of product"
@@ -1563,7 +1564,7 @@ eng:
     maximum_amount: "Maximum amount"
     members: "Members"
     menus: "Menus"
-    merchandise: "Merchandise" #?
+    merchandise: "Merchandise"
     merchandises_purchases: "Merchandises purchases" #?!
     merchandises_purchases_stocks_variation: "Merchandises purchases stocks variation" #?!
     merchandises_services_costs: "Merchandises, services or costs"
@@ -1643,7 +1644,7 @@ eng:
     # no_worker_account: "No worker account"
     nominal_storable_easement_area: "Nominal storable easement area"
     non_compliant: "Non compliant"
-    non_compliant_with_request: "Non compliant with request" #?!
+    non_compliant_with_request: "Non compliant with request"
     none: "None"
     normal: "Normal" #?
     not_delivered: "Not delivered" #?
@@ -1769,7 +1770,7 @@ eng:
     purchases_stocks_variation: "Purchases stocks variation" #?!
     quality: "Quality"
     quandl: "Quandl" #?
-    quantity: "Quantity" #?
+    quantity: "Quantity"
     query: "Query:" #?
     raw_income: "Raw income"
     reading_tasks: "Reading tasks" #?
