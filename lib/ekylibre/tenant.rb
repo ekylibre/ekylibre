@@ -51,6 +51,7 @@ module Ekylibre
         create_database_for!(name) if multi_database > 0
         add(name)
         Apartment::Tenant.create(name)
+        byebug
       end
 
       def multi_database
@@ -122,7 +123,6 @@ module Ekylibre
       # Adds a tenant in config. No schema are created.
       def add(name)
         puts 'pass to edd method'.green
-        byebug
         list << name unless list.include?(name)
         write
       end
@@ -241,7 +241,6 @@ module Ekylibre
 
       def list
         load! unless @list
-        byebug
         @list[env] ||= []
         @list[env]
       end
