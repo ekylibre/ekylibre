@@ -44,7 +44,6 @@ module Ekylibre
 
       # Create a new tenant with tables and co
       def create(name)
-        puts 'pass to create method'.green
         name = name.to_s
         check!(name)
         raise TenantError, 'Already existing tenant' if exist?(name)
@@ -122,9 +121,9 @@ module Ekylibre
 
       # Adds a tenant in config. No schema are created.
       def add(name)
-        puts 'pass to edd method'.green
         list << name unless list.include?(name)
         write
+        byebug
       end
 
       # Add a tenant in config without creating it
@@ -142,7 +141,7 @@ module Ekylibre
         switch_to_database_for(name)
         Apartment::Tenant.drop(name) if Apartment.connection.schema_exists? name
         FileUtils.rm_rf private_directory(name) unless options[:keep_files]
-        @list[env].delete(name)
+        [env].delete(name)
         write
       end
 
@@ -367,6 +366,7 @@ module Ekylibre
       def write
         semaphore.synchronize do
           FileUtils.mkdir_p(config_file.dirname)
+          byebug
           File.write(config_file, @list.to_yaml)
         end
       end
