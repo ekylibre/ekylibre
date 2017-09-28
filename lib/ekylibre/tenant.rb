@@ -44,6 +44,7 @@ module Ekylibre
 
       # Create a new tenant with tables and co
       def create(name)
+        puts 'pass to create method'.green
         name = name.to_s
         check!(name)
         raise TenantError, 'Already existing tenant' if exist?(name)
@@ -120,6 +121,8 @@ module Ekylibre
 
       # Adds a tenant in config. No schema are created.
       def add(name)
+        puts 'pass to edd method'.green
+        byebug
         list << name unless list.include?(name)
         write
       end
@@ -238,6 +241,7 @@ module Ekylibre
 
       def list
         load! unless @list
+        byebug
         @list[env] ||= []
         @list[env]
       end
