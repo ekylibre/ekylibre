@@ -366,8 +366,12 @@ module Ekylibre
       def write
         semaphore.synchronize do
           FileUtils.mkdir_p(config_file.dirname)
+          config_file = File.open(config_file)
+          config_file.write @list.to_yaml
+          config_file.flush
+          config_file.close
           byebug
-          File.write(config_file, @list.to_yaml)
+          #File.write(config_file, @list.to_yaml)
         end
       end
 
