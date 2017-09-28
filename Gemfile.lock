@@ -430,7 +430,7 @@ GEM
       ruby-progressbar (~> 1.7)
       unicode-display_width (~> 1.0, >= 1.0.1)
     ruby-prof (0.16.2)
-    ruby-progressbar (1.8.3)
+    ruby-progressbar (1.9.0)
     rubyntlm (0.6.2)
     rubyzip (1.2.1)
     rufus-scheduler (3.4.2)
@@ -695,7 +695,7 @@ DEPENDENCIES
   web-console (~> 3.0)
 
 RUBY VERSION
-   ruby 2.3.4p301
+   ruby 2.2.7p470
 
 BUNDLED WITH
-   1.16.0.pre.2
+   1.15.4
