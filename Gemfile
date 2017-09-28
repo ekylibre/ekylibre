@@ -9,7 +9,7 @@ gem 'rails', '4.2.8'
 gem 'mail', '~> 2.6.6.rc1'
 
 # Database adapters
-gem 'activerecord-postgis-adapter', '>= 3.0.0'
+gem 'activerecord-postgis-adapter'#, '>= 3.0.0'
 gem 'pg', '~> 0.20.0' # Needed for some tasks
 
 # Multi-tenancy
