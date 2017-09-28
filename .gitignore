@@ -56,7 +56,6 @@ private/*
 # Ignore local database config
 /config/api.yml
 /config/tools.xml
-/config/tenants.yml
 /config/tenant_databases.yml
 /config/services.yml
 /config/unicorn.rb
