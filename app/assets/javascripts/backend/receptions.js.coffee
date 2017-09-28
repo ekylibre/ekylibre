@@ -36,5 +36,6 @@
           storageContainer = $(node).parent()
           storageContainer.on 'cocoon:after-insert cocoon:after-remove', ->
             E.toggleValidateButton(that)
+            E.setStorageUnitName(that)
 
 ) ekylibre, jQuery
