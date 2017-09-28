@@ -119,6 +119,7 @@
 
     setCocoonFormSubmitable: ->
       E.toggleValidateButton(@line)
+      E.setStorageUnitName(@line)
 
     toggleInputVisibility: ->
       @line.find('input[data-input-to-show]').each (index, input) =>
