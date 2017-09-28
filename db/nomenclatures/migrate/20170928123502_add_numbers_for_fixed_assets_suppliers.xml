@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<migration name="Add numbers for fixed assets suppliers">
+  <item-change item="accounts#fixed_assets_suppliers" fr_pcg82="404" fr_pcga="404" pt_snc="224"/>
+</migration>
