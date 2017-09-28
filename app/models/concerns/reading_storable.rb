@@ -72,8 +72,8 @@ module ReadingStorable
         object = object.to_i
       end
     end
-    if datatype == :geometry || datatype == :multi_polygon
-      object = Charta.new_geometry(object).transform(:WGS84).to_rgeo
+    if datatype == :geometry || datatype == :multi_polygon || datatype == :point
+      object = Charta.new_geometry(object)
     end
     send("#{datatype}_value=", object)
   end

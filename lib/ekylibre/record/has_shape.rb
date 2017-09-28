@@ -13,7 +13,11 @@ module Ekylibre
                   else
                     Charta.new_geometry(value)
                   end
-          value = value.convert_to(:multi_polygon) if options[:type]
+          if options[:type] && options[:type] == :multi_polygon
+            value = value.convert_to(:multi_polygon)
+          elsif options[:type] && options[:type] == :point
+            value = value.convert_to(:point)
+          end
           value.to_rgeo
         end
       end
