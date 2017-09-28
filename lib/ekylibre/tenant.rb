@@ -364,6 +364,7 @@ module Ekylibre
       end
 
       def write
+        byebug
         semaphore.synchronize do
           FileUtils.mkdir_p(config_file.dirname)
           byebug
