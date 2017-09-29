@@ -6,7 +6,7 @@
 = janus do |j|
   - if Equipment.any? && Equipment.with_given_readings(:shape).any?
     - j.face :map, title: :map do
-      = main_resources_map(shape_method: :shape)
+      = main_resources_map(async: true, shape_method: :shape)
   - j.face :list do
 
     = kujaku do |k|

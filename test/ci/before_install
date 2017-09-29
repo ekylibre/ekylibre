@@ -15,26 +15,10 @@ sudo apt-get remove postgresql-client-9.1 postgresql-client-9.2 postgresql-clien
 echo""
 echo "Dependencies install..."
 echo""
-# sudo gem uninstall rgeo
-sudo apt-get install -f postgresql-9.6-postgis-2.3 graphicsmagick tesseract-ocr tesseract-ocr-fra tesseract-ocr-eng tesseract-ocr-spa pdftk libreoffice poppler-utils poppler-data qt5-default libqt5webkit5-dev gstreamer1.0-x gstreamer1.0-tools gstreamer1.0-plugins-base libgeos-dev libproj-dev
-# gem install rgeo -- --with-geos-dir=/usr/lib --with-proj-dir=/usr/lib
+sudo apt-get install -f -qq postgresql-9.6-postgis-2.3 graphicsmagick tesseract-ocr tesseract-ocr-fra tesseract-ocr-eng tesseract-ocr-spa pdftk libreoffice poppler-utils poppler-data qt5-default libqt5webkit5-dev gstreamer1.0-x gstreamer1.0-tools gstreamer1.0-plugins-base
+gem uninstall bundler -a -x && gem install bundler -v 1.14.6
 echo ""
 echo "Dependencies installed!"
-echo ""
-
-echo ""
-echo ""
-echo ""
-echo "--- PROJ4 DEBUGGING ---"
-# sudo ln -s /usr/lib/libproj.so.0 /usr/lib/libproj.so.9
-# sudo ln -s /usr/lib/libproj.so.0.7.8 /usr/lib/libproj.so.9.1.0
-echo "$(which proj)"
-echo "$(find /usr/ | grep libproj.so)"
-echo "$(which geos)"
-echo "$(find /usr/ | grep libgeos.so)"
-echo "--- PROJ4 DEBUGGING ---"
-echo ""
-echo ""
 echo ""
 
 # Configure PostgreSQL port to 5432
