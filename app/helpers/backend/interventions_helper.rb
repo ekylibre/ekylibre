@@ -22,6 +22,8 @@ module Backend
 
           next unless product
 
+          activity_color = target.product.activity.color if product.activity
+
           if (activity_production = ActivityProduction.find_by(support: product))
             activity_color = activity_production.activity.color
             if activity_production.cultivable_zone

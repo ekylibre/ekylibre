@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20170803164344">
+<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20170927144852">
   <nomenclature name="abilities" translateable="true">
     <properties>
       <property name="parameters" type="choice_list" choices="variety, issue_nature"/>
@@ -2339,8 +2339,8 @@
       <item name="equipment_crash" parent="accident" target="equipment"/>
       <item name="erigeron" parent="plant_disease" cause="erigeron" target="plant"/>
       <item name="escape" parent="issue"/>
-      <item name="european_sawfly" parent="insecta_disease" cause="hymenoptera" target="plant"/>
       <item name="european_corn_borer" parent="insecta_disease" cause="ostrinia_nubilalis" target="zea_mays"/>
+      <item name="european_sawfly" parent="insecta_disease" cause="hymenoptera" target="plant"/>
       <item name="fecondity_problem" parent="disease" target="bioproduct"/>
       <item name="fever" parent="disease" target="animal"/>
       <item name="field_edge_male_seed_corn_defect" parent="plant_issue" target="plant"/>
@@ -3147,6 +3147,7 @@
       <item name="brassicaceae_fungicide" nature="fungicide" frozen_indicators_values="net_volume: 1.00liter, net_mass: 1.00kilogram" unit_name="liter"/>
       <item name="buckwheat_crop" nature="cereal_crop" variety="fagopyrum_esculentum" frozen_indicators_values="net_surface_area: 1.00hectare" unit_name="hectare"/>
       <item name="buckwheat_grain" nature="grain" derivative_of="fagopyrum_esculentum" frozen_indicators_values="net_mass: 1.00ton" unit_name="ton"/>
+      <item name="buckwheat_seed" nature="seed" variety="seed" derivative_of="fagopyrum" frozen_indicators_values="net_mass: 1.00gram, grains_count: 50unity, thousand_grains_mass: 20.00gram"/>
       <item name="building" nature="building" frozen_indicators_values="" unit_name="building"/>
       <item name="building_division" nature="building_division" frozen_indicators_values="" unit_name="room"/>
       <item name="building_insurance" nature="insurance"/>
@@ -3181,6 +3182,7 @@
       <item name="carriage" nature="carriage"/>
       <item name="carrot" nature="carrot" derivative_of="daucus_carota" frozen_indicators_values="net_mass: 1.00ton"/>
       <item name="carrot_crop" nature="vegetable_crop" variety="daucus" frozen_indicators_values="net_surface_area: 1.00hectare" unit_name="hectare"/>
+      <item name="carrot_seed" nature="seed" variety="seed" derivative_of="daucus_carota" frozen_indicators_values="net_mass: 1.00gram, grains_count: 1thousand, thousand_grains_mass: 1.00gram"/>
       <item name="cattle_compost" nature="organic_fertilizer" variety="compost" derivative_of="bos" frozen_indicators_values="net_mass: 1.00ton, net_volume: 1.70cubic_meter, nitrogen_concentration: 0.8percent" unit_name="ton"/>
       <item name="cattle_herd" nature="cattle_herd" derivative_of="bos" frozen_indicators_values="sex: undefined" unit_name="band"/>
       <item name="cattle_liquid_slurry" nature="organic_fertilizer" variety="liquid_slurry" derivative_of="bos" frozen_indicators_values="net_volume: 1.00cubic_meter, net_mass: 1.00ton, nitrogen_concentration: 0.30percent" unit_name="cubic_meter"/>
@@ -3427,6 +3429,7 @@
       <item name="grass_silage" nature="silage" derivative_of="poa" frozen_indicators_values="net_mass: 1.00ton, net_volume: 1.351cubic_meter" unit_name="ton"/>
       <item name="green_compost" nature="organic_fertilizer" variety="compost" derivative_of="plant" frozen_indicators_values="net_volume: 1.50cubic_meter, net_mass: 1.00ton, nitrogen_concentration: 1.2percent" unit_name="ton"/>
       <item name="grinder" nature="grinder" frozen_indicators_values="" unit_name="equipment"/>
+      <item name="growth_regulator" nature="growth_regulator" frozen_indicators_values="net_volume: 1.00liter"/>
       <item name="guineafowl_manure" nature="organic_fertilizer" variety="manure" derivative_of="numida" frozen_indicators_values="net_volume: 1.50cubic_meter, net_mass: 1.00ton, nitrogen_concentration: 2.2percent" unit_name="ton"/>
       <item name="hand_drawn" nature="hand_drawn" frozen_indicators_values="" unit_name="equipment"/>
       <item name="hanging_scroll" nature="catalog_and_print"/>
@@ -3571,6 +3574,7 @@
       <item name="nematicide" nature="nematicide" frozen_indicators_values="net_mass: 1.00kg"/>
       <item name="nibble_lamb_meat" nature="lamb_meat" derivative_of="ovis" frozen_indicators_values="net_volume: 1.00liter, net_mass: 1.00kilogram" unit_name="kilogram"/>
       <item name="nomacorc_cork" nature="cork"/>
+      <item name="oat_grain" nature="grain" variety="grain" derivative_of="avena" frozen_indicators_values="net_mass: 1.00ton"/>
       <item name="oenological_yeast_sc_500g" nature="oenological_yeast" variety="yeast" derivative_of="saccharomyces_cerevisiae" frozen_indicators_values="net_mass: 500.00gram, cells_mass_concentration: 10billion_per_gram" unit_name="bag"/>
       <item name="office_building" nature="building" frozen_indicators_values="" unit_name="building"/>
       <item name="office_building_division" nature="administrative_division" frozen_indicators_values="" unit_name="room"/>
@@ -3665,6 +3669,9 @@
       <item name="rubisko_wheat_crop" nature="cereal_crop" variety="triticum_aestivum_rubisko" frozen_indicators_values="net_surface_area: 1.00hectare" unit_name="hectare"/>
       <item name="running_water" nature="running_water" frozen_indicators_values="net_volume: 1.00cubic_meter, net_mass: 1.00ton" unit_name="cubic_meter"/>
       <item name="rye_crop" nature="cereal_crop" variety="secale" frozen_indicators_values="net_surface_area: 1.00hectare" unit_name="hectare"/>
+      <item name="rye_grain" nature="grain" variety="grain" derivative_of="secale_cereale" frozen_indicators_values="net_mass: 1.00ton"/>
+      <item name="rye_seed" nature="seed" variety="seed" derivative_of="secale_cereale" frozen_indicators_values="net_mass: 1.00gram, grains_count: 33unity, thousand_grains_mass: 30.00gram"/>
+      <item name="rye_straw" nature="straw" variety="straw" derivative_of="secale_cereale" frozen_indicators_values="net_mass: 1.00ton"/>
       <item name="saffron_crop" nature="flower_crop" variety="crocus_sativus" frozen_indicators_values="net_surface_area: 1.00square_meter" unit_name="hectare"/>
       <item name="saffron_pollen" nature="species" variety="pollen" derivative_of="crocus_sativus" frozen_indicators_values="net_mass: 1.00gram, net_volume: 1.00milliliter" unit_name="gram"/>
       <item name="saffron_seedling" nature="seedling" derivative_of="crocus_sativus"/>
@@ -3695,6 +3702,7 @@
       <item name="sower" nature="sower" frozen_indicators_values="" unit_name="equipment"/>
       <item name="soy_crop" nature="grain_crop" variety="glycine_max" frozen_indicators_values="net_surface_area: 1.00hectare" unit_name="hectare"/>
       <item name="soy_grain" nature="grain" derivative_of="glycine_max" frozen_indicators_values="net_mass: 1.00ton" unit_name="ton"/>
+      <item name="soy_seed" nature="seed" variety="seed" derivative_of="glycine_max" frozen_indicators_values="net_mass: 190gram, grains_count: 1thousand, thousand_grains_mass: 190.00gram"/>
       <item name="spelt_grain" nature="grain" derivative_of="triticum_spelta" frozen_indicators_values="net_mass: 1.00ton" unit_name="ton"/>
       <item name="spelt_seed_25" nature="seed" derivative_of="triticum_spelta" frozen_indicators_values="net_mass: 25.00kilogram, thousand_grains_mass: 50gram" unit_name="25kg_bag"/>
       <item name="spelt_wheat_crop" nature="cereal_crop" variety="triticum_spelta" frozen_indicators_values="net_surface_area: 1.00hectare" unit_name="hectare"/>
@@ -3735,6 +3743,8 @@
       <item name="trimmer" nature="trimmer" frozen_indicators_values="" unit_name="equipment"/>
       <item name="triticale_crop" nature="cereal_crop" variety="triticosecale" frozen_indicators_values="net_surface_area: 1.00hectare" unit_name="hectare"/>
       <item name="triticale_grain" nature="grain" derivative_of="triticosecale" frozen_indicators_values="net_mass: 1.00ton" unit_name="ton"/>
+      <item name="triticale_seed" nature="seed" variety="seed" derivative_of="triticale" frozen_indicators_values="net_mass: 1.00gram, grains_count: 22unity, thousand_grains_mass: 45.00gram"/>
+      <item name="triticale_straw" nature="straw" variety="straw" derivative_of="triticale" frozen_indicators_values="net_mass: 1.00ton"/>
       <item name="truck" nature="truck" frozen_indicators_values="" unit_name="equipment"/>
       <item name="turnip" nature="turnip" derivative_of="brassica_rapa_rapa" frozen_indicators_values="net_mass: 1.00ton"/>
       <item name="uncover" nature="uncover" frozen_indicators_values="" unit_name="equipment"/>
@@ -3911,6 +3921,7 @@
       <item name="grape_trailer" category="equipment" variety="trailed_equipment" population_counting="unitary" abilities="store(grape), store(juice), store(fermented_juice), store_liquid" variable_indicators="nominal_storable_net_volume, nominal_storable_net_mass" frozen_indicators=""/>
       <item name="grass" category="grass" variety="grass" derivative_of="plant" population_counting="decimal" abilities="feed(animal)" variable_indicators="dry_matter_rate" frozen_indicators="net_mass, net_volume"/>
       <item name="grinder" category="equipment" variety="trailed_equipment" population_counting="unitary" abilities="grind(plant), grind(cultivable_zone)" variable_indicators="geolocation" frozen_indicators="application_width, theoretical_working_speed"/>
+      <item name="growth_regulator" category="plant_medicine" variety="preparation" population_counting="decimal" frozen_indicators="net_volume, net_mass" abilities="care(plant)"/>
       <item name="hand_drawn" category="equipment" variety="equipment" population_counting="unitary" abilities="fill(bottle)" variable_indicators="nominal_storable_net_volume" frozen_indicators=""/>
       <item name="harrow" category="equipment" variety="trailed_equipment" population_counting="unitary" abilities="plow_superficially" frozen_indicators="application_width, theoretical_working_speed" variable_indicators="geolocation"/>
       <item name="harvest_insurance" category="harvest_insurance" variety="service" population_counting="decimal" variable_indicators=""/>
@@ -9963,6 +9974,10 @@
       <item name="acipenser_sturio" parent="acipenser" itis_tsn="161072"/>
       <item name="acipenser_transmontanus" parent="acipenser" itis_tsn="161068"/>
       <item name="acipenseridae" parent="actinopterygii" itis_tsn="161931"/>
+      <item name="actinidia" parent="actinidiaceae" itis_tsn="500824"/>
+      <item name="actinidia_chinensis" parent="actinidia" itis_tsn="506775"/>
+      <item name="actinidia_deliciosa" parent="actinidia"/>
+      <item name="actinidiaceae" parent="plant" itis_tsn="21393"/>
       <item name="actinopterygii" parent="animal" itis_tsn="161061"/>
       <item name="adoxa" parent="adoxaceae" itis_tsn="35347"/>
       <item name="adoxaceae" parent="plant" itis_tsn="35346"/>

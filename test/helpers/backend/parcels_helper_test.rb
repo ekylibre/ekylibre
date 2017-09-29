@@ -15,7 +15,7 @@ module Backend
     test 'Item without amount and with purchase_item' do
       purchase = create(:purchase, nature: purchase_natures(:purchase_natures_001), tax_payability: 'at_invoicing')
       purchase_item = create(:purchase_item, purchase: purchase, tax: Tax.last, unit_pretax_amount: 75)
-      parcel_item = create(:parcel_item, unit_pretax_amount: nil, purchase_item: purchase_item)
+      parcel_item = create(:outgoing_parcel_item, unit_pretax_amount: nil, purchase_item: purchase_item)
       assert_equal 75, purchase_item_pretax_amount(parcel_item)
     end
   end
