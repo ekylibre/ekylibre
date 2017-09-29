@@ -67,12 +67,13 @@ class PurchaseItem < Ekylibre::Record::Base
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :amount, :pretax_amount, :quantity, :reduction_percentage, :unit_amount, :unit_pretax_amount, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
   validates :annotation, :label, length: { maximum: 500_000 }, allow_blank: true
-  validates :account, :currency, :purchase, :tax, :variant, presence: true
+  validates :account, :currency, :purchase, :tax, presence: true
   validates :fixed, inclusion: { in: [true, false] }
   validates :preexisting_asset, inclusion: { in: [true, false] }, allow_blank: true
   # ]VALIDATORS]
   validates :currency, length: { allow_nil: true, maximum: 3 }
   validates :account, :tax, :reduction_percentage, presence: true
+  validates :variant, presence: true, unless: Proc.new { |item| item.variant.variety.eql?("trailed_equipment") || item.variant.variety.eql?("equipment")}
   validates_associated :fixed_asset
 
   delegate :invoiced_at, :journal_entry, :number, :computation_method, :computation_method_quantity_tax?, :computation_method_tax_quantity?, :computation_method_adaptative?, :computation_method_manual?, to: :purchase
