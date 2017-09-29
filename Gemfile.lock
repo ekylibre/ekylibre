@@ -597,7 +597,7 @@ DEPENDENCIES
   capybara
   capybara-webkit
   charlock_holmes
-  charta (>= 0.1.4)
+  charta (>= 0.1.5)
   cocoon
   codacy-coverage
   code_string (>= 0.0.1)
