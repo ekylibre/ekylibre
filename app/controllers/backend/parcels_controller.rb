@@ -166,6 +166,7 @@ module Backend
     end
 
     def new
+
       columns = Parcel.columns_definition.keys
       columns = columns.delete_if { |c| %i[depth rgt lft id lock_version updated_at updater_id creator_id created_at].include?(c.to_sym) }
       values = columns.map(&:to_sym).uniq.each_with_object({}) do |attr, hash|
@@ -180,10 +181,15 @@ module Backend
         sale = Sale.find(params[:sale_id])
         @parcel.recipient = sale.client
         @parcel.address = sale.delivery_address
-
+        # binding.pry
         sale.items.each do |item|
-          item.variant.take(item.quantity).each do |product, quantity|
-            @parcel.items.new(sale_item_id: item.id, source_product: product, quantity: quantity)
+          products = item.variant.take(item.quantity)
+          if products.any?
+            item.variant.take(item.quantity).each do |product, quantity|
+              @parcel.items.new(sale_item_id: item.id, source_product: product, quantity: quantity)
+            end
+          else
+            @parcel.items.new(sale_item_id: item.id, variant: item.variant)
           end
         end
       end

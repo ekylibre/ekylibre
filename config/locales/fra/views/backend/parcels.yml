@@ -1,0 +1,5 @@
+fra:
+  backend:
+    parcels:
+      outgoing_item_fields:
+        product_out_of_stock: Le produit n'est pas en stock
