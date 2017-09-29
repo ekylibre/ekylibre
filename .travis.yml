@@ -4,7 +4,6 @@ bundler_args: "--full-index --without development"
 rvm:
 - 2.2.7
 before_install:
-  - gem install bundler -v 1.14.3
   - test/ci/before_install
 before_script: test/ci/before_script
 script: xvfb-run bundle exec rake test:models test:libs test:controllers DRIVER=webkit
