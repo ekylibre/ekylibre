@@ -1,12 +1,9 @@
 #FROM debian:9
 FROM ruby:2.2.3
 
-
 WORKDIR /app
 COPY . ./
 RUN rm ./Gemfile.lock
-#COPY Gemfile /app/Gemfile
-#COPY Procfile /app/Procfile
 
 
 RUN sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt/ jessie-pgdg main" >> /etc/apt/sources.list'
@@ -24,8 +21,6 @@ RUN \
   rm -rf /var/lib/apt/lists/*
 
 ENV JAVA_HOME /usr/lib/jvm/java-1.7.0-openjdk-amd64
-
-#RUN apt-get --assume-yes install apt-utils
 
 RUN apt-get update -qq && apt-get install -yf \
     locales \
