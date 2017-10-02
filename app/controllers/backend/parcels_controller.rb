@@ -166,7 +166,6 @@ module Backend
     end
 
     def new
-
       columns = Parcel.columns_definition.keys
       columns = columns.delete_if { |c| %i[depth rgt lft id lock_version updated_at updater_id creator_id created_at].include?(c.to_sym) }
       values = columns.map(&:to_sym).uniq.each_with_object({}) do |attr, hash|
