@@ -1,6 +1,6 @@
 language: ruby
 bundler_args: "--full-index --without development"
-cache: bundler
+# cache: bundler
 rvm:
 - 2.2.7
 before_install: test/ci/before_install
