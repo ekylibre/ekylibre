@@ -1,7 +1,7 @@
 module Userstamp
   module Controller
-    # The Userstamp module, when included into a controller, adds a before filter
-    # (named <tt>set_stamper</tt>) and an after filter (name <tt>reset_stamper</tt>).
+    # The Userstamp module, when included into a controller, adds a before action
+    # (named <tt>set_stamper</tt>) and an after action (name <tt>reset_stamper</tt>).
     # These methods assume a couple of things, but can be re-implemented in your
     # controller to better suite your application.
     #
@@ -9,8 +9,8 @@ module Userstamp
     # specific implementation details.
     def self.included(base) # :nodoc:
       base.send :include, InstanceMethods
-      base.before_filter :set_stamper
-      base.after_filter :reset_stamper
+      base.before_action :set_stamper
+      base.after_action :reset_stamper
     end
 
     module InstanceMethods

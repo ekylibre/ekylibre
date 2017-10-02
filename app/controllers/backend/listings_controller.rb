@@ -59,7 +59,7 @@ module Backend
                 csv << item
               end
             end
-            send_data(csv_string, filename: @listing.name.simpleize + '.csv', type: Mime::CSV)
+            send_data(csv_string, filename: @listing.name.simpleize + '.csv', type: Mime[:csv])
           end
         end
       rescue Exception => e

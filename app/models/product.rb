@@ -396,16 +396,8 @@ class Product < Ekylibre::Record::Base
   end
 
   class << self
-    # Auto-cast product to best matching class with type column
-    def new_with_cast(*attributes, &block)
-      if (h = attributes.first).is_a?(Hash) && !h.nil? && (type = h[:type] || h['type']) && !type.empty? && (klass = type.constantize) != self
-        raise "Can not cast #{name} to #{klass.name}" unless klass <= self
-        return klass.new(*attributes, &block)
-      end
-      new_without_cast(*attributes, &block)
-    end
-    alias_method_chain :new, :cast
-
+    prepend AutoClassCasting
+    
     def miscibility_of(products_and_variants)
       PhytosanitaryMiscibility.new(products_and_variants).legality
     end

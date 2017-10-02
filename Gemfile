@@ -14,8 +14,8 @@ gem 'activerecord-postgis-adapter', '~> 5.0'
 gem 'pg' # Needed for some tasks
 
 # Multi-tenancy
-gem 'apartment', '>= 1.2.0', '< 2.0'
-gem 'apartment-sidekiq'
+gem 'apartment', git: 'https://github.com/influitive/apartment'
+gem 'apartment-sidekiq', git: 'https://github.com/tmster/apartment-sidekiq'
 
 # Ruby syntax extensions
 gem 'possibly'
@@ -54,7 +54,7 @@ gem 'skylight'
 gem 'jquery-rails'
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 gem 'jquery-turbolinks'
-gem 'turbolinks', '~> 2.0'
+gem 'turbolinks', '~> 5.0'
 
 # jQuery UI Javascript framework
 gem 'jquery-ui-rails'
@@ -84,9 +84,9 @@ gem 'charta', '>= 0.1.5'
 gem 'foreman'
 
 # Background jobs
-gem 'sidekiq', '~> 4.0'
+gem 'sidekiq', '~> 5.0'
 gem 'sidekiq-cron', '>= 0.4.0'
-gem 'sidekiq-unique-jobs', '~> 4.0'
+gem 'sidekiq-unique-jobs', '~> 5.0'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
@@ -101,16 +101,16 @@ gem 'unicorn', group: :production
 gem 'exception_notification'
 
 # Views helpers
-gem 'active_list', path: '../active_list'
+gem 'active_list', git: 'https://github.com/ekylibre/active_list', branch: 'feature/migrates-to-rails5'
 gem 'haml'
 gem 'simple_calendar'
 
 # Models helpers
 gem 'acts_as_list'
-gem 'awesome_nested_set', '~> 3.1.1'
-gem 'deep_cloneable', '~> 2.2.1'
+gem 'awesome_nested_set', '~> 3.1'
+gem 'deep_cloneable', '~> 2.2'
 gem 'enumerize'
-gem 'jc-validates_timeliness', '~> 3.1.1'
+gem 'jc-validates_timeliness', '~> 3.1'
 gem 'state_machine'
 gem 'uuidtools'
 
@@ -234,7 +234,7 @@ group :development, :test do
   gem 'parallel_tests'
 
   # Exception message tips
-  gem 'did_you_mean', '~> 0.9', platforms: [:ruby_22]
+  gem 'did_you_mean', '~> 1.0', platforms: [:ruby_22]
 end
 
 group :test do

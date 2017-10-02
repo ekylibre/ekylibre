@@ -256,17 +256,7 @@ class Entity < Ekylibre::Record::Base
   end
 
   class << self
-    # Auto-cast entity to best matching class with type column
-    def new_with_cast(*attributes, &block)
-      if (h = attributes.first).is_a?(Hash) && !h.nil? &&
-         (type = h[:type] || h['type']) && !type.empty? &&
-         (klass = type.constantize) != self
-        raise "Can not cast #{name} to #{klass.name}" unless klass <= self
-        return klass.new(*attributes, &block)
-      end
-      new_without_cast(*attributes, &block)
-    end
-    alias_method_chain :new, :cast
+    prepend AutoClassCasting
 
     def exportable_columns
       content_columns.delete_if do |c|

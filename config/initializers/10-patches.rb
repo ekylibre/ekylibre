@@ -256,7 +256,7 @@ module ::I18n
   # module Backend
   #   module Base
 
-  #     def localize_with_numbers(locale, object, format = :default, options = {})
+  #     def localize(locale, object, format = :default, options = {})
   #       options.symbolize_keys!
   #       if object.respond_to?(:abs)
   #         if currency = options[:currency]
@@ -284,12 +284,11 @@ module ::I18n
   #           end
   #         end
   #       elsif object.respond_to?(:strftime)
-  #         return localize_without_numbers(locale, object, format, options)
+  #         return super(locale, object, format, options)
   #       else
   #         raise ArgumentError, "Object must be a Numeric, Date, DateTime or Time object. #{object.inspect} given."
   #       end
   #     end
-  #     alias_method_chain :localize, :numbers
 
   #   end
   # end

@@ -1,6 +1,6 @@
 require 'zip'
 
-Mime::Type.register('application/vnd.oasis.opendocument.spreadsheet', :ods) unless defined? Mime::ODS
+Mime::Type.register('application/vnd.oasis.opendocument.spreadsheet', :ods) unless Mime[:ods]
 
 module Ekylibre
   module Export
@@ -9,9 +9,9 @@ module Ekylibre
         def initialize
           @header = ''
           zile.put_next_entry('META-INF/manifest.xml')
-          zile.puts('<?xml version="1.0" encoding="UTF-8"?><manifest:manifest xmlns:manifest="urn:oasis:names:tc:opendocument:xmlns:manifest:1.0"><manifest:file-entry manifest:media-type="' + Mime::ODS + '" manifest:full-path="/"/><manifest:file-entry manifest:media-type="text/xml" manifest:full-path="content.xml"/><manifest:file-entry manifest:media-type="text/xml" manifest:full-path="styles.xml"/></manifest:manifest>')
+          zile.puts('<?xml version="1.0" encoding="UTF-8"?><manifest:manifest xmlns:manifest="urn:oasis:names:tc:opendocument:xmlns:manifest:1.0"><manifest:file-entry manifest:media-type="' + Mime[:ods].to_s + '" manifest:full-path="/"/><manifest:file-entry manifest:media-type="text/xml" manifest:full-path="content.xml"/><manifest:file-entry manifest:media-type="text/xml" manifest:full-path="styles.xml"/></manifest:manifest>')
           zile.put_next_entry('mimetype')
-          zile.puts(Mime::ODS)
+          zile.puts(Mime[:ods].to_s)
           zile.put_next_entry('styles.xml')
           zile.puts(File.open(File.join(File.expand_path(File.dirname(__FILE__)), 'spreadsheet', 'styles.xml'), 'rb:UTF-8').read)
           zile.put_next_entry('content.xml')
