@@ -307,7 +307,7 @@
         beforeSend: () =>
           @dynamic_loading = new L.control(position: "bottomleft")
           @dynamic_loading.onAdd = (map) =>
-            L.DomUtil.create('div', 'leaflet-dynamic-loading')
+            L.DomUtil.create('div', 'leaflet-dynamic loading')
 
           @map.addControl @dynamic_loading
         success: (data) =>
