@@ -29,7 +29,6 @@ module Backend
         # Test data on first plant
         assert_equal plants.first.name, r['series']['main'].first['name']
         assert_equal plants.first.shape.to_json_object, r['series']['main'].first['shape']
-
       end
     end
   end

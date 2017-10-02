@@ -27,7 +27,6 @@ module Backend
 
         assert_equal productions.first.name, r['series']['main'].first['name']
         assert_equal productions.first.support_shape.to_json_object, r['series']['main'].first['shape']
-
       end
     end
   end

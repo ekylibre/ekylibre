@@ -29,7 +29,6 @@ module Backend
 
         assert_equal resource_model.first.name, r['series']['main'].first['name']
         assert_equal resource_model.first.shape.to_json_object, r['series']['main'].first['shape']
-
       end
     end
   end

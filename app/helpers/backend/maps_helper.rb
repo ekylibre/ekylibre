@@ -147,7 +147,7 @@ module Backend
     end
 
     # An asynchronous version of the model map method
-    def async_model_map(options = {}, &block)
+    def async_model_map(options = {})
       html_options = {}
       center = options.delete(:center)
       center = true if center.nil?
@@ -169,7 +169,6 @@ module Backend
         end
       end
     end
-
 
     # Build a map with a given list of object
     def collection_map(data, options = {}, &_block)
