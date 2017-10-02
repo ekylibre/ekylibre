@@ -234,7 +234,7 @@ group :development, :test do
   gem 'parallel_tests'
 
   # Exception message tips
-  gem 'did_you_mean', '~> 1.0', platforms: [:ruby_22]
+  gem 'did_you_mean', platforms: [:ruby_22]
 end
 
 group :test do

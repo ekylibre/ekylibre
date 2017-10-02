@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/ekylibre/active_list
-  revision: 0927aeec682c94d86cc0653b1f6578489adeef1c
+  revision: 3f4f70535f8b6891fff520cc0b0a8fec55524aae
   branch: feature/migrates-to-rails5
   specs:
     active_list (7.0.0)
@@ -182,7 +182,7 @@ GEM
     devise_invitable (1.7.2)
       actionmailer (>= 4.1.0)
       devise (>= 4.0.0)
-    did_you_mean (1.1.2)
+    did_you_mean (1.0.3)
     docile (1.1.5)
     domain_name (0.5.20170404)
       unf (>= 0.0.5, < 1.0.0)
@@ -628,7 +628,7 @@ DEPENDENCIES
   devise
   devise-i18n-views
   devise_invitable
-  did_you_mean (~> 1.0)
+  did_you_mean
   ekylibre-ofx-parser
   enumerize
   exception_notification
