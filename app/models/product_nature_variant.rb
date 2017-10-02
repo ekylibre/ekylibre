@@ -437,7 +437,7 @@ class ProductNatureVariant < Ekylibre::Record::Base
     undelivereds = sale_items.includes(:sale).map do |si|
       undelivered = 0
       variants_in_parcel_in_sale = ParcelItem.where(parcel_id: si.sale.parcels.select(:id), variant: self)
-      variants_in_transit_parcel_in_sale = ParcelItem.where(parcel_id: si.sale.parcels.where.not(state: %i(given draft)).select(:id), variant: self)
+      variants_in_transit_parcel_in_sale = ParcelItem.where(parcel_id: si.sale.parcels.where.not(state: %i[given draft]).select(:id), variant: self)
       delivered_variants_in_parcel_in_sale = ParcelItem.where(parcel_id: si.sale.parcels.where(state: :given).select(:id), variant: self)
 
       undelivered = si.quantity if variants_in_parcel_in_sale.none? && !si.sale.draft? && !si.sale.refused? && !si.sale.aborted?
@@ -448,7 +448,7 @@ class ProductNatureVariant < Ekylibre::Record::Base
       undelivered
     end
 
-    undelivereds += parcel_items.joins(:parcel).where.not(parcels: { state: %i(given draft) }).where(parcels: { sale_id: nil, nature: :outgoing }).pluck(:population)
+    undelivereds += parcel_items.joins(:parcel).where.not(parcels: { state: %i[given draft] }).where(parcels: { sale_id: nil, nature: :outgoing }).pluck(:population)
 
     undelivereds.compact.sum
   end
