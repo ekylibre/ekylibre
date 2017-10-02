@@ -57,12 +57,12 @@ class ParcelItemTest < ActiveSupport::TestCase
   # Add tests here...
 
   test 'parcel item have a valid factory' do
-    parcel_item = build(:parcel_item)
+    parcel_item = build(:outgoing_parcel_item)
     assert parcel_item.valid?
   end
 
   test 'parcel_item without population give take the population of the source_product population' do
-    parcel_item = create(:parcel_item)
+    parcel_item = create(:outgoing_parcel_item)
     assert_equal 1, parcel_item.population
   end
 
@@ -70,7 +70,7 @@ class ParcelItemTest < ActiveSupport::TestCase
     nature = create(:product_nature, population_counting: :decimal)
     variant = create(:product_nature_variant, nature: nature)
     product = create(:product, variant: variant)
-    parcel_item = create(:parcel_item, population: 12, source_product: product)
+    parcel_item = create(:outgoing_parcel_item, population: 12, source_product: product)
     assert_equal 12, parcel_item.population
   end
 end
