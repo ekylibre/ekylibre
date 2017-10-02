@@ -54,7 +54,7 @@
           = f.referenced_association(:activity_budget, new: false)
         - if Preference[:distribute_sales_and_purchases_on_teams] && current_user.can?(:read, :teams)
           = f.referenced_association(:team)
-        = f.referenced_association(:variant, label: :equipment.tl, source: {scope: :tools})
+        = f.referenced_association(:variant, label: :equipment.tl, source: {scope: :tools}, input_html: {data: { remember: 'equipment'}})
 
     %td.buttons
       %button.btn{ data: { cancel: 'item-form' } }= :cancel.tl
