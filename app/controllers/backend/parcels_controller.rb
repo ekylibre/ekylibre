@@ -181,7 +181,6 @@ module Backend
         sale = Sale.find(params[:sale_id])
         @parcel.recipient = sale.client
         @parcel.address = sale.delivery_address
-        # binding.pry
         sale.items.each do |item|
           products = item.variant.take(item.quantity)
           if products.any?
