@@ -1,33 +1,24 @@
-# namespace :test do
-#   desc 'Run tests for libraries'
-#   Rails::TestTask.new(lib: 'test:prepare') do |t|
-#     t.pattern = 'test/lib/**/*_test.rb'
-#   end
+namespace :test do
+  additional_tests = %w[lib exchangers services concepts]
+  additional_tests.each do |name|
+    task name => 'test:prepare' do
+      $LOAD_PATH << 'test'
+      Rails::TestUnit::Runner.rake_run(["test/#{name}"])
+    end
+  end
 
-#   desc 'Run tests for exchangers'
-#   Rails::TestTask.new(exchangers: 'test:prepare') do |t|
-#     t.pattern = 'test/exchangers/**/*_test.rb'
-#   end
+  task javascripts: [:teaspoon]
+  task core: ['test:units', 'test:functionals', 'test:lib']
 
-#   # desc 'Run tests for services'
-#   Rails::TestTask.new(services: 'test:prepare') do |t|
-#     t.pattern = 'test/services/**/*_test.rb'
-#   end
+  Rake::Task['test:run'].enhance additional_tests.map { |t| "test:#{t}"}
+  Rake::Task['test:functionals'].enhance %w[test:services test:concepts test:exchangers]
 
-#   # desc 'Run tests for concepts'
-#   Rails::TestTask.new(concepts: 'test:prepare') do |t|
-#     t.pattern = 'test/concepts/**/*_test.rb'
-#   end
+  # Append test for lib
+  task run_all: ['test:units', 'test:functionals', 'test:integration', 'test:lib', 'test:javascripts']
 
-#   task javascripts: [:teaspoon]
-#   task core: ['test:units', 'test:functionals', 'test:lib']
+  task full: ['test:models', 'test:controllers', 'test:frontend', 'test:libs']
 
-#   # Append test for lib
-#   task run_all: ['test:units', 'test:functionals', 'test:integration', 'test:lib', 'test:javascripts']
+  task frontend: ['test:integration', 'test:javascripts']
 
-#   task full: ['test:models', 'test:controllers', 'test:frontend', 'test:libs']
-
-#   task frontend: ['test:integration', 'test:javascripts']
-
-#   task libs: ['test:helpers', 'test:lib', 'test:exchangers', 'test:services', 'test:concepts', 'test:jobs']
-# end
+  task libs: ['test:helpers', 'test:lib', 'test:exchangers', 'test:services', 'test:concepts', 'test:jobs']
+end
