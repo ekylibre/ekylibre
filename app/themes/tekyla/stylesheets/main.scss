@@ -137,6 +137,23 @@ i.icon {
 
 }
 
+.home-button {
+	font-weight: bold;
+  font-size: 13px;
+  padding: 0 5px;
+  white-space: nowrap;
+  overflow: hidden;
+  i{
+	  @include is-icon($topbar-icon-size);
+    @include use-icon(home);
+    line-height: $topbar-height;
+ 	}
+ }
+
+.float-left{
+	float: left !important;
+}
+
 .numbering-root{
   counter-reset: numbers;
 }
@@ -289,6 +306,9 @@ html.backend {
         #user {
           display: none;
         }
+				#home{
+					display: none;
+				}
       }
       & > #main, & > #help {
         overflow: auto;
@@ -341,6 +361,9 @@ html.backend {
             #user {
               display: block;
             }
+						#home{
+							display: block;
+						}
           }
           & > #main {
             display: block;

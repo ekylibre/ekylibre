@@ -4,13 +4,13 @@
 - main_tools = capture do
   - if current_user
     %li
-      = link_to content_tag(:i), "#", data: {toggle: 'modal', target: '#welcome-tour'}, title: :help.tl if show_help
+      = link_to content_tag(:i), "#", id: "tour-help", data: {toggle: 'modal', target: '#welcome-tour'}, onclick: 'change_side_menus()', title: :help.tl if show_help
     - count = current_user.unread_notifications.count
     %li{class: (controller_name == 'notifications' ? :active : nil)}
       = link_to(content_tag(:i), backend_notifications_path(redirect: request.fullpath), data: {toggle: 'notifications'}, title: :x_notifications.tl(count: count), class: (!count.zero? ? 'with-notifications' : nil))
   - if Preference[:use_contextual_help]
     %li= link_to(content_tag(:i), toggle_backend_helps_path, data: {toggle: 'help'}, title: :help.tl, class: (help_shown? ? [:active] : []))
-
+    
 %nav#top
 
   %ul#menu
@@ -18,10 +18,6 @@
     
   %ul#menu.float-left
     %li= link_to(content_tag(:i), "#side", data: {toggle: "side"})
-  
-  = link_to(backend_root_path, id: "home") do
-    %i
-    = :home.tl
 
   - if current_part
     = link_to(current_part.human_name, { controller: "/backend/dashboards", action: current_part.name }, id: "part")
@@ -30,6 +26,10 @@
 
     - if true # current_part
       %ul#parts
+        %li
+          = link_to(backend_root_path, id: "home") do
+            %i
+            = :home.tl
         - Ekylibre::Navigation.parts.each do |part|
           - next unless part_authorized?(part)
           %li.separator
@@ -40,7 +40,7 @@
             = link_to(controller: "/backend/dashboards", action: part.name) do
               %i
               = part.human_name
-    
+
     %ul#user
       = main_tools
       %li.dropdown
