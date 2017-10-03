@@ -733,6 +733,7 @@ por:
     entry_number: "Número de entrada"
     entry_on: "Entrada em"
     entry_reason: "Razão entrada"
+    # equipment: "Equipment"
     # estimate_reception_date: "Estimate reception date"
     # euid: "EUID"
     event: "Evento"

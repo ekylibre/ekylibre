@@ -30,6 +30,7 @@
 #  creator_id             :integer
 #  currency               :string           not null
 #  depreciable_product_id :integer
+#  equipment_id           :integer
 #  fixed                  :boolean          default(FALSE), not null
 #  fixed_asset_id         :integer
 #  id                     :integer          not null, primary key

@@ -737,6 +737,7 @@ spa:
     entry_number: "Número de entrada"
     entry_on: "La entrada en"
     entry_reason: "Razón por la entrada"
+    # equipment: "Equipment"
     # estimate_reception_date: "Estimate reception date"
     # euid: "EUID"
     event: "Evento"

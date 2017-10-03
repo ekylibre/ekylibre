@@ -936,6 +936,7 @@ fra:
     entry_number: "N° Écriture"
     entry_on: "Entrée le"
     entry_reason: "Raison de l'entrée"
+    # equipment: "Equipment"
     establishment: "Établissement" #?
     # estimate_reception_date: "Estimate reception date"
     # euid: "EUID"

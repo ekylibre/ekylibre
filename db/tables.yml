@@ -6498,6 +6498,9 @@ purchase_items:
   depreciable_product_id:
     type: integer
     references: product
+  equipment_id:
+    type: integer
+    references: equipment
   fixed:
     type: boolean
     required: true

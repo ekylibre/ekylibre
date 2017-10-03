@@ -742,6 +742,7 @@ eng:
     entry_number: "Entry number"
     entry_on: "Entry on" #?
     entry_reason: "Entry reason"
+    equipment: "Equipment"
     estimate_reception_date: "Estimate reception date"
     euid: "EUID"
     event: "Event"

@@ -733,6 +733,7 @@ deu:
     entry_number: "Eintrittsnummer"
     entry_on: "Eintrag auf"
     entry_reason: "Eintrag Grund"
+    # equipment: "Equipment"
     # estimate_reception_date: "Estimate reception date"
     # euid: "EUID"
     event: "Ereignis"

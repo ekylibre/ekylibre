@@ -764,6 +764,7 @@ ita:
     entry_number: "numero di iscrizione"
     entry_on: "L’iscrizione"
     entry_reason: "Motivo entry"
+    # equipment: "Equipment"
     # estimate_reception_date: "Estimate reception date"
     # euid: "EUID"
     event: "Evento"

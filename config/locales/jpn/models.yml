@@ -733,6 +733,7 @@ jpn:
     entry_number: "エントリ番号"
     entry_on: "上のエントリ"
     entry_reason: "エントリ理由"
+    # equipment: "Equipment"
     # estimate_reception_date: "Estimate reception date"
     # euid: "EUID"
     event: "イベント"
