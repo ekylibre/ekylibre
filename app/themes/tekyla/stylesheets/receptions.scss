@@ -422,16 +422,12 @@
       border: none;
     }
 
-    .reception_items_variant abbr{
-      margin-left: $default-gap * 0.71;
-    }
-
-    .reception_items_variant .control-label{
+    .reception_items_equipment .control-label{
       max-width: 40%;
       margin-left: $default-gap * 2.57;
     }
 
-    .reception_items_variant .controls{
+    .reception_items_equipment .controls{
       margin-left: $default-gap * 2.57;
     }
   }
