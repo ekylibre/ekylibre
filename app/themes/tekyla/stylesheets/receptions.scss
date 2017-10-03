@@ -413,6 +413,28 @@
       margin-right: $default-gap * 2;
     }
   }
+
+  .form-field.second-row {
+    width: 100%;
+
+    .item-form {
+      @include flex-column(flex-start);
+      border: none;
+    }
+
+    .reception_items_variant abbr{
+      margin-left: $default-gap * 0.71;
+    }
+
+    .reception_items_variant .control-label{
+      max-width: 40%;
+      margin-left: $default-gap * 2.57;
+    }
+
+    .reception_items_variant .controls{
+      margin-left: $default-gap * 2.57;
+    }
+  }
 }
 
 
