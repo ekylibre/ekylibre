@@ -23,7 +23,7 @@
 
   %tr.nested-item-form
     %td.form-field.merchandise
-      = f.referenced_association(:variant, label: :merchandise.tl, source: {scope: :purchaseables}, input_html: {class: "order-variant", data: {variant_of_deal_item: {url: detail_backend_product_nature_variant_path("RECORD_ID", mode: :last_purchase_item)}}})
+      = f.referenced_association(:variant, label: :merchandise.tl, source: {scope: :purchaseables}, input_html: {class: "order-variant", data: {variant_of_deal_item: {url: detail_backend_product_nature_variant_path("RECORD_ID", mode: :last_purchase_item)}}}, required: true)
     %td.form-field.decimal= f.input(:quantity, input_html: {class: "order-quantity", size: 7, data: {trade_component: "quantity"}})
     %td.form-field= f.input(:unit_pretax_amount, label: :unit_amount.tl, input_html: {class: "order-unit-amount", data: {trade_component: "unit_pretax_amount"}})
     %td.form-field= f.input(:reduction_percentage, label: :discount_without_percent.tl, input_html: {class: "order-discount-percentage", data: {trade_component: "reduction_percentage"}})
@@ -47,6 +47,7 @@
           = f.referenced_association(:activity_budget, new: false)
         - if Preference[:distribute_sales_and_purchases_on_teams] && current_user.can?(:read, :teams)
           = f.referenced_association(:team)
+        = f.referenced_association(:variant, label: :equipment.tl, source: {scope: :tools}, input_html: {data: { remember: 'equipment'}})
 
     %td.buttons
       %button.btn{ data: { cancel: 'item-form' } }= :cancel.tl
