@@ -47,7 +47,7 @@
 #  unit_pretax_amount     :decimal(19, 4)   not null
 #  updated_at             :datetime         not null
 #  updater_id             :integer
-#  variant_id             :integer          not null
+#  variant_id             :integer
 #
 
 require 'test_helper'

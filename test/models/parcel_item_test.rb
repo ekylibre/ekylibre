@@ -28,6 +28,7 @@
 #  currency                      :string
 #  delivery_id                   :integer
 #  delivery_mode                 :string
+#  equipment_id                  :integer
 #  id                            :integer          not null, primary key
 #  lock_version                  :integer          default(0), not null
 #  non_compliant                 :boolean

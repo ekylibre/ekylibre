@@ -38,7 +38,7 @@
         = f.input_field :quantity, class: "invoice-quantity", size: 7, data: {trade_component: "quantity", required: true}
         %span.add-on.item-population-unit-name
           = variant.unit_name.or_else('#')
-    %td.form-field= f.input(:unit_pretax_amount, label: :unit_amount.tl, input_html: {class: "invoice-unit-amount", data: {trade_component: "unit_pretax_amount"}})    
+    %td.form-field= f.input(:unit_pretax_amount, label: :unit_amount.tl, input_html: {class: "invoice-unit-amount", data: {trade_component: "unit_pretax_amount"}})
     %td.form-field
       = f.input :reduction_percentage, wrapper: :append do
         = f.input_field :reduction_percentage, label: :discount_without_percent.tl, class: "invoice-discount-percentage", data: {trade_component: "reduction_percentage", required: true}

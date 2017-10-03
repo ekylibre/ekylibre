@@ -1340,7 +1340,7 @@ eng:
     entries: "Entries" #?
     entries_to_point: "Entries pointing to" #?!
     entry_items: "Entry items" #?
-    equipment: "Equipment" #?
+    equipment: "Equipment"
     equipment_name: "Name of equipment" #?
     equipments: "Equipment"
     equities: "Equities" #?!
