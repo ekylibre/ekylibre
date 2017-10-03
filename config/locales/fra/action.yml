@@ -2298,7 +2298,7 @@ fra:
     vat_paid: "TVA DEDUCTIBLE" #?
     video: "Vidéo" #?
     view: "Affichage"
-    view_map_when_creating_an_intervention: "Afficher la carte lors de la création d'intervention"
+    view_map_when_creating_an_intervention: "Afficher la carte lors de la création d'interventions"
     view_modes: #?
       printable: "Mode «\_Imprimable\_»" #?
       resized: "Mode «\_Tout à l’écran\_»" #?

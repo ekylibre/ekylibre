@@ -44,16 +44,16 @@ module Backend
 
     def caliber_series(dimension, scale, inspections)
       grouped = inspections
-        .joins(:calibrations)
-        .merge(InspectionCalibration.of_scale(scale))
-        .joins(:product)
-        .where('products.dead_at < ?', Time.zone.now)
-        .group(:product_id)
-        .reorder('')
+                .joins(:calibrations)
+                .merge(InspectionCalibration.of_scale(scale))
+                .joins(:product)
+                .where('products.dead_at < ?', Time.zone.now)
+                .group(:product_id)
+                .reorder('')
 
       last_inspections = inspections
-        .where(product_id: grouped.select(:product_id),
-               sampled_at: grouped.select('MAX(sampled_at)'))
+                         .where(product_id: grouped.select(:product_id),
+                                sampled_at: grouped.select('MAX(sampled_at)'))
 
       series_data = scale.natures.map do |nature|
         last_calibrations = InspectionCalibration.where(id:
@@ -128,26 +128,27 @@ module Backend
         .sort
     end
 
-  def chart_style(title, symbol)
-    bar_chart_options = {
-      x_axis: { categories: [''] },
-      y_axis: {
-        reversed_stacks: false,
-        stack_labels: { enabled: true }
-      },
-      legend: true,
-      plot_options: {
-        column: { stacking: 'normal', data_labels: { enabled: true } }
+    def chart_style(title, symbol)
+      bar_chart_options = {
+        x_axis: { categories: [''] },
+        y_axis: {
+          reversed_stacks: false,
+          stack_labels: { enabled: true }
+        },
+        legend: true,
+        plot_options: {
+          column: { stacking: 'normal', data_labels: { enabled: true } }
+        }
       }
-    }
 
-    bar_chart_options.deep_merge(
-      title: { text: title },
-      y_axis: {
-        title: { text: symbol.to_s },
-        tooltip: { point_format: "{point.y: 1f} #{symbol}" }
-      })
-  end
+      bar_chart_options.deep_merge(
+        title: { text: title },
+        y_axis: {
+          title: { text: symbol.to_s },
+          tooltip: { point_format: "{point.y: 1f} #{symbol}" }
+        }
+      )
+    end
 
     private
 
