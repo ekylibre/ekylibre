@@ -32,7 +32,7 @@
 
   %tr.nested-item-form
     %td.form-field.merchandise
-      = f.referenced_association(:variant, label: :merchandise.tl, source: {scope: :purchaseables}, input_html: {class: "invoice-variant", data: {variant_of_deal_item: {url: detail_backend_product_nature_variant_path("RECORD_ID", mode: :last_purchase_item)}, product_of_delivery_item: {url: backend_product_nature_variant_path("RECORD_ID", format: :json)}, required: true}})
+      = f.referenced_association(:variant, label: :merchandise.tl, source: {scope: :purchaseables}, input_html: {class: "invoice-variant", data: {variant_of_deal_item: {url: detail_backend_product_nature_variant_path("RECORD_ID", mode: :last_purchase_item)}, product_of_delivery_item: {url: backend_product_nature_variant_path("RECORD_ID", format: :json)}, required: true}}, required: true)
     %td.form-field.decimal
       = f.input :quantity, wrapper: :append do
         = f.input_field :quantity, class: "invoice-quantity", size: 7, data: {trade_component: "quantity", required: true}
