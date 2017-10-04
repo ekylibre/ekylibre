@@ -105,7 +105,7 @@ class InterventionParameter < Ekylibre::Record::Base
 
   before_validation do
     self.intervention ||= group.intervention if group
-    self.total_cost ||= cost.to_d
+    self.total_cost = cost.to_d
     if reference
       self.position = reference.position
     elsif position.blank?
