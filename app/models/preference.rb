@@ -194,6 +194,7 @@ class Preference < Ekylibre::Record::Base
   prefer :client_account_radix, :string, ''
   prefer :supplier_account_radix, :string, ''
   prefer :employee_account_radix, :string, ''
+  prefer :account_number_digits, :integer, 8
   # TODO: manage period as list selector
   prefer :default_depreciation_period, :string, 'yearly'
 

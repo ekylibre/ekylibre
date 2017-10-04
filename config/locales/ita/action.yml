@@ -2106,6 +2106,7 @@ ita:
       you_must_have_an_email_column: "È necessario disporre di un indirizzo email nella vostra estrazione"
       you_need_to_review_your_application_configuration: "È necessario esaminare la configurazione dell'applicazione"
   preferences:
+    # account_number_digits: "Account number length"
     accounting_system: "Piano dei conti"
     bookkeep_automatically: "Attivare la contabilità automatica"
     bookkeep_in_draft: "Salva i record in modalità bozza durante contabilità"
