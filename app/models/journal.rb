@@ -285,30 +285,6 @@ class Journal < Ekylibre::Record::Base
     finished
   end
 
-  def reopenable?
-    !booked_for_accountant? && reopenings.any?
-  end
-
-  def reopenings
-    year = FinancialYear.current
-    return [] if year.nil?
-    array = []
-    date = year.started_on - 1
-    while date < self.closed_on
-      array << date
-      date = (date + 1).end_of_month
-    end
-    array
-  end
-
-  def reopen(closed_on)
-    ActiveRecord::Base.transaction do
-      entries.where(printed_on: (closed_on + 1)..self.closed_on).find_each(&:reopen)
-      update_column :closed_on, closed_on
-    end
-    true
-  end
-
   # Takes the very last created entry in the journal to generate the entry number
   def next_number
     entry = entries.order(id: :desc).first

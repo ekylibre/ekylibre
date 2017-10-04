@@ -334,7 +334,6 @@ jpn:
       # edit: "Edit journal: %{name}"
       index: "ジャーナル"
       new: "新しいジャーナル"
-      # reopen: "Reopen journal: %{name}"
       # show: "Journal: %{name} (%{code})"
     backend/labels:
       # edit: "Edit label: %{name}"
@@ -2052,7 +2051,6 @@ jpn:
       # journal_entry_has_been_saved: "The journal entry %{number} has been successfully saved"
       # journal_entry_has_been_saved_with_a_new_number: "The journal entry has been successfully saved with a new number: %{number}"
       # journal_entry_items_marked_with_letter: "Journal entry items have been marked with letter %{letter}"
-      # journal_reopened_on: "The journal “%{journal}” has been re-opened on %{closed_on}."
       mails_are_sent: "電子メールが送信されました"
       merge_is_done: "行われているマージ"
       need_a_valid_payment_mode: "有効な支払いモードを必要とします"
@@ -2076,7 +2074,6 @@ jpn:
       no_production_found_you_can_add_it_or_copy_from_previous_records: "生産見つかりません。あなたは、新しい追加したり、前のキャンペーンからいくつかをコピーすることができます。"
       no_purchase_affair_found_on_given_period: "与えられた期間に見つかりませ購入事件ません"
       no_purchases_given: "いいえ購入は与えられていません"
-      no_reopenable_journal: "あなたはこの雑誌を再度開くことができません。"
       no_replacements_since_beginning: "初めから無置換ません"
       purchases_invalid_for_sepa: "SEPA転送（無効支払モードまたは間違った通貨または欠落している受取人のIBANや銀行口座保有者名）のために無効に選択購入"
       record_already_imported: "レコードがすでにインポート"
