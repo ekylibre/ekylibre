@@ -164,7 +164,7 @@ module Backend
         v.control :fullscreen
         v.control :layer_selector
 
-        if center && resource_model.first.respond_to?(:shape_centroid)
+        if center && resource_model.first.respond_to?(:shape_centroid) && resource_model.first.shape_centroid.present?
           v.center resource_model.first.shape_centroid
         end
       end

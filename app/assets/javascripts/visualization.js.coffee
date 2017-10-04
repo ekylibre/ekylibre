@@ -507,5 +507,3 @@
   $(document).on "page:load cocoon:after-insert cell:load dialog:show", $.loadVisualizations
 
 ) visualization, jQuery
-
-
