@@ -549,7 +549,7 @@ class ActivityProduction < Ekylibre::Record::Base
             harvest_working_area << ::Charta.new_geometry(zone).area.in(:square_meter)
           end
         end
-        harvest.outputs.includes(product: :variant).each do |cast|
+        harvest.outputs.each do |cast|
           actor = cast.product
           next unless actor && actor.variety
           variety = Nomen::Variety.find(actor.variety)
