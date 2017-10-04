@@ -8,6 +8,8 @@ module Ekylibre
       class << self
         def clean_for_active_record(value, options = {})
           return nil if value.to_s =~ /\A[[:space:]]*\z/
+          return value if value.is_a? RGeo::Feature::Instance
+
           value = if value.is_a?(Hash) || (value.is_a?(String) && value =~ /\A\{.*\}\z/)
                     Charta.from_geojson(value)
                   else

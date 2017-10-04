@@ -55,7 +55,7 @@ module Procedo
           end
           list.compact!
           return 0.0 if list.empty?
-          list.sum.to_d(unit || :square_meter)
+          list.sum.in(:square_meter).to_d(unit || :square_meter)
         end
 
         def merge_working_zones(set)
@@ -91,7 +91,7 @@ module Procedo
         end
 
         def area(shape)
-          return shape.area.to_f(:square_meter)
+          return shape.area.in(:square_meter).to_f(:square_meter)
         rescue
           raise Procedo::Errors::FailedFunctionCall
         end
