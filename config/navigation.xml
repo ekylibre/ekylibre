@@ -2044,6 +2044,19 @@
     </group>
   </inaccessible-actions>
   <untreated-actions>
-    <group/>
+    <group>
+      <item name="land_parcels_visualizations">
+        <page to="backend/visualizations/land_parcels_visualizations#show"/>
+      </item>
+      <item name="map_cells_visualizations">
+        <page to="backend/visualizations/map_cells_visualizations#show"/>
+      </item>
+      <item name="plants_visualizations">
+        <page to="backend/visualizations/plants_visualizations#show"/>
+      </item>
+      <item name="resources_visualizations">
+        <page to="backend/visualizations/resources_visualizations#show"/>
+      </item>
+    </group>
   </untreated-actions>
 </navigation>

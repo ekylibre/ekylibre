@@ -47,6 +47,7 @@
 #  quantity_unit_name       :string
 #  quantity_value           :decimal(19, 4)
 #  reference_name           :string           not null
+#  total_cost               :decimal(19, 4)   default(0.0), not null
 #  type                     :string
 #  unit_pretax_stock_amount :decimal(19, 4)   default(0.0), not null
 #  updated_at               :datetime         not null
