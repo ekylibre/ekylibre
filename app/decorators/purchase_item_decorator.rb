@@ -20,7 +20,7 @@ class PurchaseItemDecorator < Draper::Decorator
   end
 
   def merchandise_stock_unit
-    return "" if object.variant.nil?
+    return '' if object.variant.nil?
 
     object.variant.unit_name
   end
