@@ -27,8 +27,10 @@ module Backend
         assert r['series'].key? 'main'
         assert_equal expected_cultivable_zones_count, r['series']['main'].count
 
+        geo = Charta.new_geometry(resource_model.first.shape)
+
         assert_equal resource_model.first.name, r['series']['main'].first['name']
-        assert_equal resource_model.first.shape.to_json_object, r['series']['main'].first['shape']
+        assert_equal geo.transform(:WGS84), Charta.new_geometry(r['series']['main'].first['shape'])
       end
     end
   end
