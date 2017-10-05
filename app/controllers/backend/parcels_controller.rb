@@ -183,7 +183,7 @@ module Backend
         sale.items.each do |item|
           products = item.variant.take(item.quantity)
           if products.any?
-            item.variant.take(item.quantity).each do |product, quantity|
+            products.each do |product, quantity|
               @parcel.items.new(sale_item_id: item.id, source_product: product, quantity: quantity)
             end
           else

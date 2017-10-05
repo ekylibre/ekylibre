@@ -1,7 +1,8 @@
 - item ||= f.object
-- if item.source_product.present? || item.variant.nil?
-  - source_product = Maybe(item.source_product)
-  - variant = source_product.variant
+- if item.source_product.present?
+  - if item.variant.nil?
+    - source_product = Maybe(item.source_product)
+    - variant = source_product.variant
 
   %tbody.nested-fields.delivery-item.outgoing-parcel-item
     %tr

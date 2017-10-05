@@ -129,7 +129,7 @@ module Backend
       # t.action :destroy, if: 'RECORD.sale.draft? and RECORD.reduction_origin_id.nil? '
       # t.column :name, through: :variant
       # t.column :position
-      t.column :label
+      t.column :label, url: { controller: :product_nature_variants, id: 'RECORD.variant_id'.c }
       t.column :annotation, hidden: true
       t.column :quantity
       t.column :unit_name
