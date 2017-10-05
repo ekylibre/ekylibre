@@ -4,7 +4,7 @@ module Pesticide
 
     def initialize(attributes = {})
       @name = attributes.delete(:name)
-      @dose = (attributes[:dose] && attributes[:dose] =~ /\A-?([\,\.]\d+|\d+([\,\.]\d+)?)\s*[^\s]+\z/) ? Measure.new(attributes.delete(:dose)) : attributes.delete(:dose)
+      @dose = attributes[:dose] && attributes[:dose] =~ /\A-?([\,\.]\d+|\d+([\,\.]\d+)?)\s*[^\s]+\z/ ? Measure.new(attributes.delete(:dose)) : attributes.delete(:dose)
       @subject = attributes.delete(:subject) || {}
       @mode = attributes.delete(:mode)
       @issue = attributes.delete(:issue)

@@ -475,7 +475,8 @@ CREATE TABLE interventions (
     accounted_at timestamp without time zone,
     currency character varying,
     journal_entry_id integer,
-    request_compliant boolean
+    request_compliant boolean,
+    auto_calculate_working_periods boolean DEFAULT false
 );
 
 
@@ -5888,7 +5889,8 @@ CREATE TABLE products (
     origin_identification_number character varying,
     end_of_life_reason character varying,
     originator_id integer,
-    codes jsonb
+    codes jsonb,
+    reading_cache jsonb DEFAULT '{}'::jsonb
 );
 
 
@@ -17868,3 +17870,7 @@ INSERT INTO schema_migrations (version) VALUES ('20170804101025');
 INSERT INTO schema_migrations (version) VALUES ('20170818134454');
 
 INSERT INTO schema_migrations (version) VALUES ('20170822125351');
+
+INSERT INTO schema_migrations (version) VALUES ('20170831071726');
+
+INSERT INTO schema_migrations (version) VALUES ('20170831180835');
