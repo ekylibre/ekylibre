@@ -349,7 +349,7 @@ CREATE TABLE activity_productions (
     tactic_id integer,
     total_tool_cost numeric(19,4) DEFAULT 0.0 NOT NULL,
     total_input_cost numeric(19,4) DEFAULT 0.0 NOT NULL,
-    total_time_cost numeric(19,4) DEFAULT 0.0 NOT NULL
+    total_doer_cost numeric(19,4) DEFAULT 0.0 NOT NULL
 );
 
 
@@ -483,7 +483,7 @@ CREATE TABLE interventions (
     auto_calculate_working_periods boolean DEFAULT false,
     total_tool_cost numeric(19,4) DEFAULT 0.0 NOT NULL,
     total_input_cost numeric(19,4) DEFAULT 0.0 NOT NULL,
-    total_time_cost numeric(19,4) DEFAULT 0.0 NOT NULL
+    total_doer_cost numeric(19,4) DEFAULT 0.0 NOT NULL
 );
 
 
