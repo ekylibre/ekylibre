@@ -25,9 +25,10 @@ module Backend
         assert r['series'].key? 'main'
         assert_equal expected_productions_count, r['series']['main'].count
 
-        assert_equal productions.first.name, r['series']['main'].first['name']
-        assert_equal productions.first.support_shape.to_json_object, r['series']['main'].first['shape']
+        geo = Charta.new_geometry(productions.first.support_shape)
 
+        assert_equal productions.first.name, r['series']['main'].first['name']
+        assert_equal geo.transform(:WGS84), Charta.new_geometry(r['series']['main'].first['shape'])
       end
     end
   end
