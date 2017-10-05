@@ -51,12 +51,20 @@
             clear: 'icon icon-trash'
             close: 'icon icon-remove'
           showClear: true
+          keepOpen: false
           showClose: true
           showTodayButton: true
           widgetPositioning:
             horizontal: 'auto'
             vertical: 'bottom'
+        element.on 'dp.change', (ev) ->
+          old_dt = ev.oldDate
+          new_dt = moment(new Date(ev.currentTarget.value))
+          if old_dt.minute() != new_dt.minute()
+            element.datetimepicker('hide');
         element.attr "autocomplete", "off"
+
+
       return
 
   return
