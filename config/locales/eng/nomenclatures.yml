@@ -3249,6 +3249,7 @@ eng:
         brassicaceae_fungicide: "Brassicaceae fungicide"
         buckwheat_crop: "Buckwheat crop"
         buckwheat_grain: "Buckwheat grain"
+        buckwheat_seed: "Buckwheat seed"
         building: "Building"
         building_division: "Building division"
         building_insurance: "Building insurance"
@@ -3283,6 +3284,7 @@ eng:
         carriage: "Carriage"
         carrot: "Carrot"
         carrot_crop: "Carrot crop"
+        carrot_seed: "Carrot seed"
         cattle_compost: "Cattle compost"
         cattle_herd: "Cattle herd"
         cattle_liquid_slurry: "Cattle liquid slurry"
@@ -3529,6 +3531,7 @@ eng:
         grass_silage: "Grass silage"
         green_compost: "Green compost"
         grinder: "Grinder"
+        growth_regulator: "Growth regulator"
         guineafowl_manure: "Guineafowl manure"
         hand_drawn: "Hand drawn"
         hanging_scroll: "Hanging scroll"
@@ -3673,6 +3676,7 @@ eng:
         nematicide: "Nematicide"
         nibble_lamb_meat: "Nibble lamb meat"
         nomacorc_cork: "Nomacorc cork"
+        oat_grain: "Oat grain"
         oenological_yeast_sc_500g: "Oenological yeast sc 500g"
         office_building: "Office building"
         office_building_division: "Office building division"
@@ -3767,6 +3771,9 @@ eng:
         rubisko_wheat_crop: "Rubisko wheat crop"
         running_water: "Running water"
         rye_crop: "Rye crop"
+        rye_grain: "Rye grain"
+        rye_seed: "Rye seed"
+        rye_straw: "Rye straw"
         saffron_crop: "Saffron crop"
         saffron_pollen: "Saffron pollen"
         saffron_seedling: "Saffron seedling"
@@ -3797,6 +3804,7 @@ eng:
         sower: "Seeder"
         soy_crop: "Soy crop"
         soy_grain: "Soy grain"
+        soy_seed: "Soy seed"
         spelt_grain: "Spelt grain"
         spelt_seed_25: "Spelt seed 25"
         spelt_wheat_crop: "Spelt wheat crop"
@@ -3837,6 +3845,8 @@ eng:
         trimmer: "Trimmer"
         triticale_crop: "Triticale crop"
         triticale_grain: "Triticale grain"
+        triticale_seed: "Triticale seed"
+        triticale_straw: "Triticale straw"
         truck: "Truck"
         turnip: "Turnip"
         uncover: "Uncover"
@@ -4014,6 +4024,7 @@ eng:
         grape_trailer: "Grape trailer"
         grass: "Grass"
         grinder: "Grinder"
+        growth_regulator: "Growth regulator"
         hand_drawn: "Hand drawn"
         harrow: "Harrow"
         harvest_insurance: "Harvest insurance"
@@ -4513,6 +4524,10 @@ eng:
         acipenser_sturio: "Acipenser sturio"               #< acipenser
         acipenser_transmontanus: "Acipenser transmontanus" #< acipenser
         acipenseridae: "Acipenseridae"                     #< actinopterygii
+        actinidia: "Actinidia"                             #< actinidiaceae
+        actinidia_chinensis: "Actinidia chinensis"         #< actinidia
+        actinidia_deliciosa: "Actinidia deliciosa"         #< actinidia
+        actinidiaceae: "Actinidiaceae"                     #< plant
         actinopterygii: "Actinopterygii"                   #< animal
         adoxa: "Adoxa"                                     #< adoxaceae
         adoxaceae: "Adoxaceae"                             #< plant

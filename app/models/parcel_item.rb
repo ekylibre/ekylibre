@@ -124,6 +124,7 @@ class ParcelItem < Ekylibre::Record::Base
       self.variant = purchase_item.variant
     elsif parcel_outgoing?
       self.variant = source_product.variant if source_product
+      self.population = source_product.population if population.nil? || population.zero?
     end
     true
   end

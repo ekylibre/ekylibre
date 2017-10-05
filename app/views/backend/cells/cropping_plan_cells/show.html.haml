@@ -14,7 +14,7 @@
 
     productions = ActivityProduction.of_campaign(campaign).of_activities(activities)
 
-    productions_net_surface_area = productions.map(&:support_shape_area).compact.sum.in(area_unit.name).round(3).l
+    productions_net_surface_area = productions.includes(:activity, :cultivable_zone).map(&:support_shape_area).compact.sum.in(area_unit.name).round(3).l
 
     productions_serie = productions.order("activity_id, id").collect do |production|
       {name: production.name, y: production.support_shape_area(area_unit.name).to_s.to_f, url: backend_activity_production_path(production), color: production.color } #ligthen(activities_serie.detect{|a| a[:id] == production.activity_id}[:color], 0.3)

@@ -89,6 +89,11 @@ class EntityTest < ActiveSupport::TestCase
     assert !entity.errors.include?(:nature), 'Entity must accept organization nature'
   end
 
+  test 'have a number' do
+    accountant = build(:entity, number: '')
+    assert accountant.valid?
+  end
+
   test 'has many booked journals' do
     accountant = create(:entity, :accountant, :with_booked_journals)
     refute accountant.booked_journals.empty?

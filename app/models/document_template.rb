@@ -68,6 +68,12 @@ class DocumentTemplate < Ekylibre::Record::Base
     where(nature: natures, active: true).order(:name)
   }
 
+  scope :find_active_template, ->(name) do
+    where(active: true)
+      .where(name.is_a?(Integer) ? { id: name.to_i } : { by_default: true, nature: name.to_s })
+      .first
+  end
+
   protect(on: :destroy) do
     documents.any?
   end
@@ -172,7 +178,7 @@ class DocumentTemplate < Ekylibre::Record::Base
     # Load the report
     report = Beardley::Report.new(source_path, locale: 'i18n.iso2'.t)
     # Call it with datasource
-    path = Pathname.new(report.to_file(format, datasource))
+    path = Pathname.new(report.to_file(format.to_sym, datasource))
     # Archive the document according to archiving method. See #document method.
     if document = self.document(path, key, format, options)
       FileUtils.rm_rf(path)

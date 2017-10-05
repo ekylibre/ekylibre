@@ -79,5 +79,7 @@ class Document < Ekylibre::Record::Base
   before_validation do
     self.name ||= file.original_filename
     self.key ||= "#{Time.now.to_i}-#{file.original_filename}"
+    # DB limitation
+    self.file_content_text = file_content_text.truncate(500_000)
   end
 end
