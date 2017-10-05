@@ -2045,6 +2045,9 @@
   </inaccessible-actions>
   <untreated-actions>
     <group>
+      <item name="production_cost_cobbles">
+        <page to="backend/cobbles/production_cost_cobbles#show"/>
+      </item>
       <item name="land_parcels_visualizations">
         <page to="backend/visualizations/land_parcels_visualizations#show"/>
       </item>

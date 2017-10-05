@@ -1513,6 +1513,7 @@ ita:
     tool: "Strumento"
     tools: "Utensili"
     total_cost: "Costo totale"
+    # total_doer_cost: "Total doer cost"
     # total_input_cost: "Total input cost"
     total_items_count: "Conteggio totale articoli"
     total_net_mass: "massa netta totale"

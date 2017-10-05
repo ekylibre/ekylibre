@@ -1482,6 +1482,7 @@ cmn:
     tool: "工具"
     tools: "工具"
     total_cost: "总成本"
+    # total_doer_cost: "Total doer cost"
     # total_input_cost: "Total input cost"
     total_items_count: "总笔数算"
     total_net_mass: "总净重"

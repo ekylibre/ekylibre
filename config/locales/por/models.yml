@@ -1482,6 +1482,7 @@ por:
     tool: "Ferramenta"
     tools: "Ferramentas"
     total_cost: "Custo total"
+    # total_doer_cost: "Total doer cost"
     # total_input_cost: "Total input cost"
     total_items_count: "Total de itens contar"
     total_net_mass: "massa líquida total"

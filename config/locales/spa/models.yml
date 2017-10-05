@@ -1486,6 +1486,7 @@ spa:
     tool: "Herramienta"
     tools: "Instrumentos"
     total_cost: "Coste total"
+    # total_doer_cost: "Total doer cost"
     # total_input_cost: "Total input cost"
     total_items_count: "Cuentan artículos totales"
     total_net_mass: "masa neta total"

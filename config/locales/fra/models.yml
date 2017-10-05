@@ -1764,6 +1764,7 @@ fra:
     tool: "Outil"
     tools: "Outils"
     total_cost: "Coût total"
+    # total_doer_cost: "Total doer cost"
     # total_input_cost: "Total input cost"
     total_items_count: "Nombre total d'éléments"
     total_net_mass: "Masse nette totale"
