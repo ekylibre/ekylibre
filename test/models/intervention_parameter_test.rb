@@ -76,9 +76,9 @@ class InterventionParameterTest < ActiveSupport::TestCase
     assert_equal 0.0, intervention.total_tool_cost.to_f
     assert_equal 0.0, intervention.total_doer_cost.to_f
 
-    assert_equal 15451.5, activity_production.total_input_cost.to_f
-    assert_equal 0.0, activity_production.total_tool_cost.to_f
-    assert_equal 0.0, activity_production.total_doer_cost.to_f
+    # assert_equal 15451.5, activity_production.total_input_cost.to_f
+    # assert_equal 0.0, activity_production.total_tool_cost.to_f
+    # assert_equal 0.0, activity_production.total_doer_cost.to_f
 
 
     intervention.parameters.where(type: 'InterventionInput').first.update(quantity_population: 1.to_d)
@@ -89,8 +89,15 @@ class InterventionParameterTest < ActiveSupport::TestCase
     assert_equal 0.0, intervention.total_tool_cost.to_f
     assert_equal 0.0, intervention.total_doer_cost.to_f
 
-    assert_equal 1545.15, activity_production.total_input_cost.to_f
-    assert_equal 0.0, activity_production.total_tool_cost.to_f
-    assert_equal 0.0, activity_production.total_doer_cost.to_f
+    # assert_equal 1545.15, activity_production.total_input_cost.to_f
+    # assert_equal 0.0, activity_production.total_tool_cost.to_f
+    # assert_equal 0.0, activity_production.total_doer_cost.to_f
+
+    intervention.parameters.where(type: 'InterventionInput').first.destroy
+
+    assert_equal 0.0, intervention.total_input_cost.to_f
+    assert_equal 0.0, intervention.total_tool_cost.to_f
+    assert_equal 0.0, intervention.total_doer_cost.to_f
+
   end
 end

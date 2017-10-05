@@ -116,6 +116,44 @@ class InterventionParameter < Ekylibre::Record::Base
     true
   end
 
+  after_create do
+    case type
+    when 'InterventionInput'
+      self.intervention.total_input_cost += self.total_cost
+    when 'InterventionTool'
+      self.intervention.total_tool_cost += self.total_cost
+    when 'InterventionDoer'
+      self.intervention.total_doer_cost += self.total_cost
+    end
+    self.intervention.save!
+  end
+
+  after_update do
+    if total_cost_changed?
+      case type
+      when 'InterventionInput'
+        self.intervention.total_input_cost += (self.total_cost - total_cost_was)
+      when 'InterventionTool'
+        self.intervention.total_tool_cost += (self.total_cost - total_cost_was)
+      when 'InterventionDoer'
+        self.intervention.total_doer_cost += (self.total_cost - total_cost_was)
+      end
+      self.intervention.save!
+    end
+  end
+
+  after_destroy do
+    case type
+    when 'InterventionInput'
+      self.intervention.total_input_cost -= total_cost_was
+    when 'InterventionTool'
+      self.intervention.total_tool_cost -= total_cost_was
+    when 'InterventionDoer'
+      self.intervention.total_doer_cost -= total_cost_was
+    end
+    self.intervention.save!
+  end
+
   def self.role
     @role ||= name.gsub(/^Intervention/, '').underscore.to_sym
   end

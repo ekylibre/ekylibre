@@ -85,6 +85,11 @@ class CatalogItem < Ekylibre::Record::Base
     self.name = variant_name if commercial_name.blank? && variant
   end
 
+  after_save do
+    params = InterventionParameter.where(variant_id: self.variant.id)
+    params.each { |param| param.save! }
+  end
+
   # Compute a pre-tax amount
   def pretax_amount
     if all_taxes_included && reference_tax
