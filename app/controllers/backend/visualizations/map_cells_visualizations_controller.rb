@@ -53,7 +53,7 @@ module Backend
             sensor_data += (items || []).compact
           end
 
-          activity_productions.of_campaign(campaigns).find_each do |support|
+          activity_productions.of_campaign(campaigns).includes(:activity, :campaign, :cultivable_zone, interventions: [:outputs, :participations, tools: :product, inputs: :product]).find_each do |support|
             next unless support.support_shape
             popup_content = []
 
