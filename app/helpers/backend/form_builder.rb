@@ -163,7 +163,7 @@ module Backend
       end
       unless options.key?(:disabled)
         if @object.is_a?(ActiveRecord::Base) && !@object.new_record? &&
-           @object.class.readonly_attributes.include?(attribute_name.to_s)
+            @object.class.readonly_attributes.include?(attribute_name.to_s)
           options[:disabled] = true unless options[:as] == :hidden
         end
       end
@@ -191,8 +191,8 @@ module Backend
 
     def items_list(attribute_name, options = {})
       prefix = @lookup_model_names.first +
-               @lookup_model_names[1..-1].collect { |x| "[#{x}]" }.join +
-               "[#{attribute_name}][]"
+          @lookup_model_names[1..-1].collect { |x| "[#{x}]" }.join +
+          "[#{attribute_name}][]"
       if options[:selection]
         selection = options[:selection]
       elsif options[:of]
@@ -214,7 +214,7 @@ module Backend
             checked = list.include?(name.to_sym)
             @template.label_tag(nil, class: "nomenclature-item#{' checked' if checked}") do
               @template.check_box_tag(prefix, name, checked) +
-                @template.content_tag(:span, human_name)
+                  @template.content_tag(:span, human_name)
             end
           end.join.html_safe
         end
@@ -223,8 +223,8 @@ module Backend
 
     def abilities_list(attribute_name = :abilities_list, options = {})
       prefix = @lookup_model_names.first +
-               @lookup_model_names[1..-1].collect { |x| "[#{x}]" }.join +
-               "[#{attribute_name}][]"
+          @lookup_model_names[1..-1].collect { |x| "[#{x}]" }.join +
+          "[#{attribute_name}][]"
       input(attribute_name, options) do
         data_lists = {}
         @template.content_tag(:span, class: 'control-group abilities-list') do
@@ -319,7 +319,11 @@ module Backend
             union = show.geom_union(attribute_name)
             editor[:show] = union.to_json_object unless union.empty?
           end
+        else
+          editor[:show] = {}
+          editor[:show][:series] = {}
         end
+        editor[:useFeatures] = true
       end
       editor[:back] ||= MapLayer.available_backgrounds.collect(&:to_json_object)
       editor[:overlays] ||= MapLayer.available_overlays.collect(&:to_json_object)
@@ -406,9 +410,9 @@ module Backend
       attribute_name = args.shift || options[:name] || :period
       input(attribute_name, options.merge(wrapper: :append)) do
         @template.content_tag(:span, :from.tl, class: 'add-on') +
-          input_field(start_attribute_name, options[:start_input_html] || options[:input_html]) +
-          @template.content_tag(:span, :to.tl, class: 'add-on') +
-          input_field(stop_attribute_name, options[:stop_input_html] || options[:input_html])
+            input_field(start_attribute_name, options[:start_input_html] || options[:input_html]) +
+            @template.content_tag(:span, :to.tl, class: 'add-on') +
+            input_field(stop_attribute_name, options[:stop_input_html] || options[:input_html])
       end
     end
 
@@ -417,9 +421,9 @@ module Backend
       attribute_name = args.shift || options[:name] || :period
       input(attribute_name, options.merge(wrapper: :append)) do
         @template.content_tag(:span, :from.tl, class: 'add-on') +
-          input(start_attribute_name, wrapper: :simplest) +
-          @template.content_tag(:span, :to.tl, class: 'add-on') +
-          input(stop_attribute_name, wrapper: :simplest)
+            input(start_attribute_name, wrapper: :simplest) +
+            @template.content_tag(:span, :to.tl, class: 'add-on') +
+            input(stop_attribute_name, wrapper: :simplest)
       end
     end
 
@@ -429,9 +433,9 @@ module Backend
 
       input(attribute_name, options.merge(wrapper: :append)) do
         input(value_attribute, wrapper: :simplest) +
-          @template.content_tag(:span, :delta.tl, class: 'add-on') +
-          input(delta_attribute, wrapper: :simplest) +
-          unit_field(unit_name_attribute, unit_values, args)
+            @template.content_tag(:span, :delta.tl, class: 'add-on') +
+            input(delta_attribute, wrapper: :simplest) +
+            unit_field(unit_name_attribute, unit_values, args)
       end
     end
 
@@ -590,9 +594,9 @@ module Backend
             html_options[:data] ||= {}
             @template.content_tag(:div, class: 'control-group') do
               @template.content_tag(:label, Product.human_attribute_name(:variant), class: 'control-label') +
-                @template.content_tag(:div, class: 'controls') do
-                  input_field(:variant, html_options.deep_merge(as: :string, id: input_id, data: { selector: @template.url_for(choices), redirect_on_change_url: @template.url_for(new_url) }))
-                end
+                  @template.content_tag(:div, class: 'controls') do
+                    input_field(:variant, html_options.deep_merge(as: :string, id: input_id, data: { selector: @template.url_for(choices), redirect_on_change_url: @template.url_for(new_url) }))
+                  end
             end
           end
         end
@@ -622,8 +626,8 @@ module Backend
       if !derivatives.nil? && derivatives.any?
         return input(:variety, wrapper: :append, class: :inline) do
           field = ('<span class="add-on">' <<
-                   ERB::Util.h(:x_of_y.tl(x: '{@@@@VARIETY@@@@}', y: '{@@@@DERIVATIVE@@@@}')) <<
-                   '</span>')
+              ERB::Util.h(:x_of_y.tl(x: '{@@@@VARIETY@@@@}', y: '{@@@@DERIVATIVE@@@@}')) <<
+              '</span>')
           field.gsub!('{@@', '</span>')
           field.gsub!('@@}', '<span class="add-on">')
           field.gsub!('<span class="add-on"></span>', '')
@@ -646,20 +650,20 @@ module Backend
           @template.content_tag(:label, class: 'control-label') do
             Ekylibre::Access.human_resource_name(resource)
           end +
-            @template.content_tag(:div, class: 'controls') do
-              rights.collect do |interaction, right|
-                checked = resource_reference.include?(interaction.to_s)
-                attributes = { class: "chk-access chk-access-#{interaction}", data: { access: "#{interaction}-#{resource}" } }
-                if right.dependencies
-                  attributes[:data][:need_accesses] = right.dependencies.join(' ')
-                end
-                attributes[:class] << ' active' if checked
-                @template.content_tag(:label, attributes) do
-                  @template.check_box_tag("#{prefix}[#{name}][#{resource}][]", interaction, checked) +
-                    ERB::Util.h(Ekylibre::Access.human_interaction_name(interaction).strip)
-                end
-              end.join.html_safe
-            end
+              @template.content_tag(:div, class: 'controls') do
+                rights.collect do |interaction, right|
+                  checked = resource_reference.include?(interaction.to_s)
+                  attributes = { class: "chk-access chk-access-#{interaction}", data: { access: "#{interaction}-#{resource}" } }
+                  if right.dependencies
+                    attributes[:data][:need_accesses] = right.dependencies.join(' ')
+                  end
+                  attributes[:class] << ' active' if checked
+                  @template.content_tag(:label, attributes) do
+                    @template.check_box_tag("#{prefix}[#{name}][#{resource}][]", interaction, checked) +
+                        ERB::Util.h(Ekylibre::Access.human_interaction_name(interaction).strip)
+                  end
+                end.join.html_safe
+              end
         end
       end
       html
@@ -778,14 +782,14 @@ module SimpleForm
         # Formize::DATE_FORMAT_TOKENS.each{|js, rb| format.gsub!(rb, js)}
         # Formize::TIME_FORMAT_TOKENS.each{|js, rb| format.gsub!(rb, js)}
         options = {
-          # data: {
-          #   format: format,
-          #   human_value: localized_value
-          # },
-          lang: 'i18n.iso2'.t,
-          value: value.blank? ? nil : value.l(format: "%Y-%m-%d#{' %H:%M' if input_type == :datetime}"),
-          type: input_type,
-          size: @options.delete(:size) || (input_type == :date ? 10 : 16)
+            # data: {
+            #   format: format,
+            #   human_value: localized_value
+            # },
+            lang: 'i18n.iso2'.t,
+            value: value.blank? ? nil : value.l(format: "%Y-%m-%d#{' %H:%M' if input_type == :datetime}"),
+            type: input_type,
+            size: @options.delete(:size) || (input_type == :date ? 10 : 16)
         }
         super.merge options
       end
