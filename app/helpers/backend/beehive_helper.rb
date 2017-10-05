@@ -41,13 +41,8 @@ module Backend
     # Permits to display cell content independently
     def cell(type, options = {}, html_options = {})
       url = options[:params] || {}
-      content_tag(:div, nil, html_options.merge(
-                               data: {
-                                 cell: url_for(url.merge(controller: "backend/cells/#{type}_cells", action: :show)),
-                                 cell_empty_message: :no_data.tl,
-                                 cell_error_message: :internal_error.tl
-                               }
-      ))
+      url = url_for(url.merge(controller: "backend/cells/#{type}_cells", action: :show))
+      async_content(url)
     end
 
     class Beehive

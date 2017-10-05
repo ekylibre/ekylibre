@@ -713,10 +713,7 @@ class Product < Ekylibre::Record::Base
     containeds.select { |p| p.variant == variant }
   end
 
-  # Returns value of an indicator if its name correspond to an existing one.
-  # NOTE: Do NOT trust rubocop if it replaces the #each by
-  # a #find_each it is NOT an existing method.
-  Nomen::Indicator.all.each do |indicator|
+  Nomen::Indicator.each do |indicator|
     alias_method :"cache_#{indicator}", indicator
 
     define_method indicator.to_sym do |*args|
@@ -808,12 +805,16 @@ class Product < Ekylibre::Record::Base
       unless options[:strict]
         options[:at] = born_at if born_at && born_at > Time.zone.now
       end
-      shape = get(:shape)
+      shape = get(:shape, options)
       area = shape.area.in(:square_meter).in(area_unit).round(3) if shape
     else
       area = get(:net_surface_area, options)
     end
     area || 0.in(area_unit)
+  end
+
+  def initial_shape_area
+    ::Charta.new_geometry(initial_shape).area.in_square_meter
   end
 
   def get(indicator, *args)
