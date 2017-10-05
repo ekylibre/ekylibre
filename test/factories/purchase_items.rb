@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :purchase_item do
-    # needs tax
+    tax
     purchase
     account
     amount 1848.0

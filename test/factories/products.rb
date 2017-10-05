@@ -5,6 +5,12 @@ FactoryGirl.define do
     association :variant, factory: :product_nature_variant
     variety 'cultivable_zone'
 
+    factory :preparation do
+      association :nature, factory: :preparation_nature
+      association :variant, factory: :preparation_nature_variant
+      variety 'preparation'
+    end
+
     trait :with_boolean_reading do
       after(:create) do |instance|
         create :product_reading, :boolean, product: instance

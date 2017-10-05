@@ -44,6 +44,9 @@
 #  started_at                     :datetime         not null
 #  state                          :string           not null
 #  stopped_at                     :datetime         not null
+#  total_input_cost               :decimal(19, 4)   default(0.0), not null
+#  total_time_cost                :decimal(19, 4)   default(0.0), not null
+#  total_tool_cost                :decimal(19, 4)   default(0.0), not null
 #  trouble_description            :text
 #  trouble_encountered            :boolean          default(FALSE), not null
 #  updated_at                     :datetime         not null

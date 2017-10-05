@@ -59,5 +59,38 @@ require 'test_helper'
 
 class InterventionParameterTest < ActiveSupport::TestCase
   test_model_actions
-  # Add tests here...
+
+  test 'total_cost columns values in intervention_parameters, interventions and activity_productions' do
+    cultivable_zone = create(:cultivable_zone)
+    product = create(:preparation)
+    purchase_item = create(:purchase_item)
+    parcel_item = create(:parcel_item, product: product, variant: product.variant, purchase_item: purchase_item, population: 1.to_d, product_identification_number: '12345678', product_name: 'Product name')
+    activity_production = create(:activity_production, cultivable_zone: cultivable_zone)
+    intervention = create(:spraying)
+    create(:spraying_target, intervention: intervention, product: activity_production.support, working_zone: activity_production.support.initial_shape)
+    create(:intervention_input, intervention: intervention, product: product, quantity_population: 10.to_d)
+
+    assert_equal 15451.5, intervention.parameters.where(type: 'InterventionInput').first.total_cost.to_f
+
+    assert_equal 15451.5, intervention.total_input_cost.to_f
+    assert_equal 0.0, intervention.total_tool_cost.to_f
+    assert_equal 0.0, intervention.total_doer_cost.to_f
+
+    assert_equal 15451.5, activity_production.total_input_cost.to_f
+    assert_equal 0.0, activity_production.total_tool_cost.to_f
+    assert_equal 0.0, activity_production.total_doer_cost.to_f
+
+
+    intervention.parameters.where(type: 'InterventionInput').first.update(quantity_population: 1.to_d)
+
+    assert_equal 1545.15, intervention.parameters.where(type: 'InterventionInput').first.total_cost.to_f
+
+    assert_equal 1545.15, intervention.total_input_cost.to_f
+    assert_equal 0.0, intervention.total_tool_cost.to_f
+    assert_equal 0.0, intervention.total_doer_cost.to_f
+
+    assert_equal 1545.15, activity_production.total_input_cost.to_f
+    assert_equal 0.0, activity_production.total_tool_cost.to_f
+    assert_equal 0.0, activity_production.total_doer_cost.to_f
+  end
 end

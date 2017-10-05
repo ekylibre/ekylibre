@@ -44,6 +44,9 @@
 #  support_nature      :string
 #  support_shape       :geometry({:srid=>4326, :type=>"multi_polygon"})
 #  tactic_id           :integer
+#  total_input_cost    :decimal(19, 4)   default(0.0), not null
+#  total_time_cost     :decimal(19, 4)   default(0.0), not null
+#  total_tool_cost     :decimal(19, 4)   default(0.0), not null
 #  updated_at          :datetime         not null
 #  updater_id          :integer
 #  usage               :string           not null

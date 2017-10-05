@@ -346,7 +346,10 @@ CREATE TABLE activity_productions (
     campaign_id integer,
     custom_fields jsonb,
     season_id integer,
-    tactic_id integer
+    tactic_id integer,
+    total_tool_cost numeric(19,4) DEFAULT 0.0 NOT NULL,
+    total_input_cost numeric(19,4) DEFAULT 0.0 NOT NULL,
+    total_time_cost numeric(19,4) DEFAULT 0.0 NOT NULL
 );
 
 
@@ -477,7 +480,10 @@ CREATE TABLE interventions (
     currency character varying,
     journal_entry_id integer,
     request_compliant boolean,
-    auto_calculate_working_periods boolean DEFAULT false
+    auto_calculate_working_periods boolean DEFAULT false,
+    total_tool_cost numeric(19,4) DEFAULT 0.0 NOT NULL,
+    total_input_cost numeric(19,4) DEFAULT 0.0 NOT NULL,
+    total_time_cost numeric(19,4) DEFAULT 0.0 NOT NULL
 );
 
 
@@ -17874,4 +17880,8 @@ INSERT INTO schema_migrations (version) VALUES ('20170831071726');
 INSERT INTO schema_migrations (version) VALUES ('20170831180835');
 
 INSERT INTO schema_migrations (version) VALUES ('20171004132948');
+
+INSERT INTO schema_migrations (version) VALUES ('20171005071735');
+
+INSERT INTO schema_migrations (version) VALUES ('20171005071944');
 

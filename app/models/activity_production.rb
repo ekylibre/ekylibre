@@ -44,6 +44,9 @@
 #  support_nature      :string
 #  support_shape       :geometry({:srid=>4326, :type=>"multi_polygon"})
 #  tactic_id           :integer
+#  total_input_cost    :decimal(19, 4)   default(0.0), not null
+#  total_time_cost     :decimal(19, 4)   default(0.0), not null
+#  total_tool_cost     :decimal(19, 4)   default(0.0), not null
 #  updated_at          :datetime         not null
 #  updater_id          :integer
 #  usage               :string           not null
@@ -80,7 +83,7 @@ class ActivityProduction < Ekylibre::Record::Base
   validates :irrigated, :nitrate_fixing, inclusion: { in: [true, false] }
   validates :rank_number, presence: true, numericality: { only_integer: true, greater_than: -2_147_483_649, less_than: 2_147_483_648 }
   validates :activity, :size_indicator_name, :support, :usage, presence: true
-  validates :size_value, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
+  validates :size_value, :total_input_cost, :total_time_cost, :total_tool_cost, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
   validates :started_on, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 50.years }, type: :date }, allow_blank: true
   validates :state, length: { maximum: 500 }, allow_blank: true
   validates :stopped_on, timeliness: { on_or_after: ->(activity_production) { activity_production.started_on || Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 50.years }, type: :date }, allow_blank: true
