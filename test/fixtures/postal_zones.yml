@@ -137,8 +137,8 @@ postal_zones_009:
   creator_id: 1
   id: 9
   lock_version: 0
-  name: Ἀθῆναι
-  postal_code: Ἀθῆναι
+  name: "Ἀθῆναι"
+  postal_code: "Ἀθῆναι"
   updated_at: 2015-04-21 08:27:39.802433000 Z
   updater_id: 1
 postal_zones_010:
@@ -149,8 +149,8 @@ postal_zones_010:
   creator_id: 1
   id: 10
   lock_version: 0
-  name: Ἀθῆναι
-  postal_code: Ἀθῆναι
+  name: "Ἀθῆναι"
+  postal_code: "Ἀθῆναι"
   updated_at: 2015-04-21 08:27:39.836314000 Z
   updater_id: 1
 postal_zones_011:
@@ -161,8 +161,8 @@ postal_zones_011:
   creator_id: 1
   id: 11
   lock_version: 0
-  name: Ἀθῆναι
-  postal_code: Ἀθῆναι
+  name: "Ἀθῆναι"
+  postal_code: "Ἀθῆναι"
   updated_at: 2015-04-21 08:28:44.825771000 Z
   updater_id: 1
 postal_zones_012:
@@ -185,7 +185,7 @@ postal_zones_013:
   creator_id: 1
   id: 13
   lock_version: 0
-  name: Ἀθῆναι
-  postal_code: Ἀθῆναι
+  name: "Ἀθῆναι"
+  postal_code: "Ἀθῆναι"
   updated_at: 2016-07-01 19:26:02.126798000 Z
   updater_id: 1
