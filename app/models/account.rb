@@ -621,7 +621,7 @@ class Account < Ekylibre::Record::Base
     accounts = Account.used_between(from, to).reorder('number ASC')
     
     accounts.each do |account|
-      compute = [] # HashWithIndifferentAccess.new
+      # compute = [] # HashWithIndifferentAccess.new
 
       journal_entry_items = account.journal_entry_items
                           .includes(:entry, :variant)
@@ -639,50 +639,40 @@ class Account < Ekylibre::Record::Base
       entry_count = 0
       
       
-      header = []
-      header << "header"
-      header << account.number
-      header << account.name
-      compute << header
+      header = HashWithIndifferentAccess.new
+      header[:type] = "header"
+      header[:account_number] = account.number
+      header [:account_name] = account.name
+      ledger << header
       
       journal_entry_items.each do |e|
-        body = []
-        body << "body"
-        body << account.number
-        body << ""
-        body << e.entry_number
-        body << e.printed_on.to_s
-        body << e.name.to_s
-        body << (e.variant ? e.variant.name : '')
-        body << e.entry.journal.name.to_s
-        body << e.letter
-        body << e.real_debit
-        body << e.real_credit
-        body << (account_balance += (e.real_debit - e.real_credit))
-        compute << body
+        body = HashWithIndifferentAccess.new
+        body[:type] = "body"
+        body[:account_number] = account.number
+        body[:entry_number] = e.entry_number
+        body[:printed_on] = e.printed_on.to_s
+        body[:name] = e.name.to_s
+        body[:variant] = (e.variant ? e.variant.name : '')
+        body[:journal_name] = e.entry.journal.name.to_s
+        body[:letter] = e.letter
+        body[:real_debit] = e.real_debit
+        body[:real_credit] = e.real_credit
+        body[:cumulated_balance] = (account_balance += (e.real_debit - e.real_credit))
+        ledger << body
         total_debit += e.real_debit
         total_credit += e.real_credit
         entry_count += 1
       end
       
-      footer = []
-      footer << "footer"
-      footer << account.number
-      footer << "#{entry_count}"
-      footer << ""
-      footer << ""
-      footer << ""
-      footer << ""
-      footer << ""
-      footer << ""
-      footer << ""
-      footer << ""
-      footer << ""
-      footer << total_debit
-      footer << total_credit
-      compute << footer
+      footer = HashWithIndifferentAccess.new
+      footer[:type] = "footer"
+      footer[:account_number] = account.number
+      footer[:count] = "#{entry_count}"
+      footer[:total_debit] = total_debit
+      footer[:total_credit] = total_credit
+      ledger << footer
       
-      ledger << compute
+      # ledger << compute
     end
 
     ledger.compact

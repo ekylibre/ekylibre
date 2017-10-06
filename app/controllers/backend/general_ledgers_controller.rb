@@ -95,16 +95,22 @@ module Backend
         r.add_field 'COMPANY_ADDRESS', company_address
         r.add_field 'FILE_NAME', filename
         r.add_field 'PERIOD', period
-
-        r.add_table('Tableau2', general_ledger, header: false) do |t|
-          t.add_column(:a) { |item| item[0] }
-          t.add_column(:b) do |item|
-            Account.find(item[1]).name if item[1].to_i > 0
+        
+        
+        
+        r.add_table('Tableau1', general_ledger, header: false) do |t|
+          t.add_column(:account_name) do |item|
+            item[:account_name] if item[:type] == "header"
           end
-          t.add_column(:debit) { |item| item[2].to_f }
-          t.add_column(:credit) { |item| item[3].to_f }
-          t.add_column(:balance) { |item| item[4].to_f }
+          t.add_column(:account_number) { |item| item[:account_number] }
+          t.add_column(:entry_number) { |item| item[:entry_number] }
+          t.add_column(:printed_on) { |item| item[:printed_on] }
+          t.add_column(:name) { |item| item[:name] }
+          t.add_column(:variant) { |item| item[:variant] }
+          t.add_column(:journal_name) { |item| item[:journal_name] }
+          
         end
+        
       end
     end
     
