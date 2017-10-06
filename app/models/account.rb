@@ -630,12 +630,14 @@ class Account < Ekylibre::Record::Base
       compute << account.name.to_s
       journal_entry_items.each do |e|
         entry = HashWithIndifferentAccess.new
-        entry[:date] = e.entry.created_at
+        entry[:number_entry] = e.entry_number
+        entry[:date] = e.printed_on
         entry[:name] = e.name.to_s
-        entry[:number_entry] = e.entry.number
+        entry[:variant] = (e.variant ? e.variant.name : '')
         entry[:journal] = e.entry.journal.name.to_s
-        entry[:credit] = e.credit
+        entry[:letter] = e.letter
         entry[:debit] = e.debit
+        entry[:credit] = e.credit
         entries << entry
         # compute[:journal_entry_items] << entry
       end

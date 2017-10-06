@@ -52,6 +52,116 @@ module Backend
       t.column :cumulated_absolute_credit, currency: :absolute_currency, on_select: :sum
     end
 
-    def show; end
+    def show
+      filename = "#{human_action_name} #{Time.zone.now.l(format: '%Y-%m-%d')}"
+      @general_ledger = Account.ledger(params[:started_on], params[:stopped_on]) if params[:period]
+      respond_to do |format|
+        format.html
+        format.ods do
+          send_data(
+            to_ods(@general_ledger).bytes,
+            filename: filename << '.ods'
+          )
+        end
+        format.csv do
+          csv_string = CSV.generate(headers: true) do |csv|
+            to_csv(@general_ledger, csv)
+          end
+          send_data(csv_string, filename: filename << '.csv')
+        end
+        format.xcsv do
+          csv_string = CSV.generate(headers: true, col_sep: ';', encoding: 'CP1252') do |csv|
+            to_csv(@general_ledger, csv)
+          end
+          send_data(csv_string, filename: filename << '.csv')
+        end
+        format.odt do
+          send_data to_odt(@general_ledger, filename, params[:period]).generate, type: 'application/vnd.oasis.opendocument.text', disposition: 'attachment', filename: filename << '.odt'
+        end
+      end
+    end
+    
+    protected
+
+    def to_odt(general_ledger, filename, period)
+      # TODO: add a generic template system path
+      report = ODFReport::Report.new(Rails.root.join('config', 'locales', 'fra', 'reporting', 'general_ledger.odt')) do |r|
+        # TODO: add a helper with generic metod to implemend header and footer
+
+        e = Entity.of_company
+        company_name = e.full_name
+        company_address = e.default_mail_address.coordinate
+
+        r.add_field 'COMPANY_ADDRESS', company_address
+        r.add_field 'FILE_NAME', filename
+        r.add_field 'PERIOD', period
+
+        r.add_table('Tableau2', general_ledger, header: false) do |t|
+          t.add_column(:a) { |item| item[0] }
+          t.add_column(:b) do |item|
+            Account.find(item[1]).name if item[1].to_i > 0
+          end
+          t.add_column(:debit) { |item| item[2].to_f }
+          t.add_column(:credit) { |item| item[3].to_f }
+          t.add_column(:balance) { |item| item[4].to_f }
+        end
+      end
+    end
+    
+    def to_ods(general_ledger)
+      require 'rodf'
+      output = RODF::Spreadsheet.new
+      action_name = human_action_name
+
+      output.instance_eval do
+        office_style :head, family: :cell do
+          property :text, 'font-weight': :bold
+          property :paragraph, 'text-align': :center
+        end
+
+        office_style :right, family: :cell do
+          property :paragraph, 'text-align': :right
+        end
+
+        office_style :bold, family: :cell do
+          property :text, 'font-weight': :bold
+        end
+
+        office_style :italic, family: :cell do
+          property :text, 'font-style': :italic
+        end
+
+        table action_name do
+          row do
+            cell JournalEntryItem.human_attribute_name(:account_number), style: :head
+            cell JournalEntryItem.human_attribute_name(:account_name), style: :head
+            cell JournalEntry.human_attribute_name(:debit), style: :head
+            cell JournalEntry.human_attribute_name(:credit), style: :head
+          end
+
+          general_ledger.each do |item|
+            if item[0].to_i > 0
+              row do
+                cell item[0]
+                cell item[1]
+                item[2].each do |line|
+                  cell line[:number_entry]
+                  cell line[:date]
+                  cell line[:name]
+                  cell line[:variant]
+                  cell line[:journal]
+                  cell line[:letter]
+                  cell line[:debit]
+                  cell line[:credit]
+                end
+              end
+            end
+          end
+        end
+        
+      end
+      output
+    end
+    
   end
 end
