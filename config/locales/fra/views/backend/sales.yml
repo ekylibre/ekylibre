@@ -1,0 +1,5 @@
+fra:
+  backend:
+    sales:
+      form:
+        warning_date_not_in_period: "Attention : La date saisie n'est pas sur l'exercice en cours."
