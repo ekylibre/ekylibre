@@ -618,30 +618,70 @@ class Account < Ekylibre::Record::Base
   # this method loads the general ledger for.all the accounts.
   def self.ledger(from, to)
     ledger = []
-    accounts = Account.order('number ASC')
+    accounts = Account.used_between(from, to).reorder('number ASC')
+    
     accounts.each do |account|
       compute = [] # HashWithIndifferentAccess.new
 
-      journal_entry_items = account.journal_entry_items.where('r.created_at' => from..to).joins("INNER JOIN #{JournalEntry.table_name} AS r ON r.id=#{JournalEntryItem.table_name}.entry_id").order('r.number ASC')
-
-      next if journal_entry_items.empty?
-      entries = []
-      compute << account.number.to_i
-      compute << account.name.to_s
+      journal_entry_items = account.journal_entry_items
+                          .includes(:entry, :variant)
+                          .where('printed_on' => from..to)
+                          .order('journal_entries.number ASC')
+                          #.joins("INNER JOIN #{JournalEntry.table_name} AS r ON r.id=#{JournalEntryItem.table_name}.entry_id")
+                          #.joins("INNER JOIN #{Account.table_name} AS a ON a.id=#{JournalEntryItem.table_name}.account_id")
+      
+      # entries = []
+      # compute << account.number.to_i
+      # compute << account.name.to_s
+      account_balance = 0.0
+      total_debit = 0.0
+      total_credit = 0.0
+      entry_count = 0
+      
+      
+      header = []
+      header << "header"
+      header << account.number
+      header << account.name
+      compute << header
+      
       journal_entry_items.each do |e|
-        entry = HashWithIndifferentAccess.new
-        entry[:number_entry] = e.entry_number
-        entry[:date] = e.printed_on
-        entry[:name] = e.name.to_s
-        entry[:variant] = (e.variant ? e.variant.name : '')
-        entry[:journal] = e.entry.journal.name.to_s
-        entry[:letter] = e.letter
-        entry[:debit] = e.debit
-        entry[:credit] = e.credit
-        entries << entry
-        # compute[:journal_entry_items] << entry
+        body = []
+        body << "body"
+        body << account.number
+        body << ""
+        body << e.entry_number
+        body << e.printed_on.to_s
+        body << e.name.to_s
+        body << (e.variant ? e.variant.name : '')
+        body << e.entry.journal.name.to_s
+        body << e.letter
+        body << e.real_debit
+        body << e.real_credit
+        body << (account_balance += (e.real_debit - e.real_credit))
+        compute << body
+        total_debit += e.real_debit
+        total_credit += e.real_credit
+        entry_count += 1
       end
-      compute << entries
+      
+      footer = []
+      footer << "footer"
+      footer << account.number
+      footer << "#{entry_count}"
+      footer << ""
+      footer << ""
+      footer << ""
+      footer << ""
+      footer << ""
+      footer << ""
+      footer << ""
+      footer << ""
+      footer << ""
+      footer << total_debit
+      footer << total_credit
+      compute << footer
+      
       ledger << compute
     end
 

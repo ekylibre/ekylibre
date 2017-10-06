@@ -111,7 +111,6 @@ module Backend
     def to_ods(general_ledger)
       require 'rodf'
       output = RODF::Spreadsheet.new
-      action_name = human_action_name
 
       output.instance_eval do
         office_style :head, family: :cell do
@@ -131,34 +130,60 @@ module Backend
           property :text, 'font-style': :italic
         end
 
-        table action_name do
+        table "ledger" do
           row do
             cell JournalEntryItem.human_attribute_name(:account_number), style: :head
             cell JournalEntryItem.human_attribute_name(:account_name), style: :head
+            cell JournalEntryItem.human_attribute_name(:entry_number), style: :head    
+            cell JournalEntryItem.human_attribute_name(:printed_on), style: :head
+            cell JournalEntryItem.human_attribute_name(:name), style: :head
+            cell JournalEntryItem.human_attribute_name(:variant), style: :head
+            cell JournalEntryItem.human_attribute_name(:journal), style: :head
+            cell JournalEntryItem.human_attribute_name(:letter), style: :head
             cell JournalEntry.human_attribute_name(:debit), style: :head
             cell JournalEntry.human_attribute_name(:credit), style: :head
+            cell JournalEntry.human_attribute_name(:balance), style: :head
           end
 
-          general_ledger.each do |item|
-            if item[0].to_i > 0
-              row do
-                cell item[0]
-                cell item[1]
-                item[2].each do |line|
-                  cell line[:number_entry]
-                  cell line[:date]
-                  cell line[:name]
-                  cell line[:variant]
-                  cell line[:journal]
-                  cell line[:letter]
-                  cell line[:debit]
-                  cell line[:credit]
+          general_ledger.each do |account|
+            account.each do |item|
+              if item[0] == "header"
+                row do
+                  cell item[1], style: :head
+                  cell item[2], style: :head
+                end
+              elsif item[0] == "body"
+                row do
+                  cell item[1]
+                  cell item[2]
+                  cell item[3]
+                  cell item[4]
+                  cell item[5]
+                  cell item[6]
+                  cell item[7]
+                  cell item[8]
+                  cell item[9]
+                  cell item[10]
+                  cell item[11]
+                end
+              elsif item[0] == "footer"
+                row do
+                  cell ""
+                  cell item[2]
+                  cell ""
+                  cell ""
+                  cell ""
+                  cell ""
+                  cell ""
+                  cell :subtotal.tl(name: item[1]).l, style: :right
+                  cell item[12], style: :bold
+                  cell item[13], style: :bold
                 end
               end
+              
             end
           end
         end
-        
       end
       output
     end
