@@ -465,7 +465,6 @@ class Intervention < Ekylibre::Record::Base
 
   # Update temporality informations in intervention
   def update_temporality
-    byebug
     reload unless new_record? || destroyed?
     started_at = working_periods.minimum(:started_at)
     stopped_at = working_periods.maximum(:stopped_at)

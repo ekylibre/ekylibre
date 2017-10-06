@@ -512,6 +512,8 @@ GEM
     teaspoon-jasmine (2.3.4)
       teaspoon (>= 1.0.0)
     temple (0.8.0)
+    test_after_commit (1.1.0)
+      activerecord (>= 3.2)
     therubyracer (0.12.3)
       libv8 (~> 3.16.14.15)
       ref
@@ -680,6 +682,7 @@ DEPENDENCIES
   spring
   state_machine
   teaspoon-jasmine
+  test_after_commit
   therubyracer
   thin
   time_diff

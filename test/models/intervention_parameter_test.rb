@@ -69,7 +69,7 @@ class InterventionParameterTest < ActiveSupport::TestCase
     parcel_item = create(:parcel_item, product: preparation, variant: preparation.variant, purchase_item: purchase_item, population: 1.to_d, product_identification_number: '12345678', product_name: 'Product name')
     activity_production = create(:activity_production, cultivable_zone: cultivable_zone)
     intervention = create(:spraying)
-    working_period = create(:intervention_working_period, intervention: intervention, started_at: intervention.started_at, stopped_at: intervention.stopped_at, duration: intervention.duration)
+    create(:intervention_working_period, intervention: intervention, started_at: intervention.started_at, stopped_at: intervention.stopped_at, duration: intervention.duration)
     create(:spraying_target, intervention: intervention, product: activity_production.support, working_zone: activity_production.support.initial_shape)
     create(:intervention_input, intervention: intervention, product: preparation, variant: preparation.variant, quantity_population: 10.to_d)
     create(:intervention_tool, intervention: intervention, product: equipment, variant: equipment.variant)

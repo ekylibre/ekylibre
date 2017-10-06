@@ -87,10 +87,6 @@ class InterventionWorkingPeriod < Ekylibre::Record::Base
     self.duration = (stopped_at - started_at).to_i if started_at && stopped_at
   end
 
-  after_update do
-    intervention.agents.each(&:save!)
-  end
-
   validate do
     errors.add(:intervention, :empty) unless intervention || intervention_participated_to || intervention_participation
     if started_at && stopped_at && stopped_at <= started_at
@@ -113,7 +109,13 @@ class InterventionWorkingPeriod < Ekylibre::Record::Base
     end
   end
 
-  after_commit :update_temporality, unless: -> { intervention.blank? }
+  after_commit do
+    unless intervention.blank?
+      intervention.update_temporality
+      intervention.agents.each(&:save!)
+    end
+  end
+
   after_destroy :update_temporality, unless: -> { intervention.blank? }
 
   def hide?

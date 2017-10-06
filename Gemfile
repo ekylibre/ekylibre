@@ -250,6 +250,7 @@ group :test do
   gem 'minitest-reporters'
 
   gem 'factory_girl'
+  gem 'test_after_commit'
 end
 
 # Load Gemfile.local, Gemfile.plugins, plugins', and custom Gemfiles
