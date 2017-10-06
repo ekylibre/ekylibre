@@ -640,8 +640,8 @@ DEPENDENCIES
   mechanize
   minitest-reporters
   momentjs-rails (>= 2.9.0)
-  odf-report
   nokogiri (~> 1.8.1)
+  odf-report
   omniauth
   omniauth-oauth2
   paperclip
