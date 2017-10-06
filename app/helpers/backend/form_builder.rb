@@ -299,8 +299,9 @@ module Backend
 
       geom = @object.send(attribute_name)
       if geom
-        editor[:edit] = Charta.new_geometry(geom).to_json_object
-        editor[:view] = { center: Charta.new_geometry(geom).centroid, zoom: 16 }
+        geometry = Charta.new_geometry(geom)
+        editor[:edit] = geometry.to_json_object
+        editor[:view] = { center: geometry.centroid, zoom: 16 }
       else
         if sibling = @object.class.where("#{attribute_name} IS NOT NULL").first
           editor[:view] = { center: Charta.new_geometry(sibling.send(attribute_name)).centroid }

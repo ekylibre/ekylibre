@@ -224,7 +224,7 @@ end
 
 group :development, :test do
   gem 'pry-byebug'
-  gem 'pry-inline'
+  # gem 'pry-inline'
   gem 'pry-rails'
   gem 'teaspoon-jasmine'
 
