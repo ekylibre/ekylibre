@@ -7,14 +7,21 @@ FactoryGirl.define do
     association         :category, factory: :product_nature_category
 
     factory :land_parcel_nature do
+      sequence(:name)     { |n| "Land Parcel #{n}" }
       variety 'land_parcel'
       variable_indicators_list [:shape]
       frozen_indicators_list   [:net_surface_area]
     end
 
     factory :preparation_nature do
+      sequence(:name)     { |n| "Preparation #{n}" }
       variety 'preparation'
       population_counting 'decimal'
+    end
+
+    factory :equipment_nature do
+      sequence(:name)     { |n| "Equipment #{n}" }
+      variety 'equipment'
     end
   end
 

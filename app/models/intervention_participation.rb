@@ -84,6 +84,14 @@ class InterventionParticipation < Ekylibre::Record::Base
     end
   end
 
+  after_save do
+    intervention.agents.each { |agent| agent.save! }
+  end
+
+  after_destroy do
+    intervention.agents.each { |agent| agent.save! }
+  end
+
   # Data are metrics and in meter and square meter
   DEFAULT_ACCURACY = 3
   DEFAULT_ACCURACY_AREA = (((DEFAULT_ACCURACY * 0.5)**2) * Math::PI).freeze

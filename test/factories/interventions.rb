@@ -5,6 +5,7 @@ FactoryGirl.define do
     stopped_at Time.now - 1.hour
     working_duration 3600
     actions [:sowing]
+    auto_calculate_working_periods true
 
     factory :spraying do
       procedure_name 'spraying'

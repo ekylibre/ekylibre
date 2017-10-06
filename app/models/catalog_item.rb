@@ -87,7 +87,7 @@ class CatalogItem < Ekylibre::Record::Base
 
   after_save do
     params = InterventionParameter.where(variant_id: self.variant.id)
-    params.each { |param| param.save! }
+    params.each(&:save!)
   end
 
   # Compute a pre-tax amount

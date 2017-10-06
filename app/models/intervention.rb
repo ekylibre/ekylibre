@@ -88,6 +88,7 @@ class Intervention < Ekylibre::Record::Base
     has_many :outputs, class_name: 'InterventionOutput'
     has_many :targets, class_name: 'InterventionTarget'
     has_many :tools, class_name: 'InterventionTool'
+    has_many :agents, class_name: 'InterventionAgent'
     has_many :working_periods, class_name: 'InterventionWorkingPeriod'
     has_many :leaves_parameters, -> { where.not(type: InterventionGroupParameter) }, class_name: 'InterventionParameter'
   end
@@ -464,6 +465,7 @@ class Intervention < Ekylibre::Record::Base
 
   # Update temporality informations in intervention
   def update_temporality
+    byebug
     reload unless new_record? || destroyed?
     started_at = working_periods.minimum(:started_at)
     stopped_at = working_periods.maximum(:stopped_at)

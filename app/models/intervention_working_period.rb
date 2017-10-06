@@ -87,6 +87,10 @@ class InterventionWorkingPeriod < Ekylibre::Record::Base
     self.duration = (stopped_at - started_at).to_i if started_at && stopped_at
   end
 
+  after_update do
+    intervention.agents.each(&:save!)
+  end
+
   validate do
     errors.add(:intervention, :empty) unless intervention || intervention_participated_to || intervention_participation
     if started_at && stopped_at && stopped_at <= started_at

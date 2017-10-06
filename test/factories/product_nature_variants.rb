@@ -15,6 +15,12 @@ FactoryGirl.define do
       association :nature, factory: :preparation_nature
       variety 'preparation'
     end
+
+    factory :equipment_nature_variant do
+      association :nature, factory: :equipment_nature
+      unit_name   'Unité'
+      variety 'equipment'
+    end
   end
 
   factory :corn_plant_variant, class: ProductNatureVariant do
