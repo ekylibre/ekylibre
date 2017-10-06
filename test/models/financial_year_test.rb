@@ -140,46 +140,46 @@ class FinancialYearTest < ActiveSupport::TestCase
   test 'Create years between company born at and searched year' do
     # Company born_at (in fixtures/entities.yml) is : 2015-01-06 09:00:00.000000000 Z
 
-    searched_year = Time.now + 20.years
+    searched_date = Date.today + 20.years
 
-    searched_financial_year = FinancialYear.where('? BETWEEN started_on AND stopped_on', searched_year).order(started_on: :desc).first
+    searched_financial_year = FinancialYear.where('? BETWEEN started_on AND stopped_on', searched_date).order(started_on: :desc).first
     assert searched_financial_year.nil?
 
-    year = FinancialYear.on(searched_year)
+    year = FinancialYear.on(searched_date)
     refute year.nil?
-    assert year.stopped_on.year == searched_year.year
+    assert_includes year.started_on..year.stopped_on, searched_date
 
-    before_searched_year = Time.now + 19.years
-    searched_financial_year = FinancialYear.where('? BETWEEN started_on AND stopped_on', before_searched_year).order(started_on: :desc).first
-
-    refute searched_financial_year.nil?
-    assert searched_financial_year.stopped_on.year == before_searched_year.year
-
-    before_searched_year = Time.now + 10.years
-    searched_financial_year = FinancialYear.where('? BETWEEN started_on AND stopped_on', before_searched_year).order(started_on: :desc).first
+    before_searched_date = Date.today + 19.years
+    searched_financial_year = FinancialYear.where('? BETWEEN started_on AND stopped_on', before_searched_date).order(started_on: :desc).first
 
     refute searched_financial_year.nil?
-    assert searched_financial_year.stopped_on.year == before_searched_year.year
+    assert_includes searched_financial_year.started_on..searched_financial_year.stopped_on, before_searched_date
+
+    before_searched_date = Date.today + 10.years
+    searched_financial_year = FinancialYear.where('? BETWEEN started_on AND stopped_on', before_searched_date).order(started_on: :desc).first
+
+    refute searched_financial_year.nil?
+    assert_includes searched_financial_year.started_on..searched_financial_year.stopped_on, before_searched_date
   end
 
   test 'get existed year if searched year is superior to company born at' do
     # Company born_at (in fixtures/entities.yml) is : 2015-01-06 09:00:00.000000000 Z
 
-    searched_year = Time.now + 25.years
-    future_started_date = searched_year.change(month: 1)
-    future_stopped_date = searched_year.change(month: 12).end_of_month
+    searched_date = Date.today + 25.years
+    future_started_date = searched_date.change(month: 1)
+    future_stopped_date = searched_date.change(month: 12).end_of_month
 
-    searched_financial_year = FinancialYear.where('? BETWEEN started_on AND stopped_on', searched_year).order(started_on: :desc).first
+    searched_financial_year = FinancialYear.where('? BETWEEN started_on AND stopped_on', searched_date).order(started_on: :desc).first
     assert searched_financial_year.nil?
 
     FinancialYear.create!(started_on: future_started_date, stopped_on: future_stopped_date, currency: 'EUR')
 
-    searched_financial_year = FinancialYear.where('? BETWEEN started_on AND stopped_on', searched_year).order(started_on: :desc).first
+    searched_financial_year = FinancialYear.where('? BETWEEN started_on AND stopped_on', searched_date).order(started_on: :desc).first
     refute searched_financial_year.nil?
 
-    year = FinancialYear.on(searched_year)
+    year = FinancialYear.on(searched_date)
     refute year.nil?
-    assert year.stopped_on.year == searched_year.year
+    assert_includes year.started_on..year.stopped_on, searched_date
   end
 
   test 'financial year can t be created before company born at date' do

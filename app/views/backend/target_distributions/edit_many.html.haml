@@ -11,7 +11,7 @@
         :ruby
           activity = Activity.find_by(id: params[:activity_id]) if params[:activity_id]
 
-          product_ids = @target_distributions.map(&:target_id).compact.uniq
+          product_ids = @target_distributions.map(&:target_id).compact.uniq.sort
           products = Product.where(id: product_ids)
           products = product_ids.zip(products).to_h
 

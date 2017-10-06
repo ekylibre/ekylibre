@@ -30,7 +30,6 @@ module Backend
     #   :state State search
     #   :period Two dates with "_" separator
     def self.list_conditions
-      code = ''
       code = search_conditions(purchases: %i[created_at pretax_amount amount number reference_number description state], entities: %i[number full_name]) + " ||= []\n"
       code << "if params[:period].present? && params[:period].to_s != 'all'\n"
       code << "  c[0] << ' AND #{Purchase.table_name}.invoiced_at::DATE BETWEEN ? AND ?'\n"

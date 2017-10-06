@@ -256,6 +256,10 @@ module Backend
       end
     end
 
+    def heading_toolbar(&block)
+      content_for(:heading_toolbar, &block)
+    end
+
     def form_action_content(side = :after, &block)
       content_for(:"#{side}_form_actions", &block)
     end
@@ -369,7 +373,6 @@ module Backend
           end
         end
       end
-
       html_code
     end
 
@@ -472,9 +475,9 @@ module Backend
       end
     end
 
-    def user_preference_value(name)
+    def user_preference_value(name, default = nil)
       preference = current_user.preferences.find_by(name: name)
-      preference ? preference.value : nil
+      preference ? preference.value : default
     end
 
     # Build a JSON for a data-tour parameter and put it on <body> element

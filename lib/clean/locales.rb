@@ -113,7 +113,7 @@ module Clean
       end
 
       def clean_action!
-        untranslated = to_translate = translated = 0
+        untranslated = to_translate = 0
         warnings = []
         translation = "#{locale}:\n"
 

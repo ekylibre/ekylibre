@@ -135,7 +135,7 @@ class InterventionParameter < Ekylibre::Record::Base
     true
   end
 
-  def cost_amount_computation
+  def cost_amount_computation(nature: nil, natures: {})
     AmountComputation.none
   end
 
