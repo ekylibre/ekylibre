@@ -202,7 +202,7 @@ class ProductTest < ActiveSupport::TestCase
   end
 
   test 'product can get a value from its readings: multi_polygon' do
-    shape = Charta::Geometry.new('SRID=4326;MULTIPOLYGON(((-0.792698263903731 45.822036886905,-0.792483687182539 45.8222985746827,-0.792043804904097 45.8220069796521,-0.792430043002241 45.8215882764244,-0.792698263903731 45.822036886905)))')
+    shape = Charta.new_geometry('SRID=4326;MULTIPOLYGON(((-0.792698263903731 45.822036886905,-0.792483687182539 45.8222985746827,-0.792043804904097 45.8220069796521,-0.792430043002241 45.8215882764244,-0.792698263903731 45.822036886905)))')
     nature_with_indicator = create(:product_nature, variable_indicators_list: [:shape])
     variant_with_indicator = create(:product_nature_variant, nature: nature_with_indicator)
     product = create :product, variant: variant_with_indicator
@@ -213,7 +213,7 @@ class ProductTest < ActiveSupport::TestCase
 
     assert_equal shape, product.get(:shape)
 
-    shape_bis = Charta::Geometry.new('SRID=4326;MULTIPOLYGON(((-0.910450280061923 45.8138005702091,-0.910439551225863 45.8139650841453,-0.910224974504672 45.8139650841453,-0.910246432176791 45.8137856143727,-0.910450280061923 45.8138005702091)))')
+    shape_bis = Charta.new_geometry('SRID=4326;MULTIPOLYGON(((-0.910450280061923 45.8138005702091,-0.910439551225863 45.8139650841453,-0.910224974504672 45.8139650841453,-0.910246432176791 45.8137856143727,-0.910450280061923 45.8138005702091)))')
     create :product_reading, :multi_polygon,
            product: product,
            indicator_name: 'shape',
@@ -223,7 +223,7 @@ class ProductTest < ActiveSupport::TestCase
   end
 
   test 'product can get a value from its readings: point' do
-    point = Charta::Point.new('SRID=4326;POINT(-0.783801558989031 45.8279122127986)')
+    point = Charta.new_geometry('SRID=4326;POINT(-0.783801558989031 45.8279122127986)')
     nature_with_indicator = create(:product_nature, variable_indicators_list: [:geolocation])
     variant_with_indicator = create(:product_nature_variant, nature: nature_with_indicator)
     product = create :product, variant: variant_with_indicator
@@ -234,7 +234,7 @@ class ProductTest < ActiveSupport::TestCase
 
     assert_equal point, product.get(:geolocation)
 
-    point_bis = Charta::Point.new('SRID=4326;POINT(-0.913002490997314 45.813931433607)')
+    point_bis = Charta.new_geometry('SRID=4326;POINT(-0.913002490997314 45.813931433607)')
     create :product_reading, :point,
            product: product,
            indicator_name: 'geolocation',
@@ -266,16 +266,16 @@ class ProductTest < ActiveSupport::TestCase
     nature_with_indicator = create(:product_nature, variable_indicators_list: [:shape])
     variant_with_indicator = create(:product_nature_variant, nature: nature_with_indicator)
     product = create :product, variant: variant_with_indicator
-    shape = Charta::Geometry.new('SRID=4326;MULTIPOLYGON(((-0.910450280061923 45.8138005702091,-0.910439551225863 45.8139650841453,-0.910224974504672 45.8139650841453,-0.910246432176791 45.8137856143727,-0.910450280061923 45.8138005702091)))')
+    shape = Charta.new_geometry('SRID=4326;MULTIPOLYGON(((-0.910450280061923 45.8138005702091,-0.910439551225863 45.8139650841453,-0.910224974504672 45.8139650841453,-0.910246432176791 45.8137856143727,-0.910450280061923 45.8138005702091)))')
     create :product_reading, :multi_polygon,
            product: product,
            indicator_name: 'shape',
            value: shape
 
     area = product.net_surface_area.in(:hectare)
-    assert_in_delta shape.area.in(:hectare).to_f, area.to_f, 0.001
+    assert_in_delta shape.area.in(:square_meter).in(:hectare).round(3).to_f, area.to_f, 0.001
 
-    shape_bis = Charta::Geometry.new('SRID=4326;MULTIPOLYGON(((-0.792698263903731 45.822036886905,-0.792483687182539 45.8222985746827,-0.792043804904097 45.8220069796521,-0.792430043002241 45.8215882764244,-0.792698263903731 45.822036886905)))')
+    shape_bis = Charta.new_geometry('SRID=4326;MULTIPOLYGON(((-0.792698263903731 45.822036886905,-0.792483687182539 45.8222985746827,-0.792043804904097 45.8220069796521,-0.792430043002241 45.8215882764244,-0.792698263903731 45.822036886905)))')
 
     create :product_reading, :multi_polygon,
            product: product,
@@ -283,6 +283,6 @@ class ProductTest < ActiveSupport::TestCase
            value: shape_bis
 
     area = product.net_surface_area.in(:hectare)
-    assert_in_delta shape_bis.area.in(:hectare).to_f, area.to_f, 0.001
+    assert_in_delta shape_bis.area.in(:square_meter).in(:hectare).round(3).to_f, area.to_f, 0.001
   end
 end

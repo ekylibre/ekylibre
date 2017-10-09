@@ -75,6 +75,7 @@ class InterventionInput < InterventionProductParameter
     if product && intervention.record?
       movement = product_movement ||
                  build_product_movement(product: product)
+      movement.product = product
       movement.delta = -1 * quantity_population
       movement.started_at = intervention.started_at || Time.zone.now - 1.hour
       movement.stopped_at = intervention.stopped_at || movement.started_at + 1.hour

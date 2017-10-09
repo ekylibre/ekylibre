@@ -5,6 +5,12 @@ FactoryGirl.define do
     variety             'cultivable_zone'
 
     association         :category, factory: :product_nature_category
+
+    factory :land_parcel_nature do
+      variety 'land_parcel'
+      variable_indicators_list [:shape]
+      frozen_indicators_list   [:net_surface_area]
+    end
   end
 
   factory :plants_nature, class: ProductNature do
