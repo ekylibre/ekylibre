@@ -1066,6 +1066,7 @@ arb:
     add_polygon: "إضافة مضلع"
     add_production: "إضافة الانتاج"
     add_purchase: "إضافة شراء"
+    # add_purchase_invoice: "Add invoice"
     add_purchase_payment: "إضافة صرف"
     add_purchase_taxation: "إضافة الضرائب شراء"
     add_quickly_an_item: "بسرعة إضافة خط من المنتجات"

@@ -77,14 +77,6 @@ class PurchaseOrder < Purchase
     self.ordered_at ||= created_at
   end
 
-  def self.third_attribute
-    :supplier
-  end
-
-  def third
-    send(third_attribute)
-  end
-
   def purchased?
     opened?
   end

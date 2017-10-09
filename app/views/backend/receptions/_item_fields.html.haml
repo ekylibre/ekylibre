@@ -88,6 +88,10 @@
                   %span.add-on.item-population-unit-name
                     = variant.unit_name.or_else('#')
 
+        .form-field.second-row
+          .item-form
+            = f.referenced_association(:equipment, label: :equipment.tl, source: {scope: :tools}, input_html: {data: { remember: 'equipment'}})
+
         .buttons
           %button.btn{ data: { cancel: 'item-form' } }= :cancel.tl
           %button.btn.btn-primary{ data: { validate: 'item-form' } }= :validate.tl

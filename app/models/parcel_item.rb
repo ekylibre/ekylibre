@@ -28,6 +28,7 @@
 #  currency                      :string
 #  delivery_id                   :integer
 #  delivery_mode                 :string
+#  equipment_id                  :integer
 #  id                            :integer          not null, primary key
 #  lock_version                  :integer          default(0), not null
 #  non_compliant                 :boolean
@@ -74,6 +75,7 @@ class ParcelItem < Ekylibre::Record::Base
   belongs_to :source_product, class_name: 'Product'
   belongs_to :source_product_movement, class_name: 'ProductMovement', dependent: :destroy
   belongs_to :variant, class_name: 'ProductNatureVariant'
+  belongs_to :equipment, class_name: 'ProductNatureVariant'
   has_one :nature, through: :variant
   has_one :storage, through: :parcel
   has_one :contract, through: :parcel

@@ -872,6 +872,7 @@ ita:
     add_polygon: "Aggiungere poligono"
     add_production: "Aggiungere la produzione"
     add_purchase: "Aggiungere acquisto"
+    # add_purchase_invoice: "Add invoice"
     add_purchase_payment: "Aggiungi l’erogazione"
     add_purchase_taxation: "Aggiungere tassazione acquisto"
     add_quickly_an_item: "Aggiungere rapidamente una linea di prodotti"

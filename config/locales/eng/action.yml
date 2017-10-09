@@ -1056,6 +1056,7 @@ eng:
     add_polygon: "Add polygon"
     add_production: "Add production"
     add_purchase: "Add purchase"
+    add_purchase_invoice: "Add invoice"
     add_purchase_payment: "Add disbursement"
     add_purchase_taxation: "Add purchase taxation"
     add_quickly_an_item: "Add quickly a line of product"
@@ -1342,7 +1343,7 @@ eng:
     entries: "Entries" #?
     entries_to_point: "Entries pointing to" #?!
     entry_items: "Entry items" #?
-    equipment: "Equipment" #?
+    equipment: "Equipment"
     equipment_name: "Name of equipment" #?
     equipments: "Equipment"
     equities: "Equities" #?!

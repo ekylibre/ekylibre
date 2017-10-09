@@ -30,6 +30,7 @@
 #  creator_id             :integer
 #  currency               :string           not null
 #  depreciable_product_id :integer
+#  equipment_id           :integer
 #  fixed                  :boolean          default(FALSE), not null
 #  fixed_asset_id         :integer
 #  id                     :integer          not null, primary key
@@ -47,7 +48,7 @@
 #  unit_pretax_amount     :decimal(19, 4)   not null
 #  updated_at             :datetime         not null
 #  updater_id             :integer
-#  variant_id             :integer          not null
+#  variant_id             :integer
 #
 
 class PurchaseItem < Ekylibre::Record::Base
@@ -57,6 +58,7 @@ class PurchaseItem < Ekylibre::Record::Base
   belongs_to :activity_budget
   belongs_to :team
   belongs_to :purchase, inverse_of: :items
+  belongs_to :equipment, class_name: 'ProductNatureVariant', inverse_of: :purchase_items
   belongs_to :variant, class_name: 'ProductNatureVariant', inverse_of: :purchase_items
   belongs_to :tax
   belongs_to :fixed_asset, inverse_of: :purchase_items
@@ -67,12 +69,13 @@ class PurchaseItem < Ekylibre::Record::Base
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :amount, :pretax_amount, :quantity, :reduction_percentage, :unit_amount, :unit_pretax_amount, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
   validates :annotation, :label, length: { maximum: 500_000 }, allow_blank: true
-  validates :account, :currency, :purchase, :tax, :variant, presence: true
+  validates :account, :currency, :purchase, :tax, presence: true
   validates :fixed, inclusion: { in: [true, false] }
   validates :preexisting_asset, inclusion: { in: [true, false] }, allow_blank: true
   # ]VALIDATORS]
   validates :currency, length: { allow_nil: true, maximum: 3 }
   validates :account, :tax, :reduction_percentage, presence: true
+  validates :variant, presence: true
   validates_associated :fixed_asset
 
   delegate :invoiced_at, :journal_entry, :number, :computation_method, :computation_method_quantity_tax?, :computation_method_tax_quantity?, :computation_method_adaptative?, :computation_method_manual?, to: :purchase

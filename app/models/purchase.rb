@@ -140,6 +140,14 @@ class Purchase < Ekylibre::Record::Base
     save
   end
 
+  def self.third_attribute
+    :supplier
+  end
+
+  def third
+    send(third_attribute)
+  end
+
   # Computes an amount (with or without taxes) of the undelivered products
   # - +column+ can be +:amount+ or +:pretax_amount+
   def undelivered(column)

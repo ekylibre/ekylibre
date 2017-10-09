@@ -1,10 +1,10 @@
-.new_purchase_order,
-.edit_purchase_order {
+.new_purchase_invoice,
+.edit_purchase_invoice {
 
-  .order-totals {
+  .invoice-totals {
     margin: $default-gap * 3 0 $default-gap * 3 0.6%;
 
-    .order-total-row {
+    .invoice-total-row {
       @include flex-row(flex-start, flex-start);
       margin-bottom: $default-gap;
     }
@@ -36,7 +36,7 @@
   }
 
   .list {
-	.purchase-order-items:hover td,
+	.purchase-invoice-items:hover td,
 	.nested-item-form:hover td {
 	  background-color: $white !important;
 	}
@@ -81,7 +81,7 @@
       @include flex-column(center, center);
     }
 
-    .order-second-row-label {
+    .invoice-second-row-label {
       color: $darkened-grey;
       margin-top: $default-gap * 2;
       font-weight: bold;
@@ -115,33 +115,6 @@
       flex-basis: 10%;
     }
 
-    .second-row {
-      @include flex-column(flex-start, flex-start);
-      margin-left: 44%;
-      flex-basis: 15%;
-      border-bottom: solid 1px #ddd;
-
-      .merchandise-current-stock,
-      .merchandise-stock-after-order {
-        @include flex-row(flex-start);
-        width: 100%;
-      }
-
-      .stock-label,
-      .stock-value,
-      .stock-unit {
-	    color: #999;
-      }
-
-      .stock-label {
-        flex-basis: 90%;
-      }
-
-      .stock-unit {
-        margin-left: $default-gap * 0.9;
-      }
-    }
-
     .form-field.third-row {
       @include flex-row(flex-start, flex-start);
       border-top: none;
@@ -152,15 +125,15 @@
         width: 100%;
 	  }
 
-	  .purchase_order_items_activity_budget {
-	    flex-basis: 47.5%;
+	  .purchase_invoice_items_activity_budget {
+	    flex-basis: 27.5%;
 	  }
 
-	  .purchase_order_items_team {
-	    flex-basis: 60%;
+	  .purchase_invoice_items_team {
+	    flex-basis: 50%;
 	  }
 
-    .purchase_order_items_equipment {
+    .purchase_invoice_items_equipment {
       flex-basis: 35%
     }
 

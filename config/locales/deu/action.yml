@@ -806,6 +806,7 @@ deu:
     add_polygon: "In Polygon"
     add_production: "In Produktion"
     add_purchase: "In Kauf"
+    # add_purchase_invoice: "Add invoice"
     add_purchase_payment: "Auszahlung hinzufügen"
     add_purchase_taxation: "In Kauf Besteuerung"
     add_quickly_an_item: "In schnell eine Reihe von Produkt"

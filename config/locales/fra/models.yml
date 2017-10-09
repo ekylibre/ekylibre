@@ -168,6 +168,11 @@ fra:
         label: "Commande" #?
         moved_at: "Reçu le" #?
         planned_at: "Réception prévue le" #?
+      purchase_invoice: #?
+        description: "Notes" #?
+        invoiced_at: "Date de facture" #?
+        payment_delay: "Échéance" #?
+        reference_number: "Référence fournisseur (n° facture)" #?
       purchase_item: #?
         amount: "Montant TTC" #?
       purchase_order: #?
@@ -931,6 +936,7 @@ fra:
     entry_number: "N° Écriture"
     entry_on: "Entrée le"
     entry_reason: "Raison de l'entrée"
+    # equipment: "Equipment"
     establishment: "Établissement" #?
     # estimate_reception_date: "Estimate reception date"
     # euid: "EUID"

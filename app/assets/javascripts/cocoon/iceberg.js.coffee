@@ -15,6 +15,8 @@
 
       @setCocoonFormSubmitable()
 
+      @retrievePreviousItemValue()
+
       @line.trigger "iceberg:inserted"
 
       unless mode is "add" or @line.find('.error').length > 0
@@ -164,6 +166,18 @@
           data: data
         }
       @vm.$data.zones = zones
+
+    retrievePreviousItemValue: ->
+      line = @line
+      all_lines = line.parent().find('.nested-fields')
+      if all_lines.length > 1
+        input_values_hash = {}
+        all_lines.first().find('*[data-remember]').each ->
+          if $(this).is('.selector-search')
+            input_values_hash[$(this).data('remember')] = $(this).parent().find('.selector-value').val()
+        for item in Object.keys(input_values_hash)
+          line.find('*[data-remember=' + item + ']').val(input_values_hash[item])
+
 
   $(document).ready ->
     $('*[data-iceberg]').each ->

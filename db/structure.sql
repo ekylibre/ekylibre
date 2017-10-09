@@ -2417,7 +2417,7 @@ CREATE TABLE outgoing_payments (
 CREATE TABLE purchase_items (
     id integer NOT NULL,
     purchase_id integer NOT NULL,
-    variant_id integer NOT NULL,
+    variant_id integer,
     quantity numeric(19,4) DEFAULT 1.0 NOT NULL,
     pretax_amount numeric(19,4) DEFAULT 0.0 NOT NULL,
     amount numeric(19,4) DEFAULT 0.0 NOT NULL,
@@ -2440,7 +2440,8 @@ CREATE TABLE purchase_items (
     team_id integer,
     depreciable_product_id integer,
     fixed_asset_id integer,
-    preexisting_asset boolean
+    preexisting_asset boolean,
+    equipment_id integer
 );
 
 
@@ -4702,7 +4703,8 @@ CREATE TABLE parcel_items (
     delivery_id integer,
     transporter_id integer,
     non_compliant_detail character varying,
-    role character varying
+    role character varying,
+    equipment_id integer
 );
 
 
@@ -18051,4 +18053,10 @@ INSERT INTO schema_migrations (version) VALUES ('20170906075927');
 INSERT INTO schema_migrations (version) VALUES ('20170912093930');
 
 INSERT INTO schema_migrations (version) VALUES ('20170918093216');
+
+INSERT INTO schema_migrations (version) VALUES ('20170928144444');
+
+INSERT INTO schema_migrations (version) VALUES ('20171003135227');
+
+INSERT INTO schema_migrations (version) VALUES ('20171003150635');
 
