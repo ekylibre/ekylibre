@@ -291,7 +291,7 @@ class PlantCountingTest < ActiveSupport::TestCase
       position: 5
     )
 
-    intervention.outputs.first.product
+    intervention.outputs.where.not(product_id: nil).first.product
   end
 
   def fake_working_periods
