@@ -294,7 +294,7 @@ module Backend
 
     def financial_year_started_on_stopped_on
       fy = FinancialYear.current
-      {started_on: fy.started_on, stopped_on: fy.stopped_on}
+      { started_on: fy.started_on, stopped_on: fy.stopped_on }
     end
 
     def lights(status, html_options = {})
