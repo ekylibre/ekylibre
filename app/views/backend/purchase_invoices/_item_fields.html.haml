@@ -38,13 +38,21 @@
         = f.input_field :quantity, class: "invoice-quantity", size: 7, data: {trade_component: "quantity", required: true}
         %span.add-on.item-population-unit-name
           = variant.unit_name.or_else('#')
-    %td.form-field= f.input(:unit_pretax_amount, label: :unit_amount.tl, input_html: {class: "invoice-unit-amount", data: {trade_component: "unit_pretax_amount"}})
+    %td.form-field
+      = f.input :unit_pretax_amount, wrapper: :append do
+        = f.input_field :unit_pretax_amount, class: "invoice-unit-amount", label: :unit_amount.tl, data: {trade_component: "unit_pretax_amount"}
+        %span.add-on
+          = Nomen::Currency.find(f.object.currency).symbol
     %td.form-field
       = f.input :reduction_percentage, wrapper: :append do
         = f.input_field :reduction_percentage, label: :discount_without_percent.tl, class: "invoice-discount-percentage", data: {trade_component: "reduction_percentage", required: true}
         %span.add-on
           = '%'
-    %td.form-field.decimal= f.input(:pretax_amount, input_html: {class: "pta invoice-total", data: {trade_component: "pretax_amount", required: true}})
+    %td.form-field.decimal
+      = f.input :pretax_amount, wrapper: :append do
+        = f.input_field :pretax_amount, class: "pta invoice-total", data: {trade_component: "pretax_amount", required: true}
+        %span.add-on
+          = Nomen::Currency.find(f.object.currency).symbol
     %td.form-field.decimal= f.input(:tax_id, label: :vat_rate.tl, collection: Tax.current.collect{|t| [t.short_label, t.id, {'data-rate' => ((100 + t.usable_amount)/100)}]}, selected: 1, input_html: { class: "invoice-vat-total", data: {value: 'rate', trade_component: "tax"}})
     -#%td.action= link_to_remove_association(content_tag(:i) + h(:destroy.ta), f, 'data-no-turbolink' => true, class: 'remove-item')
 
