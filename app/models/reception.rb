@@ -34,6 +34,7 @@
 #  given_at                             :datetime
 #  id                                   :integer          not null, primary key
 #  in_preparation_at                    :datetime
+#  intervention_id                      :integer
 #  journal_entry_id                     :integer
 #  late_delivery                        :boolean
 #  lock_version                         :integer          default(0), not null
@@ -65,6 +66,7 @@
 class Reception < Parcel
   belongs_to :sender, class_name: 'Entity'
   belongs_to :purchase, inverse_of: :parcels
+  belongs_to :intervention, class_name: 'Intervention'
 
   validates :sender, presence: true
   # validates :storage, presence: true

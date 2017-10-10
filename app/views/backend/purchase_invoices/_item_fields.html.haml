@@ -1,0 +1,69 @@
+- item ||= f.object
+- variant = Maybe(item.variant)
+- f.object.currency = Preference[:currency]
+%tbody.nested-fields.purchase-invoice-items.delivery-item{ data: { trade_item: "purchase", iceberg: true } }
+  %tr.item-display.hidden
+    %td.act
+      - if f.object.destroyable?
+        = link_to_remove_association(content_tag(:i) + h(:destroy.tl), f, 'data-no-turbolink' => true, class: 'destroy remove remove-item')
+    %td.act
+      = link_to("#", class: 'edit edit-item', data: { edit: "item-form" }) do
+        %i
+        = :edit.tl
+    %td.product-column
+      %label{ data: { item_value: "input.invoice-variant" } }= f.object.variant ? f.object.variant.name : '??????'
+    %td.quantity-column
+      %label{ data: { item_value: "input.invoice-quantity" } }= f.object.variant ? f.object.variant.name : '??????'
+      %label{ data: { item_value: "span.item-population-unit-name"}}= f.object.variant ? f.object.variant.unit_name : '#'
+    %td.unit-amount-column.two-rows-column
+      %span
+        %label{ data: { item_value: "input.invoice-unit-amount" } }= f.object.variant ? f.object.variant.name : '??????'
+        %label= Nomen::Currency.find(f.object.currency).symbol
+      %label{class: "invoice-second-row-label"}= :discount_without_percent.tl
+      %span
+        %label{ data: { item_value: "input.invoice-discount-percentage" } }= f.object.variant ? f.object.variant.name : '??????'
+        %label= "%"
+    %td.total-column.two-rows-column
+      %span
+        %label{ class: 'amount-excluding-taxes', data: { item_value: "input.invoice-total" } }= f.object.variant ? f.object.variant.name : '??????'
+        %label= Nomen::Currency.find(f.object.currency).symbol
+      %label{ class: "invoice-second-row-label"}= :vat_rate.tl
+      %label{ class: 'vat-rate', data: { item_value: "select.invoice-vat-total option:selected" } }= f.object.variant ? f.object.variant.name : '??????'
+
+  %tr.nested-item-form
+    %td.form-field.merchandise
+      = f.referenced_association(:variant, label: :merchandise.tl, source: {scope: :purchaseables}, input_html: {class: "invoice-variant", data: {variant_of_deal_item: {url: detail_backend_product_nature_variant_path("RECORD_ID", mode: :last_purchase_item)}, product_of_delivery_item: {url: backend_product_nature_variant_path("RECORD_ID", format: :json)}, required: true}}, required: true)
+    %td.form-field.decimal
+      = f.input :quantity, wrapper: :append do
+        = f.input_field :quantity, class: "invoice-quantity", size: 7, data: {trade_component: "quantity", required: true}
+        %span.add-on.item-population-unit-name
+          = variant.unit_name.or_else('#')
+    %td.form-field
+      = f.input :unit_pretax_amount, wrapper: :append do
+        = f.input_field :unit_pretax_amount, class: "invoice-unit-amount", label: :unit_amount.tl, data: {trade_component: "unit_pretax_amount"}
+        %span.add-on
+          = Nomen::Currency.find(f.object.currency).symbol
+    %td.form-field
+      = f.input :reduction_percentage, wrapper: :append do
+        = f.input_field :reduction_percentage, label: :discount_without_percent.tl, class: "invoice-discount-percentage", data: {trade_component: "reduction_percentage", required: true}
+        %span.add-on
+          = '%'
+    %td.form-field.decimal
+      = f.input :pretax_amount, wrapper: :append do
+        = f.input_field :pretax_amount, class: "pta invoice-total", data: {trade_component: "pretax_amount", required: true}
+        %span.add-on
+          = Nomen::Currency.find(f.object.currency).symbol
+    %td.form-field.decimal= f.input(:tax_id, label: :vat_rate.tl, collection: Tax.current.collect{|t| [t.short_label, t.id, {'data-rate' => ((100 + t.usable_amount)/100)}]}, selected: 1, input_html: { class: "invoice-vat-total", data: {value: 'rate', trade_component: "tax"}})
+    -#%td.action= link_to_remove_association(content_tag(:i) + h(:destroy.ta), f, 'data-no-turbolink' => true, class: 'remove-item')
+
+    %td.form-field.third-row
+      .item-form
+        - if Preference[:distribute_sales_and_purchases_on_activities] && current_user.can?(:read, :activities) && ActivityBudget.opened.any?
+          = f.referenced_association(:activity_budget, new: false)
+        - if Preference[:distribute_sales_and_purchases_on_teams] && current_user.can?(:read, :teams)
+          = f.referenced_association(:team)
+        = f.referenced_association(:equipment, label: :equipment.tl, source: {scope: :tools}, input_html: {data: { remember: 'equipment'}})
+
+    %td.buttons
+      %button.btn{ data: { cancel: 'item-form' } }= :cancel.tl
+      %button.btn.btn-primary{ data: { validate: 'item-form' } }= :validate.tl

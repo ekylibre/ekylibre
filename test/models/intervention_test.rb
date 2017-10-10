@@ -39,6 +39,7 @@
 #  number                         :string
 #  prescription_id                :integer
 #  procedure_name                 :string           not null
+#  purchase_id                    :integer
 #  request_compliant              :boolean
 #  request_intervention_id        :integer
 #  started_at                     :datetime         not null
@@ -159,6 +160,14 @@ class InterventionTest < ActiveSupport::TestCase
     last_intervention.destroy
     plant.reload
     assert plant.dead_at.nil?, 'Dead_at of plant should be nil when no death registered'
+  end
+
+  test 'cost_per_area' do
+    cultivable_zone = create(:cultivable_zone)
+    activity_production = create(:activity_production, cultivable_zone: cultivable_zone)
+    intervention = create(:intervention)
+    create(:intervention_target, intervention: intervention, product: activity_production.support, working_zone: activity_production.support.initial_shape)
+    assert_equal 0.0, intervention.cost_per_area(:target)
   end
 
   def add_harvesting_intervention(target, stopped_at)

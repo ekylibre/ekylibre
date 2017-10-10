@@ -145,6 +145,10 @@ Rails.application.routes.draw do
 
     # resources :calculators, only: :index
 
+    namespace :cobbles do
+      resource :production_cost_cobble, only: :show
+    end
+
     namespace :cells do
       resource :accountancy_balance_cell, only: :show
       resource :cashes_balance_cell, only: :show
@@ -584,6 +588,7 @@ Rails.application.routes.draw do
         get :modal
         post :change_state
         get :change_page
+        get :purchase_order_items
       end
       member do
         post :sell
@@ -709,6 +714,8 @@ Rails.application.routes.draw do
       end
     end
 
+    resources :map_editor_shapes, only: :index
+
     resources :matters, concerns: :products
 
     resources :net_services, concerns: [:list] do
@@ -774,7 +781,7 @@ Rails.application.routes.draw do
     resources :shipments, concerns: %i[list unroll] do
       member do
         get :list_items
-
+        post :ship
         post :invoice
         post :ship
         post :order
@@ -1076,6 +1083,13 @@ Rails.application.routes.draw do
 
     resources :visuals, only: [] do
       match 'picture(/:style)', via: :get, action: :picture, as: :picture
+    end
+
+    namespace :visualizations do
+      resource :plants_visualizations, only: :show
+      resource :map_cells_visualizations, only: :show
+      resource :land_parcels_visualizations, only: :show
+      resource :resources_visualizations, only: :show
     end
 
     resources :wine_tanks, only: [:index], concerns: [:list]

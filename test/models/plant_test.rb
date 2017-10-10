@@ -73,7 +73,6 @@
 #  picture_file_name            :string
 #  picture_file_size            :integer
 #  picture_updated_at           :datetime
-#  reading_cache                :jsonb            default("{}")
 #  team_id                      :integer
 #  tracking_id                  :integer
 #  type                         :string
@@ -96,7 +95,7 @@ class PlantTest < ActiveSupport::TestCase
 
   test 'sets' do
     p = Plant.last
-    assert_equal '1.955 hectare', p.net_surface_area.to_s
+    assert_equal '1.959 hectare', p.net_surface_area.to_s
   end
 
   test 'shape render value' do

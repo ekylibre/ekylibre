@@ -39,6 +39,7 @@
 #  number                         :string
 #  prescription_id                :integer
 #  procedure_name                 :string           not null
+#  purchase_id                    :integer
 #  request_compliant              :boolean
 #  request_intervention_id        :integer
 #  started_at                     :datetime         not null
@@ -66,6 +67,8 @@ class Intervention < Ekylibre::Record::Base
   belongs_to :issue
   belongs_to :prescription
   belongs_to :journal_entry, dependent: :destroy
+  belongs_to :purchase
+  has_many :receptions, class_name: 'Reception'
   has_many :labellings, class_name: 'InterventionLabelling', dependent: :destroy, inverse_of: :intervention
   has_many :labels, through: :labellings
   has_many :record_interventions, -> { where(nature: :record) }, class_name: 'Intervention', inverse_of: 'request_intervention', foreign_key: :request_intervention_id
@@ -110,7 +113,7 @@ class Intervention < Ekylibre::Record::Base
 
   acts_as_numbered
   accepts_nested_attributes_for :group_parameters, :participations, :doers, :inputs, :outputs, :targets, :tools, :working_periods, allow_destroy: true
-  accepts_nested_attributes_for :labellings, allow_destroy: true
+  accepts_nested_attributes_for :labellings, :receptions, allow_destroy: true
 
   scope :between, lambda { |started_at, stopped_at|
     where(started_at: started_at..stopped_at)
@@ -514,11 +517,12 @@ class Intervention < Ekylibre::Record::Base
     nil
   end
 
-  def cost_per_area(role = :input, area_unit = :hectare, area = nil)
-    area ||= working_zone_area(area_unit)
-    if area > 0.0.in_square_meter
+  def cost_per_area(role = :input, area_unit = :hectare)
+    zone_area = working_zone_area(area_unit)
+    if zone_area > 0.0.in(area_unit)
       params = product_parameters.of_generic_role(role)
-      return (params.map(&:cost).compact.sum / area.to_d) if params.any?
+      costs = params.map(&:cost).compact
+      return (costs.sum / zone_area.to_d) if costs.any?
       nil
     end
     nil

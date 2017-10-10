@@ -3608,6 +3608,9 @@ interventions:
   procedure_name:
     type: string
     required: true
+  purchase_id:
+    type: integer
+    references: purchase
   request_compliant:
     type: boolean
   request_intervention_id:
@@ -4925,6 +4928,9 @@ parcel_items:
     references: delivery
   delivery_mode:
     type: string
+  equipment_id:
+    type: integer
+    references: equipment
   id:
     type: integer
     required: true
@@ -5043,6 +5049,9 @@ parcels:
     required: true
   in_preparation_at:
     type: datetime
+  intervention_id:
+    type: integer
+    references: intervention
   journal_entry_id:
     type: integer
     references: journal_entry
@@ -6437,8 +6446,6 @@ products:
     type: integer
   picture_updated_at:
     type: datetime
-  reading_cache:
-    type: jsonb
   team_id:
     type: integer
     references: team
@@ -6491,6 +6498,9 @@ purchase_items:
   depreciable_product_id:
     type: integer
     references: product
+  equipment_id:
+    type: integer
+    references: equipment
   fixed:
     type: boolean
     required: true
@@ -6555,7 +6565,6 @@ purchase_items:
   variant_id:
     type: integer
     references: product_nature_variant
-    required: true
 purchase_natures:
   active:
     type: boolean

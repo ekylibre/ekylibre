@@ -948,16 +948,19 @@ fra:
     add_polygon: "Ajouter un polygone"
     add_production: "Ajouter une production"
     add_purchase: "Ajouter un achat"
+    add_purchase_invoice: "Ajouter une facture d'achat"
     add_purchase_payment: "Ajouter un décaissement"
     add_purchase_taxation: "Ajouter une taxe d’achat"
     add_quickly_an_item: "Ajouter rapidement une ligne de produit"
     add_reading: "Ajouter une mesure pour un indicateur"
+    add_reception: "Ajouter une réception"
     add_regularization: "Ajouter une régularisation"
     add_revenue: "Ajouter une recette"
     add_sale: "Ajouter une vente"
     add_sale_taxation: "Ajouter une taxe de vente"
     add_season: "Ajouter une saison"
     add_service: "Ajouter un service"
+    add_service_delivering: "Ajouter une prestation de service"
     add_storing: "Ajouter une zone de stockage"
     add_subscription_for_sale_line: "Ajouter un abonnement pour la ligne N°%{position}"
     add_support: "Ajouter un support de production"
@@ -2112,6 +2115,7 @@ fra:
     sensor_model: "Modèle du capteur"
     sensors: "Capteurs"
     sequences_load: "Charger les séquences manquantes" #?
+    service_delivering: "Prestation de service"
     sessions: "Sessions"
     set_reconcilable_new_but_existing_third_accounts: "Rendre lettrables les nouveaux comptes tiers déjà existants"
     settings: "Configuration"
@@ -2180,6 +2184,7 @@ fra:
     supplier_informations: "Informations fournisseur"
     supplier_payment_mode: "Mode de paiement du fournisseur"
     supplier_receivables: "Fournisseurs d'exploitations et comptes rattachés"
+    supplier_reference: "Référence fournisseur"
     supply: "Livraison"
     support: "Support"
     supports: "Supports de production"
@@ -2371,7 +2376,7 @@ fra:
     vat_rate: "Taux TVA"
     video: "Vidéo" #?
     view: "Affichage"
-    view_map_when_creating_an_intervention: "Afficher la carte lors de la création d'intervention"
+    view_map_when_creating_an_intervention: "Afficher la carte lors de la création d'interventions"
     view_modes: #?
       printable: "Mode «\_Imprimable\_»" #?
       resized: "Mode «\_Tout à l’écran\_»" #?

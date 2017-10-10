@@ -28,6 +28,7 @@
 #  currency                      :string
 #  delivery_id                   :integer
 #  delivery_mode                 :string
+#  equipment_id                  :integer
 #  id                            :integer          not null, primary key
 #  lock_version                  :integer          default(0), not null
 #  non_compliant                 :boolean
@@ -63,10 +64,6 @@ class ParcelItem < Ekylibre::Record::Base
   belongs_to :analysis
   belongs_to :parcel, inverse_of: :items
   belongs_to :product
-  belongs_to :product_enjoyment,          dependent: :destroy
-  belongs_to :product_localization,       dependent: :destroy
-  belongs_to :product_ownership,          dependent: :destroy
-  belongs_to :product_movement,           dependent: :destroy
   belongs_to :purchase_item
   belongs_to :sale_item
   belongs_to :delivery
@@ -74,9 +71,14 @@ class ParcelItem < Ekylibre::Record::Base
   belongs_to :source_product, class_name: 'Product'
   belongs_to :source_product_movement, class_name: 'ProductMovement', dependent: :destroy
   belongs_to :variant, class_name: 'ProductNatureVariant'
+  belongs_to :equipment, class_name: 'ProductNatureVariant'
   has_one :nature, through: :variant
   has_one :storage, through: :parcel
   has_one :contract, through: :parcel
+  has_one :product_enjoyment, as: :originator, dependent: :destroy
+  has_one :product_localization, as: :originator, dependent: :destroy
+  has_one :product_movement, as: :originator, dependent: :destroy
+  has_one :product_ownership, as: :originator, dependent: :destroy
   has_many :storings, class_name: 'ParcelItemStoring', inverse_of: :parcel_item, foreign_key: :parcel_item_id, dependent: :destroy
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
@@ -218,8 +220,10 @@ class ParcelItem < Ekylibre::Record::Base
   # Mark items as given, and so change enjoyer and ownership if needed at
   # this moment.
   def give
-    give_outgoing if parcel_outgoing?
-    give_incoming if parcel_incoming?
+    transaction do
+      give_outgoing if parcel_outgoing?
+      give_incoming if parcel_incoming?
+    end
   end
 
   protected
@@ -246,19 +250,19 @@ class ParcelItem < Ekylibre::Record::Base
   end
 
   def give_incoming
-    create_product_movement!(product: product, delta: population, started_at: parcel_given_at, originator: self) unless product_is_unitary?
-    create_product_localization!(product: product, nature: :interior, container: storage, started_at: parcel_given_at, originator: self)
-    create_product_enjoyment!(product: product, enjoyer: Entity.of_company, nature: :own, started_at: parcel_given_at, originator: self)
-    create_product_ownership!(product: product, owner: Entity.of_company, nature: :own, started_at: parcel_given_at, originator: self) unless parcel_remain_owner
+    ProductMovement.create!(product: product, delta: population, started_at: parcel_given_at, originator: self) unless product_is_unitary?
+    ProductLocalization.create!(product: product, nature: :interior, container: storage, started_at: parcel_given_at, originator: self)
+    ProductEnjoyment.create!(product: product, enjoyer: Entity.of_company, nature: :own, started_at: parcel_given_at, originator: self)
+    ProductOwnership.create!(product: product, owner: Entity.of_company, nature: :own, started_at: parcel_given_at, originator: self) unless parcel_remain_owner
   end
 
   def give_outgoing
     if self.population == source_product.population(at: parcel_given_at) && !parcel_remain_owner
-      create_product_ownership!(product: product, owner: parcel_recipient, started_at: parcel_given_at, originator: self)
-      create_product_localization!(product: product, nature: :exterior, started_at: parcel_given_at, originator: self)
-      create_product_enjoyment!(product: product, enjoyer: parcel_recipient, nature: :other, started_at: parcel_given_at, originator: self)
+      ProductOwnership.create!(product: product, owner: parcel_recipient, started_at: parcel_given_at, originator: self)
+      ProductLocalization.create!(product: product, nature: :exterior, started_at: parcel_given_at, originator: self)
+      ProductEnjoyment.create!(product: product, enjoyer: parcel_recipient, nature: :other, started_at: parcel_given_at, originator: self)
     end
-    create_product_movement!(product: product, delta: -1 * population, started_at: parcel_given_at, originator: self)
+    ProductMovement.create!(product: product, delta: -1 * population, started_at: parcel_given_at, originator: self)
   end
 
   def existing_product_in_storage

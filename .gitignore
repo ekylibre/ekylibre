@@ -83,3 +83,6 @@ Procfile.*
 
 .byebug_history
 .gitconfig
+
+# Ignore file which enables to load specific tenant on rails console launch
+.pryrc

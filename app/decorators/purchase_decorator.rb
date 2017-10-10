@@ -16,11 +16,7 @@ class PurchaseDecorator < Draper::Decorator
   def total_vat_amount
     return 0 unless object.items.any?
 
-    object
-      .items
-      .map(&:tax)
-      .map(&:amount)
-      .inject(0, :+)
+    total_amount_including_taxes - total_amount_excluding_taxes
   end
 
   private

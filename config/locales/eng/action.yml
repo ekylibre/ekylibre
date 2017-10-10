@@ -390,6 +390,7 @@ eng:
       new_specified: "New %{procedure_name}" #?
       new_specified_request: "New requested %{procedure_name}" #?
       # purchase: "Purchase intervention: %{name}"
+      # purchase_order_items: "Purchase order items intervention: %{name}"
       # sell: "Sell intervention: %{name}"
       show: "%{procedure_name}"
     backend/inventories:
@@ -469,6 +470,8 @@ eng:
       index: "Manure management plans"
       new: "New manure management plan"
       show: "Manure management plan: %{name}"
+    backend/map_editor_shapes:
+      # index: "Map editor shapes"
     backend/map_editors:
       # upload: "Upload map editor: %{name}"
     backend/map_layers:
@@ -1055,16 +1058,19 @@ eng:
     add_polygon: "Add polygon"
     add_production: "Add production"
     add_purchase: "Add purchase"
+    add_purchase_invoice: "Add invoice"
     add_purchase_payment: "Add disbursement"
     add_purchase_taxation: "Add purchase taxation"
     add_quickly_an_item: "Add quickly a line of product"
     add_reading: "Add a value for an indicator"
+    add_reception: "Add reception"
     add_regularization: "Add regularization"
     add_revenue: "Add revenue"
     add_sale: "Add sale"
     add_sale_taxation: "Add sale taxation"
     add_season: "Add season"
     add_service: "Add service"
+    add_service_delivering: "Add service delivering"
     add_storing: "Add storing"
     add_subscription_for_sale_line: "Add subscription for sale line #%{position}"
     add_support: "Add support"
@@ -1340,7 +1346,7 @@ eng:
     entries: "Entries" #?
     entries_to_point: "Entries pointing to" #?!
     entry_items: "Entry items" #?
-    equipment: "Equipment" #?
+    equipment: "Equipment"
     equipment_name: "Name of equipment" #?
     equipments: "Equipment"
     equities: "Equities" #?!
@@ -1667,6 +1673,7 @@ eng:
     operations: "Operations" #?
     options: "Options"
     or: "Or"
+    # order: "Order"
     organic_matter_concentration: "Organic matter concentration" #?
     original_component: "original"
     other_debts: "Other debts" #?!
@@ -1717,7 +1724,7 @@ eng:
     picture: "Picture" #?
     placeholder: "Placeholder" #?
     places: "Places"
-    plant: "Crop"
+    plant: "Crop" #?
     plant_counting: "Counting" #?
     plant_countings: "Countings" #?
     plantation_density: "Plantation density" #?
@@ -1859,6 +1866,7 @@ eng:
     send_test_mail: "Send test mail"
     sensor_model: "Sensor model"
     sensors: "Sensors" #?
+    service_delivering: "Service delivering"
     sessions: "Sessions" #?
     set_reconcilable_new_but_existing_third_accounts: "Set reconcilable the new but existing third accounts (clients, suppliers and attorneys)" #?
     settings: "Settings"
@@ -1912,6 +1920,7 @@ eng:
     supplier_informations: "Supplier informations"
     supplier_payment_mode: "Supplier payment mode"
     supplier_receivables: "Supplier receivables" #?!
+    supplier_reference: "Supplier reference"
     supply: "Supply" #?
     support: "Support" #?
     supports: "Supports" #?
@@ -2473,6 +2482,7 @@ eng:
       propose_and_invoice: "Propose and invoice"
       prospect: "Prospect"
       purchase: "Turn into purchase"
+      # purchase_order_items: "Purchase order items"
       qualify: "Qualify"
       # quantifiers: "Quantifiers"
       quote: "Quote"

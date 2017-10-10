@@ -113,6 +113,7 @@ class ProductNatureVariant < Ekylibre::Record::Base
   scope :depreciables, -> { joins(:nature).merge(ProductNature.depreciables).order(:name) }
   scope :identifiables, -> { where(nature: ProductNature.identifiables) }
   scope :services, -> { where(nature: ProductNature.services) }
+  scope :tools, -> { where(nature: ProductNature.tools) }
 
   scope :derivative_of, proc { |*varieties| of_derivative_of(*varieties) }
 

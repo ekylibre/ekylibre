@@ -1,4 +1,10 @@
 FactoryGirl.define do
+  factory :activity do
+    sequence(:name)  { |n| "Fake Activity #{n}" }
+    family           :plant_farming
+    production_cycle :annual
+  end
+
   factory :corn_activity, class: Activity do
     sequence(:name)  { |n| "Corn - TEST#{n.to_s.rjust(8, '0')}" }
     family           :plant_farming

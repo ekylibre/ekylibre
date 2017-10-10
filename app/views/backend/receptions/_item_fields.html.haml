@@ -27,7 +27,7 @@
     %td.quantity-column
       %label
         %span{ data: { item_value: ".total-quantity" } }= f.object.population
-        %span{ data: { item_value: "span.item-population-unit-name" } }= f.object.variant ? f.object.variant.unit_name : '#'
+        %span{ data: { item_value: "span.storage-unit-name" } }= f.object.variant ? f.object.variant.unit_name : '#'
     %td.delivery-mode-column
       %label{ data: { item_value: "input.item-delivery-mode:checked" } }= f.object.delivery_mode if f.object.delivery_mode != "none"
   %tr.nested-item-form
@@ -72,7 +72,7 @@
                 %label.total-labels
                   %span.total= :total.tl
                   %span.total-quantity{ data: { calculate: "sum", use: ".storing-fields:not(.removed-nested-fields) .storing-quantity", use_closest: ".nested-item-form" } }= 0.0
-                  %span.item-population-unit-name
+                  %span{data: { 'when-item': 'unit_name', 'when-set-value': 'RECORD_VALUE', 'when-scope': 'unit'}}
                     = variant.unit_name.or_else('#')
             .item-block.item-delivery-mode
               = f.input :delivery_mode, as: :radio_buttons, collection: f.object.class.delivery_mode.values - ['none'], label_method: :l, input_html: { class: 'item-delivery-mode', data: {  input_to_show: '.transporter-delivery-mode', with_value: "transporter", use_as_value: '.transporter-delivery-mode > input.hidden' } }
@@ -87,6 +87,10 @@
                   = f.input_field :population, class: "total-quantity", placeholder: '0', data: {"when-item": "unitary", "when-set-value": 1, "when-prop-value": "disabled", required: true}
                   %span.add-on.item-population-unit-name
                     = variant.unit_name.or_else('#')
+
+        .form-field.second-row
+          .item-form
+            = f.referenced_association(:equipment, label: :equipment.tl, source: {scope: :tools}, input_html: {data: { remember: 'equipment'}})
 
         .buttons
           %button.btn{ data: { cancel: 'item-form' } }= :cancel.tl
