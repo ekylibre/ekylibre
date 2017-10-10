@@ -390,7 +390,6 @@ module Ekylibre
 
       def restore_v3(archive_path, name, options = {})
         restore_dump(archive_path, name, options) do |opt|
-          byebug
           tenant_name = opt[:tenant_name]
           restore_tables_v3(opt)
           Fixturing.migrate(tenant_name, { origin: opt[:version] })
