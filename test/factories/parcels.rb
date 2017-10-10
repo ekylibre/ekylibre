@@ -1,8 +1,8 @@
 FactoryGirl.define do
   factory :parcel do
-    association :address, factory: :entity_address
     association :sender, factory: :entity
     association :storage, factory: :product
+    association :address, factory: :entity_address
 
     factory :outgoing_parcel do
       nature :outgoing
