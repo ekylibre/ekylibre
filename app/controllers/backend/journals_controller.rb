@@ -88,6 +88,19 @@ module Backend
       t.column :absolute_debit,  currency: :absolute_currency, hidden: true
       t.column :absolute_credit, currency: :absolute_currency, hidden: true
     end
+    
+    def index
+      f = current_user.current_financial_year
+      document_name = "#{human_action_name}"
+      filename = "#{human_action_name}_#{Time.zone.now.l(format: '%Y%m%d%H%M%S')}"
+      @journal_ledger = JournalEntry.journal_ledger(f) if f
+      respond_to do |format|
+        format.html
+        format.odt do
+          send_data to_odt(@journal_ledger, document_name, filename, f).generate, type: 'application/vnd.oasis.opendocument.text', disposition: 'attachment', filename: filename << '.odt'
+        end
+      end
+    end
 
     # Displays details of one journal selected with +params[:id]+
     def show
@@ -180,5 +193,39 @@ module Backend
         end
       end
     end
+    
+    protected
+
+    def to_odt(journal_ledger, document_name, filename, f)
+      # TODO: add a generic template system path
+      report = ODFReport::Report.new(Rails.root.join('config', 'locales', 'fra', 'reporting', 'journal_ledger.odt')) do |r|
+        # TODO: add a helper with generic metod to implemend header and footer
+        
+        fy = f if f.is_a? FinancialYear
+        
+        e = Entity.of_company
+        company_name = e.full_name
+        company_address = e.default_mail_address.coordinate
+
+        r.add_field 'COMPANY_ADDRESS', company_address
+        r.add_field 'DOCUMENT_NAME', document_name
+        r.add_field 'FILENAME', filename
+        r.add_field 'PRINTED_AT', Time.zone.now.l(format: '%d/%m/%Y %T')
+        r.add_field 'STARTED_ON', fy.started_on.strftime('%d/%m/%Y') if fy
+        r.add_field 'STOPPED_ON', fy.stopped_on.strftime('%d/%m/%Y') if fy
+          
+          r.add_table('Tableau1', journal_ledger, header: true) do |t|
+            t.add_column(:entry_number) { |item| item[:entry_number] }
+            t.add_column(:printed_on) { |item| item[:printed_on] }
+            t.add_column(:journal_name) { |item| item[:journal_name] }
+            t.add_column(:state) { |item| item[:state] }
+            t.add_column(:real_debit) { |item| item[:real_debit] }
+            t.add_column(:real_credit) { |item| item[:real_credit] }
+            t.add_column(:balance) { |item| item[:balance] }
+          end
+        
+      end
+    end
+    
   end
 end

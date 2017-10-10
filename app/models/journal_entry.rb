@@ -411,4 +411,29 @@ class JournalEntry < Ekylibre::Record::Base
     return unless financial_year
     financial_year.exchanges.any? { |e| (e.started_on..e.stopped_on).cover?(printed_on) }
   end
+  
+  # this method loads the journal ledger for.the given financial year
+  def self.journal_ledger(financial_year)
+    ledger = []
+    
+    fy = financial_year if financial_year.is_a? FinancialYear
+    
+    je = fy.journal_entries.order('journal_entries.printed_on ASC, journal_entries.number ASC')
+
+    je.each do |e|
+      item = HashWithIndifferentAccess.new
+      item[:entry_number] = e.number
+      item[:printed_on] = e.printed_on.strftime('%d/%m/%Y')
+      item[:journal_name] = e.journal.name.to_s
+      item[:state] = e.state
+      item[:real_debit] = e.real_debit
+      item[:real_credit] = e.real_credit
+      item[:balance] = e.balance
+      
+      ledger << item
+    end
+
+    ledger.compact
+  end
+  
 end

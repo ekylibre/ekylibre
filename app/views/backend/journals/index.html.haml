@@ -1,4 +1,9 @@
+- main_financial_year_selector(params[:current_financial_year] || current_user.current_financial_year.id)
+
 - main_toolbar do |t|
   = t.new params: { redirect: nil }
   = t.bookkeep
+  = dropdown_menu_button(:export.ta, icon: :download) do |d|
+    - export_params = {}
+    - d.item :export_as_odt.tl, params: export_params.merge(format: :odt)
 = main_list
