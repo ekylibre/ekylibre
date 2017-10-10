@@ -65,7 +65,7 @@ class ActivityProductionTest < ActiveSupport::TestCase
     assert !p.save, p.errors.inspect
   end
 
-  test "harvest_yield returns a measure" do
+  test 'harvest_yield returns a measure' do
     cultivable_zone = create(:cultivable_zone)
     activity_production = create(:activity_production, cultivable_zone: cultivable_zone)
     result = activity_production.harvest_yield(:grass, procedure_category: :harvesting,
@@ -75,5 +75,3 @@ class ActivityProductionTest < ActiveSupport::TestCase
     assert_equal Measure, result.class
   end
 end
-
-
