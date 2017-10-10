@@ -46,6 +46,7 @@
 #  pretax_amount                        :decimal(19, 4)   default(0.0), not null
 #  purchase_id                          :integer
 #  recipient_id                         :integer
+#  reconciliation_state                 :string
 #  reference_number                     :string
 #  remain_owner                         :boolean          default(FALSE), not null
 #  responsible_id                       :integer
@@ -68,6 +69,8 @@ class Reception < Parcel
   validates :sender, presence: true
   # validates :storage, presence: true
 
+  accepts_nested_attributes_for :purchases
+
   before_validation do
     self.nature = 'incoming'
   end
@@ -75,6 +78,12 @@ class Reception < Parcel
   after_initialize do
     self.address ||= Entity.of_company.default_mail_address if new_record?
   end
+
+  # state_machine :reconciliation_state, initial: :to_reconciliate do
+  #  state :to_reconciliate
+  #  state :reconciled
+  #  state :accepted
+  # end
 
   # This method permits to add stock journal entries corresponding to the
   # incoming or outgoing parcels.

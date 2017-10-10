@@ -648,6 +648,7 @@ eng:
       # index: "Purchase orders"
       # new: "New purchase order"
       # open: "Open purchase order: %{name}"
+      # reconciliate_modal: "Reconciliate modal purchase order: %{name}"
       # show: "Purchase order: %{name}"
     backend/purchase_payments:
       edit: "Edit disbursement: %{number}"
@@ -983,6 +984,7 @@ eng:
       zoomInTitle: "Zoom in"
       zoomOutTitle: "Zoom out"
   labels:
+    accepted_for_paiment: "Accepted for paiment"
     access: "Access"
     access_parameters: "Access parameters"
     account_for: "Account for"
@@ -1324,6 +1326,7 @@ eng:
     edit_budget: "Edit budget"
     ekylibre: "www.ekylibre.org" #?
     elapsed_interventions_times_by_activities: "Elapsed interventions times by activities" #?
+    element_status: "Status"
     email: "Email:" #?
     emissions_and_reevaluation_gaps: "Emissions and reevaluation gaps" #?!
     employee_and_wages: "Employee and wages" #?!
@@ -1561,7 +1564,7 @@ eng:
     maximum_amount: "Maximum amount"
     members: "Members"
     menus: "Menus"
-    merchandise: "Merchandise" #?
+    merchandise: "Merchandise"
     merchandises_purchases: "Merchandises purchases" #?!
     merchandises_purchases_stocks_variation: "Merchandises purchases stocks variation" #?!
     merchandises_services_costs: "Merchandises, services or costs"
@@ -1641,7 +1644,7 @@ eng:
     # no_worker_account: "No worker account"
     nominal_storable_easement_area: "Nominal storable easement area"
     non_compliant: "Non compliant"
-    non_compliant_with_request: "Non compliant with request" #?!
+    non_compliant_with_request: "Non compliant with request"
     none: "None"
     normal: "Normal" #?
     not_delivered: "Not delivered" #?
@@ -1767,7 +1770,7 @@ eng:
     purchases_stocks_variation: "Purchases stocks variation" #?!
     quality: "Quality"
     quandl: "Quandl" #?
-    quantity: "Quantity" #?
+    quantity: "Quantity"
     query: "Query:" #?
     raw_income: "Raw income"
     reading_tasks: "Reading tasks" #?
@@ -1782,6 +1785,8 @@ eng:
     reception_incident: "Reception incident"
     reception_number: "Reception number"
     receptions: "Receptions"
+    reconcile: "Reconcile"
+    reconciliate_with_purchases_orders: "Reconciliate with purchases orders"
     record: "Record" #?
     record_maintenance: "Record maintenance"
     reflect: "Reflect" #?
@@ -1943,6 +1948,7 @@ eng:
     to_deposit_now: "To deposit now" #?
     to_pay: "To pay"
     to_reclaim: "To reclaim"
+    to_reconciliate: "To reconciliate"
     today: "Today" #?
     tool_cost: "Tool cost"
     tools: "Tools"
@@ -2471,6 +2477,7 @@ eng:
       # quantifiers: "Quantifiers"
       quote: "Quote"
       # reconciliate: "Reconciliate"
+      # reconciliate_modal: "Reconciliate modal"
       reconciliation: "Reconciliate"
       reflect: "Reflect"
       refresh: "Refresh"

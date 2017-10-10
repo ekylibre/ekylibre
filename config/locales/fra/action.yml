@@ -855,6 +855,7 @@ fra:
       zoomOutTitle: "Dézoomer"
   labels:
     abilities: "Compétences" #?
+    accepted_for_paiment: "Acceptée pour paiement"
     access: "Accès"
     access_parameters: "Paramètres de connexion"
     account_accruals: "Comptes de régularisation" #?
@@ -1308,6 +1309,7 @@ fra:
     edit_budget: "Modifier le budget"
     ekylibre: "www.ekylibre.org"
     elapsed_interventions_times_by_activities: "Temps passé par activité"
+    element_status: "Statut"
     email: "Email:"
     emissions_and_reevaluation_gaps: "Ecart de réévaluation, primes d’émission"
     employee: "Employé" #?
@@ -1966,6 +1968,8 @@ fra:
     reception_incident: "Réception en incident"
     reception_number: "N° du bon de réception"
     receptions: "Réceptions"
+    reconcile: "Rapprochée"
+    reconciliate_with_purchases_orders: "Rapprocher avec une ou des commandes"
     record: "Enregistrement"
     record_has_been_correctly_removed: "L’enregistrement a été supprimé correctement." #?
     record_has_not_been_removed: "L’enregistrement n’a pu être supprimé." #?
@@ -2225,6 +2229,7 @@ fra:
     to_deposit_now: "À encaisser maintenant"
     to_pay: "À payer"
     to_reclaim: "À réclamer"
+    to_reconciliate: "Á rapprocher"
     today: "Aujourd’hui"
     tool_cost: "Coût de matériel"
     tool_cost_per_hectare: "Coût de matériel par hectare" #?

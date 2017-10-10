@@ -1283,6 +1283,7 @@ jpn:
     recommended: "推奨されます"
     recommender: "推薦"
     reconcilable: "調停できます"
+    # reconciliation_state: "Reconciliation state"
     record_interventions: "レコード介入"
     record_value: "レコードの値"
     record_value_type: "レコード値の型"

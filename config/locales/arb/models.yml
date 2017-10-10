@@ -2184,6 +2184,7 @@ arb:
     recommended: "موصى به"
     recommender: "المزكي"
     reconcilable: "مصالحتها"
+    # reconciliation_state: "Reconciliation state"
     record_interventions: "التدخلات سجل"
     record_value: "التسجيل"
     record_value_id: "تسجيل" #?

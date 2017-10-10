@@ -2128,6 +2128,7 @@
     <group>
       <item name="purchase_orders">
         <page to="backend/purchase_orders#list_parcels"/>
+        <page to="backend/purchase_orders#reconciliate_modal"/>
       </item>
       <item name="purchases">
         <page to="backend/purchases#index"/>

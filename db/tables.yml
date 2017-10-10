@@ -5077,6 +5077,8 @@ parcels:
   recipient_id:
     type: integer
     references: entity
+  reconciliation_state:
+    type: string
   reference_number:
     type: string
   remain_owner:

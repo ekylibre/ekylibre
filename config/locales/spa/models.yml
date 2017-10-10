@@ -1287,6 +1287,7 @@ spa:
     recommended: "Recomendado"
     recommender: "Recomendador"
     reconcilable: "Conciliable"
+    # reconciliation_state: "Reconciliation state"
     record_interventions: "Intervenciones de registro"
     record_value: "Valor de registro"
     record_value_type: "Registro de tipo de valor"

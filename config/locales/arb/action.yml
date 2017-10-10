@@ -969,6 +969,7 @@ arb:
       zoomInTitle: "تكبير"
       zoomOutTitle: "تصغير"
   labels:
+    # accepted_for_paiment: "Accepted for paiment"
     access: "وصول"
     access_parameters: "المعلمات وصول"
     account_accruals: "حسابات الاستحقاق" #?
@@ -1413,6 +1414,7 @@ arb:
     edit_budget: "تحرير الميزانية"
     ekylibre: "www.ekylibre.org"
     elapsed_interventions_times_by_activities: "التدخلات مرات المنقضي من الأنشطة"
+    # element_status: "Status"
     email: "البريد الإلكتروني:"
     emissions_and_reevaluation_gaps: "الانبعاثات والثغرات إعادة تقييم"
     employee_and_wages: "الموظفين والأجور"
@@ -2078,6 +2080,8 @@ arb:
     # reception_incident: "Reception incident"
     # reception_number: "Reception number"
     # receptions: "Receptions"
+    # reconcile: "Reconcile"
+    # reconciliate_with_purchases_orders: "Reconciliate with purchases orders"
     record: "سجل"
     record_has_been_correctly_removed: "قد تم حذف السجلات بشكل صحيح" #?
     record_has_not_been_removed: "لم يتم حذف السجلات" #?
@@ -2316,6 +2320,7 @@ arb:
     to_deposit_now: "إيداع الآن"
     to_pay: "لدفع"
     to_reclaim: "لاستعادة"
+    # to_reconciliate: "To reconciliate"
     today: "اليوم"
     tool_cost: "تكلفة أداة"
     tool_create: "اضافة مادة" #?

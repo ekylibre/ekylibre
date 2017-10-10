@@ -37,6 +37,14 @@
           storageContainer.on 'cocoon:after-insert cocoon:after-remove', ->
             E.toggleValidateButton(that)
 
+    $('.new_reception, .edit_reception').on 'change', '#reception_reconciliation_state', (event) ->
+      checked = $(event.target).is(':checked')
+
+      if checked
+        $(event.target).val('accepted')
+      else
+        $(event.target).val('to_reconciliate')
+
     $('#showReconciliationModal').on 'click', ->
       datas = {}
 
@@ -45,7 +53,7 @@
         data: datas
         success: (data, status, request) ->
 
-          @reconciliationModal= new ekylibre.modal('#reconciliation')
+          @reconciliationModal= new ekylibre.modal('#purchase_process_reconciliation')
           @reconciliationModal.removeModalContent()
           @reconciliationModal.getModalContent().append(data)
           @reconciliationModal.getModal().modal 'show'

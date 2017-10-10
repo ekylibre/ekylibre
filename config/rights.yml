@@ -134,6 +134,7 @@
 #     - "backend/product_nature_variants#quantifiers"
 #     - "backend/products#take"
 #     - "backend/purchase_orders#list_parcels"
+#     - "backend/purchase_orders#reconciliate_modal"
 #     - "backend/purchases#destroy"
 #     - "backend/purchases#edit"
 #     - "backend/purchases#index"
