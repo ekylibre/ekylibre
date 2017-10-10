@@ -63,11 +63,30 @@ class TargetDistribution < Ekylibre::Record::Base
     end
   end
 
+  class << self
+    def find(**args, &block)
+      Rails.logger.warn "!! TargetDistribution model is deprecated !!"
+      super
+    end
+
+    def where(**args, &block)
+      Rails.logger.warn "!! TargetDistribution model is deprecated !!"
+      super
+    end
+
+    def new(**args, &block)
+      Rails.logger.warn "!! TargetDistribution model is deprecated !!"
+      super
+    end
+  end
+
   def siblings
+    Rails.logger.warn "!! TargetDistribution model is deprecated !!"
     target.distributions unless target.nil?
   end
 
   def started_on
+    Rails.logger.warn "!! TargetDistribution model is deprecated !!"
     return started_at.to_date unless started_at.nil? || started_at == Time.new(1, 1, 1, 0, 0, 0, '+00:00')
     on = begin
            Date.civil(stopped_at.year, stopped_at.month, stopped_at.day)
@@ -84,6 +103,7 @@ class TargetDistribution < Ekylibre::Record::Base
   end
 
   def stopped_on
+    Rails.logger.warn "!! TargetDistribution model is deprecated !!"
     return stopped_at.to_date unless stopped_at.nil?
     on = begin
            Date.civil(started_on.year, started_on.month, started_on.day)
@@ -97,6 +117,7 @@ class TargetDistribution < Ekylibre::Record::Base
 
   class << self
     def distributed?
+      Rails.logger.warn "!! TargetDistribution model is deprecated !!"
       InterventionTarget.where.not(product_id: TargetDistribution.select(:target_id)).select(:product_id).distinct.none?
     end
   end
