@@ -9,7 +9,9 @@ module Backend
         v.control :scale
         v.control :fullscreen
         v.control :layer_selector
-        v.center Plant.first.shape_centroid
+        if Plant.last.shape_centroid.present?
+          v.center Plant.first.shape_centroid
+        end
       end
     end
 
