@@ -630,7 +630,7 @@ class Account < Ekylibre::Record::Base
                           #.joins("INNER JOIN #{JournalEntry.table_name} AS r ON r.id=#{JournalEntryItem.table_name}.entry_id")
                           #.joins("INNER JOIN #{Account.table_name} AS a ON a.id=#{JournalEntryItem.table_name}.account_id")
       
-      # entries = []
+      account_entry = HashWithIndifferentAccess.new
       # compute << account.number.to_i
       # compute << account.name.to_s
       account_balance = 0.0
@@ -638,41 +638,38 @@ class Account < Ekylibre::Record::Base
       total_credit = 0.0
       entry_count = 0
       
+      account_entry[:account_number] = account.number
+      account_entry [:account_name] = account.name
+      account_entry [:currency] = journal_entry_items.first.currency if journal_entry_items.any?
       
-      header = HashWithIndifferentAccess.new
-      header[:type] = "header"
-      header[:account_number] = account.number
-      header [:account_name] = account.name
-      ledger << header
+      
+      account_entry[:items] = []
       
       journal_entry_items.each do |e|
-        body = HashWithIndifferentAccess.new
-        body[:type] = "body"
-        body[:account_number] = account.number
-        body[:entry_number] = e.entry_number
-        body[:printed_on] = e.printed_on.to_s
-        body[:name] = e.name.to_s
-        body[:variant] = (e.variant ? e.variant.name : '')
-        body[:journal_name] = e.entry.journal.name.to_s
-        body[:letter] = e.letter
-        body[:real_debit] = e.real_debit
-        body[:real_credit] = e.real_credit
-        body[:cumulated_balance] = (account_balance += (e.real_debit - e.real_credit))
-        ledger << body
+        item = HashWithIndifferentAccess.new
+        item[:entry_number] = e.entry_number
+        item[:printed_on] = e.printed_on.strftime('%d/%m/%Y')
+        item[:name] = e.name.to_s
+        item[:variant] = (e.variant ? e.variant.name : '')
+        item[:journal_name] = e.entry.journal.name.to_s
+        item[:letter] = e.letter
+        item[:real_debit] = e.real_debit
+        item[:real_credit] = e.real_credit
+        item[:cumulated_balance] = (account_balance += (e.real_debit - e.real_credit))
+        
+        account_entry[:items] << item
+        
         total_debit += e.real_debit
         total_credit += e.real_credit
         entry_count += 1
       end
       
-      footer = HashWithIndifferentAccess.new
-      footer[:type] = "footer"
-      footer[:account_number] = account.number
-      footer[:count] = "#{entry_count}"
-      footer[:total_debit] = total_debit
-      footer[:total_credit] = total_credit
-      ledger << footer
+      account_entry[:count] = "#{entry_count}"
+      account_entry[:total_debit] = total_debit
+      account_entry[:total_credit] = total_credit
       
-      # ledger << compute
+      ledger << account_entry
+
     end
 
     ledger.compact

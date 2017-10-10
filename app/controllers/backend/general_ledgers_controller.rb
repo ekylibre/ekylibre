@@ -53,7 +53,8 @@ module Backend
     end
 
     def show
-      filename = "#{human_action_name} #{Time.zone.now.l(format: '%Y-%m-%d')}"
+      document_name = "#{human_action_name}"
+      filename = "#{human_action_name}_#{Time.zone.now.l(format: '%Y%m%d%H%M%S')}"
       @general_ledger = Account.ledger(params[:started_on], params[:stopped_on]) if params[:period]
       respond_to do |format|
         format.html
@@ -76,14 +77,14 @@ module Backend
           send_data(csv_string, filename: filename << '.csv')
         end
         format.odt do
-          send_data to_odt(@general_ledger, filename, params[:period]).generate, type: 'application/vnd.oasis.opendocument.text', disposition: 'attachment', filename: filename << '.odt'
+          send_data to_odt(@general_ledger, document_name, filename, params).generate, type: 'application/vnd.oasis.opendocument.text', disposition: 'attachment', filename: filename << '.odt'
         end
       end
     end
     
     protected
 
-    def to_odt(general_ledger, filename, period)
+    def to_odt(general_ledger, document_name, filename, params)
       # TODO: add a generic template system path
       report = ODFReport::Report.new(Rails.root.join('config', 'locales', 'fra', 'reporting', 'general_ledger.odt')) do |r|
         # TODO: add a helper with generic metod to implemend header and footer
@@ -93,21 +94,37 @@ module Backend
         company_address = e.default_mail_address.coordinate
 
         r.add_field 'COMPANY_ADDRESS', company_address
-        r.add_field 'FILE_NAME', filename
-        r.add_field 'PERIOD', period
+        r.add_field 'DOCUMENT_NAME', document_name
+        r.add_field 'FILENAME', filename
+        r.add_field 'PRINTED_AT', Time.zone.now.l(format: '%d/%m/%Y %T')
+        r.add_field 'STARTED_ON', params[:started_on].to_date.strftime('%d/%m/%Y') if params[:period]
+        r.add_field 'STOPPED_ON', params[:stopped_on].to_date.strftime('%d/%m/%Y') if params[:period]
         
-        
-        
-        r.add_table('Tableau1', general_ledger, header: false) do |t|
-          t.add_column(:account_name) do |item|
-            item[:account_name] if item[:type] == "header"
+        r.add_section("Section1", general_ledger) do |s|
+          
+          puts s.inspect.red
+          
+          s.add_field(:account_number,    :account_number)
+          s.add_field(:account_name,    :account_name)
+          s.add_field(:count,    :count)
+          s.add_field(:currency,    :currency)
+          s.add_field(:total_debit,    :total_debit)
+          s.add_field(:total_credit,    :total_credit)
+          s.add_field(:total_cumulated_balance) do |acc|
+            acc[:total_debit] - acc[:total_credit]
           end
-          t.add_column(:account_number) { |item| item[:account_number] }
-          t.add_column(:entry_number) { |item| item[:entry_number] }
-          t.add_column(:printed_on) { |item| item[:printed_on] }
-          t.add_column(:name) { |item| item[:name] }
-          t.add_column(:variant) { |item| item[:variant] }
-          t.add_column(:journal_name) { |item| item[:journal_name] }
+          
+          s.add_table('Tableau1', :items, header: true) do |t|
+            t.add_column(:entry_number) { |item| item[:entry_number] }
+            t.add_column(:printed_on) { |item| item[:printed_on] }
+            t.add_column(:name) { |item| item[:name] }
+            t.add_column(:variant) { |item| item[:variant] }
+            t.add_column(:journal_name) { |item| item[:journal_name] }
+            t.add_column(:letter) { |item| item[:letter] }
+            t.add_column(:real_debit) { |item| item[:real_debit] }
+            t.add_column(:real_credit) { |item| item[:real_credit] }
+            t.add_column(:cumulated_balance) { |item| item[:cumulated_balance] }
+          end
           
         end
         
