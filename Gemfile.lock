@@ -24,7 +24,7 @@ GEM
       rails-html-sanitizer (~> 1.0, >= 1.0.3)
     active_list (6.9.3)
       arel (>= 5.0.0)
-      code_string (>= 0.0.0)
+      code_string
       i18n-complements
       rails (>= 3.2, < 5.0.0)
       rubyzip (>= 1.0)
@@ -252,6 +252,10 @@ GEM
       kaminari-core (= 1.0.1)
     kaminari-core (1.0.1)
     kgio (2.11.0)
+    launchy (2.4.3)
+      addressable (~> 2.3)
+    letter_opener (1.4.1)
+      launchy (~> 2.2)
     libv8 (3.16.14.19)
     loofah (2.1.1)
       crass (~> 1.0.2)
@@ -627,6 +631,7 @@ DEPENDENCIES
   jquery-turbolinks
   jquery-ui-rails
   kaminari
+  letter_opener
   luhn
   mail (~> 2.6.6.rc1)
   mechanize
@@ -693,4 +698,4 @@ RUBY VERSION
    ruby 2.2.7p470
 
 BUNDLED WITH
-   1.14.6
+   1.15.4
