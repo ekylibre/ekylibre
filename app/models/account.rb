@@ -616,15 +616,12 @@ class Account < Ekylibre::Record::Base
   # this method loads the general ledger for all the accounts.
   def self.ledger(from, to)
     ledger = []
-    accounts = Account.used_between(from, to).reorder('number ASC')
+    accounts = Account.includes(journal_entry_items: [:entry, :variant]).where(journal_entry_items: {printed_on: from..to}).reorder('accounts.number ASC, journal_entries.number ASC')
 
     accounts.each do |account|
       # compute = [] # HashWithIndifferentAccess.new
 
       journal_entry_items = account.journal_entry_items
-                                   .includes(:entry, :variant)
-                                   .where(printed_on: from..to)
-                                   .order('journal_entries.number ASC')
       # .joins("INNER JOIN #{JournalEntry.table_name} AS r ON r.id=#{JournalEntryItem.table_name}.entry_id")
       # .joins("INNER JOIN #{Account.table_name} AS a ON a.id=#{JournalEntryItem.table_name}.account_id")
 

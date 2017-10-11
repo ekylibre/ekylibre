@@ -101,7 +101,6 @@ module Backend
         r.add_field 'STOPPED_ON', params[:stopped_on].to_date.strftime('%d/%m/%Y') if params[:period]
 
         r.add_section('Section1', general_ledger) do |s|
-          puts s.inspect.red
 
           s.add_field(:account_number, :account_number)
           s.add_field(:account_name, :account_name)
