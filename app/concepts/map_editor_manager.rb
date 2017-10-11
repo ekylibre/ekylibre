@@ -40,20 +40,30 @@ class MapEditorManager
 
     def land_parcels_serie(options = {})
       land_parcels = LandParcel.at(options[:started_at]).collect do |l|
-        next if l.shape.nil?
-        { shape: l.shape }
+        next unless l.shape
+
+        [l.shape.to_text, {}]
       end.compact
 
-      Charta.new_collection(land_parcels).to_json_object(true)
+      shapes = land_parcels.collect(&:first)
+      properties = land_parcels.collect(&:second)
+
+      collection = Charta.new_geometry("GEOMETRYCOLLECTION(#{shapes.join(',')})")
+      collection.to_json_feature_collection(properties)
     end
 
     def plants_serie(options = {})
       plants = Plant.at(options[:started_at]).collect do |l|
-        next if l.shape.nil?
-        { name: l.name, shape: l.shape, variety: Nomen::Variety[l.variety].human_name, color: Activity.color(:plant_farming, l.variety), fillColor: Activity.color(:plant_farming, l.variety) }
+        next unless l.shape
+
+        [l.shape.to_text, { name: l.name, variety: Nomen::Variety[l.variety].human_name, color: Activity.color(:plant_farming, l.variety), fillColor: Activity.color(:plant_farming, l.variety) }]
       end.compact
 
-      Charta.new_collection(plants).to_json_object(true)
+      shapes = plants.collect(&:first)
+      properties = plants.collect(&:second)
+
+      collection = Charta.new_geometry("GEOMETRYCOLLECTION(#{shapes.join(',')})")
+      collection.to_json_feature_collection(properties)
     end
   end
 end

@@ -41,13 +41,13 @@ FactoryGirl.define do
 
     trait :multi_polygon do
       indicator_name      'shape'
-      multi_polygon_value Charta::Geometry.new('SRID=4326;MULTIPOLYGON(((-0.792698263903731 45.822036886905,-0.792483687182539 45.8222985746827,-0.792043804904097 45.8220069796521,-0.792430043002241 45.8215882764244,-0.792698263903731 45.822036886905)))')
+      multi_polygon_value Charta.new_geometry('SRID=4326;MULTIPOLYGON(((-0.792698263903731 45.822036886905,-0.792483687182539 45.8222985746827,-0.792043804904097 45.8220069796521,-0.792430043002241 45.8215882764244,-0.792698263903731 45.822036886905)))')
       indicator_datatype  :multi_polygon
     end
 
     trait :point do
       indicator_name     'geolocation'
-      point_value        Charta::Point.new('SRID=4326;POINT(-0.783801558989031 45.8279122127986)')
+      point_value        Charta.new_geometry('SRID=4326;POINT(-0.783801558989031 45.8279122127986)')
       indicator_datatype :point
     end
 

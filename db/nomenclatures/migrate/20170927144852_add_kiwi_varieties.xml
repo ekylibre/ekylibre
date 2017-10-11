@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<migration name="Add kiwi varieties">
+  <item-creation item="varieties#actinidiaceae" parent="plant" itis_tsn="21393"/>
+  <item-creation item="varieties#actinidia" parent="actinidiaceae" itis_tsn="500824"/>
+  <item-creation item="varieties#actinidia_deliciosa" parent="actinidia"/>
+  <item-creation item="varieties#actinidia_chinensis" parent="actinidia" itis_tsn="506775"/>
+</migration>

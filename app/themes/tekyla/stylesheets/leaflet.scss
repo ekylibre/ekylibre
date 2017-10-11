@@ -1078,15 +1078,28 @@ span.leaflet-importer-geojson, span.leaflet-importer-gml {
   }
 }
 
-.leaflet-dynamic-loading {
+.leaflet-dynamic {
   color: $text-color;
-  @include is-icon;
-  @include use-icon(circle-o-notch);
-  @include animation(loading-rotate 2s infinite linear);
   @include text-align(center);
-  width: $map-button-size;
-  height: $map-button-size;
-  line-height: $map-button-size;
-  background-color: $white;
-  border-radius: 50%;
+
+  &.loading {
+    @include is-icon;
+    @include use-icon(circle-o-notch);
+    @include animation(loading-rotate 2s infinite linear);
+    width: $map-button-size;
+    height: $map-button-size;
+    line-height: $map-button-size;
+    background-color: $white;
+    border-radius: 50%;
+  }
+
+  &.error {
+    @include is-icon;
+    @include use-icon(exclamation-circle);
+    width: $map-button-size;
+    height: $map-button-size;
+    line-height: $map-button-size;
+    background-color: $white;
+    border-radius: 50%;
+  }
 }
