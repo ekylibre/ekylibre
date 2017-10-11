@@ -436,5 +436,4 @@ class JournalEntryItem < Ekylibre::Record::Base
     third_parties = Entity.uniq.where('client_account_id = ? OR supplier_account_id = ? OR employee_account_id = ?', account.id, account.id, account.id)
     third_parties.take if third_parties.count == 1
   end
-  
 end

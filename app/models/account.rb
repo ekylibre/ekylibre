@@ -292,14 +292,12 @@ class Account < Ekylibre::Record::Base
       raise ArgumentError, "The usage #{usage.inspect} is unknown" unless item
       raise ArgumentError, "The usage #{usage.inspect} is not implemented in #{accounting_system.inspect}" unless item.send(accounting_system)
       account = find_in_nomenclature(usage)
-      unless account
-        account = create!(
-          name: item.human_name,
-          number: item.send(accounting_system),
-          debtor: !!item.debtor,
-          usages: item.name
-        )
-      end
+      account ||= create!(
+        name: item.human_name,
+        number: item.send(accounting_system),
+        debtor: !!item.debtor,
+        usages: item.name
+      )
       account
     end
     alias import_from_nomenclature find_or_import_from_nomenclature
@@ -615,21 +613,21 @@ class Account < Ekylibre::Record::Base
     balance.compact
   end
 
-  # this method loads the general ledger for.all the accounts.
+  # this method loads the general ledger for all the accounts.
   def self.ledger(from, to)
     ledger = []
     accounts = Account.used_between(from, to).reorder('number ASC')
-    
+
     accounts.each do |account|
       # compute = [] # HashWithIndifferentAccess.new
 
       journal_entry_items = account.journal_entry_items
-                          .includes(:entry, :variant)
-                          .where('printed_on' => from..to)
-                          .order('journal_entries.number ASC')
-                          #.joins("INNER JOIN #{JournalEntry.table_name} AS r ON r.id=#{JournalEntryItem.table_name}.entry_id")
-                          #.joins("INNER JOIN #{Account.table_name} AS a ON a.id=#{JournalEntryItem.table_name}.account_id")
-      
+                                   .includes(:entry, :variant)
+                                   .where(printed_on: from..to)
+                                   .order('journal_entries.number ASC')
+      # .joins("INNER JOIN #{JournalEntry.table_name} AS r ON r.id=#{JournalEntryItem.table_name}.entry_id")
+      # .joins("INNER JOIN #{Account.table_name} AS a ON a.id=#{JournalEntryItem.table_name}.account_id")
+
       account_entry = HashWithIndifferentAccess.new
       # compute << account.number.to_i
       # compute << account.name.to_s
@@ -637,14 +635,13 @@ class Account < Ekylibre::Record::Base
       total_debit = 0.0
       total_credit = 0.0
       entry_count = 0
-      
+
       account_entry[:account_number] = account.number
       account_entry [:account_name] = account.name
       account_entry [:currency] = journal_entry_items.first.currency if journal_entry_items.any?
-      
-      
+
       account_entry[:items] = []
-      
+
       journal_entry_items.each do |e|
         item = HashWithIndifferentAccess.new
         item[:entry_number] = e.entry_number
@@ -656,20 +653,19 @@ class Account < Ekylibre::Record::Base
         item[:real_debit] = e.real_debit
         item[:real_credit] = e.real_credit
         item[:cumulated_balance] = (account_balance += (e.real_debit - e.real_credit))
-        
+
         account_entry[:items] << item
-        
+
         total_debit += e.real_debit
         total_credit += e.real_credit
         entry_count += 1
       end
-      
-      account_entry[:count] = "#{entry_count}"
+
+      account_entry[:count] = entry_count.to_s
       account_entry[:total_debit] = total_debit
       account_entry[:total_credit] = total_credit
-      
-      ledger << account_entry
 
+      ledger << account_entry
     end
 
     ledger.compact

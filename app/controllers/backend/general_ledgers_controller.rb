@@ -53,7 +53,7 @@ module Backend
     end
 
     def show
-      document_name = "#{human_action_name}"
+      document_name = human_action_name.to_s
       filename = "#{human_action_name}_#{Time.zone.now.l(format: '%Y%m%d%H%M%S')}"
       @general_ledger = Account.ledger(params[:started_on], params[:stopped_on]) if params[:period]
       respond_to do |format|
@@ -81,7 +81,7 @@ module Backend
         end
       end
     end
-    
+
     protected
 
     def to_odt(general_ledger, document_name, filename, params)
@@ -99,21 +99,20 @@ module Backend
         r.add_field 'PRINTED_AT', Time.zone.now.l(format: '%d/%m/%Y %T')
         r.add_field 'STARTED_ON', params[:started_on].to_date.strftime('%d/%m/%Y') if params[:period]
         r.add_field 'STOPPED_ON', params[:stopped_on].to_date.strftime('%d/%m/%Y') if params[:period]
-        
-        r.add_section("Section1", general_ledger) do |s|
-          
+
+        r.add_section('Section1', general_ledger) do |s|
           puts s.inspect.red
-          
-          s.add_field(:account_number,    :account_number)
-          s.add_field(:account_name,    :account_name)
-          s.add_field(:count,    :count)
-          s.add_field(:currency,    :currency)
-          s.add_field(:total_debit,    :total_debit)
-          s.add_field(:total_credit,    :total_credit)
+
+          s.add_field(:account_number, :account_number)
+          s.add_field(:account_name, :account_name)
+          s.add_field(:count, :count)
+          s.add_field(:currency, :currency)
+          s.add_field(:total_debit, :total_debit)
+          s.add_field(:total_credit, :total_credit)
           s.add_field(:total_cumulated_balance) do |acc|
             acc[:total_debit] - acc[:total_credit]
           end
-          
+
           s.add_table('Tableau1', :items, header: true) do |t|
             t.add_column(:entry_number) { |item| item[:entry_number] }
             t.add_column(:printed_on) { |item| item[:printed_on] }
@@ -125,12 +124,10 @@ module Backend
             t.add_column(:real_credit) { |item| item[:real_credit] }
             t.add_column(:cumulated_balance) { |item| item[:cumulated_balance] }
           end
-          
         end
-        
       end
     end
-    
+
     def to_ods(general_ledger)
       require 'rodf'
       output = RODF::Spreadsheet.new
@@ -153,11 +150,11 @@ module Backend
           property :text, 'font-style': :italic
         end
 
-        table "ledger" do
+        table 'ledger' do
           row do
             cell JournalEntryItem.human_attribute_name(:account_number), style: :head
             cell JournalEntryItem.human_attribute_name(:account_name), style: :head
-            cell JournalEntryItem.human_attribute_name(:entry_number), style: :head    
+            cell JournalEntryItem.human_attribute_name(:entry_number), style: :head
             cell JournalEntryItem.human_attribute_name(:printed_on), style: :head
             cell JournalEntryItem.human_attribute_name(:name), style: :head
             cell JournalEntryItem.human_attribute_name(:variant), style: :head
@@ -170,12 +167,12 @@ module Backend
 
           general_ledger.each do |account|
             account.each do |item|
-              if item[0] == "header"
+              if item[0] == 'header'
                 row do
                   cell item[1], style: :head
                   cell item[2], style: :head
                 end
-              elsif item[0] == "body"
+              elsif item[0] == 'body'
                 row do
                   cell item[1]
                   cell item[2]
@@ -189,27 +186,25 @@ module Backend
                   cell item[10]
                   cell item[11]
                 end
-              elsif item[0] == "footer"
+              elsif item[0] == 'footer'
                 row do
-                  cell ""
+                  cell ''
                   cell item[2]
-                  cell ""
-                  cell ""
-                  cell ""
-                  cell ""
-                  cell ""
+                  cell ''
+                  cell ''
+                  cell ''
+                  cell ''
+                  cell ''
                   cell :subtotal.tl(name: item[1]).l, style: :right
                   cell item[12], style: :bold
                   cell item[13], style: :bold
                 end
               end
-              
             end
           end
         end
       end
       output
     end
-    
   end
 end
