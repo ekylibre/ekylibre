@@ -79,7 +79,7 @@ module Ekylibre
         yield
       rescue ActiveRecord::RecordInvalid => e
         Rails.logger.info e.inspect
-        raise Ekylibre::Record::RecordInvalid.new(e.message, e.record)
+        raise Ekylibre::Record::RecordInvalid.new(e.message, e.record) unless self.updateable?
       end
 
       class << self
