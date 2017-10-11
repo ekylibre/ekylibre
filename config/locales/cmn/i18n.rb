@@ -3,7 +3,7 @@
 { cmn: {
   i18n: {
     dir: 'ltr',
-    iso2: 'zh',
+    iso2: 'zh-cn',
     ietf: 'zh-CN',
     name: '官話',
     plural: {
