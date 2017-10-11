@@ -96,7 +96,7 @@ module Backend
         Charta.empty_geometry
       end
     end
-    
+
     def add_working_period_cost(product_parameter, nature: nil)
       render partial: 'intervention_costs', locals: { product_parameter: product_parameter, nature: nature }
     end
