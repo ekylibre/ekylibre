@@ -482,6 +482,7 @@ por:
       # show: "Product type: %{name}"
     backend/products:
       # edit: "Edit product: %{name}"
+      # edit_many: "Distribute unaffected products"
       index: "Produtos"
       new: "Novo produto"
       # show: "%{nature}: %{name}"

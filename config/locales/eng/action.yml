@@ -637,7 +637,7 @@ eng:
       show: "Product type: %{name}"
     backend/products:
       edit: "Edit product: %{name}"
-      # edit_many: "Edit many product: %{name}"
+      edit_many: "Distribute unaffected products"
       index: "Products"
       new: "New product"
       show: "%{nature}: %{name}"

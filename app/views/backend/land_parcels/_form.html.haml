@@ -1,4 +1,7 @@
 = f.product_form_frame do
+  = field_set(:data) do
+    = f.association :activity_production
+
   = field_set :details do
     = f.picture
     = f.input :description

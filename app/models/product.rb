@@ -109,6 +109,8 @@ class Product < Ekylibre::Record::Base
   belongs_to :person, -> { contacts }, class_name: 'Entity'
   belongs_to :tracking
   belongs_to :variant, class_name: 'ProductNatureVariant'
+  # belongs_to :production, class_name: 'ActivityProduction'
+  belongs_to :activity_production
   has_many :activity_productions, foreign_key: :support_id
   has_many :analyses, class_name: 'Analysis', dependent: :restrict_with_exception
   has_many :carrier_linkages, class_name: 'ProductLinkage', foreign_key: :carried_id, dependent: :destroy

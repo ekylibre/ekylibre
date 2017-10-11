@@ -477,6 +477,7 @@ cmn:
       # show: "Product type: %{name}"
     backend/products:
       # edit: "Edit product: %{name}"
+      # edit_many: "Distribute unaffected products"
       index: "制品"
       new: "新产品"
       # show: "%{nature}: %{name}"

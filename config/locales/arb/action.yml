@@ -606,6 +606,7 @@ arb:
       unvalidated_operations: "تحقيق الاعمال" #?
     backend/products:
       edit: "تعديل المنتج : %{name}"
+      # edit_many: "Distribute unaffected products"
       index: "المنتجات"
       new: "اضافة منتج جديد"
       show: "المنتجات : %{name}"

@@ -514,6 +514,7 @@ spa:
       # show: "Product type: %{name}"
     backend/products:
       # edit: "Edit product: %{name}"
+      # edit_many: "Distribute unaffected products"
       index: "Productos"
       new: "Nuevo producto"
       # show: "%{nature}: %{name}"

@@ -2071,9 +2071,6 @@
         <page to="backend/buildings#edit_many"/>
         <page to="backend/buildings#update_many"/>
       </item>
-      <item name="production_cost_cobbles">
-        <page to="backend/cobbles/production_cost_cobbles#show"/>
-      </item>
       <item name="equipments">
         <page to="backend/equipments#edit_many"/>
         <page to="backend/equipments#update_many"/>
@@ -2098,21 +2095,12 @@
         <page to="backend/product_groups#edit_many"/>
         <page to="backend/product_groups#update_many"/>
       </item>
+      <item name="products">
+        <page to="backend/products#update_many"/>
+      </item>
       <item name="settlements">
         <page to="backend/settlements#edit_many"/>
         <page to="backend/settlements#update_many"/>
-      </item>
-      <item name="land_parcels_visualizations">
-        <page to="backend/visualizations/land_parcels_visualizations#show"/>
-      </item>
-      <item name="map_cells_visualizations">
-        <page to="backend/visualizations/map_cells_visualizations#show"/>
-      </item>
-      <item name="plants_visualizations">
-        <page to="backend/visualizations/plants_visualizations#show"/>
-      </item>
-      <item name="resources_visualizations">
-        <page to="backend/visualizations/resources_visualizations#show"/>
       </item>
       <item name="workers">
         <page to="backend/workers#edit_many"/>

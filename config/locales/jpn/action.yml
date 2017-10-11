@@ -477,6 +477,7 @@ jpn:
       # show: "Product type: %{name}"
     backend/products:
       # edit: "Edit product: %{name}"
+      # edit_many: "Distribute unaffected products"
       index: "プロダクト"
       new: "新製品"
       # show: "%{nature}: %{name}"

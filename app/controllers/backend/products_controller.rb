@@ -257,7 +257,7 @@ module Backend
           saved = false unless product.update(activity_production_id: activity_production_id)
         end
         product
-      end
+      end.sort { |a, b| a.activity_production_id <=> b.activity_production_id || (b.activity_production_id && 1) || -1 }
       if saved
         redirect_to params[:redirect] || backend_activities_path
       else
