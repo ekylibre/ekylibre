@@ -232,6 +232,42 @@ module Backend
       render json: value
     end
 
+    def edit_many
+      activity = Activity.find_by(id: params[:activity_id]) if params[:activity_id]
+      targetable_products = Product.where(type: %w[Plant LandParcel Animal])
+
+      @targets = activity.present? ? targetable_products.where(activity_production_id: activity.productions.pluck(:id).push(nil)) : targetable_products
+      @targets = @targets.order(:activity_production_id)
+
+      @activity_productions = ActivityProduction.all
+      @activity_productions = @activity_productions.of_activity(activity) if activity
+      @activity_productions = @activity_productions.includes(:activity, :cultivable_zone).map { |ac| [ac.name, ac.id] }
+    end
+
+    def update_many
+      activity = Activity.find_by(id: params[:activity_id]) if params[:activity_id]
+      @activity_productions = ActivityProduction.all
+      @activity_productions = @activity_productions.of_activity(activity) if activity
+      @activity_productions = @activity_productions.includes(:activity, :cultivable_zone).map { |ac| [ac.name, ac.id] }
+      saved = true
+      @targets = params[:target_distributions].map do |_id, target_distribution|
+        product = Product.find(target_distribution[:target_id])
+        # byebug if product.id == 6026
+        activity_production_id = target_distribution[:activity_production_id]
+        if activity_production_id.empty? && !product.activity_production_id.blank?
+          saved = false unless product.update(activity_production_id: nil)
+        elsif !activity_production_id.empty? && product.activity_production_id != activity_production_id.to_i
+          saved = false unless product.update(activity_production_id: activity_production_id)
+        end
+        product
+      end
+      if saved
+        redirect_to params[:redirect] || backend_activities_path
+      else
+        render 'edit_many'
+      end
+    end
+
     protected
 
     def check_variant_availability

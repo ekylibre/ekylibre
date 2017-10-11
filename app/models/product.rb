@@ -22,6 +22,7 @@
 #
 # == Table: products
 #
+#  activity_production_id       :integer
 #  address_id                   :integer
 #  birth_date_completeness      :string
 #  birth_farm_number            :string
@@ -320,6 +321,7 @@ class Product < Ekylibre::Record::Base
   end
 
   def dead_at_in_interventions
+    byebug
     last_used_at = interventions.order(stopped_at: :desc).first.stopped_at
     if dead_at < last_used_at
       # puts ActivityProduction.find_by(support_id: self.id).id.green

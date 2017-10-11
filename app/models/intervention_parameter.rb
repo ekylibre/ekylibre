@@ -47,6 +47,7 @@
 #  quantity_unit_name       :string
 #  quantity_value           :decimal(19, 4)
 #  reference_name           :string           not null
+#  total_cost               :decimal(19, 4)   default(0.0), not null
 #  type                     :string
 #  unit_pretax_stock_amount :decimal(19, 4)   default(0.0), not null
 #  updated_at               :datetime         not null
@@ -65,7 +66,7 @@ class InterventionParameter < Ekylibre::Record::Base
   validates :dead, inclusion: { in: [true, false] }
   validates :quantity_population, :quantity_value, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }, allow_blank: true
   validates :reference_name, presence: true, length: { maximum: 500 }
-  validates :unit_pretax_stock_amount, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
+  validates :total_cost, :unit_pretax_stock_amount, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
   validates :intervention, presence: true
   # ]VALIDATORS]
   validates :position, presence: true

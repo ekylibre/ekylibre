@@ -792,7 +792,7 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :products, concerns: [:products]
+    resources :products, concerns: %i[products many]
 
     resources :inspections, concerns: %i[list unroll] do
       member do

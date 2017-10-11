@@ -44,6 +44,9 @@
 #  started_at                     :datetime         not null
 #  state                          :string           not null
 #  stopped_at                     :datetime         not null
+#  total_doer_cost                :decimal(19, 4)   default(0.0), not null
+#  total_input_cost               :decimal(19, 4)   default(0.0), not null
+#  total_tool_cost                :decimal(19, 4)   default(0.0), not null
 #  trouble_description            :text
 #  trouble_encountered            :boolean          default(FALSE), not null
 #  updated_at                     :datetime         not null
@@ -96,6 +99,7 @@ class Intervention < Ekylibre::Record::Base
   validates :nature, :procedure_name, :state, presence: true
   validates :started_at, presence: true, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }
   validates :stopped_at, presence: true, timeliness: { on_or_after: ->(intervention) { intervention.started_at || Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }
+  validates :total_doer_cost, :total_input_cost, :total_tool_cost, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
   validates :trouble_encountered, inclusion: { in: [true, false] }
   validates :whole_duration, :working_duration, presence: true, numericality: { only_integer: true, greater_than: -2_147_483_649, less_than: 2_147_483_648 }
   # ]VALIDATORS]
