@@ -157,6 +157,8 @@ eng:
       index: "Price catalogs"
       new: "New catalog"
       show: "Catalog: %{name}"
+    backend/cobbles/production_cost_cobbles:
+      # show: "Production cost cobble: %{name}"
     backend/companies:
       edit: "Company settings"
     backend/contracts:
@@ -868,6 +870,14 @@ eng:
       new: "New user"
       show: "User: %{first_name} %{last_name}"
       unlock: "Unlock user"
+    backend/visualizations/land_parcels_visualizations:
+      # show: "Land parcels visualization: %{name}"
+    backend/visualizations/map_cells_visualizations:
+      # show: "Map cells visualization: %{name}"
+    backend/visualizations/plants_visualizations:
+      # show: "Plants visualization: %{name}"
+    backend/visualizations/resources_visualizations:
+      # show: "Resources visualization: %{name}"
     backend/wine_tanks:
       index: "Wine tanks"
     backend/workers:
@@ -1376,6 +1386,7 @@ eng:
     export_as_csv: "Export as CSV"
     export_as_ods: "Export as ODS"
     export_as_xcsv: "Export as Excel CSV"
+    fees: "Fees" #?
     field_distribution: "Field distribution"
     file_nature: "File type"
     file_preview: "Preview" #?
@@ -1861,6 +1872,7 @@ eng:
     send_test_mail: "Send test mail"
     sensor_model: "Sensor model"
     sensors: "Sensors" #?
+    service: "Service" #?
     service_delivering: "Service delivering"
     sessions: "Sessions" #?
     set_reconcilable_new_but_existing_third_accounts: "Set reconcilable the new but existing third accounts (clients, suppliers and attorneys)" #?

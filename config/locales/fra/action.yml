@@ -1376,6 +1376,7 @@ fra:
     extract: "Extraire" #?
     fat_matters_concentration: "Teneur en matières grasses" #?
     fax: "Fax" #?
+    fees: "Frais"
     field_distribution: "Parcellaire"
     file_nature: "Type de fichier"
     file_pages_count: "Nombre de pages" #?
@@ -2111,6 +2112,7 @@ fra:
     sensor_model: "Modèle du capteur"
     sensors: "Capteurs"
     sequences_load: "Charger les séquences manquantes" #?
+    service: "Service"
     service_delivering: "Prestation de service"
     sessions: "Sessions"
     set_reconcilable_new_but_existing_third_accounts: "Rendre lettrables les nouveaux comptes tiers déjà existants"

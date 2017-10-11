@@ -1243,6 +1243,7 @@ spa:
     export_as_csv: "Exportar como CSV"
     export_as_ods: "Exportar como ODS"
     export_as_xcsv: "Exportar como Excel CSV"
+    # fees: "Fees"
     field_distribution: "Distribución de campo"
     file_nature: "Tipo de fichero"
     file_preview: "Avance"
@@ -1836,6 +1837,7 @@ spa:
     sequence_create: "Añadir une sequencia" #?
     sequences: "Séquencias" #?
     sequences_load: "Cargar las secuencias faltantes" #?
+    # service: "Service"
     # service_delivering: "Service delivering"
     sessions: "Sesiones"
     set_reconcilable_new_but_existing_third_accounts: "Establecer conciliables las nuevas cuentas, pero existentes terceros (clientes, proveedores y abogados)"
