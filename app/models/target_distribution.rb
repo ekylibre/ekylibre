@@ -63,22 +63,22 @@ class TargetDistribution < Ekylibre::Record::Base
     end
   end
 
-  # class << self
-  #   def find(**args, &block)
-  #     Rails.logger.warn "!! TargetDistribution model is deprecated !!"
-  #     super
-  #   end
+  class << self
+    def find(**args, &block)
+      Rails.logger.warn "!! TargetDistribution model is deprecated !!"
+      super
+    end
 
-  #   def where(**args, &block)
-  #     Rails.logger.warn "!! TargetDistribution model is deprecated !!"
-  #     super
-  #   end
+    def where(**args, &block)
+      Rails.logger.warn "!! TargetDistribution model is deprecated !!"
+      super
+    end
 
-  #   def new(**args, &block)
-  #     Rails.logger.warn "!! TargetDistribution model is deprecated !!"
-  #     super
-  #   end
-  # end
+    def new(**args, &block)
+      Rails.logger.warn "!! TargetDistribution model is deprecated !!"
+      super
+    end
+  end
 
   def siblings
     Rails.logger.warn "!! TargetDistribution model is deprecated !!"

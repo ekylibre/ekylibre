@@ -682,6 +682,7 @@
         <page to="backend/activity_seasons#show"/>
         <page to="backend/activity_seasons#unroll"/>
         <page to="backend/activity_seasons#update"/>
+        <page to="backend/products#edit_many"/>
         <page to="backend/plant_density_abaci#create"/>
         <page to="backend/plant_density_abaci#destroy"/>
         <page to="backend/plant_density_abaci#edit"/>
@@ -2096,10 +2097,6 @@
       <item name="product_groups">
         <page to="backend/product_groups#edit_many"/>
         <page to="backend/product_groups#update_many"/>
-      </item>
-      <item name="products">
-        <page to="backend/products#edit_many"/>
-        <page to="backend/products#update_many"/>
       </item>
       <item name="settlements">
         <page to="backend/settlements#edit_many"/>

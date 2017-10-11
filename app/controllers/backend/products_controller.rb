@@ -241,20 +241,17 @@ module Backend
 
       @activity_productions = ActivityProduction.all
       @activity_productions = @activity_productions.of_activity(activity) if activity
-      @activity_productions = @activity_productions.includes(:activity, :cultivable_zone).map { |ac| [ac.name, ac.id] }
     end
 
     def update_many
       activity = Activity.find_by(id: params[:activity_id]) if params[:activity_id]
       @activity_productions = ActivityProduction.all
       @activity_productions = @activity_productions.of_activity(activity) if activity
-      @activity_productions = @activity_productions.includes(:activity, :cultivable_zone).map { |ac| [ac.name, ac.id] }
       saved = true
       @targets = params[:target_distributions].map do |_id, target_distribution|
         product = Product.find(target_distribution[:target_id])
-        # byebug if product.id == 6026
         activity_production_id = target_distribution[:activity_production_id]
-        if activity_production_id.empty? && !product.activity_production_id.blank?
+        if activity_production_id.empty? && product.activity_production_id.present?
           saved = false unless product.update(activity_production_id: nil)
         elsif !activity_production_id.empty? && product.activity_production_id != activity_production_id.to_i
           saved = false unless product.update(activity_production_id: activity_production_id)
