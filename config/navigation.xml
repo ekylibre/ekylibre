@@ -2053,6 +2053,10 @@
     </group>
   </inaccessible-actions>
   <untreated-actions>
-    <group/>
+    <group>
+      <item name="stock_in_ground_cobbles">
+        <page to="backend/cobbles/stock_in_ground_cobbles#show"/>
+      </item>
+    </group>
   </untreated-actions>
 </navigation>
