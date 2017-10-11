@@ -4,7 +4,6 @@ module Backend
       respond_to :json
 
       def show
-
         main_serie = LandParcel.find_each.collect do |p|
           land_parcel_shape = p.shape
           next unless land_parcel_shape
@@ -46,7 +45,7 @@ module Backend
             }
           end
 
-          popup_content << render_to_string(partial: 'popup', locals: {land_parcel: p})
+          popup_content << render_to_string(partial: 'popup', locals: { land_parcel: p })
 
           serie[:popup] = { header: true, content: popup_content }
           serie
