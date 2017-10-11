@@ -34,7 +34,7 @@ module Procedo
                        else
                          val = Charta.from_geojson(val)
                          val.srid = 4326 if val.srid.zero?
-                         val
+                         val.convert_to(datatype)
                        end
                      elsif datatype == :integer
                        val.to_i
@@ -55,7 +55,7 @@ module Procedo
         end
 
         def value=(val)
-          @value = val
+          @value = val.convert_to(:multi_polygon)
           impact_dependencies!
         end
 

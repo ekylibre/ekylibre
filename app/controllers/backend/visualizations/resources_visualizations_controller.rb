@@ -4,7 +4,6 @@ module Backend
       respond_to :json
 
       def show
-
         resource_model = params[:resource_name].classify.constantize
         controller = "/backend/#{resource_model.model_name.plural}"
 
@@ -25,7 +24,7 @@ module Backend
                          value: record.net_surface_area.in(area_unit).round(3).l }
             content << view_context.content_tag(:div, class: 'btn-group') do
               view_context.link_to(:show.tl, { controller: controller, action: :show, id: record.id }, class: 'btn btn-default') +
-                  view_context.link_to(:edit.tl, { controller: controller, action: :edit, id: record.id }, class: 'btn btn-default')
+                view_context.link_to(:edit.tl, { controller: controller, action: :edit, id: record.id }, class: 'btn btn-default')
             end
             feature = { popup: { content: content, header: true } }
           end
@@ -33,7 +32,6 @@ module Backend
           feature[:shape] ||= record.send(shape_method)
           feature
         end
-
 
         layer_options = {}
         layer_options[:fill_color] = params[:color] if params[:color]

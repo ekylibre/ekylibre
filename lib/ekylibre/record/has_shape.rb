@@ -8,6 +8,8 @@ module Ekylibre
       class << self
         def clean_for_active_record(value, options = {})
           return nil if value.to_s =~ /\A[[:space:]]*\z/
+          return value if value.is_a? RGeo::Feature::Instance
+
           value = if value.is_a?(Hash) || (value.is_a?(String) && value =~ /\A\{.*\}\z/)
                     Charta.from_geojson(value)
                   else
@@ -90,28 +92,28 @@ module Ekylibre
               ewkt = ::Charta.new_geometry(shape).to_ewkt
               if margin > 0
                 common = 1 - margin
-                where('(ST_Overlaps(' + col + ', ST_GeomFromEWKT(?)) AND ST_Area(ST_Intersection(' + col + ', ST_GeomFromEWKT(?))) / ST_Area(ST_GeomFromEWKT(?)) >= ?)', ewkt, ewkt, ewkt, common)
+                where('(ST_Overlaps(' + col + ', ST_GeomFromEWKT(ST_MakeValid(?))) AND ST_Area(ST_Intersection(' + col + ', ST_GeomFromEWKT(ST_MakeValid(?)))) / ST_Area(ST_GeomFromEWKT(ST_MakeValid(?))) >= ?)', ewkt, ewkt, ewkt, common)
               else
-                where('ST_Covers(' + col + ', ST_GeomFromEWKT(?))', ewkt)
+                where('ST_Covers(' + col + ', ST_GeomFromEWKT(ST_MakeValid(?)))', ewkt)
               end
             }
 
             scope col + '_intersecting', lambda { |shape|
-              where('ST_Intersects(' + col + ', ST_GeomFromEWKT(?))', ::Charta.new_geometry(shape).to_ewkt)
+              where('ST_Intersects(' + col + ', ST_GeomFromEWKT(ST_MakeValid(?)))', ::Charta.new_geometry(shape).to_ewkt)
             }
 
             scope col + '_covered_by', lambda { |shape|
-              where('ST_CoveredBy(' + col + ', ST_GeomFromEWKT(?))', ::Charta.new_geometry(shape).to_ewkt)
+              where('ST_CoveredBy(' + col + ', ST_GeomFromEWKT(ST_MakeValid(?)))', ::Charta.new_geometry(shape).to_ewkt)
             }
 
             scope col + '_within', lambda { |shape|
-              where('ST_Within(' + col + ', ST_GeomFromEWKT(?))', ::Charta.new_geometry(shape).to_ewkt)
+              where('ST_Within(' + col + ', ST_GeomFromEWKT(ST_MakeValid(?)))', ::Charta.new_geometry(shape).to_ewkt)
             }
 
             scope col + '_matching', lambda { |shape, margin = 0.05|
               ewkt = ::Charta.new_geometry(shape).to_ewkt
               common = 1 - margin
-              where('ST_Equals(' + col + ', ST_GeomFromEWKT(?)) OR (ST_Overlaps(' + col + ', ST_GeomFromEWKT(?)) AND ST_Area(ST_Intersection(' + col + ', ST_GeomFromEWKT(?))) / ST_Area(' + col + ') >= ? AND ST_Area(ST_Intersection(' + col + ', ST_GeomFromEWKT(?))) / ST_Area(ST_GeomFromEWKT(?)) >= ?)', ewkt, ewkt, ewkt, common, ewkt, ewkt, common)
+              where('ST_Equals(' + col + ', ST_GeomFromEWKT(ST_MakeValid(?))) OR (ST_Overlaps(' + col + ', ST_GeomFromEWKT(ST_MakeValid(?))) AND ST_Area(ST_Intersection(' + col + ', ST_GeomFromEWKT(ST_MakeValid(?)))) / ST_Area(' + col + ') >= ? AND ST_Area(ST_Intersection(' + col + ', ST_GeomFromEWKT(ST_MakeValid(?)))) / ST_Area(ST_GeomFromEWKT(ST_MakeValid(?))) >= ?)', ewkt, ewkt, ewkt, common, ewkt, ewkt, common)
             }
           end
         end
