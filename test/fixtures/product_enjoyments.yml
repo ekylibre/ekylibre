@@ -37,4 +37,1217 @@
 #  updated_at      :datetime         not null
 #  updater_id      :integer
 #
---- {}
+---
+product_enjoyments_001:
+  created_at: 2014-10-31 20:12:30.934138000 Z
+  creator_id: 1
+  id: 3
+  lock_version: 0
+  nature: unknown
+  product_id: 13
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2014-10-31 20:12:30.934138000 Z
+  updater_id: 1
+product_enjoyments_002:
+  created_at: 2014-10-31 20:15:14.802370000 Z
+  creator_id: 1
+  id: 4
+  lock_version: 2
+  nature: unknown
+  product_id: 14
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2014-11-07 14:30:00.541892000 Z
+  updater_id: 1
+product_enjoyments_003:
+  created_at: 2014-10-31 20:18:12.240114000 Z
+  creator_id: 1
+  id: 5
+  lock_version: 1
+  nature: unknown
+  product_id: 19
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2014-11-07 14:41:44.751084000 Z
+  updater_id: 1
+product_enjoyments_004:
+  created_at: 2014-10-31 20:23:26.784121000 Z
+  creator_id: 1
+  id: 6
+  lock_version: 0
+  nature: unknown
+  product_id: 20
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2014-10-31 20:23:26.784121000 Z
+  updater_id: 1
+product_enjoyments_005:
+  created_at: 2014-10-31 20:23:37.047513000 Z
+  creator_id: 1
+  id: 7
+  lock_version: 0
+  nature: unknown
+  product_id: 53
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2014-10-31 20:23:37.047513000 Z
+  updater_id: 1
+product_enjoyments_006:
+  created_at: 2014-10-31 20:25:41.471356000 Z
+  creator_id: 1
+  id: 8
+  lock_version: 3
+  nature: unknown
+  product_id: 21
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2014-10-31 20:49:34.059783000 Z
+  updater_id: 1
+product_enjoyments_007:
+  created_at: 2014-11-01 16:00:08.135011000 Z
+  creator_id: 1
+  id: 9
+  lock_version: 0
+  nature: unknown
+  product_id: 54
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2014-11-01 16:00:08.135011000 Z
+  updater_id: 1
+product_enjoyments_008:
+  created_at: 2014-11-01 16:00:08.355520000 Z
+  creator_id: 1
+  id: 10
+  lock_version: 0
+  nature: unknown
+  product_id: 55
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2014-11-01 16:00:08.355520000 Z
+  updater_id: 1
+product_enjoyments_009:
+  created_at: 2014-11-01 16:01:24.182308000 Z
+  creator_id: 1
+  id: 11
+  lock_version: 0
+  nature: unknown
+  product_id: 56
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2014-11-01 16:01:24.182308000 Z
+  updater_id: 1
+product_enjoyments_010:
+  created_at: 2014-11-01 19:29:58.214480000 Z
+  creator_id: 1
+  id: 12
+  lock_version: 0
+  nature: unknown
+  product_id: 5
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2014-11-01 19:29:58.214480000 Z
+  updater_id: 1
+product_enjoyments_011:
+  created_at: 2014-11-01 19:35:50.395444000 Z
+  creator_id: 1
+  id: 13
+  lock_version: 0
+  nature: unknown
+  product_id: 6
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2014-11-01 19:35:50.395444000 Z
+  updater_id: 1
+product_enjoyments_012:
+  created_at: 2014-11-01 20:19:35.399141000 Z
+  creator_id: 1
+  id: 14
+  lock_version: 0
+  nature: unknown
+  product_id: 57
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2014-11-01 20:19:35.399141000 Z
+  updater_id: 1
+product_enjoyments_013:
+  created_at: 2014-11-01 20:23:55.126124000 Z
+  creator_id: 1
+  id: 15
+  lock_version: 0
+  nature: unknown
+  product_id: 58
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2014-11-01 20:23:55.126124000 Z
+  updater_id: 1
+product_enjoyments_014:
+  created_at: 2014-11-01 20:23:55.262906000 Z
+  creator_id: 1
+  id: 16
+  lock_version: 0
+  nature: unknown
+  product_id: 59
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2014-11-01 20:23:55.262906000 Z
+  updater_id: 1
+product_enjoyments_015:
+  created_at: 2014-11-01 20:30:35.567815000 Z
+  creator_id: 1
+  id: 17
+  lock_version: 0
+  nature: unknown
+  product_id: 79
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2014-11-01 20:30:35.567815000 Z
+  updater_id: 1
+product_enjoyments_016:
+  created_at: 2014-11-02 18:22:30.576051000 Z
+  creator_id: 1
+  id: 18
+  lock_version: 1
+  nature: unknown
+  product_id: 29
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2014-11-02 18:22:39.415270000 Z
+  updater_id: 1
+product_enjoyments_017:
+  created_at: 2014-11-02 18:23:23.675825000 Z
+  creator_id: 1
+  id: 19
+  lock_version: 1
+  nature: unknown
+  product_id: 30
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2014-11-02 18:23:36.546092000 Z
+  updater_id: 1
+product_enjoyments_018:
+  created_at: 2014-11-02 18:29:41.493265000 Z
+  creator_id: 1
+  id: 20
+  lock_version: 0
+  nature: unknown
+  product_id: 31
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2014-11-02 18:29:41.493265000 Z
+  updater_id: 1
+product_enjoyments_019:
+  created_at: 2014-11-02 18:37:22.410909000 Z
+  creator_id: 1
+  id: 22
+  lock_version: 0
+  nature: unknown
+  product_id: 32
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2014-11-02 18:37:22.410909000 Z
+  updater_id: 1
+product_enjoyments_020:
+  created_at: 2014-11-02 18:38:47.102104000 Z
+  creator_id: 1
+  id: 23
+  lock_version: 0
+  nature: unknown
+  product_id: 60
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2014-11-02 18:38:47.102104000 Z
+  updater_id: 1
+product_enjoyments_021:
+  created_at: 2014-11-04 17:12:23.366653000 Z
+  creator_id: 1
+  id: 26
+  lock_version: 0
+  nature: unknown
+  product_id: 80
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2014-11-04 17:12:23.366653000 Z
+  updater_id: 1
+product_enjoyments_022:
+  created_at: 2014-11-04 17:15:04.623028000 Z
+  creator_id: 1
+  id: 27
+  lock_version: 0
+  nature: unknown
+  product_id: 81
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2014-11-04 17:15:04.623028000 Z
+  updater_id: 1
+product_enjoyments_023:
+  created_at: 2014-11-04 17:17:04.688455000 Z
+  creator_id: 1
+  id: 28
+  lock_version: 0
+  nature: unknown
+  product_id: 82
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2014-11-04 17:17:04.688455000 Z
+  updater_id: 1
+product_enjoyments_024:
+  created_at: 2014-11-04 17:19:31.149804000 Z
+  creator_id: 1
+  id: 29
+  lock_version: 0
+  nature: unknown
+  product_id: 83
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2014-11-04 17:19:31.149804000 Z
+  updater_id: 1
+product_enjoyments_025:
+  created_at: 2014-11-04 17:22:31.689952000 Z
+  creator_id: 1
+  id: 30
+  lock_version: 0
+  nature: unknown
+  product_id: 84
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2014-11-04 17:22:31.689952000 Z
+  updater_id: 1
+product_enjoyments_026:
+  created_at: 2014-11-04 17:28:40.085441000 Z
+  creator_id: 1
+  id: 31
+  lock_version: 0
+  nature: unknown
+  product_id: 85
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2014-11-04 17:28:40.085441000 Z
+  updater_id: 1
+product_enjoyments_027:
+  created_at: 2014-11-04 17:32:45.959058000 Z
+  creator_id: 1
+  id: 32
+  lock_version: 0
+  nature: unknown
+  product_id: 86
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2014-11-04 17:32:45.959058000 Z
+  updater_id: 1
+product_enjoyments_028:
+  created_at: 2014-11-04 18:39:58.356596000 Z
+  creator_id: 1
+  id: 33
+  lock_version: 0
+  nature: unknown
+  product_id: 87
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2014-11-04 18:39:58.356596000 Z
+  updater_id: 1
+product_enjoyments_029:
+  created_at: 2014-11-04 18:41:16.440595000 Z
+  creator_id: 1
+  id: 34
+  lock_version: 1
+  nature: unknown
+  product_id: 88
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2014-11-04 18:41:24.723437000 Z
+  updater_id: 1
+product_enjoyments_030:
+  created_at: 2014-11-05 15:40:15.746702000 Z
+  creator_id: 1
+  id: 35
+  lock_version: 0
+  nature: unknown
+  product_id: 89
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2014-11-05 15:40:15.746702000 Z
+  updater_id: 1
+product_enjoyments_031:
+  created_at: 2014-11-05 15:40:15.864284000 Z
+  creator_id: 1
+  id: 36
+  lock_version: 0
+  nature: unknown
+  product_id: 90
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2014-11-05 15:40:15.864284000 Z
+  updater_id: 1
+product_enjoyments_032:
+  created_at: 2014-11-06 17:50:06.965291000 Z
+  creator_id: 1
+  id: 37
+  lock_version: 0
+  nature: unknown
+  product_id: 91
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2014-11-06 17:50:06.965291000 Z
+  updater_id: 1
+product_enjoyments_033:
+  created_at: 2014-11-06 17:50:07.036950000 Z
+  creator_id: 1
+  id: 38
+  lock_version: 0
+  nature: unknown
+  product_id: 92
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2014-11-06 17:50:07.036950000 Z
+  updater_id: 1
+product_enjoyments_034:
+  created_at: 2014-11-07 14:39:41.463058000 Z
+  creator_id: 1
+  id: 39
+  lock_version: 0
+  nature: unknown
+  product_id: 93
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2014-11-07 14:39:41.463058000 Z
+  updater_id: 1
+product_enjoyments_035:
+  created_at: 2014-11-07 14:44:18.843857000 Z
+  creator_id: 1
+  id: 40
+  lock_version: 0
+  nature: unknown
+  product_id: 94
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2014-11-07 14:44:18.843857000 Z
+  updater_id: 1
+product_enjoyments_036:
+  created_at: 2014-11-07 15:01:32.314972000 Z
+  creator_id: 1
+  id: 41
+  lock_version: 0
+  nature: unknown
+  product_id: 95
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2014-11-07 15:01:32.314972000 Z
+  updater_id: 1
+product_enjoyments_037:
+  created_at: 2014-11-07 15:02:58.729728000 Z
+  creator_id: 1
+  id: 42
+  lock_version: 0
+  nature: unknown
+  product_id: 96
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2014-11-07 15:02:58.729728000 Z
+  updater_id: 1
+product_enjoyments_038:
+  created_at: 2014-11-07 15:23:45.153357000 Z
+  creator_id: 1
+  id: 43
+  lock_version: 0
+  nature: unknown
+  product_id: 97
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2014-11-07 15:23:45.153357000 Z
+  updater_id: 1
+product_enjoyments_039:
+  created_at: 2014-11-07 15:25:51.228999000 Z
+  creator_id: 1
+  id: 44
+  lock_version: 0
+  nature: unknown
+  product_id: 98
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2014-11-07 15:25:51.228999000 Z
+  updater_id: 1
+product_enjoyments_040:
+  created_at: 2014-11-07 15:26:50.544225000 Z
+  creator_id: 1
+  id: 45
+  lock_version: 0
+  nature: unknown
+  product_id: 99
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2014-11-07 15:26:50.544225000 Z
+  updater_id: 1
+product_enjoyments_041:
+  created_at: 2014-11-07 15:44:20.488087000 Z
+  creator_id: 1
+  id: 46
+  lock_version: 0
+  nature: unknown
+  product_id: 100
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2014-11-07 15:44:20.488087000 Z
+  updater_id: 1
+product_enjoyments_042:
+  created_at: 2014-11-07 15:44:20.613235000 Z
+  creator_id: 1
+  id: 47
+  lock_version: 0
+  nature: unknown
+  product_id: 101
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2014-11-07 15:44:20.613235000 Z
+  updater_id: 1
+product_enjoyments_043:
+  created_at: 2014-11-07 15:45:45.750896000 Z
+  creator_id: 1
+  id: 48
+  lock_version: 0
+  nature: unknown
+  product_id: 102
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2014-11-07 15:45:45.750896000 Z
+  updater_id: 1
+product_enjoyments_044:
+  created_at: 2014-11-07 15:45:45.819451000 Z
+  creator_id: 1
+  id: 49
+  lock_version: 0
+  nature: unknown
+  product_id: 103
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2014-11-07 15:45:45.819451000 Z
+  updater_id: 1
+product_enjoyments_045:
+  created_at: 2014-11-07 15:50:04.438629000 Z
+  creator_id: 1
+  id: 51
+  lock_version: 0
+  nature: unknown
+  product_id: 105
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2014-11-07 15:50:04.438629000 Z
+  updater_id: 1
+product_enjoyments_046:
+  created_at: 2014-11-07 16:26:53.189530000 Z
+  creator_id: 1
+  id: 52
+  lock_version: 0
+  nature: unknown
+  product_id: 106
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2014-11-07 16:26:53.189530000 Z
+  updater_id: 1
+product_enjoyments_047:
+  created_at: 2014-11-07 16:47:34.835358000 Z
+  creator_id: 1
+  id: 53
+  lock_version: 0
+  nature: unknown
+  product_id: 107
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2014-11-07 16:47:34.835358000 Z
+  updater_id: 1
+product_enjoyments_048:
+  created_at: 2014-11-07 16:49:26.163329000 Z
+  creator_id: 1
+  id: 54
+  lock_version: 0
+  nature: unknown
+  product_id: 108
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2014-11-07 16:49:26.163329000 Z
+  updater_id: 1
+product_enjoyments_049:
+  created_at: 2014-11-07 16:50:07.148787000 Z
+  creator_id: 1
+  id: 55
+  lock_version: 0
+  nature: unknown
+  product_id: 109
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2014-11-07 16:50:07.148787000 Z
+  updater_id: 1
+product_enjoyments_050:
+  created_at: 2014-11-07 16:50:07.213330000 Z
+  creator_id: 1
+  id: 56
+  lock_version: 0
+  nature: unknown
+  product_id: 110
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2014-11-07 16:50:07.213330000 Z
+  updater_id: 1
+product_enjoyments_051:
+  created_at: 2014-11-07 16:59:09.772844000 Z
+  creator_id: 1
+  id: 57
+  lock_version: 0
+  nature: unknown
+  product_id: 111
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2014-11-07 16:59:09.772844000 Z
+  updater_id: 1
+product_enjoyments_052:
+  created_at: 2014-11-07 17:05:10.463342000 Z
+  creator_id: 1
+  id: 58
+  lock_version: 0
+  nature: unknown
+  product_id: 112
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2014-11-07 17:05:10.463342000 Z
+  updater_id: 1
+product_enjoyments_053:
+  created_at: 2014-11-07 17:08:50.440261000 Z
+  creator_id: 1
+  id: 60
+  lock_version: 0
+  nature: unknown
+  product_id: 114
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2014-11-07 17:08:50.440261000 Z
+  updater_id: 1
+product_enjoyments_054:
+  created_at: 2014-11-07 17:18:25.712365000 Z
+  creator_id: 1
+  id: 61
+  lock_version: 0
+  nature: unknown
+  product_id: 115
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2014-11-07 17:18:25.712365000 Z
+  updater_id: 1
+product_enjoyments_055:
+  created_at: 2014-11-07 17:19:35.245744000 Z
+  creator_id: 1
+  id: 62
+  lock_version: 0
+  nature: unknown
+  product_id: 116
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2014-11-07 17:19:35.245744000 Z
+  updater_id: 1
+product_enjoyments_056:
+  created_at: 2014-11-07 17:20:23.985156000 Z
+  creator_id: 1
+  id: 63
+  lock_version: 0
+  nature: unknown
+  product_id: 117
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2014-11-07 17:20:23.985156000 Z
+  updater_id: 1
+product_enjoyments_057:
+  created_at: 2014-11-07 17:22:41.862313000 Z
+  creator_id: 1
+  id: 64
+  lock_version: 0
+  nature: unknown
+  product_id: 118
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2014-11-07 17:22:41.862313000 Z
+  updater_id: 1
+product_enjoyments_058:
+  created_at: 2014-11-07 17:23:41.404017000 Z
+  creator_id: 1
+  enjoyer_id: 13
+  id: 65
+  lock_version: 0
+  nature: other
+  product_id: 119
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2014-11-07 17:23:41.404017000 Z
+  updater_id: 1
+product_enjoyments_059:
+  created_at: 2014-11-07 18:53:57.809532000 Z
+  creator_id: 1
+  id: 66
+  lock_version: 0
+  nature: unknown
+  product_id: 120
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2014-11-07 18:53:57.809532000 Z
+  updater_id: 1
+product_enjoyments_060:
+  created_at: 2014-11-07 18:53:57.957741000 Z
+  creator_id: 1
+  id: 67
+  lock_version: 0
+  nature: unknown
+  product_id: 121
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2014-11-07 18:53:57.957741000 Z
+  updater_id: 1
+product_enjoyments_061:
+  created_at: 2014-11-07 18:53:58.014842000 Z
+  creator_id: 1
+  id: 68
+  lock_version: 0
+  nature: unknown
+  product_id: 122
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2014-11-07 18:53:58.014842000 Z
+  updater_id: 1
+product_enjoyments_062:
+  created_at: 2014-11-07 19:02:56.148967000 Z
+  creator_id: 1
+  id: 69
+  lock_version: 0
+  nature: unknown
+  product_id: 123
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2014-11-07 19:02:56.148967000 Z
+  updater_id: 1
+product_enjoyments_063:
+  created_at: 2014-11-07 19:02:56.234569000 Z
+  creator_id: 1
+  id: 70
+  lock_version: 0
+  nature: unknown
+  product_id: 124
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2014-11-07 19:02:56.234569000 Z
+  updater_id: 1
+product_enjoyments_064:
+  created_at: 2014-11-07 19:02:56.290704000 Z
+  creator_id: 1
+  id: 71
+  lock_version: 0
+  nature: unknown
+  product_id: 125
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2014-11-07 19:02:56.290704000 Z
+  updater_id: 1
+product_enjoyments_065:
+  created_at: 2014-11-07 19:05:46.912538000 Z
+  creator_id: 1
+  id: 72
+  lock_version: 0
+  nature: unknown
+  product_id: 126
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2014-11-07 19:05:46.912538000 Z
+  updater_id: 1
+product_enjoyments_066:
+  created_at: 2014-11-07 19:05:46.990933000 Z
+  creator_id: 1
+  id: 73
+  lock_version: 0
+  nature: unknown
+  product_id: 127
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2014-11-07 19:05:46.990933000 Z
+  updater_id: 1
+product_enjoyments_067:
+  created_at: 2014-11-07 19:05:47.060104000 Z
+  creator_id: 1
+  id: 74
+  lock_version: 0
+  nature: unknown
+  product_id: 128
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2014-11-07 19:05:47.060104000 Z
+  updater_id: 1
+product_enjoyments_068:
+  created_at: 2014-11-07 19:08:55.174526000 Z
+  creator_id: 1
+  id: 75
+  lock_version: 0
+  nature: unknown
+  product_id: 129
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2014-11-07 19:08:55.174526000 Z
+  updater_id: 1
+product_enjoyments_069:
+  created_at: 2014-11-07 19:08:55.256545000 Z
+  creator_id: 1
+  id: 76
+  lock_version: 0
+  nature: unknown
+  product_id: 130
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2014-11-07 19:08:55.256545000 Z
+  updater_id: 1
+product_enjoyments_070:
+  created_at: 2014-11-07 19:12:04.964360000 Z
+  creator_id: 1
+  id: 77
+  lock_version: 0
+  nature: unknown
+  product_id: 131
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2014-11-07 19:12:04.964360000 Z
+  updater_id: 1
+product_enjoyments_071:
+  created_at: 2014-11-07 19:12:42.864569000 Z
+  creator_id: 1
+  id: 78
+  lock_version: 0
+  nature: unknown
+  product_id: 132
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2014-11-07 19:12:42.864569000 Z
+  updater_id: 1
+product_enjoyments_072:
+  created_at: 2014-11-07 19:22:38.254771000 Z
+  creator_id: 1
+  id: 79
+  lock_version: 0
+  nature: unknown
+  product_id: 133
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2014-11-07 19:22:38.254771000 Z
+  updater_id: 1
+product_enjoyments_073:
+  created_at: 2014-11-07 19:24:10.233099000 Z
+  creator_id: 1
+  id: 80
+  lock_version: 0
+  nature: unknown
+  product_id: 134
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2014-11-07 19:24:10.233099000 Z
+  updater_id: 1
+product_enjoyments_074:
+  created_at: 2014-11-07 19:34:09.488413000 Z
+  creator_id: 1
+  id: 81
+  lock_version: 0
+  nature: unknown
+  product_id: 135
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2014-11-07 19:34:09.488413000 Z
+  updater_id: 1
+product_enjoyments_075:
+  created_at: 2014-11-07 19:34:09.565423000 Z
+  creator_id: 1
+  id: 82
+  lock_version: 0
+  nature: unknown
+  product_id: 136
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2014-11-07 19:34:09.565423000 Z
+  updater_id: 1
+product_enjoyments_076:
+  created_at: 2014-11-07 19:36:09.052766000 Z
+  creator_id: 1
+  id: 83
+  lock_version: 0
+  nature: unknown
+  product_id: 137
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2014-11-07 19:36:09.052766000 Z
+  updater_id: 1
+product_enjoyments_077:
+  created_at: 2014-11-07 19:36:30.003890000 Z
+  creator_id: 1
+  enjoyer_id: 13
+  id: 84
+  lock_version: 0
+  nature: other
+  product_id: 138
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2014-11-07 19:36:30.003890000 Z
+  updater_id: 1
+product_enjoyments_078:
+  created_at: 2014-11-07 19:36:59.058388000 Z
+  creator_id: 1
+  id: 85
+  lock_version: 0
+  nature: unknown
+  product_id: 139
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2014-11-07 19:36:59.058388000 Z
+  updater_id: 1
+product_enjoyments_079:
+  created_at: 2014-11-07 19:36:59.126106000 Z
+  creator_id: 1
+  id: 86
+  lock_version: 0
+  nature: unknown
+  product_id: 140
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2014-11-07 19:36:59.126106000 Z
+  updater_id: 1
+product_enjoyments_080:
+  created_at: 2014-11-07 19:36:59.191514000 Z
+  creator_id: 1
+  id: 87
+  lock_version: 0
+  nature: unknown
+  product_id: 141
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2014-11-07 19:36:59.191514000 Z
+  updater_id: 1
+product_enjoyments_081:
+  created_at: 2014-11-07 19:36:59.253750000 Z
+  creator_id: 1
+  id: 88
+  lock_version: 0
+  nature: unknown
+  product_id: 142
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2014-11-07 19:36:59.253750000 Z
+  updater_id: 1
+product_enjoyments_082:
+  created_at: 2015-09-17 13:35:36.251712000 Z
+  creator_id: 1
+  id: 89
+  lock_version: 0
+  nature: unknown
+  product_id: 144
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  stopped_at: 2015-09-17 13:40:58.044216000 Z
+  updated_at: 2015-09-17 13:35:36.251712000 Z
+  updater_id: 1
+product_enjoyments_083:
+  created_at: 2015-09-17 13:40:58.077672000 Z
+  creator_id: 1
+  enjoyer_id: 15
+  id: 90
+  lock_version: 0
+  nature: other
+  product_id: 144
+  started_at: 2015-09-17 13:40:58.044216000 Z
+  updated_at: 2015-09-17 13:40:58.077672000 Z
+  updater_id: 1
+product_enjoyments_084:
+  created_at: 2016-01-21 14:05:47.179483000 Z
+  id: 91
+  lock_version: 0
+  nature: unknown
+  product_id: 145
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2016-01-21 14:05:47.179483000 Z
+product_enjoyments_085:
+  created_at: 2016-01-21 14:05:47.404205000 Z
+  id: 92
+  lock_version: 0
+  nature: unknown
+  product_id: 146
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2016-01-21 14:05:47.404205000 Z
+product_enjoyments_086:
+  created_at: 2016-01-21 14:05:47.546199000 Z
+  id: 93
+  lock_version: 0
+  nature: unknown
+  product_id: 147
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2016-01-21 14:05:47.546199000 Z
+product_enjoyments_087:
+  created_at: 2016-01-21 14:05:47.679202000 Z
+  id: 94
+  lock_version: 0
+  nature: unknown
+  product_id: 148
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2016-01-21 14:05:47.679202000 Z
+product_enjoyments_088:
+  created_at: 2016-01-21 14:05:47.843928000 Z
+  id: 95
+  lock_version: 0
+  nature: unknown
+  product_id: 149
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2016-01-21 14:05:47.843928000 Z
+product_enjoyments_089:
+  created_at: 2016-01-21 14:05:48.017543000 Z
+  id: 96
+  lock_version: 0
+  nature: unknown
+  product_id: 150
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2016-01-21 14:05:48.017543000 Z
+product_enjoyments_090:
+  created_at: 2016-01-21 14:05:48.166009000 Z
+  id: 97
+  lock_version: 0
+  nature: unknown
+  product_id: 151
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2016-01-21 14:05:48.166009000 Z
+product_enjoyments_091:
+  created_at: 2016-01-21 14:05:48.318626000 Z
+  id: 98
+  lock_version: 0
+  nature: unknown
+  product_id: 152
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2016-01-21 14:05:48.318626000 Z
+product_enjoyments_092:
+  created_at: 2016-01-21 14:05:48.453166000 Z
+  id: 99
+  lock_version: 0
+  nature: unknown
+  product_id: 153
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2016-01-21 14:05:48.453166000 Z
+product_enjoyments_093:
+  created_at: 2016-01-21 14:05:48.592770000 Z
+  id: 100
+  lock_version: 0
+  nature: unknown
+  product_id: 154
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2016-01-21 14:05:48.592770000 Z
+product_enjoyments_094:
+  created_at: 2016-01-21 14:05:48.742181000 Z
+  id: 101
+  lock_version: 0
+  nature: unknown
+  product_id: 155
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2016-01-21 14:05:48.742181000 Z
+product_enjoyments_095:
+  created_at: 2016-01-21 14:05:48.889074000 Z
+  id: 102
+  lock_version: 0
+  nature: unknown
+  product_id: 156
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2016-01-21 14:05:48.889074000 Z
+product_enjoyments_096:
+  created_at: 2016-01-21 14:05:49.075410000 Z
+  id: 103
+  lock_version: 0
+  nature: unknown
+  product_id: 157
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2016-01-21 14:05:49.075410000 Z
+product_enjoyments_097:
+  created_at: 2016-01-21 14:05:49.241070000 Z
+  id: 104
+  lock_version: 0
+  nature: unknown
+  product_id: 158
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2016-01-21 14:05:49.241070000 Z
+product_enjoyments_098:
+  created_at: 2016-01-21 14:05:49.429720000 Z
+  id: 105
+  lock_version: 0
+  nature: unknown
+  product_id: 159
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2016-01-21 14:05:49.429720000 Z
+product_enjoyments_099:
+  created_at: 2016-01-21 14:05:49.645939000 Z
+  id: 106
+  lock_version: 0
+  nature: unknown
+  product_id: 160
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2016-01-21 14:05:49.645939000 Z
+product_enjoyments_100:
+  created_at: 2016-01-21 14:05:49.809350000 Z
+  id: 107
+  lock_version: 0
+  nature: unknown
+  product_id: 161
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2016-01-21 14:05:49.809350000 Z
+product_enjoyments_101:
+  created_at: 2016-01-21 14:05:49.945870000 Z
+  id: 108
+  lock_version: 0
+  nature: unknown
+  product_id: 162
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2016-01-21 14:05:49.945870000 Z
+product_enjoyments_102:
+  created_at: 2016-01-21 14:05:50.121299000 Z
+  id: 109
+  lock_version: 0
+  nature: unknown
+  product_id: 163
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2016-01-21 14:05:50.121299000 Z
+product_enjoyments_103:
+  created_at: 2016-01-21 14:05:50.292248000 Z
+  id: 110
+  lock_version: 0
+  nature: unknown
+  product_id: 164
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2016-01-21 14:05:50.292248000 Z
+product_enjoyments_104:
+  created_at: 2016-01-21 14:05:50.422970000 Z
+  id: 111
+  lock_version: 0
+  nature: unknown
+  product_id: 165
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2016-01-21 14:05:50.422970000 Z
+product_enjoyments_105:
+  created_at: 2016-01-21 14:05:50.548223000 Z
+  id: 112
+  lock_version: 0
+  nature: unknown
+  product_id: 166
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2016-01-21 14:05:50.548223000 Z
+product_enjoyments_106:
+  created_at: 2016-01-21 14:05:50.671971000 Z
+  id: 113
+  lock_version: 0
+  nature: unknown
+  product_id: 167
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2016-01-21 14:05:50.671971000 Z
+product_enjoyments_107:
+  created_at: 2016-01-21 14:05:50.807043000 Z
+  id: 114
+  lock_version: 0
+  nature: unknown
+  product_id: 168
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2016-01-21 14:05:50.807043000 Z
+product_enjoyments_108:
+  created_at: 2016-01-21 14:05:50.938484000 Z
+  id: 115
+  lock_version: 0
+  nature: unknown
+  product_id: 169
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2016-01-21 14:05:50.938484000 Z
+product_enjoyments_109:
+  created_at: 2016-01-21 14:05:51.067925000 Z
+  id: 116
+  lock_version: 0
+  nature: unknown
+  product_id: 170
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2016-01-21 14:05:51.067925000 Z
+product_enjoyments_110:
+  created_at: 2016-01-21 14:05:51.223046000 Z
+  id: 117
+  lock_version: 0
+  nature: unknown
+  product_id: 171
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2016-01-21 14:05:51.223046000 Z
+product_enjoyments_111:
+  created_at: 2016-01-21 14:05:51.360025000 Z
+  id: 118
+  lock_version: 0
+  nature: unknown
+  product_id: 172
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2016-01-21 14:05:51.360025000 Z
+product_enjoyments_112:
+  created_at: 2016-01-21 14:05:51.514125000 Z
+  id: 119
+  lock_version: 0
+  nature: unknown
+  product_id: 173
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2016-01-21 14:05:51.514125000 Z
+product_enjoyments_113:
+  created_at: 2016-01-21 14:05:51.648065000 Z
+  id: 120
+  lock_version: 0
+  nature: unknown
+  product_id: 174
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2016-01-21 14:05:51.648065000 Z
+product_enjoyments_114:
+  created_at: 2016-01-21 14:05:51.783260000 Z
+  id: 121
+  lock_version: 0
+  nature: unknown
+  product_id: 175
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2016-01-21 14:05:51.783260000 Z
+product_enjoyments_115:
+  created_at: 2016-05-10 19:12:52.743368000 Z
+  creator_id: 1
+  id: 122
+  lock_version: 0
+  nature: unknown
+  product_id: 176
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2016-05-10 19:12:52.743368000 Z
+  updater_id: 1
+product_enjoyments_116:
+  created_at: 2016-07-01 19:23:47.642166000 Z
+  creator_id: 1
+  enjoyer_id: 1
+  id: 123
+  lock_version: 0
+  nature: unknown
+  product_id: 177
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  stopped_at: 2016-07-01 19:23:51.381970000 Z
+  updated_at: 2016-07-01 19:23:47.642166000 Z
+  updater_id: 1
+product_enjoyments_117:
+  created_at: 2016-07-01 19:23:47.791778000 Z
+  creator_id: 1
+  enjoyer_id: 1
+  id: 124
+  lock_version: 0
+  nature: unknown
+  product_id: 178
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  stopped_at: 2016-07-01 19:23:51.381970000 Z
+  updated_at: 2016-07-01 19:23:47.791778000 Z
+  updater_id: 1
+product_enjoyments_118:
+  created_at: 2016-07-01 19:23:51.407735000 Z
+  creator_id: 1
+  id: 125
+  lock_version: 0
+  nature: own
+  product_id: 177
+  started_at: 2016-07-01 19:23:51.381970000 Z
+  stopped_at: 2016-07-01 20:13:27.276170000 Z
+  updated_at: 2016-07-01 19:23:51.407735000 Z
+  updater_id: 1
+product_enjoyments_119:
+  created_at: 2016-07-01 19:23:51.439324000 Z
+  creator_id: 1
+  id: 126
+  lock_version: 0
+  nature: own
+  product_id: 178
+  started_at: 2016-07-01 19:23:51.381970000 Z
+  updated_at: 2016-07-01 19:23:51.439324000 Z
+  updater_id: 1
+product_enjoyments_120:
+  created_at: 2016-07-01 20:13:27.296111000 Z
+  creator_id: 1
+  enjoyer_id: 10
+  id: 127
+  lock_version: 0
+  nature: other
+  product_id: 177
+  started_at: 2016-07-01 20:13:27.276170000 Z
+  updated_at: 2016-07-01 20:13:27.296111000 Z
+  updater_id: 1
+product_enjoyments_121:
+  created_at: 2016-07-01 20:23:21.079829000 Z
+  creator_id: 1
+  enjoyer_id: 1
+  id: 128
+  lock_version: 0
+  nature: unknown
+  product_id: 179
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  stopped_at: 2016-07-01 20:23:25.072310000 Z
+  updated_at: 2016-07-01 20:23:21.079829000 Z
+  updater_id: 1
+product_enjoyments_122:
+  created_at: 2016-07-01 20:23:25.100248000 Z
+  creator_id: 1
+  id: 129
+  lock_version: 0
+  nature: own
+  product_id: 179
+  started_at: 2016-07-01 20:23:25.072310000 Z
+  updated_at: 2016-07-01 20:23:25.100248000 Z
+  updater_id: 1
+product_enjoyments_123:
+  created_at: 2016-07-26 19:27:42.832555000 Z
+  creator_id: 1
+  id: 130
+  lock_version: 0
+  nature: unknown
+  product_id: 143
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2016-07-26 19:27:42.832555000 Z
+  updater_id: 1
+product_enjoyments_124:
+  created_at: 2016-08-10 14:27:49.887848000 Z
+  creator_id: 1
+  enjoyer_id: 1
+  id: 131
+  lock_version: 0
+  nature: unknown
+  product_id: 180
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  stopped_at: 2016-08-10 14:27:49.970014000 Z
+  updated_at: 2016-08-10 14:27:49.887848000 Z
+  updater_id: 1
+product_enjoyments_125:
+  created_at: 2016-08-10 14:27:50.008167000 Z
+  creator_id: 1
+  enjoyer_id: 1
+  id: 132
+  lock_version: 0
+  nature: own
+  product_id: 180
+  started_at: 2016-08-10 14:27:49.970014000 Z
+  updated_at: 2016-08-10 14:27:50.008167000 Z
+  updater_id: 1
+product_enjoyments_126:
+  created_at: 2016-12-20 18:24:29.557243000 Z
+  creator_id: 1
+  id: 133
+  lock_version: 0
+  nature: unknown
+  product_id: 181
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2016-12-20 18:24:29.557243000 Z
+  updater_id: 1

@@ -37,4 +37,24 @@
 #  updated_at      :datetime         not null
 #  updater_id      :integer
 #
---- {}
+---
+product_links_001:
+  created_at: 2014-10-31 17:19:32.000000000 Z
+  creator_id: 1
+  id: 1
+  linked_id: 1
+  lock_version: 0
+  nature: father
+  product_id: 1
+  updated_at: 2014-10-31 17:19:32.000000000 Z
+  updater_id: 1
+product_links_002:
+  created_at: 2014-10-31 17:19:32.000000000 Z
+  creator_id: 1
+  id: 2
+  linked_id: 2
+  lock_version: 0
+  nature: mother
+  product_id: 1
+  updated_at: 2014-10-31 17:19:32.000000000 Z
+  updater_id: 1
