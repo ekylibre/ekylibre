@@ -167,6 +167,8 @@ eng:
       show: "Catalog: %{name}"
     backend/cobbles/production_cost_cobbles:
       # show: "Production cost cobble: %{name}"
+    backend/cobbles/stock_in_ground_cobbles:
+      # show: "Stock in ground cobble: %{name}"
     backend/companies:
       edit: "Company settings"
     backend/contracts:

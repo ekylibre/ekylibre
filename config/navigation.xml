@@ -2105,6 +2105,8 @@
       <item name="workers">
         <page to="backend/workers#edit_many"/>
         <page to="backend/workers#update_many"/>
+      <item name="stock_in_ground_cobbles">
+        <page to="backend/cobbles/stock_in_ground_cobbles#show"/>
       </item>
     </group>
   </untreated-actions>
