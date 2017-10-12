@@ -157,6 +157,8 @@ eng:
       index: "Price catalogs"
       new: "New catalog"
       show: "Catalog: %{name}"
+    backend/cobbles/production_cost_cobbles:
+      # show: "Production cost cobble: %{name}"
     backend/companies:
       edit: "Company settings"
     backend/contracts:
