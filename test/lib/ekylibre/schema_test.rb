@@ -7,7 +7,6 @@ module Ekylibre
       Ekylibre::Schema.tables.each do |table, columns|
         columns.each do |n, column|
           next if column.references.nil?
-          # byebug if table.to_s == 'target_distributions' && n.to_s == 'creator_id'
           assert(column.references.present?, "#{table}.#{n} foreign key is not determined.")
           next if column.polymorphic?
           assert_nothing_raised do

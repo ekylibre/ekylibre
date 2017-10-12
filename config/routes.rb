@@ -973,11 +973,6 @@ Rails.application.routes.draw do
         post :run
       end
     end
-    resources :target_distributions, concerns: %i[list many], path: 'target-distributions' do
-      collection do
-        get :list_intervention_product_parameters
-      end
-    end
 
     resources :tasks, concerns: [:list] do
       member do

@@ -163,7 +163,6 @@ module Ekylibre
             ap = aps.support_shape_matching(production_support_shape, 0.02).first if aps
             unless ap
               ap = ActivityProduction.create!(attributes)
-              td = TargetDistribution.find_or_create_by!(activity: activity, activity_production: ap, target: ap.support)
             end
           # ANIMAL FARMING
           elsif activity.with_supports && Nomen::ActivityFamily[activity.family] <= :animal_farming && product.is_a?(AnimalGroup)
@@ -174,11 +173,6 @@ module Ekylibre
             unless (ap = ActivityProduction.find_by(activity: activity, campaign: campaign, support: product))
               ap = ActivityProduction.create!(attributes)
               m = product.members_at(ap.started_on.to_time)
-              if m.any?
-                for animal in m
-                  td = TargetDistribution.find_or_create_by!(activity: activity, activity_production: ap, target: animal)
-                end
-              end
             end
           else
             attributes[:size_indicator] = 'net_surface_area'

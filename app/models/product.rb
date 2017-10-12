@@ -208,7 +208,7 @@ class Product < Ekylibre::Record::Base
   }
 
   scope :of_production, lambda { |production|
-    where(id: TargetDistribution.select(:target_id).where(activity_production: production))
+    where(activity_production: production)
   }
   scope :of_productions, lambda { |*productions|
     of_productions(productions.flatten)
