@@ -34,28 +34,4 @@
 #  updated_at   :datetime         not null
 #  updater_id   :integer
 #
----
-activity_tactics_001:
-  activity_id: 22
-  created_at: 2016-08-05 15:12:58.528344000 Z
-  creator_id: 1
-  id: 1
-  lock_version: 1
-  mode: sowed
-  mode_delta: 10
-  name: Conventionnel
-  planned_on: 2016-08-17
-  updated_at: 2016-08-05 15:38:09.640136000 Z
-  updater_id: 1
-activity_tactics_002:
-  activity_id: 1
-  created_at: 2016-08-05 15:37:30.430871000 Z
-  creator_id: 1
-  id: 2
-  lock_version: 0
-  mode: sowed
-  mode_delta: 10
-  name: Test 2
-  planned_on: 2016-08-23
-  updated_at: 2016-08-05 15:37:30.430871000 Z
-  updater_id: 1
+--- {}

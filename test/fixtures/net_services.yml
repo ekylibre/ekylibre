@@ -30,28 +30,4 @@
 #  updated_at     :datetime         not null
 #  updater_id     :integer
 #
----
-net_services_001:
-  created_at: 2014-10-31 17:19:32.000000000 Z
-  creator_id: 1
-  id: 1
-  lock_version: 0
-  reference_name: telepac
-  updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater_id: 1
-net_services_002:
-  created_at: 2014-10-31 17:19:32.000000000 Z
-  creator_id: 1
-  id: 2
-  lock_version: 0
-  reference_name: lilco
-  updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater_id: 1
-net_services_003:
-  created_at: 2014-10-31 19:07:23.549746000 Z
-  creator_id: 1
-  id: 3
-  lock_version: 0
-  reference_name: selso
-  updated_at: 2014-10-31 19:07:23.549746000 Z
-  updater_id: 1
+--- {}
