@@ -63,7 +63,8 @@ class PurchaseItem < Ekylibre::Record::Base
   belongs_to :tax
   belongs_to :fixed_asset, inverse_of: :purchase_items
   belongs_to :depreciable_product, class_name: 'Product'
-  has_many :parcel_items
+  has_many :purchase_orders_items, inverse_of: :purchase_order_item
+  has_many :purchase_invoice_items, inverse_of: :purchase_invoice_item
   has_many :products, through: :parcel_items
   has_one :product_nature_category, through: :variant, source: :category
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.

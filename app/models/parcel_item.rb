@@ -64,7 +64,12 @@ class ParcelItem < Ekylibre::Record::Base
   belongs_to :analysis
   belongs_to :parcel, inverse_of: :items
   belongs_to :product
-  belongs_to :purchase_item
+
+  with_options class_name: 'PurchaseItem' do
+    belongs_to :purchase_order_item, foreign_key: 'purchase_order_item_id'
+    belongs_to :purchase_invoice_item, foreign_key: 'purchase_invoice_item_id'
+  end
+
   belongs_to :sale_item
   belongs_to :delivery
   belongs_to :transporter, class_name: 'Entity'
@@ -133,8 +138,8 @@ class ParcelItem < Ekylibre::Record::Base
 
     if sale_item
       self.variant = sale_item.variant
-    elsif purchase_item
-      self.variant = purchase_item.variant
+    elsif purchase_order_item
+      self.variant = purchase_order_item.variant
     elsif parcel_outgoing?
       self.variant = source_product.variant if source_product
       self.population = source_product.population if population.nil? || population.zero?
@@ -164,7 +169,7 @@ class ParcelItem < Ekylibre::Record::Base
     unit_pretax_stock_amount
     unit_pretax_amount
     pretax_amount
-    purchase_item_id
+    purchase_order_item_id
     sale_item_id
     updated_at
     updater_id
@@ -179,7 +184,7 @@ class ParcelItem < Ekylibre::Record::Base
   end
 
   def trade_item
-    parcel_incoming? ? purchase_item : sale_item
+    parcel_incoming? ? purchase_order_item : sale_item
   end
 
   def stock_amount

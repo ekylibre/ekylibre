@@ -71,8 +71,6 @@ class Reception < Parcel
   validates :sender, presence: true
   # validates :storage, presence: true
 
-  accepts_nested_attributes_for :purchases
-
   before_validation do
     self.nature = 'incoming'
   end
