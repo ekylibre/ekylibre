@@ -381,7 +381,7 @@ eng:
       supervision: "Supervision"
       supervision_item: "Supervision item"
       synchronization_operation: "Synchronization operation"
-      target_distribution: "Target distribution"
+      target_distribution: "Target distribution" #?
       task: "Task"
       tax: "Tax"
       tax_declaration: "Tax declaration"
@@ -693,7 +693,7 @@ eng:
     device_uid: "Device UID"
     direct_links: "Direct links"
     direction: "Direction"
-    distributed_on_productions: "Distributed on productions"
+    distributed_on_productions: "Distributed on productions" #?
     distributions: "Distributions"
     district: "District"
     document: "Document"

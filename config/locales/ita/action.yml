@@ -569,12 +569,12 @@ ita:
     backend/synchronizations:
       index: "sincronizzazioni"
       # run: "Run synchronization: %{name}"
-    backend/target_distributions:
-      edit: "Modifica distribuzione target"
-      edit_many: "Distribuire prodotti non colpiti"
-      index: "distribuzioni di destinazione"
-      new: "Nuova distribuzione target"
-      show: "distribuzione target"
+    backend/target_distributions: #?
+      edit: "Modifica distribuzione target" #?
+      edit_many: "Distribuire prodotti non colpiti" #?
+      index: "distribuzioni di destinazione" #?
+      new: "Nuova distribuzione target" #?
+      show: "distribuzione target" #?
     backend/tasks:
       # edit: "Edit task: %{name}"
       index: "Compiti"

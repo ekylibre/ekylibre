@@ -25,7 +25,7 @@ module Backend
                                add_group: { mode: :create,
                                             params: { variant_id: 31,
                                                       name: 'Fluffy' } },
-                               except: %i[change matching_interventions load_animals add_to_group]
+                               except: %i[change matching_interventions load_animals add_to_group update_many edit_many]
     # TODO: Re-activate #matching_interventions, #add_to_group and #load_animals tests
   end
 end

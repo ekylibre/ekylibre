@@ -15,7 +15,7 @@ namespace :clean do
     schema_hash = {}
     schema_yaml = "---\n"
     Ekylibre::Record::Base.connection.tables.sort.delete_if do |table|
-      %w[schema_migrations spatial_ref_sys oauth_access_grants oauth_access_tokens oauth_applications].include?(table.to_s)
+      %w[schema_migrations spatial_ref_sys oauth_access_grants oauth_access_tokens oauth_applications target_distributions].include?(table.to_s)
     end.each do |table|
       schema_hash[table] = {}
       schema_yaml << "\n#{table}:\n"

@@ -148,14 +148,14 @@ class Plant < Bioproduct
     item.value
   end
 
-  def best_activity_production(options = {})
-    at = options[:at]
-    at ||= Time.now
-    intersecting = LandParcel.shape_intersecting(shape)
-    current_intersecting = intersecting.at(at)
-    biggest_intersecting = current_intersecting.max_by { |lp| lp.shape.intersection(shape).area }
-    biggest_intersecting || super
-  end
+  # def best_activity_production(options = {})
+  #   at = options[:at]
+  #   at ||= Time.now
+  #   intersecting = LandParcel.shape_intersecting(shape)
+  #   current_intersecting = intersecting.at(at)
+  #   biggest_intersecting = current_intersecting.max_by { |lp| lp.shape.intersection(shape).area }
+  #   biggest_intersecting || super
+  # end
 
   # INSPECTIONS RELATED
 

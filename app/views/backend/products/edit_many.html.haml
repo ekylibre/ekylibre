@@ -10,7 +10,8 @@
       %tbody
         - @targets.each do |target|
           :ruby
-            activity_productions = @activity_productions.where("DATE(stopped_on) >= ?", target.born_at.to_date)
+            activity_productions = @activity_productions
+            activity_productions = activity_productions.where("DATE(stopped_on) >= ?", target.born_at.to_date) unless target.born_at.blank?
             activity_productions = activity_productions.where("DATE(started_on) <= ?", target.dead_at.to_date) unless target.dead_at.blank?
             activity_productions = activity_productions.includes(:activity, :cultivable_zone).map { |ac| [ac.name, ac.id] }
           %tr

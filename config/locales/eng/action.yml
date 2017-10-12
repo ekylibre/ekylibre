@@ -801,13 +801,6 @@ eng:
     backend/synchronizations:
       index: "Synchronizations"
       run: "Run synchronization: %{name}"
-    backend/target_distributions:
-      edit: "Edit target distribution"
-      edit_many: "Distribute unaffected products"
-      index: "Target distributions"
-      new: "New target distribution"
-      show: "Target distribution"
-      # update_many: "Update many target distribution: %{name}"
     backend/tasks:
       edit: "Edit task: %{name}"
       # finish: "Finish task: %{name}"
@@ -1287,7 +1280,7 @@ eng:
     disease_percentage_evolution: "Disease percentage evolution"
     display: "Display" #?
     distribute_unaffected_products: "Distribute unaffected products"
-    distributions: "Distributions"
+    distributions: "Distributions" #?
     divide: "Divide"
     division: "Division"
     divisions: "Divisions"

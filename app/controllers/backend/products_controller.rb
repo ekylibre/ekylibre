@@ -248,16 +248,20 @@ module Backend
       @activity_productions = ActivityProduction.all
       @activity_productions = @activity_productions.of_activity(activity) if activity
       saved = true
-      @targets = params[:target_distributions].map do |_id, target_distribution|
-        product = Product.find(target_distribution[:target_id])
-        activity_production_id = target_distribution[:activity_production_id]
-        if activity_production_id.empty? && product.activity_production_id.present?
-          saved = false unless product.update(activity_production_id: nil)
-        elsif !activity_production_id.empty? && product.activity_production_id != activity_production_id.to_i
-          saved = false unless product.update(activity_production_id: activity_production_id)
-        end
-        product
-      end.sort { |a, b| a.activity_production_id <=> b.activity_production_id || (b.activity_production_id && 1) || -1 }
+      @targets = if params[:target_distributions]
+                   params[:target_distributions].map do |_id, target_distribution|
+                     product = Product.find(target_distribution[:target_id])
+                     activity_production_id = target_distribution[:activity_production_id]
+                     if activity_production_id.empty? && product.activity_production_id.present?
+                       saved = false unless product.update(activity_production_id: nil)
+                     elsif !activity_production_id.empty? && product.activity_production_id != activity_production_id.to_i
+                       saved = false unless product.update(activity_production_id: activity_production_id)
+                     end
+                     product
+                   end.sort { |a, b| a.activity_production_id <=> b.activity_production_id || (b.activity_production_id && 1) || -1 }
+                 else
+                   []
+                 end
       if saved
         redirect_to params[:redirect] || backend_activities_path
       else

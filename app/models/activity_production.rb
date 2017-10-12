@@ -66,7 +66,6 @@ class ActivityProduction < Ekylibre::Record::Base
   belongs_to :tactic, class_name: 'ActivityTactic', inverse_of: :productions
   belongs_to :season, class_name: 'ActivitySeason', inverse_of: :productions
   has_many :products
-  has_many :distributions, class_name: 'TargetDistribution', inverse_of: :activity_production, dependent: :destroy
   has_many :budgets, through: :activity
   has_many :manure_management_plan_zones, class_name: 'ManureManagementPlanZone',
                                           inverse_of: :activity_production
@@ -195,10 +194,6 @@ class ActivityProduction < Ekylibre::Record::Base
       errors.add(:support_shape, :empty) if support_shape && support_shape.empty?
     end
     true
-  end
-
-  after_create do
-    add_target!(support) if support
   end
 
   after_commit do
@@ -344,11 +339,6 @@ class ActivityProduction < Ekylibre::Record::Base
     else
       self.size = size_value.in(size_unit_name)
     end
-  end
-
-  def add_target!(product, at = nil)
-    at ||= Time.now if distributions.where(target: product).any?
-    distributions.create!(target: product)
   end
 
   def active?
@@ -536,7 +526,7 @@ class ActivityProduction < Ekylibre::Record::Base
     end
     total_quantity = 0.0.in(size_unit_name)
 
-    target_distribution_plants = Plant.where(id: distributions.pluck(:target_id).compact)
+    target_distribution_plants = Plant.where(activity_production: self)
 
     # get harvest_interventions firstly by distributions and secondly by inside_plants method
     harvest_interventions = Intervention.real.of_category(procedure_category).with_targets(target_distribution_plants) if target_distribution_plants.any?

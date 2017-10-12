@@ -175,7 +175,6 @@ module Ekylibre
           # if animals and production_support, add animals to the target distribution
           if animals.any? && ap.present?
             animals.each do |animal|
-              td = TargetDistribution.where(activity: activity, activity_production: ap, target: animal).first_or_create!
               animal.memberships.where(group: animal_group, started_at: animal.born_at + r.minimum_age, nature: :interior).first_or_create!
               animal.localizations.where(started_at: animal.born_at + r.minimum_age, nature: :interior, container: animal_container).first_or_create!
             end

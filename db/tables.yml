@@ -7299,41 +7299,6 @@ synchronization_operations:
   updater_id:
     type: integer
     references: user
-target_distributions:
-  activity_id:
-    type: integer
-    references: activity
-    required: true
-  activity_production_id:
-    type: integer
-    references: activity_production
-    required: true
-  created_at:
-    type: datetime
-    required: true
-  creator_id:
-    type: integer
-    references: user
-  id:
-    type: integer
-    required: true
-  lock_version:
-    type: integer
-    required: true
-  started_at:
-    type: datetime
-  stopped_at:
-    type: datetime
-  target_id:
-    type: integer
-    references: product
-    required: true
-  updated_at:
-    type: datetime
-    required: true
-  updater_id:
-    type: integer
-    references: user
 tasks:
   created_at:
     type: datetime

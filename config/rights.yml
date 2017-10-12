@@ -248,10 +248,10 @@ activities:
     - "backend/inspections#unroll"
     - "backend/plant_density_abaci#show"
     - "backend/plant_density_abacus_items#unroll"
-    - "backend/target_distributions#index"
-    - "backend/target_distributions#list"
-    - "backend/target_distributions#list_intervention_product_parameters"
-    - "backend/target_distributions#show"
+    - "backend/target_distributions#index" #?
+    - "backend/target_distributions#list" #?
+    - "backend/target_distributions#list_intervention_product_parameters" #?
+    - "backend/target_distributions#show" #?
   write:
     dependencies:
     - read-activities
@@ -287,13 +287,13 @@ activities:
     - "backend/plant_density_abaci#new"
     - "backend/plant_density_abaci#update"
     - "backend/plant_density_abacus_items#new"
-    - "backend/target_distributions#create"
-    - "backend/target_distributions#destroy"
-    - "backend/target_distributions#edit"
-    - "backend/target_distributions#edit_many"
-    - "backend/target_distributions#new"
+    - "backend/target_distributions#create" #?
+    - "backend/target_distributions#destroy" #?
+    - "backend/target_distributions#edit" #?
+    - "backend/target_distributions#edit_many" #?
+    - "backend/target_distributions#new" #?
     - "backend/target_distributions#update" #?
-    - "backend/target_distributions#update_many"
+    - "backend/target_distributions#update_many" #?
 
 affairs:
   read:
@@ -1905,7 +1905,7 @@ productions:
     actions:
     - "backend/activity_productions#index"
     - "backend/activity_productions#list_interventions"
-    - "backend/activity_productions#list_target_distributions"
+    - "backend/activity_productions#list_target_distributions" #?
     - "backend/activity_productions#show"
     - "backend/activity_productions#unroll"
   write:

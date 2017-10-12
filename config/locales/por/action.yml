@@ -574,12 +574,12 @@ por:
     backend/synchronizations:
       index: "Sincronizações"
       # run: "Run synchronization: %{name}"
-    backend/target_distributions:
-      edit: "distribuição alvo Editar"
-      edit_many: "Distribuir produtos não afetados"
-      index: "distribuições alvo"
-      new: "distribuição alvo novo"
-      show: "distribuição alvo"
+    backend/target_distributions: #?
+      edit: "distribuição alvo Editar" #?
+      edit_many: "Distribuir produtos não afetados" #?
+      index: "distribuições alvo" #?
+      new: "distribuição alvo novo" #?
+      show: "distribuição alvo" #?
     backend/tasks:
       # edit: "Edit task: %{name}"
       index: "Tarefas"
