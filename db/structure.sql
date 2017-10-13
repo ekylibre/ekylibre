@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 9.6.4
--- Dumped by pg_dump version 9.6.4
+-- Dumped from database version 9.6.3
+-- Dumped by pg_dump version 9.6.3
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -346,10 +346,7 @@ CREATE TABLE activity_productions (
     campaign_id integer,
     custom_fields jsonb,
     season_id integer,
-    tactic_id integer,
-    total_tool_cost numeric(19,4) DEFAULT 0.0 NOT NULL,
-    total_input_cost numeric(19,4) DEFAULT 0.0 NOT NULL,
-    total_doer_cost numeric(19,4) DEFAULT 0.0 NOT NULL
+    tactic_id integer
 );
 
 
@@ -443,8 +440,7 @@ CREATE TABLE intervention_parameters (
     currency character varying,
     unit_pretax_stock_amount numeric(19,4) DEFAULT 0.0 NOT NULL,
     dead boolean DEFAULT false NOT NULL,
-    identification_number character varying,
-    total_cost numeric(19,4) DEFAULT 0.0 NOT NULL
+    identification_number character varying
 );
 
 
@@ -480,10 +476,7 @@ CREATE TABLE interventions (
     currency character varying,
     journal_entry_id integer,
     request_compliant boolean,
-    auto_calculate_working_periods boolean DEFAULT false,
-    total_tool_cost numeric(19,4) DEFAULT 0.0 NOT NULL,
-    total_input_cost numeric(19,4) DEFAULT 0.0 NOT NULL,
-    total_doer_cost numeric(19,4) DEFAULT 0.0 NOT NULL
+    auto_calculate_working_periods boolean DEFAULT false
 );
 
 
@@ -17894,12 +17887,6 @@ INSERT INTO schema_migrations (version) VALUES ('20170818134454');
 INSERT INTO schema_migrations (version) VALUES ('20170831071726');
 
 INSERT INTO schema_migrations (version) VALUES ('20170831180835');
-
-INSERT INTO schema_migrations (version) VALUES ('20171004132948');
-
-INSERT INTO schema_migrations (version) VALUES ('20171005071735');
-
-INSERT INTO schema_migrations (version) VALUES ('20171005071944');
 
 INSERT INTO schema_migrations (version) VALUES ('20171010075206');
 

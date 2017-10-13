@@ -2071,6 +2071,9 @@
         <page to="backend/buildings#edit_many"/>
         <page to="backend/buildings#update_many"/>
       </item>
+      <item name="stock_in_ground_cobbles">
+        <page to="backend/cobbles/stock_in_ground_cobbles#show"/>
+      </item>
       <item name="equipments">
         <page to="backend/equipments#edit_many"/>
         <page to="backend/equipments#update_many"/>
@@ -2105,9 +2108,6 @@
       <item name="workers">
         <page to="backend/workers#edit_many"/>
         <page to="backend/workers#update_many"/>
-      </item>
-      <item name="stock_in_ground_cobbles">
-        <page to="backend/cobbles/stock_in_ground_cobbles#show"/>
       </item>
     </group>
   </untreated-actions>

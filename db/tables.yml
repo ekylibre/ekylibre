@@ -484,21 +484,6 @@ activity_productions:
   tactic_id:
     type: integer
     references: activity_tactic
-  total_doer_cost:
-    type: decimal
-    precision: 19
-    scale: 4
-    required: true
-  total_input_cost:
-    type: decimal
-    precision: 19
-    scale: 4
-    required: true
-  total_tool_cost:
-    type: decimal
-    precision: 19
-    scale: 4
-    required: true
   updated_at:
     type: datetime
     required: true
@@ -3487,11 +3472,6 @@ intervention_parameters:
   reference_name:
     type: string
     required: true
-  total_cost:
-    type: decimal
-    precision: 19
-    scale: 4
-    required: true
   type:
     type: string
   unit_pretax_stock_amount:
@@ -3641,21 +3621,6 @@ interventions:
     required: true
   stopped_at:
     type: datetime
-    required: true
-  total_doer_cost:
-    type: decimal
-    precision: 19
-    scale: 4
-    required: true
-  total_input_cost:
-    type: decimal
-    precision: 19
-    scale: 4
-    required: true
-  total_tool_cost:
-    type: decimal
-    precision: 19
-    scale: 4
     required: true
   trouble_description:
     type: text

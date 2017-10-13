@@ -113,6 +113,10 @@ class Plant < Bioproduct
     end
   end
 
+  after_create do
+    link_to_production
+  end
+
   def status
     if dead_at?
       :stop
@@ -215,5 +219,13 @@ class Plant < Bioproduct
       .group_by(&:first)
       .map { |crit, g_pairs| [crit, g_pairs.map(&:last)] }
       .to_h
+  end
+
+  def link_to_production
+    outputs = InterventionOutput.where(product: self, reference_name: "plant")
+    unless outputs.empty?
+      ap = outputs.first.intervention.targets.where(reference_name: "land_parcel").first.product.activity_production
+      self.update(activity_production: ap)
+    end
   end
 end
