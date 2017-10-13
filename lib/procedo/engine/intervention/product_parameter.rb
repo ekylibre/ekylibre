@@ -15,6 +15,7 @@ module Procedo
           end
           if attributes[:working_zone].present?
             @working_zone = Charta.from_geojson(attributes[:working_zone])
+            @working_zone = @working_zone.convert_to(:multi_polygon)
           end
           if intervention && intervention.working_periods.present?
             first_period_key = intervention.working_periods.keys.sort_by(&:to_i).first
