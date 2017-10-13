@@ -55,7 +55,7 @@ module Backend
     def show
       document_name = human_action_name.to_s
       filename = "#{human_action_name}_#{Time.zone.now.l(format: '%Y%m%d%H%M%S')}"
-      @general_ledger = Account.ledger(params[:started_on], params[:stopped_on]) if params[:period]
+      @general_ledger = Account.ledger(params) if params[:period]
       respond_to do |format|
         format.html
         format.ods do
@@ -88,7 +88,20 @@ module Backend
       # TODO: add a generic template system path
       report = ODFReport::Report.new(Rails.root.join('config', 'locales', 'fra', 'reporting', 'general_ledger.odt')) do |r|
         # TODO: add a helper with generic metod to implemend header and footer
-
+        
+        data_filters = []
+        unless params[:accounts].empty?
+          data_filters << Account.human_attribute_name(:account) + " : " + params[:accounts]
+        end
+        
+        unless params[:lettering_state].empty?
+          content = ''
+          content << :unlettered.tl if params[:lettering_state].include?("unlettered")
+          content << " | " + :partially_lettered.tl if params[:lettering_state].include?("partially_lettered")
+          content << " | " + :lettered.tl if params[:lettering_state].include?("lettered")
+          data_filters << :lettering_state.tl + " : " + content
+        end
+        
         e = Entity.of_company
         company_name = e.full_name
         company_address = e.default_mail_address.coordinate
@@ -99,6 +112,7 @@ module Backend
         r.add_field 'PRINTED_AT', Time.zone.now.l(format: '%d/%m/%Y %T')
         r.add_field 'STARTED_ON', params[:started_on].to_date.strftime('%d/%m/%Y') if params[:period]
         r.add_field 'STOPPED_ON', params[:stopped_on].to_date.strftime('%d/%m/%Y') if params[:period]
+        r.add_field 'DATA_FILTERS', data_filters*","
 
         r.add_section('Section1', general_ledger) do |s|
 

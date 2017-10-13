@@ -614,17 +614,51 @@ class Account < Ekylibre::Record::Base
   end
 
   # this method loads the general ledger for all the accounts.
-  def self.ledger(from, to)
+  def self.ledger(options = {})
+    
+    # build filter for accounts
+    accounts_filter_conditions = '1=1'
+    list_accounts = options[:accounts].split(' ')
+    unless list_accounts.empty?
+      accounts_filter_conditions += ' AND ' + list_accounts.collect do |account|
+        "accounts.number LIKE '" + account.to_s + "%'"
+      end.join(' OR ')
+    end
+    
+    # build filter for lettering_state
+    # "lettering_state"=>["unlettered", "partially_lettered"]
+    c = options[:lettering_state].count
+    if c == 3 && options[:lettering_state].to_set.superset?(["unlettered", "partially_lettered", "lettered"].to_set)
+      lettering_state_filter_conditions = '1=1'
+    elsif c == 2 && options[:lettering_state].to_set.superset?(["partially_lettered", "lettered"].to_set)
+      lettering_state_filter_conditions = 'letter IS NOT NULL'
+    elsif c == 2 && options[:lettering_state].to_set.superset?(["partially_lettered", "unlettered"].to_set)
+      lettering_state_filter_conditions = "letter IS NULL OR letter ILIKE '%*' "
+    elsif c == 2 && options[:lettering_state].to_set.superset?(["lettered", "unlettered"].to_set)
+      lettering_state_filter_conditions = "letter IS NULL OR letter NOT ILIKE '%*' "
+    elsif c == 1 && options[:lettering_state].to_set.superset?(["unlettered"].to_set)
+      lettering_state_filter_conditions = 'letter IS NULL'
+    elsif c == 1 && options[:lettering_state].to_set.superset?(["lettered"].to_set)
+      lettering_state_filter_conditions = "letter IS NOT NULL AND NOT ILIKE '%*'"
+    elsif c == 1 && options[:lettering_state].to_set.superset?(["partially_lettered"].to_set)
+      lettering_state_filter_conditions = "letter IS NOT NULL AND ILIKE '%*'"
+    else
+      lettering_state_filter_conditions = '1=1'
+    end
+    
+    # TODO options[:states]
+    # build filter for states
+    
     ledger = []
-    # .where("accounts.number like '1%' OR accounts.number like '2%' OR accounts.number like '3%'")
+    
     accounts = Account
-               .where("accounts.number like '4%'")
+               .where(accounts_filter_conditions)
                .includes(journal_entry_items: %i[entry variant])
-               .where(journal_entry_items: { printed_on: from..to })
+               .where(journal_entry_items: { printed_on: options[:started_on]..options[:stopped_on] })
                .reorder('accounts.number ASC, journal_entries.number ASC')
 
     accounts.each do |account|
-      journal_entry_items = account.journal_entry_items
+      journal_entry_items = account.journal_entry_items.where(lettering_state_filter_conditions).reorder('printed_on ASC, entry_number ASC')
 
       account_entry = HashWithIndifferentAccess.new
       # compute << account.number.to_i
