@@ -22,6 +22,7 @@
 #
 # == Table: products
 #
+#  activity_production_id       :integer
 #  address_id                   :integer
 #  birth_date_completeness      :string
 #  birth_farm_number            :string
@@ -130,10 +131,10 @@ class Animal < Bioproduct
     "nomenclatures.varieties.items.#{variety}".t
   end
 
-  def best_activity_production(options = {})
-    at = options[:at] || Time.zone.now
-    ActivityProduction.where(support: groups_at(at)).at(at).first || super
-  end
+  # def best_activity_production(options = {})
+  #   at = options[:at] || Time.zone.now
+  #   ActivityProduction.where(support: groups_at(at)).at(at).first || super
+  # end
 
   def synchronization_operations
     SynchronizationOperation.of_product(self)

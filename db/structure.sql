@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 9.6.4
--- Dumped by pg_dump version 9.6.4
+-- Dumped from database version 9.6.3
+-- Dumped by pg_dump version 9.6.3
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -5896,7 +5896,8 @@ CREATE TABLE products (
     end_of_life_reason character varying,
     originator_id integer,
     codes jsonb,
-    reading_cache jsonb DEFAULT '{}'::jsonb
+    reading_cache jsonb DEFAULT '{}'::jsonb,
+    activity_production_id integer
 );
 
 
@@ -15420,6 +15421,13 @@ CREATE INDEX index_product_readings_on_updater_id ON product_readings USING btre
 
 
 --
+-- Name: index_products_on_activity_production_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_products_on_activity_production_id ON products USING btree (activity_production_id);
+
+
+--
 -- Name: index_products_on_address_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -17200,6 +17208,14 @@ ALTER TABLE ONLY tax_declaration_item_parts
 
 
 --
+-- Name: products fk_rails_5e587cedec; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY products
+    ADD CONSTRAINT fk_rails_5e587cedec FOREIGN KEY (activity_production_id) REFERENCES activity_productions(id);
+
+
+--
 -- Name: payslip_natures fk_rails_6835dfa420; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -17884,4 +17900,5 @@ INSERT INTO schema_migrations (version) VALUES ('20171004132948');
 INSERT INTO schema_migrations (version) VALUES ('20171005071735');
 
 INSERT INTO schema_migrations (version) VALUES ('20171005071944');
+
 

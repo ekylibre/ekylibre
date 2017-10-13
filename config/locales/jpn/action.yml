@@ -477,6 +477,7 @@ jpn:
       # show: "Product type: %{name}"
     backend/products:
       # edit: "Edit product: %{name}"
+      # edit_many: "Distribute unaffected products"
       index: "プロダクト"
       new: "新製品"
       # show: "%{nature}: %{name}"
@@ -568,12 +569,12 @@ jpn:
     backend/synchronizations:
       index: "同期の"
       # run: "Run synchronization: %{name}"
-    backend/target_distributions:
-      edit: "編集対象の分布"
-      edit_many: "影響を受けない製品を販売"
-      index: "ターゲットディストリビューション"
-      new: "新しいターゲットの配布"
-      show: "ターゲット配信"
+    backend/target_distributions: #?
+      edit: "編集対象の分布" #?
+      edit_many: "影響を受けない製品を販売" #?
+      index: "ターゲットディストリビューション" #?
+      new: "新しいターゲットの配布" #?
+      show: "ターゲット配信" #?
     backend/tasks:
       # edit: "Edit task: %{name}"
       index: "タスク"

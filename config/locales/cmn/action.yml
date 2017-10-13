@@ -477,6 +477,7 @@ cmn:
       # show: "Product type: %{name}"
     backend/products:
       # edit: "Edit product: %{name}"
+      # edit_many: "Distribute unaffected products"
       index: "制品"
       new: "新产品"
       # show: "%{nature}: %{name}"
@@ -568,12 +569,12 @@ cmn:
     backend/synchronizations:
       index: "同步"
       # run: "Run synchronization: %{name}"
-    backend/target_distributions:
-      edit: "编辑目标分布"
-      edit_many: "分发产品不受影响"
-      index: "目标分布"
-      new: "新的目标分配"
-      show: "目标分布"
+    backend/target_distributions: #?
+      edit: "编辑目标分布" #?
+      edit_many: "分发产品不受影响" #?
+      index: "目标分布" #?
+      new: "新的目标分配" #?
+      show: "目标分布" #?
     backend/tasks:
       # edit: "Edit task: %{name}"
       index: "任务"

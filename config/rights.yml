@@ -25,15 +25,23 @@
 #     - "authentication/sessions#new"
 #     - "backend/activities#family"
 #     - "backend/activity_inspection_point_natures#autocomplete"
+#     - "backend/animal_groups#edit_many"
 #     - "backend/animal_groups#take"
+#     - "backend/animal_groups#update_many"
+#     - "backend/animals#edit_many"
 #     - "backend/animals#take"
+#     - "backend/animals#update_many"
 #     - "backend/attachments#create"
 #     - "backend/attachments#destroy"
 #     - "backend/attachments#show"
 #     - "backend/beehives#reset"
 #     - "backend/beehives#update"
+#     - "backend/building_divisions#edit_many"
 #     - "backend/building_divisions#take"
+#     - "backend/building_divisions#update_many"
+#     - "backend/buildings#edit_many"
 #     - "backend/buildings#take"
+#     - "backend/buildings#update_many"
 #     - "backend/cells/accountancy_balance_cells#show"
 #     - "backend/cells/calendar_cells#show"
 #     - "backend/cells/cashes_balance_cells#show"
@@ -99,8 +107,12 @@
 #     - "backend/dashboards#stocks"
 #     - "backend/dashboards#tools"
 #     - "backend/dashboards#trade"
+#     - "backend/equipments#edit_many"
 #     - "backend/equipments#take"
+#     - "backend/equipments#update_many"
+#     - "backend/fungi#edit_many"
 #     - "backend/fungi#take"
+#     - "backend/fungi#update_many"
 #     - "backend/golumns#reset"
 #     - "backend/golumns#show"
 #     - "backend/golumns#update"
@@ -112,10 +124,14 @@
 #     - "backend/interventions#change_page"
 #     - "backend/januses#toggle"
 #     - "backend/kujakus#toggle"
+#     - "backend/land_parcels#edit_many"
 #     - "backend/land_parcels#take"
+#     - "backend/land_parcels#update_many"
 #     - "backend/map_editor_shapes#index"
 #     - "backend/map_editors#upload"
+#     - "backend/matters#edit_many"
 #     - "backend/matters#take"
+#     - "backend/matters#update_many"
 #     - "backend/notifications#destroy"
 #     - "backend/notifications#index"
 #     - "backend/notifications#show"
@@ -127,13 +143,21 @@
 #     - "backend/outgoing_payments#show"
 #     - "backend/outgoing_payments#unroll"
 #     - "backend/outgoing_payments#update"
+#     - "backend/plants#edit_many"
 #     - "backend/plants#take"
+#     - "backend/plants#update_many"
 #     - "backend/preferences#update"
+#     - "backend/product_groups#edit_many"
 #     - "backend/product_groups#take"
+#     - "backend/product_groups#update_many"
 #     - "backend/product_nature_variants#quantifiers"
+#     - "backend/products#edit_many"
 #     - "backend/products#take"
+#     - "backend/products#update_many"
 #     - "backend/sensors#last_locations"
+#     - "backend/settlements#edit_many"
 #     - "backend/settlements#take"
+#     - "backend/settlements#update_many"
 #     - "backend/snippets#toggle"
 #     - "backend/tours#finish"
 #     - "backend/visualizations/land_parcels_visualizations#show"
@@ -141,7 +165,9 @@
 #     - "backend/visualizations/plants_visualizations#show"
 #     - "backend/visualizations/resources_visualizations#show"
 #     - "backend/visuals#picture"
+#     - "backend/workers#edit_many"
 #     - "backend/workers#take"
+#     - "backend/workers#update_many"
 #     - "devise/confirmations#create"
 #     - "devise/confirmations#new"
 #     - "devise/confirmations#show"
@@ -223,10 +249,10 @@ activities:
     - "backend/inspections#unroll"
     - "backend/plant_density_abaci#show"
     - "backend/plant_density_abacus_items#unroll"
-    - "backend/target_distributions#index"
-    - "backend/target_distributions#list"
-    - "backend/target_distributions#list_intervention_product_parameters"
-    - "backend/target_distributions#show"
+    - "backend/target_distributions#index" #?
+    - "backend/target_distributions#list" #?
+    - "backend/target_distributions#list_intervention_product_parameters" #?
+    - "backend/target_distributions#show" #?
   write:
     dependencies:
     - read-activities
@@ -262,13 +288,13 @@ activities:
     - "backend/plant_density_abaci#new"
     - "backend/plant_density_abaci#update"
     - "backend/plant_density_abacus_items#new"
-    - "backend/target_distributions#create"
-    - "backend/target_distributions#destroy"
-    - "backend/target_distributions#edit"
-    - "backend/target_distributions#edit_many"
-    - "backend/target_distributions#new"
-    - "backend/target_distributions#update"
-    - "backend/target_distributions#update_many"
+    - "backend/target_distributions#create" #?
+    - "backend/target_distributions#destroy" #?
+    - "backend/target_distributions#edit" #?
+    - "backend/target_distributions#edit_many" #?
+    - "backend/target_distributions#new" #?
+    - "backend/target_distributions#update" #?
+    - "backend/target_distributions#update_many" #?
 
 affairs:
   read:
@@ -1880,7 +1906,7 @@ productions:
     actions:
     - "backend/activity_productions#index"
     - "backend/activity_productions#list_interventions"
-    - "backend/activity_productions#list_target_distributions"
+    - "backend/activity_productions#list_target_distributions" #?
     - "backend/activity_productions#show"
     - "backend/activity_productions#unroll"
   write:
