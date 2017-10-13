@@ -5,4 +5,3 @@ module Backend
     # Add tests here...
   end
 end
-

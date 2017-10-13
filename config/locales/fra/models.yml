@@ -1768,7 +1768,6 @@ fra:
     # total_input_cost: "Total input cost"
     total_items_count: "Nombre total d'éléments"
     total_net_mass: "Masse nette totale"
-    # total_time_cost: "Total time cost"
     # total_tool_cost: "Total tool cost"
     town_number: "Numéro de commune"
     tracking: "Lot"

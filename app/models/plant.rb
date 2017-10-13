@@ -222,10 +222,10 @@ class Plant < Bioproduct
   end
 
   def link_to_production
-    outputs = InterventionOutput.where(product: self, reference_name: "plant")
+    outputs = InterventionOutput.where(product: self, reference_name: 'plant')
     unless outputs.empty?
-      ap = outputs.first.intervention.targets.where(reference_name: "land_parcel").first.product.activity_production
-      self.update(activity_production: ap)
+      ap = outputs.first.intervention.targets.where(reference_name: 'land_parcel').first.product.activity_production
+      update(activity_production: ap)
     end
   end
 end

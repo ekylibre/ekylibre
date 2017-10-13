@@ -3,6 +3,6 @@ FactoryGirl.define do
     catalog
     amount 50.0.to_d
     association :variant, factory: :equipment
-    sequence(:name)     { |n| "Catalog Item #{n}" }
+    sequence(:name) { |n| "Catalog Item #{n}" }
   end
 end

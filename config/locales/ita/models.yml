@@ -1517,7 +1517,6 @@ ita:
     # total_input_cost: "Total input cost"
     total_items_count: "Conteggio totale articoli"
     total_net_mass: "massa netta totale"
-    # total_time_cost: "Total time cost"
     # total_tool_cost: "Total tool cost"
     town_number: "numero di Città"
     tracking: "puntamento"

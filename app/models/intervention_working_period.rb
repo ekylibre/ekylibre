@@ -110,7 +110,7 @@ class InterventionWorkingPeriod < Ekylibre::Record::Base
   end
 
   after_commit do
-    unless intervention.blank?
+    if intervention.present?
       intervention.update_temporality
       intervention.agents.each(&:save!)
     end

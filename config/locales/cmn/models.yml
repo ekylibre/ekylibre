@@ -1486,7 +1486,6 @@ cmn:
     # total_input_cost: "Total input cost"
     total_items_count: "总笔数算"
     total_net_mass: "总净重"
-    # total_time_cost: "Total time cost"
     # total_tool_cost: "Total tool cost"
     town_number: "镇号"
     tracking: "跟踪"

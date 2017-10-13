@@ -74,9 +74,9 @@ class InterventionParameterTest < ActiveSupport::TestCase
     create(:intervention_input, intervention: intervention, product: preparation, variant: preparation.variant, quantity_population: 10.to_d)
     create(:intervention_tool, intervention: intervention, product: equipment, variant: equipment.variant)
 
-    assert_equal 15451.5, intervention.parameters.where(type: 'InterventionInput').first.total_cost.to_f
+    assert_equal 15_451.5, intervention.parameters.where(type: 'InterventionInput').first.total_cost.to_f
 
-    assert_equal 15451.5, intervention.total_input_cost.to_f
+    assert_equal 15_451.5, intervention.total_input_cost.to_f
     assert_equal 50.0, intervention.total_tool_cost.to_f
     assert_equal 0.0, intervention.total_doer_cost.to_f
 
@@ -98,7 +98,7 @@ class InterventionParameterTest < ActiveSupport::TestCase
     # assert_equal 0.0, activity_production.total_doer_cost.to_f
 
     # After updating intervention working_period
-    intervention.working_periods.first.update(started_at: Time.now - 3.hour, stopped_at: Time.now - 1.hour, duration: 7200)
+    intervention.working_periods.first.update(started_at: Time.now - 3.hours, stopped_at: Time.now - 1.hour, duration: 7200)
 
     assert_equal 1545.15, intervention.total_input_cost.to_f
     assert_equal 100.0, intervention.total_tool_cost.to_f

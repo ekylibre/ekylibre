@@ -86,7 +86,7 @@ class CatalogItem < Ekylibre::Record::Base
   end
 
   after_save do
-    params = InterventionParameter.where(variant_id: self.variant.id)
+    params = InterventionParameter.where(variant_id: variant.id)
     params.each(&:save!)
   end
 

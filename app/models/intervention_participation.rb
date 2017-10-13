@@ -85,11 +85,11 @@ class InterventionParticipation < Ekylibre::Record::Base
   end
 
   after_save do
-    intervention.agents.each { |agent| agent.save! } unless intervention.blank?
+    intervention.agents.each(&:save!) if intervention.present?
   end
 
   after_destroy do
-    intervention.agents.each { |agent| agent.save! } unless intervention.blank?
+    intervention.agents.each(&:save!) if intervention.present?
   end
 
   # Data are metrics and in meter and square meter
