@@ -145,6 +145,11 @@ Rails.application.routes.draw do
 
     # resources :calculators, only: :index
 
+    namespace :cobbles do
+      resource :production_cost_cobble, only: :show
+      resource :stock_in_ground_cobble, only: :show
+    end
+
     namespace :cells do
       resource :accountancy_balance_cell, only: :show
       resource :cashes_balance_cell, only: :show
@@ -199,6 +204,7 @@ Rails.application.routes.draw do
         post :unmark
         get :list_journal_entry_items
         get :list_entities
+        get :list_product_nature_variants
       end
     end
 
@@ -706,6 +712,8 @@ Rails.application.routes.draw do
       end
     end
 
+    resources :map_editor_shapes, only: :index
+
     resources :matters, concerns: :products
 
     resources :net_services, concerns: [:list] do
@@ -1018,6 +1026,13 @@ Rails.application.routes.draw do
 
     resources :visuals, only: [] do
       match 'picture(/:style)', via: :get, action: :picture, as: :picture
+    end
+
+    namespace :visualizations do
+      resource :plants_visualizations, only: :show
+      resource :map_cells_visualizations, only: :show
+      resource :land_parcels_visualizations, only: :show
+      resource :resources_visualizations, only: :show
     end
 
     resources :wine_tanks, only: [:index], concerns: [:list]

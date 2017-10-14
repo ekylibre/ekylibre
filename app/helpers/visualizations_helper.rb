@@ -1,10 +1,13 @@
 module Visualization
   class Configuration
+    include Rails.application.routes.url_helpers
+
     def initialize(config = {})
       @config = config
       @categories_colors = @config.delete(:categories_colors)
       @config[:backgrounds] = MapLayer.available_backgrounds.collect(&:to_json_object)
       @config[:overlays] = MapLayer.available_overlays.collect(&:to_json_object)
+      @config[:async_url] = @config.delete(:async_url)
     end
 
     def background(layer, options = {})
@@ -104,8 +107,13 @@ module Visualization
       @config[:controls][name.to_s.camelize(:lower)] = options
     end
 
-    def to_json
+    def to_json(_options = {})
       @config.jsonize_keys.to_json
+    end
+
+    def center(point)
+      @config[:view] ||= {}.with_indifferent_access
+      @config[:view][:center] = point
     end
 
     protected
@@ -214,9 +222,14 @@ module VisualizationsHelper
   #     - v.control :background_selector
   #     - v.control :search
   #
-  def visualization(options = {}, html_options = {})
+  def configure_visualization(options = {})
     config = Visualization::Configuration.new({ categories_colors: theme_colors }.merge(options))
     yield config
+    config
+  end
+
+  def visualization(options = {}, html_options = {}, &block)
+    config = configure_visualization(options, &block)
     content_tag(:div, nil, html_options.deep_merge(data: { visualization: config.to_json }))
   end
 end

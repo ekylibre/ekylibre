@@ -207,6 +207,31 @@
       this._refreshView()
       this._refreshControls()
 
+      @async_loading()
+
+    async_loading: ->
+      return unless @options.asyncUrl?
+
+      $.ajax
+        method: 'GET'
+        dataType: 'json'
+        url: @options.asyncUrl
+        beforeSend: () =>
+          @dynamic_loading = new L.Control(position: "bottomleft")
+          @dynamic_loading.onAdd = (map) =>
+            L.DomUtil.create('div', 'leaflet-dynamic loading')
+          @map.addControl @dynamic_loading
+        success: (data) =>
+          $.extend(true, @options, data)
+          @_refreshControls()
+        error: () =>
+          dynamic_error = new L.Control(position: "bottomleft")
+          dynamic_error.onAdd = (map) =>
+            L.DomUtil.create('div', 'leaflet-dynamic error')
+          @map.addControl dynamic_error
+        complete: () =>
+          @map.removeControl @dynamic_loading
+
     _destroy: ->
       @mapElement.remove()
 
@@ -251,6 +276,10 @@
 
     # Displays all given controls
     _refreshControls: ->
+      if @controls?
+        for name, control of @controls
+          @map.removeControl(control)
+      @controls = {}
       console.log "Refresh controls...", @options.controls
       unless @options and @options.controls?
         console.log "No controls..."
@@ -268,8 +297,8 @@
 
     _addFullscreenControl: (options) ->
       options = $.extend true, {}, @options.controlDefaults.fullscreen, options
-      control = new L.Control.FullScreen options
-      @map.addControl control
+      @controls.fullscreen = new L.Control.FullScreen options
+      @map.addControl @controls.fullscreen
       @map.on "enterFullscreen", (e) =>
         @map.scrollWheelZoom.enable();
 
@@ -279,8 +308,8 @@
 
     _addGeocoderControl: (options) ->
       options = $.extend true, {}, @options.controlDefaults.geocoder, options
-      control = new L.Control.OSMGeocoder options
-      @map.addControl control
+      @controls.geocoder = new L.Control.OSMGeocoder options
+      @map.addControl @controls.geocoder
 
     _addLayerSelectorControl: (options) ->
       baseLayers = {}
@@ -321,10 +350,13 @@
 
         overlays[layer.name] = L.tileLayer(layer.url, opts)
 
-      legendControl = new L.control(position: "bottomright")
-      legendControl.onAdd = (map) ->
+      @controls.legendControl = new L.control(position: "bottomright")
+      @controls.legendControl.onAdd = (map) ->
         L.DomUtil.create('div', 'leaflet-legend-control')
-      @map.addControl legendControl
+      @map.addControl @controls.legendControl
+
+      L.DomUtil.addClass(@controls.legendControl.getContainer(), 'leaflet-hidden-control')
+
 
       $('.leaflet-legend-control').on 'click', () ->
         $(this).find('#legend-activity').toggleClass('minified')
@@ -359,8 +391,9 @@
             if bounds.getNorthEast().equals bounds.getSouthWest()
               @map.setZoom 18
           # Add legend
-          legend = legendControl.getContainer()
+          legend = @controls.legendControl.getContainer()
           legend.innerHTML += renderedLayer.buildLegend()
+          L.DomUtil.removeClass(legend, 'leaflet-hidden-control')
         else
           console.warn "Cannot add layer #{layer.type}"
 
@@ -369,34 +402,34 @@
       @map.on "overlayadd", (event) =>
         @layersScheduler.schedule event.layer
         console.log "Add legend control..."
-        legend = $(legendControl.getContainer())
+        legend = $(@controls.legendControl.getContainer())
         legend.children("#legend-#{event.layer.name}").show()
         legend.children(".first").removeClass("first")
         legend.children(":visible:first").addClass("first")
         legend.removeClass("empty")
         return
 
-      @map.on "overlayremove", (event) ->
+      @map.on "overlayremove", (event) =>
         console.log "Remove legend control..."
-        legend = $(legendControl.getContainer())
+        legend = $(@controls.legendControl.getContainer())
         legend.children("#legend-#{event.layer.name}").hide()
         legend.children(".first").removeClass("first")
         legend.children(":visible:first").addClass("first")
         legend.addClass("empty") if legend.children(":visible").length <= 0
         return
 
-      control = new L.Control.Layers(baseLayers, overlays, @options.controlDefaults.layerSelector)
-      @map.addControl control
+      @controls.layerSelector = new L.Control.Layers(baseLayers, overlays, @options.controlDefaults.layerSelector)
+      @map.addControl @controls.layerSelector
 
     _addScaleControl: (options) ->
       options = $.extend true, {}, @options.controlDefaults.scale, options
-      control = new L.Control.Scale options
-      @map.addControl control
+      @controls.scale = new L.Control.Scale options
+      @map.addControl @controls.scale
 
     _addZoomControl: (options) ->
       options = $.extend true, {}, @options.controlDefaults.zoom, options
-      control = new L.Control.Zoom options
-      @map.addControl control
+      @controls.zoom = new L.Control.Zoom options
+      @map.addControl @controls.zoom
 
 
     # Build a popup from given parameters. For now it only uses popup attribute of
@@ -474,5 +507,3 @@
   $(document).on "page:load cocoon:after-insert cell:load dialog:show", $.loadVisualizations
 
 ) visualization, jQuery
-
-
