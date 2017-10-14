@@ -2046,6 +2046,7 @@
       </item>
       <item name="production_cost_cobbles">
         <page to="backend/cobbles/production_cost_cobbles#show"/>
+        <page to="backend/cobbles/stock_in_ground_cobbles#show"/>
       </item>
       <item name="resources_visualizations">
         <page to="backend/visualizations/resources_visualizations#show"/>
@@ -2053,10 +2054,6 @@
     </group>
   </inaccessible-actions>
   <untreated-actions>
-    <group>
-      <item name="stock_in_ground_cobbles">
-        <page to="backend/cobbles/stock_in_ground_cobbles#show"/>
-      </item>
-    </group>
+    <group/>
   </untreated-actions>
 </navigation>
