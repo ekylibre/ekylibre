@@ -311,6 +311,10 @@ class Intervention < Ekylibre::Record::Base
     Ekylibre::Hook.publish :create_intervention, self
   end
 
+  after_commit do
+    update_production_costs
+  end
+
   # Prevents from deleting an intervention that was executed
   protect on: :destroy do
     with_undestroyable_products?
@@ -568,6 +572,48 @@ class Intervention < Ekylibre::Record::Base
     end
     area ||= 0.0.in(unit)
     area
+  end
+
+  def update_production_costs
+    unless targets.empty?
+      nb_targets = targets.count
+      production_targets = targets.joins(:product).merge(Product.where(type: %w[LandParcel Plant Animal]))
+      production_targets.each do |target|
+        coeff = if target.product.type == 'Animal'
+                  1 / nb_targets
+                else
+                  target.working_zone_area.in(:hectare) / self.working_zone_area.in(:hectare)
+                end
+        if activity_production = target.product.activity_production
+          tool_diff = if previous_changes[:total_tool_cost]
+                        previous_changes[:total_tool_cost].last - previous_changes[:total_tool_cost].first
+                      elsif destroyed?
+                        total_tool_cost - total_tool_cost_was
+                      else
+                        0
+                      end
+          input_diff = if previous_changes[:total_input_cost]
+                         previous_changes[:total_input_cost].last - previous_changes[:total_input_cost].first
+                       elsif destroyed?
+                         total_input_cost - total_input_cost_was
+                       else
+                         0
+                       end
+          doer_diff = if previous_changes[:total_doer_cost]
+                        previous_changes[:total_doer_cost].last - previous_changes[:total_doer_cost].first
+                      elsif destroyed?
+                        total_doer_cost - total_doer_cost_was
+                      else
+                        0
+                      end
+
+          activity_production.total_tool_cost += tool_diff * coeff
+          activity_production.total_input_cost += input_diff * coeff
+          activity_production.total_doer_cost += doer_diff * coeff
+          activity_production.save!
+        end
+      end
+    end
   end
 
   def human_working_zone_area(*args)

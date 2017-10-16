@@ -116,40 +116,20 @@ class InterventionParameter < Ekylibre::Record::Base
     true
   end
 
-  after_create do
+  after_commit do
+    prev_cost, new_cost = previous_changes[:total_cost]
+    new_cost  ||= 0
+    prev_cost ||= 0
+    prev_cost = total_cost_was if destroyed?
+    diff_cost = new_cost - prev_cost
+
     case type
     when 'InterventionInput'
-      self.intervention.total_input_cost += total_cost
+      self.intervention.total_input_cost += diff_cost
     when 'InterventionTool'
-      self.intervention.total_tool_cost += total_cost
+      self.intervention.total_tool_cost += diff_cost
     when 'InterventionDoer'
-      self.intervention.total_doer_cost += total_cost
-    end
-    self.intervention.save!
-  end
-
-  after_update do
-    if total_cost_changed?
-      case type
-      when 'InterventionInput'
-        self.intervention.total_input_cost += (total_cost - total_cost_was)
-      when 'InterventionTool'
-        self.intervention.total_tool_cost += (total_cost - total_cost_was)
-      when 'InterventionDoer'
-        self.intervention.total_doer_cost += (total_cost - total_cost_was)
-      end
-      self.intervention.save!
-    end
-  end
-
-  after_destroy do
-    case type
-    when 'InterventionInput'
-      self.intervention.total_input_cost -= total_cost_was
-    when 'InterventionTool'
-      self.intervention.total_tool_cost -= total_cost_was
-    when 'InterventionDoer'
-      self.intervention.total_doer_cost -= total_cost_was
+      self.intervention.total_doer_cost += diff_cost
     end
     self.intervention.save!
   end

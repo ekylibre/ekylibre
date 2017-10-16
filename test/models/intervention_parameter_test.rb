@@ -80,9 +80,9 @@ class InterventionParameterTest < ActiveSupport::TestCase
     assert_equal 50.0, intervention.total_tool_cost.to_f
     assert_equal 0.0, intervention.total_doer_cost.to_f
 
-    # assert_equal 15451.5, activity_production.total_input_cost.to_f
-    # assert_equal 50.0, activity_production.total_tool_cost.to_f
-    # assert_equal 0.0, activity_production.total_doer_cost.to_f
+    assert_equal 15451.5, intervention.targets.first.product.activity_production.total_input_cost.to_f
+    assert_equal 50.0, intervention.targets.first.product.activity_production.total_tool_cost.to_f
+    assert_equal 0.0, intervention.targets.first.product.activity_production.total_doer_cost.to_f
 
     # After updating input quantity
     intervention.parameters.where(type: 'InterventionInput').first.update(quantity_population: 1.to_d)
@@ -93,9 +93,9 @@ class InterventionParameterTest < ActiveSupport::TestCase
     assert_equal 50.0, intervention.total_tool_cost.to_f
     assert_equal 0.0, intervention.total_doer_cost.to_f
 
-    # assert_equal 1545.15, activity_production.total_input_cost.to_f
-    # assert_equal 50.0, activity_production.total_tool_cost.to_f
-    # assert_equal 0.0, activity_production.total_doer_cost.to_f
+    assert_equal 1545.15, intervention.targets.first.product.activity_production.total_input_cost.to_f
+    assert_equal 50.0, intervention.targets.first.product.activity_production.total_tool_cost.to_f
+    assert_equal 0.0, intervention.targets.first.product.activity_production.total_doer_cost.to_f
 
     # After updating intervention working_period
     intervention.working_periods.first.update(started_at: Time.now - 3.hours, stopped_at: Time.now - 1.hour, duration: 7200)
@@ -104,9 +104,9 @@ class InterventionParameterTest < ActiveSupport::TestCase
     assert_equal 100.0, intervention.total_tool_cost.to_f
     assert_equal 0.0, intervention.total_doer_cost.to_f
 
-    # assert_equal 1545.15, activity_production.total_input_cost.to_f
-    # assert_equal 100.0, activity_production.total_tool_cost.to_f
-    # assert_equal 0.0, activity_production.total_doer_cost.to_f
+    assert_equal 1545.15, intervention.targets.first.product.activity_production.total_input_cost.to_f
+    assert_equal 100.0, intervention.targets.first.product.activity_production.total_tool_cost.to_f
+    assert_equal 0.0, intervention.targets.first.product.activity_production.total_doer_cost.to_f
 
     # After deleting tool from the intervention
     intervention.parameters.where(type: 'InterventionTool').first.destroy
@@ -115,8 +115,8 @@ class InterventionParameterTest < ActiveSupport::TestCase
     assert_equal 0.0, intervention.total_tool_cost.to_f
     assert_equal 0.0, intervention.total_doer_cost.to_f
 
-    # assert_equal 1545.15, activity_production.total_input_cost.to_f
-    # assert_equal 0.0, activity_production.total_tool_cost.to_f
-    # assert_equal 0.0, activity_production.total_doer_cost.to_f
+    assert_equal 1545.15, intervention.targets.first.product.activity_production.total_input_cost.to_f
+    assert_equal 0.0, intervention.targets.first.product.activity_production.total_tool_cost.to_f
+    assert_equal 0.0, intervention.targets.first.product.activity_production.total_doer_cost.to_f
   end
 end
