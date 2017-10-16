@@ -347,9 +347,9 @@ CREATE TABLE activity_productions (
     custom_fields jsonb,
     season_id integer,
     tactic_id integer,
-    total_tool_cost numeric(19,4) DEFAULT 0.0 NOT NULL,
-    total_input_cost numeric(19,4) DEFAULT 0.0 NOT NULL,
-    total_doer_cost numeric(19,4) DEFAULT 0.0 NOT NULL
+    total_tool_cost numeric(19,4),
+    total_input_cost numeric(19,4),
+    total_doer_cost numeric(19,4)
 );
 
 
@@ -444,7 +444,7 @@ CREATE TABLE intervention_parameters (
     unit_pretax_stock_amount numeric(19,4) DEFAULT 0.0 NOT NULL,
     dead boolean DEFAULT false NOT NULL,
     identification_number character varying,
-    total_cost numeric(19,4) DEFAULT 0.0 NOT NULL
+    total_cost numeric(19,4)
 );
 
 
@@ -481,9 +481,9 @@ CREATE TABLE interventions (
     journal_entry_id integer,
     request_compliant boolean,
     auto_calculate_working_periods boolean DEFAULT false,
-    total_tool_cost numeric(19,4) DEFAULT 0.0 NOT NULL,
-    total_input_cost numeric(19,4) DEFAULT 0.0 NOT NULL,
-    total_doer_cost numeric(19,4) DEFAULT 0.0 NOT NULL
+    total_tool_cost numeric(19,4),
+    total_input_cost numeric(19,4),
+    total_doer_cost numeric(19,4)
 );
 
 

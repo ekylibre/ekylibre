@@ -44,9 +44,9 @@
 #  started_at                     :datetime         not null
 #  state                          :string           not null
 #  stopped_at                     :datetime         not null
-#  total_doer_cost                :decimal(19, 4)   default(0.0), not null
-#  total_input_cost               :decimal(19, 4)   default(0.0), not null
-#  total_tool_cost                :decimal(19, 4)   default(0.0), not null
+#  total_doer_cost                :decimal(19, 4)
+#  total_input_cost               :decimal(19, 4)
+#  total_tool_cost                :decimal(19, 4)
 #  trouble_description            :text
 #  trouble_encountered            :boolean          default(FALSE), not null
 #  updated_at                     :datetime         not null
@@ -100,7 +100,7 @@ class Intervention < Ekylibre::Record::Base
   validates :nature, :procedure_name, :state, presence: true
   validates :started_at, presence: true, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }
   validates :stopped_at, presence: true, timeliness: { on_or_after: ->(intervention) { intervention.started_at || Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }
-  validates :total_doer_cost, :total_input_cost, :total_tool_cost, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
+  validates :total_doer_cost, :total_input_cost, :total_tool_cost, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }, allow_blank: true
   validates :trouble_encountered, inclusion: { in: [true, false] }
   validates :whole_duration, :working_duration, presence: true, numericality: { only_integer: true, greater_than: -2_147_483_649, less_than: 2_147_483_648 }
   # ]VALIDATORS]
@@ -582,36 +582,38 @@ class Intervention < Ekylibre::Record::Base
         coeff = if target.product.type == 'Animal'
                   1 / nb_targets
                 else
-                  target.working_zone_area.in(:hectare) / self.working_zone_area.in(:hectare)
+                  target.working_zone_area.in(:hectare) / working_zone_area.in(:hectare)
                 end
-        if activity_production = target.product.activity_production
-          tool_diff = if previous_changes[:total_tool_cost]
-                        previous_changes[:total_tool_cost].last - previous_changes[:total_tool_cost].first
-                      elsif destroyed?
-                        total_tool_cost - total_tool_cost_was
-                      else
-                        0
-                      end
-          input_diff = if previous_changes[:total_input_cost]
-                         previous_changes[:total_input_cost].last - previous_changes[:total_input_cost].first
-                       elsif destroyed?
-                         total_input_cost - total_input_cost_was
-                       else
-                         0
-                       end
-          doer_diff = if previous_changes[:total_doer_cost]
-                        previous_changes[:total_doer_cost].last - previous_changes[:total_doer_cost].first
-                      elsif destroyed?
-                        total_doer_cost - total_doer_cost_was
-                      else
-                        0
-                      end
+        next unless activity_production = target.product.activity_production
+        tool_diff = if previous_changes[:total_tool_cost]
+                      previous_tool_cost = previous_changes[:total_tool_cost].first.blank? ? 0 : previous_changes[:total_tool_cost].first
+                      previous_changes[:total_tool_cost].last - previous_tool_cost
+                    elsif destroyed?
+                      total_tool_cost - total_tool_cost_was
+                    else
+                      0
+                    end
+        input_diff = if previous_changes[:total_input_cost]
+                       previous_input_cost = previous_changes[:total_input_cost].first.blank? ? 0 : previous_changes[:total_input_cost].first
+                       previous_changes[:total_input_cost].last - previous_input_cost
+                     elsif destroyed?
+                       total_input_cost - total_input_cost_was
+                     else
+                       0
+                     end
+        doer_diff = if previous_changes[:total_doer_cost]
+                      previous_doer_cost = previous_changes[:total_doer_cost].first.blank? ? 0 : previous_changes[:total_doer_cost].first
+                      previous_changes[:total_doer_cost].last - previous_doer_cost
+                    elsif destroyed?
+                      total_doer_cost - total_doer_cost_was
+                    else
+                      0
+                    end
 
-          activity_production.total_tool_cost += tool_diff * coeff
-          activity_production.total_input_cost += input_diff * coeff
-          activity_production.total_doer_cost += doer_diff * coeff
-          activity_production.save!
-        end
+        activity_production.total_tool_cost = activity_production.total_tool_cost.blank? ? (tool_diff * coeff) : (activity_production.total_tool_cost + (tool_diff * coeff))
+        activity_production.total_input_cost = activity_production.total_input_cost.blank? ? (input_diff * coeff) : (activity_production.total_input_cost + (input_diff * coeff))
+        activity_production.total_doer_cost = activity_production.total_doer_cost.blank? ? (doer_diff * coeff) : (activity_production.total_doer_cost + (doer_diff * coeff))
+        activity_production.save!
       end
     end
   end

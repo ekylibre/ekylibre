@@ -47,7 +47,7 @@
 #  quantity_unit_name       :string
 #  quantity_value           :decimal(19, 4)
 #  reference_name           :string           not null
-#  total_cost               :decimal(19, 4)   default(0.0), not null
+#  total_cost               :decimal(19, 4)
 #  type                     :string
 #  unit_pretax_stock_amount :decimal(19, 4)   default(0.0), not null
 #  updated_at               :datetime         not null
@@ -80,7 +80,7 @@ class InterventionParameterTest < ActiveSupport::TestCase
     assert_equal 50.0, intervention.total_tool_cost.to_f
     assert_equal 0.0, intervention.total_doer_cost.to_f
 
-    assert_equal 15451.5, intervention.targets.first.product.activity_production.total_input_cost.to_f
+    assert_equal 15_451.5, intervention.targets.first.product.activity_production.total_input_cost.to_f
     assert_equal 50.0, intervention.targets.first.product.activity_production.total_tool_cost.to_f
     assert_equal 0.0, intervention.targets.first.product.activity_production.total_doer_cost.to_f
 

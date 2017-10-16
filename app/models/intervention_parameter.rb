@@ -47,7 +47,7 @@
 #  quantity_unit_name       :string
 #  quantity_value           :decimal(19, 4)
 #  reference_name           :string           not null
-#  total_cost               :decimal(19, 4)   default(0.0), not null
+#  total_cost               :decimal(19, 4)
 #  type                     :string
 #  unit_pretax_stock_amount :decimal(19, 4)   default(0.0), not null
 #  updated_at               :datetime         not null
@@ -64,9 +64,9 @@ class InterventionParameter < Ekylibre::Record::Base
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :currency, :identification_number, :new_name, :quantity_handler, :quantity_indicator_name, :quantity_unit_name, length: { maximum: 500 }, allow_blank: true
   validates :dead, inclusion: { in: [true, false] }
-  validates :quantity_population, :quantity_value, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }, allow_blank: true
+  validates :quantity_population, :quantity_value, :total_cost, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }, allow_blank: true
   validates :reference_name, presence: true, length: { maximum: 500 }
-  validates :total_cost, :unit_pretax_stock_amount, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
+  validates :unit_pretax_stock_amount, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
   validates :intervention, presence: true
   # ]VALIDATORS]
   validates :position, presence: true
@@ -125,13 +125,13 @@ class InterventionParameter < Ekylibre::Record::Base
 
     case type
     when 'InterventionInput'
-      self.intervention.total_input_cost += diff_cost
+      intervention.total_input_cost = intervention.total_input_cost.blank? ? diff_cost : intervention.total_input_cost + diff_cost
     when 'InterventionTool'
-      self.intervention.total_tool_cost += diff_cost
+      intervention.total_tool_cost = intervention.total_tool_cost.blank? ? diff_cost : intervention.total_tool_cost + diff_cost
     when 'InterventionDoer'
-      self.intervention.total_doer_cost += diff_cost
+      intervention.total_doer_cost = intervention.total_doer_cost.blank? ? diff_cost : intervention.total_doer_cost + diff_cost
     end
-    self.intervention.save!
+    intervention.save!
   end
 
   def self.role
