@@ -66,7 +66,7 @@ class LoanRepayment < Ekylibre::Record::Base
   }
 
   before_validation do
-    self.amount = base_amount + insurance_amount + interest_amount
+    self.amount = base_amount + insurance_amount + interest_amount rescue 0
   end
 
   # Prevents from deleting if entry exist
