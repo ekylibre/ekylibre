@@ -142,6 +142,19 @@ class Reception < Parcel
     purchase.present?
   end
 
+  def in_accident?
+    in_accident = self.late_delivery
+    if !in_accident
+      self.items.each do |item|
+        if item.non_compliant
+          in_accident = true
+          break
+        end
+      end
+    end
+    in_accident
+  end
+
   class << self
     # Convert parcels to one purchase. Assume that all parcels are checked before.
     # Purchase is written in DB with default values
