@@ -68,14 +68,28 @@ class Reception < Parcel
   belongs_to :intervention, class_name: 'Intervention'
 
   validates :sender, presence: true
-  # validates :storage, presence: true
+
+  state_machine initial: :draft do
+    state :draft
+    state :given
+
+    event :give do
+      transition draft: :given, if: :giveable?
+    end
+  end
 
   before_validation do
     self.nature = 'incoming'
+    self.state ||= :draft
   end
 
   after_initialize do
     self.address ||= Entity.of_company.default_mail_address if new_record?
+  end
+
+
+  protect on: :destroy do
+    given?
   end
 
   # This method permits to add stock journal entries corresponding to the
@@ -142,6 +156,10 @@ class Reception < Parcel
     purchase.present?
   end
 
+  def allow_items_update?
+    !given?
+  end
+
   def in_accident?
     in_accident = self.late_delivery
     if !in_accident
@@ -153,6 +171,15 @@ class Reception < Parcel
       end
     end
     in_accident
+  end
+
+  def give
+    state = true
+    return false, msg unless state
+    update_column(:given_at, Time.zone.now) if given_at.blank?
+    items.each(&:give)
+    reload
+    super
   end
 
   class << self
