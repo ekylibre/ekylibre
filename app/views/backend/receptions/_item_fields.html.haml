@@ -39,7 +39,6 @@
         - classes = " fees" if f.object.role == 'fees'
         .form-block{ class: classes }
           = f.input :role, as: :hidden
-          = f.input :purchase_item_id, as: :hidden
 
           .item-block.merchandise
             - if f.object.role == 'merchandise'
@@ -89,7 +88,10 @@
                     = variant.unit_name.or_else('#')
 
         .form-field.second-row
+          = f.input :purchase_order_item_id, as: :hidden, input_html: { class: "purchase-item-attribute" }
           .item-form
+            %label= :element_status.tl
+            = button_tag :reconciliate_with_purchases_orders.tl, id: 'showItemReconciliationModal', class: 'btn btn-default', type: :button
             = f.referenced_association(:equipment, label: :equipment.tl, source: {scope: :tools}, input_html: {data: { remember: 'equipment'}})
 
         .buttons

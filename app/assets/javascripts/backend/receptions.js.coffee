@@ -46,17 +46,5 @@
       else
         $(event.target).val('to_reconciliate')
 
-    $('#showReconciliationModal').on 'click', ->
-      datas = {}
-
-      $.ajax
-        url: "/backend/purchase_orders/reconciliate_modal"
-        data: datas
-        success: (data, status, request) ->
-
-          @reconciliationModal= new ekylibre.modal('#purchase_process_reconciliation')
-          @reconciliationModal.removeModalContent()
-          @reconciliationModal.getModalContent().append(data)
-          @reconciliationModal.getModal().modal 'show'
 
 ) ekylibre, jQuery

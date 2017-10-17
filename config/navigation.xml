@@ -2127,12 +2127,30 @@
   </inaccessible-actions>
   <untreated-actions>
     <group>
+      <item name="production_cost_cobbles">
+        <page to="backend/cobbles/production_cost_cobbles#show"/>
+      </item>
       <item name="interventions">
         <page to="backend/interventions#purchase_order_items"/>
       </item>
       <item name="purchase_orders">
         <page to="backend/purchase_orders#list_parcels"/>
         <page to="backend/purchase_orders#reconciliate_modal"/>
+      </item>
+      <item name="reconciliation">
+        <page to="backend/purchase_process/reconciliation#index"/>
+        <page to="backend/purchase_process/reconciliation#create"/>
+        <page to="backend/purchase_process/reconciliation#destroy"/>
+        <page to="backend/purchase_process/reconciliation#edit"/>
+        <page to="backend/purchase_process/reconciliation#list"/>
+        <page to="backend/purchase_process/reconciliation#list_items"/>
+        <page to="backend/purchase_process/reconciliation#list_parcels"/>
+        <page to="backend/purchase_process/reconciliation#new"/>
+        <page to="backend/purchase_process/reconciliation#purchase_orders_to_reconciliate"/>
+        <page to="backend/purchase_process/reconciliation#receptions_to_reconciliate"/>
+        <page to="backend/purchase_process/reconciliation#show"/>
+        <page to="backend/purchase_process/reconciliation#unroll"/>
+        <page to="backend/purchase_process/reconciliation#update"/>
       </item>
       <item name="purchases">
         <page to="backend/purchases#index"/>
@@ -2143,6 +2161,18 @@
         <page to="backend/purchases#list_parcels"/>
         <page to="backend/purchases#unroll"/>
         <page to="backend/purchases#update"/>
+      </item>
+      <item name="land_parcels_visualizations">
+        <page to="backend/visualizations/land_parcels_visualizations#show"/>
+      </item>
+      <item name="map_cells_visualizations">
+        <page to="backend/visualizations/map_cells_visualizations#show"/>
+      </item>
+      <item name="plants_visualizations">
+        <page to="backend/visualizations/plants_visualizations#show"/>
+      </item>
+      <item name="resources_visualizations">
+        <page to="backend/visualizations/resources_visualizations#show"/>
       </item>
     </group>
   </untreated-actions>

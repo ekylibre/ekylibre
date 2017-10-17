@@ -29,6 +29,24 @@
     $(document).on 'keyup', '.nested-fields .form-field .purchase_invoice_items_quantity .invoice-quantity', (event) ->
       E.PurchaseInvoices.fillStocksCounters(event)
 
+    $('#new_purchase_invoice table.list').bind 'cocoon:after-insert', (event, insertedItem) ->
+      new_id = new Date().getTime()
+
+      insertedItem.attr('id', "new_reception_#{new_id}")
+
+      $(insertedItem).find('input, select').each ->
+        elementNewId = $(this).attr('id').replace(/[0-9]+/, new_id)
+        elementNewName = $(this).attr('name').replace(/[0-9]+/, new_id)
+        $(this).attr('id', elementNewId)
+        $(this).attr('name', elementNewName)
+
+      element = $(insertedItem).find('#purchase_invoice_items_attributes_RECORD_ID_parcels_purchase_invoice_items')
+      newName = element.attr('name').replace('RECORD_ID', new_id)
+      newId = element.attr('id').replace('RECORD_ID', new_id)
+
+      $(element).attr('id', newId)
+      $(element).attr('name', newName)
+
 
   E.PurchaseInvoices =
     fillStocksCounters: (event) ->

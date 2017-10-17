@@ -1158,6 +1158,8 @@ eng:
     # parcel_item: "Parcel item"
     parcel_items: "Parcel items"
     parcels: "Parcels"
+    # parcels_purchase_invoice_items: "Parcels purchase invoice items"
+    # parcels_purchase_orders_items: "Parcels purchase orders items"
     parent: "Parent"
     part_product_nature_variant: "Part product type variant"
     part_product_nature_variant_id: "Part product type variant"
@@ -1280,10 +1282,12 @@ eng:
     purchase: "Purchase"
     purchase_affairs: "Purchase affairs"
     purchase_amount: "Purchase amount"
+    # purchase_invoice_item: "Purchase invoice item"
     purchase_invoices: "Purchase invoices"
-    purchase_item: "Purchase item"
+    purchase_item: "Purchase item" #?
     purchase_items: "Purchase items"
     purchase_natures: "Purchase types"
+    # purchase_order_item: "Purchase order item"
     purchase_payments: "Purchase payments"
     purchase_taxations: "Purchase taxations"
     purchase_taxes: "Purchase taxes"
@@ -1302,7 +1306,7 @@ eng:
     query: "Query"
     rank_number: "Rank number"
     read_at: "Read at"
-    reading_cache: "Reading cache" #?
+    reading_cache: "Reading cache"
     reading_tasks: "Reading tasks" #?
     readings: "Readings"
     real_balance: "Real balance"

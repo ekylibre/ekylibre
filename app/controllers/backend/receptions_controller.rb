@@ -98,27 +98,5 @@ module Backend
       @reception = Reception.new
       render locals: { with_continue: true }
     end
-
-    def create
-      purchases = permitted_params[:purchases_attributes]
-      permitted_params.delete(:purchases_attributes)
-
-      @reception = Reception.new(permitted_params)
-
-      if @reception.save && purchases.present?
-        purchases.each_pair do |_key, value|
-          byebug
-          @reception.purchases << Purchase.find(JSON.parse(value)['id'])
-        end
-      end
-
-      url = if params[:create_and_continue]
-              { action: :new, continue: true }
-            else
-              params[:redirect] || { action: :show, id: 'id'.c }
-            end
-      return if save_and_redirect(@reception, url: url, notify: :record_x_created, identifier: :number)
-      render(locals: { cancel_url: { action: :index }, with_continue: true })
-    end
   end
 end

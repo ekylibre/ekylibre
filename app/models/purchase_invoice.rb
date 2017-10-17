@@ -140,10 +140,25 @@ class PurchaseInvoice < Purchase
       label = tc(:quantity_gap_on_invoice, resource: self.class.model_name.human, number: number, entity: supplier.full_name)
       items.each do |item|
         next unless item.variant.storable?
-        parcel_items_quantity = item.parcel_items.map(&:population).compact.sum
+
+        parcel_items_quantity = if !item.parcels_purchase_orders_items.empty?
+                                  item.parcels_purchase_orders_items.map(&:population).compact.sum
+                                else
+                                  item.parcels_purchase_invoice_items.map(&:population).compact.sum
+                                end
+
         gap = item.quantity - parcel_items_quantity
-        next unless item.parcel_items.any? && item.parcel_items.first.unit_pretax_stock_amount
-        quantity = item.parcel_items.first.unit_pretax_stock_amount
+
+
+        next unless (item.parcels_purchase_orders_items.any? && item.parcels_purchase_orders_items.first.unit_pretax_stock_amount) ||
+                      (item.parcels_purchase_invoice_items.any? && item.parcels_purchase_invoice_items.first.unit_pretax_stock_amount)
+
+        quantity = if !item.parcels_purchase_orders_items.empty?
+                     item.parcels_purchase_orders_items.first.unit_pretax_stock_amount
+                   else
+                     item.parcels_purchase_invoice_items.first.unit_pretax_stock_amount
+                   end
+
         gap_value = gap * quantity
         next if gap_value.zero?
         entry.add_debit(label, item.variant.stock_account_id, gap_value, resource: item, as: :stock, variant: item.variant)

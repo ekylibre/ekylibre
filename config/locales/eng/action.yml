@@ -157,6 +157,8 @@ eng:
       index: "Price catalogs"
       new: "New catalog"
       show: "Catalog: %{name}"
+    backend/cobbles/production_cost_cobbles:
+      # show: "Production cost cobble: %{name}"
     backend/companies:
       edit: "Company settings"
     backend/contracts:
@@ -658,6 +660,13 @@ eng:
       index: "Disbursements"
       new: "New disbursement"
       show: "Disbursement %{number} for %{payee}"
+    backend/purchase_process/reconciliation:
+      # edit: "Edit reconciliation: %{name}"
+      # index: "Reconciliation"
+      # new: "New reconciliation"
+      # purchase_orders_to_reconciliate: "Purchase orders to reconciliate reconciliation: %{name}"
+      # receptions_to_reconciliate: "Receptions to reconciliate reconciliation: %{name}"
+      # show: "Reconciliation: %{name}"
     backend/purchases:
       abort: "Abort" #?
       confirm: "Confirm order and wait for deliveries" #?
@@ -869,6 +878,14 @@ eng:
       new: "New user"
       show: "User: %{first_name} %{last_name}"
       unlock: "Unlock user"
+    backend/visualizations/land_parcels_visualizations:
+      # show: "Land parcels visualization: %{name}"
+    backend/visualizations/map_cells_visualizations:
+      # show: "Map cells visualization: %{name}"
+    backend/visualizations/plants_visualizations:
+      # show: "Plants visualization: %{name}"
+    backend/visualizations/resources_visualizations:
+      # show: "Resources visualization: %{name}"
     backend/wine_tanks:
       index: "Wine tanks"
     backend/workers:
@@ -2483,9 +2500,11 @@ eng:
       prospect: "Prospect"
       purchase: "Turn into purchase"
       # purchase_order_items: "Purchase order items"
+      # purchase_orders_to_reconciliate: "Purchase orders to reconciliate"
       qualify: "Qualify"
       # quantifiers: "Quantifiers"
       quote: "Quote"
+      # receptions_to_reconciliate: "Receptions to reconciliate"
       # reconciliate: "Reconciliate"
       # reconciliate_modal: "Reconciliate modal"
       reconciliation: "Reconciliate"

@@ -22,6 +22,9 @@
       %span.total-value= f.object.decorate.total_amount_including_taxes
       %span.total-currency= Nomen::Currency[f.object.currency].symbol
 
+  = modal(id: "purchase_process_reconciliation", class: "", size: :large) do
+    .modal-body
+
   = f.attachments
 
 = field_set Purchase.human_attribute_name(:items) do

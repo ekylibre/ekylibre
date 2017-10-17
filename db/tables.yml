@@ -4977,7 +4977,10 @@ parcel_items:
   product_ownership_id:
     type: integer
     references: product_ownership
-  purchase_item_id:
+  purchase_invoice_item_id:
+    type: integer
+    references: purchase_item
+  purchase_order_item_id:
     type: integer
     references: purchase_item
   role:
@@ -6446,6 +6449,8 @@ products:
     type: integer
   picture_updated_at:
     type: datetime
+  reading_cache:
+    type: jsonb
   team_id:
     type: integer
     references: team

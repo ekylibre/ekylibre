@@ -119,6 +119,8 @@ module Backend
       render partial: 'backend/purchase_orders/reconciliate_purchase_orders',
              locals: {
                purchase_orders: opened_purchases_orders,
+               reconciliate_item: params[:reconciliate_item],
+               item_field_id: params[:item_field_id]
              }
     end
   end

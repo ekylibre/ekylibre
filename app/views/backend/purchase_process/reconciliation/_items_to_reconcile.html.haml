@@ -1,0 +1,33 @@
+- item_reconciliation = !reconciliate_item.nil? || reconciliate_item.to_b
+= hidden_field_tag 'item-reconciliation', item_reconciliation
+= hidden_field_tag 'purchase-orders', purchase_orders
+
+.modal-body
+  .purchase-orders
+    .list-headers
+      %span.list-header.reception Reception
+      %span.list-header Quantité
+      %span.list-header Prix unit. HT
+      %span.list-header Total HT
+    .list-models
+      - models.each do |model|
+        .model
+          - unless item_reconciliation
+            = check_box_tag('', '1', false, class: 'model-checkbox', data: { id: model.id })
+          %span.model-ref Réf fournisseur
+
+          %ul.list-items
+            - model.items.each do |model_item|
+              %li.item
+                - if item_reconciliation
+                  = radio_button_tag('test', '1325', false, class: "item-checkbox", data: { id: model_item.id, item_field_id: item_field_id })
+                - else
+                  = check_box_tag('', '1', false, class: 'item-checkbox', data: { id: model_item.id })
+                %span.variant= model_item.variant.name
+                %span.item-value.quantity= model_item.quantity
+                %span.item-value.unit-cost= model_item.unit_pretax_amount
+                =#%span.item-value.total-except-taxes= model_item.amount
+
+.modal-footer
+  .actions
+    %button{ class: "btn btn-default valid-modal", data: { 'item-reconciliation': item_reconciliation }}= :valid.tl

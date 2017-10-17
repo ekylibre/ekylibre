@@ -825,6 +825,15 @@ Rails.application.routes.draw do
 
     resources :products, concerns: [:products]
 
+    namespace :purchase_process do
+      resources :reconciliation, only: [] do
+        collection do
+          get :purchase_orders_to_reconciliate
+          get :receptions_to_reconciliate
+        end
+      end
+    end
+
     resources :inspections, concerns: %i[list unroll] do
       member do
         get :export, defaults: { format: 'ods' }

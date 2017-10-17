@@ -44,7 +44,8 @@
 #  product_movement_id           :integer
 #  product_name                  :string
 #  product_ownership_id          :integer
-#  purchase_item_id              :integer
+#  purchase_invoice_item_id      :integer
+#  purchase_order_item_id        :integer
 #  role                          :string
 #  sale_item_id                  :integer
 #  shape                         :geometry({:srid=>4326, :type=>"multi_polygon"})

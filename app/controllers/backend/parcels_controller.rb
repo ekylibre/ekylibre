@@ -80,9 +80,9 @@ module Backend
                     .order(planned_at: :desc).first
         @parcel.storage = preceding.storage if preceding
 
-        purchase_order.items.each do |item|
-          @parcel.items.new(purchase_item_id: item.id, quantity: item.quantity, variant: item.variant)
-        end
+        # purchase_order.items.each do |item|
+        #  @parcel.items.new(purchase_item_id: item.id, quantity: item.quantity, variant: item.variant)
+        # end
       end
       t3e(@parcel.attributes.merge(nature: @parcel.nature.text))
       render locals: { with_continue: true }
