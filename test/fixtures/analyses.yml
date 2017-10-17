@@ -46,4 +46,626 @@
 #  updated_at             :datetime         not null
 #  updater_id             :integer
 #
---- {}
+---
+analyses_001:
+  analysed_at: 2013-10-27 15:34:00.000000000 Z
+  created_at: 2014-10-31 17:19:32.000000000 Z
+  creator_id: 1
+  geolocation: SRID=4326;POINT(45.5 -0.79292768)
+  id: 1
+  lock_version: 1
+  nature: cow_milk_analysis
+  number: ANL0001
+  reference_number: LCALEDSLAB8458964548458
+  retrieval_status: ok
+  sampled_at: 2013-10-26 14:34:00.000000000 Z
+  sampling_temporal_mode: instant
+  updated_at: 2015-06-02 19:42:16.762967000 Z
+  updater_id: 1
+analyses_002:
+  analysed_at: 2013-10-27 15:34:00.000000000 Z
+  created_at: 2014-10-31 17:19:32.000000000 Z
+  creator_id: 1
+  geolocation: SRID=4326;POINT(45.5 -0.79292768)
+  id: 2
+  lock_version: 1
+  nature: cow_milk_analysis
+  number: ANL0002
+  reference_number: ''
+  retrieval_status: ok
+  sampled_at: 2013-10-26 14:34:00.000000000 Z
+  sampling_temporal_mode: instant
+  updated_at: 2015-06-02 19:42:27.817926000 Z
+  updater_id: 1
+analyses_003:
+  analysed_at: 2015-06-02 19:43:00.000000000 Z
+  analyser_id: 6
+  created_at: 2015-06-02 19:44:16.060518000 Z
+  creator_id: 1
+  geolocation: SRID=4326;POINT(45.4989016056061 -0.79240656931776)
+  id: 3
+  lock_version: 0
+  nature: soil_analysis
+  number: A00000001
+  reference_number: TSOL845682
+  retrieval_status: ok
+  sampled_at: 2015-03-03 07:40:00.000000000 Z
+  sampler_id: 12
+  sampling_temporal_mode: instant
+  updated_at: 2015-06-02 19:44:16.060518000 Z
+  updater_id: 1
+analyses_004:
+  created_at: 2015-09-18 11:50:39.916477000 Z
+  creator_id: 1
+  id: 4
+  lock_version: 0
+  nature: meteorological_analysis
+  number: A00000002
+  retrieval_message: 'undefined local variable or method `sensor'' for #<Sensor:0x007fe4759c6920>'
+  retrieval_status: error
+  sampled_at: 2015-09-18 11:50:39.880562000 Z
+  sampling_temporal_mode: instant
+  updated_at: 2015-09-18 11:50:39.916477000 Z
+  updater_id: 1
+analyses_005:
+  created_at: 2015-09-18 13:57:27.942333000 Z
+  creator_id: 1
+  id: 5
+  lock_version: 0
+  nature: meteorological_analysis
+  number: A00000003
+  retrieval_message: bad argument (expected URI object or URI string)
+  retrieval_status: controller_error
+  sampled_at: 2015-09-18 13:57:27.923638000 Z
+  sampling_temporal_mode: instant
+  updated_at: 2015-09-18 13:57:27.942333000 Z
+  updater_id: 1
+analyses_006:
+  created_at: 2015-09-18 13:58:37.213064000 Z
+  creator_id: 1
+  id: 6
+  lock_version: 0
+  nature: meteorological_analysis
+  number: A00000004
+  retrieval_message: bad argument (expected URI object or URI string)
+  retrieval_status: controller_error
+  sampled_at: 2015-09-18 13:58:37.186253000 Z
+  sampling_temporal_mode: instant
+  updated_at: 2015-09-18 13:58:37.213064000 Z
+  updater_id: 1
+analyses_007:
+  created_at: 2015-09-18 14:00:23.575998000 Z
+  creator_id: 1
+  id: 7
+  lock_version: 0
+  nature: meteorological_analysis
+  number: A00000005
+  retrieval_message: bad argument (expected URI object or URI string)
+  retrieval_status: controller_error
+  sampled_at: 2015-09-18 14:00:23.557128000 Z
+  sampling_temporal_mode: instant
+  updated_at: 2015-09-18 14:00:23.575998000 Z
+  updater_id: 1
+analyses_008:
+  created_at: 2015-09-18 14:00:36.860569000 Z
+  creator_id: 1
+  id: 8
+  lock_version: 0
+  nature: meteorological_analysis
+  number: A00000006
+  retrieval_message: bad argument (expected URI object or URI string)
+  retrieval_status: controller_error
+  sampled_at: 2015-09-18 14:00:36.832562000 Z
+  sampling_temporal_mode: instant
+  updated_at: 2015-09-18 14:00:36.860569000 Z
+  updater_id: 1
+analyses_009:
+  created_at: 2015-09-18 14:00:39.664588000 Z
+  creator_id: 1
+  id: 9
+  lock_version: 0
+  nature: meteorological_analysis
+  number: A00000007
+  retrieval_message: bad argument (expected URI object or URI string)
+  retrieval_status: controller_error
+  sampled_at: 2015-09-18 14:00:39.656387000 Z
+  sampling_temporal_mode: instant
+  updated_at: 2015-09-18 14:00:39.664588000 Z
+  updater_id: 1
+analyses_010:
+  created_at: 2015-09-18 14:01:16.152215000 Z
+  creator_id: 1
+  id: 10
+  lock_version: 0
+  nature: meteorological_analysis
+  number: A00000008
+  retrieval_message: bad argument (expected URI object or URI string)
+  retrieval_status: controller_error
+  sampled_at: 2015-09-18 14:01:16.124595000 Z
+  sampling_temporal_mode: instant
+  updated_at: 2015-09-18 14:01:16.152215000 Z
+  updater_id: 1
+analyses_011:
+  created_at: 2015-09-18 14:03:36.054826000 Z
+  creator_id: 1
+  id: 11
+  lock_version: 0
+  nature: meteorological_analysis
+  number: A00000009
+  retrieval_message: '"2015-09-18 14:00:00"'
+  retrieval_status: controller_error
+  sampled_at: 2015-09-18 14:03:36.027428000 Z
+  sampling_temporal_mode: instant
+  updated_at: 2015-09-18 14:03:36.054826000 Z
+  updater_id: 1
+analyses_012:
+  created_at: 2015-09-18 14:12:08.620496000 Z
+  creator_id: 1
+  geolocation: SRID=4326;POINT(44.29 -0.89)
+  id: 12
+  lock_version: 0
+  nature: meteorological_analysis
+  number: A00000010
+  retrieval_status: ok
+  sampled_at: 2015-09-18 14:12:08.589964000 Z
+  sampling_temporal_mode: instant
+  updated_at: 2015-09-18 14:12:08.620496000 Z
+  updater_id: 1
+analyses_013:
+  created_at: 2015-09-18 14:16:46.553081000 Z
+  creator_id: 1
+  geolocation: SRID=4326;POINT(-0.89 44.29)
+  id: 13
+  lock_version: 0
+  nature: meteorological_analysis
+  number: A00000011
+  retrieval_status: ok
+  sampled_at: 2015-09-18 14:16:46.529531000 Z
+  sampling_temporal_mode: instant
+  updated_at: 2015-09-18 14:16:46.553081000 Z
+  updater_id: 1
+analyses_014:
+  created_at: 2015-09-18 15:09:41.233768000 Z
+  creator_id: 1
+  geolocation: SRID=4326;POINT(-0.851 44.7583)
+  id: 14
+  lock_version: 0
+  nature: meteorological_analysis
+  number: A00000012
+  retrieval_status: ok
+  sampled_at: 2015-09-18 15:09:41.204365000 Z
+  sampling_temporal_mode: instant
+  sensor_id: 2
+  updated_at: 2015-09-18 15:09:41.233768000 Z
+  updater_id: 1
+analyses_015:
+  created_at: 2015-09-18 15:11:10.135363000 Z
+  creator_id: 1
+  geolocation: SRID=4326;POINT(-0.851 44.7583)
+  id: 15
+  lock_version: 0
+  nature: meteorological_analysis
+  number: A00000013
+  retrieval_status: ok
+  sampled_at: 2015-09-18 15:11:10.123781000 Z
+  sampling_temporal_mode: instant
+  sensor_id: 2
+  updated_at: 2015-09-18 15:11:10.135363000 Z
+  updater_id: 1
+analyses_016:
+  created_at: 2015-09-18 15:21:09.898704000 Z
+  creator_id: 1
+  geolocation: SRID=4326;POINT(-0.8894 44.4481)
+  id: 16
+  lock_version: 0
+  nature: meteorological_analysis
+  number: A00000014
+  retrieval_status: ok
+  sampled_at: 2015-09-18 15:21:09.868229000 Z
+  sampling_temporal_mode: instant
+  sensor_id: 3
+  updated_at: 2015-09-18 15:21:09.898704000 Z
+  updater_id: 1
+analyses_017:
+  created_at: 2015-09-18 15:28:34.805788000 Z
+  creator_id: 1
+  geolocation: SRID=4326;POINT(-0.8894 44.4481)
+  id: 17
+  lock_version: 0
+  nature: meteorological_analysis
+  number: A00000015
+  retrieval_status: ok
+  sampled_at: 2015-09-18 15:28:34.784089000 Z
+  sampling_temporal_mode: instant
+  sensor_id: 3
+  updated_at: 2015-09-18 15:28:34.805788000 Z
+  updater_id: 1
+analyses_018:
+  analysed_at: 2015-09-20 14:55:01.444746000 Z
+  created_at: 2015-09-20 14:55:01.681928000 Z
+  geolocation: SRID=4326;POINT(-0.851 44.7583)
+  id: 18
+  lock_version: 0
+  nature: meteorological_analysis
+  number: A00000016
+  retrieval_status: ok
+  sampled_at: 2015-09-20 13:55:01.444746000 Z
+  sampling_temporal_mode: instant
+  sensor_id: 2
+  stopped_at: 2015-09-20 14:55:01.444746000 Z
+  updated_at: 2015-09-20 14:55:01.681928000 Z
+analyses_019:
+  created_at: 2015-09-20 14:55:02.531866000 Z
+  id: 19
+  lock_version: 0
+  nature: sensor_analysis
+  number: A00000017
+  retrieval_message: 'Error: Not found city'
+  retrieval_status: error
+  sampled_at: 2015-09-20 14:55:02.524661000 Z
+  sampling_temporal_mode: instant
+  sensor_id: 3
+  updated_at: 2015-09-20 14:55:02.531866000 Z
+analyses_020:
+  created_at: 2015-09-20 15:00:01.633166000 Z
+  id: 20
+  lock_version: 0
+  nature: sensor_analysis
+  number: A00000018
+  retrieval_message: 'Error: Not found city'
+  retrieval_status: error
+  sampled_at: 2015-09-20 15:00:01.621673000 Z
+  sampling_temporal_mode: instant
+  sensor_id: 2
+  updated_at: 2015-09-20 15:00:01.633166000 Z
+analyses_021:
+  created_at: 2015-09-20 15:00:01.821270000 Z
+  id: 21
+  lock_version: 0
+  nature: sensor_analysis
+  number: A00000019
+  retrieval_message: 'Error: Not found city'
+  retrieval_status: error
+  sampled_at: 2015-09-20 15:00:01.811052000 Z
+  sampling_temporal_mode: instant
+  sensor_id: 3
+  updated_at: 2015-09-20 15:00:01.821270000 Z
+analyses_022:
+  created_at: 2016-07-01 20:26:30.031475000 Z
+  creator_id: 1
+  id: 22
+  lock_version: 0
+  nature: sensor_analysis
+  number: A00000020
+  retrieval_message: Invalid API key. Please see http://openweathermap.org/faq#error401
+    for more info.
+  retrieval_status: error
+  sampled_at: 2016-07-01 20:26:30.025640000 Z
+  sampling_temporal_mode: instant
+  sensor_id: 2
+  updated_at: 2016-07-01 20:26:30.031475000 Z
+  updater_id: 1
+analyses_023:
+  created_at: 2016-09-09 08:56:02.706339000 Z
+  geolocation: SRID=4326;POINT(-0.6062 44.8066)
+  id: 23
+  lock_version: 0
+  nature: sensor_analysis
+  number: A00000021
+  retrieval_status: ok
+  sampled_at: 2016-09-09 08:56:02.687761000 Z
+  sampling_temporal_mode: period
+  sensor_id: 4
+  updated_at: 2016-09-09 08:56:02.706339000 Z
+analyses_024:
+  created_at: 2016-09-09 08:56:02.741014000 Z
+  geolocation: SRID=4326;POINT(4.7579 44.1015)
+  id: 24
+  lock_version: 0
+  nature: sensor_analysis
+  number: A00000022
+  retrieval_status: ok
+  sampled_at: 2016-09-09 08:56:02.734759000 Z
+  sampling_temporal_mode: period
+  sensor_id: 5
+  updated_at: 2016-09-09 08:56:02.741014000 Z
+analyses_025:
+  created_at: 2016-09-09 08:56:02.760914000 Z
+  geolocation: SRID=4326;POINT(4.97 44.9491)
+  id: 25
+  lock_version: 0
+  nature: sensor_analysis
+  number: A00000023
+  retrieval_status: ok
+  sampled_at: 2016-09-09 08:56:02.755118000 Z
+  sampling_temporal_mode: period
+  sensor_id: 6
+  updated_at: 2016-09-09 08:56:02.760914000 Z
+analyses_026:
+  created_at: 2016-09-09 08:56:02.780008000 Z
+  geolocation: SRID=4326;POINT(4.7235 43.4635)
+  id: 26
+  lock_version: 0
+  nature: sensor_analysis
+  number: A00000024
+  retrieval_status: ok
+  sampled_at: 2016-09-09 08:56:02.774186000 Z
+  sampling_temporal_mode: period
+  sensor_id: 7
+  updated_at: 2016-09-09 08:56:02.780008000 Z
+analyses_027:
+  created_at: 2016-09-09 08:56:02.798969000 Z
+  geolocation: SRID=4326;POINT(4.7114 43.8206)
+  id: 27
+  lock_version: 0
+  nature: sensor_analysis
+  number: A00000025
+  retrieval_status: ok
+  sampled_at: 2016-09-09 08:56:02.793341000 Z
+  sampling_temporal_mode: period
+  sensor_id: 8
+  updated_at: 2016-09-09 08:56:02.798969000 Z
+analyses_028:
+  created_at: 2016-09-09 08:56:02.818899000 Z
+  geolocation: SRID=4326;POINT(4.8846 44.6033)
+  id: 28
+  lock_version: 0
+  nature: sensor_analysis
+  number: A00000026
+  retrieval_status: ok
+  sampled_at: 2016-09-09 08:56:02.812958000 Z
+  sampling_temporal_mode: period
+  sensor_id: 9
+  updated_at: 2016-09-09 08:56:02.818899000 Z
+analyses_029:
+  created_at: 2016-09-09 08:56:02.837871000 Z
+  geolocation: SRID=4326;POINT(-0.6063 44.8067)
+  id: 29
+  lock_version: 0
+  nature: sensor_analysis
+  number: A00000027
+  retrieval_status: ok
+  sampled_at: 2016-09-09 08:56:02.832110000 Z
+  sampling_temporal_mode: period
+  sensor_id: 10
+  updated_at: 2016-09-09 08:56:02.837871000 Z
+analyses_030:
+  created_at: 2016-09-09 08:56:02.857350000 Z
+  geolocation: SRID=4326;POINT(-0.6062 44.8068)
+  id: 30
+  lock_version: 0
+  nature: sensor_analysis
+  number: A00000028
+  retrieval_status: ok
+  sampled_at: 2016-09-09 08:56:02.851452000 Z
+  sampling_temporal_mode: period
+  sensor_id: 11
+  updated_at: 2016-09-09 08:56:02.857350000 Z
+analyses_031:
+  created_at: 2016-09-09 08:56:02.876040000 Z
+  geolocation: SRID=4326;POINT(1.9131 47.8283)
+  id: 31
+  lock_version: 0
+  nature: sensor_analysis
+  number: A00000029
+  retrieval_status: ok
+  sampled_at: 2016-09-09 08:56:02.869929000 Z
+  sampling_temporal_mode: period
+  sensor_id: 12
+  updated_at: 2016-09-09 08:56:02.876040000 Z
+analyses_032:
+  created_at: 2016-09-09 08:57:46.540681000 Z
+  geolocation: SRID=4326;POINT(-0.6062 44.8066)
+  id: 32
+  lock_version: 0
+  nature: sensor_analysis
+  number: A00000030
+  retrieval_status: ok
+  sampled_at: 2016-09-09 08:57:46.533770000 Z
+  sampling_temporal_mode: period
+  sensor_id: 4
+  updated_at: 2016-09-09 08:57:46.540681000 Z
+analyses_033:
+  created_at: 2016-09-09 08:57:46.569098000 Z
+  geolocation: SRID=4326;POINT(4.7579 44.1015)
+  id: 33
+  lock_version: 0
+  nature: sensor_analysis
+  number: A00000031
+  retrieval_status: ok
+  sampled_at: 2016-09-09 08:57:46.563140000 Z
+  sampling_temporal_mode: period
+  sensor_id: 5
+  updated_at: 2016-09-09 08:57:46.569098000 Z
+analyses_034:
+  created_at: 2016-09-09 08:57:46.587973000 Z
+  geolocation: SRID=4326;POINT(4.97 44.9491)
+  id: 34
+  lock_version: 0
+  nature: sensor_analysis
+  number: A00000032
+  retrieval_status: ok
+  sampled_at: 2016-09-09 08:57:46.581685000 Z
+  sampling_temporal_mode: period
+  sensor_id: 6
+  updated_at: 2016-09-09 08:57:46.587973000 Z
+analyses_035:
+  created_at: 2016-09-09 08:57:46.607716000 Z
+  geolocation: SRID=4326;POINT(4.7235 43.4635)
+  id: 35
+  lock_version: 0
+  nature: sensor_analysis
+  number: A00000033
+  retrieval_status: ok
+  sampled_at: 2016-09-09 08:57:46.601860000 Z
+  sampling_temporal_mode: period
+  sensor_id: 7
+  updated_at: 2016-09-09 08:57:46.607716000 Z
+analyses_036:
+  created_at: 2016-09-09 08:57:46.626538000 Z
+  geolocation: SRID=4326;POINT(4.7114 43.8206)
+  id: 36
+  lock_version: 0
+  nature: sensor_analysis
+  number: A00000034
+  retrieval_status: ok
+  sampled_at: 2016-09-09 08:57:46.620741000 Z
+  sampling_temporal_mode: period
+  sensor_id: 8
+  updated_at: 2016-09-09 08:57:46.626538000 Z
+analyses_037:
+  created_at: 2016-09-09 08:57:46.644504000 Z
+  geolocation: SRID=4326;POINT(4.8846 44.6033)
+  id: 37
+  lock_version: 0
+  nature: sensor_analysis
+  number: A00000035
+  retrieval_status: ok
+  sampled_at: 2016-09-09 08:57:46.638767000 Z
+  sampling_temporal_mode: period
+  sensor_id: 9
+  updated_at: 2016-09-09 08:57:46.644504000 Z
+analyses_038:
+  created_at: 2016-09-09 08:57:46.662504000 Z
+  geolocation: SRID=4326;POINT(-0.6063 44.8067)
+  id: 38
+  lock_version: 0
+  nature: sensor_analysis
+  number: A00000036
+  retrieval_status: ok
+  sampled_at: 2016-09-09 08:57:46.657030000 Z
+  sampling_temporal_mode: period
+  sensor_id: 10
+  updated_at: 2016-09-09 08:57:46.662504000 Z
+analyses_039:
+  created_at: 2016-09-09 08:57:46.680296000 Z
+  geolocation: SRID=4326;POINT(-0.6062 44.8068)
+  id: 39
+  lock_version: 0
+  nature: sensor_analysis
+  number: A00000037
+  retrieval_status: ok
+  sampled_at: 2016-09-09 08:57:46.674937000 Z
+  sampling_temporal_mode: period
+  sensor_id: 11
+  updated_at: 2016-09-09 08:57:46.680296000 Z
+analyses_040:
+  created_at: 2016-09-09 08:57:46.696432000 Z
+  geolocation: SRID=4326;POINT(1.9131 47.8283)
+  id: 40
+  lock_version: 0
+  nature: sensor_analysis
+  number: A00000038
+  retrieval_status: ok
+  sampled_at: 2016-09-09 08:57:46.691383000 Z
+  sampling_temporal_mode: period
+  sensor_id: 12
+  updated_at: 2016-09-09 08:57:46.696432000 Z
+analyses_041:
+  created_at: 2016-09-09 09:01:19.990910000 Z
+  geolocation: SRID=4326;POINT(-0.6062 44.8066)
+  id: 41
+  lock_version: 0
+  nature: sensor_analysis
+  number: A00000039
+  retrieval_status: ok
+  sampled_at: 2016-09-09 09:01:19.974672000 Z
+  sampling_temporal_mode: period
+  sensor_id: 4
+  updated_at: 2016-09-09 09:01:19.990910000 Z
+analyses_042:
+  created_at: 2016-09-09 09:01:20.026288000 Z
+  geolocation: SRID=4326;POINT(4.7579 44.1015)
+  id: 42
+  lock_version: 0
+  nature: sensor_analysis
+  number: A00000040
+  retrieval_status: ok
+  sampled_at: 2016-09-09 09:01:20.020194000 Z
+  sampling_temporal_mode: period
+  sensor_id: 5
+  updated_at: 2016-09-09 09:01:20.026288000 Z
+analyses_043:
+  created_at: 2016-09-09 09:01:20.046663000 Z
+  geolocation: SRID=4326;POINT(4.97 44.9491)
+  id: 43
+  lock_version: 0
+  nature: sensor_analysis
+  number: A00000041
+  retrieval_status: ok
+  sampled_at: 2016-09-09 09:01:20.041019000 Z
+  sampling_temporal_mode: period
+  sensor_id: 6
+  updated_at: 2016-09-09 09:01:20.046663000 Z
+analyses_044:
+  created_at: 2016-09-09 09:01:20.065131000 Z
+  geolocation: SRID=4326;POINT(4.7235 43.4635)
+  id: 44
+  lock_version: 0
+  nature: sensor_analysis
+  number: A00000042
+  retrieval_status: ok
+  sampled_at: 2016-09-09 09:01:20.059198000 Z
+  sampling_temporal_mode: period
+  sensor_id: 7
+  updated_at: 2016-09-09 09:01:20.065131000 Z
+analyses_045:
+  created_at: 2016-09-09 09:01:20.083106000 Z
+  geolocation: SRID=4326;POINT(4.7114 43.8206)
+  id: 45
+  lock_version: 0
+  nature: sensor_analysis
+  number: A00000043
+  retrieval_status: ok
+  sampled_at: 2016-09-09 09:01:20.077688000 Z
+  sampling_temporal_mode: period
+  sensor_id: 8
+  updated_at: 2016-09-09 09:01:20.083106000 Z
+analyses_046:
+  created_at: 2016-09-09 09:01:20.101055000 Z
+  geolocation: SRID=4326;POINT(4.8846 44.6033)
+  id: 46
+  lock_version: 0
+  nature: sensor_analysis
+  number: A00000044
+  retrieval_status: ok
+  sampled_at: 2016-09-09 09:01:20.095332000 Z
+  sampling_temporal_mode: period
+  sensor_id: 9
+  updated_at: 2016-09-09 09:01:20.101055000 Z
+analyses_047:
+  created_at: 2016-09-09 09:01:20.117932000 Z
+  geolocation: SRID=4326;POINT(-0.6063 44.8067)
+  id: 47
+  lock_version: 0
+  nature: sensor_analysis
+  number: A00000045
+  retrieval_status: ok
+  sampled_at: 2016-09-09 09:01:20.113063000 Z
+  sampling_temporal_mode: period
+  sensor_id: 10
+  updated_at: 2016-09-09 09:01:20.117932000 Z
+analyses_048:
+  created_at: 2016-09-09 09:01:20.135449000 Z
+  geolocation: SRID=4326;POINT(-0.6062 44.8068)
+  id: 48
+  lock_version: 0
+  nature: sensor_analysis
+  number: A00000046
+  retrieval_status: ok
+  sampled_at: 2016-09-09 09:01:20.130341000 Z
+  sampling_temporal_mode: period
+  sensor_id: 11
+  updated_at: 2016-09-09 09:01:20.135449000 Z
+analyses_049:
+  created_at: 2016-09-09 09:01:20.151721000 Z
+  geolocation: SRID=4326;POINT(1.9131 47.8283)
+  id: 49
+  lock_version: 0
+  nature: sensor_analysis
+  number: A00000047
+  retrieval_status: ok
+  sampled_at: 2016-09-09 09:01:20.146722000 Z
+  sampling_temporal_mode: period
+  sensor_id: 12
+  updated_at: 2016-09-09 09:01:20.151721000 Z

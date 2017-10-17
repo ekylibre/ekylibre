@@ -36,4 +36,156 @@
 #  updated_at   :datetime         not null
 #  updater_id   :integer
 #
---- {}
+---
+postal_zones_001:
+  country: us
+  created_at: 2014-10-31 17:19:32.000000000 Z
+  creator_id: 1
+  id: 1
+  lock_version: 0
+  name: 3451-13231 LAS VEGAS
+  postal_code: 3451-13231
+  updated_at: 2014-10-31 17:19:32.000000000 Z
+  updater_id: 1
+postal_zones_002:
+  country: fr
+  created_at: 2014-10-31 17:19:32.000000000 Z
+  creator_id: 1
+  id: 2
+  lock_version: 0
+  name: 33000 BORDEAUX
+  postal_code: '33000'
+  updated_at: 2014-10-31 17:19:32.000000000 Z
+  updater_id: 1
+postal_zones_003:
+  city: InTheWorld
+  city_name: InTheWorld
+  country: za
+  created_at: 2014-10-31 18:58:07.355534000 Z
+  creator_id: 1
+  id: 3
+  lock_version: 0
+  name: 12345 InTheWorld
+  postal_code: '12345'
+  updated_at: 2014-10-31 18:58:07.355534000 Z
+  updater_id: 1
+postal_zones_004:
+  city: CHAR-EN-TEUX
+  city_name: CHAR-EN-TEUX
+  country: fr
+  created_at: 2014-11-01 20:16:17.369291000 Z
+  creator_id: 1
+  id: 4
+  lock_version: 0
+  name: 17123 CHAR-EN-TEUX
+  postal_code: '17123'
+  updated_at: 2014-11-01 20:16:17.369291000 Z
+  updater_id: 1
+postal_zones_005:
+  city: New-York
+  city_name: New-York
+  country: us
+  created_at: 2014-11-03 11:28:25.423704000 Z
+  creator_id: 1
+  id: 5
+  lock_version: 0
+  name: 7548-454565 New-York
+  postal_code: 7548-454565
+  updated_at: 2014-11-03 11:28:25.423704000 Z
+  updater_id: 1
+postal_zones_006:
+  city: MAROUSSAC
+  city_name: MAROUSSAC
+  country: fr
+  created_at: 2014-11-05 14:14:01.965594000 Z
+  creator_id: 1
+  id: 6
+  lock_version: 0
+  name: 11110 MAROUSSAC
+  postal_code: '11110'
+  updated_at: 2014-11-05 14:14:01.965594000 Z
+  updater_id: 1
+postal_zones_007:
+  city: PESSAC
+  city_name: PESSAC
+  country: fr
+  created_at: 2014-11-07 15:05:27.058795000 Z
+  creator_id: 1
+  id: 7
+  lock_version: 0
+  name: 33600 PESSAC
+  postal_code: '33600'
+  updated_at: 2014-11-07 15:05:27.058795000 Z
+  updater_id: 1
+postal_zones_008:
+  city: ''
+  city_name: ''
+  country: fr
+  created_at: 2015-04-21 08:21:32.413367000 Z
+  creator_id: 1
+  id: 8
+  lock_version: 0
+  name: "〒100-8994"
+  postal_code: "〒100-8994"
+  updated_at: 2015-04-21 08:21:32.413367000 Z
+  updater_id: 1
+postal_zones_009:
+  city: ''
+  city_name: ''
+  country: gr
+  created_at: 2015-04-21 08:27:39.802433000 Z
+  creator_id: 1
+  id: 9
+  lock_version: 0
+  name: "Ἀθῆναι"
+  postal_code: "Ἀθῆναι"
+  updated_at: 2015-04-21 08:27:39.802433000 Z
+  updater_id: 1
+postal_zones_010:
+  city: ''
+  city_name: ''
+  country: gr
+  created_at: 2015-04-21 08:27:39.836314000 Z
+  creator_id: 1
+  id: 10
+  lock_version: 0
+  name: "Ἀθῆναι"
+  postal_code: "Ἀθῆναι"
+  updated_at: 2015-04-21 08:27:39.836314000 Z
+  updater_id: 1
+postal_zones_011:
+  city: ''
+  city_name: ''
+  country: gr
+  created_at: 2015-04-21 08:28:44.825771000 Z
+  creator_id: 1
+  id: 11
+  lock_version: 0
+  name: "Ἀθῆναι"
+  postal_code: "Ἀθῆναι"
+  updated_at: 2015-04-21 08:28:44.825771000 Z
+  updater_id: 1
+postal_zones_012:
+  city: '3'
+  city_name: '3'
+  country: jp
+  created_at: 2015-06-13 16:50:36.693734000 Z
+  creator_id: 1
+  id: 12
+  lock_version: 0
+  name: TOKYO 3
+  postal_code: TOKYO
+  updated_at: 2015-06-13 16:50:36.693734000 Z
+  updater_id: 1
+postal_zones_013:
+  city: ''
+  city_name: ''
+  country: gr
+  created_at: 2016-07-01 19:26:02.126798000 Z
+  creator_id: 1
+  id: 13
+  lock_version: 0
+  name: "Ἀθῆναι"
+  postal_code: "Ἀθῆναι"
+  updated_at: 2016-07-01 19:26:02.126798000 Z
+  updater_id: 1

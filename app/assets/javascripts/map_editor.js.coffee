@@ -307,7 +307,7 @@
         beforeSend: () =>
           @dynamic_loading = new L.control(position: "bottomleft")
           @dynamic_loading.onAdd = (map) =>
-            L.DomUtil.create('div', 'leaflet-dynamic-loading')
+            L.DomUtil.create('div', 'leaflet-dynamic loading')
 
           @map.addControl @dynamic_loading
         success: (data) =>
@@ -548,7 +548,7 @@
     _refreshReferenceLayerGroup: ->
       if this.reference?
         this.map.removeLayer this.reference
-      if this.options.show? and this.options.show.layers.length > 0
+      if this.options.show? && this.options.show.layers.length > 0
         if this.options.useFeatures
 
           if @options.show.series?
@@ -573,7 +573,6 @@
                 @map.addLayer(layerGroup)
 
           else
-
             this.reference = L.geoJson(this.options.show, {
               onEachFeature: (feature, layer) =>
                 feature.properties ||= {}

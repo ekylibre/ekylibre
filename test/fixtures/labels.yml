@@ -31,4 +31,31 @@
 #  updated_at   :datetime         not null
 #  updater_id   :integer
 #
---- {}
+---
+labels_001:
+  color: "#000000"
+  created_at: 2016-12-20 09:00:02.282349000 Z
+  creator_id: 1
+  id: 1
+  lock_version: 0
+  name: Black
+  updated_at: 2016-12-20 09:00:02.282349000 Z
+  updater_id: 1
+labels_002:
+  color: "#d33c3c"
+  created_at: 2016-12-20 09:01:26.060357000 Z
+  creator_id: 1
+  id: 2
+  lock_version: 0
+  name: Destroyable (Keep it)
+  updated_at: 2016-12-20 09:01:26.060357000 Z
+  updater_id: 1
+labels_003:
+  color: "#29ca12"
+  created_at: 2016-12-20 09:01:41.208192000 Z
+  creator_id: 1
+  id: 3
+  lock_version: 0
+  name: Other green
+  updated_at: 2016-12-20 09:01:41.208192000 Z
+  updater_id: 1

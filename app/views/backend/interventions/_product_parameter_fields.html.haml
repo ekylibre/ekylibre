@@ -51,7 +51,7 @@
 
   - if reference.attribute(:working_zone)
     - if user_preference_value(User::PREFERENCE_SHOW_MAP_INTERVENTION_FORM)
-      = f.geometry :working_zone, { input_html: { data: { intervention_updater: prefix + 'working_zone' }}, editor: {useFeatures: true, overlaySelector: { editionLayer: f.object.human_attribute_name(:working_zone) }, dynamic_series: shapes_backend_map_editors_url(layers: [:land_parcels, :plants], started_at: started_at)} }
+      = f.geometry :working_zone, { show: {}, input_html: { data: { intervention_updater: prefix + 'working_zone' }}, editor: {useFeatures: true, overlaySelector: { editionLayer: f.object.human_attribute_name(:working_zone) }, dynamic_series: backend_map_editor_shapes_path(layers: [:land_parcels, :plants], started_at: started_at)} }
     - else
       - working_zone = f.object.working_zone.to_json if f.object.working_zone.present?
       = f.geometry :working_zone, { as: :hidden, no_map: true, show: false, input_html: { value: working_zone, data: { intervention_updater: prefix + 'working_zone' }} }
