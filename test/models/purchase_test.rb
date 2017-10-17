@@ -65,12 +65,15 @@ class PurchaseTest < ActiveSupport::TestCase
 
   setup do
     @variant = ProductNatureVariant.import_from_nomenclature(:carrot)
+    @nature = PurchaseNature.first
+    @supplier = Entity.where(supplier: true).first
+    @planned_at = Date.civil(2015, 1, 1)
   end
 
   test 'rounds' do
     nature = PurchaseNature.first
     assert nature
-    purchase = Purchase.create!(nature: nature, supplier: Entity.normal.first)
+    purchase = new_purchase(supplier: Entity.normal.first)
     assert purchase
     variants = ProductNatureVariant.where(nature: ProductNature.where(population_counting: :decimal))
     tax = Tax.create!(
@@ -92,7 +95,7 @@ class PurchaseTest < ActiveSupport::TestCase
     assert nature
     supplier = Entity.where(supplier: true).first
     assert supplier
-    purchase = Purchase.create!(nature: nature, supplier: supplier)
+    purchase = new_purchase
     3.times do |index|
       variant = ProductNatureVariant.all.sample
       tax = Tax.find_by(amount: 20)
@@ -138,6 +141,7 @@ class PurchaseTest < ActiveSupport::TestCase
     attributes = {
       nature: PurchaseNature.first,
       supplier: Entity.where(supplier: true).first,
+      type: 'PurchaseInvoice',
       items_attributes: {
         '0' => {
           tax: Tax.find_by!(amount: 20),
@@ -171,8 +175,7 @@ class PurchaseTest < ActiveSupport::TestCase
   test 'cannot have an empty state - it is set to draft by default' do
     nature   = PurchaseNature.create!(currency: 'EUR', name: 'Perishables')
     max      = Entity.create!(first_name: 'Max', last_name: 'Rockatansky', nature: :contact)
-    purchase = Purchase.create!(supplier: max, nature: nature, currency: 'USD', state: nil)
-
+    purchase = new_purchase(supplier: max, nature: nature, currency: 'USD')
     assert_equal 'draft', purchase.state
 
     purchase.update(state: nil)
@@ -189,8 +192,8 @@ class PurchaseTest < ActiveSupport::TestCase
 
     nature     = PurchaseNature.create!(currency: 'EUR', name: 'Perishables')
     max        = Entity.create!(first_name: 'Max', last_name: 'Rockatansky', nature: :contact)
-    with       = Purchase.create!(supplier: max, nature: nature, currency: 'USD')
-    without    = Purchase.create!(supplier: max, nature: nature)
+    with       = new_purchase(supplier: max, nature: nature, currency: 'USD')
+    without    = new_purchase(supplier: max, nature: nature)
 
     assert_equal 'USD', with.default_currency
     assert_equal 'EUR', without.default_currency
@@ -201,25 +204,7 @@ class PurchaseTest < ActiveSupport::TestCase
   end
 
   test 'payment date computation' do
-    purchase = Purchase.create!(
-      nature: PurchaseNature.first,
-      planned_at: Date.civil(2015, 1, 1),
-      supplier: Entity.where(supplier: true).first,
-      items_attributes: {
-        '0' => {
-          tax: Tax.find_by!(amount: 20),
-          variant: ProductNatureVariant.first,
-          unit_pretax_amount: 100,
-          quantity: 1
-        },
-        '1' => {
-          tax: Tax.find_by!(amount: 0),
-          variant_id: ProductNatureVariant.first.id,
-          unit_pretax_amount: 450,
-          quantity: 2
-        }
-      }
-    )
+    purchase = new_purchase
     assert_equal Date.civil(2015, 1, 1), purchase.payment_at
 
     purchase.payment_delay = '1 year'
@@ -235,53 +220,49 @@ class PurchaseTest < ActiveSupport::TestCase
     original_supplier = Entity.create(first_name: 'First', last_name: 'Supplier', supplier: true)
     replacement_supplier = Entity.create(first_name: 'Second', last_name: 'Supplier', supplier: true)
 
-    purchase = Purchase.create!(
-      nature: PurchaseNature.first,
-      planned_at: Date.civil(2015, 1, 1),
-      supplier: original_supplier,
-      items_attributes: {
-        '0' => {
-          tax: Tax.find_by!(amount: 20),
-          variant: ProductNatureVariant.first,
-          unit_pretax_amount: 100,
-          quantity: 1
-        },
-        '1' => {
-          tax: Tax.find_by!(amount: 0),
-          variant_id: ProductNatureVariant.first.id,
-          unit_pretax_amount: 450,
-          quantity: 2
-        }
-      }
-    )
+    purchase = new_purchase(supplier: original_supplier)
     assert_equal original_supplier, purchase.affair.third
 
     purchase.update(supplier: replacement_supplier)
     assert_equal replacement_supplier, purchase.affair.third
 
-    purchase.affair.purchases.create!(
-      nature: PurchaseNature.first,
-      planned_at: Date.civil(2015, 1, 1),
-      supplier: replacement_supplier,
-      items_attributes: {
-        '0' => {
-          tax: Tax.find_by!(amount: 20),
-          variant: ProductNatureVariant.first,
-          unit_pretax_amount: 100,
-          quantity: 1
-        },
-        '1' => {
-          tax: Tax.find_by!(amount: 0),
-          variant_id: ProductNatureVariant.first.id,
-          unit_pretax_amount: 450,
-          quantity: 2
-        }
-      }
-    )
+    purchase.affair.purchase_invoices.push(new_purchase(supplier: replacement_supplier))
 
     assert_equal replacement_supplier, purchase.affair.third
 
     purchase.update(supplier: original_supplier)
     assert_equal replacement_supplier, purchase.affair.third
+  end
+
+  private 
+
+  def new_purchase(type: 'PurchaseInvoice', nature: nil, supplier: nil, invoiced_at: '07/10/2017', planned_at: nil, currency: 'EUR', state: nil, items_attributes: nil)
+    attributes = {
+      type: type,
+      nature: nature || @nature,
+      supplier: supplier || @supplier,
+      invoiced_at: invoiced_at,
+      planned_at: planned_at || @planned_at,
+      currency: currency,
+      state: state
+    }
+
+    items_attributes ||= [{
+        tax: Tax.find_by!(amount: 20),
+        variant: ProductNatureVariant.first,
+        unit_pretax_amount: 100,
+        quantity: 1
+      },
+      {
+        tax: Tax.find_by!(amount: 0),
+        variant_id: ProductNatureVariant.first.id,
+        unit_pretax_amount: 450,
+        quantity: 2
+    }]
+
+    purchase = Purchase.create!(attributes)
+    purchase.items.create!(items_attributes)
+
+    purchase
   end
 end
