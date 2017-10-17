@@ -81,7 +81,7 @@ gem 'kaminari'
 gem 'timecop'
 
 # Manipulate map data
-gem 'charta', '>= 0.1.5'
+gem 'charta', '>= 0.1.8'
 
 # Manage daemons
 gem 'foreman'
@@ -231,7 +231,7 @@ end
 
 group :development, :test do
   gem 'pry-byebug'
-  gem 'pry-inline'
+  # gem 'pry-inline'
   gem 'pry-rails'
   gem 'teaspoon-jasmine'
 

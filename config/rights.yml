@@ -87,6 +87,7 @@
 #     - "backend/cells/working_sets_stocks_cells#show"
 #     - "backend/cobblers#update"
 #     - "backend/cobbles/production_cost_cobbles#show"
+#     - "backend/cobbles/stock_in_ground_cobbles#show"
 #     - "backend/dashboards#accountancy"
 #     - "backend/dashboards#home"
 #     - "backend/dashboards#humans"

@@ -65,10 +65,10 @@ module Backend
       currency = Preference[:currency]
       currency_item = Nomen::Currency[currency]
       global_cost_per_hectare = 0.0
-      ordered_interventions = activity_production.interventions.includes(:targets, tools: [:product, :intervention], inputs: :product, doers: [:product, :intervention]).reorder(:started_at)
+      ordered_interventions = activity_production.interventions.includes(:targets, tools: %i[product intervention], inputs: :product, doers: %i[product intervention]).reorder(:started_at)
 
       data = ordered_interventions.find_each.map do |intervention|
-        intervention_costs = [:input, :doer, :tool].map { |role| intervention.cost_per_area(role, unit) || 0.0 }
+        intervention_costs = %i[input doer tool].map { |role| intervention.cost_per_area(role, unit) || 0.0 }
         cost = round(intervention_costs.sum)
         global_cost_per_hectare += cost
 
@@ -85,20 +85,21 @@ module Backend
       chart_title = "#{:production_cost.tl} : #{global_cost_per_hectare.round(2)} #{label_measure} (#{symbol_measure})"
 
       column_highcharts(series,
-        title: chart_title,
-        tooltip: { point_format: "{point.y: 1.2f} #{symbol_measure}" },
-        y_axis: {
-          title: {text: "#{:cost_per_net_surface_area.tl} (#{symbol_measure})" },
-          stack_labels: {
-            enabled: true,
-            format: "{total} #{symbol_measure}"},
-            labels: { format: "{value}" }
-          },
-        x_axis: { categories: [:input_cost.tl, :doer_cost.tl, :tool_cost.tl] },
-        legend: true,
-        plot_options: {
-          column: { stacking: 'normal' }
-        })
+                        title: chart_title,
+                        tooltip: { point_format: "{point.y: 1.2f} #{symbol_measure}" },
+                        y_axis: {
+                          title: { text: "#{:cost_per_net_surface_area.tl} (#{symbol_measure})" },
+                          stack_labels: {
+                            enabled: true,
+                            format: "{total} #{symbol_measure}"
+                          },
+                          labels: { format: '{value}' }
+                        },
+                        x_axis: { categories: [:input_cost.tl, :doer_cost.tl, :tool_cost.tl] },
+                        legend: true,
+                        plot_options: {
+                          column: { stacking: 'normal' }
+                        })
     end
 
     private
@@ -108,7 +109,7 @@ module Backend
     end
 
     def pie_style
-      {type: 'pie', center: [50, 50], size: 100, show_in_legend: false, data_labels: { enabled: false }}
+      { type: 'pie', center: [50, 50], size: 100, show_in_legend: false, data_labels: { enabled: false } }
     end
   end
 end
