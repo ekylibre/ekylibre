@@ -2,7 +2,7 @@ require 'test_helper'
 module Backend
   module Cobbles
     class StockInGroundCobblesControllerTest < ActionController::TestCase
-       test 'show action' do
+      test 'show action' do
         user = create(:user)
         sign_in(user)
         activity = create :corn_activity, :fully_inspectable
