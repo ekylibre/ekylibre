@@ -84,7 +84,7 @@ class InterventionTarget < InterventionProductParameter
   end
 
   def production_coeff
-    return 1 / (siblings.count + 1) if product.type == 'Animal'
+    return 1 / (siblings.count + 1) if product.type == 'Animal' || intervention.working_zone_area.in(:hectare).to_d.zero?
     working_zone_area.in(:hectare) / intervention.working_zone_area.in(:hectare)
   end
 end

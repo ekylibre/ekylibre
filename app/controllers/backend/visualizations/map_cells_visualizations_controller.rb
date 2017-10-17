@@ -61,15 +61,15 @@ module Backend
             # popup_content << {label: :campaign.tl, value: view_context.link_to(params[:campaigns.name, backend_campaign_path(params[:campaigns))}
             popup_content << { label: ActivityProduction.human_attribute_name(:net_surface_area), value: support.human_support_shape_area }
             popup_content << { label: ActivityProduction.human_attribute_name(:activity), value: view_context.link_to(support.activity_name, backend_activity_path(support.activity)) }
-            if (support_input_cost = support.input_cost) && support_input_cost.to_d > 0.0
+            if (support_input_cost = support.total_input_cost) && support_input_cost.to_d > 0.0
               popup_content << { label: :costs_per_hectare.tl }
               popup_content << { value: "#{:inputs.tl} : #{support_input_cost.to_s.to_f.round(2)}" }
             end
-            if (support_tool_cost = support.tool_cost) && support_tool_cost.to_d > 0.0
+            if (support_tool_cost = support.total_tool_cost) && support_tool_cost.to_d > 0.0
               popup_content << { value: "#{:tools.tl} : #{support_tool_cost.to_s.to_f.round(2)}" }
             end
-            if (support_time_cost = support.time_cost) && support_time_cost.to_d > 0.0
-              popup_content << { value: "#{:times.tl} : #{support_time_cost.to_s.to_f.round(2)}" }
+            if (support_doer_cost = support.total_doer_cost) && support_doer_cost.to_d > 0.0
+              popup_content << { value: "#{:times.tl} : #{support_doer_cost.to_s.to_f.round(2)}" }
             end
 
             # nitrogen_concentration = support.soil_enrichment_indicator_content_per_area(:nitrogen_concentration)
@@ -153,9 +153,9 @@ module Backend
               shape: support.support_shape,
               shape_color: support.activity.color,
               activity: support.activity.name,
-              tool_cost: support.tool_cost.to_s.to_f.round(2),
-              input_cost: support.input_cost.to_s.to_f.round(2),
-              time_cost: support.time_cost.to_s.to_f.round(2),
+              tool_cost: support.total_tool_cost.to_s.to_f.round(2),
+              input_cost: support.total_input_cost.to_s.to_f.round(2),
+              time_cost: support.total_doer_cost.to_s.to_f.round(2),
               # nitrogen_concentration:   nitrogen_concentration.to_s.to_f.round(2),
               # phosphorus_concentration: phosphorus_concentration.to_s.to_f.round(2),
               # potassium_concentration:  potassium_concentration.to_s.to_f.round(2),
