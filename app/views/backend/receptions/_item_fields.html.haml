@@ -46,7 +46,7 @@
             - if f.object.role == 'merchandise'
               = f.referenced_association(:variant, label: :merchandise.tl, source: { scope: :stockables_or_depreciables }, input_html: { class: 'parcel-item-variant', data: { product_of_delivery_item: {url: backend_product_nature_variant_path("RECORD_ID", format: :json), scope: 'unit'}, required: true }})
             - elsif f.object.role == 'service' || f.object.role == 'fees'
-              = f.referenced_association(:variant, label: role.tl, source: { scope: :services }, input_html: { class: 'parcel-item-variant', data: { product_of_delivery_item: {url: backend_product_nature_variant_path("RECORD_ID", format: :json), scope: 'unit'}, required: true }})
+              = f.referenced_association(:variant, label: f.object.role.tl, source: { scope: :services }, input_html: { class: 'parcel-item-variant', data: { product_of_delivery_item: {url: backend_product_nature_variant_path("RECORD_ID", format: :json), scope: 'unit'}, required: true }})
 
             - if f.object.role == 'merchandise' || f.object.role == 'service'
               .non-compliant

@@ -1,6 +1,7 @@
 - item ||= f.object
 - variant = Maybe(item.variant)
 - f.object.currency = Preference[:currency]
+- f.object.role = role if defined?(role)
 %tbody.nested-fields.purchase-order-items.delivery-item{ data: { trade_item: "purchase", iceberg: true } }
   %tr.item-display.hidden
     %td.act
@@ -31,8 +32,20 @@
       %label{ class: 'vat-rate', data: { item_value: "select.order-vat-total option:selected" } }= f.object.variant ? f.object.variant.name : '??????'
 
   %tr.nested-item-form
+    %td.cell-form{colspan: 6}
+      .item-form
+        - classes = ""
+        - classes = " merchandise" if f.object.role == 'merchandise'
+        - classes = " service" if f.object.role == 'service'
+        - classes = " fees" if f.object.role == 'fees'
+        .form-block{ class: classes }
+          = f.input :role, as: :hidden
+
     %td.form-field.merchandise
-      = f.referenced_association(:variant, label: :merchandise.tl, source: {scope: :purchaseables}, input_html: {class: "order-variant", data: {variant_of_deal_item: {url: detail_backend_product_nature_variant_path("RECORD_ID", mode: :last_purchase_item)}, product_of_delivery_item: {url: backend_product_nature_variant_path("RECORD_ID", format: :json)}, required: true}}, required: true)
+      - if f.object.role == 'merchandise'
+        = f.referenced_association(:variant, label: :merchandise.tl, source: {scope: :purchaseables}, input_html: {class: "order-variant", data: {variant_of_deal_item: {url: detail_backend_product_nature_variant_path("RECORD_ID", mode: :last_purchase_item)}, product_of_delivery_item: {url: backend_product_nature_variant_path("RECORD_ID", format: :json)}, required: true}}, required: true)
+      - elsif f.object.role == 'service' || f.object.role == 'fees'
+        = f.referenced_association(:variant, label: f.object.role.tl, source: { scope: :services }, input_html: { class: 'order-variant', data: { product_of_delivery_item: {url: backend_product_nature_variant_path("RECORD_ID", format: :json), scope: 'unit'}, required: true }}, required: true)
     %td.form-field.decimal
       = f.input :quantity, wrapper: :append do
         = f.input_field :quantity, class: "order-quantity", size: 7, data: {trade_component: "quantity", required: true}
