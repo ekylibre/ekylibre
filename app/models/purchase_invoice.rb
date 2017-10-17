@@ -152,10 +152,6 @@ class PurchaseInvoice < Purchase
     end
   end
 
-  def self.affair_class
-    "#{name}Affair".constantize
-  end
-
   def invoiced_on
     dealt_at.to_date
   end
