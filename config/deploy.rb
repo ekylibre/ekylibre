@@ -1,9 +1,8 @@
 # config valid only for current version of Capistrano
-lock "3.9.1"
+lock '3.9.1'
 
-set :application, "ekylibre"
-set :repo_url, 'git@github.com:ekylibre/saas.git'
-# set :repo_url, 'file:///home/shepherd/saas'
+set :application, 'ekylibre'
+set :repo_url, 'git@github.com:ekylibre/integration-larrere.git'
 
 # Default branch is :master
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
@@ -22,29 +21,26 @@ set :repo_url, 'git@github.com:ekylibre/saas.git'
 # set :pty, true
 
 # Default value for :linked_files is []
-append :linked_files, "config/database.yml", "config/secrets.yml", "config/application.yml" #, "config/tenant.yaml"
+append :linked_files, 'config/database.yml', 'config/secrets.yml', 'config/application.yml', 'config/tenants.yml'
 
 # Default value for linked_dirs is []
-append :linked_dirs, "log", "tmp/pids", "tmp/cache", "tmp/sockets", "public/system"
+append :linked_dirs, 'log', 'tmp/pids', 'tmp/cache', 'tmp/sockets', 'public/system', 'tmp/archives'
 
 # Default value for default_env is {}
 # set :default_env, { path: "/opt/ruby/bin:$PATH" }
+set :default_env, { 'JAVA_HOME' => '/usr/lib/jvm/java-8-openjdk-amd64' }
 
-# set :default_env, {
-#   "JAVA_HOME" => "/usr/lib/jvm/java-8-openjdk-amd64",
-#   "EKYLIBRE_DATABASE_PASSWORD" => "ekylibre"
-# }
-
-set :rails_env, "production"
 # Default value for local_user is ENV['USER']
 # set :local_user, -> { `git config user.name`.chomp }
 
 # Default value for keep_releases is 5
 # set :keep_releases, 5
 
-after 'deploy:publishing', 'deploy:restart'
-namespace :deploy do
-  task :restart do
-    #invoke 'unicorn:reload'
-  end
-end
+set :rails_env, 'production'
+
+# after 'deploy:publishing', 'deploy:restart'
+# namespace :deploy do
+#   task :restart do
+#     #invoke 'unicorn:reload'
+#   end
+# end
