@@ -1,8 +1,8 @@
 image: 'debian:9'
 before_script:
-  - apt-get update
+  - apt-get -qq update
   # Install the package
-  - apt-get install -yf \
+  - apt-get -qq install -yf \
     imagemagick \
     graphicsmagick \
     tesseract-ocr \
