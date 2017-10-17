@@ -117,7 +117,7 @@ class Shipment < Parcel
       items.each do |item|
         variant = item.variant
         next unless variant && variant.storable? && item.stock_amount.nonzero?
-        entry.add_debit(label, variant.stock_movement_account_id, item.stock_amount, resource: item, as: :stock_movement, varinafat: item.variant)
+        entry.add_debit(label, variant.stock_movement_account_id, item.stock_amount, resource: item, as: :stock_movement, variant: item.variant)
         entry.add_credit(label, variant.stock_account_id, item.stock_amount, resource: item, as: :stock, variant: item.variant)
       end
     end
