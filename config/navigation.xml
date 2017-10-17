@@ -617,11 +617,11 @@
         <page to="backend/receptions#show"/>
         <page to="backend/receptions#unroll"/>
         <page to="backend/receptions#update"/>
-        <page to="backend/receptions#cancel"/>
-        <page to="backend/receptions#check"/>
+        <page to="backend/receptions#cancel" nonexistent="true"/>
+        <page to="backend/receptions#check" nonexistent="true"/>
         <page to="backend/receptions#give"/>
-        <page to="backend/receptions#order"/>
-        <page to="backend/receptions#prepare"/>
+        <page to="backend/receptions#order" nonexistent="true"/>
+        <page to="backend/receptions#prepare" nonexistent="true"/>
         <page to="backend/receptions#list_items"/>
       </item>
     </group>
@@ -2087,13 +2087,13 @@
       <group>
         <item name="parcels">
           <page to="backend/parcels#index"/>
-          <page to="backend/parcels#cancel"/>
-          <page to="backend/parcels#check"/>
-          <page to="backend/parcels#give"/>
+          <page to="backend/parcels#cancel" nonexistent="true"/>
+          <page to="backend/parcels#check" nonexistent="true"/>
+          <page to="backend/parcels#give" nonexistent="true"/>
           <page to="backend/parcels#invoice"/>
           <page to="backend/parcels#new"/>
-          <page to="backend/parcels#order"/>
-          <page to="backend/parcels#prepare"/>
+          <page to="backend/parcels#order" nonexistent="true"/>
+          <page to="backend/parcels#prepare" nonexistent="true"/>
           <page to="backend/parcels#ship"/>
           <page to="backend/parcels#show"/>
         </item>
@@ -2137,9 +2137,6 @@
   </inaccessible-actions>
   <untreated-actions>
     <group>
-      <item name="production_cost_cobbles">
-        <page to="backend/cobbles/production_cost_cobbles#show"/>
-      </item>
       <item name="interventions">
         <page to="backend/interventions#purchase_order_items"/>
       </item>
@@ -2155,18 +2152,6 @@
         <page to="backend/purchases#list_parcels"/>
         <page to="backend/purchases#unroll"/>
         <page to="backend/purchases#update"/>
-      </item>
-      <item name="land_parcels_visualizations">
-        <page to="backend/visualizations/land_parcels_visualizations#show"/>
-      </item>
-      <item name="map_cells_visualizations">
-        <page to="backend/visualizations/map_cells_visualizations#show"/>
-      </item>
-      <item name="plants_visualizations">
-        <page to="backend/visualizations/plants_visualizations#show"/>
-      </item>
-      <item name="resources_visualizations">
-        <page to="backend/visualizations/resources_visualizations#show"/>
       </item>
     </group>
   </untreated-actions>

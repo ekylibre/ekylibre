@@ -1120,25 +1120,25 @@ incoming_deliveries:
     dependencies:
     - read-incoming_deliveries
     actions:
-    - "backend/parcels#cancel"
-    - "backend/parcels#check"
+    - "backend/parcels#cancel" #?
+    - "backend/parcels#check" #?
     - "backend/parcels#create" #?
     - "backend/parcels#destroy" #?
     - "backend/parcels#edit" #?
-    - "backend/parcels#give"
+    - "backend/parcels#give" #?
     - "backend/parcels#new"
-    - "backend/parcels#order"
-    - "backend/parcels#prepare"
+    - "backend/parcels#order" #?
+    - "backend/parcels#prepare" #?
     - "backend/parcels#update" #?
-    - "backend/receptions#cancel"
-    - "backend/receptions#check"
+    - "backend/receptions#cancel" #?
+    - "backend/receptions#check" #?
     - "backend/receptions#create"
     - "backend/receptions#destroy"
     - "backend/receptions#edit"
     - "backend/receptions#give"
     - "backend/receptions#new"
-    - "backend/receptions#order"
-    - "backend/receptions#prepare"
+    - "backend/receptions#order" #?
+    - "backend/receptions#prepare" #?
     - "backend/receptions#update"
 
 incoming_payment_modes:
@@ -1603,15 +1603,15 @@ outgoing_deliveries:
     dependencies:
     - read-outgoing_deliveries
     actions:
-    - "backend/parcels#cancel"
-    - "backend/parcels#check"
+    - "backend/parcels#cancel" #?
+    - "backend/parcels#check" #?
     - "backend/parcels#create" #?
     - "backend/parcels#destroy" #?
     - "backend/parcels#edit" #?
-    - "backend/parcels#give"
+    - "backend/parcels#give" #?
     - "backend/parcels#new"
-    - "backend/parcels#order"
-    - "backend/parcels#prepare"
+    - "backend/parcels#order" #?
+    - "backend/parcels#prepare" #?
     - "backend/parcels#update" #?
     - "backend/shipments#cancel"
     - "backend/shipments#check"

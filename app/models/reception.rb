@@ -87,7 +87,6 @@ class Reception < Parcel
     self.address ||= Entity.of_company.default_mail_address if new_record?
   end
 
-
   protect on: :destroy do
     given?
   end
@@ -161,9 +160,9 @@ class Reception < Parcel
   end
 
   def in_accident?
-    in_accident = self.late_delivery
-    if !in_accident
-      self.items.each do |item|
+    in_accident = late_delivery
+    unless in_accident
+      items.each do |item|
         if item.non_compliant
           in_accident = true
           break

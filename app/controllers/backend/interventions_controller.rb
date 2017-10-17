@@ -354,11 +354,11 @@ module Backend
     def purchase_order_items
       purchase_order = Purchase.find(params[:purchase_order_id])
       reception = Intervention.find(params[:intervention_id]).receptions.first if params[:intervention_id].present?
-      if reception.present? && reception.purchase_id == purchase_order.id
-        order_hash  = find_items(reception.id, reception.pretax_amount, reception.items)
-      else
-        order_hash = find_items(purchase_order.id, purchase_order.pretax_amount, purchase_order.items)
-      end
+      order_hash = if reception.present? && reception.purchase_id == purchase_order.id
+                     find_items(reception.id, reception.pretax_amount, reception.items)
+                   else
+                     find_items(purchase_order.id, purchase_order.pretax_amount, purchase_order.items)
+                   end
 
       respond_to do |format|
         format.json { render json: order_hash }

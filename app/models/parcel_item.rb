@@ -91,7 +91,7 @@ class ParcelItem < Ekylibre::Record::Base
   # ]VALIDATORS]
   validates :source_product, presence: { if: :parcel_outgoing? }
   validates :variant, presence: true
-  validates :product, presence: true, unless: Proc.new { |item| !item.parcel.try(:prepared?)}
+  validates :product, presence: true, unless: proc { |item| !item.parcel.try(:prepared?) }
 
   validates :population, presence: true, numericality: { less_than_or_equal_to: 1,
                                                          if: :product_is_unitary?,
