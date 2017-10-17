@@ -105,7 +105,6 @@ class InterventionParameter < Ekylibre::Record::Base
 
   before_validation do
     self.intervention ||= group.intervention if group
-    self.total_cost = cost.to_d
     if reference
       self.position = reference.position
     elsif position.blank?
@@ -117,21 +116,29 @@ class InterventionParameter < Ekylibre::Record::Base
   end
 
   after_commit do
-    prev_cost, new_cost = previous_changes[:total_cost]
-    new_cost  ||= 0
-    prev_cost ||= 0
-    prev_cost = total_cost_was if destroyed?
-    diff_cost = new_cost - prev_cost
+    unless intervention.blank? || intervention.destroyed?
+      prev_cost = self[:total_cost]
+      update_cache!
+      new_cost = total_cost
+      new_cost = 0.to_d if destroyed?
+      prev_cost ||= 0.to_d
+      diff_cost = new_cost - prev_cost
 
-    case type
-    when 'InterventionInput'
-      intervention.total_input_cost = intervention.total_input_cost.blank? ? diff_cost : intervention.total_input_cost + diff_cost
-    when 'InterventionTool'
-      intervention.total_tool_cost = intervention.total_tool_cost.blank? ? diff_cost : intervention.total_tool_cost + diff_cost
-    when 'InterventionDoer'
-      intervention.total_doer_cost = intervention.total_doer_cost.blank? ? diff_cost : intervention.total_doer_cost + diff_cost
+      case type
+      when 'InterventionInput'
+        existing_cache = intervention[:total_input_cost]
+        cost = intervention.total_input_cost!
+        intervention.update(total_input_cost: cost + diff_cost) if existing_cache
+      when 'InterventionTool'
+        existing_cache = intervention[:total_tool_cost]
+        cost = intervention.total_tool_cost!
+        intervention.update(total_tool_cost: cost + diff_cost) if existing_cache
+      when 'InterventionDoer'
+        existing_cache = intervention[:total_doer_cost]
+        cost = intervention.total_doer_cost!
+        intervention.update(total_doer_cost: cost + diff_cost) if existing_cache
+      end
     end
-    intervention.save!
   end
 
   def self.role
@@ -169,5 +176,17 @@ class InterventionParameter < Ekylibre::Record::Base
 
   def earn
     earn_amount_computation.amount
+  end
+
+  def total_cost
+    return super unless self[:total_cost].nil?
+    return 0.to_d if destroyed?
+    update_cache!
+    self[:total_cost]
+  end
+
+  def update_cache!
+    return if new_record? || destroyed?
+    self.update_column(:total_cost, cost.to_d)
   end
 end

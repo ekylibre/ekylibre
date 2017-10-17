@@ -112,7 +112,8 @@ class InterventionWorkingPeriod < Ekylibre::Record::Base
   after_commit do
     if intervention.present?
       intervention.update_temporality
-      intervention.agents.each(&:save!)
+      intervention.agents.each(&:update_cache!)
+      intervention.update_cache!
     end
   end
 

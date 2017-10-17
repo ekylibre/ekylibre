@@ -124,6 +124,8 @@ class Product < Ekylibre::Record::Base
   has_many :interventions, through: :intervention_product_parameters
   has_many :used_intervention_parameters, -> { unscope(where: :type).of_generic_roles(%i[input target doer tool]) }, foreign_key: :product_id, inverse_of: :product, dependent: :restrict_with_exception, class_name: 'InterventionProductParameter'
   has_many :interventions_used_in, through: :used_intervention_parameters, source: :intervention
+  has_many :intervention_targets
+  has_many :targeted_interventions, through: :intervention_targets, source: :intervention
   has_many :labellings, class_name: 'ProductLabelling', dependent: :destroy, inverse_of: :product
   has_many :labels, through: :labellings
   has_many :linkages, class_name: 'ProductLinkage', foreign_key: :carrier_id, dependent: :destroy

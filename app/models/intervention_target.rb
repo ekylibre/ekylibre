@@ -62,6 +62,8 @@ class InterventionTarget < InterventionProductParameter
   scope :of_activities, ->(activities) { where(product_id: Product.where(activity_production_id: activities.map { |a| a.productions.pluck(:id) }.flatten.uniq)) }
   scope :of_activity_production, ->(activity_production) { where(product_id: Product.where(activity_production: activity_production)) }
 
+  delegate :activity_production, to: :product
+
   def best_activity
     production = best_activity_production
     production ? production.activity : nil
@@ -77,8 +79,12 @@ class InterventionTarget < InterventionProductParameter
     product.best_activity_production(at: intervention.started_at)
   end
 
-  def activity_production
-    ActiveSupport::Deprecation.warn('InterventionTarget#activity_production is deprecated. Method will be removed in 3.0. Please use InterventionTarget#best_activity_production instead.')
-    best_activity_production
+  def siblings
+    InterventionTarget.where(intervention: intervention).where.not(id: self.id)
+  end
+
+  def production_coeff
+    return 1 / (siblings.count + 1) if product.type == 'Animal'
+    working_zone_area.in(:hectare) / intervention.working_zone_area.in(:hectare)
   end
 end

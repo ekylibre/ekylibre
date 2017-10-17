@@ -80,7 +80,7 @@ class Intervention < Ekylibre::Record::Base
   with_options inverse_of: :intervention do
     has_many :participations, class_name: 'InterventionParticipation', dependent: :destroy
     has_many :root_parameters, -> { where(group_id: nil) }, class_name: 'InterventionParameter', dependent: :destroy
-    has_many :parameters, class_name: 'InterventionParameter'
+    has_many :parameters, class_name: 'InterventionParameter', dependent: :destroy
     has_many :group_parameters, -> { order(:position) }, class_name: 'InterventionGroupParameter'
     has_many :product_parameters, -> { order(:position) }, class_name: 'InterventionProductParameter'
     has_many :doers, class_name: 'InterventionDoer'
@@ -312,7 +312,13 @@ class Intervention < Ekylibre::Record::Base
   end
 
   after_commit do
-    update_production_costs
+    targets.find_each do |target|
+      next unless activity_production = target.activity_production
+      activity_production.update_columns(
+        total_input_cost: nil,
+        total_doer_cost: nil,
+        total_tool_cost: nil)
+    end
   end
 
   # Prevents from deleting an intervention that was executed
@@ -574,48 +580,82 @@ class Intervention < Ekylibre::Record::Base
     area
   end
 
-  def update_production_costs
-    unless targets.empty?
-      nb_targets = targets.count
-      production_targets = targets.joins(:product).merge(Product.where(type: %w[LandParcel Plant Animal]))
-      production_targets.each do |target|
-        coeff = if target.product.type == 'Animal'
-                  1 / nb_targets
-                else
-                  target.working_zone_area.in(:hectare) / working_zone_area.in(:hectare)
-                end
-        next unless activity_production = target.product.activity_production
-        tool_diff = if previous_changes[:total_tool_cost]
-                      previous_tool_cost = previous_changes[:total_tool_cost].first.blank? ? 0 : previous_changes[:total_tool_cost].first
-                      previous_changes[:total_tool_cost].last - previous_tool_cost
-                    elsif destroyed?
-                      total_tool_cost - total_tool_cost_was
-                    else
-                      0
-                    end
-        input_diff = if previous_changes[:total_input_cost]
-                       previous_input_cost = previous_changes[:total_input_cost].first.blank? ? 0 : previous_changes[:total_input_cost].first
-                       previous_changes[:total_input_cost].last - previous_input_cost
-                     elsif destroyed?
-                       total_input_cost - total_input_cost_was
-                     else
-                       0
-                     end
-        doer_diff = if previous_changes[:total_doer_cost]
-                      previous_doer_cost = previous_changes[:total_doer_cost].first.blank? ? 0 : previous_changes[:total_doer_cost].first
-                      previous_changes[:total_doer_cost].last - previous_doer_cost
-                    elsif destroyed?
-                      total_doer_cost - total_doer_cost_was
-                    else
-                      0
-                    end
-
-        activity_production.total_tool_cost = activity_production.total_tool_cost.blank? ? (tool_diff * coeff) : (activity_production.total_tool_cost + (tool_diff * coeff))
-        activity_production.total_input_cost = activity_production.total_input_cost.blank? ? (input_diff * coeff) : (activity_production.total_input_cost + (input_diff * coeff))
-        activity_production.total_doer_cost = activity_production.total_doer_cost.blank? ? (doer_diff * coeff) : (activity_production.total_doer_cost + (doer_diff * coeff))
-        activity_production.save!
-      end
+  def input_cost_for(activity_production)
+    producted_targets = targets.joins(:product).merge(Product.where(type: %w[LandParcel Plant Animal], activity_production: activity_production))
+    producted_targets.find_each.sum do |target|
+      coeff = target.production_coeff
+      total_input_cost * coeff
     end
+  end
+
+
+  def doer_cost_for(activity_production)
+    producted_targets = targets.joins(:product).merge(Product.where(type: %w[LandParcel Plant Animal], activity_production: activity_production))
+    producted_targets.find_each.sum do |target|
+      coeff = target.production_coeff
+      total_doer_cost * coeff
+    end
+  end
+
+  def tool_cost_for(activity_production)
+    producted_targets = targets.joins(:product).merge(Product.where(type: %w[LandParcel Plant Animal], activity_production: activity_production))
+    producted_targets.find_each.sum do |target|
+      coeff = target.production_coeff
+      total_tool_cost * coeff
+    end
+  end
+
+  def update_cache!
+    update_tool_cache!
+    update_doer_cache!
+    update_input_cache!
+    targets.find_each do |target|
+      next unless activity_production = target.activity_production
+      activity_production.update_columns(
+        total_input_cost: nil,
+        total_doer_cost: nil,
+        total_tool_cost: nil)
+    end
+    true
+  end
+
+  def total_tool_cost
+    return super unless self[:total_tool_cost].nil?
+    return 0.to_d if destroyed?
+    update_tool_cache!
+    self[:total_tool_cost]
+  end
+  alias total_tool_cost! total_tool_cost
+
+  def update_tool_cache!
+    return if new_record? || destroyed?
+    update_column(:total_tool_cost, parameters.where(type: 'InterventionTool').find_each.sum(&:total_cost))
+  end
+
+  def total_input_cost
+    return super unless self[:total_input_cost].nil?
+    return 0.to_d if destroyed?
+    update_input_cache!
+    self[:total_input_cost]
+  end
+  alias total_input_cost! total_input_cost
+
+  def update_input_cache!
+    return if new_record? || destroyed?
+    update_column(:total_input_cost, parameters.where(type: 'InterventionInput').find_each.sum(&:total_cost))
+  end
+
+  def total_doer_cost
+    return super unless self[:total_doer_cost].nil?
+    return 0.to_d if destroyed?
+    update_doer_cache!
+    self[:total_doer_cost]
+  end
+  alias total_doer_cost! total_doer_cost
+
+  def update_doer_cache!
+    return if new_record? || destroyed?
+    update_column(:total_doer_cost, parameters.where(type: 'InterventionDoer').find_each.sum(&:total_cost))
   end
 
   def human_working_zone_area(*args)

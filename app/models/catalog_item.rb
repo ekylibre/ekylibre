@@ -85,9 +85,10 @@ class CatalogItem < Ekylibre::Record::Base
     self.name = variant_name if commercial_name.blank? && variant
   end
 
-  after_save do
+  after_commit do
     params = InterventionParameter.where(variant_id: variant.id)
-    params.each(&:save!)
+    params.find_each(&:update_cache!)
+    Intervention.where(id: params.select(:intervention_id)).find_each(&:update_cache!)
   end
 
   # Compute a pre-tax amount

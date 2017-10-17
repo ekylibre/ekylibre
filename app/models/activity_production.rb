@@ -66,6 +66,7 @@ class ActivityProduction < Ekylibre::Record::Base
   belongs_to :tactic, class_name: 'ActivityTactic', inverse_of: :productions
   belongs_to :season, class_name: 'ActivitySeason', inverse_of: :productions
   has_many :products
+  has_many :targeted_interventions, through: :products, source: :targeted_interventions
   has_many :budgets, through: :activity
   has_many :manure_management_plan_zones, class_name: 'ManureManagementPlanZone',
                                           inverse_of: :activity_production
@@ -656,6 +657,33 @@ class ActivityProduction < Ekylibre::Record::Base
       raise StandardError, "No support defined. Got: #{support.inspect}"
     end
     support.get(*args)
+  end
+
+  def total_input_cost
+    return super unless self[:total_input_cost].nil?
+    cost = targeted_interventions.find_each.sum do |int|
+      int.input_cost_for(self)
+    end
+    update_column(:total_input_cost, cost) unless new_record?
+    return cost
+  end
+
+  def total_doer_cost
+    return super unless self[:total_doer_cost].nil?
+    cost = targeted_interventions.find_each.sum do |int|
+      int.doer_cost_for(self)
+    end
+    update_column(:total_doer_cost, cost) unless new_record?
+    return cost
+  end
+
+  def total_tool_cost
+    return super unless self[:total_tool_cost].nil?
+    cost = targeted_interventions.find_each.sum do |int|
+      int.tool_cost_for(self)
+    end
+    update_column(:total_tool_cost, cost) unless new_record?
+    return cost
   end
 
   # # Returns value of an indicator if its name correspond to
