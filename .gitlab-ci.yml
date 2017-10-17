@@ -1,0 +1,41 @@
+image: 'ruby:2.2.3'
+before_script:
+  - apt-get update
+  - apt-get install -y \
+    imagemagick \
+    graphicsmagick \
+    tesseract-ocr \
+    tesseract-ocr-ara \
+    tesseract-ocr-jpn \
+    tesseract-ocr-fra \
+    tesseract-ocr-eng \
+    tesseract-ocr-spa \
+    pdftk \
+    libreoffice \
+    poppler-utils \
+    poppler-data \
+    ghostscript \
+    openjdk-7-jdk \
+    libicu52 \
+    redis-server \
+    postgresql-9.5-postgis-2.2 \
+    postgresql-contrib \
+    libcurl4-openssl-dev \
+    openjdk-7-jdk \
+    libgeos-dev \
+    libgeos++-dev \
+    libproj-dev \
+    libpq-dev \
+    libxml2-dev \
+    libxslt1-dev \
+    zlib1g-dev \
+    libicu-dev \
+    libqtwebkit-dev
+
+  - cp config/database.yml.sample config/database.yml
+  - gem install bundler --no-ri --no-rdoc
+  - JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64 bundle install
+  - RAILS_ENV=test bundle exec rake db:create db:migrate
+test:
+  script:
+    - bundle exec rake test
