@@ -1,48 +1,20 @@
-image: 'debian:9'
+image: "ruby:2.4.0"
+services:
+  - postgres:latest
+  - elasticsearch:latest
+variables:
+  POSTGRES_DB: dbname
+  POSTGRES_USER: username
+  POSTGRES_PASSWORD: ""
+  ELASTICSEARCH_URL: "http://elasticsearch:9200"
+  HEROKU_PRODUCTION_API_KEY: $HEROKU_PRODUCTION_API_KEY
 before_script:
-  - apt-get -qq update
-  # Install the package
-  - apt-get -qq install -yf \
-    imagemagick \
-    graphicsmagick \
-    tesseract-ocr \
-    tesseract-ocr-ara \
-    tesseract-ocr-jpn \
-    tesseract-ocr-fra \
-    tesseract-ocr-eng \
-    tesseract-ocr-spa \
-    pdftk \
-    libreoffice \
-    poppler-utils \
-    poppler-data \
-    ghostscript \
-    openjdk-7-jdk \
-    libicu52 \
-    redis-server \
-    postgresql-9.5-postgis-2.2 \
-    postgresql-contrib \
-    libcurl4-openssl-dev \
-    openjdk-7-jdk \
-    libgeos-dev \
-    libgeos++-dev \
-    libproj-dev \
-    libpq-dev \
-    libxml2-dev \
-    libxslt1-dev \
-    zlib1g-dev \
-    libicu-dev \
-    libqtwebkit-dev
-
-  # Intall RVM and ruby
-  - gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 7D2BAF1CF37B13E2069D6956105BD0E739499BDB
-  - \curl -sSL https://get.rvm.io | bash -s stable
-  - rvm install 2.2.3
-  - rvm use 2.2.3
-  # Copy the db
-  - cp config/database.yml.sample config/database.yml
-
+  - apt-get update -qq && apt-get install -y -qq postgresql postgresql-contrib libpq-dev cmake
+  - ruby -v
+  - which ruby
   - gem install bundler --no-ri --no-rdoc
-  - JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64 bundle install
+  - RAILS_ENV=test bundle install --jobs $(nproc) "${FLAGS[@]}"
+  - cp config/database.yml.sample config/database.yml
   - RAILS_ENV=test bundle exec rake db:create db:migrate
 test:
   script:
