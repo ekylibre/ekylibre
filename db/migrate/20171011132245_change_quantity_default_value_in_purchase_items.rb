@@ -1,6 +1,6 @@
 class ChangeQuantityDefaultValueInPurchaseItems < ActiveRecord::Migration
   def up
-    change_column_default :purchase_items, :quantity, 0.0
+    change_column_default :purchase_items, :quantity, nil
   end
 
   def down

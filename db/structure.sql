@@ -2418,7 +2418,7 @@ CREATE TABLE purchase_items (
     id integer NOT NULL,
     purchase_id integer NOT NULL,
     variant_id integer,
-    quantity numeric(19,4) DEFAULT 0.0 NOT NULL,
+    quantity numeric(19,4) NOT NULL,
     pretax_amount numeric(19,4) DEFAULT 0.0 NOT NULL,
     amount numeric(19,4) DEFAULT 0.0 NOT NULL,
     tax_id integer NOT NULL,
