@@ -6,8 +6,6 @@ variables:
   POSTGRES_DB: dbname
   POSTGRES_USER: username
   POSTGRES_PASSWORD: ""
-  ELASTICSEARCH_URL: "http://elasticsearch:9200"
-  HEROKU_PRODUCTION_API_KEY: $HEROKU_PRODUCTION_API_KEY
 before_script:
   - apt-get update -qq && apt-get install -y -qq postgresql postgresql-contrib libpq-dev cmake
   - ruby -v
