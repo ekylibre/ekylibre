@@ -542,7 +542,7 @@ class ActivityProduction < Ekylibre::Record::Base
     global_coef_harvest_yield = []
 
     if harvest_interventions.any?
-      harvest_interventions.includes(:targets).find_each do |harvest|
+      harvest_interventions.includes(:targets, :outputs).find_each do |harvest|
         harvest_working_area = []
         harvest.targets.each do |target|
           if zone = target.working_zone
