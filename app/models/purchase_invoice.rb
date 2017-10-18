@@ -74,6 +74,7 @@ class PurchaseInvoice < Purchase
 
   before_validation(on: :create) do
     self.state = :invoice
+    self.invoiced_at ||= created_at
   end
 
   after_update do
