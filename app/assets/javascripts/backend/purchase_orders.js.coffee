@@ -29,6 +29,13 @@
     $(document).on 'keyup', '.nested-fields .form-field .purchase_order_items_quantity .order-quantity', (event) ->
       E.PurchaseOrders.fillStocksCounters(event)
 
+    $(document).on 'selector:change', 'input#purchase_invoice_supplier_id', ->
+      supplier_id = $(this).parent().find('.selector-value').val()
+      $.ajax
+        url: "/backend/entities/#{supplier_id}.json",
+        success: (data,status, request) ->
+          $(document).find('#purchase_invoice_payment_delay').val(data.supplier_payment_delay)
+
 
   E.PurchaseOrders =
     fillStocksCounters: (event) ->

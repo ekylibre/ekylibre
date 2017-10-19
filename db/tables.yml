@@ -6544,6 +6544,8 @@ purchase_items:
     precision: 19
     scale: 4
     required: true
+  role:
+    type: string
   tax_id:
     type: integer
     references: tax

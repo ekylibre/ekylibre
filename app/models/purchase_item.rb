@@ -40,8 +40,9 @@
 #  preexisting_asset      :boolean
 #  pretax_amount          :decimal(19, 4)   default(0.0), not null
 #  purchase_id            :integer          not null
-#  quantity               :decimal(19, 4)   default(1.0), not null
+#  quantity               :decimal(19, 4)   default(0.0), not null
 #  reduction_percentage   :decimal(19, 4)   default(0.0), not null
+#  role                   :string
 #  tax_id                 :integer          not null
 #  team_id                :integer
 #  unit_amount            :decimal(19, 4)   default(0.0), not null
@@ -79,10 +80,11 @@ class PurchaseItem < Ekylibre::Record::Base
   validates :account, :currency, :purchase, :tax, presence: true
   validates :fixed, inclusion: { in: [true, false] }
   validates :preexisting_asset, inclusion: { in: [true, false] }, allow_blank: true
+  validates :role, length: { maximum: 500 }, allow_blank: true
   # ]VALIDATORS]
   validates :currency, length: { allow_nil: true, maximum: 3 }
   validates :account, :tax, :reduction_percentage, presence: true
-  validates :variant, presence: true
+  validates :variant, presence: true, unless: proc { |item| item.variant.variety.eql?('trailed_equipment') || item.variant.variety.eql?('equipment') }
   validates_associated :fixed_asset
 
   delegate :invoiced_at, :journal_entry, :number, :computation_method, :computation_method_quantity_tax?, :computation_method_tax_quantity?, :computation_method_adaptative?, :computation_method_manual?, to: :purchase

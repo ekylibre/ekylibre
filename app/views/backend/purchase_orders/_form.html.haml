@@ -3,9 +3,9 @@
   = f.referenced_association :supplier, source: :suppliers, new: { supplier: 1 }
   = f.input :reference_number
   = f.referenced_association :responsible, source: :employees, new: { employed: 1 }
-  = f.input :ordered_at
+  = f.input :ordered_at, as: :date
   = f.input :command_mode
-  = f.input :estimate_reception_date
+  = f.input :estimate_reception_date, as: :date
 
   .order-totals
     .order-total-row.total-except-tax

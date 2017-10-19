@@ -108,42 +108,8 @@ class Parcel < Ekylibre::Record::Base
   acts_as_numbered
   delegate :draft?, :ordered?, :in_preparation?, :prepared?, :started?, :finished?, to: :delivery, prefix: true
 
-  state_machine initial: :draft do
-    state :draft
-    state :ordered
-    state :in_preparation
-    state :prepared
-    state :given
-
-    event :order do
-      transition draft: :ordered, if: :any_items?
-    end
-    event :prepare do
-      transition draft: :in_preparation, if: :any_items?
-      transition ordered: :in_preparation, if: :any_items?
-    end
-    event :check do
-      transition draft: :prepared, if: :all_items_prepared?
-      transition ordered: :prepared, if: :all_items_prepared?
-      transition in_preparation: :prepared, if: :all_items_prepared?
-    end
-    event :give do
-      transition draft: :given, if: :giveable?
-      transition ordered: :given, if: :giveable?
-      transition in_preparation: :given, if: :giveable?
-      transition prepared: :given, if: :giveable?
-    end
-    event :cancel do
-      transition ordered: :draft
-      transition in_preparation: :ordered
-      # transition prepared: :in_preparation
-      # transition given: :prepared
-    end
-  end
-
   before_validation do
     self.planned_at ||= Time.zone.today
-    self.state ||= :draft
     self.currency ||= Preference[:currency]
     self.pretax_amount = items.sum(:pretax_amount)
   end
@@ -318,51 +284,6 @@ class Parcel < Ekylibre::Record::Base
     else
       (issues? ? :stop : :caution)
     end
-  end
-
-  def order
-    return false unless can_order?
-    update_column(:ordered_at, Time.zone.now)
-    super
-  end
-
-  def prepare
-    order if can_order?
-    return false unless can_prepare?
-    now = Time.zone.now
-    values = { in_preparation_at: now }
-    # values[:ordered_at] = now unless ordered_at
-    update_columns(values)
-    super
-  end
-
-  def check
-    state = true
-    order if can_order?
-    prepare if can_prepare?
-    return false unless can_check?
-    now = Time.zone.now
-    values = { prepared_at: now }
-    # values[:ordered_at] = now unless ordered_at
-    # values[:in_preparation_at] = now unless in_preparation_at
-    update_columns(values)
-    state = items.collect(&:check)
-    return false, state.collect(&:second) unless (state == true) || (state.is_a?(Array) && state.all? { |s| s.is_a?(Array) ? s.first : s })
-    super
-    true
-  end
-
-  def give
-    state = true
-    order if can_order?
-    prepare if can_prepare?
-    state, msg = check if can_check?
-    return false, msg unless state
-    return false unless can_give?
-    update_column(:given_at, Time.zone.now) if given_at.blank?
-    items.each(&:give)
-    reload
-    super
   end
 
   def first_available_date

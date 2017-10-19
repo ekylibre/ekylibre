@@ -2,7 +2,7 @@
   = f.referenced_association :supplier, source: :suppliers, new: { supplier: 1 }
   = f.input :reference_number
   = f.association :nature, as: :hidden
-  = f.input :invoiced_at
+  = f.input :invoiced_at, as: :date
   = f.input :payment_delay
   = f.input :tax_payability, as: :radio_buttons
   = f.input :description

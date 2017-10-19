@@ -97,7 +97,7 @@ class ParcelItem < Ekylibre::Record::Base
   # ]VALIDATORS]
   validates :source_product, presence: { if: :parcel_outgoing? }
   validates :variant, presence: true
-  validates :product, presence: { if: :parcel_prepared? }
+  validates :product, presence: true, unless: proc { |item| !item.parcel.try(:prepared?) }
 
   validates :population, presence: true, numericality: { less_than_or_equal_to: 1,
                                                          if: :product_is_unitary?,
@@ -113,10 +113,13 @@ class ParcelItem < Ekylibre::Record::Base
   accepts_nested_attributes_for :storings, allow_destroy: true
 
   # delegate :net_mass, to: :product
-  delegate :allow_items_update?, :remain_owner, :planned_at, :draft?,
-           :ordered_at, :recipient, :in_preparation?, :in_preparation_at,
-           :prepared?, :prepared_at, :given?, :given_at, :outgoing?, :incoming?,
+  delegate :allow_items_update?, :remain_owner, :planned_at,
+           :ordered_at, :recipient, :in_preparation_at,
+           :prepared_at, :given_at, :outgoing?, :incoming?,
            :separated_stock?, :currency, to: :parcel, prefix: true
+
+  delegate :draft?, :given?, to: :reception, prefix: true, allow_nil: true
+  delegate :draft?, :in_preparation?, :prepared?, :given?, to: :shipment, prefix: true
 
   before_validation do
     self.currency = parcel_currency if parcel
@@ -256,6 +259,7 @@ class ParcelItem < Ekylibre::Record::Base
   end
 
   def give_incoming
+    check_incoming(parcel_prepared_at)
     ProductMovement.create!(product: product, delta: population, started_at: parcel_given_at, originator: self) unless product_is_unitary?
     ProductLocalization.create!(product: product, nature: :interior, container: storage, started_at: parcel_given_at, originator: self)
     ProductEnjoyment.create!(product: product, enjoyer: Entity.of_company, nature: :own, started_at: parcel_given_at, originator: self)

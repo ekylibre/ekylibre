@@ -1488,6 +1488,7 @@ arb:
     export_as_ods: "التصدير، المواد المستنفدة للأوزون"
     export_as_xcsv: "تصدير واكسل CSV"
     extract: "يستخرج" #?
+    # fees: "Fees"
     field_distribution: "مجال التوزيع"
     file_nature: "نوع الملف"
     file_preview: "معاينة"
@@ -2221,6 +2222,7 @@ arb:
     sequence_create: "اضافة تسلسل" #?
     sequences: "التسلسل" #?
     sequences_load: "تحميل التسلسلات المفقودة" #?
+    # service: "Service"
     # service_delivering: "Service delivering"
     sessions: "جلسات"
     set_reconcilable_new_but_existing_third_accounts: "تعيين مصالحتها حسابات الثالثة الجديدة ولكن القائمة (العملاء والموردين والمحامين)"

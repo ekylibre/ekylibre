@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 9.6.3
--- Dumped by pg_dump version 9.6.3
+-- Dumped from database version 9.5.7
+-- Dumped by pg_dump version 9.5.7
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -2419,7 +2419,7 @@ CREATE TABLE purchase_items (
     id integer NOT NULL,
     purchase_id integer NOT NULL,
     variant_id integer,
-    quantity numeric(19,4) DEFAULT 1.0 NOT NULL,
+    quantity numeric(19,4) NOT NULL,
     pretax_amount numeric(19,4) DEFAULT 0.0 NOT NULL,
     amount numeric(19,4) DEFAULT 0.0 NOT NULL,
     tax_id integer NOT NULL,
@@ -2442,7 +2442,8 @@ CREATE TABLE purchase_items (
     depreciable_product_id integer,
     fixed_asset_id integer,
     preexisting_asset boolean,
-    equipment_id integer
+    equipment_id integer,
+    role character varying
 );
 
 
@@ -18073,5 +18074,8 @@ INSERT INTO schema_migrations (version) VALUES ('20171003135227');
 
 INSERT INTO schema_migrations (version) VALUES ('20171003150635');
 
-INSERT INTO schema_migrations (version) VALUES ('20171012130905');
+INSERT INTO schema_migrations (version) VALUES ('20171011125052');
 
+INSERT INTO schema_migrations (version) VALUES ('20171011132245');
+
+INSERT INTO schema_migrations (version) VALUES ('20171012130905');

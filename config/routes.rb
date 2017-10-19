@@ -147,6 +147,7 @@ Rails.application.routes.draw do
 
     namespace :cobbles do
       resource :production_cost_cobble, only: :show
+      resource :stock_in_ground_cobble, only: :show
     end
 
     namespace :cells do

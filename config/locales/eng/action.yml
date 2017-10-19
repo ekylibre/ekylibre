@@ -159,6 +159,8 @@ eng:
       show: "Catalog: %{name}"
     backend/cobbles/production_cost_cobbles:
       # show: "Production cost cobble: %{name}"
+    backend/cobbles/stock_in_ground_cobbles:
+      # show: "Stock in ground cobble: %{name}"
     backend/companies:
       edit: "Company settings"
     backend/contracts:
@@ -520,15 +522,10 @@ eng:
       new: "New disbursement"
       show: "Disbursement: %{name}"
     backend/parcels:
-      # cancel: "Cancel parcel: %{name}"
-      # check: "Check parcel: %{name}"
       edit: "Edit %{nature} parcel: %{number}" #?
-      # give: "Give parcel: %{name}"
       index: "Parcels"
       # invoice: "Invoice parcel: %{name}"
       new: "New parcel"
-      # order: "Order parcel: %{name}"
-      # prepare: "Prepare parcel: %{name}"
       ship: "Ship parcels"
       show: "%{nature} parcel: %{number}"
     backend/payslip_affairs:
@@ -687,15 +684,15 @@ eng:
     backend/quick_sales:
       new: "New Sale/Incoming payment"
     backend/receptions:
-      cancel: "Cancel reception: %{name}"
-      check: "Check reception: %{name}"
+      cancel: "Cancel reception: %{name}" #?
+      check: "Check reception: %{name}" #?
       edit: "Edit reception: %{name}"
       give: "Give reception: %{name}"
       index: "Receptions"
       invoice: "Invoice reception: %{name}"
       new: "New reception"
-      order: "Order reception: %{name}"
-      prepare: "Prepare reception: %{name}"
+      order: "Order reception: %{name}" #?
+      prepare: "Prepare reception: %{name}" #?
       ship: "Ship reception: %{name}"
       show: "Reception: %{name}"
     backend/registrations:
@@ -1396,6 +1393,7 @@ eng:
     export_as_csv: "Export as CSV"
     export_as_ods: "Export as ODS"
     export_as_xcsv: "Export as Excel CSV"
+    fees: "Fees" #?
     field_distribution: "Field distribution"
     file_nature: "File type"
     file_preview: "Preview" #?
@@ -1667,7 +1665,7 @@ eng:
     # no_worker_account: "No worker account"
     nominal_storable_easement_area: "Nominal storable easement area"
     non_compliant: "Non compliant"
-    non_compliant_with_request: "Non compliant with request"
+    non_compliant_with_request: "Non compliant with request" #?!
     none: "None"
     normal: "Normal" #?
     not_delivered: "Not delivered" #?
@@ -1883,6 +1881,7 @@ eng:
     send_test_mail: "Send test mail"
     sensor_model: "Sensor model"
     sensors: "Sensors" #?
+    service: "Service" #?
     service_delivering: "Service delivering"
     sessions: "Sessions" #?
     set_reconcilable_new_but_existing_third_accounts: "Set reconcilable the new but existing third accounts (clients, suppliers and attorneys)" #?

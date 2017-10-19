@@ -98,5 +98,11 @@ module Backend
       @reception = Reception.new
       render locals: { with_continue: true }
     end
+
+    Reception.state_machine.events.each do |event|
+      define_method event.name do
+        fire_event(event.name)
+      end
+    end
   end
 end
