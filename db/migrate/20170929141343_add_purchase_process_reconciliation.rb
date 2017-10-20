@@ -1,5 +1,5 @@
 class AddPurchaseProcessReconciliation < ActiveRecord::Migration
   def change
-    add_column :parcels, :reconciliation_state, :string
+    add_column :purchases, :reconciliation_state, :string
   end
 end

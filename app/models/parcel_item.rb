@@ -174,6 +174,7 @@ class ParcelItem < Ekylibre::Record::Base
     unit_pretax_amount
     pretax_amount
     purchase_order_item_id
+    purchase_invoice_item_id
     sale_item_id
     updated_at
     updater_id

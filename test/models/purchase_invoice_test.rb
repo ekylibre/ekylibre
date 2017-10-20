@@ -47,6 +47,7 @@
 #  planned_at                               :datetime
 #  pretax_amount                            :decimal(19, 4)   default(0.0), not null
 #  quantity_gap_on_invoice_journal_entry_id :integer
+#  reconciliation_state                     :string
 #  reference_number                         :string
 #  responsible_id                           :integer
 #  state                                    :string           not null

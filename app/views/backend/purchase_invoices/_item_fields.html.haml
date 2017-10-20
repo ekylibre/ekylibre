@@ -59,13 +59,19 @@
     %td.form-field.third-row
       = hidden_field_tag 'purchase_invoice[items_attributes][RECORD_ID][parcels_purchase_invoice_items]', nil, class: "purchase-item-attribute"
       .item-form
-        %label= :element_status.tl
-        = button_tag :reconciliate_with_purchases_orders.tl, id: 'showItemReconciliationModal', class: 'btn btn-default', type: :button
+        .control-group.reconciliation-item-state-block
+          %label.reconciliation-item-state= :element_status.tl
+          %span.purchase-process-reconciliation.reconciliation-state.no-reconciliate-state= :to_reconciliate.tl
+          %span.purchase-process-reconciliation.reconciliation-state.reconcile-state.hidden= :reconcile.tl
+
         - if Preference[:distribute_sales_and_purchases_on_activities] && current_user.can?(:read, :activities) && ActivityBudget.opened.any?
           = f.referenced_association(:activity_budget, new: false)
         - if Preference[:distribute_sales_and_purchases_on_teams] && current_user.can?(:read, :teams)
           = f.referenced_association(:team)
         = f.referenced_association(:equipment, label: :equipment.tl, source: {scope: :tools}, input_html: {data: { remember: 'equipment'}})
+
+    %td.form-field.fourth-row
+      = button_tag :reconciliate_with_purchases_orders.tl, id: 'showItemReconciliationModal', class: 'btn btn-default', type: :button
 
     %td.buttons
       %button.btn{ data: { cancel: 'item-form' } }= :cancel.tl

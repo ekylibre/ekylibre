@@ -434,6 +434,10 @@ eng:
         point: "Point"
         string: "String"
     purchase:
+      reconciliation_state:
+        # accepted: "Accepted"
+        # reconcile: "Reconcile"
+        # to_reconcile: "To reconcile"
       tax_payability:
         at_invoicing: "At invoicing"
         at_paying: "At paying"
@@ -442,6 +446,10 @@ eng:
         # loss: "Loss"
         # profit: "Profit"
     purchase_invoice:
+      reconciliation_state:
+        # accepted: "Accepted"
+        # reconcile: "Reconcile"
+        # to_reconcile: "To reconcile"
       tax_payability:
         # at_invoicing: "At invoicing"
         # at_paying: "At paying"
@@ -457,6 +465,10 @@ eng:
         # market_place: "Market place"
         # oral: "Oral"
         # sms: "Sms"
+      reconciliation_state:
+        # accepted: "Accepted"
+        # reconcile: "Reconcile"
+        # to_reconcile: "To reconcile"
       tax_payability:
         # at_invoicing: "At invoicing"
         # at_paying: "At paying"

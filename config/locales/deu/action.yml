@@ -736,6 +736,7 @@ deu:
       zoomInTitle: "Hineinzoomen"
       zoomOutTitle: "Rauszoomen"
   labels:
+    # accepted: "Accepted"
     # accepted_for_paiment: "Accepted for paiment"
     access: "Zugriff"
     access_parameters: "Zugangsparameter"

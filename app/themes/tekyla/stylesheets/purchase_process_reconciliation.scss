@@ -1,3 +1,19 @@
+.button-modal-reconciliation {
+  margin-top: $default-gap * 3;
+  margin-bottom: $default-gap * 3;
+}
+
+.item-form .reconciliation-item-state-block {
+  flex-direction: row !important;
+  flex-basis: 35%;
+  justify-content: flex-start !important;
+  align-self: center;
+
+  .reconciliation-item-state {
+    margin-right: $default-gap * 14;
+  }
+}
+
 .purchase-process-reconciliation.heading-toolbar {
   @include flex-row();
 
@@ -19,7 +35,8 @@
     border: solid 2px #f44336;
   }
 
-  .reconcile-title {
+  .reconcile-title,
+  .accepted-title {
     color: #4CAF50;
     border: solid 2px #4CAF50;
   }
@@ -35,7 +52,8 @@
     color: #F44336;
   }
 
-  &.reconcile-state {
+  &.reconcile-state,
+  &.accepted-state {
     color: #4CAF50;
   }
 }

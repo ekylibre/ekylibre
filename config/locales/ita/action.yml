@@ -802,6 +802,7 @@ ita:
       zoomInTitle: "Ingrandire"
       zoomOutTitle: "Zoom indietro"
   labels:
+    # accepted: "Accepted"
     # accepted_for_paiment: "Accepted for paiment"
     access: "Accesso"
     access_parameters: "parametri di accesso"

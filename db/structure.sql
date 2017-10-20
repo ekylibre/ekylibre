@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 9.5.7
--- Dumped by pg_dump version 9.5.7
+-- Dumped from database version 9.6.3
+-- Dumped by pg_dump version 9.6.3
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -2485,7 +2485,8 @@ CREATE TABLE purchases (
     type character varying,
     ordered_at timestamp without time zone,
     command_mode character varying,
-    estimate_reception_date timestamp without time zone
+    estimate_reception_date timestamp without time zone,
+    reconciliation_state character varying
 );
 
 
@@ -4773,8 +4774,7 @@ CREATE TABLE parcels (
     responsible_id integer,
     type character varying,
     late_delivery boolean,
-    intervention_id integer,
-    reconciliation_state character varying
+    intervention_id integer
 );
 
 
@@ -18079,3 +18079,4 @@ INSERT INTO schema_migrations (version) VALUES ('20171011125052');
 INSERT INTO schema_migrations (version) VALUES ('20171011132245');
 
 INSERT INTO schema_migrations (version) VALUES ('20171012130905');
+

@@ -1,3 +1,8 @@
+= content_for(:heading_toolbar) do
+  %h2.reconciliation-title.no-reconciliate-title= :to_reconciliate.tl
+  %h2.reconciliation-title.reconcile-title.hidden= :reconcile.tl
+  %h2.reconciliation-title.accepted-title.hidden= :accepted.tl
+
 = field_set do
   = f.referenced_association :supplier, source: :suppliers, new: { supplier: 1 }
   = f.input :reference_number
@@ -7,6 +12,13 @@
   = f.input :tax_payability, as: :radio_buttons
   = f.input :description
   = f.custom_fields
+
+  = field :element_status.tl, nil do
+    %span.purchase-process-reconciliation.reconciliation-state.no-reconciliate-state= :to_reconciliate.tl
+    %span.purchase-process-reconciliation.reconciliation-state.reconcile-state.hidden= :reconcile.tl
+    %span.purchase-process-reconciliation.reconciliation-state.accepted-state.hidden= :accepted.tl
+    = check_box_tag('purchase_invoice[reconciliation_state]', 'to_reconciliate', false)
+    = label_tag :accepted_for_paiment.tl
 
   .invoice-totals
     .invoice-total-row.total-except-tax
@@ -21,6 +33,10 @@
       %span.total-label= :total_amount_with_taxes.tl
       %span.total-value= f.object.decorate.total_amount_including_taxes
       %span.total-currency= Nomen::Currency[f.object.currency].symbol
+
+  .control-group.button-modal-reconciliation
+    .controls
+      = button_tag :reconciliate_with_purchases_orders.tl, id: 'showReconciliationModal', class: 'btn btn-default', type: :button
 
   = modal(id: "purchase_process_reconciliation", class: "", size: :large) do
     .modal-body

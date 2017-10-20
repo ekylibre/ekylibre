@@ -47,7 +47,6 @@
 #  pretax_amount                        :decimal(19, 4)   default(0.0), not null
 #  purchase_id                          :integer
 #  recipient_id                         :integer
-#  reconciliation_state                 :string
 #  reference_number                     :string
 #  remain_owner                         :boolean          default(FALSE), not null
 #  responsible_id                       :integer
@@ -91,7 +90,7 @@ class Parcel < Ekylibre::Record::Base
   validates :number, presence: true, uniqueness: true, length: { maximum: 500 }
   validates :planned_at, presence: true, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }
   validates :pretax_amount, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
-  validates :reconciliation_state, :reference_number, length: { maximum: 500 }, allow_blank: true
+  validates :reference_number, length: { maximum: 500 }, allow_blank: true
   validates :remain_owner, :with_delivery, inclusion: { in: [true, false] }
   validates :state, presence: true, length: { maximum: 500 }
   # ]VALIDATORS]

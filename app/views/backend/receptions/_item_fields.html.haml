@@ -91,9 +91,12 @@
         .form-field.second-row
           = f.input :purchase_order_item_id, as: :hidden, input_html: { class: "purchase-item-attribute" }
           .item-form
-            %label= :element_status.tl
-            = button_tag :reconciliate_with_purchases_orders.tl, id: 'showItemReconciliationModal', class: 'btn btn-default', type: :button
+            .control-group.reconciliation-item-state-block
+              %label.reconciliation-item-state= :element_status.tl
+              %span.purchase-process-reconciliation.reconciliation-state.no-reconciliate-state= :to_reconciliate.tl
+              %span.purchase-process-reconciliation.reconciliation-state.reconcile-state.hidden= :reconcile.tl
             = f.referenced_association(:equipment, label: :equipment.tl, source: {scope: :tools}, input_html: {data: { remember: 'equipment'}})
+            = button_tag :reconciliate_with_purchases_orders.tl, id: 'showItemReconciliationModal', class: 'btn btn-default', type: :button
 
         .buttons
           %button.btn{ data: { cancel: 'item-form' } }= :cancel.tl

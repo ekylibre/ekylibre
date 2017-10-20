@@ -14,14 +14,17 @@
         .model
           - unless item_reconciliation
             = check_box_tag('', '1', false, class: 'model-checkbox', data: { id: model.id })
-          %span.model-ref Réf fournisseur
+
+          - reference_number = model.reference_number if model.is_a?(Purchase)
+          - reference_number = model.items.first.purchase_order_item.purchase.reference_number unless model.is_a?(Purchase)
+          %span.model-ref= "Réf fournisseur : #{ reference_number }"
 
           %ul.list-items
             - model.items.each do |model_item|
               - datas = { variant_type: model_item.variant.variety, equipment_id: model_item.equipment_id }
-              - datas.merge!({ team_id: model_item.team_id, activity_budget_id: model_item.activity_budget_id}) if model_item.is_a?(PurchaseItem)
-              - datas.merge!({ team_id: model_item.purchase_order_item.team_id, activity_budget_id: model_itemi.purchase_order_item.activity_budget_id}) if model_item.is_a?(ParcelItem)
-              %li.item{ data: datas}
+              - datas.merge!({ team_id: model_item.team_id, activity_budget_id: model_item.activity_budget_id, reduction_percentage: model_item.reduction_percentage }) if model_item.is_a?(PurchaseItem)
+              - datas.merge!({ team_id: model_item.purchase_order_item.team_id, activity_budget_id: model_item.purchase_order_item.activity_budget_id}) if model_item.is_a?(ParcelItem)
+              %li.item{ data: datas }
                 - if item_reconciliation
                   = radio_button_tag('test', '1325', false, class: "item-checkbox", data: { id: model_item.id, item_field_id: item_field_id })
                 - else
@@ -29,7 +32,10 @@
                 %span.variant{ data: { id: model_item.variant_id } }= model_item.variant.name
                 %span.item-value.quantity= model_item.quantity
                 %span.item-value.unit-cost= model_item.unit_pretax_amount
-                =#%span.item-value.total-except-taxes= model_item.amount
+
+                - amount = model_item.amount if model_item.is_a?(PurchaseItem)
+                - amount = model_item.purchase_order_item.amount unless model_item.is_a?(PurchaseItem)
+                %span.item-value.total-except-taxes= amount
 
 .modal-footer
   .actions

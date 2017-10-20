@@ -736,6 +736,7 @@ cmn:
       zoomInTitle: "放大"
       zoomOutTitle: "缩小"
   labels:
+    # accepted: "Accepted"
     # accepted_for_paiment: "Accepted for paiment"
     access: "访问"
     access_parameters: "访问参数"

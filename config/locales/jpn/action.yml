@@ -802,6 +802,7 @@ jpn:
       zoomInTitle: "ズームイン"
       zoomOutTitle: "ズームアウトする"
   labels:
+    # accepted: "Accepted"
     # accepted_for_paiment: "Accepted for paiment"
     access: "アクセス"
     access_parameters: "アクセス・パラメータ"

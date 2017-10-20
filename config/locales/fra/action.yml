@@ -855,6 +855,7 @@ fra:
       zoomOutTitle: "Dézoomer"
   labels:
     abilities: "Compétences" #?
+    accepted: "Acceptée"
     accepted_for_paiment: "Acceptée pour paiement"
     access: "Accès"
     access_parameters: "Paramètres de connexion"

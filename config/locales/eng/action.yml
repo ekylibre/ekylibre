@@ -1001,6 +1001,7 @@ eng:
       zoomInTitle: "Zoom in"
       zoomOutTitle: "Zoom out"
   labels:
+    accepted: "Accepted"
     accepted_for_paiment: "Accepted for paiment"
     access: "Access"
     access_parameters: "Access parameters"

@@ -969,6 +969,7 @@ arb:
       zoomInTitle: "تكبير"
       zoomOutTitle: "تصغير"
   labels:
+    # accepted: "Accepted"
     # accepted_for_paiment: "Accepted for paiment"
     access: "وصول"
     access_parameters: "المعلمات وصول"

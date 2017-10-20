@@ -47,6 +47,7 @@
 #  planned_at                               :datetime
 #  pretax_amount                            :decimal(19, 4)   default(0.0), not null
 #  quantity_gap_on_invoice_journal_entry_id :integer
+#  reconciliation_state                     :string
 #  reference_number                         :string
 #  responsible_id                           :integer
 #  state                                    :string           not null
@@ -63,6 +64,7 @@ class Purchase < Ekylibre::Record::Base
   include Customizable
   attr_readonly :currency, :nature_id
   enumerize :tax_payability, in: %i[at_paying at_invoicing], default: :at_invoicing
+  enumerize :reconciliation_state, in: %i[to_reconcile accepted reconcile], default: :to_reconcile
   refers_to :currency
   belongs_to :delivery_address, class_name: 'EntityAddress'
   belongs_to :nature, class_name: 'PurchaseNature'

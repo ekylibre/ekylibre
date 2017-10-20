@@ -40,7 +40,7 @@
 #  preexisting_asset      :boolean
 #  pretax_amount          :decimal(19, 4)   default(0.0), not null
 #  purchase_id            :integer          not null
-#  quantity               :decimal(19, 4)   default(0.0), not null
+#  quantity               :decimal(19, 4)   not null
 #  reduction_percentage   :decimal(19, 4)   default(0.0), not null
 #  role                   :string
 #  tax_id                 :integer          not null
@@ -70,7 +70,7 @@ class PurchaseItem < Ekylibre::Record::Base
     has_many :parcels_purchase_invoice_items, inverse_of: :purchase_invoice_item, foreign_key: 'purchase_invoice_item_id'
   end
 
-  #has_many :products, through: :parcels_purchase_orders_items
+  # has_many :products, through: :parcels_purchase_orders_items
   has_many :products, through: :parcels_purchase_invoice_items
   has_one :product_nature_category, through: :variant, source: :category
 

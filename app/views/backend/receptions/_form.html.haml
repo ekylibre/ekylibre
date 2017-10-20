@@ -24,10 +24,10 @@
   = field :element_status.tl, nil do
     %span.purchase-process-reconciliation.reconciliation-state.no-reconciliate-state= :to_reconciliate.tl
     %span.purchase-process-reconciliation.reconciliation-state.reconcile-state.hidden= :reconcile.tl
-    = check_box_tag('reception[reconciliation_state]', 'to_reconciliate', false)
-    = label_tag :accepted_for_paiment.tl
 
-  = button_tag :reconciliate_with_purchases_orders.tl, id: 'showReconciliationModal', class: 'btn btn-default', type: :button
+  .control-group.button-modal-reconciliation
+    .controls
+      = button_tag :reconciliate_with_purchases_orders.tl, id: 'showReconciliationModal', class: 'btn btn-default', type: :button
 
   = modal(id: "purchase_process_reconciliation", class: "", size: :large) do
     .modal-body

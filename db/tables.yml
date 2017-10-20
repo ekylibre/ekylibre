@@ -5089,8 +5089,6 @@ parcels:
   recipient_id:
     type: integer
     references: entity
-  reconciliation_state:
-    type: string
   reference_number:
     type: string
   remain_owner:
@@ -6685,6 +6683,8 @@ purchases:
   quantity_gap_on_invoice_journal_entry_id:
     type: integer
     references: journal_entry
+  reconciliation_state:
+    type: string
   reference_number:
     type: string
   responsible_id:

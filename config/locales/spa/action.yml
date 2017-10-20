@@ -774,6 +774,7 @@ spa:
       zoomInTitle: "Acercarse"
       zoomOutTitle: "Disminuir el zoom"
   labels:
+    # accepted: "Accepted"
     # accepted_for_paiment: "Accepted for paiment"
     access: "Acceso"
     access_parameters: "Parámetros de acceso"

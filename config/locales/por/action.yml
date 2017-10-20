@@ -741,6 +741,7 @@ por:
       zoomInTitle: "Mais Zoom"
       zoomOutTitle: "Zoom out"
   labels:
+    # accepted: "Accepted"
     # accepted_for_paiment: "Accepted for paiment"
     access: "Acesso"
     access_parameters: "Parâmetros de acesso"

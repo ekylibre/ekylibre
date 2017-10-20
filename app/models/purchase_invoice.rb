@@ -47,6 +47,7 @@
 #  planned_at                               :datetime
 #  pretax_amount                            :decimal(19, 4)   default(0.0), not null
 #  quantity_gap_on_invoice_journal_entry_id :integer
+#  reconciliation_state                     :string
 #  reference_number                         :string
 #  responsible_id                           :integer
 #  state                                    :string           not null
@@ -149,9 +150,8 @@ class PurchaseInvoice < Purchase
 
         gap = item.quantity - parcel_items_quantity
 
-
         next unless (item.parcels_purchase_orders_items.any? && item.parcels_purchase_orders_items.first.unit_pretax_stock_amount) ||
-                      (item.parcels_purchase_invoice_items.any? && item.parcels_purchase_invoice_items.first.unit_pretax_stock_amount)
+                    (item.parcels_purchase_invoice_items.any? && item.parcels_purchase_invoice_items.first.unit_pretax_stock_amount)
 
         quantity = if !item.parcels_purchase_orders_items.empty?
                      item.parcels_purchase_orders_items.first.unit_pretax_stock_amount
