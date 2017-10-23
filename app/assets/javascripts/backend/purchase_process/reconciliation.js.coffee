@@ -50,7 +50,7 @@
 
     E.reconciliation.displayReconciliateState(event)
 
-    @reconciliationModal= new ekylibre.modal('#purchase_process_reconciliation')
+    @reconciliationModal= new E.modal('#purchase_process_reconciliation')
     @reconciliationModal.getModal().modal 'hide'
 
 
@@ -127,7 +127,7 @@
         data: datas
         success: (data, status, request) ->
 
-          @reconciliationModal= new ekylibre.modal('#purchase_process_reconciliation')
+          @reconciliationModal= new E.modal('#purchase_process_reconciliation')
           @reconciliationModal.removeModalContent()
           @reconciliationModal.getModalContent().append(data)
           @reconciliationModal.getModal().modal 'show'
