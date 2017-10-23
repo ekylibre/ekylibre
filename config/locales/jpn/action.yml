@@ -1617,6 +1617,7 @@ jpn:
     # receptions: "Receptions"
     # reconcile: "Reconcile"
     # reconciliate_with_purchases_orders: "Reconciliate with purchases orders"
+    # reconciliate_with_receptions: "Reconciliate with receptions"
     record: "記録"
     record_maintenance: "記録管理"
     reflect: "反映します"

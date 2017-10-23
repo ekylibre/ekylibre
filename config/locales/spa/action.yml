@@ -1730,6 +1730,7 @@ spa:
     # receptions: "Receptions"
     # reconcile: "Reconcile"
     # reconciliate_with_purchases_orders: "Reconciliate with purchases orders"
+    # reconciliate_with_receptions: "Reconciliate with receptions"
     record: "Grabar"
     record_maintenance: "El mantenimiento de registros"
     reflect: "Reflejar"

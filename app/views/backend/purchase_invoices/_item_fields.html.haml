@@ -71,7 +71,7 @@
         = f.referenced_association(:equipment, label: :equipment.tl, source: {scope: :tools}, input_html: {data: { remember: 'equipment'}})
 
     %td.form-field.fourth-row
-      = button_tag :reconciliate_with_purchases_orders.tl, id: 'showItemReconciliationModal', class: 'btn btn-default', type: :button
+      = button_tag :reconciliate_with_receptions.tl, id: 'showItemReconciliationModal', class: 'btn btn-default', type: :button
 
     %td.buttons
       %button.btn{ data: { cancel: 'item-form' } }= :cancel.tl

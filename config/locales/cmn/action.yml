@@ -1546,6 +1546,7 @@ cmn:
     # receptions: "Receptions"
     # reconcile: "Reconcile"
     # reconciliate_with_purchases_orders: "Reconciliate with purchases orders"
+    # reconciliate_with_receptions: "Reconciliate with receptions"
     record: "记录"
     record_maintenance: "维修记录"
     reflect: "反映"

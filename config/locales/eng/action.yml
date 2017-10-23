@@ -1810,6 +1810,7 @@ eng:
     receptions: "Receptions"
     reconcile: "Reconcile"
     reconciliate_with_purchases_orders: "Reconciliate with purchases orders"
+    reconciliate_with_receptions: "Reconciliate with receptions" #?!
     record: "Record" #?
     record_maintenance: "Record maintenance"
     reflect: "Reflect" #?
