@@ -157,6 +157,8 @@ eng:
       index: "Price catalogs"
       new: "New catalog"
       show: "Catalog: %{name}"
+    backend/cobbles/production_cost_cobbles:
+      # show: "Production cost cobble: %{name}"
     backend/companies:
       edit: "Company settings"
     backend/contracts:
@@ -467,6 +469,8 @@ eng:
       index: "Manure management plans"
       new: "New manure management plan"
       show: "Manure management plan: %{name}"
+    backend/map_editor_shapes:
+      # index: "Map editor shapes"
     backend/map_editors:
       # upload: "Upload map editor: %{name}"
     backend/map_layers:
@@ -822,6 +826,14 @@ eng:
       new: "New user"
       show: "User: %{first_name} %{last_name}"
       unlock: "Unlock user"
+    backend/visualizations/land_parcels_visualizations:
+      # show: "Land parcels visualization: %{name}"
+    backend/visualizations/map_cells_visualizations:
+      # show: "Map cells visualization: %{name}"
+    backend/visualizations/plants_visualizations:
+      # show: "Plants visualization: %{name}"
+    backend/visualizations/resources_visualizations:
+      # show: "Resources visualization: %{name}"
     backend/wine_tanks:
       index: "Wine tanks"
     backend/workers:
@@ -1288,6 +1300,7 @@ eng:
     entries: "Entries" #?
     entries_to_point: "Entries pointing to" #?!
     entry_items: "Entry items" #?
+    entry_item_label: "Entry item label"
     equipment: "Equipment" #?
     equipment_name: "Name of equipment" #?
     equipments: "Equipment"
@@ -1657,7 +1670,7 @@ eng:
     picture: "Picture" #?
     placeholder: "Placeholder" #?
     places: "Places"
-    plant: "Crop"
+    plant: "Crop" #?
     plant_counting: "Counting" #?
     plant_countings: "Countings" #?
     plantation_density: "Plantation density" #?
@@ -1683,6 +1696,7 @@ eng:
     product_account_number: "Product account number" #?
     product_category: "Product category" #?
     product_name: "Product name" #?
+    # product_nature_variants: "Product nature variants"
     product_natures: "Product types"
     product_value: "Product value %{financial_year}"
     production: "Production"
@@ -1704,7 +1718,7 @@ eng:
     purchase: "Purchase"
     purchase_items: "Purchase items" #?
     purchase_number: "Purchase number" #?
-    # purchase_payments: "Purchase payments"
+    purchase_payments: "Purchase payments"
     purchases: "Purchases"
     purchases_stocks_variation: "Purchases stocks variation" #?!
     quality: "Quality"
@@ -2189,6 +2203,7 @@ eng:
       equipment_component_is_worn_out: "The component %{component_name} of the equipment %{equipment_name} is worn out. Remaining work time: %{remaining_time}." #?
       equipment_is_at_end_of_life: "Equipment %{name} is reaching the end of its life. Remaining time: %{remaining_time}." #?
       equipment_is_worn_out: "Equipment %{name} is worn out. Remaining work time: %{remaining_time}." #?
+      error_client_account_empty: "Can not operate, client account is empty"
       error_during_file_generation: "An error occurred while generating a file" #?
       fails_to_extract_listing: "The listing can't be made: %{message}"
       file_generated: "Your file was successfully generated" #?

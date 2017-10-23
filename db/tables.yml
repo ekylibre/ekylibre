@@ -3877,6 +3877,8 @@ journal_entries:
     precision: 19
     scale: 4
     required: true
+  reference_number:
+    type: string
   resource_id:
     type: integer
     references: "~resource_type"
@@ -6388,6 +6390,8 @@ products:
     type: integer
   picture_updated_at:
     type: datetime
+  reading_cache:
+    type: jsonb
   team_id:
     type: integer
     references: team

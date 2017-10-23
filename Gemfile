@@ -3,7 +3,7 @@ source 'https://rubygems.org'
 ruby '>= 2.2.3', '< 3.0.0'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.2.8'
+gem 'rails', '4.2.10'
 
 # Security fix for mail
 gem 'mail', '~> 2.6.6.rc1'
@@ -76,6 +76,9 @@ gem 'kaminari'
 # Freeze time for demo and/or tests
 gem 'timecop'
 
+# Manipulate map data
+gem 'charta', '>= 0.1.6'
+
 # Manage daemons
 gem 'foreman'
 
@@ -139,7 +142,7 @@ gem 'time_diff'
 gem 'wannabe_bool'
 
 # XML Parsing/Writing, HTML extraction
-gem 'nokogiri', '~> 1.7.1'
+gem 'nokogiri', '~> 1.8.1'
 
 # Parse LALR or LR-1 grammars
 gem 'treetop'
@@ -221,7 +224,7 @@ end
 
 group :development, :test do
   gem 'pry-byebug'
-  gem 'pry-inline'
+  # gem 'pry-inline'
   gem 'pry-rails'
   gem 'teaspoon-jasmine'
 
@@ -240,7 +243,7 @@ group :test do
   gem 'selenium-webdriver'
 
   gem 'codacy-coverage', require: false
-  gem 'coveralls', '>= 0.6', require: false
+  gem 'codecov', require: false
   gem 'database_cleaner'
   gem 'simplecov', require: false
 

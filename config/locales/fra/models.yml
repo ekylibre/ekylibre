@@ -87,6 +87,7 @@ fra:
         quantity: "Quantité constatée" #?
       journal_entry_item: #?
         closed: "Cloturée" #?
+        name: "Libellé de l'écriture"
       land_parcel:
         born_at: "Créé le"
         children: "Sous-parcelle" #?
@@ -869,6 +870,7 @@ fra:
     direct_links: "Liens directs"
     direction: "Type"
     discount_percentage: "Pourcentage d’escompte" #?
+    # distributed_on_productions: "Distributed on productions"
     distributions: "Répartitions"
     district: "Zone administrative"
     document: "Document"
@@ -1520,6 +1522,7 @@ fra:
     rank_number: "Numéro de Rang"
     read_at: "Mesuré à"
     reading: "Relevé" #?
+    # reading_cache: "Reading cache"
     reading_tasks: "Relevé de valeur"
     readings: "Relevés"
     real_balance: "Solde réel"

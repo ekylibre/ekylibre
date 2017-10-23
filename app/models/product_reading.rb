@@ -90,6 +90,19 @@ class ProductReading < Ekylibre::Record::Base
     end
   end
 
+  after_save do
+    last_reading = product.readings.where(indicator_name: indicator_name).last
+    if last_reading.read_at <= read_at
+      product.send("#{indicator_name}=", value)
+      product.update_column(:reading_cache, product.reading_cache)
+    end
+
+    # if product && product.initial_shape_changed?
+    #   product.net_surface_area = product.initial_shape.area.in(:hectare).round(3)
+    #   # binding.pry
+    # end
+  end
+
   def self.first_of_all(indicator_name)
     where(indicator_name: indicator_name).reorder(:read_at).first
   end

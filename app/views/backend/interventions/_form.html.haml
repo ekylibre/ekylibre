@@ -10,7 +10,7 @@
   - action_title_key << "_#{f.object.nature}" unless f.object.record?
   = "actions.#{controller_path}.#{action_title_key}".t(interpolations)
 
-  = hidden_field_tag 'intervention_id', f.object.id
+= hidden_field_tag 'intervention_id', f.object.id
 
 - if f.object.new_record?
   - f.object.auto_calculate_working_periods = true
@@ -73,7 +73,6 @@
   - form_action_content(:after) do
     %span.pull-right
       = label_tag do
-        = check_box_tag('value', 'true', user_preference_value(User::PREFERENCE_SHOW_MAP_INTERVENTION_FORM), data: { remote: true, url: backend_preference_path(id: User::PREFERENCE_SHOW_MAP_INTERVENTION_FORM), method: 'PATCH' })
+        = check_box_tag('value', 'true', user_preference_value(User::PREFERENCE_SHOW_MAP_INTERVENTION_FORM, true), data: { remote: true, url: backend_preference_path(id: User::PREFERENCE_SHOW_MAP_INTERVENTION_FORM), method: 'PATCH' })
         = :view_map_when_creating_an_intervention.tl
   - f.clear_actions!
-

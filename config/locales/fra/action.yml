@@ -1276,6 +1276,7 @@ fra:
     entries: "Écritures"
     entries_to_point: "Écritures à pointer"
     entry_items: "Lignes d’écriture"
+    entry_item_label: "Libellé de l'écriture"
     equipment: "Équipement"
     equipment_name: "Nom de l’équipement"
     equipments: "Équipements"
@@ -1873,6 +1874,7 @@ fra:
     purchase: "Achat"
     purchase_items: "Lignes de l’achat"
     purchase_number: "N° d’achat"
+    purchase_payments: "Décaissements"
     purchase_steps: #?
       deliveries: "Livraisons" #?
       products: "Création de l’achat" #?
@@ -2297,7 +2299,7 @@ fra:
     vat_paid: "TVA DEDUCTIBLE" #?
     video: "Vidéo" #?
     view: "Affichage"
-    view_map_when_creating_an_intervention: "Afficher la carte lors de la création d'intervention"
+    view_map_when_creating_an_intervention: "Afficher la carte lors de la création d'interventions"
     view_modes: #?
       printable: "Mode «\_Imprimable\_»" #?
       resized: "Mode «\_Tout à l’écran\_»" #?
@@ -2552,6 +2554,7 @@ fra:
       equipment_component_is_worn_out: "Le composant %{component_name} de l’équipement %{equipment_name} est usé. Temps de travail restant: %{remaining_time}."
       equipment_is_at_end_of_life: "L’équipment %{name} approche la fin de sa vie. Temps restant: %{remaining_time}."
       equipment_is_worn_out: "L’équipement %{name} est usé. Temps de travail restant: %{remaining_time}."
+      error_client_account_empty: "Opération impossible, le compte client est vide"
       error_during_file_generation: "Une erreur est survenue durant la génération d'un fichier"
       expired_session: "Session expirée. Veuillez vous reconnecter." #?
       fails_to_extract_listing: "L’extraction n’a pas pu s’effectuer\_: %{message}"
