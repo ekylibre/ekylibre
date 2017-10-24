@@ -95,8 +95,9 @@
               %label.reconciliation-item-state= :element_status.tl
               %span.purchase-process-reconciliation.reconciliation-state.no-reconciliate-state= :to_reconciliate.tl
               %span.purchase-process-reconciliation.reconciliation-state.reconcile-state.hidden= :reconcile.tl
-            = f.referenced_association(:equipment, label: :equipment.tl, source: {scope: :tools}, input_html: {data: { remember: 'equipment'}})
-            = button_tag :reconciliate_with_purchases_orders.tl, id: 'showItemReconciliationModal', class: 'btn btn-default', type: :button
+            .equipment_and_reconciliate
+              = f.referenced_association(:equipment, label: :equipment.tl, source: {scope: :tools}, input_html: {data: { remember: 'equipment'}})
+              = button_tag :reconciliate_with_purchases_orders.tl, id: 'showItemReconciliationModal', class: 'btn btn-default', type: :button
 
         .buttons
           %button.btn{ data: { cancel: 'item-form' } }= :cancel.tl

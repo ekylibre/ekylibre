@@ -418,7 +418,9 @@
     width: 100%;
 
     .item-form {
-      @include flex-column(flex-start);
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
       border: none;
     }
 
@@ -429,6 +431,14 @@
 
     .reception_items_equipment .controls{
       margin-left: $default-gap * 2.57;
+    }
+
+    .reconciliation-item-state-block {
+      margin-left: $default-gap * 2.5;
+    }
+
+    #showItemReconciliationModal {
+      margin-top: $default-gap * 4;
     }
   }
 }
