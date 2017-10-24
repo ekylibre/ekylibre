@@ -53,6 +53,8 @@ eng:
     doer_cost: "Doer cost"
     doer_name: "Doer name"
     doers_name: "Doers name"
+    tools_name: "Tools name"
+    targets_name: "Targets name"
     duration_in_hour: "Duration in hour"
     ede_cattling_number: "EDE cattling number"
     ede_owner_number: "EDE owner number"
