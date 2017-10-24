@@ -121,8 +121,9 @@ module Backend
 
     def create
       permitted_params[:items_attributes].each do |key, item_attribute|
-        parcel_item_id = JSON.parse(item_attribute[:parcels_purchase_invoice_items])
-        item_attribute[:parcels_purchase_invoice_items] = ParcelItem.find(parcel_item_id)
+        ids = item_attribute[:parcels_purchase_invoice_items]
+        parcel_item_ids = ids.blank? ? [] : JSON.parse(ids)
+        item_attribute[:parcels_purchase_invoice_items] = ParcelItem.find(parcel_item_ids)
       end
 
       @purchase_invoice = PurchaseInvoice.new(permitted_params)
