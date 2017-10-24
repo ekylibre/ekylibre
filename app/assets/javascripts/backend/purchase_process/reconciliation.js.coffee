@@ -116,11 +116,14 @@
 
     displayReconciliationModal: (event, datas) ->
       isPurchaseInvoiceForm = $(event.target).closest('.simple_form').hasClass('new_purchase_invoice')
+      isNewReception = $(event.target).closest('.simple_form').hasClass('new_reception')
 
       url = "/backend/purchase_process/reconciliation/purchase_orders_to_reconciliate"
       if isPurchaseInvoiceForm
         url = "/backend/purchase_process/reconciliation/receptions_to_reconciliate"
         datas['supplier'] = $('input[name="purchase_invoice[supplier_id]').val()
+      else if isNewReception
+        datas['supplier'] = $('input[name="reception[sender_id]').val()
 
       $.ajax
         url: url
