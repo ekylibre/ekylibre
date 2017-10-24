@@ -1,4 +1,6 @@
-gem 'capistrano'
-gem 'capistrano-bundler', group: :development
-gem 'capistrano-rails', group: :development
-gem 'capistrano-rbenv', group: :development
+group :development do
+  gem 'capistrano', '~> 3.9.0'
+  gem 'capistrano-bundler', require: false
+  gem 'capistrano-rails', require: false
+  gem 'capistrano-rbenv', require: false
+end

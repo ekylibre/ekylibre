@@ -38,9 +38,13 @@ set :default_env, { 'JAVA_HOME' => '/usr/lib/jvm/java-8-openjdk-amd64' }
 
 set :rails_env, 'production'
 
-# after 'deploy:publishing', 'deploy:restart'
-# namespace :deploy do
-#   task :restart do
-#     #invoke 'unicorn:reload'
-#   end
-# end
+namespace :deploy do
+  after :published, :restart_daemons do |host|
+    on roles(:app) do
+      execute :sudo, :service, "#{ fetch(:application) }-job", :restart
+    end
+    on roles(:web) do
+      execute :sudo, :service, "#{ fetch(:application) }-web", :restart
+    end
+  end
+end

@@ -103,7 +103,7 @@ GEM
       uniform_notifier (~> 1.10.0)
     burisu-docsplit (0.7.9)
     byebug (9.1.0)
-    capistrano (3.10.0)
+    capistrano (3.9.1)
       airbrussh (>= 1.0.0)
       i18n
       rake (>= 10.0.0)
@@ -605,7 +605,7 @@ DEPENDENCIES
   bootstrap3-datetimepicker-rails
   browser
   bullet (< 5.6.0)
-  capistrano
+  capistrano (~> 3.9.0)
   capistrano-bundler
   capistrano-rails
   capistrano-rbenv
