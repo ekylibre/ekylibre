@@ -5,10 +5,10 @@
 .modal-body
   .purchase-orders
     .list-headers
-      %span.list-header.reception Reception
-      %span.list-header Quantité
-      %span.list-header Prix unit. HT
-      %span.list-header Total HT
+      %span.list-header.reception= :reception.tl
+      %span.list-header= :quantity.tl
+      %span.list-header= :unit_amount.tl
+      %span.list-header= :total_amount_without_taxes.tl
     .list-models
       - models.each do |model|
         .model
@@ -17,7 +17,7 @@
 
           - reference_number = model.reference_number if model.is_a?(Purchase)
           - reference_number = model.items.first.purchase_order_item.purchase.reference_number unless model.is_a?(Purchase)
-          %span.model-ref= "Réf fournisseur : #{ reference_number }"
+          %span.model-ref= :reference_supplier.tl(reference_number: !reference_number.blank? ? reference_number : :not_informed.tl)
 
           %ul.list-items
             - model.items.each do |model_item|
@@ -36,7 +36,6 @@
                 - amount = model_item.amount if model_item.is_a?(PurchaseItem)
                 - amount = model_item.purchase_order_item.amount unless model_item.is_a?(PurchaseItem)
                 %span.item-value.total-except-taxes= amount
-
 .modal-footer
   .actions
     %button{ class: "btn btn-default valid-modal", data: { 'item-reconciliation': item_reconciliation }}= :valid.tl
