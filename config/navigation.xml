@@ -868,6 +868,7 @@
         <page to="backend/land_parcels#take"/>
         <page to="backend/land_parcels#unroll"/>
         <page to="backend/land_parcels#update"/>
+        <page to="backend/visualizations/land_parcels_visualizations#show"/>
       </item>
       <item name="plants">
         <page to="backend/plants#index"/>
@@ -895,6 +896,7 @@
         <page to="backend/plants#take"/>
         <page to="backend/plants#unroll"/>
         <page to="backend/plants#update"/>
+        <page to="backend/visualizations/plants_visualizations#show"/>
       </item>
     </group>
     <group name="animal_management" icon="cow">
@@ -1917,6 +1919,7 @@
       </item>
       <item name="map_cells">
         <page to="backend/cells/map_cells#show"/>
+        <page to="backend/visualizations/map_cells_visualizations#show"/>
       </item>
       <item name="stewardship_cells">
         <page to="backend/cells/stewardship_cells#show"/>
@@ -2040,6 +2043,13 @@
     <group>
       <item name="preferences">
         <page to="backend/preferences#update"/>
+      </item>
+      <item name="production_cost_cobbles">
+        <page to="backend/cobbles/production_cost_cobbles#show"/>
+        <page to="backend/cobbles/stock_in_ground_cobbles#show"/>
+      </item>
+      <item name="resources_visualizations">
+        <page to="backend/visualizations/resources_visualizations#show"/>
       </item>
     </group>
   </inaccessible-actions>
