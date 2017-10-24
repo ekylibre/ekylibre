@@ -14,7 +14,7 @@
   }
 }
 
-.purchase-process-reconciliation.heading-toolbar {
+.purchase-process-reconciliation.heading-toolbar, .heading-toolbar {
   @include flex-row();
 
   .reconciliation-title {
