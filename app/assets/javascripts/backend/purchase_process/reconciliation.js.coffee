@@ -57,9 +57,10 @@
   E.reconciliation =
     displayReconciliateState: (event) ->
       $('#purchase_invoice_reconciliation_state').val('reconcile')
-
       # Change the state title
       if $('.accepted-title').length > 0 && $('.accepted-title').hasClass('hidden')
+        $('.no-reconciliate-title').addClass('hidden')
+      else if $('.reconcile-title').length > 0 && $('.reconcile-title').hasClass('hidden')
         $('.no-reconciliate-title').addClass('hidden')
       else
         $('.accepted-title').addClass('hidden')
@@ -68,6 +69,8 @@
 
       # Change the state main field
       if $('.accepted-state').length > 0 && $('.accepted-state').hasClass('hidden')
+        $('.no-reconciliate-state').addClass('hidden')
+      else if $('.reconcile-state').length > 0 && $('.reconcile-state').hasClass('hidden')
         $('.no-reconciliate-state').addClass('hidden')
       else
         $('.accepted-state').addClass('hidden')
