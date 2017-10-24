@@ -287,8 +287,38 @@
 
       $(this.mapElement).on 'click', '.updateAttributesSerieInPopup', @updateAttributesSeries
 
+#      @map.on "viewreset", (e) =>
+#        console.log "NEW BOUNDING BOX", e.target.getBounds().toBBoxString()
+#        @setDynamicSeries()
+
+      @setDynamicSeries()
+
 
       widget.element.trigger "mapeditor:loaded"
+
+
+    setDynamicSeries: ->
+      return unless @options.dynamic_series?
+
+      $.ajax
+        method: 'GET'
+        dataType: 'json'
+        url: @options.dynamic_series
+        beforeSend: () =>
+          @dynamic_loading = new L.control(position: "bottomleft")
+          @dynamic_loading.onAdd = (map) =>
+            L.DomUtil.create('div', 'leaflet-dynamic loading')
+
+          @map.addControl @dynamic_loading
+        success: (data) =>
+          $.extend(true, @options.show, data.show)
+          @_refreshReferenceLayerGroup()
+          @_refreshControls()
+        complete: () =>
+          @map.removeControl @dynamic_loading
+
+      #Ensure edition layer is on top
+      @edition.bringToFront() if @edition
 
     updateFeature: (feature_id, attributeName, attributeValue) ->
       this.updateFeatureProperties(feature_id, attributeName, attributeValue)
@@ -518,12 +548,12 @@
     _refreshReferenceLayerGroup: ->
       if this.reference?
         this.map.removeLayer this.reference
-      if this.options.show? and this.options.show.layers.length > 0
+      if this.options.show? && this.options.show.layers.length > 0
         if this.options.useFeatures
 
           if @options.show.series?
 
-            @seriesReferencesLayers = {}
+            @seriesReferencesLayers ||= {}
 
             for layer in @options.show.layers
 
@@ -535,11 +565,14 @@
                 layerGroup = renderedLayer.buildLayerGroup(this, options)
                 layerGroup.name = layer.name
                 layerGroup.renderedLayer = renderedLayer
+
+                if @seriesReferencesLayers[layer.label]?
+                  @map.removeLayer(@seriesReferencesLayers[layer.label])
+
                 @seriesReferencesLayers[layer.label] = layerGroup
                 @map.addLayer(layerGroup)
 
           else
-
             this.reference = L.geoJson(this.options.show, {
               onEachFeature: (feature, layer) =>
                 feature.properties ||= {}
@@ -809,6 +842,8 @@
 
       this.map.addControl this.controls.legend
 
+      L.DomUtil.addClass(@controls.legend.getContainer(), 'leaflet-hidden-control')
+
 
       if this.options.multiLevels?
         legend = @controls.legend.getContainer()
@@ -860,8 +895,9 @@
           for label, layer of @seriesReferencesLayers
             selector.addOverlay(layer, label)
             @layersScheduler.insert layer._leaflet_id
-            @controls.legend.getContainer().innerHTML += layer.renderedLayer.buildLegend() if layer.renderedLayer.options.legend
-
+            if layer.renderedLayer.options.legend
+              @controls.legend.getContainer().innerHTML += layer.renderedLayer.buildLegend()
+              L.DomUtil.removeClass(@controls.legend.getContainer(), 'leaflet-hidden-control')
 
         if @edition? and @edition.getLayers().length > 0
           selector.addOverlay(@edition, @options.overlaySelector.editionLayer)

@@ -22,6 +22,8 @@ module Backend
 
           next unless product
 
+          activity_color = target.product.activity.color if product.activity
+
           if (activity_production = ActivityProduction.find_by(support: product))
             activity_color = activity_production.activity.color
             if activity_production.cultivable_zone
@@ -84,6 +86,14 @@ module Backend
         end
 
         html.join.html_safe
+      end
+    end
+
+    def new_geometry_collection(geometries)
+      if geometries.is_a?(Array) && geometries.any?
+        Charta.new_geometry("SRID=4326;GEOMETRYCOLLECTION(#{geometries.map { |geo| geo[:shape].to_wkt.split(';')[1] }.join(',')})") # .convert_to(:multi_polygon)
+      else
+        Charta.empty_geometry
       end
     end
 

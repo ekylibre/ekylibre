@@ -103,7 +103,11 @@ module Backend
 
     # Use model_map to 'resources' map from current controller
     def resources_map(options = {}, &block)
-      model_map(resource_model.where.not(id: nil), options, &block)
+      if options.delete(:async)
+        async_model_map(options, &block)
+      else
+        model_map(resource_model.where.not(id: nil), options, &block)
+      end
     end
 
     # A module map displays an ActiveRecord::Relation as map. Model must have
@@ -140,6 +144,30 @@ module Backend
         feature
       end
       collection_map(data, options, &block)
+    end
+
+    # An asynchronous version of the model map method
+    def async_model_map(options = {})
+      html_options = {}
+      center = options.delete(:center)
+      center = true if center.nil?
+
+      if options.delete(:main)
+        options[:box] ||= {}
+        options[:box][:height] = '100%'
+        html_options[:class] = 'map-fullwidth'
+      end
+
+      visualization(options.merge(async_url: backend_visualizations_resources_visualizations_path(resource_name: resource_model.model_name.singular)), html_options) do |v|
+        v.control :zoom
+        v.control :scale
+        v.control :fullscreen
+        v.control :layer_selector
+
+        if center && resource_model.first.respond_to?(:shape_centroid) && resource_model.first.shape_centroid.present?
+          v.center resource_model.first.shape_centroid
+        end
+      end
     end
 
     # Build a map with a given list of object
