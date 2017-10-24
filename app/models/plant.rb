@@ -152,15 +152,6 @@ class Plant < Bioproduct
     item.value
   end
 
-  # def best_activity_production(options = {})
-  #   at = options[:at]
-  #   at ||= Time.now
-  #   intersecting = LandParcel.shape_intersecting(shape)
-  #   current_intersecting = intersecting.at(at)
-  #   biggest_intersecting = current_intersecting.max_by { |lp| lp.shape.intersection(shape).area }
-  #   biggest_intersecting || super
-  # end
-
   # INSPECTIONS RELATED
 
   def stock_in_ground_by_calibration_series(dimension, natures)
@@ -222,10 +213,10 @@ class Plant < Bioproduct
   end
 
   def link_to_production
-    outputs = InterventionOutput.where(product: self, reference_name: "plant")
+    outputs = InterventionOutput.where(product: self, reference_name: 'plant')
     unless outputs.empty?
-      ap = outputs.first.intervention.targets.where(reference_name: "land_parcel").first.product.activity_production
-      self.update(activity_production: ap)
+      ap = outputs.first.intervention.targets.where(reference_name: 'land_parcel').first.product.activity_production
+      update(activity_production: ap)
     end
   end
 end

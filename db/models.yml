@@ -173,6 +173,7 @@
 - supervision
 - supervision_item
 - synchronization_operation
+- target_distribution
 - task
 - tax
 - tax_declaration
