@@ -1568,6 +1568,7 @@ spa:
     normal: "Regimen del real normal"
     not_assessable_operations: "Opéraciones no imposnibles" #?
     not_delivered: "No entregado"
+    # not_informed: "Not informed"
     not_letterable: "No es capaz de carta"
     not_ready: "No está listo"
     not_received: "No recibido"
@@ -1725,6 +1726,7 @@ spa:
     received: "Recibido"
     # receiving_address: "Receiving address"
     recent_events: "Eventos recientes"
+    # reception: "Reception"
     # reception_incident: "Reception incident"
     # reception_number: "Reception number"
     # receptions: "Receptions"
@@ -1733,6 +1735,7 @@ spa:
     # reconciliate_with_receptions: "Reconciliate with receptions"
     record: "Grabar"
     record_maintenance: "El mantenimiento de registros"
+    # reference_supplier: "Reference supplier : %{reference_number}"
     reflect: "Reflejar"
     reflected: "Cambios reflejados"
     reflections: "Reflexiones"

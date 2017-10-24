@@ -1885,6 +1885,7 @@ arb:
     normal: "نظام واقعي طبيعي"
     not_assessable_operations: "اجراءات غير ضريبية" #?
     not_delivered: "لم يتم تسليمها"
+    # not_informed: "Not informed"
     not_letterable: "لم يكن قادرا على بريد إلكتروني"
     not_ready: "ليس جاهزا"
     not_received: "لم تتلق"
@@ -2082,6 +2083,7 @@ arb:
     received: "مستلم"
     # receiving_address: "Receiving address"
     recent_events: "الاحداث الاخيرة"
+    # reception: "Reception"
     # reception_incident: "Reception incident"
     # reception_number: "Reception number"
     # receptions: "Receptions"
@@ -2092,6 +2094,7 @@ arb:
     record_has_been_correctly_removed: "قد تم حذف السجلات بشكل صحيح" #?
     record_has_not_been_removed: "لم يتم حذف السجلات" #?
     record_maintenance: "صيانة المسجلات"
+    # reference_supplier: "Reference supplier : %{reference_number}"
     reflect: "يعكس"
     reflected: "التغييرات تنعكس"
     reflections: "خواطر"

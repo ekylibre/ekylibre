@@ -1670,6 +1670,7 @@ eng:
     none: "None"
     normal: "Normal" #?
     not_delivered: "Not delivered" #?
+    not_informed: "Not informed" #?!
     not_letterable: "Not able to letter"
     not_ready: "Not ready"
     not_received: "Not received" #?
@@ -1805,14 +1806,16 @@ eng:
     received: "Received" #?
     receiving_address: "Receiving address"
     recent_events: "Recent events"
+    reception: "Reception"
     reception_incident: "Reception incident"
     reception_number: "Reception number"
     receptions: "Receptions"
     reconcile: "Reconcile"
     reconciliate_with_purchases_orders: "Reconciliate with purchases orders"
-    reconciliate_with_receptions: "Reconciliate with receptions" #?!
+    reconciliate_with_receptions: "Reconciliate with receptions"
     record: "Record" #?
     record_maintenance: "Record maintenance"
+    reference_supplier: "Reference supplier : %{reference_number}"
     reflect: "Reflect" #?
     reflected: "Reflected changes" #?
     reflections: "Reflections" #?
