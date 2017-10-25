@@ -1,3 +1,4 @@
+= f.object.errors.full_messages if f.object.errors.present? && Rails.env.development?
 = content_for(:heading_toolbar) do
   %h2.reconciliation-title.no-reconciliate-title= :to_reconciliate.tl
   %h2.reconciliation-title.reconcile-title.hidden= :reconcile.tl
@@ -17,7 +18,8 @@
     %span.purchase-process-reconciliation.reconciliation-state.no-reconciliate-state= :to_reconciliate.tl
     %span.purchase-process-reconciliation.reconciliation-state.reconcile-state.hidden= :reconcile.tl
     %span.purchase-process-reconciliation.reconciliation-state.accepted-state.hidden= :accepted.tl
-    = check_box_tag('purchase_invoice[reconciliation_state]', 'to_reconciliate', false)
+    = check_box_tag('purchase_invoice[reconciliation_state]', 'to_reconcile', true, id: 'purchase_invoice_reconciliate_state', class: 'hidden')
+    = check_box_tag('purchase_invoice[reconciliation_state]', 'accepted', (f.object.reconciliation_state == 'accepted' ? true : false), id: 'purchase_invoice_accepted_state')
     = label_tag :accepted_for_paiment.tl
 
   .invoice-totals
