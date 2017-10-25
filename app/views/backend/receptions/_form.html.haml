@@ -25,6 +25,7 @@
   = field :element_status.tl, nil do
     %span.purchase-process-reconciliation.reconciliation-state.no-reconciliate-state= :to_reconciliate.tl
     %span.purchase-process-reconciliation.reconciliation-state.reconcile-state.hidden= :reconcile.tl
+    = hidden_field_tag('reception[reconciliation_state]', 'to_reconcile')
 
   .control-group.button-modal-reconciliation
     .controls
