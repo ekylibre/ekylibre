@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<migration name="Add varieties2">
+  <item-creation item="varieties#cinnamomum" parent="lauraceae" itis_tsn=""/>
+  <item-creation item="varieties#cinnamomum_burmannii" parent="cinnamomum" itis_tsn="501525"/>
+  <item-creation item="varieties#cinnamomum_camphora" parent="cinnamomum" itis_tsn="18175"/>
+  <item-creation item="varieties#cinnamomum_cassia" parent="cinnamomum" itis_tsn="834866"/>
+  <item-creation item="varieties#cinnamomum_tamala" parent="cinnamomum" itis_tsn="506207"/>
+  <item-creation item="varieties#cinnamomum_verum" parent="cinnamomum" itis_tsn="501529"/>
+  <item-creation item="varieties#artocarpus" parent="moraceae" itis_tsn="19071"/>
+  <item-creation item="varieties#artocarpus_altilis" parent="artocarpus" itis_tsn="184181"/>
+  <item-creation item="varieties#artocarpus_elasticus" parent="artocarpus" itis_tsn="506552"/>
+  <item-creation item="varieties#artocarpus_heterophyllus" parent="artocarpus" itis_tsn="184183"/>
+  <item-creation item="varieties#artocarpus_hirsutus" parent="artocarpus" itis_tsn="506553"/>
+  <item-creation item="varieties#artocarpus_integer" parent="artocarpus" itis_tsn="565608"/>
+  <item-creation item="varieties#artocarpus_mariannensis" parent="artocarpus" itis_tsn="506555"/>
+  <item-creation item="varieties#artocarpus_odoratissimus" parent="artocarpus" itis_tsn="506556"/>
+  <item-creation item="varieties#artocarpus_rigidus" parent="artocarpus" itis_tsn="506557"/>
+  <item-creation item="varieties#artocarpus_tamaran" parent="artocarpus" itis_tsn="506558"/>
+  <item-creation item="varieties#annona" parent="annonaceae" itis_tsn="18095"/>
+  <item-creation item="varieties#annona_cherimola" parent="annona" itis_tsn="506198"/>
+  <item-creation item="varieties#annona_glabra" parent="annona" itis_tsn="18101"/>
+  <item-creation item="varieties#annona_montana" parent="annona" itis_tsn=""/>
+  <item-creation item="varieties#annona_muricata" parent="annona" itis_tsn="18098"/>
+  <item-creation item="varieties#annona_reticulata" parent="annona" itis_tsn="18099"/>
+  <item-creation item="varieties#annona_senegalensis" parent="annona" itis_tsn="506201"/>
+  <item-creation item="varieties#annona_squamosa" parent="annona" itis_tsn="18100"/>
+  <item-creation item="varieties#psidium" parent="myrtaceae" itis_tsn="27238"/>
+  <item-creation item="varieties#psidium_amplexicaule" parent="psidium" itis_tsn="27241"/>
+  <item-creation item="varieties#psidium_calyptranthoides" parent="psidium" itis_tsn="504639"/>
+  <item-creation item="varieties#psidium_cattleianum" parent="psidium" itis_tsn="27239"/>
+  <item-creation item="varieties#psidium_friedrichsthalianum" parent="psidium" itis_tsn="506171"/>
+  <item-creation item="varieties#psidium_guajava" parent="psidium" itis_tsn="27240"/>
+  <item-creation item="varieties#dimocarpus" parent="sapindaceae" itis_tsn="500681"/>
+  <item-creation item="varieties#dimocarpus_longan" parent="dimocarpus" itis_tsn="506072"/>
+  <item-creation item="varieties#anacardium" parent="anacardiaceae" itis_tsn="28792"/>
+  <item-creation item="varieties#anacardium_occidentale" parent="anacardium" itis_tsn="28793"/>
+</migration>

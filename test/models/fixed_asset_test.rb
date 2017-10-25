@@ -76,7 +76,7 @@ class FixedAssetTest < ActiveSupport::TestCase
     @storage = BuildingDivision.create!(
       variant: @building_division_variant,
       name: 'Tractor Stockage',
-      initial_shape: Charta::MultiPolygon.new('SRID=4326;MULTIPOLYGON(((-0.813218951225281 45.5985699786537,-0.813113003969193 45.5985455816635,-0.81300538033247 45.5987766488858,-0.813106298446655 45.5987876744046,-0.813218951225281 45.5985699786537)))')
+      initial_shape: Charta.new_geometry('SRID=4326;MULTIPOLYGON(((-0.813218951225281 45.5985699786537,-0.813113003969193 45.5985455816635,-0.81300538033247 45.5987766488858,-0.813106298446655 45.5987876744046,-0.813218951225281 45.5985699786537)))')
     )
 
     @product = @variant.products.create!(
@@ -154,6 +154,17 @@ class FixedAssetTest < ActiveSupport::TestCase
     assert_equal Date.parse('2017-04-30'), fourth_f_d.journal_entry.printed_on
     assert_equal 150_000.00, fixed_asset.sold_journal_entry.real_credit
     assert_equal @sold_on, fixed_asset.sold_journal_entry.printed_on
+  end
+
+  test 'depreciate class method returns the amount of depreciations according to until option provided' do
+    FixedAssetDepreciation.delete_all
+    FixedAsset.delete_all
+    fixed_asset = create(:fixed_asset, depreciation_period: :yearly, depreciation_percentage: 100.0 / 3)
+    fixed_asset.update(state: 'in_use')
+    # create(:fixed_asset_depreciation, fixed_asset: fixed_asset)
+    assert_equal 1, FixedAsset.count
+    count = FixedAsset.depreciate(until: Date.civil(2020, 8, 15))
+    assert_equal 4, count, 'Count of depreciations is invalid' + fixed_asset.depreciations.pluck(:started_on, :amount).to_yaml.yellow
   end
 
   private

@@ -8,6 +8,7 @@
     - purchase = purchases.first
     %td= purchase.payment_at.nil? ? purchase.invoiced_at.l : purchase.payment_at.l
     %td=link_to :purchase.tl + ' ' + purchase_affair.deal_work_name, backend_purchase_path(purchase)
+    %td=link_to purchase.reference_number, backend_purchase_path(purchase)
   - else
     %td= purchase_affair.created_at.l
     %td=link_to purchase_affair.class.model_name.human + ' ' + purchase_affair.number, backend_purchase_affair_path(purchase_affair)

@@ -94,6 +94,7 @@ jpn:
         purchase: "購入"
         sale: "販売"
         stock: "株式"
+        travel_cost: "旅行"
     crumb:
       nature:
         hard_start: "ハードスタート"
@@ -243,6 +244,7 @@ jpn:
     intervention_working_period:
       nature:
         intervention: "介入"
+        pause: "一時停止"
         preparation: "準備"
         travel: "旅行"
     journal:

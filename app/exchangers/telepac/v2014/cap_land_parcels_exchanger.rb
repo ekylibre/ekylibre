@@ -59,8 +59,8 @@ module Telepac
               nature: :polygon,
               content: cap_islet.shape
             }
-            unless georeading = ::Georeading.find_by(georeadings_attributes.slice(:number))
-              georeading = ::Georeading.create!(georeadings_attributes)
+            unless ::Georeading.find_by(georeadings_attributes.slice(:number))
+              ::Georeading.create!(georeadings_attributes)
             end
 
             w.check_point

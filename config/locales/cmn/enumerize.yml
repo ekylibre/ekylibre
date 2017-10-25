@@ -94,6 +94,7 @@ cmn:
         purchase: "采购"
         sale: "拍卖"
         stock: "股票"
+        travel_cost: "旅行"
     crumb:
       nature:
         hard_start: "硬启动"
@@ -243,6 +244,7 @@ cmn:
     intervention_working_period:
       nature:
         intervention: "介入"
+        pause: "暂停"
         preparation: "制备"
         travel: "旅行"
     journal:

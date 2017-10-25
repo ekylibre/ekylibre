@@ -141,7 +141,7 @@ module Clean
           errors_count += 1
           log.write(" - Error: Unexpected test file: #{Pathname.new(file).relative_path_from(Rails.root)}\n")
         end
-        log.write("   > git rm #{files.join(' ')}\n") if files.any?
+        log.write("   > git rm #{files.map { |f| Pathname.new(f).relative_path_from(Rails.root) } .join(' ')}\n") if files.any?
         errors_count
       end
 

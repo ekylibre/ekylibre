@@ -292,7 +292,7 @@ cap_land_parcels_011:
   lock_version: 1
   main_crop_code: BDH
   main_crop_commercialisation: false
-  main_crop_precision: '058'
+  main_crop_precision: 058
   main_crop_seed_production: false
   shape: SRID=4326;MULTIPOLYGON(((-0.799269184082493 45.8222166412026,-0.796451371967286
     45.8223999757516,-0.796414896988658 45.8226349260796,-0.796367167936851 45.8228924065384,-0.796264698077278

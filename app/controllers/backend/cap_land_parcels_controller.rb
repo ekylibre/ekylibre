@@ -25,7 +25,6 @@ module Backend
     #   :state State search
     #   :current_campaign
     def self.cap_land_parcels_conditions
-      code = ''
       code = search_conditions(cap_land_parcels: [:land_parcel_number]) + " ||= []\n"
       code << "if current_campaign\n"
       code << "  c[0] << \" AND #{CapStatement.table_name}.campaign_id IN (?)\"\n"

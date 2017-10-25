@@ -97,6 +97,11 @@ class InterventionParameter < Ekylibre::Record::Base
 
   scope :of_actor, ->(actor) { where(product_id: actor.id) }
 
+  scope :of_variety, lambda { |intervention_id, variety|
+    product_nature_variant_ids = ProductNatureVariant.where(variety: variety).map(&:id)
+    where('intervention_id = ? AND variant_id IN (?)', intervention_id, product_nature_variant_ids).to_a
+  }
+
   before_validation do
     self.intervention ||= group.intervention if group
     if reference
@@ -130,7 +135,7 @@ class InterventionParameter < Ekylibre::Record::Base
     true
   end
 
-  def cost_amount_computation
+  def cost_amount_computation(nature: nil, natures: {})
     AmountComputation.none
   end
 

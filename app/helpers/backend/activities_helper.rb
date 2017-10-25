@@ -5,23 +5,21 @@ module Backend
         .productions
         .of_campaign(current_campaign)
         .includes(:cultivable_zone)
-        .includes(:campaign)
         .find_each
-        .map do |support|
-          next unless support.support_shape
+        .map do |production|
+          next unless production.support_shape
           {
-            name:         support.name,
-            shape:        support.support_shape,
-            shape_color:  support.activity.color,
-            grain_yield:  support.grains_yield.to_s.to_f.round(2)
+            name:         production.name,
+            shape:        production.support_shape,
+            shape_color:  activity.color,
+            grain_yield:  production.grains_yield.to_s.to_f.round(2)
           }
         end
         .compact
     end
 
     def inspection_series(dimension, inspections)
-      plant_ids = inspections.pluck(:product_id).uniq
-      Plant.where(id: plant_ids).includes(:nature).map do |plant|
+      Plant.where(id: inspections.select(:product_id)).includes(:nature).map do |plant|
         next unless plant.shape
 
         in_qual               = inspection_quality(dimension, plant)
@@ -45,28 +43,47 @@ module Backend
     end
 
     def caliber_series(dimension, scale, inspections)
-      series_data = scale.natures.map do |nature|
-        data = inspections
-               .reject { |i| i.calibrations.of_scale(scale).empty? }
-               .group_by(&:product_id)
-               .reject { |plant, _values| Product.find(plant).dead_at && (Product.find(plant).dead_at < Time.zone.now) }
-               .map(&:last)
-               .map(&:last)
-               .map do |last_inspection|
-                 l = last_inspection.calibrations.of_scale(scale).where(nature_id: nature.id)
-                 [
-                   Maybe(l.first).marketable_quantity(dimension).to_d(last_inspection.user_quantity_unit(dimension)).or_nil,
-                   Maybe(l.first).marketable_yield(dimension).to_d(last_inspection.user_per_area_unit(dimension)).or_nil
-                 ]
-               end
+      grouped = inspections
+                .joins(:calibrations)
+                .merge(InspectionCalibration.of_scale(scale))
+                .joins(:product)
+                .where('products.dead_at < ?', Time.zone.now)
+                .group(:product_id)
+                .reorder('')
 
-        last_calibrations       = data.map(&:first)
-        last_calibrations_yield = data.map(&:last)
-        yield_value = last_calibrations_yield.compact.blank? ? 0 : (last_calibrations_yield.compact.sum / last_calibrations_yield.compact.count)
+      last_inspections = inspections
+                         .where(product_id: grouped.select(:product_id),
+                                sampled_at: grouped.select('MAX(sampled_at)'))
+
+      series_data = scale.natures.map do |nature|
+        last_calibrations = InspectionCalibration.where(id:
+                             InspectionCalibration.of_scale(scale)
+                                                  .where(inspection_id: last_inspections,
+                                                         nature_id: nature.id)
+                                                  .group(:inspection_id)
+                                                  .reorder('')
+                                                  .select('MIN(inspection_calibrations.id)'))
+
+        data = last_calibrations.includes(:inspection).map do |last_calibration|
+          inspection = last_calibration.inspection
+          [
+            last_calibration.marketable_quantity(dimension).to_d(inspection.user_quantity_unit(dimension)),
+            last_calibration.marketable_yield(dimension).to_d(inspection.user_per_area_unit(dimension))
+          ]
+        end
+
+        last_quantities = data.map(&:first).compact
+        last_yields     = data.map(&:last).compact
+
+        yield_value = last_yields.blank? ? 0 : (last_yields.sum / last_yields.count)
 
         [
-          { name: nature.name, data: [[nature.name, last_calibrations.compact.sum.to_s.to_f.round(2)]] },
-          { name: nature.name, data: [[nature.name, yield_value.to_s.to_f.round(2)]] }
+          { name: nature.name,
+            data: [[nature.name,
+                    last_quantities.sum.to_s.to_f.round(2)]] },
+          { name: nature.name,
+            data: [[nature.name,
+                    yield_value.to_s.to_f.round(2)]] }
         ]
       end
 
@@ -77,9 +94,9 @@ module Backend
     end
 
     def spline_series(dimension, inspections)
-      # category level
+      spline_cat = spline_categories(inspections)
       ActivityInspectionPointNature.unmarketable_categories.map do |category|
-        spline_data = spline_categories(inspections).map do |sample_time|
+        spline_data = spline_cat.map do |sample_time|
           values = inspections
                    .reorder(:sampled_at)
                    .where('sampled_at <= ?', sample_time)
@@ -105,10 +122,32 @@ module Backend
     def spline_categories(inspections)
       inspections
         .pluck(:sampled_at)
-        .concat(inspections.includes(:product).pluck(:'products.dead_at'))
+        .concat(inspections.joins(:product).pluck(:'products.dead_at'))
         .compact
         .uniq
         .sort
+    end
+
+    def chart_style(title, symbol)
+      bar_chart_options = {
+        x_axis: { categories: [''] },
+        y_axis: {
+          reversed_stacks: false,
+          stack_labels: { enabled: true }
+        },
+        legend: true,
+        plot_options: {
+          column: { stacking: 'normal', data_labels: { enabled: true } }
+        }
+      }
+
+      bar_chart_options.deep_merge(
+        title: { text: title },
+        y_axis: {
+          title: { text: symbol.to_s },
+          tooltip: { point_format: "{point.y: 1f} #{symbol}" }
+        }
+      )
     end
 
     private

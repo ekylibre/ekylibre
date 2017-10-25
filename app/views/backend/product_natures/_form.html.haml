@@ -1,7 +1,7 @@
 = field_set do
   = f.referenced_association :category
   = f.input :name
-  = f.input :number, required: false
+  = f.input :number, required: false, placeholder: f.object.unique_predictable_number
   = f.input :active
   = f.variety derivative_of: true, child_scope: f.object.variants
   = f.input :population_counting, as: :radio_buttons

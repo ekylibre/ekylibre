@@ -95,6 +95,11 @@
     time: ->
       return I18n.translate('time.formats.time')
 
+    full: ->
+      return I18n.translate('time.formats.full')
+
+    fullJsFormat: ->
+      return I18n.translate('time.js_formats.full')
 
 
   I18nExt.ext = new I18nExt()

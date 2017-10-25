@@ -62,7 +62,7 @@
               <cell name="product_name" of="actor" if="actor.product"/>
               <cell name="variant_name" of="actor" />
               <cell name="quantity" if="actor.quantity_population" value="actor.quantity.l" type="measure" />
-              <cell name="working_zone" if="actor.working_zone" value="actor.working_zone.area.convert(:hectare).round(2).l" type="measure" />
+              <cell name="working_zone" if="actor.working_zone" value="actor.working_zone_area.convert(:hectare).round(2).l" type="measure" />
               <!--<within of="actor.product">-->
               <!--<cell name="name"/>-->
               <!--<cell name="variant_name"/>-->
