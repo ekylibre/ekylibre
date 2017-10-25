@@ -34,7 +34,13 @@ db_cluster: &db_cluster
 
 development:
   <<: *default
-  database: ekylibre_development_master
+  database: larrere_development
+  username: ekylibre
+
+  # The password associated with the postgres role (username).
+  password: ekylibre
+  host: 127.0.0.1
+
 
 # athena_db_1:
 #   <<: *db_cluster
@@ -105,7 +111,12 @@ production:
 
 test:
   <<: *default
-  database: ekylibre_test_master
+  database: larrere_test
   url: <%= ENV['DATABASE_URL'] %>
+  username: ekylibre
+
+  # The password associated with the postgres role (username).
+  password: ekylibre
+  host: 127.0.0.1
   #username: ekylibre
   #password: ekylibre

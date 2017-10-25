@@ -24,7 +24,7 @@ set :repo_url, 'git@github.com:ekylibre/integration-larrere.git'
 append :linked_files, 'config/database.yml', 'config/secrets.yml', 'config/application.yml', 'config/tenants.yml'
 
 # Default value for linked_dirs is []
-append :linked_dirs, 'log', 'tmp/pids', 'tmp/cache', 'tmp/sockets', 'public/system', 'tmp/archives'
+append :linked_dirs, 'log', 'tmp/pids', 'tmp/cache', 'tmp/sockets', 'public/system', 'tmp/archives', 'private'
 
 # Default value for default_env is {}
 # set :default_env, { path: "/opt/ruby/bin:$PATH" }
