@@ -47,6 +47,7 @@
 #  pretax_amount                        :decimal(19, 4)   default(0.0), not null
 #  purchase_id                          :integer
 #  recipient_id                         :integer
+#  reconciliation_state                 :string
 #  reference_number                     :string
 #  remain_owner                         :boolean          default(FALSE), not null
 #  responsible_id                       :integer

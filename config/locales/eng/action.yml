@@ -1670,7 +1670,7 @@ eng:
     none: "None"
     normal: "Normal" #?
     not_delivered: "Not delivered" #?
-    not_informed: "Not informed" #?!
+    not_informed: "Not informed"
     not_letterable: "Not able to letter"
     not_ready: "Not ready"
     not_received: "Not received" #?

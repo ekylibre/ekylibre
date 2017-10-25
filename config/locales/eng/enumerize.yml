@@ -297,6 +297,9 @@ eng:
       nature:
         incoming: "Incoming"
         outgoing: "Outgoing"
+      reconciliation_state:
+        # reconcile: "Reconcile"
+        # to_reconcile: "To reconcile"
     parcel_item:
       delivery_mode:
         # none: "None"
@@ -480,6 +483,9 @@ eng:
       nature:
         # incoming: "Incoming"
         # outgoing: "Outgoing"
+      reconciliation_state:
+        # reconcile: "Reconcile"
+        # to_reconcile: "To reconcile"
     sale_gap:
       direction:
         # loss: "Loss"
@@ -542,6 +548,9 @@ eng:
       nature:
         # incoming: "Incoming"
         # outgoing: "Outgoing"
+      reconciliation_state:
+        # reconcile: "Reconcile"
+        # to_reconcile: "To reconcile"
     synchronization_operation:
       operation_name:
         authenticate: "Authentication"
