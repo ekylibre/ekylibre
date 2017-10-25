@@ -46,9 +46,6 @@ private/*
 /public/assets
 /public/system/*
 
-# Ignore plugins
-/plugins
-/plugins-*
 
 # Ignore local database config
 /config/api.yml
