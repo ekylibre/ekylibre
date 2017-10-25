@@ -77,7 +77,7 @@ class ParcelItem < Ekylibre::Record::Base
   belongs_to :source_product, class_name: 'Product'
   belongs_to :source_product_movement, class_name: 'ProductMovement', dependent: :destroy
   belongs_to :variant, class_name: 'ProductNatureVariant'
-  belongs_to :equipment, class_name: 'ProductNatureVariant'
+  belongs_to :equipment, class_name: 'Product'
   has_one :nature, through: :variant
   has_one :storage, through: :parcel
   has_one :contract, through: :parcel

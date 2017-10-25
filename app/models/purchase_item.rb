@@ -59,7 +59,7 @@ class PurchaseItem < Ekylibre::Record::Base
   belongs_to :activity_budget
   belongs_to :team
   belongs_to :purchase, inverse_of: :items
-  belongs_to :equipment, class_name: 'ProductNatureVariant', inverse_of: :purchase_items
+  belongs_to :equipment, class_name: 'Product', inverse_of: :purchase_items
   belongs_to :variant, class_name: 'ProductNatureVariant', inverse_of: :purchase_items
   belongs_to :tax
   belongs_to :fixed_asset, inverse_of: :purchase_items

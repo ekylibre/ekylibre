@@ -68,7 +68,7 @@
           = f.referenced_association(:activity_budget, new: false)
         - if Preference[:distribute_sales_and_purchases_on_teams] && current_user.can?(:read, :teams)
           = f.referenced_association(:team)
-        = f.referenced_association(:equipment, label: :equipment.tl, source: {scope: :tools}, input_html: {data: { remember: 'equipment'}})
+        = f.referenced_association :equipment, source: :tools, label: :equipment.tl, input_html: {data: { remember: 'equipment'}}
 
     %td.form-field.fourth-row
       = button_tag :reconciliate_with_receptions.tl, id: 'showItemReconciliationModal', class: 'btn btn-default', type: :button
