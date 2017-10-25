@@ -1,7 +1,7 @@
 ((E, $) ->
   'use strict'
 
-  $(document).on 'change', '#purchase_invoice_reconciliation_state', (event) ->
+  $(document).on 'change', '#purchase_invoice_accepted_state', (event) ->
     checked = $(event.target).is(':checked')
 
     if checked
@@ -17,7 +17,6 @@
       else
         E.reconciliation.displayNoReconciliateState(event)
 
-
   $(document).on 'click', '#showReconciliationModal', (event) ->
     event.stopPropagation()
     E.reconciliation.displayReconciliationModal(event, {})
@@ -32,7 +31,8 @@
   $(document).ready ->
     if $('#purchase_process_reconciliation').length > 0
       $('#main .heading-toolbar').addClass('purchase-process-reconciliation')
-
+    if $('#purchase_invoice_accepted_state').is(':checked')
+      E.reconciliation.displayAcceptedState()
 
   $(document).on 'change', '#purchase_process_reconciliation .model-checkbox', (event) ->
     checked = $(event.target).is(':checked')
@@ -56,7 +56,9 @@
 
   E.reconciliation =
     displayReconciliateState: (event) ->
-      $('#purchase_invoice_reconciliation_state').val('reconcile')
+      $('#purchase_invoice_accepted_state').val('reconcile')
+      $('#purchase_invoice_reconciliate_state').val('reconcile')
+
       # Change the state title
       if $('.accepted-title').length > 0 && $('.accepted-title').hasClass('hidden')
         $('.no-reconciliate-title').addClass('hidden')
@@ -79,7 +81,8 @@
 
 
     displayAcceptedState: (event) ->
-      $('#purchase_invoice_reconciliation_state').val('accepted')
+      $('#purchase_invoice_accepted_state').val('accepted')
+      $('#purchase_invoice_reconciliate_state').val('to_reconcile')
 
       # Change the state title
       if $('.reconcile-title').hasClass('hidden')
@@ -99,7 +102,8 @@
 
 
     displayNoReconciliateState: (event) ->
-      $('#purchase_invoice_reconciliation_state').val('to_reconciliate')
+      $('#purchase_invoice_accepted_state').val('accepted')
+      $('#purchase_invoice_reconciliate_state').val('to_reconcile')
 
       # Change the state title
       if $('.accepted-title').length > 0 && $('.accepted-title').hasClass('hidden')
