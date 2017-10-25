@@ -322,10 +322,10 @@ animal_groups:
     - "backend/animal_groups#create"
     - "backend/animal_groups#destroy"
     - "backend/animal_groups#edit"
-    - "backend/animal_groups#new"
-    - "backend/animal_groups#update"
     - "backend/animal_groups#edit_many"
+    - "backend/animal_groups#new"
     - "backend/animal_groups#take"
+    - "backend/animal_groups#update"
     - "backend/animal_groups#update_many"
 
 animals:
@@ -364,11 +364,11 @@ animals:
     - "backend/animals#create"
     - "backend/animals#destroy"
     - "backend/animals#edit"
+    - "backend/animals#edit_many"
     - "backend/animals#load_animals"
     - "backend/animals#new"
-    - "backend/animals#update"
-    - "backend/animals#edit_many"
     - "backend/animals#take"
+    - "backend/animals#update"
     - "backend/animals#update_many"
 
 bank_statements:
@@ -430,10 +430,10 @@ building_divisions:
     - "backend/building_divisions#create"
     - "backend/building_divisions#destroy"
     - "backend/building_divisions#edit"
-    - "backend/building_divisions#new"
-    - "backend/building_divisions#update"
     - "backend/building_divisions#edit_many"
+    - "backend/building_divisions#new"
     - "backend/building_divisions#take"
+    - "backend/building_divisions#update"
     - "backend/building_divisions#update_many"
 
 buildings:
@@ -465,10 +465,10 @@ buildings:
     - "backend/buildings#create"
     - "backend/buildings#destroy"
     - "backend/buildings#edit"
-    - "backend/buildings#new"
-    - "backend/buildings#update"
     - "backend/buildings#edit_many"
+    - "backend/buildings#new"
     - "backend/buildings#take"
+    - "backend/buildings#update"
     - "backend/buildings#update_many"
 
 campaigns:
@@ -816,10 +816,10 @@ equipments:
     - "backend/equipments#create"
     - "backend/equipments#destroy"
     - "backend/equipments#edit"
-    - "backend/equipments#new"
-    - "backend/equipments#update"
     - "backend/equipments#edit_many"
+    - "backend/equipments#new"
     - "backend/equipments#take"
+    - "backend/equipments#update"
     - "backend/equipments#update_many"
 
 events:
@@ -961,10 +961,10 @@ fungi:
     - "backend/fungi#create"
     - "backend/fungi#destroy"
     - "backend/fungi#edit"
-    - "backend/fungi#new"
-    - "backend/fungi#update"
     - "backend/fungi#edit_many"
+    - "backend/fungi#new"
     - "backend/fungi#take"
+    - "backend/fungi#update"
     - "backend/fungi#update_many"
 
 gaps:
@@ -1366,10 +1366,10 @@ land_parcels:
     - "backend/land_parcels#create"
     - "backend/land_parcels#destroy"
     - "backend/land_parcels#edit"
-    - "backend/land_parcels#new"
-    - "backend/land_parcels#update"
     - "backend/land_parcels#edit_many"
+    - "backend/land_parcels#new"
     - "backend/land_parcels#take"
+    - "backend/land_parcels#update"
     - "backend/land_parcels#update_many"
 
 listings:
@@ -1490,10 +1490,10 @@ matters:
     - "backend/matters#create"
     - "backend/matters#destroy"
     - "backend/matters#edit"
-    - "backend/matters#new"
-    - "backend/matters#update"
     - "backend/matters#edit_many"
+    - "backend/matters#new"
     - "backend/matters#take"
+    - "backend/matters#update"
     - "backend/matters#update_many"
 
 myselves:
@@ -1737,10 +1737,10 @@ plants:
     - "backend/plants#create"
     - "backend/plants#destroy"
     - "backend/plants#edit"
-    - "backend/plants#new"
-    - "backend/plants#update"
     - "backend/plants#edit_many"
+    - "backend/plants#new"
     - "backend/plants#take"
+    - "backend/plants#update"
     - "backend/plants#update_many"
 
 postal_zones:
@@ -1807,10 +1807,10 @@ product_groups:
     - "backend/product_groups#create"
     - "backend/product_groups#destroy"
     - "backend/product_groups#edit"
-    - "backend/product_groups#new"
-    - "backend/product_groups#update"
     - "backend/product_groups#edit_many"
+    - "backend/product_groups#new"
     - "backend/product_groups#take"
+    - "backend/product_groups#update"
     - "backend/product_groups#update_many"
 
 product_nature_categories:
@@ -1934,8 +1934,8 @@ products:
     - "backend/products#destroy"
     - "backend/products#edit"
     - "backend/products#new"
-    - "backend/products#update"
     - "backend/products#take"
+    - "backend/products#update"
 
 purchase_natures:
   read:
@@ -2185,10 +2185,10 @@ settlements:
     - "backend/settlements#create"
     - "backend/settlements#destroy"
     - "backend/settlements#edit"
-    - "backend/settlements#new"
-    - "backend/settlements#update"
     - "backend/settlements#edit_many"
+    - "backend/settlements#new"
     - "backend/settlements#take"
+    - "backend/settlements#update"
     - "backend/settlements#update_many"
 
 subscription_natures:
@@ -2430,8 +2430,8 @@ workers:
     - "backend/workers#create"
     - "backend/workers#destroy"
     - "backend/workers#edit"
-    - "backend/workers#new"
-    - "backend/workers#update"
     - "backend/workers#edit_many"
+    - "backend/workers#new"
     - "backend/workers#take"
+    - "backend/workers#update"
     - "backend/workers#update_many"

@@ -2790,7 +2790,7 @@ fra:
       set: "Définir" #?
       ship: "Expédier"
       show: "Afficher"
-      # show_export_preview: "View a preview of the document (may increase loading time)"
+      show_export_preview: "Afficher un aperçu du document (peut augmenter le temps de chargement)"
       sort: "Trier"
       star: "Étoile"
       start: "Commencer"

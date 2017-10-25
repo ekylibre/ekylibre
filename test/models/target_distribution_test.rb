@@ -34,26 +34,8 @@
 #  updated_at             :datetime         not null
 #  updater_id             :integer
 #
-class TargetDistribution < Ekylibre::Record::Base
-  belongs_to :activity
-  belongs_to :activity_production
-  belongs_to :target, class_name: 'Product', inverse_of: :distributions
+require 'test_helper'
 
-  # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates :started_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
-  validates :stopped_at, timeliness: { on_or_after: ->(target_distribution) { target_distribution.started_at || Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
-  validates :activity, :activity_production, :target, presence: true
-  # ]VALIDATORS]
-  
-  before_validation do
-    raise 'TargetDistribution is deprecated'
-  end
-
-  after_initialize do
-    raise 'TargetDistribution is deprecated'
-  end
-
-  def method_missing(**_args)
-    raise 'TargetDistribution is deprecated'
-  end
+class TargetDistributionTest < ActiveSupport::TestCase
+  # Add tests here...
 end

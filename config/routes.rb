@@ -233,7 +233,6 @@ Rails.application.routes.draw do
     resources :activity_productions, concerns: [:unroll] do
       member do
         get :list_interventions
-        get :list_target_distributions
       end
     end
 
