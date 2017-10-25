@@ -20,6 +20,7 @@ namespace :diagrams do
       product_nature: [Product, ProductNature, ProductNatureVariant, ProductNatureCategory, ProductNatureVariantReading, ProductNatureCategoryTaxation],
       production: [Activity, ActivityDistribution, Campaign, ActivityProduction, ActivityBudget, Intervention, InterventionParameter, InterventionWorkingPeriod, CultivableZone, Product, ActivitySeason, ActivityTactic],
       component: [ProductNature, ProductNatureVariant, ProductNatureVariantComponent, InterventionParameter, Intervention, Product],
+      plots: [LandParcel, CultivableZone, ActivityProduction, CapStatement, CapIslet, CapLandParcel, InterventionTarget, Intervention],
       sale: [Sale, SaleNature, SaleItem, Parcel, ParcelItem, Delivery, IncomingPayment, IncomingPaymentMode, Deposit, Affair, Gap, GapItem],
       purchase: [Purchase, PurchaseNature, PurchaseItem, Parcel, ParcelItem, PurchasePayment, OutgoingPaymentMode, Affair, Gap, GapItem],
       cap_statement: [CapStatement, CapIslet, CapLandParcel, Entity, Campaign],
