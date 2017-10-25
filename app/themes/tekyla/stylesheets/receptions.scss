@@ -187,6 +187,13 @@
       width: initial;
     }
 
+    .unitary-variant-fields {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      margin-top: $default-gap * 2;
+    }
+
     .merchandise {
       @include flex-column(flex-start);
       flex: 58%;
