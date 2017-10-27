@@ -869,7 +869,7 @@ fra:
     direct_links: "Liens directs"
     direction: "Type"
     discount_percentage: "Pourcentage d’escompte" #?
-    # distributed_on_productions: "Distributed on productions"
+    distributed_on_productions: "Distribué sur les productions"
     distributions: "Répartitions"
     district: "Zone administrative"
     document: "Document"
@@ -1521,7 +1521,7 @@ fra:
     rank_number: "Numéro de Rang"
     read_at: "Mesuré à"
     reading: "Relevé" #?
-    # reading_cache: "Reading cache"
+    reading_cache: "Lecture de cache"
     reading_tasks: "Relevé de valeur"
     readings: "Relevés"
     real_balance: "Solde réel"
@@ -1764,8 +1764,11 @@ fra:
     tool: "Outil"
     tools: "Outils"
     total_cost: "Coût total"
+    total_doer_cost: "Total des coûts"
+    total_input_cost: "Coût total des intrants"
     total_items_count: "Nombre total d'éléments"
     total_net_mass: "Masse nette totale"
+    total_tool_cost: "Coût total de l’outil"
     town_number: "Numéro de commune"
     tracking: "Lot"
     tracking_serial: "Numéro de lot" #?

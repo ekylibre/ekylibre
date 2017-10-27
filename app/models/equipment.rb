@@ -22,6 +22,7 @@
 #
 # == Table: products
 #
+#  activity_production_id       :integer
 #  address_id                   :integer
 #  birth_date_completeness      :string
 #  birth_farm_number            :string
@@ -90,11 +91,6 @@ class Equipment < Matter
   has_many :components, class_name: 'ProductNatureVariantComponent', through: :variant
   has_many :part_replacements, class_name: 'InterventionInput', foreign_key: :assembly_id
   refers_to :variety, scope: :equipment
-
-  def best_activity_production(options = {})
-    at = options[:at] || Time.zone.now
-    ActivityProduction.where(support: groups_at(at)).at(at).first || super
-  end
 
   def tractor?
     variety == :tractor

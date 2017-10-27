@@ -606,6 +606,7 @@ arb:
       unvalidated_operations: "تحقيق الاعمال" #?
     backend/products:
       edit: "تعديل المنتج : %{name}"
+      edit_many: "توزيع المنتجات غير المتضررة"
       index: "المنتجات"
       new: "اضافة منتج جديد"
       show: "المنتجات : %{name}"
@@ -726,12 +727,12 @@ arb:
     backend/synchronizations:
       index: "تزامن"
       # run: "Run synchronization: %{name}"
-    backend/target_distributions:
-      edit: "توزيع هدف تحرير"
-      edit_many: "توزيع المنتجات لم تتأثر"
-      index: "توزيعات الهدف"
-      new: "توزيع هدف جديد"
-      show: "توزيع هدف"
+    backend/target_distributions: #?
+      edit: "توزيع هدف تحرير" #?
+      edit_many: "توزيع المنتجات لم تتأثر" #?
+      index: "توزيعات الهدف" #?
+      new: "توزيع هدف جديد" #?
+      show: "توزيع هدف" #?
     backend/tasks:
       # edit: "Edit task: %{name}"
       index: "المهام"
@@ -1999,7 +2000,7 @@ arb:
     purchase_item_create: "اضافة طلب للمنتج" #?
     purchase_items: "تعديل تصميم الشراء"
     purchase_number: "عدد شراء"
-    # purchase_payments: "Purchase payments"
+    purchase_payments: "دفعات الشراء"
     purchase_price_create: "انشاء سعر الشراء" #?
     purchase_print: "طباعة الطلب للممول" #?
     purchase_steps: #?
@@ -2632,7 +2633,7 @@ arb:
       # could_not_attach_x_or_y_to_affair: "Could not attach %{x} or %{y} to affair"
       dashboard_is_being_developed: "لوحة أجهزة القياس هي قيد التطوير الثقيلة"
       density_is_not_computable_in_counting: "لا يمكن حساب كثافة لهذا العد. وينبغي الانتهاء من القيم المفقودة في خصائص العد أو مؤشرات الزارع و."
-      # document_in_preparation: "Your document is in preparation a notification will be sent to you when it is ready"
+      document_in_preparation: "المستند الخاص بك هو في إعداد سيتم إرسال إشعار لك عندما يكون جاهزا"
       draft_journal_entries_have_been_validated:
         one: "تم التحقق من صحة الملفات واخراجها من قائمة المسودات"
         other: "واخراجها من قائمة المسودات %{count} تم التحقق من صحة الملفات الاخرى"
@@ -2642,11 +2643,11 @@ arb:
       # equipment_component_is_worn_out: "The component %{component_name} of the equipment %{equipment_name} is worn out. Remaining work time: %{remaining_time}."
       # equipment_is_at_end_of_life: "Equipment %{name} is reaching the end of its life. Remaining time: %{remaining_time}."
       # equipment_is_worn_out: "Equipment %{name} is worn out. Remaining work time: %{remaining_time}."
-      # error_client_account_empty: "Can not operate, client account is empty"
-      # error_during_file_generation: "An error occurred while generating a file"
+      error_client_account_empty: "لا يمكن تشغيل، حساب العميل فارغ"
+      error_during_file_generation: "حدث خطأ أثناء إنشاء ملف"
       expired_session: ".نهاية الدورة. الرجاء معاودة الاتصال" #?
       fails_to_extract_listing: "لم يتمكن الاستخراج من اتمام التنفيذ : %{message}"
-      # file_generated: "Your file was successfully generated"
+      file_generated: "تم إنشاء الملف بنجاح"
       financial_years_missing: "يجب عليك إنشاء كل المفقودين سنة مالية منذ سجلت لأول مرة"
       # financial_years_missing_tax_declarations: "You must create every declarations for the following financial years: %{codes}"
       implemented_with_dummy_data: "نفذت مع بيانات وهمية"
@@ -2924,7 +2925,7 @@ arb:
       sell: "تتحول بيع"
       ship: "سفينة"
       show: "تبين"
-      # show_export_preview: "View a preview of the document (may increase loading time)"
+      show_export_preview: "عرض معاينة المستند (قد يزيد وقت التحميل)"
       sort: "فرز"
       star: "نجمة"
       start: "بداية"
