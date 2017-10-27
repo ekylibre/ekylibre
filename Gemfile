@@ -79,7 +79,7 @@ gem 'rake', '~>12.0.0'
 gem 'timecop'
 
 # Manipulate map data
-gem 'charta', '>= 0.1.8'
+gem 'charta', '>= 0.1.9'
 
 # Manage daemons
 gem 'foreman'
