@@ -5889,7 +5889,8 @@ CREATE TABLE products (
     end_of_life_reason character varying,
     originator_id integer,
     codes jsonb,
-    reading_cache jsonb DEFAULT '{}'::jsonb
+    reading_cache jsonb DEFAULT '{}'::jsonb,
+    activity_production_id integer
 );
 
 
@@ -15413,6 +15414,13 @@ CREATE INDEX index_product_readings_on_updater_id ON product_readings USING btre
 
 
 --
+-- Name: index_products_on_activity_production_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_products_on_activity_production_id ON products USING btree (activity_production_id);
+
+
+--
 -- Name: index_products_on_address_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -17193,6 +17201,14 @@ ALTER TABLE ONLY tax_declaration_item_parts
 
 
 --
+-- Name: products fk_rails_5e587cedec; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY products
+    ADD CONSTRAINT fk_rails_5e587cedec FOREIGN KEY (activity_production_id) REFERENCES activity_productions(id);
+
+
+--
 -- Name: payslip_natures fk_rails_6835dfa420; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -17871,4 +17887,6 @@ INSERT INTO schema_migrations (version) VALUES ('20170818134454');
 INSERT INTO schema_migrations (version) VALUES ('20170831071726');
 
 INSERT INTO schema_migrations (version) VALUES ('20170831180835');
+
+INSERT INTO schema_migrations (version) VALUES ('20171010075206');
 

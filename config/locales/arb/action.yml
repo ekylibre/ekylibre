@@ -606,6 +606,7 @@ arb:
       unvalidated_operations: "تحقيق الاعمال" #?
     backend/products:
       edit: "تعديل المنتج : %{name}"
+      edit_many: "توزيع المنتجات غير المتضررة"
       index: "المنتجات"
       new: "اضافة منتج جديد"
       show: "المنتجات : %{name}"
@@ -726,12 +727,12 @@ arb:
     backend/synchronizations:
       index: "تزامن"
       # run: "Run synchronization: %{name}"
-    backend/target_distributions:
-      edit: "توزيع هدف تحرير"
-      edit_many: "توزيع المنتجات لم تتأثر"
-      index: "توزيعات الهدف"
-      new: "توزيع هدف جديد"
-      show: "توزيع هدف"
+    backend/target_distributions: #?
+      edit: "توزيع هدف تحرير" #?
+      edit_many: "توزيع المنتجات لم تتأثر" #?
+      index: "توزيعات الهدف" #?
+      new: "توزيع هدف جديد" #?
+      show: "توزيع هدف" #?
     backend/tasks:
       # edit: "Edit task: %{name}"
       index: "المهام"

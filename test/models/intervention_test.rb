@@ -118,11 +118,6 @@ class InterventionTest < ActiveSupport::TestCase
     refute intervention.save, 'Intervention with invalid actions should not be saved: ' + intervention.errors.full_messages.to_sentence(locale: :eng)
   end
 
-  test 'destroy intervention update intervention_activities_db_view' do
-    first_activity_intervention = Intervention::HABTM_Activities.first
-    assert Intervention.destroy(first_activity_intervention.intervention_id)
-  end
-
   test 'killing target' do
     plant = Plant.all.detect { |p| p.dead_first_at.nil? && p.dead_at.nil? }
     assert plant

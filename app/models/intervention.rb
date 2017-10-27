@@ -134,7 +134,9 @@ class Intervention < Ekylibre::Record::Base
   scope :of_activity, lambda { |activity|
     where(id: InterventionTarget.of_activity(activity).select(:intervention_id))
   }
-  scope :of_activities, ->(*activities) { of_activity(activities.flatten) }
+  scope :of_activities, lambda { |*activities|
+    where(id: InterventionTarget.of_activities(activities.flatten))
+  }
   scope :provisional, -> { where('stopped_at > ?', Time.zone.now) }
   scope :real, -> { where(nature: :record).where('stopped_at <= ?', Time.zone.now) }
 

@@ -163,7 +163,7 @@ module Ekylibre
             ap = aps.support_shape_matching(production_support_shape, 0.02).first if aps
             unless ap
               ap = ActivityProduction.create!(attributes)
-              td = TargetDistribution.find_or_create_by!(activity: activity, activity_production: ap, target: ap.support)
+              ap.support.update(activity_production: ap)
             end
           # ANIMAL FARMING
           elsif activity.with_supports && Nomen::ActivityFamily[activity.family] <= :animal_farming && product.is_a?(AnimalGroup)
@@ -176,7 +176,7 @@ module Ekylibre
               m = product.members_at(ap.started_on.to_time)
               if m.any?
                 for animal in m
-                  td = TargetDistribution.find_or_create_by!(activity: activity, activity_production: ap, target: animal)
+                  animal.update(activity_production: ap)
                 end
               end
             end
