@@ -413,12 +413,16 @@ class JournalEntry < Ekylibre::Record::Base
   end
   
   # this method loads the journal ledger for.the given financial year
-  def self.journal_ledger(financial_year)
+  def self.journal_ledger(financial_year, selected_journal_id = 0)
     ledger = []
     
     fy = financial_year if financial_year.is_a? FinancialYear
     
-    je = fy.journal_entries.order('journal_entries.printed_on ASC, journal_entries.number ASC')
+    if selected_journal_id > 0
+      je = fy.journal_entries.where(journal_id: selected_journal_id).order('journal_entries.printed_on ASC, journal_entries.number ASC')
+    else
+      je = fy.journal_entries.order('journal_entries.printed_on ASC, journal_entries.number ASC')
+    end
 
     je.each do |e|
       item = HashWithIndifferentAccess.new

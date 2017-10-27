@@ -113,6 +113,16 @@ module Backend
       end
       @journal_view = journal_view.value
       t3e @journal
+      f = current_user.current_financial_year
+      document_name = "#{human_action_name}"
+      filename = "#{human_action_name}_#{Time.zone.now.l(format: '%Y%m%d%H%M%S')}"
+      @journal_ledger = JournalEntry.journal_ledger(f, @journal.id) if f
+      respond_to do |format|
+        format.html
+        format.odt do
+          send_data to_odt(@journal_ledger, document_name, filename, f).generate, type: 'application/vnd.oasis.opendocument.text', disposition: 'attachment', filename: filename << '.odt'
+        end
+      end
     end
 
     def close

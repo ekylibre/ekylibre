@@ -1,9 +1,14 @@
+- main_financial_year_selector(params[:current_financial_year] || current_user.current_financial_year.id)
+
 - main_toolbar do |t|
   = t.edit resource
   = t.close resource if resource.closable?
   = t.reopen resource if resource.reopenable?
   = t.new(params: { controller: :journal_entries, journal_id: resource.id, redirect: nil }, label: :add_entry.tl) unless resource.booked_for_accountant?
-
+  = dropdown_menu_button(:export.ta, icon: :download) do |d|
+    - export_params = {journal_id: resource.id}
+    - d.item :export_as_odt.tl, params: export_params.merge(format: :odt)
+    
 = journals_tag
 
 = kujaku(popover: false) do |k|
