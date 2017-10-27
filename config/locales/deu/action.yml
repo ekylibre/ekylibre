@@ -1943,6 +1943,7 @@ deu:
       closed_financial_periods: "Die Laufzeit des Anlagevermögens erstreckt sich über geschlossene Finanzperioden."
       closed_financial_year_exchange: "Das Geschäftsjahr Austausch wurde erfolgreich geschlossen"
       closed_financial_years: "Das Geschäftsjahr wurde erfolgreich abgeschlossen"
+      closure_process_started: "Schließvorgang begann."
       columns_are_already_uses: "oft werden eine oder mehrere Spalten ausgewählt"
       # could_not_attach_x_or_y_to_affair: "Could not attach %{x} or %{y} to affair"
       dashboard_is_being_developed: "Dashboard ist stark in der Entwicklung"
@@ -2002,6 +2003,7 @@ deu:
       no_purchases_given: "Keine Einkäufe gegeben"
       no_reopenable_journal: "Sie können nicht diese Zeitschrift wieder zu öffnen."
       no_replacements_since_beginning: "Kein Ersatz seit Beginn"
+      # previouos_financial_year_is_not_closed: "The previous financial year hasn't been closed."
       purchases_invalid_for_sepa: "Käufe ausgewählt ungültig für SEPA-Überweisung (ungültige Auszahlungsmodus oder falsche Währung oder fehlende Zahlungsempfängers IBAN oder Bankkontoinhaber Name)"
       record_already_imported: "Nehmen Sie bereits importiert"
       record_cannot_be_removed: "Der Datensatz kann nicht gelöscht werden"
@@ -2026,6 +2028,7 @@ deu:
       the_sales_invoice_is_not_cancellable: "Die Verkaufsrechnung ist nicht kündbar"
       this_service_is_not_activated: "Dieser Dienst ist nicht aktiviert"
       # unavailable_resource: "Nonexistent %{type} #%{id}"
+      # unbalanced_journal_entries_are_present_in_year: "Some unbalanced journal entries are present in the financial year."
       # unexpected_resource_type: "Unexpected resource type: %{type}"
       update_is_done: "Das Update ist gemacht worden,"
       x_fixed_asset_depreciations_have_been_bookkept_successfully:
