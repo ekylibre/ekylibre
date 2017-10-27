@@ -6,7 +6,7 @@
 # server "example.com", user: "deploy", roles: %w{app db web}, my_property: :my_value
 # server "example.com", user: "deploy", roles: %w{app web}, other_property: :other_value
 # server "db.example.com", user: "deploy", roles: %w{db}
-server 'larrere.farm', roles: %w[app db web], user: 'ekylibre', ssh_options: { port: 12_721 }
+server 'larrere.farm', roles: %w[app db web], user: 'ekylibre', ssh_options: { port: 22 }
 
 # role-based syntax
 # ==================
