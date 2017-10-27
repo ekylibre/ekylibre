@@ -25,15 +25,11 @@
 #     - "authentication/sessions#new"
 #     - "backend/activities#family"
 #     - "backend/activity_inspection_point_natures#autocomplete"
-#     - "backend/animal_groups#take"
-#     - "backend/animals#take"
 #     - "backend/attachments#create"
 #     - "backend/attachments#destroy"
 #     - "backend/attachments#show"
 #     - "backend/beehives#reset"
 #     - "backend/beehives#update"
-#     - "backend/building_divisions#take"
-#     - "backend/buildings#take"
 #     - "backend/cells/accountancy_balance_cells#show"
 #     - "backend/cells/calendar_cells#show"
 #     - "backend/cells/cashes_balance_cells#show"
@@ -87,6 +83,7 @@
 #     - "backend/cells/working_sets_stocks_cells#show"
 #     - "backend/cobblers#update"
 #     - "backend/cobbles/production_cost_cobbles#show"
+#     - "backend/cobbles/stock_in_ground_cobbles#show"
 #     - "backend/dashboards#accountancy"
 #     - "backend/dashboards#home"
 #     - "backend/dashboards#humans"
@@ -98,8 +95,6 @@
 #     - "backend/dashboards#stocks"
 #     - "backend/dashboards#tools"
 #     - "backend/dashboards#trade"
-#     - "backend/equipments#take"
-#     - "backend/fungi#take"
 #     - "backend/golumns#reset"
 #     - "backend/golumns#show"
 #     - "backend/golumns#update"
@@ -111,10 +106,8 @@
 #     - "backend/interventions#change_page"
 #     - "backend/januses#toggle"
 #     - "backend/kujakus#toggle"
-#     - "backend/land_parcels#take"
 #     - "backend/map_editor_shapes#index"
 #     - "backend/map_editors#upload"
-#     - "backend/matters#take"
 #     - "backend/notifications#destroy"
 #     - "backend/notifications#index"
 #     - "backend/notifications#show"
@@ -126,13 +119,9 @@
 #     - "backend/outgoing_payments#show"
 #     - "backend/outgoing_payments#unroll"
 #     - "backend/outgoing_payments#update"
-#     - "backend/plants#take"
 #     - "backend/preferences#update"
-#     - "backend/product_groups#take"
 #     - "backend/product_nature_variants#quantifiers"
-#     - "backend/products#take"
 #     - "backend/sensors#last_locations"
-#     - "backend/settlements#take"
 #     - "backend/snippets#toggle"
 #     - "backend/tours#finish"
 #     - "backend/visualizations/land_parcels_visualizations#show"
@@ -140,7 +129,6 @@
 #     - "backend/visualizations/plants_visualizations#show"
 #     - "backend/visualizations/resources_visualizations#show"
 #     - "backend/visuals#picture"
-#     - "backend/workers#take"
 #     - "devise/confirmations#create"
 #     - "devise/confirmations#new"
 #     - "devise/confirmations#show"
@@ -222,10 +210,6 @@ activities:
     - "backend/inspections#unroll"
     - "backend/plant_density_abaci#show"
     - "backend/plant_density_abacus_items#unroll"
-    - "backend/target_distributions#index"
-    - "backend/target_distributions#list"
-    - "backend/target_distributions#list_intervention_product_parameters"
-    - "backend/target_distributions#show"
   write:
     dependencies:
     - read-activities
@@ -261,13 +245,8 @@ activities:
     - "backend/plant_density_abaci#new"
     - "backend/plant_density_abaci#update"
     - "backend/plant_density_abacus_items#new"
-    - "backend/target_distributions#create"
-    - "backend/target_distributions#destroy"
-    - "backend/target_distributions#edit"
-    - "backend/target_distributions#edit_many"
-    - "backend/target_distributions#new"
-    - "backend/target_distributions#update"
-    - "backend/target_distributions#update_many"
+    - "backend/products#edit_many"
+    - "backend/products#update_many"
 
 affairs:
   read:
@@ -343,8 +322,11 @@ animal_groups:
     - "backend/animal_groups#create"
     - "backend/animal_groups#destroy"
     - "backend/animal_groups#edit"
+    - "backend/animal_groups#edit_many"
     - "backend/animal_groups#new"
+    - "backend/animal_groups#take"
     - "backend/animal_groups#update"
+    - "backend/animal_groups#update_many"
 
 animals:
   read:
@@ -382,9 +364,12 @@ animals:
     - "backend/animals#create"
     - "backend/animals#destroy"
     - "backend/animals#edit"
+    - "backend/animals#edit_many"
     - "backend/animals#load_animals"
     - "backend/animals#new"
+    - "backend/animals#take"
     - "backend/animals#update"
+    - "backend/animals#update_many"
 
 bank_statements:
   read:
@@ -445,8 +430,11 @@ building_divisions:
     - "backend/building_divisions#create"
     - "backend/building_divisions#destroy"
     - "backend/building_divisions#edit"
+    - "backend/building_divisions#edit_many"
     - "backend/building_divisions#new"
+    - "backend/building_divisions#take"
     - "backend/building_divisions#update"
+    - "backend/building_divisions#update_many"
 
 buildings:
   read:
@@ -477,8 +465,11 @@ buildings:
     - "backend/buildings#create"
     - "backend/buildings#destroy"
     - "backend/buildings#edit"
+    - "backend/buildings#edit_many"
     - "backend/buildings#new"
+    - "backend/buildings#take"
     - "backend/buildings#update"
+    - "backend/buildings#update_many"
 
 campaigns:
   read:
@@ -825,8 +816,11 @@ equipments:
     - "backend/equipments#create"
     - "backend/equipments#destroy"
     - "backend/equipments#edit"
+    - "backend/equipments#edit_many"
     - "backend/equipments#new"
+    - "backend/equipments#take"
     - "backend/equipments#update"
+    - "backend/equipments#update_many"
 
 events:
   read:
@@ -967,8 +961,11 @@ fungi:
     - "backend/fungi#create"
     - "backend/fungi#destroy"
     - "backend/fungi#edit"
+    - "backend/fungi#edit_many"
     - "backend/fungi#new"
+    - "backend/fungi#take"
     - "backend/fungi#update"
+    - "backend/fungi#update_many"
 
 gaps:
   read:
@@ -1369,8 +1366,11 @@ land_parcels:
     - "backend/land_parcels#create"
     - "backend/land_parcels#destroy"
     - "backend/land_parcels#edit"
+    - "backend/land_parcels#edit_many"
     - "backend/land_parcels#new"
+    - "backend/land_parcels#take"
     - "backend/land_parcels#update"
+    - "backend/land_parcels#update_many"
 
 listings:
   read:
@@ -1490,8 +1490,11 @@ matters:
     - "backend/matters#create"
     - "backend/matters#destroy"
     - "backend/matters#edit"
+    - "backend/matters#edit_many"
     - "backend/matters#new"
+    - "backend/matters#take"
     - "backend/matters#update"
+    - "backend/matters#update_many"
 
 myselves:
   read:
@@ -1734,8 +1737,11 @@ plants:
     - "backend/plants#create"
     - "backend/plants#destroy"
     - "backend/plants#edit"
+    - "backend/plants#edit_many"
     - "backend/plants#new"
+    - "backend/plants#take"
     - "backend/plants#update"
+    - "backend/plants#update_many"
 
 postal_zones:
   read:
@@ -1801,8 +1807,11 @@ product_groups:
     - "backend/product_groups#create"
     - "backend/product_groups#destroy"
     - "backend/product_groups#edit"
+    - "backend/product_groups#edit_many"
     - "backend/product_groups#new"
+    - "backend/product_groups#take"
     - "backend/product_groups#update"
+    - "backend/product_groups#update_many"
 
 product_nature_categories:
   read:
@@ -1879,7 +1888,6 @@ productions:
     actions:
     - "backend/activity_productions#index"
     - "backend/activity_productions#list_interventions"
-    - "backend/activity_productions#list_target_distributions"
     - "backend/activity_productions#show"
     - "backend/activity_productions#unroll"
   write:
@@ -1926,6 +1934,7 @@ products:
     - "backend/products#destroy"
     - "backend/products#edit"
     - "backend/products#new"
+    - "backend/products#take"
     - "backend/products#update"
 
 purchase_natures:
@@ -2176,8 +2185,11 @@ settlements:
     - "backend/settlements#create"
     - "backend/settlements#destroy"
     - "backend/settlements#edit"
+    - "backend/settlements#edit_many"
     - "backend/settlements#new"
+    - "backend/settlements#take"
     - "backend/settlements#update"
+    - "backend/settlements#update_many"
 
 subscription_natures:
   read:
@@ -2418,5 +2430,8 @@ workers:
     - "backend/workers#create"
     - "backend/workers#destroy"
     - "backend/workers#edit"
+    - "backend/workers#edit_many"
     - "backend/workers#new"
+    - "backend/workers#take"
     - "backend/workers#update"
+    - "backend/workers#update_many"

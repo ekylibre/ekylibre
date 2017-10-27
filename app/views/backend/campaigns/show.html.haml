@@ -10,8 +10,7 @@
       - menu.item :manage_activities.tl, { controller: :activities, action: :index }, as: 'main'
   - else
     = tool_to :manage_activities.tl, { controller: :activities, action: :index }
-  - unless TargetDistribution.distributed?
-    = tool_to(:distribute_unaffected_products.tl, { controller: :target_distributions, action: :edit_many }, icon: false)
+  = tool_to(:distribute_unaffected_products.tl, { controller: :products, action: :edit_many }, icon: false)
 
 
 - main_period_selector(:year)

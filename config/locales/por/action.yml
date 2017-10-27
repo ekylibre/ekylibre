@@ -482,6 +482,7 @@ por:
       # show: "Product type: %{name}"
     backend/products:
       # edit: "Edit product: %{name}"
+      edit_many: "Distribuir produtos não afetados"
       index: "Produtos"
       new: "Novo produto"
       # show: "%{nature}: %{name}"
@@ -573,12 +574,12 @@ por:
     backend/synchronizations:
       index: "Sincronizações"
       # run: "Run synchronization: %{name}"
-    backend/target_distributions:
-      edit: "distribuição alvo Editar"
-      edit_many: "Distribuir produtos não afetados"
-      index: "distribuições alvo"
-      new: "distribuição alvo novo"
-      show: "distribuição alvo"
+    backend/target_distributions: #?
+      edit: "distribuição alvo Editar" #?
+      edit_many: "Distribuir produtos não afetados" #?
+      index: "distribuições alvo" #?
+      new: "distribuição alvo novo" #?
+      show: "distribuição alvo" #?
     backend/tasks:
       # edit: "Edit task: %{name}"
       index: "Tarefas"
@@ -1472,7 +1473,7 @@ por:
     purchase: "Compra"
     purchase_items: "Itens de compra"
     purchase_number: "Número de compra"
-    # purchase_payments: "Purchase payments"
+    purchase_payments: "Pagamentos de compra"
     purchases: "Compras"
     purchases_stocks_variation: "Variação Compras stocks"
     quality: "Qualidade"
@@ -1952,7 +1953,7 @@ por:
       # could_not_attach_x_or_y_to_affair: "Could not attach %{x} or %{y} to affair"
       dashboard_is_being_developed: "Painel está sob forte desenvolvimento"
       density_is_not_computable_in_counting: "Não foi possível calcular a densidade para esta contagem. Os valores em falta deve ser concluída nas propriedades da contagem ou indicadores do semeador."
-      # document_in_preparation: "Your document is in preparation a notification will be sent to you when it is ready"
+      document_in_preparation: "O seu documento está em preparação e uma notificação será enviada quando estiver pronta"
       draft_journal_entries_have_been_validated:
         one: "Uma entrada foi validada"
         # other: "%{count} entries have been validated"
@@ -1961,10 +1962,10 @@ por:
       # equipment_component_is_worn_out: "The component %{component_name} of the equipment %{equipment_name} is worn out. Remaining work time: %{remaining_time}."
       # equipment_is_at_end_of_life: "Equipment %{name} is reaching the end of its life. Remaining time: %{remaining_time}."
       # equipment_is_worn_out: "Equipment %{name} is worn out. Remaining work time: %{remaining_time}."
-      # error_client_account_empty: "Can not operate, client account is empty"
-      # error_during_file_generation: "An error occurred while generating a file"
+      error_client_account_empty: "Não é possível operar, a conta do cliente está vazia"
+      error_during_file_generation: "Ocorreu um erro ao gerar um arquivo"
       # fails_to_extract_listing: "The listing can't be made: %{message}"
-      # file_generated: "Your file was successfully generated"
+      file_generated: "Seu arquivo foi gerado com sucesso"
       financial_years_missing: "Você deve criar a cada faltando exercícios desde o primeiro registrado"
       # financial_years_missing_tax_declarations: "You must create every declarations for the following financial years: %{codes}"
       implemented_with_dummy_data: "Implementado com dados fictícios"
@@ -2151,7 +2152,7 @@ por:
       sell: "Se transformar em venda"
       ship: "Navio"
       show: "Exposição"
-      # show_export_preview: "View a preview of the document (may increase loading time)"
+      show_export_preview: "Visualizar uma visualização do documento (pode aumentar o tempo de carregamento)"
       sort: "Ordenar"
       star: "Estrela"
       start: "Começar"

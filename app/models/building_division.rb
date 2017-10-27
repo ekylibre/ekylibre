@@ -22,6 +22,7 @@
 #
 # == Table: products
 #
+#  activity_production_id       :integer
 #  address_id                   :integer
 #  birth_date_completeness      :string
 #  birth_farm_number            :string
@@ -90,6 +91,6 @@ class BuildingDivision < SubZone
   has_many :productions, class_name: 'ActivityProduction', foreign_key: :support_id
 
   scope :of_production, lambda { |production|
-    where(id: TargetDistribution.select(:target_id).where(production_id: production))
+    where(activity_production: production)
   }
 end
