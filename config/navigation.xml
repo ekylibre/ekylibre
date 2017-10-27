@@ -2062,9 +2062,6 @@
         <page to="backend/cobbles/production_cost_cobbles#show"/>
         <page to="backend/cobbles/stock_in_ground_cobbles#show"/>
       </item>
-      <item name="stock_in_ground_cobbles">
-        <page to="backend/cobbles/stock_in_ground_cobbles#show"/>
-      </item>
       <item name="resources_visualizations">
         <page to="backend/visualizations/resources_visualizations#show"/>
       </item>

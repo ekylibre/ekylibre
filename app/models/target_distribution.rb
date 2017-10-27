@@ -44,7 +44,7 @@ class TargetDistribution < Ekylibre::Record::Base
   validates :stopped_at, timeliness: { on_or_after: ->(target_distribution) { target_distribution.started_at || Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
   validates :activity, :activity_production, :target, presence: true
   # ]VALIDATORS]
-  
+
   before_validation do
     raise 'TargetDistribution is deprecated'
   end
