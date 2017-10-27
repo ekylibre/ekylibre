@@ -53,7 +53,6 @@
     @reconciliationModal= new E.modal('#purchase_process_reconciliation')
     @reconciliationModal.getModal().modal 'hide'
 
-
   E.reconciliation =
     displayReconciliateState: (event) ->
       $('#purchase_invoice_accepted_state').val('reconcile')
@@ -224,11 +223,9 @@
       $(lastLineForm).find('.form-field .purchase_invoice_items_activity_budget .selector-search').first().selector('value', activityBudgetId)
       $(lastLineForm).find('.form-field .purchase_invoice_items_team .selector-search').first().selector('value', teamId)
 
-      $('#items-table').on "cocoon:after-insert", ->
-        console.log('after-insert')
-        $(this).find('.form-field .invoice-total').trigger('change')
-
       # unless $(lastLineForm).find('.form-field .invoice-total').val() == null
+      setTimeout (->
+        $('.form-field .invoice-total').trigger('change')), 1000
 
 
 
