@@ -216,7 +216,6 @@
         itemReductionPercentage = 0
 
       $(lastLineForm).find('.purchase-item-attribute').val(JSON.stringify([itemId]))
-
       $(lastLineForm).find('.form-field .invoice-quantity').val(itemQuantity)
       $(lastLineForm).find('.form-field .invoice-unit-amount').val(itemUnitCost)
       $(lastLineForm).find('.form-field .invoice-discount-percentage').val(itemReductionPercentage)
@@ -224,6 +223,13 @@
       $(lastLineForm).find('.form-field.merchandise .selector-search').first().selector('value', variantId)
       $(lastLineForm).find('.form-field .purchase_invoice_items_activity_budget .selector-search').first().selector('value', activityBudgetId)
       $(lastLineForm).find('.form-field .purchase_invoice_items_team .selector-search').first().selector('value', teamId)
+
+      $('#items-table').on "cocoon:after-insert", ->
+        console.log('after-insert')
+        $(this).find('.form-field .invoice-total').trigger('change')
+
+      # unless $(lastLineForm).find('.form-field .invoice-total').val() == null
+
 
 
     _fillPurchaseOrderItem: (lastLineForm, checkboxLine, itemId, itemQuantity) ->

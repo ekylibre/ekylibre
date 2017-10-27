@@ -142,7 +142,6 @@ module Backend
 
     def update
       @purchase_invoice = find_and_check
-
       if @purchase_invoice.update_attributes(permitted_params)
         redirect_to action: :show
       else

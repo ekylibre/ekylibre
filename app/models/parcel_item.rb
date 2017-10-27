@@ -122,6 +122,7 @@ class ParcelItem < Ekylibre::Record::Base
   delegate :draft?, :in_preparation?, :prepared?, :given?, to: :shipment, prefix: true
 
   before_validation do
+    # binding.pry
     self.currency = parcel_currency if parcel
     if variant
       catalog_item = variant.catalog_items.of_usage(:stock)
@@ -136,7 +137,14 @@ class ParcelItem < Ekylibre::Record::Base
     end
     read_at = parcel ? parcel_prepared_at : Time.zone.now
     self.population ||= product_is_unitary? ? 1 : 0
-    self.unit_pretax_amount ||= 0.0
+
+    # Use the unit_amount of purchase_order_item if amount equal to zero
+    if self.purchase_order_item.present? && self.unit_pretax_amount.zero?
+      self.unit_pretax_amount = purchase_order_item.unit_pretax_amount
+    else
+      self.unit_pretax_amount ||= 0.0
+    end
+
     self.pretax_amount = population * self.unit_pretax_amount
     next if parcel_incoming?
 
