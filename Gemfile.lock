@@ -616,7 +616,7 @@ DEPENDENCIES
   capistrano-rbenv
   capybara
   capybara-webkit
-  charta (>= 0.1.8)
+  charta (>= 0.1.9)
   cocoon
   codacy-coverage
   code_string (>= 0.0.1)
