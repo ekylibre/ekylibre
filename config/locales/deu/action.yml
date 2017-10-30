@@ -1743,6 +1743,7 @@ deu:
     view: "Aussicht"
     view_map_when_creating_an_intervention: "View map bei der Erstellung einer Intervention"
     wages: "Lohn"
+    # warning_date_not_in_period: "Warning: The date entered is not on the current exercise."
     watering_concentration: "Der Wasserverbrauch"
     weather: "Wetter"
     website: "Webseite"

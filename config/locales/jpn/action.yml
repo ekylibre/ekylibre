@@ -1816,6 +1816,7 @@ jpn:
     view: "ビュー"
     view_map_when_creating_an_intervention: "介入を作成するときに地図を表示する"
     wages: "賃金"
+    # warning_date_not_in_period: "Warning: The date entered is not on the current exercise."
     watering_concentration: "水利用"
     weather: "天気"
     website: "ウェブサイト"

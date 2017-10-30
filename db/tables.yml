@@ -3608,6 +3608,9 @@ interventions:
   procedure_name:
     type: string
     required: true
+  purchase_id:
+    type: integer
+    references: purchase
   request_compliant:
     type: boolean
   request_intervention_id:
@@ -4879,6 +4882,35 @@ outgoing_payments:
   updater_id:
     type: integer
     references: user
+parcel_item_storings:
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: ''
+  id:
+    type: integer
+    required: true
+  lock_version:
+    type: integer
+    required: true
+  parcel_item_id:
+    type: integer
+    references: parcel_item
+    required: true
+  quantity:
+    type: integer
+  storage_id:
+    type: integer
+    references: ''
+    required: true
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: ''
 parcel_items:
   analysis_id:
     type: integer
@@ -4891,12 +4923,24 @@ parcel_items:
     references: user
   currency:
     type: string
+  delivery_id:
+    type: integer
+    references: delivery
+  delivery_mode:
+    type: string
+  equipment_id:
+    type: integer
+    references: equipment
   id:
     type: integer
     required: true
   lock_version:
     type: integer
     required: true
+  non_compliant:
+    type: boolean
+  non_compliant_detail:
+    type: string
   parcel_id:
     type: integer
     references: parcel
@@ -4933,9 +4977,14 @@ parcel_items:
   product_ownership_id:
     type: integer
     references: product_ownership
-  purchase_item_id:
+  purchase_invoice_item_id:
     type: integer
-    references: purchase_item
+    references: ''
+  purchase_order_item_id:
+    type: integer
+    references: ''
+  role:
+    type: string
   sale_item_id:
     type: integer
     references: sale_item
@@ -4950,6 +4999,9 @@ parcel_items:
   source_product_movement_id:
     type: integer
     references: product_movement
+  transporter_id:
+    type: integer
+    references: ''
   unit_pretax_amount:
     type: decimal
     precision: 19
@@ -5000,9 +5052,14 @@ parcels:
     required: true
   in_preparation_at:
     type: datetime
+  intervention_id:
+    type: integer
+    references: intervention
   journal_entry_id:
     type: integer
     references: journal_entry
+  late_delivery:
+    type: boolean
   lock_version:
     type: integer
     required: true
@@ -5032,6 +5089,8 @@ parcels:
   recipient_id:
     type: integer
     references: entity
+  reconciliation_state:
+    type: string
   reference_number:
     type: string
   remain_owner:
@@ -5058,6 +5117,8 @@ parcels:
   transporter_id:
     type: integer
     references: entity
+  type:
+    type: string
   undelivered_invoice_journal_entry_id:
     type: integer
     references: journal_entry
@@ -6442,6 +6503,9 @@ purchase_items:
   depreciable_product_id:
     type: integer
     references: product
+  equipment_id:
+    type: integer
+    references: equipment
   fixed:
     type: boolean
     required: true
@@ -6480,6 +6544,8 @@ purchase_items:
     precision: 19
     scale: 4
     required: true
+  role:
+    type: string
   tax_id:
     type: integer
     references: tax
@@ -6506,7 +6572,6 @@ purchase_items:
   variant_id:
     type: integer
     references: product_nature_variant
-    required: true
 purchase_natures:
   active:
     type: boolean
@@ -6562,6 +6627,8 @@ purchases:
     precision: 19
     scale: 4
     required: true
+  command_mode:
+    type: string
   confirmed_at:
     type: datetime
   contract_id:
@@ -6583,6 +6650,8 @@ purchases:
     references: entity_address
   description:
     type: text
+  estimate_reception_date:
+    type: datetime
   id:
     type: integer
     required: true
@@ -6600,6 +6669,8 @@ purchases:
   number:
     type: string
     required: true
+  ordered_at:
+    type: datetime
   payment_at:
     type: datetime
   payment_delay:
@@ -6614,6 +6685,8 @@ purchases:
   quantity_gap_on_invoice_journal_entry_id:
     type: integer
     references: journal_entry
+  reconciliation_state:
+    type: string
   reference_number:
     type: string
   responsible_id:
@@ -6629,6 +6702,8 @@ purchases:
   tax_payability:
     type: string
     required: true
+  type:
+    type: string
   undelivered_invoice_journal_entry_id:
     type: integer
     references: journal_entry

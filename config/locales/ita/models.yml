@@ -1305,6 +1305,7 @@ ita:
     recommended: "Consigliato"
     # recommender: "Recommender"
     reconcilable: "riconciliabile"
+    # reconciliation_state: "Reconciliation state"
     record_interventions: "Interventi Record"
     record_value: "il valore record"
     record_value_type: "Record tipo di valore"

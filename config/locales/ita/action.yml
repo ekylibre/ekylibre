@@ -1809,6 +1809,7 @@ ita:
     view: "vista"
     view_map_when_creating_an_intervention: "Guarda la mappa quando crea un intervento"
     wages: "Salari"
+    # warning_date_not_in_period: "Warning: The date entered is not on the current exercise."
     watering_concentration: "L’uso dell’acqua"
     weather: "Tempo"
     website: "Sito web"
