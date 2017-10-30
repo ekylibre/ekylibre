@@ -68,34 +68,44 @@
 
   - c.cobble(:general_informations) do
     = infos do
-      .med-info.important
+      -#.med-info.important
         %span.title= Intervention.human_attribute_name(:nature)
         %span.value= resource.nature.l #lights(resource.status)
       .med-info
+        %span.title= Intervention.human_attribute_name(:started_at)
+        %span.value
+          %i.picto.picto-calendar
+          = resource.started_at.l
+      .med-info
+        %span.title= Intervention.human_attribute_name(:stopped_at)
+        %span.value
+          %i.picto.picto-calendar
+          = resource.stopped_at.l
+      -#.med-info
         %span.title= Intervention.human_attribute_name(:working_duration)
         %span.value
           %i.picto.picto-timelapse
-          = human_duration(resource.working_duration)
-      .med-info
+          = human_duration(resource.drivers_times(nature: :intervention))
+      -#.med-info
         %span.title= Intervention.human_attribute_name(:whole_duration)
         %span.value
           %i.picto.picto-timelapse
-          = human_duration(resource.whole_duration)
-      .med-info
+          = human_duration(resource.drivers_times(nature: nil))
+      -#.med-info
         %span.title= I18n.t('enumerize.intervention_working_period.nature.preparation')
         %span.value
           %i.picto.picto-clock-o
-          = human_duration(resource.working_duration_of_nature(:preparation))
-      .med-info
+          = human_duration(resource.drivers_times(nature: :preparation))
+      -#.med-info
         %span.title= I18n.t('enumerize.intervention_working_period.nature.travel')
         %span.value
           %i.picto.picto-clock-o
-          = human_duration(resource.working_duration_of_nature(:travel))
-      .med-info
+          = human_duration(resource.drivers_times(nature: :travel))
+      -#.med-info
         %span.title= I18n.t('enumerize.intervention_working_period.nature.intervention')
         %span.value
           %i.picto.picto-clock-o
-          = human_duration(resource.working_duration_of_nature(:intervention))
+          = human_duration(resource.drivers_times(nature: :intervention))
 
     -# if resource.production_support
       .info

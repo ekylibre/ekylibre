@@ -75,6 +75,7 @@ class InterventionInput < InterventionProductParameter
     if product && intervention.record?
       movement = product_movement ||
                  build_product_movement(product: product)
+      movement.product = product
       movement.delta = -1 * quantity_population
       movement.started_at = intervention.started_at || Time.zone.now - 1.hour
       movement.stopped_at = intervention.stopped_at || movement.started_at + 1.hour
@@ -133,7 +134,7 @@ class InterventionInput < InterventionProductParameter
     quantity_population * unit_pretax_stock_amount
   end
 
-  def cost_amount_computation
+  def cost_amount_computation(nature: nil, natures: {})
     return InterventionParameter::AmountComputation.failed unless product
     incoming_parcel = product.incoming_parcel_item
     options = { quantity: quantity_population, unit_name: product.unit_name }

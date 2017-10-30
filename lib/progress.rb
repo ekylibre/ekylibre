@@ -95,13 +95,17 @@ class Progress
   alias set_value value=
 
   def clear!
-    no_read_only!
+    no_read_only! unless completed?
     return true unless counting?
     FileUtils.rm_rf(progress_file)
     self.class.unregister(name, id: id)
     true
   end
   alias clean! clear!
+
+  def completed?
+    value == 100
+  end
 
   def progress_file
     return @progress_file if defined? @progress_file

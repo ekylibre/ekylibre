@@ -436,7 +436,7 @@ class Parcel < Ekylibre::Record::Base
         end.sort_by(&:first_available_date)
         third = detect_third(parcels)
         planned_at = parcels.last.first_available_date || Time.zone.now
-        unless nature = SaleNature.actives.first
+        unless nature = SaleNature.by_default
           unless journal = Journal.sales.opened_on(planned_at).first
             raise 'No sale journal'
           end
@@ -491,7 +491,7 @@ class Parcel < Ekylibre::Record::Base
         end.sort_by(&:first_available_date)
         third = detect_third(parcels)
         planned_at = parcels.last.first_available_date || Time.zone.now
-        unless nature = PurchaseNature.actives.first
+        unless nature = PurchaseNature.by_default
           unless journal = Journal.purchases.opened_on(planned_at).first
             raise 'No purchase journal'
           end
