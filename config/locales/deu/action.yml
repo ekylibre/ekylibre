@@ -477,6 +477,7 @@ deu:
       # show: "Product type: %{name}"
     backend/products:
       # edit: "Edit product: %{name}"
+      edit_many: "Nicht betroffene Produkte verteilen"
       index: "Produkte"
       new: "Neues Produkt"
       # show: "%{nature}: %{name}"
@@ -568,12 +569,12 @@ deu:
     backend/synchronizations:
       index: "Synchronisationen"
       # run: "Run synchronization: %{name}"
-    backend/target_distributions:
-      edit: "Bearbeiten Zielverteilung"
-      edit_many: "Verteilen unbeeinflusst Produkte"
-      index: "Zielverteilungen"
-      new: "Neue Zielverteilung"
-      show: "Zielverteilung"
+    backend/target_distributions: #?
+      edit: "Bearbeiten Zielverteilung" #?
+      edit_many: "Verteilen unbeeinflusst Produkte" #?
+      index: "Zielverteilungen" #?
+      new: "Neue Zielverteilung" #?
+      show: "Zielverteilung" #?
     backend/tasks:
       # edit: "Edit task: %{name}"
       index: "Aufgaben"
