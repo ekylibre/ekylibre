@@ -1274,6 +1274,7 @@ cmn:
     recommended: "推荐"
     recommender: "导购"
     reconcilable: "蒹容"
+    # reconciliation_state: "Reconciliation state"
     record_interventions: "记录干预"
     record_value: "记录值"
     record_value_type: "记录值类型"

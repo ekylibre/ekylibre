@@ -1988,6 +1988,7 @@ eng:
     view_map_when_creating_an_intervention: "View map when creating an intervention"
     # vine_yield: "Vine yield"
     wages: "Wages" #?
+    warning_date_not_in_period: "Warning: The date entered is not on the current exercise."
     watering_concentration: "Water use" #?
     # wear: "Wear"
     weather: "Weather"

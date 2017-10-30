@@ -2395,6 +2395,7 @@ arb:
     virtual_quantity: "الكمية العملية" #?
     wages: "أجور"
     waiting: "أ€ التسدسد لاحقا" #?
+    # warning_date_not_in_period: "Warning: The date entered is not on the current exercise."
     watering_concentration: "استخدام المياه"
     weather: "طقس"
     website: "موقع الكتروني"
