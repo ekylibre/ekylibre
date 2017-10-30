@@ -540,7 +540,7 @@ module Ekylibre
         sh("echo 'CREATE SCHEMA \"#{tenant_name}\";' | psql --dbname=#{db_url}")
 
         # Prepend SET search_path to sql
-        sh("echo 'SET search_path = \"#{tenant_name}\", postgis, lexicon, pg_catalog;' | cat - #{tmp_file} | psql --dbname=#{db_url}")
+        sh("echo 'SET search_path = \"#{tenant_name}\", postgis, lexicon, pg_catalog;' | cat - #{tenant_name} | psql --dbname=#{db_url}")
       end
 
       def sh(command)
