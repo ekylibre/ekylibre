@@ -1744,6 +1744,7 @@ cmn:
     view: "视图"
     view_map_when_creating_an_intervention: "创建干预时查看地图"
     wages: "工资"
+    # warning_date_not_in_period: "Warning: The date entered is not on the current exercise."
     watering_concentration: "水的使用"
     weather: "天气"
     website: "网站"

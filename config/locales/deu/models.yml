@@ -1274,6 +1274,7 @@ deu:
     recommended: "empfohlen"
     recommender: "Empfehlender"
     reconcilable: "versöhnbar"
+    # reconciliation_state: "Reconciliation state"
     record_interventions: "Nehmen Interventionen"
     record_value: "Rekordwert"
     record_value_type: "Nehmen Sie Werttyp"

@@ -2304,6 +2304,7 @@ fra:
       resized: "Mode «\_Tout à l’écran\_»" #?
     virtual_quantity: "Quantité virtuelle" #?
     wages: "Rémunérations"
+    warning_date_not_in_period: "Attention : La date saisie n'est pas sur l'exercice en cours."
     watering_concentration: "Eau consommée"
     wear: "Usure" #?
     weather: "Météo"
