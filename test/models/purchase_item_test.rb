@@ -30,7 +30,6 @@
 #  creator_id             :integer
 #  currency               :string           not null
 #  depreciable_product_id :integer
-#  equipment_id           :integer
 #  fixed                  :boolean          default(FALSE), not null
 #  fixed_asset_id         :integer
 #  id                     :integer          not null, primary key
@@ -40,16 +39,15 @@
 #  preexisting_asset      :boolean
 #  pretax_amount          :decimal(19, 4)   default(0.0), not null
 #  purchase_id            :integer          not null
-#  quantity               :decimal(19, 4)   not null
+#  quantity               :decimal(19, 4)   default(1.0), not null
 #  reduction_percentage   :decimal(19, 4)   default(0.0), not null
-#  role                   :string
 #  tax_id                 :integer          not null
 #  team_id                :integer
 #  unit_amount            :decimal(19, 4)   default(0.0), not null
 #  unit_pretax_amount     :decimal(19, 4)   not null
 #  updated_at             :datetime         not null
 #  updater_id             :integer
-#  variant_id             :integer
+#  variant_id             :integer          not null
 #
 
 require 'test_helper'

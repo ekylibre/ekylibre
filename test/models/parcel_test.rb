@@ -34,9 +34,7 @@
 #  given_at                             :datetime
 #  id                                   :integer          not null, primary key
 #  in_preparation_at                    :datetime
-#  intervention_id                      :integer
 #  journal_entry_id                     :integer
-#  late_delivery                        :boolean
 #  lock_version                         :integer          default(0), not null
 #  nature                               :string           not null
 #  number                               :string           not null
@@ -47,7 +45,6 @@
 #  pretax_amount                        :decimal(19, 4)   default(0.0), not null
 #  purchase_id                          :integer
 #  recipient_id                         :integer
-#  reconciliation_state                 :string
 #  reference_number                     :string
 #  remain_owner                         :boolean          default(FALSE), not null
 #  responsible_id                       :integer
@@ -57,7 +54,6 @@
 #  state                                :string           not null
 #  storage_id                           :integer
 #  transporter_id                       :integer
-#  type                                 :string
 #  undelivered_invoice_journal_entry_id :integer
 #  updated_at                           :datetime         not null
 #  updater_id                           :integer
