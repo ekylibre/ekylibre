@@ -31,8 +31,16 @@
   $(document).ready ->
     if $('#purchase_process_reconciliation').length > 0
       $('#main .heading-toolbar').addClass('purchase-process-reconciliation')
+    # Display the correct value for reconciliation_state in edit view
     if $('#purchase_invoice_accepted_state').is(':checked')
       E.reconciliation.displayAcceptedState()
+    else if $('.simple_form').is('.edit_purchase_invoice, .edit_reception')
+      url = $('.simple_form').attr('action') + ".json"
+      $.get
+        url : url
+        success: (data, status, request) ->
+          if data.reconciliation_state == "reconcile"
+            E.reconciliation.displayReconciliateState()
 
   $(document).on 'change', '#purchase_process_reconciliation .model-checkbox', (event) ->
     checked = $(event.target).is(':checked')
@@ -64,6 +72,7 @@
         $('.no-reconciliate-title').addClass('hidden')
       else if $('.reconcile-title').length > 0 && $('.reconcile-title').hasClass('hidden')
         $('.no-reconciliate-title').addClass('hidden')
+        $('.accepted-title').addClass('hidden')
       else
         $('.accepted-title').addClass('hidden')
 
@@ -74,6 +83,7 @@
         $('.no-reconciliate-state').addClass('hidden')
       else if $('.reconcile-state').length > 0 && $('.reconcile-state').hasClass('hidden')
         $('.no-reconciliate-state').addClass('hidden')
+        $('.accepted-state').addClass('hidden')
       else
         $('.accepted-state').addClass('hidden')
 
@@ -125,7 +135,6 @@
     displayReconciliationModal: (event, datas) ->
       isPurchaseInvoiceForm = $(event.target).closest('.simple_form').is('.new_purchase_invoice, .edit_purchase_invoice')
       isReceptionForm = $(event.target).closest('.simple_form').is('.new_reception, .edit_reception')
-      debugger
 
       url = "/backend/purchase_process/reconciliation/purchase_orders_to_reconciliate"
       if isPurchaseInvoiceForm
