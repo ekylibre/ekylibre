@@ -384,3 +384,8 @@ div.nested-fields {
   padding-right: $default-gap;
   @include inline-block;
 }
+
+#financial-year-dates {
+  color: #e61e1a;
+  margin-left: 45px;
+}
