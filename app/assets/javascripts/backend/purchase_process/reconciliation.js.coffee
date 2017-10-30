@@ -123,14 +123,15 @@
       $('.no-reconciliate-state').removeClass('hidden')
 
     displayReconciliationModal: (event, datas) ->
-      isPurchaseInvoiceForm = $(event.target).closest('.simple_form').hasClass('new_purchase_invoice')
-      isNewReception = $(event.target).closest('.simple_form').hasClass('new_reception')
+      isPurchaseInvoiceForm = $(event.target).closest('.simple_form').is('.new_purchase_invoice, .edit_purchase_invoice')
+      isReceptionForm = $(event.target).closest('.simple_form').is('.new_reception, .edit_reception')
+      debugger
 
       url = "/backend/purchase_process/reconciliation/purchase_orders_to_reconciliate"
       if isPurchaseInvoiceForm
         url = "/backend/purchase_process/reconciliation/receptions_to_reconciliate"
         datas['supplier'] = $('input[name="purchase_invoice[supplier_id]').val()
-      else if isNewReception
+      else if isReceptionForm
         datas['supplier'] = $('input[name="reception[sender_id]').val()
 
       $.ajax
