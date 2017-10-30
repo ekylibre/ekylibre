@@ -1,4 +1,4 @@
-json.extract! resource, :id
+json.extract! resource, :id, :reconciliation_state
 
 json.amount resource.amount
 
