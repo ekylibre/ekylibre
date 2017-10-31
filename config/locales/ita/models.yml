@@ -398,9 +398,12 @@ ita:
       purchase: "Acquista"
       purchase_affair: "Acquisto vicenda"
       purchase_gap: "Gap Acquisto"
+      # purchase_invoice: "Purchase invoice"
       purchase_item: "voce Acquisto"
       purchase_nature: "tipo di Acquisto"
+      # purchase_order: "Purchase order"
       purchase_payment: "sborso"
+      # reception: "Reception"
       regularization: "Regolarizzazione"
       role: "Ruolo"
       sale: "Vendita"
@@ -413,6 +416,7 @@ ita:
       sensor: "Sensore"
       sequence: "Sequenza"
       settlement: "insediamento"
+      # shipment: "Shipment"
       sub_zone: "Sottozona"
       subscription: "Sottoscrizione"
       subscription_nature: "tipo di abbonamento"
@@ -591,6 +595,7 @@ ita:
     color: "Colore"
     column_name: "nome colonna"
     columns: "colonne"
+    # command_mode: "Command mode"
     comment: "Commento"
     commercial: "Commerciale"
     commercial_description: "descrizione commerciale"
@@ -759,6 +764,8 @@ ita:
     entry_number: "numero di iscrizione"
     entry_on: "L’iscrizione"
     entry_reason: "Motivo entry"
+    # equipment: "Equipment"
+    # estimate_reception_date: "Estimate reception date"
     # euid: "EUID"
     event: "Evento"
     event_participation: "partecipazione Event"
@@ -930,6 +937,7 @@ ita:
     interpolations: "interpolazioni"
     intervention: "Intervento"
     intervention_cast: "getto di intervento"
+    # intervention_id: "Intervention"
     intervention_parameter: "parametro intervento"
     intervention_participation: "Partecipazione intervento"
     intervention_participations: "Partecipazioni di intervento"
@@ -996,6 +1004,7 @@ ita:
     last_transmission_at: "Ultima trasmissione"
     last_value: "Ultimo valore"
     last_year: "L'anno scorso"
+    # late_delivery: "Late delivery"
     latest: "Più recente"
     leaves_parameters: "Lascia parametri"
     # lender: "Lender"
@@ -1111,6 +1120,7 @@ ita:
     nitrogen_need: "necessità di azoto"
     node: "Nodo"
     nodes: "nodi"
+    # non_compliant: "Non compliant"
     noticed_start_amount: "importo inizio Notato"
     noticed_stop_amount: "importo fermata Notato"
     notification: "Notifica"
@@ -1301,6 +1311,7 @@ ita:
     reception_cash: "contanti reception"
     reception_currency: "valuta reception"
     reception_journal_entry: "voce di diario Reception"
+    # receptions: "Receptions"
     recipient: "Destinatario"
     recommended: "Consigliato"
     # recommender: "Recommender"
@@ -1409,6 +1420,7 @@ ita:
     shape: "Forma"
     shift_duration: "durata spostamento"
     shift_method: "metodo di spostamento"
+    # shipments: "Shipments"
     sign_in_count: "Entra conteggio"
     signup_at: "Iscriviti a"
     siren: "SIRENA"
@@ -1851,6 +1863,15 @@ ita:
     purchase_payment:
       # bookkeep: "[%{resource} %{number}] %{mode} %{check_number} for %{payee}"
       # label: "%{number}. %{amount}, %{mode} for %{payee} on %{date}"
+    reception:
+      state_machine:
+        states:
+          # draft: "Draft"
+          # given: "Given"
+          # in_preparation: "In preparation"
+          # ordered: "Ordered"
+          # prepared: "Prepared"
+          # received: "Received"
     role:
       default:
         administrator: "Amministratore"
@@ -1930,6 +1951,15 @@ ita:
         sales_invoices: "SI[year|4][number|6]"
         subscriptions: "SUB[number|8]"
         transports: "TR[number|8]"
+    shipment:
+      state_machine:
+        states:
+          # draft: "Draft"
+          # given: "Given"
+          # in_preparation: "In preparation"
+          # ordered: "Ordered"
+          # prepared: "Prepared"
+          # received: "Received"
     task:
       state_machine:
         states:

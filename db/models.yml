@@ -118,6 +118,7 @@
 - outgoing_payment_mode
 - parcel
 - parcel_item
+- parcel_item_storing
 - payslip
 - payslip_affair
 - payslip_nature
@@ -152,9 +153,12 @@
 - purchase
 - purchase_affair
 - purchase_gap
+- purchase_invoice
 - purchase_item
 - purchase_nature
+- purchase_order
 - purchase_payment
+- reception
 - regularization
 - role
 - sale
@@ -167,6 +171,7 @@
 - sensor
 - sequence
 - settlement
+- shipment
 - sub_zone
 - subscription
 - subscription_nature

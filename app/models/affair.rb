@@ -77,7 +77,7 @@ class Affair < Ekylibre::Record::Base
   has_many :incoming_payments, inverse_of: :affair, dependent: :nullify
   has_many :outgoing_payments, inverse_of: :affair, dependent: :nullify
   has_many :payslips,          inverse_of: :affair, dependent: :nullify
-  has_many :purchases,         inverse_of: :affair, dependent: :nullify
+  has_many :purchase_invoices, inverse_of: :affair, dependent: :nullify
   has_many :sales,             inverse_of: :affair, dependent: :nullify
   has_many :regularizations,   inverse_of: :affair, dependent: :destroy
   has_many :debt_transfers, inverse_of: :affair, dependent: :nullify
@@ -151,7 +151,7 @@ class Affair < Ekylibre::Record::Base
 
     # Returns types of accepted deals
     def affairable_types
-      @affairable_types ||= %w[SaleGap PurchaseGap Sale Purchase Payslip IncomingPayment OutgoingPayment Regularization DebtTransfer].freeze
+      @affairable_types ||= %w[SaleGap PurchaseGap Sale PurchaseInvoice Payslip IncomingPayment OutgoingPayment Regularization DebtTransfer].freeze
     end
 
     # Removes empty affairs in the whole table

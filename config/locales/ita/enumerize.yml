@@ -316,6 +316,11 @@ ita:
         in_preparation: "In preparazione" #?
         ordered: "Ordinato" #?
         prepared: "Preparato" #?
+    parcel_item:
+      delivery_mode:
+        # third: "Transported by recipient"
+        # transporter: "Transported by transporter"
+        # us: "Transported by us"
     plant_counting:
       nature:
         germination: "A germinazione"

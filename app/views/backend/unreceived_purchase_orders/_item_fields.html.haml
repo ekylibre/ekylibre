@@ -1,0 +1,35 @@
+- item ||= f.object
+%tbody.nested-fields{ data: { trade_item: "purchase" } }
+  %tr
+    %td.annotable
+      = f.referenced_association(:variant, wrapper: :nested, source: {scope: :purchaseables}, input_html: {data: {variant_of_deal_item: {url: detail_backend_product_nature_variant_path("RECORD_ID", mode: :last_purchase_item)}}})
+      - if f.object.annotation.blank?
+        = link_to("#", data: {annotate: ".annotate", use_closest: "tbody"}, title: :add_annotation.tl) do
+          %i
+    %td.decimal= f.input(:quantity, wrapper: :nested, input_html: {size: 7, data: {trade_component: "quantity"}})
+    %td= f.input(:unit_pretax_amount, wrapper: :nested, input_html: {data: {trade_component: "unit_pretax_amount"}})
+    %td.decimal= f.select(:tax_id, Tax.current.collect{|t| [t.short_label, t.id, {'data-rate' => ((100 + t.usable_amount)/100)}]}, {}, data: {value: 'rate', trade_component: "tax"})
+    %td= f.input(:reduction_percentage, wrapper: :nested, input_html: {data: {trade_component: "reduction_percentage"}})
+    %td.decimal= f.input(:pretax_amount, wrapper: :nested, input_html: {class: "pta", data: {trade_component: "pretax_amount"}})
+    %td.currency= f.object.purchase_currency
+    %td.action= link_to_remove_association(content_tag(:i) + h(:destroy.ta), f, 'data-no-turbolink' => true, class: 'remove-item')
+
+  %tr.tr-add-on
+    %td{ colspan: 10 }
+      - attrs = {}
+      - attrs[:style] = item.annotation.blank? ? 'display: none' : {}
+      .annotate{attrs}= f.input(:annotation, wrapper: :nested, input_html: { class: 'annotation' })
+      - attrs[:style] = item && item.variant && item.variant.depreciable? ? {} : 'display: none'
+      .fixed-asset{attrs}
+        = f.input :fixed, show: :assets, input_html: { 'data-closest': :tr }
+        - attrs = item.fixed ? {} : {style: 'display: none;'}
+        #assets{attrs}
+          = f.input :preexisting_asset, show: :existing_asset, hide: :new_asset, label: :asset_exists.tl, input_html: { 'data-closest': :tr }
+          #existing_asset{attrs}
+            = f.referenced_association :fixed_asset, source: :drafts
+          #new_asset
+            = f.referenced_association(:depreciable_product)
+      - if Preference[:distribute_sales_and_purchases_on_activities] && current_user.can?(:read, :activities) && ActivityBudget.opened.any?
+        = f.referenced_association(:activity_budget, new: false)
+      - if Preference[:distribute_sales_and_purchases_on_teams] && current_user.can?(:read, :teams)
+        = f.referenced_association(:team)

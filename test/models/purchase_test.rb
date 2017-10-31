@@ -25,6 +25,7 @@
 #  accounted_at                             :datetime
 #  affair_id                                :integer
 #  amount                                   :decimal(19, 4)   default(0.0), not null
+#  command_mode                             :string
 #  confirmed_at                             :datetime
 #  contract_id                              :integer
 #  created_at                               :datetime         not null
@@ -33,22 +34,26 @@
 #  custom_fields                            :jsonb
 #  delivery_address_id                      :integer
 #  description                              :text
+#  estimate_reception_date                  :datetime
 #  id                                       :integer          not null, primary key
 #  invoiced_at                              :datetime
 #  journal_entry_id                         :integer
 #  lock_version                             :integer          default(0), not null
 #  nature_id                                :integer
 #  number                                   :string           not null
+#  ordered_at                               :datetime
 #  payment_at                               :datetime
 #  payment_delay                            :string
 #  planned_at                               :datetime
 #  pretax_amount                            :decimal(19, 4)   default(0.0), not null
 #  quantity_gap_on_invoice_journal_entry_id :integer
+#  reconciliation_state                     :string
 #  reference_number                         :string
 #  responsible_id                           :integer
 #  state                                    :string           not null
 #  supplier_id                              :integer          not null
 #  tax_payability                           :string           not null
+#  type                                     :string
 #  undelivered_invoice_journal_entry_id     :integer
 #  updated_at                               :datetime         not null
 #  updater_id                               :integer
