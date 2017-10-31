@@ -1006,9 +1006,12 @@ arb:
       purchase: "الشراء"
       purchase_affair: "قضية شراء"
       purchase_gap: "الفجوة شراء"
+      # purchase_invoice: "Purchase invoice"
       purchase_item: "طريقة طلب الشراء"
       purchase_nature: "نوع شراء"
+      # purchase_order: "Purchase order"
       purchase_payment: "الدفعة"
+      # reception: "Reception"
       regularization: "تسوية"
       role: "الدور"
       sale: "البيع"
@@ -1023,6 +1026,7 @@ arb:
       sensor: "الاستشعار"
       sequence: "التسلسل"
       settlement: "مستوطنة"
+      # shipment: "Shipment"
       stock: "سهم الانتاج" #?
       stock_move: "حركة السهم" #?
       stock_transfer: "تحول او ضياع السهم" #?
@@ -1251,6 +1255,7 @@ arb:
     color: "اللون"
     column_name: "اسم العمود"
     columns: "الأعمدة"
+    # command_mode: "Command mode"
     comment: "التعليق"
     commercial: "نشاط تجاري"
     commercial_description: "وصف التجاري"
@@ -1487,9 +1492,11 @@ arb:
     entry_number: "رقم الدخول"
     entry_on: "الدخول على موقع"
     entry_reason: "السبب دخول"
+    # equipment: "Equipment"
     establishment: "المؤسسة" #?
     establishment_id: "مؤسسة" #?
     establishments: "المؤسسات" #?
+    # estimate_reception_date: "Estimate reception date"
     # euid: "EUID"
     event: "حدث"
     event_natures: "نوع الحدث" #?
@@ -1690,6 +1697,7 @@ arb:
     interpolations: "الزيادات"
     intervention: "تدخل"
     intervention_cast: "تدخل الزهر"
+    # intervention_id: "Intervention"
     intervention_parameter: "معلمة تدخل"
     intervention_participation: "مشاركة التدخل"
     intervention_participations: "المساهمات تدخل"
@@ -1768,6 +1776,7 @@ arb:
     last_transmission_at: "انتقال الماضي"
     last_value: "القيمة الأخيرة"
     last_year: "السنة السابقة"
+    # late_delivery: "Late delivery"
     latest: "آخر"
     latitude: "خطوط العرض" #?
     leaves_parameters: "يترك المعلمات"
@@ -1915,6 +1924,7 @@ arb:
     node: "العقدة"
     node_id: "عقدة" #?
     nodes: "عقد الاستخراج"
+    # non_compliant: "Non compliant"
     noticed_start_amount: "كمية بداية لاحظت"
     noticed_stop_amount: "لاحظت كمية توقف"
     notification: "إعلام"
@@ -2171,6 +2181,7 @@ arb:
     reception_cash: "استقبال النقدية"
     reception_currency: "العملة الاستقبال"
     reception_journal_entry: "دخول مجلة الاستقبال"
+    # receptions: "Receptions"
     recipient: "مستلم"
     recommended: "موصى به"
     recommender: "المزكي"
@@ -2313,6 +2324,7 @@ arb:
     shape: "شكل"
     shift_duration: "مدة التحول"
     shift_method: "طريقة التحول"
+    # shipments: "Shipments"
     shipped: "المستلم" #?
     shipped_at: "شحنها يوم" #?
     sign_in_count: "تسجيل الدخول العد"
@@ -3093,6 +3105,15 @@ arb:
     purchase_payment:
       bookkeep: "[%{resource} %{number}] %{mode} %{check_number} ل %{payee} (%{expenses})"
       label: "%{number}. %{amount} (%{usable_amount} restants) من %{date} بواسطة %{mode} ل %{payee}"
+    reception:
+      state_machine:
+        states:
+          # draft: "Draft"
+          # given: "Given"
+          # in_preparation: "In preparation"
+          # ordered: "Ordered"
+          # prepared: "Prepared"
+          # received: "Received"
     role:
       default:
         administrator: "مدير"
@@ -3187,6 +3208,15 @@ arb:
         sales_invoices: "SI[year|4][number|6]"
         subscriptions: "SUB[number|8]"
         transports: "TR[number|8]"
+    shipment:
+      state_machine:
+        states:
+          # draft: "Draft"
+          # given: "Given"
+          # in_preparation: "In preparation"
+          # ordered: "Ordered"
+          # prepared: "Prepared"
+          # received: "Received"
     task:
       state_machine:
         states:

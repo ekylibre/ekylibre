@@ -316,6 +316,11 @@ deu:
         in_preparation: "In Vorbereitung" #?
         ordered: "bestellt" #?
         prepared: "Bereit" #?
+    parcel_item:
+      delivery_mode:
+        # third: "Transported by recipient"
+        # transporter: "Transported by transporter"
+        # us: "Transported by us"
     plant_counting:
       nature:
         germination: "Bei der Keimung"

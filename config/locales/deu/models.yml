@@ -367,9 +367,12 @@ deu:
       purchase: "Kauf"
       purchase_affair: "Kauf-Affäre"
       purchase_gap: "Kauf Lücke"
+      # purchase_invoice: "Purchase invoice"
       purchase_item: "Kaufsache"
       purchase_nature: "Kauf Art"
+      # purchase_order: "Purchase order"
       purchase_payment: "Auszahlung"
+      # reception: "Reception"
       regularization: "Regularisierung"
       role: "Rolle"
       sale: "Verkauf"
@@ -382,6 +385,7 @@ deu:
       # sensor: "Sensor"
       sequence: "Sequenz"
       settlement: "Siedlung"
+      # shipment: "Shipment"
       sub_zone: "Subzone"
       subscription: "Abonnement"
       subscription_nature: "Abonnement-Typ"
@@ -560,6 +564,7 @@ deu:
     color: "Farbe"
     column_name: "Spaltenname"
     columns: "Spalten"
+    # command_mode: "Command mode"
     comment: "Kommentar"
     commercial: "kommerziell"
     commercial_description: "Handelsbezeichnung"
@@ -728,6 +733,8 @@ deu:
     entry_number: "Eintrittsnummer"
     entry_on: "Eintrag auf"
     entry_reason: "Eintrag Grund"
+    # equipment: "Equipment"
+    # estimate_reception_date: "Estimate reception date"
     # euid: "EUID"
     event: "Ereignis"
     event_participation: "Messe-Teilnahme"
@@ -899,6 +906,7 @@ deu:
     interpolations: "Interpolationen"
     # intervention: "Intervention"
     intervention_cast: "Intervention Guss"
+    # intervention_id: "Intervention"
     intervention_parameter: "Intervention Parameter"
     intervention_participation: "Intervention Teilnahme"
     intervention_participations: "Intervention Beteiligungen"
@@ -965,6 +973,7 @@ deu:
     last_transmission_at: "Letzte Übertragung"
     last_value: "Letzter Wert"
     last_year: "Letztes Jahr"
+    # late_delivery: "Late delivery"
     latest: "Neueste"
     leaves_parameters: "Blätter Parameter"
     lender: "Darlehensgeber"
@@ -1080,6 +1089,7 @@ deu:
     nitrogen_need: "Stickstoff Notwendigkeit"
     node: "Knoten"
     nodes: "Knoten"
+    # non_compliant: "Non compliant"
     noticed_start_amount: "Bemerkt Start Menge"
     noticed_stop_amount: "Bemerkt Anschlag Menge"
     notification: "Benachrichtigung"
@@ -1270,6 +1280,7 @@ deu:
     reception_cash: "Rezeption Bargeld"
     reception_currency: "Rezeption Währung"
     reception_journal_entry: "Rezeption Journaleintrag"
+    # receptions: "Receptions"
     recipient: "Empfänger"
     recommended: "empfohlen"
     recommender: "Empfehlender"
@@ -1378,6 +1389,7 @@ deu:
     shape: "Gestalten"
     shift_duration: "Schichtdauer"
     shift_method: "Shift-Verfahren"
+    # shipments: "Shipments"
     sign_in_count: "Anmeldung Zahl"
     signup_at: "Anmelden bei"
     siren: "SIRENE"
@@ -1819,6 +1831,15 @@ deu:
     purchase_payment:
       # bookkeep: "[%{resource} %{number}] %{mode} %{check_number} for %{payee}"
       # label: "%{number}. %{amount}, %{mode} for %{payee} on %{date}"
+    reception:
+      state_machine:
+        states:
+          # draft: "Draft"
+          # given: "Given"
+          # in_preparation: "In preparation"
+          # ordered: "Ordered"
+          # prepared: "Prepared"
+          # received: "Received"
     role:
       default:
         # administrator: "Administrator"
@@ -1898,6 +1919,15 @@ deu:
         sales_invoices: "SI[year|4][number|6]"
         subscriptions: "SUB[number|8]"
         transports: "TR[number|8]"
+    shipment:
+      state_machine:
+        states:
+          # draft: "Draft"
+          # given: "Given"
+          # in_preparation: "In preparation"
+          # ordered: "Ordered"
+          # prepared: "Prepared"
+          # received: "Received"
     task:
       state_machine:
         states:

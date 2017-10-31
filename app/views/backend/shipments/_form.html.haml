@@ -1,0 +1,36 @@
+= field_set :general_informations do
+  = f.input :contract_id, as: :hidden
+  .delivery-item
+    = f.referenced_association :recipient, required: true, input_html: {data: {product_of_delivery_item: {url: backend_entity_path("RECORD_ID", format: :json)}}}
+    = f.input :sale_id, as: :hidden
+    = f.referenced_association :address, source: :mails, input_html: {data: {"when-item": "address_id", "when-set-value": "RECORD_VALUE"}}, new: { canal: :mail }
+  = f.referenced_association :responsible, source: :employees, new: { employed: 1 }
+  = f.input :with_delivery
+  = f.input :delivery_mode, as: :radio_buttons
+  -#= f.referenced_association :sale
+  = f.input :planned_at, required: false
+  = f.input :given_at, required: false
+  = f.input :remain_owner
+  = f.custom_fields
+  = f.attachments
+  -# = f.object.errors.inspect
+
+- if f.object.allow_items_update?
+  = field_set f.object.class.human_attribute_name(:items) do
+    %table.list
+      %thead
+        %tr
+          %th.act
+          %th.product-column= ParcelItem.human_attribute_name(:product)
+          %th.quantity-column= ParcelItem.human_attribute_name(:population)
+          %th.delivery-mode-column= ParcelItem.human_attribute_name(:analysis)
+
+      = f.simple_fields_for :items, f.object.items do |item|
+        = render 'item_fields', f: item
+      - if f.object.allow_items_update?
+        %tfoot#items_anchor
+          %tr.total
+            %th{colspan: 6 }= link_to_add_association :add_item.tl, f, :items, partial: 'item_fields', 'data-association-insertion-node' => '#items_anchor', 'data-association-insertion-method' => :before, class: "btn primary"
+/ -else
+/   = field_set f.object.class.human_attribute_name(:items) do
+/     = "Items cannot be edited in current parcel state."
