@@ -118,12 +118,13 @@ class ParcelTest < ActiveSupport::TestCase
 
   private
 
-  def new_parcel(nature: :incoming, delivery_mode: :third, address: nil, separated: true, items_attributes: nil)
+  def new_parcel(nature: :incoming, delivery_mode: :third, address: nil, separated: true, state: 'draft', items_attributes: nil)
     attributes = {
       nature: nature,
       delivery_mode: delivery_mode,
       address: address || @address,
-      separated_stock: separated
+      separated_stock: separated,
+      state: state
     }
 
     items_attributes ||= [{
