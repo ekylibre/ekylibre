@@ -855,6 +855,8 @@ fra:
       zoomOutTitle: "Dézoomer"
   labels:
     abilities: "Compétences" #?
+    accepted: "Acceptée"
+    accepted_for_paiment: "Acceptée pour paiement"
     access: "Accès"
     access_parameters: "Paramètres de connexion"
     account_accruals: "Comptes de régularisation" #?
@@ -952,12 +954,14 @@ fra:
     add_purchase_taxation: "Ajouter une taxe d’achat"
     add_quickly_an_item: "Ajouter rapidement une ligne de produit"
     add_reading: "Ajouter une mesure pour un indicateur"
+    add_reception: "Ajouter une réception"
     add_regularization: "Ajouter une régularisation"
     add_revenue: "Ajouter une recette"
     add_sale: "Ajouter une vente"
     add_sale_taxation: "Ajouter une taxe de vente"
     add_season: "Ajouter une saison"
     add_service: "Ajouter un service"
+    add_service_delivering: "Ajouter une prestation de service"
     add_storing: "Ajouter une zone de stockage"
     add_subscription_for_sale_line: "Ajouter un abonnement pour la ligne N°%{position}"
     add_support: "Ajouter un support de production"
@@ -1309,6 +1313,7 @@ fra:
     edit_budget: "Modifier le budget"
     ekylibre: "www.ekylibre.org"
     elapsed_interventions_times_by_activities: "Temps passé par activité"
+    element_status: "Statut"
     email: "Email:"
     emissions_and_reevaluation_gaps: "Ecart de réévaluation, primes d’émission"
     employee: "Employé" #?
@@ -1374,6 +1379,7 @@ fra:
     extract: "Extraire" #?
     fat_matters_concentration: "Teneur en matières grasses" #?
     fax: "Fax" #?
+    fees: "Frais"
     field_distribution: "Parcellaire"
     file_nature: "Type de fichier"
     file_pages_count: "Nombre de pages" #?
@@ -1769,6 +1775,7 @@ fra:
     not_contains: "Ne contient pas" #?
     not_delivered: "Non délivré"
     not_finishes: "Ne termine pas par" #?
+    not_informed: "Non renseigné"
     not_is: "N’est pas" #?
     not_letterable: "Impossible de lettrer"
     not_ready: "Pas prêt(e)"
@@ -1964,13 +1971,18 @@ fra:
     receiving_address: "Adresse de réception"
     recent_events: "Derniers événements"
     recent_historic: "Historique récent" #?
+    reception: "Réception"
     reception_incident: "Réception en incident"
     reception_number: "N° du bon de réception"
     receptions: "Réceptions"
+    reconcile: "Rapprochée"
+    reconciliate_with_purchases_orders: "Rapprocher avec une ou des commandes"
+    reconciliate_with_receptions: "Rapprocher avec une ou des réceptions"
     record: "Enregistrement"
     record_has_been_correctly_removed: "L’enregistrement a été supprimé correctement." #?
     record_has_not_been_removed: "L’enregistrement n’a pu être supprimé." #?
     record_maintenance: "Enregistrer une maintenance"
+    reference_supplier: "Référence fournisseur : %{reference_number}"
     reflect: "Refléter"
     reflected: "Changements répercutés"
     reflections: "Réflections"
@@ -2109,6 +2121,8 @@ fra:
     sensor_model: "Modèle du capteur"
     sensors: "Capteurs"
     sequences_load: "Charger les séquences manquantes" #?
+    service: "Service"
+    service_delivering: "Prestation de service"
     sessions: "Sessions"
     set_reconcilable_new_but_existing_third_accounts: "Rendre lettrables les nouveaux comptes tiers déjà existants"
     settings: "Configuration"
@@ -2177,6 +2191,7 @@ fra:
     supplier_informations: "Informations fournisseur"
     supplier_payment_mode: "Mode de paiement du fournisseur"
     supplier_receivables: "Fournisseurs d'exploitations et comptes rattachés"
+    supplier_reference: "Référence fournisseur"
     supply: "Livraison"
     support: "Support"
     supports: "Supports de production"
@@ -2226,6 +2241,7 @@ fra:
     to_deposit_now: "À encaisser maintenant"
     to_pay: "À payer"
     to_reclaim: "À réclamer"
+    to_reconciliate: "À rapprocher"
     today: "Aujourd’hui"
     tool_cost: "Coût de matériel"
     tool_cost_per_hectare: "Coût de matériel par hectare" #?

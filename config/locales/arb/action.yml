@@ -969,6 +969,8 @@ arb:
       zoomInTitle: "تكبير"
       zoomOutTitle: "تصغير"
   labels:
+    # accepted: "Accepted"
+    # accepted_for_paiment: "Accepted for paiment"
     access: "وصول"
     access_parameters: "المعلمات وصول"
     account_accruals: "حسابات الاستحقاق" #?
@@ -1071,12 +1073,14 @@ arb:
     add_purchase_taxation: "إضافة الضرائب شراء"
     add_quickly_an_item: "بسرعة إضافة خط من المنتجات"
     add_reading: "إضافة قيمة للمؤشر"
+    # add_reception: "Add reception"
     add_regularization: "إضافة تسوية"
     add_revenue: "إضافة الإيرادات"
     add_sale: "إضافة بيع"
     add_sale_taxation: "إضافة بيع الضرائب"
     add_season: "إضافة الموسم"
     # add_service: "Add service"
+    # add_service_delivering: "Add service delivering"
     # add_storing: "Add storing"
     # add_subscription_for_sale_line: "Add subscription for sale line #%{position}"
     add_support: "إضافة دعم"
@@ -1414,6 +1418,7 @@ arb:
     edit_budget: "تحرير الميزانية"
     ekylibre: "www.ekylibre.org"
     elapsed_interventions_times_by_activities: "التدخلات مرات المنقضي من الأنشطة"
+    # element_status: "Status"
     email: "البريد الإلكتروني:"
     emissions_and_reevaluation_gaps: "الانبعاثات والثغرات إعادة تقييم"
     employee_and_wages: "الموظفين والأجور"
@@ -1484,6 +1489,7 @@ arb:
     export_as_ods: "التصدير، المواد المستنفدة للأوزون"
     export_as_xcsv: "تصدير واكسل CSV"
     extract: "يستخرج" #?
+    # fees: "Fees"
     field_distribution: "مجال التوزيع"
     file_nature: "نوع الملف"
     file_preview: "معاينة"
@@ -1879,6 +1885,7 @@ arb:
     normal: "نظام واقعي طبيعي"
     not_assessable_operations: "اجراءات غير ضريبية" #?
     not_delivered: "لم يتم تسليمها"
+    # not_informed: "Not informed"
     not_letterable: "لم يكن قادرا على بريد إلكتروني"
     not_ready: "ليس جاهزا"
     not_received: "لم تتلق"
@@ -2076,13 +2083,18 @@ arb:
     received: "مستلم"
     # receiving_address: "Receiving address"
     recent_events: "الاحداث الاخيرة"
+    # reception: "Reception"
     # reception_incident: "Reception incident"
     # reception_number: "Reception number"
     # receptions: "Receptions"
+    # reconcile: "Reconcile"
+    # reconciliate_with_purchases_orders: "Reconciliate with purchases orders"
+    # reconciliate_with_receptions: "Reconciliate with receptions"
     record: "سجل"
     record_has_been_correctly_removed: "قد تم حذف السجلات بشكل صحيح" #?
     record_has_not_been_removed: "لم يتم حذف السجلات" #?
     record_maintenance: "صيانة المسجلات"
+    # reference_supplier: "Reference supplier : %{reference_number}"
     reflect: "يعكس"
     reflected: "التغييرات تنعكس"
     reflections: "خواطر"
@@ -2215,6 +2227,8 @@ arb:
     sequence_create: "اضافة تسلسل" #?
     sequences: "التسلسل" #?
     sequences_load: "تحميل التسلسلات المفقودة" #?
+    # service: "Service"
+    # service_delivering: "Service delivering"
     sessions: "جلسات"
     set_reconcilable_new_but_existing_third_accounts: "تعيين مصالحتها حسابات الثالثة الجديدة ولكن القائمة (العملاء والموردين والمحامين)"
     settings: "إعدادات"
@@ -2275,6 +2289,7 @@ arb:
     supplier_informations: "المعلومات المورد"
     supplier_payment_mode: "المورد وضع الدفع"
     supplier_receivables: "ذمم المورد"
+    # supplier_reference: "Supplier reference"
     supply: "التسليم"
     support: "الدعم"
     supports: "الدعم"
@@ -2317,6 +2332,7 @@ arb:
     to_deposit_now: "إيداع الآن"
     to_pay: "لدفع"
     to_reclaim: "لاستعادة"
+    # to_reconciliate: "To reconciliate"
     today: "اليوم"
     tool_cost: "تكلفة أداة"
     tool_create: "اضافة مادة" #?

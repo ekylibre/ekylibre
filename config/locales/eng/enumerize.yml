@@ -297,6 +297,9 @@ eng:
       nature:
         incoming: "Incoming"
         outgoing: "Outgoing"
+      reconciliation_state:
+        # reconcile: "Reconcile"
+        # to_reconcile: "To reconcile"
     parcel_item:
       delivery_mode:
         # none: "None"
@@ -434,6 +437,10 @@ eng:
         point: "Point"
         string: "String"
     purchase:
+      reconciliation_state:
+        # accepted: "Accepted"
+        # reconcile: "Reconcile"
+        # to_reconcile: "To reconcile"
       tax_payability:
         at_invoicing: "At invoicing"
         at_paying: "At paying"
@@ -442,6 +449,10 @@ eng:
         # loss: "Loss"
         # profit: "Profit"
     purchase_invoice:
+      reconciliation_state:
+        # accepted: "Accepted"
+        # reconcile: "Reconcile"
+        # to_reconcile: "To reconcile"
       tax_payability:
         # at_invoicing: "At invoicing"
         # at_paying: "At paying"
@@ -457,6 +468,10 @@ eng:
         # market_place: "Market place"
         # oral: "Oral"
         # sms: "Sms"
+      reconciliation_state:
+        # accepted: "Accepted"
+        # reconcile: "Reconcile"
+        # to_reconcile: "To reconcile"
       tax_payability:
         # at_invoicing: "At invoicing"
         # at_paying: "At paying"
@@ -468,6 +483,9 @@ eng:
       nature:
         # incoming: "Incoming"
         # outgoing: "Outgoing"
+      reconciliation_state:
+        # reconcile: "Reconcile"
+        # to_reconcile: "To reconcile"
     sale_gap:
       direction:
         # loss: "Loss"
@@ -530,6 +548,9 @@ eng:
       nature:
         # incoming: "Incoming"
         # outgoing: "Outgoing"
+      reconciliation_state:
+        # reconcile: "Reconcile"
+        # to_reconcile: "To reconcile"
     synchronization_operation:
       operation_name:
         authenticate: "Authentication"

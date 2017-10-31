@@ -119,6 +119,36 @@ module Backend
       render locals: { with_continue: true }
     end
 
+    def create
+      if permitted_params[:items_attributes].present?
+        permitted_params[:items_attributes].each do |_key, item_attribute|
+          ids = item_attribute[:parcels_purchase_invoice_items]
+          parcel_item_ids = ids.blank? ? [] : JSON.parse(ids)
+          item_attribute[:parcels_purchase_invoice_items] = ParcelItem.find(parcel_item_ids)
+        end
+      end
+
+      @purchase_invoice = PurchaseInvoice.new(permitted_params)
+
+      url = if params[:create_and_continue]
+              { action: :new, continue: true }
+            else
+              params[:redirect] || { action: :show, id: 'id'.c }
+            end
+
+      return if save_and_redirect(@purchase_invoice, url: url, notify: :record_x_created, identifier: :number)
+      render(locals: { cancel_url: { action: :index }, with_continue: true })
+    end
+
+    def update
+      @purchase_invoice = find_and_check
+      if @purchase_invoice.update_attributes(permitted_params)
+        redirect_to action: :show
+      else
+        render :edit
+      end
+    end
+
     def payment_mode
       # use view to select payment mode for mass payment on purchase
     end

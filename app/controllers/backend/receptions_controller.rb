@@ -49,11 +49,11 @@ module Backend
       code << "    c << params[:delivery_mode]\n"
       code << "  end\n"
       code << "end\n"
-      code << "if params[:invoice_status] && params[:invoice_status] == 'invoiced'\n"
-      code << "  c[0] << ' AND (#{Reception.table_name}.purchase_id IS NOT NULL OR #{Reception.table_name}.sale_id IS NOT NULL) '\n"
-      code << "elsif params[:invoice_status] && params[:invoice_status] == 'uninvoiced'\n"
-      code << "  c[0] << ' AND (#{Reception.table_name}.purchase_id IS NULL AND #{Reception.table_name}.sale_id IS NULL) '\n"
-      code << "end\n"
+      # code << "if params[:invoice_status] && params[:invoice_status] == 'invoiced'\n"
+      # code << "  c[0] << ' AND (#{Reception.table_name}.purchase_id IS NOT NULL OR #{Reception.table_name}.sale_id IS NOT NULL) '\n"
+      # code << "elsif params[:invoice_status] && params[:invoice_status] == 'uninvoiced'\n"
+      # code << "  c[0] << ' AND (#{Reception.table_name}.purchase_id IS NULL AND #{Reception.table_name}.sale_id IS NULL) '\n"
+      # code << "end\n"
       code << "c\n"
       code.c
     end
@@ -77,7 +77,7 @@ module Backend
       # t.column :sent_at
       t.column :delivery_mode
       # t.column :net_mass, hidden: true
-      t.column :purchase, url: true
+      # t.column :purchase, url: true
     end
 
     list(:items, model: :parcel_items, order: { id: :asc }, conditions: { parcel_id: 'params[:id]'.c }) do |t|
@@ -97,6 +97,12 @@ module Backend
     def new
       @reception = Reception.new
       render locals: { with_continue: true }
+    end
+
+    Reception.state_machine.events.each do |event|
+      define_method event.name do
+        fire_event(event.name)
+      end
     end
   end
 end

@@ -86,6 +86,8 @@
 #     - "backend/cells/weather_cells#show"
 #     - "backend/cells/working_sets_stocks_cells#show"
 #     - "backend/cobblers#update"
+#     - "backend/cobbles/production_cost_cobbles#show"
+#     - "backend/cobbles/stock_in_ground_cobbles#show"
 #     - "backend/dashboards#accountancy"
 #     - "backend/dashboards#home"
 #     - "backend/dashboards#humans"
@@ -111,6 +113,7 @@
 #     - "backend/inspections#export"
 #     - "backend/intervention_participations#participations_modal"
 #     - "backend/interventions#change_page"
+#     - "backend/interventions#purchase_order_items"
 #     - "backend/januses#toggle"
 #     - "backend/kujakus#toggle"
 #     - "backend/land_parcels#take"
@@ -135,6 +138,20 @@
 #     - "backend/product_nature_variants#quantifiers"
 #     - "backend/products#take"
 #     - "backend/purchase_orders#list_parcels"
+#     - "backend/purchase_orders#reconciliate_modal"
+#     - "backend/purchase_process/reconciliation#create"
+#     - "backend/purchase_process/reconciliation#destroy"
+#     - "backend/purchase_process/reconciliation#edit"
+#     - "backend/purchase_process/reconciliation#index"
+#     - "backend/purchase_process/reconciliation#list"
+#     - "backend/purchase_process/reconciliation#list_items"
+#     - "backend/purchase_process/reconciliation#list_parcels"
+#     - "backend/purchase_process/reconciliation#new"
+#     - "backend/purchase_process/reconciliation#purchase_orders_to_reconciliate"
+#     - "backend/purchase_process/reconciliation#receptions_to_reconciliate"
+#     - "backend/purchase_process/reconciliation#show"
+#     - "backend/purchase_process/reconciliation#unroll"
+#     - "backend/purchase_process/reconciliation#update"
 #     - "backend/purchases#destroy"
 #     - "backend/purchases#edit"
 #     - "backend/purchases#index"
@@ -154,6 +171,10 @@
 #     - "backend/unreceived_purchase_orders#list"
 #     - "backend/unreceived_purchase_orders#show"
 #     - "backend/unreceived_purchase_orders#update"
+#     - "backend/visualizations/land_parcels_visualizations#show"
+#     - "backend/visualizations/map_cells_visualizations#show"
+#     - "backend/visualizations/plants_visualizations#show"
+#     - "backend/visualizations/resources_visualizations#show"
 #     - "backend/visuals#picture"
 #     - "backend/workers#take"
 #     - "devise/confirmations#create"
@@ -1113,25 +1134,25 @@ incoming_deliveries:
     dependencies:
     - read-incoming_deliveries
     actions:
-    - "backend/parcels#cancel"
-    - "backend/parcels#check"
+    - "backend/parcels#cancel" #?
+    - "backend/parcels#check" #?
     - "backend/parcels#create" #?
     - "backend/parcels#destroy" #?
     - "backend/parcels#edit" #?
-    - "backend/parcels#give"
+    - "backend/parcels#give" #?
     - "backend/parcels#new"
-    - "backend/parcels#order"
-    - "backend/parcels#prepare"
+    - "backend/parcels#order" #?
+    - "backend/parcels#prepare" #?
     - "backend/parcels#update" #?
-    - "backend/receptions#cancel"
-    - "backend/receptions#check"
+    - "backend/receptions#cancel" #?
+    - "backend/receptions#check" #?
     - "backend/receptions#create"
     - "backend/receptions#destroy"
     - "backend/receptions#edit"
     - "backend/receptions#give"
     - "backend/receptions#new"
-    - "backend/receptions#order"
-    - "backend/receptions#prepare"
+    - "backend/receptions#order" #?
+    - "backend/receptions#prepare" #?
     - "backend/receptions#update"
 
 incoming_payment_modes:
@@ -1596,15 +1617,15 @@ outgoing_deliveries:
     dependencies:
     - read-outgoing_deliveries
     actions:
-    - "backend/parcels#cancel"
-    - "backend/parcels#check"
+    - "backend/parcels#cancel" #?
+    - "backend/parcels#check" #?
     - "backend/parcels#create" #?
     - "backend/parcels#destroy" #?
     - "backend/parcels#edit" #?
-    - "backend/parcels#give"
+    - "backend/parcels#give" #?
     - "backend/parcels#new"
-    - "backend/parcels#order"
-    - "backend/parcels#prepare"
+    - "backend/parcels#order" #?
+    - "backend/parcels#prepare" #?
     - "backend/parcels#update" #?
     - "backend/shipments#cancel"
     - "backend/shipments#check"

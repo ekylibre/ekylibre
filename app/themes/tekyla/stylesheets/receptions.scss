@@ -187,6 +187,13 @@
       width: initial;
     }
 
+    .unitary-variant-fields {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      margin-top: $default-gap * 2;
+    }
+
     .merchandise {
       @include flex-column(flex-start);
       flex: 58%;
@@ -418,7 +425,9 @@
     width: 100%;
 
     .item-form {
-      @include flex-column(flex-start);
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
       border: none;
     }
 
@@ -429,6 +438,14 @@
 
     .reception_items_equipment .controls{
       margin-left: $default-gap * 2.57;
+    }
+
+    .reconciliation-item-state-block {
+      margin-left: $default-gap * 2.5;
+    }
+
+    #showItemReconciliationModal {
+      margin-top: $default-gap * 4;
     }
   }
 }

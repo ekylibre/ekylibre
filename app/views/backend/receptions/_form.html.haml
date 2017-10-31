@@ -1,5 +1,8 @@
+= f.object.errors.full_messages if f.object.errors.present? && Rails.env.development?
 = content_for(:heading_toolbar) do
   %h2.global-incident-warning.hidden{ data: { warn_if_checked: :reception_incident.tl } }
+  %h2.reconciliation-title.no-reconciliate-title= :to_reconciliate.tl
+  %h2.reconciliation-title.reconcile-title.hidden= :reconcile.tl
 
 = field_set :general_informations do
   = f.input :nature, as: :hidden
@@ -19,9 +22,22 @@
       %span.warn-message= :late_delivery.tl.upcase
       = f.input :planned_at, as: :date, required: false
 
+  = field :element_status.tl, nil do
+    %span.purchase-process-reconciliation.reconciliation-state.no-reconciliate-state= :to_reconciliate.tl
+    %span.purchase-process-reconciliation.reconciliation-state.reconcile-state.hidden= :reconcile.tl
+    = hidden_field_tag('reception[reconciliation_state]', 'to_reconcile')
+
+  .control-group.button-modal-reconciliation
+    .controls
+      = button_tag :reconciliate_with_purchases_orders.tl, id: 'showReconciliationModal', class: 'btn btn-default', type: :button
+
+  = modal(id: "purchase_process_reconciliation", class: "", size: :large) do
+    .modal-body
+    .modal-footer
+
   = f.custom_fields
   = f.attachments
-  -# = f.object.errors.inspect
+
 
 - if f.object.allow_items_update?
   = field_set f.object.class.human_attribute_name(:items) do
@@ -41,6 +57,6 @@
       - if f.object.allow_items_update?
         %tfoot#items-footer
           %tr.total
-            %th{colspan: 6, class: "links"}= link_to_add_association :add_merchandise.tl, f, :items, partial: 'item_fields', render_options: { locals: { role: 'merchandise' } }, 'data-association-insertion-node' => '#items-footer', 'data-association-insertion-method' => :before
-            %th{colspan: 6, class: "links"}= link_to_add_association :add_service.tl, f, :items, partial: 'item_fields', render_options: { locals: { role: 'service' } }, 'data-association-insertion-node' => '#items-footer', 'data-association-insertion-method' => :before
-            %th{colspan: 6, class: "links"}= link_to_add_association :add_fees.tl, f, :items, partial: 'item_fields', render_options: { locals: { role: 'fees' } }, 'data-association-insertion-node' => '#items-footer', 'data-association-insertion-method' => :before
+            %th{colspan: 6, class: "links add-merchandise"}= link_to_add_association :add_merchandise.tl, f, :items, partial: 'item_fields', render_options: { locals: { role: 'merchandise' } }, 'data-association-insertion-node' => '#items-footer', 'data-association-insertion-method' => :before
+            %th{colspan: 6, class: "links add-service"}= link_to_add_association :add_service.tl, f, :items, partial: 'item_fields', render_options: { locals: { role: 'service' } }, 'data-association-insertion-node' => '#items-footer', 'data-association-insertion-method' => :before
+            %th{colspan: 6, class: "links add-cost"}= link_to_add_association :add_fees.tl, f, :items, partial: 'item_fields', render_options: { locals: { role: 'fees' } }, 'data-association-insertion-node' => '#items-footer', 'data-association-insertion-method' => :before

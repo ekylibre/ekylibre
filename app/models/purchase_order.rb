@@ -47,6 +47,7 @@
 #  planned_at                               :datetime
 #  pretax_amount                            :decimal(19, 4)   default(0.0), not null
 #  quantity_gap_on_invoice_journal_entry_id :integer
+#  reconciliation_state                     :string
 #  reference_number                         :string
 #  responsible_id                           :integer
 #  state                                    :string           not null
@@ -75,6 +76,18 @@ class PurchaseOrder < Purchase
   before_validation(on: :create) do
     self.state = :estimate
     self.ordered_at ||= created_at
+  end
+
+  scope :with_state, lambda { |state|
+    where(state: state)
+  }
+
+  def self.third_attribute
+    :supplier
+  end
+
+  def third
+    send(third_attribute)
   end
 
   def purchased?

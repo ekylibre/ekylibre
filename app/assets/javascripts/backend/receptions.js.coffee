@@ -38,4 +38,13 @@
             E.toggleValidateButton(that)
             E.setStorageUnitName(that)
 
+    $('.new_reception, .edit_reception').on 'change', '#reception_reconciliation_state', (event) ->
+      checked = $(event.target).is(':checked')
+
+      if checked
+        $(event.target).val('accepted')
+      else
+        $(event.target).val('to_reconciliate')
+
+
 ) ekylibre, jQuery

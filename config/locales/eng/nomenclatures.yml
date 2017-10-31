@@ -4524,6 +4524,10 @@ eng:
         acipenser_sturio: "Acipenser sturio"               #< acipenser
         acipenser_transmontanus: "Acipenser transmontanus" #< acipenser
         acipenseridae: "Acipenseridae"                     #< actinopterygii
+        actinidia: "Actinidia"                             #< actinidiaceae
+        actinidia_chinensis: "Actinidia chinensis"         #< actinidia
+        actinidia_deliciosa: "Actinidia deliciosa"         #< actinidia
+        actinidiaceae: "Actinidiaceae"                     #< plant
         actinopterygii: "Actinopterygii"                   #< animal
         adoxa: "Adoxa"                                     #< adoxaceae
         adoxaceae: "Adoxaceae"                             #< plant

@@ -1,3 +1,6 @@
+= content_for(:heading_toolbar) do
+  = reconciliation_state_title(@purchase_invoice)
+
 - main_toolbar do |t|
   /= t.export :purchases_invoice
   = t.edit resource if resource.updateable?

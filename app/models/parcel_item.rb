@@ -44,7 +44,8 @@
 #  product_movement_id           :integer
 #  product_name                  :string
 #  product_ownership_id          :integer
-#  purchase_item_id              :integer
+#  purchase_invoice_item_id      :integer
+#  purchase_order_item_id        :integer
 #  role                          :string
 #  sale_item_id                  :integer
 #  shape                         :geometry({:srid=>4326, :type=>"multi_polygon"})
@@ -64,21 +65,26 @@ class ParcelItem < Ekylibre::Record::Base
   belongs_to :analysis
   belongs_to :parcel, inverse_of: :items
   belongs_to :product
-  belongs_to :product_enjoyment,          dependent: :destroy
-  belongs_to :product_localization,       dependent: :destroy
-  belongs_to :product_ownership,          dependent: :destroy
-  belongs_to :product_movement,           dependent: :destroy
-  belongs_to :purchase_item
+
+  with_options class_name: 'PurchaseItem' do
+    belongs_to :purchase_order_item, foreign_key: 'purchase_order_item_id'
+    belongs_to :purchase_invoice_item, foreign_key: 'purchase_invoice_item_id'
+  end
+
   belongs_to :sale_item
   belongs_to :delivery
   belongs_to :transporter, class_name: 'Entity'
   belongs_to :source_product, class_name: 'Product'
   belongs_to :source_product_movement, class_name: 'ProductMovement', dependent: :destroy
   belongs_to :variant, class_name: 'ProductNatureVariant'
-  belongs_to :equipment, class_name: 'ProductNatureVariant'
+  belongs_to :equipment, class_name: 'Product'
   has_one :nature, through: :variant
   has_one :storage, through: :parcel
   has_one :contract, through: :parcel
+  has_one :product_enjoyment, as: :originator, dependent: :destroy
+  has_one :product_localization, as: :originator, dependent: :destroy
+  has_one :product_movement, as: :originator, dependent: :destroy
+  has_one :product_ownership, as: :originator, dependent: :destroy
   has_many :storings, class_name: 'ParcelItemStoring', inverse_of: :parcel_item, foreign_key: :parcel_item_id, dependent: :destroy
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
@@ -91,7 +97,7 @@ class ParcelItem < Ekylibre::Record::Base
   # ]VALIDATORS]
   validates :source_product, presence: { if: :parcel_outgoing? }
   validates :variant, presence: true
-  validates :product, presence: { if: :parcel_prepared? }
+  validates :product, presence: true, unless: proc { |item| !item.parcel.try(:prepared?) }
 
   validates :population, presence: true, numericality: { less_than_or_equal_to: 1,
                                                          if: :product_is_unitary?,
@@ -107,12 +113,16 @@ class ParcelItem < Ekylibre::Record::Base
   accepts_nested_attributes_for :storings, allow_destroy: true
 
   # delegate :net_mass, to: :product
-  delegate :allow_items_update?, :remain_owner, :planned_at, :draft?,
-           :ordered_at, :recipient, :in_preparation?, :in_preparation_at,
-           :prepared?, :prepared_at, :given?, :given_at, :outgoing?, :incoming?,
+  delegate :allow_items_update?, :remain_owner, :planned_at,
+           :ordered_at, :recipient, :in_preparation_at,
+           :prepared_at, :given_at, :outgoing?, :incoming?,
            :separated_stock?, :currency, to: :parcel, prefix: true
 
+  delegate :draft?, :given?, to: :reception, prefix: true, allow_nil: true
+  delegate :draft?, :in_preparation?, :prepared?, :given?, to: :shipment, prefix: true
+
   before_validation do
+    # binding.pry
     self.currency = parcel_currency if parcel
     if variant
       catalog_item = variant.catalog_items.of_usage(:stock)
@@ -127,14 +137,21 @@ class ParcelItem < Ekylibre::Record::Base
     end
     read_at = parcel ? parcel_prepared_at : Time.zone.now
     self.population ||= product_is_unitary? ? 1 : 0
-    self.unit_pretax_amount ||= 0.0
+
+    # Use the unit_amount of purchase_order_item if amount equal to zero
+    if purchase_order_item.present? && self.unit_pretax_amount.zero?
+      self.unit_pretax_amount = purchase_order_item.unit_pretax_amount
+    else
+      self.unit_pretax_amount ||= 0.0
+    end
+
     self.pretax_amount = population * self.unit_pretax_amount
     next if parcel_incoming?
 
     if sale_item
       self.variant = sale_item.variant
-    elsif purchase_item
-      self.variant = purchase_item.variant
+    elsif purchase_order_item
+      self.variant = purchase_order_item.variant
     elsif parcel_outgoing?
       self.variant = source_product.variant if source_product
       self.population = source_product.population if population.nil? || population.zero?
@@ -164,7 +181,8 @@ class ParcelItem < Ekylibre::Record::Base
     unit_pretax_stock_amount
     unit_pretax_amount
     pretax_amount
-    purchase_item_id
+    purchase_order_item_id
+    purchase_invoice_item_id
     sale_item_id
     updated_at
     updater_id
@@ -179,7 +197,7 @@ class ParcelItem < Ekylibre::Record::Base
   end
 
   def trade_item
-    parcel_incoming? ? purchase_item : sale_item
+    parcel_incoming? ? purchase_order_item : sale_item
   end
 
   def stock_amount
@@ -220,8 +238,10 @@ class ParcelItem < Ekylibre::Record::Base
   # Mark items as given, and so change enjoyer and ownership if needed at
   # this moment.
   def give
-    give_outgoing if parcel_outgoing?
-    give_incoming if parcel_incoming?
+    transaction do
+      give_outgoing if parcel_outgoing?
+      give_incoming if parcel_incoming?
+    end
   end
 
   protected
@@ -248,19 +268,20 @@ class ParcelItem < Ekylibre::Record::Base
   end
 
   def give_incoming
-    create_product_movement!(product: product, delta: population, started_at: parcel_given_at, originator: self) unless product_is_unitary?
-    create_product_localization!(product: product, nature: :interior, container: storage, started_at: parcel_given_at, originator: self)
-    create_product_enjoyment!(product: product, enjoyer: Entity.of_company, nature: :own, started_at: parcel_given_at, originator: self)
-    create_product_ownership!(product: product, owner: Entity.of_company, nature: :own, started_at: parcel_given_at, originator: self) unless parcel_remain_owner
+    check_incoming(parcel_prepared_at)
+    ProductMovement.create!(product: product, delta: population, started_at: parcel_given_at, originator: self) unless product_is_unitary?
+    ProductLocalization.create!(product: product, nature: :interior, container: storage, started_at: parcel_given_at, originator: self)
+    ProductEnjoyment.create!(product: product, enjoyer: Entity.of_company, nature: :own, started_at: parcel_given_at, originator: self)
+    ProductOwnership.create!(product: product, owner: Entity.of_company, nature: :own, started_at: parcel_given_at, originator: self) unless parcel_remain_owner
   end
 
   def give_outgoing
     if self.population == source_product.population(at: parcel_given_at) && !parcel_remain_owner
-      create_product_ownership!(product: product, owner: parcel_recipient, started_at: parcel_given_at, originator: self)
-      create_product_localization!(product: product, nature: :exterior, started_at: parcel_given_at, originator: self)
-      create_product_enjoyment!(product: product, enjoyer: parcel_recipient, nature: :other, started_at: parcel_given_at, originator: self)
+      ProductOwnership.create!(product: product, owner: parcel_recipient, started_at: parcel_given_at, originator: self)
+      ProductLocalization.create!(product: product, nature: :exterior, started_at: parcel_given_at, originator: self)
+      ProductEnjoyment.create!(product: product, enjoyer: parcel_recipient, nature: :other, started_at: parcel_given_at, originator: self)
     end
-    create_product_movement!(product: product, delta: -1 * population, started_at: parcel_given_at, originator: self)
+    ProductMovement.create!(product: product, delta: -1 * population, started_at: parcel_given_at, originator: self)
   end
 
   def existing_product_in_storage

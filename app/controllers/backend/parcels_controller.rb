@@ -80,9 +80,9 @@ module Backend
                     .order(planned_at: :desc).first
         @parcel.storage = preceding.storage if preceding
 
-        purchase_order.items.each do |item|
-          @parcel.items.new(purchase_item_id: item.id, quantity: item.quantity, variant: item.variant)
-        end
+        # purchase_order.items.each do |item|
+        #  @parcel.items.new(purchase_item_id: item.id, quantity: item.quantity, variant: item.variant)
+        # end
       end
       t3e(@parcel.attributes.merge(nature: @parcel.nature.text))
       render locals: { with_continue: true }
@@ -121,12 +121,6 @@ module Backend
       else
         notify_error(:some_parcels_are_not_shippable)
         redirect_to(params[:redirect] || { action: :index })
-      end
-    end
-
-    Parcel.state_machine.events.each do |event|
-      define_method event.name do
-        fire_event(event.name)
       end
     end
 

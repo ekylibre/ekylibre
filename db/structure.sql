@@ -2418,7 +2418,7 @@ CREATE TABLE purchase_items (
     id integer NOT NULL,
     purchase_id integer NOT NULL,
     variant_id integer,
-    quantity numeric(19,4) DEFAULT 1.0 NOT NULL,
+    quantity numeric(19,4) NOT NULL,
     pretax_amount numeric(19,4) DEFAULT 0.0 NOT NULL,
     amount numeric(19,4) DEFAULT 0.0 NOT NULL,
     tax_id integer NOT NULL,
@@ -2441,7 +2441,8 @@ CREATE TABLE purchase_items (
     depreciable_product_id integer,
     fixed_asset_id integer,
     preexisting_asset boolean,
-    equipment_id integer
+    equipment_id integer,
+    role character varying
 );
 
 
@@ -2483,7 +2484,8 @@ CREATE TABLE purchases (
     type character varying,
     ordered_at timestamp without time zone,
     command_mode character varying,
-    estimate_reception_date timestamp without time zone
+    estimate_reception_date timestamp without time zone,
+    reconciliation_state character varying
 );
 
 
@@ -4674,7 +4676,7 @@ CREATE TABLE parcel_items (
     id integer NOT NULL,
     parcel_id integer NOT NULL,
     sale_item_id integer,
-    purchase_item_id integer,
+    purchase_invoice_item_id integer,
     source_product_id integer,
     product_id integer,
     analysis_id integer,
@@ -4704,7 +4706,8 @@ CREATE TABLE parcel_items (
     transporter_id integer,
     non_compliant_detail character varying,
     role character varying,
-    equipment_id integer
+    equipment_id integer,
+    purchase_order_item_id integer
 );
 
 
@@ -4770,7 +4773,8 @@ CREATE TABLE parcels (
     responsible_id integer,
     type character varying,
     late_delivery boolean,
-    intervention_id integer
+    intervention_id integer,
+    reconciliation_state character varying
 );
 
 
@@ -13890,10 +13894,10 @@ CREATE INDEX index_parcel_items_on_product_ownership_id ON parcel_items USING bt
 
 
 --
--- Name: index_parcel_items_on_purchase_item_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_parcel_items_on_purchase_invoice_item_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_parcel_items_on_purchase_item_id ON parcel_items USING btree (purchase_item_id);
+CREATE INDEX index_parcel_items_on_purchase_invoice_item_id ON parcel_items USING btree (purchase_invoice_item_id);
 
 
 --
@@ -17337,6 +17341,14 @@ ALTER TABLE ONLY payslip_natures
 
 
 --
+-- Name: fk_rails_7010820bb4; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY parcel_items
+    ADD CONSTRAINT fk_rails_7010820bb4 FOREIGN KEY (purchase_order_item_id) REFERENCES purchase_items(id);
+
+
+--
 -- Name: fk_rails_76eca6ee87; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -18056,7 +18068,17 @@ INSERT INTO schema_migrations (version) VALUES ('20170918093216');
 
 INSERT INTO schema_migrations (version) VALUES ('20170928144444');
 
+INSERT INTO schema_migrations (version) VALUES ('20170929141343');
+
 INSERT INTO schema_migrations (version) VALUES ('20171003135227');
 
 INSERT INTO schema_migrations (version) VALUES ('20171003150635');
+
+INSERT INTO schema_migrations (version) VALUES ('20171011125052');
+
+INSERT INTO schema_migrations (version) VALUES ('20171011132245');
+
+INSERT INTO schema_migrations (version) VALUES ('20171012130905');
+
+INSERT INTO schema_migrations (version) VALUES ('20171025151606');
 

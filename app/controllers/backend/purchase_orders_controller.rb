@@ -112,5 +112,16 @@ module Backend
       @purchase_order.close
       redirect_to action: :show, id: @purchase_order.id
     end
+
+    def reconciliate_modal
+      opened_purchases_orders = PurchaseOrder.with_state(:opened)
+
+      render partial: 'backend/purchase_orders/reconciliate_purchase_orders',
+             locals: {
+               purchase_orders: opened_purchases_orders,
+               reconciliate_item: params[:reconciliate_item],
+               item_field_id: params[:item_field_id]
+             }
+    end
   end
 end

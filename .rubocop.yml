@@ -29,5 +29,8 @@ Metrics/LineLength:
 Lint/AssignmentInCondition:
   Enabled: false
 
+Lint/UnifiedInteger:
+  Enabled: false
+  
 Metrics/MethodLength:
   Max: 60

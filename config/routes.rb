@@ -145,6 +145,11 @@ Rails.application.routes.draw do
 
     # resources :calculators, only: :index
 
+    namespace :cobbles do
+      resource :production_cost_cobble, only: :show
+      resource :stock_in_ground_cobble, only: :show
+    end
+
     namespace :cells do
       resource :accountancy_balance_cell, only: :show
       resource :cashes_balance_cell, only: :show
@@ -584,6 +589,7 @@ Rails.application.routes.draw do
         get :modal
         post :change_state
         get :change_page
+        get :purchase_order_items
       end
       member do
         post :sell
@@ -746,8 +752,9 @@ Rails.application.routes.draw do
 
     resources :receptions, concerns: %i[list unroll] do
       member do
-        post :invoice
         get :list_items
+
+        post :invoice
         post :ship
 
         post :order
@@ -775,7 +782,7 @@ Rails.application.routes.draw do
     resources :shipments, concerns: %i[list unroll] do
       member do
         get :list_items
-
+        post :ship
         post :invoice
         post :ship
         post :order
@@ -818,6 +825,15 @@ Rails.application.routes.draw do
     end
 
     resources :products, concerns: [:products]
+
+    namespace :purchase_process do
+      resources :reconciliation, only: [] do
+        collection do
+          get :purchase_orders_to_reconciliate
+          get :receptions_to_reconciliate
+        end
+      end
+    end
 
     resources :inspections, concerns: %i[list unroll] do
       member do
@@ -891,6 +907,9 @@ Rails.application.routes.draw do
     end
 
     resources :purchase_orders, concerns: %i[list unroll] do
+      collection do
+        get :reconciliate_modal
+      end
       member do
         get :list_items
         post :open
@@ -1074,6 +1093,13 @@ Rails.application.routes.draw do
 
     resources :visuals, only: [] do
       match 'picture(/:style)', via: :get, action: :picture, as: :picture
+    end
+
+    namespace :visualizations do
+      resource :plants_visualizations, only: :show
+      resource :map_cells_visualizations, only: :show
+      resource :land_parcels_visualizations, only: :show
+      resource :resources_visualizations, only: :show
     end
 
     resources :wine_tanks, only: [:index], concerns: [:list]

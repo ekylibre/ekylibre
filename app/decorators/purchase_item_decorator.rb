@@ -16,6 +16,8 @@ class PurchaseItemDecorator < Draper::Decorator
   end
 
   def merchandise_stock_after_order
+    return 0 if object.quantity.nil?
+
     merchandise_current_stock + object.quantity
   end
 

@@ -157,6 +157,10 @@ eng:
       index: "Price catalogs"
       new: "New catalog"
       show: "Catalog: %{name}"
+    backend/cobbles/production_cost_cobbles:
+      # show: "Production cost cobble: %{name}"
+    backend/cobbles/stock_in_ground_cobbles:
+      # show: "Stock in ground cobble: %{name}"
     backend/companies:
       edit: "Company settings"
     backend/contracts:
@@ -390,6 +394,7 @@ eng:
       new_specified: "New %{procedure_name}" #?
       new_specified_request: "New requested %{procedure_name}" #?
       # purchase: "Purchase intervention: %{name}"
+      # purchase_order_items: "Purchase order items intervention: %{name}"
       # sell: "Sell intervention: %{name}"
       show: "%{procedure_name}"
     backend/inventories:
@@ -517,15 +522,10 @@ eng:
       new: "New disbursement"
       show: "Disbursement: %{name}"
     backend/parcels:
-      # cancel: "Cancel parcel: %{name}"
-      # check: "Check parcel: %{name}"
       edit: "Edit %{nature} parcel: %{number}" #?
-      # give: "Give parcel: %{name}"
       index: "Parcels"
       # invoice: "Invoice parcel: %{name}"
       new: "New parcel"
-      # order: "Order parcel: %{name}"
-      # prepare: "Prepare parcel: %{name}"
       ship: "Ship parcels"
       show: "%{nature} parcel: %{number}"
     backend/payslip_affairs:
@@ -650,12 +650,20 @@ eng:
       # index: "Purchase orders"
       # new: "New purchase order"
       # open: "Open purchase order: %{name}"
+      # reconciliate_modal: "Reconciliate modal purchase order: %{name}"
       # show: "Purchase order: %{name}"
     backend/purchase_payments:
       edit: "Edit disbursement: %{number}"
       index: "Disbursements"
       new: "New disbursement"
       show: "Disbursement %{number} for %{payee}"
+    backend/purchase_process/reconciliation:
+      # edit: "Edit reconciliation: %{name}"
+      # index: "Reconciliation"
+      # new: "New reconciliation"
+      # purchase_orders_to_reconciliate: "Purchase orders to reconciliate reconciliation: %{name}"
+      # receptions_to_reconciliate: "Receptions to reconciliate reconciliation: %{name}"
+      # show: "Reconciliation: %{name}"
     backend/purchases:
       abort: "Abort" #?
       confirm: "Confirm order and wait for deliveries" #?
@@ -676,15 +684,15 @@ eng:
     backend/quick_sales:
       new: "New Sale/Incoming payment"
     backend/receptions:
-      cancel: "Cancel reception: %{name}"
-      check: "Check reception: %{name}"
+      cancel: "Cancel reception: %{name}" #?
+      check: "Check reception: %{name}" #?
       edit: "Edit reception: %{name}"
       give: "Give reception: %{name}"
       index: "Receptions"
       invoice: "Invoice reception: %{name}"
       new: "New reception"
-      order: "Order reception: %{name}"
-      prepare: "Prepare reception: %{name}"
+      order: "Order reception: %{name}" #?
+      prepare: "Prepare reception: %{name}" #?
       ship: "Ship reception: %{name}"
       show: "Reception: %{name}"
     backend/registrations:
@@ -867,6 +875,14 @@ eng:
       new: "New user"
       show: "User: %{first_name} %{last_name}"
       unlock: "Unlock user"
+    backend/visualizations/land_parcels_visualizations:
+      # show: "Land parcels visualization: %{name}"
+    backend/visualizations/map_cells_visualizations:
+      # show: "Map cells visualization: %{name}"
+    backend/visualizations/plants_visualizations:
+      # show: "Plants visualization: %{name}"
+    backend/visualizations/resources_visualizations:
+      # show: "Resources visualization: %{name}"
     backend/wine_tanks:
       index: "Wine tanks"
     backend/workers:
@@ -985,6 +1001,8 @@ eng:
       zoomInTitle: "Zoom in"
       zoomOutTitle: "Zoom out"
   labels:
+    accepted: "Accepted"
+    accepted_for_paiment: "Accepted for paiment"
     access: "Access"
     access_parameters: "Access parameters"
     account_for: "Account for"
@@ -1060,12 +1078,14 @@ eng:
     add_purchase_taxation: "Add purchase taxation"
     add_quickly_an_item: "Add quickly a line of product"
     add_reading: "Add a value for an indicator"
+    add_reception: "Add reception"
     add_regularization: "Add regularization"
     add_revenue: "Add revenue"
     add_sale: "Add sale"
     add_sale_taxation: "Add sale taxation"
     add_season: "Add season"
     add_service: "Add service"
+    add_service_delivering: "Add service delivering"
     add_storing: "Add storing"
     add_subscription_for_sale_line: "Add subscription for sale line #%{position}"
     add_support: "Add support"
@@ -1327,6 +1347,7 @@ eng:
     edit_budget: "Edit budget"
     ekylibre: "www.ekylibre.org" #?
     elapsed_interventions_times_by_activities: "Elapsed interventions times by activities" #?
+    element_status: "Status"
     email: "Email:" #?
     emissions_and_reevaluation_gaps: "Emissions and reevaluation gaps" #?!
     employee_and_wages: "Employee and wages" #?!
@@ -1373,6 +1394,7 @@ eng:
     export_as_csv: "Export as CSV"
     export_as_ods: "Export as ODS"
     export_as_xcsv: "Export as Excel CSV"
+    fees: "Fees" #?
     field_distribution: "Field distribution"
     file_nature: "File type"
     file_preview: "Preview" #?
@@ -1644,10 +1666,11 @@ eng:
     # no_worker_account: "No worker account"
     nominal_storable_easement_area: "Nominal storable easement area"
     non_compliant: "Non compliant"
-    non_compliant_with_request: "Non compliant with request"
+    non_compliant_with_request: "Non compliant with request" #?!
     none: "None"
     normal: "Normal" #?
     not_delivered: "Not delivered" #?
+    not_informed: "Not informed"
     not_letterable: "Not able to letter"
     not_ready: "Not ready"
     not_received: "Not received" #?
@@ -1667,6 +1690,7 @@ eng:
     operations: "Operations" #?
     options: "Options"
     or: "Or"
+    # order: "Order"
     organic_matter_concentration: "Organic matter concentration" #?
     original_component: "original"
     other_debts: "Other debts" #?!
@@ -1782,11 +1806,16 @@ eng:
     received: "Received" #?
     receiving_address: "Receiving address"
     recent_events: "Recent events"
+    reception: "Reception"
     reception_incident: "Reception incident"
     reception_number: "Reception number"
     receptions: "Receptions"
+    reconcile: "Reconcile"
+    reconciliate_with_purchases_orders: "Reconciliate with purchases orders"
+    reconciliate_with_receptions: "Reconciliate with receptions"
     record: "Record" #?
     record_maintenance: "Record maintenance"
+    reference_supplier: "Reference supplier : %{reference_number}"
     reflect: "Reflect" #?
     reflected: "Reflected changes" #?
     reflections: "Reflections" #?
@@ -1857,6 +1886,8 @@ eng:
     send_test_mail: "Send test mail"
     sensor_model: "Sensor model"
     sensors: "Sensors" #?
+    service: "Service" #?
+    service_delivering: "Service delivering"
     sessions: "Sessions" #?
     set_reconcilable_new_but_existing_third_accounts: "Set reconcilable the new but existing third accounts (clients, suppliers and attorneys)" #?
     settings: "Settings"
@@ -1910,6 +1941,7 @@ eng:
     supplier_informations: "Supplier informations"
     supplier_payment_mode: "Supplier payment mode"
     supplier_receivables: "Supplier receivables" #?!
+    supplier_reference: "Supplier reference"
     supply: "Supply" #?
     support: "Support" #?
     supports: "Supports" #?
@@ -1946,6 +1978,7 @@ eng:
     to_deposit_now: "To deposit now" #?
     to_pay: "To pay"
     to_reclaim: "To reclaim"
+    to_reconciliate: "To reconciliate"
     today: "Today" #?
     tool_cost: "Tool cost"
     tools: "Tools"
@@ -2470,10 +2503,14 @@ eng:
       propose_and_invoice: "Propose and invoice"
       prospect: "Prospect"
       purchase: "Turn into purchase"
+      # purchase_order_items: "Purchase order items"
+      # purchase_orders_to_reconciliate: "Purchase orders to reconciliate"
       qualify: "Qualify"
       # quantifiers: "Quantifiers"
       quote: "Quote"
+      # receptions_to_reconciliate: "Receptions to reconciliate"
       # reconciliate: "Reconciliate"
+      # reconciliate_modal: "Reconciliate modal"
       reconciliation: "Reconciliate"
       reflect: "Reflect"
       refresh: "Refresh"

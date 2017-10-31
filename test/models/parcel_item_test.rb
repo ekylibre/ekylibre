@@ -44,7 +44,8 @@
 #  product_movement_id           :integer
 #  product_name                  :string
 #  product_ownership_id          :integer
-#  purchase_item_id              :integer
+#  purchase_invoice_item_id      :integer
+#  purchase_order_item_id        :integer
 #  role                          :string
 #  sale_item_id                  :integer
 #  shape                         :geometry({:srid=>4326, :type=>"multi_polygon"})
@@ -61,11 +62,20 @@ require 'test_helper'
 
 class ParcelItemTest < ActiveSupport::TestCase
   test_model_actions
-  # Add tests here...
 
-  test 'parcel item have a valid factory' do
-    parcel_item = build(:outgoing_parcel_item)
-    assert parcel_item.valid?
+  test "give doesn't create the dependent records if there is an exception during the process" do
+    product = create(:product)
+    parcel_item = create(:parcel_item, product: product, product_identification_number: '12345678', product_name: 'Product name')
+    ProductMovement.destroy_all
+    ProductLocalization.destroy_all
+    ProductEnjoyment.stub :create!, ->(*_args) { raise } do
+      begin
+        parcel_item.give
+      rescue
+      end
+      assert_empty ProductMovement.all
+      assert_empty ProductLocalization.all
+    end
   end
 
   test 'parcel_item without population give take the population of the source_product population' do

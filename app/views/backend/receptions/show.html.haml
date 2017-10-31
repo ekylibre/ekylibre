@@ -1,3 +1,8 @@
+= content_for(:heading_toolbar) do
+  = reconciliation_state_title(@reception)
+  - if @reception.in_accident?
+    %h2.global-incident-warning{ data: { warn_if_checked: :reception_incident.tl } }
+
 - main_toolbar do |t|
   = t.edit resource if resource.updateable?
   = t.ship resource, method: :post if resource.shippable?
@@ -19,7 +24,7 @@
     - l.attribute :delivery_mode
     - l.attribute :delivery, url: true
     -# l.attribute :net_mass
-    - l.attribute :purchase, url: true
+    -# l.attribute :purchase, url: true
     - l.attribute :address
     - if resource.delivery_mode_transporter?
       - l.attribute :transporter, url: true

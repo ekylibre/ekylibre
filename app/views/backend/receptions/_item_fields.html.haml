@@ -30,6 +30,7 @@
         %span{ data: { item_value: "span.storage-unit-name" } }= f.object.variant ? f.object.variant.unit_name : '#'
     %td.delivery-mode-column
       %label{ data: { item_value: "input.item-delivery-mode:checked" } }= f.object.delivery_mode if f.object.delivery_mode != "none"
+
   %tr.nested-item-form
     %td.cell-form{colspan: 6}
       .item-form
@@ -39,13 +40,21 @@
         - classes = " fees" if f.object.role == 'fees'
         .form-block{ class: classes }
           = f.input :role, as: :hidden
-          = f.input :purchase_item_id, as: :hidden
 
           .item-block.merchandise
             - if f.object.role == 'merchandise'
               = f.referenced_association(:variant, label: :merchandise.tl, source: { scope: :stockables_or_depreciables }, input_html: { class: 'parcel-item-variant', data: { product_of_delivery_item: {url: backend_product_nature_variant_path("RECORD_ID", format: :json), scope: 'unit'}, required: true }})
+
+              - display = ""
+              - display = "display: none;" unless variant.identifiable?.or_else(false)
+              .unitary-variant-fields{style: display, data: {"when-item": "identifiable", "when-display-value": 'true', "when-scope": 'unit'}}
+                = f.input :name, wrapper: :nested_append do
+                  = f.input_field :product_name, placeholder: ParcelItem.human_attribute_name(:product_name)
+                = f.input :identification_number, wrapper: :nested_append do
+                  = f.input_field :product_identification_number, placeholder: ParcelItem.human_attribute_name(:product_identification_number)
+
             - elsif f.object.role == 'service' || f.object.role == 'fees'
-              = f.referenced_association(:variant, label: :merchandise.tl, source: { scope: :services }, input_html: { class: 'parcel-item-variant', data: { product_of_delivery_item: {url: backend_product_nature_variant_path("RECORD_ID", format: :json), scope: 'unit'}, required: true }})
+              = f.referenced_association(:variant, label: f.object.role.tl, source: { scope: :services }, input_html: { class: 'parcel-item-variant', data: { product_of_delivery_item: {url: backend_product_nature_variant_path("RECORD_ID", format: :json), scope: 'unit'}, required: true }})
 
             - if f.object.role == 'merchandise' || f.object.role == 'service'
               .non-compliant
@@ -89,8 +98,15 @@
                     = variant.unit_name.or_else('#')
 
         .form-field.second-row
+          = f.input :purchase_order_item_id, as: :hidden, input_html: { class: "purchase-item-attribute" }
           .item-form
-            = f.referenced_association(:equipment, label: :equipment.tl, source: {scope: :tools}, input_html: {data: { remember: 'equipment'}})
+            .control-group.reconciliation-item-state-block
+              %label.reconciliation-item-state= :element_status.tl
+              %span.purchase-process-reconciliation.reconciliation-state.no-reconciliate-state= :to_reconciliate.tl
+              %span.purchase-process-reconciliation.reconciliation-state.reconcile-state.hidden= :reconcile.tl
+            .equipment_and_reconciliate
+              = f.referenced_association :equipment, source: :tools, label: :equipment.tl, input_html: {data: { remember: 'equipment'}}
+              = button_tag :reconciliate_with_purchases_orders.tl, id: 'showItemReconciliationModal', class: 'btn btn-default', type: :button
 
         .buttons
           %button.btn{ data: { cancel: 'item-form' } }= :cancel.tl

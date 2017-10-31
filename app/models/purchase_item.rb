@@ -40,8 +40,9 @@
 #  preexisting_asset      :boolean
 #  pretax_amount          :decimal(19, 4)   default(0.0), not null
 #  purchase_id            :integer          not null
-#  quantity               :decimal(19, 4)   default(1.0), not null
+#  quantity               :decimal(19, 4)   not null
 #  reduction_percentage   :decimal(19, 4)   default(0.0), not null
+#  role                   :string
 #  tax_id                 :integer          not null
 #  team_id                :integer
 #  unit_amount            :decimal(19, 4)   default(0.0), not null
@@ -58,24 +59,32 @@ class PurchaseItem < Ekylibre::Record::Base
   belongs_to :activity_budget
   belongs_to :team
   belongs_to :purchase, inverse_of: :items
-  belongs_to :equipment, class_name: 'ProductNatureVariant', inverse_of: :purchase_items
+  belongs_to :equipment, class_name: 'Product', inverse_of: :purchase_items
   belongs_to :variant, class_name: 'ProductNatureVariant', inverse_of: :purchase_items
   belongs_to :tax
   belongs_to :fixed_asset, inverse_of: :purchase_items
   belongs_to :depreciable_product, class_name: 'Product'
-  has_many :parcel_items
-  has_many :products, through: :parcel_items
+
+  with_options class_name: 'ParcelItem' do
+    has_many :parcels_purchase_orders_items, inverse_of: :purchase_order_item, foreign_key: 'purchase_order_item_id'
+    has_many :parcels_purchase_invoice_items, inverse_of: :purchase_invoice_item, foreign_key: 'purchase_invoice_item_id'
+  end
+
+  # has_many :products, through: :parcels_purchase_orders_items
+  has_many :products, through: :parcels_purchase_invoice_items
   has_one :product_nature_category, through: :variant, source: :category
+
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :amount, :pretax_amount, :quantity, :reduction_percentage, :unit_amount, :unit_pretax_amount, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
   validates :annotation, :label, length: { maximum: 500_000 }, allow_blank: true
   validates :account, :currency, :purchase, :tax, presence: true
   validates :fixed, inclusion: { in: [true, false] }
   validates :preexisting_asset, inclusion: { in: [true, false] }, allow_blank: true
+  validates :role, length: { maximum: 500 }, allow_blank: true
   # ]VALIDATORS]
   validates :currency, length: { allow_nil: true, maximum: 3 }
   validates :account, :tax, :reduction_percentage, presence: true
-  validates :variant, presence: true
+  validates :variant, presence: true, unless: proc { |item| item.variant.variety.eql?('trailed_equipment') || item.variant.variety.eql?('equipment') }
   validates_associated :fixed_asset
 
   delegate :invoiced_at, :journal_entry, :number, :computation_method, :computation_method_quantity_tax?, :computation_method_tax_quantity?, :computation_method_adaptative?, :computation_method_manual?, to: :purchase
@@ -199,7 +208,15 @@ class PurchaseItem < Ekylibre::Record::Base
       expenses_account: variant.fixed_asset_expenses_account, # 68
       product: depreciable_product
     }
-    asset_name = parcel_items.collect(&:name).to_sentence if products.any?
+
+    if products.any?
+      asset_name = if !parcels_purchase_orders_items.empty?
+                     parcels_purchase_orders_items.collect(&:name).to_sentence
+                   else
+                     parcels_purchase_invoice_items.collect(&:name).to_sentence
+                   end
+    end
+
     asset_name ||= name
     name_duplicate_count = FixedAsset.where('name ~ ?', "^#{Regexp.escape(name)} ?\\d*$").count
     unless name_duplicate_count.zero?
@@ -247,7 +264,11 @@ class PurchaseItem < Ekylibre::Record::Base
   end
 
   def undelivered_quantity
-    self.quantity - parcel_items.sum(:quantity)
+    if !parcels_purchase_orders_items.empty?
+      self.quantity - parcels_purchase_orders_items.sum(&:quantity)
+    else
+      self.quantity - parcels_purchase_invoice_items.sum(&:quantity)
+    end
   end
 
   # know how many percentage of invoiced VAT to declare
