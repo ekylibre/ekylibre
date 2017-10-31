@@ -446,23 +446,6 @@
         <page to="backend/purchase_gaps#list_items"/>
         <page to="backend/purchase_gaps#show"/>
       </item>
-      <item name="contracts">
-        <page to="backend/contracts#index"/>
-        <page to="backend/contracts#create"/>
-        <page to="backend/contracts#destroy"/>
-        <page to="backend/contracts#edit"/>
-        <page to="backend/contracts#list"/>
-        <page to="backend/contracts#list_items"/>
-        <page to="backend/contracts#list_parcels"/>
-        <page to="backend/contracts#lose"/>
-        <page to="backend/contracts#negociate"/>
-        <page to="backend/contracts#new"/>
-        <page to="backend/contracts#prospect"/>
-        <page to="backend/contracts#quote"/>
-        <page to="backend/contracts#show"/>
-        <page to="backend/contracts#update"/>
-        <page to="backend/contracts#win"/>
-      </item>
     </group>
     <group name="payments" icon="credit-card">
       <item name="outgoing_payments">
