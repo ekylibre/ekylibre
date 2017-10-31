@@ -14,8 +14,9 @@
   $.checkDate = (e) ->
     current_date = new Date(e.date || e.val())
     alert_span = $('.apply-fy-date .controls #financial-year-dates')
-    started_date = new Date(alert_span.data().startedOn)
-    stopped_date = new Date(alert_span.data().stoppedOn)
+
+    started_date = new Date(alert_span.data('startedOn'))
+    stopped_date = new Date(alert_span.data('stoppedOn'))
 
     if(!isNaN(current_date))
       if(started_date <= current_date && current_date <= stopped_date)
