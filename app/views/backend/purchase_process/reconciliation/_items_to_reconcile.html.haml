@@ -5,7 +5,7 @@
 .modal-body
   .purchase-orders
     .list-headers
-      %span.list-header.reception= :reception.tl
+      %span.list-header.form-name= purchase_orders ? :reception.tl : :order.tl
       %span.list-header= :quantity.tl
       %span.list-header= :unit_amount.tl
       %span.list-header= :total_amount_without_taxes.tl
