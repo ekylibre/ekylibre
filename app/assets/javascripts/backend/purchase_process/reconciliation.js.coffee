@@ -52,8 +52,13 @@
     modal = $(event.target).closest('#purchase_process_reconciliation')
 
     if validButton.attr('data-item-reconciliation') != undefined
+      # Reconciliation on line
       E.reconciliation.reconciliateItems(modal)
+      itemCheckbox = $(modal).find('.item-checkbox:checked')
+      isPurchaseOrderModal = $('#purchase-orders').val()
+      E.reconciliation._fillNewLineForm(itemCheckbox, isPurchaseOrderModal)
     else
+      # Reconciliation on form
       E.reconciliation.createLinesWithSelectedItems(modal, event)
 
     E.reconciliation.displayReconciliateState(event)
