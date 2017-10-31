@@ -1309,6 +1309,7 @@ eng:
     recommended: "Recommended" #?
     recommender: "Recommender"
     reconcilable: "Reconcilable"
+    reconciliation_state: "Reconciliation state" #?
     record_interventions: "Record interventions"
     record_value: "Record value"
     record_value_type: "Record value type"
