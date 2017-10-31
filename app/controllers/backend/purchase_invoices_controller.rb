@@ -121,7 +121,7 @@ module Backend
 
     def create
       if permitted_params[:items_attributes].present?
-        permitted_params[:items_attributes].each do |key, item_attribute|
+        permitted_params[:items_attributes].each do |_key, item_attribute|
           ids = item_attribute[:parcels_purchase_invoice_items]
           parcel_item_ids = ids.blank? ? [] : JSON.parse(ids)
           item_attribute[:parcels_purchase_invoice_items] = ParcelItem.find(parcel_item_ids)

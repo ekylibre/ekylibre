@@ -10,7 +10,7 @@ class ReadingsCoder
                     .tap { |h| h[FalseClass]           = proc { |_, _| false                          } }
                     .tap { |h| h[TrueClass]            = proc { |_, _| true                           } }
                     .tap { |h| h[Integer]              = proc { |_, value| value.to_i } }
-                    .tap { |h| h[String]               = proc { |_, value| value                      } }
+                    .tap { |h| h[String]               = proc { |_, value| value } }
                     .tap { |h| h[Bignum]               = proc { |_, value| value.to_i } }
                     .tap { |h| h[Fixnum]               = proc { |_, value| value.to_i } }
                     .tap { |h| h[Float]                = proc { |_, value| value.to_f } }

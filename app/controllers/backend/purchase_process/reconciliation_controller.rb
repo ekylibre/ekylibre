@@ -39,7 +39,6 @@ module Backend
       private
 
       def items_to_reconcile(models, purchase_orders: true)
-
         render partial: 'backend/purchase_process/reconciliation/items_to_reconcile',
                locals: {
                  models: models,
