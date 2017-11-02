@@ -22,6 +22,7 @@
 #
 # == Table: products
 #
+#  activity_production_id       :integer
 #  address_id                   :integer
 #  birth_date_completeness      :string
 #  birth_farm_number            :string
@@ -108,13 +109,13 @@ class Product < Ekylibre::Record::Base
   belongs_to :person, -> { contacts }, class_name: 'Entity'
   belongs_to :tracking
   belongs_to :variant, class_name: 'ProductNatureVariant'
+  # belongs_to :production, class_name: 'ActivityProduction'
+  belongs_to :activity_production
   has_many :activity_productions, foreign_key: :support_id
   has_many :analyses, class_name: 'Analysis', dependent: :restrict_with_exception
   has_many :carrier_linkages, class_name: 'ProductLinkage', foreign_key: :carried_id, dependent: :destroy
   has_many :content_localizations, class_name: 'ProductLocalization', foreign_key: :container_id
   has_many :contents, class_name: 'Product', through: :content_localizations, source: :product
-  has_many :distributions, class_name: 'TargetDistribution', foreign_key: :target_id, inverse_of: :target, dependent: :destroy
-  has_many :distributed_on_productions, class_name: 'ActivityProduction', through: :distributions, source: :activity_production, dependent: :destroy
   has_many :enjoyments, class_name: 'ProductEnjoyment', foreign_key: :product_id, dependent: :destroy
   has_many :fixed_assets, inverse_of: :product
   # has_many :groups, :through => :memberships
@@ -207,7 +208,7 @@ class Product < Ekylibre::Record::Base
   }
 
   scope :of_production, lambda { |production|
-    where(id: TargetDistribution.select(:target_id).where(activity_production: production))
+    where(activity_production: production)
   }
   scope :of_productions, lambda { |*productions|
     of_productions(productions.flatten)
@@ -411,8 +412,8 @@ class Product < Ekylibre::Record::Base
     end
   end
 
-  def production(at = nil)
-    distributions.at(at || Time.zone.now).first
+  def production(_at = nil)
+    activity_production
   end
 
   def activity
@@ -424,7 +425,7 @@ class Product < Ekylibre::Record::Base
   end
 
   def best_activity_production(_options = {})
-    ActivityProduction.where(support: self).order(id: :desc).first
+    activity_production
   end
 
   # TODO: Removes this ASAP
