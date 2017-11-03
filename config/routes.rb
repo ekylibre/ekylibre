@@ -147,6 +147,7 @@ Rails.application.routes.draw do
 
     namespace :cobbles do
       resource :production_cost_cobble, only: :show
+      resource :stock_in_ground_cobble, only: :show
     end
 
     namespace :cells do
@@ -232,7 +233,6 @@ Rails.application.routes.draw do
     resources :activity_productions, concerns: [:unroll] do
       member do
         get :list_interventions
-        get :list_target_distributions
       end
     end
 
@@ -792,7 +792,7 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :products, concerns: [:products]
+    resources :products, concerns: %i[products many]
 
     resources :inspections, concerns: %i[list unroll] do
       member do
@@ -971,11 +971,6 @@ Rails.application.routes.draw do
     resources :synchronizations, only: [:index] do
       member do
         post :run
-      end
-    end
-    resources :target_distributions, concerns: %i[list many], path: 'target-distributions' do
-      collection do
-        get :list_intervention_product_parameters
       end
     end
 
