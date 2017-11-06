@@ -7,12 +7,14 @@ variables:
   POSTGRES_USER: username
   POSTGRES_PASSWORD: ""
 before_script:
-  - apt-get update -qq && apt-get install -y -qq postgresql postgresql-contrib libpq-dev cmake
+  - sudo apt-get install -qy -f -qq postgresql-9.6-postgis-2.3 graphicsmagick tesseract-ocr tesseract-ocr-fra tesseract-ocr-eng tesseract-ocr-spa pdftk libreoffice poppler-utils poppler-data qt5-default libqt5webkit5-dev gstreamer1.0-x gstreamer1.0-tools gstreamer1.0-plugins-base libgeos-dev libproj-dev
+  # - apt-get update -qq && apt-get install -y -qq postgresql postgresql-contrib libpq-dev cmake
   - ruby -v
   - which ruby
   - gem install bundler --no-ri --no-rdoc
+  - RAILS_ENV=test bundle update active_list
   - RAILS_ENV=test bundle install --full-index --jobs $(nproc) "${FLAGS[@]}"
-  - cp config/database.yml.sample config/database.yml
+  - cp config/database-gitlab.yml config/database.yml
   - RAILS_ENV=test bundle exec rake db:create db:migrate
 test:
   script:
