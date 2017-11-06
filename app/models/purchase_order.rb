@@ -66,7 +66,7 @@ class PurchaseOrder < Purchase
     state :opened
     state :closed
     event :open do
-      transition estimate: :opened
+      transition all => :opened
     end
     event :close do
       transition opened: :closed
