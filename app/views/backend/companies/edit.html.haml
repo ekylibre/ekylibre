@@ -1,4 +1,4 @@
-= backend_form_for(resource, url: backend_company_path) do |f|
+= backend_form_for(resource, url: backend_company_path, html: { class: 'company-edit-form', 'data-confirm-account-digits' => :are_you_sure_you_want_to_change_account_digits.tl }) do |f|
   - if params[:redirect]
     = hidden_field_tag(:redirect, params[:redirect])
   - f.add(:submit, :update.tl, data: {disable_with: :please_wait.tl}, class: 'primary')
