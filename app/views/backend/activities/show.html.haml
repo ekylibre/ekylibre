@@ -6,7 +6,7 @@
   - if current_campaign && resource.productions.of_campaign(current_campaign).empty?
     = tool_to(:close.ta, { controller: :campaigns, action: :close, id: current_campaign.id, activity_id: resource.id, redirect: url_for(controller: :campaigns, action: :show, id: current_campaign.id) }, method: :delete, data: { confirm: :are_you_sure.tl }, tool: :remove)
   - if resource.productions.any? && Product.of_variety(resource.cultivation_variety, resource.support_variety).any?
-    = tool_to(:distribute_unaffected_products.tl, { controller: :target_distributions, action: :edit_many, activity_id: resource.id }, icon: false)
+    = tool_to(:distribute_unaffected_products.tl, { controller: :products, action: :edit_many, activity_id: resource.id }, icon: false)
 
 - main_period_selector(:year)
 
@@ -84,36 +84,10 @@
       = pie_highcharts(series, legend: true)
 
   - if resource.inspectionable?
-    - dimension       = resource.unit_preference(current_user)
-    - last_inspection = resource.inspections.last
-    - measure_symbol  = Nomen::Unit.find(last_inspection.user_quantity_unit(dimension)).symbol
-    - yield_symbol    = Nomen::Unit.find(last_inspection.user_per_area_unit(dimension)).symbol
-
-    - c.cobble(:stock_in_ground) do
+    - dimension  = resource.unit_preference(current_user)
+    - async_cobble :stock_in_ground, params: { id: resource.id, dimension: dimension }, cobble: c  do
       = render 'backend/inspections/unit_selector', activity: resource
-      .chart-table
-        - resource.inspection_calibration_scales.each do |scale|
-          - if InspectionCalibration.where(nature: scale.natures).exists?
-            - base_series = caliber_series(dimension, scale, resource.inspections)
-            - stock_series = base_series[:stock]
-            - yield_series = base_series[:yield]
 
-            - calibrations = InspectionCalibration.joins(inspection: :activity).where('activity_id = ?', resource.id)
-            - if calibrations.merge(InspectionCalibration.of_scale(scale)).exists?
-              - stock_chart = column_highcharts(stock_series, chart_style(:stock_in_ground_by_calibration_x.tl(x: scale.name), measure_symbol))
-              - yield_chart = column_highcharts(yield_series, chart_style(:yield_by_calibration_x.tl(x: scale.name), yield_symbol))
-
-            - if resource.inspection_point_natures.any? && calibrations.exists?
-              - evolt_series = spline_series(dimension, resource.inspections)
-              - x_labels     = spline_categories(resource.inspections).map(&:l)
-              - chart_style  = chart_style(:unmarketable_inspection_categories_evolution.tl, '%').merge(plot_options: {}, x_axis: { categories: x_labels })
-              - evolt_chart  = spline_highcharts(evolt_series, chart_style)
-
-            - unless [stock_chart, yield_chart, evolt_chart].compact.blank?
-              .chart-line
-                - [stock_chart, yield_chart, evolt_chart].each do |chart|
-                  .chart-cell
-                    = chart
 
     - c.cobble(:inspections) do
       = cobble_list :inspections

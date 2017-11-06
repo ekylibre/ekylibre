@@ -232,6 +232,43 @@ module Backend
       render json: value
     end
 
+    def edit_many
+      activity = Activity.find_by(id: params[:activity_id]) if params[:activity_id]
+      targetable_products = Product.where(type: %w[Plant LandParcel Animal])
+
+      @targets = activity.present? ? targetable_products.where(activity_production_id: activity.productions.pluck(:id).push(nil)) : targetable_products
+      @targets = @targets.order(:activity_production_id)
+
+      @activity_productions = ActivityProduction.all
+      @activity_productions = @activity_productions.of_activity(activity) if activity
+    end
+
+    def update_many
+      activity = Activity.find_by(id: params[:activity_id]) if params[:activity_id]
+      @activity_productions = ActivityProduction.all
+      @activity_productions = @activity_productions.of_activity(activity) if activity
+      saved = true
+      @targets = if params[:target_distributions]
+                   params[:target_distributions].map do |_id, target_distribution|
+                     product = Product.find(target_distribution[:target_id])
+                     activity_production_id = target_distribution[:activity_production_id]
+                     if activity_production_id.empty? && product.activity_production_id.present?
+                       saved = false unless product.update(activity_production_id: nil)
+                     elsif !activity_production_id.empty? && product.activity_production_id != activity_production_id.to_i
+                       saved = false unless product.update(activity_production_id: activity_production_id)
+                     end
+                     product
+                   end.sort { |a, b| a.activity_production_id <=> b.activity_production_id || (b.activity_production_id && 1) || -1 }
+                 else
+                   []
+                 end
+      if saved
+        redirect_to params[:redirect] || backend_activities_path
+      else
+        render 'edit_many'
+      end
+    end
+
     protected
 
     def check_variant_availability

@@ -559,6 +559,7 @@ fra:
       show: "Production\_: %{name}" #?
     backend/products:
       edit: "Modifier un produit"
+      edit_many: "Distribuer les produits non affectés"
       index: "Produits"
       new: "Créer un produit"
       show: "%{nature}\_: %{name}"
@@ -670,12 +671,12 @@ fra:
       index: "Synchronisations"
       run: "Lancer une synchronization: %{name}"
       show: "Synchronisation: %{name}" #?
-    backend/target_distributions:
-      edit: "Modifier la répartition:"
-      edit_many: "Distribuer les produits non affectés"
-      index: "Répartitions"
-      new: "Nouvelle répartition"
-      show: "Répartition:"
+    backend/target_distributions: #?
+      edit: "Modifier la répartition:" #?
+      edit_many: "Distribuer les produits non affectés" #?
+      index: "Répartitions" #?
+      new: "Nouvelle répartition" #?
+      show: "Répartition:" #?
     backend/tasks:
       edit: "Modifier la tâche\_: %{name}"
       index: "Tâches"
@@ -2789,7 +2790,7 @@ fra:
       set: "Définir" #?
       ship: "Expédier"
       show: "Afficher"
-      # show_export_preview: "View a preview of the document (may increase loading time)"
+      show_export_preview: "Afficher un aperçu du document (peut augmenter le temps de chargement)"
       sort: "Trier"
       star: "Étoile"
       start: "Commencer"

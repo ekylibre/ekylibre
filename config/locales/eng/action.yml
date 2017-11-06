@@ -67,10 +67,12 @@ eng:
       new: "New analysis item"
     backend/animal_groups:
       edit: "Edit animal group: %{name}"
+      # edit_many: "Edit many animal group: %{name}"
       index: "Animal groups"
       new: "New animal group"
       show: "Animal group: %{name}"
       # take: "Take animal group: %{name}"
+      # update_many: "Update many animal group: %{name}"
     backend/animals:
       # add_group: "Add group animal: %{name}"
       # add_to_container: "Add to container animal: %{name}"
@@ -78,6 +80,7 @@ eng:
       # add_to_variant: "Add to variant animal: %{name}"
       # change: "Change animal: %{name}"
       edit: "Edit animal: %{name}"
+      # edit_many: "Edit many animal: %{name}"
       index: "Animals"
       # keep: "Keep animal: %{name}"
       # load_animals: "Load animals animal: %{name}"
@@ -85,6 +88,7 @@ eng:
       new: "New animal"
       show: "%{nature}: %{name}"
       # take: "Take animal: %{name}"
+      # update_many: "Update many animal: %{name}"
     backend/attachments:
       # show: "Attachment: %{name}"
     backend/bank_reconciliation/items:
@@ -104,16 +108,20 @@ eng:
       reset: "Reset beehive: %{name}"
     backend/building_divisions:
       edit: "Edit building division: %{name}"
+      # edit_many: "Edit many building division: %{name}"
       index: "Building divisions"
       new: "New building division"
       show: "Building division: %{name}"
       # take: "Take building division: %{name}"
+      # update_many: "Update many building division: %{name}"
     backend/buildings:
       edit: "Edit building: %{name}"
+      # edit_many: "Edit many building: %{name}"
       index: "Buildings"
       new: "New building"
       show: "Building: %{name}"
       # take: "Take building: %{name}"
+      # update_many: "Update many building: %{name}"
     backend/campaigns:
       # close: "Close campaign: %{name}"
       current: "Campaign"
@@ -159,6 +167,8 @@ eng:
       show: "Catalog: %{name}"
     backend/cobbles/production_cost_cobbles:
       # show: "Production cost cobble: %{name}"
+    backend/cobbles/stock_in_ground_cobbles:
+      # show: "Stock in ground cobble: %{name}"
     backend/companies:
       edit: "Company settings"
     backend/contracts:
@@ -260,10 +270,12 @@ eng:
       # show: "Entity link: %{name}"
     backend/equipments:
       edit: "Edit equipment: %{name}"
+      # edit_many: "Edit many equipment: %{name}"
       index: "Equipment"
       new: "New equipment"
       show: "Equipment: %{name}"
       # take: "Take equipment: %{name}"
+      # update_many: "Update many equipment: %{name}"
     backend/event_participations:
       edit: "Edit participation: %{participant_name}"
       # index: "Event participations"
@@ -308,10 +320,12 @@ eng:
       # start_up: "Start up fixed asset: %{name}"
     backend/fungi:
       edit: "Edit fungus: %{name}"
+      # edit_many: "Edit many fungus: %{name}"
       index: "Fungi"
       new: "New fungus"
       show: "Fungus: %{name}"
       # take: "Take fungus: %{name}"
+      # update_many: "Update many fungus: %{name}"
     backend/gaps:
       index: "Gaps"
       show: "Gap: %{number}"
@@ -438,10 +452,12 @@ eng:
       show: "Label: %{name}"
     backend/land_parcels:
       edit: "Edit land parcel: %{name}"
+      # edit_many: "Edit many land parcel: %{name}"
       index: "Land parcels"
       new: "New land parcel"
       show: "Land parcel %{name}"
       # take: "Take land parcel: %{name}"
+      # update_many: "Update many land parcel: %{name}"
     backend/listing_nodes:
       edit: "Edit listing node"
       new: "New listing node"
@@ -483,10 +499,12 @@ eng:
       toggle: "Toggle map layer: %{name}"
     backend/matters:
       edit: "Edit matter: %{name}"
+      # edit_many: "Edit many matter: %{name}"
       index: "Matters"
       new: "New matter"
       show: "Matter: %{name}"
       # take: "Take matter: %{name}"
+      # update_many: "Update many matter: %{name}"
     backend/myselves:
       # change_password: "Change password myself: %{name}"
       show: "My informations"
@@ -566,10 +584,12 @@ eng:
       # new: "New plant density abacus item"
     backend/plants:
       edit: "Edit crop: %{name}"
+      # edit_many: "Edit many plant: %{name}"
       index: "Crops"
       new: "New crop"
       show: "Crop: %{name}"
       # take: "Take plant: %{name}"
+      # update_many: "Update many plant: %{name}"
     backend/postal_zones:
       # autocomplete: "Autocomplete postal zone: %{name}"
       edit: "Edit postal zone: %{name}"
@@ -583,10 +603,12 @@ eng:
       show: "Prescription: %{reference_number}"
     backend/product_groups:
       edit: "Edit group: %{name}"
+      # edit_many: "Edit many product group: %{name}"
       index: "Product groups"
       new: "New group"
       show: "Group: %{name}"
       # take: "Take product group: %{name}"
+      # update_many: "Update many product group: %{name}"
     backend/product_localizations:
       edit: "Edit product localization:"
       new: "New product localization"
@@ -617,10 +639,12 @@ eng:
       show: "Product type: %{name}"
     backend/products:
       edit: "Edit product: %{name}"
+      edit_many: "Distribute unaffected products"
       index: "Products"
       new: "New product"
       show: "%{nature}: %{name}"
       # take: "Take product: %{name}"
+      # update_many: "Update many product: %{name}"
     backend/purchase_affairs:
       # attach: "Attach purchase affair: %{name}"
       # detach: "Detach purchase affair: %{name}"
@@ -750,10 +774,12 @@ eng:
       about: "About Ekylibre"
     backend/settlements:
       edit: "Edit settlement: %{name}"
+      # edit_many: "Edit many settlement: %{name}"
       index: "Settlements"
       new: "New settlement"
       show: "Settlement: %{name}"
       # take: "Take settlement: %{name}"
+      # update_many: "Update many settlement: %{name}"
     backend/snippets:
       # toggle: "Toggle snippet: %{name}"
     backend/subscription_natures:
@@ -777,13 +803,6 @@ eng:
     backend/synchronizations:
       index: "Synchronizations"
       run: "Run synchronization: %{name}"
-    backend/target_distributions:
-      edit: "Edit target distribution"
-      edit_many: "Distribute unaffected products"
-      index: "Target distributions"
-      new: "New target distribution"
-      show: "Target distribution"
-      # update_many: "Update many target distribution: %{name}"
     backend/tasks:
       edit: "Edit task: %{name}"
       # finish: "Finish task: %{name}"
@@ -838,10 +857,12 @@ eng:
       index: "Wine tanks"
     backend/workers:
       edit: "Edit worker: %{name}"
+      # edit_many: "Edit many worker: %{name}"
       index: "Workers"
       new: "New worker"
       show: "Worker: %{name}"
       # take: "Take worker: %{name}"
+      # update_many: "Update many worker: %{name}"
     devise/confirmations:
       # new: "New confirmation"
       # show: "Confirmation: %{name}"
@@ -969,7 +990,7 @@ eng:
     active_finishing_within: "Active finishing within" #?
     activities: "Activities" #?
     activity: "Activity"
-    activity_production: "Activity production" #?
+    activity_production: "Activity production"
     activity_productions: "Activity productions"
     add: "Add"
     add_a_worker: "Add a worker"
@@ -1261,7 +1282,7 @@ eng:
     disease_percentage_evolution: "Disease percentage evolution"
     display: "Display" #?
     distribute_unaffected_products: "Distribute unaffected products"
-    distributions: "Distributions"
+    distributions: "Distributions" #?
     divide: "Divide"
     division: "Division"
     divisions: "Divisions"
@@ -1858,7 +1879,7 @@ eng:
     support: "Support" #?
     supports: "Supports" #?
     synthesis: "Synthesis"
-    target: "Target" #?
+    target: "Target"
     tasks: "Tasks" #?
     tax_declarations: "Tax declarations"
     tax_label: "Tax label" #?
