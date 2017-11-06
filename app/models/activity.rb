@@ -270,11 +270,6 @@ class Activity < Ekylibre::Record::Base
     end
   end
 
-  def not_distributed_products
-    Product.mine_or_undefined.of_variety(cultivation_variety, support_variety)
-           .where(id: InterventionTarget.where.not(product_id: TargetDistribution.select(:target_id)).includes(:product))
-  end
-
   def of_campaign?(campaign)
     productions.of_campaign(campaign).any?
   end

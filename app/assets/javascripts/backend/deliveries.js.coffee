@@ -19,7 +19,7 @@
 
 
   # Manage fields filling in sales/purchases
-  $(document).on "selector:change", "*[data-product-of-delivery-item]", ->
+  $(document).on "selector:set", "*[data-product-of-delivery-item]", ->
     element = $(this)
     options = element.data("product-of-delivery-item")
     product_id = element.selector('value')
