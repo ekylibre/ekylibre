@@ -69,7 +69,7 @@ class PurchaseOrder < Purchase
       transition estimate: :opened
     end
     event :close do
-      transition opened: :closed, if: :items_all_received?
+      transition opened: :closed
     end
   end
 
@@ -131,9 +131,5 @@ class PurchaseOrder < Purchase
 
   def has_content?
     items.any?
-  end
-
-  def items_all_received?
-    # Return a boolean to check if the order has all of his items received
   end
 end
