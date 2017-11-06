@@ -106,7 +106,7 @@ class IncomingPayment < Ekylibre::Record::Base
 
   before_validation(on: :create) do
     self.to_bank_at ||= Time.zone.now
-    self.scheduled = (self.to_bank_at > Time.zone.now ? true : false)
+    self.scheduled = (self.to_bank_at > Time.zone.now)
     self.received = false if scheduled
     true
   end
