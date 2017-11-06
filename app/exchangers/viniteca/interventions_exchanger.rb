@@ -1,5 +1,3 @@
-# coding: utf-8
-
 module Viniteca
   class InterventionsExchanger < ActiveExchanger::Base
     def import

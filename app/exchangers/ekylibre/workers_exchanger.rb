@@ -91,7 +91,7 @@ module Ekylibre
         if person && r.email.present? && User.where(person_id: person.id).none?
           unless user = User.find_by(email: r.email)
             role = Role.order(:id).first
-            role = Role.import_from_nomenclature(:farm_worker) unless role
+            role ||= Role.import_from_nomenclature(:farm_worker)
             password = User.generate_password(100, :hard)
             user = User.create!(
               first_name: r.first_name,
