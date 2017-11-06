@@ -11,7 +11,7 @@ before_script:
   - ruby -v
   - which ruby
   - gem install bundler --no-ri --no-rdoc
-  - RAILS_ENV=test bundle install --jobs $(nproc) "${FLAGS[@]}"
+  - RAILS_ENV=test bundle install --full-index --jobs $(nproc) "${FLAGS[@]}"
   - cp config/database.yml.sample config/database.yml
   - RAILS_ENV=test bundle exec rake db:create db:migrate
 test:
