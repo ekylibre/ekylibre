@@ -1,10 +1,19 @@
-language: ruby
-bundler_args: "--full-index --without development"
-# cache: bundler
-rvm:
-- 2.2.7
-before_install: test/ci/before_install
-before_script: test/ci/before_script
-script: xvfb-run bundle exec rake test:models test:libs test:controllers DRIVER=webkit
+image: "ruby:2.4.0"
 services:
-- redis-server
+  - postgres:latest
+  - elasticsearch:latest
+variables:
+  POSTGRES_DB: dbname
+  POSTGRES_USER: username
+  POSTGRES_PASSWORD: ""
+before_script:
+  - apt-get update -qq && apt-get install -y -qq postgresql postgresql-contrib libpq-dev cmake
+  - ruby -v
+  - which ruby
+  - gem install bundler --no-ri --no-rdoc
+  - RAILS_ENV=test bundle install --jobs $(nproc) "${FLAGS[@]}"
+  - cp config/database.yml.sample config/database.yml
+  - RAILS_ENV=test bundle exec rake db:create db:migrate
+test:
+  script:
+    - bundle exec rake test
