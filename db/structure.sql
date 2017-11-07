@@ -17341,7 +17341,7 @@ ALTER TABLE ONLY tax_declaration_item_parts
 
 
 --
--- Name: products fk_rails_5e587cedec; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: fk_rails_5e587cedec; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY products
@@ -17349,7 +17349,7 @@ ALTER TABLE ONLY products
 
 
 --
--- Name: payslip_natures fk_rails_6835dfa420; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: fk_rails_6835dfa420; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY payslip_natures
