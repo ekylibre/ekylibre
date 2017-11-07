@@ -54,7 +54,7 @@ module Ekylibre
               value = pair.second.to_s
               type = schema[table][attribute][:type].to_sym
               if type == :boolean
-                value = (value == 'true' ? true : false)
+                value = (value == 'true')
               elsif type == :integer
                 value = (value.blank? ? nil : value.to_i)
               elsif type == :decimal
