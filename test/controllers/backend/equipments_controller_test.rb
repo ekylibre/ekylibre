@@ -21,6 +21,6 @@ require 'test_helper'
 module Backend
   class EquipmentsControllerTest < ActionController::TestCase
     # TODO: Re-activate #show test
-    test_restfully_all_actions except: :show
+    test_restfully_all_actions except: %i[show update_many edit_many]
   end
 end

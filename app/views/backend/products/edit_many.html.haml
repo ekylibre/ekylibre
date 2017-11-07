@@ -1,0 +1,26 @@
+= form_tag backend_products_path, method: :patch do
+  = hidden_field_tag(:redirect, params[:redirect]) if params[:redirect]
+  = hidden_field_tag(:activity_id, params[:activity_id]) if params[:activity_id]
+  = field_set do
+    %table
+      %thead
+        %tr
+          %th= :target.tl
+          %th= :activity_production.tl
+      %tbody
+        - @targets.each do |target|
+          :ruby
+            activity_productions = @activity_productions
+            activity_productions = activity_productions.where("DATE(stopped_on) >= ?", target.born_at.to_date) unless target.born_at.blank?
+            activity_productions = activity_productions.where("DATE(started_on) <= ?", target.dead_at.to_date) unless target.dead_at.blank?
+            activity_productions = activity_productions.includes(:activity, :cultivable_zone).map { |ac| [ac.name, ac.id] }
+          %tr
+            %td
+              = link_to target.name, backend_product_path(target)
+              - name = "target_distributions[#{target.id}][target_id]"
+              = hidden_field_tag name, target.id
+            %td
+              = select_tag "target_distributions[#{target.id}][activity_production_id]", options_for_select(activity_productions, target.activity_production_id), include_blank: true
+  = form_actions do
+    = submit_tag(:update.tl, data: {disable_with: :please_wait.tl}, class: 'btn btn-primary')
+    = link_to(:cancel.tl, (params[:redirect] || { controller: :activities, action: :index }), (params[:dialog] ? { class: 'btn', data: {close_dialog: params[:dialog]} } : { class: 'btn' }))

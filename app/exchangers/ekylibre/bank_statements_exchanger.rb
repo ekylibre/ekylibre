@@ -1,5 +1,3 @@
-# coding: utf-8
-
 module Ekylibre
   class BankStatementsExchanger < ActiveExchanger::Base
     def import
