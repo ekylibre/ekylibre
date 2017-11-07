@@ -2507,7 +2507,7 @@ a[data-annotate] {
     &.state-lost, &.state-refused, &.state-aborted, &.state-todo, &.state-scrapped, &.state-sold {
       background: $invalid-color;
     }
-    &.state-in_use, &.state-won, &.state-invoice, &.state-order, &.state-done, &.state-given, &.state-finished, &.state-ongoing, &.state-repaid {
+    &.state-in_use, &.state-won, &.state-invoice, &.state-order, &.state-done, &.state-given, &.state-finished, &.state-ongoing, &.state-repaid, &.state-opened {
       background: $success-color;
     }
     @include text-align(center);
@@ -2775,4 +2775,8 @@ a[data-annotate] {
 
 .label-important {
   color: $invalid-color;
+}
+
+.invisible {
+  visibility: hidden;
 }

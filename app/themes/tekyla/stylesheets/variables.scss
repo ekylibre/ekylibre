@@ -54,6 +54,7 @@ $default-border-color: #DDD;
 $darkened-white: mix($black, $white, 2%) !default;
 $lightened-black: mix($black, $white, 60%) !default;
 $lightened-grey: mix($black, $white, 30%) !default;
+$darkened-grey: mix($black, $white, 40%) !default;
 $darkened-blue-grey: darken($blue-grey, 10%) !default;
 
 $brand-primary: $base-color;

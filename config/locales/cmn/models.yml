@@ -367,9 +367,12 @@ cmn:
       purchase: "采购"
       purchase_affair: "购买外遇"
       purchase_gap: "采购差距"
+      # purchase_invoice: "Purchase invoice"
       purchase_item: "采购项目"
       purchase_nature: "购买类型"
+      # purchase_order: "Purchase order"
       purchase_payment: "支出"
+      # reception: "Reception"
       regularization: "正则"
       role: "角色"
       sale: "拍卖"
@@ -382,6 +385,7 @@ cmn:
       sensor: "传感器"
       sequence: "序列"
       settlement: "沉降"
+      # shipment: "Shipment"
       sub_zone: "子区"
       subscription: "订阅"
       subscription_nature: "订阅类型"
@@ -560,6 +564,7 @@ cmn:
     color: "颜色"
     column_name: "列名"
     columns: "列"
+    # command_mode: "Command mode"
     comment: "评论"
     commercial: "商业的"
     commercial_description: "商业描述"
@@ -728,6 +733,8 @@ cmn:
     entry_number: "条目编号"
     entry_on: "WTO对"
     entry_reason: "入境理由"
+    # equipment: "Equipment"
+    # estimate_reception_date: "Estimate reception date"
     # euid: "EUID"
     event: "事件"
     event_participation: "活动参与"
@@ -899,6 +906,7 @@ cmn:
     interpolations: "插补"
     intervention: "介入"
     intervention_cast: "干预投"
+    # intervention_id: "Intervention"
     intervention_parameter: "干预参数"
     intervention_participation: "参与干预"
     intervention_participations: "干预参股"
@@ -965,6 +973,7 @@ cmn:
     last_transmission_at: "最后传输"
     last_value: "最后一个值"
     last_year: "去年"
+    # late_delivery: "Late delivery"
     latest: "最新"
     leaves_parameters: "叶参数"
     lender: "贷款人"
@@ -1080,6 +1089,7 @@ cmn:
     nitrogen_need: "需要氮"
     node: "节点"
     nodes: "节点"
+    # non_compliant: "Non compliant"
     noticed_start_amount: "注意到启动量"
     noticed_stop_amount: "注意止损金额"
     notification: "通知"
@@ -1270,10 +1280,12 @@ cmn:
     reception_cash: "接待现金"
     reception_currency: "接待币"
     reception_journal_entry: "接待日记帐分录"
+    # receptions: "Receptions"
     recipient: "接受者"
     recommended: "推荐"
     recommender: "导购"
     reconcilable: "蒹容"
+    # reconciliation_state: "Reconciliation state"
     record_interventions: "记录干预"
     record_value: "记录值"
     record_value_type: "记录值类型"
@@ -1377,6 +1389,7 @@ cmn:
     shape: "形状"
     shift_duration: "转变时间"
     shift_method: "移法"
+    # shipments: "Shipments"
     sign_in_count: "登录计数"
     signup_at: "在注册"
     siren: "警笛"
@@ -1819,6 +1832,15 @@ cmn:
     purchase_payment:
       # bookkeep: "[%{resource} %{number}] %{mode} %{check_number} for %{payee}"
       # label: "%{number}. %{amount}, %{mode} for %{payee} on %{date}"
+    reception:
+      state_machine:
+        states:
+          # draft: "Draft"
+          # given: "Given"
+          # in_preparation: "In preparation"
+          # ordered: "Ordered"
+          # prepared: "Prepared"
+          # received: "Received"
     role:
       default:
         administrator: "管理员"
@@ -1898,6 +1920,15 @@ cmn:
         sales_invoices: "SI[year|4][number|6]"
         subscriptions: "SUB[number|8]"
         transports: "TR[number|8]"
+    shipment:
+      state_machine:
+        states:
+          # draft: "Draft"
+          # given: "Given"
+          # in_preparation: "In preparation"
+          # ordered: "Ordered"
+          # prepared: "Prepared"
+          # received: "Received"
     task:
       state_machine:
         states:

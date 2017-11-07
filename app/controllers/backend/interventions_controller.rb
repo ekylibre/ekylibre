@@ -276,6 +276,8 @@ module Backend
             else
               params[:redirect] || { action: :show, id: 'id'.c }
             end
+
+      @intervention.save
       return if save_and_redirect(@intervention, url: url, notify: :record_x_created, identifier: :number)
       render(locals: { cancel_url: { action: :index }, with_continue: true })
     end
@@ -346,6 +348,20 @@ module Backend
           # format.xml  { render xml:  { errors: e.message }, status: 500 }
           format.json { render json: { errors: e.message }, status: 500 }
         end
+      end
+    end
+
+    def purchase_order_items
+      purchase_order = Purchase.find(params[:purchase_order_id])
+      reception = Intervention.find(params[:intervention_id]).receptions.first if params[:intervention_id].present?
+      order_hash = if reception.present? && reception.purchase_id == purchase_order.id
+                     find_items(reception.id, reception.pretax_amount, reception.items)
+                   else
+                     find_items(purchase_order.id, purchase_order.pretax_amount, purchase_order.items)
+                   end
+
+      respond_to do |format|
+        format.json { render json: order_hash }
       end
     end
 
@@ -479,6 +495,15 @@ module Backend
 
     def state_change_permitted_params
       params.require(:intervention).permit(:interventions_ids, :state, :delete_option)
+    end
+
+    def find_items(id, pretax_amount, items)
+      order_hash = { id: id, pretax_amount: pretax_amount }
+      items.each do |item|
+        order_hash[:items] = [] if order_hash[:items].nil?
+        order_hash[:items] << { id: item.id, variant_id: item.variant_id, name: item.variant.name, quantity: item.quantity, unit_pretax_amount: item.unit_pretax_amount }
+      end
+      order_hash
     end
   end
 end
