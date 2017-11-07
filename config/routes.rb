@@ -362,7 +362,7 @@ Rails.application.routes.draw do
     resources :contracts, concerns: [:list] do
       member do
         get :list_items
-        get :list_parcels
+        get :list_receptions
         post :lose
         post :negociate
         post :prospect
@@ -781,6 +781,7 @@ Rails.application.routes.draw do
     resources :shipments, concerns: %i[list unroll] do
       member do
         get :list_items
+        
         post :ship
         post :invoice
         post :ship
