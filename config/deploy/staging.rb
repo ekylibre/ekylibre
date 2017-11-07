@@ -6,7 +6,7 @@
 # server "example.com", user: "deploy", roles: %w{app db web}, my_property: :my_value
 # server "example.com", user: "deploy", roles: %w{app web}, other_property: :other_value
 # server "db.example.com", user: "deploy", roles: %w{db}
-server 'larrere-preprod.farm', roles: %w[app db web], user: 'ekylibre', port: 22 }
+server 'larrere-preprod.farm', roles: %w[app db web], user: 'ekylibre', ssh_options: { port: 22 }
 
 # Use the staging branch to deploy in staging
 set :branch, :staging
