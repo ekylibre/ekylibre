@@ -47,7 +47,8 @@ Rails.application.routes.draw do
       get :list_readings
       get :list_trackings
       get :list_members
-      get :list_parcel_items
+      get :list_shipment_items
+      get :list_reception_items
       get :list_places
       get :take
     end
