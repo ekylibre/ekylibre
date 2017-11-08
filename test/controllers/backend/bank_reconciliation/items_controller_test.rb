@@ -1,5 +1,3 @@
-# coding: utf-8
-
 require 'test_helper'
 
 # Tests if the whole period_start/end system works.

@@ -1,5 +1,3 @@
-# coding: utf-8
-
 module Ekylibre
   module FirstRun
     class Base
