@@ -162,7 +162,7 @@ module Backend
       purchases = find_purchases
       return unless purchases
 
-      unless purchases.all? { |purchase| purchase.order? || purchase.invoice? }
+      unless purchases.all?
         notify_error(:all_purchases_must_be_ordered_or_invoiced)
         redirect_to(params[:redirect] || { action: :index })
         return
