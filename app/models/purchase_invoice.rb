@@ -75,6 +75,7 @@ class PurchaseInvoice < Purchase
 
   before_validation(on: :create) do
     self.state = :invoice
+    self.invoiced_at ||= created_at
   end
 
   after_update do
@@ -165,10 +166,6 @@ class PurchaseInvoice < Purchase
         entry.add_credit(label, item.variant.stock_movement_account_id, gap_value, resource: item, as: :stock_movement, variant: item.variant)
       end
     end
-  end
-
-  def self.affair_class
-    "#{name}Affair".constantize
   end
 
   def invoiced_on

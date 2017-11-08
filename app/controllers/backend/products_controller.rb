@@ -174,8 +174,17 @@ module Backend
     end
 
     # Lists parcel items of the current product
-    list(:parcel_items, conditions: { product_id: 'params[:id]'.c }, order: { created_at: :desc }) do |t|
-      t.column :parcel, url: true
+    list(:reception_items, model: :parcel_items, conditions: { product_id: 'params[:id]'.c, parcels: { nature: :incoming } }, order: { created_at: :desc }) do |t|
+      t.column :parcel, url: {controller: :receptions}
+      t.column :nature, through: :parcel
+      t.column :given_at, through: :parcel, datatype: :datetime
+      t.column :population
+      t.column :product_identification_number
+    end
+
+    # Lists parcel items of the current product
+    list(:shipment_items, model: :parcel_items, conditions: { product_id: 'params[:id]'.c, parcels: { nature: :outgoing } }, order: { created_at: :desc }) do |t|
+      t.column :parcel, url: {controller: :shipments}
       t.column :nature, through: :parcel
       t.column :given_at, through: :parcel, datatype: :datetime
       t.column :population

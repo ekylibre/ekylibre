@@ -138,6 +138,10 @@ class Purchase < Ekylibre::Record::Base
     supplier.add_event(:purchase_creation, updater.person) if updater
   end
 
+  def self.affair_class
+    "#{name}Affair".constantize
+  end
+
   def default_currency
     currency || nature.currency
   end
