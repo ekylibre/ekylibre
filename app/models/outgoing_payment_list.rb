@@ -63,14 +63,14 @@ class OutgoingPaymentList < Ekylibre::Record::Base
 
     sct.message_identification =
       "EKY-#{number}-#{Time.zone.now.strftime('%y%m%d-%H%M')}"
-
+    
     payments.each do |payment|
       credit_transfer_params = {
         name: payment.payee.bank_account_holder_name.truncate(70, omission: ''),
         iban: payment.payee.iban,
         amount: format('%.2f', payment.amount.round(2)),
         reference: payment.number,
-        remittance_information: payment.affair.purchases.first.number,
+        remittance_information: payment.affair.purchase_invoices.first.number,
         requested_date: Time.zone.now.to_date,
         batch_booking: false,
         bic: 'NOTPROVIDED'
