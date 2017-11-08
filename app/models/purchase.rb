@@ -104,6 +104,10 @@ class Purchase < Ekylibre::Record::Base
 
   scope :of_supplier, ->(supplier) { where(supplier_id: (supplier.is_a?(Entity) ? supplier.id : supplier)) }
 
+  scope :invoiced_between, lambda { |started_at, stopped_at|
+     where(invoiced_at: started_at..stopped_at)
+  }
+
   before_validation(on: :create) do
     self.currency ||= nature.currency if nature
   end
