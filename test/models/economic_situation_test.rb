@@ -47,14 +47,16 @@ class EconomicSituationTest < ActiveSupport::TestCase
     trash_account = Account.create!(name: 'Just needed', number: '666')
     @entity.update(client: true, client_account: @client_account)
     @entity.update(supplier: true, supplier_account: @supplier_account)
-
+    
     Purchase.create!(
       currency: 'EUR',
+      type: 'PurchaseInvoice',
       supplier: @entity,
       nature: PurchaseNature.create!(currency: 'EUR'),
       items_attributes: [
         {
-          unit_pretax_amount: '12',
+          unit_pretax_amount: 12,
+          quantity: 1,
           tax: Tax.create!(
             country: :fr,
             nature: :null_vat,
@@ -91,11 +93,11 @@ class EconomicSituationTest < ActiveSupport::TestCase
         cash: cash
       )
     )
-
+    
     sale = Sale.create!(
       client: @entity
     )
-
+    
     SaleItem.create!(
       sale: sale,
       variant: ProductNatureVariant.find_or_import!(:daucus_carotta).first,
@@ -120,7 +122,7 @@ class EconomicSituationTest < ActiveSupport::TestCase
         cash: cash
       )
     )
-
+    
     JournalEntry.create!(
       currency: 'EUR',
       journal: Journal.create!(name: 'JournalTest', code: 'TKT'),
@@ -142,7 +144,7 @@ class EconomicSituationTest < ActiveSupport::TestCase
         }
       ]
     )
-
+    
     JournalEntry.create!(
       currency: 'EUR',
       journal: Journal.create!(name: 'Yolo', code: 'Swag'),
@@ -164,6 +166,7 @@ class EconomicSituationTest < ActiveSupport::TestCase
         }
       ]
     )
+
   end
 
   test 'at creation entity should have a balance of 0' do
