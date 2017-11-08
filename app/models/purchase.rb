@@ -98,6 +98,10 @@ class Purchase < Ekylibre::Record::Base
   delegate :third_attribute, to: :class
   scope :with_nature, ->(id) { where(nature_id: id) }
 
+  scope :invoiced_between, lambda { |started_at, stopped_at|
+    where(invoiced_at: started_at..stopped_at)
+  }
+
   scope :of_supplier, ->(supplier) { where(supplier_id: (supplier.is_a?(Entity) ? supplier.id : supplier)) }
 
   scope :invoiced_between, lambda { |started_at, stopped_at|
@@ -132,6 +136,10 @@ class Purchase < Ekylibre::Record::Base
 
   after_create do
     supplier.add_event(:purchase_creation, updater.person) if updater
+  end
+
+  def self.affair_class
+    "#{name}Affair".constantize
   end
 
   def default_currency

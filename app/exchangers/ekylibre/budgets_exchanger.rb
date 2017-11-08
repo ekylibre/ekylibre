@@ -1,5 +1,3 @@
-# coding: utf-8
-
 module Ekylibre
   class BudgetsExchanger < ActiveExchanger::Base
     ACTIVITIES = {
@@ -91,7 +89,7 @@ module Ekylibre
           )
           if support_variant && support_variant.variety
             activity.support_variety = (Nomen::Variety.find(support_variant.variety) == :cultivable_zone ? :land_parcel : (Nomen::Variety.find(support_variant.variety) <= :building_division ? :building_division : :product))
-            activity.with_cultivation = (Nomen::Variety.find(activity.support_variety) <= :land_parcel ? true : false)
+            activity.with_cultivation = (Nomen::Variety.find(activity.support_variety) <= :land_parcel)
           end
           activity.cultivation_variety = cultivation_variety if cultivation_variety
           activity.save!

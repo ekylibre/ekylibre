@@ -25,7 +25,7 @@
         %th{colspan: 5}
         %td= resource.pretax_amount.l(currency: resource.currency)
 
-  - c.cobble :parcels, title: Purchase.human_attribute_name(:parcels) do
+  - c.cobble :receptions, title: Purchase.human_attribute_name(:receptions) do
     = cobble_toolbar do |t|
-      = t.new(params: {controller: :parcels, nature: :incoming, contract_id: resource.id, sender_id: resource.supplier_id})
-    = cobble_list :parcels
+      = t.new(params: {controller: :receptions, contract_id: resource.id, sender_id: resource.supplier_id})
+    = cobble_list :receptions

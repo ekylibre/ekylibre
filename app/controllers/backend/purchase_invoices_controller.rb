@@ -25,7 +25,7 @@ module Backend
 
     def self.list_conditions
       code = ''
-      code = search_conditions(purchase_invoice: %i[number reference_number supplier created_at pretax_amount], entities: %i[number full_name]) + " ||= []\n"
+      code = search_conditions(purchase_invoice: %i[number reference_number created_at pretax_amount], entities: %i[number full_name]) + " ||= []\n"
       code << "if params[:period].present? && params[:period].to_s != 'all'\n"
       code << "  c[0] << ' AND #{PurchaseInvoice.table_name}.invoiced_at::DATE BETWEEN ? AND ?'\n"
       code << "  if params[:period].to_s == 'interval'\n"
@@ -162,7 +162,7 @@ module Backend
       purchases = find_purchases
       return unless purchases
 
-      unless purchases.all? { |purchase| purchase.order? || purchase.invoice? }
+      unless purchases.all?
         notify_error(:all_purchases_must_be_ordered_or_invoiced)
         redirect_to(params[:redirect] || { action: :index })
         return

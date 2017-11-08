@@ -100,6 +100,7 @@
 #     - "backend/entities#list_shipments"
 #     - "backend/equipments#take"
 #     - "backend/fungi#take"
+#     - "backend/dashboards#trade"
 #     - "backend/golumns#reset"
 #     - "backend/golumns#show"
 #     - "backend/golumns#update"
@@ -125,15 +126,14 @@
 #     - "backend/outgoing_payments#show"
 #     - "backend/outgoing_payments#unroll"
 #     - "backend/outgoing_payments#update"
-<<<<<<< HEAD
-=======
 #     - "backend/parcels#ship"
 #     - "backend/plants#take"
->>>>>>> 478434751cf253e2ee9120e7e7664cf1a7fccdc7
 #     - "backend/preferences#update"
 #     - "backend/product_nature_variants#quantifiers"
-<<<<<<< HEAD
-=======
+#     - "backend/parcels#ship"
+#     - "backend/plants#take"
+#     - "backend/preferences#update"
+#     - "backend/product_nature_variants#quantifiers"
 #     - "backend/products#take"
 #     - "backend/purchase_orders#list_parcels"
 #     - "backend/purchase_orders#reconciliate_modal"
@@ -158,7 +158,6 @@
 #     - "backend/purchases#list_parcels"
 #     - "backend/purchases#unroll"
 #     - "backend/purchases#update"
->>>>>>> 478434751cf253e2ee9120e7e7664cf1a7fccdc7
 #     - "backend/sensors#last_locations"
 #     - "backend/snippets#toggle"
 #     - "backend/tours#finish"
