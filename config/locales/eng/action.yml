@@ -822,6 +822,7 @@ eng:
       prepare: "Prepare shipment: %{name}"
       ship: "Ship shipment: %{name}"
       show: "Shipment: %{name}"
+      # update_many: "Update many settlement: %{name}"
     backend/snippets:
       # toggle: "Toggle snippet: %{name}"
     backend/subscription_natures:
