@@ -23,7 +23,7 @@ module Backend
 
     def self.list_conditions
       code = ''
-      code = search_conditions(purchase_order: %i[number reference_number supplier created_at pretax_amount], entities: %i[number full_name]) + " ||= []\n"
+      code = search_conditions(purchase_order: %i[number reference_number created_at pretax_amount], entities: %i[number full_name]) + " ||= []\n"
       code << "c[0] << ' AND #{PurchaseOrder.table_name}.state = ?'\n"
       code << "c << 'opened'\n"
       code << "if params[:responsible_id].to_i > 0\n"
