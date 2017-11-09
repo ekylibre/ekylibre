@@ -111,7 +111,7 @@ module Backend
         if @outgoing_payment_list.valid?
           @currency = mode.cash.currency
           @affairs = PurchaseAffair
-                     .joins(:purchases)
+                     .joins(:purchase_invoices)
                      .joins(:supplier)
                      .includes(:supplier)
                      .where(closed: false, currency: mode.cash.currency)

@@ -1,5 +1,5 @@
 :ruby
-  purchases = purchase_affair.purchases
+  purchases = purchase_affair.purchase_invoices
 
 %tr{data: { outgoing_payment_purchase_affair: purchase_affair.id} }
   = hidden_field_tag 'purchase_affairs[]', nil, data: { outgoing_payment_purchase_affair_selection: true }
