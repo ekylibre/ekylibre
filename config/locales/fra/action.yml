@@ -1506,6 +1506,8 @@ fra:
     intervention_at: "%{intervention} du %{at}"
     intervention_message_miscibility: "Mélange autorisé"
     intervention_product_parameters: "Intervenants"
+    reception_items: "Articles réceptionnés"
+    shipment_items: "Articles expédiés"
     interventions: "Interventions"
     interventions_count: "Nombre d’interventions"
     interventions_paths: "Chemins d’interventions"
