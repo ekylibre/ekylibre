@@ -1743,6 +1743,7 @@ spa:
     recent_events: "Eventos recientes"
     # reception: "Reception"
     # reception_incident: "Reception incident"
+    # reception_items: "Reception items"
     # reception_number: "Reception number"
     # receptions: "Receptions"
     # reconcile: "Reconcile"
@@ -1871,6 +1872,7 @@ spa:
     shape: "Forma"
     shelf: "Categoria" #?
     ship: "Enviar"
+    # shipment_items: "Shipment items"
     # shipments: "Shipments"
     show: "Espectáculo"
     sign_out: "Desconectar"

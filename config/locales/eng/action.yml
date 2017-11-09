@@ -1501,8 +1501,6 @@ eng:
     intervention_at: "%{intervention} at %{at}"
     intervention_message_miscibility: "Mixing allowed"
     intervention_product_parameters: "Intervention casts"
-    reception_items: "Reception items"
-    shipment_items: "Shipment items"
     interventions: "Interventions"
     interventions_count: "Interventions count"
     interventions_paths: "Interventions paths" #?
@@ -1831,7 +1829,7 @@ eng:
     recent_events: "Recent events"
     reception: "Reception"
     reception_incident: "Reception incident"
-    # reception_items: "Reception items"
+    reception_items: "Reception items"
     reception_number: "Reception number"
     receptions: "Receptions"
     reconcile: "Reconcile"
@@ -1919,7 +1917,7 @@ eng:
     sex: "Sex" #?
     shape: "Shape" #?
     ship: "Ship" #?
-    # shipment_items: "Shipment items"
+    shipment_items: "Shipment items"
     shipments: "Shipments"
     show: "Show"
     # show_export_preview: "Show export preview"
