@@ -810,6 +810,7 @@ eng:
       new: "New settlement"
       show: "Settlement: %{name}"
       # take: "Take settlement: %{name}"
+      # update_many: "Update many settlement: %{name}"
     backend/shipments:
       cancel: "Cancel shipment: %{name}"
       check: "Check shipment: %{name}"
@@ -822,7 +823,6 @@ eng:
       prepare: "Prepare shipment: %{name}"
       ship: "Ship shipment: %{name}"
       show: "Shipment: %{name}"
-      # update_many: "Update many settlement: %{name}"
     backend/snippets:
       # toggle: "Toggle snippet: %{name}"
     backend/subscription_natures:
@@ -1827,6 +1827,7 @@ eng:
     recent_events: "Recent events"
     reception: "Reception"
     reception_incident: "Reception incident"
+    # reception_items: "Reception items"
     reception_number: "Reception number"
     receptions: "Receptions"
     reconcile: "Reconcile"
@@ -1914,6 +1915,7 @@ eng:
     sex: "Sex" #?
     shape: "Shape" #?
     ship: "Ship" #?
+    # shipment_items: "Shipment items"
     shipments: "Shipments"
     show: "Show"
     # show_export_preview: "Show export preview"
@@ -2208,6 +2210,8 @@ eng:
     x_outgoing_payments:
       one: "%{count} disbursement"
       other: "%{count} disbursements"
+    # x_purchase_invoices: "X purchase invoices"
+    # x_purchase_orders: "X purchase orders"
     x_purchase_payments:
       one: "%{count} purchase payment"
       other: "%{count} purchase payments"

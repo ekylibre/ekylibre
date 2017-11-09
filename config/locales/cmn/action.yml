@@ -150,9 +150,9 @@ cmn:
       index: "仪表板"
       new: "新的仪表板"
       production: "生产仪表板"
-      # purchases: "Purchases dashboard: %{name}"
+      # purchases: "Purchases dashboard"
       relationship: "仪表板的关系"
-      # sales: "Sales dashboard: %{name}"
+      # sales: "Sales dashboard"
       # sandbox: "Sandbox dashboard: %{name}"
       # search: "Search for: %{searched}"
       settings: "仪表板的设置"
@@ -495,6 +495,14 @@ cmn:
       index: "购买类型"
       new: "新购买类型"
       # show: "Purchase type: %{name}"
+    backend/purchase_orders:
+      # close: "Close order: %{name}"
+      # edit: "Edit order: %{name}"
+      # index: "Orders"
+      # new: "New order"
+      # open: "Open order: %{name}"
+      # reconciliate_modal: "Reconciliate modal order: %{name}"
+      # show: "Purchase order: %{name}"
     backend/purchase_payments:
       # edit: "Edit disbursement: %{number}"
       index: "付款"
@@ -637,6 +645,10 @@ cmn:
       # show: "Tracking: %{name}"
     backend/trial_balances:
       show: "试算平衡表"
+    backend/unreceived_purchase_orders:
+      # edit: "Edit unreceived order: %{name}"
+      # index: "Unreceived orders"
+      # show: "Unreceived order: %{name}"
     backend/users:
       # edit: "Edit user: %{first_name} %{last_name}"
       index: "用户"
@@ -1936,6 +1948,12 @@ cmn:
     x_purchases:
       one: "1购买"
       # other: "%{count} purchases"
+    x_purchases_invoices:
+      # one: "%{count} purchase"
+      # other: "%{count} purchase"
+    x_purchases_orders:
+      # one: "%{count} purchase order"
+      # other: "%{count} purchase orders"
     x_readings:
       # one: "%{count} reading"
       # other: "%{count} readings"

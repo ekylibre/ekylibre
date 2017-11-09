@@ -166,9 +166,9 @@ spa:
       index: "Cuadros de mando"
       new: "Nuevo tablero de instrumentos"
       production: "Tablero de producción"
-      # purchases: "Purchases dashboard: %{name}"
+      # purchases: "Purchases dashboard"
       relationship: "Relación salpicadero"
-      # sales: "Sales dashboard: %{name}"
+      # sales: "Sales dashboard"
       # sandbox: "Sandbox dashboard: %{name}"
       # search: "Search for: %{searched}"
       settings: "Configuraciones del tablero"
@@ -532,6 +532,14 @@ spa:
       index: "Tipos de compra"
       new: "Nuevo tipo de compra"
       # show: "Purchase type: %{name}"
+    backend/purchase_orders:
+      # close: "Close order: %{name}"
+      # edit: "Edit order: %{name}"
+      # index: "Orders"
+      # new: "New order"
+      # open: "Open order: %{name}"
+      # reconciliate_modal: "Reconciliate modal order: %{name}"
+      # show: "Purchase order: %{name}"
     backend/purchase_payments:
       # edit: "Edit disbursement: %{number}"
       index: "Desembolsos"
@@ -675,6 +683,10 @@ spa:
       # show: "Tracking: %{name}"
     backend/trial_balances:
       show: "Balance general"
+    backend/unreceived_purchase_orders:
+      # edit: "Edit unreceived order: %{name}"
+      # index: "Unreceived orders"
+      # show: "Unreceived order: %{name}"
     backend/users:
       edit: "Modificction del utilizador"
       index: "Utilizador"
@@ -2174,6 +2186,12 @@ spa:
     x_purchases:
       one: "1 compra"
       # other: "%{count} purchases"
+    x_purchases_invoices:
+      # one: "%{count} purchase"
+      # other: "%{count} purchase"
+    x_purchases_orders:
+      # one: "%{count} purchase order"
+      # other: "%{count} purchase orders"
     x_readings:
       # one: "%{count} reading"
       # other: "%{count} readings"
