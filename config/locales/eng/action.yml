@@ -1561,6 +1561,8 @@ eng:
     last_outgoing_parcels: "Last outgoing parcels"
     last_products: "Last products" #?
     last_purchases: "Last purchases"
+    last_purchases_invoices: "Last purchases"
+    last_purchases_orders: "Last orders"
     last_sales: "Last sales"
     late: "Late"
     late_delivery: "Late delivery"

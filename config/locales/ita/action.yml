@@ -1354,6 +1354,8 @@ ita:
     last_outgoing_parcels: "Ultimi pacchi in uscita"
     last_products: "ultimi prodotti"
     last_purchases: "ultimi acquisti"
+    # last_purchases_invoices: "Last purchases"
+    # last_purchases_orders: "Last orders"
     last_sales: "ultimi vendite"
     # late: "Late"
     # late_delivery: "Late delivery"

@@ -1952,8 +1952,8 @@
         <page to="backend/cells/guide_evolution_cells#show"/>
       </item>
       <item name="last_purchases_cells">
-        <page to="backend/cells/last_purchases_cells#list"/>
-        <page to="backend/cells/last_purchases_cells#show"/>
+        <page to="backend/cells/last_purchases_cells#list" nonexistent="true"/>
+        <page to="backend/cells/last_purchases_cells#show" nonexistent="true"/>
       </item>
       <item name="last_sales_cells">
         <page to="backend/cells/last_sales_cells#list"/>
@@ -2149,6 +2149,14 @@
       <item name="buildings">
         <page to="backend/buildings#list_reception_items"/>
         <page to="backend/buildings#list_shipment_items"/>
+      </item>
+      <item name="last_purchases_invoices_cells">
+        <page to="backend/cells/last_purchases_invoices_cells#list"/>
+        <page to="backend/cells/last_purchases_invoices_cells#show"/>
+      </item>
+      <item name="last_purchases_orders_cells">
+        <page to="backend/cells/last_purchases_orders_cells#list"/>
+        <page to="backend/cells/last_purchases_orders_cells#show"/>
       </item>
       <item name="contracts">
         <page to="backend/contracts#index"/>

@@ -1289,6 +1289,8 @@ cmn:
     last_outgoing_parcels: "去年传出包裹"
     last_products: "最新产品"
     last_purchases: "上次购买"
+    # last_purchases_invoices: "Last purchases"
+    # last_purchases_orders: "Last orders"
     last_sales: "去年销售"
     # late: "Late"
     # late_delivery: "Late delivery"

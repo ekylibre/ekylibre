@@ -1288,6 +1288,8 @@ deu:
     last_outgoing_parcels: "Last ausgehende Pakete"
     last_products: "Letzte Artikel"
     last_purchases: "Letzte Einkäufe"
+    # last_purchases_invoices: "Last purchases"
+    # last_purchases_orders: "Last orders"
     last_sales: "Letzte Verkaufs"
     # late: "Late"
     # late_delivery: "Late delivery"

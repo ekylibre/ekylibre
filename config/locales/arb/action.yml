@@ -1691,6 +1691,8 @@ arb:
     last_outgoing_parcels: "مشاركة الطرود الصادرة"
     last_products: "آخر المنتجات"
     last_purchases: "مشاركة مشتريات"
+    # last_purchases_invoices: "Last purchases"
+    # last_purchases_orders: "Last orders"
     last_sales: "مشاركة المبيعات"
     # late: "Late"
     # late_delivery: "Late delivery"
