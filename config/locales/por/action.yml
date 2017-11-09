@@ -1293,6 +1293,8 @@ por:
     last_outgoing_parcels: "Parcelas últimos saída"
     last_products: "Últimos produtos"
     last_purchases: "Últimas compras"
+    # last_purchases_invoices: "Last purchases"
+    # last_purchases_orders: "Last orders"
     last_sales: "Últimos vendas"
     # late: "Late"
     # late_delivery: "Late delivery"

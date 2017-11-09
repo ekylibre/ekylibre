@@ -1426,6 +1426,8 @@ spa:
     last_outgoing_parcels: "Últimos paquetes salientes"
     last_products: "Últimos productos"
     last_purchases: "Últimas compras"
+    # last_purchases_invoices: "Last purchases"
+    # last_purchases_orders: "Last orders"
     last_sales: "Última oferta de venta"
     # late: "Late"
     # late_delivery: "Late delivery"

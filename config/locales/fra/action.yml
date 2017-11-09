@@ -1584,8 +1584,8 @@ fra:
     last_procedures: "Dernières procédures" #?
     last_products: "Dernières naissances"
     last_purchases: "Derniers achats"
-    last_purchases_invoices: 'Dernières factures'
-    last_purchases_orders: 'Dernières commandes'
+    last_purchases_invoices: "Dernières factures"
+    last_purchases_orders: "Dernières commandes"
     last_sales: "Dernières ventes"
     late: "En retard"
     late_delivery: "Hors délai"
