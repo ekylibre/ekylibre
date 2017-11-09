@@ -174,7 +174,8 @@ Rails.application.routes.draw do
       resource :last_movements_cell, only: :show, concerns: :list
       resource :last_outgoing_parcels_cell, only: :show, concerns: :list
       resource :last_products_cell, only: :show, concerns: :list
-      resource :last_purchases_cell, only: :show, concerns: :list
+      resource :last_purchases_invoices_cell, only: :show, concerns: :list
+      resource :last_purchases_orders_cell, only: :show, concerns: :list
       resource :last_sales_cell, only: :show, concerns: :list
       resource :main_settings_cell, only: :show
       resource :map_cell, only: :show
