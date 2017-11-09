@@ -118,8 +118,8 @@ class Entity < Ekylibre::Record::Base
   has_many :purchase_payments, foreign_key: :payee_id
   has_many :ownerships, class_name: 'ProductOwnership', foreign_key: :owner_id
   has_many :participations, class_name: 'EventParticipation', foreign_key: :participant_id, dependent: :destroy
-  has_many :purchase_invoices, -> { where(state: 'invoice').order(created_at: :desc) },
-           class_name: 'Purchase', foreign_key: :supplier_id
+  has_many :purchase_invoices, class_name: 'PurchaseInvoice', foreign_key: :supplier_id
+  has_many :purchase_orders, class_name: 'PurchaseOrder', foreign_key: :supplier_id
   has_many :purchases, foreign_key: :supplier_id, dependent: :restrict_with_exception
   has_many :purchase_items, through: :purchases, source: :items
   has_many :parcels, foreign_key: :transporter_id

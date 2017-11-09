@@ -150,9 +150,9 @@ deu:
       index: "Armaturenbretter"
       new: "New Armaturenbrett"
       production: "Produktion Armaturenbrett"
-      # purchases: "Purchases dashboard: %{name}"
+      # purchases: "Purchases dashboard"
       relationship: "Beziehung Armaturenbrett"
-      # sales: "Sales dashboard: %{name}"
+      # sales: "Sales dashboard"
       # sandbox: "Sandbox dashboard: %{name}"
       # search: "Search for: %{searched}"
       settings: "Einstellungen Armaturenbrett"
@@ -495,6 +495,14 @@ deu:
       index: "Kauftypen"
       new: "Neukauf Art"
       # show: "Purchase type: %{name}"
+    backend/purchase_orders:
+      # close: "Close order: %{name}"
+      # edit: "Edit order: %{name}"
+      # index: "Orders"
+      # new: "New order"
+      # open: "Open order: %{name}"
+      # reconciliate_modal: "Reconciliate modal order: %{name}"
+      # show: "Purchase order: %{name}"
     backend/purchase_payments:
       # edit: "Edit disbursement: %{number}"
       index: "Auszahlungen"
@@ -637,6 +645,10 @@ deu:
       # show: "Tracking: %{name}"
     backend/trial_balances:
       show: "Rohbilanz"
+    backend/unreceived_purchase_orders:
+      # edit: "Edit unreceived order: %{name}"
+      # index: "Unreceived orders"
+      # show: "Unreceived order: %{name}"
     backend/users:
       # edit: "Edit user: %{first_name} %{last_name}"
       index: "Benutzer"
@@ -1276,6 +1288,8 @@ deu:
     last_outgoing_parcels: "Last ausgehende Pakete"
     last_products: "Letzte Artikel"
     last_purchases: "Letzte Einkäufe"
+    # last_purchases_invoices: "Last purchases"
+    # last_purchases_orders: "Last orders"
     last_sales: "Letzte Verkaufs"
     # late: "Late"
     # late_delivery: "Late delivery"
@@ -1544,6 +1558,7 @@ deu:
     recent_events: "Die jüngsten Ereignisse"
     # reception: "Reception"
     # reception_incident: "Reception incident"
+    # reception_items: "Reception items"
     # reception_number: "Reception number"
     # receptions: "Receptions"
     # reconcile: "Reconcile"
@@ -1634,6 +1649,7 @@ deu:
     # sex: "Sex"
     shape: "Gestalten"
     ship: "Schiff"
+    # shipment_items: "Shipment items"
     # shipments: "Shipments"
     # show: "Show"
     sign_out: "Ausloggen"
@@ -1936,6 +1952,12 @@ deu:
     x_purchases:
       one: "1 Kauf"
       # other: "%{count} purchases"
+    x_purchases_invoices:
+      # one: "%{count} purchase"
+      # other: "%{count} purchase"
+    x_purchases_orders:
+      # one: "%{count} purchase order"
+      # other: "%{count} purchase orders"
     x_readings:
       # one: "%{count} reading"
       # other: "%{count} readings"

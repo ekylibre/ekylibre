@@ -1,4 +1,4 @@
-FactoryGirl.define do 
+FactoryGirl.define do
   factory :purchase_nature do
     currency 'EUR'
     nature 'purchase'

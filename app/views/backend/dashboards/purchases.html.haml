@@ -1,2 +1,4 @@
-= beehive do |b|
-  - b.cell :last_purchases
+= beehive(:purchase) do
+  - hbox do
+    - cell :last_purchases_invoices
+    - cell :last_purchases_orders

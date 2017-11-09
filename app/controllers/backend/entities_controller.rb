@@ -227,7 +227,18 @@ module Backend
       t.column :sale, url: true
     end
 
-    list(:purchases, conditions: { supplier_id: 'params[:id]'.c }, line_class: "(RECORD.affair_closed? ? nil : 'warning')".c) do |t|
+    list(:purchase_invoices, conditions: { supplier_id: 'params[:id]'.c }, line_class: "(RECORD.affair_closed? ? nil : 'warning')".c) do |t|
+      # t.action :show, url: {format: :pdf}, image: :print, hidden: true
+      t.action :edit
+      t.action :destroy, if: :destroyable?, hidden: true
+      t.column :number, url: true
+      t.column :created_at, hidden: true
+      t.column :invoiced_at
+      t.column :delivery_address, hidden: true
+      t.column :amount, currency: true
+    end
+
+    list(:purchase_orders, conditions: { supplier_id: 'params[:id]'.c }) do |t|
       # t.action :show, url: {format: :pdf}, image: :print, hidden: true
       t.action :edit
       t.action :destroy, if: :destroyable?, hidden: true
