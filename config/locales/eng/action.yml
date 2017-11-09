@@ -2214,6 +2214,12 @@ eng:
     x_purchases:
       one: "%{count} purchase"
       other: "%{count} purchases"
+    x_purchases_invoices:
+      one: "%{count} purchase"
+      other: "%{count} purchase"
+    x_purchases_orders:
+      one: "%{count} purchase order"
+      other: "%{count} purchase orders"
     x_readings:
       one: "%{count} reading"
       other: "%{count} readings"

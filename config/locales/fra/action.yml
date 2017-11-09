@@ -2527,6 +2527,12 @@ fra:
     x_purchases:
       one: "%{count} achat"
       other: "%{count} achats"
+    x_purchase_invoices:
+      one: "%{count} facture"
+      other: "%{count} factures"
+    x_purchase_orders:
+      one: "%{count} commande"
+      other: "%{count} commandes"
     x_readings:
       one: "%{count} indicateur"
       other: "%{count} indicateurs"
