@@ -66,7 +66,6 @@
 require 'test_helper'
 
 class ShipmentTest < ActiveSupport::TestCase
-  
   setup do
     @variant = ProductNatureVariant.import_from_nomenclature(:carrot)
     @recipient = Entity.create!(last_name: 'Shipment test')
@@ -74,7 +73,7 @@ class ShipmentTest < ActiveSupport::TestCase
 
     Preference.set!('permanent_stock_inventory', true)
   end
-  
+
   test 'shipments' do
     product = @variant.products.create!(initial_population: 30)
     to_send = [{
@@ -147,5 +146,4 @@ class ShipmentTest < ActiveSupport::TestCase
 
     shipment
   end
-
 end

@@ -66,16 +66,14 @@
 require 'test_helper'
 
 class ReceptionTest < ActiveSupport::TestCase
-
-	setup do
+  setup do
     @variant = ProductNatureVariant.import_from_nomenclature(:carrot)
     @sender = Entity.create!(last_name: 'Reception test')
     @address = @sender.addresses.create!(canal: 'mail', mail_line_1: 'Yolo', mail_line_2: 'Another test')
-
   end
- 
+
   test 'receptions' do
-  	@variant.products.create!(
+    @variant.products.create!(
       initial_population: 50
     )
     reception = new_reception
@@ -144,7 +142,7 @@ class ReceptionTest < ActiveSupport::TestCase
     attributes = {
       delivery_mode: delivery_mode,
       address: address || @address,
-			sender: sender || @sender,
+      sender: sender || @sender,
       separated_stock: separated
     }
 

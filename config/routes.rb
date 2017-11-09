@@ -459,6 +459,8 @@ Rails.application.routes.draw do
         get :list_issues
         get :list_links
         get :list_purchases
+        get :list_purchase_invoices
+        get :list_purchase_orders
         get :list_observations
         get :list_purchase_payments
         get :list_shipments
@@ -782,7 +784,7 @@ Rails.application.routes.draw do
     resources :shipments, concerns: %i[list unroll] do
       member do
         get :list_items
-        
+
         post :ship
         post :invoice
         post :ship
