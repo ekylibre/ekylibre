@@ -5,17 +5,8 @@ module Backend
         t.column :number, url: { controller: '/backend/purchase_invoices' }
         t.column :created_at
         t.status
-        # t.column :state_label
         t.column :amount, currency: true
       end
-
-      # list(model: :purchase_orders, order: 'created_at DESC', per_page: 5) do |t|
-      #   t.column :number, url: { controller: '/backend/purchase_orders' }
-      #   t.column :created_at
-      #   # t.status
-      #   t.column :state_label
-      #   t.column :amount, currency: true
-      # end
 
       def show; end
     end
