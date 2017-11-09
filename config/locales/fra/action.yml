@@ -1981,6 +1981,7 @@ fra:
     recent_historic: "Historique récent" #?
     reception: "Réception"
     reception_incident: "Réception en incident"
+    reception_items: "Articles réceptionnés"
     reception_number: "N° du bon de réception"
     receptions: "Réceptions"
     reconcile: "Rapprochée"
@@ -2138,6 +2139,7 @@ fra:
     sex: "Sexe"
     shape: "Forme"
     ship: "Prévue le"
+    shipment_items: "Articles expédiés"
     shipments: "Expéditions"
     show: "Afficher"
     show_export_preview: "Afficher un aperçu du document (peut augmenter le temps de chargement)" #?
