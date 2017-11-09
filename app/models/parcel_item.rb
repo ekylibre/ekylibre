@@ -64,6 +64,7 @@ class ParcelItem < Ekylibre::Record::Base
   enumerize :delivery_mode, in: %i[transporter us third none], predicates: { prefix: true }, scope: true, default: :us
   belongs_to :analysis
   belongs_to :parcel, inverse_of: :items
+  belongs_to :reception, inverse_of: :items, class_name: 'Reception', foreign_key: :parcel_id
   belongs_to :product
 
   with_options class_name: 'PurchaseItem' do

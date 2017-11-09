@@ -582,11 +582,14 @@ fra:
       index: "Types d’achat"
       new: "Nouveau type d’achat"
       show: "Type d’achat\_: %{name}"
-    backend/purchase_orders: #?
-      edit: "Modifier la commande\_: %{number}" #?
-      index: "Commandes" #?
-      new: "Nouvelle commande" #?
-      show: "Commande\_: %{number} au fournisseur %{supplier}" #?
+    backend/purchase_orders:
+      # close: "Close order: %{name}"
+      edit: "Modifier la commande\_: %{number}"
+      index: "Commandes"
+      new: "Nouvelle commande"
+      # open: "Open order: %{name}"
+      # reconciliate_modal: "Reconciliate modal order: %{name}"
+      show: "Commande\_: %{number} au fournisseur %{supplier}"
     backend/purchase_payments:
       edit: "Modifier le décaissement\_: %{number}"
       index: "Décaissements"
@@ -748,8 +751,10 @@ fra:
       index: "Produits transformés" #?
     backend/trial_balances:
       show: "Balance"
-    backend/unreceived_purchase_orders: #?
-      index: "Commandes à réceptionner" #?
+    backend/unreceived_purchase_orders:
+      # edit: "Edit unreceived order: %{name}"
+      index: "Commandes à réceptionner"
+      # show: "Unreceived order: %{name}"
     backend/users:
       edit: "Modifier l’utilisateur\_: %{first_name} %{last_name}"
       index: "Utilisateurs"
@@ -1579,6 +1584,8 @@ fra:
     last_procedures: "Dernières procédures" #?
     last_products: "Dernières naissances"
     last_purchases: "Derniers achats"
+    last_purchases_invoices: "Dernières factures"
+    last_purchases_orders: "Dernières commandes"
     last_sales: "Dernières ventes"
     late: "En retard"
     late_delivery: "Hors délai"
@@ -1974,6 +1981,7 @@ fra:
     recent_historic: "Historique récent" #?
     reception: "Réception"
     reception_incident: "Réception en incident"
+    reception_items: "Articles réceptionnés"
     reception_number: "N° du bon de réception"
     receptions: "Réceptions"
     reconcile: "Rapprochée"
@@ -2131,6 +2139,7 @@ fra:
     sex: "Sexe"
     shape: "Forme"
     ship: "Prévue le"
+    shipment_items: "Articles expédiés"
     shipments: "Expéditions"
     show: "Afficher"
     show_export_preview: "Afficher un aperçu du document (peut augmenter le temps de chargement)" #?
@@ -2522,12 +2531,24 @@ fra:
     x_prices: #?
       one: "%{count} prix" #?
       other: "%{count} prix" #?
+    x_purchase_invoices: #?
+      one: "%{count} facture" #?
+      other: "%{count} factures" #?
+    x_purchase_orders: #?
+      one: "%{count} commande" #?
+      other: "%{count} commandes" #?
     x_purchase_payments:
       one: "%{count} paiement d'achat"
       other: "%{count} paiements d'achats"
     x_purchases:
       one: "%{count} achat"
       other: "%{count} achats"
+    x_purchases_invoices:
+      # one: "%{count} purchase"
+      # other: "%{count} purchase"
+    x_purchases_orders:
+      # one: "%{count} purchase order"
+      # other: "%{count} purchase orders"
     x_readings:
       one: "%{count} indicateur"
       other: "%{count} indicateurs"
