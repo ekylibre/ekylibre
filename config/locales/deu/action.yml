@@ -477,6 +477,7 @@ deu:
       # show: "Product type: %{name}"
     backend/products:
       # edit: "Edit product: %{name}"
+      edit_many: "Nicht betroffene Produkte verteilen"
       index: "Produkte"
       new: "Neues Produkt"
       # show: "%{nature}: %{name}"
@@ -568,12 +569,12 @@ deu:
     backend/synchronizations:
       index: "Synchronisationen"
       # run: "Run synchronization: %{name}"
-    backend/target_distributions:
-      edit: "Bearbeiten Zielverteilung"
-      edit_many: "Verteilen unbeeinflusst Produkte"
-      index: "Zielverteilungen"
-      new: "Neue Zielverteilung"
-      show: "Zielverteilung"
+    backend/target_distributions: #?
+      edit: "Bearbeiten Zielverteilung" #?
+      edit_many: "Verteilen unbeeinflusst Produkte" #?
+      index: "Zielverteilungen" #?
+      new: "Neue Zielverteilung" #?
+      show: "Zielverteilung" #?
     backend/tasks:
       # edit: "Edit task: %{name}"
       index: "Aufgaben"
@@ -1467,7 +1468,7 @@ deu:
     purchase: "Kauf"
     purchase_items: "Kauf von Gegenständen"
     purchase_number: "Ankauf"
-    # purchase_payments: "Purchase payments"
+    purchase_payments: "Kaufzahlungen"
     purchases: "Käufe"
     purchases_stocks_variation: "Käufe Bestände Variation"
     quality: "Qualität"
@@ -1947,7 +1948,7 @@ deu:
       # could_not_attach_x_or_y_to_affair: "Could not attach %{x} or %{y} to affair"
       dashboard_is_being_developed: "Dashboard ist stark in der Entwicklung"
       density_is_not_computable_in_counting: "Konnte die Dichte für diese Zählung berechnen. Die fehlenden Werte sollten bei der Auszählung der Eigenschaften oder der Sämann der Indikatoren abgeschlossen sein."
-      # document_in_preparation: "Your document is in preparation a notification will be sent to you when it is ready"
+      document_in_preparation: "Ihr Dokument ist in Vorbereitung, eine Benachrichtigung wird Ihnen zugesandt, wenn es fertig ist"
       draft_journal_entries_have_been_validated:
         one: "Ein Eintrag wurde validiert"
         # other: "%{count} entries have been validated"
@@ -1956,10 +1957,10 @@ deu:
       # equipment_component_is_worn_out: "The component %{component_name} of the equipment %{equipment_name} is worn out. Remaining work time: %{remaining_time}."
       # equipment_is_at_end_of_life: "Equipment %{name} is reaching the end of its life. Remaining time: %{remaining_time}."
       # equipment_is_worn_out: "Equipment %{name} is worn out. Remaining work time: %{remaining_time}."
-      # error_client_account_empty: "Can not operate, client account is empty"
-      # error_during_file_generation: "An error occurred while generating a file"
+      error_client_account_empty: "Kann nicht funktionieren, Kundenkonto ist leer"
+      error_during_file_generation: "Beim Generieren einer Datei ist ein Fehler aufgetreten"
       # fails_to_extract_listing: "The listing can't be made: %{message}"
-      # file_generated: "Your file was successfully generated"
+      file_generated: "Ihre Datei wurde erfolgreich generiert"
       financial_years_missing: "Sie müssen alle fehlenden Geschäftsjahre schaffen, da die erste registrierte"
       # financial_years_missing_tax_declarations: "You must create every declarations for the following financial years: %{codes}"
       implemented_with_dummy_data: "Realisiert mit Dummy-Daten"
@@ -2145,7 +2146,7 @@ deu:
       sell: "Biegen Sie in Verkauf"
       ship: "Schiff"
       # show: "Show"
-      # show_export_preview: "View a preview of the document (may increase loading time)"
+      show_export_preview: "Zeigen Sie eine Vorschau des Dokuments an (kann die Ladezeit verlängern)"
       sort: "Sortieren"
       # star: "Star"
       start: "Anfang"

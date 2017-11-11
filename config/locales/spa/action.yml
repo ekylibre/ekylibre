@@ -514,6 +514,7 @@ spa:
       # show: "Product type: %{name}"
     backend/products:
       # edit: "Edit product: %{name}"
+      edit_many: "Distribuir productos no afectados"
       index: "Productos"
       new: "Nuevo producto"
       # show: "%{nature}: %{name}"
@@ -606,12 +607,12 @@ spa:
     backend/synchronizations:
       index: "Sincronizaciones"
       # run: "Run synchronization: %{name}"
-    backend/target_distributions:
-      edit: "modificar la distribución de destino"
-      edit_many: "Distribuir productos no afectados"
-      index: "distribuciones de destino"
-      new: "Nueva distribución de destino"
-      show: "distribución de destino"
+    backend/target_distributions: #?
+      edit: "modificar la distribución de destino" #?
+      edit_many: "Distribuir productos no afectados" #?
+      index: "distribuciones de destino" #?
+      new: "Nueva distribución de destino" #?
+      show: "distribución de destino" #?
     backend/tasks:
       # edit: "Edit task: %{name}"
       index: "Tareas"
@@ -1647,7 +1648,7 @@ spa:
     purchase: "Compra"
     purchase_items: "Artículos de la compra"
     purchase_number: "Número de compra"
-    # purchase_payments: "Purchase payments"
+    purchase_payments: "Pagos de compra"
     purchase_steps: #?
       products: "Creación de la compra" #?
       summary: "Desembolsos" #?
@@ -2190,7 +2191,7 @@ spa:
       # could_not_attach_x_or_y_to_affair: "Could not attach %{x} or %{y} to affair"
       dashboard_is_being_developed: "Dashboard es en fuerte desarrollo"
       density_is_not_computable_in_counting: "No se pudo calcular la densidad de este conteo. Los valores que faltan deben ser completados en las propiedades del conteo o indicadores del sembrador."
-      # document_in_preparation: "Your document is in preparation a notification will be sent to you when it is ready"
+      document_in_preparation: "Su documento está en preparación y se le enviará una notificación cuando esté listo"
       draft_entries_are_validated: #?
         one: "La pieza ha sido validada y es sacada de la niebla" #?
         other: "%{count} han sido validadas y son sacadas de la niebla" #?
@@ -2202,11 +2203,11 @@ spa:
       # equipment_component_is_worn_out: "The component %{component_name} of the equipment %{equipment_name} is worn out. Remaining work time: %{remaining_time}."
       # equipment_is_at_end_of_life: "Equipment %{name} is reaching the end of its life. Remaining time: %{remaining_time}."
       # equipment_is_worn_out: "Equipment %{name} is worn out. Remaining work time: %{remaining_time}."
-      # error_client_account_empty: "Can not operate, client account is empty"
-      # error_during_file_generation: "An error occurred while generating a file"
+      error_client_account_empty: "No se puede operar, la cuenta del cliente está vacía"
+      error_during_file_generation: "Se produjo un error al generar un archivo"
       expired_session: "sesion espirada. por favor reconectese." #?
       fails_to_extract_listing: "La extracción no ha podido hacerse\_: %{message}"
-      # file_generated: "Your file was successfully generated"
+      file_generated: "Su archivo fue generado con éxito"
       financial_years_missing: "Debe crear cada faltan los ejercicios desde la primera registrada"
       # financial_years_missing_tax_declarations: "You must create every declarations for the following financial years: %{codes}"
       implemented_with_dummy_data: "Implementado con datos ficticios"
@@ -2439,7 +2440,7 @@ spa:
       sell: "Convertirse en venta"
       ship: "Enviar"
       show: "Espectáculo"
-      # show_export_preview: "View a preview of the document (may increase loading time)"
+      show_export_preview: "Ver una vista previa del documento (puede aumentar el tiempo de carga)"
       sort: "Ordenar"
       star: "Estrella"
       start: "Comienzo"
