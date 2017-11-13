@@ -70,7 +70,7 @@ class OutgoingPaymentList < Ekylibre::Record::Base
         iban: payment.payee.iban,
         amount: format('%.2f', payment.amount.round(2)),
         reference: payment.number,
-        remittance_information: payment.affair.purchases.first.number,
+        remittance_information: payment.affair.purchase_invoices.first.number,
         requested_date: Time.zone.now.to_date,
         batch_booking: false,
         bic: 'NOTPROVIDED'

@@ -170,9 +170,9 @@ arb:
       index: "لوحات"
       new: "لوحة تحكم جديدة"
       production: "لوحة أجهزة القياس إنتاج"
-      # purchases: "Purchases dashboard: %{name}"
+      # purchases: "Purchases dashboard"
       relationship: "لوحة أجهزة القياس العلاقة"
-      # sales: "Sales dashboard: %{name}"
+      # sales: "Sales dashboard"
       # sandbox: "Sandbox dashboard: %{name}"
       # search: "Search for: %{searched}"
       settings: "إعدادات لوحة القيادة"
@@ -632,6 +632,14 @@ arb:
       index: "أنواع شراء"
       new: "نوع شراء جديدة"
       # show: "Purchase type: %{name}"
+    backend/purchase_orders:
+      # close: "Close order: %{name}"
+      # edit: "Edit order: %{name}"
+      # index: "Orders"
+      # new: "New order"
+      # open: "Open order: %{name}"
+      # reconciliate_modal: "Reconciliate modal order: %{name}"
+      # show: "Purchase order: %{name}"
     backend/purchase_payments:
       edit: "تعديل دفعة : %{number}"
       index: "دفعات"
@@ -804,6 +812,10 @@ arb:
       edit: "تعديل الوحدة : %{label}" #?
       index: "وحدات القياس" #?
       new: "اضافة وحدة قياس جديدة" #?
+    backend/unreceived_purchase_orders:
+      # edit: "Edit unreceived order: %{name}"
+      # index: "Unreceived orders"
+      # show: "Unreceived order: %{name}"
     backend/users:
       edit: "تعديل المستخدم"
       index: "المستخدمين"
@@ -1679,6 +1691,8 @@ arb:
     last_outgoing_parcels: "مشاركة الطرود الصادرة"
     last_products: "آخر المنتجات"
     last_purchases: "مشاركة مشتريات"
+    # last_purchases_invoices: "Last purchases"
+    # last_purchases_orders: "Last orders"
     last_sales: "مشاركة المبيعات"
     # late: "Late"
     # late_delivery: "Late delivery"
@@ -2086,6 +2100,7 @@ arb:
     recent_events: "الاحداث الاخيرة"
     # reception: "Reception"
     # reception_incident: "Reception incident"
+    # reception_items: "Reception items"
     # reception_number: "Reception number"
     # receptions: "Receptions"
     # reconcile: "Reconcile"
@@ -2237,6 +2252,7 @@ arb:
     sex: "جنس"
     shape: "شكل"
     ship: "بشريطة"
+    # shipment_items: "Shipment items"
     # shipments: "Shipments"
     show: "تبين"
     sign_out: "خروج"
@@ -2612,6 +2628,12 @@ arb:
     x_purchases:
       one: "1 شراء"
       # other: "%{count} purchases"
+    x_purchases_invoices:
+      # one: "%{count} purchase"
+      # other: "%{count} purchase"
+    x_purchases_orders:
+      # one: "%{count} purchase order"
+      # other: "%{count} purchase orders"
     x_readings:
       # one: "%{count} reading"
       # other: "%{count} readings"

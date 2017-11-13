@@ -150,9 +150,9 @@ ita:
       index: "Dashboard"
       new: "Nuovo cruscotto"
       production: "Produzione cruscotto"
-      # purchases: "Purchases dashboard: %{name}"
+      # purchases: "Purchases dashboard"
       relationship: "cruscotto rapporto"
-      # sales: "Sales dashboard: %{name}"
+      # sales: "Sales dashboard"
       # sandbox: "Sandbox dashboard: %{name}"
       # search: "Search for: %{searched}"
       settings: "Dashboard"
@@ -495,6 +495,14 @@ ita:
       index: "tipi di acquisto"
       new: "Nuovo tipo di acquisto"
       # show: "Purchase type: %{name}"
+    backend/purchase_orders:
+      # close: "Close order: %{name}"
+      # edit: "Edit order: %{name}"
+      # index: "Orders"
+      # new: "New order"
+      # open: "Open order: %{name}"
+      # reconciliate_modal: "Reconciliate modal order: %{name}"
+      # show: "Purchase order: %{name}"
     backend/purchase_payments:
       # edit: "Edit disbursement: %{number}"
       index: "erogazioni"
@@ -637,6 +645,10 @@ ita:
       # show: "Tracking: %{name}"
     backend/trial_balances:
       show: "bilancio di verifica"
+    backend/unreceived_purchase_orders:
+      # edit: "Edit unreceived order: %{name}"
+      # index: "Unreceived orders"
+      # show: "Unreceived order: %{name}"
     backend/users:
       # edit: "Edit user: %{first_name} %{last_name}"
       index: "utenti"
@@ -1342,6 +1354,8 @@ ita:
     last_outgoing_parcels: "Ultimi pacchi in uscita"
     last_products: "ultimi prodotti"
     last_purchases: "ultimi acquisti"
+    # last_purchases_invoices: "Last purchases"
+    # last_purchases_orders: "Last orders"
     last_sales: "ultimi vendite"
     # late: "Late"
     # late_delivery: "Late delivery"
@@ -1610,6 +1624,7 @@ ita:
     recent_events: "Eventi recenti"
     # reception: "Reception"
     # reception_incident: "Reception incident"
+    # reception_items: "Reception items"
     # reception_number: "Reception number"
     # receptions: "Receptions"
     # reconcile: "Reconcile"
@@ -1700,6 +1715,7 @@ ita:
     sex: "Sesso"
     shape: "Forma"
     ship: "Nave"
+    # shipment_items: "Shipment items"
     # shipments: "Shipments"
     show: "Mostrare"
     sign_out: "disconnessione"
@@ -2001,6 +2017,12 @@ ita:
     x_purchases:
       one: "1 acquisto"
       # other: "%{count} purchases"
+    x_purchases_invoices:
+      # one: "%{count} purchase"
+      # other: "%{count} purchase"
+    x_purchases_orders:
+      # one: "%{count} purchase order"
+      # other: "%{count} purchase orders"
     x_readings:
       # one: "%{count} reading"
       # other: "%{count} readings"

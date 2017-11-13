@@ -155,9 +155,9 @@ por:
       index: "Dashboards"
       new: "Novo dashboard"
       production: "Dashboard de produção"
-      # purchases: "Purchases dashboard: %{name}"
+      # purchases: "Purchases dashboard"
       relationship: "Dashboard de relacionamentos"
-      # sales: "Sales dashboard: %{name}"
+      # sales: "Sales dashboard"
       sandbox: "Dashboard sandbox: %{name}"
       search: "Pesquisar por: %{searched}"
       settings: "Dashboard de configurações"
@@ -500,6 +500,14 @@ por:
       index: "Tipos de compra"
       new: "Novo tipo de compra"
       # show: "Purchase type: %{name}"
+    backend/purchase_orders:
+      # close: "Close order: %{name}"
+      # edit: "Edit order: %{name}"
+      # index: "Orders"
+      # new: "New order"
+      # open: "Open order: %{name}"
+      # reconciliate_modal: "Reconciliate modal order: %{name}"
+      # show: "Purchase order: %{name}"
     backend/purchase_payments:
       # edit: "Edit disbursement: %{number}"
       index: "Efectuados"
@@ -642,6 +650,10 @@ por:
       # show: "Tracking: %{name}"
     backend/trial_balances:
       show: "Balanço geral"
+    backend/unreceived_purchase_orders:
+      # edit: "Edit unreceived order: %{name}"
+      # index: "Unreceived orders"
+      # show: "Unreceived order: %{name}"
     backend/users:
       # edit: "Edit user: %{first_name} %{last_name}"
       index: "Usuários"
@@ -1281,6 +1293,8 @@ por:
     last_outgoing_parcels: "Parcelas últimos saída"
     last_products: "Últimos produtos"
     last_purchases: "Últimas compras"
+    # last_purchases_invoices: "Last purchases"
+    # last_purchases_orders: "Last orders"
     last_sales: "Últimos vendas"
     # late: "Late"
     # late_delivery: "Late delivery"
@@ -1549,6 +1563,7 @@ por:
     recent_events: "Eventos recentes"
     # reception: "Reception"
     # reception_incident: "Reception incident"
+    # reception_items: "Reception items"
     # reception_number: "Reception number"
     # receptions: "Receptions"
     # reconcile: "Reconcile"
@@ -1639,6 +1654,7 @@ por:
     sex: "Sexo"
     shape: "Forma"
     ship: "Navio"
+    # shipment_items: "Shipment items"
     # shipments: "Shipments"
     show: "Exposição"
     sign_out: "Sair"
@@ -1940,6 +1956,12 @@ por:
     x_purchases:
       one: "1 de compra"
       # other: "%{count} purchases"
+    x_purchases_invoices:
+      # one: "%{count} purchase"
+      # other: "%{count} purchase"
+    x_purchases_orders:
+      # one: "%{count} purchase order"
+      # other: "%{count} purchase orders"
     x_readings:
       # one: "%{count} reading"
       # other: "%{count} readings"

@@ -1288,6 +1288,7 @@ eng:
     purchase_items: "Purchase items"
     purchase_natures: "Purchase types"
     # purchase_order_item: "Purchase order item"
+    # purchase_orders: "Purchase orders"
     purchase_payments: "Purchase payments"
     purchase_taxations: "Purchase taxations"
     purchase_taxes: "Purchase taxes"

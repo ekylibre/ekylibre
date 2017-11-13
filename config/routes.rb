@@ -174,7 +174,8 @@ Rails.application.routes.draw do
       resource :last_movements_cell, only: :show, concerns: :list
       resource :last_outgoing_parcels_cell, only: :show, concerns: :list
       resource :last_products_cell, only: :show, concerns: :list
-      resource :last_purchases_cell, only: :show, concerns: :list
+      resource :last_purchases_invoices_cell, only: :show, concerns: :list
+      resource :last_purchases_orders_cell, only: :show, concerns: :list
       resource :last_sales_cell, only: :show, concerns: :list
       resource :main_settings_cell, only: :show
       resource :map_cell, only: :show
@@ -459,6 +460,8 @@ Rails.application.routes.draw do
         get :list_issues
         get :list_links
         get :list_purchases
+        get :list_purchase_invoices
+        get :list_purchase_orders
         get :list_observations
         get :list_purchase_payments
         get :list_shipments
@@ -782,7 +785,7 @@ Rails.application.routes.draw do
     resources :shipments, concerns: %i[list unroll] do
       member do
         get :list_items
-        
+
         post :ship
         post :invoice
         post :ship

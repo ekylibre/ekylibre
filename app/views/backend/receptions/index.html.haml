@@ -1,14 +1,14 @@
-- recipients = Entity.where(id: Reception.pluck(:recipient_id).compact.uniq)
+- senders = Entity.where(id: Reception.pluck(:sender_id).compact.uniq)
 - responsibles = User.where(id: Reception.select(:responsible_id).distinct)
 
 = kujaku do |k|
   - k.text
   - k.helper do
     = journal_period_crit(label: Reception.human_attribute_name(:planned_at))
-  - if recipients.any?
+  - if senders.any?
     - k.helper do
-      %label= Reception.human_attribute_name(:recipient)
-      = select_tag(:recipient_id, options_for_select([[]] + recipients.order(:name).collect{|u| [u.name, u.id]}, params[:recipient_id]))
+      %label= Reception.human_attribute_name(:sender)
+      = select_tag(:sender_id, options_for_select([[]] + senders.order(:name).collect{ |u| [u.name, u.id] }, params[:sender_id]))
 
   - if responsibles.any?
     - k.helper do
