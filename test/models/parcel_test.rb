@@ -72,20 +72,11 @@ class ParcelTest < ActiveSupport::TestCase
   setup do
     @variant = ProductNatureVariant.import_from_nomenclature(:carrot)
     @entity = Entity.create!(last_name: 'Parcel test')
+    @product = @variant.products.create!(initial_population: 30)
     @address = @entity.addresses.create!(canal: 'mail', mail_line_1: 'Yolo', mail_line_2: 'Another test')
 
     @building_division_variant = ProductNatureVariant.import_from_nomenclature(:building_division)
     Preference.set!('permanent_stock_inventory', true)
-  end
-
-  test 'ship giving a transporter' do
-    new_parcel
-    assert_nothing_raised { Parcel.ship(Parcel.all, transporter_id: @entity.id) }
-  end
-
-  test 'ship without transporter' do
-    new_parcel
-    assert_raise { Parcel.ship(Parcel.all) }
   end
 
   # ???? TODO: Figure what that test was supposed to be
@@ -103,11 +94,12 @@ class ParcelTest < ActiveSupport::TestCase
     )
     to_send = [{
       population: 1,
+      source_product: @product,
       variant: unitary_variant,
       product_name: 'Moo',
       product_identification_number: 'Cow-wow'
     }]
-
+    
     parcel = new_parcel(items_attributes: to_send, separated: false)
     parcel.give!
     unitary_variant.reload
@@ -118,9 +110,11 @@ class ParcelTest < ActiveSupport::TestCase
 
   private
 
-  def new_parcel(nature: :incoming, delivery_mode: :third, address: nil, separated: true, state: 'draft', items_attributes: nil)
+  def new_parcel(nature: :incoming, third: nil, delivery_mode: :third, address: nil, separated: true, state: 'draft', items_attributes: nil)
+    
+    third ||= Entity.create!(last_name: 'Third test')
+
     attributes = {
-      nature: nature,
       delivery_mode: delivery_mode,
       address: address || @address,
       separated_stock: separated,
@@ -133,7 +127,11 @@ class ParcelTest < ActiveSupport::TestCase
       variant: @variant
     }]
 
-    parcel = Parcel.create!(attributes)
+    if nature == :outgoing
+      parcel = Shipment.create!(attributes.merge(recipient: third))
+    else
+      parcel = Reception.create!(attributes.merge(sender: third))
+    end
     parcel.items.create!(items_attributes)
 
     parcel

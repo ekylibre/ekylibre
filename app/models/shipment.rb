@@ -215,6 +215,10 @@ class Shipment < Parcel
     super
   end
 
+  def allow_items_update?
+    !prepared? && !given?
+  end
+
   class << self
     # Convert parcels to one sale. Assume that all parcels are checked before.
     # Sale is written in DB with default values

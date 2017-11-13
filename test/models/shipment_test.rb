@@ -70,30 +70,30 @@ class ShipmentTest < ActiveSupport::TestCase
   setup do
     @variant = ProductNatureVariant.import_from_nomenclature(:carrot)
     @recipient = Entity.create!(last_name: 'Shipment test')
+    @entity = Entity.create!(last_name: 'Parcel test')
+    @product = @variant.products.create!(initial_population: 30)
     @address = @recipient.addresses.create!(canal: 'mail', mail_line_1: 'Yolo', mail_line_2: 'Another test')
 
     Preference.set!('permanent_stock_inventory', true)
   end
   
   test 'shipments' do
-    product = @variant.products.create!(initial_population: 30)
     to_send = [{
-      population: product.population,
-      source_product: product
+      population: @product.population,
+      source_product: @product
     }]
 
     shipment = new_shipment(items_attributes: to_send)
     shipment.give!
 
-    assert_equal 0, product.population
+    assert_equal 0, @product.population
   end
 
   # bookkeep on shipments
   test 'bookeep shipments' do
-    product = @variant.products.create!(initial_population: 30)
     to_send = [{
-      population: product.population,
-      source_product: product,
+      population: @product.population,
+      source_product: @product,
       unit_pretax_stock_amount: 15
     }]
 
@@ -124,6 +124,16 @@ class ShipmentTest < ActiveSupport::TestCase
     assert_operator 0, :<, jei_s.real_credit.to_i
   end
 
+  test 'ship giving a transporter' do
+    new_shipment
+    assert_nothing_raised { Parcel.ship(Parcel.all, transporter_id: @entity.id) }
+  end
+
+  test 'ship without transporter' do
+    new_shipment
+    assert_raise { Parcel.ship(Parcel.all) }
+  end
+
   private
 
   def new_shipment(delivery_mode: :third, address: nil, recipient: nil, separated: true, items_attributes: nil)
@@ -136,10 +146,11 @@ class ShipmentTest < ActiveSupport::TestCase
 
     items_attributes ||= [{
       population: 20,
+      source_product: @product,
       unit_pretax_stock_amount: 15,
       variant: @variant
     }]
-
+    
     shipment = Shipment.create!(attributes)
     items_attributes.each do
       shipment.items.create!(items_attributes)

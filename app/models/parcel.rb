@@ -172,7 +172,7 @@ class Parcel < Ekylibre::Record::Base
   end
 
   def allow_items_update?
-    !prepared? && !given?
+    raise NotImplementedError
   end
 
   def address_coordinate
