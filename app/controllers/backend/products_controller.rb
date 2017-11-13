@@ -184,7 +184,7 @@ module Backend
 
     # Lists parcel items of the current product
     list(:shipment_items, model: :shipment_items, conditions: { product_id: 'params[:id]'.c, parcels: { nature: :outgoing } }, order: { created_at: :desc }) do |t|
-      t.column :parcel, url: { controller: :shipments }
+      t.column :shipment, url: { controller: :shipments }
       t.column :nature, through: :shipment
       t.column :given_at, through: :shipment, datatype: :datetime
       t.column :population
