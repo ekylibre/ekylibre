@@ -20,6 +20,18 @@
     - k.helper do
       %label= Label.model_name.human
       = select_tag(:label_id, options_for_select([[]] + Label.where(id: InterventionLabelling.select(:label_id).uniq).map{ |l| [l.name, l.id] }, params[:label_id].to_i))
+  -# Filter by Activities
+  - k.helper do
+    %label= Activity.model_name.human
+    = select_tag(:activity_id, options_for_select([[]] + Activity.pluck(:name, :id).sort, params[:activity_id]))
+  -# Filter by driver
+  - k.helper do
+    %label= :driver.tl
+    = select_tag(:worker_id, options_for_select([[]] + Worker.drivers.pluck(:name, :id).sort_by(&:first), params[:worker_id]))
+  -# Filter by equipment
+  - k.helper do
+    %label= Equipment.model_name.human
+    = select_tag(:equipment_id, options_for_select([[]] + Equipment.pluck(:name, :id).sort, params[:equipment_id]))
 
 - main_toolbar do |t|
   = t.new(nature: :request, label: :add_intervention_request.tl, params: { redirect: nil })
