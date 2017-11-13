@@ -4,7 +4,7 @@
   - k.multi_choice :nature, [:request, :record].map{ |s| [s.tl, s] }
   - k.helper do
     %label= CultivableZone.model_name.human
-    = select_tag :cultivable_zone_id, options_for_select([[]] + CultivableZone.pluck(:name, :id), params[:cultivable_zone_id])
+    = select_tag :cultivable_zone_id, options_for_select([[]] + CultivableZone.pluck(:name, :id).sort, params[:cultivable_zone_id])
   - k.helper do
     %label= Intervention.human_attribute_name(:reference_name)
     = select_tag(:procedure_name, options_for_select([[]] + Intervention.used_procedures.collect{|p| [p.human_name, p.name.to_s]}.sort_by(&:first), params[:procedure_name]))
@@ -14,7 +14,7 @@
     - if productions && productions.any?
       - k.helper do
         %label= ActivityProduction.human_attribute_name(:support)
-        = select_tag(:product_id, options_for_select([[]] + targets.select(:product_id).distinct.collect{|u| [u.product.work_name, u.product_id]}, params[:product_id]))
+        = select_tag(:product_id, options_for_select([[]] + targets.select(:product_id).distinct.collect{|u| [u.product.work_name, u.product_id]}.sort, params[:product_id]))
         -#= select_tag(:support_id, options_for_select([[]] + productions.joins(:support).reorder('products.work_number').collect{|u| [u.work_name, u.id]}, params[:support_id]))
   - if InterventionLabelling.any?
     - k.helper do
