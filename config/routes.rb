@@ -977,7 +977,7 @@ Rails.application.routes.draw do
         get :list_items
         get :list_undelivered_items
         get :list_subscriptions
-        get :list_parcels
+        get :list_shipments
         get :list_credits
         post :abort
         post :confirm

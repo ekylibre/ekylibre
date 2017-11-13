@@ -90,7 +90,7 @@ module Backend
       t.column :amount, currency: true
     end
 
-    list(:parcels, children: :items, conditions: { sale_id: 'params[:id]'.c }) do |t|
+    list(:shipments, children: :items, conditions: { sale_id: 'params[:id]'.c }) do |t|
       t.column :number, children: :product_name, url: true
       t.column :delivery_mode
       t.column :delivery
