@@ -68,7 +68,8 @@ class ProductNatureVariant < Ekylibre::Record::Base
   belongs_to :stock_account, class_name: 'Account'
 
   has_many :contract_items, foreign_key: :variant_id, dependent: :restrict_with_exception
-  has_many :parcel_items, foreign_key: :variant_id, dependent: :restrict_with_exception
+  has_many :reception_items, class_name: 'ReceptionItem', foreign_key: :variant_id, dependent: :restrict_with_exception
+  has_many :shipment_items, class_name: 'ShipmentItem', foreign_key: :variant_id, dependent: :restrict_with_exception
   has_many :products, foreign_key: :variant_id, dependent: :restrict_with_exception
   has_many :members, class_name: 'Product', foreign_key: :member_variant_id, dependent: :restrict_with_exception
   has_many :purchase_items, foreign_key: :variant_id, inverse_of: :variant, dependent: :restrict_with_exception
@@ -143,7 +144,7 @@ class ProductNatureVariant < Ekylibre::Record::Base
 
   protect(on: :destroy) do
     products.any? || sale_items.any? || purchase_items.any? ||
-      parcel_items.any? || phases.any?
+      reception_items.any? || shipment_items.any? || phases.any?
   end
 
   before_validation on: :create do
@@ -450,7 +451,7 @@ class ProductNatureVariant < Ekylibre::Record::Base
       undelivered
     end
 
-    undelivereds += parcel_items.joins(:parcel).where.not(parcels: { state: %i[given draft] }).where(parcels: { sale_id: nil, nature: :outgoing }).pluck(:population)
+    undelivereds += shipment_items.joins(:shipment).where.not(parcels: { state: %i[given draft] }).where(parcels: { sale_id: nil, nature: :outgoing }).pluck(:population)
 
     undelivereds.compact.sum
   end
