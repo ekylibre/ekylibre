@@ -486,6 +486,12 @@ eng:
       reconciliation_state:
         # reconcile: "Reconcile"
         # to_reconcile: "To reconcile"
+    reception_item:
+      delivery_mode:
+        # none: "None"
+        # third: "Third"
+        # transporter: "Transporter"
+        # us: "Us"
     sale_gap:
       direction:
         # loss: "Loss"
@@ -551,6 +557,12 @@ eng:
       reconciliation_state:
         # reconcile: "Reconcile"
         # to_reconcile: "To reconcile"
+    shipment_item:
+      delivery_mode:
+        # none: "None"
+        # third: "Third"
+        # transporter: "Transporter"
+        # us: "Us"
     synchronization_operation:
       operation_name:
         authenticate: "Authentication"

@@ -44,6 +44,7 @@
 #  product_movement_id           :integer
 #  product_name                  :string
 #  product_ownership_id          :integer
+#  product_work_number           :string
 #  purchase_invoice_item_id      :integer
 #  purchase_order_item_id        :integer
 #  role                          :string

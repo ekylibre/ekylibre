@@ -1925,6 +1925,7 @@ arb:
     node_id: "عقدة" #?
     nodes: "عقد الاستخراج"
     # non_compliant: "Non compliant"
+    # non_compliant_detail: "Non compliant detail"
     noticed_start_amount: "كمية بداية لاحظت"
     noticed_stop_amount: "لاحظت كمية توقف"
     notification: "إعلام"
@@ -2085,6 +2086,7 @@ arb:
     product_category: "الفئة" #?
     product_category_id: "فئة" #?
     product_components: "مكونات المنتج" #?
+    # product_enjoyment: "Product enjoyment"
     product_enjoyments: "المتعة المنتج"
     product_id: "المنتج" #?
     product_identification_number: "رقم الهوية"
@@ -2108,6 +2110,7 @@ arb:
     product_reading: "قراءة المنتج"
     product_reading_tasks: "مهام القراءة المنتج"
     product_readings: "قراءات المنتج"
+    # product_work_number: "Product work number"
     productable_products: "المنتجات الممكن انتاجها" #?
     production: "الإنتاج"
     production_campaign: "حملة إنتاج"
@@ -2137,10 +2140,12 @@ arb:
     purchase_affair: "قضية شراء" #?
     purchase_affairs: "الشؤون شراء"
     purchase_amount: "مبلغ الشراء"
+    # purchase_invoice_item: "Purchase invoice item"
     purchase_invoices: "فواتير الشراء"
     purchase_item: "البند شراء"
     purchase_items: "طرق طلب الشراء"
     purchase_natures: "أنواع شراء"
+    # purchase_order_item: "Purchase order item"
     purchase_payments: "دفعات الشراء"
     purchase_taxations: "الأنظمة الضريبية شراء"
     purchase_taxes: "ضرائب الشراء"
@@ -2343,6 +2348,7 @@ arb:
     soundex: "خوارزمية مستخدمة لتشفير كلمات بطرقة تمكن مطابقة الكلمات مع الاصوات" #?
     source: "المصدر"
     source_product: "مصدر المنتج"
+    # source_product_movement: "Source product movement"
     spaced_iban: "متباعدة IBAN"
     sql_type: "SQL نوع"
     ssl: "خدمة تصميم المواقع"
@@ -2368,6 +2374,7 @@ arb:
     storable: "القابل للتخزين"
     storage: "تخزين"
     storages: "المخازن"
+    # storings: "Storings"
     story: "واقع"
     string_value: "القيمة النصية"
     subdir: "المرجع الفرعي" #?
