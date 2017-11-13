@@ -37,7 +37,7 @@
         %span.title= resource_model.human_attribute_name(:incoming_parcel_item)
         %span.value
           %i.picto{class: "picto-movements"}
-          = link_to(resource.incoming_parcel_item.reception.number, controller: :receptions, action: :show, id: resource.incoming_parcel_item.parcel.id)
+          = link_to(resource.incoming_parcel_item.reception.number, controller: :receptions, action: :show, id: resource.incoming_parcel_item.reception.id)
     - if resource.outgoing_parcel_item
       .med-info.important
         %span.title= resource_model.human_attribute_name(:outgoing_parcel_item)
