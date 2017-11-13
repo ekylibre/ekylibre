@@ -116,12 +116,8 @@ class ParcelItem < Ekylibre::Record::Base
       if catalog_item.any? && catalog_item.first.pretax_amount != 0.0
         self.unit_pretax_stock_amount = catalog_item.first.pretax_amount
       end
-      # purchase contrat case
-      if contract && contract.items.where(variant: variant).any?
-        item = contract.items.where(variant_id: variant.id).first
-        self.unit_pretax_amount ||= item.unit_pretax_amount if item && item.unit_pretax_amount
-      end
     end
+
     self.population ||= product_is_unitary? ? 1 : 0
 
     # Use the unit_amount of purchase_order_item if amount equal to zero
