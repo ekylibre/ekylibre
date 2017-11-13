@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 9.6.4
--- Dumped by pg_dump version 9.6.4
+-- Dumped from database version 9.6.3
+-- Dumped by pg_dump version 9.6.3
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -4759,7 +4759,8 @@ CREATE TABLE parcel_items (
     non_compliant_detail character varying,
     role character varying,
     equipment_id integer,
-    purchase_order_item_id integer
+    purchase_order_item_id integer,
+    product_work_number character varying
 );
 
 
@@ -18102,4 +18103,8 @@ INSERT INTO schema_migrations (version) VALUES ('20171012130905');
 INSERT INTO schema_migrations (version) VALUES ('20171025151606');
 
 INSERT INTO schema_migrations (version) VALUES ('20171108173217');
+
+INSERT INTO schema_migrations (version) VALUES ('20171110102056');
+
+INSERT INTO schema_migrations (version) VALUES ('20171110145349');
 

@@ -84,7 +84,7 @@ module Backend
       t.column :variant, url: true
       # t.column :source_product, url: true
       t.column :product_name
-      t.column :product_identification_number
+      t.column :product_work_number
       t.column :population
       t.column :unit_name, through: :variant
       t.column :unit_pretax_amount, currency: true
