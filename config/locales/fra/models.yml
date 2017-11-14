@@ -1337,6 +1337,7 @@ fra:
     node: "Nœud"
     nodes: "Nœuds d’extraction"
     non_compliant: "Non conforme"
+    # non_compliant_detail: "Non compliant detail"
     noticed_start_amount: "Montant de début constaté"
     noticed_stop_amount: "Montant de fin constaté"
     notification: "Notification"
@@ -1465,6 +1466,7 @@ fra:
     product_creations: "Créations de produit" #?
     product_deaths: "Morts de produit" #?
     product_divisions: "Divisions de produit" #?
+    # product_enjoyment: "Product enjoyment"
     product_enjoyments: "Usufruit de produit"
     product_grading: "Agréage produit" #?
     product_identification_number: "Numéro d’identification"
@@ -1497,6 +1499,7 @@ fra:
     product_readings: "Relevés d’indicateur de produit"
     product_triple_mixings: "Triple mélanges de produit" #?
     product_way: "Voie du produit" #?
+    product_work_number: "N° de travail"
     production: "Production"
     production_campaign: "Campagne rattachée"
     production_cycle: "Cycle de production"
@@ -1519,10 +1522,12 @@ fra:
     purchase_affair: "Affaire d’achat" #?
     purchase_affairs: "Affaires d'achat"
     purchase_amount: "Montant d’achat"
+    # purchase_invoice_item: "Purchase invoice item"
     purchase_invoices: "Factures d’achats"
     purchase_item: "Ligne d’achat"
     purchase_items: "Lignes d’achat"
     purchase_natures: "Types d’achat"
+    # purchase_order_item: "Purchase order item"
     purchase_payments: "Paiements d’achat"
     purchase_taxations: "Taxations d’achat"
     purchase_taxes: "Taxes à l’achat"
@@ -1691,6 +1696,7 @@ fra:
     sold_on: "Date de cession"
     source: "Source"
     source_product: "Produit Source"
+    # source_product_movement: "Source product movement"
     spaced_iban: "IBAN"
     sql_type: "Type SQL"
     ssl: "Ssl"
@@ -1711,6 +1717,7 @@ fra:
     storable: "Gérer les stocks"
     storage: "Stockage"
     storages: "Stockages"
+    # storings: "Storings"
     story: "Historique"
     string_value: "Valeur textuelle"
     subdomains: "Sous-domaines"

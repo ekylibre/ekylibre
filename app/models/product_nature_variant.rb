@@ -68,7 +68,8 @@ class ProductNatureVariant < Ekylibre::Record::Base
   belongs_to :stock_account, class_name: 'Account'
 
   has_many :contract_items, foreign_key: :variant_id, dependent: :restrict_with_exception
-  has_many :parcel_items, foreign_key: :variant_id, dependent: :restrict_with_exception
+  has_many :reception_items, class_name: 'ReceptionItem', foreign_key: :variant_id, dependent: :restrict_with_exception
+  has_many :shipment_items, class_name: 'ShipmentItem', foreign_key: :variant_id, dependent: :restrict_with_exception
   has_many :products, foreign_key: :variant_id, dependent: :restrict_with_exception
   has_many :members, class_name: 'Product', foreign_key: :member_variant_id, dependent: :restrict_with_exception
   has_many :purchase_items, foreign_key: :variant_id, inverse_of: :variant, dependent: :restrict_with_exception
@@ -143,7 +144,7 @@ class ProductNatureVariant < Ekylibre::Record::Base
 
   protect(on: :destroy) do
     products.any? || sale_items.any? || purchase_items.any? ||
-      parcel_items.any? || phases.any?
+      reception_items.any? || shipment_items.any? || phases.any?
   end
 
   before_validation on: :create do
@@ -438,9 +439,9 @@ class ProductNatureVariant < Ekylibre::Record::Base
   def current_outgoing_stock_ordered_not_delivered
     undelivereds = sale_items.includes(:sale).map do |si|
       undelivered = 0
-      variants_in_parcel_in_sale = ParcelItem.where(parcel_id: si.sale.parcels.select(:id), variant: self)
-      variants_in_transit_parcel_in_sale = ParcelItem.where(parcel_id: si.sale.parcels.where.not(state: %i[given draft]).select(:id), variant: self)
-      delivered_variants_in_parcel_in_sale = ParcelItem.where(parcel_id: si.sale.parcels.where(state: :given).select(:id), variant: self)
+      variants_in_parcel_in_sale = ShipmentItem.where(parcel_id: si.sale.parcels.select(:id), variant: self)
+      variants_in_transit_parcel_in_sale = ShipmentItem.where(parcel_id: si.sale.parcels.where.not(state: %i[given draft]).select(:id), variant: self)
+      delivered_variants_in_parcel_in_sale = ShipmentItem.where(parcel_id: si.sale.parcels.where(state: :given).select(:id), variant: self)
 
       undelivered = si.quantity if variants_in_parcel_in_sale.none? && !si.sale.draft? && !si.sale.refused? && !si.sale.aborted?
       undelivered = [undelivered, si.quantity - delivered_variants_in_parcel_in_sale.sum(:population)].max if variants_in_parcel_in_sale.present?
@@ -450,7 +451,7 @@ class ProductNatureVariant < Ekylibre::Record::Base
       undelivered
     end
 
-    undelivereds += parcel_items.joins(:parcel).where.not(parcels: { state: %i[given draft] }).where(parcels: { sale_id: nil, nature: :outgoing }).pluck(:population)
+    undelivereds += shipment_items.joins(:shipment).where.not(parcels: { state: %i[given draft] }).where(parcels: { sale_id: nil, nature: :outgoing }).pluck(:population)
 
     undelivereds.compact.sum
   end

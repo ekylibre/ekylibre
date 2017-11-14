@@ -534,7 +534,7 @@ spa:
       # show: "Purchase type: %{name}"
     backend/purchase_orders:
       # close: "Close order: %{name}"
-      # edit: "Edit order: %{name}"
+      # edit: "Edit order: %{number}"
       # index: "Orders"
       # new: "New order"
       # open: "Open order: %{name}"
