@@ -8,7 +8,9 @@
   = f.referenced_association :delivery_address, source: :own_mails, new: { entity_id: Entity.of_company.id }
   = f.association :nature, as: :hidden
   = f.input :reference_number
-  = f.input :invoiced_at
+  = f.input :invoiced_at, wrapper_html: { class: 'apply-fy-date' }
+  %span.hidden#financial-year-dates{ financial_year_started_on_stopped_on }
+    = :warning_date_not_in_period.tl
   = f.input :payment_delay
   = f.input :tax_payability, as: :radio_buttons
   = f.referenced_association :responsible, source: :employees, new: { employed: 1 }
