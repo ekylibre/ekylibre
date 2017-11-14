@@ -1552,7 +1552,7 @@ fra:
     reduction_percentage: "Réduction (%)"
     reductions: "Lignes de réductions" #?
     reference: "Référence" #?
-    reference_name: "Référence"
+    reference_name: "Type d'intervention"
     reference_number: "N°Référence"
     reference_source_content_type: "Référence type de contenu source"
     reference_source_file_name: "Référence Nom du fichier source"
