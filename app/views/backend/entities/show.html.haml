@@ -172,11 +172,17 @@
         - if resource.contracts.any?
           = cobble_list(:contracts)
 
-      - c.cobble(:purchases, title: :x_purchases.tl(count: resource.purchases.count)) do
+      - c.cobble(:purchase_invoices, title: :x_purchase_invoices.tl(count: resource.purchase_invoices.count)) do
         = cobble_toolbar do |t|
-          = t.new(params: {controller: :purchases, :supplier_id => resource.id})
-        - if resource.purchases.any?
-          = cobble_list(:purchases)
+          = t.new(params: {controller: :purchase_invoices, :supplier_id => resource.id})
+        - if resource.purchase_invoices.any?
+          = cobble_list(:purchase_invoices)
+
+      - c.cobble(:purchase_orders, title: :x_purchase_orders.tl(count: resource.purchase_orders.count)) do
+        = cobble_toolbar do |t|
+          = t.new(params: {controller: :purchase_orders, :supplier_id => resource.id})
+        - if resource.purchase_orders.any?
+          = cobble_list(:purchase_orders)
 
       - c.cobble(:receptions, title: :x_receptions.tl(count: resource.receptions.count)) do
         = cobble_toolbar do |t|

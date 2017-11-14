@@ -203,9 +203,9 @@ eng:
       index: "Dashboards"
       new: "New dashboard"
       production: "Production dashboard"
-      purchases: "Purchases dashboard: %{name}"
+      purchases: "Purchases dashboard"
       relationship: "Relationship dashboard"
-      sales: "Sales dashboard: %{name}"
+      sales: "Sales dashboard"
       sandbox: "Sandbox dashboard: %{name}"
       search: "Search for: %{searched}"
       settings: "Settings dashboard"
@@ -667,13 +667,13 @@ eng:
       new: "New purchase type"
       show: "Purchase type: %{name}"
     backend/purchase_orders:
-      # close: "Close purchase order: %{name}"
-      # edit: "Edit purchase order: %{name}"
-      # index: "Purchase orders"
-      # new: "New purchase order"
-      # open: "Open purchase order: %{name}"
-      # reconciliate_modal: "Reconciliate modal purchase order: %{name}"
-      # show: "Purchase order: %{name}"
+      close: "Close order: %{name}"
+      edit: "Edit order: %{number}"
+      index: "Orders"
+      new: "New order"
+      open: "Open order: %{name}"
+      reconciliate_modal: "Reconciliate modal order: %{name}"
+      show: "Purchase order: %{name}"
     backend/purchase_payments:
       edit: "Edit disbursement: %{number}"
       index: "Disbursements"
@@ -810,6 +810,7 @@ eng:
       new: "New settlement"
       show: "Settlement: %{name}"
       # take: "Take settlement: %{name}"
+      # update_many: "Update many settlement: %{name}"
     backend/shipments:
       cancel: "Cancel shipment: %{name}"
       check: "Check shipment: %{name}"
@@ -822,7 +823,6 @@ eng:
       prepare: "Prepare shipment: %{name}"
       ship: "Ship shipment: %{name}"
       show: "Shipment: %{name}"
-      # update_many: "Update many settlement: %{name}"
     backend/snippets:
       # toggle: "Toggle snippet: %{name}"
     backend/subscription_natures:
@@ -882,9 +882,9 @@ eng:
     backend/trial_balances:
       show: "Trial balance"
     backend/unreceived_purchase_orders:
-      # edit: "Edit unreceived purchase order: %{name}"
-      # index: "Unreceived purchase orders"
-      # show: "Unreceived purchase order: %{name}"
+      edit: "Edit unreceived order: %{name}"
+      index: "Unreceived orders"
+      show: "Unreceived order: %{name}"
     backend/users:
       edit: "Edit user: %{first_name} %{last_name}"
       index: "Users"
@@ -1561,6 +1561,8 @@ eng:
     last_outgoing_parcels: "Last outgoing parcels"
     last_products: "Last products" #?
     last_purchases: "Last purchases"
+    last_purchases_invoices: "Last purchases"
+    last_purchases_orders: "Last orders"
     last_sales: "Last sales"
     late: "Late"
     late_delivery: "Late delivery"
@@ -1827,6 +1829,7 @@ eng:
     recent_events: "Recent events"
     reception: "Reception"
     reception_incident: "Reception incident"
+    reception_items: "Reception items"
     reception_number: "Reception number"
     receptions: "Receptions"
     reconcile: "Reconcile"
@@ -1914,6 +1917,7 @@ eng:
     sex: "Sex" #?
     shape: "Shape" #?
     ship: "Ship" #?
+    shipment_items: "Shipment items"
     shipments: "Shipments"
     show: "Show"
     # show_export_preview: "Show export preview"
@@ -2208,12 +2212,20 @@ eng:
     x_outgoing_payments:
       one: "%{count} disbursement"
       other: "%{count} disbursements"
+    # x_purchase_invoices: "X purchase invoices"
+    # x_purchase_orders: "X purchase orders"
     x_purchase_payments:
       one: "%{count} purchase payment"
       other: "%{count} purchase payments"
     x_purchases:
       one: "%{count} purchase"
       other: "%{count} purchases"
+    x_purchases_invoices:
+      one: "%{count} purchase"
+      other: "%{count} purchase"
+    x_purchases_orders:
+      one: "%{count} purchase order"
+      other: "%{count} purchase orders"
     x_readings:
       one: "%{count} reading"
       other: "%{count} readings"

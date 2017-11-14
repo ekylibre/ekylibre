@@ -150,9 +150,9 @@ jpn:
       index: "ダッシュボード"
       new: "新しいダッシュボード"
       production: "プロダクションダッシュボード"
-      # purchases: "Purchases dashboard: %{name}"
+      # purchases: "Purchases dashboard"
       relationship: "関係ダッシュボード"
-      # sales: "Sales dashboard: %{name}"
+      # sales: "Sales dashboard"
       # sandbox: "Sandbox dashboard: %{name}"
       # search: "Search for: %{searched}"
       settings: "設定のダッシュボード"
@@ -495,6 +495,14 @@ jpn:
       index: "購入タイプ"
       new: "新規購入のタイプ"
       # show: "Purchase type: %{name}"
+    backend/purchase_orders:
+      # close: "Close order: %{name}"
+      # edit: "Edit order: %{number}"
+      # index: "Orders"
+      # new: "New order"
+      # open: "Open order: %{name}"
+      # reconciliate_modal: "Reconciliate modal order: %{name}"
+      # show: "Purchase order: %{name}"
     backend/purchase_payments:
       # edit: "Edit disbursement: %{number}"
       index: "支出"
@@ -637,6 +645,10 @@ jpn:
       # show: "Tracking: %{name}"
     backend/trial_balances:
       show: "試算表"
+    backend/unreceived_purchase_orders:
+      # edit: "Edit unreceived order: %{name}"
+      # index: "Unreceived orders"
+      # show: "Unreceived order: %{name}"
     backend/users:
       # edit: "Edit user: %{first_name} %{last_name}"
       index: "ユーザー"
@@ -1344,6 +1356,8 @@ jpn:
     last_outgoing_parcels: "最終発信小包"
     last_products: "最終製品"
     last_purchases: "最終購入"
+    # last_purchases_invoices: "Last purchases"
+    # last_purchases_orders: "Last orders"
     last_sales: "最終販売"
     # late: "Late"
     # late_delivery: "Late delivery"
@@ -1616,6 +1630,7 @@ jpn:
     recent_events: "最近のイベント"
     # reception: "Reception"
     # reception_incident: "Reception incident"
+    # reception_items: "Reception items"
     # reception_number: "Reception number"
     # receptions: "Receptions"
     # reconcile: "Reconcile"
@@ -1706,6 +1721,7 @@ jpn:
     sex: "セックス"
     shape: "形状"
     ship: "船"
+    # shipment_items: "Shipment items"
     # shipments: "Shipments"
     show: "を表示"
     sign_out: "サインアウト"
@@ -2008,6 +2024,12 @@ jpn:
     x_purchases:
       one: "1購入"
       # other: "%{count} purchases"
+    x_purchases_invoices:
+      # one: "%{count} purchase"
+      # other: "%{count} purchase"
+    x_purchases_orders:
+      # one: "%{count} purchase order"
+      # other: "%{count} purchase orders"
     x_readings:
       # one: "%{count} reading"
       # other: "%{count} readings"
