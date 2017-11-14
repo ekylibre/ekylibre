@@ -5,9 +5,14 @@
   - k.helper do
     %label= CultivableZone.model_name.human
     = select_tag :cultivable_zone_id, options_for_select([[]] + CultivableZone.pluck(:name, :id).sort, params[:cultivable_zone_id])
+  -# Type of intervention
   - k.helper do
     %label= Intervention.human_attribute_name(:reference_name)
     = select_tag(:procedure_name, options_for_select([[]] + Intervention.used_procedures.collect{|p| [p.human_name, p.name.to_s]}.sort_by(&:first), params[:procedure_name]))
+  -# Filter by Activities
+  - k.helper do
+    %label= Activity.model_name.human
+    = select_tag(:activity_id, options_for_select([[]] + Activity.pluck(:name, :id).sort, params[:activity_id]))
   - if current_campaign
     - productions = ActivityProduction.of_campaign(current_campaign)
     - targets = InterventionTarget.joins(:product)
@@ -20,10 +25,6 @@
     - k.helper do
       %label= Label.model_name.human
       = select_tag(:label_id, options_for_select([[]] + Label.where(id: InterventionLabelling.select(:label_id).uniq).map{ |l| [l.name, l.id] }, params[:label_id].to_i))
-  -# Filter by Activities
-  - k.helper do
-    %label= Activity.model_name.human
-    = select_tag(:activity_id, options_for_select([[]] + Activity.pluck(:name, :id).sort, params[:activity_id]))
   -# Filter by driver
   - k.helper do
     %label= :driver.tl

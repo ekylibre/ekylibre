@@ -118,15 +118,14 @@ module Backend
       code << "end\n"
 
       # Worker || Driver
-      code << "if params[:worker_id] \n"
+      code << "unless params[:worker_id].blank? \n"
       code << "   c[0] << ' AND #{Intervention.table_name}.id IN (SELECT intervention_id FROM interventions INNER JOIN #{InterventionParticipation.table_name} ON #{InterventionParticipation.table_name}.intervention_id = #{Intervention.table_name}.id WHERE #{InterventionParticipation.table_name}.product_id = ?)'\n"
       code << "   c << params[:worker_id].to_i\n"
       code << "end\n"
 
       # Intervention tool
-      code << "if params[:equipment_id] \n"
-      code << "   c[0] ' AND #{Intervention.table_name}.id IN (SELECT intervention_id FROM intervention_parameters WHERE type = \\'InterventionTool\\' AND product_id IN (?))'\n"
-      # code << "   c[0] << ' AND #{Intervention.table_name}.id IN (SELECT intervention_id FROM interventions INNER JOIN #{InterventionParameter.table_name} ON #{InterventionParameter.table_name}.intervention_id = #{Intervention.table_name}.id WHERE #{InterventionParameter.table_name}.product_id = ?)'\n"
+      code << "unless params[:equipment_id].blank? \n"
+      code << "   c[0] << ' AND #{Intervention.table_name}.id IN (SELECT intervention_id FROM interventions INNER JOIN #{InterventionParameter.table_name} ON #{InterventionParameter.table_name}.intervention_id = #{Intervention.table_name}.id WHERE #{InterventionParameter.table_name}.product_id = ?)'\n"
       code << "   c << params[:equipment_id].to_i\n"
       code << "end\n"
 
