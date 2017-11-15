@@ -276,9 +276,10 @@
       E.interventions.refresh $(this)
 
   #  selector:initialized
-  $(document).on 'selector:change', '*[data-intervention-updater]', ->
+  $(document).on 'selector:change', '*[data-intervention-updater]', (event) ->
     $(this).each ->
       E.interventions.refresh $(this)
+      E.interventionForm.displayCost(event.target)
 
   $(document).on 'keyup', 'input[data-selector]', (e) ->
     $(this).each ->
@@ -315,6 +316,23 @@
       participation.val(JSON.stringify((jsonParticipation)))
       participation.attr('data-product-id', newProductId)
 
+
+  E.interventionForm =
+    displayCost: (target) ->
+
+      productId = $(target).closest('.nested-product-parameter').find(".selector .selector-value").val()
+
+      datas = {}
+      datas['intervention_id'] = $('input[name="intervention_id"]').val()
+      datas['product_id'] = productId
+      datas['existing_participation'] = $('.intervention-participation[data-product-id="' + productId + '"]').val()
+      datas['intervention_started_at'] = $('#intervention_working_periods_attributes_0_started_at').val()
+      datas['intervention_stopped_at'] = $('#intervention_working_periods_attributes_0_stopped_at').val()
+
+      $.ajax
+        url: "/backend/interventions/costs/parameter_cost",
+        data: datas
+        success: (data, status, request) ->
 
 
   $(document).ready ->
