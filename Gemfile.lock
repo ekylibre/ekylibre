@@ -180,6 +180,11 @@ GEM
     docile (1.1.5)
     domain_name (0.5.20170404)
       unf (>= 0.0.5, < 1.0.0)
+    draper (2.1.0)
+      actionpack (>= 3.0)
+      activemodel (>= 3.0)
+      activesupport (>= 3.0)
+      request_store (~> 1.0)
     ekylibre-ofx-parser (1.2.2)
       hpricot (>= 0.6)
     enumerize (2.1.2)
@@ -409,6 +414,7 @@ GEM
       redis (>= 3.0.4)
     ref (2.0.0)
     remotipart (1.3.1)
+    request_store (1.3.2)
     require_all (1.4.0)
     responders (2.4.0)
       actionpack (>= 4.2.0, < 5.3)
@@ -571,6 +577,7 @@ GEM
     uniform_notifier (1.10.0)
     url (0.3.2)
     uuidtools (2.1.5)
+    vuejs-rails (2.4.2)
     wannabe_bool (0.7.0)
     warden (1.2.7)
       rack (>= 1.0)
@@ -629,6 +636,7 @@ DEPENDENCIES
   devise-i18n-views
   devise_invitable
   did_you_mean (~> 0.9)
+  draper
   ekylibre-ofx-parser
   enumerize
   exception_notification
@@ -711,6 +719,7 @@ DEPENDENCIES
   uglifier (>= 1.3.0)
   unicorn
   uuidtools
+  vuejs-rails
   wannabe_bool
   web-console (~> 3.0)
 

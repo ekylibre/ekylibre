@@ -20,7 +20,7 @@
         %tr
           %th
           %th= Parcel.human_attribute_name(:number)
-          %th= Parcel.human_attribute_name(:nature)
+          %th= Parcel.human_attribute_name(:type)
           %th= Entity.model_name.human
           %th= Parcel.human_attribute_name(:items)
       %tbody
@@ -28,8 +28,8 @@
           %tr
             %td= p.check_box
             %td= p.object.number
-            %td= p.object.nature.l
-            %td= Maybe(p.object.sender || p.object.recipient).name.or_else('&ndash;'.html_safe)
+            %td= p.object.class.model_name.human
+            %td= Maybe(p.object.is_a?(Reception) ? p.object.sender : p.object.recipient).name.or_else('&ndash;'.html_safe)
             %td= p.object.content_sentence
 
 = f.attachments_field_set

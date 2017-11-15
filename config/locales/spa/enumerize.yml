@@ -316,6 +316,11 @@ spa:
         in_preparation: "En la preparación de" #?
         ordered: "Ordenado" #?
         prepared: "Preparado" #?
+    parcel_item:
+      delivery_mode:
+        # third: "Transported by recipient"
+        # transporter: "Transported by transporter"
+        # us: "Transported by us"
     plant_counting:
       nature:
         germination: "En la germinación"
