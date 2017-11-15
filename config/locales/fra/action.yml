@@ -1919,6 +1919,7 @@ fra:
     product_category: "Produits"
     product_name: "Produit"
     product_natures: "Types de produit"
+    product_nature_variants: "Variantes"
     product_price_listings: "Listes de prix" #?
     product_price_templates: "Types de prix" #?
     product_value: "Chiffre d’affaire de l’exercice %{financial_year}"
@@ -2962,7 +2963,7 @@ fra:
     backend/plants: "%{name} ‒ %{work_number}"
     backend/prescriptions: "%{reference_number}"
     backend/product_memberships: "%{started_at}"
-    backend/product_nature_variants: "%{name} (%{unit_name})"
+    backend/product_nature_variants: "%{name} (%{unit_name}) - %{charge_account_number}"
     backend/product_natures: "%{name}"
     backend/products: "%{work_number} %{name} (%{number}) - %{container_name}"
     backend/purchase_payments: "%{number}. %{mode_name} pour %{payee_full_name} de %{amount} %{currency}"

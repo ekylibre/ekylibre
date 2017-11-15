@@ -22,7 +22,8 @@ module Backend
     manage_restfully_incorporation
     manage_restfully_picture
 
-    unroll :name, :unit_name, :number
+    # To edit it, change here the column and edit action.yml unrolls section
+    unroll :name, :unit_name, category: { charge_account: :number }
 
     # params:
     #   :q Text search
