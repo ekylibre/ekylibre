@@ -1309,6 +1309,7 @@ fra:
     download_firefox: "Télécharger Mozilla Firefox…" #?
     downpayment: "Acompte"
     draft: "Brouillard"
+    driver: "Conducteur"
     drug: "Médicament" #?
     duplicate: "Dupliquer"
     duration: "Durée"

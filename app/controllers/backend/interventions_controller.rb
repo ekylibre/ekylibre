@@ -116,6 +116,19 @@ module Backend
       code << "  c[0] << ' AND #{Intervention.table_name}.id IN (SELECT intervention_id FROM intervention_parameters WHERE type = \\'InterventionTarget\\' AND product_id IN (SELECT target_id FROM target_distributions WHERE activity_id = ?))'\n"
       code << "  c << params[:activity_id].to_i\n"
       code << "end\n"
+
+      # Worker || Driver
+      code << "unless params[:driver_id].blank? \n"
+      code << "   c[0] << ' AND #{Intervention.table_name}.id IN (SELECT intervention_id FROM interventions INNER JOIN #{InterventionDoer.table_name} ON #{InterventionDoer.table_name}.intervention_id = #{Intervention.table_name}.id WHERE #{InterventionDoer.table_name}.product_id = ? AND #{InterventionDoer.table_name}.reference_name = \\'driver\\')'\n"
+      code << "   c << params[:driver_id].to_i\n"
+      code << "end\n"
+
+      # Intervention tool
+      code << "unless params[:equipment_id].blank? \n"
+      code << "   c[0] << ' AND #{Intervention.table_name}.id IN (SELECT intervention_id FROM interventions INNER JOIN #{InterventionParameter.table_name} ON #{InterventionParameter.table_name}.intervention_id = #{Intervention.table_name}.id WHERE #{InterventionParameter.table_name}.product_id = ?)'\n"
+      code << "   c << params[:equipment_id].to_i\n"
+      code << "end\n"
+
       code << "c\n "
       code.c
     end
