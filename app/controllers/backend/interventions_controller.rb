@@ -118,9 +118,9 @@ module Backend
       code << "end\n"
 
       # Worker || Driver
-      code << "unless params[:worker_id].blank? \n"
-      code << "   c[0] << ' AND #{Intervention.table_name}.id IN (SELECT intervention_id FROM interventions INNER JOIN #{InterventionParticipation.table_name} ON #{InterventionParticipation.table_name}.intervention_id = #{Intervention.table_name}.id WHERE #{InterventionParticipation.table_name}.product_id = ?)'\n"
-      code << "   c << params[:worker_id].to_i\n"
+      code << "unless params[:driver_id].blank? \n"
+      code << "   c[0] << ' AND #{Intervention.table_name}.id IN (SELECT intervention_id FROM interventions INNER JOIN #{InterventionDoer.table_name} ON #{InterventionDoer.table_name}.intervention_id = #{Intervention.table_name}.id WHERE #{InterventionDoer.table_name}.product_id = ? AND #{InterventionDoer.table_name}.reference_name = \\'driver\\')'\n"
+      code << "   c << params[:driver_id].to_i\n"
       code << "end\n"
 
       # Intervention tool
