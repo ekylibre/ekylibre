@@ -22,6 +22,7 @@ module Backend
     manage_restfully_incorporation
     manage_restfully_picture
 
+    # To edit it, change here the column and edit action.yml unrolls section
     unroll :name, :unit_name, :number
 
     # params:
