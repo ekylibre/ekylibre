@@ -1,5 +1,3 @@
-# coding: utf-8
-
 module Legrain
   module Epicea
     class JournalsExchanger < ActiveExchanger::Base

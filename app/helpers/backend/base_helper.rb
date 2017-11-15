@@ -53,6 +53,11 @@ module Backend
       Ekylibre.menu
     end
 
+    # Sort list of array (with label and id) with accent
+    def accented_sort(list)
+      list.sort_by { |e, i| I18n.transliterate e }
+    end
+
     # BasicCalendar permits to fix some SimpleCalendar issues with param name
     # and partial.
     class BasicCalendar < SimpleCalendar::MonthCalendar
