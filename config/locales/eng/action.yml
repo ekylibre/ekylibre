@@ -1358,6 +1358,7 @@ eng:
     down: "Down" #?
     downpayment: "Downpayment"
     draft: "Draft" #?
+    driver: "Driver"
     duplicate: "Duplicate"
     duration: "Duration"
     duration_in_hours_and_minutes: "%{hours}h %{minutes}min"
