@@ -168,8 +168,20 @@ fra:
         label: "Commande" #?
         moved_at: "Reçu le" #?
         planned_at: "Réception prévue le" #?
+      purchase_invoice: #?
+        description: "Notes" #?
+        invoiced_at: "Date de facture" #?
+        payment_delay: "Échéance" #?
+        reference_number: "Référence fournisseur (n° facture)" #?
       purchase_item: #?
         amount: "Montant TTC" #?
+      purchase_order: #?
+        command_mode: "Mode de commande" #?
+        description: "Notes" #?
+        estimate_reception_date: "Date prévisionnelle de réception" #?
+        ordered_at: "Date commande" #?
+        reference_number: "Référence fournisseur (n° commande)" #?
+        responsible: "Responsable de commande" #?
       purchase_payment: #?
         delivered: "Remis au bénéficiaire" #?
         list: "Lot de décaissements" #?
@@ -501,9 +513,12 @@ fra:
       purchase: "Achat"
       purchase_affair: "Affaire d’achat"
       purchase_gap: "Écart d’achat"
+      purchase_invoice: "Facture d’achat"
       purchase_item: "Ligne d’achat"
       purchase_nature: "Type d’achat"
+      purchase_order: "Commande d’achat"
       purchase_payment: "Décaissement d’achat"
+      reception: "Réception"
       regularization: "Régularisation"
       role: "Rôle"
       sale: "Vente"
@@ -516,6 +531,7 @@ fra:
       sensor: "Capteur"
       sequence: "Séquence"
       settlement: "Installation"
+      shipment: "Expédition"
       sub_zone: "Sous-zone"
       subscription: "Abonnement"
       subscription_nature: "Type d’abonnement"
@@ -721,6 +737,7 @@ fra:
     color: "Couleur"
     column_name: "Nom de colonne"
     columns: "Colonnes"
+    # command_mode: "Command mode"
     comment: "Commentaire"
     commercial: "Activité commerciale"
     commercial_description: "Description commerciale"
@@ -919,7 +936,9 @@ fra:
     entry_number: "N° Écriture"
     entry_on: "Entrée le"
     entry_reason: "Raison de l'entrée"
+    # equipment: "Equipment"
     establishment: "Établissement" #?
+    # estimate_reception_date: "Estimate reception date"
     # euid: "EUID"
     event: "Évènement"
     event_participation: "Participation à un évènement"
@@ -1114,6 +1133,7 @@ fra:
     interpolations: "Interpolations"
     intervention: "Intervention"
     intervention_cast: "Acteur de l’intervention"
+    # intervention_id: "Intervention"
     intervention_parameter: "Paramètre d’intervention"
     intervention_participation: "Participation d’intervention"
     intervention_participations: "Participations d’intervention"
@@ -1186,6 +1206,7 @@ fra:
     last_transmission_at: "Dernière transmission"
     last_value: "Dernière valeur"
     last_year: "Dernière année"
+    late_delivery: "Livraison hors délais"
     latest: "Dernier"
     leaves_parameters: "Feuilles paramètres"
     lender: "Prêteur"
@@ -1315,6 +1336,8 @@ fra:
     nitrogen_need: "Besoins de la culture (Pf)"
     node: "Nœud"
     nodes: "Nœuds d’extraction"
+    non_compliant: "Non conforme"
+    # non_compliant_detail: "Non compliant detail"
     noticed_start_amount: "Montant de début constaté"
     noticed_stop_amount: "Montant de fin constaté"
     notification: "Notification"
@@ -1443,6 +1466,7 @@ fra:
     product_creations: "Créations de produit" #?
     product_deaths: "Morts de produit" #?
     product_divisions: "Divisions de produit" #?
+    # product_enjoyment: "Product enjoyment"
     product_enjoyments: "Usufruit de produit"
     product_grading: "Agréage produit" #?
     product_identification_number: "Numéro d’identification"
@@ -1475,6 +1499,7 @@ fra:
     product_readings: "Relevés d’indicateur de produit"
     product_triple_mixings: "Triple mélanges de produit" #?
     product_way: "Voie du produit" #?
+    product_work_number: "N° de travail"
     production: "Production"
     production_campaign: "Campagne rattachée"
     production_cycle: "Cycle de production"
@@ -1497,10 +1522,12 @@ fra:
     purchase_affair: "Affaire d’achat" #?
     purchase_affairs: "Affaires d'achat"
     purchase_amount: "Montant d’achat"
+    # purchase_invoice_item: "Purchase invoice item"
     purchase_invoices: "Factures d’achats"
     purchase_item: "Ligne d’achat"
     purchase_items: "Lignes d’achat"
     purchase_natures: "Types d’achat"
+    # purchase_order_item: "Purchase order item"
     purchase_payments: "Paiements d’achat"
     purchase_taxations: "Taxations d’achat"
     purchase_taxes: "Taxes à l’achat"
@@ -1536,10 +1563,12 @@ fra:
     reception_cash: "Trésorie réceptrice"
     reception_currency: "Monnaie de réception"
     reception_journal_entry: "Écriture de la réception"
+    receptions: "Réceptions"
     recipient: "Destinataire"
     recommended: "Prescrit"
     recommender: "Prescripteur"
     reconcilable: "Lettrable"
+    # reconciliation_state: "Reconciliation state"
     record_interventions: "Interventions record"
     record_value: "Enregistrement"
     record_value_type: "Type d’enregistrement"
@@ -1651,6 +1680,7 @@ fra:
     shape: "Forme"
     shift_duration: "Durée du différé"
     shift_method: "Méthode de différé"
+    # shipments: "Shipments"
     sign_in_count: "Nombre de connexions"
     signup_at: "Inscription au"
     siren: "N° SIREN"
@@ -1666,6 +1696,7 @@ fra:
     sold_on: "Date de cession"
     source: "Source"
     source_product: "Produit Source"
+    # source_product_movement: "Source product movement"
     spaced_iban: "IBAN"
     sql_type: "Type SQL"
     ssl: "Ssl"
@@ -1686,6 +1717,7 @@ fra:
     storable: "Gérer les stocks"
     storage: "Stockage"
     storages: "Stockages"
+    # storings: "Storings"
     story: "Historique"
     string_value: "Valeur textuelle"
     subdomains: "Sous-domaines"
@@ -2108,6 +2140,8 @@ fra:
         invoice: "Facture"
         order: "Commande"
         refused: "Refusé"
+    purchase_invoice:
+      bookkeep: "[%{resource} %{number}] %{products} de %{supplier}"
     purchase_gap:
       bookkeep: "[%{resource} %{number}] %{supplier}"
     purchase_item:
@@ -2117,9 +2151,23 @@ fra:
     purchase_nature:
       default:
         name: "Achat standard"
+    purchase_order: #?
+      states: #?
+        closed: "Fermée" #?
+        estimate: "Brouillon" #?
+        opened: "Ouverte" #?
     purchase_payment:
       bookkeep: "[%{resource} %{number}] %{mode} %{check_number} pour %{payee}"
       label: "%{number}. %{amount} du %{date} en %{mode} pour %{payee}"
+    reception:
+      state_machine:
+        states:
+          draft: "Brouillon"
+          given: "Donné"
+          in_preparation: "En préparation"
+          ordered: "Commandé"
+          prepared: "Prêt"
+          received: "Reçu"
     role:
       default:
         administrator: "Gérant"
@@ -2199,6 +2247,15 @@ fra:
         sales_invoices: "F[year|4][number|6]"
         subscriptions: "ABO[number|8]"
         transports: "TR[number|8]"
+    shipment:
+      state_machine:
+        states:
+          draft: "Brouillon"
+          given: "Donné"
+          in_preparation: "En préparation"
+          ordered: "Commandé"
+          prepared: "Prêt"
+          received: "Reçu"
     task:
       state_machine:
         states:

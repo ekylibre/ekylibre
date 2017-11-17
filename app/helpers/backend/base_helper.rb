@@ -297,6 +297,11 @@ module Backend
       render 'backend/shared/financial_year_selector', financial_year: current_user.current_financial_year, param_name: options[:param_name] || :current_financial_year
     end
 
+    def financial_year_started_on_stopped_on
+      fy = FinancialYear.current
+      { data: { started_on: fy.started_on, stopped_on: fy.stopped_on }}
+    end
+
     def lights(status, html_options = {})
       if html_options.key?(:class)
         html_options[:class] << " lights lights-#{status}"

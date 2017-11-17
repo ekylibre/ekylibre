@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-ruby '>= 2.2.3', '< 3.0.0'
+#ruby '2.2.3'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.10'
@@ -9,7 +9,7 @@ gem 'rails', '4.2.10'
 gem 'mail', '~> 2.6.6.rc1'
 
 # Database adapters
-gem 'activerecord-postgis-adapter', '>= 3.0.0'
+gem 'activerecord-postgis-adapter'#, '>= 3.0.0'
 gem 'pg', '~> 0.20.0' # Needed for some tasks
 
 # Multi-tenancy
@@ -20,7 +20,7 @@ gem 'apartment-sidekiq'
 gem 'possibly'
 
 # Code manipulation
-gem 'charlock_holmes'
+#gem 'charlock_holmes'
 gem 'code_string', '>= 0.0.1'
 
 gem 'browser'
@@ -51,6 +51,8 @@ gem 'skylight'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
+# Use Vue.js as Javascript framework
+gem 'vuejs-rails'
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 gem 'jquery-turbolinks'
 gem 'turbolinks', '~> 2.0'
@@ -73,6 +75,8 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 # gem 'rails-api'
 gem 'kaminari'
 
+gem 'rake', '~>12.0.0'
+
 # Freeze time for demo and/or tests
 gem 'timecop'
 
@@ -87,11 +91,15 @@ gem 'sidekiq', '~> 4.0'
 gem 'sidekiq-cron', '>= 0.4.0'
 gem 'sidekiq-unique-jobs', '~> 4.0'
 
+# Decorator pattern
+gem 'draper'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
 # Use Unicorn as the app server
-gem 'unicorn', group: :production
+gem 'unicorn'#, group: :production
+gem 'loofah'#, group: :production
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development

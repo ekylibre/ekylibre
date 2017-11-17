@@ -48,11 +48,13 @@ class EconomicSituationTest < ActiveSupport::TestCase
 
     Purchase.create!(
       currency: 'EUR',
+      type: 'PurchaseInvoice',
       supplier: @entity,
       nature: PurchaseNature.create!(currency: 'EUR'),
       items_attributes: [
         {
-          unit_pretax_amount: '12',
+          unit_pretax_amount: 12,
+          quantity: 1,
           tax: Tax.create!(
             country: :fr,
             nature: :null_vat,

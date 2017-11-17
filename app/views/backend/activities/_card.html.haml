@@ -8,11 +8,11 @@
   .activity-content
     .activity-name= link_to(activity.name, {controller: :activities, action: :show, id: activity.id }, title: activity.name)
     - if active
-      .activity-indicators
-        .activity-indicator.cash
-          = activity.real_expense_amount(campaign).round.l(currency: Preference[:currency], precision: 0)
-          = '/'
-          = activity.budget_expenses_amount(campaign).round.l(currency: Preference[:currency], precision: 0)
+      -# .activity-indicators
+      -#   .activity-indicator.cash
+      -#     = activity.real_expense_amount(campaign).round.l(currency: Preference[:currency], precision: 0)
+      -#     = '/'
+      -#     = activity.budget_expenses_amount(campaign).round.l(currency: Preference[:currency], precision: 0)
       .activity-indicators
         .activity-indicator.size
           = activity.size_during(campaign).round(1).l(precision: 1) rescue nil

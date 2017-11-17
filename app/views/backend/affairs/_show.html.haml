@@ -74,7 +74,7 @@
                   - l.item :new.tl, { controller: model.pluralize, action: :new, klass.deal_third.foreign_key => affair.third.id, amount: affair.balance.abs, redirect: request.fullpath, affair_id: affair.id }.merge(new_record_options[model.to_s.to_sym] || {})
 
               - if affair.debt_transferable?
-                - model = affair.is_a?(SaleAffair) ? 'purchase' : 'sale'
+                - model = affair.is_a?(SaleAffair) ? 'purchase_invoice' : 'sale'
                 - klass = model.classify.constantize
                 - excluded = affair.deals_of_type(klass).pluck(:id) + klass.where.not(currency: affair.currency).pluck(:id)
                 - existings = klass.where(klass.deal_third.name => affair.third).affairable.where.not(id: excluded)

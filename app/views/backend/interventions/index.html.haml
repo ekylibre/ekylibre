@@ -27,7 +27,7 @@
   -# Filter by driver
   - k.helper do
     %label= :driver.tl
-    = select_tag(:worker_id, options_for_select([[]] + accented_sort(Worker.drivers.pluck(:name, :id)), params[:worker_id]))
+    = select_tag(:driver_id, options_for_select([[]] + accented_sort(Worker.drivers.pluck(:name, :id)), params[:driver_id]))
   -# Filter by equipment
   - k.helper do
     %label= Equipment.model_name.human

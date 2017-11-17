@@ -230,3 +230,12 @@ class InterventionProductParameter < InterventionParameter
     false
   end
 end
+
+if Rails.env.development?
+  require_dependency 'intervention_agent'
+  require_dependency 'intervention_input'
+  require_dependency 'intervention_tool'
+  require_dependency 'intervention_output'
+  require_dependency 'intervention_doer'
+  require_dependency 'intervention_target'
+end

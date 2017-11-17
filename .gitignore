@@ -46,10 +46,6 @@ private/*
 /public/assets
 /public/system/*
 
-# Ignore plugins
-/plugins
-/plugins-*
-
 # Ignore local database config
 /config/database.yml
 /config/api.yml
@@ -83,3 +79,6 @@ Procfile.*
 
 .byebug_history
 .gitconfig
+
+# Ignore file which enables to load specific tenant on rails console launch
+.pryrc
