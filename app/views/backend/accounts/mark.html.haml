@@ -1,6 +1,5 @@
 = kujaku do |k|
-  - k.helper :journal_period_crit
-
+  - k.helper(:journal_period_crit, use_search_preference: true)
 = form_tag() do
 
   = field_set :details do
