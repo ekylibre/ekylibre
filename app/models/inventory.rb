@@ -75,7 +75,7 @@ class Inventory < Ekylibre::Record::Base
   #     exchange current balance|    - balance (3X)              |   - balance (603X/71X)       |
   #     physical inventory      |    stock(3X)                   |   stock_movement(603X/71X)   |
   bookkeep do |b|
-    journal = unsuppress { Journal.find_or_create_by!(nature: :stocks) }
+    journal = unsuppress { Journal.find_or_create_by!(nature: :stocks, name: :stocks.to_s.upper) }
 
     # get all variants corresponding to current items
     variants = ProductNatureVariant.where(id: Product.where(id: items.pluck(:product_id)).pluck(:variant_id).uniq)
