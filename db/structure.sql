@@ -2494,7 +2494,9 @@ CREATE TABLE purchase_items (
     fixed_asset_id integer,
     preexisting_asset boolean,
     equipment_id integer,
-    role character varying
+    role character varying,
+    conditionning_quantity integer,
+    conditionning integer
 );
 
 
@@ -18111,4 +18113,6 @@ INSERT INTO schema_migrations (version) VALUES ('20171110145349');
 INSERT INTO schema_migrations (version) VALUES ('20171113162225');
 
 INSERT INTO schema_migrations (version) VALUES ('20171114093355');
+
+INSERT INTO schema_migrations (version) VALUES ('20171117105934');
 
