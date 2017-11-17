@@ -3,9 +3,13 @@ FactoryGirl.define do
     parcel
     association :variant, factory: :product_nature_variant
 
-    factory :outgoing_parcel_item do
-      association :parcel, factory: :outgoing_parcel
+    factory :shipment_item do
+      association :parcel, factory: :shipment
       association :source_product, factory: :product
+    end
+
+    factory :reception_item do
+      association :parcel, factory: :reception
     end
   end
 end

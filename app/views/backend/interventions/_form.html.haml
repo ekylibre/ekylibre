@@ -55,7 +55,8 @@
     - if procedure.parameters.any?{|p| p.is_a?(Procedo::Procedure::ProductParameter) and p.beta?}
       %span.beta
         = :beta_description.tl
-
+  = field_set :service_delivering do
+    = f.nested_association(:receptions, maximum: 1, button_label: :add_service_delivering.tl)
 - else # Root Procedure Natures
   - main_period_selector(:year)
   - Nomen::ActivityFamily.find_each do |family|

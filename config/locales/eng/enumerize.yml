@@ -297,6 +297,15 @@ eng:
       nature:
         incoming: "Incoming"
         outgoing: "Outgoing"
+      reconciliation_state:
+        # reconcile: "Reconcile"
+        # to_reconcile: "To reconcile"
+    parcel_item:
+      delivery_mode:
+        # none: "None"
+        third: "Transported by recipient"
+        transporter: "Transported by transporter"
+        us: "Transported by us"
     plant_counting:
       nature:
         germination: "At germination"
@@ -428,6 +437,10 @@ eng:
         point: "Point"
         string: "String"
     purchase:
+      reconciliation_state:
+        # accepted: "Accepted"
+        # reconcile: "Reconcile"
+        # to_reconcile: "To reconcile"
       tax_payability:
         at_invoicing: "At invoicing"
         at_paying: "At paying"
@@ -435,10 +448,50 @@ eng:
       direction:
         # loss: "Loss"
         # profit: "Profit"
+    purchase_invoice:
+      reconciliation_state:
+        # accepted: "Accepted"
+        # reconcile: "Reconcile"
+        # to_reconcile: "To reconcile"
+      tax_payability:
+        # at_invoicing: "At invoicing"
+        # at_paying: "At paying"
     purchase_nature:
       nature:
         payslip: "Payslip"
         purchase: "Purchase"
+    purchase_order:
+      command_mode:
+        # fax: "Fax"
+        # letter: "Letter"
+        # mail: "Mail"
+        # market_place: "Market place"
+        # oral: "Oral"
+        # sms: "Sms"
+      reconciliation_state:
+        # accepted: "Accepted"
+        # reconcile: "Reconcile"
+        # to_reconcile: "To reconcile"
+      tax_payability:
+        # at_invoicing: "At invoicing"
+        # at_paying: "At paying"
+    reception:
+      delivery_mode:
+        # third: "Third"
+        # transporter: "Transporter"
+        # us: "Us"
+      nature:
+        # incoming: "Incoming"
+        # outgoing: "Outgoing"
+      reconciliation_state:
+        # reconcile: "Reconcile"
+        # to_reconcile: "To reconcile"
+    reception_item:
+      delivery_mode:
+        # none: "None"
+        # third: "Third"
+        # transporter: "Transporter"
+        # us: "Us"
     sale_gap:
       direction:
         # loss: "Loss"
@@ -493,6 +546,23 @@ eng:
         sales_invoices: "Sales invoices"
         subscriptions: "Subscriptions"
         tax_declarations: "Tax declarations"
+    shipment:
+      delivery_mode:
+        # third: "Third"
+        # transporter: "Transporter"
+        # us: "Us"
+      nature:
+        # incoming: "Incoming"
+        # outgoing: "Outgoing"
+      reconciliation_state:
+        # reconcile: "Reconcile"
+        # to_reconcile: "To reconcile"
+    shipment_item:
+      delivery_mode:
+        # none: "None"
+        # third: "Third"
+        # transporter: "Transporter"
+        # us: "Us"
     synchronization_operation:
       operation_name:
         authenticate: "Authentication"

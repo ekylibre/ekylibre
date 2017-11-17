@@ -316,6 +316,11 @@ jpn:
         in_preparation: "準備中" #?
         ordered: "順序付けられました" #?
         prepared: "準備" #?
+    parcel_item:
+      delivery_mode:
+        # third: "Transported by recipient"
+        # transporter: "Transported by transporter"
+        # us: "Transported by us"
     plant_counting:
       nature:
         germination: "発芽時"

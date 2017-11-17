@@ -4,22 +4,34 @@
   - k.multi_choice :nature, [:request, :record].map{ |s| [s.tl, s] }
   - k.helper do
     %label= CultivableZone.model_name.human
-    = select_tag :cultivable_zone_id, options_for_select([[]] + CultivableZone.pluck(:name, :id), params[:cultivable_zone_id])
+    = select_tag :cultivable_zone_id, options_for_select([[]] + CultivableZone.pluck(:name, :id).sort, params[:cultivable_zone_id])
+  -# Type of intervention
   - k.helper do
     %label= Intervention.human_attribute_name(:reference_name)
     = select_tag(:procedure_name, options_for_select([[]] + Intervention.used_procedures.collect{|p| [p.human_name, p.name.to_s]}.sort_by(&:first), params[:procedure_name]))
+  -# Filter by Activities
+  - k.helper do
+    %label= Activity.model_name.human
+    = select_tag(:activity_id, options_for_select([[]] + Activity.pluck(:name, :id).sort, params[:activity_id]))
   - if current_campaign
     - productions = ActivityProduction.of_campaign(current_campaign)
     - targets = InterventionTarget.joins(:product)
     - if productions && productions.any?
       - k.helper do
-        %label= ActivityProduction.human_attribute_name(:support)
-        = select_tag(:product_id, options_for_select([[]] + targets.select(:product_id).distinct.collect{|u| [u.product.work_name, u.product_id]}, params[:product_id]))
-        -#= select_tag(:support_id, options_for_select([[]] + productions.joins(:support).reorder('products.work_number').collect{|u| [u.work_name, u.id]}, params[:support_id]))
+        %label= :target.tl
+        = select_tag(:product_id, options_for_select([[]] + accented_sort(targets.select(:product_id).distinct.collect{|u| [u.product.work_name, u.product_id]}), params[:product_id]))
   - if InterventionLabelling.any?
     - k.helper do
       %label= Label.model_name.human
-      = select_tag(:label_id, options_for_select([[]] + Label.where(id: InterventionLabelling.select(:label_id).uniq).map{ |l| [l.name, l.id] }, params[:label_id].to_i))
+      = select_tag(:label_id, options_for_select([[]] + accented_sort(Label.where(id: InterventionLabelling.select(:label_id).uniq).pluck(:name, :id)), params[:label_id].to_i))
+  -# Filter by driver
+  - k.helper do
+    %label= :driver.tl
+    = select_tag(:driver_id, options_for_select([[]] + accented_sort(Worker.drivers.pluck(:name, :id)), params[:driver_id]))
+  -# Filter by equipment
+  - k.helper do
+    %label= Equipment.model_name.human
+    = select_tag(:equipment_id, options_for_select([[]] + accented_sort(Equipment.pluck(:name, :id)), params[:equipment_id]))
 
 - main_toolbar do |t|
   = t.new(nature: :request, label: :add_intervention_request.tl, params: { redirect: nil })

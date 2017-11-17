@@ -22,7 +22,8 @@ module Backend
     manage_restfully_incorporation
     manage_restfully_picture
 
-    unroll :name, :unit_name, :number
+    # To edit it, change here the column and edit action.yml unrolls section
+    unroll :name, :unit_name, category: { charge_account: :number }
 
     # params:
     #   :q Text search
@@ -90,9 +91,9 @@ module Backend
       t.column :unit_pretax_amount
     end
 
-    list(:parcel_items, conditions: { variant_id: 'params[:id]'.c }, order: { created_at: :desc }) do |t|
-      t.column :number, through: :parcel, url: true
-      t.column :planned_at, through: :parcel, datatype: :datetime
+    list(:parcel_items, model: :reception_items, conditions: { variant_id: 'params[:id]'.c }, order: { created_at: :desc }) do |t|
+      t.column :number, through: :reception, url: true
+      t.column :planned_at, through: :reception, datatype: :datetime
       t.column :population
     end
 
@@ -115,7 +116,8 @@ module Backend
         depreciable: @product_nature_variant.depreciable?,
         unit: {
           name: @product_nature_variant.unit_name
-        }
+        },
+        stock: @product_nature_variant.current_stock
       }
       if product_nature.subscribing?
         entity = nil
