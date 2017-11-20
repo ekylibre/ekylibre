@@ -1,0 +1,51 @@
+---
+parcel_item_storings_001:
+  created_at: 2017-11-20 14:24:47.024305000 Z
+  creator_id: 1
+  id: 1
+  lock_version: 0
+  parcel_item_id: 36
+  quantity: 6
+  storage_id: 20
+  updated_at: 2017-11-20 14:24:47.024305000 Z
+  updater_id: 1
+parcel_item_storings_002:
+  created_at: 2017-11-20 14:24:47.044046000 Z
+  creator_id: 1
+  id: 2
+  lock_version: 0
+  parcel_item_id: 36
+  quantity: 2
+  storage_id: 116
+  updated_at: 2017-11-20 14:24:47.044046000 Z
+  updater_id: 1
+parcel_item_storings_003:
+  created_at: 2017-11-20 14:25:46.332746000 Z
+  creator_id: 1
+  id: 3
+  lock_version: 0
+  parcel_item_id: 37
+  quantity: 5
+  storage_id: 116
+  updated_at: 2017-11-20 14:25:46.332746000 Z
+  updater_id: 1
+parcel_item_storings_004:
+  created_at: 2017-11-20 14:25:46.346477000 Z
+  creator_id: 1
+  id: 4
+  lock_version: 0
+  parcel_item_id: 37
+  quantity: 2
+  storage_id: 21
+  updated_at: 2017-11-20 14:25:46.346477000 Z
+  updater_id: 1
+parcel_item_storings_005:
+  created_at: 2017-11-20 14:25:46.362154000 Z
+  creator_id: 1
+  id: 5
+  lock_version: 0
+  parcel_item_id: 38
+  quantity: 2
+  storage_id: 21
+  updated_at: 2017-11-20 14:25:46.362154000 Z
+  updater_id: 1
