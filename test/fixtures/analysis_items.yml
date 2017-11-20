@@ -1,53 +1,5 @@
-# = Informations
-#
-# == License
-#
-# Ekylibre - Simple agricultural ERP
-# Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
-# Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2017 Brice Texier, David Joulin
-#
-# This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU Affero General Public License as published by
-# the Free Software Foundation, either version 3 of the License, or
-# any later version.
-#
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU Affero General Public License for more details.
-#
-# You should have received a copy of the GNU Affero General Public License
-# along with this program.  If not, see http://www.gnu.org/licenses.
-#
-# == Table: analysis_items
-#
-#  absolute_measure_value_unit  :string
-#  absolute_measure_value_value :decimal(19, 4)
-#  analysis_id                  :integer          not null
-#  annotation                   :text
-#  boolean_value                :boolean          default(FALSE), not null
-#  choice_value                 :string
-#  created_at                   :datetime         not null
-#  creator_id                   :integer
-#  decimal_value                :decimal(19, 4)
-#  geometry_value               :geometry({:srid=>4326, :type=>"geometry"})
-#  id                           :integer          not null, primary key
-#  indicator_datatype           :string           not null
-#  indicator_name               :string           not null
-#  integer_value                :integer
-#  lock_version                 :integer          default(0), not null
-#  measure_value_unit           :string
-#  measure_value_value          :decimal(19, 4)
-#  multi_polygon_value          :geometry({:srid=>4326, :type=>"multi_polygon"})
-#  point_value                  :geometry({:srid=>4326, :type=>"st_point"})
-#  product_reading_id           :integer
-#  string_value                 :text
-#  updated_at                   :datetime         not null
-#  updater_id                   :integer
-#
 ---
-analysis_items_001:
+analysis_items_002:
   absolute_measure_value_unit: mass_percent
   absolute_measure_value_value: 33.33
   analysis_id: 1
@@ -62,7 +14,7 @@ analysis_items_001:
   measure_value_value: 33.33
   updated_at: 2015-06-02 19:42:16.788158000 Z
   updater_id: 1
-analysis_items_002:
+analysis_items_003:
   absolute_measure_value_unit: mass_percent
   absolute_measure_value_value: 0.02
   analysis_id: 1
@@ -77,7 +29,7 @@ analysis_items_002:
   measure_value_value: 0.02
   updated_at: 2015-06-02 19:42:16.777837000 Z
   updater_id: 1
-analysis_items_003:
+analysis_items_004:
   analysis_id: 3
   boolean_value: false
   choice_value: flap_silt_soil
@@ -89,7 +41,7 @@ analysis_items_003:
   lock_version: 0
   updated_at: 2015-06-02 19:44:16.062009000 Z
   updater_id: 1
-analysis_items_004:
+analysis_items_005:
   absolute_measure_value_unit: mass_percent
   absolute_measure_value_value: 0.2
   analysis_id: 3
@@ -104,7 +56,7 @@ analysis_items_004:
   measure_value_value: 0.2
   updated_at: 2015-06-02 19:44:16.064380000 Z
   updater_id: 1
-analysis_items_005:
+analysis_items_006:
   absolute_measure_value_unit: mass_percent
   absolute_measure_value_value: 0.04
   analysis_id: 3
@@ -119,7 +71,7 @@ analysis_items_005:
   measure_value_value: 0.04
   updated_at: 2015-06-02 19:44:16.066557000 Z
   updater_id: 1
-analysis_items_006:
+analysis_items_007:
   analysis_id: 3
   boolean_value: false
   created_at: 2015-06-02 19:44:16.069096000 Z
@@ -131,7 +83,7 @@ analysis_items_006:
   lock_version: 0
   updated_at: 2015-06-02 19:44:16.069096000 Z
   updater_id: 1
-analysis_items_007:
+analysis_items_008:
   absolute_measure_value_unit: milliequivalent_per_hundred_gram
   absolute_measure_value_value: 0.0
   analysis_id: 3
@@ -145,7 +97,7 @@ analysis_items_007:
   measure_value_unit: milliequivalent_per_hundred_gram
   updated_at: 2015-06-02 19:44:16.071848000 Z
   updater_id: 1
-analysis_items_008:
+analysis_items_009:
   absolute_measure_value_unit: mass_percent
   absolute_measure_value_value: 2.0
   analysis_id: 3
@@ -160,7 +112,7 @@ analysis_items_008:
   measure_value_value: 2.0
   updated_at: 2015-06-02 19:45:02.126073000 Z
   updater_id: 1
-analysis_items_009:
+analysis_items_010:
   absolute_measure_value_unit: mass_percent
   absolute_measure_value_value: 1.0
   analysis_id: 3
@@ -175,7 +127,7 @@ analysis_items_009:
   measure_value_value: 1.0
   updated_at: 2015-06-02 19:45:02.123797000 Z
   updater_id: 1
-analysis_items_010:
+analysis_items_011:
   absolute_measure_value_unit: mass_percent
   absolute_measure_value_value: 0.3
   analysis_id: 3
@@ -190,7 +142,7 @@ analysis_items_010:
   measure_value_value: 0.3
   updated_at: 2015-06-02 19:45:02.121568000 Z
   updater_id: 1
-analysis_items_011:
+analysis_items_012:
   absolute_measure_value_unit: parts_per_million
   absolute_measure_value_value: 0.07
   analysis_id: 3
@@ -205,7 +157,7 @@ analysis_items_011:
   measure_value_value: 0.07
   updated_at: 2015-06-02 19:45:02.119070000 Z
   updater_id: 1
-analysis_items_012:
+analysis_items_013:
   absolute_measure_value_unit: parts_per_million
   absolute_measure_value_value: 0.05
   analysis_id: 3
@@ -220,7 +172,7 @@ analysis_items_012:
   measure_value_value: 0.05
   updated_at: 2015-06-02 19:45:02.116282000 Z
   updater_id: 1
-analysis_items_013:
+analysis_items_014:
   absolute_measure_value_unit: parts_per_million
   absolute_measure_value_value: 0.0
   analysis_id: 3
@@ -234,7 +186,7 @@ analysis_items_013:
   measure_value_unit: parts_per_million
   updated_at: 2015-06-02 19:44:16.083664000 Z
   updater_id: 1
-analysis_items_014:
+analysis_items_015:
   absolute_measure_value_unit: parts_per_million
   absolute_measure_value_value: 0.0
   analysis_id: 3
@@ -248,7 +200,7 @@ analysis_items_014:
   measure_value_unit: parts_per_million
   updated_at: 2015-06-02 19:44:16.085669000 Z
   updater_id: 1
-analysis_items_015:
+analysis_items_016:
   absolute_measure_value_unit: parts_per_million
   absolute_measure_value_value: 0.0
   analysis_id: 3
@@ -262,7 +214,7 @@ analysis_items_015:
   measure_value_unit: parts_per_million
   updated_at: 2015-06-02 19:44:16.087431000 Z
   updater_id: 1
-analysis_items_016:
+analysis_items_017:
   absolute_measure_value_unit: celsius
   absolute_measure_value_value: 19.9
   analysis_id: 12
@@ -277,7 +229,7 @@ analysis_items_016:
   measure_value_value: 19.9
   updated_at: 2015-09-18 14:12:08.621737000 Z
   updater_id: 1
-analysis_items_017:
+analysis_items_018:
   absolute_measure_value_unit: percent
   absolute_measure_value_value: 81.0
   analysis_id: 12
@@ -292,7 +244,7 @@ analysis_items_017:
   measure_value_value: 81.0
   updated_at: 2015-09-18 14:12:08.631822000 Z
   updater_id: 1
-analysis_items_018:
+analysis_items_019:
   absolute_measure_value_unit: hectopascal
   absolute_measure_value_value: 1013.0
   analysis_id: 12
@@ -307,7 +259,7 @@ analysis_items_018:
   measure_value_value: 1013.0
   updated_at: 2015-09-18 14:12:08.633624000 Z
   updater_id: 1
-analysis_items_019:
+analysis_items_022:
   absolute_measure_value_unit: meter_per_second
   absolute_measure_value_value: 0.0
   analysis_id: 12
@@ -322,7 +274,7 @@ analysis_items_019:
   measure_value_value: 0.0
   updated_at: 2015-09-18 14:12:08.638546000 Z
   updater_id: 1
-analysis_items_020:
+analysis_items_023:
   absolute_measure_value_unit: degree
   absolute_measure_value_value: 49.0
   analysis_id: 12
@@ -337,7 +289,7 @@ analysis_items_020:
   measure_value_value: 49.0
   updated_at: 2015-09-18 14:12:08.640330000 Z
   updater_id: 1
-analysis_items_021:
+analysis_items_024:
   absolute_measure_value_unit: celsius
   absolute_measure_value_value: 20.4
   analysis_id: 13
@@ -352,7 +304,7 @@ analysis_items_021:
   measure_value_value: 20.4
   updated_at: 2015-09-18 14:16:46.554540000 Z
   updater_id: 1
-analysis_items_022:
+analysis_items_025:
   absolute_measure_value_unit: percent
   absolute_measure_value_value: 72.0
   analysis_id: 13
@@ -367,7 +319,7 @@ analysis_items_022:
   measure_value_value: 72.0
   updated_at: 2015-09-18 14:16:46.562783000 Z
   updater_id: 1
-analysis_items_023:
+analysis_items_026:
   absolute_measure_value_unit: hectopascal
   absolute_measure_value_value: 1013.0
   analysis_id: 13
@@ -382,7 +334,7 @@ analysis_items_023:
   measure_value_value: 1013.0
   updated_at: 2015-09-18 14:16:46.564722000 Z
   updater_id: 1
-analysis_items_024:
+analysis_items_029:
   absolute_measure_value_unit: meter_per_second
   absolute_measure_value_value: 0.0
   analysis_id: 13
@@ -397,7 +349,7 @@ analysis_items_024:
   measure_value_value: 0.0
   updated_at: 2015-09-18 14:16:46.570198000 Z
   updater_id: 1
-analysis_items_025:
+analysis_items_030:
   absolute_measure_value_unit: degree
   absolute_measure_value_value: 49.0
   analysis_id: 13
@@ -412,7 +364,7 @@ analysis_items_025:
   measure_value_value: 49.0
   updated_at: 2015-09-18 14:16:46.571843000 Z
   updater_id: 1
-analysis_items_026:
+analysis_items_031:
   absolute_measure_value_unit: celsius
   absolute_measure_value_value: 19.0
   analysis_id: 14
@@ -427,7 +379,7 @@ analysis_items_026:
   measure_value_value: 19.0
   updated_at: 2015-09-18 15:09:41.235222000 Z
   updater_id: 1
-analysis_items_027:
+analysis_items_032:
   absolute_measure_value_unit: hectopascal
   absolute_measure_value_value: 1021.0
   analysis_id: 14
@@ -442,7 +394,7 @@ analysis_items_027:
   measure_value_value: 1021.0
   updated_at: 2015-09-18 15:09:41.243587000 Z
   updater_id: 1
-analysis_items_028:
+analysis_items_033:
   absolute_measure_value_unit: percent
   absolute_measure_value_value: 63.0
   analysis_id: 14
@@ -457,7 +409,7 @@ analysis_items_028:
   measure_value_value: 63.0
   updated_at: 2015-09-18 15:09:41.245494000 Z
   updater_id: 1
-analysis_items_029:
+analysis_items_034:
   absolute_measure_value_unit: meter_per_second
   absolute_measure_value_value: 6.7
   analysis_id: 14
@@ -472,7 +424,7 @@ analysis_items_029:
   measure_value_value: 6.7
   updated_at: 2015-09-18 15:09:41.247249000 Z
   updater_id: 1
-analysis_items_030:
+analysis_items_035:
   absolute_measure_value_unit: degree
   absolute_measure_value_value: 270.0
   analysis_id: 14
@@ -487,7 +439,7 @@ analysis_items_030:
   measure_value_value: 270.0
   updated_at: 2015-09-18 15:09:41.248971000 Z
   updater_id: 1
-analysis_items_031:
+analysis_items_036:
   absolute_measure_value_unit: celsius
   absolute_measure_value_value: 19.0
   analysis_id: 15
@@ -502,7 +454,7 @@ analysis_items_031:
   measure_value_value: 19.0
   updated_at: 2015-09-18 15:11:10.136577000 Z
   updater_id: 1
-analysis_items_032:
+analysis_items_037:
   absolute_measure_value_unit: hectopascal
   absolute_measure_value_value: 1021.0
   analysis_id: 15
@@ -517,7 +469,7 @@ analysis_items_032:
   measure_value_value: 1021.0
   updated_at: 2015-09-18 15:11:10.138641000 Z
   updater_id: 1
-analysis_items_033:
+analysis_items_038:
   absolute_measure_value_unit: percent
   absolute_measure_value_value: 63.0
   analysis_id: 15
@@ -532,7 +484,7 @@ analysis_items_033:
   measure_value_value: 63.0
   updated_at: 2015-09-18 15:11:10.140415000 Z
   updater_id: 1
-analysis_items_034:
+analysis_items_039:
   absolute_measure_value_unit: meter_per_second
   absolute_measure_value_value: 6.7
   analysis_id: 15
@@ -547,7 +499,7 @@ analysis_items_034:
   measure_value_value: 6.7
   updated_at: 2015-09-18 15:11:10.142108000 Z
   updater_id: 1
-analysis_items_035:
+analysis_items_040:
   absolute_measure_value_unit: degree
   absolute_measure_value_value: 270.0
   analysis_id: 15
@@ -562,7 +514,7 @@ analysis_items_035:
   measure_value_value: 270.0
   updated_at: 2015-09-18 15:11:10.143710000 Z
   updater_id: 1
-analysis_items_036:
+analysis_items_041:
   absolute_measure_value_unit: celsius
   absolute_measure_value_value: 19.0
   analysis_id: 16
@@ -577,7 +529,7 @@ analysis_items_036:
   measure_value_value: 19.0
   updated_at: 2015-09-18 15:21:09.900391000 Z
   updater_id: 1
-analysis_items_037:
+analysis_items_042:
   absolute_measure_value_unit: hectopascal
   absolute_measure_value_value: 1021.0
   analysis_id: 16
@@ -592,7 +544,7 @@ analysis_items_037:
   measure_value_value: 1021.0
   updated_at: 2015-09-18 15:21:09.909573000 Z
   updater_id: 1
-analysis_items_038:
+analysis_items_043:
   absolute_measure_value_unit: percent
   absolute_measure_value_value: 63.0
   analysis_id: 16
@@ -607,7 +559,7 @@ analysis_items_038:
   measure_value_value: 63.0
   updated_at: 2015-09-18 15:21:09.911635000 Z
   updater_id: 1
-analysis_items_039:
+analysis_items_044:
   absolute_measure_value_unit: meter_per_second
   absolute_measure_value_value: 6.7
   analysis_id: 16
@@ -622,7 +574,7 @@ analysis_items_039:
   measure_value_value: 6.7
   updated_at: 2015-09-18 15:21:09.913488000 Z
   updater_id: 1
-analysis_items_040:
+analysis_items_045:
   absolute_measure_value_unit: degree
   absolute_measure_value_value: 270.0
   analysis_id: 16
@@ -637,7 +589,7 @@ analysis_items_040:
   measure_value_value: 270.0
   updated_at: 2015-09-18 15:21:09.915305000 Z
   updater_id: 1
-analysis_items_041:
+analysis_items_046:
   absolute_measure_value_unit: celsius
   absolute_measure_value_value: 19.0
   analysis_id: 17
@@ -652,7 +604,7 @@ analysis_items_041:
   measure_value_value: 19.0
   updated_at: 2015-09-18 15:28:34.807250000 Z
   updater_id: 1
-analysis_items_042:
+analysis_items_047:
   absolute_measure_value_unit: hectopascal
   absolute_measure_value_value: 1021.0
   analysis_id: 17
@@ -667,7 +619,7 @@ analysis_items_042:
   measure_value_value: 1021.0
   updated_at: 2015-09-18 15:28:34.815076000 Z
   updater_id: 1
-analysis_items_043:
+analysis_items_048:
   absolute_measure_value_unit: percent
   absolute_measure_value_value: 63.0
   analysis_id: 17
@@ -682,7 +634,7 @@ analysis_items_043:
   measure_value_value: 63.0
   updated_at: 2015-09-18 15:28:34.816959000 Z
   updater_id: 1
-analysis_items_044:
+analysis_items_049:
   absolute_measure_value_unit: meter_per_second
   absolute_measure_value_value: 6.7
   analysis_id: 17
@@ -697,7 +649,7 @@ analysis_items_044:
   measure_value_value: 6.7
   updated_at: 2015-09-18 15:28:34.818726000 Z
   updater_id: 1
-analysis_items_045:
+analysis_items_050:
   absolute_measure_value_unit: degree
   absolute_measure_value_value: 270.0
   analysis_id: 17
@@ -712,7 +664,7 @@ analysis_items_045:
   measure_value_value: 270.0
   updated_at: 2015-09-18 15:28:34.820490000 Z
   updater_id: 1
-analysis_items_046:
+analysis_items_051:
   absolute_measure_value_unit: celsius
   absolute_measure_value_value: 23.0
   analysis_id: 18
@@ -725,7 +677,7 @@ analysis_items_046:
   measure_value_unit: celsius
   measure_value_value: 23.0
   updated_at: 2015-09-20 14:55:01.683935000 Z
-analysis_items_047:
+analysis_items_052:
   absolute_measure_value_unit: hectopascal
   absolute_measure_value_value: 1023.0
   analysis_id: 18
@@ -738,7 +690,7 @@ analysis_items_047:
   measure_value_unit: hectopascal
   measure_value_value: 1023.0
   updated_at: 2015-09-20 14:55:01.692953000 Z
-analysis_items_048:
+analysis_items_053:
   absolute_measure_value_unit: percent
   absolute_measure_value_value: 40.0
   analysis_id: 18
@@ -751,7 +703,7 @@ analysis_items_048:
   measure_value_unit: percent
   measure_value_value: 40.0
   updated_at: 2015-09-20 14:55:01.694955000 Z
-analysis_items_049:
+analysis_items_054:
   absolute_measure_value_unit: kilometer_per_hour
   absolute_measure_value_value: 7.56
   analysis_id: 18
@@ -764,7 +716,7 @@ analysis_items_049:
   measure_value_unit: meter_per_second
   measure_value_value: 2.1
   updated_at: 2015-09-20 14:55:01.696756000 Z
-analysis_items_050:
+analysis_items_055:
   absolute_measure_value_unit: degree
   absolute_measure_value_value: 0.0
   analysis_id: 18
@@ -777,7 +729,7 @@ analysis_items_050:
   measure_value_unit: degree
   measure_value_value: 0.0
   updated_at: 2015-09-20 14:55:01.698542000 Z
-analysis_items_051:
+analysis_items_056:
   absolute_measure_value_unit: kilometer_per_hour
   absolute_measure_value_value: 9.0
   analysis_id: 23
@@ -790,7 +742,7 @@ analysis_items_051:
   measure_value_unit: kilometer_per_hour
   measure_value_value: 9.0
   updated_at: 2016-09-09 08:56:02.709267000 Z
-analysis_items_052:
+analysis_items_057:
   absolute_measure_value_unit: kilometer_per_hour
   absolute_measure_value_value: 285.0
   analysis_id: 24
@@ -803,7 +755,7 @@ analysis_items_052:
   measure_value_unit: kilometer_per_hour
   measure_value_value: 285.0
   updated_at: 2016-09-09 08:56:02.741992000 Z
-analysis_items_053:
+analysis_items_058:
   absolute_measure_value_unit: kilometer_per_hour
   absolute_measure_value_value: 4893.0
   analysis_id: 25
@@ -816,7 +768,7 @@ analysis_items_053:
   measure_value_unit: kilometer_per_hour
   measure_value_value: 4893.0
   updated_at: 2016-09-09 08:56:02.761873000 Z
-analysis_items_054:
+analysis_items_059:
   absolute_measure_value_unit: kilometer_per_hour
   absolute_measure_value_value: 1850.0
   analysis_id: 26
@@ -829,7 +781,7 @@ analysis_items_054:
   measure_value_unit: kilometer_per_hour
   measure_value_value: 1850.0
   updated_at: 2016-09-09 08:56:02.781229000 Z
-analysis_items_055:
+analysis_items_060:
   absolute_measure_value_unit: kilometer_per_hour
   absolute_measure_value_value: 273.0
   analysis_id: 27
@@ -842,7 +794,7 @@ analysis_items_055:
   measure_value_unit: kilometer_per_hour
   measure_value_value: 273.0
   updated_at: 2016-09-09 08:56:02.800087000 Z
-analysis_items_056:
+analysis_items_061:
   absolute_measure_value_unit: kilometer_per_hour
   absolute_measure_value_value: 387.0
   analysis_id: 28
@@ -855,7 +807,7 @@ analysis_items_056:
   measure_value_unit: kilometer_per_hour
   measure_value_value: 387.0
   updated_at: 2016-09-09 08:56:02.819855000 Z
-analysis_items_057:
+analysis_items_062:
   absolute_measure_value_unit: kilometer_per_hour
   absolute_measure_value_value: 60.0
   analysis_id: 29
@@ -868,7 +820,7 @@ analysis_items_057:
   measure_value_unit: kilometer_per_hour
   measure_value_value: 60.0
   updated_at: 2016-09-09 08:56:02.838888000 Z
-analysis_items_058:
+analysis_items_063:
   absolute_measure_value_unit: kilometer_per_hour
   absolute_measure_value_value: 0.0
   analysis_id: 30
@@ -881,7 +833,7 @@ analysis_items_058:
   measure_value_unit: kilometer_per_hour
   measure_value_value: 0.0
   updated_at: 2016-09-09 08:56:02.858263000 Z
-analysis_items_059:
+analysis_items_064:
   absolute_measure_value_unit: kilometer_per_hour
   absolute_measure_value_value: 371.0
   analysis_id: 31
@@ -894,7 +846,7 @@ analysis_items_059:
   measure_value_unit: kilometer_per_hour
   measure_value_value: 371.0
   updated_at: 2016-09-09 08:56:02.877185000 Z
-analysis_items_060:
+analysis_items_065:
   absolute_measure_value_unit: kilometer_per_hour
   absolute_measure_value_value: 9.0
   analysis_id: 32
@@ -907,7 +859,7 @@ analysis_items_060:
   measure_value_unit: kilometer_per_hour
   measure_value_value: 9.0
   updated_at: 2016-09-09 08:57:46.541675000 Z
-analysis_items_061:
+analysis_items_066:
   absolute_measure_value_unit: kilometer_per_hour
   absolute_measure_value_value: 285.0
   analysis_id: 33
@@ -920,7 +872,7 @@ analysis_items_061:
   measure_value_unit: kilometer_per_hour
   measure_value_value: 285.0
   updated_at: 2016-09-09 08:57:46.569996000 Z
-analysis_items_062:
+analysis_items_067:
   absolute_measure_value_unit: kilometer_per_hour
   absolute_measure_value_value: 4893.0
   analysis_id: 34
@@ -933,7 +885,7 @@ analysis_items_062:
   measure_value_unit: kilometer_per_hour
   measure_value_value: 4893.0
   updated_at: 2016-09-09 08:57:46.588902000 Z
-analysis_items_063:
+analysis_items_068:
   absolute_measure_value_unit: kilometer_per_hour
   absolute_measure_value_value: 1850.0
   analysis_id: 35
@@ -946,7 +898,7 @@ analysis_items_063:
   measure_value_unit: kilometer_per_hour
   measure_value_value: 1850.0
   updated_at: 2016-09-09 08:57:46.608617000 Z
-analysis_items_064:
+analysis_items_069:
   absolute_measure_value_unit: kilometer_per_hour
   absolute_measure_value_value: 273.0
   analysis_id: 36
@@ -959,7 +911,7 @@ analysis_items_064:
   measure_value_unit: kilometer_per_hour
   measure_value_value: 273.0
   updated_at: 2016-09-09 08:57:46.627437000 Z
-analysis_items_065:
+analysis_items_070:
   absolute_measure_value_unit: kilometer_per_hour
   absolute_measure_value_value: 387.0
   analysis_id: 37
@@ -972,7 +924,7 @@ analysis_items_065:
   measure_value_unit: kilometer_per_hour
   measure_value_value: 387.0
   updated_at: 2016-09-09 08:57:46.645430000 Z
-analysis_items_066:
+analysis_items_071:
   absolute_measure_value_unit: kilometer_per_hour
   absolute_measure_value_value: 60.0
   analysis_id: 38
@@ -985,7 +937,7 @@ analysis_items_066:
   measure_value_unit: kilometer_per_hour
   measure_value_value: 60.0
   updated_at: 2016-09-09 08:57:46.663552000 Z
-analysis_items_067:
+analysis_items_072:
   absolute_measure_value_unit: kilometer_per_hour
   absolute_measure_value_value: 0.0
   analysis_id: 39
@@ -998,7 +950,7 @@ analysis_items_067:
   measure_value_unit: kilometer_per_hour
   measure_value_value: 0.0
   updated_at: 2016-09-09 08:57:46.681167000 Z
-analysis_items_068:
+analysis_items_073:
   absolute_measure_value_unit: kilometer_per_hour
   absolute_measure_value_value: 371.0
   analysis_id: 40
@@ -1011,7 +963,7 @@ analysis_items_068:
   measure_value_unit: kilometer_per_hour
   measure_value_value: 371.0
   updated_at: 2016-09-09 08:57:46.697305000 Z
-analysis_items_069:
+analysis_items_074:
   absolute_measure_value_unit: kilometer_per_hour
   absolute_measure_value_value: 9.0
   analysis_id: 41
@@ -1024,7 +976,7 @@ analysis_items_069:
   measure_value_unit: kilometer_per_hour
   measure_value_value: 9.0
   updated_at: 2016-09-09 09:01:19.995548000 Z
-analysis_items_070:
+analysis_items_075:
   absolute_measure_value_unit: kilometer_per_hour
   absolute_measure_value_value: 285.0
   analysis_id: 42
@@ -1037,7 +989,7 @@ analysis_items_070:
   measure_value_unit: kilometer_per_hour
   measure_value_value: 285.0
   updated_at: 2016-09-09 09:01:20.027183000 Z
-analysis_items_071:
+analysis_items_076:
   absolute_measure_value_unit: kilometer_per_hour
   absolute_measure_value_value: 4893.0
   analysis_id: 43
@@ -1050,7 +1002,7 @@ analysis_items_071:
   measure_value_unit: kilometer_per_hour
   measure_value_value: 4893.0
   updated_at: 2016-09-09 09:01:20.047590000 Z
-analysis_items_072:
+analysis_items_077:
   absolute_measure_value_unit: kilometer_per_hour
   absolute_measure_value_value: 1850.0
   analysis_id: 44
@@ -1063,7 +1015,7 @@ analysis_items_072:
   measure_value_unit: kilometer_per_hour
   measure_value_value: 1850.0
   updated_at: 2016-09-09 09:01:20.066237000 Z
-analysis_items_073:
+analysis_items_078:
   absolute_measure_value_unit: kilometer_per_hour
   absolute_measure_value_value: 273.0
   analysis_id: 45
@@ -1076,7 +1028,7 @@ analysis_items_073:
   measure_value_unit: kilometer_per_hour
   measure_value_value: 273.0
   updated_at: 2016-09-09 09:01:20.084005000 Z
-analysis_items_074:
+analysis_items_079:
   absolute_measure_value_unit: kilometer_per_hour
   absolute_measure_value_value: 387.0
   analysis_id: 46
@@ -1089,7 +1041,7 @@ analysis_items_074:
   measure_value_unit: kilometer_per_hour
   measure_value_value: 387.0
   updated_at: 2016-09-09 09:01:20.102024000 Z
-analysis_items_075:
+analysis_items_080:
   absolute_measure_value_unit: kilometer_per_hour
   absolute_measure_value_value: 60.0
   analysis_id: 47
@@ -1102,7 +1054,7 @@ analysis_items_075:
   measure_value_unit: kilometer_per_hour
   measure_value_value: 60.0
   updated_at: 2016-09-09 09:01:20.118763000 Z
-analysis_items_076:
+analysis_items_081:
   absolute_measure_value_unit: kilometer_per_hour
   absolute_measure_value_value: 0.0
   analysis_id: 48
@@ -1115,7 +1067,7 @@ analysis_items_076:
   measure_value_unit: kilometer_per_hour
   measure_value_value: 0.0
   updated_at: 2016-09-09 09:01:20.136299000 Z
-analysis_items_077:
+analysis_items_082:
   absolute_measure_value_unit: kilometer_per_hour
   absolute_measure_value_value: 371.0
   analysis_id: 49

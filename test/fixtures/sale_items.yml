@@ -1,56 +1,5 @@
-# = Informations
-#
-# == License
-#
-# Ekylibre - Simple agricultural ERP
-# Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
-# Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2017 Brice Texier, David Joulin
-#
-# This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU Affero General Public License as published by
-# the Free Software Foundation, either version 3 of the License, or
-# any later version.
-#
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU Affero General Public License for more details.
-#
-# You should have received a copy of the GNU Affero General Public License
-# along with this program.  If not, see http://www.gnu.org/licenses.
-#
-# == Table: sale_items
-#
-#  account_id           :integer
-#  activity_budget_id   :integer
-#  amount               :decimal(19, 4)   default(0.0), not null
-#  annotation           :text
-#  codes                :jsonb
-#  compute_from         :string           not null
-#  created_at           :datetime         not null
-#  creator_id           :integer
-#  credited_item_id     :integer
-#  credited_quantity    :decimal(19, 4)
-#  currency             :string           not null
-#  id                   :integer          not null, primary key
-#  label                :text
-#  lock_version         :integer          default(0), not null
-#  position             :integer
-#  pretax_amount        :decimal(19, 4)   default(0.0), not null
-#  quantity             :decimal(19, 4)   default(1.0), not null
-#  reduction_percentage :decimal(19, 4)   default(0.0), not null
-#  sale_id              :integer          not null
-#  tax_id               :integer
-#  team_id              :integer
-#  unit_amount          :decimal(19, 4)   default(0.0), not null
-#  unit_pretax_amount   :decimal(19, 4)
-#  updated_at           :datetime         not null
-#  updater_id           :integer
-#  variant_id           :integer          not null
-#
 ---
-sale_items_001:
+sale_items_008:
   account_id: 5
   amount: 84.0
   compute_from: unit_pretax_amount
@@ -71,7 +20,7 @@ sale_items_001:
   updated_at: 2014-11-05 09:52:05.569662000 Z
   updater_id: 1
   variant_id: 9
-sale_items_002:
+sale_items_009:
   account_id: 5
   amount: 1080.0
   compute_from: unit_pretax_amount
@@ -92,7 +41,7 @@ sale_items_002:
   updated_at: 2014-11-05 09:52:05.575226000 Z
   updater_id: 1
   variant_id: 19
-sale_items_003:
+sale_items_010:
   account_id: 5
   amount: 792.0
   compute_from: unit_pretax_amount
@@ -113,7 +62,7 @@ sale_items_003:
   updated_at: 2014-11-05 10:01:39.877000000 Z
   updater_id: 1
   variant_id: 9
-sale_items_004:
+sale_items_011:
   account_id: 15
   amount: 11.23
   compute_from: unit_pretax_amount
@@ -134,7 +83,7 @@ sale_items_004:
   updated_at: 2014-11-05 10:03:05.895615000 Z
   updater_id: 1
   variant_id: 18
-sale_items_005:
+sale_items_012:
   account_id: 15
   amount: 19.2
   compute_from: unit_pretax_amount
@@ -155,7 +104,7 @@ sale_items_005:
   updated_at: 2014-11-05 13:36:08.975616000 Z
   updater_id: 1
   variant_id: 18
-sale_items_006:
+sale_items_013:
   account_id: 152
   amount: 24.0
   annotation: ''
@@ -177,7 +126,7 @@ sale_items_006:
   updated_at: 2015-04-21 08:22:33.186082000 Z
   updater_id: 1
   variant_id: 57
-sale_items_007:
+sale_items_014:
   account_id: 152
   amount: 187.2
   annotation: ''
@@ -199,7 +148,7 @@ sale_items_007:
   updated_at: 2015-04-21 08:29:05.182489000 Z
   updater_id: 1
   variant_id: 8
-sale_items_008:
+sale_items_015:
   account_id: 152
   amount: 119.6
   annotation: ''
@@ -221,7 +170,7 @@ sale_items_008:
   updated_at: 2015-04-21 23:49:19.339881000 Z
   updater_id: 1
   variant_id: 8
-sale_items_009:
+sale_items_016:
   account_id: 152
   amount: 200.0
   annotation: Arigato
@@ -243,7 +192,7 @@ sale_items_009:
   updated_at: 2015-04-21 23:49:19.346386000 Z
   updater_id: 1
   variant_id: 58
-sale_items_010:
+sale_items_017:
   account_id: 152
   amount: 500.0
   annotation: ''
@@ -265,7 +214,7 @@ sale_items_010:
   updated_at: 2015-05-30 20:00:27.935928000 Z
   updater_id: 1
   variant_id: 63
-sale_items_011:
+sale_items_018:
   account_id: 152
   amount: -500.0
   compute_from: unit_pretax_amount
@@ -288,7 +237,7 @@ sale_items_011:
   updated_at: 2015-05-30 20:00:46.769726000 Z
   updater_id: 1
   variant_id: 63
-sale_items_012:
+sale_items_019:
   account_id: 5
   amount: 54000.0
   annotation: ''
@@ -310,7 +259,7 @@ sale_items_012:
   updated_at: 2015-09-17 13:25:40.431432000 Z
   updater_id: 1
   variant_id: 19
-sale_items_013:
+sale_items_020:
   account_id: 528
   amount: 142.94
   annotation: ''
@@ -332,7 +281,7 @@ sale_items_013:
   updated_at: 2016-05-26 21:26:07.822854000 Z
   updater_id: 1
   variant_id: 70
-sale_items_014:
+sale_items_021:
   account_id: 528
   amount: 71.47
   annotation: ''
@@ -354,7 +303,7 @@ sale_items_014:
   updated_at: 2016-05-26 21:27:06.143915000 Z
   updater_id: 1
   variant_id: 70
-sale_items_015:
+sale_items_022:
   account_id: 152
   amount: 148.8
   annotation: wjbdkjxfs hdskfh gds
@@ -376,7 +325,7 @@ sale_items_015:
   updated_at: 2016-07-01 20:12:41.329080000 Z
   updater_id: 1
   variant_id: 8
-sale_items_016:
+sale_items_023:
   account_id: 15
   amount: 393.12
   annotation: ''
@@ -398,7 +347,7 @@ sale_items_016:
   updated_at: 2016-11-20 22:08:58.264590000 Z
   updater_id: 1
   variant_id: 18
-sale_items_017:
+sale_items_024:
   account_id: 15
   amount: 54.0
   annotation: BIO
@@ -420,7 +369,7 @@ sale_items_017:
   updated_at: 2016-11-20 22:08:58.290373000 Z
   updater_id: 1
   variant_id: 18
-sale_items_018:
+sale_items_025:
   account_id: 15
   amount: 37.44
   annotation: ''
@@ -442,7 +391,7 @@ sale_items_018:
   updated_at: 2016-11-20 22:10:17.198436000 Z
   updater_id: 1
   variant_id: 18
-sale_items_019:
+sale_items_026:
   account_id: 15
   amount: 3.74
   annotation: ''
@@ -464,7 +413,7 @@ sale_items_019:
   updated_at: 2016-11-20 22:11:25.101031000 Z
   updater_id: 1
   variant_id: 18
-sale_items_020:
+sale_items_027:
   account_id: 152
   amount: 2676.0
   annotation: ''
@@ -486,7 +435,7 @@ sale_items_020:
   updated_at: 2016-11-20 22:12:15.435114000 Z
   updater_id: 1
   variant_id: 39
-sale_items_021:
+sale_items_028:
   account_id: 152
   amount: -2676.0
   compute_from: unit_pretax_amount
@@ -509,7 +458,7 @@ sale_items_021:
   updated_at: 2016-11-20 22:12:25.310161000 Z
   updater_id: 1
   variant_id: 39
-sale_items_022:
+sale_items_029:
   account_id: 152
   amount: 400.0
   annotation: ''

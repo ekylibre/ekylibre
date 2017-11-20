@@ -1,44 +1,5 @@
-# = Informations
-#
-# == License
-#
-# Ekylibre - Simple agricultural ERP
-# Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
-# Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2017 Brice Texier, David Joulin
-#
-# This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU Affero General Public License as published by
-# the Free Software Foundation, either version 3 of the License, or
-# any later version.
-#
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU Affero General Public License for more details.
-#
-# You should have received a copy of the GNU Affero General Public License
-# along with this program.  If not, see http://www.gnu.org/licenses.
-#
-# == Table: document_templates
-#
-#  active       :boolean          default(FALSE), not null
-#  archiving    :string           not null
-#  by_default   :boolean          default(FALSE), not null
-#  created_at   :datetime         not null
-#  creator_id   :integer
-#  formats      :string
-#  id           :integer          not null, primary key
-#  language     :string           not null
-#  lock_version :integer          default(0), not null
-#  managed      :boolean          default(FALSE), not null
-#  name         :string           not null
-#  nature       :string           not null
-#  updated_at   :datetime         not null
-#  updater_id   :integer
-#
 ---
-document_templates_001:
+document_templates_003:
   active: true
   archiving: last
   by_default: true
@@ -53,7 +14,7 @@ document_templates_001:
   nature: sales_invoice
   updated_at: 2014-11-03 11:24:19.636925000 Z
   updater_id: 1
-document_templates_002:
+document_templates_004:
   active: true
   archiving: last
   by_default: true
@@ -68,7 +29,7 @@ document_templates_002:
   nature: activity_cost
   updated_at: 2014-11-03 11:24:19.536799000 Z
   updater_id: 1
-document_templates_003:
+document_templates_005:
   active: true
   archiving: last
   by_default: true
@@ -83,7 +44,7 @@ document_templates_003:
   nature: animal_husbandry_register
   updated_at: 2014-11-03 11:24:19.545160000 Z
   updater_id: 1
-document_templates_004:
+document_templates_006:
   active: true
   archiving: last
   by_default: true
@@ -98,7 +59,7 @@ document_templates_004:
   nature: animal_list
   updated_at: 2014-11-03 11:24:19.551385000 Z
   updater_id: 1
-document_templates_005:
+document_templates_007:
   active: true
   archiving: last
   by_default: true
@@ -113,7 +74,7 @@ document_templates_005:
   nature: animal_sheet
   updated_at: 2014-11-03 11:24:19.558769000 Z
   updater_id: 1
-document_templates_006:
+document_templates_008:
   active: true
   archiving: last
   by_default: true
@@ -128,7 +89,7 @@ document_templates_006:
   nature: deposit_list
   updated_at: 2014-11-03 11:24:19.565921000 Z
   updater_id: 1
-document_templates_007:
+document_templates_009:
   active: true
   archiving: last
   by_default: true
@@ -143,7 +104,7 @@ document_templates_007:
   nature: general_ledger
   updated_at: 2014-11-03 11:24:19.573062000 Z
   updater_id: 1
-document_templates_008:
+document_templates_010:
   active: true
   archiving: last
   by_default: true
@@ -158,7 +119,7 @@ document_templates_008:
   nature: intervention_register
   updated_at: 2014-11-03 11:24:19.579352000 Z
   updater_id: 1
-document_templates_009:
+document_templates_011:
   active: true
   archiving: last
   by_default: true
@@ -173,7 +134,7 @@ document_templates_009:
   nature: intervention_sheet
   updated_at: 2014-11-03 11:24:19.585408000 Z
   updater_id: 1
-document_templates_010:
+document_templates_012:
   active: true
   archiving: last
   by_default: true
@@ -188,7 +149,7 @@ document_templates_010:
   nature: inventory_sheet
   updated_at: 2014-11-03 11:24:19.591229000 Z
   updater_id: 1
-document_templates_011:
+document_templates_013:
   active: true
   archiving: last
   by_default: true
@@ -203,7 +164,7 @@ document_templates_011:
   nature: land_parcel_register
   updated_at: 2014-11-03 11:24:19.596697000 Z
   updater_id: 1
-document_templates_012:
+document_templates_016:
   active: true
   archiving: last
   by_default: true
@@ -218,7 +179,7 @@ document_templates_012:
   nature: phytosanitary_register
   updated_at: 2014-11-03 11:24:19.616757000 Z
   updater_id: 1
-document_templates_013:
+document_templates_018:
   active: true
   archiving: last
   by_default: true
@@ -233,7 +194,7 @@ document_templates_013:
   nature: sales_estimate
   updated_at: 2014-11-03 11:24:19.630599000 Z
   updater_id: 1
-document_templates_014:
+document_templates_019:
   active: true
   archiving: last
   by_default: true
@@ -248,7 +209,7 @@ document_templates_014:
   nature: sales_order
   updated_at: 2014-11-03 11:24:19.643132000 Z
   updater_id: 1
-document_templates_015:
+document_templates_020:
   active: true
   archiving: last
   by_default: true
@@ -263,7 +224,7 @@ document_templates_015:
   nature: veterinary_booklet
   updated_at: 2014-11-03 11:24:19.649644000 Z
   updater_id: 1
-document_templates_016:
+document_templates_021:
   active: true
   archiving: last
   by_default: true
@@ -278,7 +239,7 @@ document_templates_016:
   nature: purchases_invoice
   updated_at: 2015-03-19 07:20:14.089619000 Z
   updater_id: 1
-document_templates_017:
+document_templates_022:
   active: true
   archiving: last
   by_default: true
@@ -293,7 +254,7 @@ document_templates_017:
   nature: vat_register
   updated_at: 2015-03-19 07:20:14.121990000 Z
   updater_id: 1
-document_templates_018:
+document_templates_023:
   active: true
   archiving: last
   by_default: true
@@ -308,7 +269,7 @@ document_templates_018:
   nature: purchases_estimate
   updated_at: 2015-07-14 13:21:02.782727000 Z
   updater_id: 1
-document_templates_019:
+document_templates_024:
   active: true
   archiving: last
   by_default: true
@@ -323,7 +284,7 @@ document_templates_019:
   nature: purchases_order
   updated_at: 2015-07-14 13:21:02.798429000 Z
   updater_id: 1
-document_templates_020:
+document_templates_026:
   active: true
   archiving: last
   by_default: true

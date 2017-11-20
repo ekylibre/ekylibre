@@ -1,55 +1,5 @@
-# = Informations
-#
-# == License
-#
-# Ekylibre - Simple agricultural ERP
-# Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
-# Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2017 Brice Texier, David Joulin
-#
-# This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU Affero General Public License as published by
-# the Free Software Foundation, either version 3 of the License, or
-# any later version.
-#
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU Affero General Public License for more details.
-#
-# You should have received a copy of the GNU Affero General Public License
-# along with this program.  If not, see http://www.gnu.org/licenses.
-#
-# == Table: activity_productions
-#
-#  activity_id         :integer          not null
-#  campaign_id         :integer
-#  created_at          :datetime         not null
-#  creator_id          :integer
-#  cultivable_zone_id  :integer
-#  custom_fields       :jsonb
-#  id                  :integer          not null, primary key
-#  irrigated           :boolean          default(FALSE), not null
-#  lock_version        :integer          default(0), not null
-#  nitrate_fixing      :boolean          default(FALSE), not null
-#  rank_number         :integer          not null
-#  season_id           :integer
-#  size_indicator_name :string           not null
-#  size_unit_name      :string
-#  size_value          :decimal(19, 4)   not null
-#  started_on          :date
-#  state               :string
-#  stopped_on          :date
-#  support_id          :integer          not null
-#  support_nature      :string
-#  support_shape       :geometry({:srid=>4326, :type=>"multi_polygon"})
-#  tactic_id           :integer
-#  updated_at          :datetime         not null
-#  updater_id          :integer
-#  usage               :string           not null
-#
 ---
-activity_productions_001:
+activity_productions_006:
   activity_id: 1
   campaign_id: 1
   created_at: 2014-11-04 17:23:15.017043000 Z
@@ -78,7 +28,7 @@ activity_productions_001:
   updated_at: 2014-11-04 17:23:15.017043000 Z
   updater_id: 1
   usage: fodder
-activity_productions_002:
+activity_productions_007:
   activity_id: 1
   campaign_id: 1
   created_at: 2014-11-04 17:23:15.019045000 Z
@@ -108,7 +58,7 @@ activity_productions_002:
   updated_at: 2014-11-04 17:23:15.019045000 Z
   updater_id: 1
   usage: fodder
-activity_productions_003:
+activity_productions_008:
   activity_id: 1
   campaign_id: 4
   created_at: 2014-11-04 17:23:48.520900000 Z
@@ -137,7 +87,7 @@ activity_productions_003:
   updated_at: 2014-11-04 17:23:48.520900000 Z
   updater_id: 1
   usage: fodder
-activity_productions_004:
+activity_productions_009:
   activity_id: 1
   campaign_id: 4
   created_at: 2014-11-04 17:23:48.523744000 Z
@@ -167,7 +117,7 @@ activity_productions_004:
   updated_at: 2014-11-04 17:23:48.523744000 Z
   updater_id: 1
   usage: fodder
-activity_productions_005:
+activity_productions_010:
   activity_id: 1
   campaign_id: 4
   created_at: 2014-11-04 17:23:48.526283000 Z
@@ -194,7 +144,7 @@ activity_productions_005:
   updated_at: 2014-11-04 17:23:48.526283000 Z
   updater_id: 1
   usage: fodder
-activity_productions_006:
+activity_productions_011:
   activity_id: 5
   campaign_id: 4
   created_at: 2014-11-04 18:17:39.475733000 Z
@@ -221,7 +171,7 @@ activity_productions_006:
   updated_at: 2014-11-04 18:17:39.475733000 Z
   updater_id: 1
   usage: fodder
-activity_productions_007:
+activity_productions_012:
   activity_id: 5
   campaign_id: 1
   created_at: 2014-11-04 18:21:43.150392000 Z
@@ -248,7 +198,7 @@ activity_productions_007:
   updated_at: 2014-11-04 18:21:43.150392000 Z
   updater_id: 1
   usage: fodder
-activity_productions_008:
+activity_productions_013:
   activity_id: 3
   campaign_id: 4
   created_at: 2014-11-07 14:43:13.634171000 Z
@@ -269,7 +219,7 @@ activity_productions_008:
   updated_at: 2014-11-07 14:43:13.634171000 Z
   updater_id: 1
   usage: fodder
-activity_productions_009:
+activity_productions_014:
   activity_id: 3
   campaign_id: 1
   created_at: 2014-11-07 15:53:12.705675000 Z
@@ -295,7 +245,7 @@ activity_productions_009:
   updated_at: 2014-11-07 15:53:12.705675000 Z
   updater_id: 1
   usage: fodder
-activity_productions_010:
+activity_productions_015:
   activity_id: 3
   campaign_id: 4
   created_at: 2014-11-07 15:54:19.288354000 Z
@@ -316,7 +266,7 @@ activity_productions_010:
   updated_at: 2015-03-08 16:49:28.765669000 Z
   updater_id: 1
   usage: fodder
-activity_productions_011:
+activity_productions_016:
   activity_id: 6
   campaign_id: 1
   created_at: 2014-11-07 16:34:30.852303000 Z
@@ -349,7 +299,7 @@ activity_productions_011:
   updated_at: 2014-11-07 16:34:30.852303000 Z
   updater_id: 1
   usage: fodder
-activity_productions_012:
+activity_productions_017:
   activity_id: 6
   campaign_id: 4
   created_at: 2014-11-07 16:35:00.784356000 Z
@@ -382,7 +332,7 @@ activity_productions_012:
   updated_at: 2014-11-07 16:35:00.784356000 Z
   updater_id: 1
   usage: fodder
-activity_productions_013:
+activity_productions_018:
   activity_id: 8
   campaign_id: 5
   created_at: 2016-01-21 14:05:47.275263000 Z
@@ -422,7 +372,7 @@ activity_productions_013:
     45.8024696819527, -0.769827963709258 45.8026959095466)))
   updated_at: 2016-01-21 14:05:47.275263000 Z
   usage: fodder
-activity_productions_014:
+activity_productions_019:
   activity_id: 8
   campaign_id: 5
   created_at: 2016-01-21 14:05:47.445216000 Z
@@ -468,7 +418,7 @@ activity_productions_014:
     45.8046423309194)))
   updated_at: 2016-01-21 14:05:47.445216000 Z
   usage: fodder
-activity_productions_015:
+activity_productions_020:
   activity_id: 9
   campaign_id: 5
   created_at: 2016-01-21 14:05:47.584213000 Z
@@ -497,7 +447,7 @@ activity_productions_015:
   tactic_id: 2
   updated_at: 2016-01-21 14:05:47.584213000 Z
   usage: grain
-activity_productions_016:
+activity_productions_021:
   activity_id: 9
   campaign_id: 5
   created_at: 2016-01-21 14:05:47.735448000 Z
@@ -525,7 +475,7 @@ activity_productions_016:
   tactic_id: 2
   updated_at: 2016-01-21 14:05:47.735448000 Z
   usage: grain
-activity_productions_017:
+activity_productions_022:
   activity_id: 10
   campaign_id: 5
   created_at: 2016-01-21 14:05:47.879746000 Z
@@ -556,7 +506,7 @@ activity_productions_017:
     -0.792340660026948 45.8188418159747, -0.792130338023884 45.8189190618765)))
   updated_at: 2016-01-21 14:05:47.879746000 Z
   usage: grain
-activity_productions_018:
+activity_productions_023:
   activity_id: 10
   campaign_id: 5
   created_at: 2016-01-21 14:05:48.060625000 Z
@@ -598,7 +548,7 @@ activity_productions_018:
     45.8205829853426, -0.796039968963344 45.8205828323007, -0.795813610326211 45.8205957862591)))
   updated_at: 2016-01-21 14:05:48.060625000 Z
   usage: grain
-activity_productions_019:
+activity_productions_024:
   activity_id: 10
   campaign_id: 5
   created_at: 2016-01-21 14:05:48.204855000 Z
@@ -634,7 +584,7 @@ activity_productions_019:
     45.8257557825475)))
   updated_at: 2016-01-21 14:05:48.204855000 Z
   usage: grain
-activity_productions_020:
+activity_productions_025:
   activity_id: 11
   campaign_id: 5
   created_at: 2016-01-21 14:05:48.353724000 Z
@@ -663,7 +613,7 @@ activity_productions_020:
     -0.78801932156029 45.8289158766202, -0.787897179285288 45.8285981330583)))
   updated_at: 2016-01-21 14:05:48.353724000 Z
   usage: fodder
-activity_productions_021:
+activity_productions_026:
   activity_id: 12
   campaign_id: 5
   created_at: 2016-01-21 14:05:48.489100000 Z
@@ -697,7 +647,7 @@ activity_productions_021:
     45.8302257144577, -0.785263690929621 45.8295795369011)))
   updated_at: 2016-01-21 14:05:48.489100000 Z
   usage: meadow
-activity_productions_022:
+activity_productions_027:
   activity_id: 13
   campaign_id: 5
   created_at: 2016-01-21 14:05:48.630788000 Z
@@ -731,7 +681,7 @@ activity_productions_022:
     45.8295795369011, -0.785596040795195 45.8298405801391, -0.787866855582176 45.8285229716277)))
   updated_at: 2016-01-21 14:05:48.630788000 Z
   usage: meadow
-activity_productions_023:
+activity_productions_028:
   activity_id: 14
   campaign_id: 5
   created_at: 2016-01-21 14:05:48.781352000 Z
@@ -763,7 +713,7 @@ activity_productions_023:
     45.8232201895326, -0.799269184082493 45.8222166412026)))
   updated_at: 2016-01-21 14:05:48.781352000 Z
   usage: grain
-activity_productions_024:
+activity_productions_029:
   activity_id: 15
   campaign_id: 5
   created_at: 2016-01-21 14:05:48.953643000 Z
@@ -793,7 +743,7 @@ activity_productions_024:
     45.8221998027223, -0.80178768169404 45.8220527208855)))
   updated_at: 2016-01-21 14:05:48.953643000 Z
   usage: meadow
-activity_productions_025:
+activity_productions_030:
   activity_id: 15
   campaign_id: 5
   created_at: 2016-01-21 14:05:49.117903000 Z
@@ -829,7 +779,7 @@ activity_productions_025:
     45.8222478037723)))
   updated_at: 2016-01-21 14:05:49.117903000 Z
   usage: meadow
-activity_productions_026:
+activity_productions_031:
   activity_id: 16
   campaign_id: 5
   created_at: 2016-01-21 14:05:49.289274000 Z
@@ -857,7 +807,7 @@ activity_productions_026:
     45.8231241077149, -0.772576368634481 45.8233220222455, -0.772303918135111 45.823530930691)))
   updated_at: 2016-01-21 14:05:49.289274000 Z
   usage: meadow
-activity_productions_027:
+activity_productions_032:
   activity_id: 17
   campaign_id: 5
   created_at: 2016-01-21 14:05:49.493032000 Z
@@ -889,7 +839,7 @@ activity_productions_027:
     45.8266375286314)))
   updated_at: 2016-01-21 14:05:49.493032000 Z
   usage: grain
-activity_productions_028:
+activity_productions_033:
   activity_id: 18
   campaign_id: 5
   created_at: 2016-01-21 14:05:49.689740000 Z
@@ -921,7 +871,7 @@ activity_productions_028:
     45.8312730746026)))
   updated_at: 2016-01-21 14:05:49.689740000 Z
   usage: grain
-activity_productions_029:
+activity_productions_034:
   activity_id: 10
   campaign_id: 5
   created_at: 2016-01-21 14:05:49.850937000 Z
@@ -954,7 +904,7 @@ activity_productions_029:
     -0.743999267161715 45.8430010210575)))
   updated_at: 2016-01-21 14:05:49.850937000 Z
   usage: grain
-activity_productions_030:
+activity_productions_035:
   activity_id: 18
   campaign_id: 5
   created_at: 2016-01-21 14:05:49.990304000 Z
@@ -982,7 +932,7 @@ activity_productions_030:
     45.8432938185174, -0.743835894942437 45.8430711146635, -0.743997841710742 45.8429998981771)))
   updated_at: 2016-01-21 14:05:49.990304000 Z
   usage: grain
-activity_productions_031:
+activity_productions_036:
   activity_id: 19
   campaign_id: 5
   created_at: 2016-01-21 14:05:50.162864000 Z
@@ -1008,7 +958,7 @@ activity_productions_031:
     45.8406404380084)))
   updated_at: 2016-01-21 14:05:50.162864000 Z
   usage: fodder
-activity_productions_032:
+activity_productions_037:
   activity_id: 19
   campaign_id: 5
   created_at: 2016-01-21 14:05:50.325621000 Z
@@ -1032,7 +982,7 @@ activity_productions_032:
     45.8374981794903, -0.749018258721744 45.8374167517267, -0.747529743313611 45.8384256282279)))
   updated_at: 2016-01-21 14:05:50.325621000 Z
   usage: fodder
-activity_productions_033:
+activity_productions_038:
   activity_id: 17
   campaign_id: 5
   created_at: 2016-01-21 14:05:50.458209000 Z
@@ -1060,7 +1010,7 @@ activity_productions_033:
     45.8388192880511, -0.738722779908693 45.8387916474873, -0.739138590754488 45.8388026667394)))
   updated_at: 2016-01-21 14:05:50.458209000 Z
   usage: grain
-activity_productions_034:
+activity_productions_039:
   activity_id: 18
   campaign_id: 5
   created_at: 2016-01-21 14:05:50.581257000 Z
@@ -1083,7 +1033,7 @@ activity_productions_034:
     -0.764225321113297 45.8305287305406, -0.763709529551902 45.8309476400114)))
   updated_at: 2016-01-21 14:05:50.581257000 Z
   usage: grain
-activity_productions_035:
+activity_productions_040:
   activity_id: 18
   campaign_id: 5
   created_at: 2016-01-21 14:05:50.706078000 Z
@@ -1106,7 +1056,7 @@ activity_productions_035:
     -0.743901808334468 45.8408157080644, -0.743317183825562 45.8413979942425)))
   updated_at: 2016-01-21 14:05:50.706078000 Z
   usage: grain
-activity_productions_036:
+activity_productions_041:
   activity_id: 10
   campaign_id: 5
   created_at: 2016-01-21 14:05:50.844013000 Z
@@ -1137,7 +1087,7 @@ activity_productions_036:
     -0.801564982168222 45.8202799185224, -0.801080647088302 45.8203521595582)))
   updated_at: 2016-01-21 14:05:50.844013000 Z
   usage: grain
-activity_productions_037:
+activity_productions_042:
   activity_id: 10
   campaign_id: 5
   created_at: 2016-01-21 14:05:50.973578000 Z
@@ -1162,7 +1112,7 @@ activity_productions_037:
     -0.823288699913812 45.822274756962, -0.822869030174328 45.82254299977)))
   updated_at: 2016-01-21 14:05:50.973578000 Z
   usage: grain
-activity_productions_038:
+activity_productions_043:
   activity_id: 10
   campaign_id: 5
   created_at: 2016-01-21 14:05:51.103858000 Z
@@ -1186,7 +1136,7 @@ activity_productions_038:
     45.8119806264415)))
   updated_at: 2016-01-21 14:05:51.103858000 Z
   usage: grain
-activity_productions_039:
+activity_productions_044:
   activity_id: 9
   campaign_id: 5
   created_at: 2016-01-21 14:05:51.257525000 Z
@@ -1211,7 +1161,7 @@ activity_productions_039:
   tactic_id: 2
   updated_at: 2016-01-21 14:05:51.257525000 Z
   usage: grain
-activity_productions_040:
+activity_productions_045:
   activity_id: 20
   campaign_id: 5
   created_at: 2016-01-21 14:05:51.395153000 Z
@@ -1238,7 +1188,7 @@ activity_productions_040:
     -0.834214965170727 45.8145906222858)))
   updated_at: 2016-01-21 14:05:51.395153000 Z
   usage: fodder
-activity_productions_041:
+activity_productions_046:
   activity_id: 9
   campaign_id: 5
   created_at: 2016-01-21 14:05:51.554886000 Z
@@ -1289,7 +1239,7 @@ activity_productions_041:
   tactic_id: 2
   updated_at: 2016-01-21 14:05:51.554886000 Z
   usage: grain
-activity_productions_042:
+activity_productions_047:
   activity_id: 10
   campaign_id: 5
   created_at: 2016-01-21 14:05:51.683029000 Z
@@ -1315,7 +1265,7 @@ activity_productions_042:
     45.8372481805018)))
   updated_at: 2016-01-21 14:05:51.683029000 Z
   usage: grain
-activity_productions_043:
+activity_productions_048:
   activity_id: 21
   campaign_id: 5
   created_at: 2016-01-21 14:05:51.817832000 Z
@@ -1341,7 +1291,7 @@ activity_productions_043:
     45.8021885504529, -0.767827230035493 45.8021806182845)))
   updated_at: 2016-01-21 14:05:51.817832000 Z
   usage: grain
-activity_productions_044:
+activity_productions_049:
   activity_id: 22
   campaign_id: 6
   created_at: 2016-05-10 19:12:52.835212000 Z

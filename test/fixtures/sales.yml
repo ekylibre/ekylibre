@@ -1,74 +1,5 @@
-# = Informations
-#
-# == License
-#
-# Ekylibre - Simple agricultural ERP
-# Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
-# Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2017 Brice Texier, David Joulin
-#
-# This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU Affero General Public License as published by
-# the Free Software Foundation, either version 3 of the License, or
-# any later version.
-#
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU Affero General Public License for more details.
-#
-# You should have received a copy of the GNU Affero General Public License
-# along with this program.  If not, see http://www.gnu.org/licenses.
-#
-# == Table: sales
-#
-#  accounted_at                             :datetime
-#  address_id                               :integer
-#  affair_id                                :integer
-#  amount                                   :decimal(19, 4)   default(0.0), not null
-#  annotation                               :text
-#  client_id                                :integer          not null
-#  codes                                    :jsonb
-#  conclusion                               :text
-#  confirmed_at                             :datetime
-#  created_at                               :datetime         not null
-#  creator_id                               :integer
-#  credit                                   :boolean          default(FALSE), not null
-#  credited_sale_id                         :integer
-#  currency                                 :string           not null
-#  custom_fields                            :jsonb
-#  delivery_address_id                      :integer
-#  description                              :text
-#  downpayment_amount                       :decimal(19, 4)   default(0.0), not null
-#  expiration_delay                         :string
-#  expired_at                               :datetime
-#  function_title                           :string
-#  has_downpayment                          :boolean          default(FALSE), not null
-#  id                                       :integer          not null, primary key
-#  initial_number                           :string
-#  introduction                             :text
-#  invoice_address_id                       :integer
-#  invoiced_at                              :datetime
-#  journal_entry_id                         :integer
-#  letter_format                            :boolean          default(TRUE), not null
-#  lock_version                             :integer          default(0), not null
-#  nature_id                                :integer
-#  number                                   :string           not null
-#  payment_at                               :datetime
-#  payment_delay                            :string           not null
-#  pretax_amount                            :decimal(19, 4)   default(0.0), not null
-#  quantity_gap_on_invoice_journal_entry_id :integer
-#  reference_number                         :string
-#  responsible_id                           :integer
-#  state                                    :string           not null
-#  subject                                  :string
-#  transporter_id                           :integer
-#  undelivered_invoice_journal_entry_id     :integer
-#  updated_at                               :datetime         not null
-#  updater_id                               :integer
-#
 ---
-sales_001:
+sales_007:
   accounted_at: 2014-11-05 09:58:26.783812000 Z
   affair_id: 10
   amount: 1164.0
@@ -102,7 +33,7 @@ sales_001:
   subject: ''
   updated_at: 2014-11-05 09:58:26.779080000 Z
   updater_id: 1
-sales_002:
+sales_008:
   accounted_at: 2014-11-06 18:25:07.902592000 Z
   address_id: 12
   affair_id: 12
@@ -135,7 +66,7 @@ sales_002:
   subject: ''
   updated_at: 2014-11-06 18:25:07.883815000 Z
   updater_id: 1
-sales_003:
+sales_009:
   accounted_at: 2014-11-05 10:03:12.776377000 Z
   affair_id: 14
   amount: 11.23
@@ -169,7 +100,7 @@ sales_003:
   subject: ''
   updated_at: 2014-11-05 10:03:12.772201000 Z
   updater_id: 1
-sales_004:
+sales_010:
   accounted_at: 2014-11-05 13:36:09.012263000 Z
   affair_id: 17
   amount: 19.2
@@ -199,7 +130,7 @@ sales_004:
   subject: ''
   updated_at: 2014-11-05 13:36:08.971783000 Z
   updater_id: 1
-sales_005:
+sales_011:
   accounted_at: 2015-04-21 08:22:33.223349000 Z
   address_id: 13
   affair_id: 34
@@ -232,7 +163,7 @@ sales_005:
   subject: ''
   updated_at: 2015-04-21 08:22:33.183125000 Z
   updater_id: 1
-sales_006:
+sales_012:
   accounted_at: 2015-04-21 08:29:05.212633000 Z
   address_id: 14
   affair_id: 35
@@ -265,7 +196,7 @@ sales_006:
   subject: ''
   updated_at: 2015-04-21 08:29:05.180649000 Z
   updater_id: 1
-sales_007:
+sales_013:
   accounted_at: 2015-04-21 23:49:34.597314000 Z
   address_id: 13
   affair_id: 36
@@ -298,7 +229,7 @@ sales_007:
   subject: ''
   updated_at: 2015-04-21 23:49:34.591633000 Z
   updater_id: 1
-sales_008:
+sales_014:
   accounted_at: 2015-05-30 20:00:38.870810000 Z
   affair_id: 37
   amount: 500.0
@@ -331,7 +262,7 @@ sales_008:
   subject: ''
   updated_at: 2015-05-30 20:00:38.866273000 Z
   updater_id: 1
-sales_009:
+sales_015:
   accounted_at: 2015-05-30 20:00:46.945057000 Z
   affair_id: 37
   amount: -500.0
@@ -361,7 +292,7 @@ sales_009:
   state: invoice
   updated_at: 2015-05-30 20:00:46.940198000 Z
   updater_id: 1
-sales_010:
+sales_016:
   accounted_at: 2015-09-17 13:25:52.302882000 Z
   address_id: 9
   affair_id: 38
@@ -395,7 +326,7 @@ sales_010:
   subject: ''
   updated_at: 2015-09-17 13:25:52.297616000 Z
   updater_id: 1
-sales_011:
+sales_017:
   accounted_at: 2016-05-26 21:26:19.629614000 Z
   address_id: 14
   affair_id: 39
@@ -432,7 +363,7 @@ sales_011:
   subject: ''
   updated_at: 2016-05-26 21:26:19.625496000 Z
   updater_id: 1
-sales_012:
+sales_018:
   accounted_at: 2016-05-26 21:27:13.866378000 Z
   address_id: 14
   affair_id: 40
@@ -467,7 +398,7 @@ sales_012:
   subject: ''
   updated_at: 2016-05-26 21:27:13.860186000 Z
   updater_id: 1
-sales_013:
+sales_019:
   accounted_at: 2016-07-01 20:12:48.708979000 Z
   address_id: 4
   affair_id: 41
@@ -504,7 +435,7 @@ sales_013:
   subject: ''
   updated_at: 2016-07-01 20:12:48.702437000 Z
   updater_id: 1
-sales_014:
+sales_020:
   accounted_at: 2016-11-20 22:09:03.112111000 Z
   address_id: 14
   affair_id: 43
@@ -543,7 +474,7 @@ sales_014:
   subject: ''
   updated_at: 2016-11-20 22:09:02.945881000 Z
   updater_id: 1
-sales_015:
+sales_021:
   accounted_at: 2016-11-20 22:10:43.258752000 Z
   address_id: 4
   affair_id: 45
@@ -582,7 +513,7 @@ sales_015:
   subject: ''
   updated_at: 2016-11-20 22:10:43.170464000 Z
   updater_id: 1
-sales_016:
+sales_022:
   accounted_at: 2016-11-20 22:11:28.858719000 Z
   address_id: 4
   affair_id: 47
@@ -621,7 +552,7 @@ sales_016:
   subject: ''
   updated_at: 2016-11-20 22:11:28.732682000 Z
   updater_id: 1
-sales_017:
+sales_023:
   accounted_at: 2016-11-20 22:12:19.197652000 Z
   affair_id: 48
   amount: 2676.0
@@ -657,7 +588,7 @@ sales_017:
   subject: ''
   updated_at: 2016-11-20 22:12:19.114372000 Z
   updater_id: 1
-sales_018:
+sales_024:
   accounted_at: 2016-11-20 22:12:46.307370000 Z
   affair_id: 48
   amount: -2676.0
@@ -689,7 +620,7 @@ sales_018:
   state: invoice
   updated_at: 2016-11-20 22:12:46.221741000 Z
   updater_id: 1
-sales_019:
+sales_025:
   accounted_at: 2016-12-20 08:54:01.551325000 Z
   address_id: 4
   affair_id: 52

@@ -1,58 +1,5 @@
-# = Informations
-#
-# == License
-#
-# Ekylibre - Simple agricultural ERP
-# Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
-# Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2017 Brice Texier, David Joulin
-#
-# This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU Affero General Public License as published by
-# the Free Software Foundation, either version 3 of the License, or
-# any later version.
-#
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU Affero General Public License for more details.
-#
-# You should have received a copy of the GNU Affero General Public License
-# along with this program.  If not, see http://www.gnu.org/licenses.
-#
-# == Table: purchase_items
-#
-#  account_id             :integer          not null
-#  activity_budget_id     :integer
-#  amount                 :decimal(19, 4)   default(0.0), not null
-#  annotation             :text
-#  created_at             :datetime         not null
-#  creator_id             :integer
-#  currency               :string           not null
-#  depreciable_product_id :integer
-#  equipment_id           :integer
-#  fixed                  :boolean          default(FALSE), not null
-#  fixed_asset_id         :integer
-#  id                     :integer          not null, primary key
-#  label                  :text
-#  lock_version           :integer          default(0), not null
-#  position               :integer
-#  preexisting_asset      :boolean
-#  pretax_amount          :decimal(19, 4)   default(0.0), not null
-#  purchase_id            :integer          not null
-#  quantity               :decimal(19, 4)   not null
-#  reduction_percentage   :decimal(19, 4)   default(0.0), not null
-#  role                   :string
-#  tax_id                 :integer          not null
-#  team_id                :integer
-#  unit_amount            :decimal(19, 4)   default(0.0), not null
-#  unit_pretax_amount     :decimal(19, 4)   not null
-#  updated_at             :datetime         not null
-#  updater_id             :integer
-#  variant_id             :integer
-#
 ---
-purchase_items_001:
+purchase_items_008:
   account_id: 140
   amount: 126.0
   annotation: ''
@@ -74,7 +21,7 @@ purchase_items_001:
   updated_at: 2014-11-14 20:35:09.552121000 Z
   updater_id: 1
   variant_id: 8
-purchase_items_002:
+purchase_items_009:
   account_id: 47
   amount: 1850.0
   created_at: 2014-11-05 10:46:06.137764000 Z
@@ -95,7 +42,7 @@ purchase_items_002:
   updated_at: 2014-11-05 10:46:06.137764000 Z
   updater_id: 1
   variant_id: 25
-purchase_items_003:
+purchase_items_010:
   account_id: 16
   amount: 50.16
   annotation: ''
@@ -117,7 +64,7 @@ purchase_items_003:
   updated_at: 2014-11-14 20:49:41.747668000 Z
   updater_id: 1
   variant_id: 22
-purchase_items_004:
+purchase_items_011:
   account_id: 54
   amount: 1848.0
   created_at: 2014-11-07 15:58:10.829987000 Z
@@ -138,7 +85,7 @@ purchase_items_004:
   updated_at: 2014-11-07 15:58:10.829987000 Z
   updater_id: 1
   variant_id: 39
-purchase_items_005:
+purchase_items_012:
   account_id: 154
   amount: 20520.0
   created_at: 2014-11-07 16:52:05.379280000 Z
@@ -159,7 +106,7 @@ purchase_items_005:
   updated_at: 2014-11-07 16:52:45.891094000 Z
   updater_id: 1
   variant_id: 45
-purchase_items_006:
+purchase_items_013:
   account_id: 54
   amount: 1848.0
   created_at: 2015-03-19 17:18:41.996550000 Z
@@ -180,7 +127,7 @@ purchase_items_006:
   updated_at: 2015-03-19 17:18:41.996550000 Z
   updater_id: 1
   variant_id: 39
-purchase_items_007:
+purchase_items_014:
   account_id: 54
   amount: 17329.62
   annotation: ''
@@ -202,7 +149,7 @@ purchase_items_007:
   updated_at: 2016-07-01 20:22:49.189559000 Z
   updater_id: 1
   variant_id: 39
-purchase_items_008:
+purchase_items_015:
   account_id: 154
   amount: 717.12
   annotation: ''
@@ -224,7 +171,7 @@ purchase_items_008:
   updated_at: 2016-11-20 22:14:38.764041000 Z
   updater_id: 1
   variant_id: 42
-purchase_items_009:
+purchase_items_016:
   account_id: 147
   amount: 1200.0
   annotation: ''
@@ -246,7 +193,7 @@ purchase_items_009:
   updated_at: 2016-11-20 22:15:20.528661000 Z
   updater_id: 1
   variant_id: 57
-purchase_items_010:
+purchase_items_017:
   account_id: 54
   amount: 4878.72
   annotation: ''
@@ -268,7 +215,7 @@ purchase_items_010:
   updated_at: 2016-12-20 18:16:09.200614000 Z
   updater_id: 1
   variant_id: 39
-purchase_items_011:
+purchase_items_018:
   account_id: 115
   amount: 489.75
   annotation: ''
@@ -290,7 +237,7 @@ purchase_items_011:
   updated_at: 2016-12-20 18:16:56.944192000 Z
   updater_id: 1
   variant_id: 63
-purchase_items_012:
+purchase_items_019:
   account_id: 54
   amount: 5082.0
   created_at: 2017-11-20 10:06:14.002108000 Z
@@ -311,3 +258,114 @@ purchase_items_012:
   updated_at: 2017-11-20 10:06:14.002108000 Z
   updater_id: 1
   variant_id: 39
+purchase_items_020:
+  account_id: 140
+  amount: 264.6
+  created_at: 2017-11-20 12:58:30.839284000 Z
+  creator_id: 1
+  currency: EUR
+  equipment_id: 30
+  fixed: false
+  id: 20
+  label: Adexar 5 l
+  lock_version: 0
+  position: 1
+  pretax_amount: 220.5
+  purchase_id: 19
+  quantity: 7.0
+  reduction_percentage: 10.0
+  tax_id: 3
+  unit_amount: 42.0
+  unit_pretax_amount: 35.0
+  updated_at: 2017-11-20 12:58:30.839284000 Z
+  updater_id: 1
+  variant_id: 8
+purchase_items_021:
+  account_id: 47
+  amount: 37500.0
+  created_at: 2017-11-20 12:58:30.880037000 Z
+  creator_id: 1
+  currency: EUR
+  equipment_id: 30
+  fixed: false
+  id: 21
+  label: Semoir
+  lock_version: 0
+  position: 2
+  pretax_amount: 37500.0
+  purchase_id: 19
+  quantity: 15.0
+  reduction_percentage: 0.0
+  tax_id: 2
+  unit_amount: 2500.0
+  unit_pretax_amount: 2500.0
+  updated_at: 2017-11-20 12:58:30.880037000 Z
+  updater_id: 1
+  variant_id: 29
+purchase_items_022:
+  account_id: 54
+  amount: 6352.5
+  created_at: 2017-11-20 13:03:52.847403000 Z
+  creator_id: 1
+  currency: EUR
+  fixed: false
+  id: 22
+  label: Ammonitre 33,5%  Big Bag
+  lock_version: 0
+  position: 1
+  pretax_amount: 5775.0
+  purchase_id: 20
+  quantity: 5.0
+  reduction_percentage: 25.0
+  role: merchandise
+  tax_id: 8
+  unit_amount: 1694.0
+  unit_pretax_amount: 1540.0
+  updated_at: 2017-11-20 13:03:52.847403000 Z
+  updater_id: 1
+  variant_id: 39
+purchase_items_023:
+  account_id: 147
+  amount: 1266.04
+  created_at: 2017-11-20 13:04:44.993905000 Z
+  creator_id: 1
+  currency: EUR
+  fixed: false
+  id: 23
+  label: Acide malique ‒ 25kg
+  lock_version: 0
+  position: 1
+  pretax_amount: 1240.0
+  purchase_id: 21
+  quantity: 10.0
+  reduction_percentage: 0.0
+  role: merchandise
+  tax_id: 9
+  unit_amount: 126.604
+  unit_pretax_amount: 124.0
+  updated_at: 2017-11-20 13:04:44.993905000 Z
+  updater_id: 1
+  variant_id: 58
+purchase_items_024:
+  account_id: 154
+  amount: 717.12
+  created_at: 2017-11-20 13:04:45.014525000 Z
+  creator_id: 1
+  currency: EUR
+  equipment_id: 137
+  fixed: false
+  id: 24
+  label: Semence mixte
+  lock_version: 0
+  position: 2
+  pretax_amount: 597.6
+  purchase_id: 21
+  quantity: 6.0
+  reduction_percentage: 0.0
+  role: merchandise
+  tax_id: 3
+  unit_amount: 119.52
+  unit_pretax_amount: 99.6
+  updated_at: 2017-11-20 13:04:45.014525000 Z
+  updater_id: 1
+  variant_id: 42

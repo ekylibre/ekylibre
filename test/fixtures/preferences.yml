@@ -1,43 +1,3 @@
-# = Informations
-#
-# == License
-#
-# Ekylibre - Simple agricultural ERP
-# Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
-# Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2017 Brice Texier, David Joulin
-#
-# This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU Affero General Public License as published by
-# the Free Software Foundation, either version 3 of the License, or
-# any later version.
-#
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU Affero General Public License for more details.
-#
-# You should have received a copy of the GNU Affero General Public License
-# along with this program.  If not, see http://www.gnu.org/licenses.
-#
-# == Table: preferences
-#
-#  boolean_value     :boolean
-#  created_at        :datetime         not null
-#  creator_id        :integer
-#  decimal_value     :decimal(19, 4)
-#  id                :integer          not null, primary key
-#  integer_value     :integer
-#  lock_version      :integer          default(0), not null
-#  name              :string           not null
-#  nature            :string           not null
-#  record_value_id   :integer
-#  record_value_type :string
-#  string_value      :text
-#  updated_at        :datetime         not null
-#  updater_id        :integer
-#  user_id           :integer
-#
 ---
 preferences_001:
   boolean_value: true
@@ -4718,7 +4678,7 @@ preferences_407:
   nature: boolean
   updated_at: 2016-12-20 18:24:29.653196000 Z
   updater_id: 1
-preferences_408:
+preferences_409:
   boolean_value: true
   created_at: 2017-01-04 14:47:42.534194000 Z
   creator_id: 1
@@ -4729,7 +4689,7 @@ preferences_408:
   updated_at: 2017-01-04 14:47:42.534194000 Z
   updater_id: 1
   user_id: 1
-preferences_409:
+preferences_410:
   created_at: 2017-01-04 14:47:42.643427000 Z
   creator_id: 1
   id: 410
@@ -4740,7 +4700,7 @@ preferences_409:
   updated_at: 2017-01-04 14:47:42.643427000 Z
   updater_id: 1
   user_id: 1
-preferences_410:
+preferences_411:
   created_at: 2017-03-24 16:46:41.643427000 Z
   creator_id: 1
   id: 411
@@ -4751,7 +4711,7 @@ preferences_410:
   updated_at: 2017-03-24 16:46:41.643427000 Z
   updater_id: 1
   user_id: 1
-preferences_411:
+preferences_412:
   created_at: 2017-03-24 17:52:59.000000000 Z
   id: 412
   lock_version: 0
@@ -4760,7 +4720,7 @@ preferences_411:
   string_value: yearly
   updated_at: 2017-03-24 17:52:59.000000000 Z
   updater_id: 1
-preferences_412:
+preferences_413:
   created_at: 2017-05-01 23:36:03.640177000 Z
   creator_id: 1
   id: 413
@@ -4771,7 +4731,7 @@ preferences_412:
   updated_at: 2017-05-01 23:36:03.640177000 Z
   updater_id: 1
   user_id: 1
-preferences_413:
+preferences_414:
   created_at: 2017-05-01 23:43:22.283549000 Z
   creator_id: 1
   id: 414
@@ -4782,7 +4742,7 @@ preferences_413:
   updated_at: 2017-05-01 23:43:22.283549000 Z
   updater_id: 1
   user_id: 1
-preferences_414:
+preferences_415:
   created_at: 2017-05-01 23:43:33.909903000 Z
   creator_id: 1
   id: 415
@@ -4794,7 +4754,7 @@ preferences_414:
   updated_at: 2017-05-01 23:43:33.909903000 Z
   updater_id: 1
   user_id: 1
-preferences_415:
+preferences_416:
   boolean_value: true
   created_at: 2017-05-29 20:40:27.958563000 Z
   creator_id: 1
@@ -4804,7 +4764,7 @@ preferences_415:
   nature: boolean
   updated_at: 2017-05-29 20:40:27.958563000 Z
   updater_id: 1
-preferences_416:
+preferences_417:
   boolean_value: false
   created_at: 2017-06-07 16:07:11.431010000 Z
   creator_id: 1
@@ -4815,7 +4775,7 @@ preferences_416:
   updated_at: 2017-06-07 16:07:11.431010000 Z
   updater_id: 1
   user_id: 1
-preferences_417:
+preferences_418:
   created_at: 2017-06-07 16:07:13.223724000 Z
   creator_id: 1
   id: 418
@@ -4826,7 +4786,7 @@ preferences_417:
   updated_at: 2017-06-07 16:07:13.223724000 Z
   updater_id: 1
   user_id: 1
-preferences_418:
+preferences_419:
   boolean_value: false
   created_at: 2017-06-07 16:07:18.245494000 Z
   creator_id: 1
@@ -4837,7 +4797,7 @@ preferences_418:
   updated_at: 2017-06-07 16:07:18.245494000 Z
   updater_id: 1
   user_id: 1
-preferences_419:
+preferences_420:
   created_at: 2017-06-07 16:07:21.400474000 Z
   creator_id: 1
   id: 420
@@ -4848,7 +4808,7 @@ preferences_419:
   updated_at: 2017-06-07 16:07:21.400474000 Z
   updater_id: 1
   user_id: 1
-preferences_420:
+preferences_421:
   created_at: 2017-06-07 16:09:36.242099000 Z
   creator_id: 1
   id: 421
@@ -4858,7 +4818,7 @@ preferences_420:
   updated_at: 2017-06-07 16:09:36.242099000 Z
   updater_id: 1
   user_id: 1
-preferences_421:
+preferences_422:
   created_at: 2017-06-07 16:09:48.938012000 Z
   creator_id: 1
   id: 422
@@ -4868,7 +4828,7 @@ preferences_421:
   updated_at: 2017-06-07 16:09:48.938012000 Z
   updater_id: 1
   user_id: 1
-preferences_422:
+preferences_423:
   created_at: 2017-06-07 16:14:22.867684000 Z
   creator_id: 1
   id: 423
@@ -4878,7 +4838,7 @@ preferences_422:
   string_value: ''
   updated_at: 2017-06-07 16:14:22.867684000 Z
   updater_id: 1
-preferences_423:
+preferences_424:
   created_at: 2017-06-07 16:14:23.139560000 Z
   creator_id: 1
   id: 424
@@ -4889,7 +4849,7 @@ preferences_423:
   updated_at: 2017-06-07 16:14:23.139560000 Z
   updater_id: 1
   user_id: 1
-preferences_424:
+preferences_425:
   boolean_value: true
   created_at: 2017-06-07 16:16:12.044163000 Z
   creator_id: 1
@@ -4900,7 +4860,7 @@ preferences_424:
   updated_at: 2017-06-07 16:16:12.044163000 Z
   updater_id: 1
   user_id: 1
-preferences_425:
+preferences_426:
   created_at: 2017-06-07 16:16:12.054654000 Z
   creator_id: 1
   id: 426
@@ -4910,7 +4870,7 @@ preferences_425:
   updated_at: 2017-06-07 16:16:12.054654000 Z
   updater_id: 1
   user_id: 1
-preferences_426:
+preferences_427:
   created_at: 2017-06-07 16:16:12.066533000 Z
   creator_id: 1
   id: 427
@@ -4921,7 +4881,7 @@ preferences_426:
   updated_at: 2017-06-07 16:16:12.066533000 Z
   updater_id: 1
   user_id: 1
-preferences_427:
+preferences_428:
   boolean_value: true
   created_at: 2017-06-09 19:51:30.922719000 Z
   creator_id: 1
@@ -4932,7 +4892,7 @@ preferences_427:
   updated_at: 2017-06-09 19:51:30.922719000 Z
   updater_id: 1
   user_id: 1
-preferences_428:
+preferences_429:
   created_at: 2017-06-09 19:51:30.961801000 Z
   creator_id: 1
   id: 429
@@ -4942,7 +4902,7 @@ preferences_428:
   updated_at: 2017-06-09 19:51:30.961801000 Z
   updater_id: 1
   user_id: 1
-preferences_429:
+preferences_430:
   created_at: 2017-11-20 10:05:59.690791000 Z
   creator_id: 1
   id: 430
@@ -4953,7 +4913,7 @@ preferences_429:
   updated_at: 2017-11-20 10:05:59.690791000 Z
   updater_id: 1
   user_id: 1
-preferences_430:
+preferences_431:
   created_at: 2017-11-20 10:05:59.730391000 Z
   creator_id: 1
   id: 431
@@ -4964,7 +4924,7 @@ preferences_430:
   updated_at: 2017-11-20 10:05:59.730391000 Z
   updater_id: 1
   user_id: 1
-preferences_431:
+preferences_432:
   boolean_value: true
   created_at: 2017-11-20 10:06:00.966139000 Z
   creator_id: 1
@@ -4975,7 +4935,7 @@ preferences_431:
   updated_at: 2017-11-20 10:06:00.966139000 Z
   updater_id: 1
   user_id: 1
-preferences_432:
+preferences_433:
   created_at: 2017-11-20 10:06:00.979955000 Z
   creator_id: 1
   id: 433
@@ -4985,7 +4945,7 @@ preferences_432:
   updated_at: 2017-11-20 10:06:00.979955000 Z
   updater_id: 1
   user_id: 1
-preferences_433:
+preferences_434:
   created_at: 2017-11-20 10:06:01.029345000 Z
   creator_id: 1
   id: 434
@@ -4996,7 +4956,7 @@ preferences_433:
   updated_at: 2017-11-20 10:06:01.029345000 Z
   updater_id: 1
   user_id: 1
-preferences_434:
+preferences_435:
   created_at: 2017-11-20 10:06:14.269173000 Z
   creator_id: 1
   id: 435
@@ -5007,7 +4967,7 @@ preferences_434:
   updated_at: 2017-11-20 10:06:14.269173000 Z
   updater_id: 1
   user_id: 1
-preferences_435:
+preferences_436:
   created_at: 2017-11-20 10:06:14.274507000 Z
   creator_id: 1
   id: 436
@@ -5018,7 +4978,7 @@ preferences_435:
   updated_at: 2017-11-20 10:06:14.274507000 Z
   updater_id: 1
   user_id: 1
-preferences_436:
+preferences_437:
   created_at: 2017-11-20 10:08:12.474997000 Z
   creator_id: 1
   id: 437
@@ -5029,7 +4989,7 @@ preferences_436:
   updated_at: 2017-11-20 10:08:12.474997000 Z
   updater_id: 1
   user_id: 1
-preferences_437:
+preferences_438:
   boolean_value: true
   created_at: 2017-11-20 10:10:09.631279000 Z
   creator_id: 1
@@ -5040,7 +5000,7 @@ preferences_437:
   updated_at: 2017-11-20 10:10:09.631279000 Z
   updater_id: 1
   user_id: 1
-preferences_438:
+preferences_439:
   created_at: 2017-11-20 10:10:09.639583000 Z
   creator_id: 1
   id: 439
@@ -5050,7 +5010,7 @@ preferences_438:
   updated_at: 2017-11-20 10:10:09.639583000 Z
   updater_id: 1
   user_id: 1
-preferences_439:
+preferences_440:
   created_at: 2017-11-20 10:10:09.650539000 Z
   creator_id: 1
   id: 440
@@ -5061,7 +5021,7 @@ preferences_439:
   updated_at: 2017-11-20 10:10:09.650539000 Z
   updater_id: 1
   user_id: 1
-preferences_440:
+preferences_441:
   created_at: 2017-11-20 10:18:58.320305000 Z
   creator_id: 1
   id: 441
@@ -5072,7 +5032,7 @@ preferences_440:
   updated_at: 2017-11-20 10:18:58.320305000 Z
   updater_id: 1
   user_id: 1
-preferences_441:
+preferences_442:
   created_at: 2017-11-20 10:18:58.328575000 Z
   creator_id: 1
   id: 442
@@ -5081,5 +5041,209 @@ preferences_441:
   nature: string
   string_value: {}
   updated_at: 2017-11-20 10:18:58.328575000 Z
+  updater_id: 1
+  user_id: 1
+preferences_443:
+  boolean_value: true
+  created_at: 2017-11-20 13:03:20.801922000 Z
+  creator_id: 1
+  id: 443
+  lock_version: 0
+  name: interface.kujakus.backend-purchase_orders-index-1.collapsed
+  nature: boolean
+  updated_at: 2017-11-20 13:03:20.801922000 Z
+  updater_id: 1
+  user_id: 1
+preferences_444:
+  created_at: 2017-11-20 13:03:20.810019000 Z
+  creator_id: 1
+  id: 444
+  lock_version: 0
+  name: kujaku.feathers.backend-purchase_orders-index-1:0.default
+  nature: string
+  updated_at: 2017-11-20 13:03:20.810019000 Z
+  updater_id: 1
+  user_id: 1
+preferences_445:
+  created_at: 2017-11-20 13:03:20.866870000 Z
+  creator_id: 1
+  id: 445
+  lock_version: 0
+  name: list._purchase_orders_list_purchase_orders_tag
+  nature: string
+  string_value: {}
+  updated_at: 2017-11-20 13:03:20.866870000 Z
+  updater_id: 1
+  user_id: 1
+preferences_446:
+  created_at: 2017-11-20 13:03:52.960510000 Z
+  creator_id: 1
+  id: 446
+  lock_version: 0
+  name: cobbler.purchase_orders-show
+  nature: string
+  string_value: {}
+  updated_at: 2017-11-20 13:03:52.960510000 Z
+  updater_id: 1
+  user_id: 1
+preferences_447:
+  created_at: 2017-11-20 13:03:52.967523000 Z
+  creator_id: 1
+  id: 447
+  lock_version: 0
+  name: list._purchase_orders_list_items_tag
+  nature: string
+  string_value: {}
+  updated_at: 2017-11-20 13:03:52.967523000 Z
+  updater_id: 1
+  user_id: 1
+preferences_448:
+  boolean_value: false
+  created_at: 2017-11-20 13:05:25.693229000 Z
+  creator_id: 1
+  id: 448
+  lock_version: 0
+  name: interface.snippets.receptions.collapsed
+  nature: boolean
+  updated_at: 2017-11-20 13:05:25.693229000 Z
+  updater_id: 1
+  user_id: 1
+preferences_449:
+  boolean_value: false
+  created_at: 2017-11-20 13:05:25.699968000 Z
+  creator_id: 1
+  id: 449
+  lock_version: 0
+  name: interface.snippets.shipments.collapsed
+  nature: boolean
+  updated_at: 2017-11-20 13:05:25.699968000 Z
+  updater_id: 1
+  user_id: 1
+preferences_450:
+  boolean_value: false
+  created_at: 2017-11-20 13:05:25.705126000 Z
+  creator_id: 1
+  id: 450
+  lock_version: 0
+  name: interface.snippets.deliveries.collapsed
+  nature: boolean
+  updated_at: 2017-11-20 13:05:25.705126000 Z
+  updater_id: 1
+  user_id: 1
+preferences_451:
+  boolean_value: true
+  created_at: 2017-11-20 14:21:53.605638000 Z
+  creator_id: 1
+  id: 451
+  lock_version: 0
+  name: interface.kujakus.backend-shipments-index-4.collapsed
+  nature: boolean
+  updated_at: 2017-11-20 14:21:53.605638000 Z
+  updater_id: 1
+  user_id: 1
+preferences_452:
+  created_at: 2017-11-20 14:21:53.611721000 Z
+  creator_id: 1
+  id: 452
+  lock_version: 0
+  name: kujaku.feathers.backend-shipments-index-4:0.default
+  nature: string
+  updated_at: 2017-11-20 14:21:53.611721000 Z
+  updater_id: 1
+  user_id: 1
+preferences_453:
+  created_at: 2017-11-20 14:21:53.654514000 Z
+  creator_id: 1
+  id: 453
+  lock_version: 0
+  name: list._shipments_list_shipments_tag
+  nature: string
+  string_value: {}
+  updated_at: 2017-11-20 14:21:53.654514000 Z
+  updater_id: 1
+  user_id: 1
+preferences_454:
+  created_at: 2017-11-20 14:22:27.387340000 Z
+  creator_id: 1
+  id: 454
+  lock_version: 0
+  name: unbilled_payables
+  nature: boolean
+  updated_at: 2017-11-20 14:22:27.387340000 Z
+  updater_id: 1
+preferences_455:
+  created_at: 2017-11-20 14:22:27.509882000 Z
+  creator_id: 1
+  id: 455
+  lock_version: 0
+  name: cobbler.shipments-show
+  nature: string
+  string_value: {}
+  updated_at: 2017-11-20 14:22:27.509882000 Z
+  updater_id: 1
+  user_id: 1
+preferences_456:
+  created_at: 2017-11-20 14:22:27.517853000 Z
+  creator_id: 1
+  id: 456
+  lock_version: 0
+  name: list._shipments_list_items_tag
+  nature: string
+  string_value: {}
+  updated_at: 2017-11-20 14:22:27.517853000 Z
+  updater_id: 1
+  user_id: 1
+preferences_457:
+  boolean_value: true
+  created_at: 2017-11-20 14:24:15.281728000 Z
+  creator_id: 1
+  id: 457
+  lock_version: 0
+  name: interface.kujakus.backend-receptions-index-4.collapsed
+  nature: boolean
+  updated_at: 2017-11-20 14:24:15.281728000 Z
+  updater_id: 1
+  user_id: 1
+preferences_458:
+  created_at: 2017-11-20 14:24:15.294895000 Z
+  creator_id: 1
+  id: 458
+  lock_version: 0
+  name: kujaku.feathers.backend-receptions-index-4:0.default
+  nature: string
+  updated_at: 2017-11-20 14:24:15.294895000 Z
+  updater_id: 1
+  user_id: 1
+preferences_459:
+  created_at: 2017-11-20 14:24:15.352361000 Z
+  creator_id: 1
+  id: 459
+  lock_version: 0
+  name: list._receptions_list_receptions_tag
+  nature: string
+  string_value: {}
+  updated_at: 2017-11-20 14:24:15.352361000 Z
+  updater_id: 1
+  user_id: 1
+preferences_460:
+  created_at: 2017-11-20 14:24:47.153893000 Z
+  creator_id: 1
+  id: 460
+  lock_version: 0
+  name: cobbler.receptions-show
+  nature: string
+  string_value: {}
+  updated_at: 2017-11-20 14:24:47.153893000 Z
+  updater_id: 1
+  user_id: 1
+preferences_461:
+  created_at: 2017-11-20 14:24:47.160631000 Z
+  creator_id: 1
+  id: 461
+  lock_version: 0
+  name: list._receptions_list_items_tag
+  nature: string
+  string_value: {}
+  updated_at: 2017-11-20 14:24:47.160631000 Z
   updater_id: 1
   user_id: 1

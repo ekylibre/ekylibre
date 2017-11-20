@@ -1,60 +1,3 @@
-# = Informations
-#
-# == License
-#
-# Ekylibre - Simple agricultural ERP
-# Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
-# Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2017 Brice Texier, David Joulin
-#
-# This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU Affero General Public License as published by
-# the Free Software Foundation, either version 3 of the License, or
-# any later version.
-#
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU Affero General Public License for more details.
-#
-# You should have received a copy of the GNU Affero General Public License
-# along with this program.  If not, see http://www.gnu.org/licenses.
-#
-# == Table: activities
-#
-#  codes                        :jsonb
-#  created_at                   :datetime         not null
-#  creator_id                   :integer
-#  cultivation_variety          :string
-#  custom_fields                :jsonb
-#  description                  :text
-#  family                       :string           not null
-#  grading_net_mass_unit_name   :string
-#  grading_sizes_indicator_name :string
-#  grading_sizes_unit_name      :string
-#  id                           :integer          not null, primary key
-#  lock_version                 :integer          default(0), not null
-#  measure_grading_items_count  :boolean          default(FALSE), not null
-#  measure_grading_net_mass     :boolean          default(FALSE), not null
-#  measure_grading_sizes        :boolean          default(FALSE), not null
-#  name                         :string           not null
-#  nature                       :string           not null
-#  production_campaign          :string
-#  production_cycle             :string           not null
-#  production_system_name       :string
-#  size_indicator_name          :string
-#  size_unit_name               :string
-#  support_variety              :string
-#  suspended                    :boolean          default(FALSE), not null
-#  updated_at                   :datetime         not null
-#  updater_id                   :integer
-#  use_countings                :boolean          default(FALSE), not null
-#  use_gradings                 :boolean          default(FALSE), not null
-#  use_seasons                  :boolean          default(FALSE)
-#  use_tactics                  :boolean          default(FALSE)
-#  with_cultivation             :boolean          not null
-#  with_supports                :boolean          not null
-#
 ---
 activities_001:
   created_at: 2014-10-31 17:19:32.000000000 Z
@@ -83,7 +26,7 @@ activities_001:
   use_tactics: true
   with_cultivation: true
   with_supports: true
-activities_002:
+activities_003:
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator_id: 1
   cultivation_variety: bos
@@ -108,7 +51,7 @@ activities_002:
   use_tactics: false
   with_cultivation: true
   with_supports: true
-activities_003:
+activities_004:
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator_id: 1
   family: administering
@@ -129,7 +72,7 @@ activities_003:
   use_tactics: false
   with_cultivation: false
   with_supports: false
-activities_004:
+activities_005:
   created_at: 2014-11-04 18:16:53.454319000 Z
   creator_id: 1
   cultivation_variety: zea
@@ -156,7 +99,7 @@ activities_004:
   use_tactics: false
   with_cultivation: true
   with_supports: true
-activities_005:
+activities_006:
   created_at: 2014-11-07 16:28:28.828977000 Z
   creator_id: 1
   cultivation_variety: vitis
@@ -182,7 +125,7 @@ activities_005:
   use_tactics: false
   with_cultivation: true
   with_supports: true
-activities_006:
+activities_007:
   created_at: 2014-11-07 16:28:45.261588000 Z
   creator_id: 1
   description: ''
@@ -204,7 +147,7 @@ activities_006:
   use_tactics: false
   with_cultivation: false
   with_supports: false
-activities_007:
+activities_008:
   created_at: 2016-01-21 14:05:46.351081000 Z
   cultivation_variety: medicago
   family: plant_farming
@@ -228,7 +171,7 @@ activities_007:
   use_tactics: false
   with_cultivation: true
   with_supports: true
-activities_008:
+activities_009:
   created_at: 2016-01-21 14:05:47.480362000 Z
   cultivation_variety: zea_mays
   description: ''
@@ -254,7 +197,7 @@ activities_008:
   use_tactics: false
   with_cultivation: true
   with_supports: true
-activities_009:
+activities_010:
   created_at: 2016-01-21 14:05:47.774103000 Z
   cultivation_variety: triticum_aestivum
   family: plant_farming
@@ -278,7 +221,7 @@ activities_009:
   use_tactics: false
   with_cultivation: true
   with_supports: true
-activities_010:
+activities_011:
   created_at: 2016-01-21 14:05:48.250016000 Z
   cultivation_variety: plant
   family: plant_farming
@@ -303,7 +246,7 @@ activities_010:
   use_tactics: false
   with_cultivation: true
   with_supports: true
-activities_011:
+activities_012:
   created_at: 2016-01-21 14:05:48.385508000 Z
   cultivation_variety: lolium
   family: plant_farming
@@ -327,7 +270,7 @@ activities_011:
   use_tactics: false
   with_cultivation: true
   with_supports: true
-activities_012:
+activities_013:
   created_at: 2016-01-21 14:05:48.519822000 Z
   cultivation_variety: plant
   family: plant_farming
@@ -351,7 +294,7 @@ activities_012:
   use_tactics: false
   with_cultivation: true
   with_supports: true
-activities_013:
+activities_014:
   created_at: 2016-01-21 14:05:48.672465000 Z
   cultivation_variety: triticum_durum
   family: plant_farming
@@ -375,7 +318,7 @@ activities_013:
   use_tactics: false
   with_cultivation: true
   with_supports: true
-activities_014:
+activities_015:
   created_at: 2016-01-21 14:05:48.816582000 Z
   cultivation_variety: plant
   family: plant_farming
@@ -400,7 +343,7 @@ activities_014:
   use_tactics: false
   with_cultivation: true
   with_supports: true
-activities_015:
+activities_016:
   created_at: 2016-01-21 14:05:49.164349000 Z
   cultivation_variety: dactylis
   family: plant_farming
@@ -424,7 +367,7 @@ activities_015:
   use_tactics: false
   with_cultivation: true
   with_supports: true
-activities_016:
+activities_017:
   created_at: 2016-01-21 14:05:49.338114000 Z
   cultivation_variety: sorghum
   description: ''
@@ -450,7 +393,7 @@ activities_016:
   use_tactics: false
   with_cultivation: true
   with_supports: true
-activities_017:
+activities_018:
   created_at: 2016-01-21 14:05:49.554454000 Z
   cultivation_variety: hordeum_vulgare
   family: plant_farming
@@ -474,7 +417,7 @@ activities_017:
   use_tactics: false
   with_cultivation: true
   with_supports: true
-activities_018:
+activities_019:
   created_at: 2016-01-21 14:05:50.038313000 Z
   cultivation_variety: zea_mays
   description: ''
@@ -500,7 +443,7 @@ activities_018:
   use_tactics: false
   with_cultivation: true
   with_supports: true
-activities_019:
+activities_020:
   created_at: 2016-01-21 14:05:51.294978000 Z
   cultivation_variety: plant
   family: plant_farming
@@ -525,7 +468,7 @@ activities_019:
   use_tactics: false
   with_cultivation: true
   with_supports: true
-activities_020:
+activities_021:
   created_at: 2016-01-21 14:05:51.718311000 Z
   cultivation_variety: pisum_sativum
   family: plant_farming
@@ -549,7 +492,7 @@ activities_020:
   use_tactics: false
   with_cultivation: true
   with_supports: true
-activities_021:
+activities_022:
   created_at: 2016-05-10 19:12:13.384484000 Z
   creator_id: 1
   cultivation_variety: daucus

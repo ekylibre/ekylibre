@@ -1,37 +1,3 @@
-# = Informations
-#
-# == License
-#
-# Ekylibre - Simple agricultural ERP
-# Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
-# Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2017 Brice Texier, David Joulin
-#
-# This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU Affero General Public License as published by
-# the Free Software Foundation, either version 3 of the License, or
-# any later version.
-#
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU Affero General Public License for more details.
-#
-# You should have received a copy of the GNU Affero General Public License
-# along with this program.  If not, see http://www.gnu.org/licenses.
-#
-# == Table: event_participations
-#
-#  created_at     :datetime         not null
-#  creator_id     :integer
-#  event_id       :integer          not null
-#  id             :integer          not null, primary key
-#  lock_version   :integer          default(0), not null
-#  participant_id :integer          not null
-#  state          :string
-#  updated_at     :datetime         not null
-#  updater_id     :integer
-#
 ---
 event_participations_001:
   created_at: 2014-10-31 17:19:32.000000000 Z
@@ -101,7 +67,7 @@ event_participations_007:
   state: accepted
   updated_at: 2014-10-31 18:51:27.913016000 Z
   updater_id: 1
-event_participations_008:
+event_participations_013:
   created_at: 2014-11-04 18:31:09.303861000 Z
   creator_id: 1
   event_id: 13
@@ -111,7 +77,7 @@ event_participations_008:
   state: accepted
   updated_at: 2014-11-04 18:31:09.303861000 Z
   updater_id: 1
-event_participations_009:
+event_participations_014:
   created_at: 2014-11-04 18:41:39.751358000 Z
   creator_id: 1
   event_id: 14
@@ -121,7 +87,7 @@ event_participations_009:
   state: accepted
   updated_at: 2014-11-04 18:41:39.751358000 Z
   updater_id: 1
-event_participations_010:
+event_participations_015:
   created_at: 2014-11-05 09:52:05.597221000 Z
   creator_id: 1
   event_id: 15
@@ -131,7 +97,7 @@ event_participations_010:
   state: informative
   updated_at: 2014-11-05 09:52:05.597221000 Z
   updater_id: 1
-event_participations_011:
+event_participations_016:
   created_at: 2014-11-05 09:52:05.598204000 Z
   creator_id: 1
   event_id: 15
@@ -141,7 +107,7 @@ event_participations_011:
   state: accepted
   updated_at: 2014-11-05 09:52:05.598204000 Z
   updater_id: 1
-event_participations_012:
+event_participations_017:
   created_at: 2014-11-05 10:01:39.900113000 Z
   creator_id: 1
   event_id: 16
@@ -151,7 +117,7 @@ event_participations_012:
   state: informative
   updated_at: 2014-11-05 10:01:39.900113000 Z
   updater_id: 1
-event_participations_013:
+event_participations_018:
   created_at: 2014-11-05 10:01:39.900948000 Z
   creator_id: 1
   event_id: 16
@@ -161,7 +127,7 @@ event_participations_013:
   state: accepted
   updated_at: 2014-11-05 10:01:39.900948000 Z
   updater_id: 1
-event_participations_014:
+event_participations_019:
   created_at: 2014-11-05 10:03:05.997474000 Z
   creator_id: 1
   event_id: 17
@@ -171,7 +137,7 @@ event_participations_014:
   state: informative
   updated_at: 2014-11-05 10:03:05.997474000 Z
   updater_id: 1
-event_participations_015:
+event_participations_020:
   created_at: 2014-11-05 10:03:05.998338000 Z
   creator_id: 1
   event_id: 17
@@ -181,7 +147,7 @@ event_participations_015:
   state: accepted
   updated_at: 2014-11-05 10:03:05.998338000 Z
   updater_id: 1
-event_participations_016:
+event_participations_021:
   created_at: 2014-11-05 13:36:09.004703000 Z
   creator_id: 1
   event_id: 18
@@ -191,7 +157,7 @@ event_participations_016:
   state: informative
   updated_at: 2014-11-05 13:36:09.004703000 Z
   updater_id: 1
-event_participations_017:
+event_participations_022:
   created_at: 2014-11-05 13:36:09.006147000 Z
   creator_id: 1
   event_id: 18
@@ -201,7 +167,7 @@ event_participations_017:
   state: accepted
   updated_at: 2014-11-05 13:36:09.006147000 Z
   updater_id: 1
-event_participations_018:
+event_participations_023:
   created_at: 2014-11-05 15:39:35.624779000 Z
   creator_id: 1
   event_id: 19
@@ -211,7 +177,7 @@ event_participations_018:
   state: accepted
   updated_at: 2014-11-05 15:39:35.624779000 Z
   updater_id: 1
-event_participations_019:
+event_participations_024:
   created_at: 2014-11-06 17:47:16.020114000 Z
   creator_id: 1
   event_id: 20
@@ -221,7 +187,7 @@ event_participations_019:
   state: accepted
   updated_at: 2014-11-06 17:47:16.020114000 Z
   updater_id: 1
-event_participations_020:
+event_participations_025:
   created_at: 2014-11-06 17:49:34.381422000 Z
   creator_id: 1
   event_id: 21
@@ -231,7 +197,7 @@ event_participations_020:
   state: accepted
   updated_at: 2014-11-06 17:49:34.381422000 Z
   updater_id: 1
-event_participations_021:
+event_participations_026:
   created_at: 2014-11-07 14:44:11.028394000 Z
   creator_id: 1
   event_id: 22
@@ -241,7 +207,7 @@ event_participations_021:
   state: accepted
   updated_at: 2014-11-07 14:44:11.028394000 Z
   updater_id: 1
-event_participations_022:
+event_participations_027:
   created_at: 2014-11-07 15:02:12.159635000 Z
   creator_id: 1
   event_id: 23
@@ -251,7 +217,7 @@ event_participations_022:
   state: accepted
   updated_at: 2014-11-07 15:02:12.159635000 Z
   updater_id: 1
-event_participations_023:
+event_participations_028:
   created_at: 2014-11-07 15:26:35.558444000 Z
   creator_id: 1
   event_id: 24
@@ -261,7 +227,7 @@ event_participations_023:
   state: accepted
   updated_at: 2014-11-07 15:26:35.558444000 Z
   updater_id: 1
-event_participations_024:
+event_participations_029:
   created_at: 2014-11-07 15:45:30.923068000 Z
   creator_id: 1
   event_id: 25
@@ -271,7 +237,7 @@ event_participations_024:
   state: accepted
   updated_at: 2014-11-07 15:45:30.923068000 Z
   updater_id: 1
-event_participations_025:
+event_participations_030:
   created_at: 2014-11-07 16:20:51.437797000 Z
   creator_id: 1
   event_id: 28
@@ -281,7 +247,7 @@ event_participations_025:
   state: accepted
   updated_at: 2014-11-07 16:20:51.437797000 Z
   updater_id: 1
-event_participations_026:
+event_participations_031:
   created_at: 2014-11-07 16:49:41.941065000 Z
   creator_id: 1
   event_id: 29
@@ -291,7 +257,7 @@ event_participations_026:
   state: accepted
   updated_at: 2014-11-07 16:49:41.941065000 Z
   updater_id: 1
-event_participations_027:
+event_participations_032:
   created_at: 2014-11-07 16:49:41.950481000 Z
   creator_id: 1
   event_id: 29
@@ -301,7 +267,7 @@ event_participations_027:
   state: accepted
   updated_at: 2014-11-07 16:49:41.950481000 Z
   updater_id: 1
-event_participations_028:
+event_participations_033:
   created_at: 2014-11-07 16:58:54.143292000 Z
   creator_id: 1
   event_id: 30
@@ -311,7 +277,7 @@ event_participations_028:
   state: accepted
   updated_at: 2014-11-07 16:58:54.143292000 Z
   updater_id: 1
-event_participations_029:
+event_participations_034:
   created_at: 2014-11-07 17:07:15.611205000 Z
   creator_id: 1
   event_id: 31
@@ -321,7 +287,7 @@ event_participations_029:
   state: accepted
   updated_at: 2014-11-07 17:07:15.611205000 Z
   updater_id: 1
-event_participations_030:
+event_participations_036:
   created_at: 2014-11-07 19:02:48.900263000 Z
   creator_id: 1
   event_id: 33
@@ -331,7 +297,7 @@ event_participations_030:
   state: accepted
   updated_at: 2014-11-07 19:02:48.900263000 Z
   updater_id: 1
-event_participations_031:
+event_participations_037:
   created_at: 2014-11-07 19:08:38.796743000 Z
   creator_id: 1
   event_id: 34
@@ -341,7 +307,7 @@ event_participations_031:
   state: accepted
   updated_at: 2014-11-07 19:08:38.796743000 Z
   updater_id: 1
-event_participations_032:
+event_participations_038:
   created_at: 2014-11-07 19:12:37.537502000 Z
   creator_id: 1
   event_id: 35
@@ -351,7 +317,7 @@ event_participations_032:
   state: accepted
   updated_at: 2014-11-07 19:12:37.537502000 Z
   updater_id: 1
-event_participations_033:
+event_participations_039:
   created_at: 2014-11-07 19:23:41.927165000 Z
   creator_id: 1
   event_id: 36
@@ -361,7 +327,7 @@ event_participations_033:
   state: accepted
   updated_at: 2014-11-07 19:23:41.927165000 Z
   updater_id: 1
-event_participations_034:
+event_participations_040:
   created_at: 2014-11-07 19:36:53.136376000 Z
   creator_id: 1
   event_id: 37
@@ -371,7 +337,7 @@ event_participations_034:
   state: accepted
   updated_at: 2014-11-07 19:36:53.136376000 Z
   updater_id: 1
-event_participations_035:
+event_participations_041:
   created_at: 2015-04-21 08:22:33.209627000 Z
   creator_id: 1
   event_id: 38
@@ -381,7 +347,7 @@ event_participations_035:
   state: informative
   updated_at: 2015-04-21 08:22:33.209627000 Z
   updater_id: 1
-event_participations_036:
+event_participations_042:
   created_at: 2015-04-21 08:22:33.210972000 Z
   creator_id: 1
   event_id: 38
@@ -391,7 +357,7 @@ event_participations_036:
   state: accepted
   updated_at: 2015-04-21 08:22:33.210972000 Z
   updater_id: 1
-event_participations_037:
+event_participations_043:
   created_at: 2015-04-21 08:29:05.204678000 Z
   creator_id: 1
   event_id: 39
@@ -401,7 +367,7 @@ event_participations_037:
   state: informative
   updated_at: 2015-04-21 08:29:05.204678000 Z
   updater_id: 1
-event_participations_038:
+event_participations_044:
   created_at: 2015-04-21 08:29:05.206425000 Z
   creator_id: 1
   event_id: 39
@@ -411,7 +377,7 @@ event_participations_038:
   state: accepted
   updated_at: 2015-04-21 08:29:05.206425000 Z
   updater_id: 1
-event_participations_039:
+event_participations_045:
   created_at: 2015-04-21 23:49:19.364519000 Z
   creator_id: 1
   event_id: 40
@@ -421,7 +387,7 @@ event_participations_039:
   state: informative
   updated_at: 2015-04-21 23:49:19.364519000 Z
   updater_id: 1
-event_participations_040:
+event_participations_046:
   created_at: 2015-04-21 23:49:19.365841000 Z
   creator_id: 1
   event_id: 40
@@ -431,7 +397,7 @@ event_participations_040:
   state: accepted
   updated_at: 2015-04-21 23:49:19.365841000 Z
   updater_id: 1
-event_participations_041:
+event_participations_047:
   created_at: 2015-05-30 20:00:27.956442000 Z
   creator_id: 1
   event_id: 41
@@ -441,7 +407,7 @@ event_participations_041:
   state: informative
   updated_at: 2015-05-30 20:00:27.956442000 Z
   updater_id: 1
-event_participations_042:
+event_participations_048:
   created_at: 2015-05-30 20:00:27.957566000 Z
   creator_id: 1
   event_id: 41
@@ -451,7 +417,7 @@ event_participations_042:
   state: accepted
   updated_at: 2015-05-30 20:00:27.957566000 Z
   updater_id: 1
-event_participations_043:
+event_participations_049:
   created_at: 2015-05-30 20:00:46.762437000 Z
   creator_id: 1
   event_id: 42
@@ -461,7 +427,7 @@ event_participations_043:
   state: informative
   updated_at: 2015-05-30 20:00:46.762437000 Z
   updater_id: 1
-event_participations_044:
+event_participations_050:
   created_at: 2015-05-30 20:00:46.763575000 Z
   creator_id: 1
   event_id: 42
@@ -471,7 +437,7 @@ event_participations_044:
   state: accepted
   updated_at: 2015-05-30 20:00:46.763575000 Z
   updater_id: 1
-event_participations_045:
+event_participations_051:
   created_at: 2015-06-15 11:39:31.632094000 Z
   creator_id: 1
   event_id: 43
@@ -481,7 +447,7 @@ event_participations_045:
   state: accepted
   updated_at: 2015-06-15 11:39:31.632094000 Z
   updater_id: 1
-event_participations_046:
+event_participations_052:
   created_at: 2015-06-15 11:39:31.633474000 Z
   creator_id: 1
   event_id: 43
@@ -491,7 +457,7 @@ event_participations_046:
   state: accepted
   updated_at: 2015-06-15 11:39:31.633474000 Z
   updater_id: 1
-event_participations_047:
+event_participations_053:
   created_at: 2015-09-17 13:25:40.498459000 Z
   creator_id: 1
   event_id: 44
@@ -501,7 +467,7 @@ event_participations_047:
   state: informative
   updated_at: 2015-09-17 13:25:40.498459000 Z
   updater_id: 1
-event_participations_048:
+event_participations_054:
   created_at: 2015-09-17 13:25:40.499742000 Z
   creator_id: 1
   event_id: 44
@@ -511,7 +477,7 @@ event_participations_048:
   state: accepted
   updated_at: 2015-09-17 13:25:40.499742000 Z
   updater_id: 1
-event_participations_049:
+event_participations_055:
   created_at: 2016-05-26 21:26:07.851965000 Z
   creator_id: 1
   event_id: 45
@@ -521,7 +487,7 @@ event_participations_049:
   state: informative
   updated_at: 2016-05-26 21:26:07.851965000 Z
   updater_id: 1
-event_participations_050:
+event_participations_056:
   created_at: 2016-05-26 21:26:07.853208000 Z
   creator_id: 1
   event_id: 45
@@ -531,7 +497,7 @@ event_participations_050:
   state: accepted
   updated_at: 2016-05-26 21:26:07.853208000 Z
   updater_id: 1
-event_participations_051:
+event_participations_057:
   created_at: 2016-05-26 21:26:57.774148000 Z
   creator_id: 1
   event_id: 46
@@ -541,7 +507,7 @@ event_participations_051:
   state: informative
   updated_at: 2016-05-26 21:26:57.774148000 Z
   updater_id: 1
-event_participations_052:
+event_participations_058:
   created_at: 2016-05-26 21:26:57.775097000 Z
   creator_id: 1
   event_id: 46
@@ -551,7 +517,7 @@ event_participations_052:
   state: accepted
   updated_at: 2016-05-26 21:26:57.775097000 Z
   updater_id: 1
-event_participations_053:
+event_participations_059:
   created_at: 2016-07-01 20:12:41.364313000 Z
   creator_id: 1
   event_id: 47
@@ -561,7 +527,7 @@ event_participations_053:
   state: informative
   updated_at: 2016-07-01 20:12:41.364313000 Z
   updater_id: 1
-event_participations_054:
+event_participations_060:
   created_at: 2016-07-01 20:12:41.365619000 Z
   creator_id: 1
   event_id: 47
@@ -571,7 +537,7 @@ event_participations_054:
   state: accepted
   updated_at: 2016-07-01 20:12:41.365619000 Z
   updater_id: 1
-event_participations_055:
+event_participations_061:
   created_at: 2016-07-01 20:46:56.151430000 Z
   creator_id: 1
   event_id: 48
@@ -581,7 +547,7 @@ event_participations_055:
   state: accepted
   updated_at: 2016-07-01 20:46:56.151430000 Z
   updater_id: 1
-event_participations_056:
+event_participations_062:
   created_at: 2016-11-20 22:08:58.323884000 Z
   creator_id: 1
   event_id: 52
@@ -591,7 +557,7 @@ event_participations_056:
   state: informative
   updated_at: 2016-11-20 22:08:58.323884000 Z
   updater_id: 1
-event_participations_057:
+event_participations_063:
   created_at: 2016-11-20 22:08:58.325312000 Z
   creator_id: 1
   event_id: 52
@@ -601,7 +567,7 @@ event_participations_057:
   state: accepted
   updated_at: 2016-11-20 22:08:58.325312000 Z
   updater_id: 1
-event_participations_058:
+event_participations_064:
   created_at: 2016-11-20 22:10:17.221920000 Z
   creator_id: 1
   event_id: 53
@@ -611,7 +577,7 @@ event_participations_058:
   state: informative
   updated_at: 2016-11-20 22:10:17.221920000 Z
   updater_id: 1
-event_participations_059:
+event_participations_065:
   created_at: 2016-11-20 22:10:17.223684000 Z
   creator_id: 1
   event_id: 53
@@ -621,7 +587,7 @@ event_participations_059:
   state: accepted
   updated_at: 2016-11-20 22:10:17.223684000 Z
   updater_id: 1
-event_participations_060:
+event_participations_066:
   created_at: 2016-11-20 22:11:25.121688000 Z
   creator_id: 1
   event_id: 54
@@ -631,7 +597,7 @@ event_participations_060:
   state: informative
   updated_at: 2016-11-20 22:11:25.121688000 Z
   updater_id: 1
-event_participations_061:
+event_participations_067:
   created_at: 2016-11-20 22:11:25.122674000 Z
   creator_id: 1
   event_id: 54
@@ -641,7 +607,7 @@ event_participations_061:
   state: accepted
   updated_at: 2016-11-20 22:11:25.122674000 Z
   updater_id: 1
-event_participations_062:
+event_participations_068:
   created_at: 2016-11-20 22:12:15.460658000 Z
   creator_id: 1
   event_id: 55
@@ -651,7 +617,7 @@ event_participations_062:
   state: informative
   updated_at: 2016-11-20 22:12:15.460658000 Z
   updater_id: 1
-event_participations_063:
+event_participations_069:
   created_at: 2016-11-20 22:12:15.461755000 Z
   creator_id: 1
   event_id: 55
@@ -661,7 +627,7 @@ event_participations_063:
   state: accepted
   updated_at: 2016-11-20 22:12:15.461755000 Z
   updater_id: 1
-event_participations_064:
+event_participations_070:
   created_at: 2016-11-20 22:12:25.350892000 Z
   creator_id: 1
   event_id: 56
@@ -671,7 +637,7 @@ event_participations_064:
   state: informative
   updated_at: 2016-11-20 22:12:25.350892000 Z
   updater_id: 1
-event_participations_065:
+event_participations_071:
   created_at: 2016-11-20 22:12:25.351822000 Z
   creator_id: 1
   event_id: 56
@@ -681,7 +647,7 @@ event_participations_065:
   state: accepted
   updated_at: 2016-11-20 22:12:25.351822000 Z
   updater_id: 1
-event_participations_066:
+event_participations_072:
   created_at: 2016-12-20 08:53:53.366090000 Z
   creator_id: 1
   event_id: 57
@@ -691,7 +657,7 @@ event_participations_066:
   state: informative
   updated_at: 2016-12-20 08:53:53.366090000 Z
   updater_id: 1
-event_participations_067:
+event_participations_073:
   created_at: 2016-12-20 08:53:53.367310000 Z
   creator_id: 1
   event_id: 57

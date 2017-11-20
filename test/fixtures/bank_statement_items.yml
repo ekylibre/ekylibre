@@ -1,44 +1,3 @@
-# = Informations
-#
-# == License
-#
-# Ekylibre - Simple agricultural ERP
-# Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
-# Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2017 Brice Texier, David Joulin
-#
-# This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU Affero General Public License as published by
-# the Free Software Foundation, either version 3 of the License, or
-# any later version.
-#
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU Affero General Public License for more details.
-#
-# You should have received a copy of the GNU Affero General Public License
-# along with this program.  If not, see http://www.gnu.org/licenses.
-#
-# == Table: bank_statement_items
-#
-#  bank_statement_id  :integer          not null
-#  created_at         :datetime         not null
-#  creator_id         :integer
-#  credit             :decimal(19, 4)   default(0.0), not null
-#  currency           :string           not null
-#  debit              :decimal(19, 4)   default(0.0), not null
-#  id                 :integer          not null, primary key
-#  initiated_on       :date
-#  letter             :string
-#  lock_version       :integer          default(0), not null
-#  memo               :string
-#  name               :string           not null
-#  transaction_number :string
-#  transfered_on      :date             not null
-#  updated_at         :datetime         not null
-#  updater_id         :integer
-#
 ---
 bank_statement_items_001:
   bank_statement_id: 2
@@ -148,7 +107,7 @@ bank_statement_items_008:
   name: "[Remboursement d’emprunt Tracteur de folie] Remboursement n°37"
   transfered_on: 2015-10-24
   updated_at: 2016-06-29 05:49:23.204491000 Z
-bank_statement_items_009:
+bank_statement_items_023:
   bank_statement_id: 4
   created_at: 2016-06-29 06:30:53.925513000 Z
   creator_id: 1
@@ -163,7 +122,7 @@ bank_statement_items_009:
   transfered_on: 2009-11-07
   updated_at: 2016-06-29 07:02:53.686371000 Z
   updater_id: 1
-bank_statement_items_010:
+bank_statement_items_024:
   bank_statement_id: 4
   created_at: 2016-06-29 06:30:53.927441000 Z
   creator_id: 1
@@ -177,7 +136,7 @@ bank_statement_items_010:
   transfered_on: 2010-06-02
   updated_at: 2016-06-29 07:02:53.687579000 Z
   updater_id: 1
-bank_statement_items_011:
+bank_statement_items_025:
   bank_statement_id: 4
   created_at: 2016-06-29 06:30:53.929617000 Z
   creator_id: 1
@@ -191,7 +150,7 @@ bank_statement_items_011:
   transfered_on: 2010-06-16
   updated_at: 2016-06-29 07:02:53.688671000 Z
   updater_id: 1
-bank_statement_items_012:
+bank_statement_items_026:
   bank_statement_id: 4
   created_at: 2016-06-29 06:30:53.932006000 Z
   creator_id: 1
@@ -205,7 +164,7 @@ bank_statement_items_012:
   transfered_on: 2010-06-16
   updated_at: 2016-06-29 07:02:53.689740000 Z
   updater_id: 1
-bank_statement_items_013:
+bank_statement_items_027:
   bank_statement_id: 4
   created_at: 2016-06-29 06:30:53.933924000 Z
   creator_id: 1
@@ -219,7 +178,7 @@ bank_statement_items_013:
   transfered_on: 2010-06-16
   updated_at: 2016-06-29 07:02:53.690729000 Z
   updater_id: 1
-bank_statement_items_014:
+bank_statement_items_028:
   bank_statement_id: 7
   created_at: 2017-05-29 20:24:08.250517000 Z
   creator_id: 1
@@ -234,7 +193,7 @@ bank_statement_items_014:
   transfered_on: 2016-11-20
   updated_at: 2017-05-29 21:02:44.380162000 Z
   updater_id: 1
-bank_statement_items_015:
+bank_statement_items_029:
   bank_statement_id: 7
   created_at: 2017-05-29 20:24:13.593887000 Z
   creator_id: 1
@@ -249,7 +208,7 @@ bank_statement_items_015:
   transfered_on: 2016-11-20
   updated_at: 2017-05-29 21:02:44.381313000 Z
   updater_id: 1
-bank_statement_items_016:
+bank_statement_items_030:
   bank_statement_id: 7
   created_at: 2017-05-29 20:24:13.816702000 Z
   creator_id: 1
@@ -264,7 +223,7 @@ bank_statement_items_016:
   transfered_on: 2016-11-20
   updated_at: 2017-05-29 21:02:44.382310000 Z
   updater_id: 1
-bank_statement_items_017:
+bank_statement_items_031:
   bank_statement_id: 7
   created_at: 2017-05-29 20:24:14.043617000 Z
   creator_id: 1
@@ -279,7 +238,7 @@ bank_statement_items_017:
   transfered_on: 2016-11-20
   updated_at: 2017-05-29 21:02:44.383239000 Z
   updater_id: 1
-bank_statement_items_018:
+bank_statement_items_032:
   bank_statement_id: 7
   created_at: 2017-05-29 20:24:14.311392000 Z
   creator_id: 1
@@ -294,7 +253,7 @@ bank_statement_items_018:
   transfered_on: 2016-11-20
   updated_at: 2017-05-29 21:02:44.384266000 Z
   updater_id: 1
-bank_statement_items_019:
+bank_statement_items_033:
   bank_statement_id: 7
   created_at: 2017-05-29 20:24:14.530500000 Z
   creator_id: 1
@@ -310,7 +269,7 @@ bank_statement_items_019:
   transfered_on: 2016-11-20
   updated_at: 2017-05-29 21:02:44.389990000 Z
   updater_id: 1
-bank_statement_items_020:
+bank_statement_items_034:
   bank_statement_id: 7
   created_at: 2017-05-29 20:24:28.909992000 Z
   creator_id: 1
@@ -325,7 +284,7 @@ bank_statement_items_020:
   transfered_on: 2016-09-30
   updated_at: 2017-05-29 21:02:44.385441000 Z
   updater_id: 1
-bank_statement_items_021:
+bank_statement_items_035:
   bank_statement_id: 7
   created_at: 2017-05-29 20:24:29.673262000 Z
   creator_id: 1
@@ -340,7 +299,7 @@ bank_statement_items_021:
   transfered_on: 2016-09-30
   updated_at: 2017-05-29 21:02:44.386521000 Z
   updater_id: 1
-bank_statement_items_022:
+bank_statement_items_036:
   bank_statement_id: 7
   created_at: 2017-05-29 20:24:29.906790000 Z
   creator_id: 1
@@ -355,7 +314,7 @@ bank_statement_items_022:
   transfered_on: 2016-09-30
   updated_at: 2017-05-29 21:02:44.387661000 Z
   updater_id: 1
-bank_statement_items_023:
+bank_statement_items_037:
   bank_statement_id: 7
   created_at: 2017-05-29 20:24:45.477631000 Z
   creator_id: 1
@@ -370,7 +329,7 @@ bank_statement_items_023:
   transfered_on: 2016-09-30
   updated_at: 2017-05-29 21:02:44.388802000 Z
   updater_id: 1
-bank_statement_items_024:
+bank_statement_items_038:
   bank_statement_id: 7
   created_at: 2017-05-29 20:26:11.000282000 Z
   creator_id: 1

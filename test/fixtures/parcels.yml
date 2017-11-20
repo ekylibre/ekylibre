@@ -1,68 +1,3 @@
-# = Informations
-#
-# == License
-#
-# Ekylibre - Simple agricultural ERP
-# Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
-# Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2017 Brice Texier, David Joulin
-#
-# This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU Affero General Public License as published by
-# the Free Software Foundation, either version 3 of the License, or
-# any later version.
-#
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU Affero General Public License for more details.
-#
-# You should have received a copy of the GNU Affero General Public License
-# along with this program.  If not, see http://www.gnu.org/licenses.
-#
-# == Table: parcels
-#
-#  accounted_at                         :datetime
-#  address_id                           :integer
-#  contract_id                          :integer
-#  created_at                           :datetime         not null
-#  creator_id                           :integer
-#  currency                             :string
-#  custom_fields                        :jsonb
-#  delivery_id                          :integer
-#  delivery_mode                        :string
-#  given_at                             :datetime
-#  id                                   :integer          not null, primary key
-#  in_preparation_at                    :datetime
-#  intervention_id                      :integer
-#  journal_entry_id                     :integer
-#  late_delivery                        :boolean
-#  lock_version                         :integer          default(0), not null
-#  nature                               :string           not null
-#  number                               :string           not null
-#  ordered_at                           :datetime
-#  planned_at                           :datetime         not null
-#  position                             :integer
-#  prepared_at                          :datetime
-#  pretax_amount                        :decimal(19, 4)   default(0.0), not null
-#  purchase_id                          :integer
-#  recipient_id                         :integer
-#  reconciliation_state                 :string
-#  reference_number                     :string
-#  remain_owner                         :boolean          default(FALSE), not null
-#  responsible_id                       :integer
-#  sale_id                              :integer
-#  sender_id                            :integer
-#  separated_stock                      :boolean
-#  state                                :string           not null
-#  storage_id                           :integer
-#  transporter_id                       :integer
-#  type                                 :string
-#  undelivered_invoice_journal_entry_id :integer
-#  updated_at                           :datetime         not null
-#  updater_id                           :integer
-#  with_delivery                        :boolean          default(FALSE), not null
-#
 ---
 parcels_001:
   address_id: 12
@@ -586,5 +521,108 @@ parcels_025:
   state: given
   storage_id: 21
   updated_at: 2016-08-10 14:27:50.028641000 Z
+  updater_id: 1
+  with_delivery: false
+parcels_026:
+  accounted_at: 2017-11-20 14:22:27.417151000 Z
+  address_id: 12
+  created_at: 2017-11-20 14:22:27.375717000 Z
+  creator_id: 1
+  currency: EUR
+  delivery_mode: us
+  given_at: 2017-11-02 15:27:00.000000000 Z
+  id: 26
+  lock_version: 0
+  nature: outgoing
+  number: P000000000007
+  planned_at: 2017-11-01 14:22:00.000000000 Z
+  position: 6
+  pretax_amount: 0.0
+  recipient_id: 15
+  reconciliation_state: to_reconcile
+  remain_owner: false
+  responsible_id: 1
+  state: draft
+  type: Shipment
+  updated_at: 2017-11-20 14:22:27.375717000 Z
+  updater_id: 1
+  with_delivery: false
+parcels_027:
+  accounted_at: 2017-11-20 14:26:04.439381000 Z
+  address_id: 3
+  created_at: 2017-11-20 14:22:57.816895000 Z
+  creator_id: 1
+  currency: EUR
+  delivery_mode: us
+  given_at: 2017-11-20 14:26:04.376694000 Z
+  id: 27
+  in_preparation_at: 2017-11-20 14:26:04.084393000 Z
+  lock_version: 4
+  nature: outgoing
+  number: P000000000008
+  ordered_at: 2017-11-20 14:26:04.034657000 Z
+  planned_at: 2017-11-19 23:00:00.000000000 Z
+  position: 7
+  prepared_at: 2017-11-20 14:26:04.123635000 Z
+  pretax_amount: 0.0
+  recipient_id: 3
+  reconciliation_state: to_reconcile
+  remain_owner: false
+  responsible_id: 1
+  state: given
+  type: Shipment
+  updated_at: 2017-11-20 14:26:04.411119000 Z
+  updater_id: 1
+  with_delivery: false
+parcels_028:
+  accounted_at: 2017-11-20 14:24:47.076926000 Z
+  address_id: 9
+  created_at: 2017-11-20 14:24:47.017648000 Z
+  creator_id: 1
+  currency: EUR
+  delivery_mode: us
+  given_at: 2017-11-07 23:00:00.000000000 Z
+  id: 28
+  late_delivery: false
+  lock_version: 0
+  nature: incoming
+  number: P000000000009
+  planned_at: 2017-11-19 23:00:00.000000000 Z
+  position: 8
+  pretax_amount: 0.0
+  reconciliation_state: to_reconcile
+  reference_number: ''
+  remain_owner: false
+  responsible_id: 1
+  sender_id: 5
+  state: draft
+  type: Reception
+  updated_at: 2017-11-20 14:24:47.017648000 Z
+  updater_id: 1
+  with_delivery: false
+parcels_029:
+  accounted_at: 2017-11-20 14:25:56.741555000 Z
+  address_id: 16
+  created_at: 2017-11-20 14:25:46.327647000 Z
+  creator_id: 1
+  currency: EUR
+  delivery_mode: us
+  given_at: 2017-10-31 23:00:00.000000000 Z
+  id: 29
+  late_delivery: true
+  lock_version: 1
+  nature: incoming
+  number: P000000000010
+  planned_at: 2017-11-15 23:00:00.000000000 Z
+  position: 9
+  pretax_amount: 0.0
+  reconciliation_state: to_reconcile
+  reference_number: ''
+  remain_owner: false
+  responsible_id: 2
+  sender_id: 6
+  state: given
+  type: Reception
+  updated_at: 2017-11-20 14:25:56.708869000 Z
   updater_id: 1
   with_delivery: false
