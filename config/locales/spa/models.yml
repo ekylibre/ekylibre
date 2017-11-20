@@ -1024,7 +1024,7 @@ spa:
     marketable_yield: "rendimiento comercial"
     mass: "Masa (kg)"
     max_inputs_count: "Las potencias máximas cuentan"
-    # max_zoom: "Max zoom"
+    max_zoom: "Zoom máximo"
     maximal_grantable_reduction_percentage: "Porcentaje de reducción máxima otorgable"
     maximal_length: "Longitud máxima"
     maximal_size: "tamaño máximo"
@@ -1396,7 +1396,7 @@ spa:
     sold_on: "Vendido en"
     source: "Fuente"
     source_product: "Producto de código"
-    # spaced_iban: "Spaced IBAN"
+    spaced_iban: "IBAN espaciado"
     sql_type: "Tipo de SQL"
     ssl: "Ssl"
     start: "Comienzo"
@@ -1865,7 +1865,7 @@ spa:
       # tracking: "S/N: %{serial}"
     sale_nature:
       default:
-        # name: "Standard sale"
+        name: "Venta estándar"
     sale_opportunity:
       state_machine:
         states:
