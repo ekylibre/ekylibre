@@ -1,5 +1,3 @@
-# coding: utf-8
-
 module Isagri
   module Isaculture
     class CsvImportExchanger < ActiveExchanger::Base
