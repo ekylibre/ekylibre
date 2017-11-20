@@ -66,6 +66,7 @@
 class Shipment < Parcel
   belongs_to :recipient, class_name: 'Entity'
   belongs_to :sale, inverse_of: :parcels
+  has_many :items, class_name: 'ShipmentItem', inverse_of: :shipment, foreign_key: :parcel_id, dependent: :destroy
 
   validates :recipient, presence: true
 

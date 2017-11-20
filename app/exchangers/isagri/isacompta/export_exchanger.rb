@@ -1,5 +1,3 @@
-# coding: utf-8
-
 module Isagri
   module Isacompta
     # Exchanger to import COFTW.isa files from IsaCompta software
@@ -59,7 +57,7 @@ module Isagri
             all_accounts = {}
             isa_fy.accounts.each do |isa_account|
               unless account = Account.find_by(number: isa_account.number)
-                account = Account.create!(name: (isa_account.label.blank? ? isa_account.number : isa_account.label), number: isa_account.number, reconcilable: isa_account.reconcilable, last_letter: isa_account.letter, debtor: (isa_account.input_direction == 'de' ? true : false), description: isa_account.to_s)
+                account = Account.create!(name: (isa_account.label.blank? ? isa_account.number : isa_account.label), number: isa_account.number, reconcilable: isa_account.reconcilable, last_letter: isa_account.letter, debtor: (isa_account.input_direction == 'de'), description: isa_account.to_s)
               end
               all_accounts[isa_account.number] = account.id
               w.check_point
@@ -131,18 +129,16 @@ module Isagri
                   number += rand.to_s[2..-1].to_i.to_s(36).upcase
                   number = number[0..255]
                 end
-                unless entry
-                  entry = JournalEntry.new(
-                    number: number,
-                    journal_id: all_journals[isa_entry.journal],
-                    printed_on: isa_entry.printed_on,
-                    created_at: isa_entry.created_on,
-                    updated_at: isa_entry.updated_on,
-                    lock_version: isa_entry.version_number,
-                    # state: (isa_entry.unupdateable? ? :confirmed : :draft),
-                    items: []
-                  )
-                end
+                entry ||= JournalEntry.new(
+                  number: number,
+                  journal_id: all_journals[isa_entry.journal],
+                  printed_on: isa_entry.printed_on,
+                  created_at: isa_entry.created_on,
+                  updated_at: isa_entry.updated_on,
+                  lock_version: isa_entry.version_number,
+                  # state: (isa_entry.unupdateable? ? :confirmed : :draft),
+                  items: []
+                )
               end
 
               unused_entries.delete(entry.id)

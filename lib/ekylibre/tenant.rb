@@ -404,7 +404,7 @@ module Ekylibre
         restore_dump(archive_path, name, options) do |opt|
           tenant_name = opt[:tenant_name]
           restore_tables_v3(opt)
-          Fixturing.migrate(tenant_name, { origin: opt[:version] })
+          Fixturing.migrate(tenant_name, origin: opt[:version])
         end
       end
 

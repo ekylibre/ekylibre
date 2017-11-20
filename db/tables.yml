@@ -4977,6 +4977,8 @@ parcel_items:
   product_ownership_id:
     type: integer
     references: product_ownership
+  product_work_number:
+    type: string
   purchase_invoice_item_id:
     type: integer
     references: purchase_item
