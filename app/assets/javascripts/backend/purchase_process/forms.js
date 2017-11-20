@@ -1,11 +1,11 @@
 $(document).ready(function() {
-  $('#items-table').on('cocoon:after-insert', function () {
+  $('#items-table').on('cocoon:after-insert', function (event, item) {
+    console.log(event);
     var form = new Vue({
-      el: '#test',
+      el: item,
       data: {
         conditionningQuantity: 0,
         conditionning: 0,
-        // quantity: 0
       },
       computed: {
         quantity: function () {

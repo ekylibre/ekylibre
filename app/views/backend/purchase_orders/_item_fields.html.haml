@@ -27,11 +27,11 @@
     %td.total-column.two-rows-column
       %span
         %label{ class: 'amount-excluding-taxes', data: { item_value: "input.order-total" } }= f.object.variant ? f.object.variant.name : '??????'
-        %labem= Nomen::Currency.find(f.object.currency).symbol
+        %label= Nomen::Currency.find(f.object.currency).symbol
       %label{ class: "order-second-row-label"}= :vat_rate.tl
       %label{ class: 'vat-rate', data: { item_value: "select.order-vat-total option:selected" } }= f.object.variant ? f.object.variant.name : '??????'
 
-  %tr.nested-item-form#test
+  %tr.nested-item-form
     %td.cell-form{colspan: 6}
       .item-form
         - classes = ""
