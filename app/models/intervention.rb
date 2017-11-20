@@ -197,6 +197,21 @@ class Intervention < Ekylibre::Record::Base
       end
     end
 
+    if params[:production_id].present?
+      search_params << "#{Intervention.table_name}.id IN (SELECT intervention_id FROM intervention_parameters WHERE type = 'InterventionTarget' AND product_id IN (SELECT target_id FROM target_distributions WHERE activity_production_id = '#{params[:production_id]}'))"
+      # search_params << "#{Intervention.table_name}.id IN (SELECT intervention_id FROM intervention_parameters WHERE type = 'InterventionTarget' AND product_id = '#{params[:product_id]}')"
+    elsif params[:activity_id].present?
+      search_params << "#{Intervention.table_name}.id IN (SELECT intervention_id FROM intervention_parameters WHERE type = 'InterventionTarget' AND product_id IN (SELECT target_id FROM target_distributions WHERE activity_id = '#{params[:activity_id]}'))"
+    end
+
+    if params[:driver_id].present?
+       search_params << "#{Intervention.table_name}.id IN (SELECT intervention_id FROM interventions INNER JOIN #{InterventionDoer.table_name} ON #{InterventionDoer.table_name}.intervention_id = #{Intervention.table_name}.id WHERE #{InterventionDoer.table_name}.product_id = '#{params[:driver_id]}' AND #{InterventionDoer.table_name}.reference_name = 'driver')"
+    end
+
+    if params[:equipment_id].present?
+       search_params << "#{Intervention.table_name}.id IN (SELECT intervention_id FROM interventions INNER JOIN #{InterventionParameter.table_name} ON #{InterventionParameter.table_name}.intervention_id = #{Intervention.table_name}.id WHERE #{InterventionParameter.table_name}.product_id = '#{params[:equipment_id]}')"
+    end
+
     # CAUTION: params[:nature] is not used as in controller list filter
     if params[:nature].present?
       search_params << "#{Intervention.table_name}.nature = '#{params[:nature]}'"
@@ -323,7 +338,7 @@ class Intervention < Ekylibre::Record::Base
   # | outputs                | stock (3X)                 | stock_movement (603X/71X) |
   # | inputs                 | stock_movement (603X/71X)  | stock (3X)                |
   bookkeep do |b|
-    stock_journal = unsuppress { Journal.find_or_create_by!(nature: :stocks) }
+    stock_journal = unsuppress { Journal.find_or_create_by!(nature: :stocks, name: :stocks.to_s.upper) }
     b.journal_entry(stock_journal, printed_on: printed_on, if: (Preference[:permanent_stock_inventory] && record?)) do |entry|
       write_parameter_entry_items = lambda do |parameter, input|
         variant      = parameter.variant

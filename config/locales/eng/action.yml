@@ -1358,6 +1358,7 @@ eng:
     down: "Down" #?
     downpayment: "Downpayment"
     draft: "Draft" #?
+    driver: "Driver"
     duplicate: "Duplicate"
     duration: "Duration"
     duration_in_hours_and_minutes: "%{hours}h %{minutes}min"
@@ -2618,7 +2619,7 @@ eng:
     backend/plants: "%{name} ‒ %{work_number}"
     backend/prescriptions: "%{reference_number}"
     backend/product_memberships: "%{started_at}"
-    backend/product_nature_variants: "%{name} (%{unit_name})"
+    backend/product_nature_variants: "%{name} (%{unit_name}) - %{charge_account_number}"
     backend/product_natures: "%{name}"
     backend/products: "%{work_number} %{name} (%{number})"
     backend/purchase_payments: "%{number}. %{mode_name} to %{payee_full_name} of %{amount} %{currency}"
