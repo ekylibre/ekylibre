@@ -15,9 +15,7 @@ module NomenHelper
     if (variety = Nomen::Variety.find(activity.cultivation_variety))
       path = item_avatar_path(variety)
     end
-    unless path
-      path = item_avatar_path Nomen::ActivityFamily.find(activity.family)
-    end
+    path ||= item_avatar_path Nomen::ActivityFamily.find(activity.family)
     path
   end
 
@@ -31,7 +29,7 @@ module NomenHelper
     if (variety = Nomen::Variety.find(activity.cultivation_variety))
       path = item_color(variety)
     end
-    path = item_color Nomen::ActivityFamily.find(activity.family) unless path
+    path ||= item_color Nomen::ActivityFamily.find(activity.family)
     path
   end
 end

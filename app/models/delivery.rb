@@ -52,6 +52,8 @@ class Delivery < Ekylibre::Record::Base
   belongs_to :transporter, class_name: 'Entity'
   belongs_to :transporter_purchase, class_name: 'Purchase'
   has_many :parcels, dependent: :nullify
+  has_many :receptions, dependent: :nullify
+  has_many :shipments, dependent: :nullify
   has_many :tools, class_name: 'DeliveryTool', dependent: :destroy
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.

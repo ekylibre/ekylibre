@@ -163,9 +163,9 @@ fra:
       index: "Tableaux de bord"
       new: "Nouveau tableau de bord"
       production: "Tableau de bord de la production"
-      purchases: "Tableau de bord des achats" #?
+      purchases: "Tableau de bord des achats"
       relationship: "Tableau de bord de la gestion des relations"
-      sales: "Tableau de bord des ventes" #?
+      sales: "Tableau de bord des ventes"
       sandbox: "Bac à sable - tableau de bord: %{name}"
       search: "Recherche de\_: %{searched}"
       settings: "Configuration"
@@ -321,6 +321,8 @@ fra:
       index: "Encaissements"
       new: "Nouvel encaissement"
       show: "Encaissement n°%{number} de %{entity}"
+    backend/input_receptions: #?
+      new: "Nouvelle réception d'intrants" #?
     backend/inspections:
       edit: "Modifier l’agréage\_: %{number}"
       index: "Agréages"
@@ -419,6 +421,8 @@ fra:
       index: "Emprunts"
       new: "Nouvel emprunt"
       show: "Emprunt\_: %{name}"
+    backend/maintenance_supply_receptions: #?
+      new: "Nouvelle réception de matériels et de matières" #?
     backend/manure_management_plans:
       edit: "Modifier le plan de fumure\_: %{name}"
       index: "Plans de fumure"
@@ -563,6 +567,13 @@ fra:
       index: "Produits"
       new: "Créer un produit"
       show: "%{nature}\_: %{name}"
+    backend/purchase_invoices:
+      edit: "Modifier la facture: %{number}"
+      index: "Factures"
+      new: "Nouvelle facture"
+      pay: "Payer"
+      payment_mode: "Selection du mode de paiement"
+      show: "Facture\_: %{number} au fournisseur %{supplier}"
     backend/purchase_items: #?
       edit: "Modifier une ligne de la commande" #?
       new: "Nouveau produit à la commande" #?
@@ -571,6 +582,14 @@ fra:
       index: "Types d’achat"
       new: "Nouveau type d’achat"
       show: "Type d’achat\_: %{name}"
+    backend/purchase_orders:
+      # close: "Close order: %{name}"
+      edit: "Modifier la commande\_: %{number}"
+      index: "Commandes"
+      new: "Nouvelle commande"
+      # open: "Open order: %{name}"
+      # reconciliate_modal: "Reconciliate modal order: %{name}"
+      show: "Commande\_: %{number} au fournisseur %{supplier}"
     backend/purchase_payments:
       edit: "Modifier le décaissement\_: %{number}"
       index: "Décaissements"
@@ -594,6 +613,18 @@ fra:
       new: "Nouvel Achat/Décaissement"
     backend/quick_sales:
       new: "Nouvelle Vente/Encaissement"
+    backend/receptions:
+      cancel: "Annuler réception: %{number}"
+      check: "Vérifier réception: %{number}"
+      edit: "Modifier réception: %{number}"
+      give: "Give reception: %{number}"
+      index: "Réceptions"
+      invoice: "Invoice reception: %{number}"
+      new: "Nouvelle réception"
+      order: "Order reception: %{number}"
+      prepare: "Prepare reception: %{number}"
+      ship: "Expédier la réception"
+      show: "Réception: %{number}"
     backend/registrations:
       edit: "Modifier inscription"
       index: "Inscriptions"
@@ -651,6 +682,18 @@ fra:
       index: "Installations"
       new: "Nouvelle installation"
       show: "Installation\_: %{name}"
+    backend/shipments:
+      cancel: "Annuler l'expédition: %{number}"
+      check: "Vérifier l'expédition: %{number}"
+      edit: "Modifier l'expédition: %{number}"
+      give: "Give shipment: %{number}"
+      index: "Expéditions"
+      invoice: "Invoice shipment: %{number}"
+      new: "Nouvelle expédition"
+      order: "Order shipment: %{number}"
+      prepare: "Préparation de l'expédition: %{number}"
+      ship: "Expédier la réception"
+      show: "Expédition\_: %{number}"
     backend/subscription_natures:
       edit: "Modifier le type d’abonnement\_: %{name}"
       index: "Types d’abonnement"
@@ -708,6 +751,10 @@ fra:
       index: "Produits transformés" #?
     backend/trial_balances:
       show: "Balance"
+    backend/unreceived_purchase_orders:
+      # edit: "Edit unreceived order: %{name}"
+      index: "Commandes à réceptionner"
+      # show: "Unreceived order: %{name}"
     backend/users:
       edit: "Modifier l’utilisateur\_: %{first_name} %{last_name}"
       index: "Utilisateurs"
@@ -814,6 +861,8 @@ fra:
       zoomOutTitle: "Dézoomer"
   labels:
     abilities: "Compétences" #?
+    accepted: "Acceptée"
+    accepted_for_paiment: "Acceptée pour paiement"
     access: "Accès"
     access_parameters: "Paramètres de connexion"
     account_accruals: "Comptes de régularisation" #?
@@ -878,6 +927,7 @@ fra:
     add_exit: "Ajouter une sortie"
     add_expense: "Ajouter une dépense"
     add_fax: "Ajouter un n° de fax"
+    add_fees: "Ajouter des frais"
     add_filter: "Ajouter un filtre"
     add_grading_check: "Ajouter un critère d’agréage"
     add_incoming_payment: "Ajouter un encaissement"
@@ -891,6 +941,7 @@ fra:
     add_line: "Ajouter une ligne"
     add_linestring: "Ajouter une ligne"
     add_mail: "Ajouter une adresse postale"
+    add_merchandise: "Ajouter une marchandise"
     add_mobile: "Ajouter un n° de portable"
     add_new_record: "Ajouter un nouvel enregistrement"
     add_outgoing_payment: "Ajouter un décaissement"
@@ -904,15 +955,20 @@ fra:
     add_polygon: "Ajouter un polygone"
     add_production: "Ajouter une production"
     add_purchase: "Ajouter un achat"
+    add_purchase_invoice: "Ajouter une facture d'achat"
     add_purchase_payment: "Ajouter un décaissement"
     add_purchase_taxation: "Ajouter une taxe d’achat"
     add_quickly_an_item: "Ajouter rapidement une ligne de produit"
     add_reading: "Ajouter une mesure pour un indicateur"
+    add_reception: "Ajouter une réception"
     add_regularization: "Ajouter une régularisation"
     add_revenue: "Ajouter une recette"
     add_sale: "Ajouter une vente"
     add_sale_taxation: "Ajouter une taxe de vente"
     add_season: "Ajouter une saison"
+    add_service: "Ajouter un service"
+    add_service_delivering: "Ajouter une prestation de service"
+    add_storing: "Ajouter une zone de stockage"
     add_subscription_for_sale_line: "Ajouter un abonnement pour la ligne N°%{position}"
     add_support: "Ajouter un support de production"
     add_tactic: "Ajouter un itinéraire technique"
@@ -1169,6 +1225,7 @@ fra:
     current_cultivation: "Culture actuelle"
     current_letter: "Lettre en cours\_: %{letter}" #?
     current_result_before_taxe: "Résulat courant avant impôts"
+    current_stock: "Stock actuel"
     current_stocks_by_variety: "État des stocks"
     currently_subscribed_to: "Actuellement abonné à"
     custom_fields: "Champs personnalisés"
@@ -1223,6 +1280,7 @@ fra:
     details: "Informations complémentaires"
     direct_margin: "Marge directe" #?
     discount: "Réduc. (%)"
+    discount_without_percent: "Remise"
     disease: "Maladie"
     disease_deformity_percentage: "Pourcentage de maladies et malformations"
     disease_percentage: "Maladies (%)"
@@ -1261,6 +1319,7 @@ fra:
     edit_budget: "Modifier le budget"
     ekylibre: "www.ekylibre.org"
     elapsed_interventions_times_by_activities: "Temps passé par activité"
+    element_status: "Statut"
     email: "Email:"
     emissions_and_reevaluation_gaps: "Ecart de réévaluation, primes d’émission"
     employee: "Employé" #?
@@ -1326,6 +1385,7 @@ fra:
     extract: "Extraire" #?
     fat_matters_concentration: "Teneur en matières grasses" #?
     fax: "Fax" #?
+    fees: "Frais"
     field_distribution: "Parcellaire"
     file_nature: "Type de fichier"
     file_pages_count: "Nombre de pages" #?
@@ -1524,7 +1584,11 @@ fra:
     last_procedures: "Dernières procédures" #?
     last_products: "Dernières naissances"
     last_purchases: "Derniers achats"
+    last_purchases_invoices: "Dernières factures"
+    last_purchases_orders: "Dernières commandes"
     last_sales: "Dernières ventes"
+    late: "En retard"
+    late_delivery: "Hors délai"
     left_balance_amount: "Report du crédit antérieur non imputé et non remboursé" #?
     letter: "Lettrer"
     letter_options: "Lettre" #?
@@ -1599,8 +1663,10 @@ fra:
     members: "Membres"
     members_count: "Nombre de membres" #?
     menus: "Menus"
+    merchandise: "Marchandise"
     merchandises_purchases: "Marchandises"
     merchandises_purchases_stocks_variation: "Variation de stocks de marchandises"
+    merchandises_services_costs: "Marchandise, Service ou Frais"
     merge: "Fusionner"
     method: "Méthode"
     milk_withdrawal_period: "Période d’attente avant remise en vente de lait" #?
@@ -1675,9 +1741,11 @@ fra:
     new_purchase: "Nouvel achat" #?
     new_purchase_price: "Créer un prix d’achat" #?
     new_quote: "Nouvelle estimation"
+    new_reception: "Nouvelle réception"
     new_reservoir: "Ajouter un réservoir" #?
     new_sale: "Nouvelle vente" #?
     new_sales_price: "Ajouter un prix de vente" #?
+    new_shipment: "Nouvelle expédition"
     new_title: "Nouveau titre" #?
     new_value: "Nouvelle valeur" #?
     new_writing: "Nouvel écrit"
@@ -1706,6 +1774,8 @@ fra:
     no_tracking: "Aucun lot" #?
     no_transfers: "Aucun transfert à réaliser" #?
     nominal_storable_easement_area: "Surface de stockage au sol"
+    non_compliant: "Non conforme"
+    non_compliant_with_request: "Non conforme par rapport à l'attente"
     none: "Aucun"
     normal: "Régime du réel normal"
     not_assessable_operations: "Opérations non imposables" #?
@@ -1713,6 +1783,7 @@ fra:
     not_contains: "Ne contient pas" #?
     not_delivered: "Non délivré"
     not_finishes: "Ne termine pas par" #?
+    not_informed: "Non renseigné"
     not_is: "N’est pas" #?
     not_letterable: "Impossible de lettrer"
     not_ready: "Pas prêt(e)"
@@ -1902,13 +1973,25 @@ fra:
     readings: "Relevés d’indicateur"
     ready: "Prêt(e)"
     ready_to_harvest: "Prêt(e) à être récolté(e)"
+    receipt_date: "Date de réception"
+    receipt_responsible: "Responsable réception"
     received: "Reçue"
+    receiving_address: "Adresse de réception"
     recent_events: "Derniers événements"
     recent_historic: "Historique récent" #?
+    reception: "Réception"
+    reception_incident: "Réception en incident"
+    reception_items: "Articles réceptionnés"
+    reception_number: "N° du bon de réception"
+    receptions: "Réceptions"
+    reconcile: "Rapprochée"
+    reconciliate_with_purchases_orders: "Rapprocher avec une ou des commandes"
+    reconciliate_with_receptions: "Rapprocher avec une ou des réceptions"
     record: "Enregistrement"
     record_has_been_correctly_removed: "L’enregistrement a été supprimé correctement." #?
     record_has_not_been_removed: "L’enregistrement n’a pu être supprimé." #?
     record_maintenance: "Enregistrer une maintenance"
+    reference_supplier: "Référence fournisseur : %{reference_number}"
     reflect: "Refléter"
     reflected: "Changements répercutés"
     reflections: "Réflections"
@@ -2047,6 +2130,8 @@ fra:
     sensor_model: "Modèle du capteur"
     sensors: "Capteurs"
     sequences_load: "Charger les séquences manquantes" #?
+    service: "Service"
+    service_delivering: "Prestation de service"
     sessions: "Sessions"
     set_reconcilable_new_but_existing_third_accounts: "Rendre lettrables les nouveaux comptes tiers déjà existants"
     settings: "Configuration"
@@ -2054,6 +2139,8 @@ fra:
     sex: "Sexe"
     shape: "Forme"
     ship: "Prévue le"
+    shipment_items: "Articles expédiés"
+    shipments: "Expéditions"
     show: "Afficher"
     show_export_preview: "Afficher un aperçu du document (peut augmenter le temps de chargement)" #?
     sign_out: "Se déconnecter"
@@ -2077,6 +2164,7 @@ fra:
     status: "État" #?
     stewardship: "Assistant"
     stock: "Stock"
+    stock_after_order: "Stock après commande"
     stock_container_map: "Carte des lieux de stockage"
     stock_in_ground: "Stock en terre"
     stock_in_ground_by_calibration: "Stock en terre net par calibre"
@@ -2092,7 +2180,7 @@ fra:
     stop: "Jusqu’au"
     stopped: "Arrêtés"
     stopped_on: "Nous nous sommes arrêtés sur"
-    storage: "Support"
+    storage: "Zone de stockage"
     string_case: "Options pour le texte" #?
     subject: "Sujet"
     submit: "Envoyer"
@@ -2113,6 +2201,7 @@ fra:
     supplier_informations: "Informations fournisseur"
     supplier_payment_mode: "Mode de paiement du fournisseur"
     supplier_receivables: "Fournisseurs d'exploitations et comptes rattachés"
+    supplier_reference: "Référence fournisseur"
     supply: "Livraison"
     support: "Support"
     supports: "Supports de production"
@@ -2162,6 +2251,7 @@ fra:
     to_deposit_now: "À encaisser maintenant"
     to_pay: "À payer"
     to_reclaim: "À réclamer"
+    to_reconciliate: "À rapprocher"
     today: "Aujourd’hui"
     tool_cost: "Coût de matériel"
     tool_cost_per_hectare: "Coût de matériel par hectare" #?
@@ -2169,6 +2259,8 @@ fra:
     tools_list: "Liste d’outils" #?
     total: "Total"
     total_amount: "Montant total HT"
+    total_amount_with_taxes: "Total TTC"
+    total_amount_without_taxes: "Total HT"
     total_bacteria_concentration: "Dénombrement des germes totaux" #?
     total_cost: "Coût total"
     total_cost_per_working_unit: "Coût total par unité d’œuvre" #?
@@ -2239,6 +2331,7 @@ fra:
     uninvoiced: "Non facturés"
     uninvoiced_amount: "Montant non facturé" #?
     unit: "Unité"
+    unit_amount: "Prix unit. HT"
     unit_and_indicator: "%{unit} (%{indicator})"
     unit_price_amount: "PU HT" #?
     unit_price_amount_with_taxes: "PU TTC" #?
@@ -2297,6 +2390,7 @@ fra:
     vat_amount: "Taxe due" #?
     vat_collected: "TVA BRUTE" #?
     vat_paid: "TVA DEDUCTIBLE" #?
+    vat_rate: "Taux TVA"
     video: "Vidéo" #?
     view: "Affichage"
     view_map_when_creating_an_intervention: "Afficher la carte lors de la création d'interventions"
@@ -2437,15 +2531,30 @@ fra:
     x_prices: #?
       one: "%{count} prix" #?
       other: "%{count} prix" #?
+    x_purchase_invoices: #?
+      one: "%{count} facture" #?
+      other: "%{count} factures" #?
+    x_purchase_orders: #?
+      one: "%{count} commande" #?
+      other: "%{count} commandes" #?
     x_purchase_payments:
       one: "%{count} paiement d'achat"
       other: "%{count} paiements d'achats"
     x_purchases:
       one: "%{count} achat"
       other: "%{count} achats"
+    x_purchases_invoices:
+      # one: "%{count} purchase"
+      # other: "%{count} purchase"
+    x_purchases_orders:
+      # one: "%{count} purchase order"
+      # other: "%{count} purchase orders"
     x_readings:
       one: "%{count} indicateur"
       other: "%{count} indicateurs"
+    x_receptions:
+      one: "%{count} réception"
+      other: "%{count} réceptions"
     x_results:
       one: "%{count} résultat trouvé"
       other: "%{count} résultats trouvés"
@@ -2461,6 +2570,9 @@ fra:
     x_seconds:
       one: "%{count} seconde"
       other: "%{count} secondes"
+    x_shipments:
+      one: "%{count} expédition"
+      other: "%{count} expéditions"
     x_stock_transfers_to_confirm: #?
       one: "%{count} transfert à effectuer" #?
       other: "%{count} transferts à effectuer" #?

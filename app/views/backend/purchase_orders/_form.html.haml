@@ -1,0 +1,47 @@
+= field_set do
+  = f.referenced_association :nature, as: :hidden
+  = f.referenced_association :supplier, source: :suppliers, new: { supplier: 1 }
+  = f.input :reference_number
+  = f.referenced_association :responsible, source: :employees, new: { employed: 1 }
+  = f.input :ordered_at, as: :date
+  = f.input :command_mode
+  = f.input :estimate_reception_date, as: :date
+
+  .order-totals
+    .order-total-row.total-except-tax
+      %span.total-label= :total_amount_without_taxes.tl
+      %span.total-value= f.object.decorate.total_amount_excluding_taxes
+      %span.total-currency= Nomen::Currency[f.object.currency].symbol
+    .order-total-row.vat-total
+      %span.total-label= :vat.tl
+      %span.total-value= f.object.decorate.total_vat_amount
+      %span.total-currency= Nomen::Currency[f.object.currency].symbol
+    .order-total-row.order-total
+      %span.total-label= :total_amount_with_taxes.tl
+      %span.total-value= f.object.decorate.total_amount_including_taxes
+      %span.total-currency= Nomen::Currency[f.object.currency].symbol
+
+  = f.input :description
+  = f.custom_fields
+  = f.attachments
+
+= field_set Purchase.human_attribute_name(:items) do
+  .items
+    %table.list#items-table
+      %thead.table-head
+        %tr.table-headers
+          %th.act
+          %th.act
+          %th.product-column= :merchandises_services_costs.tl
+          %th.quantity-column= PurchaseItem.human_attribute_name(:quantity)
+          %th.unit-amount-column= :unit_amount.tl
+          %th.total-column= :total_amount_without_taxes.tl
+
+      = f.simple_fields_for :items, f.object.items.sort_by { |i| i.id.to_i } do |item|
+        = render 'item_fields', f: item
+
+      %tfoot#items-footer
+        %tr.total
+          %th{class: "links"}= link_to_add_association :add_merchandise.tl, f, :items, partial: 'item_fields', render_options: { locals: { role: 'merchandise' } }, 'data-association-insertion-node' => '#items-footer', 'data-association-insertion-method' => :before
+          %th{class: "links"}= link_to_add_association :add_service.tl, f, :items, partial: 'item_fields', render_options: { locals: { role: 'service' } }, 'data-association-insertion-node' => '#items-footer', 'data-association-insertion-method' => :before
+          %th{class: "links"}= link_to_add_association :add_fees.tl, f, :items, partial: 'item_fields', render_options: { locals: { role: 'fees' } }, 'data-association-insertion-node' => '#items-footer', 'data-association-insertion-method' => :before
