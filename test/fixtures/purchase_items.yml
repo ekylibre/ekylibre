@@ -290,3 +290,24 @@ purchase_items_011:
   updated_at: 2016-12-20 18:16:56.944192000 Z
   updater_id: 1
   variant_id: 63
+purchase_items_012:
+  account_id: 54
+  amount: 5082.0
+  created_at: 2017-11-20 10:06:14.002108000 Z
+  creator_id: 1
+  currency: EUR
+  fixed: false
+  id: 19
+  label: Ammonitre 33,5%  Big Bag
+  lock_version: 0
+  position: 1
+  pretax_amount: 4620.0
+  purchase_id: 18
+  quantity: 3.0
+  reduction_percentage: 0.0
+  tax_id: 8
+  unit_amount: 1694.0
+  unit_pretax_amount: 1540.0
+  updated_at: 2017-11-20 10:06:14.002108000 Z
+  updater_id: 1
+  variant_id: 39

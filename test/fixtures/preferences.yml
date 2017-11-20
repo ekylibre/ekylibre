@@ -4942,3 +4942,144 @@ preferences_428:
   updated_at: 2017-06-09 19:51:30.961801000 Z
   updater_id: 1
   user_id: 1
+preferences_429:
+  created_at: 2017-11-20 10:05:59.690791000 Z
+  creator_id: 1
+  id: 430
+  lock_version: 0
+  name: list._last_purchases_invoices_cells_list_last_purchases_invoices_cells_tag
+  nature: string
+  string_value: {}
+  updated_at: 2017-11-20 10:05:59.690791000 Z
+  updater_id: 1
+  user_id: 1
+preferences_430:
+  created_at: 2017-11-20 10:05:59.730391000 Z
+  creator_id: 1
+  id: 431
+  lock_version: 0
+  name: list._last_purchases_orders_cells_list_last_purchases_orders_cells_tag
+  nature: string
+  string_value: {}
+  updated_at: 2017-11-20 10:05:59.730391000 Z
+  updater_id: 1
+  user_id: 1
+preferences_431:
+  boolean_value: true
+  created_at: 2017-11-20 10:06:00.966139000 Z
+  creator_id: 1
+  id: 432
+  lock_version: 0
+  name: interface.kujakus.backend-purchase_invoices-index-1.collapsed
+  nature: boolean
+  updated_at: 2017-11-20 10:06:00.966139000 Z
+  updater_id: 1
+  user_id: 1
+preferences_432:
+  created_at: 2017-11-20 10:06:00.979955000 Z
+  creator_id: 1
+  id: 433
+  lock_version: 0
+  name: kujaku.feathers.backend-purchase_invoices-index-1:0.default
+  nature: string
+  updated_at: 2017-11-20 10:06:00.979955000 Z
+  updater_id: 1
+  user_id: 1
+preferences_433:
+  created_at: 2017-11-20 10:06:01.029345000 Z
+  creator_id: 1
+  id: 434
+  lock_version: 0
+  name: list._purchase_invoices_list_purchase_invoices_tag
+  nature: string
+  string_value: {}
+  updated_at: 2017-11-20 10:06:01.029345000 Z
+  updater_id: 1
+  user_id: 1
+preferences_434:
+  created_at: 2017-11-20 10:06:14.269173000 Z
+  creator_id: 1
+  id: 435
+  lock_version: 0
+  name: cobbler.purchase_invoices-show
+  nature: string
+  string_value: {}
+  updated_at: 2017-11-20 10:06:14.269173000 Z
+  updater_id: 1
+  user_id: 1
+preferences_435:
+  created_at: 2017-11-20 10:06:14.274507000 Z
+  creator_id: 1
+  id: 436
+  lock_version: 0
+  name: list._purchase_invoices_list_items_tag
+  nature: string
+  string_value: {}
+  updated_at: 2017-11-20 10:06:14.274507000 Z
+  updater_id: 1
+  user_id: 1
+preferences_436:
+  created_at: 2017-11-20 10:08:12.474997000 Z
+  creator_id: 1
+  id: 437
+  lock_version: 0
+  name: cobbler.purchase_affairs-show
+  nature: string
+  string_value: {}
+  updated_at: 2017-11-20 10:08:12.474997000 Z
+  updater_id: 1
+  user_id: 1
+preferences_437:
+  boolean_value: true
+  created_at: 2017-11-20 10:10:09.631279000 Z
+  creator_id: 1
+  id: 438
+  lock_version: 0
+  name: interface.kujakus.backend-purchase_payments-index-1.collapsed
+  nature: boolean
+  updated_at: 2017-11-20 10:10:09.631279000 Z
+  updater_id: 1
+  user_id: 1
+preferences_438:
+  created_at: 2017-11-20 10:10:09.639583000 Z
+  creator_id: 1
+  id: 439
+  lock_version: 0
+  name: kujaku.feathers.backend-purchase_payments-index-1:0.default
+  nature: string
+  updated_at: 2017-11-20 10:10:09.639583000 Z
+  updater_id: 1
+  user_id: 1
+preferences_439:
+  created_at: 2017-11-20 10:10:09.650539000 Z
+  creator_id: 1
+  id: 440
+  lock_version: 0
+  name: list._purchase_payments_list_purchase_payments_tag
+  nature: string
+  string_value: {}
+  updated_at: 2017-11-20 10:10:09.650539000 Z
+  updater_id: 1
+  user_id: 1
+preferences_440:
+  created_at: 2017-11-20 10:18:58.320305000 Z
+  creator_id: 1
+  id: 441
+  lock_version: 0
+  name: cobbler.outgoing_payment_lists-show
+  nature: string
+  string_value: {}
+  updated_at: 2017-11-20 10:18:58.320305000 Z
+  updater_id: 1
+  user_id: 1
+preferences_441:
+  created_at: 2017-11-20 10:18:58.328575000 Z
+  creator_id: 1
+  id: 442
+  lock_version: 0
+  name: list._outgoing_payment_lists_list_payments_tag
+  nature: string
+  string_value: {}
+  updated_at: 2017-11-20 10:18:58.328575000 Z
+  updater_id: 1
+  user_id: 1

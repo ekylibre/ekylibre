@@ -27518,3 +27518,254 @@ journal_entry_items_811:
   state: draft
   updated_at: 2017-06-15 14:32:20.373525000 Z
   updater_id: 1
+journal_entry_items_812:
+  absolute_credit: 0.0
+  absolute_currency: EUR
+  absolute_debit: 4620.0
+  absolute_pretax_amount: 0.0
+  account_id: 54
+  balance: 4620.0
+  created_at: 2017-11-20 10:06:14.091343000 Z
+  creator_id: 1
+  credit: 0.0
+  cumulated_absolute_credit: 0.0
+  cumulated_absolute_debit: 26184.89
+  currency: EUR
+  debit: 4620.0
+  entry_id: 258
+  entry_number: PUR000008
+  financial_year_id: 27
+  id: 1030
+  journal_id: 4
+  lock_version: 0
+  name: 'translation missing: fra.models.purchase_invoice.bookkeep'
+  position: 1
+  pretax_amount: 0.0
+  printed_on: 2017-11-20
+  real_balance: 4620.0
+  real_credit: 0.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 4620.0
+  real_pretax_amount: 0.0
+  resource_id: 19
+  resource_prism: item_product
+  resource_type: PurchaseItem
+  state: draft
+  updated_at: 2017-11-20 10:06:14.091343000 Z
+  updater_id: 1
+  variant_id: 39
+journal_entry_items_813:
+  absolute_credit: 0.0
+  absolute_currency: EUR
+  absolute_debit: 462.0
+  absolute_pretax_amount: 4620.0
+  account_id: 577
+  balance: 462.0
+  created_at: 2017-11-20 10:06:14.098544000 Z
+  creator_id: 1
+  credit: 0.0
+  cumulated_absolute_credit: 0.0
+  cumulated_absolute_debit: 2364.29
+  currency: EUR
+  debit: 462.0
+  entry_id: 258
+  entry_number: PUR000008
+  financial_year_id: 27
+  id: 1031
+  journal_id: 4
+  lock_version: 0
+  name: 'translation missing: fra.models.purchase_invoice.bookkeep'
+  position: 2
+  pretax_amount: 4620.0
+  printed_on: 2017-11-20
+  real_balance: 462.0
+  real_credit: 0.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 462.0
+  real_pretax_amount: 4620.0
+  resource_id: 19
+  resource_prism: item_tax
+  resource_type: PurchaseItem
+  state: draft
+  tax_id: 8
+  updated_at: 2017-11-20 10:06:14.098544000 Z
+  updater_id: 1
+  variant_id: 39
+journal_entry_items_814:
+  absolute_credit: 5082.0
+  absolute_currency: EUR
+  absolute_debit: 0.0
+  absolute_pretax_amount: 0.0
+  account_id: 207
+  balance: -5082.0
+  created_at: 2017-11-20 10:06:14.104179000 Z
+  creator_id: 1
+  credit: 5082.0
+  cumulated_absolute_credit: 5172.82
+  cumulated_absolute_debit: 27.0
+  currency: EUR
+  debit: 0.0
+  entry_id: 258
+  entry_number: PUR000008
+  financial_year_id: 27
+  id: 1032
+  journal_id: 4
+  letter: B
+  lock_version: 0
+  name: 'translation missing: fra.models.purchase_invoice.bookkeep'
+  position: 3
+  pretax_amount: 0.0
+  printed_on: 2017-11-20
+  real_balance: -5082.0
+  real_credit: 5082.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 0.0
+  real_pretax_amount: 0.0
+  resource_prism: supplier
+  state: draft
+  updated_at: 2017-11-20 10:06:14.104179000 Z
+  updater_id: 1
+journal_entry_items_815:
+  absolute_credit: 0.0
+  absolute_currency: EUR
+  absolute_debit: 5082.0
+  absolute_pretax_amount: 0.0
+  account_id: 207
+  balance: 5082.0
+  created_at: 2017-11-20 10:09:40.465626000 Z
+  creator_id: 1
+  credit: 0.0
+  cumulated_absolute_credit: 5172.82
+  cumulated_absolute_debit: 10191.0
+  currency: EUR
+  debit: 5082.0
+  entry_id: 259
+  entry_number: BNK000101
+  financial_year_id: 27
+  id: 1033
+  journal_id: 2
+  lock_version: 0
+  name: "[Décaissement d’achat D20170003] SEPA  pour Yuey LTD"
+  position: 1
+  pretax_amount: 0.0
+  printed_on: 2017-11-22
+  real_balance: 5082.0
+  real_credit: 0.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 5082.0
+  real_pretax_amount: 0.0
+  resource_id: 8
+  resource_prism: payee
+  resource_type: Entity
+  state: draft
+  updated_at: 2017-11-20 10:09:40.465626000 Z
+  updater_id: 1
+journal_entry_items_816:
+  absolute_credit: 5082.0
+  absolute_currency: EUR
+  absolute_debit: 0.0
+  absolute_pretax_amount: 0.0
+  account_id: 212
+  balance: -5082.0
+  created_at: 2017-11-20 10:09:40.470758000 Z
+  creator_id: 1
+  credit: 5082.0
+  cumulated_absolute_credit: 61136.76
+  cumulated_absolute_debit: 2183.3
+  currency: EUR
+  debit: 0.0
+  entry_id: 259
+  entry_number: BNK000101
+  financial_year_id: 27
+  id: 1034
+  journal_id: 2
+  lock_version: 0
+  name: "[Décaissement d’achat D20170003] SEPA  pour Yuey LTD"
+  position: 2
+  pretax_amount: 0.0
+  printed_on: 2017-11-22
+  real_balance: -5082.0
+  real_credit: 5082.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 0.0
+  real_pretax_amount: 0.0
+  resource_prism: bank
+  state: draft
+  updated_at: 2017-11-20 10:09:40.470758000 Z
+  updater_id: 1
+journal_entry_items_817:
+  absolute_credit: 0.0
+  absolute_currency: EUR
+  absolute_debit: 5082.0
+  absolute_pretax_amount: 0.0
+  account_id: 207
+  balance: 5082.0
+  created_at: 2017-11-20 10:18:23.035778000 Z
+  creator_id: 1
+  credit: 0.0
+  cumulated_absolute_credit: 5172.82
+  cumulated_absolute_debit: 5109.0
+  currency: EUR
+  debit: 5082.0
+  entry_id: 260
+  entry_number: BNK000102
+  financial_year_id: 27
+  id: 1035
+  journal_id: 2
+  letter: B
+  lock_version: 0
+  name: "[Décaissement d’achat D20170005] SEPA  pour Yuey LTD"
+  position: 1
+  pretax_amount: 0.0
+  printed_on: 2017-11-20
+  real_balance: 5082.0
+  real_credit: 0.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 5082.0
+  real_pretax_amount: 0.0
+  resource_id: 8
+  resource_prism: payee
+  resource_type: Entity
+  state: draft
+  updated_at: 2017-11-20 10:18:23.035778000 Z
+  updater_id: 1
+journal_entry_items_818:
+  absolute_credit: 5082.0
+  absolute_currency: EUR
+  absolute_debit: 0.0
+  absolute_pretax_amount: 0.0
+  account_id: 212
+  balance: -5082.0
+  created_at: 2017-11-20 10:18:23.040753000 Z
+  creator_id: 1
+  credit: 5082.0
+  cumulated_absolute_credit: 56054.76
+  cumulated_absolute_debit: 2183.3
+  currency: EUR
+  debit: 0.0
+  entry_id: 260
+  entry_number: BNK000102
+  financial_year_id: 27
+  id: 1036
+  journal_id: 2
+  lock_version: 0
+  name: "[Décaissement d’achat D20170005] SEPA  pour Yuey LTD"
+  position: 2
+  pretax_amount: 0.0
+  printed_on: 2017-11-20
+  real_balance: -5082.0
+  real_credit: 5082.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 0.0
+  real_pretax_amount: 0.0
+  resource_prism: bank
+  state: draft
+  updated_at: 2017-11-20 10:18:23.040753000 Z
+  updater_id: 1
