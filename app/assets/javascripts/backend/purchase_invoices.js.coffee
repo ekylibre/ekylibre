@@ -12,10 +12,9 @@
         vatRate = $(item).find('.total-column label.vat-rate').text().split("%")[0]
         amountIncludingTaxes = $(item).find('.total-column label.amount-including-taxes').text()
 
-        console.log(item)
         totalAmountExcludingTaxes += parseFloat(amountExcludingTaxes)
         totalAmountIncludingTaxes += parseInt(amountIncludingTaxes)
-        totalVatRate += parseFloat(parseFloat(totalAmountIncludingTaxes - totalAmountExcludingTaxes).toFixed(2))
+        totalVatRate += parseFloat(parseFloat(amountExcludingTaxes * vatRate / 100).toFixed(2))
         $('.nested-item-form').each (index, item) ->
 
       $('.invoice-totals .total-except-tax .total-value').text(totalAmountExcludingTaxes)
