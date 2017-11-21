@@ -1,6 +1,5 @@
 class UpdatePurchaseOrderState < ActiveRecord::Migration
   def change
-
     reversible do |dir|
       dir.up do
         execute "UPDATE purchases SET state = 'estimate' WHERE state = 'draft' AND type = 'PurchaseOrder'"

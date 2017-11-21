@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 9.6.6
--- Dumped by pg_dump version 9.6.6
+-- Dumped from database version 9.6.3
+-- Dumped by pg_dump version 9.6.3
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -4692,7 +4692,7 @@ CREATE TABLE parcel_item_storings (
     id integer NOT NULL,
     parcel_item_id integer NOT NULL,
     storage_id integer NOT NULL,
-    quantity integer,
+    quantity numeric(19,4),
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
     creator_id integer,
@@ -18111,4 +18111,6 @@ INSERT INTO schema_migrations (version) VALUES ('20171110145349');
 INSERT INTO schema_migrations (version) VALUES ('20171113162225');
 
 INSERT INTO schema_migrations (version) VALUES ('20171114093355');
+
+INSERT INTO schema_migrations (version) VALUES ('20171121143329');
 
