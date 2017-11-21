@@ -8,11 +8,13 @@
       totalAmountIncludingTaxes = 0
 
       $('.nested-fields .item-display').map (index, item) =>
-        amountExcludingTaxes = $(item).find('.total-column label.amount-excluding-taxes').text()
+        amountExcludingTaxes = $(item).find('.pretax-amount-column label.amount-excluding-taxes').text()
         vatRate = $(item).find('.total-column label.vat-rate').text().split("%")[0]
+        amountIncludingTaxes = $(item).find('.total-column label.amount-including-taxes').text()
 
+        console.log(item)
         totalAmountExcludingTaxes += parseFloat(amountExcludingTaxes)
-        totalAmountIncludingTaxes += parseInt(amountExcludingTaxes * (1 + (parseFloat(vatRate) / 100)))
+        totalAmountIncludingTaxes += parseInt(amountIncludingTaxes)
         totalVatRate += parseFloat(parseFloat(totalAmountIncludingTaxes - totalAmountExcludingTaxes).toFixed(2))
         $('.nested-item-form').each (index, item) ->
 

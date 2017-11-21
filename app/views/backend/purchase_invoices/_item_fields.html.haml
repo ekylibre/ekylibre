@@ -29,7 +29,7 @@
         %label= Nomen::Currency.find(f.object.currency).symbol
     %td.total-column.two-rows-column
       %span
-        %label{ data: { item_value: "input.invoice-total" } }= f.object.variant ? f.object.variant.name : '??????'
+        %label{ class: 'amount-including-taxes', data: { item_value: "input.invoice-total" } }= f.object.variant ? f.object.variant.name : '??????'
         %label= Nomen::Currency.find(f.object.currency).symbol
       %label{ class: "invoice-second-row-label"}= :vat_rate.tl
       %label{ class: 'vat-rate', data: { item_value: "select.invoice-vat-total option:selected" } }= f.object.variant ? f.object.variant.name : '??????'
