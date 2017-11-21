@@ -2,6 +2,7 @@ module Backend
   class ReceptionsController < Backend::ParcelsController
     manage_restfully
 
+
     respond_to :csv, :ods, :xlsx, :pdf, :odt, :docx, :html, :xml, :json
 
     unroll
