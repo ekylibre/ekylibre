@@ -37,7 +37,7 @@ module Backend
       code << "    c << interval.second\n"
       code << "  end\n"
       code << "end\n"
-      code << "unless params[:reconciliation_state].blank?\n"
+      code << "if !params[:reconciliation_state].blank? && params[:reconciliation_state].to_s != 'all'\n"
       code << "  c[0] << ' AND #{Purchase.table_name}.reconciliation_state IN (?)'\n"
       code << "  c << params[:reconciliation_state]\n"
       code << "end\n"
