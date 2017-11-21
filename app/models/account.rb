@@ -305,7 +305,10 @@ class Account < Ekylibre::Record::Base
     # Returns the name of the used accounting system
     # It takes the information in preferences
     def accounting_system
-      Preference[:accounting_system]
+      @tenant_when_last_cached ||= Ekylibre::Tenant.current
+      invalid_cache = @tenant_when_last_cached && @tenant_when_last_cached != Ekylibre::Tenant.current
+      @accounting_system = nil if invalid_cache
+      @accounting_system ||= Preference[:accounting_system]
     end
 
     # FIXME: This is an aberration of internationalization.

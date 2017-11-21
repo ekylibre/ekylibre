@@ -152,6 +152,7 @@ class JournalEntryItem < Ekylibre::Record::Base
       letter_balance = letter_group.sum(:debit) - letter_group.sum(:credit)
       letter_balance += (credit_was || 0) - (debit_was || 0)
       letter_balance += debit - credit
+      self.letter = letter_radix
       self.letter += '*' unless letter_balance.zero?
     end
     # END OF DANGER ZONE

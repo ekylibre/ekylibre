@@ -111,6 +111,16 @@
       margin-left: 0 !important;
     }
 
+    .fixed-asset-fields {
+      .control-group {
+        flex-direction: unset;
+        justify-content: flex-start;
+        .controls {
+          width: auto;
+        }
+      }
+    }
+
     .form-field {
       flex-basis: 10%;
     }

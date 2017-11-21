@@ -1,0 +1,8 @@
+---
+arb:
+  exchangers:
+    fermes_larrere_outgoing_parcels: "الطرود الصادرة - مزارع Larrere"
+    fermes_larrere_sales: "مبيعات - مزارع Larrere"
+    fermes_larrere_various_journal_entries: "إدخالات دفتر اليومية المختلفة - مزارع
+      Larrere"
+    fermes_larrere_incoming_payments: "المدفوعات الواردة - مزارع Larrere"

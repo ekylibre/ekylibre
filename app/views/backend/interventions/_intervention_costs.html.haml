@@ -1,6 +1,5 @@
 .cost
-  - computation = product_parameter.cost_amount_computation(nature: nature) unless nature.nil?
-  - computation = product_parameter.cost_amount_computation if nature.nil?
+  - computation = product_parameter.cost_amount_computation(nature: nature)
   .computation
     - if computation.failed?
       = 'FAILED'
