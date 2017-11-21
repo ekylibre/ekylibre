@@ -706,17 +706,17 @@ eng:
     backend/quick_sales:
       new: "New Sale/Incoming payment"
     backend/receptions:
-      cancel: "Cancel reception: %{name}" #?
-      check: "Check reception: %{name}" #?
-      edit: "Edit reception: %{name}"
-      give: "Give reception: %{name}"
+      cancel: "Cancel reception: %{number}" #?
+      check: "Check reception: %{number}" #?
+      edit: "Edit reception: %{number}"
+      give: "Give reception: %{number}"
       index: "Receptions"
-      invoice: "Invoice reception: %{name}"
+      invoice: "Invoice reception: %{number}"
       new: "New reception"
-      order: "Order reception: %{name}" #?
-      prepare: "Prepare reception: %{name}" #?
-      ship: "Ship reception: %{name}"
-      show: "Reception: %{name}"
+      order: "Order reception: %{number}" #?
+      prepare: "Prepare reception: %{number}" #?
+      ship: "Ship reception: %{number}"
+      show: "Reception: %{number}"
     backend/registrations:
       edit: "Edit registration"
       index: "Registrations"
