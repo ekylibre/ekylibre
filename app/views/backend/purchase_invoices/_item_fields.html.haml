@@ -37,6 +37,19 @@
   %tr.nested-item-form
     %td.form-field.merchandise
       = f.referenced_association(:variant, label: :merchandise.tl, source: {scope: :purchaseables}, input_html: {class: "invoice-variant", data: {variant_of_deal_item: {url: detail_backend_product_nature_variant_path("RECORD_ID", mode: :last_purchase_item)}, product_of_delivery_item: {url: backend_product_nature_variant_path("RECORD_ID", format: :json)}, required: true}})
+
+      - display = ""
+      - display = "display: none;" unless item && item.variant && item.variant.depreciable?
+      .fixed-asset-fields{style: display, data: {"when-item": "depreciable", "when-display-value": 'true'}}
+        = f.input :fixed, show: :assets
+        - display = "display: none;" unless item.fixed
+        #assets{style: display}
+          = f.input :preexisting_asset, show: :existing_asset, hide: :new_asset, label: :asset_exists.tl
+          #existing_asset{style: display}
+            = f.referenced_association :fixed_asset, source: :drafts
+          #new_asset
+            = f.referenced_association(:depreciable_product)
+
     %td.form-field.decimal
       = f.input :quantity, wrapper: :append do
         = f.input_field :quantity, class: "invoice-quantity", placeholder: '0', size: 7, data: {trade_component: "quantity", required: true}

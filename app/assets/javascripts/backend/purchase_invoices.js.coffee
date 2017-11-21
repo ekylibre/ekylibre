@@ -37,10 +37,15 @@
         insertedItem.attr('id', "new_reception_#{new_id}")
 
         $(insertedItem).find('input, select').each ->
-          elementNewId = $(this).attr('id').replace(/[0-9]+/, new_id)
-          elementNewName = $(this).attr('name').replace(/[0-9]+/, new_id)
-          $(this).attr('id', elementNewId)
-          $(this).attr('name', elementNewName)
+          oldId = $(this).attr('id')
+          if !!oldId
+            elementNewId = oldId.replace(/[0-9]+/, new_id)
+            $(this).attr('id', elementNewId)
+
+          oldName = $(this).attr('name')
+          if !!oldName
+            elementNewName = oldName.replace(/[0-9]+/, new_id)
+            $(this).attr('name', elementNewName)
 
         element = $(insertedItem).find('#purchase_invoice_items_attributes_RECORD_ID_parcels_purchase_invoice_items')
         newName = element.attr('name').replace('RECORD_ID', new_id)

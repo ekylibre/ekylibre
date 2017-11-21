@@ -1580,7 +1580,7 @@ fra:
     reduction_percentage: "Réduction (%)"
     reductions: "Lignes de réductions" #?
     reference: "Référence" #?
-    reference_name: "Référence"
+    reference_name: "Type d'intervention"
     reference_number: "N°Référence"
     reference_source_content_type: "Référence type de contenu source"
     reference_source_file_name: "Référence Nom du fichier source"
@@ -2140,6 +2140,8 @@ fra:
         invoice: "Facture"
         order: "Commande"
         refused: "Refusé"
+    purchase_invoice:
+      bookkeep: "[%{resource} %{number}] %{products} de %{supplier}"
     purchase_gap:
       bookkeep: "[%{resource} %{number}] %{supplier}"
     purchase_item:
