@@ -175,7 +175,7 @@ class ReceptionItem < ParcelItem
   end
 
   def give_outgoing
-    if self.population == source_product.population(at: reception_given_at) && !reception_remain_owner
+    if population == source_product.population(at: reception_given_at) && !reception_remain_owner
       ProductOwnership.create!(product: product, owner: reception_recipient, started_at: reception_given_at, originator: self)
       ProductLocalization.create!(product: product, nature: :exterior, started_at: reception_given_at, originator: self)
       ProductEnjoyment.create!(product: product, enjoyer: reception_recipient, nature: :other, started_at: reception_given_at, originator: self)
