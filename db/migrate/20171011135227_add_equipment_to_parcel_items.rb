@@ -1,5 +1,7 @@
 class AddEquipmentToParcelItems < ActiveRecord::Migration
   def change
-    add_column :parcel_items, :equipment_id, :integer
+    unless column_exists? :parcel_items, :equipment_id
+      add_column :parcel_items, :equipment_id, :integer
+    end
   end
 end
