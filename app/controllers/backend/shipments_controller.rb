@@ -98,5 +98,24 @@ module Backend
         fire_event(event.name)
       end
     end
+
+    # Pre-fill delivery form with given parcels. Nothing else.
+    # Only a shortcut now.
+    def ship
+      parcels = find_parcels
+      return unless parcels
+      parcel = parcels.detect(&:shippable?)
+      options = { parcel_ids: parcels.map(&:id) }
+      if !parcel
+        redirect_to(options.merge(controller: :deliveries, action: :new))
+      elsif parcels.all? { |p| p.shippable? && (p.delivery_mode == parcel.delivery_mode) }
+        options[:mode] = parcel.delivery_mode
+        options[:transporter_id] = parcel.transporter_id if parcel.transporter
+        redirect_to(options.merge(controller: :deliveries, action: :new))
+      else
+        notify_error(:some_parcels_are_not_shippable)
+        redirect_to(params[:redirect] || { action: :index })
+      end
+    end
   end
 end

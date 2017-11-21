@@ -88,42 +88,6 @@ module Backend
       render locals: { with_continue: true }
     end
 
-    # Converts parcel to trade
-    def invoice
-      parcels = find_parcels
-      return unless parcels
-      parcel = parcels.first
-      if parcels.all? { |p| p.incoming? && p.third_id == parcel.third_id && p.invoiceable? }
-        purchase = Parcel.convert_to_purchase(parcels)
-        redirect_to backend_purchase_path(purchase)
-      elsif parcels.all? { |p| p.outgoing? && p.third_id == parcel.third_id && p.invoiceable? }
-        sale = Parcel.convert_to_sale(parcels)
-        redirect_to backend_sale_path(sale)
-      else
-        notify_error(:all_parcels_must_be_invoiceable_and_of_same_nature_and_third)
-        redirect_to(params[:redirect] || { action: :index })
-      end
-    end
-
-    # Pre-fill delivery form with given parcels. Nothing else.
-    # Only a shortcut now.
-    def ship
-      parcels = find_parcels
-      return unless parcels
-      parcel = parcels.detect(&:shippable?)
-      options = { parcel_ids: parcels.map(&:id) }
-      if !parcel
-        redirect_to(options.merge(controller: :deliveries, action: :new))
-      elsif parcels.all? { |p| p.shippable? && (p.delivery_mode == parcel.delivery_mode) }
-        options[:mode] = parcel.delivery_mode
-        options[:transporter_id] = parcel.transporter_id if parcel.transporter
-        redirect_to(options.merge(controller: :deliveries, action: :new))
-      else
-        notify_error(:some_parcels_are_not_shippable)
-        redirect_to(params[:redirect] || { action: :index })
-      end
-    end
-
     protected
 
     def find_parcels
