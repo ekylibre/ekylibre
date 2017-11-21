@@ -180,6 +180,10 @@
         else
           E.reconciliation._createNewPurchaseInvoiceItemLine(itemCheckbox)
 
+          if index == 0
+           responsibleId = $(itemCheckbox).closest('.item').attr('data-responsible-id')
+           $('#purchase_invoice_responsible_id').first().selector('value', responsibleId)
+
         E.reconciliation._fillNewLineForm(itemCheckbox, isPurchaseOrderModal)
 
 
