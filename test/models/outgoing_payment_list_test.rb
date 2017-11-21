@@ -42,21 +42,21 @@ class OutgoingPaymentListTest < ActiveSupport::TestCase
     Timecop.freeze(Time.new(2016, 10, 1, 11, 1, 35, '+02:00')) do
       doc = Nokogiri::XML(@list.to_sepa)
       doc.collect_namespaces
-      doc.remove_namespaces!
+      doc.remove_namespaces!      
 
       message_identification = "EKY-#{@list.number}-#{Time.now.utc.strftime('%y%m%d-%H%M')}"
 
       assert_equal(message_identification, doc.xpath('//CstmrCdtTrfInitn/GrpHdr/MsgId').text)
       assert_equal(Time.now.getlocal.iso8601, doc.xpath('//CstmrCdtTrfInitn/GrpHdr/CreDtTm').text)
       assert_equal('1', doc.xpath('//CstmrCdtTrfInitn/GrpHdr/NbOfTxs').text)
-      assert_equal('5082.00', doc.xpath('//CstmrCdtTrfInitn/GrpHdr/CtrlSum').text)
+      assert_equal('8694.00', doc.xpath('//CstmrCdtTrfInitn/GrpHdr/CtrlSum').text)
       assert_equal('John Doe', doc.xpath('//CstmrCdtTrfInitn/GrpHdr/InitgPty/Nm').text)
 
       assert_equal("#{message_identification}/1", doc.xpath('//CstmrCdtTrfInitn/PmtInf/PmtInfId').text)
       assert_equal('TRF', doc.xpath('//CstmrCdtTrfInitn/PmtInf/PmtMtd').text)
       assert_equal('false', doc.xpath('//CstmrCdtTrfInitn/PmtInf/BtchBookg').text)
       assert_equal('1', doc.xpath('//CstmrCdtTrfInitn/PmtInf/NbOfTxs').text)
-      assert_equal('5082.00', doc.xpath('//CstmrCdtTrfInitn/PmtInf/CtrlSum').text)
+      assert_equal('8694.00', doc.xpath('//CstmrCdtTrfInitn/PmtInf/CtrlSum').text)
       assert_equal('SEPA', doc.xpath('//CstmrCdtTrfInitn/PmtInf/PmtTpInf/SvcLvl/Cd').text)
       assert_equal(Time.zone.now.strftime('%Y-%m-%d').to_s, doc.xpath('//CstmrCdtTrfInitn/PmtInf/ReqdExctnDt').text)
       assert_equal('John Doe', doc.xpath('//CstmrCdtTrfInitn/PmtInf/Dbtr/Nm').text)
@@ -64,12 +64,12 @@ class OutgoingPaymentListTest < ActiveSupport::TestCase
       assert_equal('GHBXFRPP', doc.xpath('//CstmrCdtTrfInitn/PmtInf/DbtrAgt/FinInstnId/BIC').text)
       assert_equal('SLEV', doc.xpath('//CstmrCdtTrfInitn/PmtInf/ChrgBr').text)
 
-      assert_equal('D20170005', doc.xpath('//CstmrCdtTrfInitn/PmtInf/CdtTrfTxInf')[0].xpath('PmtId/EndToEndId').text)
-      assert_equal('5082.00', doc.xpath('//CstmrCdtTrfInitn/PmtInf/CdtTrfTxInf')[0].xpath("Amt/InstdAmt[@Ccy='EUR']").text)
-      assert_equal('CCOPFRPPXXX', doc.xpath('//CstmrCdtTrfInitn/PmtInf/CdtTrfTxInf')[0].xpath('CdtrAgt/FinInstnId/BIC').text)
-      assert_equal('Yuey Corporate', doc.xpath('//CstmrCdtTrfInitn/PmtInf/CdtTrfTxInf')[0].xpath('Cdtr/Nm').text)
-      assert_equal('FR7630001007941234567890185', doc.xpath('//CstmrCdtTrfInitn/PmtInf/CdtTrfTxInf')[0].xpath('CdtrAcct/Id/IBAN').text)
-      assert_equal('A201711000001', doc.xpath('//CstmrCdtTrfInitn/PmtInf/CdtTrfTxInf')[0].xpath('RmtInf/Ustrd').text)
+      assert_equal('D20170004', doc.xpath('//CstmrCdtTrfInitn/PmtInf/CdtTrfTxInf')[0].xpath('PmtId/EndToEndId').text)
+      assert_equal('8694.00', doc.xpath('//CstmrCdtTrfInitn/PmtInf/CdtTrfTxInf')[0].xpath("Amt/InstdAmt[@Ccy='EUR']").text)
+      assert_equal('ABNANL2AXXX', doc.xpath('//CstmrCdtTrfInitn/PmtInf/CdtTrfTxInf')[0].xpath('CdtrAgt/FinInstnId/BIC').text)
+      assert_equal('BAKTOUBI Inc.', doc.xpath('//CstmrCdtTrfInitn/PmtInf/CdtTrfTxInf')[0].xpath('Cdtr/Nm').text)
+      assert_equal('NL72ABNA0897960274', doc.xpath('//CstmrCdtTrfInitn/PmtInf/CdtTrfTxInf')[0].xpath('CdtrAcct/Id/IBAN').text)
+      assert_equal('A201711000003', doc.xpath('//CstmrCdtTrfInitn/PmtInf/CdtTrfTxInf')[0].xpath('RmtInf/Ustrd').text)
     end
   end
 
@@ -90,14 +90,14 @@ class OutgoingPaymentListTest < ActiveSupport::TestCase
       assert_equal(message_identification, doc.xpath('//CstmrCdtTrfInitn/GrpHdr/MsgId').text)
       assert_equal(Time.now.getlocal.iso8601, doc.xpath('//CstmrCdtTrfInitn/GrpHdr/CreDtTm').text)
       assert_equal('1', doc.xpath('//CstmrCdtTrfInitn/GrpHdr/NbOfTxs').text)
-      assert_equal('5082.00', doc.xpath('//CstmrCdtTrfInitn/GrpHdr/CtrlSum').text)
+      assert_equal('8694.00', doc.xpath('//CstmrCdtTrfInitn/GrpHdr/CtrlSum').text)
       assert_equal('John Doe', doc.xpath('//CstmrCdtTrfInitn/GrpHdr/InitgPty/Nm').text)
 
       assert_equal("#{message_identification}/1", doc.xpath('//CstmrCdtTrfInitn/PmtInf/PmtInfId').text)
       assert_equal('TRF', doc.xpath('//CstmrCdtTrfInitn/PmtInf/PmtMtd').text)
       assert_equal('false', doc.xpath('//CstmrCdtTrfInitn/PmtInf/BtchBookg').text)
       assert_equal('1', doc.xpath('//CstmrCdtTrfInitn/PmtInf/NbOfTxs').text)
-      assert_equal('5082.00', doc.xpath('//CstmrCdtTrfInitn/PmtInf/CtrlSum').text)
+      assert_equal('8694.00', doc.xpath('//CstmrCdtTrfInitn/PmtInf/CtrlSum').text)
       assert_equal('SEPA', doc.xpath('//CstmrCdtTrfInitn/PmtInf/PmtTpInf/SvcLvl/Cd').text)
       assert_equal(Time.zone.now.strftime('%Y-%m-%d').to_s, doc.xpath('//CstmrCdtTrfInitn/PmtInf/ReqdExctnDt').text)
       assert_equal('John Doe', doc.xpath('//CstmrCdtTrfInitn/PmtInf/Dbtr/Nm').text)
@@ -105,12 +105,12 @@ class OutgoingPaymentListTest < ActiveSupport::TestCase
       assert_equal('NOTPROVIDED', doc.xpath('//CstmrCdtTrfInitn/PmtInf/DbtrAgt/FinInstnId/BIC').text)
       assert_equal('SLEV', doc.xpath('//CstmrCdtTrfInitn/PmtInf/ChrgBr').text)
 
-      assert_equal('D20170005', doc.xpath('//CstmrCdtTrfInitn/PmtInf/CdtTrfTxInf')[0].xpath('PmtId/EndToEndId').text)
-      assert_equal('5082.00', doc.xpath('//CstmrCdtTrfInitn/PmtInf/CdtTrfTxInf')[0].xpath("Amt/InstdAmt[@Ccy='EUR']").text)
+      assert_equal('D20170004', doc.xpath('//CstmrCdtTrfInitn/PmtInf/CdtTrfTxInf')[0].xpath('PmtId/EndToEndId').text)
+      assert_equal('8694.00', doc.xpath('//CstmrCdtTrfInitn/PmtInf/CdtTrfTxInf')[0].xpath("Amt/InstdAmt[@Ccy='EUR']").text)
       assert_equal('NOTPROVIDED', doc.xpath('//CstmrCdtTrfInitn/PmtInf/CdtTrfTxInf')[0].xpath('CdtrAgt/FinInstnId/BIC').text)
-      assert_equal('Yuey Corporate', doc.xpath('//CstmrCdtTrfInitn/PmtInf/CdtTrfTxInf')[0].xpath('Cdtr/Nm').text)
-      assert_equal('FR7630001007941234567890185', doc.xpath('//CstmrCdtTrfInitn/PmtInf/CdtTrfTxInf')[0].xpath('CdtrAcct/Id/IBAN').text)
-      assert_equal('A201711000001', doc.xpath('//CstmrCdtTrfInitn/PmtInf/CdtTrfTxInf')[0].xpath('RmtInf/Ustrd').text)
+      assert_equal('BAKTOUBI Inc.', doc.xpath('//CstmrCdtTrfInitn/PmtInf/CdtTrfTxInf')[0].xpath('Cdtr/Nm').text)
+      assert_equal('NL72ABNA0897960274', doc.xpath('//CstmrCdtTrfInitn/PmtInf/CdtTrfTxInf')[0].xpath('CdtrAcct/Id/IBAN').text)
+      assert_equal('A201711000003', doc.xpath('//CstmrCdtTrfInitn/PmtInf/CdtTrfTxInf')[0].xpath('RmtInf/Ustrd').text)
     end
   end
 
