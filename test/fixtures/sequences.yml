@@ -1,3 +1,44 @@
+# = Informations
+#
+# == License
+#
+# Ekylibre - Simple agricultural ERP
+# Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
+# Copyright (C) 2010-2012 Brice Texier
+# Copyright (C) 2012-2017 Brice Texier, David Joulin
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Affero General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public License
+# along with this program.  If not, see http://www.gnu.org/licenses.
+#
+# == Table: sequences
+#
+#  created_at       :datetime         not null
+#  creator_id       :integer
+#  id               :integer          not null, primary key
+#  last_cweek       :integer
+#  last_month       :integer
+#  last_number      :integer
+#  last_year        :integer
+#  lock_version     :integer          default(0), not null
+#  name             :string           not null
+#  number_format    :string           not null
+#  number_increment :integer          default(1), not null
+#  number_start     :integer          default(1), not null
+#  period           :string           default("number"), not null
+#  updated_at       :datetime         not null
+#  updater_id       :integer
+#  usage            :string
+#
 ---
 sequences_001:
   created_at: 2014-10-31 17:19:32.000000000 Z
@@ -37,17 +78,17 @@ sequences_003:
   created_at: 2014-11-01 16:00:07.976913000 Z
   creator_id: 1
   id: 3
-  last_cweek: 47
-  last_month: 11
-  last_number: 127
-  last_year: 2017
-  lock_version: 129
+  last_cweek: 51
+  last_month: 12
+  last_number: 125
+  last_year: 2016
+  lock_version: 127
   name: products
   number_format: PR[number|11]
   number_increment: 1
   number_start: 1
   period: number
-  updated_at: 2017-11-20 14:25:56.583420000 Z
+  updated_at: 2016-12-20 18:24:29.472854000 Z
   updater_id: 1
   usage: products
 sequences_004:
@@ -265,15 +306,15 @@ sequences_017:
   id: 17
   last_cweek: 47
   last_month: 11
-  last_number: 5
+  last_number: 4
   last_year: 2017
-  lock_version: 14
+  lock_version: 13
   name: Décaissement
   number_format: D[year|4][number|4]
   number_increment: 1
   number_start: 1
   period: year
-  updated_at: 2017-11-20 10:18:22.985269000 Z
+  updated_at: 2017-11-21 10:20:54.368614000 Z
   updater_id: 1
   usage: outgoing_payments
 sequences_018:
@@ -303,7 +344,7 @@ sequences_019:
   number_increment: 1
   number_start: 1
   period: year
-  updated_at: 2017-11-20 13:04:44.989336000 Z
+  updated_at: 2017-11-21 10:21:30.393798000 Z
   updater_id: 1
   usage: purchases
 sequences_020:
@@ -427,7 +468,7 @@ sequences_027:
   number_increment: 1
   number_start: 1
   period: number
-  updated_at: 2017-11-20 14:25:46.325528000 Z
+  updated_at: 2017-11-21 10:12:00.785931000 Z
   updater_id: 1
   usage: parcels
 sequences_028:
@@ -481,15 +522,15 @@ sequences_031:
   id: 31
   last_cweek: 47
   last_month: 11
-  last_number: 9
+  last_number: 3
   last_year: 2017
-  lock_version: 9
+  lock_version: 3
   name: Liste de paiement sortant
   number_format: OPL[number|12]
   number_increment: 1
   number_start: 1
   period: number
-  updated_at: 2017-11-20 10:18:34.062977000 Z
+  updated_at: 2017-11-21 10:20:54.357847000 Z
   updater_id: 1
   usage: outgoing_payment_lists
 sequences_032:

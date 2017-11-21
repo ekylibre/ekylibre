@@ -1,5 +1,65 @@
+# = Informations
+#
+# == License
+#
+# Ekylibre - Simple agricultural ERP
+# Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
+# Copyright (C) 2010-2012 Brice Texier
+# Copyright (C) 2012-2017 Brice Texier, David Joulin
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Affero General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public License
+# along with this program.  If not, see http://www.gnu.org/licenses.
+#
+# == Table: purchases
+#
+#  accounted_at                             :datetime
+#  affair_id                                :integer
+#  amount                                   :decimal(19, 4)   default(0.0), not null
+#  command_mode                             :string
+#  confirmed_at                             :datetime
+#  contract_id                              :integer
+#  created_at                               :datetime         not null
+#  creator_id                               :integer
+#  currency                                 :string           not null
+#  custom_fields                            :jsonb
+#  delivery_address_id                      :integer
+#  description                              :text
+#  estimate_reception_date                  :datetime
+#  id                                       :integer          not null, primary key
+#  invoiced_at                              :datetime
+#  journal_entry_id                         :integer
+#  lock_version                             :integer          default(0), not null
+#  nature_id                                :integer
+#  number                                   :string           not null
+#  ordered_at                               :datetime
+#  payment_at                               :datetime
+#  payment_delay                            :string
+#  planned_at                               :datetime
+#  pretax_amount                            :decimal(19, 4)   default(0.0), not null
+#  quantity_gap_on_invoice_journal_entry_id :integer
+#  reconciliation_state                     :string
+#  reference_number                         :string
+#  responsible_id                           :integer
+#  state                                    :string           not null
+#  supplier_id                              :integer          not null
+#  tax_payability                           :string           not null
+#  type                                     :string
+#  undelivered_invoice_journal_entry_id     :integer
+#  updated_at                               :datetime         not null
+#  updater_id                               :integer
+#
 ---
-purchases_006:
+purchases_001:
   accounted_at: 2014-11-05 13:40:18.878913000 Z
   affair_id: 15
   amount: 176.16
@@ -19,7 +79,7 @@ purchases_006:
   tax_payability: at_invoicing
   updated_at: 2014-11-05 13:40:18.863437000 Z
   updater_id: 1
-purchases_007:
+purchases_002:
   accounted_at: 2014-11-05 10:46:06.149701000 Z
   affair_id: 17
   amount: 1850.0
@@ -39,7 +99,7 @@ purchases_007:
   tax_payability: at_invoicing
   updated_at: 2014-11-05 10:46:06.135573000 Z
   updater_id: 1
-purchases_008:
+purchases_003:
   accounted_at: 2014-11-07 15:58:47.255968000 Z
   affair_id: 26
   amount: 1848.0
@@ -62,7 +122,7 @@ purchases_008:
   tax_payability: at_invoicing
   updated_at: 2014-11-07 15:58:47.167810000 Z
   updater_id: 1
-purchases_011:
+purchases_004:
   accounted_at: 2014-11-07 16:52:57.689609000 Z
   affair_id: 30
   amount: 20520.0
@@ -86,7 +146,7 @@ purchases_011:
   tax_payability: at_invoicing
   updated_at: 2014-11-07 16:52:57.564797000 Z
   updater_id: 1
-purchases_012:
+purchases_005:
   accounted_at: 2015-03-19 17:19:00.028424000 Z
   affair_id: 31
   amount: 1848.0
@@ -111,7 +171,7 @@ purchases_012:
   tax_payability: at_invoicing
   updated_at: 2015-03-19 17:18:58.189234000 Z
   updater_id: 1
-purchases_013:
+purchases_006:
   accounted_at: 2016-07-01 20:22:55.393414000 Z
   affair_id: 42
   amount: 17329.62
@@ -135,7 +195,7 @@ purchases_013:
   tax_payability: at_invoicing
   updated_at: 2016-07-01 20:22:54.211014000 Z
   updater_id: 1
-purchases_014:
+purchases_007:
   accounted_at: 2016-11-20 22:14:42.439738000 Z
   affair_id: 49
   amount: 717.12
@@ -162,7 +222,7 @@ purchases_014:
   tax_payability: at_invoicing
   updated_at: 2016-11-20 22:14:42.346687000 Z
   updater_id: 1
-purchases_015:
+purchases_008:
   accounted_at: 2016-11-20 22:15:24.435646000 Z
   affair_id: 51
   amount: 1200.0
@@ -189,7 +249,7 @@ purchases_015:
   tax_payability: at_invoicing
   updated_at: 2016-11-20 22:15:24.353307000 Z
   updater_id: 1
-purchases_016:
+purchases_009:
   accounted_at: 2016-12-20 18:16:13.294397000 Z
   affair_id: 53
   amount: 4878.72
@@ -215,7 +275,7 @@ purchases_016:
   tax_payability: at_invoicing
   updated_at: 2016-12-20 18:16:13.187112000 Z
   updater_id: 1
-purchases_017:
+purchases_010:
   accounted_at: 2016-12-20 18:17:05.131532000 Z
   affair_id: 54
   amount: 489.75
@@ -241,104 +301,105 @@ purchases_017:
   tax_payability: at_invoicing
   updated_at: 2016-12-20 18:17:05.049190000 Z
   updater_id: 1
-purchases_018:
-  accounted_at: 2017-11-20 10:06:14.130810000 Z
+purchase_invoices_001:
+  accounted_at: 2017-11-21 10:20:26.576779000 Z
   affair_id: 58
-  amount: 5082.0
-  created_at: 2017-11-20 10:06:13.979356000 Z
+  amount: 8694.0
+  created_at: 2017-11-21 10:20:26.322435000 Z
   creator_id: 1
   currency: EUR
   description: ''
-  id: 18
-  invoiced_at: 2017-11-19 23:00:00.000000000 Z
+  id: 20
+  invoiced_at: 2017-11-20 23:00:00.000000000 Z
   journal_entry_id: 258
   lock_version: 0
   nature_id: 1
-  number: A201711000001
-  payment_at: 2017-11-19 23:00:00.000000000 Z
+  number: A201711000003
+  payment_at: 2017-11-20 23:00:00.000000000 Z
   payment_delay: ''
-  planned_at: 2017-11-20 10:06:13.979356000 Z
-  pretax_amount: 4620.0
+  planned_at: 2017-11-21 10:20:26.322435000 Z
+  pretax_amount: 7245.0
+  reconciliation_state: to_reconcile
+  reference_number: ''
+  state: invoice
+  supplier_id: 4
+  tax_payability: at_invoicing
+  type: PurchaseInvoice
+  updated_at: 2017-11-21 10:20:26.348960000 Z
+  updater_id: 1
+purchase_invoices_002:
+  accounted_at: 2017-11-21 10:21:30.528536000 Z
+  affair_id: 59
+  amount: 378.0
+  created_at: 2017-11-21 10:21:30.372342000 Z
+  creator_id: 1
+  currency: EUR
+  description: ''
+  id: 21
+  invoiced_at: 2017-11-20 23:00:00.000000000 Z
+  journal_entry_id: 260
+  lock_version: 0
+  nature_id: 1
+  number: A201711000004
+  payment_at: 2017-12-20 23:00:00.000000000 Z
+  payment_delay: 30 days
+  planned_at: 2017-11-21 10:21:30.372342000 Z
+  pretax_amount: 378.0
   reconciliation_state: to_reconcile
   reference_number: ''
   state: invoice
   supplier_id: 8
   tax_payability: at_invoicing
   type: PurchaseInvoice
-  updated_at: 2017-11-20 10:06:14.000373000 Z
+  updated_at: 2017-11-21 10:21:30.395831000 Z
   updater_id: 1
-purchases_019:
-  accounted_at: 2017-11-20 12:58:31.199612000 Z
-  affair_id: 60
-  amount: 37764.6
-  created_at: 2017-11-20 12:58:30.771813000 Z
+purchase_orders_001:
+  amount: 13007.84
+  command_mode: mail
+  created_at: 2017-11-21 10:13:42.780543000 Z
   creator_id: 1
   currency: EUR
   description: ''
+  estimate_reception_date: 2017-11-02 23:00:00.000000000 Z
+  id: 18
+  lock_version: 0
+  nature_id: 1
+  number: A201711000001
+  ordered_at: 2017-11-20 23:00:00.000000000 Z
+  payment_at: 2017-11-21 10:13:42.780543000 Z
+  planned_at: 2017-11-21 10:13:42.780543000 Z
+  pretax_amount: 11874.4
+  reconciliation_state: to_reconcile
+  reference_number: C0000047
+  responsible_id: 1
+  state: estimate
+  supplier_id: 13
+  tax_payability: at_invoicing
+  type: PurchaseOrder
+  updated_at: 2017-11-21 10:13:42.812450000 Z
+  updater_id: 1
+purchase_orders_002:
+  amount: 97000.0
+  command_mode: sms
+  created_at: 2017-11-21 10:19:19.979003000 Z
+  creator_id: 1
+  currency: EUR
+  description: ''
+  estimate_reception_date: 2017-11-01 23:00:00.000000000 Z
   id: 19
-  invoiced_at: 2017-11-19 23:00:00.000000000 Z
-  journal_entry_id: 261
   lock_version: 0
   nature_id: 1
   number: A201711000002
-  payment_at: 2017-12-19 23:00:00.000000000 Z
-  payment_delay: 30 jours
-  planned_at: 2017-11-20 12:58:30.771813000 Z
-  pretax_amount: 37720.5
-  reconciliation_state: accepted
-  reference_number: F0012
-  state: invoice
-  supplier_id: 13
-  tax_payability: at_paying
-  type: PurchaseInvoice
-  updated_at: 2017-11-20 12:58:30.837216000 Z
-  updater_id: 1
-purchases_020:
-  amount: 6352.5
-  command_mode: mail
-  created_at: 2017-11-20 13:03:52.822404000 Z
-  creator_id: 1
-  currency: EUR
-  description: ''
-  id: 20
-  lock_version: 0
-  nature_id: 1
-  number: A201711000003
-  ordered_at: 2017-11-19 23:00:00.000000000 Z
-  payment_at: 2017-11-20 13:03:52.822404000 Z
-  planned_at: 2017-11-20 13:03:52.822404000 Z
-  pretax_amount: 5775.0
+  ordered_at: 2017-11-20 23:00:00.000000000 Z
+  payment_at: 2017-11-21 10:19:19.979003000 Z
+  planned_at: 2017-11-21 10:19:19.979003000 Z
+  pretax_amount: 97000.0
   reconciliation_state: to_reconcile
   reference_number: ''
   responsible_id: 1
   state: estimate
-  supplier_id: 4
+  supplier_id: 13
   tax_payability: at_invoicing
   type: PurchaseOrder
-  updated_at: 2017-11-20 13:03:52.845599000 Z
-  updater_id: 1
-purchases_021:
-  amount: 1983.16
-  command_mode: letter
-  created_at: 2017-11-20 13:04:44.964610000 Z
-  creator_id: 1
-  currency: EUR
-  description: ''
-  estimate_reception_date: 2017-10-31 23:00:00.000000000 Z
-  id: 21
-  lock_version: 0
-  nature_id: 1
-  number: A201711000004
-  ordered_at: 2017-11-19 23:00:00.000000000 Z
-  payment_at: 2017-11-20 13:04:44.964610000 Z
-  planned_at: 2017-11-20 13:04:44.964610000 Z
-  pretax_amount: 1837.6
-  reconciliation_state: to_reconcile
-  reference_number: ''
-  responsible_id: 2
-  state: estimate
-  supplier_id: 5
-  tax_payability: at_invoicing
-  type: PurchaseOrder
-  updated_at: 2017-11-20 13:04:44.992144000 Z
+  updated_at: 2017-11-21 10:19:20.001027000 Z
   updater_id: 1

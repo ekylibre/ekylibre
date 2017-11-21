@@ -1,5 +1,51 @@
+# = Informations
+#
+# == License
+#
+# Ekylibre - Simple agricultural ERP
+# Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
+# Copyright (C) 2010-2012 Brice Texier
+# Copyright (C) 2012-2017 Brice Texier, David Joulin
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Affero General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public License
+# along with this program.  If not, see http://www.gnu.org/licenses.
+#
+# == Table: intervention_parameter_readings
+#
+#  absolute_measure_value_unit  :string
+#  absolute_measure_value_value :decimal(19, 4)
+#  boolean_value                :boolean          default(FALSE), not null
+#  choice_value                 :string
+#  created_at                   :datetime         not null
+#  creator_id                   :integer
+#  decimal_value                :decimal(19, 4)
+#  geometry_value               :geometry({:srid=>4326, :type=>"geometry"})
+#  id                           :integer          not null, primary key
+#  indicator_datatype           :string           not null
+#  indicator_name               :string           not null
+#  integer_value                :integer
+#  lock_version                 :integer          default(0), not null
+#  measure_value_unit           :string
+#  measure_value_value          :decimal(19, 4)
+#  multi_polygon_value          :geometry({:srid=>4326, :type=>"multi_polygon"})
+#  parameter_id                 :integer          not null
+#  point_value                  :geometry({:srid=>4326, :type=>"st_point"})
+#  string_value                 :text
+#  updated_at                   :datetime         not null
+#  updater_id                   :integer
+#
 ---
-intervention_parameter_readings_007:
+intervention_parameter_readings_001:
   boolean_value: false
   choice_value: nude
   created_at: 2014-11-04 18:31:37.361592000 Z
@@ -11,7 +57,7 @@ intervention_parameter_readings_007:
   parameter_id: 32
   updated_at: 2014-11-04 18:31:37.361592000 Z
   updater_id: 1
-intervention_parameter_readings_009:
+intervention_parameter_readings_002:
   boolean_value: false
   choice_value: covered
   created_at: 2014-11-05 15:40:16.373150000 Z
@@ -23,7 +69,7 @@ intervention_parameter_readings_009:
   parameter_id: 43
   updated_at: 2014-11-05 15:40:16.373150000 Z
   updater_id: 1
-intervention_parameter_readings_010:
+intervention_parameter_readings_003:
   boolean_value: false
   created_at: 2014-11-05 15:40:16.387769000 Z
   creator_id: 1
@@ -35,7 +81,7 @@ intervention_parameter_readings_010:
   parameter_id: 44
   updated_at: 2014-11-05 15:40:16.387769000 Z
   updater_id: 1
-intervention_parameter_readings_011:
+intervention_parameter_readings_004:
   boolean_value: false
   choice_value: nude
   created_at: 2014-11-06 17:49:51.139058000 Z
@@ -47,7 +93,7 @@ intervention_parameter_readings_011:
   parameter_id: 47
   updated_at: 2014-11-06 17:49:51.139058000 Z
   updater_id: 1
-intervention_parameter_readings_013:
+intervention_parameter_readings_005:
   boolean_value: false
   choice_value: covered
   created_at: 2014-11-06 17:50:07.355554000 Z
@@ -59,7 +105,7 @@ intervention_parameter_readings_013:
   parameter_id: 54
   updated_at: 2014-11-06 17:50:07.355554000 Z
   updater_id: 1
-intervention_parameter_readings_014:
+intervention_parameter_readings_006:
   boolean_value: false
   created_at: 2014-11-06 17:50:07.369059000 Z
   creator_id: 1
@@ -71,7 +117,7 @@ intervention_parameter_readings_014:
   parameter_id: 55
   updated_at: 2014-11-06 17:50:07.369059000 Z
   updater_id: 1
-intervention_parameter_readings_015:
+intervention_parameter_readings_007:
   boolean_value: true
   created_at: 2014-11-07 14:44:18.920835000 Z
   creator_id: 1
@@ -82,7 +128,7 @@ intervention_parameter_readings_015:
   parameter_id: 56
   updated_at: 2014-11-07 14:44:18.920835000 Z
   updater_id: 1
-intervention_parameter_readings_017:
+intervention_parameter_readings_008:
   boolean_value: false
   choice_value: covered
   created_at: 2014-11-07 15:45:46.103164000 Z
@@ -94,7 +140,7 @@ intervention_parameter_readings_017:
   parameter_id: 77
   updated_at: 2014-11-07 15:45:46.103164000 Z
   updater_id: 1
-intervention_parameter_readings_018:
+intervention_parameter_readings_009:
   boolean_value: false
   created_at: 2014-11-07 15:45:46.117160000 Z
   creator_id: 1
@@ -106,7 +152,7 @@ intervention_parameter_readings_018:
   parameter_id: 78
   updated_at: 2014-11-07 15:45:46.117160000 Z
   updater_id: 1
-intervention_parameter_readings_020:
+intervention_parameter_readings_010:
   boolean_value: false
   choice_value: covered
   created_at: 2014-11-07 16:50:07.580805000 Z
@@ -118,7 +164,7 @@ intervention_parameter_readings_020:
   parameter_id: 97
   updated_at: 2014-11-07 16:50:07.580805000 Z
   updater_id: 1
-intervention_parameter_readings_021:
+intervention_parameter_readings_011:
   absolute_measure_value_unit: meter
   absolute_measure_value_value: 2.0
   boolean_value: false
@@ -133,7 +179,7 @@ intervention_parameter_readings_021:
   parameter_id: 98
   updated_at: 2014-11-07 16:50:07.594022000 Z
   updater_id: 1
-intervention_parameter_readings_022:
+intervention_parameter_readings_012:
   absolute_measure_value_unit: meter
   absolute_measure_value_value: 0.8
   boolean_value: false
@@ -148,7 +194,7 @@ intervention_parameter_readings_022:
   parameter_id: 98
   updated_at: 2014-11-07 16:50:07.607420000 Z
   updater_id: 1
-intervention_parameter_readings_023:
+intervention_parameter_readings_013:
   boolean_value: false
   created_at: 2014-11-07 16:50:07.620455000 Z
   creator_id: 1
@@ -160,7 +206,7 @@ intervention_parameter_readings_023:
   parameter_id: 98
   updated_at: 2014-11-07 16:50:07.620455000 Z
   updater_id: 1
-intervention_parameter_readings_024:
+intervention_parameter_readings_014:
   boolean_value: false
   created_at: 2016-12-20 18:24:29.444340000 Z
   creator_id: 1

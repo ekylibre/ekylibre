@@ -1,5 +1,45 @@
+# = Informations
+#
+# == License
+#
+# Ekylibre - Simple agricultural ERP
+# Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
+# Copyright (C) 2010-2012 Brice Texier
+# Copyright (C) 2012-2017 Brice Texier, David Joulin
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Affero General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public License
+# along with this program.  If not, see http://www.gnu.org/licenses.
+#
+# == Table: catalog_items
+#
+#  all_taxes_included     :boolean          default(FALSE), not null
+#  amount                 :decimal(19, 4)   not null
+#  catalog_id             :integer          not null
+#  commercial_description :text
+#  commercial_name        :string
+#  created_at             :datetime         not null
+#  creator_id             :integer
+#  currency               :string           not null
+#  id                     :integer          not null, primary key
+#  lock_version           :integer          default(0), not null
+#  name                   :string           not null
+#  reference_tax_id       :integer
+#  updated_at             :datetime         not null
+#  updater_id             :integer
+#  variant_id             :integer          not null
+#
 ---
-catalog_items_007:
+catalog_items_001:
   all_taxes_included: false
   amount: 25.3
   catalog_id: 1
@@ -12,7 +52,7 @@ catalog_items_007:
   updated_at: 2014-11-05 09:42:34.140270000 Z
   updater_id: 1
   variant_id: 21
-catalog_items_009:
+catalog_items_002:
   all_taxes_included: false
   amount: 70.0
   catalog_id: 1
@@ -25,7 +65,7 @@ catalog_items_009:
   updated_at: 2014-11-05 09:43:01.454470000 Z
   updater_id: 1
   variant_id: 9
-catalog_items_011:
+catalog_items_003:
   all_taxes_included: false
   amount: 845.0
   catalog_id: 1
@@ -38,7 +78,7 @@ catalog_items_011:
   updated_at: 2014-11-05 09:44:02.471908000 Z
   updater_id: 1
   variant_id: 5
-catalog_items_013:
+catalog_items_004:
   all_taxes_included: false
   amount: 1.56
   catalog_id: 1
@@ -51,7 +91,7 @@ catalog_items_013:
   updated_at: 2014-11-05 09:44:38.200592000 Z
   updater_id: 1
   variant_id: 18
-catalog_items_015:
+catalog_items_005:
   all_taxes_included: false
   amount: 215.0
   catalog_id: 1
@@ -64,7 +104,7 @@ catalog_items_015:
   updated_at: 2014-11-05 09:45:47.114736000 Z
   updater_id: 1
   variant_id: 11
-catalog_items_017:
+catalog_items_006:
   all_taxes_included: false
   amount: 198.0
   catalog_id: 1
@@ -77,7 +117,7 @@ catalog_items_017:
   updated_at: 2014-11-05 09:46:14.685730000 Z
   updater_id: 1
   variant_id: 10
-catalog_items_019:
+catalog_items_007:
   all_taxes_included: false
   amount: 180.0
   catalog_id: 1
@@ -90,7 +130,7 @@ catalog_items_019:
   updated_at: 2014-11-05 09:46:51.845876000 Z
   updater_id: 1
   variant_id: 19
-catalog_items_020:
+catalog_items_008:
   all_taxes_included: false
   amount: 15.0
   catalog_id: 3
@@ -105,7 +145,7 @@ catalog_items_020:
   updated_at: 2016-07-01 20:48:11.670286000 Z
   updater_id: 1
   variant_id: 23
-catalog_items_021:
+catalog_items_009:
   all_taxes_included: false
   amount: 1500.0
   catalog_id: 5
@@ -120,7 +160,7 @@ catalog_items_021:
   updated_at: 2016-07-01 20:48:21.455953000 Z
   updater_id: 1
   variant_id: 39
-catalog_items_022:
+catalog_items_010:
   all_taxes_included: false
   amount: 22.0
   catalog_id: 3
@@ -135,7 +175,7 @@ catalog_items_022:
   updated_at: 2016-07-01 20:48:30.925872000 Z
   updater_id: 1
   variant_id: 37
-catalog_items_023:
+catalog_items_011:
   all_taxes_included: false
   amount: 16.0
   catalog_id: 3
@@ -150,7 +190,7 @@ catalog_items_023:
   updated_at: 2016-07-01 20:48:38.739313000 Z
   updater_id: 1
   variant_id: 26
-catalog_items_024:
+catalog_items_012:
   all_taxes_included: false
   amount: 1.56
   catalog_id: 6
@@ -163,7 +203,7 @@ catalog_items_024:
   updated_at: 2016-11-20 22:08:58.286599000 Z
   updater_id: 1
   variant_id: 18
-catalog_items_025:
+catalog_items_013:
   all_taxes_included: false
   amount: 1115.0
   catalog_id: 6
@@ -176,7 +216,7 @@ catalog_items_025:
   updated_at: 2016-11-20 22:12:15.445352000 Z
   updater_id: 1
   variant_id: 39
-catalog_items_026:
+catalog_items_014:
   all_taxes_included: false
   amount: 1115.0
   catalog_id: 1
@@ -189,7 +229,7 @@ catalog_items_026:
   updated_at: 2016-11-20 22:12:15.449450000 Z
   updater_id: 1
   variant_id: 39
-catalog_items_027:
+catalog_items_015:
   all_taxes_included: false
   amount: 99.6
   catalog_id: 6
@@ -202,7 +242,7 @@ catalog_items_027:
   updated_at: 2016-11-20 22:14:38.774969000 Z
   updater_id: 1
   variant_id: 42
-catalog_items_028:
+catalog_items_016:
   all_taxes_included: false
   amount: 99.6
   catalog_id: 5
@@ -215,7 +255,7 @@ catalog_items_028:
   updated_at: 2016-11-20 22:14:38.779869000 Z
   updater_id: 1
   variant_id: 42
-catalog_items_029:
+catalog_items_017:
   all_taxes_included: false
   amount: 250.0
   catalog_id: 6
@@ -228,7 +268,7 @@ catalog_items_029:
   updated_at: 2016-11-20 22:15:20.539493000 Z
   updater_id: 1
   variant_id: 57
-catalog_items_030:
+catalog_items_018:
   all_taxes_included: false
   amount: 250.0
   catalog_id: 5
@@ -241,7 +281,7 @@ catalog_items_030:
   updated_at: 2016-11-20 22:15:20.544602000 Z
   updater_id: 1
   variant_id: 57
-catalog_items_031:
+catalog_items_019:
   all_taxes_included: false
   amount: 121.21
   catalog_id: 6
@@ -254,7 +294,7 @@ catalog_items_031:
   updated_at: 2016-12-20 08:53:53.342743000 Z
   updater_id: 1
   variant_id: 10
-catalog_items_032:
+catalog_items_020:
   all_taxes_included: false
   amount: 0.9
   catalog_id: 6
@@ -267,7 +307,7 @@ catalog_items_032:
   updated_at: 2016-12-20 18:16:56.969251000 Z
   updater_id: 1
   variant_id: 63
-catalog_items_033:
+catalog_items_021:
   all_taxes_included: false
   amount: 0.9
   catalog_id: 5
@@ -280,81 +320,107 @@ catalog_items_033:
   updated_at: 2016-12-20 18:16:56.978348000 Z
   updater_id: 1
   variant_id: 63
-catalog_items_034:
+catalog_items_022:
   all_taxes_included: false
-  amount: 35.0
+  amount: 200.0
   catalog_id: 6
-  created_at: 2017-11-20 12:58:30.870410000 Z
+  created_at: 2017-11-21 10:13:42.845671000 Z
   creator_id: 1
   currency: EUR
   id: 34
   lock_version: 0
-  name: Adexar 5 l
-  updated_at: 2017-11-20 12:58:30.870410000 Z
+  name: Semoir
+  updated_at: 2017-11-21 10:13:42.845671000 Z
   updater_id: 1
-  variant_id: 8
-catalog_items_035:
+  variant_id: 29
+catalog_items_023:
   all_taxes_included: false
-  amount: 35.0
+  amount: 200.0
   catalog_id: 5
-  created_at: 2017-11-20 12:58:30.878073000 Z
+  created_at: 2017-11-21 10:13:42.853070000 Z
   creator_id: 1
   currency: EUR
   id: 35
   lock_version: 0
-  name: Adexar 5 l
-  updated_at: 2017-11-20 12:58:30.878073000 Z
+  name: Semoir
+  updated_at: 2017-11-21 10:13:42.853070000 Z
   updater_id: 1
-  variant_id: 8
-catalog_items_036:
+  variant_id: 29
+catalog_items_024:
   all_taxes_included: false
-  amount: 2500.0
+  amount: 25000.0
   catalog_id: 6
-  created_at: 2017-11-20 12:58:30.895207000 Z
+  created_at: 2017-11-21 10:19:20.014818000 Z
   creator_id: 1
   currency: EUR
   id: 36
   lock_version: 0
-  name: Semoir
-  updated_at: 2017-11-20 12:58:30.895207000 Z
+  name: Bâtiment
+  updated_at: 2017-11-21 10:19:20.014818000 Z
   updater_id: 1
-  variant_id: 29
-catalog_items_037:
+  variant_id: 51
+catalog_items_025:
   all_taxes_included: false
-  amount: 2500.0
+  amount: 25000.0
   catalog_id: 5
-  created_at: 2017-11-20 12:58:30.905980000 Z
+  created_at: 2017-11-21 10:19:20.020042000 Z
   creator_id: 1
   currency: EUR
   id: 37
   lock_version: 0
-  name: Semoir
-  updated_at: 2017-11-20 12:58:30.905980000 Z
+  name: Bâtiment
+  updated_at: 2017-11-21 10:19:20.020042000 Z
   updater_id: 1
-  variant_id: 29
-catalog_items_038:
+  variant_id: 51
+catalog_items_026:
   all_taxes_included: false
-  amount: 124.0
+  amount: 35.0
   catalog_id: 6
-  created_at: 2017-11-20 13:04:45.005764000 Z
+  created_at: 2017-11-21 10:20:26.362719000 Z
   creator_id: 1
   currency: EUR
   id: 38
   lock_version: 0
-  name: Acide malique ‒ 25kg
-  updated_at: 2017-11-20 13:04:45.005764000 Z
+  name: Adexar 5 l
+  updated_at: 2017-11-21 10:20:26.362719000 Z
   updater_id: 1
-  variant_id: 58
-catalog_items_039:
+  variant_id: 8
+catalog_items_027:
   all_taxes_included: false
-  amount: 124.0
+  amount: 35.0
   catalog_id: 5
-  created_at: 2017-11-20 13:04:45.012528000 Z
+  created_at: 2017-11-21 10:20:26.368494000 Z
   creator_id: 1
   currency: EUR
   id: 39
   lock_version: 0
-  name: Acide malique ‒ 25kg
-  updated_at: 2017-11-20 13:04:45.012528000 Z
+  name: Adexar 5 l
+  updated_at: 2017-11-21 10:20:26.368494000 Z
   updater_id: 1
-  variant_id: 58
+  variant_id: 8
+catalog_items_028:
+  all_taxes_included: false
+  amount: 42.0
+  catalog_id: 6
+  created_at: 2017-11-21 10:21:30.410695000 Z
+  creator_id: 1
+  currency: EUR
+  id: 40
+  lock_version: 0
+  name: So2 liquide 10%
+  updated_at: 2017-11-21 10:21:30.410695000 Z
+  updater_id: 1
+  variant_id: 62
+catalog_items_029:
+  all_taxes_included: false
+  amount: 42.0
+  catalog_id: 5
+  created_at: 2017-11-21 10:21:30.418096000 Z
+  creator_id: 1
+  currency: EUR
+  id: 41
+  lock_version: 0
+  name: So2 liquide 10%
+  updated_at: 2017-11-21 10:21:30.418096000 Z
+  updater_id: 1
+  variant_id: 62

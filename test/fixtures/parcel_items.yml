@@ -1,3 +1,64 @@
+# = Informations
+#
+# == License
+#
+# Ekylibre - Simple agricultural ERP
+# Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
+# Copyright (C) 2010-2012 Brice Texier
+# Copyright (C) 2012-2017 Brice Texier, David Joulin
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Affero General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public License
+# along with this program.  If not, see http://www.gnu.org/licenses.
+#
+# == Table: parcel_items
+#
+#  analysis_id                   :integer
+#  created_at                    :datetime         not null
+#  creator_id                    :integer
+#  currency                      :string
+#  delivery_id                   :integer
+#  delivery_mode                 :string
+#  equipment_id                  :integer
+#  id                            :integer          not null, primary key
+#  lock_version                  :integer          default(0), not null
+#  non_compliant                 :boolean
+#  non_compliant_detail          :string
+#  parcel_id                     :integer          not null
+#  parted                        :boolean          default(FALSE), not null
+#  population                    :decimal(19, 4)
+#  pretax_amount                 :decimal(19, 4)   default(0.0), not null
+#  product_enjoyment_id          :integer
+#  product_id                    :integer
+#  product_identification_number :string
+#  product_localization_id       :integer
+#  product_movement_id           :integer
+#  product_name                  :string
+#  product_ownership_id          :integer
+#  product_work_number           :string
+#  purchase_invoice_item_id      :integer
+#  purchase_order_item_id        :integer
+#  role                          :string
+#  sale_item_id                  :integer
+#  shape                         :geometry({:srid=>4326, :type=>"multi_polygon"})
+#  source_product_id             :integer
+#  source_product_movement_id    :integer
+#  transporter_id                :integer
+#  unit_pretax_amount            :decimal(19, 4)   default(0.0), not null
+#  unit_pretax_stock_amount      :decimal(19, 4)   default(0.0), not null
+#  updated_at                    :datetime         not null
+#  updater_id                    :integer
+#  variant_id                    :integer
+#
 ---
 parcel_items_001:
   created_at: 2014-11-05 14:15:20.018501000 Z
@@ -542,93 +603,61 @@ parcel_items_032:
   updater_id: 1
   variant_id: 71
 parcel_items_033:
-  analysis_id: 5
-  created_at: 2017-11-20 14:22:27.382475000 Z
+  created_at: 2017-11-21 09:58:16.071865000 Z
   creator_id: 1
   currency: EUR
   delivery_mode: us
+  equipment_id: 137
   id: 33
-  lock_version: 0
-  parcel_id: 26
-  parted: false
-  population: 5.0
-  pretax_amount: 0.0
-  source_product_id: 127
-  unit_pretax_amount: 0.0
-  unit_pretax_stock_amount: 0.0
-  updated_at: 2017-11-20 14:22:27.382475000 Z
-  updater_id: 1
-  variant_id: 58
-parcel_items_034:
-  created_at: 2017-11-20 14:22:57.820997000 Z
-  creator_id: 1
-  currency: EUR
-  delivery_mode: us
-  id: 34
-  lock_version: 1
-  parcel_id: 27
-  parted: false
-  population: 1.0
-  pretax_amount: 0.0
-  product_id: 59
-  source_product_id: 59
-  unit_pretax_amount: 0.0
-  unit_pretax_stock_amount: 0.0
-  updated_at: 2017-11-20 14:26:04.307643000 Z
-  updater_id: 1
-  variant_id: 21
-parcel_items_035:
-  analysis_id: 20
-  created_at: 2017-11-20 14:22:57.823760000 Z
-  creator_id: 1
-  currency: EUR
-  delivery_mode: us
-  id: 35
-  lock_version: 1
-  parcel_id: 27
-  parted: false
-  population: 7.0
-  pretax_amount: 0.0
-  product_id: 114
-  source_product_id: 114
-  unit_pretax_amount: 0.0
-  unit_pretax_stock_amount: 0.0
-  updated_at: 2017-11-20 14:26:04.213305000 Z
-  updater_id: 1
-  variant_id: 48
-parcel_items_036:
-  created_at: 2017-11-20 14:24:47.022540000 Z
-  creator_id: 1
-  currency: EUR
-  delivery_mode: third
-  id: 36
   lock_version: 2
   non_compliant: false
   non_compliant_detail: ''
-  parcel_id: 28
+  parcel_id: 26
   parted: false
-  population: 8.0
+  population: 4.0
   pretax_amount: 0.0
   product_name: ''
   product_work_number: ''
   role: merchandise
   unit_pretax_amount: 0.0
-  unit_pretax_stock_amount: 1115.0
-  updated_at: 2017-11-20 14:24:47.049175000 Z
+  unit_pretax_stock_amount: 0.0
+  updated_at: 2017-11-21 09:58:16.106941000 Z
   updater_id: 1
-  variant_id: 39
-parcel_items_037:
-  created_at: 2017-11-20 14:25:46.331253000 Z
+  variant_id: 58
+parcel_items_034:
+  created_at: 2017-11-21 09:58:16.116428000 Z
+  creator_id: 1
+  currency: EUR
+  delivery_mode: third
+  equipment_id: 137
+  id: 34
+  lock_version: 1
+  non_compliant: false
+  non_compliant_detail: ''
+  parcel_id: 26
+  parted: false
+  population: 500.0
+  pretax_amount: 0.0
+  product_name: ''
+  product_work_number: ''
+  role: merchandise
+  unit_pretax_amount: 0.0
+  unit_pretax_stock_amount: 1.56
+  updated_at: 2017-11-21 09:58:16.116428000 Z
+  updater_id: 1
+  variant_id: 18
+parcel_items_035:
+  created_at: 2017-11-21 10:11:04.221772000 Z
   creator_id: 1
   currency: EUR
   delivery_mode: transporter
-  id: 37
-  lock_version: 2
-  non_compliant: false
-  non_compliant_detail: ''
-  parcel_id: 29
+  id: 35
+  lock_version: 1
+  non_compliant: true
+  non_compliant_detail: Paille moisi
+  parcel_id: 27
   parted: false
-  population: 7.0
+  population: 5.0
   pretax_amount: 0.0
   product_name: ''
   product_work_number: ''
@@ -636,27 +665,58 @@ parcel_items_037:
   transporter_id: 5
   unit_pretax_amount: 0.0
   unit_pretax_stock_amount: 0.0
-  updated_at: 2017-11-20 14:25:46.350992000 Z
+  updated_at: 2017-11-21 10:11:04.221772000 Z
   updater_id: 1
-  variant_id: 61
+  variant_id: 9
+parcel_items_036:
+  analysis_id: 6
+  created_at: 2017-11-21 10:11:36.368792000 Z
+  creator_id: 1
+  currency: EUR
+  delivery_mode: us
+  id: 36
+  lock_version: 0
+  parcel_id: 28
+  parted: false
+  population: 4.0
+  pretax_amount: 0.0
+  source_product_id: 127
+  unit_pretax_amount: 0.0
+  unit_pretax_stock_amount: 0.0
+  updated_at: 2017-11-21 10:11:36.368792000 Z
+  updater_id: 1
+  variant_id: 58
+parcel_items_037:
+  created_at: 2017-11-21 10:11:36.371711000 Z
+  creator_id: 1
+  currency: EUR
+  delivery_mode: us
+  id: 37
+  lock_version: 0
+  parcel_id: 28
+  parted: false
+  population: 50.0
+  pretax_amount: 0.0
+  source_product_id: 144
+  unit_pretax_amount: 0.0
+  unit_pretax_stock_amount: 0.0
+  updated_at: 2017-11-21 10:11:36.371711000 Z
+  updater_id: 1
+  variant_id: 19
 parcel_items_038:
-  created_at: 2017-11-20 14:25:46.360442000 Z
+  created_at: 2017-11-21 10:12:00.791584000 Z
   creator_id: 1
   currency: EUR
   delivery_mode: us
   id: 38
-  lock_version: 1
-  non_compliant: false
-  non_compliant_detail: ''
+  lock_version: 0
   parcel_id: 29
   parted: false
-  population: 2.0
+  population: 1.0
   pretax_amount: 0.0
-  product_name: ''
-  product_work_number: ''
-  role: merchandise
+  source_product_id: 5
   unit_pretax_amount: 0.0
   unit_pretax_stock_amount: 0.0
-  updated_at: 2017-11-20 14:25:46.360442000 Z
+  updated_at: 2017-11-21 10:12:00.791584000 Z
   updater_id: 1
-  variant_id: 9
+  variant_id: 17

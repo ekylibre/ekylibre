@@ -1,3 +1,54 @@
+# = Informations
+#
+# == License
+#
+# Ekylibre - Simple agricultural ERP
+# Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
+# Copyright (C) 2010-2012 Brice Texier
+# Copyright (C) 2012-2017 Brice Texier, David Joulin
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Affero General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public License
+# along with this program.  If not, see http://www.gnu.org/licenses.
+#
+# == Table: manure_management_plan_zones
+#
+#  absorbed_nitrogen_at_opening                    :decimal(19, 4)
+#  activity_production_id                          :integer          not null
+#  administrative_area                             :string
+#  computation_method                              :string           not null
+#  created_at                                      :datetime         not null
+#  creator_id                                      :integer
+#  cultivation_variety                             :string
+#  expected_yield                                  :decimal(19, 4)
+#  humus_mineralization                            :decimal(19, 4)
+#  id                                              :integer          not null, primary key
+#  intermediate_cultivation_residue_mineralization :decimal(19, 4)
+#  irrigation_water_nitrogen                       :decimal(19, 4)
+#  lock_version                                    :integer          default(0), not null
+#  maximum_nitrogen_input                          :decimal(19, 4)
+#  meadow_humus_mineralization                     :decimal(19, 4)
+#  mineral_nitrogen_at_opening                     :decimal(19, 4)
+#  nitrogen_at_closing                             :decimal(19, 4)
+#  nitrogen_input                                  :decimal(19, 4)
+#  nitrogen_need                                   :decimal(19, 4)
+#  organic_fertilizer_mineral_fraction             :decimal(19, 4)
+#  plan_id                                         :integer          not null
+#  previous_cultivation_residue_mineralization     :decimal(19, 4)
+#  soil_nature                                     :string
+#  soil_production                                 :decimal(19, 4)
+#  updated_at                                      :datetime         not null
+#  updater_id                                      :integer
+#
 ---
 manure_management_plan_zones_001:
   absorbed_nitrogen_at_opening: 10.0
@@ -188,7 +239,7 @@ manure_management_plan_zones_007:
   soil_production: 60.0
   updated_at: 2014-11-05 13:53:36.130077000 Z
   updater_id: 1
-manure_management_plan_zones_028:
+manure_management_plan_zones_008:
   activity_production_id: 6
   administrative_area: france_department_gironde
   computation_method: external
@@ -201,7 +252,7 @@ manure_management_plan_zones_028:
   plan_id: 4
   updated_at: 2014-11-14 20:07:53.707701000 Z
   updater_id: 1
-manure_management_plan_zones_029:
+manure_management_plan_zones_009:
   activity_production_id: 7
   administrative_area: france_department_gironde
   computation_method: external
@@ -214,7 +265,7 @@ manure_management_plan_zones_029:
   plan_id: 4
   updated_at: 2014-11-14 20:07:53.709185000 Z
   updater_id: 1
-manure_management_plan_zones_030:
+manure_management_plan_zones_010:
   activity_production_id: 14
   administrative_area: france_department_gironde
   computation_method: external
@@ -226,7 +277,7 @@ manure_management_plan_zones_030:
   plan_id: 4
   updated_at: 2014-11-14 20:07:53.710012000 Z
   updater_id: 1
-manure_management_plan_zones_031:
+manure_management_plan_zones_011:
   activity_production_id: 12
   administrative_area: france_department_gironde
   computation_method: external
@@ -239,7 +290,7 @@ manure_management_plan_zones_031:
   plan_id: 4
   updated_at: 2014-11-14 20:07:53.710930000 Z
   updater_id: 1
-manure_management_plan_zones_032:
+manure_management_plan_zones_012:
   activity_production_id: 16
   administrative_area: france_department_gironde
   computation_method: external

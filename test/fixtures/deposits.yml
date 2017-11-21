@@ -1,5 +1,47 @@
+# = Informations
+#
+# == License
+#
+# Ekylibre - Simple agricultural ERP
+# Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
+# Copyright (C) 2010-2012 Brice Texier
+# Copyright (C) 2012-2017 Brice Texier, David Joulin
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Affero General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public License
+# along with this program.  If not, see http://www.gnu.org/licenses.
+#
+# == Table: deposits
+#
+#  accounted_at     :datetime
+#  amount           :decimal(19, 4)   default(0.0), not null
+#  cash_id          :integer          not null
+#  created_at       :datetime         not null
+#  creator_id       :integer
+#  custom_fields    :jsonb
+#  description      :text
+#  id               :integer          not null, primary key
+#  journal_entry_id :integer
+#  lock_version     :integer          default(0), not null
+#  locked           :boolean          default(FALSE), not null
+#  mode_id          :integer          not null
+#  number           :string           not null
+#  payments_count   :integer          default(0), not null
+#  responsible_id   :integer
+#  updated_at       :datetime         not null
+#  updater_id       :integer
+#
 ---
-deposits_004:
+deposits_001:
   accounted_at: 2014-11-05 12:45:58.006119000 Z
   amount: 223.0
   cash_id: 1
@@ -16,7 +58,7 @@ deposits_004:
   responsible_id: 9
   updated_at: 2014-11-05 12:45:57.737663000 Z
   updater_id: 1
-deposits_005:
+deposits_002:
   accounted_at: 2014-11-05 12:46:06.375773000 Z
   amount: 150.0
   cash_id: 1

@@ -1,5 +1,101 @@
+# = Informations
+#
+# == License
+#
+# Ekylibre - Simple agricultural ERP
+# Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
+# Copyright (C) 2010-2012 Brice Texier
+# Copyright (C) 2012-2017 Brice Texier, David Joulin
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Affero General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public License
+# along with this program.  If not, see http://www.gnu.org/licenses.
+#
+# == Table: outgoing_payments
+#
+#  accounted_at      :datetime
+#  affair_id         :integer
+#  amount            :decimal(19, 4)   default(0.0), not null
+#  bank_check_number :string
+#  cash_id           :integer          not null
+#  created_at        :datetime         not null
+#  creator_id        :integer
+#  currency          :string           not null
+#  custom_fields     :jsonb
+#  delivered         :boolean          default(FALSE), not null
+#  downpayment       :boolean          default(FALSE), not null
+#  id                :integer          not null, primary key
+#  journal_entry_id  :integer
+#  list_id           :integer
+#  lock_version      :integer          default(0), not null
+#  mode_id           :integer          not null
+#  number            :string
+#  paid_at           :datetime
+#  payee_id          :integer          not null
+#  position          :integer
+#  responsible_id    :integer          not null
+#  to_bank_at        :datetime         not null
+#  type              :string
+#  updated_at        :datetime         not null
+#  updater_id        :integer
+#
 ---
-outgoing_payments_001:
+payslip_payments_001:
+  accounted_at: 2017-06-07 16:14:55.136333000 Z
+  affair_id: 55
+  amount: 1234.0
+  bank_check_number: ''
+  cash_id: 1
+  created_at: 2017-06-07 16:14:55.054983000 Z
+  creator_id: 1
+  currency: EUR
+  delivered: true
+  downpayment: true
+  id: 11
+  journal_entry_id: 119
+  lock_version: 0
+  mode_id: 1
+  number: D20170001
+  paid_at: 2017-06-07 16:14:55.023682000 Z
+  payee_id: 9
+  responsible_id: 1
+  to_bank_at: 2017-01-31 17:14:00.000000000 Z
+  type: PayslipPayment
+  updated_at: 2017-06-07 16:14:55.054983000 Z
+  updater_id: 1
+payslip_payments_002:
+  accounted_at: 2017-06-07 16:15:58.250768000 Z
+  affair_id: 56
+  amount: 1200.0
+  bank_check_number: ''
+  cash_id: 1
+  created_at: 2017-06-07 16:15:58.164208000 Z
+  creator_id: 1
+  currency: EUR
+  delivered: true
+  downpayment: true
+  id: 12
+  journal_entry_id: 121
+  lock_version: 0
+  mode_id: 3
+  number: D20170002
+  paid_at: 2017-06-07 16:15:58.151005000 Z
+  payee_id: 10
+  responsible_id: 1
+  to_bank_at: 2017-01-26 17:15:00.000000000 Z
+  type: PayslipPayment
+  updated_at: 2017-06-07 16:15:58.164208000 Z
+  updater_id: 1
+purchase_payments_001:
   accounted_at: 2014-11-07 13:58:25.752963000 Z
   affair_id: 23
   amount: 116.0
@@ -22,7 +118,7 @@ outgoing_payments_001:
   type: PurchasePayment
   updated_at: 2014-11-07 13:58:25.645961000 Z
   updater_id: 1
-outgoing_payments_002:
+purchase_payments_002:
   accounted_at: 2014-11-07 13:58:35.193036000 Z
   affair_id: 25
   amount: 156.0
@@ -45,7 +141,7 @@ outgoing_payments_002:
   type: PurchasePayment
   updated_at: 2014-11-07 13:58:35.126560000 Z
   updater_id: 1
-outgoing_payments_003:
+purchase_payments_003:
   accounted_at: 2014-11-05 13:40:55.901993000 Z
   affair_id: 15
   amount: 171.6
@@ -67,7 +163,7 @@ outgoing_payments_003:
   type: PurchasePayment
   updated_at: 2014-11-05 13:40:55.895164000 Z
   updater_id: 1
-outgoing_payments_004:
+purchase_payments_004:
   accounted_at: 2014-11-07 15:58:34.242278000 Z
   affair_id: 26
   amount: 1848.0
@@ -89,7 +185,7 @@ outgoing_payments_004:
   type: PurchasePayment
   updated_at: 2014-11-07 15:58:34.235757000 Z
   updater_id: 1
-outgoing_payments_005:
+purchase_payments_005:
   accounted_at: 2014-11-07 16:53:26.229792000 Z
   affair_id: 30
   amount: 9000.0
@@ -111,7 +207,7 @@ outgoing_payments_005:
   type: PurchasePayment
   updated_at: 2014-11-07 16:53:26.222034000 Z
   updater_id: 1
-outgoing_payments_006:
+purchase_payments_006:
   accounted_at: 2016-10-01 14:33:26.229792000 Z
   affair_id: 15
   amount: 1800.0
@@ -135,7 +231,7 @@ outgoing_payments_006:
   type: PurchasePayment
   updated_at: 2016-10-01 14:43:26.229792000 Z
   updater_id: 1
-outgoing_payments_007:
+purchase_payments_007:
   accounted_at: 2016-10-01 14:33:26.229792000 Z
   affair_id: 17
   amount: 1761.0
@@ -159,7 +255,7 @@ outgoing_payments_007:
   type: PurchasePayment
   updated_at: 2016-10-01 14:43:26.229792000 Z
   updater_id: 1
-outgoing_payments_008:
+purchase_payments_008:
   accounted_at: 2016-10-26 15:31:44.310429000 Z
   affair_id: 30
   amount: 20520.0
@@ -182,7 +278,7 @@ outgoing_payments_008:
   type: PurchasePayment
   updated_at: 2016-10-26 15:31:44.113817000 Z
   updater_id: 1
-outgoing_payments_009:
+purchase_payments_009:
   accounted_at: 2016-11-20 22:14:52.631615000 Z
   affair_id: 49
   amount: 717.12
@@ -205,7 +301,7 @@ outgoing_payments_009:
   type: PurchasePayment
   updated_at: 2016-11-20 22:14:52.572838000 Z
   updater_id: 1
-outgoing_payments_010:
+purchase_payments_010:
   accounted_at: 2016-12-20 18:17:18.756633000 Z
   affair_id: 54
   amount: 500.0
@@ -228,96 +324,27 @@ outgoing_payments_010:
   type: PurchasePayment
   updated_at: 2016-12-20 18:17:18.697888000 Z
   updater_id: 1
-outgoing_payments_011:
-  accounted_at: 2017-06-07 16:14:55.136333000 Z
-  affair_id: 55
-  amount: 1234.0
-  bank_check_number: ''
+purchase_payments_011:
+  accounted_at: 2017-11-21 10:20:54.431566000 Z
+  affair_id: 58
+  amount: 8694.0
   cash_id: 1
-  created_at: 2017-06-07 16:14:55.054983000 Z
-  creator_id: 1
-  currency: EUR
-  delivered: true
-  downpayment: true
-  id: 11
-  journal_entry_id: 119
-  lock_version: 0
-  mode_id: 1
-  number: D20170001
-  paid_at: 2017-06-07 16:14:55.023682000 Z
-  payee_id: 9
-  responsible_id: 1
-  to_bank_at: 2017-01-31 17:14:00.000000000 Z
-  type: PayslipPayment
-  updated_at: 2017-06-07 16:14:55.054983000 Z
-  updater_id: 1
-outgoing_payments_012:
-  accounted_at: 2017-06-07 16:15:58.250768000 Z
-  affair_id: 56
-  amount: 1200.0
-  bank_check_number: ''
-  cash_id: 1
-  created_at: 2017-06-07 16:15:58.164208000 Z
-  creator_id: 1
-  currency: EUR
-  delivered: true
-  downpayment: true
-  id: 12
-  journal_entry_id: 121
-  lock_version: 0
-  mode_id: 3
-  number: D20170002
-  paid_at: 2017-06-07 16:15:58.151005000 Z
-  payee_id: 10
-  responsible_id: 1
-  to_bank_at: 2017-01-26 17:15:00.000000000 Z
-  type: PayslipPayment
-  updated_at: 2017-06-07 16:15:58.164208000 Z
-  updater_id: 1
-outgoing_payments_013:
-  accounted_at: 2017-11-20 10:09:40.478283000 Z
-  affair_id: 59
-  amount: 5082.0
-  bank_check_number: ''
-  cash_id: 1
-  created_at: 2017-11-20 10:09:40.415435000 Z
+  created_at: 2017-11-21 10:20:54.370538000 Z
   creator_id: 1
   currency: EUR
   delivered: true
   downpayment: true
   id: 13
   journal_entry_id: 259
-  lock_version: 0
-  mode_id: 3
-  number: D20170003
-  paid_at: 2017-11-20 10:09:40.387771000 Z
-  payee_id: 8
-  responsible_id: 1
-  to_bank_at: 2017-11-22 10:09:00.000000000 Z
-  type: PurchasePayment
-  updated_at: 2017-11-20 10:09:40.415435000 Z
-  updater_id: 1
-outgoing_payments_014:
-  accounted_at: 2017-11-20 10:18:23.048937000 Z
-  affair_id: 58
-  amount: 5082.0
-  cash_id: 1
-  created_at: 2017-11-20 10:18:22.987389000 Z
-  creator_id: 1
-  currency: EUR
-  delivered: true
-  downpayment: true
-  id: 14
-  journal_entry_id: 260
   list_id: 3
   lock_version: 0
   mode_id: 3
-  number: D20170005
-  paid_at: 2017-11-19 23:00:00.000000000 Z
-  payee_id: 8
+  number: D20170004
+  paid_at: 2017-11-20 23:00:00.000000000 Z
+  payee_id: 4
   position: 0
   responsible_id: 1
-  to_bank_at: 2017-11-19 23:00:00.000000000 Z
+  to_bank_at: 2017-11-20 23:00:00.000000000 Z
   type: PurchasePayment
-  updated_at: 2017-11-20 10:18:22.987389000 Z
+  updated_at: 2017-11-21 10:20:54.370538000 Z
   updater_id: 1

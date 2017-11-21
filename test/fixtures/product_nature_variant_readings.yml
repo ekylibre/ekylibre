@@ -1,3 +1,49 @@
+# = Informations
+#
+# == License
+#
+# Ekylibre - Simple agricultural ERP
+# Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
+# Copyright (C) 2010-2012 Brice Texier
+# Copyright (C) 2012-2017 Brice Texier, David Joulin
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Affero General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public License
+# along with this program.  If not, see http://www.gnu.org/licenses.
+#
+# == Table: product_nature_variant_readings
+#
+#  absolute_measure_value_unit  :string
+#  absolute_measure_value_value :decimal(19, 4)
+#  boolean_value                :boolean          default(FALSE), not null
+#  choice_value                 :string
+#  created_at                   :datetime         not null
+#  creator_id                   :integer
+#  decimal_value                :decimal(19, 4)
+#  geometry_value               :geometry({:srid=>4326, :type=>"geometry"})
+#  id                           :integer          not null, primary key
+#  indicator_datatype           :string           not null
+#  indicator_name               :string           not null
+#  integer_value                :integer
+#  lock_version                 :integer          default(0), not null
+#  measure_value_unit           :string
+#  measure_value_value          :decimal(19, 4)
+#  multi_polygon_value          :geometry({:srid=>4326, :type=>"multi_polygon"})
+#  point_value                  :geometry({:srid=>4326, :type=>"st_point"})
+#  string_value                 :text
+#  updated_at                   :datetime         not null
+#  updater_id                   :integer
+#  variant_id                   :integer          not null
+#
 ---
 product_nature_variant_readings_001:
   boolean_value: false
@@ -37,7 +83,7 @@ product_nature_variant_readings_003:
   updated_at: 2014-10-31 17:19:32.000000000 Z
   updater_id: 1
   variant_id: 5
-product_nature_variant_readings_005:
+product_nature_variant_readings_004:
   absolute_measure_value_unit: liter
   absolute_measure_value_value: 1.0
   boolean_value: false
@@ -52,7 +98,7 @@ product_nature_variant_readings_005:
   updated_at: 2014-10-31 20:11:19.915395000 Z
   updater_id: 1
   variant_id: 8
-product_nature_variant_readings_006:
+product_nature_variant_readings_005:
   absolute_measure_value_unit: kilogram
   absolute_measure_value_value: 1.0
   boolean_value: false
@@ -67,7 +113,7 @@ product_nature_variant_readings_006:
   updated_at: 2014-10-31 20:11:19.920524000 Z
   updater_id: 1
   variant_id: 8
-product_nature_variant_readings_007:
+product_nature_variant_readings_006:
   absolute_measure_value_unit: kilogram
   absolute_measure_value_value: 150.0
   boolean_value: false
@@ -82,7 +128,7 @@ product_nature_variant_readings_007:
   updated_at: 2014-10-31 20:11:30.489419000 Z
   updater_id: 1
   variant_id: 9
-product_nature_variant_readings_008:
+product_nature_variant_readings_007:
   absolute_measure_value_unit: liter
   absolute_measure_value_value: 1870.0
   boolean_value: false
@@ -97,7 +143,7 @@ product_nature_variant_readings_008:
   updated_at: 2014-10-31 20:11:30.494765000 Z
   updater_id: 1
   variant_id: 9
-product_nature_variant_readings_009:
+product_nature_variant_readings_008:
   absolute_measure_value_unit: kilogram
   absolute_measure_value_value: 25.0
   boolean_value: false
@@ -112,7 +158,7 @@ product_nature_variant_readings_009:
   updated_at: 2014-10-31 20:11:42.161696000 Z
   updater_id: 1
   variant_id: 10
-product_nature_variant_readings_010:
+product_nature_variant_readings_009:
   absolute_measure_value_unit: gram
   absolute_measure_value_value: 42.0
   boolean_value: false
@@ -127,7 +173,7 @@ product_nature_variant_readings_010:
   updated_at: 2014-10-31 20:11:42.166620000 Z
   updater_id: 1
   variant_id: 10
-product_nature_variant_readings_011:
+product_nature_variant_readings_010:
   absolute_measure_value_unit: kilogram
   absolute_measure_value_value: 25.0
   boolean_value: false
@@ -142,7 +188,7 @@ product_nature_variant_readings_011:
   updated_at: 2014-10-31 20:11:53.436431000 Z
   updater_id: 1
   variant_id: 11
-product_nature_variant_readings_012:
+product_nature_variant_readings_011:
   absolute_measure_value_unit: gram
   absolute_measure_value_value: 35.0
   boolean_value: false
@@ -157,7 +203,7 @@ product_nature_variant_readings_012:
   updated_at: 2014-10-31 20:11:53.442485000 Z
   updater_id: 1
   variant_id: 11
-product_nature_variant_readings_017:
+product_nature_variant_readings_012:
   absolute_measure_value_unit: square_meter
   absolute_measure_value_value: 10000.0
   boolean_value: false
@@ -172,7 +218,7 @@ product_nature_variant_readings_017:
   updated_at: 2014-11-01 19:06:50.082273000 Z
   updater_id: 1
   variant_id: 16
-product_nature_variant_readings_019:
+product_nature_variant_readings_013:
   boolean_value: false
   choice_value: female
   created_at: 2014-11-01 19:08:36.249638000 Z
@@ -184,7 +230,7 @@ product_nature_variant_readings_019:
   updated_at: 2014-11-01 19:08:36.249638000 Z
   updater_id: 1
   variant_id: 17
-product_nature_variant_readings_020:
+product_nature_variant_readings_014:
   boolean_value: true
   created_at: 2014-11-01 19:08:36.255343000 Z
   creator_id: 1
@@ -195,7 +241,7 @@ product_nature_variant_readings_020:
   updated_at: 2014-11-01 19:08:36.255343000 Z
   updater_id: 1
   variant_id: 17
-product_nature_variant_readings_021:
+product_nature_variant_readings_015:
   boolean_value: false
   created_at: 2014-11-01 19:08:36.262101000 Z
   creator_id: 1
@@ -207,7 +253,7 @@ product_nature_variant_readings_021:
   updated_at: 2014-11-01 19:08:36.262101000 Z
   updater_id: 1
   variant_id: 17
-product_nature_variant_readings_022:
+product_nature_variant_readings_016:
   absolute_measure_value_unit: liter
   absolute_measure_value_value: 1.0
   boolean_value: false
@@ -222,7 +268,7 @@ product_nature_variant_readings_022:
   updated_at: 2014-11-01 19:09:20.960686000 Z
   updater_id: 1
   variant_id: 18
-product_nature_variant_readings_023:
+product_nature_variant_readings_017:
   absolute_measure_value_unit: kilogram
   absolute_measure_value_value: 1.03
   boolean_value: false
@@ -237,7 +283,7 @@ product_nature_variant_readings_023:
   updated_at: 2014-11-01 19:09:20.967270000 Z
   updater_id: 1
   variant_id: 18
-product_nature_variant_readings_024:
+product_nature_variant_readings_018:
   absolute_measure_value_unit: kilogram
   absolute_measure_value_value: 1000.0
   boolean_value: false
@@ -252,7 +298,7 @@ product_nature_variant_readings_024:
   updated_at: 2014-11-01 19:10:35.104699000 Z
   updater_id: 1
   variant_id: 19
-product_nature_variant_readings_025:
+product_nature_variant_readings_019:
   absolute_measure_value_unit: liter
   absolute_measure_value_value: 1.0
   boolean_value: false
@@ -267,7 +313,7 @@ product_nature_variant_readings_025:
   updated_at: 2014-11-01 20:17:55.033379000 Z
   updater_id: 1
   variant_id: 20
-product_nature_variant_readings_026:
+product_nature_variant_readings_020:
   absolute_measure_value_unit: kilogram
   absolute_measure_value_value: 1.0
   boolean_value: false
@@ -282,7 +328,7 @@ product_nature_variant_readings_026:
   updated_at: 2014-11-01 20:17:55.040721000 Z
   updater_id: 1
   variant_id: 20
-product_nature_variant_readings_027:
+product_nature_variant_readings_021:
   absolute_measure_value_unit: liter
   absolute_measure_value_value: 1.0
   boolean_value: false
@@ -297,7 +343,7 @@ product_nature_variant_readings_027:
   updated_at: 2014-11-01 20:20:57.160437000 Z
   updater_id: 1
   variant_id: 21
-product_nature_variant_readings_028:
+product_nature_variant_readings_022:
   absolute_measure_value_unit: kilogram
   absolute_measure_value_value: 1.0
   boolean_value: false
@@ -312,7 +358,7 @@ product_nature_variant_readings_028:
   updated_at: 2014-11-01 20:20:57.166731000 Z
   updater_id: 1
   variant_id: 21
-product_nature_variant_readings_029:
+product_nature_variant_readings_023:
   absolute_measure_value_unit: day
   absolute_measure_value_value: 0.0
   boolean_value: false
@@ -327,7 +373,7 @@ product_nature_variant_readings_029:
   updated_at: 2014-11-01 20:20:57.172842000 Z
   updater_id: 1
   variant_id: 21
-product_nature_variant_readings_030:
+product_nature_variant_readings_024:
   absolute_measure_value_unit: day
   absolute_measure_value_value: 0.0
   boolean_value: false
@@ -342,7 +388,7 @@ product_nature_variant_readings_030:
   updated_at: 2014-11-01 20:20:57.178856000 Z
   updater_id: 1
   variant_id: 21
-product_nature_variant_readings_031:
+product_nature_variant_readings_025:
   absolute_measure_value_unit: kilogram
   absolute_measure_value_value: 0.01
   boolean_value: false
@@ -357,7 +403,7 @@ product_nature_variant_readings_031:
   updated_at: 2014-11-01 20:21:07.081204000 Z
   updater_id: 1
   variant_id: 22
-product_nature_variant_readings_032:
+product_nature_variant_readings_026:
   absolute_measure_value_unit: liter
   absolute_measure_value_value: 0.01
   boolean_value: false
@@ -372,7 +418,7 @@ product_nature_variant_readings_032:
   updated_at: 2014-11-01 20:21:07.086566000 Z
   updater_id: 1
   variant_id: 22
-product_nature_variant_readings_033:
+product_nature_variant_readings_027:
   absolute_measure_value_unit: day
   absolute_measure_value_value: 5.0
   boolean_value: false
@@ -387,7 +433,7 @@ product_nature_variant_readings_033:
   updated_at: 2014-11-01 20:21:07.092149000 Z
   updater_id: 1
   variant_id: 22
-product_nature_variant_readings_034:
+product_nature_variant_readings_028:
   absolute_measure_value_unit: day
   absolute_measure_value_value: 6.0
   boolean_value: false
@@ -402,7 +448,7 @@ product_nature_variant_readings_034:
   updated_at: 2014-11-01 20:21:07.098565000 Z
   updater_id: 1
   variant_id: 22
-product_nature_variant_readings_040:
+product_nature_variant_readings_029:
   absolute_measure_value_unit: square_meter
   absolute_measure_value_value: 10000.0
   boolean_value: false
@@ -417,7 +463,7 @@ product_nature_variant_readings_040:
   updated_at: 2014-11-02 18:31:53.751099000 Z
   updater_id: 1
   variant_id: 28
-product_nature_variant_readings_042:
+product_nature_variant_readings_030:
   boolean_value: false
   choice_value: female
   created_at: 2014-11-04 17:27:32.670709000 Z
@@ -429,7 +475,7 @@ product_nature_variant_readings_042:
   updated_at: 2014-11-04 17:27:32.670709000 Z
   updater_id: 1
   variant_id: 30
-product_nature_variant_readings_043:
+product_nature_variant_readings_031:
   boolean_value: true
   created_at: 2014-11-04 17:27:32.676106000 Z
   creator_id: 1
@@ -440,7 +486,7 @@ product_nature_variant_readings_043:
   updated_at: 2014-11-04 17:27:32.676106000 Z
   updater_id: 1
   variant_id: 30
-product_nature_variant_readings_044:
+product_nature_variant_readings_032:
   boolean_value: false
   choice_value: undefined
   created_at: 2014-11-04 17:27:59.323373000 Z
@@ -452,7 +498,7 @@ product_nature_variant_readings_044:
   updated_at: 2014-11-04 17:27:59.323373000 Z
   updater_id: 1
   variant_id: 31
-product_nature_variant_readings_045:
+product_nature_variant_readings_033:
   absolute_measure_value_unit: square_meter
   absolute_measure_value_value: 10000.0
   boolean_value: false
@@ -467,7 +513,7 @@ product_nature_variant_readings_045:
   updated_at: 2014-11-04 18:17:16.197067000 Z
   updater_id: 1
   variant_id: 32
-product_nature_variant_readings_051:
+product_nature_variant_readings_034:
   absolute_measure_value_unit: liter
   absolute_measure_value_value: 1000.0
   boolean_value: false
@@ -482,7 +528,7 @@ product_nature_variant_readings_051:
   updated_at: 2014-11-07 15:24:11.152994000 Z
   updater_id: 1
   variant_id: 39
-product_nature_variant_readings_052:
+product_nature_variant_readings_035:
   absolute_measure_value_unit: kilogram
   absolute_measure_value_value: 1000.0
   boolean_value: false
@@ -497,7 +543,7 @@ product_nature_variant_readings_052:
   updated_at: 2014-11-07 15:24:11.159253000 Z
   updater_id: 1
   variant_id: 39
-product_nature_variant_readings_053:
+product_nature_variant_readings_036:
   absolute_measure_value_unit: mass_percent
   absolute_measure_value_value: 33.5
   boolean_value: false
@@ -512,7 +558,7 @@ product_nature_variant_readings_053:
   updated_at: 2014-11-07 15:24:11.164460000 Z
   updater_id: 1
   variant_id: 39
-product_nature_variant_readings_054:
+product_nature_variant_readings_037:
   absolute_measure_value_unit: square_meter
   absolute_measure_value_value: 10000.0
   boolean_value: false
@@ -527,7 +573,7 @@ product_nature_variant_readings_054:
   updated_at: 2014-11-07 15:40:58.389493000 Z
   updater_id: 1
   variant_id: 40
-product_nature_variant_readings_055:
+product_nature_variant_readings_038:
   absolute_measure_value_unit: kilogram
   absolute_measure_value_value: 10.0
   boolean_value: false
@@ -542,7 +588,7 @@ product_nature_variant_readings_055:
   updated_at: 2014-11-07 15:41:47.853521000 Z
   updater_id: 1
   variant_id: 41
-product_nature_variant_readings_056:
+product_nature_variant_readings_039:
   absolute_measure_value_unit: gram
   absolute_measure_value_value: 2.0
   boolean_value: false
@@ -557,7 +603,7 @@ product_nature_variant_readings_056:
   updated_at: 2014-11-07 15:41:47.865361000 Z
   updater_id: 1
   variant_id: 41
-product_nature_variant_readings_057:
+product_nature_variant_readings_040:
   absolute_measure_value_unit: kilogram
   absolute_measure_value_value: 1.0
   boolean_value: false
@@ -572,7 +618,7 @@ product_nature_variant_readings_057:
   updated_at: 2014-11-07 15:43:46.307002000 Z
   updater_id: 1
   variant_id: 42
-product_nature_variant_readings_058:
+product_nature_variant_readings_041:
   absolute_measure_value_unit: gram
   absolute_measure_value_value: 50.0
   boolean_value: false
@@ -587,7 +633,7 @@ product_nature_variant_readings_058:
   updated_at: 2014-11-07 15:43:46.313330000 Z
   updater_id: 1
   variant_id: 42
-product_nature_variant_readings_059:
+product_nature_variant_readings_042:
   absolute_measure_value_unit: kilogram
   absolute_measure_value_value: 1000.0
   boolean_value: false
@@ -602,7 +648,7 @@ product_nature_variant_readings_059:
   updated_at: 2014-11-07 15:46:45.163689000 Z
   updater_id: 1
   variant_id: 43
-product_nature_variant_readings_060:
+product_nature_variant_readings_043:
   absolute_measure_value_unit: square_meter
   absolute_measure_value_value: 10000.0
   boolean_value: false
@@ -617,7 +663,7 @@ product_nature_variant_readings_060:
   updated_at: 2014-11-07 16:33:48.643273000 Z
   updater_id: 1
   variant_id: 44
-product_nature_variant_readings_061:
+product_nature_variant_readings_044:
   boolean_value: false
   choice_value: vitis_cinerea_x_vitis_riparia_SO4
   created_at: 2014-11-07 16:33:59.271644000 Z
@@ -629,7 +675,7 @@ product_nature_variant_readings_061:
   updated_at: 2014-11-07 16:33:59.271644000 Z
   updater_id: 1
   variant_id: 45
-product_nature_variant_readings_064:
+product_nature_variant_readings_045:
   absolute_measure_value_unit: kilogram
   absolute_measure_value_value: 1.0
   boolean_value: false
@@ -644,7 +690,7 @@ product_nature_variant_readings_064:
   updated_at: 2014-11-07 17:05:38.090105000 Z
   updater_id: 1
   variant_id: 48
-product_nature_variant_readings_065:
+product_nature_variant_readings_046:
   absolute_measure_value_unit: liter
   absolute_measure_value_value: 1.0
   boolean_value: false
@@ -659,7 +705,7 @@ product_nature_variant_readings_065:
   updated_at: 2014-11-07 17:05:38.095624000 Z
   updater_id: 1
   variant_id: 48
-product_nature_variant_readings_066:
+product_nature_variant_readings_047:
   absolute_measure_value_unit: kilogram
   absolute_measure_value_value: 100.0
   boolean_value: false
@@ -674,7 +720,7 @@ product_nature_variant_readings_066:
   updated_at: 2014-11-07 17:10:23.493046000 Z
   updater_id: 1
   variant_id: 49
-product_nature_variant_readings_067:
+product_nature_variant_readings_048:
   absolute_measure_value_unit: liter
   absolute_measure_value_value: 100.0
   boolean_value: false
@@ -689,7 +735,7 @@ product_nature_variant_readings_067:
   updated_at: 2014-11-07 17:10:23.498085000 Z
   updater_id: 1
   variant_id: 49
-product_nature_variant_readings_071:
+product_nature_variant_readings_049:
   absolute_measure_value_unit: kilogram
   absolute_measure_value_value: 100.0
   boolean_value: false
@@ -704,7 +750,7 @@ product_nature_variant_readings_071:
   updated_at: 2014-11-07 17:25:14.432598000 Z
   updater_id: 1
   variant_id: 53
-product_nature_variant_readings_072:
+product_nature_variant_readings_050:
   absolute_measure_value_unit: liter
   absolute_measure_value_value: 100.0
   boolean_value: false
@@ -719,7 +765,7 @@ product_nature_variant_readings_072:
   updated_at: 2014-11-07 17:25:14.438887000 Z
   updater_id: 1
   variant_id: 53
-product_nature_variant_readings_073:
+product_nature_variant_readings_051:
   absolute_measure_value_unit: kilogram
   absolute_measure_value_value: 1000.0
   boolean_value: false
@@ -734,7 +780,7 @@ product_nature_variant_readings_073:
   updated_at: 2014-11-07 17:25:46.215414000 Z
   updater_id: 1
   variant_id: 54
-product_nature_variant_readings_074:
+product_nature_variant_readings_052:
   absolute_measure_value_unit: liter
   absolute_measure_value_value: 20000.0
   boolean_value: false
@@ -749,7 +795,7 @@ product_nature_variant_readings_074:
   updated_at: 2014-11-07 17:25:46.220973000 Z
   updater_id: 1
   variant_id: 54
-product_nature_variant_readings_075:
+product_nature_variant_readings_053:
   absolute_measure_value_unit: kilogram
   absolute_measure_value_value: 1.0
   boolean_value: false
@@ -764,7 +810,7 @@ product_nature_variant_readings_075:
   updated_at: 2014-11-07 17:27:02.381881000 Z
   updater_id: 1
   variant_id: 55
-product_nature_variant_readings_076:
+product_nature_variant_readings_054:
   absolute_measure_value_unit: liter
   absolute_measure_value_value: 1.0
   boolean_value: false
@@ -779,7 +825,7 @@ product_nature_variant_readings_076:
   updated_at: 2014-11-07 17:27:02.388247000 Z
   updater_id: 1
   variant_id: 55
-product_nature_variant_readings_077:
+product_nature_variant_readings_055:
   absolute_measure_value_unit: kilogram
   absolute_measure_value_value: 100.0
   boolean_value: false
@@ -794,7 +840,7 @@ product_nature_variant_readings_077:
   updated_at: 2014-11-07 18:58:14.633641000 Z
   updater_id: 1
   variant_id: 56
-product_nature_variant_readings_078:
+product_nature_variant_readings_056:
   absolute_measure_value_unit: liter
   absolute_measure_value_value: 100.0
   boolean_value: false
@@ -809,7 +855,7 @@ product_nature_variant_readings_078:
   updated_at: 2014-11-07 18:58:14.639739000 Z
   updater_id: 1
   variant_id: 56
-product_nature_variant_readings_079:
+product_nature_variant_readings_057:
   absolute_measure_value_unit: kilogram
   absolute_measure_value_value: 25.0
   boolean_value: false
@@ -824,7 +870,7 @@ product_nature_variant_readings_079:
   updated_at: 2014-11-07 19:03:43.678909000 Z
   updater_id: 1
   variant_id: 57
-product_nature_variant_readings_080:
+product_nature_variant_readings_058:
   absolute_measure_value_unit: kilogram
   absolute_measure_value_value: 25.0
   boolean_value: false
@@ -839,7 +885,7 @@ product_nature_variant_readings_080:
   updated_at: 2014-11-07 19:03:55.053858000 Z
   updater_id: 1
   variant_id: 58
-product_nature_variant_readings_081:
+product_nature_variant_readings_059:
   absolute_measure_value_unit: kilogram
   absolute_measure_value_value: 0.5
   boolean_value: false
@@ -854,7 +900,7 @@ product_nature_variant_readings_081:
   updated_at: 2014-11-07 19:05:20.517524000 Z
   updater_id: 1
   variant_id: 59
-product_nature_variant_readings_082:
+product_nature_variant_readings_060:
   absolute_measure_value_unit: billion_per_gram
   absolute_measure_value_value: 10.0
   boolean_value: false
@@ -869,7 +915,7 @@ product_nature_variant_readings_082:
   updated_at: 2014-11-07 19:05:20.523178000 Z
   updater_id: 1
   variant_id: 59
-product_nature_variant_readings_083:
+product_nature_variant_readings_061:
   absolute_measure_value_unit: kilogram
   absolute_measure_value_value: 25.0
   boolean_value: false
@@ -884,7 +930,7 @@ product_nature_variant_readings_083:
   updated_at: 2014-11-07 19:10:37.833780000 Z
   updater_id: 1
   variant_id: 60
-product_nature_variant_readings_084:
+product_nature_variant_readings_062:
   absolute_measure_value_unit: kilogram
   absolute_measure_value_value: 25.0
   boolean_value: false
@@ -899,7 +945,7 @@ product_nature_variant_readings_084:
   updated_at: 2014-11-07 19:16:38.663456000 Z
   updater_id: 1
   variant_id: 61
-product_nature_variant_readings_085:
+product_nature_variant_readings_063:
   absolute_measure_value_unit: liter
   absolute_measure_value_value: 1.0
   boolean_value: false
@@ -914,7 +960,7 @@ product_nature_variant_readings_085:
   updated_at: 2014-11-07 19:18:50.813599000 Z
   updater_id: 1
   variant_id: 62
-product_nature_variant_readings_086:
+product_nature_variant_readings_064:
   absolute_measure_value_unit: kilogram
   absolute_measure_value_value: 1.0
   boolean_value: false
@@ -929,7 +975,7 @@ product_nature_variant_readings_086:
   updated_at: 2014-11-07 19:18:50.825212000 Z
   updater_id: 1
   variant_id: 62
-product_nature_variant_readings_087:
+product_nature_variant_readings_065:
   absolute_measure_value_unit: mass_percent
   absolute_measure_value_value: 10.0
   boolean_value: false
@@ -944,7 +990,7 @@ product_nature_variant_readings_087:
   updated_at: 2014-11-07 19:18:50.831330000 Z
   updater_id: 1
   variant_id: 62
-product_nature_variant_readings_088:
+product_nature_variant_readings_066:
   absolute_measure_value_unit: liter
   absolute_measure_value_value: 0.75
   boolean_value: false
@@ -959,7 +1005,7 @@ product_nature_variant_readings_088:
   updated_at: 2014-11-07 19:29:27.416977000 Z
   updater_id: 1
   variant_id: 63
-product_nature_variant_readings_089:
+product_nature_variant_readings_067:
   absolute_measure_value_unit: kilogram
   absolute_measure_value_value: 0.76
   boolean_value: false
@@ -974,7 +1020,7 @@ product_nature_variant_readings_089:
   updated_at: 2014-11-07 19:29:57.767178000 Z
   updater_id: 1
   variant_id: 65
-product_nature_variant_readings_090:
+product_nature_variant_readings_068:
   absolute_measure_value_unit: liter
   absolute_measure_value_value: 0.75
   boolean_value: false
@@ -989,7 +1035,7 @@ product_nature_variant_readings_090:
   updated_at: 2014-11-07 19:29:57.772604000 Z
   updater_id: 1
   variant_id: 65
-product_nature_variant_readings_093:
+product_nature_variant_readings_069:
   absolute_measure_value_unit: square_meter
   absolute_measure_value_value: 10000.0
   boolean_value: false
@@ -1003,7 +1049,7 @@ product_nature_variant_readings_093:
   updated_at: 2016-05-10 19:12:52.618977000 Z
   updater_id: 1
   variant_id: 69
-product_nature_variant_readings_094:
+product_nature_variant_readings_070:
   absolute_measure_value_unit: liter
   absolute_measure_value_value: 250.0
   boolean_value: false
@@ -1018,7 +1064,7 @@ product_nature_variant_readings_094:
   updated_at: 2016-08-05 20:03:17.772434000 Z
   updater_id: 1
   variant_id: 29
-product_nature_variant_readings_095:
+product_nature_variant_readings_071:
   absolute_measure_value_unit: meter
   absolute_measure_value_value: 6.0
   boolean_value: false
@@ -1033,7 +1079,7 @@ product_nature_variant_readings_095:
   updated_at: 2016-08-05 20:03:17.773972000 Z
   updater_id: 1
   variant_id: 29
-product_nature_variant_readings_096:
+product_nature_variant_readings_072:
   boolean_value: false
   created_at: 2016-08-05 20:03:17.775181000 Z
   creator_id: 1
@@ -1045,7 +1091,7 @@ product_nature_variant_readings_096:
   updated_at: 2016-08-05 20:03:17.775181000 Z
   updater_id: 1
   variant_id: 29
-product_nature_variant_readings_097:
+product_nature_variant_readings_073:
   absolute_measure_value_unit: hectare_per_hour
   absolute_measure_value_value: 1.0
   boolean_value: false

@@ -1,3 +1,76 @@
+# = Informations
+#
+# == License
+#
+# Ekylibre - Simple agricultural ERP
+# Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
+# Copyright (C) 2010-2012 Brice Texier
+# Copyright (C) 2012-2017 Brice Texier, David Joulin
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Affero General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public License
+# along with this program.  If not, see http://www.gnu.org/licenses.
+#
+# == Table: users
+#
+#  administrator                          :boolean          default(FALSE), not null
+#  authentication_token                   :string
+#  commercial                             :boolean          default(FALSE), not null
+#  confirmation_sent_at                   :datetime
+#  confirmation_token                     :string
+#  confirmed_at                           :datetime
+#  created_at                             :datetime         not null
+#  creator_id                             :integer
+#  current_sign_in_at                     :datetime
+#  current_sign_in_ip                     :string
+#  description                            :text
+#  email                                  :string           not null
+#  employed                               :boolean          default(FALSE), not null
+#  employment                             :string
+#  encrypted_password                     :string           default(""), not null
+#  failed_attempts                        :integer          default(0)
+#  first_name                             :string           not null
+#  id                                     :integer          not null, primary key
+#  invitation_accepted_at                 :datetime
+#  invitation_created_at                  :datetime
+#  invitation_limit                       :integer
+#  invitation_sent_at                     :datetime
+#  invitation_token                       :string
+#  invitations_count                      :integer          default(0)
+#  invited_by_id                          :integer
+#  language                               :string           not null
+#  last_name                              :string           not null
+#  last_sign_in_at                        :datetime
+#  last_sign_in_ip                        :string
+#  lock_version                           :integer          default(0), not null
+#  locked                                 :boolean          default(FALSE), not null
+#  locked_at                              :datetime
+#  maximal_grantable_reduction_percentage :decimal(19, 4)   default(5.0), not null
+#  person_id                              :integer
+#  provider                               :string
+#  remember_created_at                    :datetime
+#  reset_password_sent_at                 :datetime
+#  reset_password_token                   :string
+#  rights                                 :text
+#  role_id                                :integer
+#  sign_in_count                          :integer          default(0)
+#  signup_at                              :datetime
+#  team_id                                :integer
+#  uid                                    :string
+#  unconfirmed_email                      :string
+#  unlock_token                           :string
+#  updated_at                             :datetime         not null
+#  updater_id                             :integer
+#
 ---
 users_001:
   administrator: true
@@ -6,7 +79,7 @@ users_001:
   confirmed_at: 2014-10-31 18:19:32.000000000 Z
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator_id: 1
-  current_sign_in_at: 2017-11-20 10:05:55.346241000 Z
+  current_sign_in_at: 2017-11-21 08:34:36.347408000 Z
   current_sign_in_ip: 127.0.0.1
   email: admin@ekylibre.org
   employed: true
@@ -18,9 +91,9 @@ users_001:
   invitations_count: 0
   language: fra
   last_name: IKARI
-  last_sign_in_at: 2017-01-24 13:18:59.665518000 Z
+  last_sign_in_at: 2017-11-20 17:02:10.458885000 Z
   last_sign_in_ip: 127.0.0.1
-  lock_version: 30
+  lock_version: 31
   locked: false
   maximal_grantable_reduction_percentage: 5.0
   person_id: 9
@@ -28,9 +101,9 @@ users_001:
     accounts:
     - read
   role_id: 1
-  sign_in_count: 25
+  sign_in_count: 26
   team_id: 1
-  updated_at: 2017-11-20 10:05:55.350212000 Z
+  updated_at: 2017-11-21 08:34:36.373985000 Z
   updater_id: 1
 users_002:
   administrator: false

@@ -1,3 +1,44 @@
+# = Informations
+#
+# == License
+#
+# Ekylibre - Simple agricultural ERP
+# Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
+# Copyright (C) 2010-2012 Brice Texier
+# Copyright (C) 2012-2017 Brice Texier, David Joulin
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Affero General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public License
+# along with this program.  If not, see http://www.gnu.org/licenses.
+#
+# == Table: events
+#
+#  affair_id     :integer
+#  created_at    :datetime         not null
+#  creator_id    :integer
+#  custom_fields :jsonb
+#  description   :text
+#  duration      :integer
+#  id            :integer          not null, primary key
+#  lock_version  :integer          default(0), not null
+#  name          :string           not null
+#  nature        :string           not null
+#  place         :string
+#  restricted    :boolean          default(FALSE), not null
+#  started_at    :datetime         not null
+#  stopped_at    :datetime
+#  updated_at    :datetime         not null
+#  updater_id    :integer
+#
 ---
 events_001:
   created_at: 2014-10-31 17:19:32.000000000 Z
@@ -59,7 +100,7 @@ events_005:
   stopped_at: 2014-10-31 18:51:37.900495000 Z
   updated_at: 2014-10-31 18:51:27.910985000 Z
   updater_id: 1
-events_013:
+events_006:
   created_at: 2014-11-04 18:31:09.283882000 Z
   creator_id: 1
   duration: 14400
@@ -72,7 +113,7 @@ events_013:
   stopped_at: 2012-10-03 12:30:00.000000000 Z
   updated_at: 2014-11-04 18:31:09.283882000 Z
   updater_id: 1
-events_014:
+events_007:
   created_at: 2014-11-04 18:41:39.735286000 Z
   creator_id: 1
   duration: 37500
@@ -85,7 +126,7 @@ events_014:
   stopped_at: 2012-10-04 17:50:00.000000000 Z
   updated_at: 2014-11-04 18:41:39.735286000 Z
   updater_id: 1
-events_015:
+events_008:
   created_at: 2014-11-05 09:52:05.595487000 Z
   creator_id: 1
   duration: 10
@@ -98,7 +139,7 @@ events_015:
   stopped_at: 2014-11-05 09:52:15.582501000 Z
   updated_at: 2014-11-05 09:52:05.595487000 Z
   updater_id: 1
-events_016:
+events_009:
   created_at: 2014-11-05 10:01:39.898552000 Z
   creator_id: 1
   duration: 10
@@ -111,7 +152,7 @@ events_016:
   stopped_at: 2014-11-05 10:01:49.885292000 Z
   updated_at: 2014-11-05 10:01:39.898552000 Z
   updater_id: 1
-events_017:
+events_010:
   created_at: 2014-11-05 10:03:05.995952000 Z
   creator_id: 1
   duration: 10
@@ -124,7 +165,7 @@ events_017:
   stopped_at: 2014-11-05 10:03:15.989373000 Z
   updated_at: 2014-11-05 10:03:05.995952000 Z
   updater_id: 1
-events_018:
+events_011:
   created_at: 2014-11-05 13:36:09.002362000 Z
   creator_id: 1
   duration: 10
@@ -137,7 +178,7 @@ events_018:
   stopped_at: 2014-11-05 13:36:18.985183000 Z
   updated_at: 2014-11-05 13:36:09.002362000 Z
   updater_id: 1
-events_019:
+events_012:
   created_at: 2014-11-05 15:39:35.597587000 Z
   creator_id: 1
   duration: 20700
@@ -150,7 +191,7 @@ events_019:
   stopped_at: 2013-11-10 14:45:00.000000000 Z
   updated_at: 2014-11-05 15:39:35.597587000 Z
   updater_id: 1
-events_020:
+events_013:
   created_at: 2014-11-06 17:47:15.999779000 Z
   creator_id: 1
   duration: 20400
@@ -163,7 +204,7 @@ events_020:
   stopped_at: 2013-10-07 13:30:00.000000000 Z
   updated_at: 2014-11-06 17:47:15.999779000 Z
   updater_id: 1
-events_021:
+events_014:
   created_at: 2014-11-06 17:49:34.366901000 Z
   creator_id: 1
   duration: 28800
@@ -176,7 +217,7 @@ events_021:
   stopped_at: 2012-10-17 14:00:00.000000000 Z
   updated_at: 2014-11-06 17:49:34.366901000 Z
   updater_id: 1
-events_022:
+events_015:
   created_at: 2014-11-07 14:44:11.005037000 Z
   creator_id: 1
   duration: 14400
@@ -189,7 +230,7 @@ events_022:
   stopped_at: 2014-11-05 08:25:00.000000000 Z
   updated_at: 2014-11-07 14:44:11.005037000 Z
   updater_id: 1
-events_023:
+events_016:
   created_at: 2014-11-07 15:02:12.143357000 Z
   creator_id: 1
   duration: 7200
@@ -202,7 +243,7 @@ events_023:
   stopped_at: 2013-02-08 11:50:00.000000000 Z
   updated_at: 2014-11-07 15:02:12.143357000 Z
   updater_id: 1
-events_024:
+events_017:
   created_at: 2014-11-07 15:26:35.536194000 Z
   creator_id: 1
   duration: 6720
@@ -215,7 +256,7 @@ events_024:
   stopped_at: 2012-12-12 11:12:00.000000000 Z
   updated_at: 2014-11-07 15:26:35.536194000 Z
   updater_id: 1
-events_025:
+events_018:
   created_at: 2014-11-07 15:45:30.880743000 Z
   creator_id: 1
   duration: 20400
@@ -228,7 +269,7 @@ events_025:
   stopped_at: 2007-09-29 13:40:00.000000000 Z
   updated_at: 2014-11-07 15:45:30.880743000 Z
   updater_id: 1
-events_026:
+events_019:
   created_at: 2014-11-07 15:47:46.992985000 Z
   creator_id: 1
   duration: 5267400
@@ -241,7 +282,7 @@ events_026:
   stopped_at: 2014-08-31 11:45:00.000000000 Z
   updated_at: 2014-11-07 15:47:46.992985000 Z
   updater_id: 1
-events_027:
+events_020:
   created_at: 2014-11-07 16:16:21.816976000 Z
   creator_id: 1
   duration: 5163600
@@ -254,7 +295,7 @@ events_027:
   stopped_at: 2014-10-31 09:35:00.000000000 Z
   updated_at: 2014-11-07 16:16:21.816976000 Z
   updater_id: 1
-events_028:
+events_021:
   created_at: 2014-11-07 16:20:51.419132000 Z
   creator_id: 1
   duration: 9900
@@ -267,7 +308,7 @@ events_028:
   stopped_at: 2014-02-01 12:30:00.000000000 Z
   updated_at: 2014-11-07 16:20:51.419132000 Z
   updater_id: 1
-events_029:
+events_022:
   created_at: 2014-11-07 16:49:41.922532000 Z
   creator_id: 1
   duration: 46800
@@ -280,7 +321,7 @@ events_029:
   stopped_at: 2008-03-15 22:00:00.000000000 Z
   updated_at: 2014-11-07 16:49:41.922532000 Z
   updater_id: 1
-events_030:
+events_023:
   created_at: 2014-11-07 16:58:54.119706000 Z
   creator_id: 1
   duration: 14400
@@ -293,7 +334,7 @@ events_030:
   stopped_at: 2013-04-17 12:00:00.000000000 Z
   updated_at: 2014-11-07 16:58:54.119706000 Z
   updater_id: 1
-events_031:
+events_024:
   created_at: 2014-11-07 17:07:15.600188000 Z
   creator_id: 1
   duration: 43200
@@ -306,7 +347,7 @@ events_031:
   stopped_at: 2013-09-16 17:00:00.000000000 Z
   updated_at: 2014-11-07 17:07:15.600188000 Z
   updater_id: 1
-events_033:
+events_025:
   created_at: 2014-11-07 19:02:48.873057000 Z
   creator_id: 1
   duration: 7200
@@ -319,7 +360,7 @@ events_033:
   stopped_at: 2013-10-02 09:00:00.000000000 Z
   updated_at: 2014-11-07 19:02:48.873057000 Z
   updater_id: 1
-events_034:
+events_026:
   created_at: 2014-11-07 19:08:38.771956000 Z
   creator_id: 1
   duration: 2400
@@ -332,7 +373,7 @@ events_034:
   stopped_at: 2013-10-05 13:40:00.000000000 Z
   updated_at: 2014-11-07 19:08:38.771956000 Z
   updater_id: 1
-events_035:
+events_027:
   created_at: 2014-11-07 19:12:37.523930000 Z
   creator_id: 1
   duration: 900
@@ -345,7 +386,7 @@ events_035:
   stopped_at: 2013-10-07 09:45:00.000000000 Z
   updated_at: 2014-11-07 19:12:37.523930000 Z
   updater_id: 1
-events_036:
+events_028:
   created_at: 2014-11-07 19:23:41.904108000 Z
   creator_id: 1
   duration: 1200
@@ -358,7 +399,7 @@ events_036:
   stopped_at: 2014-10-15 08:48:00.000000000 Z
   updated_at: 2014-11-07 19:23:41.904108000 Z
   updater_id: 1
-events_037:
+events_029:
   created_at: 2014-11-07 19:36:53.119491000 Z
   creator_id: 1
   duration: 25200
@@ -371,7 +412,7 @@ events_037:
   stopped_at: 2013-10-30 14:00:00.000000000 Z
   updated_at: 2014-11-07 19:36:53.119491000 Z
   updater_id: 1
-events_038:
+events_030:
   created_at: 2015-04-21 08:22:33.207903000 Z
   creator_id: 1
   duration: 10
@@ -384,7 +425,7 @@ events_038:
   stopped_at: 2015-04-21 08:22:43.196547000 Z
   updated_at: 2015-04-21 08:22:33.207903000 Z
   updater_id: 1
-events_039:
+events_031:
   created_at: 2015-04-21 08:29:05.202777000 Z
   creator_id: 1
   duration: 10
@@ -397,7 +438,7 @@ events_039:
   stopped_at: 2015-04-21 08:29:15.195245000 Z
   updated_at: 2015-04-21 08:29:05.202777000 Z
   updater_id: 1
-events_040:
+events_032:
   created_at: 2015-04-21 23:49:19.363109000 Z
   creator_id: 1
   duration: 10
@@ -410,7 +451,7 @@ events_040:
   stopped_at: 2015-04-21 23:49:29.356219000 Z
   updated_at: 2015-04-21 23:49:19.363109000 Z
   updater_id: 1
-events_041:
+events_033:
   created_at: 2015-05-30 20:00:27.954807000 Z
   creator_id: 1
   duration: 10
@@ -423,7 +464,7 @@ events_041:
   stopped_at: 2015-05-30 20:00:37.947695000 Z
   updated_at: 2015-05-30 20:00:27.954807000 Z
   updater_id: 1
-events_042:
+events_034:
   created_at: 2015-05-30 20:00:46.761079000 Z
   creator_id: 1
   duration: 10
@@ -436,7 +477,7 @@ events_042:
   stopped_at: 2015-05-30 20:00:56.753284000 Z
   updated_at: 2015-05-30 20:00:46.761079000 Z
   updater_id: 1
-events_043:
+events_035:
   created_at: 2015-06-15 11:39:31.630262000 Z
   creator_id: 1
   duration: 60
@@ -450,7 +491,7 @@ events_043:
   stopped_at: 2025-06-15 11:39:00.000000000 Z
   updated_at: 2015-06-15 11:39:31.630262000 Z
   updater_id: 1
-events_044:
+events_036:
   created_at: 2015-09-17 13:25:40.496874000 Z
   creator_id: 1
   duration: 10
@@ -463,7 +504,7 @@ events_044:
   stopped_at: 2015-09-17 13:25:50.442296000 Z
   updated_at: 2015-09-17 13:25:40.496874000 Z
   updater_id: 1
-events_045:
+events_037:
   created_at: 2016-05-26 21:26:07.850405000 Z
   creator_id: 1
   duration: 10
@@ -476,7 +517,7 @@ events_045:
   stopped_at: 2016-05-26 21:26:17.834471000 Z
   updated_at: 2016-05-26 21:26:07.850405000 Z
   updater_id: 1
-events_046:
+events_038:
   created_at: 2016-05-26 21:26:57.773064000 Z
   creator_id: 1
   duration: 10
@@ -489,7 +530,7 @@ events_046:
   stopped_at: 2016-05-26 21:27:07.769058000 Z
   updated_at: 2016-05-26 21:26:57.773064000 Z
   updater_id: 1
-events_047:
+events_039:
   created_at: 2016-07-01 20:12:41.362348000 Z
   creator_id: 1
   duration: 10
@@ -502,7 +543,7 @@ events_047:
   stopped_at: 2016-07-01 20:12:51.342313000 Z
   updated_at: 2016-07-01 20:12:41.362348000 Z
   updater_id: 1
-events_048:
+events_040:
   created_at: 2016-07-01 20:46:56.124775000 Z
   creator_id: 1
   duration: 60
@@ -515,7 +556,7 @@ events_048:
   stopped_at: 2016-07-01 20:47:00.000000000 Z
   updated_at: 2016-07-01 20:46:56.124775000 Z
   updater_id: 1
-events_051:
+events_041:
   created_at: 2016-08-10 14:33:28.785502000 Z
   creator_id: 1
   duration: 60
@@ -528,7 +569,7 @@ events_051:
   stopped_at: 2016-08-10 14:33:00.000000000 Z
   updated_at: 2016-08-10 14:33:28.785502000 Z
   updater_id: 1
-events_052:
+events_042:
   created_at: 2016-11-20 22:08:58.322028000 Z
   creator_id: 1
   duration: 10
@@ -541,7 +582,7 @@ events_052:
   stopped_at: 2016-11-20 22:09:08.307888000 Z
   updated_at: 2016-11-20 22:08:58.322028000 Z
   updater_id: 1
-events_053:
+events_043:
   created_at: 2016-11-20 22:10:17.219957000 Z
   creator_id: 1
   duration: 10
@@ -554,7 +595,7 @@ events_053:
   stopped_at: 2016-11-20 22:10:27.214438000 Z
   updated_at: 2016-11-20 22:10:17.219957000 Z
   updater_id: 1
-events_054:
+events_044:
   created_at: 2016-11-20 22:11:25.120257000 Z
   creator_id: 1
   duration: 10
@@ -567,7 +608,7 @@ events_054:
   stopped_at: 2016-11-20 22:11:35.115045000 Z
   updated_at: 2016-11-20 22:11:25.120257000 Z
   updater_id: 1
-events_055:
+events_045:
   created_at: 2016-11-20 22:12:15.459472000 Z
   creator_id: 1
   duration: 10
@@ -580,7 +621,7 @@ events_055:
   stopped_at: 2016-11-20 22:12:25.454893000 Z
   updated_at: 2016-11-20 22:12:15.459472000 Z
   updater_id: 1
-events_056:
+events_046:
   created_at: 2016-11-20 22:12:25.349787000 Z
   creator_id: 1
   duration: 10
@@ -593,7 +634,7 @@ events_056:
   stopped_at: 2016-11-20 22:12:35.345774000 Z
   updated_at: 2016-11-20 22:12:25.349787000 Z
   updater_id: 1
-events_057:
+events_047:
   created_at: 2016-12-20 08:53:53.364403000 Z
   creator_id: 1
   duration: 10
@@ -606,7 +647,7 @@ events_057:
   stopped_at: 2016-12-20 08:54:03.350778000 Z
   updated_at: 2016-12-20 08:53:53.364403000 Z
   updater_id: 1
-events_058:
+events_048:
   created_at: 2016-12-20 18:24:29.437639000 Z
   creator_id: 1
   duration: 60
