@@ -59,7 +59,6 @@ module Backend
     end
 
     list(conditions: shipments_conditions, order: { planned_at: :desc }) do |t|
-      t.action :invoice, on: :both, method: :post, if: :invoiceable?
       t.action :ship,    on: :both, method: :post, if: :shippable?
       t.action :edit, if: :updateable?
       t.action :destroy

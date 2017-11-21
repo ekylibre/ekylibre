@@ -2,7 +2,6 @@ module Backend
   class ReceptionsController < Backend::ParcelsController
     manage_restfully
 
-
     respond_to :csv, :ods, :xlsx, :pdf, :odt, :docx, :html, :xml, :json
 
     unroll
@@ -60,8 +59,6 @@ module Backend
     end
 
     list(conditions: receptions_conditions, order: { planned_at: :desc }) do |t|
-      # t.action :invoice, on: :both, method: :post, if: :invoiceable?
-      # t.action :ship,    on: :both, method: :post, if: :shippable?
       t.action :edit, if: :updateable?
       t.action :destroy
       t.column :number, url: true

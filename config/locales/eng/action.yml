@@ -706,16 +706,10 @@ eng:
     backend/quick_sales:
       new: "New Sale/Incoming payment"
     backend/receptions:
-      cancel: "Cancel reception: %{number}" #?
-      check: "Check reception: %{number}" #?
       edit: "Edit reception: %{number}"
       give: "Give reception: %{number}"
       index: "Receptions"
-      invoice: "Invoice reception: %{number}"
       new: "New reception"
-      order: "Order reception: %{number}" #?
-      prepare: "Prepare reception: %{number}" #?
-      ship: "Ship reception: %{number}"
       show: "Reception: %{number}"
     backend/registrations:
       edit: "Edit registration"
@@ -812,17 +806,16 @@ eng:
       # take: "Take settlement: %{name}"
       # update_many: "Update many settlement: %{name}"
     backend/shipments:
-      cancel: "Cancel shipment: %{name}"
-      check: "Check shipment: %{name}"
-      edit: "Edit shipment: %{name}"
-      give: "Give shipment: %{name}"
+      cancel: "Cancel shipment: %{number}"
+      check: "Check shipment: %{number}"
+      edit: "Edit shipment: %{number}"
+      give: "Give shipment: %{number}"
       index: "Shipments"
-      invoice: "Invoice shipment: %{name}"
       new: "New shipment"
-      order: "Order shipment: %{name}"
-      prepare: "Prepare shipment: %{name}"
-      ship: "Ship shipment: %{name}"
-      show: "Shipment: %{name}"
+      order: "Order shipment: %{number}"
+      prepare: "Prepare shipment: %{number}"
+      ship: "Ship shipment: %{number}"
+      show: "Shipment: %{number}"
     backend/snippets:
       # toggle: "Toggle snippet: %{name}"
     backend/subscription_natures:
