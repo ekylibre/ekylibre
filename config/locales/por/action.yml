@@ -1088,6 +1088,7 @@ por:
     down: "Baixa"
     downpayment: "Pagamento inicial"
     draft: "Esboço"
+    # driver: "Driver"
     duplicate: "Duplicado"
     duration: "Duração"
     # duration_in_hours_and_minutes: "%{hours}h %{minutes}min"
