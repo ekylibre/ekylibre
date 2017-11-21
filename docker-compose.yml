@@ -1,13 +1,36 @@
-postgis:
-  image: mdillon/postgis
-  volumes:
-    - /tmp/data/ekylibre/postgresql:/var/lib/postgresql/data
-  ports:
-    - "5432:5432"
-
-redis:
-  image: redis:3.0
-  volumes:
-    - /tmp/data/ekylibre/redis:/data
-  ports:
-    - "6379:6379"
+# postgis:
+#   image: mdillon/postgis:9.6
+#   volumes:
+#     - ./exports/postgresql:/var/lib/postgresql/data
+#   expose:
+#     - "5432"
+#   environment:
+#     - "POSTGRES_PASSWORD=p4ssw0rd"
+#     - "POSTGRES_USER=ekylibre"
+#     - "POSTGRES_DB=ekylibre"
+#
+# redis:
+#   image: redis:3.0
+#   volumes:
+#     - ./exports/redis:/data
+#   expose:
+#     - "6379"
+#
+# worker: &app
+#   user: ${UID}
+#   build: .
+#   command: ./docker/worker
+#   volumes:
+#     - ".:/usr/src/app"
+#   links:
+#     - postgis
+#     - redis
+#   environment:
+#     - "DATABASE_URL=postgis://ekylibre:p4ssw0rd@postgis/ekylibre"
+#     - "REDIS_URL=redis://redis:6379"
+#
+# web:
+#   <<: *app
+#   command: ./docker/worker
+#   ports:
+#     - "30300:3000"
