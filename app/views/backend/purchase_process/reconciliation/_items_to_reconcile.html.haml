@@ -26,7 +26,7 @@
               - datas.merge!({ team_id: model_item.purchase_order_item.try(:team_id), activity_budget_id: model_item.purchase_order_item.try(:activity_budget_id) }) if model_item.is_a?(ParcelItem)
               %li.item{ data: datas }
                 - if item_reconciliation
-                  = radio_button_tag('test', '1325', false, class: "item-checkbox", data: { id: model_item.id, item_field_id: item_field_id })
+                  = radio_button_tag(model_item.id, nil, false, class: "item-checkbox", data: { id: model_item.id, item_field_id: item_field_id })
                 - else
                   = check_box_tag('', '1', false, class: 'item-checkbox', data: { id: model_item.id })
                 %span.variant{ data: { id: model_item.variant_id } }= model_item.variant.name
