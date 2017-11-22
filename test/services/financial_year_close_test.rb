@@ -24,8 +24,10 @@ class FinancialYearCloseTest < ActiveSupport::TestCase
     IncomingPaymentMode.destroy_all
     OutgoingPaymentMode.destroy_all
     BankStatement.destroy_all
-    Parcel.update_all(state: :draft)
-    Parcel.destroy_all
+    Reception.update_all(state: :draft)
+    Reception.destroy_all
+    Shipment.update_all(state: :draft)
+    Shipment.destroy_all
     ParcelItem.destroy_all
     Sale.update_all(state: :draft)
     Sale.destroy_all
