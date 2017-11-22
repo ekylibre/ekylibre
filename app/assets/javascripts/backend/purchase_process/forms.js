@@ -1,10 +1,10 @@
 $(document).ready(function() {
 
   idValue = 1
-  $('#items-table').on('cocoon:after-insert', function(e, insertedItem) {
-
+  $('#items-table').on('iceberg:inserted', function(e, insertedItem) {
+    console.log(insertedItem)
     if(typeof insertedItem != 'undefined') {
-      // console.log(insertedItem.first())
+      console.log(insertedItem.first())
       item = insertedItem.first();
       currentId = 'item-' + idValue;
       idValue ++;
@@ -34,5 +34,6 @@ $(document).ready(function() {
         }
       }
     })
+    console.log('end')
   }
 })
