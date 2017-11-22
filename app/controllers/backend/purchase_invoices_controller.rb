@@ -79,7 +79,7 @@ module Backend
       t.column :fixed_asset, url: true, hidden: true
     end
 
-    list(:parcels, model: :receptions, children: :items, conditions: { purchase_id: 'params[:id]'.c }) do |t|
+    list(:receptions, children: :items, conditions: { purchase_id: 'params[:id]'.c }) do |t|
       t.action :edit, if: :draft?
       t.action :destroy, if: :draft?
       t.column :number, url: true
