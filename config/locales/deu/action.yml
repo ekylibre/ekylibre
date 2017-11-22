@@ -484,59 +484,51 @@ deu:
       new: "Neues Produkt"
       # show: "%{nature}: %{name}"
     backend/purchase_invoices:
-      # edit: "Edit invoice: %{name}"
+      # edit: "Edit invoice: %{number}"
       # index: "Invoices"
       # new: "New invoice"
-      # pay: "Pay invoice: %{name}"
-      # payment_mode: "Payment mode invoice: %{name}"
-      # show: "Invoice: %{name}"
+      # pay: "Pay invoice: %{number}"
+      # payment_mode: "Payment mode invoice: %{number}"
+      # show: "Invoice: %{number}"
     backend/purchase_natures:
       edit: "Bearbeiten Kauf Art"
       index: "Kauftypen"
       new: "Neukauf Art"
       # show: "Purchase type: %{name}"
     backend/purchase_orders:
-      # close: "Close order: %{name}"
+      # close: "Close order: %{number}"
       # edit: "Edit order: %{number}"
       # index: "Orders"
       # new: "New order"
-      # open: "Open order: %{name}"
-      # reconciliate_modal: "Reconciliate modal order: %{name}"
-      # show: "Purchase order: %{name}"
+      # open: "Open order: %{number}"
+      # reconciliate_modal: "Reconciliate modal order: %{number}"
+      # show: "Purchase order: %{number}"
     backend/purchase_payments:
       # edit: "Edit disbursement: %{number}"
       index: "Auszahlungen"
       new: "New Auszahlung"
       # show: "Disbursement %{number} for %{payee}"
-    backend/purchases:
-      abort: "Abbrechen"
-      confirm: "Bestellung bestätigen und warten auf Lieferungen"
-      correct: "Korrekten Reihenfolge"
-      # edit: "Edit purchase: %{number}"
-      index: "Käufe"
-      invoice: "Erhalten Rechnung"
-      new: "Neuanschaffung"
-      payment_mode: "Wählen Sie Zahlungsmodus"
-      propose: "vorschlagen, um"
-      propose_and_invoice: "Rechnung direkt"
-      refuse: "weigerte sich um"
-      # show: "Purchase: %{number} - %{state}"
+    backend/purchases: #?
+      abort: "Abbrechen" #?
+      confirm: "Bestellung bestätigen und warten auf Lieferungen" #?
+      correct: "Korrekten Reihenfolge" #?
+      index: "Käufe" #?
+      invoice: "Erhalten Rechnung" #?
+      new: "Neuanschaffung" #?
+      payment_mode: "Wählen Sie Zahlungsmodus" #?
+      propose: "vorschlagen, um" #?
+      propose_and_invoice: "Rechnung direkt" #?
+      refuse: "weigerte sich um" #?
     backend/quick_purchases:
       new: "Neukauf / Zahlungsausgang"
     backend/quick_sales:
       new: "New Verkauf / Zahlungseingang"
     backend/receptions:
-      # cancel: "Cancel reception: %{name}"
-      # check: "Check reception: %{name}"
-      # edit: "Edit reception: %{name}"
-      # give: "Give reception: %{name}"
+      # edit: "Edit reception: %{number}"
+      # give: "Give reception: %{number}"
       # index: "Receptions"
-      # invoice: "Invoice reception: %{name}"
       # new: "New reception"
-      # order: "Order reception: %{name}"
-      # prepare: "Prepare reception: %{name}"
-      # ship: "Ship reception: %{name}"
-      # show: "Reception: %{name}"
+      # show: "Reception: %{number}"
     backend/registrations:
       edit: "Bearbeiten Registrierung"
       index: "Anmeldungen"
@@ -581,17 +573,16 @@ deu:
       new: "neue Siedlung"
       # show: "Settlement: %{name}"
     backend/shipments:
-      # cancel: "Cancel shipment: %{name}"
-      # check: "Check shipment: %{name}"
-      # edit: "Edit shipment: %{name}"
-      # give: "Give shipment: %{name}"
+      # cancel: "Cancel shipment: %{number}"
+      # check: "Check shipment: %{number}"
+      # edit: "Edit shipment: %{number}"
+      # give: "Give shipment: %{number}"
       # index: "Shipments"
-      # invoice: "Invoice shipment: %{name}"
       # new: "New shipment"
-      # order: "Order shipment: %{name}"
-      # prepare: "Prepare shipment: %{name}"
-      # ship: "Ship shipment: %{name}"
-      # show: "Shipment: %{name}"
+      # order: "Order shipment: %{number}"
+      # prepare: "Prepare shipment: %{number}"
+      # ship: "Ship shipment: %{number}"
+      # show: "Shipment: %{number}"
     backend/subscription_natures:
       # edit: "Edit subscription type: %{name}"
       index: "Abonnement-Typen"
@@ -1083,6 +1074,7 @@ deu:
     down: "nach unten"
     downpayment: "Anzahlung"
     draft: "Entwurf"
+    # driver: "Driver"
     duplicate: "Duplikat"
     duration: "Dauer"
     # duration_in_hours_and_minutes: "%{hours}h %{minutes}min"
@@ -2307,7 +2299,7 @@ deu:
     # backend/plants: "%{name} ‒ %{work_number}"
     # backend/prescriptions: "%{reference_number}"
     # backend/product_memberships: "%{started_at}"
-    # backend/product_nature_variants: "%{name} (%{unit_name})"
+    # backend/product_nature_variants: "%{name} (%{unit_name}) - %{charge_account_number}"
     # backend/product_natures: "%{name}"
     # backend/products: "%{work_number} %{name} (%{number})"
     # backend/purchase_payments: "%{number}. %{mode_name} to %{payee_full_name} of %{amount} %{currency}"

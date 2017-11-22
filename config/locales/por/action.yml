@@ -489,59 +489,51 @@ por:
       new: "Novo produto"
       # show: "%{nature}: %{name}"
     backend/purchase_invoices:
-      # edit: "Edit invoice: %{name}"
+      # edit: "Edit invoice: %{number}"
       # index: "Invoices"
       # new: "New invoice"
-      # pay: "Pay invoice: %{name}"
-      # payment_mode: "Payment mode invoice: %{name}"
-      # show: "Invoice: %{name}"
+      # pay: "Pay invoice: %{number}"
+      # payment_mode: "Payment mode invoice: %{number}"
+      # show: "Invoice: %{number}"
     backend/purchase_natures:
       edit: "Editar tipo de compra"
       index: "Tipos de compra"
       new: "Novo tipo de compra"
       # show: "Purchase type: %{name}"
     backend/purchase_orders:
-      # close: "Close order: %{name}"
+      # close: "Close order: %{number}"
       # edit: "Edit order: %{number}"
       # index: "Orders"
       # new: "New order"
-      # open: "Open order: %{name}"
-      # reconciliate_modal: "Reconciliate modal order: %{name}"
-      # show: "Purchase order: %{name}"
+      # open: "Open order: %{number}"
+      # reconciliate_modal: "Reconciliate modal order: %{number}"
+      # show: "Purchase order: %{number}"
     backend/purchase_payments:
       # edit: "Edit disbursement: %{number}"
       index: "Efectuados"
       new: "New desembolso"
       # show: "Disbursement %{number} for %{payee}"
-    backend/purchases:
-      abort: "Abortar"
-      confirm: "Confirmar ordem e esperar por entregas"
-      correct: "Ordem correta"
-      # edit: "Edit purchase: %{number}"
-      index: "Compras"
-      invoice: "Receba factura"
-      new: "Nova compra"
-      payment_mode: "Selecione o modo de pagamento"
-      propose: "Propor fim"
-      propose_and_invoice: "Facturar directamente"
-      refuse: "Fim recusou"
-      # show: "Purchase: %{number} - %{state}"
+    backend/purchases: #?
+      abort: "Abortar" #?
+      confirm: "Confirmar ordem e esperar por entregas" #?
+      correct: "Ordem correta" #?
+      index: "Compras" #?
+      invoice: "Receba factura" #?
+      new: "Nova compra" #?
+      payment_mode: "Selecione o modo de pagamento" #?
+      propose: "Propor fim" #?
+      propose_and_invoice: "Facturar directamente" #?
+      refuse: "Fim recusou" #?
     backend/quick_purchases:
       new: "Nova Compra / pagamento de saída"
     backend/quick_sales:
       new: "Novo Venda / entrada de pagamento"
     backend/receptions:
-      # cancel: "Cancel reception: %{name}"
-      # check: "Check reception: %{name}"
-      # edit: "Edit reception: %{name}"
-      # give: "Give reception: %{name}"
+      # edit: "Edit reception: %{number}"
+      # give: "Give reception: %{number}"
       # index: "Receptions"
-      # invoice: "Invoice reception: %{name}"
       # new: "New reception"
-      # order: "Order reception: %{name}"
-      # prepare: "Prepare reception: %{name}"
-      # ship: "Ship reception: %{name}"
-      # show: "Reception: %{name}"
+      # show: "Reception: %{number}"
     backend/registrations:
       edit: "Registro Editar"
       index: "Inscrições"
@@ -586,17 +578,16 @@ por:
       new: "Novo assentamento"
       # show: "Settlement: %{name}"
     backend/shipments:
-      # cancel: "Cancel shipment: %{name}"
-      # check: "Check shipment: %{name}"
-      # edit: "Edit shipment: %{name}"
-      # give: "Give shipment: %{name}"
+      # cancel: "Cancel shipment: %{number}"
+      # check: "Check shipment: %{number}"
+      # edit: "Edit shipment: %{number}"
+      # give: "Give shipment: %{number}"
       # index: "Shipments"
-      # invoice: "Invoice shipment: %{name}"
       # new: "New shipment"
-      # order: "Order shipment: %{name}"
-      # prepare: "Prepare shipment: %{name}"
-      # ship: "Ship shipment: %{name}"
-      # show: "Shipment: %{name}"
+      # order: "Order shipment: %{number}"
+      # prepare: "Prepare shipment: %{number}"
+      # ship: "Ship shipment: %{number}"
+      # show: "Shipment: %{number}"
     backend/subscription_natures:
       # edit: "Edit subscription type: %{name}"
       index: "Tipos de assinatura"
@@ -1088,6 +1079,7 @@ por:
     down: "Baixa"
     downpayment: "Pagamento inicial"
     draft: "Esboço"
+    # driver: "Driver"
     duplicate: "Duplicado"
     duration: "Duração"
     # duration_in_hours_and_minutes: "%{hours}h %{minutes}min"

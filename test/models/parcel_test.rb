@@ -99,7 +99,7 @@ class ParcelTest < ActiveSupport::TestCase
       product_name: 'Moo',
       product_identification_number: 'Cow-wow'
     }]
-    
+
     parcel = new_parcel(items_attributes: to_send, separated: false)
     parcel.give!
     unitary_variant.reload
@@ -111,7 +111,6 @@ class ParcelTest < ActiveSupport::TestCase
   private
 
   def new_parcel(nature: :incoming, third: nil, delivery_mode: :third, address: nil, separated: true, state: 'draft', items_attributes: nil)
-    
     third ||= Entity.create!(last_name: 'Third test')
 
     attributes = {
@@ -127,11 +126,11 @@ class ParcelTest < ActiveSupport::TestCase
       variant: @variant
     }]
 
-    if nature == :outgoing
-      parcel = Shipment.create!(attributes.merge(recipient: third))
-    else
-      parcel = Reception.create!(attributes.merge(sender: third))
-    end
+    parcel = if nature == :outgoing
+               Shipment.create!(attributes.merge(recipient: third))
+             else
+               Reception.create!(attributes.merge(sender: third))
+             end
     parcel.items.create!(items_attributes)
 
     parcel

@@ -521,59 +521,51 @@ spa:
       new: "Nuevo producto"
       # show: "%{nature}: %{name}"
     backend/purchase_invoices:
-      # edit: "Edit invoice: %{name}"
+      # edit: "Edit invoice: %{number}"
       # index: "Invoices"
       # new: "New invoice"
-      # pay: "Pay invoice: %{name}"
-      # payment_mode: "Payment mode invoice: %{name}"
-      # show: "Invoice: %{name}"
+      # pay: "Pay invoice: %{number}"
+      # payment_mode: "Payment mode invoice: %{number}"
+      # show: "Invoice: %{number}"
     backend/purchase_natures:
       edit: "Editar el tipo de compra"
       index: "Tipos de compra"
       new: "Nuevo tipo de compra"
       # show: "Purchase type: %{name}"
     backend/purchase_orders:
-      # close: "Close order: %{name}"
+      # close: "Close order: %{number}"
       # edit: "Edit order: %{number}"
       # index: "Orders"
       # new: "New order"
-      # open: "Open order: %{name}"
-      # reconciliate_modal: "Reconciliate modal order: %{name}"
-      # show: "Purchase order: %{name}"
+      # open: "Open order: %{number}"
+      # reconciliate_modal: "Reconciliate modal order: %{number}"
+      # show: "Purchase order: %{number}"
     backend/purchase_payments:
       # edit: "Edit disbursement: %{number}"
       index: "Desembolsos"
       new: "Nuevo desembolso"
       # show: "Disbursement %{number} for %{payee}"
-    backend/purchases:
-      abort: "Abortar"
-      confirm: "Para confirmar y esperar a que las entregas"
-      correct: "Orden correcto"
-      # edit: "Edit purchase: %{number}"
-      index: "Compras"
-      invoice: "Recibe la factura"
-      new: "Nueva compra"
-      payment_mode: "Seleccionar el modo de pago"
-      propose: "Proponer la orden"
-      propose_and_invoice: "Facturar directamente"
-      refuse: "Para negado"
-      # show: "Purchase: %{number} - %{state}"
+    backend/purchases: #?
+      abort: "Abortar" #?
+      confirm: "Para confirmar y esperar a que las entregas" #?
+      correct: "Orden correcto" #?
+      index: "Compras" #?
+      invoice: "Recibe la factura" #?
+      new: "Nueva compra" #?
+      payment_mode: "Seleccionar el modo de pago" #?
+      propose: "Proponer la orden" #?
+      propose_and_invoice: "Facturar directamente" #?
+      refuse: "Para negado" #?
     backend/quick_purchases:
       new: "Nueva Compra / Salida de pagos"
     backend/quick_sales:
       new: "Nueva Venta / Pago recibido"
     backend/receptions:
-      # cancel: "Cancel reception: %{name}"
-      # check: "Check reception: %{name}"
-      # edit: "Edit reception: %{name}"
-      # give: "Give reception: %{name}"
+      # edit: "Edit reception: %{number}"
+      # give: "Give reception: %{number}"
       # index: "Receptions"
-      # invoice: "Invoice reception: %{name}"
       # new: "New reception"
-      # order: "Order reception: %{name}"
-      # prepare: "Prepare reception: %{name}"
-      # ship: "Ship reception: %{name}"
-      # show: "Reception: %{name}"
+      # show: "Reception: %{number}"
     backend/registrations:
       edit: "Editar el registro"
       index: "Las inscripciones"
@@ -619,17 +611,16 @@ spa:
       new: "Nuevo asentamiento"
       # show: "Settlement: %{name}"
     backend/shipments:
-      # cancel: "Cancel shipment: %{name}"
-      # check: "Check shipment: %{name}"
-      # edit: "Edit shipment: %{name}"
-      # give: "Give shipment: %{name}"
+      # cancel: "Cancel shipment: %{number}"
+      # check: "Check shipment: %{number}"
+      # edit: "Edit shipment: %{number}"
+      # give: "Give shipment: %{number}"
       # index: "Shipments"
-      # invoice: "Invoice shipment: %{name}"
       # new: "New shipment"
-      # order: "Order shipment: %{name}"
-      # prepare: "Prepare shipment: %{name}"
-      # ship: "Ship shipment: %{name}"
-      # show: "Shipment: %{name}"
+      # order: "Order shipment: %{number}"
+      # prepare: "Prepare shipment: %{number}"
+      # ship: "Ship shipment: %{number}"
+      # show: "Shipment: %{number}"
     backend/subscription_natures:
       # edit: "Edit subscription type: %{name}"
       index: "Tipos de suscripción"
@@ -1197,6 +1188,7 @@ spa:
     downpayment: "Pago inicial"
     draft: "Niebla"
     draft_entries: "niebla" #?
+    # driver: "Driver"
     duplicate: "Duplicar"
     duration: "Duración"
     # duration_in_hours_and_minutes: "%{hours}h %{minutes}min"
@@ -2601,7 +2593,7 @@ spa:
     # backend/plants: "%{name} ‒ %{work_number}"
     # backend/prescriptions: "%{reference_number}"
     # backend/product_memberships: "%{started_at}"
-    # backend/product_nature_variants: "%{name} (%{unit_name})"
+    # backend/product_nature_variants: "%{name} (%{unit_name}) - %{charge_account_number}"
     # backend/product_natures: "%{name}"
     # backend/products: "%{work_number} %{name} (%{number})"
     # backend/purchase_payments: "%{number}. %{mode_name} to %{payee_full_name} of %{amount} %{currency}"

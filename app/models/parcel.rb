@@ -239,7 +239,7 @@ class Parcel < Ekylibre::Record::Base
     def transporters_of(parcels)
       parcels.map(&:transporter_id).compact
     end
-    
+
     def detect_third(parcels)
       thirds = parcels.map(&:third_id).uniq
       raise "Need unique third (#{thirds.inspect})" if thirds.count != 1

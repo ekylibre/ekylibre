@@ -149,7 +149,7 @@ class ShipmentTest < ActiveSupport::TestCase
       unit_pretax_stock_amount: 15,
       variant: @variant
     }]
-    
+
     shipment = Shipment.create!(attributes)
     items_attributes.each do
       shipment.items.create!(items_attributes)

@@ -42,7 +42,7 @@ class OutgoingPaymentListTest < ActiveSupport::TestCase
     Timecop.freeze(Time.new(2016, 10, 1, 11, 1, 35, '+02:00')) do
       doc = Nokogiri::XML(@list.to_sepa)
       doc.collect_namespaces
-      doc.remove_namespaces!      
+      doc.remove_namespaces!
 
       message_identification = "EKY-#{@list.number}-#{Time.now.utc.strftime('%y%m%d-%H%M')}"
 
