@@ -17,7 +17,7 @@
 #
 
 module Backend
-  class PurchaseOrdersController < Backend::PurchasesController
+  class PurchaseOrdersController < Backend::BaseController
     manage_restfully planned_at: 'Time.zone.today+2'.c, redirect_to: '{action: :show, id: "id".c}'.c,
                      except: :new, continue: [:nature_id]
 
