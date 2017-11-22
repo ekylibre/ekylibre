@@ -1,10 +1,6 @@
 class PurchaseItemDecorator < Draper::Decorator
   delegate_all
 
-  def amount_including_taxes
-    (amount * (1 + (object.tax.amount / 100)).to_f).to_f
-  end
-
   def merchandise_current_stock
     return 0 if object.variant.nil?
 
