@@ -13,7 +13,7 @@
         amountIncludingTaxes = $(item).find('.total-column label.amount-including-taxes').text()
 
         totalAmountExcludingTaxes += parseFloat(amountExcludingTaxes)
-        totalAmountIncludingTaxes += parseInt(amountIncludingTaxes)
+        totalAmountIncludingTaxes += parseFloat(amountIncludingTaxes).toFixed(2)
         totalVatRate += parseFloat(parseFloat(amountExcludingTaxes * vatRate / 100).toFixed(2))
         $('.nested-item-form').each (index, item) ->
 
