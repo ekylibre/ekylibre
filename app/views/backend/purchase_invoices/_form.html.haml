@@ -30,7 +30,7 @@
       %span.total-currency= Nomen::Currency[f.object.currency].symbol
     .invoice-total-row.vat-total
       %span.total-label= :vat.tl
-      %span.total-value= f.object.decorate.total_vat_amount
+      %span.total-value= f.object.decorate.total_vat_amount.round(2)
       %span.total-currency= Nomen::Currency[f.object.currency].symbol
     .invoice-total-row.invoice-total
       %span.total-label= :total_amount_with_taxes.tl
