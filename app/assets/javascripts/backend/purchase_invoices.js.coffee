@@ -14,7 +14,9 @@
 
         totalAmountExcludingTaxes += parseFloat(amountExcludingTaxes)
         totalAmountIncludingTaxes += parseFloat(parseFloat(amountIncludingTaxes).toFixed(2))
-        totalVatRate += parseFloat(parseFloat(amountExcludingTaxes * vatRate / 100).toFixed(2))
+
+        calculVatRate = parseFloat(parseFloat(amountExcludingTaxes) * parseFloat(vatRate) / 100).toFixed(2)
+        totalVatRate += parseFloat(calculVatRate)
 
       $('.invoice-totals .total-except-tax .total-value').text(totalAmountExcludingTaxes)
       $('.invoice-totals .vat-total .total-value').text(totalVatRate)
