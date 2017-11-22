@@ -194,7 +194,7 @@ module Backend
 
     def find_purchases
       purchase_ids = params[:id].split(',')
-      purchases = purchase_ids.map { |id| Purchase.find_by(id: id) }.compact
+      purchases = purchase_ids.map { |id| PurchaseInvoice.find_by(id: id) }.compact
       unless purchases.any?
         notify_error :no_purchases_given
         redirect_to(params[:redirect] || { action: :index })
