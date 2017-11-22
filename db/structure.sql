@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 9.6.6
--- Dumped by pg_dump version 9.6.6
+-- Dumped from database version 9.5.7
+-- Dumped by pg_dump version 9.5.7
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -4823,8 +4823,8 @@ CREATE TABLE parcels (
     contract_id integer,
     pretax_amount numeric(19,4) DEFAULT 0.0 NOT NULL,
     responsible_id integer,
-    type character varying,
     late_delivery boolean,
+    type character varying,
     intervention_id integer,
     reconciliation_state character varying
 );
@@ -18049,9 +18049,9 @@ INSERT INTO schema_migrations (version) VALUES ('20170601093932');
 
 INSERT INTO schema_migrations (version) VALUES ('20170602144753');
 
-INSERT INTO schema_migrations (version) VALUES ('20170608081949');
-
 INSERT INTO schema_migrations (version) VALUES ('20170628125603');
+
+INSERT INTO schema_migrations (version) VALUES ('20170629152415');
 
 INSERT INTO schema_migrations (version) VALUES ('20170704092631');
 
@@ -18110,4 +18110,6 @@ INSERT INTO schema_migrations (version) VALUES ('20171110145349');
 INSERT INTO schema_migrations (version) VALUES ('20171113162225');
 
 INSERT INTO schema_migrations (version) VALUES ('20171114093355');
+
+INSERT INTO schema_migrations (version) VALUES ('20171122160542');
 
