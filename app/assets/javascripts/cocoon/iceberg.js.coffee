@@ -17,7 +17,7 @@
 
       @retrievePreviousItemValue()
 
-      @line.trigger("iceberg:inserted")
+      @line.trigger("iceberg:inserted", [@line])
 
       unless mode is "add" or @line.find('.error').length > 0
         @display.removeClass('hidden')

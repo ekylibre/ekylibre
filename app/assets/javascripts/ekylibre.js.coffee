@@ -39,6 +39,7 @@
   E.toggleValidateButton = (container) ->
     requiredFields = container.find('input[data-required]:visible')
     validateItemButton = container.find('button[data-validate]')
+    console.log(requiredFields)
     requiredFields.each ->
       if $(this).val() ==''
         validateItemButton.attr("disabled",true)
