@@ -7,7 +7,7 @@
       totalVatRate = 0
       totalAmountIncludingTaxes = 0
 
-      $('.nested-fields .item-display').map (index, item) =>
+      $('.nested-fields.purchase-invoice-items .item-display').map (index, item) =>
         amountExcludingTaxes = $(item).find('.pretax-amount-column label.amount-excluding-taxes').text()
         vatRate = $(item).find('.total-column label.vat-rate').text().split("%")[0]
         amountIncludingTaxes = $(item).find('.total-column label.amount-including-taxes').text()
