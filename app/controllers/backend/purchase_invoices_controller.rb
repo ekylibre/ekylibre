@@ -37,6 +37,10 @@ module Backend
       code << "    c << interval.second\n"
       code << "  end\n"
       code << "end\n"
+      code << "if !params[:reconciliation_state].blank? && params[:reconciliation_state].to_s != 'all'\n"
+      code << "  c[0] << ' AND #{Purchase.table_name}.reconciliation_state IN (?)'\n"
+      code << "  c << params[:reconciliation_state]\n"
+      code << "end\n"
       code << "if params[:responsible_id].to_i > 0\n"
       code << "  c[0] += ' AND #{PurchaseInvoice.table_name}.responsible_id = ?'\n"
       code << "  c << params[:responsible_id]\n"
@@ -73,7 +77,7 @@ module Backend
       t.column :reduction_percentage
       t.column :tax, url: true, hidden: true
       t.column :pretax_amount, currency: true
-      t.column :amount, currency: true, hidden: :true
+      t.column :amount, currency: true
       t.column :activity_budget, hidden: true
       t.column :team, hidden: true
       t.column :fixed_asset, url: true, hidden: true

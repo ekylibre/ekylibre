@@ -73,7 +73,7 @@ class ShipmentItem < ParcelItem
            :prepared_at, :given_at, :outgoing?, :incoming?,
            :separated_stock?, :currency, to: :shipment, prefix: true
 
-  scope :with_nature, -> (nature) { joins(:shipment).merge(Shipment.with_nature(nature)) }
+  scope :with_nature, ->(nature) { joins(:shipment).merge(Shipment.with_nature(nature)) }
 
   before_validation do
     self.currency = shipment_currency if shipment
@@ -175,7 +175,7 @@ class ShipmentItem < ParcelItem
   end
 
   def give_outgoing
-    if self.population == source_product.population(at: shipment_given_at) && !shipment_remain_owner
+    if population == source_product.population(at: shipment_given_at) && !shipment_remain_owner
       ProductOwnership.create!(product: product, owner: shipment_recipient, started_at: shipment_given_at, originator: self)
       ProductLocalization.create!(product: product, nature: :exterior, started_at: shipment_given_at, originator: self)
       ProductEnjoyment.create!(product: product, enjoyer: shipment_recipient, nature: :other, started_at: shipment_given_at, originator: self)

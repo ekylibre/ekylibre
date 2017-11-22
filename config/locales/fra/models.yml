@@ -2143,10 +2143,10 @@ fra:
         invoice: "Facture"
         order: "Commande"
         refused: "Refusé"
-    purchase_invoice:
-      bookkeep: "[%{resource} %{number}] %{products} de %{supplier}"
     purchase_gap:
       bookkeep: "[%{resource} %{number}] %{supplier}"
+    purchase_invoice: #?
+      bookkeep: "[%{resource} %{number}] %{products} de %{supplier}" #?
     purchase_item:
       name: "%{product} (%{quantity}%{unit}) à %{amount}%{currency}/%{unit}"
       name_with_tracking: "%{product}/%{tracking} (%{quantity}%{unit}) à %{amount}%{currency}/%{unit}"
