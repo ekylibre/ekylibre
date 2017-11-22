@@ -13,7 +13,7 @@
 
         totalAmountExcludingTaxes += parseFloat(amountExcludingTaxes)
         totalAmountIncludingTaxes += parseInt(amountExcludingTaxes * (1 + (parseFloat(vatRate) / 100)))
-        totalVatRate += parseFloat(parseFloat(totalAmountIncludingTaxes - totalAmountExcludingTaxes).toFixed(2))
+        totalVatRate += parseFloat(parseFloat(amountExcludingTaxes * vatRate / 100).toFixed(2))
         $('.nested-item-form').each (index, item) ->
 
       $('.order-totals .total-except-tax .total-value').text(totalAmountExcludingTaxes)
