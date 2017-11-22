@@ -902,7 +902,6 @@ Rails.application.routes.draw do
     resources :purchase_invoices, concerns: %i[list unroll] do
       member do
         get :list_items
-        get :list_parcels
         get :payment_mode
         post :pay
       end
