@@ -33,10 +33,6 @@
   #items-table {
     @include flex-column(flex-start, flex-start);
     width: 100%;
-    .multiplicator {
-      margin-top: 25px;
-      margin-right: 12px;
-    }
   }
 
   .list {
