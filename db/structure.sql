@@ -2494,7 +2494,9 @@ CREATE TABLE purchase_items (
     fixed_asset_id integer,
     preexisting_asset boolean,
     equipment_id integer,
-    role character varying
+    role character varying,
+    conditionning_quantity integer,
+    conditionning integer
 );
 
 
@@ -4697,7 +4699,9 @@ CREATE TABLE parcel_item_storings (
     updated_at timestamp without time zone NOT NULL,
     creator_id integer,
     updater_id integer,
-    lock_version integer DEFAULT 0 NOT NULL
+    lock_version integer DEFAULT 0 NOT NULL,
+    conditionning_quantity integer,
+    conditionning integer
 );
 
 
@@ -18078,20 +18082,6 @@ INSERT INTO schema_migrations (version) VALUES ('20170831071726');
 
 INSERT INTO schema_migrations (version) VALUES ('20170831180835');
 
-INSERT INTO schema_migrations (version) VALUES ('20170906075927');
-
-INSERT INTO schema_migrations (version) VALUES ('20170912093930');
-
-INSERT INTO schema_migrations (version) VALUES ('20170918093216');
-
-INSERT INTO schema_migrations (version) VALUES ('20170928144444');
-
-INSERT INTO schema_migrations (version) VALUES ('20170929141343');
-
-INSERT INTO schema_migrations (version) VALUES ('20171003135227');
-
-INSERT INTO schema_migrations (version) VALUES ('20171003150635');
-
 INSERT INTO schema_migrations (version) VALUES ('20171010075206');
 
 INSERT INTO schema_migrations (version) VALUES ('20171010075927');
@@ -18126,4 +18116,8 @@ INSERT INTO schema_migrations (version) VALUES ('20171113162225');
 
 INSERT INTO schema_migrations (version) VALUES ('20171114093355');
 
+INSERT INTO schema_migrations (version) VALUES ('20171117105934');
+
 INSERT INTO schema_migrations (version) VALUES ('20171121143329');
+
+INSERT INTO schema_migrations (version) VALUES ('20171123134516');

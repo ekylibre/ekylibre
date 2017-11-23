@@ -27,7 +27,7 @@
     %td.total-column.two-rows-column
       %span
         %label{ class: 'amount-excluding-taxes', data: { item_value: "input.order-total" } }= f.object.variant ? f.object.variant.name : '??????'
-        %labem= Nomen::Currency.find(f.object.currency).symbol
+        %label= Nomen::Currency.find(f.object.currency).symbol
       %label{ class: "order-second-row-label"}= :vat_rate.tl
       %label{ class: 'vat-rate', data: { item_value: "select.order-vat-total option:selected" } }= f.object.variant ? f.object.variant.name : '??????'
 
@@ -40,25 +40,30 @@
         - classes = " fees" if f.object.role == 'fees'
         .form-block{ class: classes }
           = f.input :role, as: :hidden
-
     %td.form-field.merchandise
       - if f.object.role == 'merchandise'
         = f.referenced_association(:variant, label: :merchandise.tl, source: {scope: :purchaseables}, input_html: {class: "order-variant", data: {variant_of_deal_item: {url: detail_backend_product_nature_variant_path("RECORD_ID", mode: :last_purchase_item)}, product_of_delivery_item: {url: backend_product_nature_variant_path("RECORD_ID", format: :json)}, required: true}}, required: true)
       - elsif f.object.role == 'service' || f.object.role == 'fees'
         = f.referenced_association(:variant, label: f.object.role.tl, source: { scope: :services }, input_html: { class: 'order-variant', data: { product_of_delivery_item: {url: backend_product_nature_variant_path("RECORD_ID", format: :json), scope: 'unit'}, required: true }}, required: true)
     %td.form-field.decimal
+      = f.input :conditionning_quantity, wrapper: :append do
+        = f.input_field :conditionning_quantity , class: "order-quantity", data: { trade_component: 'conditionning_quantity'}
+      %span.multiplicator X
+      = f.input :conditionning, wrapper: :append do
+        = f.input_field :conditionning , class: "order-quantity", data: { trade_component: 'conditionning' }
+    %td.form-field.decimal
       = f.input :quantity, wrapper: :append do
-        = f.input_field :quantity, class: "order-quantity", placeholder: '0', size: 7, data: {trade_component: "quantity", required: true}
+        = f.input_field :quantity, class: "order-quantity", placeholder: '0', size: 7, data: { trade_component: "quantity", required: true }
         %span.add-on.item-population-unit-name
           = variant.unit_name.or_else('#')
     %td.form-field
       = f.input :unit_pretax_amount, wrapper: :append do
-        = f.input_field :unit_pretax_amount, class: "order-unit-amount", label: :unit_amount.tl, data: {trade_component: "unit_pretax_amount"}
+        = f.input_field :unit_pretax_amount, class: "order-unit-amount", label: :unit_amount.tl, data: { trade_component: "unit_pretax_amount" }
         %span.add-on
           = Nomen::Currency.find(f.object.currency).symbol
     %td.form-field
       = f.input :reduction_percentage, wrapper: :append do
-        = f.input_field :reduction_percentage, label: :discount_without_percent.tl, class: "order-discount-percentage", data: {trade_component: "reduction_percentage", required: true}
+        = f.input_field :reduction_percentage, label: :discount_without_percent.tl, class: "order-discount-percentage", data: { trade_component: "reduction_percentage", required: true }
         %span.add-on
           = '%'
     %td.form-field.decimal
@@ -89,4 +94,7 @@
 
     %td.buttons
       %button.btn{ data: { cancel: 'item-form' } }= :cancel.tl
+      -# Last solution
       %button.btn.btn-primary{ data: { validate: 'item-form' } }= :validate.tl
+      -# Test solution
+      -# %button.btn.btn-primary{ 'v-on:click': 'validateItem' }= :validate.tl
