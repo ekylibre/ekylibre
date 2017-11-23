@@ -104,6 +104,7 @@
 #     - "backend/inspections#export"
 #     - "backend/intervention_participations#participations_modal"
 #     - "backend/interventions#change_page"
+#     - "backend/interventions/costs#parameter_cost"
 #     - "backend/januses#toggle"
 #     - "backend/kujakus#toggle"
 #     - "backend/map_editor_shapes#index"
