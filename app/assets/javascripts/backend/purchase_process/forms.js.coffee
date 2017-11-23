@@ -14,7 +14,15 @@
       E.trade.updateUnitPretaxAmount(item)
       E.toggleValidateButton(item)
 
-  $('.item-add-storing').on 'iceberg:inserted', (insertedItem) ->
-    console.log(insertedItem)
-    # console.log(event)
+  $(document).on "keyup change", "*[data-trade-component]", (event) ->
+    component = $(this)
+    item = component.closest(".storing-fields")
+    component_name = component.data('trade-component')
+    if component_name == 'conditionning' || component_name == 'conditionning_quantity' && item.length > 0
+      conditionning = item.find('.conditionning')
+      conditionning_quantity = item.find('.conditionning-quantity')
+      quantity = item.find('.storing-quantity')
+      quantity_value = parseFloat(conditionning.val()) * parseFloat(conditionning_quantity.val())
+      quantity.val(quantity_value)
+
 ) ekylibre, jQuery
