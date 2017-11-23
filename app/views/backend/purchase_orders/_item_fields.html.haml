@@ -47,28 +47,28 @@
         = f.referenced_association(:variant, label: f.object.role.tl, source: { scope: :services }, input_html: { class: 'order-variant', data: { product_of_delivery_item: {url: backend_product_nature_variant_path("RECORD_ID", format: :json), scope: 'unit'}, required: true }}, required: true)
     %td.form-field.decimal
       = f.input :conditionning_quantity, wrapper: :append do
-        = f.input_field :conditionning_quantity , class: "order-quantity", 'v-model': 'conditionningQuantity'
+        = f.input_field :conditionning_quantity , class: "order-quantity", data: { trade_component: 'conditionning_quantity'}
       X
       = f.input :conditionning, wrapper: :append do
-        = f.input_field :conditionning , class: "order-quantity", 'v-model': 'conditionning'
+        = f.input_field :conditionning , class: "order-quantity", data: { trade_component: 'conditionning' }
     %td.form-field.decimal
       = f.input :quantity, wrapper: :append do
-        = f.input_field :quantity, class: "order-quantity", placeholder: '0', size: 7, data: {trade_component: "quantity", required: true}, 'v-model': 'quantity'
+        = f.input_field :quantity, class: "order-quantity", placeholder: '0', size: 7, data: { trade_component: "quantity", required: true }
         %span.add-on.item-population-unit-name
           = variant.unit_name.or_else('#')
     %td.form-field
       = f.input :unit_pretax_amount, wrapper: :append do
-        = f.input_field :unit_pretax_amount, class: "order-unit-amount", label: :unit_amount.tl, data: {trade_component: "unit_pretax_amount"}, 'v-model': 'unitPretaxAmount'
+        = f.input_field :unit_pretax_amount, class: "order-unit-amount", label: :unit_amount.tl, data: { trade_component: "unit_pretax_amount" }
         %span.add-on
           = Nomen::Currency.find(f.object.currency).symbol
     %td.form-field
       = f.input :reduction_percentage, wrapper: :append do
-        = f.input_field :reduction_percentage, label: :discount_without_percent.tl, class: "order-discount-percentage", data: {trade_component: "reduction_percentage", required: true}, 'v-model': 'reductionPercentage'
+        = f.input_field :reduction_percentage, label: :discount_without_percent.tl, class: "order-discount-percentage", data: { trade_component: "reduction_percentage", required: true }
         %span.add-on
           = '%'
     %td.form-field.decimal
       = f.input :pretax_amount, wrapper: :append do
-        = f.input_field :pretax_amount, class: "pta order-total", data: {trade_component: "pretax_amount", required: true}, 'v-model': 'pretaxAmount'
+        = f.input_field :pretax_amount, class: "pta order-total", data: {trade_component: "pretax_amount", required: true}
         %span.add-on
           = Nomen::Currency.find(f.object.currency).symbol
     %td.form-field.decimal= f.input(:tax_id, label: :vat_rate.tl, collection: Tax.current.collect{|t| [t.short_label, t.id, {'data-rate' => ((100 + t.usable_amount)/100)}]}, selected: 1, input_html: { class: "order-vat-total", data: {value: 'rate', trade_component: "tax"}})
