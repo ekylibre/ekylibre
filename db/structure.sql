@@ -4699,7 +4699,9 @@ CREATE TABLE parcel_item_storings (
     updated_at timestamp without time zone NOT NULL,
     creator_id integer,
     updater_id integer,
-    lock_version integer DEFAULT 0 NOT NULL
+    lock_version integer DEFAULT 0 NOT NULL,
+    conditionning_quantity integer,
+    conditionning integer
 );
 
 
@@ -18117,4 +18119,6 @@ INSERT INTO schema_migrations (version) VALUES ('20171114093355');
 INSERT INTO schema_migrations (version) VALUES ('20171117105934');
 
 INSERT INTO schema_migrations (version) VALUES ('20171121143329');
+
+INSERT INTO schema_migrations (version) VALUES ('20171123134516');
 

@@ -13,4 +13,8 @@
       quantity.val(quantity_value)
       E.trade.updateUnitPretaxAmount(item)
       E.toggleValidateButton(item)
+
+  $('.item-add-storing').on 'iceberg:inserted', (insertedItem) ->
+    console.log(insertedItem)
+    # console.log(event)
 ) ekylibre, jQuery
