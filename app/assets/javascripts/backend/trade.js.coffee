@@ -195,7 +195,7 @@
           E.trade.updateUnitPretaxAmount(item)
         when 'pretax_amount'
           E.trade.updatePretaxAmount(item)
-        when 'amount'
+        when 'amount', 'conditionning', 'conditionning_quantity'
           # Do nothing. Ability to customize precisely amount
         else
           console.error "Unknown component: #{component}"
