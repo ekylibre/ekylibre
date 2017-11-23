@@ -279,7 +279,11 @@
   $(document).on 'selector:change', '*[data-intervention-updater]', (event) ->
     $(this).each ->
       E.interventions.refresh $(this)
-      E.interventionForm.displayCost(event.target)
+
+      parentBlock = $(event.target).closest('.nested-product-parameter')
+      quantity = $(parentBlock).find('input[data-intervention-field="quantity-value"]').val()
+      unitName = $(parentBlock).find('select[data-intervention-field="quantity-handler"]').val()
+      E.interventionForm.displayCost(event.target, quantity, unitName)
 
   $(document).on 'keyup', 'input[data-selector]', (e) ->
     $(this).each ->
@@ -289,9 +293,17 @@
     $(this).each ->
       E.interventions.refresh $(this)
 
+      quantity = $(event.target).val()
+      unitName = $(event.target).parent().find('select[data-intervention-field="quantity-handler"]').val()
+      E.interventionForm.displayCost(event.target, quantity, unitName)
+
   $(document).on 'keyup change', 'select[data-intervention-updater]', ->
     $(this).each ->
       E.interventions.refresh $(this)
+
+      quantity = $(event.target).parent().find('input[data-intervention-field="quantity-value"]').val()
+      unitName = $(event.target).val()
+      E.interventionForm.displayCost(event.target, quantity, unitName)
 
   $(document).on "keyup change dp.change", ".nested-fields.working-period:first-child input.intervention-started-at", (e) ->
     $(this).each ->
@@ -318,21 +330,38 @@
 
 
   E.interventionForm =
-    displayCost: (target) ->
+    displayCost: (target, quantity, unitName) ->
 
       productId = $(target).closest('.nested-product-parameter').find(".selector .selector-value").val()
 
-      datas = {}
-      datas['intervention_id'] = $('input[name="intervention_id"]').val()
-      datas['product_id'] = productId
-      datas['existing_participation'] = $('.intervention-participation[data-product-id="' + productId + '"]').val()
-      datas['intervention_started_at'] = $('#intervention_working_periods_attributes_0_started_at').val()
-      datas['intervention_stopped_at'] = $('#intervention_working_periods_attributes_0_stopped_at').val()
+      intervention = {}
+      intervention['intervention_id'] = $('input[name="intervention_id"]').val()
+      intervention['product_id'] = productId
+      intervention['existing_participation'] = $('.intervention-participation[data-product-id="' + productId + '"]').val()
+      intervention['intervention_started_at'] = $('#intervention_working_periods_attributes_0_started_at').val()
+      intervention['intervention_stopped_at'] = $('#intervention_working_periods_attributes_0_stopped_at').val()
+
+      if quantity
+        intervention['quantity'] = quantity
+
+      if unitName
+        intervention['unit_name'] = unitName
 
       $.ajax
         url: "/backend/interventions/costs/parameter_cost",
-        data: datas
+        data: { intervention: intervention }
         success: (data, status, request) ->
+          if !data.human_amount.nature || data.human_amount.nature != "failed"
+            nestedProductParameter = $(target).closest('.nested-product-parameter')
+
+            if $(nestedProductParameter).find('.product-parameter-cost').length > 0
+              $(nestedProductParameter).find('.product-parameter-cost-value').text(data.human_amount)
+            else
+              parameterCostBlock = $('<div class="product-parameter-cost"></div>')
+              parameterCostBlock.append('<span class="product-parameter-cost-label">Coût : </span>')
+              parameterCostBlock.append('<span class="product-parameter-cost-value">' + data.human_amount + '</span>')
+
+              $(nestedProductParameter).find('.intervention_inputs_quantity').append(parameterCostBlock)
 
 
   $(document).ready ->
