@@ -48,7 +48,7 @@
     %td.form-field.decimal
       = f.input :conditionning_quantity, wrapper: :append do
         = f.input_field :conditionning_quantity , class: "order-quantity", data: { trade_component: 'conditionning_quantity'}
-      X
+      %span.multiplicator X
       = f.input :conditionning, wrapper: :append do
         = f.input_field :conditionning , class: "order-quantity", data: { trade_component: 'conditionning' }
     %td.form-field.decimal

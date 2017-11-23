@@ -12,4 +12,5 @@
       quantity_value = parseFloat(conditionning.val()) * parseFloat(conditionning_quantity.val())
       quantity.val(quantity_value)
       E.trade.updateUnitPretaxAmount(item)
+      E.toggleValidateButton(item)
 ) ekylibre, jQuery
