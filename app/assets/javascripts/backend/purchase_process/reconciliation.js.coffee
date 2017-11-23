@@ -180,6 +180,10 @@
         else
           E.reconciliation._createNewPurchaseInvoiceItemLine(itemCheckbox)
 
+          if index == 0
+           responsibleId = $(itemCheckbox).closest('.item').attr('data-responsible-id')
+           $('#purchase_invoice_responsible_id').first().selector('value', responsibleId)
+
         E.reconciliation._fillNewLineForm(itemCheckbox, isPurchaseOrderModal)
 
 
@@ -225,6 +229,7 @@
       itemUnitCost = $(checkboxLine).find('.item-value.unit-cost').text()
       itemTotalAmount = $(checkboxLine).find('.item-value.total-except-taxes').text()
       itemReductionPercentage = $(checkboxLine).attr('data-reduction-percentage')
+      itemTaxId = $(checkboxLine).attr('data-tax-id')
 
       if itemReductionPercentage == "" || itemReductionPercentage == undefined
         itemReductionPercentage = 0
@@ -233,10 +238,12 @@
       $(lastLineForm).find('.form-field .invoice-quantity').val(itemQuantity)
       $(lastLineForm).find('.form-field .invoice-unit-amount').val(itemUnitCost)
       $(lastLineForm).find('.form-field .invoice-discount-percentage').val(itemReductionPercentage)
-      $(lastLineForm).find('.form-field .invoice-total').val(itemTotalAmount)
+      $(lastLineForm).find('.form-field .pre-tax-invoice-total').val(itemTotalAmount)
       $(lastLineForm).find('.form-field.merchandise .selector-search').first().selector('value', variantId)
       $(lastLineForm).find('.form-field .purchase_invoice_items_activity_budget .selector-search').first().selector('value', activityBudgetId)
       $(lastLineForm).find('.form-field .purchase_invoice_items_team .selector-search').first().selector('value', teamId)
+
+      $(lastLineForm).find('.form-field .invoice-vat-total').val(itemTaxId).change()
 
       # unless $(lastLineForm).find('.form-field .invoice-total').val() == null
       setTimeout (->

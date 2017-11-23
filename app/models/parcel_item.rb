@@ -121,7 +121,7 @@ class ParcelItem < Ekylibre::Record::Base
     self.population ||= product_is_unitary? ? 1 : 0
 
     # Use the unit_amount of purchase_order_item if amount equal to zero
-    if purchase_order_item.present? && self.unit_pretax_amount.zero?
+    if purchase_order_item.present? && unit_pretax_amount.zero?
       self.unit_pretax_amount = purchase_order_item.unit_pretax_amount
     else
       self.unit_pretax_amount ||= 0.0

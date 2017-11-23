@@ -7,14 +7,16 @@
       totalVatRate = 0
       totalAmountIncludingTaxes = 0
 
-      $('.nested-fields .item-display').map (index, item) =>
-        amountExcludingTaxes = $(item).find('.total-column label.amount-excluding-taxes').text()
+      $('.nested-fields.purchase-invoice-items .item-display').map (index, item) =>
+        amountExcludingTaxes = $(item).find('.pretax-amount-column label.amount-excluding-taxes').text()
         vatRate = $(item).find('.total-column label.vat-rate').text().split("%")[0]
+        amountIncludingTaxes = $(item).find('.total-column label.amount-including-taxes').text()
 
         totalAmountExcludingTaxes += parseFloat(amountExcludingTaxes)
-        totalAmountIncludingTaxes += parseInt(amountExcludingTaxes * (1 + (parseFloat(vatRate) / 100)))
-        totalVatRate += parseFloat(parseFloat(totalAmountIncludingTaxes - totalAmountExcludingTaxes).toFixed(2))
-        $('.nested-item-form').each (index, item) ->
+        totalAmountIncludingTaxes += parseFloat(parseFloat(amountIncludingTaxes).toFixed(2))
+
+        calculVatRate = parseFloat(parseFloat(amountExcludingTaxes) * parseFloat(vatRate) / 100).toFixed(2)
+        totalVatRate += parseFloat(calculVatRate)
 
       $('.invoice-totals .total-except-tax .total-value').text(totalAmountExcludingTaxes)
       $('.invoice-totals .vat-total .total-value').text(totalVatRate)
@@ -29,29 +31,28 @@
     $(document).on 'keyup', '.nested-fields .form-field .purchase_invoice_items_quantity .invoice-quantity', (event) ->
       E.PurchaseInvoices.fillStocksCounters(event)
 
-    $('#new_purchase_invoice table.list').bind 'cocoon:after-insert', (event, insertedItem) ->
+    $('#new_purchase_invoice table.list').on 'cocoon:after-insert', (event, insertedItem) ->
       new_id = new Date().getTime()
+      if typeof insertedItem != 'undefined'
+        insertedItem.attr('id', "new_reception_#{new_id}")
 
-      insertedItem.attr('id', "new_reception_#{new_id}")
+        $(insertedItem).find('input, select').each ->
+          oldId = $(this).attr('id')
+          if !!oldId
+            elementNewId = oldId.replace(/[0-9]+/, new_id)
+            $(this).attr('id', elementNewId)
 
-      $(insertedItem).find('input, select').each ->
-        oldId = $(this).attr('id')
-        if !!oldId
-          elementNewId = oldId.replace(/[0-9]+/, new_id)
-          $(this).attr('id', elementNewId)
+          oldName = $(this).attr('name')
+          if !!oldName
+            elementNewName = oldName.replace(/[0-9]+/, new_id)
+            $(this).attr('name', elementNewName)
 
-        oldName = $(this).attr('name')
-        if !!oldName
-          elementNewName = oldName.replace(/[0-9]+/, new_id)
-          $(this).attr('name', elementNewName)
+        element = $(insertedItem).find('#purchase_invoice_items_attributes_RECORD_ID_parcels_purchase_invoice_items')
+        newName = element.attr('name').replace('RECORD_ID', new_id)
+        newId = element.attr('id').replace('RECORD_ID', new_id)
 
-
-      element = $(insertedItem).find('#purchase_invoice_items_attributes_RECORD_ID_parcels_purchase_invoice_items')
-      newName = element.attr('name').replace('RECORD_ID', new_id)
-      newId = element.attr('id').replace('RECORD_ID', new_id)
-
-      $(element).attr('id', newId)
-      $(element).attr('name', newName)
+        $(element).attr('id', newId)
+        $(element).attr('name', newName)
 
 
   E.PurchaseInvoices =

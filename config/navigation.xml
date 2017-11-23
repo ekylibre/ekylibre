@@ -2134,6 +2134,9 @@
   </inaccessible-actions>
   <untreated-actions>
     <group>
+      <item name="accounts">
+        <page to="backend/accounts#set_interval_preference"/>
+      </item>
       <item name="animal_groups">
         <page to="backend/animal_groups#list_reception_items"/>
         <page to="backend/animal_groups#list_shipment_items"/>
