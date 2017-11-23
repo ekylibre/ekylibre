@@ -19,24 +19,40 @@
     })
 
     function createVueCalulator(id, container) {
-      var test = new Vue ({
+      new Vue ({
         el: id,
         data: {
           conditionningQuantity: 0,
           conditionning: 0,
           quantity: 0,
+          unitPretaxAmount: 0,
+          reductionPercentage: 0,
+          pretaxAmount: 0,
         },
         watch: {
           conditionningQuantity: function (val) {
             this.quantity = val * this.conditionning
+            this.setPretaxAmount()
           },
           conditionning: function (val) {
             this.quantity = this.conditionningQuantity * val
+            this.setPretaxAmount()
+          },
+          reductionPercentage: function(val) {
+            this.setPretaxAmount()
           }
         },
         methods: {
           validateItem: function() {
             console.log('validate')
+          },
+          setPretaxAmount: function() {
+            var noReductionAmount = this.quantity * this.unitPretaxAmount
+            if(this.reductionPercentage != 0 ) {
+              this.pretaxAmount = noReductionAmount - (noReductionAmount * this.reductionPercentage / 100)
+            } else {
+              this.pretaxAmount = noReductionAmount
+            }
           }
         }
       })

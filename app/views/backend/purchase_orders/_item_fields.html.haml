@@ -58,17 +58,17 @@
           = variant.unit_name.or_else('#')
     %td.form-field
       = f.input :unit_pretax_amount, wrapper: :append do
-        = f.input_field :unit_pretax_amount, class: "order-unit-amount", label: :unit_amount.tl, data: {trade_component: "unit_pretax_amount"}
+        = f.input_field :unit_pretax_amount, class: "order-unit-amount", label: :unit_amount.tl, data: {trade_component: "unit_pretax_amount"}, 'v-model': 'unitPretaxAmount'
         %span.add-on
           = Nomen::Currency.find(f.object.currency).symbol
     %td.form-field
       = f.input :reduction_percentage, wrapper: :append do
-        = f.input_field :reduction_percentage, label: :discount_without_percent.tl, class: "order-discount-percentage", data: {trade_component: "reduction_percentage", required: true}
+        = f.input_field :reduction_percentage, label: :discount_without_percent.tl, class: "order-discount-percentage", data: {trade_component: "reduction_percentage", required: true}, 'v-model': 'reductionPercentage'
         %span.add-on
           = '%'
     %td.form-field.decimal
       = f.input :pretax_amount, wrapper: :append do
-        = f.input_field :pretax_amount, class: "pta order-total", data: {trade_component: "pretax_amount", required: true}
+        = f.input_field :pretax_amount, class: "pta order-total", data: {trade_component: "pretax_amount", required: true}, 'v-model': 'pretaxAmount'
         %span.add-on
           = Nomen::Currency.find(f.object.currency).symbol
     %td.form-field.decimal= f.input(:tax_id, label: :vat_rate.tl, collection: Tax.current.collect{|t| [t.short_label, t.id, {'data-rate' => ((100 + t.usable_amount)/100)}]}, selected: 1, input_html: { class: "order-vat-total", data: {value: 'rate', trade_component: "tax"}})
