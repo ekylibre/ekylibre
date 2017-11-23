@@ -205,6 +205,21 @@ $preview-modal-height: 80vh;
     .item-amount, .header-amount{
       width: 13%;
       color: $lightened-grey;
+  .nested-fertilizer.nested-product-parameter {
+    .intervention_inputs_quantity {
+      @include flex-row(flex-start);
+    }
+
+    .intervention_inputs_quantity .controls {
+      margin-left: 23%;
+    }
+
+    .product-parameter-cost {
+      margin-left: $default-gap * 22;
+    }
+
+    .product-parameter-cost-value {
+      font-weight: bold;
     }
   }
 }
@@ -277,4 +292,3 @@ $preview-modal-height: 80vh;
     }
   }
 }
-
