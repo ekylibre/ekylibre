@@ -2068,6 +2068,10 @@
     </group>
   </inaccessible-actions>
   <untreated-actions>
-    <group/>
+    <group>
+      <item name="costs">
+        <page to="backend/interventions/costs#parameter_cost"/>
+      </item>
+    </group>
   </untreated-actions>
 </navigation>

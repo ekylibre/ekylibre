@@ -595,6 +595,14 @@ Rails.application.routes.draw do
       end
     end
 
+    namespace :interventions do
+      resources :costs, only: [] do
+        collection do
+          get :parameter_cost
+        end
+      end
+    end
+
     resources :intervention_participations, only: %i[index update destroy] do
       collection do
         get :participations_modal
