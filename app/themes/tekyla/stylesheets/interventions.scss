@@ -205,9 +205,8 @@ $preview-modal-height: 80vh;
     .item-amount, .header-amount{
       width: 13%;
       color: $lightened-grey;
-  	}
+    }
   }
-
   .nested-fertilizer.nested-product-parameter {
     .intervention_inputs_quantity {
       @include flex-row(flex-start);
