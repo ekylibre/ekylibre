@@ -50,7 +50,6 @@
   $(document).on 'click', '#purchase_process_reconciliation .valid-modal', (event) ->
     validButton = $(event.target)
     modal = $(event.target).closest('#purchase_process_reconciliation')
-
     if validButton.attr('data-item-reconciliation') != undefined
       # Reconciliation on line
       E.reconciliation.reconciliateItems(modal)
@@ -152,7 +151,6 @@
         url: url
         data: datas
         success: (data, status, request) ->
-
           @reconciliationModal= new E.modal('#purchase_process_reconciliation')
           @reconciliationModal.removeModalContent()
           @reconciliationModal.getModalContent().append(data)
@@ -174,7 +172,6 @@
 
       itemsCheckboxes.each (index, itemCheckbox) ->
         isPurchaseOrderModal = $(itemCheckbox).closest('.modal-content').find('#purchase-orders').val()
-
         if isPurchaseOrderModal == "true"
           E.reconciliation._createNewReceptionItemLine(itemCheckbox)
         else
@@ -205,11 +202,11 @@
 
     _fillNewLineForm:  (itemCheckbox, isPurchaseOrderModal) ->
       lastLineForm = $('table.list .nested-fields .nested-item-form:last:visible')
-
       checkboxLine = $(itemCheckbox).closest('.item')
       itemId = $(itemCheckbox).attr('data-id')
       itemQuantity = $(checkboxLine).find('.item-value.quantity').text()
       equipmentId = $(checkboxLine).attr('data-equipment-id')
+
 
       if isPurchaseOrderModal == "true"
         E.reconciliation._fillPurchaseOrderItem(lastLineForm, checkboxLine, itemId, itemQuantity)
@@ -230,11 +227,15 @@
       itemTotalAmount = $(checkboxLine).find('.item-value.total-except-taxes').text()
       itemReductionPercentage = $(checkboxLine).attr('data-reduction-percentage')
       itemTaxId = $(checkboxLine).attr('data-tax-id')
+      itemConditionning = checkboxLine.attr('data-conditionning')
+      itemConditionningQuantity = checkboxLine.attr('data-conditionning-quantity')
 
       if itemReductionPercentage == "" || itemReductionPercentage == undefined
         itemReductionPercentage = 0
 
       $(lastLineForm).find('.purchase-item-attribute').val(JSON.stringify([itemId]))
+      $(lastLineForm).find('.form-field .invoice-conditionning').val(itemConditionning)
+      $(lastLineForm).find('.form-field .invoice-conditionning-quantity').val(itemConditionningQuantity)
       $(lastLineForm).find('.form-field .invoice-quantity').val(itemQuantity)
       $(lastLineForm).find('.form-field .invoice-unit-amount').val(itemUnitCost)
       $(lastLineForm).find('.form-field .invoice-discount-percentage').val(itemReductionPercentage)

@@ -51,12 +51,13 @@
             = f.referenced_association(:depreciable_product)
 
     %td.form-field.decimal
-      = f.input :conditionning_quantity, wrapper: :append do
-        = f.input_field :conditionning_quantity , class: "order-quantity", data: { trade_component: 'conditionning_quantity'}
-      %span.multiplicator X
       = f.input :conditionning, wrapper: :append do
-        = f.input_field :conditionning , class: "order-quantity", data: { trade_component: 'conditionning' }
-
+        = f.input_field :conditionning , class: "order-quantity invoice-conditionning", data: { trade_component: 'conditionning' }
+        %span.add-on.item-population-unit-name
+          = variant.unit_name.or_else('#')
+      %span.multiplicator X
+      = f.input :conditionning_quantity, wrapper: :append do
+        = f.input_field :conditionning_quantity , class: "order-quantity invoice-conditionning-quantity", data: { trade_component: 'conditionning_quantity'}
     %td.form-field.decimal
       = f.input :quantity, wrapper: :append do
         = f.input_field :quantity, class: "invoice-quantity", placeholder: '0', size: 7, data: {trade_component: "quantity", required: true}
