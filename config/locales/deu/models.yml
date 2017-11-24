@@ -582,6 +582,8 @@ deu:
     conclusion: "Abschluss"
     condition_operator: "Zustand Betreiber"
     condition_value: "Zustandswert"
+    # conditionning: "Conditionning"
+    # conditionning_quantity: "Conditionning quantity"
     conditions: "Bedingungen"
     confirmation_sent_at: "Bestätigung an"
     confirmation_token: "Bestätigung Token"

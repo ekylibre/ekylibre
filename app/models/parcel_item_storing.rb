@@ -22,21 +22,24 @@
 #
 # == Table: parcel_item_storings
 #
-#  created_at     :datetime         not null
-#  creator_id     :integer
-#  id             :integer          not null, primary key
-#  lock_version   :integer          default(0), not null
-#  parcel_item_id :integer          not null
-#  quantity       :decimal(19, 4)
-#  storage_id     :integer          not null
-#  updated_at     :datetime         not null
-#  updater_id     :integer
+#  conditionning          :integer
+#  conditionning_quantity :integer
+#  created_at             :datetime         not null
+#  creator_id             :integer
+#  id                     :integer          not null, primary key
+#  lock_version           :integer          default(0), not null
+#  parcel_item_id         :integer          not null
+#  quantity               :decimal(19, 4)
+#  storage_id             :integer          not null
+#  updated_at             :datetime         not null
+#  updater_id             :integer
 #
 class ParcelItemStoring < Ekylibre::Record::Base
   belongs_to :parcel_item, inverse_of: :storings
   belongs_to :storage, class_name: 'Product'
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  validates :conditionning, :conditionning_quantity, numericality: { only_integer: true, greater_than: -2_147_483_649, less_than: 2_147_483_648 }, allow_blank: true
   validates :quantity, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }, allow_blank: true
   validates :parcel_item, :storage, presence: true
   # ]VALIDATORS]

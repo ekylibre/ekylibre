@@ -392,6 +392,8 @@ eng:
       convert: "Convert intervention participation: %{name}"
       index: "Intervention participations"
       # participations_modal: "Participations modal intervention participation: %{name}"
+    backend/interventions/costs:
+      # parameter_cost: "Parameter cost cost: %{name}"
     backend/interventions:
       # change_page: "Change page intervention: %{name}"
       # change_state: "Change state intervention: %{name}"
@@ -2535,6 +2537,7 @@ eng:
       notify_accountant: "Notify accountant"
       open: "Open"
       order: "Order"
+      # parameter_cost: "Parameter cost"
       # participations_modal: "Participations modal"
       # passthru: "Passthru"
       pay: "Pay"
