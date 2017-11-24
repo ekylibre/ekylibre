@@ -61,8 +61,7 @@
 class PurchaseOrder < Purchase
   enumerize :command_mode, in: %i[letter fax mail oral sms market_place], default: :mail
 
-  state_machine :state, initial: :estimate do
-    state :estimate
+  state_machine :state, initial: :opened do
     state :opened
     state :closed
     event :open do
@@ -74,7 +73,7 @@ class PurchaseOrder < Purchase
   end
 
   before_validation(on: :create) do
-    self.state = :estimate
+    self.state = :opened
     self.ordered_at ||= created_at
   end
 
