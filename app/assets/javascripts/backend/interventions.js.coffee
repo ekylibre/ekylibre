@@ -397,21 +397,21 @@
       if unitName
         intervention['unit_name'] = unitName
 
-      $.ajax
-        url: "/backend/interventions/costs/parameter_cost",
-        data: { intervention: intervention }
-        success: (data, status, request) ->
-          if !data.human_amount.nature || data.human_amount.nature != "failed"
-            nestedProductParameter = $(target).closest('.nested-product-parameter')
+      # $.ajax
+      #   url: "/backend/interventions/costs/parameter_cost",
+      #   data: { intervention: intervention }
+      #   success: (data, status, request) ->
+      #     if !data.human_amount.nature || data.human_amount.nature != "failed"
+      #       nestedProductParameter = $(target).closest('.nested-product-parameter')
 
-            if $(nestedProductParameter).find('.product-parameter-cost').length > 0
-              $(nestedProductParameter).find('.product-parameter-cost-value').text(data.human_amount)
-            else
-              parameterCostBlock = $('<div class="product-parameter-cost"></div>')
-              parameterCostBlock.append('<span class="product-parameter-cost-label">Coût : </span>')
-              parameterCostBlock.append('<span class="product-parameter-cost-value">' + data.human_amount + '</span>')
-
-              $(nestedProductParameter).find('.intervention_inputs_quantity').append(parameterCostBlock)
+            # if $(nestedProductParameter).find('.product-parameter-cost').length > 0
+            #   $(nestedProductParameter).find('.product-parameter-cost-value').text(data.human_amount)
+            # else
+            #   parameterCostBlock = $('<div class="product-parameter-cost"></div>')
+            #   parameterCostBlock.append('<span class="product-parameter-cost-label">Coût : </span>')
+            #   parameterCostBlock.append('<span class="product-parameter-cost-value">' + data.human_amount + '</span>')
+            #
+            #   $(nestedProductParameter).find('.intervention_inputs_quantity').append(parameterCostBlock)
 
 
   $(document).ready ->
