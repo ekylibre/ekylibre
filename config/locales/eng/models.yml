@@ -586,6 +586,8 @@ eng:
     conclusion: "Conclusion"
     condition_operator: "Condition operator"
     condition_value: "Condition value"
+    conditionning: "Conditionning"
+    conditionning_quantity: "Conditionning quantity"
     conditions: "Conditions"
     confirmation_sent_at: "Confirmation sent at"
     confirmation_token: "Confirmation token"

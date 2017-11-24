@@ -26,6 +26,8 @@
 #  activity_budget_id     :integer
 #  amount                 :decimal(19, 4)   default(0.0), not null
 #  annotation             :text
+#  conditionning          :integer
+#  conditionning_quantity :integer
 #  created_at             :datetime         not null
 #  creator_id             :integer
 #  currency               :string           not null
@@ -77,6 +79,7 @@ class PurchaseItem < Ekylibre::Record::Base
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :amount, :pretax_amount, :quantity, :reduction_percentage, :unit_amount, :unit_pretax_amount, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
   validates :annotation, :label, length: { maximum: 500_000 }, allow_blank: true
+  validates :conditionning, :conditionning_quantity, numericality: { only_integer: true, greater_than: -2_147_483_649, less_than: 2_147_483_648 }, allow_blank: true
   validates :account, :currency, :purchase, :tax, presence: true
   validates :fixed, inclusion: { in: [true, false] }
   validates :preexisting_asset, inclusion: { in: [true, false] }, allow_blank: true
