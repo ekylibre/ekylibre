@@ -206,10 +206,12 @@
       itemId = $(itemCheckbox).attr('data-id')
       itemQuantity = $(checkboxLine).find('.item-value.quantity').text()
       equipmentId = $(checkboxLine).attr('data-equipment-id')
+      itemConditionning = $(checkboxLine).attr('data-conditionning')
+      itemConditionningQuantity = $(checkboxLine).attr('data-conditionning-quantity')
 
 
       if isPurchaseOrderModal == "true"
-        E.reconciliation._fillPurchaseOrderItem(lastLineForm, checkboxLine, itemId, itemQuantity)
+        E.reconciliation._fillPurchaseOrderItem(lastLineForm, checkboxLine, itemId, itemQuantity, itemConditionning, itemConditionningQuantity)
       else
         E.reconciliation._fillReceptionItem(lastLineForm, checkboxLine, itemId, itemQuantity)
 
@@ -252,7 +254,7 @@
 
 
 
-    _fillPurchaseOrderItem: (lastLineForm, checkboxLine, itemId, itemQuantity) ->
+    _fillPurchaseOrderItem: (lastLineForm, checkboxLine, itemId, itemQuantity, itemConditionning, itemConditionningQuantity) ->
       variantId = $(checkboxLine).find('.variant').attr('data-id')
 
       $(lastLineForm).find('.purchase-item-attribute').val(itemId)
@@ -260,5 +262,6 @@
       $(lastLineForm).find('.item-block.merchandise .parcel-item-variant').first().selector('value', variantId)
       $(lastLineForm).find('.hidden.purchase-item-attribute').val(itemId)
       $(lastLineForm).find('.nested-fields.storing-fields:first .storing-quantifier .storing-quantity').val(itemQuantity)
-
+      $(lastLineForm).find('.nested-fields.storing-fields:first .conditionning-quantity').val(itemConditionningQuantity)
+      $(lastLineForm).find('.nested-fields.storing-fields:first .conditionning').val(itemConditionning)
 ) ekylibre, jQuery

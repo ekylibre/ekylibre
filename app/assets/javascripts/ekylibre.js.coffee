@@ -63,7 +63,7 @@
             validateItemButton.attr("disabled",null)
 
   E.setStorageUnitName = (container) ->
-    container.find('.storing-fields:visible').last().find('.storage-unit-name').html(container.find('.storing-fields').first().find('.storage-unit-name').text())
+    container.find('.storing-fields:visible').last().find('.storage-unit-name').html(container.find('.storing-fields').first().find('.storage-unit-name').first().text())
 
 
 ) ekylibre, jQuery

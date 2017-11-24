@@ -24,6 +24,7 @@
       quantity = item.find('.storing-quantity')
       quantity_value = parseFloat(conditionning.val()) * parseFloat(conditionning_quantity.val())
       quantity.val(quantity_value)
+      E.toggleValidateButton(item.closest('.incoming-parcel-item'))
     if component_name == 'conditionning'
       $('.conditionning').val(item.find('.conditionning').val())
 
