@@ -179,9 +179,9 @@ fra:
         reference_number: "Référence fournisseur (n° facture)" #?
       purchase_item: #?
         amount: "Montant TTC" #?
-        conditionning_quantity: Quantité
-        conditionning: Conditionnement
-        quantity: Quantité totale
+        conditionning: "Conditionnement" #?
+        conditionning_quantity: "Quantité" #?
+        quantity: "Quantité totale" #?
       purchase_order: #?
         command_mode: "Mode de commande" #?
         description: "Notes" #?
@@ -763,6 +763,8 @@ fra:
     conclusion: "Conclusion"
     condition_operator: "Comparateur"
     condition_value: "Valeur comparée"
+    # conditionning: "Conditionning"
+    # conditionning_quantity: "Conditionning quantity"
     conditions: "Conditions (SQL)"
     confirmation_sent_at: "Confirmation envoyée le"
     confirmation_token: "Jeton de confirmation"
