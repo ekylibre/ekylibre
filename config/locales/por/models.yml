@@ -582,6 +582,8 @@ por:
     conclusion: "Conclusão"
     condition_operator: "Operador de condição"
     condition_value: "Valor da condição"
+    # conditionning: "Conditionning"
+    # conditionning_quantity: "Conditionning quantity"
     conditions: "Condições"
     confirmation_sent_at: "Confirmação enviada em"
     confirmation_token: "Token de confirmação"

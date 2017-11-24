@@ -4883,6 +4883,10 @@ outgoing_payments:
     type: integer
     references: user
 parcel_item_storings:
+  conditionning:
+    type: integer
+  conditionning_quantity:
+    type: integer
   created_at:
     type: datetime
     required: true
@@ -6498,6 +6502,10 @@ purchase_items:
     required: true
   annotation:
     type: text
+  conditionning:
+    type: integer
+  conditionning_quantity:
+    type: integer
   created_at:
     type: datetime
     required: true

@@ -582,6 +582,8 @@ cmn:
     conclusion: "结论"
     condition_operator: "条件运算符"
     condition_value: "条件值"
+    # conditionning: "Conditionning"
+    # conditionning_quantity: "Conditionning quantity"
     conditions: "条件"
     confirmation_sent_at: "在发送确认"
     confirmation_token: "确认令牌"
