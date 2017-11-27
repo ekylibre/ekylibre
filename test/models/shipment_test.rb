@@ -125,12 +125,12 @@ class ShipmentTest < ActiveSupport::TestCase
 
   test 'ship giving a transporter' do
     new_shipment
-    assert_nothing_raised { Parcel.ship(Parcel.all, transporter_id: @entity.id) }
+    assert_nothing_raised { Shipment.ship(Shipment.all, transporter_id: @entity.id) }
   end
 
   test 'ship without transporter' do
     new_shipment
-    assert_raise { Parcel.ship(Parcel.all) }
+    assert_raise { Shipment.ship(Shipment.all) }
   end
 
   # ???? TODO: Figure what that test was supposed to be
