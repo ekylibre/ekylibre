@@ -46,11 +46,13 @@
       - elsif f.object.role == 'service' || f.object.role == 'fees'
         = f.referenced_association(:variant, label: f.object.role.tl, source: { scope: :services }, input_html: { class: 'order-variant', data: { product_of_delivery_item: {url: backend_product_nature_variant_path("RECORD_ID", format: :json), scope: 'unit'}, required: true }}, required: true)
     %td.form-field.decimal
-      = f.input :conditionning_quantity, wrapper: :append do
-        = f.input_field :conditionning_quantity , class: "order-quantity", data: { trade_component: 'conditionning_quantity'}
-      %span.multiplicator X
       = f.input :conditionning, wrapper: :append do
-        = f.input_field :conditionning , class: "order-quantity", data: { trade_component: 'conditionning' }
+        = f.input_field :conditionning , class: "order-conditionning", data: { trade_component: 'conditionning' }
+        %span.add-on.item-population-unit-name
+          = variant.unit_name.or_else('#')
+      %span.multiplicator X
+      = f.input :conditionning_quantity, wrapper: :append do
+        = f.input_field :conditionning_quantity , class: "order-conditionning-quantity", data: { trade_component: 'conditionning_quantity'}
     %td.form-field.decimal
       = f.input :quantity, wrapper: :append do
         = f.input_field :quantity, class: "order-quantity", placeholder: '0', size: 7, data: { trade_component: "quantity", required: true }
