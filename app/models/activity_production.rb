@@ -62,7 +62,7 @@ class ActivityProduction < Ekylibre::Record::Base
   belongs_to :support, class_name: 'Product' # , inverse_of: :supports
   belongs_to :tactic, class_name: 'ActivityTactic', inverse_of: :productions
   belongs_to :season, class_name: 'ActivitySeason', inverse_of: :productions
-  has_many :distributions, class_name: 'TargetDistribution', inverse_of: :activity_production, dependent: :destroy
+  has_many :products
   has_many :budgets, through: :activity
   has_many :manure_management_plan_zones, class_name: 'ManureManagementPlanZone',
                                           inverse_of: :activity_production
@@ -193,8 +193,8 @@ class ActivityProduction < Ekylibre::Record::Base
     true
   end
 
-  after_create do
-    add_target!(support) if support
+  after_save do
+    support.update(activity_production: self) if support
   end
 
   after_commit do
@@ -342,11 +342,6 @@ class ActivityProduction < Ekylibre::Record::Base
     end
   end
 
-  def add_target!(product, at = nil)
-    at ||= Time.now if distributions.where(target: product).any?
-    distributions.create!(target: product)
-  end
-
   def active?
     activity.family.to_s != 'fallow_land'
   end
@@ -456,22 +451,25 @@ class ActivityProduction < Ekylibre::Record::Base
   end
 
   def tool_cost(surface_unit_name = :hectare)
-    if net_surface_area.to_s.to_f > 0.0
-      return cost(:tool) / net_surface_area.to_d(surface_unit_name).to_s.to_f
+    surface_area = net_surface_area
+    if surface_area.to_s.to_f > 0.0
+      return cost(:tool) / surface_area.to_d(surface_unit_name).to_s.to_f
     end
     0.0
   end
 
   def input_cost(surface_unit_name = :hectare)
-    if net_surface_area.to_s.to_f > 0.0
-      return cost(:input) / net_surface_area.to_d(surface_unit_name).to_s.to_f
+    surface_area = net_surface_area
+    if surface_area.to_s.to_f > 0.0
+      return cost(:input) / surface_area.to_d(surface_unit_name).to_s.to_f
     end
     0.0
   end
 
   def time_cost(surface_unit_name = :hectare)
-    if net_surface_area.to_s.to_f > 0.0
-      return cost(:doer) / net_surface_area.to_d(surface_unit_name).to_s.to_f
+    surface_area = net_surface_area
+    if surface_area.to_s.to_f > 0.0
+      return cost(:doer) / surface_area.to_d(surface_unit_name).to_s.to_f
     end
     0.0
   end
@@ -518,7 +516,8 @@ class ActivityProduction < Ekylibre::Record::Base
     end
     surface_unit_name = options[:surface_unit_name] || :hectare
     procedure_category = options[:procedure_category] || :harvesting
-    unless net_surface_area && net_surface_area.to_d > 0
+    surface = net_surface_area
+    unless surface && surface.to_d > 0
       Rails.logger.warn 'No surface area. Cannot compute harvest yield'
       return nil
     end
@@ -528,7 +527,7 @@ class ActivityProduction < Ekylibre::Record::Base
     end
     total_quantity = 0.0.in(size_unit_name)
 
-    target_distribution_plants = Plant.where(id: distributions.pluck(:target_id).compact)
+    target_distribution_plants = Plant.where(activity_production: self)
 
     # get harvest_interventions firstly by distributions and secondly by inside_plants method
     harvest_interventions = Intervention.real.of_category(procedure_category).with_targets(target_distribution_plants) if target_distribution_plants.any?
@@ -545,7 +544,7 @@ class ActivityProduction < Ekylibre::Record::Base
             harvest_working_area << ::Charta.new_geometry(zone).area.in(:square_meter)
           end
         end
-        harvest.outputs.includes(:product).each do |cast|
+        harvest.outputs.each do |cast|
           actor = cast.product
           next unless actor && actor.variety
           variety = Nomen::Variety.find(actor.variety)

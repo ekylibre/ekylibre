@@ -3,7 +3,7 @@ source 'https://rubygems.org'
 ruby '>= 2.2.3', '< 3.0.0'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.2.9'
+gem 'rails', '4.2.10'
 
 # Security fix for mail
 gem 'mail', '~> 2.6.6.rc1'
@@ -77,7 +77,7 @@ gem 'kaminari'
 gem 'timecop'
 
 # Manipulate map data
-gem 'charta', '>= 0.1.5'
+gem 'charta', '>= 0.1.9'
 
 # Manage daemons
 gem 'foreman'
@@ -224,7 +224,7 @@ end
 
 group :development, :test do
   gem 'pry-byebug'
-  gem 'pry-inline'
+  # gem 'pry-inline'
   gem 'pry-rails'
   gem 'teaspoon-jasmine'
 

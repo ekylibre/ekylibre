@@ -477,6 +477,7 @@ jpn:
       # show: "Product type: %{name}"
     backend/products:
       # edit: "Edit product: %{name}"
+      edit_many: "影響を受けていない製品を配布する"
       index: "プロダクト"
       new: "新製品"
       # show: "%{nature}: %{name}"
@@ -568,12 +569,12 @@ jpn:
     backend/synchronizations:
       index: "同期の"
       # run: "Run synchronization: %{name}"
-    backend/target_distributions:
-      edit: "編集対象の分布"
-      edit_many: "影響を受けない製品を販売"
-      index: "ターゲットディストリビューション"
-      new: "新しいターゲットの配布"
-      show: "ターゲット配信"
+    backend/target_distributions: #?
+      edit: "編集対象の分布" #?
+      edit_many: "影響を受けない製品を販売" #?
+      index: "ターゲットディストリビューション" #?
+      new: "新しいターゲットの配布" #?
+      show: "ターゲット配信" #?
     backend/tasks:
       # edit: "Edit task: %{name}"
       index: "タスク"
@@ -1539,7 +1540,7 @@ jpn:
     purchase: "購入"
     purchase_items: "アイテムを購入します"
     purchase_number: "購入数"
-    # purchase_payments: "Purchase payments"
+    purchase_payments: "購入の支払い"
     purchases: "購入"
     purchases_stocks_variation: "購入株式の変動"
     quality: "品質"
@@ -2023,7 +2024,7 @@ jpn:
       # could_not_attach_x_or_y_to_affair: "Could not attach %{x} or %{y} to affair"
       dashboard_is_being_developed: "ダッシュボードは重い開発中です"
       density_is_not_computable_in_counting: "この計数のための密度を計算することができませんでした。欠損値は、カウントのプロパティまたは種まきの指標で完了する必要があります。"
-      # document_in_preparation: "Your document is in preparation a notification will be sent to you when it is ready"
+      document_in_preparation: "あなたの文書が準備中です。準備が整ったら通知が送られます"
       draft_journal_entries_have_been_validated:
         one: "1つのエントリが検証されています"
         # other: "%{count} entries have been validated"
@@ -2032,10 +2033,10 @@ jpn:
       # equipment_component_is_worn_out: "The component %{component_name} of the equipment %{equipment_name} is worn out. Remaining work time: %{remaining_time}."
       # equipment_is_at_end_of_life: "Equipment %{name} is reaching the end of its life. Remaining time: %{remaining_time}."
       # equipment_is_worn_out: "Equipment %{name} is worn out. Remaining work time: %{remaining_time}."
-      # error_client_account_empty: "Can not operate, client account is empty"
-      # error_during_file_generation: "An error occurred while generating a file"
+      error_client_account_empty: "操作できません。クライアントアカウントは空です"
+      error_during_file_generation: "ファイルの生成中にエラーが発生しました"
       # fails_to_extract_listing: "The listing can't be made: %{message}"
-      # file_generated: "Your file was successfully generated"
+      file_generated: "ファイルが正常に生成されました"
       financial_years_missing: "最初に登録されたので、あなたはすべて不足している会計年度作成する必要があります。"
       # financial_years_missing_tax_declarations: "You must create every declarations for the following financial years: %{codes}"
       implemented_with_dummy_data: "ダミーデータを用いて実装"
@@ -2222,7 +2223,7 @@ jpn:
       sell: "販売に回し"
       ship: "船"
       show: "を表示"
-      # show_export_preview: "View a preview of the document (may increase loading time)"
+      show_export_preview: "ドキュメントのプレビューを表示する（読み込み時間が長くなることがあります）"
       sort: "ソート"
       star: "星"
       start: "開始"

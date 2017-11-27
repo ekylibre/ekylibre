@@ -196,7 +196,7 @@ module Ekylibre
       if can_load_default?(:incoming_payment_modes)
         @manifest[:incoming_payment_modes] = %w[cash check transfer].each_with_object({}) do |nature, hash|
           if cash = Cash.find_by(nature: Cash.nature.values.include?(nature) ? nature : :bank_account)
-            hash[nature] = { name: IncomingPaymentMode.tc("default.#{nature}.name"), with_accounting: true, cash: cash, with_deposit: (nature == 'check' ? true : false) }
+            hash[nature] = { name: IncomingPaymentMode.tc("default.#{nature}.name"), with_accounting: true, cash: cash, with_deposit: (nature == 'check') }
             if hash[nature][:with_deposit] && journal = Journal.find_by(nature: 'bank')
               hash[nature][:depositables_journal] = journal
               hash[nature][:depositables_account] = Account.find_or_import_from_nomenclature(:pending_deposit_payments)

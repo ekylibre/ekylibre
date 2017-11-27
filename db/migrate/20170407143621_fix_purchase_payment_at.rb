@@ -1,5 +1,3 @@
-# coding: utf-8
-
 class FixPurchasePaymentAt < ActiveRecord::Migration
   def change
     reversible do |d|

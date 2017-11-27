@@ -1,4 +1,7 @@
 = f.product_form_frame work_number: false do
+  = field_set(:data) do
+    = f.association :activity_production
+
   = field_set :identification do
     = f.input :identification_number
     = f.input :work_number

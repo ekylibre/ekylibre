@@ -46,10 +46,6 @@
 
 = cobbles do |c|
 
-  - if resource.animal_farming? && (resource.support.is_a?(AnimalGroup))
-    - c.cobble :animals do
-      = cobble_list(:target_distributions)
-
   - if resource.plant_farming? && (resource.support.is_a?(LandParcel) || resource.support.is_a?(Plant))
     - c.cobble :weather do
       = cell :weather, params: {id: resource.cultivable_zone.id} unless resource.cultivable_zone.nil?
@@ -120,59 +116,7 @@
       = waterfall_highcharts(series, tooltip: {point_format: '{point.y: 1.3f}'}, title: {text: 'Budget prévisionnel'}, legend: {enabled: false}, x_axis: {type: 'category'}, y_axis: {title: {text: '€'}})
 
   - if resource.interventions.any? and Nomen::Variety[resource.activity.cultivation_variety] <= :plant
-    - c.cobble :production_cost do
-      :ruby
-        # prepare an array of hash
-
-        unit = resource.activity.size_unit_name.to_sym
-        unit ||= :hectare
-
-        unit_item = Nomen::Unit[unit]
-
-        currency = Preference[:currency]
-        currency_item = Nomen::Currency[currency]
-
-        series = []
-        categories = [:input_cost.tl, :doer_cost.tl, :tool_cost.tl]
-        global_cost_per_hectare = []
-
-        # data for bar chart costs by activities
-        resources = resource.interventions.includes(:targets).reorder(:started_at)
-        resources.find_each do |intervention|
-          area = intervention.working_zone_area
-          data = []
-          [:input, :doer, :tool].each do |role|
-            if area_cost = intervention.cost_per_area(role, unit, area)
-              cost_per_hectare = area_cost
-            else
-              cost_per_hectare = 0.0
-            end
-            data << cost_per_hectare.round(2).to_s.to_f
-          end
-          series << { name: intervention.name, data: data }
-        end
-
-        # data for total cost pie by intervention
-        data = []
-        resources.find_each do |intervention|
-          area = intervention.working_zone_area
-          cost = []
-          [:input, :doer, :tool].each do |role|
-            if area_cost = intervention.cost_per_area(role, unit, area)
-              cost << area_cost
-            end
-          end
-          data << {name: intervention.name, y: cost.compact.sum.round(2).to_s.to_f }
-          global_cost_per_hectare << cost.compact.sum.round(2).to_s.to_f
-        end
-        series << {type: 'pie', name: :total.tl, data: data, center: [50, 50], size: 100, show_in_legend: false, data_labels: { enabled: false }}
-
-        # build chart title
-        label_measure = currency_item.human_name + '/' + unit_item.human_name
-        symbol_measure = currency_item.symbol + '/' + unit_item.symbol
-        chart_title = :production_cost.tl + ' : ' + global_cost_per_hectare.compact.sum.round(2).to_s + ' ' + label_measure +' (' + symbol_measure + ')'
-
-      = column_highcharts(series, title: chart_title, tooltip: {point_format: "{point.y: 1.2f} #{symbol_measure}"}, y_axis: {title: {text: :cost_per_net_surface_area.tl + ' (' + symbol_measure + ')'}, stack_labels: {enabled: true, format: "{total} " + symbol_measure}, labels: { format: "{value}" }}, x_axis: { categories: categories}, legend: true, plot_options: { column: {stacking: 'normal'}})
+    - async_cobble :production_cost, { params: { id: resource.id }, cobble: c }
   - else
     = no_data
 

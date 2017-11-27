@@ -6255,6 +6255,9 @@ product_readings:
     type: integer
     references: user
 products:
+  activity_production_id:
+    type: integer
+    references: activity_production
   address_id:
     type: integer
     references: entity_address

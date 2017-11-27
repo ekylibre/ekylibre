@@ -118,11 +118,6 @@ class InterventionTest < ActiveSupport::TestCase
     refute intervention.save, 'Intervention with invalid actions should not be saved: ' + intervention.errors.full_messages.to_sentence(locale: :eng)
   end
 
-  test 'destroy intervention update intervention_activities_db_view' do
-    first_activity_intervention = Intervention::HABTM_Activities.first
-    assert Intervention.destroy(first_activity_intervention.intervention_id)
-  end
-
   test 'killing target' do
     plant = Plant.all.detect { |p| p.dead_first_at.nil? && p.dead_at.nil? }
     assert plant
@@ -159,6 +154,14 @@ class InterventionTest < ActiveSupport::TestCase
     last_intervention.destroy
     plant.reload
     assert plant.dead_at.nil?, 'Dead_at of plant should be nil when no death registered'
+  end
+
+  test 'cost_per_area' do
+    cultivable_zone = create(:cultivable_zone)
+    activity_production = create(:activity_production, cultivable_zone: cultivable_zone)
+    intervention = create(:intervention)
+    create(:intervention_target, intervention: intervention, product: activity_production.support, working_zone: activity_production.support.initial_shape)
+    assert_equal 0.0, intervention.cost_per_area(:target)
   end
 
   def add_harvesting_intervention(target, stopped_at)
