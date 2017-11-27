@@ -18,7 +18,6 @@
 
 module Backend
   class ParcelsController < Backend::BaseController
-
     before_action only: :new do
       params[:nature] ||= 'incoming'
     end

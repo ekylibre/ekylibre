@@ -59,7 +59,7 @@ module Backend
     end
 
     list(conditions: shipments_conditions, order: { planned_at: :desc }) do |t|
-      t.action :ship,    on: :both, method: :post, if: :shippable?
+      t.action :ship, on: :both, method: :post, if: :shippable?
       t.action :edit, if: :updateable?
       t.action :destroy
       t.column :number, url: true

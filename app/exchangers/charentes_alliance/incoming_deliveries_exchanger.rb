@@ -75,18 +75,18 @@ module CharentesAlliance
 
         # create an reception if not exist
         reception = Reception.find_by(reference_number: r.reception_number, currency: 'EUR', nature: :incoming) ||
-                 Reception.create!(
-                   nature: :incoming,
-                   currency: 'EUR',
-                   reference_number: r.reception_number,
-                   planned_at: r.ordered_on,
-                   given_at: r.ordered_on,
-                   state: :draft,
-                   sender: sender,
-                   address: address,
-                   delivery_mode: :third,
-                   storage: building_division
-                 )
+                    Reception.create!(
+                      nature: :incoming,
+                      currency: 'EUR',
+                      reference_number: r.reception_number,
+                      planned_at: r.ordered_on,
+                      given_at: r.ordered_on,
+                      state: :draft,
+                      sender: sender,
+                      address: address,
+                      delivery_mode: :third,
+                      storage: building_division
+                    )
         next unless reception.draft?
         previous_reception_number = r.reception_number
 
