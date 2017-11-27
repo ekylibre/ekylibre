@@ -2,7 +2,7 @@
 lock '3.9.1'
 
 set :application, 'ekylibre'
-set :repo_url, 'git@github.com:ekylibre/integration-larrere.git'
+set :repo_url, 'git@gitlab.com:ekylibre-integration/larrere.git'
 
 # Default branch is :master
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
