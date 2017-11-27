@@ -582,6 +582,8 @@ jpn:
     conclusion: "結論"
     condition_operator: "条件演算子"
     condition_value: "条件値"
+    # conditionning: "Conditionning"
+    # conditionning_quantity: "Conditionning quantity"
     conditions: "条件"
     confirmation_sent_at: "確認で送信"
     confirmation_token: "確認トークン"

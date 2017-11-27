@@ -344,6 +344,10 @@
         margin-right: $default-gap * 3;
       }
 
+      .control-group.multiplicator {
+        flex:3%;
+      }
+
       .control-group .controls {
         max-width: none;
       }

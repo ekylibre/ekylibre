@@ -613,6 +613,8 @@ ita:
     conclusion: "Conclusione"
     condition_operator: "operatore Condizione"
     condition_value: "valore della condizione"
+    # conditionning: "Conditionning"
+    # conditionning_quantity: "Conditionning quantity"
     conditions: "condizioni"
     confirmation_sent_at: "Conferma inviata a"
     confirmation_token: "conferma Token"
