@@ -245,6 +245,8 @@
 
       $(lastLineForm).find('.form-field .invoice-vat-total').val(itemTaxId).change()
 
+      $(lastLineForm).trigger('cocoon:after-insert')
+
       # unless $(lastLineForm).find('.form-field .invoice-total').val() == null
       setTimeout (->
         $('.form-field .invoice-total').trigger('change')), 1000
