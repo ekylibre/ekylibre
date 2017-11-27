@@ -136,6 +136,13 @@ class ReceptionTest < ActiveSupport::TestCase
     assert_equal jei_sm.variant, @variant
   end
 
+  # ???? TODO: Figure what that test was supposed to be
+  test 'prevent empty items' do
+    item = parcel_items(:parcel_items_001).attributes.slice('product_id', 'population', 'shape')
+    Reception.new items_attributes: { '123456789' => { 'product_id' => '', '_destroy' => 'false' }, '852' => item }
+    # parcel.items.map(&:net_mass)
+  end
+
   private
 
   def new_reception(delivery_mode: :third, address: nil, sender: nil, separated: nil, items_attributes: nil)
