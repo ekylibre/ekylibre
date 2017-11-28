@@ -127,6 +127,7 @@ GEM
     capybara-webkit (1.14.0)
       capybara (>= 2.3.0, < 2.14.0)
       json
+    charlock_holmes (0.7.5)
     charta (0.1.9)
       json (>= 1.8.0)
       nokogiri (>= 1.7.0)
@@ -623,6 +624,7 @@ DEPENDENCIES
   capistrano-rbenv
   capybara
   capybara-webkit
+  charlock_holmes
   charta (>= 0.1.9)
   cocoon
   codacy-coverage
