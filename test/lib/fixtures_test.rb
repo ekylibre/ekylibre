@@ -17,7 +17,6 @@ class FixturesTest < ActiveSupport::TestCase
         rescue ActiveRecord::RecordInvalid => e
           invalids << "#{model.name}##{record.id}: #{e.class.name} raised: #{e.message}"
         end
-        byebug if ShipmentItem === record && record.id == 1
         reflections.each do |reflection|
           id = record.send(reflection.foreign_key)
           if id && id.to_i > 0 && record.send(reflection.name).blank?
