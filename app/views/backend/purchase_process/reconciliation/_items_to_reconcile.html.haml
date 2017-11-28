@@ -18,7 +18,8 @@
           - reference_number = model.reference_number if model.is_a?(Purchase) || model.is_a?(Reception)
           - reference_number = model.items.first.purchase_order_item.purchase.reference_number unless model.is_a?(Purchase) || model.is_a?(Reception)
           - reference_number = !reference_number.blank? ? reference_number : :not_informed.tl
-          %span.model-ref= :reference_supplier.tl(reference_number: reference_number)
+          %span.model-ref= :reference_supplier.tl(reference_number: reference_number) unless model.is_a?(Reception)
+          %span.model-ref= :reception_number_with_reference.tl(reference_number: reference_number) if model.is_a?(Reception)
 
           %ul.list-items
             - model.items.each do |model_item|
