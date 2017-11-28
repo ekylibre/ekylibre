@@ -191,6 +191,8 @@ class PurchaseItem < Ekylibre::Record::Base
         )
       end
     end
+
+    purchase.save! if purchase && purchase.is_a?(PurchaseInvoice)
   end
 
   def new_fixed_asset
