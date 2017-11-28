@@ -2967,6 +2967,7 @@ fra:
     backend/product_nature_variants: "%{name} (%{unit_name}) - %{charge_account_number}"
     backend/product_natures: "%{name}"
     backend/products: "%{work_number} %{name} (%{number}) - %{container_name}"
+    backend/purchases: "%{number} - %{reference_number} - %{ordered_at} - %{pretax_amount} €"
     backend/purchase_payments: "%{number}. %{mode_name} pour %{payee_full_name} de %{amount} %{currency}"
     backend/trackings: "%{serial} ‒ %{name} ‒ %{producer_full_name}"
     backend/users: "%{first_name} %{last_name}"
