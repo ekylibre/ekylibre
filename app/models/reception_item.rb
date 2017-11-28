@@ -149,29 +149,31 @@ class ReceptionItem < ParcelItem
   protected
 
   def check_incoming(checked_at)
-    product_params = {}
     no_fusing = reception_separated_stock? || product_is_unitary?
 
-    product_params[:name] = product_name
-    product_params[:name] ||= "#{variant.name} (#{reception.number})"
-    product_params[:identification_number] = product_identification_number
-    product_params[:work_number] = product_work_number
-    product_params[:initial_born_at] = [checked_at, reception_given_at].compact.min
-
-    self.product = existing_product_in_storage unless no_fusing || storage.blank?
-
-    self.product ||= variant.create_product(product_params)
-
-    return false, self.product.errors if self.product.errors.any?
+    # Create a matter for each storing
+    storings.each do |storing|
+      product_params = {}
+      product_params[:name] = product_name || "#{variant.name} (#{reception.number})"
+      product_params[:identification_number] = product_identification_number
+      product_params[:work_number] = product_work_number
+      product_params[:initial_born_at] = [checked_at, reception_given_at].compact.min
+      product = existing_product_in_storage unless no_fusing || storage.blank?
+      product ||= variant.new_product(product_params)
+      product.parcel_items << self
+      product.save
+      binding.pry
+      return false, product.errors if product.errors.any?
+      ProductMovement.create!(product: product, delta: population, started_at: reception_given_at, originator: self) unless product_is_unitary?
+      ProductLocalization.create!(product: product, nature: :interior, container: storing.storage, started_at: reception_given_at, originator: self)
+      ProductEnjoyment.create!(product: product, enjoyer: Entity.of_company, nature: :own, started_at: reception_given_at, originator: self)
+      ProductOwnership.create!(product: product, owner: Entity.of_company, nature: :own, started_at: reception_given_at, originator: self) unless reception_remain_owner
+    end
     true
   end
 
   def give_incoming
     check_incoming(reception_prepared_at)
-    ProductMovement.create!(product: product, delta: population, started_at: reception_given_at, originator: self) unless product_is_unitary?
-    ProductLocalization.create!(product: product, nature: :interior, container: storage, started_at: reception_given_at, originator: self)
-    ProductEnjoyment.create!(product: product, enjoyer: Entity.of_company, nature: :own, started_at: reception_given_at, originator: self)
-    ProductOwnership.create!(product: product, owner: Entity.of_company, nature: :own, started_at: reception_given_at, originator: self) unless reception_remain_owner
   end
 
   def give_outgoing

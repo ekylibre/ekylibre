@@ -90,7 +90,7 @@ module Backend
       t.column :unit_pretax_amount, currency: true
       t.status
       # t.column :net_mass
-      t.column :product, url: true
+      # t.column :product, url: true
       t.column :analysis, url: true
     end
 
