@@ -1,6 +1,7 @@
 GEM
   remote: https://rubygems.org/
   specs:
+    Ascii85 (1.0.2)
     actionmailer (4.2.10)
       actionpack (= 4.2.10)
       actionview (= 4.2.10)
@@ -50,6 +51,7 @@ GEM
       activerecord (>= 3.0)
     addressable (2.5.2)
       public_suffix (>= 2.0.2, < 4.0)
+    afm (0.2.2)
     agric (3.0.1)
       railties (>= 3.2, < 6.0)
       sass-rails
@@ -112,7 +114,7 @@ GEM
       capybara (>= 2.3.0, < 2.14.0)
       json
     charlock_holmes (0.7.5)
-    charta (0.1.5)
+    charta (0.1.9)
       json (>= 1.8.0)
       nokogiri (>= 1.7.0)
       rgeo (~> 0.6.0)
@@ -205,6 +207,7 @@ GEM
     haml (5.0.3)
       temple (>= 0.8.0)
       tilt
+    hashery (2.1.2)
     hashie (3.5.6)
     hpricot (0.8.6)
     http-cookie (1.0.3)
@@ -326,6 +329,12 @@ GEM
       parallel
     parser (2.4.0.0)
       ast (~> 2.2)
+    pdf-reader (2.0.0)
+      Ascii85 (~> 1.0.0)
+      afm (~> 0.2.1)
+      hashery (~> 2.0)
+      ruby-rc4
+      ttfunk
     pg (0.20.0)
     polyglot (0.3.5)
     possibly (1.0.1)
@@ -431,6 +440,7 @@ GEM
       unicode-display_width (~> 1.0, >= 1.0.1)
     ruby-prof (0.16.2)
     ruby-progressbar (1.9.0)
+    ruby-rc4 (0.1.5)
     rubyntlm (0.6.2)
     rubyzip (1.1.7)
     rufus-scheduler (3.4.2)
@@ -529,6 +539,7 @@ GEM
     timeliness (0.3.8)
     treetop (1.6.8)
       polyglot (~> 0.3)
+    ttfunk (1.5.1)
     turbolinks (2.5.3)
       coffee-rails
     turnout (2.4.1)
@@ -596,7 +607,7 @@ DEPENDENCIES
   capybara
   capybara-webkit
   charlock_holmes
-  charta (>= 0.1.5)
+  charta (>= 0.1.6)
   cocoon
   codacy-coverage
   code_string (>= 0.0.1)
@@ -636,13 +647,14 @@ DEPENDENCIES
   mechanize
   minitest-reporters
   momentjs-rails (>= 2.9.0)
-  odf-report
   nokogiri (~> 1.8.1)
+  odf-report
   omniauth
   omniauth-oauth2
   paperclip
   paperclip-document (> 0.0.8)
   parallel_tests
+  pdf-reader
   pg (~> 0.20.0)
   possibly
   pry-byebug
