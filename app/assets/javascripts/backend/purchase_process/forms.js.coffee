@@ -26,11 +26,13 @@
       quantity.val(quantity_value)
       E.toggleValidateButton(item.closest('.incoming-parcel-item'))
     if component_name == 'conditionning'
-      $('.conditionning').val(item.find('.conditionning').val())
+      val = item.find('.conditionning').val()
+      item.closest('#add-storing').find('.conditionning').val(val)
 
   $(document).ready ->
     $('table.list').on 'cocoon:after-insert', ->
-      $('*[data-iceberg]').on "iceberg:inserted", ->
-        $('.conditionning').val($('.conditionning').val())
+      $('*[data-iceberg]').on "iceberg:inserted", (element) ->
+        val = $(this).find('.conditionning').val()
+        $(this).find('.conditionning').val(val)
 
 ) ekylibre, jQuery
