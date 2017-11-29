@@ -91,14 +91,14 @@ module Backend
     end
     
     def index
-      f = current_user.current_financial_year
-      document_name = "#{human_action_name}"
-      filename = "#{human_action_name}_#{Time.zone.now.l(format: '%Y%m%d%H%M%S')}"
-      @journal_ledger = JournalEntry.journal_ledger(f) if f
+      # f = current_user.current_financial_year
+      document_name = :journal_ledger.tl
+      filename = "#{document_name}_#{Time.zone.now.l(format: '%Y%m%d%H%M%S')}"
       respond_to do |format|
         format.html
         format.odt do
-          send_data to_odt(@journal_ledger, document_name, filename, f).generate, type: 'application/vnd.oasis.opendocument.text', disposition: 'attachment', filename: filename << '.odt'
+          @journal_ledger = JournalEntry.journal_ledger(params) if params
+          send_data to_odt(@journal_ledger, document_name, filename, params).generate, type: 'application/vnd.oasis.opendocument.text', disposition: 'attachment', filename: filename << '.odt'
         end
       end
     end
@@ -114,14 +114,14 @@ module Backend
       end
       @journal_view = journal_view.value
       t3e @journal
-      f = current_user.current_financial_year
-      document_name = "#{human_action_name}"
-      filename = "#{human_action_name}_#{Time.zone.now.l(format: '%Y%m%d%H%M%S')}"
-      @journal_ledger = JournalEntry.journal_ledger(f, @journal.id) if f
+      # f = current_user.current_financial_year
+      document_name = :journal_ledger.tl
+      filename = "#{document_name}_#{Time.zone.now.l(format: '%Y%m%d%H%M%S')}"
       respond_to do |format|
         format.html
         format.odt do
-          send_data to_odt(@journal_ledger, document_name, filename, f).generate, type: 'application/vnd.oasis.opendocument.text', disposition: 'attachment', filename: filename << '.odt'
+          @journal_ledger = JournalEntry.journal_ledger(params, @journal.id) if params
+          send_data to_odt(@journal_ledger, document_name, filename, params).generate, type: 'application/vnd.oasis.opendocument.text', disposition: 'attachment', filename: filename << '.odt'
         end
       end
     end
@@ -207,12 +207,14 @@ module Backend
     
     protected
 
-    def to_odt(journal_ledger, document_name, filename, f)
+    def to_odt(journal_ledger, document_name, filename, params)
       # TODO: add a generic template system path
       report = ODFReport::Report.new(Rails.root.join('config', 'locales', 'fra', 'reporting', 'journal_ledger.odt')) do |r|
         # TODO: add a helper with generic metod to implemend header and footer
         
-        fy = f if f.is_a? FinancialYear
+        # fy = f if f.is_a? FinancialYear
+        started_on = params[:period].split("_").first if params[:period]
+        stopped_on = params[:period].split("_").last if params[:period]
         
         e = Entity.of_company
         company_name = e.full_name
@@ -222,18 +224,24 @@ module Backend
         r.add_field 'DOCUMENT_NAME', document_name
         r.add_field 'FILENAME', filename
         r.add_field 'PRINTED_AT', Time.zone.now.l(format: '%d/%m/%Y %T')
-        r.add_field 'STARTED_ON', fy.started_on.strftime('%d/%m/%Y') if fy
-        r.add_field 'STOPPED_ON', fy.stopped_on.strftime('%d/%m/%Y') if fy
+        r.add_field 'STARTED_ON', started_on.to_date.strftime('%d/%m/%Y') if started_on
+        r.add_field 'STOPPED_ON', stopped_on.to_date.strftime('%d/%m/%Y') if stopped_on
           
           r.add_table('Tableau1', journal_ledger, header: true) do |t|
             t.add_column(:entry_number) { |item| item[:entry_number] }
             t.add_column(:printed_on) { |item| item[:printed_on] }
             t.add_column(:journal_name) { |item| item[:journal_name] }
+            t.add_column(:reference_number) { |item| item[:reference_number] }
             t.add_column(:state) { |item| item[:state] }
             t.add_column(:real_debit) { |item| item[:real_debit] }
             t.add_column(:real_credit) { |item| item[:real_credit] }
             t.add_column(:balance) { |item| item[:balance] }
           end
+          
+        r.add_field :entry_count, journal_ledger.last[:entry_count]
+        r.add_field :total_credit, journal_ledger.last[:total_credit]
+        r.add_field :total_debit, journal_ledger.last[:total_debit]
+        r.add_field :total_balance, journal_ledger.last[:total_balance]
         
       end
     end

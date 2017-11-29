@@ -414,15 +414,22 @@ class JournalEntry < Ekylibre::Record::Base
   end
   
   # this method loads the journal ledger for.the given financial year
-  def self.journal_ledger(financial_year, selected_journal_id = 0)
+  def self.journal_ledger(options = {}, selected_journal_id = 0)
     ledger = []
     
-    fy = financial_year if financial_year.is_a? FinancialYear
+    # fy = financial_year if financial_year.is_a? FinancialYear
+    
+    started_on = options[:period].split("_").first if options[:period]
+    stopped_on = options[:period].split("_").last if options[:period]
+    
+    total_debit = 0.0
+    total_credit = 0.0
+    entry_count = 0
     
     if selected_journal_id > 0
-      je = fy.journal_entries.where(journal_id: selected_journal_id).order('journal_entries.printed_on ASC, journal_entries.number ASC')
+      je = JournalEntry.between(started_on, stopped_on).where(journal_id: selected_journal_id).order('journal_entries.printed_on ASC, journal_entries.number ASC')
     else
-      je = fy.journal_entries.order('journal_entries.printed_on ASC, journal_entries.number ASC')
+      je = JournalEntry.between(started_on, stopped_on).order('journal_entries.printed_on ASC, journal_entries.number ASC')
     end
 
     je.each do |e|
@@ -430,13 +437,22 @@ class JournalEntry < Ekylibre::Record::Base
       item[:entry_number] = e.number
       item[:printed_on] = e.printed_on.strftime('%d/%m/%Y')
       item[:journal_name] = e.journal.name.to_s
+      item[:reference_number] = e.reference_number.to_s
       item[:state] = e.state
       item[:real_debit] = e.real_debit
       item[:real_credit] = e.real_credit
       item[:balance] = e.balance
       
+      total_debit += e.real_debit
+      total_credit += e.real_credit
+      entry_count += 1
+      
       ledger << item
     end
+    
+    total_balance = total_debit - total_credit
+    
+    ledger << {entry_count: entry_count, total_credit: total_credit, total_debit: total_debit, total_balance: total_balance}
 
     ledger.compact
   end

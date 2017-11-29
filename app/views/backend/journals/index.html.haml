@@ -4,6 +4,6 @@
   = t.new params: { redirect: nil }
   = t.bookkeep
   = dropdown_menu_button(:export.ta, icon: :download) do |d|
-    - export_params = {}
+    - export_params = params.slice(:period, :states )
     - d.item :export_as_odt.tl, params: export_params.merge(format: :odt)
 = main_list
