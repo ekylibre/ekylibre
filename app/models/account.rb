@@ -639,9 +639,9 @@ class Account < Ekylibre::Record::Base
     elsif c == 1 && options[:lettering_state].to_set.superset?(["unlettered"].to_set)
       lettering_state_filter_conditions = 'letter IS NULL'
     elsif c == 1 && options[:lettering_state].to_set.superset?(["lettered"].to_set)
-      lettering_state_filter_conditions = "letter IS NOT NULL AND NOT ILIKE '%*'"
+      lettering_state_filter_conditions = "letter IS NOT NULL AND letter NOT ILIKE '%*'"
     elsif c == 1 && options[:lettering_state].to_set.superset?(["partially_lettered"].to_set)
-      lettering_state_filter_conditions = "letter IS NOT NULL AND ILIKE '%*'"
+      lettering_state_filter_conditions = "letter IS NOT NULL AND letter ILIKE '%*'"
     else
       lettering_state_filter_conditions = '1=1'
     end
