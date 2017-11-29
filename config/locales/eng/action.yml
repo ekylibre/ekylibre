@@ -157,6 +157,8 @@ eng:
       index: "Price catalogs"
       new: "New catalog"
       show: "Catalog: %{name}"
+    backend/cobbles/production_cost_cobbles:
+      # show: "Production cost cobble: %{name}"
     backend/companies:
       edit: "Company settings"
     backend/contracts:
@@ -824,6 +826,14 @@ eng:
       new: "New user"
       show: "User: %{first_name} %{last_name}"
       unlock: "Unlock user"
+    backend/visualizations/land_parcels_visualizations:
+      # show: "Land parcels visualization: %{name}"
+    backend/visualizations/map_cells_visualizations:
+      # show: "Map cells visualization: %{name}"
+    backend/visualizations/plants_visualizations:
+      # show: "Plants visualization: %{name}"
+    backend/visualizations/resources_visualizations:
+      # show: "Resources visualization: %{name}"
     backend/wine_tanks:
       index: "Wine tanks"
     backend/workers:
@@ -1290,6 +1300,7 @@ eng:
     entries: "Entries" #?
     entries_to_point: "Entries pointing to" #?!
     entry_items: "Entry items" #?
+    entry_item_label: "Entry item label"
     equipment: "Equipment" #?
     equipment_name: "Name of equipment" #?
     equipments: "Equipment"

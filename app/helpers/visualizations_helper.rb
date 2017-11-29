@@ -107,7 +107,7 @@ module Visualization
       @config[:controls][name.to_s.camelize(:lower)] = options
     end
 
-    def to_json(options = {})
+    def to_json(_options = {})
       @config.jsonize_keys.to_json
     end
 
