@@ -388,17 +388,16 @@
   E.interventionForm =
     displayCost: (target, quantity, unitName) ->
 
+      quantity = $(target).closest('.nested-fields').find('input[data-intervention-handler="quantity"]').val()
       productId = $(target).closest('.nested-product-parameter').find(".selector .selector-value").val()
 
       intervention = {}
+      intervention['quantity'] = quantity
       intervention['intervention_id'] = $('input[name="intervention_id"]').val()
       intervention['product_id'] = productId
       intervention['existing_participation'] = $('.intervention-participation[data-product-id="' + productId + '"]').val()
       intervention['intervention_started_at'] = $('#intervention_working_periods_attributes_0_started_at').val()
       intervention['intervention_stopped_at'] = $('#intervention_working_periods_attributes_0_stopped_at').val()
-
-      if quantity
-        intervention['quantity'] = quantity
 
       if unitName
         intervention['unit_name'] = unitName
