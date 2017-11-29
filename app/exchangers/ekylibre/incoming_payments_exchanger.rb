@@ -131,17 +131,15 @@ module Ekylibre
             mode: payment_mode,
             amount: r.amount
           )
-          unless incoming_payment
-            incoming_payment = IncomingPayment.create!(
-              mode: payment_mode,
-              paid_at: paid_at,
-              to_bank_at: paid_at,
-              amount: r.amount,
-              payer: entity,
-              received: true,
-              responsible: responsible
-            )
-          end
+          incoming_payment ||= IncomingPayment.create!(
+            mode: payment_mode,
+            paid_at: paid_at,
+            to_bank_at: paid_at,
+            amount: r.amount,
+            payer: entity,
+            received: true,
+            responsible: responsible
+          )
         end
 
         # find an affair througt purchase and link affair and payment

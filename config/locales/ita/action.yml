@@ -477,6 +477,7 @@ ita:
       # show: "Product type: %{name}"
     backend/products:
       # edit: "Edit product: %{name}"
+      edit_many: "Distribuire prodotti non influenzati"
       index: "Prodotti"
       new: "Nuovo prodotto"
       # show: "%{nature}: %{name}"
@@ -568,12 +569,12 @@ ita:
     backend/synchronizations:
       index: "sincronizzazioni"
       # run: "Run synchronization: %{name}"
-    backend/target_distributions:
-      edit: "Modifica distribuzione target"
-      edit_many: "Distribuire prodotti non colpiti"
-      index: "distribuzioni di destinazione"
-      new: "Nuova distribuzione target"
-      show: "distribuzione target"
+    backend/target_distributions: #?
+      edit: "Modifica distribuzione target" #?
+      edit_many: "Distribuire prodotti non colpiti" #?
+      index: "distribuzioni di destinazione" #?
+      new: "Nuova distribuzione target" #?
+      show: "distribuzione target" #?
     backend/tasks:
       # edit: "Edit task: %{name}"
       index: "Compiti"
@@ -1533,7 +1534,7 @@ ita:
     purchase: "Acquista"
     purchase_items: "articoli di acquisto"
     purchase_number: "Acquisto"
-    # purchase_payments: "Purchase payments"
+    purchase_payments: "Pagamenti d’acquisto"
     purchases: "acquisti"
     purchases_stocks_variation: "Scorte Acquisti variazione"
     quality: "Qualità"
@@ -2018,6 +2019,7 @@ ita:
       # depreciation_successful: "Assets have been successfully depreciated."
       # document_in_preparation: "Your document is in preparation a notification will be sent to you when it is ready"
       # draft_journal_entries_are_present: "Draft journal entries are present."
+      document_in_preparation: "Il documento è in preparazione. Una notifica verrà inviata quando è pronta"
       draft_journal_entries_have_been_validated:
         one: "Una voce è stata convalidata"
         # other: "%{count} entries have been validated"
@@ -2026,14 +2028,15 @@ ita:
       # equipment_component_is_worn_out: "The component %{component_name} of the equipment %{equipment_name} is worn out. Remaining work time: %{remaining_time}."
       # equipment_is_at_end_of_life: "Equipment %{name} is reaching the end of its life. Remaining time: %{remaining_time}."
       # equipment_is_worn_out: "Equipment %{name} is worn out. Remaining work time: %{remaining_time}."
-      # error_client_account_empty: "Can not operate, client account is empty"
-      # error_during_file_generation: "An error occurred while generating a file"
+      error_client_account_empty: "Impossibile operare, l’account client è vuoto"
+      error_during_file_generation: "Si è verificato un errore durante la generazione di un file"
       # fails_to_extract_listing: "The listing can't be made: %{message}"
       # file_generated: "Your file was successfully generated"
       # financial_year_already_closed: "The financial year has already been closed."
       # financial_year_is_not_past: "The financial year hasn't passed yet."
       # financial_year_x_could_not_be_closed: "Financial Year  %{name} could not be closed."
       # financial_year_x_successfully_closed: "Financial Year %{name} successfully closed !"
+      file_generated: "Il file è stato generato correttamente"
       financial_years_missing: "È necessario creare ogni mancanti esercizi finanziari dal momento che la prima sede"
       # financial_years_missing_tax_declarations: "You must create every declarations for the following financial years: %{codes}"
       implemented_with_dummy_data: "Implementata con dati fittizi"
@@ -2222,7 +2225,7 @@ ita:
       sell: "Girare in vendita"
       ship: "Nave"
       show: "Mostrare"
-      # show_export_preview: "View a preview of the document (may increase loading time)"
+      show_export_preview: "Visualizza un’anteprima del documento (può aumentare il tempo di caricamento)"
       sort: "Ordinare"
       star: "Stella"
       start: "Inizio"

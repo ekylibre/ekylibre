@@ -1427,7 +1427,7 @@ arb:
     direction_label: "النوع" #?
     discount: "(%خصم (بنسبة  " #?
     discount_rate: "سعر الخصم" #?
-    # distributed_on_productions: "Distributed on productions"
+    distributed_on_productions: "موزعة على الإنتاج"
     distributions: "التوزيعات"
     district: "المنطقة"
     district_id: "المنطقة الادارية" #?
@@ -2155,7 +2155,7 @@ arb:
     rank_number: "عدد رتبة"
     rate: "معدل سعر الصرف" #?
     read_at: "قراءة في"
-    # reading_cache: "Reading cache"
+    reading_cache: "قراءة ذاكرة التخزين المؤقت"
     reading_tasks: "مهام القراءة"
     readings: "قراءات"
     real_balance: "التوازن الحقيقي"
@@ -2451,8 +2451,11 @@ arb:
     tools: "الادوات"
     tools_list: "معدات" #?
     total_cost: "التكلفة الإجمالية"
+    total_doer_cost: "مجموع تكلفة د"
+    total_input_cost: "إجمالي تكلفة المدخلات"
     total_items_count: "مجموع البنود عد"
     total_net_mass: "مجموع الكتلة الصافية"
+    total_tool_cost: "إجمالي تكلفة الأداة"
     town_number: "عدد تاون"
     tracking: "الحصة"
     tracking_id: "الحصة" #?

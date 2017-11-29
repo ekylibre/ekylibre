@@ -1,5 +1,3 @@
-# coding: utf-8
-
 class ::String
   MAJUSCULES = %w[Á À Â Ä Å Ã Æ É È Ê Ë Ì Ï Î Ò Ô Ö Œ Û Ü Ù Ç].freeze
   MINUSCULES = %w[á à â ä å ã æ é è ê ë ì ï î ò ô ö œ û ü ù ç].freeze

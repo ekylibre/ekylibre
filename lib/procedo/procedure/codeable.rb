@@ -1,5 +1,3 @@
-# coding: utf-8
-
 module Procedo
   class Procedure
     module Codeable
