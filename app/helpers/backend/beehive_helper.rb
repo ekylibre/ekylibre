@@ -39,7 +39,7 @@ module Backend
     end
 
     # Permits to display cell content independently
-    def cell(type, options = {}, html_options = {})
+    def cell(type, options = {}, _html_options = {})
       url = options[:params] || {}
       url = url_for(url.merge(controller: "backend/cells/#{type}_cells", action: :show))
       async_content(url)

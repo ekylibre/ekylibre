@@ -43,6 +43,7 @@
 #  real_currency              :string           not null
 #  real_currency_rate         :decimal(19, 10)  default(0.0), not null
 #  real_debit                 :decimal(19, 4)   default(0.0), not null
+#  reference_number           :string
 #  resource_id                :integer
 #  resource_prism             :string
 #  resource_type              :string

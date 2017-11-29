@@ -43,6 +43,7 @@
 #  real_currency              :string           not null
 #  real_currency_rate         :decimal(19, 10)  default(0.0), not null
 #  real_debit                 :decimal(19, 4)   default(0.0), not null
+#  reference_number           :string
 #  resource_id                :integer
 #  resource_prism             :string
 #  resource_type              :string
@@ -243,5 +244,14 @@ class JournalEntryTest < ActiveSupport::TestCase
       JournalEntryItem.new(account: Account.first, real_debit: amount, real_credit: 0, name: name),
       JournalEntryItem.new(account: Account.second, real_debit: 0, real_credit: amount, name: name)
     ]
+  end
+
+  test "reference_number refers to resource's reference number" do
+    sale = create(:sale_with_accounting)
+    sale_item = create(:sale_item, sale: sale)
+    sale.propose
+    sale.invoice
+    journal_entry = JournalEntry.where(resource_id: sale.id, resource_type: "Sale").first
+    assert_equal sale.number, journal_entry.reference_number
   end
 end

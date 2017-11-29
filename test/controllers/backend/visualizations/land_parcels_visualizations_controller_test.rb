@@ -29,7 +29,6 @@ module Backend
 
         assert_equal land_parcels.first.name, r['series']['main'].first['name']
         assert_equal geo.transform(:WGS84), Charta.new_geometry(r['series']['main'].first['shape'])
-
       end
     end
   end

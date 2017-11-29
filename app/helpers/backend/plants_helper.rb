@@ -4,12 +4,14 @@ module Backend
       html_options ||= {}
       html_options[:class] = 'map-fullwidth' if options.delete(:main)
 
-      visualization({ box: { height: '100%' }, async_url: backend_visualizations_plants_visualizations_path}, html_options) do |v|
+      visualization({ box: { height: '100%' }, async_url: backend_visualizations_plants_visualizations_path }, html_options) do |v|
         v.control :zoom
         v.control :scale
         v.control :fullscreen
         v.control :layer_selector
-        v.center Plant.first.shape_centroid
+        if Plant.last.shape_centroid.present?
+          v.center Plant.first.shape_centroid
+        end
       end
     end
 
