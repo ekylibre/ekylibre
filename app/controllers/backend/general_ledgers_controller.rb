@@ -55,28 +55,31 @@ module Backend
     def show
       document_name = human_action_name.to_s
       filename = "#{human_action_name}_#{Time.zone.now.l(format: '%Y%m%d%H%M%S')}"
-      @general_ledger = Account.ledger(params) if params[:period]
       respond_to do |format|
         format.html
         format.ods do
+          @general_ledger = Account.ledger(params) if params[:period]
           send_data(
             to_ods(@general_ledger).bytes,
             filename: filename << '.ods'
           )
         end
         format.csv do
+          @general_ledger = Account.ledger(params) if params[:period]
           csv_string = CSV.generate(headers: true) do |csv|
             to_csv(@general_ledger, csv)
           end
           send_data(csv_string, filename: filename << '.csv')
         end
         format.xcsv do
+          @general_ledger = Account.ledger(params) if params[:period]
           csv_string = CSV.generate(headers: true, col_sep: ';', encoding: 'CP1252') do |csv|
             to_csv(@general_ledger, csv)
           end
           send_data(csv_string, filename: filename << '.csv')
         end
         format.odt do
+          @general_ledger = Account.ledger(params) if params[:period]
           send_data to_odt(@general_ledger, document_name, filename, params).generate, type: 'application/vnd.oasis.opendocument.text', disposition: 'attachment', filename: filename << '.odt'
         end
       end
@@ -94,25 +97,36 @@ module Backend
           data_filters << Account.human_attribute_name(:account) + " : " + params[:accounts]
         end
         
-        unless params[:lettering_state].empty?
-          content = ''
+        if params[:lettering_state]
+          content = []
           content << :unlettered.tl if params[:lettering_state].include?("unlettered")
-          content << " | " + :partially_lettered.tl if params[:lettering_state].include?("partially_lettered")
-          content << " | " + :lettered.tl if params[:lettering_state].include?("lettered")
-          data_filters << :lettering_state.tl + " : " + content
+          content << :partially_lettered.tl if params[:lettering_state].include?("partially_lettered")
+          content << :lettered.tl if params[:lettering_state].include?("lettered")
+          data_filters << :lettering_state.tl + " : " + content.to_sentence
+        end
+        
+        if params[:states].any?
+          content = []
+          content << :draft.tl if params[:states].include?("draft") && params[:states]["draft"].to_i == 1
+          content << :confirmed.tl if params[:states].include?("confirmed") && params[:states]["confirmed"].to_i == 1
+          content << :closed.tl if params[:states].include?("closed") && params[:states]["closed"].to_i == 1
+          data_filters << :journal_entries_states.tl + " : " + content.to_sentence
         end
         
         e = Entity.of_company
         company_name = e.full_name
         company_address = e.default_mail_address.coordinate
+        
+        started_on = params[:period].split('_').first if params[:period]
+        stopped_on = params[:period].split('_').last if params[:period]
 
         r.add_field 'COMPANY_ADDRESS', company_address
         r.add_field 'DOCUMENT_NAME', document_name
         r.add_field 'FILENAME', filename
         r.add_field 'PRINTED_AT', Time.zone.now.l(format: '%d/%m/%Y %T')
-        r.add_field 'STARTED_ON', params[:started_on].to_date.strftime('%d/%m/%Y') if params[:period]
-        r.add_field 'STOPPED_ON', params[:stopped_on].to_date.strftime('%d/%m/%Y') if params[:period]
-        r.add_field 'DATA_FILTERS', data_filters*","
+        r.add_field 'STARTED_ON', started_on.to_date.strftime('%d/%m/%Y') if started_on
+        r.add_field 'STOPPED_ON', stopped_on.to_date.strftime('%d/%m/%Y') if stopped_on
+        r.add_field 'DATA_FILTERS', data_filters*" | "
 
         r.add_section('Section1', general_ledger) do |s|
 

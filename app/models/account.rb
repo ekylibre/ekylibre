@@ -627,7 +627,7 @@ class Account < Ekylibre::Record::Base
     
     # build filter for lettering_state
     # "lettering_state"=>["unlettered", "partially_lettered"]
-    c = options[:lettering_state].count
+    c = options[:lettering_state].count if options[:lettering_state]
     if c == 3 && options[:lettering_state].to_set.superset?(["unlettered", "partially_lettered", "lettered"].to_set)
       lettering_state_filter_conditions = '1=1'
     elsif c == 2 && options[:lettering_state].to_set.superset?(["partially_lettered", "lettered"].to_set)
@@ -646,19 +646,28 @@ class Account < Ekylibre::Record::Base
       lettering_state_filter_conditions = '1=1'
     end
     
-    # TODO options[:states]
-    # build filter for states
+    # options[:states]
+    if options[:states].any?
+      a = options[:states].select{|k,v| v.to_i == 1}.map{|pair| "'#{pair.first}'"}.join(", ")
+      states_array = "state IN (#{a})"
+    else
+      states_array = '1=1'
+    end
+    
+    # build dates
+    start = options[:period].split('_').first if options[:period]
+    stop = options[:period].split('_').last if options[:period]
     
     ledger = []
     
     accounts = Account
                .where(accounts_filter_conditions)
                .includes(journal_entry_items: %i[entry variant])
-               .where(journal_entry_items: { printed_on: options[:started_on]..options[:stopped_on] })
+               .where(journal_entry_items: { printed_on: start..stop })
                .reorder('accounts.number ASC, journal_entries.number ASC')
 
     accounts.each do |account|
-      journal_entry_items = account.journal_entry_items.where(lettering_state_filter_conditions).reorder('printed_on ASC, entry_number ASC')
+      journal_entry_items = account.journal_entry_items.where(lettering_state_filter_conditions).where(states_array).where(printed_on: start..stop).reorder('printed_on ASC, entry_number ASC')
 
       account_entry = HashWithIndifferentAccess.new
       # compute << account.number.to_i
