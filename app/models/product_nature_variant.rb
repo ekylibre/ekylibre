@@ -398,13 +398,7 @@ class ProductNatureVariant < Ekylibre::Record::Base
 
   def create_product(attributes = {})
     attributes = product_params(attributes)
-    # binding.pry
     matching_model.create(attributes.merge(variant: self))
-  end
-
-  def new_product(attributes = {})
-    attributes = product_params(attributes)
-    matching_model.new(attributes.merge(variant: self))
   end
 
   def product_params(attributes = {})

@@ -174,6 +174,8 @@ module Backend
     end
 
     # Lists parcel items of the current product
+    # Todo demain
+    # ReceptionItem.joins(:storings).where(parcel_item_storings: {product_id: 8952})
     list(:reception_items, model: :reception_items, conditions: { product_id: 'params[:id]'.c, parcels: { nature: :incoming } }, order: { created_at: :desc }) do |t|
       t.column :reception, url: { controller: :receptions }
       t.column :nature, through: :reception

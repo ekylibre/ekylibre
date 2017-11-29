@@ -43,7 +43,7 @@
         %span.title= resource_model.human_attribute_name(:outgoing_parcel_item)
         %span.value
           %i.picto{class: "picto-movements"}
-          = link_to(resource.outgoing_parcel_item.parcel.number, controller: :shipments, action: :show, id: resource.outgoing_parcel_item.parcel.id)
+          = link_to(resource.outgoing_parcel_item.shipment.number, controller: :shipments, action: :show, id: resource.outgoing_parcel_item.shipment.id)
   = labels_info(resource.labels)
 
 = cobbles do |c|

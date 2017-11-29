@@ -720,7 +720,9 @@ Rails.application.routes.draw do
 
     resources :map_editor_shapes, only: :index
 
-    resources :matters, concerns: :products
+    resources :matters do
+      concerns :products, :list
+    end
 
     resources :net_services, concerns: [:list] do
       member do
@@ -755,7 +757,7 @@ Rails.application.routes.draw do
 
     resources :receptions, concerns: %i[list unroll] do
       member do
-        get :list_items
+        get :list_storings
 
         post :invoice
         post :ship

@@ -38,7 +38,7 @@ class ParcelItemStoring < Ekylibre::Record::Base
   belongs_to :product, class_name: 'Product', foreign_key: :product_id
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates :quantity, numericality: { only_integer: true, greater_than: -2_147_483_649, less_than: 2_147_483_648 }, allow_blank: true
+  validates :quantity, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }, allow_blank: true
   validates :parcel_item, :storage, presence: true
   # ]VALIDATORS]
   validates :quantity, presence: true

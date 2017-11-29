@@ -158,13 +158,14 @@ class ReceptionItem < ParcelItem
       product_params[:identification_number] = product_identification_number
       product_params[:work_number] = product_work_number
       product_params[:initial_born_at] = [checked_at, reception_given_at].compact.min
+      # binding.pry
       product = existing_product_in_storage unless no_fusing || storage.blank?
-      product ||= variant.new_product(product_params)
-      product.parcel_items << self
-      product.save
+      product ||= variant.create_product(product_params)
+      # product.parcel_item_storings << storing
+      storing.update(product: product)
       binding.pry
       return false, product.errors if product.errors.any?
-      ProductMovement.create!(product: product, delta: population, started_at: reception_given_at, originator: self) unless product_is_unitary?
+      ProductMovement.create!(product: product, delta: storing.quantity, started_at: reception_given_at, originator: self) unless product_is_unitary?
       ProductLocalization.create!(product: product, nature: :interior, container: storing.storage, started_at: reception_given_at, originator: self)
       ProductEnjoyment.create!(product: product, enjoyer: Entity.of_company, nature: :own, started_at: reception_given_at, originator: self)
       ProductOwnership.create!(product: product, owner: Entity.of_company, nature: :own, started_at: reception_given_at, originator: self) unless reception_remain_owner
