@@ -5,7 +5,7 @@ module Api
       def show
         @target = InterventionTarget.find_by(id: params[:id])
         if @target
-          render json: JSON(@target.to_json).merge('working_zone' => (@target.working_zone.blank? ? @target.working_zone : Charta::Geometry.new(@target.working_zone).to_json)).to_json
+          render json: JSON(@target.to_json).merge('working_zone' => (@target.working_zone.blank? ? @target.working_zone : Charta.new_geometry(@target.working_zone).to_json)).to_json
         else
           render json: { message: 'Not found' }, status: :not_found
         end

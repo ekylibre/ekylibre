@@ -114,7 +114,7 @@ class FixedAsset < Ekylibre::Record::Base
     state :sold
     state :scrapped
     event :start_up do
-      transition draft: :in_use , if: :on_unclosed_periods?
+      transition draft: :in_use, if: :on_unclosed_periods?
     end
     event :sell do
       transition in_use: :sold
@@ -194,7 +194,7 @@ class FixedAsset < Ekylibre::Record::Base
   end
 
   def on_unclosed_periods?
-    self.started_on > self.journal.closed_on
+    started_on > journal.closed_on
   end
 
   def status

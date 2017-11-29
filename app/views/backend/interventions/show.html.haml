@@ -77,11 +77,16 @@
           %i.picto.picto-calendar
           = resource.started_at.l
       .med-info
+        %span.title= Intervention.human_attribute_name(:stopped_at)
+        %span.value
+          %i.picto.picto-calendar
+          = resource.stopped_at.l
+      -#.med-info
         %span.title= Intervention.human_attribute_name(:working_duration)
         %span.value
           %i.picto.picto-timelapse
           = human_duration(resource.drivers_times(nature: :intervention))
-      .med-info
+      -#.med-info
         %span.title= Intervention.human_attribute_name(:whole_duration)
         %span.value
           %i.picto.picto-timelapse

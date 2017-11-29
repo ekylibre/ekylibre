@@ -450,7 +450,7 @@ class Journal < Ekylibre::Record::Base
     items += conn.select_rows(query)
 
     # Sub-totals
-    for name, value in options.select { |k, v| k.to_s.match(/^level_\d+$/) && v.to_i == 1 }
+    options.select { |k, v| k.to_s.match(/^level_\d+$/) && v.to_i == 1 }.each do |name, _value|
       level = name.split(/\_/)[-1].to_i
       query = "SELECT SUBSTR(#{accounts}.number, 1, #{level}) AS subtotal, -2, sum(COALESCE(#{journal_entry_items}.debit, 0)), sum(COALESCE(#{journal_entry_items}.credit, 0)), sum(COALESCE(#{journal_entry_items}.debit, 0)) - sum(COALESCE(#{journal_entry_items}.credit, 0)), SUBSTR(#{accounts}.number, 1, #{level})||'#{'Z' * (16 - level)}' AS skey"
       query << from_where

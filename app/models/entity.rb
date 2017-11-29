@@ -211,6 +211,7 @@ class Entity < Ekylibre::Record::Base
     self.first_name = first_name.to_s.strip
     self.first_name = nil if organization?
     self.last_name  = last_name.to_s.strip
+    self.number = unique_predictable_number if number.empty?
     # FIXME: I18nize full name computation
     self.full_name = (title.to_s + ' ' + first_name.to_s + ' ' + last_name.to_s).strip
     # unless self.nature.nil?

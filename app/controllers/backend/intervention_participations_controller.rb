@@ -62,14 +62,19 @@ module Backend
 
       @intervention = @participation.intervention
 
-      auto_calcul_mode = params[:auto_calcul_mode]
+      auto_calcul_mode = true
+      if params[:auto_calcul_mode].present?
+        auto_calcul_mode = params[:auto_calcul_mode]
+      elsif !@intervention.nil? && !@intervention.new_record?
+        auto_calcul_mode = @intervention.auto_calcul_mode
+      end
 
       render partial: 'backend/intervention_participations/participations_modal',
              locals: {
                participation: @participation,
                intervention_started_at: intervention_started_at,
                tool: intervention_tool,
-               auto_calcul_mode: auto_calcul_mode,
+               auto_calcul_mode: auto_calcul_mode.to_b.to_s,
                calculate_working_periods: calculate_working_periods
              }
     end
@@ -105,9 +110,8 @@ module Backend
     end
 
     def intervention_started_at
-      return @intervention.started_at unless @intervention.nil?
+      return Time.parse(params['intervention_started_at']) if params['intervention_started_at'].present?
 
-      Time.parse(params['intervention_started_at']) if params['intervention_started_at'].present?
       Time.now
     end
 
@@ -131,7 +135,7 @@ module Backend
       natures.each do |nature|
         duration = InterventionWorkingTimeDurationCalculationService
                    .new(**working_duration_params)
-                   .perform(nature: nature)
+                   .perform(nature: nature, modal: true)
 
         stopped_at = intervention_started_at + (duration * 60 * 60)
 

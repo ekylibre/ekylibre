@@ -256,6 +256,10 @@ module Backend
       end
     end
 
+    def heading_toolbar(&block)
+      content_for(:heading_toolbar, &block)
+    end
+
     def form_action_content(side = :after, &block)
       content_for(:"#{side}_form_actions", &block)
     end
@@ -305,7 +309,11 @@ module Backend
       machine = resource.class.state_machine
       state = resource.state
       state = machine.state(state.to_sym) unless state.is_a?(StateMachine::State) || state.nil?
-      render 'state_bar', states: machine.states, current_state: state, resource: resource, renamings: options[:renamings]
+      render 'state_bar', states: machine.states,
+                          current_state: state,
+                          resource: resource,
+                          renamings: options[:renamings],
+                          disable_transitions: options[:disable_transitions]
     end
 
     def main_state_bar(resource, options = {})
@@ -369,7 +377,6 @@ module Backend
           end
         end
       end
-
       html_code
     end
 
@@ -472,9 +479,9 @@ module Backend
       end
     end
 
-    def user_preference_value(name)
+    def user_preference_value(name, default = nil)
       preference = current_user.preferences.find_by(name: name)
-      preference ? preference.value : nil
+      preference ? preference.value : default
     end
 
     # Build a JSON for a data-tour parameter and put it on <body> element
