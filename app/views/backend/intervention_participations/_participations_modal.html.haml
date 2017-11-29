@@ -1,0 +1,68 @@
+- product_name = participation.product.nil? ? "" : participation.product.name
+= modal_header(t('labels.working_times', name: product_name))
+
+= hidden_field_tag "intervention_participation[id]", participation.id
+= hidden_field_tag "intervention_participation[intervention_id]", participation.intervention_id
+= hidden_field_tag "intervention_participation[product_id]", participation.product_id
+= hidden_field_tag 'intervention_started_at', intervention_started_at.iso8601
+= hidden_field_tag 'intervention_tool', !tool.nil? unless tool.nil?
+
+.modal-body
+  .indicators
+    .med-info
+      %span.title= Intervention.human_attribute_name(:started_at)
+      %span.value
+        %i.picto.picto-clock-o
+        = intervention_started_at.l(format: :compact)
+
+  .participations
+    .participations-header
+      %h3{ class: "action-header action-period" }= :action_duration.tl
+      %h3{ class: "action-header" }= :calculated_hours.tl
+
+
+    - if !auto_calcul_mode.nil? && auto_calcul_mode.to_sym == :true && !calculate_working_periods.blank?
+      - calculate_working_periods.each do |calculate_working_period|
+        = render 'working_periods_fields', { working_period: calculate_working_period, tool: tool }
+
+    - elsif !participation.nil?
+      - participation.working_periods.each do |working_period|
+        = render 'working_periods_fields', { working_period: working_period, tool: tool }
+
+        - if working_period.pause_next?
+          - pause_period = InterventionWorkingPeriod.new(nature: :pause,
+                                                         started_at: working_period.stopped_at,
+                                                         stopped_at: working_period.next_period.started_at)
+          = render 'working_periods_fields', { working_period: pause_period, tool: tool }
+
+
+  .actions
+    = button_tag nil, { class: "btn btn-default action", 'data-nature-period': :preparation } do
+      =image_tag('intervention_participations/action-preparation.svg', class: "action-icon")
+      %span= I18n.t('enumerize.intervention_working_period.nature.preparation')
+
+    = button_tag nil, { class: "btn btn-default action", 'data-nature-period': :travel } do
+      =image_tag('intervention_participations/action-travel.svg', class: "action-icon")
+      %span= I18n.t('enumerize.intervention_working_period.nature.travel')
+
+    = button_tag nil, { class: "btn btn-default action", 'data-nature-period': :intervention } do
+      =image_tag('intervention_participations/action-intervention.svg', class: "action-icon")
+      %span= I18n.t('enumerize.intervention_working_period.nature.intervention')
+
+    = button_tag nil, { class: "btn btn-default action", 'data-nature-period': :pause } do
+      .picto.picto-pause-circle-outline
+      %span= I18n.t('enumerize.intervention_working_period.nature.pause')
+
+  - classes = 'hidden' unless tool.nil?
+  %div{ class: "auto-calculate-equipments #{ classes }"}
+    = check_box 'participation', "auto_calculate_equipments", checked: !auto_calcul_mode.nil? && auto_calcul_mode.to_sym == :true
+    %span Mode de calcul automatique
+    %p En mode automatique, les périodes de déplacement et d'intervention des tracteurs et outils seront calculés à partir de la moyenne des périodes des opérateurs.
+
+  - unless tool.nil?
+    %div{ class: "auto-calculate-equipments"}
+      %p Une modification manuelle désactivera le mode de calcul automatique.
+
+.modal-footer
+  = button_tag :valid.tl, class: "btn btn-primary", id: "validParticipationsForm"
+  = button_tag :cancel.tl, class: "btn btn-default", data: { dismiss: 'modal' }

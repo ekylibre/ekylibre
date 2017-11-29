@@ -201,7 +201,6 @@
         <page to="backend/cashes#show"/>
         <page to="backend/cashes#unroll"/>
         <page to="backend/cashes#update"/>
-        <page to="backend/bank_statement_items#new"/>
         <page to="backend/bank_statements#index"/>
         <page to="backend/bank_statements#create"/>
         <page to="backend/bank_statements#destroy"/>
@@ -212,19 +211,23 @@
         <page to="backend/bank_statements#show"/>
         <page to="backend/bank_statements#unroll"/>
         <page to="backend/bank_statements#update"/>
-        <page to="backend/bank_statements#reconciliation"/>
         <page to="backend/bank_statements#import"/>
-        <page to="backend/bank_reconciliation_gaps#create"/>
+        <page to="backend/bank_statements#edit_interval"/>
+        <page to="backend/bank_statement_items#create"/>
+        <page to="backend/bank_statement_items#destroy"/>
+        <page to="backend/bank_statement_items#new"/>
+        <page to="backend/bank_reconciliation/letters#create"/>
+        <page to="backend/bank_reconciliation/letters#destroy"/>
+        <page to="backend/bank_reconciliation/gaps#create"/>
+        <page to="backend/bank_reconciliation/items#index"/>
+        <page to="backend/bank_reconciliation/items#count"/>
+        <page to="backend/bank_reconciliation/items#reconciliate"/>
         <page to="backend/quick_affairs#create"/>
         <page to="backend/quick_affairs#new"/>
         <page to="backend/quick_purchases#new"/>
         <page to="backend/quick_purchases#create"/>
         <page to="backend/quick_sales#new"/>
         <page to="backend/quick_sales#create"/>
-        <page to="backend/bank_statements#letter"/>
-        <page to="backend/bank_statements#unletter"/>
-        <page to="backend/bank_statement_items#create"/>
-        <page to="backend/bank_statement_items#destroy"/>
       </item>
       <item name="loans">
         <page to="backend/loans#index"/>
@@ -761,6 +764,7 @@
         <page to="backend/intervention_participations#convert"/>
         <page to="backend/intervention_participations#destroy"/>
         <page to="backend/intervention_participations#update"/>
+        <page to="backend/intervention_participations#participations_modal"/>
         <page to="backend/prescriptions#index"/>
         <page to="backend/prescriptions#create"/>
         <page to="backend/prescriptions#destroy"/>
@@ -864,6 +868,7 @@
         <page to="backend/land_parcels#take"/>
         <page to="backend/land_parcels#unroll"/>
         <page to="backend/land_parcels#update"/>
+        <page to="backend/visualizations/land_parcels_visualizations#show"/>
       </item>
       <item name="plants">
         <page to="backend/plants#index"/>
@@ -891,6 +896,7 @@
         <page to="backend/plants#take"/>
         <page to="backend/plants#unroll"/>
         <page to="backend/plants#update"/>
+        <page to="backend/visualizations/plants_visualizations#show"/>
       </item>
     </group>
     <group name="animal_management" icon="cow">
@@ -1344,6 +1350,7 @@
         <page to="backend/accounts#list"/>
         <page to="backend/accounts#list_entities"/>
         <page to="backend/accounts#list_journal_entry_items"/>
+        <page to="backend/accounts#list_product_nature_variants"/>
         <page to="backend/accounts#load"/>
         <page to="backend/accounts#new"/>
         <page to="backend/accounts#show"/>
@@ -1740,6 +1747,7 @@
       </item>
       <item name="map_editors">
         <page to="backend/map_editors#upload"/>
+        <page to="backend/map_editor_shapes#index"/>
       </item>
       <item name="tours">
         <page to="backend/tours#finish"/>
@@ -1911,6 +1919,7 @@
       </item>
       <item name="map_cells">
         <page to="backend/cells/map_cells#show"/>
+        <page to="backend/visualizations/map_cells_visualizations#show"/>
       </item>
       <item name="stewardship_cells">
         <page to="backend/cells/stewardship_cells#show"/>
@@ -2029,6 +2038,17 @@
         <page to="backend/outgoing_payments#show"/>
         <page to="backend/outgoing_payments#unroll"/>
         <page to="backend/outgoing_payments#update"/>
+      </item>
+    </group>
+    <group>
+      <item name="preferences">
+        <page to="backend/preferences#update"/>
+      </item>
+      <item name="production_cost_cobbles">
+        <page to="backend/cobbles/production_cost_cobbles#show"/>
+      </item>
+      <item name="resources_visualizations">
+        <page to="backend/visualizations/resources_visualizations#show"/>
       </item>
     </group>
   </inaccessible-actions>

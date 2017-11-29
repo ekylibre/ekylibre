@@ -145,6 +145,10 @@ Rails.application.routes.draw do
 
     # resources :calculators, only: :index
 
+    namespace :cobbles do
+      resource :production_cost_cobble, only: :show
+    end
+
     namespace :cells do
       resource :accountancy_balance_cell, only: :show
       resource :cashes_balance_cell, only: :show
@@ -199,6 +203,7 @@ Rails.application.routes.draw do
         post :unmark
         get :list_journal_entry_items
         get :list_entities
+        get :list_product_nature_variants
       end
     end
 
@@ -270,22 +275,26 @@ Rails.application.routes.draw do
 
     resources :attachments, only: %i[show create destroy]
 
-    resources :bank_statements, concerns: %i[list unroll], path: 'bank-statements' do
-      resources :bank_statement_items, only: %i[new create destroy], path: 'items'
-      resources :bank_reconciliation_gaps, only: [:create], path: 'gaps'
+    namespace :bank_reconciliation, path: 'bank-reconciliation' do
+      resources :gaps, only: %i[create]
+      resources :items, only: [:index] do
+        collection do
+          get :reconciliate
+          get :count
+        end
+      end
+      resources :letters, only: %i[create destroy]
+    end
 
+    resources :bank_statements, concerns: %i[list unroll], path: 'bank-statements' do
       collection do
         get :list_items
         match :import, via: %i[get post]
-      end
-      member do
-        get  :reconciliation
-        put   :letter
-        patch :letter
-        put   :unletter
-        patch :unletter
+        get :edit_interval
       end
     end
+
+    resources :bank_statement_items, only: %i[new create destroy], path: 'bank-statement-items'
 
     resources :beehives, only: [:update] do
       member do
@@ -587,6 +596,9 @@ Rails.application.routes.draw do
     end
 
     resources :intervention_participations, only: %i[index update destroy] do
+      collection do
+        get :participations_modal
+      end
       member do
         post :convert
       end
@@ -699,6 +711,8 @@ Rails.application.routes.draw do
       end
     end
 
+    resources :map_editor_shapes, only: :index
+
     resources :matters, concerns: :products
 
     resources :net_services, concerns: [:list] do
@@ -787,6 +801,8 @@ Rails.application.routes.draw do
     end
 
     resources :plant_countings, concerns: [:list]
+
+    resources :preferences, only: %i[update]
 
     resources :product_groups, concerns: :products
 
@@ -1009,6 +1025,13 @@ Rails.application.routes.draw do
 
     resources :visuals, only: [] do
       match 'picture(/:style)', via: :get, action: :picture, as: :picture
+    end
+
+    namespace :visualizations do
+      resource :plants_visualizations, only: :show
+      resource :map_cells_visualizations, only: :show
+      resource :land_parcels_visualizations, only: :show
+      resource :resources_visualizations, only: :show
     end
 
     resources :wine_tanks, only: [:index], concerns: [:list]

@@ -456,22 +456,25 @@ class ActivityProduction < Ekylibre::Record::Base
   end
 
   def tool_cost(surface_unit_name = :hectare)
-    if net_surface_area.to_s.to_f > 0.0
-      return cost(:tool) / net_surface_area.to_d(surface_unit_name).to_s.to_f
+    surface_area = net_surface_area
+    if surface_area.to_s.to_f > 0.0
+      return cost(:tool) / surface_area.to_d(surface_unit_name).to_s.to_f
     end
     0.0
   end
 
   def input_cost(surface_unit_name = :hectare)
-    if net_surface_area.to_s.to_f > 0.0
-      return cost(:input) / net_surface_area.to_d(surface_unit_name).to_s.to_f
+    surface_area = net_surface_area
+    if surface_area.to_s.to_f > 0.0
+      return cost(:input) / surface_area.to_d(surface_unit_name).to_s.to_f
     end
     0.0
   end
 
   def time_cost(surface_unit_name = :hectare)
-    if net_surface_area.to_s.to_f > 0.0
-      return cost(:doer) / net_surface_area.to_d(surface_unit_name).to_s.to_f
+    surface_area = net_surface_area
+    if surface_area.to_s.to_f > 0.0
+      return cost(:doer) / surface_area.to_d(surface_unit_name).to_s.to_f
     end
     0.0
   end
@@ -518,7 +521,8 @@ class ActivityProduction < Ekylibre::Record::Base
     end
     surface_unit_name = options[:surface_unit_name] || :hectare
     procedure_category = options[:procedure_category] || :harvesting
-    unless net_surface_area && net_surface_area.to_d > 0
+    surface = net_surface_area
+    unless surface && surface.to_d > 0
       Rails.logger.warn 'No surface area. Cannot compute harvest yield'
       return nil
     end
@@ -538,10 +542,12 @@ class ActivityProduction < Ekylibre::Record::Base
     global_coef_harvest_yield = []
 
     if harvest_interventions.any?
-      harvest_interventions.find_each do |harvest|
+      harvest_interventions.includes(:targets).find_each do |harvest|
         harvest_working_area = []
         harvest.targets.each do |target|
-          harvest_working_area << ::Charta.new_geometry(target.working_zone).area.in(:square_meter)
+          if zone = target.working_zone
+            harvest_working_area << ::Charta.new_geometry(zone).area.in(:square_meter)
+          end
         end
         harvest.outputs.each do |cast|
           actor = cast.product
@@ -552,7 +558,7 @@ class ActivityProduction < Ekylibre::Record::Base
             total_quantity += quantity.convert(size_unit_name) if quantity
           end
         end
-        h = harvest_working_area.compact.sum.to_d(surface_unit_name).to_f
+        h = harvest_working_area.compact.sum.to_d.in(surface_unit_name).to_f
         if h && h > 0.0
           global_coef_harvest_yield << (h * (total_quantity.to_f / h))
           coef_area << h

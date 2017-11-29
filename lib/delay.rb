@@ -163,7 +163,7 @@ end
 class DelayValidator < ActiveModel::EachValidator
   def validate_each(record, attribute, value)
     Delay.new(value)
-  rescue InvalidDelayExpression => e
+  rescue InvalidDelayExpression
     record.errors.add(attribute, :invalid, options.merge(value: value))
   end
 end

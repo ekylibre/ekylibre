@@ -66,12 +66,15 @@ spa:
       index: "Animales"
       new: "Nuevo animal"
       # show: "%{nature}: %{name}"
+    backend/bank_reconciliation/items:
+      # index: "Reconciliate bank statement %{cash} %{number} (from %{started_on} to %{stopped_on})"
+      # reconciliate: "Bank statements of %{cash} (from %{started_on} to %{stopped_on})"
     backend/bank_statements:
       edit: "Modificar el leventar N°%{number}"
+      edit_interval: "Períodos de estados bancarios para conciliar"
       import: "archivo de importación OFX"
       index: "Levantar de cuntos bancarios"
       new: "Despuntar un nuevo leventar de cuento"
-      # reconciliation: "Reconciliate bank statement %{cash} #%{number} (from %{started_on} to %{stopped_on})"
       show: "Leventard de cuento N°%{number}"
     backend/beehives:
       # reset: "Reset beehive: %{name}"
@@ -460,7 +463,7 @@ spa:
       new: "Nuevo pago de la nómina"
       # show: "Payslip payment: %{number}"
     backend/payslips:
-      # edit: "Edit payslip: %{name}"
+      # edit: "Edit payslip: %{number}"
       index: "Papeletas"
       new: "Nuevo salario"
       # show: "Payslip: %{number}"
@@ -643,7 +646,7 @@ spa:
       index: "Utilizador"
       lock: "Bloqueo de usuarios"
       new: "Creación de nuevo utilizador"
-      show: "Utilizador\_: %{first_name} %{last_name} (%{name})"
+      show: "Utilizador\_: %{first_name} %{last_name}"
       unlock: "Desbloquear usuario"
     backend/wine_tanks:
       index: "Tanques del vino"
@@ -770,6 +773,7 @@ spa:
     accounts: "Cuentos contables utilizados"
     accounts_only_used_at: "Solo las utilizan en"
     accounts_to_load: "Cuentas para cargar"
+    action_duration: "Duración de la acción"
     activate_entry_autocompletion: "Activar la terminación automática de entrada"
     active: "Activo"
     active_balance_sheet: "Balance activo" #?
@@ -899,7 +903,6 @@ spa:
     attach_deal: "Añadir un acuerdo"
     attachment: "Pieza juntada"
     attachments: "Archivos adjuntos"
-    auto_reconciliate: "reconciliar Auto"
     # automatic: "Auto"
     available: "Disponible"
     available_columns: "Campos disponibles\_: %{columns}"
@@ -938,6 +941,7 @@ spa:
     building_update: "Modifiar el lugar de deposito" #?
     by_year: "Por año"
     calculate: "Calcular"
+    calculated_hours: "Horas calculadas"
     calculators: "Calculadoras"
     calendar: "Calendario"
     campaign: "Campaña"
@@ -994,7 +998,6 @@ spa:
     columns: "Columnas para importar"
     commission: "Comisión"
     company: "Sociedad"
-    complete: "Completar"
     completed: "Terminado"
     conditions:
       filter_on_attribute_of_class: "Filtro de atributo de la clase"
@@ -1251,6 +1254,7 @@ spa:
     # hint: "Hint: %{value}"
     historic: "Histórico"
     home: "Vuelta a la cogida de la ayuda"
+    hours: "MARIDO"
     human_working_duration: "Duración de trabajo"
     humans: "HORA"
     iban: "Numero de cuento bancario internacional (IBAN)"
@@ -1425,6 +1429,7 @@ spa:
     method: "Método"
     minimal_temperature: "Temperatura mínima"
     minimum_amount: "Monto minimo"
+    # minutes: "Min"
     missing_attributes: "Algunos atributos faltan"
     missing_help: "La página no existe"
     mobile: "Móvil"
@@ -1642,6 +1647,7 @@ spa:
     purchase: "Compra"
     purchase_items: "Artículos de la compra"
     purchase_number: "Número de compra"
+    # purchase_payments: "Purchase payments"
     purchase_steps: #?
       products: "Creación de la compra" #?
       summary: "Desembolsos" #?
@@ -1973,6 +1979,7 @@ spa:
     variants: "Variantes"
     vat: "TINA"
     view: "Ver"
+    view_map_when_creating_an_intervention: "Ver mapa al crear una intervención"
     wages: "Salario"
     watering_concentration: "Uso del agua"
     weather: "Clima"
@@ -1983,6 +1990,7 @@ spa:
     workers: "Trabajadores"
     working_duration: "Duración de trabajo"
     working_sets_stocks: "Trabajo establece las existencias"
+    # working_times: "Working times of %{name}"
     x_cashes:
       # one: "%{count} cash"
       # other: "%{count} cashes"
@@ -2165,6 +2173,7 @@ spa:
       bad_file: "El fichero no parece corresponder" #?
       bookkeeping_is_finished: "La basula en contabilidad esta terminada."
       bookkeeping_works_only_with: "La bascula en contabilidad puede hacerse actualmente solo para\_: %{list}."
+      cannot_add_bank_statement_item: "No puede agregar una nueva línea porque no hay ningún estado de cuenta bancaria disponible en este día"
       cannot_delete_entity: "No es posible suprimir esta papeleta porque tiene reseña historica contable" #?
       cannot_find_deal_to_attach: "No se puede encontrar tratar de adjuntar"
       cannot_find_deal_to_detach: "No se puede encontrar tratar de separar"
@@ -2174,12 +2183,14 @@ spa:
       cannot_merge_entities: "Un error sobrevino. No es posible fusionar estas papeletas."
       changes_have_been_reflected: "Los cambios han sido repercutidos correctamente sobre el estatuto de depósitos actua"
       changes_have_not_been_reflected: "Los cambios no han sido repercutidos correctamente sobre el estatuto de depósitos actua"
+      closed_financial_periods: "La duración del activo fijo se extiende a través de períodos financieros cerrados."
       closed_financial_year_exchange: "El cambio de ejercicio se ha cerrado con éxito"
       closed_financial_years: "El ejercicio ha sido correctamente cerrado"
       columns_are_already_uses: "Una o varias columnas que hay que importar son seleccionados muchas veces"
       # could_not_attach_x_or_y_to_affair: "Could not attach %{x} or %{y} to affair"
       dashboard_is_being_developed: "Dashboard es en fuerte desarrollo"
       density_is_not_computable_in_counting: "No se pudo calcular la densidad de este conteo. Los valores que faltan deben ser completados en las propiedades del conteo o indicadores del sembrador."
+      # document_in_preparation: "Your document is in preparation a notification will be sent to you when it is ready"
       draft_entries_are_validated: #?
         one: "La pieza ha sido validada y es sacada de la niebla" #?
         other: "%{count} han sido validadas y son sacadas de la niebla" #?
@@ -2191,8 +2202,11 @@ spa:
       # equipment_component_is_worn_out: "The component %{component_name} of the equipment %{equipment_name} is worn out. Remaining work time: %{remaining_time}."
       # equipment_is_at_end_of_life: "Equipment %{name} is reaching the end of its life. Remaining time: %{remaining_time}."
       # equipment_is_worn_out: "Equipment %{name} is worn out. Remaining work time: %{remaining_time}."
+      # error_client_account_empty: "Can not operate, client account is empty"
+      # error_during_file_generation: "An error occurred while generating a file"
       expired_session: "sesion espirada. por favor reconectese." #?
       fails_to_extract_listing: "La extracción no ha podido hacerse\_: %{message}"
+      # file_generated: "Your file was successfully generated"
       financial_years_missing: "Debe crear cada faltan los ejercicios desde la primera registrada"
       # financial_years_missing_tax_declarations: "You must create every declarations for the following financial years: %{codes}"
       implemented_with_dummy_data: "Implementado con datos ficticios"
@@ -2366,6 +2380,7 @@ spa:
       down: "Abajo"
       duplicate: "Duplicar"
       edit: "Editar"
+      edit_interval: "Reconciliar"
       edit_many: "Editar muchos"
       evaluate: "Evaluar"
       export: "Exportar"
@@ -2424,6 +2439,7 @@ spa:
       sell: "Convertirse en venta"
       ship: "Enviar"
       show: "Espectáculo"
+      # show_export_preview: "View a preview of the document (may increase loading time)"
       sort: "Ordenar"
       star: "Estrella"
       start: "Comienzo"
@@ -2458,7 +2474,7 @@ spa:
     # backend/entity_links: "%{started_at}"
     # backend/events: "%{name}"
     # backend/incoming_payments: "%{number}. %{mode_name} from %{payer_full_name} of %{amount} %{currency}"
-    # backend/interventions: "%{number}. %{name}"
+    # backend/interventions: "%{number}"
     # backend/journal_entry_items: "%{entry_number} %{name} %{account_number} D%{real_debit} C%{real_credit} %{currency}"
     # backend/matters: "%{name} ‒ %{work_number}"
     # backend/observations: "%{content}"

@@ -65,7 +65,6 @@ module Indicateable
       raise ArgumentError, "Unknown indicator #{indicator.inspect}. Expecting one of them: #{Nomen::Indicator.all.sort.to_sentence}."
     end
     read_at = options[:at] || Time.zone.now
-    indicator_name = indicator.name
     readings.where(indicator_name: indicator.name).where('read_at <= ?', read_at).order(read_at: :desc).first
   end
 
@@ -95,12 +94,10 @@ module Indicateable
       elsif reading = self.reading(indicator.name, at: cast_or_time)
         value = reading.value
       elsif !options[:default].is_a?(FalseClass)
-        if indicator.datatype == :measure
-          value = 0.0.in(indicator.unit)
-        elsif indicator.datatype == :decimal
-          value = 0.0
-        elsif indicator.datatype == :integer
-          value = 0
+        value = case indicator.datatype
+                when :measure then 0.0.in(indicator.unit)
+                when :decimal then 0.0
+                when :integer then 0
         end
       end
       # Adjust value
@@ -110,8 +107,9 @@ module Indicateable
         end
       end
     elsif cast_or_time.is_a?(InterventionProductParameter)
-      if cast_or_time.product && cast_or_time.product.whole_indicators_list.include?(indicator.name.to_sym)
-        value = cast_or_time.send(indicator.name)
+      indicator_name = indicator.name
+      if cast_or_time.product && cast_or_time.product.whole_indicators_list.include?(indicator_name.to_sym)
+        value = cast_or_time.send(indicator_name)
       elsif cast_or_time.parameter.new?
         unless variant = cast_or_time.variant || cast_or_time.parameter.variant(cast_or_time.intervention)
           raise StandardError, "Need variant to know how to read it (#{cast_or_time.intervention.procedure_name}##{cast_or_time.reference_name})"
@@ -121,7 +119,7 @@ module Indicateable
         else
           raise StandardError, "Cannot find a frozen indicator #{indicator.name} for variant"
         end
-      elsif reading = self.reading(indicator.name, at: cast_or_time.intervention.started_at)
+      elsif reading = self.reading(indicator_name, at: cast_or_time.intervention.started_at)
         value = reading.value
       else
         raise 'What ?'
