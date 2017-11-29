@@ -26,6 +26,8 @@
 #  activity_budget_id     :integer
 #  amount                 :decimal(19, 4)   default(0.0), not null
 #  annotation             :text
+#  conditionning          :integer
+#  conditionning_quantity :integer
 #  created_at             :datetime         not null
 #  creator_id             :integer
 #  currency               :string           not null

@@ -1278,6 +1278,8 @@ arb:
     conclusion: "الاستنتاج"
     condition_operator: "المقارنة"
     condition_value: "قيمة المقارنة"
+    # conditionning: "Conditionning"
+    # conditionning_quantity: "Conditionning quantity"
     conditions: "(SQL) شروط"
     confirmation_sent_at: "التأكيد المرسلة في"
     confirmation_token: "رمز التأكيد"

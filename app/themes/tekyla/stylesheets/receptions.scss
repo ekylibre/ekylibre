@@ -344,8 +344,22 @@
         margin-right: $default-gap * 3;
       }
 
+      &> .conditionning-flex {
+        flex: 18%;
+        margin-right: 10px;
+      }
+
+      &> .control-group.multiplicator {
+        margin-top: 20px;
+        margin-right: 10px;
+      }
+
       .control-group.multiplicator {
         flex:3%;
+      }
+
+      .reception_items_storings_conditionning_quantity, .reception_items_storings_conditionning {
+        flex: 40%
       }
 
       .control-group .controls {

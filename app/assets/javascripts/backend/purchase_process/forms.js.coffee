@@ -24,5 +24,15 @@
       quantity = item.find('.storing-quantity')
       quantity_value = parseFloat(conditionning.val()) * parseFloat(conditionning_quantity.val())
       quantity.val(quantity_value)
+      E.toggleValidateButton(item.closest('.incoming-parcel-item'))
+    if component_name == 'conditionning'
+      val = item.find('.conditionning').val()
+      item.closest('#add-storing').find('.conditionning').val(val)
+
+  $(document).ready ->
+    $('table.list').on 'cocoon:after-insert', ->
+      $('*[data-iceberg]').on "iceberg:inserted", (element) ->
+        val = $(this).find('.conditionning').val()
+        $(this).find('.conditionning').val(val)
 
 ) ekylibre, jQuery
