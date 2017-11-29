@@ -32,7 +32,7 @@
         %label{ class: 'amount-including-taxes', data: { item_value: "input.invoice-total" } }= f.object.variant ? f.object.variant.name : '??????'
         %label= Nomen::Currency.find(f.object.currency).symbol
       %label{ class: "invoice-second-row-label"}= :vat_rate.tl
-      %label{ class: 'vat-rate', data: { item_value: "select.invoice-vat-total option:selected" } }= f.object.variant ? f.object.variant.name : '??????'
+      %label{ class: 'vat-rate', data: { item_value: "select.invoice-vat-total option:selected", selected_value: f.object.tax_id } }= f.object.variant ? f.object.variant.name : '??????'
 
   %tr.nested-item-form
     %td.form-field.merchandise
