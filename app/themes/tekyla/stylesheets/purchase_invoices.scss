@@ -123,6 +123,10 @@
 
     .form-field {
       flex-basis: 10%;
+
+      .supplier-ref-label {
+        font-weight: bold;
+      }
     }
 
     .form-field.third-row {
@@ -133,28 +137,28 @@
       .item-form {
         @include flex-row(flex-start, flex-start);
         width: 100%;
-	  }
+      }
 
-	  .purchase_invoice_items_activity_budget {
-	    flex-basis: 27.5%;
-	  }
+      .purchase_invoice_items_activity_budget {
+        flex-basis: 27.5%;
+      }
 
-	  .purchase_invoice_items_team {
-	    flex-basis: 50%;
-	  }
+      .purchase_invoice_items_team {
+        flex-basis: 50%;
+      }
 
-    .purchase_invoice_items_equipment {
-      flex-basis: 35%
-    }
+      .purchase_invoice_items_equipment {
+        flex-basis: 35%
+      }
 
-	  .controls {
-	    max-width: 100%;
-        width: 45%;
-	  }
+      .controls {
+        max-width: 100%;
+          width: 45%;
+      }
 
-	  .selector {
-	    width: 100%;
-	  }
+      .selector {
+        width: 100%;
+      }
     }
 
     .form-field:not(.merchandise) {
