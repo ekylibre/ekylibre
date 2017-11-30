@@ -1337,6 +1337,7 @@ fra:
     node: "Nœud"
     nodes: "Nœuds d’extraction"
     non_compliant: "Non conforme"
+    merge_stock: "Fusionner avec les stocks existants"
     # non_compliant_detail: "Non compliant detail"
     noticed_start_amount: "Montant de début constaté"
     noticed_stop_amount: "Montant de fin constaté"

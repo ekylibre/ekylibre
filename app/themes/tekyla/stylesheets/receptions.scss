@@ -481,3 +481,14 @@
 	}
   }
 }
+
+.merge-stock {
+  .reception_items_merge_stock {
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: row-reverse;
+    .control-label {
+      margin-left: 10px !important;
+    }
+  }
+}

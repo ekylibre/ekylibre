@@ -4761,7 +4761,8 @@ CREATE TABLE parcel_items (
     role character varying,
     equipment_id integer,
     purchase_order_item_id integer,
-    product_work_number character varying
+    product_work_number character varying,
+    merge_stock boolean DEFAULT true
 );
 
 
@@ -18133,4 +18134,6 @@ INSERT INTO schema_migrations (version) VALUES ('20171128155136');
 INSERT INTO schema_migrations (version) VALUES ('20171129081506');
 
 INSERT INTO schema_migrations (version) VALUES ('20171130093921');
+
+INSERT INTO schema_migrations (version) VALUES ('20171130144435');
 
