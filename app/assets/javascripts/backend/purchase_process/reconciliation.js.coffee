@@ -246,7 +246,15 @@
       $(lastLineForm).find('.form-field .purchase_invoice_items_activity_budget .selector-search').first().selector('value', activityBudgetId)
       $(lastLineForm).find('.form-field .purchase_invoice_items_team .selector-search').first().selector('value', teamId)
 
-      $(lastLineForm).find('.form-field .invoice-vat-total').val(itemTaxId).change()
+      invoiceVatField = $(lastLineForm).find('.form-field .invoice-vat-total')
+
+      if itemTaxId
+        $(invoiceVatField).val(itemTaxId).change()
+      else
+        firstVatValue = $(lastLineForm).find('.form-field .invoice-vat-total option:first').val()
+        $(invoiceVatField).val(firstVatValue).change()
+
+      $(lastLineForm).trigger('cocoon:after-insert')
 
       # unless $(lastLineForm).find('.form-field .invoice-total').val() == null
       setTimeout (->
