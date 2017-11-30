@@ -243,6 +243,12 @@ class JournalEntryTest < ActiveSupport::TestCase
     assert_equal :closed, entry.state_name
   end
 
+  test 'confirm set the validated at' do
+    entry = create(:journal_entry, state: :draft, items: fake_items)
+    entry.confirm
+    assert entry.reload.validated_at
+  end
+
   test 'editable when draft' do
     entry = create(:journal_entry, state: :draft, items: fake_items)
     assert entry.editable?

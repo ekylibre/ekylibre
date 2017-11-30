@@ -57,7 +57,7 @@ module Backend
       else
         count = journal_entries.count
         JournalEntry.transaction do
-          journal_entries.update_all(state: :confirmed)
+          journal_entries.update_all(state: :confirmed, validated_at: Time.zone.now)
           JournalEntryItem.where(entry_id: journal_entries).update_all(state: :confirmed)
         end
         notify_success(:draft_journal_entries_have_been_validated, count: count)

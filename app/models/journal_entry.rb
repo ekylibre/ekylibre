@@ -105,6 +105,9 @@ class JournalEntry < Ekylibre::Record::Base
     state :draft
     state :confirmed
     state :closed
+    before_transition to: :confirmed do |model, transition|
+      model.validated_at = Time.zone.now
+    end
     event :confirm do
       transition draft: :confirmed, if: :balanced?
     end
