@@ -4702,6 +4702,7 @@ CREATE TABLE parcel_item_storings (
     lock_version integer DEFAULT 0 NOT NULL,
     conditionning_quantity integer,
     conditionning integer
+    product_id integer
 );
 
 
@@ -13810,6 +13811,13 @@ CREATE INDEX index_parcel_item_storings_on_parcel_item_id ON parcel_item_storing
 
 
 --
+-- Name: index_parcel_item_storings_on_product_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_parcel_item_storings_on_product_id ON parcel_item_storings USING btree (product_id);
+
+
+--
 -- Name: index_parcel_item_storings_on_storage_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -17299,6 +17307,14 @@ ALTER TABLE ONLY outgoing_payments
 
 
 --
+-- Name: parcel_item_storings fk_rails_182d7ce6a7; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY parcel_item_storings
+    ADD CONSTRAINT fk_rails_182d7ce6a7 FOREIGN KEY (product_id) REFERENCES products(id);
+
+
+--
 -- Name: outgoing_payments fk_rails_1facec8a15; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -18116,8 +18132,8 @@ INSERT INTO schema_migrations (version) VALUES ('20171113162225');
 
 INSERT INTO schema_migrations (version) VALUES ('20171114093355');
 
-INSERT INTO schema_migrations (version) VALUES ('20171117105934');
+INSERT INTO schema_migrations (version) VALUES ('20171128155136');
 
-INSERT INTO schema_migrations (version) VALUES ('20171121143329');
+INSERT INTO schema_migrations (version) VALUES ('20171129081506');
 
-INSERT INTO schema_migrations (version) VALUES ('20171123134516');
+INSERT INTO schema_migrations (version) VALUES ('20171130093921');
