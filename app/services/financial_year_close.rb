@@ -40,7 +40,7 @@ class FinancialYearClose
 
   def ensure_closability!
     journals = Journal.where('closed_on < ?', @to_close_on)
-    unclosables = journals.select { |journal| !journal.closable?(@to_close_on) }
+    unclosables = journals.reject { |journal| journal.closable?(@to_close_on) }
 
     if unclosables.any?
       unclosable_names = unclosables.map(&:name).to_sentence(locale: :eng)
@@ -53,7 +53,7 @@ class FinancialYearClose
   end
 
   def fetch_journals!
-    @result_journal  = @options[:result_journal]  || Journal.find_by(id: @options[:result_journal_id].to_i )
+    @result_journal  = @options[:result_journal]  || Journal.find_by(id: @options[:result_journal_id].to_i)
     @closure_journal = @options[:closure_journal] || Journal.find_by(id: @options[:closure_journal_id].to_i)
     @forward_journal = @options[:forward_journal] || Journal.find_by(id: @options[:forward_journal_id].to_i)
 
@@ -66,15 +66,15 @@ class FinancialYearClose
     return nil unless journal
 
     return true if journal.send(:"#{nature}?") &&
-                    journal.closed_on <= @to_close_on &&
-                    journal.currency == @currency
+                   journal.closed_on <= @to_close_on &&
+                   journal.currency == @currency
 
     @errors << "Cannot close without an opened #{nature} journal with same currency as financial year."
   end
 
   # FIXME: Manage non-french accounts
   def generate_result_entry!
-    accounts = [:expenses, :revenues]
+    accounts = %i[expenses revenues]
     accounts = accounts.map { |acc| Nomen::Account.find(acc).send(Account.accounting_system) }
 
     total = account_balances_for(accounts).count + 1
@@ -106,7 +106,6 @@ class FinancialYearClose
       items_attributes: items,
       state: :confirmed
     )
-
   ensure
     progress.clean!
   end
@@ -117,7 +116,7 @@ class FinancialYearClose
       return { account_id: profit.id, name: profit.name, real_debit: 0.0, real_credit: result, state: :confirmed }
     end
     losses = Account.find_in_nomenclature(:financial_year_result_loss)
-    { account_id: losses.id, name: losses.name, real_debit: result.abs, real_credit: 0.0, state: :confirmed}
+    { account_id: losses.id, name: losses.name, real_debit: result.abs, real_credit: 0.0, state: :confirmed }
   end
 
   # FIXME: Manage non-french accounts
@@ -139,7 +138,6 @@ class FinancialYearClose
                                     .uniq
 
     progress = Progress.new(:close_carry_forward, id: @year.id, max: letterable_accounts.count + unletterable_accounts.count)
-
 
     unletterable_accounts.find_each do |a|
       entry_items = a.journal_entry_items
@@ -236,7 +234,7 @@ class FinancialYearClose
   end
 
   def reletter_items!(items, letter)
-    return  [nil, items] unless letter
+    return [nil, items] unless letter
 
     account_id = items.first[:account_id]
 
@@ -253,7 +251,7 @@ class FinancialYearClose
   def update_lettered_later!(letter, new_letter, account_id)
     account = Account.find(account_id)
 
-    @updated_affairs ||= Hash.new
+    @updated_affairs ||= {}
 
     lettered_later = account.journal_entry_items.where('printed_on > ?', @to_close_on).where(letter: letter)
     lettered_later.update_all(letter: new_letter)
@@ -301,8 +299,8 @@ class FinancialYearClose
 
   def account_balances_for(account_numbers)
     @year.account_balances.joins(:account)
-                          .where('local_balance != ?', 0)
-                          .where('accounts.number ~ ?', "^(#{account_numbers.join('|')})")
-                          .order('accounts.number')
+         .where('local_balance != ?', 0)
+         .where('accounts.number ~ ?', "^(#{account_numbers.join('|')})")
+         .order('accounts.number')
   end
 end

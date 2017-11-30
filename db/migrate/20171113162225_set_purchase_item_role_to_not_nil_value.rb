@@ -1,19 +1,19 @@
 class SetPurchaseItemRoleToNotNilValue < ActiveRecord::Migration
   def change
-  	reversible do |dir|
+    reversible do |dir|
       dir.up do
         execute set_purchase_items_role_to_service
         execute set_purchase_items_role_to_merchandise
       end
 
       dir.down do
-      	execute set_purchase_items_role_to_null
+        execute set_purchase_items_role_to_null
       end
     end
   end
 
   def set_purchase_items_role_to_service
-		<<-SQL
+    <<-SQL
 	    UPDATE purchase_items pi
 		  SET role = 'service'
 		  WHERE  pi.role IS NULL
@@ -26,7 +26,7 @@ class SetPurchaseItemRoleToNotNilValue < ActiveRecord::Migration
   end
 
   def set_purchase_items_role_to_merchandise
-		<<-SQL
+    <<-SQL
 	    UPDATE purchase_items pi
 		  SET role = 'merchandise'
 		  WHERE  pi.role IS NULL
@@ -43,10 +43,9 @@ class SetPurchaseItemRoleToNotNilValue < ActiveRecord::Migration
   end
 
   def set_purchase_items_role_to_null
-		<<-SQL
+    <<-SQL
 	    UPDATE purchase_items pi
 		  SET role = NULL
 	  SQL
   end
 end
-	

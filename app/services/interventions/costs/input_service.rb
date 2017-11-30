@@ -22,7 +22,7 @@ module Interventions
         options[:catalog_usage] = :purchase
         options[:catalog_item] = product.default_catalog_item(options[:catalog_usage])
 
-        return InterventionParameter::AmountComputation.quantity(:catalog, options)
+        InterventionParameter::AmountComputation.quantity(:catalog, options)
       end
 
       private
