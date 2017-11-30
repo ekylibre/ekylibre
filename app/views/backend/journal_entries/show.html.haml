@@ -2,7 +2,7 @@
 - main_toolbar do |t|
   = t.new label: :duplicate.tl, params: { duplicate_of: resource.id, redirect: nil }
   = t.export :journal_entry_sheet
-  = t.edit resource if resource.updateable?
+  = t.edit resource if resource.editable?
   = t.destroy
 
 = main_state_bar(resource, disable_transitions: true)
