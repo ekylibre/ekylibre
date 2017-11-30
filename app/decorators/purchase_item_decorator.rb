@@ -2,7 +2,7 @@ class PurchaseItemDecorator < Draper::Decorator
   delegate_all
 
   def reception_number
-    return "" if object.parcels_purchase_invoice_items.nil? || object.parcels_purchase_invoice_items.first.nil?
+    return "" if object.parcels_purchase_invoice_items.nil? || object.parcels_purchase_invoice_items.first.nil?
 
     reception_id = object.parcels_purchase_invoice_items.first.parcel_id
 
