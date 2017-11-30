@@ -149,7 +149,7 @@ class ReceptionItem < ParcelItem
   protected
 
   def check_incoming(checked_at)
-    no_fusing = reception_separated_stock? || product_is_unitary?
+    no_fusing = separated_stock? || product_is_unitary?
 
     # Create a matter for each storing
     storings.each do |storing|
@@ -163,7 +163,6 @@ class ReceptionItem < ParcelItem
       product ||= variant.create_product(product_params)
       # product.parcel_item_storings << storing
       storing.update(product: product)
-      binding.pry
       return false, product.errors if product.errors.any?
       ProductMovement.create!(product: product, delta: storing.quantity, started_at: reception_given_at, originator: self) unless product_is_unitary?
       ProductLocalization.create!(product: product, nature: :interior, container: storing.storage, started_at: reception_given_at, originator: self)

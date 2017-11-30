@@ -142,7 +142,7 @@ fra:
         plants_count: "Nombre théorique de graines"
         seeding_density_value: "Densité théorique de semis"
       product_localization: #?
-        container: "Contenant" #?
+        container: "Zone de stockage" #?
         started_at: "Entrée" #?
         stopped_at: "Sortie" #?
       product_nature_category: #?
@@ -1715,7 +1715,7 @@ fra:
     stopped_at: "Arrêté le"
     stopped_on: "Arrêté le"
     storable: "Gérer les stocks"
-    storage: "Stockage"
+    storage: "Zone de stockage"
     storages: "Stockages"
     # storings: "Storings"
     story: "Historique"
