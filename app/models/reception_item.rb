@@ -158,10 +158,8 @@ class ReceptionItem < ParcelItem
       product_params[:identification_number] = product_identification_number
       product_params[:work_number] = product_work_number
       product_params[:initial_born_at] = [checked_at, reception_given_at].compact.min
-      # binding.pry
       product = existing_product_in_storage unless no_fusing || storage.blank?
       product ||= variant.create_product(product_params)
-      # product.parcel_item_storings << storing
       storing.update(product: product)
       return false, product.errors if product.errors.any?
       ProductMovement.create!(product: product, delta: storing.quantity, started_at: reception_given_at, originator: self) unless product_is_unitary?
