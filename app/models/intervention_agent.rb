@@ -83,19 +83,18 @@ class InterventionAgent < InterventionProductParameter
     unit_name = unit_name.pluralize if quantity > 1
 
     catalog_item = if nature.present? && nature != :intervention
-        begin
-          self.product.variant.catalog_items.joins(:catalog).where('catalogs.usage': "#{nature}_cost").first.catalog.usage
-        rescue
-          catalog_usage
-        end
-      else
-        begin
-          self.product.variant.catalog_items.joins(:catalog).where('catalogs.usage': 'cost').first.catalog.usage
-        rescue
-          catalog_usage
-        end
+                     begin
+                       product.variant.catalog_items.joins(:catalog).where('catalogs.usage': "#{nature}_cost").first.catalog.usage
+                     rescue
+                       catalog_usage
+                     end
+                   else
+                     begin
+                       product.variant.catalog_items.joins(:catalog).where('catalogs.usage': 'cost').first.catalog.usage
+                     rescue
+                       catalog_usage
+                     end
       end
-
 
     options = {
       catalog_usage: catalog_item,

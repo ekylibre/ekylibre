@@ -19,11 +19,11 @@
 
     taxes_and_wages = @financial_year.sum_entry_items_with_mandatory_line(:ratio, :taxes_and_wages)
     data << {name: :taxes_and_wages.tl , y: - taxes_and_wages.to_s.to_f, color: :red}
-    
+
     # operating_margin = @financial_year.sum_entry_items_with_mandatory_line(:ratio, :operating_margin)
     # data << {name: :operating_margin.tl, y: operating_margin.to_s.to_f, color: :blue}
 
-    
+
     #data << [:operating_margin.l , operating_margin]
     raw_income = @financial_year.sum_entry_items_with_mandatory_line(:ratio, :raw_income)
     #data << [:raw_income.l , raw_income]
