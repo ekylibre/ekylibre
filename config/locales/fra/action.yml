@@ -2969,5 +2969,6 @@ fra:
     backend/product_natures: "%{name}"
     backend/products: "%{work_number} %{name} (%{number}) - %{container_name}"
     backend/purchase_payments: "%{number}. %{mode_name} pour %{payee_full_name} de %{amount} %{currency}"
+    backend/purchases: "%{number} - %{reference_number} - %{ordered_at} - %{pretax_amount} €" #?
     backend/trackings: "%{serial} ‒ %{name} ‒ %{producer_full_name}"
     backend/users: "%{first_name} %{last_name}"

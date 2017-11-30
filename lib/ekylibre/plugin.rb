@@ -286,7 +286,7 @@ module Ekylibre
       end
 
       version = Ekylibre.version
-      version = version.split(" - ").first if version.include?('-')
+      version = version.split(' - ').first if version.include?('-')
 
       unless Gem::Requirement.new(*requirements) =~ Gem::Version.create(version)
         raise PluginRequirementError, "Plugin (#{@name}) is incompatible with current version of app (#{Ekylibre.version} not #{requirements.inspect})"

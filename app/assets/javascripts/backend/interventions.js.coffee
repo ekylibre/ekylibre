@@ -183,6 +183,13 @@
             options.success.call(this, data, status, request) if options.success?
             console.groupEnd()
 
+            if options['display_cost']
+              targettedElement = options['targetted_element']
+              parentBlock = $(targettedElement).closest('.nested-product-parameter')
+              quantity = $(parentBlock).find('input[data-intervention-field="quantity-value"]').val()
+              unitName = $(parentBlock).find('select[data-intervention-field="quantity-handler"]').val()
+              E.interventionForm.displayCost(targettedElement, quantity, unitName)
+
     hideKujakuFilters: (hideFilters) ->
       if hideFilters
         $('.feathers input[name*="nature"], .feathers input[name*="state"]').closest('.feather').hide()
@@ -313,32 +320,31 @@
   #  selector:initialized
   $(document).on 'selector:change', '*[data-intervention-updater]', (event) ->
     $(this).each ->
-      E.interventions.refresh $(this)
+      options = {}
+      options['display_cost'] = true
+      options['targetted_element'] = $(event.target)
 
-      parentBlock = $(event.target).closest('.nested-product-parameter')
-      quantity = $(parentBlock).find('input[data-intervention-field="quantity-value"]').val()
-      unitName = $(parentBlock).find('select[data-intervention-field="quantity-handler"]').val()
-      E.interventionForm.displayCost(event.target, quantity, unitName)
+      E.interventions.refresh $(this), options
 
   $(document).on 'keyup', 'input[data-selector]', (e) ->
     $(this).each ->
       E.interventions.refresh $(this)
 
-  $(document).on 'keyup change', 'input[data-intervention-updater]:not([data-selector])', (e) ->
+  $(document).on 'keyup change', 'input[data-intervention-updater]:not([data-selector])', (event) ->
     $(this).each ->
-      E.interventions.refresh $(this)
+      options = {}
+      options['display_cost'] = true
+      options['targetted_element'] = $(event.target)
 
-      quantity = $(event.target).val()
-      unitName = $(event.target).parent().find('select[data-intervention-field="quantity-handler"]').val()
-      E.interventionForm.displayCost(event.target, quantity, unitName)
+      E.interventions.refresh $(this), options
 
-  $(document).on 'keyup change', 'select[data-intervention-updater]', ->
+  $(document).on 'keyup change', 'select[data-intervention-updater]', (event) ->
     $(this).each ->
-      E.interventions.refresh $(this)
+      options = {}
+      options['display_cost'] = true
+      options['targetted_element'] = $(event.target)
 
-      quantity = $(event.target).parent().find('input[data-intervention-field="quantity-value"]').val()
-      unitName = $(event.target).val()
-      E.interventionForm.displayCost(event.target, quantity, unitName)
+      E.interventions.refresh $(this), options
 
   $(document).on "keyup change dp.change", ".nested-fields.working-period:first-child input.intervention-started-at", (e) ->
     $(this).each ->
@@ -382,17 +388,16 @@
   E.interventionForm =
     displayCost: (target, quantity, unitName) ->
 
+      quantity = $(target).closest('.nested-fields').find('input[data-intervention-handler="quantity"]').val()
       productId = $(target).closest('.nested-product-parameter').find(".selector .selector-value").val()
 
       intervention = {}
+      intervention['quantity'] = quantity
       intervention['intervention_id'] = $('input[name="intervention_id"]').val()
       intervention['product_id'] = productId
       intervention['existing_participation'] = $('.intervention-participation[data-product-id="' + productId + '"]').val()
       intervention['intervention_started_at'] = $('#intervention_working_periods_attributes_0_started_at').val()
       intervention['intervention_stopped_at'] = $('#intervention_working_periods_attributes_0_stopped_at').val()
-
-      if quantity
-        intervention['quantity'] = quantity
 
       if unitName
         intervention['unit_name'] = unitName

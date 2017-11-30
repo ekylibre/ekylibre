@@ -250,8 +250,15 @@
       $(lastLineForm).find('.form-field.merchandise .supplier-ref-value').text(itemSupplierReference)
       $(lastLineForm).find('.form-field.merchandise .supplier-ref-block').removeClass('hidden')
 
+      invoiceVatField = $(lastLineForm).find('.form-field .invoice-vat-total')
 
-      $(lastLineForm).find('.form-field .invoice-vat-total').val(itemTaxId).change()
+      if itemTaxId
+        $(invoiceVatField).val(itemTaxId).change()
+      else
+        firstVatValue = $(lastLineForm).find('.form-field .invoice-vat-total option:first').val()
+        $(invoiceVatField).val(firstVatValue).change()
+
+      $(lastLineForm).trigger('cocoon:after-insert')
 
       # unless $(lastLineForm).find('.form-field .invoice-total').val() == null
       setTimeout (->

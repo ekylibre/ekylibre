@@ -32,7 +32,7 @@
         %label{ class: 'amount-including-taxes', data: { item_value: "input.invoice-total" } }= f.object.variant ? f.object.variant.name : '??????'
         %label= Nomen::Currency.find(f.object.currency).symbol
       %label{ class: "invoice-second-row-label"}= :vat_rate.tl
-      %label{ class: 'vat-rate', data: { item_value: "select.invoice-vat-total option:selected" } }= f.object.variant ? f.object.variant.name : '??????'
+      %label{ class: 'vat-rate', data: { item_value: "select.invoice-vat-total option:selected", selected_value: f.object.tax_id } }= f.object.variant ? f.object.variant.name : '??????'
 
   %tr.nested-item-form
     %td.form-field.merchandise
@@ -81,7 +81,7 @@
         = f.input_field :pretax_amount, class: "pta pre-tax-invoice-total", data: {trade_component: "pretax_amount", required: true}
         %span.add-on
           = Nomen::Currency.find(f.object.currency).symbol
-    %td.form-field.decimal= f.input(:tax_id, label: :vat_rate.tl, collection: Tax.current.collect{|t| [t.short_label, t.id, {'data-rate' => ((100 + t.usable_amount)/100)}]}, selected: 1, input_html: { class: "invoice-vat-total", data: {value: 'rate', trade_component: "tax"}})
+    %td.form-field.decimal= f.input(:tax_id, label: :vat_rate.tl, collection: Tax.current.collect{|t| [t.short_label, t.id, {'data-rate' => ((100 + t.usable_amount)/100)}]}, selected: f.object.tax_id, input_html: { class: "invoice-vat-total", data: {value: 'rate', trade_component: "tax"}})
     -#%td.action= link_to_remove_association(content_tag(:i) + h(:destroy.ta), f, 'data-no-turbolink' => true, class: 'remove-item')
 
     %td.form-field.decimal

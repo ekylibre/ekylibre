@@ -2193,6 +2193,9 @@
       <item name="interventions">
         <page to="backend/interventions#purchase_order_items"/>
       </item>
+      <item name="costs">
+        <page to="backend/interventions/costs#parameter_cost"/>
+      </item>
       <item name="land_parcels">
         <page to="backend/land_parcels#list_reception_items"/>
         <page to="backend/land_parcels#list_shipment_items"/>

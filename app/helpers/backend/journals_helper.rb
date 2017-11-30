@@ -47,13 +47,13 @@ module Backend
     def journal_period_crit(*args)
       options = args.extract_options!
       name = args.shift || :period
-      if preference = current_user.preferences.find_by(name: 'accounts_interval.period') && args.present? && args.first[:use_search_preference]
-        value = preference.value
-      elsif current_user.preferences.find_by(name: 'accounts_interval.started_on').present? && args.present? && args.first[:use_search_preference]
-        value = :interval
-      else
-        value = args.shift
-      end
+      value = if preference = current_user.preferences.find_by(name: 'accounts_interval.period') && args.present? && args.first[:use_search_preference]
+                preference.value
+              elsif current_user.preferences.find_by(name: 'accounts_interval.started_on').present? && args.present? && args.first[:use_search_preference]
+                :interval
+              else
+                args.shift
+              end
 
       configuration = { custom: :interval }.merge(options)
       configuration[:id] ||= name.to_s.gsub(/\W+/, '_').gsub(/(^_|_$)/, '')

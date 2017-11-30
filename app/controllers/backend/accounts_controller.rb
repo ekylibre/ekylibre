@@ -134,7 +134,6 @@ module Backend
     end
 
     def mark
-
       params[:started_on] ||= current_user.preferences.find_by(name: 'accounts_interval.started_on').try(:value)
       params[:stopped_on] ||= current_user.preferences.find_by(name: 'accounts_interval.stopped_on').try(:value)
       params[:period]     ||= current_user.preferences.find_by(name: 'accounts_interval.period').try(:value) || :interval
