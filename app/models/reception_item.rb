@@ -149,7 +149,7 @@ class ReceptionItem < ParcelItem
   protected
 
   def check_incoming(checked_at)
-    no_fusing = merge_stock? || product_is_unitary?
+    fusing = merge_stock? || product_is_unitary?
 
     # Create a matter for each storing
     storings.each do |storing|
@@ -158,7 +158,7 @@ class ReceptionItem < ParcelItem
       product_params[:identification_number] = product_identification_number
       product_params[:work_number] = product_work_number
       product_params[:initial_born_at] = [checked_at, reception_given_at].compact.min
-      product = existing_reception_product_in_storage(storing) if no_fusing
+      product = existing_reception_product_in_storage(storing) if fusing
       product ||= variant.create_product(product_params)
       storing.update(product: product)
       return false, product.errors if product.errors.any?
