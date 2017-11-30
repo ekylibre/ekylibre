@@ -67,10 +67,12 @@ eng:
       new: "New analysis item"
     backend/animal_groups:
       edit: "Edit animal group: %{name}"
+      # edit_many: "Edit many animal group: %{name}"
       index: "Animal groups"
       new: "New animal group"
       show: "Animal group: %{name}"
       # take: "Take animal group: %{name}"
+      # update_many: "Update many animal group: %{name}"
     backend/animals:
       # add_group: "Add group animal: %{name}"
       # add_to_container: "Add to container animal: %{name}"
@@ -78,6 +80,7 @@ eng:
       # add_to_variant: "Add to variant animal: %{name}"
       # change: "Change animal: %{name}"
       edit: "Edit animal: %{name}"
+      # edit_many: "Edit many animal: %{name}"
       index: "Animals"
       # keep: "Keep animal: %{name}"
       # load_animals: "Load animals animal: %{name}"
@@ -85,6 +88,7 @@ eng:
       new: "New animal"
       show: "%{nature}: %{name}"
       # take: "Take animal: %{name}"
+      # update_many: "Update many animal: %{name}"
     backend/attachments:
       # show: "Attachment: %{name}"
     backend/bank_reconciliation/items:
@@ -104,16 +108,20 @@ eng:
       reset: "Reset beehive: %{name}"
     backend/building_divisions:
       edit: "Edit building division: %{name}"
+      # edit_many: "Edit many building division: %{name}"
       index: "Building divisions"
       new: "New building division"
       show: "Building division: %{name}"
       # take: "Take building division: %{name}"
+      # update_many: "Update many building division: %{name}"
     backend/buildings:
       edit: "Edit building: %{name}"
+      # edit_many: "Edit many building: %{name}"
       index: "Buildings"
       new: "New building"
       show: "Building: %{name}"
       # take: "Take building: %{name}"
+      # update_many: "Update many building: %{name}"
     backend/campaigns:
       # close: "Close campaign: %{name}"
       current: "Campaign"
@@ -262,10 +270,12 @@ eng:
       # show: "Entity link: %{name}"
     backend/equipments:
       edit: "Edit equipment: %{name}"
+      # edit_many: "Edit many equipment: %{name}"
       index: "Equipment"
       new: "New equipment"
       show: "Equipment: %{name}"
       # take: "Take equipment: %{name}"
+      # update_many: "Update many equipment: %{name}"
     backend/event_participations:
       edit: "Edit participation: %{participant_name}"
       # index: "Event participations"
@@ -310,10 +320,12 @@ eng:
       # start_up: "Start up fixed asset: %{name}"
     backend/fungi:
       edit: "Edit fungus: %{name}"
+      # edit_many: "Edit many fungus: %{name}"
       index: "Fungi"
       new: "New fungus"
       show: "Fungus: %{name}"
       # take: "Take fungus: %{name}"
+      # update_many: "Update many fungus: %{name}"
     backend/gaps:
       index: "Gaps"
       show: "Gap: %{number}"
@@ -440,10 +452,12 @@ eng:
       show: "Label: %{name}"
     backend/land_parcels:
       edit: "Edit land parcel: %{name}"
+      # edit_many: "Edit many land parcel: %{name}"
       index: "Land parcels"
       new: "New land parcel"
       show: "Land parcel %{name}"
       # take: "Take land parcel: %{name}"
+      # update_many: "Update many land parcel: %{name}"
     backend/listing_nodes:
       edit: "Edit listing node"
       new: "New listing node"
@@ -485,10 +499,12 @@ eng:
       toggle: "Toggle map layer: %{name}"
     backend/matters:
       edit: "Edit matter: %{name}"
+      # edit_many: "Edit many matter: %{name}"
       index: "Matters"
       new: "New matter"
       show: "Matter: %{name}"
       # take: "Take matter: %{name}"
+      # update_many: "Update many matter: %{name}"
     backend/myselves:
       # change_password: "Change password myself: %{name}"
       show: "My informations"
@@ -568,10 +584,12 @@ eng:
       # new: "New plant density abacus item"
     backend/plants:
       edit: "Edit crop: %{name}"
+      # edit_many: "Edit many plant: %{name}"
       index: "Crops"
       new: "New crop"
       show: "Crop: %{name}"
       # take: "Take plant: %{name}"
+      # update_many: "Update many plant: %{name}"
     backend/postal_zones:
       # autocomplete: "Autocomplete postal zone: %{name}"
       edit: "Edit postal zone: %{name}"
@@ -585,10 +603,12 @@ eng:
       show: "Prescription: %{reference_number}"
     backend/product_groups:
       edit: "Edit group: %{name}"
+      # edit_many: "Edit many product group: %{name}"
       index: "Product groups"
       new: "New group"
       show: "Group: %{name}"
       # take: "Take product group: %{name}"
+      # update_many: "Update many product group: %{name}"
     backend/product_localizations:
       edit: "Edit product localization:"
       new: "New product localization"
@@ -619,10 +639,12 @@ eng:
       show: "Product type: %{name}"
     backend/products:
       edit: "Edit product: %{name}"
+      edit_many: "Distribute unaffected products"
       index: "Products"
       new: "New product"
       show: "%{nature}: %{name}"
       # take: "Take product: %{name}"
+      # update_many: "Update many product: %{name}"
     backend/purchase_affairs:
       # attach: "Attach purchase affair: %{name}"
       # detach: "Detach purchase affair: %{name}"
@@ -752,10 +774,12 @@ eng:
       about: "About Ekylibre"
     backend/settlements:
       edit: "Edit settlement: %{name}"
+      # edit_many: "Edit many settlement: %{name}"
       index: "Settlements"
       new: "New settlement"
       show: "Settlement: %{name}"
       # take: "Take settlement: %{name}"
+      # update_many: "Update many settlement: %{name}"
     backend/snippets:
       # toggle: "Toggle snippet: %{name}"
     backend/subscription_natures:
@@ -779,13 +803,6 @@ eng:
     backend/synchronizations:
       index: "Synchronizations"
       run: "Run synchronization: %{name}"
-    backend/target_distributions:
-      edit: "Edit target distribution"
-      edit_many: "Distribute unaffected products"
-      index: "Target distributions"
-      new: "New target distribution"
-      show: "Target distribution"
-      # update_many: "Update many target distribution: %{name}"
     backend/tasks:
       edit: "Edit task: %{name}"
       # finish: "Finish task: %{name}"
@@ -840,10 +857,12 @@ eng:
       index: "Wine tanks"
     backend/workers:
       edit: "Edit worker: %{name}"
+      # edit_many: "Edit many worker: %{name}"
       index: "Workers"
       new: "New worker"
       show: "Worker: %{name}"
       # take: "Take worker: %{name}"
+      # update_many: "Update many worker: %{name}"
     devise/confirmations:
       # new: "New confirmation"
       # show: "Confirmation: %{name}"
@@ -971,7 +990,7 @@ eng:
     active_finishing_within: "Active finishing within" #?
     activities: "Activities" #?
     activity: "Activity"
-    activity_production: "Activity production" #?
+    activity_production: "Activity production"
     activity_productions: "Activity productions"
     add: "Add"
     add_a_worker: "Add a worker"
@@ -1263,7 +1282,7 @@ eng:
     disease_percentage_evolution: "Disease percentage evolution"
     display: "Display" #?
     distribute_unaffected_products: "Distribute unaffected products"
-    distributions: "Distributions"
+    distributions: "Distributions" #?
     divide: "Divide"
     division: "Division"
     divisions: "Divisions"
@@ -1860,7 +1879,7 @@ eng:
     support: "Support" #?
     supports: "Supports" #?
     synthesis: "Synthesis"
-    target: "Target" #?
+    target: "Target"
     tasks: "Tasks" #?
     tax_declarations: "Tax declarations"
     tax_label: "Tax label" #?
@@ -2190,12 +2209,16 @@ eng:
       changes_have_not_been_reflected: "The changes have not been reflected in the stocks state" #?
       closed_financial_periods: "The fixed asset's duration spans across closed financial periods."
       closed_financial_year_exchange: "The financial year exchange has been closed successfully"
-      closed_financial_years: "The financial year has been closed successfully"
+      closed_financial_years: "The financial year has been closed successfully" #?
+      closure_process_started: "Closure process started."
       columns_are_already_uses: "One or many columns are selected many times"
       could_not_attach_x_or_y_to_affair: "Could not attach %{x} or %{y} to affair"
       dashboard_is_being_developed: "Dashboard is under heavy development"
       density_is_not_computable_in_counting: "Could not compute the density for this counting. The missing values should be completed in the counting's properties or the sower's indicators."
+      depreciation_failed: "Assets could not be depreciated." #?
+      depreciation_successful: "Assets have been successfully depreciated." #?
       document_in_preparation: "Your document is in preparation a notification will be sent to you when it is ready"
+      draft_journal_entries_are_present: "Draft journal entries are present." #?
       draft_journal_entries_have_been_validated:
         one: "%{count} entry has been validated"
         other: "%{count} entries have been validated"
@@ -2208,6 +2231,10 @@ eng:
       error_during_file_generation: "An error occurred while generating a file" #?
       fails_to_extract_listing: "The listing can't be made: %{message}"
       file_generated: "Your file was successfully generated" #?
+      financial_year_already_closed: "The financial year has already been closed." #?
+      financial_year_is_not_past: "The financial year hasn't passed yet." #?
+      financial_year_x_could_not_be_closed: "Financial Year  %{name} could not be closed."
+      financial_year_x_successfully_closed: "Financial Year %{name} successfully closed !"
       financial_years_missing: "You must create every missing financial years since the first registered"
       financial_years_missing_tax_declarations: "You must create every declarations for the following financial years: %{codes}"
       implemented_with_dummy_data: "Implemented with dummy data"
@@ -2251,6 +2278,7 @@ eng:
       no_reopenable_journal: "You can not re-open this journal."
       no_replacements_since_beginning: "No replacements since beginning"
       # no_worker_associated_with_user_account: "No worker associated with user account"
+      previouos_financial_year_is_not_closed: "The previous financial year hasn't been closed." #?
       purchases_invalid_for_sepa: "Purchases selected invalid for SEPA transfer (invalid disbursement mode or wrong currency or missing payee's IBAN or bank account holder name)"
       record_already_imported: "Record already imported"
       record_cannot_be_removed: "The record can not be deleted"
@@ -2276,6 +2304,7 @@ eng:
       the_sales_invoice_is_not_cancellable: "The sales invoice is not cancellable"
       this_service_is_not_activated: "This service is not activated" #?
       unavailable_resource: "Nonexistent %{type} #%{id}"
+      unbalanced_journal_entries_are_present_in_year: "Some unbalanced journal entries are present in the financial year." #?
       unexpected_resource_type: "Unexpected resource type: %{type}"
       update_is_done: "The update has been made"
       x_fixed_asset_depreciations_have_been_bookkept_successfully:

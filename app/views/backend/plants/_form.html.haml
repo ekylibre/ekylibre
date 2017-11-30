@@ -1,6 +1,9 @@
 - display_dead_at ||= false
 
 = f.product_form_frame do
+  = field_set(:data) do
+    = f.association :activity_production
+
   = field_set(:identification) do
     = f.input :dead_at if display_dead_at
     = f.picture

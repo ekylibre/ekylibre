@@ -119,7 +119,7 @@ module Ekylibre
         return other if other
         other = FinancialYear.where('stopped_on < ?', on).reorder(stopped_on: :desc).first
         other = other.find_or_create_next! while on > other.stopped_on if other
-        other = FinancialYear.create!(started_on: on) unless other
+        other ||= FinancialYear.create!(started_on: on)
         other
       end
 
@@ -401,12 +401,10 @@ module Ekylibre
           items_attributes: sale.items.each_with_object({}) do |item, h|
             product = Product.where('? BETWEEN COALESCE(born_at, ?) AND COALESCE(dead_at, ?)', Time.zone.now, Time.zone.now, Time.zone.now)
                              .where(variant: item.variant).to_a.sample
-            unless product
-              product = item.variant.products.create!(
-                initial_population: item.quantity * rand(30),
-                born_at: Date.today - rand(600).days
-              )
-            end
+            product ||= item.variant.products.create!(
+              initial_population: item.quantity * rand(30),
+              born_at: Date.today - rand(600).days
+            )
             v = Variant.find(item.variant.reference_name)
             next if v && !v.deliverable?
             set_storable(product.category)
