@@ -1718,7 +1718,7 @@ fra:
     storable: "Gérer les stocks"
     storage: "Zone de stockage"
     storages: "Stockages"
-    # storings: "Storings"
+    storings: "Élements "
     story: "Historique"
     string_value: "Valeur textuelle"
     subdomains: "Sous-domaines"
