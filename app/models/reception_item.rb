@@ -146,11 +146,6 @@ class ReceptionItem < ParcelItem
     end
   end
 
-  def test_quantity
-    binding.pry
-    12
-  end
-
   protected
 
   def check_incoming(checked_at)
