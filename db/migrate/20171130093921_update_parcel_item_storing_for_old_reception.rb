@@ -2,7 +2,7 @@ class UpdateParcelItemStoringForOldReception < ActiveRecord::Migration
 
   class Product < ActiveRecord::Base
     self.table_name = 'products'
-    has_many :localizations, class_name: 'ProductLocalization', foreign_key: :product_id, dependent: :destroy
+    has_many :localizations, foreign_key: :product_id, dependent: :destroy
     has_many :parcel_item_storings, foreign_key: :product_id
   end
 
@@ -10,7 +10,7 @@ class UpdateParcelItemStoringForOldReception < ActiveRecord::Migration
     self.table_name = 'parcel_items'
     has_many :storings, class_name: 'ParcelItemStoring', foreign_key: :parcel_item_id, dependent: :destroy
     belongs_to :product
-    belongs_to :reception, class_name: 'Reception', foreign_key: :parcel_id
+    belongs_to :reception, foreign_key: :parcel_id
   end
 
   class ParcelItemStoring < ActiveRecord::Base
