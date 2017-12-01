@@ -61,4 +61,20 @@ class ParcelItemStoring < Ekylibre::Record::Base
     population -= quantity_was
     parcel_item.update_attributes(population: population)
   end
+
+  def reception
+    Reception.find(parcel_item.parcel_id)
+  end
+
+  def reception_number
+    reception.number
+  end
+
+  def reception_nature
+    reception.nature.tl
+  end
+
+  def reception_given_at
+    reception.given_at
+  end
 end

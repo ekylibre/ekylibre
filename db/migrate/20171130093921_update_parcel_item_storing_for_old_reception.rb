@@ -8,7 +8,7 @@ class UpdateParcelItemStoringForOldReception < ActiveRecord::Migration
 
   class ReceptionItem < ActiveRecord::Base
     self.table_name = 'parcel_items'
-    has_many :storings, foreign_key: :parcel_item_id, dependent: :destroy
+    has_many :storings, class_name: 'ParcelItemStoring', foreign_key: :parcel_item_id, dependent: :destroy
     belongs_to :product
     belongs_to :reception, foreign_key: :parcel_id
   end

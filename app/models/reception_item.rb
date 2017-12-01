@@ -146,6 +146,11 @@ class ReceptionItem < ParcelItem
     end
   end
 
+  def test_quantity
+    binding.pry
+    12
+  end
+
   protected
 
   def check_incoming(checked_at)
@@ -168,10 +173,6 @@ class ReceptionItem < ParcelItem
       ProductOwnership.create!(product: product, owner: Entity.of_company, nature: :own, started_at: reception_given_at, originator: self) unless reception_remain_owner
     end
     true
-  end
-
-  def give_incoming
-    check_incoming(reception_prepared_at)
   end
 
   def give_outgoing

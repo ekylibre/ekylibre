@@ -182,6 +182,15 @@ module Backend
       t.column :product_identification_number
     end
 
+    list(:parcel_item_storings, joins: :parcel_item, conditions: { product_id: 'params[:id]'.c }, order: { created_at: :desc}) do |t|
+      t.column :reception, label_method: :reception_number, url: { controller: :receptions, id: 'RECORD.parcel_item.parcel_id'.c }
+      t.column :nature, label_method: :reception_nature
+      t.column :given_at, label_method: :reception_given_at, datatype: :datetime
+      t.column :population, label_method: :quantity
+      t.column :product_identification_number, through: :parcel_item
+    end
+
+
     # Lists parcel items of the current product
     list(:shipment_items, model: :shipment_items, conditions: { product_id: 'params[:id]'.c, parcels: { nature: :outgoing } }, order: { created_at: :desc }) do |t|
       t.column :shipment, url: { controller: :shipments }
