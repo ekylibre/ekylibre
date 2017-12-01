@@ -17,7 +17,6 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
-
 module Backend
   class ProductsController < Backend::BaseController
     manage_restfully t3e: { nature: :nature_name }, subclass_inheritance: true, multipart: true
@@ -181,7 +180,6 @@ module Backend
       t.column :population, label_method: :quantity
       t.column :product_identification_number, through: :parcel_item
     end
-
 
     # Lists parcel items of the current product
     list(:shipment_items, model: :shipment_items, conditions: { product_id: 'params[:id]'.c, parcels: { nature: :outgoing } }, order: { created_at: :desc }) do |t|
