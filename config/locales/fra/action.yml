@@ -1985,6 +1985,7 @@ fra:
     reception_incident: "Réception en incident"
     reception_items: "Articles réceptionnés"
     reception_number: "N° du bon de réception"
+    reception_number_with_reference: "N° du bon de réception : %{reference_number}" #?
     receptions: "Réceptions"
     reconcile: "Rapprochée"
     reconciliate_with_purchases_orders: "Rapprocher avec une ou des commandes"
@@ -2968,5 +2969,6 @@ fra:
     backend/product_natures: "%{name}"
     backend/products: "%{work_number} %{name} (%{number}) - %{container_name}"
     backend/purchase_payments: "%{number}. %{mode_name} pour %{payee_full_name} de %{amount} %{currency}"
+    backend/purchases: "%{number} - %{reference_number} - %{ordered_at} - %{pretax_amount} €" #?
     backend/trackings: "%{serial} ‒ %{name} ‒ %{producer_full_name}"
     backend/users: "%{first_name} %{last_name}"

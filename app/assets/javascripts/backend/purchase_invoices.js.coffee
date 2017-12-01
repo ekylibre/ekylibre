@@ -18,9 +18,13 @@
         calculVatRate = parseFloat(parseFloat(amountExcludingTaxes) * parseFloat(vatRate) / 100).toFixed(2)
         totalVatRate += parseFloat(calculVatRate)
 
+        selectedVatValue = $(item).parent().find('.nested-item-form select.invoice-vat-total option:selected').val()
+        $(item).find('.vat-rate').attr('data-selected-value', selectedVatValue)
+
       $('.invoice-totals .total-except-tax .total-value').text(totalAmountExcludingTaxes)
       $('.invoice-totals .vat-total .total-value').text(totalVatRate)
       $('.invoice-totals .invoice-total .total-value').text(totalAmountIncludingTaxes)
+
 
     $(document).on 'selector:change', '.invoice-variant.selector-search', (event) ->
       E.PurchaseInvoices.fillStocksCounters(event)
@@ -30,6 +34,10 @@
 
     $(document).on 'keyup', '.nested-fields .form-field .purchase_invoice_items_quantity .invoice-quantity', (event) ->
       E.PurchaseInvoices.fillStocksCounters(event)
+
+    $(document).on 'click', '.nested-fields .edit-item[data-edit="item-form"]', (event) ->
+      vatSelectedValue = $(event.target).closest('.nested-fields').find('.item-display .vat-rate').attr('data-selected-value')
+      $(event.target).closest('.nested-fields').find('.nested-item-form:visible .invoice-vat-total').val(vatSelectedValue)
 
     $('#new_purchase_invoice table.list').on 'cocoon:after-insert', (event, insertedItem) ->
       new_id = new Date().getTime()

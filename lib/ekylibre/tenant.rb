@@ -389,7 +389,7 @@ module Ekylibre
           temp.close
 
           # byebug
-          #File.write(config_file, @list.to_yaml)
+          # File.write(config_file, @list.to_yaml)
         end
       end
 

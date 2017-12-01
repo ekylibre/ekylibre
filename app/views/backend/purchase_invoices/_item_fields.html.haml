@@ -32,11 +32,17 @@
         %label{ class: 'amount-including-taxes', data: { item_value: "input.invoice-total" } }= f.object.variant ? f.object.variant.name : '??????'
         %label= Nomen::Currency.find(f.object.currency).symbol
       %label{ class: "invoice-second-row-label"}= :vat_rate.tl
-      %label{ class: 'vat-rate', data: { item_value: "select.invoice-vat-total option:selected" } }= f.object.variant ? f.object.variant.name : '??????'
+      %label{ class: 'vat-rate', data: { item_value: "select.invoice-vat-total option:selected", selected_value: f.object.tax_id } }= f.object.variant ? f.object.variant.name : '??????'
 
   %tr.nested-item-form
     %td.form-field.merchandise
       = f.referenced_association(:variant, label: :merchandise.tl, source: {scope: :purchaseables}, input_html: {class: "invoice-variant", data: {variant_of_deal_item: {url: detail_backend_product_nature_variant_path("RECORD_ID", mode: :last_purchase_item)}, product_of_delivery_item: {url: backend_product_nature_variant_path("RECORD_ID", format: :json)}, required: true}})
+
+      - classes = 'supplier-ref-block'
+      - classes << ' hidden' if f.object.new_record?
+      %div{ class: classes }
+        %span.supplier-ref-label= "#{ :reception_number.tl } : "
+        %span.supplier-ref-value= f.object.new_record? ? "" : f.object.decorate.reception_number
 
       - display = ""
       - display = "display: none;" unless item && item.variant && item.variant.depreciable?
@@ -78,7 +84,7 @@
         = f.input_field :pretax_amount, class: "pta pre-tax-invoice-total", data: {trade_component: "pretax_amount", required: true}
         %span.add-on
           = Nomen::Currency.find(f.object.currency).symbol
-    %td.form-field.decimal= f.input(:tax_id, label: :vat_rate.tl, collection: Tax.current.collect{|t| [t.short_label, t.id, {'data-rate' => ((100 + t.usable_amount)/100)}]}, selected: 1, input_html: { class: "invoice-vat-total", data: {value: 'rate', trade_component: "tax"}})
+    %td.form-field.decimal= f.input(:tax_id, label: :vat_rate.tl, collection: Tax.current.collect{|t| [t.short_label, t.id, {'data-rate' => ((100 + t.usable_amount)/100)}]}, selected: f.object.tax_id, input_html: { class: "invoice-vat-total", data: {value: 'rate', trade_component: "tax"}})
     -#%td.action= link_to_remove_association(content_tag(:i) + h(:destroy.ta), f, 'data-no-turbolink' => true, class: 'remove-item')
 
     %td.form-field.decimal

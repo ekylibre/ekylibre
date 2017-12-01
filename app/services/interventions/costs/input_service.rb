@@ -12,15 +12,25 @@ module Interventions
 
         options = { quantity: quantity, unit_name: unit_name }
 
-        if incoming_parcel && incoming_parcel.purchase_item
-          options[:purchase_item] = incoming_parcel.purchase_item
+        if incoming_parcel
+          purchase_item = incoming_parcel.purchase_invoice_item
+          purchase_item ||= incoming_parcel.purchase_order_item
 
-          return InterventionParameter::AmountComputation.quantity(:purchase, options)
+          return purchase_item_amount(purchase_item, options) if purchase_item
         end
 
         options[:catalog_usage] = :purchase
         options[:catalog_item] = product.default_catalog_item(options[:catalog_usage])
+
         InterventionParameter::AmountComputation.quantity(:catalog, options)
+      end
+
+      private
+
+      def purchase_item_amount(purchase_item, options)
+        options[:purchase_item] = purchase_item
+
+        InterventionParameter::AmountComputation.quantity(:purchase, options)
       end
     end
   end

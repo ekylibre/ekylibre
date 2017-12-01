@@ -25,10 +25,9 @@ module Interventions
 
       begin
         @amount_computation = Interventions::Costs::InputService
-                                .new(product: @product)
-                                .perform(quantity: @quantity,
-                                        unit_name: @unit_name)
-
+                              .new(product: @product)
+                              .perform(quantity: @quantity,
+                                       unit_name: @unit_name)
       rescue StandardError => exception
         fail!(exception.message)
       end

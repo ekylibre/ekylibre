@@ -44,7 +44,6 @@
 
         clone = @oldForm().clone()
         clone.insertBefore(@oldForm())
-        clone.trigger('cocoon:after-insert')
         clone.removeClass('hidden')
         @_bindButtons(@newForm())
         @toggleInputVisibility()

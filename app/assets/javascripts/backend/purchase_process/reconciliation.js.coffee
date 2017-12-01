@@ -231,6 +231,7 @@
       itemTaxId = $(checkboxLine).attr('data-tax-id')
       itemConditionning = checkboxLine.attr('data-conditionning')
       itemConditionningQuantity = checkboxLine.attr('data-conditionning-quantity')
+      itemSupplierReference = $(checkboxLine).attr('data-supplier-ref')
 
       if itemReductionPercentage == "" || itemReductionPercentage == undefined
         itemReductionPercentage = 0
@@ -246,12 +247,22 @@
       $(lastLineForm).find('.form-field .purchase_invoice_items_activity_budget .selector-search').first().selector('value', activityBudgetId)
       $(lastLineForm).find('.form-field .purchase_invoice_items_team .selector-search').first().selector('value', teamId)
 
-      $(lastLineForm).find('.form-field .invoice-vat-total').val(itemTaxId).change()
+      $(lastLineForm).find('.form-field.merchandise .supplier-ref-value').text(itemSupplierReference)
+      $(lastLineForm).find('.form-field.merchandise .supplier-ref-block').removeClass('hidden')
+
+      invoiceVatField = $(lastLineForm).find('.form-field .invoice-vat-total')
+
+      if itemTaxId
+        $(invoiceVatField).val(itemTaxId).change()
+      else
+        firstVatValue = $(lastLineForm).find('.form-field .invoice-vat-total option:first').val()
+        $(invoiceVatField).val(firstVatValue).change()
+
+      $(lastLineForm).trigger('cocoon:after-insert')
 
       # unless $(lastLineForm).find('.form-field .invoice-total').val() == null
       setTimeout (->
         $('.form-field .invoice-total').trigger('change')), 1000
-
 
 
     _fillPurchaseOrderItem: (lastLineForm, checkboxLine, itemId, itemQuantity, itemConditionning, itemConditionningQuantity) ->
@@ -264,4 +275,5 @@
       $(lastLineForm).find('.nested-fields.storing-fields:first .storing-quantifier .storing-quantity').val(itemQuantity)
       $(lastLineForm).find('.nested-fields.storing-fields:first .conditionning-quantity').val(itemConditionningQuantity)
       $(lastLineForm).find('.nested-fields.storing-fields:first .conditionning').val(itemConditionning)
+
 ) ekylibre, jQuery

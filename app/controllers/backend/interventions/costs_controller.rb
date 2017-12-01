@@ -21,7 +21,7 @@ module Backend
     class CostsController < Backend::BaseController
       def parameter_cost
         amount_interactor = ::Interventions::ParameterAmountInteractor
-                              .call(costs_params)
+                            .call(costs_params)
 
         render json: { human_amount: amount_interactor.human_amount } if amount_interactor.success?
         render json: { human_amount: amount_interactor.failed_amount_computation } if amount_interactor.fail?

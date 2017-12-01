@@ -1,4 +1,4 @@
-= f.input_field :quantity_population, as: :hidden, data: { intervention_updater: prefix + 'quantity_population' }
+= f.input_field :quantity_population, as: :hidden, data: { intervention_updater: prefix + 'quantity_population', intervention_handler: "quantity" }
 - if reference.handlers.any?
   - options = reference.handlers.map do |handler|
     - if handler.population?

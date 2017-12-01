@@ -33,6 +33,9 @@ module Unrollable
     def value_of(item)
       unbreakable_item = Maybe(item)
       value = lineage.reduce(unbreakable_item, &:send)
+
+      return value.to_date.l.or_else('') if !value.is_none? && value.get.is_a?(ActiveSupport::TimeWithZone)
+
       value.or_else('')
     end
 
