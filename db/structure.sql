@@ -4701,7 +4701,7 @@ CREATE TABLE parcel_item_storings (
     updater_id integer,
     lock_version integer DEFAULT 0 NOT NULL,
     conditionning_quantity integer,
-    conditionning integer
+    conditionning integer,
     product_id integer
 );
 
@@ -18133,8 +18133,17 @@ INSERT INTO schema_migrations (version) VALUES ('20171113162225');
 
 INSERT INTO schema_migrations (version) VALUES ('20171114093355');
 
+INSERT INTO schema_migrations (version) VALUES ('20171117105934');
+
+INSERT INTO schema_migrations (version) VALUES ('20171121143329');
+
+INSERT INTO schema_migrations (version) VALUES ('20171123134516');
+
 INSERT INTO schema_migrations (version) VALUES ('20171128155136');
 
 INSERT INTO schema_migrations (version) VALUES ('20171129081506');
 
 INSERT INTO schema_migrations (version) VALUES ('20171130093921');
+
+INSERT INTO schema_migrations (version) VALUES ('20171130144435');
+
