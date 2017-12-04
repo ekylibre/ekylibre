@@ -21,6 +21,8 @@ module Backend
     manage_restfully planned_at: 'Time.zone.today+2'.c, redirect_to: '{action: :show, id: "id".c}'.c,
                      except: :new, continue: [:nature_id]
 
+    respond_to :csv, :ods, :xlsx, :pdf, :odt, :docx, :html, :xml, :json
+
     unroll :number, :amount, :currency, :created_at, supplier: :full_name
 
     def self.list_conditions
