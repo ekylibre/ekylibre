@@ -1075,6 +1075,8 @@ fra:
     iban: "IBAN"
     id: "ID"
     identification_number: "Numéro d’identification"
+    shipment: Expédition
+    reception: Réception
     identifiers: "Identifiants"
     implanter_application_width: "Largeur de l'outil de semis ou de plantation"
     implanter_rows_number: "Nombre de rangs lors de l'implantation"
