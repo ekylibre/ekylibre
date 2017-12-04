@@ -136,6 +136,28 @@ class ReceptionTest < ActiveSupport::TestCase
     assert_equal jei_sm.variant, @variant
   end
 
+  test 'unitary items in parcels' do
+    unitary_variant = ProductNatureVariant.import_from_nomenclature(:female_adult_cow, true)
+    unitary_variant.products.create!(
+      initial_container: @storage,
+      initial_population: 1
+    )
+    to_send = [{
+      population: 1,
+      source_product: @product,
+      variant: unitary_variant,
+      product_name: 'Moo',
+      product_identification_number: 'Cow-wow'
+    }]
+
+    reception = new_reception(items_attributes: to_send, separated: false)
+    reception.give!
+    unitary_variant.reload
+
+    assert_equal 2, unitary_variant.products.count
+    assert_equal 1, unitary_variant.products.order(:created_at).last.population
+  end
+
   # ???? TODO: Figure what that test was supposed to be
   test 'prevent empty items' do
     item = parcel_items(:parcel_items_001).attributes.slice('product_id', 'population', 'shape')
