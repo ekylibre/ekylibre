@@ -30,8 +30,9 @@
   - c.cobble :items, title: PurchaseInvoice.human_attribute_name(:items) do
     = cobble_list :items do
       %tr.total
-        %th{colspan: 5}
+        %th{ colspan: 5 }
         %td= resource.pretax_amount.l(currency: resource.currency)
+        %td= resource.amount.l(currency: resource.currency)
 
   - if resource.affair
     - c.cobble :affair do
