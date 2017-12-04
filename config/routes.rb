@@ -602,6 +602,8 @@ Rails.application.routes.draw do
       end
     end
 
+    resources :intervention_templates
+
     namespace :interventions do
       resources :costs, only: [] do
         collection do

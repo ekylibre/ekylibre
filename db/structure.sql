@@ -3758,6 +3758,39 @@ ALTER SEQUENCE intervention_participations_id_seq OWNED BY intervention_particip
 
 
 --
+-- Name: intervention_templates; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE intervention_templates (
+    id integer NOT NULL,
+    name character varying,
+    active boolean DEFAULT true,
+    description character varying,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: intervention_templates_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE intervention_templates_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: intervention_templates_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE intervention_templates_id_seq OWNED BY intervention_templates.id;
+
+
+--
 -- Name: intervention_working_periods; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -4684,6 +4717,38 @@ CREATE SEQUENCE outgoing_payments_id_seq
 --
 
 ALTER SEQUENCE outgoing_payments_id_seq OWNED BY outgoing_payments.id;
+
+
+--
+-- Name: parcel_item_matters; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE parcel_item_matters (
+    id integer NOT NULL,
+    parcel_item_id integer,
+    product_id integer,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: parcel_item_matters_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE parcel_item_matters_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: parcel_item_matters_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE parcel_item_matters_id_seq OWNED BY parcel_item_matters.id;
 
 
 --
@@ -7479,6 +7544,13 @@ ALTER TABLE ONLY intervention_participations ALTER COLUMN id SET DEFAULT nextval
 
 
 --
+-- Name: intervention_templates id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY intervention_templates ALTER COLUMN id SET DEFAULT nextval('intervention_templates_id_seq'::regclass);
+
+
+--
 -- Name: intervention_working_periods id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -7637,6 +7709,13 @@ ALTER TABLE ONLY outgoing_payment_modes ALTER COLUMN id SET DEFAULT nextval('out
 --
 
 ALTER TABLE ONLY outgoing_payments ALTER COLUMN id SET DEFAULT nextval('outgoing_payments_id_seq'::regclass);
+
+
+--
+-- Name: parcel_item_matters id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY parcel_item_matters ALTER COLUMN id SET DEFAULT nextval('parcel_item_matters_id_seq'::regclass);
 
 
 --
@@ -8601,6 +8680,14 @@ ALTER TABLE ONLY intervention_participations
 
 
 --
+-- Name: intervention_templates intervention_templates_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY intervention_templates
+    ADD CONSTRAINT intervention_templates_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: intervention_working_periods intervention_working_periods_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -8782,6 +8869,14 @@ ALTER TABLE ONLY outgoing_payment_modes
 
 ALTER TABLE ONLY outgoing_payments
     ADD CONSTRAINT outgoing_payments_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: parcel_item_matters parcel_item_matters_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY parcel_item_matters
+    ADD CONSTRAINT parcel_item_matters_pkey PRIMARY KEY (id);
 
 
 --
@@ -13789,6 +13884,20 @@ CREATE INDEX index_outgoing_payments_on_updater_id ON outgoing_payments USING bt
 
 
 --
+-- Name: index_parcel_item_matters_on_parcel_item_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_parcel_item_matters_on_parcel_item_id ON parcel_item_matters USING btree (parcel_item_id);
+
+
+--
+-- Name: index_parcel_item_matters_on_product_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_parcel_item_matters_on_product_id ON parcel_item_matters USING btree (product_id);
+
+
+--
 -- Name: index_parcel_item_storings_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -17371,6 +17480,14 @@ ALTER TABLE ONLY parcel_items
 
 
 --
+-- Name: parcel_item_matters fk_rails_71f67ea836; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY parcel_item_matters
+    ADD CONSTRAINT fk_rails_71f67ea836 FOREIGN KEY (product_id) REFERENCES products(id);
+
+
+--
 -- Name: interventions fk_rails_76eca6ee87; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -17496,6 +17613,14 @@ ALTER TABLE ONLY parcels
 
 ALTER TABLE ONLY regularizations
     ADD CONSTRAINT fk_rails_ca9854019b FOREIGN KEY (journal_entry_id) REFERENCES journal_entries(id);
+
+
+--
+-- Name: parcel_item_matters fk_rails_cb0f02a052; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY parcel_item_matters
+    ADD CONSTRAINT fk_rails_cb0f02a052 FOREIGN KEY (parcel_item_id) REFERENCES parcel_items(id);
 
 
 --
@@ -18121,3 +18246,8 @@ INSERT INTO schema_migrations (version) VALUES ('20171117105934');
 INSERT INTO schema_migrations (version) VALUES ('20171121143329');
 
 INSERT INTO schema_migrations (version) VALUES ('20171123134516');
+
+INSERT INTO schema_migrations (version) VALUES ('20171128101759');
+
+INSERT INTO schema_migrations (version) VALUES ('20171204075626');
+

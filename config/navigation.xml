@@ -800,6 +800,9 @@
         <page to="backend/prescriptions#unroll"/>
         <page to="backend/prescriptions#update"/>
       </item>
+      <item name="intervention_templates">
+        <page to="backend/intervention_templates#index"/>
+      </item>
     </group>
     <group name="quality" icon="beaker">
       <item name="analyses">
