@@ -142,7 +142,7 @@ class ReceptionItem < ParcelItem
   def give
     transaction do
       give_outgoing if reception_outgoing?
-      give_incoming if reception_incoming?
+      check_incoming if reception_incoming?
     end
   end
 
