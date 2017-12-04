@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-#ruby '2.2.3'
+# ruby '2.2.3'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.10'
@@ -9,7 +9,7 @@ gem 'rails', '4.2.10'
 gem 'mail', '~> 2.6.6.rc1'
 
 # Database adapters
-gem 'activerecord-postgis-adapter'#, '>= 3.0.0'
+gem 'activerecord-postgis-adapter' # , '>= 3.0.0'
 gem 'pg', '~> 0.20.0' # Needed for some tasks
 
 # Multi-tenancy
@@ -20,7 +20,7 @@ gem 'apartment-sidekiq'
 gem 'possibly'
 
 # Code manipulation
-#gem 'charlock_holmes'
+gem 'charlock_holmes'
 gem 'code_string', '>= 0.0.1'
 
 gem 'browser'
@@ -98,8 +98,8 @@ gem 'draper'
 # gem 'bcrypt', '~> 3.1.7'
 
 # Use Unicorn as the app server
-gem 'unicorn'#, group: :production
-gem 'loofah'#, group: :production
+gem 'loofah' # , group: :production
+gem 'unicorn' # , group: :production
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development

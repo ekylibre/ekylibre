@@ -191,6 +191,8 @@ class PurchaseItem < Ekylibre::Record::Base
         )
       end
     end
+
+    purchase.save! if purchase && purchase.is_a?(PurchaseInvoice)
   end
 
   def new_fixed_asset
@@ -273,6 +275,7 @@ class PurchaseItem < Ekylibre::Record::Base
 
   # know how many percentage of invoiced VAT to declare
   def payment_ratio
+    return nil unless purchase.respond_to?(:affair)
     if purchase.affair.balanced?
       1.00
     elsif purchase.affair.debit != 0.0

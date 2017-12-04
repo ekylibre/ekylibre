@@ -28,7 +28,7 @@ append :linked_dirs, 'log', 'tmp/pids', 'tmp/cache', 'tmp/sockets', 'public/syst
 
 # Default value for default_env is {}
 # set :default_env, { path: "/opt/ruby/bin:$PATH" }
-set :default_env, { 'JAVA_HOME' => '/usr/lib/jvm/java-8-openjdk-amd64' }
+set :default_env, 'JAVA_HOME' => '/usr/lib/jvm/java-8-openjdk-amd64'
 
 # Default value for local_user is ENV['USER']
 # set :local_user, -> { `git config user.name`.chomp }
@@ -39,12 +39,12 @@ set :default_env, { 'JAVA_HOME' => '/usr/lib/jvm/java-8-openjdk-amd64' }
 set :rails_env, 'production'
 
 namespace :deploy do
-  after :published, :restart_daemons do |host|
+  after :published, :restart_daemons do |_host|
     on roles(:app) do
-      execute :sudo, :service, "#{ fetch(:application) }-job", :restart
+      execute :sudo, :service, "#{fetch(:application)}-job", :restart
     end
     on roles(:web) do
-      execute :sudo, :service, "#{ fetch(:application) }-web", :restart
+      execute :sudo, :service, "#{fetch(:application)}-web", :restart
     end
   end
 end

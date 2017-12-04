@@ -65,12 +65,11 @@ class ReceptionItem < ParcelItem
   has_one :storage, through: :reception
   has_one :contract, through: :reception
 
-  validates :source_product, presence: { if: :reception_outgoing? }
-  validates :product_name, presence: { if: -> { product_is_identifiable? && reception_incoming? } }
+  validates :product_name, presence: { if: -> { product_is_identifiable? } }
 
   delegate :allow_items_update?, :remain_owner, :planned_at,
            :ordered_at, :recipient, :in_preparation_at,
-           :prepared_at, :given_at, :outgoing?, :incoming?,
+           :prepared_at, :given_at,
            :separated_stock?, :currency, to: :reception, prefix: true
 
   scope :with_nature, ->(nature) { joins(:reception).merge(Reception.with_nature(nature)) }
@@ -84,30 +83,15 @@ class ReceptionItem < ParcelItem
       item = contract.items.where(variant_id: variant.id).first
       self.unit_pretax_amount ||= item.unit_pretax_amount if item && item.unit_pretax_amount
     end
-
-    next if reception_incoming?
-
-    if sale_item
-      self.variant = sale_item.variant
-    elsif purchase_order_item
-      self.variant = purchase_order_item.variant
-    elsif reception_outgoing?
-      self.variant = source_product.variant if source_product
-      self.population = source_product.population if population.nil? || population.zero?
-    end
-
-    true
   end
 
   after_save do
     if Preference[:catalog_price_item_addition_if_blank]
-      if reception_incoming?
-        for usage in %i[stock purchase]
-          # set stock catalog price if blank
-          catalog = Catalog.by_default!(usage)
-          unless variant.catalog_items.of_usage(usage).any? || unit_pretax_amount.blank? || unit_pretax_amount.zero?
-            variant.catalog_items.create!(catalog: catalog, all_taxes_included: false, amount: unit_pretax_amount, currency: currency) if catalog
-          end
+      for usage in %i[stock purchase]
+        # set stock catalog price if blank
+        catalog = Catalog.by_default!(usage)
+        unless variant.catalog_items.of_usage(usage).any? || unit_pretax_amount.blank? || unit_pretax_amount.zero?
+          variant.catalog_items.create!(catalog: catalog, all_taxes_included: false, amount: unit_pretax_amount, currency: currency) if catalog
         end
       end
     end
@@ -118,12 +102,11 @@ class ReceptionItem < ParcelItem
   end
 
   def prepared?
-    (!reception_incoming? && source_product.present?) ||
-      (reception_incoming? && variant.present?)
+    variant.present?
   end
 
   def trade_item
-    reception_incoming? ? purchase_order_item : sale_item
+    purchase_order_item
   end
 
   # Set started_at/stopped_at in tasks concerned by preparation of item
@@ -131,8 +114,7 @@ class ReceptionItem < ParcelItem
   def check
     checked_at = reception_prepared_at
     state = true
-    state, msg = check_incoming(checked_at) if reception_incoming?
-    check_outgoing(checked_at) if reception_outgoing?
+    state, msg = check_incoming(checked_at)
     return state, msg unless state
     save!
   end
@@ -140,10 +122,7 @@ class ReceptionItem < ParcelItem
   # Mark items as given, and so change enjoyer and ownership if needed at
   # this moment.
   def give
-    transaction do
-      give_outgoing if reception_outgoing?
-      give_incoming if reception_incoming?
-    end
+    give_incoming
   end
 
   protected
@@ -174,14 +153,5 @@ class ReceptionItem < ParcelItem
 
   def give_incoming
     check_incoming(reception_prepared_at)
-  end
-
-  def give_outgoing
-    if population == source_product.population(at: reception_given_at) && !reception_remain_owner
-      ProductOwnership.create!(product: product, owner: reception_recipient, started_at: reception_given_at, originator: self)
-      ProductLocalization.create!(product: product, nature: :exterior, started_at: reception_given_at, originator: self)
-      ProductEnjoyment.create!(product: product, enjoyer: reception_recipient, nature: :other, started_at: reception_given_at, originator: self)
-    end
-    ProductMovement.create!(product: product, delta: -1 * population, started_at: reception_given_at, originator: self)
   end
 end

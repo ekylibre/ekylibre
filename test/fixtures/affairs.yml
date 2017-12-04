@@ -344,6 +344,41 @@ purchase_affairs_012:
   type: PurchaseAffair
   updated_at: 2016-12-20 18:17:24.186626000 Z
   updater_id: 1
+purchase_affairs_013:
+  closed: true
+  closed_at: 2017-11-21 10:20:54.460861000 Z
+  created_at: 2017-11-21 10:20:26.621804000 Z
+  creator_id: 1
+  credit: 8694.0
+  currency: EUR
+  deals_count: 2
+  debit: 8694.0
+  id: 58
+  letter: C
+  lock_version: 2
+  pretax_amount: 0.0
+  probability_percentage: 0.0
+  third_id: 4
+  type: PurchaseAffair
+  updated_at: 2017-11-21 10:20:54.483831000 Z
+  updater_id: 1
+purchase_affairs_014:
+  closed: false
+  created_at: 2017-11-21 10:21:30.560669000 Z
+  creator_id: 1
+  credit: 378.0
+  currency: EUR
+  deals_count: 1
+  debit: 0.0
+  id: 59
+  letter: B
+  lock_version: 1
+  pretax_amount: 0.0
+  probability_percentage: 0.0
+  third_id: 8
+  type: PurchaseAffair
+  updated_at: 2017-11-21 10:21:30.598166000 Z
+  updater_id: 1
 sale_affairs_001:
   accounted_at: 2014-11-05 09:30:00.003467000 Z
   closed: false
