@@ -2748,7 +2748,7 @@ fra:
       no_unconfirmed_stock_transfers: "Aucun transfert de stocks non-confirmé" #?
       no_unvalidated_operations: "Aucun travail à réaliser" #?
       password_successfully_changed: "Votre mot de passe a été mis à jour avec succès" #?
-      # previouos_financial_year_is_not_closed: "The previous financial year hasn't been closed."
+      previouos_financial_year_is_not_closed: "L’exercice précédent n’a pas été clôturé."
       previous_financial_year_is_not_closed: "L'exercice précédent n'a pas encore été clôturé." #?
       prices_import_succeeded: "Vos données ont été correctement importées" #?
       print_failure: "Impossible d’imprimer. Essayer de recharger les modèles de documents pour corriger le problème. %{error} (%{class})." #?
