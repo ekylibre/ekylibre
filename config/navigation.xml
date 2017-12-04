@@ -800,9 +800,6 @@
         <page to="backend/prescriptions#unroll"/>
         <page to="backend/prescriptions#update"/>
       </item>
-      <item name="intervention_templates">
-        <page to="backend/intervention_templates#index"/>
-      </item>
     </group>
     <group name="quality" icon="beaker">
       <item name="analyses">
@@ -1023,6 +1020,13 @@
         <page to="backend/supervisions#show"/>
         <page to="backend/supervisions#unroll"/>
         <page to="backend/supervisions#update"/>
+      </item>
+    </group>
+  </part>
+  <part name="planning">
+    <group name="intervention_template">
+      <item name="intervention_templates">
+        <page to="backend/intervention_templates#index"/>
       </item>
     </group>
   </part>

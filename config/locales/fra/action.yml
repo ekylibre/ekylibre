@@ -173,6 +173,7 @@ fra:
       stocks: "Tableau de bord des stocks"
       tools: "Tableau de bord des outils"
       trade: "Tableau de bord des achats et ventes"
+      planning: Planification
     backend/deliveries:
       edit: "Modifier la livraison %{number}"
       index: "Livraisons"
@@ -1879,6 +1880,7 @@ fra:
     plant_productions: "Productions végétales" #?
     plantation_density: "Densité de plantation"
     plants: "Plantes"
+    planing: "Plannification"
     please_wait: "Merci de patienter…"
     point: "Point"
     points: "Points"
