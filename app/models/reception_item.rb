@@ -148,7 +148,7 @@ class ReceptionItem < ParcelItem
 
   protected
 
-  def check_incoming(checked_at)
+  def check_incoming
     fusing = merge_stock? || product_is_unitary?
 
     # Create a matter for each storing
@@ -157,7 +157,7 @@ class ReceptionItem < ParcelItem
       product_params[:name] = product_name || "#{variant.name} (#{reception.number})"
       product_params[:identification_number] = product_identification_number
       product_params[:work_number] = product_work_number
-      product_params[:initial_born_at] = [checked_at, reception_given_at].compact.min
+      product_params[:initial_born_at] = [reception_prepared_at, reception_given_at].compact.min
       product = existing_reception_product_in_storage(storing) if fusing
       product ||= variant.create_product(product_params)
       storing.update(product: product)

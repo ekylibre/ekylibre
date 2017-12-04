@@ -3758,6 +3758,39 @@ ALTER SEQUENCE intervention_participations_id_seq OWNED BY intervention_particip
 
 
 --
+-- Name: intervention_templates; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE intervention_templates (
+    id integer NOT NULL,
+    name character varying,
+    active boolean DEFAULT true,
+    description character varying,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: intervention_templates_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE intervention_templates_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: intervention_templates_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE intervention_templates_id_seq OWNED BY intervention_templates.id;
+
+
+--
 -- Name: intervention_working_periods; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -7481,6 +7514,13 @@ ALTER TABLE ONLY intervention_participations ALTER COLUMN id SET DEFAULT nextval
 
 
 --
+-- Name: intervention_templates id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY intervention_templates ALTER COLUMN id SET DEFAULT nextval('intervention_templates_id_seq'::regclass);
+
+
+--
 -- Name: intervention_working_periods id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -8600,6 +8640,14 @@ ALTER TABLE ONLY intervention_parameters
 
 ALTER TABLE ONLY intervention_participations
     ADD CONSTRAINT intervention_participations_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: intervention_templates intervention_templates_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY intervention_templates
+    ADD CONSTRAINT intervention_templates_pkey PRIMARY KEY (id);
 
 
 --
@@ -18146,4 +18194,6 @@ INSERT INTO schema_migrations (version) VALUES ('20171129081506');
 INSERT INTO schema_migrations (version) VALUES ('20171130093921');
 
 INSERT INTO schema_migrations (version) VALUES ('20171130144435');
+
+INSERT INTO schema_migrations (version) VALUES ('20171204075626');
 
