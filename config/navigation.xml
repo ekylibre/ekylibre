@@ -1024,9 +1024,11 @@
     </group>
   </part>
   <part name="planning">
-    <group name="intervention_template">
+    <page to="backend/dashboards#planning"/>
+    <group name="nomenclature">
       <item name="intervention_templates">
         <page to="backend/intervention_templates#index"/>
+        <page to="backend/intervention_templates#create"/>
       </item>
     </group>
   </part>

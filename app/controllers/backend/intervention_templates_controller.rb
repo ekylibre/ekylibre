@@ -1,2 +1,5 @@
-class Backend::InterventionTemplatesController < ApplicationController
+module Backend
+  class InterventionTemplatesController < Backend::BaseController
+
+  end
 end
