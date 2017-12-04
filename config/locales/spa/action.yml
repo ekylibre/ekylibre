@@ -2309,13 +2309,8 @@ spa:
       expired_session: "sesion espirada. por favor reconectese." #?
       fails_to_extract_listing: "La extracción no ha podido hacerse\_: %{message}"
       file_generated: "Su archivo fue generado con éxito"
-<<<<<<< HEAD
-      # financial_year_already_closed: "The financial year has already been closed."
-      # financial_year_is_not_past: "The financial year hasn't passed yet."
-=======
       financial_year_already_closed: "El año financiero ya ha sido cerrado."
       financial_year_is_not_past: "El año financiero no ha pasado todavía."
->>>>>>> 6882be40ad9931bd1610f1f6cbeee50a4f8022bd
       # financial_year_x_could_not_be_closed: "Financial Year  %{name} could not be closed."
       # financial_year_x_successfully_closed: "Financial Year %{name} successfully closed !"
       financial_years_missing: "Debe crear cada faltan los ejercicios desde la primera registrada"
