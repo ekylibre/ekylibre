@@ -71,6 +71,7 @@ module Backend
     list(:items, model: :purchase_items, order: { id: :asc }, conditions: { purchase_id: 'params[:id]'.c }) do |t|
       t.column :variant, url: true
       t.column :annotation
+      t.column :first_reception_number, label: :reception, url: { controller: '/backend/receptions', id: 'RECORD.first_reception_id'.c }
       t.column :quantity
       t.column :unit_pretax_amount, currency: true
       t.column :unit_amount, currency: true, hidden: true
