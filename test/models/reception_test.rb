@@ -136,7 +136,7 @@ class ReceptionTest < ActiveSupport::TestCase
     assert_equal jei_sm.variant, @variant
   end
 
-  test 'unitary items in parcels' do
+  test 'unitary items in receptions' do
     unitary_variant = ProductNatureVariant.import_from_nomenclature(:female_adult_cow, true)
     unitary_variant.products.create!(
       initial_container: @storage,
