@@ -339,7 +339,6 @@ por:
       # edit: "Edit journal: %{name}"
       index: "Documentos"
       new: "Nova revista"
-      # reopen: "Reopen journal: %{name}"
       # show: "Journal: %{name} (%{code})"
     backend/labels:
       # edit: "Edit label: %{name}"
@@ -1981,7 +1980,6 @@ por:
       # journal_entry_has_been_saved: "The journal entry %{number} has been successfully saved"
       # journal_entry_has_been_saved_with_a_new_number: "The journal entry has been successfully saved with a new number: %{number}"
       # journal_entry_items_marked_with_letter: "Journal entry items have been marked with letter %{letter}"
-      # journal_reopened_on: "The journal “%{journal}” has been re-opened on %{closed_on}."
       mails_are_sent: "Os e-mails foram enviados"
       merge_is_done: "Mesclar é feito"
       need_a_valid_payment_mode: "Precisa de um modo de pagamento válido"
@@ -2005,7 +2003,6 @@ por:
       no_production_found_you_can_add_it_or_copy_from_previous_records: "Sem produção encontrados. Você pode adicionar novos ou copiar alguns de campanha anterior."
       no_purchase_affair_found_on_given_period: "No caso de compra encontrado no determinado período"
       no_purchases_given: "Nenhuma compra dadas"
-      no_reopenable_journal: "Você não pode voltar a abrir este diário."
       no_replacements_since_beginning: "Não há substituições desde início"
       purchases_invalid_for_sepa: "Compras selecionadas inválido para transferência SEPA (modo de desembolso inválida ou moeda errado ou faltando IBAN ou o titular da conta bancária nome do beneficiário)"
       record_already_imported: "Registro já importados"

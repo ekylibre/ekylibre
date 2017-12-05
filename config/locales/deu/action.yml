@@ -334,7 +334,6 @@ deu:
       # edit: "Edit journal: %{name}"
       index: "Zeitschriften"
       new: "neue Zeitschrift"
-      # reopen: "Reopen journal: %{name}"
       # show: "Journal: %{name} (%{code})"
     backend/labels:
       # edit: "Edit label: %{name}"
@@ -1976,7 +1975,6 @@ deu:
       # journal_entry_has_been_saved: "The journal entry %{number} has been successfully saved"
       # journal_entry_has_been_saved_with_a_new_number: "The journal entry has been successfully saved with a new number: %{number}"
       # journal_entry_items_marked_with_letter: "Journal entry items have been marked with letter %{letter}"
-      # journal_reopened_on: "The journal “%{journal}” has been re-opened on %{closed_on}."
       mails_are_sent: "Die E-Mails wurden verschickt"
       merge_is_done: "Zusammenführen erfolgt"
       need_a_valid_payment_mode: "Sie benötigen einen gültigen Zahlungsmodus"
@@ -2000,7 +1998,6 @@ deu:
       no_production_found_you_can_add_it_or_copy_from_previous_records: "Keine Produktion gefunden. Sie können neue hinzufügen oder einige der letzten Kampagne kopieren."
       no_purchase_affair_found_on_given_period: "Kein Kauf Affäre auf bestimmten Zeitraum gefunden"
       no_purchases_given: "Keine Einkäufe gegeben"
-      no_reopenable_journal: "Sie können nicht diese Zeitschrift wieder zu öffnen."
       no_replacements_since_beginning: "Kein Ersatz seit Beginn"
       purchases_invalid_for_sepa: "Käufe ausgewählt ungültig für SEPA-Überweisung (ungültige Auszahlungsmodus oder falsche Währung oder fehlende Zahlungsempfängers IBAN oder Bankkontoinhaber Name)"
       record_already_imported: "Nehmen Sie bereits importiert"

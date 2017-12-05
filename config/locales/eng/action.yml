@@ -427,7 +427,6 @@ eng:
       edit: "Edit journal: %{name}"
       index: "Journals"
       new: "New journal"
-      reopen: "Reopen journal: %{name}"
       show: "Journal: %{name} (%{code})"
     backend/kujakus:
       # toggle: "Toggle kujaku: %{name}"
@@ -2224,7 +2223,6 @@ eng:
       journal_entry_has_been_saved: "The journal entry %{number} has been successfully saved"
       journal_entry_has_been_saved_with_a_new_number: "The journal entry has been successfully saved with a new number: %{number}"
       journal_entry_items_marked_with_letter: "Journal entry items have been marked with letter %{letter}"
-      journal_reopened_on: "The journal “%{journal}” has been re-opened on %{closed_on}."
       mails_are_sent: "The emails were sent"
       merge_is_done: "Merge is done"
       need_a_valid_payment_mode: "Need a valid payment mode"
@@ -2248,7 +2246,6 @@ eng:
       no_production_found_you_can_add_it_or_copy_from_previous_records: "No production found. You can add new or copy some from previous campaign."
       no_purchase_affair_found_on_given_period: "No purchase affair found on given period"
       no_purchases_given: "No purchases given"
-      no_reopenable_journal: "You can not re-open this journal."
       no_replacements_since_beginning: "No replacements since beginning"
       # no_worker_associated_with_user_account: "No worker associated with user account"
       purchases_invalid_for_sepa: "Purchases selected invalid for SEPA transfer (invalid disbursement mode or wrong currency or missing payee's IBAN or bank account holder name)"
