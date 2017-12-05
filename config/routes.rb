@@ -765,28 +765,7 @@ Rails.application.routes.draw do
       member do
         get :list_items
 
-        post :invoice
-        post :ship
-
-        post :order
-        post :prepare
-        post :check
         post :give
-        post :cancel
-      end
-    end
-
-    resources :receptions, concerns: %i[list unroll] do
-      member do
-        get :list_items
-
-        post :invoice
-        post :ship
-        post :order
-        post :prepare
-        post :check
-        post :give
-        post :cancel
       end
     end
 
@@ -795,8 +774,7 @@ Rails.application.routes.draw do
         get :list_items
 
         post :ship
-        post :invoice
-        post :ship
+
         post :order
         post :prepare
         post :check
@@ -932,7 +910,7 @@ Rails.application.routes.draw do
     resources :purchase_invoices, concerns: %i[list unroll] do
       member do
         get :list_items
-        get :list_parcels
+        get :list_receptions
         get :payment_mode
         post :pay
       end
@@ -985,7 +963,7 @@ Rails.application.routes.draw do
         get :list_items
         get :list_undelivered_items
         get :list_subscriptions
-        get :list_parcels
+        get :list_shipments
         get :list_credits
         post :abort
         post :confirm

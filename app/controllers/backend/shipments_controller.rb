@@ -59,8 +59,7 @@ module Backend
     end
 
     list(conditions: shipments_conditions, order: { planned_at: :desc }) do |t|
-      t.action :invoice, on: :both, method: :post, if: :invoiceable?
-      t.action :ship,    on: :both, method: :post, if: :shippable?
+      t.action :ship, on: :both, method: :post, if: :shippable?
       t.action :edit, if: :updateable?
       t.action :destroy
       t.column :number, url: true
@@ -96,6 +95,25 @@ module Backend
     Shipment.state_machine.events.each do |event|
       define_method event.name do
         fire_event(event.name)
+      end
+    end
+
+    # Pre-fill delivery form with given parcels. Nothing else.
+    # Only a shortcut now.
+    def ship
+      parcels = find_parcels
+      return unless parcels
+      parcel = parcels.detect(&:shippable?)
+      options = { parcel_ids: parcels.map(&:id) }
+      if !parcel
+        redirect_to(options.merge(controller: :deliveries, action: :new))
+      elsif parcels.all? { |p| p.shippable? && (p.delivery_mode == parcel.delivery_mode) }
+        options[:mode] = parcel.delivery_mode
+        options[:transporter_id] = parcel.transporter_id if parcel.transporter
+        redirect_to(options.merge(controller: :deliveries, action: :new))
+      else
+        notify_error(:some_parcels_are_not_shippable)
+        redirect_to(params[:redirect] || { action: :index })
       end
     end
   end

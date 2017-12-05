@@ -17,7 +17,7 @@
 #
 
 module Backend
-  class PurchaseInvoicesController < Backend::PurchasesController
+  class PurchaseInvoicesController < Backend::BaseController
     manage_restfully planned_at: 'Time.zone.today+2'.c, redirect_to: '{action: :show, id: "id".c}'.c,
                      except: :new, continue: [:nature_id]
 
@@ -83,7 +83,7 @@ module Backend
       t.column :fixed_asset, url: true, hidden: true
     end
 
-    list(:parcels, model: :receptions, children: :items, conditions: { purchase_id: 'params[:id]'.c }) do |t|
+    list(:receptions, children: :items, conditions: { purchase_id: 'params[:id]'.c }) do |t|
       t.action :edit, if: :draft?
       t.action :destroy, if: :draft?
       t.column :number, url: true
@@ -198,7 +198,7 @@ module Backend
 
     def find_purchases
       purchase_ids = params[:id].split(',')
-      purchases = purchase_ids.map { |id| Purchase.find_by(id: id) }.compact
+      purchases = purchase_ids.map { |id| PurchaseInvoice.find_by(id: id) }.compact
       unless purchases.any?
         notify_error :no_purchases_given
         redirect_to(params[:redirect] || { action: :index })

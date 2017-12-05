@@ -20,7 +20,8 @@ gem 'apartment-sidekiq'
 gem 'possibly'
 
 # Code manipulation
-# gem 'charlock_holmes'
+gem 'charlock_holmes'
+
 gem 'code_string', '>= 0.0.1'
 
 gem 'browser'
