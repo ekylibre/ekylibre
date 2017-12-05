@@ -237,6 +237,97 @@ class JournalEntryTest < ActiveSupport::TestCase
     refute entry.valid?
   end
 
+  test 'can be closed when confirmed' do
+    entry = create(:journal_entry, state: :confirmed, items: fake_items)
+    assert entry.close
+    assert_equal :closed, entry.state_name
+  end
+
+  test 'confirm set the validated at' do
+    entry = create(:journal_entry, state: :draft, items: fake_items)
+    entry.confirm
+    assert entry.reload.validated_at
+  end
+
+  test 'editable when draft' do
+    entry = create(:journal_entry, state: :draft, items: fake_items)
+    assert entry.editable?
+  end
+
+  test 'not editable when confirmed' do
+    entry = create(:journal_entry, state: :confirmed, items: fake_items)
+    assert_not entry.editable?
+  end
+
+  test 'not editable when closed' do
+    entry = create(:journal_entry, state: :closed, items: fake_items)
+    assert_not entry.editable?
+  end
+
+  test 'updateable when draft' do
+    entry = create(:journal_entry, state: :draft, items: fake_items)
+    assert entry.updateable?
+  end
+
+  test 'updateable when confirmed' do # needed to support :confirm event
+    entry = create(:journal_entry, state: :confirmed, items: fake_items)
+    assert entry.updateable?
+  end
+
+  test 'not updateable when closed' do
+    entry = create(:journal_entry, state: :closed, items: fake_items)
+    assert_not entry.updateable?
+  end
+
+  test 'destroyable when draft' do
+    entry = create(:journal_entry, state: :draft, items: fake_items)
+    assert entry.destroyable?
+  end
+
+  test 'can be destroyed when draft' do
+    entry = create(:journal_entry, state: :draft, items: fake_items)
+    entry.destroy
+    assert entry.destroyed?
+  end
+
+  test 'not destroyable when confirmed' do
+    entry = create(:journal_entry, state: :confirmed, items: fake_items)
+    assert_not entry.destroyable?
+  end
+
+  test 'not destroyable when closed' do
+    entry = create(:journal_entry, state: :closed, items: fake_items)
+    assert_not entry.destroyable?
+  end
+
+  test 'raises on update when confirmed' do
+    entry = create(:journal_entry, state: :confirmed, items: fake_items)
+    assert_raises(Ekylibre::Record::RecordNotUpdateable) do
+      entry.update_attribute(:number, 123123123)
+    end
+  end
+
+  test 'raises on update when closed' do
+    entry = create(:journal_entry, state: :closed, items: fake_items)
+    assert_raises(Ekylibre::Record::RecordNotUpdateable) do
+      entry.update_attribute(:number, 123123123)
+    end
+  end
+
+  test 'raises on destroy when confirmed' do
+    entry = create(:journal_entry, state: :confirmed, items: fake_items)
+    assert_raises(Ekylibre::Record::RecordNotDestroyable) do
+      entry.destroy
+    end
+  end
+
+  test 'raises on destroy when closed' do
+    entry = create(:journal_entry, state: :closed, items: fake_items)
+    assert_raises(Ekylibre::Record::RecordNotDestroyable) do
+      entry.destroy
+    end
+  end
+
   def fake_items(options = {})
     amount = options[:amount] || (500 * rand + 1).round(2)
     name = options[:name] || 'Lorem ipsum dolor sit amet, consectetur adipiscing elit'

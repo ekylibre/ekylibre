@@ -25,7 +25,7 @@ module Backend
     unroll
 
     list(children: :items, order: { created_at: :desc }, per_page: 10) do |t|
-      t.action :edit, if: :updateable?
+      t.action :edit, if: :editable?
       t.action :destroy, if: :destroyable?
       t.column :number, url: true, children: :name
       t.column :printed_on, datatype: :date, children: false
