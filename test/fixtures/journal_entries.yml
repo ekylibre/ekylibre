@@ -6646,3 +6646,84 @@ journal_entries_250:
   state: draft
   updated_at: 2017-06-15 14:32:20.357788000 Z
   updater_id: 1
+journal_entries_251:
+  absolute_credit: 8694.0
+  absolute_currency: EUR
+  absolute_debit: 8694.0
+  balance: 0.0
+  created_at: 2017-11-21 10:20:26.511352000 Z
+  creator_id: 1
+  credit: 8694.0
+  currency: EUR
+  debit: 8694.0
+  financial_year_id: 27
+  id: 258
+  journal_id: 4
+  lock_version: 0
+  number: PUR000008
+  printed_on: 2017-11-21
+  real_balance: 0.0
+  real_credit: 8694.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 8694.0
+  resource_id: 20
+  resource_prism: purchase_invoice
+  resource_type: Purchase
+  state: draft
+  updated_at: 2017-11-21 10:20:26.511352000 Z
+  updater_id: 1
+journal_entries_252:
+  absolute_credit: 8694.0
+  absolute_currency: EUR
+  absolute_debit: 8694.0
+  balance: 0.0
+  created_at: 2017-11-21 10:20:54.416420000 Z
+  creator_id: 1
+  credit: 8694.0
+  currency: EUR
+  debit: 8694.0
+  financial_year_id: 27
+  id: 259
+  journal_id: 2
+  lock_version: 0
+  number: BNK000101
+  printed_on: 2017-11-21
+  real_balance: 0.0
+  real_credit: 8694.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 8694.0
+  resource_id: 13
+  resource_prism: purchase_payment
+  resource_type: OutgoingPayment
+  state: draft
+  updated_at: 2017-11-21 10:20:54.416420000 Z
+  updater_id: 1
+journal_entries_253:
+  absolute_credit: 378.0
+  absolute_currency: EUR
+  absolute_debit: 378.0
+  balance: 0.0
+  created_at: 2017-11-21 10:21:30.494849000 Z
+  creator_id: 1
+  credit: 378.0
+  currency: EUR
+  debit: 378.0
+  financial_year_id: 27
+  id: 260
+  journal_id: 4
+  lock_version: 0
+  number: PUR000009
+  printed_on: 2017-11-21
+  real_balance: 0.0
+  real_credit: 378.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 378.0
+  resource_id: 21
+  resource_prism: purchase_invoice
+  resource_type: Purchase
+  state: draft
+  updated_at: 2017-11-21 10:21:30.494849000 Z
+  updater_id: 1

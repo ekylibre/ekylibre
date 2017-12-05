@@ -55,7 +55,7 @@ module Backend
 
     # Sort list of array (with label and id) with accent
     def accented_sort(list)
-      list.sort_by { |e, i| I18n.transliterate e }
+      list.sort_by { |e, _i| I18n.transliterate e }
     end
 
     # BasicCalendar permits to fix some SimpleCalendar issues with param name
@@ -299,7 +299,7 @@ module Backend
 
     def financial_year_started_on_stopped_on
       fy = FinancialYear.current
-      { data: { started_on: fy.started_on, stopped_on: fy.stopped_on }}
+      { data: { started_on: fy.started_on, stopped_on: fy.stopped_on } }
     end
 
     def lights(status, html_options = {})

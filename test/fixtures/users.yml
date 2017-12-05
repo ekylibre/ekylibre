@@ -79,7 +79,7 @@ users_001:
   confirmed_at: 2014-10-31 18:19:32.000000000 Z
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator_id: 1
-  current_sign_in_at: 2017-01-24 13:18:59.665518000 Z
+  current_sign_in_at: 2017-11-21 08:34:36.347408000 Z
   current_sign_in_ip: 127.0.0.1
   email: admin@ekylibre.org
   employed: true
@@ -91,9 +91,9 @@ users_001:
   invitations_count: 0
   language: fra
   last_name: IKARI
-  last_sign_in_at: 2017-01-04 14:02:38.879309000 Z
-  last_sign_in_ip: 192.168.1.2
-  lock_version: 29
+  last_sign_in_at: 2017-11-20 17:02:10.458885000 Z
+  last_sign_in_ip: 127.0.0.1
+  lock_version: 31
   locked: false
   maximal_grantable_reduction_percentage: 5.0
   person_id: 9
@@ -101,9 +101,9 @@ users_001:
     accounts:
     - read
   role_id: 1
-  sign_in_count: 24
+  sign_in_count: 26
   team_id: 1
-  updated_at: 2017-01-24 13:18:59.711470000 Z
+  updated_at: 2017-11-21 08:34:36.373985000 Z
   updater_id: 1
 users_002:
   administrator: false

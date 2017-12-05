@@ -4826,8 +4826,8 @@ CREATE TABLE parcels (
     contract_id integer,
     pretax_amount numeric(19,4) DEFAULT 0.0 NOT NULL,
     responsible_id integer,
-    type character varying,
     late_delivery boolean,
+    type character varying,
     intervention_id integer,
     reconciliation_state character varying
 );
@@ -18067,9 +18067,9 @@ INSERT INTO schema_migrations (version) VALUES ('20170601093932');
 
 INSERT INTO schema_migrations (version) VALUES ('20170602144753');
 
-INSERT INTO schema_migrations (version) VALUES ('20170608081949');
-
 INSERT INTO schema_migrations (version) VALUES ('20170628125603');
+
+INSERT INTO schema_migrations (version) VALUES ('20170629152415');
 
 INSERT INTO schema_migrations (version) VALUES ('20170704092631');
 
@@ -18129,6 +18129,10 @@ INSERT INTO schema_migrations (version) VALUES ('20171113162225');
 
 INSERT INTO schema_migrations (version) VALUES ('20171114093355');
 
+INSERT INTO schema_migrations (version) VALUES ('20171122160542');
+
+INSERT INTO schema_migrations (version) VALUES ('20171128100510');
+
 INSERT INTO schema_migrations (version) VALUES ('20171128155136');
 
 INSERT INTO schema_migrations (version) VALUES ('20171129081506');
@@ -18136,4 +18140,3 @@ INSERT INTO schema_migrations (version) VALUES ('20171129081506');
 INSERT INTO schema_migrations (version) VALUES ('20171130093921');
 
 INSERT INTO schema_migrations (version) VALUES ('20171130144435');
-

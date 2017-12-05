@@ -4,7 +4,7 @@ class FinancialYearCloseTest < ActiveSupport::TestCase
   setup do
     JournalEntry.update_all(state: :draft)
     JournalEntry.update_all(printed_on: Date.today)
-    JournalEntryItem.update_all(bank_statement_letter: "")
+    JournalEntryItem.update_all(bank_statement_letter: '')
     JournalEntryItem.update_all(state: :draft)
     OutgoingPayment.update_all(list_id: nil)
     TaxDeclaration.update_all(state: :draft)
@@ -24,8 +24,10 @@ class FinancialYearCloseTest < ActiveSupport::TestCase
     IncomingPaymentMode.destroy_all
     OutgoingPaymentMode.destroy_all
     BankStatement.destroy_all
-    Parcel.update_all(state: :draft)
-    Parcel.destroy_all
+    Reception.update_all(state: :draft)
+    Reception.destroy_all
+    Shipment.update_all(state: :draft)
+    Shipment.destroy_all
     ParcelItem.destroy_all
     Sale.update_all(state: :draft)
     Sale.destroy_all
@@ -82,7 +84,7 @@ class FinancialYearCloseTest < ActiveSupport::TestCase
       6063 => Account.create!(name: 'Test6x2', number: '6063')
     }
 
-    generate_entry(test_accounts[6012],  5000)
+    generate_entry(test_accounts[6012], 5000)
     generate_entry(test_accounts[6063], -3000)
     validate_fog
 
@@ -108,7 +110,7 @@ class FinancialYearCloseTest < ActiveSupport::TestCase
     ]
 
     generate_entry(test_accounts[1], 2000)
-    generate_entry(test_accounts[1],  300)
+    generate_entry(test_accounts[1], 300)
     generate_entry(test_accounts[2], -500)
     generate_entry(test_accounts[2], -300)
     generate_entry(test_accounts[3],  200)
@@ -172,7 +174,7 @@ class FinancialYearCloseTest < ActiveSupport::TestCase
     this_years.each do |_amount, entry|
       item = entry.items.where.not(letter: nil).first
 
-      assert_equal letter+'*', item.letter
+      assert_equal letter + '*', item.letter
       assert_equal 800, item.letter_group.sum('debit - credit')
 
       assert_not_empty @close.journal_entry_items.where(debit: item.debit, credit: item.credit)
@@ -187,7 +189,7 @@ class FinancialYearCloseTest < ActiveSupport::TestCase
     next_years_matching = matching_lettered_item(next_years_lettered_item)
 
     assert_equal test_accounts[4], next_years_matching.account
-    assert_equal @open,  complementary_in_entry_of(next_years_matching).account
+    assert_equal @open, complementary_in_entry_of(next_years_matching).account
   end
 
   private
@@ -198,18 +200,18 @@ class FinancialYearCloseTest < ActiveSupport::TestCase
     other_side = debit < 0 ? :debit : :credit
     amount = debit.abs
     JournalEntry.create!(journal: @dumpster_journal, printed_on:  printed_on, items_attributes: [
-      {
-        name: side.to_s.capitalize,
-        account: account,
-        letter: letter,
-        :"real_#{side}" => amount
-      },
-      {
-        name: other_side.to_s.capitalize,
-        account: @dumpster_account,
-        :"real_#{other_side}" => amount
-      }
-    ])
+                           {
+                             name: side.to_s.capitalize,
+                             account: account,
+                             letter: letter,
+                             :"real_#{side}" => amount
+                           },
+                           {
+                             name: other_side.to_s.capitalize,
+                             account: @dumpster_account,
+                             :"real_#{other_side}" => amount
+                           }
+                         ])
   end
 
   def validate_fog
