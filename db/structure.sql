@@ -4762,7 +4762,7 @@ CREATE TABLE parcel_items (
     equipment_id integer,
     purchase_order_item_id integer,
     product_work_number character varying,
-    merge_stock boolean DEFAULT true
+    type character varying
 );
 
 
@@ -4826,8 +4826,8 @@ CREATE TABLE parcels (
     contract_id integer,
     pretax_amount numeric(19,4) DEFAULT 0.0 NOT NULL,
     responsible_id integer,
-    type character varying,
     late_delivery boolean,
+    type character varying,
     intervention_id integer,
     reconciliation_state character varying
 );
@@ -17547,7 +17547,7 @@ ALTER TABLE ONLY financial_year_exchanges
 -- PostgreSQL database dump complete
 --
 
-SET search_path TO "public", "postgis";
+SET search_path TO "fermes-larrere", "postgis";
 
 INSERT INTO schema_migrations (version) VALUES ('20121212122000');
 
@@ -18071,6 +18071,8 @@ INSERT INTO schema_migrations (version) VALUES ('20170608081949');
 
 INSERT INTO schema_migrations (version) VALUES ('20170628125603');
 
+INSERT INTO schema_migrations (version) VALUES ('20170629152415');
+
 INSERT INTO schema_migrations (version) VALUES ('20170704092631');
 
 INSERT INTO schema_migrations (version) VALUES ('20170706143642');
@@ -18111,9 +18113,23 @@ INSERT INTO schema_migrations (version) VALUES ('20171003150635');
 
 INSERT INTO schema_migrations (version) VALUES ('20171010075206');
 
+INSERT INTO schema_migrations (version) VALUES ('20171010075927');
+
+INSERT INTO schema_migrations (version) VALUES ('20171010093216');
+
+INSERT INTO schema_migrations (version) VALUES ('20171010093930');
+
+INSERT INTO schema_migrations (version) VALUES ('20171010141343');
+
+INSERT INTO schema_migrations (version) VALUES ('20171010144444');
+
+INSERT INTO schema_migrations (version) VALUES ('20171011110635');
+
 INSERT INTO schema_migrations (version) VALUES ('20171011125052');
 
 INSERT INTO schema_migrations (version) VALUES ('20171011132245');
+
+INSERT INTO schema_migrations (version) VALUES ('20171011135227');
 
 INSERT INTO schema_migrations (version) VALUES ('20171012130905');
 
@@ -18128,6 +18144,12 @@ INSERT INTO schema_migrations (version) VALUES ('20171110145349');
 INSERT INTO schema_migrations (version) VALUES ('20171113162225');
 
 INSERT INTO schema_migrations (version) VALUES ('20171114093355');
+
+INSERT INTO schema_migrations (version) VALUES ('20171121143329');
+
+INSERT INTO schema_migrations (version) VALUES ('20171122160542');
+
+INSERT INTO schema_migrations (version) VALUES ('20171128100510');
 
 INSERT INTO schema_migrations (version) VALUES ('20171128155136');
 

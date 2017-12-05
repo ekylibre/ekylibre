@@ -18,18 +18,34 @@ class UpdateParcelItemStoringForOldReception < ActiveRecord::Migration
   end
 
   def change
-    matters = Product.includes(:parcel_item_storings).where(type: 'Matter').where(parcel_item_storings: { product_id: nil })
-    matters.each do |matter|
-      reception_items = ReceptionItem.where(product: matter)
-      reception_items.each do |r_i|
-        if r_i.storings.any?
-          r_i.storings.update_all(product_id: matter.id)
-        else
-          if r_i.reception.present?
-            ParcelItemStoring.create!( product_id: matter.id,
-                                      parcel_item_id: r_i.id,
-                                      quantity: r_i.population,
-                                      storage_id: r_i.reception.storage_id)
+    reversible do |dir|
+      dir.up do
+        update_storing
+      end
+
+      dir.down do
+        # NOOP
+      end
+    end
+  end
+
+  def update_storing
+    # need to do it on all tenant
+    Ekylibre::Tenant.list.each do |tenant|
+      Ekylibre::Tenant.switch! 'fermes-larrere'
+      matters = Product.includes(:parcel_item_storings).where(type: 'Matter').where(parcel_item_storings: { product_id: nil })
+      matters.each do |matter|
+        reception_items = ReceptionItem.where(product: matter, type: 'ReceptionItem')
+        reception_items.each do |r_i|
+          if r_i.storings.any?
+            r_i.storings.update_all(product_id: matter.id)
+          else
+            if r_i.reception.present?
+              ParcelItemStoring.create!( product_id: matter.id,
+                                        parcel_item_id: r_i.id,
+                                        quantity: r_i.population,
+                                        storage_id: r_i.reception.storage_id)
+            end
           end
         end
       end
