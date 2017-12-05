@@ -38,5 +38,5 @@
       = affair_of(resource, default: 'PurchasePayment')
 
   - if resource.parcels.any?
-    - c.cobble :parcels, title: PurchaseInvoice.human_attribute_name(:parcels) do
-      = cobble_list :parcels
+    - c.cobble :receptions, title: PurchaseInvoice.human_attribute_name(:receptions) do
+      = cobble_list :receptions
