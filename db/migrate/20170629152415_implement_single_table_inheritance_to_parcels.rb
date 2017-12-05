@@ -1,7 +1,8 @@
 class ImplementSingleTableInheritanceToParcels < ActiveRecord::Migration
   def change
-    add_column :parcels, :type, :string
-
+    unless column_exists? :parcels, :type
+      add_column :parcels, :type, :string
+    end
     reversible do |dir|
       dir.up do
         execute "UPDATE parcels SET type = 'Reception' WHERE nature = 'incoming'"
