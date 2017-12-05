@@ -286,8 +286,8 @@ class PurchaseItem < Ekylibre::Record::Base
   def first_reception_number
     return nil if first_reception.nil?
 
-    return first_reception.reference_number.concat(" (#{receptions_count})") if receptions_count > 1
-    first_reception.reference_number if receptions_count == 1
+    return first_reception.number.concat(" (#{receptions_count})") if receptions_count > 1
+    first_reception.number if receptions_count == 1
   end
 
   def first_reception_id

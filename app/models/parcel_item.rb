@@ -175,6 +175,15 @@ class ParcelItem < Ekylibre::Record::Base
     Maybe(source_product || variant || product).name.or_else(nil)
   end
 
+  def purchase_order_number
+    self.purchase_order_item.purchase.number
+  end
+
+  def purchase_invoice_number
+    self.purchase_invoice_item.purchase.number
+  end
+
+
   protected
 
   def check_outgoing(_checked_at)
