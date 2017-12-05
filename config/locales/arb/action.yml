@@ -2629,11 +2629,15 @@ arb:
       closed_financial_periods: "تمتد فترة األصول الثابتة عبر فترات مالية مغلقة."
       closed_financial_year_exchange: "تم إغلاق الصرف في العام المالي بنجاح"
       closed_financial_years: "تم اغلاق السنة المالية بشكل صحيح"
+      closure_process_started: "بدأت عملية الإغلاق."
       columns_are_already_uses: "تم اخيار عامود او اكثر للتحميل لمرات عدة"
       # could_not_attach_x_or_y_to_affair: "Could not attach %{x} or %{y} to affair"
       dashboard_is_being_developed: "لوحة أجهزة القياس هي قيد التطوير الثقيلة"
       density_is_not_computable_in_counting: "لا يمكن حساب كثافة لهذا العد. وينبغي الانتهاء من القيم المفقودة في خصائص العد أو مؤشرات الزارع و."
+      depreciation_failed: "لا يمكن استهلاك الأصول."
+      depreciation_successful: "وقد انخفضت قيمة الأصول بنجاح."
       document_in_preparation: "المستند الخاص بك هو في إعداد سيتم إرسال إشعار لك عندما يكون جاهزا"
+      draft_journal_entries_are_present: "توجد مسودات إدخالات دفتر اليومية."
       draft_journal_entries_have_been_validated:
         one: "تم التحقق من صحة الملفات واخراجها من قائمة المسودات"
         other: "واخراجها من قائمة المسودات %{count} تم التحقق من صحة الملفات الاخرى"
@@ -2648,6 +2652,10 @@ arb:
       expired_session: ".نهاية الدورة. الرجاء معاودة الاتصال" #?
       fails_to_extract_listing: "لم يتمكن الاستخراج من اتمام التنفيذ : %{message}"
       file_generated: "تم إنشاء الملف بنجاح"
+      financial_year_already_closed: "وقد تم بالفعل إغلاق السنة المالية."
+      financial_year_is_not_past: "ولم تنته بعد السنة المالية."
+      # financial_year_x_could_not_be_closed: "Financial Year  %{name} could not be closed."
+      # financial_year_x_successfully_closed: "Financial Year %{name} successfully closed !"
       financial_years_missing: "يجب عليك إنشاء كل المفقودين سنة مالية منذ سجلت لأول مرة"
       # financial_years_missing_tax_declarations: "You must create every declarations for the following financial years: %{codes}"
       implemented_with_dummy_data: "نفذت مع بيانات وهمية"
@@ -2714,6 +2722,7 @@ arb:
       no_template_journal_by_id: "ليس هنالك من نموذج للدفتر اليومي" #?
       no_unvalidated_operations: "لم يتم تحقيق اية اجراء" #?
       password_successfully_changed: "تم تغيير كلمة المرور الخاصة بك بنجاح" #?
+      previouos_financial_year_is_not_closed: "لم يتم إقفال السنة المالية السابقة."
       prices_import_succeeded: "تم استيراد بياناتك بشكل صحيح" #?
       print_failure: " غير قابل للطباعة، حاول تحديث نماذج الوئائق لتصحيح المشكلة%{error} (%{class})." #?
       purchases_invalid_for_sepa: "الشراء المحددة غير صالحة لنقل المصلحة (الوضع صرف العملة غير صالح أو خاطئة أو مفقودة المستفيد IBAN أو صاحب حساب مصرفي الاسم)"
@@ -2749,6 +2758,7 @@ arb:
       this_service_is_not_activated: "لم يتم تنشيط هذه الخدمة"
       unavailable_model: "%{model} غير متوفر أو غير موجود (%{id})" #?
       # unavailable_resource: "Nonexistent %{type} #%{id}"
+      unbalanced_journal_entries_are_present_in_year: "بعض إدخالات دفتر اليومية غير المتوازنة موجودة في السنة المالية."
       # unexpected_resource_type: "Unexpected resource type: %{type}"
       unknown_action: "الصفحة المطلوبة غير متوفرة (%{url})" #?
       unknown_company: "شركة غير معروفة" #?
