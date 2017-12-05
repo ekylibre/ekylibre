@@ -30,6 +30,7 @@
       E.PurchaseInvoices.fillStocksCounters(event)
 
     $('#new_purchase_invoice table.list').bind 'cocoon:after-insert', (event, insertedItem) ->
+      return if !insertedItem?
       new_id = new Date().getTime()
 
       insertedItem.attr('id', "new_reception_#{new_id}")
