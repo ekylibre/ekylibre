@@ -176,10 +176,14 @@ class ParcelItem < Ekylibre::Record::Base
   end
 
   def purchase_order_number
+    return nil if self.purchase_order_item.nil?
+
     self.purchase_order_item.purchase.number
   end
 
   def purchase_invoice_number
+    return nil if self.purchase_invoice_item.nil?
+
     self.purchase_invoice_item.purchase.number
   end
 
