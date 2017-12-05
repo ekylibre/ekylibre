@@ -47,6 +47,7 @@ class UpdateParcelItemStoringForOldReception < ActiveRecord::Migration
                                         storage_id: r_i.reception.storage_id)
             end
           end
+          puts "------#{ r_i.id }-------"
         end
       end
     end
