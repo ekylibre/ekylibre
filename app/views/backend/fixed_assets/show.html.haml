@@ -26,7 +26,7 @@
           %span.title= :purchase.tl
           %span.value
             %i.picto{class: "picto-shopping-cart"}
-            = link_to(purchase_item.purchase.number, {controller: :purchases, action: :show, id: purchase_item.purchase.id})
+            = link_to(purchase_item.purchase.number, {controller: :purchase_invoices, action: :show, id: purchase_item.purchase.id})
         .med-info
           %span.title= :supplier.tl
           %span.value
