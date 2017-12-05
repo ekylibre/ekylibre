@@ -26,6 +26,7 @@
 #  absolute_currency          :string           not null
 #  absolute_debit             :decimal(19, 4)   default(0.0), not null
 #  balance                    :decimal(19, 4)   default(0.0), not null
+#  continuous_number          :integer
 #  created_at                 :datetime         not null
 #  creator_id                 :integer
 #  credit                     :decimal(19, 4)   default(0.0), not null
@@ -50,6 +51,7 @@
 #  state                      :string           not null
 #  updated_at                 :datetime         not null
 #  updater_id                 :integer
+#  validated_at               :datetime
 #
 
 require 'test_helper'
@@ -303,14 +305,14 @@ class JournalEntryTest < ActiveSupport::TestCase
   test 'raises on update when confirmed' do
     entry = create(:journal_entry, state: :confirmed, items: fake_items)
     assert_raises(Ekylibre::Record::RecordNotUpdateable) do
-      entry.update_attribute(:number, 123123123)
+      entry.update_attribute(:number, 123_123_123)
     end
   end
 
   test 'raises on update when closed' do
     entry = create(:journal_entry, state: :closed, items: fake_items)
     assert_raises(Ekylibre::Record::RecordNotUpdateable) do
-      entry.update_attribute(:number, 123123123)
+      entry.update_attribute(:number, 123_123_123)
     end
   end
 
@@ -342,7 +344,7 @@ class JournalEntryTest < ActiveSupport::TestCase
     sale_item = create(:sale_item, sale: sale)
     sale.propose
     sale.invoice
-    journal_entry = JournalEntry.where(resource_id: sale.id, resource_type: "Sale").first
+    journal_entry = JournalEntry.where(resource_id: sale.id, resource_type: 'Sale').first
     assert_equal sale.number, journal_entry.reference_number
   end
 end

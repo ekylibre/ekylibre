@@ -1046,6 +1046,7 @@ deu:
     entity_to_update: "Person zu aktualisieren"
     entries: "Einträge"
     entries_to_point: "Einträge hinzu, um"
+    # entry_item_label: "Entry item label"
     entry_items: "Eintrag Artikel"
     equipment: "Ausrüstung"
     equipment_name: "Name der Ausrüstung"
@@ -1947,6 +1948,7 @@ deu:
       dashboard_is_being_developed: "Dashboard ist stark in der Entwicklung"
       density_is_not_computable_in_counting: "Konnte die Dichte für diese Zählung berechnen. Die fehlenden Werte sollten bei der Auszählung der Eigenschaften oder der Sämann der Indikatoren abgeschlossen sein."
       # document_in_preparation: "Your document is in preparation a notification will be sent to you when it is ready"
+      # draft_journal_entries_cannot_be_validated: "You need to validate every previous entries before these ones"
       draft_journal_entries_have_been_validated:
         one: "Ein Eintrag wurde validiert"
         # other: "%{count} entries have been validated"

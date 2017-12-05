@@ -1298,8 +1298,8 @@ eng:
     entity_to_update: "Person to update"
     entries: "Entries" #?
     entries_to_point: "Entries pointing to" #?!
+    entry_item_label: "Entry item label" #?
     entry_items: "Entry items" #?
-    entry_item_label: "Entry item label"
     equipment: "Equipment" #?
     equipment_name: "Name of equipment" #?
     equipments: "Equipment"
@@ -1329,7 +1329,7 @@ eng:
     expired_since: "Expired since" #?
     expired_within: "Expired within" #?
     exploitation_results: "Exploitation results" #?!
-    export: "Export documents" #?
+    export: "Export documents"
     export_as_csv: "Export as CSV"
     export_as_ods: "Export as ODS"
     export_as_xcsv: "Export as Excel CSV"

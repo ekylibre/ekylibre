@@ -1160,6 +1160,7 @@ spa:
     entity_to_update: "Persona para actualizar"
     entries: "Escrituras"
     entries_to_point: "Escrituras a despuntar"
+    # entry_item_label: "Entry item label"
     entry_items: "Elementos de entrada"
     equipment: "Equipo"
     equipment_name: "Nombre del equipo"
@@ -2193,6 +2194,7 @@ spa:
       draft_entries_are_validated: #?
         one: "La pieza ha sido validada y es sacada de la niebla" #?
         other: "%{count} han sido validadas y son sacadas de la niebla" #?
+      # draft_journal_entries_cannot_be_validated: "You need to validate every previous entries before these ones"
       draft_journal_entries_have_been_validated:
         one: "Una entrada ha sido validada"
         # other: "%{count} entries have been validated"
