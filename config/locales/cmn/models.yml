@@ -32,6 +32,8 @@ cmn:
         started_on: "开始升级"
       fixed_asset_depreciation:
         asset_amount: "问责值"
+      journal_entry_item:
+        # name: "Entry item label"
       land_parcel:
         born_at: "创建时间"
       land_parcel_group:
@@ -586,6 +588,7 @@ cmn:
     content: "内容"
     content_localizations: "内容本地化"
     contents: "内容"
+    # continuous_number: "Continuous number"
     contract: "合同"
     contract_items: "合同项目"
     contracts: "合同"
@@ -1540,6 +1543,7 @@ cmn:
     user: "用户"
     users: "用户"
     # uuid: "UUID"
+    # validated_at: "Validated at"
     value: "值"
     variable_indicators_list: "变量指标清单"
     variant: "变种"

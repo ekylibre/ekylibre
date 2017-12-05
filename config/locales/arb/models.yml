@@ -249,10 +249,11 @@ arb:
         incoming_payments: "دفعات" #?
         outgoing_payment_uses: "اجزاء الدفعات" #?
         outgoing_payments: "دفعات" #?
-      journal_entry_item: #?
+      journal_entry_item:
         account: "حساب" #?
         comment: "تعليق" #?
         created_at: "انشأت ففي" #?
+        # name: "Entry item label"
         real_credit: "ائتمان" #?
       land_parcel:
         born_at: "أنشئت في"
@@ -1287,6 +1288,7 @@ arb:
     content: "محتوى"
     content_localizations: "تعريب المحتوى"
     contents: "محتويات"
+    # continuous_number: "Continuous number"
     contract: "عقد"
     contract_items: "بنود العقد"
     contracts: "عقود"
@@ -2525,6 +2527,7 @@ arb:
     users: "المستخدمين"
     uses: "المعدات المستخدمة" #?
     # uuid: "UUID"
+    # validated_at: "Validated at"
     value: "القيمة"
     value_format: "التصميم" #?
     variable_indicators_list: "قائمة مؤشرات متغيرة"
