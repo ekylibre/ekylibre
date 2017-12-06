@@ -637,7 +637,6 @@ Rails.application.routes.draw do
         get :list_items
         get :list_entries
         match 'close', via: %i[get post]
-        match 'reopen', via: %i[get post]
       end
     end
 

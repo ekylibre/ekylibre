@@ -38,6 +38,7 @@ module Backend
       t.column :account_number, through: :account, label_method: :number, url: true, hidden: true
       t.column :account_name, through: :account, label_method: :name, url: true, hidden: true
       t.column :entry_number, url: true
+      t.column :continuous_number
       t.column :code, through: :journal, label: :journal
       t.column :printed_on
       t.column :name

@@ -32,6 +32,8 @@ jpn:
         started_on: "起動日付"
       fixed_asset_depreciation:
         asset_amount: "責任値"
+      journal_entry_item:
+        # name: "Entry item label"
       land_parcel:
         born_at: "で作成されました"
       land_parcel_group:
@@ -586,6 +588,7 @@ jpn:
     content: "コンテンツ"
     content_localizations: "コンテンツのローカライズ"
     contents: "コンテンツ"
+    # continuous_number: "Continuous number"
     contract: "契約する"
     contract_items: "契約項目"
     contracts: "契約"
@@ -1540,6 +1543,7 @@ jpn:
     user: "ユーザー"
     users: "ユーザー"
     # uuid: "UUID"
+    # validated_at: "Validated at"
     value: "値"
     variable_indicators_list: "可変指標一覧"
     variant: "バリアント"

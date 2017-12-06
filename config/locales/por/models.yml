@@ -32,6 +32,8 @@ por:
         started_on: "Começar atualização"
       fixed_asset_depreciation:
         asset_amount: "Valor contábil"
+      journal_entry_item:
+        # name: "Entry item label"
       land_parcel:
         born_at: "Criado em"
       land_parcel_group:
@@ -586,6 +588,7 @@ por:
     content: "Conteúdo"
     content_localizations: "Localizações conteúdo"
     contents: "Conteúdo"
+    # continuous_number: "Continuous number"
     contract: "Contrato"
     contract_items: "Itens do contrato"
     contracts: "Contratos"
@@ -1540,6 +1543,7 @@ por:
     user: "Do utilizador"
     users: "Usuários"
     # uuid: "UUID"
+    # validated_at: "Validated at"
     value: "Valor"
     variable_indicators_list: "Lista de indicadores de variáveis"
     variant: "Variante"

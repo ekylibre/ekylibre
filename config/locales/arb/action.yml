@@ -394,7 +394,6 @@ arb:
       edit: "تعديل الدفتر اليومي : %{name}"
       index: "الدفاتر اليومية"
       new: "انشاء دفتر يومي جديد"
-      reopen: "فتح %{name}"
       show: "الدفتر اليومي : %{name} (%{code})"
     backend/labels:
       # edit: "Edit label: %{name}"
@@ -1398,6 +1397,7 @@ arb:
     entity_update: "تعديل الملف" #?
     entries: "السجلات"
     entries_to_point: "اعداد المدخلات"
+    # entry_item_label: "Entry item label"
     entry_items: "البنود دخول"
     equipment: "معدات"
     equipment_name: "اسم معدات"
@@ -2634,6 +2634,7 @@ arb:
       dashboard_is_being_developed: "لوحة أجهزة القياس هي قيد التطوير الثقيلة"
       density_is_not_computable_in_counting: "لا يمكن حساب كثافة لهذا العد. وينبغي الانتهاء من القيم المفقودة في خصائص العد أو مؤشرات الزارع و."
       # document_in_preparation: "Your document is in preparation a notification will be sent to you when it is ready"
+      # draft_journal_entries_cannot_be_validated: "You need to validate every previous entries before these ones"
       draft_journal_entries_have_been_validated:
         one: "تم التحقق من صحة الملفات واخراجها من قائمة المسودات"
         other: "واخراجها من قائمة المسودات %{count} تم التحقق من صحة الملفات الاخرى"
@@ -2669,7 +2670,6 @@ arb:
       # journal_entry_has_been_saved_with_a_new_number: "The journal entry has been successfully saved with a new number: %{number}"
       # journal_entry_items_marked_with_letter: "Journal entry items have been marked with letter %{letter}"
       journal_reopened_at: "%{journal} تم اعادة فتحه في %{closed_at} بشكل صحيح." #?
-      # journal_reopened_on: "The journal “%{journal}” has been re-opened on %{closed_on}."
       mails_are_sent: "تم ارسال رسائل البريد الالكتروني"
       merge_is_done: "ويتم دمج"
       need_a_valid_payment_mode: "تحتاج إلى وضع دفع صالح"
@@ -2707,7 +2707,6 @@ arb:
       no_production_found_you_can_add_it_or_copy_from_previous_records: "لم يتم العثور على الإنتاج. يمكنك إضافة جديد أو نسخ بعض من حملة السابقة."
       no_purchase_affair_found_on_given_period: "أي شراء علاقة جدت في فترة معينة"
       no_purchases_given: "لا مشتريات الممنوحة"
-      no_reopenable_journal: "ليس بامكانك اعادة فتح الدفاتر اليومية"
       no_replacements_since_beginning: "لا البدلاء منذ بداية"
       no_stocks: "ليس لديك اية سهم، اذا رغبت بادارة سهم المنتج، الرجاء ضع علامة على خيار «ادارة الاسهم» في خصائص منتجاتك" #?
       no_template_journal: "ليس هنالك من نموذج للدفتر اليومي" #?
