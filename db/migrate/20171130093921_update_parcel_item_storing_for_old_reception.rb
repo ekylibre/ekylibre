@@ -2,7 +2,7 @@ class UpdateParcelItemStoringForOldReception < ActiveRecord::Migration
   def change
     reversible do |dir|
       dir.up do
-        # execute update_storing
+        execute update_storing
         execute create_parcel_item_storings
       end
 
