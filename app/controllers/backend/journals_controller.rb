@@ -215,6 +215,7 @@ module Backend
             t.add_column(:printed_on) { |item| item[:printed_on] }
             t.add_column(:journal_name) { |item| item[:journal_name] }
             t.add_column(:reference_number) { |item| item[:reference_number] }
+            t.add_column(:continuous_number) { |item| item[:continuous_number] }
             t.add_column(:state) { |item| item[:state] }
             t.add_column(:real_debit) { |item| item[:real_debit] }
             t.add_column(:real_credit) { |item| item[:real_credit] }

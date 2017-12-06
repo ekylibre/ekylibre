@@ -447,6 +447,7 @@ class JournalEntry < Ekylibre::Record::Base
       item[:entry_number] = e.number
       item[:printed_on] = e.printed_on.strftime('%d/%m/%Y')
       item[:journal_name] = e.journal.name.to_s
+      item[:continuous_number] = e.continuous_number.to_s if e.continuous_number
       item[:reference_number] = e.reference_number.to_s
       item[:state] = e.state
       item[:real_debit] = e.real_debit
