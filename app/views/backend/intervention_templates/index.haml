@@ -1,2 +1,2 @@
 - main_toolbar do |t|
-  = t.new(label: :add_intervention_template.tl, params: { redirect: nil })
+  = tool_to(:add_intervention_template.tl, { controller: :intervention_templates, action: :select_type }, icon: :plus)

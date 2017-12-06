@@ -338,6 +338,7 @@ fra:
       index: "Participations d’intervention"
     backend/intervention_templates:
       index: Modèle d'intervention
+      select_type: Nouvelle intervention type
     backend/interventions:
       edit: "Modifier l’intervention"
       edit_request: "Modifier la demande d’intervention"
@@ -1023,6 +1024,7 @@ fra:
     apply: "Appliquer" #?
     archived_at: "Archivé à" #?
     archives: "Archives"
+    nomenclature: Nomenclatures
     are_you_sure: "Êtes-vous sûr(e) de vouloir faire cela\_?"
     are_you_sure_you_want_to:
       abort_issue: "Êtes-vous sûr(e) de vouloir abandonner cet incident\_?"
