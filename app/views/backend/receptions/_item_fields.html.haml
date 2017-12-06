@@ -43,7 +43,7 @@
 
           .item-block.merchandise
             - if f.object.role == 'merchandise'
-              = f.referenced_association(:variant, label: :merchandise.tl, source: { scope: :stockables_or_depreciables }, input_html: { class: 'parcel-item-variant', data: { product_of_delivery_item: {url: backend_product_nature_variant_path("RECORD_ID", format: :json), scope: 'unit'}, required: true }})
+              = f.referenced_association(:variant, label: :merchandise.tl, source: { scope: :purchaseables_stockables_or_depreciables }, input_html: { class: 'parcel-item-variant', data: { product_of_delivery_item: {url: backend_product_nature_variant_path("RECORD_ID", format: :json), scope: 'unit'}, required: true }})
 
               - display = ""
               - display = "display: none;" unless variant.identifiable?.or_else(false)
@@ -54,7 +54,7 @@
                   = f.input_field :product_work_number, placeholder: ParcelItem.human_attribute_name(:product_work_number)
 
             - elsif f.object.role == 'service' || f.object.role == 'fees'
-              = f.referenced_association(:variant, label: f.object.role.tl, source: { scope: :services }, input_html: { class: 'parcel-item-variant', data: { product_of_delivery_item: {url: backend_product_nature_variant_path("RECORD_ID", format: :json), scope: 'unit'}, required: true }})
+              = f.referenced_association(:variant, label: f.object.role.tl, source: { scope: :purchaseables_services }, input_html: { class: 'parcel-item-variant', data: { product_of_delivery_item: {url: backend_product_nature_variant_path("RECORD_ID", format: :json), scope: 'unit'}, required: true }})
 
             - if f.object.role == 'merchandise' || f.object.role == 'service'
               .non-compliant

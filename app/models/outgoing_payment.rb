@@ -150,7 +150,7 @@ class OutgoingPayment < Ekylibre::Record::Base
   end
 
   def affair_reference_numbers
-    affair.purchases.map(&:reference_number).compact.to_sentence
+    affair.purchase_invoices.map(&:reference_number).compact.to_sentence
   end
 
   def label

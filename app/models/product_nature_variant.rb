@@ -116,6 +116,9 @@ class ProductNatureVariant < Ekylibre::Record::Base
   scope :services, -> { where(nature: ProductNature.services) }
   scope :tools, -> { where(nature: ProductNature.tools) }
 
+  scope :purchaseables_stockables_or_depreciables, -> { ProductNatureVariant.purchaseables.merge(ProductNatureVariant.stockables_or_depreciables) }
+  scope :purchaseables_services, -> { ProductNatureVariant.purchaseables.merge(ProductNatureVariant.services) }
+
   scope :derivative_of, proc { |*varieties| of_derivative_of(*varieties) }
 
   scope :can, proc { |*abilities|
