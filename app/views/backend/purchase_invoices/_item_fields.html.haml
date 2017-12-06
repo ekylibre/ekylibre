@@ -37,9 +37,12 @@
   %tr.nested-item-form
     %td.form-field.merchandise
       = f.referenced_association(:variant, label: :merchandise.tl, source: {scope: :purchaseables}, input_html: {class: "invoice-variant", data: {variant_of_deal_item: {url: detail_backend_product_nature_variant_path("RECORD_ID", mode: :last_purchase_item)}, product_of_delivery_item: {url: backend_product_nature_variant_path("RECORD_ID", format: :json)}, required: true}})
-      .supplier-ref-block.hidden
+
+      - classes = 'supplier-ref-block'
+      - classes << ' hidden' if f.object.new_record?
+      %div{ class: classes }
         %span.supplier-ref-label= "#{ :reception_number.tl } : "
-        %span.supplier-ref-value
+        %span.supplier-ref-value= f.object.new_record? ? "" : f.object.decorate.reception_number
 
       - display = ""
       - display = "display: none;" unless item && item.variant && item.variant.depreciable?
@@ -91,7 +94,8 @@
           = Nomen::Currency.find(f.object.currency).symbol
 
     %td.form-field.third-row
-      = hidden_field_tag 'purchase_invoice[items_attributes][RECORD_ID][parcels_purchase_invoice_items]', nil, class: "purchase-item-attribute"
+      - parcels_purchase_invoice_item_id = f.object.parcels_purchase_invoice_items.empty? ? nil : [f.object.parcels_purchase_invoice_items.first.id].to_s
+      = hidden_field_tag 'purchase_invoice[items_attributes][RECORD_ID][parcels_purchase_invoice_items]', parcels_purchase_invoice_item_id, class: "purchase-item-attribute"
       .item-form
         .control-group.reconciliation-item-state-block
           %label.reconciliation-item-state= :element_status.tl

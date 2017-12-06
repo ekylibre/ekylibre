@@ -1,6 +1,12 @@
 class PurchaseItemDecorator < Draper::Decorator
   delegate_all
 
+  def reception_number
+    reception_id = object.parcels_purchase_invoice_items.first.parcel_id
+
+    Reception.find(reception_id).reference_number
+  end
+
   def merchandise_current_stock
     return 0 if object.variant.nil?
 
