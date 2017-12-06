@@ -77,7 +77,7 @@ module Backend
       t.column :reduction_percentage
       t.column :tax, url: true, hidden: true
       t.column :pretax_amount, currency: true
-      t.column :amount, currency: true, hidden: :true
+      t.column :amount, currency: true
       t.column :activity_budget, hidden: true
       t.column :team, hidden: true
       t.column :fixed_asset, url: true, hidden: true
