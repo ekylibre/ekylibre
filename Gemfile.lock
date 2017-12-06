@@ -177,7 +177,7 @@ GEM
       actionmailer (>= 4.0, < 6)
       activesupport (>= 4.0, < 6)
     execjs (2.7.0)
-    factory_girl (4.9.0)
+    factory_bot (4.8.2)
       activesupport (>= 3.0.0)
     faraday (0.12.2)
       multipart-post (>= 1.2, < 3)
@@ -608,7 +608,7 @@ DEPENDENCIES
   ekylibre-ofx-parser
   enumerize
   exception_notification
-  factory_girl
+  factory_bot
   feedjira
   ffaker (>= 2.0.0)
   figaro

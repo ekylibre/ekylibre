@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :corn_plant, class: Plant do
     sequence(:name) { |n| "Corn plant - TEST#{n.to_s.rjust(8, '0')}" }
     variety         :zea_mays

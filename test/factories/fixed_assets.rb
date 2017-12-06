@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :fixed_asset do
     association :allocation_account, factory: :account
     depreciation_method 'simplified_linear'
