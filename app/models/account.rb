@@ -686,6 +686,7 @@ class Account < Ekylibre::Record::Base
       journal_entry_items.each do |e|
         item = HashWithIndifferentAccess.new
         item[:entry_number] = e.entry_number
+        item[:continuous_number] = e.continuous_number.to_s if e.continuous_number
         item[:printed_on] = e.printed_on.strftime('%d/%m/%Y')
         item[:name] = e.name.to_s
         item[:variant] = (e.variant ? e.variant.name : '')

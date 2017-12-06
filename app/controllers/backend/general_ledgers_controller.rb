@@ -145,6 +145,7 @@ module Backend
 
           s.add_table('Tableau1', :items, header: true) do |t|
             t.add_column(:entry_number) { |item| item[:entry_number] }
+            t.add_column(:continuous_number) { |item| item[:continuous_number] }
             t.add_column(:printed_on) { |item| item[:printed_on] }
             t.add_column(:name) { |item| item[:name] }
             t.add_column(:variant) { |item| item[:variant] }
