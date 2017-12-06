@@ -1,7 +1,5 @@
-class ImplementSingleTableInheritanceToParcels < ActiveRecord::Migration
+class CastParcelsToFitSti < ActiveRecord::Migration
   def change
-    add_column :parcels, :type, :string
-
     reversible do |dir|
       dir.up do
         execute "UPDATE parcels SET type = 'Reception' WHERE nature = 'incoming'"
