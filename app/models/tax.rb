@@ -141,7 +141,7 @@ class Tax < Ekylibre::Record::Base
         tax_account.name = item.human_name
         tax_account.usages = tax_radical.usages
         tax_account.save!
-        
+
         attributes["#{account}_account_id"] = tax_account.id
       end
       Tax.create!(attributes)
@@ -163,15 +163,12 @@ class Tax < Ekylibre::Record::Base
         import_from_nomenclature(tax.name, true)
       end
     end
-    
+
     # Load default taxes of instance country
     def load_defaults
       import_all_from_nomenclature(country: Preference[:country].to_sym, active: true)
     end
-    
   end
-  
-  
 
   # Compute the tax amount
   # If +with_taxes+ is true, it's considered that the given amount
