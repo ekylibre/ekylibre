@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :journal_entry do
     journal
     absolute_credit 0
