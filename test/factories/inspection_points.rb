@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :inspection_point do
     net_mass_value 12
     items_count_value 240

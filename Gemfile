@@ -249,7 +249,7 @@ group :test do
 
   gem 'minitest-reporters'
 
-  gem 'factory_girl'
+  gem 'factory_bot'
 end
 
 # Load Gemfile.local, Gemfile.plugins, plugins', and custom Gemfiles

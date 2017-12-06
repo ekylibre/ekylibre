@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :intervention do
     procedure_name 'sowing'
     started_at Time.now - 2.hours

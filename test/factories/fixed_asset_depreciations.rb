@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :fixed_asset_depreciation do
     fixed_asset
     amount 15.07
