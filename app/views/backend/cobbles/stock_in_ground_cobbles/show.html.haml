@@ -1,0 +1,23 @@
+.chart-table
+  - resource.inspection_calibration_scales.find_each do |scale|
+    - next unless InspectionCalibration.where(nature: scale.natures).exists?
+    - base_series = caliber_series(@dimension, scale, resource.inspections)
+    - stock_series = base_series[:stock]
+    - yield_series = base_series[:yield]
+
+    - calibrations = InspectionCalibration.joins(inspection: :activity).where('activity_id = ?', resource.id)
+    - if calibrations.merge(InspectionCalibration.of_scale(scale)).exists?
+      - stock_chart = column_highcharts(stock_series, chart_style(:stock_in_ground_by_calibration_x.tl(x: scale.name), @measure_symbol))
+      - yield_chart = column_highcharts(yield_series, chart_style(:yield_by_calibration_x.tl(x: scale.name), @yield_symbol))
+
+    - if resource.inspection_point_natures.any? && calibrations.exists?
+      - evolt_series = spline_series(@dimension, resource.inspections)
+      - x_labels     = spline_categories(resource.inspections).map(&:l)
+      - chart_style  = chart_style(:unmarketable_inspection_categories_evolution.tl, '%').merge(plot_options: {}, x_axis: { categories: x_labels })
+      - evolt_chart  = spline_highcharts(evolt_series, chart_style)
+
+    - unless [stock_chart, yield_chart, evolt_chart].compact.blank?
+      .chart-line
+        - [stock_chart, yield_chart, evolt_chart].each do |chart|
+          .chart-cell
+            = chart

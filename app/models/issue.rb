@@ -74,11 +74,11 @@ class Issue < Ekylibre::Record::Base
   delegate :count, to: :interventions, prefix: true
 
   scope :of_campaign, lambda { |campaign|
-    where(target_id: TargetDistribution.of_campaign(campaign), target_type: 'Product')
+    where(target_id: Product.where(activity_production_id: ActivityProduction.of_campaign(campaign).select(:id)))
   }
 
   scope :of_activity, lambda { |activity|
-    where(target_id: TargetDistribution.of_activity(activity), target_type: 'Product')
+    where(target_id: Product.where(activity_production_id: activity.productions.select(:id)))
   }
 
   scope :opened, lambda {

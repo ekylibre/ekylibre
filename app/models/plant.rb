@@ -22,6 +22,7 @@
 #
 # == Table: products
 #
+#  activity_production_id       :integer
 #  address_id                   :integer
 #  birth_date_completeness      :string
 #  birth_farm_number            :string
@@ -112,6 +113,10 @@ class Plant < Bioproduct
     end
   end
 
+  after_create do
+    link_to_production
+  end
+
   def status
     if dead_at?
       :stop
@@ -145,15 +150,6 @@ class Plant < Bioproduct
     item = analysis.items.find_by(indicator_name: 'ready_to_harvest')
     return false unless item
     item.value
-  end
-
-  def best_activity_production(options = {})
-    at = options[:at]
-    at ||= Time.now
-    intersecting = LandParcel.shape_intersecting(shape)
-    current_intersecting = intersecting.at(at)
-    biggest_intersecting = current_intersecting.max_by { |lp| lp.shape.intersection(shape).area }
-    biggest_intersecting || super
   end
 
   # INSPECTIONS RELATED
@@ -214,5 +210,13 @@ class Plant < Bioproduct
       .group_by(&:first)
       .map { |crit, g_pairs| [crit, g_pairs.map(&:last)] }
       .to_h
+  end
+
+  def link_to_production
+    outputs = InterventionOutput.where(product: self, reference_name: 'plant')
+    unless outputs.empty?
+      ap = outputs.first.intervention.targets.where(reference_name: 'land_parcel').first.product.activity_production
+      update(activity_production: ap)
+    end
   end
 end

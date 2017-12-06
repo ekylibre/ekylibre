@@ -112,7 +112,7 @@ class IncomingPaymentMode < Ekylibre::Record::Base
         name: IncomingPaymentMode.tc("default.#{nature}.name"),
         with_accounting: true,
         cash: cash,
-        with_deposit: (nature == 'check' ? true : false)
+        with_deposit: (nature == 'check')
       }
       journal = Journal.find_by(nature: 'bank')
       if attributes[:with_deposit] && journal
