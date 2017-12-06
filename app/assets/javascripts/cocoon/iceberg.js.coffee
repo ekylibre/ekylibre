@@ -49,7 +49,6 @@
         @toggleInputVisibility()
         @setFormSubmitable()
         @setCocoonFormSubmitable()
-        @line.trigger "iceberg:inserted"
 
     _bindSelectorsInitialization: ->
       that = this
