@@ -39,6 +39,12 @@
       vatSelectedValue = $(event.target).closest('.nested-fields').find('.item-display .vat-rate').attr('data-selected-value')
       $(event.target).closest('.nested-fields').find('.nested-item-form:visible .invoice-vat-total').val(vatSelectedValue)
 
+    $('#new_purchase_invoice table.list').bind 'cocoon:after-insert', (event, insertedItem) ->
+      return if !insertedItem?
+      new_id = new Date().getTime()
+
+      insertedItem.attr('id', "new_reception_#{new_id}")
+
     $('#new_purchase_invoice table.list').on 'cocoon:after-insert', (event, insertedItem) ->
       new_id = new Date().getTime()
       if typeof insertedItem != 'undefined'

@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="purchase" language="groovy" pageWidth="595" pageHeight="842" columnWidth="545" leftMargin="25" rightMargin="25" topMargin="25" bottomMargin="25" isFloatColumnFooter="true" uuid="9c1f11b7-03dd-4803-9e1b-41b87b9d23c0">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="purchases-invoice" language="groovy" pageWidth="595" pageHeight="842" columnWidth="545" leftMargin="25" rightMargin="25" topMargin="25" bottomMargin="25" isFloatColumnFooter="true" uuid="9c1f11b7-03dd-4803-9e1b-41b87b9d23c0">
 	<property name="ireport.zoom" value="1.4019755979255695"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="48"/>
 	<template><![CDATA["/home/brice/Projets/ekylibre/ekylibre/config/corporate_identity/reporting_style.xml"]]></template>
 	<subDataset name="purchase_items" uuid="e1b74445-e266-4905-b7ca-c69a482d0793">
 		<queryString language="xPath">
-			<![CDATA[/purchase/items/item]]>
+			<![CDATA[/purchase-invoice/items/item]]>
 		</queryString>
 		<field name="annotation" class="java.lang.String">
 			<fieldDescription><![CDATA[annotation]]></fieldDescription>
@@ -41,7 +41,7 @@
 	</subDataset>
 	<subDataset name="affair" uuid="24d47a97-dc3d-4530-87d0-57f7f18c2e40">
 		<queryString language="xPath">
-			<![CDATA[/purchase/affair]]>
+			<![CDATA[/purchase-invoice/affair]]>
 		</queryString>
 		<field name="number" class="java.lang.String">
 			<fieldDescription><![CDATA[number]]></fieldDescription>
@@ -61,7 +61,7 @@
 	</subDataset>
 	<subDataset name="outgoing_payments" uuid="29c8e9a5-5251-4f85-bb3c-cc7cbc2df46a">
 		<queryString language="xPath">
-			<![CDATA[/purchase/affair/outgoing-payments/outgoing-payment]]>
+			<![CDATA[/purchase-invoice/affair/outgoing-payments/outgoing-payment]]>
 		</queryString>
 		<field name="amount" class="java.lang.String">
 			<fieldDescription><![CDATA[amount]]></fieldDescription>
@@ -82,7 +82,7 @@
 	<parameter name="XML_DATA_DOCUMENT" class="java.lang.String" isForPrompting="false"/>
 	<parameter name="XML_URL" class="java.lang.String" isForPrompting="false"/>
 	<queryString language="xPath">
-		<![CDATA[/purchase]]>
+		<![CDATA[/purchase-invoice]]>
 	</queryString>
 	<field name="number" class="java.lang.String">
 		<fieldDescription><![CDATA[number]]></fieldDescription>

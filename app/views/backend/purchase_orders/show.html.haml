@@ -1,5 +1,4 @@
 - main_toolbar do |t|
-	= t.export :purchases_order
 	= t.edit resource if resource.updateable?
 	= t.destroy
 	- if current_user.can?(:write, :incoming_deliveries) && resource.can_generate_parcel?
