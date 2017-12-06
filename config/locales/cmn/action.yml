@@ -1724,6 +1724,7 @@ cmn:
     to_deposit_now: "到现在存"
     to_pay: "支付"
     to_reclaim: "为了回收"
+    # to_reconcile: "To reconcile"
     # to_reconciliate: "To reconciliate"
     today: "今天"
     tool_cost: "刀具成本"

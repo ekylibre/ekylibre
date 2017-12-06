@@ -1795,6 +1795,7 @@ jpn:
     to_deposit_now: "今堆積するために、"
     to_pay: "支払うために、"
     to_reclaim: "再利用するために、"
+    # to_reconcile: "To reconcile"
     # to_reconciliate: "To reconciliate"
     today: "今日"
     tool_cost: "ツールコスト"

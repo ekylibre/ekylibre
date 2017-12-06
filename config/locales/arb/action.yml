@@ -2343,6 +2343,7 @@ arb:
     to_deposit_now: "إيداع الآن"
     to_pay: "لدفع"
     to_reclaim: "لاستعادة"
+    # to_reconcile: "To reconcile"
     # to_reconciliate: "To reconciliate"
     today: "اليوم"
     tool_cost: "تكلفة أداة"

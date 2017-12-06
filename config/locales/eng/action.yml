@@ -1977,6 +1977,7 @@ eng:
     to_deposit_now: "To deposit now" #?
     to_pay: "To pay"
     to_reclaim: "To reclaim"
+    to_reconcile: "To reconcile" #?
     to_reconciliate: "To reconciliate"
     today: "Today" #?
     tool_cost: "Tool cost"

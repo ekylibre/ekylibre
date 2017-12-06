@@ -2253,6 +2253,7 @@ fra:
     to_deposit_now: "À encaisser maintenant"
     to_pay: "À payer"
     to_reclaim: "À réclamer"
+    to_reconcile: "À rapprocher"
     to_reconciliate: "À rapprocher"
     today: "Aujourd’hui"
     tool_cost: "Coût de matériel"

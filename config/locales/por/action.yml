@@ -1728,6 +1728,7 @@ por:
     to_deposit_now: "Para depositar agora"
     to_pay: "Pagar"
     to_reclaim: "Para recuperar"
+    # to_reconcile: "To reconcile"
     # to_reconciliate: "To reconciliate"
     today: "Hoje"
     tool_cost: "Custo ferramenta"

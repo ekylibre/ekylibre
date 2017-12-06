@@ -1789,6 +1789,7 @@ ita:
     to_deposit_now: "Per depositare ora"
     to_pay: "Pagare"
     to_reclaim: "Per recuperare"
+    # to_reconcile: "To reconcile"
     # to_reconciliate: "To reconciliate"
     today: "Oggi"
     tool_cost: "costo strumento"
