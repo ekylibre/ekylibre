@@ -109,6 +109,9 @@ class Tax < Ekylibre::Record::Base
       end
     end
 
+    # Find a tax at the given date. Conditions can be given to filter on
+    # `country`, `nature`, and `amount`. `nature` is a name of a tax nature (See
+    # `tax_natures` nomenclature.
     def find_on(wanted_on, conditions = {})
       name = nil
       Nomen::Tax.where(conditions).find_each do |item|
@@ -119,6 +122,7 @@ class Tax < Ekylibre::Record::Base
           break
         end
       end
+      return nil if name.blank?
       Tax.import_from_nomenclature(name)
     end
 
