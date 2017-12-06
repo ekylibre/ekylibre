@@ -13,7 +13,7 @@ module Ekylibre
           variant_code: (row[3].blank? ? nil : row[3]),
           quantity: (row[4].blank? ? nil : row[4].tr(',', '.').to_d),
           unit_pretax_amount: (row[5].blank? ? nil : row[5].tr(',', '.').to_d),
-          vat_rate: (row[6].blank? ? nil : row[6].tr(',', '.').to_d),
+          vat_percentage: (row[6].blank? ? nil : row[6].tr(',', '.').to_d),
           description: (row[7].blank? ? '' : row[7].to_s),
           # Extra infos
           document_reference_number: "#{Date.parse(row[0].to_s)}_#{row[1]}_#{row[2]}".tr(' ', '-')
@@ -53,16 +53,10 @@ module Ekylibre
 
         # find or create a tax
         # country via entity if information exist
-        sale_item_tax = nil
-        raise "Missing VAT at line #{line_index}" unless r.vat_rate
-        Nomen::Tax.where(country: country.to_sym, amount: r.vat_rate).find_each do |item|
-          if item.stopped_on
-            next unless r.invoiced_at.to_date < item.stopped_on
-          end
-          sale_item_tax = Tax.import_from_nomenclature(item.name)
-        end
-        
-        raise "No tax found for given #{r.vat_rate}" unless sale_item_tax
+        raise "Missing VAT at line #{line_index}" unless r.vat_percentage
+
+        sale_item_tax = Tax.find_on(r.invoiced_at.to_date, country: country.to_sym, amount: r.vat_percentage)
+        raise "No tax found for given #{r.vat_percentage}" unless sale_item_tax
 
         # find or create a purchase line
         if sale && variant && r.unit_pretax_amount && r.quantity && sale_item_tax

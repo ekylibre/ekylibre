@@ -109,6 +109,19 @@ class Tax < Ekylibre::Record::Base
       end
     end
 
+    def find_on(wanted_on, conditions = {})
+      name = nil
+      Nomen::Tax.where(conditions).find_each do |item|
+        if item.started_on <= wanted_on &&
+           (item.stopped_on.blank? ||
+            wanted_on <= item.stopped_on)
+          name = item.name
+          break
+        end
+      end
+      Tax.import_from_nomenclature(name)
+    end
+
     # Load a tax from tax nomenclature
     def import_from_nomenclature(reference_name, active = nil)
       unless item = Nomen::Tax.find(reference_name)
