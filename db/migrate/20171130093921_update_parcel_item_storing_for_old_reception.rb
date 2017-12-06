@@ -2,7 +2,7 @@ class UpdateParcelItemStoringForOldReception < ActiveRecord::Migration
   def change
     reversible do |dir|
       dir.up do
-        execute update_storing
+        # execute update_storing
         execute create_parcel_item_storings
       end
 
@@ -33,6 +33,7 @@ class UpdateParcelItemStoringForOldReception < ActiveRecord::Migration
       WHERE parcel_item.id NOT IN (SELECT id FROM parcel_item_storings)
         AND parcel_item.type = 'ReceptionItem'
         AND parcel.storage_id IS NOT NULL
+        AND parcel_item.product_id IS NOT NULL
     SQL
   end
 
