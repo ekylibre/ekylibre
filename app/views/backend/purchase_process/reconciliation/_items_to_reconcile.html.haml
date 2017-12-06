@@ -21,7 +21,7 @@
 
           %ul.list-items
             - model.items.each do |model_item|
-              - datas = { variant_type: model_item.variant.variety, equipment_id: model_item.equipment_id }
+              - datas = { variant_type: model_item.variant.variety, equipment_id: model_item.equipment_id, responsible_id: model.responsible_id }
               - datas.merge!({ team_id: model_item.team_id, activity_budget_id: model_item.activity_budget_id, reduction_percentage: model_item.reduction_percentage }) if model_item.is_a?(PurchaseItem)
               - datas.merge!({ team_id: model_item.purchase_order_item.try(:team_id), activity_budget_id: model_item.purchase_order_item.try(:activity_budget_id) }) if model_item.is_a?(ParcelItem)
               %li.item{ data: datas }
