@@ -2,13 +2,8 @@
 -- PostgreSQL database dump
 --
 
-<<<<<<< HEAD
 -- Dumped from database version 9.6.6
 -- Dumped by pg_dump version 9.6.6
-=======
--- Dumped from database version 9.6.3
--- Dumped by pg_dump version 9.6.3
->>>>>>> feature/purchase-process/merge-with-eky
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -18191,7 +18186,6 @@ INSERT INTO schema_migrations (version) VALUES ('20171117105934');
 
 INSERT INTO schema_migrations (version) VALUES ('20171121143329');
 
-<<<<<<< HEAD
 INSERT INTO schema_migrations (version) VALUES ('20171123134516');
 
 INSERT INTO schema_migrations (version) VALUES ('20171128155136');
@@ -18203,11 +18197,3 @@ INSERT INTO schema_migrations (version) VALUES ('20171130093921');
 INSERT INTO schema_migrations (version) VALUES ('20171130144435');
 
 INSERT INTO schema_migrations (version) VALUES ('20171204075626');
-=======
-INSERT INTO schema_migrations (version) VALUES ('20171122160542');
-
-INSERT INTO schema_migrations (version) VALUES ('20171123134516');
-
-INSERT INTO schema_migrations (version) VALUES ('20171128100510');
-
->>>>>>> feature/purchase-process/merge-with-eky
