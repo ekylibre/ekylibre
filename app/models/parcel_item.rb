@@ -66,13 +66,12 @@ class ParcelItem < Ekylibre::Record::Base
   belongs_to :analysis
   # belongs_to :parcel, inverse_of: :items
   # belongs_to :reception, inverse_of: :items, class_name: 'Reception', foreign_key: :parcel_id
-  belongs_to :product
-
   with_options class_name: 'PurchaseItem' do
     belongs_to :purchase_order_item, foreign_key: 'purchase_order_item_id'
     belongs_to :purchase_invoice_item, foreign_key: 'purchase_invoice_item_id'
   end
 
+  belongs_to :product
   belongs_to :sale_item
   belongs_to :delivery
   belongs_to :transporter, class_name: 'Entity'
@@ -86,6 +85,7 @@ class ParcelItem < Ekylibre::Record::Base
   has_one :product_movement, as: :originator, dependent: :destroy
   has_one :product_ownership, as: :originator, dependent: :destroy
   has_many :storings, class_name: 'ParcelItemStoring', inverse_of: :parcel_item, foreign_key: :parcel_item_id, dependent: :destroy
+  has_many :products, through: :storings
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :currency, :non_compliant_detail, :product_identification_number, :product_name, :product_work_number, :role, length: { maximum: 500 }, allow_blank: true
@@ -104,11 +104,13 @@ class ParcelItem < Ekylibre::Record::Base
 
   alias_attribute :quantity, :population
 
-  accepts_nested_attributes_for :product
+  accepts_nested_attributes_for :products
   accepts_nested_attributes_for :storings, allow_destroy: true
 
   delegate :draft?, :given?, to: :reception, prefix: true, allow_nil: true
   delegate :draft?, :in_preparation?, :prepared?, :given?, to: :shipment, prefix: true
+
+  delegate :unit_name, to: :variant
 
   before_validation do
     if variant
@@ -172,10 +174,23 @@ class ParcelItem < Ekylibre::Record::Base
   end
 
   def name
-    Maybe(source_product || variant || product).name.or_else(nil)
+    Maybe(source_product || variant || products).name.or_else(nil)
   end
 
   protected
+
+  def check_outgoing(_checked_at)
+    update! product: source_product
+  end
+
+  def existing_reception_product_in_storage(storing)
+    similar_products = Product.where(variant: variant)
+    product_in_storage = similar_products.find do |p|
+      location = p.localizations.last.container
+      owner = p.owner
+      location == storing.storage && owner = Entity.of_company
+    end
+  end
 
   def existing_product_in_storage
     similar_products = Product.where(variant: variant)

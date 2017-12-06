@@ -146,7 +146,7 @@ fra:
         plants_count: "Nombre théorique de graines"
         seeding_density_value: "Densité théorique de semis"
       product_localization: #?
-        container: "Contenant" #?
+        container: "Zone de stockage" #?
         started_at: "Entrée" #?
         stopped_at: "Sortie" #?
       product_nature_category: #?
@@ -1084,6 +1084,8 @@ fra:
     iban: "IBAN"
     id: "ID"
     identification_number: "Numéro d’identification"
+    shipment: Expédition
+    reception: Réception
     identifiers: "Identifiants"
     implanter_application_width: "Largeur de l'outil de semis ou de plantation"
     implanter_rows_number: "Nombre de rangs lors de l'implantation"
@@ -1346,6 +1348,7 @@ fra:
     node: "Nœud"
     nodes: "Nœuds d’extraction"
     non_compliant: "Non conforme"
+    merge_stock: "Fusionner avec les stocks existants"
     # non_compliant_detail: "Non compliant detail"
     noticed_start_amount: "Montant de début constaté"
     noticed_stop_amount: "Montant de fin constaté"
@@ -1724,9 +1727,9 @@ fra:
     stopped_at: "Arrêté le"
     stopped_on: "Arrêté le"
     storable: "Gérer les stocks"
-    storage: "Stockage"
+    storage: "Zone de stockage"
     storages: "Stockages"
-    # storings: "Storings"
+    storings: "Élements "
     story: "Historique"
     string_value: "Valeur textuelle"
     subdomains: "Sous-domaines"
