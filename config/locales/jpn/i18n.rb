@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 { jpn: {
   i18n: {
     dir: 'ltr',

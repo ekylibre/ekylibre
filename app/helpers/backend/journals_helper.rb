@@ -57,7 +57,7 @@ module Backend
       financial_years = FinancialYear.reorder(options[:sort] == :asc ? :started_on : { started_on: :desc })
       if options[:limit_to_draft]
         financial_years = financial_years.distinct.joins(:journal_entries).where(journal_entries: { state: :draft })
-        financial_years = financial_years.where('journal_entries.printed_on BETWEEN financial_years.started_on AND financial_years.stopped_on') # TODO remove once journal entries will always have its financial_year_id associated to the printed_on
+        financial_years = financial_years.where('journal_entries.printed_on BETWEEN financial_years.started_on AND financial_years.stopped_on') # TODO: remove once journal entries will always have its financial_year_id associated to the printed_on
       end
       for year in financial_years
         list << [year.code, year.started_on.to_s << '_' << year.stopped_on.to_s]
