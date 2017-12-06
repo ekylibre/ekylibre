@@ -20,6 +20,6 @@
 require 'test_helper'
 module Backend
   class BuildingsControllerTest < ActionController::TestCase
-    test_restfully_all_actions destroy: { fixture: 13 }
+    test_restfully_all_actions except: %i[update_many edit_many], destroy: { fixture: 13 }
   end
 end

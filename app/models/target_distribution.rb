@@ -35,69 +35,25 @@
 #  updater_id             :integer
 #
 class TargetDistribution < Ekylibre::Record::Base
-  include TimeLineable
   belongs_to :activity
   belongs_to :activity_production
   belongs_to :target, class_name: 'Product', inverse_of: :distributions
+
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :started_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
   validates :stopped_at, timeliness: { on_or_after: ->(target_distribution) { target_distribution.started_at || Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
   validates :activity, :activity_production, :target, presence: true
   # ]VALIDATORS]
 
-  delegate :name, :work_number, to: :target, prefix: true
-
-  scope :of_campaign, lambda { |campaign|
-    where(activity_production_id: ActivityProduction.of_campaign(campaign))
-  }
-
-  scope :of_activity, lambda { |activity|
-    where(activity: activity)
-  }
-
   before_validation do
-    if activity_production
-      self.activity = activity_production.activity
-      # self.started_at ||= activity_production.started_on
-      # self.stopped_at ||= activity_production.stopped_on
-    end
+    raise 'TargetDistribution is deprecated'
   end
 
-  def siblings
-    target.distributions unless target.nil?
+  after_initialize do
+    raise 'TargetDistribution is deprecated'
   end
 
-  def started_on
-    return started_at.to_date unless started_at.nil? || started_at == Time.new(1, 1, 1, 0, 0, 0, '+00:00')
-    on = begin
-           Date.civil(stopped_at.year, stopped_at.month, stopped_at.day)
-         rescue
-           begin
-             Date.civil(stopped_at.year, stopped_at.month, stopped_at.day) - 1
-           rescue
-             Date.today
-           end
-         end
-
-    on -= 1.year
-    on.to_date.beginning_of_month
-  end
-
-  def stopped_on
-    return stopped_at.to_date unless stopped_at.nil?
-    on = begin
-           Date.civil(started_on.year, started_on.month, started_on.day)
-         rescue
-           Date.civil(started_on.year, started_on.month, started_on.day) - 1
-         end
-
-    on += 1.year
-    on.to_date.end_of_month
-  end
-
-  class << self
-    def distributed?
-      InterventionTarget.where.not(product_id: TargetDistribution.select(:target_id)).select(:product_id).distinct.none?
-    end
+  def method_missing(**_args)
+    raise 'TargetDistribution is deprecated'
   end
 end
