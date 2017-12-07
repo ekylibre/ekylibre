@@ -3231,6 +3231,8 @@ inspections:
   creator_id:
     type: integer
     references: user
+  forecast_harvest_week:
+    type: integer
   id:
     type: integer
     required: true
@@ -5010,6 +5012,8 @@ parcel_items:
   transporter_id:
     type: integer
     references: entity
+  type:
+    type: string
   unit_pretax_amount:
     type: decimal
     precision: 19
