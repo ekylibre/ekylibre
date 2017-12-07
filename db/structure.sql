@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 9.6.6
--- Dumped by pg_dump version 9.6.6
+-- Dumped from database version 9.6.3
+-- Dumped by pg_dump version 9.6.3
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -3557,7 +3557,8 @@ CREATE TABLE inspections (
     implanter_application_width numeric(19,4),
     sampling_distance numeric(19,4),
     product_net_surface_area_value numeric(19,4),
-    product_net_surface_area_unit character varying
+    product_net_surface_area_unit character varying,
+    forecast_harvest_week integer
 );
 
 
@@ -3755,39 +3756,6 @@ CREATE SEQUENCE intervention_participations_id_seq
 --
 
 ALTER SEQUENCE intervention_participations_id_seq OWNED BY intervention_participations.id;
-
-
---
--- Name: intervention_templates; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE intervention_templates (
-    id integer NOT NULL,
-    name character varying,
-    active boolean DEFAULT true,
-    description character varying,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
-);
-
-
---
--- Name: intervention_templates_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE intervention_templates_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: intervention_templates_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE intervention_templates_id_seq OWNED BY intervention_templates.id;
 
 
 --
@@ -7515,13 +7483,6 @@ ALTER TABLE ONLY intervention_participations ALTER COLUMN id SET DEFAULT nextval
 
 
 --
--- Name: intervention_templates id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY intervention_templates ALTER COLUMN id SET DEFAULT nextval('intervention_templates_id_seq'::regclass);
-
-
---
 -- Name: intervention_working_periods id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -8641,14 +8602,6 @@ ALTER TABLE ONLY intervention_parameters
 
 ALTER TABLE ONLY intervention_participations
     ADD CONSTRAINT intervention_participations_pkey PRIMARY KEY (id);
-
-
---
--- Name: intervention_templates intervention_templates_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY intervention_templates
-    ADD CONSTRAINT intervention_templates_pkey PRIMARY KEY (id);
 
 
 --
@@ -18186,7 +18139,11 @@ INSERT INTO schema_migrations (version) VALUES ('20171117105934');
 
 INSERT INTO schema_migrations (version) VALUES ('20171121143329');
 
+INSERT INTO schema_migrations (version) VALUES ('20171122160542');
+
 INSERT INTO schema_migrations (version) VALUES ('20171123134516');
+
+INSERT INTO schema_migrations (version) VALUES ('20171128100510');
 
 INSERT INTO schema_migrations (version) VALUES ('20171128155136');
 
@@ -18196,4 +18153,5 @@ INSERT INTO schema_migrations (version) VALUES ('20171130093921');
 
 INSERT INTO schema_migrations (version) VALUES ('20171130144435');
 
-INSERT INTO schema_migrations (version) VALUES ('20171204075626');
+INSERT INTO schema_migrations (version) VALUES ('20171206145442');
+

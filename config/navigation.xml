@@ -605,7 +605,7 @@
         <page to="backend/receptions#give"/>
         <page to="backend/receptions#order" nonexistent="true"/>
         <page to="backend/receptions#prepare" nonexistent="true"/>
-        <page to="backend/receptions#list_items"/>
+        <page to="backend/receptions#list_items" nonexistent="true"/>
       </item>
     </group>
     <group name="shipments" icon="truck">
@@ -2222,6 +2222,9 @@
       <item name="reconciliation">
         <page to="backend/purchase_process/reconciliation#purchase_orders_to_reconciliate"/>
         <page to="backend/purchase_process/reconciliation#receptions_to_reconciliate"/>
+      </item>
+      <item name="receptions">
+        <page to="backend/receptions#list_storings"/>
       </item>
       <item name="sales">
         <page to="backend/sales#list_shipments"/>

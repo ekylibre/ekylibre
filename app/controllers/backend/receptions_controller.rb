@@ -78,8 +78,10 @@ module Backend
       # t.column :purchase, url: true
     end
 
-    list(:storings, model: :parcel_item_storings, order: { id: :asc } , conditions: { parcel_item_id: 'Reception.find(params[:id]).items.pluck(:id)'.c }) do |t|
+    list(:storings, model: :parcel_item_storings, order: { id: :asc }, conditions: { parcel_item_id: 'Reception.find(params[:id]).items.pluck(:id)'.c }) do |t|
       t.column :variant, label_method: :name, through: :parcel_item, url: { controller: '/backend/product_nature_variants' }
+      t.column :purchase_order_number, label: :order, through: :parcel_item, url: { controller: '/backend/purchase_orders', id: 'RECORD.parcel_item.purchase_order_item.purchase.id'.c }
+      t.column :purchase_invoice_number, label: :invoice, through: :parcel_item, url: { controller: '/backend/purchase_invoices', id: 'RECORD.parcel_item.purchase_invoice_item.purchase.id'.c }
       t.column :product_name, through: :parcel_item
       t.column :product_work_number, through: :parcel_item
       t.column :storage, url: true

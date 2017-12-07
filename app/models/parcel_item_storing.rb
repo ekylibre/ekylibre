@@ -29,6 +29,7 @@
 #  id                     :integer          not null, primary key
 #  lock_version           :integer          default(0), not null
 #  parcel_item_id         :integer          not null
+#  product_id             :integer
 #  quantity               :decimal(19, 4)
 #  storage_id             :integer          not null
 #  updated_at             :datetime         not null
@@ -69,15 +70,11 @@ class ParcelItemStoring < Ekylibre::Record::Base
     Reception.find(parcel_item.parcel_id)
   end
 
-  def reception_number
-    reception.number
-  end
+  delegate :number, to: :reception, prefix: true
 
   def reception_nature
     reception.nature.tl
   end
 
-  def reception_given_at
-    reception.given_at
-  end
+  delegate :given_at, to: :reception, prefix: true
 end

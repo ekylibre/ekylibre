@@ -22,15 +22,18 @@
 #
 # == Table: parcel_item_storings
 #
-#  created_at     :datetime         not null
-#  creator_id     :integer
-#  id             :integer          not null, primary key
-#  lock_version   :integer          default(0), not null
-#  parcel_item_id :integer          not null
-#  quantity       :integer
-#  storage_id     :integer          not null
-#  updated_at     :datetime         not null
-#  updater_id     :integer
+#  conditionning          :integer
+#  conditionning_quantity :integer
+#  created_at             :datetime         not null
+#  creator_id             :integer
+#  id                     :integer          not null, primary key
+#  lock_version           :integer          default(0), not null
+#  parcel_item_id         :integer          not null
+#  product_id             :integer
+#  quantity               :decimal(19, 4)
+#  storage_id             :integer          not null
+#  updated_at             :datetime         not null
+#  updater_id             :integer
 #
 ---
 parcel_item_storings_001:
