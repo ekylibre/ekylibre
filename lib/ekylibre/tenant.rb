@@ -141,7 +141,7 @@ module Ekylibre
         switch_to_database_for(name)
         Apartment::Tenant.drop(name) if Apartment.connection.schema_exists? name
         FileUtils.rm_rf private_directory(name) unless options[:keep_files]
-        [env].delete(name)
+        @list[env].delete(name)
         write
       end
 

@@ -59,119 +59,60 @@
 #  updater_id                               :integer
 #
 ---
-purchases_001:
-  accounted_at: 2014-11-05 13:40:18.878913000 Z
-  affair_id: 15
-  amount: 176.16
-  created_at: 2014-11-05 10:44:42.231209000 Z
+
+purchase_invoices_001:
+  accounted_at: 2017-11-21 10:20:26.576779000 Z
+  affair_id: 58
+  amount: 8694.0
+  created_at: 2017-11-21 10:20:26.322435000 Z
   creator_id: 1
   currency: EUR
   description: ''
-  id: 6
-  lock_version: 1
-  nature_id: 1
-  number: A201411000001
-  planned_at: 2012-05-12 12:00:00.000000000 Z
-  pretax_amount: 146.8
-  reference_number: ''
-  state: draft
-  supplier_id: 13
-  tax_payability: at_invoicing
-  updated_at: 2014-11-05 13:40:18.863437000 Z
-  updater_id: 1
-purchases_002:
-  accounted_at: 2014-11-05 10:46:06.149701000 Z
-  affair_id: 17
-  amount: 1850.0
-  created_at: 2014-11-05 10:46:06.121855000 Z
-  creator_id: 1
-  currency: EUR
-  description: ''
-  id: 7
+  id: 20
+  invoiced_at: 2017-11-20 23:00:00.000000000 Z
+  journal_entry_id: 258
   lock_version: 0
-  nature_id: 3
-  number: A201411000002
-  planned_at: 2002-07-04 15:25:00.000000000 Z
-  pretax_amount: 1850.0
+  nature_id: 1
+  number: A201711000003
+  payment_at: 2017-11-20 23:00:00.000000000 Z
+  payment_delay: ''
+  planned_at: 2017-11-21 10:20:26.322435000 Z
+  pretax_amount: 7245.0
+  reconciliation_state: to_reconcile
   reference_number: ''
-  state: draft
+  state: invoice
   supplier_id: 4
   tax_payability: at_invoicing
-  updated_at: 2014-11-05 10:46:06.135573000 Z
+  type: PurchaseInvoice
+  updated_at: 2017-11-21 10:20:26.348960000 Z
   updater_id: 1
-purchases_003:
-  accounted_at: 2014-11-07 15:58:47.255968000 Z
-  affair_id: 26
-  amount: 1848.0
-  confirmed_at: 2014-11-07 15:58:44.515180000 Z
-  created_at: 2014-11-07 15:58:10.810682000 Z
+purchase_invoices_002:
+  accounted_at: 2017-11-21 10:21:30.528536000 Z
+  affair_id: 59
+  amount: 378.0
+  created_at: 2017-11-21 10:21:30.372342000 Z
   creator_id: 1
   currency: EUR
   description: ''
-  id: 8
-  invoiced_at: 2012-10-11 22:00:00.000000000 Z
-  journal_entry_id: 26
-  lock_version: 5
+  id: 21
+  invoiced_at: 2017-11-20 23:00:00.000000000 Z
+  journal_entry_id: 260
+  lock_version: 0
   nature_id: 1
-  number: A201411000003
-  planned_at: 2012-10-11 22:00:00.000000000 Z
-  pretax_amount: 1540.0
+  number: A201711000004
+  payment_at: 2017-12-20 23:00:00.000000000 Z
+  payment_delay: 30 days
+  planned_at: 2017-11-21 10:21:30.372342000 Z
+  pretax_amount: 378.0
+  reconciliation_state: to_reconcile
   reference_number: ''
   state: invoice
-  supplier_id: 13
+  supplier_id: 8
   tax_payability: at_invoicing
-  updated_at: 2014-11-07 15:58:47.167810000 Z
+  type: PurchaseInvoice
+  updated_at: 2017-11-21 10:21:30.395831000 Z
   updater_id: 1
-purchases_004:
-  accounted_at: 2014-11-07 16:52:57.689609000 Z
-  affair_id: 30
-  amount: 20520.0
-  confirmed_at: 2014-11-07 16:52:55.330479000 Z
-  created_at: 2014-11-07 16:52:05.036650000 Z
-  creator_id: 1
-  currency: EUR
-  delivery_address_id: 9
-  description: ''
-  id: 11
-  invoiced_at: 2008-03-05 09:00:00.000000000 Z
-  journal_entry_id: 28
-  lock_version: 6
-  nature_id: 1
-  number: A201411000004
-  planned_at: 2008-03-05 09:00:00.000000000 Z
-  pretax_amount: 17100.0
-  reference_number: ''
-  state: invoice
-  supplier_id: 13
-  tax_payability: at_invoicing
-  updated_at: 2014-11-07 16:52:57.564797000 Z
-  updater_id: 1
-purchases_005:
-  accounted_at: 2015-03-19 17:19:00.028424000 Z
-  affair_id: 31
-  amount: 1848.0
-  confirmed_at: 2015-03-19 17:18:58.078840000 Z
-  created_at: 2015-03-19 17:18:41.939729000 Z
-  creator_id: 1
-  currency: USD
-  delivery_address_id: 9
-  description: ''
-  id: 12
-  invoiced_at: 2014-03-15 17:17:00.000000000 Z
-  journal_entry_id: 29
-  lock_version: 4
-  nature_id: 3
-  number: A201503000001
-  planned_at: 2014-03-19 17:17:00.000000000 Z
-  pretax_amount: 1540.0
-  reference_number: ''
-  responsible_id: 1
-  state: invoice
-  supplier_id: 5
-  tax_payability: at_invoicing
-  updated_at: 2015-03-19 17:18:58.189234000 Z
-  updater_id: 1
-purchases_006:
+purchase_invoices_003:
   accounted_at: 2016-07-01 20:22:55.393414000 Z
   affair_id: 42
   amount: 17329.62
@@ -188,14 +129,16 @@ purchases_006:
   number: A201607000001
   planned_at: 2016-07-01 20:22:00.000000000 Z
   pretax_amount: 15754.2
+  reconciliation_state: to_reconcile
   reference_number: '1255482478'
   responsible_id: 1
   state: invoice
   supplier_id: 8
   tax_payability: at_invoicing
+  type: PurchaseInvoice
   updated_at: 2016-07-01 20:22:54.211014000 Z
   updater_id: 1
-purchases_007:
+purchase_invoices_004:
   accounted_at: 2016-11-20 22:14:42.439738000 Z
   affair_id: 49
   amount: 717.12
@@ -214,15 +157,17 @@ purchases_007:
   payment_delay: 300 days
   planned_at: 2016-11-20 22:13:00.000000000 Z
   pretax_amount: 597.6
+  reconciliation_state: to_reconcile
   quantity_gap_on_invoice_journal_entry_id: 103
   reference_number: ''
   responsible_id: 1
   state: invoice
   supplier_id: 5
   tax_payability: at_invoicing
+  type: PurchaseInvoice
   updated_at: 2016-11-20 22:14:42.346687000 Z
   updater_id: 1
-purchases_008:
+purchase_invoices_005:
   accounted_at: 2016-11-20 22:15:24.435646000 Z
   affair_id: 51
   amount: 1200.0
@@ -241,15 +186,17 @@ purchases_008:
   payment_delay: ''
   planned_at: 2016-11-20 22:15:00.000000000 Z
   pretax_amount: 1000.0
+  reconciliation_state: to_reconcile
   quantity_gap_on_invoice_journal_entry_id: 106
   reference_number: ''
   responsible_id: 1
   state: invoice
   supplier_id: 4
   tax_payability: at_invoicing
+  type: PurchaseInvoice
   updated_at: 2016-11-20 22:15:24.353307000 Z
   updater_id: 1
-purchases_009:
+purchase_invoices_006:
   accounted_at: 2016-12-20 18:16:13.294397000 Z
   affair_id: 53
   amount: 4878.72
@@ -268,14 +215,16 @@ purchases_009:
   payment_delay: ''
   planned_at: 2016-12-20 18:15:00.000000000 Z
   pretax_amount: 4435.2
+  reconciliation_state: to_reconcile
   reference_number: ''
   responsible_id: 1
   state: invoice
   supplier_id: 5
   tax_payability: at_invoicing
+  type: PurchaseInvoice
   updated_at: 2016-12-20 18:16:13.187112000 Z
   updater_id: 1
-purchases_010:
+purchase_invoices_007:
   accounted_at: 2016-12-20 18:17:05.131532000 Z
   affair_id: 54
   amount: 489.75
@@ -294,10 +243,184 @@ purchases_010:
   payment_delay: ''
   planned_at: 2016-12-20 18:16:00.000000000 Z
   pretax_amount: 445.23
+  reconciliation_state: to_reconcile
   reference_number: ''
   responsible_id: 1
   state: invoice
   supplier_id: 4
   tax_payability: at_invoicing
+  type: PurchaseInvoice
   updated_at: 2016-12-20 18:17:05.049190000 Z
+  updater_id: 1
+purchase_orders_001:
+  amount: 13007.84
+  command_mode: mail
+  created_at: 2017-11-21 10:13:42.780543000 Z
+  creator_id: 1
+  currency: EUR
+  description: ''
+  estimate_reception_date: 2017-11-02 23:00:00.000000000 Z
+  id: 18
+  lock_version: 0
+  nature_id: 1
+  number: A201711000001
+  ordered_at: 2017-11-20 23:00:00.000000000 Z
+  payment_at: 2017-11-21 10:13:42.780543000 Z
+  planned_at: 2017-11-21 10:13:42.780543000 Z
+  pretax_amount: 11874.4
+  reconciliation_state: to_reconcile
+  reference_number: C0000047
+  responsible_id: 1
+  state: estimate
+  supplier_id: 13
+  tax_payability: at_invoicing
+  type: PurchaseOrder
+  updated_at: 2017-11-21 10:13:42.812450000 Z
+  updater_id: 1
+purchase_orders_002:
+  amount: 97000.0
+  command_mode: sms
+  created_at: 2017-11-21 10:19:19.979003000 Z
+  creator_id: 1
+  currency: EUR
+  description: ''
+  estimate_reception_date: 2017-11-01 23:00:00.000000000 Z
+  id: 19
+  lock_version: 0
+  nature_id: 1
+  number: A201711000002
+  ordered_at: 2017-11-20 23:00:00.000000000 Z
+  payment_at: 2017-11-21 10:19:19.979003000 Z
+  planned_at: 2017-11-21 10:19:19.979003000 Z
+  pretax_amount: 97000.0
+  reconciliation_state: to_reconcile
+  reference_number: ''
+  responsible_id: 1
+  state: estimate
+  supplier_id: 13
+  tax_payability: at_invoicing
+  type: PurchaseOrder
+  updated_at: 2017-11-21 10:19:20.001027000 Z
+  updater_id: 1
+purchase_orders_003:
+  accounted_at: 2014-11-05 13:40:18.878913000 Z
+  affair_id: 15
+  amount: 176.16
+  created_at: 2014-11-05 10:44:42.231209000 Z
+  creator_id: 1
+  currency: EUR
+  description: ''
+  id: 6
+  lock_version: 1
+  nature_id: 1
+  number: A201411000001
+  planned_at: 2012-05-12 12:00:00.000000000 Z
+  pretax_amount: 146.8
+  reconciliation_state: to_reconcile
+  reference_number: ''
+  state: estimate
+  supplier_id: 13
+  tax_payability: at_invoicing
+  type: PurchaseOrder
+  updated_at: 2014-11-05 13:40:18.863437000 Z
+  updater_id: 1
+purchase_orders_004:
+  accounted_at: 2014-11-05 10:46:06.149701000 Z
+  affair_id: 17
+  amount: 1850.0
+  created_at: 2014-11-05 10:46:06.121855000 Z
+  creator_id: 1
+  currency: EUR
+  description: ''
+  id: 7
+  lock_version: 0
+  nature_id: 3
+  number: A201411000002
+  planned_at: 2002-07-04 15:25:00.000000000 Z
+  pretax_amount: 1850.0
+  reconciliation_state: to_reconcile
+  reference_number: ''
+  state: estimate
+  supplier_id: 4
+  tax_payability: at_invoicing
+  type: PurchaseOrder
+  updated_at: 2014-11-05 10:46:06.135573000 Z
+  updater_id: 1
+purchase_orders_005:
+  accounted_at: 2014-11-07 15:58:47.255968000 Z
+  affair_id: 26
+  amount: 1848.0
+  confirmed_at: 2014-11-07 15:58:44.515180000 Z
+  created_at: 2014-11-07 15:58:10.810682000 Z
+  creator_id: 1
+  currency: EUR
+  description: ''
+  id: 8
+  invoiced_at: 2012-10-11 22:00:00.000000000 Z
+  journal_entry_id: 26
+  lock_version: 5
+  nature_id: 1
+  number: A201411000003
+  planned_at: 2012-10-11 22:00:00.000000000 Z
+  pretax_amount: 1540.0
+  reconciliation_state: to_reconcile
+  reference_number: ''
+  state: estimate
+  supplier_id: 13
+  tax_payability: at_invoicing
+  type: PurchaseOrder
+  updated_at: 2014-11-07 15:58:47.167810000 Z
+  updater_id: 1
+purchase_orders_006:
+  accounted_at: 2014-11-07 16:52:57.689609000 Z
+  affair_id: 30
+  amount: 20520.0
+  confirmed_at: 2014-11-07 16:52:55.330479000 Z
+  created_at: 2014-11-07 16:52:05.036650000 Z
+  creator_id: 1
+  currency: EUR
+  delivery_address_id: 9
+  description: ''
+  id: 11
+  invoiced_at: 2008-03-05 09:00:00.000000000 Z
+  journal_entry_id: 28
+  lock_version: 6
+  nature_id: 1
+  number: A201411000004
+  planned_at: 2008-03-05 09:00:00.000000000 Z
+  pretax_amount: 17100.0
+  reconciliation_state: to_reconcile
+  reference_number: ''
+  state: estimate
+  supplier_id: 13
+  tax_payability: at_invoicing
+  type: PurchaseOrder
+  updated_at: 2014-11-07 16:52:57.564797000 Z
+  updater_id: 1
+purchase_orders_007:
+  accounted_at: 2015-03-19 17:19:00.028424000 Z
+  affair_id: 31
+  amount: 1848.0
+  confirmed_at: 2015-03-19 17:18:58.078840000 Z
+  created_at: 2015-03-19 17:18:41.939729000 Z
+  creator_id: 1
+  currency: USD
+  delivery_address_id: 9
+  description: ''
+  id: 12
+  invoiced_at: 2014-03-15 17:17:00.000000000 Z
+  journal_entry_id: 29
+  lock_version: 4
+  nature_id: 3
+  number: A201503000001
+  planned_at: 2014-03-19 17:17:00.000000000 Z
+  pretax_amount: 1540.0
+  reconciliation_state: to_reconcile
+  reference_number: ''
+  responsible_id: 1
+  state: estimate
+  supplier_id: 5
+  tax_payability: at_invoicing
+  type: PurchaseOrder
+  updated_at: 2015-03-19 17:18:58.189234000 Z
   updater_id: 1

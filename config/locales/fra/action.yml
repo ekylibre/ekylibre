@@ -583,47 +583,47 @@ fra:
       new: "Nouveau type d’achat"
       show: "Type d’achat\_: %{name}"
     backend/purchase_orders:
-      # close: "Close order: %{name}"
+      # close: "Close order: %{number}"
       edit: "Modifier la commande\_: %{number}"
       index: "Commandes"
       new: "Nouvelle commande"
-      # open: "Open order: %{name}"
-      # reconciliate_modal: "Reconciliate modal order: %{name}"
+      # open: "Open order: %{number}"
+      # reconciliate_modal: "Reconciliate modal order: %{number}"
       show: "Commande\_: %{number} au fournisseur %{supplier}"
     backend/purchase_payments:
       edit: "Modifier le décaissement\_: %{number}"
       index: "Décaissements"
       new: "Nouveau décaissement"
       show: "Décaissement n°%{number} pour %{payee}"
-    backend/purchases:
-      abort: "Annuler l’achat"
-      confirm: "Confimer l’achat et attendre les arrivages"
-      correct: "Corriger l’achat"
-      edit: "Modifier l’achat\_: %{number}"
+    backend/purchases: #?
+      abort: "Annuler l’achat" #?
+      confirm: "Confimer l’achat et attendre les arrivages" #?
+      correct: "Corriger l’achat" #?
+      edit: "Modifier l’achat\_: %{number}" #?
       finish: "Finir l’achat" #?
-      index: "Achats"
-      invoice: "Réception de la facture"
-      new: "Nouvel achat"
-      payment_mode: "Selection du mode de paiement"
-      propose: "Commande soumise au fournisseur"
-      propose_and_invoice: "Facturer directement"
-      refuse: "Commande refusée"
-      show: "Achat\_: %{number} au fournisseur %{supplier}"
+      index: "Achats" #?
+      invoice: "Réception de la facture" #?
+      new: "Nouvel achat" #?
+      payment_mode: "Selection du mode de paiement" #?
+      propose: "Commande soumise au fournisseur" #?
+      propose_and_invoice: "Facturer directement" #?
+      refuse: "Commande refusée" #?
+      show: "Achat\_: %{number} au fournisseur %{supplier}" #?
     backend/quick_purchases:
       new: "Nouvel Achat/Décaissement"
     backend/quick_sales:
       new: "Nouvelle Vente/Encaissement"
     backend/receptions:
-      cancel: "Annuler réception: %{number}"
-      check: "Vérifier réception: %{number}"
+      cancel: "Annuler réception: %{number}" #?
+      check: "Vérifier réception: %{number}" #?
       edit: "Modifier réception: %{number}"
       give: "Give reception: %{number}"
       index: "Réceptions"
-      invoice: "Invoice reception: %{number}"
+      invoice: "Invoice reception: %{number}" #?
       new: "Nouvelle réception"
-      order: "Order reception: %{number}"
-      prepare: "Prepare reception: %{number}"
-      ship: "Expédier la réception"
+      order: "Order reception: %{number}" #?
+      prepare: "Prepare reception: %{number}" #?
+      ship: "Expédier la réception" #?
       show: "Réception: %{number}"
     backend/registrations:
       edit: "Modifier inscription"
@@ -688,7 +688,7 @@ fra:
       edit: "Modifier l'expédition: %{number}"
       give: "Give shipment: %{number}"
       index: "Expéditions"
-      invoice: "Invoice shipment: %{number}"
+      invoice: "Invoice shipment: %{number}" #?
       new: "Nouvelle expédition"
       order: "Order shipment: %{number}"
       prepare: "Préparation de l'expédition: %{number}"
@@ -2750,7 +2750,7 @@ fra:
       no_unconfirmed_stock_transfers: "Aucun transfert de stocks non-confirmé" #?
       no_unvalidated_operations: "Aucun travail à réaliser" #?
       password_successfully_changed: "Votre mot de passe a été mis à jour avec succès" #?
-      # previouos_financial_year_is_not_closed: "The previous financial year hasn't been closed."
+      previouos_financial_year_is_not_closed: "L’exercice précédent n’a pas été clôturé."
       previous_financial_year_is_not_closed: "L'exercice précédent n'a pas encore été clôturé." #?
       prices_import_succeeded: "Vos données ont été correctement importées" #?
       print_failure: "Impossible d’imprimer. Essayer de recharger les modèles de documents pour corriger le problème. %{error} (%{class})." #?

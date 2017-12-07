@@ -304,17 +304,17 @@ sequences_017:
   created_at: 2014-11-01 16:25:18.981743000 Z
   creator_id: 1
   id: 17
-  last_cweek: 51
-  last_month: 12
-  last_number: 6
-  last_year: 2016
-  lock_version: 9
+  last_cweek: 47
+  last_month: 11
+  last_number: 4
+  last_year: 2017
+  lock_version: 13
   name: Décaissement
   number_format: D[year|4][number|4]
   number_increment: 1
   number_start: 1
   period: year
-  updated_at: 2016-12-20 18:17:18.696066000 Z
+  updated_at: 2017-11-21 10:20:54.368614000 Z
   updater_id: 1
   usage: outgoing_payments
 sequences_018:
@@ -334,17 +334,17 @@ sequences_019:
   created_at: 2014-11-01 16:25:19.021542000 Z
   creator_id: 1
   id: 19
-  last_cweek: 51
-  last_month: 12
-  last_number: 5
-  last_year: 2016
-  lock_version: 10
+  last_cweek: 47
+  last_month: 11
+  last_number: 4
+  last_year: 2017
+  lock_version: 14
   name: Achat
   number_format: A[year|4][month|2][number|6]
   number_increment: 1
   number_start: 1
   period: year
-  updated_at: 2016-12-20 18:16:56.939492000 Z
+  updated_at: 2017-11-21 10:21:30.393798000 Z
   updater_id: 1
   usage: purchases
 sequences_020:
@@ -458,17 +458,17 @@ sequences_027:
   created_at: 2015-09-17 13:24:45.008381000 Z
   creator_id: 1
   id: 27
-  last_cweek: 32
-  last_month: 8
-  last_number: 6
-  last_year: 2016
-  lock_version: 6
+  last_cweek: 47
+  last_month: 11
+  last_number: 10
+  last_year: 2017
+  lock_version: 10
   name: Colis
   number_format: P[number|12]
   number_increment: 1
   number_start: 1
   period: number
-  updated_at: 2016-08-10 14:27:46.124881000 Z
+  updated_at: 2017-11-21 10:12:00.785931000 Z
   updater_id: 1
   usage: parcels
 sequences_028:
@@ -520,17 +520,17 @@ sequences_031:
   created_at: 2016-10-26 15:31:44.096695000 Z
   creator_id: 1
   id: 31
-  last_cweek: 43
-  last_month: 10
-  last_number: 2
-  last_year: 2016
-  lock_version: 2
+  last_cweek: 47
+  last_month: 11
+  last_number: 3
+  last_year: 2017
+  lock_version: 3
   name: Liste de paiement sortant
   number_format: OPL[number|12]
   number_increment: 1
   number_start: 1
   period: number
-  updated_at: 2016-10-26 15:31:44.102806000 Z
+  updated_at: 2017-11-21 10:20:54.357847000 Z
   updater_id: 1
   usage: outgoing_payment_lists
 sequences_032:
