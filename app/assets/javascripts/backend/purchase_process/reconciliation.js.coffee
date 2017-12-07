@@ -267,13 +267,20 @@
 
     _fillPurchaseOrderItem: (lastLineForm, checkboxLine, itemId, itemQuantity, itemConditionning, itemConditionningQuantity) ->
       variantId = $(checkboxLine).find('.variant').attr('data-id')
+      variantType = $(checkboxLine).attr('data-variant-type')
 
       $(lastLineForm).find('.purchase-item-attribute').val(itemId)
 
       $(lastLineForm).find('.item-block.merchandise .parcel-item-variant').first().selector('value', variantId)
       $(lastLineForm).find('.hidden.purchase-item-attribute').val(itemId)
-      $(lastLineForm).find('.nested-fields.storing-fields:first .storing-quantifier .storing-quantity').val(itemQuantity)
-      $(lastLineForm).find('.nested-fields.storing-fields:first .conditionning-quantity').val(itemConditionningQuantity)
-      $(lastLineForm).find('.nested-fields.storing-fields:first .conditionning').val(itemConditionning)
+
+      if variantType == "service" || variantType == "cost"
+        $(lastLineForm).find('.item-quantifier-population .total-quantity').val(itemQuantity)
+        $(lastLineForm).find('.buttons button[data-validate="item-form"]').removeAttr('disabled')
+      else
+        $(lastLineForm).find('.nested-fields.storing-fields:first .storing-quantifier .storing-quantity').val(itemQuantity)
+        $(lastLineForm).find('.nested-fields.storing-fields:first .conditionning-quantity').val(itemConditionningQuantity)
+        $(lastLineForm).find('.nested-fields.storing-fields:first .conditionning').val(itemConditionning)
+
 
 ) ekylibre, jQuery
