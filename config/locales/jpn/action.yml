@@ -244,7 +244,7 @@ jpn:
       show: "総勘定元帳"
     backend/georeadings:
       # edit: "Edit georeading: %{name}"
-      # index: "Georeadings"
+      index: "ジオラダイ"
       new: "新georeading"
       # show: "Georeading: %{name}"
     backend/guide_analyses:
@@ -329,7 +329,7 @@ jpn:
       new: "新しいエントリ項目" #?
       # show: "Journal entry item: %{name}"
     backend/journals:
-      # bookkeep: "Bookkeep"
+      bookkeep: "簿記"
       # close: "Close journal: %{name}"
       # edit: "Edit journal: %{name}"
       index: "ジャーナル"
@@ -432,7 +432,7 @@ jpn:
       # show: "Payslip: %{number}"
     backend/plant_countings:
       # edit: "Edit plant counting: #%{number}"
-      # index: "Countings"
+      index: "カウント"
       new: "新しいカウント"
       # show: "Plant counting #%{number}"
     backend/plants:
@@ -563,7 +563,7 @@ jpn:
       # show: "Subscription %{number}"
     backend/supervisions:
       # edit: "Edit supervision: %{name}"
-      # index: "Supervisions"
+      index: "監督"
       new: "新監督"
       # show: "Supervision: %{name}"
     backend/synchronizations:
@@ -599,7 +599,7 @@ jpn:
       # show: "Team: %{name}"
     backend/trackings:
       # edit: "Edit tracking: %{name}"
-      # index: "Trackings"
+      index: "トラッキング"
       new: "新しいトラッキング"
       # show: "Tracking: %{name}"
     backend/trial_balances:
@@ -916,7 +916,7 @@ jpn:
     beta: "ベータ版の機能"
     beta_description: "この機能は現在開発中であり、そのようなその結果が額面で取られるべきではありません。"
     body: "メッセージの本文"
-    # bookkeep: "Bookkeep"
+    bookkeep: "簿記"
     bookkeep_with_payment: "支払いとBookkeep"
     budget: "予算"
     budget_per_working_indicator: "作業指示あたりの予算"
@@ -1000,7 +1000,7 @@ jpn:
     costs_map: "コストマップ" #?
     costs_per_hectare: "ヘクタールあたりの費用"
     # could_not_attach_x_or_y_to_affair: "Could not attach %{trade} or %{payment} to affair."
-    # countings: "Countings"
+    countings: "カウント"
     counts: "カウンツ"
     counts_by_nature: "タイプごとに考慮するドキュメントの数"
     create: "創造する"
@@ -1300,7 +1300,7 @@ jpn:
     last_purchases: "最終購入"
     last_sales: "最終販売"
     letter: "文字"
-    # letterable: "Letterable"
+    letterable: "手紙"
     lettered: "文字入り"
     lettering_state: "レターティング状態"
     liabilities: "負債"
@@ -1493,7 +1493,7 @@ jpn:
     places: "場所"
     plant: "工場"
     plant_counting: "集計"
-    # plant_countings: "Countings"
+    plant_countings: "カウント"
     plantation_density: "プランテーション密度"
     plants: "植物"
     please_wait: "お待ちください…"
@@ -1688,7 +1688,7 @@ jpn:
     tasks: "タスク"
     tax_declarations: "税務申告"
     tax_label: "税ラベル"
-    # taxations: "Taxations"
+    taxations: "課税"
     taxes: "税金"
     taxes_and_wages: "税と賃金"
     third_is_unbalanced: "第三にはアンバランスです。 （バランス - サプライヤーの口座残高）"
@@ -1782,7 +1782,7 @@ jpn:
     unknown_condition: "未知の状態"
     unknown_user: "不明なユーザー"
     unknown_variant: "未知のバリアント"
-    # unlettered: "Unlettered"
+    unlettered: "未発売"
     unlock: "アンロック"
     unmark: "マーク解除します"
     unmarketable_inspection_categories_evolution: "売れ検査カテゴリ進化"
@@ -2020,11 +2020,15 @@ jpn:
       closed_financial_periods: "固定資産の期間は、閉鎖された財務期間にわたって行われます。"
       closed_financial_year_exchange: "会計年度の交換が正常にクローズされました"
       closed_financial_years: "会計年度は正常にクローズされました"
+      closure_process_started: "閉鎖プロセスが開始されました。"
       columns_are_already_uses: "一つまたは多くの列が何度も選択されています"
       # could_not_attach_x_or_y_to_affair: "Could not attach %{x} or %{y} to affair"
       dashboard_is_being_developed: "ダッシュボードは重い開発中です"
       density_is_not_computable_in_counting: "この計数のための密度を計算することができませんでした。欠損値は、カウントのプロパティまたは種まきの指標で完了する必要があります。"
+      depreciation_failed: "資産は、減価償却することができませんでした。"
+      depreciation_successful: "資産が正常に減価償却されています。"
       document_in_preparation: "あなたの文書が準備中です。準備が整ったら通知が送られます"
+      draft_journal_entries_are_present: "下書きエントリが存在します。"
       draft_journal_entries_have_been_validated:
         one: "1つのエントリが検証されています"
         # other: "%{count} entries have been validated"
@@ -2037,6 +2041,10 @@ jpn:
       error_during_file_generation: "ファイルの生成中にエラーが発生しました"
       # fails_to_extract_listing: "The listing can't be made: %{message}"
       file_generated: "ファイルが正常に生成されました"
+      financial_year_already_closed: "会計年度はすでに終了しています。"
+      financial_year_is_not_past: "会計年度はまだ経過していません。"
+      # financial_year_x_could_not_be_closed: "Financial Year  %{name} could not be closed."
+      # financial_year_x_successfully_closed: "Financial Year %{name} successfully closed !"
       financial_years_missing: "最初に登録されたので、あなたはすべて不足している会計年度作成する必要があります。"
       # financial_years_missing_tax_declarations: "You must create every declarations for the following financial years: %{codes}"
       implemented_with_dummy_data: "ダミーデータを用いて実装"
@@ -2079,6 +2087,7 @@ jpn:
       no_purchases_given: "いいえ購入は与えられていません"
       no_reopenable_journal: "あなたはこの雑誌を再度開くことができません。"
       no_replacements_since_beginning: "初めから無置換ません"
+      previouos_financial_year_is_not_closed: "前会計年度は終了していません。"
       purchases_invalid_for_sepa: "SEPA転送（無効支払モードまたは間違った通貨または欠落している受取人のIBANや銀行口座保有者名）のために無効に選択購入"
       record_already_imported: "レコードがすでにインポート"
       record_cannot_be_removed: "レコードを削除することはできません"
@@ -2103,6 +2112,7 @@ jpn:
       the_sales_invoice_is_not_cancellable: "売上請求書は解約ではありません"
       this_service_is_not_activated: "このサービスは、活性化されていません"
       # unavailable_resource: "Nonexistent %{type} #%{id}"
+      unbalanced_journal_entries_are_present_in_year: "一部の不均衡な仕訳入力は、会計年度に存在します。"
       # unexpected_resource_type: "Unexpected resource type: %{type}"
       update_is_done: "更新がなされています"
       x_fixed_asset_depreciations_have_been_bookkept_successfully:
@@ -2144,7 +2154,7 @@ jpn:
       abort: "アボート"
       about: "約"
       attach: "アタッチ"
-      # bookkeep: "Bookkeep"
+      bookkeep: "簿記"
       cancel: "キャンセル"
       category: "カテゴリ" #?
       check: "チェック"
@@ -2189,7 +2199,7 @@ jpn:
       mark: "マーク"
       merge: "マージ"
       move: "移動" #?
-      # negociate: "Negociate"
+      negociate: "ネゴシエート"
       new: "新しい"
       new_purchase: "新規購入"
       new_sale: "新発売"
@@ -2235,7 +2245,7 @@ jpn:
       unlock: "アンロック"
       unmark: "マーク解除します"
       unroll: "拡げます"
-      # unvalidateds: "Unvalidateds"
+      unvalidateds: "未検証"
       up: "アップ"
       update: "更新"
       update_password: "パスワードを更新します" #?

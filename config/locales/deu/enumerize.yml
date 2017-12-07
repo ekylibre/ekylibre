@@ -4,7 +4,7 @@ deu:
       nature:
         auxiliary: "Hilfs"
         # main: "Main"
-        # standalone: "Standalone"
+        standalone: "Eigenständige"
       production_campaign:
         at_cycle_end: "Am Zyklusende"
         at_cycle_start: "Bei Zyklusbeginn"
@@ -45,7 +45,7 @@ deu:
         sensor_error: "Sensorfehler"
     analysis_item:
       indicator_datatype:
-        # boolean: "Boolean"
+        boolean: "Boolescher"
         choice: "Wahl"
         decimal: "Dezimal"
         geometry: "Geometrie"
@@ -66,7 +66,7 @@ deu:
         slaughter: "Schlachten"
       filiation_status:
         certified: "Bescheinigt"
-        # uncertified: "Uncertified"
+        uncertified: "Nicht zertifiziert"
         unknown: "Unbekannt"
     call_message:
       nature:
@@ -184,7 +184,7 @@ deu:
     guide:
       frequency:
         daily: "Täglich"
-        # decadely: "Decadely"
+        decadely: "Dekadisch"
         hourly: "Stündlich"
         monthly: "Monatlich"
         none: "Keiner"
@@ -192,7 +192,7 @@ deu:
         yearly: "Jährlich"
     guide_analysis:
       acceptance_status:
-        # errored: "Errored"
+        errored: "Fehler"
         failed: "Gescheitert"
         passed: "Bestanden"
         passed_with_warnings: "Mit Warnungen bestanden"
@@ -203,14 +203,14 @@ deu:
         passed_with_warnings: "Mit Warnungen bestanden" #?
     guide_analysis_point:
       acceptance_status:
-        # errored: "Errored"
+        errored: "Fehler"
         failed: "Gescheitert"
         passed: "Bestanden"
         passed_with_warnings: "Mit Warnungen bestanden"
     import:
       state:
         aborted: "Abgebrochen"
-        # errored: "Errored"
+        errored: "Fehler"
         finished: "Fertig"
         in_progress: "In Bearbeitung"
         undone: "Unerledigt"
@@ -227,7 +227,7 @@ deu:
         validated: "Validierte"
     intervention_parameter_reading:
       indicator_datatype:
-        # boolean: "Boolean"
+        boolean: "Boolescher"
         choice: "Wahl"
         decimal: "Dezimal"
         geometry: "Geometrie"
@@ -262,7 +262,7 @@ deu:
     listing_node:
       nature:
         belongs_to: "Gehört"
-        # boolean: "Boolean"
+        boolean: "Boolescher"
         column: "Spalte"
         custom: "Brauch"
         datetime: "Terminzeit"
@@ -323,7 +323,7 @@ deu:
     preference:
       nature:
         accounting_system: "Abrechnungssystem"
-        # boolean: "Boolean"
+        boolean: "Boolescher"
         country: "Land"
         currency: "Währung"
         decimal: "Dezimal"
@@ -419,7 +419,7 @@ deu:
         sale: "Verkauf"
     product_nature_variant_reading:
       indicator_datatype:
-        # boolean: "Boolean"
+        boolean: "Boolescher"
         choice: "Wahl"
         decimal: "Dezimal"
         geometry: "Geometrie"
@@ -435,7 +435,7 @@ deu:
         unknown: "Unbekannt"
     product_reading:
       indicator_datatype:
-        # boolean: "Boolean"
+        boolean: "Boolescher"
         choice: "Wahl"
         decimal: "Dezimal"
         geometry: "Geometrie"
@@ -450,7 +450,7 @@ deu:
         at_paying: "Zu zahlen"
     purchase_nature:
       nature:
-        # payslip: "Payslip"
+        payslip: "Lohnzettel"
         purchase: "Kauf"
     sale_item: #?
       compute_from: #?
@@ -478,7 +478,7 @@ deu:
         deliveries: "Lieferungen"
         deposits: "Einlagen"
         documents: "Unterlagen"
-        # entities: "Thirds"
+        entities: "Drittel"
         fixed_assets: "Anlagevermögen"
         gaps: "Lücken"
         incoming_payments: "Eingehende Zahlungen"
@@ -488,7 +488,7 @@ deu:
         opportunities: "Chancen"
         outgoing_payment_lists: "Abgehende Zahlungslisten"
         outgoing_payments: "Auszahlungen"
-        # parcels: "Parcels"
+        parcels: "Pakete"
         plant_countings: "Pflanzenzählungen"
         plants: "Pflanzen"
         product_nature_categories: "Produkt Natur Kategorien"
@@ -515,7 +515,7 @@ deu:
         get_urls: "Erhalten Sie Urls"
       state:
         aborted: "Abgebrochen"
-        # errored: "Errored"
+        errored: "Fehler"
         finished: "Fertig"
         in_progress: "In Bearbeitung"
         undone: "Unerledigt"
