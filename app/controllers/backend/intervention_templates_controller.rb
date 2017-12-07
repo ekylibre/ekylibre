@@ -14,6 +14,8 @@ module Backend
       options = {}
       %i[procedure_name].each { |p| options[p] = params[p]}
       @intervention_template = InterventionTemplate.new(options)
+      @procedure = options[:procedure_name]
+      @no_menu = true
       render(locals: { with_continue: true })
     end
 
@@ -28,7 +30,7 @@ module Backend
     private
 
     def permitted_params
-      params.require(:intervention_template).permit(:name, :active, :description)
+      params.require(:intervention_template).permit(:name, :active, :description, product_parameters_attributes: [:id, :product, :quantity, :_destroy])
     end
   end
 end

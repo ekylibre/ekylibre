@@ -30,4 +30,8 @@
 #  updated_at  :datetime         not null
 #
 class InterventionTemplate < ActiveRecord::Base
+  validates :name, :active, :procedure_name, presence: true
+  has_many :product_parameters, class_name: 'InterventionTemplate::ProductParameter', foreign_key: :intervention_template_id, dependent: :destroy
+
+  accepts_nested_attributes_for :product_parameters, allow_destroy: true
 end

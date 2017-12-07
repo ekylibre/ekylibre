@@ -3758,6 +3758,40 @@ ALTER SEQUENCE intervention_participations_id_seq OWNED BY intervention_particip
 
 
 --
+-- Name: intervention_template_product_parameters; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE intervention_template_product_parameters (
+    id integer NOT NULL,
+    intervention_template_id integer,
+    product_id integer,
+    quantity integer,
+    type character varying,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: intervention_template_product_parameters_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE intervention_template_product_parameters_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: intervention_template_product_parameters_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE intervention_template_product_parameters_id_seq OWNED BY intervention_template_product_parameters.id;
+
+
+--
 -- Name: intervention_templates; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -7513,6 +7547,13 @@ ALTER TABLE ONLY intervention_participations ALTER COLUMN id SET DEFAULT nextval
 
 
 --
+-- Name: intervention_template_product_parameters id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY intervention_template_product_parameters ALTER COLUMN id SET DEFAULT nextval('intervention_template_product_parameters_id_seq'::regclass);
+
+
+--
 -- Name: intervention_templates id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -8639,6 +8680,14 @@ ALTER TABLE ONLY intervention_parameters
 
 ALTER TABLE ONLY intervention_participations
     ADD CONSTRAINT intervention_participations_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: intervention_template_product_parameters intervention_template_product_parameters_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY intervention_template_product_parameters
+    ADD CONSTRAINT intervention_template_product_parameters_pkey PRIMARY KEY (id);
 
 
 --
@@ -12666,6 +12715,13 @@ CREATE INDEX index_intervention_participations_on_updated_at ON intervention_par
 --
 
 CREATE INDEX index_intervention_participations_on_updater_id ON intervention_participations USING btree (updater_id);
+
+
+--
+-- Name: index_intervention_template_product_parameters_on_product_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_intervention_template_product_parameters_on_product_id ON intervention_template_product_parameters USING btree (product_id);
 
 
 --
@@ -17219,6 +17275,13 @@ CREATE INDEX index_versions_on_item_type_and_item_id ON versions USING btree (it
 
 
 --
+-- Name: intervention_template_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX intervention_template_id ON intervention_template_product_parameters USING btree (intervention_template_id);
+
+
+--
 -- Name: unique_schema_migrations; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -17340,6 +17403,14 @@ ALTER TABLE ONLY payslips
 
 
 --
+-- Name: intervention_template_product_parameters fk_rails_1200af1489; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY intervention_template_product_parameters
+    ADD CONSTRAINT fk_rails_1200af1489 FOREIGN KEY (product_id) REFERENCES products(id);
+
+
+--
 -- Name: outgoing_payments fk_rails_15244a5c09; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -17417,6 +17488,14 @@ ALTER TABLE ONLY payslip_natures
 
 ALTER TABLE ONLY parcel_items
     ADD CONSTRAINT fk_rails_7010820bb4 FOREIGN KEY (purchase_order_item_id) REFERENCES purchase_items(id);
+
+
+--
+-- Name: intervention_template_product_parameters fk_rails_75bd15f71d; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY intervention_template_product_parameters
+    ADD CONSTRAINT fk_rails_75bd15f71d FOREIGN KEY (intervention_template_id) REFERENCES intervention_templates(id);
 
 
 --
@@ -18172,4 +18251,6 @@ INSERT INTO schema_migrations (version) VALUES ('20171121143329');
 INSERT INTO schema_migrations (version) VALUES ('20171123134516');
 
 INSERT INTO schema_migrations (version) VALUES ('20171204075626');
+
+INSERT INTO schema_migrations (version) VALUES ('20171207134203');
 
