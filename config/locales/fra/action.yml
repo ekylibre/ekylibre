@@ -1528,6 +1528,7 @@ fra:
     invoice_status: "État de facturation"
     invoiced: "Facturés"
     invoiced_amount: "Montant facturé" #?
+    invoice: "Facture"
     invoices: "Factures"
     invoices_only: "Utiliser seulement les factures" #?
     is: "Est"

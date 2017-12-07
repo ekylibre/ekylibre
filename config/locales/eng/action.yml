@@ -1494,6 +1494,7 @@ eng:
     invoice_period: "Invoice period"
     invoice_status: "Invoice status"
     invoiced: "Invoiced"
+    invoice: "Invoice" #?
     invoices: "Invoices" #?
     is: "Is" #?
     issue: "Issue"

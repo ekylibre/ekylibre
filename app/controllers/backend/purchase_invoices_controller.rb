@@ -73,6 +73,7 @@ module Backend
     list(:items, model: :purchase_items, order: { id: :asc }, conditions: { purchase_id: 'params[:id]'.c }) do |t|
       t.column :variant, url: true
       t.column :annotation
+      t.column :first_reception_number, label: :reception, url: { controller: '/backend/receptions', id: 'RECORD.first_reception_id'.c }
       t.column :quantity
       t.column :unit_pretax_amount, currency: true
       t.column :unit_amount, currency: true, hidden: true
@@ -153,6 +154,15 @@ module Backend
 
     def update
       @purchase_invoice = find_and_check
+
+      if permitted_params[:items_attributes].present?
+        permitted_params[:items_attributes].each do |_key, item_attribute|
+          ids = item_attribute[:parcels_purchase_invoice_items]
+          parcel_item_ids = ids.blank? ? [] : JSON.parse(ids)
+          item_attribute[:parcels_purchase_invoice_items] = ParcelItem.find(parcel_item_ids)
+        end
+      end
+
       if @purchase_invoice.update_attributes(permitted_params)
         redirect_to action: :show
       else
