@@ -31,6 +31,7 @@
 #  equipment_id                  :integer
 #  id                            :integer          not null, primary key
 #  lock_version                  :integer          default(0), not null
+#  merge_stock                   :boolean          default(TRUE)
 #  non_compliant                 :boolean
 #  non_compliant_detail          :string
 #  parcel_id                     :integer          not null
@@ -53,6 +54,7 @@
 #  source_product_id             :integer
 #  source_product_movement_id    :integer
 #  transporter_id                :integer
+#  type                          :string
 #  unit_pretax_amount            :decimal(19, 4)   default(0.0), not null
 #  unit_pretax_stock_amount      :decimal(19, 4)   default(0.0), not null
 #  updated_at                    :datetime         not null
@@ -89,7 +91,7 @@ class ParcelItem < Ekylibre::Record::Base
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :currency, :non_compliant_detail, :product_identification_number, :product_name, :product_work_number, :role, length: { maximum: 500 }, allow_blank: true
-  validates :non_compliant, inclusion: { in: [true, false] }, allow_blank: true
+  validates :merge_stock, :non_compliant, inclusion: { in: [true, false] }, allow_blank: true
   validates :parted, inclusion: { in: [true, false] }
   validates :population, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }, allow_blank: true
   validates :pretax_amount, :unit_pretax_amount, :unit_pretax_stock_amount, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
@@ -175,6 +177,18 @@ class ParcelItem < Ekylibre::Record::Base
 
   def name
     Maybe(source_product || variant || products).name.or_else(nil)
+  end
+
+  def purchase_order_number
+    return nil if purchase_order_item.nil?
+
+    purchase_order_item.purchase.number
+  end
+
+  def purchase_invoice_number
+    return nil if purchase_invoice_item.nil?
+
+    purchase_invoice_item.purchase.number
   end
 
   protected

@@ -157,6 +157,7 @@
 #     - "backend/purchase_invoices#list_receptions"
 #     - "backend/purchase_process/reconciliation#purchase_orders_to_reconciliate"
 #     - "backend/purchase_process/reconciliation#receptions_to_reconciliate"
+#     - "backend/receptions#list_storings"
 #     - "backend/sales#list_shipments"
 #     - "backend/sensors#last_locations"
 #     - "backend/settlements#list_reception_items"
@@ -1136,7 +1137,7 @@ incoming_deliveries:
     - "backend/parcels#unroll" #?
     - "backend/receptions#index"
     - "backend/receptions#list"
-    - "backend/receptions#list_items"
+    - "backend/receptions#list_items" #?
     - "backend/receptions#show"
     - "backend/receptions#unroll"
   write:

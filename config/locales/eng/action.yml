@@ -1810,6 +1810,7 @@ eng:
     reception_incident: "Reception incident"
     reception_items: "Reception items"
     reception_number: "Reception number"
+    # reception_number_with_reference: "Reception number with reference"
     receptions: "Receptions"
     reconcile: "Reconcile"
     reconciliate_with_purchases_orders: "Reconciliate with purchases orders"
