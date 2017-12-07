@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :sale_affair do
     association :client, factory: %i[entity client]
     sequence(:number) { |n| "AS0#{n}" }

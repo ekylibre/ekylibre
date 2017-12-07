@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :width_grading_scale, class: ActivityInspectionCalibrationScale do
     size_unit_name 'centimeter'
     size_indicator_name :width

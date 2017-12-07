@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :tax_declaration do
     # needs financial_year
     sequence(:number) { |n| "TD00#{n}" }
