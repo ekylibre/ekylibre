@@ -1,3 +1,17 @@
-# Place all the behaviors and hooks related to the matching controller here.
-# All this logic will automatically be available in application.js.
-# You can use CoffeeScript in this file: http://coffeescript.org/
+((E, $) ->
+  'use strict'
+
+  $(document).ready ->
+    element = document.getElementById("new_intervention")
+    if element != null
+      template = JSON.parse(element.dataset.template)
+
+      interventionTemplateNew = new Vue {
+        el: '#new_intervention_template',
+        data:
+          template: template
+    }
+
+
+
+) ekylibre, jQuery

@@ -4,7 +4,7 @@ class CreateInterventionTemplates < ActiveRecord::Migration
       t.string :name
       t.boolean :active, default: true
       t.string :description
-
+      t.string :procedure_name
       t.timestamps null: false
     end
   end

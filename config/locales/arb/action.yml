@@ -169,6 +169,7 @@ arb:
       humans: "لوحة الموارد البشرية"
       index: "لوحات"
       new: "لوحة تحكم جديدة"
+      # planning: "Planning"
       production: "لوحة أجهزة القياس إنتاج"
       # purchases: "Purchases dashboard"
       relationship: "لوحة أجهزة القياس العلاقة"
@@ -354,6 +355,8 @@ arb:
     backend/intervention_participations:
       # convert: "Convert intervention participation: %{name}"
       index: "المساهمات تدخل"
+    backend/intervention_templates:
+      # index: "Intervention model"
     backend/interventions:
       edit: "تحرير"
       edit_request: "طلب تحرير"
@@ -1062,6 +1065,7 @@ arb:
     add_inspection_point_nature: "إضافة نقطة تفتيش الطبيعة"
     add_intervention_record: "اضافة التسجيلة تدخل"
     add_intervention_request: "إضافة طلب تدخل"
+    # add_intervention_template: "Add intervention template"
     add_item: "إضافة البند"
     add_labelling: "إضافة تسمية"
     add_line: "إضافة خط"
@@ -2008,6 +2012,7 @@ arb:
     placeholder: "نائب"
     places: "الأماكن"
     planned_at: "قرر يوم" #?
+    # planning: "Planning"
     plant: "نبات"
     plant_counting: "عد"
     plant_countings: "فرزان"

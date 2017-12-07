@@ -203,6 +203,7 @@ eng:
       humans: "Human resources dashboard"
       index: "Dashboards"
       new: "New dashboard"
+      planning: "Planning"
       production: "Production dashboard"
       purchases: "Purchases dashboard"
       relationship: "Relationship dashboard"
@@ -214,7 +215,6 @@ eng:
       stocks: "Stocks dashboard"
       tools: "Tools dashboard"
       trade: "Trade dashboard" #?
-      planning: Planning
     backend/deliveries:
       # cancel: "Cancel delivery: %{name}"
       # check: "Check delivery: %{name}"
@@ -394,7 +394,9 @@ eng:
       index: "Intervention participations"
       # participations_modal: "Participations modal intervention participation: %{name}"
     backend/intervention_templates:
-      index: Intervention model
+      index: "Intervention model" #?
+      # new: "New intervention template"
+      # select_type: "Select type intervention template: %{name}"
     backend/interventions/costs:
       # parameter_cost: "Parameter cost cost: %{name}"
     backend/interventions:
@@ -1693,6 +1695,7 @@ eng:
     no_right_defined_for_this_part_of_the_application: "No right defined for this part of the application (%{controller}#%{action})"
     no_right_defined_for_this_part_of_the_application_and_this_user: "No right defined for this part of the application and this user"
     # no_worker_account: "No worker account"
+    # nomenclature: "Nomenclature"
     nominal_storable_easement_area: "Nominal storable easement area"
     non_compliant: "Non compliant"
     non_compliant_with_request: "Non compliant with request" #?!
@@ -1770,12 +1773,12 @@ eng:
     picture: "Picture" #?
     placeholder: "Placeholder" #?
     places: "Places"
+    planning: "Planning"
     plant: "Crop" #?
     plant_counting: "Counting" #?
     plant_countings: "Countings" #?
     plantation_density: "Plantation density" #?
     plants: "Crops" #?
-    planning: "Planning"
     please_wait: "Please wait…"
     point: "Point" #?
     points: "Points"
@@ -1840,6 +1843,7 @@ eng:
     reception_incident: "Reception incident"
     reception_items: "Reception items"
     reception_number: "Reception number"
+    # reception_number_with_reference: "Reception number with reference"
     receptions: "Receptions"
     reconcile: "Reconcile"
     reconciliate_with_purchases_orders: "Reconciliate with purchases orders"
@@ -2577,6 +2581,7 @@ eng:
       # scrap: "Scrap"
       search: "Search" #?
       select: "Select"
+      # select_type: "Select type"
       sell: "Turn into sale"
       # set_interval_preference: "Set interval preference"
       ship: "Ship"

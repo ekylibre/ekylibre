@@ -1,1 +1,5 @@
-Test
+= content_tag(:div, id: :new_intervention, data: { template: @intervention_template }) do
+  = field_set do
+    = f.input :name, input_html: { 'v-model': 'template.name' }
+    = f.input :active, input_html: { 'v-model': 'template.active' }
+    = f.input :description, type: :text, input_html: { 'v-model': 'template.description' }

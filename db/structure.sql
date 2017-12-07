@@ -3766,6 +3766,7 @@ CREATE TABLE intervention_templates (
     name character varying,
     active boolean DEFAULT true,
     description character varying,
+    procedure_name character varying,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
 );

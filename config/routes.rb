@@ -602,7 +602,7 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :intervention_templates do
+    resources :intervention_templates, concerns: :list do
       collection do
         get :select_type
       end

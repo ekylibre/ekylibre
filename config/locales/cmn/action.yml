@@ -149,6 +149,7 @@ cmn:
       humans: "人力资源仪表板"
       index: "仪表板"
       new: "新的仪表板"
+      # planning: "Planning"
       production: "生产仪表板"
       # purchases: "Purchases dashboard"
       relationship: "仪表板的关系"
@@ -294,6 +295,8 @@ cmn:
     backend/intervention_participations:
       # convert: "Convert intervention participation: %{name}"
       index: "干预参股"
+    backend/intervention_templates:
+      # index: "Intervention model"
     backend/interventions:
       edit: "编辑"
       edit_request: "编辑请求"
@@ -802,6 +805,7 @@ cmn:
     add_inspection_point_nature: "添加检测点的性质"
     add_intervention_record: "加入干预纪录"
     add_intervention_request: "加入干预的请求"
+    # add_intervention_template: "Add intervention template"
     add_item: "新增项目"
     add_labelling: "添加标签"
     add_line: "添加行"
@@ -1490,6 +1494,7 @@ cmn:
     picture: "图片"
     placeholder: "占位符"
     places: "地方"
+    # planning: "Planning"
     plant: "厂"
     plant_counting: "数数"
     # plant_countings: "Countings"

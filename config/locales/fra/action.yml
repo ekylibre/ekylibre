@@ -162,6 +162,7 @@ fra:
       humans: "Tableau de bord des ressources humaines"
       index: "Tableaux de bord"
       new: "Nouveau tableau de bord"
+      planning: "Planification"
       production: "Tableau de bord de la production"
       purchases: "Tableau de bord des achats"
       relationship: "Tableau de bord de la gestion des relations"
@@ -173,7 +174,6 @@ fra:
       stocks: "Tableau de bord des stocks"
       tools: "Tableau de bord des outils"
       trade: "Tableau de bord des achats et ventes"
-      planning: Planification
     backend/deliveries:
       edit: "Modifier la livraison %{number}"
       index: "Livraisons"
@@ -337,8 +337,9 @@ fra:
       convert: "Convert intervention participation: %{name}"
       index: "Participations d’intervention"
     backend/intervention_templates:
-      index: Modèle d'intervention
-      select_type: Nouvelle intervention type
+      index: "Modèle d'intervention"
+      new: "Nouvelle intervention type de %{procedure_name}" #?
+      select_type: "Nouvelle intervention type" #?
     backend/interventions:
       edit: "Modifier l’intervention"
       edit_request: "Modifier la demande d’intervention"
@@ -1024,7 +1025,6 @@ fra:
     apply: "Appliquer" #?
     archived_at: "Archivé à" #?
     archives: "Archives"
-    nomenclature: Nomenclatures
     are_you_sure: "Êtes-vous sûr(e) de vouloir faire cela\_?"
     are_you_sure_you_want_to:
       abort_issue: "Êtes-vous sûr(e) de vouloir abandonner cet incident\_?"
@@ -1780,6 +1780,7 @@ fra:
     no_right_defined_for_this_part_of_the_application_and_this_user: "Aucun droit défini pour cette partie de l’application et l’utilisateur"
     no_tracking: "Aucun lot" #?
     no_transfers: "Aucun transfert à réaliser" #?
+    nomenclature: "Nomenclatures" #?
     nominal_storable_easement_area: "Surface de stockage au sol"
     non_compliant: "Non conforme"
     non_compliant_with_request: "Non conforme par rapport à l'attente"
@@ -1879,13 +1880,13 @@ fra:
     placeholder: "Espace réservé"
     places: "Lieux"
     planned_at: "Date prévisionnelle" #?
+    planning: "Planification"
     plant: "Culture"
     plant_counting: "Comptage"
     plant_countings: "Comptages"
     plant_productions: "Productions végétales" #?
     plantation_density: "Densité de plantation"
     plants: "Plantes"
-    planning: "Planification"
     please_wait: "Merci de patienter…"
     point: "Point"
     points: "Points"

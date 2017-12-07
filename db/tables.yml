@@ -3526,6 +3526,23 @@ intervention_participations:
   updater_id:
     type: integer
     references: user
+intervention_templates:
+  active:
+    type: boolean
+    default: true
+  created_at:
+    type: datetime
+    required: true
+  description:
+    type: string
+  id:
+    type: integer
+    required: true
+  name:
+    type: string
+  updated_at:
+    type: datetime
+    required: true
 intervention_working_periods:
   created_at:
     type: datetime

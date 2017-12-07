@@ -298,6 +298,7 @@ eng:
       intervention_participation: "Intervention participation"
       intervention_product_parameter: "Intervention product parameter"
       intervention_target: "Intervention target"
+      # intervention_template: "Intervention template"
       intervention_tool: "Intervention tool"
       intervention_working_period: "Intervention working period"
       inventory: "Inventory"

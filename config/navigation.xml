@@ -1027,8 +1027,8 @@
     <page to="backend/dashboards#planning"/>
     <group name="nomenclature">
       <item name="intervention_templates">
-        <page to="backend/intervention_templates#index"/>
-        <page to="backend/intervention_templates#create"/>
+        <page to="backend/intervention_templates#index" nonexistent="true"/>
+        <page to="backend/intervention_templates#create" nonexistent="true"/>
       </item>
     </group>
   </part>
@@ -2198,6 +2198,10 @@
       <item name="fungi">
         <page to="backend/fungi#list_reception_items"/>
         <page to="backend/fungi#list_shipment_items"/>
+      </item>
+      <item name="intervention_templates">
+        <page to="backend/intervention_templates#new"/>
+        <page to="backend/intervention_templates#select_type"/>
       </item>
       <item name="interventions">
         <page to="backend/interventions#purchase_order_items"/>
