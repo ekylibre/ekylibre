@@ -75,6 +75,7 @@ fra:
       incoming_payment: #?
         to_bank_at: "À encaisser le" #?
       inspection: #?
+        forecast_harvest_week: "Semaine de récolte prévisionnelle"
         points: "Points de contrôle" #?
       inspection_calibration: #?
         items_count: "Nombre de pièces" #?

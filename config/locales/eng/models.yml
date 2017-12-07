@@ -814,6 +814,7 @@ eng:
     fixed_asset_expenses_account: "Fixed asset depreciations inputations expenses account"
     fixed_assets: "Fixed assets"
     following: "Following"
+    # forecast_harvest_week: "Forecast harvest week"
     format: "Format"
     formats: "Formats"
     forward_journal: "Carrying forward journal" #?
