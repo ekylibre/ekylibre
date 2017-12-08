@@ -34,4 +34,9 @@ class InterventionTemplate < ActiveRecord::Base
   has_many :product_parameters, class_name: 'InterventionTemplate::ProductParameter', foreign_key: :intervention_template_id, dependent: :destroy
 
   accepts_nested_attributes_for :product_parameters, allow_destroy: true
+
+  # The Procedo::Procedure behind intervention
+  def procedure
+    Procedo.find(procedure_name)
+  end
 end

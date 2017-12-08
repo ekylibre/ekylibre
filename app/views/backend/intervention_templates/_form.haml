@@ -9,10 +9,16 @@
       %h4 Parametres
       .parameters{ 'v-for': '(parameter, index) in template.product_parameters_attributes' }
         = p.input :quantity, input_html: { 'v-model': 'parameter.quantity' }
+        -# voir comment marche la partie product dans interventions product_parameter_fields
+        = p.input :product, input_html: { 'v-model': 'parameter.product' }
+
         %button{ 'v-on:click': 'removeParameter(index)', type: :button }
           Remove parameter
 
     %button{ 'v-on:click': 'addParameter', type: :button }
       Add parameter
+
+    - @procedure.each_parameter do |p|
+      = p
 
   - f.clear_actions!

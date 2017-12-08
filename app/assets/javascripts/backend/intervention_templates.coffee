@@ -20,7 +20,8 @@
             template.product_parameters_attributes.push
               id: null,
               quantity: 0,
-              _destroy: null
+              product: '',
+              _destroy: null,
           removeParameter: (index) ->
             parameter = this.template.product_parameters_attributes[index]
             console.log(parameter)
