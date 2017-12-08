@@ -1,4 +1,8 @@
-= content_tag(:div, id: :new_intervention, data: { template: @intervention_template.to_json, product_parameters_attributes: @intervention_template.product_parameters.to_json }) do
+= content_tag(:div,
+id: :intervention_template_form,
+data: { template: @intervention_template.to_json,
+  product_parameters_attributes: @intervention_template.product_parameters.to_json,
+  procedure_names: @procedure.parameter_names.to_json }) do
   = field_set do
     = f.input :name, input_html: { 'v-model': 'template.name' }
     = f.input :active, input_html: { 'v-model': 'template.active' }
@@ -6,19 +10,23 @@
 
   = field_set :product_parameters do
     = simple_fields_for f.object.product_parameters.new do |p|
-      %h4 Parametres
-      .parameters{ 'v-for': '(parameter, index) in template.product_parameters_attributes' }
-        = p.input :quantity, input_html: { 'v-model': 'parameter.quantity' }
-        -# voir comment marche la partie product dans interventions product_parameter_fields
-        = p.input :product, input_html: { 'v-model': 'parameter.product' }
-
-        %button{ 'v-on:click': 'removeParameter(index)', type: :button }
-          Remove parameter
-
-    %button{ 'v-on:click': 'addParameter', type: :button }
-      Add parameter
-
-    - @procedure.each_parameter do |p|
-      = p
+      .list_of_procedures{ 'v-for': 'procedure in procedure_names' }
+        {{ procedure }}
+        %button{ 'v-on:click': 'addParameter(procedure)', type: :button }
+          Add parameter
+        .parameters{ 'v-for': '(parameter, index) in attributesForProcedure(procedure)' }
+          = p.input :quantity, input_html: { 'v-model': 'parameter.quantity' }
+          -# voir comment marche la partie product dans interventions product_parameter_fields
+          .selector
+            = p.input :product, input_html: { 'v-model': 'parameter.product_name', 'v-on:click.stop': 'completeDropdown(index)', class: 'selector-search' }
+            .items-menu.choices-selector{ 'v-if': 'parameter.showList' }
+              %ul.items-list
+                %li.item{ 'v-on:click.stop': "updateProduct(index, '', '')" }
+                %li.item{ 'v-for': 'prod in parameter.productList', 'v-on:click.stop': 'updateProduct(index, prod.id, prod.name)' }
+                  {{ prod.name }}
+            -# %option { 'v-for': 'prod in parameter.productList', 'v-bind:value': 'prod.id' }
+          .remove
+            %button{ 'v-on:click': 'removeParameter(index)', type: :button }
+              Remove parameter
 
   - f.clear_actions!

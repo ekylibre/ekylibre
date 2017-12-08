@@ -12,7 +12,7 @@ module Backend
     def new
       # Set options from params for the new
       options = {}
-      %i[procedure_name].each { |p| options[p] = params[p]}
+      %i[procedure_name].each { |p| options[p] = params[p] }
       @intervention_template = InterventionTemplate.new(options)
       @procedure = @intervention_template.procedure
       @no_menu = true
@@ -23,6 +23,13 @@ module Backend
       @intervention_template = InterventionTemplate.new(permitted_params)
       if @intervention_template.save
         redirect_to(backend_intervention_templates_path)
+      end
+    end
+
+    def unroll
+      products = Product.last(20)
+      respond_to do |format|
+        format.json { render json: { products: products }}
       end
     end
 
