@@ -549,11 +549,9 @@ class Intervention < Ekylibre::Record::Base
   def area_cost_coefficient
     zone_area = working_zone_area(:hectare).to_f.round(2)
     global_area = activity_production_zone_area(:hectare).to_f.round(2)
-    
+    coef = 1.0
     # build coef for area's
-    if zone_area == global_area
-      coef = 1.0
-    elsif global_area > 0.0
+    if zone_area && global_area && global_area > 0.0
       coef = zone_area / global_area
     end
     return coef
