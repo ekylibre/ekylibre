@@ -1,6 +1,7 @@
-class AddContinuousNumberToJournalEntries < ActiveRecord::Migration
+class AddContinuousNumberAndValidatedAtToJournalEntries < ActiveRecord::Migration
   def change
     add_column :journal_entries, :continuous_number, :integer
+    add_column :journal_entries, :validated_at, :datetime
     reversible do |d|
       d.up do
         execute <<-SQL
