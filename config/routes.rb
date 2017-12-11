@@ -605,7 +605,6 @@ Rails.application.routes.draw do
     resources :intervention_templates, concerns: :list do
       collection do
         get :select_type
-        get :unroll
       end
     end
 

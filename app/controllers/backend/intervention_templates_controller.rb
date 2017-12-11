@@ -21,23 +21,26 @@ module Backend
 
     def create
       @intervention_template = InterventionTemplate.new(permitted_params)
-      if @intervention_template.save
-        redirect_to(backend_intervention_templates_path)
-      end
-    end
-
-    def unroll
-      products = Product.last(20)
       respond_to do |format|
-        format.json { render json: { products: products }}
+        if @intervention_template.save
+          format.json { render json: @intervention_template, status: :created }
+        else
+          format.json { render json: @intervention_template.errors, status: :unprocessable_intervention_template }
+        end
       end
     end
-
 
     private
 
     def permitted_params
-      params.require(:intervention_template).permit(:name, :active, :description, product_parameters_attributes: [:id, :product, :quantity, :_destroy])
+      params.require(:intervention_template).permit(:name,
+                                                    :active,
+                                                    :description,
+                                                    :procedure_name,
+                                                    product_parameters_attributes: [:id,
+                                                                                    :product_id,
+                                                                                    :quantity,
+                                                                                    :_destroy])
     end
   end
 end

@@ -10,7 +10,6 @@
       product_parameters_attributes = JSON.parse(element.dataset.productParametersAttributes)
       product_parameters_attributes.forEach -> (product_parameter) product_parameter._destroy = null
       procedure_names = JSON.parse(element.dataset.procedureNames)
-
       template.product_parameters_attributes = product_parameters_attributes
 
       interventionTemplateNew = new Vue {
@@ -37,19 +36,22 @@
               this.template.product_parameters_attributes.splice(index, 1)
             else
               this.template.product_parameters_attributes[index]._destroy = 1
-          completeDropdown: (index) ->
-            that = this
+          completeDropdown: (index, procedure) ->
+            product_parameter = this.attributesForProcedure(procedure)[index]
             $.ajax
-              url: '/backend/intervention_templates/unroll'
+              url: '/backend/products/unroll'
               dataType: 'json'
+              data:
+                keep: true
+                scope: product_parameter.procedure.expression,
+                q: product_parameter.product_name
               success: (data) =>
-                product_parameter = that.template.product_parameters_attributes[index]
-                product_parameter.productList = data.products
+                product_parameter.productList = data
                 product_parameter.showList = true
               error: ->
                 console.log('error')
-          updateProduct: (index, id, name) ->
-            product_parameter = this.template.product_parameters_attributes[index]
+          updateProduct: (index, procedure, id, name) ->
+            product_parameter = this.attributesForProcedure(procedure)[index]
             product_parameter.product_id = id
             product_parameter.product_name = name
             product_parameter.showList = false
@@ -62,42 +64,18 @@
             this.template.product_parameters_attributes.forEach (p) ->
               p.showList = false
           attributesForProcedure: (procedure) ->
-            test = this.template.product_parameters_attributes.find (o) => o.procedure == procedure
-            console.log(test)
-      }
+            # List all the attributes for a particular procedure
+            this.template.product_parameters_attributes.filter (p) -> p.procedure == procedure
+          saveTemplate: ->
+            this.$http.post('/backend/intervention_templates', { intervention_template: this.template }).then ((response) =>
+              console.log(response)
+              debugger
+              Turbolinks.visit('/backend/intervention_templates/'  + response.body.id)
+            ), (response) =>
+              console.log(response)
+        }
 
       document.body.addEventListener "click", (e) ->
         interventionTemplateNew.closeAllModal()
 
 ) ekylibre, jQuery
-
-
-
-  # _openMenu: (search) ->
-  #   # console.log "openMenu"
-  #   data = {}
-  #   if search?
-  #     data.q = search
-  #   if @element.data("selector-new-item")
-  #     data.insert = 1
-  #   if @element.data("with")
-  #     $(@element.data("with")).each ->
-  #       paramName = $(this).data("parameter-name") || $(this).attr("name") || $(this).attr("id")
-  #       if paramName?
-  #         data[paramName] = $(this).val() || $.trim($(this).html())
-  #   menu = @dropDownMenu
-  #   url = this.sourceURL()
-  #   console.log(url)
-  #   $.ajax
-  #     url: url
-  #     dataType: "html"
-  #     data: data
-  #     success: (data, status, request) =>
-  #       menu.html data
-  #       if data.length > 0
-  #         menu.show()
-  #         @element.trigger('selector:menu-opened')
-  #       else
-  #         menu.hide()
-  #     error: (request, status, error) ->
-  #       alert "Selector failure on #{url} (#{status}): #{error}"
