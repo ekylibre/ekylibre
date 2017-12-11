@@ -71,7 +71,7 @@ module Backend
               methods: %i[amount_to_letter label affair_reference_numbers],
               include: {
                 responsible: {},
-                affair: { include: { purchases: {} } },
+                affair: { include: { purchase_invoices: {} } },
                 mode: {},
                 payee: {
                   include: {
