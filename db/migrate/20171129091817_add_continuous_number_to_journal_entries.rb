@@ -4,13 +4,11 @@ class AddContinuousNumberToJournalEntries < ActiveRecord::Migration
     reversible do |d|
       d.up do
         execute <<-SQL
-          CREATE SEQUENCE journal_entries_continuous_number;
-
           CREATE FUNCTION compute_journal_entry_continuous_number() RETURNS TRIGGER
             LANGUAGE plpgsql
             AS $$
             BEGIN
-              NEW.continuous_number := NEXTVAL('journal_entries_continuous_number');
+              NEW.continuous_number := (SELECT (COALESCE(MAX(continuous_number),0)+1) FROM journal_entries);
               RETURN NEW;
             END
             $$;
