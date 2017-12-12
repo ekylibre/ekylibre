@@ -19,7 +19,14 @@ data: { template: @intervention_template.to_json,
               = p.input :quantity, input_html: { 'v-model': 'parameter.quantity' }
               -# voir comment marche la partie product dans interventions product_parameter_fields
               .selector
-                = p.input :product, input_html: { 'v-model': 'parameter.product_name',
+                = p.input :product_nature, wrapper_html: { 'v-if': 'isEquipment(procedure)' },
+                  input_html: { 'v-model': 'parameter.product_name',
+                  'v-on:click.stop': 'completeDropdown(index, procedure)',
+                  '@keyup': 'completeDropdown(index, procedure)',
+                  class: 'selector-search' }
+                = p.input :product_nature_variant, wrapper_html: { 'v-if': '!isEquipment(procedure)' },
+                  input_html: { 'v-if': '!isEquipment(procedure)',
+                  'v-model': 'parameter.product_name',
                   'v-on:click.stop': 'completeDropdown(index, procedure)',
                   '@keyup': 'completeDropdown(index, procedure)',
                   class: 'selector-search' }
@@ -34,7 +41,7 @@ data: { template: @intervention_template.to_json,
                 %button{ 'v-on:click': 'removeParameter(index)', type: :button }
                   Remove parameter
         .links
-          %a.nested-add.add_fields{ href: '#', 'v-on:click': 'addParameter(procedure)' }
+          %a.nested-add.add_fields{ href: '#', '@click.stop': 'addParameter(procedure)' }
             Add {{ procedure.name }}
   %button{ 'v-on:click.prevent': 'saveTemplate' }
     Test

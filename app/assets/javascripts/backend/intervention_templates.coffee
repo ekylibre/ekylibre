@@ -19,27 +19,30 @@
           procedure_names: procedure_names
         methods:
           addParameter: (procedure) ->
-            console.log(procedure)
             template.product_parameters_attributes.push
               id: null,
               quantity: 0,
-              product_id: '',
               product_name: '',
               _destroy: null,
               productList: [],
               showList: false,
               procedure: procedure
+              product_nature_id: ''
+              product_nature_variant_id: ''
           removeParameter: (index) ->
             parameter = this.template.product_parameters_attributes[index]
-            console.log(parameter)
             if(parameter.id == null)
               this.template.product_parameters_attributes.splice(index, 1)
             else
               this.template.product_parameters_attributes[index]._destroy = 1
           completeDropdown: (index, procedure) ->
             product_parameter = this.attributesForProcedure(procedure)[index]
+            if this.isEquipment(procedure)
+              url = '/backend/product_natures/unroll'
+            else
+              url = '/backend/product_nature_variants/unroll'
             $.ajax
-              url: '/backend/products/unroll'
+              url: url
               dataType: 'json'
               data:
                 keep: true
@@ -52,9 +55,12 @@
                 console.log('error')
           updateProduct: (index, procedure, id, name) ->
             product_parameter = this.attributesForProcedure(procedure)[index]
-            product_parameter.product_id = id
             product_parameter.product_name = name
             product_parameter.showList = false
+            if this.isEquipment(procedure)
+              product_parameter.product_nature_id = id
+            else
+              product_parameter.product_nature_variant_id = id
           closeChoice: (index) ->
             product_parameter = this.template.product_parameters_attributes[index]
             console.log(product_parameter.showList)
@@ -66,10 +72,10 @@
           attributesForProcedure: (procedure) ->
             # List all the attributes for a particular procedure
             this.template.product_parameters_attributes.filter (p) -> p.procedure == procedure
+          isEquipment: (procedure) ->
+            ['tractor', 'driver', 'spreader', 'trailed_equipment'].includes(procedure.type)
           saveTemplate: ->
             this.$http.post('/backend/intervention_templates', { intervention_template: this.template }).then ((response) =>
-              console.log(response)
-              debugger
               Turbolinks.visit('/backend/intervention_templates/'  + response.body.id)
             ), (response) =>
               console.log(response)

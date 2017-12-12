@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 9.6.3
--- Dumped by pg_dump version 9.6.3
+-- Dumped from database version 9.6.6
+-- Dumped by pg_dump version 9.6.6
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -3764,7 +3764,8 @@ ALTER SEQUENCE intervention_participations_id_seq OWNED BY intervention_particip
 CREATE TABLE intervention_template_product_parameters (
     id integer NOT NULL,
     intervention_template_id integer,
-    product_id integer,
+    product_nature_id integer,
+    product_nature_variant_id integer,
     quantity integer,
     type character varying,
     created_at timestamp without time zone NOT NULL,
@@ -12718,13 +12719,6 @@ CREATE INDEX index_intervention_participations_on_updater_id ON intervention_par
 
 
 --
--- Name: index_intervention_template_product_parameters_on_product_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_intervention_template_product_parameters_on_product_id ON intervention_template_product_parameters USING btree (product_id);
-
-
---
 -- Name: index_intervention_working_periods_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -17282,6 +17276,20 @@ CREATE INDEX intervention_template_id ON intervention_template_product_parameter
 
 
 --
+-- Name: product_nature_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX product_nature_id ON intervention_template_product_parameters USING btree (product_nature_id);
+
+
+--
+-- Name: product_nature_variant_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX product_nature_variant_id ON intervention_template_product_parameters USING btree (product_nature_variant_id);
+
+
+--
 -- Name: unique_schema_migrations; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -17403,19 +17411,19 @@ ALTER TABLE ONLY payslips
 
 
 --
--- Name: intervention_template_product_parameters fk_rails_1200af1489; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY intervention_template_product_parameters
-    ADD CONSTRAINT fk_rails_1200af1489 FOREIGN KEY (product_id) REFERENCES products(id);
-
-
---
 -- Name: outgoing_payments fk_rails_15244a5c09; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY outgoing_payments
     ADD CONSTRAINT fk_rails_15244a5c09 FOREIGN KEY (mode_id) REFERENCES outgoing_payment_modes(id) ON DELETE RESTRICT;
+
+
+--
+-- Name: intervention_template_product_parameters fk_rails_18932007aa; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY intervention_template_product_parameters
+    ADD CONSTRAINT fk_rails_18932007aa FOREIGN KEY (product_nature_id) REFERENCES product_natures(id);
 
 
 --
@@ -17472,6 +17480,14 @@ ALTER TABLE ONLY tax_declaration_item_parts
 
 ALTER TABLE ONLY products
     ADD CONSTRAINT fk_rails_5e587cedec FOREIGN KEY (activity_production_id) REFERENCES activity_productions(id);
+
+
+--
+-- Name: intervention_template_product_parameters fk_rails_65829c9376; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY intervention_template_product_parameters
+    ADD CONSTRAINT fk_rails_65829c9376 FOREIGN KEY (product_nature_variant_id) REFERENCES product_nature_variants(id);
 
 
 --
@@ -18209,20 +18225,6 @@ INSERT INTO schema_migrations (version) VALUES ('20170818134454');
 INSERT INTO schema_migrations (version) VALUES ('20170831071726');
 
 INSERT INTO schema_migrations (version) VALUES ('20170831180835');
-
-INSERT INTO schema_migrations (version) VALUES ('20170906075927');
-
-INSERT INTO schema_migrations (version) VALUES ('20170912093930');
-
-INSERT INTO schema_migrations (version) VALUES ('20170918093216');
-
-INSERT INTO schema_migrations (version) VALUES ('20170928144444');
-
-INSERT INTO schema_migrations (version) VALUES ('20170929141343');
-
-INSERT INTO schema_migrations (version) VALUES ('20171003135227');
-
-INSERT INTO schema_migrations (version) VALUES ('20171003150635');
 
 INSERT INTO schema_migrations (version) VALUES ('20171010075206');
 

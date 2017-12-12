@@ -21,6 +21,7 @@ module Backend
 
     def create
       @intervention_template = InterventionTemplate.new(permitted_params)
+      binding.pry
       respond_to do |format|
         if @intervention_template.save
           format.json { render json: @intervention_template, status: :created }
@@ -38,7 +39,8 @@ module Backend
                                                     :description,
                                                     :procedure_name,
                                                     product_parameters_attributes: [:id,
-                                                                                    :product_id,
+                                                                                    :product_nature_id,
+                                                                                    :product_nature_variant_id,
                                                                                     :quantity,
                                                                                     :_destroy])
     end
