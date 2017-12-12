@@ -1,6 +1,7 @@
 class AddContinuousNumberAndValidatedAtToJournalEntries < ActiveRecord::Migration
   def change
     add_column :journal_entries, :continuous_number, :integer
+    add_index :journal_entries, :continuous_number, unique: true
     add_column :journal_entries, :validated_at, :datetime
     reversible do |d|
       d.up do
@@ -29,7 +30,6 @@ class AddContinuousNumberAndValidatedAtToJournalEntries < ActiveRecord::Migratio
       end
       d.down do
         execute <<-SQL
-          DROP SEQUENCE journal_entries_continuous_number;
           DROP TRIGGER compute_journal_entries_continuous_number_on_update ON journal_entries;
           DROP TRIGGER compute_journal_entries_continuous_number_on_insert ON journal_entries;
           DROP FUNCTION compute_journal_entry_continuous_number();

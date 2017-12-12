@@ -57,6 +57,7 @@ module Backend
       else
         count = journal_entries.count
         JournalEntry.transaction do
+          ActiveRecord::Base.connection.execute('LOCK journal_entries IN ACCESS EXCLUSIVE MODE')
           journal_entries.update_all(state: :confirmed, validated_at: Time.zone.now)
           JournalEntryItem.where(entry_id: journal_entries).update_all(state: :confirmed)
         end
