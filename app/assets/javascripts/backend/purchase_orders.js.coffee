@@ -17,6 +17,9 @@
         calculVatRate = parseFloat(parseFloat(amountExcludingTaxes) * parseFloat(vatRate) / 100).toFixed(2)
         totalVatRate += parseFloat(calculVatRate)
 
+        selectedVatValue = $(item).parent().find('.nested-item-form select.order-vat-total option:selected').val()
+        $(item).find('.vat-rate').attr('data-selected-value', selectedVatValue)
+
       $('.order-totals .total-except-tax .total-value').text(totalAmountExcludingTaxes)
       $('.order-totals .vat-total .total-value').text(totalVatRate)
       $('.order-totals .order-total .total-value').text(totalAmountIncludingTaxes)
@@ -29,6 +32,10 @@
 
     $(document).on 'keyup', '.nested-fields .form-field .purchase_order_items_quantity .order-quantity', (event) ->
       E.PurchaseOrders.fillStocksCounters(event)
+
+    $(document).on 'click', '.nested-fields .edit-item[data-edit="item-form"]', (event) ->
+      vatSelectedValue = $(event.target).closest('.nested-fields').find('.item-display .vat-rate').attr('data-selected-value')
+      $(event.target).closest('.nested-fields').find('.nested-item-form:visible .order-vat-total').val(vatSelectedValue)
 
     $(document).on 'selector:change', 'input#purchase_invoice_supplier_id', ->
       supplier_id = $(this).parent().find('.selector-value').val()

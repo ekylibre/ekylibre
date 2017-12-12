@@ -31,6 +31,7 @@
 #  equipment_id                  :integer
 #  id                            :integer          not null, primary key
 #  lock_version                  :integer          default(0), not null
+#  merge_stock                   :boolean          default(TRUE)
 #  non_compliant                 :boolean
 #  non_compliant_detail          :string
 #  parcel_id                     :integer          not null
@@ -53,6 +54,7 @@
 #  source_product_id             :integer
 #  source_product_movement_id    :integer
 #  transporter_id                :integer
+#  type                          :string
 #  unit_pretax_amount            :decimal(19, 4)   default(0.0), not null
 #  unit_pretax_stock_amount      :decimal(19, 4)   default(0.0), not null
 #  updated_at                    :datetime         not null
@@ -62,5 +64,33 @@
 require 'test_helper'
 
 class ShipmentItemTest < ActiveSupport::TestCase
-  # Add tests here...
+  test_model_actions
+
+  test "give doesn't create the dependent records if there is an exception during the process" do
+    product = create(:product)
+    shipment_item = create(:shipment_item, product: product, product_identification_number: '12345678', product_name: 'Product name')
+    ProductMovement.destroy_all
+    ProductLocalization.destroy_all
+    ProductEnjoyment.stub :create!, ->(*_args) { raise } do
+      begin
+        shipment_item.give
+      rescue
+      end
+      assert_empty ProductMovement.all
+      assert_empty ProductLocalization.all
+    end
+  end
+
+  test 'shipment_item without population give take the population of the source_product population' do
+    shipment_item = create(:shipment_item)
+    assert_equal 1, shipment_item.population
+  end
+
+  test 'shipment_item with population have the given population' do
+    nature = create(:product_nature, population_counting: :decimal)
+    variant = create(:product_nature_variant, nature: nature)
+    product = create(:product, variant: variant)
+    shipment_item = create(:shipment_item, population: 12, source_product: product)
+    assert_equal 12, shipment_item.population
+  end
 end

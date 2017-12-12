@@ -68,7 +68,7 @@ class Reception < Parcel
   belongs_to :purchase, inverse_of: :parcels
   belongs_to :intervention, class_name: 'Intervention'
   has_many :items, class_name: 'ReceptionItem', inverse_of: :reception, foreign_key: :parcel_id, dependent: :destroy
-
+  has_many :storings, through: :items, class_name: 'ParcelItemStoring'
   validates :sender, presence: true
 
   state_machine initial: :draft do
@@ -181,61 +181,5 @@ class Reception < Parcel
     items.each(&:give)
     reload
     super
-  end
-
-  class << self
-    # Convert parcels to one purchase. Assume that all parcels are checked before.
-    # Purchase is written in DB with default values
-    def convert_to_purchase(parcels)
-      purchase = nil
-      transaction do
-        parcels = parcels.collect do |d|
-          (d.is_a?(self) ? d : find(d))
-        end.sort_by(&:first_available_date)
-        third = detect_third(parcels)
-        planned_at = parcels.last.first_available_date || Time.zone.now
-        unless nature = PurchaseNature.actives.first
-          unless journal = Journal.purchases.opened_on(planned_at).first
-            raise 'No purchase journal'
-          end
-          nature = PurchaseNature.create!(
-            active: true,
-            currency: Preference[:currency],
-            with_accounting: true,
-            journal: journal,
-            by_default: true,
-            name: PurchaseNature.tc('default.name', default: PurchaseNature.model_name.human)
-          )
-        end
-        purchase = Purchase.create!(
-          supplier: third,
-          nature: nature,
-          planned_at: planned_at,
-          delivery_address: parcels.last.address
-        )
-
-        # Adds items
-        parcels.each do |parcel|
-          parcel.items.each do |item|
-            next unless item.variant.purchasable? && item.population && item.population > 0
-            catalog_item = Catalog.by_default!(:purchase).items.find_by(variant: item.variant)
-            item.purchase_item = purchase.items.create!(
-              variant: item.variant,
-              unit_pretax_amount: (item.unit_pretax_amount.nil? || item.unit_pretax_amount.zero? ? (catalog_item ? catalog_item.amount : 0.0) : item.unit_pretax_amount),
-              tax: item.variant.category.purchase_taxes.first || Tax.first,
-              quantity: item.population
-            )
-            item.save!
-          end
-          parcel.reload
-          parcel.purchase = purchase
-          parcel.save!
-        end
-
-        # Refreshes affair
-        purchase.save!
-      end
-      purchase
-    end
   end
 end

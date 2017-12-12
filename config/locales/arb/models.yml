@@ -1012,6 +1012,7 @@ arb:
       # purchase_order: "Purchase order"
       purchase_payment: "الدفعة"
       # reception: "Reception"
+      # reception_item: "Reception item"
       regularization: "تسوية"
       role: "الدور"
       sale: "البيع"
@@ -1027,6 +1028,7 @@ arb:
       sequence: "التسلسل"
       settlement: "مستوطنة"
       # shipment: "Shipment"
+      # shipment_item: "Shipment item"
       stock: "سهم الانتاج" #?
       stock_move: "حركة السهم" #?
       stock_transfer: "تحول او ضياع السهم" #?
@@ -1876,6 +1878,7 @@ arb:
     members_count: "عد الأعضاء"
     memberships: "عضوية"
     memo: "مذكرة"
+    # merge_stock: "Merge stock"
     message: "الرسالة"
     messages: "رسائل"
     metadata: "البيانات الوصفية"
@@ -1987,6 +1990,7 @@ arb:
     parameter_name: "اسم المعلمة"
     parameters: "المعلمات"
     parcel: "جزء"
+    # parcel_item_storings: "Parcel item storings"
     parcel_items: "عناصر لا يتجزأ"
     parcels: "الطرود"
     parent: "النسب"
@@ -2331,6 +2335,7 @@ arb:
     shape: "شكل"
     shift_duration: "مدة التحول"
     shift_method: "طريقة التحول"
+    # shipment_items: "Shipment items"
     # shipments: "Shipments"
     shipped: "المستلم" #?
     shipped_at: "شحنها يوم" #?

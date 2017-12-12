@@ -26,6 +26,7 @@
 #  comment                        :text
 #  created_at                     :datetime         not null
 #  creator_id                     :integer
+#  forecast_harvest_week          :integer
 #  id                             :integer          not null, primary key
 #  implanter_application_width    :decimal(19, 4)
 #  implanter_rows_number          :integer

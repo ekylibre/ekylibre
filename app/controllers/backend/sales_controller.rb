@@ -90,7 +90,7 @@ module Backend
       t.column :amount, currency: true
     end
 
-    list(:parcels, children: :items, conditions: { sale_id: 'params[:id]'.c }) do |t|
+    list(:shipments, children: :items, conditions: { sale_id: 'params[:id]'.c }) do |t|
       t.column :number, children: :product_name, url: true
       t.column :delivery_mode
       t.column :delivery
@@ -160,7 +160,7 @@ module Backend
                                      } },
                                      affair: { methods: [:balance], include: [incoming_payments: { include: :mode }] },
                                      invoice_address: { methods: [:mail_coordinate] },
-                                     items: { methods: %i[taxes_amount tax_name tax_short_label], include: [:variant, parcel_items: { include: %i[product parcel] }] } }) do |format|
+                                     items: { methods: %i[taxes_amount tax_name tax_short_label], include: [:variant, shipment_items: { include: %i[product parcel] }] } }) do |format|
         format.html do
           t3e @sale.attributes, client: @sale.client.full_name, state: @sale.state_label, label: @sale.label
         end

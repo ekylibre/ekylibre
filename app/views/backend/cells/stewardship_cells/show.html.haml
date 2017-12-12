@@ -66,9 +66,9 @@
 - if incoming_parcels.any?
   .info
     %span.title= :incoming_parcels.tl
-    %span.value= link_to(incoming_parcels.count.to_s, controller: "/backend/parcels", action: :index)
+    %span.value= link_to(incoming_parcels.count.to_s, controller: "/backend/receptions", action: :index)
 - else
   .info
     %span.title= :incoming_parcels.tl
-    %span.value= link_to(:create_or_import_incoming_parcels.tl, controller: "/backend/parcels", nature: :incoming, action: :new)
+    %span.value= link_to(:create_or_import_incoming_parcels.tl, controller: "/backend/receptions", action: :new)
 

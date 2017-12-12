@@ -194,6 +194,8 @@ class PurchaseItem < Ekylibre::Record::Base
         )
       end
     end
+
+    purchase.save! if purchase && purchase.is_a?(PurchaseInvoice)
   end
 
   def new_fixed_asset
@@ -276,10 +278,40 @@ class PurchaseItem < Ekylibre::Record::Base
 
   # know how many percentage of invoiced VAT to declare
   def payment_ratio
+    return nil unless purchase.respond_to?(:affair)
     if purchase.affair.balanced?
       1.00
     elsif purchase.affair.debit != 0.0
       (1 - (purchase.affair.balance / purchase.affair.debit)).to_f
     end
+  end
+
+  def first_reception_number
+    return nil if first_reception.nil?
+
+    return first_reception.number.concat(" (#{receptions_count})") if receptions_count > 1
+    first_reception.number if receptions_count == 1
+  end
+
+  def first_reception_id
+    return nil if first_reception.nil?
+
+    first_reception.id
+  end
+
+  private
+
+  def first_reception
+    return nil if self.parcels_purchase_invoice_items.empty? && self.parcels_purchase_orders_items.empty?
+
+    parcel_item = self.parcels_purchase_invoice_items.first if self.purchase.is_a?(PurchaseInvoice)
+    parcel_item = self.parcels_purchase_orders_items.first if self.purchase.is_a?(PurchaseOrder)
+
+    Parcel.find(parcel_item.parcel_id)
+  end
+
+  def receptions_count
+    return self.parcels_purchase_invoice_items.count if self.purchase.is_a?(PurchaseInvoice)
+    return self.parcels_purchase_orders_items.count if self.purchase.is_a?(PurchaseOrder)
   end
 end

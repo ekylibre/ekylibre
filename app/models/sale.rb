@@ -251,10 +251,10 @@ class Sale < Ekylibre::Record::Base
       label = tc(:quantity_gap_on_invoice, resource: self.class.model_name.human, number: number, entity: client.full_name)
       items.each do |item|
         next unless item.variant && item.variant.storable?
-        parcel_items_quantity = item.parcel_items.map(&:population).compact.sum
-        gap = item.quantity - parcel_items_quantity
-        next unless item.parcel_items.any? && item.parcel_items.first.unit_pretax_stock_amount
-        quantity = item.parcel_items.first.unit_pretax_stock_amount
+        shipment_items_quantity = item.shipment_items.map(&:population).compact.sum
+        gap = item.quantity - shipment_items_quantity
+        next unless item.shipment_items.any? && item.shipment_items.first.unit_pretax_stock_amount
+        quantity = item.shipment_items.first.unit_pretax_stock_amount
         gap_value = gap * quantity
         next if gap_value.zero?
         entry.add_credit(label, item.variant.stock_account_id, gap_value, resource: item, as: :stock, variant: item.variant)

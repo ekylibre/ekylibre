@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 9.6.6
--- Dumped by pg_dump version 9.6.6
+-- Dumped from database version 9.6.3
+-- Dumped by pg_dump version 9.6.3
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -3557,7 +3557,8 @@ CREATE TABLE inspections (
     implanter_application_width numeric(19,4),
     sampling_distance numeric(19,4),
     product_net_surface_area_value numeric(19,4),
-    product_net_surface_area_unit character varying
+    product_net_surface_area_unit character varying,
+    forecast_harvest_week integer
 );
 
 
@@ -4701,7 +4702,8 @@ CREATE TABLE parcel_item_storings (
     updater_id integer,
     lock_version integer DEFAULT 0 NOT NULL,
     conditionning_quantity integer,
-    conditionning integer
+    conditionning integer,
+    product_id integer
 );
 
 
@@ -4764,7 +4766,9 @@ CREATE TABLE parcel_items (
     role character varying,
     equipment_id integer,
     purchase_order_item_id integer,
-    product_work_number character varying
+    product_work_number character varying,
+    type character varying,
+    merge_stock boolean DEFAULT true
 );
 
 
@@ -13810,6 +13814,13 @@ CREATE INDEX index_parcel_item_storings_on_parcel_item_id ON parcel_item_storing
 
 
 --
+-- Name: index_parcel_item_storings_on_product_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_parcel_item_storings_on_product_id ON parcel_item_storings USING btree (product_id);
+
+
+--
 -- Name: index_parcel_item_storings_on_storage_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -17299,6 +17310,14 @@ ALTER TABLE ONLY outgoing_payments
 
 
 --
+-- Name: parcel_item_storings fk_rails_182d7ce6a7; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY parcel_item_storings
+    ADD CONSTRAINT fk_rails_182d7ce6a7 FOREIGN KEY (product_id) REFERENCES products(id);
+
+
+--
 -- Name: outgoing_payments fk_rails_1facec8a15; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -18120,4 +18139,19 @@ INSERT INTO schema_migrations (version) VALUES ('20171117105934');
 
 INSERT INTO schema_migrations (version) VALUES ('20171121143329');
 
+INSERT INTO schema_migrations (version) VALUES ('20171122160542');
+
 INSERT INTO schema_migrations (version) VALUES ('20171123134516');
+
+INSERT INTO schema_migrations (version) VALUES ('20171128100510');
+
+INSERT INTO schema_migrations (version) VALUES ('20171128155136');
+
+INSERT INTO schema_migrations (version) VALUES ('20171129081506');
+
+INSERT INTO schema_migrations (version) VALUES ('20171130093921');
+
+INSERT INTO schema_migrations (version) VALUES ('20171130144435');
+
+INSERT INTO schema_migrations (version) VALUES ('20171206145442');
+

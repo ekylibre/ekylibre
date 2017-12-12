@@ -90,7 +90,7 @@ class TaxDeclarationTest < ActiveSupport::TestCase
     vat_deductible_account = tax.deduction_account
     vat_collected_account = tax.collect_account
 
-    purchase1 = create(:purchase,
+    purchase1 = create(:purchase_invoice,
                        nature: purchase_natures(:purchase_natures_001),
                        tax_payability: 'at_invoicing')
     purchase1_item = create(:purchase_item,
@@ -119,7 +119,7 @@ class TaxDeclarationTest < ActiveSupport::TestCase
     ]
     assert purchase1_entry.save
 
-    purchase2 = create(:purchase,
+    purchase2 = create(:purchase_invoice,
                        nature: purchase_natures(:purchase_natures_001),
                        tax_payability: 'at_invoicing')
     purchase2_item = create(:purchase_item,
@@ -261,7 +261,7 @@ class TaxDeclarationTest < ActiveSupport::TestCase
     assert previous.save
     assert_equal 0, previous.global_balance
 
-    purchase1 = create(:purchase,
+    purchase1 = create(:purchase_invoice,
                        nature: purchase_natures(:purchase_natures_001),
                        tax_payability: 'at_invoicing')
     purchase1_item = create(:purchase_item,
@@ -322,7 +322,7 @@ class TaxDeclarationTest < ActiveSupport::TestCase
     bank_account = create(:account, name: 'Brank')
     vat_deductible_account = tax.deduction_account
 
-    purchase1 = create(:purchase,
+    purchase1 = create(:purchase_invoice,
                        nature: purchase_natures(:purchase_natures_001),
                        tax_payability: 'at_paying')
     purchase1_item = create(:purchase_item,
@@ -407,7 +407,7 @@ class TaxDeclarationTest < ActiveSupport::TestCase
     bank_account = create(:account, name: 'Brank')
     vat_deductible_account = tax.deduction_account
 
-    purchase1 = create(:purchase,
+    purchase1 = create(:purchase_invoice,
                        nature: purchase_natures(:purchase_natures_001),
                        tax_payability: 'at_paying')
     purchase1_item = create(:purchase_item,
@@ -570,7 +570,7 @@ class TaxDeclarationTest < ActiveSupport::TestCase
     vat_deductible_account = tax.deduction_account
     vat_collected_account = tax.collect_account
 
-    purchase1 = create(:purchase,
+    purchase1 = create(:purchase_invoice,
                        nature: purchase_natures(:purchase_natures_001),
                        tax_payability: 'at_paying')
     purchase1_item = create(:purchase_item,
@@ -784,7 +784,7 @@ class TaxDeclarationTest < ActiveSupport::TestCase
 
     purchase_affair = create(:purchase_affair, letter: 'A')
 
-    purchase1 = create(:purchase,
+    purchase1 = create(:purchase_invoice,
                        nature: purchase_natures(:purchase_natures_001),
                        affair: purchase_affair,
                        tax_payability: 'at_paying')
@@ -815,7 +815,7 @@ class TaxDeclarationTest < ActiveSupport::TestCase
     ]
     assert purchase1_entry.save
 
-    purchase2 = create(:purchase,
+    purchase2 = create(:purchase_invoice,
                        nature: purchase_natures(:purchase_natures_001),
                        affair: purchase_affair,
                        tax_payability: 'at_paying')
@@ -916,7 +916,7 @@ class TaxDeclarationTest < ActiveSupport::TestCase
     bank_account = create(:account, name: 'Brank')
     vat_deductible_account = tax.deduction_account
 
-    purchase1 = create(:purchase,
+    purchase1 = create(:purchase_invoice,
                        nature: purchase_natures(:purchase_natures_001),
                        tax_payability: 'at_paying')
     purchase1_item = create(:purchase_item,
