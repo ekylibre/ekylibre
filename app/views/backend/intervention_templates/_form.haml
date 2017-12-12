@@ -18,25 +18,25 @@ data: { template: @intervention_template.to_json,
             .parameters{ 'v-for': '(parameter, index) in attributesForProcedure(procedure)' }
               = p.input :quantity, input_html: { 'v-model': 'parameter.quantity' }
               -# voir comment marche la partie product dans interventions product_parameter_fields
-              .selector
-                = p.input :product_nature, wrapper_html: { 'v-if': 'isEquipment(procedure)' },
-                  input_html: { 'v-model': 'parameter.product_name',
-                  'v-on:click.stop': 'completeDropdown(index, procedure)',
-                  '@keyup': 'completeDropdown(index, procedure)',
-                  class: 'selector-search' }
-                = p.input :product_nature_variant, wrapper_html: { 'v-if': '!isEquipment(procedure)' },
-                  input_html: { 'v-if': '!isEquipment(procedure)',
-                  'v-model': 'parameter.product_name',
-                  'v-on:click.stop': 'completeDropdown(index, procedure)',
-                  '@keyup': 'completeDropdown(index, procedure)',
-                  class: 'selector-search' }
-                .items-menu.choices-selector{ 'v-if': 'parameter.showList' }
-                  %ul.items-list
-                    %li.item{ 'v-on:click.stop': "updateProduct(index, '', '')" }
-                    %li.item{ 'v-for': 'prod in parameter.productList',
-                    'v-on:click.stop': 'updateProduct(index, procedure, prod.id, prod.label)' }
-                      {{ prod.label }}
-                -# %option { 'v-for': 'prod in parameter.productList', 'v-bind:value': 'prod.id' }
+              -# .selector
+              = p.input :product_nature, wrapper_html: { 'v-if': 'isEquipment(procedure)' },
+                input_html: { 'v-model': 'parameter.product_name',
+                'v-on:click.stop': 'completeDropdown(index, procedure)',
+                '@keyup': 'completeDropdown(index, procedure)',
+                class: 'selector-search' }
+              = p.input :product_nature_variant, wrapper_html: { 'v-if': '!isEquipment(procedure)' },
+                input_html: { 'v-if': '!isEquipment(procedure)',
+                'v-model': 'parameter.product_name',
+                'v-on:click.stop': 'completeDropdown(index, procedure)',
+                '@keyup': 'completeDropdown(index, procedure)',
+                class: 'selector-search' }
+              .items-menu.choices-selector{ 'v-if': 'parameter.showList' }
+                %ul.items-list
+                  %li.item{ 'v-on:click.stop': "updateProduct(index, '', '')" }
+                  %li.item{ 'v-for': 'prod in parameter.productList',
+                  'v-on:click.stop': 'updateProduct(index, procedure, prod.id, prod.label)' }
+                    {{ prod.label }}
+              -# %option { 'v-for': 'prod in parameter.productList', 'v-bind:value': 'prod.id' }
               .remove
                 %button{ 'v-on:click': 'removeParameter(index)', type: :button }
                   Remove parameter
