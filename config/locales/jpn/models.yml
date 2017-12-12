@@ -32,6 +32,8 @@ jpn:
         started_on: "起動日付"
       fixed_asset_depreciation:
         asset_amount: "責任値"
+      journal_entry_item:
+        # name: "Entry item label"
       land_parcel:
         born_at: "で作成されました"
       land_parcel_group:

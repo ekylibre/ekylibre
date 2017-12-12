@@ -32,6 +32,8 @@ deu:
         started_on: "Update starten"
       fixed_asset_depreciation:
         asset_amount: "verantwortlich Wert"
+      journal_entry_item:
+        # name: "Entry item label"
       land_parcel:
         born_at: "Hergestellt in"
       land_parcel_group:

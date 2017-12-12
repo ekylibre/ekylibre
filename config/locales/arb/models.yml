@@ -249,10 +249,11 @@ arb:
         incoming_payments: "دفعات" #?
         outgoing_payment_uses: "اجزاء الدفعات" #?
         outgoing_payments: "دفعات" #?
-      journal_entry_item: #?
+      journal_entry_item:
         account: "حساب" #?
         comment: "تعليق" #?
         created_at: "انشأت ففي" #?
+        # name: "Entry item label"
         real_credit: "ائتمان" #?
       land_parcel:
         born_at: "أنشئت في"
