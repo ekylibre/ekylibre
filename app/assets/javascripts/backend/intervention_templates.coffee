@@ -22,6 +22,7 @@
             template.product_parameters_attributes.push
               id: null,
               quantity: 0,
+              unit: ''
               product_name: '',
               _destroy: null,
               productList: [],

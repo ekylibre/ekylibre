@@ -5,6 +5,7 @@ class CreateInterventionTemplateProductParameters < ActiveRecord::Migration
       t.references :product_nature, index: { name: :product_nature_id }, foreign_key: true
       t.references :product_nature_variant, index: { name: :product_nature_variant_id }, foreign_key: true
       t.integer :quantity
+      t.string :unit
       t.string :type
       t.timestamps null: false
     end

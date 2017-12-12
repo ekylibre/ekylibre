@@ -396,3 +396,21 @@ div.nested-fields {
     margin-right: 10px;
   }
 }
+
+.list_of_procedures {
+  .intervention-template-unroll {
+    margin-top: 38px;
+    li {
+    &:hover {
+      background-color: rgba(104, 142, 216, 0.2);
+    }}
+  }
+  .parameters {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    .control-group {
+      width: 30%
+    }
+  }
+}

@@ -3767,6 +3767,7 @@ CREATE TABLE intervention_template_product_parameters (
     product_nature_id integer,
     product_nature_variant_id integer,
     quantity integer,
+    unit character varying,
     type character varying,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
