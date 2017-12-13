@@ -23,7 +23,6 @@ module Backend
 
     def create
       @intervention_template = InterventionTemplate.new(permitted_params)
-      binding.pry
       respond_to do |format|
         if @intervention_template.save
           format.json { render json: @intervention_template, status: :created }

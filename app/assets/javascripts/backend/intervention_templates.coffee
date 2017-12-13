@@ -22,6 +22,7 @@
           procedure_names: procedure_names
           activitiesList: []
           productList: []
+          errors: {}
         methods:
           addParameter: (procedure) ->
             template.product_parameters_attributes.push
@@ -112,7 +113,9 @@
             this.$http.post('/backend/intervention_templates', { intervention_template: this.template }).then ((response) =>
               Turbolinks.visit('/backend/intervention_templates/'  + response.body.id)
             ), (response) =>
+              # TODO manage errors
               console.log(response)
+              this.errors = response.data.errors
           updateUnit: (procedure, index, event) ->
             product_parameter = this.attributesForProcedure(procedure)[index]
             product_parameter.unit = event.target.value

@@ -10,21 +10,25 @@ data: { template: @intervention_template.to_json,
     = f.input :description, wrapper: :bootstrap, type: :text, input_html: { 'v-model': 'template.description' }
 
     = simple_fields_for(f.object.association_activities.new) do |p|
-      = p.label :activities.tl
-      .associations{ v: { for: '(association, index) in template.association_activities_attributes' }}
-        = p.input :activity, label: false, input_html: { 'v-model': 'association.activity.label',
-        '@click': 'listOfActivities(index)',
-        '@keyup': 'listOfActivities(index)',
-        class: 'selector-search'}
-        .items-menu.choices-selector{ 'v-if': 'association.showList' }
-          %ul.items-list
-            %li.item{ 'v-for': 'activity in activitiesList', '@click.stop': 'updateAssociation(index, activity)' }
-              {{ activity.label }}
+      .associations-list.control-group
+        = p.label :activities.tl
+        .associations{ v: { for: '(association, index) in template.association_activities_attributes' }}
+          .control-group.intervention_template_activity_activity
+            .controls
+              %input.string{ 'v-model': 'association.activity.label',
+              '@click': 'listOfActivities(index)',
+              '@keyup': 'listOfActivities(index)',
+              class: 'selector-search',
+              type: :text}
+            %a{ href: '#', '@click': 'removeAssociation(index)' }
+              = :remove.tl
+          .items-menu.choices-selector.activites-list{ 'v-if': 'association.showList' }
+            %ul.items-list
+              %li.item{ 'v-for': 'activity in activitiesList', '@click.stop': 'updateAssociation(index, activity)' }
+                {{ activity.label }}
 
-        %a{ href: '#', '@click': 'removeAssociation(index)' }
-          = :remove.tl
-      %a{ href:'#', '@click': 'addAssociation' }
-        = :add.tl
+        %a{ href:'#', '@click': 'addAssociation' }
+          = :add.tl
 
   -# Parameters of the template
   = field_set :product_parameters do
