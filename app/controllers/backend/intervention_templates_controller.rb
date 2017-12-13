@@ -42,6 +42,7 @@ module Backend
                                                                                     :product_nature_id,
                                                                                     :product_nature_variant_id,
                                                                                     :quantity,
+                                                                                    :unit,
                                                                                     :_destroy])
     end
   end

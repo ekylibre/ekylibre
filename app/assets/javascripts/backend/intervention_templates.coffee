@@ -22,7 +22,7 @@
             template.product_parameters_attributes.push
               id: null,
               quantity: 0,
-              unit: ''
+              unit: 'unit'
               product_name: '',
               _destroy: null,
               productList: [],
@@ -80,6 +80,9 @@
               Turbolinks.visit('/backend/intervention_templates/'  + response.body.id)
             ), (response) =>
               console.log(response)
+          updateUnit: (procedure, index, event) ->
+            product_parameter = this.attributesForProcedure(procedure)[index]
+            product_parameter.unit = event.target.value
         }
 
       document.body.addEventListener "click", (e) ->

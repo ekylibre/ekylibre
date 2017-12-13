@@ -11,7 +11,7 @@ module Backend::InterventionTemplatesHelper
 
   def list_of_unities(param)
     if param.tool? || param.doer?
-      [:unit]
+      { human_name: :unit.tl, name: :unit }
     else
       param.handlers.map do |handler|
         unit = handler.unit? ? handler.unit : Nomen::Unit.find(:unity)
