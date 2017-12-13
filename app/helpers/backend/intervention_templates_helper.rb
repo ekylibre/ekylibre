@@ -2,10 +2,12 @@ module Backend::InterventionTemplatesHelper
 
   def procedure_parameters(procedure)
     procedure.parameters.map do |p|
-      { name: p.human_name,
-        expression: p.scope_hash,
-        type: p.name,
-        unities: list_of_unities(p) } unless p.target?
+      if p.class != Procedo::Procedure::GroupParameter && !p.target?
+        { name: p.human_name,
+          expression: p.scope_hash,
+          type: p.name,
+          unities: list_of_unities(p) }
+      end
     end.compact
   end
 

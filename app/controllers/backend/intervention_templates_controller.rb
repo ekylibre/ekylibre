@@ -15,6 +15,8 @@ module Backend
       %i[procedure_name].each { |p| options[p] = params[p] }
       @intervention_template = InterventionTemplate.new(options)
       @procedure = @intervention_template.procedure
+      # Translate the name of the procedure for the title
+      t3e(procedure_name: @procedure.human_name)
       @no_menu = true
       render(locals: { with_continue: true })
     end
@@ -43,7 +45,10 @@ module Backend
                                                                                     :product_nature_variant_id,
                                                                                     :quantity,
                                                                                     :unit,
-                                                                                    :_destroy])
+                                                                                    :_destroy],
+                                                    association_activities_attributes: [:id,
+                                                                                        :activity_id,
+                                                                                        :_destroy])
     end
   end
 end

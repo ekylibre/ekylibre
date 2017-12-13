@@ -16,6 +16,7 @@
   - prefix = namespace + reflection.to_s
 
   = f.simple_fields_for(reflection, list) do |c|
+    - binding.pry
     = render partial_name, f: c, reference: reference, namespace: prefix
   .links
     - if reference.display_status

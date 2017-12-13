@@ -2,19 +2,36 @@
 id: :intervention_template_form,
 data: { template: @intervention_template.to_json,
   product_parameters_attributes: @intervention_template.product_parameters.to_json,
+  association_activities_attributes: @intervention_template.association_activities.to_json,
   procedure_names: procedure_parameters(@procedure) }) do
   = field_set do
     = f.input :name, input_html: { 'v-model': 'template.name' }
     = f.input :active, input_html: { 'v-model': 'template.active' }
     = f.input :description, wrapper: :bootstrap, type: :text, input_html: { 'v-model': 'template.description' }
 
+    = simple_fields_for(f.object.association_activities.new) do |p|
+      = p.label :activities.tl
+      .associations{ v: { for: '(association, index) in template.association_activities_attributes' }}
+        = p.input :activity, label: false, input_html: { 'v-model': 'association.activity.label',
+        '@click': 'listOfActivities(index)',
+        '@keyup': 'listOfActivities(index)',
+        class: 'selector-search'}
+        .items-menu.choices-selector{ 'v-if': 'association.showList' }
+          %ul.items-list
+            %li.item{ 'v-for': 'activity in activitiesList', '@click.stop': 'updateAssociation(index, activity)' }
+              {{ activity.label }}
+
+        %a{ href: '#', '@click': 'removeAssociation(index)' }
+          = :remove.tl
+      %a{ href:'#', '@click': 'addAssociation' }
+        = :add.tl
+
+  -# Parameters of the template
   = field_set :product_parameters do
     = simple_fields_for f.object.product_parameters.new do |p|
       .list_of_procedures{ 'v-for': 'procedure in procedure_names' }
         .nested-association.nested-parameters
           .nested-fields.nested-product-parameter
-            {{ procedure.name }}
-
             .parameters{ 'v-for': '(parameter, index) in attributesForProcedure(procedure)' }
               = p.input :product_nature, wrapper_html: { 'v-if': 'isEquipment(procedure)' },
                 input_html: { 'v-model': 'parameter.product_name',
@@ -30,7 +47,7 @@ data: { template: @intervention_template.to_json,
               .items-menu.choices-selector.intervention-template-unroll{ 'v-if': 'parameter.showList' }
                 %ul.items-list
                   %li.item{ 'v-on:click.stop': "updateProduct(index, '', '')" }
-                  %li.item{ 'v-for': 'prod in parameter.productList',
+                  %li.item{ 'v-for': 'prod in productList',
                   'v-on:click.stop': 'updateProduct(index, procedure, prod.id, prod.label)' }
                     {{ prod.label }}
               = p.input :quantity, input_html: { v: { model: 'parameter.quantity' }}
@@ -40,10 +57,13 @@ data: { template: @intervention_template.to_json,
               %span
                 {{ procedure.unities.human_name }}
               %a.remove-link{ href: '#', 'v-on:click': 'removeParameter(index)' }
-                Remove parameter
-        .links
-          %a.nested-add.add_fields{ href: '#', '@click.stop': 'addParameter(procedure)' }
-            Add {{ procedure.name }}
-  %button{ 'v-on:click.prevent': 'saveTemplate' }
-    Test
+                = :remove.tl
+                {{ procedure.name }}
+          .links
+            %a.nested-add.add_fields{ href: '#', '@click.stop': 'addParameter(procedure)' }
+              = :add.tl
+              {{ procedure.name }}
+  .text-center
+    %button.btn.primary{ 'v-on:click.prevent': 'saveTemplate' }
+      = :submit.tl
   - f.clear_actions!

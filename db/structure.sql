@@ -3758,6 +3758,38 @@ ALTER SEQUENCE intervention_participations_id_seq OWNED BY intervention_particip
 
 
 --
+-- Name: intervention_template_activities; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE intervention_template_activities (
+    id integer NOT NULL,
+    intervention_template_id integer,
+    activity_id integer,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: intervention_template_activities_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE intervention_template_activities_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: intervention_template_activities_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE intervention_template_activities_id_seq OWNED BY intervention_template_activities.id;
+
+
+--
 -- Name: intervention_template_product_parameters; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -3766,6 +3798,7 @@ CREATE TABLE intervention_template_product_parameters (
     intervention_template_id integer,
     product_nature_id integer,
     product_nature_variant_id integer,
+    activity_id integer,
     quantity integer,
     unit character varying,
     type character varying,
@@ -7549,6 +7582,13 @@ ALTER TABLE ONLY intervention_participations ALTER COLUMN id SET DEFAULT nextval
 
 
 --
+-- Name: intervention_template_activities id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY intervention_template_activities ALTER COLUMN id SET DEFAULT nextval('intervention_template_activities_id_seq'::regclass);
+
+
+--
 -- Name: intervention_template_product_parameters id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -8682,6 +8722,14 @@ ALTER TABLE ONLY intervention_parameters
 
 ALTER TABLE ONLY intervention_participations
     ADD CONSTRAINT intervention_participations_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: intervention_template_activities intervention_template_activities_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY intervention_template_activities
+    ADD CONSTRAINT intervention_template_activities_pkey PRIMARY KEY (id);
 
 
 --
@@ -12717,6 +12765,20 @@ CREATE INDEX index_intervention_participations_on_updated_at ON intervention_par
 --
 
 CREATE INDEX index_intervention_participations_on_updater_id ON intervention_participations USING btree (updater_id);
+
+
+--
+-- Name: index_intervention_template_activities_on_activity_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_intervention_template_activities_on_activity_id ON intervention_template_activities USING btree (activity_id);
+
+
+--
+-- Name: index_intervention_template_product_parameters_on_activity_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_intervention_template_product_parameters_on_activity_id ON intervention_template_product_parameters USING btree (activity_id);
 
 
 --
@@ -17270,6 +17332,13 @@ CREATE INDEX index_versions_on_item_type_and_item_id ON versions USING btree (it
 
 
 --
+-- Name: intervention_template_activity_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX intervention_template_activity_id ON intervention_template_activities USING btree (intervention_template_id);
+
+
+--
 -- Name: intervention_template_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -17452,6 +17521,14 @@ ALTER TABLE ONLY journal_entry_items
 
 
 --
+-- Name: intervention_template_activities fk_rails_39759d6fe4; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY intervention_template_activities
+    ADD CONSTRAINT fk_rails_39759d6fe4 FOREIGN KEY (activity_id) REFERENCES activities(id);
+
+
+--
 -- Name: crumbs fk_rails_434e943648; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -17516,6 +17593,14 @@ ALTER TABLE ONLY intervention_template_product_parameters
 
 
 --
+-- Name: intervention_template_activities fk_rails_7699df6bd9; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY intervention_template_activities
+    ADD CONSTRAINT fk_rails_7699df6bd9 FOREIGN KEY (intervention_template_id) REFERENCES intervention_templates(id);
+
+
+--
 -- Name: interventions fk_rails_76eca6ee87; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -17537,6 +17622,14 @@ ALTER TABLE ONLY alert_phases
 
 ALTER TABLE ONLY regularizations
     ADD CONSTRAINT fk_rails_8043b7d279 FOREIGN KEY (affair_id) REFERENCES affairs(id);
+
+
+--
+-- Name: intervention_template_product_parameters fk_rails_810325206c; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY intervention_template_product_parameters
+    ADD CONSTRAINT fk_rails_810325206c FOREIGN KEY (activity_id) REFERENCES activities(id);
 
 
 --
@@ -18270,4 +18363,6 @@ INSERT INTO schema_migrations (version) VALUES ('20171123134516');
 INSERT INTO schema_migrations (version) VALUES ('20171204075626');
 
 INSERT INTO schema_migrations (version) VALUES ('20171207134203');
+
+INSERT INTO schema_migrations (version) VALUES ('20171213134204');
 

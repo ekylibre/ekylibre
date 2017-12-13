@@ -33,7 +33,11 @@ class InterventionTemplate < ActiveRecord::Base
   validates :name, :active, :procedure_name, presence: true
   has_many :product_parameters, class_name: 'InterventionTemplate::ProductParameter', foreign_key: :intervention_template_id, dependent: :destroy
 
+  has_many :association_activities, class_name: 'InterventionTemplateActivity', foreign_key: :intervention_template_id
+  has_many :activities, through: :association_activities
+
   accepts_nested_attributes_for :product_parameters, allow_destroy: true
+  accepts_nested_attributes_for :association_activities
 
   # The Procedo::Procedure behind intervention
   def procedure

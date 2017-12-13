@@ -11,12 +11,17 @@
       product_parameters_attributes.forEach -> (product_parameter) product_parameter._destroy = null
       procedure_names = JSON.parse(element.dataset.procedureNames)
       template.product_parameters_attributes = product_parameters_attributes
+      association_activities_attributes = JSON.parse(element.dataset.associationActivitiesAttributes)
+      association_activities_attributes.forEach -> (association) association._destroy = null
+      template.association_activities_attributes = association_activities_attributes
 
       interventionTemplateNew = new Vue {
         el: '#intervention_template_form',
         data:
           template: template,
           procedure_names: procedure_names
+          activitiesList: []
+          productList: []
         methods:
           addParameter: (procedure) ->
             template.product_parameters_attributes.push
@@ -30,6 +35,32 @@
               procedure: procedure
               product_nature_id: ''
               product_nature_variant_id: ''
+          addAssociation: ->
+            template.association_activities_attributes.push
+              id: null
+              activity: {}
+              activity_id: ''
+              _destroy: null
+              showList: false
+          removeAssociation: (index) ->
+            association = this.template.association_activities_attributes[index]
+            if(association.id == null)
+              this.template.association_activities_attributes.splice(index, 1)
+            else
+              this.template.association_activities_attributes.splice._destroy = 1
+          updateAssociation: (index, activity) ->
+            association = this.template.association_activities_attributes[index]
+            association.activity = activity
+            association.activity_id = activity.id
+            association.showList = false
+          listOfActivities: (index) ->
+            association = this.template.association_activities_attributes[index]
+            this.$http.get('/backend/activities/unroll', { params: { q: association.activity.label }}).then ((response) =>
+                association = association
+                this.activitiesList = response.body
+                association.showList = true
+              ), (response) =>
+                console.log(response)
           removeParameter: (index) ->
             parameter = this.template.product_parameters_attributes[index]
             if(parameter.id == null)
@@ -50,7 +81,7 @@
                 scope: product_parameter.procedure.expression,
                 q: product_parameter.product_name
               success: (data) =>
-                product_parameter.productList = data
+                this.productList = data
                 product_parameter.showList = true
               error: ->
                 console.log('error')
@@ -69,6 +100,8 @@
               product_parameter.showList = false
           closeAllModal: ->
             this.template.product_parameters_attributes.forEach (p) ->
+              p.showList = false
+            this.template.association_activities_attributes.forEach (p) ->
               p.showList = false
           attributesForProcedure: (procedure) ->
             # List all the attributes for a particular procedure
