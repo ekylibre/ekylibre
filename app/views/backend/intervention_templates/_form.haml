@@ -26,10 +26,19 @@ data: { template: @intervention_template.to_json,
             %ul.items-list
               %li.item{ 'v-for': 'activity in activitiesList', '@click.stop': 'updateAssociation(index, activity)' }
                 {{ activity.label }}
-
         %a{ href:'#', '@click': 'addAssociation' }
           = :add.tl
-
+    = f.input :workflow, input_html: { 'v-model': 'template.workflow' }
+    .control-group
+      %label
+        = :preparation_time.tl
+      .controls
+        %input{ 'v-model': 'template.preparation_time_hours', type: :number }
+        H
+        %input{ 'v-model': 'template.preparation_time_minutes', type: :number }
+        Min
+    -# = f.input :preparation_time_hours, input_html: { 'v-model': 'template.preparation_time_hours' }
+    -# = f.input :preparation_time_minutes, input_html: { 'v-model': 'template.preparation_time_minutes'}
   -# Parameters of the template
   = field_set :product_parameters do
     = simple_fields_for f.object.product_parameters.new do |p|
@@ -37,7 +46,6 @@ data: { template: @intervention_template.to_json,
         .nested-association.nested-parameters
           .nested-fields.nested-product-parameter
             .parameters{ 'v-for': '(parameter, index) in attributesForProcedure(procedure)', 'v-if': 'parameter._destroy == null' }
-              {{ parameter.id_number }}
               = p.input :product_nature, wrapper_html: { 'v-if': 'isEquipment(procedure)' },
                 input_html: { 'v-model': 'parameter.product_name',
                 'v-on:click.stop': 'completeDropdown(index, procedure)',

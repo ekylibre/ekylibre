@@ -3837,6 +3837,10 @@ CREATE TABLE intervention_templates (
     active boolean DEFAULT true,
     description character varying,
     procedure_name character varying,
+    campaign_id integer,
+    preparation_time_hours integer,
+    preparation_time_minutes integer,
+    workflow numeric,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
 );
@@ -12783,6 +12787,13 @@ CREATE INDEX index_intervention_template_product_parameters_on_activity_id ON in
 
 
 --
+-- Name: index_intervention_templates_on_campaign_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_intervention_templates_on_campaign_id ON intervention_templates USING btree (campaign_id);
+
+
+--
 -- Name: index_intervention_working_periods_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -17695,6 +17706,14 @@ ALTER TABLE ONLY tax_declaration_item_parts
 
 ALTER TABLE ONLY financial_years
     ADD CONSTRAINT fk_rails_b170b89c1e FOREIGN KEY (accountant_id) REFERENCES entities(id);
+
+
+--
+-- Name: intervention_templates fk_rails_b5c0e91173; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY intervention_templates
+    ADD CONSTRAINT fk_rails_b5c0e91173 FOREIGN KEY (campaign_id) REFERENCES campaigns(id);
 
 
 --

@@ -31,7 +31,7 @@
 #
 class InterventionTemplate < ActiveRecord::Base
   # Validation
-  validates :name, :active, :procedure_name, presence: true
+  validates :name, :procedure_name, :workflow, presence: true
 
   # Relation
   has_many :product_parameters, class_name: 'InterventionTemplate::ProductParameter', foreign_key: :intervention_template_id, dependent: :destroy

@@ -36,7 +36,6 @@ module Backend
       find_intervention_template
       respond_to do |format|
         if @intervention_template.update(permitted_params)
-          # binding.pry
           format.json { render json: @intervention_template, status: :ok }
         else
           format.json { render json: @intervention_template.errors, status: :unprocessable_intervention_template }
@@ -69,6 +68,9 @@ module Backend
                                                     :active,
                                                     :description,
                                                     :procedure_name,
+                                                    :workflow,
+                                                    :preparation_time_hours,
+                                                    :preparation_time_minutes,
                                                     product_parameters_attributes: [:id,
                                                                                     :product_nature_id,
                                                                                     :product_nature_variant_id,
