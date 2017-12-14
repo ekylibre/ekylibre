@@ -19,7 +19,7 @@
 
 
   # Manage fields filling in sales/purchases
-  $(document).on "selector:set", "new_delivery *[data-product-of-delivery-item]", ->
+  $(document).on "selector:set", "*[data-product-of-delivery-item]", ->
     element = $(this)
     options = element.data("product-of-delivery-item")
     product_id = element.selector('value')
@@ -68,7 +68,9 @@
 
                     if $(this).is ":ui-selector"
                       $(this).selector("value", newVal)
-                    else if $(this).is "input"
+                    else if $(this).is "select"
+                      $(this).val(newVal.toLowerCase()).change()
+                    else if $(this).is("input")
                       $(this).val(newVal)
                     else
                       $(this).html(newVal)
@@ -89,7 +91,8 @@
 
                       catch
 
-                    $(this).val(newVal)
+                    if !$(this).is('select')
+                      $(this).val(newVal)
                   else
                     $(this).val($(this).data("when-set-value"))
 

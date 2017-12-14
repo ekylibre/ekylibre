@@ -59,8 +59,8 @@ class Inspection < Ekylibre::Record::Base
   validates :sampled_at, presence: true, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }
   validates :activity, :product, presence: true
   # ]VALIDATORS]
-  validates :implanter_rows_number, :product_net_surface_area, :implanter_application_width, :sampling_distance, numericality: { greater_than: 0 }, allow_blank: false
-  validates :implanter_rows_number, :product_net_surface_area, :implanter_application_width, :sampling_distance, presence: true
+  validates :implanter_rows_number, :product_net_surface_area_value, :implanter_application_width, :sampling_distance, numericality: { greater_than: 0 }, allow_blank: false
+  validates :implanter_rows_number, :product_net_surface_area_value, :implanter_application_width, :sampling_distance, presence: true
   validates :forecast_harvest_week, length: { maximum: 2 }
 
   composed_of :product_net_surface_area, class_name: 'Measure',
