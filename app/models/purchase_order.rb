@@ -131,4 +131,34 @@ class PurchaseOrder < Purchase
   def has_content?
     items.any?
   end
+  
+  # this method generate a dataset for one purchase order
+  def order_reporting(options = {})
+    
+    report = HashWithIndifferentAccess.new
+    
+    report[:purchase_number] = reference_number
+    report[:purchase_ordered_at] = ordered_at.l(format: '%d/%m/%Y')
+    report[:purchase_estimate_reception_date] = estimate_reception_date.l(format: '%d/%m/%Y')
+    report[:purchase_responsible] = responsible.full_name
+    report[:entity_picture] = Entity.of_company.picture.path
+    
+    report[:items] = []
+    
+    items.each do |item|
+      i = HashWithIndifferentAccess.new
+      i[:variant] = item.variant.name
+      i[:quantity] = item.quantity
+      i[:unity] = item.variant.unit_name
+      i[:unit_pretax_amount] = item.unit_pretax_amount
+      i[:pretax_amount] = item.pretax_amount
+      report[:items] << i
+    end
+    
+    report[:purchase_pretax_amount] = pretax_amount
+    report[:purchase_currency] = currency.l
+    report
+    
+  end
+  
 end
