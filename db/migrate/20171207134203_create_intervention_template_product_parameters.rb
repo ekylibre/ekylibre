@@ -8,6 +8,7 @@ class CreateInterventionTemplateProductParameters < ActiveRecord::Migration
       t.integer :quantity
       t.string :unit
       t.string :type
+      t.jsonb :procedure
       t.timestamps null: false
     end
   end

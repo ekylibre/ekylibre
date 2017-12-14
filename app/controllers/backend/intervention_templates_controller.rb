@@ -14,7 +14,7 @@ module Backend
       options = {}
       %i[procedure_name].each { |p| options[p] = params[p] }
       @intervention_template = InterventionTemplate.new(options)
-      @procedure = @intervention_template.procedure
+      procedure
       # Translate the name of the procedure for the title
       t3e(procedure_name: @procedure.human_name)
       @no_menu = true
@@ -32,7 +32,37 @@ module Backend
       end
     end
 
+    def update
+      find_intervention_template
+      respond_to do |format|
+        if @intervention_template.update(permitted_params)
+          # binding.pry
+          format.json { render json: @intervention_template, status: :ok }
+        else
+          format.json { render json: @intervention_template.errors, status: :unprocessable_intervention_template }
+        end
+      end
+    end
+
+    def show
+      find_intervention_template
+    end
+
+    def edit
+      find_intervention_template
+      procedure
+      t3e(procedure_name: @procedure.human_name)
+    end
+
     private
+
+    def find_intervention_template
+      @intervention_template = InterventionTemplate.find(params[:id])
+    end
+
+    def procedure
+      @procedure = @intervention_template.procedure
+    end
 
     def permitted_params
       params.require(:intervention_template).permit(:name,
@@ -44,7 +74,9 @@ module Backend
                                                                                     :product_nature_variant_id,
                                                                                     :quantity,
                                                                                     :unit,
-                                                                                    :_destroy],
+                                                                                    :_destroy,
+                                                                                    procedure: [:name, :type],
+                                                                                  ],
                                                     association_activities_attributes: [:id,
                                                                                         :activity_id,
                                                                                         :_destroy])

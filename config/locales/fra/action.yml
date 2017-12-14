@@ -338,7 +338,8 @@ fra:
       index: "Participations d’intervention"
     backend/intervention_templates:
       index: "Modèle d'intervention"
-      new: "Nouvelle intervention type de %{procedure_name}" #?
+      new: "Nouveau modèle d'intervention de %{procedure_name}" #?
+      edit: "Modifier modèle d'intervention de %{procedure_name}"
       select_type: "Nouvelle intervention type" #?
     backend/interventions:
       edit: "Modifier l’intervention"

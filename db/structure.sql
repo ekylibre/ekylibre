@@ -3802,6 +3802,7 @@ CREATE TABLE intervention_template_product_parameters (
     quantity integer,
     unit character varying,
     type character varying,
+    procedure jsonb,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
 );

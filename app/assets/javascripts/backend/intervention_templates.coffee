@@ -8,11 +8,15 @@
     if element != null
       template = JSON.parse(element.dataset.template)
       product_parameters_attributes = JSON.parse(element.dataset.productParametersAttributes)
-      product_parameters_attributes.forEach -> (product_parameter) product_parameter._destroy = null
+      number = 0
+      product_parameters_attributes.forEach (product_parameter) ->
+        product_parameter._destroy = null
+        product_parameter.id_number = number
+        number++
       procedure_names = JSON.parse(element.dataset.procedureNames)
       template.product_parameters_attributes = product_parameters_attributes
       association_activities_attributes = JSON.parse(element.dataset.associationActivitiesAttributes)
-      association_activities_attributes.forEach -> (association) association._destroy = null
+      association_activities_attributes.forEach (association) -> association._destroy = null
       template.association_activities_attributes = association_activities_attributes
 
       interventionTemplateNew = new Vue {
@@ -36,10 +40,12 @@
               procedure: procedure
               product_nature_id: ''
               product_nature_variant_id: ''
+              # number to authenticate precise element in the array
+              id_number: template.product_parameters_attributes.length
           addAssociation: ->
             template.association_activities_attributes.push
               id: null
-              activity: {}
+              activity_label: ''
               activity_id: ''
               _destroy: null
               showList: false
@@ -51,23 +57,29 @@
               this.template.association_activities_attributes.splice._destroy = 1
           updateAssociation: (index, activity) ->
             association = this.template.association_activities_attributes[index]
-            association.activity = activity
+            association.activity_label = activity.label
             association.activity_id = activity.id
             association.showList = false
           listOfActivities: (index) ->
             association = this.template.association_activities_attributes[index]
-            this.$http.get('/backend/activities/unroll', { params: { q: association.activity.label }}).then ((response) =>
+            this.$http.get('/backend/activities/unroll', { params: { q: association.activity_label }}).then ((response) =>
                 association = association
                 this.activitiesList = response.body
                 association.showList = true
               ), (response) =>
                 console.log(response)
-          removeParameter: (index) ->
-            parameter = this.template.product_parameters_attributes[index]
+          removeParameter: (id_number) ->
+            parameter = this.template.product_parameters_attributes[id_number]
             if(parameter.id == null)
-              this.template.product_parameters_attributes.splice(index, 1)
+              this.template.product_parameters_attributes.splice(id_number, 1)
+              this.updateParameterIdNumber()
             else
-              this.template.product_parameters_attributes[index]._destroy = 1
+              this.template.product_parameters_attributes[id_number]._destroy = "1"
+          updateParameterIdNumber: ->
+            number = 0
+            this.template.product_parameters_attributes.forEach (p) ->
+              p.id_number = number
+              number++
           completeDropdown: (index, procedure) ->
             product_parameter = this.attributesForProcedure(procedure)[index]
             if this.isEquipment(procedure)
@@ -106,16 +118,27 @@
               p.showList = false
           attributesForProcedure: (procedure) ->
             # List all the attributes for a particular procedure
-            this.template.product_parameters_attributes.filter (p) -> p.procedure == procedure
+            this.template.product_parameters_attributes.filter (p) -> p.procedure.type == procedure.type
           isEquipment: (procedure) ->
+            # Se baser sur la balise
+            # <tool name="equipment" filter="is equipment" cardinality="*"/>
+            # Exemple vue show des interventions petit logo
             ['tractor', 'driver', 'spreader', 'trailed_equipment'].includes(procedure.type)
           saveTemplate: ->
-            this.$http.post('/backend/intervention_templates', { intervention_template: this.template }).then ((response) =>
-              Turbolinks.visit('/backend/intervention_templates/'  + response.body.id)
-            ), (response) =>
-              # TODO manage errors
-              console.log(response)
-              this.errors = response.data.errors
+            if this.template.id == null
+              this.$http.post('/backend/intervention_templates', { intervention_template: this.template }).then ((response) =>
+                Turbolinks.visit('/backend/intervention_templates/'  + response.body.id)
+              ), (response) =>
+                # TODO manage errors
+                console.log(response)
+                this.errors = response.data.errors
+            else
+              this.$http.put("/backend/intervention_templates/#{this.template.id}", { intervention_template: this.template }).then ((response) =>
+                Turbolinks.visit('/backend/intervention_templates/'  + response.body.id)
+              ), (response) =>
+                # TODO manage errors
+                console.log(response)
+                this.errors = response.data.errors
           updateUnit: (procedure, index, event) ->
             product_parameter = this.attributesForProcedure(procedure)[index]
             product_parameter.unit = event.target.value

@@ -21,4 +21,16 @@ module Backend::InterventionTemplatesHelper
       end
     end
   end
+
+  def association_activities_list
+    @intervention_template.association_activities.each do |a|
+      a.activity_label = a.activity.name
+    end.to_json
+  end
+
+  def product_parameters_list
+    @intervention_template.product_parameters.each do |i|
+      i.product_name = i.product_nature&.name || i.product_nature_variant&.name
+    end.to_json
+  end
 end
