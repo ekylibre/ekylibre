@@ -29,6 +29,7 @@
 #  id                     :integer          not null, primary key
 #  lock_version           :integer          default(0), not null
 #  parcel_item_id         :integer          not null
+#  product_id             :integer
 #  quantity               :decimal(19, 4)
 #  storage_id             :integer          not null
 #  updated_at             :datetime         not null

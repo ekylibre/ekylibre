@@ -31,6 +31,7 @@
 #  equipment_id                  :integer
 #  id                            :integer          not null, primary key
 #  lock_version                  :integer          default(0), not null
+#  merge_stock                   :boolean          default(TRUE)
 #  non_compliant                 :boolean
 #  non_compliant_detail          :string
 #  parcel_id                     :integer          not null

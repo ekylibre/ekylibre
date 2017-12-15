@@ -4905,6 +4905,9 @@ parcel_item_storings:
     type: integer
     references: parcel_item
     required: true
+  product_id:
+    type: integer
+    references: product
   quantity:
     type: decimal
     precision: 19
@@ -4945,6 +4948,9 @@ parcel_items:
   lock_version:
     type: integer
     required: true
+  merge_stock:
+    type: boolean
+    default: true
   non_compliant:
     type: boolean
   non_compliant_detail:
