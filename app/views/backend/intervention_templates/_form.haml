@@ -7,7 +7,6 @@ data: { template: @intervention_template.to_json,
   = field_set do
     = f.input :name, input_html: { 'v-model': 'template.name' }
     = f.input :active, input_html: { 'v-model': 'template.active' }
-    = f.input :description, wrapper: :bootstrap, type: :text, input_html: { 'v-model': 'template.description' }
 
     = simple_fields_for(f.object.association_activities.new) do |p|
       .associations-list.control-group
@@ -29,7 +28,15 @@ data: { template: @intervention_template.to_json,
                 {{ activity.label }}
         %a{ href:'#', '@click': 'addAssociation' }
           = :add.tl
-    = f.input :workflow, input_html: { 'v-model': 'template.workflow' }
+    .control-group.required
+      %label.control-label.required
+        = :workflow.tl
+        %abbr{title:'Obligatoire'}
+          *
+      .controls
+        %input{ v: { model: 'template.workflow' }, type: :number}
+        .input-right-addon
+          ha/h
     .control-group
       %label
         = :preparation_time.tl
@@ -38,8 +45,7 @@ data: { template: @intervention_template.to_json,
         H
         %input{ 'v-model': 'template.preparation_time_minutes', type: :number }
         Min
-    -# = f.input :preparation_time_hours, input_html: { 'v-model': 'template.preparation_time_hours' }
-    -# = f.input :preparation_time_minutes, input_html: { 'v-model': 'template.preparation_time_minutes'}
+    = f.input :description, wrapper: :bootstrap, as: :text, input_html: { 'v-model': 'template.description' }
   -# Parameters of the template
   = field_set :product_parameters do
     = simple_fields_for f.object.product_parameters.new do |p|
@@ -47,28 +53,42 @@ data: { template: @intervention_template.to_json,
         .nested-association.nested-parameters
           .nested-fields.nested-product-parameter
             .parameters{ 'v-for': '(parameter, index) in attributesForProcedure(procedure)', 'v-if': 'parameter._destroy == null' }
-              = p.input :product_nature, wrapper_html: { 'v-if': 'procedure.is_tool' },
-                input_html: { 'v-model': 'parameter.product_name',
-                'v-on:click.stop': 'completeDropdown(index, procedure)',
-                '@keyup': 'completeDropdown(index, procedure)',
-                class: 'selector-search' }
-              = p.input :product_nature_variant, wrapper_html: { 'v-if': '!procedure.is_tool' },
-                input_html: { 'v-model': 'parameter.product_name',
-                '@click.stop': 'completeDropdown(index, procedure)',
-                '@keyup': 'completeDropdown(index, procedure)',
-                class: 'selector-search' }
+              -# Name of the product
+              .control-group
+                %label.control-label.required
+                  {{ procedure.name }}
+                  %abbr{title:'Obligatoire'}
+                    *
+                .controls
+                  %input{ 'v-model': 'parameter.product_name',
+                    '@click.stop': 'completeDropdown(index, procedure)',
+                    '@keyup': 'completeDropdown(index, procedure)',
+                    class: 'selector-search', type: :text }
               .items-menu.choices-selector.intervention-template-unroll{ 'v-if': 'parameter.showList' }
                 %ul.items-list
                   %li.item{ 'v-on:click.stop': "updateProduct(index, '', '')" }
                   %li.item{ 'v-for': 'prod in productList',
                   'v-on:click.stop': 'updateProduct(index, procedure, prod.id, prod.label)' }
                     {{ prod.label }}
-              = p.input :quantity, input_html: { 'v-model': 'parameter.quantity' }
-              %select{ v: { model: 'parameter.unit', if: 'procedure.unities.length > 1' }, '@change': 'updateUnit(procedure, index, $event)'}
-                %option{ 'v-for': 'unity in procedure.unities', 'v-bind:value': 'unity.name' }
-                  {{ unity.human_name }}
-              %span
-                {{ procedure.unities.human_name }}
+              -# Quantity
+              .control-group.integer.required
+                %label.control-label.required
+                  = :quantity.tl
+                  %abbr{title:'Obligatoire'}
+                    *
+                .controls.inline-controls
+                  %input{ 'v-model': 'parameter.quantity', type: :number }
+                    %select{ v: { model: 'parameter.unit', if: 'procedure.unities.length > 1' }, '@change': 'updateUnit(procedure, index, $event)'}
+                      %option{ 'v-for': 'unity in procedure.unities', 'v-bind:value': 'unity.name' }
+                        {{ unity.human_name }}
+                    %span
+                      {{ procedure.unities.human_name }}
+              -# = p.input :quantity, input_html: { 'v-model': 'parameter.quantity' }
+              -# %select{ v: { model: 'parameter.unit', if: 'procedure.unities.length > 1' }, '@change': 'updateUnit(procedure, index, $event)'}
+              -#   %option{ 'v-for': 'unity in procedure.unities', 'v-bind:value': 'unity.name' }
+              -#     {{ unity.human_name }}
+              -# %span
+              -#   {{ procedure.unities.human_name }}
               %a.remove-link{ href: '#', 'v-on:click': 'removeParameter(parameter.id_number)' }
                 = :remove.tl
                 {{ procedure.name }}

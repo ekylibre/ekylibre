@@ -338,9 +338,9 @@ fra:
       index: "Participations d’intervention"
     backend/intervention_templates:
       index: "Modèles d'interventions"
-      new: "Nouveau modèle d'intervention de %{procedure_name}" #?
-      edit: "Modifier modèle d'intervention de %{procedure_name}"
-      select_type: "Nouvelle intervention type" #?
+      new: "Nouveau modèle d'intervention de %{procedure_name} - Campagne %{campaign_name} " #?
+      edit: "Modifier modèle d'intervention de %{procedure_name} - Campagne %{campaign_name}"
+      select_type: "Modèles d'interventions" #?
     backend/interventions:
       edit: "Modifier l’intervention"
       edit_request: "Modifier la demande d’intervention"
@@ -866,6 +866,7 @@ fra:
       zoomInTitle: "Zoomer"
       zoomOutTitle: "Dézoomer"
   labels:
+    workflow: Débit de chantier
     preparation_time: Préparation
     abilities: "Compétences" #?
     accepted: "Acceptée"

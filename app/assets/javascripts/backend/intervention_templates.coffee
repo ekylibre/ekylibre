@@ -85,7 +85,7 @@
               number++
           completeDropdown: (index, procedure) ->
             product_parameter = this.attributesForProcedure(procedure)[index]
-            if procedure.is_tool
+            if procedure.is_tool_or_doer
               url = '/backend/product_natures/unroll'
             else
               url = '/backend/product_nature_variants/unroll'
@@ -105,7 +105,7 @@
             product_parameter = this.attributesForProcedure(procedure)[index]
             product_parameter.product_name = name
             product_parameter.showList = false
-            if procedure.is_tool
+            if procedure.is_tool_or_doer
               product_parameter.product_nature_id = id
             else
               product_parameter.product_nature_variant_id = id

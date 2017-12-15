@@ -7,7 +7,7 @@ module Backend::InterventionTemplatesHelper
           expression: p.scope_hash,
           type: p.name,
           unities: list_of_unities(p),
-          is_tool: p.tool? }
+          is_tool_or_doer: p.tool? || p.doer? }
       end
     end.compact
   end

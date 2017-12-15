@@ -560,6 +560,7 @@ fra:
       worker: "Équipier"
       zone: "Zone"
   attributes:
+    workflow: Débit de chantier
     abilities: "Compétences" #?
     abilities_list: "Liste des compétences"
     absolute_credit: "Crédit (absolu)"

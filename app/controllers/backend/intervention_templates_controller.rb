@@ -17,7 +17,7 @@ module Backend
       @intervention_template = InterventionTemplate.new(options)
       procedure
       # Translate the name of the procedure for the title
-      t3e(procedure_name: @procedure.human_name)
+      t3e(procedure_name: @procedure.human_name, campaign_name: current_campaign.name)
       @no_menu = true
       render(locals: { with_continue: true })
     end
@@ -51,7 +51,7 @@ module Backend
     def edit
       find_intervention_template
       procedure
-      t3e(procedure_name: @procedure.human_name)
+      t3e(procedure_name: @procedure.human_name,  campaign_name: @intervention_template.campaign.name)
     end
 
     private
