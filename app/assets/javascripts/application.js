@@ -79,6 +79,7 @@
 //= require tour
 //= require bootstrap-slider
 //= require vue
+//= require vue-resource
 
 var visualization = {};
 var mapeditor = {};

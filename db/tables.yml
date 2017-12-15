@@ -3528,6 +3528,80 @@ intervention_participations:
   updater_id:
     type: integer
     references: user
+intervention_template_activities:
+  activity_id:
+    type: integer
+    references: activity
+  created_at:
+    type: datetime
+    required: true
+  id:
+    type: integer
+    required: true
+  intervention_template_id:
+    type: integer
+    references: intervention_template
+  updated_at:
+    type: datetime
+    required: true
+intervention_template_product_parameters:
+  activity_id:
+    type: integer
+    references: activity
+  created_at:
+    type: datetime
+    required: true
+  id:
+    type: integer
+    required: true
+  intervention_template_id:
+    type: integer
+    references: intervention_template
+  procedure:
+    type: jsonb
+  product_nature_id:
+    type: integer
+    references: product_nature
+  product_nature_variant_id:
+    type: integer
+    references: product_nature_variant
+  quantity:
+    type: integer
+  type:
+    type: string
+  unit:
+    type: string
+  updated_at:
+    type: datetime
+    required: true
+intervention_templates:
+  active:
+    type: boolean
+    default: true
+  campaign_id:
+    type: integer
+    references: campaign
+  created_at:
+    type: datetime
+    required: true
+  description:
+    type: string
+  id:
+    type: integer
+    required: true
+  name:
+    type: string
+  preparation_time_hours:
+    type: integer
+  preparation_time_minutes:
+    type: integer
+  procedure_name:
+    type: string
+  updated_at:
+    type: datetime
+    required: true
+  workflow:
+    type: decimal
 intervention_working_periods:
   created_at:
     type: datetime

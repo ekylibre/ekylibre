@@ -127,7 +127,7 @@ Rails.application.routes.draw do
 
     resources :dashboards, concerns: [:list] do
       collection do
-        %i[home relationship accountancy sales purchases stocks production humans tools settings].each do |part|
+        %i[home relationship accountancy sales purchases stocks production humans tools settings planning].each do |part|
           get part
         end
         get :sandbox
@@ -603,6 +603,16 @@ Rails.application.routes.draw do
         get :list_record_interventions
       end
     end
+
+    resources :intervention_templates, concerns: :list do
+      collection do
+        get :select_type
+      end
+    end
+
+    # namespace :intervention_templates do
+    #   get :select_type, to: 'intervention_templates#select_type'
+    # end
 
     namespace :interventions do
       resources :costs, only: [] do

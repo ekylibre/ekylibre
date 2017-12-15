@@ -203,6 +203,7 @@ eng:
       humans: "Human resources dashboard"
       index: "Dashboards"
       new: "New dashboard"
+      planning: "Planning"
       production: "Production dashboard"
       purchases: "Purchases dashboard"
       relationship: "Relationship dashboard"
@@ -392,6 +393,12 @@ eng:
       convert: "Convert intervention participation: %{name}"
       index: "Intervention participations"
       # participations_modal: "Participations modal intervention participation: %{name}"
+    backend/intervention_templates:
+      # edit: "Edit intervention template: %{name}"
+      index: "Intervention model" #?
+      # new: "New intervention template"
+      # select_type: "Select type intervention template: %{name}"
+      # show: "Intervention template: %{name}"
     backend/interventions/costs:
       # parameter_cost: "Parameter cost cost: %{name}"
     backend/interventions:
@@ -1015,7 +1022,7 @@ eng:
     active: "Active" #?
     active_finishing_after: "Active finishing after" #?
     active_finishing_within: "Active finishing within" #?
-    activities: "Activities" #?
+    activities: "Activities"
     activity: "Activity"
     activity_production: "Activity production"
     activity_productions: "Activity productions"
@@ -1051,6 +1058,7 @@ eng:
     add_inspection_point_nature: "Add inspection point nature"
     add_intervention_record: "Add intervention record"
     add_intervention_request: "Add intervention request"
+    add_intervention_template: "Add intervention template"
     add_item: "Add item"
     add_labelling: "Add label"
     add_line: "Add line"
@@ -1605,6 +1613,7 @@ eng:
     mobile: "Mobile" #?
     mode: "Mode" #?
     model: "Model" #?
+    # models: "Models"
     modes: "Modes" #?
     month: "Month" #?
     month_period: "%{code} - %{month} %{year}"
@@ -1746,6 +1755,7 @@ eng:
     picture: "Picture" #?
     placeholder: "Placeholder" #?
     places: "Places"
+    planning: "Planning"
     plant: "Crop" #?
     plant_counting: "Counting" #?
     plant_countings: "Countings" #?
@@ -1759,6 +1769,7 @@ eng:
     potential_hydrogen: "Potential hydrogen" #?
     precipitation: "Precipitation"
     preferences: "Preferences"
+    # preparation_time: "Preparation time"
     prescription: "Prescription" #?
     prescriptions: "Prescriptions" #?
     pretax_amount: "Pre-tax amount"
@@ -1774,6 +1785,7 @@ eng:
     product_name: "Product name" #?
     # product_nature_variants: "Product nature variants"
     product_natures: "Product types"
+    # product_parameters: "Product parameters"
     product_value: "Product value %{financial_year}"
     production: "Production"
     production_cost: "Production cost"
@@ -1834,7 +1846,7 @@ eng:
     relationship_of_entity_as_inverse_post: "%{relationship} of %{entity} (%{inverse_post})"
     relationship_of_entity_as_post: "%{relationship} of %{entity} as %{post}"
     remaining_amount_to_reconcile: "Remaining amount to reconcile"
-    remove: "Remove" #?
+    remove: "Remove"
     remove_item: "Remove item"
     remove_subscription: "Remove subscription"
     renewed: "Renewed"
@@ -1934,7 +1946,7 @@ eng:
     stopped_on: "Stopped on"
     storage: "Storage"
     subject: "Subject"
-    submit: "Submit" #?
+    submit: "Submit"
     subscribed_on: "Subscribed on" #?
     subscriber_period: "Subscribed on %{subscribed_at}"
     subscriber_quantity: "Subscribed at the number %{subscribed_at}"
@@ -2096,6 +2108,7 @@ eng:
     wind_speed: "Wind speed"
     with_fixed_assets_depreciations: "With fixed assets depreciations"
     workers: "Workers"
+    # workflow: "Workflow"
     working_duration: "Working duration"
     working_sets_stocks: "Working sets stocks" #?
     working_times: "Working times of %{name}" #?
@@ -2552,6 +2565,7 @@ eng:
       # scrap: "Scrap"
       search: "Search" #?
       select: "Select"
+      # select_type: "Select type"
       sell: "Turn into sale"
       # set_interval_preference: "Set interval preference"
       ship: "Ship"
