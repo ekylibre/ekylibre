@@ -26,19 +26,23 @@ data: { template: @intervention_template.to_json,
             %ul.items-list
               %li.item{ 'v-for': 'activity in activitiesList', '@click.stop': 'updateAssociation(index, activity)' }
                 {{ activity.label }}
+        %hint
+          = :warning_if_no_activites_choose.tl
+        %br
         %a.add-association{ href:'#', '@click': 'addAssociation' }
           = :add.tl
+
     .control-group.required
       %label.control-label.required
-        = :workflow.tl
         %abbr{title:'Obligatoire'}
           *
+        = :workflow.tl
       .controls
         %input{ v: { model: 'template.workflow' }, type: :number}
         .input-right-addon
           ha/h
     .control-group
-      %label
+      %label.control-label
         = :preparation_time.tl
       .controls
         %input{ 'v-model': 'template.preparation_time_hours', type: :number }
@@ -56,9 +60,9 @@ data: { template: @intervention_template.to_json,
               -# Name of the product
               .control-group
                 %label.control-label.required
-                  {{ procedure.name }}
                   %abbr{title:'Obligatoire'}
                     *
+                  {{ procedure.name }}
                 .controls
                   %input{ 'v-model': 'parameter.product_name',
                     '@click.stop': 'completeDropdown(index, procedure)',
@@ -73,9 +77,9 @@ data: { template: @intervention_template.to_json,
               -# Quantity
               .control-group.integer.required
                 %label.control-label.required
-                  = :quantity.tl
                   %abbr{title:'Obligatoire'}
                     *
+                  = :quantity.tl
                 .controls.inline-controls
                   %input{ 'v-model': 'parameter.quantity', type: :number }
                     %select{ v: { model: 'parameter.unit', if: 'procedure.unities.length > 1' }, '@change': 'updateUnit(procedure, index, $event)'}

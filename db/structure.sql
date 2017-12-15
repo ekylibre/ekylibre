@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 9.6.3
--- Dumped by pg_dump version 9.6.3
+-- Dumped from database version 9.6.6
+-- Dumped by pg_dump version 9.6.6
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -17512,6 +17512,14 @@ ALTER TABLE ONLY outgoing_payments
 
 
 --
+-- Name: parcel_item_storings fk_rails_182d7ce6a7; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY parcel_item_storings
+    ADD CONSTRAINT fk_rails_182d7ce6a7 FOREIGN KEY (product_id) REFERENCES products(id);
+
+
+--
 -- Name: intervention_template_product_parameters fk_rails_18932007aa; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -18393,8 +18401,21 @@ INSERT INTO schema_migrations (version) VALUES ('20171122160542');
 
 INSERT INTO schema_migrations (version) VALUES ('20171123134516');
 
+INSERT INTO schema_migrations (version) VALUES ('20171128100510');
+
+INSERT INTO schema_migrations (version) VALUES ('20171128155136');
+
+INSERT INTO schema_migrations (version) VALUES ('20171129081506');
+
+INSERT INTO schema_migrations (version) VALUES ('20171130093921');
+
+INSERT INTO schema_migrations (version) VALUES ('20171130144435');
+
 INSERT INTO schema_migrations (version) VALUES ('20171204075626');
+
+INSERT INTO schema_migrations (version) VALUES ('20171206145442');
 
 INSERT INTO schema_migrations (version) VALUES ('20171207134203');
 
 INSERT INTO schema_migrations (version) VALUES ('20171213134204');
+

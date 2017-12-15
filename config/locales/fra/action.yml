@@ -162,7 +162,7 @@ fra:
       humans: "Tableau de bord des ressources humaines"
       index: "Tableaux de bord"
       new: "Nouveau tableau de bord"
-      planning: "Planification"
+      planning: "Tableau de bord de la planification"
       production: "Tableau de bord de la production"
       purchases: "Tableau de bord des achats"
       relationship: "Tableau de bord de la gestion des relations"
@@ -341,6 +341,7 @@ fra:
       index: "Modèles d'interventions"
       new: "Nouveau modèle d'intervention de %{procedure_name} - Campagne %{campaign_name} " #?
       select_type: "Modèles d'interventions" #?
+      show: "Modèle d'intervention"
     backend/interventions:
       edit: "Modifier l’intervention"
       edit_request: "Modifier la demande d’intervention"
@@ -866,6 +867,7 @@ fra:
       zoomInTitle: "Zoomer"
       zoomOutTitle: "Dézoomer"
   labels:
+    warning_if_no_activites_choose: Si aucune activité n’est sélectionnée, le modèle d'intervention sera disponible pour toutes les activités.
     abilities: "Compétences" #?
     accepted: "Acceptée"
     accepted_for_paiment: "Acceptée pour paiement"

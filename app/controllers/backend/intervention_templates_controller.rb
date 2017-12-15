@@ -46,6 +46,7 @@ module Backend
 
     def show
       find_intervention_template
+      # t3e(procedure_name: @procedure.human_name)
     end
 
     def edit
