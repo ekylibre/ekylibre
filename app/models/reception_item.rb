@@ -99,9 +99,9 @@ class ReceptionItem < ParcelItem
     end
   end
 
-  protect(allow_update_on: ALLOWED, on: %i[create destroy update]) do
-    !reception_allow_items_update?
-  end
+  #protect(allow_update_on: ALLOWED, on: %i[create destroy update]) do
+  #  !reception_allow_items_update?
+  #end
 
   def prepared?
     variant.present?
