@@ -1047,6 +1047,7 @@ fra:
     attorney: "Informations mandataire" #?
     automatic: "Auto"
     available: "Disponible"
+    available_area: "Surface disponible"
     available_columns: "Champs disponibles\_: %{columns}"
     average: "Moyenne"
     back: "Revenir à la page précédente"
@@ -1138,6 +1139,7 @@ fra:
     column_organization: "Organisation" #?
     column_title: "Titre" #?
     columns: "Colonnes à importer"
+    comment: "Commentaire"
     commission: "Commission"
     company: "Société"
     complement_sort: "Trier les choix par nom" #?
@@ -1412,6 +1414,7 @@ fra:
     fixed_asset_depreciations: "Dépréciations d’immobilisation"
     fixed_assets: "Immobilisations"
     from: "À partir du"
+    forecast_harvest_week: 'Semaine de récolte'
     full_name: "Client" #?
     fullscreen: "Plein écran"
     function: "Fonction"
@@ -1441,6 +1444,7 @@ fra:
     groups: "Groupes"
     guide_evolution: "Évolution du guide"
     guides: "Référentiels" #?
+    harvested_area: "Surface récoltée"
     harvested_at: "Récolté le"
     healthy: "Phase du bioprocessus de maladie d’un animal" #?
     help: "Aide"

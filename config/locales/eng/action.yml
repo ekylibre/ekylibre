@@ -1163,6 +1163,7 @@ eng:
     attachments: "Attachments"
     automatic: "Auto" #?
     available: "Available"
+    available_area: "Available area"
     available_columns: "Available columns: %{columns}"
     average: "Average"
     back: "Back to the previous page"
@@ -1234,6 +1235,7 @@ eng:
     cobbles: "Cobbles" #?
     column: "Column"
     columns: "Columns to import"
+    comment: "Comment"
     commission: "Commission"
     company: "Society"
     completed: "Completed"
@@ -1434,6 +1436,7 @@ eng:
     fixed_asset_debts: "Fixed asset debts" #?!
     fixed_asset_depreciations: "Fixed asset depreciations"
     fixed_assets: "Fixed assets"
+    forecast_harvest_week: "Forecast harvest week"
     from: "From"
     fullscreen: "Fullscreen"
     function: "Function"
@@ -1458,6 +1461,7 @@ eng:
     groups: "Groups"
     # gtin: "Gtin"
     guide_evolution: "Guide evolution"
+    harvested_area: "Harvested area"
     harvested_at: "Harvested at" #?
     help: "Help"
     help_center: "Help center"
@@ -1496,7 +1500,7 @@ eng:
     initial_balance_of_bank_statement: "Initial balance of bank statement"
     input_cost: "Input cost"
     inputs: "Inputs"
-    inspections: "Inspections"
+    inspections: "Inspections" #?
     interactive_maps: "A JS library for interactive maps" #?!
     interface_preferences: "Interface preferences"
     internal_error: "Oops, something happened."
@@ -1835,6 +1839,7 @@ eng:
     reception_incident: "Reception incident"
     reception_items: "Reception items"
     reception_number: "Reception number"
+    # reception_number_with_reference: "Reception number with reference"
     receptions: "Receptions"
     reconcile: "Reconcile"
     reconciliate_with_purchases_orders: "Reconciliate with purchases orders"

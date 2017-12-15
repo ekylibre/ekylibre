@@ -664,7 +664,7 @@
         <page to="backend/activities#family"/>
         <page to="backend/activities#list"/>
         <page to="backend/activities#list_distributions"/>
-        <page to="backend/activities#list_inspections"/>
+        <page to="backend/activities#list_inspections" nonexistent="true"/>
         <page to="backend/activities#list_productions"/>
         <page to="backend/activities#new"/>
         <page to="backend/activities#show"/>
@@ -2136,6 +2136,9 @@
     <group>
       <item name="accounts">
         <page to="backend/accounts#set_interval_preference"/>
+      </item>
+      <item name="activities">
+        <page to="backend/activities#list_supports"/>
       </item>
       <item name="animal_groups">
         <page to="backend/animal_groups#list_reception_items"/>

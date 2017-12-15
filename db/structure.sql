@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 9.6.6
--- Dumped by pg_dump version 9.6.6
+-- Dumped from database version 9.6.3
+-- Dumped by pg_dump version 9.6.3
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -3557,7 +3557,8 @@ CREATE TABLE inspections (
     implanter_application_width numeric(19,4),
     sampling_distance numeric(19,4),
     product_net_surface_area_value numeric(19,4),
-    product_net_surface_area_unit character varying
+    product_net_surface_area_unit character varying,
+    forecast_harvest_week integer
 );
 
 
@@ -4764,7 +4765,8 @@ CREATE TABLE parcel_items (
     role character varying,
     equipment_id integer,
     purchase_order_item_id integer,
-    product_work_number character varying
+    product_work_number character varying,
+    type character varying
 );
 
 
@@ -18120,4 +18122,11 @@ INSERT INTO schema_migrations (version) VALUES ('20171117105934');
 
 INSERT INTO schema_migrations (version) VALUES ('20171121143329');
 
+INSERT INTO schema_migrations (version) VALUES ('20171122160542');
+
 INSERT INTO schema_migrations (version) VALUES ('20171123134516');
+
+INSERT INTO schema_migrations (version) VALUES ('20171128100510');
+
+INSERT INTO schema_migrations (version) VALUES ('20171206145442');
+

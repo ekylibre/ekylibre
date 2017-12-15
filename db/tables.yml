@@ -3231,6 +3231,8 @@ inspections:
   creator_id:
     type: integer
     references: user
+  forecast_harvest_week:
+    type: integer
   id:
     type: integer
     required: true
@@ -4903,6 +4905,9 @@ parcel_item_storings:
     type: integer
     references: parcel_item
     required: true
+  product_id:
+    type: integer
+    references: product
   quantity:
     type: decimal
     precision: 19
@@ -4943,6 +4948,9 @@ parcel_items:
   lock_version:
     type: integer
     required: true
+  merge_stock:
+    type: boolean
+    default: true
   non_compliant:
     type: boolean
   non_compliant_detail:
@@ -5010,6 +5018,8 @@ parcel_items:
   transporter_id:
     type: integer
     references: entity
+  type:
+    type: string
   unit_pretax_amount:
     type: decimal
     precision: 19

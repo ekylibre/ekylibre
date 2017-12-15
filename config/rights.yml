@@ -25,6 +25,7 @@
 #     - "authentication/sessions#new"
 #     - "backend/accounts#set_interval_preference"
 #     - "backend/activities#family"
+#     - "backend/activities#list_supports"
 #     - "backend/activity_inspection_point_natures#autocomplete"
 #     - "backend/animal_groups#list_reception_items"
 #     - "backend/animal_groups#list_shipment_items"
@@ -262,7 +263,7 @@ activities:
     - "backend/activities#index"
     - "backend/activities#list"
     - "backend/activities#list_distributions"
-    - "backend/activities#list_inspections"
+    - "backend/activities#list_inspections" #?
     - "backend/activities#list_productions"
     - "backend/activities#show"
     - "backend/activities#unroll"
