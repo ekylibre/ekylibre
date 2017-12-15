@@ -22,12 +22,17 @@
 #
 # == Table: intervention_templates
 #
-#  active      :boolean          default(TRUE)
-#  created_at  :datetime         not null
-#  description :string
-#  id          :integer          not null, primary key
-#  name        :string
-#  updated_at  :datetime         not null
+#  active                   :boolean          default(TRUE)
+#  campaign_id              :integer
+#  created_at               :datetime         not null
+#  description              :string
+#  id                       :integer          not null, primary key
+#  name                     :string
+#  preparation_time_hours   :integer
+#  preparation_time_minutes :integer
+#  procedure_name           :string
+#  updated_at               :datetime         not null
+#  workflow                 :decimal(, )
 #
 require 'test_helper'
 

@@ -92,6 +92,7 @@
 - intervention_product_parameter
 - intervention_target
 - intervention_template
+- intervention_template_activity
 - intervention_tool
 - intervention_working_period
 - inventory

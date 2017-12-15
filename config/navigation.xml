@@ -1025,10 +1025,14 @@
   </part>
   <part name="planning">
     <page to="backend/dashboards#planning"/>
-    <group name="nomenclature">
+    <group name="models">
       <item name="intervention_templates">
         <page to="backend/intervention_templates#index" nonexistent="true"/>
-        <page to="backend/intervention_templates#create" nonexistent="true"/>
+        <page to="backend/intervention_templates#create"/>
+        <page to="backend/intervention_templates#select_type" />
+        <page to="backend/intervention_templates#new" />
+        <page to="backend/intervention_templates#edit" />
+        <page to="backend/intervention_templates#show" />
       </item>
     </group>
   </part>
@@ -2200,8 +2204,12 @@
         <page to="backend/fungi#list_shipment_items"/>
       </item>
       <item name="intervention_templates">
+        <page to="backend/intervention_templates#edit"/>
+        <page to="backend/intervention_templates#list"/>
         <page to="backend/intervention_templates#new"/>
         <page to="backend/intervention_templates#select_type"/>
+        <page to="backend/intervention_templates#show"/>
+        <page to="backend/intervention_templates#update"/>
       </item>
       <item name="interventions">
         <page to="backend/interventions#purchase_order_items"/>

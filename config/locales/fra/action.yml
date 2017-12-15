@@ -337,9 +337,9 @@ fra:
       convert: "Convert intervention participation: %{name}"
       index: "Participations d’intervention"
     backend/intervention_templates:
+      edit: "Modifier modèle d'intervention de %{procedure_name} - Campagne %{campaign_name}" #?
       index: "Modèles d'interventions"
       new: "Nouveau modèle d'intervention de %{procedure_name} - Campagne %{campaign_name} " #?
-      edit: "Modifier modèle d'intervention de %{procedure_name} - Campagne %{campaign_name}"
       select_type: "Modèles d'interventions" #?
     backend/interventions:
       edit: "Modifier l’intervention"
@@ -866,8 +866,6 @@ fra:
       zoomInTitle: "Zoomer"
       zoomOutTitle: "Dézoomer"
   labels:
-    workflow: Débit de chantier
-    preparation_time: Préparation
     abilities: "Compétences" #?
     accepted: "Acceptée"
     accepted_for_paiment: "Acceptée pour paiement"
@@ -1690,6 +1688,7 @@ fra:
     mobile: "Portable"
     mode: "Mode"
     model: "Model"
+    models: "Modèles" #?
     modes: "Modes"
     month: "Mois"
     month_period: "%{code} — %{month} %{year}"
@@ -1900,6 +1899,7 @@ fra:
     potential_hydrogen: "Potentiel hydrogène (pH)"
     precipitation: "Précipitations"
     preferences: "Préférences"
+    preparation_time: "Préparation" #?
     prescription: "Prescription"
     prescriptions: "Prescriptions"
     pretax_amount: "Montant HT"
@@ -2426,6 +2426,7 @@ fra:
     with_prints: "Inclure les impressions (factures, commandes…)" #?
     worked_on: "Travaillé le" #?
     workers: "Équipiers"
+    workflow: "Débit de chantier" #?
     working_area: "Surface travaillée" #?
     working_duration: "Temps de travail"
     working_sets_stocks: "Stocks d’ensembles de produits"
