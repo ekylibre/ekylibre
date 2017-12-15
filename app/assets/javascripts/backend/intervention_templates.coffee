@@ -26,7 +26,10 @@
           procedure_names: procedure_names
           activitiesList: []
           productList: []
-          errors: {}
+          errors: {},
+        created: ->
+          if this.template.association_activities_attributes.length == 0
+            this.addAssociation()
         methods:
           addParameter: (procedure) ->
             template.product_parameters_attributes.push
@@ -82,7 +85,7 @@
               number++
           completeDropdown: (index, procedure) ->
             product_parameter = this.attributesForProcedure(procedure)[index]
-            if this.isEquipment(procedure)
+            if procedure.is_tool
               url = '/backend/product_natures/unroll'
             else
               url = '/backend/product_nature_variants/unroll'
@@ -102,7 +105,7 @@
             product_parameter = this.attributesForProcedure(procedure)[index]
             product_parameter.product_name = name
             product_parameter.showList = false
-            if this.isEquipment(procedure)
+            if procedure.is_tool
               product_parameter.product_nature_id = id
             else
               product_parameter.product_nature_variant_id = id
@@ -119,11 +122,6 @@
           attributesForProcedure: (procedure) ->
             # List all the attributes for a particular procedure
             this.template.product_parameters_attributes.filter (p) -> p.procedure.type == procedure.type
-          isEquipment: (procedure) ->
-            # Se baser sur la balise
-            # <tool name="equipment" filter="is equipment" cardinality="*"/>
-            # Exemple vue show des interventions petit logo
-            ['tractor', 'driver', 'spreader', 'trailed_equipment'].includes(procedure.type)
           saveTemplate: ->
             if this.template.id == null
               this.$http.post('/backend/intervention_templates', { intervention_template: this.template }).then ((response) =>
@@ -134,7 +132,7 @@
                 this.errors = response.data.errors
             else
               this.$http.put("/backend/intervention_templates/#{this.template.id}", { intervention_template: this.template }).then ((response) =>
-                Turbolinks.visit('/backend/intervention_templates/'  + response.body.id)
+                Turbolinks.visit("/backend/intervention_templates#{response.body.id}/")
               ), (response) =>
                 # TODO manage errors
                 console.log(response)

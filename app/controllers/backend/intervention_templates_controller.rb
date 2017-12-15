@@ -13,6 +13,7 @@ module Backend
       # Set options from params for the new
       options = {}
       %i[procedure_name].each { |p| options[p] = params[p] }
+      options[:campaign] = current_campaign
       @intervention_template = InterventionTemplate.new(options)
       procedure
       # Translate the name of the procedure for the title
@@ -71,6 +72,7 @@ module Backend
                                                     :workflow,
                                                     :preparation_time_hours,
                                                     :preparation_time_minutes,
+                                                    :campaign_id,
                                                     product_parameters_attributes: [:id,
                                                                                     :product_nature_id,
                                                                                     :product_nature_variant_id,

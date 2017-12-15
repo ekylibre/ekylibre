@@ -30,13 +30,16 @@
 #  updated_at  :datetime         not null
 #
 class InterventionTemplate < ActiveRecord::Base
-  # Validation
-  validates :name, :procedure_name, :workflow, presence: true
-
   # Relation
   has_many :product_parameters, class_name: 'InterventionTemplate::ProductParameter', foreign_key: :intervention_template_id, dependent: :destroy
+  # Joins table with activities
   has_many :association_activities, class_name: 'InterventionTemplateActivity', foreign_key: :intervention_template_id
   has_many :activities, through: :association_activities
+
+  belongs_to :campaign
+
+  # Validation
+  validates :name, :procedure_name, :workflow, :campaign, presence: true
 
   # Nested attributes
   accepts_nested_attributes_for :product_parameters, allow_destroy: true

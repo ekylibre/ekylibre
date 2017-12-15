@@ -6,7 +6,8 @@ module Backend::InterventionTemplatesHelper
         { name: p.human_name,
           expression: p.scope_hash,
           type: p.name,
-          unities: list_of_unities(p) }
+          unities: list_of_unities(p),
+          is_tool: p.tool? }
       end
     end.compact
   end
