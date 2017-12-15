@@ -22,11 +22,11 @@
     - crop.human_available_area
 
 
-  - g.column name: 'Volume net disponible' do |crop|
-    - items_count_unit = crop.last_inspection.user_per_area_unit(:items_count)
-    - net_mass_unit = crop.last_inspection.user_per_area_unit(:net_mass)
+  -# g.column name: 'Volume net disponible' do |crop|
+    -# items_count_unit = crop.last_inspection.user_per_area_unit(:items_count)
+    -# net_mass_unit = crop.last_inspection.user_per_area_unit(:net_mass)
 
-    - content_tag(:div, nil) do
+    -# content_tag(:div, nil) do
       %p= crop.human_net_volume_available(:items_count, items_count_unit)
       %p= crop.human_net_volume_available(:net_mass, net_mass_unit)
 
