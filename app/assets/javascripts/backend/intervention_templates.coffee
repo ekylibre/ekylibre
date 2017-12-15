@@ -57,7 +57,7 @@
             if(association.id == null)
               this.template.association_activities_attributes.splice(index, 1)
             else
-              this.template.association_activities_attributes.splice._destroy = 1
+              this.template.association_activities_attributes[index]._destroy = "1"
           updateAssociation: (index, activity) ->
             association = this.template.association_activities_attributes[index]
             association.activity_label = activity.label
@@ -132,7 +132,7 @@
                 this.errors = response.data.errors
             else
               this.$http.put("/backend/intervention_templates/#{this.template.id}", { intervention_template: this.template }).then ((response) =>
-                Turbolinks.visit("/backend/intervention_templates#{response.body.id}/")
+                Turbolinks.visit("/backend/intervention_templates/#{response.body.id}/")
               ), (response) =>
                 # TODO manage errors
                 console.log(response)

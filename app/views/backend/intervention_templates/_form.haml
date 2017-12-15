@@ -12,7 +12,8 @@ data: { template: @intervention_template.to_json,
     = simple_fields_for(f.object.association_activities.new) do |p|
       .associations-list.control-group
         = p.label :activities.tl
-        .associations{ v: { for: '(association, index) in template.association_activities_attributes' }}
+        .associations{ v: { for: '(association, index) in template.association_activities_attributes',
+        if: 'association._destroy == null' }}
           .control-group.intervention_template_activity_activity
             .controls
               %input.string{ 'v-model': 'association.activity_label',

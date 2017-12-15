@@ -43,7 +43,7 @@ class InterventionTemplate < ActiveRecord::Base
 
   # Nested attributes
   accepts_nested_attributes_for :product_parameters, allow_destroy: true
-  accepts_nested_attributes_for :association_activities
+  accepts_nested_attributes_for :association_activities, allow_destroy: true
 
   # The Procedo::Procedure behind intervention
   def procedure

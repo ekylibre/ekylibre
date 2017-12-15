@@ -337,7 +337,7 @@ fra:
       convert: "Convert intervention participation: %{name}"
       index: "Participations d’intervention"
     backend/intervention_templates:
-      index: "Modèle d'intervention"
+      index: "Modèles d'interventions"
       new: "Nouveau modèle d'intervention de %{procedure_name}" #?
       edit: "Modifier modèle d'intervention de %{procedure_name}"
       select_type: "Nouvelle intervention type" #?
