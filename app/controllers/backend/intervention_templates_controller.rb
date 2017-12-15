@@ -51,7 +51,7 @@ module Backend
     def edit
       find_intervention_template
       procedure
-      t3e(procedure_name: @procedure.human_name,  campaign_name: @intervention_template.campaign.name)
+      t3e(procedure_name: @procedure.human_name, campaign_name: @intervention_template.campaign.name)
     end
 
     private

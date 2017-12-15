@@ -21,12 +21,12 @@ data: { template: @intervention_template.to_json,
               class: 'selector-search',
               type: :text}
             %a{ href: '#', '@click': 'removeAssociation(index)' }
-              = :remove.tl
+              x
           .items-menu.choices-selector.activites-list{ 'v-if': 'association.showList' }
             %ul.items-list
               %li.item{ 'v-for': 'activity in activitiesList', '@click.stop': 'updateAssociation(index, activity)' }
                 {{ activity.label }}
-        %a{ href:'#', '@click': 'addAssociation' }
+        %a.add-association{ href:'#', '@click': 'addAssociation' }
           = :add.tl
     .control-group.required
       %label.control-label.required
