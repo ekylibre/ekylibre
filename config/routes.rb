@@ -221,6 +221,7 @@ Rails.application.routes.draw do
         get :list_inspections
         # get :list_interventions
         get :list_productions
+        get :list_supports
       end
     end
 
