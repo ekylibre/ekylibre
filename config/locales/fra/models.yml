@@ -1150,6 +1150,7 @@ fra:
     intervention_participation: "Participation d’intervention"
     intervention_participations: "Participations d’intervention"
     intervention_product_parameters: "Casting"
+    # intervention_template: "Intervention template"
     interventions: "Interventions"
     interventions_used_in: "Interventions utilisées dans"
     intracommunity: "Intracommunautaire"
@@ -1467,6 +1468,7 @@ fra:
     printed_on: "Daté du"
     priority: "Priorité"
     probability_percentage: "Pourcentage de probabilité"
+    # procedure: "Procedure"
     procedure_name: "Nom de la procédure"
     procedures: "Procédures" #?
     process: "Process" #?
@@ -1906,6 +1908,7 @@ fra:
     work_name: "Nom de travail"
     work_number: "Numéro de travail"
     worker: "Équipier"
+    workflow: "Débit de chantier" #?
     working_area: "Superficie travaillée" #?
     working_duration: "Durée travaillée"
     working_periods: "Périodes de travail"

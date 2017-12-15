@@ -165,6 +165,7 @@ spa:
       humans: "Cuadro de instrumentos de recursos humanos"
       index: "Cuadros de mando"
       new: "Nuevo tablero de instrumentos"
+      # planning: "Planning"
       production: "Tablero de producción"
       # purchases: "Purchases dashboard"
       relationship: "Relación salpicadero"
@@ -320,6 +321,8 @@ spa:
     backend/intervention_participations:
       # convert: "Convert intervention participation: %{name}"
       index: "Participaciones de intervención"
+    backend/intervention_templates:
+      # index: "Intervention model"
     backend/interventions:
       edit: "Editar"
       edit_request: "Editar solicitud"
@@ -857,6 +860,7 @@ spa:
     add_inspection_point_nature: "Añadir la naturaleza del punto de inspección"
     add_intervention_record: "Añadir registro de intervención"
     add_intervention_request: "Añadir solicitud de intervención"
+    # add_intervention_template: "Add intervention template"
     add_item: "Añadir artículo"
     add_labelling: "Añadir etiqueta"
     add_line: "Añadir línea"
@@ -1657,6 +1661,7 @@ spa:
     picture: "Imagen"
     placeholder: "Marcador de posición"
     places: "Lugares"
+    # planning: "Planning"
     plant: "Planta"
     plant_counting: "Contando"
     plant_countings: "Los recuentos"
