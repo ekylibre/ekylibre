@@ -1,12 +1,14 @@
 module PdfPrinter
   extend ActiveSupport::Concern
 
+  # return data
   def generate_report(template_name_or_path, &block)
     template_path = to_template_path(template_name_or_path)
     report = ODFReport::Report.new(template_path, &block)
     to_pdf_data report
   end
-
+  
+  # return file
   def generate_report_file(template_name_or_path, &block)
     template_path = to_template_path(template_name_or_path)
     data = generate_report template_path, &block
@@ -18,12 +20,14 @@ module PdfPrinter
       file.close
     end
   end
-
+  
+  # return file and store file in documents
   def generate_document(nature, key, template_name_or_path, options = { archiving: :last }, &block)
     data = generate_report(template_name_or_path, &block)
     archive_report nature, key, data, options
   end
-
+  
+  # store file in document
   def archive_report(nature, key, data_or_path, options = { archiving: :last })
     data = data_or_path.kind_of?(File) ? data_or_path : StringIO.new(data_or_path)
     name = options[:name] || I18n.translate('models.document_template.document_name', nature: nature, key: key)

@@ -20,6 +20,7 @@
 
 module Backend
   class TrialBalancesController < Backend::BaseController
+    include PdfPrinter
     def show
       filename = "#{human_action_name} #{Time.zone.now.l(format: '%Y-%m-%d')}"
       @balance = Journal.trial_balance(params) if params[:period]
@@ -43,8 +44,8 @@ module Backend
           end
           send_data(csv_string, filename: filename << '.csv')
         end
-        format.odt do
-          send_data to_odt(@balance, filename, params[:period]).generate, type: 'application/vnd.oasis.opendocument.text', disposition: 'attachment', filename: filename << '.odt'
+        format.pdf do
+          send_data to_odt(@balance, filename, params[:period]), type: 'application/pdf', disposition: 'attachment', filename: filename << '.pdf'
         end
       end
     end
@@ -53,7 +54,7 @@ module Backend
 
     def to_odt(balance, filename, period)
       # TODO: add a generic template system path
-      report = ODFReport::Report.new(Rails.root.join('config', 'locales', 'fra', 'reporting', 'trial_balance.odt')) do |r|
+      report = generate_report(Rails.root.join('config', 'locales', 'fra', 'reporting', 'trial_balance.odt')) do |r|
         # TODO: add a helper with generic metod to implemend header and footer
 
         e = Entity.of_company
