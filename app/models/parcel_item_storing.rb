@@ -29,6 +29,7 @@
 #  id                     :integer          not null, primary key
 #  lock_version           :integer          default(0), not null
 #  parcel_item_id         :integer          not null
+#  product_id             :integer
 #  quantity               :decimal(19, 4)
 #  storage_id             :integer          not null
 #  updated_at             :datetime         not null
@@ -37,6 +38,7 @@
 class ParcelItemStoring < Ekylibre::Record::Base
   belongs_to :parcel_item, inverse_of: :storings
   belongs_to :storage, class_name: 'Product'
+  belongs_to :product, class_name: 'Product', foreign_key: :product_id
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :conditionning, :conditionning_quantity, numericality: { only_integer: true, greater_than: -2_147_483_649, less_than: 2_147_483_648 }, allow_blank: true
@@ -63,4 +65,16 @@ class ParcelItemStoring < Ekylibre::Record::Base
     population -= quantity_was
     parcel_item.update_attributes(population: population)
   end
+
+  def reception
+    Reception.find(parcel_item.parcel_id)
+  end
+
+  delegate :number, to: :reception, prefix: true
+
+  def reception_nature
+    reception.nature.tl
+  end
+
+  delegate :given_at, to: :reception, prefix: true
 end

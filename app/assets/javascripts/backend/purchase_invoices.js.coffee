@@ -2,6 +2,11 @@
   'use strict'
 
   $(document).ready ->
+    $('.nested-fields.purchase-invoice-items').each (index, purchase_invoice) ->
+      hiddenFieldToChange = $(purchase_invoice).find('input[name="purchase_invoice[items_attributes][RECORD_ID][parcels_purchase_invoice_items]"]')
+      $(hiddenFieldToChange).attr('name', "purchase_invoice[items_attributes][#{ index }][parcels_purchase_invoice_items]")
+      $(hiddenFieldToChange).attr('id', "purchase_invoice_items_attributes_#{ index }_parcels_purchase_invoice_items")
+
     $(document).on 'click', '.btn[data-validate="item-form"]', (event) ->
       totalAmountExcludingTaxes = 0
       totalVatRate = 0
@@ -39,7 +44,13 @@
       vatSelectedValue = $(event.target).closest('.nested-fields').find('.item-display .vat-rate').attr('data-selected-value')
       $(event.target).closest('.nested-fields').find('.nested-item-form:visible .invoice-vat-total').val(vatSelectedValue)
 
-    $('#new_purchase_invoice table.list').on 'cocoon:after-insert', (event, insertedItem) ->
+    $('#new_purchase_invoice table.list').bind 'cocoon:after-insert', (event, insertedItem) ->
+      return if !insertedItem?
+      new_id = new Date().getTime()
+
+      insertedItem.attr('id', "new_reception_#{new_id}")
+
+    $('#new_purchase_invoice table.list, .edit_purchase_invoice table.list').on 'cocoon:after-insert', (event, insertedItem) ->
       new_id = new Date().getTime()
       if typeof insertedItem != 'undefined'
         insertedItem.attr('id', "new_reception_#{new_id}")
