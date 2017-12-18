@@ -14,7 +14,7 @@ class PlantDecorator < Draper::Decorator
                               .map(&:working_zone_area)
                               .sum
 
-    return plant_population if sum_working_zone_area.in(unit_name) > plant_population.in(unit_name)
+    return plant_population if sum_working_zone_area.to_f > plant_population.to_f
 
     sum_working_zone_area
   end
@@ -31,7 +31,7 @@ class PlantDecorator < Draper::Decorator
   def available_area
     unit_name ||= :hectare
 
-    object.initial_population - harvested_area
+    object.initial_population - harvested_area.to_f
   end
 
   def human_available_area(unit_name: nil)
