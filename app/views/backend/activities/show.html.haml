@@ -88,4 +88,5 @@
     - async_cobble :stock_in_ground, params: { id: resource.id, dimension: dimension }, cobble: c  do
       = render 'backend/inspections/unit_selector', activity: resource
 
-= render partial: 'grid'
+- if resource.inspectionable?
+  = render partial: 'grid'
