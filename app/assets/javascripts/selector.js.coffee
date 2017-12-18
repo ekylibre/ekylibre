@@ -216,6 +216,7 @@
             data[paramName] = $(this).val() || $.trim($(this).html())
       menu = @dropDownMenu
       url = this.sourceURL()
+      console.log(url)
       $.ajax
         url: url
         dataType: "html"

@@ -68,7 +68,6 @@
                   (&?.*)
                   ///
                   unrollPath = unrollPath.replace(scopeReg, "$1=#{encodeURIComponent(scopeValue)}$3")
-
                 input.attr('data-selector', unrollPath)
 
     toggleHandlers: (form, attributes, prefix = '') ->

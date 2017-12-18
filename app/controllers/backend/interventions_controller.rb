@@ -289,7 +289,7 @@ module Backend
             else
               params[:redirect] || { action: :show, id: 'id'.c }
             end
-
+      binding.pry
       @intervention.save
       return if save_and_redirect(@intervention, url: url, notify: :record_x_created, identifier: :number)
       render(locals: { cancel_url: { action: :index }, with_continue: true })
