@@ -46,6 +46,7 @@ module Backend
                                dead_at: nil
                               )
                         .where.not(inspections: { forecast_harvest_week: nil })
+                        .uniq
 
       @crops = initialize_grid(activity_crops, decorate: true)
 
