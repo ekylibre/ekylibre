@@ -1745,6 +1745,7 @@ fra:
     new_in_line: "Ajouter un produit intrant" #?
     new_incoming_parcel: "Nouveau colis entrant"
     new_incoming_payment: "Nouveau encaissement"
+    new_inspection: "Nouvel agréage"
     new_inventory: "Nouvel inventaire"
     new_issue: "Nouvel incident"
     new_listing: "Nouvelle extraction"
