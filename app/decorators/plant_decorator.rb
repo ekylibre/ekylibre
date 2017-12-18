@@ -44,14 +44,16 @@ class PlantDecorator < Draper::Decorator
   end
 
   def net_volume_available(dimension, unit_name)
-    unit_name ||= :items_count
+    return nil if last_inspection.nil?
 
-    net_volume = available_area * last_inspection.marketable_yield(dimension)
+    unit_name ||= :items_count
+    net_volume = available_area * last_inspection.marketable_yield(dimension).to_d
 
     net_volume.in(unit_name)
   end
 
   def human_net_volume_available(dimension, unit_name)
+    return nil if last_inspection.nil?
     unit_name ||= :items_count
 
     net_volume_available(dimension, unit_name)
