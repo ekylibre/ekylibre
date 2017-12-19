@@ -307,7 +307,6 @@ module Backend
 
         delete_working_periods(participations)
       end
-
       if @intervention.update_attributes(permitted_params)
         redirect_to action: :show
       else
