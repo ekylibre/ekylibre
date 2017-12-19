@@ -85,12 +85,12 @@ class PlantDecorator < Draper::Decorator
     last_inspection.comment
   end
 
-  def last_inspection_disease_percentage(user, unit_name)
-    inspection_points_percentage(user, :disease, unit_name)
+  def last_inspection_disease_percentage(dimension, unit_name)
+    inspection_points_percentage(dimension, :disease, unit_name)
   end
 
-  def last_inspection_deformity_percentage(user, unit_name)
-    inspection_points_percentage(user, :deformity, unit_name)
+  def last_inspection_deformity_percentage(dimension, unit_name)
+    inspection_points_percentage(dimension, :deformity, unit_name)
   end
 
   def last_inspection
@@ -111,11 +111,11 @@ class PlantDecorator < Draper::Decorator
 
   private
 
-  def inspection_points_percentage(user, category, unit_name)
+  def inspection_points_percentage(dimension, category, unit_name)
     return nil if last_inspection.nil?
 
     last_inspection
-      .points_percentage(dimension(user), category)
+      .points_percentage(dimension, category)
       .in(unit_name)
       .round(2)
       .l(precision: 2)

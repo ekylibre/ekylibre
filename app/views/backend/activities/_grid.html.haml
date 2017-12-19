@@ -30,14 +30,14 @@
 
   - g.column name: :disease_percentage.tl do |crop|
     - content_tag(:div, nil) do
-      %p= crop.last_inspection_disease_percentage(current_user, crop.items_count_unit)
-      %p= crop.last_inspection_disease_percentage(current_user, crop.net_mass_unit)
+      %p= crop.last_inspection_disease_percentage(:items_count, crop.items_count_unit)
+      %p= crop.last_inspection_disease_percentage(:net_mass, crop.net_mass_unit)
 
 
   - g.column name: :deformity_percentage.tl do |crop|
     - content_tag(:div, nil) do
-      %p= crop.last_inspection_deformity_percentage(current_user, crop.items_count_unit)
-      %p= crop.last_inspection_deformity_percentage(current_user, crop.net_mass_unit)
+      %p= crop.last_inspection_deformity_percentage(:items_count, crop.items_count_unit)
+      %p= crop.last_inspection_deformity_percentage(:net_mass, crop.net_mass_unit)
 
 
   - g.column name: :comment.tl do |crop|
