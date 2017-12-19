@@ -27,7 +27,7 @@ module Backend
       t.column :to_bank_at
       t.column :delivered, hidden: true
       t.column :work_name, through: :affair, label: :affair_number, url: { controller: :purchase_affairs }
-      t.column :deal_work_name, through: :affair, label: :purchase_number, url: { controller: :purchases, id: 'RECORD.affair.deals_of_type(Purchase).first.id'.c }
+      t.column :deal_work_name, through: :affair, label: :purchase_number, url: { controller: :purchase_invoices, id: 'RECORD.affair.deals_of_type(Purchase).first.id'.c }
       t.column :bank_statement_number, through: :journal_entry, url: { controller: :bank_statements, id: 'RECORD.journal_entry.bank_statements.first.id'.c }, label: :bank_statement_number
     end
   end

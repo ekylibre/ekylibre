@@ -12,7 +12,7 @@
       - if computation.sale?
         = link_to(computation.human_unit_amount, {controller: :sales, action: :show, id: computation.sale.id})
       - elsif computation.purchase?
-        = link_to(computation.human_unit_amount, {controller: :purchases, action: :show, id: computation.purchase.id})
+        = link_to(computation.human_unit_amount, {controller: :purchase_invoices, action: :show, id: computation.purchase.id})
       - elsif computation.catalog?
         - if computation.catalog_item
           = link_to(computation.human_unit_amount, {controller: :catalog_items, action: :edit, id: computation.catalog_item.id, redirect: request.fullpath})
@@ -30,6 +30,6 @@
       - if computation.sale?
         = :amount_computed_from.th(source: link_to(computation.sale.number, {controller: :sales, action: :show, id: computation.sale.id}, title: Sale.model_name.human))
       - elsif computation.purchase?
-        = :amount_computed_from.th(source: link_to(computation.purchase.number, {controller: :purchases, action: :show, id: computation.purchase.id}, title: Purchase.model_name.human))
+        = :amount_computed_from.th(source: link_to(computation.purchase.number, {controller: :purchase_invoices, action: :show, id: computation.purchase.id}, title: Purchase.model_name.human))
       - elsif computation.catalog? && computation.catalog_item && computation.catalog
         = :amount_estimated_from.th(source: link_to(computation.catalog.name, {controller: :catalogs, action: :show, id: computation.catalog.id}, title: Catalog.model_name.human))
