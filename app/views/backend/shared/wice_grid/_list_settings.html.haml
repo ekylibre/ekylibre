@@ -1,0 +1,8 @@
+.dropdown.wice-grid-toolbar
+  = button_tag nil, class: "btn btn-default dropdown-toggle", id: 'wiceGridSettings', 'data-toggle': 'dropdown' do
+    %i.fa.fa-wrench
+
+  %ul{ class: 'dropdown-menu', 'aria-labelledby': 'wiceGridSettings' }
+    = content_tag :li do
+      %i.fa.fa-columns
+      %span Colonnes
