@@ -118,7 +118,10 @@ class PlantDecorator < Draper::Decorator
       .points_percentage(dimension(user), category)
       .in(unit_name)
       .round(2)
-      .l(precision: 2) + '%'
+      .l(precision: 2)
+      .split(' ')
+      .insert(1, '%')
+      .join(' ')
   end
 
   def dimension(user)
