@@ -141,7 +141,6 @@ class ReceptionItem < ParcelItem
       product ||= variant.new_product(product_params)
       product.parcel_items << self
       product.save
-      binding.pry
       return false, product.errors if product.errors.any?
       ProductMovement.create!(product: product, delta: population, started_at: reception_given_at, originator: self) unless product_is_unitary?
       ProductLocalization.create!(product: product, nature: :interior, container: storing.storage, started_at: reception_given_at, originator: self)

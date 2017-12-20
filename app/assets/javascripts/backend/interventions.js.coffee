@@ -267,7 +267,6 @@
         success: (data, status, request) ->
           for item, index in data.items
             itemLine = []
-            # debugger
             if intervention_id? && item.is_reception
               itemLine.push("<span class='item-id'><input name='intervention[receptions_attributes][0][items_attributes][#{-index}][id]' value='#{item.id}' type='hidden'></input></span>")
             itemLine.push("<span class='item-name'><input name='intervention[receptions_attributes][0][items_attributes][#{-index}][variant_id]' value='#{item.variant_id}' type='hidden'></input>" + item.name + "</span>")
