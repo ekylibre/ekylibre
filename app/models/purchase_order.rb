@@ -141,6 +141,7 @@ class PurchaseOrder < Purchase
     report[:purchase_ordered_at] = ordered_at.l(format: '%d/%m/%Y')
     report[:purchase_estimate_reception_date] = estimate_reception_date.l(format: '%d/%m/%Y')
     report[:purchase_responsible] = responsible.full_name
+    #report[:receiver_email]
     report[:entity_picture] = Entity.of_company.picture.path
     
     report[:items] = []

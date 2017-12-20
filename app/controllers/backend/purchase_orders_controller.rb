@@ -127,6 +127,7 @@ module Backend
         company_address = e.default_mail_address.coordinate
 
         r.add_field 'COMPANY_ADDRESS', company_address
+        r.add_field 'COMPANY_NAME', company_name
         r.add_field 'FILENAME', filename
         r.add_field 'PRINTED_AT', Time.zone.now.l(format: '%d/%m/%Y %T')
         
@@ -134,6 +135,8 @@ module Backend
         r.add_field 'PURCHASE_ORDERED_AT', order_reporting[:purchase_ordered_at]
         r.add_field 'PURCHASE_ESTIMATE_RECEPTION_DATE', order_reporting[:purchase_estimate_reception_date]
         r.add_field 'PURCHASE_RESPONSIBLE', order_reporting[:purchase_responsible]
+        #r.add_field 'RECEIVER_EMAIL', order_reporting[:receiver_email]
+        
         r.add_image :company_logo, order_reporting[:entity_picture]
         
         r.add_table("P_ITEMS", order_reporting[:items], :header => true) do |t|
