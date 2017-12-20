@@ -514,7 +514,12 @@ module Backend
       order_hash = { id: id, pretax_amount: pretax_amount }
       items.each do |item|
         order_hash[:items] = [] if order_hash[:items].nil?
-        order_hash[:items] << { id: item.id, variant_id: item.variant_id, name: item.variant.name, quantity: item.quantity, unit_pretax_amount: item.unit_pretax_amount }
+        order_hash[:items] << { id: item.id,
+          variant_id: item.variant_id,
+          name: item.variant.name,
+          quantity: item.quantity,
+          unit_pretax_amount: item.unit_pretax_amount,
+          is_reception: item.class == ReceptionItem }
       end
       order_hash
     end
