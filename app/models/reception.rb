@@ -83,7 +83,6 @@ class Reception < Parcel
   end
 
   before_validation :remove_all_items, if: ->(obj) { obj.intervention.present? && obj.purchase_id_changed? }
-
   before_validation do
     self.nature = 'incoming'
     self.state ||= :draft
@@ -101,6 +100,11 @@ class Reception < Parcel
 
   protect on: :destroy do
     given?
+  end
+
+  # Remove previous items, only if we are in an intervention and if the purchase change(in callback)
+  def remove_all_items
+    items.where.not(id: nil).destroy_all
   end
 
   # This method permits to add stock journal entries corresponding to the

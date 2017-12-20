@@ -18,6 +18,8 @@
 			disabled: true,
 			value: purchase_order,
 			data: { 'when-item': 'id',
-				'when-filter-value': { of_supplier: 'RECORD_VALUE' }, 'generate-items': true }}, required: true
-	= f.input :reference_number, label: :supplier_reference.tl, input_html: { name:"intervention[receptions_attributes][0][reference_number]" }
+				'when-filter-value': { of_supplier: 'RECORD_VALUE'}, 'generate-items': true }},
+				required: true
+	= f.input :reference_number, label: :supplier_reference.tl, input_html: {name:"intervention[receptions_attributes][0][reference_number]"}
 	.purchase-items-array
+	= link_to_remove_nested_association(:destroy.ta, f)
