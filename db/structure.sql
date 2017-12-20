@@ -4692,7 +4692,7 @@ CREATE TABLE parcel_item_storings (
     id integer NOT NULL,
     parcel_item_id integer NOT NULL,
     storage_id integer NOT NULL,
-    quantity integer,
+    quantity numeric(19,4),
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
     creator_id integer,
@@ -4762,7 +4762,8 @@ CREATE TABLE parcel_items (
     equipment_id integer,
     purchase_order_item_id integer,
     product_work_number character varying,
-    type character varying
+    type character varying,
+    merge_stock boolean DEFAULT true
 );
 
 
@@ -18129,9 +18130,19 @@ INSERT INTO schema_migrations (version) VALUES ('20171113162225');
 
 INSERT INTO schema_migrations (version) VALUES ('20171114093355');
 
+INSERT INTO schema_migrations (version) VALUES ('20171121143329');
+
 INSERT INTO schema_migrations (version) VALUES ('20171122160542');
 
 INSERT INTO schema_migrations (version) VALUES ('20171128100510');
 
 INSERT INTO schema_migrations (version) VALUES ('20171128155136');
+
+INSERT INTO schema_migrations (version) VALUES ('20171129081506');
+
+INSERT INTO schema_migrations (version) VALUES ('20171130093921');
+
+INSERT INTO schema_migrations (version) VALUES ('20171130144435');
+
+INSERT INTO schema_migrations (version) VALUES ('20171220162200');
 

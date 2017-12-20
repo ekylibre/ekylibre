@@ -519,7 +519,8 @@ module Backend
           name: item.variant.name,
           quantity: item.quantity,
           unit_pretax_amount: item.unit_pretax_amount,
-          is_reception: item.class == ReceptionItem }
+          is_reception: item.class == ReceptionItem,
+          role: item.role }
       end
       order_hash
     end

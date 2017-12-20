@@ -37,8 +37,7 @@
 
 
 = cobbles do |c|
-
-  - if @reception.items.any?
+  - if @reception.items.where(role: 'service').any?
     - c.cobble :items, title: resource_model.human_attribute_name(:services) do
       = cobble_list :items
 
