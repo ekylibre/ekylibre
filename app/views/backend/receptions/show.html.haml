@@ -38,5 +38,10 @@
 
 = cobbles do |c|
 
-  - c.cobble :items, title: resource_model.human_attribute_name(:items) do
-    = cobble_list :items
+  - if @reception.items.any?
+    - c.cobble :items, title: resource_model.human_attribute_name(:services) do
+      = cobble_list :items
+
+  - if @reception.storings.any?
+    - c.cobble :storings, title: resource_model.human_attribute_name(:storings) do
+      = cobble_list :storings

@@ -78,7 +78,11 @@ module Backend
       # t.column :purchase, url: true
     end
 
-    list(:items, model: :parcel_items, order: { id: :asc }, conditions: { parcel_id: 'params[:id]'.c }) do |t|
+    def self.items_conditions
+      { parcel_id: 'params[:id]'.c }
+    end
+
+    list(:items, model: :parcel_items, order: { id: :asc }, conditions: { parcel_id: 'params[:id]'.c, role: 'service' }) do |t|
       t.column :variant, url: true
       # t.column :source_product, url: true
       t.column :product_name
@@ -91,6 +95,21 @@ module Backend
       # t.column :product, url: true
       t.column :analysis, url: true
     end
+
+    list(:storings, model: :parcel_item_storings, order: { id: :asc }, conditions: { parcel_item_id: 'Reception.find(params[:id]).items.pluck(:id)'.c }) do |t|
+      t.column :variant, label_method: :name, through: :parcel_item, url: { controller: '/backend/product_nature_variants' }
+      t.column :purchase_order_number, label: :order, through: :parcel_item, url: { controller: '/backend/purchase_orders', id: 'RECORD.parcel_item.purchase_order_item.purchase.id'.c }
+      t.column :purchase_invoice_number, label: :invoice, through: :parcel_item, url: { controller: '/backend/purchase_invoices', id: 'RECORD.parcel_item.purchase_invoice_item.purchase.id'.c }
+      t.column :product_name, through: :parcel_item
+      t.column :product_work_number, through: :parcel_item
+      t.column :storage, url: true
+      t.column :product, url: true
+      t.column :quantity
+      t.column :unit_name, through: :parcel_item
+      t.column :unit_pretax_amount, currency: true, through: :parcel_item
+      t.column :analysis, url: true, through: :parcel_item
+    end
+
 
     def new
       @reception = Reception.new

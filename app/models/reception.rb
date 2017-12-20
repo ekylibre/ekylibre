@@ -68,6 +68,7 @@ class Reception < Parcel
   belongs_to :purchase_order, foreign_key: :purchase_id, class_name: 'PurchaseOrder', inverse_of: :parcels
   belongs_to :intervention, class_name: 'Intervention'
   has_many :items, class_name: 'ReceptionItem', inverse_of: :reception, foreign_key: :parcel_id, dependent: :destroy
+  has_many :storings, through: :items, class_name: 'ParcelItemStoring'
 
   validates :sender, presence: true
 

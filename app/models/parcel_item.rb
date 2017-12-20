@@ -109,6 +109,8 @@ class ParcelItem < Ekylibre::Record::Base
 
   delegate :draft?, :given?, to: :reception, prefix: true, allow_nil: true
   delegate :draft?, :in_preparation?, :prepared?, :given?, to: :shipment, prefix: true
+  delegate :unit_name, to: :variant
+
 
   before_validation do
     if variant
@@ -173,6 +175,18 @@ class ParcelItem < Ekylibre::Record::Base
 
   def name
     Maybe(source_product || variant || products).name.or_else(nil)
+  end
+
+  def purchase_order_number
+    return nil if self.purchase_order_item.nil?
+
+    self.purchase_order_item.purchase.number
+  end
+
+  def purchase_invoice_number
+    return nil if self.purchase_invoice_item.nil?
+
+    self.purchase_invoice_item.purchase.number
   end
 
   protected
