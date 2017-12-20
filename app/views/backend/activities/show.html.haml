@@ -94,4 +94,4 @@
         = link_to :new_inspection.tl, new_backend_inspection_path(activity_id: @activity.id), class: "btn btn-default icn btn-new"
 
       - if @crops.resultset.any?
-        = render partial: 'grid'
+        = render partial: 'crops'
