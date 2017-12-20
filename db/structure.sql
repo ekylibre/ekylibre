@@ -1,4 +1,3 @@
-
 --
 -- PostgreSQL database dump
 --
@@ -18394,6 +18393,8 @@ INSERT INTO schema_migrations (version) VALUES ('20171113162225');
 
 INSERT INTO schema_migrations (version) VALUES ('20171114093355');
 
+INSERT INTO schema_migrations (version) VALUES ('20171117105934');
+
 INSERT INTO schema_migrations (version) VALUES ('20171121143329');
 
 INSERT INTO schema_migrations (version) VALUES ('20171122160542');
@@ -18410,4 +18411,13 @@ INSERT INTO schema_migrations (version) VALUES ('20171130093921');
 
 INSERT INTO schema_migrations (version) VALUES ('20171130144435');
 
+INSERT INTO schema_migrations (version) VALUES ('20171204075626');
+
+INSERT INTO schema_migrations (version) VALUES ('20171206145442');
+
+INSERT INTO schema_migrations (version) VALUES ('20171207134203');
+
+INSERT INTO schema_migrations (version) VALUES ('20171213134204');
+
 INSERT INTO schema_migrations (version) VALUES ('20171220162200');
+
