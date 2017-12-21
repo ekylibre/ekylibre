@@ -1,7 +1,8 @@
 - main_toolbar do |t|
-  = t.edit resource
   = t.export :intervention_sheet
-  = t.destroy
+  = t.edit resource
+  - unless @intervention.receptions_is_given?
+    = t.destroy
   = t.new params: { request_intervention_id: resource.id } if resource.request?
 
 - currency = Nomen::Currency.find(resource.currency)
@@ -65,6 +66,11 @@
   - if resource.product_parameters.any?
     - c.cobble(:parameters) do
       %ul.product_parameters= render partial: 'product_parameter', collection: resource.product_parameters.order(:type)
+
+  - if resource.receptions.any?
+    - c.cobble(:service_deliveries) do
+      = cobble_list(:service_deliveries)
+
 
   - c.cobble(:general_informations) do
     = infos do

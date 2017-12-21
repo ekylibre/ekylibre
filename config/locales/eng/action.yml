@@ -1005,6 +1005,7 @@ eng:
       zoomInTitle: "Zoom in"
       zoomOutTitle: "Zoom out"
   labels:
+    purchase_order: Purchase order
     accepted: "Accepted"
     accepted_for_paiment: "Accepted for paiment"
     access: "Access"
@@ -1826,6 +1827,7 @@ eng:
     reception: "Reception"
     reception_incident: "Reception incident"
     reception_items: "Reception items"
+    service_deliveries: "Service deliveries"
     reception_number: "Reception number"
     # reception_number_with_reference: "Reception number with reference"
     receptions: "Receptions"

@@ -1,4 +1,4 @@
-.nested-fields.reception-form.delivery-item
+.nested-fields.reception-form.delivery-item{ class: ('cant-be-update' if @intervention.receptions_is_given?) }
 	- sender = @intervention.receptions.count >= 1 ? @intervention.receptions.first.sender_id : ""
 	- purchase_order = @intervention.receptions.count >= 1 ? @intervention.receptions.first.purchase_id : ""
 	= field Entity.human_attribute_name(:supplier),
