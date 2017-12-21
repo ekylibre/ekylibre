@@ -35,7 +35,8 @@ module PdfPrinter
       nature: nature,
       key: key,
       name: name,
-      file: data
+      file: data,
+      file_file_name: "#{nature}-#{key}.pdf"
     )
   end
 
