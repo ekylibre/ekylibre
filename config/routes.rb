@@ -599,6 +599,7 @@ Rails.application.routes.draw do
         post :purchase
         get :list_product_parameters
         get :list_record_interventions
+        get :list_reception_items
       end
     end
 

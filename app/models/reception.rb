@@ -184,6 +184,14 @@ class Reception < Parcel
     in_accident
   end
 
+  def sender_full_name
+    sender.full_name
+  end
+
+  def purchase_order_number
+    purchase_order.number
+  end
+
   def give
     state = true
     return false, msg unless state

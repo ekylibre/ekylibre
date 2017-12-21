@@ -995,6 +995,7 @@ eng:
       zoomInTitle: "Zoom in"
       zoomOutTitle: "Zoom out"
   labels:
+    purchase_order: Purchase order
     accepted: "Accepted"
     accepted_for_paiment: "Accepted for paiment"
     access: "Access"

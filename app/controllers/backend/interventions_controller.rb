@@ -173,6 +173,20 @@ module Backend
       t.column :variant, url: true
     end
 
+    list(
+      :reception_items,
+      model: :reception_items,
+      conditions: { id: 'ReceptionItem.joins(:reception).where(parcels: { intervention_id: params[:id]}).pluck(:id)'.c }
+    ) do |t|
+      t.column :variant, url: true
+      t.column :quantity
+      t.column :sender_full_name, label: :entity, through: :reception, url: { controller: 'backend/entities', id: 'RECORD.reception.sender.id'.c }
+      t.column :purchase_order_number, label: :purchase_order, through: :reception, url: { controller: 'backend/purchase_orders', id: 'RECORD.reception.purchase_order.id'.c }
+      t.column :reception, url: true
+      t.column :unit_pretax_amount, currency: true
+      t.column :pretax_amount, currency: true
+    end
+
     list(:record_interventions, model: :interventions, conditions: { request_intervention_id: 'params[:id]'.c }, order: 'interventions.started_at DESC') do |t|
       # t.column :roles, hidden: true
       t.column :name, sort: :reference_name

@@ -67,6 +67,11 @@
     - c.cobble(:parameters) do
       %ul.product_parameters= render partial: 'product_parameter', collection: resource.product_parameters.order(:type)
 
+  - if resource.receptions.any?
+    - c.cobble(:reception_items) do
+      = cobble_list(:reception_items)
+
+
   - c.cobble(:general_informations) do
     = infos do
       -#.med-info.important
