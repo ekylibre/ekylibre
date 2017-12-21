@@ -12,7 +12,7 @@ module FEC
       # Options are:
       # journal_ids: IDs of journal to extract only
       def generate(options = {})
-        build(journals(options[:journal_ids]))
+        build(journals(options[:journal_ids]), options[:fiscal_position])
       end
 
       private

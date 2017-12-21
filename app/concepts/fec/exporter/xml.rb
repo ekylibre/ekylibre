@@ -3,7 +3,7 @@ module FEC
     class XML < FEC::Exporter::Base
       private
 
-      def build(journals)
+      def build(journals, fiscal_position)
         builder = Nokogiri::XML::Builder.new(encoding: 'ISO-8859-15') do |xml|
           xml.comptabilite do
             xml.exercice do

@@ -99,6 +99,17 @@ module Backend
       end
       redirect_to_back
     end
+    
+    def export_fec
+      return unless @financial_year = find_and_check
+      path = Ekylibre::Tenant.private_directory.join('tmp', 'fec.xml')
+      fiscal_position = nil # params[:fiscal_position]
+      financial_year = FinancialYear.find(params[:id])
+      fec = FEC::Exporter::XML.new(financial_year)
+      fec.write(path, fiscal_position: fiscal_position)
+      send_file path
+      # redirect_to_back
+    end
 
     def close
       # Launch close process
