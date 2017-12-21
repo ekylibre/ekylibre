@@ -6,8 +6,8 @@
     series = []
     data = []
 
-    production_sales = @financial_year.sum_entry_items_with_mandatory_line(:ratio, :production_sales)
-    data << {name: :product_value.tl(financial_year: @financial_year.name) , y: production_sales.to_s.to_f, color: :green}
+    net_production_sales = @financial_year.sum_entry_items_with_mandatory_line(:ratio, :net_production_sales)
+    data << {name: :product_value.tl(financial_year: @financial_year.name) , y: net_production_sales.to_s.to_f, color: :green}
 
     production_purchases = @financial_year.sum_entry_items_with_mandatory_line(:ratio, :production_purchases)
     data << {name: :charge_value.tl , y: - production_purchases.to_s.to_f, color: :red}
@@ -20,9 +20,10 @@
     taxes_and_wages = @financial_year.sum_entry_items_with_mandatory_line(:ratio, :taxes_and_wages)
     data << {name: :taxes_and_wages.tl , y: - taxes_and_wages.to_s.to_f, color: :red}
 
-    data << {name: :operating_margin.tl, isSum: true}
+    # operating_margin = @financial_year.sum_entry_items_with_mandatory_line(:ratio, :operating_margin)
+    # data << {name: :operating_margin.tl, y: operating_margin.to_s.to_f, color: :blue}
 
-    operating_margin = @financial_year.sum_entry_items_with_mandatory_line(:ratio, :operating_margin)
+
     #data << [:operating_margin.l , operating_margin]
     raw_income = @financial_year.sum_entry_items_with_mandatory_line(:ratio, :raw_income)
     #data << [:raw_income.l , raw_income]

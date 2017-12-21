@@ -117,9 +117,9 @@ module Telepac
               cap_islet: cap_islet,
               land_parcel_number: record.attributes['NUMERO_SI'].to_s,
               main_crop_code: record.attributes['TYPE'].to_s,
-              main_crop_commercialisation: (record.attributes['COMMERC'].to_s == '1' ? true : false),
+              main_crop_commercialisation: (record.attributes['COMMERC'].to_s == '1'),
               main_crop_precision: record.attributes['CODE_VAR'].to_s,
-              main_crop_seed_production: (record.attributes['PROD_SEM'].to_s == '1' ? true : false),
+              main_crop_seed_production: (record.attributes['PROD_SEM'].to_s == '1'),
               shape: ::Charta.new_geometry(record.geometry).transform(:WGS84).to_rgeo
             }
 

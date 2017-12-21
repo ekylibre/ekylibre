@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :sale_item do
     tax
     sale

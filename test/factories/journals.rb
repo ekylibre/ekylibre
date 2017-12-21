@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :journal do
     closed_on Date.parse('1997-12-31')
     sequence(:name) { |i| "Journal #{i}" }

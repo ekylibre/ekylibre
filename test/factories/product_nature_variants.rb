@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :product_nature_variant do
     unit_name   'Millier de grains'
     variety     'cultivable_zone'
