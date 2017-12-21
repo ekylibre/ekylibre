@@ -1187,6 +1187,7 @@ fra:
     item_type: "Type de l’élément"
     item_value: "Valeur de l’élément"
     items: "Élements"
+    services: Services
     items_count: "Nombre d’éléments"
     items_count_value: "Articles comptent valeur"
     journal: "Journal"

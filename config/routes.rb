@@ -777,6 +777,7 @@ Rails.application.routes.draw do
 
     resources :receptions, concerns: %i[list unroll] do
       member do
+        get :list_items
         get :list_storings
 
         post :give

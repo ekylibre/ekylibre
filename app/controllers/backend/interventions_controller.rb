@@ -283,13 +283,11 @@ module Backend
       end
 
       @intervention = Intervention.new(permitted_params)
-
       url = if params[:create_and_continue]
               { action: :new, continue: true }
             else
               params[:redirect] || { action: :show, id: 'id'.c }
             end
-
       @intervention.save
       return if save_and_redirect(@intervention, url: url, notify: :record_x_created, identifier: :number)
       render(locals: { cancel_url: { action: :index }, with_continue: true })
@@ -308,7 +306,6 @@ module Backend
 
         delete_working_periods(participations)
       end
-
       if @intervention.update_attributes(permitted_params)
         redirect_to action: :show
       else
@@ -367,6 +364,7 @@ module Backend
     def purchase_order_items
       purchase_order = Purchase.find(params[:purchase_order_id])
       reception = Intervention.find(params[:intervention_id]).receptions.first if params[:intervention_id].present?
+
       order_hash = if reception.present? && reception.purchase_id == purchase_order.id
                      find_items(reception.id, reception.pretax_amount, reception.items)
                    else
@@ -514,7 +512,13 @@ module Backend
       order_hash = { id: id, pretax_amount: pretax_amount }
       items.each do |item|
         order_hash[:items] = [] if order_hash[:items].nil?
-        order_hash[:items] << { id: item.id, variant_id: item.variant_id, name: item.variant.name, quantity: item.quantity, unit_pretax_amount: item.unit_pretax_amount }
+        order_hash[:items] << { id: item.id,
+          variant_id: item.variant_id,
+          name: item.variant.name,
+          quantity: item.quantity,
+          unit_pretax_amount: item.unit_pretax_amount,
+          is_reception: item.class == ReceptionItem,
+          role: item.role }
       end
       order_hash
     end

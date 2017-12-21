@@ -238,7 +238,7 @@ GEM
     haml (5.0.4)
       temple (>= 0.8.0)
       tilt
-    hashie (3.5.6)
+    hashie (3.5.7)
     hpricot (0.8.6)
     http-cookie (1.0.3)
       domain_name (~> 0.5)
