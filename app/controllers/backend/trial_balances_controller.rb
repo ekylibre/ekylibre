@@ -22,7 +22,9 @@ module Backend
   class TrialBalancesController < Backend::BaseController
     include PdfPrinter
     def show
-      filename = "#{human_action_name} #{Time.zone.now.l(format: '%Y-%m-%d')}"
+      document_nature = Nomen::DocumentNature.find(:trial_balance)
+      filename = document_nature.human_name
+      key = Time.zone.now.l(format: '%Y-%m-%d-%H:%M:%S')
       @balance = Journal.trial_balance(params) if params[:period]
       respond_to do |format|
         format.html
@@ -45,16 +47,16 @@ module Backend
           send_data(csv_string, filename: filename << '.csv')
         end
         format.pdf do
-          send_data to_odt(@balance, filename, params[:period]), type: 'application/pdf', disposition: 'attachment', filename: filename << '.pdf'
+          send_file to_odt(@balance, document_nature, key, params[:period]), type: 'application/pdf', disposition: 'attachment', filename: filename << '.pdf'
         end
       end
     end
 
     protected
 
-    def to_odt(balance, filename, period)
+    def to_odt(balance, document_nature, key, period)
       # TODO: add a generic template system path
-      report = generate_report(Rails.root.join('config', 'locales', 'fra', 'reporting', 'trial_balance.odt')) do |r|
+      report = generate_document(document_nature.name, key, Rails.root.join('config', 'locales', 'fra', 'reporting', 'trial_balance.odt')) do |r|
         # TODO: add a helper with generic metod to implemend header and footer
 
         e = Entity.of_company
@@ -62,7 +64,7 @@ module Backend
         company_address = e.default_mail_address.coordinate
 
         r.add_field 'COMPANY_ADDRESS', company_address
-        r.add_field 'FILE_NAME', filename
+        r.add_field 'FILE_NAME', document_nature.human_name
         r.add_field 'PERIOD', period
 
         r.add_table('Tableau2', balance, header: false) do |t|
@@ -75,6 +77,7 @@ module Backend
           t.add_column(:balance) { |item| item[4].to_f }
         end
       end
+      report.file.path
     end
 
     def to_csv(balance, csv)
