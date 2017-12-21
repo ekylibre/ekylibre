@@ -75,6 +75,7 @@ capybara*.html
 
 # Local Gemfile
 Gemfile.local
+Gemfile.dev
 
 Procfile.*
 

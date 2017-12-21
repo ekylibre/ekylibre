@@ -13,6 +13,7 @@
   = f.input(:product_net_surface_area, wrapper: :append) do
     = f.input_field(:product_net_surface_area_value, data: { "when-item": :population, "when-set-value": "RECORD_VALUE" })
     = f.input_field(:product_net_surface_area_unit, collection: Nomen::Unit.where(dimension: :surface_area).selection, data: { "when-item": :unit_name, "when-set-value": "RECORD_VALUE" })
+  = f.input :forecast_harvest_week
   = f.input :comment, as: :text
 
 - activity = f.object.activity

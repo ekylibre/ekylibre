@@ -73,7 +73,7 @@ gem 'jbuilder', '~> 2.0'
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '~> 0.4.0', group: :doc
 # gem 'rails-api'
-gem 'kaminari'
+#gem 'kaminari'
 
 gem 'rake', '~>12.0.0'
 
@@ -85,6 +85,11 @@ gem 'charta', '>= 0.1.9'
 
 # Manage daemons
 gem 'foreman'
+
+# active_list alternative
+gem 'wice_grid'#, github: "leikind/wice_grid", branch: "rails3"
+gem 'kaminari', "~> 0.16.0"
+gem 'font-awesome-sass'
 
 # Background jobs
 gem 'sidekiq', '~> 4.0'
@@ -261,7 +266,7 @@ group :test do
 end
 
 # Load Gemfile.local, Gemfile.plugins, plugins', and custom Gemfiles
-gemfiles = Dir.glob File.expand_path('../{Gemfile.local,Gemfile.plugins,plugins/*/Gemfile}', __FILE__)
+gemfiles = Dir.glob File.expand_path('../{Gemfile.local,Gemfile.dev,Gemfile.plugins,plugins/*/Gemfile}', __FILE__)
 gemfiles << ENV['CUSTOM_PLUGIN_GEMFILE'] unless ENV['CUSTOM_PLUGIN_GEMFILE'].nil?
 gemfiles.each do |file|
   next unless File.readable?(file)

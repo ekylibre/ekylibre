@@ -87,6 +87,8 @@ class Activity < Ekylibre::Record::Base
     has_many :inspection_calibration_natures, class_name: 'ActivityInspectionCalibrationNature', through: :inspection_calibration_scales, source: :natures
   end
   has_many :supports, through: :productions
+  has_many :associations_intervention_templates, class_name: 'InterventionTemplateActivity', foreign_key: :activity_id
+  has_many :intervention_templates, through: :associations_intervention_templates
 
   has_and_belongs_to_many :interventions
   has_and_belongs_to_many :campaigns

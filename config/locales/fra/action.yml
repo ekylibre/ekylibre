@@ -162,6 +162,7 @@ fra:
       humans: "Tableau de bord des ressources humaines"
       index: "Tableaux de bord"
       new: "Nouveau tableau de bord"
+      planning: "Tableau de bord de la planification"
       production: "Tableau de bord de la production"
       purchases: "Tableau de bord des achats"
       relationship: "Tableau de bord de la gestion des relations"
@@ -335,6 +336,12 @@ fra:
     backend/intervention_participations:
       convert: "Convert intervention participation: %{name}"
       index: "Participations d’intervention"
+    backend/intervention_templates:
+      edit: "Modifier modèle d'intervention de %{procedure_name} - Campagne %{campaign_name}" #?
+      index: "Modèles d'interventions"
+      new: "Nouveau modèle d'intervention de %{procedure_name} - Campagne %{campaign_name} " #?
+      select_type: "Modèles d'interventions" #?
+      show: "Modèle d'intervention"
     backend/interventions:
       edit: "Modifier l’intervention"
       edit_request: "Modifier la demande d’intervention"
@@ -860,6 +867,7 @@ fra:
       zoomInTitle: "Zoomer"
       zoomOutTitle: "Dézoomer"
   labels:
+    warning_if_no_activites_choose: Si aucune activité n’est sélectionnée, le modèle d'intervention sera disponible pour toutes les activités.
     abilities: "Compétences" #?
     accepted: "Acceptée"
     accepted_for_paiment: "Acceptée pour paiement"
@@ -936,6 +944,7 @@ fra:
     add_inspection_point_nature: "Ajouter un critère de qualité"
     add_intervention_record: "Enregistrer une intervention"
     add_intervention_request: "Demander une intervention"
+    add_intervention_template: "Enregistrer un modèle d'intervention"
     add_item: "Ajouter un élément"
     add_labelling: "Ajouter l’étiquette"
     add_line: "Ajouter une ligne"
@@ -1047,6 +1056,7 @@ fra:
     attorney: "Informations mandataire" #?
     automatic: "Auto"
     available: "Disponible"
+    available_area: "Surface disponible"
     available_columns: "Champs disponibles\_: %{columns}"
     average: "Moyenne"
     back: "Revenir à la page précédente"
@@ -1138,6 +1148,7 @@ fra:
     column_organization: "Organisation" #?
     column_title: "Titre" #?
     columns: "Colonnes à importer"
+    comment: "Commentaire"
     commission: "Commission"
     company: "Société"
     complement_sort: "Trier les choix par nom" #?
@@ -1412,6 +1423,7 @@ fra:
     fixed_asset_depreciations: "Dépréciations d’immobilisation"
     fixed_assets: "Immobilisations"
     from: "À partir du"
+    forecast_harvest_week: 'Semaine de récolte'
     full_name: "Client" #?
     fullscreen: "Plein écran"
     function: "Fonction"
@@ -1441,6 +1453,7 @@ fra:
     groups: "Groupes"
     guide_evolution: "Évolution du guide"
     guides: "Référentiels" #?
+    harvested_area: "Surface récoltée"
     harvested_at: "Récolté le"
     healthy: "Phase du bioprocessus de maladie d’un animal" #?
     help: "Aide"
@@ -1683,6 +1696,7 @@ fra:
     mobile: "Portable"
     mode: "Mode"
     model: "Model"
+    models: "Modèles" #?
     modes: "Modes"
     month: "Mois"
     month_period: "%{code} — %{month} %{year}"
@@ -1731,6 +1745,7 @@ fra:
     new_in_line: "Ajouter un produit intrant" #?
     new_incoming_parcel: "Nouveau colis entrant"
     new_incoming_payment: "Nouveau encaissement"
+    new_inspection: "Nouvel agréage"
     new_inventory: "Nouvel inventaire"
     new_issue: "Nouvel incident"
     new_listing: "Nouvelle extraction"
@@ -1776,6 +1791,7 @@ fra:
     no_right_defined_for_this_part_of_the_application_and_this_user: "Aucun droit défini pour cette partie de l’application et l’utilisateur"
     no_tracking: "Aucun lot" #?
     no_transfers: "Aucun transfert à réaliser" #?
+    nomenclature: "Nomenclatures" #?
     nominal_storable_easement_area: "Surface de stockage au sol"
     non_compliant: "Non conforme"
     non_compliant_with_request: "Non conforme par rapport à l'attente"
@@ -1875,6 +1891,7 @@ fra:
     placeholder: "Espace réservé"
     places: "Lieux"
     planned_at: "Date prévisionnelle" #?
+    planning: "Planification"
     plant: "Culture"
     plant_counting: "Comptage"
     plant_countings: "Comptages"
@@ -1891,6 +1908,7 @@ fra:
     potential_hydrogen: "Potentiel hydrogène (pH)"
     precipitation: "Précipitations"
     preferences: "Préférences"
+    preparation_time: "Préparation" #?
     prescription: "Prescription"
     prescriptions: "Prescriptions"
     pretax_amount: "Montant HT"
@@ -2417,6 +2435,7 @@ fra:
     with_prints: "Inclure les impressions (factures, commandes…)" #?
     worked_on: "Travaillé le" #?
     workers: "Équipiers"
+    workflow: "Débit de chantier" #?
     working_area: "Surface travaillée" #?
     working_duration: "Temps de travail"
     working_sets_stocks: "Stocks d’ensembles de produits"

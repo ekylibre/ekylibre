@@ -33,6 +33,7 @@
 //= require i18n/translations
 //= require i18n/locale
 //= require i18n/ext
+//= require wice_grid
 //= require ekylibre
 //= require moment
 //= require moment/ar
@@ -78,6 +79,7 @@
 //= require tour
 //= require bootstrap-slider
 //= require vue
+//= require vue-resource
 
 var visualization = {};
 var mapeditor = {};

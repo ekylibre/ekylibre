@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 9.6.3
--- Dumped by pg_dump version 9.6.3
+-- Dumped from database version 9.6.6
+-- Dumped by pg_dump version 9.6.6
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -3759,6 +3759,114 @@ ALTER SEQUENCE intervention_participations_id_seq OWNED BY intervention_particip
 
 
 --
+-- Name: intervention_template_activities; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE intervention_template_activities (
+    id integer NOT NULL,
+    intervention_template_id integer,
+    activity_id integer,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: intervention_template_activities_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE intervention_template_activities_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: intervention_template_activities_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE intervention_template_activities_id_seq OWNED BY intervention_template_activities.id;
+
+
+--
+-- Name: intervention_template_product_parameters; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE intervention_template_product_parameters (
+    id integer NOT NULL,
+    intervention_template_id integer,
+    product_nature_id integer,
+    product_nature_variant_id integer,
+    activity_id integer,
+    quantity integer,
+    unit character varying,
+    type character varying,
+    procedure jsonb,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: intervention_template_product_parameters_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE intervention_template_product_parameters_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: intervention_template_product_parameters_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE intervention_template_product_parameters_id_seq OWNED BY intervention_template_product_parameters.id;
+
+
+--
+-- Name: intervention_templates; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE intervention_templates (
+    id integer NOT NULL,
+    name character varying,
+    active boolean DEFAULT true,
+    description character varying,
+    procedure_name character varying,
+    campaign_id integer,
+    preparation_time_hours integer,
+    preparation_time_minutes integer,
+    workflow numeric,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: intervention_templates_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE intervention_templates_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: intervention_templates_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE intervention_templates_id_seq OWNED BY intervention_templates.id;
+
+
+--
 -- Name: intervention_working_periods; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -7483,6 +7591,27 @@ ALTER TABLE ONLY intervention_participations ALTER COLUMN id SET DEFAULT nextval
 
 
 --
+-- Name: intervention_template_activities id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY intervention_template_activities ALTER COLUMN id SET DEFAULT nextval('intervention_template_activities_id_seq'::regclass);
+
+
+--
+-- Name: intervention_template_product_parameters id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY intervention_template_product_parameters ALTER COLUMN id SET DEFAULT nextval('intervention_template_product_parameters_id_seq'::regclass);
+
+
+--
+-- Name: intervention_templates id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY intervention_templates ALTER COLUMN id SET DEFAULT nextval('intervention_templates_id_seq'::regclass);
+
+
+--
 -- Name: intervention_working_periods id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -8602,6 +8731,30 @@ ALTER TABLE ONLY intervention_parameters
 
 ALTER TABLE ONLY intervention_participations
     ADD CONSTRAINT intervention_participations_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: intervention_template_activities intervention_template_activities_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY intervention_template_activities
+    ADD CONSTRAINT intervention_template_activities_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: intervention_template_product_parameters intervention_template_product_parameters_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY intervention_template_product_parameters
+    ADD CONSTRAINT intervention_template_product_parameters_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: intervention_templates intervention_templates_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY intervention_templates
+    ADD CONSTRAINT intervention_templates_pkey PRIMARY KEY (id);
 
 
 --
@@ -12621,6 +12774,27 @@ CREATE INDEX index_intervention_participations_on_updated_at ON intervention_par
 --
 
 CREATE INDEX index_intervention_participations_on_updater_id ON intervention_participations USING btree (updater_id);
+
+
+--
+-- Name: index_intervention_template_activities_on_activity_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_intervention_template_activities_on_activity_id ON intervention_template_activities USING btree (activity_id);
+
+
+--
+-- Name: index_intervention_template_product_parameters_on_activity_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_intervention_template_product_parameters_on_activity_id ON intervention_template_product_parameters USING btree (activity_id);
+
+
+--
+-- Name: index_intervention_templates_on_campaign_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_intervention_templates_on_campaign_id ON intervention_templates USING btree (campaign_id);
 
 
 --
@@ -17181,6 +17355,34 @@ CREATE INDEX index_versions_on_item_type_and_item_id ON versions USING btree (it
 
 
 --
+-- Name: intervention_template_activity_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX intervention_template_activity_id ON intervention_template_activities USING btree (intervention_template_id);
+
+
+--
+-- Name: intervention_template_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX intervention_template_id ON intervention_template_product_parameters USING btree (intervention_template_id);
+
+
+--
+-- Name: product_nature_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX product_nature_id ON intervention_template_product_parameters USING btree (product_nature_id);
+
+
+--
+-- Name: product_nature_variant_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX product_nature_variant_id ON intervention_template_product_parameters USING btree (product_nature_variant_id);
+
+
+--
 -- Name: unique_schema_migrations; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -17318,6 +17520,14 @@ ALTER TABLE ONLY parcel_item_storings
 
 
 --
+-- Name: intervention_template_product_parameters fk_rails_18932007aa; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY intervention_template_product_parameters
+    ADD CONSTRAINT fk_rails_18932007aa FOREIGN KEY (product_nature_id) REFERENCES product_natures(id);
+
+
+--
 -- Name: outgoing_payments fk_rails_1facec8a15; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -17339,6 +17549,14 @@ ALTER TABLE ONLY outgoing_payments
 
 ALTER TABLE ONLY journal_entry_items
     ADD CONSTRAINT fk_rails_3143e6e260 FOREIGN KEY (variant_id) REFERENCES product_nature_variants(id);
+
+
+--
+-- Name: intervention_template_activities fk_rails_39759d6fe4; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY intervention_template_activities
+    ADD CONSTRAINT fk_rails_39759d6fe4 FOREIGN KEY (activity_id) REFERENCES activities(id);
 
 
 --
@@ -17374,6 +17592,14 @@ ALTER TABLE ONLY products
 
 
 --
+-- Name: intervention_template_product_parameters fk_rails_65829c9376; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY intervention_template_product_parameters
+    ADD CONSTRAINT fk_rails_65829c9376 FOREIGN KEY (product_nature_variant_id) REFERENCES product_nature_variants(id);
+
+
+--
 -- Name: payslip_natures fk_rails_6835dfa420; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -17387,6 +17613,22 @@ ALTER TABLE ONLY payslip_natures
 
 ALTER TABLE ONLY parcel_items
     ADD CONSTRAINT fk_rails_7010820bb4 FOREIGN KEY (purchase_order_item_id) REFERENCES purchase_items(id);
+
+
+--
+-- Name: intervention_template_product_parameters fk_rails_75bd15f71d; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY intervention_template_product_parameters
+    ADD CONSTRAINT fk_rails_75bd15f71d FOREIGN KEY (intervention_template_id) REFERENCES intervention_templates(id);
+
+
+--
+-- Name: intervention_template_activities fk_rails_7699df6bd9; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY intervention_template_activities
+    ADD CONSTRAINT fk_rails_7699df6bd9 FOREIGN KEY (intervention_template_id) REFERENCES intervention_templates(id);
 
 
 --
@@ -17411,6 +17653,14 @@ ALTER TABLE ONLY alert_phases
 
 ALTER TABLE ONLY regularizations
     ADD CONSTRAINT fk_rails_8043b7d279 FOREIGN KEY (affair_id) REFERENCES affairs(id);
+
+
+--
+-- Name: intervention_template_product_parameters fk_rails_810325206c; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY intervention_template_product_parameters
+    ADD CONSTRAINT fk_rails_810325206c FOREIGN KEY (activity_id) REFERENCES activities(id);
 
 
 --
@@ -17475,6 +17725,14 @@ ALTER TABLE ONLY tax_declaration_item_parts
 
 ALTER TABLE ONLY financial_years
     ADD CONSTRAINT fk_rails_b170b89c1e FOREIGN KEY (accountant_id) REFERENCES entities(id);
+
+
+--
+-- Name: intervention_templates fk_rails_b5c0e91173; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY intervention_templates
+    ADD CONSTRAINT fk_rails_b5c0e91173 FOREIGN KEY (campaign_id) REFERENCES campaigns(id);
 
 
 --
@@ -18153,5 +18411,11 @@ INSERT INTO schema_migrations (version) VALUES ('20171130093921');
 
 INSERT INTO schema_migrations (version) VALUES ('20171130144435');
 
+INSERT INTO schema_migrations (version) VALUES ('20171204075626');
+
 INSERT INTO schema_migrations (version) VALUES ('20171206145442');
+
+INSERT INTO schema_migrations (version) VALUES ('20171207134203');
+
+INSERT INTO schema_migrations (version) VALUES ('20171213134204');
 
