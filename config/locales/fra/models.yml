@@ -85,7 +85,7 @@ fra:
         storage: "Support" #?
       inventory_item: #?
         quantity: "Quantité constatée" #?
-      journal_entry_item: #?
+      journal_entry_item:
         closed: "Cloturée" #?
         name: "Libellé de l'écriture"
       land_parcel:

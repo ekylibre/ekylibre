@@ -1115,6 +1115,7 @@ jpn:
     entity_to_update: "更新する人"
     entries: "エントリー"
     entries_to_point: "を指しているエントリ"
+    # entry_item_label: "Entry item label"
     entry_items: "入力項目"
     equipment: "装置"
     equipment_name: "機器の名前"
