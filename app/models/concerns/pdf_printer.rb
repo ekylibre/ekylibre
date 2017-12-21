@@ -7,7 +7,7 @@ module PdfPrinter
     report = ODFReport::Report.new(template_path, &block)
     to_pdf_data report
   end
-  
+
   # return file
   def generate_report_file(template_name_or_path, &block)
     template_path = to_template_path(template_name_or_path)
@@ -20,30 +20,31 @@ module PdfPrinter
       file.close
     end
   end
-  
+
   # return file and store file in documents
   def generate_document(nature, key, template_name_or_path, options = { archiving: :last }, &block)
     data = generate_report(template_name_or_path, &block)
     archive_report nature, key, data, options
   end
-  
+
   # store file in document
+  # nature must a Nomen::DocumentNature object
   def archive_report(nature, key, data_or_path, options = { archiving: :last })
-    data = data_or_path.kind_of?(File) ? data_or_path : StringIO.new(data_or_path)
-    name = options[:name] || I18n.translate('models.document_template.document_name', nature: nature, key: key)
+    data = data_or_path.is_a?(File) ? data_or_path : StringIO.new(data_or_path)
+    name = options[:name] || nature.human_name
     Document.create!(
-      nature: nature,
+      nature: nature.name,
       key: key,
       name: name,
       file: data,
-      file_file_name: "#{nature}-#{key}.pdf"
+      file_file_name: "#{key}.pdf"
     )
   end
 
   private
 
   def to_template_path(name_or_path)
-    return name_or_path unless name_or_path.kind_of?(String)
+    return name_or_path unless name_or_path.is_a?(String)
     directory = self.class.name.gsub(/Printer$/, '').underscore
     file_name = "#{name_or_path}.odt"
     Rails.root.join('config', 'locales', I18n.locale.to_s, 'reporting', directory, file_name)
@@ -59,5 +60,4 @@ module PdfPrinter
       File.read pdf_path
     end
   end
-
 end
