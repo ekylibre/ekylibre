@@ -617,6 +617,13 @@ class Intervention < Ekylibre::Record::Base
     valid
   end
 
+  def receptions_is_given?
+    if receptions.any?
+      return receptions.first.given?
+    end
+    true
+  end
+
   # Run the intervention ie. the state is marked as done
   # Returns intervention
   # DEPRECATED Will be removed in 3.0

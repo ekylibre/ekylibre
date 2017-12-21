@@ -389,3 +389,10 @@ div.nested-fields {
   color: #e61e1a;
   margin-left: 45px;
 }
+
+.cant-be-update {
+  pointer-events: none;
+  input {
+    background-color: #F7F7F7;
+  }
+}

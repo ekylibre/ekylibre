@@ -1,4 +1,4 @@
-.nested-fields.reception-form.delivery-item
+.nested-fields.reception-form.delivery-item{ class: ('cant-be-update' if @intervention.receptions_is_given?) }
 	- sender = @intervention.receptions.count >= 1 ? @intervention.receptions.first.sender_id : ""
 	- purchase_order = @intervention.receptions.count >= 1 ? @intervention.receptions.first.purchase_id : ""
 	= field Entity.human_attribute_name(:supplier), selector_tag(:supplier_id, {controller: :entities, action: :unroll, scope: :suppliers }, {}, class: "reception-supplier", name: "intervention[receptions_attributes][0][sender_id]", value: sender, data: { product_of_delivery_item: { url: backend_entity_path("RECORD_ID", format: :json) }})

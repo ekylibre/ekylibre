@@ -141,7 +141,7 @@ module Backend
       t.action :purchase, on: :both, method: :post
       t.action :sell,     on: :both, method: :post
       t.action :edit, if: :updateable?
-      t.action :destroy, if: :destroyable?
+      t.action :destroy, if: :destroyable?, unless: :receptions_is_given?
       t.column :name, sort: :procedure_name, url: true
       t.column :procedure_name, hidden: true
       # t.column :production, url: true, hidden: true
@@ -291,6 +291,8 @@ module Backend
             end
 
       @intervention.save
+      give_receptions
+      reconcile_receptions
       return if save_and_redirect(@intervention, url: url, notify: :record_x_created, identifier: :number)
       render(locals: { cancel_url: { action: :index }, with_continue: true })
     end
@@ -310,6 +312,7 @@ module Backend
       end
 
       if @intervention.update_attributes(permitted_params)
+        give_receptions
         redirect_to action: :show
       else
         render :edit
@@ -471,6 +474,16 @@ module Backend
     end
 
     private
+
+    def reconcile_receptions
+      @intervention.receptions.each do |reception|
+        reception.update(reconciliation_state: 'reconcile') if reception.reconciliation_state != 'reconcile'
+      end
+    end
+
+    def give_receptions
+      # @intervention.receptions.each(&:give)
+    end
 
     def find_interventions
       intervention_ids = params[:id].split(',')
