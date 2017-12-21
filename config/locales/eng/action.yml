@@ -818,6 +818,10 @@ eng:
       new: "New tracking"
       show: "Tracking: %{name}"
     backend/trial_balances:
+      # archive_report: "Archive report trial balance: %{name}"
+      # generate_document: "Generate document trial balance: %{name}"
+      # generate_report: "Generate report trial balance: %{name}"
+      # generate_report_file: "Generate report file trial balance: %{name}"
       show: "Trial balance"
     backend/users:
       edit: "Edit user: %{first_name} %{last_name}"
@@ -1299,8 +1303,8 @@ eng:
     entity_to_update: "Person to update"
     entries: "Entries" #?
     entries_to_point: "Entries pointing to" #?!
+    entry_item_label: "Entry item label" #?
     entry_items: "Entry items" #?
-    entry_item_label: "Entry item label"
     equipment: "Equipment" #?
     equipment_name: "Name of equipment" #?
     equipments: "Equipment"
@@ -1330,10 +1334,11 @@ eng:
     expired_since: "Expired since" #?
     expired_within: "Expired within" #?
     exploitation_results: "Exploitation results" #?!
-    export: "Export documents" #?
+    export: "Export documents"
     export_as_csv: "Export as CSV"
     export_as_ods: "Export as ODS"
-    export_as_odt: "Export as ODT"
+    export_as_odt: "Export as ODT" #?!
+    export_as_pdf: "Export as PDF"
     export_as_xcsv: "Export as Excel CSV"
     field_distribution: "Field distribution"
     file_nature: "File type"
@@ -2322,6 +2327,7 @@ eng:
       # add_to_container: "Add to container"
       # add_to_group: "Add to group"
       # add_to_variant: "Add to variant"
+      # archive_report: "Archive report"
       attach: "Attach"
       # autocomplete: "Autocomplete"
       bookkeep: "Bookkeep"
@@ -2363,7 +2369,10 @@ eng:
       # failure: "Failure"
       family: "Family"
       finish: "Finish"
+      # generate_document: "Generate document"
       generate_last_journal_entry: "Generate last journal entry" #?
+      # generate_report: "Generate report"
+      # generate_report_file: "Generate report file"
       give: "Give"
       import: "Import"
       incorporate: "Incorporate"

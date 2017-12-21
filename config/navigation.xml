@@ -2053,6 +2053,13 @@
     </group>
   </inaccessible-actions>
   <untreated-actions>
-    <group/>
+    <group>
+      <item name="trial_balances">
+        <page to="backend/trial_balances#archive_report"/>
+        <page to="backend/trial_balances#generate_document"/>
+        <page to="backend/trial_balances#generate_report"/>
+        <page to="backend/trial_balances#generate_report_file"/>
+      </item>
+    </group>
   </untreated-actions>
 </navigation>

@@ -32,6 +32,8 @@ cmn:
         started_on: "开始升级"
       fixed_asset_depreciation:
         asset_amount: "问责值"
+      journal_entry_item:
+        # name: "Entry item label"
       land_parcel:
         born_at: "创建时间"
       land_parcel_group:

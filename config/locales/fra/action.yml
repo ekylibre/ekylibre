@@ -1275,8 +1275,8 @@ fra:
     entity_to_update: "Fiche à mettre à jour avec les éléments du doublon"
     entries: "Écritures"
     entries_to_point: "Écritures à pointer"
-    entry_items: "Lignes d’écriture"
     entry_item_label: "Libellé de l'écriture"
+    entry_items: "Lignes d’écriture"
     equipment: "Équipement"
     equipment_name: "Nom de l’équipement"
     equipments: "Équipements"
@@ -1321,6 +1321,7 @@ fra:
     export_as_csv: "Exporter en CSV"
     export_as_ods: "Exporter en ODS"
     export_as_odt: "Exporter en ODT"
+    export_as_pdf: "Exporter en PDF"
     export_as_xcsv: "Exporter en CSV pour Excel"
     export_backup: "Export d’un fichier de sauvegarde" #?
     exportation: "Exportation" #?

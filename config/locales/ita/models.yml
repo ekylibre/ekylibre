@@ -32,6 +32,8 @@ ita:
         started_on: "Inizia l’aggiornamento"
       fixed_asset_depreciation:
         asset_amount: "valore contabile"
+      journal_entry_item:
+        # name: "Entry item label"
       land_parcel:
         born_at: "creato a"
       land_parcel_group:

@@ -32,6 +32,8 @@ por:
         started_on: "Começar atualização"
       fixed_asset_depreciation:
         asset_amount: "Valor contábil"
+      journal_entry_item:
+        # name: "Entry item label"
       land_parcel:
         born_at: "Criado em"
       land_parcel_group:

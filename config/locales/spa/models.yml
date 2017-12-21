@@ -32,6 +32,8 @@ spa:
         started_on: "Iniciar la actualización"
       fixed_asset_depreciation:
         asset_amount: "Valor contable"
+      journal_entry_item:
+        # name: "Entry item label"
       land_parcel:
         born_at: "Creado en"
       land_parcel_group:
