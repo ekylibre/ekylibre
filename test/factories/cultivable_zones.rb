@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :cultivable_zone do
     shape = '{
               "type": "Feature",

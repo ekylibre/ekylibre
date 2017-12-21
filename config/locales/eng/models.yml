@@ -695,7 +695,7 @@ eng:
     device_uid: "Device UID"
     direct_links: "Direct links"
     direction: "Direction"
-    distributed_on_productions: "Distributed on productions"
+    distributed_on_productions: "Distributed on productions" #?
     distributions: "Distributions"
     district: "District"
     document: "Document"
@@ -1530,10 +1530,13 @@ eng:
     tool: "Tool"
     tools: "Tools"
     total_cost: "Total cost"
+    total_doer_cost: "Total doer cost" #?
+    total_input_cost: "Total input cost" #?
     total_items_count: "Total items count" #?
     total_net_mass: "Total net mass" #?
     # total_pretax_amount: "Total pretax amount"
     # total_tax_amount: "Total tax amount"
+    total_tool_cost: "Total tool cost" #?
     town_number: "Town number"
     tracking: "Tracking"
     trackings: "Trackings"

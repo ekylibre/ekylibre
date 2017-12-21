@@ -644,7 +644,6 @@
         <page to="backend/activities#unroll"/>
         <page to="backend/activity_productions#index"/>
         <page to="backend/activity_productions#list_interventions"/>
-        <page to="backend/activity_productions#list_target_distributions"/>
         <page to="backend/activity_productions#show"/>
         <page to="backend/activity_productions#unroll"/>
         <page to="backend/activity_productions#create"/>
@@ -682,6 +681,14 @@
         <page to="backend/activity_seasons#show"/>
         <page to="backend/activity_seasons#unroll"/>
         <page to="backend/activity_seasons#update"/>
+        <page to="backend/products#edit_many"/>
+        <page to="backend/products#update_many"/>
+        <page to="backend/product_groups#edit_many"/>
+        <page to="backend/product_groups#update_many"/>
+        <page to="backend/matters#edit_many"/>
+        <page to="backend/matters#update_many"/>
+        <page to="backend/fungi#edit_many"/>
+        <page to="backend/fungi#update_many"/>
         <page to="backend/plant_density_abaci#create"/>
         <page to="backend/plant_density_abaci#destroy"/>
         <page to="backend/plant_density_abaci#edit"/>
@@ -726,17 +733,6 @@
         <page to="backend/manure_management_plans#show"/>
         <page to="backend/manure_management_plans#unroll"/>
         <page to="backend/manure_management_plans#update"/>
-        <page to="backend/target_distributions#index"/>
-        <page to="backend/target_distributions#create"/>
-        <page to="backend/target_distributions#destroy"/>
-        <page to="backend/target_distributions#edit_many"/>
-        <page to="backend/target_distributions#edit"/>
-        <page to="backend/target_distributions#list"/>
-        <page to="backend/target_distributions#new"/>
-        <page to="backend/target_distributions#update_many"/>
-        <page to="backend/target_distributions#update"/>
-        <page to="backend/target_distributions#list_intervention_product_parameters"/>
-        <page to="backend/target_distributions#show"/>
       </item>
       <item name="interventions">
         <page to="backend/interventions#index"/>
@@ -849,6 +845,8 @@
         <page to="backend/land_parcels#destroy"/>
         <page to="backend/land_parcels#edit"/>
         <page to="backend/land_parcels#list"/>
+        <page to="backend/land_parcels#edit_many"/>
+        <page to="backend/land_parcels#update_many"/>
         <page to="backend/land_parcels#list_carried_linkages"/>
         <page to="backend/land_parcels#list_parcel_items"/>
         <page to="backend/land_parcels#list_carrier_linkages"/>
@@ -896,6 +894,8 @@
         <page to="backend/plants#take"/>
         <page to="backend/plants#unroll"/>
         <page to="backend/plants#update"/>
+        <page to="backend/plants#edit_many"/>
+        <page to="backend/plants#update_many"/>
         <page to="backend/visualizations/plants_visualizations#show"/>
       </item>
     </group>
@@ -916,6 +916,8 @@
         <page to="backend/animals#new"/>
         <page to="backend/animals#show"/>
         <page to="backend/animals#update"/>
+        <page to="backend/animals#edit_many"/>
+        <page to="backend/animals#update_many"/>
         <page to="backend/animals#picture"/>
         <page to="backend/animals#list_parcel_items"/>
         <page to="backend/animals#list_contained_products"/>
@@ -944,6 +946,8 @@
         <page to="backend/animal_groups#new"/>
         <page to="backend/animal_groups#show"/>
         <page to="backend/animal_groups#update"/>
+        <page to="backend/animal_groups#edit_many"/>
+        <page to="backend/animal_groups#update_many"/>
         <page to="backend/animal_groups#list_animals"/>
         <page to="backend/animal_groups#list_places"/>
         <page to="backend/animal_groups#list_carried_linkages"/>
@@ -1543,6 +1547,8 @@
         <page to="backend/workers#new"/>
         <page to="backend/workers#show"/>
         <page to="backend/workers#update"/>
+        <page to="backend/workers#edit_many"/>
+        <page to="backend/workers#update_many"/>
         <page to="backend/workers#list_carried_linkages"/>
         <page to="backend/workers#list_carrier_linkages"/>
         <page to="backend/workers#list_contained_products"/>
@@ -1572,6 +1578,8 @@
         <page to="backend/equipments#take"/>
         <page to="backend/equipments#unroll"/>
         <page to="backend/equipments#update"/>
+        <page to="backend/equipments#edit_many"/>
+        <page to="backend/equipments#update_many"/>
         <page to="backend/equipments#list_parcel_items"/>
         <page to="backend/equipments#list_contained_products"/>
         <page to="backend/equipments#list_inspections"/>
@@ -1595,6 +1603,8 @@
         <page to="backend/buildings#new"/>
         <page to="backend/buildings#show"/>
         <page to="backend/buildings#update"/>
+        <page to="backend/buildings#edit_many"/>
+        <page to="backend/buildings#update_many"/>
         <page to="backend/buildings#list_divisions"/>
         <page to="backend/buildings#take"/>
         <page to="backend/buildings#unroll"/>
@@ -1625,6 +1635,8 @@
         <page to="backend/building_divisions#take"/>
         <page to="backend/building_divisions#unroll"/>
         <page to="backend/building_divisions#update"/>
+        <page to="backend/building_divisions#edit_many"/>
+        <page to="backend/building_divisions#update_many"/>
         <page to="backend/building_divisions#list_inspections"/>
         <page to="backend/building_divisions#list_groups"/>
         <page to="backend/building_divisions#list_issues"/>
@@ -1664,6 +1676,8 @@
         <page to="backend/settlements#take"/>
         <page to="backend/settlements#unroll"/>
         <page to="backend/settlements#update"/>
+        <page to="backend/settlements#edit_many"/>
+        <page to="backend/settlements#update_many"/>
       </item>
     </group>
     <group name="humans">
@@ -2046,6 +2060,7 @@
       </item>
       <item name="production_cost_cobbles">
         <page to="backend/cobbles/production_cost_cobbles#show"/>
+        <page to="backend/cobbles/stock_in_ground_cobbles#show"/>
       </item>
       <item name="resources_visualizations">
         <page to="backend/visualizations/resources_visualizations#show"/>

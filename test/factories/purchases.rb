@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :purchase do
     # needs purchase nature
     association :affair, factory: :purchase_affair
