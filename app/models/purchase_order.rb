@@ -80,6 +80,9 @@ class PurchaseOrder < Purchase
   scope :with_state, lambda { |state|
     where(state: state)
   }
+  scope :of_supplier, ->(supplier) { where(supplier: supplier) }
+
+  scope :of_supplier, ->(supplier) { where(supplier: supplier)}
 
   def self.third_attribute
     :supplier

@@ -78,6 +78,20 @@ module Backend
       # t.column :purchase, url: true
     end
 
+    list(:items, model: :parcel_items, order: { id: :asc }, conditions: { parcel_id: 'params[:id]'.c, role: 'service' }) do |t|
+      t.column :variant, url: true
+      # t.column :source_product, url: true
+      t.column :product_name
+      t.column :product_work_number
+      t.column :population
+      t.column :unit_name, through: :variant
+      t.column :unit_pretax_amount, currency: true
+      t.status
+      # t.column :net_mass
+      # t.column :product, url: true
+      t.column :analysis, url: true
+    end
+
     list(:storings, model: :parcel_item_storings, order: { id: :asc }, conditions: { parcel_item_id: 'Reception.find(params[:id]).items.pluck(:id)'.c }) do |t|
       t.column :variant, label_method: :name, through: :parcel_item, url: { controller: '/backend/product_nature_variants', id: 'RECORD.parcel_item.variant_id'.c }
       t.column :purchase_order_number, label: :order, through: :parcel_item, url: { controller: '/backend/purchase_orders', id: 'RECORD.parcel_item.purchase_order_item.purchase.id'.c }
@@ -91,6 +105,7 @@ module Backend
       t.column :unit_pretax_amount, currency: true, through: :parcel_item
       t.column :analysis, url: true, through: :parcel_item
     end
+
 
     def new
       @reception = Reception.new

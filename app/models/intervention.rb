@@ -112,8 +112,8 @@ class Intervention < Ekylibre::Record::Base
   calculable period: :month, column: :working_duration, at: :started_at, name: :sum
 
   acts_as_numbered
-  accepts_nested_attributes_for :group_parameters, :participations, :doers, :inputs, :outputs, :targets, :tools, :working_periods, allow_destroy: true
-  accepts_nested_attributes_for :labellings, :receptions, allow_destroy: true
+  accepts_nested_attributes_for :group_parameters, :participations, :doers, :inputs, :outputs, :targets, :tools, :working_periods, :labellings, allow_destroy: true
+  accepts_nested_attributes_for :receptions, reject_if: :all_blank, allow_destroy: true
 
   scope :between, lambda { |started_at, stopped_at|
     where(started_at: started_at..stopped_at)
