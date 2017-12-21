@@ -621,7 +621,7 @@ class Intervention < Ekylibre::Record::Base
     if receptions.any?
       return receptions.first.given?
     end
-    true
+    false
   end
 
   # Run the intervention ie. the state is marked as done
