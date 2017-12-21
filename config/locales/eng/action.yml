@@ -1807,6 +1807,7 @@ eng:
     reception: "Reception"
     reception_incident: "Reception incident"
     reception_items: "Reception items"
+    service_deliveries: "Service deliveries"
     reception_number: "Reception number"
     receptions: "Receptions"
     reconcile: "Reconcile"

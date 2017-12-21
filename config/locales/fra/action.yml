@@ -1986,6 +1986,7 @@ fra:
     reception: "Réception"
     reception_incident: "Réception en incident"
     reception_items: "Articles réceptionnés"
+    service_deliveries: "Prestation de service"
     reception_number: "N° du bon de réception"
     receptions: "Réceptions"
     reconcile: "Rapprochée"

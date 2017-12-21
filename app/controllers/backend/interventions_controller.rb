@@ -174,7 +174,7 @@ module Backend
     end
 
     list(
-      :reception_items,
+      :service_deliveries,
       model: :reception_items,
       conditions: { id: 'ReceptionItem.joins(:reception).where(parcels: { intervention_id: params[:id]}).pluck(:id)'.c }
     ) do |t|
