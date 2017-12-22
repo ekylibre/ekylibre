@@ -1,5 +1,5 @@
 = kujaku do |k|
-  - k.helper :journal_period_crit
+  - k.helper :journal_period_crit, limit_to_draft: :true, sort: :asc
   - k.helper :journals_crit
 
 = form_tag(action: :confirm) do

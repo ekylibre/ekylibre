@@ -219,7 +219,7 @@ class Sale < Ekylibre::Record::Base
 
   # This callback bookkeeps the sale depending on its state
   bookkeep do |b|
-    b.journal_entry(self.nature.journal, reference_number: self.number, printed_on: invoiced_on, if: (with_accounting && invoice? && items.any?)) do |entry|
+    b.journal_entry(self.nature.journal, reference_number: number, printed_on: invoiced_on, if: (with_accounting && invoice? && items.any?)) do |entry|
       label = tc(:bookkeep, resource: state_label, number: number, client: client.full_name, products: (description.blank? ? items.pluck(:label).to_sentence : description), sale: initial_number)
       entry.add_debit(label, client.account(:client).id, amount, as: :client)
       items.each do |item|
@@ -232,7 +232,7 @@ class Sale < Ekylibre::Record::Base
     # For undelivered invoice
     # exchange undelivered invoice from parcel
     journal = unsuppress { Journal.used_for_unbilled_payables!(currency: self.currency) }
-    b.journal_entry(journal, reference_number: self.number, printed_on: invoiced_on, as: :undelivered_invoice, if: (with_accounting && invoice?)) do |entry|
+    b.journal_entry(journal, reference_number: number, printed_on: invoiced_on, as: :undelivered_invoice, if: (with_accounting && invoice?)) do |entry|
       parcels.each do |parcel|
         next unless parcel.undelivered_invoice_journal_entry
         label = tc(:exchange_undelivered_invoice, resource: parcel.class.model_name.human, number: parcel.number, entity: supplier.full_name, mode: parcel.nature.tl)
@@ -247,7 +247,7 @@ class Sale < Ekylibre::Record::Base
     # For gap between parcel item quantity and sale item quantity
     # if more quantity on sale than parcel then i have value in C of stock account
     journal = unsuppress { Journal.used_for_permanent_stock_inventory!(currency: self.currency) }
-    b.journal_entry(journal, reference_number: self.number, printed_on: invoiced_on, as: :quantity_gap_on_invoice, if: (with_accounting && invoice? && items.any?)) do |entry|
+    b.journal_entry(journal, reference_number: number, printed_on: invoiced_on, as: :quantity_gap_on_invoice, if: (with_accounting && invoice? && items.any?)) do |entry|
       label = tc(:quantity_gap_on_invoice, resource: self.class.model_name.human, number: number, entity: client.full_name)
       items.each do |item|
         next unless item.variant && item.variant.storable?

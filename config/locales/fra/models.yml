@@ -755,6 +755,7 @@ fra:
     content_maximal_quantity: "Quantité maximale du contenu" #?
     content_nature: "Nature du contenu" #?
     contents: "Contenu"
+    continuous_number: "N° unique"
     contour: "Silhouette" #?
     contract: "Contrat"
     contract_items: "Éléments du contrat"
@@ -1829,6 +1830,7 @@ fra:
     user: "Utilisateur"
     users: "Utilisateurs"
     uuid: "UUID"
+    validated_at: "Validée le"
     value: "Valeur"
     variable_indicators: "Indicateurs variables" #?
     variable_indicators_list: "Liste des indicateurs variables"

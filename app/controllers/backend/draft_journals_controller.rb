@@ -44,13 +44,24 @@ module Backend
     # This method confirm all draft entries
     def confirm
       conditions = eval(self.class.journal_entries_conditions(with_journals: true, state: :draft))
-      journal_entries = JournalEntry.where(conditions)
-      count = journal_entries.count
-      JournalEntry.transaction do
-        journal_entries.update_all(state: :confirmed)
-        JournalEntryItem.where(entry_id: journal_entries).update_all(state: :confirmed)
+      journal_entries = JournalEntry.reorder(:printed_on).where(conditions)
+      journal_entries = journal_entries.joins(:financial_year).where('journal_entries.printed_on BETWEEN financial_years.started_on AND financial_years.stopped_on') # TODO: remove once journal entries will always have its financial_year_id associated to the printed_on
+      if journal_entries.empty?
+        redirect_to action: :show
+        return
       end
-      notify_success(:draft_journal_entries_have_been_validated, count: count)
+      previous_draft_entries = JournalEntry.where(state: :draft).where('printed_on < ?', journal_entries.first.printed_on)
+      previous_draft_entries = previous_draft_entries.joins(:financial_year).where('journal_entries.printed_on BETWEEN financial_years.started_on AND financial_years.stopped_on') # TODO: remove once journal entries will always have its financial_year_id associated to the printed_on
+      if previous_draft_entries.any?
+        notify_error(:draft_journal_entries_cannot_be_validated)
+      else
+        count = journal_entries.count
+        JournalEntry.transaction do
+          journal_entries.update_all(state: :confirmed, validated_at: Time.zone.now)
+          JournalEntryItem.where(entry_id: journal_entries).update_all(state: :confirmed)
+        end
+        notify_success(:draft_journal_entries_have_been_validated, count: count)
+      end
       redirect_to action: :show
     end
   end

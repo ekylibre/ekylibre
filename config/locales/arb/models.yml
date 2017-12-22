@@ -1288,6 +1288,7 @@ arb:
     content: "محتوى"
     content_localizations: "تعريب المحتوى"
     contents: "محتويات"
+    # continuous_number: "Continuous number"
     contract: "عقد"
     contract_items: "بنود العقد"
     contracts: "عقود"
@@ -2529,6 +2530,7 @@ arb:
     users: "المستخدمين"
     uses: "المعدات المستخدمة" #?
     # uuid: "UUID"
+    # validated_at: "Validated at"
     value: "القيمة"
     value_format: "التصميم" #?
     variable_indicators_list: "قائمة مؤشرات متغيرة"

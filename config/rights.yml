@@ -1316,11 +1316,6 @@ journals:
     - read-journals
     actions:
     - "backend/journals#close"
-  reopen:
-    dependencies:
-    - read-journals
-    actions:
-    - "backend/journals#reopen"
 
 labels:
   read:
