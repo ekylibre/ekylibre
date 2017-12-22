@@ -305,7 +305,6 @@ module Backend
             end
 
       @intervention.save
-      give_receptions
       reconcile_receptions
       return if save_and_redirect(@intervention, url: url, notify: :record_x_created, identifier: :number)
       render(locals: { cancel_url: { action: :index }, with_continue: true })
@@ -493,10 +492,6 @@ module Backend
       @intervention.receptions.each do |reception|
         reception.update(reconciliation_state: 'reconcile') if reception.reconciliation_state != 'reconcile'
       end
-    end
-
-    def give_receptions
-      # @intervention.receptions.each(&:give)
     end
 
     def find_interventions
