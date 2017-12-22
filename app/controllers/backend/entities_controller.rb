@@ -215,7 +215,6 @@ module Backend
       t.column :planned_at
       t.column :created_at, hidden: true
       t.column :state, label_method: :human_state_name
-      t.column :purchase, url: true
     end
 
     list(:shipments, conditions: { recipient_id: 'params[:id]'.c }, per_page: 5, order: { created_at: :desc }, line_class: :status) do |t|
