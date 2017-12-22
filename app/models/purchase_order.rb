@@ -136,12 +136,17 @@ class PurchaseOrder < Purchase
   def order_reporting(options = {})
     
     report = HashWithIndifferentAccess.new
+    supplier_email = supplier.addresses.where(canal:'email')
     
     report[:purchase_number] = reference_number
-    report[:purchase_ordered_at] = ordered_at.l(format: '%d/%m/%Y')
-    report[:purchase_estimate_reception_date] = estimate_reception_date.l(format: '%d/%m/%Y')
+    report[:purchase_ordered_at] = ordered_at.l(format: '%d/%m/%Y') if ordered_at.present?
+    report[:purchase_estimate_reception_date] = estimate_reception_date.l(format: '%d/%m/%Y') if estimate_reception_date.present?
     report[:purchase_responsible] = responsible.full_name
-    #report[:receiver_email]
+    report[:supplier_name] = supplier.full_name
+    report[:supplier_phone] = supplier.phones.first.coordinate if supplier.phones.any?
+    report[:supplier_mobile_phone] = supplier.mobiles.first.coordinate if supplier.mobiles.any?
+    report[:supplier_address] = supplier_address if supplier_address.present?
+    report[:supplier_email] = supplier_email.first.coordinate if supplier_email.any?
     report[:entity_picture] = Entity.of_company.picture.path
     
     report[:items] = []
@@ -157,7 +162,7 @@ class PurchaseOrder < Purchase
     end
     
     report[:purchase_pretax_amount] = pretax_amount
-    report[:purchase_currency] = currency.l
+    report[:purchase_currency] = Nomen::Currency.find(currency).symbol
     report
     
   end
