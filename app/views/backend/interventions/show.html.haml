@@ -49,6 +49,12 @@
             %i.picto{class: "picto-#{type}"}
             = cost.l(currency: currency.name)
 
+      .big-info.cost
+        %span.title= "evaluated_reception_cost".tl
+        %span.value
+          %i.picto{class: "picto-recent-actors"}
+          = resource.receptions_cost.l(currency: currency.name)
+
       .big-info.cost.important
         %span.title= :total_cost.tl
         %span.value= resource.total_cost.round(currency.precision).l(currency: currency.name)
@@ -70,7 +76,6 @@
   - if resource.receptions.any?
     - c.cobble(:service_deliveries) do
       = cobble_list(:service_deliveries)
-
 
   - c.cobble(:general_informations) do
     = infos do

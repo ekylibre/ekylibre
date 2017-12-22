@@ -1356,6 +1356,7 @@ fra:
     evaluated_direct_margin: "Marge directe évaluée" #?
     evaluated_doer_cost: "Coût main d’œuvre"
     evaluated_input_cost: "Coût intrants"
+    evaluated_reception_cost: "Coût prestation de service"
     evaluated_other_cost: "Coût autres"
     evaluated_tool_cost: "Coût outils"
     events: "Évènements"
