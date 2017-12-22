@@ -1218,6 +1218,7 @@ eng:
     cobbles: "Cobbles" #?
     column: "Column"
     columns: "Columns to import"
+    wice_grid_columns: "Columns"
     comment: "Comment"
     commission: "Commission"
     company: "Society"
