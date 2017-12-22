@@ -99,10 +99,13 @@ module Backend
       end
       redirect_to_back
     end
-    
+
     def export_fec
       return unless @financial_year = find_and_check
-      path = Ekylibre::Tenant.private_directory.join('tmp', 'fec.xml')
+      siren = Entity.of_company.siren_number
+      fy_stopped_on = @financial_year.stopped_on.l(format: '%Y%m%d')
+      filename = "#{siren}FEC#{fy_stopped_on}"
+      path = Ekylibre::Tenant.private_directory.join('tmp', "#{filename}.xml")
       fiscal_position = nil # params[:fiscal_position]
       financial_year = FinancialYear.find(params[:id])
       fec = FEC::Exporter::XML.new(financial_year)

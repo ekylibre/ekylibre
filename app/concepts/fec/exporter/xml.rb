@@ -3,7 +3,7 @@ module FEC
     class XML < FEC::Exporter::Base
       private
 
-      def build(journals, fiscal_position)
+      def build(journals, _fiscal_position)
         builder = Nokogiri::XML::Builder.new(encoding: 'ISO-8859-15') do |xml|
           xml.comptabilite do
             xml.exercice do
@@ -30,19 +30,19 @@ module FEC
                       # 'ModeRglt' => ??? [A47a-i-VIII-5]
                       # 'NatOp'    => ??? [A47a-i-VIII-5]
                       # 'IdClient' => ??? [A47a-i-VIII-7]
-                      
+
                       entry.items.find_each do |item|
                         xml.ligne do
-                            xml.CompteNum item.account.number.ljust(3, '0')
-                            xml.CompteLib item.account.name
-                            # xml.CompteAuxNum ''
-                            # xml.CompteAuxLib ''
-                            # xml.Montantdevise ''
-                            # xml.Idevise ''
+                          xml.CompteNum item.account.number.ljust(3, '0')
+                          xml.CompteLib item.account.name
+                          # xml.CompteAuxNum ''
+                          # xml.CompteAuxLib ''
+                          # xml.Montantdevise ''
+                          # xml.Idevise ''
                           if item.debit > 0
-                            xml.Debit sprintf('%5.2f', item.debit) #.tr('.', ',')
+                            xml.Debit format('%5.2f', item.debit) # .tr('.', ',')
                           else
-                            xml.Credit sprintf('%5.2f', item.credit) #.to_s.tr('.', ',')
+                            xml.Credit format('%5.2f', item.credit) # .to_s.tr('.', ',')
                           end
                         end
                       end

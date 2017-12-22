@@ -302,6 +302,7 @@ eng:
       close: "Close financial year: %{code}"
       compute_balances: "Compute financial year balance"
       edit: "Edit new financial year"
+      # export_fec: "Export fec financial year: %{name}"
       generate_last_journal_entry: "Generate last journal entry of %{code}" #?
       index: "Financial years"
       new: "Open a new financial year"
@@ -1355,6 +1356,10 @@ eng:
     export_as_csv: "Export as CSV"
     export_as_ods: "Export as ODS"
     export_as_xcsv: "Export as Excel CSV"
+    export_fec_all: "Export fec all"
+    export_fec_ba_bnc_ir_commercial_accountancy: "Export fec ba bnc ir commercial accountancy"
+    export_fec_ba_ir_cash_accountancy: "Export fec ba ir cash accountancy"
+    export_fec_bnc_ir_cash_accountancy: "Export fec bnc ir cash accountancy"
     field_distribution: "Field distribution"
     file_nature: "File type"
     file_preview: "Preview" #?
@@ -2388,6 +2393,7 @@ eng:
       # ekylibre: "Ekylibre"
       evaluate: "Evaluate"
       export: "Export"
+      export_fec: "Export fec"
       export_to_sepa: "Export to SEPA"
       extract: "Extract"
       # failure: "Failure"

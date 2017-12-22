@@ -2,10 +2,10 @@
   = t.edit resource
   = dropdown_menu_button(:export_fec.ta, icon: :download) do |d|
     - export_params = params.slice(:id)
-    - d.item :export_fec_1.tl, action: :export_fec, params: export_params.merge(fiscal_position: 1)
-    - d.item :export_fec_2.tl, params: export_params.merge(fiscal_position: 2)
-    - d.item :export_fec_3.tl, params: export_params.merge(fiscal_position: 3)
-    - d.item :export_fec_4.tl, params: export_params.merge(fiscal_position: 4)
+    - d.item :export_fec_all.tl, action: :export_fec, params: export_params.merge(fiscal_position: :all)
+    - d.item :export_fec_ba_bnc_ir_commercial_accountancy.tl, action: :export_fec, params: export_params.merge(fiscal_position: :ba_bnc_ir_commercial_accountancy)
+    - d.item :export_fec_ba_ir_cash_accountancy.tl, action: :export_fec, params: export_params.merge(fiscal_position: :ba_ir_cash_accountancy)
+    - d.item :export_fec_bnc_ir_cash_accountancy.tl, action: :export_fec, params: export_params.merge(fiscal_position: :bnc_ir_cash_accountancy)
   = t.compute_balances resource, method: :post
   = t.new(label: :new_financial_year_exchange.tl, params: { controller: :financial_year_exchanges, financial_year_id: resource.id }) if resource.can_create_exchange?
   - attrs = {}
