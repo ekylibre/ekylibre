@@ -534,6 +534,10 @@ class Intervention < Ekylibre::Record::Base
     nil
   end
 
+  def receptions_cost
+    receptions.any? ? receptions.sum(:pretax_amount) : 0
+  end
+
   def cost_per_area(role = :input, area_unit = :hectare)
     zone_area = working_zone_area(area_unit)
     if zone_area > 0.0.in(area_unit)
@@ -548,7 +552,7 @@ class Intervention < Ekylibre::Record::Base
   def total_cost
     %i[input tool doer].map do |type|
       (cost(type) || 0.0).to_d
-    end.sum
+    end.sum + receptions_cost
   end
 
   def human_total_cost
