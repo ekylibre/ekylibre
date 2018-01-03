@@ -1,6 +1,4 @@
 #!/usr/bin/env ruby
-# coding: utf-8
-
 # Installation
 # gem install google-api-client
 

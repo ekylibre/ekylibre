@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :sale do
     # needs sale_nature
     association :affair, factory: :sale_affair

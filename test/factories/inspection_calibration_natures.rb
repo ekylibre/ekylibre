@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :small_interval, class: ActivityInspectionCalibrationNature do
     minimal_value 100
     maximal_value 150

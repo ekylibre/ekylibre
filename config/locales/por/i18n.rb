@@ -1,5 +1,3 @@
-# coding: utf-8
-
 { por: {
   i18n: {
     dir: 'ltr',
