@@ -25,7 +25,6 @@
 #  accounted_at                             :datetime
 #  affair_id                                :integer
 #  amount                                   :decimal(19, 4)   default(0.0), not null
-#  command_mode                             :string
 #  confirmed_at                             :datetime
 #  contract_id                              :integer
 #  created_at                               :datetime         not null
@@ -34,26 +33,22 @@
 #  custom_fields                            :jsonb
 #  delivery_address_id                      :integer
 #  description                              :text
-#  estimate_reception_date                  :datetime
 #  id                                       :integer          not null, primary key
 #  invoiced_at                              :datetime
 #  journal_entry_id                         :integer
 #  lock_version                             :integer          default(0), not null
 #  nature_id                                :integer
 #  number                                   :string           not null
-#  ordered_at                               :datetime
 #  payment_at                               :datetime
 #  payment_delay                            :string
 #  planned_at                               :datetime
 #  pretax_amount                            :decimal(19, 4)   default(0.0), not null
 #  quantity_gap_on_invoice_journal_entry_id :integer
-#  reconciliation_state                     :string
 #  reference_number                         :string
 #  responsible_id                           :integer
 #  state                                    :string           not null
 #  supplier_id                              :integer          not null
 #  tax_payability                           :string           not null
-#  type                                     :string
 #  undelivered_invoice_journal_entry_id     :integer
 #  updated_at                               :datetime         not null
 #  updater_id                               :integer
@@ -81,12 +76,12 @@ class Purchase < Ekylibre::Record::Base
   has_many :fixed_assets, through: :items
   has_one :supplier_payment_mode, through: :supplier
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates :accounted_at, :confirmed_at, :estimate_reception_date, :invoiced_at, :ordered_at, :payment_at, :planned_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
+  validates :accounted_at, :confirmed_at, :invoiced_at, :payment_at, :planned_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
   validates :amount, :pretax_amount, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
-  validates :command_mode, :payment_delay, :reconciliation_state, :reference_number, length: { maximum: 500 }, allow_blank: true
   validates :currency, :payee, :supplier, :tax_payability, presence: true
   validates :description, length: { maximum: 500_000 }, allow_blank: true
   validates :number, :state, presence: true, length: { maximum: 500 }
+  validates :payment_delay, :reference_number, length: { maximum: 500 }, allow_blank: true
   # ]VALIDATORS]
   validates :number, :state, length: { allow_nil: true, maximum: 60 }
   validates :created_at, :state, :nature, presence: true

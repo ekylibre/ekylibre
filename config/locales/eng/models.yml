@@ -561,7 +561,6 @@ eng:
     color: "Color"
     column_name: "Column name"
     columns: "Columns"
-    # command_mode: "Command mode"
     comment: "Comment"
     commercial: "Commercial"
     commercial_description: "Commercial description"
@@ -737,7 +736,6 @@ eng:
     entry_number: "Entry number"
     entry_on: "Entry on" #?
     entry_reason: "Entry reason"
-    # estimate_reception_date: "Estimate reception date"
     euid: "EUID"
     event: "Event"
     event_participation: "Event participation"
@@ -986,7 +984,6 @@ eng:
     last_transmission_at: "Last transmission"
     last_value: "Last value"
     last_year: "Last year"
-    # late_delivery: "Late delivery"
     latest: "Latest"
     leaves_parameters: "Leaves parameters"
     lender: "Lender"
@@ -1107,8 +1104,6 @@ eng:
     nitrogen_need: "Nitrogen need"
     node: "Node"
     nodes: "Nodes"
-    # non_compliant: "Non compliant"
-    # non_compliant_detail: "Non compliant detail"
     noticed_start_amount: "Noticed start amount"
     noticed_stop_amount: "Noticed stop amount"
     notification: "Notification"
@@ -1314,7 +1309,7 @@ eng:
     recommended: "Recommended" #?
     recommender: "Recommender"
     reconcilable: "Reconcilable"
-    reconciliation_state: "Reconciliation state"
+    reconciliation_state: "Reconciliation state" #?
     record_interventions: "Record interventions"
     record_value: "Record value"
     record_value_type: "Record value type"
