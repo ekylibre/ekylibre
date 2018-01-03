@@ -868,7 +868,8 @@ fra:
       zoomOutTitle: "Dézoomer"
   labels:
     warning_if_no_activites_choose: Si aucune activité n’est sélectionnée, le modèle d'intervention sera disponible pour toutes les activités.
-    purchase_order: Commandes
+    purchase_order: Commande
+    provider: Fournisseur
     abilities: "Compétences" #?
     accepted: "Acceptée"
     accepted_for_paiment: "Acceptée pour paiement"

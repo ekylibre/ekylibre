@@ -80,6 +80,8 @@ module Backend
 
     list(:items, model: :parcel_items, order: { id: :asc }, conditions: { parcel_id: 'params[:id]'.c, role: 'service' }) do |t|
       t.column :variant, url: true
+      t.column :purchase_order_number, label: :order, through: :parcel_item, url: { controller: '/backend/purchase_orders', id: 'RECORD.purchase_order_item.purchase.id'.c }
+      t.column :purchase_invoice_number, label: :invoice, url: { controller: 'backend/purchase_invoices', id: 'RECORD.purchase_order_item.purchase.id'.c }
       # t.column :source_product, url: true
       t.column :product_name
       t.column :product_work_number

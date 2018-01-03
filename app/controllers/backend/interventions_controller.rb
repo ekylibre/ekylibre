@@ -178,9 +178,9 @@ module Backend
       model: :reception_items,
       conditions: { id: 'ReceptionItem.joins(:reception).where(parcels: { intervention_id: params[:id]}).pluck(:id)'.c }
     ) do |t|
-      t.column :variant, url: true
+      t.column :variant, url: true, label: :service
       t.column :quantity
-      t.column :sender_full_name, label: :entity, through: :reception, url: { controller: 'backend/entities', id: 'RECORD.reception.sender.id'.c }
+      t.column :sender_full_name, label: :provider, through: :reception, url: { controller: 'backend/entities', id: 'RECORD.reception.sender.id'.c }
       t.column :purchase_order_number, label: :purchase_order, through: :reception, url: { controller: 'backend/purchase_orders', id: 'RECORD.reception.purchase_order.id'.c }
       t.column :reception, url: true
       t.column :unit_pretax_amount, currency: true
@@ -322,7 +322,7 @@ module Backend
         delete_working_periods(participations)
       end
       if @intervention.update_attributes(permitted_params)
-        give_receptions
+        reconcile_receptions
         redirect_to action: :show
       else
         render :edit
@@ -540,6 +540,7 @@ module Backend
           quantity: item.quantity,
           unit_pretax_amount: item.unit_pretax_amount,
           is_reception: item.class == ReceptionItem,
+          purchase_order_item: item.try(:purchase_order_item_id) || item.id,
           role: item.role }
       end
       order_hash
