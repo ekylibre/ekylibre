@@ -2127,6 +2127,7 @@ jpn:
       you_must_have_an_email_column: "あなたの抽出にメールアドレスを持っている必要があります"
       you_need_to_review_your_application_configuration: "あなたは、アプリケーションの構成を確認する必要があります"
   preferences:
+    # account_number_digits: "Account number length"
     accounting_system: "勘定科目一覧表"
     bookkeep_automatically: "自動簿記をアクティブ化"
     bookkeep_in_draft: "簿記の間にドラフトモードでレコードを保存"

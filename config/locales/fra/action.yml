@@ -968,6 +968,7 @@ fra:
       abort_issue: "Êtes-vous sûr(e) de vouloir abandonner cet incident\_?"
       close_issue: "Êtes-vous sûr(e) de vouloir clore cet incident\_?"
       reopen_issue: "Êtes-vous sûr(e) de vouloir ré-ouvrir cet incident\_?"
+    are_you_sure_you_want_to_change_account_digits: "Êtes vous sûr(e) de vouloir changer le nombre de caractères sur les numéros de comptes\_?"
     are_you_sure_you_want_to_confirm: "Êtes-vous sûr(e) de vouloir passer en commande\_?"
     are_you_sure_you_want_to_delete: "Êtes-vous sûr(e) de vouloir supprimer cet enregistrement\_?"
     are_you_sure_you_want_to_invoice: "Êtes-vous sûr(e) de vouloir facturer\_?"
@@ -2690,6 +2691,7 @@ fra:
       you_need_to_review_your_application_configuration: "Vous devez revoir la configuration de votre application"
       you_will_lose_all_your_current_data: "Si vous continuez, vous allez perdre toutes vos données en cours de saisie. Voulez-vous poursuivre\_?" #?
   preferences:
+    account_number_digits: "Nombre de caractères des numéros de compte"
     accounting_system: "Plan comptable"
     bookkeep_automatically: "Activer la bascule automatique des données comptables"
     bookkeep_in_draft: "Enregistrer les pièces dans le brouillard lors de la bascule automatique"

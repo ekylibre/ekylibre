@@ -2052,6 +2052,7 @@ cmn:
       you_must_have_an_email_column: "您必须在提取有电子邮件地址"
       you_need_to_review_your_application_configuration: "您需要检查您的应用程序配置"
   preferences:
+    # account_number_digits: "Account number length"
     accounting_system: "科目表"
     bookkeep_automatically: "激活自动簿记"
     bookkeep_in_draft: "保存在草稿模式下记录的记账期间"
