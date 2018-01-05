@@ -77,12 +77,12 @@ module Backend
 
     def show
       return unless @purchase_order = find_and_check
-      filename = "Bon_de_commande_#{@purchase_order.reference_number}"
       respond_to do |format|
         format.html do
           t3e @purchase_order.attributes, supplier: @purchase_order.supplier.full_name, state: @purchase_order.state_label, label: @purchase_order.label
         end
         format.odt do
+          filename = "Bon_de_commande_#{@purchase_order.reference_number}"
           @dataset_purchase_order = @purchase_order.order_reporting
           send_data to_odt(@dataset_purchase_order, filename, params).generate, type: 'application/vnd.oasis.opendocument.text', disposition: 'attachment', filename: filename << '.odt'
         end
