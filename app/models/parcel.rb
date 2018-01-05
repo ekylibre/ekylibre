@@ -465,7 +465,7 @@ class Parcel < Ekylibre::Record::Base
             item.sale_item = sale.items.create!(
               variant: item.variant,
               unit_pretax_amount: (catalog_item ? catalog_item.amount : 0.0),
-              tax: item.variant.category.sale_taxes.first || Tax.first,
+              tax: item.variant.category.sale_taxes.first || Tax.current.first,
               quantity: item.population
             )
             item.save!
@@ -519,7 +519,7 @@ class Parcel < Ekylibre::Record::Base
             item.purchase_item = purchase.items.create!(
               variant: item.variant,
               unit_pretax_amount: (item.unit_pretax_amount.nil? || item.unit_pretax_amount.zero? ? (catalog_item ? catalog_item.amount : 0.0) : item.unit_pretax_amount),
-              tax: item.variant.category.purchase_taxes.first || Tax.first,
+              tax: item.variant.category.purchase_taxes.first || Tax.current.first,
               quantity: item.population
             )
             item.save!
