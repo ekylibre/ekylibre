@@ -2056,6 +2056,7 @@ por:
       you_must_have_an_email_column: "Você deve ter um endereço de e-mail na sua extracção"
       you_need_to_review_your_application_configuration: "Você precisa rever a sua configuração do aplicativo"
   preferences:
+    # account_number_digits: "Account number length"
     accounting_system: "Tabela de contas"
     bookkeep_automatically: "Ative a contabilidade automática"
     bookkeep_in_draft: "Salvar os registros em modo rascunho durante contabilidade"
