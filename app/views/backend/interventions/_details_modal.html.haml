@@ -82,7 +82,7 @@
 
     - if intervention.receptions.any?
       .block
-        %h3.block-title= Intervention.human_attribute_name(:receptions)
+        %h3.block-title= :service_deliveries.tl
         - intervention.receptions.each do |reception|
           - title = reception.sender.name
           - detail = ''
