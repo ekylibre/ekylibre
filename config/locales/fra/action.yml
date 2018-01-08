@@ -2751,7 +2751,6 @@ fra:
       edit_many: "Modifier plusieurs"
       evaluate: "Évaluer"
       export: "Exporter"
-      export_fec: "Export FEC"
       export_to_sepa: "Export SEPA"
       extract: "Extraire"
       family: "Famille"

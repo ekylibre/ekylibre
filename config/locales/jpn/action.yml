@@ -886,6 +886,7 @@ jpn:
       abort_issue: "あなたはこの問題を中止にしてもよろしいですか？"
       close_issue: "あなたはこの問題をクローズにしてもよろしいですか？"
       reopen_issue: "あなたはこの問題を再度開くにしてもよろしいですか？"
+    # are_you_sure_you_want_to_change_account_digits: "Are you sure you want to change the number of characters on account numbers?"
     are_you_sure_you_want_to_confirm: "あなたが注文してもよろしいです"
     are_you_sure_you_want_to_delete: "あなたはこのレコードを削除してもよろしいですか？"
     are_you_sure_you_want_to_invoice: "あなたが請求してもよろしいですか？"

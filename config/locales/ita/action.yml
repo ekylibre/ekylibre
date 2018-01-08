@@ -885,6 +885,7 @@ ita:
       abort_issue: "Sei sicuro di voler annullare questo problema?"
       close_issue: "Sei sicuro di voler chiudere questo problema?"
       reopen_issue: "Sei sicuro di voler riaprire la questione?"
+    # are_you_sure_you_want_to_change_account_digits: "Are you sure you want to change the number of characters on account numbers?"
     are_you_sure_you_want_to_confirm: "Sei sicuro di voler ordinare"
     are_you_sure_you_want_to_delete: "Sei sicuro di voler eliminare questo record?"
     are_you_sure_you_want_to_invoice: "Sei sicuro di voler fattura?"

@@ -2067,10 +2067,6 @@
     </group>
   </inaccessible-actions>
   <untreated-actions>
-    <group>
-      <item name="financial_years">
-        <page to="backend/financial_years#export_fec"/>
-      </item>
-    </group>
+    <group/>
   </untreated-actions>
 </navigation>

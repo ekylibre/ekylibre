@@ -3,7 +3,7 @@ module FEC
     class XML < FEC::Exporter::Base
       private
 
-      def build(journals, fiscal_position)
+      def build(journals)
         builder = Nokogiri::XML::Builder.new(encoding: 'ISO-8859-15') do |xml|
           xml.comptabilite do
             xml.exercice do
@@ -25,7 +25,7 @@ module FEC
                       xml.PieceDate entry.created_at.strftime('%Y-%m-%d') # bug with resource.created_at.strftime('%Y-%m-%d')
                       xml.EcritureLet entry.letter if entry.letter
                       # xml.DateLet
-                      xml.ValidDate ( entry.validated_at? ? entry.validated_at.strftime('%Y-%m-%d') : '')
+                      xml.ValidDate (entry.validated_at? ? entry.validated_at.strftime('%Y-%m-%d') : '')
                       xml.DateRglt entry.first_payment.paid_at if entry.first_payment && fiscal_position == :ba_ir_cash_accountancy
                       xml.ModeRglt entry.first_payment.mode.name if entry.first_payment && fiscal_position == :ba_ir_cash_accountancy
                       xml.NatOp '' if fiscal_position == :ba_ir_cash_accountancy

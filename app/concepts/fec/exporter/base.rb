@@ -1,8 +1,11 @@
 module FEC
   module Exporter
     class Base
-      def initialize(financial_year)
+      attr_reader :financial_year, :fiscal_position
+
+      def initialize(financial_year, fiscal_position = nil)
         @financial_year = financial_year
+        @fiscal_position = fiscal_position
       end
 
       def write(path, options = {})
@@ -12,7 +15,7 @@ module FEC
       # Options are:
       # journal_ids: IDs of journal to extract only
       def generate(options = {})
-        build(journals(options[:journal_ids]), options[:fiscal_position])
+        build(journals(options[:journal_ids]))
       end
 
       private

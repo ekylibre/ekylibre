@@ -302,7 +302,6 @@ eng:
       close: "Close financial year: %{code}"
       compute_balances: "Compute financial year balance"
       edit: "Edit new financial year"
-      # export_fec: "Export fec financial year: %{name}"
       generate_last_journal_entry: "Generate last journal entry of %{code}" #?
       index: "Financial years"
       new: "Open a new financial year"
@@ -2396,7 +2395,6 @@ eng:
       # ekylibre: "Ekylibre"
       evaluate: "Evaluate"
       export: "Export"
-      export_fec: "Export fec"
       export_to_sepa: "Export to SEPA"
       extract: "Extract"
       # failure: "Failure"

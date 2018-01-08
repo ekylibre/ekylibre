@@ -95,7 +95,6 @@
 #     - "backend/dashboards#stocks"
 #     - "backend/dashboards#tools"
 #     - "backend/dashboards#trade"
-#     - "backend/financial_years#export_fec"
 #     - "backend/golumns#reset"
 #     - "backend/golumns#show"
 #     - "backend/golumns#update"

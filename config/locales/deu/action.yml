@@ -819,6 +819,7 @@ deu:
       abort_issue: "Sind Sie sicher, dass Sie dieses Thema abzubrechen?"
       close_issue: "Sind Sie sicher, dass Sie dieses Problem zu schließen?"
       reopen_issue: "Sind Sie sicher, dass Sie dieses Problem wieder zu öffnen?"
+    # are_you_sure_you_want_to_change_account_digits: "Are you sure you want to change the number of characters on account numbers?"
     are_you_sure_you_want_to_confirm: "Sind Sie sicher, dass Sie eine Bestellung aufgeben möchten"
     are_you_sure_you_want_to_delete: "Sind Sie sicher, dass Sie diesen Eintrag löschen?"
     are_you_sure_you_want_to_invoice: "Sind Sie sicher, dass Sie in Rechnung zu stellen wollen?"
