@@ -886,7 +886,7 @@ jpn:
       abort_issue: "あなたはこの問題を中止にしてもよろしいですか？"
       close_issue: "あなたはこの問題をクローズにしてもよろしいですか？"
       reopen_issue: "あなたはこの問題を再度開くにしてもよろしいですか？"
-    # are_you_sure_you_want_to_change_account_digits: "Are you sure you want to change the number of characters on account numbers?"
+    are_you_sure_you_want_to_change_account_digits: "口座番号の文字数を変更してもよろしいですか？"
     are_you_sure_you_want_to_confirm: "あなたが注文してもよろしいです"
     are_you_sure_you_want_to_delete: "あなたはこのレコードを削除してもよろしいですか？"
     are_you_sure_you_want_to_invoice: "あなたが請求してもよろしいですか？"
@@ -2128,7 +2128,7 @@ jpn:
       you_must_have_an_email_column: "あなたの抽出にメールアドレスを持っている必要があります"
       you_need_to_review_your_application_configuration: "あなたは、アプリケーションの構成を確認する必要があります"
   preferences:
-    # account_number_digits: "Account number length"
+    account_number_digits: "口座番号の長さ"
     accounting_system: "勘定科目一覧表"
     bookkeep_automatically: "自動簿記をアクティブ化"
     bookkeep_in_draft: "簿記の間にドラフトモードでレコードを保存"
