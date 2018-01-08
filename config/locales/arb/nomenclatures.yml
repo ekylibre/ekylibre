@@ -2047,6 +2047,18 @@ arb:
         spheroid: "الكرواني جسم شبيه بالكرة"
         vehicle: "مركبة"
       name: "الأرقام"
+    fiscal_positions:
+      items:
+        # fr_ba_ir: "Fr ba ir"
+        # fr_ba_is: "Fr ba is"
+        # fr_bic_ir: "Fr bic ir"
+        # fr_bic_is: "Fr bic is"
+        # fr_bnc_ir: "Fr bnc ir"
+        # fr_bnc_is: "Fr bnc is"
+      # name: "Fiscal positions"
+      property_natures:
+        # code: "Code"
+        # country: "Country"
     guide_natures:
       items:
         best_practices: "أفضل الممارسات"

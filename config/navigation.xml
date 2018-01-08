@@ -107,7 +107,6 @@
         <page to="backend/journals#list_items"/>
         <page to="backend/journals#list_mixed"/>
         <page to="backend/journals#new"/>
-        <page to="backend/journals#reopen"/>
         <page to="backend/journals#show"/>
         <page to="backend/journals#unroll"/>
         <page to="backend/journals#update"/>
@@ -2068,6 +2067,10 @@
     </group>
   </inaccessible-actions>
   <untreated-actions>
-    <group/>
+    <group>
+      <item name="financial_years">
+        <page to="backend/financial_years#export_fec"/>
+      </item>
+    </group>
   </untreated-actions>
 </navigation>

@@ -509,6 +509,7 @@ Rails.application.routes.draw do
         get :list_account_balances
         get :list_fixed_asset_depreciations
         get :list_exchanges
+        get :export_fec
       end
     end
 
@@ -637,7 +638,6 @@ Rails.application.routes.draw do
         get :list_items
         get :list_entries
         match 'close', via: %i[get post]
-        match 'reopen', via: %i[get post]
       end
     end
 

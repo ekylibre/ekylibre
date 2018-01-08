@@ -95,6 +95,7 @@
 #     - "backend/dashboards#stocks"
 #     - "backend/dashboards#tools"
 #     - "backend/dashboards#trade"
+#     - "backend/financial_years#export_fec"
 #     - "backend/golumns#reset"
 #     - "backend/golumns#show"
 #     - "backend/golumns#update"
@@ -1315,11 +1316,6 @@ journals:
     - read-journals
     actions:
     - "backend/journals#close"
-  reopen:
-    dependencies:
-    - read-journals
-    actions:
-    - "backend/journals#reopen"
 
 labels:
   read:

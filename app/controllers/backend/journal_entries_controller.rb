@@ -25,11 +25,12 @@ module Backend
     unroll
 
     list(children: :items, order: { created_at: :desc }, per_page: 10) do |t|
-      t.action :edit, if: :updateable?
+      t.action :edit, if: :editable?
       t.action :destroy, if: :destroyable?
       t.column :number, url: true, children: :name
       t.column :printed_on, datatype: :date, children: false
       t.column :state_label
+      t.column :continuous_number, hidden: true
       t.column :real_debit,  currency: :real_currency
       t.column :real_credit, currency: :real_currency
       t.column :real_balance, currency: :real_currency
@@ -45,6 +46,7 @@ module Backend
       t.column :account_number, through: :account, label_method: :number, url: true, hidden: true
       t.column :account_name, through: :account, label_method: :name, url: true, hidden: true
       t.column :bank_statement, url: true, hidden: true
+      t.column :continuous_number, hidden: true
       # t.column :number, through: :account, url: true
       # t.column :name, through: :account, url: true
       # t.column :number, through: :bank_statement, url: true, hidden: true

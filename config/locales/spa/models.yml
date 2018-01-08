@@ -32,6 +32,8 @@ spa:
         started_on: "Iniciar la actualización"
       fixed_asset_depreciation:
         asset_amount: "Valor contable"
+      journal_entry_item:
+        # name: "Entry item label"
       land_parcel:
         born_at: "Creado en"
       land_parcel_group:
@@ -589,6 +591,7 @@ spa:
     content: "Contenido"
     content_localizations: "Localizaciones de contenido"
     contents: "Contenido"
+    # continuous_number: "Continuous number"
     contract: "Contrato"
     contract_items: "Las posiciones de contrato"
     contracts: "Contratos"
@@ -1547,6 +1550,7 @@ spa:
     user: "Usuario"
     users: "Usuarios"
     # uuid: "UUID"
+    # validated_at: "Validated at"
     value: "Valor"
     variable_indicators_list: "Lista de indicadores variables"
     variant: "Variante"

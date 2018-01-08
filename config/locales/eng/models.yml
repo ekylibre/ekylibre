@@ -32,6 +32,8 @@ eng:
         started_on: "start-up date"
       fixed_asset_depreciation:
         asset_amount: "Accountable value"
+      journal_entry_item:
+        name: "Entry item label"
       land_parcel:
         born_at: "Created at"
       land_parcel_group:
@@ -587,6 +589,7 @@ eng:
     content: "Content"
     content_localizations: "Content localizations"
     contents: "Contents"
+    continuous_number: "Continuous number"
     contract: "Contract"
     contract_items: "Contract items"
     contracts: "Contracts"
@@ -1590,6 +1593,7 @@ eng:
     user: "User"
     users: "Users"
     uuid: "UUID"
+    validated_at: "Validated at"
     value: "Value"
     variable_indicators_list: "Variable indicators list"
     variant: "Variant"

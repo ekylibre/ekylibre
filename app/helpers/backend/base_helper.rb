@@ -78,7 +78,7 @@ module Backend
     def basic_calendar(all_records, options = {}, &block)
       # options[:events] = all_records
       options[:param_name] ||= :started_on
-      BasicCalendar.new(self, options).render do |event_on, records|
+      BasicCalendar.new(self, options).render do |event_on, _records|
         records = all_records.select do |event|
           event_on == event.started_at.to_date
         end
@@ -309,7 +309,11 @@ module Backend
       machine = resource.class.state_machine
       state = resource.state
       state = machine.state(state.to_sym) unless state.is_a?(StateMachine::State) || state.nil?
-      render 'state_bar', states: machine.states, current_state: state, resource: resource, renamings: options[:renamings]
+      render 'state_bar', states: machine.states,
+                          current_state: state,
+                          resource: resource,
+                          renamings: options[:renamings],
+                          disable_transitions: options[:disable_transitions]
     end
 
     def main_state_bar(resource, options = {})

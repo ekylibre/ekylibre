@@ -1399,6 +1399,7 @@ arb:
     entity_update: "تعديل الملف" #?
     entries: "السجلات"
     entries_to_point: "اعداد المدخلات"
+    # entry_item_label: "Entry item label"
     entry_items: "البنود دخول"
     equipment: "معدات"
     equipment_name: "اسم معدات"
@@ -1444,6 +1445,10 @@ arb:
     export_as_csv: "التصدير، CSV"
     export_as_ods: "التصدير، المواد المستنفدة للأوزون"
     export_as_xcsv: "تصدير واكسل CSV"
+    # export_fec_all: "Export fec all"
+    # export_fec_ba_bnc_ir_commercial_accountancy: "Export fec ba bnc ir commercial accountancy"
+    # export_fec_ba_ir_cash_accountancy: "Export fec ba ir cash accountancy"
+    # export_fec_bnc_ir_cash_accountancy: "Export fec bnc ir cash accountancy"
     extract: "يستخرج" #?
     field_distribution: "مجال التوزيع"
     file_nature: "نوع الملف"
@@ -2880,6 +2885,7 @@ arb:
       edit_many: "تعديل العديد"
       evaluate: "تقييم"
       export: "تصدير"
+      # export_fec: "Export fec"
       export_to_sepa: "تصدير إلى المصلحة"
       extract: "استخراج"
       family: "أسرة"

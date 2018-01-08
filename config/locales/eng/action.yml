@@ -302,6 +302,7 @@ eng:
       close: "Close financial year: %{code}"
       compute_balances: "Compute financial year balance"
       edit: "Edit new financial year"
+      # export_fec: "Export fec financial year: %{name}"
       generate_last_journal_entry: "Generate last journal entry of %{code}" #?
       index: "Financial years"
       new: "Open a new financial year"
@@ -441,7 +442,7 @@ eng:
       edit: "Edit journal: %{name}"
       index: "Journals"
       new: "New journal"
-      reopen: "Reopen journal: %{name}"
+      reopen: "Reopen journal: %{name}" #?
       show: "Journal: %{name} (%{code})"
     backend/kujakus:
       # toggle: "Toggle kujaku: %{name}"
@@ -1320,6 +1321,7 @@ eng:
     entity_to_update: "Person to update"
     entries: "Entries" #?
     entries_to_point: "Entries pointing to" #?!
+    entry_item_label: "Entry item label" #?
     entry_items: "Entry items" #?
     equipment: "Equipment" #?
     equipment_name: "Name of equipment" #?
@@ -1350,10 +1352,14 @@ eng:
     expired_since: "Expired since" #?
     expired_within: "Expired within" #?
     exploitation_results: "Exploitation results" #?!
-    export: "Export documents" #?
+    export: "Export documents"
     export_as_csv: "Export as CSV"
     export_as_ods: "Export as ODS"
     export_as_xcsv: "Export as Excel CSV"
+    export_fec_all: "Export fec all"
+    export_fec_ba_bnc_ir_commercial_accountancy: "Export fec ba bnc ir commercial accountancy"
+    export_fec_ba_ir_cash_accountancy: "Export fec ba ir cash accountancy"
+    export_fec_bnc_ir_cash_accountancy: "Export fec bnc ir cash accountancy"
     field_distribution: "Field distribution"
     file_nature: "File type"
     file_preview: "Preview" #?
@@ -2219,6 +2225,7 @@ eng:
       depreciation_successful: "Assets have been successfully depreciated." #?
       document_in_preparation: "Your document is in preparation a notification will be sent to you when it is ready"
       draft_journal_entries_are_present: "Draft journal entries are present." #?
+      # draft_journal_entries_cannot_be_validated: "Draft journal entries cannot be validated"
       draft_journal_entries_have_been_validated:
         one: "%{count} entry has been validated"
         other: "%{count} entries have been validated"
@@ -2251,7 +2258,7 @@ eng:
       journal_entry_has_been_saved: "The journal entry %{number} has been successfully saved"
       journal_entry_has_been_saved_with_a_new_number: "The journal entry has been successfully saved with a new number: %{number}"
       journal_entry_items_marked_with_letter: "Journal entry items have been marked with letter %{letter}"
-      journal_reopened_on: "The journal “%{journal}” has been re-opened on %{closed_on}."
+      journal_reopened_on: "The journal “%{journal}” has been re-opened on %{closed_on}." #?
       mails_are_sent: "The emails were sent"
       merge_is_done: "Merge is done"
       need_a_valid_payment_mode: "Need a valid payment mode"
@@ -2275,7 +2282,7 @@ eng:
       no_production_found_you_can_add_it_or_copy_from_previous_records: "No production found. You can add new or copy some from previous campaign."
       no_purchase_affair_found_on_given_period: "No purchase affair found on given period"
       no_purchases_given: "No purchases given"
-      no_reopenable_journal: "You can not re-open this journal."
+      no_reopenable_journal: "You can not re-open this journal." #?
       no_replacements_since_beginning: "No replacements since beginning"
       # no_worker_associated_with_user_account: "No worker associated with user account"
       previouos_financial_year_is_not_closed: "The previous financial year hasn't been closed." #?
@@ -2387,6 +2394,7 @@ eng:
       # ekylibre: "Ekylibre"
       evaluate: "Evaluate"
       export: "Export"
+      export_fec: "Export fec"
       export_to_sepa: "Export to SEPA"
       extract: "Extract"
       # failure: "Failure"
