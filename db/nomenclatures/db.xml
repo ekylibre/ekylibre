@@ -81,10 +81,10 @@
   </nomenclature>
   <nomenclature name="accounts" translateable="true">
     <properties>
-      <property name="debtor" type="boolean" required="true" default="false"/>
-      <property name="fr_pcg82" type="string" required="true" fallbacks="fr_pcga"/>
-      <property name="fr_pcga" type="string" required="true" fallbacks="fr_pcg82"/>
-      <property name="pt_snc" type="string" required="true"/>
+      <property name="debtor" type="boolean" default="false"/>
+      <property name="fr_pcg82" type="string" fallbacks="fr_pcga"/>
+      <property name="fr_pcga" type="string" fallbacks="fr_pcg82"/>
+      <property name="pt_snc" type="string"/>
     </properties>
     <items>
       <item name="accrued_bank_interests" fr_pcg82="51800000"/>
@@ -519,9 +519,9 @@
   </nomenclature>
   <nomenclature name="activity_families" translateable="true">
     <properties>
-      <property name="cultivation_variety" type="item" choices="varieties" required="true"/>
-      <property name="nature" type="choice" choices="main, auxiliary, standalone" default="main"/>
-      <property name="support_variety" type="item" choices="varieties" required="true"/>
+      <property name="cultivation_variety" type="item" choices="varieties"/>
+      <property name="nature" type="choice" choices="main, auxiliary, standalone" required="true" default="main"/>
+      <property name="support_variety" type="item" choices="varieties"/>
     </properties>
     <items>
       <item name="administering" nature="auxiliary"/>

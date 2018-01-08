@@ -1593,7 +1593,7 @@ eng:
     user: "User"
     users: "Users"
     uuid: "UUID"
-    validated_at: "Validated at"
+    validated_at: "Validated at" #?
     value: "Value"
     variable_indicators_list: "Variable indicators list"
     variant: "Variant"
