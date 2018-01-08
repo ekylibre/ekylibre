@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :sale_nature do
     catalog
     journal
