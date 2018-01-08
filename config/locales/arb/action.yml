@@ -1086,6 +1086,7 @@ arb:
       abort_issue: "هل أنت متأكد أنك تريد إجهاض هذه المسألة؟"
       close_issue: "هل أنت متأكد أنك تريد إغلاق هذه القضية؟"
       reopen_issue: "هل أنت متأكد أنك تريد إعادة فتح هذه القضية؟"
+    # are_you_sure_you_want_to_change_account_digits: "Are you sure you want to change the number of characters on account numbers?"
     are_you_sure_you_want_to_confirm: "هل انت متأكد من رغبتك بالمضي بطلب الشراء؟"
     are_you_sure_you_want_to_delete: "هل انت متاكد من رغبتك بالقيام به؟"
     are_you_sure_you_want_to_delete_delivery: "هل انت متأكد من رغبتك بازالة التسليم من وسائل النقل؟" #?

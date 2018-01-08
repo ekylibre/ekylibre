@@ -824,6 +824,7 @@ por:
       abort_issue: "Tem certeza de que quer abortar esta questão?"
       close_issue: "Tem certeza de que quer encerrar a esta questão?"
       reopen_issue: "Tem certeza de que quer reabrir esta questão?"
+    # are_you_sure_you_want_to_change_account_digits: "Are you sure you want to change the number of characters on account numbers?"
     are_you_sure_you_want_to_confirm: "Tem a certeza que pretende encomendar"
     are_you_sure_you_want_to_delete: "Tem certeza de que deseja excluir este registro?"
     are_you_sure_you_want_to_invoice: "Tem certeza de que quer facturar?"
