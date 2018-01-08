@@ -145,10 +145,6 @@
     <group name="synthesis" icon="table">
       <item name="trial_balance">
         <page to="backend/trial_balances#show"/>
-        <page to="backend/trial_balances#archive_report"/>
-        <page to="backend/trial_balances#generate_document"/>
-        <page to="backend/trial_balances#generate_report"/>
-        <page to="backend/trial_balances#generate_report_file"/>
       </item>
       <item name="general_ledger">
         <page to="backend/general_ledgers#show"/>
@@ -2071,10 +2067,6 @@
     </group>
   </inaccessible-actions>
   <untreated-actions>
-    <group>
-      <item name="trial_balances">
-        <page to="backend/trial_balances#find_open_document_template"/>
-      </item>
-    </group>
+    <group/>
   </untreated-actions>
 </navigation>

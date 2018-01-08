@@ -1,6 +1,8 @@
 module PdfPrinter
   extend ActiveSupport::Concern
 
+  protected
+
   # return data
   def generate_report(template_name_or_path, &block)
     template_path = to_template_path(template_name_or_path)
