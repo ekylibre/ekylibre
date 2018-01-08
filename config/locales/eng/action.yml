@@ -838,6 +838,7 @@ eng:
       show: "Tracking: %{name}"
     backend/trial_balances:
       # archive_report: "Archive report trial balance: %{name}"
+      # find_open_document_template: "Find open document template trial balance: %{name}"
       # generate_document: "Generate document trial balance: %{name}"
       # generate_report: "Generate report trial balance: %{name}"
       # generate_report_file: "Generate report file trial balance: %{name}"
@@ -1358,7 +1359,6 @@ eng:
     export: "Export documents"
     export_as_csv: "Export as CSV"
     export_as_ods: "Export as ODS"
-    export_as_odt: "Export as ODT" #?!
     export_as_pdf: "Export as PDF"
     export_as_xcsv: "Export as Excel CSV"
     field_distribution: "Field distribution"
@@ -2401,6 +2401,7 @@ eng:
       extract: "Extract"
       # failure: "Failure"
       family: "Family"
+      # find_open_document_template: "Find open document template"
       finish: "Finish"
       # generate_document: "Generate document"
       generate_last_journal_entry: "Generate last journal entry" #?

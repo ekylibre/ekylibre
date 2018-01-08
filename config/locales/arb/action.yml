@@ -1444,8 +1444,7 @@ arb:
     export: "اصدار الوثائق"
     export_as_csv: "التصدير، CSV"
     export_as_ods: "التصدير، المواد المستنفدة للأوزون"
-    # export_as_odt: "Export as ODT"
-    # export_as_pdf: "Export as PDF"
+    export_as_pdf: "تصدير كملف بدف"
     export_as_xcsv: "تصدير واكسل CSV"
     extract: "يستخرج" #?
     field_distribution: "مجال التوزيع"
