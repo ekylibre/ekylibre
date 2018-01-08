@@ -2039,6 +2039,18 @@ eng:
         spheroid: "Spheroid"
         vehicle: "Vehicle"
       name: "Figures"
+    fiscal_positions:
+      items:
+        fr_ba_ir: "French agriculture (BA) income taxation"
+        fr_ba_is: "French agriculture (BA) corporate taxation"
+        fr_bic_ir: "French commercial, industrial or artisanal business (BIC) income taxation"
+        fr_bic_is: "French commercial, industrial or artisanal business (BIC) corporate taxation"
+        fr_bnc_ir: "French professional operations income taxation"
+        fr_bnc_is: "French professional operations corporate taxation"
+      name: "Fiscal positions"
+      property_natures:
+        code: "Code"
+        country: "Country"
     guide_natures:
       items:
         best_practices: "Best practices"

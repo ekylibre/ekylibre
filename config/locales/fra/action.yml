@@ -1323,6 +1323,10 @@ fra:
     export_as_ods: "Exporter en ODS"
     export_as_xcsv: "Exporter en CSV pour Excel"
     export_backup: "Export d’un fichier de sauvegarde" #?
+    export_fec_all: "Export FEC - Cas général"
+    export_fec_ba_bnc_ir_commercial_accountancy: "Export FEC - Cas BA BNC IR - comptabilité commerciale"
+    export_fec_ba_ir_cash_accountancy: "Export FEC - Cas BA IR comptabilité de trésorerie"
+    export_fec_bnc_ir_cash_accountancy: "Export FEC - Cas BNC IR comptabilité de trésorerie"
     exportation: "Exportation" #?
     extract: "Extraire" #?
     fat_matters_concentration: "Teneur en matières grasses" #?

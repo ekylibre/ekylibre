@@ -165,6 +165,20 @@ class JournalEntry < Ekylibre::Record::Base
     end
   end
 
+  # return the letter if any on items
+  def letter
+    items.pluck(:letter).compact.uniq.first
+  end
+
+  # return the date of the first payment (incomming or outgoing)
+  def first_payment
+    if purchase_payments.any?
+      purchase_payments.reorder(:paid_at).first
+    elsif incoming_payments.any?
+      incoming_payments.reorder(:paid_at).first
+    end
+  end
+
   # Returns states names
   def self.states
     state_machine.states.collect(&:name)

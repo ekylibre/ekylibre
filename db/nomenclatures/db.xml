@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20171106085357">
+<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20171212081801">
   <nomenclature name="abilities" translateable="true">
     <properties>
       <property name="parameters" type="choice_list" choices="variety, issue_nature"/>
@@ -2040,6 +2040,20 @@
       <item name="quadruped"/>
       <item name="spheroid"/>
       <item name="vehicle"/>
+    </items>
+  </nomenclature>
+  <nomenclature name="fiscal_positions" translateable="true">
+    <properties>
+      <property name="code" type="string" required="true"/>
+      <property name="country" type="item" choices="countries" required="true"/>
+    </properties>
+    <items>
+      <item name="fr_ba_ir" country="fr" code="BA-IR"/>
+      <item name="fr_ba_is" country="fr" code="BA-IS"/>
+      <item name="fr_bic_ir" country="fr" code="BIC-IR"/>
+      <item name="fr_bic_is" country="fr" code="BIC-IS"/>
+      <item name="fr_bnc_ir" country="fr" code="BNC-IR"/>
+      <item name="fr_bnc_is" country="fr" code="BNC-IS"/>
     </items>
   </nomenclature>
   <nomenclature name="guide_natures" translateable="true">
