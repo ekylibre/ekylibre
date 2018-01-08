@@ -1321,7 +1321,6 @@ eng:
     entity_to_update: "Person to update"
     entries: "Entries" #?
     entries_to_point: "Entries pointing to" #?!
-    entry_item_label: "Entry item label" #?
     entry_items: "Entry items" #?
     equipment: "Equipment" #?
     equipment_name: "Name of equipment" #?
@@ -1356,10 +1355,10 @@ eng:
     export_as_csv: "Export as CSV"
     export_as_ods: "Export as ODS"
     export_as_xcsv: "Export as Excel CSV"
-    export_fec_all: "Export fec all"
-    export_fec_ba_bnc_ir_commercial_accountancy: "Export fec ba bnc ir commercial accountancy"
-    export_fec_ba_ir_cash_accountancy: "Export fec ba ir cash accountancy"
-    export_fec_bnc_ir_cash_accountancy: "Export fec bnc ir cash accountancy"
+    export_fec_all: "Export FEC (Default)"
+    export_fec_ba_bnc_ir_commercial_accountancy: "Export FEC for agriculture and professional operations income taxation commercial accountancy"
+    export_fec_ba_ir_cash_accountancy: "Export FEC agriculture income taxation cash accountancy"
+    export_fec_bnc_ir_cash_accountancy: "Export FEC professional operations income taxation cash accountancy"
     field_distribution: "Field distribution"
     file_nature: "File type"
     file_preview: "Preview" #?
