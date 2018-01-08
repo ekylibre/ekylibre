@@ -5,28 +5,28 @@ module FEC
 
       def build(journals)
         columns = {
-          "JournalCode" => "j.code",
-          "JournalLib" => "j.name",
-          "EcritureNum" => "je.number",
-          "EcritureDate" => "je.printed_on",
-          "CompteNum" => "a.number",
-          "CompteLib" => "a.name",
-          "CompAuxNum" => "''",
-          "CompAuxLib" => "''",
-          "PieceRef" => "p.number",
-          "PieceDate" => "p.created_at::DATE",
-          "EcritureLib" => "jei.name",
-          "Debit" => "ROUND(jei.debit, 2)",
-          "Credit" => "ROUND(jei.credit, 2)",
-          "EcritureLet" => "''",
-          "DateLet" => "''",
-          "ValidDate" => "je.printed_on",
-          "Montantdevise" => "''",
-          "Idevise" => "''",
-          "TiersNum" => "t.number",
-          "TiersLib" => "t.full_name"
+          'JournalCode' => 'j.code',
+          'JournalLib' => 'j.name',
+          'EcritureNum' => 'je.number',
+          'EcritureDate' => 'je.printed_on',
+          'CompteNum' => 'a.number',
+          'CompteLib' => 'a.name',
+          'CompAuxNum' => "''",
+          'CompAuxLib' => "''",
+          'PieceRef' => 'p.number',
+          'PieceDate' => 'p.created_at::DATE',
+          'EcritureLib' => 'jei.name',
+          'Debit' => 'ROUND(jei.debit, 2)',
+          'Credit' => 'ROUND(jei.credit, 2)',
+          'EcritureLet' => "''",
+          'DateLet' => "''",
+          'ValidDate' => 'je.printed_on',
+          'Montantdevise' => "''",
+          'Idevise' => "''",
+          'TiersNum' => 't.number',
+          'TiersLib' => 't.full_name'
         }
-        select = columns.map{ |k, v| "#{v} AS \"#{k}\""}.join(', ')
+        select = columns.map { |k, v| "#{v} AS \"#{k}\"" }.join(', ')
         query = <<-SQL.strip_heredoc
           SELECT #{select}
           FROM journal_entry_items AS jei
