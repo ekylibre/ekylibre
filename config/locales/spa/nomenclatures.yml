@@ -2046,16 +2046,16 @@ spa:
       name: "Figuras"
     fiscal_positions:
       items:
-        # fr_ba_ir: "French agriculture (BA) income taxation"
-        # fr_ba_is: "French agriculture (BA) corporate taxation"
-        # fr_bic_ir: "French commercial, industrial or artisanal business (BIC) income taxation"
-        # fr_bic_is: "French commercial, industrial or artisanal business (BIC) corporate taxation"
-        # fr_bnc_ir: "French professional operations income taxation"
-        # fr_bnc_is: "French professional operations corporate taxation"
-      # name: "Fiscal positions"
+        fr_ba_ir: "Impuesto sobre la renta de la agricultura francesa (BA)"
+        fr_ba_is: "Impuestos a la agricultura en Francia (BA)"
+        fr_bic_ir: "Impuesto a la renta comercial, industrial o artesanal francés (BIC)"
+        fr_bic_is: "Impuestos corporativos comerciales, industriales o artesanales franceses (BIC)"
+        fr_bnc_ir: "Impuesto sobre la renta de las operaciones profesionales francesas"
+        fr_bnc_is: "Impuestos corporativos de las operaciones profesionales francesas"
+      name: "Posiciones fiscales"
       property_natures:
-        # code: "Code"
-        # country: "Country"
+        code: "Código"
+        country: "País"
     guide_natures:
       items:
         best_practices: "Mejores prácticas"

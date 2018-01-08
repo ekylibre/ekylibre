@@ -2051,16 +2051,16 @@ jpn:
       name: "統計"
     fiscal_positions:
       items:
-        # fr_ba_ir: "French agriculture (BA) income taxation"
-        # fr_ba_is: "French agriculture (BA) corporate taxation"
-        # fr_bic_ir: "French commercial, industrial or artisanal business (BIC) income taxation"
-        # fr_bic_is: "French commercial, industrial or artisanal business (BIC) corporate taxation"
-        # fr_bnc_ir: "French professional operations income taxation"
-        # fr_bnc_is: "French professional operations corporate taxation"
-      # name: "Fiscal positions"
+        fr_ba_ir: "フランスの農業（BA）所得税"
+        fr_ba_is: "フランスの農業（BA）法人課税"
+        fr_bic_ir: "フランスの商業、工業または職人ビジネス（BIC）所得税"
+        fr_bic_is: "フランスの商業、工業または職人ビジネス（BIC）法人税"
+        fr_bnc_ir: "フランスの専門業務所得税"
+        fr_bnc_is: "フランスの専門業務法人課税"
+      name: "財政状態"
       property_natures:
-        # code: "Code"
-        # country: "Country"
+        code: "コード"
+        country: "国"
     guide_natures:
       items:
         best_practices: "ベストプラクティス"

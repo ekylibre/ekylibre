@@ -2040,16 +2040,16 @@ cmn:
       name: "人物"
     fiscal_positions:
       items:
-        # fr_ba_ir: "French agriculture (BA) income taxation"
-        # fr_ba_is: "French agriculture (BA) corporate taxation"
-        # fr_bic_ir: "French commercial, industrial or artisanal business (BIC) income taxation"
-        # fr_bic_is: "French commercial, industrial or artisanal business (BIC) corporate taxation"
-        # fr_bnc_ir: "French professional operations income taxation"
-        # fr_bnc_is: "French professional operations corporate taxation"
-      # name: "Fiscal positions"
+        fr_ba_ir: "法国农业（BA）所得税"
+        fr_ba_is: "法国农业（BA）公司税"
+        fr_bic_ir: "法国商业，工业或手工业务（BIC）所得税"
+        fr_bic_is: "法国商业，工业或手工业（BIC）公司税"
+        fr_bnc_ir: "法国专业营运所得税"
+        fr_bnc_is: "法国专业运营公司税收"
+      name: "财政状况"
       property_natures:
-        # code: "Code"
-        # country: "Country"
+        code: "码"
+        country: "国家"
     guide_natures:
       items:
         best_practices: "最佳实践"
