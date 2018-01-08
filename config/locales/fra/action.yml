@@ -1321,6 +1321,7 @@ fra:
     export: "Exporter"
     export_as_csv: "Exporter en CSV"
     export_as_ods: "Exporter en ODS"
+    export_as_pdf: "Exporter en PDF"
     export_as_xcsv: "Exporter en CSV pour Excel"
     export_backup: "Export d’un fichier de sauvegarde" #?
     export_fec_all: "Export FEC - Cas général"

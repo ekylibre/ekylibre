@@ -1444,6 +1444,7 @@ arb:
     export: "اصدار الوثائق"
     export_as_csv: "التصدير، CSV"
     export_as_ods: "التصدير، المواد المستنفدة للأوزون"
+    export_as_pdf: "تصدير كملف بدف"
     export_as_xcsv: "تصدير واكسل CSV"
     export_fec_all: "تصدير فيك (افتراضي)"
     export_fec_ba_bnc_ir_commercial_accountancy: "تصدير فيك للزراعة والعمليات المهنية ضريبة الدخل المحاسبة التجارية"

@@ -1151,6 +1151,7 @@ jpn:
     export: "輸出書類"
     export_as_csv: "CSVとしてエクスポート"
     export_as_ods: "ODSとしてエクスポート"
+    export_as_pdf: "PDF形式でエクスポート"
     export_as_xcsv: "Excel CSVとしてエクスポート"
     export_fec_all: "FECエクスポート（デフォルト）"
     export_fec_ba_bnc_ir_commercial_accountancy: "農業および専門業務所得税の商業会計に関する輸出FEC"

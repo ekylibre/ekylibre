@@ -1083,6 +1083,7 @@ cmn:
     export: "出口单证"
     export_as_csv: "导出为CSV"
     export_as_ods: "作为ODS出口"
+    export_as_pdf: "导出为PDF"
     export_as_xcsv: "导出为Excel CSV"
     export_fec_all: "导出FEC（默认）"
     export_fec_ba_bnc_ir_commercial_accountancy: "出口FEC农业和专业运营所得税商业会计"

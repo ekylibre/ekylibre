@@ -1149,6 +1149,7 @@ ita:
     export: "documenti di esportazione"
     export_as_csv: "Esportazione in formato CSV"
     export_as_ods: "Esporta come ODS"
+    export_as_pdf: "Esporta come PDF"
     export_as_xcsv: "Esportare come Excel CSV"
     export_fec_all: "Esporta FEC (predefinito)"
     export_fec_ba_bnc_ir_commercial_accountancy: "Esportazione di FEC per l’agricoltura e la contabilità commerciale"

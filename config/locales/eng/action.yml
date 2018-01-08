@@ -1354,6 +1354,7 @@ eng:
     export: "Export documents"
     export_as_csv: "Export as CSV"
     export_as_ods: "Export as ODS"
+    export_as_pdf: "Export as PDF"
     export_as_xcsv: "Export as Excel CSV"
     export_fec_all: "Export FEC (Default)"
     export_fec_ba_bnc_ir_commercial_accountancy: "Export FEC for agriculture and professional operations income taxation commercial accountancy"

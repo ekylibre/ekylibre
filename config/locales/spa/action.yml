@@ -1202,6 +1202,7 @@ spa:
     export: "Exportación de un fichero de salvaguardia"
     export_as_csv: "Exportar como CSV"
     export_as_ods: "Exportar como ODS"
+    export_as_pdf: "Exportar como PDF"
     export_as_xcsv: "Exportar como Excel CSV"
     export_fec_all: "Exportar FEC (predeterminado)"
     export_fec_ba_bnc_ir_commercial_accountancy: "Exportar FEC para agricultura y operaciones profesionales impuesto sobre la renta contabilidad comercial"

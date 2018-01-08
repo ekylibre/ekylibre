@@ -1088,6 +1088,7 @@ por:
     export: "Documentos de exportação"
     export_as_csv: "Exportar como CSV"
     export_as_ods: "Exportar como ODS"
+    export_as_pdf: "Exporte como PDF"
     export_as_xcsv: "Exportar como Excel CSV"
     export_fec_all: "Exportar FEC (Padrão)"
     export_fec_ba_bnc_ir_commercial_accountancy: "Exportação FEC para agricultura e operações profissionais tributação de renda contabilidade comercial"
