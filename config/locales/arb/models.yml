@@ -253,7 +253,7 @@ arb:
         account: "حساب" #?
         comment: "تعليق" #?
         created_at: "انشأت ففي" #?
-        # name: "Entry item label"
+        name: "تسمية عنصر الدخول"
         real_credit: "ائتمان" #?
       land_parcel:
         born_at: "أنشئت في"
@@ -1288,6 +1288,7 @@ arb:
     content: "محتوى"
     content_localizations: "تعريب المحتوى"
     contents: "محتويات"
+    continuous_number: "عدد مستمر"
     contract: "عقد"
     contract_items: "بنود العقد"
     contracts: "عقود"
@@ -2529,6 +2530,7 @@ arb:
     users: "المستخدمين"
     uses: "المعدات المستخدمة" #?
     # uuid: "UUID"
+    validated_at: "تم التحقق منه في"
     value: "القيمة"
     value_format: "التصميم" #?
     variable_indicators_list: "قائمة مؤشرات متغيرة"

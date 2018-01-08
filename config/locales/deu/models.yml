@@ -33,7 +33,7 @@ deu:
       fixed_asset_depreciation:
         asset_amount: "verantwortlich Wert"
       journal_entry_item:
-        # name: "Entry item label"
+        name: "Eintrag Artikelbezeichnung"
       land_parcel:
         born_at: "Hergestellt in"
       land_parcel_group:
@@ -588,6 +588,7 @@ deu:
     content: "Inhalt"
     content_localizations: "Inhalt Lokalisierungen"
     contents: "Inhalt"
+    continuous_number: "Fortlaufende Nummer"
     contract: "Vertrag"
     contract_items: "Vertrags Artikel"
     contracts: "Verträge"
@@ -1544,6 +1545,7 @@ deu:
     user: "Benutzer"
     users: "Benutzer"
     # uuid: "UUID"
+    validated_at: "Validiert bei"
     value: "Wert"
     variable_indicators_list: "Variable Indikatoren Liste"
     variant: "Variante"

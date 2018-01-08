@@ -24,6 +24,20 @@ CREATE SCHEMA postgis;
 SET search_path = public, pg_catalog;
 
 --
+-- Name: compute_journal_entry_continuous_number(); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION compute_journal_entry_continuous_number() RETURNS trigger
+    LANGUAGE plpgsql
+    AS $$
+            BEGIN
+              NEW.continuous_number := NEXTVAL('journal_entries_continuous_number');
+              RETURN NEW;
+            END
+            $$;
+
+
+--
 -- Name: compute_outgoing_payment_list_cache(); Type: FUNCTION; Schema: public; Owner: -
 --
 
@@ -3970,8 +3984,22 @@ CREATE TABLE journal_entries (
     real_balance numeric(19,4) DEFAULT 0.0 NOT NULL,
     resource_prism character varying,
     financial_year_exchange_id integer,
-    reference_number character varying
+    reference_number character varying,
+    continuous_number integer,
+    validated_at timestamp without time zone
 );
+
+
+--
+-- Name: journal_entries_continuous_number; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE journal_entries_continuous_number
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
 
 
 --
@@ -17103,6 +17131,20 @@ CREATE RULE delete_product_populations AS
 
 
 --
+-- Name: journal_entries compute_journal_entries_continuous_number_on_insert; Type: TRIGGER; Schema: public; Owner: -
+--
+
+CREATE TRIGGER compute_journal_entries_continuous_number_on_insert BEFORE INSERT ON journal_entries FOR EACH ROW WHEN (((new.state)::text <> 'draft'::text)) EXECUTE PROCEDURE compute_journal_entry_continuous_number();
+
+
+--
+-- Name: journal_entries compute_journal_entries_continuous_number_on_update; Type: TRIGGER; Schema: public; Owner: -
+--
+
+CREATE TRIGGER compute_journal_entries_continuous_number_on_update BEFORE UPDATE ON journal_entries FOR EACH ROW WHEN ((((old.state)::text <> (new.state)::text) AND ((old.state)::text = 'draft'::text))) EXECUTE PROCEDURE compute_journal_entry_continuous_number();
+
+
+--
 -- Name: journal_entry_items compute_partial_lettering_status_insert_delete; Type: TRIGGER; Schema: public; Owner: -
 --
 
@@ -17890,6 +17932,18 @@ INSERT INTO schema_migrations (version) VALUES ('20170822125351');
 INSERT INTO schema_migrations (version) VALUES ('20170831071726');
 
 INSERT INTO schema_migrations (version) VALUES ('20170831180835');
+<<<<<<< HEAD
 
 INSERT INTO schema_migrations (version) VALUES ('20171010075206');
 
+=======
+
+INSERT INTO schema_migrations (version) VALUES ('20171004080901');
+
+INSERT INTO schema_migrations (version) VALUES ('20171010075206');
+
+INSERT INTO schema_migrations (version) VALUES ('20171129091817');
+
+INSERT INTO schema_migrations (version) VALUES ('20171130092234');
+
+>>>>>>> develop/accountancy-2018

@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2017 Brice Texier, David Joulin
+# Copyright (C) 2012-2018 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -283,30 +283,6 @@ class Journal < Ekylibre::Record::Base
       finished = true
     end
     finished
-  end
-
-  def reopenable?
-    !booked_for_accountant? && reopenings.any?
-  end
-
-  def reopenings
-    year = FinancialYear.current
-    return [] if year.nil?
-    array = []
-    date = year.started_on - 1
-    while date < self.closed_on
-      array << date
-      date = (date + 1).end_of_month
-    end
-    array
-  end
-
-  def reopen(closed_on)
-    ActiveRecord::Base.transaction do
-      entries.where(printed_on: (closed_on + 1)..self.closed_on).find_each(&:reopen)
-      update_column :closed_on, closed_on
-    end
-    true
   end
 
   # Takes the very last created entry in the journal to generate the entry number

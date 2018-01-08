@@ -2,7 +2,7 @@
 - main_toolbar do |t|
   = t.new label: :duplicate.tl, params: { duplicate_of: resource.id, redirect: nil }
   = t.export :journal_entry_sheet
-  = t.edit resource if resource.updateable?
+  = t.edit resource if resource.editable?
   = t.destroy
 
 = main_state_bar(resource, disable_transitions: true)
@@ -17,6 +17,9 @@
     - l.attribute :journal, url: true
     - l.attribute :real_debit,  currency: :real_currency
     - l.attribute :real_credit, currency: :real_currency
+    - if resource.continuous_number
+      - l.attribute :continuous_number
+      - l.attribute :validated_at
     - if resource.real_currency != resource.currency
       - l.attribute :real_currency_rate
       - l.attribute :debit,  currency: true

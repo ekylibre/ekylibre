@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2017 Brice Texier, David Joulin
+# Copyright (C) 2012-2018 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -172,6 +172,7 @@ class Account < Ekylibre::Record::Base
 
   # This method:allows to create the parent accounts if it is necessary.
   before_validation do
+    self.number = number.ljust(Preference[:account_number_digits], '0') if number
     self.reconcilable = reconcilableable? if reconcilable.nil?
     self.label = tc(:label, number: number.to_s, name: name.to_s)
     self.usages = Account.find_parent_usage(number) if usages.blank? && number

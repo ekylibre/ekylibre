@@ -819,6 +819,7 @@ cmn:
       abort_issue: "你确定要中止这个问题？"
       close_issue: "你确定要关闭这个问题？"
       reopen_issue: "你确定你要重新讨论这一问题？"
+    are_you_sure_you_want_to_change_account_digits: "您确定要更改帐号上的字符数吗？"
     are_you_sure_you_want_to_confirm: "您确定要订购"
     are_you_sure_you_want_to_delete: "你确定要删除此记录？"
     are_you_sure_you_want_to_invoice: "你确定你要发票？"
@@ -2055,6 +2056,7 @@ cmn:
       you_must_have_an_email_column: "您必须在提取有电子邮件地址"
       you_need_to_review_your_application_configuration: "您需要检查您的应用程序配置"
   preferences:
+    account_number_digits: "帐号长度"
     accounting_system: "科目表"
     bookkeep_automatically: "激活自动簿记"
     bookkeep_in_draft: "保存在草稿模式下记录的记账期间"

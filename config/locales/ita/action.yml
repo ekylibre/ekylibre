@@ -885,6 +885,7 @@ ita:
       abort_issue: "Sei sicuro di voler annullare questo problema?"
       close_issue: "Sei sicuro di voler chiudere questo problema?"
       reopen_issue: "Sei sicuro di voler riaprire la questione?"
+    are_you_sure_you_want_to_change_account_digits: "Sei sicuro di voler modificare il numero di caratteri sui numeri di account?"
     are_you_sure_you_want_to_confirm: "Sei sicuro di voler ordinare"
     are_you_sure_you_want_to_delete: "Sei sicuro di voler eliminare questo record?"
     are_you_sure_you_want_to_invoice: "Sei sicuro di voler fattura?"
@@ -2120,6 +2121,7 @@ ita:
       you_must_have_an_email_column: "È necessario disporre di un indirizzo email nella vostra estrazione"
       you_need_to_review_your_application_configuration: "È necessario esaminare la configurazione dell'applicazione"
   preferences:
+    account_number_digits: "Numero del conto corrente"
     accounting_system: "Piano dei conti"
     bookkeep_automatically: "Attivare la contabilità automatica"
     bookkeep_in_draft: "Salva i record in modalità bozza durante contabilità"

@@ -824,6 +824,7 @@ por:
       abort_issue: "Tem certeza de que quer abortar esta questão?"
       close_issue: "Tem certeza de que quer encerrar a esta questão?"
       reopen_issue: "Tem certeza de que quer reabrir esta questão?"
+    are_you_sure_you_want_to_change_account_digits: "Tem certeza de que deseja alterar o número de caracteres nos números de conta?"
     are_you_sure_you_want_to_confirm: "Tem a certeza que pretende encomendar"
     are_you_sure_you_want_to_delete: "Tem certeza de que deseja excluir este registro?"
     are_you_sure_you_want_to_invoice: "Tem certeza de que quer facturar?"
@@ -2059,6 +2060,7 @@ por:
       you_must_have_an_email_column: "Você deve ter um endereço de e-mail na sua extracção"
       you_need_to_review_your_application_configuration: "Você precisa rever a sua configuração do aplicativo"
   preferences:
+    account_number_digits: "Comprimento do número da conta"
     accounting_system: "Tabela de contas"
     bookkeep_automatically: "Ative a contabilidade automática"
     bookkeep_in_draft: "Salvar os registros em modo rascunho durante contabilidade"

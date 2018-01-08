@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2017 Brice Texier, David Joulin
+# Copyright (C) 2012-2018 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -76,6 +76,29 @@ class Preference < Ekylibre::Record::Base
   before_validation do
     if record? && record_value
       self.record_value_type = record_value.class.base_class.name
+    end
+  end
+
+  before_save do
+    if name == 'account_number_digits' && integer_value_changed?
+      connection = Account.connection
+      default_value = reference[:account_number_digits][:default]
+      new_value = integer_value || default_value
+      old_value = integer_value_was || default_value
+      if new_value < old_value
+        connection.execute <<-SQL
+          UPDATE accounts
+          SET
+            number = (
+              CASE
+                WHEN LENGTH(RTRIM(number, '0')) < #{new_value} THEN RPAD(RTRIM(number, '0'), #{new_value}, '0')
+                ELSE RTRIM(number, '0')
+              END
+            )
+        SQL
+      else
+        connection.execute "UPDATE accounts SET number = RPAD(number, #{new_value}, '0') WHERE LENGTH(number) < #{new_value}"
+      end
     end
   end
 
@@ -194,6 +217,7 @@ class Preference < Ekylibre::Record::Base
   prefer :client_account_radix, :string, ''
   prefer :supplier_account_radix, :string, ''
   prefer :employee_account_radix, :string, ''
+  prefer :account_number_digits, :integer, 8
   # TODO: manage period as list selector
   prefer :default_depreciation_period, :string, 'yearly'
 
