@@ -33,7 +33,7 @@ ita:
       fixed_asset_depreciation:
         asset_amount: "valore contabile"
       journal_entry_item:
-        # name: "Entry item label"
+        name: "Etichetta dell’articolo in entrata"
       land_parcel:
         born_at: "creato a"
       land_parcel_group:
@@ -619,7 +619,7 @@ ita:
     content: "contenuto"
     content_localizations: "localizzazioni di contenuti"
     contents: "Contenuto"
-    # continuous_number: "Continuous number"
+    continuous_number: "Numero continuo"
     contract: "Contrarre"
     contract_items: "Articoli di contratto"
     contracts: "Contratti"
@@ -1577,7 +1577,7 @@ ita:
     user: "Utente"
     users: "utenti"
     # uuid: "UUID"
-    # validated_at: "Validated at"
+    validated_at: "Convalidato a"
     value: "Valore"
     variable_indicators_list: "Lista indicatori variabili"
     variant: "Variante"
