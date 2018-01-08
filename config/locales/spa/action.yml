@@ -1163,7 +1163,6 @@ spa:
     entity_to_update: "Persona para actualizar"
     entries: "Escrituras"
     entries_to_point: "Escrituras a despuntar"
-    # entry_item_label: "Entry item label"
     entry_items: "Elementos de entrada"
     equipment: "Equipo"
     equipment_name: "Nombre del equipo"

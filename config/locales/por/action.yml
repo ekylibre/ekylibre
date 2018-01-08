@@ -1054,7 +1054,6 @@ por:
     entity_to_update: "Pessoa para atualizar"
     entries: "Entradas"
     entries_to_point: "Entradas que apontam para"
-    # entry_item_label: "Entry item label"
     entry_items: "Itens de entrada"
     equipment: "Equipamento"
     equipment_name: "Nome do equipamento"

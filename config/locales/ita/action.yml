@@ -1115,7 +1115,6 @@ ita:
     entity_to_update: "Persona di aggiornare"
     entries: "Inserimenti"
     entries_to_point: "Voci che puntano a"
-    # entry_item_label: "Entry item label"
     entry_items: "articoli di ingresso"
     equipment: "attrezzatura"
     equipment_name: "Nome di attrezzature"

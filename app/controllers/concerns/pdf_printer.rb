@@ -41,6 +41,14 @@ module PdfPrinter
     )
   end
 
+  def find_open_document_template(name)
+    dir = Rails.root.join('config', 'locales')
+    paths = [dir.join(I18n.locale.to_s, 'reporting', "#{name}.odt"),
+             dir.join('eng', 'reporting', "#{name}.odt"),
+             dir.join('fra', 'reporting', "#{name}.odt")]
+    paths.detect(&:exist?)
+  end
+
   private
 
   def to_template_path(name_or_path)

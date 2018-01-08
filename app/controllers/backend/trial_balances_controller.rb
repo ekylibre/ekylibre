@@ -26,7 +26,6 @@ module Backend
       document_nature = Nomen::DocumentNature.find(:trial_balance)
       key = "#{document_nature.name}-#{Time.zone.now.l(format: '%Y-%m-%d-%H:%M:%S')}"
       filename = document_nature.human_name
-      odt_template_path = Rails.root.join('config', 'locales', 'fra', 'reporting', 'trial_balance.odt')
       @balance = Journal.trial_balance(params) if params[:period]
 
       respond_to do |format|
@@ -50,15 +49,18 @@ module Backend
           send_data(csv_string, filename: filename << '.csv')
         end
         format.pdf do
-          send_file to_odt(@balance, document_nature, key, odt_template_path, params[:period]), type: 'application/pdf', disposition: 'attachment', filename: filename << '.pdf'
+          template_path = find_open_document_template(:trial_balance)
+          raise 'Cannot find template' if template_path.nil?
+          send_file to_odt(@balance, document_nature, key, template_path, params[:period]),
+                    type: 'application/pdf', disposition: 'attachment', filename: filename << '.pdf'
         end
       end
     end
 
     protected
 
-    def to_odt(balance, document_nature, key, odt_template_path, period)
-      report = generate_document(document_nature, key, odt_template_path) do |r|
+    def to_odt(balance, document_nature, key, template_path, period)
+      report = generate_document(document_nature, key, template_path) do |r|
         # TODO: add a helper with generic metod to implemend header and footer
 
         e = Entity.of_company
