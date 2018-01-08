@@ -2056,6 +2056,7 @@ deu:
       you_must_have_an_email_column: "Sie müssen eine E-Mail-Adresse in Ihrem Extraktion haben"
       you_need_to_review_your_application_configuration: "Sie müssen Ihre Anwendungskonfiguration zu überprüfen"
   preferences:
+    # account_number_digits: "Account number length"
     accounting_system: "Kontenplan"
     bookkeep_automatically: "Aktivieren Sie die automatische Buchhaltung"
     bookkeep_in_draft: "Speichern Sie die Aufzeichnungen im Entwurfsmodus während Buchhaltung"

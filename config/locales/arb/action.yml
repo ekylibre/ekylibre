@@ -2785,6 +2785,7 @@ arb:
       you_need_to_review_your_application_configuration: "تحتاج إلى مراجعة تكوين التطبيق الخاص بك"
       you_will_lose_all_your_current_data: "اذا قمت بالمتابعة، فسوف تفقد جميع البيانات الحالية. فهل ترغب بالاستمرار؟" #?
   preferences:
+    # account_number_digits: "Account number length"
     accountancy: #?
       accounts: #?
         capital_gains: "(نتيجة العمل (الارباح" #?
