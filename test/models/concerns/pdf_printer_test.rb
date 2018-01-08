@@ -10,7 +10,7 @@ class PdfPrinterTest < ActiveSupport::TestCase
 
   test 'it generates PDF report data' do
     data = @subject.generate_report(fixture_file('pdf_printer_1.odt')) do |r|
-      r.add_field 'FILE_NAME', "My file name"
+      r.add_field 'FILE_NAME', 'My file name'
     end
     generated = read_pdf_data(data)
     expected = read_pdf_data(File.read(fixture_file('pdf_printer_1_expected.pdf')))
@@ -19,7 +19,7 @@ class PdfPrinterTest < ActiveSupport::TestCase
 
   test 'it generates PDF report file' do
     path = @subject.generate_report_file(fixture_file('pdf_printer_1.odt')) do |r|
-      r.add_field 'FILE_NAME', "My file name"
+      r.add_field 'FILE_NAME', 'My file name'
     end
     generated = read_pdf_data(File.read(path))
     expected = read_pdf_data(File.read(fixture_file('pdf_printer_1_expected.pdf')))
@@ -49,7 +49,7 @@ class PdfPrinterTest < ActiveSupport::TestCase
   test 'it generates a document' do
     source = fixture_file('pdf_printer_1.odt')
     document = @subject.generate_document('balance_sheet', 'pdf-test', source) do |r|
-      r.add_field 'FILE_NAME', "My file name"
+      r.add_field 'FILE_NAME', 'My file name'
     end
     assert document.is_a?(Document)
     assert_equal 'balance_sheet', document.nature
