@@ -2049,6 +2049,18 @@ jpn:
         spheroid: "回転楕円体"
         vehicle: "車両"
       name: "統計"
+    fiscal_positions:
+      items:
+        fr_ba_ir: "フランスの農業（BA）所得税"
+        fr_ba_is: "フランスの農業（BA）法人課税"
+        fr_bic_ir: "フランスの商業、工業または職人ビジネス（BIC）所得税"
+        fr_bic_is: "フランスの商業、工業または職人ビジネス（BIC）法人税"
+        fr_bnc_ir: "フランスの専門業務所得税"
+        fr_bnc_is: "フランスの専門業務法人課税"
+      name: "財政状態"
+      property_natures:
+        code: "コード"
+        country: "国"
     guide_natures:
       items:
         best_practices: "ベストプラクティス"

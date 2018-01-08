@@ -2038,6 +2038,18 @@ ita:
         spheroid: "Sferoide"
         vehicle: "Veicolo"
       name: "figure"
+    fiscal_positions:
+      items:
+        fr_ba_ir: "Imposta sul reddito dell’agricoltura francese (BA)"
+        fr_ba_is: "Fiscalità delle società agricole francesi (BA)"
+        fr_bic_ir: "Tassazione del reddito commerciale, industriale o artigianale francese (BIC)"
+        fr_bic_is: "Tassazione delle società francese, commerciale, industriale o artigianale (BIC)"
+        fr_bnc_ir: "Imposte sul reddito delle operazioni professionali francesi"
+        fr_bnc_is: "Fiscalità aziendale delle operazioni professionali francesi"
+      name: "Posizioni fiscali"
+      property_natures:
+        code: "Codice"
+        country: "Nazione"
     guide_natures:
       items:
         best_practices: "Migliori pratiche"

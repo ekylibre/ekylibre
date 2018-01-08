@@ -2038,6 +2038,18 @@ por:
         spheroid: "Esferóide"
         vehicle: "Veículo"
       name: "Figuras"
+    fiscal_positions:
+      items:
+        fr_ba_ir: "Agricultura francesa (BA) tributação de renda"
+        fr_ba_is: "Agricultura francesa (BA) tributação corporativa"
+        fr_bic_ir: "Negócio comercial, industrial ou artesanal francês (BIC) tributação de renda"
+        fr_bic_is: "Imposto sobre empresas comerciais, industriais ou empresariais francesas (BIC)"
+        fr_bnc_ir: "Operações profissionais francesas tributação de renda"
+        fr_bnc_is: "Operações profissionais francesas tributação corporativa"
+      name: "Posições fiscais"
+      property_natures:
+        code: "Código"
+        country: "País"
     guide_natures:
       items:
         best_practices: "Melhores práticas"

@@ -2038,6 +2038,18 @@ deu:
         spheroid: "Sphäroid"
         vehicle: "Fahrzeug"
       name: "Figuren"
+    fiscal_positions:
+      items:
+        fr_ba_ir: "Französische Landwirtschaft (BA) Einkommenssteuer"
+        fr_ba_is: "Französische Landwirtschaft (BA) Unternehmensbesteuerung"
+        fr_bic_ir: "Französische Einkommenssteuer für gewerbliche, industrielle oder handwerkliche Unternehmen (BIC)"
+        fr_bic_is: "Französische Handels-, Industrie- oder Handwerksunternehmensbesteuerung (BIC)"
+        fr_bnc_ir: "Französische Berufssteuer Einkommenssteuer"
+        fr_bnc_is: "Französisch professionelle Unternehmensbesteuerung"
+      name: "Steuerpositionen"
+      property_natures:
+        # code: "Code"
+        country: "Land"
     guide_natures:
       items:
         best_practices: "best Practices"

@@ -31,7 +31,7 @@ CREATE FUNCTION compute_journal_entry_continuous_number() RETURNS trigger
     LANGUAGE plpgsql
     AS $$
             BEGIN
-              NEW.continuous_number := NEXTVAL('journal_entries_continuous_number');
+              NEW.continuous_number := (SELECT (COALESCE(MAX(continuous_number),0)+1) FROM journal_entries);
               RETURN NEW;
             END
             $$;
@@ -3988,18 +3988,6 @@ CREATE TABLE journal_entries (
     continuous_number integer,
     validated_at timestamp without time zone
 );
-
-
---
--- Name: journal_entries_continuous_number; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE journal_entries_continuous_number
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
 
 
 --
@@ -12846,6 +12834,13 @@ CREATE INDEX index_issues_on_updater_id ON issues USING btree (updater_id);
 
 
 --
+-- Name: index_journal_entries_on_continuous_number; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_journal_entries_on_continuous_number ON journal_entries USING btree (continuous_number);
+
+
+--
 -- Name: index_journal_entries_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -17927,17 +17922,17 @@ INSERT INTO schema_migrations (version) VALUES ('20170804101025');
 
 INSERT INTO schema_migrations (version) VALUES ('20170818134454');
 
-INSERT INTO schema_migrations (version) VALUES ('20170822125351');
-
 INSERT INTO schema_migrations (version) VALUES ('20170831071726');
 
 INSERT INTO schema_migrations (version) VALUES ('20170831180835');
 
-INSERT INTO schema_migrations (version) VALUES ('20171004080901');
-
 INSERT INTO schema_migrations (version) VALUES ('20171010075206');
 
-INSERT INTO schema_migrations (version) VALUES ('20171129091817');
+INSERT INTO schema_migrations (version) VALUES ('20171122125351');
 
-INSERT INTO schema_migrations (version) VALUES ('20171130092234');
+INSERT INTO schema_migrations (version) VALUES ('20171210080901');
+
+INSERT INTO schema_migrations (version) VALUES ('20171211091817');
+
+INSERT INTO schema_migrations (version) VALUES ('20171212100101');
 

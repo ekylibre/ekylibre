@@ -70,6 +70,12 @@ module Backend
           end
           t3e @financial_year.attributes
         end
+        format.xml do
+          filename = "#{Entity.of_company.siren_number}FEC#{@financial_year.stopped_on.l(format: '%Y%m%d')}.xml"
+          fiscal_position = params[:fiscal_position]
+          fec = FEC::Exporter::XML.new(@financial_year, fiscal_position)
+          send_data fec.generate, filename: filename, type: Mime::XML
+        end
         format.pdf do
           if params[:n] == 'balance_sheet'
             render_print_balance_sheet(@financial_year)
