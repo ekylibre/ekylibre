@@ -386,7 +386,6 @@ module Backend
                    else
                      find_items(purchase_order.id, purchase_order.pretax_amount, purchase_order.items)
                    end
-
       respond_to do |format|
         format.json { render json: order_hash }
       end
@@ -541,6 +540,7 @@ module Backend
           unit_pretax_amount: item.unit_pretax_amount,
           is_reception: item.class == ReceptionItem,
           purchase_order_item: item.try(:purchase_order_item_id) || item.id,
+          pretax_amount: item.pretax_amount,
           role: item.role }
       end
       order_hash
