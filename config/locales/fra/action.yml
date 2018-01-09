@@ -868,6 +868,8 @@ fra:
       zoomOutTitle: "Dézoomer"
   labels:
     warning_if_no_activites_choose: Si aucune activité n’est sélectionnée, le modèle d'intervention sera disponible pour toutes les activités.
+    purchase_order: Commande
+    provider: Fournisseur
     abilities: "Compétences" #?
     accepted: "Acceptée"
     accepted_for_paiment: "Acceptée pour paiement"
@@ -1367,6 +1369,7 @@ fra:
     evaluated_direct_margin: "Marge directe évaluée" #?
     evaluated_doer_cost: "Coût main d’œuvre"
     evaluated_input_cost: "Coût intrants"
+    evaluated_reception_cost: "Coût prestation de service"
     evaluated_other_cost: "Coût autres"
     evaluated_tool_cost: "Coût outils"
     events: "Évènements"
@@ -2005,6 +2008,7 @@ fra:
     reception: "Réception"
     reception_incident: "Réception en incident"
     reception_items: "Articles réceptionnés"
+    service_deliveries: "Prestations de services"
     reception_number: "N° du bon de réception"
     reception_number_with_reference: "N° du bon de réception : %{reference_number}" #?
     receptions: "Réceptions"

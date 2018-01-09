@@ -445,3 +445,10 @@ div.nested-fields {
     display: inline-block;
   }
 }
+
+.cant-be-update {
+  pointer-events: none;
+  input {
+    background-color: #F7F7F7;
+  }
+}

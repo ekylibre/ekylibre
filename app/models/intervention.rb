@@ -68,7 +68,7 @@ class Intervention < Ekylibre::Record::Base
   belongs_to :prescription
   belongs_to :journal_entry, dependent: :destroy
   belongs_to :purchase
-  has_many :receptions, class_name: 'Reception'
+  has_many :receptions, class_name: 'Reception', dependent: :destroy
   has_many :labellings, class_name: 'InterventionLabelling', dependent: :destroy, inverse_of: :intervention
   has_many :labels, through: :labellings
   has_many :record_interventions, -> { where(nature: :record) }, class_name: 'Intervention', inverse_of: 'request_intervention', foreign_key: :request_intervention_id
@@ -534,6 +534,10 @@ class Intervention < Ekylibre::Record::Base
     nil
   end
 
+  def receptions_cost
+    receptions.any? ? receptions.sum(:pretax_amount) : 0
+  end
+
   def cost_per_area(role = :input, area_unit = :hectare)
     zone_area = working_zone_area(area_unit)
     if zone_area > 0.0.in(area_unit)
@@ -548,7 +552,7 @@ class Intervention < Ekylibre::Record::Base
   def total_cost
     %i[input tool doer].map do |type|
       (cost(type) || 0.0).to_d
-    end.sum
+    end.sum + receptions_cost
   end
 
   def human_total_cost
@@ -615,6 +619,13 @@ class Intervention < Ekylibre::Record::Base
       end
     end
     valid
+  end
+
+  def receptions_is_given?
+    if receptions.any?
+      return receptions.first.given?
+    end
+    false
   end
 
   # Run the intervention ie. the state is marked as done
