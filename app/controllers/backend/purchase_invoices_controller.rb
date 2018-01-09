@@ -69,11 +69,13 @@ module Backend
       t.column :invoiced_at
       t.column :reference_number, url: true
       t.column :supplier, url: true
+      t.column :entity_payment_mode_name, through: :supplier, label: :supplier_payment_mode
       t.column :created_at
       t.status
       t.column :pretax_amount, currency: true, on_select: :sum, hidden: true
       t.column :amount, currency: true, on_select: :sum
     end
+    # Mode de paiement du fournisseur
 
     list(:items, model: :purchase_items, order: { id: :asc }, conditions: { purchase_id: 'params[:id]'.c }) do |t|
       t.column :variant, url: true
