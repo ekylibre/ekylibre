@@ -65,11 +65,13 @@
 #
 class Reception < Parcel
   belongs_to :sender, class_name: 'Entity'
-  belongs_to :purchase, inverse_of: :parcels
+  belongs_to :purchase_order, foreign_key: :purchase_id, class_name: 'PurchaseOrder', inverse_of: :parcels
   belongs_to :intervention, class_name: 'Intervention'
   has_many :items, class_name: 'ReceptionItem', inverse_of: :reception, foreign_key: :parcel_id, dependent: :destroy
   has_many :storings, through: :items, class_name: 'ParcelItemStoring'
   validates :sender, presence: true
+
+  accepts_nested_attributes_for :items, allow_destroy: true
 
   state_machine initial: :draft do
     state :draft
@@ -80,9 +82,17 @@ class Reception < Parcel
     end
   end
 
+  before_validation :remove_all_items, if: ->(obj) { obj.intervention.present? && obj.purchase_id_changed? }
+
   before_validation do
     self.nature = 'incoming'
     self.state ||= :draft
+  end
+
+
+  # Remove previous items, only if we are in an intervention and if the purchase change(in callback)
+  def remove_all_items
+    items.where.not(id: nil).destroy_all
   end
 
   after_initialize do
@@ -91,6 +101,11 @@ class Reception < Parcel
 
   protect on: :destroy do
     given?
+  end
+
+  # Remove previous items, only if we are in an intervention and if the purchase change(in callback)
+  def remove_all_items
+    items.where.not(id: nil).destroy_all
   end
 
   # This method permits to add stock journal entries corresponding to the
@@ -154,7 +169,7 @@ class Reception < Parcel
   alias entity third
 
   def invoiced?
-    purchase.present?
+    purchase_order.present?
   end
 
   def allow_items_update?
@@ -172,6 +187,14 @@ class Reception < Parcel
       end
     end
     in_accident
+  end
+
+  def sender_full_name
+    sender.full_name
+  end
+
+  def purchase_order_number
+    purchase_order.number
   end
 
   def give

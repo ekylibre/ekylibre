@@ -141,7 +141,7 @@ module Backend
       t.action :purchase, on: :both, method: :post
       t.action :sell,     on: :both, method: :post
       t.action :edit, if: :updateable?
-      t.action :destroy, if: :destroyable?
+      t.action :destroy, if: :destroyable?, unless: :receptions_is_given?
       t.column :name, sort: :procedure_name, url: true
       t.column :procedure_name, hidden: true
       # t.column :production, url: true, hidden: true
@@ -171,6 +171,20 @@ module Backend
       t.column :unit_name, through: :variant
       # t.column :working_zone, hidden: true
       t.column :variant, url: true
+    end
+
+    list(
+      :service_deliveries,
+      model: :reception_items,
+      conditions: { id: 'ReceptionItem.joins(:reception).where(parcels: { intervention_id: params[:id]}).pluck(:id)'.c }
+    ) do |t|
+      t.column :variant, url: true, label: :service
+      t.column :quantity
+      t.column :sender_full_name, label: :provider, through: :reception, url: { controller: 'backend/entities', id: 'RECORD.reception.sender.id'.c }
+      t.column :purchase_order_number, label: :purchase_order, through: :reception, url: { controller: 'backend/purchase_orders', id: 'RECORD.reception.purchase_order.id'.c }
+      t.column :reception, url: true
+      t.column :unit_pretax_amount, currency: true
+      t.column :pretax_amount, currency: true
     end
 
     list(:record_interventions, model: :interventions, conditions: { request_intervention_id: 'params[:id]'.c }, order: 'interventions.started_at DESC') do |t|
@@ -283,14 +297,13 @@ module Backend
       end
 
       @intervention = Intervention.new(permitted_params)
-
       url = if params[:create_and_continue]
               { action: :new, continue: true }
             else
               params[:redirect] || { action: :show, id: 'id'.c }
             end
-
       @intervention.save
+      reconcile_receptions
       return if save_and_redirect(@intervention, url: url, notify: :record_x_created, identifier: :number)
       render(locals: { cancel_url: { action: :index }, with_continue: true })
     end
@@ -308,8 +321,8 @@ module Backend
 
         delete_working_periods(participations)
       end
-
       if @intervention.update_attributes(permitted_params)
+        reconcile_receptions
         redirect_to action: :show
       else
         render :edit
@@ -367,12 +380,12 @@ module Backend
     def purchase_order_items
       purchase_order = Purchase.find(params[:purchase_order_id])
       reception = Intervention.find(params[:intervention_id]).receptions.first if params[:intervention_id].present?
+
       order_hash = if reception.present? && reception.purchase_id == purchase_order.id
                      find_items(reception.id, reception.pretax_amount, reception.items)
                    else
                      find_items(purchase_order.id, purchase_order.pretax_amount, purchase_order.items)
                    end
-
       respond_to do |format|
         format.json { render json: order_hash }
       end
@@ -472,6 +485,12 @@ module Backend
 
     private
 
+    def reconcile_receptions
+      @intervention.receptions.each do |reception|
+        reception.update(reconciliation_state: 'reconcile') if reception.reconciliation_state != 'reconcile'
+      end
+    end
+
     def find_interventions
       intervention_ids = params[:id].split(',')
       interventions = intervention_ids.map { |id| Intervention.find_by(id: id) }.compact
@@ -514,7 +533,15 @@ module Backend
       order_hash = { id: id, pretax_amount: pretax_amount }
       items.each do |item|
         order_hash[:items] = [] if order_hash[:items].nil?
-        order_hash[:items] << { id: item.id, variant_id: item.variant_id, name: item.variant.name, quantity: item.quantity, unit_pretax_amount: item.unit_pretax_amount }
+        order_hash[:items] << { id: item.id,
+          variant_id: item.variant_id,
+          name: item.variant.name,
+          quantity: item.quantity,
+          unit_pretax_amount: item.unit_pretax_amount,
+          is_reception: item.class == ReceptionItem,
+          purchase_order_item: item.try(:purchase_order_item_id) || item.id,
+          pretax_amount: item.pretax_amount,
+          role: item.role }
       end
       order_hash
     end

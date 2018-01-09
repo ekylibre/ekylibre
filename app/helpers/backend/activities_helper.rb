@@ -47,7 +47,7 @@ module Backend
                 .joins(:calibrations)
                 .merge(InspectionCalibration.of_scale(scale))
                 .joins(:product)
-                .where('products.dead_at < ?', Time.zone.now)
+                .where('products.dead_at > ?', Time.zone.now)
                 .group(:product_id)
                 .reorder('')
 

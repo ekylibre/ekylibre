@@ -303,6 +303,10 @@ class JournalEntry < Ekylibre::Record::Base
     FinancialYear.on(printed_on)
   end
 
+  def entities_bank_statement_number
+    items.where.not(bank_statement_letter: nil).first&.bank_statement_letter
+  end
+
   def self.state_label(state)
     tc('states.' + state.to_s)
   end

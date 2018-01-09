@@ -80,6 +80,15 @@
           - detail = tool.product.nature.name
           = add_detail_to_modal_block(title, detail, {icon: "picto-tractor"})
 
+    - if intervention.receptions.any?
+      .block
+        %h3.block-title= :service_deliveries.tl
+        - intervention.receptions.each do |reception|
+          - title = reception.sender.name
+          - detail = ''
+          = add_detail_to_modal_block(title, detail, { icon: 'picto-recent-actors' })
+
+
 
 .modal-footer
   - displayed_state = intervention.state.tl

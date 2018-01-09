@@ -194,7 +194,8 @@ module Backend
       t.column :bank_check_number, hidden: true
       t.column :amount, currency: true, url: true
       t.column :deposit, url: true, hidden: true
-      t.column :bank_statement_number, through: :journal_entry, url: { controller: :bank_statements, id: 'RECORD.journal_entry.bank_statements.first.id'.c }, label: :bank_statement_number
+      t.column :entities_bank_statement_number, through: :journal_entry, label: :bank_reconciliation
+      # Rapprochement bancaire
     end
 
     list(:purchase_payments, conditions: { payee_id: 'params[:id]'.c }, order: { created_at: :desc }, line_class: "(RECORD.affair_closed? ? nil : 'warning')".c) do |t|
@@ -206,7 +207,9 @@ module Backend
       t.column :mode, hidden: true
       t.column :bank_check_number, hidden: true
       t.column :amount, currency: true, url: true
-      t.column :bank_statement_number, through: :journal_entry, url: { controller: :bank_statements, id: 'RECORD.journal_entry.bank_statements.first.id'.c }, label: :bank_statement_number
+      t.column :entities_bank_statement_number,
+        through: :journal_entry,
+        label: :bank_reconciliation
     end
 
     list(:receptions, conditions: { sender_id: 'params[:id]'.c }, per_page: 5, order: { created_at: :desc }, line_class: :status) do |t|
@@ -215,7 +218,6 @@ module Backend
       t.column :planned_at
       t.column :created_at, hidden: true
       t.column :state, label_method: :human_state_name
-      t.column :purchase, url: true
     end
 
     list(:shipments, conditions: { recipient_id: 'params[:id]'.c }, per_page: 5, order: { created_at: :desc }, line_class: :status) do |t|

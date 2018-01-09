@@ -160,7 +160,6 @@
           console.error "Cannot get details of item on #{url} (#{request.status}/#{request.readyState}/#{request.statusCode()}) (#{status}): #{error}"
 
     _select: (id, label, triggerEvents = false, selectedElement = null) ->
-      # console.log "select"
       @lastSearch = label
       len = 4 * Math.round(Math.round(1.11 * label.length) / 4)
       @element.attr "size", (if len < 20 then 20 else (if len > 80 then 80 else len))
@@ -203,7 +202,6 @@
       this
 
     _openMenu: (search) ->
-      # console.log "openMenu"
       data = {}
       if search?
         data.q = search

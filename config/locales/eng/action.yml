@@ -1005,6 +1005,7 @@ eng:
       zoomInTitle: "Zoom in"
       zoomOutTitle: "Zoom out"
   labels:
+    purchase_order: Purchase order
     accepted: "Accepted"
     accepted_for_paiment: "Accepted for paiment"
     access: "Access"
@@ -1379,6 +1380,7 @@ eng:
     errors_explanation: "There are errors in the file. If you do not correct them, the incorrect lines will be ignored during the import."
     estimate_yield: "Estimate yield"
     evaluated_doer_cost: "Evaluated labor cost"
+    evaluated_reception_cost: "Service Delivery Cost"
     evaluated_input_cost: "Evaluated input cost"
     evaluated_other_cost: "Evaluated other cost"
     evaluated_tool_cost: "Evaluated tool cost"
@@ -1827,6 +1829,7 @@ eng:
     reception: "Reception"
     reception_incident: "Reception incident"
     reception_items: "Reception items"
+    service_deliveries: "Service deliveries"
     reception_number: "Reception number"
     # reception_number_with_reference: "Reception number with reference"
     receptions: "Receptions"

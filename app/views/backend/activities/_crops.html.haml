@@ -24,8 +24,8 @@
 
   - g.column name: 'Volume net disponible', html: { class: 'net-volume-available-column' } do |crop|
     - content_tag(:div, nil) do
-      %p= crop.human_net_volume_available(:items_count, items_count_per_area_unit)
-      %p= crop.human_net_volume_available(:net_mass, net_mass_per_area_unit)
+      %p= crop.human_net_volume_available(:items_count, crop.items_count_per_area_unit)
+      %p= crop.human_net_volume_available(:net_mass, crop.net_mass_per_area_unit)
 
 
   - g.column name: :disease_percentage.tl, html: { class: 'disease-percentage-column' } do |crop|

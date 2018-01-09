@@ -47,9 +47,8 @@ class PlantDecorator < Draper::Decorator
     return nil if last_inspection.nil?
 
     unit_name ||= :items_count
-    net_volume = available_area.to_d * last_inspection.marketable_yield(dimension).to_d
 
-    net_volume.in(unit_name)
+    available_area.to_f * last_inspection.marketable_yield(dimension).in(unit_name).to_f
   end
 
   def human_net_volume_available(dimension, unit_name)
@@ -57,6 +56,7 @@ class PlantDecorator < Draper::Decorator
     unit_name ||= :items_count
 
     net_volume_available(dimension, unit_name)
+      .in(unit_name)
       .round(2)
       .l(precision: 2)
   end
@@ -85,12 +85,12 @@ class PlantDecorator < Draper::Decorator
     last_inspection.comment
   end
 
-  def last_inspection_disease_percentage(user)
-    inspection_points_percentage(user, :disease)
+  def last_inspection_disease_percentage(dimension, unit_name)
+    inspection_points_percentage(dimension, :disease, unit_name)
   end
 
-  def last_inspection_deformity_percentage(user)
-    inspection_points_percentage(user, :deformity)
+  def last_inspection_deformity_percentage(dimension, unit_name)
+    inspection_points_percentage(dimension, :deformity, unit_name)
   end
 
   def last_inspection
@@ -101,15 +101,35 @@ class PlantDecorator < Draper::Decorator
       .first
   end
 
+  def items_count_quantity_unit
+    last_inspection.user_quantity_unit(:items_count)
+  end
+
+  def items_count_per_area_unit
+    last_inspection.user_per_area_unit(:items_count)
+  end
+
+  def net_mass_quantity_unit
+    last_inspection.user_quantity_unit(:net_mass)
+  end
+
+  def net_mass_per_area_unit
+    last_inspection.user_per_area_unit(:net_mass)
+  end
+
   private
 
-  def inspection_points_percentage(user, category)
+  def inspection_points_percentage(dimension, category, unit_name)
     return nil if last_inspection.nil?
 
     last_inspection
-      .points_percentage(dimension(user), category)
+      .points_percentage(dimension, category)
+      .in(unit_name)
       .round(2)
-      .l(precision: 2) + '%'
+      .l(precision: 2)
+      .split(' ')
+      .insert(1, '%')
+      .join(' ')
   end
 
   def dimension(user)
