@@ -123,6 +123,7 @@
 #     - "backend/product_nature_variants#quantifiers"
 #     - "backend/sensors#last_locations"
 #     - "backend/snippets#toggle"
+#     - "backend/stocks#list"
 #     - "backend/tours#finish"
 #     - "backend/visualizations/land_parcels_visualizations#show"
 #     - "backend/visualizations/map_cells_visualizations#show"

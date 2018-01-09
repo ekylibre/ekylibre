@@ -45,6 +45,7 @@
 #  unit_name                 :string           not null
 #  updated_at                :datetime         not null
 #  updater_id                :integer
+#  valuing_id                :integer
 #  variety                   :string           not null
 #  work_number               :string
 #
@@ -57,6 +58,7 @@ class ProductNatureVariant < Ekylibre::Record::Base
   refers_to :derivative_of, class_name: 'Variety'
   belongs_to :nature, class_name: 'ProductNature', inverse_of: :variants
   belongs_to :category, class_name: 'ProductNatureCategory', inverse_of: :variants
+  belongs_to :valuing, class_name: 'ProductNatureVariantValuing'
   has_many :catalog_items, foreign_key: :variant_id, dependent: :destroy
 
   has_many :root_components, -> { where(parent: nil) }, class_name: 'ProductNatureVariantComponent', dependent: :destroy, inverse_of: :product_nature_variant, foreign_key: :product_nature_variant_id

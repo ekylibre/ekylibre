@@ -24,6 +24,24 @@
         %span.value
           %i.picto{class: "picto-stock"}
           = resource.current_stock.to_s + " " + resource.unit_name
+    - if resource.current_stock == 0 || resource.valuing == nil
+      .med-info.important
+        %span.title= :average_cost_amount.tl
+        %span.value 0 €
+      .med-info.important
+        %span.title= :amount.tl
+        %span.value 0 €
+    - if resource.valuing
+      .med-info.important
+        %span.title= :average_cost_amount.tl
+        %span.value
+          =resource.valuing.average_cost_amount
+          €
+      .med-info.important
+        %span.title= :amount
+        %span.value
+          =resource.valuing.amount
+          €
     - if resource.france_maaid?
       = resource_info(:france_maaid) do |france_maaid|
         %i.picto{class: "picto-flask"}

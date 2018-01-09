@@ -82,4 +82,20 @@ class ParcelItemTest < ActiveSupport::TestCase
     parcel_item = create(:outgoing_parcel_item, population: 12, source_product: product)
     assert_equal 12, parcel_item.population
   end
+
+  test 'method for calculate average cost amount' do
+    p = parcel_items(:parcel_items_001)
+    refute_nil p.send(:compute_average_cost_amount)
+    assert p.send(:compute_average_cost_amount)
+  end
+
+  test 'create variant valuing' do
+    p = parcel_items(:parcel_items_001)
+    quantity_new = 200
+    quantity_action = 100
+    variant_id = 1
+    unitary_price = 15
+    refute_nil p.send(:create_variant_valuing, quantity_new, quantity_action, variant_id, unitary_price)
+    assert p.send(:create_variant_valuing, quantity_new, quantity_action, variant_id, unitary_price)
+  end
 end
