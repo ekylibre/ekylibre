@@ -1,15 +1,6 @@
 ((E, $) ->
   "use strict";
 
-<<<<<<< Updated upstream
-  E.wice_grid.settings =
-    test: ->
-      alert("Yay!")
-
-
-  $(document).on 'click',
-=======
-
   $(document).ready ->
     # wice-grid-container
     $('.wice-grid-container').each (index, domElement) ->
@@ -19,7 +10,7 @@
   #$(document).on 'click', '.wice-grid-toolbar .wice-grid-columns-selector', ->
   #  alert('Yay!')
 
-  E.wice_grid_settings =
+#  E.wice_grid_settings =
 
   class Settings
     table: (container) ->
@@ -32,7 +23,6 @@
       headers.each
 
   WiceGrid.settings = new Settings()
->>>>>>> Stashed changes
 
   true
 ) ekylibre, jQuery
