@@ -1065,6 +1065,7 @@ fra:
     balance: "Solde"
     balance_of_selection: "Solde de la sélection"
     bank_account: "Compte bancaire"
+    bank_reconciliation: "Rapprochement bancaire"
     bank_statement_number: "N° du relevé de compte bancaire"
     bank_statements: "Relevés de compte bancaire"
     bban: "Relevé d’identité bancaire (RIB)"
