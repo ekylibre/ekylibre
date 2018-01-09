@@ -52,6 +52,11 @@ module Backend
       code << "  c[0] += ' AND #{Entity.table_name}.supplier_payment_mode_id = ?'\n"
       code << "  c << params[:payment_mode_id]\n"
       code << "end\n"
+      code << "if params[:nature].present?\n"
+      code << " if params[:nature] == 'unpaid'\n"
+      code << "     c[0] << ' AND NOT #{PurchaseAffair.table_name}.closed'\n"
+      code << " end\n"
+      code << "end\n"
       code << "c\n "
       code.c
     end
