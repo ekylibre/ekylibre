@@ -17,6 +17,9 @@
         vatRate = $(item).find('.total-column label.vat-rate').text().split("%")[0]
         amountIncludingTaxes = $(item).find('.total-column label.amount-including-taxes').text()
 
+        if amountExcludingTaxes == "??????" || amountIncludingTaxes == "??????" || vatRate == "??????"
+          return
+
         totalAmountExcludingTaxes += parseFloat(amountExcludingTaxes)
         totalAmountIncludingTaxes += parseFloat(amountIncludingTaxes)
 
