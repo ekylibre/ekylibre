@@ -2011,6 +2011,7 @@ fra:
     service_deliveries: "Prestations de services"
     reception_number: "N° du bon de réception"
     reception_number_with_reference: "N° du bon de réception : %{reference_number}" #?
+    reception_date: "Date de réception : %{date}"
     receptions: "Réceptions"
     reconcile: "Rapprochée"
     reconciliate_with_purchases_orders: "Rapprocher avec une ou des commandes"
