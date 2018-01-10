@@ -17,11 +17,11 @@
         vatRate = $(item).find('.total-column label.vat-rate').text().split("%")[0]
         amountIncludingTaxes = $(item).find('.total-column label.amount-including-taxes').text()
 
-        totalAmountExcludingTaxes += parseFloat(amountExcludingTaxes)
-        totalAmountIncludingTaxes += parseFloat(parseFloat(amountIncludingTaxes).toFixed(2))
+        totalAmountExcludingTaxes = parseFloat(totalAmountExcludingTaxes + amountExcludingTaxes).toFixed(2)
+        totalAmountIncludingTaxes = parseFloat(totalAmountIncludingTaxes + parseFloat(amountIncludingTaxes)).toFixed(2)
 
         calculVatRate = parseFloat(parseFloat(amountExcludingTaxes) * parseFloat(vatRate) / 100).toFixed(2)
-        totalVatRate += parseFloat(calculVatRate)
+        totalVatRate = parseFloat(totalVatRate + calculVatRate).toFixed(2)
 
         selectedVatValue = $(item).parent().find('.nested-item-form select.invoice-vat-total option:selected').val()
         $(item).find('.vat-rate').attr('data-selected-value', selectedVatValue)
