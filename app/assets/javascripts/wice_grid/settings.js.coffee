@@ -5,7 +5,7 @@
     $('.wice-grid-container').each (index, domElement) ->
       E.wice_grid_settings.addColumnsToToolbar(domElement)
 
-  $('.wice-grid-toolbar .dropdown-columns-menu').on 'show', ->
+  $(document).on 'focus', '.wice-grid-toolbar .dropdown-columns-menu', ->
     E.wice_grid_settings.setToolbarUp($(this))
 
   $(document).on 'click', '.wice-grid-toolbar .wice-grid-columns-selector', ->
