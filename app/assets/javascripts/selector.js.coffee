@@ -353,7 +353,9 @@
 
   $(document).behave "load", "input[data-selector]", (event) ->
     $("input[data-selector]").each ->
-      $(this).selector()
+      unless $(document).data('editedMode')
+        $(this).selector()
+
   $(document).on "selector:change", (changeEvent, value) ->
       $("*[data-selector-update]").each ->
         updateSource = $(this)

@@ -40,15 +40,18 @@
 
     _bindEditEvent: ->
       @line.find('*[data-edit="item-form"]').click =>
+        $(document).data('edited-mode', true)
         @display.addClass('hidden')
-
         clone = @oldForm().clone()
         clone.insertBefore(@oldForm())
+        clone.trigger('cocoon:after-insert')
         clone.removeClass('hidden')
         @_bindButtons(@newForm())
         @toggleInputVisibility()
         @setFormSubmitable()
         @setCocoonFormSubmitable()
+        @line.trigger "iceberg:inserted"
+        $(document).data('edited-mode', false)
 
     _bindSelectorsInitialization: ->
       that = this
