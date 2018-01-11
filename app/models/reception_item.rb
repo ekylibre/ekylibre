@@ -85,6 +85,7 @@ class ReceptionItem < ParcelItem
       item = contract.items.where(variant_id: variant.id).first
       self.unit_pretax_amount ||= item.unit_pretax_amount if item && item.unit_pretax_amount
     end
+    self.pretax_amount = unit_pretax_amount * quantity
   end
 
   after_save do
@@ -96,6 +97,9 @@ class ReceptionItem < ParcelItem
           variant.catalog_items.create!(catalog: catalog, all_taxes_included: false, amount: unit_pretax_amount, currency: currency) if catalog
         end
       end
+    end
+    if pretax_amount_changed?
+      reception.save
     end
   end
 
