@@ -51,7 +51,8 @@
         @setFormSubmitable()
         @setCocoonFormSubmitable()
         @line.trigger "iceberg:inserted"
-        $(document).data('edited-mode', false)
+        value = @line.first().find('[data-item-value="input.order-unit-amount"]').text()
+        @line.first().find('.nested-item-form').find('.order-unit-amount').val(value)
 
     _bindSelectorsInitialization: ->
       that = this
