@@ -1,3 +1,5 @@
+- calibrations_by_nature = @crops.resultset.map(&:calibrations_by_nature).first
+
 = grid(@crops) do |g|
   - g.column name: :plant.tl, html: { id: 'plantColumn' } do |crop|
     - link_to(crop.name, backend_product_path(crop))
@@ -26,6 +28,13 @@
     - content_tag(:div, nil) do
       %p= crop.human_net_volume_available(:items_count, crop.items_count_per_area_unit)
       %p= crop.human_net_volume_available(:net_mass, crop.net_mass_per_area_unit)
+
+
+  - calibrations_by_nature.each_with_index do |(nature,calibrations), index|
+    - g.column name: nature, html: { id: "inspectionCalibration#{index}" } do |crop|
+      - content_tag(:div, nil) do
+        %p= crop.calibration_quantity(calibrations, :items_count)
+        %p= crop.calibration_quantity(calibrations, :net_mass)
 
 
   - g.column name: :disease_percentage.tl, html: { id: 'diseasePercentageColumn' } do |crop|

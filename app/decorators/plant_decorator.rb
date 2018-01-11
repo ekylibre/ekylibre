@@ -1,6 +1,31 @@
 class PlantDecorator < Draper::Decorator
   delegate_all
 
+  def calibrations_by_nature
+    calibrations = object
+                     .inspections
+                     .flatten
+                     .map(&:calibrations)
+                     .flatten
+
+    calibrations_by_nature = {}
+    calibrations.each do |calibration|
+      key = calibration.nature_name
+      calibrations_by_nature[key] = [] unless calibrations_by_nature.key?(key)
+      calibrations_by_nature[key] << calibration
+    end
+
+    calibrations_by_nature
+  end
+
+  def calibration_quantity(calibrations, unit_name)
+    calibrations
+      .map{ |calibration| calibration.quantity_in_unit(unit_name)}
+      .sum
+      .round(2)
+      .l(precision: 2)
+  end
+
   def harvested_area
     unit_name ||= :hectare
 
