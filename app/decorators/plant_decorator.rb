@@ -1,29 +1,45 @@
 class PlantDecorator < Draper::Decorator
   delegate_all
 
-  def calibrations_by_nature
-    calibrations = object
-                     .inspections
-                     .flatten
-                     .map(&:calibrations)
-                     .flatten
-
-    calibrations_by_nature = {}
-    calibrations.each do |calibration|
-      key = calibration.nature_name
-      calibrations_by_nature[key] = [] unless calibrations_by_nature.key?(key)
-      calibrations_by_nature[key] << calibration
-    end
-
-    calibrations_by_nature
+  def calibrations_natures
+    object
+      .inspections
+      .flatten
+      .map(&:calibrations)
+      .flatten
+      .map(&:nature)
+      .flatten
   end
 
-  def calibration_quantity(calibrations, unit_name)
-    calibrations
-      .map{ |calibration| calibration.quantity_in_unit(unit_name)}
-      .sum
+  def last_inspection_calibration_quantity(calibration_nature, unit_name)
+    last_inspection
+      .calibrations
+      .find_by(nature: calibration_nature)
+      .quantity_in_unit(unit_name)
+  end
+
+  def human_last_inspection_calibration_quantity(calibration_nature, unit_name)
+    last_inspection_calibration_quantity(calibration_nature, unit_name)
       .round(2)
       .l(precision: 2)
+  end
+
+  def last_inspection_calibration_percentage(calibration_nature, unit_name)
+    quantity = last_inspection_calibration_quantity(calibration_nature, unit_name)
+    total_quantity = last_inspection
+                       .calibrations
+                       .flatten
+                       .map{ |calibration| calibration.quantity_in_unit(unit_name) }
+                       .sum
+
+    quantity.to_f / total_quantity.to_f * 100
+  end
+
+  def human_last_inspection_calibration_percentage(calibration_nature, unit_name)
+    last_inspection_calibration_percentage(calibration_nature, unit_name)
+      .round(1)
+      .to_s
+      .concat(' %')
   end
 
   def harvested_area

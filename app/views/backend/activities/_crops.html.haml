@@ -1,4 +1,6 @@
-- calibrations_by_nature = @crops.resultset.map(&:calibrations_by_nature).first
+-# calibrations_by_nature = @crops.resultset.map(&:calibrations_by_nature).first
+-# all_calibrations = calibrations_by_nature.values.flatten
+- calibrations_natures = @crops.resultset.map(&:inspections).flatten.map(&:calibrations).flatten.map(&:nature).uniq
 
 = grid(@crops) do |g|
   - g.column name: :plant.tl, html: { id: 'plantColumn' } do |crop|
@@ -30,11 +32,16 @@
       %p= crop.human_net_volume_available(:net_mass, crop.net_mass_per_area_unit)
 
 
-  - calibrations_by_nature.each_with_index do |(nature,calibrations), index|
-    - g.column name: nature, html: { id: "inspectionCalibration#{index}" } do |crop|
+  - calibrations_natures.each_with_index do |calibration_nature, index|
+    - g.column name: calibration_nature.name, html: { id: "inspectionCalibration#{index}", class: 'hidden' } do |crop|
       - content_tag(:div, nil) do
-        %p= crop.calibration_quantity(calibrations, :items_count)
-        %p= crop.calibration_quantity(calibrations, :net_mass)
+        - items_count_quantity = crop.human_last_inspection_calibration_quantity(calibration_nature, :items_count)
+        - items_count_percentage = crop.human_last_inspection_calibration_percentage(calibration_nature, :items_count)
+        - net_mass_quantity = crop.human_last_inspection_calibration_quantity(calibration_nature, :net_mass)
+        - net_mass_percentage = crop.human_last_inspection_calibration_percentage(calibration_nature, :net_mass)
+
+        %p= "#{ items_count_quantity } (#{ items_count_percentage })"
+        %p= "#{ net_mass_quantity } (#{ net_mass_percentage })"
 
 
   - g.column name: :disease_percentage.tl, html: { id: 'diseasePercentageColumn' } do |crop|
