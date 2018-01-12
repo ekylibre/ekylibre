@@ -5,20 +5,22 @@
     $('.wice-grid-container').each (index, domElement) ->
       E.wice_grid_settings.addColumnsToToolbar(domElement)
 
-  $(document).on 'focus', '.wice-grid-toolbar .dropdown-columns-menu', ->
+  $(document).on 'mouseover', '.wice-grid-toolbar .parent', ->
     E.wice_grid_settings.setToolbarUp($(this))
 
-  $(document).on 'click', '.wice-grid-toolbar .wice-grid-columns-selector', ->
+  $(document).on 'click', '.wice-grid-toolbar .parent', ->
     if $(this).hasClass('checked')
       $(this).addClass('unchecked')
       $(this).removeClass('checked')
 
-      $('#' + $(this).data('corresponding-column')).addClass('hidden')
+      $('thead #' + $(this).data('corresponding-column')).addClass('hidden')
+      $('tbody #' + $(this).data('corresponding-column')).addClass('hidden')
     else
       $(this).addClass('checked')
       $(this).removeClass('unchecked')
 
-      $('#' + $(this).data('corresponding-column')).removeClass('hidden')
+      $('thead #' + $(this).data('corresponding-column')).removeClass('hidden')
+      $('tbody #' + $(this).data('corresponding-column')).removeClass('hidden')
 
 
   class Settings
@@ -29,7 +31,7 @@
         dropdownColumnsMenu = this.toolbar(container).find('.dropdown-columns-menu')
         dropdownHeight = $(dropdownColumnsMenu).height()
 
-        $(dropdownColumnsMenu).css('top: -' + dropdownHeight)
+        $(dropdownColumnsMenu).attr('style', 'top: -' + dropdownHeight + "px;")
 
     toolbar: (container) ->
       $(container).closest('.cobble').find('.wice-grid-toolbar')
