@@ -1,5 +1,6 @@
-PATH
-  remote: ../planning
+GIT
+  remote: git@gitlab.com:ekylibre-integration/planning.git
+  revision: a25bcac13065e72ef5ced25f961328a83665ba60
   specs:
     planning (0.0.1)
       rails (~> 4.2.10)
