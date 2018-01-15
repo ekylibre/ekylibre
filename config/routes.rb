@@ -610,11 +610,7 @@ Rails.application.routes.draw do
         get :select_type
       end
     end
-
-    # namespace :intervention_templates do
-    #   get :select_type, to: 'intervention_templates#select_type'
-    # end
-
+    
     namespace :interventions do
       resources :costs, only: [] do
         collection do
