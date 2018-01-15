@@ -1,3 +1,10 @@
+GIT
+  remote: git@gitlab.com:ekylibre-integration/planning.git
+  revision: a25bcac13065e72ef5ced25f961328a83665ba60
+  specs:
+    planning (0.0.1)
+      rails (~> 4.2.10)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -673,6 +680,7 @@ DEPENDENCIES
   paperclip-document (> 0.0.8)
   parallel_tests
   pg (~> 0.20.0)
+  planning!
   possibly
   pry-byebug
   pry-rails
