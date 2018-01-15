@@ -611,9 +611,9 @@ Rails.application.routes.draw do
       end
     end
 
-    # namespace :intervention_templates do
-    #   get :select_type, to: 'intervention_templates#select_type'
-    # end
+    resources :technical_itineraries, concerns: :list do
+    end
+
 
     namespace :interventions do
       resources :costs, only: [] do

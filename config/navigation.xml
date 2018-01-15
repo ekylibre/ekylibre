@@ -1034,6 +1034,14 @@
         <page to="backend/intervention_templates#edit" />
         <page to="backend/intervention_templates#show" />
       </item>
+      <item name="technical_itineraries">
+        <page to="backend/technical_itineraries#index" nonexistent="true"/>
+        <page to="backend/technical_itineraries#create"/>
+        <page to="backend/technical_itineraries#select_type" />
+        <page to="backend/technical_itineraries#new" />
+        <page to="backend/technical_itineraries#edit" />
+        <page to="backend/technical_itineraries#show" />
+      </item>
     </group>
   </part>
   <part name="humans">
@@ -2213,6 +2221,9 @@
         <page to="backend/intervention_templates#select_type"/>
         <page to="backend/intervention_templates#show"/>
         <page to="backend/intervention_templates#update"/>
+      </item>
+      <item name="technical_itineraries">
+        <page to="backend/intervention_templates#list"/>
       </item>
       <item name="interventions">
         <page to="backend/interventions#purchase_order_items"/>
