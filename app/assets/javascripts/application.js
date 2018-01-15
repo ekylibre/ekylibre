@@ -78,8 +78,8 @@
 //= require_tree .
 //= require tour
 //= require bootstrap-slider
+//= require planning
 //= require vue
-//= require vue-resource
 
 var visualization = {};
 var mapeditor = {};
