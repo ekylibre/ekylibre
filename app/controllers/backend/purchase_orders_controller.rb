@@ -77,13 +77,14 @@ module Backend
 
     def show
       return unless @purchase_order = find_and_check
-      respond_with(@purchase_order, methods: [:taxes_amount],
-                                    include: { delivery_address: { methods: [:mail_coordinate] },
-                                               supplier: { methods: [:pictures_path], include: { default_mail_address: { methods: [:mail_coordinate] } } },
-                                               parcels: { include: [:items] },
-                                               items: { methods: %i[taxes_amount tax_name tax_short_label], include: [:variant] } }) do |format|
+      respond_to do |format|
         format.html do
           t3e @purchase_order.attributes, supplier: @purchase_order.supplier.full_name, state: @purchase_order.state_label, label: @purchase_order.label
+        end
+        format.odt do
+          filename = "Bon_de_commande_#{@purchase_order.reference_number}"
+          @dataset_purchase_order = @purchase_order.order_reporting
+          send_data to_odt(@dataset_purchase_order, filename, params).generate, type: 'application/vnd.oasis.opendocument.text', disposition: 'attachment', filename: filename << '.odt'
         end
       end
     end
@@ -113,5 +114,52 @@ module Backend
       @purchase_order.close
       redirect_to action: :show, id: @purchase_order.id
     end
+    
+    protected
+
+    def to_odt(order_reporting, filename, params)
+      # TODO: add a generic template system path
+      report = ODFReport::Report.new(Rails.root.join('config', 'locales', 'fra', 'reporting', 'purchase_order.odt')) do |r|
+        # TODO: add a helper with generic metod to implemend header and footer
+        
+        e = Entity.of_company
+        company_name = e.full_name
+        company_address = e.default_mail_address.coordinate
+        company_phone = e.phones.first.coordinate
+        company_email = e.addresses.where(canal:'email').first.coordinate
+
+        r.add_field 'COMPANY_ADDRESS', company_address
+        r.add_field 'COMPANY_NAME', company_name
+        r.add_field 'COMPANY_PHONE', company_phone
+        r.add_field 'COMPANY_EMAIL', company_email
+        r.add_field 'FILENAME', filename
+        r.add_field 'PRINTED_AT', Time.zone.now.l(format: '%d/%m/%Y %T')
+        
+        r.add_field 'PURCHASE_NUMBER', order_reporting[:purchase_number]
+        r.add_field 'PURCHASE_ORDERED_AT', order_reporting[:purchase_ordered_at]
+        r.add_field 'PURCHASE_ESTIMATE_RECEPTION_DATE', order_reporting[:purchase_estimate_reception_date]
+        r.add_field 'PURCHASE_RESPONSIBLE', order_reporting[:purchase_responsible]
+        r.add_field 'SUPPLIER_NAME', order_reporting[:supplier_name]
+        r.add_field 'SUPPLIER_PHONE', order_reporting[:supplier_phone]
+        r.add_field 'SUPPLIER_MOBILE_PHONE', order_reporting[:supplier_mobile_phone]
+        r.add_field 'SUPPLIER_ADDRESS', order_reporting[:supplier_address]
+        r.add_field 'SUPPLIER_EMAIL', order_reporting[:supplier_email]
+        r.add_image :company_logo, order_reporting[:entity_picture]
+        
+        r.add_table("P_ITEMS", order_reporting[:items], :header => true) do |t|
+          t.add_column(:variant)
+          t.add_column(:quantity)
+          t.add_column(:unity)
+          t.add_column(:unit_pretax_amount)
+          t.add_column(:pretax_amount)
+        end
+        
+        r.add_field 'PURCHASE_PRETAX_AMOUNT', order_reporting[:purchase_pretax_amount]
+        r.add_field 'PURCHASE_CURRENCY', order_reporting[:purchase_currency]
+
+      end
+    end
+    
+    
   end
 end

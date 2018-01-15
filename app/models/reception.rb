@@ -83,6 +83,7 @@ class Reception < Parcel
   end
 
   before_validation :remove_all_items, if: ->(obj) { obj.intervention.present? && obj.purchase_id_changed? }
+
   before_validation do
     self.nature = 'incoming'
     self.state ||= :draft
@@ -168,7 +169,7 @@ class Reception < Parcel
   alias entity third
 
   def invoiced?
-    purchase.present?
+    purchase_order.present?
   end
 
   def allow_items_update?
@@ -186,6 +187,14 @@ class Reception < Parcel
       end
     end
     in_accident
+  end
+
+  def sender_full_name
+    sender.full_name
+  end
+
+  def purchase_order_number
+    purchase_order.number
   end
 
   def give
