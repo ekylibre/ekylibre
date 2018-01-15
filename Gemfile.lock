@@ -1,3 +1,9 @@
+PATH
+  remote: ../planning
+  specs:
+    planning (0.0.1)
+      rails (~> 4.2.10)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -673,6 +679,7 @@ DEPENDENCIES
   paperclip-document (> 0.0.8)
   parallel_tests
   pg (~> 0.20.0)
+  planning!
   possibly
   pry-byebug
   pry-rails

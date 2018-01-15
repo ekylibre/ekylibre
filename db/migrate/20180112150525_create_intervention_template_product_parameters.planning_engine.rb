@@ -1,3 +1,4 @@
+# This migration comes from planning_engine (originally 20180112144429)
 class CreateInterventionTemplateProductParameters < ActiveRecord::Migration
   def change
     create_table :intervention_template_product_parameters do |t|

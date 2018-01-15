@@ -1,3 +1,4 @@
+# This migration comes from planning_engine (originally 20180112135843)
 class CreateInterventionTemplates < ActiveRecord::Migration
   def change
     create_table :intervention_templates do |t|
@@ -9,6 +10,7 @@ class CreateInterventionTemplates < ActiveRecord::Migration
       t.integer :preparation_time_hours
       t.integer :preparation_time_minutes
       t.decimal :workflow
+      t.timestamps null: false
       t.timestamps null: false
     end
   end
