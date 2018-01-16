@@ -48,12 +48,14 @@ module Backend
                 .merge(InspectionCalibration.of_scale(scale))
                 .joins(:product)
                 .where('products.dead_at IS NULL OR products.dead_at > ?', Time.zone.now)
-                .group(:product_id)
+                .group(:product_id, :id)
                 .reorder('')
+                .to_a
+                .select{ |inspection| inspection.product.decorate.available_area.to_f != 0 }
 
       last_inspections = inspections
-                         .where(product_id: grouped.select(:product_id),
-                                sampled_at: grouped.select('MAX(sampled_at)'))
+                         .where(product_id: grouped.map(&:product_id),
+                                sampled_at: grouped.map(&:sampled_at).max)
 
       series_data = scale.natures.map do |nature|
         last_calibrations = InspectionCalibration.where(id:
