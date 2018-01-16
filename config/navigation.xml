@@ -2223,7 +2223,7 @@
         <page to="backend/intervention_templates#update"/>
       </item>
       <item name="technical_itineraries">
-        <page to="backend/intervention_templates#list"/>
+        <page to="backend/technical_itineraries#list"/>
       </item>
       <item name="interventions">
         <page to="backend/interventions#purchase_order_items"/>

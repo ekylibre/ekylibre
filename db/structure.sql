@@ -6906,6 +6906,7 @@ ALTER SEQUENCE teams_id_seq OWNED BY teams.id;
 CREATE TABLE technical_itineraries (
     id integer NOT NULL,
     name character varying,
+    campaign_id integer,
     activity_id integer,
     description character varying,
     created_at timestamp without time zone NOT NULL,
@@ -17193,6 +17194,13 @@ CREATE INDEX index_technical_itineraries_on_activity_id ON technical_itineraries
 
 
 --
+-- Name: index_technical_itineraries_on_campaign_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_technical_itineraries_on_campaign_id ON technical_itineraries USING btree (campaign_id);
+
+
+--
 -- Name: index_tokens_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -17596,6 +17604,14 @@ ALTER TABLE ONLY outgoing_payments
 
 ALTER TABLE ONLY outgoing_payments
     ADD CONSTRAINT fk_rails_214eda6f83 FOREIGN KEY (payee_id) REFERENCES entities(id) ON DELETE RESTRICT;
+
+
+--
+-- Name: technical_itineraries fk_rails_2dfb0af7d3; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY technical_itineraries
+    ADD CONSTRAINT fk_rails_2dfb0af7d3 FOREIGN KEY (campaign_id) REFERENCES campaigns(id);
 
 
 --
@@ -18490,5 +18506,5 @@ INSERT INTO schema_migrations (version) VALUES ('20180115112903');
 
 INSERT INTO schema_migrations (version) VALUES ('20180115112904');
 
-INSERT INTO schema_migrations (version) VALUES ('20180115135800');
+INSERT INTO schema_migrations (version) VALUES ('20180115145552');
 

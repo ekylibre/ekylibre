@@ -614,7 +614,6 @@ Rails.application.routes.draw do
     resources :technical_itineraries, concerns: :list do
     end
 
-
     namespace :interventions do
       resources :costs, only: [] do
         collection do
