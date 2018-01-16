@@ -8,7 +8,7 @@
   $(document).on 'mouseover', '.wice-grid-toolbar .parent', ->
     E.wice_grid_settings.setToolbarUp($(this))
 
-  $(document).on 'click', '.wice-grid-toolbar .parent', ->
+  $(document).on 'click', '.wice-grid-toolbar .wice-grid-columns-selector', ->
     if $(this).hasClass('checked')
       $(this).addClass('unchecked')
       $(this).removeClass('checked')
