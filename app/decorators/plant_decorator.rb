@@ -11,32 +11,39 @@ class PlantDecorator < Draper::Decorator
       .flatten
   end
 
-  def last_inspection_calibration_quantity(calibration_nature, unit_name)
-    last_inspection
-      .calibrations
-      .find_by(nature: calibration_nature)
-      .quantity_in_unit(unit_name)
+  def last_inspection_calibration_quantity(calibration_nature, dimension)
+    calibration = last_inspection
+                    .calibrations
+                    .find_by(nature: calibration_nature)
+
+    quantity = calibration.marketable_quantity(dimension)
+
+    unit = calibration.user_per_area_unit(dimension) if %i[surface_area_density mass_area_density].include? quantity.dimension
+    unit = calibration.user_quantity_unit(dimension) if %i[none mass].include? quantity.dimension
+
+    quantity.to_d(unit)
   end
 
-  def human_last_inspection_calibration_quantity(calibration_nature, unit_name)
-    last_inspection_calibration_quantity(calibration_nature, unit_name)
+  def human_last_inspection_calibration_quantity(calibration_nature, dimension, unit_name)
+    last_inspection_calibration_quantity(calibration_nature, dimension)
+      .to_f
       .round(2)
       .l(precision: 2)
   end
 
-  def last_inspection_calibration_percentage(calibration_nature, unit_name)
-    quantity = last_inspection_calibration_quantity(calibration_nature, unit_name)
+  def last_inspection_calibration_percentage(calibration_nature, dimension, unit_name)
+    quantity = last_inspection_calibration_quantity(calibration_nature, dimension)
     total_quantity = last_inspection
                        .calibrations
                        .flatten
-                       .map{ |calibration| calibration.quantity_in_unit(unit_name) }
+                       .map{ |calibration| calibration.marketable_quantity(dimension) }
                        .sum
 
     quantity.to_f / total_quantity.to_f * 100
   end
 
-  def human_last_inspection_calibration_percentage(calibration_nature, unit_name)
-    last_inspection_calibration_percentage(calibration_nature, unit_name)
+  def human_last_inspection_calibration_percentage(calibration_nature, dimension, unit_name)
+    last_inspection_calibration_percentage(calibration_nature, dimension, unit_name)
       .round(1)
       .to_s
       .concat(' %')
