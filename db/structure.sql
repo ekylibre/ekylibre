@@ -6934,6 +6934,40 @@ ALTER SEQUENCE technical_itineraries_id_seq OWNED BY technical_itineraries.id;
 
 
 --
+-- Name: technical_itinerary_intervention_templates; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE technical_itinerary_intervention_templates (
+    id integer NOT NULL,
+    technical_itinerary_id integer,
+    intervention_template_id integer,
+    "position" integer,
+    day_between_intervention integer,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: technical_itinerary_intervention_templates_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE technical_itinerary_intervention_templates_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: technical_itinerary_intervention_templates_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE technical_itinerary_intervention_templates_id_seq OWNED BY technical_itinerary_intervention_templates.id;
+
+
+--
 -- Name: tokens; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -8171,6 +8205,13 @@ ALTER TABLE ONLY technical_itineraries ALTER COLUMN id SET DEFAULT nextval('tech
 
 
 --
+-- Name: technical_itinerary_intervention_templates id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY technical_itinerary_intervention_templates ALTER COLUMN id SET DEFAULT nextval('technical_itinerary_intervention_templates_id_seq'::regclass);
+
+
+--
 -- Name: tokens id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -9396,6 +9437,14 @@ ALTER TABLE ONLY teams
 
 ALTER TABLE ONLY technical_itineraries
     ADD CONSTRAINT technical_itineraries_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: technical_itinerary_intervention_templates technical_itinerary_intervention_templates_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY technical_itinerary_intervention_templates
+    ADD CONSTRAINT technical_itinerary_intervention_templates_pkey PRIMARY KEY (id);
 
 
 --
@@ -17432,6 +17481,13 @@ CREATE INDEX intervention_template_id ON intervention_template_product_parameter
 
 
 --
+-- Name: itinerary_template_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX itinerary_template_id ON technical_itinerary_intervention_templates USING btree (intervention_template_id);
+
+
+--
 -- Name: product_nature_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -17443,6 +17499,13 @@ CREATE INDEX product_nature_id ON intervention_template_product_parameters USING
 --
 
 CREATE INDEX product_nature_variant_id ON intervention_template_product_parameters USING btree (product_nature_variant_id);
+
+
+--
+-- Name: template_itinerary_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX template_itinerary_id ON technical_itinerary_intervention_templates USING btree (technical_itinerary_id);
 
 
 --
@@ -17567,6 +17630,14 @@ ALTER TABLE ONLY payslips
 
 
 --
+-- Name: technical_itinerary_intervention_templates fk_rails_12463de838; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY technical_itinerary_intervention_templates
+    ADD CONSTRAINT fk_rails_12463de838 FOREIGN KEY (intervention_template_id) REFERENCES intervention_templates(id);
+
+
+--
 -- Name: outgoing_payments fk_rails_15244a5c09; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -17660,6 +17731,14 @@ ALTER TABLE ONLY tax_declaration_item_parts
 
 ALTER TABLE ONLY products
     ADD CONSTRAINT fk_rails_5e587cedec FOREIGN KEY (activity_production_id) REFERENCES activity_productions(id);
+
+
+--
+-- Name: technical_itinerary_intervention_templates fk_rails_5f0371c42a; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY technical_itinerary_intervention_templates
+    ADD CONSTRAINT fk_rails_5f0371c42a FOREIGN KEY (technical_itinerary_id) REFERENCES technical_itineraries(id);
 
 
 --
@@ -18507,4 +18586,6 @@ INSERT INTO schema_migrations (version) VALUES ('20180115112903');
 INSERT INTO schema_migrations (version) VALUES ('20180115112904');
 
 INSERT INTO schema_migrations (version) VALUES ('20180115145552');
+
+INSERT INTO schema_migrations (version) VALUES ('20180116142637');
 
