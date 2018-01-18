@@ -36,9 +36,9 @@
     - g.column name: calibration_nature.name, html: { id: "inspectionCalibration#{index}", class: 'hidden' } do |crop|
       - content_tag(:div, nil) do
         - items_count_quantity = crop.human_last_inspection_calibration_quantity(calibration_nature, :items_count, crop.items_count_quantity_unit)
-        - items_count_percentage = crop.human_last_inspection_calibration_percentage(calibration_nature, :items_count, crop.items_count_quantity_unit)
-        - net_mass_quantity = crop.human_last_inspection_calibration_quantity(calibration_nature, :net_mass, crop.items_count_quantity_unit)
-        - net_mass_percentage = crop.human_last_inspection_calibration_percentage(calibration_nature, :net_mass, crop.items_count_quantity_unit)
+        - items_count_percentage = crop.human_last_inspection_calibration_percentage(calibration_nature, :items_count)
+        - net_mass_quantity = crop.human_last_inspection_calibration_quantity(calibration_nature, :net_mass, crop.net_mass_quantity_unit)
+        - net_mass_percentage = crop.human_last_inspection_calibration_percentage(calibration_nature, :net_mass)
 
         %p= "#{ items_count_quantity } (#{ items_count_percentage })"
         %p= "#{ net_mass_quantity } (#{ net_mass_percentage })"

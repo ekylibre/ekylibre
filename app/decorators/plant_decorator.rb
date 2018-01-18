@@ -16,34 +16,30 @@ class PlantDecorator < Draper::Decorator
                     .calibrations
                     .find_by(nature: calibration_nature)
 
-    quantity = calibration.marketable_quantity(dimension)
-
-    unit = calibration.user_per_area_unit(dimension) if %i[surface_area_density mass_area_density].include? quantity.dimension
-    unit = calibration.user_quantity_unit(dimension) if %i[none mass].include? quantity.dimension
-
-    quantity.to_d(unit)
+    calibration.decorate.real_quantity(dimension)
   end
 
   def human_last_inspection_calibration_quantity(calibration_nature, dimension, unit_name)
     last_inspection_calibration_quantity(calibration_nature, dimension)
       .to_f
       .round(2)
+      .in(unit_name)
       .l(precision: 2)
   end
 
-  def last_inspection_calibration_percentage(calibration_nature, dimension, unit_name)
+  def last_inspection_calibration_percentage(calibration_nature, dimension)
     quantity = last_inspection_calibration_quantity(calibration_nature, dimension)
     total_quantity = last_inspection
                        .calibrations
                        .flatten
-                       .map{ |calibration| calibration.marketable_quantity(dimension) }
+                       .map{ |calibration| calibration.decorate.real_quantity(dimension) }
                        .sum
 
     quantity.to_f / total_quantity.to_f * 100
   end
 
-  def human_last_inspection_calibration_percentage(calibration_nature, dimension, unit_name)
-    last_inspection_calibration_percentage(calibration_nature, dimension, unit_name)
+  def human_last_inspection_calibration_percentage(calibration_nature, dimension)
+    last_inspection_calibration_percentage(calibration_nature, dimension)
       .round(1)
       .to_s
       .concat(' %')
