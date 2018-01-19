@@ -87,11 +87,17 @@ class PlantDecorator < Draper::Decorator
       .l(precision: 2)
   end
 
-  def human_net_volume_available(dimension, unit_name)
+  def net_volume_available(dimension, unit_name_per_hectare)
+    marketable_yield = last_inspection.marketable_yield(dimension).in(unit_name_per_hectare).to_f
+
+    marketable_yield * available_area.to_f
+  end
+
+  def human_net_volume_available(dimension, unit_name, unit_name_per_hectare)
     return nil if last_inspection.nil?
     unit_name ||= :items_count
 
-    last_inspection.marketable_quantity(dimension)
+    net_volume_available(dimension, unit_name_per_hectare)
       .in(unit_name)
       .round(2)
       .l(precision: 2)

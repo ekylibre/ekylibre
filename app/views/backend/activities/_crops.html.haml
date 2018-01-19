@@ -1,5 +1,3 @@
--# calibrations_by_nature = @crops.resultset.map(&:calibrations_by_nature).first
--# all_calibrations = calibrations_by_nature.values.flatten
 - calibrations_natures = @crops.resultset.map(&:inspections).flatten.map(&:calibrations).flatten.map(&:nature).uniq
 
 = grid(@crops) do |g|
@@ -28,8 +26,8 @@
 
   - g.column name: 'Volume net disponible', html: { id: 'netVolumeAvailableColumn' } do |crop|
     - content_tag(:div, nil) do
-      %p= crop.human_net_volume_available(:items_count, crop.items_count_quantity_unit)
-      %p= crop.human_net_volume_available(:net_mass, crop.net_mass_quantity_unit)
+      %p= crop.human_net_volume_available(:items_count, crop.items_count_quantity_unit, crop.items_count_per_area_unit)
+      %p= crop.human_net_volume_available(:net_mass, crop.net_mass_quantity_unit, crop.net_mass_per_area_unit)
 
 
   - calibrations_natures.each_with_index do |calibration_nature, index|
