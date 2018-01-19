@@ -2,6 +2,7 @@ PATH
   remote: ../planning
   specs:
     planning (0.0.1)
+      lodash-rails
       rails (~> 4.2.10)
 
 GEM
@@ -669,7 +670,6 @@ DEPENDENCIES
   jquery-ui-rails
   kaminari (~> 0.16.0)
   letter_opener
-  lodash-rails
   loofah
   luhn
   mail (~> 2.6.6.rc1)
