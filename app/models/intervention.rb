@@ -285,6 +285,10 @@ class Intervention < Ekylibre::Record::Base
   end
 
   before_save do
+    if self.receptions.any?
+      self.receptions.each{ |reception| reception.given_at = self.working_periods.first.started_at }
+    end
+
     columns = { name: name, started_at: started_at, stopped_at: stopped_at, nature: :production_intervention }
 
     if event

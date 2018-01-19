@@ -52,7 +52,6 @@
 
       if variantId == ""
         return
-
       $.ajax
         url: "/backend/product_nature_variants/#{variantId}/detail",
         success: (data, status, request) ->
