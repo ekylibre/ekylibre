@@ -16,7 +16,7 @@ class PlantDecorator < Draper::Decorator
                     .calibrations
                     .find_by(nature: calibration_nature)
 
-    calibration.decorate.real_quantity(dimension)
+    calibration.decorate.real_quantity(dimension).to_f * available_area.to_f
   end
 
   def human_last_inspection_calibration_quantity(calibration_nature, dimension, unit_name)
@@ -32,7 +32,7 @@ class PlantDecorator < Draper::Decorator
     total_quantity = last_inspection
                        .calibrations
                        .flatten
-                       .map{ |calibration| calibration.decorate.real_quantity(dimension) }
+                       .map{ |calibration| calibration.decorate.real_quantity(dimension).to_f * available_area.to_f }
                        .sum
 
     quantity.to_f / total_quantity.to_f * 100
