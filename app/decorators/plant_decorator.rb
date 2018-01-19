@@ -1,6 +1,50 @@
 class PlantDecorator < Draper::Decorator
   delegate_all
 
+  def calibrations_natures
+    object
+      .inspections
+      .flatten
+      .map(&:calibrations)
+      .flatten
+      .map(&:nature)
+      .flatten
+  end
+
+  def last_inspection_calibration_quantity(calibration_nature, dimension)
+    calibration = last_inspection
+                    .calibrations
+                    .find_by(nature: calibration_nature)
+
+    calibration.decorate.real_quantity(dimension).to_f * available_area.to_f
+  end
+
+  def human_last_inspection_calibration_quantity(calibration_nature, dimension, unit_name)
+    last_inspection_calibration_quantity(calibration_nature, dimension)
+      .to_f
+      .round(2)
+      .in(unit_name)
+      .l(precision: 2)
+  end
+
+  def last_inspection_calibration_percentage(calibration_nature, dimension)
+    quantity = last_inspection_calibration_quantity(calibration_nature, dimension)
+    total_quantity = last_inspection
+                       .calibrations
+                       .flatten
+                       .map{ |calibration| calibration.decorate.real_quantity(dimension).to_f * available_area.to_f }
+                       .sum
+
+    quantity.to_f / total_quantity.to_f * 100
+  end
+
+  def human_last_inspection_calibration_percentage(calibration_nature, dimension)
+    last_inspection_calibration_percentage(calibration_nature, dimension)
+      .round(1)
+      .to_s
+      .concat(' %')
+  end
+
   def harvested_area
     unit_name ||= :hectare
 
@@ -43,19 +87,17 @@ class PlantDecorator < Draper::Decorator
       .l(precision: 2)
   end
 
-  def net_volume_available(dimension, unit_name)
-    return nil if last_inspection.nil?
+  def net_volume_available(dimension, unit_name_per_hectare)
+    marketable_yield = last_inspection.marketable_yield(dimension).in(unit_name_per_hectare).to_f
 
-    unit_name ||= :items_count
-
-    available_area.to_f * last_inspection.marketable_yield(dimension).in(unit_name).to_f
+    marketable_yield * available_area.to_f
   end
 
-  def human_net_volume_available(dimension, unit_name)
+  def human_net_volume_available(dimension, unit_name, unit_name_per_hectare)
     return nil if last_inspection.nil?
     unit_name ||= :items_count
 
-    net_volume_available(dimension, unit_name)
+    net_volume_available(dimension, unit_name_per_hectare)
       .in(unit_name)
       .round(2)
       .l(precision: 2)

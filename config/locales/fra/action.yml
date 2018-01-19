@@ -1143,6 +1143,7 @@ fra:
     column_organization: "Organisation" #?
     column_title: "Titre" #?
     columns: "Colonnes à importer"
+    wice_grid_columns: "Colonnes"
     comment: "Commentaire"
     commission: "Commission"
     company: "Société"

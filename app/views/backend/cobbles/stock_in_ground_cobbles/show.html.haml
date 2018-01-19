@@ -2,6 +2,7 @@
   - resource.inspection_calibration_scales.find_each do |scale|
     - next unless InspectionCalibration.where(nature: scale.natures).exists?
     - base_series = caliber_series(@dimension, scale, resource.inspections)
+
     - stock_series = base_series[:stock]
     - yield_series = base_series[:yield]
 
