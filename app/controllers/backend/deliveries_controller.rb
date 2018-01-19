@@ -63,7 +63,7 @@ module Backend
       t.column :state
       t.status
       t.column :sender, url: true
-      t.column :purchase, url: true, hidden: true
+      #t.column :purchase, url: true, hidden: true
       # t.column :net_mass
     end
 

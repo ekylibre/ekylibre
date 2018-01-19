@@ -34,6 +34,7 @@
 //= require i18n/locale
 //= require i18n/ext
 //= require wice_grid
+//= require wice_grid/settings
 //= require ekylibre
 //= require moment
 //= require moment/ar

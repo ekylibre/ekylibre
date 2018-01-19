@@ -290,6 +290,10 @@ class Entity < Ekylibre::Record::Base
     end
   end
 
+  def entity_payment_mode_name
+    supplier_payment_mode&.name
+  end
+
   # Convert a contact into organization or inverse
   def toggle!
     if contact? && first_name.present?

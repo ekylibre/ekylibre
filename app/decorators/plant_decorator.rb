@@ -1,6 +1,47 @@
 class PlantDecorator < Draper::Decorator
   delegate_all
 
+  def calibrations_natures
+    object
+      .inspections
+      .flatten
+      .map(&:calibrations)
+      .flatten
+      .map(&:nature)
+      .flatten
+  end
+
+  def last_inspection_calibration_quantity(calibration_nature, unit_name)
+    last_inspection
+      .calibrations
+      .find_by(nature: calibration_nature)
+      .quantity_in_unit(unit_name)
+  end
+
+  def human_last_inspection_calibration_quantity(calibration_nature, unit_name)
+    last_inspection_calibration_quantity(calibration_nature, unit_name)
+      .round(2)
+      .l(precision: 2)
+  end
+
+  def last_inspection_calibration_percentage(calibration_nature, unit_name)
+    quantity = last_inspection_calibration_quantity(calibration_nature, unit_name)
+    total_quantity = last_inspection
+                       .calibrations
+                       .flatten
+                       .map{ |calibration| calibration.quantity_in_unit(unit_name) }
+                       .sum
+
+    quantity.to_f / total_quantity.to_f * 100
+  end
+
+  def human_last_inspection_calibration_percentage(calibration_nature, unit_name)
+    last_inspection_calibration_percentage(calibration_nature, unit_name)
+      .round(1)
+      .to_s
+      .concat(' %')
+  end
+
   def harvested_area
     unit_name ||= :hectare
 
@@ -43,19 +84,11 @@ class PlantDecorator < Draper::Decorator
       .l(precision: 2)
   end
 
-  def net_volume_available(dimension, unit_name)
-    return nil if last_inspection.nil?
-
-    unit_name ||= :items_count
-
-    available_area.to_f * last_inspection.marketable_yield(dimension).in(unit_name).to_f
-  end
-
   def human_net_volume_available(dimension, unit_name)
     return nil if last_inspection.nil?
     unit_name ||= :items_count
 
-    net_volume_available(dimension, unit_name)
+    last_inspection.marketable_quantity(dimension)
       .in(unit_name)
       .round(2)
       .l(precision: 2)

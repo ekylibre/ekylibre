@@ -601,6 +601,7 @@ Rails.application.routes.draw do
         post :purchase
         get :list_product_parameters
         get :list_record_interventions
+        get :list_service_deliveries
       end
     end
 
@@ -777,6 +778,7 @@ Rails.application.routes.draw do
 
     resources :receptions, concerns: %i[list unroll] do
       member do
+        get :list_items
         get :list_storings
 
         post :give
