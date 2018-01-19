@@ -169,15 +169,18 @@
       @id = parseInt id
       if @dropDownMenu.is(":visible")
         @dropDownMenu.hide()
-      if triggerEvents is true
-        @valueField.trigger "selector:change"
-        @element.trigger "selector:change", selectedElement
-      if @initializing
-        @valueField.trigger "selector:initialized"
-        @element.trigger "selector:initialized"
-        @initializing = false
-      @valueField.trigger "selector:set"
-      @element.trigger "selector:set"
+      unless $(document).data('editedMode')
+        if triggerEvents is true
+          @valueField.trigger "selector:change"
+          @element.trigger "selector:change", selectedElement
+        if @initializing
+          @valueField.trigger "selector:initialized"
+          @element.trigger "selector:initialized"
+          @initializing = false
+        @valueField.trigger "selector:set"
+        @element.trigger "selector:set"
+      $(document).data('editedMode', false)
+
       if (redirect = @element.data("redirect-on-change-url")) && (param = @element.attr('id')) && id
         if @element.closest('form').data('dialog') is undefined
           window.location = redirect + "?" + param + "="+ id
@@ -354,6 +357,7 @@
   $(document).behave "load", "input[data-selector]", (event) ->
     $("input[data-selector]").each ->
       $(this).selector()
+
   $(document).on "selector:change", (changeEvent, value) ->
       $("*[data-selector-update]").each ->
         updateSource = $(this)
