@@ -1,5 +1,6 @@
-PATH
-  remote: ../planning
+GIT
+  remote: git@gitlab.com:ekylibre-integration/planning.git
+  revision: 00fedd19950303dacf57aa670f537c68e41291d4
   specs:
     planning (0.0.2.1)
       lodash-rails
@@ -198,7 +199,7 @@ GEM
     enumerize (2.1.2)
       activesupport (>= 3.2)
     erubis (2.7.0)
-    et-orbi (1.0.8)
+    et-orbi (1.0.9)
       tzinfo
     eventmachine (1.2.5)
     exception_notification (4.2.2)
@@ -293,6 +294,8 @@ GEM
       rb-fsevent (~> 0.9, >= 0.9.4)
       rb-inotify (~> 0.9, >= 0.9.7)
       ruby_dep (~> 1.2)
+    lodash-rails (4.17.4)
+      railties (>= 3.1)
     loofah (2.1.1)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
