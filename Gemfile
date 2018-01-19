@@ -86,6 +86,8 @@ gem 'charta', '>= 0.1.9'
 # Manage daemons
 gem 'foreman'
 
+gem 'lodash-rails'
+
 # active_list alternative
 gem 'wice_grid'#, github: "leikind/wice_grid", branch: "rails3"
 gem 'kaminari', "~> 0.16.0"

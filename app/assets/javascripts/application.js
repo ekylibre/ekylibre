@@ -80,6 +80,7 @@
 //= require bootstrap-slider
 //= require planning
 //= require vue
+//= require lodash
 
 var visualization = {};
 var mapeditor = {};
