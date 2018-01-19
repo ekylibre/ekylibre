@@ -28,6 +28,10 @@ module Backend
       input(reflection.foreign_key, options)
     end
 
+    def list_input(association, options = {})
+      # TODO
+    end
+
     # Display a selector with "new" button
     def referenced_association(association, options = {})
       return self.association(association, options) if options[:as] == :hidden

@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 9.6.3
--- Dumped by pg_dump version 9.6.3
+-- Dumped from database version 9.6.6
+-- Dumped by pg_dump version 9.6.6
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -3797,9 +3797,13 @@ ALTER SEQUENCE intervention_template_activities_id_seq OWNED BY intervention_tem
 CREATE TABLE intervention_template_product_parameters (
     id integer NOT NULL,
     intervention_template_id integer,
-    product_id integer,
+    product_nature_id integer,
+    product_nature_variant_id integer,
+    activity_id integer,
     quantity integer,
+    unit character varying,
     type character varying,
+    procedure jsonb,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
 );
@@ -3834,6 +3838,10 @@ CREATE TABLE intervention_templates (
     active boolean DEFAULT true,
     description character varying,
     procedure_name character varying,
+    campaign_id integer,
+    preparation_time_hours integer,
+    preparation_time_minutes integer,
+    workflow numeric,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
 );
@@ -6892,6 +6900,75 @@ ALTER SEQUENCE teams_id_seq OWNED BY teams.id;
 
 
 --
+-- Name: technical_itineraries; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE technical_itineraries (
+    id integer NOT NULL,
+    name character varying,
+    campaign_id integer,
+    activity_id integer,
+    description character varying,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: technical_itineraries_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE technical_itineraries_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: technical_itineraries_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE technical_itineraries_id_seq OWNED BY technical_itineraries.id;
+
+
+--
+-- Name: technical_itinerary_intervention_templates; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE technical_itinerary_intervention_templates (
+    id integer NOT NULL,
+    technical_itinerary_id integer,
+    intervention_template_id integer,
+    "position" integer,
+    day_between_intervention integer,
+    duration integer,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: technical_itinerary_intervention_templates_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE technical_itinerary_intervention_templates_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: technical_itinerary_intervention_templates_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE technical_itinerary_intervention_templates_id_seq OWNED BY technical_itinerary_intervention_templates.id;
+
+
+--
 -- Name: tokens; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -8122,6 +8199,20 @@ ALTER TABLE ONLY teams ALTER COLUMN id SET DEFAULT nextval('teams_id_seq'::regcl
 
 
 --
+-- Name: technical_itineraries id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY technical_itineraries ALTER COLUMN id SET DEFAULT nextval('technical_itineraries_id_seq'::regclass);
+
+
+--
+-- Name: technical_itinerary_intervention_templates id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY technical_itinerary_intervention_templates ALTER COLUMN id SET DEFAULT nextval('technical_itinerary_intervention_templates_id_seq'::regclass);
+
+
+--
 -- Name: tokens id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -9339,6 +9430,22 @@ ALTER TABLE ONLY taxes
 
 ALTER TABLE ONLY teams
     ADD CONSTRAINT teams_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: technical_itineraries technical_itineraries_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY technical_itineraries
+    ADD CONSTRAINT technical_itineraries_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: technical_itinerary_intervention_templates technical_itinerary_intervention_templates_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY technical_itinerary_intervention_templates
+    ADD CONSTRAINT technical_itinerary_intervention_templates_pkey PRIMARY KEY (id);
 
 
 --
@@ -12776,10 +12883,17 @@ CREATE INDEX index_intervention_template_activities_on_activity_id ON interventi
 
 
 --
--- Name: index_intervention_template_product_parameters_on_product_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_intervention_template_product_parameters_on_activity_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_intervention_template_product_parameters_on_product_id ON intervention_template_product_parameters USING btree (product_id);
+CREATE INDEX index_intervention_template_product_parameters_on_activity_id ON intervention_template_product_parameters USING btree (activity_id);
+
+
+--
+-- Name: index_intervention_templates_on_campaign_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_intervention_templates_on_campaign_id ON intervention_templates USING btree (campaign_id);
 
 
 --
@@ -17123,6 +17237,20 @@ CREATE INDEX index_teams_on_updater_id ON teams USING btree (updater_id);
 
 
 --
+-- Name: index_technical_itineraries_on_activity_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_technical_itineraries_on_activity_id ON technical_itineraries USING btree (activity_id);
+
+
+--
+-- Name: index_technical_itineraries_on_campaign_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_technical_itineraries_on_campaign_id ON technical_itineraries USING btree (campaign_id);
+
+
+--
 -- Name: index_tokens_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -17354,6 +17482,34 @@ CREATE INDEX intervention_template_id ON intervention_template_product_parameter
 
 
 --
+-- Name: itinerary_template_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX itinerary_template_id ON technical_itinerary_intervention_templates USING btree (intervention_template_id);
+
+
+--
+-- Name: product_nature_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX product_nature_id ON intervention_template_product_parameters USING btree (product_nature_id);
+
+
+--
+-- Name: product_nature_variant_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX product_nature_variant_id ON intervention_template_product_parameters USING btree (product_nature_variant_id);
+
+
+--
+-- Name: template_itinerary_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX template_itinerary_id ON technical_itinerary_intervention_templates USING btree (technical_itinerary_id);
+
+
+--
 -- Name: unique_schema_migrations; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -17475,11 +17631,11 @@ ALTER TABLE ONLY payslips
 
 
 --
--- Name: intervention_template_product_parameters fk_rails_1200af1489; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: technical_itinerary_intervention_templates fk_rails_12463de838; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY intervention_template_product_parameters
-    ADD CONSTRAINT fk_rails_1200af1489 FOREIGN KEY (product_id) REFERENCES products(id);
+ALTER TABLE ONLY technical_itinerary_intervention_templates
+    ADD CONSTRAINT fk_rails_12463de838 FOREIGN KEY (intervention_template_id) REFERENCES intervention_templates(id);
 
 
 --
@@ -17499,6 +17655,14 @@ ALTER TABLE ONLY parcel_item_storings
 
 
 --
+-- Name: intervention_template_product_parameters fk_rails_18932007aa; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY intervention_template_product_parameters
+    ADD CONSTRAINT fk_rails_18932007aa FOREIGN KEY (product_nature_id) REFERENCES product_natures(id);
+
+
+--
 -- Name: outgoing_payments fk_rails_1facec8a15; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -17512,6 +17676,14 @@ ALTER TABLE ONLY outgoing_payments
 
 ALTER TABLE ONLY outgoing_payments
     ADD CONSTRAINT fk_rails_214eda6f83 FOREIGN KEY (payee_id) REFERENCES entities(id) ON DELETE RESTRICT;
+
+
+--
+-- Name: technical_itineraries fk_rails_2dfb0af7d3; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY technical_itineraries
+    ADD CONSTRAINT fk_rails_2dfb0af7d3 FOREIGN KEY (campaign_id) REFERENCES campaigns(id);
 
 
 --
@@ -17560,6 +17732,22 @@ ALTER TABLE ONLY tax_declaration_item_parts
 
 ALTER TABLE ONLY products
     ADD CONSTRAINT fk_rails_5e587cedec FOREIGN KEY (activity_production_id) REFERENCES activity_productions(id);
+
+
+--
+-- Name: technical_itinerary_intervention_templates fk_rails_5f0371c42a; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY technical_itinerary_intervention_templates
+    ADD CONSTRAINT fk_rails_5f0371c42a FOREIGN KEY (technical_itinerary_id) REFERENCES technical_itineraries(id);
+
+
+--
+-- Name: intervention_template_product_parameters fk_rails_65829c9376; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY intervention_template_product_parameters
+    ADD CONSTRAINT fk_rails_65829c9376 FOREIGN KEY (product_nature_variant_id) REFERENCES product_nature_variants(id);
 
 
 --
@@ -17616,6 +17804,14 @@ ALTER TABLE ONLY alert_phases
 
 ALTER TABLE ONLY regularizations
     ADD CONSTRAINT fk_rails_8043b7d279 FOREIGN KEY (affair_id) REFERENCES affairs(id);
+
+
+--
+-- Name: intervention_template_product_parameters fk_rails_810325206c; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY intervention_template_product_parameters
+    ADD CONSTRAINT fk_rails_810325206c FOREIGN KEY (activity_id) REFERENCES activities(id);
 
 
 --
@@ -17683,6 +17879,14 @@ ALTER TABLE ONLY financial_years
 
 
 --
+-- Name: intervention_templates fk_rails_b5c0e91173; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY intervention_templates
+    ADD CONSTRAINT fk_rails_b5c0e91173 FOREIGN KEY (campaign_id) REFERENCES campaigns(id);
+
+
+--
 -- Name: journals fk_rails_be4d04c726; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -17720,6 +17924,14 @@ ALTER TABLE ONLY parcels
 
 ALTER TABLE ONLY regularizations
     ADD CONSTRAINT fk_rails_ca9854019b FOREIGN KEY (journal_entry_id) REFERENCES journal_entries(id);
+
+
+--
+-- Name: technical_itineraries fk_rails_d02ebd3a2f; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY technical_itineraries
+    ADD CONSTRAINT fk_rails_d02ebd3a2f FOREIGN KEY (activity_id) REFERENCES activities(id);
 
 
 --
@@ -18306,20 +18518,6 @@ INSERT INTO schema_migrations (version) VALUES ('20170831071726');
 
 INSERT INTO schema_migrations (version) VALUES ('20170831180835');
 
-INSERT INTO schema_migrations (version) VALUES ('20170906075927');
-
-INSERT INTO schema_migrations (version) VALUES ('20170912093930');
-
-INSERT INTO schema_migrations (version) VALUES ('20170918093216');
-
-INSERT INTO schema_migrations (version) VALUES ('20170928144444');
-
-INSERT INTO schema_migrations (version) VALUES ('20170929141343');
-
-INSERT INTO schema_migrations (version) VALUES ('20171003135227');
-
-INSERT INTO schema_migrations (version) VALUES ('20171003150635');
-
 INSERT INTO schema_migrations (version) VALUES ('20171010075206');
 
 INSERT INTO schema_migrations (version) VALUES ('20171010075927');
@@ -18387,4 +18585,8 @@ INSERT INTO schema_migrations (version) VALUES ('20180115112902');
 INSERT INTO schema_migrations (version) VALUES ('20180115112903');
 
 INSERT INTO schema_migrations (version) VALUES ('20180115112904');
+
+INSERT INTO schema_migrations (version) VALUES ('20180115145552');
+
+INSERT INTO schema_migrations (version) VALUES ('20180119140016');
 

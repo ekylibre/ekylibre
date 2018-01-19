@@ -608,9 +608,13 @@ Rails.application.routes.draw do
     resources :intervention_templates, concerns: :list do
       collection do
         get :select_type
+        get :templates_of_activity
       end
     end
-    
+
+    resources :technical_itineraries, concerns: :list do
+    end
+
     namespace :interventions do
       resources :costs, only: [] do
         collection do
