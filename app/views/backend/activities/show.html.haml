@@ -90,6 +90,8 @@
 
   - if resource.inspectionable?
     - c.cobble(:inspections) do
+      - if @crops.resultset.any?
+        = list_settings_toolbar(menu_up: true)
       .toolbar
         = link_to :new_inspection.tl, new_backend_inspection_path(activity_id: @activity.id), class: "btn btn-default icn btn-new"
 
