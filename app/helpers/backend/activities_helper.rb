@@ -69,7 +69,7 @@ module Backend
         data = last_calibrations.includes(:inspection).map do |last_calibration|
           inspection = last_calibration.inspection
           [
-            last_calibration.decorate.net_stock(dimension),
+            last_calibration.marketable_quantity(dimension).to_d(inspection.user_quantity_unit(dimension)),
             last_calibration.marketable_yield(dimension).to_d(inspection.user_per_area_unit(dimension))
           ]
         end
