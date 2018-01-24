@@ -6944,9 +6944,9 @@ CREATE TABLE technical_itinerary_intervention_templates (
     "position" integer,
     day_between_intervention integer,
     duration integer,
-    dont_divide_duration boolean DEFAULT false,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    dont_divide_duration boolean DEFAULT false
 );
 
 
@@ -18613,4 +18613,6 @@ INSERT INTO schema_migrations (version) VALUES ('20180115133706');
 INSERT INTO schema_migrations (version) VALUES ('20180115145552');
 
 INSERT INTO schema_migrations (version) VALUES ('20180122163909');
+
+INSERT INTO schema_migrations (version) VALUES ('20180124113242');
 

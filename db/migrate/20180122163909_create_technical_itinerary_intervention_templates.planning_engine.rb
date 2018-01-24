@@ -7,7 +7,6 @@ class CreateTechnicalItineraryInterventionTemplates < ActiveRecord::Migration
       t.integer :position
       t.integer :day_between_intervention
       t.integer :duration
-      t.boolean :dont_divide_duration, default: false
       t.timestamps null: false
     end
   end
