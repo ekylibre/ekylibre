@@ -1512,7 +1512,7 @@ fra:
     interactive_maps: "Une librairie JavaScript pour des cartes interactives"
     interface_preferences: "Préférences de l’interface"
     internal_error: "Oups, quelque chose s’est mal passé."
-    interval: "Intervalle personnalisé"
+    interval: " personnalisé"
     intervention: "Intervention"
     intervention_at: "%{intervention} du %{at}"
     intervention_message_miscibility: "Mélange autorisé"
