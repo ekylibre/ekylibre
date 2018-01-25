@@ -386,6 +386,17 @@
     supplierLabel = $($(this).parents('.nested-receptions').find('.control-label')[0])
     supplierLabel.addClass('required')
     supplierLabel.prepend("<abbr title='Obligatoire'>*</abbr>")
+
+  $(document).behave 'load', '#dragDrop', ->
+    interventions = JSON.parse($(this).attr('data-template')).interventions
+
+    new Vue {
+      el: '#dragDrop',
+      data:
+        interventions: interventions
+    }
+
+
   E.interventionForm =
     displayCost: (target, quantity, unitName) ->
 
