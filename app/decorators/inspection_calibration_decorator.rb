@@ -9,12 +9,4 @@ class InspectionCalibrationDecorator < Draper::Decorator
 
     quantity.to_d(unit)
   end
-
-  def product_available_area
-    object.product.decorate.available_area
-  end
-
-  def net_stock(dimension)
-    real_quantity(dimension).to_f * product_available_area.to_f
-  end
 end
