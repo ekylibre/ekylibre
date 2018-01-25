@@ -15,12 +15,16 @@
 
       $('thead #' + $(this).data('corresponding-column')).addClass('hidden')
       $('tbody #' + $(this).data('corresponding-column')).addClass('hidden')
+
+      E.wice_grid_settings.saveColumnPreference($(this).data('corresponding-column'), false)
     else
       $(this).addClass('checked')
       $(this).removeClass('unchecked')
 
       $('thead #' + $(this).data('corresponding-column')).removeClass('hidden')
       $('tbody #' + $(this).data('corresponding-column')).removeClass('hidden')
+
+      E.wice_grid_settings.saveColumnPreference($(this).data('corresponding-column'), true)
 
 
   class Settings
@@ -59,6 +63,22 @@
         newColumnLine.append(newLine)
 
         self.toolbar(container).find('.dropdown-columns-menu').append(newColumnLine)
+
+    saveColumnPreference: (id, value) ->
+      url = '/backend/users/wice_grid_preferences/save_column'
+
+      preference = {}
+      preference['name'] = "wice_grid_column.#{id}"
+      preference['value'] = value
+      preference['nature'] = 'boolean'
+
+      $.ajax
+        url: url
+        method: 'POST'
+        dataType: "json"
+        data:
+          preference: preference
+        success: (data, status, request) =>
 
 
   E.wice_grid_settings = new Settings()
