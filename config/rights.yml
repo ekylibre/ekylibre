@@ -126,14 +126,8 @@
 #     - "backend/helps#toggle"
 #     - "backend/inspections#export"
 #     - "backend/intervention_participations#participations_modal"
-#     - "backend/intervention_templates#create"
-#     - "backend/intervention_templates#edit"
-#     - "backend/intervention_templates#list"
-#     - "backend/intervention_templates#new"
-#     - "backend/intervention_templates#select_type"
-#     - "backend/intervention_templates#show"
-#     - "backend/intervention_templates#update"
 #     - "backend/interventions#change_page"
+#     - "backend/interventions#list_service_deliveries"
 #     - "backend/interventions#purchase_order_items"
 #     - "backend/interventions/costs#parameter_cost"
 #     - "backend/januses#toggle"
@@ -180,6 +174,7 @@
 #     - "backend/unreceived_purchase_orders#list"
 #     - "backend/unreceived_purchase_orders#show"
 #     - "backend/unreceived_purchase_orders#update"
+#     - "backend/users/wice_grid_preferences#save_column"
 #     - "backend/visualizations/land_parcels_visualizations#show"
 #     - "backend/visualizations/map_cells_visualizations#show"
 #     - "backend/visualizations/plants_visualizations#show"
@@ -1146,7 +1141,7 @@ incoming_deliveries:
     - "backend/parcels#unroll" #?
     - "backend/receptions#index"
     - "backend/receptions#list"
-    - "backend/receptions#list_items" #?
+    - "backend/receptions#list_items"
     - "backend/receptions#show"
     - "backend/receptions#unroll"
   write:

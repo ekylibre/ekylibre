@@ -393,12 +393,6 @@ eng:
       convert: "Convert intervention participation: %{name}"
       index: "Intervention participations"
       # participations_modal: "Participations modal intervention participation: %{name}"
-    backend/intervention_templates:
-      # edit: "Edit intervention template: %{name}"
-      index: "Intervention model" #?
-      # new: "New intervention template"
-      # select_type: "Select type intervention template: %{name}"
-      # show: "Intervention template: %{name}"
     backend/interventions/costs:
       # parameter_cost: "Parameter cost cost: %{name}"
     backend/interventions:
@@ -870,6 +864,8 @@ eng:
       edit: "Edit unreceived order: %{name}"
       index: "Unreceived orders"
       show: "Unreceived order: %{name}"
+    backend/users/wice_grid_preferences:
+      # save_column: "Save column wice grid preference: %{name}"
     backend/users:
       edit: "Edit user: %{first_name} %{last_name}"
       index: "Users"
@@ -1005,7 +1001,6 @@ eng:
       zoomInTitle: "Zoom in"
       zoomOutTitle: "Zoom out"
   labels:
-    purchase_order: Purchase order
     accepted: "Accepted"
     accepted_for_paiment: "Accepted for paiment"
     access: "Access"
@@ -1023,7 +1018,7 @@ eng:
     active: "Active" #?
     active_finishing_after: "Active finishing after" #?
     active_finishing_within: "Active finishing within" #?
-    activities: "Activities"
+    activities: "Activities" #?
     activity: "Activity"
     activity_production: "Activity production"
     activity_productions: "Activity productions"
@@ -1219,7 +1214,6 @@ eng:
     cobbles: "Cobbles" #?
     column: "Column"
     columns: "Columns to import"
-    wice_grid_columns: "Columns"
     comment: "Comment"
     commission: "Commission"
     company: "Society"
@@ -1298,7 +1292,7 @@ eng:
     default_subject: "[%{company}]"
     definition: "Definition"
     deformity: "Deformity" #?
-    deformity_percentage: "Deformity (%)" #?
+    deformity_percentage: "Deformity (%)"
     deformity_percentage_evolution: "Deformity percentage evolution"
     delay: "Delay"
     delete: "Delete"
@@ -1326,7 +1320,7 @@ eng:
     discount_without_percent: "Discount"
     disease: "Disease" #?
     disease_deformity_percentage: "Disease and deformity percentage"
-    disease_percentage: "Disease (%)" #?
+    disease_percentage: "Disease (%)"
     disease_percentage_evolution: "Disease percentage evolution"
     display: "Display" #?
     distribute_unaffected_products: "Distribute unaffected products"
@@ -1380,9 +1374,9 @@ eng:
     errors_explanation: "There are errors in the file. If you do not correct them, the incorrect lines will be ignored during the import."
     estimate_yield: "Estimate yield"
     evaluated_doer_cost: "Evaluated labor cost"
-    evaluated_reception_cost: "Service Delivery Cost"
     evaluated_input_cost: "Evaluated input cost"
     evaluated_other_cost: "Evaluated other cost"
+    evaluated_reception_cost: "Service Delivery Cost"
     evaluated_tool_cost: "Evaluated tool cost"
     events: "Events"
     evolution: "Evolution"
@@ -1404,6 +1398,7 @@ eng:
     export: "Export documents" #?
     export_as_csv: "Export as CSV"
     export_as_ods: "Export as ODS"
+    # export_as_odt: "Export as odt"
     export_as_xcsv: "Export as Excel CSV"
     fees: "Fees" #?
     field_distribution: "Field distribution"
@@ -1486,7 +1481,7 @@ eng:
     initial_balance_of_bank_statement: "Initial balance of bank statement"
     input_cost: "Input cost"
     inputs: "Inputs"
-    inspections: "Inspections" #?
+    inspections: "Inspections"
     interactive_maps: "A JS library for interactive maps" #?!
     interface_preferences: "Interface preferences"
     internal_error: "Oops, something happened."
@@ -1506,10 +1501,10 @@ eng:
     investment_security: "Investment security" #?!
     investment_subsidies: "Investment subsidies" #?!
     invitation_status: "Status" #?
+    invoice: "Invoice" #?
     invoice_period: "Invoice period"
     invoice_status: "Invoice status"
     invoiced: "Invoiced"
-    invoice: "Invoice" #?
     invoices: "Invoices" #?
     is: "Is" #?
     issue: "Issue"
@@ -1655,6 +1650,7 @@ eng:
     new_group: "New group"
     new_incoming_parcel: "New incoming parcel"
     new_incoming_payment: "New incoming payment"
+    # new_inspection: "New inspection"
     new_inventory: "New inventory"
     new_issue: "New issue"
     new_listing: "New listing"
@@ -1759,7 +1755,7 @@ eng:
     placeholder: "Placeholder" #?
     places: "Places"
     planning: "Planning"
-    plant: "Crop" #?
+    plant: "Crop"
     plant_counting: "Counting" #?
     plant_countings: "Countings" #?
     plantation_density: "Plantation density" #?
@@ -1772,7 +1768,6 @@ eng:
     potential_hydrogen: "Potential hydrogen" #?
     precipitation: "Precipitation"
     preferences: "Preferences"
-    # preparation_time: "Preparation time"
     prescription: "Prescription" #?
     prescriptions: "Prescriptions" #?
     pretax_amount: "Pre-tax amount"
@@ -1788,7 +1783,6 @@ eng:
     product_name: "Product name" #?
     # product_nature_variants: "Product nature variants"
     product_natures: "Product types"
-    # product_parameters: "Product parameters"
     product_value: "Product value %{financial_year}"
     production: "Production"
     production_cost: "Production cost"
@@ -1809,6 +1803,7 @@ eng:
     purchase: "Purchase"
     purchase_items: "Purchase items" #?
     purchase_number: "Purchase number" #?
+    purchase_order: "Purchase order" #?
     purchase_payments: "Purchase payments"
     purchases: "Purchases"
     purchases_stocks_variation: "Purchases stocks variation" #?!
@@ -1827,9 +1822,9 @@ eng:
     receiving_address: "Receiving address"
     recent_events: "Recent events"
     reception: "Reception"
+    # reception_date: "Reception date"
     reception_incident: "Reception incident"
     reception_items: "Reception items"
-    service_deliveries: "Service deliveries"
     reception_number: "Reception number"
     # reception_number_with_reference: "Reception number with reference"
     receptions: "Receptions"
@@ -1850,7 +1845,7 @@ eng:
     relationship_of_entity_as_inverse_post: "%{relationship} of %{entity} (%{inverse_post})"
     relationship_of_entity_as_post: "%{relationship} of %{entity} as %{post}"
     remaining_amount_to_reconcile: "Remaining amount to reconcile"
-    remove: "Remove"
+    remove: "Remove" #?
     remove_item: "Remove item"
     remove_subscription: "Remove subscription"
     renewed: "Renewed"
@@ -1910,6 +1905,7 @@ eng:
     sensor_model: "Sensor model"
     sensors: "Sensors" #?
     service: "Service" #?
+    service_deliveries: "Service deliveries"
     service_delivering: "Service delivering"
     sessions: "Sessions" #?
     set_reconcilable_new_but_existing_third_accounts: "Set reconcilable the new but existing third accounts (clients, suppliers and attorneys)" #?
@@ -1950,7 +1946,7 @@ eng:
     stopped_on: "Stopped on"
     storage: "Storage"
     subject: "Subject"
-    submit: "Submit"
+    submit: "Submit" #?
     subscribed_on: "Subscribed on" #?
     subscriber_period: "Subscribed on %{subscribed_at}"
     subscriber_quantity: "Subscribed at the number %{subscribed_at}"
@@ -2109,10 +2105,10 @@ eng:
     # wear: "Wear"
     weather: "Weather"
     website: "Website"
+    wice_grid_columns: "Columns"
     wind_speed: "Wind speed"
     with_fixed_assets_depreciations: "With fixed assets depreciations"
     workers: "Workers"
-    # workflow: "Workflow"
     working_duration: "Working duration"
     working_sets_stocks: "Working sets stocks" #?
     working_times: "Working times of %{name}" #?
@@ -2566,10 +2562,10 @@ eng:
       reset: "Reset"
       retrieve: "Retrieve"
       run: "Run"
+      # save_column: "Save column"
       # scrap: "Scrap"
       search: "Search" #?
       select: "Select"
-      # select_type: "Select type"
       sell: "Turn into sale"
       # set_interval_preference: "Set interval preference"
       ship: "Ship"
