@@ -22,51 +22,49 @@
 #
 # == Table: journal_entry_items
 #
-#  absolute_credit           :decimal(19, 4)   default(0.0), not null
-#  absolute_currency         :string           not null
-#  absolute_debit            :decimal(19, 4)   default(0.0), not null
-#  absolute_pretax_amount    :decimal(19, 4)   default(0.0), not null
-#  account_id                :integer          not null
-#  activity_budget_id        :integer
-#  balance                   :decimal(19, 4)   default(0.0), not null
-#  bank_statement_id         :integer
-#  bank_statement_letter     :string
-#  created_at                :datetime         not null
-#  creator_id                :integer
-#  credit                    :decimal(19, 4)   default(0.0), not null
-#  cumulated_absolute_credit :decimal(19, 4)   default(0.0), not null
-#  cumulated_absolute_debit  :decimal(19, 4)   default(0.0), not null
-#  currency                  :string           not null
-#  debit                     :decimal(19, 4)   default(0.0), not null
-#  description               :text
-#  entry_id                  :integer          not null
-#  entry_number              :string           not null
-#  financial_year_id         :integer          not null
-#  id                        :integer          not null, primary key
-#  journal_id                :integer          not null
-#  letter                    :string
-#  lock_version              :integer          default(0), not null
-#  name                      :string           not null
-#  position                  :integer
-#  pretax_amount             :decimal(19, 4)   default(0.0), not null
-#  printed_on                :date             not null
-#  real_balance              :decimal(19, 4)   default(0.0), not null
-#  real_credit               :decimal(19, 4)   default(0.0), not null
-#  real_currency             :string           not null
-#  real_currency_rate        :decimal(19, 10)  default(0.0), not null
-#  real_debit                :decimal(19, 4)   default(0.0), not null
-#  real_pretax_amount        :decimal(19, 4)   default(0.0), not null
-#  resource_id               :integer
-#  resource_prism            :string
-#  resource_type             :string
-#  state                     :string           not null
-#  tax_declaration_item_id   :integer
-#  tax_declaration_mode      :string
-#  tax_id                    :integer
-#  team_id                   :integer
-#  updated_at                :datetime         not null
-#  updater_id                :integer
-#  variant_id                :integer
+#  absolute_credit         :decimal(19, 4)   default(0.0), not null
+#  absolute_currency       :string           not null
+#  absolute_debit          :decimal(19, 4)   default(0.0), not null
+#  absolute_pretax_amount  :decimal(19, 4)   default(0.0), not null
+#  account_id              :integer          not null
+#  activity_budget_id      :integer
+#  balance                 :decimal(19, 4)   default(0.0), not null
+#  bank_statement_id       :integer
+#  bank_statement_letter   :string
+#  created_at              :datetime         not null
+#  creator_id              :integer
+#  credit                  :decimal(19, 4)   default(0.0), not null
+#  currency                :string           not null
+#  debit                   :decimal(19, 4)   default(0.0), not null
+#  description             :text
+#  entry_id                :integer          not null
+#  entry_number            :string           not null
+#  financial_year_id       :integer          not null
+#  id                      :integer          not null, primary key
+#  journal_id              :integer          not null
+#  letter                  :string
+#  lock_version            :integer          default(0), not null
+#  name                    :string           not null
+#  position                :integer
+#  pretax_amount           :decimal(19, 4)   default(0.0), not null
+#  printed_on              :date             not null
+#  real_balance            :decimal(19, 4)   default(0.0), not null
+#  real_credit             :decimal(19, 4)   default(0.0), not null
+#  real_currency           :string           not null
+#  real_currency_rate      :decimal(19, 10)  default(0.0), not null
+#  real_debit              :decimal(19, 4)   default(0.0), not null
+#  real_pretax_amount      :decimal(19, 4)   default(0.0), not null
+#  resource_id             :integer
+#  resource_prism          :string
+#  resource_type           :string
+#  state                   :string           not null
+#  tax_declaration_item_id :integer
+#  tax_declaration_mode    :string
+#  tax_id                  :integer
+#  team_id                 :integer
+#  updated_at              :datetime         not null
+#  updater_id              :integer
+#  variant_id              :integer
 #
 
 require 'test_helper'
