@@ -2404,8 +2404,6 @@ CREATE TABLE journal_entry_items (
     absolute_debit numeric(19,4) DEFAULT 0.0 NOT NULL,
     absolute_credit numeric(19,4) DEFAULT 0.0 NOT NULL,
     absolute_currency character varying NOT NULL,
-    cumulated_absolute_debit numeric(19,4) DEFAULT 0.0 NOT NULL,
-    cumulated_absolute_credit numeric(19,4) DEFAULT 0.0 NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
     creator_id integer,
@@ -13219,6 +13217,13 @@ CREATE INDEX index_journal_entries_on_number ON journal_entries USING btree (num
 
 
 --
+-- Name: index_journal_entries_on_printed_on; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_journal_entries_on_printed_on ON journal_entries USING btree (printed_on);
+
+
+--
 -- Name: index_journal_entries_on_resource_type_and_resource_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -13289,6 +13294,13 @@ CREATE INDEX index_journal_entry_items_on_entry_id ON journal_entry_items USING 
 
 
 --
+-- Name: index_journal_entry_items_on_entry_number; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_journal_entry_items_on_entry_number ON journal_entry_items USING btree (entry_number);
+
+
+--
 -- Name: index_journal_entry_items_on_financial_year_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -13314,6 +13326,13 @@ CREATE INDEX index_journal_entry_items_on_letter ON journal_entry_items USING bt
 --
 
 CREATE INDEX index_journal_entry_items_on_name ON journal_entry_items USING btree (name);
+
+
+--
+-- Name: index_journal_entry_items_on_printed_on; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_journal_entry_items_on_printed_on ON journal_entry_items USING btree (printed_on);
 
 
 --
@@ -16488,6 +16507,13 @@ CREATE INDEX index_sales_on_client_id ON sales USING btree (client_id);
 
 
 --
+-- Name: index_sales_on_codes; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_sales_on_codes ON sales USING btree (codes);
+
+
+--
 -- Name: index_sales_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -16541,6 +16567,13 @@ CREATE INDEX index_sales_on_journal_entry_id ON sales USING btree (journal_entry
 --
 
 CREATE INDEX index_sales_on_nature_id ON sales USING btree (nature_id);
+
+
+--
+-- Name: index_sales_on_number; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_sales_on_number ON sales USING btree (number);
 
 
 --
@@ -18570,13 +18603,7 @@ INSERT INTO schema_migrations (version) VALUES ('20171130093921');
 
 INSERT INTO schema_migrations (version) VALUES ('20171130144435');
 
-INSERT INTO schema_migrations (version) VALUES ('20171204075626');
-
 INSERT INTO schema_migrations (version) VALUES ('20171206145442');
-
-INSERT INTO schema_migrations (version) VALUES ('20171207134203');
-
-INSERT INTO schema_migrations (version) VALUES ('20171213134204');
 
 INSERT INTO schema_migrations (version) VALUES ('20171220162200');
 
@@ -18586,7 +18613,13 @@ INSERT INTO schema_migrations (version) VALUES ('20180115112903');
 
 INSERT INTO schema_migrations (version) VALUES ('20180115112904');
 
+INSERT INTO schema_migrations (version) VALUES ('20180115133706');
+
 INSERT INTO schema_migrations (version) VALUES ('20180115145552');
 
 INSERT INTO schema_migrations (version) VALUES ('20180119140016');
+
+INSERT INTO schema_migrations (version) VALUES ('20180130103517');
+
+INSERT INTO schema_migrations (version) VALUES ('20180130145540');
 

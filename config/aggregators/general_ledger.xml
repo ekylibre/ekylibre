@@ -27,8 +27,6 @@
           <cell name="credit" of="item" type="number"/>
           <cell name="real_currency" of="item" level="api"/>
           <cell name="state" of="item"/>
-          <cell name="cumulated_absolute_debit" of="item" type="number"/>
-          <cell name="cumulated_absolute_credit" of="item" type="number"/>
           <cell name="currency" of="item" level="api"/>
         </matrix>
       </sections>

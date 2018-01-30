@@ -22,58 +22,55 @@
 #
 # == Table: journal_entry_items
 #
-#  absolute_credit           :decimal(19, 4)   default(0.0), not null
-#  absolute_currency         :string           not null
-#  absolute_debit            :decimal(19, 4)   default(0.0), not null
-#  absolute_pretax_amount    :decimal(19, 4)   default(0.0), not null
-#  account_id                :integer          not null
-#  activity_budget_id        :integer
-#  balance                   :decimal(19, 4)   default(0.0), not null
-#  bank_statement_id         :integer
-#  bank_statement_letter     :string
-#  created_at                :datetime         not null
-#  creator_id                :integer
-#  credit                    :decimal(19, 4)   default(0.0), not null
-#  cumulated_absolute_credit :decimal(19, 4)   default(0.0), not null
-#  cumulated_absolute_debit  :decimal(19, 4)   default(0.0), not null
-#  currency                  :string           not null
-#  debit                     :decimal(19, 4)   default(0.0), not null
-#  description               :text
-#  entry_id                  :integer          not null
-#  entry_number              :string           not null
-#  financial_year_id         :integer          not null
-#  id                        :integer          not null, primary key
-#  journal_id                :integer          not null
-#  letter                    :string
-#  lock_version              :integer          default(0), not null
-#  name                      :string           not null
-#  position                  :integer
-#  pretax_amount             :decimal(19, 4)   default(0.0), not null
-#  printed_on                :date             not null
-#  real_balance              :decimal(19, 4)   default(0.0), not null
-#  real_credit               :decimal(19, 4)   default(0.0), not null
-#  real_currency             :string           not null
-#  real_currency_rate        :decimal(19, 10)  default(0.0), not null
-#  real_debit                :decimal(19, 4)   default(0.0), not null
-#  real_pretax_amount        :decimal(19, 4)   default(0.0), not null
-#  resource_id               :integer
-#  resource_prism            :string
-#  resource_type             :string
-#  state                     :string           not null
-#  tax_declaration_item_id   :integer
-#  tax_declaration_mode      :string
-#  tax_id                    :integer
-#  team_id                   :integer
-#  updated_at                :datetime         not null
-#  updater_id                :integer
-#  variant_id                :integer
+#  absolute_credit         :decimal(19, 4)   default(0.0), not null
+#  absolute_currency       :string           not null
+#  absolute_debit          :decimal(19, 4)   default(0.0), not null
+#  absolute_pretax_amount  :decimal(19, 4)   default(0.0), not null
+#  account_id              :integer          not null
+#  activity_budget_id      :integer
+#  balance                 :decimal(19, 4)   default(0.0), not null
+#  bank_statement_id       :integer
+#  bank_statement_letter   :string
+#  created_at              :datetime         not null
+#  creator_id              :integer
+#  credit                  :decimal(19, 4)   default(0.0), not null
+#  currency                :string           not null
+#  debit                   :decimal(19, 4)   default(0.0), not null
+#  description             :text
+#  entry_id                :integer          not null
+#  entry_number            :string           not null
+#  financial_year_id       :integer          not null
+#  id                      :integer          not null, primary key
+#  journal_id              :integer          not null
+#  letter                  :string
+#  lock_version            :integer          default(0), not null
+#  name                    :string           not null
+#  position                :integer
+#  pretax_amount           :decimal(19, 4)   default(0.0), not null
+#  printed_on              :date             not null
+#  real_balance            :decimal(19, 4)   default(0.0), not null
+#  real_credit             :decimal(19, 4)   default(0.0), not null
+#  real_currency           :string           not null
+#  real_currency_rate      :decimal(19, 10)  default(0.0), not null
+#  real_debit              :decimal(19, 4)   default(0.0), not null
+#  real_pretax_amount      :decimal(19, 4)   default(0.0), not null
+#  resource_id             :integer
+#  resource_prism          :string
+#  resource_type           :string
+#  state                   :string           not null
+#  tax_declaration_item_id :integer
+#  tax_declaration_mode    :string
+#  tax_id                  :integer
+#  team_id                 :integer
+#  updated_at              :datetime         not null
+#  updater_id              :integer
+#  variant_id              :integer
 #
 
 # What are the differents columns:
 #   * (credit|debit|balance) are in currency of the journal
 #   * real_(credit|debit|balance) are in currency of the financial year
 #   * absolute_(credit|debit|balance) are in currency of the company
-#   * cumulated_absolute_(credit|debit) are in currency of the company too
 class JournalEntryItem < Ekylibre::Record::Base
   attr_readonly :entry_id, :journal_id, :state
   refers_to :absolute_currency, class_name: 'Currency'
@@ -93,7 +90,7 @@ class JournalEntryItem < Ekylibre::Record::Base
   has_many :tax_declaration_item_parts, inverse_of: :journal_entry_item, dependent: :restrict_with_exception
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates :absolute_credit, :absolute_debit, :absolute_pretax_amount, :balance, :credit, :cumulated_absolute_credit, :cumulated_absolute_debit, :debit, :pretax_amount, :real_balance, :real_credit, :real_debit, :real_pretax_amount, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
+  validates :absolute_credit, :absolute_debit, :absolute_pretax_amount, :balance, :credit, :debit, :pretax_amount, :real_balance, :real_credit, :real_debit, :real_pretax_amount, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
   validates :absolute_currency, :account, :currency, :entry, :financial_year, :journal, :real_currency, presence: true
   validates :bank_statement_letter, :letter, :resource_prism, :resource_type, :tax_declaration_mode, length: { maximum: 500 }, allow_blank: true
   validates :description, length: { maximum: 500_000 }, allow_blank: true
@@ -113,8 +110,6 @@ class JournalEntryItem < Ekylibre::Record::Base
 
   acts_as_list scope: :entry
 
-  before_update  :uncumulate
-  before_destroy :uncumulate
   after_destroy  :unmark
 
   scope :between, lambda { |started_at, stopped_at|
@@ -166,7 +161,7 @@ class JournalEntryItem < Ekylibre::Record::Base
 
   validate(on: :update) do
     old = old_record
-    list = changed - %w[printed_on cumulated_absolute_debit cumulated_absolute_credit]
+    list = changed - %w[printed_on]
     if old.closed? && list.any?
       list.each do |attribute|
         if !entry.respond_to?(attribute) || (entry.send(attribute) != send(attribute))
@@ -189,10 +184,6 @@ class JournalEntryItem < Ekylibre::Record::Base
     errors.add(:credit, :unvalid_amounts) if debit.nonzero? && credit.nonzero?
     errors.add(:real_credit, :unvalid_amounts) if real_debit.nonzero? && real_credit.nonzero?
     errors.add(:absolute_credit, :unvalid_amounts) if absolute_debit.nonzero? && absolute_credit.nonzero?
-  end
-
-  after_save do
-    followings.update_all("cumulated_absolute_debit = cumulated_absolute_debit + #{absolute_debit}, cumulated_absolute_credit = cumulated_absolute_credit + #{absolute_credit}")
   end
 
   before_destroy :clear_bank_statement_reconciliation
@@ -258,12 +249,7 @@ class JournalEntryItem < Ekylibre::Record::Base
         raise JournalEntry::IncompatibleCurrencies, "You cannot create an entry where the absolute currency (#{absolute_currency.inspect}) is not the real (#{real_currency.inspect}) or current one (#{currency.inspect})"
       end
     end
-    self.cumulated_absolute_debit  = absolute_debit
-    self.cumulated_absolute_credit = absolute_credit
-    if previous
-      self.cumulated_absolute_debit += previous.cumulated_absolute_debit
-      self.cumulated_absolute_credit += previous.cumulated_absolute_credit
-    end
+
     self.balance = debit - credit
     self.real_balance = real_debit - real_credit
   end
@@ -314,16 +300,6 @@ class JournalEntryItem < Ekylibre::Record::Base
     entry.refresh
   end
 
-  # Cancel old values if specific columns have been updated
-  def uncumulate
-    old = old_record
-    if absolute_debit != old.absolute_debit || absolute_credit != old.absolute_credit || printed_on != old.printed_on
-      # self.cumulated_absolute_debit  -= old.absolute_debit
-      # self.cumulated_absolute_credit -= old.absolute_credit
-      old.followings.update_all("cumulated_absolute_debit = cumulated_absolute_debit - #{old.absolute_debit}, cumulated_absolute_credit = cumulated_absolute_credit - #{old.absolute_debit}")
-    end
-  end
-
   def lettered?
     letter.present?
   end
@@ -346,16 +322,16 @@ class JournalEntryItem < Ekylibre::Record::Base
   # Returns following items
   def followings
     return self.class.none unless account
-    if new_record?
-      account.journal_entry_items.where('printed_on > ?', printed_on)
-    else
-      account.journal_entry_items.where('(printed_on = ? AND id > ?) OR printed_on > ?', printed_on, id, printed_on)
-    end
-  end
 
-  # Returns the balance as cumulated_absolute_debit - cumulated_absolute_credit
-  def cumulated_absolute_balance
-    (self.cumulated_absolute_debit - self.cumulated_absolute_credit)
+    if new_record?
+      account
+        .journal_entry_items
+        .where('printed_on > ?', printed_on)
+    else
+      account
+        .journal_entry_items
+        .where('(printed_on = ? AND id > ?) OR printed_on > ?', printed_on, id, printed_on)
+    end
   end
 
   #   # this method allows to lock the entry_item.
