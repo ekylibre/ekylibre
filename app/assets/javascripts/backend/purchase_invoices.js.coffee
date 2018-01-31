@@ -17,18 +17,21 @@
         vatRate = $(item).find('.total-column label.vat-rate').text().split("%")[0]
         amountIncludingTaxes = $(item).find('.total-column label.amount-including-taxes').text()
 
-        totalAmountExcludingTaxes += parseFloat(amountExcludingTaxes)
-        totalAmountIncludingTaxes += parseFloat(parseFloat(amountIncludingTaxes).toFixed(2))
+        if amountExcludingTaxes == "??????" || amountIncludingTaxes == "??????" || vatRate == "??????"
+          return
 
-        calculVatRate = parseFloat(parseFloat(amountExcludingTaxes) * parseFloat(vatRate) / 100).toFixed(2)
-        totalVatRate += parseFloat(calculVatRate)
+        totalAmountExcludingTaxes += parseFloat(amountExcludingTaxes)
+        totalAmountIncludingTaxes += parseFloat(amountIncludingTaxes)
+
+        calculVatRate = parseFloat(amountExcludingTaxes) * parseFloat(vatRate) / 100
+        totalVatRate += calculVatRate
 
         selectedVatValue = $(item).parent().find('.nested-item-form select.invoice-vat-total option:selected').val()
         $(item).find('.vat-rate').attr('data-selected-value', selectedVatValue)
 
-      $('.invoice-totals .total-except-tax .total-value').text(totalAmountExcludingTaxes)
-      $('.invoice-totals .vat-total .total-value').text(totalVatRate)
-      $('.invoice-totals .invoice-total .total-value').text(totalAmountIncludingTaxes)
+      $('.invoice-totals .total-except-tax .total-value').text(parseFloat(totalAmountExcludingTaxes).toFixed(2))
+      $('.invoice-totals .vat-total .total-value').text(parseFloat(totalVatRate).toFixed(2))
+      $('.invoice-totals .invoice-total .total-value').text(parseFloat(totalAmountIncludingTaxes).toFixed(2))
 
 
     $(document).on 'selector:change', '.invoice-variant.selector-search', (event) ->
@@ -43,6 +46,12 @@
     $(document).on 'click', '.nested-fields .edit-item[data-edit="item-form"]', (event) ->
       vatSelectedValue = $(event.target).closest('.nested-fields').find('.item-display .vat-rate').attr('data-selected-value')
       $(event.target).closest('.nested-fields').find('.nested-item-form:visible .invoice-vat-total').val(vatSelectedValue)
+
+    $('#new_purchase_invoice table.list').bind 'cocoon:after-insert', (event, insertedItem) ->
+      return if !insertedItem?
+      new_id = new Date().getTime()
+
+      insertedItem.attr('id', "new_reception_#{new_id}")
 
     $('#new_purchase_invoice table.list, .edit_purchase_invoice table.list').on 'cocoon:after-insert', (event, insertedItem) ->
       new_id = new Date().getTime()

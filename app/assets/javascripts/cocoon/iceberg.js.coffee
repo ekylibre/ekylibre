@@ -40,16 +40,19 @@
 
     _bindEditEvent: ->
       @line.find('*[data-edit="item-form"]').click =>
+        $(document).data('edited-mode', true)
         @display.addClass('hidden')
-
         clone = @oldForm().clone()
         clone.insertBefore(@oldForm())
+        clone.trigger('cocoon:after-insert')
         clone.removeClass('hidden')
         @_bindButtons(@newForm())
         @toggleInputVisibility()
         @setFormSubmitable()
         @setCocoonFormSubmitable()
         @line.trigger "iceberg:inserted"
+        value = @line.first().find('[data-item-value="input.order-unit-amount"]').text()
+        @line.first().find('.nested-item-form').find('.order-unit-amount').val(value)
 
     _bindSelectorsInitialization: ->
       that = this

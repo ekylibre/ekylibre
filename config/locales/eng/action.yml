@@ -203,6 +203,7 @@ eng:
       humans: "Human resources dashboard"
       index: "Dashboards"
       new: "New dashboard"
+      planning: "Planning"
       production: "Production dashboard"
       purchases: "Purchases dashboard"
       relationship: "Relationship dashboard"
@@ -542,11 +543,10 @@ eng:
       show: "Disbursement: %{name}"
     backend/parcels:
       edit: "Edit %{nature} parcel: %{number}" #?
-      index: "Parcels"
-      # invoice: "Invoice parcel: %{name}"
-      new: "New parcel"
-      ship: "Ship parcels"
-      show: "%{nature} parcel: %{number}"
+      index: "Parcels" #?
+      new: "New parcel" #?
+      ship: "Ship parcels" #?
+      show: "%{nature} parcel: %{number}" #?
     backend/payslip_affairs:
       # attach: "Attach payslip affair: %{name}"
       # detach: "Detach payslip affair: %{name}"
@@ -658,50 +658,33 @@ eng:
       # index: "Purchase gaps"
       # show: "Purchase gap: %{name}"
     backend/purchase_invoices:
-      edit: "Edit invoice: %{name}"
+      edit: "Edit invoice: %{number}"
       index: "Invoices"
       new: "New invoice"
-      pay: "Pay invoice: %{name}"
-      payment_mode: "Payment mode invoice: %{name}"
-      show: "Invoice: %{name}"
+      pay: "Pay invoice: %{number}"
+      payment_mode: "Payment mode invoice: %{number}"
+      show: "Invoice: %{number}"
     backend/purchase_natures:
       edit: "Edit purchase type"
       index: "Purchase types"
       new: "New purchase type"
       show: "Purchase type: %{name}"
     backend/purchase_orders:
-      close: "Close order: %{name}"
+      close: "Close order: %{number}"
       edit: "Edit order: %{number}"
       index: "Orders"
       new: "New order"
-      open: "Open order: %{name}"
-      reconciliate_modal: "Reconciliate modal order: %{name}"
-      show: "Purchase order: %{name}"
+      open: "Open order: %{number}"
+      reconciliate_modal: "Reconciliate modal order: %{number}" #?
+      show: "Purchase order: %{number}"
     backend/purchase_payments:
       edit: "Edit disbursement: %{number}"
       index: "Disbursements"
       new: "New disbursement"
       show: "Disbursement %{number} for %{payee}"
     backend/purchase_process/reconciliation:
-      # edit: "Edit reconciliation: %{name}"
-      # index: "Reconciliation"
-      # new: "New reconciliation"
       # purchase_orders_to_reconciliate: "Purchase orders to reconciliate reconciliation: %{name}"
       # receptions_to_reconciliate: "Receptions to reconciliate reconciliation: %{name}"
-      # show: "Reconciliation: %{name}"
-    backend/purchases:
-      abort: "Abort" #?
-      confirm: "Confirm order and wait for deliveries" #?
-      correct: "Correct order" #?
-      edit: "Edit purchase: %{number}"
-      index: "Purchases"
-      invoice: "Receive invoice" #?
-      new: "New purchase"
-      payment_mode: "Select payment mode" #?
-      propose: "Propose order" #?
-      propose_and_invoice: "Invoice directly" #?
-      refuse: "Refused order" #?
-      show: "Purchase: %{number} - %{state}"
     backend/quick_affairs:
       # new: "New quick affair"
     backend/quick_purchases:
@@ -709,17 +692,11 @@ eng:
     backend/quick_sales:
       new: "New Sale/Incoming payment"
     backend/receptions:
-      cancel: "Cancel reception: %{name}" #?
-      check: "Check reception: %{name}" #?
-      edit: "Edit reception: %{name}"
-      give: "Give reception: %{name}"
+      edit: "Edit reception: %{number}"
+      give: "Give reception: %{number}"
       index: "Receptions"
-      invoice: "Invoice reception: %{name}"
       new: "New reception"
-      order: "Order reception: %{name}" #?
-      prepare: "Prepare reception: %{name}" #?
-      ship: "Ship reception: %{name}"
-      show: "Reception: %{name}"
+      show: "Reception: %{number}"
     backend/registrations:
       edit: "Edit registration"
       index: "Registrations"
@@ -815,17 +792,16 @@ eng:
       # take: "Take settlement: %{name}"
       # update_many: "Update many settlement: %{name}"
     backend/shipments:
-      cancel: "Cancel shipment: %{name}"
-      check: "Check shipment: %{name}"
-      edit: "Edit shipment: %{name}"
-      give: "Give shipment: %{name}"
+      cancel: "Cancel shipment: %{number}"
+      check: "Check shipment: %{number}"
+      edit: "Edit shipment: %{number}"
+      give: "Give shipment: %{number}"
       index: "Shipments"
-      invoice: "Invoice shipment: %{name}"
       new: "New shipment"
-      order: "Order shipment: %{name}"
-      prepare: "Prepare shipment: %{name}"
-      ship: "Ship shipment: %{name}"
-      show: "Shipment: %{name}"
+      order: "Order shipment: %{number}"
+      prepare: "Prepare shipment: %{number}"
+      ship: "Ship shipment: %{number}"
+      show: "Shipment: %{number}"
     backend/snippets:
       # toggle: "Toggle snippet: %{name}"
     backend/subscription_natures:
@@ -1076,6 +1052,7 @@ eng:
     add_inspection_point_nature: "Add inspection point nature"
     add_intervention_record: "Add intervention record"
     add_intervention_request: "Add intervention request"
+    add_intervention_template: "Add intervention template"
     add_item: "Add item"
     add_labelling: "Add label"
     add_line: "Add line"
@@ -1163,6 +1140,7 @@ eng:
     attachments: "Attachments"
     automatic: "Auto" #?
     available: "Available"
+    available_area: "Available area"
     available_columns: "Available columns: %{columns}"
     average: "Average"
     back: "Back to the previous page"
@@ -1234,6 +1212,7 @@ eng:
     cobbles: "Cobbles" #?
     column: "Column"
     columns: "Columns to import"
+    comment: "Comment"
     commission: "Commission"
     company: "Society"
     completed: "Completed"
@@ -1311,7 +1290,7 @@ eng:
     default_subject: "[%{company}]"
     definition: "Definition"
     deformity: "Deformity" #?
-    deformity_percentage: "Deformity (%)" #?
+    deformity_percentage: "Deformity (%)"
     deformity_percentage_evolution: "Deformity percentage evolution"
     delay: "Delay"
     delete: "Delete"
@@ -1339,7 +1318,7 @@ eng:
     discount_without_percent: "Discount"
     disease: "Disease" #?
     disease_deformity_percentage: "Disease and deformity percentage"
-    disease_percentage: "Disease (%)" #?
+    disease_percentage: "Disease (%)"
     disease_percentage_evolution: "Disease percentage evolution"
     display: "Display" #?
     distribute_unaffected_products: "Distribute unaffected products"
@@ -1395,6 +1374,7 @@ eng:
     evaluated_doer_cost: "Evaluated labor cost"
     evaluated_input_cost: "Evaluated input cost"
     evaluated_other_cost: "Evaluated other cost"
+    evaluated_reception_cost: "Service Delivery Cost"
     evaluated_tool_cost: "Evaluated tool cost"
     events: "Events"
     evolution: "Evolution"
@@ -1416,6 +1396,7 @@ eng:
     export: "Export documents" #?
     export_as_csv: "Export as CSV"
     export_as_ods: "Export as ODS"
+    # export_as_odt: "Export as odt"
     export_as_xcsv: "Export as Excel CSV"
     fees: "Fees" #?
     field_distribution: "Field distribution"
@@ -1434,6 +1415,7 @@ eng:
     fixed_asset_debts: "Fixed asset debts" #?!
     fixed_asset_depreciations: "Fixed asset depreciations"
     fixed_assets: "Fixed assets"
+    forecast_harvest_week: "Forecast harvest week"
     from: "From"
     fullscreen: "Fullscreen"
     function: "Function"
@@ -1458,6 +1440,7 @@ eng:
     groups: "Groups"
     # gtin: "Gtin"
     guide_evolution: "Guide evolution"
+    harvested_area: "Harvested area"
     harvested_at: "Harvested at" #?
     help: "Help"
     help_center: "Help center"
@@ -1516,10 +1499,10 @@ eng:
     investment_security: "Investment security" #?!
     investment_subsidies: "Investment subsidies" #?!
     invitation_status: "Status" #?
+    invoice: "Invoice" #?
     invoice_period: "Invoice period"
     invoice_status: "Invoice status"
     invoiced: "Invoiced"
-    invoice: "Invoice" #?
     invoices: "Invoices" #?
     is: "Is" #?
     issue: "Issue"
@@ -1626,6 +1609,7 @@ eng:
     mobile: "Mobile" #?
     mode: "Mode" #?
     model: "Model" #?
+    # models: "Models"
     modes: "Modes" #?
     month: "Month" #?
     month_period: "%{code} - %{month} %{year}"
@@ -1664,6 +1648,7 @@ eng:
     new_group: "New group"
     new_incoming_parcel: "New incoming parcel"
     new_incoming_payment: "New incoming payment"
+    # new_inspection: "New inspection"
     new_inventory: "New inventory"
     new_issue: "New issue"
     new_listing: "New listing"
@@ -1767,7 +1752,8 @@ eng:
     picture: "Picture" #?
     placeholder: "Placeholder" #?
     places: "Places"
-    plant: "Crop" #?
+    planning: "Planning"
+    plant: "Crop"
     plant_counting: "Counting" #?
     plant_countings: "Countings" #?
     plantation_density: "Plantation density" #?
@@ -1815,6 +1801,7 @@ eng:
     purchase: "Purchase"
     purchase_items: "Purchase items" #?
     purchase_number: "Purchase number" #?
+    purchase_order: "Purchase order" #?
     purchase_payments: "Purchase payments"
     purchases: "Purchases"
     purchases_stocks_variation: "Purchases stocks variation" #?!
@@ -1833,9 +1820,11 @@ eng:
     receiving_address: "Receiving address"
     recent_events: "Recent events"
     reception: "Reception"
+    # reception_date: "Reception date"
     reception_incident: "Reception incident"
     reception_items: "Reception items"
     reception_number: "Reception number"
+    # reception_number_with_reference: "Reception number with reference"
     receptions: "Receptions"
     reconcile: "Reconcile"
     reconciliate_with_purchases_orders: "Reconciliate with purchases orders"
@@ -1914,6 +1903,7 @@ eng:
     sensor_model: "Sensor model"
     sensors: "Sensors" #?
     service: "Service" #?
+    service_deliveries: "Service deliveries"
     service_delivering: "Service delivering"
     sessions: "Sessions" #?
     set_reconcilable_new_but_existing_third_accounts: "Set reconcilable the new but existing third accounts (clients, suppliers and attorneys)" #?
@@ -2113,6 +2103,7 @@ eng:
     # wear: "Wear"
     weather: "Weather"
     website: "Website"
+    wice_grid_columns: "Columns"
     wind_speed: "Wind speed"
     with_fixed_assets_depreciations: "With fixed assets depreciations"
     workers: "Workers"
@@ -2309,7 +2300,7 @@ eng:
       accountant_notified: "The accountant has been notified"
       accountant_without_email: "Please set the accountant email"
       all_fixed_assets_must_be_depreciable: "All fixed assets must be depreciable"
-      all_parcels_must_be_invoiceable_and_of_same_nature_and_third: "All parcels must be invoiceable and of same nature and third"
+      all_parcels_must_be_invoiceable_and_of_same_nature_and_third: "All parcels must be invoiceable and of same nature and third" #?
       all_purchases_must_be_ordered_or_invoiced: "All purchases must be ordered or invoiced."
       all_tax_declarations_have_already_existing: "All tax declarations have already existing"
       bookkeeping_is_finished: "The commercial data transfer is finished."
@@ -2371,7 +2362,7 @@ eng:
       mails_are_sent: "The emails were sent"
       merge_is_done: "Merge is done"
       need_a_valid_payment_mode: "Need a valid payment mode"
-      need_a_valid_purchase_nature_to_start_new_purchase: "Need a valid purchase type to start new purchase"
+      need_a_valid_purchase_nature_to_start_new_purchase: "Need a valid purchase type to start new purchase" #?
       need_a_valid_sale_nature_to_start_new_sale: "Need a valid sale type to start new sale"
       need_building_to_record_stock_moves: "You must create a building to be able to manage stocks."
       need_entries_to_reconciliate: "No entries to reconciliate on bank statement period"
@@ -2559,7 +2550,6 @@ eng:
       quote: "Quote"
       # receptions_to_reconciliate: "Receptions to reconciliate"
       # reconciliate: "Reconciliate"
-      # reconciliate_modal: "Reconciliate modal"
       reconciliation: "Reconciliate"
       reflect: "Reflect"
       refresh: "Refresh"

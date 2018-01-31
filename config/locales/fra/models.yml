@@ -75,6 +75,7 @@ fra:
       incoming_payment: #?
         to_bank_at: "À encaisser le" #?
       inspection: #?
+        forecast_harvest_week: "Semaine de récolte prévisionnelle"
         points: "Points de contrôle" #?
       inspection_calibration: #?
         items_count: "Nombre de pièces" #?
@@ -146,7 +147,7 @@ fra:
         plants_count: "Nombre théorique de graines"
         seeding_density_value: "Densité théorique de semis"
       product_localization: #?
-        container: "Contenant" #?
+        container: "Zone de stockage" #?
         started_at: "Entrée" #?
         stopped_at: "Sortie" #?
       product_nature_category: #?
@@ -526,6 +527,7 @@ fra:
       purchase_order: "Commande d’achat"
       purchase_payment: "Décaissement d’achat"
       reception: "Réception"
+      # reception_item: "Reception item"
       regularization: "Régularisation"
       role: "Rôle"
       sale: "Vente"
@@ -539,6 +541,7 @@ fra:
       sequence: "Séquence"
       settlement: "Installation"
       shipment: "Expédition"
+      # shipment_item: "Shipment item"
       sub_zone: "Sous-zone"
       subscription: "Abonnement"
       subscription_nature: "Type d’abonnement"
@@ -1147,6 +1150,7 @@ fra:
     intervention_participation: "Participation d’intervention"
     intervention_participations: "Participations d’intervention"
     intervention_product_parameters: "Casting"
+    # intervention_template: "Intervention template"
     interventions: "Interventions"
     interventions_used_in: "Interventions utilisées dans"
     intracommunity: "Intracommunautaire"
@@ -1183,6 +1187,7 @@ fra:
     item_type: "Type de l’élément"
     item_value: "Valeur de l’élément"
     items: "Élements"
+    services: Services
     items_count: "Nombre d’éléments"
     items_count_value: "Articles comptent valeur"
     journal: "Journal"
@@ -1298,6 +1303,7 @@ fra:
     members_count: "Nombre de membres"
     memberships: "Membres du groupe"
     memo: "Note"
+    merge_stock: "Fusionner avec les stocks existants"
     message: "Message"
     # messages: "Messages"
     metadata: "Méta-données"
@@ -1388,6 +1394,7 @@ fra:
     parameter_name: "Nom du paramètre"
     parameters: "Paramètres"
     parcel: "Colis"
+    # parcel_item_storings: "Parcel item storings"
     parcel_items: "Éléments de colis"
     parcels: "Colis"
     parent: "Parent"
@@ -1462,6 +1469,7 @@ fra:
     printed_on: "Daté du"
     priority: "Priorité"
     probability_percentage: "Pourcentage de probabilité"
+    # procedure: "Procedure"
     procedure_name: "Nom de la procédure"
     procedures: "Procédures" #?
     process: "Process" #?
@@ -1568,6 +1576,7 @@ fra:
     receipt: "Reçu électronique"
     received: "Reçu"
     received_at: "Reçu le"
+    reception: "Réception" #?
     reception_amount: "Montant reçu"
     reception_cash: "Trésorie réceptrice"
     reception_currency: "Monnaie de réception"
@@ -1689,6 +1698,8 @@ fra:
     shape: "Forme"
     shift_duration: "Durée du différé"
     shift_method: "Méthode de différé"
+    shipment: "Expédition" #?
+    # shipment_items: "Shipment items"
     # shipments: "Shipments"
     sign_in_count: "Nombre de connexions"
     signup_at: "Inscription au"
@@ -1724,9 +1735,9 @@ fra:
     stopped_at: "Arrêté le"
     stopped_on: "Arrêté le"
     storable: "Gérer les stocks"
-    storage: "Stockage"
+    storage: "Zone de stockage"
     storages: "Stockages"
-    # storings: "Storings"
+    storings: "Élements "
     story: "Historique"
     string_value: "Valeur textuelle"
     subdomains: "Sous-domaines"
@@ -1898,6 +1909,7 @@ fra:
     work_name: "Nom de travail"
     work_number: "Numéro de travail"
     worker: "Équipier"
+    workflow: "Débit de chantier" #?
     working_area: "Superficie travaillée" #?
     working_duration: "Durée travaillée"
     working_periods: "Périodes de travail"

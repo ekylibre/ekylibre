@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2017 Brice Texier, David Joulin
+# Copyright (C) 2012-2018 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -31,6 +31,7 @@
 #  equipment_id                  :integer
 #  id                            :integer          not null, primary key
 #  lock_version                  :integer          default(0), not null
+#  merge_stock                   :boolean          default(TRUE)
 #  non_compliant                 :boolean
 #  non_compliant_detail          :string
 #  parcel_id                     :integer          not null
@@ -53,6 +54,7 @@
 #  source_product_id             :integer
 #  source_product_movement_id    :integer
 #  transporter_id                :integer
+#  type                          :string
 #  unit_pretax_amount            :decimal(19, 4)   default(0.0), not null
 #  unit_pretax_stock_amount      :decimal(19, 4)   default(0.0), not null
 #  updated_at                    :datetime         not null
@@ -65,12 +67,11 @@ class ShipmentItem < ParcelItem
   has_one :storage, through: :shipment
   has_one :contract, through: :shipment
 
-  validates :source_product, presence: { if: :shipment_outgoing? }
-  validates :product_name, presence: { if: -> { product_is_identifiable? && shipment_incoming? } }
+  validates :source_product, presence: true
 
   delegate :allow_items_update?, :remain_owner, :planned_at,
            :ordered_at, :recipient, :in_preparation_at,
-           :prepared_at, :given_at, :outgoing?, :incoming?,
+           :prepared_at, :given_at,
            :separated_stock?, :currency, to: :shipment, prefix: true
 
   scope :with_nature, ->(nature) { joins(:shipment).merge(Shipment.with_nature(nature)) }
@@ -85,13 +86,11 @@ class ShipmentItem < ParcelItem
       self.unit_pretax_amount ||= item.unit_pretax_amount if item && item.unit_pretax_amount
     end
 
-    next if shipment_incoming?
-
     if sale_item
       self.variant = sale_item.variant
     elsif purchase_order_item
       self.variant = purchase_order_item.variant
-    elsif shipment_outgoing?
+    else
       self.variant = source_product.variant if source_product
       self.population = source_product.population if population.nil? || population.zero?
     end
@@ -99,31 +98,16 @@ class ShipmentItem < ParcelItem
     true
   end
 
-  after_save do
-    if Preference[:catalog_price_item_addition_if_blank]
-      if shipment_incoming?
-        for usage in %i[stock purchase]
-          # set stock catalog price if blank
-          catalog = Catalog.by_default!(usage)
-          unless variant.catalog_items.of_usage(usage).any? || unit_pretax_amount.blank? || unit_pretax_amount.zero?
-            variant.catalog_items.create!(catalog: catalog, all_taxes_included: false, amount: unit_pretax_amount, currency: currency) if catalog
-          end
-        end
-      end
-    end
-  end
-
   protect(allow_update_on: ALLOWED, on: %i[create destroy update]) do
     !shipment_allow_items_update?
   end
 
   def prepared?
-    (!shipment_incoming? && source_product.present?) ||
-      (shipment_incoming? && variant.present?)
+    source_product.present?
   end
 
   def trade_item
-    shipment_incoming? ? purchase_order_item : sale_item
+    sale_item
   end
 
   # Set started_at/stopped_at in tasks concerned by preparation of item
@@ -131,8 +115,7 @@ class ShipmentItem < ParcelItem
   def check
     checked_at = shipment_prepared_at
     state = true
-    state, msg = check_incoming(checked_at) if shipment_incoming?
-    check_outgoing(checked_at) if shipment_outgoing?
+    check_outgoing(checked_at)
     return state, msg unless state
     save!
   end
@@ -140,38 +123,13 @@ class ShipmentItem < ParcelItem
   # Mark items as given, and so change enjoyer and ownership if needed at
   # this moment.
   def give
-    transaction do
-      give_outgoing if shipment_outgoing?
-      give_incoming if shipment_incoming?
-    end
+    give_outgoing
   end
 
   protected
 
-  def check_incoming(checked_at)
-    product_params = {}
-    no_fusing = shipment_separated_stock? || product_is_unitary?
-
-    product_params[:name] = product_name
-    product_params[:name] ||= "#{variant.name} (#{shipment.number})"
-    product_params[:identification_number] = product_identification_number
-    product_params[:work_number] = product_work_number
-    product_params[:initial_born_at] = [checked_at, shipment_given_at].compact.min
-
-    self.product = existing_product_in_storage unless no_fusing || storage.blank?
-
-    self.product ||= variant.create_product(product_params)
-
-    return false, self.product.errors if self.product.errors.any?
-    true
-  end
-
-  def give_incoming
-    check_incoming(shipment_prepared_at)
-    ProductMovement.create!(product: product, delta: population, started_at: shipment_given_at, originator: self) unless product_is_unitary?
-    ProductLocalization.create!(product: product, nature: :interior, container: storage, started_at: shipment_given_at, originator: self)
-    ProductEnjoyment.create!(product: product, enjoyer: Entity.of_company, nature: :own, started_at: shipment_given_at, originator: self)
-    ProductOwnership.create!(product: product, owner: Entity.of_company, nature: :own, started_at: shipment_given_at, originator: self) unless shipment_remain_owner
+  def check_outgoing(_checked_at)
+    update! product: source_product
   end
 
   def give_outgoing

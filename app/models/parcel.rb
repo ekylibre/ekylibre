@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2017 Brice Texier, David Joulin
+# Copyright (C) 2012-2018 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -172,7 +172,7 @@ class Parcel < Ekylibre::Record::Base
   end
 
   def allow_items_update?
-    !prepared? && !given?
+    raise NotImplementedError
   end
 
   def address_coordinate
@@ -235,158 +235,9 @@ class Parcel < Ekylibre::Record::Base
   end
 
   class << self
-    # Ships parcels. Returns a delivery
-    # options:
-    #   - deliver<y_mode: delivery mode
-    #   - transporter_id: the transporter ID if delivery mode is :transporter
-    #   - responsible_id: the responsible (Entity) ID for the delivery
-    # raises:
-    #   - "Need an obvious transporter to ship parcels" if there is no unique transporter for the parcels
-    def ship(parcels, options = {})
-      delivery = nil
-      transaction do
-        if options[:transporter_id]
-          options[:delivery_mode] ||= :transporter
-        elsif !delivery_mode.values.include? options[:delivery_mode].to_s
-          raise "Need a valid delivery mode at least if no transporter given. Got: #{options[:delivery_mode].inspect}. Expecting one of: #{delivery_mode.values.map(&:inspect).to_sentence}"
-        end
-        delivery_mode = options[:delivery_mode].to_sym
-        if delivery_mode == :transporter
-          unless options[:transporter_id] && Entity.find_by(id: options[:transporter_id])
-            transporter_ids = transporters_of(parcels).uniq
-            if transporter_ids.size == 1
-              options[:transporter_id] = transporter_ids.first
-            else
-              raise StandardError, 'Need an obvious transporter to ship parcels'
-            end
-          end
-        end
-        options[:started_at] ||= Time.zone.now
-        options[:mode] = options.delete(:delivery_mode)
-        delivery = Delivery.create!(options.slice!(:started_at, :transporter_id, :mode, :responsible_id, :driver_id))
-        parcels.each do |parcel|
-          parcel.delivery_mode = delivery_mode
-          parcel.transporter_id = options[:transporter_id]
-          parcel.delivery = delivery
-          parcel.save!
-        end
-        delivery.save!
-      end
-      delivery
-    end
-
     # Returns an array of all the transporter ids for the given parcels
     def transporters_of(parcels)
       parcels.map(&:transporter_id).compact
-    end
-
-    # Convert parcels to one sale. Assume that all parcels are checked before.
-    # Sale is written in DB with default values
-    def convert_to_sale(parcels)
-      sale = nil
-      transaction do
-        parcels = parcels.collect do |d|
-          (d.is_a?(self) ? d : find(d))
-        end.sort_by(&:first_available_date)
-        third = detect_third(parcels)
-        planned_at = parcels.last.first_available_date || Time.zone.now
-        unless nature = SaleNature.by_default
-          unless journal = Journal.sales.opened_on(planned_at).first
-            raise 'No sale journal'
-          end
-          nature = SaleNature.create!(
-            active: true,
-            currency: Preference[:currency],
-            with_accounting: true,
-            journal: journal,
-            by_default: true,
-            name: SaleNature.tc('default.name', default: SaleNature.model_name.human)
-          )
-        end
-        sale = Sale.create!(
-          client: third,
-          nature: nature,
-          # created_at: planned_at,
-          delivery_address: parcels.last.address
-        )
-
-        # Adds items
-        parcels.each do |parcel|
-          parcel.items.each do |item|
-            # raise "#{item.variant.name} cannot be sold" unless item.variant.saleable?
-            next unless item.variant.saleable? && item.population && item.population > 0
-            catalog_item = Catalog.by_default!(:sale).items.find_by(variant: item.variant)
-            item.sale_item = sale.items.create!(
-              variant: item.variant,
-              unit_pretax_amount: (catalog_item ? catalog_item.amount : 0.0),
-              tax: item.variant.category.sale_taxes.first || Tax.first,
-              quantity: item.population
-            )
-            item.save!
-          end
-          parcel.reload
-          parcel.sale_id = sale.id
-          parcel.save!
-        end
-
-        # Refreshes affair
-        sale.save!
-      end
-      sale
-    end
-
-    # Convert parcels to one purchase. Assume that all parcels are checked before.
-    # Purchase is written in DB with default values
-    def convert_to_purchase(parcels)
-      purchase = nil
-      transaction do
-        parcels = parcels.collect do |d|
-          (d.is_a?(self) ? d : find(d))
-        end.sort_by(&:first_available_date)
-        third = detect_third(parcels)
-        planned_at = parcels.last.first_available_date || Time.zone.now
-        unless nature = PurchaseNature.by_default
-          unless journal = Journal.purchases.opened_on(planned_at).first
-            raise 'No purchase journal'
-          end
-          nature = PurchaseNature.create!(
-            active: true,
-            currency: Preference[:currency],
-            with_accounting: true,
-            journal: journal,
-            by_default: true,
-            name: PurchaseNature.tc('default.name', default: PurchaseNature.model_name.human)
-          )
-        end
-        purchase = Purchase.create!(
-          supplier: third,
-          nature: nature,
-          planned_at: planned_at,
-          delivery_address: parcels.last.address
-        )
-
-        # Adds items
-        parcels.each do |parcel|
-          parcel.items.each do |item|
-            next unless item.variant.purchasable? && item.population && item.population > 0
-            catalog_item = Catalog.by_default!(:purchase).items.find_by(variant: item.variant)
-            item.purchase_item = purchase.items.create!(
-              variant: item.variant,
-              unit_pretax_amount: (item.unit_pretax_amount.nil? || item.unit_pretax_amount.zero? ? (catalog_item ? catalog_item.amount : 0.0) : item.unit_pretax_amount),
-              tax: item.variant.category.purchase_taxes.first || Tax.first,
-              quantity: item.population
-            )
-            item.save!
-          end
-          parcel.reload
-          parcel.purchase = purchase
-          parcel.save!
-        end
-
-        # Refreshes affair
-        purchase.save!
-      end
-      purchase
     end
 
     def detect_third(parcels)

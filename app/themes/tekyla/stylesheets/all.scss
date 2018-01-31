@@ -20,6 +20,8 @@
 // Plugins
 @import "themes/tekyla/plugins";
 @import "bootstrap-slider";
+@import "wice_grid";
+@import "font-awesome-sprockets";
 
 // Specific
 @import "abilities";
@@ -56,6 +58,7 @@
 @import "timelines";
 @import "tour";
 @import "plants";
+@import "planning";
 
 // Optimization
 @import "symbolic_icons";

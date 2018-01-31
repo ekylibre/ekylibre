@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2017 Brice Texier, David Joulin
+# Copyright (C) 2012-2018 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -103,7 +103,7 @@ class ProductNatureVariantTest < ActiveSupport::TestCase
     sale.update(state: 'order')
     create(:sale_item, sale: sale, variant: variant, quantity: 50.to_d)
     shipment = create(:shipment, sale: sale)
-    create(:shipment_item, parcel: shipment, variant: variant, population: 1.to_d, source_product: product, product_identification_number: '12345678', product_name: 'Product name')
+    create(:shipment_item, shipment: shipment, variant: variant, population: 1.to_d, source_product: product, product_identification_number: '12345678', product_name: 'Product name')
     shipment.update(state: 'given')
     assert_equal 49.0, variant.current_outgoing_stock_ordered_not_delivered
   end
@@ -112,7 +112,7 @@ class ProductNatureVariantTest < ActiveSupport::TestCase
     variant = create(:product_nature_variant)
     shipment = create(:shipment)
     product = create(:product, variant: variant)
-    create(:shipment_item, parcel: shipment, source_product: product, population: 1.to_d)
+    create(:shipment_item, shipment: shipment, source_product: product, population: 1.to_d)
     shipment.update(state: 'prepared')
     assert_equal 1, variant.current_outgoing_stock_ordered_not_delivered
   end

@@ -169,6 +169,7 @@ arb:
       humans: "لوحة الموارد البشرية"
       index: "لوحات"
       new: "لوحة تحكم جديدة"
+      # planning: "Planning"
       production: "لوحة أجهزة القياس إنتاج"
       # purchases: "Purchases dashboard"
       relationship: "لوحة أجهزة القياس العلاقة"
@@ -354,6 +355,8 @@ arb:
     backend/intervention_participations:
       # convert: "Convert intervention participation: %{name}"
       index: "المساهمات تدخل"
+    backend/intervention_templates:
+      # index: "Intervention model"
     backend/interventions:
       edit: "تحرير"
       edit_request: "طلب تحرير"
@@ -618,12 +621,12 @@ arb:
       new: "اضافة منتج جديد" #?
       show: "المنتجات : %{name}" #?
     backend/purchase_invoices:
-      # edit: "Edit invoice: %{name}"
+      # edit: "Edit invoice: %{number}"
       # index: "Invoices"
       # new: "New invoice"
-      # pay: "Pay invoice: %{name}"
-      # payment_mode: "Payment mode invoice: %{name}"
-      # show: "Invoice: %{name}"
+      # pay: "Pay invoice: %{number}"
+      # payment_mode: "Payment mode invoice: %{number}"
+      # show: "Invoice: %{number}"
     backend/purchase_items: #?
       edit: "تعديل تصميم الطلب" #?
       new: "اضافة طلب للمنتج : %{number}" #?
@@ -633,47 +636,41 @@ arb:
       new: "نوع شراء جديدة"
       # show: "Purchase type: %{name}"
     backend/purchase_orders:
-      # close: "Close order: %{name}"
+      # close: "Close order: %{number}"
       # edit: "Edit order: %{number}"
       # index: "Orders"
       # new: "New order"
-      # open: "Open order: %{name}"
-      # reconciliate_modal: "Reconciliate modal order: %{name}"
-      # show: "Purchase order: %{name}"
+      # open: "Open order: %{number}"
+      # reconciliate_modal: "Reconciliate modal order: %{number}"
+      # show: "Purchase order: %{number}"
     backend/purchase_payments:
       edit: "تعديل دفعة : %{number}"
       index: "دفعات"
       new: "اضافة دفعة"
       show: "رقم الدفعة%{number} من اجل %{payee}"
-    backend/purchases:
-      abort: "إحباط"
-      confirm: "تأكيد النظام والانتظار لتسليم"
-      correct: "طلب صحيح"
-      edit: "تعديل الشراء : %{number}"
-      index: "المستريات"
-      invoice: "تلقي فاتورة"
-      new: "شراء جديد"
-      payment_mode: "طريقة الدفع حدد"
-      propose: "اقتراح ترتيب"
-      propose_and_invoice: "فاتورة مباشرة"
-      refuse: "أجل رفض"
-      show: "تفاصيل الشراء %{number} الى الممول %{supplier} "
+    backend/purchases: #?
+      abort: "إحباط" #?
+      confirm: "تأكيد النظام والانتظار لتسليم" #?
+      correct: "طلب صحيح" #?
+      edit: "تعديل الشراء : %{number}" #?
+      index: "المستريات" #?
+      invoice: "تلقي فاتورة" #?
+      new: "شراء جديد" #?
+      payment_mode: "طريقة الدفع حدد" #?
+      propose: "اقتراح ترتيب" #?
+      propose_and_invoice: "فاتورة مباشرة" #?
+      refuse: "أجل رفض" #?
+      show: "تفاصيل الشراء %{number} الى الممول %{supplier} " #?
     backend/quick_purchases:
       new: "شراء الجديد / دفع المنتهية ولايته"
     backend/quick_sales:
       new: "بيع جديد / دفع الواردة"
     backend/receptions:
-      # cancel: "Cancel reception: %{name}"
-      # check: "Check reception: %{name}"
-      # edit: "Edit reception: %{name}"
-      # give: "Give reception: %{name}"
+      # edit: "Edit reception: %{number}"
+      # give: "Give reception: %{number}"
       # index: "Receptions"
-      # invoice: "Invoice reception: %{name}"
       # new: "New reception"
-      # order: "Order reception: %{name}"
-      # prepare: "Prepare reception: %{name}"
-      # ship: "Ship reception: %{name}"
-      # show: "Reception: %{name}"
+      # show: "Reception: %{number}"
     backend/registrations:
       edit: "تسجيل تحرير"
       index: "التسجيلات"
@@ -729,17 +726,16 @@ arb:
       new: "مستوطنة جديدة"
       # show: "Settlement: %{name}"
     backend/shipments:
-      # cancel: "Cancel shipment: %{name}"
-      # check: "Check shipment: %{name}"
-      # edit: "Edit shipment: %{name}"
-      # give: "Give shipment: %{name}"
+      # cancel: "Cancel shipment: %{number}"
+      # check: "Check shipment: %{number}"
+      # edit: "Edit shipment: %{number}"
+      # give: "Give shipment: %{number}"
       # index: "Shipments"
-      # invoice: "Invoice shipment: %{name}"
       # new: "New shipment"
-      # order: "Order shipment: %{name}"
-      # prepare: "Prepare shipment: %{name}"
-      # ship: "Ship shipment: %{name}"
-      # show: "Shipment: %{name}"
+      # order: "Order shipment: %{number}"
+      # prepare: "Prepare shipment: %{number}"
+      # ship: "Ship shipment: %{number}"
+      # show: "Shipment: %{number}"
     backend/stock_moves: #?
       edit: "تعديل حركة سهم : %{name}" #?
       new: "التسجيل لحركة السهم" #?
@@ -1062,6 +1058,7 @@ arb:
     add_inspection_point_nature: "إضافة نقطة تفتيش الطبيعة"
     add_intervention_record: "اضافة التسجيلة تدخل"
     add_intervention_request: "إضافة طلب تدخل"
+    # add_intervention_template: "Add intervention template"
     add_item: "إضافة البند"
     add_labelling: "إضافة تسمية"
     add_line: "إضافة خط"
@@ -2008,6 +2005,7 @@ arb:
     placeholder: "نائب"
     places: "الأماكن"
     planned_at: "قرر يوم" #?
+    # planning: "Planning"
     plant: "نبات"
     plant_counting: "عد"
     plant_countings: "فرزان"
@@ -2741,10 +2739,10 @@ arb:
       # could_not_attach_x_or_y_to_affair: "Could not attach %{x} or %{y} to affair"
       dashboard_is_being_developed: "لوحة أجهزة القياس هي قيد التطوير الثقيلة"
       density_is_not_computable_in_counting: "لا يمكن حساب كثافة لهذا العد. وينبغي الانتهاء من القيم المفقودة في خصائص العد أو مؤشرات الزارع و."
-      # depreciation_failed: "Assets could not be depreciated."
-      # depreciation_successful: "Assets have been successfully depreciated."
+      depreciation_failed: "لا يمكن استهلاك الأصول."
+      depreciation_successful: "وقد انخفضت قيمة الأصول بنجاح."
       document_in_preparation: "المستند الخاص بك هو في إعداد سيتم إرسال إشعار لك عندما يكون جاهزا"
-      # draft_journal_entries_are_present: "Draft journal entries are present."
+      draft_journal_entries_are_present: "توجد مسودات إدخالات دفتر اليومية."
       draft_journal_entries_have_been_validated:
         one: "تم التحقق من صحة الملفات واخراجها من قائمة المسودات"
         other: "واخراجها من قائمة المسودات %{count} تم التحقق من صحة الملفات الاخرى"
@@ -2759,8 +2757,8 @@ arb:
       expired_session: ".نهاية الدورة. الرجاء معاودة الاتصال" #?
       fails_to_extract_listing: "لم يتمكن الاستخراج من اتمام التنفيذ : %{message}"
       file_generated: "تم إنشاء الملف بنجاح"
-      # financial_year_already_closed: "The financial year has already been closed."
-      # financial_year_is_not_past: "The financial year hasn't passed yet."
+      financial_year_already_closed: "وقد تم بالفعل إغلاق السنة المالية."
+      financial_year_is_not_past: "ولم تنته بعد السنة المالية."
       # financial_year_x_could_not_be_closed: "Financial Year  %{name} could not be closed."
       # financial_year_x_successfully_closed: "Financial Year %{name} successfully closed !"
       financial_years_missing: "يجب عليك إنشاء كل المفقودين سنة مالية منذ سجلت لأول مرة"
@@ -2829,7 +2827,7 @@ arb:
       no_template_journal_by_id: "ليس هنالك من نموذج للدفتر اليومي" #?
       no_unvalidated_operations: "لم يتم تحقيق اية اجراء" #?
       password_successfully_changed: "تم تغيير كلمة المرور الخاصة بك بنجاح" #?
-      # previouos_financial_year_is_not_closed: "The previous financial year hasn't been closed."
+      previouos_financial_year_is_not_closed: "لم يتم إقفال السنة المالية السابقة."
       prices_import_succeeded: "تم استيراد بياناتك بشكل صحيح" #?
       print_failure: " غير قابل للطباعة، حاول تحديث نماذج الوئائق لتصحيح المشكلة%{error} (%{class})." #?
       purchases_invalid_for_sepa: "الشراء المحددة غير صالحة لنقل المصلحة (الوضع صرف العملة غير صالح أو خاطئة أو مفقودة المستفيد IBAN أو صاحب حساب مصرفي الاسم)"
@@ -2865,7 +2863,7 @@ arb:
       this_service_is_not_activated: "لم يتم تنشيط هذه الخدمة"
       unavailable_model: "%{model} غير متوفر أو غير موجود (%{id})" #?
       # unavailable_resource: "Nonexistent %{type} #%{id}"
-      # unbalanced_journal_entries_are_present_in_year: "Some unbalanced journal entries are present in the financial year."
+      unbalanced_journal_entries_are_present_in_year: "بعض إدخالات دفتر اليومية غير المتوازنة موجودة في السنة المالية."
       # unexpected_resource_type: "Unexpected resource type: %{type}"
       unknown_action: "الصفحة المطلوبة غير متوفرة (%{url})" #?
       unknown_company: "شركة غير معروفة" #?

@@ -583,47 +583,47 @@ fra:
       new: "Nouveau type d’achat"
       show: "Type d’achat\_: %{name}"
     backend/purchase_orders:
-      # close: "Close order: %{name}"
+      # close: "Close order: %{number}"
       edit: "Modifier la commande\_: %{number}"
       index: "Commandes"
       new: "Nouvelle commande"
-      # open: "Open order: %{name}"
-      # reconciliate_modal: "Reconciliate modal order: %{name}"
+      # open: "Open order: %{number}"
+      # reconciliate_modal: "Reconciliate modal order: %{number}"
       show: "Commande\_: %{number} au fournisseur %{supplier}"
     backend/purchase_payments:
       edit: "Modifier le décaissement\_: %{number}"
       index: "Décaissements"
       new: "Nouveau décaissement"
       show: "Décaissement n°%{number} pour %{payee}"
-    backend/purchases:
-      abort: "Annuler l’achat"
-      confirm: "Confimer l’achat et attendre les arrivages"
-      correct: "Corriger l’achat"
-      edit: "Modifier l’achat\_: %{number}"
+    backend/purchases: #?
+      abort: "Annuler l’achat" #?
+      confirm: "Confimer l’achat et attendre les arrivages" #?
+      correct: "Corriger l’achat" #?
+      edit: "Modifier l’achat\_: %{number}" #?
       finish: "Finir l’achat" #?
-      index: "Achats"
-      invoice: "Réception de la facture"
-      new: "Nouvel achat"
-      payment_mode: "Selection du mode de paiement"
-      propose: "Commande soumise au fournisseur"
-      propose_and_invoice: "Facturer directement"
-      refuse: "Commande refusée"
-      show: "Achat\_: %{number} au fournisseur %{supplier}"
+      index: "Achats" #?
+      invoice: "Réception de la facture" #?
+      new: "Nouvel achat" #?
+      payment_mode: "Selection du mode de paiement" #?
+      propose: "Commande soumise au fournisseur" #?
+      propose_and_invoice: "Facturer directement" #?
+      refuse: "Commande refusée" #?
+      show: "Achat\_: %{number} au fournisseur %{supplier}" #?
     backend/quick_purchases:
       new: "Nouvel Achat/Décaissement"
     backend/quick_sales:
       new: "Nouvelle Vente/Encaissement"
     backend/receptions:
-      cancel: "Annuler réception: %{number}"
-      check: "Vérifier réception: %{number}"
+      cancel: "Annuler réception: %{number}" #?
+      check: "Vérifier réception: %{number}" #?
       edit: "Modifier réception: %{number}"
       give: "Give reception: %{number}"
       index: "Réceptions"
-      invoice: "Invoice reception: %{number}"
+      invoice: "Invoice reception: %{number}" #?
       new: "Nouvelle réception"
-      order: "Order reception: %{number}"
-      prepare: "Prepare reception: %{number}"
-      ship: "Expédier la réception"
+      order: "Order reception: %{number}" #?
+      prepare: "Prepare reception: %{number}" #?
+      ship: "Expédier la réception" #?
       show: "Réception: %{number}"
     backend/registrations:
       edit: "Modifier inscription"
@@ -688,7 +688,7 @@ fra:
       edit: "Modifier l'expédition: %{number}"
       give: "Give shipment: %{number}"
       index: "Expéditions"
-      invoice: "Invoice shipment: %{number}"
+      invoice: "Invoice shipment: %{number}" #?
       new: "Nouvelle expédition"
       order: "Order shipment: %{number}"
       prepare: "Préparation de l'expédition: %{number}"
@@ -860,6 +860,9 @@ fra:
       zoomInTitle: "Zoomer"
       zoomOutTitle: "Dézoomer"
   labels:
+    warning_if_no_activites_choose: Si aucune activité n’est sélectionnée, le modèle d'intervention sera disponible pour toutes les activités.
+    purchase_order: Commande
+    provider: Fournisseur
     abilities: "Compétences" #?
     accepted: "Acceptée"
     accepted_for_paiment: "Acceptée pour paiement"
@@ -1047,6 +1050,7 @@ fra:
     attorney: "Informations mandataire" #?
     automatic: "Auto"
     available: "Disponible"
+    available_area: "Surface disponible"
     available_columns: "Champs disponibles\_: %{columns}"
     average: "Moyenne"
     back: "Revenir à la page précédente"
@@ -1055,6 +1059,7 @@ fra:
     balance: "Solde"
     balance_of_selection: "Solde de la sélection"
     bank_account: "Compte bancaire"
+    bank_reconciliation: "Rapprochement bancaire"
     bank_statement_number: "N° du relevé de compte bancaire"
     bank_statements: "Relevés de compte bancaire"
     bban: "Relevé d’identité bancaire (RIB)"
@@ -1138,6 +1143,8 @@ fra:
     column_organization: "Organisation" #?
     column_title: "Titre" #?
     columns: "Colonnes à importer"
+    wice_grid_columns: "Colonnes"
+    comment: "Commentaire"
     commission: "Commission"
     company: "Société"
     complement_sort: "Trier les choix par nom" #?
@@ -1355,6 +1362,7 @@ fra:
     evaluated_direct_margin: "Marge directe évaluée" #?
     evaluated_doer_cost: "Coût main d’œuvre"
     evaluated_input_cost: "Coût intrants"
+    evaluated_reception_cost: "Coût prestation de service"
     evaluated_other_cost: "Coût autres"
     evaluated_tool_cost: "Coût outils"
     events: "Évènements"
@@ -1412,6 +1420,7 @@ fra:
     fixed_asset_depreciations: "Dépréciations d’immobilisation"
     fixed_assets: "Immobilisations"
     from: "À partir du"
+    forecast_harvest_week: 'Semaine de récolte'
     full_name: "Client" #?
     fullscreen: "Plein écran"
     function: "Fonction"
@@ -1441,6 +1450,7 @@ fra:
     groups: "Groupes"
     guide_evolution: "Évolution du guide"
     guides: "Référentiels" #?
+    harvested_area: "Surface récoltée"
     harvested_at: "Récolté le"
     healthy: "Phase du bioprocessus de maladie d’un animal" #?
     help: "Aide"
@@ -1524,6 +1534,7 @@ fra:
     investment_security: "Valeur mobilière de placement"
     investment_subsidies: "Subventions d’investissement"
     invitation_status: "État"
+    invoice: "Facture" #?
     invoice_period: "Période de facturation"
     invoice_status: "État de facturation"
     invoiced: "Facturés"
@@ -1682,6 +1693,7 @@ fra:
     mobile: "Portable"
     mode: "Mode"
     model: "Model"
+    models: "Modèles" #?
     modes: "Modes"
     month: "Mois"
     month_period: "%{code} — %{month} %{year}"
@@ -1730,6 +1742,7 @@ fra:
     new_in_line: "Ajouter un produit intrant" #?
     new_incoming_parcel: "Nouveau colis entrant"
     new_incoming_payment: "Nouveau encaissement"
+    new_inspection: "Nouvel agréage"
     new_inventory: "Nouvel inventaire"
     new_issue: "Nouvel incident"
     new_listing: "Nouvelle extraction"
@@ -1985,8 +1998,10 @@ fra:
     reception: "Réception"
     reception_incident: "Réception en incident"
     reception_items: "Articles réceptionnés"
+    service_deliveries: "Prestations de services"
     reception_number: "N° du bon de réception"
     reception_number_with_reference: "N° du bon de réception : %{reference_number}" #?
+    reception_date: "Date de réception : %{date}"
     receptions: "Réceptions"
     reconcile: "Rapprochée"
     reconciliate_with_purchases_orders: "Rapprocher avec une ou des commandes"
@@ -2751,7 +2766,7 @@ fra:
       no_unconfirmed_stock_transfers: "Aucun transfert de stocks non-confirmé" #?
       no_unvalidated_operations: "Aucun travail à réaliser" #?
       password_successfully_changed: "Votre mot de passe a été mis à jour avec succès" #?
-      # previouos_financial_year_is_not_closed: "The previous financial year hasn't been closed."
+      previouos_financial_year_is_not_closed: "L’exercice précédent n’a pas été clôturé."
       previous_financial_year_is_not_closed: "L'exercice précédent n'a pas encore été clôturé." #?
       prices_import_succeeded: "Vos données ont été correctement importées" #?
       print_failure: "Impossible d’imprimer. Essayer de recharger les modèles de documents pour corriger le problème. %{error} (%{class})." #?

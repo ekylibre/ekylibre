@@ -5,7 +5,6 @@
 
 - main_toolbar do |t|
   = t.edit resource if resource.updateable?
-  = t.ship resource, method: :post if resource.shippable?
   = t.destroy
 
 - renamings = {}
@@ -38,6 +37,10 @@
 
 
 = cobbles do |c|
+  - if @reception.items.where(role: 'service').any?
+    - c.cobble :items, title: resource_model.human_attribute_name(:services) do
+      = cobble_list :items
 
-  - c.cobble :items, title: resource_model.human_attribute_name(:items) do
-    = cobble_list :items
+  - if @reception.storings.any?
+    - c.cobble :storings, title: resource_model.human_attribute_name(:storings) do
+      = cobble_list :storings

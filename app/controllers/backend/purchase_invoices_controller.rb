@@ -17,9 +17,11 @@
 #
 
 module Backend
-  class PurchaseInvoicesController < Backend::PurchasesController
+  class PurchaseInvoicesController < Backend::BaseController
     manage_restfully planned_at: 'Time.zone.today+2'.c, redirect_to: '{action: :show, id: "id".c}'.c,
                      except: :new, continue: [:nature_id]
+
+    respond_to :csv, :ods, :xlsx, :pdf, :odt, :docx, :html, :xml, :json
 
     unroll :number, :amount, :currency, :created_at, supplier: :full_name
 
@@ -50,6 +52,11 @@ module Backend
       code << "  c[0] += ' AND #{Entity.table_name}.supplier_payment_mode_id = ?'\n"
       code << "  c << params[:payment_mode_id]\n"
       code << "end\n"
+      code << "if params[:nature].present?\n"
+      code << " if params[:nature] == 'unpaid'\n"
+      code << "     c[0] << ' AND NOT #{PurchaseAffair.table_name}.closed'\n"
+      code << " end\n"
+      code << "end\n"
       code << "c\n "
       code.c
     end
@@ -62,11 +69,13 @@ module Backend
       t.column :invoiced_at
       t.column :reference_number, url: true
       t.column :supplier, url: true
+      t.column :entity_payment_mode_name, through: :supplier, label: :supplier_payment_mode
       t.column :created_at
       t.status
       t.column :pretax_amount, currency: true, on_select: :sum, hidden: true
       t.column :amount, currency: true, on_select: :sum
     end
+    # Mode de paiement du fournisseur
 
     list(:items, model: :purchase_items, order: { id: :asc }, conditions: { purchase_id: 'params[:id]'.c }) do |t|
       t.column :variant, url: true
@@ -84,7 +93,7 @@ module Backend
       t.column :fixed_asset, url: true, hidden: true
     end
 
-    list(:parcels, model: :receptions, children: :items, conditions: { purchase_id: 'params[:id]'.c }) do |t|
+    list(:receptions, children: :items, conditions: { purchase_id: 'params[:id]'.c }) do |t|
       t.action :edit, if: :draft?
       t.action :destroy, if: :draft?
       t.column :number, url: true
@@ -112,7 +121,12 @@ module Backend
 
     def new
       nature = PurchaseNature.by_default
-      @purchase_invoice = PurchaseInvoice.new(nature: nature)
+      @purchase_invoice = if params[:duplicate_of]
+                          PurchaseInvoice.find_by(id: params[:duplicate_of])
+                            .deep_clone(include: :items, except: %i[state number affair_id reference_number payment_delay])
+                  else
+                    PurchaseInvoice.new(nature: nature)
+                  end
       @purchase_invoice.currency = @purchase_invoice.nature.currency
       @purchase_invoice.responsible ||= current_user
       @purchase_invoice.planned_at = Time.zone.now
@@ -208,7 +222,7 @@ module Backend
 
     def find_purchases
       purchase_ids = params[:id].split(',')
-      purchases = purchase_ids.map { |id| Purchase.find_by(id: id) }.compact
+      purchases = purchase_ids.map { |id| PurchaseInvoice.find_by(id: id) }.compact
       unless purchases.any?
         notify_error :no_purchases_given
         redirect_to(params[:redirect] || { action: :index })

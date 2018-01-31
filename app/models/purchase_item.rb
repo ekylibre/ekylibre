@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2017 Brice Texier, David Joulin
+# Copyright (C) 2012-2018 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -170,6 +170,10 @@ class PurchaseItem < Ekylibre::Record::Base
     true
   end
 
+  before_destroy do
+    parcels_purchase_invoice_items.map{ |parcel_item| parcel_item.update_attributes(purchase_invoice_item_id: nil) }
+  end
+
   after_destroy do
     if fixed && fixed_asset && purchase.purchased?
       fixed_asset.add_amount(-pretax_amount.to_f) if fixed_asset
@@ -194,6 +198,8 @@ class PurchaseItem < Ekylibre::Record::Base
         )
       end
     end
+
+    purchase.save! if purchase && purchase.is_a?(PurchaseInvoice)
   end
 
   def new_fixed_asset
@@ -276,6 +282,7 @@ class PurchaseItem < Ekylibre::Record::Base
 
   # know how many percentage of invoiced VAT to declare
   def payment_ratio
+    return nil unless purchase.respond_to?(:affair)
     if purchase.affair.balanced?
       1.00
     elsif purchase.affair.debit != 0.0

@@ -68,7 +68,9 @@
 
                     if $(this).is ":ui-selector"
                       $(this).selector("value", newVal)
-                    else if $(this).is "input"
+                    else if $(this).is "select"
+                      $(this).val(newVal.toLowerCase()).change()
+                    else if $(this).is("input")
                       $(this).val(newVal)
                     else
                       $(this).html(newVal)
@@ -89,7 +91,8 @@
 
                       catch
 
-                    $(this).val(newVal)
+                    if !$(this).is('select')
+                      $(this).val(newVal)
                   else
                     $(this).val($(this).data("when-set-value"))
 
