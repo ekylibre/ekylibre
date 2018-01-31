@@ -3556,7 +3556,7 @@ intervention_template_product_parameters:
     required: true
   intervention_template_id:
     type: integer
-    references: intervention_template
+    references: ''
   procedure:
     type: jsonb
   product_nature_id:
@@ -3892,6 +3892,8 @@ journal_entries:
     precision: 19
     scale: 4
     required: true
+  continuous_number:
+    type: integer
   created_at:
     type: datetime
     required: true
@@ -3956,6 +3958,8 @@ journal_entries:
     precision: 19
     scale: 4
     required: true
+  reference_number:
+    type: string
   resource_id:
     type: integer
     references: "~resource_type"
@@ -3972,6 +3976,8 @@ journal_entries:
   updater_id:
     type: integer
     references: user
+  validated_at:
+    type: datetime
 journal_entry_items:
   absolute_credit:
     type: decimal
@@ -7796,6 +7802,48 @@ teams:
   updater_id:
     type: integer
     references: user
+technical_itineraries:
+  activity_id:
+    type: integer
+    references: activity
+  campaign_id:
+    type: integer
+    references: campaign
+  created_at:
+    type: datetime
+    required: true
+  description:
+    type: string
+  id:
+    type: integer
+    required: true
+  name:
+    type: string
+  updated_at:
+    type: datetime
+    required: true
+technical_itinerary_intervention_templates:
+  created_at:
+    type: datetime
+    required: true
+  day_between_intervention:
+    type: integer
+  duration:
+    type: integer
+  id:
+    type: integer
+    required: true
+  intervention_template_id:
+    type: integer
+    references: intervention_template
+  position:
+    type: integer
+  technical_itinerary_id:
+    type: integer
+    references: technical_itinerary
+  updated_at:
+    type: datetime
+    required: true
 tokens:
   created_at:
     type: datetime
