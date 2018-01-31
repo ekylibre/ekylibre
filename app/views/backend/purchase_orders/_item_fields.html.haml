@@ -44,7 +44,7 @@
       - if f.object.role == 'merchandise'
         = f.referenced_association(:variant, label: :merchandise.tl, source: { scope: :purchaseables_stockables_or_depreciables }, input_html: {class: "order-variant", data: {variant_of_deal_item: {url: detail_backend_product_nature_variant_path("RECORD_ID", mode: :last_purchase_item)}, product_of_delivery_item: {url: backend_product_nature_variant_path("RECORD_ID", format: :json)}, required: true}}, required: true)
       - elsif f.object.role == 'service' || f.object.role == 'fees'
-        = f.referenced_association(:variant, label: f.object.role.tl, source: { scope: :services }, input_html: { class: 'order-variant', data: { product_of_delivery_item: {url: backend_product_nature_variant_path("RECORD_ID", format: :json), scope: 'unit'}, required: true }}, required: true)
+        = f.referenced_association(:variant, label: f.object.role.tl, source: { scope: :purchaseables_services }, input_html: { class: 'order-variant', data: { product_of_delivery_item: {url: backend_product_nature_variant_path("RECORD_ID", format: :json), scope: 'unit'}, required: true }}, required: true)
     %td.form-field.decimal
       = f.input :conditionning, wrapper: :append do
         = f.input_field :conditionning , class: "order-conditionning", data: { trade_component: 'conditionning' }
