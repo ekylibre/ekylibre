@@ -7156,6 +7156,39 @@ ALTER SEQUENCE versions_id_seq OWNED BY versions.id;
 
 
 --
+-- Name: wice_grid_serialized_queries; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE wice_grid_serialized_queries (
+    id integer NOT NULL,
+    name character varying,
+    grid_name character varying,
+    query text,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
+);
+
+
+--
+-- Name: wice_grid_serialized_queries_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE wice_grid_serialized_queries_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: wice_grid_serialized_queries_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE wice_grid_serialized_queries_id_seq OWNED BY wice_grid_serialized_queries.id;
+
+
+--
 -- Name: account_balances id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -8238,6 +8271,13 @@ ALTER TABLE ONLY users ALTER COLUMN id SET DEFAULT nextval('users_id_seq'::regcl
 --
 
 ALTER TABLE ONLY versions ALTER COLUMN id SET DEFAULT nextval('versions_id_seq'::regclass);
+
+
+--
+-- Name: wice_grid_serialized_queries id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY wice_grid_serialized_queries ALTER COLUMN id SET DEFAULT nextval('wice_grid_serialized_queries_id_seq'::regclass);
 
 
 --
@@ -9478,6 +9518,14 @@ ALTER TABLE ONLY users
 
 ALTER TABLE ONLY versions
     ADD CONSTRAINT versions_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: wice_grid_serialized_queries wice_grid_serialized_queries_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY wice_grid_serialized_queries
+    ADD CONSTRAINT wice_grid_serialized_queries_pkey PRIMARY KEY (id);
 
 
 --
@@ -17503,6 +17551,20 @@ CREATE INDEX index_versions_on_item_type_and_item_id ON versions USING btree (it
 
 
 --
+-- Name: index_wice_grid_serialized_queries_on_grid_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_wice_grid_serialized_queries_on_grid_name ON wice_grid_serialized_queries USING btree (grid_name);
+
+
+--
+-- Name: index_wice_grid_serialized_queries_on_grid_name_and_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_wice_grid_serialized_queries_on_grid_name_and_id ON wice_grid_serialized_queries USING btree (grid_name, id);
+
+
+--
 -- Name: intervention_template_activity_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -18605,7 +18667,13 @@ INSERT INTO schema_migrations (version) VALUES ('20171130093921');
 
 INSERT INTO schema_migrations (version) VALUES ('20171130144435');
 
+INSERT INTO schema_migrations (version) VALUES ('20171204075626');
+
 INSERT INTO schema_migrations (version) VALUES ('20171206145442');
+
+INSERT INTO schema_migrations (version) VALUES ('20171207134203');
+
+INSERT INTO schema_migrations (version) VALUES ('20171213134204');
 
 INSERT INTO schema_migrations (version) VALUES ('20171220162200');
 
@@ -18622,4 +18690,6 @@ INSERT INTO schema_migrations (version) VALUES ('20180115145552');
 INSERT INTO schema_migrations (version) VALUES ('20180119140016');
 
 INSERT INTO schema_migrations (version) VALUES ('20180130103517');
+
+INSERT INTO schema_migrations (version) VALUES ('20180131101303');
 
