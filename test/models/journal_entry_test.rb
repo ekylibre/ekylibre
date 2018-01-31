@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2018 Brice Texier, David Joulin
+# Copyright (C) 2012-2017 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -26,7 +26,6 @@
 #  absolute_currency          :string           not null
 #  absolute_debit             :decimal(19, 4)   default(0.0), not null
 #  balance                    :decimal(19, 4)   default(0.0), not null
-#  continuous_number          :integer
 #  created_at                 :datetime         not null
 #  creator_id                 :integer
 #  credit                     :decimal(19, 4)   default(0.0), not null
@@ -44,14 +43,12 @@
 #  real_currency              :string           not null
 #  real_currency_rate         :decimal(19, 10)  default(0.0), not null
 #  real_debit                 :decimal(19, 4)   default(0.0), not null
-#  reference_number           :string
 #  resource_id                :integer
 #  resource_prism             :string
 #  resource_type              :string
 #  state                      :string           not null
 #  updated_at                 :datetime         not null
 #  updater_id                 :integer
-#  validated_at               :datetime
 #
 
 require 'test_helper'
