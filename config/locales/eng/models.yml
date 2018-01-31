@@ -398,10 +398,13 @@ eng:
       tax_declaration_item: "Tax declaration item"
       tax_declaration_item_part: "Tax declaration item part"
       team: "Team"
+      # technical_itinerary: "Technical itinerary"
+      # technical_itinerary_intervention_template: "Technical itinerary intervention template"
       token: "Token"
       tracking: "Tracking"
       user: "User"
       version: "Version"
+      # wice_grid_serialized_query: "Wice grid serialized query"
       worker: "Worker"
       zone: "Zone"
   attributes:
@@ -650,6 +653,7 @@ eng:
     daily_nitrogen_production: "Daily nitrogen production"
     dashboards: "Dashboards"
     # data: "Data"
+    # day_between_intervention: "Day between intervention"
     dead: "Dead"
     dead_at: "Dead on"
     dead_line_at: "Dead line at"
@@ -848,6 +852,7 @@ eng:
     gradings: "Gradings" #?
     grains_yield: "Grains Yield"
     gravity: "Gravity"
+    # grid_name: "Grid name"
     gross_items_count: "Gross items count" #?
     gross_items_count_yield: "Gross item yield" #?
     gross_net_mass: "Gross mass" #?
@@ -939,7 +944,7 @@ eng:
     intervention_participations: "Intervention participations"
     intervention_product_parameters: "Intervention casts"
     intervention_template: "Intervention template"
-    # intervention_templates: "Intervention templates"
+    intervention_templates: "Intervention templates"
     interventions: "Interventions"
     interventions_used_in: "Interventions used in"
     intracommunity: "Intracommunity"
@@ -979,6 +984,7 @@ eng:
     items: "Items"
     items_count: "Items count"
     items_count_value: "Items count value"
+    # itinerary_templates: "Itinerary templates"
     journal: "Journal"
     journal_entries: "Journal entries"
     journal_entry: "Journal entry"
@@ -1305,6 +1311,7 @@ eng:
     purchase_item: "Purchase item" #?
     purchase_items: "Purchase items"
     purchase_natures: "Purchase types"
+    # purchase_order: "Purchase order"
     purchase_order_item: "Purchase order item"
     # purchase_orders: "Purchase orders"
     purchase_payments: "Purchase payments"
@@ -1554,6 +1561,9 @@ eng:
     tax_payability: "Tax payability"
     taxations: "Taxations"
     team: "Team"
+    # technical_itineraries: "Technical itineraries"
+    # technical_itinerary: "Technical itinerary"
+    # technical_itinerary_intervention_templates: "Technical itinerary intervention templates"
     template: "Template"
     theme: "Theme"
     theoretical_number: "Theoretical number" #?
