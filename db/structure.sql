@@ -2404,6 +2404,8 @@ CREATE TABLE journal_entry_items (
     absolute_debit numeric(19,4) DEFAULT 0.0 NOT NULL,
     absolute_credit numeric(19,4) DEFAULT 0.0 NOT NULL,
     absolute_currency character varying NOT NULL,
+    cumulated_absolute_debit numeric(19,4) DEFAULT 0.0 NOT NULL,
+    cumulated_absolute_credit numeric(19,4) DEFAULT 0.0 NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
     creator_id integer,
@@ -18620,6 +18622,4 @@ INSERT INTO schema_migrations (version) VALUES ('20180115145552');
 INSERT INTO schema_migrations (version) VALUES ('20180119140016');
 
 INSERT INTO schema_migrations (version) VALUES ('20180130103517');
-
-INSERT INTO schema_migrations (version) VALUES ('20180130145540');
 

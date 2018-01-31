@@ -22,49 +22,51 @@
 #
 # == Table: journal_entry_items
 #
-#  absolute_credit         :decimal(19, 4)   default(0.0), not null
-#  absolute_currency       :string           not null
-#  absolute_debit          :decimal(19, 4)   default(0.0), not null
-#  absolute_pretax_amount  :decimal(19, 4)   default(0.0), not null
-#  account_id              :integer          not null
-#  activity_budget_id      :integer
-#  balance                 :decimal(19, 4)   default(0.0), not null
-#  bank_statement_id       :integer
-#  bank_statement_letter   :string
-#  created_at              :datetime         not null
-#  creator_id              :integer
-#  credit                  :decimal(19, 4)   default(0.0), not null
-#  currency                :string           not null
-#  debit                   :decimal(19, 4)   default(0.0), not null
-#  description             :text
-#  entry_id                :integer          not null
-#  entry_number            :string           not null
-#  financial_year_id       :integer          not null
-#  id                      :integer          not null, primary key
-#  journal_id              :integer          not null
-#  letter                  :string
-#  lock_version            :integer          default(0), not null
-#  name                    :string           not null
-#  position                :integer
-#  pretax_amount           :decimal(19, 4)   default(0.0), not null
-#  printed_on              :date             not null
-#  real_balance            :decimal(19, 4)   default(0.0), not null
-#  real_credit             :decimal(19, 4)   default(0.0), not null
-#  real_currency           :string           not null
-#  real_currency_rate      :decimal(19, 10)  default(0.0), not null
-#  real_debit              :decimal(19, 4)   default(0.0), not null
-#  real_pretax_amount      :decimal(19, 4)   default(0.0), not null
-#  resource_id             :integer
-#  resource_prism          :string
-#  resource_type           :string
-#  state                   :string           not null
-#  tax_declaration_item_id :integer
-#  tax_declaration_mode    :string
-#  tax_id                  :integer
-#  team_id                 :integer
-#  updated_at              :datetime         not null
-#  updater_id              :integer
-#  variant_id              :integer
+#  absolute_credit           :decimal(19, 4)   default(0.0), not null
+#  absolute_currency         :string           not null
+#  absolute_debit            :decimal(19, 4)   default(0.0), not null
+#  absolute_pretax_amount    :decimal(19, 4)   default(0.0), not null
+#  account_id                :integer          not null
+#  activity_budget_id        :integer
+#  balance                   :decimal(19, 4)   default(0.0), not null
+#  bank_statement_id         :integer
+#  bank_statement_letter     :string
+#  created_at                :datetime         not null
+#  creator_id                :integer
+#  credit                    :decimal(19, 4)   default(0.0), not null
+#  cumulated_absolute_credit :decimal(19, 4)   default(0.0), not null
+#  cumulated_absolute_debit  :decimal(19, 4)   default(0.0), not null
+#  currency                  :string           not null
+#  debit                     :decimal(19, 4)   default(0.0), not null
+#  description               :text
+#  entry_id                  :integer          not null
+#  entry_number              :string           not null
+#  financial_year_id         :integer          not null
+#  id                        :integer          not null, primary key
+#  journal_id                :integer          not null
+#  letter                    :string
+#  lock_version              :integer          default(0), not null
+#  name                      :string           not null
+#  position                  :integer
+#  pretax_amount             :decimal(19, 4)   default(0.0), not null
+#  printed_on                :date             not null
+#  real_balance              :decimal(19, 4)   default(0.0), not null
+#  real_credit               :decimal(19, 4)   default(0.0), not null
+#  real_currency             :string           not null
+#  real_currency_rate        :decimal(19, 10)  default(0.0), not null
+#  real_debit                :decimal(19, 4)   default(0.0), not null
+#  real_pretax_amount        :decimal(19, 4)   default(0.0), not null
+#  resource_id               :integer
+#  resource_prism            :string
+#  resource_type             :string
+#  state                     :string           not null
+#  tax_declaration_item_id   :integer
+#  tax_declaration_mode      :string
+#  tax_id                    :integer
+#  team_id                   :integer
+#  updated_at                :datetime         not null
+#  updater_id                :integer
+#  variant_id                :integer
 #
 
 # What are the differents columns:
@@ -90,7 +92,7 @@ class JournalEntryItem < Ekylibre::Record::Base
   has_many :tax_declaration_item_parts, inverse_of: :journal_entry_item, dependent: :restrict_with_exception
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates :absolute_credit, :absolute_debit, :absolute_pretax_amount, :balance, :credit, :debit, :pretax_amount, :real_balance, :real_credit, :real_debit, :real_pretax_amount, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
+  validates :absolute_credit, :absolute_debit, :absolute_pretax_amount, :balance, :credit, :cumulated_absolute_credit, :cumulated_absolute_debit, :debit, :pretax_amount, :real_balance, :real_credit, :real_debit, :real_pretax_amount, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
   validates :absolute_currency, :account, :currency, :entry, :financial_year, :journal, :real_currency, presence: true
   validates :bank_statement_letter, :letter, :resource_prism, :resource_type, :tax_declaration_mode, length: { maximum: 500 }, allow_blank: true
   validates :description, length: { maximum: 500_000 }, allow_blank: true

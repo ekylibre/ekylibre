@@ -4019,6 +4019,16 @@ journal_entry_items:
     precision: 19
     scale: 4
     required: true
+  cumulated_absolute_credit:
+    type: decimal
+    precision: 19
+    scale: 4
+    required: true
+  cumulated_absolute_debit:
+    type: decimal
+    precision: 19
+    scale: 4
+    required: true
   currency:
     type: string
     required: true
