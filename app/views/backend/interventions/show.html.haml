@@ -69,7 +69,7 @@
       .big-info.cost.important
         %span.title= :total_cost.tl
         %span.value= resource.total_cost.round(currency.precision).l(currency: currency.name)
-        
+
   - if resource.product_parameters.any?
     - c.cobble(:parameters) do
       %ul.product_parameters= render partial: 'product_parameter', collection: resource.product_parameters.order(:type)

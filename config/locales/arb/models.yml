@@ -1707,6 +1707,7 @@ arb:
     intervention_participations: "المساهمات تدخل"
     intervention_product_parameters: "يلقي تدخل"
     # intervention_template: "Intervention template"
+    # intervention_templates: "Intervention templates"
     interventions: "التدخلات"
     interventions_used_in: "التدخلات المستخدمة في"
     # intracommunity: "Intracommunity"
