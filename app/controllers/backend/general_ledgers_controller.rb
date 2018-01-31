@@ -48,8 +48,6 @@ module Backend
       t.column :credit, currency: true, hidden: true, on_select: :sum
       t.column :absolute_debit,  currency: :absolute_currency, on_select: :sum
       t.column :absolute_credit, currency: :absolute_currency, on_select: :sum
-      t.column :cumulated_absolute_debit,  currency: :absolute_currency, on_select: :sum
-      t.column :cumulated_absolute_credit, currency: :absolute_currency, on_select: :sum
     end
 
     def show; end

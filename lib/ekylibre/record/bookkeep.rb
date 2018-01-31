@@ -86,7 +86,8 @@ module Ekylibre
             # Add journal items
             if condition && list.any? && @action != :destroy
               attributes[:items] = []
-              list.each do |cmd|
+
+              for cmd in list
                 direction = cmd.shift
                 unless %i[add_debit add_credit].include?(direction)
                   raise 'Can accept only add_debit and add_credit commands'
@@ -95,6 +96,7 @@ module Ekylibre
                 cmd[3][:credit] = true if direction == :add_credit
                 attributes[:items] << JournalEntryItem.new_for(*cmd)
               end
+
               attributes[:financial_year] = FinancialYear.at(attributes[:printed_on])
               attributes[:currency] = attributes[:financial_year].currency if attributes[:financial_year]
               attributes[:real_currency] = Journal.find(attributes[:journal_id]).currency
