@@ -6963,7 +6963,8 @@ CREATE TABLE technical_itinerary_intervention_templates (
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
     dont_divide_duration boolean DEFAULT false,
-    is_duplicate boolean DEFAULT false
+    reference_hash character varying,
+    parent_hash character varying
 );
 
 
@@ -18644,17 +18645,24 @@ INSERT INTO schema_migrations (version) VALUES ('20180115133706');
 
 INSERT INTO schema_migrations (version) VALUES ('20180115145552');
 
+<<<<<<< HEAD
 INSERT INTO schema_migrations (version) VALUES ('20180119140016');
 
 INSERT INTO schema_migrations (version) VALUES ('20180123140016');
 
 INSERT INTO schema_migrations (version) VALUES ('20180124104034');
 
+=======
+>>>>>>> f45e06188883b2aa0db33a61e3fc9c2c2ea4ffff
 INSERT INTO schema_migrations (version) VALUES ('20180125151829');
 
 INSERT INTO schema_migrations (version) VALUES ('20180125151830');
 
 INSERT INTO schema_migrations (version) VALUES ('20180125151831');
 
+<<<<<<< HEAD
 INSERT INTO schema_migrations (version) VALUES ('20180126095422');
+=======
+INSERT INTO schema_migrations (version) VALUES ('20180130100528');
+>>>>>>> f45e06188883b2aa0db33a61e3fc9c2c2ea4ffff
 
