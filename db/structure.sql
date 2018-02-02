@@ -3800,7 +3800,7 @@ CREATE TABLE intervention_template_product_parameters (
     product_nature_id integer,
     product_nature_variant_id integer,
     activity_id integer,
-    quantity integer,
+    quantity numeric,
     unit character varying,
     type character varying,
     procedure jsonb,
@@ -18689,6 +18689,8 @@ INSERT INTO schema_migrations (version) VALUES ('20180125151829');
 INSERT INTO schema_migrations (version) VALUES ('20180125151830');
 
 INSERT INTO schema_migrations (version) VALUES ('20180125151831');
+
+INSERT INTO schema_migrations (version) VALUES ('20180126095422');
 
 INSERT INTO schema_migrations (version) VALUES ('20180130100528');
 
