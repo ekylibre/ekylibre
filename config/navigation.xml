@@ -2258,6 +2258,9 @@
         <page to="backend/settlements#list_reception_items"/>
         <page to="backend/settlements#list_shipment_items"/>
       </item>
+      <item name="wice_grid_preferences">
+        <page to="backend/users/wice_grid_preferences#save_column"/>
+      </item>
       <item name="workers">
         <page to="backend/workers#list_reception_items"/>
         <page to="backend/workers#list_shipment_items"/>
