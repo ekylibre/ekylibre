@@ -35,6 +35,8 @@ class PlantDecorator < Draper::Decorator
                        .map{ |calibration| calibration.decorate.real_quantity(dimension).to_f * available_area.to_f }
                        .sum
 
+    return 0 if total_quantity == 0
+
     quantity.to_f / total_quantity.to_f * 100
   end
 

@@ -26,6 +26,7 @@
 #  absolute_currency          :string           not null
 #  absolute_debit             :decimal(19, 4)   default(0.0), not null
 #  balance                    :decimal(19, 4)   default(0.0), not null
+#  continuous_number          :integer
 #  created_at                 :datetime         not null
 #  creator_id                 :integer
 #  credit                     :decimal(19, 4)   default(0.0), not null
@@ -43,12 +44,14 @@
 #  real_currency              :string           not null
 #  real_currency_rate         :decimal(19, 10)  default(0.0), not null
 #  real_debit                 :decimal(19, 4)   default(0.0), not null
+#  reference_number           :string
 #  resource_id                :integer
 #  resource_prism             :string
 #  resource_type              :string
 #  state                      :string           not null
 #  updated_at                 :datetime         not null
 #  updater_id                 :integer
+#  validated_at               :datetime
 #
 
 require 'test_helper'

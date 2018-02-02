@@ -1081,6 +1081,14 @@ Rails.application.routes.draw do
       end
     end
 
+    namespace :users do
+      resources :wice_grid_preferences, only: [] do
+        collection do
+          post :save_column
+        end
+      end
+    end
+
     resources :tax_declarations, concerns: %i[list unroll], path: 'tax-declarations' do
       member do
         post :propose
