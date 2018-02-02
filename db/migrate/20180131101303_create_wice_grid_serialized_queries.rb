@@ -8,6 +8,6 @@ class CreateWiceGridSerializedQueries < ::ActiveRecord::Migration #:nodoc:
       t.timestamps
     end
     add_index :wice_grid_serialized_queries, :grid_name
-    add_index :wice_grid_serialized_queries, [:grid_name, :id]
+    add_index :wice_grid_serialized_queries, %i[grid_name id]
   end
 end

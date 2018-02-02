@@ -1,7 +1,7 @@
 class AddTypeToParcelItem < ActiveRecord::Migration
   def change
-  	add_column :parcel_items, :type, :string
-  	reversible do |dir|
+    add_column :parcel_items, :type, :string
+    reversible do |dir|
       dir.up do
         execute set_parcel_items_type_to_reception_item
         execute set_parcel_items_type_to_shipment_item

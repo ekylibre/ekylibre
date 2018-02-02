@@ -285,8 +285,8 @@ class Intervention < Ekylibre::Record::Base
   end
 
   before_save do
-    if self.receptions.any?
-      self.receptions.each{ |reception| reception.given_at = self.working_periods.first.started_at }
+    if receptions.any?
+      receptions.each { |reception| reception.given_at = working_periods.first.started_at }
     end
 
     columns = { name: name, started_at: started_at, stopped_at: stopped_at, nature: :production_intervention }
@@ -626,9 +626,7 @@ class Intervention < Ekylibre::Record::Base
   end
 
   def receptions_is_given?
-    if receptions.any?
-      return receptions.first.given?
-    end
+    return receptions.first.given? if receptions.any?
     false
   end
 

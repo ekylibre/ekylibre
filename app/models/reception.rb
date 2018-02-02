@@ -89,7 +89,6 @@ class Reception < Parcel
     self.state ||= :draft
   end
 
-
   # Remove previous items, only if we are in an intervention and if the purchase change(in callback)
   def remove_all_items
     items.where.not(id: nil).destroy_all
@@ -189,13 +188,9 @@ class Reception < Parcel
     in_accident
   end
 
-  def sender_full_name
-    sender.full_name
-  end
+  delegate :full_name, to: :sender, prefix: true
 
-  def purchase_order_number
-    purchase_order.number
-  end
+  delegate :number, to: :purchase_order, prefix: true
 
   def give
     state = true
