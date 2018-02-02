@@ -7822,6 +7822,9 @@ technical_itinerary_intervention_templates:
     required: true
   day_between_intervention:
     type: integer
+  dont_divide_duration:
+    type: boolean
+    default: false
   duration:
     type: integer
   id:
@@ -7830,8 +7833,12 @@ technical_itinerary_intervention_templates:
   intervention_template_id:
     type: integer
     references: intervention_template
+  parent_hash:
+    type: string
   position:
     type: integer
+  reference_hash:
+    type: string
   technical_itinerary_id:
     type: integer
     references: technical_itinerary
@@ -8051,17 +8058,3 @@ versions:
     type: text
   item_type:
     type: string
-wice_grid_serialized_queries:
-  created_at:
-    type: datetime
-  grid_name:
-    type: string
-  id:
-    type: integer
-    required: true
-  name:
-    type: string
-  query:
-    type: text
-  updated_at:
-    type: datetime
