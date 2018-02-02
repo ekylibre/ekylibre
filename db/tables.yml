@@ -3892,8 +3892,6 @@ journal_entries:
     precision: 19
     scale: 4
     required: true
-  continuous_number:
-    type: integer
   created_at:
     type: datetime
     required: true
@@ -3958,8 +3956,6 @@ journal_entries:
     precision: 19
     scale: 4
     required: true
-  reference_number:
-    type: string
   resource_id:
     type: integer
     references: "~resource_type"
@@ -3976,8 +3972,6 @@ journal_entries:
   updater_id:
     type: integer
     references: user
-  validated_at:
-    type: datetime
 journal_entry_items:
   absolute_credit:
     type: decimal
@@ -7828,6 +7822,9 @@ technical_itinerary_intervention_templates:
     required: true
   day_between_intervention:
     type: integer
+  dont_divide_duration:
+    type: boolean
+    default: false
   duration:
     type: integer
   id:
@@ -7836,8 +7833,12 @@ technical_itinerary_intervention_templates:
   intervention_template_id:
     type: integer
     references: intervention_template
+  parent_hash:
+    type: string
   position:
     type: integer
+  reference_hash:
+    type: string
   technical_itinerary_id:
     type: integer
     references: technical_itinerary
