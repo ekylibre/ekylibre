@@ -3566,7 +3566,7 @@ intervention_template_product_parameters:
     type: integer
     references: product_nature_variant
   quantity:
-    type: integer
+    type: decimal
   type:
     type: string
   unit:
@@ -3892,8 +3892,6 @@ journal_entries:
     precision: 19
     scale: 4
     required: true
-  continuous_number:
-    type: integer
   created_at:
     type: datetime
     required: true
@@ -3958,8 +3956,6 @@ journal_entries:
     precision: 19
     scale: 4
     required: true
-  reference_number:
-    type: string
   resource_id:
     type: integer
     references: "~resource_type"
@@ -3976,8 +3972,6 @@ journal_entries:
   updater_id:
     type: integer
     references: user
-  validated_at:
-    type: datetime
 journal_entry_items:
   absolute_credit:
     type: decimal
@@ -8064,3 +8058,17 @@ versions:
     type: text
   item_type:
     type: string
+wice_grid_serialized_queries:
+  created_at:
+    type: datetime
+  grid_name:
+    type: string
+  id:
+    type: integer
+    required: true
+  name:
+    type: string
+  query:
+    type: text
+  updated_at:
+    type: datetime
