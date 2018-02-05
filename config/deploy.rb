@@ -49,7 +49,7 @@ namespace :deploy do
   end
 
   before :updated, 'yarn:install'
-  #before :updated, 'yarn:build'
+  # before :updated, 'yarn:build'
 end
 
 namespace :yarn do
