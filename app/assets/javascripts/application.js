@@ -82,8 +82,8 @@
 //= require planning
 
 //= require vue
-//= require sortablejs/Sortable.min.js
-//= require vuedraggable/dist/vuedraggable.js
+//# require sortablejs/Sortable.min.js
+//# require vuedraggable/dist/vuedraggable.js
 
 var visualization = {};
 var mapeditor = {};
