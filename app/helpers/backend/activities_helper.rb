@@ -51,7 +51,7 @@ module Backend
                 .group(:product_id, :id)
                 .reorder('')
                 .to_a
-                .select{ |inspection| inspection.product.decorate.available_area.to_f != 0 }
+                .reject { |inspection| inspection.product.decorate.available_area.to_f == 0 }
 
       last_inspections = inspections
                          .where(product_id: grouped.map(&:product_id),

@@ -13,8 +13,8 @@ class PlantDecorator < Draper::Decorator
 
   def last_inspection_calibration_quantity(calibration_nature, dimension)
     calibration = last_inspection
-                    .calibrations
-                    .find_by(nature: calibration_nature)
+                  .calibrations
+                  .find_by(nature: calibration_nature)
 
     calibration.decorate.real_quantity(dimension).to_f * available_area.to_f
   end
@@ -30,10 +30,10 @@ class PlantDecorator < Draper::Decorator
   def last_inspection_calibration_percentage(calibration_nature, dimension)
     quantity = last_inspection_calibration_quantity(calibration_nature, dimension)
     total_quantity = last_inspection
-                       .calibrations
-                       .flatten
-                       .map{ |calibration| calibration.decorate.real_quantity(dimension).to_f * available_area.to_f }
-                       .sum
+                     .calibrations
+                     .flatten
+                     .map { |calibration| calibration.decorate.real_quantity(dimension).to_f * available_area.to_f }
+                     .sum
 
     return 0 if total_quantity == 0
 
@@ -53,12 +53,12 @@ class PlantDecorator < Draper::Decorator
     plant_population = object.initial_population
 
     sum_working_zone_area = object
-                              .interventions
-                              .where(procedure_name: :harvesting)
-                              .map{ |intervention| intervention.targets.with_working_zone }
-                              .flatten
-                              .map(&:working_zone_area)
-                              .sum
+                            .interventions
+                            .where(procedure_name: :harvesting)
+                            .map { |intervention| intervention.targets.with_working_zone }
+                            .flatten
+                            .map(&:working_zone_area)
+                            .sum
 
     return plant_population if sum_working_zone_area.in(unit_name) > plant_population.in(unit_name)
 

@@ -18686,15 +18686,15 @@ INSERT INTO schema_migrations (version) VALUES ('20180115145552');
 
 INSERT INTO schema_migrations (version) VALUES ('20180125151829');
 
-INSERT INTO schema_migrations (version) VALUES ('20180125151830');
-
-INSERT INTO schema_migrations (version) VALUES ('20180125151831');
-
-INSERT INTO schema_migrations (version) VALUES ('20180126095422');
-
-INSERT INTO schema_migrations (version) VALUES ('20180130100528');
-
 INSERT INTO schema_migrations (version) VALUES ('20180130103517');
 
-INSERT INTO schema_migrations (version) VALUES ('20180131101303');
+INSERT INTO schema_migrations (version) VALUES ('20180205120000');
+
+INSERT INTO schema_migrations (version) VALUES ('20180205120100');
+
+INSERT INTO schema_migrations (version) VALUES ('20180205120200');
+
+INSERT INTO schema_migrations (version) VALUES ('20180205120300');
+
+INSERT INTO schema_migrations (version) VALUES ('20180205120400');
 
