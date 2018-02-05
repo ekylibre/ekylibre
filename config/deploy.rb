@@ -48,8 +48,8 @@ namespace :deploy do
     end
   end
 
-#  before :updated, 'yarn:install'
-#  before :updated, 'yarn:build'
+  before :updated, 'yarn:install'
+  before :updated, 'yarn:build'
 end
 
 namespace :yarn do
