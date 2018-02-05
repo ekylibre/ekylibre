@@ -211,11 +211,7 @@ gem 'luhn'
 # For interval selector
 gem 'bootstrap-slider-rails'
 
-if ENV['RAILS_ENV'].nil? || ENV['RAILS_ENV'] == 'development'
-  gem 'planning', path: '../planning'
-else
-  gem 'planning', git: 'git@gitlab.com:ekylibre-integration/planning.git'
-end
+gem 'planning', git: 'git@gitlab.com:ekylibre-integration/planning.git'
 
 
 group :development do
