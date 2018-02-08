@@ -609,6 +609,7 @@ Rails.application.routes.draw do
       collection do
         get :select_type
         get :templates_of_activity
+        get :interventions_have_activities
       end
     end
 
