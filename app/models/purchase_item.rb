@@ -171,7 +171,7 @@ class PurchaseItem < Ekylibre::Record::Base
   end
 
   before_destroy do
-    parcels_purchase_invoice_items.map{ |parcel_item| parcel_item.update_attributes(purchase_invoice_item_id: nil) }
+    parcels_purchase_invoice_items.map { |parcel_item| parcel_item.update_attributes(purchase_invoice_item_id: nil) }
   end
 
   after_destroy do
@@ -306,16 +306,16 @@ class PurchaseItem < Ekylibre::Record::Base
   private
 
   def first_reception
-    return nil if self.parcels_purchase_invoice_items.empty? && self.parcels_purchase_orders_items.empty?
+    return nil if parcels_purchase_invoice_items.empty? && parcels_purchase_orders_items.empty?
 
-    parcel_item = self.parcels_purchase_invoice_items.first if self.purchase.is_a?(PurchaseInvoice)
-    parcel_item = self.parcels_purchase_orders_items.first if self.purchase.is_a?(PurchaseOrder)
+    parcel_item = parcels_purchase_invoice_items.first if purchase.is_a?(PurchaseInvoice)
+    parcel_item = parcels_purchase_orders_items.first if purchase.is_a?(PurchaseOrder)
 
     Parcel.find(parcel_item.parcel_id)
   end
 
   def receptions_count
-    return self.parcels_purchase_invoice_items.count if self.purchase.is_a?(PurchaseInvoice)
-    return self.parcels_purchase_orders_items.count if self.purchase.is_a?(PurchaseOrder)
+    return parcels_purchase_invoice_items.count if purchase.is_a?(PurchaseInvoice)
+    return parcels_purchase_orders_items.count if purchase.is_a?(PurchaseOrder)
   end
 end

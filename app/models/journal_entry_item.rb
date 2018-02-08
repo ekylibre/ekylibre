@@ -112,7 +112,7 @@ class JournalEntryItem < Ekylibre::Record::Base
 
   acts_as_list scope: :entry
 
-  after_destroy  :unmark
+  after_destroy :unmark
 
   scope :between, lambda { |started_at, stopped_at|
     where(printed_on: started_at..stopped_at)

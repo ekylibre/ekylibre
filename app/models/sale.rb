@@ -237,7 +237,6 @@ class Sale < Ekylibre::Record::Base
     # exchange undelivered invoice from parcel
     journal = unsuppress { Journal.used_for_unbilled_payables!(currency: self.currency) }
     b.journal_entry(journal, printed_on: invoiced_on, as: :undelivered_invoice, if: (with_accounting && invoice?)) do |entry|
-
       for parcel in parcels
         next unless parcel.undelivered_invoice_journal_entry
         label = tc(:exchange_undelivered_invoice, resource: parcel.class.model_name.human, number: parcel.number, entity: supplier.full_name, mode: parcel.nature.tl)

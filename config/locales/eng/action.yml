@@ -864,6 +864,8 @@ eng:
       edit: "Edit unreceived order: %{name}"
       index: "Unreceived orders"
       show: "Unreceived order: %{name}"
+    backend/users/wice_grid_preferences:
+      # save_column: "Save column wice grid preference: %{name}"
     backend/users:
       edit: "Edit user: %{first_name} %{last_name}"
       index: "Users"
@@ -2560,6 +2562,7 @@ eng:
       reset: "Reset"
       retrieve: "Retrieve"
       run: "Run"
+      # save_column: "Save column"
       # scrap: "Scrap"
       search: "Search" #?
       select: "Select"

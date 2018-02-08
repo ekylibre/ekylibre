@@ -82,7 +82,7 @@ class PurchaseOrder < Purchase
   }
   scope :of_supplier, ->(supplier) { where(supplier: supplier) }
 
-  scope :of_supplier, ->(supplier) { where(supplier: supplier)}
+  scope :of_supplier, ->(supplier) { where(supplier: supplier) }
 
   def self.third_attribute
     :supplier
@@ -136,10 +136,9 @@ class PurchaseOrder < Purchase
   end
 
   # this method generate a dataset for one purchase order
-  def order_reporting(options = {})
-
+  def order_reporting(_options = {})
     report = HashWithIndifferentAccess.new
-    supplier_email = supplier.addresses.where(canal:'email')
+    supplier_email = supplier.addresses.where(canal: 'email')
 
     report[:purchase_number] = reference_number
     report[:purchase_ordered_at] = ordered_at.l(format: '%d/%m/%Y') if ordered_at.present?
@@ -167,7 +166,5 @@ class PurchaseOrder < Purchase
     report[:purchase_pretax_amount] = pretax_amount
     report[:purchase_currency] = Nomen::Currency.find(currency).symbol
     report
-
   end
-
 end

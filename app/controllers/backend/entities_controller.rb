@@ -208,8 +208,8 @@ module Backend
       t.column :bank_check_number, hidden: true
       t.column :amount, currency: true, url: true
       t.column :entities_bank_statement_number,
-        through: :journal_entry,
-        label: :bank_reconciliation
+               through: :journal_entry,
+               label: :bank_reconciliation
     end
 
     list(:receptions, conditions: { sender_id: 'params[:id]'.c }, per_page: 5, order: { created_at: :desc }, line_class: :status) do |t|

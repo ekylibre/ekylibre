@@ -613,6 +613,9 @@ Rails.application.routes.draw do
     end
 
     resources :technical_itineraries, concerns: :list do
+      collection do
+        post :duplicate_intervention
+      end
     end
 
     namespace :interventions do
@@ -1075,6 +1078,14 @@ Rails.application.routes.draw do
       member do
         post :lock
         post :unlock
+      end
+    end
+
+    namespace :users do
+      resources :wice_grid_preferences, only: [] do
+        collection do
+          post :save_column
+        end
       end
     end
 

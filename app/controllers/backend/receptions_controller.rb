@@ -108,7 +108,6 @@ module Backend
       t.column :analysis, url: true, through: :parcel_item
     end
 
-
     def new
       @reception = Reception.new
       render locals: { with_continue: true }

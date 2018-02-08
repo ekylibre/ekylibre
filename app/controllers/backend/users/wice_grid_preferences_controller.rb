@@ -1,6 +1,6 @@
 # == License
 # Ekylibre - Simple agricultural ERP
-# Copyright (C) 2012-2013 David Joulin, Brice Texier
+# Copyright (C) 2014 Sebastien Gauvrit, Brice Texier
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -17,20 +17,24 @@
 #
 
 module Backend
-  class MattersController < Backend::ProductsController
-    list(conditions: list_conditions) do |t|
-      t.action :edit
-      t.action :destroy, if: :destroyable?
-      t.column :number, url: true
-      t.column :work_number
-      t.column :name, url: true
-      t.column :variant, url: true
-      t.column :variety
-      t.column :population
-      t.column :unit_name
-      t.column :container, url: true
-      t.column :description
-      t.column :derivative_of
+  module Users
+    class WiceGridPreferencesController < Backend::BaseController
+      def save_column
+        name = permitted_params[:name]
+        value = permitted_params[:value]
+
+        Preference.set!(name, value)
+
+        respond_to do |format|
+          format.json { render json: Preference.get(name).to_json }
+        end
+      end
+
+      private
+
+      def permitted_params
+        params.require(:preference).permit(:name, :value, :nature)
+      end
     end
   end
 end

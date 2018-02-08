@@ -947,6 +947,7 @@ ita:
     intervention_participations: "Partecipazioni di intervento"
     intervention_product_parameters: "calchi di intervento"
     # intervention_template: "Intervention template"
+    # intervention_templates: "Intervention templates"
     interventions: "interventi"
     interventions_used_in: "Interventi utilizzato in"
     intracommunity: "Intracomunitario"

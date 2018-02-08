@@ -80,7 +80,10 @@
 //= require tour
 //= require bootstrap-slider
 //= require planning
+
 //= require vue
+//= require sortablejs/Sortable.min.js
+//= require vuedraggable/dist/vuedraggable.js
 
 var visualization = {};
 var mapeditor = {};

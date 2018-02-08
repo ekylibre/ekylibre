@@ -122,10 +122,10 @@ module Backend
     def new
       nature = PurchaseNature.by_default
       @purchase_invoice = if params[:duplicate_of]
-                          PurchaseInvoice.find_by(id: params[:duplicate_of])
-                            .deep_clone(include: :items, except: %i[state number affair_id reference_number payment_delay])
-                  else
-                    PurchaseInvoice.new(nature: nature)
+                            PurchaseInvoice.find_by(id: params[:duplicate_of])
+                                           .deep_clone(include: :items, except: %i[state number affair_id reference_number payment_delay])
+                          else
+                            PurchaseInvoice.new(nature: nature)
                   end
       @purchase_invoice.currency = @purchase_invoice.nature.currency
       @purchase_invoice.responsible ||= current_user

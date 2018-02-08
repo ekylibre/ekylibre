@@ -1,7 +1,7 @@
 require 'test_helper'
 module Backend
-  module Interventions
-    class CostsControllerTest < ActionController::TestCase
+  module Users
+    class WiceGridPreferencesControllerTest < ActionController::TestCase
       test_restfully_all_actions
     end
   end

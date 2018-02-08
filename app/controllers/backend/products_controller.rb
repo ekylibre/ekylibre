@@ -173,7 +173,7 @@ module Backend
     end
 
     # Lists parcel items of the current product
-    list(:reception_items, model: :parcel_item_storings, joins: :parcel_item, conditions: { product_id: 'params[:id]'.c }, order: { created_at: :desc}) do |t|
+    list(:reception_items, model: :parcel_item_storings, joins: :parcel_item, conditions: { product_id: 'params[:id]'.c }, order: { created_at: :desc }) do |t|
       t.column :reception, label_method: :reception_number, url: { controller: :receptions, id: 'RECORD.parcel_item.parcel_id'.c }
       t.column :nature, label_method: :reception_nature
       t.column :given_at, label_method: :reception_given_at, datatype: :datetime
