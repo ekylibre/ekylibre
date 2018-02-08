@@ -1322,16 +1322,16 @@
         <page to="backend/teams#unroll"/>
         <page to="backend/teams#update"/>
       </item>
-      <item name="budgets">
-        <page to="backend/budgets#index"/>
-        <page to="backend/budgets#create"/>
-        <page to="backend/budgets#destroy"/>
-        <page to="backend/budgets#edit"/>
-        <page to="backend/budgets#list"/>
-        <page to="backend/budgets#new"/>
-        <page to="backend/budgets#show"/>
-        <page to="backend/budgets#unroll" nonexistent="true"/>
-        <page to="backend/budgets#update"/>
+      <item name="project_budgets">
+        <page to="backend/project_budgets#index"/>
+        <page to="backend/project_budgets#create"/>
+        <page to="backend/project_budgets#destroy"/>
+        <page to="backend/project_budgets#edit"/>
+        <page to="backend/project_budgets#list"/>
+        <page to="backend/project_budgets#new"/>
+        <page to="backend/project_budgets#show"/>
+        <page to="backend/project_budgets#unroll"/>
+        <page to="backend/project_budgets#update"/>
       </item>
       <item name="about">
         <page to="backend/settings#about"/>

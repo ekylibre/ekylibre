@@ -1,8 +1,8 @@
 module Backend
-  class BudgetsController < Backend::BaseController
+  class ProjectBudgetsController < Backend::BaseController
     manage_restfully
 
-    # unroll
+    unroll
 
     list(order: :name) do |t|
       t.action :edit

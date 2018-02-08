@@ -20,7 +20,7 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
-# == Table: budgets
+# == Table: project_budgets
 #
 #  created_at  :datetime         not null
 #  description :text
@@ -30,8 +30,6 @@
 #
 require 'test_helper'
 
-class BudgetTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+class ProjectBudgetTest < ActiveSupport::TestCase
+  # Add tests here...
 end

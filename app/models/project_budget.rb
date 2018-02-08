@@ -20,16 +20,16 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
-# == Table: budgets
+# == Table: project_budgets
 #
 #  created_at  :datetime         not null
 #  description :text
 #  id          :integer          not null, primary key
 #  name        :string
-#  parent_id   :integer
 #  updated_at  :datetime         not null
 #
-class Budget < Ekylibre::Record::Base
+class ProjectBudget < Ekylibre::Record::Base
   validates :name, presence: true
-
+  has_many :purchase_items
+  has_many :reception_items, class_name: 'ParcelItem', foreign_key: :project_budget_id
 end

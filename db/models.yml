@@ -22,7 +22,6 @@
 - bank_statement
 - bank_statement_item
 - bioproduct
-- budget
 - building
 - building_division
 - call
@@ -151,6 +150,7 @@
 - product_phase
 - product_population
 - product_reading
+- project_budget
 - purchase
 - purchase_affair
 - purchase_gap

@@ -107,11 +107,6 @@ eng:
       show: "Bank statement #%{number}"
     backend/beehives:
       reset: "Reset beehive: %{name}"
-    backend/budgets:
-      # edit: "Edit budget: %{name}"
-      # index: "Budgets"
-      # new: "New budget"
-      # show: "Budget: %{name}"
     backend/building_divisions:
       edit: "Edit building division: %{name}"
       # edit_many: "Edit many building division: %{name}"
@@ -651,6 +646,11 @@ eng:
       show: "%{nature}: %{name}"
       # take: "Take product: %{name}"
       # update_many: "Update many product: %{name}"
+    backend/project_budgets:
+      # edit: "Edit project budget: %{name}"
+      # index: "Project budgets"
+      # new: "New project budget"
+      # show: "Project budget: %{name}"
     backend/purchase_affairs:
       # attach: "Attach purchase affair: %{name}"
       # detach: "Detach purchase affair: %{name}"
