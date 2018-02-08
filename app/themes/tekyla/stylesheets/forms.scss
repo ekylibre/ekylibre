@@ -397,7 +397,13 @@ div.nested-fields {
   }
 }
 
-.errors-messages {
-  list-style: disc;
-  padding-left: 2em;
+.form-errors {
+  .errors-messages {
+    list-style: disc;
+    padding-left: 2em;
+  }
+
+  .close {
+    font-size: 16px !important;
+  }
 }
