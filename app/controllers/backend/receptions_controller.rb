@@ -49,11 +49,11 @@ module Backend
       code << "    c << params[:delivery_mode]\n"
       code << "  end\n"
       code << "end\n"
-      # code << "if params[:invoice_status] && params[:invoice_status] == 'invoiced'\n"
-      # code << "  c[0] << ' AND (#{Reception.table_name}.purchase_id IS NOT NULL OR #{Reception.table_name}.sale_id IS NOT NULL) '\n"
-      # code << "elsif params[:invoice_status] && params[:invoice_status] == 'uninvoiced'\n"
-      # code << "  c[0] << ' AND (#{Reception.table_name}.purchase_id IS NULL AND #{Reception.table_name}.sale_id IS NULL) '\n"
-      # code << "end\n"
+      code << "if params[:invoice_status] && params[:invoice_status] == 'invoiced'\n"
+      code << "  c[0] << ' AND (#{Reception.table_name}.purchase_id IS NOT NULL OR #{Reception.table_name}.sale_id IS NOT NULL) '\n"
+      code << "elsif params[:invoice_status] && params[:invoice_status] == 'uninvoiced'\n"
+      code << "  c[0] << ' AND (#{Reception.table_name}.purchase_id IS NULL AND #{Reception.table_name}.sale_id IS NULL) '\n"
+      code << "end\n"
       code << "c\n"
       code.c
     end
