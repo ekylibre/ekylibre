@@ -13,25 +13,25 @@ if defined?(Wice::WiceGrid) && defined?(Draper::CollectionDecorator) && defined?
   end
 
   module DraperCollectionWiceGridSupport
-    active_record_methods = [
-      :columns,
-      :connection,
-      :merge_conditions,
-      :page,
-      :table_name,
-      :unscoped,
-      :where
+    active_record_methods = %i[
+      columns
+      connection
+      merge_conditions
+      page
+      table_name
+      unscoped
+      where
     ]
     delegate *active_record_methods, to: :klass
 
-    active_record_relation_methods = [
-      :current_page,
-      :last_page?,
-      :limit_value,
-      :num_pages,
-      :offset_value,
-      :total_count,
-      :total_pages
+    active_record_relation_methods = %i[
+      current_page
+      last_page?
+      limit_value
+      num_pages
+      offset_value
+      total_count
+      total_pages
     ]
 
     delegate *active_record_relation_methods, to: :object

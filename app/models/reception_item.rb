@@ -98,14 +98,12 @@ class ReceptionItem < ParcelItem
         end
       end
     end
-    if pretax_amount_changed?
-      reception.save
-    end
+    reception.save if pretax_amount_changed?
   end
 
-  #protect(allow_update_on: ALLOWED, on: %i[create destroy update]) do
+  # protect(allow_update_on: ALLOWED, on: %i[create destroy update]) do
   #  !reception_allow_items_update?
-  #end
+  # end
 
   def prepared?
     variant.present?

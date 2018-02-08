@@ -916,6 +916,7 @@ cmn:
     intervention_participations: "干预参股"
     intervention_product_parameters: "干预铸件"
     # intervention_template: "Intervention template"
+    # intervention_templates: "Intervention templates"
     interventions: "干预"
     interventions_used_in: "干预中使用"
     intracommunity: "社区内"

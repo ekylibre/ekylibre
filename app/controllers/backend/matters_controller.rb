@@ -18,7 +18,6 @@
 
 module Backend
   class MattersController < Backend::ProductsController
-
     list(conditions: list_conditions) do |t|
       t.action :edit
       t.action :destroy, if: :destroyable?

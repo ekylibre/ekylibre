@@ -1,8 +1,6 @@
 class ImplementSingleTableInheritanceToParcels < ActiveRecord::Migration
   def change
-    unless column_exists? :parcels, :type
-      add_column :parcels, :type, :string
-    end
+    add_column :parcels, :type, :string unless column_exists? :parcels, :type
 
     reversible do |dir|
       dir.up do

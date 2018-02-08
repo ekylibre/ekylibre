@@ -75,7 +75,7 @@ fra:
       incoming_payment: #?
         to_bank_at: "À encaisser le" #?
       inspection: #?
-        forecast_harvest_week: "Semaine de récolte prévisionnelle"
+        forecast_harvest_week: "Semaine de récolte prévisionnelle" #?
         points: "Points de contrôle" #?
       inspection_calibration: #?
         items_count: "Nombre de pièces" #?
@@ -1151,6 +1151,7 @@ fra:
     intervention_participations: "Participations d’intervention"
     intervention_product_parameters: "Casting"
     # intervention_template: "Intervention template"
+    # intervention_templates: "Intervention templates"
     interventions: "Interventions"
     interventions_used_in: "Interventions utilisées dans"
     intracommunity: "Intracommunautaire"
@@ -1187,7 +1188,6 @@ fra:
     item_type: "Type de l’élément"
     item_value: "Valeur de l’élément"
     items: "Élements"
-    services: Services
     items_count: "Nombre d’éléments"
     items_count_value: "Articles comptent valeur"
     journal: "Journal"
@@ -1694,6 +1694,7 @@ fra:
     separated_stock: "Ne pas fusionner avec les stocks existants"
     serial: "N°Lot"
     serial_number: "Serial number"
+    services: "Services" #?
     sessions: "Sessions"
     shape: "Forme"
     shift_duration: "Durée du différé"

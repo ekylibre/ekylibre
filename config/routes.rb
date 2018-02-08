@@ -613,6 +613,9 @@ Rails.application.routes.draw do
     end
 
     resources :technical_itineraries, concerns: :list do
+      collection do
+        post :duplicate_intervention
+      end
     end
 
     namespace :interventions do

@@ -916,6 +916,7 @@ por:
     intervention_participations: "Participações de intervenção"
     intervention_product_parameters: "Elencos de intervenção"
     # intervention_template: "Intervention template"
+    # intervention_templates: "Intervention templates"
     interventions: "Intervenções"
     interventions_used_in: "Utilizado em intervenções"
     intracommunity: "Intracomunitário"
