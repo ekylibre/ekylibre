@@ -107,6 +107,11 @@ eng:
       show: "Bank statement #%{number}"
     backend/beehives:
       reset: "Reset beehive: %{name}"
+    backend/budgets:
+      # edit: "Edit budget: %{name}"
+      # index: "Budgets"
+      # new: "New budget"
+      # show: "Budget: %{name}"
     backend/building_divisions:
       edit: "Edit building division: %{name}"
       # edit_many: "Edit many building division: %{name}"

@@ -229,6 +229,7 @@ eng:
       bank_statement: "Bank statement"
       bank_statement_item: "Bank statement row"
       bioproduct: "Living product"
+      # budget: "Budget"
       building: "Building"
       building_division: "Room / Zone"
       call: "Call"

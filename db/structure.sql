@@ -1246,6 +1246,38 @@ ALTER SEQUENCE bank_statements_id_seq OWNED BY bank_statements.id;
 
 
 --
+-- Name: budgets; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE budgets (
+    id integer NOT NULL,
+    name character varying,
+    description text,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: budgets_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE budgets_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: budgets_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE budgets_id_seq OWNED BY budgets.id;
+
+
+--
 -- Name: call_messages; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -7332,6 +7364,13 @@ ALTER TABLE ONLY bank_statements ALTER COLUMN id SET DEFAULT nextval('bank_state
 
 
 --
+-- Name: budgets id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY budgets ALTER COLUMN id SET DEFAULT nextval('budgets_id_seq'::regclass);
+
+
+--
 -- Name: call_messages id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -8441,6 +8480,14 @@ ALTER TABLE ONLY bank_statement_items
 
 ALTER TABLE ONLY bank_statements
     ADD CONSTRAINT bank_statements_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: budgets budgets_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY budgets
+    ADD CONSTRAINT budgets_pkey PRIMARY KEY (id);
 
 
 --
@@ -18697,4 +18744,6 @@ INSERT INTO schema_migrations (version) VALUES ('20180205120200');
 INSERT INTO schema_migrations (version) VALUES ('20180205120300');
 
 INSERT INTO schema_migrations (version) VALUES ('20180205120400');
+
+INSERT INTO schema_migrations (version) VALUES ('20180208075145');
 

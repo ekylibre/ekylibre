@@ -974,6 +974,23 @@ bank_statements:
   updater_id:
     type: integer
     references: user
+budgets:
+  created_at:
+    type: datetime
+    required: true
+  description:
+    type: text
+  id:
+    type: integer
+    required: true
+  name:
+    type: string
+  parent_id:
+    type: integer
+    references: budget
+  updated_at:
+    type: datetime
+    required: true
 call_messages:
   body:
     type: text

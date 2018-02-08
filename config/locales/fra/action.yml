@@ -82,6 +82,9 @@ fra:
       show: "Relevé de compte N°%{number}"
     backend/beehives:
       reset: "Ré-initialiser la cellule: %{name}"
+    backend/budgets: #?
+      index: "Budgets " #?
+      new: "Nouveau budget" #?
     backend/building_divisions:
       edit: "Modifier la zone\_: %{name}"
       index: "Zones de bâtiments"

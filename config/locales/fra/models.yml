@@ -593,7 +593,7 @@ fra:
     active_sessions: "Sessions actives"
     activities: "Activités"
     activity: "Activité"
-    activity_budget: "Budget"
+    activity_budget: "Activité"
     activity_budgets: "Budgets"
     activity_code: "Code APE/NAF"
     activity_distributions: "Répartitions entre activités"
