@@ -50,13 +50,14 @@ module Backend
       code << "  end\n"
       code << "end\n"
       code << "if params[:invoice_status] && params[:invoice_status] == 'invoiced'\n"
-      code << "  c[0] << ' AND (#{Reception.table_name}.purchase_id IS NOT NULL OR #{Reception.table_name}.sale_id IS NOT NULL) '\n"
+      code << "   c[0] << ' AND #{Reception.table_name}.id IN (SELECT parcel_id FROM #{ReceptionItem.table_name} WHERE #{ReceptionItem.table_name}.type = \\'ReceptionItem\\' AND #{ReceptionItem.table_name}.purchase_invoice_item_id IS NOT NULL)'\n"
       code << "elsif params[:invoice_status] && params[:invoice_status] == 'uninvoiced'\n"
-      code << "  c[0] << ' AND (#{Reception.table_name}.purchase_id IS NULL AND #{Reception.table_name}.sale_id IS NULL) '\n"
+      code << "   c[0] << ' AND #{Reception.table_name}.id IN (SELECT parcel_id FROM #{ReceptionItem.table_name} WHERE #{ReceptionItem.table_name}.type = \\'ReceptionItem\\' AND #{ReceptionItem.table_name}.purchase_invoice_item_id IS NULL)'\n"
       code << "end\n"
       code << "c\n"
       code.c
     end
+
 
     list(conditions: receptions_conditions, order: { planned_at: :desc }) do |t|
       t.action :edit, if: :updateable?
