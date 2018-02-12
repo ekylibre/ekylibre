@@ -49,7 +49,7 @@
 = cobbles do |c|
 
   - c.cobble(:production_costs, title: :production_costs.tl) do
-    = render partial: 'production_costs', locals: { costs: resource.decorate.production_costs }
+    = render partial: 'backend/shared/production_costs', locals: { costs: resource.decorate.production_costs }
 
   - if resource.intervention_product_parameters.any?
     - c.cobble(:intervention_product_parameters, title: :x_interventions.tl(count: resource.interventions.count)) do
