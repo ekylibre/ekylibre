@@ -610,6 +610,9 @@ Rails.application.routes.draw do
         get :select_type
         get :templates_of_activity
       end
+      member do
+        get :list_technical_itineraries
+      end
     end
 
     resources :technical_itineraries, concerns: :list do
