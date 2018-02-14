@@ -31,7 +31,7 @@ module Backend
 
         results = ::Products::SearchVariantByExpressionQuery.call(relation, scope, input_text, max)
 
-        render json: results.map{ |result| { id: result.id, label: result.name.upcase }}
+        render json: results.map{ |result| { id: result.id, label: result.name.mb_chars.upcase }}
       end
 
       private
