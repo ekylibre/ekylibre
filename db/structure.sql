@@ -6946,7 +6946,9 @@ CREATE TABLE technical_itineraries (
     activity_id integer,
     description character varying,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    creator_id integer,
+    updater_id integer
 );
 
 
@@ -18786,4 +18788,6 @@ INSERT INTO schema_migrations (version) VALUES ('20180208100753');
 INSERT INTO schema_migrations (version) VALUES ('20180208102339');
 
 INSERT INTO schema_migrations (version) VALUES ('20180212101905');
+
+INSERT INTO schema_migrations (version) VALUES ('20180214161529');
 
