@@ -8,6 +8,22 @@ class InterventionDecorator < Draper::Decorator
       .sum
   end
 
+  def activity_production_targets(activity_production)
+    object
+      .targets
+      .select{ |target| target.product.activity_production_id == activity_production.id }
+  end
+
+  def sum_activity_production_working_zone_area(activity_production)
+    activity_production_targets(activity_production)
+      .map(&:working_zone_area)
+      .compact
+      .sum
+      .in(:hectare)
+      .round(2)
+      .to_f
+  end
+
   def many_targets?
     object.targets.count > 1
   end

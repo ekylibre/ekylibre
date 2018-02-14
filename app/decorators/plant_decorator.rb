@@ -34,6 +34,16 @@ class PlantDecorator < Draper::Decorator
     }
   end
 
+  def global_costs
+    {
+      total: total_global_costs,
+      inputs: interventions_inputs_global_cost,
+      doers: interventions_doers_global_cost,
+      tools: interventions_tools_global_cost,
+      receptions: interventions_receptions_global_cost
+    }
+  end
+
   def total_global_costs
     total_costs(:global)
   end
