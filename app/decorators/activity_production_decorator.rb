@@ -20,7 +20,7 @@ class ActivityProductionDecorator < Draper::Decorator
   end
 
   def cultivated_hectare_costs(costs)
-    divider_costs(costs, object.net_surface_area.to_d)
+    divider_costs(costs, object.net_surface_area.in(:hectare).round(2).to_d)
     total_costs(costs)
 
     costs
