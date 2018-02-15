@@ -13,8 +13,12 @@
 
 = main_informations attachment: true do
   .med-info.important
+    %span.title= :net_surface_area.tl
+    %span.value= resource.decorate.human_net_surface_area
+
+  .med-info.important
     %span.title= :working_area.tl
-    %span.value= resource.decorate.working_zone_area
+    %span.value= resource.decorate.human_working_zone_area
 
   = attributes_list do |l|
     - l.attribute :production_system

@@ -32,10 +32,33 @@ class ActivityDecorator < Draper::Decorator
     end
 
     working_zone
+  end
+
+  def human_working_zone_area
+    working_zone_area
       .in(:hectare)
       .round(3)
       .l
   end
+
+  def net_surface_area
+    activity_productions = decorated_activity_productions
+    surface_area = 0.in(:hectare)
+
+    activity_productions.each do |activity_production|
+      surface_area += activity_production.net_surface_area
+    end
+
+    surface_area
+  end
+
+  def human_net_surface_area
+    net_surface_area
+      .in(:hectare)
+      .round(3)
+      .l
+  end
+
 
   private
 
@@ -61,7 +84,7 @@ class ActivityDecorator < Draper::Decorator
                             .productions
                             .of_current_campaigns
 
-    ActivityProductionDecorator.decorate_collection(object.productions)
+    ActivityProductionDecorator.decorate_collection(activity_productions)
   end
 
   def calcul_global_costs

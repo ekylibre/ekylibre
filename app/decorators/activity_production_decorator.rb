@@ -59,6 +59,24 @@ class ActivityProductionDecorator < Draper::Decorator
       .l
   end
 
+  def working_zone_area
+    interventions = decorated_interventions
+    working_zone = 0.in(:hectare)
+
+    interventions.each do |intervention|
+      working_zone += intervention_working_zone_area(intervention)
+    end
+
+    working_zone
+  end
+
+  def human_working_zone_area
+    working_zone_area
+      .in(:hectare)
+      .round(3)
+      .l
+  end
+
 
   private
 
