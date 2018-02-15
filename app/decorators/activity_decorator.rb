@@ -1,16 +1,8 @@
 class ActivityDecorator < Draper::Decorator
   delegate_all
 
-  def production_costs
-    calcul_productions_costs
-  end
-
-  def global_costs
-    calcul_global_costs
-  end
-
-  def human_global_costs
-    human_costs(global_costs)
+  def production_costs(current_campaign)
+    calcul_productions_costs(current_campaign)
   end
 
   def sum_interventions_working_zone_area
@@ -23,8 +15,8 @@ class ActivityDecorator < Draper::Decorator
       .to_d
   end
 
-  def working_zone_area
-    activity_productions = decorated_activity_productions
+  def working_zone_area(current_campaign)
+    activity_productions = decorated_activity_productions(current_campaign)
     working_zone = 0.in(:hectare)
 
     activity_productions.each do |activity_production|
@@ -34,15 +26,15 @@ class ActivityDecorator < Draper::Decorator
     working_zone
   end
 
-  def human_working_zone_area
-    working_zone_area
+  def human_working_zone_area(current_campaign)
+    working_zone_area(current_campaign)
       .in(:hectare)
       .round(3)
       .l
   end
 
-  def net_surface_area
-    activity_productions = decorated_activity_productions
+  def net_surface_area(current_campaign)
+    activity_productions = decorated_activity_productions(current_campaign)
     surface_area = 0.in(:hectare)
 
     activity_productions.each do |activity_production|
@@ -52,8 +44,8 @@ class ActivityDecorator < Draper::Decorator
     surface_area
   end
 
-  def human_net_surface_area
-    net_surface_area
+  def human_net_surface_area(current_campaign)
+    net_surface_area(current_campaign)
       .in(:hectare)
       .round(3)
       .l
@@ -79,30 +71,17 @@ class ActivityDecorator < Draper::Decorator
     costs.each { |key, value| costs[key] = costs[key].to_f.round(2) }
   end
 
-  def decorated_activity_productions
+  def decorated_activity_productions(current_campaign)
     activity_productions = object
                             .productions
-                            .of_current_campaigns
+                            .of_campaign(current_campaign)
 
     ActivityProductionDecorator.decorate_collection(activity_productions)
   end
 
-  def calcul_global_costs
-    costs = { total: 0, inputs: 0, doers: 0, tools: 0, receptions: 0 }
-    activity_productions = decorated_activity_productions
-
-    activity_productions.each do |activity_production|
-      activity_production_costs = activity_production.global_costs
-
-      sum_costs(costs, activity_production_costs)
-    end
-
-    costs
-  end
-
-  def calcul_productions_costs
+  def calcul_productions_costs(current_campaign)
     costs = new_productions_costs_hash
-    activity_productions = decorated_activity_productions
+    activity_productions = decorated_activity_productions(current_campaign)
     sum_surface_area = 0.in(:hectare)
     sum_parameters_cultivated_hectare = { total: 0, inputs: 0, doers: 0, tools: 0, receptions: 0 }
 
