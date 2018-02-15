@@ -81,6 +81,7 @@
 - integration
 - intervention
 - intervention_agent
+- intervention_cost
 - intervention_doer
 - intervention_group_parameter
 - intervention_input

@@ -68,6 +68,7 @@ class Intervention < Ekylibre::Record::Base
   belongs_to :prescription
   belongs_to :journal_entry, dependent: :destroy
   belongs_to :purchase
+  belongs_to :costs, class_name: 'InterventionCosts', foreign_key: :intervention_costs_id
   has_many :receptions, class_name: 'Reception', dependent: :destroy
   has_many :labellings, class_name: 'InterventionLabelling', dependent: :destroy, inverse_of: :intervention
   has_many :labels, through: :labellings
@@ -322,6 +323,11 @@ class Intervention < Ekylibre::Record::Base
     end
     participations.update_all(state: state) unless state == :in_progress
     participations.update_all(request_compliant: request_compliant) if request_compliant
+
+    costs.update_attributes(inputs_cost: inputs.map(&:cost).compact.sum,
+                            doers_cost: doers.map(&:cost).compact.sum,
+                            tools_cost: tools.map(&:cost).compact.sum,
+                            receptions_cost: receptions_cost.to_f.round(2))
   end
 
   after_create do

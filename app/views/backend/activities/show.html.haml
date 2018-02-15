@@ -68,6 +68,9 @@
           - v.control :fullscreen
           - v.control :layer_selector
 
+  - c.cobble(:production_costs, title: :production_costs.tl) do
+    = render partial: 'backend/shared/production_costs', locals: { costs: resource.decorate.production_costs }
+
   - if resource.with_supports
     - c.cobble(:productions) do
       = render 'productions'
