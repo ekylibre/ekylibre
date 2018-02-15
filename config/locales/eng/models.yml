@@ -288,6 +288,7 @@ eng:
       integration: "Integration"
       intervention: "Intervention"
       intervention_agent: "Intervention agent"
+      # intervention_costs: "Intervention costs"
       intervention_doer: "Intervention doer"
       intervention_group_parameter: "Intervention group parameter"
       intervention_input: "Intervention input"
@@ -610,6 +611,7 @@ eng:
     contracts: "Contracts"
     coordinate: "Coordinate"
     coordinate_columns: "Coordinate columns"
+    # costs: "Costs"
     costs_per_unit: "Costs per %{unit}" #?
     country: "Country"
     created_at: "Created at"
@@ -718,6 +720,7 @@ eng:
     document: "Document"
     documents: "Documents"
     doers: "Doers"
+    # doers_cost: "Doers cost"
     # dont_divide_duration: "Dont divide duration"
     downpayment: "Downpayment"
     downpayment_amount: "Downpayment amount"
@@ -917,6 +920,7 @@ eng:
     initialization_vectors: "Initialization vectors"
     initiated_on: "Initiated on"
     inputs: "Inputs"
+    # inputs_cost: "Inputs cost"
     inspection: "Inspection"
     inspection_calibration_natures: "Inspection calibration types"
     inspection_calibration_scales: "Inspection calibration scales"
@@ -1353,6 +1357,7 @@ eng:
     # reception_items: "Reception items"
     reception_journal_entry: "Reception journal entry"
     receptions: "Receptions"
+    # receptions_cost: "Receptions cost"
     recipient: "Recipient"
     recommended: "Recommended" #?
     recommender: "Recommender"
@@ -1584,6 +1589,7 @@ eng:
     token: "Token"
     tool: "Tool"
     tools: "Tools"
+    # tools_cost: "Tools cost"
     total_cost: "Total cost"
     total_doer_cost: "Total doer cost" #?
     total_input_cost: "Total input cost" #?

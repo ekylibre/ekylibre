@@ -28,6 +28,8 @@
 #  receptions_cost :decimal(, )
 #  tools_cost      :decimal(, )
 #
-class InterventionCosts < Ekylibre::Record::Base
-  has_one :intervention, inverse_of: :costs
+require 'test_helper'
+
+class InterventionCostsTest < ActiveSupport::TestCase
+  # Add tests here...
 end

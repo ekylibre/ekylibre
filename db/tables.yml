@@ -3303,6 +3303,18 @@ integrations:
   updater_id:
     type: integer
     references: user
+intervention_costs:
+  doers_cost:
+    type: decimal
+  id:
+    type: integer
+    required: true
+  inputs_cost:
+    type: decimal
+  receptions_cost:
+    type: decimal
+  tools_cost:
+    type: decimal
 intervention_labellings:
   created_at:
     type: datetime
@@ -3664,6 +3676,9 @@ interventions:
   id:
     type: integer
     required: true
+  intervention_costs_id:
+    type: integer
+    references: intervention_costs
   issue_id:
     type: integer
     references: issue
@@ -3719,21 +3734,6 @@ interventions:
   working_duration:
     type: integer
     required: true
-interventions_costs:
-  doers_cost:
-    type: decimal
-  id:
-    type: integer
-    required: true
-  inputs_cost:
-    type: decimal
-  intervention_id:
-    type: integer
-    references: intervention
-  reception_cost:
-    type: decimal
-  tools_cost:
-    type: decimal
 inventories:
   accounted_at:
     type: datetime

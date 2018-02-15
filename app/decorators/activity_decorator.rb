@@ -56,4 +56,11 @@ class ActivityDecorator < Draper::Decorator
 
     costs
   end
+
+  def sum_activities_productions_surface_area
+    object
+      .productions
+      .map(&:net_surface_area)
+      .sum
+  end
 end

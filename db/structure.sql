@@ -478,7 +478,6 @@ CREATE TABLE interventions (
     request_compliant boolean,
     auto_calculate_working_periods boolean DEFAULT false,
     purchase_id integer,
-    intervention_cost_id integer,
     intervention_costs_id integer
 );
 
