@@ -10,167 +10,43 @@ class PlantDecorator < Draper::Decorator
 
   def production_costs
     {
-      global_costs: {
-        total: human_total_global_costs,
-        inputs: human_interventions_inputs_global_cost,
-        doers: human_interventions_doers_global_cost,
-        tools: human_interventions_tools_global_cost,
-        receptions: human_interventions_receptions_global_cost
-      },
-      cultivated_hectare_costs: {
-        total: human_total_cultivated_hectare_costs,
-        inputs: human_interventions_inputs_cultivated_hectare_cost,
-        doers: human_interventions_doers_cultivated_hectare_cost,
-        tools: human_interventions_tools_cultivated_hectare_cost,
-        receptions: human_interventions_receptions_cultivated_hectare_cost
-      },
-      working_hectare_costs: {
-        total: human_total_working_hectare_costs,
-        inputs: human_interventions_inputs_working_hectare_cost,
-        doers: human_interventions_doers_working_hectare_cost,
-        tools: human_interventions_tools_working_hectare_cost,
-        receptions: human_interventions_receptions_working_hectare_cost
-      }
+      global_costs: human_global_costs,
+      cultivated_hectare_costs: human_cultivated_hectare_costs,
+      working_hectare_costs: human_working_hectare_costs
     }
   end
 
   def global_costs
-    {
-      total: total_global_costs,
-      inputs: interventions_inputs_global_cost,
-      doers: interventions_doers_global_cost,
-      tools: interventions_tools_global_cost,
-      receptions: interventions_receptions_global_cost
-    }
+    calcul_global_costs
   end
 
-  def total_global_costs
-    total_costs(:global)
+  def human_global_costs
+    human_costs(global_costs)
   end
 
-  def human_total_global_costs
-    human_total_costs(:global)
+  def cultivated_hectare_costs
+    costs = global_costs
+    divider_costs(costs, object.net_surface_area.to_d)
+    total_costs(costs)
+
+    costs
   end
 
-  def total_cultivated_hectare_costs
-    total_costs(:cultivated_hectare)
+  def human_cultivated_hectare_costs
+    human_costs(cultivated_hectare_costs)
   end
 
-  def human_total_cultivated_hectare_costs
-    human_total_costs(:cultivated_hectare)
+  def working_hectare_costs
+    costs = calcul_global_costs(with_working_zone_area: true)
+    total_costs(costs)
+
+    costs
   end
 
-  def total_working_hectare_costs
-    total_costs(:working_hectare)
+  def human_working_hectare_costs
+    human_costs(working_hectare_costs)
   end
 
-  def human_total_working_hectare_costs
-    human_total_costs(:working_hectare)
-  end
-
-
-
-  def interventions_inputs_global_cost
-    intervention_parameters_global_cost(:inputs_cost)
-  end
-
-  def human_interventions_inputs_global_cost
-    human_intervention_parameters_global_cost(:inputs_cost)
-  end
-
-  def interventions_inputs_cultivated_hectare_cost
-    intervention_parameters_cultivated_hectare_cost(:inputs_cost)
-  end
-
-  def human_interventions_inputs_cultivated_hectare_cost
-    human_intervention_parameters_cultivated_hectare_cost(:inputs_cost)
-  end
-
-  def interventions_inputs_working_hectare_cost
-    intervention_parameters_working_hectare_cost(:inputs_cost)
-  end
-
-  def human_interventions_inputs_working_hectare_cost
-    human_intervention_parameters_working_hectare_cost(:inputs_cost)
-  end
-
-
-
-  def interventions_doers_global_cost
-    intervention_parameters_global_cost(:doers_cost)
-  end
-
-  def human_interventions_doers_global_cost
-    human_intervention_parameters_global_cost(:doers_cost)
-  end
-
-  def interventions_doers_cultivated_hectare_cost
-    intervention_parameters_cultivated_hectare_cost(:doers_cost)
-  end
-
-  def human_interventions_doers_cultivated_hectare_cost
-    human_intervention_parameters_cultivated_hectare_cost(:doers_cost)
-  end
-
-  def interventions_doers_working_hectare_cost
-    intervention_parameters_working_hectare_cost(:doers_cost)
-  end
-
-  def human_interventions_doers_working_hectare_cost
-    human_intervention_parameters_working_hectare_cost(:doers_cost)
-  end
-
-
-
-  def interventions_tools_global_cost
-    intervention_parameters_global_cost(:tools_cost)
-  end
-
-  def human_interventions_tools_global_cost
-    human_intervention_parameters_global_cost(:tools_cost)
-  end
-
-  def interventions_tools_cultivated_hectare_cost
-    intervention_parameters_cultivated_hectare_cost(:tools_cost)
-  end
-
-  def human_interventions_tools_cultivated_hectare_cost
-    human_intervention_parameters_cultivated_hectare_cost(:tools_cost)
-  end
-
-  def interventions_tools_working_hectare_cost
-    intervention_parameters_working_hectare_cost(:tools_cost)
-  end
-
-  def human_interventions_tools_working_hectare_cost
-    human_intervention_parameters_working_hectare_cost(:tools_cost)
-  end
-
-
-
-  def interventions_receptions_global_cost
-    intervention_parameters_global_cost(:receptions_cost)
-  end
-
-  def human_interventions_receptions_global_cost
-    human_intervention_parameters_global_cost(:receptions_cost)
-  end
-
-  def interventions_receptions_cultivated_hectare_cost
-    intervention_parameters_cultivated_hectare_cost(:receptions_cost)
-  end
-
-  def human_interventions_receptions_cultivated_hectare_cost
-    human_intervention_parameters_cultivated_hectare_cost(:receptions_cost)
-  end
-
-  def interventions_receptions_working_hectare_cost
-    intervention_parameters_working_hectare_cost(:receptions_cost)
-  end
-
-  def human_interventions_receptions_working_hectare_cost
-    human_intervention_parameters_working_hectare_cost(:receptions_cost)
-  end
 
 
   ####################################
@@ -360,81 +236,69 @@ class PlantDecorator < Draper::Decorator
       .unit_preference(user)
   end
 
-  def intervention_parameters_global_cost(method)
+  def calcul_global_costs(with_working_zone_area: false)
+    costs = { inputs: 0, doers: 0, tools: 0, receptions: 0 }
     interventions = decorated_interventions
+    working_zone_area = 0.in(:hectare)
 
-    cost = interventions.map do |intervention|
-             cost = intervention.send(method)
+    interventions.map do |intervention|
+      global_costs = intervention.global_costs
 
-             if intervention.many_targets?
-               sum_surface_area = object.net_surface_area.to_d / intervention.sum_targets_net_surface_area.to_d
-               cost *= sum_surface_area
-             end
+      calcul_with_surface_area(intervention, global_costs) if intervention.many_targets?
+      working_zone_area += intervention_working_zone_area(intervention) if with_working_zone_area
 
-             cost
-           end
+      sum_costs(costs, global_costs)
+    end
 
-    cost
-      .compact
-      .sum
-  end
-
-  def human_intervention_parameters_global_cost(method)
-    intervention_parameters_global_cost(method)
-      .to_f
-      .round(2)
-  end
-
-  def intervention_parameters_cultivated_hectare_cost(method)
-    intervention_parameters_global_cost(method) / object.net_surface_area.to_d
-  end
-
-  def human_intervention_parameters_cultivated_hectare_cost(method)
-    intervention_parameters_cultivated_hectare_cost(method)
-      .to_f
-      .round(2)
-  end
-
-  def intervention_parameters_working_hectare_cost(method)
-    intervention_parameters_global_cost(method) / sum_interventions_working_zone_area.to_d
-  end
-
-  def human_intervention_parameters_working_hectare_cost(method)
-    intervention_parameters_working_hectare_cost(method)
-      .to_f
-      .round(2)
-  end
-
-  def sum_interventions_working_zone_area
-    interventions = decorated_interventions
-
-    working_zone_area = interventions.map do |intervention|
-                          intervention.working_zone_area unless intervention.many_targets?
-                          intervention.targets.of_actor(object).first.working_zone_area if intervention.many_targets?
-                        end
-
-    working_zone_area
-      .compact
-      .sum
-      .in(:hectare)
-      .round(2)
-      .to_f
+    calcul_with_working_zone_area(costs, working_zone_area) if with_working_zone_area
+    total_costs(costs)
+    costs
   end
 
   def decorated_interventions
     InterventionDecorator.decorate_collection(object.interventions)
   end
 
-  def total_costs(cost_type)
-    return self.send("interventions_inputs_#{ cost_type }_cost") +
-             self.send("interventions_doers_#{ cost_type }_cost") +
-             self.send("interventions_tools_#{ cost_type }_cost") +
-             self.send("interventions_receptions_#{ cost_type }_cost")
+  def sum_costs(plant_costs, costs)
+    plant_costs.each { |key, value| plant_costs[key] = plant_costs[key] + costs[key] }
   end
 
-  def human_total_costs(cost_type)
-    total_costs(cost_type)
-      .to_f
-      .round(2)
+  def human_costs(costs)
+    costs.each { |key, value| costs[key] = costs[key].to_f.round(2) }
+  end
+
+  def multiply_costs(costs, multiplier)
+    costs.each { |key, value| costs[key] = value * multiplier }
+  end
+
+  def divider_costs(costs, divider)
+    costs.each { |key, value| costs[key] = value / divider }
+  end
+
+  def total_costs(costs)
+    costs = costs.except!(:total) if costs.key?(:total)
+
+    costs[:total] = costs.values.sum
+  end
+
+  def calcul_with_surface_area(intervention, costs)
+    sum_surface_area = object.net_surface_area.to_d / intervention.sum_targets_net_surface_area.to_d
+
+    multiply_costs(costs, sum_surface_area)
+  end
+
+  def intervention_working_zone_area(intervention)
+    return intervention.working_zone_area unless intervention.many_targets?
+
+    intervention.sum_products_working_zone_area(object)
+  end
+
+  def calcul_with_working_zone_area(costs, working_zone_area)
+    working_zone_area = working_zone_area
+                          .in(:hectare)
+                          .round(2)
+                          .to_f
+
+    divider_costs(costs, working_zone_area)
   end
 end

@@ -2,114 +2,88 @@ class ActivityProductionDecorator < Draper::Decorator
   delegate_all
 
   def production_costs
-    global_costs = calcul_global_costs
+    production_global_costs = global_costs
 
     {
-      global_costs: human_costs(global_costs),
-      cultivated_hectare_costs: human_cultivated_hectare_costs(global_costs.clone),
-      working_hectare_costs: human_working_hectare_costs(global_costs.clone)
+      global_costs: human_costs(production_global_costs),
+      cultivated_hectare_costs: human_cultivated_hectare_costs(production_global_costs.clone),
+      working_hectare_costs: human_working_hectare_costs
     }
   end
 
+  def global_costs
+    calcul_global_costs
+  end
+
   def human_global_costs
-    human_costs(calcul_global_costs)
+    human_costs(global_costs)
   end
 
-  def cultivated_hectare_costs(global_costs)
-    calcul_costs(global_costs, nil, object.support_shape_area)
-  end
-
-  def human_cultivated_hectare_costs(global_costs)
-    human_costs(cultivated_hectare_costs(global_costs))
-  end
-
-  def working_hectare_costs(global_costs)
-    calcul_costs(global_costs, nil, sum_interventions_working_zone_area)
-  end
-
-  def human_working_hectare_costs(global_costs)
-    human_costs(working_hectare_costs(global_costs))
-  end
-
-  private
-
-  def calcul_global_costs
-    interventions = decorated_interventions
-    costs = new_costs_hash
-
-    interventions.each do |intervention|
-      targets = intervention.targets
-      intervention_products = targets.map(&:product).uniq
-      products = PlantDecorator.decorate_collection(intervention_products)
-
-      if products.count == 1
-        sum_costs(costs, products.first.global_costs)
-      else
-        sum_many_products(costs, products, intervention)
-      end
-    end
+  def cultivated_hectare_costs(costs)
+    divider_costs(costs, object.net_surface_area.to_d)
+    total_costs(costs)
 
     costs
   end
 
-  def same_production?(product)
-    object.id == product.activity_production.id
+  def human_cultivated_hectare_costs(costs)
+    human_costs(cultivated_hectare_costs(costs))
+  end
+
+  def working_hectare_costs
+    costs = calcul_global_costs(with_working_zone_area: true)
+    total_costs(costs)
+
+    costs
+  end
+
+  def human_working_hectare_costs
+    human_costs(working_hectare_costs)
+  end
+
+
+  private
+
+
+  def calcul_global_costs(with_working_zone_area: false)
+    interventions = decorated_interventions
+    costs = new_costs_hash
+    working_zone_area = 0.in(:hectare)
+
+    interventions.each do |intervention|
+      global_costs = intervention.global_costs
+
+      calcul_with_surface_area(intervention, global_costs) if intervention.many_targets?
+      sum_costs(costs, intervention.global_costs)
+
+      working_zone_area += intervention_working_zone_area(intervention) if with_working_zone_area
+    end
+
+    calcul_with_working_zone_area(costs, working_zone_area) if with_working_zone_area
+    total_costs(costs)
+    costs
+  end
+
+  def total_costs(costs)
+    costs = costs.except!(:total) if costs.key?(:total)
+
+    costs[:total] = costs.values.sum
+  end
+
+  def multiply_costs(costs, multiplier)
+    costs.each { |key, value| costs[key] = value * multiplier }
+  end
+
+  def divider_costs(costs, divider)
+    costs.each { |key, value| costs[key] = value / divider }
+  end
+
+  def sum_costs(plant_costs, costs)
+    plant_costs.each { |key, value| plant_costs[key] = plant_costs[key] + costs[key] }
   end
 
   def human_costs(costs)
-    costs.each do |key, value|
-      costs[key] = costs[key].to_f.round(2)
-    end
-  end
-
-  def sum_costs(costs, product_costs, multiplier = nil)
-    costs.each do |key, value|
-      cost_value = costs[key].to_d
-      product_cost_value = product_costs[key].to_d
-
-      costs[key] = cost_value + product_cost_value
-    end
-  end
-
-  def calcul_costs(costs, multiplier = nil, divider = nil)
-    costs.each do |key, value|
-      cost_value = costs[key].to_d
-
-      costs[key] = cost_value * multiplier.to_f unless multiplier.nil?
-      costs[key] = cost_value / divider.to_f unless divider.nil?
-    end
-  end
-
-  def sum_many_products(costs, products, intervention)
-    intervention_costs = new_costs_hash
-    sum_net_surface_area = 0.0
-
-    products.each do |product|
-      sum_net_surface_area += product.net_surface_area.to_d if same_production?(product)
-      sum_costs(intervention_costs, product.global_costs)
-    end
-
-    multiplier = sum_net_surface_area / intervention.sum_targets_net_surface_area
-
-    calcul_costs(intervention_costs, multiplier)
-    sum_costs(costs, intervention_costs)
-  end
-
-  def sum_interventions_working_zone_area
-    interventions = decorated_interventions
-
-    working_zone_area = interventions.map do |intervention|
-                          intervention.working_zone_area unless intervention.many_targets?
-
-                          intervention.sum_activity_production_working_zone_area(object) if intervention.many_targets?
-                        end
-
-    working_zone_area
-      .compact
-      .sum
-      .in(:hectare)
-      .round(2)
-      .to_f
+    costs.each { |key, value| costs[key] = costs[key].to_f.round(2) }
   end
 
   def new_costs_hash
@@ -118,8 +92,36 @@ class ActivityProductionDecorator < Draper::Decorator
 
   def decorated_interventions
     production_interventions = object
-                      .interventions_of_nature('record')
+                                 .interventions_of_nature('record')
 
     InterventionDecorator.decorate_collection(production_interventions)
+  end
+
+  def calcul_with_surface_area(intervention, costs)
+    products = intervention
+                 .targets
+                 .of_activity_production(object)
+                 .map(&:product)
+
+    products.each do |product|
+      sum_surface_area = product.net_surface_area.to_d / intervention.sum_targets_net_surface_area.to_d
+
+      multiply_costs(costs, sum_surface_area)
+    end
+  end
+
+  def intervention_working_zone_area(intervention)
+    return intervention.working_zone_area unless intervention.many_targets?
+
+    intervention.sum_activity_production_working_zone_area(object)
+  end
+
+  def calcul_with_working_zone_area(costs, working_zone_area)
+    working_zone_area = working_zone_area
+                          .in(:hectare)
+                          .round(2)
+                          .to_f
+
+    divider_costs(costs, working_zone_area)
   end
 end

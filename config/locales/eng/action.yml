@@ -1265,7 +1265,7 @@ eng:
     crumbs: "Crumbs" #?
     cultivable_zone: "Cultivable zone" #?
     cultivable_zones: "arable areas" #?
-    cultivated_hectare_costs: "Cultivated hectare costs"
+    cultivated_hectare_costs: "Cultivated hectare costs" #?
     cumul: "Accumulation of tattle and previous balance N°%{number}" #?
     currency_conversion_rate: "Currency conversion rate"
     current: "Current"
@@ -1432,7 +1432,7 @@ eng:
     generate_parcel: "Generate parcel"
     generate_repayments: "Pass bookkeeping" #?
     geolocation: "Geolocation" #?
-    global_costs: "Global costs"
+    global_costs: "Global costs" #?
     global_preferences: "Global preferences"
     go: "Go" #?
     gradings: "Gradings" #?
@@ -2113,7 +2113,7 @@ eng:
     with_fixed_assets_depreciations: "With fixed assets depreciations"
     workers: "Workers"
     working_duration: "Working duration"
-    working_hectare_costs: "Working hectare costs"
+    working_hectare_costs: "Working hectare costs" #?
     working_sets_stocks: "Working sets stocks" #?
     working_times: "Working times of %{name}" #?
     x_cashes:

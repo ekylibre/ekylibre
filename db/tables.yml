@@ -3719,6 +3719,21 @@ interventions:
   working_duration:
     type: integer
     required: true
+interventions_costs:
+  doers_cost:
+    type: decimal
+  id:
+    type: integer
+    required: true
+  inputs_cost:
+    type: decimal
+  intervention_id:
+    type: integer
+    references: intervention
+  reception_cost:
+    type: decimal
+  tools_cost:
+    type: decimal
 inventories:
   accounted_at:
     type: datetime
