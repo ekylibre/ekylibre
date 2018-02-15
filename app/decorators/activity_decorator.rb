@@ -23,6 +23,20 @@ class ActivityDecorator < Draper::Decorator
       .to_d
   end
 
+  def working_zone_area
+    activity_productions = decorated_activity_productions
+    working_zone = 0.in(:hectare)
+
+    activity_productions.each do |activity_production|
+      working_zone += activity_production.working_zone_area
+    end
+
+    working_zone
+      .in(:hectare)
+      .round(3)
+      .l
+  end
+
   private
 
 
@@ -43,6 +57,10 @@ class ActivityDecorator < Draper::Decorator
   end
 
   def decorated_activity_productions
+    activity_productions = object
+                            .productions
+                            .of_current_campaigns
+
     ActivityProductionDecorator.decorate_collection(object.productions)
   end
 

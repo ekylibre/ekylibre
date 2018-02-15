@@ -215,6 +215,24 @@ class PlantDecorator < Draper::Decorator
     last_inspection.user_per_area_unit(:net_mass)
   end
 
+  def working_zone_area
+    interventions = decorated_interventions
+    working_zone = 0.in(:hectare)
+
+    interventions.map do |intervention|
+      working_zone += intervention_working_zone_area(intervention)
+    end
+
+    working_zone
+  end
+
+  def human_working_zone_area
+    working_zone_area
+      .in(:hectare)
+      .round(3)
+      .l
+  end
+
   private
 
   def inspection_points_percentage(dimension, category, unit_name)

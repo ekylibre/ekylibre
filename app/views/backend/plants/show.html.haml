@@ -10,6 +10,12 @@
     = product_info(:work_number, important: true)
     = product_info(:net_surface_area, important: true) do |population|
       = resource.net_surface_area.round(3).l
+
+    .med-info.important
+      %span.title= :working_area.tl
+      %span.value
+        = resource.decorate.human_working_zone_area
+
     = product_info(:variety, important: true, nomenclature: true)
     = product_info(:born_at, important: true)
     - if resource.dead_at

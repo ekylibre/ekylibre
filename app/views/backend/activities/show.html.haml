@@ -12,6 +12,10 @@
 
 
 = main_informations attachment: true do
+  .med-info.important
+    %span.title= :working_area.tl
+    %span.value= resource.decorate.working_zone_area
+
   = attributes_list do |l|
     - l.attribute :production_system
     - l.attribute :use_countings

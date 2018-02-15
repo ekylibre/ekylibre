@@ -9,6 +9,11 @@
       .med-info.important
         %span.title= LandParcel.human_attribute_name(:net_surface_area)
         %span.value= resource.human_support_shape_area
+
+      .med-info.important
+        %span.title= :working_area.tl
+        %span.value= resource.decorate.human_working_zone_area
+
       - if resource.season
         .med-info
           %span.title= ActivityProduction.human_attribute_name(:season)
