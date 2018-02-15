@@ -12,13 +12,14 @@
 
 
 = main_informations attachment: true do
-  .med-info.important
-    %span.title= :net_surface_area.tl
-    %span.value= resource.decorate.human_net_surface_area(current_campaign)
+  .big-infos
+    .med-info.important
+      %span.title= :net_surface_area.tl
+      %span.value= resource.decorate.human_net_surface_area(current_campaign)
 
-  .med-info.important
-    %span.title= :working_area.tl
-    %span.value= resource.decorate.human_working_zone_area(current_campaign)
+    .med-info.important
+      %span.title= :working_area.tl
+      %span.value= resource.decorate.human_working_zone_area(current_campaign)
 
   = attributes_list do |l|
     - l.attribute :production_system
