@@ -188,7 +188,6 @@ class ParcelItem < Ekylibre::Record::Base
 
   def purchase_invoice_number
     return nil if purchase_invoice_item.nil?
-
     purchase_invoice_item.purchase.number
   end
 
