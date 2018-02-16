@@ -5082,6 +5082,9 @@ parcel_items:
     references: product_ownership
   product_work_number:
     type: string
+  project_budget_id:
+    type: integer
+    references: project_budget
   purchase_invoice_item_id:
     type: integer
     references: purchase_item
@@ -6586,6 +6589,20 @@ products:
     required: true
   work_number:
     type: string
+project_budgets:
+  created_at:
+    type: datetime
+    required: true
+  description:
+    type: text
+  id:
+    type: integer
+    required: true
+  name:
+    type: string
+  updated_at:
+    type: datetime
+    required: true
 purchase_items:
   account_id:
     type: integer
@@ -6644,6 +6661,9 @@ purchase_items:
     precision: 19
     scale: 4
     required: true
+  project_budget_id:
+    type: integer
+    references: project_budget
   purchase_id:
     type: integer
     references: purchase

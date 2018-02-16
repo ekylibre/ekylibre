@@ -2497,7 +2497,8 @@ CREATE TABLE purchase_items (
     equipment_id integer,
     role character varying,
     conditionning_quantity integer,
-    conditionning integer
+    conditionning integer,
+    project_budget_id integer
 );
 
 
@@ -4909,7 +4910,8 @@ CREATE TABLE parcel_items (
     purchase_order_item_id integer,
     product_work_number character varying,
     type character varying,
-    merge_stock boolean DEFAULT true
+    merge_stock boolean DEFAULT true,
+    project_budget_id integer
 );
 
 
@@ -6098,6 +6100,38 @@ CREATE SEQUENCE products_id_seq
 --
 
 ALTER SEQUENCE products_id_seq OWNED BY products.id;
+
+
+--
+-- Name: project_budgets; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE project_budgets (
+    id integer NOT NULL,
+    name character varying,
+    description text,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: project_budgets_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE project_budgets_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: project_budgets_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE project_budgets_id_seq OWNED BY project_budgets.id;
 
 
 --
@@ -8121,6 +8155,13 @@ ALTER TABLE ONLY products ALTER COLUMN id SET DEFAULT nextval('products_id_seq':
 
 
 --
+-- Name: project_budgets id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY project_budgets ALTER COLUMN id SET DEFAULT nextval('project_budgets_id_seq'::regclass);
+
+
+--
 -- Name: purchase_items id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -9345,6 +9386,14 @@ ALTER TABLE ONLY product_readings
 
 ALTER TABLE ONLY products
     ADD CONSTRAINT products_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: project_budgets project_budgets_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY project_budgets
+    ADD CONSTRAINT project_budgets_pkey PRIMARY KEY (id);
 
 
 --
@@ -14305,6 +14354,13 @@ CREATE INDEX index_parcel_items_on_product_ownership_id ON parcel_items USING bt
 
 
 --
+-- Name: index_parcel_items_on_project_budget_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_parcel_items_on_project_budget_id ON parcel_items USING btree (project_budget_id);
+
+
+--
 -- Name: index_parcel_items_on_purchase_invoice_item_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -16195,6 +16251,13 @@ CREATE INDEX index_purchase_items_on_fixed_asset_id ON purchase_items USING btre
 
 
 --
+-- Name: index_purchase_items_on_project_budget_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_purchase_items_on_project_budget_id ON purchase_items USING btree (project_budget_id);
+
+
+--
 -- Name: index_purchase_items_on_purchase_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -17851,6 +17914,14 @@ ALTER TABLE ONLY intervention_template_activities
 
 
 --
+-- Name: parcel_items fk_rails_41a9d1c170; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY parcel_items
+    ADD CONSTRAINT fk_rails_41a9d1c170 FOREIGN KEY (project_budget_id) REFERENCES project_budgets(id);
+
+
+--
 -- Name: crumbs fk_rails_434e943648; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -17888,6 +17959,14 @@ ALTER TABLE ONLY products
 
 ALTER TABLE ONLY technical_itinerary_intervention_templates
     ADD CONSTRAINT fk_rails_5f0371c42a FOREIGN KEY (technical_itinerary_id) REFERENCES technical_itineraries(id);
+
+
+--
+-- Name: purchase_items fk_rails_62e7d4b959; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY purchase_items
+    ADD CONSTRAINT fk_rails_62e7d4b959 FOREIGN KEY (project_budget_id) REFERENCES project_budgets(id);
 
 
 --
@@ -18746,5 +18825,10 @@ INSERT INTO schema_migrations (version) VALUES ('20180205120300');
 
 INSERT INTO schema_migrations (version) VALUES ('20180205120400');
 
-INSERT INTO schema_migrations (version) VALUES ('20180214132041');
+INSERT INTO schema_migrations (version) VALUES ('20180208075145');
 
+INSERT INTO schema_migrations (version) VALUES ('20180208100753');
+
+INSERT INTO schema_migrations (version) VALUES ('20180208102339');
+
+INSERT INTO schema_migrations (version) VALUES ('20180214132041');

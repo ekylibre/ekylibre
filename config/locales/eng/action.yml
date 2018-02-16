@@ -646,6 +646,11 @@ eng:
       show: "%{nature}: %{name}"
       # take: "Take product: %{name}"
       # update_many: "Update many product: %{name}"
+    backend/project_budgets:
+      # edit: "Edit project budget: %{name}"
+      # index: "Project budgets"
+      # new: "New project budget"
+      # show: "Project budget: %{name}"
     backend/purchase_affairs:
       # attach: "Attach purchase affair: %{name}"
       # detach: "Detach purchase affair: %{name}"
