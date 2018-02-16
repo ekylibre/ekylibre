@@ -547,6 +547,8 @@ class Intervention < Ekylibre::Record::Base
     params = product_parameters.of_generic_role(role)
 
     if params.any?
+      return params.map(&:cost).compact.sum if participations.empty?
+
       return params.map do |param|
                natures = {}
                if param.product.is_a?(Equipment)
