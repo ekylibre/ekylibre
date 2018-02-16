@@ -41,6 +41,7 @@
 #  position               :integer
 #  preexisting_asset      :boolean
 #  pretax_amount          :decimal(19, 4)   default(0.0), not null
+#  project_budget_id      :integer
 #  purchase_id            :integer          not null
 #  quantity               :decimal(19, 4)   not null
 #  reduction_percentage   :decimal(19, 4)   default(0.0), not null
