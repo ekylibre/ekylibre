@@ -313,7 +313,12 @@ class PlantDecorator < Draper::Decorator
   def intervention_working_zone_area(intervention)
     return intervention.working_zone_area unless intervention.many_targets?
 
-    intervention.sum_products_working_zone_area(object)
+    product = nil
+    product = intervention.outputs.of_actor(object).first.product if intervention.procedure.of_category?(:planting)
+    product = intervention.targets.of_actor(object).first.product unless intervention.procedure.of_category?(:planting)
+
+    intervention.sum_products_working_zone_area(product) unless intervention.planting?
+    intervention.sum_outputs_working_zone_area_of_product(product) if intervention.planting?
   end
 
   def calcul_with_working_zone_area(costs, working_zone_area)
