@@ -611,6 +611,9 @@ Rails.application.routes.draw do
         get :templates_of_activity
         get :interventions_have_activities
       end
+      member do
+        get :list_technical_itineraries
+      end
     end
 
     resources :technical_itineraries, concerns: :list do
