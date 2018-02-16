@@ -1,6 +1,26 @@
 class InterventionDecorator < Draper::Decorator
   delegate_all
 
+  def real_cost(type)
+    parameters = object.inputs if type == :input
+    parameters = object.doers if type == :doer
+    parameters = object.tools if type == :tool
+
+    return 0 if parameters.empty?
+    return parameters.map(&:cost).compact.sum if object.participations.empty?
+
+    parameters.map do |parameter|
+      natures = {}
+
+      if parameter.is_a?(Equipment)
+        natures = %i[travel intervention] if parameter.product.try?(:tractor?)
+        natures = %i[intervention] unless parameter.product.try?(:tractor?)
+      end
+
+      parameter.cost(natures: natures)
+    end.compact.sum
+  end
+
   def sum_working_zone_area_of_product(product)
     parameters = object.targets unless planting?
     parameters = object.outputs if planting?

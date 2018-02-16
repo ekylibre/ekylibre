@@ -329,9 +329,9 @@ class Intervention < Ekylibre::Record::Base
     participations.update_all(request_compliant: request_compliant) if request_compliant
 
 
-    costs.update_attributes(inputs_cost: inputs.map(&:cost).compact.sum,
-                            doers_cost: doers.map(&:cost).compact.sum,
-                            tools_cost: tools.map(&:cost).compact.sum,
+    costs.update_attributes(inputs_cost: self.decorate.real_cost(:input),
+                            doers_cost: self.decorate.real_cost(:doer),
+                            tools_cost: self.decorate.real_cost(:tool),
                             receptions_cost: receptions_cost.to_f.round(2))
   end
 
