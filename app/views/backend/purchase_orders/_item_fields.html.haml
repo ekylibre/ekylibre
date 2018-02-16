@@ -90,6 +90,7 @@
       .item-form
         - if Preference[:distribute_sales_and_purchases_on_activities] && current_user.can?(:read, :activities) && ActivityBudget.opened.any?
           = f.referenced_association(:activity_budget, new: false)
+        = f.referenced_association(:project_budget)
         - if Preference[:distribute_sales_and_purchases_on_teams] && current_user.can?(:read, :teams)
           = f.referenced_association(:team)
         = f.referenced_association(:equipment, label: :equipment.tl, source: {scope: :tools}, input_html: {data: { remember: 'equipment'}})

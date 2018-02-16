@@ -257,7 +257,7 @@ class ActivityProduction < Ekylibre::Record::Base
       end
       self.support ||= LandParcel.new
     end
-    support.name = computed_support_name
+    support.name = name
     support.initial_shape = self.support_shape
     support.initial_born_at = started_on
     support.initial_dead_at = stopped_on
@@ -640,6 +640,7 @@ class ActivityProduction < Ekylibre::Record::Base
   def name(options = {})
     list = []
     list << activity.name unless options[:activity].is_a?(FalseClass)
+    list << season.name if season.present?
     list << cultivable_zone.name if cultivable_zone && plant_farming?
     list << started_on.to_date.l(format: :month) if activity.annual? && started_on
     list << :rank.t(number: rank_number)

@@ -46,6 +46,7 @@
 #  product_name                  :string
 #  product_ownership_id          :integer
 #  product_work_number           :string
+#  project_budget_id             :integer
 #  purchase_invoice_item_id      :integer
 #  purchase_order_item_id        :integer
 #  role                          :string
@@ -63,6 +64,7 @@
 #
 class ReceptionItem < ParcelItem
   belongs_to :reception, inverse_of: :items, class_name: 'Reception', foreign_key: :parcel_id
+  belongs_to :project_budget, class_name: 'ProjectBudget', foreign_key: :project_budget_id
 
   has_one :storage, through: :reception
   has_one :contract, through: :reception
