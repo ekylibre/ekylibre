@@ -221,11 +221,7 @@ GEM
     ffi (1.9.21)
     figaro (1.1.1)
       thor (~> 0.14)
-<<<<<<< Gemfile.lock
     font-awesome-sass (5.0.6.2)
-=======
-    font-awesome-sass (5.0.6)
->>>>>>> Gemfile.lock
       sass (>= 3.2)
     foreman (0.84.0)
       thor (~> 0.19.1)
