@@ -1,0 +1,21 @@
+- currency = Nomen::Currency.find(Preference[:currency])
+
+.production-costs
+  - costs.each do |cost_key, costs_types|
+    .costs-type{ class: "#{ cost_key.to_s.gsub('_', '-') }" }
+
+      .big-info.cost.total-cost
+        %span.title= cost_key.tl.upper
+        %span.value
+          = costs_types[:total].l(currency: currency.name)
+
+      - costs_types.except!(:total)
+      - costs_types.each do |key, value|
+        - cost_type = key.to_s.singularize
+
+        .big-info.cost
+          %span.title= "evaluated_#{ cost_type }_cost".tl
+          %span.value
+            - picto_class = cost_type.to_sym == :reception ? 'picto-recent-actors' : "picto-#{ cost_type }"
+            %i.picto{ class: picto_class }
+            = value.l(currency: currency.name)

@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 9.6.6
--- Dumped by pg_dump version 9.6.6
+-- Dumped from database version 9.6.7
+-- Dumped by pg_dump version 9.6.7
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -477,7 +477,8 @@ CREATE TABLE interventions (
     journal_entry_id integer,
     request_compliant boolean,
     auto_calculate_working_periods boolean DEFAULT false,
-    purchase_id integer
+    purchase_id integer,
+    intervention_costs_id integer
 );
 
 
@@ -3616,6 +3617,38 @@ CREATE SEQUENCE integrations_id_seq
 --
 
 ALTER SEQUENCE integrations_id_seq OWNED BY integrations.id;
+
+
+--
+-- Name: intervention_costs; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE intervention_costs (
+    id integer NOT NULL,
+    inputs_cost numeric,
+    doers_cost numeric,
+    tools_cost numeric,
+    receptions_cost numeric
+);
+
+
+--
+-- Name: intervention_costs_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE intervention_costs_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: intervention_costs_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE intervention_costs_id_seq OWNED BY intervention_costs.id;
 
 
 --
@@ -7668,6 +7701,13 @@ ALTER TABLE ONLY integrations ALTER COLUMN id SET DEFAULT nextval('integrations_
 
 
 --
+-- Name: intervention_costs id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY intervention_costs ALTER COLUMN id SET DEFAULT nextval('intervention_costs_id_seq'::regclass);
+
+
+--
 -- Name: intervention_labellings id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -8825,6 +8865,14 @@ ALTER TABLE ONLY inspections
 
 ALTER TABLE ONLY integrations
     ADD CONSTRAINT integrations_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: intervention_costs intervention_costs_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY intervention_costs
+    ADD CONSTRAINT intervention_costs_pkey PRIMARY KEY (id);
 
 
 --
@@ -18697,4 +18745,6 @@ INSERT INTO schema_migrations (version) VALUES ('20180205120200');
 INSERT INTO schema_migrations (version) VALUES ('20180205120300');
 
 INSERT INTO schema_migrations (version) VALUES ('20180205120400');
+
+INSERT INTO schema_migrations (version) VALUES ('20180214132041');
 
