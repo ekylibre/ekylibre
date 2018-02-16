@@ -220,7 +220,8 @@ class PlantDecorator < Draper::Decorator
     working_zone = 0.in(:hectare)
 
     interventions.map do |intervention|
-      working_zone += intervention_working_zone_area(intervention)
+      intervention_working_zone = intervention_working_zone_area(intervention)
+      working_zone += intervention_working_zone.in(:hectare)
     end
 
     working_zone
@@ -263,7 +264,7 @@ class PlantDecorator < Draper::Decorator
       global_costs = intervention.global_costs
 
       calcul_with_surface_area(intervention, global_costs) if intervention.many_targets?
-      working_zone_area += intervention_working_zone_area(intervention) if with_working_zone_area
+      working_zone_area += intervention_working_zone_area(intervention).in(:hectare) if with_working_zone_area
 
       sum_costs(costs, global_costs)
     end
