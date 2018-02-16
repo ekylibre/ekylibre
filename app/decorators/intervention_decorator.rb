@@ -1,11 +1,13 @@
 class InterventionDecorator < Draper::Decorator
   delegate_all
 
-  def sum_targets_net_surface_area
+  def sum_targets_working_zone_area
     object
       .targets
-      .map{ |intervention_target| intervention_target.product.net_surface_area.to_d }
+      .map{ |intervention_target| intervention_target.working_zone_area }
       .sum
+      .in(:hectare)
+      .round(2)
   end
 
   def sum_products_working_zone_area(product)

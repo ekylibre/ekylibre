@@ -301,7 +301,11 @@ class PlantDecorator < Draper::Decorator
   end
 
   def calcul_with_surface_area(intervention, costs)
-    sum_surface_area = object.net_surface_area.to_d / intervention.sum_targets_net_surface_area.to_d
+    product = nil
+    product = intervention.outputs.of_actor(object).first.product if intervention.procedure.of_category?(:planting)
+    product = intervention.targets.of_actor(object).first.product unless intervention.procedure.of_category?(:planting)
+
+    sum_surface_area = product.net_surface_area.to_d / intervention.sum_targets_working_zone_area.to_d
 
     multiply_costs(costs, sum_surface_area)
   end

@@ -140,7 +140,7 @@ class ActivityProductionDecorator < Draper::Decorator
                  .map(&:product)
 
     products.each do |product|
-      sum_surface_area = product.net_surface_area.to_d / intervention.sum_targets_net_surface_area.to_d
+      sum_surface_area = product.net_surface_area.to_d / intervention.sum_targets_working_zone_area.to_d
 
       multiply_costs(costs, sum_surface_area)
     end
