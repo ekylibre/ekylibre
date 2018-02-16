@@ -301,6 +301,9 @@ class Intervention < Ekylibre::Record::Base
       # self.update_column(:event_id, event.id)
       self.event_id = event.id
     end
+
+    self.costs = InterventionCosts.create!({ inputs_cost: 0, doers_cost: 0, tools_cost: 0, receptions_cost: 0 })
+
     true
   end
 
@@ -324,6 +327,7 @@ class Intervention < Ekylibre::Record::Base
     end
     participations.update_all(state: state) unless state == :in_progress
     participations.update_all(request_compliant: request_compliant) if request_compliant
+
 
     costs.update_attributes(inputs_cost: inputs.map(&:cost).compact.sum,
                             doers_cost: doers.map(&:cost).compact.sum,
