@@ -41,6 +41,7 @@
 #  position               :integer
 #  preexisting_asset      :boolean
 #  pretax_amount          :decimal(19, 4)   default(0.0), not null
+#  project_budget_id      :integer
 #  purchase_id            :integer          not null
 #  quantity               :decimal(19, 4)   not null
 #  reduction_percentage   :decimal(19, 4)   default(0.0), not null
@@ -59,6 +60,7 @@ class PurchaseItem < Ekylibre::Record::Base
   refers_to :currency
   belongs_to :account
   belongs_to :activity_budget
+  belongs_to :project_budget
   belongs_to :team
   belongs_to :purchase, inverse_of: :items
   belongs_to :equipment, class_name: 'Product', inverse_of: :purchase_items

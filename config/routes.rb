@@ -1061,6 +1061,8 @@ Rails.application.routes.draw do
 
     resources :teams, concerns: %i[list unroll]
 
+    resources :project_budgets, concerns: %i[list unroll]
+
     resources :tours, only: [] do
       member do
         post :finish
