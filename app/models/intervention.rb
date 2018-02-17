@@ -32,6 +32,7 @@
 #  description                    :text
 #  event_id                       :integer
 #  id                             :integer          not null, primary key
+#  intervention_costs_id          :integer
 #  issue_id                       :integer
 #  journal_entry_id               :integer
 #  lock_version                   :integer          default(0), not null
@@ -68,6 +69,7 @@ class Intervention < Ekylibre::Record::Base
   belongs_to :prescription
   belongs_to :journal_entry, dependent: :destroy
   belongs_to :purchase
+  belongs_to :costs, class_name: 'InterventionCosts', foreign_key: :intervention_costs_id
   has_many :receptions, class_name: 'Reception', dependent: :destroy
   has_many :labellings, class_name: 'InterventionLabelling', dependent: :destroy, inverse_of: :intervention
   has_many :labels, through: :labellings
@@ -299,6 +301,9 @@ class Intervention < Ekylibre::Record::Base
       # self.update_column(:event_id, event.id)
       self.event_id = event.id
     end
+
+    self.costs = InterventionCosts.create!({ inputs_cost: 0, doers_cost: 0, tools_cost: 0, receptions_cost: 0 })
+
     true
   end
 
@@ -322,6 +327,12 @@ class Intervention < Ekylibre::Record::Base
     end
     participations.update_all(state: state) unless state == :in_progress
     participations.update_all(request_compliant: request_compliant) if request_compliant
+
+
+    costs.update_attributes(inputs_cost: self.decorate.real_cost(:input),
+                            doers_cost: self.decorate.real_cost(:doer),
+                            tools_cost: self.decorate.real_cost(:tool),
+                            receptions_cost: receptions_cost.to_f.round(2))
   end
 
   after_create do
@@ -534,7 +545,21 @@ class Intervention < Ekylibre::Record::Base
   # Sums all intervention product parameter total_cost of a particular role
   def cost(role = :input)
     params = product_parameters.of_generic_role(role)
-    return params.map(&:cost).compact.sum if params.any?
+
+    if params.any?
+      return params.map(&:cost).compact.sum if participations.empty?
+
+      return params.map do |param|
+               natures = {}
+               if param.product.is_a?(Equipment)
+                 natures = %i[travel intervention] if param.product.try(:tractor?)
+                 natures = %i[intervention] unless param.product.try(:tractor?)
+               end
+
+               param.cost(natures: natures)
+             end.compact.sum
+    end
+
     nil
   end
 
