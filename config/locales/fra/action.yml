@@ -568,6 +568,10 @@ fra:
       index: "Produits"
       new: "Créer un produit"
       show: "%{nature}\_: %{name}"
+    backend/project_budgets: #?
+      edit: "Modifier le budget\_: %{name}" #?
+      index: "Budgets " #?
+      new: "Nouveau budget" #?
     backend/purchase_invoices:
       edit: "Modifier la facture: %{number}"
       index: "Factures"

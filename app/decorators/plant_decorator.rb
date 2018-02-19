@@ -37,6 +37,8 @@ class PlantDecorator < Draper::Decorator
 
     return 0 if total_quantity == 0
 
+    return 0 if total_quantity == 0
+
     quantity.to_f / total_quantity.to_f * 100
   end
 

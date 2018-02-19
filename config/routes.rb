@@ -609,6 +609,7 @@ Rails.application.routes.draw do
       collection do
         get :select_type
         get :templates_of_activity
+        get :interventions_have_activities
       end
       member do
         get :list_technical_itineraries
@@ -1065,6 +1066,8 @@ Rails.application.routes.draw do
     end
 
     resources :teams, concerns: %i[list unroll]
+
+    resources :project_budgets, concerns: %i[list unroll]
 
     resources :tours, only: [] do
       member do
