@@ -1,11 +1,6 @@
-<<<<<<< HEAD
-PATH
-  remote: ../planning
-=======
 GIT
   remote: git@gitlab.com:ekylibre-integration/planning.git
   revision: 53c164fe40e4c733e498d4e3663b821331a1b8d9
->>>>>>> dev
   specs:
     planning (0.0.3.4)
       lodash-rails
