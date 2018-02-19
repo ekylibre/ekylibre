@@ -1,8 +1,8 @@
 GIT
   remote: git@gitlab.com:ekylibre-integration/planning.git
-  revision: 53c164fe40e4c733e498d4e3663b821331a1b8d9
+  revision: 7b88cbe7d194c1dbb94db5fc82027af0d1c35389
   specs:
-    planning (0.0.3.4)
+    planning (0.4.0)
       lodash-rails
       rails (~> 4.2.10)
 
@@ -251,7 +251,7 @@ GEM
     http-cookie (1.0.3)
       domain_name (~> 0.5)
     http_accept_language (2.1.1)
-    httpi (2.4.2)
+    httpi (2.4.3)
       rack
       socksify
     humanize (1.7.0)
@@ -294,7 +294,7 @@ GEM
       rb-fsevent (~> 0.9, >= 0.9.4)
       rb-inotify (~> 0.9, >= 0.9.7)
       ruby_dep (~> 1.2)
-    lodash-rails (4.17.4)
+    lodash-rails (4.17.5)
       railties (>= 3.1)
     loofah (2.2.0)
       crass (~> 1.0.2)
