@@ -1,6 +1,60 @@
 class PlantDecorator < Draper::Decorator
   delegate_all
 
+
+  ####################################
+  #                                  #
+  #         PRODUCTION COSTS         #
+  #                                  #
+  ####################################
+
+  def production_costs
+    {
+      global_costs: human_global_costs,
+      cultivated_hectare_costs: human_cultivated_hectare_costs,
+      working_hectare_costs: human_working_hectare_costs
+    }
+  end
+
+  def global_costs
+    calcul_global_costs
+  end
+
+  def human_global_costs
+    human_costs(global_costs)
+  end
+
+  def cultivated_hectare_costs
+    costs = global_costs
+    divider_costs(costs, object.net_surface_area.to_d)
+    total_costs(costs)
+
+    costs
+  end
+
+  def human_cultivated_hectare_costs
+    human_costs(cultivated_hectare_costs)
+  end
+
+  def working_hectare_costs
+    costs = calcul_global_costs(with_working_zone_area: true)
+    total_costs(costs)
+
+    costs
+  end
+
+  def human_working_hectare_costs
+    human_costs(working_hectare_costs)
+  end
+
+
+
+  ####################################
+  #                                  #
+  #           INSPECTIONS            #
+  #                                  #
+  ####################################
+
   def calibrations_natures
     object
       .inspections
@@ -163,6 +217,25 @@ class PlantDecorator < Draper::Decorator
     last_inspection.user_per_area_unit(:net_mass)
   end
 
+  def working_zone_area
+    interventions = decorated_interventions
+    working_zone = 0.in(:hectare)
+
+    interventions.map do |intervention|
+      intervention_working_zone = intervention_working_zone_area(intervention)
+      working_zone += intervention_working_zone.in(:hectare)
+    end
+
+    working_zone
+  end
+
+  def human_working_zone_area
+    working_zone_area
+      .in(:hectare)
+      .round(3)
+      .l
+  end
+
   private
 
   def inspection_points_percentage(dimension, category, unit_name)
@@ -182,5 +255,80 @@ class PlantDecorator < Draper::Decorator
     last_inspection
       .activity
       .unit_preference(user)
+  end
+
+  def calcul_global_costs(with_working_zone_area: false)
+    costs = { inputs: 0, doers: 0, tools: 0, receptions: 0 }
+    interventions = decorated_interventions
+    working_zone_area = 0.in(:hectare)
+
+    interventions.map do |intervention|
+      global_costs = intervention.global_costs
+
+      calcul_with_surface_area(intervention, global_costs) if intervention.many_targets?
+      working_zone_area += intervention_working_zone_area(intervention).in(:hectare).round(2) if with_working_zone_area
+
+      sum_costs(costs, global_costs)
+    end
+
+    calcul_with_working_zone_area(costs, working_zone_area) if with_working_zone_area
+    total_costs(costs)
+    costs
+  end
+
+  def decorated_interventions
+    InterventionDecorator.decorate_collection(object.interventions)
+  end
+
+  def sum_costs(plant_costs, costs)
+    plant_costs.each { |key, value| plant_costs[key] = plant_costs[key] + costs[key] }
+  end
+
+  def human_costs(costs)
+    costs.each { |key, value| costs[key] = costs[key].to_f.round(2) }
+  end
+
+  def multiply_costs(costs, multiplier)
+    costs.each { |key, value| costs[key] = value * multiplier }
+  end
+
+  def divider_costs(costs, divider)
+    costs.each { |key, value| costs[key] = value / divider }
+  end
+
+  def total_costs(costs)
+    costs = costs.except!(:total) if costs.key?(:total)
+
+    costs[:total] = costs.values.sum
+  end
+
+  def calcul_with_surface_area(intervention, costs)
+    product = nil
+    product = intervention.outputs.of_actor(object).first.product if intervention.procedure.of_category?(:planting)
+    product = intervention.targets.of_actor(object).first.product unless intervention.procedure.of_category?(:planting)
+
+    sum_surface_area = product.net_surface_area.to_d / intervention.sum_targets_working_zone_area.to_d
+
+    multiply_costs(costs, sum_surface_area)
+  end
+
+  def intervention_working_zone_area(intervention)
+    return intervention.working_zone_area unless intervention.many_targets?
+
+    product = nil
+    product = intervention.outputs.of_actor(object).first.product if intervention.procedure.of_category?(:planting)
+    product = intervention.targets.of_actor(object).first.product unless intervention.procedure.of_category?(:planting)
+
+    intervention.sum_products_working_zone_area(product) unless intervention.planting?
+    intervention.sum_outputs_working_zone_area_of_product(product) if intervention.planting?
+  end
+
+  def calcul_with_working_zone_area(costs, working_zone_area)
+    working_zone_area = working_zone_area
+                          .in(:hectare)
+                          .round(2)
+                          .to_f
+
+    divider_costs(costs, working_zone_area)
   end
 end

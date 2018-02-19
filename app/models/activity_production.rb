@@ -134,6 +134,7 @@ class ActivityProduction < Ekylibre::Record::Base
   scope :at, ->(at) { where(':now BETWEEN COALESCE(started_on, :now) AND COALESCE(stopped_on, :now)', now: at.to_date) }
   scope :current, -> { at(Time.zone.now) }
 
+
   state_machine :state, initial: :opened do
     state :opened
     state :aborted
@@ -222,6 +223,11 @@ class ActivityProduction < Ekylibre::Record::Base
     list << :rank.t(number: rank_number)
     list.reverse! if 'i18n.dir'.t == 'rtl'
     list.join(' ')
+  end
+
+  def interventions_of_nature(nature)
+    interventions
+      .where(nature: nature)
   end
 
   def update_names

@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  #resources :interventions_costs, concerns: [:list, :unroll]
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
@@ -860,6 +861,14 @@ Rails.application.routes.draw do
     resources :plant_countings, concerns: [:list]
 
     resources :preferences, only: %i[update]
+
+    namespace :products do
+      resources :search_variants, only: [] do
+        collection do
+          get :search_by_expression
+        end
+      end
+    end
 
     resources :product_groups, concerns: :products
 
