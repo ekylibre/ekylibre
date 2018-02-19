@@ -9,6 +9,11 @@
       .med-info.important
         %span.title= LandParcel.human_attribute_name(:net_surface_area)
         %span.value= resource.human_support_shape_area
+
+      .med-info.important
+        %span.title= :working_area.tl
+        %span.value= resource.decorate.human_working_zone_area
+
       - if resource.season
         .med-info
           %span.title= ActivityProduction.human_attribute_name(:season)
@@ -116,7 +121,8 @@
       = waterfall_highcharts(series, tooltip: {point_format: '{point.y: 1.3f}'}, title: {text: 'Budget prévisionnel'}, legend: {enabled: false}, x_axis: {type: 'category'}, y_axis: {title: {text: '€'}})
 
   - if resource.interventions.any? and Nomen::Variety[resource.activity.cultivation_variety] <= :plant
-    - async_cobble :production_cost, { params: { id: resource.id }, cobble: c }
+    - c.cobble(:production_costs, title: :production_costs.tl) do
+      = render partial: 'backend/shared/production_costs', locals: { costs: resource.decorate.production_costs }
   - else
     = no_data
 
