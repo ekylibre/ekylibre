@@ -39,7 +39,7 @@ gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '>= 1.3.0'
 # Use CoffeeScript for .coffee assets and views
 gem 'coffee-rails', '~> 4.1'
-# See https://github.com/rails/execjs#readme for more supported runtimes
+# See https://github.com/rails/execjs#readme for more supported runtimesi
 gem 'therubyracer', platforms: :ruby
 
 # Exception analysis and metrics
@@ -212,7 +212,6 @@ gem 'luhn'
 gem 'bootstrap-slider-rails'
 
 gem 'planning', git: 'git@gitlab.com:ekylibre-integration/planning.git'
-
 
 group :development do
   gem 'bullet', '< 5.6.0'

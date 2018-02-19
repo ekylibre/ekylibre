@@ -619,6 +619,9 @@ Rails.application.routes.draw do
       collection do
         post :duplicate_intervention
       end
+      member do
+        get :list_intervention_templates
+      end
     end
 
     namespace :interventions do
