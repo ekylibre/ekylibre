@@ -46,7 +46,6 @@ module Backend
     end
 
     def help_shown?
-      Preference[:use_contextual_help] &&
         !current_user.preference('interface.helps.collapsed', true, :boolean).value
     end
 
