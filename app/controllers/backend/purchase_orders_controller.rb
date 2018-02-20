@@ -98,7 +98,6 @@ module Backend
           FileUtils.mkdir_p tmp_dir
           File.write source, file_odt
           `soffice  --headless --convert-to pdf --outdir #{Shellwords.escape(tmp_dir.to_s)} #{Shellwords.escape(source)}`
-
           send_data(File.read(dest), type: 'application/pdf', disposition: 'attachment', filename: filename + '.pdf')
         end
       end
