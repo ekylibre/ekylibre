@@ -134,6 +134,7 @@ class ActivityProduction < Ekylibre::Record::Base
   scope :at, ->(at) { where(':now BETWEEN COALESCE(started_on, :now) AND COALESCE(stopped_on, :now)', now: at.to_date) }
   scope :current, -> { at(Time.zone.now) }
 
+
   state_machine :state, initial: :opened do
     state :opened
     state :aborted
@@ -224,6 +225,11 @@ class ActivityProduction < Ekylibre::Record::Base
     list.join(' ')
   end
 
+  def interventions_of_nature(nature)
+    interventions
+      .where(nature: nature)
+  end
+
   def update_names
     if support
       new_support_name = computed_support_name
@@ -257,7 +263,7 @@ class ActivityProduction < Ekylibre::Record::Base
       end
       self.support ||= LandParcel.new
     end
-    support.name = computed_support_name
+    support.name = name
     support.initial_shape = self.support_shape
     support.initial_born_at = started_on
     support.initial_dead_at = stopped_on
@@ -640,6 +646,7 @@ class ActivityProduction < Ekylibre::Record::Base
   def name(options = {})
     list = []
     list << activity.name unless options[:activity].is_a?(FalseClass)
+    list << season.name if season.present?
     list << cultivable_zone.name if cultivable_zone && plant_farming?
     list << started_on.to_date.l(format: :month) if activity.annual? && started_on
     list << :rank.t(number: rank_number)

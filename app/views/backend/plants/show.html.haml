@@ -10,6 +10,12 @@
     = product_info(:work_number, important: true)
     = product_info(:net_surface_area, important: true) do |population|
       = resource.net_surface_area.round(3).l
+
+    .med-info.important
+      %span.title= :working_area.tl
+      %span.value
+        = resource.decorate.human_working_zone_area
+
     = product_info(:variety, important: true, nomenclature: true)
     = product_info(:born_at, important: true)
     - if resource.dead_at
@@ -45,7 +51,11 @@
     - if resource.customized?
       = attributes_list(stamps: false)
   = labels_info(resource.labels)
+
 = cobbles do |c|
+
+  - c.cobble(:production_costs, title: :production_costs.tl) do
+    = render partial: 'backend/shared/production_costs', locals: { costs: resource.decorate.production_costs }
 
   - if resource.intervention_product_parameters.any?
     - c.cobble(:intervention_product_parameters, title: :x_interventions.tl(count: resource.interventions.count)) do

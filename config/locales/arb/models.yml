@@ -2137,6 +2137,7 @@ arb:
     profession_id: "مهنة" #?
     professions: "مهن" #?
     progression_percentage: "تقدم (٪)"
+    # project_budget: "Project budget"
     propagate_contacts: "تعميم الافراد" #?
     proposer: "الكفيل"
     proposer_id: "الكفيل" #?
@@ -2194,6 +2195,7 @@ arb:
     reception_amount: "كمية الاستقبال"
     reception_cash: "استقبال النقدية"
     reception_currency: "العملة الاستقبال"
+    # reception_items: "Reception items"
     reception_journal_entry: "دخول مجلة الاستقبال"
     # receptions: "Receptions"
     recipient: "مستلم"

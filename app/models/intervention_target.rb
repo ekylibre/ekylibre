@@ -60,6 +60,7 @@ class InterventionTarget < InterventionProductParameter
   scope :of_activity, ->(activity) { where(product_id: Product.where(activity_production_id: activity.productions.select(:id))) }
   scope :of_activities, ->(activities) { where(product_id: Product.where(activity_production_id: activities.map { |a| a.productions.select(:id) }.flatten.uniq)) }
   scope :of_activity_production, ->(activity_production) { where(product_id: Product.where(activity_production: activity_production)) }
+  scope :of_interventions, ->(interventions) { where(intervention_id: interventions.map(&:id)) }
 
   def best_activity
     production = best_activity_production
