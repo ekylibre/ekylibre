@@ -51,6 +51,9 @@
                 - pretax_amount = model_item.pretax_amount if model_item.is_a?(PurchaseItem)
                 - pretax_amount = model_item.purchase_order_item.try(:pretax_amount) unless model_item.is_a?(PurchaseItem)
                 %span.item-value.total-except-taxes= pretax_amount
+
+          = check_box_tag('', "0", false, class: 'item-checkbox', data: { id: model.id })
+
 .modal-footer
   .actions
     %button{ class: "btn btn-default valid-modal", data: { 'item-reconciliation': item_reconciliation }}= :valid.tl
