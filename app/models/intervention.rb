@@ -302,9 +302,12 @@ class Intervention < Ekylibre::Record::Base
       self.event_id = event.id
     end
 
-    self.costs = InterventionCosts.create!({ inputs_cost: 0, doers_cost: 0, tools_cost: 0, receptions_cost: 0 })
 
     true
+  end
+
+  before_create do
+    self.costs = InterventionCosts.create!({ inputs_cost: 0, doers_cost: 0, tools_cost: 0, receptions_cost: 0 })
   end
 
   after_save do
@@ -328,10 +331,7 @@ class Intervention < Ekylibre::Record::Base
     participations.update_all(state: state) unless state == :in_progress
     participations.update_all(request_compliant: request_compliant) if request_compliant
 
-    costs.update_attributes(inputs_cost: self.cost(:input),
-                            doers_cost: self.cost(:doer),
-                            tools_cost: self.cost(:tool),
-                            receptions_cost: receptions_cost.to_f.round(2))
+    create_intervention_costs
   end
 
   after_create do
@@ -367,6 +367,21 @@ class Intervention < Ekylibre::Record::Base
       inputs.each  { |input|  write_parameter_entry_items.call(input, true) }
       outputs.each { |output| write_parameter_entry_items.call(output, false) }
     end
+  end
+
+  def create_intervention_costs
+    costs_attributes = {}
+
+    [:input, :tool, :doer].each do |type|
+      type_cost = self.cost(type)
+      type_cost = 0 if type_cost.nil?
+
+      costs_attributes["#{type.to_s.pluralize}_cost"] = type_cost
+    end
+
+    costs_attributes[:receptions_cost] = receptions_cost.to_f.round(2)
+
+    costs.update_attributes(costs_attributes)
   end
 
   def initialize_record(state: :done)
