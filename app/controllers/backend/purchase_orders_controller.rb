@@ -86,19 +86,8 @@ module Backend
           @dataset_purchase_order = @purchase_order.order_reporting
           send_data to_odt(@dataset_purchase_order, filename, params).generate, type: 'application/vnd.oasis.opendocument.text', disposition: 'attachment', filename: filename << '.odt'
         end
-
         format.pdf do
-          filename = "Bon_de_commande_#{@purchase_order.reference_number}"
-          @dataset_purchase_order = @purchase_order.order_reporting
-          file_odt = to_odt(@dataset_purchase_order, filename, params).generate
-          tmp_dir = Ekylibre::Tenant.private_directory.join('tmp')
-          uuid = SecureRandom.uuid
-          source = tmp_dir.join(uuid + '.odt')
-          dest = tmp_dir.join(uuid + '.pdf')
-          FileUtils.mkdir_p tmp_dir
-          File.write source, file_odt
-          `soffice  --headless --convert-to pdf --outdir #{Shellwords.escape(tmp_dir.to_s)} #{Shellwords.escape(source)}`
-          send_data(File.read(dest), type: 'application/pdf', disposition: 'attachment', filename: filename + '.pdf')
+          to_pdf
         end
       end
     end
@@ -131,6 +120,20 @@ module Backend
 
     protected
 
+    def to_pdf
+      filename = "Bon_de_commande_#{@purchase_order.reference_number}"
+      @dataset_purchase_order = @purchase_order.order_reporting
+      file_odt = to_odt(@dataset_purchase_order, filename, params).generate
+      tmp_dir = Ekylibre::Tenant.private_directory.join('tmp')
+      uuid = SecureRandom.uuid
+      source = tmp_dir.join(uuid + '.odt')
+      dest = tmp_dir.join(uuid + '.pdf')
+      FileUtils.mkdir_p tmp_dir
+      File.write source, file_odt
+      `soffice  --headless --convert-to pdf --outdir #{Shellwords.escape(tmp_dir.to_s)} #{Shellwords.escape(source)}`
+      send_data(File.read(dest), type: 'application/pdf', disposition: 'attachment', filename: filename + '.pdf')
+    end
+
     def to_odt(order_reporting, filename, _params)
       # TODO: add a generic template system path
       report = ODFReport::Report.new(Rails.root.join('config', 'locales', 'fra', 'reporting', 'purchase_order.odt')) do |r|
@@ -138,9 +141,9 @@ module Backend
 
         e = Entity.of_company
         company_name = e.full_name
-        company_address = e.default_mail_address.coordinate
-        company_phone = e.phones.first.coordinate
-        company_email = e.addresses.where(canal: 'email').first.coordinate
+        company_address = e.default_mail_address.present? ? e.default_mail_address.coordinate : '-'
+        company_phone = e.phones.present? ? e.phones.first.coordinate : '-'
+        company_email = e.addresses.where(canal: 'email')&.first&.coordinate || '-'
 
         r.add_field 'COMPANY_ADDRESS', company_address
         r.add_field 'COMPANY_NAME', company_name
@@ -157,7 +160,7 @@ module Backend
         r.add_field 'SUPPLIER_PHONE', order_reporting[:supplier_phone]
         r.add_field 'SUPPLIER_MOBILE_PHONE', order_reporting[:supplier_mobile_phone]
         r.add_field 'SUPPLIER_ADDRESS', order_reporting[:supplier_address]
-        r.add_field 'SUPPLIER_EMAIL', order_reporting[:supplier_email]
+        r.add_field 'SUPPLIER_EMAIL', @purchase_order.responsible.email
         r.add_image :company_logo, order_reporting[:entity_picture]
 
         r.add_table('P_ITEMS', order_reporting[:items], header: true) do |t|
