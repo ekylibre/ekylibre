@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  #resources :interventions_costs, concerns: [:list, :unroll]
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
@@ -1059,6 +1060,8 @@ Rails.application.routes.draw do
     end
 
     resources :teams, concerns: %i[list unroll]
+
+    resources :project_budgets, concerns: %i[list unroll]
 
     resources :tours, only: [] do
       member do
