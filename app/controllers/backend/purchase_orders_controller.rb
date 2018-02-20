@@ -86,6 +86,21 @@ module Backend
           @dataset_purchase_order = @purchase_order.order_reporting
           send_data to_odt(@dataset_purchase_order, filename, params).generate, type: 'application/vnd.oasis.opendocument.text', disposition: 'attachment', filename: filename << '.odt'
         end
+
+        format.pdf do
+          filename = "Bon_de_commande_#{@purchase_order.reference_number}"
+          @dataset_purchase_order = @purchase_order.order_reporting
+          file_odt = to_odt(@dataset_purchase_order, filename, params).generate
+          tmp_dir = Ekylibre::Tenant.private_directory.join('tmp')
+          uuid = SecureRandom.uuid
+          source = tmp_dir.join(uuid + '.odt')
+          dest = tmp_dir.join(uuid + '.pdf')
+          FileUtils.mkdir_p tmp_dir
+          File.write source, file_odt
+          `soffice  --headless --convert-to pdf --outdir #{Shellwords.escape(tmp_dir.to_s)} #{Shellwords.escape(source)}`
+
+          send_data(File.read(dest), type: 'application/pdf', disposition: 'attachment', filename: filename + '.pdf')
+        end
       end
     end
 
