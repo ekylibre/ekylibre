@@ -96,7 +96,11 @@ class PurchaseInvoice < Purchase
   end
 
   after_save do
-    items.each(&:update_fixed_asset)
+    items.each do |item|
+      item.create_fixed_asset if item.fixed_asset.nil?
+
+      item.update_fixed_asset if item.fixed_asset.present? && item.pretax_amount_changed?
+    end
   end
 
   # This callback permits to add journal entries corresponding to the purchase order/invoice
