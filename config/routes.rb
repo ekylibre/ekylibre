@@ -610,12 +610,19 @@ Rails.application.routes.draw do
       collection do
         get :select_type
         get :templates_of_activity
+        get :interventions_have_activities
+      end
+      member do
+        get :list_technical_itineraries
       end
     end
 
     resources :technical_itineraries, concerns: :list do
       collection do
         post :duplicate_intervention
+      end
+      member do
+        get :list_intervention_templates
       end
     end
 
@@ -854,6 +861,14 @@ Rails.application.routes.draw do
     resources :plant_countings, concerns: [:list]
 
     resources :preferences, only: %i[update]
+
+    namespace :products do
+      resources :search_variants, only: [] do
+        collection do
+          get :search_by_expression
+        end
+      end
+    end
 
     resources :product_groups, concerns: :products
 

@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 9.6.7
--- Dumped by pg_dump version 9.6.7
+-- Dumped from database version 9.6.6
+-- Dumped by pg_dump version 9.6.6
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -3877,7 +3877,9 @@ CREATE TABLE intervention_templates (
     preparation_time_minutes integer,
     workflow numeric,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    creator_id integer,
+    updater_id integer
 );
 
 
@@ -6977,7 +6979,9 @@ CREATE TABLE technical_itineraries (
     activity_id integer,
     description character varying,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    creator_id integer,
+    updater_id integer
 );
 
 
@@ -18830,5 +18834,11 @@ INSERT INTO schema_migrations (version) VALUES ('20180208075145');
 INSERT INTO schema_migrations (version) VALUES ('20180208100753');
 
 INSERT INTO schema_migrations (version) VALUES ('20180208102339');
+
+INSERT INTO schema_migrations (version) VALUES ('20180212101905');
+
+INSERT INTO schema_migrations (version) VALUES ('20180214132041');
+
+INSERT INTO schema_migrations (version) VALUES ('20180214161529');
 
 INSERT INTO schema_migrations (version) VALUES ('20180214132041');
