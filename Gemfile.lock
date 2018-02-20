@@ -1,8 +1,8 @@
 GIT
   remote: git@gitlab.com:ekylibre-integration/planning.git
-  revision: 7b88cbe7d194c1dbb94db5fc82027af0d1c35389
+  revision: 597a71667f85afa6edca573f7496c82f643a2c15
   specs:
-    planning (0.4.0)
+    planning (0.4.1)
       lodash-rails
       rails (~> 4.2.10)
 
