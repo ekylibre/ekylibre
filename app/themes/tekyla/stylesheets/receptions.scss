@@ -465,6 +465,15 @@
     #showItemReconciliationModal {
       margin-top: $default-gap * 4;
     }
+    .reception_items_project_budget {
+      display: block;
+      .controls {
+        margin-left: 0%;
+        input {
+          width: 100%;
+        }
+      }
+    }
   }
 }
 
