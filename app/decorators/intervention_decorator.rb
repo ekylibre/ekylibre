@@ -26,8 +26,8 @@ class InterventionDecorator < Draper::Decorator
     parameters = object.outputs if planting?
 
     parameters.map do |parameter|
-      parameter.working_zone_area unless planting?
-      parameter.product.net_surface_area if planting?
+      return parameter.working_zone_area unless planting?
+      return parameter.product.net_surface_area if planting?
     end.sum.in(:hectare).round(2)
   end
 
@@ -38,6 +38,15 @@ class InterventionDecorator < Draper::Decorator
   def sum_targets_working_zone_area
     object
       .targets
+      .map{ |intervention_target| intervention_target.working_zone_area }
+      .sum
+      .in(:hectare)
+      .round(2)
+  end
+
+  def sum_outputs_working_zone_area
+    object
+      .outputs
       .map{ |intervention_target| intervention_target.working_zone_area }
       .sum
       .in(:hectare)
@@ -67,6 +76,16 @@ class InterventionDecorator < Draper::Decorator
       .targets
       .of_activity_production(activity_production)
       .map(&:working_zone_area)
+      .sum
+  end
+
+  def sum_outputs_working_zone_area_of_activity_production(activity_production)
+    object
+      .outputs
+      .of_activity_production(activity_production)
+      .flatten
+      .map(&:product)
+      .map(&:net_surface_area)
       .sum
   end
 

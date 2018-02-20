@@ -71,9 +71,9 @@ class ActivityProductionDecorator < Draper::Decorator
       global_costs = intervention.global_costs
 
       calcul_with_surface_area(intervention, global_costs) if intervention.many_targets?
-      sum_costs(costs, intervention.global_costs)
+      sum_costs(costs, global_costs)
 
-      working_zone += intervention_working_zone_area(intervention).in(:hectare) if with_working_zone_area
+      working_zone += intervention_working_zone_area(intervention).in(:hectare).round(2) if with_working_zone_area
     end
 
     calcul_with_working_zone_area(costs, working_zone) if with_working_zone_area
@@ -115,36 +115,41 @@ class ActivityProductionDecorator < Draper::Decorator
   end
 
   def calcul_with_surface_area(intervention, costs)
-    products = intervention
-                 .targets
-                 .of_activity_production(object)
-                 .map(&:product)
+    relation = intervention.outputs if intervention.planting?
+    relation = intervention.targets unless intervention.planting?
+    parameters = Products::SearchByActivityProductionQuery.call(relation, activity_production: object)
 
-    products.each do |product|
-      sum_surface_area = product.net_surface_area.to_d / intervention.sum_targets_working_zone_area.to_d
+    sum_surface_area = 0.in(:hectare)
+    sum_targets = intervention.sum_targets_working_zone_area.to_d
 
-      multiply_costs(costs, sum_surface_area)
-    end
+    sum_surface_area = parameters.map do |parameter|
+                         product = parameter.product.decorate
+                         surface = product.net_surface_area unless product.is_a?(LandParcel)
+                         surface = parameter.working_zone_area if product.is_a?(LandParcel)
+
+                         surface_area = surface.in(:hectare).round(2) / sum_targets
+                       end.sum.in(:hectare).round(2)
+
+    multiply_costs(costs, sum_surface_area.to_d)
   end
 
   def intervention_working_zone_area(intervention)
-    #return intervention.working_zone_area unless intervention.many_targets?
-
-    #intervention.sum_activity_production_working_zone_area(object)
-
     return intervention.working_zone_area unless intervention.many_targets?
 
     relation = intervention.outputs if intervention.planting?
     relation = intervention.targets unless intervention.planting?
     parameters = Products::SearchByActivityProductionQuery.call(relation, activity_production: object)
 
-    product = nil
-    product = parameters.first.product
+    sum_working_zone = 0.in(:hectare)
+    parameters.each do |parameter|
+      product = parameter.product
 
-    return product.net_surface_area if product.is_a?(LandParcel)
+      #sum_working_zone += product.net_surface_area if product.is_a?(LandParcel)
+      sum_working_zone += intervention.sum_products_working_zone_area(product) unless intervention.planting?
+      sum_working_zone += intervention.sum_outputs_working_zone_area_of_product(product) if intervention.planting?
+    end
 
-    return intervention.sum_products_working_zone_area(product) unless intervention.planting?
-    intervention.sum_outputs_working_zone_area_of_product(product) if intervention.planting?
+    sum_working_zone
   end
 
   def calcul_with_working_zone_area(costs, working_zone)
