@@ -1,33 +1,13 @@
 class InterventionDecorator < Draper::Decorator
   delegate_all
 
-  def real_cost(type)
-    parameters = object.inputs if type == :input
-    parameters = object.doers if type == :doer
-    parameters = object.tools if type == :tool
-
-    return 0 if parameters.empty?
-    return parameters.map(&:cost).compact.sum if object.participations.empty?
-
-    parameters.map do |parameter|
-      natures = {}
-
-      if parameter.is_a?(Equipment)
-        natures = %i[travel intervention] if parameter.product.try?(:tractor?)
-        natures = %i[intervention] unless parameter.product.try?(:tractor?)
-      end
-
-      parameter.cost(natures: natures)
-    end.compact.sum
-  end
-
   def sum_working_zone_area_of_product(product)
     parameters = object.targets unless planting?
     parameters = object.outputs if planting?
 
     parameters.map do |parameter|
-      parameter.working_zone_area unless planting?
-      parameter.product.net_surface_area if planting?
+      return parameter.working_zone_area unless planting?
+      return parameter.product.net_surface_area if planting?
     end.sum.in(:hectare).round(2)
   end
 
@@ -38,6 +18,15 @@ class InterventionDecorator < Draper::Decorator
   def sum_targets_working_zone_area
     object
       .targets
+      .map{ |intervention_target| intervention_target.working_zone_area }
+      .sum
+      .in(:hectare)
+      .round(2)
+  end
+
+  def sum_outputs_working_zone_area
+    object
+      .outputs
       .map{ |intervention_target| intervention_target.working_zone_area }
       .sum
       .in(:hectare)
@@ -67,6 +56,16 @@ class InterventionDecorator < Draper::Decorator
       .targets
       .of_activity_production(activity_production)
       .map(&:working_zone_area)
+      .sum
+  end
+
+  def sum_outputs_working_zone_area_of_activity_production(activity_production)
+    object
+      .outputs
+      .of_activity_production(activity_production)
+      .flatten
+      .map(&:product)
+      .map(&:net_surface_area)
       .sum
   end
 
