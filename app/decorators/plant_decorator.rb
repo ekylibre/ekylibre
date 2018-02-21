@@ -91,8 +91,6 @@ class PlantDecorator < Draper::Decorator
 
     return 0 if total_quantity == 0
 
-    return 0 if total_quantity == 0
-
     quantity.to_f / total_quantity.to_f * 100
   end
 
@@ -319,7 +317,7 @@ class PlantDecorator < Draper::Decorator
     product = intervention.outputs.of_actor(object).first.product if intervention.procedure.of_category?(:planting)
     product = intervention.targets.of_actor(object).first.product unless intervention.procedure.of_category?(:planting)
 
-    intervention.sum_products_working_zone_area(product) unless intervention.planting?
+    return intervention.sum_products_working_zone_area(product) unless intervention.planting?
     intervention.sum_outputs_working_zone_area_of_product(product) if intervention.planting?
   end
 
