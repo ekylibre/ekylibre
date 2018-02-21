@@ -25,9 +25,9 @@ class CreateInterventionsCosts < ActiveRecord::Migration
   def historical_recovery
     Intervention.all.each do |intervention|
       costs = {
-        inputs_cost: intervention.cost(:input),
-        doers_cost: intervention.cost(:doer),
-        tools_cost: intervention.cost(:tool),
+        inputs_cost: intervention.decorate.real_cost(:input),
+        doers_cost: intervention.decorate.real_cost(:doer),
+        tools_cost: intervention.decorate.real_cost(:tool),
         receptions_cost: intervention.receptions_cost.to_f.round(2)
       }
 
@@ -37,12 +37,5 @@ class CreateInterventionsCosts < ActiveRecord::Migration
       intervention.intervention_costs_id = intervention_costs.id
       intervention.save
     end
-  end
-
-  def cost(relation)
-    relation
-      .map(&:cost)
-      .compact
-      .sum
   end
 end
