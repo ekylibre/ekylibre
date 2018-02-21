@@ -92,7 +92,6 @@ class ActivityDecorator < Draper::Decorator
       human_costs(costs[:global_costs])
 
       sum_surface_area += activity_production.net_surface_area
-      multiply_costs(activity_production_costs, calculated_surface_area(activity_production.net_surface_area))
       sum_costs(costs[:cultivated_hectare_costs], activity_production_costs)
     end
 
