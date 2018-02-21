@@ -143,7 +143,7 @@ module Backend
         company_name = e.full_name
         company_address = e.default_mail_address.present? ? e.default_mail_address.coordinate : '-'
         company_phone = e.phones.present? ? e.phones.first.coordinate : '-'
-        company_email = e.addresses.where(canal: 'email')&.first&.coordinate || '-'
+        company_email = order_reporting[:purchase_responsible_email]
 
         r.add_field 'COMPANY_ADDRESS', company_address
         r.add_field 'COMPANY_NAME', company_name
@@ -160,7 +160,7 @@ module Backend
         r.add_field 'SUPPLIER_PHONE', order_reporting[:supplier_phone]
         r.add_field 'SUPPLIER_MOBILE_PHONE', order_reporting[:supplier_mobile_phone]
         r.add_field 'SUPPLIER_ADDRESS', order_reporting[:supplier_address]
-        r.add_field 'SUPPLIER_EMAIL', @purchase_order.responsible.email
+        r.add_field 'SUPPLIER_EMAIL', order_reporting[:supplier_email]
         r.add_image :company_logo, order_reporting[:entity_picture]
 
         r.add_table('P_ITEMS', order_reporting[:items], header: true) do |t|
