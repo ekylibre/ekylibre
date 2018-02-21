@@ -38,11 +38,4 @@ class CreateInterventionsCosts < ActiveRecord::Migration
       intervention.save
     end
   end
-
-  def cost(relation)
-    relation
-      .map(&:cost)
-      .compact
-      .sum
-  end
 end
