@@ -115,8 +115,11 @@ class ActivityProductionDecorator < Draper::Decorator
   end
 
   def calcul_with_surface_area(intervention, costs)
-    relation = intervention.outputs if intervention.planting?
-    relation = intervention.targets unless intervention.planting?
+    relation = intervention.outputs.with_working_zone if intervention.planting?
+    relation = intervention.targets.with_working_zone unless intervention.planting?
+
+    return if relation.empty?
+
     parameters = Products::SearchByActivityProductionQuery.call(relation, activity_production: object)
 
     sum_surface_area = 0.in(:hectare)
