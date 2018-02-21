@@ -1,6 +1,6 @@
 GIT
   remote: git@gitlab.com:ekylibre-integration/planning.git
-  revision: af20c9edd2c13d13716d995f7c11252b638224ec
+  revision: 0aa0ddeea79b3197a3bd5480e67ac8185756f0b2
   specs:
     planning (0.4.1)
       lodash-rails
@@ -372,7 +372,7 @@ GEM
     parallel (1.12.1)
     parallel_tests (2.21.1)
       parallel
-    parser (2.5.0.0)
+    parser (2.5.0.1)
       ast (~> 2.4.0)
     pg (0.20.0)
     polyglot (0.3.5)
