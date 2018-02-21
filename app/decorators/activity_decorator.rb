@@ -100,7 +100,7 @@ class ActivityDecorator < Draper::Decorator
     human_costs(costs[:cultivated_hectare_costs])
 
     sum_costs(costs[:working_hectare_costs], costs[:global_costs])
-    divider_costs(costs[:working_hectare_costs], sum_interventions_working_zone_area)
+    divider_costs(costs[:working_hectare_costs], working_zone_area(current_campaign).to_d)
     human_costs(costs[:working_hectare_costs])
 
     costs

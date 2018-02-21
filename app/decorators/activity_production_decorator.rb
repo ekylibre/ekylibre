@@ -144,7 +144,6 @@ class ActivityProductionDecorator < Draper::Decorator
     parameters.each do |parameter|
       product = parameter.product
 
-      #sum_working_zone += product.net_surface_area if product.is_a?(LandParcel)
       sum_working_zone += intervention.sum_products_working_zone_area(product) unless intervention.planting?
       sum_working_zone += intervention.sum_outputs_working_zone_area_of_product(product) if intervention.planting?
     end
