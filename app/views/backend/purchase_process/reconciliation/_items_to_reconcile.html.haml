@@ -52,7 +52,8 @@
                 - pretax_amount = model_item.purchase_order_item.try(:pretax_amount) unless model_item.is_a?(PurchaseItem)
                 %span.item-value.total-except-taxes= pretax_amount
 
-          = check_box_tag('', "0", false, class: 'item-checkbox', data: { id: model.id })
+          - if model.is_a?(PurchaseOrder)
+            = check_box_tag('close-purchase-order', "0", false, class: 'item-checkbox', data: { id: model.id })
 
 .modal-footer
   .actions
