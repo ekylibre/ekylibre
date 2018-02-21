@@ -46,6 +46,7 @@
 #  product_name                  :string
 #  product_ownership_id          :integer
 #  product_work_number           :string
+#  project_budget_id             :integer
 #  purchase_invoice_item_id      :integer
 #  purchase_order_item_id        :integer
 #  role                          :string
@@ -188,7 +189,6 @@ class ParcelItem < Ekylibre::Record::Base
 
   def purchase_invoice_number
     return nil if purchase_invoice_item.nil?
-
     purchase_invoice_item.purchase.number
   end
 

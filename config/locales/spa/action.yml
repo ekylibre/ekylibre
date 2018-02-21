@@ -1101,6 +1101,7 @@ spa:
     csv_statistics: "Statisticas a exportar al formato CSV" #?
     cultivable_zone: "Zona cultivable"
     cultivable_zones: "Zonas cultivables"
+    # cultivated_hectare_costs: "Cultivated hectare costs"
     cumul: "Cumul del total y del saldo precedente N°%{number}"
     currency_conversion_rate: "Tasa de conversión de moneda"
     current: "Corriente"
@@ -1294,6 +1295,7 @@ spa:
     generate_parcel: "generar parcela"
     generate_repayments: "Contabilidad pase"
     geolocation: "Geolocalización"
+    # global_costs: "Global costs"
     global_preferences: "Preferencias globales"
     go: "Ir"
     gradings: "gradaciones"
@@ -1699,6 +1701,7 @@ spa:
     # product_value: "Product value %{financial_year}"
     production: "Administración de la producción"
     production_cost: "Costo de producción"
+    # production_costs: "Production costs"
     production_distribution: "Distribución de la producción"
     production_support: "Soporte de producción"
     productions: "Producciones"
@@ -2088,6 +2091,7 @@ spa:
     with_prints: "Incluir las impresiones (facturas, encargos...)" #?
     workers: "Trabajadores"
     working_duration: "Duración de trabajo"
+    # working_hectare_costs: "Working hectare costs"
     working_sets_stocks: "Trabajo establece las existencias"
     # working_times: "Working times of %{name}"
     x_cashes:

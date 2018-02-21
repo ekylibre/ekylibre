@@ -32,6 +32,7 @@
 #  description                    :text
 #  event_id                       :integer
 #  id                             :integer          not null, primary key
+#  intervention_costs_id          :integer
 #  issue_id                       :integer
 #  journal_entry_id               :integer
 #  lock_version                   :integer          default(0), not null
@@ -68,6 +69,7 @@ class Intervention < Ekylibre::Record::Base
   belongs_to :prescription
   belongs_to :journal_entry, dependent: :destroy
   belongs_to :purchase
+  belongs_to :costs, class_name: 'InterventionCosts', foreign_key: :intervention_costs_id
   has_many :receptions, class_name: 'Reception', dependent: :destroy
   has_many :labellings, class_name: 'InterventionLabelling', dependent: :destroy, inverse_of: :intervention
   has_many :labels, through: :labellings
@@ -299,7 +301,13 @@ class Intervention < Ekylibre::Record::Base
       # self.update_column(:event_id, event.id)
       self.event_id = event.id
     end
+
+
     true
+  end
+
+  before_create do
+    self.costs = InterventionCosts.create!({ inputs_cost: 0, doers_cost: 0, tools_cost: 0, receptions_cost: 0 })
   end
 
   after_save do
@@ -322,6 +330,8 @@ class Intervention < Ekylibre::Record::Base
     end
     participations.update_all(state: state) unless state == :in_progress
     participations.update_all(request_compliant: request_compliant) if request_compliant
+
+    create_intervention_costs
   end
 
   after_create do
@@ -357,6 +367,21 @@ class Intervention < Ekylibre::Record::Base
       inputs.each  { |input|  write_parameter_entry_items.call(input, true) }
       outputs.each { |output| write_parameter_entry_items.call(output, false) }
     end
+  end
+
+  def create_intervention_costs
+    costs_attributes = {}
+
+    [:input, :tool, :doer].each do |type|
+      type_cost = self.cost(type)
+      type_cost = 0 if type_cost.nil?
+
+      costs_attributes["#{type.to_s.pluralize}_cost"] = type_cost
+    end
+
+    costs_attributes[:receptions_cost] = receptions_cost.to_f.round(2)
+
+    costs.update_attributes(costs_attributes)
   end
 
   def initialize_record(state: :done)
@@ -534,7 +559,21 @@ class Intervention < Ekylibre::Record::Base
   # Sums all intervention product parameter total_cost of a particular role
   def cost(role = :input)
     params = product_parameters.of_generic_role(role)
-    return params.map(&:cost).compact.sum if params.any?
+
+    if params.any?
+      return params.map(&:cost).compact.sum if participations.empty?
+
+      return params.map do |param|
+               natures = {}
+               if param.product.is_a?(Equipment)
+                 natures = %i[travel intervention] if param.product.try(:tractor?)
+                 natures = %i[intervention] unless param.product.try(:tractor?)
+               end
+
+               param.cost(natures: natures)
+             end.compact.sum
+    end
+
     nil
   end
 

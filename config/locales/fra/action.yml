@@ -568,6 +568,10 @@ fra:
       index: "Produits"
       new: "Créer un produit"
       show: "%{nature}\_: %{name}"
+    backend/project_budgets: #?
+      edit: "Modifier le budget\_: %{name}" #?
+      index: "Budgets " #?
+      new: "Nouveau budget" #?
     backend/purchase_invoices:
       edit: "Modifier la facture: %{number}"
       index: "Factures"
@@ -1221,6 +1225,7 @@ fra:
     cultivable_zone: "Zone cultivable"
     cultivable_zone_abbreviation: "ZC" #?
     cultivable_zones: "Zones cultivables"
+    cultivated_hectare_costs: "Coût par hectare cultivé"
     cumul: "Cumul du total et du solde précédent N°%{number}"
     currency: "Devise" #?
     currency_conversion_rate: "Taux de conversion de la nouvelle monnaie"
@@ -1436,6 +1441,7 @@ fra:
     generate_repayments: "Passer en comptabilité"
     geolocation: "Géolocalisation"
     give_discount: "Octroyer une remise" #?
+    global_costs: "Coût global"
     global_preferences: "Préférences générales"
     go: "Valider"
     gradings: "Agréages"
@@ -1939,6 +1945,7 @@ fra:
     product_value: "Chiffre d’affaire de l’exercice %{financial_year}"
     production: "Production"
     production_cost: "Coût de production"
+    production_costs: "Coûts de production"
     production_distribution: "Répartition de la production"
     production_support: "Support de production"
     productions: "Productions"
@@ -2437,6 +2444,7 @@ fra:
     workers: "Équipiers"
     working_area: "Surface travaillée" #?
     working_duration: "Temps de travail"
+    working_hectare_costs: "Coût par hectare travaillé"
     working_sets_stocks: "Stocks d’ensembles de produits"
     working_times: "Temps de travaux de %{name}"
     working_zone: "Zone travaillée" #?
