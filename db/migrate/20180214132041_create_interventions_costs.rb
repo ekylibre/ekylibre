@@ -25,9 +25,9 @@ class CreateInterventionsCosts < ActiveRecord::Migration
   def historical_recovery
     Intervention.all.each do |intervention|
       costs = {
-        inputs_cost: intervention.decorate.real_cost(:input),
-        doers_cost: intervention.decorate.real_cost(:doer),
-        tools_cost: intervention.decorate.real_cost(:tool),
+        inputs_cost: intervention.cost(:input),
+        doers_cost: intervention.cost(:doer),
+        tools_cost: intervention.cost(:tool),
         receptions_cost: intervention.receptions_cost.to_f.round(2)
       }
 
