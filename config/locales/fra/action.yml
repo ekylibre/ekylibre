@@ -1770,6 +1770,7 @@ fra:
     next: "Suivant"
     nitrogen_concentration: "Teneur en azote (N)"
     nitrogen_concentration_per_hectare: "Teneur en azote par hectare" #?
+    no: "Non"
     no_attachments: "Déposez vos fichiers ici ou cliquez sur le bouton d’ajout"
     no_crumbs_to_check: "Pas de miettes à qualifier"
     no_data: "Aucune donnée"
@@ -2642,6 +2643,7 @@ fra:
       one: "%{count} an"
       other: "%{count} ans"
     y: "Oui" #?
+    yes: "Oui"
     year: "Année"
     yearly: "Annuelle" #?
     years: "Années" #?

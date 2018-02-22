@@ -53,7 +53,12 @@
                 %span.item-value.total-except-taxes= pretax_amount
 
           - if model.is_a?(PurchaseOrder)
-            = check_box_tag('close-purchase-order', "0", false, class: 'item-checkbox', data: { id: model.id })
+            .close-purchase-order.hidden
+              = label_tag "Fermer la commande suite à cette réception :", nil, class: "close-purchase-order-label"
+              = radio_button_tag "close_purchase_order_#{model.id}", 'true', false, class: "close-purchase-order-radio"
+              = label_tag "Oui", nil, class: "close-purchase-order-radio-label"
+              = radio_button_tag "close_purchase_order_#{model.id}", 'false', true, class: "close-purchase-order-radio"
+              = label_tag "Non", nil, class: "close-purchase-order-radio-label"
 
 .modal-footer
   .actions
