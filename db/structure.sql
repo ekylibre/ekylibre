@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 9.6.7
--- Dumped by pg_dump version 9.6.7
+-- Dumped from database version 9.6.6
+-- Dumped by pg_dump version 9.6.6
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -346,7 +346,12 @@ CREATE TABLE activity_productions (
     campaign_id integer,
     custom_fields jsonb,
     season_id integer,
-    tactic_id integer
+    tactic_id integer,
+    technical_itinerary_id integer,
+    predicated_sowing_date date,
+    batch_planting boolean,
+    number_of_batch integer,
+    sowing_interval integer
 );
 
 
@@ -10032,6 +10037,13 @@ CREATE INDEX index_activity_productions_on_tactic_id ON activity_productions USI
 
 
 --
+-- Name: index_activity_productions_on_technical_itinerary_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_activity_productions_on_technical_itinerary_id ON activity_productions USING btree (technical_itinerary_id);
+
+
+--
 -- Name: index_activity_productions_on_updated_at; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -17926,6 +17938,14 @@ ALTER TABLE ONLY parcel_items
 
 
 --
+-- Name: activity_productions fk_rails_42b3d2f5a8; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY activity_productions
+    ADD CONSTRAINT fk_rails_42b3d2f5a8 FOREIGN KEY (technical_itinerary_id) REFERENCES technical_itineraries(id);
+
+
+--
 -- Name: crumbs fk_rails_434e943648; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -18840,3 +18860,6 @@ INSERT INTO schema_migrations (version) VALUES ('20180212101905');
 INSERT INTO schema_migrations (version) VALUES ('20180214132041');
 
 INSERT INTO schema_migrations (version) VALUES ('20180214161529');
+
+INSERT INTO schema_migrations (version) VALUES ('20180222160705');
+

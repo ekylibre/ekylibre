@@ -617,7 +617,7 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :technical_itineraries, concerns: :list do
+    resources :technical_itineraries, concerns: %i[list unroll] do
       collection do
         post :duplicate_intervention
       end
