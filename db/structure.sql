@@ -782,6 +782,73 @@ ALTER SEQUENCE activity_inspection_point_natures_id_seq OWNED BY activity_inspec
 
 
 --
+-- Name: activity_production_batches; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE activity_production_batches (
+    id integer NOT NULL,
+    number integer,
+    day_interval integer,
+    irregular_batch boolean DEFAULT false,
+    activity_production_id integer,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: activity_production_batches_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE activity_production_batches_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: activity_production_batches_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE activity_production_batches_id_seq OWNED BY activity_production_batches.id;
+
+
+--
+-- Name: activity_production_irregular_batches; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE activity_production_irregular_batches (
+    id integer NOT NULL,
+    activity_production_batch_id integer,
+    estimated_sowing_date date,
+    area numeric,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: activity_production_irregular_batches_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE activity_production_irregular_batches_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: activity_production_irregular_batches_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE activity_production_irregular_batches_id_seq OWNED BY activity_production_irregular_batches.id;
+
+
+--
 -- Name: activity_productions_campaigns; Type: VIEW; Schema: public; Owner: -
 --
 
@@ -7331,6 +7398,20 @@ ALTER TABLE ONLY activity_inspection_point_natures ALTER COLUMN id SET DEFAULT n
 
 
 --
+-- Name: activity_production_batches id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY activity_production_batches ALTER COLUMN id SET DEFAULT nextval('activity_production_batches_id_seq'::regclass);
+
+
+--
+-- Name: activity_production_irregular_batches id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY activity_production_irregular_batches ALTER COLUMN id SET DEFAULT nextval('activity_production_irregular_batches_id_seq'::regclass);
+
+
+--
 -- Name: activity_productions id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -8443,6 +8524,22 @@ ALTER TABLE ONLY activity_inspection_calibration_scales
 
 ALTER TABLE ONLY activity_inspection_point_natures
     ADD CONSTRAINT activity_inspection_point_natures_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: activity_production_batches activity_production_batches_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY activity_production_batches
+    ADD CONSTRAINT activity_production_batches_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: activity_production_irregular_batches activity_production_irregular_batches_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY activity_production_irregular_batches
+    ADD CONSTRAINT activity_production_irregular_batches_pkey PRIMARY KEY (id);
 
 
 --
@@ -9635,6 +9732,20 @@ ALTER TABLE ONLY versions
 
 ALTER TABLE ONLY wice_grid_serialized_queries
     ADD CONSTRAINT wice_grid_serialized_queries_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: activity_production_batch_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX activity_production_batch_id ON activity_production_batches USING btree (activity_production_id);
+
+
+--
+-- Name: activity_production_irregular_batch_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX activity_production_irregular_batch_id ON activity_production_irregular_batches USING btree (activity_production_batch_id);
 
 
 --
@@ -17850,6 +17961,14 @@ CREATE TRIGGER synchronize_jeis_of_entry AFTER INSERT OR UPDATE ON journal_entri
 
 
 --
+-- Name: activity_production_batches fk_rails_00e34d02e0; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY activity_production_batches
+    ADD CONSTRAINT fk_rails_00e34d02e0 FOREIGN KEY (activity_production_id) REFERENCES activity_productions(id);
+
+
+--
 -- Name: payslips fk_rails_02f6ec2213; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -17919,6 +18038,14 @@ ALTER TABLE ONLY technical_itineraries
 
 ALTER TABLE ONLY journal_entry_items
     ADD CONSTRAINT fk_rails_3143e6e260 FOREIGN KEY (variant_id) REFERENCES product_nature_variants(id);
+
+
+--
+-- Name: activity_production_irregular_batches fk_rails_31b5c93b13; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY activity_production_irregular_batches
+    ADD CONSTRAINT fk_rails_31b5c93b13 FOREIGN KEY (activity_production_batch_id) REFERENCES activity_production_batches(id);
 
 
 --
@@ -18862,4 +18989,8 @@ INSERT INTO schema_migrations (version) VALUES ('20180214132041');
 INSERT INTO schema_migrations (version) VALUES ('20180214161529');
 
 INSERT INTO schema_migrations (version) VALUES ('20180222160705');
+
+INSERT INTO schema_migrations (version) VALUES ('20180226144332');
+
+INSERT INTO schema_migrations (version) VALUES ('20180227143457');
 
