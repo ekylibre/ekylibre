@@ -4913,7 +4913,8 @@ CREATE TABLE parcel_items (
     product_work_number character varying,
     type character varying,
     merge_stock boolean DEFAULT true,
-    project_budget_id integer
+    project_budget_id integer,
+    purchase_order_to_close_id integer
 );
 
 
@@ -17846,6 +17847,14 @@ ALTER TABLE ONLY payslips
 
 
 --
+-- Name: parcel_items fk_rails_10aa40af5e; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY parcel_items
+    ADD CONSTRAINT fk_rails_10aa40af5e FOREIGN KEY (purchase_order_to_close_id) REFERENCES purchases(id);
+
+
+--
 -- Name: technical_itinerary_intervention_templates fk_rails_12463de838; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -18840,3 +18849,8 @@ INSERT INTO schema_migrations (version) VALUES ('20180212101905');
 INSERT INTO schema_migrations (version) VALUES ('20180214132041');
 
 INSERT INTO schema_migrations (version) VALUES ('20180214161529');
+
+INSERT INTO schema_migrations (version) VALUES ('20180221164957');
+
+INSERT INTO schema_migrations (version) VALUES ('20180227144608');
+
