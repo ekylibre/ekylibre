@@ -12,7 +12,6 @@
       - menu.item :new_activity.tl, { controller: :activities, action: :new }, as: 'main'
   - else
     = tool_to :new_activity.tl, { controller: :activities, action: :new }
-  = tool_to(:distribute_unaffected_products.tl, { controller: :products, action: :edit_many }, icon: false)
 
 - if activities.any?
   = janus do |j|
