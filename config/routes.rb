@@ -623,6 +623,7 @@ Rails.application.routes.draw do
       end
       member do
         get :list_intervention_templates
+        get :list_activity_productions
       end
     end
 

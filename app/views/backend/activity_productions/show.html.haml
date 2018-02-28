@@ -43,6 +43,7 @@
       - l.attribute :irrigated
       - l.attribute :nitrate_fixing
       - l.attribute :cap_land_parcel, url: true, label: :land_parcel_number
+      - l.attribute :technical_itinerary, url: true
 
   - if resource.animal_farming? && resource.support.is_a?(AnimalGroup)
     = attributes_list stamps: false do |l|
