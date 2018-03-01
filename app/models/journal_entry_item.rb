@@ -89,6 +89,8 @@ class JournalEntryItem < Ekylibre::Record::Base
   belongs_to :tax
   belongs_to :tax_declaration_item, inverse_of: :journal_entry_items
   belongs_to :team
+  belongs_to :equipment, class_name: 'Product'
+  belongs_to :project_budget
   has_many :tax_declaration_item_parts, inverse_of: :journal_entry_item, dependent: :restrict_with_exception
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.

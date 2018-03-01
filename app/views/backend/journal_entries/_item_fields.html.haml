@@ -9,8 +9,10 @@
     %td= f.referenced_association(:variant, wrapper: :nested)
     - if budget_size > 0
       %td= f.referenced_association(:activity_budget, wrapper: :nested)
+    %td= f.referenced_association(:project_budget, wrapper: :nested)
     - if team_size > 0
       %td= f.referenced_association(:team, wrapper: :nested)
+    %td= f.referenced_association(:equipment, wrapper: :nested)
     %td.dec= f.input(:real_debit, wrapper: :nested, input_html: { size: 10, class: f.object._destroy ? '' : 'real-debit' })
     %td= currency
     %td.dec= f.input(:real_credit, wrapper: :nested, input_html: { size: 10, class: f.object._destroy ? '' : 'real-credit' })
