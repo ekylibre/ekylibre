@@ -46,24 +46,6 @@ class ActivityProductionDecorator < Draper::Decorator
     working_zone = 0.in(:hectare)
 
     interventions.each do |intervention|
-      working_zone += intervention_working_zone_area(intervention)
-    end
-
-    working_zone
-  end
-
-  def human_working_zone_area
-    working_zone_area
-      .in(:hectare)
-      .round(3)
-      .l
-  end
-
-  def working_zone_area
-    interventions = decorated_interventions
-    working_zone = 0.in(:hectare)
-
-    interventions.each do |intervention|
       working_zone += intervention_working_zone_area(intervention).in(:hectare)
     end
 
@@ -77,25 +59,24 @@ class ActivityProductionDecorator < Draper::Decorator
       .l
   end
 
-
   private
 
 
   def calcul_global_costs(with_working_zone_area: false)
     interventions = decorated_interventions
     costs = new_costs_hash
-    working_zone_area = 0.in(:hectare)
+    working_zone = 0.in(:hectare)
 
     interventions.each do |intervention|
       global_costs = intervention.global_costs
 
       calcul_with_surface_area(intervention, global_costs) if intervention.many_targets?
-      sum_costs(costs, intervention.global_costs)
+      sum_costs(costs, global_costs)
 
-      working_zone_area += intervention_working_zone_area(intervention).in(:hectare) if with_working_zone_area
+      working_zone += intervention_working_zone_area(intervention).in(:hectare).round(2) if with_working_zone_area
     end
 
-    calcul_with_working_zone_area(costs, working_zone_area) if with_working_zone_area
+    calcul_with_working_zone_area(costs, working_zone) if with_working_zone_area
     total_costs(costs)
     costs
   end
@@ -134,30 +115,51 @@ class ActivityProductionDecorator < Draper::Decorator
   end
 
   def calcul_with_surface_area(intervention, costs)
-    products = intervention
-                 .targets
-                 .of_activity_production(object)
-                 .map(&:product)
+    relation = intervention.outputs.with_working_zone if intervention.planting?
+    relation = intervention.targets.with_working_zone unless intervention.planting?
 
-    products.each do |product|
-      sum_surface_area = product.net_surface_area.to_d / intervention.sum_targets_working_zone_area.to_d
+    return if relation.empty?
 
-      multiply_costs(costs, sum_surface_area)
-    end
+    parameters = Products::SearchByActivityProductionQuery.call(relation, activity_production: object)
+
+    sum_surface_area = 0.in(:hectare)
+    sum_targets = intervention.sum_targets_working_zone_area.to_d
+
+    sum_surface_area = parameters.map do |parameter|
+                         product = parameter.product.decorate
+                         surface = product.net_surface_area unless product.is_a?(LandParcel)
+                         surface = parameter.working_zone_area if product.is_a?(LandParcel)
+
+                         surface_area = surface.in(:hectare).round(2) / sum_targets
+                       end.sum.in(:hectare).round(2)
+
+    multiply_costs(costs, sum_surface_area.to_d)
   end
 
   def intervention_working_zone_area(intervention)
     return intervention.working_zone_area unless intervention.many_targets?
 
-    intervention.sum_activity_production_working_zone_area(object)
+    relation = intervention.outputs if intervention.planting?
+    relation = intervention.targets unless intervention.planting?
+    parameters = Products::SearchByActivityProductionQuery.call(relation, activity_production: object)
+
+    sum_working_zone = 0.in(:hectare)
+    parameters.each do |parameter|
+      product = parameter.product
+
+      sum_working_zone += intervention.sum_products_working_zone_area(product) unless intervention.planting?
+      sum_working_zone += intervention.sum_outputs_working_zone_area_of_product(product) if intervention.planting?
+    end
+
+    sum_working_zone
   end
 
-  def calcul_with_working_zone_area(costs, working_zone_area)
-    working_zone_area = working_zone_area
+  def calcul_with_working_zone_area(costs, working_zone)
+    working_zone = working_zone
                           .in(:hectare)
                           .round(2)
                           .to_f
 
-    divider_costs(costs, working_zone_area)
+    divider_costs(costs, working_zone)
   end
 end

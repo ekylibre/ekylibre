@@ -2425,7 +2425,9 @@ CREATE TABLE journal_entry_items (
     resource_type character varying,
     resource_prism character varying,
     variant_id integer,
-    tax_declaration_mode character varying
+    tax_declaration_mode character varying,
+    project_budget_id integer,
+    equipment_id integer
 );
 
 
@@ -13491,6 +13493,13 @@ CREATE INDEX index_journal_entry_items_on_printed_on ON journal_entry_items USIN
 
 
 --
+-- Name: index_journal_entry_items_on_project_budget_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_journal_entry_items_on_project_budget_id ON journal_entry_items USING btree (project_budget_id);
+
+
+--
 -- Name: index_journal_entry_items_on_resource_type_and_resource_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -18207,6 +18216,14 @@ ALTER TABLE ONLY financial_year_exchanges
 
 
 --
+-- Name: journal_entry_items fk_rails_f46de3d8ed; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY journal_entry_items
+    ADD CONSTRAINT fk_rails_f46de3d8ed FOREIGN KEY (project_budget_id) REFERENCES project_budgets(id);
+
+
+--
 -- PostgreSQL database dump complete
 --
 
@@ -18852,3 +18869,6 @@ INSERT INTO schema_migrations (version) VALUES ('20180214161529');
 
 INSERT INTO schema_migrations (version) VALUES ('20180221164957');
 
+INSERT INTO schema_migrations (version) VALUES ('20180227144608');
+
+INSERT INTO schema_migrations (version) VALUES ('20180228092312');

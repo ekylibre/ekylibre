@@ -27,7 +27,7 @@ module Backend
       code = ''
       code = search_conditions(purchase_order: %i[number reference_number created_at pretax_amount], entities: %i[number full_name]) + " ||= []\n"
       code << "if params[:period].present? && params[:period].to_s != 'all'\n"
-      code << "  c[0] << ' AND #{PurchaseOrder.table_name}.invoiced_at::DATE BETWEEN ? AND ?'\n"
+      code << "  c[0] << ' AND #{PurchaseOrder.table_name}.ordered_at::DATE BETWEEN ? AND ?'\n"
       code << "  if params[:period].to_s == 'interval'\n"
       code << "    c << params[:started_on]\n"
       code << "    c << params[:stopped_on]\n"
@@ -86,6 +86,9 @@ module Backend
           @dataset_purchase_order = @purchase_order.order_reporting
           send_data to_odt(@dataset_purchase_order, filename, params).generate, type: 'application/vnd.oasis.opendocument.text', disposition: 'attachment', filename: filename << '.odt'
         end
+        format.pdf do
+          to_pdf
+        end
       end
     end
 
@@ -117,6 +120,20 @@ module Backend
 
     protected
 
+    def to_pdf
+      filename = "Bon_de_commande_#{@purchase_order.reference_number}"
+      @dataset_purchase_order = @purchase_order.order_reporting
+      file_odt = to_odt(@dataset_purchase_order, filename, params).generate
+      tmp_dir = Ekylibre::Tenant.private_directory.join('tmp')
+      uuid = SecureRandom.uuid
+      source = tmp_dir.join(uuid + '.odt')
+      dest = tmp_dir.join(uuid + '.pdf')
+      FileUtils.mkdir_p tmp_dir
+      File.write source, file_odt
+      `soffice  --headless --convert-to pdf --outdir #{Shellwords.escape(tmp_dir.to_s)} #{Shellwords.escape(source)}`
+      send_data(File.read(dest), type: 'application/pdf', disposition: 'attachment', filename: filename + '.pdf')
+    end
+
     def to_odt(order_reporting, filename, _params)
       # TODO: add a generic template system path
       report = ODFReport::Report.new(Rails.root.join('config', 'locales', 'fra', 'reporting', 'purchase_order.odt')) do |r|
@@ -124,9 +141,9 @@ module Backend
 
         e = Entity.of_company
         company_name = e.full_name
-        company_address = e.default_mail_address.coordinate
-        company_phone = e.phones.first.coordinate
-        company_email = e.addresses.where(canal: 'email').first.coordinate
+        company_address = e.default_mail_address.present? ? e.default_mail_address.coordinate : '-'
+        company_phone = e.phones.present? ? e.phones.first.coordinate : '-'
+        company_email = order_reporting[:purchase_responsible_email]
 
         r.add_field 'COMPANY_ADDRESS', company_address
         r.add_field 'COMPANY_NAME', company_name
