@@ -1,5 +1,13 @@
 class HistoricalRecoveryTargetsDistributions < ActiveRecord::Migration
   def up
+    add_activity_production_to_land_parcels
+    add_activity_production_to_plants
+  end
+
+  def down
+  end
+
+  def add_activity_production_to_land_parcels
     products_without_production = LandParcel.where(activity_production_id: nil)
 
     ActivityProduction.all.each do |activity_production|
@@ -15,6 +23,22 @@ class HistoricalRecoveryTargetsDistributions < ActiveRecord::Migration
     end
   end
 
-  def down
+  def add_activity_production_to_plants
+    products_without_production = Plant.where(activity_production_id: nil)
+
+    products_without_production.each do |product|
+      activity_production_id = product
+                                 .intervention_product_parameters
+                                 .select{ |parameter| parameter.is_a?(InterventionOutput) }
+                                 .first
+                                 .intervention
+                                 .targets
+                                 .select{ |target| target.reference_name.to_sym == :land_parcel }
+                                 .first
+                                 .product
+                                 .activity_production_id
+
+      product.update_attribute(:activity_production_id, activity_production_id) unless activity_production_id.nil?
+    end
   end
 end
