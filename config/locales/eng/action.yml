@@ -1672,6 +1672,7 @@ eng:
     new_writing: "New writing"
     next: "Next"
     nitrogen_concentration: "Nitrogen concentration" #?
+    no: "No"
     no_attachments: "Drop your files here or click on the button"
     no_crumbs_to_check: "No crumbs to check"
     no_data: "No data"
@@ -2295,6 +2296,7 @@ eng:
       one: "%{count} year"
       other: "%{count} years"
     year: "Year" #?
+    yes: "Yes"
     yield: "Yield" #?
     yield_by_calibration: "Yield by calibration" #?
     # yield_by_calibration_x: "Yield by calibration x"

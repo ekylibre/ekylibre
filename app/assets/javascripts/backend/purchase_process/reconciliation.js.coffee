@@ -46,6 +46,12 @@
     checked = $(event.target).is(':checked')
     $(event.target).closest('.model').find('.item-checkbox').prop('checked', checked)
 
+    E.reconciliation.displayClosePurchaseOrderBlock(event)
+
+
+  $(document).on 'change', '#purchase_process_reconciliation .item-checkbox', (event) ->
+    E.reconciliation.displayClosePurchaseOrderBlock(event)
+
 
   $(document).on 'click', '#purchase_process_reconciliation .valid-modal', (event) ->
     validButton = $(event.target)
@@ -66,6 +72,19 @@
     @reconciliationModal.getModal().modal 'hide'
 
   E.reconciliation =
+    displayClosePurchaseOrderBlock: (event) ->
+      targettedElement = $(event.target)
+      modelBlock = $(targettedElement).closest('.model')
+      closePurchaseOrderBlock = $(modelBlock).find('.close-purchase-order')
+      #isCheckboxChecked = $(targettedElement).is(':checked')
+      anyCheckboxChecked = $(modelBlock).find('input[type="checkbox"]').is(':checked')
+
+      if anyCheckboxChecked && closePurchaseOrderBlock.is(':hidden')
+        $(closePurchaseOrderBlock).removeClass('hidden')
+      else if !anyCheckboxChecked && closePurchaseOrderBlock.is(':visible')
+        $(closePurchaseOrderBlock).addClass('hidden')
+
+
     displayReconciliateState: (event) ->
       $('#purchase_invoice_accepted_state').val('reconcile')
       $('#purchase_invoice_reconciliate_state').val('reconcile')
@@ -281,6 +300,13 @@
         $(lastLineForm).find('.nested-fields.storing-fields:first .storing-quantifier .storing-quantity').val(itemQuantity)
         $(lastLineForm).find('.nested-fields.storing-fields:first .conditionning-quantity').val(itemConditionningQuantity)
         $(lastLineForm).find('.nested-fields.storing-fields:first .conditionning').val(itemConditionning)
+
+      purchaseOrderLine = $(checkboxLine).closest('.model')
+      modelId = $(purchaseOrderLine).find('.model-checkbox').attr('data-id')
+      closePurchaseOrderBlock = $(purchaseOrderLine).find('.close-purchase-order')
+      if $(closePurchaseOrderBlock).find('input[type="radio"][value="true"]').is(':checked')
+        $(lastLineForm).find('.purchase-order-to-close-id').val(modelId)
+
 
 
 ) ekylibre, jQuery
