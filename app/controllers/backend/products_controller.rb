@@ -242,7 +242,7 @@ module Backend
 
     def edit_many
       activity = Activity.find_by(id: params[:activity_id]) if params[:activity_id]
-      targetable_products = Product.where(type: %w[Animal])
+      targetable_products = Product.where(type: %w[Plant LandParcel Animal])
 
       @targets = activity.present? ? targetable_products.where(activity_production_id: activity.productions.pluck(:id).push(nil)) : targetable_products
       @targets = @targets.order(:activity_production_id)
