@@ -27,11 +27,18 @@ class HistoricalRecoveryTargetsDistributions < ActiveRecord::Migration
     products_without_production = Plant.where(activity_production_id: nil)
 
     products_without_production.each do |product|
-      activity_production_id = product
-                                 .intervention_product_parameters
-                                 .select{ |parameter| parameter.is_a?(InterventionOutput) }
+      intervention_group_parameters = product
+                                        .intervention_product_parameters
+                                        .select{ |parameter| parameter.is_a?(InterventionOutput) }
+                                        .first
+                                        .intervention
+                                        .group_parameters
+
+      product_group_parameter = intervention_group_parameters
+                                  .select{ |parameter| parameter.outputs.first.product_id == product.id }
+
+      activity_production_id = product_group_parameter
                                  .first
-                                 .intervention
                                  .targets
                                  .select{ |target| target.reference_name.to_sym == :land_parcel }
                                  .first
