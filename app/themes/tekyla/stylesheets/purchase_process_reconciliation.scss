@@ -85,7 +85,7 @@
 
   .list-models {
     .model {
-      padding: $default-gap * 2 $default-gap * 5;
+      padding: $default-gap * 2 $default-gap * 5 $default-gap * 0.7;
       border-bottom: solid 1px #ddd;
     }
   }
@@ -114,6 +114,22 @@
       .item-unit-cost {
         //flex-basis: 10%;
       }
+    }
+  }
+
+  .close-purchase-order {
+    margin-top: 1em;
+
+    &-label {
+      font-style: italic;
+    }
+
+    &-radio {
+      margin-left: 1em;
+    }
+
+    &-radio-label {
+      font-style: italic;
     }
   }
 }

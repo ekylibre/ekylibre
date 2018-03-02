@@ -617,12 +617,13 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :technical_itineraries, concerns: :list do
+    resources :technical_itineraries, concerns: %i[list unroll] do
       collection do
         post :duplicate_intervention
       end
       member do
         get :list_intervention_templates
+        get :list_activity_productions
       end
     end
 

@@ -1,6 +1,10 @@
 class ActivityDecorator < Draper::Decorator
   delegate_all
 
+  def animal_family?
+    object.family == :animal_farming
+  end
+
   def production_costs(current_campaign)
     calcul_productions_costs(current_campaign)
   end
