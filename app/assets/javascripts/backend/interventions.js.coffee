@@ -230,7 +230,7 @@
             @workingTimesModal.getModalContent().append(data)
             @workingTimesModal.getModal().modal 'show'
 
-    addLazyLoading: ->
+    addLazyLoading: (taskboard) ->
       loadContent = false
       currentPage = 1
       taskHeight = 60
@@ -434,7 +434,7 @@
       taskboard = new InterventionsTaskboard
       taskboard.initTaskboard()
 
-      E.interventions.addLazyLoading()
+      E.interventions.addLazyLoading(taskboard)
 
 
   class InterventionsTaskboard

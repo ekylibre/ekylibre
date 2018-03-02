@@ -51,6 +51,15 @@
                 - pretax_amount = model_item.pretax_amount if model_item.is_a?(PurchaseItem)
                 - pretax_amount = model_item.purchase_order_item.try(:pretax_amount) unless model_item.is_a?(PurchaseItem)
                 %span.item-value.total-except-taxes= pretax_amount
+
+          - if model.is_a?(PurchaseOrder)
+            .close-purchase-order.hidden
+              = label_tag "Fermer la commande suite à cette réception :", nil, class: "close-purchase-order-label"
+              = radio_button_tag "close_purchase_order_#{model.id}", 'true', false, class: "close-purchase-order-radio"
+              = label_tag "Oui", nil, class: "close-purchase-order-radio-label"
+              = radio_button_tag "close_purchase_order_#{model.id}", 'false', true, class: "close-purchase-order-radio"
+              = label_tag "Non", nil, class: "close-purchase-order-radio-label"
+
 .modal-footer
   .actions
     %button{ class: "btn btn-default valid-modal", data: { 'item-reconciliation': item_reconciliation }}= :valid.tl
