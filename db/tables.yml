@@ -3596,6 +3596,9 @@ intervention_templates:
   created_at:
     type: datetime
     required: true
+  creator_id:
+    type: integer
+    references: ''
   description:
     type: string
   id:
@@ -3612,6 +3615,9 @@ intervention_templates:
   updated_at:
     type: datetime
     required: true
+  updater_id:
+    type: integer
+    references: ''
   workflow:
     type: decimal
 intervention_working_periods:
@@ -7841,6 +7847,9 @@ technical_itineraries:
   created_at:
     type: datetime
     required: true
+  creator_id:
+    type: integer
+    references: ''
   description:
     type: string
   id:
@@ -7851,6 +7860,9 @@ technical_itineraries:
   updated_at:
     type: datetime
     required: true
+  updater_id:
+    type: integer
+    references: ''
 technical_itinerary_intervention_templates:
   created_at:
     type: datetime

@@ -2497,7 +2497,9 @@ CREATE TABLE journal_entry_items (
     resource_type character varying,
     resource_prism character varying,
     variant_id integer,
-    tax_declaration_mode character varying
+    tax_declaration_mode character varying,
+    project_budget_id integer,
+    equipment_id integer
 );
 
 
@@ -4985,7 +4987,8 @@ CREATE TABLE parcel_items (
     product_work_number character varying,
     type character varying,
     merge_stock boolean DEFAULT true,
-    project_budget_id integer
+    project_budget_id integer,
+    purchase_order_to_close_id integer
 );
 
 
@@ -13613,6 +13616,13 @@ CREATE INDEX index_journal_entry_items_on_printed_on ON journal_entry_items USIN
 
 
 --
+-- Name: index_journal_entry_items_on_project_budget_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_journal_entry_items_on_project_budget_id ON journal_entry_items USING btree (project_budget_id);
+
+
+--
 -- Name: index_journal_entry_items_on_resource_type_and_resource_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -17977,6 +17987,14 @@ ALTER TABLE ONLY payslips
 
 
 --
+-- Name: parcel_items fk_rails_10aa40af5e; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY parcel_items
+    ADD CONSTRAINT fk_rails_10aa40af5e FOREIGN KEY (purchase_order_to_close_id) REFERENCES purchases(id);
+
+
+--
 -- Name: technical_itinerary_intervention_templates fk_rails_12463de838; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -18342,6 +18360,14 @@ ALTER TABLE ONLY outgoing_payments
 
 ALTER TABLE ONLY financial_year_exchanges
     ADD CONSTRAINT fk_rails_f0120f1957 FOREIGN KEY (financial_year_id) REFERENCES financial_years(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: journal_entry_items fk_rails_f46de3d8ed; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY journal_entry_items
+    ADD CONSTRAINT fk_rails_f46de3d8ed FOREIGN KEY (project_budget_id) REFERENCES project_budgets(id);
 
 
 --
@@ -18988,9 +19014,14 @@ INSERT INTO schema_migrations (version) VALUES ('20180214132041');
 
 INSERT INTO schema_migrations (version) VALUES ('20180214161529');
 
+INSERT INTO schema_migrations (version) VALUES ('20180221164957');
+
 INSERT INTO schema_migrations (version) VALUES ('20180222160705');
 
 INSERT INTO schema_migrations (version) VALUES ('20180226144332');
 
 INSERT INTO schema_migrations (version) VALUES ('20180227143457');
 
+INSERT INTO schema_migrations (version) VALUES ('20180227144608');
+
+INSERT INTO schema_migrations (version) VALUES ('20180228092312');

@@ -65,6 +65,7 @@
 class ReceptionItem < ParcelItem
   belongs_to :reception, inverse_of: :items, class_name: 'Reception', foreign_key: :parcel_id
   belongs_to :project_budget, class_name: 'ProjectBudget', foreign_key: :project_budget_id
+  belongs_to :purchase_order_to_close, class_name: 'PurchaseOrder', foreign_key: :purchase_order_to_close_id
 
   has_one :storage, through: :reception
   has_one :contract, through: :reception
@@ -101,6 +102,10 @@ class ReceptionItem < ParcelItem
       end
     end
     reception.save if pretax_amount_changed?
+
+    if self.purchase_order_to_close.present? && !self.purchase_order_to_close.closed?
+      self.purchase_order_to_close.close
+    end
   end
 
   # protect(allow_update_on: ALLOWED, on: %i[create destroy update]) do
