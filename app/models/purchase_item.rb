@@ -239,19 +239,27 @@ class PurchaseItem < Ekylibre::Record::Base
     build_fixed_asset(asset_attributes)
   end
 
+  def create_fixed_asset
+    return unless fixed
+
+    a = new_fixed_asset
+
+    a.save!
+
+    self.fixed_asset = a
+    self.preexisting_asset = true
+
+    save!
+  end
+
   def update_fixed_asset
     return unless fixed
+
     if preexisting_asset
       return errors.add(:fixed_asset, :fixed_asset_missing) unless fixed_asset
       return errors.add(:fixed_asset, :fixed_asset_cannot_be_modified) unless fixed_asset.draft?
       fixed_asset.reload
       fixed_asset.add_amount(pretax_amount.to_f)
-    else
-      a = new_fixed_asset
-      a.save!
-      self.fixed_asset = a
-      self.preexisting_asset = true
-      save!
     end
   end
 
