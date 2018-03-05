@@ -1,7 +1,7 @@
 PATH
   remote: ../planning
   specs:
-    planning (0.4.1)
+    planning (0.5.0)
       factory_bot
       lodash-rails
       rails (~> 4.2.10)
