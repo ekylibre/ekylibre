@@ -1,0 +1,114 @@
+---
+root:
+  - version: 1
+  - folder: 1
+
+lines:
+  version:
+    key: "EI"
+    occurrence: 1
+    cells:
+      - farm_siret: string-14
+      - farm_code: string-3
+      - receiver_siret: string-14
+      - receiver_code: string-3
+  message:
+    key: "DE"
+    occurrence: 1
+    cells:
+      - printed_on: string-44
+
+  crop:
+    key: "DP"
+    cells:
+      - land_parcel_number: string-8
+      - harvest_year: string-4
+      - crop_started_on: string-8
+      - undefined_A: string-16
+      - crop_stopped_on: string-8
+      - crop_edicode: string-3 #18 List_BotanicalSpecies_CodeType
+      - undefined_B: string-38
+      - crop_sowing_period_edicode: string-3 #30 List_SowingPeriodCode_CodeType
+      - crop_final_usage_edicode: string-3 #17 List_AgriculturalProduceUseCode_CodeType
+      - unknow_number: string-9
+      - soil_nature_edicode: string-3 #43 List_SoilType_CodeType
+      - land_parcel_name: string-35
+    
+    children:
+      - production_histories: "*"
+      - production_surfaces: "*"
+      - interventions: "*"
+
+  production_surface:
+    key: "PS"
+    cells:
+      - land_parcel_number: string-8
+      - harvest_year: string-4
+      - area_nature_edicode: string-3 #41 List_AgriculturalArea_CodeType
+      - area_nature_value: float-8.4
+      
+  production_history:
+    key: "PH"
+    cells:
+      - land_parcel_number: string-8
+      - harvest_year: string-4
+      - undefined_A: string-6
+      - crop_edicode: string-3 #18 List_BotanicalSpecies_CodeType
+      - undefined_B: string-35
+      - crop_final_usage_edicode: string-3 #17 List_AgriculturalProduceUseCode_CodeType
+      - crop_sowing_period_edicode: string-3 #30 List_SowingPeriodCode_CodeType
+      - unknow_A_edicode: string-3 #
+      - unknow_B_edicode: string-3 #
+
+  intervention:
+    key: "PV"
+    cells:
+      - land_parcel_number: string-8
+      - harvest_year: string-4
+      - intervention_id: string-32
+      - blank_1: string-1
+      - intervention_category_edicode: string-3 #26 List_PlotAgriculturalProcess_CodeType
+      - intervention_state_edicode: string-3 #11 List_PlotAgriculturalProcessSubordinateTypeCode_CodeType
+      - intervention_name: string-35
+      - intervention_started_on: string-8
+      - unknow_code: string-4
+      - intervention_stopped_on: string-8
+      - blank_2: string-46
+      - intervention_nature_edicode: string-3 #14 List_AgriculturalProcessWorkItem_CodeType
+      - blank_3: string-156
+      - unknow_number: string-9
+      - per_area_edicode: string-3 #ZKK
+      - working_area_in_hectare: string-9
+      
+    children:
+      - inputs: "*"
+
+  input:
+    key: "VI"
+    cells:
+      - land_parcel_number: string-8
+      - harvest_year: string-4
+      - intervention_id: string-32
+      - input_nature_edicode: string-3 #5 List_AgriculturalProcessCropInput_CodeType
+      - input_name: string-83
+      - input_code: string-7
+      - blank_1: string-38
+      - unknow_A_edicode: string-3
+      - unknow_B_edicode: string-3
+      - blank_2: string-27
+      - input_quantity: string-9
+      - input_unity_edicode: string-3 #36 List_UnitCode
+      - input_quantity_per_hectare: string-9
+      - per_area_edicode: string-3 #ZKK
+      
+    children:
+      - input_indicators: "*"
+      
+  input_indicator:
+    key: "IC"
+    cells:
+      - land_parcel_number: string-8
+      - harvest_year: string-4
+      - intervention_id: string-32
+      - indicator_nature_edicode: string-3 #20 List_CropInputChemical_CodeType
+      - indicator_quantity: string-9
