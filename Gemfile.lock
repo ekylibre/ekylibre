@@ -1,8 +1,7 @@
-GIT
-  remote: git@gitlab.com:ekylibre-integration/planning.git
-  revision: 92f1eb13a43a7843c976bf298f1c536fc9fac642
+PATH
+  remote: ../planning
   specs:
-    planning (0.5.0)
+    planning (0.4.1)
       factory_bot
       lodash-rails
       rails (~> 4.2.10)
@@ -76,7 +75,7 @@ GEM
       sidekiq (>= 2.11)
     arel (6.0.4)
     ast (2.4.0)
-    autoprefixer-rails (8.0.0)
+    autoprefixer-rails (8.1.0)
       execjs
     awesome_nested_set (3.1.4)
       activerecord (>= 4.0.0, < 5.3)
@@ -258,21 +257,12 @@ GEM
       rack
       socksify
     humanize (1.7.0)
-<<<<<<< HEAD
-    i18n (0.9.3)
-      concurrent-ruby (~> 1.0)
-    i18n-complements (1.1.0)
-      i18n (>= 0.6)
-    i18n-js (3.0.4)
-      i18n (~> 0.6, >= 0.6.6)
-=======
     i18n (0.9.5)
       concurrent-ruby (~> 1.0)
     i18n-complements (1.1.0)
       i18n (>= 0.6)
     i18n-js (3.0.5)
       i18n (>= 0.6.6, < 2)
->>>>>>> 2a34015c8e4e75da6a84498a015fcb43ae2f2199
     iban-tools (1.1.0)
     interception (0.5)
     jbuilder (2.7.0)
@@ -302,11 +292,6 @@ GEM
     letter_opener (1.6.0)
       launchy (~> 2.2)
     libv8 (3.16.14.19)
-<<<<<<< HEAD
-    lodash-rails (4.17.4)
-      railties (>= 3.1)
-    loofah (2.1.1)
-=======
     listen (3.1.5)
       rb-fsevent (~> 0.9, >= 0.9.4)
       rb-inotify (~> 0.9, >= 0.9.7)
@@ -314,7 +299,6 @@ GEM
     lodash-rails (4.17.5)
       railties (>= 3.1)
     loofah (2.2.0)
->>>>>>> 2a34015c8e4e75da6a84498a015fcb43ae2f2199
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
     luhn (1.0.2)
@@ -388,11 +372,7 @@ GEM
       burisu-docsplit (>= 0.7.9)
       paperclip (>= 3.1, < 6.0)
     parallel (1.12.1)
-<<<<<<< HEAD
-    parallel_tests (2.21.1)
-=======
     parallel_tests (2.21.2)
->>>>>>> 2a34015c8e4e75da6a84498a015fcb43ae2f2199
       parallel
     parser (2.5.0.2)
       ast (~> 2.4.0)
@@ -454,7 +434,7 @@ GEM
       rake
     raindrops (0.19.0)
     rake (12.0.0)
-    rb-fsevent (0.10.2)
+    rb-fsevent (0.10.3)
     rb-inotify (0.9.10)
       ffi (>= 0.5.0, < 2)
     rdoc (4.3.0)
@@ -530,7 +510,7 @@ GEM
     sdoc (0.4.2)
       json (~> 1.7, >= 1.7.7)
       rdoc (~> 4.0)
-    selenium-webdriver (3.9.0)
+    selenium-webdriver (3.10.0)
       childprocess (~> 0.5)
       rubyzip (~> 1.2)
     sentry-raven (2.7.2)
@@ -617,11 +597,7 @@ GEM
       railties (>= 3.1)
     tzinfo (1.2.5)
       thread_safe (~> 0.1)
-<<<<<<< HEAD
-    uglifier (4.1.5)
-=======
     uglifier (4.1.6)
->>>>>>> 2a34015c8e4e75da6a84498a015fcb43ae2f2199
       execjs (>= 0.3.0, < 3)
     unf (0.1.4)
       unf_ext
