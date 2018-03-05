@@ -9,7 +9,7 @@ module Backend
         t.status
         t.column :delivery, url: { controller: '/backend/deliveries' }
         t.column :delivery_mode, hidden: true
-        #t.column :purchase, url: { controller: '/backend/purchases' }, hidden: true
+        # t.column :purchase, url: { controller: '/backend/purchases' }, hidden: true
       end
 
       def show; end

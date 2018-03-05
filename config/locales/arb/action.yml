@@ -355,8 +355,6 @@ arb:
     backend/intervention_participations:
       # convert: "Convert intervention participation: %{name}"
       index: "المساهمات تدخل"
-    backend/intervention_templates:
-      # index: "Intervention model"
     backend/interventions:
       edit: "تحرير"
       edit_request: "طلب تحرير"
@@ -1160,6 +1158,7 @@ arb:
     attorney: "معلومات الوكيل" #?
     automatic: "السيارات"
     available: "متاح"
+    # available_area: "Available area"
     available_columns: "الحقول المتاحة : %{columns}"
     average: "متوسط"
     back: "التأكد من صحة واسترداد قائمة وسائل النقل"
@@ -1257,6 +1256,7 @@ arb:
     column_organization: "المنظمة" #?
     column_title: "العنوان" #?
     columns: "اعمدة الاستيراد"
+    # comment: "Comment"
     commission: "عمولة"
     company: "المجتمع"
     completed: "منجز"
@@ -1318,6 +1318,7 @@ arb:
     csv_statistics: "نموذج احصائيات القيمة النقدية" #?
     cultivable_zone: "منطقة القابلة للزراعة"
     cultivable_zones: "المناطق الصالحة للزراعة"
+    # cultivated_hectare_costs: "Cultivated hectare costs"
     cumul: "رقم الرصيد التراكمي الكلي والسابق%{number}"
     currency_conversion_rate: "سعر تحويل العملة"
     current: "الحالية"
@@ -1473,6 +1474,7 @@ arb:
     evaluated_doer_cost: "تكلفة العمالة تقييمها"
     evaluated_input_cost: "تكلفة المدخلات تقييمها"
     evaluated_other_cost: "التكلفة الأخرى تقييمها"
+    # evaluated_reception_cost: "Service Delivery Cost"
     evaluated_tool_cost: "تكلفة أداة تقييم"
     event_create: "اضافة حدث" #?
     event_nature_create: "اضافة نوع الحدث" #?
@@ -1524,6 +1526,7 @@ arb:
     fixed_asset_debts: "الديون الأصول الثابتة"
     fixed_asset_depreciations: "انخفاض قيمة الأصول الثابتة"
     fixed_assets: "أصول ثابتة"
+    # forecast_harvest_week: "Forecast harvest week"
     format_date: #?
       iso: "(السنة-الشهر-اليوم)" #?
     free_purchases: "المشتريات مجانية" #?
@@ -1543,6 +1546,7 @@ arb:
     generate_repayments: "تمرير مسك الدفاتر"
     geolocation: "تحديد الموقع الجغرافي"
     give_discount: "منح خصومات" #?
+    # global_costs: "Global costs"
     global_preferences: "تفضيلات العالمية"
     go: "صلاحية"
     gradings: "الى التصنيف"
@@ -1554,6 +1558,7 @@ arb:
     group: "مجموعة"
     groups: "المجموعات"
     guide_evolution: "توجيه تطور"
+    # harvested_area: "Harvested area"
     harvested_at: "تحصد في"
     help: "المساعدة"
     help_center: "مركز المساعدة"
@@ -1628,6 +1633,7 @@ arb:
     investment_security: "أمن الاستثمار"
     investment_subsidies: "دعم الاستثمار"
     invitation_status: "الحالة"
+    # invoice: "Invoice"
     invoice_period: "فترة الفاتورة"
     invoice_status: "وضع الفاتورة"
     invoiced: "فواتير"
@@ -2047,6 +2053,7 @@ arb:
     # product_value: "Product value %{financial_year}"
     production: "ادارة الانتاج"
     production_cost: "تكلفة الانتاج"
+    # production_costs: "Production costs"
     production_distribution: "توزيع الانتاج"
     production_support: "دعم الإنتاج"
     productions: "المنتجات"
@@ -2068,6 +2075,7 @@ arb:
     purchase_item_create: "اضافة طلب للمنتج" #?
     purchase_items: "تعديل تصميم الشراء"
     purchase_number: "عدد شراء"
+    # purchase_order: "Purchase order"
     purchase_payments: "دفعات الشراء"
     purchase_price_create: "انشاء سعر الشراء" #?
     purchase_print: "طباعة الطلب للممول" #?
@@ -2243,6 +2251,7 @@ arb:
     sequences: "التسلسل" #?
     sequences_load: "تحميل التسلسلات المفقودة" #?
     # service: "Service"
+    # service_deliveries: "Service deliveries"
     # service_delivering: "Service delivering"
     sessions: "جلسات"
     set_reconcilable_new_but_existing_third_accounts: "تعيين مصالحتها حسابات الثالثة الجديدة ولكن القائمة (العملاء والموردين والمحامين)"
@@ -2492,11 +2501,13 @@ arb:
     watering_concentration: "استخدام المياه"
     weather: "طقس"
     website: "موقع الكتروني"
+    # wice_grid_columns: "Columns"
     wind_speed: "سرعة الرياح"
     with_fixed_assets_depreciations: "مع انخفاض قيمة الأصول الثابتة"
     with_prints: "(وتشمل الطباعة (الفواتير والاوامر" #?
     workers: "العمال"
     working_duration: "مدة العمل"
+    # working_hectare_costs: "Working hectare costs"
     working_sets_stocks: "مجموعات العمل الأسهم"
     # working_times: "Working times of %{name}"
     x_cashes:

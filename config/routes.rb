@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  #resources :interventions_costs, concerns: [:list, :unroll]
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
@@ -609,10 +610,21 @@ Rails.application.routes.draw do
       collection do
         get :select_type
         get :templates_of_activity
+        get :interventions_have_activities
+      end
+      member do
+        get :list_technical_itineraries
       end
     end
 
-    resources :technical_itineraries, concerns: :list do
+    resources :technical_itineraries, concerns: %i[list unroll] do
+      collection do
+        post :duplicate_intervention
+      end
+      member do
+        get :list_intervention_templates
+        get :list_activity_productions
+      end
     end
 
     namespace :interventions do
@@ -851,6 +863,14 @@ Rails.application.routes.draw do
 
     resources :preferences, only: %i[update]
 
+    namespace :products do
+      resources :search_variants, only: [] do
+        collection do
+          get :search_by_expression
+        end
+      end
+    end
+
     resources :product_groups, concerns: :products
 
     resources :product_localizations, except: %i[index show]
@@ -1057,6 +1077,8 @@ Rails.application.routes.draw do
 
     resources :teams, concerns: %i[list unroll]
 
+    resources :project_budgets, concerns: %i[list unroll]
+
     resources :tours, only: [] do
       member do
         post :finish
@@ -1075,6 +1097,14 @@ Rails.application.routes.draw do
       member do
         post :lock
         post :unlock
+      end
+    end
+
+    namespace :users do
+      resources :wice_grid_preferences, only: [] do
+        collection do
+          post :save_column
+        end
       end
     end
 

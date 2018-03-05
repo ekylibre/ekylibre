@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2017 Brice Texier, David Joulin
+# Copyright (C) 2012-2018 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -32,6 +32,7 @@
 #  description                    :text
 #  event_id                       :integer
 #  id                             :integer          not null, primary key
+#  intervention_costs_id          :integer
 #  issue_id                       :integer
 #  journal_entry_id               :integer
 #  lock_version                   :integer          default(0), not null
@@ -68,6 +69,7 @@ class Intervention < Ekylibre::Record::Base
   belongs_to :prescription
   belongs_to :journal_entry, dependent: :destroy
   belongs_to :purchase
+  belongs_to :costs, class_name: 'InterventionCosts', foreign_key: :intervention_costs_id
   has_many :receptions, class_name: 'Reception', dependent: :destroy
   has_many :labellings, class_name: 'InterventionLabelling', dependent: :destroy, inverse_of: :intervention
   has_many :labels, through: :labellings
@@ -285,8 +287,8 @@ class Intervention < Ekylibre::Record::Base
   end
 
   before_save do
-    if self.receptions.any?
-      self.receptions.each{ |reception| reception.given_at = self.working_periods.first.started_at }
+    if receptions.any?
+      receptions.each { |reception| reception.given_at = working_periods.first.started_at }
     end
 
     columns = { name: name, started_at: started_at, stopped_at: stopped_at, nature: :production_intervention }
@@ -299,7 +301,13 @@ class Intervention < Ekylibre::Record::Base
       # self.update_column(:event_id, event.id)
       self.event_id = event.id
     end
+
+
     true
+  end
+
+  before_create do
+    self.costs = InterventionCosts.create!({ inputs_cost: 0, doers_cost: 0, tools_cost: 0, receptions_cost: 0 })
   end
 
   after_save do
@@ -322,6 +330,10 @@ class Intervention < Ekylibre::Record::Base
     end
     participations.update_all(state: state) unless state == :in_progress
     participations.update_all(request_compliant: request_compliant) if request_compliant
+
+    create_intervention_costs
+
+    self.add_activity_production_to_output if self.procedure.of_category?(:planting)
   end
 
   after_create do
@@ -330,7 +342,7 @@ class Intervention < Ekylibre::Record::Base
 
   # Prevents from deleting an intervention that was executed
   protect on: :destroy do
-    with_undestroyable_products?
+    with_undestroyable_products? || self.procedure.of_category?(:planting)
   end
 
   # This method permits to add stock journal entries corresponding to the
@@ -342,7 +354,9 @@ class Intervention < Ekylibre::Record::Base
   # | outputs                | stock (3X)                 | stock_movement (603X/71X) |
   # | inputs                 | stock_movement (603X/71X)  | stock (3X)                |
   bookkeep do |b|
-    stock_journal = unsuppress { Journal.find_or_create_by!(nature: :stocks, name: :stocks.to_s.upper) }
+    currency = Preference[:currency]
+    stock_journal = unsuppress { Journal.used_for_permanent_stock_inventory!(currency: currency) }
+
     b.journal_entry(stock_journal, printed_on: printed_on, if: (Preference[:permanent_stock_inventory] && record?)) do |entry|
       write_parameter_entry_items = lambda do |parameter, input|
         variant      = parameter.variant
@@ -357,6 +371,21 @@ class Intervention < Ekylibre::Record::Base
       inputs.each  { |input|  write_parameter_entry_items.call(input, true) }
       outputs.each { |output| write_parameter_entry_items.call(output, false) }
     end
+  end
+
+  def create_intervention_costs
+    costs_attributes = {}
+
+    [:input, :tool, :doer].each do |type|
+      type_cost = self.cost(type)
+      type_cost = 0 if type_cost.nil?
+
+      costs_attributes["#{type.to_s.pluralize}_cost"] = type_cost
+    end
+
+    costs_attributes[:receptions_cost] = receptions_cost.to_f.round(2)
+
+    costs.update_attributes(costs_attributes)
   end
 
   def initialize_record(state: :done)
@@ -534,7 +563,21 @@ class Intervention < Ekylibre::Record::Base
   # Sums all intervention product parameter total_cost of a particular role
   def cost(role = :input)
     params = product_parameters.of_generic_role(role)
-    return params.map(&:cost).compact.sum if params.any?
+
+    if params.any?
+      return params.map(&:cost).compact.sum if participations.empty?
+
+      return params.map do |param|
+               natures = {}
+               if param.product.is_a?(Equipment)
+                 natures = %i[travel intervention] if param.product.try(:tractor?)
+                 natures = %i[intervention] unless param.product.try(:tractor?)
+               end
+
+               param.cost(natures: natures)
+             end.compact.sum
+    end
+
     nil
   end
 
@@ -625,10 +668,32 @@ class Intervention < Ekylibre::Record::Base
     valid
   end
 
-  def receptions_is_given?
-    if receptions.any?
-      return receptions.first.given?
+  def add_activity_production_to_output
+    parameters = self.group_parameters
+
+    self.group_parameters.each do |group_parameter|
+      activity_production_id = group_parameter
+                                 .targets
+                                 .map(&:product)
+                                 .flatten
+                                 .map(&:activity_production_id)
+                                 .uniq
+                                 .first
+
+      products_to_update = group_parameter
+                             .outputs
+                             .map(&:product)
+                             .flatten
+                             .uniq
+
+      products_to_update.each do |product|
+        product.update(activity_production_id: activity_production_id)
+      end
     end
+  end
+
+  def receptions_is_given?
+    return receptions.first.given? if receptions.any?
     false
   end
 

@@ -173,7 +173,7 @@ module Backend
     end
 
     # Lists parcel items of the current product
-    list(:reception_items, model: :parcel_item_storings, joins: :parcel_item, conditions: { product_id: 'params[:id]'.c }, order: { created_at: :desc}) do |t|
+    list(:reception_items, model: :parcel_item_storings, joins: :parcel_item, conditions: { product_id: 'params[:id]'.c }, order: { created_at: :desc }) do |t|
       t.column :reception, label_method: :reception_number, url: { controller: :receptions, id: 'RECORD.parcel_item.parcel_id'.c }
       t.column :nature, label_method: :reception_nature
       t.column :given_at, label_method: :reception_given_at, datatype: :datetime
@@ -242,7 +242,7 @@ module Backend
 
     def edit_many
       activity = Activity.find_by(id: params[:activity_id]) if params[:activity_id]
-      targetable_products = Product.where(type: %w[Plant LandParcel Animal])
+      targetable_products = Product.where(type: %w[Animal])
 
       @targets = activity.present? ? targetable_products.where(activity_production_id: activity.productions.pluck(:id).push(nil)) : targetable_products
       @targets = @targets.order(:activity_production_id)

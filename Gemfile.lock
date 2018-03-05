@@ -1,7 +1,9 @@
-PATH
-  remote: ../planning
+GIT
+  remote: git@gitlab.com:ekylibre-integration/planning.git
+  revision: 92f1eb13a43a7843c976bf298f1c536fc9fac642
   specs:
-    planning (0.0.2.2)
+    planning (0.5.0)
+      factory_bot
       lodash-rails
       rails (~> 4.2.10)
 
@@ -74,10 +76,14 @@ GEM
       sidekiq (>= 2.11)
     arel (6.0.4)
     ast (2.4.0)
+<<<<<<< HEAD
     autoprefixer-rails (7.2.5)
+=======
+    autoprefixer-rails (8.0.0)
+>>>>>>> 2a34015c8e4e75da6a84498a015fcb43ae2f2199
       execjs
-    awesome_nested_set (3.1.3)
-      activerecord (>= 4.0.0, < 5.2)
+    awesome_nested_set (3.1.4)
+      activerecord (>= 4.0.0, < 5.3)
     bcrypt (3.1.11)
     beardley (1.4.2)
       rjb (>= 1.4.8)
@@ -103,13 +109,13 @@ GEM
       railties (>= 3.2, < 6.0)
     bootstrap3-datetimepicker-rails (4.17.47)
       momentjs-rails (>= 2.8.1)
-    browser (2.5.2)
+    browser (2.5.3)
     builder (3.2.3)
     bullet (5.5.1)
       activesupport (>= 3.0.0)
       uniform_notifier (~> 1.10.0)
     burisu-docsplit (0.7.9)
-    byebug (9.1.0)
+    byebug (10.0.0)
     capistrano (3.9.1)
       airbrussh (>= 1.0.0)
       i18n
@@ -124,15 +130,15 @@ GEM
     capistrano-rbenv (2.1.3)
       capistrano (~> 3.1)
       sshkit (~> 1.3)
-    capybara (2.17.0)
+    capybara (2.18.0)
       addressable
       mini_mime (>= 0.1.3)
       nokogiri (>= 1.3.3)
       rack (>= 1.0.0)
       rack-test (>= 0.5.4)
       xpath (>= 2.0, < 4.0)
-    capybara-webkit (1.1.0)
-      capybara (~> 2.0, >= 2.0.2)
+    capybara-webkit (1.15.0)
+      capybara (>= 2.3, < 4.0)
       json
     charlock_holmes (0.7.5)
     charta (0.1.9)
@@ -180,7 +186,7 @@ GEM
       responders
       warden (~> 1.2.3)
     devise-i18n-views (0.3.7)
-    devise_invitable (1.7.2)
+    devise_invitable (1.7.3)
       actionmailer (>= 4.1.0)
       devise (>= 4.0.0)
     did_you_mean (0.10.0)
@@ -195,7 +201,7 @@ GEM
       request_store (~> 1.0)
     ekylibre-ofx-parser (1.2.2)
       hpricot (>= 0.6)
-    enumerize (2.1.2)
+    enumerize (2.2.1)
       activesupport (>= 3.2)
     erubis (2.7.0)
     et-orbi (1.0.9)
@@ -205,31 +211,47 @@ GEM
       actionmailer (>= 4.0, < 6)
       activesupport (>= 4.0, < 6)
     execjs (2.7.0)
+    factory_bot (4.8.2)
+      activesupport (>= 3.0.0)
     factory_girl (4.9.0)
       activesupport (>= 3.0.0)
     faraday (0.12.2)
       multipart-post (>= 1.2, < 3)
     faraday_middleware (0.12.2)
       faraday (>= 0.7.4, < 1.0)
-    feedjira (2.1.3)
+    feedjira (2.1.4)
       faraday (>= 0.9)
       faraday_middleware (>= 0.9)
       loofah (>= 2.0)
       sax-machine (>= 1.0)
     ffaker (2.8.1)
+<<<<<<< HEAD
     ffi (1.9.18)
+=======
+    ffi (1.9.23)
+>>>>>>> 2a34015c8e4e75da6a84498a015fcb43ae2f2199
     figaro (1.1.1)
       thor (~> 0.14)
-    font-awesome-sass (4.7.0)
+    font-awesome-sass (5.0.6.2)
       sass (>= 3.2)
     foreman (0.84.0)
       thor (~> 0.19.1)
+    formatador (0.2.5)
     formize (2.1.0)
       jquery-rails (>= 3)
       jquery-ui-rails (>= 5)
       rails (>= 3.2)
     globalid (0.4.1)
       activesupport (>= 4.2.0)
+    guard (2.14.2)
+      formatador (>= 0.2.4)
+      listen (>= 2.7, < 4.0)
+      lumberjack (>= 1.0.12, < 2.0)
+      nenv (~> 0.1)
+      notiffany (~> 0.0)
+      pry (>= 0.9.12)
+      shellany (~> 0.0)
+      thor (>= 0.18.1)
     gyoku (1.3.1)
       builder (>= 2.1.2)
     haml (5.0.4)
@@ -240,16 +262,25 @@ GEM
     http-cookie (1.0.3)
       domain_name (~> 0.5)
     http_accept_language (2.1.1)
-    httpi (2.4.2)
+    httpi (2.4.3)
       rack
       socksify
     humanize (1.7.0)
+<<<<<<< HEAD
     i18n (0.9.3)
       concurrent-ruby (~> 1.0)
     i18n-complements (1.1.0)
       i18n (>= 0.6)
     i18n-js (3.0.4)
       i18n (~> 0.6, >= 0.6.6)
+=======
+    i18n (0.9.5)
+      concurrent-ruby (~> 1.0)
+    i18n-complements (1.1.0)
+      i18n (>= 0.6)
+    i18n-js (3.0.5)
+      i18n (>= 0.6.6, < 2)
+>>>>>>> 2a34015c8e4e75da6a84498a015fcb43ae2f2199
     iban-tools (1.1.0)
     interception (0.5)
     jbuilder (2.7.0)
@@ -279,12 +310,23 @@ GEM
     letter_opener (1.6.0)
       launchy (~> 2.2)
     libv8 (3.16.14.19)
+<<<<<<< HEAD
     lodash-rails (4.17.4)
       railties (>= 3.1)
     loofah (2.1.1)
+=======
+    listen (3.1.5)
+      rb-fsevent (~> 0.9, >= 0.9.4)
+      rb-inotify (~> 0.9, >= 0.9.7)
+      ruby_dep (~> 1.2)
+    lodash-rails (4.17.5)
+      railties (>= 3.1)
+    loofah (2.2.0)
+>>>>>>> 2a34015c8e4e75da6a84498a015fcb43ae2f2199
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
     luhn (1.0.2)
+    lumberjack (1.0.12)
     mail (2.6.6)
       mime-types (>= 1.16, < 4)
     mechanize (2.7.5)
@@ -314,6 +356,7 @@ GEM
     multi_json (1.13.1)
     multi_xml (0.6.0)
     multipart-post (2.0.0)
+    nenv (0.3.0)
     net-http-digest_auth (1.4.1)
     net-http-persistent (2.9.4)
     net-scp (1.2.1)
@@ -323,6 +366,9 @@ GEM
     nokogiri (1.8.2)
       mini_portile2 (~> 2.3.0)
     nori (2.6.0)
+    notiffany (0.1.1)
+      nenv (~> 0.1)
+      shellany (~> 0.0)
     ntlm-http (0.1.1)
     oauth2 (1.4.0)
       faraday (>= 0.8, < 0.13)
@@ -330,6 +376,9 @@ GEM
       multi_json (~> 1.3)
       multi_xml (~> 0.5)
       rack (>= 1.2, < 3)
+    odf-report (0.5.2)
+      nokogiri (>= 1.5.0)
+      rubyzip (~> 1.2.0)
     omniauth (1.8.1)
       hashie (>= 3.4.6, < 3.6.0)
       rack (>= 1.6.2, < 3)
@@ -347,10 +396,14 @@ GEM
       burisu-docsplit (>= 0.7.9)
       paperclip (>= 3.1, < 6.0)
     parallel (1.12.1)
+<<<<<<< HEAD
     parallel_tests (2.21.1)
+=======
+    parallel_tests (2.21.2)
+>>>>>>> 2a34015c8e4e75da6a84498a015fcb43ae2f2199
       parallel
-    parser (2.4.0.2)
-      ast (~> 2.3)
+    parser (2.5.0.2)
+      ast (~> 2.4.0)
     pg (0.20.0)
     polyglot (0.3.5)
     possibly (1.0.1)
@@ -358,18 +411,18 @@ GEM
     pry (0.11.3)
       coderay (~> 1.1.0)
       method_source (~> 0.9.0)
-    pry-byebug (3.5.1)
-      byebug (~> 9.1)
+    pry-byebug (3.6.0)
+      byebug (~> 10.0)
       pry (~> 0.10)
     pry-rails (0.3.6)
       pry (>= 0.10.4)
-    public_suffix (3.0.1)
+    public_suffix (3.0.2)
     quiet_assets (1.1.0)
       railties (>= 3.1, < 5.0)
-    rack (1.6.8)
+    rack (1.6.9)
     rack-accept (0.4.5)
       rack (>= 0.4)
-    rack-protection (2.0.0)
+    rack-protection (2.0.1)
       rack
     rack-test (0.6.3)
       rack (>= 1.0)
@@ -457,6 +510,7 @@ GEM
       unicode-display_width (~> 1.0, >= 1.0.1)
     ruby-prof (0.17.0)
     ruby-progressbar (1.9.0)
+    ruby_dep (1.5.0)
     rubyntlm (0.6.2)
     rubyzip (1.2.1)
     rufus-scheduler (3.4.2)
@@ -484,16 +538,17 @@ GEM
     sdoc (0.4.2)
       json (~> 1.7, >= 1.7.7)
       rdoc (~> 4.0)
-    selenium-webdriver (3.8.0)
+    selenium-webdriver (3.9.0)
       childprocess (~> 0.5)
-      rubyzip (~> 1.0)
-    sentry-raven (2.7.1)
+      rubyzip (~> 1.2)
+    sentry-raven (2.7.2)
       faraday (>= 0.7.6, < 1.0)
     sepa_king (0.10.1)
       activemodel (>= 3.0.0)
       builder
       iban-tools
-    sexp_processor (4.10.0)
+    sexp_processor (4.10.1)
+    shellany (0.0.1)
     shoulda-context (1.2.2)
     sidekiq (4.2.10)
       concurrent-ruby (~> 1.0)
@@ -511,7 +566,7 @@ GEM
       thor
     simple_calendar (2.2.7)
       rails (>= 3.0)
-    simple_form (3.5.0)
+    simple_form (3.5.1)
       actionpack (> 4, < 5.2)
       activemodel (> 4, < 5.2)
     simplecov (0.15.1)
@@ -519,7 +574,7 @@ GEM
       json (>= 1.8, < 3)
       simplecov-html (~> 0.10.0)
     simplecov-html (0.10.2)
-    skylight (1.5.0)
+    skylight (1.5.1)
       activesupport (>= 3.0.0)
     socksify (1.7.1)
     spring (2.0.2)
@@ -531,7 +586,7 @@ GEM
       actionpack (>= 4.0)
       activesupport (>= 4.0)
       sprockets (>= 3.0.0)
-    sshkit (1.15.1)
+    sshkit (1.16.0)
       net-scp (>= 1.1.2)
       net-ssh (>= 2.8.0)
     state_machine (1.2.0)
@@ -568,13 +623,17 @@ GEM
       actionpack (>= 3.1)
       jquery-rails
       railties (>= 3.1)
-    tzinfo (1.2.4)
+    tzinfo (1.2.5)
       thread_safe (~> 0.1)
+<<<<<<< HEAD
     uglifier (4.1.5)
+=======
+    uglifier (4.1.6)
+>>>>>>> 2a34015c8e4e75da6a84498a015fcb43ae2f2199
       execjs (>= 0.3.0, < 3)
     unf (0.1.4)
       unf_ext
-    unf_ext (0.0.7.4)
+    unf_ext (0.0.7.5)
     unicode-display_width (1.3.0)
     unicorn (5.4.0)
       kgio (~> 2.6)
@@ -582,7 +641,7 @@ GEM
     uniform_notifier (1.10.0)
     url (0.3.2)
     uuidtools (2.1.5)
-    vuejs-rails (2.4.2)
+    vuejs-rails (2.5.13)
     wannabe_bool (0.7.0)
     warden (1.2.7)
       rack (>= 1.0)
@@ -657,6 +716,7 @@ DEPENDENCIES
   font-awesome-sass
   foreman
   formize (~> 2.1.0)
+  guard
   haml
   http_accept_language
   humanize
@@ -677,6 +737,7 @@ DEPENDENCIES
   minitest-reporters
   momentjs-rails (>= 2.9.0)
   nokogiri (~> 1.8.1)
+  odf-report
   omniauth
   omniauth-oauth2
   paperclip

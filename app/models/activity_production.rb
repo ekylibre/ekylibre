@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2017 Brice Texier, David Joulin
+# Copyright (C) 2012-2018 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -52,6 +52,8 @@
 class ActivityProduction < Ekylibre::Record::Base
   include Attachable
   include Customizable
+  include Planning::ActivityProduction
+
   enumerize :support_nature, in: %i[cultivation fallow_land buffer border none animal_group], default: :cultivation
   refers_to :usage, class_name: 'ProductionUsage'
   refers_to :size_indicator, class_name: 'Indicator'
@@ -133,6 +135,7 @@ class ActivityProduction < Ekylibre::Record::Base
 
   scope :at, ->(at) { where(':now BETWEEN COALESCE(started_on, :now) AND COALESCE(stopped_on, :now)', now: at.to_date) }
   scope :current, -> { at(Time.zone.now) }
+
 
   state_machine :state, initial: :opened do
     state :opened
@@ -224,6 +227,11 @@ class ActivityProduction < Ekylibre::Record::Base
     list.join(' ')
   end
 
+  def interventions_of_nature(nature)
+    interventions
+      .where(nature: nature)
+  end
+
   def update_names
     if support
       new_support_name = computed_support_name
@@ -257,7 +265,7 @@ class ActivityProduction < Ekylibre::Record::Base
       end
       self.support ||= LandParcel.new
     end
-    support.name = computed_support_name
+    support.name = name
     support.initial_shape = self.support_shape
     support.initial_born_at = started_on
     support.initial_dead_at = stopped_on
@@ -640,6 +648,7 @@ class ActivityProduction < Ekylibre::Record::Base
   def name(options = {})
     list = []
     list << activity.name unless options[:activity].is_a?(FalseClass)
+    list << season.name if season.present?
     list << cultivable_zone.name if cultivable_zone && plant_farming?
     list << started_on.to_date.l(format: :month) if activity.annual? && started_on
     list << :rank.t(number: rank_number)

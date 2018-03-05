@@ -162,6 +162,7 @@ fra:
       humans: "Tableau de bord des ressources humaines"
       index: "Tableaux de bord"
       new: "Nouveau tableau de bord"
+      # planning: "Planning"
       production: "Tableau de bord de la production"
       purchases: "Tableau de bord des achats"
       relationship: "Tableau de bord de la gestion des relations"
@@ -567,6 +568,10 @@ fra:
       index: "Produits"
       new: "Créer un produit"
       show: "%{nature}\_: %{name}"
+    backend/project_budgets: #?
+      edit: "Modifier le budget\_: %{name}" #?
+      index: "Budgets " #?
+      new: "Nouveau budget" #?
     backend/purchase_invoices:
       edit: "Modifier la facture: %{number}"
       index: "Factures"
@@ -860,9 +865,6 @@ fra:
       zoomInTitle: "Zoomer"
       zoomOutTitle: "Dézoomer"
   labels:
-    warning_if_no_activites_choose: Si aucune activité n’est sélectionnée, le modèle d'intervention sera disponible pour toutes les activités.
-    purchase_order: Commande
-    provider: Fournisseur
     abilities: "Compétences" #?
     accepted: "Acceptée"
     accepted_for_paiment: "Acceptée pour paiement"
@@ -939,6 +941,7 @@ fra:
     add_inspection_point_nature: "Ajouter un critère de qualité"
     add_intervention_record: "Enregistrer une intervention"
     add_intervention_request: "Demander une intervention"
+    # add_intervention_template: "Add intervention template"
     add_item: "Ajouter un élément"
     add_labelling: "Ajouter l’étiquette"
     add_line: "Ajouter une ligne"
@@ -1059,7 +1062,7 @@ fra:
     balance: "Solde"
     balance_of_selection: "Solde de la sélection"
     bank_account: "Compte bancaire"
-    bank_reconciliation: "Rapprochement bancaire"
+    bank_reconciliation: "Rapprochement bancaire" #?
     bank_statement_number: "N° du relevé de compte bancaire"
     bank_statements: "Relevés de compte bancaire"
     bban: "Relevé d’identité bancaire (RIB)"
@@ -1222,6 +1225,7 @@ fra:
     cultivable_zone: "Zone cultivable"
     cultivable_zone_abbreviation: "ZC" #?
     cultivable_zones: "Zones cultivables"
+    cultivated_hectare_costs: "Coût par hectare cultivé"
     cumul: "Cumul du total et du solde précédent N°%{number}"
     currency: "Devise" #?
     currency_conversion_rate: "Taux de conversion de la nouvelle monnaie"
@@ -1361,8 +1365,8 @@ fra:
     evaluated_direct_margin: "Marge directe évaluée" #?
     evaluated_doer_cost: "Coût main d’œuvre"
     evaluated_input_cost: "Coût intrants"
-    evaluated_reception_cost: "Coût prestation de service"
     evaluated_other_cost: "Coût autres"
+    evaluated_reception_cost: "Coût prestation de service"
     evaluated_tool_cost: "Coût outils"
     events: "Évènements"
     evolution: "Evolution"
@@ -1388,6 +1392,8 @@ fra:
     export_as_csv: "Exporter en CSV"
     export_as_ods: "Exporter en ODS"
     export_as_xcsv: "Exporter en CSV pour Excel"
+    export_as_odt: "Exporter en ODT"
+    export_as_pdf: "Exporter en PDF"
     export_backup: "Export d’un fichier de sauvegarde" #?
     exportation: "Exportation" #?
     extract: "Extraire" #?
@@ -1418,8 +1424,8 @@ fra:
     fixed_asset_debts: "Dettes sur immobilisations"
     fixed_asset_depreciations: "Dépréciations d’immobilisation"
     fixed_assets: "Immobilisations"
+    forecast_harvest_week: "Semaine de récolte"
     from: "À partir du"
-    forecast_harvest_week: 'Semaine de récolte'
     full_name: "Client" #?
     fullscreen: "Plein écran"
     function: "Fonction"
@@ -1435,6 +1441,7 @@ fra:
     generate_repayments: "Passer en comptabilité"
     geolocation: "Géolocalisation"
     give_discount: "Octroyer une remise" #?
+    global_costs: "Coût global"
     global_preferences: "Préférences générales"
     go: "Valider"
     gradings: "Agréages"
@@ -1511,7 +1518,7 @@ fra:
     interactive_maps: "Une librairie JavaScript pour des cartes interactives"
     interface_preferences: "Préférences de l’interface"
     internal_error: "Oups, quelque chose s’est mal passé."
-    interval: "Intervalle personnalisé"
+    interval: " personnalisé"
     intervention: "Intervention"
     intervention_at: "%{intervention} du %{at}"
     intervention_message_miscibility: "Mélange autorisé"
@@ -1533,12 +1540,11 @@ fra:
     investment_security: "Valeur mobilière de placement"
     investment_subsidies: "Subventions d’investissement"
     invitation_status: "État"
-    invoice: "Facture" #?
+    invoice: "Facture"
     invoice_period: "Période de facturation"
     invoice_status: "État de facturation"
     invoiced: "Facturés"
     invoiced_amount: "Montant facturé" #?
-    invoice: "Facture"
     invoices: "Factures"
     invoices_only: "Utiliser seulement les factures" #?
     is: "Est"
@@ -1741,7 +1747,7 @@ fra:
     new_in_line: "Ajouter un produit intrant" #?
     new_incoming_parcel: "Nouveau colis entrant"
     new_incoming_payment: "Nouveau encaissement"
-    new_inspection: "Nouvel agréage"
+    new_inspection: "Nouvel agréage" #?
     new_inventory: "Nouvel inventaire"
     new_issue: "Nouvel incident"
     new_listing: "Nouvelle extraction"
@@ -1766,6 +1772,7 @@ fra:
     next: "Suivant"
     nitrogen_concentration: "Teneur en azote (N)"
     nitrogen_concentration_per_hectare: "Teneur en azote par hectare" #?
+    no: "Non"
     no_attachments: "Déposez vos fichiers ici ou cliquez sur le bouton d’ajout"
     no_crumbs_to_check: "Pas de miettes à qualifier"
     no_data: "Aucune donnée"
@@ -1886,6 +1893,7 @@ fra:
     placeholder: "Espace réservé"
     places: "Lieux"
     planned_at: "Date prévisionnelle" #?
+    # planning: "Planning"
     plant: "Culture"
     plant_counting: "Comptage"
     plant_countings: "Comptages"
@@ -1938,6 +1946,7 @@ fra:
     product_value: "Chiffre d’affaire de l’exercice %{financial_year}"
     production: "Production"
     production_cost: "Coût de production"
+    production_costs: "Coûts de production"
     production_distribution: "Répartition de la production"
     production_support: "Support de production"
     productions: "Productions"
@@ -1954,12 +1963,14 @@ fra:
     profits: "Produits d’exploitation"
     profits_and_losses: "Les profits et pertes"
     protein_matters_concentration: "Teneur en matières protéïques" #?
+    provider: "Fournisseur" #?
     provisional_grains_yield: "Rendement prévisionnel en grains" #?
     provisionnal_budget: "Budget prévisionnel" #?
     provisions_revenues: "Reprises sur provisions et transfert de charges"
     purchase: "Achat"
     purchase_items: "Lignes de l’achat"
     purchase_number: "N° d’achat"
+    purchase_order: "Commande"
     purchase_payments: "Décaissements"
     purchase_steps: #?
       deliveries: "Livraisons" #?
@@ -1995,12 +2006,11 @@ fra:
     recent_events: "Derniers événements"
     recent_historic: "Historique récent" #?
     reception: "Réception"
+    reception_date: "Date de réception : %{date}" #?
     reception_incident: "Réception en incident"
     reception_items: "Articles réceptionnés"
-    service_deliveries: "Prestations de services"
     reception_number: "N° du bon de réception"
     reception_number_with_reference: "N° du bon de réception : %{reference_number}" #?
-    reception_date: "Date de réception : %{date}"
     receptions: "Réceptions"
     reconcile: "Rapprochée"
     reconciliate_with_purchases_orders: "Rapprocher avec une ou des commandes"
@@ -2149,6 +2159,7 @@ fra:
     sensors: "Capteurs"
     sequences_load: "Charger les séquences manquantes" #?
     service: "Service"
+    service_deliveries: "Prestations de services"
     service_delivering: "Prestation de service"
     sessions: "Sessions"
     set_reconcilable_new_but_existing_third_accounts: "Rendre lettrables les nouveaux comptes tiers déjà existants"
@@ -2419,11 +2430,13 @@ fra:
     virtual_quantity: "Quantité virtuelle" #?
     wages: "Rémunérations"
     warning_date_not_in_period: "Attention : La date saisie n'est pas sur l'exercice en cours."
+    warning_if_no_activites_choose: "Si aucune activité n’est sélectionnée, le modèle d'intervention sera disponible pour toutes les activités." #?
     watering_concentration: "Eau consommée"
     wear: "Usure" #?
     weather: "Météo"
     website: "Site web"
     week: "Semaine" #?
+    wice_grid_columns: "Colonnes"
     wind_speed: "Vitesse du vent"
     wine_tanks: "Cuverie" #?
     with_fixed_assets_depreciations: "Inclure les amortissements des immobilisations"
@@ -2432,6 +2445,7 @@ fra:
     workers: "Équipiers"
     working_area: "Surface travaillée" #?
     working_duration: "Temps de travail"
+    working_hectare_costs: "Coût par hectare travaillé"
     working_sets_stocks: "Stocks d’ensembles de produits"
     working_times: "Temps de travaux de %{name}"
     working_zone: "Zone travaillée" #?
@@ -2631,6 +2645,7 @@ fra:
       one: "%{count} an"
       other: "%{count} ans"
     y: "Oui" #?
+    yes: "Oui"
     year: "Année"
     yearly: "Annuelle" #?
     years: "Années" #?

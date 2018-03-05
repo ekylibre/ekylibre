@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2017 Brice Texier, David Joulin
+# Copyright (C) 2012-2018 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -41,6 +41,7 @@
 #  position               :integer
 #  preexisting_asset      :boolean
 #  pretax_amount          :decimal(19, 4)   default(0.0), not null
+#  project_budget_id      :integer
 #  purchase_id            :integer          not null
 #  quantity               :decimal(19, 4)   not null
 #  reduction_percentage   :decimal(19, 4)   default(0.0), not null
@@ -59,6 +60,7 @@ class PurchaseItem < Ekylibre::Record::Base
   refers_to :currency
   belongs_to :account
   belongs_to :activity_budget
+  belongs_to :project_budget
   belongs_to :team
   belongs_to :purchase, inverse_of: :items
   belongs_to :equipment, class_name: 'Product', inverse_of: :purchase_items
@@ -171,7 +173,7 @@ class PurchaseItem < Ekylibre::Record::Base
   end
 
   before_destroy do
-    parcels_purchase_invoice_items.map{ |parcel_item| parcel_item.update_attributes(purchase_invoice_item_id: nil) }
+    parcels_purchase_invoice_items.map { |parcel_item| parcel_item.update_attributes(purchase_invoice_item_id: nil) }
   end
 
   after_destroy do
@@ -237,19 +239,27 @@ class PurchaseItem < Ekylibre::Record::Base
     build_fixed_asset(asset_attributes)
   end
 
+  def create_fixed_asset
+    return unless fixed
+
+    a = new_fixed_asset
+
+    a.save!
+
+    self.fixed_asset = a
+    self.preexisting_asset = true
+
+    save!
+  end
+
   def update_fixed_asset
     return unless fixed
+
     if preexisting_asset
       return errors.add(:fixed_asset, :fixed_asset_missing) unless fixed_asset
       return errors.add(:fixed_asset, :fixed_asset_cannot_be_modified) unless fixed_asset.draft?
       fixed_asset.reload
       fixed_asset.add_amount(pretax_amount.to_f)
-    else
-      a = new_fixed_asset
-      a.save!
-      self.fixed_asset = a
-      self.preexisting_asset = true
-      save!
     end
   end
 
@@ -306,16 +316,16 @@ class PurchaseItem < Ekylibre::Record::Base
   private
 
   def first_reception
-    return nil if self.parcels_purchase_invoice_items.empty? && self.parcels_purchase_orders_items.empty?
+    return nil if parcels_purchase_invoice_items.empty? && parcels_purchase_orders_items.empty?
 
-    parcel_item = self.parcels_purchase_invoice_items.first if self.purchase.is_a?(PurchaseInvoice)
-    parcel_item = self.parcels_purchase_orders_items.first if self.purchase.is_a?(PurchaseOrder)
+    parcel_item = parcels_purchase_invoice_items.first if purchase.is_a?(PurchaseInvoice)
+    parcel_item = parcels_purchase_orders_items.first if purchase.is_a?(PurchaseOrder)
 
     Parcel.find(parcel_item.parcel_id)
   end
 
   def receptions_count
-    return self.parcels_purchase_invoice_items.count if self.purchase.is_a?(PurchaseInvoice)
-    return self.parcels_purchase_orders_items.count if self.purchase.is_a?(PurchaseOrder)
+    return parcels_purchase_invoice_items.count if purchase.is_a?(PurchaseInvoice)
+    return parcels_purchase_orders_items.count if purchase.is_a?(PurchaseOrder)
   end
 end

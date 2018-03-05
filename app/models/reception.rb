@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2017 Brice Texier, David Joulin
+# Copyright (C) 2012-2018 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -88,7 +88,6 @@ class Reception < Parcel
     self.nature = 'incoming'
     self.state ||= :draft
   end
-
 
   # Remove previous items, only if we are in an intervention and if the purchase change(in callback)
   def remove_all_items
@@ -189,13 +188,9 @@ class Reception < Parcel
     in_accident
   end
 
-  def sender_full_name
-    sender.full_name
-  end
+  delegate :full_name, to: :sender, prefix: true
 
-  def purchase_order_number
-    purchase_order.number
-  end
+  delegate :number, to: :purchase_order, prefix: true
 
   def give
     state = true

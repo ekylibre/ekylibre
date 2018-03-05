@@ -3303,6 +3303,18 @@ integrations:
   updater_id:
     type: integer
     references: user
+intervention_costs:
+  doers_cost:
+    type: decimal
+  id:
+    type: integer
+    required: true
+  inputs_cost:
+    type: decimal
+  receptions_cost:
+    type: decimal
+  tools_cost:
+    type: decimal
 intervention_labellings:
   created_at:
     type: datetime
@@ -3556,7 +3568,7 @@ intervention_template_product_parameters:
     required: true
   intervention_template_id:
     type: integer
-    references: intervention_template
+    references: ''
   procedure:
     type: jsonb
   product_nature_id:
@@ -3566,7 +3578,7 @@ intervention_template_product_parameters:
     type: integer
     references: product_nature_variant
   quantity:
-    type: integer
+    type: decimal
   type:
     type: string
   unit:
@@ -3584,6 +3596,9 @@ intervention_templates:
   created_at:
     type: datetime
     required: true
+  creator_id:
+    type: integer
+    references: ''
   description:
     type: string
   id:
@@ -3600,6 +3615,9 @@ intervention_templates:
   updated_at:
     type: datetime
     required: true
+  updater_id:
+    type: integer
+    references: ''
   workflow:
     type: decimal
 intervention_working_periods:
@@ -3664,6 +3682,9 @@ interventions:
   id:
     type: integer
     required: true
+  intervention_costs_id:
+    type: integer
+    references: intervention_costs
   issue_id:
     type: integer
     references: issue
@@ -5067,6 +5088,9 @@ parcel_items:
     references: product_ownership
   product_work_number:
     type: string
+  project_budget_id:
+    type: integer
+    references: project_budget
   purchase_invoice_item_id:
     type: integer
     references: purchase_item
@@ -6571,6 +6595,20 @@ products:
     required: true
   work_number:
     type: string
+project_budgets:
+  created_at:
+    type: datetime
+    required: true
+  description:
+    type: text
+  id:
+    type: integer
+    required: true
+  name:
+    type: string
+  updated_at:
+    type: datetime
+    required: true
 purchase_items:
   account_id:
     type: integer
@@ -6629,6 +6667,9 @@ purchase_items:
     precision: 19
     scale: 4
     required: true
+  project_budget_id:
+    type: integer
+    references: project_budget
   purchase_id:
     type: integer
     references: purchase
@@ -7796,6 +7837,61 @@ teams:
   updater_id:
     type: integer
     references: user
+technical_itineraries:
+  activity_id:
+    type: integer
+    references: activity
+  campaign_id:
+    type: integer
+    references: campaign
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: ''
+  description:
+    type: string
+  id:
+    type: integer
+    required: true
+  name:
+    type: string
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: ''
+technical_itinerary_intervention_templates:
+  created_at:
+    type: datetime
+    required: true
+  day_between_intervention:
+    type: integer
+  dont_divide_duration:
+    type: boolean
+    default: false
+  duration:
+    type: integer
+  id:
+    type: integer
+    required: true
+  intervention_template_id:
+    type: integer
+    references: intervention_template
+  parent_hash:
+    type: string
+  position:
+    type: integer
+  reference_hash:
+    type: string
+  technical_itinerary_id:
+    type: integer
+    references: technical_itinerary
+  updated_at:
+    type: datetime
+    required: true
 tokens:
   created_at:
     type: datetime
@@ -8009,3 +8105,17 @@ versions:
     type: text
   item_type:
     type: string
+wice_grid_serialized_queries:
+  created_at:
+    type: datetime
+  grid_name:
+    type: string
+  id:
+    type: integer
+    required: true
+  name:
+    type: string
+  query:
+    type: text
+  updated_at:
+    type: datetime

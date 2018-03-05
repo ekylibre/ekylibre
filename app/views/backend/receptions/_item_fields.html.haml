@@ -34,6 +34,8 @@
   %tr.nested-item-form
     %td.cell-form{colspan: 6}
       .item-form
+        = f.hidden_field :purchase_order_to_close_id, class: "purchase-order-to-close-id"
+
         - classes = ""
         - classes = " merchandise" if f.object.role == 'merchandise'
         - classes = " service" if f.object.role == 'service'
@@ -99,6 +101,7 @@
                   %span.add-on.item-population-unit-name
                     = variant.unit_name.or_else('#')
 
+
         .form-field.second-row
           = f.input :purchase_order_item_id, as: :hidden, input_html: { class: "purchase-item-attribute" }
           .item-form
@@ -106,6 +109,8 @@
               %label.reconciliation-item-state= :element_status.tl
               %span.purchase-process-reconciliation.reconciliation-state.no-reconciliate-state= :to_reconciliate.tl
               %span.purchase-process-reconciliation.reconciliation-state.reconcile-state.hidden= :reconcile.tl
+
+            = f.referenced_association :project_budget
             .equipment_and_reconciliate
               = f.referenced_association :equipment, source: :tools, label: :equipment.tl, input_html: {data: { remember: 'equipment'}}
               = button_tag :reconciliate_with_purchases_orders.tl, id: 'showItemReconciliationModal', class: 'btn btn-default', type: :button

@@ -49,14 +49,15 @@ module Backend
       code << "    c << params[:delivery_mode]\n"
       code << "  end\n"
       code << "end\n"
-      # code << "if params[:invoice_status] && params[:invoice_status] == 'invoiced'\n"
-      # code << "  c[0] << ' AND (#{Reception.table_name}.purchase_id IS NOT NULL OR #{Reception.table_name}.sale_id IS NOT NULL) '\n"
-      # code << "elsif params[:invoice_status] && params[:invoice_status] == 'uninvoiced'\n"
-      # code << "  c[0] << ' AND (#{Reception.table_name}.purchase_id IS NULL AND #{Reception.table_name}.sale_id IS NULL) '\n"
-      # code << "end\n"
+      code << "if params[:invoice_status] && params[:invoice_status] == 'invoiced'\n"
+      code << "   c[0] << ' AND #{Reception.table_name}.id IN (SELECT parcel_id FROM #{ReceptionItem.table_name} WHERE #{ReceptionItem.table_name}.type = \\'ReceptionItem\\' AND #{ReceptionItem.table_name}.purchase_invoice_item_id IS NOT NULL)'\n"
+      code << "elsif params[:invoice_status] && params[:invoice_status] == 'uninvoiced'\n"
+      code << "   c[0] << ' AND #{Reception.table_name}.id IN (SELECT parcel_id FROM #{ReceptionItem.table_name} WHERE #{ReceptionItem.table_name}.type = \\'ReceptionItem\\' AND #{ReceptionItem.table_name}.purchase_invoice_item_id IS NULL)'\n"
+      code << "end\n"
       code << "c\n"
       code.c
     end
+
 
     list(conditions: receptions_conditions, order: { planned_at: :desc }) do |t|
       t.action :edit, if: :updateable?
@@ -81,7 +82,7 @@ module Backend
     list(:items, model: :parcel_items, order: { id: :asc }, conditions: { parcel_id: 'params[:id]'.c, role: 'service' }) do |t|
       t.column :variant, url: true
       t.column :purchase_order_number, label: :order, through: :parcel_item, url: { controller: '/backend/purchase_orders', id: 'RECORD.purchase_order_item.purchase.id'.c }
-      t.column :purchase_invoice_number, label: :invoice, url: { controller: 'backend/purchase_invoices', id: 'RECORD.purchase_order_item.purchase.id'.c }
+      t.column :purchase_invoice_number, label: :invoice, url: { controller: 'backend/purchase_invoices', id: 'RECORD.purchase_invoice_item.purchase.id'.c }
       # t.column :source_product, url: true
       t.column :product_name
       t.column :product_work_number
@@ -107,7 +108,6 @@ module Backend
       t.column :unit_pretax_amount, currency: true, through: :parcel_item
       t.column :analysis, url: true, through: :parcel_item
     end
-
 
     def new
       @reception = Reception.new

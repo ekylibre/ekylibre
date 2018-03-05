@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2017 Brice Texier, David Joulin
+# Copyright (C) 2012-2018 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -46,6 +46,7 @@
 #  product_name                  :string
 #  product_ownership_id          :integer
 #  product_work_number           :string
+#  project_budget_id             :integer
 #  purchase_invoice_item_id      :integer
 #  purchase_order_item_id        :integer
 #  role                          :string
@@ -63,6 +64,8 @@
 #
 class ReceptionItem < ParcelItem
   belongs_to :reception, inverse_of: :items, class_name: 'Reception', foreign_key: :parcel_id
+  belongs_to :project_budget, class_name: 'ProjectBudget', foreign_key: :project_budget_id
+  belongs_to :purchase_order_to_close, class_name: 'PurchaseOrder', foreign_key: :purchase_order_to_close_id
 
   has_one :storage, through: :reception
   has_one :contract, through: :reception
@@ -98,14 +101,16 @@ class ReceptionItem < ParcelItem
         end
       end
     end
-    if pretax_amount_changed?
-      reception.save
+    reception.save if pretax_amount_changed?
+
+    if self.purchase_order_to_close.present? && !self.purchase_order_to_close.closed?
+      self.purchase_order_to_close.close
     end
   end
 
-  #protect(allow_update_on: ALLOWED, on: %i[create destroy update]) do
+  # protect(allow_update_on: ALLOWED, on: %i[create destroy update]) do
   #  !reception_allow_items_update?
-  #end
+  # end
 
   def prepared?
     variant.present?

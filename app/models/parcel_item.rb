@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2017 Brice Texier, David Joulin
+# Copyright (C) 2012-2018 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -46,6 +46,7 @@
 #  product_name                  :string
 #  product_ownership_id          :integer
 #  product_work_number           :string
+#  project_budget_id             :integer
 #  purchase_invoice_item_id      :integer
 #  purchase_order_item_id        :integer
 #  role                          :string
@@ -112,7 +113,6 @@ class ParcelItem < Ekylibre::Record::Base
   delegate :draft?, :given?, to: :reception, prefix: true, allow_nil: true
   delegate :draft?, :in_preparation?, :prepared?, :given?, to: :shipment, prefix: true
   delegate :unit_name, to: :variant
-
 
   delegate :unit_name, to: :variant
 
@@ -182,15 +182,14 @@ class ParcelItem < Ekylibre::Record::Base
   end
 
   def purchase_order_number
-    return nil if self.purchase_order_item.nil?
+    return nil if purchase_order_item.nil?
 
-    self.purchase_order_item.purchase.number
+    purchase_order_item.purchase.number
   end
 
   def purchase_invoice_number
-    return nil if self.purchase_invoice_item.nil?
-
-    self.purchase_invoice_item.purchase.number
+    return nil if purchase_invoice_item.nil?
+    purchase_invoice_item.purchase.number
   end
 
   protected

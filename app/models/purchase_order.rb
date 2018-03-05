@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2017 Brice Texier, David Joulin
+# Copyright (C) 2012-2018 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -82,7 +82,7 @@ class PurchaseOrder < Purchase
   }
   scope :of_supplier, ->(supplier) { where(supplier: supplier) }
 
-  scope :of_supplier, ->(supplier) { where(supplier: supplier)}
+  scope :of_supplier, ->(supplier) { where(supplier: supplier) }
 
   def self.third_attribute
     :supplier
@@ -134,26 +134,26 @@ class PurchaseOrder < Purchase
   def has_content?
     items.any?
   end
-  
+
   # this method generate a dataset for one purchase order
-  def order_reporting(options = {})
-    
+  def order_reporting(_options = {})
     report = HashWithIndifferentAccess.new
-    supplier_email = supplier.addresses.where(canal:'email')
-    
+    supplier_email = supplier.addresses.where(canal: 'email')
+
     report[:purchase_number] = reference_number
     report[:purchase_ordered_at] = ordered_at.l(format: '%d/%m/%Y') if ordered_at.present?
     report[:purchase_estimate_reception_date] = estimate_reception_date.l(format: '%d/%m/%Y') if estimate_reception_date.present?
     report[:purchase_responsible] = responsible.full_name
+    report[:purchase_responsible_email] = responsible.email
     report[:supplier_name] = supplier.full_name
     report[:supplier_phone] = supplier.phones.first.coordinate if supplier.phones.any?
     report[:supplier_mobile_phone] = supplier.mobiles.first.coordinate if supplier.mobiles.any?
     report[:supplier_address] = supplier_address if supplier_address.present?
     report[:supplier_email] = supplier_email.first.coordinate if supplier_email.any?
     report[:entity_picture] = Entity.of_company.picture.path
-    
+
     report[:items] = []
-    
+
     items.each do |item|
       i = HashWithIndifferentAccess.new
       i[:variant] = item.variant.name
@@ -163,11 +163,9 @@ class PurchaseOrder < Purchase
       i[:pretax_amount] = item.pretax_amount
       report[:items] << i
     end
-    
+
     report[:purchase_pretax_amount] = pretax_amount
     report[:purchase_currency] = Nomen::Currency.find(currency).symbol
     report
-    
   end
-  
 end

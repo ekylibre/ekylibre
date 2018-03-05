@@ -140,11 +140,21 @@
       }
 
       .purchase_invoice_items_activity_budget {
-        flex-basis: 27.5%;
+        flex-basis: 30%;
+        .controls {
+          width: 70%
+        }
+      }
+
+      .purchase_invoice_items_project_budget {
+        flex-basis: 30%;
+        .controls {
+          width: 70%
+        }
       }
 
       .purchase_invoice_items_team {
-        flex-basis: 50%;
+        flex-basis: 45%;
       }
 
       .purchase_invoice_items_equipment {

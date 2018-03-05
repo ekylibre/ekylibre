@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2017 Brice Texier, David Joulin
+# Copyright (C) 2012-2018 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -69,6 +69,8 @@ class PurchaseInvoice < Purchase
   scope :invoiced_between, lambda { |started_at, stopped_at|
     where(invoiced_at: started_at..stopped_at)
   }
+
+  scope :accepted_reconcile, -> { where(reconciliation_state: ['accepted', 'reconcile']) }
   scope :unpaid, -> { where(state: %w[order invoice]).where.not(affair: Affair.closeds) }
   scope :current, -> { unpaid }
   scope :current_or_self, ->(purchase) { where(unpaid).or(where(id: (purchase.is_a?(Purchase) ? purchase.id : purchase))) }
@@ -96,7 +98,11 @@ class PurchaseInvoice < Purchase
   end
 
   after_save do
-    items.each(&:update_fixed_asset)
+    items.each do |item|
+      item.create_fixed_asset if item.fixed_asset.nil?
+
+      item.update_fixed_asset if item.fixed_asset.present? && item.pretax_amount_changed?
+    end
   end
 
   # This callback permits to add journal entries corresponding to the purchase order/invoice

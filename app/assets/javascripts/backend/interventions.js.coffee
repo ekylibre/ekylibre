@@ -230,7 +230,7 @@
             @workingTimesModal.getModalContent().append(data)
             @workingTimesModal.getModal().modal 'show'
 
-    addLazyLoading: ->
+    addLazyLoading: (taskboard) ->
       loadContent = false
       currentPage = 1
       taskHeight = 60
@@ -348,6 +348,8 @@
       E.interventions.refresh $(this), options
 
   $(document).on "keyup change dp.change", ".nested-fields.working-period:first-child input.intervention-started-at", (e) ->
+    value = $(this).val()
+    $('#intervention_working_periods_attributes_0_stopped_at').val(moment(new Date(value)).add(1, 'hours').format('Y-MM-DD H:m'))
     $(this).each ->
       E.interventions.updateAvailabilityInstant()
 
@@ -432,7 +434,7 @@
       taskboard = new InterventionsTaskboard
       taskboard.initTaskboard()
 
-      E.interventions.addLazyLoading()
+      E.interventions.addLazyLoading(taskboard)
 
 
   class InterventionsTaskboard

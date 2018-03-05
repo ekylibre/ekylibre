@@ -321,8 +321,6 @@ spa:
     backend/intervention_participations:
       # convert: "Convert intervention participation: %{name}"
       index: "Participaciones de intervención"
-    backend/intervention_templates:
-      # index: "Intervention model"
     backend/interventions:
       edit: "Editar"
       edit_request: "Editar solicitud"
@@ -955,6 +953,7 @@ spa:
     attachments: "Archivos adjuntos"
     # automatic: "Auto"
     available: "Disponible"
+    # available_area: "Available area"
     available_columns: "Campos disponibles\_: %{columns}"
     average: "Promedio"
     back: "Volver a la página anterior"
@@ -1046,6 +1045,7 @@ spa:
     code: "Codigo" #?
     column: "Columna"
     columns: "Columnas para importar"
+    # comment: "Comment"
     commission: "Comisión"
     company: "Sociedad"
     completed: "Terminado"
@@ -1101,6 +1101,7 @@ spa:
     csv_statistics: "Statisticas a exportar al formato CSV" #?
     cultivable_zone: "Zona cultivable"
     cultivable_zones: "Zonas cultivables"
+    # cultivated_hectare_costs: "Cultivated hectare costs"
     cumul: "Cumul del total y del saldo precedente N°%{number}"
     currency_conversion_rate: "Tasa de conversión de moneda"
     current: "Corriente"
@@ -1233,6 +1234,7 @@ spa:
     evaluated_doer_cost: "Coste laboral evaluado"
     evaluated_input_cost: "Costo de entrada evaluado"
     evaluated_other_cost: "Otro coste evaluado"
+    # evaluated_reception_cost: "Service Delivery Cost"
     evaluated_tool_cost: "Costo herramienta evaluado"
     events: "Eventos"
     evolution: "Evolución"
@@ -1277,6 +1279,7 @@ spa:
     fixed_asset_debts: "Deudas de bienes de uso"
     fixed_asset_depreciations: "Amortizaciones de bienes de uso"
     fixed_assets: "Los activos fijos"
+    # forecast_harvest_week: "Forecast harvest week"
     free_purchases: "Compras en franquisia" #?
     from: "Expedidor"
     fullscreen: "Pantalla completa"
@@ -1292,6 +1295,7 @@ spa:
     generate_parcel: "generar parcela"
     generate_repayments: "Contabilidad pase"
     geolocation: "Geolocalización"
+    # global_costs: "Global costs"
     global_preferences: "Preferencias globales"
     go: "Ir"
     gradings: "gradaciones"
@@ -1302,6 +1306,7 @@ spa:
     group: "Grupo"
     groups: "Grupos"
     guide_evolution: "Orientar la evolución"
+    # harvested_area: "Harvested area"
     harvested_at: "Cosechadas en"
     help: "Ayuda"
     help_center: "Centro de ayuda"
@@ -1367,6 +1372,7 @@ spa:
     investment_security: "Seguridad de la inversión"
     investment_subsidies: "Subvenciones a la inversión"
     invitation_status: "Estado"
+    # invoice: "Invoice"
     invoice_period: "Periodo de factura"
     invoice_status: "Estado de la factura"
     invoiced: "Facturado"
@@ -1695,6 +1701,7 @@ spa:
     # product_value: "Product value %{financial_year}"
     production: "Administración de la producción"
     production_cost: "Costo de producción"
+    # production_costs: "Production costs"
     production_distribution: "Distribución de la producción"
     production_support: "Soporte de producción"
     productions: "Producciones"
@@ -1714,6 +1721,7 @@ spa:
     purchase: "Compra"
     purchase_items: "Artículos de la compra"
     purchase_number: "Número de compra"
+    # purchase_order: "Purchase order"
     purchase_payments: "Pagos de compra"
     purchase_steps: #?
       products: "Creación de la compra" #?
@@ -1860,6 +1868,7 @@ spa:
     sequences: "Séquencias" #?
     sequences_load: "Cargar las secuencias faltantes" #?
     # service: "Service"
+    # service_deliveries: "Service deliveries"
     # service_delivering: "Service delivering"
     sessions: "Sesiones"
     set_reconcilable_new_but_existing_third_accounts: "Establecer conciliables las nuevas cuentas, pero existentes terceros (clientes, proveedores y abogados)"
@@ -2076,11 +2085,13 @@ spa:
     watering_concentration: "Uso del agua"
     weather: "Clima"
     website: "Sitio web"
+    # wice_grid_columns: "Columns"
     wind_speed: "Velocidad del viento"
     with_fixed_assets_depreciations: "Con activos fijos amortizaciones"
     with_prints: "Incluir las impresiones (facturas, encargos...)" #?
     workers: "Trabajadores"
     working_duration: "Duración de trabajo"
+    # working_hectare_costs: "Working hectare costs"
     working_sets_stocks: "Trabajo establece las existencias"
     # working_times: "Working times of %{name}"
     x_cashes:
