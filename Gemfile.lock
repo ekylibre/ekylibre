@@ -76,11 +76,7 @@ GEM
       sidekiq (>= 2.11)
     arel (6.0.4)
     ast (2.4.0)
-<<<<<<< HEAD
-    autoprefixer-rails (7.2.5)
-=======
     autoprefixer-rails (8.0.0)
->>>>>>> 2a34015c8e4e75da6a84498a015fcb43ae2f2199
       execjs
     awesome_nested_set (3.1.4)
       activerecord (>= 4.0.0, < 5.3)
@@ -225,11 +221,7 @@ GEM
       loofah (>= 2.0)
       sax-machine (>= 1.0)
     ffaker (2.8.1)
-<<<<<<< HEAD
-    ffi (1.9.18)
-=======
     ffi (1.9.23)
->>>>>>> 2a34015c8e4e75da6a84498a015fcb43ae2f2199
     figaro (1.1.1)
       thor (~> 0.14)
     font-awesome-sass (5.0.6.2)
