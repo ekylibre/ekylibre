@@ -1,4 +1,4 @@
-class PlantDecorator < Draper::Decorator
+class PlantDecorator < ProductDecorator
   delegate_all
 
 
