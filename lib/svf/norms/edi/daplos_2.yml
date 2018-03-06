@@ -1,13 +1,9 @@
 ---
 root:
-  - version: 1
-  - message: 1
-  - producer: 1
-  - forwarder: 1
-  - receiver: 1
+  - interchange: 1
 
 lines:
-  version:
+  interchange:
     key: "EI"
     occurrence: 1
     cells:
@@ -15,32 +11,26 @@ lines:
       - farm_code: string-3
       - receiver_siret: string-14
       - receiver_code: string-3
+    children:
+      - header: 1
+      - entities: 3
+      - agricultural_usages: "*"
+      - crops: "*"
 
-  message:
+  header:
     key: "DE"
     occurrence: 1
     cells:
       - printed_on: string-44
 
-  producer:
-    key: "DATF"
-    occurrence: 1
+  entity:
+    key: "DA"
+    occurrence: 3
     cells:
-      - transmitter_siret: string-15
-
-  forwarder:
-    key: "DAFR"
-    occurrence: 1
-    cells:
-      - forwarder_siret: string-15
-
-  receiver:
-    key: "DAMR"
-    occurrence: 1
-    cells:
-      - receiver_siret: string-15
-    children:
-      - crops: "*"
+      - siret: string-15
+  
+  agricultural_usage:
+    key: "DT"
 
   crop:
     key: "DP"
@@ -58,26 +48,46 @@ lines:
       - soil_nature_edicode: string-3 #43 List_SoilType_CodeType
       - land_parcel_name: string-35
     children:
-      - production_histories: "*"
-      - production_spatials: "*"
-      - production_surfaces: "*"
+      - cadastral_areas: "*"
+      - crop_areas: "*"
+      - contracts: "*"
+      - crop_histories: "*"
+      - soil_analyses: "*"
       - interventions: "*"
-
-  production_surface:
+  
+  cadastral_area:
+    key: "PC"
+    cells:
+      - land_parcel_number: string-8
+      - harvest_year: string-4
+      - area_nature_edicode: string-3 #41 List_AgriculturalArea_CodeType
+      - area_nature_value: string-9
+    children:
+      - cadastral_spatial_coordinates: "*"
+  
+  cadastral_spatial_coordinate:
+    key: "CC"
+  
+  crop_area:
     key: "PS"
     cells:
       - land_parcel_number: string-8
       - harvest_year: string-4
       - area_nature_edicode: string-3 #41 List_AgriculturalArea_CodeType
       - area_nature_value: string-9
+    children:
+      - crop_spatial_coordinates: "*"
 
-  production_spatial:
+  crop_spatial_coordinate:
     key: "SC"
     cells:
       - land_parcel_number: string-8
       - harvest_year: string-4
 
-  production_history:
+  contract:
+    key: "PE"
+  
+  crop_history:
     key: "PH"
     cells:
       - land_parcel_number: string-8
@@ -89,7 +99,15 @@ lines:
       - crop_sowing_period_edicode: string-3 #30 List_SowingPeriodCode_CodeType
       - unknow_A_edicode: string-3 #
       - unknow_B_edicode: string-3 #
-
+    children:
+      - enrichments: "*"
+  
+  enrichment:
+    key: "HA"
+  
+  soil_analysis:
+    key: "PA"
+  
   intervention:
     key: "PV"
     cells:
@@ -110,8 +128,18 @@ lines:
       - per_area_edicode: string-3 #ZKK
       - working_area_in_hectare: string-9
     children:
+      - intervention_spatial_coordinates: "*"
+      - intervention_targets: "*"
       - inputs: "*"
-
+      - outputs: "*"
+      - decision_indicator: 1
+      
+  intervention_spatial_coordinate:
+    key: "VC"
+    
+  intervention_target:
+    key: "VB"
+ 
   input:
     key: "VI"
     cells:
@@ -130,9 +158,11 @@ lines:
       - input_quantity_per_hectare: string-9
       - per_area_edicode: string-3 #ZKK
     children:
-      - input_indicators: "*"
+      - input_components: "*"
+      - input_trackings: "*"
+      - residue_analyses: "*"
 
-  input_indicator:
+  input_component:
     key: "IC"
     cells:
       - land_parcel_number: string-8
@@ -140,3 +170,24 @@ lines:
       - intervention_id: string-32
       - indicator_nature_edicode: string-3 #20 List_CropInputChemical_CodeType
       - indicator_quantity: string-9
+  
+  input_tracking:
+    key: "IL"
+  
+  residue_analysis:
+    key: "IA"
+  
+  output:
+    key: "VR"
+    children:
+      - output_components: "*"
+      - output_trackings: "*"
+  
+  output_tracking:
+    key: "RL"
+    
+  output_component:
+    key: "LC"
+    
+  decision_indicator:
+    key: "VH"

@@ -26,16 +26,15 @@ module Agroedi
       end
 
       # TODO: check siret
-      entity_siret = daplos.version.farm_siret
 
       # crop
-      daplos.receiver.crops.each do |crop|
+      daplos.interchange.crops.each do |crop|
         
         # get specie and area
         production_nature = MasterProductionNature.where(agroedi_crop_code: crop.crop_edicode).first
         puts "production_nature : #{production_nature}".inspect.yellow
         
-        crop_area = crop.production_surfaces.first.area_nature_value.to_f
+        crop_area = crop.crop_areas.first.area_nature_value.to_f
         max_area = crop_area + (crop_area * 0.05)
         min_area = crop_area - (crop_area * 0.05)
         
@@ -79,23 +78,28 @@ module Agroedi
       
       nature = ProductNature.import_from_nomenclature(inputs_transcode[input.input_nature_edicode])
       
-      unless variant = nature.variants.where(name: input.input_name, unit_name: units_transcode[input.input_unity_edicode], active: true).first
+      variant = nature.variants.where(name: input.input_name, unit_name: units_transcode[input.input_unity_edicode], active: true).first
+      
+      unless variant
         
         variant = nature.variants.create!(name: input.input_name, unit_name: units_transcode[input.input_unity_edicode], active: true)
+        
         default_indicators = {
-                net_mass: Measure.new(1000, :kilogram),
-                net_volume: Measure.new(1000, :liter)
+                net_mass: Measure.new(1.00, :kilogram),
+                net_volume: Measure.new(1.00, :liter)
               }.with_indifferent_access
         
         default_indicators.each do |indicator_name, value|
           variant.read! indicator_name, value
         end
+        
       end
  
       if !input.input_phytosanitary_number.blank?
         variant.france_maaid = input.input_phytosanitary_number
         variant.save!
       end
+      
       if variant.products.any?
         return variant.products.first
       else
@@ -154,6 +158,10 @@ module Agroedi
         
         puts "product : #{p.name}".inspect.yellow
         
+        unit = Nomen::Unit.find(p.variant.unit_name.to_sym)
+        dimension = unit.dimension
+        quantity_handler = "net_" + dimension.to_s
+        
         procedure.parameters_of_type(:input).each do |input|
            # find measure from quantity
            # product_measure = actor_measure_conversion(p.variant)
@@ -173,8 +181,8 @@ module Agroedi
           attributes[:inputs_attributes][index.to_s] = {
             reference_name: input.name,
             product_id: p.id,
-            quantity_handler: :net_mass,
-            quantity_value: Measure.new(actor.input_quantity.to_f, :kilogram)
+            quantity_handler: quantity_handler.to_sym,
+            quantity_value: Measure.new(actor.input_quantity.to_f, unit.name.to_sym)
           }
           puts "inputs attributes #{attributes}".inspect.yellow
            
