@@ -33,5 +33,6 @@ module SVF
 end
 
 # Load Parser/Exporter based on SVF structures
-SVF.load(:isacompta_8550, SVF.norms_path.join('isacompta', '8550.yml'))
+# SVF.load(:isacompta_8550, SVF.norms_path.join('isacompta', '8550.yml'))
+SVF.load(:edi_daplos_2, SVF.norms_path.join('edi', 'daplos_2.yml'))
 # SVF.load(:isacompta_8700, SVF.norms_path.join('isacompta', '8700.yml'))

@@ -1,7 +1,10 @@
 ---
 root:
   - version: 1
-  - folder: 1
+  - message: 1
+  - producer: 1
+  - forwarder: 1
+  - receiver: 1
 
 lines:
   version:
@@ -12,11 +15,32 @@ lines:
       - farm_code: string-3
       - receiver_siret: string-14
       - receiver_code: string-3
+
   message:
     key: "DE"
     occurrence: 1
     cells:
       - printed_on: string-44
+
+  producer:
+    key: "DATF"
+    occurrence: 1
+    cells:
+      - transmitter_siret: string-15
+      
+  forwarder:
+    key: "DAFR"
+    occurrence: 1
+    cells:
+      - forwarder_siret: string-15
+    
+  receiver:
+    key: "DAMR"
+    occurrence: 1
+    cells:
+      - receiver_siret: string-15
+    children:
+      - crops: "*"
 
   crop:
     key: "DP"
@@ -33,9 +57,9 @@ lines:
       - unknow_number: string-9
       - soil_nature_edicode: string-3 #43 List_SoilType_CodeType
       - land_parcel_name: string-35
-    
     children:
       - production_histories: "*"
+      - production_spatials: "*"
       - production_surfaces: "*"
       - interventions: "*"
 
@@ -45,8 +69,14 @@ lines:
       - land_parcel_number: string-8
       - harvest_year: string-4
       - area_nature_edicode: string-3 #41 List_AgriculturalArea_CodeType
-      - area_nature_value: float-8.4
-      
+      - area_nature_value: string-9
+  
+  production_spatial:
+    key: "SC"
+    cells:
+      - land_parcel_number: string-8
+      - harvest_year: string-4
+  
   production_history:
     key: "PH"
     cells:
@@ -73,13 +103,12 @@ lines:
       - intervention_started_on: string-8
       - unknow_code: string-4
       - intervention_stopped_on: string-8
-      - blank_2: string-46
+      - blank_2: string-56
       - intervention_nature_edicode: string-3 #14 List_AgriculturalProcessWorkItem_CodeType
       - blank_3: string-156
       - unknow_number: string-9
       - per_area_edicode: string-3 #ZKK
       - working_area_in_hectare: string-9
-      
     children:
       - inputs: "*"
 
@@ -91,7 +120,7 @@ lines:
       - intervention_id: string-32
       - input_nature_edicode: string-3 #5 List_AgriculturalProcessCropInput_CodeType
       - input_name: string-83
-      - input_code: string-7
+      - input_phytosanitary_number: string-7
       - blank_1: string-38
       - unknow_A_edicode: string-3
       - unknow_B_edicode: string-3
@@ -100,7 +129,6 @@ lines:
       - input_unity_edicode: string-3 #36 List_UnitCode
       - input_quantity_per_hectare: string-9
       - per_area_edicode: string-3 #ZKK
-      
     children:
       - input_indicators: "*"
       
