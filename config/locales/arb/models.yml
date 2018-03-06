@@ -1625,6 +1625,7 @@ arb:
     host: "مضيف"
     hour_duration: "(ساعة (ساعات" #?
     human_activities_names: "أسماء الأنشطة"
+    # human_name: "Human name"
     human_shape_area: "منطقة الشكل"
     human_target_names: "أسماء المستهدفة"
     human_working_duration: "مدة العمل"
@@ -2331,6 +2332,7 @@ arb:
     source: "المصدر"
     source_product: "مصدر المنتج"
     spaced_iban: "متباعدة IBAN"
+    # specie: "Specie"
     sql_type: "SQL نوع"
     ssl: "خدمة تصميم المواقع"
     start: "البداية"
