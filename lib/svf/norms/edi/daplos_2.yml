@@ -27,13 +27,13 @@ lines:
     occurrence: 1
     cells:
       - transmitter_siret: string-15
-      
+
   forwarder:
     key: "DAFR"
     occurrence: 1
     cells:
       - forwarder_siret: string-15
-    
+
   receiver:
     key: "DAMR"
     occurrence: 1
@@ -70,13 +70,13 @@ lines:
       - harvest_year: string-4
       - area_nature_edicode: string-3 #41 List_AgriculturalArea_CodeType
       - area_nature_value: string-9
-  
+
   production_spatial:
     key: "SC"
     cells:
       - land_parcel_number: string-8
       - harvest_year: string-4
-  
+
   production_history:
     key: "PH"
     cells:
@@ -131,7 +131,7 @@ lines:
       - per_area_edicode: string-3 #ZKK
     children:
       - input_indicators: "*"
-      
+
   input_indicator:
     key: "IC"
     cells:
