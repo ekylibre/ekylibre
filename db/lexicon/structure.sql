@@ -33,11 +33,13 @@ CREATE TABLE master_production_natures (
   human_name JSONB,
   human_name_fra character varying,
   started_on DATE NOT NULL,
-  stopped_on DATE NOT NULL
+  stopped_on DATE NOT NULL,
+  agroedi_crop_code character varying
 );
 CREATE INDEX master_production_natures_specie ON master_production_natures(specie);
 CREATE INDEX master_production_natures_human_name ON master_production_natures(human_name);
 CREATE INDEX master_production_natures_human_name_fra ON master_production_natures(human_name_fra);
+CREATE INDEX master_production_natures_agroedi_crop_code ON master_production_natures(agroedi_crop_code);
 
 CREATE TABLE master_production_outputs (
   production_nature_id INTEGER NOT NULL,
@@ -93,6 +95,15 @@ CREATE INDEX registered_postal_zones_country ON registered_postal_zones(country)
 CREATE INDEX registered_postal_zones_city_name ON registered_postal_zones(city_name);
 CREATE INDEX registered_postal_zones_postal_code ON registered_postal_zones(postal_code);
 CREATE INDEX registered_postal_zones_centroid ON registered_postal_zones USING GIST (city_centroid);
+
+CREATE TABLE registered_agroedi_codes (
+  id integer PRIMARY KEY NOT NULL,
+  repository_id character varying,
+  reference_id character varying,
+  reference_code character varying,
+  reference_label character varying,
+);
+CREATE INDEX registered_agroedi_codes_reference_code ON registered_agroedi_codes(reference_code);
 
 CREATE TABLE registered_building_zones (
   shape postgis.geometry(Polygon,4326) NOT NULL,
