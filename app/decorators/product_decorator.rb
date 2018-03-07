@@ -6,6 +6,6 @@ class ProductDecorator < Draper::Decorator
   end
 
   def not_worker_or_equipment?
-    !self.is_a?(Worker) && !product.is_a?(Equipment)
+    !object.is_a?(Worker) && !object.is_a?(Equipment)
   end
 end

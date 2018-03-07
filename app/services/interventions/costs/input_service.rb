@@ -12,13 +12,15 @@ module Interventions
 
         options = { quantity: quantity, unit_name: unit_name }
 
-        # TODO: Check if incoming_parcel.purchase_invoice_item is the last purchase_invoice of the product.
-#       if incoming_parcel
-#         purchase_item = incoming_parcel.purchase_invoice_item
-#         purchase_item ||= incoming_parcel.purchase_order_item
+        # TODO: Check if incoming_parcel.purchase_invoice_item is the last
+        # purchase_invoice of the product when the lines below
+        # are uncommented.
+        #if incoming_parcel
+        #  purchase_item = incoming_parcel.purchase_invoice_item
+        #  purchase_item ||= incoming_parcel.purchase_order_item
 
-#         return purchase_item_amount(purchase_item, options) if purchase_item
-#        end
+        #  return purchase_item_amount(purchase_item, options) if purchase_item
+        #end
 
         options[:catalog_usage] = :purchase
         options[:catalog_item] = product.default_catalog_item(options[:catalog_usage])
