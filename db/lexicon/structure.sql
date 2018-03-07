@@ -101,7 +101,7 @@ CREATE TABLE registered_agroedi_codes (
   repository_id character varying,
   reference_id character varying,
   reference_code character varying,
-  reference_label character varying,
+  reference_label character varying
 );
 CREATE INDEX registered_agroedi_codes_reference_code ON registered_agroedi_codes(reference_code);
 

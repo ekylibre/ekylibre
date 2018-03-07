@@ -11,6 +11,7 @@ lines:
       - farm_code: string-3
       - receiver_siret: string-14
       - receiver_code: string-3
+      - document_count: string-4
     children:
       - header: 1
       - entities: 3
@@ -21,32 +22,78 @@ lines:
     key: "DE"
     occurrence: 1
     cells:
-      - printed_on: string-44
+      - reference: string-35
+      - function: string-1
+      - printed_on: string-8
+      - crop_count: string-4
+      - version: string-4
 
   entity:
     key: "DA"
     occurrence: 3
     cells:
-      - siret: string-15
+      - entity_nature: string-3
+      - siret: string-17
+      - identification_nature: string-3
+      - entity_name: string-35
+      - entity_name_complement: string-35
+      - entity_address: string-35
+      - entity_address_complement: string-35
+      - entity_town: string-35
+      - entity_postal_code: string-9
+      - entity_country: string-2
+      - entity_informations_1: string-20
+      - entity_informations_2: string-20
+      - entity_informations_3: string-20
+      
   
   agricultural_usage:
     key: "DT"
+    cells:
+    - activity_nature: string-3
+    - certificat_number: string-20
+    - other_activity_nature: string-20
 
   crop:
     key: "DP"
     cells:
-      - land_parcel_number: string-8
+      - land_parcel_order_number: string-4
+      - land_parcel_work_number: string-4
       - harvest_year: string-4
       - crop_started_on: string-8
-      - undefined_A: string-16
+      - crop_sheet_created_on: string-8
+      - crop_sheet_updated_on: string-8
       - crop_stopped_on: string-8
-      - crop_edicode: string-3 #18 List_BotanicalSpecies_CodeType
-      - undefined_B: string-38
+      - crop_specie_edicode: string-3 #18 List_BotanicalSpecies_CodeType
+      - first_variety: string-7 #GNIS code
+      - second_variety: string-7 #GNIS code
+      - third_variety: string-7 #GNIS code
+      - fourth_variety: string-7 #GNIS code
+      - fifth_variety: string-7 #GNIS code
+      - crop_specie_number: string-3 #
       - crop_sowing_period_edicode: string-3 #30 List_SowingPeriodCode_CodeType
       - crop_final_usage_edicode: string-3 #17 List_AgriculturalProduceUseCode_CodeType
-      - unknow_number: string-9
+      - provisionnal_yield: string-9
+      - provisionnal_yield_unity: string-3
+      - crop_name_details: string-35
+      - cap_islet_number: string-10 # CAP islet number4
+      - perrenial_crop_number: string-10
+      - town_insee_code: string-3 #INSEE code
+      - soil_depth: string-3 #in centimeter
+      - soil_rock_ratio: string-3 #in percentage
       - soil_nature_edicode: string-3 #43 List_SoilType_CodeType
-      - land_parcel_name: string-35
+      - other_soil_nature: string-35
+      - soil_acidity: string-3
+      - subsoil_level: string-3
+      - subsoil_nature: string-3
+      - intermediate_crop: string-3
+      - hydromorphic_soil: string-1
+      - drain_soil: string-1
+      - cutting_land_parcel: string-1
+      - initial_land_parcel_work_number: string-4
+      - residue_management: string-3
+      - residue_input: string-9 # in ton_per_hectare
+      
     children:
       - cadastral_areas: "*"
       - crop_areas: "*"
