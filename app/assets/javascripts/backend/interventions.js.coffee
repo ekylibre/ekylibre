@@ -388,6 +388,8 @@
     supplierLabel = $($(this).parents('.nested-receptions').find('.control-label')[0])
     supplierLabel.addClass('required')
     supplierLabel.prepend("<abbr title='Obligatoire'>*</abbr>")
+
+
   E.interventionForm =
     displayCost: (target, quantity, unitName) ->
 
@@ -428,6 +430,16 @@
 
     if $('.new_intervention, .edit_intervention').length > 0
       E.interventions.showInterventionParticipationsModal()
+
+
+    if $('.edit_intervention').length > 0
+      $('.nested-association.nested-inputs .nested-product-parameter').each((index, parameter) ->
+        productParameterCostBlock = $(parameter).find('.product-parameter-cost')
+
+        if productParameterCostBlock.length > 0
+          target = $(parameter).find('.intervention_inputs_quantity')
+          $(productParameterCostBlock).appendTo(target)
+      )
 
     if $('.taskboard').length > 0
 
