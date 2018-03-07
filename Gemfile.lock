@@ -1,8 +1,8 @@
 GIT
   remote: git@gitlab.com:ekylibre-integration/planning.git
-  revision: 92f1eb13a43a7843c976bf298f1c536fc9fac642
+  revision: d18502ff841e5f5dd7bd07861dd7dbe46d34b5e9
   specs:
-    planning (0.5.0)
+    planning (0.5.1)
       factory_bot
       lodash-rails
       rails (~> 4.2.10)
