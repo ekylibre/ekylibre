@@ -1043,6 +1043,11 @@
         <page to="backend/technical_itineraries#show" nonexistent="true"/>
       </item>
     </group>
+    <group name='synthesis'>
+      <item name="load_plans">
+        <page to="backend/load_plans#index" nonexistent="true"/>
+      </item>
+    </group>
   </part>
   <part name="humans">
     <page to="backend/dashboards#humans"/>

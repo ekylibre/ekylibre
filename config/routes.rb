@@ -627,6 +627,8 @@ Rails.application.routes.draw do
       end
     end
 
+    resources :load_plans
+
     namespace :interventions do
       resources :costs, only: [] do
         collection do
