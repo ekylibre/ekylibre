@@ -13,8 +13,8 @@ lines:
       - receiver_code: string-3
       - document_count: string-4
     children:
-      - header: 1
-      - entities: 3
+      - headers: "*"
+      - entities: "*"
       - agricultural_usages: "*"
       - crops: "*"
 
@@ -44,8 +44,7 @@ lines:
       - entity_country: string-2
       - entity_informations_1: string-20
       - entity_informations_2: string-20
-      - entity_informations_3: string-20
-      
+      - entity_informations_3: string-20 
   
   agricultural_usage:
     key: "DT"
@@ -105,75 +104,149 @@ lines:
   cadastral_area:
     key: "PC"
     cells:
-      - land_parcel_number: string-8
+      - land_parcel_order_number: string-4
+      - land_parcel_work_number: string-4
       - harvest_year: string-4
-      - area_nature_edicode: string-3 #41 List_AgriculturalArea_CodeType
-      - area_nature_value: string-9
+      - cadastral_land_parcel_number: string-16
+      - cadastral_area_in_hectare: string-9
     children:
       - cadastral_spatial_coordinates: "*"
   
   cadastral_spatial_coordinate:
     key: "CC"
+    cells:
+      - land_parcel_order_number: string-4
+      - land_parcel_work_number: string-4
+      - harvest_year: string-4
+      - cadastral_land_parcel_number: string-16
+      - srs: string-3 # 3 : Lambert2 etendu | 4 : WGS84
+      - longitude: string-11
+      - latitude: string-10
+      - elevation: string-18
   
   crop_area:
     key: "PS"
     cells:
-      - land_parcel_number: string-8
+      - land_parcel_order_number: string-4
+      - land_parcel_work_number: string-4
       - harvest_year: string-4
       - area_nature_edicode: string-3 #41 List_AgriculturalArea_CodeType
-      - area_nature_value: string-9
+      - area_nature_value_in_hectare: string-9
     children:
       - crop_spatial_coordinates: "*"
 
   crop_spatial_coordinate:
     key: "SC"
     cells:
-      - land_parcel_number: string-8
+      - land_parcel_order_number: string-4
+      - land_parcel_work_number: string-4
       - harvest_year: string-4
+      - srs: string-3 # 3 : Lambert2 etendu | 4 : WGS84
+      - longitude: string-11
+      - latitude: string-10
+      - elevation: string-18
 
   contract:
     key: "PE"
+    cells:
+      - land_parcel_order_number: string-4
+      - land_parcel_work_number: string-4
+      - harvest_year: string-4
   
   crop_history:
     key: "PH"
     cells:
-      - land_parcel_number: string-8
+      - land_parcel_order_number: string-4
+      - land_parcel_work_number: string-4
       - harvest_year: string-4
-      - undefined_A: string-6
-      - crop_edicode: string-3 #18 List_BotanicalSpecies_CodeType
-      - undefined_B: string-35
-      - crop_final_usage_edicode: string-3 #17 List_AgriculturalProduceUseCode_CodeType
+      - previous_order: string-2
+      - previous_land_parcel_work_number: string-4
+      - crop_specie_edicode: string-3 #18 List_BotanicalSpecies_CodeType
+      - first_variety: string-7 #GNIS code
+      - second_variety: string-7 #GNIS code
+      - third_variety: string-7 #GNIS code
+      - fourth_variety: string-7 #GNIS code
+      - fifth_variety: string-7 #GNIS code
+      - crop_specie_number: string-3 #18 List_BotanicalSpecies_CodeType
       - crop_sowing_period_edicode: string-3 #30 List_SowingPeriodCode_CodeType
-      - unknow_A_edicode: string-3 #
-      - unknow_B_edicode: string-3 #
+      - crop_final_usage_edicode: string-3 #17 List_AgriculturalProduceUseCode_CodeType
+      - residue_management: string-3
+      - residue_input: string-9 # in ton_per_hectare 
     children:
       - enrichments: "*"
   
   enrichment:
     key: "HA"
-  
+    cells:
+      - land_parcel_order_number: string-4
+      - land_parcel_work_number: string-4
+      - harvest_year: string-4
+      - enrichment_nature: string-3
+      - enrichment_nature_details: string-35
+      - enrichment_started_on: string-8
+      - enrichment_quantity: string-9
+      - enrichment_quantity_unit: string-3
+      - enrichment_supplier_name: string-35
+      - enrichment_supplier_name_details: string-35
+      - enrichment_supplier_address: string-35
+      - enrichment_supplier_address_details: string-35
+      - enrichment_supplier_town: string-35
+      - enrichment_supplier_postal_code: string-9
+      - enrichment_supplier_country: string-2
+      
   soil_analysis:
     key: "PA"
+    cells:
+      - land_parcel_order_number: string-4
+      - land_parcel_work_number: string-4
+      - harvest_year: string-4
+      - analysis_ticket_number: string-35
+      - analysis_labratory_siren: string-9
+      - analysis_labratory_name: string-35
+      - analysis_labratory_name_details: string-35
+      - analysis_labratory_address: string-35
+      - analysis_labratory_address_details: string-35
+      - analysis_labratory_town: string-35
+      - analysis_labratory_postal_code: string-9
+      - analysis_labratory_country: string-2
+      - analysis_analysed_on: string-8
+      - analysis_sampled_on: string-8
   
   intervention:
     key: "PV"
     cells:
-      - land_parcel_number: string-8
+      - land_parcel_order_number: string-4
+      - land_parcel_work_number: string-4
       - harvest_year: string-4
-      - intervention_id: string-32
-      - blank_1: string-1
+      - intervention_guid: string-32
+      - intervention_event: string-1
       - intervention_category_edicode: string-3 #26 List_PlotAgriculturalProcess_CodeType
       - intervention_state_edicode: string-3 #11 List_PlotAgriculturalProcessSubordinateTypeCode_CodeType
       - intervention_name: string-35
-      - intervention_started_on: string-8
-      - unknow_code: string-4
-      - intervention_stopped_on: string-8
-      - blank_2: string-56
+      - intervention_started_at: string-12 #SSAAMMJJHHmm
+      - intervention_stopped_at: string-12 #SSAAMMJJHHmm
+      - intervention_duration: string-6 #JJHHMM ex : 010430 => 01 day 4 hour 30 minute
+      - intervention_prescription_delivered_on: string-8
+      - crop_state: string-3 # Code EDI
+      - crop_state_precision: string-35
       - intervention_nature_edicode: string-3 #14 List_AgriculturalProcessWorkItem_CodeType
-      - blank_3: string-156
-      - unknow_number: string-9
-      - per_area_edicode: string-3 #ZKK
+      - intervention_nature_precision: string-35
+      - intervention_motivation: string-3 #Code EDI
+      - intervention_motivation_details: string-35
+      - intervention_worker_nature: string-3
+      - worker_licence_number: string-20
+      - worker_name: string-35
+      - wheater_conditions: string-3
+      - special_tasks: string-3
+      - temperature_signe: string-1
+      - external_temperature: string-3
+      - hygrometrie_percentage: string-3
+      - total_volume: string-9
+      - per_area_unit_edicode: string-3 #ZKK
       - working_area_in_hectare: string-9
+      - first_comment: string-70
+      - second_comment: string-70
+      
     children:
       - intervention_spatial_coordinates: "*"
       - intervention_targets: "*"

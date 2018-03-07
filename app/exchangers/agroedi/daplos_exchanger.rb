@@ -8,8 +8,8 @@ module Agroedi
     end
 
     def import
-      # path = "/home/djoulin/projects/eky/tmp/test.dap"
-      # f = File.open(path)
+      # path = "/home/djoulin/projects/integration-cer-cneidf/tmp/test.dap"
+      # file = File.open(path)
       
       
       # Load hash to transcode EDI code to procedure
