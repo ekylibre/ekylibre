@@ -2035,6 +2035,7 @@ CREATE TABLE daily_charges (
     id integer NOT NULL,
     reference_date date,
     product_type character varying,
+    product_general_type character varying,
     workflow numeric,
     area numeric,
     intervention_template_product_parameter_id integer,
@@ -19107,5 +19108,5 @@ INSERT INTO schema_migrations (version) VALUES ('20180227144608');
 
 INSERT INTO schema_migrations (version) VALUES ('20180228092312');
 
-INSERT INTO schema_migrations (version) VALUES ('20180306154630');
+INSERT INTO schema_migrations (version) VALUES ('20180308153533');
 

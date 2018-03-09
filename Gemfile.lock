@@ -3,6 +3,7 @@ PATH
   specs:
     planning (0.5.0)
       factory_bot
+      jbuilder
       lodash-rails
       rails (~> 4.2.10)
 
