@@ -2028,6 +2028,43 @@ ALTER SEQUENCE custom_fields_id_seq OWNED BY custom_fields.id;
 
 
 --
+-- Name: daily_charges; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE daily_charges (
+    id integer NOT NULL,
+    reference_date date,
+    product_type character varying,
+    product_general_type character varying,
+    workflow numeric,
+    area numeric,
+    intervention_template_product_parameter_id integer,
+    activity_production_id integer,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: daily_charges_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE daily_charges_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: daily_charges_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE daily_charges_id_seq OWNED BY daily_charges.id;
+
+
+--
 -- Name: dashboards; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -7611,6 +7648,13 @@ ALTER TABLE ONLY custom_fields ALTER COLUMN id SET DEFAULT nextval('custom_field
 
 
 --
+-- Name: daily_charges id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY daily_charges ALTER COLUMN id SET DEFAULT nextval('daily_charges_id_seq'::regclass);
+
+
+--
 -- Name: dashboards id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -8767,6 +8811,14 @@ ALTER TABLE ONLY custom_field_choices
 
 ALTER TABLE ONLY custom_fields
     ADD CONSTRAINT custom_fields_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: daily_charges daily_charges_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY daily_charges
+    ADD CONSTRAINT daily_charges_pkey PRIMARY KEY (id);
 
 
 --
@@ -11380,6 +11432,13 @@ CREATE INDEX index_custom_fields_on_updated_at ON custom_fields USING btree (upd
 --
 
 CREATE INDEX index_custom_fields_on_updater_id ON custom_fields USING btree (updater_id);
+
+
+--
+-- Name: index_daily_charges_on_activity_production_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_daily_charges_on_activity_production_id ON daily_charges USING btree (activity_production_id);
 
 
 --
@@ -17830,6 +17889,13 @@ CREATE INDEX intervention_template_id ON intervention_template_product_parameter
 
 
 --
+-- Name: intervention_template_product_parameter_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX intervention_template_product_parameter_id ON daily_charges USING btree (intervention_template_product_parameter_id);
+
+
+--
 -- Name: itinerary_template_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -18259,6 +18325,14 @@ ALTER TABLE ONLY payslips
 
 
 --
+-- Name: daily_charges fk_rails_ad496091e3; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY daily_charges
+    ADD CONSTRAINT fk_rails_ad496091e3 FOREIGN KEY (intervention_template_product_parameter_id) REFERENCES intervention_template_product_parameters(id);
+
+
+--
 -- Name: tax_declaration_item_parts fk_rails_adb1cc875c; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -18368,6 +18442,14 @@ ALTER TABLE ONLY financial_year_exchanges
 
 ALTER TABLE ONLY journal_entry_items
     ADD CONSTRAINT fk_rails_f46de3d8ed FOREIGN KEY (project_budget_id) REFERENCES project_budgets(id);
+
+
+--
+-- Name: daily_charges fk_rails_f713d67210; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY daily_charges
+    ADD CONSTRAINT fk_rails_f713d67210 FOREIGN KEY (activity_production_id) REFERENCES activity_productions(id);
 
 
 --
@@ -19025,4 +19107,6 @@ INSERT INTO schema_migrations (version) VALUES ('20180227143457');
 INSERT INTO schema_migrations (version) VALUES ('20180227144608');
 
 INSERT INTO schema_migrations (version) VALUES ('20180228092312');
+
+INSERT INTO schema_migrations (version) VALUES ('20180308153533');
 
