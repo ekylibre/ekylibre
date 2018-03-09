@@ -1,6 +1,26 @@
 = beehive(:planning)
 
-#test
-  = content_tag('bar-chart', nil, { class: 'chart-test',
-                ':chart-data': "chartData",
-                ':options': "chartOptions" })
+.plan-charge
+  .plan-charge-chart
+    .plan-charge-filter
+      .btn-group.year-selector
+        %button.btn.btn-previous.icn.icn-only{'v-on:click': 'loadPreviousYear'}
+        = content_tag(:button, nil, { class: "btn" }) do
+          %span {{ chartYearFilter }}
+        %button.btn.btn-next.icn.icn-only{'v-on:click': 'loadNextYear'}
+
+      .btn.btn-group
+        = content_tag(:button, nil, { class: "btn btn-with-intervals period", "data-toggle": "dropdown" }) do
+          %span= "Activités"
+          %span.caret
+        = content_tag(:ul, nil, class: "dropdown-menu interval-menu") do
+          = content_tag(:li, nil, class: "") do
+            %span Toutes
+          - Activity.all.each do |activity|
+            = content_tag(:li, nil, { class: "", 'v-on:click': 'loadWithActivity' }) do
+              %span= activity.name
+
+    = content_tag('bar-chart', nil, { class: 'bar-chart',
+                     ':chart-data': "chartData",
+                     ':options': "chartOptions",
+                     ':width': '7000'})
