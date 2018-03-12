@@ -993,6 +993,7 @@ fra:
     affair_number: "N° d’affaire"
     affairs: "Affaires"
     all: "Tous"
+    all_f: "Toutes"
     all_accounts: "Tous les comptes"
     all_areas: "— Toutes les zones postales —" #?
     all_cash_balances: "Soldes des comptes" #?
