@@ -630,6 +630,7 @@ Rails.application.routes.draw do
     resources :load_plans do
       collection do
         get :period_charges
+        get :period_charges_details
       end
     end
 
