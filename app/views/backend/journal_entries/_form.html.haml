@@ -31,8 +31,10 @@
               %th= JournalEntryItem.human_attribute_name(:variant)
               - if budget_size > 0
                 %th= JournalEntryItem.human_attribute_name(:activity_budget)
+              %th= JournalEntryItem.human_attribute_name(:project_budget)
               - if team_size > 0
                 %th= JournalEntryItem.human_attribute_name(:team)
+              %th= :equipment.tl
               %th{ colspan: 2 }= JournalEntryItem.human_attribute_name(:debit)
               %th{ colspan: 2 }= JournalEntryItem.human_attribute_name(:credit)
               %th.act

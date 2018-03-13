@@ -34,8 +34,7 @@ class CreateInterventionsCosts < ActiveRecord::Migration
       intervention_costs = InterventionCosts.new(costs)
       intervention_costs.save
 
-      intervention.intervention_costs_id = intervention_costs.id
-      intervention.save
+      intervention.update_attribute(:intervention_costs_id, intervention_costs.id)
     end
   end
 end

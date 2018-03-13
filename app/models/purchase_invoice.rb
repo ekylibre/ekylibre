@@ -98,7 +98,11 @@ class PurchaseInvoice < Purchase
   end
 
   after_save do
-    items.each(&:update_fixed_asset)
+    items.each do |item|
+      item.create_fixed_asset if item.fixed_asset.nil?
+
+      item.update_fixed_asset if item.fixed_asset.present? && item.pretax_amount_changed?
+    end
   end
 
   # This callback permits to add journal entries corresponding to the purchase order/invoice
@@ -107,7 +111,7 @@ class PurchaseInvoice < Purchase
     b.journal_entry(nature.journal, printed_on: invoiced_on, if: (with_accounting && items.any?)) do |entry|
       label = tc(:bookkeep, resource: self.class.model_name.human, number: number, supplier: supplier.full_name, products: (description.blank? ? items.collect(&:name).to_sentence : description))
       items.each do |item|
-        entry.add_debit(label, item.account, item.pretax_amount, activity_budget: item.activity_budget, team: item.team, as: :item_product, resource: item, variant: item.variant)
+        entry.add_debit(label, item.account, item.pretax_amount, activity_budget: item.activity_budget, team: item.team, equipment: item.equipment, project_budget: item.project_budget, as: :item_product, resource: item, variant: item.variant)
         tax = item.tax
         account_id = item.fixed? ? tax.fixed_asset_deduction_account_id : nil
         account_id ||= tax.deduction_account_id # TODO: Check if it is good to do that

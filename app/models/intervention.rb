@@ -332,6 +332,8 @@ class Intervention < Ekylibre::Record::Base
     participations.update_all(request_compliant: request_compliant) if request_compliant
 
     create_intervention_costs
+
+    self.add_activity_production_to_output if self.procedure.of_category?(:planting)
   end
 
   after_create do
@@ -340,7 +342,7 @@ class Intervention < Ekylibre::Record::Base
 
   # Prevents from deleting an intervention that was executed
   protect on: :destroy do
-    with_undestroyable_products?
+    with_undestroyable_products? || self.procedure.of_category?(:planting)
   end
 
   # This method permits to add stock journal entries corresponding to the
@@ -352,7 +354,9 @@ class Intervention < Ekylibre::Record::Base
   # | outputs                | stock (3X)                 | stock_movement (603X/71X) |
   # | inputs                 | stock_movement (603X/71X)  | stock (3X)                |
   bookkeep do |b|
-    stock_journal = unsuppress { Journal.find_or_create_by!(nature: :stocks, name: :stocks.to_s.upper) }
+    currency = Preference[:currency]
+    stock_journal = unsuppress { Journal.used_for_permanent_stock_inventory!(currency: currency) }
+
     b.journal_entry(stock_journal, printed_on: printed_on, if: (Preference[:permanent_stock_inventory] && record?)) do |entry|
       write_parameter_entry_items = lambda do |parameter, input|
         variant      = parameter.variant
@@ -662,6 +666,30 @@ class Intervention < Ekylibre::Record::Base
       end
     end
     valid
+  end
+
+  def add_activity_production_to_output
+    parameters = self.group_parameters
+
+    self.group_parameters.each do |group_parameter|
+      activity_production_id = group_parameter
+                                 .targets
+                                 .map(&:product)
+                                 .flatten
+                                 .map(&:activity_production_id)
+                                 .uniq
+                                 .first
+
+      products_to_update = group_parameter
+                             .outputs
+                             .map(&:product)
+                             .flatten
+                             .uniq
+
+      products_to_update.each do |product|
+        product.update(activity_production_id: activity_production_id)
+      end
+    end
   end
 
   def receptions_is_given?

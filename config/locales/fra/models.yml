@@ -2168,6 +2168,7 @@ fra:
       bookkeep: "[%{resource} %{number}] %{supplier}"
     purchase_invoice: #?
       bookkeep: "[%{resource} %{number}] %{products} de %{supplier}" #?
+      quantity_gap_on_invoice: "Ecart de stock en quantité [%{resource} %{number}] de %{entity}" #?
     purchase_item:
       name: "%{product} (%{quantity}%{unit}) à %{amount}%{currency}/%{unit}"
       name_with_tracking: "%{product}/%{tracking} (%{quantity}%{unit}) à %{amount}%{currency}/%{unit}"

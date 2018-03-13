@@ -89,6 +89,8 @@ class JournalEntryItem < Ekylibre::Record::Base
   belongs_to :tax
   belongs_to :tax_declaration_item, inverse_of: :journal_entry_items
   belongs_to :team
+  belongs_to :equipment, class_name: 'Product'
+  belongs_to :project_budget
   has_many :tax_declaration_item_parts, inverse_of: :journal_entry_item, dependent: :restrict_with_exception
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
@@ -273,6 +275,8 @@ class JournalEntryItem < Ekylibre::Record::Base
     attributes[:account_id] = account.is_a?(Integer) ? account : account.id
     attributes[:activity_budget_id] = options[:activity_budget].id if options[:activity_budget]
     attributes[:team_id] = options[:team].id if options[:team]
+    attributes[:equipment_id] = options[:equipment].id if options[:equipment]
+    attributes[:project_budget_id] = options[:project_budget].id if options[:project_budget]
     attributes[:tax_id] = options[:tax].id if options[:tax]
     attributes[:real_pretax_amount] = attributes.delete(:pretax_amount) if attributes[:pretax_amount]
     attributes[:resource_prism] = attributes.delete(:as) if options[:as]
