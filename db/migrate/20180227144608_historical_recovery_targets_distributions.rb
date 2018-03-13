@@ -11,7 +11,8 @@ class HistoricalRecoveryTargetsDistributions < ActiveRecord::Migration
     products_without_production = LandParcel.where(activity_production_id: nil)
 
     ActivityProduction.all.each do |activity_production|
-      language = activity_production.creator.language
+      language = activity_production.creator.language if activity_production.creator
+      language ||= "fra"
 
       finded_land_parcel = products_without_production
                              .where("name like ?", "%#{activity_production.activity.name}%")
