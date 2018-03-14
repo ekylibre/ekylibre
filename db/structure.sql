@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 9.6.7
--- Dumped by pg_dump version 9.6.7
+-- Dumped from database version 9.6.6
+-- Dumped by pg_dump version 9.6.6
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -2036,7 +2036,7 @@ CREATE TABLE daily_charges (
     reference_date date,
     product_type character varying,
     product_general_type character varying,
-    workflow numeric,
+    quantity numeric,
     area numeric,
     intervention_template_product_parameter_id integer,
     activity_production_id integer,
@@ -19108,5 +19108,5 @@ INSERT INTO schema_migrations (version) VALUES ('20180227144608');
 
 INSERT INTO schema_migrations (version) VALUES ('20180228092312');
 
-INSERT INTO schema_migrations (version) VALUES ('20180308153533');
+INSERT INTO schema_migrations (version) VALUES ('20180313084623');
 
