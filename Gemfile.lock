@@ -1,7 +1,8 @@
-PATH
-  remote: ../planning
+GIT
+  remote: git@gitlab.com:ekylibre-integration/planning.git
+  revision: 88f92e7c0be3ddee28472ab48eb24809e3e16895
   specs:
-    planning (0.5.1)
+    planning (0.6.0)
       factory_bot
       jbuilder
       lodash-rails
@@ -142,11 +143,9 @@ GEM
       nokogiri (>= 1.7.0)
       rgeo (~> 0.6.0)
       rgeo-geojson (~> 0.4.3)
-    childprocess (0.8.0)
+    childprocess (0.9.0)
       ffi (~> 1.0, >= 1.0.11)
     climate_control (0.2.0)
-    cocaine (0.5.8)
-      climate_control (>= 0.0.3, < 1.0)
     cocoon (1.2.11)
     codacy-coverage (1.1.8)
       simplecov
@@ -175,10 +174,10 @@ GEM
     debug_inspector (0.0.3)
     deep_cloneable (2.2.2)
       activerecord (>= 3.1.0, < 5.2.0)
-    devise (4.4.1)
+    devise (4.4.2)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
-      railties (>= 4.1.0, < 5.2)
+      railties (>= 4.1.0, < 6.0)
       responders
       warden (~> 1.2.3)
     devise-i18n-views (0.3.7)
@@ -187,7 +186,7 @@ GEM
       devise (>= 4.0.0)
     did_you_mean (0.10.0)
       interception
-    docile (1.1.5)
+    docile (1.3.0)
     domain_name (0.5.20170404)
       unf (>= 0.0.5, < 1.0.0)
     draper (2.1.0)
@@ -363,19 +362,19 @@ GEM
       oauth2 (~> 1.1)
       omniauth (~> 1.2)
     orm_adapter (0.5.0)
-    paperclip (5.2.1)
+    paperclip (5.3.0)
       activemodel (>= 4.2.0)
       activesupport (>= 4.2.0)
-      cocaine (~> 0.5.5)
       mime-types
       mimemagic (~> 0.3.0)
+      terrapin (~> 0.6.0)
     paperclip-document (0.0.11)
       burisu-docsplit (>= 0.7.9)
       paperclip (>= 3.1, < 6.0)
     parallel (1.12.1)
     parallel_tests (2.21.2)
       parallel
-    parser (2.5.0.3)
+    parser (2.5.0.4)
       ast (~> 2.4.0)
     pg (0.20.0)
     polyglot (0.3.5)
@@ -511,7 +510,7 @@ GEM
     sdoc (0.4.2)
       json (~> 1.7, >= 1.7.7)
       rdoc (~> 4.0)
-    selenium-webdriver (3.10.0)
+    selenium-webdriver (3.11.0)
       childprocess (~> 0.5)
       rubyzip (~> 1.2)
     sentry-raven (2.7.2)
@@ -542,8 +541,8 @@ GEM
     simple_form (3.5.1)
       actionpack (> 4, < 5.2)
       activemodel (> 4, < 5.2)
-    simplecov (0.15.1)
-      docile (~> 1.1.0)
+    simplecov (0.16.0)
+      docile (~> 1.1)
       json (>= 1.8, < 3)
       simplecov-html (~> 0.10.0)
     simplecov-html (0.10.2)
@@ -568,6 +567,8 @@ GEM
     teaspoon-jasmine (2.3.4)
       teaspoon (>= 1.0.0)
     temple (0.8.0)
+    terrapin (0.6.0)
+      climate_control (>= 0.0.3, < 1.0)
     therubyracer (0.12.3)
       libv8 (~> 3.16.14.15)
       ref
@@ -598,7 +599,7 @@ GEM
       railties (>= 3.1)
     tzinfo (1.2.5)
       thread_safe (~> 0.1)
-    uglifier (4.1.6)
+    uglifier (4.1.8)
       execjs (>= 0.3.0, < 3)
     unf (0.1.4)
       unf_ext
@@ -611,7 +612,7 @@ GEM
     url (0.3.2)
     uuidtools (2.1.5)
     vuejs-rails (2.5.13)
-    wannabe_bool (0.7.0)
+    wannabe_bool (0.7.1)
     warden (1.2.7)
       rack (>= 1.0)
     wasabi (3.5.0)
