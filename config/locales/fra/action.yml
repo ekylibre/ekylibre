@@ -1368,7 +1368,7 @@ fra:
     evaluated_input_cost: "Coût intrants"
     evaluated_other_cost: "Coût autres"
     evaluated_reception_cost: "Coût prestation de service"
-    evaluated_tool_cost: "Coût outils"
+    evaluated_tool_cost: "Coût équipements"
     events: "Évènements"
     evolution: "Evolution"
     example: "Exemple\_: %{value}"
@@ -1715,6 +1715,7 @@ fra:
     natures: "Types"
     need_building_to_create_production: "Vous devez créer un lieu de stockage pour pouvoir enregistrer vos productions" #?
     need_entities_to_consult_mandates: "Vous devez créer des fiches clients/fournisseurs avant" #?
+    needed_quantity: "Quantité nécessaire"
     net_income: "Résultat d’exercice"
     net_margin: "Marge nette" #?
     net_mass: "Masse nette"
@@ -1991,6 +1992,7 @@ fra:
     quality: "Qualité"
     quandl: "Quandl"
     quantity: "Quantité"
+    quantity_available: "Quantité disponible"
     quantity_rest: "Quantité restante" #?
     quarterly: "Trimestrielle" #?
     query: "Requête:"
@@ -2415,6 +2417,7 @@ fra:
     validated: "Validé"
     values: "Valeurs"
     variable_indicators: "Indicateurs variables"
+    variant: "Variante"
     variants: "Variantes"
     vat: "TVA"
     vat_acquisitions: "Acquisitions intracommunautaires" #?
@@ -2444,12 +2447,14 @@ fra:
     with_prints: "Inclure les impressions (factures, commandes…)" #?
     worked_on: "Travaillé le" #?
     workers: "Équipiers"
+    workforce: "Main d'oeuvre"
     working_area: "Surface travaillée" #?
     working_duration: "Temps de travail"
     working_hectare_costs: "Coût par hectare travaillé"
     working_sets_stocks: "Stocks d’ensembles de produits"
     working_times: "Temps de travaux de %{name}"
     working_zone: "Zone travaillée" #?
+    workload: "Charge de travail"
     x_cashes:
       one: "1 compte bancaire"
       other: "%{count} comptes bancaires"
