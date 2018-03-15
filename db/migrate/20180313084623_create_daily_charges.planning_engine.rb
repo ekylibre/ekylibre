@@ -1,6 +1,6 @@
 # This migration comes from planning_engine (originally 20180306085858)
 class CreateDailyCharges < ActiveRecord::Migration
-  def change
+  def up
     create_table :daily_charges do |t|
       t.date :reference_date
       t.string :product_type
@@ -11,5 +11,8 @@ class CreateDailyCharges < ActiveRecord::Migration
       t.references :activity_production, index: true, foreign_key: true
       t.timestamps null: false
     end
+  end
+
+  def down
   end
 end
