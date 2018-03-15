@@ -1,9 +1,9 @@
-GIT
-  remote: git@gitlab.com:ekylibre-integration/planning.git
-  revision: 92f1eb13a43a7843c976bf298f1c536fc9fac642
+PATH
+  remote: ../planning
   specs:
-    planning (0.5.0)
+    planning (0.5.1)
       factory_bot
+      jbuilder
       lodash-rails
       rails (~> 4.2.10)
 
@@ -76,7 +76,7 @@ GEM
       sidekiq (>= 2.11)
     arel (6.0.4)
     ast (2.4.0)
-    autoprefixer-rails (8.0.0)
+    autoprefixer-rails (8.1.0.1)
       execjs
     awesome_nested_set (3.1.4)
       activerecord (>= 4.0.0, < 5.3)
@@ -197,7 +197,7 @@ GEM
       request_store (~> 1.0)
     ekylibre-ofx-parser (1.2.2)
       hpricot (>= 0.6)
-    enumerize (2.2.1)
+    enumerize (2.2.2)
       activesupport (>= 3.2)
     erubis (2.7.0)
     et-orbi (1.0.9)
@@ -375,7 +375,7 @@ GEM
     parallel (1.12.1)
     parallel_tests (2.21.2)
       parallel
-    parser (2.5.0.2)
+    parser (2.5.0.3)
       ast (~> 2.4.0)
     pg (0.20.0)
     polyglot (0.3.5)
@@ -418,13 +418,13 @@ GEM
       rails-deprecated_sanitizer (>= 1.0.1)
     rails-html-sanitizer (1.0.3)
       loofah (~> 2.0)
-    rails_best_practices (1.19.0)
+    rails_best_practices (1.19.1)
       activesupport
       code_analyzer (>= 0.4.8)
       erubis
       i18n
       json
-      require_all
+      require_all (~> 1.5.0)
       ruby-progressbar
     railties (4.2.10)
       actionpack (= 4.2.10)
@@ -435,7 +435,7 @@ GEM
       rake
     raindrops (0.19.0)
     rake (12.0.0)
-    rb-fsevent (0.10.2)
+    rb-fsevent (0.10.3)
     rb-inotify (0.9.10)
       ffi (>= 0.5.0, < 2)
     rdoc (4.3.0)
@@ -511,7 +511,7 @@ GEM
     sdoc (0.4.2)
       json (~> 1.7, >= 1.7.7)
       rdoc (~> 4.0)
-    selenium-webdriver (3.9.0)
+    selenium-webdriver (3.10.0)
       childprocess (~> 0.5)
       rubyzip (~> 1.2)
     sentry-raven (2.7.2)

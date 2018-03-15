@@ -230,6 +230,7 @@
             @workingTimesModal.getModalContent().append(data)
             @workingTimesModal.getModal().modal 'show'
 
+
     addLazyLoading: (taskboard) ->
       loadContent = false
       currentPage = 1
