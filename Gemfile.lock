@@ -1,6 +1,6 @@
 GIT
   remote: git@gitlab.com:ekylibre-integration/planning.git
-  revision: 88f92e7c0be3ddee28472ab48eb24809e3e16895
+  revision: a534fa52793e7a7314583eff703c0531026a5a00
   specs:
     planning (0.6.0)
       factory_bot
@@ -541,7 +541,7 @@ GEM
     simple_form (3.5.1)
       actionpack (> 4, < 5.2)
       activemodel (> 4, < 5.2)
-    simplecov (0.16.0)
+    simplecov (0.16.1)
       docile (~> 1.1)
       json (>= 1.8, < 3)
       simplecov-html (~> 0.10.0)
