@@ -34,7 +34,6 @@
 
               ctx.fillText(data, bar._model.x, centerY)
 
-        #chart.render(0, true)
 
 
     E.VueBarChart = VueBarChart
