@@ -25,12 +25,16 @@
 
         chart.data.datasets.forEach (dataset, indexDataset) ->
           meta = chart.controller.getDatasetMeta(indexDataset)
-          meta.data.forEach (bar, indexData) ->
-            data = dataset.data[indexData]
-            barHeight = bar._model.y - bar._model.base
-            centerY = bar._model.base + (barHeight / 2)
 
-            ctx.fillText(data, bar._model.x, centerY)
+          unless meta.hidden
+            meta.data.forEach (bar, indexData) ->
+              data = dataset.data[indexData]
+              barHeight = bar._model.y - bar._model.base
+              centerY = bar._model.base + (barHeight / 2)
+
+              ctx.fillText(data, bar._model.x, centerY)
+
+        #chart.render(0, true)
 
 
     E.VueBarChart = VueBarChart

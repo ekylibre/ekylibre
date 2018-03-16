@@ -1,6 +1,5 @@
-GIT
-  remote: git@gitlab.com:ekylibre-integration/planning.git
-  revision: a534fa52793e7a7314583eff703c0531026a5a00
+PATH
+  remote: ../planning
   specs:
     planning (0.6.0)
       factory_bot
@@ -443,7 +442,7 @@ GEM
       redis (>= 3.0.4)
     ref (2.0.0)
     remotipart (1.3.1)
-    request_store (1.4.0)
+    request_store (1.4.1)
       rack (>= 1.4)
     require_all (1.5.0)
     responders (2.4.0)

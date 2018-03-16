@@ -2238,7 +2238,7 @@ fra:
     support: "Support"
     supports: "Supports de production"
     supports_chart: "Graphique des supports" #?
-    synthesis: "Synthèse"
+    synthesis: "Synthèses"
     target: "Cible"
     target_name: "Nom de la cible" #?
     target_zone: "Zone cible" #?
