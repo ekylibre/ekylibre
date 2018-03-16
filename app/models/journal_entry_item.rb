@@ -41,6 +41,7 @@
 #  description               :text
 #  entry_id                  :integer          not null
 #  entry_number              :string           not null
+#  equipment_id              :integer
 #  financial_year_id         :integer          not null
 #  id                        :integer          not null, primary key
 #  journal_id                :integer          not null
@@ -50,6 +51,7 @@
 #  position                  :integer
 #  pretax_amount             :decimal(19, 4)   default(0.0), not null
 #  printed_on                :date             not null
+#  project_budget_id         :integer
 #  real_balance              :decimal(19, 4)   default(0.0), not null
 #  real_credit               :decimal(19, 4)   default(0.0), not null
 #  real_currency             :string           not null
