@@ -44,8 +44,8 @@ lines:
       - entity_country: string-2
       - entity_informations_1: string-20
       - entity_informations_2: string-20
-      - entity_informations_3: string-20 
-  
+      - entity_informations_3: string-20
+
   agricultural_usage:
     key: "DT"
     cells:
@@ -92,7 +92,7 @@ lines:
       - initial_land_parcel_work_number: string-4
       - residue_management: string-3
       - residue_input: string-9 # in ton_per_hectare
-      
+
     children:
       - cadastral_areas: "*"
       - crop_areas: "*"
@@ -100,7 +100,7 @@ lines:
       - crop_histories: "*"
       - soil_analyses: "*"
       - interventions: "*"
-  
+
   cadastral_area:
     key: "PC"
     cells:
@@ -111,7 +111,7 @@ lines:
       - cadastral_area_in_hectare: string-9
     children:
       - cadastral_spatial_coordinates: "*"
-  
+
   cadastral_spatial_coordinate:
     key: "CC"
     cells:
@@ -123,7 +123,7 @@ lines:
       - longitude: string-11
       - latitude: string-10
       - elevation: string-18
-  
+
   crop_area:
     key: "PS"
     cells:
@@ -152,7 +152,7 @@ lines:
       - land_parcel_order_number: string-4
       - land_parcel_work_number: string-4
       - harvest_year: string-4
-  
+
   crop_history:
     key: "PH"
     cells:
@@ -171,10 +171,10 @@ lines:
       - crop_sowing_period_edicode: string-3 #30 List_SowingPeriodCode_CodeType
       - crop_final_usage_edicode: string-3 #17 List_AgriculturalProduceUseCode_CodeType
       - residue_management: string-3
-      - residue_input: string-9 # in ton_per_hectare 
+      - residue_input: string-9 # in ton_per_hectare
     children:
       - enrichments: "*"
-  
+
   enrichment:
     key: "HA"
     cells:
@@ -193,7 +193,7 @@ lines:
       - enrichment_supplier_town: string-35
       - enrichment_supplier_postal_code: string-9
       - enrichment_supplier_country: string-2
-      
+
   soil_analysis:
     key: "PA"
     cells:
@@ -211,7 +211,7 @@ lines:
       - analysis_labratory_country: string-2
       - analysis_analysed_on: string-8
       - analysis_sampled_on: string-8
-  
+
   intervention:
     key: "PV"
     cells:
@@ -246,37 +246,74 @@ lines:
       - working_area_in_hectare: string-9
       - first_comment: string-70
       - second_comment: string-70
-      
+
     children:
       - intervention_spatial_coordinates: "*"
       - intervention_targets: "*"
       - inputs: "*"
       - outputs: "*"
       - decision_indicator: 1
-      
+
   intervention_spatial_coordinate:
     key: "VC"
-    
+    cells:
+      - land_parcel_order_number: string-4
+      - land_parcel_work_number: string-4
+      - harvest_year: string-4
+      - intervention_guid: string-32
+      - srs: string-3 # 3 : Lambert2 etendu | 4 : WGS84
+      - longitude: string-11
+      - latitude: string-10
+      - elevation: string-18
+
   intervention_target:
     key: "VB"
- 
+    cells:
+      - land_parcel_order_number: string-4
+      - land_parcel_work_number: string-4
+      - harvest_year: string-4
+      - intervention_guid: string-32
+      - intervention_target: string-3 # Code EDI
+
   input:
     key: "VI"
     cells:
-      - land_parcel_number: string-8
+      - land_parcel_order_number: string-4
+      - land_parcel_work_number: string-4
       - harvest_year: string-4
-      - intervention_id: string-32
+      - intervention_guid: string-32
       - input_nature_edicode: string-3 #5 List_AgriculturalProcessCropInput_CodeType
-      - input_name: string-83
-      - input_phytosanitary_number: string-7
-      - blank_1: string-38
-      - unknow_A_edicode: string-3
-      - unknow_B_edicode: string-3
-      - blank_2: string-27
+      - input_name: string-70
+      - input_ean_code: string-13 #EAN13
+      - input_phytosanitary_number: string-35 #AMM
+      - input_gnis_code: string-7 #GNIS
+      - input_organic_code: string-3
+      - input_water_code: string-3
+      - input_additive_code: string-3
+      - input_mineral_code: string-3
+      - residue_information_1: string-3
+      - residue_information_2: string-3
+      - residue_information_3: string-3
+      - residue_information_4: string-3
+      - residue_information_5: string-3
+      - seed_information_1: string-3
+      - seed_information_2: string-3
+      - seed_information_3: string-3
       - input_quantity: string-9
       - input_unity_edicode: string-3 #36 List_UnitCode
       - input_quantity_per_hectare: string-9
-      - per_area_edicode: string-3 #ZKK
+      - per_area_unity_edicode: string-3 #ZKK
+      - provisionnal_input_quantity_per_hectare: string-9
+      - provisionnal_per_area_unity_edicode: string-3 #ZKK
+      - provisionnal_round_number: string-6
+      - residue_supplier_name: string-35
+      - residue_supplier_name_details: string-35
+      - residue_supplier_address: string-35
+      - residue_supplier_address_details: string-35
+      - residue_supplier_town: string-35
+      - residue_supplier_postal_code: string-9
+      - residue_supplier_country: string-2
+      - input_volume_density_in_kilogram_per_liter: string-9
     children:
       - input_components: "*"
       - input_trackings: "*"
@@ -285,29 +322,41 @@ lines:
   input_component:
     key: "IC"
     cells:
-      - land_parcel_number: string-8
+      - land_parcel_order_number: string-4
+      - land_parcel_work_number: string-4
       - harvest_year: string-4
-      - intervention_id: string-32
+      - intervention_guid: string-32
       - indicator_nature_edicode: string-3 #20 List_CropInputChemical_CodeType
       - indicator_quantity: string-9
-  
+
   input_tracking:
     key: "IL"
-  
+    cells:
+      - land_parcel_order_number: string-4
+      - land_parcel_work_number: string-4
+      - harvest_year: string-4
+      - intervention_guid: string-32
+      - input_phytosanitary_number: string-35
+      - input_tracking_number: string-35
+      - input_quantity_per_tracking: string-9
+      - input_quantity_unity_per_tracking: string-3 # CODE
+      - thousand_grains_mass: string-9
+      - thousand_grains_mass_unity: string-3 # CODE
+
   residue_analysis:
     key: "IA"
-  
+
   output:
     key: "VR"
     children:
       - output_components: "*"
       - output_trackings: "*"
-  
+
   output_tracking:
     key: "RL"
-    
+
   output_component:
     key: "LC"
-    
+
   decision_indicator:
     key: "VH"

@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 9.6.6
--- Dumped by pg_dump version 9.6.6
+-- Dumped from database version 9.6.5
+-- Dumped by pg_dump version 9.6.5
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -17364,7 +17364,7 @@ ALTER TABLE ONLY financial_year_exchanges
 -- PostgreSQL database dump complete
 --
 
-SET search_path TO "public", "postgis";
+SET search_path TO "public", "postgis", "lexicon";
 
 INSERT INTO schema_migrations (version) VALUES ('20121212122000');
 
