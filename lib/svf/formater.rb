@@ -6,6 +6,7 @@ module SVF
       @name = name
       source = YAML.load_file(file)
       @lines = {}
+      @encoding = source['encoding'] || 'ISO8859-1'
       source['lines'].each do |name, line|
         @lines[name.to_sym] = Line.new(name, line['key'], line['cells'], line['children'], line['to'])
       end
@@ -55,7 +56,7 @@ module SVF
 
       code << "    def self.parse(file)\n"
       code << "      base = Base.new\n"
-      code << "      ::File.open(file, 'rb:ISO8859-1') do |f|\n"
+      code << "      ::File.open(file, 'rb:#{@encoding}') do |f|\n"
       code << "        line_number = 0\n"
       code << parse_code(@root, file: 'f', root: 'base').strip.gsub(/^/, '        ') + "\n"
       code << "      end\n"
