@@ -42,7 +42,7 @@ module Agroedi
         if production_nature
          puts "production_nature : #{production_nature.human_name_fra}".inspect.yellow
         else
-          puts "crop specie EDI code (#{crop.crop_specie_edicode}) doesn't exist in Lexicon ProductionNature"
+          puts "crop specie EDI code (#{crop.crop_specie_edicode}) doesn't exist in Lexicon ProductionNature".inspect.red
           next
         end
 
@@ -57,7 +57,7 @@ module Agroedi
         if target
           puts "target : #{target.name}".inspect.yellow
         else
-          puts "no target availables".inspect.yellow
+          puts "no target availables".inspect.red
           next
         end
 
@@ -66,7 +66,7 @@ module Agroedi
           puts "------------------------------INTERVENTION-----------------------------------"
           # get intervention nature
           intervention_agroedi_code = RegisteredAgroediCode.where(repository_id: 14, reference_code: i.intervention_nature_edicode).first
-          puts "intervention_agroedi_code : #{intervention_agroedi_code}".inspect.red
+          puts "intervention_agroedi_code : #{intervention_agroedi_code.reference_label}".inspect.green
           # escape sowing and harvesting for the moment
           next if ["sowing", "harvesting"].any? {|code| procedures_transcode[intervention_agroedi_code.reference_code].to_s.include? code }
           puts i.intervention_nature_edicode.inspect.green
@@ -229,8 +229,8 @@ module Agroedi
                     end
           puts "handler : #{handler}".inspect.yellow
 
-          puts "input : #{input}".inspect.red
-          puts "input filter : #{input.filter}".inspect.green
+          # puts "input : #{input}".inspect.red
+          # puts "input filter : #{input.filter}".inspect.green
           next unless p.of_expression(input.filter)
 
           puts "quantity value per hectare : #{actor.input_quantity_per_hectare.to_f}".inspect.yellow
@@ -242,7 +242,7 @@ module Agroedi
             quantity_handler: handler,
             quantity_value: product_measure.to_f
           }
-          puts "inputs attributes #{attributes}".inspect.yellow
+          # puts "inputs attributes #{attributes}".inspect.yellow
 
           updaters << "inputs[#{index}]quantity_value"
           break
