@@ -78,7 +78,7 @@ module Agroedi
           record_default_intervention(i, target, procedure)
 
         end
-
+        w.check_point
       end
     end
 
@@ -129,9 +129,13 @@ module Agroedi
 
       variant = nature.variants.where(name: input.input_name, unit_name: units_transcode[input.input_unity_edicode], active: true).first
 
+      puts "Variant creation - input name : #{input.input_name}".inspect.red
+
       unless variant
 
         variant = nature.variants.create!(name: input.input_name, unit_name: units_transcode[input.input_unity_edicode], active: true)
+
+        puts "Variant creation - Variant : #{variant.name}".inspect.red
 
         default_indicators = {
                 net_mass: Measure.new(1.00, :kilogram),
@@ -165,6 +169,7 @@ module Agroedi
             initial_container: building_division,
             default_storage: building_division
           )
+          puts "Variant creation with product - Matter : #{matter.name}".inspect.red
           return matter
 
       end
@@ -242,6 +247,7 @@ module Agroedi
             quantity_handler: handler,
             quantity_value: product_measure.to_f
           }
+
           # puts "inputs attributes #{attributes}".inspect.yellow
 
           updaters << "inputs[#{index}]quantity_value"
@@ -262,6 +268,7 @@ module Agroedi
       end
 
       ## save
+
       ::Intervention.create!(intervention.to_attributes)
     end
 
