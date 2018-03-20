@@ -146,6 +146,8 @@ module Backend
               popup_content << { label: :last_intervention.tl, value: view_context.link_to(last_intervention.name, backend_intervention_path(last_intervention)) }
             end
 
+            # build frequency indicator of spraying (IFT map)
+
             popup_content << render_to_string(partial: 'popup', locals: { production: support })
 
             item = {
