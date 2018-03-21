@@ -152,6 +152,7 @@ class JournalEntry < Ekylibre::Record::Base
       if stopped_on.present? && (stopped_on.is_a?(Date) || stopped_on =~ /^\d\d\d\d\-\d\d\-\d\d$/)
         conditions << "#{table}.printed_on <= #{connection.quote(stopped_on.to_date)}"
       end
+
       return connection.quoted_false if conditions.empty?
       return '(' + conditions.join(' AND ') + ')'
     end
