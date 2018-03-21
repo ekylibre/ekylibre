@@ -79,12 +79,12 @@ module Backend
       toggle_method = "toggle#{custom_id.camelcase}"
       if configuration[:custom]
         params[:started_on] = begin
-                                current_user.preferences.value('accounts_interval.started_on').to_date || params[:started_on].to_date
+                                current_user.preferences.value('accounts_interval.started_on')&.to_date || params[:started_on].to_date
                               rescue
                                 (fy ? fy.started_on : Time.zone.today)
                               end
         params[:stopped_on] = begin
-                                current_user.preferences.value('accounts_interval.stopped_on').to_date || params[:stopped_on].to_date
+                                current_user.preferences.value('accounts_interval.stopped_on')&.to_date || params[:stopped_on].to_date
                               rescue
                                 (fy ? fy.stopped_on : Time.zone.today)
                               end
