@@ -26,10 +26,13 @@
 #  human_name        :jsonb
 #  human_name_fra    :string
 #  id                :integer          not null, primary key
+#  pfi_crop_code     :string
+#  season            :string
 #  specie            :string           not null
 #  started_on        :date             not null
 #  stopped_on        :date             not null
 #
 class MasterProductionNature < Ekylibre::Record::Base
   include Lexiconable
+  belongs_to :pfi_crop, class_name: 'RegisteredPfiCrop', foreign_key: :pfi_crop_code
 end

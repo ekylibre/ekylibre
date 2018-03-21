@@ -88,6 +88,8 @@ class Activity < Ekylibre::Record::Base
   end
   has_many :supports, through: :productions
 
+  belongs_to :production_nature, class_name: 'MasterProductionNature'
+
   has_and_belongs_to_many :interventions
   has_and_belongs_to_many :campaigns
 
