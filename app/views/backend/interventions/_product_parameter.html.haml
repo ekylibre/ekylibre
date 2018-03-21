@@ -62,11 +62,28 @@
           - if product_parameter.is_population?
             = :x_thing.tl(x: product_parameter.quantity.round(2).l(precision: 0), thing: variant.unit_name.mb_chars.downcase)
           - elsif product_parameter.product.france_maaid && product_parameter.is_a?(InterventionInput)
-            .details
-              = product_parameter.product.france_maaid
-            = product_parameter.quantity.round(2).l(precision: 0)
+            %p
+              %span.value= product_parameter.legal_pesticide_informations[:name]
+            %p
+              %span.title= :quantity.tl
+              %span.value= product_parameter.quantity.l(precision: 2)
+            %p
+              %span.title= :legal_dose.tl
+              %span.value= product_parameter.legal_pesticide_informations[:dose].l(precision: 2)
+              = lights('stop') if product_parameter.quantity.to_d >product_parameter.legal_pesticide_informations[:dose].to_d
+              = lights('caution') if product_parameter.quantity.to_d == product_parameter.legal_pesticide_informations[:dose].to_d
+              = lights('go') if product_parameter.quantity.to_d < product_parameter.legal_pesticide_informations[:dose].to_d
+            %p
+              %span.title= :pfi_dose.tl
+              %span.value= product_parameter.pfi_reference_dose.l(precision: 2)
+              = lights('stop') if product_parameter.quantity.to_d > product_parameter.pfi_reference_dose.to_d
+              = lights('caution') if product_parameter.quantity.to_d == product_parameter.pfi_reference_dose.to_d
+              = lights('go') if product_parameter.quantity.to_d < product_parameter.pfi_reference_dose.to_d
+            %p
+              %span.title= :pfi_treatment_ratio.tl
+              %span.value= product_parameter.pfi_treatment_ratio.round(2)
           - else
-            = product_parameter.quantity.round(2).l(precision: 0)
+            = product_parameter.quantity.l(precision: 0)
   - elsif variant
     .picture
       - if variant.picture.file?

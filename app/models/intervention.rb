@@ -120,7 +120,7 @@ class Intervention < Ekylibre::Record::Base
     where('EXTRACT(YEAR FROM started_at) = ?', year)
   }
 
-  scope :of_nature, ->(reference_name) { where(reference_name: reference_name) }
+  scope :of_nature, ->(reference_name) { where(procedure_name: reference_name) }
   scope :of_category, lambda { |category|
     where(procedure_name: Procedo::Procedure.of_category(category).map(&:name))
   }

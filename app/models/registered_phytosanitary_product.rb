@@ -58,7 +58,7 @@ class RegisteredPhytosanitaryProduct < ActiveRecord::Base
   end
 
   def proper_name
-    [name, maaid, firm_name].compact.join(' - ')
+    [nature, name, maaid, firm_name].compact.join(' - ')
   end
 
   class << self

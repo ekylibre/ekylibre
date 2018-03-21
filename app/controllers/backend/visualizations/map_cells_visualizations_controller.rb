@@ -136,8 +136,14 @@ module Backend
             # if support.net_surface_area
             #  popup_content << {label: CultivableZone.human_attribute_name(:net_surface_area), value: support.net_surface_area.in_hectare.round(2).l}
             # end
-
             interventions = support.interventions.real
+            # compute pfi parcel ratio from pfi treatment ratios
+            i_ids = interventions.of_nature('spraying').pluck(:id)
+            inputs = InterventionInput.where(intervention_id: i_ids, reference_name: 'plant_medicine')
+            pfi_parcel_ratio = inputs.map(&:pfi_treatment_ratio).compact.sum
+            popup_content << {label: :pfi_parcel_ratio.tl, value: pfi_parcel_ratio.round(2)}
+
+
             if interventions.any?
               spent_time = interventions.sum(:working_duration)
               popup_content << { label: :interventions_count.tl, value: "#{interventions.count} #{:during.tl.downcase!} #{:x_hours.tl(count: (spent_time / 3600).round(2))}" }
@@ -162,6 +168,7 @@ module Backend
               # phosphorus_concentration: phosphorus_concentration.to_s.to_f.round(2),
               # potassium_concentration:  potassium_concentration.to_s.to_f.round(2),
               interventions_count: interventions.count,
+              pfi_parcel_ratio:  pfi_parcel_ratio,
               grain_yield: grain_yield.to_s.to_f.round(2),
               grass_yield: grass_yield.to_s.to_f.round(2),
               popup: { header: true, content: popup_content }
@@ -183,9 +190,9 @@ module Backend
               # v.choropleth :phosphorus_concentration, :main, stop_color: "#11BB99"
               # v.choropleth :potassium_concentration, :main, stop_color: "#AA00AA"
             elsif visualization_face == 'grain_yield'
-              v.choropleth :grain_yield, :main, stop_color: '#E77000'
+              v.choropleth :grain_yield, :main, stop_color: '#AA00AA'
               v.choropleth :grass_yield, :main, stop_color: '#00AA00'
-              # v.choropleth :nitrogen_concentration, :main, stop_color: "#777777"
+              v.choropleth :pfi_parcel_ratio, :main, stop_color: "#E77000"
             else
               v.choropleth :tool_cost, :main, stop_color: '#00AA00'
               v.choropleth :input_cost, :main, stop_color: '#1122DD'

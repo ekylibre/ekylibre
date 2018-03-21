@@ -83,14 +83,53 @@ class InterventionInput < InterventionProductParameter
     end
   end
 
+  # return pfi dose according to Lexicon pfi dataset and maaid number
+  def pfi_reference_dose
+    dose = nil
+    if variant.france_maaid
+      act = intervention.activities
+      harvest_year = intervention.activity_productions.first.campaign.harvest_year
+      crop_code = act.first.production_nature.pfi_crop_code
+      maaid = variant.france_maaid
+      pfi_dose = RegisteredPfiDose.where(maaid: maaid, crop_id: crop_code, harvest_year: harvest_year, target_id: nil).first
+      if pfi_dose && pfi_dose.dose_quantity && pfi_dose.dose_unity
+        dose = Measure.new(pfi_dose.dose_quantity, pfi_dose.dose_unity)
+      end
+    end
+    return dose
+  end
+
+  # return legal dose according to Lexicon phyto dataset and maaid number
+  def legal_pesticide_informations
+    pesticide = RegisteredPhytosanitaryProduct.where(maaid: variant.france_maaid).first
+    specie = intervention.activity_productions.first.cultivation_variety
+    usages = pesticide.usages.of_specie(specie)
+
+    info = {}
+    info[:name] = pesticide.proper_name
+    info[:usage] = usages.first.target_name['fra'] if usages.first
+    info[:dose] = Measure.new(usages.first.dose_quantity, usages.first.dose_unit) if usages.first
+    info
+  end
+
+  def pfi_treatment_ratio
+    ratio = 1.0
+    if pfi_reference_dose && pfi_reference_dose.to_d > 0.0
+      ratio = quantity.in(pfi_reference_dose.unit) / pfi_reference_dose
+    end
+    return ratio
+  end
+
+  # from EPHY
   def reglementary_status(target)
     dose = quantity.convert(:liter_per_hectare)
 
     # if AMM number on product
-    if product.france_maaid
+    if variant.france_maaid
 
       # get agent if exist
-      agent = Pesticide::Agent.find(product.france_maaid)
+      agent = Pesticide::Agent.find(variant.france_maaid)
+
 
       reglementary_doses = {}
 
