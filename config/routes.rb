@@ -713,6 +713,8 @@ Rails.application.routes.draw do
 
     resources :map_editor_shapes, only: :index
 
+    resources :master_production_natures, only: [], concerns: %i[unroll]
+
     resources :matters, concerns: :products
 
     resources :net_services, concerns: [:list] do

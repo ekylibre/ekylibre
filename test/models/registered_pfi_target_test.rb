@@ -20,20 +20,13 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
-# == Table: master_production_natures
+# == Table: registered_pfi_targets
 #
-#  agroedi_crop_code :string
-#  human_name        :jsonb
-#  human_name_fra    :string
-#  id                :integer          not null, primary key
-#  pfi_crop_code     :string
-#  season            :string
-#  specie            :string           not null
-#  started_on        :date             not null
-#  stopped_on        :date             not null
+#  id                  :integer          not null, primary key
+#  reference_label_fra :string
 #
 require 'test_helper'
 
-class MasterProductionNatureTest < ActiveSupport::TestCase
+class RegisteredPfiTargetTest < ActiveSupport::TestCase
   # Add tests here...
 end

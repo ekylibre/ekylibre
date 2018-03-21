@@ -34,12 +34,15 @@ CREATE TABLE master_production_natures (
   human_name_fra character varying,
   started_on DATE NOT NULL,
   stopped_on DATE NOT NULL,
-  agroedi_crop_code character varying
+  agroedi_crop_code character varying,
+  season character varying,
+  pfi_crop_code character varying
 );
 CREATE INDEX master_production_natures_specie ON master_production_natures(specie);
 CREATE INDEX master_production_natures_human_name ON master_production_natures(human_name);
 CREATE INDEX master_production_natures_human_name_fra ON master_production_natures(human_name_fra);
 CREATE INDEX master_production_natures_agroedi_crop_code ON master_production_natures(agroedi_crop_code);
+CREATE INDEX master_production_natures_pfi_crop_code ON master_production_natures(pfi_crop_code);
 
 CREATE TABLE master_production_outputs (
   production_nature_id INTEGER NOT NULL,
@@ -128,6 +131,33 @@ CREATE TABLE registered_enterprises (
   city character varying,
   country character varying
 );
+
+CREATE TABLE registered_pfi_crops (
+  id integer PRIMARY KEY NOT NULL,
+  reference_label_fra character varying
+);
+CREATE INDEX registered_pfi_crops_id ON registered_pfi_crops(id);
+
+CREATE TABLE registered_pfi_doses (
+  maaid integer NOT NULL,
+  pesticide_name character varying,
+  harvest_year integer NOT NULL,
+  active integer NOT NULL,
+  crop_id integer NOT NULL,
+  target_id integer,
+  functions character varying,
+  dose_unity character varying,
+  dose_quantity numeric(19,4)
+);
+CREATE INDEX registered_pfi_doses_maaid ON registered_pfi_doses(maaid);
+CREATE INDEX registered_pfi_doses_harvest_year ON registered_pfi_doses(harvest_year);
+CREATE INDEX registered_pfi_doses_crop_id ON registered_pfi_doses(crop_id);
+
+CREATE TABLE registered_pfi_targets (
+  id integer PRIMARY KEY NOT NULL,
+  reference_label_fra character varying
+);
+CREATE INDEX registered_pfi_targets_id ON registered_pfi_targets(id);
 
 CREATE TABLE registered_phytosanitary_products (
   id integer PRIMARY KEY NOT NULL,

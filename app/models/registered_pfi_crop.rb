@@ -20,14 +20,15 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
-# == Table: registered_agroedi_codes
+# == Table: registered_pfi_crops
 #
-#  id              :integer          not null, primary key
-#  reference_code  :string
-#  reference_id    :string
-#  reference_label :string
-#  repository_id   :string
+#  id                  :integer          not null, primary key
+#  reference_label_fra :string
 #
 class RegisteredPfiCrop < ActiveRecord::Base
   include Lexiconable
+  has_many :doses,   class_name: 'RegisteredPfiDose',
+                     foreign_key: :crop_id, dependent: :restrict_with_exception
+  has_many :productions, class_name: 'MasterProductionNature',
+                         foreign_key: :pfi_crop_code, dependent: :restrict_with_exception
 end

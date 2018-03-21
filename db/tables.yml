@@ -4777,6 +4777,10 @@ master_production_natures:
   id:
     type: integer
     required: true
+  pfi_crop_code:
+    type: string
+  season:
+    type: string
   specie:
     type: string
     required: true
@@ -4908,24 +4912,6 @@ observations:
   updater_id:
     type: integer
     references: user
-open_cultivation:
-  edi_code:
-    type: string
-  edi_name:
-    type: string
-  lexagri_code:
-    type: integer
-  lexagri_name:
-    type: string
-  open_code:
-    type: string
-    required: true
-  open_name:
-    type: string
-  started_on:
-    type: date
-  stopped_on:
-    type: date
 outgoing_payment_lists:
   cached_payment_count:
     type: integer
@@ -6883,6 +6869,45 @@ registered_enterprises:
   name:
     type: string
   postal_code:
+    type: string
+registered_pfi_crops:
+  id:
+    type: integer
+    required: true
+  reference_label_fra:
+    type: string
+registered_pfi_doses:
+  active:
+    type: integer
+    required: true
+  crop_id:
+    type: integer
+    references: registered_pfi_crop
+    required: true
+  dose_quantity:
+    type: decimal
+    precision: 19
+    scale: 4
+  dose_unity:
+    type: string
+  functions:
+    type: string
+  harvest_year:
+    type: integer
+    required: true
+  maaid:
+    type: integer
+    required: true
+  pesticide_name:
+    type: string
+  target_id:
+    type: integer
+    references: registered_pfi_target
+registered_pfi_targets:
+  id:
+    type: integer
+    required: true
+  reference_label_fra:
     type: string
 registered_phytosanitary_phrases:
   phrase_code:

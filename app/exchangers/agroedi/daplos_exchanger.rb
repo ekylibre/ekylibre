@@ -20,8 +20,6 @@ module Agroedi
         procedures_transcode[row[0]] = row[1].to_sym
       end
 
-
-
       begin
         daplos = SVF::EdiDaplos2.parse(file)
       rescue SVF::InvalidSyntax
@@ -34,15 +32,14 @@ module Agroedi
 
       # crop
       daplos.interchange.crops.each do |crop|
-
         # get specie and area
         production_nature = MasterProductionNature.where(agroedi_crop_code: crop.crop_specie_edicode).first
-        puts "------------------------------CROP-----------------------------------"
-        puts "crop specie EDI code : #{crop.crop_specie_edicode}"
+        w.info '------------------------------CROP-----------------------------------'
+        w.info "crop specie EDI code : #{crop.crop_specie_edicode}"
         if production_nature
-         puts "production_nature : #{production_nature.human_name_fra}".inspect.yellow
+          w.info "production_nature : #{production_nature.human_name_fra}".inspect.yellow
         else
-          puts "crop specie EDI code (#{crop.crop_specie_edicode}) doesn't exist in Lexicon ProductionNature".inspect.red
+          w.info "crop specie EDI code (#{crop.crop_specie_edicode}) doesn't exist in Lexicon ProductionNature".inspect.red
           next
         end
 
@@ -55,28 +52,27 @@ module Agroedi
         activity_production = ActivityProduction.of_cultivation_variety(production_nature.specie).where('size_value <= ?', max_area).where('size_value >= ?', min_area).first
         target = activity_production.support if activity_production
         if target
-          puts "target : #{target.name}".inspect.yellow
+          w.info "target : #{target.name}".inspect.yellow
         else
-          puts "no target availables".inspect.red
+          w.info 'no target availables'.inspect.red
           next
         end
 
         # parse interventions from daplos file and create each one
         crop.interventions.each do |i|
-          puts "------------------------------INTERVENTION-----------------------------------"
+          w.info '------------------------------INTERVENTION-----------------------------------'
           # get intervention nature
           intervention_agroedi_code = RegisteredAgroediCode.where(repository_id: 14, reference_code: i.intervention_nature_edicode).first
-          puts "intervention_agroedi_code : #{intervention_agroedi_code.reference_label}".inspect.green
+          w.info "intervention_agroedi_code : #{intervention_agroedi_code.reference_label}".inspect.green
           # escape sowing and harvesting for the moment
-          next if ["sowing", "harvesting"].any? {|code| procedures_transcode[intervention_agroedi_code.reference_code].to_s.include? code }
-          puts i.intervention_nature_edicode.inspect.green
+          next if %w[sowing harvesting].any? { |code| procedures_transcode[intervention_agroedi_code.reference_code].to_s.include? code }
+          w.info i.intervention_nature_edicode.inspect.green
 
           procedure = Procedo.find(procedures_transcode[intervention_agroedi_code.reference_code]) if intervention_agroedi_code
-          puts "procedure : #{procedure.name}".inspect.yellow
+          w.info "procedure : #{procedure.name}".inspect.yellow
 
           # record intervention
           record_default_intervention(i, target, procedure)
-
         end
         w.check_point
       end
@@ -115,7 +111,6 @@ module Agroedi
 
     # find or create product and variant
     def find_or_create_product(input, at)
-
       # Load hash to transcode EDI input to nature
       here = Pathname.new(__FILE__).dirname
       inputs_transcode = {}.with_indifferent_access
@@ -123,24 +118,24 @@ module Agroedi
         inputs_transcode[row[0]] = row[1].to_sym
       end
 
-      units_transcode = {"KGM" => :kilogram, "LTR" => :liter, "TNE" => :ton, "NAR" => :unit}
+      units_transcode = { 'KGM' => :kilogram, 'LTR' => :liter, 'TNE' => :ton, 'NAR' => :unit }
 
       nature = ProductNature.import_from_nomenclature(inputs_transcode[input.input_nature_edicode])
 
       variant = nature.variants.where(name: input.input_name, unit_name: units_transcode[input.input_unity_edicode], active: true).first
 
-      puts "Variant creation - input name : #{input.input_name}".inspect.red
+      w.info "Variant creation - input name : #{input.input_name}".inspect.red
 
       unless variant
 
         variant = nature.variants.create!(name: input.input_name, unit_name: units_transcode[input.input_unity_edicode], active: true)
 
-        puts "Variant creation - Variant : #{variant.name}".inspect.red
+        w.info "Variant creation - Variant : #{variant.name}".inspect.red
 
         default_indicators = {
-                net_mass: Measure.new(1.00, :kilogram),
-                net_volume: Measure.new(1.00, :liter)
-              }.with_indifferent_access
+          net_mass: Measure.new(1.00, :kilogram),
+          net_volume: Measure.new(1.00, :liter)
+        }.with_indifferent_access
 
         default_indicators.each do |indicator_name, value|
           variant.read! indicator_name, value
@@ -148,7 +143,7 @@ module Agroedi
 
       end
 
-      if !input.input_phytosanitary_number.blank?
+      if input.input_phytosanitary_number.present?
         variant.france_maaid = input.input_phytosanitary_number
         variant.save!
       end
@@ -161,23 +156,21 @@ module Agroedi
 
         pmodel = variant.nature.matching_model
         # create the product
-          matter = pmodel.create!(
-            variant: variant,
-            initial_born_at: at,
-            initial_population: 0.0,
-            initial_owner: Entity.of_company,
-            initial_container: building_division,
-            default_storage: building_division
-          )
-          puts "Variant creation with product - Matter : #{matter.name}".inspect.red
-          return matter
+        matter = pmodel.create!(
+          variant: variant,
+          initial_born_at: at,
+          initial_population: 0.0,
+          initial_owner: Entity.of_company,
+          initial_container: building_division,
+          default_storage: building_division
+        )
+        w.info "Variant creation with product - Matter : #{matter.name}".inspect.red
+        return matter
 
       end
     end
 
-
     def record_default_intervention(i, target, procedure)
-
       start = i.intervention_started_at
       stop = i.intervention_stopped_at
 
@@ -211,20 +204,19 @@ module Agroedi
       updaters = []
 
       i.inputs.each_with_index do |actor, index|
-
         p = find_or_create_product(actor, Date.parse(start).to_time)
 
-        puts "product : #{p.name}".inspect.yellow
+        w.info "product : #{p.name}".inspect.yellow
 
         unit = Nomen::Unit.find(p.variant.unit_name.to_sym)
         dimension = unit.dimension
-        quantity_handler = "net_" + dimension.to_s
+        quantity_handler = 'net_' + dimension.to_s
 
         procedure.parameters_of_type(:input).each do |input|
-          puts "quantity value : #{actor.input_quantity_per_hectare.to_f}".inspect.yellow
+          w.info "quantity value : #{actor.input_quantity_per_hectare.to_f}".inspect.yellow
           # find measure from quantity
           product_measure = measure_conversion(actor.input_quantity_per_hectare.to_f, unit.name, :hectare)
-          puts "product_measure : #{product_measure}".inspect.yellow
+          w.info "product_measure : #{product_measure}".inspect.yellow
           # find best handler for product measure
           i = input.best_handler_for(product_measure)
           handler = if i.is_a?(Array)
@@ -232,13 +224,13 @@ module Agroedi
                     else
                       input.best_handler_for(product_measure).name
                     end
-          puts "handler : #{handler}".inspect.yellow
+          w.info "handler : #{handler}".inspect.yellow
 
           # puts "input : #{input}".inspect.red
           # puts "input filter : #{input.filter}".inspect.green
           next unless p.of_expression(input.filter)
 
-          puts "quantity value per hectare : #{actor.input_quantity_per_hectare.to_f}".inspect.yellow
+          w.info "quantity value per hectare : #{actor.input_quantity_per_hectare.to_f}".inspect.yellow
 
           attributes[:inputs_attributes] ||= {}
           attributes[:inputs_attributes][index.to_s] = {
@@ -271,6 +263,5 @@ module Agroedi
 
       ::Intervention.create!(intervention.to_attributes)
     end
-
   end
 end

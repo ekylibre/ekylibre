@@ -1,8 +1,8 @@
 fra:
   exchangers:
-    agroedi_daplos: "Fiche parcellaire DAPLOS - AGROEDI"
     agro_systemes_soil_analyses: "Analyses de sol ‒ AGRO Systèmes"
     agro_systemes_water_analyses: "Analyses d’eau ‒ AGRO Systèmes"
+    agroedi_daplos: "Fiche parcellaire DAPLOS - AGROEDI" #?
     bordeaux_sciences_agro_istea_general_ledger: "Grand livre ‒ ISTEA ‒ Bordeaux Sciences Agro" #?
     bordeaux_sciences_agro_istea_journals: "Journaux ‒ ISTEA ‒ Bordeaux Sciences Agro" #?
     bovins_croissance_cattle_performance_controls: "Contrôles de performance ‒ Bovins Croissance"

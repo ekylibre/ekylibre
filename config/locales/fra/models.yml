@@ -877,6 +877,8 @@ fra:
     documents: "Documents"
     doers: "Équipiers"
     done_at: "Fait le" #?
+    # dose_quantity: "Dose quantity"
+    # doses: "Doses"
     downpayment: "Acompte"
     downpayment_amount: "Montant de l’acompte"
     downpayment_minimum: "Somme minimale"
@@ -1211,6 +1213,7 @@ fra:
     lock_version: "Version"
     locked: "Verrouillé"
     locked_at: "Verrouillé à"
+    # maaid: "Maaid"
     made_at: "Fait le" #?
     mail: "E-mail"
     mail_addresses: "Adresses postales"
@@ -1552,6 +1555,7 @@ fra:
     reduction_percentage: "Réduction (%)"
     reductions: "Lignes de réductions" #?
     reference: "Référence" #?
+    # reference_label_fra: "Reference label fra"
     reference_name: "Référence"
     reference_number: "N°Référence"
     reference_source_content_type: "Référence type de contenu source"

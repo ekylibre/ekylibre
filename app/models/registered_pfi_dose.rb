@@ -20,14 +20,20 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
-# == Table: registered_agroedi_codes
+# == Table: registered_pfi_doses
 #
-#  id              :integer          not null, primary key
-#  reference_code  :string
-#  reference_id    :string
-#  reference_label :string
-#  repository_id   :string
+#  active         :integer          not null
+#  crop_id        :integer          not null
+#  dose_quantity  :decimal(19, 4)
+#  dose_unity     :string
+#  functions      :string
+#  harvest_year   :integer          not null
+#  maaid          :integer          not null
+#  pesticide_name :string
+#  target_id      :integer
 #
 class RegisteredPfiDose < ActiveRecord::Base
   include Lexiconable
+  belongs_to :target, class_name: 'RegisteredPfiTarget'
+  belongs_to :crop, class_name: 'RegisteredPfiCrop'
 end
