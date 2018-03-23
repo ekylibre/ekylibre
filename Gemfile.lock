@@ -1,6 +1,6 @@
 GIT
   remote: git@gitlab.com:ekylibre-integration/planning.git
-  revision: 5bbb5b916754debb2f5f12aefe73fddb2329eb03
+  revision: 4327d4daa7d92f7d27871f93d469d16cc5703f98
   specs:
     planning (0.6.0)
       factory_bot
@@ -77,7 +77,7 @@ GEM
       sidekiq (>= 2.11)
     arel (6.0.4)
     ast (2.4.0)
-    autoprefixer-rails (8.1.0.1)
+    autoprefixer-rails (8.2.0)
       execjs
     awesome_nested_set (3.1.4)
       activerecord (>= 4.0.0, < 5.3)
@@ -112,7 +112,7 @@ GEM
       activesupport (>= 3.0.0)
       uniform_notifier (~> 1.10.0)
     burisu-docsplit (0.7.9)
-    byebug (10.0.0)
+    byebug (10.0.1)
     capistrano (3.9.1)
       airbrussh (>= 1.0.0)
       i18n
@@ -298,7 +298,7 @@ GEM
       ruby_dep (~> 1.2)
     lodash-rails (4.17.5)
       railties (>= 3.1)
-    loofah (2.2.1)
+    loofah (2.2.2)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
     luhn (1.0.2)
@@ -322,12 +322,12 @@ GEM
     mini_mime (1.0.0)
     mini_portile2 (2.3.0)
     minitest (5.11.3)
-    minitest-reporters (1.1.19)
+    minitest-reporters (1.2.0)
       ansi
       builder
       minitest (>= 5.0)
       ruby-progressbar
-    momentjs-rails (2.17.1)
+    momentjs-rails (2.20.1)
       railties (>= 3.1)
     multi_json (1.13.1)
     multi_xml (0.6.0)
@@ -372,7 +372,7 @@ GEM
       burisu-docsplit (>= 0.7.9)
       paperclip (>= 3.1, < 6.0)
     parallel (1.12.1)
-    parallel_tests (2.21.2)
+    parallel_tests (2.21.3)
       parallel
     parser (2.5.0.4)
       ast (~> 2.4.0)
@@ -415,8 +415,8 @@ GEM
       activesupport (>= 4.2.0, < 5.0)
       nokogiri (~> 1.6)
       rails-deprecated_sanitizer (>= 1.0.1)
-    rails-html-sanitizer (1.0.3)
-      loofah (~> 2.0)
+    rails-html-sanitizer (1.0.4)
+      loofah (~> 2.2, >= 2.2.2)
     rails_best_practices (1.19.1)
       activesupport
       code_analyzer (>= 0.4.8)
@@ -487,7 +487,7 @@ GEM
     rubyzip (1.2.1)
     rufus-scheduler (3.4.2)
       et-orbi (~> 1.0)
-    sass (3.5.5)
+    sass (3.5.6)
       sass-listen (~> 4.0.0)
     sass-listen (4.0.0)
       rb-fsevent (~> 0.9, >= 0.9.4)
@@ -546,7 +546,7 @@ GEM
       json (>= 1.8, < 3)
       simplecov-html (~> 0.10.0)
     simplecov-html (0.10.2)
-    skylight (1.5.1)
+    skylight (1.6.0)
       activesupport (>= 3.0.0)
     socksify (1.7.1)
     spring (2.0.2)
