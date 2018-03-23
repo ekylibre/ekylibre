@@ -298,7 +298,7 @@ GEM
       ruby_dep (~> 1.2)
     lodash-rails (4.17.5)
       railties (>= 3.1)
-    loofah (2.2.0)
+    loofah (2.2.1)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
     luhn (1.0.2)
@@ -584,7 +584,7 @@ GEM
       i18n
     timecop (0.9.1)
     timeliness (0.3.8)
-    treetop (1.6.9)
+    treetop (1.6.10)
       polyglot (~> 0.3)
     turbolinks (2.5.4)
       coffee-rails
