@@ -33,6 +33,9 @@
         dataset = chart.data.datasets[datasetIndex]
         data = dataset.data[barIndex]
         meta = chart.controller.getDatasetMeta(datasetIndex)
+
+        return if meta.hidden
+
         bar = meta.data[barIndex]
 
         this._drawText(chart, bar, data, textColor)
