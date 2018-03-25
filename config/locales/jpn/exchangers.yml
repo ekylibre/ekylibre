@@ -2,6 +2,7 @@ jpn:
   exchangers:
     agro_systemes_soil_analyses: "AGROSystèmesの土壌分析"
     agro_systemes_water_analyses: "AGROSystèmesの水の分析"
+    # agroedi_daplos: "Agroedi daplos"
     bovins_croissance_cattle_performance_controls: "Bovins Croissance牛のパフォーマンスコントロール"
     charentes_alliance_incoming_deliveries: "シャラントアライアンス着信配達"
     charentes_alliance_outgoing_deliveries: "シャラントアライアンス発信配達"
@@ -37,6 +38,7 @@ jpn:
     fiea_galactea: "金融商品取引法のgalactea"
     isagri_isacompta_export: "Isagriのisacomptaエクスポート"
     isagri_isacompta_fixed_assets: "Isagriのisacompta固定資産"
+    # isagri_isacompta_journal_entries: "Isagri isacompta journal entries"
     isagri_isaculture_csv_import: "Isagri isacultureのcsvインポート"
     la_graine_informatique_vinifera_entities: "ラgraineのINFORMATIQUEのヴィニフェラエンティティ"
     la_graine_informatique_vinifera_products: "ラgraineのINFORMATIQUEのヴィニフェラ製品"

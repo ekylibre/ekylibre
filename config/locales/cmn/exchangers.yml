@@ -2,6 +2,7 @@ cmn:
   exchangers:
     agro_systemes_soil_analyses: "农业土壤Systèmes的分析"
     agro_systemes_water_analyses: "农业Systèmes的水分析"
+    # agroedi_daplos: "Agroedi daplos"
     bovins_croissance_cattle_performance_controls: "Bovins Croissance牛性能控制"
     charentes_alliance_incoming_deliveries: "夏朗德联盟传入交付"
     charentes_alliance_outgoing_deliveries: "夏朗德联盟传出交付"
@@ -37,6 +38,7 @@ cmn:
     # fiea_galactea: "FIEA galactea"
     isagri_isacompta_export: "Isagri isacompta出口"
     isagri_isacompta_fixed_assets: "Isagri isacompta固定资产"
+    # isagri_isacompta_journal_entries: "Isagri isacompta journal entries"
     isagri_isaculture_csv_import: "Isagri isaculture CSV导入"
     la_graine_informatique_vinifera_entities: "拉偏头痛INFORMATIQUE葡萄实体"
     la_graine_informatique_vinifera_products: "拉偏头痛INFORMATIQUE葡萄产品"

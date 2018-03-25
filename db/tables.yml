@@ -162,6 +162,9 @@ activities:
   production_cycle:
     type: string
     required: true
+  production_nature_id:
+    type: integer
+    references: master_production_nature
   production_system_name:
     type: string
   size_indicator_name:

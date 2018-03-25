@@ -1219,6 +1219,7 @@ jpn:
     production: "製造"
     production_campaign: "プロダクションキャンペーン"
     production_cycle: "生産サイクル"
+    # production_nature: "Production nature"
     production_support: "生産支援"
     production_supports: "プロダクションサポート"
     production_system: "生産システム"

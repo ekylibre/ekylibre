@@ -1219,6 +1219,7 @@ deu:
     production: "Produktion"
     production_campaign: "Produktionskampagne"
     production_cycle: "Der Produktionszyklus"
+    # production_nature: "Production nature"
     production_support: "Produktionsunterstützung"
     production_supports: "Produktion Stützen"
     production_system: "Produktionssystem"

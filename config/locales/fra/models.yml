@@ -1482,6 +1482,7 @@ fra:
     production: "Production"
     production_campaign: "Campagne rattachée"
     production_cycle: "Cycle de production"
+    # production_nature: "Production nature"
     production_support: "Support de production"
     production_supports: "Supports de production"
     production_system: "Système de production"

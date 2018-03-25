@@ -1282,7 +1282,7 @@ eng:
     production: "Production"
     production_campaign: "Production campaign"
     production_cycle: "Production cycle"
-    # production_nature: "Production nature"
+    production_nature: "Production nature"
     production_support: "Production support" #?
     production_supports: "Production supports" #?
     production_system: "Production system"

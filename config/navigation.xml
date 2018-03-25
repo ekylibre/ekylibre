@@ -2068,6 +2068,10 @@
     </group>
   </inaccessible-actions>
   <untreated-actions>
-    <group/>
+    <group>
+      <item name="master_production_natures">
+        <page to="backend/master_production_natures#unroll"/>
+      </item>
+    </group>
   </untreated-actions>
 </navigation>

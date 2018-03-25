@@ -41,6 +41,7 @@
 #  nature                       :string           not null
 #  production_campaign          :string
 #  production_cycle             :string           not null
+#  production_nature_id         :integer
 #  production_system_name       :string
 #  size_indicator_name          :string
 #  size_unit_name               :string

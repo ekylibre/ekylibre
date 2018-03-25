@@ -1219,6 +1219,7 @@ por:
     production: "Produção"
     production_campaign: "Campanha de produção"
     production_cycle: "Ciclo de produção"
+    # production_nature: "Production nature"
     production_support: "Apoio à produção"
     production_supports: "Suportes de produção"
     production_system: "Sistema de produção"

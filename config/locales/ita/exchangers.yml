@@ -2,6 +2,7 @@ ita:
   exchangers:
     agro_systemes_soil_analyses: "analisi del terreno AGRO Systèmes"
     agro_systemes_water_analyses: "analisi dell'acqua AGRO Systèmes"
+    # agroedi_daplos: "Agroedi daplos"
     bordeaux_sciences_agro_istea_general_ledger: "Bordeaux Scienze Agro ISTEA contabilità generale" #?
     bordeaux_sciences_agro_istea_journals: "Bordeaux Scienze Agro ISTEA riviste" #?
     bovins_croissance_cattle_performance_controls: "Bovins Croissance controlli delle prestazioni del bestiame"
@@ -44,6 +45,7 @@ ita:
     fiea_galactea: "FIEA Galactea"
     isagri_isacompta_export: "Isagri esportazione isacompta"
     isagri_isacompta_fixed_assets: "ISAGRI beni isacompta fisso"
+    # isagri_isacompta_journal_entries: "Isagri isacompta journal entries"
     isagri_isaculture_csv_import: "Importazione di Isagri Isaculture CSV"
     la_graine_informatique_vinifera_entities: "La entità vinifera graine informatique"
     la_graine_informatique_vinifera_products: "La prodotti vinifera graine informatique"

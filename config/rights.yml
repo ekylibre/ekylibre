@@ -108,6 +108,7 @@
 #     - "backend/kujakus#toggle"
 #     - "backend/map_editor_shapes#index"
 #     - "backend/map_editors#upload"
+#     - "backend/master_production_natures#unroll"
 #     - "backend/notifications#destroy"
 #     - "backend/notifications#index"
 #     - "backend/notifications#show"

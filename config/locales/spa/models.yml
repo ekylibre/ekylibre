@@ -1223,6 +1223,7 @@ spa:
     production: "Producción"
     production_campaign: "Campaña de producción"
     production_cycle: "Ciclo productivo"
+    # production_nature: "Production nature"
     production_support: "Soporte de producción"
     production_supports: "Soportes de producción"
     production_system: "Sistema de producción"

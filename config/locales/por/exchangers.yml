@@ -2,6 +2,7 @@ por:
   exchangers:
     agro_systemes_soil_analyses: "Analisa AGRO Systèmes solo"
     agro_systemes_water_analyses: "Análises de água AGRO Systèmes"
+    # agroedi_daplos: "Agroedi daplos"
     bovins_croissance_cattle_performance_controls: "Controles de desempenho gado bovins Croissance"
     charentes_alliance_incoming_deliveries: "Charentes Alliance entregas recebidas"
     charentes_alliance_outgoing_deliveries: "Charentes Alliance entregas de saída"
@@ -37,6 +38,7 @@ por:
     fiea_galactea: "Fiea galactea"
     isagri_isacompta_export: "Exportação isacompta Isagri"
     isagri_isacompta_fixed_assets: "Ativos isacompta fixo ISAGRI"
+    # isagri_isacompta_journal_entries: "Isagri isacompta journal entries"
     isagri_isaculture_csv_import: "Isaculture Isagri de importação CSV"
     la_graine_informatique_vinifera_entities: "Entidades vinifera La graine informatique"
     la_graine_informatique_vinifera_products: "La produtos vinifera graine informatique"

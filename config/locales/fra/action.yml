@@ -1350,7 +1350,7 @@ fra:
     fixed_asset_debts: "Dettes sur immobilisations"
     fixed_asset_depreciations: "Dépréciations d’immobilisation"
     fixed_assets: "Immobilisations"
-    france_maaid: "N° AMM"
+    france_maaid: "N° AMM" #?
     from: "À partir du"
     full_name: "Client" #?
     fullscreen: "Plein écran"
@@ -1527,7 +1527,7 @@ fra:
     last_purchases: "Derniers achats"
     last_sales: "Dernières ventes"
     left_balance_amount: "Report du crédit antérieur non imputé et non remboursé" #?
-    legal_dose: "Dose homologuée"
+    legal_dose: "Dose homologuée" #?
     letter: "Lettrer"
     letter_options: "Lettre" #?
     letterable: "Lettrable"
@@ -1796,9 +1796,9 @@ fra:
     permute: "Permuter les fiches"
     personalized_mail: "Envoyer un mail personnalisé"
     pertinence: "%{value}%"
-    pfi_dose: "Dose de référence (IFT)"
-    pfi_treatment_ratio: "IFT traitement"
-    pfi_parcel_ratio: "IFT parcelle"
+    pfi_dose: "Dose de référence (IFT)" #?
+    pfi_parcel_ratio: "IFT parcelle" #?
+    pfi_treatment_ratio: "IFT traitement" #?
     phone: "Tél." #?
     phosphorus_concentration: "Teneur en phosphore (P)"
     phosphorus_concentration_per_hectare: "Teneur en phosphore par hectare" #?

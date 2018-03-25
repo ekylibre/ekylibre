@@ -1250,6 +1250,7 @@ ita:
     production: "Produzione"
     production_campaign: "campagna di produzione"
     production_cycle: "ciclo produttivo"
+    # production_nature: "Production nature"
     production_support: "supporto alla produzione"
     production_supports: "sostiene la produzione"
     production_system: "Sistema di produzione"
