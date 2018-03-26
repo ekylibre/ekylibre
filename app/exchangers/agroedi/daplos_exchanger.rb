@@ -172,7 +172,8 @@ module Agroedi
 
     def record_default_intervention(i, target, procedure)
       start = i.intervention_started_at
-      stop = i.intervention_stopped_at
+      stop = i.intervention_stopped_at if !i.intervention_stopped_at.blank?
+      stop ||= start
 
       # build base procedure
       attributes = {
