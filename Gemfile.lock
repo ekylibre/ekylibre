@@ -1,6 +1,6 @@
 GIT
   remote: git@gitlab.com:ekylibre-integration/planning.git
-  revision: 4327d4daa7d92f7d27871f93d469d16cc5703f98
+  revision: 1a9a69c130fd13b0e0f1f6f57e06319d4224a5f0
   specs:
     planning (0.6.0)
       factory_bot
@@ -199,7 +199,7 @@ GEM
     enumerize (2.2.2)
       activesupport (>= 3.2)
     erubis (2.7.0)
-    et-orbi (1.0.9)
+    et-orbi (1.1.0)
       tzinfo
     eventmachine (1.2.5)
     exception_notification (4.2.2)
@@ -374,7 +374,7 @@ GEM
     parallel (1.12.1)
     parallel_tests (2.21.3)
       parallel
-    parser (2.5.0.4)
+    parser (2.5.0.5)
       ast (~> 2.4.0)
     pg (0.20.0)
     polyglot (0.3.5)
