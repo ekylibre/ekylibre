@@ -118,6 +118,10 @@ $activity_border_size: 5px;
     @include icon-before(settings-ethernet, $font-size: $fs-normal);
   }
 
+  .pfi {
+    @include icon-before(flask, $font-size: $fs-normal);
+  }
+
 }
 
 $chronology-background-color: #EEE;

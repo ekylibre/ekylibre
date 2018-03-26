@@ -14,6 +14,8 @@
           = '/'
           = activity.budget_expenses_amount(campaign).round.l(currency: Preference[:currency], precision: 0)
       .activity-indicators
+        .activity-indicator.pfi
+          = activity.pfi_activity_ratio(campaign)
         .activity-indicator.size
           = activity.size_during(campaign).round(1).l(precision: 1) rescue nil
         .activity-indicator.cumulated-time

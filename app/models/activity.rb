@@ -246,6 +246,18 @@ class Activity < Ekylibre::Record::Base
     end
   end
 
+  def pfi_activity_ratio(campaign)
+    global_area = []
+    production_pfi_per_area = []
+    productions.of_campaign(campaign).each do |production|
+      area_in_hectare = production.net_surface_area.to_d(:hectare)
+      production_pfi_per_area << (production.pfi_parcel_ratio * area_in_hectare).round(2)
+      global_area << area_in_hectare
+    end
+    pfi_activity = (production_pfi_per_area.compact.sum / global_area.compact.sum).round(2)
+    return pfi_activity
+  end
+
   def interventions
     Intervention.of_activity(self)
   end
