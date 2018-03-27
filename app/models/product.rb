@@ -304,6 +304,13 @@ class Product < Ekylibre::Record::Base
 
   store :reading_cache, accessors: Nomen::Indicator.all, coder: ReadingsCoder
 
+  after_commit do
+    if nature.population_counting_unitary? && population.zero?
+      m = movements.build(delta: 1, started_at: Time.now)
+      m.save!
+    end
+  end
+
   # [DEPRECATIONS[
   #  - fixed_asset_id
   # ]DEPRECATIONS]

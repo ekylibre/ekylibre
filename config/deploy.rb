@@ -57,7 +57,7 @@ namespace :yarn do
   task :install do
     on roles(:app) do
       within release_path do
-        execute :yarn, :install
+        execute :yarn, :install, "--ignore-engines"
       end
     end
   end

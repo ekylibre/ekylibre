@@ -49,6 +49,7 @@
 #  project_budget_id             :integer
 #  purchase_invoice_item_id      :integer
 #  purchase_order_item_id        :integer
+#  purchase_order_to_close_id    :integer
 #  role                          :string
 #  sale_item_id                  :integer
 #  shape                         :geometry({:srid=>4326, :type=>"multi_polygon"})

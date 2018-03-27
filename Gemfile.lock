@@ -1,9 +1,10 @@
 GIT
   remote: git@gitlab.com:ekylibre-integration/planning.git
-  revision: d18502ff841e5f5dd7bd07861dd7dbe46d34b5e9
+  revision: df3d348d86f37dcd9ac062d7b6c3a10ed5f90a97
   specs:
-    planning (0.5.1)
+    planning (0.6.0)
       factory_bot
+      jbuilder
       lodash-rails
       rails (~> 4.2.10)
 
@@ -55,7 +56,7 @@ GEM
       minitest (~> 5.1)
       thread_safe (~> 0.3, >= 0.3.4)
       tzinfo (~> 1.1)
-    acts_as_list (0.9.10)
+    acts_as_list (0.9.11)
       activerecord (>= 3.0)
     addressable (2.5.2)
       public_suffix (>= 2.0.2, < 4.0)
@@ -76,7 +77,7 @@ GEM
       sidekiq (>= 2.11)
     arel (6.0.4)
     ast (2.4.0)
-    autoprefixer-rails (8.0.0)
+    autoprefixer-rails (8.2.0)
       execjs
     awesome_nested_set (3.1.4)
       activerecord (>= 4.0.0, < 5.3)
@@ -111,7 +112,7 @@ GEM
       activesupport (>= 3.0.0)
       uniform_notifier (~> 1.10.0)
     burisu-docsplit (0.7.9)
-    byebug (10.0.0)
+    byebug (10.0.1)
     capistrano (3.9.1)
       airbrussh (>= 1.0.0)
       i18n
@@ -142,11 +143,9 @@ GEM
       nokogiri (>= 1.7.0)
       rgeo (~> 0.6.0)
       rgeo-geojson (~> 0.4.3)
-    childprocess (0.8.0)
+    childprocess (0.9.0)
       ffi (~> 1.0, >= 1.0.11)
     climate_control (0.2.0)
-    cocaine (0.5.8)
-      climate_control (>= 0.0.3, < 1.0)
     cocoon (1.2.11)
     codacy-coverage (1.1.8)
       simplecov
@@ -175,10 +174,10 @@ GEM
     debug_inspector (0.0.3)
     deep_cloneable (2.2.2)
       activerecord (>= 3.1.0, < 5.2.0)
-    devise (4.4.1)
+    devise (4.4.3)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
-      railties (>= 4.1.0, < 5.2)
+      railties (>= 4.1.0, < 6.0)
       responders
       warden (~> 1.2.3)
     devise-i18n-views (0.3.7)
@@ -187,7 +186,7 @@ GEM
       devise (>= 4.0.0)
     did_you_mean (0.10.0)
       interception
-    docile (1.1.5)
+    docile (1.3.0)
     domain_name (0.5.20170404)
       unf (>= 0.0.5, < 1.0.0)
     draper (2.1.0)
@@ -197,10 +196,10 @@ GEM
       request_store (~> 1.0)
     ekylibre-ofx-parser (1.2.2)
       hpricot (>= 0.6)
-    enumerize (2.2.1)
+    enumerize (2.2.2)
       activesupport (>= 3.2)
     erubis (2.7.0)
-    et-orbi (1.0.9)
+    et-orbi (1.1.0)
       tzinfo
     eventmachine (1.2.5)
     exception_notification (4.2.2)
@@ -299,7 +298,7 @@ GEM
       ruby_dep (~> 1.2)
     lodash-rails (4.17.5)
       railties (>= 3.1)
-    loofah (2.2.0)
+    loofah (2.2.2)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
     luhn (1.0.2)
@@ -323,12 +322,12 @@ GEM
     mini_mime (1.0.0)
     mini_portile2 (2.3.0)
     minitest (5.11.3)
-    minitest-reporters (1.1.19)
+    minitest-reporters (1.2.0)
       ansi
       builder
       minitest (>= 5.0)
       ruby-progressbar
-    momentjs-rails (2.17.1)
+    momentjs-rails (2.20.1)
       railties (>= 3.1)
     multi_json (1.13.1)
     multi_xml (0.6.0)
@@ -363,19 +362,19 @@ GEM
       oauth2 (~> 1.1)
       omniauth (~> 1.2)
     orm_adapter (0.5.0)
-    paperclip (5.2.1)
+    paperclip (5.3.0)
       activemodel (>= 4.2.0)
       activesupport (>= 4.2.0)
-      cocaine (~> 0.5.5)
       mime-types
       mimemagic (~> 0.3.0)
+      terrapin (~> 0.6.0)
     paperclip-document (0.0.11)
       burisu-docsplit (>= 0.7.9)
       paperclip (>= 3.1, < 6.0)
     parallel (1.12.1)
-    parallel_tests (2.21.2)
+    parallel_tests (2.21.3)
       parallel
-    parser (2.5.0.2)
+    parser (2.5.0.5)
       ast (~> 2.4.0)
     pg (0.20.0)
     polyglot (0.3.5)
@@ -416,15 +415,15 @@ GEM
       activesupport (>= 4.2.0, < 5.0)
       nokogiri (~> 1.6)
       rails-deprecated_sanitizer (>= 1.0.1)
-    rails-html-sanitizer (1.0.3)
-      loofah (~> 2.0)
-    rails_best_practices (1.19.0)
+    rails-html-sanitizer (1.0.4)
+      loofah (~> 2.2, >= 2.2.2)
+    rails_best_practices (1.19.1)
       activesupport
       code_analyzer (>= 0.4.8)
       erubis
       i18n
       json
-      require_all
+      require_all (~> 1.5.0)
       ruby-progressbar
     railties (4.2.10)
       actionpack (= 4.2.10)
@@ -435,7 +434,7 @@ GEM
       rake
     raindrops (0.19.0)
     rake (12.0.0)
-    rb-fsevent (0.10.2)
+    rb-fsevent (0.10.3)
     rb-inotify (0.9.10)
       ffi (>= 0.5.0, < 2)
     rdoc (4.3.0)
@@ -444,7 +443,7 @@ GEM
       redis (>= 3.0.4)
     ref (2.0.0)
     remotipart (1.3.1)
-    request_store (1.4.0)
+    request_store (1.4.1)
       rack (>= 1.4)
     require_all (1.5.0)
     responders (2.4.0)
@@ -488,7 +487,7 @@ GEM
     rubyzip (1.2.1)
     rufus-scheduler (3.4.2)
       et-orbi (~> 1.0)
-    sass (3.5.5)
+    sass (3.5.6)
       sass-listen (~> 4.0.0)
     sass-listen (4.0.0)
       rb-fsevent (~> 0.9, >= 0.9.4)
@@ -511,7 +510,7 @@ GEM
     sdoc (0.4.2)
       json (~> 1.7, >= 1.7.7)
       rdoc (~> 4.0)
-    selenium-webdriver (3.9.0)
+    selenium-webdriver (3.11.0)
       childprocess (~> 0.5)
       rubyzip (~> 1.2)
     sentry-raven (2.7.2)
@@ -542,12 +541,12 @@ GEM
     simple_form (3.5.1)
       actionpack (> 4, < 5.2)
       activemodel (> 4, < 5.2)
-    simplecov (0.15.1)
-      docile (~> 1.1.0)
+    simplecov (0.16.1)
+      docile (~> 1.1)
       json (>= 1.8, < 3)
       simplecov-html (~> 0.10.0)
     simplecov-html (0.10.2)
-    skylight (1.5.1)
+    skylight (1.6.0)
       activesupport (>= 3.0.0)
     socksify (1.7.1)
     spring (2.0.2)
@@ -568,6 +567,8 @@ GEM
     teaspoon-jasmine (2.3.4)
       teaspoon (>= 1.0.0)
     temple (0.8.0)
+    terrapin (0.6.0)
+      climate_control (>= 0.0.3, < 1.0)
     therubyracer (0.12.3)
       libv8 (~> 3.16.14.15)
       ref
@@ -583,7 +584,7 @@ GEM
       i18n
     timecop (0.9.1)
     timeliness (0.3.8)
-    treetop (1.6.9)
+    treetop (1.6.10)
       polyglot (~> 0.3)
     turbolinks (2.5.4)
       coffee-rails
@@ -598,7 +599,7 @@ GEM
       railties (>= 3.1)
     tzinfo (1.2.5)
       thread_safe (~> 0.1)
-    uglifier (4.1.6)
+    uglifier (4.1.8)
       execjs (>= 0.3.0, < 3)
     unf (0.1.4)
       unf_ext
@@ -611,7 +612,7 @@ GEM
     url (0.3.2)
     uuidtools (2.1.5)
     vuejs-rails (2.5.13)
-    wannabe_bool (0.7.0)
+    wannabe_bool (0.7.1)
     warden (1.2.7)
       rack (>= 1.0)
     wasabi (3.5.0)

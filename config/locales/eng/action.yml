@@ -1630,6 +1630,7 @@ eng:
     nature: "Type"
     nature_changed: "Le type des animaux a changé" #?!
     natures: "Types" #?
+    needed_quantity: "Needed quantity"
     net_income: "Net income"
     net_mass: "Net mass"
     net_production_sales: "Net production sales"
@@ -1819,6 +1820,7 @@ eng:
     quality: "Quality"
     quandl: "Quandl" #?
     quantity: "Quantity"
+    quantity_available: "Quantity available"
     query: "Query:" #?
     raw_income: "Raw income"
     reading_tasks: "Reading tasks" #?
@@ -2102,6 +2104,7 @@ eng:
     validated: "Validated"
     values: "Values"
     variable_indicators: "Variable indicators"
+    variant: "Variant" #?
     variants: "Variants" #?
     vat: "VAT"
     vat_rate: "VAT rate"
@@ -2118,10 +2121,12 @@ eng:
     wind_speed: "Wind speed"
     with_fixed_assets_depreciations: "With fixed assets depreciations"
     workers: "Workers"
+    workforce: "Workforce"
     working_duration: "Working duration"
     working_hectare_costs: "Working hectare costs" #?
     working_sets_stocks: "Working sets stocks" #?
     working_times: "Working times of %{name}" #?
+    workload: "Workload"
     x_cashes:
       one: "%{count} cash"
       other: "%{count} cashes"
