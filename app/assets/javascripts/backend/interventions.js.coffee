@@ -349,9 +349,9 @@
 
   $(document).on "keyup change dp.change", ".nested-fields.working-period:first-child input.intervention-started-at", (e) ->
     value = $(this).val()
-    $('#intervention_working_periods_attributes_0_stopped_at').val(moment(new Date(value)).add(1, 'hours').format('Y-MM-DD H:m'))
+    started_at = $('#intervention_working_periods_attributes_0_started_at').val()
     $(this).each ->
-      E.interventions.updateAvailabilityInstant()
+      E.interventions.updateAvailabilityInstant(started_at)
 
 
   $(document).on "selector:change", 'input[data-selector-id="intervention_doer_product_id"], input[data-selector-id="intervention_tool_product_id"]', (event) ->
