@@ -437,7 +437,12 @@ class ProductNatureVariant < Ekylibre::Record::Base
 
   # Return current stock of all products link to the variant
   def current_stock
-    products.map(&:population).compact.sum.to_f
+    products
+      .select { |product| product.dead_at.nil? || product.dead_at >= Time.now }
+      .map(&:population)
+      .compact
+      .sum
+      .to_f
   end
 
   # Return current quantity of all products link to the variant currently ordered or invoiced but not delivered

@@ -415,11 +415,50 @@ activity_inspection_point_natures:
   updater_id:
     type: integer
     references: user
+activity_production_batches:
+  activity_production_id:
+    type: integer
+    references: activity_production
+  created_at:
+    type: datetime
+    required: true
+  day_interval:
+    type: integer
+  id:
+    type: integer
+    required: true
+  irregular_batch:
+    type: boolean
+    default: false
+  number:
+    type: integer
+  updated_at:
+    type: datetime
+    required: true
+activity_production_irregular_batches:
+  activity_production_batch_id:
+    type: integer
+    references: ''
+  area:
+    type: decimal
+  created_at:
+    type: datetime
+    required: true
+  estimated_sowing_date:
+    type: date
+  id:
+    type: integer
+    required: true
+  updated_at:
+    type: datetime
+    required: true
 activity_productions:
   activity_id:
     type: integer
     references: activity
     required: true
+  batch_planting:
+    type: boolean
   campaign_id:
     type: integer
     references: campaign
@@ -448,6 +487,10 @@ activity_productions:
     type: boolean
     required: true
     default: false
+  number_of_batch:
+    type: integer
+  predicated_sowing_date:
+    type: date
   rank_number:
     type: integer
     required: true
@@ -464,6 +507,8 @@ activity_productions:
     precision: 19
     scale: 4
     required: true
+  sowing_interval:
+    type: integer
   started_on:
     type: date
   state:
@@ -484,6 +529,9 @@ activity_productions:
   tactic_id:
     type: integer
     references: activity_tactic
+  technical_itinerary_id:
+    type: integer
+    references: technical_itinerary
   updated_at:
     type: datetime
     required: true
@@ -1751,6 +1799,32 @@ custom_fields:
   updater_id:
     type: integer
     references: user
+daily_charges:
+  activity_production_id:
+    type: integer
+    references: activity_production
+  area:
+    type: decimal
+  created_at:
+    type: datetime
+    required: true
+  id:
+    type: integer
+    required: true
+  intervention_template_product_parameter_id:
+    type: integer
+    references: intervention_template/product_parameter
+  product_general_type:
+    type: string
+  product_type:
+    type: string
+  quantity:
+    type: decimal
+  reference_date:
+    type: date
+  updated_at:
+    type: datetime
+    required: true
 dashboards:
   created_at:
     type: datetime
@@ -3598,7 +3672,7 @@ intervention_templates:
     required: true
   creator_id:
     type: integer
-    references: ''
+    references: user
   description:
     type: string
   id:
@@ -3617,7 +3691,7 @@ intervention_templates:
     required: true
   updater_id:
     type: integer
-    references: ''
+    references: user
   workflow:
     type: decimal
 intervention_working_periods:
@@ -4067,6 +4141,9 @@ journal_entry_items:
   entry_number:
     type: string
     required: true
+  equipment_id:
+    type: integer
+    references: equipment
   financial_year_id:
     type: integer
     references: financial_year
@@ -4096,6 +4173,9 @@ journal_entry_items:
   printed_on:
     type: date
     required: true
+  project_budget_id:
+    type: integer
+    references: project_budget
   real_balance:
     type: decimal
     precision: 19
@@ -5097,6 +5177,9 @@ parcel_items:
   purchase_order_item_id:
     type: integer
     references: purchase_item
+  purchase_order_to_close_id:
+    type: integer
+    references: purchase_order
   role:
     type: string
   sale_item_id:
@@ -7849,7 +7932,7 @@ technical_itineraries:
     required: true
   creator_id:
     type: integer
-    references: ''
+    references: user
   description:
     type: string
   id:
@@ -7862,7 +7945,7 @@ technical_itineraries:
     required: true
   updater_id:
     type: integer
-    references: ''
+    references: user
 technical_itinerary_intervention_templates:
   created_at:
     type: datetime

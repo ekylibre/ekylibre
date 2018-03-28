@@ -12163,6 +12163,13 @@ CREATE INDEX index_financial_years_on_updater_id ON financial_years USING btree 
 
 
 --
+-- Name: index_fixed_asset_depreciations_on_accountable; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_fixed_asset_depreciations_on_accountable ON fixed_asset_depreciations USING btree (accountable);
+
+
+--
 -- Name: index_fixed_asset_depreciations_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -12195,6 +12202,20 @@ CREATE INDEX index_fixed_asset_depreciations_on_fixed_asset_id ON fixed_asset_de
 --
 
 CREATE INDEX index_fixed_asset_depreciations_on_journal_entry_id ON fixed_asset_depreciations USING btree (journal_entry_id);
+
+
+--
+-- Name: index_fixed_asset_depreciations_on_locked; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_fixed_asset_depreciations_on_locked ON fixed_asset_depreciations USING btree (locked);
+
+
+--
+-- Name: index_fixed_asset_depreciations_on_stopped_on; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_fixed_asset_depreciations_on_stopped_on ON fixed_asset_depreciations USING btree (stopped_on);
 
 
 --
@@ -12258,6 +12279,13 @@ CREATE INDEX index_fixed_assets_on_journal_entry_id ON fixed_assets USING btree 
 --
 
 CREATE INDEX index_fixed_assets_on_journal_id ON fixed_assets USING btree (journal_id);
+
+
+--
+-- Name: index_fixed_assets_on_number; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_fixed_assets_on_number ON fixed_assets USING btree (number);
 
 
 --
@@ -19114,3 +19142,4 @@ INSERT INTO schema_migrations (version) VALUES ('20180313084623');
 
 INSERT INTO schema_migrations (version) VALUES ('20180314152004');
 
+INSERT INTO schema_migrations (version) VALUES ('20180321092840');
