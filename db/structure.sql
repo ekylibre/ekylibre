@@ -3911,7 +3911,7 @@ CREATE TABLE intervention_proposals (
     id integer NOT NULL,
     technical_itinerary_intervention_template_id integer,
     estimated_date date,
-    area integer,
+    area numeric,
     activity_production_id integer,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
@@ -19223,5 +19223,5 @@ INSERT INTO schema_migrations (version) VALUES ('20180314152004');
 
 INSERT INTO schema_migrations (version) VALUES ('20180321092840');
 
-INSERT INTO schema_migrations (version) VALUES ('20180328095910');
+INSERT INTO schema_migrations (version) VALUES ('20180328132615');
 
