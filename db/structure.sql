@@ -3904,6 +3904,40 @@ ALTER SEQUENCE intervention_participations_id_seq OWNED BY intervention_particip
 
 
 --
+-- Name: intervention_proposals; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE intervention_proposals (
+    id integer NOT NULL,
+    technical_itinerary_intervention_template_id integer,
+    estimated_date date,
+    area numeric,
+    activity_production_id integer,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: intervention_proposals_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE intervention_proposals_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: intervention_proposals_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE intervention_proposals_id_seq OWNED BY intervention_proposals.id;
+
+
+--
 -- Name: intervention_template_activities; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -7907,6 +7941,13 @@ ALTER TABLE ONLY intervention_participations ALTER COLUMN id SET DEFAULT nextval
 
 
 --
+-- Name: intervention_proposals id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY intervention_proposals ALTER COLUMN id SET DEFAULT nextval('intervention_proposals_id_seq'::regclass);
+
+
+--
 -- Name: intervention_template_activities id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -9107,6 +9148,14 @@ ALTER TABLE ONLY intervention_parameters
 
 ALTER TABLE ONLY intervention_participations
     ADD CONSTRAINT intervention_participations_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: intervention_proposals intervention_proposals_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY intervention_proposals
+    ADD CONSTRAINT intervention_proposals_pkey PRIMARY KEY (id);
 
 
 --
@@ -13238,6 +13287,13 @@ CREATE INDEX index_intervention_participations_on_updated_at ON intervention_par
 --
 
 CREATE INDEX index_intervention_participations_on_updater_id ON intervention_participations USING btree (updater_id);
+
+
+--
+-- Name: index_intervention_proposals_on_activity_production_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_intervention_proposals_on_activity_production_id ON intervention_proposals USING btree (activity_production_id);
 
 
 --
@@ -17945,6 +18001,13 @@ CREATE INDEX product_nature_variant_id ON intervention_template_product_paramete
 
 
 --
+-- Name: technical_itinerary_intervention_template_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX technical_itinerary_intervention_template_id ON intervention_proposals USING btree (technical_itinerary_intervention_template_id);
+
+
+--
 -- Name: template_itinerary_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -18233,6 +18296,14 @@ ALTER TABLE ONLY purchase_items
 
 
 --
+-- Name: intervention_proposals fk_rails_655e10510a; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY intervention_proposals
+    ADD CONSTRAINT fk_rails_655e10510a FOREIGN KEY (technical_itinerary_intervention_template_id) REFERENCES technical_itinerary_intervention_templates(id);
+
+
+--
 -- Name: intervention_template_product_parameters fk_rails_65829c9376; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -18438,6 +18509,14 @@ ALTER TABLE ONLY technical_itineraries
 
 ALTER TABLE ONLY payslips
     ADD CONSTRAINT fk_rails_e319c31e6b FOREIGN KEY (journal_entry_id) REFERENCES journal_entries(id);
+
+
+--
+-- Name: intervention_proposals fk_rails_e3758de3f6; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY intervention_proposals
+    ADD CONSTRAINT fk_rails_e3758de3f6 FOREIGN KEY (activity_production_id) REFERENCES activity_productions(id);
 
 
 --
@@ -19143,4 +19222,6 @@ INSERT INTO schema_migrations (version) VALUES ('20180313084623');
 INSERT INTO schema_migrations (version) VALUES ('20180314152004');
 
 INSERT INTO schema_migrations (version) VALUES ('20180321092840');
+
+INSERT INTO schema_migrations (version) VALUES ('20180328132615');
 
