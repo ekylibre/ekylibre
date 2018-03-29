@@ -94,7 +94,13 @@ gem 'sidekiq-unique-jobs', '~> 4.0'
 gem 'unicorn', group: :production
 
 # Use Capistrano for deployment
-# gem 'capistrano-rails', group: :development
+group :development do
+  gem 'capistrano', '3.9.1'
+  gem 'capistrano-bundler', require: false
+  gem 'capistrano-rails', require: false
+  gem 'capistrano-rails-console', require: false
+  gem 'capistrano-rbenv', require: false
+end
 
 # Exception management
 gem 'exception_notification'
