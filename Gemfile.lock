@@ -1,6 +1,6 @@
 GIT
   remote: git@gitlab.com:ekylibre-integration/planning.git
-  revision: bca0308d6b12fcf56bd345f2eb2491413026ba73
+  revision: ac5cd17d7a87aea5823a5d4e7ceaf3374a2c22c0
   specs:
     planning (0.6.0)
       factory_bot
@@ -137,7 +137,7 @@ GEM
     capybara-webkit (1.15.0)
       capybara (>= 2.3, < 4.0)
       json
-    charlock_holmes (0.7.5)
+    charlock_holmes (0.7.6)
     charta (0.1.9)
       json (>= 1.8.0)
       nokogiri (>= 1.7.0)
@@ -302,7 +302,7 @@ GEM
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
     luhn (1.0.2)
-    lumberjack (1.0.12)
+    lumberjack (1.0.13)
     mail (2.6.6)
       mime-types (>= 1.16, < 4)
     mechanize (2.7.5)
