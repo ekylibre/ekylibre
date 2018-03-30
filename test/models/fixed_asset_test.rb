@@ -169,7 +169,7 @@ class FixedAssetTest < ActiveSupport::TestCase
 
   private
 
-  def depreciate_up_to(depreciations, date)
+  def depreciate_up_to(_depreciations, date)
     depreciations = FixedAssetDepreciation.with_active_asset.up_to(date)
     success = true
 

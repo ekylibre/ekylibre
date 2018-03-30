@@ -489,7 +489,7 @@ class Entity < Ekylibre::Record::Base
       # Add summary observation of the merge
       if author
         content = "Merged entity (ID=#{other.id}):\n"
-        other.attributes.sort.each do |attr, value|
+        other.attributes.sort.each do |attr, _value|
           value = other.send(attr).to_s
           content << "  - #{Entity.human_attribute_name(attr)} : #{value}\n" if value.present?
         end

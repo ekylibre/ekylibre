@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 module Aggeratio
   class DocumentFragment < Base
     def initialize(aggregator)
