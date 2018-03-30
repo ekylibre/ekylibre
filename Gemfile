@@ -211,9 +211,9 @@ gem 'luhn'
 # For interval selector
 gem 'bootstrap-slider-rails'
 
-# gem 'planning', git: 'git@gitlab.com:ekylibre-integration/planning.git'
+gem 'planning', git: 'git@gitlab.com:ekylibre-integration/planning.git'
 
-gem 'planning', path: '../planning'
+#gem 'planning', path: '../planning'
 
 group :development do
   gem 'bullet', '< 5.6.0'
