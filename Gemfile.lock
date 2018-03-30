@@ -1,6 +1,6 @@
 GIT
   remote: git@gitlab.com:ekylibre-integration/planning.git
-  revision: 1e8c0fb115a0e779733e793dd7dc9a1ec4ce5998
+  revision: ac5cd17d7a87aea5823a5d4e7ceaf3374a2c22c0
   specs:
     planning (0.6.0)
       factory_bot
