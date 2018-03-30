@@ -87,7 +87,8 @@
 //= require chart.js/dist/Chart.min.js
 //= require vue-chartjs/dist/vue-chartjs.min.js
 
-//= require chart/vue-chart
+//= require ext-plugins/vuejs/vue-chartjs
+
 
 var visualization = {};
 var mapeditor = {};
