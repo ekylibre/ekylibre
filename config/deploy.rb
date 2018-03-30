@@ -24,7 +24,7 @@ set :repo_url, 'git@github.com:ekylibre/integration-cer-cneidf.git'
 # set :pty, true
 
 # Default value for :linked_files is []
-append :linked_files, 'config/database.yml', 'config/secrets.yml', 'config/application.yml', 'config/tenants.yml'
+append :linked_files, 'config/database.yml', 'config/secrets.yml', 'config/application.yml', 'config/tenants.yml', 'db/lexicon/data.sql'
 
 # Default value for linked_dirs is []
 append :linked_dirs, 'log', 'tmp/pids', 'tmp/cache', 'tmp/sockets', 'public/system', 'tmp/archives', 'private'
