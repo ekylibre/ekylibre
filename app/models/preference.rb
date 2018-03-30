@@ -108,7 +108,7 @@ class Preference < Ekylibre::Record::Base
       unless self.nature.values.include?(nature.to_s)
         raise ArgumentError, "Nature (#{nature.inspect}) is unacceptable. #{self.nature.values.to_sentence} are accepted."
       end
-      @@reference[name] = { name: :name, nature: nature.to_sym, default: default_value }
+      @@reference[name] = { name: name, nature: nature.to_sym, default: default_value }
     end
 
     def check!
@@ -204,7 +204,6 @@ class Preference < Ekylibre::Record::Base
   prefer :bookkeep_in_draft, :boolean, true
   prefer :detail_payments_in_deposit_bookkeeping, :boolean, true
   prefer :use_global_search, :boolean, false
-  prefer :use_contextual_help, :boolean, false
   prefer :use_entity_codes_for_account_numbers, :boolean, true
   prefer :sales_conditions, :string, ''
   prefer :accounting_system, :accounting_system, Nomen::AccountingSystem.default

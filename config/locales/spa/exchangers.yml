@@ -19,7 +19,7 @@ spa:
     ekylibre_entities: "Entidades Ekylibre"
     ekylibre_equipments: "Equipos Ekylibre"
     ekylibre_equipments_json: "Ekylibre Equipos JSON"
-    # ekylibre_georeadings: "Ekylibre Georeadings"
+    ekylibre_georeadings: "Geocronizaciones de Ekylibre"
     ekylibre_incoming_payments: "Pagos entrantes Ekylibre"
     ekylibre_interventions: "Intervenciones Ekylibre"
     ekylibre_land_parcels: "Parcelas de tierra Ekylibre"
