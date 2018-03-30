@@ -634,6 +634,12 @@ Rails.application.routes.draw do
       end
     end
 
+    resources :schedulings do
+      collection do
+        get :weekly_daily_charges
+      end
+    end
+
     namespace :interventions do
       resources :costs, only: [] do
         collection do
