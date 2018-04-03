@@ -1,6 +1,6 @@
 GIT
   remote: git@gitlab.com:ekylibre-integration/planning.git
-  revision: dc6fb749660d7b9be98cc2f557e21e23ef73548d
+  revision: 9e8324effd80d2e593865dcb03ba8a3cc1e42379
   specs:
     planning (0.6.1)
       factory_bot
@@ -112,7 +112,7 @@ GEM
       activesupport (>= 3.0.0)
       uniform_notifier (~> 1.10.0)
     burisu-docsplit (0.7.9)
-    byebug (10.0.1)
+    byebug (10.0.2)
     capistrano (3.9.1)
       airbrussh (>= 1.0.0)
       i18n
@@ -223,7 +223,7 @@ GEM
     ffi (1.9.23)
     figaro (1.1.1)
       thor (~> 0.14)
-    font-awesome-sass (5.0.6.2)
+    font-awesome-sass (5.0.9)
       sass (>= 3.2)
     foreman (0.84.0)
       thor (~> 0.19.1)
