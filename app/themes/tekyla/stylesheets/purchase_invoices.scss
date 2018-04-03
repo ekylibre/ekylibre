@@ -225,3 +225,16 @@
     }
   }
 }
+
+.fieldset .fieldset-fields .nested-fields .input-append {
+  .invoice-unit-amount, .pre-tax-invoice-total, .invoice-total, .middle-input {
+    width: 7em;
+  }
+}
+
+.control-group .controls {
+  .order-vat-total, .invoice-vat-total {
+    max-width: none;
+  }
+
+}
