@@ -182,9 +182,17 @@ class PurchaseItem < Ekylibre::Record::Base
     end
     true
   end
+
   validate do
     errors.add(:currency, :invalid) if purchase && currency != purchase_currency
     errors.add(:quantity, :invalid) if self.quantity.zero?
+
+    if fixed
+      # Errors linked to fixed assets
+
+      errors.add(:variant, :asset_account) unless variant.fixed_asset_account
+      errors.add(:variant, :asset_expenses_account) unless variant.fixed_asset_expenses_account
+    end
   end
 
   after_save do
