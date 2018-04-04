@@ -228,13 +228,16 @@
 
 .fieldset .fieldset-fields .nested-fields .input-append {
   .invoice-unit-amount, .pre-tax-invoice-total, .invoice-total, .middle-input {
-    width: 7em;
+    width: 10em;
   }
 }
 
-.control-group .controls {
-  .order-vat-total, .invoice-vat-total {
+.purchase_order_items_tax_id, .purchase_invoice_items_tax_id {
+  .controls {
     max-width: none;
-  }
+    .order-vat-total, .invoice-vat-total {
+      max-width: none;
+    }
 
+  }
 }
