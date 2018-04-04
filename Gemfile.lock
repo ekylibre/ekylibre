@@ -1,6 +1,7 @@
 GIT
   remote: git@gitlab.com:ekylibre-integration/planning.git
-  revision: c240008cdd44a29d3ef809d22c1076682d40dc50
+  revision: b1adf3ee4e5ac93e6134772c2a3894500e674f44
+  branch: dev
   specs:
     planning (0.6.1)
       factory_bot
@@ -219,7 +220,7 @@ GEM
       faraday_middleware (>= 0.9)
       loofah (>= 2.0)
       sax-machine (>= 1.0)
-    ffaker (2.8.1)
+    ffaker (2.9.0)
     ffi (1.9.23)
     figaro (1.1.1)
       thor (~> 0.14)
