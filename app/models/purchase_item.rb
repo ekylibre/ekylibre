@@ -192,7 +192,10 @@ class PurchaseItem < Ekylibre::Record::Base
 
       errors.add(:variant, :asset_account) unless variant.fixed_asset_account
       errors.add(:variant, :asset_expenses_account) unless variant.fixed_asset_expenses_account
-      errors.add(:variant, :asset_depreciation_method) if variant.fixed_asset_depreciation_method.blank?
+
+      depreciation_method = variant.fixed_asset_depreciation_method
+      errors.add(:variant, :asset_depreciation_method) if depreciation_method.blank?
+      errors.add(:variant, :asset_wrong_depreciation_method) if depreciation_method.to_sym != :simplified_linear
     end
   end
 
@@ -245,7 +248,6 @@ class PurchaseItem < Ekylibre::Record::Base
     end
     asset_attributes[:name] = asset_name
 
-    byebug
     build_fixed_asset(asset_attributes)
   end
 
