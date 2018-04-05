@@ -192,7 +192,7 @@ eng:
           greater_than_undelivered_quantity: "The quantity of %{product} to deliver is greater than the available quantity (%{maximum}%{unit})"
         purchase_item:
           attributes:
-            fixed_asset:
+            variant:
               asset_account: "Invalid asset account"
               asset_expenses_account: "Invalid asset expenses account"
           building_can_not_receive_product: "The building %{building} can not receive %{product}, it already contains %{contained_product}."
