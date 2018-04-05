@@ -78,16 +78,38 @@
 
     $(document).on 'change', '.nested-item-form .fixed-asset-fields .purchase_invoice_items_fixed input[type="checkbox"]', (event) ->
       targettedElement = $(event.target)
-      fixedAssetFields = targettedElement.closest('.fixed-asset-fields')
+      E.PurchaseInvoices.displayAssetsBlock(targettedElement)
+
+
+    $(document).on 'change', '.nested-item-form .fixed-asset-fields .purchase_invoice_items_preexisting_asset input[type="checkbox"]', (event) ->
+      targettedElement = $(event.target)
+      E.PurchaseInvoices.manageExistingAssetDisplay(targettedElement)
+
+
+  E.PurchaseInvoices =
+    displayAssetsBlock: (fixedCheckbox) ->
+      fixedAssetFields = fixedCheckbox.closest('.fixed-asset-fields')
       assetBlock = $(fixedAssetFields).find('.assets')
 
-      if targettedElement.is(':checked')
+      if fixedCheckbox.is(':checked')
         assetBlock.css('display', 'block')
       else
         assetBlock.css('display', 'none')
 
 
-  E.PurchaseInvoices =
+    manageExistingAssetDisplay: (preexistingCheckbox) ->
+      assetsFields = preexistingCheckbox.closest('.assets')
+      existingAssetBlock = $(assetsFields).find('.existing_asset')
+      newAssetBlock = $(assetsFields).find('.new_asset')
+
+      if preexistingCheckbox.is(':checked')
+        existingAssetBlock.css('display', 'block')
+        newAssetBlock.css('display', 'none')
+      else
+        existingAssetBlock.css('display', 'none')
+        newAssetBlock.css('display', 'block')
+
+
     fillStocksCounters: (event) ->
       currentForm = $(event.target).closest('.nested-item-form')
       variantId = $(currentForm).find('.purchase_invoice_items_variant .selector-value').val()
@@ -110,5 +132,6 @@
           newStock = parseFloat(data.stock) - parseFloat(quantity)
           $(currentForm).find('.merchandise-stock-after-invoice .stock-value').text(newStock)
           $(currentForm).find('.merchandise-stock-after-invoice .stock-unit').text(data.unit.name)
+
 
 ) ekylibre, jQuery
