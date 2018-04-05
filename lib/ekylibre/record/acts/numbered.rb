@@ -17,6 +17,8 @@ module Ekylibre
             options = args.extract_options!
             numbered_column = args.shift || :number
 
+            @unless = options[:unless]
+
             options = { start: '00000001' }.merge(options)
                                            .merge(usage: options[:usage] || main_class.name.tableize)
                                            .merge(column: numbered_column)

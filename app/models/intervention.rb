@@ -58,6 +58,7 @@ class Intervention < Ekylibre::Record::Base
   include CastGroupable
   include PeriodicCalculable
   include Customizable
+  include Planning::Intervention
   attr_readonly :procedure_name, :production_id, :currency
   refers_to :currency
   enumerize :procedure_name, in: Procedo.procedure_names, i18n_scope: ['procedures']
