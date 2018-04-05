@@ -3914,7 +3914,8 @@ CREATE TABLE intervention_proposals (
     area numeric,
     activity_production_id integer,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    number integer
 );
 
 
@@ -19226,4 +19227,6 @@ INSERT INTO schema_migrations (version) VALUES ('20180321092840');
 INSERT INTO schema_migrations (version) VALUES ('20180328132615');
 
 INSERT INTO schema_migrations (version) VALUES ('20180330121129');
+
+INSERT INTO schema_migrations (version) VALUES ('20180405102304');
 
