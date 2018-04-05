@@ -22,7 +22,7 @@
       - datas = { participation: f.object.participation.id  } unless f.object.participation.nil?
       %div{ class: "has-intervention-participations picto picto-#{participation_picto}", data: datas }
       - if participation_picto == 'timer'
-        -# .intervention-participation
+        .intervention-participation
 
     = modal(id: "working_times", class: "working-times", size: :large) do
       .modal-body
