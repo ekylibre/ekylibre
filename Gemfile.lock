@@ -136,7 +136,7 @@ GEM
     capybara-webkit (1.15.0)
       capybara (>= 2.3, < 4.0)
       json
-    charlock_holmes (0.7.5)
+    charlock_holmes (0.7.6)
     charta (0.1.9)
       json (>= 1.8.0)
       nokogiri (>= 1.7.0)
@@ -301,7 +301,7 @@ GEM
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
     luhn (1.0.2)
-    lumberjack (1.0.12)
+    lumberjack (1.0.13)
     mail (2.6.6)
       mime-types (>= 1.16, < 4)
     mechanize (2.7.5)

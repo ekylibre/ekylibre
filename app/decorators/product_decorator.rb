@@ -8,4 +8,16 @@ class ProductDecorator < Draper::Decorator
   def not_worker_or_equipment?
     !object.is_a?(Worker) && !object.is_a?(Equipment)
   end
+
+  def participation?(intervention_id)
+    participation = object
+                       .intervention_participations
+                       .find_by(intervention_id: intervention_id)
+
+    participation.present?
+  end
+
+  def no_participation?(intervention_id)
+    !self.participation?(intervention_id)
+  end
 end
