@@ -182,9 +182,21 @@ class PurchaseItem < Ekylibre::Record::Base
     end
     true
   end
+
   validate do
     errors.add(:currency, :invalid) if purchase && currency != purchase_currency
     errors.add(:quantity, :invalid) if self.quantity.zero?
+
+    if fixed
+      # Errors linked to fixed assets
+
+      errors.add(:variant, :asset_account) unless variant.fixed_asset_account
+      errors.add(:variant, :asset_expenses_account) unless variant.fixed_asset_expenses_account
+
+      depreciation_method = variant.fixed_asset_depreciation_method
+      errors.add(:variant, :asset_depreciation_method) if depreciation_method.blank?
+      errors.add(:variant, :asset_wrong_depreciation_method) if depreciation_method.to_sym != :simplified_linear
+    end
   end
 
   after_save do

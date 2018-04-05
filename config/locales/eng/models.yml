@@ -191,6 +191,12 @@ eng:
         outgoing_parcel_item:
           greater_than_undelivered_quantity: "The quantity of %{product} to deliver is greater than the available quantity (%{maximum}%{unit})"
         purchase_item:
+          attributes:
+            variant:
+              asset_account: "Invalid asset account"
+              asset_expenses_account: "Invalid asset expenses account"
+              asset_depreciation_method: "Invalid asset depreciation method"
+              asset_wrong_depreciation_method: "Depreciation method must be simplified linear"
           building_can_not_receive_product: "The building %{building} can not receive %{product}, it already contains %{contained_product}."
           serial_already_used_with_an_other_product: "%{attribute} has been already used for an other product of the same supplier"
         sale_item:
