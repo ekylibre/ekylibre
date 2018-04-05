@@ -192,6 +192,7 @@ class PurchaseItem < Ekylibre::Record::Base
 
       errors.add(:variant, :asset_account) unless variant.fixed_asset_account
       errors.add(:variant, :asset_expenses_account) unless variant.fixed_asset_expenses_account
+      errors.add(:variant, :asset_depreciation_method) if variant.fixed_asset_depreciation_method.blank?
     end
   end
 
@@ -244,6 +245,7 @@ class PurchaseItem < Ekylibre::Record::Base
     end
     asset_attributes[:name] = asset_name
 
+    byebug
     build_fixed_asset(asset_attributes)
   end
 

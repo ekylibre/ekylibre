@@ -195,6 +195,7 @@ eng:
             variant:
               asset_account: "Invalid asset account"
               asset_expenses_account: "Invalid asset expenses account"
+              asset_depreciation_method: "Invalid asset depreciation method"
           building_can_not_receive_product: "The building %{building} can not receive %{product}, it already contains %{contained_product}."
           serial_already_used_with_an_other_product: "%{attribute} has been already used for an other product of the same supplier"
         sale_item:
