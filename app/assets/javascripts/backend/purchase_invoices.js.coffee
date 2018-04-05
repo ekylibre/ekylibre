@@ -76,6 +76,16 @@
         $(element).attr('id', newId)
         $(element).attr('name', newName)
 
+    $(document).on 'change', '.nested-item-form .fixed-asset-fields .purchase_invoice_items_fixed input[type="checkbox"]', (event) ->
+      targettedElement = $(event.target)
+      fixedAssetFields = targettedElement.closest('.fixed-asset-fields')
+      assetBlock = $(fixedAssetFields).find('.assets')
+
+      if targettedElement.is(':checked')
+        assetBlock.css('display', 'block')
+      else
+        assetBlock.css('display', 'none')
+
 
   E.PurchaseInvoices =
     fillStocksCounters: (event) ->

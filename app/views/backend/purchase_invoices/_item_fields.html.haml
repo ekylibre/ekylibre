@@ -47,13 +47,13 @@
       - display = ""
       - display = "display: none;" unless item && item.variant && item.variant.depreciable?
       .fixed-asset-fields{style: display, data: {"when-item": "depreciable", "when-display-value": 'true'}}
-        = f.input :fixed, show: :assets
+        = f.input :fixed
         - display = "display: none;" unless item.fixed
-        #assets{style: display}
+        .assets{style: display}
           = f.input :preexisting_asset, show: :existing_asset, hide: :new_asset, label: :asset_exists.tl
-          #existing_asset{style: display}
+          .existing_asset{style: display}
             = f.referenced_association :fixed_asset, source: :drafts
-          #new_asset
+          .new_asset
             = f.referenced_association(:depreciable_product)
 
     %td.form-field.decimal
