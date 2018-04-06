@@ -37,6 +37,26 @@
     $(document).on 'selector:change', '.invoice-variant.selector-search', (event) ->
       E.PurchaseInvoices.fillStocksCounters(event)
 
+      targettedElement = $(event.target)
+      fieldAssetFields = targettedElement.closest('.merchandise').find('.fixed-asset-fields')
+
+      fixedAssetCheckbox = fieldAssetFields.find('.purchase_invoice_items_fixed input[type="checkbox"]')
+      preexistingCheckbox = fieldAssetFields.find('.purchase_invoice_items_preexisting_asset input[type="checkbox"]')
+      depreciableProductField = fieldAssetFields.find('.purchase_invoice_items_depreciable_product .selector-value')
+      fixedAssetField = fieldAssetFields.find('.purchase_invoice_items_fixed_asset .selector-value')
+      stoppedOnField = fieldAssetFields.find('.purchase_invoice_items_fixed_asset_stopped_on input')
+
+      fixedAssetCheckbox.prop('checked', false)
+      fixedAssetCheckbox.trigger('change')
+
+      preexistingCheckbox.prop('checked', false)
+      preexistingCheckbox.trigger('change')
+
+      depreciableProductField.val('')
+      fixedAssetField.val('')
+      stoppedOnField.val('')
+
+
     $(document).on 'change', '.nested-fields .form-field .purchase_invoice_items_quantity .invoice-quantity', (event) ->
       E.PurchaseInvoices.fillStocksCounters(event)
 
@@ -129,7 +149,7 @@
       $.ajax
         url: "/backend/variants/fixed_assets/#{variantId}/fixed_assets_datas",
         success: (data, status, request) ->
-          if data.depreciation_method == "simplified_linear"
+          if data.depreciation_method == "simplified_linear" || data.depreciation_method == ""
             stoppedOnFieldBlock.css('display', 'none')
           else
             stoppedOnFieldBlock.css('display', 'block')
