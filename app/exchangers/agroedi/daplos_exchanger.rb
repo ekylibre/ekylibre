@@ -64,21 +64,88 @@ module Agroedi
           # get intervention nature
           intervention_agroedi_code = RegisteredAgroediCode.where(repository_id: 14, reference_code: i.intervention_nature_edicode).first
           w.info "intervention_agroedi_code : #{intervention_agroedi_code.reference_label}".inspect.green
-          # escape sowing and harvesting for the moment
-          next if %w[sowing harvesting].any? { |code| procedures_transcode[intervention_agroedi_code.reference_code].to_s.include? code }
-          w.info i.intervention_nature_edicode.inspect.green
-
-          procedure = Procedo.find(procedures_transcode[intervention_agroedi_code.reference_code]) if intervention_agroedi_code
-          w.info "procedure : #{procedure.name}".inspect.yellow
-
-          # record intervention
-          record_default_intervention(i, target, procedure)
+            w.info i.intervention_nature_edicode.inspect.green
+            transcoded_procedure = procedures_transcode[intervention_agroedi_code.reference_code]
+            procedure = Procedo.find(transcoded_procedure) if intervention_agroedi_code
+            w.info "procedure : #{procedure.name}".inspect.yellow
+          next if %w[harvesting].any? { |code| transcoded_procedure.to_s.include? code }
+          if %w[sowing].any? { |code| transcoded_procedure.to_s.include? code }
+            record_complex_intervention(i, target, procedure)
+          else
+            record_default_intervention(i, target, procedure)
+          end
         end
         w.check_point
       end
     end
 
     protected
+
+    def population_conversion(product, population, unit, unit_target_dose = nil, working_area = 0.0.in_square_meter)
+      w.info "Method population_conversion - population : #{population.inspect}"
+      w.info "Method population_conversion - unit : #{unit.inspect}"
+      w.info "Method population_conversion - unit_target_dose : #{unit_target_dose.inspect}"
+      if product.is_a?(Product)
+        variant = product.variant
+      elsif product.is_a?(ProductNatureVariant)
+        variant = product
+      end
+      value = population.to_f
+      nomen_unit = nil
+      # convert symbol into unit if needed
+      if unit.present? && !Nomen::Unit[unit]
+        if u = Nomen::Unit.find_by(symbol: unit)
+          unit = u.name.to_s
+        else
+          raise ActiveExchanger::NotWellFormedFileError, "Unknown unit #{unit.inspect} for variant #{variant.name.inspect}."
+        end
+      end
+      unit = unit.to_sym if unit
+      nomen_unit = Nomen::Unit[unit] if unit
+      #
+      w.debug value.inspect.yellow
+      if value >= 0.0 && nomen_unit
+        measure = Measure.new(value, unit)
+        w.info "Method population_conversion - measure : #{measure.inspect.yellow}"
+        w.info "Method population_conversion - variant : #{variant.name.inspect.yellow}"
+        if measure.dimension == :volume
+          variant_indicator = variant.send(:net_volume)
+          if variant_indicator.value.to_f != 0.0
+            population_value = (measure.to_f(variant_indicator.unit.to_sym) / variant_indicator.value.to_f).in(variant_indicator.unit.to_sym)
+          else
+            raise "No way to divide by zero : variant indicator value is #{variant_indicator.inspect}"
+          end
+        elsif measure.dimension == :mass
+          variant_indicator = variant.send(:net_mass)
+          if variant_indicator.value.to_f != 0.0
+            population_value = (measure.to_f(variant_indicator.unit.to_sym) / variant_indicator.value.to_f).in(variant_indicator.unit.to_sym)
+          else
+            raise "No way to divide by zero : variant indicator value is #{variant_indicator.inspect}"
+          end
+        elsif measure.dimension == :distance
+          variant_indicator = variant.send(:net_length)
+          if variant_indicator.value.to_f != 0.0
+            population_value = (measure.to_f(variant_indicator.unit.to_sym) / variant_indicator.value.to_f).in(variant_indicator.unit.to_sym)
+          else
+            raise "No way to divide by zero : variant indicator value is #{variant_indicator.inspect}"
+          end
+        elsif measure.dimension == :none
+          population_value = value
+        else
+          w.warn "Bad unit: #{unit} for intervention"
+        end
+        # case population
+      end
+      if working_area && working_area.to_d(:square_meter) > 0.0 && unit_target_dose
+        w.info " Working area : #{working_area.inspect.green}"
+        w.info " Variant indicator : #{variant_indicator.inspect.green}"
+        w.info " Population value : #{population_value.inspect.red}"
+        global_intrant_value = population_value.to_d * working_area.to_d(unit_target_dose.to_sym)
+        return global_intrant_value
+      else
+        return population_value
+      end
+    end
 
     # convert measure to variant unit and divide by variant_indicator
     def measure_conversion(population, unit, unit_target_dose)
@@ -109,37 +176,64 @@ module Agroedi
       end
     end
 
+    # find all plants for the current support and cultivable zone by variety or variant
+    def find_plants(options = {})
+      plants = nil
+      if options[:support]
+        w.debug "supports for finding plant : #{options[:support]}".inspect.blue
+        plant_ids = []
+        options[:support].each do |support|
+          # try to find the current plants on cultivable zone if exists
+          support_shape = Charta.new_geometry(support.shape)
+          w.debug "support_shape : #{support_shape.to_geojson}".to_s.red
+          w.debug "plant count : #{Plant.count}".red
+          w.debug "plant count : #{Plant.pluck(:name).to_sentence}".white
+          product_around = Plant.shape_within(support_shape)
+          w.debug "product_around : #{product_around}".inspect.blue
+          if product_around.any?
+            plant_ids << Plant.where(id: product_around.map(&:id)).pluck(:id)
+          end
+        end
+        plants = Plant.where(id: plant_ids.compact)
+      end
+      if plants && options[:variety] && options[:at]
+        plants = plants.of_variety(options[:variety])
+      elsif options[:variant] && options[:at]
+        plants = plants.where(variant: options[:variant])
+      end
+      plants
+    end
+
     # find or create product and variant
-    def find_or_create_product(input, at)
-      # Load hash to transcode EDI input to nature
+    def find_or_create_product(input, name, nature, unit, at, variety = nil)
+      # Load hash to transcode EDI input/output to nature
       here = Pathname.new(__FILE__).dirname
+
       inputs_transcode = {}.with_indifferent_access
       CSV.foreach(here.join('inputs.csv'), headers: true) do |row|
         inputs_transcode[row[0]] = row[1].to_sym
       end
 
-      units_transcode = { 'KGM' => :kilogram, 'LTR' => :liter, 'TNE' => :ton, 'NAR' => :unit }
-
-      nature = ProductNature.import_from_nomenclature(inputs_transcode[input.input_nature_edicode])
-
-      variant = nature.variants.where(name: input.input_name, unit_name: units_transcode[input.input_unity_edicode], active: true).first
-
-      w.info "Variant creation - input name : #{input.input_name}".inspect.red
+      variant = ProductNatureVariant.where(name: name, active: true).first
+      w.info "Variant exist - input name : #{input.input_name}".inspect.red if variant
 
       unless variant
 
-        variant = nature.variants.create!(name: input.input_name, unit_name: units_transcode[input.input_unity_edicode], active: true)
+        variant = ProductNatureVariant.import_from_nomenclature(inputs_transcode[nature])
+        variant.name = name
+        variant.save!
 
         w.info "Variant creation - Variant : #{variant.name}".inspect.red
 
-        default_indicators = {
-          net_mass: Measure.new(1.00, :kilogram),
-          net_volume: Measure.new(1.00, :liter)
-        }.with_indifferent_access
+        #default_indicators = {
+        #  net_mass: Measure.new(1.00, :kilogram),
+        #  net_volume: Measure.new(1.00, :liter)
+        #}.with_indifferent_access
 
-        default_indicators.each do |indicator_name, value|
-          variant.read! indicator_name, value
-        end
+        #default_indicators.each do |indicator_name, value|
+        #  variant.read! indicator_name, value
+        #end
+        #w.info "Indicators OK - Variant : #{variant.name}".inspect.red
 
       end
 
@@ -164,6 +258,13 @@ module Agroedi
           initial_container: building_division,
           default_storage: building_division
         )
+
+        # for seed intrant
+        if inputs_transcode[nature] == :seed && variety
+          matter.derivative_of = variety
+          matter.save!
+        end
+
         w.info "Variant creation with product - Matter : #{matter.name}".inspect.red
         return matter
 
@@ -205,18 +306,25 @@ module Agroedi
       updaters = []
 
       i.inputs.each_with_index do |actor, index|
-        p = find_or_create_product(actor, Date.parse(start).to_time)
+
+        p = find_or_create_product(actor, actor.input_name, actor.input_nature_edicode , actor.input_unity_edicode, Date.parse(start).to_time)
+
+        units_transcode = { 'KGM' => :kilogram, 'LTR' => :liter, 'TNE' => :ton, 'NAR' => :unit }
+        unit = Nomen::Unit.find(units_transcode[actor.input_unity_edicode])
 
         w.info "product : #{p.name}".inspect.yellow
 
-        unit = Nomen::Unit.find(p.variant.unit_name.to_sym)
-        dimension = unit.dimension
-        quantity_handler = 'net_' + dimension.to_s
-
         procedure.parameters_of_type(:input).each do |input|
           w.info "quantity value : #{actor.input_quantity_per_hectare.to_f}".inspect.yellow
+
           # find measure from quantity
-          product_measure = measure_conversion(actor.input_quantity_per_hectare.to_f, unit.name, :hectare)
+          if actor.input_quantity
+            product_measure = population_conversion(p, actor.input_quantity, unit.name)
+          elsif actor.input_quantity.blank? && actor.input_quantity_per_hectare
+            product_measure_conversion = measure_conversion(actor.input_quantity_per_hectare.to_f, unit.name, :hectare)
+            product_measure = population_conversion(p, product_measure_conversion.value, product_measure_conversion.unit)
+          end
+
           w.info "product_measure : #{product_measure}".inspect.yellow
           # find best handler for product measure
           i = input.best_handler_for(product_measure)
@@ -264,5 +372,200 @@ module Agroedi
 
       ::Intervention.create!(intervention.to_attributes)
     end
+
+
+    def record_complex_intervention(i, target, procedure)
+
+      start = i.intervention_started_at
+      stop = i.intervention_stopped_at if !i.intervention_stopped_at.blank?
+      stop ||= start
+
+      # build base procedure
+      attributes = {
+        procedure_name: procedure.name,
+        actions: procedure.mandatory_actions.map(&:name),
+        description: "#{i.intervention_name} | #{i.intervention_guid}"
+      }
+
+      ## working_periods
+      attributes[:working_periods_attributes] = {
+        '0' => {
+          started_at: Date.parse(start).strftime('%Y-%m-%d %H:%M'),
+          stopped_at: (Date.parse(stop) + 1.hour).strftime('%Y-%m-%d %H:%M')
+        }
+      }
+
+
+      target_variety = target.activity_production.cultivation_variety
+
+      ###############################
+      ####  SOWING / IMPLANTING  ####
+      ###############################
+
+      if procedure.name.to_s == 'sowing'
+
+        ## inputs
+        updaters = []
+
+        i.inputs.each_with_index do |actor, index|
+          p = find_or_create_product(actor, actor.input_name, actor.input_nature_edicode , actor.input_unity_edicode, Date.parse(start).to_time)
+
+          units_transcode = { 'KGM' => :kilogram, 'LTR' => :liter, 'TNE' => :ton, 'NAR' => :unit }
+          unit = Nomen::Unit.find(units_transcode[actor.input_unity_edicode])
+
+          w.info "product : #{p.name}".inspect.yellow
+
+          procedure.parameters_of_type(:input).each do |input|
+            w.info "quantity value : #{actor.input_quantity_per_hectare.to_f}".inspect.yellow
+            # find measure from quantity
+            if actor.input_quantity
+              product_measure = population_conversion(p, actor.input_quantity, unit.name)
+            elsif actor.input_quantity.blank? && actor.input_quantity_per_hectare
+              product_measure_conversion = measure_conversion(actor.input_quantity_per_hectare.to_f, unit.name, :hectare)
+              product_measure = population_conversion(p, product_measure_conversion.value, product_measure_conversion.unit)
+            end
+            w.info "product_measure : #{product_measure}".inspect.yellow
+            # find best handler for product measure
+            i = input.best_handler_for(product_measure)
+            handler = if i.is_a?(Array)
+                        input.best_handler_for(product_measure).first.name
+                      else
+                        input.best_handler_for(product_measure).name
+                      end
+            w.info "handler : #{handler}".inspect.yellow
+
+            # puts "input : #{input}".inspect.red
+            # puts "input filter : #{input.filter}".inspect.green
+            next unless p.of_expression(input.filter)
+
+            w.info "quantity value per hectare : #{actor.input_quantity_per_hectare.to_f}".inspect.yellow
+
+            attributes[:inputs_attributes] ||= {}
+            attributes[:inputs_attributes][index.to_s] = {
+              reference_name: input.name,
+              product_id: p.id,
+              quantity_handler: handler,
+              quantity_value: product_measure.to_f
+            }
+
+            # puts "inputs attributes #{attributes}".inspect.yellow
+
+            updaters << "inputs[#{index}]quantity_value"
+            break
+          end
+        end
+
+        ## group (zone)
+        # target
+        # output r.target_variant
+        w.debug target.inspect
+        w.debug procedure.parameters_of_type(:group).inspect.red
+
+        target_variant = ProductNatureVariant.find_or_import!(target_variety).first
+
+        puts target_variant.inspect.red
+
+          procedure.parameters_of_type(:group).each do |group|
+            attributes[:group_parameters_attributes] ||= {}
+            attributes[:group_parameters_attributes][0] = { reference_name: group.name }
+            attributes[:group_parameters_attributes][0][:targets_attributes] ||= {}
+            attributes[:group_parameters_attributes][0][:targets_attributes]['0'] = { reference_name: group.parameters_of_type(:target).first.name, product_id: target.id, working_zone: target.shape.to_geojson.to_s }
+            attributes[:group_parameters_attributes][0][:outputs_attributes] ||= {}
+            attributes[:group_parameters_attributes][0][:outputs_attributes]['0'] = { reference_name: group.parameters_of_type(:output).first.name, variant_id: target_variant, new_name: "#{target_variant.name} #{target.name}", readings_attributes: { shape: { indicator_name: :shape } } }
+            updaters << "group_parameters[0]targets[0]working_zone"
+          end
+
+        ## tools
+        attributes[:tools_attributes] ||= {}
+
+        ## doers
+        attributes[:doers_attributes] ||= {}
+
+        # # impact
+        intervention = Procedo::Engine.new_intervention(attributes)
+        updaters.reverse.each do |updater|
+          intervention.impact_with!(updater)
+        end
+
+        w.debug 'SOWING'.inspect.red
+
+        ## save
+        ::Intervention.create!(intervention.to_attributes)
+
+      ###############################
+      ####  HARVESTING           ####
+      ###############################
+
+      elsif procedure.name.to_s == 'harvesting'
+
+        # find all plants in the current target
+        plant = find_plants(support: target, variety: target_variety, at: start)
+
+          procedure.parameters_of_type(:target).each do |support|
+            # next unless target.of_expression(support.filter)
+            attributes[:targets_attributes] ||= {}
+            attributes[:targets_attributes][index.to_s] = { reference_name: support.name, product_id: plant.id, working_zone: plant.shape.to_geojson }
+            # break
+          end
+
+        ## outputs
+        updaters = []
+
+        i.outputs.each_with_index do |actor, index|
+          w.debug 'actor : #{actor}'.inspect.red
+
+          # compute output name
+          output_nature_agroedi = RegisteredAgroediCode.where(repository_id: 15, reference_code: actor.output_nature_edicode).first
+          output_specie_agroedi = RegisteredAgroediCode.where(repository_id: 18, reference_code: actor.output_specie_edicode).first
+
+          output_name = "#{actor.output_name} | #{output_specie_agroedi.reference_label} | #{output_nature_agroedi.reference_label}"
+
+          # find or import variant
+          output_variant = ProductNatureVariant.find_or_import!(:grain, derivative_of: target_variety).first
+
+          units_transcode = { 'KGM' => :kilogram, 'LTR' => :liter, 'TNE' => :ton, 'NAR' => :unit }
+
+          procedure.parameters_of_type(:output).each do |output|
+            # compute measure from quantity
+            product_measure = Measure.new(actor.output_quantity, units_transcode[actor.output_unity_edicode])
+            # find best handler for product measure
+            i = output.best_handler_for(product_measure)
+            handler = if i.is_a?(Array)
+                        output.best_handler_for(product_measure).first.name
+                      else
+                        output.best_handler_for(product_measure).name
+                      end
+            next unless actor.product.of_expression(output.filter)
+            attributes[:outputs_attributes] ||= {}
+            attributes[:outputs_attributes][index.to_s] = { reference_name: output.name, variant_id: output_variant.id, new_name: output_name, quantity_handler: handler, quantity_value: product_measure.to_f }
+            updaters << "outputs[#{index}]quantity_value"
+            break
+          end
+        end
+
+        ## tools
+        attributes[:tools_attributes] ||= {}
+
+        ## doers
+        attributes[:doers_attributes] ||= {}
+
+        # # impact
+        intervention = Procedo::Engine.new_intervention(attributes)
+        updaters.each do |updater|
+          intervention.impact_with!(updater)
+        end
+
+        w.debug 'HARVESTING'.inspect.red
+
+        ## save
+        ::Intervention.create!(intervention.to_attributes)
+      else
+        w.debug 'Problem to recognize intervention and create it ' + procedure.name.inspect
+      end
+
+      nil
+    end
+
+
   end
 end

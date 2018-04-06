@@ -348,15 +348,46 @@ lines:
 
   output:
     key: "VR"
+    cells:
+      - land_parcel_order_number: string-4
+      - land_parcel_work_number: string-4
+      - harvest_year: string-4
+      - intervention_guid: string-32
+      - output_nature_edicode: string-3 #15
+      - output_specie_edicode: string-3 #18
+      - output_name: string-35
+      - output_use_edicode: string-3 #5 List_AgriculturalProcessCropInput_CodeType
+      - output_quantity: string-9
+      - output_unity_edicode: string-3 #36 List_UnitCode
+      - output_yield: string-9
+      - output_yield_unity_edicode: string-3 #ZKK
+      - output_provisionnal_yield: string-9
+      - output_provisionnal_yield_unity_edicode: string-3 #ZKK
     children:
       - output_components: "*"
       - output_trackings: "*"
 
   output_tracking:
     key: "RL"
+    cells:
+      - land_parcel_order_number: string-4
+      - land_parcel_work_number: string-4
+      - harvest_year: string-4
+      - intervention_guid: string-32
+      - silo_tracking_number: string-35
+      - farm_tracking_number: string-35
+      - tracking_quantity_in_ton: string-9
 
   output_component:
     key: "LC"
+    cells:
+      - land_parcel_order_number: string-4
+      - land_parcel_work_number: string-4
+      - harvest_year: string-4
+      - intervention_guid: string-32
+      - indicator_nature_edicode: string-3 #5 List_AgriculturalProcessCropInput_CodeType
+      - indicator_value: string-9
+      - indicator_value_unity_edicode: string-3 #ZKK
 
   decision_indicator:
     key: "VH"
