@@ -35,6 +35,7 @@
 #  equipment_id           :integer
 #  fixed                  :boolean          default(FALSE), not null
 #  fixed_asset_id         :integer
+#  fixed_asset_stopped_on :date
 #  id                     :integer          not null, primary key
 #  label                  :text
 #  lock_version           :integer          default(0), not null
@@ -84,6 +85,7 @@ class PurchaseItem < Ekylibre::Record::Base
   validates :conditionning, :conditionning_quantity, numericality: { only_integer: true, greater_than: -2_147_483_649, less_than: 2_147_483_648 }, allow_blank: true
   validates :account, :currency, :purchase, :tax, presence: true
   validates :fixed, inclusion: { in: [true, false] }
+  validates :fixed_asset_stopped_on, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years }, type: :date }, allow_blank: true
   validates :preexisting_asset, inclusion: { in: [true, false] }, allow_blank: true
   validates :role, length: { maximum: 500 }, allow_blank: true
   # ]VALIDATORS]
@@ -195,7 +197,10 @@ class PurchaseItem < Ekylibre::Record::Base
 
       depreciation_method = variant.fixed_asset_depreciation_method
       errors.add(:variant, :asset_depreciation_method) if depreciation_method.blank?
-      errors.add(:variant, :asset_wrong_depreciation_method) if depreciation_method.to_sym != :simplified_linear
+
+      if depreciation_method.to_sym != :simplified_linear && fixed_asset_stopped_on.nil?
+        errors.add(:fixed_asset_stopped_on, :fixed_asset_stopped_on_invalid)
+      end
     end
   end
 
@@ -221,6 +226,7 @@ class PurchaseItem < Ekylibre::Record::Base
     asset_attributes = {
       currency: currency,
       started_on: purchase.invoiced_at.to_date,
+      stopped_on: fixed_asset_stopped_on,
       depreciable_amount: pretax_amount.to_f,
       depreciation_period: Preference.get(:default_depreciation_period).value,
       depreciation_method: variant.fixed_asset_depreciation_method || :simplified_linear,
@@ -241,7 +247,7 @@ class PurchaseItem < Ekylibre::Record::Base
     end
 
     asset_name ||= name
-    name_duplicate_count = FixedAsset.where('name ~ ?', "^#{Regexp.escape(name)} ?\\d*$").count
+    name_duplicate_count = FixedAsset.where('name ~ ?', "^#{Regexp.escape(name)} ?\\w*$").count
     unless name_duplicate_count.zero?
       unique_identifier = (name_duplicate_count + 1).to_s(36).upcase
       asset_name = "#{asset_name} #{unique_identifier}"

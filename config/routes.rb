@@ -1129,6 +1129,14 @@ Rails.application.routes.draw do
       end
     end
 
+    namespace :variants do
+      resources :fixed_assets, only: [] do
+        member do
+          get :fixed_assets_datas
+        end
+      end
+    end
+
     resources :visuals, only: [] do
       match 'picture(/:style)', via: :get, action: :picture, as: :picture
     end

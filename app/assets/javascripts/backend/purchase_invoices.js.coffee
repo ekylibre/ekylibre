@@ -76,14 +76,21 @@
         $(element).attr('id', newId)
         $(element).attr('name', newName)
 
+
     $(document).on 'change', '.nested-item-form .fixed-asset-fields .purchase_invoice_items_fixed input[type="checkbox"]', (event) ->
       targettedElement = $(event.target)
       E.PurchaseInvoices.displayAssetsBlock(targettedElement)
+
+      if targettedElement.is(':checked')
+        E.PurchaseInvoices.manageStoppedOnFieldDisplay(targettedElement)
 
 
     $(document).on 'change', '.nested-item-form .fixed-asset-fields .purchase_invoice_items_preexisting_asset input[type="checkbox"]', (event) ->
       targettedElement = $(event.target)
       E.PurchaseInvoices.manageExistingAssetDisplay(targettedElement)
+
+      unless targettedElement.is(':checked')
+        E.PurchaseInvoices.manageStoppedOnFieldDisplay(targettedElement)
 
 
   E.PurchaseInvoices =
@@ -108,6 +115,24 @@
       else
         existingAssetBlock.css('display', 'none')
         newAssetBlock.css('display', 'block')
+
+
+    manageStoppedOnFieldDisplay: (checkbox) ->
+      assetsFields = checkbox.closest('.assets')
+      assetsFields = checkbox.closest('.fixed-asset-fields').find('.assets') if assetsFields.length == 0
+
+      stoppedOnFieldBlock = assetsFields.find('.fixed-asset-stopped-on')
+
+      merchandise = checkbox.closest('.merchandise')
+      variantId = merchandise.find('.purchase_invoice_items_variant .selector-value').val()
+
+      $.ajax
+        url: "/backend/variants/fixed_assets/#{variantId}/fixed_assets_datas",
+        success: (data, status, request) ->
+          if data.depreciation_method == "simplified_linear"
+            stoppedOnFieldBlock.css('display', 'none')
+          else
+            stoppedOnFieldBlock.css('display', 'block')
 
 
     fillStocksCounters: (event) ->
