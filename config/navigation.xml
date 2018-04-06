@@ -2285,6 +2285,10 @@
       <item name="wice_grid_preferences">
         <page to="backend/users/wice_grid_preferences#save_column"/>
       </item>
+      <item name="fixed_assets">
+        <page to="backend/variants/fixed_assets#fixed_assets_datas"/>
+        <page to="backend/variants/fixed_assets#has_simplified_linear_depreciation_method"/>
+      </item>
       <item name="workers">
         <page to="backend/workers#list_reception_items"/>
         <page to="backend/workers#list_shipment_items"/>

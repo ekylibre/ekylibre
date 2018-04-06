@@ -60,6 +60,10 @@
           .new_asset{style: display_new_asset}
             = f.referenced_association(:depreciable_product)
 
+          - display_stopped_on = "display: none;" if (item.new_record? && item.preexisting_asset) || (!item.new_record? && item.fixed_asset_stopped_on.nil?)
+          .fixed-asset-stopped-on{style: display_stopped_on}
+            = f.input :fixed_asset_stopped_on
+
     %td.form-field.decimal
       = f.input :conditionning, wrapper: :append do
         = f.input_field :conditionning , class: "order-quantity invoice-conditionning", data: { trade_component: 'conditionning' }

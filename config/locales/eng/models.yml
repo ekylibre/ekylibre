@@ -62,6 +62,8 @@ eng:
         seeding_density_value: "Expected seeding density"
       purchase:
         affair_balance: "Balance"
+      purchase_item:
+        fixed_asset_stopped_on: 'Fixed asset stopped on'
       sale:
         affair_balance: "Balance"
         contact: "Address for the estimate"
@@ -197,6 +199,8 @@ eng:
               asset_expenses_account: "Invalid asset expenses account"
               asset_depreciation_method: "Invalid asset depreciation method"
               asset_wrong_depreciation_method: "Depreciation method must be simplified linear"
+            fixed_asset_stopped_on:
+              fixed_asset_stopped_on_invalid: "Invalid fixed asset stopped on"
           building_can_not_receive_product: "The building %{building} can not receive %{product}, it already contains %{contained_product}."
           serial_already_used_with_an_other_product: "%{attribute} has been already used for an other product of the same supplier"
         sale_item:
