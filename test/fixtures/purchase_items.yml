@@ -35,6 +35,7 @@
 #  equipment_id           :integer
 #  fixed                  :boolean          default(FALSE), not null
 #  fixed_asset_id         :integer
+#  fixed_asset_stopped_on :date
 #  id                     :integer          not null, primary key
 #  label                  :text
 #  lock_version           :integer          default(0), not null
