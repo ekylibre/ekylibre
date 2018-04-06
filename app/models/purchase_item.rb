@@ -198,8 +198,8 @@ class PurchaseItem < Ekylibre::Record::Base
       depreciation_method = variant.fixed_asset_depreciation_method
       errors.add(:variant, :asset_depreciation_method) if depreciation_method.blank?
 
-      if depreciation_method.to_sym != :simplified_linear && fixed_asset_stopped_on.nil?
-        errors.add(:fixed_asset_stopped_on, :fixed_asset_stopped_on_invalid)
+      if depreciation_method.present? && depreciation_method.to_sym != :simplified_linear && fixed_asset_stopped_on.nil?
+        errors.add(:fixed, :fixed_asset_stopped_on_invalid)
       end
     end
   end

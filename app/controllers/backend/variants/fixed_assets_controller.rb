@@ -25,8 +25,8 @@ module Backend
         return render json: { error: 'No variant with this id' } if @variant.nil?
 
         fixed_assets_datas = {
-          asset_account_id: @variant.fixed_asset_account.id,
-          expenses_account_id: @variant.fixed_asset_expenses_account.id,
+          asset_account_id: @variant.fixed_asset_account&.id,
+          expenses_account_id: @variant.fixed_asset_expenses_account&.id,
           depreciation_method: @variant.fixed_asset_depreciation_method,
           depreciation_percentage: @variant.fixed_asset_depreciation_percentage
         }
