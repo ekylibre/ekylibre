@@ -192,11 +192,11 @@ class PurchaseItem < Ekylibre::Record::Base
     if fixed
       # Errors linked to fixed assets
 
-      errors.add(:variant, :asset_account) unless variant.fixed_asset_account
-      errors.add(:variant, :asset_expenses_account) unless variant.fixed_asset_expenses_account
+      errors.add(:fixed, :asset_account) unless variant.fixed_asset_account
+      errors.add(:fixed, :asset_expenses_account) unless variant.fixed_asset_expenses_account
 
       depreciation_method = variant.fixed_asset_depreciation_method
-      errors.add(:variant, :asset_depreciation_method) if depreciation_method.blank?
+      errors.add(:fixed, :asset_depreciation_method) if depreciation_method.blank?
 
       if depreciation_method.present? && depreciation_method.to_sym != :simplified_linear && fixed_asset_stopped_on.nil?
         errors.add(:fixed, :fixed_asset_stopped_on_invalid)
