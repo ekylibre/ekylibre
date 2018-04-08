@@ -260,6 +260,7 @@ eng:
     sifting: "Sifting"
     sowing: "Seeding"
     sowing_with_spraying: "Seeding with spraying"
+    # sowing_without_inputs: "Sowing without inputs"
     spraying: "Spraying"
     standard_enclosing: "Standard enclosing"
     steam_weeding: "Steam weeding"

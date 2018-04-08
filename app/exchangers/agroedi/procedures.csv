@@ -11,7 +11,7 @@ SER,harvesting
 V95,spraying
 SEX,spraying
 SET,sowing
-ZKE,sowing
+ZKE,sowing_without_inputs
 SEU,sowing
 W03,crop_residues_grinding
 SFK,crop_residues_grinding

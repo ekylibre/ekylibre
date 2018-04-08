@@ -1,7 +1,6 @@
 module Isagri
   module Isacompta
     class JournalEntriesExchanger < ActiveExchanger::Base
-
       # Imports journal entries into journal to make payment in CSV format
       # Columns are:
       #  0 - A: account number
@@ -45,9 +44,7 @@ module Isagri
 
         w.reset!(rows.count, :yellow)
 
-        rows.each_with_index do |row, index|
-
-
+        rows.each_with_index do |row, _index|
           r = {
             account_number: row[0].blank? ? nil : row[0].to_s,
             account_name: row[1].blank? ? nil : row[1].to_s,
@@ -78,9 +75,7 @@ module Isagri
             r.credit_amount = 0.0
           end
 
-
           number = r.entry_number + '_' + r.journal_code
-
 
           unless entries[number]
             journal = Journal.find_by(code: r.journal_code)
@@ -124,10 +119,9 @@ module Isagri
         w.reset!(entries.keys.size)
         entries.values.each do |entry|
           j = JournalEntry.create!(entry)
-          puts "JE : #{j.number} | #{j.printed_on}".inspect.yellow
+          w.info "JE : #{j.number} | #{j.printed_on}".inspect.yellow
           w.check_point
         end
-
       end
     end
   end
