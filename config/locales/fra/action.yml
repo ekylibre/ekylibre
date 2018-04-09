@@ -2212,6 +2212,7 @@ fra:
     stop: "Jusqu’au"
     stopped: "Arrêtés"
     stopped_on: "Nous nous sommes arrêtés sur"
+    stopped_on_block: "Date de fin"
     storage: "Zone de stockage"
     string_case: "Options pour le texte" #?
     subject: "Sujet"
@@ -2446,6 +2447,7 @@ fra:
     with_fixed_assets_depreciations: "Inclure les amortissements des immobilisations"
     with_prints: "Inclure les impressions (factures, commandes…)" #?
     worked_on: "Travaillé le" #?
+    worker: "Équipier"
     workers: "Équipiers"
     workforce: "Main d'oeuvre"
     working_area: "Surface travaillée" #?

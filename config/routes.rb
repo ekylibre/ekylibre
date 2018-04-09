@@ -634,6 +634,12 @@ Rails.application.routes.draw do
       end
     end
 
+    resources :schedulings do
+      collection do
+        get :weekly_daily_charges
+      end
+    end
+
     namespace :interventions do
       resources :costs, only: [] do
         collection do
@@ -1126,6 +1132,14 @@ Rails.application.routes.draw do
       member do
         post :open
         post :close
+      end
+    end
+
+    namespace :variants do
+      resources :fixed_assets, only: [] do
+        member do
+          get :fixed_assets_datas
+        end
       end
     end
 
