@@ -359,6 +359,7 @@
     element = $(event.target)
     blockElement = element.closest('.nested-fields')
     participation = blockElement.find('.intervention-participation')
+    hasInterventionParticipationBlock = blockElement.find('.has-intervention-participations')
 
     if participation.length > 0
       newProductId = element.closest('.selector').find('.selector-value').val()
@@ -366,11 +367,14 @@
       jsonParticipation.product_id = newProductId
       participation.val(JSON.stringify((jsonParticipation)))
       participation.attr('data-product-id', newProductId)
-      pictoTimer = $('<div class="has-intervention-participations picto picto-timer"></div>')
-    else
-      pictoTimer = $('<div class="has-intervention-participations picto picto-timer-off"></div>')
 
-    $(blockElement).append(pictoTimer)
+    if hasInterventionParticipationBlock.length == 0
+      if participation.length > 0
+        pictoTimer = $('<div class="has-intervention-participations picto picto-timer"></div>')
+      else
+        pictoTimer = $('<div class="has-intervention-participations picto picto-timer-off"></div>')
+
+      $(blockElement).append(pictoTimer)
 
 
   $(document).on "selector:change", 'input[data-generate-items]', ->
