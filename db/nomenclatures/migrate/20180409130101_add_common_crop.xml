@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<migration name="Add common crop">
+    <item-creation item="product_nature_variants#common_crop" nature="cereal_crop" variety="plant" frozen_indicators_values="net_surface_area: 1.00hectare" unit_name="hectare"/>
+</migration>

@@ -36,13 +36,17 @@ CREATE TABLE master_production_natures (
   stopped_on DATE NOT NULL,
   agroedi_crop_code character varying,
   season character varying,
-  pfi_crop_code character varying
+  pfi_crop_code character varying,
+  cap_2017_crop_code character varying,
+  cap_2018_crop_code character varying
 );
 CREATE INDEX master_production_natures_specie ON master_production_natures(specie);
 CREATE INDEX master_production_natures_human_name ON master_production_natures(human_name);
 CREATE INDEX master_production_natures_human_name_fra ON master_production_natures(human_name_fra);
 CREATE INDEX master_production_natures_agroedi_crop_code ON master_production_natures(agroedi_crop_code);
 CREATE INDEX master_production_natures_pfi_crop_code ON master_production_natures(pfi_crop_code);
+CREATE INDEX master_production_natures_cap_2017_crop_code ON master_production_natures(cap_2017_crop_code);
+CREATE INDEX master_production_natures_cap_2018_crop_code ON master_production_natures(cap_2018_crop_code);
 
 CREATE TABLE master_production_outputs (
   production_nature_id INTEGER NOT NULL,
