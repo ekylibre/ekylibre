@@ -463,7 +463,14 @@ module Agroedi
         w.debug target.inspect
         w.debug procedure.parameters_of_type(:group).inspect.red
 
+        # get plant from nomenclature or create it if needed
         target_variant = ProductNatureVariant.find_or_import!(target_variety).first
+        unless target_variant
+          target_variant = ProductNatureVariant.import_from_nomenclature(:common_crop, force = true)
+          target_variant.variety = target_variety
+          target_variant.name = Nomen::Variety.find(target_variety).l
+          target_variant.save!
+        end
 
         w.info target_variant.inspect.red
 
