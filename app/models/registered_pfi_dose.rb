@@ -36,4 +36,7 @@ class RegisteredPfiDose < ActiveRecord::Base
   include Lexiconable
   belongs_to :target, class_name: 'RegisteredPfiTarget'
   belongs_to :crop, class_name: 'RegisteredPfiCrop'
+
+  composed_of :dose, class_name: 'Measure', mapping: [%w[dose_quantity to_d], %w[dose_unity unit]]
+
 end

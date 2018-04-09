@@ -83,6 +83,17 @@ class InterventionInput < InterventionProductParameter
     end
   end
 
+  def input_quantity_per_area
+    if intervention.working_zone_area.to_d > 0.0 && (quantity.dimension == :mass || quantity.dimension == :volume)
+      unit = quantity.unit.to_s + '_per_hectare'
+      q = (quantity.value.to_f / intervention.working_zone_area.to_f).round(2)
+      q_per_hectare = Measure.new(q.to_f, unit.to_sym)
+    elsif quantity.dimension == :volume_area_density || quantity.dimension == :mass_area_densit
+      q_per_hectare = quantity
+    end
+    return q_per_hectare
+  end
+
   # return pfi dose according to Lexicon pfi dataset and maaid number
   def pfi_reference_dose
     dose = nil
@@ -91,10 +102,7 @@ class InterventionInput < InterventionProductParameter
       harvest_year = intervention.activity_productions.first.campaign.harvest_year
       crop_code = act.first.production_nature.pfi_crop_code
       maaid = variant.france_maaid
-      pfi_dose = RegisteredPfiDose.where(maaid: maaid, crop_id: crop_code, harvest_year: harvest_year, target_id: nil).first
-      if pfi_dose && pfi_dose.dose_quantity && pfi_dose.dose_unity
-        dose = Measure.new(pfi_dose.dose_quantity, pfi_dose.dose_unity)
-      end
+      dose = RegisteredPfiDose.where(maaid: maaid, crop_id: crop_code, harvest_year: harvest_year, target_id: nil).first
     end
     return dose
   end
@@ -112,12 +120,28 @@ class InterventionInput < InterventionProductParameter
     info
   end
 
+  # only case in mass_area_density && volume_area_density in legals
+  def legal_treatment_ratio
+    ratio = 1.0
+    if legal_pesticide_informations[:dose].dimension == :mass_area_density && input_quantity_per_area.dimension == :mass_area_density
+      ratio = input_quantity_per_area.convert(legal_pesticide_informations[:dose].unit) / legal_pesticide_informations[:dose].to_d
+    elsif legal_pesticide_informations[:dose].dimension == :volume_area_density && input_quantity_per_area.dimension == :volume_area_density
+      ratio = input_quantity_per_area.convert(legal_pesticide_informations[:dose].unit) / legal_pesticide_informations[:dose].to_d
+    end
+    return ratio.to_d
+  end
+
+  # only case in mass_area_density && volume_area_density in pfi reference
   def pfi_treatment_ratio
     ratio = 1.0
-    if pfi_reference_dose && pfi_reference_dose.to_d > 0.0
-      ratio = quantity.in(pfi_reference_dose.unit) / pfi_reference_dose
+    if pfi_reference_dose && pfi_reference_dose.dose.to_d > 0.0
+      if pfi_reference_dose.dose.dimension == :mass_area_density && input_quantity_per_area.dimension == :mass_area_density
+        ratio = input_quantity_per_area.convert(pfi_reference_dose.dose.unit) / pfi_reference_dose.dose.to_d
+      elsif pfi_reference_dose.dose.dimension == :volume_area_density && input_quantity_per_area.dimension == :volume_area_density
+        ratio = input_quantity_per_area.convert(pfi_reference_dose.dose.unit) / pfi_reference_dose.dose.to_d
+      end
     end
-    return ratio
+    return ratio.to_d
   end
 
   # from EPHY

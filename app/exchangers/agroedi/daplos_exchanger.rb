@@ -130,7 +130,7 @@ module Agroedi
             raise "No way to divide by zero : variant indicator value is #{variant_indicator.inspect}"
           end
         elsif measure.dimension == :none
-          population_value = value
+          population_value = value.in(:unity)
         else
           w.warn "Bad unit: #{unit} for intervention"
         end
@@ -308,7 +308,7 @@ module Agroedi
       i.inputs.each_with_index do |actor, index|
         p = find_or_create_product(actor, actor.input_name, actor.input_nature_edicode, actor.input_unity_edicode, Date.parse(start).to_time)
 
-        units_transcode = { 'KGM' => :kilogram, 'LTR' => :liter, 'TNE' => :ton, 'NAR' => :unit }
+        units_transcode = { 'KGM' => :kilogram, 'LTR' => :liter, 'TNE' => :ton, 'NAR' => :unity }
         unit = Nomen::Unit.find(units_transcode[actor.input_unity_edicode])
 
         w.info "product : #{p.name}".inspect.yellow
@@ -409,7 +409,7 @@ module Agroedi
           i.inputs.each_with_index do |actor, index|
             p = find_or_create_product(actor, actor.input_name, actor.input_nature_edicode, actor.input_unity_edicode, Date.parse(start).to_time)
 
-            units_transcode = { 'KGM' => :kilogram, 'LTR' => :liter, 'TNE' => :ton, 'NAR' => :unit }
+            units_transcode = { 'KGM' => :kilogram, 'LTR' => :liter, 'TNE' => :ton, 'NAR' => :unity }
             unit = Nomen::Unit.find(units_transcode[actor.input_unity_edicode])
 
             w.info "product : #{p.name}".inspect.yellow
@@ -463,7 +463,7 @@ module Agroedi
         w.debug target.inspect
         w.debug procedure.parameters_of_type(:group).inspect.red
 
-        # get plant from nomenclature or create it if needed
+        # get plant from nomenclature or create it if needed from common crop
         target_variant = ProductNatureVariant.find_or_import!(target_variety).first
         unless target_variant
           target_variant = ProductNatureVariant.import_from_nomenclature(:common_crop, force = true)
@@ -532,7 +532,7 @@ module Agroedi
           # find or import variant
           output_variant = ProductNatureVariant.find_or_import!(:grain, derivative_of: target_variety).first
 
-          units_transcode = { 'KGM' => :kilogram, 'LTR' => :liter, 'TNE' => :ton, 'NAR' => :unit }
+          units_transcode = { 'KGM' => :kilogram, 'LTR' => :liter, 'TNE' => :ton, 'NAR' => :unity }
 
           procedure.parameters_of_type(:output).each do |output|
             # compute measure from quantity
