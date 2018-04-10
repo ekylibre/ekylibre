@@ -22,13 +22,13 @@ module Backend
       before_action :set_purchase, only: [:put_to_reconcile_state, :put_accepted_state]
 
       def put_to_reconcile_state
-        @purchase.update_attribute(:reconciliation_state, :to_reconcile)
+        @purchase.update_column(:reconciliation_state, :to_reconcile)
 
         render json: @purchase.to_json
       end
 
       def put_accepted_state
-        @purchase.update_attribute(:reconciliation_state, :accepted)
+        @purchase.update_column(:reconciliation_state, :accepted)
 
         render json: @purchase.to_json
       end
