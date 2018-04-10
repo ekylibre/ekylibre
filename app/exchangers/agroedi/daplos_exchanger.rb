@@ -275,12 +275,13 @@ module Agroedi
       start = i.intervention_started_at
       stop = i.intervention_stopped_at if i.intervention_stopped_at.present?
       stop ||= start
+      info = "#{i.intervention_name} | #{i.intervention_guid}"
 
       # build base procedure
       attributes = {
         procedure_name: procedure.name,
         actions: procedure.mandatory_actions.map(&:name),
-        description: "#{i.intervention_name} | #{i.intervention_guid}"
+        description: info
       }
 
       ## working_periods
@@ -378,12 +379,13 @@ module Agroedi
       start = i.intervention_started_at
       stop = i.intervention_stopped_at if i.intervention_stopped_at.present?
       stop ||= start
+      info = "#{i.intervention_name} | #{i.intervention_guid}"
 
       # build base procedure
       attributes = {
         procedure_name: procedure.name,
         actions: procedure.mandatory_actions.map(&:name),
-        description: "#{i.intervention_name} | #{i.intervention_guid}"
+        description: info
       }
 
       ## working_periods

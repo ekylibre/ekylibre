@@ -13,7 +13,15 @@ SEX,spraying
 SET,sowing
 ZKE,sowing_without_inputs
 SEU,sowing
+V98,land_parcel_grinding
+V97,trellising
+W19,harvesting
+W10,trellising
+W09,land_parcel_grinding
+W05,trellising
 W03,crop_residues_grinding
+W02,cutting
+W01,cutting
 SFK,crop_residues_grinding
 SEO,plant_watering
 SEW,sowing
