@@ -66,6 +66,7 @@ fra:
         stopped_on: "Date de clôture"
       fixed_asset:
         asset_account: "Compte d'immobilisation"
+        asset_expenses_account: "Compte d'amortissement"
         depreciation_period: "Périodicité des amortissements"
         net_book_value: "Valeur nette comptable (VNC)" #?
         started_on: "Date de mise en service"
@@ -182,6 +183,7 @@ fra:
         amount: "Montant TTC" #?
         conditionning: "Conditionnement" #?
         conditionning_quantity: "Quantité" #?
+        fixed_asset_stopped_on: "Immobilisation arrêtée le"
         quantity: "Quantité totale" #?
       purchase_order: #?
         command_mode: "Mode de commande" #?
@@ -347,6 +349,13 @@ fra:
         outgoing_parcel_item:
           greater_than_undelivered_quantity: "La quantité de produit %{product} à livrer dépasse la quantité non livrée (%{maximum}%{unit})"
         purchase_item:
+          attributes:
+            fixed:
+              fixed_asset_stopped_on_invalid: "Vous devez spécifier une date de fin d'immobilisation"
+              asset_account: "Compte d'immobilisation invalide"
+              asset_expenses_account: "Compte d'amortissement invalide"
+              asset_depreciation_method: "Méthode de dépréciation d'immobilisation non spécifiée"
+              asset_wrong_depreciation_method: "Le méthode de dépréciation doit être linéaire simplifée"
           building_can_not_receive_product: "Le réservoir %{building} ne peut pas recevoir le produit %{product}, il contient déjà le produit %{contained_product}."
           serial_already_used_with_an_other_product: "%{attribute} a déjà été utilisé pour un autre type de produit du même fournisseur"
         sale_item:

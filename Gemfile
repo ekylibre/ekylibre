@@ -213,6 +213,8 @@ gem 'bootstrap-slider-rails'
 
 # gem 'planning', git: 'git@gitlab.com:ekylibre-integration/planning.git'
 
+# gem 'planning', git: 'git@gitlab.com:ekylibre-integration/planning.git', branch: 'dev'
+
 gem 'planning', path: '../planning'
 
 group :development do

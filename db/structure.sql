@@ -2610,7 +2610,8 @@ CREATE TABLE purchase_items (
     role character varying,
     conditionning_quantity integer,
     conditionning integer,
-    project_budget_id integer
+    project_budget_id integer,
+    fixed_asset_stopped_on date
 );
 
 
@@ -19247,4 +19248,3 @@ INSERT INTO schema_migrations (version) VALUES ('20180330121129');
 INSERT INTO schema_migrations (version) VALUES ('20180405102304');
 
 INSERT INTO schema_migrations (version) VALUES ('20180405125208');
-
