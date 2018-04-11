@@ -183,6 +183,7 @@ fra:
         amount: "Montant TTC" #?
         conditionning: "Conditionnement" #?
         conditionning_quantity: "Quantité" #?
+        fixed_asset_stopped_on: "Immobilisation arrêtée le"
         quantity: "Quantité totale" #?
       purchase_order: #?
         command_mode: "Mode de commande" #?
@@ -349,7 +350,8 @@ fra:
           greater_than_undelivered_quantity: "La quantité de produit %{product} à livrer dépasse la quantité non livrée (%{maximum}%{unit})"
         purchase_item:
           attributes:
-            variant:
+            fixed:
+              fixed_asset_stopped_on_invalid: "Vous devez spécifier une date de fin d'immobilisation"
               asset_account: "Compte d'immobilisation invalide"
               asset_expenses_account: "Compte d'amortissement invalide"
               asset_depreciation_method: "Méthode de dépréciation d'immobilisation non spécifiée"

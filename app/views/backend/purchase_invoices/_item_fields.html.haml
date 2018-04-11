@@ -48,6 +48,7 @@
       - display = "display: none;" unless item && item.variant && item.variant.depreciable?
       .fixed-asset-fields{style: display, data: {"when-item": "depreciable", "when-display-value": 'true'}}
         = f.input :fixed
+
         - display = "display: none;" unless item.fixed
         .assets{style: display}
           = f.input :preexisting_asset, label: :asset_exists.tl
@@ -59,6 +60,10 @@
           - display_new_asset = "display: none;" if item.preexisting_asset
           .new_asset{style: display_new_asset}
             = f.referenced_association(:depreciable_product)
+
+          - display_stopped_on = "display: none;" if (item.new_record? && item.preexisting_asset) || (!item.new_record? && item.fixed_asset_stopped_on.nil?)
+          .fixed-asset-stopped-on{style: display_stopped_on}
+            = f.input :fixed_asset_stopped_on, required: true
 
     %td.form-field.decimal
       = f.input :conditionning, wrapper: :append do

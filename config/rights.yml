@@ -185,6 +185,8 @@
 #     - "backend/unreceived_purchase_orders#show"
 #     - "backend/unreceived_purchase_orders#update"
 #     - "backend/users/wice_grid_preferences#save_column"
+#     - "backend/variants/fixed_assets#fixed_assets_datas"
+#     - "backend/variants/fixed_assets#has_simplified_linear_depreciation_method"
 #     - "backend/visualizations/land_parcels_visualizations#show"
 #     - "backend/visualizations/map_cells_visualizations#show"
 #     - "backend/visualizations/plants_visualizations#show"
