@@ -114,7 +114,6 @@ class Intervention < Ekylibre::Record::Base
 
   calculable period: :month, column: :working_duration, at: :started_at, name: :sum
 
-  # Comment because use in planning with other conditions
   acts_as_numbered unless: :run_sequence
 
   before_validation :set_number, on: :create
