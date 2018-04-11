@@ -638,6 +638,10 @@ Rails.application.routes.draw do
       collection do
         get :weekly_daily_charges
       end
+
+      member do
+        post :update_estimated_date
+      end
     end
 
     namespace :interventions do
