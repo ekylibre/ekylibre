@@ -120,8 +120,7 @@ class Intervention < Ekylibre::Record::Base
   before_validation :set_number, on: :create
 
   def set_number
-    self.intervention_proposal = InterventionProposal.last
-    if Planning.present? && intervention_proposal.present?
+    if defined?(Planning) && intervention_proposal.present?
       self.number = intervention_proposal.number
     elsif request_intervention.present?
       self.number = request_intervention.number
@@ -129,9 +128,8 @@ class Intervention < Ekylibre::Record::Base
   end
 
   def run_sequence
-    (Planning.present? && intervention_proposal.blank?) && request_intervention.blank?
+    (defined?(Planning).present? && intervention_proposal.present?) || request_intervention.present?
   end
-
 
   accepts_nested_attributes_for :group_parameters, :participations, :doers, :inputs, :outputs, :targets, :tools, :working_periods, :labellings, allow_destroy: true
   accepts_nested_attributes_for :receptions, reject_if: :all_blank, allow_destroy: true

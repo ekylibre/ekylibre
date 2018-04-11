@@ -83,7 +83,7 @@ module Ekylibre
 
             define_method :"load_unique_predictable_#{column}" do
               if enumeration_condition.present?
-                if self.send(self.class.enumeration_condition)
+                unless self.send(self.class.enumeration_condition)
                   sequence_manager.load_predictable_into self
                 end
               else
@@ -97,7 +97,7 @@ module Ekylibre
 
             define_method :"load_unique_reliable_#{column}" do
               if enumeration_condition.present?
-                if self.send(self.class.enumeration_condition)
+                unless self.send(self.class.enumeration_condition)
                   sequence_manager.load_reliable_into self
                 end
               else
