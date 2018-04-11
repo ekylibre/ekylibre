@@ -58,7 +58,7 @@ class Intervention < Ekylibre::Record::Base
   include CastGroupable
   include PeriodicCalculable
   include Customizable
-  include Planning::Intervention
+  include Planning::Intervention if defined?(Planning)
   attr_readonly :procedure_name, :production_id, :currency
   refers_to :currency
   enumerize :procedure_name, in: Procedo.procedure_names, i18n_scope: ['procedures']
@@ -115,7 +115,24 @@ class Intervention < Ekylibre::Record::Base
   calculable period: :month, column: :working_duration, at: :started_at, name: :sum
 
   # Comment because use in planning with other conditions
-  # acts_as_numbered
+  acts_as_numbered unless: :run_sequence
+
+  before_validation :set_number, on: :create
+
+  def set_number
+    self.intervention_proposal = InterventionProposal.last
+    if Planning.present? && intervention_proposal.present?
+      self.number = intervention_proposal.number
+    elsif request_intervention.present?
+      self.number = request_intervention.number
+    end
+  end
+
+  def run_sequence
+    (Planning.present? && intervention_proposal.blank?) && request_intervention.blank?
+  end
+
+
   accepts_nested_attributes_for :group_parameters, :participations, :doers, :inputs, :outputs, :targets, :tools, :working_periods, :labellings, allow_destroy: true
   accepts_nested_attributes_for :receptions, reject_if: :all_blank, allow_destroy: true
 

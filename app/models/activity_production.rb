@@ -57,7 +57,7 @@
 class ActivityProduction < Ekylibre::Record::Base
   include Attachable
   include Customizable
-  include Planning::ActivityProduction
+  include Planning::ActivityProduction if defined?(Planning)
 
   enumerize :support_nature, in: %i[cultivation fallow_land buffer border none animal_group], default: :cultivation
   refers_to :usage, class_name: 'ProductionUsage'
