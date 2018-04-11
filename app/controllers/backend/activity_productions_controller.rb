@@ -42,5 +42,9 @@ module Backend
       t.column :issue, url: true
       # t.column :provisional
     end
+
+    list(:products, conditions: { activity_production_id: 'params[:id]'.c, type: "Plant"}, order: { created_at: :desc }, line_class: :status) do |t|
+      t.column :name
+    end
   end
 end
