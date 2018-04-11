@@ -637,6 +637,7 @@ Rails.application.routes.draw do
     resources :schedulings do
       collection do
         get :weekly_daily_charges
+        get :new_intervention
       end
     end
 
