@@ -10,9 +10,9 @@ SEQ,harvesting
 SER,harvesting
 V95,spraying
 SEX,spraying
-SET,sowing
-ZKE,sowing_without_inputs
-SEU,sowing
+SET,sowing_without_plant_output
+ZKE,sowing_without_plant_output
+SEU,sowing_without_plant_output
 V98,land_parcel_grinding
 V97,trellising
 W19,harvesting
@@ -24,4 +24,4 @@ W02,cutting
 W01,cutting
 SFK,crop_residues_grinding
 SEO,plant_watering
-SEW,sowing
+SEW,sowing_without_plant_output

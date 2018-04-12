@@ -68,8 +68,8 @@ module Agroedi
           transcoded_procedure = procedures_transcode[intervention_agroedi_code.reference_code]
           procedure = Procedo.find(transcoded_procedure) if intervention_agroedi_code
           w.info "procedure : #{procedure.name}".inspect.yellow
-          next if %w[harvesting].any? { |code| transcoded_procedure.to_s.include? code }
-          if %w[sowing].any? { |code| transcoded_procedure.to_s.include? code }
+          # next if %w[harvesting].any? { |code| transcoded_procedure.to_s.include? code }
+          if %w[sowing_without_plant_output, harvesting].any? { |code| transcoded_procedure.to_s.include? code }
             record_complex_intervention(i, target, procedure)
           else
             record_default_intervention(i, target, procedure)
@@ -174,34 +174,6 @@ module Agroedi
       else
         return nil
       end
-    end
-
-    # find all plants for the current support and cultivable zone by variety or variant
-    def find_plants(options = {})
-      plants = nil
-      if options[:support]
-        w.debug "supports for finding plant : #{options[:support]}".inspect.blue
-        plant_ids = []
-        options[:support].each do |support|
-          # try to find the current plants on cultivable zone if exists
-          support_shape = Charta.new_geometry(support.shape)
-          w.debug "support_shape : #{support_shape.to_geojson}".to_s.red
-          w.debug "plant count : #{Plant.count}".red
-          w.debug "plant count : #{Plant.pluck(:name).to_sentence}".white
-          product_around = Plant.shape_within(support_shape)
-          w.debug "product_around : #{product_around}".inspect.blue
-          if product_around.any?
-            plant_ids << Plant.where(id: product_around.map(&:id)).pluck(:id)
-          end
-        end
-        plants = Plant.where(id: plant_ids.compact)
-      end
-      if plants && options[:variety] && options[:at]
-        plants = plants.of_variety(options[:variety])
-      elsif options[:variant] && options[:at]
-        plants = plants.where(variant: options[:variant])
-      end
-      plants
     end
 
     # find or create product and variant
@@ -402,12 +374,12 @@ module Agroedi
       ####  SOWING / IMPLANTING  ####
       ###############################
 
-      if procedure.name.to_s == 'sowing' || procedure.name.to_s == 'sowing_without_inputs'
+      if procedure.name.to_s == 'sowing_without_plant_output'
 
         ## inputs
         updaters = []
 
-        if procedure.name.to_s == 'sowing'
+        if i.inputs.any?
           i.inputs.each_with_index do |actor, index|
             p = find_or_create_product(actor, actor.input_name, actor.input_nature_edicode, actor.input_unity_edicode, Date.parse(start).to_time)
 
@@ -457,33 +429,25 @@ module Agroedi
               break
             end
           end
+        else
+          attributes[:inputs_attributes] ||= {}
         end
 
         ## group (zone)
         # target
         # output r.target_variant
         w.debug target.inspect
-        w.debug procedure.parameters_of_type(:group).inspect.red
+        # w.debug procedure.parameters_of_type(:group).inspect.red
 
-        # get plant from nomenclature or create it if needed from common crop
-        target_variant = ProductNatureVariant.find_or_import!(target_variety).first
-        unless target_variant
-          target_variant = ProductNatureVariant.import_from_nomenclature(:common_crop, force = true)
-          target_variant.variety = target_variety
-          target_variant.name = Nomen::Variety.find(target_variety).l
-          target_variant.save!
-        end
-
-        w.info target_variant.inspect.red
-
-        procedure.parameters_of_type(:group).each do |group|
-          attributes[:group_parameters_attributes] ||= {}
-          attributes[:group_parameters_attributes][0] = { reference_name: group.name }
-          attributes[:group_parameters_attributes][0][:targets_attributes] ||= {}
-          attributes[:group_parameters_attributes][0][:targets_attributes]['0'] = { reference_name: group.parameters_of_type(:target).first.name, product_id: target.id, working_zone: target.shape.to_geojson.to_s }
-          attributes[:group_parameters_attributes][0][:outputs_attributes] ||= {}
-          attributes[:group_parameters_attributes][0][:outputs_attributes]['0'] = { reference_name: group.parameters_of_type(:output).first.name, variant_id: target_variant, new_name: "#{target_variant.name} #{target.name}", readings_attributes: { shape: { indicator_name: :shape } } }
-          updaters << 'group_parameters[0]targets[0]working_zone'
+        ## targets
+        procedure.parameters_of_type(:target).each do |support|
+          # next unless target.of_expression(support.filter)
+          attributes[:targets_attributes] ||= {}
+          attributes[:targets_attributes][0] = {
+            reference_name: support.name,
+            product_id: target.id,
+            working_zone: target.shape.to_geojson
+          }
         end
 
         ## tools
@@ -510,35 +474,53 @@ module Agroedi
       elsif procedure.name.to_s == 'harvesting'
 
         # find all plants in the current target
-        plant = find_plants(support: target, variety: target_variety, at: start)
+        # plant = find_plants(support: target, variety: target_variety, at: start).first
 
+        ## targets
         procedure.parameters_of_type(:target).each do |support|
           # next unless target.of_expression(support.filter)
           attributes[:targets_attributes] ||= {}
-          attributes[:targets_attributes][index.to_s] = { reference_name: support.name, product_id: plant.id, working_zone: plant.shape.to_geojson }
-          # break
+          attributes[:targets_attributes][0] = {
+            reference_name: support.name,
+            product_id: target.id,
+            working_zone: target.shape.to_geojson
+          }
         end
 
         ## outputs
         updaters = []
 
         i.outputs.each_with_index do |actor, index|
-          w.debug 'actor : #{actor}'.inspect.red
+          w.debug "actor : #{actor}".inspect.red
 
           # compute output name
           output_nature_agroedi = RegisteredAgroediCode.where(repository_id: 15, reference_code: actor.output_nature_edicode).first
           output_specie_agroedi = RegisteredAgroediCode.where(repository_id: 18, reference_code: actor.output_specie_edicode).first
 
+          output_nature_transcode = { 'ZJI' => :straw, 'ZJH' => :grain, 'W80' => :grape, 'W79' => :grape, 'W78' => :grape }
+
           output_name = "#{actor.output_name} | #{output_specie_agroedi.reference_label} | #{output_nature_agroedi.reference_label}"
+          w.debug "output_name : #{output_name}".inspect.red
 
           # find or import variant
-          output_variant = ProductNatureVariant.find_or_import!(:grain, derivative_of: target_variety).first
+          output_variant = ProductNatureVariant.find_by(name: output_name)
+          unless output_variant
+            output_variant = ProductNatureVariant.find_or_import!(output_nature_transcode[output_nature_agroedi.reference_code], derivative_of: target_variety).first
+            output_variant ||= ProductNatureVariant.find_or_import!(output_nature_transcode[output_nature_agroedi.reference_code]).first
+            output_variant.name = output_name
+            output_variant.derivative_of = target_variety
+            output_variant.save!
+          end
+
+          w.debug "variant name : #{output_variant.name}".inspect.green
 
           units_transcode = { 'KGM' => :kilogram, 'LTR' => :liter, 'TNE' => :ton, 'NAR' => :unity }
+          # in AgroEDI, yield is in ZHK = ton_per_hectare only
+          yield_per_hectare = Measure.new(actor.output_yield.to_f, :ton_per_hectare)
 
           procedure.parameters_of_type(:output).each do |output|
             # compute measure from quantity
-            product_measure = Measure.new(actor.output_quantity, units_transcode[actor.output_unity_edicode])
+            product_measure = Measure.new(actor.output_quantity.to_f, units_transcode[actor.output_unity_edicode])
             # find best handler for product measure
             i = output.best_handler_for(product_measure)
             handler = if i.is_a?(Array)
@@ -546,7 +528,7 @@ module Agroedi
                       else
                         output.best_handler_for(product_measure).name
                       end
-            next unless actor.product.of_expression(output.filter)
+            next unless output_variant.of_expression(output.filter)
             attributes[:outputs_attributes] ||= {}
             attributes[:outputs_attributes][index.to_s] = { reference_name: output.name, variant_id: output_variant.id, new_name: output_name, quantity_handler: handler, quantity_value: product_measure.to_f }
             updaters << "outputs[#{index}]quantity_value"
