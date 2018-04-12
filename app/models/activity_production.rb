@@ -398,7 +398,7 @@ class ActivityProduction < Ekylibre::Record::Base
       inputs = InterventionInput.where(intervention_id: i_ids, reference_name: 'plant_medicine')
       pfi_parcel_ratio = inputs.map(&:pfi_treatment_ratio).compact.sum
     end
-    return pfi_parcel_ratio
+    pfi_parcel_ratio
   end
 
   # Returns the spreaded quantity of one chemicals components (N, P, K) per area unit
@@ -533,20 +533,20 @@ class ActivityProduction < Ekylibre::Record::Base
       return nil
     end
     harvest_yield_unit_name = "#{size_unit_name}_per_#{surface_unit_name}".to_sym
-    puts "harvest_yield_unit_name : #{harvest_yield_unit_name}".inspect.red
+    # puts "harvest_yield_unit_name : #{harvest_yield_unit_name}".inspect.red
     unless Nomen::Unit.find(harvest_yield_unit_name)
       raise "Harvest yield unit doesn't exist: #{harvest_yield_unit_name.inspect}"
     end
     total_quantity = 0.0.in(size_unit_name)
-    puts "total_quantity : #{total_quantity}".inspect.red
+    # puts "total_quantity : #{total_quantity}".inspect.red
 
     target_distribution_plants = Plant.where(activity_production: self)
     # get harvest_interventions firstly by distributions and secondly by inside_plants method
-    #harvest_interventions = Intervention.real.of_category(procedure_category).with_targets(target_distribution_plants) if target_distribution_plants.any?
-    #harvest_interventions ||= Intervention.real.of_category(procedure_category).with_targets(inside_plants)
+    # harvest_interventions = Intervention.real.of_category(procedure_category).with_targets(target_distribution_plants) if target_distribution_plants.any?
+    # harvest_interventions ||= Intervention.real.of_category(procedure_category).with_targets(inside_plants)
     harvest_interventions ||= interventions.real.of_category(procedure_category)
 
-    puts "harvest_interventions count : #{harvest_interventions.count}".inspect.yellow
+    # puts "harvest_interventions count : #{harvest_interventions.count}".inspect.yellow
 
     coef_area = []
     global_coef_harvest_yield = []
@@ -559,7 +559,7 @@ class ActivityProduction < Ekylibre::Record::Base
             harvest_working_area << ::Charta.new_geometry(zone).area.in(:square_meter)
           end
         end
-        puts "harvest_working_area : #{harvest_working_area}".inspect.yellow
+        # puts "harvest_working_area : #{harvest_working_area}".inspect.yellow
         harvest.outputs.each do |cast|
           actor = cast.product
           next unless actor && actor.variety
@@ -569,24 +569,24 @@ class ActivityProduction < Ekylibre::Record::Base
             total_quantity += quantity.convert(size_unit_name) if quantity
           end
         end
-        puts "total_quantity : #{total_quantity}".inspect.yellow
+        # puts "total_quantity : #{total_quantity}".inspect.yellow
         h = harvest_working_area.compact.sum.to_d(surface_unit_name).to_f
-        puts "surface_unit_name : #{surface_unit_name}".inspect.green
-        puts "h : #{h}".inspect.green
+        # puts "surface_unit_name : #{surface_unit_name}".inspect.green
+        # puts "h : #{h}".inspect.green
         if h && h > 0.0
           global_coef_harvest_yield << (h * (total_quantity.to_f / h))
           coef_area << h
         end
-        puts "global_coef_harvest_yield : #{global_coef_harvest_yield}".inspect.green
-        puts "coef_area : #{coef_area}".inspect.green
+        # puts "global_coef_harvest_yield : #{global_coef_harvest_yield}".inspect.green
+        # puts "coef_area : #{coef_area}".inspect.green
       end
     end
 
     total_weighted_average_harvest_yield = global_coef_harvest_yield.compact.sum / coef_area.compact.sum if coef_area.compact.sum.to_d != 0.0
-    puts "total_weighted_average_harvest_yield : #{total_weighted_average_harvest_yield}".inspect.red
+    # puts "total_weighted_average_harvest_yield : #{total_weighted_average_harvest_yield}".inspect.red
     m = Measure.new(total_weighted_average_harvest_yield.to_f, harvest_yield_unit_name)
-    puts "m : #{m}".inspect.red
-    return m.round(2)
+    # puts "m : #{m}".inspect.red
+    m.round(2)
   end
 
   # Returns the yield of grain in mass per surface unit
