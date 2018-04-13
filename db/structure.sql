@@ -483,7 +483,8 @@ CREATE TABLE interventions (
     request_compliant boolean,
     auto_calculate_working_periods boolean DEFAULT false,
     purchase_id integer,
-    intervention_costs_id integer
+    intervention_costs_id integer,
+    intervention_proposal_id integer
 );
 
 
@@ -2609,7 +2610,8 @@ CREATE TABLE purchase_items (
     role character varying,
     conditionning_quantity integer,
     conditionning integer,
-    project_budget_id integer
+    project_budget_id integer,
+    fixed_asset_stopped_on date
 );
 
 
@@ -3914,7 +3916,8 @@ CREATE TABLE intervention_proposals (
     area numeric,
     activity_production_id integer,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    number integer
 );
 
 
@@ -13374,6 +13377,13 @@ CREATE INDEX index_interventions_on_event_id ON interventions USING btree (event
 
 
 --
+-- Name: index_interventions_on_intervention_proposal_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_interventions_on_intervention_proposal_id ON interventions USING btree (intervention_proposal_id);
+
+
+--
 -- Name: index_interventions_on_issue_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -18184,6 +18194,14 @@ ALTER TABLE ONLY intervention_template_product_parameters
 
 
 --
+-- Name: interventions fk_rails_1f3a6ab6a0; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY interventions
+    ADD CONSTRAINT fk_rails_1f3a6ab6a0 FOREIGN KEY (intervention_proposal_id) REFERENCES intervention_proposals(id);
+
+
+--
 -- Name: outgoing_payments fk_rails_1facec8a15; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -19226,4 +19244,10 @@ INSERT INTO schema_migrations (version) VALUES ('20180321092840');
 INSERT INTO schema_migrations (version) VALUES ('20180328132615');
 
 INSERT INTO schema_migrations (version) VALUES ('20180330121129');
+
+INSERT INTO schema_migrations (version) VALUES ('20180405102304');
+
+INSERT INTO schema_migrations (version) VALUES ('20180405125208');
+
+INSERT INTO schema_migrations (version) VALUES ('20180406083922');
 

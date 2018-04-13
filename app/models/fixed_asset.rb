@@ -149,6 +149,7 @@ class FixedAsset < Ekylibre::Record::Base
       self.stopped_on = started_on >> months.floor
       self.stopped_on += (months - months.floor) * 30.0 - 1
     end
+
     # self.currency = self.journal.currency
     true
   end

@@ -3614,6 +3614,26 @@ intervention_participations:
   updater_id:
     type: integer
     references: user
+intervention_proposals:
+  activity_production_id:
+    type: integer
+    references: activity_production
+  area:
+    type: decimal
+  created_at:
+    type: datetime
+    required: true
+  estimated_date:
+    type: date
+  id:
+    type: integer
+    required: true
+  technical_itinerary_intervention_template_id:
+    type: integer
+    references: ''
+  updated_at:
+    type: datetime
+    required: true
 intervention_template_activities:
   activity_id:
     type: integer
@@ -6733,6 +6753,8 @@ purchase_items:
   fixed_asset_id:
     type: integer
     references: fixed_asset
+  fixed_asset_stopped_on:
+    type: date
   id:
     type: integer
     required: true
