@@ -945,6 +945,15 @@ Rails.application.routes.draw do
       end
     end
 
+    namespace :purchases do
+      resources :reconcilation_states, only: [] do
+        member do
+          get :put_to_reconcile_state
+          get :put_accepted_state
+        end
+      end
+    end
+
     resources :purchase_orders, concerns: %i[list unroll] do
       collection do
         get :reconciliate_modal
