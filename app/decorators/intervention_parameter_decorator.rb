@@ -22,4 +22,24 @@ class InterventionParameterDecorator < Draper::Decorator
 
     cost.human_amount
   end
+
+  def participation?
+    self.participation.present?
+  end
+
+  def participation_to_json
+    string_json = self.participation.to_json(include: :working_periods)
+    json = JSON.parse(string_json)
+
+    json['working_periods_attributes'] = json.delete('working_periods')
+
+    json.to_json
+  end
+
+  def participation
+    InterventionParticipation
+      .where(intervention_id: object.intervention_id,
+             product_id: object.product_id)
+      .first
+  end
 end
