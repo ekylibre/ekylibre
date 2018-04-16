@@ -1,6 +1,13 @@
 class ActivityProductionDecorator < Draper::Decorator
   delegate_all
 
+  def plants?
+    object
+      .products
+      .select{ |product| product.is_a?(Plant) }
+      .any?
+  end
+
   def production_costs
     production_global_costs = global_costs
 

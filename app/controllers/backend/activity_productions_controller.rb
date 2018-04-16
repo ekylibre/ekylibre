@@ -43,8 +43,15 @@ module Backend
       # t.column :provisional
     end
 
-    list(:products, conditions: { activity_production_id: 'params[:id]'.c, type: "Plant"}, order: { created_at: :desc }, line_class: :status) do |t|
-      t.column :name
+    list(:plants, model: :plant, conditions: { activity_production_id: 'params[:id]'.c}, order: { created_at: :desc }, line_class: :status) do |t|
+      t.column :name, url: true
+      t.column :work_number
+      t.column :variety
+      t.column :work_name, through: :container, url: true
+      t.column :net_surface_area, datatype: :measure
+      t.status
+      t.column :born_at
+      t.column :dead_at
     end
   end
 end

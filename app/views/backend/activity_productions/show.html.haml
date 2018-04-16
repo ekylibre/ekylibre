@@ -150,7 +150,8 @@
       = cobble_list(:interventions)
 
 
-  - c.cobble(:plants) do
-    = cobble_list(:products)
+  - if resource.decorate.plants?
+    - c.cobble(:plants) do
+      = cobble_list(:plants)
 
   = #render partial: 'backend/shared/distributions', locals: {c: c}
