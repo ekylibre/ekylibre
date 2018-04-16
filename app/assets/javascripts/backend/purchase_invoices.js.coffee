@@ -2,6 +2,9 @@
   'use strict'
 
   $(document).ready ->
+    if $('.change-reconcilation-state-block').length > 0
+      E.PurchaseInvoicesShow.addStyleToReconcilationStateBlock()
+
     $('.nested-fields.purchase-invoice-items').each (index, purchase_invoice) ->
       hiddenFieldToChange = $(purchase_invoice).find('input[name="purchase_invoice[items_attributes][RECORD_ID][parcels_purchase_invoice_items]"]')
       $(hiddenFieldToChange).attr('name', "purchase_invoice[items_attributes][#{ index }][parcels_purchase_invoice_items]")
@@ -113,6 +116,11 @@
         E.PurchaseInvoices.manageStoppedOnFieldDisplay(targettedElement)
 
 
+    $(document).on 'click', '.change-reconcilation-state-block input[type="checkbox"]', (event) ->
+      checkbox = $(event.target)
+      E.PurchaseInvoicesShow.changeEventReconcilationStateBlock(checkbox)
+
+
   E.PurchaseInvoices =
     displayAssetsBlock: (fixedCheckbox) ->
       fixedAssetFields = fixedCheckbox.closest('.fixed-asset-fields')
@@ -177,6 +185,39 @@
           newStock = parseFloat(data.stock) - parseFloat(quantity)
           $(currentForm).find('.merchandise-stock-after-invoice .stock-value').text(newStock)
           $(currentForm).find('.merchandise-stock-after-invoice .stock-unit').text(data.unit.name)
+
+
+  E.PurchaseInvoicesShow =
+    addStyleToReconcilationStateBlock: ->
+      reconcilationStateBlock = $('.change-reconcilation-state-block')
+      mainToolbar = reconcilationStateBlock.closest('.main-toolbar')
+
+      reconcilationStateBlock.css('float', 'right')
+      reconcilationStateBlock.css('margin-right', '2em')
+      mainToolbar.css('width', '100%')
+
+
+    changeEventReconcilationStateBlock: (checkbox) ->
+      reconciliationTitle = $('.reconciliation-title')
+      purchase_invoice_id = window.location.pathname.split('/').pop()
+      url = "/backend/purchases/reconcilation_states/#{ purchase_invoice_id }"
+
+      if checkbox.is(':checked')
+        url += '/put_accepted_state'
+      else
+        url += '/put_to_reconcile_state'
+
+      $.ajax
+        url: url,
+        success: (data, status, request) ->
+          if checkbox.is(':checked')
+            reconciliationTitle.addClass('accepted-title')
+            reconciliationTitle.removeClass('no-reconciliate-title')
+            reconciliationTitle.text(reconciliationTitle.attr('data-accepted-text'))
+          else
+            reconciliationTitle.addClass('no-reconciliate-title')
+            reconciliationTitle.removeClass('accepted-title')
+            reconciliationTitle.text(reconciliationTitle.attr('data-no-reconciliate-text'))
 
 
 ) ekylibre, jQuery

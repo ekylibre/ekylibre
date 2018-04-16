@@ -1,6 +1,6 @@
 GIT
   remote: git@gitlab.com:ekylibre-integration/planning.git
-  revision: 5775f013e975bc087a08d7dd8296ce04bc7488ef
+  revision: 4106ef9539e20777b821a475e0a78da8a0b1b377
   specs:
     planning (0.6.1)
       factory_bot
@@ -181,7 +181,7 @@ GEM
       responders
       warden (~> 1.2.3)
     devise-i18n-views (0.3.7)
-    devise_invitable (1.7.3)
+    devise_invitable (1.7.4)
       actionmailer (>= 4.1.0)
       devise (>= 4.0.0)
     did_you_mean (0.10.0)
@@ -374,7 +374,7 @@ GEM
     parallel (1.12.1)
     parallel_tests (2.21.3)
       parallel
-    parser (2.5.0.5)
+    parser (2.5.1.0)
       ast (~> 2.4.0)
     pg (0.20.0)
     polyglot (0.3.5)
@@ -546,7 +546,7 @@ GEM
       json (>= 1.8, < 3)
       simplecov-html (~> 0.10.0)
     simplecov-html (0.10.2)
-    skylight (1.6.0)
+    skylight (1.6.1)
       activesupport (>= 3.0.0)
     socksify (1.7.1)
     spring (2.0.2)
@@ -599,7 +599,7 @@ GEM
       railties (>= 3.1)
     tzinfo (1.2.5)
       thread_safe (~> 0.1)
-    uglifier (4.1.8)
+    uglifier (4.1.9)
       execjs (>= 0.3.0, < 3)
     unf (0.1.4)
       unf_ext

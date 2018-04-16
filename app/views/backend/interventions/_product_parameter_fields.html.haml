@@ -22,6 +22,13 @@
       - datas = { participation: f.object.participation.id  } unless f.object.participation.nil?
       %div{ class: "has-intervention-participations picto picto-#{participation_picto}", data: datas }
 
+      - decorated_object = f.object.decorate
+      - if decorated_object.participation?
+        - field_name = "intervention[participations_attributes][#{ decorated_object.participation.id }]"
+        - field_value = decorated_object.participation_to_json
+        = hidden_field_tag field_name, field_value, { class: 'intervention-participation', data: { product_id: f.object.product_id }}
+
+
     = modal(id: "working_times", class: "working-times", size: :large) do
       .modal-body
       .modal-footer
