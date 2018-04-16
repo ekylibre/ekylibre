@@ -655,10 +655,9 @@ class ActivityProduction < Ekylibre::Record::Base
   # Returns unique i18nized name for given production
   def name(options = {})
     list = []
-    list << activity.name unless options[:activity].is_a?(FalseClass)
-    list << season.name if season.present?
     list << cultivable_zone.name if cultivable_zone && plant_farming?
-    list << started_on.to_date.l(format: :month) if activity.annual? && started_on
+    list << campaign.name if campaign
+    list << activity.name unless options[:activity].is_a?(FalseClass)
     list << :rank.t(number: rank_number)
     list = list.reverse! if 'i18n.dir'.t == 'rtl'
     list.join(' ')
