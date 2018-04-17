@@ -1,7 +1,7 @@
 [submodule "plugins/cap"]
 	path = plugins/cap
 	url = git@github.com:ekylibre/ekylibre-cap
-  branch = master
+  branch = feature/integration-cer-cneidf
 [submodule "plugins/hajimari"]
 	path = plugins/hajimari
 	url = git@github.com:ekylibre/ekylibre-hajimari
