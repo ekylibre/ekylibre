@@ -1522,6 +1522,7 @@ spa:
     number: "Número"
     number_of_cap_islets: "Número de islotes casquillo"
     number_of_cap_land_parcels: "Número de parcelas de tapa"
+    # number_of_cap_neutral_areas: "Number of cap neutral areas"
     number_options: "Opciones números" #?
     numbers: "Números"
     on_account: "Volver a poner sobre la cuenta"

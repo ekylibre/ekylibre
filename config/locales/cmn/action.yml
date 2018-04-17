@@ -1358,6 +1358,7 @@ cmn:
     number: "数"
     number_of_cap_islets: "帽胰岛数"
     number_of_cap_land_parcels: "盖地块数"
+    # number_of_cap_neutral_areas: "Number of cap neutral areas"
     number_options: "选项​​号码" #?
     numbers: "数字"
     on_account: "在帐户"

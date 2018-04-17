@@ -1629,6 +1629,7 @@ eng:
     number: "Number" #?
     number_of_cap_islets: "Number of CAP islets"
     number_of_cap_land_parcels: "Number of CAP land parcels"
+    number_of_cap_neutral_areas: "Number of cap neutral areas"
     numbers: "Numbers" #?
     # observations: "Observations"
     on_account: "On account" #?

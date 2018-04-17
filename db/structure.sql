@@ -1442,10 +1442,10 @@ ALTER SEQUENCE cap_land_parcels_id_seq OWNED BY cap_land_parcels.id;
 
 
 --
--- Name: cap_neutral_area; Type: TABLE; Schema: public; Owner: -
+-- Name: cap_neutral_areas; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE cap_neutral_area (
+CREATE TABLE cap_neutral_areas (
     id integer NOT NULL,
     cap_statement_id integer NOT NULL,
     number character varying NOT NULL,
@@ -1461,10 +1461,10 @@ CREATE TABLE cap_neutral_area (
 
 
 --
--- Name: cap_neutral_area_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: cap_neutral_areas_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE cap_neutral_area_id_seq
+CREATE SEQUENCE cap_neutral_areas_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -1473,10 +1473,10 @@ CREATE SEQUENCE cap_neutral_area_id_seq
 
 
 --
--- Name: cap_neutral_area_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+-- Name: cap_neutral_areas_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE cap_neutral_area_id_seq OWNED BY cap_neutral_area.id;
+ALTER SEQUENCE cap_neutral_areas_id_seq OWNED BY cap_neutral_areas.id;
 
 
 --
@@ -7128,10 +7128,10 @@ ALTER TABLE ONLY cap_land_parcels ALTER COLUMN id SET DEFAULT nextval('cap_land_
 
 
 --
--- Name: cap_neutral_area id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: cap_neutral_areas id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY cap_neutral_area ALTER COLUMN id SET DEFAULT nextval('cap_neutral_area_id_seq'::regclass);
+ALTER TABLE ONLY cap_neutral_areas ALTER COLUMN id SET DEFAULT nextval('cap_neutral_areas_id_seq'::regclass);
 
 
 --
@@ -8203,11 +8203,11 @@ ALTER TABLE ONLY cap_land_parcels
 
 
 --
--- Name: cap_neutral_area cap_neutral_area_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: cap_neutral_areas cap_neutral_areas_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY cap_neutral_area
-    ADD CONSTRAINT cap_neutral_area_pkey PRIMARY KEY (id);
+ALTER TABLE ONLY cap_neutral_areas
+    ADD CONSTRAINT cap_neutral_areas_pkey PRIMARY KEY (id);
 
 
 --
@@ -10281,38 +10281,38 @@ CREATE INDEX index_cap_land_parcels_on_updater_id ON cap_land_parcels USING btre
 
 
 --
--- Name: index_cap_neutral_area_on_cap_statement_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_cap_neutral_areas_on_cap_statement_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_cap_neutral_area_on_cap_statement_id ON cap_neutral_area USING btree (cap_statement_id);
-
-
---
--- Name: index_cap_neutral_area_on_created_at; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_cap_neutral_area_on_created_at ON cap_neutral_area USING btree (created_at);
+CREATE INDEX index_cap_neutral_areas_on_cap_statement_id ON cap_neutral_areas USING btree (cap_statement_id);
 
 
 --
--- Name: index_cap_neutral_area_on_creator_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_cap_neutral_areas_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_cap_neutral_area_on_creator_id ON cap_neutral_area USING btree (creator_id);
-
-
---
--- Name: index_cap_neutral_area_on_updated_at; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_cap_neutral_area_on_updated_at ON cap_neutral_area USING btree (updated_at);
+CREATE INDEX index_cap_neutral_areas_on_created_at ON cap_neutral_areas USING btree (created_at);
 
 
 --
--- Name: index_cap_neutral_area_on_updater_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_cap_neutral_areas_on_creator_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_cap_neutral_area_on_updater_id ON cap_neutral_area USING btree (updater_id);
+CREATE INDEX index_cap_neutral_areas_on_creator_id ON cap_neutral_areas USING btree (creator_id);
+
+
+--
+-- Name: index_cap_neutral_areas_on_updated_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_cap_neutral_areas_on_updated_at ON cap_neutral_areas USING btree (updated_at);
+
+
+--
+-- Name: index_cap_neutral_areas_on_updater_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_cap_neutral_areas_on_updater_id ON cap_neutral_areas USING btree (updater_id);
 
 
 --
@@ -17394,14 +17394,6 @@ ALTER TABLE ONLY journals
 
 
 --
--- Name: cap_neutral_area fk_rails_c073df4b68; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY cap_neutral_area
-    ADD CONSTRAINT fk_rails_c073df4b68 FOREIGN KEY (cap_statement_id) REFERENCES cap_statements(id);
-
-
---
 -- Name: payslips fk_rails_c0e66eeaff; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -17455,6 +17447,14 @@ ALTER TABLE ONLY outgoing_payments
 
 ALTER TABLE ONLY financial_year_exchanges
     ADD CONSTRAINT fk_rails_f0120f1957 FOREIGN KEY (financial_year_id) REFERENCES financial_years(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: cap_neutral_areas fk_rails_f9fd6a9e09; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY cap_neutral_areas
+    ADD CONSTRAINT fk_rails_f9fd6a9e09 FOREIGN KEY (cap_statement_id) REFERENCES cap_statements(id);
 
 
 --

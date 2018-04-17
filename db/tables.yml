@@ -1169,7 +1169,7 @@ cap_land_parcels:
   updater_id:
     type: integer
     references: user
-cap_neutral_area:
+cap_neutral_areas:
   cap_statement_id:
     type: integer
     references: cap_statement
@@ -1182,7 +1182,7 @@ cap_neutral_area:
     required: true
   creator_id:
     type: integer
-    references: ''
+    references: user
   id:
     type: integer
     required: true
@@ -1206,7 +1206,7 @@ cap_neutral_area:
     required: true
   updater_id:
     type: integer
-    references: ''
+    references: user
 cap_statements:
   campaign_id:
     type: integer

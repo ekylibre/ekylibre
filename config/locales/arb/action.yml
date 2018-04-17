@@ -1844,6 +1844,7 @@ arb:
     number: "رقم"
     number_of_cap_islets: "عدد من الجزر الصغيرة كاب"
     number_of_cap_land_parcels: "عدد من قطع الأراضي كاب"
+    # number_of_cap_neutral_areas: "Number of cap neutral areas"
     number_options: "أرقام الخيارات" #?
     numbers: "أرقام"
     observation_create: "اضافة ملاحظة" #?

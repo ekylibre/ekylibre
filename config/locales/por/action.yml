@@ -1362,6 +1362,7 @@ por:
     number: "Número"
     number_of_cap_islets: "Número de ilhotas cap"
     number_of_cap_land_parcels: "Número de parcelas de terra cap"
+    # number_of_cap_neutral_areas: "Number of cap neutral areas"
     number_options: "Opções Números" #?
     numbers: "Números"
     on_account: "Por conta"

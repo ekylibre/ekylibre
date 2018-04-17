@@ -1429,6 +1429,7 @@ jpn:
     number: "数"
     number_of_cap_islets: "キャップ膵島の数"
     number_of_cap_land_parcels: "キャップ土地区画の数"
+    # number_of_cap_neutral_areas: "Number of cap neutral areas"
     number_options: "オプション番号" #?
     numbers: "数字"
     on_account: "アカウントに"

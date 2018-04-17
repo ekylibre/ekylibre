@@ -1040,6 +1040,7 @@ fra:
     catalog: "Description pour catalogue"
     catalog_items: "Éléments de catalogue"
     category: "Catégorie"
+    category_code: "Code catégorie" #?
     category_name: "Catégorie" #?
     cells_concentration: "Dénombrement des cellules somatiques" #?
     centralize: "Comptes comptables centralisateurs"
@@ -1724,6 +1725,7 @@ fra:
     number: "Numéro"
     number_of_cap_islets: "Nombre d’ilôt PAC"
     number_of_cap_land_parcels: "Nombre de parcelle PAC"
+    number_of_cap_neutral_areas: "Nombre d'élèments SNA"
     number_options: "Options de numérotations" #?
     numbers: "Numéros"
     on_account: "À remettre sur le compte"

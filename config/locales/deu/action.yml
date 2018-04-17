@@ -1357,6 +1357,7 @@ deu:
     number: "Nummer"
     number_of_cap_islets: "Anzahl der Kappe Inseln"
     number_of_cap_land_parcels: "Anzahl der Kappe Parzellen"
+    # number_of_cap_neutral_areas: "Number of cap neutral areas"
     number_options: "Optionen Zahlen" #?
     numbers: "Nummern"
     on_account: "Auf Rechnung"

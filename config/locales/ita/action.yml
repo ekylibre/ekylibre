@@ -1423,6 +1423,7 @@ ita:
     number: "Numero"
     number_of_cap_islets: "Numero di isolotti cap"
     number_of_cap_land_parcels: "Numero di cap appezzamenti"
+    # number_of_cap_neutral_areas: "Number of cap neutral areas"
     number_options: "Opzioni Numbers" #?
     numbers: "Numeri"
     on_account: "Sul conto"
