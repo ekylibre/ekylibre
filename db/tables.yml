@@ -1169,6 +1169,44 @@ cap_land_parcels:
   updater_id:
     type: integer
     references: user
+cap_neutral_area:
+  cap_statement_id:
+    type: integer
+    references: cap_statement
+    required: true
+  category:
+    type: string
+    required: true
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: ''
+  id:
+    type: integer
+    required: true
+  lock_version:
+    type: integer
+    required: true
+  nature:
+    type: string
+    required: true
+  number:
+    type: string
+    required: true
+  shape:
+    type: geometry
+    limit:
+      srid: 4326
+      type: geometry
+    required: true
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: ''
 cap_statements:
   campaign_id:
     type: integer

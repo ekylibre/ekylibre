@@ -96,8 +96,8 @@ gem 'unicorn', group: :production
 # Use Capistrano for deployment
 group :development do
   gem 'capistrano', '3.9.1'
-  gem 'capistrano-git-with-submodules', '~> 2.0'
   gem 'capistrano-bundler', require: false
+  gem 'capistrano-git-with-submodules', '~> 2.0'
   gem 'capistrano-rails', require: false
   gem 'capistrano-rails-console', require: false
   gem 'capistrano-rbenv', require: false

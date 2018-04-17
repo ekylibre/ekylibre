@@ -69,7 +69,7 @@ module Agroedi
           procedure = Procedo.find(transcoded_procedure) if intervention_agroedi_code
           w.info "procedure : #{procedure.name}".inspect.yellow
           # next if %w[harvesting].any? { |code| transcoded_procedure.to_s.include? code }
-          if %w[sowing_without_plant_output, harvesting].any? { |code| transcoded_procedure.to_s.include? code }
+          if %w[sowing_without_plant_output harvesting].any? { |code| transcoded_procedure.to_s.include? code }
             record_complex_intervention(i, target, procedure)
           else
             record_default_intervention(i, target, procedure)

@@ -112,15 +112,15 @@ module Backend
 
             # case vegetable
             elsif support.usage == 'vegetable'
-                label = :vegetable_yield
-                vegetable_yield = support.vegetable_yield
-                popup_content << { label: label.tl, value: vegetable_yield.round(2).l }
+              label = :vegetable_yield
+              vegetable_yield = support.vegetable_yield
+              popup_content << { label: label.tl, value: vegetable_yield.round(2).l }
 
             # grappe
             elsif support.usage == 'fruit' || support.usage == 'grappe'
-                  label = :fruit_yield
-                  fruit_yield = support.fruit_yield
-                  popup_content << { label: label.tl, value: fruit_yield.round(2).l }
+              label = :fruit_yield
+              fruit_yield = support.fruit_yield
+              popup_content << { label: label.tl, value: fruit_yield.round(2).l }
             end
 
             # if support.net_surface_area
@@ -128,7 +128,7 @@ module Backend
             # end
 
             # compute pfi parcel ratio from pfi treatment ratios
-            popup_content << {label: :pfi_parcel_ratio.tl, value: support.pfi_parcel_ratio.round(2)}
+            popup_content << { label: :pfi_parcel_ratio.tl, value: support.pfi_parcel_ratio.round(2) }
 
             interventions = support.interventions.real
             if interventions.any?
@@ -183,7 +183,7 @@ module Backend
               v.choropleth :grass_yield, :main, stop_color: '#00AA00'
               v.choropleth :vegetable_yield, :main, stop_color: '#11BB99'
               v.choropleth :fruit_yield, :main, stop_color: '#1122DD'
-              v.choropleth :pfi_parcel_ratio, :main, stop_color: "#E77000"
+              v.choropleth :pfi_parcel_ratio, :main, stop_color: '#E77000'
             else
               v.choropleth :tool_cost, :main, stop_color: '#00AA00'
               v.choropleth :input_cost, :main, stop_color: '#1122DD'

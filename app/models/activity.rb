@@ -255,7 +255,7 @@ class Activity < Ekylibre::Record::Base
       global_area << area_in_hectare
     end
     pfi_activity = (production_pfi_per_area.compact.sum / global_area.compact.sum).round(2)
-    return pfi_activity
+    pfi_activity
   end
 
   def interventions

@@ -91,7 +91,7 @@ class InterventionInput < InterventionProductParameter
     elsif quantity.dimension == :volume_area_density || quantity.dimension == :mass_area_densit
       q_per_hectare = quantity
     end
-    return q_per_hectare
+    q_per_hectare
   end
 
   # return pfi dose according to Lexicon pfi dataset and maaid number
@@ -104,7 +104,7 @@ class InterventionInput < InterventionProductParameter
       maaid = variant.france_maaid
       dose = RegisteredPfiDose.where(maaid: maaid, crop_id: crop_code, harvest_year: harvest_year, target_id: nil).first
     end
-    return dose
+    dose
   end
 
   # return legal dose according to Lexicon phyto dataset and maaid number
@@ -128,7 +128,7 @@ class InterventionInput < InterventionProductParameter
     elsif legal_pesticide_informations[:dose].dimension == :volume_area_density && input_quantity_per_area.dimension == :volume_area_density
       ratio = input_quantity_per_area.convert(legal_pesticide_informations[:dose].unit) / legal_pesticide_informations[:dose].to_d
     end
-    return ratio.to_d
+    ratio.to_d
   end
 
   # only case in mass_area_density && volume_area_density in pfi reference
@@ -141,7 +141,7 @@ class InterventionInput < InterventionProductParameter
         ratio = input_quantity_per_area.convert(pfi_reference_dose.dose.unit) / pfi_reference_dose.dose.to_d
       end
     end
-    return ratio.to_d
+    ratio.to_d
   end
 
   # from EPHY
@@ -153,7 +153,6 @@ class InterventionInput < InterventionProductParameter
 
       # get agent if exist
       agent = Pesticide::Agent.find(variant.france_maaid)
-
 
       reglementary_doses = {}
 

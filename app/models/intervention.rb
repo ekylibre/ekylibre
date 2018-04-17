@@ -559,12 +559,12 @@ class Intervention < Ekylibre::Record::Base
   def working_zone_area(*args)
     options = args.extract_options!
     unit = args.shift || options[:unit] || :hectare
-    if targets.any?
-      area = targets.with_working_zone.map(&:working_zone_area).sum.in(unit)
-    else
-      area = 0.0.in(unit)
-    end
-    return area
+    area = if targets.any?
+             targets.with_working_zone.map(&:working_zone_area).sum.in(unit)
+           else
+             0.0.in(unit)
+           end
+    area
   end
 
   def human_working_zone_area(*args)

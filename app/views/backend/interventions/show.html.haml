@@ -68,6 +68,8 @@
 
   - c.cobble(:general_informations) do
     = infos do
+      = attributes_list do |l|
+        - l.attribute :number
       -#.med-info.important
         %span.title= Intervention.human_attribute_name(:nature)
         %span.value= resource.nature.l #lights(resource.status)
