@@ -7497,7 +7497,7 @@ fra:
         zea_mays_shannon: "Maïs Shannon"
         zeuzera_pyrina: "Zeuzera pyrina"
         zingiberaceae: "Zingibéracée"
-        zone: "Zone physique"
+        zone: "Zone"
         zone_property_title: "Titre de propriété terrienne"
       name: "Variétés"
       property_natures:

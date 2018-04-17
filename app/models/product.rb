@@ -189,7 +189,7 @@ class Product < Ekylibre::Record::Base
   scope :of_expression, lambda { |expression|
     joins(:nature).where(WorkingSet.to_sql(expression, default: :products, abilities: :product_natures, indicators: :product_natures))
   }
-  scope :of_nature, ->(nature) { where(nature_id: nature.id) }
+  scope :of_nature, ->(nature) { where(nature_id: nature.try(:id) || nature) }
   scope :of_variant, lambda { |variant, _at = Time.zone.now|
     where(variant_id: (variant.is_a?(ProductNatureVariant) ? variant.id : variant))
   }
