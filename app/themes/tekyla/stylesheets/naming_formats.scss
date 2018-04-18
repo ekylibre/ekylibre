@@ -1,0 +1,50 @@
+.naming-format-form {
+  .nested-association {
+    @include flex-row(flex-start);
+    border: none;
+    width: 100%;
+    margin: 2em 0;
+
+    .nested-fields {
+      flex: 1;
+      border: none;
+      background: $white !important;
+    }
+
+    .nested-fields .nested-remove {
+      top: 35px;
+    }
+
+    .control-group {
+      @include flex-column();
+    }
+
+    .control-group .controls {
+      margin-left: 0;
+      max-width: none;
+    }
+
+    .control-group .controls select {
+      max-width: none;
+    }
+
+    .links {
+      @include flex-row();
+      flex-basis: 10%;
+      background: $white;
+      border: none;
+    }
+
+    .links .nested-add {
+      margin-left: 0 !important;
+    }
+  }
+
+  .naming-format-example {
+    font-style: italic;
+  }
+}
+
+.wice-grid-list.naming-formats-list {
+  margin-top: 2em;
+}
