@@ -92,7 +92,7 @@ class ProductReading < Ekylibre::Record::Base
 
   after_save do
     last_reading = product.readings.where(indicator_name: indicator_name).last
-    if last_reading.read_at <= read_at
+    if last_reading && last_reading.read_at <= read_at
       product.send("#{indicator_name}=", value)
       product.update_column(:reading_cache, product.reading_cache)
     end

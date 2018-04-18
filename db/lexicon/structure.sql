@@ -89,6 +89,17 @@ CREATE TABLE master_equipment_costs (
 );
 CREATE INDEX master_equipment_costs_nature_id ON master_equipment_costs(equipment_nature_id);
 
+CREATE TABLE master_equipment_flows (
+  id integer PRIMARY KEY NOT NULL,
+  equipment_nature_id integer NOT NULL,
+  indicator_name character varying,
+  indicator_value numeric(19,4),
+  indicator_unit character varying,
+  procedure_name character varying,
+  intervention_flow numeric(19,4)
+);
+CREATE INDEX master_equipment_flows_nature_id ON master_equipment_flows(equipment_nature_id);
+
 CREATE TABLE registered_postal_zones (
   country character varying NOT NULL,
   code character varying NOT NULL,
