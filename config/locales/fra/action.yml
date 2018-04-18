@@ -455,6 +455,10 @@ fra:
       index: "Services en ligne"
       new: "Nouveau service en ligne"
       show: "Service en ligne\_: %{name}"
+    backend/naming_formats:
+      index: "Formats de nommage"
+    backend/naming_format_land_parcels:
+      edit: "Format de nommage des Parcelles"
     backend/notifications:
       index: "Notifications"
     backend/observations:
@@ -933,6 +937,7 @@ fra:
     add_expense: "Ajouter une dépense"
     add_fax: "Ajouter un n° de fax"
     add_fees: "Ajouter des frais"
+    add_field: "Ajouter un champ"
     add_filter: "Ajouter un filtre"
     add_grading_check: "Ajouter un critère d’agréage"
     add_incoming_payment: "Ajouter un encaissement"
@@ -1401,6 +1406,7 @@ fra:
     fat_matters_concentration: "Teneur en matières grasses" #?
     fax: "Fax" #?
     fees: "Frais"
+    field: "Champ %{counter}"
     field_distribution: "Parcellaire"
     file_nature: "Type de fichier"
     file_pages_count: "Nombre de pages" #?

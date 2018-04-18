@@ -39,6 +39,8 @@ eng:
       loan:
         ongoing_at: "Fund raising at"
         started_on: "First repayment started on"
+      naming_format_field:
+        field_name: "Field"
       outgoing_payment:
         delivered: "Given to recipient"
         list: "Disbursement list"

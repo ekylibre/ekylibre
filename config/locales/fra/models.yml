@@ -105,6 +105,8 @@ fra:
       matter: #?
         born_at: "Fabriqué le" #?
         dead_at: "Détruit/consommé le" #?
+      naming_format_field:
+        field_name: 'Champ'
       outgoing_parcel: #?
         items: "Lignes de colis à expédier" #?
       outgoing_payment:

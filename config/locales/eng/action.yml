@@ -515,6 +515,10 @@ eng:
     backend/myselves:
       # change_password: "Change password myself: %{name}"
       show: "My informations"
+    backend/naming_formats:
+      index: "Naming formats"
+    backend/naming_format_land_parcels:
+      edit: "Land parcel naming format"
     backend/net_services:
       edit: "Edit net service"
       index: "Net services"
@@ -1051,6 +1055,7 @@ eng:
     add_expense: "Add expense"
     add_fax: "Add fax"
     add_fees: "Add fees"
+    add_field: "Add field"
     add_filter: "Add filter"
     add_grading_check: "Add grading check"
     add_incoming_payment: "Add incoming payment"
@@ -1407,6 +1412,7 @@ eng:
     # export_as_odt: "Export as odt"
     export_as_xcsv: "Export as Excel CSV"
     fees: "Fees" #?
+    field: "Field %{counter}"
     field_distribution: "Field distribution"
     file_nature: "File type"
     file_preview: "Preview" #?
