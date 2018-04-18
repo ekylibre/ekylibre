@@ -654,13 +654,10 @@ class ActivityProduction < Ekylibre::Record::Base
 
   # Returns unique i18nized name for given production
   def name(options = {})
-    list = []
-    list << cultivable_zone.name if cultivable_zone && plant_farming?
-    list << campaign.name if campaign
-    list << activity.name unless options[:activity].is_a?(FalseClass)
-    list << :rank.t(number: rank_number)
-    list = list.reverse! if 'i18n.dir'.t == 'rtl'
-    list.join(' ')
+    interactor = NamingFormats::LandParcels::BuildActivityProductionNameInteractor
+                   .call(activity_production: self)
+
+    return interactor.build_name if interactor.success?
   end
 
   def get(*args)
