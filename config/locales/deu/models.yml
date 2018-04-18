@@ -548,6 +548,7 @@ deu:
     category: "Kategorie"
     ceded: "Rückversicherer"
     ceded_on: "Rückversicherer auf"
+    # centroid: "Centroid"
     charge_account: "Kundenkonto"
     charges_categories: "Kosten Kategorien"
     checks: "Schecks"

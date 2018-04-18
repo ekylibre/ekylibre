@@ -579,6 +579,7 @@ ita:
     category: "Categoria"
     ceded: "ceduta"
     ceded_on: "ceduto su"
+    # centroid: "Centroid"
     charge_account: "conto di carica"
     charges_categories: "oneri categorie"
     checks: "controlli"

@@ -704,6 +704,7 @@ fra:
     category: "Catégorie"
     ceded: "Cédé"
     ceded_on: "Cédé le"
+    # centroid: "Centroid"
     charge_account: "Compte d’achat"
     charges_categories: "Catégories de produits avec charge"
     check_state: "Vérifier l’état" #?

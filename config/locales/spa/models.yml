@@ -549,6 +549,7 @@ spa:
     category: "Categoría"
     ceded: "Cedido"
     ceded_on: "Cedido en"
+    # centroid: "Centroid"
     charge_account: "Cuenta de cargo"
     charges_categories: "Cargos categorías"
     checks: "Los cheques"

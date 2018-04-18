@@ -1229,6 +1229,7 @@ arb:
     category_id: "الفئة" #?
     ceded: "تنازلت"
     ceded_on: "تنازلت عن"
+    # centroid: "Centroid"
     charge_account: "حساب المسؤول"
     charges_categories: "فئات الرسوم"
     check_number: "رقم الشيك" #?

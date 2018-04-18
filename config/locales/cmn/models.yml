@@ -548,6 +548,7 @@ cmn:
     category: "类别"
     ceded: "割让"
     ceded_on: "在割让"
+    # centroid: "Centroid"
     charge_account: "收费帐户"
     charges_categories: "收费类别"
     checks: "检查"

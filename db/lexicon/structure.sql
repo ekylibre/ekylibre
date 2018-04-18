@@ -113,7 +113,8 @@ CREATE TABLE registered_agroedi_codes (
 CREATE INDEX registered_agroedi_codes_reference_code ON registered_agroedi_codes(reference_code);
 
 CREATE TABLE registered_building_zones (
-  shape postgis.geometry(Polygon,4326) NOT NULL,
+  nature character varying,
+  shape postgis.geometry(MultiPolygon,4326) NOT NULL,
   centroid postgis.geometry(Point,4326)
 );
 CREATE INDEX registered_building_zones_shape ON registered_building_zones USING GIST (shape);
@@ -215,3 +216,15 @@ CREATE TABLE registered_seeds (
 );
 CREATE INDEX registered_seeds_specie ON registered_seeds(specie);
 CREATE INDEX registered_seeds_number ON registered_seeds(number);
+
+CREATE TABLE registered_water_rivers (
+  name character varying,
+  shape postgis.geometry(LineString,4326) NOT NULL
+);
+CREATE INDEX registered_water_rivers_shape ON registered_water_rivers USING GIST (shape);
+
+CREATE TABLE registered_water_lakes (
+  name character varying,
+  shape postgis.geometry(Polygon,4326) NOT NULL
+);
+CREATE INDEX registered_water_lakes_shape ON registered_water_lakes USING GIST (shape);

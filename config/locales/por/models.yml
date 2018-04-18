@@ -548,6 +548,7 @@ por:
     category: "Categoria"
     ceded: "Cedido"
     ceded_on: "Cedida em"
+    # centroid: "Centroid"
     charge_account: "Conta de crédito"
     charges_categories: "Categorias encargos"
     checks: "Verificações"

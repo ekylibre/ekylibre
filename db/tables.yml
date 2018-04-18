@@ -6882,11 +6882,13 @@ registered_building_zones:
     limit:
       srid: 4326
       type: st_point
+  nature:
+    type: string
   shape:
     type: geometry
     limit:
       srid: 4326
-      type: st_polygon
+      type: multi_polygon
     required: true
 registered_crop_zones:
   id:
@@ -7057,6 +7059,24 @@ registered_seeds:
     required: true
   specie:
     type: string
+    required: true
+registered_water_lakes:
+  name:
+    type: string
+  shape:
+    type: geometry
+    limit:
+      srid: 4326
+      type: st_polygon
+    required: true
+registered_water_rivers:
+  name:
+    type: string
+  shape:
+    type: geometry
+    limit:
+      srid: 4326
+      type: line_string
     required: true
 regularizations:
   affair_id:

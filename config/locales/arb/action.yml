@@ -1145,6 +1145,7 @@ arb:
     building_create: "اضافة موقع تخزين" #?
     building_name: "انتاج" #?
     building_update: "تعديل موقع التخزين" #?
+    # building_zones: "Building zones"
     by_year: "وبحلول العام"
     calculate: "حساب"
     calculated_hours: "الساعات المحسوبة"
@@ -1766,6 +1767,7 @@ arb:
     net_production_sales: "صافي مبيعات الإنتاج"
     net_surface_area: "مساحة صافية"
     net_vat_amount: "صافي قيمة الضريبة الاضافية المستحقة" #?
+    # neutral_area_category: "Neutral area category"
     new: "انشاء دفعة جديدة"
     new_activity: "نشاط جديد"
     new_animal: "حيوان جديد"
@@ -2397,6 +2399,8 @@ arb:
     virtual_quantity: "الكمية العملية" #?
     wages: "أجور"
     waiting: "أ€ التسدسد لاحقا" #?
+    # water_lakes: "Water lakes"
+    # water_rivers: "Water rivers"
     watering_concentration: "استخدام المياه"
     weather: "طقس"
     website: "موقع الكتروني"

@@ -56,5 +56,11 @@ class CapIslet < Ekylibre::Record::Base
     joins(:cap_statement).merge(CapStatement.of_campaign(*campaigns))
   }
 
+  def self.bounding_box
+    box = ActiveRecord::Base.connection.execute('SELECT ST_Extent(shape) FROM cap_islets').to_a.first['st_extent']
+    points = ActiveRecord::Base.connection.execute("SELECT ST_XMin(CAST('#{box}' As box2d)), ST_YMin(CAST('#{box}' As box2d)), ST_XMax(CAST('#{box}' As box2d)), ST_YMax(CAST('#{box}' As box2d))")
+    points.first.values
+  end
+
   alias net_surface_area shape_area
 end

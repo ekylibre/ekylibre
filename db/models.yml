@@ -159,6 +159,7 @@
 - purchase_nature
 - purchase_payment
 - registered_agroedi_code
+- registered_building_zone
 - registered_pfi_crop
 - registered_pfi_dose
 - registered_pfi_target
@@ -168,6 +169,8 @@
 - registered_phytosanitary_usage
 - registered_postal_zone
 - registered_seed
+- registered_water_lake
+- registered_water_river
 - regularization
 - role
 - sale

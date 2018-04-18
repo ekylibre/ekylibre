@@ -75,11 +75,38 @@
           {name: p.islet_number, shape: p.shape, popup: {header: true, content: popup_content} }
         end
 
+        b = CapIslet.bounding_box
+
+        r = RegisteredWaterRiver.in_bounding_box(b)
+        l = RegisteredWaterLake.in_bounding_box(b)
+        building = RegisteredBuildingZone.in_bounding_box(b)
+
+        water_rivers = r.collect do |p|
+          next unless p.shape
+          {name: p.name, shape: p.shape.buffer(20) }
+        end
+
+        water_lakes = l.collect do |p|
+          next unless p.shape
+          {name: p.name, shape: p.shape.buffer(200) }
+        end
+
+        building_zones = building.collect do |p|
+          next unless p.shape
+          {name: p.nature, shape: p.shape.buffer(50)}
+        end
+
       = visualization({box: {height: "100%"}}, class: 'map-fullwidth') do |v|
         - v.serie :land_parcels, land_parcels
         - v.serie :islets, islets
-        - v.serie :neutral_areas, neutral_areas if neutral_areas.any?
+        - v.serie :water_rivers, water_rivers
+        - v.serie :water_lakes, water_lakes
+        - v.serie :building_zones, building_zones
+        - v.serie :neutral_area_category, neutral_areas if neutral_areas.any?
         - v.simple :cap_islets, :islets
+        - v.simple :water_rivers, :water_rivers, fill_color: 'blue'
+        - v.simple :water_lakes, :water_lakes, fill_color: 'blue'
+        - v.simple :building_zones, :building_zones, fill_color: 'yellow', without_ghost_label: true
         - v.categories :main_crop_code, :land_parcels
         - v.categories :category_code, :neutral_areas if neutral_areas.any?
         - v.control :zoom

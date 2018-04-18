@@ -1013,6 +1013,7 @@ fra:
     budget_per_working_indicator: "Budget par unité d’œuvre"
     budgets: "Budgets"
     building_name: "Sortie de" #?
+    building_zones: "Bâtiments"
     buildings_map: "Carte des bâtiments" #?
     by_year: "Par an"
     calculate: "Calculer"
@@ -1640,6 +1641,7 @@ fra:
     net_surface_area: "Surface nette"
     net_vat_amount: "TVA nette due" #?
     net_volume: "Volume net" #?
+    neutral_area_category: "Catégorie de zones non agricoles"
     new: "Nouveau"
     new_activity: "Nouvelle activité"
     new_animal: "Nouvel animal"
@@ -2314,6 +2316,8 @@ fra:
       resized: "Mode «\_Tout à l’écran\_»" #?
     virtual_quantity: "Quantité virtuelle" #?
     wages: "Rémunérations"
+    water_lakes: "Lacs"
+    water_rivers: "Rivières"
     watering_concentration: "Eau consommée"
     wear: "Usure" #?
     weather: "Météo"

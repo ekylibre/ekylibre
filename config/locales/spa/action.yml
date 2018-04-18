@@ -940,6 +940,7 @@ spa:
     budgets: "Presupuestos"
     building_create: "Añadir un lugar de deposito" #?
     building_update: "Modifiar el lugar de deposito" #?
+    # building_zones: "Building zones"
     by_year: "Por año"
     calculate: "Calcular"
     calculated_hours: "Horas calculadas"
@@ -1463,6 +1464,7 @@ spa:
     net_production_sales: "Ventas netas de producción"
     net_surface_area: "Área de superficie Net"
     net_vat_amount: "TVA neta deuda" #?
+    # neutral_area_category: "Neutral area category"
     new: "Nuevo"
     new_activity: "nueva actividad"
     new_animal: "Nuevo animal"
@@ -1983,6 +1985,8 @@ spa:
     view: "Ver"
     view_map_when_creating_an_intervention: "Ver mapa al crear una intervención"
     wages: "Salario"
+    # water_lakes: "Water lakes"
+    # water_rivers: "Water rivers"
     watering_concentration: "Uso del agua"
     weather: "Clima"
     website: "Sitio web"
