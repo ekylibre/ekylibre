@@ -1309,6 +1309,9 @@
         <page to="backend/document_templates#show"/>
         <page to="backend/document_templates#unroll"/>
       </item>
+      <item name="naming_format">
+        <page to="backend/naming_format_land_parcels#index"/>
+      </item>
       <item name="sequences">
         <page to="backend/sequences#index"/>
         <page to="backend/sequences#create"/>
@@ -2250,6 +2253,26 @@
         <page to="backend/matters#list_reception_items"/>
         <page to="backend/matters#list_shipment_items"/>
       </item>
+      <item name="naming_format_land_parcels">
+        <page to="backend/naming_format_land_parcels#build_example"/>
+        <page to="backend/naming_format_land_parcels#create"/>
+        <page to="backend/naming_format_land_parcels#destroy"/>
+        <page to="backend/naming_format_land_parcels#edit"/>
+        <page to="backend/naming_format_land_parcels#list"/>
+        <page to="backend/naming_format_land_parcels#new"/>
+        <page to="backend/naming_format_land_parcels#show"/>
+        <page to="backend/naming_format_land_parcels#update"/>
+      </item>
+      <item name="naming_formats">
+        <page to="backend/naming_formats#index"/>
+        <page to="backend/naming_formats#create"/>
+        <page to="backend/naming_formats#destroy"/>
+        <page to="backend/naming_formats#edit"/>
+        <page to="backend/naming_formats#list"/>
+        <page to="backend/naming_formats#new"/>
+        <page to="backend/naming_formats#show"/>
+        <page to="backend/naming_formats#update"/>
+      </item>
       <item name="plants">
         <page to="backend/plants#list_reception_items"/>
         <page to="backend/plants#list_shipment_items"/>
@@ -2272,6 +2295,10 @@
         <page to="backend/purchase_process/reconciliation#purchase_orders_to_reconciliate"/>
         <page to="backend/purchase_process/reconciliation#receptions_to_reconciliate"/>
       </item>
+      <item name="reconcilation_states">
+        <page to="backend/purchases/reconcilation_states#put_accepted_state"/>
+        <page to="backend/purchases/reconcilation_states#put_to_reconcile_state"/>
+      </item>
       <item name="receptions">
         <page to="backend/receptions#list_storings"/>
       </item>
@@ -2287,7 +2314,6 @@
       </item>
       <item name="fixed_assets">
         <page to="backend/variants/fixed_assets#fixed_assets_datas"/>
-        <page to="backend/variants/fixed_assets#has_simplified_linear_depreciation_method"/>
       </item>
       <item name="workers">
         <page to="backend/workers#list_reception_items"/>

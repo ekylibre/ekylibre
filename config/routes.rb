@@ -774,6 +774,14 @@ Rails.application.routes.draw do
       concerns :products, :list
     end
 
+    resources :naming_formats, concerns: [:list, :unroll]
+
+    resources :naming_format_land_parcels, concerns: [:list, :unroll] do
+      collection do
+        get :build_example
+      end
+    end
+
     resources :net_services, concerns: [:list] do
       member do
         get :list_identifiers

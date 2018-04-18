@@ -3630,7 +3630,7 @@ intervention_proposals:
     required: true
   technical_itinerary_intervention_template_id:
     type: integer
-    references: ''
+    references: technical_itinerary_intervention_template
   updated_at:
     type: datetime
     required: true
@@ -4835,6 +4835,32 @@ map_layers:
   url:
     type: string
     required: true
+naming_format_fields:
+  field_name:
+    type: string
+    required: true
+  id:
+    type: integer
+    required: true
+  naming_format_id:
+    type: integer
+    references: naming_format
+  position:
+    type: integer
+  type:
+    type: string
+    required: true
+naming_formats:
+  created_at:
+    type: datetime
+  id:
+    type: integer
+    required: true
+  type:
+    type: string
+    required: true
+  updated_at:
+    type: datetime
 net_services:
   created_at:
     type: datetime
