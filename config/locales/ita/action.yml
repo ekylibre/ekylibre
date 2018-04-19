@@ -1427,6 +1427,7 @@ ita:
     nature: "Digitare"
     nature_changed: "Le tipo des animaux a changé"
     natures: "tipi"
+    # needed_quantity: "Needed quantity"
     net_income: "Reddito netto"
     net_margin: "margine netto" #?
     net_mass: "massa netta"
@@ -1614,6 +1615,7 @@ ita:
     quality: "Qualità"
     # quandl: "Quandl"
     quantity: "Quantità"
+    # quantity_available: "Quantity available"
     quantity_rest: "Quantità rimanente" #?
     # query: "Query:"
     raw_income: "Reddito Raw"
@@ -1903,6 +1905,7 @@ ita:
     validated: "Convalidato"
     values: "Valori"
     variable_indicators: "indicatori variabili"
+    # variant: "Variant"
     variants: "varianti"
     vat: "I.V.A."
     # vat_rate: "VAT rate"
@@ -1917,10 +1920,12 @@ ita:
     wind_speed: "Velocità del vento"
     with_fixed_assets_depreciations: "Con un patrimonio ammortamenti fisse"
     workers: "Lavoratori"
+    # workforce: "Workforce"
     working_duration: "durata di funzionamento"
     # working_hectare_costs: "Working hectare costs"
     working_sets_stocks: "Working set scorte"
     # working_times: "Working times of %{name}"
+    # workload: "Workload"
     x_cashes:
       # one: "%{count} cash"
       # other: "%{count} cashes"

@@ -1361,6 +1361,7 @@ deu:
     nature: "Art"
     nature_changed: "Le Art des animaux eine Änderung"
     natures: "Typen"
+    # needed_quantity: "Needed quantity"
     net_income: "Nettoeinkommen"
     net_margin: "Nettomarge" #?
     net_mass: "Eigenmasse"
@@ -1548,6 +1549,7 @@ deu:
     quality: "Qualität"
     # quandl: "Quandl"
     quantity: "Menge"
+    # quantity_available: "Quantity available"
     quantity_rest: "Verbleibende Menge" #?
     query: "Abfrage:"
     raw_income: "Raw Einkommen"
@@ -1837,6 +1839,7 @@ deu:
     validated: "Validierte"
     values: "Werte"
     variable_indicators: "variable Indikatoren"
+    # variant: "Variant"
     variants: "Varianten"
     vat: "Mehrwertsteuer"
     # vat_rate: "VAT rate"
@@ -1851,10 +1854,12 @@ deu:
     wind_speed: "Windgeschwindigkeit"
     with_fixed_assets_depreciations: "Mit Anlagevermögen Abschreibungen"
     workers: "Arbeitskräfte"
+    # workforce: "Workforce"
     working_duration: "Arbeitsdauer"
     # working_hectare_costs: "Working hectare costs"
     working_sets_stocks: "Arbeits setzt Aktien"
     # working_times: "Working times of %{name}"
+    # workload: "Workload"
     x_cashes:
       # one: "%{count} cash"
       # other: "%{count} cashes"

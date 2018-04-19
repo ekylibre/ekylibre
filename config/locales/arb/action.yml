@@ -1828,6 +1828,7 @@ arb:
       one: "تم تسجيل منتج واحد" #?
       other: "%{count} تم تسجيل منتجات اخرى" #?
       zero: "لم يتم تسجيل اي منتج" #?
+    # needed_quantity: "Needed quantity"
     net_income: "صافي الدخل"
     net_margin: "هامش صافي" #?
     net_mass: "الكتلة الصافية"
@@ -2090,6 +2091,7 @@ arb:
     quality: "جودة"
     # quandl: "Quandl"
     quantity: "الكمية"
+    # quantity_available: "Quantity available"
     quantity_rest: "الكمية المتبقية" #?
     quantity_to_credit: "شمولية الكمية بالائتمانات" #?
     quarterly: "Trimestrielle" #?
@@ -2485,6 +2487,7 @@ arb:
     validated: "التحقق من صحة"
     values: "القيم"
     variable_indicators: "مؤشرات متغيرة"
+    # variant: "Variant"
     variants: "المتغيرات"
     vat: "الضريبة المستحقة"
     vat_acquisitions: "المكاسب الداخلية" #?
@@ -2506,10 +2509,12 @@ arb:
     with_fixed_assets_depreciations: "مع انخفاض قيمة الأصول الثابتة"
     with_prints: "(وتشمل الطباعة (الفواتير والاوامر" #?
     workers: "العمال"
+    # workforce: "Workforce"
     working_duration: "مدة العمل"
     # working_hectare_costs: "Working hectare costs"
     working_sets_stocks: "مجموعات العمل الأسهم"
     # working_times: "Working times of %{name}"
+    # workload: "Workload"
     x_cashes:
       one: "حساب بنكي واحد"
       other: "%{count} حسابات بنكية اخرى"

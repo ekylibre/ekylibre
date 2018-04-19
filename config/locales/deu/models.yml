@@ -62,6 +62,8 @@ deu:
         seeding_density_value: "Erwartete Aussaatdichte"
       purchase:
         # affair_balance: "Balance"
+      purchase_item:
+        # fixed_asset_stopped_on: "Fixed asset stopped on"
       purchase_payment: #?
         delivered: "Da an Empfänger" #?
         list: "Abgehende Zahlungsliste" #?
@@ -194,6 +196,13 @@ deu:
         outgoing_parcel_item:
           # greater_than_undelivered_quantity: "The quantity of %{product} to deliver is greater than the available quantity (%{maximum}%{unit})"
         purchase_item:
+          attributes:
+            fixed:
+              # asset_account: "Invalid asset account"
+              # asset_depreciation_method: "Invalid asset depreciation method"
+              # asset_expenses_account: "Invalid asset expenses account"
+              # asset_wrong_depreciation_method: "Depreciation method must be simplified linear"
+              # fixed_asset_stopped_on_invalid: "Invalid fixed asset stopped on"
           # building_can_not_receive_product: "The building %{building} can not receive %{product}, it already contains %{contained_product}."
           # serial_already_used_with_an_other_product: "%{attribute} has been already used for an other product of the same supplier"
         sale_item:
@@ -474,6 +483,7 @@ deu:
     archive_file_size: "Archivdateigröße"
     archive_updated_at: "Archiv aktualisiert am"
     archiving: "Archivierung"
+    # area: "Area"
     arguments: "Argumente"
     assembly: "Versammlung"
     asset_account: "Aktivkonto"
@@ -640,6 +650,7 @@ deu:
     custom_fields: "Benutzerdefinierte Felder"
     custom_fields_columns: "Benutzerdefinierte Felder Spalten"
     customized_type: "Customized Art"
+    # daily_charges: "Daily charges"
     daily_nitrogen_production: "Täglich Stickstoffproduktion"
     dashboards: "Armaturenbretter"
     dead: "Tot"
@@ -1495,6 +1506,7 @@ deu:
     tax_payability: "Steuer Zahlbarkeitsfaktoren"
     taxations: "Besteuerungen"
     team: "Mannschaft"
+    # technical_itinerary: "Technical itinerary"
     template: "Vorlage"
     theme: "Thema"
     theoretical_number: "Theoretische Zahl"

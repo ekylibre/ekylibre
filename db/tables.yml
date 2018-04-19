@@ -3628,9 +3628,11 @@ intervention_proposals:
   id:
     type: integer
     required: true
+  number:
+    type: integer
   technical_itinerary_intervention_template_id:
     type: integer
-    references: ''
+    references: technical_itinerary_intervention_template
   updated_at:
     type: datetime
     required: true
@@ -3779,6 +3781,9 @@ interventions:
   intervention_costs_id:
     type: integer
     references: intervention_costs
+  intervention_proposal_id:
+    type: integer
+    references: ''
   issue_id:
     type: integer
     references: issue

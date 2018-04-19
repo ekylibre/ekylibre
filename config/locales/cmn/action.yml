@@ -1362,6 +1362,7 @@ cmn:
     nature: "类型"
     nature_changed: "乐宫型一ANIMAUX变化"
     natures: "类型"
+    # needed_quantity: "Needed quantity"
     net_income: "净收入"
     net_margin: "净利率" #?
     net_mass: "净质量"
@@ -1549,6 +1550,7 @@ cmn:
     quality: "质量"
     # quandl: "Quandl"
     quantity: "数量"
+    # quantity_available: "Quantity available"
     quantity_rest: "剩余数量" #?
     query: "查询："
     raw_income: "原始收入"
@@ -1838,6 +1840,7 @@ cmn:
     validated: "验证"
     values: "值"
     variable_indicators: "变量指标"
+    # variant: "Variant"
     variants: "变种"
     vat: "增值税"
     # vat_rate: "VAT rate"
@@ -1852,10 +1855,12 @@ cmn:
     wind_speed: "风速"
     with_fixed_assets_depreciations: "拥有固定资产折旧"
     workers: "工人"
+    # workforce: "Workforce"
     working_duration: "工作时间"
     # working_hectare_costs: "Working hectare costs"
     working_sets_stocks: "工作集股"
     # working_times: "Working times of %{name}"
+    # workload: "Workload"
     x_cashes:
       # one: "%{count} cash"
       # other: "%{count} cashes"

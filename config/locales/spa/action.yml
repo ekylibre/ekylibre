@@ -1523,6 +1523,7 @@ spa:
     nb_purchases: #?
       one: "Una compra en espera de recepción" #?
       other: "%{count} Compras en espera de recepción" #?
+    # needed_quantity: "Needed quantity"
     net_income: "Lngresos netos"
     net_margin: "Margen neto" #?
     net_mass: "Masa neta"
@@ -1731,6 +1732,7 @@ spa:
     quality: "Calidad"
     # quandl: "Quandl"
     quantity: "Quantidades"
+    # quantity_available: "Quantity available"
     quantity_rest: "Quantidad restante" #?
     quantity_to_credit: "Cantidad a pasar en activo" #?
     quarterly: "Trimestral" #?
@@ -2075,6 +2077,7 @@ spa:
     validated: "Validado"
     values: "Valores"
     variable_indicators: "Indicadores variables"
+    # variant: "Variant"
     variants: "Variantes"
     vat: "TINA"
     # vat_rate: "VAT rate"
@@ -2090,10 +2093,12 @@ spa:
     with_fixed_assets_depreciations: "Con activos fijos amortizaciones"
     with_prints: "Incluir las impresiones (facturas, encargos...)" #?
     workers: "Trabajadores"
+    # workforce: "Workforce"
     working_duration: "Duración de trabajo"
     # working_hectare_costs: "Working hectare costs"
     working_sets_stocks: "Trabajo establece las existencias"
     # working_times: "Working times of %{name}"
+    # workload: "Workload"
     x_cashes:
       # one: "%{count} cash"
       # other: "%{count} cashes"

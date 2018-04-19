@@ -1366,6 +1366,7 @@ por:
     nature: "Digitar"
     nature_changed: "Le tipo dos Animais a changé"
     natures: "Tipos"
+    # needed_quantity: "Needed quantity"
     net_income: "Resultado líquido"
     net_margin: "Margem líquida" #?
     net_mass: "Massa líquida"
@@ -1553,6 +1554,7 @@ por:
     quality: "Qualidade"
     # quandl: "Quandl"
     quantity: "Quantidade"
+    # quantity_available: "Quantity available"
     quantity_rest: "Quantidade restante" #?
     query: "Inquérito:"
     raw_income: "Renda Raw"
@@ -1842,6 +1844,7 @@ por:
     validated: "Validado"
     values: "Valores"
     variable_indicators: "Indicadores de variáveis"
+    # variant: "Variant"
     variants: "Variantes"
     vat: "CUBA"
     # vat_rate: "VAT rate"
@@ -1856,10 +1859,12 @@ por:
     wind_speed: "Velocidade do vento"
     with_fixed_assets_depreciations: "Com depreciações de ativos fixos"
     workers: "Trabalhadores"
+    # workforce: "Workforce"
     working_duration: "Duração de trabalho"
     # working_hectare_costs: "Working hectare costs"
     working_sets_stocks: "Trabalho define stocks"
     # working_times: "Working times of %{name}"
+    # workload: "Workload"
     x_cashes:
       # one: "%{count} cash"
       # other: "%{count} cashes"

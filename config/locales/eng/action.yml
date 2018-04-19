@@ -638,6 +638,8 @@ eng:
       new: "New product type"
       pick: "Pick product type"
       show: "Product type: %{name}"
+    backend/products/search_variants:
+      # search_by_expression: "Search by expression search variant: %{name}"
     backend/products:
       edit: "Edit product: %{name}"
       edit_many: "Distribute unaffected products"
@@ -690,6 +692,9 @@ eng:
     backend/purchase_process/reconciliation:
       # purchase_orders_to_reconciliate: "Purchase orders to reconciliate reconciliation: %{name}"
       # receptions_to_reconciliate: "Receptions to reconciliate reconciliation: %{name}"
+    backend/purchases/reconcilation_states:
+      # put_accepted_state: "Put accepted state reconcilation state: %{name}"
+      # put_to_reconcile_state: "Put to reconcile state reconcilation state: %{name}"
     backend/quick_affairs:
       # new: "New quick affair"
     backend/quick_purchases:
@@ -878,6 +883,8 @@ eng:
       new: "New user"
       show: "User: %{first_name} %{last_name}"
       unlock: "Unlock user"
+    backend/variants/fixed_assets:
+      # fixed_assets_datas: "Fixed assets datas fixed asset: %{name}"
     backend/visualizations/land_parcels_visualizations:
       # show: "Land parcels visualization: %{name}"
     backend/visualizations/map_cells_visualizations:
@@ -1244,6 +1251,7 @@ eng:
     copy_of: "Copy of %{source}"
     copy_previous_budget: "Copy previous budget"
     corporeal_assets: "Corporeal assets" #?
+    # cost: "Cost"
     cost_per_net_surface_area: "Cost per net surface area"
     costs: "Costs"
     costs_per_hectare: "Costs per hectare"
@@ -1405,6 +1413,7 @@ eng:
     export_as_csv: "Export as CSV"
     export_as_ods: "Export as ODS"
     # export_as_odt: "Export as odt"
+    # export_as_pdf: "Export as pdf"
     export_as_xcsv: "Export as Excel CSV"
     fees: "Fees" #?
     field_distribution: "Field distribution"
@@ -1571,7 +1580,7 @@ eng:
     liabilities_gaps: "Liabilities gaps" #?!
     liability_reserves: "Liability reserves" #?!
     line_number: "Line #%{number}"
-    linear_options: "Linear options"
+    linear_options: "Linear options" #?
     link: "Link"
     liquid_assets_on_turnover: "Liquid assets on turnover %{financial_year}" #?!
     list: "List" #?
@@ -1630,7 +1639,7 @@ eng:
     nature: "Type"
     nature_changed: "Le type des animaux a changé" #?!
     natures: "Types" #?
-    needed_quantity: "Needed quantity"
+    needed_quantity: "Needed quantity" #?!
     net_income: "Net income"
     net_mass: "Net mass"
     net_production_sales: "Net production sales"
@@ -1673,7 +1682,6 @@ eng:
     new_writing: "New writing"
     next: "Next"
     nitrogen_concentration: "Nitrogen concentration" #?
-    no: "No"
     no_attachments: "Drop your files here or click on the button"
     no_crumbs_to_check: "No crumbs to check"
     no_data: "No data"
@@ -1820,7 +1828,7 @@ eng:
     quality: "Quality"
     quandl: "Quandl" #?
     quantity: "Quantity"
-    quantity_available: "Quantity available"
+    quantity_available: "Quantity available" #??
     query: "Query:" #?
     raw_income: "Raw income"
     reading_tasks: "Reading tasks" #?
@@ -1896,6 +1904,7 @@ eng:
     save_in_draft: "Save as draft"
     saved_but_couldnt_letter_x_and_y: "Successfully saved %{trade} and %{payment} but couldn't letter them."
     scheduled: "Scheduled" #?
+    # schedulings: "Schedulings"
     scrapped_on: "Scrapped on"
     search: "Search"
     search_placeholder: "Search…"
@@ -1955,6 +1964,7 @@ eng:
     stop: "Stop" #?
     stopped: "Stopped"
     stopped_on: "Stopped on"
+    # stopped_on_block: "Stopped on block"
     storage: "Storage"
     subject: "Subject"
     submit: "Submit" #?
@@ -2121,12 +2131,13 @@ eng:
     wind_speed: "Wind speed"
     with_fixed_assets_depreciations: "With fixed assets depreciations"
     workers: "Workers"
-    workforce: "Workforce"
+    workforce: "Workforce" #?!
+    # working_area: "Working area"
     working_duration: "Working duration"
     working_hectare_costs: "Working hectare costs" #?
     working_sets_stocks: "Working sets stocks" #?
     working_times: "Working times of %{name}" #?
-    workload: "Workload"
+    workload: "Workload" #?!
     x_cashes:
       one: "%{count} cash"
       other: "%{count} cashes"
@@ -2301,7 +2312,6 @@ eng:
       one: "%{count} year"
       other: "%{count} years"
     year: "Year" #?
-    yes: "Yes"
     yield: "Yield" #?
     yield_by_calibration: "Yield by calibration" #?
     # yield_by_calibration_x: "Yield by calibration x"
@@ -2517,6 +2527,7 @@ eng:
       # failure: "Failure"
       family: "Family"
       finish: "Finish"
+      # fixed_assets_datas: "Fixed assets datas"
       generate_last_journal_entry: "Generate last journal entry" #?
       give: "Give"
       import: "Import"
@@ -2563,6 +2574,8 @@ eng:
       purchase: "Turn into purchase"
       # purchase_order_items: "Purchase order items"
       # purchase_orders_to_reconciliate: "Purchase orders to reconciliate"
+      # put_accepted_state: "Put accepted state"
+      # put_to_reconcile_state: "Put to reconcile state"
       qualify: "Qualify"
       # quantifiers: "Quantifiers"
       quote: "Quote"
@@ -2581,6 +2594,7 @@ eng:
       # save_column: "Save column"
       # scrap: "Scrap"
       search: "Search" #?
+      # search_by_expression: "Search by expression"
       select: "Select"
       sell: "Turn into sale"
       # set_interval_preference: "Set interval preference"

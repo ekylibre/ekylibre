@@ -66,7 +66,7 @@ fra:
         stopped_on: "Date de clôture"
       fixed_asset:
         asset_account: "Compte d'immobilisation"
-        asset_expenses_account: "Compte d'amortissement"
+        asset_expenses_account: "Compte d'amortissement" #?
         depreciation_period: "Périodicité des amortissements"
         net_book_value: "Valeur nette comptable (VNC)" #?
         started_on: "Date de mise en service"
@@ -179,7 +179,7 @@ fra:
         invoiced_at: "Date de facture" #?
         payment_delay: "Échéance" #?
         reference_number: "Référence fournisseur (n° facture)" #?
-      purchase_item: #?
+      purchase_item:
         amount: "Montant TTC" #?
         conditionning: "Conditionnement" #?
         conditionning_quantity: "Quantité" #?
@@ -351,11 +351,11 @@ fra:
         purchase_item:
           attributes:
             fixed:
-              fixed_asset_stopped_on_invalid: "Vous devez spécifier une date de fin d'immobilisation"
               asset_account: "Compte d'immobilisation invalide"
-              asset_expenses_account: "Compte d'amortissement invalide"
               asset_depreciation_method: "Méthode de dépréciation d'immobilisation non spécifiée"
+              asset_expenses_account: "Compte d'amortissement invalide"
               asset_wrong_depreciation_method: "Le méthode de dépréciation doit être linéaire simplifée"
+              fixed_asset_stopped_on_invalid: "Vous devez spécifier une date de fin d'immobilisation"
           building_can_not_receive_product: "Le réservoir %{building} ne peut pas recevoir le produit %{product}, il contient déjà le produit %{contained_product}."
           serial_already_used_with_an_other_product: "%{attribute} a déjà été utilisé pour un autre type de produit du même fournisseur"
         sale_item:
@@ -646,6 +646,7 @@ fra:
     archives: "Archives" #?
     archives_count: "Nombre d’archives" #?
     archiving: "Méthode d’archivage"
+    # area: "Area"
     # arguments: "Arguments"
     assembly: "Assemblée"
     asset_account: "Compte d’actifs"
@@ -840,6 +841,7 @@ fra:
     custom_fields_columns: "Champs personnalisés colonnes"
     customized: "Enregistrement personnalisé" #?
     customized_type: "Type d’enregistrement personnalisé"
+    # daily_charges: "Daily charges"
     daily_nitrogen_production: "Excrétion d’azote journalière"
     dashboards: "Tableaux de bord"
     data: "Données complémentaires" #?
@@ -1806,6 +1808,7 @@ fra:
     tax_payability: "Exigibilité fiscale"
     taxations: "Taxations"
     team: "Équipe"
+    # technical_itinerary: "Technical itinerary"
     template: "Modèle"
     theme: "Thème"
     theoretical_number: "Numéro théorique"

@@ -62,6 +62,8 @@ cmn:
         seeding_density_value: "预计播种密度"
       purchase:
         affair_balance: "平衡"
+      purchase_item:
+        # fixed_asset_stopped_on: "Fixed asset stopped on"
       purchase_payment: #?
         delivered: "给收件人" #?
         list: "付款清单" #?
@@ -194,6 +196,13 @@ cmn:
         outgoing_parcel_item:
           # greater_than_undelivered_quantity: "The quantity of %{product} to deliver is greater than the available quantity (%{maximum}%{unit})"
         purchase_item:
+          attributes:
+            fixed:
+              # asset_account: "Invalid asset account"
+              # asset_depreciation_method: "Invalid asset depreciation method"
+              # asset_expenses_account: "Invalid asset expenses account"
+              # asset_wrong_depreciation_method: "Depreciation method must be simplified linear"
+              # fixed_asset_stopped_on_invalid: "Invalid fixed asset stopped on"
           # building_can_not_receive_product: "The building %{building} can not receive %{product}, it already contains %{contained_product}."
           # serial_already_used_with_an_other_product: "%{attribute} has been already used for an other product of the same supplier"
         sale_item:
@@ -474,6 +483,7 @@ cmn:
     archive_file_size: "归档文件大小"
     archive_updated_at: "在归档更新"
     archiving: "存档"
+    # area: "Area"
     arguments: "参数"
     assembly: "部件"
     asset_account: "资产帐户"
@@ -640,6 +650,7 @@ cmn:
     custom_fields: "自定义字段"
     custom_fields_columns: "自定义字段列"
     customized_type: "定制型"
+    # daily_charges: "Daily charges"
     daily_nitrogen_production: "每日制氮"
     dashboards: "仪表板"
     dead: "死"
@@ -1495,6 +1506,7 @@ cmn:
     tax_payability: "税务payability"
     taxations: "税费"
     team: "球队"
+    # technical_itinerary: "Technical itinerary"
     template: "模板"
     theme: "主题"
     theoretical_number: "理论数量"
