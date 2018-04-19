@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<migration name="Add-hour-counter-indicator">
+  <item-creation item="indicators#hour_counter" datatype="measure" unit="hour"/>
+  <item-change item="product_natures#tractor" variable_indicators="net_surface_area, motor_power, geolocation, hour_counter"/>
+  <item-change item="product_natures#truck" variable_indicators="net_surface_area, motor_power, geolocation, fuel_consumption, hour_counter"/>
+  <item-change item="product_natures#wheel_loader" variable_indicators="geolocation, hour_counter"/>
+  <item-change item="product_natures#forklift" variable_indicators="net_surface_area, motor_power, geolocation, hour_counter"/>
+  <item-change item="product_natures#dumper" variable_indicators="geolocation, hour_counter"/>
+</migration>
