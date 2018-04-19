@@ -14,20 +14,17 @@ module NamingFormats
       end
 
       def run
-        begin
-          @build_name = NamingFormats::LandParcels::BuildNamingService
-                         .new(cultivable_zone: @activity_production.cultivable_zone,
-                              activity: @activity_production.activity,
-                              campaign: @activity_production.campaign,
-                              season: @activity_production.season)
-                         .perform(field_values: naming_format_fields_names)
+        @build_name = NamingFormats::LandParcels::BuildNamingService
+                      .new(cultivable_zone: @activity_production.cultivable_zone,
+                           activity: @activity_production.activity,
+                           campaign: @activity_production.campaign,
+                           season: @activity_production.season)
+                      .perform(field_values: naming_format_fields_names)
 
-          rank_number = :rank.t(number: @activity_production.rank_number)
-          @build_name.concat(" #{ rank_number }")
-
-        rescue StandardError => exception
-          fail!(exception.message)
-        end
+        rank_number = :rank.t(number: @activity_production.rank_number)
+        @build_name.concat(" #{rank_number}")
+      rescue StandardError => exception
+        fail!(exception.message)
       end
 
       def success?

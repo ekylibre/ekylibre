@@ -388,6 +388,10 @@ deu:
       # show: "Matter: %{name}"
     backend/myselves:
       show: "Meine Informationen"
+    backend/naming_format_land_parcels:
+      # edit: "Land parcel naming format"
+    backend/naming_formats:
+      # index: "Naming formats"
     backend/net_services:
       edit: "Bearbeiten Sie Netzdienst"
       index: "Net Services"
@@ -786,6 +790,7 @@ deu:
     add_expense: "In Kosten"
     add_fax: "In Fax"
     # add_fees: "Add fees"
+    # add_field: "Add field"
     add_filter: "Filter hinzufügen"
     add_grading_check: "In Grading-Check"
     add_incoming_payment: "In Zahlungseingang"
@@ -1139,6 +1144,7 @@ deu:
     export_as_ods: "Export als ODS"
     export_as_xcsv: "Export als Excel CSV"
     # fees: "Fees"
+    # field: "Field %{counter}"
     field_distribution: "Feldverteilung"
     file_nature: "Dateityp"
     file_preview: "Vorschau"
@@ -1361,6 +1367,7 @@ deu:
     nature: "Art"
     nature_changed: "Le Art des animaux eine Änderung"
     natures: "Typen"
+    # needed_quantity: "Needed quantity"
     net_income: "Nettoeinkommen"
     net_margin: "Nettomarge" #?
     net_mass: "Eigenmasse"
@@ -1548,6 +1555,7 @@ deu:
     quality: "Qualität"
     # quandl: "Quandl"
     quantity: "Menge"
+    # quantity_available: "Quantity available"
     quantity_rest: "Verbleibende Menge" #?
     query: "Abfrage:"
     raw_income: "Raw Einkommen"
@@ -1837,6 +1845,7 @@ deu:
     validated: "Validierte"
     values: "Werte"
     variable_indicators: "variable Indikatoren"
+    # variant: "Variant"
     variants: "Varianten"
     vat: "Mehrwertsteuer"
     # vat_rate: "VAT rate"
@@ -1851,10 +1860,12 @@ deu:
     wind_speed: "Windgeschwindigkeit"
     with_fixed_assets_depreciations: "Mit Anlagevermögen Abschreibungen"
     workers: "Arbeitskräfte"
+    # workforce: "Workforce"
     working_duration: "Arbeitsdauer"
     # working_hectare_costs: "Working hectare costs"
     working_sets_stocks: "Arbeits setzt Aktien"
     # working_times: "Working times of %{name}"
+    # workload: "Workload"
     x_cashes:
       # one: "%{count} cash"
       # other: "%{count} cashes"

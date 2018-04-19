@@ -14,17 +14,14 @@ module NamingFormats
       end
 
       def run
-        begin
-          @example = NamingFormats::LandParcels::BuildNamingService
-                       .new(cultivable_zone: CultivableZone.first,
-                            activity: Activity.first,
-                            campaign: Campaign.first,
-                            season: ActivitySeason.first)
-                       .perform(field_values: @field_values)
-
-        rescue StandardError => exception
-          fail!(exception.message)
-        end
+        @example = NamingFormats::LandParcels::BuildNamingService
+                   .new(cultivable_zone: CultivableZone.first,
+                        activity: Activity.first,
+                        campaign: Campaign.first,
+                        season: ActivitySeason.first)
+                   .perform(field_values: @field_values)
+      rescue StandardError => exception
+        fail!(exception.message)
       end
 
       def success?

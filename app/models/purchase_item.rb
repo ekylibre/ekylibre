@@ -190,7 +190,7 @@ class PurchaseItem < Ekylibre::Record::Base
     errors.add(:quantity, :invalid) if self.quantity.zero?
 
     if fixed
-      # Errors linked to fixed assets
+      #  Errors linked to fixed assets
 
       errors.add(:fixed, :asset_account) unless variant.fixed_asset_account
       errors.add(:fixed, :asset_expenses_account) unless variant.fixed_asset_expenses_account

@@ -39,6 +39,8 @@ ita:
       loan:
         ongoing_at: "La raccolta di fondi a"
         started_on: "Prima di rimborso è iniziato il"
+      naming_format_field:
+        # field_name: "Field"
       outgoing_payment:
         delivered: "Dato al destinatario"
         list: "Lista pagamento in uscita"
@@ -62,6 +64,8 @@ ita:
         seeding_density_value: "Previsto densità di semina"
       purchase:
         affair_balance: "Equilibrio"
+      purchase_item:
+        # fixed_asset_stopped_on: "Fixed asset stopped on"
       purchase_payment: #?
         delivered: "Dato al destinatario" #?
         list: "Lista pagamento in uscita" #?
@@ -203,6 +207,13 @@ ita:
         outgoing_parcel_item:
           # greater_than_undelivered_quantity: "The quantity of %{product} to deliver is greater than the available quantity (%{maximum}%{unit})"
         purchase_item:
+          attributes:
+            fixed:
+              # asset_account: "Invalid asset account"
+              # asset_depreciation_method: "Invalid asset depreciation method"
+              # asset_expenses_account: "Invalid asset expenses account"
+              # asset_wrong_depreciation_method: "Depreciation method must be simplified linear"
+              # fixed_asset_stopped_on_invalid: "Invalid fixed asset stopped on"
           # building_can_not_receive_product: "The building %{building} can not receive %{product}, it already contains %{contained_product}."
           # serial_already_used_with_an_other_product: "%{attribute} has been already used for an other product of the same supplier"
         sale_item:
@@ -505,6 +516,7 @@ ita:
     archive_file_size: "Dimensione del file di archivio"
     archive_updated_at: "Archivio aggiornati alle"
     archiving: "Archiviazione"
+    # area: "Area"
     arguments: "Argomenti"
     assembly: "Montaggio"
     asset_account: "Conto patrimoniale"
@@ -671,6 +683,7 @@ ita:
     custom_fields: "Campi personalizzati"
     custom_fields_columns: "I campi personalizzati colonne"
     customized_type: "tipo personalizzato"
+    # daily_charges: "Daily charges"
     daily_nitrogen_production: "produzione di azoto giornaliera"
     dashboards: "Dashboard"
     dead: "Morto"
@@ -801,6 +814,8 @@ ita:
     father_identification_number: "Numero di identificazione del padre"
     father_variety: "Varietà Padre"
     faxes: "fax"
+    # field_name: "Field name"
+    # fields: "Fields"
     fifth_producer: "Quinto produttore" #?
     # file: "File"
     file_content_text: "File di testo contenuti"
@@ -1109,6 +1124,7 @@ ita:
     moves: "Si muove"
     multi_polygon_value: "valore Multi poligono"
     name: "Nome"
+    # naming_format: "Naming format"
     nature: "Digitare"
     nature_name: "nome tipo"
     natures: "tipi"
@@ -1526,6 +1542,7 @@ ita:
     tax_payability: "Pagabilità fiscale"
     taxations: "tassazioni"
     team: "Squadra"
+    # technical_itinerary: "Technical itinerary"
     template: "Modello"
     theme: "Tema"
     theoretical_number: "Numero teorico"

@@ -5,4 +5,3 @@ module Backend
     test_restfully_all_actions
   end
 end
-

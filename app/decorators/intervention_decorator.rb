@@ -1,7 +1,7 @@
 class InterventionDecorator < Draper::Decorator
   delegate_all
 
-  def sum_working_zone_area_of_product(product)
+  def sum_working_zone_area_of_product(_product)
     parameters = object.targets unless planting?
     parameters = object.outputs if planting?
 
@@ -18,7 +18,7 @@ class InterventionDecorator < Draper::Decorator
   def sum_targets_working_zone_area
     object
       .targets
-      .map{ |intervention_target| intervention_target.working_zone_area }
+      .map(&:working_zone_area)
       .sum
       .in(:hectare)
       .round(2)
@@ -27,7 +27,7 @@ class InterventionDecorator < Draper::Decorator
   def sum_outputs_working_zone_area
     object
       .outputs
-      .map{ |intervention_target| intervention_target.working_zone_area }
+      .map(&:working_zone_area)
       .sum
       .in(:hectare)
       .round(2)

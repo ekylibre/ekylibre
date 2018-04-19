@@ -20,7 +20,7 @@ module Backend
   class NamingFormatLandParcelsController < NamingFormatsController
     def build_example
       build_example_interactor = NamingFormats::LandParcels::BuildExampleInteractor
-                                   .call(params)
+                                 .call(params)
 
       render json: { example: I18n.t('labels.example', value: build_example_interactor.example) } if build_example_interactor.success?
       render json: { example: build_example_interactor.error } if build_example_interactor.fail?

@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  #resources :interventions_costs, concerns: [:list, :unroll]
+  # resources :interventions_costs, concerns: [:list, :unroll]
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
@@ -774,9 +774,9 @@ Rails.application.routes.draw do
       concerns :products, :list
     end
 
-    resources :naming_formats, concerns: [:list, :unroll]
+    resources :naming_formats, concerns: %i[list unroll]
 
-    resources :naming_format_land_parcels, concerns: [:list, :unroll] do
+    resources :naming_format_land_parcels, concerns: %i[list unroll] do
       collection do
         get :build_example
       end

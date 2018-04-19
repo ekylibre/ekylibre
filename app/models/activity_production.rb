@@ -144,7 +144,6 @@ class ActivityProduction < Ekylibre::Record::Base
   scope :at, ->(at) { where(':now BETWEEN COALESCE(started_on, :now) AND COALESCE(stopped_on, :now)', now: at.to_date) }
   scope :current, -> { at(Time.zone.now) }
 
-
   state_machine :state, initial: :opened do
     state :opened
     state :aborted
@@ -242,9 +241,7 @@ class ActivityProduction < Ekylibre::Record::Base
 
   def update_names
     if support
-      if support.name != name
-        support.update_column(:name, name)
-      end
+      support.update_column(:name, name) if support.name != name
     end
   end
 
@@ -652,9 +649,9 @@ class ActivityProduction < Ekylibre::Record::Base
   end
 
   # Returns unique i18nized name for given production
-  def name(options = {})
+  def name(_options = {})
     interactor = NamingFormats::LandParcels::BuildActivityProductionNameInteractor
-                   .call(activity_production: self)
+                 .call(activity_production: self)
 
     return interactor.build_name if interactor.success?
   end

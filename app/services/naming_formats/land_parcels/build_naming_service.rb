@@ -13,10 +13,7 @@ module NamingFormats
 
       def perform(field_values: [])
         field_values.each do |field_value|
-
-          if field_value =~ /cultivable_zone/
-            add_cultivable_zone(field_value)
-          end
+          add_cultivable_zone(field_value) if field_value =~ /cultivable_zone/
 
           call_if_equal(field_value, :activity, method(:add_activity))
           call_if_equal(field_value, :campaign, method(:add_campaign))
@@ -29,47 +26,45 @@ module NamingFormats
 
       private
 
-        def add_cultivable_zone(field_value)
-          return if @cultivable_zone.nil?
+      def add_cultivable_zone(field_value)
+        return if @cultivable_zone.nil?
 
-          if field_value.to_sym == :cultivable_zone_name
-            @compute_name << @cultivable_zone.name
-          end
-
-          if field_value.to_sym == :cultivable_zone_code
-            @compute_name << @cultivable_zone.work_number
-          end
+        if field_value.to_sym == :cultivable_zone_name
+          @compute_name << @cultivable_zone.name
         end
 
-        def add_activity
-          return if @activity.nil?
-
-          @compute_name << @activity.name
+        if field_value.to_sym == :cultivable_zone_code
+          @compute_name << @cultivable_zone.work_number
         end
+      end
 
-        def add_campaign
-          return if @campaign.nil? || @campaign.name.blank?
+      def add_activity
+        return if @activity.nil?
 
-          @compute_name << @campaign.name
-        end
+        @compute_name << @activity.name
+      end
 
-        def add_season
-          return if @season.nil? || @season.name.blank?
+      def add_campaign
+        return if @campaign.nil? || @campaign.name.blank?
 
-          @compute_name << @season.name
-        end
+        @compute_name << @campaign.name
+      end
 
-        def add_production_system
-          return if @activity.nil? ||  @activity.production_system_name.blank?
+      def add_season
+        return if @season.nil? || @season.name.blank?
 
-          @compute_name << @activity.human_production_system_name
-        end
+        @compute_name << @season.name
+      end
 
-        def call_if_equal(field_value, format_field_name, method_callback)
-          if field_value.to_sym == format_field_name
-            method_callback.call
-          end
-        end
+      def add_production_system
+        return if @activity.nil? || @activity.production_system_name.blank?
+
+        @compute_name << @activity.human_production_system_name
+      end
+
+      def call_if_equal(field_value, format_field_name, method_callback)
+        method_callback.call if field_value.to_sym == format_field_name
+      end
     end
   end
 end

@@ -20,7 +20,7 @@ module Backend
   class NamingFormatsController < Backend::BaseController
     manage_restfully subclass_inheritance: true
 
-   # unroll
+    # unroll
 
     list do |t|
       t.action :edit

@@ -282,8 +282,8 @@ eng:
       field_name:
         activity: "Activity"
         campaign: "Campaign"
-        cultivable_zone_name: "Cultivable zone name"
         cultivable_zone_code: "Cultivable zone code"
+        cultivable_zone_name: "Cultivable zone name"
         production_mode: "Production mode"
         season: "Season"
     notification:

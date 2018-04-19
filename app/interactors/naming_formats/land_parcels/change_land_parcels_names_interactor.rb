@@ -14,11 +14,9 @@ module NamingFormats
       end
 
       def run
-        begin
-          change_land_parcels_name
-        rescue StandardError => exception
-          fail!(exception.message)
-        end
+        change_land_parcels_name
+      rescue StandardError => exception
+        fail!(exception.message)
       end
 
       def success?
@@ -38,7 +36,7 @@ module NamingFormats
       def change_land_parcels_name
         LandParcel.all.each do |land_parcel|
           interactor = NamingFormats::LandParcels::BuildActivityProductionNameInteractor
-                         .call(activity_production: land_parcel.activity_production)
+                       .call(activity_production: land_parcel.activity_production)
 
           land_parcel.update_attribute(name: interactor.build_name) if interactor.success?
           fail!(interactor.error) if interactor.fail?

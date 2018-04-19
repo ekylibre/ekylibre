@@ -70,7 +70,7 @@ class PurchaseInvoice < Purchase
     where(invoiced_at: started_at..stopped_at)
   }
 
-  scope :accepted_reconcile, -> { where(reconciliation_state: ['accepted', 'reconcile']) }
+  scope :accepted_reconcile, -> { where(reconciliation_state: %w[accepted reconcile]) }
   scope :unpaid, -> { where(state: %w[order invoice]).where.not(affair: Affair.closeds) }
   scope :current, -> { unpaid }
   scope :current_or_self, ->(purchase) { where(unpaid).or(where(id: (purchase.is_a?(Purchase) ? purchase.id : purchase))) }
