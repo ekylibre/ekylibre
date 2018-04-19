@@ -1518,6 +1518,7 @@ spa:
     moves: "Movimientos de depositos" #?
     my_company: "Coja las informaciones sobre su sociedad" #?
     my_self: "Coja sus informaciones" #?
+    # n: "No"
     name: "Nombre"
     national_deliveries: "Entregas intracolectivas" #?
     national_normal_vat_collected: "Tasa normal a 19,6%" #?
@@ -1807,6 +1808,7 @@ spa:
     revenues: "Los ingresos"
     revenues_by_product_nature: "Los ingresos por tipo de producto"
     reverse: "Condición inversa"
+    # revise: "Revise"
     right_parts: #?
       accountancy: "Derechos modulo contabilidad" #?
       company: "Derechos modulo sociedad" #?

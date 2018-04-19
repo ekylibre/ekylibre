@@ -27,9 +27,23 @@
 
 
   $(document).on 'click', '.edit_naming_format_land_parcel .form-actions input[type="submit"]', (event) ->
-    event.preventDefault()
+    if $('.naming-format-form input[type="hidden"][name="update_records"]').length < 1
+      event.preventDefault()
+      $('#namingFormatModal').modal 'show'
 
-    $('#namingFormatModal').modal 'show'
+
+  $(document).on 'click', '#namingFormatModal .modal-footer .no-update-plans', ->
+    $('.naming-format-form').append('<input type="hidden" name="update_records" value="false"/>')
+    $('.simple_form').submit()
+
+    $('#namingFormatModal').modal 'hide'
+
+
+  $(document).on 'click', '#namingFormatModal .modal-footer .update-plans', ->
+    $('.naming-format-form').append('<input type="hidden" name="update_records" value="true"/>')
+    $('.simple_form').submit()
+
+    $('#namingFormatModal').modal 'hide'
 
 
   E.NamingFormats =

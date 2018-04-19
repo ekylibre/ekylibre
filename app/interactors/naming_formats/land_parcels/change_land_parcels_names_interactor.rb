@@ -38,7 +38,7 @@ module NamingFormats
           interactor = NamingFormats::LandParcels::BuildActivityProductionNameInteractor
                        .call(activity_production: land_parcel.activity_production)
 
-          land_parcel.update_attribute(name: interactor.build_name) if interactor.success?
+          land_parcel.update_attribute(:name, interactor.build_name) if interactor.success?
           fail!(interactor.error) if interactor.fail?
         end
       end

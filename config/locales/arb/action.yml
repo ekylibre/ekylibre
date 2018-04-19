@@ -1817,7 +1817,7 @@ arb:
     moves: "حركات الاسهم" #?
     my_company: "عن شركتك" #?
     my_self: "عن نفسك" #?
-    n: "لا شيء" #?
+    n: "لا شيء"
     name: "الاسم"
     national_deliveries: "الامدادات المحلية" #?
     national_normal_vat_collected: "معدل ضريبة القيمة المضافة المحلية العادية %19.6" #?
@@ -2170,6 +2170,7 @@ arb:
     revenues: "إيرادات"
     revenues_by_product_nature: "الإيرادات حسب نوع المنتج"
     reverse: "تطبيق الحالة العكسية"
+    # revise: "Revise"
     right_parts: #?
       accountancy: "حقوق المحاسبة" #?
       company: "حقوق الشركة" #?

@@ -1247,7 +1247,7 @@ eng:
       filter_on_attribute_of_class: "Filter on attribute of class"
       special-subscriber: "Special-subscriber"
     configure: "Configure"
-    # confirmation_update_historical_plans: "Confirmation update historical plans"
+    confirmation_update_historical_plans: "Confirmation update historical plans"
     connect: "Connect"
     consume: "Consume" #?
     contained_products: "Contained products"
@@ -1649,6 +1649,7 @@ eng:
     months: "Months"
     move_animal: "Move animals" #??
     movements: "Movements"
+    n: "No" #?
     name: "Name"
     nature: "Type"
     nature_changed: "Le type des animaux a changé" #?!
@@ -1696,6 +1697,7 @@ eng:
     new_writing: "New writing"
     next: "Next"
     nitrogen_concentration: "Nitrogen concentration" #?
+    # no: "No"
     no_attachments: "Drop your files here or click on the button"
     no_crumbs_to_check: "No crumbs to check"
     no_data: "No data"
@@ -1899,6 +1901,7 @@ eng:
     revenues: "Revenues" #?
     revenues_by_product_nature: "Revenues by product type"
     reverse: "Reverse condition"
+    revise: "Revise" #?!
     rights: "Rights"
     risk_and_charges_provisions: "Risk and charges provisions" #?!
     role: "Role" #?

@@ -18,6 +18,7 @@
 
 module Backend
   class NamingFormatLandParcelsController < NamingFormatsController
+
     def build_example
       build_example_interactor = NamingFormats::LandParcels::BuildExampleInteractor
                                  .call(params)
@@ -26,10 +27,27 @@ module Backend
       render json: { example: build_example_interactor.error } if build_example_interactor.fail?
     end
 
+    def update
+      @naming_format.update(permitted_params)
+
+      if params[:update_records].to_bool
+        NamingFormats::LandParcels::ChangeLandParcelsNamesInteractor
+          .call
+      end
+
+      redirect_to backend_naming_formats_path
+    end
+
     private
 
     def permitted_params
-      params.permit(:fields_values)
+      params
+        .require(:naming_format_land_parcel)
+        .permit(fields_attributes: [
+          :id,
+          :field_name,
+          :_destroy
+        ])
     end
   end
 end

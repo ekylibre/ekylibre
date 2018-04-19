@@ -48,3 +48,17 @@
 .wice-grid-list.naming-formats-list {
   margin-top: 2em;
 }
+
+#namingFormatModal {
+  .modal-content {
+    width: 80%;
+  }
+
+  .modal-body {
+    padding: 3em;
+  }
+
+  .confirmation-text {
+    font-size: $fs-large;
+  }
+}

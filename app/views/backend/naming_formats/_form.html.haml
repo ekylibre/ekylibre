@@ -3,8 +3,9 @@
 
   .naming-format-example
 
-    = modal(id: 'namingFormatModal', class: "", size: :small) do
+    = modal(id: 'namingFormatModal', class: "", size: :large) do
       .modal-body
-        %p= :confirmation_update_historical_plans.tl
-        %button.btn.btn-default
+        %p.confirmation-text= :confirmation_update_historical_plans.tl
       .modal-footer
+        %button.no-update-plans.btn.btn-default= :n.tl
+        %button.update-plans.btn.btn-primary= :update.tl
