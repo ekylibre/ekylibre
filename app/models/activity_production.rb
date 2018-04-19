@@ -242,9 +242,8 @@ class ActivityProduction < Ekylibre::Record::Base
 
   def update_names
     if support
-      new_support_name = computed_support_name
-      if support.name != new_support_name
-        support.update_column(:name, new_support_name)
+      if support.name != name
+        support.update_column(:name, name)
       end
     end
   end
@@ -293,7 +292,7 @@ class ActivityProduction < Ekylibre::Record::Base
   def initialize_animal_group_support!
     unless support
       self.support = AnimalGroup.new
-      support.name = computed_support_name
+      support.name = name
     end
     # FIXME: Need to find better category and population_counting...
     unless support.variant
@@ -327,7 +326,7 @@ class ActivityProduction < Ekylibre::Record::Base
 
   def initialize_equipment_fleet_support!
     self.support = EquipmentFleet.new unless support
-    support.name = computed_support_name
+    support.name = name
     # FIXME: Need to find better category and population_counting...
     unless support.variant
       nature = ProductNature.find_or_create_by!(

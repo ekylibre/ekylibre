@@ -26,6 +26,12 @@
     E.NamingFormats.showExample()
 
 
+  $(document).on 'click', '.edit_naming_format_land_parcel .form-actions input[type="submit"]', (event) ->
+    event.preventDefault()
+
+    $('#namingFormatModal').modal 'show'
+
+
   E.NamingFormats =
     changeAllFieldsLabels: ->
       $('.nested-association .nested-fields').each (index, nestedField) ->

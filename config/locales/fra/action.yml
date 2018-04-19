@@ -459,6 +459,7 @@ fra:
       index: "Formats de nommage"
     backend/naming_format_land_parcels:
       edit: "Format de nommage des Parcelles"
+      index: "Formats de nommage"
     backend/notifications:
       index: "Notifications"
     backend/observations:
@@ -1167,6 +1168,7 @@ fra:
       filter_on_attribute_of_class: "Filtre sur %{attribute} (%{class})"
       special-subscriber: "Filtre Abonné"
     configure: "Configurer"
+    confirmation_update_historical_plans: "Voulez-vous appliquer ces modifications sur l'historique de votre parcellaire ?"
     confirmed: "Confirmées" #?
     confirmed_at: "Confirmée le" #?
     connect: "Se connecter"
