@@ -186,6 +186,7 @@ Rails.application.routes.draw do
       resource :stewardship_cell, only: :show
       resource :stock_container_map_cell, only: :show
       resource :trade_counts_cell, only: :show
+      resource :traceability_check_cell, only: :show
       resource :unbalanced_clients_cell, only: :show, concerns: :list
       resource :unbalanced_suppliers_cell, only: :show, concerns: :list
       resource :weather_cell, only: :show

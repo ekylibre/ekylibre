@@ -660,6 +660,15 @@ class Intervention < Ekylibre::Record::Base
     test = worker_working_periods(nature: nature, not_nature: not_nature)
   end
 
+  # compute stopped_at and duration if not present and if duration <
+  def duration_from_catalog
+    flow = MasterEquipmentFlow.find_by(procedure_name: procedure_name)
+    if flow && working_zone_area.to_f > 0.0
+      real_stop = started_at + (flow.intervention_flow.to_d * working_zone_area.to_d * 3600)
+      catalog_duration = (real_stop - started_at).in(:second).convert(:hour)
+    end
+  end
+
   class << self
     def used_procedures
       select(:procedure_name).distinct.pluck(:procedure_name).map do |name|

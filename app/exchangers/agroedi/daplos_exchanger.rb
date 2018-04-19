@@ -556,22 +556,8 @@ module Agroedi
         w.debug 'Problem to recognize intervention and create it ' + procedure.name.inspect
       end
 
-      # load couple
-      # FIXME
-      # compute stopped_at and duration if not present and if duration <
-      Intervention.all.each do |i|
-        flow = MasterEquipmentFlow.find_by(procedure_name: i.procedure_name)
-        if flow && i.working_zone_area.to_f > 0.0 && i.duration < 65
-          real_stop = i.started_at + (flow.intervention_flow.to_d * i.working_zone_area.to_d * 3600)
-          i.working_periods.first.stopped_at = real_stop
-          i.save!
-        end
-      end
-
-
       # complete equipment if not present
-
-
+      
       # complete worker if not present
 
       nil

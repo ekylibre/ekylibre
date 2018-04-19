@@ -44,7 +44,7 @@ module Isagri
 
         w.reset!(rows.count, :yellow)
 
-        rows.each_with_index do |row, _index|
+        rows.each_with_index do |row, index|
           r = {
             account_number: row[0].blank? ? nil : row[0].to_s,
             account_name: row[1].blank? ? nil : row[1].to_s,
@@ -76,7 +76,7 @@ module Isagri
           end
 
           number = r.entry_number + '_' + r.journal_code
-
+          w.info "--------------------index : #{index} | number : #{number}--------------------------"
           unless entries[number]
             journal = Journal.find_by(code: r.journal_code)
             unless journal
@@ -118,8 +118,9 @@ module Isagri
 
         w.reset!(entries.keys.size)
         entries.values.each do |entry|
+          w.info "JE : #{entry}".inspect.yellow
           j = JournalEntry.create!(entry)
-          w.info "JE : #{j.number} | #{j.printed_on}".inspect.yellow
+          w.info "JE created: #{j.number} | #{j.printed_on}".inspect.yellow
           w.check_point
         end
       end

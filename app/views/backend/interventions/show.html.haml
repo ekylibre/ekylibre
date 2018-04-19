@@ -83,6 +83,12 @@
         %span.value
           %i.picto.picto-calendar
           = resource.stopped_at.l
+      .med-info
+        %span.title= Intervention.human_attribute_name(:catalog_duration)
+        %span.value
+          %i.picto.picto-timelapse
+          = resource.duration_from_catalog.round(2).l
+
       -#.med-info
         %span.title= Intervention.human_attribute_name(:working_duration)
         %span.value
