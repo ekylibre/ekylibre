@@ -6,13 +6,14 @@
     margin: 2em 0;
 
     .nested-fields {
-      flex: 1;
+	  flex-basis: 15%;
       border: none;
       background: $white !important;
     }
 
     .nested-fields .nested-remove {
-      top: 35px;
+      top: 10%;
+      right: 15%;
     }
 
     .control-group {
@@ -31,17 +32,36 @@
     .links {
       @include flex-row();
       flex-basis: 10%;
+      position: relative;
       background: $white;
       border: none;
     }
 
     .links .nested-add {
+	  position: absolute;
+	  top: 10px;
       margin-left: 0 !important;
     }
   }
 
   .naming-format-example {
     font-style: italic;
+  }
+
+  .plus-sign {
+    position: relative;
+    z-index: 2;
+
+    .sign {
+      position: absolute;
+      top: 4px;
+      right: -5px;
+      font-size: $fs-large;
+    }
+  }
+
+  .plus-sign:first-child .sign {
+    display: none;
   }
 }
 
