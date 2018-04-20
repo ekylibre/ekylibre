@@ -2079,7 +2079,7 @@ fra:
     revenues: "Recettes"
     revenues_by_product_nature: "Chiffre d’affaire par type de produit"
     reverse: "Appliquer la condition inverse"
-    # revise: "Revise"
+    revise: "Mettre à jour" #?
     right_parts: #?
       accountancy: "Droits module Comptabilité" #?
       company: "Droits module Société" #?
@@ -2813,7 +2813,6 @@ fra:
       record_x_created: "%{record} %{name} créé"
       record_x_updated: "%{record} %{name} mise à jour"
       restoration_finished: "La restauration de la sauvegarde s’est terminée (en %{value} secondes)." #?
-      revise: "Mettre à jour" #?
       sale_already_invoiced: "La vente a déjà été facturée: vous ne pouvez pas définir de livraison" #?
       sale_cannot_be_updated: "Le devis n’est plus modifiable." #?
       sale_cant_be_deleted: "La vente ne peut plus être supprimée" #?
