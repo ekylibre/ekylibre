@@ -1168,7 +1168,7 @@ fra:
       filter_on_attribute_of_class: "Filtre sur %{attribute} (%{class})"
       special-subscriber: "Filtre Abonné"
     configure: "Configurer"
-    confirmation_update_historical_plans: "Voulez-vous appliquer ces modifications sur l'historique de votre parcellaire ?"
+    confirmation_update_historical_plans: "Voulez-vous appliquer ces modifications sur l'historique des noms de parcelles ?"
     confirmed: "Confirmées" #?
     confirmed_at: "Confirmée le" #?
     connect: "Se connecter"
