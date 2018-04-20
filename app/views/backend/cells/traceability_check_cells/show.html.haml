@@ -5,14 +5,14 @@
   buildings = RegisteredBuildingZone.in_bounding_box(b)
   islet_intersecting = 0
   buildings.each do |building|
-    i = islets.shape_intersecting(building.shape).count
+    i = islets.shape_intersecting(building.shape.buffer(50)).count
     islet_intersecting += i if i > 0
   end
 
   rivers = RegisteredWaterRiver.in_bounding_box(b)
   islet_water_intersecting = 0
   rivers.each do |river|
-    j = islets.shape_intersecting(river.shape).count
+    j = islets.shape_intersecting(river.shape.buffer(20)).count
     islet_water_intersecting += j if j > 0
   end
 
@@ -34,7 +34,7 @@
     %span.value= link_to("Assolement : " + @campaign.net_surface_area.convert(:hectare).round(2).l, backend_campaign_path(@campaign))
   .info.important
     %span.title= "4 | SPE | "
-    %span.value= link_to("Nombre d'ilôts à proximité d'un bâtiment : " + islet_intersecting.to_s, backend_cap_statement_path(c))
+    %span.value= link_to("Nombre d'habitations à moins de 50 m d'un ilôts : " + islet_intersecting.to_s, backend_cap_statement_path(c))
   .info.important
     %span.title= "6 | Vérification | "
     %span.value= link_to("Nombre d'interventions hors campagne culturale : " + diff.to_s, backend_interventions_path)
@@ -43,4 +43,4 @@
     %span.value= link_to("Nombre moyen d'interventions de fertilisation par parcelle : " + avg.to_s, backend_interventions_path)
   .info.important
     %span.title= "13 | ZNT | "
-    %span.value= link_to("Nombre d'ilôts impactés par une zone de non traitement : " + islet_water_intersecting.to_s, backend_interventions_path)
+    %span.value= link_to("Nombre d'ilôts impactés par une zone de non traitement (20 m d'une rivière | ...) : " + islet_water_intersecting.to_s, backend_interventions_path)

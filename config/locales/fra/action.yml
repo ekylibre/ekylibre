@@ -92,6 +92,8 @@ fra:
       index: "Bâtiments"
       new: "Nouveau bâtiment"
       show: "Détail du bâtiment\_: %{name}"
+    backend/calculators/grains_commercialization_threshold_simulators:
+      show: "Simulateur de rentabilité"
     backend/campaigns:
       current: "Campagne"
       edit: "Campagne\_: %{name}"
@@ -1223,6 +1225,7 @@ fra:
     destroyed_by_ago: "Supprimé par %{author} %{when}"
     detail: "Détail"
     details: "Informations complémentaires"
+    direct_expenses: "Charges directes" #?
     direct_margin: "Marge directe" #?
     discount: "Réduc. (%)"
     disease: "Maladie"
@@ -2221,6 +2224,7 @@ fra:
         user:
           content: "Ici, vous pouvez voir vos notifications, afficher l’aide, lire le nom de votre ferme. Vos préférences utilisateur sont modifiables à partir du menu aussi."
           title: "Menu utilisateur"
+    traceability_check : "Contrôle de cohérence de la tracabilité (Productions végétales)"
     tracking: "Lot"
     trade: "Ventes/Achats"
     trade_counts: "Totaux commerciaux"

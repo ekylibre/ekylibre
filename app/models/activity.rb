@@ -329,6 +329,18 @@ class Activity < Ekylibre::Record::Base
     budget.expenses_amount
   end
 
+  def quandl_dataset
+    if Nomen::Variety[self.cultivation_variety.to_sym] <= :triticum_aestivum
+      return 'CHRIS/LIFFE_EBM4'
+    elsif Nomen::Variety[self.cultivation_variety.to_sym] <= :brassica_napus
+      return 'CHRIS/LIFFE_ECO4'
+    elsif Nomen::Variety[self.cultivation_variety.to_sym] <= :hordeum_hexastichum
+      return 'CHRIS/ICE_BW2'
+    elsif Nomen::Variety[self.cultivation_variety.to_sym] <= :zea
+      return 'CHRIS/LIFFE_EMA10'
+    end
+  end
+
   COLORS_INDEX = Rails.root.join('db', 'nomenclatures', 'colors.yml').freeze
   COLORS = (COLORS_INDEX.exist? ? YAML.load_file(COLORS_INDEX) : {}).freeze
 
