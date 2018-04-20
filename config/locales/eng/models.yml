@@ -534,6 +534,7 @@ eng:
     bank_statements: "Bank statements"
     base_amount: "Base amount"
     # batch: "Batch"
+    batch_number: "Batch number"
     # batch_planting: "Batch planting"
     battery_level: "Battery level"
     birth_date_completeness: "Birth date completeness"

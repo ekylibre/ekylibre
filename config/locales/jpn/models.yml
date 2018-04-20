@@ -518,6 +518,7 @@ jpn:
     bank_statement_letter: "銀行取引明細書の手紙"
     bank_statements: "銀行取引明細書"
     base_amount: "基準額"
+    # batch_number: "Batch number"
     battery_level: "バッテリー残量"
     birth_date_completeness: "生年月日の完全性"
     birth_farm_number: "出生農場数"

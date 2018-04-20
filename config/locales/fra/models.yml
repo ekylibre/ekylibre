@@ -686,6 +686,7 @@ fra:
     bank_statement_letter: "Lettre de déclaration de la Banque"
     bank_statements: "Relevés de compte bancaire"
     base_amount: "Montant de base"
+    batch_number: "N° de lot"
     battery_level: "Niveau de la batterie"
     birth: "Naissance" #?
     birth_date_completeness: "Complétude de la date de naissance"

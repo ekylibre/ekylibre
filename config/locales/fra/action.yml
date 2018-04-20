@@ -1168,7 +1168,7 @@ fra:
       filter_on_attribute_of_class: "Filtre sur %{attribute} (%{class})"
       special-subscriber: "Filtre Abonné"
     configure: "Configurer"
-    confirmation_update_historical_plans: "Voulez-vous appliquer ces modifications sur l'historique de votre parcellaire ?" #?
+    confirmation_update_historical_plans: "Voulez-vous appliquer ces modifications sur l'historique de votre parcellaire ?"
     confirmed: "Confirmées" #?
     confirmed_at: "Confirmée le" #?
     connect: "Se connecter"
@@ -1825,6 +1825,7 @@ fra:
     number_of_cap_land_parcels: "Nombre de parcelle PAC"
     number_options: "Options de numérotations" #?
     numbers: "Numéros"
+    number_with_param: "N° %{number}"
     on_account: "À remettre sur le compte"
     one_condition: "au moins une condition"
     open_a_campaign: "Ouvrir une campagne de production" #?

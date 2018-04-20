@@ -518,6 +518,7 @@ cmn:
     bank_statement_letter: "银行对账单的信"
     bank_statements: "银行对账单"
     base_amount: "基数"
+    # batch_number: "Batch number"
     battery_level: "电池电量"
     birth_date_completeness: "出生日期完整性"
     birth_farm_number: "农场出生数"

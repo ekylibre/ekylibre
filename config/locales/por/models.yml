@@ -518,6 +518,7 @@ por:
     bank_statement_letter: "Carta extrato bancário"
     bank_statements: "Extratos bancários"
     base_amount: "Valor base"
+    # batch_number: "Batch number"
     battery_level: "Nível de bateria"
     birth_date_completeness: "Data de nascimento integralidade"
     birth_farm_number: "Número fazenda Nascimento"

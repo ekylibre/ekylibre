@@ -518,6 +518,7 @@ deu:
     bank_statement_letter: "Kontoauszug Brief"
     bank_statements: "Kontoauszüge"
     base_amount: "Grundbetrag"
+    # batch_number: "Batch number"
     battery_level: "Batterie Level"
     birth_date_completeness: "Geburtsdatum Vollständigkeit"
     birth_farm_number: "Geburt Bauernhof Nummer"

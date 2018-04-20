@@ -1058,6 +1058,7 @@ spa:
       filter_on_attribute_of_class: "Filtro de atributo de la clase"
       special-subscriber: "Especial abonado"
     configure: "Configurar"
+    # confirmation_update_historical_plans: "Confirmation update historical plans"
     confirmed: "Confirmadas" #?
     connect: "Entrar"
     consume: "Consumir"

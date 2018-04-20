@@ -971,6 +971,7 @@ por:
       filter_on_attribute_of_class: "Filtrar atributo da classe"
       special-subscriber: "Especial assinante"
     configure: "Configurar"
+    # confirmation_update_historical_plans: "Confirmation update historical plans"
     connect: "Conectar"
     consume: "Consumir"
     contained_products: "Produtos contidos"

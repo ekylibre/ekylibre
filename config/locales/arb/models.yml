@@ -1187,6 +1187,7 @@ arb:
     banks_accounts: "كتاب الحسابات المصرفية" #?
     base: "القاعدة" #?
     base_amount: "كمية قاعدة"
+    # batch_number: "Batch number"
     battery_level: "مستوى البطارية"
     bban: "RIB" #?
     bic: "BIC" #?

@@ -1270,6 +1270,7 @@ arb:
       filter_on_attribute_of_class: "التصفية وفق %{attribute} (%{class})"
       special-subscriber: "تصفية وفق الاشتراك"
     configure: "تكوين"
+    # confirmation_update_historical_plans: "Confirmation update historical plans"
     confirmed: "تأكيد" #?
     confirmed_at: "تم تأكيده في" #?
     connect: "الدخول"

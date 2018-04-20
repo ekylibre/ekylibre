@@ -966,6 +966,7 @@ deu:
       filter_on_attribute_of_class: "Filter auf Attribut der Klasse"
       special-subscriber: "Spezial-Teilnehmer"
     configure: "Konfigurieren"
+    # confirmation_update_historical_plans: "Confirmation update historical plans"
     connect: "Verbinden"
     consume: "Verbrauchen"
     contained_products: "enthalten Produkte"

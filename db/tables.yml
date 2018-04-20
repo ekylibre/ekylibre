@@ -3490,6 +3490,8 @@ intervention_parameters:
   assembly_id:
     type: integer
     references: product
+  batch_number:
+    type: string
   component_id:
     type: integer
     references: product_nature_variant_component
@@ -3576,6 +3578,8 @@ intervention_parameters:
   variant_id:
     type: integer
     references: product_nature_variant
+  variety:
+    type: string
   working_zone:
     type: geometry
     limit:

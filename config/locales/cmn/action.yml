@@ -966,6 +966,7 @@ cmn:
       filter_on_attribute_of_class: "在类的属性过滤器"
       special-subscriber: "特殊用户"
     configure: "配置"
+    # confirmation_update_historical_plans: "Confirmation update historical plans"
     connect: "接"
     consume: "消耗"
     contained_products: "产品所含"

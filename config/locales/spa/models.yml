@@ -519,6 +519,7 @@ spa:
     bank_statement_letter: "Carta de estado de cuenta bancaria"
     bank_statements: "Estados de cuenta bancarios"
     base_amount: "Cantidad base"
+    # batch_number: "Batch number"
     battery_level: "Nivel de bateria"
     birth_date_completeness: "Fecha de nacimiento exhaustividad"
     birth_farm_number: "Número de granja nacimiento"
