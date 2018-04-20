@@ -151,7 +151,7 @@
 
 
   - if resource.decorate.plants?
-    - c.cobble(:plants) do
+    - c.cobble(:plants, title: :crops.tl) do
       = cobble_list(:plants)
 
   = #render partial: 'backend/shared/distributions', locals: {c: c}
