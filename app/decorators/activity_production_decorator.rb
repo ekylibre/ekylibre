@@ -100,7 +100,7 @@ class ActivityProductionDecorator < Draper::Decorator
   end
 
   def human_costs(costs)
-    costs.each { |key, value| costs[key] = costs[key].to_f.round(2) }
+    costs.each { |key, value| costs[key] = costs[key].to_f.round(0) }
   end
 
   def new_costs_hash
