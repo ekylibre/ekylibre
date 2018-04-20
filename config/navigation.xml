@@ -1312,6 +1312,7 @@
       <item name="naming_format">
         <page to="backend/naming_formats#index"/>
         <page to="backend/naming_format_land_parcels#edit"/>
+        <page to="backend/naming_format_land_parcels#index"/>
       </item>
       <item name="sequences">
         <page to="backend/sequences#index"/>

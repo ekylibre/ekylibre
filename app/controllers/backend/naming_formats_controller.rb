@@ -22,14 +22,6 @@ module Backend
 
     manage_restfully subclass_inheritance: true
 
-    # unroll
-
-    list do |t|
-      t.action :edit
-      t.action :destroy
-      t.column :name
-    end
-
     def index
       @naming_formats_grid = initialize_grid(NamingFormat.all)
     end
