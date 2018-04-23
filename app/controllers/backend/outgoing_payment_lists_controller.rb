@@ -41,7 +41,7 @@ module Backend
       t.column :bank_check_number
       t.column :to_bank_at
       t.column :work_name, through: :affair, label: :affair_number, url: { controller: :purchase_affairs }
-      t.column :deal_work_name, through: :affair, label: :purchase_number, url: { controller: :purchases, id: 'RECORD.affair.deals_of_type(Purchase).first.id'.c }
+      t.column :deal_work_name, through: :affair, label: :purchase_number, url: { controller: :purchase_invoices, id: 'RECORD.affair.deals_of_type(Purchase).first.id'.c }
       t.column :bank_statement_number, through: :journal_entry, url: { controller: :bank_statements, id: 'RECORD.journal_entry.bank_statements.first.id'.c }
     end
 
@@ -71,7 +71,7 @@ module Backend
               methods: %i[amount_to_letter label affair_reference_numbers],
               include: {
                 responsible: {},
-                affair: { include: { purchases: {} } },
+                affair: { include: { purchase_invoices: {} } },
                 mode: {},
                 payee: {
                   include: {
@@ -111,12 +111,14 @@ module Backend
         if @outgoing_payment_list.valid?
           @currency = mode.cash.currency
           @affairs = PurchaseAffair
-                     .joins(:purchases)
+                     .joins(:purchase_invoices)
                      .joins(:supplier)
                      .includes(:supplier)
                      .where(closed: false, currency: mode.cash.currency)
                      .where("((purchases.payment_at IS NOT NULL AND purchases.payment_at BETWEEN ? AND ?) OR (purchases.payment_at IS NULL AND purchases.invoiced_at BETWEEN ? AND ?)) AND purchases.state = 'invoice'", params[:started_at], params[:stopped_at], params[:started_at], params[:stopped_at])
                      .where(entities: { supplier_payment_mode_id: mode.id })
+                     .where(purchases: { reconciliation_state: %w[accepted reconcile] })
+                     .where.not(purchases: { id: nil })
                      .order('entities.full_name ASC')
                      .order('purchases.payment_at ASC', :number)
 

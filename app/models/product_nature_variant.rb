@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2017 Brice Texier, David Joulin
+# Copyright (C) 2012-2018 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -68,7 +68,8 @@ class ProductNatureVariant < Ekylibre::Record::Base
   belongs_to :stock_account, class_name: 'Account'
 
   has_many :contract_items, foreign_key: :variant_id, dependent: :restrict_with_exception
-  has_many :parcel_items, foreign_key: :variant_id, dependent: :restrict_with_exception
+  has_many :reception_items, class_name: 'ReceptionItem', foreign_key: :variant_id, dependent: :restrict_with_exception
+  has_many :shipment_items, class_name: 'ShipmentItem', foreign_key: :variant_id, dependent: :restrict_with_exception
   has_many :products, foreign_key: :variant_id, dependent: :restrict_with_exception
   has_many :members, class_name: 'Product', foreign_key: :member_variant_id, dependent: :restrict_with_exception
   has_many :purchase_items, foreign_key: :variant_id, inverse_of: :variant, dependent: :restrict_with_exception
@@ -112,6 +113,11 @@ class ProductNatureVariant < Ekylibre::Record::Base
   scope :stockables_or_depreciables, -> { joins(:nature).merge(ProductNature.stockables_or_depreciables).order(:name) }
   scope :depreciables, -> { joins(:nature).merge(ProductNature.depreciables).order(:name) }
   scope :identifiables, -> { where(nature: ProductNature.identifiables) }
+  scope :services, -> { where(nature: ProductNature.services) }
+  scope :tools, -> { where(nature: ProductNature.tools) }
+
+  scope :purchaseables_stockables_or_depreciables, -> { ProductNatureVariant.purchaseables.merge(ProductNatureVariant.stockables_or_depreciables) }
+  scope :purchaseables_services, -> { ProductNatureVariant.purchaseables.merge(ProductNatureVariant.services) }
 
   scope :derivative_of, proc { |*varieties| of_derivative_of(*varieties) }
 
@@ -141,7 +147,7 @@ class ProductNatureVariant < Ekylibre::Record::Base
 
   protect(on: :destroy) do
     products.any? || sale_items.any? || purchase_items.any? ||
-      parcel_items.any? || phases.any?
+      reception_items.any? || shipment_items.any? || phases.any?
   end
 
   before_validation on: :create do
@@ -389,19 +395,21 @@ class ProductNatureVariant < Ekylibre::Record::Base
 
   # Shortcut for creating a new product of the variant
   def create_product!(attributes = {})
-    attributes[:initial_owner] ||= Entity.of_company
-    attributes[:initial_born_at] ||= Time.zone.now
-    attributes[:born_at] ||= attributes[:initial_born_at]
-    attributes[:name] ||= "#{name} (#{attributes[:initial_born_at].to_date.l})"
+    attributes = product_params(attributes)
     matching_model.create!(attributes.merge(variant: self))
   end
 
   def create_product(attributes = {})
+    attributes = product_params(attributes)
+    matching_model.create(attributes.merge(variant: self))
+  end
+
+  def product_params(attributes = {})
     attributes[:initial_owner] ||= Entity.of_company
     attributes[:initial_born_at] ||= Time.zone.now
     attributes[:born_at] ||= attributes[:initial_born_at]
     attributes[:name] ||= "#{name} (#{attributes[:initial_born_at].to_date.l})"
-    matching_model.create(attributes.merge(variant: self))
+    attributes
   end
 
   def take(quantity)
@@ -429,16 +437,21 @@ class ProductNatureVariant < Ekylibre::Record::Base
 
   # Return current stock of all products link to the variant
   def current_stock
-    products.map(&:population).compact.sum.to_f
+    products
+      .select { |product| product.dead_at.nil? || product.dead_at >= Time.now }
+      .map(&:population)
+      .compact
+      .sum
+      .to_f
   end
 
   # Return current quantity of all products link to the variant currently ordered or invoiced but not delivered
   def current_outgoing_stock_ordered_not_delivered
     undelivereds = sale_items.includes(:sale).map do |si|
       undelivered = 0
-      variants_in_parcel_in_sale = ParcelItem.where(parcel_id: si.sale.parcels.select(:id), variant: self)
-      variants_in_transit_parcel_in_sale = ParcelItem.where(parcel_id: si.sale.parcels.where.not(state: %i[given draft]).select(:id), variant: self)
-      delivered_variants_in_parcel_in_sale = ParcelItem.where(parcel_id: si.sale.parcels.where(state: :given).select(:id), variant: self)
+      variants_in_parcel_in_sale = ShipmentItem.where(parcel_id: si.sale.parcels.select(:id), variant: self)
+      variants_in_transit_parcel_in_sale = ShipmentItem.where(parcel_id: si.sale.parcels.where.not(state: %i[given draft]).select(:id), variant: self)
+      delivered_variants_in_parcel_in_sale = ShipmentItem.where(parcel_id: si.sale.parcels.where(state: :given).select(:id), variant: self)
 
       undelivered = si.quantity if variants_in_parcel_in_sale.none? && !si.sale.draft? && !si.sale.refused? && !si.sale.aborted?
       undelivered = [undelivered, si.quantity - delivered_variants_in_parcel_in_sale.sum(:population)].max if variants_in_parcel_in_sale.present?
@@ -448,7 +461,7 @@ class ProductNatureVariant < Ekylibre::Record::Base
       undelivered
     end
 
-    undelivereds += parcel_items.joins(:parcel).where.not(parcels: { state: %i[given draft] }).where(parcels: { sale_id: nil, nature: :outgoing }).pluck(:population)
+    undelivereds += shipment_items.joins(:shipment).where.not(parcels: { state: %i[given draft] }).where(parcels: { sale_id: nil, nature: :outgoing }).pluck(:population)
 
     undelivereds.compact.sum
   end

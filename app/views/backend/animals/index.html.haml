@@ -1,8 +1,8 @@
 - main_toolbar do |t|
   = t.export :animal_list, key: Time.zone.now.to_s, resource: @animals
   = t.menu :new.tl do |menu|
-    - menu.item :add_entrance.tl, { controller: :parcels, action: :new, nature: :incoming }, data: { toggle: 'dialog', refresh: true }
-    - menu.item :add_exit.tl, { controller: :parcels, action: :new, nature: :outgoing }, data: { toggle: 'dialog', refresh: true }
+    - menu.item :add_entrance.tl, { controller: :receptions, action: :new }, data: { toggle: 'dialog', refresh: true }
+    - menu.item :add_exit.tl, { controller: :shipments, action: :new }, data: { toggle: 'dialog', refresh: true }
     - menu.separator
     - menu.item :add_animal.tl, { controller: :animals, action: :new }, data: { toggle: 'dialog', refresh: true }
     - menu.item :add_animal_group.tl, { controller: :animal_groups, action: :new }, data: { toggle: 'dialog', refresh: true }

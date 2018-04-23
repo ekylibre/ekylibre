@@ -19,6 +19,8 @@
 module Backend
   class DeliveriesController < Backend::BaseController
     manage_restfully parcel_ids: '(params[:parcel_ids] || [])'.c,
+                     reception_ids: '(params[:reception_ids] || [])'.c,
+                     shipment_ids: '(params[:shipment_ids] || [])'.c,
                      responsible_id: 'current_user.person.id'.c,
                      started_at: 'Time.zone.now'.c,
                      driver_id: 'current_user.person.id'.c
@@ -47,10 +49,32 @@ module Backend
       t.column :nature
       t.column :state
       t.status
+      # t.column :sender, url: true
+      # t.column :recipient, url: true
+      # t.column :sale, url: true, hidden: true
+      # t.column :purchase, url: true, hidden: true
+      # t.column :net_mass
+    end
+
+    list(:receptions, conditions: { delivery_id: 'params[:id]'.c }, order: :position) do |t|
+      t.action :edit
+      t.action :destroy
+      t.column :number, url: true
+      t.column :state
+      t.status
       t.column :sender, url: true
+      # t.column :purchase, url: true, hidden: true
+      # t.column :net_mass
+    end
+
+    list(:shipments, conditions: { delivery_id: 'params[:id]'.c }, order: :position) do |t|
+      t.action :edit
+      t.action :destroy
+      t.column :number, url: true
+      t.column :state
+      t.status
       t.column :recipient, url: true
       t.column :sale, url: true, hidden: true
-      t.column :purchase, url: true, hidden: true
       # t.column :net_mass
     end
 

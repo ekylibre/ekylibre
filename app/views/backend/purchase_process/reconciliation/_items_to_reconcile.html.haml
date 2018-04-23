@@ -1,0 +1,65 @@
+- item_reconciliation = !reconciliate_item.nil? || reconciliate_item.to_b
+= hidden_field_tag 'item-reconciliation', item_reconciliation
+= hidden_field_tag 'purchase-orders', purchase_orders
+
+.modal-body
+  .purchase-orders
+    .list-headers
+      %span.list-header.form-name= purchase_orders ? :reception.tl : :order.tl
+      %span.list-header= :quantity.tl
+      %span.list-header= :unit_amount.tl
+      %span.list-header= :total_amount_without_taxes.tl
+    .list-models
+      - models.each do |model|
+        .model
+          - unless item_reconciliation
+            = check_box_tag('', '1', false, class: 'model-checkbox', data: { id: model.id })
+
+          - reference_number = model.reference_number if model.is_a?(Purchase) || model.is_a?(Reception)
+          - reference_number = model.items.first.purchase_order_item.purchase.reference_number unless model.is_a?(Purchase) || model.is_a?(Reception)
+          - reference_number = !reference_number.blank? ? reference_number : :not_informed.tl
+          %span.model-ref= :reference_supplier.tl(reference_number: reference_number) unless model.is_a?(Reception)
+          %span.model-ref= :reception_number_with_reference.tl(reference_number: reference_number) if model.is_a?(Reception)
+          - if model.is_a?(Reception)
+            %br
+            %span.model-ref.reception-date= :reception_date.tl(date: l(model.given_at.to_date))
+
+          %ul.list-items
+            - model.items.each do |model_item|
+              - datas = { variant_type: model_item.variant.variety, equipment_id: model_item.equipment_id, responsible_id: model.responsible_id }
+              - datas.merge!({ team_id: model_item.team_id,
+                               activity_budget_id: model_item.activity_budget_id,
+                               conditionning: model_item.conditionning,
+                               conditionning_quantity: model_item.conditionning_quantity }) if model_item.is_a?(PurchaseItem)
+              - datas.merge!({ team_id: model_item.purchase_order_item.try(:team_id),
+                               activity_budget_id: model_item.purchase_order_item.try(:activity_budget_id),
+                               tax_id: model_item.purchase_order_item.try(:tax_id),
+                               reduction_percentage: model_item.purchase_order_item.try(:reduction_percentage) }) if model_item.is_a?(ParcelItem)
+              - datas.merge!({ conditionning: model_item.storings.first&.conditionning,
+                               conditionning_quantity: model_item.storings.sum(:conditionning_quantity),
+                               supplier_ref: reference_number }) if model_item.is_a?(ReceptionItem)
+
+              %li.item{ data: datas }
+                - if item_reconciliation
+                  = radio_button_tag(model_item.id, nil, false, class: "item-checkbox", data: { id: model_item.id, item_field_id: item_field_id })
+                - else
+                  = check_box_tag('', '1', false, class: 'item-checkbox', data: { id: model_item.id })
+                %span.variant{ data: { id: model_item.variant_id } }= model_item.variant.name
+                %span.item-value.quantity= model_item.quantity.to_d
+                %span.item-value.unit-cost= model_item.unit_pretax_amount
+
+                - pretax_amount = model_item.pretax_amount if model_item.is_a?(PurchaseItem)
+                - pretax_amount = model_item.purchase_order_item.try(:pretax_amount) unless model_item.is_a?(PurchaseItem)
+                %span.item-value.total-except-taxes= pretax_amount
+
+          - if model.is_a?(PurchaseOrder)
+            .close-purchase-order.hidden
+              = label_tag "Fermer la commande suite à cette réception :", nil, class: "close-purchase-order-label"
+              = radio_button_tag "close_purchase_order_#{model.id}", 'true', false, class: "close-purchase-order-radio"
+              = label_tag "Oui", nil, class: "close-purchase-order-radio-label"
+              = radio_button_tag "close_purchase_order_#{model.id}", 'false', true, class: "close-purchase-order-radio"
+              = label_tag "Non", nil, class: "close-purchase-order-radio-label"
+
+.modal-footer
+  .actions
+    %button{ class: "btn btn-default valid-modal", data: { 'item-reconciliation': item_reconciliation }}= :valid.tl

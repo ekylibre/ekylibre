@@ -9,6 +9,7 @@
         <handler name="population"/>
       </output>
       <doer name="driver"  filter="can drive(equipment) and can move" cardinality="*"/>
+      <doer name="doer" filter="is worker" cardinality="*"/>
       <tool name="tractor" filter="can tow(equipment) and can move" cardinality="*"/>
       <tool name="uncover"  filter="can uncover(plant)" cardinality="*"/>
     </parameters>

@@ -476,10 +476,11 @@ arb:
         number: "رقم" #?
         planned_at: "مقرر الاستقبال يوم" #?
         received: "المستلم" #?
-      purchase_item: #?
+      purchase_item:
         account: "حساب الرسوم المستخدمة" #?
         account_id: "حساب الرسوم المستخدمة" #?
         annotation: "الملاحظة" #?
+        # fixed_asset_stopped_on: "Fixed asset stopped on"
         order: "طلب الشراء" #?
         price: "سعر الوحدة" #?
         product_id: "انتاج" #?
@@ -782,6 +783,13 @@ arb:
           building_can_not_waste_product: "لا يمكنك تسجيل الخسارة للمنتج %{product} من موقع التخزين %{building}, هذا ويحتوي المنتج %{contained_product}" #?
           buildings_can_not_be_identical: "مواقع التخزين (المغادرة والواصلة) قد لا تكون متطابقة" #?
         purchase_item:
+          attributes:
+            fixed:
+              # asset_account: "Invalid asset account"
+              # asset_depreciation_method: "Invalid asset depreciation method"
+              # asset_expenses_account: "Invalid asset expenses account"
+              # asset_wrong_depreciation_method: "Depreciation method must be simplified linear"
+              # fixed_asset_stopped_on_invalid: "Invalid fixed asset stopped on"
           building_can_not_receive_product: "لا يمكن للخزينة %{building} استقبال النتج %{product}, لاحتوائها منتج سابق %{contained_product}."
           serial_already_used_with_an_other_product: "%{attribute} تم استخدامها لنوع اخر من المنتج من نفس الممون"
         sale_item:
@@ -1006,9 +1014,13 @@ arb:
       purchase: "الشراء"
       purchase_affair: "قضية شراء"
       purchase_gap: "الفجوة شراء"
+      # purchase_invoice: "Purchase invoice"
       purchase_item: "طريقة طلب الشراء"
       purchase_nature: "نوع شراء"
+      # purchase_order: "Purchase order"
       purchase_payment: "الدفعة"
+      # reception: "Reception"
+      # reception_item: "Reception item"
       regularization: "تسوية"
       role: "الدور"
       sale: "البيع"
@@ -1023,6 +1035,8 @@ arb:
       sensor: "الاستشعار"
       sequence: "التسلسل"
       settlement: "مستوطنة"
+      # shipment: "Shipment"
+      # shipment_item: "Shipment item"
       stock: "سهم الانتاج" #?
       stock_move: "حركة السهم" #?
       stock_transfer: "تحول او ضياع السهم" #?
@@ -1170,6 +1184,7 @@ arb:
     banks_accounts: "كتاب الحسابات المصرفية" #?
     base: "القاعدة" #?
     base_amount: "كمية قاعدة"
+    # batch_number: "Batch number"
     battery_level: "مستوى البطارية"
     bban: "RIB" #?
     bic: "BIC" #?
@@ -1251,6 +1266,7 @@ arb:
     color: "اللون"
     column_name: "اسم العمود"
     columns: "الأعمدة"
+    # command_mode: "Command mode"
     comment: "التعليق"
     commercial: "نشاط تجاري"
     commercial_description: "وصف التجاري"
@@ -1273,6 +1289,8 @@ arb:
     conclusion: "الاستنتاج"
     condition_operator: "المقارنة"
     condition_value: "قيمة المقارنة"
+    # conditionning: "Conditionning"
+    # conditionning_quantity: "Conditionning quantity"
     conditions: "(SQL) شروط"
     confirmation_sent_at: "التأكيد المرسلة في"
     confirmation_token: "رمز التأكيد"
@@ -1487,9 +1505,11 @@ arb:
     entry_number: "رقم الدخول"
     entry_on: "الدخول على موقع"
     entry_reason: "السبب دخول"
+    # equipment: "Equipment"
     establishment: "المؤسسة" #?
     establishment_id: "مؤسسة" #?
     establishments: "المؤسسات" #?
+    # estimate_reception_date: "Estimate reception date"
     # euid: "EUID"
     event: "حدث"
     event_natures: "نوع الحدث" #?
@@ -1690,10 +1710,13 @@ arb:
     interpolations: "الزيادات"
     intervention: "تدخل"
     intervention_cast: "تدخل الزهر"
+    # intervention_id: "Intervention"
     intervention_parameter: "معلمة تدخل"
     intervention_participation: "مشاركة التدخل"
     intervention_participations: "المساهمات تدخل"
     intervention_product_parameters: "يلقي تدخل"
+    # intervention_template: "Intervention template"
+    # intervention_templates: "Intervention templates"
     interventions: "التدخلات"
     interventions_used_in: "التدخلات المستخدمة في"
     # intracommunity: "Intracommunity"
@@ -1768,6 +1791,7 @@ arb:
     last_transmission_at: "انتقال الماضي"
     last_value: "القيمة الأخيرة"
     last_year: "السنة السابقة"
+    # late_delivery: "Late delivery"
     latest: "آخر"
     latitude: "خطوط العرض" #?
     leaves_parameters: "يترك المعلمات"
@@ -1865,6 +1889,7 @@ arb:
     members_count: "عد الأعضاء"
     memberships: "عضوية"
     memo: "مذكرة"
+    # merge_stock: "Merge stock"
     message: "الرسالة"
     messages: "رسائل"
     metadata: "البيانات الوصفية"
@@ -1915,6 +1940,8 @@ arb:
     node: "العقدة"
     node_id: "عقدة" #?
     nodes: "عقد الاستخراج"
+    # non_compliant: "Non compliant"
+    # non_compliant_detail: "Non compliant detail"
     noticed_start_amount: "كمية بداية لاحظت"
     noticed_stop_amount: "لاحظت كمية توقف"
     notification: "إعلام"
@@ -1974,6 +2001,7 @@ arb:
     parameter_name: "اسم المعلمة"
     parameters: "المعلمات"
     parcel: "جزء"
+    # parcel_item_storings: "Parcel item storings"
     parcel_items: "عناصر لا يتجزأ"
     parcels: "الطرود"
     parent: "النسب"
@@ -2066,6 +2094,7 @@ arb:
     printed_on: "طبع يوم"
     priority: "أفضلية"
     probability_percentage: "نسبة احتمال"
+    # procedure: "Procedure"
     procedure_name: "اسم الإجراء"
     producer: "المنتج"
     producer_id: "المنتج" #?
@@ -2075,6 +2104,7 @@ arb:
     product_category: "الفئة" #?
     product_category_id: "فئة" #?
     product_components: "مكونات المنتج" #?
+    # product_enjoyment: "Product enjoyment"
     product_enjoyments: "المتعة المنتج"
     product_id: "المنتج" #?
     product_identification_number: "رقم الهوية"
@@ -2098,6 +2128,7 @@ arb:
     product_reading: "قراءة المنتج"
     product_reading_tasks: "مهام القراءة المنتج"
     product_readings: "قراءات المنتج"
+    # product_work_number: "Product work number"
     productable_products: "المنتجات الممكن انتاجها" #?
     production: "الإنتاج"
     production_campaign: "حملة إنتاج"
@@ -2115,6 +2146,7 @@ arb:
     profession_id: "مهنة" #?
     professions: "مهن" #?
     progression_percentage: "تقدم (٪)"
+    # project_budget: "Project budget"
     propagate_contacts: "تعميم الافراد" #?
     proposer: "الكفيل"
     proposer_id: "الكفيل" #?
@@ -2127,10 +2159,12 @@ arb:
     purchase_affair: "قضية شراء" #?
     purchase_affairs: "الشؤون شراء"
     purchase_amount: "مبلغ الشراء"
+    # purchase_invoice_item: "Purchase invoice item"
     purchase_invoices: "فواتير الشراء"
     purchase_item: "البند شراء"
     purchase_items: "طرق طلب الشراء"
     purchase_natures: "أنواع شراء"
+    # purchase_order_item: "Purchase order item"
     purchase_payments: "دفعات الشراء"
     purchase_taxations: "الأنظمة الضريبية شراء"
     purchase_taxes: "ضرائب الشراء"
@@ -2170,11 +2204,14 @@ arb:
     reception_amount: "كمية الاستقبال"
     reception_cash: "استقبال النقدية"
     reception_currency: "العملة الاستقبال"
+    # reception_items: "Reception items"
     reception_journal_entry: "دخول مجلة الاستقبال"
+    # receptions: "Receptions"
     recipient: "مستلم"
     recommended: "موصى به"
     recommender: "المزكي"
     reconcilable: "مصالحتها"
+    # reconciliation_state: "Reconciliation state"
     record_interventions: "التدخلات سجل"
     record_value: "التسجيل"
     record_value_id: "تسجيل" #?
@@ -2312,6 +2349,8 @@ arb:
     shape: "شكل"
     shift_duration: "مدة التحول"
     shift_method: "طريقة التحول"
+    # shipment_items: "Shipment items"
+    # shipments: "Shipments"
     shipped: "المستلم" #?
     shipped_at: "شحنها يوم" #?
     sign_in_count: "تسجيل الدخول العد"
@@ -2330,6 +2369,7 @@ arb:
     soundex: "خوارزمية مستخدمة لتشفير كلمات بطرقة تمكن مطابقة الكلمات مع الاصوات" #?
     source: "المصدر"
     source_product: "مصدر المنتج"
+    # source_product_movement: "Source product movement"
     spaced_iban: "متباعدة IBAN"
     sql_type: "SQL نوع"
     ssl: "خدمة تصميم المواقع"
@@ -2355,6 +2395,7 @@ arb:
     storable: "القابل للتخزين"
     storage: "تخزين"
     storages: "المخازن"
+    # storings: "Storings"
     story: "واقع"
     string_value: "القيمة النصية"
     subdir: "المرجع الفرعي" #?
@@ -3092,6 +3133,15 @@ arb:
     purchase_payment:
       bookkeep: "[%{resource} %{number}] %{mode} %{check_number} ل %{payee} (%{expenses})"
       label: "%{number}. %{amount} (%{usable_amount} restants) من %{date} بواسطة %{mode} ل %{payee}"
+    reception:
+      state_machine:
+        states:
+          # draft: "Draft"
+          # given: "Given"
+          # in_preparation: "In preparation"
+          # ordered: "Ordered"
+          # prepared: "Prepared"
+          # received: "Received"
     role:
       default:
         administrator: "مدير"
@@ -3186,6 +3236,15 @@ arb:
         sales_invoices: "SI[year|4][number|6]"
         subscriptions: "SUB[number|8]"
         transports: "TR[number|8]"
+    shipment:
+      state_machine:
+        states:
+          # draft: "Draft"
+          # given: "Given"
+          # in_preparation: "In preparation"
+          # ordered: "Ordered"
+          # prepared: "Prepared"
+          # received: "Received"
     task:
       state_machine:
         states:

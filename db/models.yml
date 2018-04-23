@@ -81,6 +81,7 @@
 - integration
 - intervention
 - intervention_agent
+- intervention_costs
 - intervention_doer
 - intervention_group_parameter
 - intervention_input
@@ -118,6 +119,7 @@
 - outgoing_payment_mode
 - parcel
 - parcel_item
+- parcel_item_storing
 - payslip
 - payslip_affair
 - payslip_nature
@@ -149,12 +151,17 @@
 - product_phase
 - product_population
 - product_reading
+- project_budget
 - purchase
 - purchase_affair
 - purchase_gap
+- purchase_invoice
 - purchase_item
 - purchase_nature
+- purchase_order
 - purchase_payment
+- reception
+- reception_item
 - regularization
 - role
 - sale
@@ -167,6 +174,8 @@
 - sensor
 - sequence
 - settlement
+- shipment
+- shipment_item
 - sub_zone
 - subscription
 - subscription_nature
@@ -184,5 +193,6 @@
 - tracking
 - user
 - version
+- wice_grid_serialized_query
 - worker
 - zone

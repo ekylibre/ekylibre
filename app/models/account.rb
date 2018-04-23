@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2017 Brice Texier, David Joulin
+# Copyright (C) 2012-2018 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -305,7 +305,10 @@ class Account < Ekylibre::Record::Base
     # Returns the name of the used accounting system
     # It takes the information in preferences
     def accounting_system
-      Preference[:accounting_system]
+      @tenant_when_last_cached ||= Ekylibre::Tenant.current
+      invalid_cache = @tenant_when_last_cached && @tenant_when_last_cached != Ekylibre::Tenant.current
+      @accounting_system = nil if invalid_cache
+      @accounting_system ||= Preference[:accounting_system]
     end
 
     # FIXME: This is an aberration of internationalization.

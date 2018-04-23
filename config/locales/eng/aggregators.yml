@@ -41,8 +41,6 @@ eng:
     #~ created_at: "Created at"
     #~ creator_name: "Creator name"
     #~ credit: "Credit"
-    #~ cumulated_absolute_credit: "Cumulated absolute credit"
-    #~ cumulated_absolute_debit: "Cumulated absolute debit"
     current_result_before_taxes: "Current result before taxes"
     #~ dead_at: "Dead on"
     #~ debit: "Debit"

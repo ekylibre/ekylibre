@@ -14,8 +14,6 @@
     = f.input :support_nature, as: :radio_buttons
     - f.object.usage ||= :grain
     = f.input :usage
-    - if activity && activity.production_system.present?
-      - source = { scope: { of_production_system: activity.production_system.name } }
     = f.referenced_association :cultivable_zone, source: source
     = f.shape :support_shape
     = f.input :irrigated

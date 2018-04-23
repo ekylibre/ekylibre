@@ -11,7 +11,9 @@
         = hidden_field_tag :theoretical_number, theoretical_number
       - else
         = f.input :number, placeholder: f.object.journal.next_number
-      = f.input :printed_on
+      = f.input :printed_on, wrapper_html: { class: 'apply-fy-date' }
+      %span.hidden#financial-year-dates{ financial_year_started_on_stopped_on }
+        = :warning_date_not_in_period.tl
       = f.input :real_currency_rate, label_html: { data: { change_label: :exchange_rate_from_x_to_y.tl(x: '{{FROM}}', y: '{{TO}}') } }, wrapper_html: { class: 'currency-change' }
 
       = f.custom_fields
@@ -29,8 +31,10 @@
               %th= JournalEntryItem.human_attribute_name(:variant)
               - if budget_size > 0
                 %th= JournalEntryItem.human_attribute_name(:activity_budget)
+              %th= JournalEntryItem.human_attribute_name(:project_budget)
               - if team_size > 0
                 %th= JournalEntryItem.human_attribute_name(:team)
+              %th= :equipment.tl
               %th{ colspan: 2 }= JournalEntryItem.human_attribute_name(:debit)
               %th{ colspan: 2 }= JournalEntryItem.human_attribute_name(:credit)
               %th.act

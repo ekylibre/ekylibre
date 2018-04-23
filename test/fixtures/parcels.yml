@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2017 Brice Texier, David Joulin
+# Copyright (C) 2012-2018 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -34,7 +34,9 @@
 #  given_at                             :datetime
 #  id                                   :integer          not null, primary key
 #  in_preparation_at                    :datetime
+#  intervention_id                      :integer
 #  journal_entry_id                     :integer
+#  late_delivery                        :boolean
 #  lock_version                         :integer          default(0), not null
 #  nature                               :string           not null
 #  number                               :string           not null
@@ -45,6 +47,7 @@
 #  pretax_amount                        :decimal(19, 4)   default(0.0), not null
 #  purchase_id                          :integer
 #  recipient_id                         :integer
+#  reconciliation_state                 :string
 #  reference_number                     :string
 #  remain_owner                         :boolean          default(FALSE), not null
 #  responsible_id                       :integer
@@ -54,6 +57,7 @@
 #  state                                :string           not null
 #  storage_id                           :integer
 #  transporter_id                       :integer
+#  type                                 :string
 #  undelivered_invoice_journal_entry_id :integer
 #  updated_at                           :datetime         not null
 #  updater_id                           :integer

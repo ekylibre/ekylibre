@@ -8,6 +8,7 @@
       - started_at = f.object.intervention.started_at
     - else
       - started_at = f.object.intervention.working_periods.map(&:started_at).min
+
   - started_at ||= Time.now
   - if reference.output?
     = f.referenced_association :variant, label: reference.human_name, source: {scope: reference.scope_hash.merge(availables: true)}, input_html: { data: { intervention_updater: prefix + 'variant_id' }}
@@ -20,6 +21,13 @@
       - participation_picto = f.object.participation.nil? ? 'timer-off' : 'timer'
       - datas = { participation: f.object.participation.id  } unless f.object.participation.nil?
       %div{ class: "has-intervention-participations picto picto-#{participation_picto}", data: datas }
+
+      - decorated_object = f.object.decorate
+      - if decorated_object.participation?
+        - field_name = "intervention[participations_attributes][#{ decorated_object.participation.id }]"
+        - field_value = decorated_object.participation_to_json
+        = hidden_field_tag field_name, field_value, { class: 'intervention-participation', data: { product_id: f.object.product_id }}
+
 
     = modal(id: "working_times", class: "working-times", size: :large) do
       .modal-body

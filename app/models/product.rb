@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2017 Brice Texier, David Joulin
+# Copyright (C) 2012-2018 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -134,13 +134,15 @@ class Product < Ekylibre::Record::Base
   has_many :populations, class_name: 'ProductPopulation', foreign_key: :product_id, dependent: :destroy
   has_many :ownerships, class_name: 'ProductOwnership', foreign_key: :product_id, dependent: :destroy
   has_many :inspections, class_name: 'Inspection', foreign_key: :product_id, dependent: :destroy
-  has_many :parcel_items, dependent: :restrict_with_exception
+  has_many :parcel_item_storings, foreign_key: :product_id
+  has_many :parcel_items, through: :parcel_item_storings, dependent: :restrict_with_exception
   has_many :phases, class_name: 'ProductPhase', dependent: :destroy
   has_many :intervention_participations, class_name: 'InterventionParticipation', dependent: :destroy
   has_many :sensors
   has_many :supports, class_name: 'ActivityProduction', foreign_key: :support_id, inverse_of: :support
   has_many :trackings, class_name: 'Tracking', foreign_key: :product_id, inverse_of: :product
   has_many :variants, class_name: 'ProductNatureVariant', through: :phases
+  has_many :purchase_items, class_name: 'PurchaseItem', inverse_of: :equipment
   has_one :current_phase,        -> { current }, class_name: 'ProductPhase',        foreign_key: :product_id
   has_one :current_localization, -> { current }, class_name: 'ProductLocalization', foreign_key: :product_id
   has_one :current_enjoyment,    -> { current }, class_name: 'ProductEnjoyment',    foreign_key: :product_id
@@ -150,8 +152,8 @@ class Product < Ekylibre::Record::Base
   has_one :container, through: :current_localization
   has_many :groups, through: :current_memberships
   # FIXME: These reflections are meaningless. Will be removed soon or later.
-  has_one :incoming_parcel_item, -> { with_nature(:incoming) }, class_name: 'ParcelItem', foreign_key: :product_id, inverse_of: :product
-  has_one :outgoing_parcel_item, -> { with_nature(:outgoing) }, class_name: 'ParcelItem', foreign_key: :product_id, inverse_of: :product
+  has_one :incoming_parcel_item, -> { with_nature(:incoming) }, class_name: 'ReceptionItem', foreign_key: :product_id, inverse_of: :product
+  has_one :outgoing_parcel_item, -> { with_nature(:outgoing) }, class_name: 'ShipmentItem', foreign_key: :product_id, inverse_of: :product
   has_one :last_intervention_target, -> { order(id: :desc).limit(1) }, class_name: 'InterventionTarget'
   belongs_to :member_variant, class_name: 'ProductNatureVariant'
 
@@ -301,6 +303,13 @@ class Product < Ekylibre::Record::Base
   validate :dead_at_in_interventions, if: ->(product) { product.dead_at? && product.interventions.pluck(:stopped_at).any? }
 
   store :reading_cache, accessors: Nomen::Indicator.all, coder: ReadingsCoder
+
+  after_commit do
+    if nature.population_counting_unitary? && population.zero?
+      m = movements.build(delta: 1, started_at: Time.now)
+      m.save!
+    end
+  end
 
   # [DEPRECATIONS[
   #  - fixed_asset_id
