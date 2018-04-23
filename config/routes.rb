@@ -842,14 +842,6 @@ Rails.application.routes.draw do
 
     resources :preferences, only: %i[update]
 
-    namespace :products do
-      resources :search_variants, only: [] do
-        collection do
-          get :search_by_expression
-        end
-      end
-    end
-
     resources :product_groups, concerns: :products
 
     resources :product_localizations, except: %i[index show]
