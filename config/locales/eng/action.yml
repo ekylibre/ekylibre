@@ -203,7 +203,6 @@ eng:
       humans: "Human resources dashboard"
       index: "Dashboards"
       new: "New dashboard"
-      planning: "Planning" #?
       production: "Production dashboard"
       purchases: "Purchases dashboard"
       relationship: "Relationship dashboard"

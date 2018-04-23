@@ -149,7 +149,6 @@ cmn:
       humans: "人力资源仪表板"
       index: "仪表板"
       new: "新的仪表板"
-      # planning: "Planning"
       production: "生产仪表板"
       # purchases: "Purchases dashboard"
       relationship: "仪表板的关系"

@@ -165,7 +165,6 @@ spa:
       humans: "Cuadro de instrumentos de recursos humanos"
       index: "Cuadros de mando"
       new: "Nuevo tablero de instrumentos"
-      # planning: "Planning"
       production: "Tablero de producción"
       # purchases: "Purchases dashboard"
       relationship: "Relación salpicadero"

@@ -169,7 +169,6 @@ arb:
       humans: "لوحة الموارد البشرية"
       index: "لوحات"
       new: "لوحة تحكم جديدة"
-      # planning: "Planning"
       production: "لوحة أجهزة القياس إنتاج"
       # purchases: "Purchases dashboard"
       relationship: "لوحة أجهزة القياس العلاقة"

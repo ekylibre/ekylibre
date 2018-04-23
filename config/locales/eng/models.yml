@@ -485,7 +485,6 @@ eng:
     assembly: "Assembly"
     asset_account: "Asset account"
     asset_exists: "Asset exists" #?
-    # associations_intervention_templates: "Associations intervention templates"
     attachments: "Attachments"
     attribute_name: "Attribute name"
     attribution: "Attribution"
@@ -515,8 +514,7 @@ eng:
     bank_statement_letter: "Bank statement letter"
     bank_statements: "Bank statements"
     base_amount: "Base amount"
-    batch_number: "Batch number"
-    # batch_planting: "Batch planting"
+    batch_number: "Batch number" #?
     battery_level: "Battery level"
     birth_date_completeness: "Birth date completeness"
     birth_farm_number: "Birth farm number"
@@ -954,7 +952,7 @@ eng:
     intervention_participations: "Intervention participations"
     intervention_product_parameters: "Intervention casts"
     intervention_template: "Intervention template" #?
-    intervention_templates: "Intervention templates"
+    intervention_templates: "Intervention templates" #?
     interventions: "Interventions"
     interventions_used_in: "Interventions used in"
     intracommunity: "Intracommunity"
@@ -1151,7 +1149,6 @@ eng:
     number: "Number"
     number_format: "Number format"
     number_increment: "Number increment"
-    # number_of_batch: "Number of batch"
     number_start: "Number start"
     observations: "Observations"
     observed_at: "Observed at"
@@ -1247,7 +1244,6 @@ eng:
     postal_code: "Postal code"
     postal_zones: "Postal zones"
     pre_harvest_interval: "Pre-harvest interval" #?
-    # predicated_sowing_date: "Predicated sowing date"
     # preexisting_asset: "Preexisting asset"
     preferences: "Preferences"
     prepared_at: "Prepared at"
@@ -1493,7 +1489,6 @@ eng:
     source_product: "Source product"
     source_product_movement: "Source product movement"
     # source_type: "Source type"
-    # sowing_interval: "Sowing interval"
     spaced_iban: "Spaced IBAN"
     sql_type: "SQL type"
     ssl: "SSL"

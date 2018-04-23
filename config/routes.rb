@@ -128,7 +128,7 @@ Rails.application.routes.draw do
 
     resources :dashboards, concerns: [:list] do
       collection do
-        %i[home relationship accountancy sales purchases stocks production humans tools settings planning].each do |part|
+        %i[home relationship accountancy sales purchases stocks production humans tools settings].each do |part|
           get part
         end
         get :sandbox
@@ -603,44 +603,6 @@ Rails.application.routes.draw do
         get :list_product_parameters
         get :list_record_interventions
         get :list_service_deliveries
-      end
-    end
-
-    resources :intervention_templates, concerns: :list do
-      collection do
-        get :select_type
-        get :templates_of_activity
-        get :interventions_have_activities
-      end
-      member do
-        get :list_technical_itineraries
-      end
-    end
-
-    resources :technical_itineraries, concerns: %i[list unroll] do
-      collection do
-        post :duplicate_intervention
-      end
-      member do
-        get :list_intervention_templates
-        get :list_activity_productions
-      end
-    end
-
-    resources :load_plans do
-      collection do
-        get :period_charges
-        get :period_charges_details
-      end
-    end
-
-    resources :schedulings do
-      collection do
-        get :weekly_daily_charges
-      end
-
-      member do
-        post :update_estimated_date
       end
     end
 

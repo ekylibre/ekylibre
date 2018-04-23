@@ -162,7 +162,6 @@ fra:
       humans: "Tableau de bord des ressources humaines"
       index: "Tableaux de bord"
       new: "Nouveau tableau de bord"
-      # planning: "Planning"
       production: "Tableau de bord de la production"
       purchases: "Tableau de bord des achats"
       relationship: "Tableau de bord de la gestion des relations"
