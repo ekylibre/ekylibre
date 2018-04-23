@@ -1,9 +1,9 @@
 class UpdateProductWithoutPopulation < ActiveRecord::Migration
   def change
     products_to_change = Product
-                           .joins(:nature)
-                           .where(product_natures: { population_counting: 'unitary' })
-                           .select { |p| p.population.zero? || p.population > 1 }
+                         .joins(:nature)
+                         .where(product_natures: { population_counting: 'unitary' })
+                         .select { |p| p.population.zero? || p.population > 1 }
 
     products_to_change.each do |product|
       delta = 1 - product.population
