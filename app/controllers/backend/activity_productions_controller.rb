@@ -47,7 +47,7 @@ module Backend
       t.column :name, url: true
       t.column :work_number, hidden: true
       t.column :variety
-      t.column :work_name, through: :container, url: true
+      t.column :work_name, through: :container, hidden: true, url: true
       t.column :net_surface_area, datatype: :measure
       t.status
       t.column :born_at
