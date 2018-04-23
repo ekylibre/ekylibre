@@ -18,7 +18,6 @@
 
 module Backend
   class NamingFormatLandParcelsController < NamingFormatsController
-
     def build_example
       return render json: { example: I18n.t('labels.example', value: '') } if params[:fields_values].nil?
 
@@ -34,7 +33,7 @@ module Backend
     end
 
     def update
-      @naming_format.update(permitted_params)
+      @naming_format.update(valid_permitted_params)
 
       if params[:update_records].to_bool
         NamingFormats::LandParcels::ChangeLandParcelsNamesInteractor
@@ -54,6 +53,17 @@ module Backend
           :field_name,
           :_destroy
         ])
+    end
+
+    def valid_permitted_params
+      permitted_params
+        .tap do |param|
+
+        param[:fields_attributes]
+          .values
+          .select { |value| value[:id].nil? }
+          .each { |value| value[:type] = NamingFormatFieldLandParcel.to_s }
+      end
     end
   end
 end
