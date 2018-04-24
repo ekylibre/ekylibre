@@ -846,4 +846,9 @@ class Product < Ekylibre::Record::Base
     end
     indicator_value
   end
+
+  def time_use_in_date(date)
+    duration = InterventionParameter.joins(:intervention).where(product_id: self, interventions: {started_at: date}).includes(:intervention).map { |p| p.duration }.inject(:+)
+    (duration / 3600.0).round(1) if duration.present?
+  end
 end

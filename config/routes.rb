@@ -638,6 +638,8 @@ Rails.application.routes.draw do
       collection do
         get :weekly_daily_charges
         get :new_intervention
+        get :available_time_or_quantity
+        put :update_proposal
       end
     end
 

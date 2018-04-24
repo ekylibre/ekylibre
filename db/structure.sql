@@ -3906,6 +3906,40 @@ ALTER SEQUENCE intervention_participations_id_seq OWNED BY intervention_particip
 
 
 --
+-- Name: intervention_proposal_parameters; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE intervention_proposal_parameters (
+    id integer NOT NULL,
+    intervention_proposal_id integer,
+    product_id integer,
+    product_nature_variant_id integer,
+    product_type character varying,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: intervention_proposal_parameters_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE intervention_proposal_parameters_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: intervention_proposal_parameters_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE intervention_proposal_parameters_id_seq OWNED BY intervention_proposal_parameters.id;
+
+
+--
 -- Name: intervention_proposals; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -3917,7 +3951,8 @@ CREATE TABLE intervention_proposals (
     activity_production_id integer,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
-    number integer
+    number integer,
+    target character varying
 );
 
 
@@ -7944,6 +7979,13 @@ ALTER TABLE ONLY intervention_participations ALTER COLUMN id SET DEFAULT nextval
 
 
 --
+-- Name: intervention_proposal_parameters id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY intervention_proposal_parameters ALTER COLUMN id SET DEFAULT nextval('intervention_proposal_parameters_id_seq'::regclass);
+
+
+--
 -- Name: intervention_proposals id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -9151,6 +9193,14 @@ ALTER TABLE ONLY intervention_parameters
 
 ALTER TABLE ONLY intervention_participations
     ADD CONSTRAINT intervention_participations_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: intervention_proposal_parameters intervention_proposal_parameters_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY intervention_proposal_parameters
+    ADD CONSTRAINT intervention_proposal_parameters_pkey PRIMARY KEY (id);
 
 
 --
@@ -13290,6 +13340,13 @@ CREATE INDEX index_intervention_participations_on_updated_at ON intervention_par
 --
 
 CREATE INDEX index_intervention_participations_on_updater_id ON intervention_participations USING btree (updater_id);
+
+
+--
+-- Name: index_intervention_proposal_parameters_on_product_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_intervention_proposal_parameters_on_product_id ON intervention_proposal_parameters USING btree (product_id);
 
 
 --
@@ -17969,6 +18026,20 @@ CREATE INDEX index_wice_grid_serialized_queries_on_grid_name_and_id ON wice_grid
 
 
 --
+-- Name: intervention_product_nature_variant_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX intervention_product_nature_variant_id ON intervention_proposal_parameters USING btree (product_nature_variant_id);
+
+
+--
+-- Name: intervention_proposal_parameter_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX intervention_proposal_parameter_id ON intervention_proposal_parameters USING btree (intervention_proposal_id);
+
+
+--
 -- Name: intervention_template_activity_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -18346,6 +18417,14 @@ ALTER TABLE ONLY parcel_items
 
 
 --
+-- Name: intervention_proposal_parameters fk_rails_73168818a2; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY intervention_proposal_parameters
+    ADD CONSTRAINT fk_rails_73168818a2 FOREIGN KEY (product_nature_variant_id) REFERENCES product_nature_variants(id);
+
+
+--
 -- Name: intervention_template_product_parameters fk_rails_75bd15f71d; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -18522,6 +18601,14 @@ ALTER TABLE ONLY technical_itineraries
 
 
 --
+-- Name: intervention_proposal_parameters fk_rails_d0715348b7; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY intervention_proposal_parameters
+    ADD CONSTRAINT fk_rails_d0715348b7 FOREIGN KEY (intervention_proposal_id) REFERENCES intervention_proposals(id);
+
+
+--
 -- Name: payslips fk_rails_e319c31e6b; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -18535,6 +18622,14 @@ ALTER TABLE ONLY payslips
 
 ALTER TABLE ONLY intervention_proposals
     ADD CONSTRAINT fk_rails_e3758de3f6 FOREIGN KEY (activity_production_id) REFERENCES activity_productions(id);
+
+
+--
+-- Name: intervention_proposal_parameters fk_rails_e4aa584bc6; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY intervention_proposal_parameters
+    ADD CONSTRAINT fk_rails_e4aa584bc6 FOREIGN KEY (product_id) REFERENCES products(id);
 
 
 --
@@ -19250,4 +19345,8 @@ INSERT INTO schema_migrations (version) VALUES ('20180405102304');
 INSERT INTO schema_migrations (version) VALUES ('20180405125208');
 
 INSERT INTO schema_migrations (version) VALUES ('20180406083922');
+
+INSERT INTO schema_migrations (version) VALUES ('20180419152918');
+
+INSERT INTO schema_migrations (version) VALUES ('20180423091042');
 
