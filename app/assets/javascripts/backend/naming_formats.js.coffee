@@ -19,6 +19,7 @@
 
 
   $(document).on 'click', '.naming-format-form .nested-remove', (event) ->
+    $(event.target).closest('.nested-association').find('.nested-fields:first .plus-sign').remove()
     E.NamingFormats.changeAllFieldsLabels()
     E.NamingFormats.showExample()
 

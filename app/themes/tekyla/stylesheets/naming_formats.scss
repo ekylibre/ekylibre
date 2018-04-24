@@ -42,6 +42,10 @@
 	  top: 10px;
       margin-left: 0 !important;
     }
+
+    .nested-fields:first-child .plus-sign .sign {
+      display: none;
+    }
   }
 
   .naming-format-example {
@@ -49,8 +53,9 @@
   }
 
   .plus-sign {
-    position: relative;
+    position: absolute;
     z-index: 2;
+    top: 2.5em;
 
     .sign {
       position: absolute;
@@ -58,10 +63,6 @@
       right: -5px;
       font-size: $fs-large;
     }
-  }
-
-  .plus-sign:first-child .sign {
-    display: none;
   }
 }
 
