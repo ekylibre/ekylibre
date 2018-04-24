@@ -906,6 +906,7 @@ Rails.application.routes.draw do
     namespace :purchases do
       resources :reconcilation_states, only: [] do
         member do
+          get :put_reconcile_state
           get :put_to_reconcile_state
           get :put_accepted_state
         end

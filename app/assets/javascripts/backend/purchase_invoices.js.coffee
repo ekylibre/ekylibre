@@ -200,24 +200,33 @@
     changeEventReconcilationStateBlock: (checkbox) ->
       reconciliationTitle = $('.reconciliation-title')
       purchase_invoice_id = window.location.pathname.split('/').pop()
+      isReconcile = $(reconciliationTitle).attr('data-reconcile') == 'true'
       url = "/backend/purchases/reconcilation_states/#{ purchase_invoice_id }"
 
       if checkbox.is(':checked')
         url += '/put_accepted_state'
       else
-        url += '/put_to_reconcile_state'
+        url += '/put_reconcile_state' if isReconcile
+        url += '/put_to_reconcile_state' unless isReconcile
 
       $.ajax
         url: url,
         success: (data, status, request) ->
           if checkbox.is(':checked')
             reconciliationTitle.addClass('accepted-title')
-            reconciliationTitle.removeClass('no-reconciliate-title')
             reconciliationTitle.text(reconciliationTitle.attr('data-accepted-text'))
+
+            reconciliationTitle.removeClass('no-reconciliate-title') if isReconcile
+            reconciliationTitle.removeClass('reconciliate-title') unless isReconcile
           else
-            reconciliationTitle.addClass('no-reconciliate-title')
             reconciliationTitle.removeClass('accepted-title')
-            reconciliationTitle.text(reconciliationTitle.attr('data-no-reconciliate-text'))
+
+            if $(reconciliationTitle).attr('data-reconcile') == 'true'
+              reconciliationTitle.addClass('reconcile-title')
+              reconciliationTitle.text(reconciliationTitle.attr('data-reconcile-text'))
+            else
+              reconciliationTitle.addClass('no-reconciliate-title')
+              reconciliationTitle.text(reconciliationTitle.attr('data-no-reconciliate-text'))
 
 
 ) ekylibre, jQuery
