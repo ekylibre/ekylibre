@@ -15,6 +15,7 @@
     newLabel = "#{ newNestedFieldLabel.text() } #{ nestedFields.length }"
 
     newNestedFieldLabel.text(newLabel)
+    E.NamingFormats.showExample()
 
 
   $(document).on 'click', '.naming-format-form .nested-remove', (event) ->
