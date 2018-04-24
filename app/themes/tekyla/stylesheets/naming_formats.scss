@@ -6,14 +6,14 @@
     margin: 2em 0;
 
     .nested-fields {
-	  flex-basis: 15%;
+	  flex-basis: 20%;
       border: none;
       background: $white !important;
     }
 
     .nested-fields .nested-remove {
       top: 10%;
-      right: 15%;
+      right: 23%;
     }
 
     .control-group {
@@ -26,6 +26,10 @@
     }
 
     .control-group .controls select {
+      max-width: none;
+    }
+
+    .control-group .control-label {
       max-width: none;
     }
 
