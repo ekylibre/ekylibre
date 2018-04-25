@@ -331,6 +331,22 @@ class PurchaseItem < Ekylibre::Record::Base
     first_reception.id
   end
 
+  def received_quantity
+    return unless purchase.is_a?(PurchaseOrder) || parcels_purchase_orders_items.empty?
+
+    parcels_purchase_orders_items
+      .select{ |reception_item| reception_item.reception.state.to_sym == :given }
+      .map(&:population)
+      .sum
+      .to_f
+  end
+
+  def quantity_to_receive
+    return unless purchase.is_a?(PurchaseOrder) || parcels_purchase_orders_items.empty?
+
+    quantity.to_f - received_quantity
+  end
+
   private
 
   def first_reception
