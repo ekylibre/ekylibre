@@ -640,6 +640,7 @@ Rails.application.routes.draw do
         get :new_intervention
         get :available_time_or_quantity
         put :update_proposal
+        get :update_modal_time
       end
     end
 
