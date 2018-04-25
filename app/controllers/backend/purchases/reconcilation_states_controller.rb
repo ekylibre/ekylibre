@@ -19,7 +19,7 @@
 module Backend
   module Purchases
     class ReconcilationStatesController < Backend::BaseController
-      before_action :set_purchase, only: [:put_to_reconcile_state, :put_accepted_state]
+      before_action :set_purchase, only: %i[put_to_reconcile_state put_accepted_state]
 
       def put_to_reconcile_state
         @purchase.update_column(:reconciliation_state, :to_reconcile)

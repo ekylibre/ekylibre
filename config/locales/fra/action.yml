@@ -450,6 +450,11 @@ fra:
     backend/myselves:
       change_password: "Changer de mot de passe" #?
       show: "Mon compte"
+    backend/naming_format_land_parcels:
+      edit: "Format de nommage des Parcelles"
+      index: "Formats de nommage" #?
+    backend/naming_formats:
+      index: "Formats de nommage"
     backend/net_services:
       edit: "Modifier un service en ligne"
       index: "Services en ligne"
@@ -933,6 +938,7 @@ fra:
     add_expense: "Ajouter une dépense"
     add_fax: "Ajouter un n° de fax"
     add_fees: "Ajouter des frais"
+    add_field: "Ajouter un champ"
     add_filter: "Ajouter un filtre"
     add_grading_check: "Ajouter un critère d’agréage"
     add_incoming_payment: "Ajouter un encaissement"
@@ -993,12 +999,12 @@ fra:
     affair_number: "N° d’affaire"
     affairs: "Affaires"
     all: "Tous"
-    all_f: "Toutes"
     all_accounts: "Tous les comptes"
     all_areas: "— Toutes les zones postales —" #?
     all_cash_balances: "Soldes des comptes" #?
     all_columns: "Toutes les colonnes"
     all_conditions: "toutes les conditions"
+    all_f: "Toutes" #?
     all_periods: "Tous les exercices"
     already_credited_quantity: "Qté. déjà passée en avoir" #?
     amount: "Montant"
@@ -1162,6 +1168,7 @@ fra:
       filter_on_attribute_of_class: "Filtre sur %{attribute} (%{class})"
       special-subscriber: "Filtre Abonné"
     configure: "Configurer"
+    confirmation_update_historical_plans: "Voulez-vous appliquer ces modifications sur l'historique des noms de parcelles ?"
     confirmed: "Confirmées" #?
     confirmed_at: "Confirmée le" #?
     connect: "Se connecter"
@@ -1392,15 +1399,16 @@ fra:
     export: "Exporter"
     export_as_csv: "Exporter en CSV"
     export_as_ods: "Exporter en ODS"
+    export_as_odt: "Exporter en ODT" #?
+    export_as_pdf: "Exporter en PDF" #?
     export_as_xcsv: "Exporter en CSV pour Excel"
-    export_as_odt: "Exporter en ODT"
-    export_as_pdf: "Exporter en PDF"
     export_backup: "Export d’un fichier de sauvegarde" #?
     exportation: "Exportation" #?
     extract: "Extraire" #?
     fat_matters_concentration: "Teneur en matières grasses" #?
     fax: "Fax" #?
     fees: "Frais"
+    field: "Champ %{counter}"
     field_distribution: "Parcellaire"
     file_nature: "Type de fichier"
     file_pages_count: "Nombre de pages" #?
@@ -1709,6 +1717,7 @@ fra:
     moved_at: "Fait le" #?
     movements: "Mouvements"
     moves: "Mouvements de stocks" #?
+    n: "Non"
     name: "Nom"
     nature: "Type"
     nature_changed: "Le type des animaux a changé"
@@ -1774,7 +1783,6 @@ fra:
     next: "Suivant"
     nitrogen_concentration: "Teneur en azote (N)"
     nitrogen_concentration_per_hectare: "Teneur en azote par hectare" #?
-    no: "Non"
     no_attachments: "Déposez vos fichiers ici ou cliquez sur le bouton d’ajout"
     no_crumbs_to_check: "Pas de miettes à qualifier"
     no_data: "Aucune donnée"
@@ -1817,6 +1825,7 @@ fra:
     number_of_cap_land_parcels: "Nombre de parcelle PAC"
     number_options: "Options de numérotations" #?
     numbers: "Numéros"
+    number_with_param: "N° %{number}"
     on_account: "À remettre sur le compte"
     one_condition: "au moins une condition"
     open_a_campaign: "Ouvrir une campagne de production" #?
@@ -2070,6 +2079,7 @@ fra:
     revenues: "Recettes"
     revenues_by_product_nature: "Chiffre d’affaire par type de produit"
     reverse: "Appliquer la condition inverse"
+    revise: "Mettre à jour" #?
     right_parts: #?
       accountancy: "Droits module Comptabilité" #?
       company: "Droits module Société" #?
@@ -2212,7 +2222,7 @@ fra:
     stop: "Jusqu’au"
     stopped: "Arrêtés"
     stopped_on: "Nous nous sommes arrêtés sur"
-    stopped_on_block: "Date de fin"
+    stopped_on_block: "Date de fin" #?
     storage: "Zone de stockage"
     string_case: "Options pour le texte" #?
     subject: "Sujet"
@@ -2447,7 +2457,7 @@ fra:
     with_fixed_assets_depreciations: "Inclure les amortissements des immobilisations"
     with_prints: "Inclure les impressions (factures, commandes…)" #?
     worked_on: "Travaillé le" #?
-    worker: "Équipier"
+    worker: "Équipier" #?
     workers: "Équipiers"
     workforce: "Main d'oeuvre"
     working_area: "Surface travaillée" #?
@@ -2653,7 +2663,6 @@ fra:
       one: "%{count} an"
       other: "%{count} ans"
     y: "Oui" #?
-    yes: "Oui"
     year: "Année"
     yearly: "Annuelle" #?
     years: "Années" #?
@@ -2744,6 +2753,7 @@ fra:
       journal_reopened_on: "Le %{journal} a été déclôturé au %{closed_on} correctement."
       mails_are_sent: "Les courriels ont été envoyés"
       merge_is_done: "La fusion est terminée"
+      n: "Non" #?
       need_a_valid_payment_mode: "Besoin d’un mode de paiement valide"
       need_a_valid_purchase_nature_to_start_new_purchase: "Nécessite un type d’achat valide pour commencer un nouvel achat"
       need_a_valid_sale_nature_to_start_new_sale: "Nécessite un type de vente valide pour commencer une nouvelle vente"

@@ -39,6 +39,8 @@ jpn:
       loan:
         ongoing_at: "資金調達"
         started_on: "最初の返済は、上の開始しました"
+      naming_format_field:
+        # field_name: "Field"
       outgoing_payment:
         delivered: "受取人に与えられる"
         list: "支払一覧"
@@ -62,6 +64,8 @@ jpn:
         seeding_density_value: "予想播種密度"
       purchase:
         affair_balance: "バランス"
+      purchase_item:
+        # fixed_asset_stopped_on: "Fixed asset stopped on"
       purchase_payment: #?
         delivered: "受信者に与えられました" #?
         list: "支払一覧" #?
@@ -194,6 +198,13 @@ jpn:
         outgoing_parcel_item:
           # greater_than_undelivered_quantity: "The quantity of %{product} to deliver is greater than the available quantity (%{maximum}%{unit})"
         purchase_item:
+          attributes:
+            fixed:
+              # asset_account: "Invalid asset account"
+              # asset_depreciation_method: "Invalid asset depreciation method"
+              # asset_expenses_account: "Invalid asset expenses account"
+              # asset_wrong_depreciation_method: "Depreciation method must be simplified linear"
+              # fixed_asset_stopped_on_invalid: "Invalid fixed asset stopped on"
           # building_can_not_receive_product: "The building %{building} can not receive %{product}, it already contains %{contained_product}."
           # serial_already_used_with_an_other_product: "%{attribute} has been already used for an other product of the same supplier"
         sale_item:
@@ -474,6 +485,7 @@ jpn:
     archive_file_size: "アーカイブファイルのサイズ"
     archive_updated_at: "アーカイブで更新"
     archiving: "アーカイブ"
+    # area: "Area"
     arguments: "引数"
     assembly: "アセンブリ"
     asset_account: "資産アカウント"
@@ -506,6 +518,7 @@ jpn:
     bank_statement_letter: "銀行取引明細書の手紙"
     bank_statements: "銀行取引明細書"
     base_amount: "基準額"
+    # batch_number: "Batch number"
     battery_level: "バッテリー残量"
     birth_date_completeness: "生年月日の完全性"
     birth_farm_number: "出生農場数"
@@ -640,6 +653,7 @@ jpn:
     custom_fields: "カスタムフィールド"
     custom_fields_columns: "カスタムフィールドの列"
     customized_type: "カスタマイズされたタイプ"
+    # daily_charges: "Daily charges"
     daily_nitrogen_production: "毎日の窒素製造"
     dashboards: "ダッシュボード"
     dead: "デッド"
@@ -770,6 +784,8 @@ jpn:
     father_identification_number: "父の識別番号"
     father_variety: "父多様"
     faxes: "ファックス"
+    # field_name: "Field name"
+    # fields: "Fields"
     fifth_producer: "フィフスプロデューサー" #?
     file: "ファイル"
     file_content_text: "ファイル内容のテキスト"
@@ -1078,6 +1094,7 @@ jpn:
     moves: "移動"
     multi_polygon_value: "マルチポリゴン値"
     name: "名前"
+    # naming_format: "Naming format"
     nature: "タイプ"
     nature_name: "型名"
     natures: "タイプ"
@@ -1495,6 +1512,7 @@ jpn:
     tax_payability: "税採算性"
     # taxations: "Taxations"
     team: "チーム"
+    # technical_itinerary: "Technical itinerary"
     template: "テンプレート"
     theme: "テーマ"
     theoretical_number: "理論数"

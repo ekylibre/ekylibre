@@ -16,7 +16,7 @@ class InterventionParameterDecorator < Draper::Decorator
                      intervention_stopped_at: object.intervention.stopped_at }
 
     cost = ::Interventions::ParameterAmountInteractor
-             .call(costs_params)
+           .call(costs_params)
 
     return nil if cost.amount_computation.nil?
 
@@ -24,11 +24,11 @@ class InterventionParameterDecorator < Draper::Decorator
   end
 
   def participation?
-    self.participation.present?
+    participation.present?
   end
 
   def participation_to_json
-    string_json = self.participation.to_json(include: :working_periods)
+    string_json = participation.to_json(include: :working_periods)
     json = JSON.parse(string_json)
 
     json['working_periods_attributes'] = json.delete('working_periods')
