@@ -111,6 +111,10 @@
 - manure_management_plan_zone
 - map_layer
 - matter
+- naming_format
+- naming_format_field
+- naming_format_field_land_parcel
+- naming_format_land_parcel
 - net_service
 - notification
 - observation

@@ -462,6 +462,10 @@ arb:
     backend/myselves:
       show: "بلدي المعلومات"
       statistics: "احصائياتي" #?
+    backend/naming_format_land_parcels:
+      # edit: "Land parcel naming format"
+    backend/naming_formats:
+      # index: "Naming formats"
     backend/net_services:
       edit: "تعديل صافي الخدمة"
       index: "صافي الخدمات"
@@ -1048,6 +1052,7 @@ arb:
     add_expense: "إضافة حساب"
     add_fax: "إضافة الفاكس"
     # add_fees: "Add fees"
+    # add_field: "Add field"
     add_filter: "إضافة فلتر"
     add_grading_check: "إضافة الاختيار الدرجات"
     add_incoming_payment: "إضافة دفع الواردة"
@@ -1265,6 +1270,7 @@ arb:
       filter_on_attribute_of_class: "التصفية وفق %{attribute} (%{class})"
       special-subscriber: "تصفية وفق الاشتراك"
     configure: "تكوين"
+    # confirmation_update_historical_plans: "Confirmation update historical plans"
     confirmed: "تأكيد" #?
     confirmed_at: "تم تأكيده في" #?
     connect: "الدخول"
@@ -1503,6 +1509,7 @@ arb:
     export_as_xcsv: "تصدير واكسل CSV"
     extract: "يستخرج" #?
     # fees: "Fees"
+    # field: "Field %{counter}"
     field_distribution: "مجال التوزيع"
     file_nature: "نوع الملف"
     file_preview: "معاينة"
@@ -1811,7 +1818,7 @@ arb:
     moves: "حركات الاسهم" #?
     my_company: "عن شركتك" #?
     my_self: "عن نفسك" #?
-    n: "لا شيء" #?
+    n: "لا شيء"
     name: "الاسم"
     national_deliveries: "الامدادات المحلية" #?
     national_normal_vat_collected: "معدل ضريبة القيمة المضافة المحلية العادية %19.6" #?
@@ -1828,6 +1835,7 @@ arb:
       one: "تم تسجيل منتج واحد" #?
       other: "%{count} تم تسجيل منتجات اخرى" #?
       zero: "لم يتم تسجيل اي منتج" #?
+    # needed_quantity: "Needed quantity"
     net_income: "صافي الدخل"
     net_margin: "هامش صافي" #?
     net_mass: "الكتلة الصافية"
@@ -2090,6 +2098,7 @@ arb:
     quality: "جودة"
     # quandl: "Quandl"
     quantity: "الكمية"
+    # quantity_available: "Quantity available"
     quantity_rest: "الكمية المتبقية" #?
     quantity_to_credit: "شمولية الكمية بالائتمانات" #?
     quarterly: "Trimestrielle" #?
@@ -2162,6 +2171,7 @@ arb:
     revenues: "إيرادات"
     revenues_by_product_nature: "الإيرادات حسب نوع المنتج"
     reverse: "تطبيق الحالة العكسية"
+    # revise: "Revise"
     right_parts: #?
       accountancy: "حقوق المحاسبة" #?
       company: "حقوق الشركة" #?
@@ -2485,6 +2495,7 @@ arb:
     validated: "التحقق من صحة"
     values: "القيم"
     variable_indicators: "مؤشرات متغيرة"
+    # variant: "Variant"
     variants: "المتغيرات"
     vat: "الضريبة المستحقة"
     vat_acquisitions: "المكاسب الداخلية" #?
@@ -2506,10 +2517,12 @@ arb:
     with_fixed_assets_depreciations: "مع انخفاض قيمة الأصول الثابتة"
     with_prints: "(وتشمل الطباعة (الفواتير والاوامر" #?
     workers: "العمال"
+    # workforce: "Workforce"
     working_duration: "مدة العمل"
     # working_hectare_costs: "Working hectare costs"
     working_sets_stocks: "مجموعات العمل الأسهم"
     # working_times: "Working times of %{name}"
+    # workload: "Workload"
     x_cashes:
       one: "حساب بنكي واحد"
       other: "%{count} حسابات بنكية اخرى"

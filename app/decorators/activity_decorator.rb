@@ -55,12 +55,10 @@ class ActivityDecorator < Draper::Decorator
       .l
   end
 
-
   private
 
-
   def sum_costs(activity_costs, costs)
-    activity_costs.each { |key, value| activity_costs[key] = activity_costs[key] + costs[key] }
+    activity_costs.each { |key, _value| activity_costs[key] = activity_costs[key] + costs[key] }
   end
 
   def multiply_costs(costs, multiplier)
@@ -72,13 +70,13 @@ class ActivityDecorator < Draper::Decorator
   end
 
   def human_costs(costs)
-    costs.each { |key, value| costs[key] = costs[key].to_f.round(2) }
+    costs.each { |key, _value| costs[key] = costs[key].to_f.round(2) }
   end
 
   def decorated_activity_productions(current_campaign)
     activity_productions = object
-                            .productions
-                            .of_campaign(current_campaign)
+                           .productions
+                           .of_campaign(current_campaign)
 
     ActivityProductionDecorator.decorate_collection(activity_productions)
   end
@@ -98,7 +96,6 @@ class ActivityDecorator < Draper::Decorator
       sum_surface_area += activity_production.net_surface_area
       sum_costs(costs[:cultivated_hectare_costs], activity_production_costs)
     end
-
 
     divider_costs(costs[:cultivated_hectare_costs], calculated_surface_area(sum_surface_area))
     human_costs(costs[:cultivated_hectare_costs])

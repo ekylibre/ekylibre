@@ -1,0 +1,19 @@
+- fields_count = @naming_formats_grid.resultset.map(&:fields).flatten.map(&:position).uniq.count
+
+= grid(@naming_formats_grid, html: { class: "wice-grid-list naming-formats-list" }) do |g|
+  - g.column name: '', html: { style: 'width: 10px;' } do |naming_format|
+    - link_to(edit_backend_naming_format_land_parcel_path(naming_format), class: "wice-grid-action") do
+      %i.wice-grid-action-icon.picto.picto-edit
+
+
+  - g.column name: :name.tl do |naming_format|
+    - naming_format.name
+
+
+  - fields_count.times do |index|
+    - column_name = t('labels.field', counter: index + 1)
+
+    - g.column name: column_name do |naming_format|
+      - field = naming_format.fields[index]
+      - unless field.nil?
+        - field.field_name.text
