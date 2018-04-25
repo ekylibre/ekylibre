@@ -283,7 +283,7 @@ class PlantDecorator < ProductDecorator
   end
 
   def human_costs(costs)
-    costs.each { |key, value| costs[key] = costs[key].to_f.round(0) }
+    costs.each { |key, value| costs[key] = costs[key].to_i }
   end
 
   def multiply_costs(costs, multiplier)
