@@ -302,12 +302,11 @@ class Intervention < Ekylibre::Record::Base
       self.event_id = event.id
     end
 
-
     true
   end
 
   before_create do
-    self.costs = InterventionCosts.create!({ inputs_cost: 0, doers_cost: 0, tools_cost: 0, receptions_cost: 0 })
+    self.costs = InterventionCosts.create!(inputs_cost: 0, doers_cost: 0, tools_cost: 0, receptions_cost: 0)
   end
 
   after_save do
@@ -333,7 +332,7 @@ class Intervention < Ekylibre::Record::Base
 
     create_intervention_costs
 
-    self.add_activity_production_to_output if self.procedure.of_category?(:planting)
+    add_activity_production_to_output if procedure.of_category?(:planting)
   end
 
   after_create do
@@ -342,7 +341,7 @@ class Intervention < Ekylibre::Record::Base
 
   # Prevents from deleting an intervention that was executed
   protect on: :destroy do
-    with_undestroyable_products? || self.procedure.of_category?(:planting)
+    with_undestroyable_products? || procedure.of_category?(:planting)
   end
 
   # This method permits to add stock journal entries corresponding to the
@@ -376,8 +375,8 @@ class Intervention < Ekylibre::Record::Base
   def create_intervention_costs
     costs_attributes = {}
 
-    [:input, :tool, :doer].each do |type|
-      type_cost = self.cost(type)
+    %i[input tool doer].each do |type|
+      type_cost = cost(type)
       type_cost = 0 if type_cost.nil?
 
       costs_attributes["#{type.to_s.pluralize}_cost"] = type_cost
@@ -669,22 +668,22 @@ class Intervention < Ekylibre::Record::Base
   end
 
   def add_activity_production_to_output
-    parameters = self.group_parameters
+    parameters = group_parameters
 
-    self.group_parameters.each do |group_parameter|
+    group_parameters.each do |group_parameter|
       activity_production_id = group_parameter
-                                 .targets
-                                 .map(&:product)
-                                 .flatten
-                                 .map(&:activity_production_id)
-                                 .uniq
-                                 .first
+                               .targets
+                               .map(&:product)
+                               .flatten
+                               .map(&:activity_production_id)
+                               .uniq
+                               .first
 
       products_to_update = group_parameter
-                             .outputs
-                             .map(&:product)
-                             .flatten
-                             .uniq
+                           .outputs
+                           .map(&:product)
+                           .flatten
+                           .uniq
 
       products_to_update.each do |product|
         product.update(activity_production_id: activity_production_id)

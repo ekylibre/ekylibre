@@ -1,3 +1,10 @@
+.wice-grid-list {
+  .wice-grid-action-icon {
+    font-size: round(1.2 * $fs-normal);
+    line-height: $lh-normal;
+  }
+}
+
 .wice-grid-toolbar  {
   margin-right: 0.5em;
 }

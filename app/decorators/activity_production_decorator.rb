@@ -1,6 +1,13 @@
 class ActivityProductionDecorator < Draper::Decorator
   delegate_all
 
+  def plants?
+    object
+      .products
+      .select{ |product| product.is_a?(Plant) }
+      .any?
+  end
+
   def production_costs
     production_global_costs = global_costs
 
@@ -61,7 +68,6 @@ class ActivityProductionDecorator < Draper::Decorator
 
   private
 
-
   def calcul_global_costs(with_working_zone_area: false)
     interventions = decorated_interventions
     costs = new_costs_hash
@@ -96,11 +102,11 @@ class ActivityProductionDecorator < Draper::Decorator
   end
 
   def sum_costs(plant_costs, costs)
-    plant_costs.each { |key, value| plant_costs[key] = plant_costs[key] + costs[key] }
+    plant_costs.each { |key, _value| plant_costs[key] = plant_costs[key] + costs[key] }
   end
 
   def human_costs(costs)
-    costs.each { |key, value| costs[key] = costs[key].to_f.round(2) }
+    costs.each { |key, _value| costs[key] = costs[key].to_f.round(2) }
   end
 
   def new_costs_hash
@@ -109,7 +115,7 @@ class ActivityProductionDecorator < Draper::Decorator
 
   def decorated_interventions
     production_interventions = object
-                                 .interventions_of_nature('record')
+                               .interventions_of_nature('record')
 
     InterventionDecorator.decorate_collection(production_interventions)
   end
@@ -126,12 +132,12 @@ class ActivityProductionDecorator < Draper::Decorator
     sum_targets = intervention.sum_targets_working_zone_area.to_d
 
     sum_surface_area = parameters.map do |parameter|
-                         product = parameter.product.decorate
-                         surface = product.net_surface_area unless product.is_a?(LandParcel)
-                         surface = parameter.working_zone_area if product.is_a?(LandParcel)
+      product = parameter.product.decorate
+      surface = product.net_surface_area unless product.is_a?(LandParcel)
+      surface = parameter.working_zone_area if product.is_a?(LandParcel)
 
-                         surface_area = surface.in(:hectare).round(2) / sum_targets
-                       end.sum.in(:hectare).round(2)
+      surface_area = surface.in(:hectare).round(2) / sum_targets
+    end.sum.in(:hectare).round(2)
 
     multiply_costs(costs, sum_surface_area.to_d)
   end
@@ -156,9 +162,9 @@ class ActivityProductionDecorator < Draper::Decorator
 
   def calcul_with_working_zone_area(costs, working_zone)
     working_zone = working_zone
-                          .in(:hectare)
-                          .round(2)
-                          .to_f
+                   .in(:hectare)
+                   .round(2)
+                   .to_f
 
     divider_costs(costs, working_zone)
   end

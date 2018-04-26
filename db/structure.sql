@@ -445,7 +445,9 @@ CREATE TABLE intervention_parameters (
     currency character varying,
     unit_pretax_stock_amount numeric(19,4) DEFAULT 0.0 NOT NULL,
     dead boolean DEFAULT false NOT NULL,
-    identification_number character varying
+    identification_number character varying,
+    variety character varying,
+    batch_number character varying
 );
 
 
@@ -4769,6 +4771,69 @@ ALTER SEQUENCE map_layers_id_seq OWNED BY map_layers.id;
 
 
 --
+-- Name: naming_format_fields; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE naming_format_fields (
+    id integer NOT NULL,
+    type character varying NOT NULL,
+    field_name character varying NOT NULL,
+    "position" integer,
+    naming_format_id integer
+);
+
+
+--
+-- Name: naming_format_fields_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE naming_format_fields_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: naming_format_fields_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE naming_format_fields_id_seq OWNED BY naming_format_fields.id;
+
+
+--
+-- Name: naming_formats; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE naming_formats (
+    id integer NOT NULL,
+    type character varying NOT NULL,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
+);
+
+
+--
+-- Name: naming_formats_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE naming_formats_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: naming_formats_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE naming_formats_id_seq OWNED BY naming_formats.id;
+
+
+--
 -- Name: net_services; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -8089,6 +8154,20 @@ ALTER TABLE ONLY map_layers ALTER COLUMN id SET DEFAULT nextval('map_layers_id_s
 
 
 --
+-- Name: naming_format_fields id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY naming_format_fields ALTER COLUMN id SET DEFAULT nextval('naming_format_fields_id_seq'::regclass);
+
+
+--
+-- Name: naming_formats id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY naming_formats ALTER COLUMN id SET DEFAULT nextval('naming_formats_id_seq'::regclass);
+
+
+--
 -- Name: net_services id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -9317,6 +9396,22 @@ ALTER TABLE ONLY manure_management_plans
 
 ALTER TABLE ONLY map_layers
     ADD CONSTRAINT map_layers_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: naming_format_fields naming_format_fields_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY naming_format_fields
+    ADD CONSTRAINT naming_format_fields_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: naming_formats naming_formats_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY naming_formats
+    ADD CONSTRAINT naming_formats_pkey PRIMARY KEY (id);
 
 
 --
@@ -14254,6 +14349,13 @@ CREATE INDEX index_map_layers_on_updated_at ON map_layers USING btree (updated_a
 --
 
 CREATE INDEX index_map_layers_on_updater_id ON map_layers USING btree (updater_id);
+
+
+--
+-- Name: index_naming_format_fields_on_naming_format_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_naming_format_fields_on_naming_format_id ON naming_format_fields USING btree (naming_format_id);
 
 
 --
@@ -19229,3 +19331,8 @@ INSERT INTO schema_migrations (version) VALUES ('20180328132615');
 INSERT INTO schema_migrations (version) VALUES ('20180330121129');
 
 INSERT INTO schema_migrations (version) VALUES ('20180406083922');
+
+INSERT INTO schema_migrations (version) VALUES ('20180416122731');
+
+INSERT INTO schema_migrations (version) VALUES ('20180419140723');
+

@@ -144,7 +144,6 @@ class ActivityProduction < Ekylibre::Record::Base
   scope :at, ->(at) { where(':now BETWEEN COALESCE(started_on, :now) AND COALESCE(stopped_on, :now)', now: at.to_date) }
   scope :current, -> { at(Time.zone.now) }
 
-
   state_machine :state, initial: :opened do
     state :opened
     state :aborted
@@ -228,8 +227,8 @@ class ActivityProduction < Ekylibre::Record::Base
   def computed_support_name
     list = []
     list << cultivable_zone.name if cultivable_zone
-    list << activity.name
     list << campaign.name if campaign
+    list << activity.name
     list << :rank.t(number: rank_number)
     list.reverse! if 'i18n.dir'.t == 'rtl'
     list.join(' ')
@@ -242,10 +241,7 @@ class ActivityProduction < Ekylibre::Record::Base
 
   def update_names
     if support
-      new_support_name = computed_support_name
-      if support.name != new_support_name
-        support.update_column(:name, new_support_name)
-      end
+      support.update_column(:name, name) if support.name != name
     end
   end
 
@@ -293,7 +289,7 @@ class ActivityProduction < Ekylibre::Record::Base
   def initialize_animal_group_support!
     unless support
       self.support = AnimalGroup.new
-      support.name = computed_support_name
+      support.name = name
     end
     # FIXME: Need to find better category and population_counting...
     unless support.variant
@@ -327,7 +323,7 @@ class ActivityProduction < Ekylibre::Record::Base
 
   def initialize_equipment_fleet_support!
     self.support = EquipmentFleet.new unless support
-    support.name = computed_support_name
+    support.name = name
     # FIXME: Need to find better category and population_counting...
     unless support.variant
       nature = ProductNature.find_or_create_by!(
@@ -653,15 +649,11 @@ class ActivityProduction < Ekylibre::Record::Base
   end
 
   # Returns unique i18nized name for given production
-  def name(options = {})
-    list = []
-    list << activity.name unless options[:activity].is_a?(FalseClass)
-    list << season.name if season.present?
-    list << cultivable_zone.name if cultivable_zone && plant_farming?
-    list << started_on.to_date.l(format: :month) if activity.annual? && started_on
-    list << :rank.t(number: rank_number)
-    list = list.reverse! if 'i18n.dir'.t == 'rtl'
-    list.join(' ')
+  def name(_options = {})
+    interactor = NamingFormats::LandParcels::BuildActivityProductionNameInteractor
+                 .call(activity_production: self)
+
+    return interactor.build_name if interactor.success?
   end
 
   def get(*args)

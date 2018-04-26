@@ -291,6 +291,8 @@ arb:
       meeting_nature: #?
         duration: "(المدة الافتراضية (بالدقائق" #?
         updated_at: "تم تحديثها في" #?
+      naming_format_field:
+        # field_name: "Field"
       observation: #?
         company_id: "الشركة" #?
         updated_at: "تم انشأئها في" #?
@@ -476,10 +478,11 @@ arb:
         number: "رقم" #?
         planned_at: "مقرر الاستقبال يوم" #?
         received: "المستلم" #?
-      purchase_item: #?
+      purchase_item:
         account: "حساب الرسوم المستخدمة" #?
         account_id: "حساب الرسوم المستخدمة" #?
         annotation: "الملاحظة" #?
+        # fixed_asset_stopped_on: "Fixed asset stopped on"
         order: "طلب الشراء" #?
         price: "سعر الوحدة" #?
         product_id: "انتاج" #?
@@ -782,6 +785,13 @@ arb:
           building_can_not_waste_product: "لا يمكنك تسجيل الخسارة للمنتج %{product} من موقع التخزين %{building}, هذا ويحتوي المنتج %{contained_product}" #?
           buildings_can_not_be_identical: "مواقع التخزين (المغادرة والواصلة) قد لا تكون متطابقة" #?
         purchase_item:
+          attributes:
+            fixed:
+              # asset_account: "Invalid asset account"
+              # asset_depreciation_method: "Invalid asset depreciation method"
+              # asset_expenses_account: "Invalid asset expenses account"
+              # asset_wrong_depreciation_method: "Depreciation method must be simplified linear"
+              # fixed_asset_stopped_on_invalid: "Invalid fixed asset stopped on"
           building_can_not_receive_product: "لا يمكن للخزينة %{building} استقبال النتج %{product}, لاحتوائها منتج سابق %{contained_product}."
           serial_already_used_with_an_other_product: "%{attribute} تم استخدامها لنوع اخر من المنتج من نفس الممون"
         sale_item:
@@ -1127,6 +1137,7 @@ arb:
     archive_file_size: "حجم ملف الأرشيف"
     archive_updated_at: "الأرشيف تحديث في"
     archiving: "أرشفة"
+    # area: "Area"
     area_measure: "المساحة" #?
     area_unit: "وحدة المساحة" #?
     area_unit_id: "وحدة مساحة" #?
@@ -1176,6 +1187,7 @@ arb:
     banks_accounts: "كتاب الحسابات المصرفية" #?
     base: "القاعدة" #?
     base_amount: "كمية قاعدة"
+    # batch_number: "Batch number"
     battery_level: "مستوى البطارية"
     bban: "RIB" #?
     bic: "BIC" #?
@@ -1353,6 +1365,7 @@ arb:
     custom_fields: "الحقول الاضافية"
     custom_fields_columns: "الحقول المخصصة الأعمدة"
     customized_type: "نوع مرغوب"
+    # daily_charges: "Daily charges"
     daily_nitrogen_production: "إنتاج النيتروجين اليومي"
     dashboards: "لوحات"
     data: "بيانات اضافية" #?
@@ -1544,6 +1557,8 @@ arb:
     father_variety: "متنوعة الأب"
     fax: "فاكس" #?
     faxes: "الفاكسات"
+    # field_name: "Field name"
+    # fields: "Fields"
     fifth_producer: "منتج الخامس" #?
     file: "ملف"
     file_content_text: "ملف نص المحتوى"
@@ -1908,6 +1923,7 @@ arb:
     name: "الاسم"
     name_1_to_2: "الملف الاول الى الثاني" #?
     name_2_to_1: "الملف الثاني الى الاول" #?
+    # naming_format: "Naming format"
     nature: "طبيعة"
     nature_code: "الرمز" #?
     nature_id: "نوع" #?
@@ -2457,6 +2473,7 @@ arb:
     taxations: "الأنظمة الضريبية"
     taxes: "الضرائب" #?
     team: "الفريق"
+    # technical_itinerary: "Technical itinerary"
     template: "نموذج"
     template_id: "نموذج" #?
     text_importance: "ذو شأن" #?
