@@ -3,9 +3,7 @@ class AddDataToInterventionProposalTable < ActiveRecord::Migration
   def change
     I18n.locale = Entity.of_company.language.to_sym
     unless I18n.locale == :afr
-      ActivityProduction.where.not(technical_itinerary: nil).each do |activity_production|
-        activity_production.save
-      end
+      ActivityProduction.where.not(technical_itinerary: nil).each(&:save)
     end
   end
 end
