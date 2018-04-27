@@ -189,7 +189,7 @@ class Product < Ekylibre::Record::Base
   scope :of_expression, lambda { |expression|
     joins(:nature).where(WorkingSet.to_sql(expression, default: :products, abilities: :product_natures, indicators: :product_natures))
   }
-  scope :of_nature, ->(nature) { where(nature_id: nature.id) }
+  scope :of_nature, ->(nature) { where(nature_id: nature.try(:id) || nature) }
   scope :of_variant, lambda { |variant, _at = Time.zone.now|
     where(variant_id: (variant.is_a?(ProductNatureVariant) ? variant.id : variant))
   }
@@ -284,6 +284,14 @@ class Product < Ekylibre::Record::Base
   }
 
   scope :usable_in_fixed_asset, -> { depreciables.joins('LEFT JOIN fixed_assets ON products.id = fixed_assets.product_id').where('fixed_assets.id IS NULL') }
+
+  scope :with_id, lambda { |id|
+    where(id: id)
+  }
+
+  scope :of_activity_production, lambda { |activity_production|
+    where(activity_production: activity_production)
+  }
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :birth_date_completeness, :birth_farm_number, :country, :end_of_life_reason, :father_country, :father_identification_number, :father_variety, :filiation_status, :identification_number, :mother_country, :mother_identification_number, :mother_variety, :origin_country, :origin_identification_number, :picture_content_type, :picture_file_name, :work_number, length: { maximum: 500 }, allow_blank: true
@@ -837,5 +845,17 @@ class Product < Ekylibre::Record::Base
       update_column(:reading_cache, reading_cache.merge(indicator.to_s => indicator_value))
     end
     indicator_value
+  end
+
+  def time_use_in_date(date)
+    intervention_parameters = InterventionParameter.joins(:intervention).where(product_id: self, interventions: { started_at: date }).includes(:intervention).uniq { |p| p.intervention.number }
+    intervention_numbers = intervention_parameters.includes(:intervention).map { |p| p.intervention.number }
+    intervention_proposal_parameters = InterventionProposal::Parameter
+                                      .joins(:intervention_proposal)
+                                      .where(product_id: self, intervention_proposals: { estimated_date: date })
+                                      .where.not(intervention_proposals: {number: intervention_numbers})
+    duration = intervention_parameters.includes(:intervention).map { |p| p.duration }.inject(:+) || 0
+    duration += (intervention_proposal_parameters.map { |p| p.intervention_proposal.estimated_working_time }.inject(:+) || 0) * 3600
+    (duration / 3600.0).round(1) if duration.present?
   end
 end

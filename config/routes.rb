@@ -638,6 +638,10 @@ Rails.application.routes.draw do
     resources :schedulings do
       collection do
         get :weekly_daily_charges
+        get :new_intervention
+        get :available_time_or_quantity
+        put :update_proposal
+        get :update_modal_time
       end
 
       member do
