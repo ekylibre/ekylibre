@@ -642,6 +642,10 @@ Rails.application.routes.draw do
         put :update_proposal
         get :update_modal_time
       end
+
+      member do
+        post :update_estimated_date
+      end
     end
 
     namespace :interventions do
@@ -946,6 +950,15 @@ Rails.application.routes.draw do
         post :propose
         post :propose_and_invoice
         post :refuse
+      end
+    end
+
+    namespace :purchases do
+      resources :reconcilation_states, only: [] do
+        member do
+          get :put_to_reconcile_state
+          get :put_accepted_state
+        end
       end
     end
 

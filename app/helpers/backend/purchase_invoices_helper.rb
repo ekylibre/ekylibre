@@ -12,7 +12,7 @@ module Backend
         html_class = 'accepted-title'
         text = :accepted.tl
       end
-      content_tag(:h2, text, class: "reconciliation-title #{html_class}")
+      content_tag(:h2, text, class: "reconciliation-title #{html_class}", data: { no_reconciliate_text: :to_reconciliate.tl, accepted_text: :accepted.tl })
     end
   end
 end
