@@ -1,0 +1,8 @@
+.nested-fields
+  .plus-sign
+    %span.sign +
+
+  = link_to_remove_nested_association(:field, f)
+
+  = f.input :field_name do
+    = f.select :field_name, NamingFormatFieldLandParcel.field_name.options, {}, data: { label: t('activerecord.attributes.naming_format_field.field_name') }

@@ -291,6 +291,14 @@ por:
       nature:
         background: "Fundo"
         # overlay: "Overlay"
+    naming_format_field_land_parcel:
+      field_name:
+        # activity: "Activity"
+        # campaign: "Campaign"
+        # cultivable_zone_code: "Cultivable zone code"
+        # cultivable_zone_name: "Cultivable zone name"
+        # production_mode: "Production mode"
+        # season: "Season"
     notification:
       level:
         error: "Erro"
