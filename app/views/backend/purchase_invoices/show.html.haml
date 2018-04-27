@@ -8,8 +8,8 @@
   = t.destroy
 
   .change-reconcilation-state-block
-    - checked = true
-    - checked = false if resource.reconciliation_state == :to_reconcile
+    - checked = false
+    - checked = true if resource.reconciliation_state == :accepted
     = check_box_tag 'new-reconcilation-state', checked, checked
     %label= :accepted_for_paiment.tl
 

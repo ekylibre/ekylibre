@@ -58,6 +58,7 @@ class Intervention < Ekylibre::Record::Base
   include CastGroupable
   include PeriodicCalculable
   include Customizable
+  include Planning::Intervention if defined?(Planning)
   attr_readonly :procedure_name, :production_id, :currency
   refers_to :currency
   enumerize :procedure_name, in: Procedo.procedure_names, i18n_scope: ['procedures']
@@ -113,7 +114,22 @@ class Intervention < Ekylibre::Record::Base
 
   calculable period: :month, column: :working_duration, at: :started_at, name: :sum
 
-  acts_as_numbered
+  acts_as_numbered unless: :run_sequence
+
+  before_validation :set_number, on: :create
+
+  def set_number
+    if defined?(Planning) && intervention_proposal.present?
+      self.number = intervention_proposal.number
+    elsif request_intervention.present?
+      self.number = request_intervention.number
+    end
+  end
+
+  def run_sequence
+    (defined?(Planning).present? && intervention_proposal.present?) || request_intervention.present?
+  end
+
   accepts_nested_attributes_for :group_parameters, :participations, :doers, :inputs, :outputs, :targets, :tools, :working_periods, :labellings, allow_destroy: true
   accepts_nested_attributes_for :receptions, reject_if: :all_blank, allow_destroy: true
 
@@ -302,12 +318,11 @@ class Intervention < Ekylibre::Record::Base
       self.event_id = event.id
     end
 
-
     true
   end
 
   before_create do
-    self.costs = InterventionCosts.create!({ inputs_cost: 0, doers_cost: 0, tools_cost: 0, receptions_cost: 0 })
+    self.costs = InterventionCosts.create!(inputs_cost: 0, doers_cost: 0, tools_cost: 0, receptions_cost: 0)
   end
 
   after_save do
@@ -333,7 +348,7 @@ class Intervention < Ekylibre::Record::Base
 
     create_intervention_costs
 
-    self.add_activity_production_to_output if self.procedure.of_category?(:planting)
+    add_activity_production_to_output if procedure.of_category?(:planting)
   end
 
   after_create do
@@ -342,7 +357,7 @@ class Intervention < Ekylibre::Record::Base
 
   # Prevents from deleting an intervention that was executed
   protect on: :destroy do
-    with_undestroyable_products? || self.procedure.of_category?(:planting)
+    with_undestroyable_products? || procedure.of_category?(:planting)
   end
 
   # This method permits to add stock journal entries corresponding to the
@@ -376,8 +391,8 @@ class Intervention < Ekylibre::Record::Base
   def create_intervention_costs
     costs_attributes = {}
 
-    [:input, :tool, :doer].each do |type|
-      type_cost = self.cost(type)
+    %i[input tool doer].each do |type|
+      type_cost = cost(type)
       type_cost = 0 if type_cost.nil?
 
       costs_attributes["#{type.to_s.pluralize}_cost"] = type_cost
@@ -669,22 +684,22 @@ class Intervention < Ekylibre::Record::Base
   end
 
   def add_activity_production_to_output
-    parameters = self.group_parameters
+    parameters = group_parameters
 
-    self.group_parameters.each do |group_parameter|
+    group_parameters.each do |group_parameter|
       activity_production_id = group_parameter
-                                 .targets
-                                 .map(&:product)
-                                 .flatten
-                                 .map(&:activity_production_id)
-                                 .uniq
-                                 .first
+                               .targets
+                               .map(&:product)
+                               .flatten
+                               .map(&:activity_production_id)
+                               .uniq
+                               .first
 
       products_to_update = group_parameter
-                             .outputs
-                             .map(&:product)
-                             .flatten
-                             .uniq
+                           .outputs
+                           .map(&:product)
+                           .flatten
+                           .uniq
 
       products_to_update.each do |product|
         product.update(activity_production_id: activity_production_id)

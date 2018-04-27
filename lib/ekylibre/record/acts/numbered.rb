@@ -11,11 +11,16 @@ module Ekylibre
             @sequence_manager || superclass.sequence_manager
           end
 
+          def enumeration_condition
+            @enumeration_condition
+          end
+
           # Use preference to select preferred sequence to attribute number
           # in column
           def acts_as_numbered(*args)
             options = args.extract_options!
             numbered_column = args.shift || :number
+
 
             options = { start: '00000001' }.merge(options)
                                            .merge(usage: options[:usage] || main_class.name.tableize)
@@ -26,8 +31,16 @@ module Ekylibre
             @sequence_manager = SequenceManager.new(main_class, options)
             delegate :sequence_manager, to: :class
 
+            @enumeration_condition = options[:unless]
+            delegate :enumeration_condition, to: :class
+
             attr_readonly :"#{options[:column]}" if options[:readonly]
-            validates :"#{options[:column]}", presence: true, uniqueness: true
+
+            validates :"#{options[:column]}", presence: true
+
+            unless enumeration_condition.present?
+              validates :"#{options[:column]}", uniqueness: true
+            end
 
             define_sequence_methods(options[:column])
           end
@@ -69,7 +82,13 @@ module Ekylibre
             before_validation :"load_unique_predictable_#{column}", on: :create
 
             define_method :"load_unique_predictable_#{column}" do
-              sequence_manager.load_predictable_into self
+              if enumeration_condition.present?
+                unless self.send(self.class.enumeration_condition)
+                  sequence_manager.load_predictable_into self
+                end
+              else
+                sequence_manager.load_predictable_into self
+              end
             end
           end
 
@@ -77,7 +96,13 @@ module Ekylibre
             after_validation :"load_unique_reliable_#{column}", on: :create
 
             define_method :"load_unique_reliable_#{column}" do
-              sequence_manager.load_reliable_into self
+              if enumeration_condition.present?
+                unless self.send(self.class.enumeration_condition)
+                  sequence_manager.load_reliable_into self
+                end
+              else
+                sequence_manager.load_predictable_into self
+              end
             end
           end
         end

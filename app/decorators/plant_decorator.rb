@@ -1,7 +1,6 @@
 class PlantDecorator < ProductDecorator
   delegate_all
 
-
   ####################################
   #                                  #
   #         PRODUCTION COSTS         #
@@ -46,8 +45,6 @@ class PlantDecorator < ProductDecorator
   def human_working_hectare_costs
     human_costs(working_hectare_costs)
   end
-
-
 
   ####################################
   #                                  #
@@ -279,11 +276,11 @@ class PlantDecorator < ProductDecorator
   end
 
   def sum_costs(plant_costs, costs)
-    plant_costs.each { |key, value| plant_costs[key] = plant_costs[key] + costs[key] }
+    plant_costs.each { |key, _value| plant_costs[key] = plant_costs[key] + costs[key] }
   end
 
   def human_costs(costs)
-    costs.each { |key, value| costs[key] = costs[key].to_f.round(2) }
+    costs.each { |key, value| costs[key] = costs[key].to_i }
   end
 
   def multiply_costs(costs, multiplier)
@@ -323,9 +320,9 @@ class PlantDecorator < ProductDecorator
 
   def calcul_with_working_zone_area(costs, working_zone_area)
     working_zone_area = working_zone_area
-                          .in(:hectare)
-                          .round(2)
-                          .to_f
+                        .in(:hectare)
+                        .round(2)
+                        .to_f
 
     divider_costs(costs, working_zone_area)
   end

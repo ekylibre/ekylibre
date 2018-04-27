@@ -445,7 +445,9 @@ CREATE TABLE intervention_parameters (
     currency character varying,
     unit_pretax_stock_amount numeric(19,4) DEFAULT 0.0 NOT NULL,
     dead boolean DEFAULT false NOT NULL,
-    identification_number character varying
+    identification_number character varying,
+    variety character varying,
+    batch_number character varying
 );
 
 
@@ -483,7 +485,8 @@ CREATE TABLE interventions (
     request_compliant boolean,
     auto_calculate_working_periods boolean DEFAULT false,
     purchase_id integer,
-    intervention_costs_id integer
+    intervention_costs_id integer,
+    intervention_proposal_id integer
 );
 
 
@@ -3905,6 +3908,40 @@ ALTER SEQUENCE intervention_participations_id_seq OWNED BY intervention_particip
 
 
 --
+-- Name: intervention_proposal_parameters; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE intervention_proposal_parameters (
+    id integer NOT NULL,
+    intervention_proposal_id integer,
+    product_id integer,
+    product_nature_variant_id integer,
+    product_type character varying,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: intervention_proposal_parameters_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE intervention_proposal_parameters_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: intervention_proposal_parameters_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE intervention_proposal_parameters_id_seq OWNED BY intervention_proposal_parameters.id;
+
+
+--
 -- Name: intervention_proposals; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -3915,7 +3952,9 @@ CREATE TABLE intervention_proposals (
     area numeric,
     activity_production_id integer,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    number integer,
+    target character varying
 );
 
 
@@ -4766,6 +4805,69 @@ CREATE SEQUENCE map_layers_id_seq
 --
 
 ALTER SEQUENCE map_layers_id_seq OWNED BY map_layers.id;
+
+
+--
+-- Name: naming_format_fields; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE naming_format_fields (
+    id integer NOT NULL,
+    type character varying NOT NULL,
+    field_name character varying NOT NULL,
+    "position" integer,
+    naming_format_id integer
+);
+
+
+--
+-- Name: naming_format_fields_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE naming_format_fields_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: naming_format_fields_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE naming_format_fields_id_seq OWNED BY naming_format_fields.id;
+
+
+--
+-- Name: naming_formats; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE naming_formats (
+    id integer NOT NULL,
+    type character varying NOT NULL,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
+);
+
+
+--
+-- Name: naming_formats_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE naming_formats_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: naming_formats_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE naming_formats_id_seq OWNED BY naming_formats.id;
 
 
 --
@@ -7942,6 +8044,13 @@ ALTER TABLE ONLY intervention_participations ALTER COLUMN id SET DEFAULT nextval
 
 
 --
+-- Name: intervention_proposal_parameters id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY intervention_proposal_parameters ALTER COLUMN id SET DEFAULT nextval('intervention_proposal_parameters_id_seq'::regclass);
+
+
+--
 -- Name: intervention_proposals id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -8086,6 +8195,20 @@ ALTER TABLE ONLY manure_management_plans ALTER COLUMN id SET DEFAULT nextval('ma
 --
 
 ALTER TABLE ONLY map_layers ALTER COLUMN id SET DEFAULT nextval('map_layers_id_seq'::regclass);
+
+
+--
+-- Name: naming_format_fields id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY naming_format_fields ALTER COLUMN id SET DEFAULT nextval('naming_format_fields_id_seq'::regclass);
+
+
+--
+-- Name: naming_formats id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY naming_formats ALTER COLUMN id SET DEFAULT nextval('naming_formats_id_seq'::regclass);
 
 
 --
@@ -9152,6 +9275,14 @@ ALTER TABLE ONLY intervention_participations
 
 
 --
+-- Name: intervention_proposal_parameters intervention_proposal_parameters_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY intervention_proposal_parameters
+    ADD CONSTRAINT intervention_proposal_parameters_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: intervention_proposals intervention_proposals_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -9317,6 +9448,22 @@ ALTER TABLE ONLY manure_management_plans
 
 ALTER TABLE ONLY map_layers
     ADD CONSTRAINT map_layers_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: naming_format_fields naming_format_fields_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY naming_format_fields
+    ADD CONSTRAINT naming_format_fields_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: naming_formats naming_formats_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY naming_formats
+    ADD CONSTRAINT naming_formats_pkey PRIMARY KEY (id);
 
 
 --
@@ -13291,6 +13438,13 @@ CREATE INDEX index_intervention_participations_on_updater_id ON intervention_par
 
 
 --
+-- Name: index_intervention_proposal_parameters_on_product_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_intervention_proposal_parameters_on_product_id ON intervention_proposal_parameters USING btree (product_id);
+
+
+--
 -- Name: index_intervention_proposals_on_activity_production_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -13372,6 +13526,13 @@ CREATE INDEX index_interventions_on_creator_id ON interventions USING btree (cre
 --
 
 CREATE INDEX index_interventions_on_event_id ON interventions USING btree (event_id);
+
+
+--
+-- Name: index_interventions_on_intervention_proposal_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_interventions_on_intervention_proposal_id ON interventions USING btree (intervention_proposal_id);
 
 
 --
@@ -14254,6 +14415,13 @@ CREATE INDEX index_map_layers_on_updated_at ON map_layers USING btree (updated_a
 --
 
 CREATE INDEX index_map_layers_on_updater_id ON map_layers USING btree (updater_id);
+
+
+--
+-- Name: index_naming_format_fields_on_naming_format_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_naming_format_fields_on_naming_format_id ON naming_format_fields USING btree (naming_format_id);
 
 
 --
@@ -17960,6 +18128,20 @@ CREATE INDEX index_wice_grid_serialized_queries_on_grid_name_and_id ON wice_grid
 
 
 --
+-- Name: intervention_product_nature_variant_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX intervention_product_nature_variant_id ON intervention_proposal_parameters USING btree (product_nature_variant_id);
+
+
+--
+-- Name: intervention_proposal_parameter_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX intervention_proposal_parameter_id ON intervention_proposal_parameters USING btree (intervention_proposal_id);
+
+
+--
 -- Name: intervention_template_activity_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -18185,6 +18367,14 @@ ALTER TABLE ONLY intervention_template_product_parameters
 
 
 --
+-- Name: interventions fk_rails_1f3a6ab6a0; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY interventions
+    ADD CONSTRAINT fk_rails_1f3a6ab6a0 FOREIGN KEY (intervention_proposal_id) REFERENCES intervention_proposals(id);
+
+
+--
 -- Name: outgoing_payments fk_rails_1facec8a15; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -18326,6 +18516,14 @@ ALTER TABLE ONLY payslip_natures
 
 ALTER TABLE ONLY parcel_items
     ADD CONSTRAINT fk_rails_7010820bb4 FOREIGN KEY (purchase_order_item_id) REFERENCES purchase_items(id);
+
+
+--
+-- Name: intervention_proposal_parameters fk_rails_73168818a2; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY intervention_proposal_parameters
+    ADD CONSTRAINT fk_rails_73168818a2 FOREIGN KEY (product_nature_variant_id) REFERENCES product_nature_variants(id);
 
 
 --
@@ -18505,6 +18703,14 @@ ALTER TABLE ONLY technical_itineraries
 
 
 --
+-- Name: intervention_proposal_parameters fk_rails_d0715348b7; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY intervention_proposal_parameters
+    ADD CONSTRAINT fk_rails_d0715348b7 FOREIGN KEY (intervention_proposal_id) REFERENCES intervention_proposals(id);
+
+
+--
 -- Name: payslips fk_rails_e319c31e6b; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -18518,6 +18724,14 @@ ALTER TABLE ONLY payslips
 
 ALTER TABLE ONLY intervention_proposals
     ADD CONSTRAINT fk_rails_e3758de3f6 FOREIGN KEY (activity_production_id) REFERENCES activity_productions(id);
+
+
+--
+-- Name: intervention_proposal_parameters fk_rails_e4aa584bc6; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY intervention_proposal_parameters
+    ADD CONSTRAINT fk_rails_e4aa584bc6 FOREIGN KEY (product_id) REFERENCES products(id);
 
 
 --
@@ -19228,4 +19442,16 @@ INSERT INTO schema_migrations (version) VALUES ('20180328132615');
 
 INSERT INTO schema_migrations (version) VALUES ('20180330121129');
 
+INSERT INTO schema_migrations (version) VALUES ('20180405102304');
+
+INSERT INTO schema_migrations (version) VALUES ('20180405125208');
+
 INSERT INTO schema_migrations (version) VALUES ('20180406083922');
+
+INSERT INTO schema_migrations (version) VALUES ('20180416122731');
+
+INSERT INTO schema_migrations (version) VALUES ('20180419140723');
+
+INSERT INTO schema_migrations (version) VALUES ('20180419152918');
+
+INSERT INTO schema_migrations (version) VALUES ('20180423091042');

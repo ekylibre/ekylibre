@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  #resources :interventions_costs, concerns: [:list, :unroll]
+  # resources :interventions_costs, concerns: [:list, :unroll]
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
@@ -238,6 +238,7 @@ Rails.application.routes.draw do
     resources :activity_productions, concerns: [:unroll] do
       member do
         get :list_interventions
+        get :list_plants
       end
     end
 
@@ -637,6 +638,10 @@ Rails.application.routes.draw do
     resources :schedulings do
       collection do
         get :weekly_daily_charges
+        get :new_intervention
+        get :available_time_or_quantity
+        put :update_proposal
+        get :update_modal_time
       end
 
       member do
@@ -772,6 +777,14 @@ Rails.application.routes.draw do
 
     resources :matters do
       concerns :products, :list
+    end
+
+    resources :naming_formats, concerns: %i[list unroll]
+
+    resources :naming_format_land_parcels, concerns: %i[list unroll] do
+      collection do
+        get :build_example
+      end
     end
 
     resources :net_services, concerns: [:list] do
@@ -952,6 +965,7 @@ Rails.application.routes.draw do
     namespace :purchases do
       resources :reconcilation_states, only: [] do
         member do
+          get :put_reconcile_state
           get :put_to_reconcile_state
           get :put_accepted_state
         end

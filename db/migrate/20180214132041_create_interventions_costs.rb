@@ -21,7 +21,6 @@ class CreateInterventionsCosts < ActiveRecord::Migration
 
   private
 
-
   def historical_recovery
     Intervention.all.each do |intervention|
       costs = {
