@@ -33,7 +33,6 @@
 #  event_id                       :integer
 #  id                             :integer          not null, primary key
 #  intervention_costs_id          :integer
-#  intervention_proposal_id       :integer
 #  issue_id                       :integer
 #  journal_entry_id               :integer
 #  lock_version                   :integer          default(0), not null

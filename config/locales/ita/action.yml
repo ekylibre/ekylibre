@@ -1254,6 +1254,7 @@ ita:
     # hint: "Hint: %{value}"
     historic: "Storico"
     home: "Casa"
+    # hour: "Hour"
     # hours: "H"
     human_working_duration: "durata di funzionamento"
     # humans: "HR"

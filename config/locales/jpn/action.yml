@@ -1256,6 +1256,7 @@ jpn:
     # hint: "Hint: %{value}"
     historic: "歴史的"
     home: "持て成しの手伝いに帰り"
+    # hour: "Hour"
     # hours: "H"
     human_working_duration: "作業期間"
     # humans: "HR"

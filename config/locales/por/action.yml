@@ -1193,6 +1193,7 @@ por:
     # hint: "Hint: %{value}"
     historic: "Histórico"
     home: "Casa"
+    # hour: "Hour"
     # hours: "H"
     human_working_duration: "Duração de trabalho"
     # humans: "HR"

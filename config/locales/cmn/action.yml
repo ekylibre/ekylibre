@@ -1188,6 +1188,7 @@ cmn:
     # hint: "Hint: %{value}"
     historic: "历史性"
     home: "家"
+    # hour: "Hour"
     # hours: "H"
     human_working_duration: "工作时间"
     # humans: "HR"

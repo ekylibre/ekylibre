@@ -1188,6 +1188,7 @@ deu:
     # hint: "Hint: %{value}"
     historic: "historisch"
     home: "Zuhause"
+    # hour: "Hour"
     # hours: "H"
     human_working_duration: "Arbeitsdauer"
     # humans: "HR"

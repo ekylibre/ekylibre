@@ -1314,6 +1314,7 @@ spa:
     # hint: "Hint: %{value}"
     historic: "Histórico"
     home: "Vuelta a la cogida de la ayuda"
+    # hour: "Hour"
     hours: "MARIDO"
     human_working_duration: "Duración de trabajo"
     humans: "HORA"

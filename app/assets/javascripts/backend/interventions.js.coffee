@@ -356,6 +356,15 @@
       E.interventions.updateAvailabilityInstant(started_at)
 
 
+  $(document).on 'selector:change', '.intervention_tools_product .selector-search', (event) ->
+    hourCounterBlock = $(event.target).closest('.nested-product-parameter').find('.intervention_tools_hour_counter')
+
+    return if hourCounterBlock.hasClass('visible')
+
+    hourCounterBlock.removeClass('hidden')
+    hourCounterBlock.addClass('visible')
+
+
   $(document).on "selector:change", 'input[data-selector-id="intervention_doer_product_id"], input[data-selector-id="intervention_tool_product_id"]', (event) ->
     element = $(event.target)
     blockElement = element.closest('.nested-fields')

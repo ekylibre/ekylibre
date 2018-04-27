@@ -3490,6 +3490,8 @@ intervention_parameters:
   assembly_id:
     type: integer
     references: product
+  batch_number:
+    type: string
   component_id:
     type: integer
     references: product_nature_variant_component
@@ -3511,6 +3513,8 @@ intervention_parameters:
   group_id:
     type: integer
     references: intervention_group_parameter
+  hour_counter:
+    type: decimal
   id:
     type: integer
     required: true
@@ -3576,6 +3580,8 @@ intervention_parameters:
   variant_id:
     type: integer
     references: product_nature_variant
+  variety:
+    type: string
   working_zone:
     type: geometry
     limit:
@@ -3628,8 +3634,6 @@ intervention_proposals:
   id:
     type: integer
     required: true
-  number:
-    type: integer
   technical_itinerary_intervention_template_id:
     type: integer
     references: technical_itinerary_intervention_template
@@ -3781,9 +3785,6 @@ interventions:
   intervention_costs_id:
     type: integer
     references: intervention_costs
-  intervention_proposal_id:
-    type: integer
-    references: ''
   issue_id:
     type: integer
     references: issue
@@ -4840,6 +4841,35 @@ map_layers:
   url:
     type: string
     required: true
+naming_format_fields:
+  field_name:
+    type: string
+    required: true
+  id:
+    type: integer
+    required: true
+  naming_format_id:
+    type: integer
+    references: ''
+  position:
+    type: integer
+  type:
+    type: string
+    required: true
+naming_formats:
+  created_at:
+    type: datetime
+  id:
+    type: integer
+    required: true
+  name:
+    type: string
+    required: true
+  type:
+    type: string
+    required: true
+  updated_at:
+    type: datetime
 net_services:
   created_at:
     type: datetime

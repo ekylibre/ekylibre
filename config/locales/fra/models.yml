@@ -684,6 +684,7 @@ fra:
     bank_statement_letter: "Lettre de déclaration de la Banque"
     bank_statements: "Relevés de compte bancaire"
     base_amount: "Montant de base"
+    # batch_number: "Batch number"
     battery_level: "Niveau de la batterie"
     birth: "Naissance" #?
     birth_date_completeness: "Complétude de la date de naissance"
@@ -1089,6 +1090,7 @@ fra:
     has_downpayment: "A un acompte"
     headers: "Têtes"
     host: "Hôte"
+    hour_counter: "Compteur horaire"
     human_activities_names: "Nom des activités"
     human_shape_area: "Superficie"
     human_target_names: "Nom des cibles"

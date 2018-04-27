@@ -41,6 +41,7 @@ module ReadingStorable
 
   def absolutize_measure
     if indicator_datatype_measure? && measure_value.is_a?(Measure)
+      byebug
       self.absolute_measure_value = measure_value.in(indicator.unit)
     end
   end

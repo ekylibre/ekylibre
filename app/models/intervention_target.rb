@@ -23,6 +23,7 @@
 # == Table: intervention_parameters
 #
 #  assembly_id              :integer
+#  batch_number             :string
 #  component_id             :integer
 #  created_at               :datetime         not null
 #  creator_id               :integer
@@ -30,6 +31,7 @@
 #  dead                     :boolean          default(FALSE), not null
 #  event_participation_id   :integer
 #  group_id                 :integer
+#  hour_counter             :decimal(, )
 #  id                       :integer          not null, primary key
 #  identification_number    :string
 #  intervention_id          :integer          not null
@@ -52,6 +54,7 @@
 #  updated_at               :datetime         not null
 #  updater_id               :integer
 #  variant_id               :integer
+#  variety                  :string
 #  working_zone             :geometry({:srid=>4326, :type=>"multi_polygon"})
 #
 class InterventionTarget < InterventionProductParameter

@@ -1467,7 +1467,10 @@ eng:
     historic: "Historic" #?
     home: "Home"
     # horizontal_timeline: "Horizontal timeline"
+    hour: "Hour"
+    hour_counter: "Hour counter"
     hours: "H" #?
+    hours_label: "Hours"
     human_working_duration: "Working duration" #?
     humans: "HR"
     iban: "International Bank Account Number (IBAN)" #?
