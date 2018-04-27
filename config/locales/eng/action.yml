@@ -1841,10 +1841,12 @@ eng:
     purchase_payments: "Purchase payments"
     purchases: "Purchases"
     purchases_stocks_variation: "Purchases stocks variation" #?!
+    received_quantity: "Received quantity"
     quality: "Quality"
     quandl: "Quandl" #?
     quantity: "Quantity"
-    quantity_available: "Quantity available" #??
+    quantity_available: "Quantity available"
+    quantity_to_receive: "Quantity to receive"
     query: "Query:" #?
     raw_income: "Raw income"
     reading_tasks: "Reading tasks" #?

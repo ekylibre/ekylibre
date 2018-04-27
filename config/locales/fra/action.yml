@@ -1999,11 +1999,13 @@ fra:
       order: "Commande" #?
       refused: "Refusée" #?
     purchases_stocks_variation: "Variation de stocks d’approvisionnements"
+    received_quantity: "Quantité réceptionée"
     quality: "Qualité"
     quandl: "Quandl"
     quantity: "Quantité"
     quantity_available: "Quantité disponible"
     quantity_rest: "Quantité restante" #?
+    quantity_to_receive: "Quantité à réceptionner"
     quarterly: "Trimestrielle" #?
     query: "Requête:"
     raw_income: "Résultat d’exploitation"
