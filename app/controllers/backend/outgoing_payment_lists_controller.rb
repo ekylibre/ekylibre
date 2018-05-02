@@ -117,8 +117,8 @@ module Backend
                      .where(closed: false, currency: mode.cash.currency)
                      .where("((purchases.payment_at IS NOT NULL AND purchases.payment_at BETWEEN ? AND ?) OR (purchases.payment_at IS NULL AND purchases.invoiced_at BETWEEN ? AND ?)) AND purchases.state = 'invoice'", params[:started_at], params[:stopped_at], params[:started_at], params[:stopped_at])
                      .where(entities: { supplier_payment_mode_id: mode.id })
-                     .where(purchases: {reconciliation_state: ['accepted', 'reconcile']})
-                     .where.not(purchases: {id: nil})
+                     .where(purchases: { reconciliation_state: %w[accepted reconcile] })
+                     .where.not(purchases: { id: nil })
                      .order('entities.full_name ASC')
                      .order('purchases.payment_at ASC', :number)
 

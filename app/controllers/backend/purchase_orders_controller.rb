@@ -64,6 +64,8 @@ module Backend
       t.column :annotation
       t.column :first_reception_number, label: :reception, url: { controller: '/backend/receptions', id: 'RECORD.first_reception_id'.c }
       t.column :quantity
+      t.column :human_received_quantity, label: :received_quantity, datatype: :decimal
+      t.column :quantity_to_receive, label: :quantity_to_receive, datatype: :decimal
       t.column :unit_pretax_amount, currency: true
       t.column :unit_amount, currency: true, hidden: true
       t.column :reduction_percentage

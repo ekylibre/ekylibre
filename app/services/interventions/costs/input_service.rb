@@ -15,12 +15,12 @@ module Interventions
         # TODO: Check if incoming_parcel.purchase_invoice_item is the last
         # purchase_invoice of the product when the lines below
         # are uncommented.
-        #if incoming_parcel
+        # if incoming_parcel
         #  purchase_item = incoming_parcel.purchase_invoice_item
         #  purchase_item ||= incoming_parcel.purchase_order_item
 
         #  return purchase_item_amount(purchase_item, options) if purchase_item
-        #end
+        # end
 
         options[:catalog_usage] = :purchase
         options[:catalog_item] = product.default_catalog_item(options[:catalog_usage])
