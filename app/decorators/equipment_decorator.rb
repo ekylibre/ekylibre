@@ -1,4 +1,4 @@
-class EquipmentDecorator < Draper::Decorator
+class EquipmentDecorator < ProductDecorator
   delegate_all
 
   def hour_counter?
@@ -14,7 +14,7 @@ class EquipmentDecorator < Draper::Decorator
   end
 
   def human_hour_counter
-    hour_counter
+    hour_counter.l(precision: 2)
   end
 
   private

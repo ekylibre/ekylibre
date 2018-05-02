@@ -64,21 +64,22 @@ class InterventionParameterReading < Ekylibre::Record::Base
   delegate :started_at, :stopped_at, to: :intervention
 
   validate do
+=begin
     if product && indicator
       unless product.indicators.include?(indicator)
         errors.add(:indicator_name, :invalid)
       end
     end
+=end
   end
 
   after_commit do
-    byebug
     if product
       product_reading ||= product.readings.new(indicator: indicator)
       product_reading.originator = self
 
       if indicator_name == :hour_counter
-        save_hour_counter
+        save_hour_counter(product_reading)
       else
         product_reading.value = value
         product_reading.read_at = product.born_at || intervention.started_at || Time.now
@@ -89,8 +90,9 @@ class InterventionParameterReading < Ekylibre::Record::Base
 
   private
 
-  def save_hour_counter
-    return if product_reading.read_at < intervention.stopped_at &&
+  def save_hour_counter(product_reading)
+    return if product_reading.read_at.present? &&
+                product_reading.read_at < intervention.stopped_at &&
                 product_reading.value <= value
 
     product_reading.read_at = intervention.stopped_at
