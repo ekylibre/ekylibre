@@ -225,6 +225,11 @@ $preview-modal-height: 80vh;
       font-weight: bold;
     }
   }
+
+  .nested-product-parameter .nested-readings {
+    margin: 0;
+    border: none;
+  }
 }
 
 .product_parameters .cast {

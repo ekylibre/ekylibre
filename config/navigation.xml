@@ -2262,6 +2262,9 @@
         <page to="backend/products#list_reception_items"/>
         <page to="backend/products#list_shipment_items"/>
       </item>
+      <item name="indicators">
+        <page to="backend/products/indicators#variable_indicators"/>
+      </item>
       <item name="search_variants">
         <page to="backend/products/search_variants#search_by_expression"/>
       </item>

@@ -638,6 +638,8 @@ eng:
       new: "New product type"
       pick: "Pick product type"
       show: "Product type: %{name}"
+    backend/products/indicators:
+      # variable_indicators: "Variable indicators indicator: %{name}"
     backend/products/search_variants:
       # search_by_expression: "Search by expression search variant: %{name}"
     backend/products:
@@ -1467,7 +1469,7 @@ eng:
     historic: "Historic" #?
     home: "Home"
     # horizontal_timeline: "Horizontal timeline"
-    hour: "Hour"
+    hour: "Hour" #?
     hour_counter: "Hour counter"
     hours: "H" #?
     hours_label: "Hours"
@@ -2622,6 +2624,7 @@ eng:
       update: "Update"
       # update_many: "Update many"
       # upload: "Upload"
+      # variable_indicators: "Variable indicators"
       win: "Win"
   simple_form:
     hints:

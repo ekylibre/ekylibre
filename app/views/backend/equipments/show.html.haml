@@ -47,7 +47,6 @@
         %span.title= Equipment.human_attribute_name(:description)
         %span.value= resource.description
 
-    -# if resource.decorate.hour_counter?
     - if resource.decorate.hour_counter_present?
       .med-info.important
         %span.title= :hour_counter.tl

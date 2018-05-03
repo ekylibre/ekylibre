@@ -357,12 +357,22 @@
 
 
   $(document).on 'selector:change', '.intervention_tools_product .selector-search', (event) ->
-    hourCounterBlock = $(event.target).closest('.nested-product-parameter').find('.intervention_tools_hour_counter')
+    toolId = $(event.target).closest('.selector').find('.selector-value').val()
 
-    return if hourCounterBlock.hasClass('visible')
+    $.ajax
+      url: "/backend/products/indicators/#{ toolId }/variable_indicators"
+      success: (data, status, request) ->
+        return if data['is_hour_counter'] == false
 
-    hourCounterBlock.removeClass('hidden')
-    hourCounterBlock.addClass('visible')
+        hourCounterBlock = $(event.target).closest('.nested-product-parameter').find('.tool-nested-readings')
+
+        return if hourCounterBlock.hasClass('visible')
+
+        hourCounterBlock.removeClass('hidden')
+        hourCounterBlock.addClass('visible')
+
+        hourCounterLinks = hourCounterBlock.find('.links')
+        hourCounterBlock.find('.add-reading').trigger('click') if hourCounterLinks.is(':visible')
 
 
   $(document).on "selector:change", 'input[data-selector-id="intervention_doer_product_id"], input[data-selector-id="intervention_tool_product_id"]', (event) ->

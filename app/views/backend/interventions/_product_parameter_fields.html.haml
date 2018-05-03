@@ -17,7 +17,8 @@
     = f.referenced_association :product, label: reference.human_name, source: { scope: reference.scope_hash.merge(availables: [at: started_at.strftime("%Y-%m-%d %H:%M")]), keep: true }, input_html: { class: "scoped-parameter", data: { intervention_updater: prefix + 'product_id' } }, new: false
 
     - if reference.tool?
-      = f.nested_association :readings, partial: '/backend/interventions/hour_counter_fields', minimum: 1, maximum: 1
+      .tool-nested-readings.hidden
+        = f.nested_association :readings, partial: '/backend/interventions/hour_counter_fields', maximum: 1
 
 
   - if reference.doer? || reference.tool?
