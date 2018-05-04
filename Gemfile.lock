@@ -1,6 +1,7 @@
 GIT
   remote: git@gitlab.com:ekylibre-integration/planning.git
   revision: c36e94e41e3ef1a23334372fa6b42224274df7d2
+  branch: dev
   specs:
     planning (0.6.1)
       factory_bot
@@ -56,7 +57,7 @@ GEM
       minitest (~> 5.1)
       thread_safe (~> 0.3, >= 0.3.4)
       tzinfo (~> 1.1)
-    acts_as_list (0.9.11)
+    acts_as_list (0.9.12)
       activerecord (>= 3.0)
     addressable (2.5.2)
       public_suffix (>= 2.0.2, < 4.0)
@@ -199,7 +200,7 @@ GEM
     enumerize (2.2.2)
       activesupport (>= 3.2)
     erubis (2.7.0)
-    et-orbi (1.1.0)
+    et-orbi (1.1.1)
       tzinfo
     eventmachine (1.2.6)
     exception_notification (4.2.2)
