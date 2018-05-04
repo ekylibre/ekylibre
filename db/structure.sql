@@ -3917,6 +3917,8 @@ CREATE TABLE intervention_proposal_parameters (
     product_id integer,
     product_nature_variant_id integer,
     product_type character varying,
+    quantity numeric,
+    unit character varying,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
 );
@@ -4845,6 +4847,7 @@ ALTER SEQUENCE naming_format_fields_id_seq OWNED BY naming_format_fields.id;
 
 CREATE TABLE naming_formats (
     id integer NOT NULL,
+    name character varying NOT NULL,
     type character varying NOT NULL,
     created_at timestamp without time zone,
     updated_at timestamp without time zone
@@ -19455,3 +19458,4 @@ INSERT INTO schema_migrations (version) VALUES ('20180419140723');
 INSERT INTO schema_migrations (version) VALUES ('20180419152918');
 
 INSERT INTO schema_migrations (version) VALUES ('20180423091042');
+
