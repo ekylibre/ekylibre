@@ -68,7 +68,7 @@ fra:
     corks_to_use: "Bouchons à utiliser" #?
     corn_topper: "Castreuse"
     cover_implanter: "Plastiqueuse"
-    crop: "Culture"
+    crop: "Culture" #?
     cropper: "Outil de récolte"
     cultivation: "Parcelle / Culture"
     cutter: "Outil de taille"
