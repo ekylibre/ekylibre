@@ -447,8 +447,7 @@ CREATE TABLE intervention_parameters (
     dead boolean DEFAULT false NOT NULL,
     identification_number character varying,
     variety character varying,
-    batch_number character varying,
-    hour_counter numeric
+    batch_number character varying
 );
 
 
@@ -19457,8 +19456,4 @@ INSERT INTO schema_migrations (version) VALUES ('20180419140723');
 INSERT INTO schema_migrations (version) VALUES ('20180419152918');
 
 INSERT INTO schema_migrations (version) VALUES ('20180423091042');
-
-INSERT INTO schema_migrations (version) VALUES ('20180426092558');
-
-INSERT INTO schema_migrations (version) VALUES ('20180503081248');
 

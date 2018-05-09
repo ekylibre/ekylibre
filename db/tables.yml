@@ -3513,8 +3513,6 @@ intervention_parameters:
   group_id:
     type: integer
     references: intervention_group_parameter
-  hour_counter:
-    type: decimal
   id:
     type: integer
     required: true
