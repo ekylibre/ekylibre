@@ -31,7 +31,6 @@
 #  dead                     :boolean          default(FALSE), not null
 #  event_participation_id   :integer
 #  group_id                 :integer
-#  hour_counter             :decimal(, )
 #  id                       :integer          not null, primary key
 #  identification_number    :string
 #  intervention_id          :integer          not null
