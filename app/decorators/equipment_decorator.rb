@@ -14,7 +14,7 @@ class EquipmentDecorator < ProductDecorator
   end
 
   def human_hour_counter
-    hour_counter.l(precision: 2)
+    hour_counter.round(1).l(precision: 1)
   end
 
   private
