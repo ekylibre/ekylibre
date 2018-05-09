@@ -64,39 +64,50 @@ class InterventionParameterReading < Ekylibre::Record::Base
   delegate :started_at, :stopped_at, to: :intervention
 
   validate do
-=begin
     if product && indicator
       unless product.indicators.include?(indicator)
         errors.add(:indicator_name, :invalid)
       end
     end
-=end
   end
 
   after_commit do
     if product
-      product_reading ||= product.readings.new(indicator: indicator)
-      product_reading.originator = self
-
       if indicator_name == :hour_counter
-        save_hour_counter(product_reading)
+        save_hour_counter
       else
-        product_reading.value = value
-        product_reading.read_at = product.born_at || intervention.started_at || Time.now
-        product_reading.save!
+        self.product_reading ||= product.readings.new(indicator_name: indicator_name)
+        self.product_reading.originator = self
+
+        self.product_reading.value = value
+        self.product_reading.read_at = product.born_at || intervention.started_at || Time.now
+        self.product_reading.save!
       end
     end
   end
 
   private
 
-  def save_hour_counter(product_reading)
-    return if product_reading.read_at.present? &&
-                product_reading.read_at < intervention.stopped_at &&
-                product_reading.value <= value
+  def save_hour_counter
+    self.product_reading ||= product.readings.find_by(indicator_name: indicator_name)
 
-    product_reading.read_at = intervention.stopped_at
-    product_reading.value = value
-    product_reading.save!
+    return if self.product_reading.present? &&
+                self.product_reading.read_at.present? &&
+                (self.product_reading.read_at > intervention.stopped_at ||
+                 self.product_reading.value >= value)
+
+
+    if self.product_reading.nil?
+      self.product_reading ||= product.readings.new(indicator: indicator,
+                                                    measure_value_value: value,
+                                                    measure_value_unit: measure_value_unit,
+                                                    read_at: intervention.stopped_at)
+
+      return
+    end
+
+    self.product_reading.read_at = intervention.stopped_at
+    self.product_reading.value = value
+    self.product_reading.save!
   end
 end
