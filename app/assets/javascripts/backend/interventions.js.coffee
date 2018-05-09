@@ -398,9 +398,27 @@
   $(document).on 'change', '.nested-parameters .nested-cultivation .land-parcel-plant-selector', (event) ->
     nestedCultivationBlock = $(event.target).closest('.nested-cultivation')
     unrollElement = $(nestedCultivationBlock).find('.intervention_targets_product .selector-search')
+    unrollValueElement = $(nestedCultivationBlock).find('.intervention_targets_product .selector-value')
+
+    if unrollValueElement.val() != ""
+      unrollValueElement.val('')
 
     plantLandParcelSelector = new E.PlantLandParcelSelector()
     plantLandParcelSelector.changeUnrollUrl(event, unrollElement)
+
+
+  $(document).on 'selector:change', '.nested-parameters .nested-cultivation .intervention_targets_product .selector-search', (event) ->
+    landParcelPlantSelectorElement = $(event.target).closest('.nested-cultivation').find('.land-parcel-plant-selector')
+    productId = $(event.target).closest('.selector').find('.selector-value').val()
+
+    $.ajax
+      url: "/backend/products/search_products/#{ productId }/datas",
+      success: (data, status, request) ->
+        if data.type == 'LandParcel'
+          landParcelPlantSelectorElement.find('.land-parcel-radio-button').prop('checked', true)
+        else
+          landParcelPlantSelectorElement.find('.plant-radio-button').prop('checked', true)
+
 
 
   E.interventionForm =
