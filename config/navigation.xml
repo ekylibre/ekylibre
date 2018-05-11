@@ -2187,6 +2187,9 @@
       <item name="activities">
         <page to="backend/activities#list_supports"/>
       </item>
+      <item name="activity_productions">
+        <page to="backend/activity_productions#list_plants"/>
+      </item>
       <item name="animal_groups">
         <page to="backend/animal_groups#list_reception_items"/>
         <page to="backend/animal_groups#list_shipment_items"/>
@@ -2256,11 +2259,9 @@
         <page to="backend/matters#list_shipment_items"/>
       </item>
       <item name="naming_format_land_parcels">
-        <page to="backend/naming_format_land_parcels#index"/>
         <page to="backend/naming_format_land_parcels#build_example"/>
         <page to="backend/naming_format_land_parcels#create"/>
         <page to="backend/naming_format_land_parcels#destroy"/>
-        <page to="backend/naming_format_land_parcels#list"/>
         <page to="backend/naming_format_land_parcels#new"/>
         <page to="backend/naming_format_land_parcels#show"/>
         <page to="backend/naming_format_land_parcels#update"/>
@@ -2269,7 +2270,6 @@
         <page to="backend/naming_formats#create"/>
         <page to="backend/naming_formats#destroy"/>
         <page to="backend/naming_formats#edit"/>
-        <page to="backend/naming_formats#list"/>
         <page to="backend/naming_formats#new"/>
         <page to="backend/naming_formats#show"/>
         <page to="backend/naming_formats#update"/>
@@ -2298,6 +2298,7 @@
       </item>
       <item name="reconcilation_states">
         <page to="backend/purchases/reconcilation_states#put_accepted_state"/>
+        <page to="backend/purchases/reconcilation_states#put_reconcile_state"/>
         <page to="backend/purchases/reconcilation_states#put_to_reconcile_state"/>
       </item>
       <item name="receptions">
