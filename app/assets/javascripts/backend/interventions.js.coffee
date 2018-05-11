@@ -411,13 +411,8 @@
     landParcelPlantSelectorElement = $(event.target).closest('.nested-cultivation').find('.land-parcel-plant-selector')
     productId = $(event.target).closest('.selector').find('.selector-value').val()
 
-    $.ajax
-      url: "/backend/products/search_products/#{ productId }/datas",
-      success: (data, status, request) ->
-        if data.type == 'LandParcel'
-          landParcelPlantSelectorElement.find('.land-parcel-radio-button').prop('checked', true)
-        else
-          landParcelPlantSelectorElement.find('.plant-radio-button').prop('checked', true)
+    E.interventionForm.checkPlantLandParcelSelector(productId, landParcelPlantSelectorElement)
+    E.interventionForm.checkHarvestInProgress(event, productId, landParcelPlantSelectorElement)
 
 
 
@@ -453,6 +448,34 @@
               parameterCostBlock.append('<span class="product-parameter-cost-value">' + data.human_amount + '</span>')
 
               $(nestedProductParameter).find('.intervention_inputs_quantity').append(parameterCostBlock)
+
+    checkPlantLandParcelSelector: (productId, landParcelPlantSelectorElement) ->
+      $.ajax
+        url: "/backend/products/search_products/#{ productId }/datas",
+        success: (data, status, request) ->
+          if data.type == 'LandParcel'
+            landParcelPlantSelectorElement.find('.land-parcel-radio-button').prop('checked', true)
+          else
+            landParcelPlantSelectorElement.find('.plant-radio-button').prop('checked', true)
+
+
+    checkHarvestInProgress: (event, productId, landParcelPlantSelectorElement) ->
+      return if $('#is_harvesting').val() == "false" || landParcelPlantSelectorElement.find('.land-parcel-radio-button').is(':checked')
+
+      interventionStartedAt = $('.intervention-started-at').val()
+
+      $.ajax
+        url: "/backend/products/interventions/#{ productId }/has_harvesting",
+        data: { intervention_started_at: interventionStartedAt }
+        success: (data, status, request) ->
+          if data.has_harvesting
+           nestedCultivationBlock = $(event.target).closest('.nested-cultivation')
+           unrollElement = $(nestedCultivationBlock).find('.intervention_targets_product .selector-search')
+           unrollBlock = $(nestedCultivationBlock).find('.intervention_targets_product .controls')
+
+           error = $("<span class='help-inline'>#{ unrollElement.attr('data-harvest-in-progress-error-message') }</span>")
+
+           $(unrollBlock).append(error)
 
 
   $(document).ready ->
