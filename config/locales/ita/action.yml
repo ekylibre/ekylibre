@@ -388,6 +388,10 @@ ita:
       # show: "Matter: %{name}"
     backend/myselves:
       show: "Le mie informazioni"
+    backend/naming_format_land_parcels:
+      # edit: "Land parcel naming format"
+    backend/naming_formats:
+      # index: "Naming formats"
     backend/net_services:
       edit: "Modifica del servizio rete"
       index: "servizi di rete"
@@ -852,6 +856,7 @@ ita:
     add_expense: "Aggiungere spesa"
     add_fax: "Aggiungere fax"
     # add_fees: "Add fees"
+    # add_field: "Add field"
     add_filter: "Aggiungi filtro"
     add_grading_check: "Aggiungere controllo di classificazione"
     add_incoming_payment: "Aggiungere pagamento in entrata"
@@ -1027,6 +1032,7 @@ ita:
       filter_on_attribute_of_class: "Filtro su attributo della classe"
       special-subscriber: "Special-abbonato"
     configure: "Configurazione"
+    # confirmation_update_historical_plans: "Confirmation update historical plans"
     connect: "Collegare"
     consume: "Consumare"
     contained_products: "prodotti contenuti"
@@ -1205,6 +1211,7 @@ ita:
     export_as_ods: "Esporta come ODS"
     export_as_xcsv: "Esportare come Excel CSV"
     # fees: "Fees"
+    # field: "Field %{counter}"
     field_distribution: "Distribuzione del campo"
     file_nature: "Tipo di file"
     file_preview: "Anteprima"
@@ -1426,6 +1433,7 @@ ita:
     months: "mesi"
     move_animal: "Spostare gli animali"
     movements: "movimenti"
+    # n: "No"
     name: "Nome"
     nature: "Digitare"
     nature_changed: "Le tipo des animaux a changé"
@@ -1677,6 +1685,7 @@ ita:
     revenues: "ricavi"
     revenues_by_product_nature: "Ricavi per tipologia di prodotto"
     reverse: "condizione di inversione"
+    # revise: "Revise"
     rights: "Diritti"
     risk_and_charges_provisions: "Fondi rischi e oneri"
     role: "Ruolo"

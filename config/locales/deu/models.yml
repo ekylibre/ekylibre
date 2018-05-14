@@ -39,6 +39,8 @@ deu:
       loan:
         ongoing_at: "Mittelbeschaffung bei"
         started_on: "Erste Rückzahlung begann am"
+      naming_format_field:
+        # field_name: "Field"
       outgoing_payment:
         delivered: "Angesichts des Empfängers"
         list: "Abgehende Zahlungsliste"
@@ -782,6 +784,8 @@ deu:
     father_identification_number: "Vater-Identifikationsnummer"
     father_variety: "Vater Vielfalt"
     faxes: "Faxgeräte"
+    # field_name: "Field name"
+    # fields: "Fields"
     fifth_producer: "fünfte Produzent" #?
     file: "Datei"
     file_content_text: "Dateiinhalt Text"
@@ -1092,6 +1096,7 @@ deu:
     moves: "bewegt"
     multi_polygon_value: "Multi Polygon Wert"
     # name: "Name"
+    # naming_format: "Naming format"
     nature: "Art"
     nature_name: "Typenbezeichnung"
     natures: "Typen"

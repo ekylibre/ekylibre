@@ -388,6 +388,10 @@ jpn:
       # show: "Matter: %{name}"
     backend/myselves:
       show: "私の情報"
+    backend/naming_format_land_parcels:
+      # edit: "Land parcel naming format"
+    backend/naming_formats:
+      # index: "Naming formats"
     backend/net_services:
       edit: "ネット・サービスを編集します"
       index: "ネットサービス"
@@ -852,6 +856,7 @@ jpn:
     add_expense: "費用を追加"
     add_fax: "ファックスを追加"
     # add_fees: "Add fees"
+    # add_field: "Add field"
     add_filter: "フィルタを追加します。"
     add_grading_check: "グレーディングチェックを追加"
     add_incoming_payment: "入金を追加"
@@ -1028,6 +1033,7 @@ jpn:
       filter_on_attribute_of_class: "クラスの属性にフィルター"
       special-subscriber: "特別加入者"
     configure: "設定します"
+    # confirmation_update_historical_plans: "Confirmation update historical plans"
     connect: "ログイン"
     consume: "消費します"
     contained_products: "含まれる製品"
@@ -1207,6 +1213,7 @@ jpn:
     export_as_ods: "ODSとしてエクスポート"
     export_as_xcsv: "Excel CSVとしてエクスポート"
     # fees: "Fees"
+    # field: "Field %{counter}"
     field_distribution: "電界分布"
     file_nature: "ファイルの種類"
     file_preview: "プレビュー"
@@ -1432,6 +1439,7 @@ jpn:
     months: "ヶ月"
     move_animal: "移動動物"
     movements: "動作"
+    # n: "No"
     name: "名"
     nature: "タイプ"
     nature_changed: "ル型デanimaux変更"
@@ -1683,6 +1691,7 @@ jpn:
     revenues: "収入"
     revenues_by_product_nature: "製品タイプ別収益"
     reverse: "リバース条件"
+    # revise: "Revise"
     rights: "ライツ"
     risk_and_charges_provisions: "リスクと費用引当金"
     role: "役割"

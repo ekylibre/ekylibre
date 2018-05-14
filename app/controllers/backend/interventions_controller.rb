@@ -137,7 +137,7 @@ module Backend
     # @TODO conditions: list_conditions, joins: [:production, :activity, :campaign, :support]
 
     # conditions: list_conditions,
-    list(conditions: list_conditions, order: { started_at: :desc }, line_class: :status) do |t|
+    list(conditions: list_conditions, joins: :receptions, order: { started_at: :desc }, line_class: :status) do |t|
       t.action :purchase, on: :both, method: :post
       t.action :sell,     on: :both, method: :post
       t.action :edit, if: :updateable?

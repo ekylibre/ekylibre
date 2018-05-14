@@ -104,8 +104,8 @@ class ReceptionItem < ParcelItem
     end
     reception.save if pretax_amount_changed?
 
-    if self.purchase_order_to_close.present? && !self.purchase_order_to_close.closed?
-      self.purchase_order_to_close.close
+    if purchase_order_to_close.present? && !purchase_order_to_close.closed?
+      purchase_order_to_close.close
     end
   end
 

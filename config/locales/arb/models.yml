@@ -291,6 +291,8 @@ arb:
       meeting_nature: #?
         duration: "(المدة الافتراضية (بالدقائق" #?
         updated_at: "تم تحديثها في" #?
+      naming_format_field:
+        # field_name: "Field"
       observation: #?
         company_id: "الشركة" #?
         updated_at: "تم انشأئها في" #?
@@ -1555,6 +1557,8 @@ arb:
     father_variety: "متنوعة الأب"
     fax: "فاكس" #?
     faxes: "الفاكسات"
+    # field_name: "Field name"
+    # fields: "Fields"
     fifth_producer: "منتج الخامس" #?
     file: "ملف"
     file_content_text: "ملف نص المحتوى"
@@ -1921,6 +1925,7 @@ arb:
     name: "الاسم"
     name_1_to_2: "الملف الاول الى الثاني" #?
     name_2_to_1: "الملف الثاني الى الاول" #?
+    # naming_format: "Naming format"
     nature: "طبيعة"
     nature_code: "الرمز" #?
     nature_id: "نوع" #?

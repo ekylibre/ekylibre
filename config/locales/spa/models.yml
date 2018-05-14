@@ -39,6 +39,8 @@ spa:
       loan:
         ongoing_at: "La recaudación de fondos en"
         started_on: "En primer lugar se inició el reembolso"
+      naming_format_field:
+        # field_name: "Field"
       outgoing_payment:
         delivered: "Dado al destinatario"
         list: "Lista de salida de pago"
@@ -786,6 +788,8 @@ spa:
     father_identification_number: "Número de identificación del padre"
     father_variety: "Variedad padre"
     faxes: "Faxes"
+    # field_name: "Field name"
+    # fields: "Fields"
     fifth_producer: "En quinto productor" #?
     file: "Archivo"
     file_content_text: "Archivo de texto de contenido"
@@ -1096,6 +1100,7 @@ spa:
     moves: "Mueve"
     multi_polygon_value: "Valor de varios polígonos"
     name: "Nombre"
+    # naming_format: "Naming format"
     nature: "Tipo"
     nature_name: "Nombre tipo"
     natures: "Tipos"

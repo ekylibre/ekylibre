@@ -39,6 +39,8 @@ ita:
       loan:
         ongoing_at: "La raccolta di fondi a"
         started_on: "Prima di rimborso è iniziato il"
+      naming_format_field:
+        # field_name: "Field"
       outgoing_payment:
         delivered: "Dato al destinatario"
         list: "Lista pagamento in uscita"
@@ -813,6 +815,8 @@ ita:
     father_identification_number: "Numero di identificazione del padre"
     father_variety: "Varietà Padre"
     faxes: "fax"
+    # field_name: "Field name"
+    # fields: "Fields"
     fifth_producer: "Quinto produttore" #?
     # file: "File"
     file_content_text: "File di testo contenuti"
@@ -1123,6 +1127,7 @@ ita:
     moves: "Si muove"
     multi_polygon_value: "valore Multi poligono"
     name: "Nome"
+    # naming_format: "Naming format"
     nature: "Digitare"
     nature_name: "nome tipo"
     natures: "tipi"

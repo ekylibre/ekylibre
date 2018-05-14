@@ -105,6 +105,8 @@ fra:
       matter: #?
         born_at: "Fabriqué le" #?
         dead_at: "Détruit/consommé le" #?
+      naming_format_field:
+        field_name: "Champ"
       outgoing_parcel: #?
         items: "Lignes de colis à expédier" #?
       outgoing_payment:
@@ -684,7 +686,7 @@ fra:
     bank_statement_letter: "Lettre de déclaration de la Banque"
     bank_statements: "Relevés de compte bancaire"
     base_amount: "Montant de base"
-    # batch_number: "Batch number"
+    batch_number: "N° de lot"
     battery_level: "Niveau de la batterie"
     birth: "Naissance" #?
     birth_date_completeness: "Complétude de la date de naissance"
@@ -998,6 +1000,8 @@ fra:
     father_identification_number: "Numéro d'identification du père"
     father_variety: "Variété du père"
     faxes: "Fax"
+    # field_name: "Field name"
+    # fields: "Fields"
     fifth_producer: "Cinquième producteur" #?
     fifth_producer_way: "Voie du cinquième producteur" #?
     file: "Fichier"
@@ -1344,6 +1348,7 @@ fra:
     name: "Nom"
     name_1_to_2: "Nom «\_Personne 1 vers Personne 2\_»" #?
     name_2_to_1: "Nom «\_Personne 2 vers Personne 1\_»" #?
+    # naming_format: "Naming format"
     nature: "Type"
     nature_name: "Nom de la nature du produit"
     natures: "Natures"

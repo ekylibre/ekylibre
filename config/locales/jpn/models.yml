@@ -39,6 +39,8 @@ jpn:
       loan:
         ongoing_at: "資金調達"
         started_on: "最初の返済は、上の開始しました"
+      naming_format_field:
+        # field_name: "Field"
       outgoing_payment:
         delivered: "受取人に与えられる"
         list: "支払一覧"
@@ -782,6 +784,8 @@ jpn:
     father_identification_number: "父の識別番号"
     father_variety: "父多様"
     faxes: "ファックス"
+    # field_name: "Field name"
+    # fields: "Fields"
     fifth_producer: "フィフスプロデューサー" #?
     file: "ファイル"
     file_content_text: "ファイル内容のテキスト"
@@ -1092,6 +1096,7 @@ jpn:
     moves: "移動"
     multi_polygon_value: "マルチポリゴン値"
     name: "名前"
+    # naming_format: "Naming format"
     nature: "タイプ"
     nature_name: "型名"
     natures: "タイプ"

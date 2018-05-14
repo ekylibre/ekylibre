@@ -39,6 +39,8 @@ eng:
       loan:
         ongoing_at: "Fund raising at"
         started_on: "First repayment started on"
+      naming_format_field:
+        field_name: "Field"
       outgoing_payment:
         delivered: "Given to recipient"
         list: "Disbursement list"
@@ -335,6 +337,10 @@ eng:
       manure_management_plan_zone: "Manure management plan zone"
       map_layer: "Map layer"
       matter: "Matter"
+      # naming_format: "Naming format"
+      # naming_format_field: "Naming format field"
+      # naming_format_field_land_parcel: "Naming format field land parcel"
+      # naming_format_land_parcel: "Naming format land parcel"
       net_service: "Net service"
       notification: "Notification"
       observation: "Observation"
@@ -816,6 +822,8 @@ eng:
     father_identification_number: "Father identification number"
     father_variety: "Father variety"
     faxes: "Faxes"
+    field_name: "Field name"
+    fields: "Fields"
     file: "File"
     file_content_text: "File content text"
     file_content_type: "File content type"
@@ -1149,6 +1157,7 @@ eng:
     moves: "Moves" #?
     multi_polygon_value: "Multi polygon value"
     name: "Name"
+    naming_format: "Naming format"
     nature: "Type"
     nature_name: "Type name"
     natures: "Types"

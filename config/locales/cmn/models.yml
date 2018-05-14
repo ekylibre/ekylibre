@@ -39,6 +39,8 @@ cmn:
       loan:
         ongoing_at: "筹款的"
         started_on: "第一还款开始"
+      naming_format_field:
+        # field_name: "Field"
       outgoing_payment:
         delivered: "给予收件人"
         list: "付款清单"
@@ -782,6 +784,8 @@ cmn:
     father_identification_number: "父亲识别号码"
     father_variety: "父亲品种"
     faxes: "传真"
+    # field_name: "Field name"
+    # fields: "Fields"
     fifth_producer: "第五制片人" #?
     file: "文件"
     file_content_text: "文件内容文本"
@@ -1092,6 +1096,7 @@ cmn:
     moves: "移动"
     multi_polygon_value: "多多边形值"
     name: "名称"
+    # naming_format: "Naming format"
     nature: "类型"
     nature_name: "类型名称"
     natures: "类型"

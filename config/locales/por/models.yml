@@ -39,6 +39,8 @@ por:
       loan:
         ongoing_at: "Angariação de fundos em"
         started_on: "Primeiro reembolso começou em"
+      naming_format_field:
+        # field_name: "Field"
       outgoing_payment:
         delivered: "Atribuído ao destinatário"
         list: "Lista de contas a pagar"
@@ -782,6 +784,8 @@ por:
     father_identification_number: "Número de identificação do pai"
     father_variety: "Variedade pai"
     faxes: "Faxes"
+    # field_name: "Field name"
+    # fields: "Fields"
     fifth_producer: "Quinto produtor" #?
     file: "Arquivo"
     file_content_text: "Arquivo de texto de conteúdo"
@@ -1092,6 +1096,7 @@ por:
     # moves: "Moves"
     multi_polygon_value: "Valor de multi polígono"
     name: "Nome"
+    # naming_format: "Naming format"
     nature: "Digitar"
     nature_name: "Nome do tipo"
     natures: "Tipos"
