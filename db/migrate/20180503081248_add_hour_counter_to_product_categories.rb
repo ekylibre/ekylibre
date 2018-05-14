@@ -8,7 +8,7 @@ class AddHourCounterToProductCategories < ActiveRecord::Migration
   end
 
   def down
-    varieties = [:tractor, :heavy_equipment, :handling_equipment]
+    varieties = [:tractor]
     product_nature_names = [:dumper, :forklift, :truck, :wheel_loader]
 
     update_by_variety(varieties, remove_hour_counter: true)
