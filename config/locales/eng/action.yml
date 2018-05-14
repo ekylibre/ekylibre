@@ -1851,11 +1851,7 @@ eng:
     quandl: "Quandl" #?
     quantity: "Quantity"
     quantity_available: "Quantity available" #??
-<<<<<<< HEAD
     quantity_to_receive: "Quantity to receive"
-=======
-    quantity_to_receive: "Quantity to receive" #?
->>>>>>> 7df4eaf7314a32d9ea3779b0a300c6a33710ed55
     query: "Query:" #?
     raw_income: "Raw income"
     reading_tasks: "Reading tasks" #?
