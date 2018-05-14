@@ -91,7 +91,7 @@ class InterventionParameterReading < Ekylibre::Record::Base
   def save_hour_counter
     self.product_reading ||= product.readings.find_by(indicator_name: indicator_name)
 
-    return if self.product_reading.value > 0.in(:hour) && value.zero?
+    return if self.product_reading.present? && self.product_reading.value > 0.in(:hour) && value.zero?
 
     return if self.product_reading.present? &&
                 self.product_reading.read_at.present? &&
