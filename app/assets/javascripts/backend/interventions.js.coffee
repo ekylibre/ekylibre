@@ -403,6 +403,9 @@
     if unrollValueElement.val() != ""
       unrollValueElement.val('')
 
+    harvestInProgressError = $(nestedCultivationBlock).find('.harvest-in-progress-error')
+    $(harvestInProgressError).remove() if $(harvestInProgressError).length > 0
+
     plantLandParcelSelector = new E.PlantLandParcelSelector()
     plantLandParcelSelector.changeUnrollUrl(event, unrollElement)
 
@@ -410,6 +413,10 @@
   $(document).on 'selector:change', '.nested-parameters .nested-cultivation .intervention_targets_product .selector-search', (event) ->
     landParcelPlantSelectorElement = $(event.target).closest('.nested-cultivation').find('.land-parcel-plant-selector')
     productId = $(event.target).closest('.selector').find('.selector-value').val()
+
+    nestedCultivationBlock = $(event.target).closest('.nested-cultivation')
+    harvestInProgressError = $(nestedCultivationBlock).find('.harvest-in-progress-error')
+    $(harvestInProgressError).remove() if $(harvestInProgressError).length > 0
 
     E.interventionForm.checkPlantLandParcelSelector(productId, landParcelPlantSelectorElement)
     E.interventionForm.checkHarvestInProgress(event, productId, landParcelPlantSelectorElement)
@@ -468,14 +475,17 @@
         url: "/backend/products/interventions/#{ productId }/has_harvesting",
         data: { intervention_started_at: interventionStartedAt }
         success: (data, status, request) ->
+          nestedCultivationBlock = $(event.target).closest('.nested-cultivation')
+          unrollBlock = $(nestedCultivationBlock).find('.intervention_targets_product .controls')
+          harvestInProgressError = $(unrollBlock).find('.harvest-in-progress-error')
+
           if data.has_harvesting
-           nestedCultivationBlock = $(event.target).closest('.nested-cultivation')
            unrollElement = $(nestedCultivationBlock).find('.intervention_targets_product .selector-search')
-           unrollBlock = $(nestedCultivationBlock).find('.intervention_targets_product .controls')
 
-           error = $("<span class='help-inline'>#{ unrollElement.attr('data-harvest-in-progress-error-message') }</span>")
-
+           error = $("<span class='help-inline harvest-in-progress-error'>#{ unrollElement.attr('data-harvest-in-progress-error-message') }</span>")
            $(unrollBlock).append(error)
+          else if $(harvestInProgressError).length > 0
+            $(harvestInProgressError).remove()
 
 
   $(document).ready ->
