@@ -4888,12 +4888,9 @@ naming_formats:
   id:
     type: integer
     required: true
-<<<<<<< HEAD
   name:
     type: string
     required: true
-=======
->>>>>>> bcc8d1b39c825574ddbb4dc1de68d2ef7d8ca8d1
   type:
     type: string
     required: true
