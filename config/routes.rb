@@ -894,6 +894,12 @@ Rails.application.routes.draw do
     resources :preferences, only: %i[update]
 
     namespace :products do
+      resources :indicators, only: [] do
+        member do
+          get :variable_indicators
+        end
+      end
+
       resources :search_products, only: [] do
         member do
           get :datas

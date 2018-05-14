@@ -2,10 +2,10 @@
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
   <procedure name="administrative_tasks" categories="administrative_tasks" actions="administrative">
     <parameters>
-      <doer name="responsible" filter="is worker and can move"/>
       <target name="land_parcel" filter="is land_parcel and has indicator shape" cardinality="*">
         <attribute name="working_zone" default-value="PRODUCT.shape" if="PRODUCT?"/>
       </target>
+      <doer name="responsible" filter="is worker and can move"/>
       <input name="consumable_part" filter="is matter" cardinality="*">
         <handler name="population" />
       </input>

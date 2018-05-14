@@ -356,6 +356,25 @@
       E.interventions.updateAvailabilityInstant(started_at)
 
 
+  $(document).on 'selector:change', '.intervention_tools_product .selector-search', (event) ->
+    toolId = $(event.target).closest('.selector').find('.selector-value').val()
+
+    $.ajax
+      url: "/backend/products/indicators/#{ toolId }/variable_indicators"
+      success: (data, status, request) ->
+        return if data['is_hour_counter'] == false
+
+        hourCounterBlock = $(event.target).closest('.nested-product-parameter').find('.tool-nested-readings')
+
+        return if hourCounterBlock.hasClass('visible')
+
+        hourCounterBlock.removeClass('hidden')
+        hourCounterBlock.addClass('visible')
+
+        hourCounterLinks = hourCounterBlock.find('.links')
+        hourCounterBlock.find('.add-reading').trigger('click') if hourCounterLinks.is(':visible')
+
+
   $(document).on "selector:change", 'input[data-selector-id="intervention_doer_product_id"], input[data-selector-id="intervention_tool_product_id"]', (event) ->
     element = $(event.target)
     blockElement = element.closest('.nested-fields')

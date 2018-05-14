@@ -1650,6 +1650,7 @@ arb:
     headers: "رؤوس"
     host: "مضيف"
     # hour_counter: "Hour counter"
+    # hour_counter_unit_name: "Hour counter unit name"
     hour_duration: "(ساعة (ساعات" #?
     human_activities_names: "أسماء الأنشطة"
     human_shape_area: "منطقة الشكل"

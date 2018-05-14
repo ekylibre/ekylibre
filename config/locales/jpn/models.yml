@@ -865,6 +865,7 @@ jpn:
     headers: "ヘッダ"
     host: "ホスト"
     # hour_counter: "Hour counter"
+    # hour_counter_unit_name: "Hour counter unit name"
     human_activities_names: "活動名"
     human_shape_area: "形状領域"
     human_target_names: "ターゲット名"
