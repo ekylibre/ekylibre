@@ -89,12 +89,13 @@ class InterventionParameterReading < Ekylibre::Record::Base
   private
 
   def save_hour_counter
+    return if value.nil?
+
     self.product_reading ||= product.readings.find_by(indicator_name: indicator_name)
 
     return if self.product_reading.present? &&
                 self.product_reading.read_at.present? &&
-                (self.product_reading.read_at > intervention.stopped_at ||
-                 self.product_reading.value >= value)
+                self.product_reading.read_at > intervention.stopped_at
 
 
     if self.product_reading.nil?
