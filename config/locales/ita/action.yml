@@ -1073,6 +1073,7 @@ ita:
     credits: "Crediti"
     cropping_plan: "piano di ritaglio"
     cropping_plan_on_cultivable_zones: "Ritaglio piano sulle zone coltivabili"
+    # crops: "Crops"
     crumbs: "briciole"
     cultivable_zone: "zone coltivabili"
     cultivable_zones: "zone coltivabili"
@@ -1628,6 +1629,7 @@ ita:
     quantity: "Quantità"
     # quantity_available: "Quantity available"
     quantity_rest: "Quantità rimanente" #?
+    # quantity_to_receive: "Quantity to receive"
     # query: "Query:"
     raw_income: "Reddito Raw"
     raw_margin: "margine di Raw" #?
@@ -1638,6 +1640,7 @@ ita:
     # receipt_date: "Receipt date"
     # receipt_responsible: "Receipt responsible"
     received: "ricevuto"
+    # received_quantity: "Received quantity"
     # receiving_address: "Receiving address"
     recent_events: "Eventi recenti"
     # reception: "Reception"

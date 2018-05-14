@@ -900,6 +900,12 @@ Rails.application.routes.draw do
         end
       end
 
+      resources :search_products, only: [] do
+        member do
+          get :datas
+        end
+      end
+
       resources :search_variants, only: [] do
         collection do
           get :search_by_expression

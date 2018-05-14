@@ -313,6 +313,7 @@ eng:
       intervention_participation: "Intervention participation"
       intervention_product_parameter: "Intervention product parameter"
       # intervention_proposal: "Intervention proposal"
+      # intervention_proposal/parameter: "Intervention proposal/parameter"
       intervention_target: "Intervention target"
       # intervention_template: "Intervention template"
       # intervention_template/product_parameter: "Intervention template/product parameter"
@@ -982,6 +983,7 @@ eng:
     intervention_participation: "Intervention participation"
     intervention_participations: "Intervention participations"
     intervention_product_parameters: "Intervention casts"
+    intervention_proposal: "Intervention proposal"
     # intervention_proposals: "Intervention proposals"
     intervention_template: "Intervention template"
     intervention_templates: "Intervention templates"
@@ -1330,7 +1332,7 @@ eng:
     product_reading: "Product reading"
     product_reading_tasks: "Product reading tasks" #?
     product_readings: "Product readings" #?
-    # product_type: "Product type"
+    product_type: "Product type"
     product_work_number: "Product work number"
     production: "Production"
     production_campaign: "Production campaign"
