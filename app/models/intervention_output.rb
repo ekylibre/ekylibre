@@ -122,22 +122,22 @@ class InterventionOutput < InterventionProductParameter
 
   def compute_output_name
     land_parcel_name = group
-                         .targets
-                         .select { |target| target.product.is_a?(LandParcel) }
-                         .first
-                         .product
-                         .name
+                       .targets
+                       .select { |target| target.product.is_a?(LandParcel) }
+                       .first
+                       .product
+                       .name
 
     compute_name = [land_parcel_name]
 
     return output_name_without_params(compute_name) if variety.blank? && batch_number.blank?
 
-    compute_name << variety unless variety.blank?
-    compute_name << batch_number unless batch_number.blank?
+    compute_name << variety if variety.present?
+    compute_name << batch_number if batch_number.present?
 
     output_duplicate_count = output_name_count(compute_name.join(' '))
 
-    compute_name << "(#{ output_duplicate_count})" unless output_duplicate_count.zero?
+    compute_name << "(#{output_duplicate_count})" unless output_duplicate_count.zero?
     compute_name.join(' ')
   end
 
@@ -154,6 +154,6 @@ class InterventionOutput < InterventionProductParameter
   end
 
   def output_name_count(name)
-    Plant.where('name like ?', "%#{ Regexp.escape(name) }%").count
+    Plant.where('name like ?', "%#{Regexp.escape(name)}%").count
   end
 end

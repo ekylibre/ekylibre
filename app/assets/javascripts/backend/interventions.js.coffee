@@ -395,6 +395,13 @@
     supplierLabel.addClass('required')
     supplierLabel.prepend("<abbr title='Obligatoire'>*</abbr>")
 
+  $(document).on 'change', '.nested-parameters .nested-cultivation .land-parcel-plant-selector', (event) ->
+    nestedCultivationBlock = $(event.target).closest('.nested-cultivation')
+    unrollElement = $(nestedCultivationBlock).find('.intervention_targets_product .selector-search')
+
+    plantLandParcelSelector = new E.PlantLandParcelSelector()
+    plantLandParcelSelector.changeUnrollUrl(event, unrollElement)
+
 
   E.interventionForm =
     displayCost: (target, quantity, unitName) ->

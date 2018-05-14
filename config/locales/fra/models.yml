@@ -1094,6 +1094,7 @@ fra:
     has_downpayment: "A un acompte"
     headers: "Têtes"
     host: "Hôte"
+    # hour_counter: "Hour counter"
     human_activities_names: "Nom des activités"
     human_shape_area: "Superficie"
     human_target_names: "Nom des cibles"
@@ -1166,6 +1167,7 @@ fra:
     intervention_participation: "Participation d’intervention"
     intervention_participations: "Participations d’intervention"
     intervention_product_parameters: "Casting"
+    # intervention_proposal: "Intervention proposal"
     # intervention_template: "Intervention template"
     # intervention_templates: "Intervention templates"
     interventions: "Interventions"
@@ -1532,6 +1534,7 @@ fra:
     product_reading_tasks: "Tâches de relevé d’indicateur de produit"
     product_readings: "Relevés d’indicateur de produit"
     product_triple_mixings: "Triple mélanges de produit" #?
+    # product_type: "Product type"
     product_way: "Voie du produit" #?
     product_work_number: "N° de travail"
     production: "Production"

@@ -1649,6 +1649,7 @@ arb:
     hashed_password: "تشفير كلمة المرور" #?
     headers: "رؤوس"
     host: "مضيف"
+    # hour_counter: "Hour counter"
     hour_duration: "(ساعة (ساعات" #?
     human_activities_names: "أسماء الأنشطة"
     human_shape_area: "منطقة الشكل"
@@ -1721,6 +1722,7 @@ arb:
     intervention_participation: "مشاركة التدخل"
     intervention_participations: "المساهمات تدخل"
     intervention_product_parameters: "يلقي تدخل"
+    # intervention_proposal: "Intervention proposal"
     # intervention_template: "Intervention template"
     # intervention_templates: "Intervention templates"
     interventions: "التدخلات"
@@ -2135,6 +2137,7 @@ arb:
     product_reading: "قراءة المنتج"
     product_reading_tasks: "مهام القراءة المنتج"
     product_readings: "قراءات المنتج"
+    # product_type: "Product type"
     # product_work_number: "Product work number"
     productable_products: "المنتجات الممكن انتاجها" #?
     production: "الإنتاج"

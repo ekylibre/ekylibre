@@ -1825,8 +1825,8 @@ fra:
     number_of_cap_islets: "Nombre d’ilôt PAC"
     number_of_cap_land_parcels: "Nombre de parcelle PAC"
     number_options: "Options de numérotations" #?
+    number_with_param: "N° %{number}" #?
     numbers: "Numéros"
-    number_with_param: "N° %{number}"
     on_account: "À remettre sur le compte"
     one_condition: "au moins une condition"
     open_a_campaign: "Ouvrir une campagne de production" #?
@@ -1999,7 +1999,6 @@ fra:
       order: "Commande" #?
       refused: "Refusée" #?
     purchases_stocks_variation: "Variation de stocks d’approvisionnements"
-    received_quantity: "Quantité réceptionée"
     quality: "Qualité"
     quandl: "Quandl"
     quantity: "Quantité"
@@ -2017,6 +2016,7 @@ fra:
     receipt_date: "Date de réception"
     receipt_responsible: "Responsable réception"
     received: "Reçue"
+    received_quantity: "Quantité réceptionée"
     receiving_address: "Adresse de réception"
     recent_events: "Derniers événements"
     recent_historic: "Historique récent" #?
@@ -2082,7 +2082,7 @@ fra:
     revenues: "Recettes"
     revenues_by_product_nature: "Chiffre d’affaire par type de produit"
     reverse: "Appliquer la condition inverse"
-    revise: "Mettre à jour" #?
+    revise: "Mettre à jour"
     right_parts: #?
       accountancy: "Droits module Comptabilité" #?
       company: "Droits module Société" #?

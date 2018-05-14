@@ -1074,6 +1074,7 @@ jpn:
     credits: "クレジット"
     cropping_plan: "作付計画"
     cropping_plan_on_cultivable_zones: "耕作区域に計画をトリミング"
+    # crops: "Crops"
     crumbs: "パン粉"
     cultivable_zone: "耕作地帯"
     cultivable_zones: "耕作地帯"
@@ -1631,6 +1632,7 @@ jpn:
     quantity: "量"
     # quantity_available: "Quantity available"
     quantity_rest: "残量" #?
+    # quantity_to_receive: "Quantity to receive"
     query: "クエリ："
     raw_income: "生収入"
     raw_margin: "生のマージン" #?
@@ -1641,6 +1643,7 @@ jpn:
     # receipt_date: "Receipt date"
     # receipt_responsible: "Receipt responsible"
     received: "受け"
+    # received_quantity: "Received quantity"
     # receiving_address: "Receiving address"
     recent_events: "最近のイベント"
     # reception: "Reception"
