@@ -1,6 +1,5 @@
-GIT
-  remote: git@gitlab.com:ekylibre-integration/planning.git
-  revision: c36e94e41e3ef1a23334372fa6b42224274df7d2
+PATH
+  remote: ../planning
   specs:
     planning (0.6.1)
       factory_bot
@@ -127,7 +126,7 @@ GEM
     capistrano-rbenv (2.1.3)
       capistrano (~> 3.1)
       sshkit (~> 1.3)
-    capybara (3.0.3)
+    capybara (3.1.0)
       addressable
       mini_mime (>= 0.1.3)
       nokogiri (~> 1.8)
@@ -510,13 +509,13 @@ GEM
     sdoc (0.4.2)
       json (~> 1.7, >= 1.7.7)
       rdoc (~> 4.0)
-    selenium-webdriver (3.11.0)
+    selenium-webdriver (3.12.0)
       childprocess (~> 0.5)
       rubyzip (~> 1.2)
     sentry-raven (2.7.3)
       faraday (>= 0.7.6, < 1.0)
-    sepa_king (0.10.1)
-      activemodel (>= 3.0.0)
+    sepa_king (0.11.0)
+      activemodel (>= 3.1)
       builder
       iban-tools
     sexp_processor (4.11.0)

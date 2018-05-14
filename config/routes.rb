@@ -655,6 +655,12 @@ Rails.application.routes.draw do
           get :parameter_cost
         end
       end
+
+      resources :product_planning, only: [] do
+        member do
+          get :is_planned_intervention
+        end
+      end
     end
 
     resources :intervention_participations, only: %i[index update destroy] do
