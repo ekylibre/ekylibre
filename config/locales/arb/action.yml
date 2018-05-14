@@ -1320,6 +1320,7 @@ arb:
     critic_stocks: "الاسهم على حافة الخطر" #?
     cropping_plan: "خطة زراعة المحاصيل"
     cropping_plan_on_cultivable_zones: "زراعة المحاصيل الخطة على المناطق الصالحة للزراعة"
+    # crops: "Crops"
     crumbs: "فتات"
     csv_statistics: "نموذج احصائيات القيمة النقدية" #?
     cultivable_zone: "منطقة القابلة للزراعة"
@@ -2101,6 +2102,7 @@ arb:
     # quantity_available: "Quantity available"
     quantity_rest: "الكمية المتبقية" #?
     quantity_to_credit: "شمولية الكمية بالائتمانات" #?
+    # quantity_to_receive: "Quantity to receive"
     quarterly: "Trimestrielle" #?
     query: ": الاستعلام"
     raw_income: "الدخل الخام"
@@ -2112,6 +2114,7 @@ arb:
     # receipt_date: "Receipt date"
     # receipt_responsible: "Receipt responsible"
     received: "مستلم"
+    # received_quantity: "Received quantity"
     # receiving_address: "Receiving address"
     recent_events: "الاحداث الاخيرة"
     # reception: "Reception"

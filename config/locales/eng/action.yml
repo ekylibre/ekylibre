@@ -705,6 +705,7 @@ eng:
       # receptions_to_reconciliate: "Receptions to reconciliate reconciliation: %{name}"
     backend/purchases/reconcilation_states:
       # put_accepted_state: "Put accepted state reconcilation state: %{name}"
+      # put_reconcile_state: "Put reconcile state reconcilation state: %{name}"
       # put_to_reconcile_state: "Put to reconcile state reconcilation state: %{name}"
     backend/quick_affairs:
       # new: "New quick affair"
@@ -1841,12 +1842,11 @@ eng:
     purchase_payments: "Purchase payments"
     purchases: "Purchases"
     purchases_stocks_variation: "Purchases stocks variation" #?!
-    received_quantity: "Received quantity"
     quality: "Quality"
     quandl: "Quandl" #?
     quantity: "Quantity"
-    quantity_available: "Quantity available"
-    quantity_to_receive: "Quantity to receive"
+    quantity_available: "Quantity available" #??
+    quantity_to_receive: "Quantity to receive" #?
     query: "Query:" #?
     raw_income: "Raw income"
     reading_tasks: "Reading tasks" #?
@@ -1856,6 +1856,7 @@ eng:
     receipt_date: "Receipt date"
     receipt_responsible: "Receipt responsible"
     received: "Received" #?
+    received_quantity: "Received quantity" #?
     receiving_address: "Receiving address"
     recent_events: "Recent events"
     reception: "Reception"
@@ -1903,7 +1904,7 @@ eng:
     revenues: "Revenues" #?
     revenues_by_product_nature: "Revenues by product type"
     reverse: "Reverse condition"
-    revise: "Revise" #?!
+    revise: "Revise"
     rights: "Rights"
     risk_and_charges_provisions: "Risk and charges provisions" #?!
     role: "Role" #?
@@ -2595,6 +2596,7 @@ eng:
       # purchase_order_items: "Purchase order items"
       # purchase_orders_to_reconciliate: "Purchase orders to reconciliate"
       # put_accepted_state: "Put accepted state"
+      # put_reconcile_state: "Put reconcile state"
       # put_to_reconcile_state: "Put to reconcile state"
       qualify: "Qualify"
       # quantifiers: "Quantifiers"

@@ -14,6 +14,16 @@
     = f.referenced_association :variant, label: reference.human_name, source: {scope: reference.scope_hash.merge(availables: true)}, input_html: { data: { intervention_updater: prefix + 'variant_id' }}
     -#= f.referenced_association :product, as: :hidden, input_html: { data: { intervention_updater: prefix + 'product_id' }}
   - else
+    - if f.object.reference_name.to_sym == :cultivation
+      .control-group.land-parcel-plant-selector
+        = label_tag :target.tl, nil, class: 'control-label'
+
+        .controls
+          = radio_button_tag 'target', 'plant', f.object.decorate.plant?, class: 'plant-radio-button'
+          = label_tag :plant.tl
+          = radio_button_tag 'target', 'land_parcel', f.object.decorate.land_parcel?, class: 'land-parcel-radio-button'
+          = label_tag :land_parcel_name.tl
+
     = f.referenced_association :product, label: reference.human_name, source: { scope: reference.scope_hash.merge(availables: [at: started_at.strftime("%Y-%m-%d %H:%M")]), keep: true }, input_html: { class: "scoped-parameter", data: { intervention_updater: prefix + 'product_id' } }, new: false
 
   - if reference.doer? || reference.tool?

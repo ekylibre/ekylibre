@@ -24,6 +24,7 @@
 #
 #  created_at :datetime
 #  id         :integer          not null, primary key
+#  name       :string           not null
 #  type       :string           not null
 #  updated_at :datetime
 #
