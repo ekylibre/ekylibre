@@ -99,10 +99,13 @@ class InterventionInput < InterventionProductParameter
     dose = nil
     if variant.france_maaid
       act = intervention.activities
-      harvest_year = intervention.activity_productions.first.campaign.harvest_year
-      crop_code = act.first.production_nature.pfi_crop_code
+      first_production = intervention.activity_productions.first
+      harvest_year = first_production.campaign.harvest_year if first_production && first_production.campaign
+      crop_code = act.first.production_nature.pfi_crop_code if act.first.production_nature
       maaid = variant.france_maaid
-      dose = RegisteredPfiDose.where(maaid: maaid, crop_id: crop_code, harvest_year: harvest_year, target_id: nil).first
+      if crop_code && maaid && harvest_year
+        dose = RegisteredPfiDose.where(maaid: maaid, crop_id: crop_code, harvest_year: harvest_year, target_id: nil).first
+      end
     end
     dose
   end
@@ -110,14 +113,16 @@ class InterventionInput < InterventionProductParameter
   # return legal dose according to Lexicon phyto dataset and maaid number
   def legal_pesticide_informations
     pesticide = RegisteredPhytosanitaryProduct.where(maaid: variant.france_maaid).first
-    specie = intervention.activity_productions.first.cultivation_variety
-    usages = pesticide.usages.of_specie(specie)
+    if pesticide
+      specie = intervention.activity_productions.first.cultivation_variety
+      usages = pesticide.usages.of_specie(specie)
 
-    info = {}
-    info[:name] = pesticide.proper_name
-    info[:usage] = usages.first.target_name['fra'] if usages.first
-    info[:dose] = Measure.new(usages.first.dose_quantity, usages.first.dose_unit) if usages.first
-    info
+      info = {}
+      info[:name] = pesticide.proper_name
+      info[:usage] = usages.first.target_name['fra'] if usages.first
+      info[:dose] = Measure.new(usages.first.dose_quantity, usages.first.dose_unit) if usages.first
+      info
+    end
   end
 
   # only case in mass_area_density && volume_area_density in legals
