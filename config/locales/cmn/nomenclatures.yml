@@ -2153,6 +2153,7 @@ cmn:
         healthy: "动物疾病状态"
         height: "高度"
         horizontal_rotation: "水平旋转"
+        # hour_counter: "Hour counter"
         immunoglobulins_concentration: "免疫球蛋白浓度"
         impurity_concentration: "杂质浓度"
         inhibitors_presence: "抑制剂存在"

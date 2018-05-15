@@ -1103,6 +1103,7 @@ spa:
     critic_stocks: "Depósitos bajo el umbral crítico" #?
     cropping_plan: "Plan de cultivo"
     cropping_plan_on_cultivable_zones: "Recorte el plan de zonas cultivables"
+    # crops: "Crops"
     crumbs: "Migas"
     csv_statistics: "Statisticas a exportar al formato CSV" #?
     cultivable_zone: "Zona cultivable"
@@ -1321,7 +1322,10 @@ spa:
     # hint: "Hint: %{value}"
     historic: "Histórico"
     home: "Vuelta a la cogida de la ayuda"
+    # hour: "Hour"
+    # hour_counter: "Hour counter"
     hours: "MARIDO"
+    # hours_label: "Hours"
     human_working_duration: "Duración de trabajo"
     humans: "HORA"
     iban: "Numero de cuento bancario internacional (IBAN)"
@@ -1743,6 +1747,7 @@ spa:
     # quantity_available: "Quantity available"
     quantity_rest: "Quantidad restante" #?
     quantity_to_credit: "Cantidad a pasar en activo" #?
+    # quantity_to_receive: "Quantity to receive"
     quarterly: "Trimestral" #?
     query: "Demanda:"
     raw_income: "Ingreso en bruto"
@@ -1754,6 +1759,7 @@ spa:
     # receipt_date: "Receipt date"
     # receipt_responsible: "Receipt responsible"
     received: "Recibido"
+    # received_quantity: "Received quantity"
     # receiving_address: "Receiving address"
     recent_events: "Eventos recientes"
     # reception: "Reception"

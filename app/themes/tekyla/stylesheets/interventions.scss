@@ -225,6 +225,17 @@ $preview-modal-height: 80vh;
       font-weight: bold;
     }
   }
+
+  .nested-product-parameter .nested-readings {
+    margin: 0;
+    border: none;
+  }
+
+  .nested-cultivation .land-parcel-plant-selector {
+    .controls label {
+      margin-right: 1em;
+    }
+  }
 }
 
 .product_parameters .cast {
