@@ -30,7 +30,7 @@ class RegisteredBuildingZone < ActiveRecord::Base
   include Lexiconable
 
   scope :in_bounding_box, lambda { |bounding_box|
-    where("registered_building_zones.shape && ST_MakeEnvelope(#{bounding_box.join(", ")})")
+    where("registered_building_zones.shape && ST_MakeEnvelope(#{bounding_box.join(', ')})")
   }
 
   def shape
@@ -40,5 +40,4 @@ class RegisteredBuildingZone < ActiveRecord::Base
   def centroid
     ::Charta.new_geometry(self[:centroid])
   end
-
 end

@@ -4,6 +4,7 @@ spa:
     agro_systemes_water_analyses: "Los análisis de agua AGRO Systèmes"
     # agroedi_daplos: "Agroedi daplos"
     bovins_croissance_cattle_performance_controls: "Controles de rendimiento del ganado bovins Croissance"
+    # caj_incoming_deliveries: "Caj incoming deliveries"
     charentes_alliance_incoming_deliveries: "Charentes Alianza entregas entrantes"
     charentes_alliance_outgoing_deliveries: "Charentes Alianza entregas salientes"
     # ebp_edi: "EBP EDI"

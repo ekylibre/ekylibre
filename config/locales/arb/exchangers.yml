@@ -4,6 +4,7 @@ arb:
     agro_systemes_water_analyses: "تحاليل المياه الزراعية SYSTEMES"
     # agroedi_daplos: "Agroedi daplos"
     bovins_croissance_cattle_performance_controls: "Bovins CROISSANCE ضوابط أداء الماشية"
+    # caj_incoming_deliveries: "Caj incoming deliveries"
     charentes_alliance_incoming_deliveries: "شارانت التحالف شحنات واردة"
     charentes_alliance_outgoing_deliveries: "شارانت التحالف شحنات الصادرة"
     ebp_edi: "إب إدي"

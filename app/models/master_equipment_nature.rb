@@ -34,6 +34,6 @@ class MasterEquipmentNature < ActiveRecord::Base
                         foreign_key: :equipment_nature_id,
                         dependent: :restrict_with_exception
   has_many :flows, class_name: 'MasterEquipmentFlow',
-                        foreign_key: :equipment_nature_id,
-                        dependent: :restrict_with_exception
+                   foreign_key: :equipment_nature_id,
+                   dependent: :restrict_with_exception
 end

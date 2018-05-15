@@ -6,6 +6,7 @@ ita:
     bordeaux_sciences_agro_istea_general_ledger: "Bordeaux Scienze Agro ISTEA contabilità generale" #?
     bordeaux_sciences_agro_istea_journals: "Bordeaux Scienze Agro ISTEA riviste" #?
     bovins_croissance_cattle_performance_controls: "Bovins Croissance controlli delle prestazioni del bestiame"
+    # caj_incoming_deliveries: "Caj incoming deliveries"
     charentes_alliance_incoming_deliveries: "Charentes Alliance consegne in arrivo"
     charentes_alliance_outgoing_deliveries: "Charentes Alliance consegne in uscita"
     ebp_edi: "EDI EBP"

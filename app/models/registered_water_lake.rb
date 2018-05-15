@@ -29,11 +29,10 @@ class RegisteredWaterLake < ActiveRecord::Base
   include Lexiconable
 
   scope :in_bounding_box, lambda { |bounding_box|
-    where("registered_water_lakes.shape && ST_MakeEnvelope(#{bounding_box.join(", ")})")
+    where("registered_water_lakes.shape && ST_MakeEnvelope(#{bounding_box.join(', ')})")
   }
 
   def shape
     ::Charta.new_geometry(self[:shape])
   end
-
 end

@@ -4,6 +4,7 @@ cmn:
     agro_systemes_water_analyses: "农业Systèmes的水分析"
     # agroedi_daplos: "Agroedi daplos"
     bovins_croissance_cattle_performance_controls: "Bovins Croissance牛性能控制"
+    # caj_incoming_deliveries: "Caj incoming deliveries"
     charentes_alliance_incoming_deliveries: "夏朗德联盟传入交付"
     charentes_alliance_outgoing_deliveries: "夏朗德联盟传出交付"
     # ebp_edi: "EBP EDI"

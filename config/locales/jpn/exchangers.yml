@@ -4,6 +4,7 @@ jpn:
     agro_systemes_water_analyses: "AGROSystèmesの水の分析"
     # agroedi_daplos: "Agroedi daplos"
     bovins_croissance_cattle_performance_controls: "Bovins Croissance牛のパフォーマンスコントロール"
+    # caj_incoming_deliveries: "Caj incoming deliveries"
     charentes_alliance_incoming_deliveries: "シャラントアライアンス着信配達"
     charentes_alliance_outgoing_deliveries: "シャラントアライアンス発信配達"
     # ebp_edi: "EBP EDI"

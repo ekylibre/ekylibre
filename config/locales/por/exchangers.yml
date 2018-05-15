@@ -4,6 +4,7 @@ por:
     agro_systemes_water_analyses: "Análises de água AGRO Systèmes"
     # agroedi_daplos: "Agroedi daplos"
     bovins_croissance_cattle_performance_controls: "Controles de desempenho gado bovins Croissance"
+    # caj_incoming_deliveries: "Caj incoming deliveries"
     charentes_alliance_incoming_deliveries: "Charentes Alliance entregas recebidas"
     charentes_alliance_outgoing_deliveries: "Charentes Alliance entregas de saída"
     ebp_edi: "EBI EDI"

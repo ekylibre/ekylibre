@@ -11,12 +11,8 @@ module Backend
         dataset = params[:dataset] || 'CHRIS/LIFFE_EBM4'
         identifier = Identifier.find_by(nature: :quandl_token)
         token = (identifier ? identifier.value : 'UcczgS4H7VXfcqN6-GgM')
-        @data = Quandl::Dataset.get(dataset).data(params: { start_date: started, end_date: finished, order: 'asc'})
-        if @data.any?
-          @data
-        else
-          nil
-        end
+        @data = Quandl::Dataset.get(dataset).data(params: { start_date: started, end_date: finished, order: 'asc' })
+        @data if @data.any?
       end
     end
   end

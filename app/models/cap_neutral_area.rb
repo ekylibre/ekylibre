@@ -51,5 +51,4 @@ class CapNeutralArea < Ekylibre::Record::Base
   scope :of_campaign, lambda { |*campaigns|
     joins(:cap_statement).merge(CapStatement.of_campaign(*campaigns))
   }
-
 end

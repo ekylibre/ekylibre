@@ -4,6 +4,7 @@ deu:
     agro_systemes_water_analyses: "AGRO Systèmes Wasseranalysen"
     # agroedi_daplos: "Agroedi daplos"
     bovins_croissance_cattle_performance_controls: "Bovins Croissance Rinder Leistungskontrollen"
+    # caj_incoming_deliveries: "Caj incoming deliveries"
     charentes_alliance_incoming_deliveries: "Charentes Allianz eingehenden Lieferungen"
     charentes_alliance_outgoing_deliveries: "Charentes Allianz abgehende Lieferungen"
     # ebp_edi: "EBP EDI"

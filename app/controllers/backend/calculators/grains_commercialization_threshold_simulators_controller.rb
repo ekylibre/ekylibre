@@ -1,4 +1,5 @@
 # coding: utf-8
+
 # == License
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2012-2015 David Joulin, Brice Texier
@@ -18,7 +19,5 @@
 #
 
 class Backend::Calculators::GrainsCommercializationThresholdSimulatorsController < Backend::Calculators::BaseController
-  def show
-  end
-
+  def show; end
 end
