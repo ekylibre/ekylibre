@@ -16,7 +16,7 @@
   - prefix = namespace + reflection.to_s
 
   = f.simple_fields_for(reflection, list) do |c|
-    = render partial_name, f: c, reference: reference, namespace: prefix
+    = render "/backend/interventions/#{partial_name}", f: c, reference: reference, namespace: prefix
   .links
     - if reference.display_status
       - if list.map(&:product).compact.blank?
@@ -28,4 +28,4 @@
         %span.status{ 'data-display-status': miscibility }
         %span.beta
           = :beta.tl
-    = link_to_add_association :add_x.tl(x: reference.human_name), f, reflection, partial: partial_name, render_options: {locals: {thing: reflection, reference: reference, namespace: prefix}}, class: 'nested-add'
+    = link_to_add_association :add_x.tl(x: reference.human_name), f, reflection, partial: "/backend/interventions/#{partial_name}", render_options: {locals: {thing: reflection, reference: reference, namespace: prefix}}, class: 'nested-add'
