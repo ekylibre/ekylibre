@@ -20,17 +20,16 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
-# == Table: master_equipment_flows
+# == Table: master_equipment_natures
 #
-#  equipment_nature_id :integer          not null
-#  id                  :integer          not null, primary key
-#  indicator_name      :string
-#  indicator_unit      :string
-#  indicator_value     :decimal(19, 4)
-#  intervention_flow   :decimal(19, 4)
-#  procedure_name      :string
+#  id                          :integer          not null, primary key
+#  main_frozen_indicator_name  :string
+#  name                        :jsonb
+#  nature                      :string           not null
+#  other_frozen_indicator_name :string
 #
-class MasterEquipmentFlow < ActiveRecord::Base
-  include Lexiconable
-  belongs_to :equipment_nature, class_name: 'MasterEquipmentNature'
+require 'test_helper'
+
+class MasterEquipmentNatureTest < ActiveSupport::TestCase
+  # Add tests here...
 end

@@ -30,7 +30,8 @@
 #  intervention_flow   :decimal(19, 4)
 #  procedure_name      :string
 #
-class MasterEquipmentFlow < ActiveRecord::Base
-  include Lexiconable
-  belongs_to :equipment_nature, class_name: 'MasterEquipmentNature'
+require 'test_helper'
+
+class MasterEquipmentFlowTest < ActiveSupport::TestCase
+  # Add tests here...
 end

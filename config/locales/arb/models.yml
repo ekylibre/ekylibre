@@ -1512,6 +1512,7 @@ arb:
     entry_number: "رقم الدخول"
     entry_on: "الدخول على موقع"
     entry_reason: "السبب دخول"
+    # equipment_nature: "Equipment nature"
     establishment: "المؤسسة" #?
     establishment_id: "مؤسسة" #?
     establishments: "المؤسسات" #?
@@ -1681,6 +1682,7 @@ arb:
     indicator: "مؤشر"
     indicator_datatype: "مؤشر نوع البيانات"
     indicator_name: "اسم المؤشر"
+    # indicator_unit: "Indicator unit"
     indicators: "مؤشرات"
     indirect_links: "روابط مباشرة"
     initial_balance_credit: "الائتمان توازن الأولية"
@@ -2512,7 +2514,7 @@ arb:
     unconfirmed_email: "البريد الإلكتروني غير مؤكد"
     undelivered_invoice_journal_entry: "دخول فاتورة غير المسلمة"
     undelivered_quantity: "يبقى للتسليم"
-    unit: "الوحدة" #?
+    unit: "الوحدة"
     unit_amount: "كمية وحدة"
     unit_currency: "العملة وحدة"
     unit_id: "وحدة" #?

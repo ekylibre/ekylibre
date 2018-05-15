@@ -4705,7 +4705,7 @@ master_equipment_costs:
     required: true
   equipment_nature_id:
     type: integer
-    references: ''
+    references: master_equipment_nature
     required: true
   id:
     type: integer
@@ -4758,6 +4758,28 @@ master_equipment_costs:
   unit:
     type: string
     required: true
+master_equipment_flows:
+  equipment_nature_id:
+    type: integer
+    references: master_equipment_nature
+    required: true
+  id:
+    type: integer
+    required: true
+  indicator_name:
+    type: string
+  indicator_unit:
+    type: string
+  indicator_value:
+    type: decimal
+    precision: 19
+    scale: 4
+  intervention_flow:
+    type: decimal
+    precision: 19
+    scale: 4
+  procedure_name:
+    type: string
 master_equipment_natures:
   id:
     type: integer

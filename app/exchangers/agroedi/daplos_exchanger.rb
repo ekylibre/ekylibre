@@ -557,11 +557,10 @@ module Agroedi
       end
 
       # complete equipment if not present
-      
+
       # complete worker if not present
 
       nil
     end
-
   end
 end

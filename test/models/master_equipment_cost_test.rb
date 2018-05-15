@@ -20,17 +20,26 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
-# == Table: master_equipment_flows
+# == Table: master_equipment_costs
 #
-#  equipment_nature_id :integer          not null
-#  id                  :integer          not null, primary key
-#  indicator_name      :string
-#  indicator_unit      :string
-#  indicator_value     :decimal(19, 4)
-#  intervention_flow   :decimal(19, 4)
-#  procedure_name      :string
+#  currency               :string           not null
+#  equipment_nature_id    :integer          not null
+#  id                     :integer          not null, primary key
+#  indicator_name         :string
+#  indicator_unit         :string
+#  maximal_value          :decimal(19, 4)
+#  minimal_value          :decimal(19, 4)
+#  segment_1_amount       :decimal(19, 4)   not null
+#  segment_1_threshold    :decimal(19, 4)   not null
+#  segment_2_amount       :decimal(19, 4)   not null
+#  segment_2_threshold    :decimal(19, 4)   not null
+#  segment_3_amount       :decimal(19, 4)
+#  segment_3_threshold    :decimal(19, 4)
+#  segment_average_amount :decimal(19, 4)   not null
+#  unit                   :string           not null
 #
-class MasterEquipmentFlow < ActiveRecord::Base
-  include Lexiconable
-  belongs_to :equipment_nature, class_name: 'MasterEquipmentNature'
+require 'test_helper'
+
+class MasterEquipmentCostTest < ActiveSupport::TestCase
+  # Add tests here...
 end

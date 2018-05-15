@@ -92,8 +92,8 @@ fra:
       index: "Bâtiments"
       new: "Nouveau bâtiment"
       show: "Détail du bâtiment\_: %{name}"
-    backend/calculators/grains_commercialization_threshold_simulators:
-      show: "Simulateur de rentabilité"
+    backend/calculators/grains_commercialization_threshold_simulators: #?
+      show: "Simulateur de rentabilité" #?
     backend/campaigns:
       current: "Campagne"
       edit: "Campagne\_: %{name}"
@@ -2224,7 +2224,7 @@ fra:
         user:
           content: "Ici, vous pouvez voir vos notifications, afficher l’aide, lire le nom de votre ferme. Vos préférences utilisateur sont modifiables à partir du menu aussi."
           title: "Menu utilisateur"
-    traceability_check : "Contrôle de cohérence de la tracabilité (Productions végétales)"
+    traceability_check: "Contrôle de cohérence de la tracabilité (Productions végétales)" #?
     tracking: "Lot"
     trade: "Ventes/Achats"
     trade_counts: "Totaux commerciaux"
