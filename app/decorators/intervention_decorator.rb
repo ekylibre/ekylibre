@@ -15,6 +15,10 @@ class InterventionDecorator < Draper::Decorator
     object.procedure.of_category?(:planting)
   end
 
+  def harvesting?
+    object.procedure.of_category?(:harvesting)
+  end
+
   def sum_targets_working_zone_area
     object
       .targets

@@ -655,6 +655,12 @@ Rails.application.routes.draw do
           get :parameter_cost
         end
       end
+
+      resources :product_planning, only: [] do
+        member do
+          get :is_planned_intervention
+        end
+      end
     end
 
     resources :intervention_participations, only: %i[index update destroy] do
@@ -894,6 +900,12 @@ Rails.application.routes.draw do
     resources :preferences, only: %i[update]
 
     namespace :products do
+      resources :interventions, only: [] do
+        member do
+          get :has_harvesting
+        end
+      end
+
       resources :indicators, only: [] do
         member do
           get :variable_indicators

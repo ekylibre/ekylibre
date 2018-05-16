@@ -949,12 +949,14 @@ eng:
       already_confirmed: "was already confirmed, please try signing in"
       confirmation_period_expired: "needs to be confirmed within %{period}, please request a new one"
       expired: "has expired, please request a new one"
+      harvest_in_progress: "Be careful, this crop is being harvested"
       not_enough: "not enough %{resource} to complete task"
       not_found: "not found"
       not_locked: "was not locked"
       not_saved:
         one: "1 error prohibited this %{resource} from being saved:"
         other: "%{count} errors prohibited this %{resource} from being saved:"
+      intervention_already_planned: "Be careful, another intervention is planned for this %{product_type} in planning"
     template:
       body: "There were problems with the following fields:"
       header:
