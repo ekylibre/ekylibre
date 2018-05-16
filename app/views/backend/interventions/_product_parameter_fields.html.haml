@@ -26,6 +26,11 @@
 
     = f.referenced_association :product, label: reference.human_name, source: { scope: reference.scope_hash.merge(availables: [at: started_at.strftime("%Y-%m-%d %H:%M")]), keep: true }, input_html: { class: "scoped-parameter", data: { intervention_updater: prefix + 'product_id', harvest_in_progress_error_message: t('errors.messages.harvest_in_progress') } }, new: false
 
+    - if reference.tool?
+      .tool-nested-readings.hidden
+        = f.nested_association :readings, partial: '/backend/interventions/hour_counter_fields', maximum: 1
+
+
   - if reference.doer? || reference.tool?
     - if !f.object.new_record?
       - participation_picto = f.object.participation.nil? ? 'timer-off' : 'timer'

@@ -906,6 +906,12 @@ Rails.application.routes.draw do
         end
       end
 
+      resources :indicators, only: [] do
+        member do
+          get :variable_indicators
+        end
+      end
+
       resources :search_products, only: [] do
         member do
           get :datas

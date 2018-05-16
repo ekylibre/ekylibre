@@ -1,5 +1,7 @@
-PATH
-  remote: ../planning
+GIT
+  remote: git@gitlab.com:ekylibre-integration/planning.git
+  revision: fc12cff858e0c7590587cda0bc36e62ad537ab58
+  branch: dev
   specs:
     planning (0.6.1)
       factory_bot
@@ -76,7 +78,7 @@ GEM
       sidekiq (>= 2.11)
     arel (6.0.4)
     ast (2.4.0)
-    autoprefixer-rails (8.4.1)
+    autoprefixer-rails (8.5.0)
       execjs
     awesome_nested_set (3.1.4)
       activerecord (>= 4.0.0, < 5.3)
@@ -200,7 +202,7 @@ GEM
     erubis (2.7.0)
     et-orbi (1.1.1)
       tzinfo
-    eventmachine (1.2.6)
+    eventmachine (1.2.7)
     exception_notification (4.2.2)
       actionmailer (>= 4.0, < 6)
       activesupport (>= 4.0, < 6)

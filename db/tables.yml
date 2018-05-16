@@ -3618,6 +3618,27 @@ intervention_participations:
   updater_id:
     type: integer
     references: user
+intervention_proposal_parameters:
+  created_at:
+    type: datetime
+    required: true
+  id:
+    type: integer
+    required: true
+  intervention_proposal_id:
+    type: integer
+    references: ''
+  product_id:
+    type: integer
+    references: "~product_type"
+  product_nature_variant_id:
+    type: integer
+    references: product_nature_variant
+  product_type:
+    type: string
+  updated_at:
+    type: datetime
+    required: true
 intervention_proposals:
   activity_production_id:
     type: integer
@@ -3632,6 +3653,10 @@ intervention_proposals:
   id:
     type: integer
     required: true
+  number:
+    type: integer
+  target:
+    type: string
   technical_itinerary_intervention_template_id:
     type: integer
     references: technical_itinerary_intervention_template
@@ -3783,6 +3808,9 @@ interventions:
   intervention_costs_id:
     type: integer
     references: intervention_costs
+  intervention_proposal_id:
+    type: integer
+    references: ''
   issue_id:
     type: integer
     references: issue
@@ -4859,6 +4887,9 @@ naming_formats:
     type: datetime
   id:
     type: integer
+    required: true
+  name:
+    type: string
     required: true
   type:
     type: string
