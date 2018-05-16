@@ -1051,6 +1051,7 @@
     <group name="schedulings">
       <item name="scheduling">
         <page to="backend/schedulings#index" nonexistent="true"/>
+        <page to="backend/schedulings#new_detailed_intervention" nonexistent="true"/>
       </item>
     </group>
   </part>
