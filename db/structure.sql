@@ -3920,7 +3920,8 @@ CREATE TABLE intervention_proposal_parameters (
     quantity numeric,
     unit character varying,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    intervention_template_product_parameter_id integer
 );
 
 
@@ -19458,4 +19459,6 @@ INSERT INTO schema_migrations (version) VALUES ('20180419140723');
 INSERT INTO schema_migrations (version) VALUES ('20180419152918');
 
 INSERT INTO schema_migrations (version) VALUES ('20180423091042');
+
+INSERT INTO schema_migrations (version) VALUES ('20180516080336');
 
