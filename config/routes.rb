@@ -647,6 +647,7 @@ Rails.application.routes.draw do
 
       member do
         post :update_estimated_date
+        post :update_intervention_dates
       end
     end
 
