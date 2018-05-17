@@ -441,6 +441,18 @@
     E.interventionForm.checkHarvestInProgress(event, productId, landParcelPlantSelectorElement)
 
 
+  $(document).on 'selector:change', '.nested-parameters .nested-plant .intervention_targets_product .selector-search', (event) ->
+    landParcelPlantSelectorElement = $(event.target).closest('.nested-product_parameter').find('.land-parcel-plant-selector')
+    productId = $(event.target).closest('.selector').find('.selector-value').val()
+
+    nestedCultivationBlock = $(event.target).closest('.nested-product_parameter')
+    harvestInProgressError = $(nestedCultivationBlock).find('.harvest-in-progress-error')
+    $(harvestInProgressError).remove() if $(harvestInProgressError).length > 0
+
+    E.interventionForm.checkPlantLandParcelSelector(productId, landParcelPlantSelectorElement)
+    E.interventionForm.checkHarvestInProgress(event, productId, landParcelPlantSelectorElement)
+
+
 
   E.interventionForm =
     displayCost: (target, quantity, unitName) ->
@@ -486,7 +498,7 @@
 
 
     checkHarvestInProgress: (event, productId, landParcelPlantSelectorElement) ->
-      return if $('#is_harvesting').val() == "false" || landParcelPlantSelectorElement.find('.land-parcel-radio-button').is(':checked')
+      return if $('#is_harvesting').val() == "true" || landParcelPlantSelectorElement.find('.land-parcel-radio-button').is(':checked')
 
       interventionStartedAt = $('.intervention-started-at').val()
 
@@ -494,7 +506,7 @@
         url: "/backend/products/interventions/#{ productId }/has_harvesting",
         data: { intervention_started_at: interventionStartedAt }
         success: (data, status, request) ->
-          nestedCultivationBlock = $(event.target).closest('.nested-cultivation')
+          nestedCultivationBlock = $(event.target).closest('.nested-product-parameter')
           unrollBlock = $(nestedCultivationBlock).find('.intervention_targets_product .controls')
           harvestInProgressError = $(unrollBlock).find('.harvest-in-progress-error')
 
