@@ -2,9 +2,9 @@ module Backend
   module PurchaseInvoicesHelper
     def reconciliation_state_title(purchase_invoice)
       is_reconciliate = purchase_invoice
-                         .items
-                         .select{ |purchase_item| purchase_item.parcels_purchase_invoice_items.any? }
-                         .any?
+                        .items
+                        .select { |purchase_item| purchase_item.parcels_purchase_invoice_items.any? }
+                        .any?
 
       if purchase_invoice.reconciliation_state.to_sym == :accepted
         html_class = 'accepted-title'

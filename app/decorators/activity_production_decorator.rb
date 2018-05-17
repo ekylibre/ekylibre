@@ -4,7 +4,7 @@ class ActivityProductionDecorator < Draper::Decorator
   def plants?
     object
       .products
-      .select{ |product| product.is_a?(Plant) }
+      .select { |product| product.is_a?(Plant) }
       .any?
   end
 
@@ -106,7 +106,7 @@ class ActivityProductionDecorator < Draper::Decorator
   end
 
   def human_costs(costs)
-    costs.each { |key, value| costs[key] = costs[key].to_i }
+    costs.each { |key, _value| costs[key] = costs[key].to_i }
   end
 
   def new_costs_hash

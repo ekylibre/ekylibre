@@ -32,8 +32,8 @@ class NamingFormatField < Ekylibre::Record::Base
   belongs_to :naming_format
 
   before_create do
-    last_field = self.naming_format.fields.last
-    self.position = 0 unless self.naming_format.fields.any?
-    self.position = last_field.position + 1 if self.naming_format.fields.any?
+    last_field = naming_format.fields.last
+    self.position = 0 unless naming_format.fields.any?
+    self.position = last_field.position + 1 if naming_format.fields.any?
   end
 end
