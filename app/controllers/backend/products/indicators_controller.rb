@@ -1,11 +1,6 @@
-# = Informations
-#
 # == License
-#
 # Ekylibre - Simple agricultural ERP
-# Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
-# Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2018 Brice Texier, David Joulin
+# Copyright (C) 2014 Sebastien Gauvrit, Brice Texier
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -18,23 +13,24 @@
 # GNU Affero General Public License for more details.
 #
 # You should have received a copy of the GNU Affero General Public License
-# along with this program.  If not, see http://www.gnu.org/licenses.
-#
-# == Table: naming_formats
-#
-#  created_at :datetime
-#  id         :integer          not null, primary key
-#  name       :string           not null
-#  type       :string           not null
-#  updated_at :datetime
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
+module Backend
+  module Products
+    class IndicatorsController < Backend::BaseController
+      def variable_indicators
+        product = Product.find(params[:id])
 
-# # Empty samples of naming_formats
-# naming_formats_001:
-#   id: 1
-#   name: 'NamingFormat 1'
+        render json: { variable_indicators: product.variant.variable_indicators_list,
+                       is_hour_counter: product.decorate.hour_counter? }
+      end
 
-# naming_formats_002:
-#   id: 2
-#   name: 'NamingFormat 2'
+      private
+
+      def permitted_params
+        params.permit(:id)
+      end
+    end
+  end
+end

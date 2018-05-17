@@ -2159,6 +2159,7 @@ spa:
         healthy: "Estado de las enfermedades animales"
         height: "Altura"
         horizontal_rotation: "Rotación horizontal"
+        # hour_counter: "Hour counter"
         immunoglobulins_concentration: "La concentración de inmunoglobulinas"
         impurity_concentration: "Concentración de impurezas"
         inhibitors_presence: "Inhibidores de la presencia"

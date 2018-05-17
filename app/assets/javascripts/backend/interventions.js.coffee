@@ -356,6 +356,25 @@
       E.interventions.updateAvailabilityInstant(started_at)
 
 
+  $(document).on 'selector:change', '.intervention_tools_product .selector-search', (event) ->
+    toolId = $(event.target).closest('.selector').find('.selector-value').val()
+
+    $.ajax
+      url: "/backend/products/indicators/#{ toolId }/variable_indicators"
+      success: (data, status, request) ->
+        return if data['is_hour_counter'] == false
+
+        hourCounterBlock = $(event.target).closest('.nested-product-parameter').find('.tool-nested-readings')
+
+        return if hourCounterBlock.hasClass('visible')
+
+        hourCounterBlock.removeClass('hidden')
+        hourCounterBlock.addClass('visible')
+
+        hourCounterLinks = hourCounterBlock.find('.links')
+        hourCounterBlock.find('.add-reading').trigger('click') if hourCounterLinks.is(':visible')
+
+
   $(document).on "selector:change", 'input[data-selector-id="intervention_doer_product_id"], input[data-selector-id="intervention_tool_product_id"]', (event) ->
     element = $(event.target)
     blockElement = element.closest('.nested-fields')
@@ -394,6 +413,31 @@
     supplierLabel = $($(this).parents('.nested-receptions').find('.control-label')[0])
     supplierLabel.addClass('required')
     supplierLabel.prepend("<abbr title='Obligatoire'>*</abbr>")
+
+  $(document).on 'change', '.nested-parameters .nested-cultivation .land-parcel-plant-selector', (event) ->
+    nestedCultivationBlock = $(event.target).closest('.nested-cultivation')
+    unrollElement = $(nestedCultivationBlock).find('.intervention_targets_product .selector-search')
+    unrollValueElement = $(nestedCultivationBlock).find('.intervention_targets_product .selector-value')
+
+    if unrollValueElement.val() != ""
+      unrollValueElement.val('')
+
+    plantLandParcelSelector = new E.PlantLandParcelSelector()
+    plantLandParcelSelector.changeUnrollUrl(event, unrollElement)
+
+
+  $(document).on 'selector:change', '.nested-parameters .nested-cultivation .intervention_targets_product .selector-search', (event) ->
+    landParcelPlantSelectorElement = $(event.target).closest('.nested-cultivation').find('.land-parcel-plant-selector')
+    productId = $(event.target).closest('.selector').find('.selector-value').val()
+
+    $.ajax
+      url: "/backend/products/search_products/#{ productId }/datas",
+      success: (data, status, request) ->
+        if data.type == 'LandParcel'
+          landParcelPlantSelectorElement.find('.land-parcel-radio-button').prop('checked', true)
+        else
+          landParcelPlantSelectorElement.find('.plant-radio-button').prop('checked', true)
+
 
 
   E.interventionForm =

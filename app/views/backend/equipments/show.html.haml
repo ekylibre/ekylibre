@@ -20,6 +20,7 @@
     .med-info.important
       %span.title= Equipment.human_attribute_name(:state)
       %span.value= lights(resource.status)
+
     - if resource.remaining_working_lifespan || resource.remaining_lifespan
       .med-info.important
         %span.title= :wear.tl
@@ -45,6 +46,14 @@
       .med-info
         %span.title= Equipment.human_attribute_name(:description)
         %span.value= resource.description
+
+    - if resource.decorate.hour_counter_present?
+      .med-info
+        %span.title= :hour_counter.tl
+        %span.value
+          %i.picto{class: "picto-timelapse"}
+          = resource.decorate.human_hour_counter
+
   = labels_info(resource.labels)
 
 = cobbles do |c|
