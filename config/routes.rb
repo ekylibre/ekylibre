@@ -643,6 +643,7 @@ Rails.application.routes.draw do
         put :update_proposal
         get :update_modal_time
         get :new_detailed_intervention
+        post :create_intervention
       end
 
       member do

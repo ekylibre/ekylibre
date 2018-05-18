@@ -14,7 +14,6 @@
 - list = f.object.send(reflection).select{|v| v.reference_name.to_s == reference.name.to_s}
 .nested-association.nested-parameters{attrs}
   - prefix = namespace + reflection.to_s
-
   = f.simple_fields_for(reflection, list) do |c|
     = render "/backend/interventions/#{partial_name}", f: c, reference: reference, namespace: prefix
   .links
