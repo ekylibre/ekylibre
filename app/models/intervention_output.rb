@@ -72,7 +72,10 @@ class InterventionOutput < InterventionProductParameter
       output.type = variant.matching_model.name
       output.born_at = intervention.started_at
       output.initial_born_at = output.born_at
-      output.name = compute_output_name
+
+      output.name = new_name unless procedure.of_category?(:planting)
+      output.name = compute_output_planting_name if procedure.of_category?(:planting)
+
       output.identification_number = identification_number if identification_number.present?
       # output.attributes = product_attributes
       reading = readings.find_by(indicator_name: :shape)
@@ -120,24 +123,24 @@ class InterventionOutput < InterventionProductParameter
     end
   end
 
-  def compute_output_name
+  def compute_output_planting_name
     land_parcel_name = group
-                         .targets
-                         .select { |target| target.product.is_a?(LandParcel) }
-                         .first
-                         .product
-                         .name
+                       .targets
+                       .select { |target| target.product.is_a?(LandParcel) }
+                       .first
+                       .product
+                       .name
 
     compute_name = [land_parcel_name]
 
     return output_name_without_params(compute_name) if variety.blank? && batch_number.blank?
 
-    compute_name << variety unless variety.blank?
-    compute_name << batch_number unless batch_number.blank?
+    compute_name << variety if variety.present?
+    compute_name << batch_number if batch_number.present?
 
     output_duplicate_count = output_name_count(compute_name.join(' '))
 
-    compute_name << "(#{ output_duplicate_count})" unless output_duplicate_count.zero?
+    compute_name << "(#{output_duplicate_count})" unless output_duplicate_count.zero?
     compute_name.join(' ')
   end
 
@@ -154,6 +157,6 @@ class InterventionOutput < InterventionProductParameter
   end
 
   def output_name_count(name)
-    Plant.where('name like ?', "%#{ Regexp.escape(name) }%").count
+    Plant.where('name like ?', "%#{Regexp.escape(name)}%").count
   end
 end

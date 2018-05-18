@@ -173,6 +173,7 @@
 #     - "backend/product_nature_variants#quantifiers"
 #     - "backend/products#list_reception_items"
 #     - "backend/products#list_shipment_items"
+#     - "backend/products/indicators#variable_indicators"
 #     - "backend/products/search_variants#search_by_expression"
 #     - "backend/project_budgets#create"
 #     - "backend/project_budgets#destroy"

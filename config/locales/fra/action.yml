@@ -1475,7 +1475,10 @@ fra:
     hint: "Astuce\_: %{value}"
     historic: "Historique"
     home: "Accueil"
+    hour: "Heure"
+    hour_counter: "Compteur horaire"
     hours: "H"
+    hours_label: "Heures"
     human_target_names: "Nom des cibles" #?
     human_working_duration: "Temps de travail"
     human_working_zone_area: "Zone travaillée" #?

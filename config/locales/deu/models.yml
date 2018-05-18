@@ -864,6 +864,8 @@ deu:
     has_downpayment: "hat Anzahlung"
     # headers: "Headers"
     host: "Gastgeber"
+    # hour_counter: "Hour counter"
+    # hour_counter_unit_name: "Hour counter unit name"
     human_activities_names: "Aktivitäten Namen"
     human_shape_area: "Formbereich"
     human_target_names: "Zielnamen"

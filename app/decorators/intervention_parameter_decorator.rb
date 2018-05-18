@@ -5,6 +5,14 @@ class InterventionParameterDecorator < Draper::Decorator
     object.is_a?(InterventionInput)
   end
 
+  def land_parcel?
+    object.product.is_a?(LandParcel)
+  end
+
+  def plant?
+    object.product.is_a?(Matter) || object.product.is_a?(Plant) || object.product.is_a?(Equipment)
+  end
+
   def real_cost
     return nil if object.product.nil?
 

@@ -895,6 +895,8 @@ ita:
     has_downpayment: "ha acconto"
     headers: "Intestazioni"
     host: "Ospite"
+    # hour_counter: "Hour counter"
+    # hour_counter_unit_name: "Hour counter unit name"
     human_activities_names: "Attività nomi"
     human_shape_area: "Zona forma"
     human_target_names: "nomi di destinazione"

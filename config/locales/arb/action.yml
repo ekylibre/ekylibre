@@ -1574,11 +1574,14 @@ arb:
     hint: "تلميح&nbsp;: %{value}"
     historic: "تاريخي"
     home: "الرجوع الى صفجة المساعدة الرئيسية"
+    # hour: "Hour"
+    # hour_counter: "Hour counter"
     hour_duration: #?
       one: "مجموع الوقت المستخدم : ساعة واحدة" #?
       other: "مجموع الوقت المستخدم%{count} ساعات" #?
       zero: "" #?
     # hours: "H"
+    # hours_label: "Hours"
     human_working_duration: "مدة العمل"
     # humans: "HR"
     iban: "رقم الحساب المصرفي الدولي (IBAN)"

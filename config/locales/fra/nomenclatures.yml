@@ -2300,6 +2300,7 @@ fra:
         healthy: "Bonne santé"
         height: "Hauteur"
         horizontal_rotation: "Rotation horizontale"
+        hour_counter: "Compteur horaire"
         immunoglobulins_concentration: "Concentration en immunoglobulines Gamma"
         impurity_concentration: "Taux d’impuretés"
         inhibitors_presence: "Présence de résidus d’inhibiteurs"
