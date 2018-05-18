@@ -1094,6 +1094,8 @@ fra:
     has_downpayment: "A un acompte"
     headers: "Têtes"
     host: "Hôte"
+    hour_counter: "Compteur horaire"
+    # hour_counter_unit_name: "Hour counter unit name"
     human_activities_names: "Nom des activités"
     human_shape_area: "Superficie"
     human_target_names: "Nom des cibles"

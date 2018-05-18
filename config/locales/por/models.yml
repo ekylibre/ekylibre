@@ -864,6 +864,8 @@ por:
     has_downpayment: "Tem downpayment"
     headers: "Cabeçalhos"
     host: "Anfitrião"
+    # hour_counter: "Hour counter"
+    # hour_counter_unit_name: "Hour counter unit name"
     human_activities_names: "Nomes de Actividades"
     human_shape_area: "Área da forma"
     human_target_names: "Nomes de destino"

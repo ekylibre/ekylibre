@@ -323,6 +323,7 @@ module Backend
 
         delete_working_periods(participations)
       end
+
       if @intervention.update_attributes(permitted_params)
         reconcile_receptions
         redirect_to action: :show
