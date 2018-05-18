@@ -3639,6 +3639,10 @@ intervention_proposal_parameters:
     references: product_nature_variant
   product_type:
     type: string
+  quantity:
+    type: decimal
+  unit:
+    type: string
   updated_at:
     type: datetime
     required: true
