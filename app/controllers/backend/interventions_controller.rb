@@ -299,6 +299,8 @@ module Backend
       @intervention = Intervention.new(permitted_params)
       url = if params[:create_and_continue]
               { action: :new, continue: true }
+            elsif URI(request.referer).path == '/backend/schedulings/new_detailed_intervention'
+              backend_schedulings_path
             else
               params[:redirect] || { action: :show, id: 'id'.c }
             end
