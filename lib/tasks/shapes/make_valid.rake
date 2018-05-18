@@ -6,12 +6,12 @@ namespace :shapes do
 
     raise 'Need TENANT variable' unless tenant
 
-    puts "Switch to tenant #{ tenant }"
+    puts "Switch to tenant #{tenant}"
     Ekylibre::Tenant.switch(tenant) do
       invalid_productions_ids = find_invalid_productions
 
-      puts "Invalid productions count : #{ invalid_productions_ids.count }"
-      puts "Invalid productions ids : #{ invalid_productions_ids.to_s }"
+      puts "Invalid productions count : #{invalid_productions_ids.count}"
+      puts "Invalid productions ids : #{invalid_productions_ids}"
     end
   end
 
@@ -21,18 +21,17 @@ namespace :shapes do
 
     raise 'Need TENANT variable' unless tenant
 
-    puts "Switch to tenant #{ tenant }"
+    puts "Switch to tenant #{tenant}"
     Ekylibre::Tenant.switch(tenant) do
       invalid_productions_ids = find_invalid_productions
 
-      puts "Invalid productions count : #{ invalid_productions_ids.count }"
+      puts "Invalid productions count : #{invalid_productions_ids.count}"
 
       make_valid_productions(invalid_productions_ids)
 
-      puts "Task finished!"
+      puts 'Task finished!'
     end
   end
-
 
   def find_invalid_productions
     not_valid_production_ids = []
@@ -48,7 +47,7 @@ namespace :shapes do
         production_ids.delete_at(production_ids.index(production_id))
       end
 
-      request = "SELECT ST_AsEWKT(ST_Union(support_shape)) FROM activity_productions WHERE id IN (#{ production_ids.join(',') })"
+      request = "SELECT ST_AsEWKT(ST_Union(support_shape)) FROM activity_productions WHERE id IN (#{production_ids.join(',')})"
 
       begin
         ActiveRecord::Base.connection.execute(request)
@@ -62,7 +61,7 @@ namespace :shapes do
 
   def make_valid_productions(production_ids)
     production_ids.each do |production_id|
-      request = "UPDATE activity_productions SET support_shape = ST_MakeValid(support_shape) WHERE id = #{ production_id }"
+      request = "UPDATE activity_productions SET support_shape = ST_MakeValid(support_shape) WHERE id = #{production_id}"
 
       ActiveRecord::Base.connection.execute(request)
     end

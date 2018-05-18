@@ -8,7 +8,6 @@ class InterventionDecorator < Draper::Decorator
     land_parcels = []
 
     object.targets.find_each do |target|
-
       product = target.product
 
       next unless product
