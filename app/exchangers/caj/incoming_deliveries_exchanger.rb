@@ -28,6 +28,10 @@ module Caj
                Entity.where('last_name ILIKE ?', sender_name).first ||
                Entity.create!(nature: :organization, last_name: sender_name, supplier: true)
 
+
+               address = Entity.of_company.default_mail_address ||
+                         Entity.of_company.mails.create!(by_default: true)
+
       # map sub_family to product_nature_variant XML Nomenclature
 
       # add Coop incoming deliveries
@@ -36,41 +40,25 @@ module Caj
 
       previous_parcel_number = nil
       parcel = nil
+      entries = []
 
       rows = CSV.read(file, encoding: 'UTF-8', col_sep: ';', headers: true)
       w.count = rows.size
+
+
 
       rows.sort_by(&:first).each do |row|
         r = OpenStruct.new(
           parcel_number: row[0].to_s,
           ordered_on: Date.parse(row[1].to_s),
-          product_nature_name: (variants_transcode[row[2].to_s] || 'common_consumable'),
-          coop_reference_number: row[3].to_s,
+          product_nature_name: (variants_transcode[row[2].to_s.strip] || 'common_consumable'),
+          coop_reference_number: row[3].to_s.strip,
           coop_reference_name: row[4].to_s.downcase.strip,
           quantity: (row[5].blank? ? nil : row[5].tr(',', '.').to_d),
           unity: units_transcode[row[6].to_s],
           product_unit_price: (row[7].blank? ? nil : row[7].tr(',', '.').to_d),
           pretax_amount: (row[8].blank? ? nil : row[8].tr(',', '.').to_d)
         )
-
-        # Create delivery if parcel_number change and all items concerning the same parcel are already created.
-        if parcel && previous_parcel_number && previous_parcel_number != parcel.number
-          # delivery = Delivery.create!(
-          #   reference_number: previous_parcel_number,
-          #   state: :in_preparation,
-          #   started_at: r.ordered_on.to_time,
-          #   stopped_at: r.ordered_on.to_time + 1
-          # )
-          # parcel.delivery_id = delivery.id
-          parcel.give
-          # parcel.save!
-          # delivery.check
-          # delivery.start
-          # delivery.finish
-        end
-
-        address = Entity.of_company.default_mail_address ||
-                  Entity.of_company.mails.create!(by_default: true)
 
         # create an parcel if not exist
         parcel = Parcel.find_by(reference_number: r.parcel_number, currency: 'EUR', nature: :incoming) ||
@@ -86,12 +74,13 @@ module Caj
                    delivery_mode: :third,
                    storage: building_division
                  )
-        next unless parcel.draft?
-        previous_parcel_number = r.parcel_number
+        entries << r.parcel_number
 
         # find a product_nature_variant by mapping current name of matter in coop file in coop reference_name
-        unless product_nature_variant = ProductNatureVariant.find_by(work_number: r.coop_reference_number)
-          product_nature_variant ||= ProductNatureVariant.import_from_nomenclature(r.product_nature_name)
+        product_nature_variant = nil
+        product_nature_variant = ProductNatureVariant.find_by(work_number: r.coop_reference_number)
+        unless product_nature_variant
+          product_nature_variant = ProductNatureVariant.import_from_nomenclature(r.product_nature_name)
           product_nature_variant.work_number = r.coop_reference_number if r.coop_reference_number
           product_nature_variant.name = r.coop_reference_name if r.coop_reference_name
           product_nature_variant.save!
@@ -114,6 +103,13 @@ module Caj
         item.save!
         w.check_point
       end
+
+      entries.compact.uniq.each do |parcel_number|
+        p = Parcel.find_by(reference_number: parcel_number)
+        p.give
+      end
+
+
     end
   end
 end

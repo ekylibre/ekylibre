@@ -3560,8 +3560,8 @@
       <item name="miradoux_hard_wheat_crop" nature="cereal_crop" variety="triticum_durum_miradoux" frozen_indicators_values="net_surface_area: 1.00hectare" unit_name="hectare"/>
       <item name="miradoux_hard_wheat_seed_25" nature="seed" derivative_of="triticum_durum_miradoux" frozen_indicators_values="net_mass: 25.00kilogram, thousand_grains_mass: 50gram" unit_name="25kg_bag"/>
       <item name="mixed_chemical_fertilizer" nature="mixed_chemical_fertilizer" frozen_indicators_values="net_volume: 1.00cubic_meter, net_mass: 1.00ton" unit_name="ton"/>
-      <item name="mixed_liquid_fertilizer" nature="mixed_liquid_fertilizer" frozen_indicators_values="net_mass: 1.00ton" unit_name="ton"/>
-      <item name="mixed_organic_fertilizer" nature="mixed_organic_fertilizer" frozen_indicators_values="net_mass: 1.00kg"/>
+      <item name="mixed_liquid_fertilizer" nature="mixed_liquid_fertilizer" frozen_indicators_values="net_volume: 1.00cubic_meter, net_mass: 1.00ton" unit_name="ton"/>
+      <item name="mixed_organic_fertilizer" nature="mixed_organic_fertilizer" frozen_indicators_values="net_volume: 1.00cubic_meter, net_mass: 1.00ton" unit_name="ton"/>
       <item name="mixture_seed" nature="seed" derivative_of="poa" frozen_indicators_values="net_mass: 1.00kilogram, thousand_grains_mass: 50gram" unit_name="kilogram"/>
       <item name="mixture_vetch_oat_pea_crop" nature="crop" variety="vicia" frozen_indicators_values="net_surface_area: 1.00hectare" unit_name="hectare"/>
       <item name="molluscicide" nature="molluscicide" frozen_indicators_values="net_volume: 1.00liter, net_mass: 1.00kilogram" unit_name="liter"/>
@@ -3995,8 +3995,8 @@
       <item name="milking_robot" category="equipment" variety="equipment" population_counting="unitary" abilities="milk(mammalia)" frozen_indicators="milker_clusters_number"/>
       <item name="mineral_cleaner" category="other_consumable" variety="preparation" population_counting="decimal" abilities="clean(building_division)" variable_indicators="" frozen_indicators="net_volume, net_mass"/>
       <item name="mixed_chemical_fertilizer" category="fertilizer" variety="preparation" population_counting="decimal" abilities="fertilize" variable_indicators="nitrogen_concentration, phosphorus_concentration, potassium_concentration" frozen_indicators="net_volume, net_mass"/>
-      <item name="mixed_liquid_fertilizer" category="fertilizer" variety="preparation" population_counting="decimal" abilities="fertilize" variable_indicators="net_volume, nitrogen_concentration, phosphorus_concentration, potassium_concentration" frozen_indicators="net_mass"/>
-      <item name="mixed_organic_fertilizer" category="fertilizer" variety="preparation" population_counting="decimal" abilities="fertilize" frozen_indicators="net_mass" variable_indicators="nitrogen_concentration, phosphorus_concentration, potassium_concentration, dry_matter_rate, organic_matter_concentration, sulfur_trioxide_concentration, magnesium_concentration, calcium_concentrtion, net_volume"/>
+      <item name="mixed_liquid_fertilizer" category="fertilizer" variety="preparation" population_counting="decimal" abilities="fertilize" variable_indicators="nitrogen_concentration, phosphorus_concentration, potassium_concentration" frozen_indicators="net_volume, net_mass"/>
+      <item name="mixed_organic_fertilizer" category="fertilizer" variety="preparation" population_counting="decimal" abilities="fertilize" frozen_indicators="net_mass, net_volume" variable_indicators="nitrogen_concentration, phosphorus_concentration, potassium_concentration, dry_matter_rate, organic_matter_concentration, sulfur_trioxide_concentration, magnesium_concentration, calcium_concentrtion"/>
       <item name="molluscicide" category="plant_medicine" variety="preparation" population_counting="decimal" abilities="kill(gastropoda), care(plant)" variable_indicators="approved_input_dose, untreated_zone_length, wait_before_entering_period, wait_before_harvest_period" frozen_indicators="net_volume, net_mass"/>
       <item name="motor_oil" category="fuel" variety="oil" population_counting="decimal" abilities="lubricate(trailed_equipment), lubricate(motorized_vehicle)" variable_indicators="" frozen_indicators="net_volume, net_mass"/>
       <item name="moving_travel" category="travel" variety="service" population_counting="decimal" variable_indicators=""/>

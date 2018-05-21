@@ -197,15 +197,15 @@ module Agroedi
 
         w.info "Variant creation - Variant : #{variant.name}".inspect.red
 
-        # default_indicators = {
-        #  net_mass: Measure.new(1.00, :kilogram),
-        #  net_volume: Measure.new(1.00, :liter)
-        # }.with_indifferent_access
+        #default_indicators = {
+        #net_mass: Measure.new(1.00, :kilogram),
+        #net_volume: Measure.new(1.00, :liter)
+        #}.with_indifferent_access
 
-        # default_indicators.each do |indicator_name, value|
-        #  variant.read! indicator_name, value
-        # end
-        # w.info "Indicators OK - Variant : #{variant.name}".inspect.red
+         #default_indicators.each do |indicator_name, value|
+         #  variant.read! indicator_name, value
+         #end
+         #w.info "Indicators OK - Variant : #{variant.name}".inspect.red
 
       end
 
@@ -495,11 +495,12 @@ module Agroedi
 
           # compute output name
           output_nature_agroedi = RegisteredAgroediCode.where(repository_id: 15, reference_code: actor.output_nature_edicode).first
+          w.debug "nature agroedi : #{output_nature_agroedi}".inspect.yellow
           output_specie_agroedi = RegisteredAgroediCode.where(repository_id: 18, reference_code: actor.output_specie_edicode).first
-
+          w.debug "specie agroedi : #{output_specie_agroedi}".inspect.yellow
           output_nature_transcode = { 'ZJI' => :straw, 'ZJH' => :grain, 'W80' => :grape, 'W79' => :grape, 'W78' => :grape }
 
-          output_name = "#{actor.output_name} | #{output_specie_agroedi.reference_label} | #{output_nature_agroedi.reference_label}"
+          output_name = "#{actor.output_name} | #{output_nature_agroedi.reference_label}"
           w.debug "output_name : #{output_name}".inspect.red
 
           # find or import variant
