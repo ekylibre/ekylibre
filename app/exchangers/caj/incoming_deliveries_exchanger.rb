@@ -28,9 +28,8 @@ module Caj
                Entity.where('last_name ILIKE ?', sender_name).first ||
                Entity.create!(nature: :organization, last_name: sender_name, supplier: true)
 
-
-               address = Entity.of_company.default_mail_address ||
-                         Entity.of_company.mails.create!(by_default: true)
+      address = Entity.of_company.default_mail_address ||
+                Entity.of_company.mails.create!(by_default: true)
 
       # map sub_family to product_nature_variant XML Nomenclature
 
@@ -44,8 +43,6 @@ module Caj
 
       rows = CSV.read(file, encoding: 'UTF-8', col_sep: ';', headers: true)
       w.count = rows.size
-
-
 
       rows.sort_by(&:first).each do |row|
         r = OpenStruct.new(
@@ -108,8 +105,6 @@ module Caj
         p = Parcel.find_by(reference_number: parcel_number)
         p.give
       end
-
-
     end
   end
 end

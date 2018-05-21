@@ -197,15 +197,15 @@ module Agroedi
 
         w.info "Variant creation - Variant : #{variant.name}".inspect.red
 
-        #default_indicators = {
-        #net_mass: Measure.new(1.00, :kilogram),
-        #net_volume: Measure.new(1.00, :liter)
-        #}.with_indifferent_access
+        # default_indicators = {
+        # net_mass: Measure.new(1.00, :kilogram),
+        # net_volume: Measure.new(1.00, :liter)
+        # }.with_indifferent_access
 
-         #default_indicators.each do |indicator_name, value|
-         #  variant.read! indicator_name, value
-         #end
-         #w.info "Indicators OK - Variant : #{variant.name}".inspect.red
+        # default_indicators.each do |indicator_name, value|
+        #  variant.read! indicator_name, value
+        # end
+        # w.info "Indicators OK - Variant : #{variant.name}".inspect.red
 
       end
 

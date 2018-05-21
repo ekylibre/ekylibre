@@ -695,7 +695,7 @@
       <item name="sensor_analysis"/>
       <item name="silage_analysis" target_variety="silage" target_derivative_of="plant" items="dry_matter_rate, protein_concentration"/>
       <item name="soil_analysis" target_variety="land_parcel" items="soil_nature, organic_matter_concentration, nitrogen_concentration, potential_hydrogen, cation_exchange_capacity, phosphate_concentration, potash_concentration, magnesium_concentration, boron_concentration, zinc_concentration, manganese_concentration, copper_concentration, iron_concentration"/>
-      <item name="unitary_cow_milk_analysis" target_variety="milk" target_derivative_of="bos" items="fat_matters_concentration, protein_matters_concentration, somatic_cell_concentration, milk_daily_production"/>
+      <item name="unitary_cow_milk_analysis" target_variety="milk" target_derivative_of="bos" items="fat_matters_concentration, protein_matters_concentration, somatic_cell_concentration, milk_daily_production, net_mass"/>
       <item name="water_analysis" target_variety="water" items="nitrogen_concentration, phosphate_concentration, potash_concentration, magnesium_concentration, boron_concentration, zinc_concentration, manganese_concentration, copper_concentration, iron_concentration"/>
     </items>
   </nomenclature>
