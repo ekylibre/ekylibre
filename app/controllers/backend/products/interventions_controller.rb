@@ -20,7 +20,6 @@ module Backend
   module Products
     class InterventionsController < Backend::BaseController
       def has_harvesting
-        byebug
         harvesting_count = Planning::Interventions::HarvestInProgressQuery
                            .call(Intervention, permitted_params)
                            .count
