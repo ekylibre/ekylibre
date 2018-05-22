@@ -498,7 +498,11 @@
 
 
     checkHarvestInProgress: (event, productId, landParcelPlantSelectorElement) ->
-      return if $('#is_harvesting').val() == "true" || landParcelPlantSelectorElement.find('.land-parcel-radio-button').is(':checked')
+      interventionNature = $('.intervention_nature input[type="hidden"]').val()
+
+      return if $('#is_harvesting').val() == "true" ||
+                  landParcelPlantSelectorElement.find('.land-parcel-radio-button').is(':checked') ||
+                  interventionNature == "request"
 
       interventionStartedAt = $('.intervention-started-at').val()
 
