@@ -2290,6 +2290,9 @@
       <item name="indicators">
         <page to="backend/products/indicators#variable_indicators"/>
       </item>
+      <item name="search_products">
+        <page to="backend/products/search_products#datas"/>
+      </item>
       <item name="search_variants">
         <page to="backend/products/search_variants#search_by_expression"/>
       </item>

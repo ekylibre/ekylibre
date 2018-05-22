@@ -70,7 +70,7 @@ class ActivityDecorator < Draper::Decorator
   end
 
   def human_costs(costs)
-    costs.each { |key, value| costs[key] = costs[key].to_i }
+    costs.each { |key, _value| costs[key] = costs[key].to_i }
   end
 
   def decorated_activity_productions(current_campaign)

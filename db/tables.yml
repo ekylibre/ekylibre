@@ -3628,6 +3628,9 @@ intervention_proposal_parameters:
   intervention_proposal_id:
     type: integer
     references: ''
+  intervention_template_product_parameter_id:
+    type: integer
+    references: ''
   product_id:
     type: integer
     references: "~product_type"
