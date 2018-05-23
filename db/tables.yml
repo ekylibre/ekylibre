@@ -3628,6 +3628,9 @@ intervention_proposal_parameters:
   intervention_proposal_id:
     type: integer
     references: ''
+  intervention_template_product_parameter_id:
+    type: integer
+    references: ''
   product_id:
     type: integer
     references: "~product_type"
@@ -3635,6 +3638,10 @@ intervention_proposal_parameters:
     type: integer
     references: product_nature_variant
   product_type:
+    type: string
+  quantity:
+    type: decimal
+  unit:
     type: string
   updated_at:
     type: datetime
@@ -3810,7 +3817,7 @@ interventions:
     references: intervention_costs
   intervention_proposal_id:
     type: integer
-    references: ''
+    references: intervention_proposal
   issue_id:
     type: integer
     references: issue

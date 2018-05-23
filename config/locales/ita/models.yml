@@ -1591,6 +1591,7 @@ ita:
     unconfirmed_email: "e-mail non confermato"
     undelivered_invoice_journal_entry: "Ingresso fattura non consegnato"
     undelivered_quantity: "quantità mancante"
+    # unit: "Unit"
     unit_amount: "importo unitario"
     unit_currency: "valuta Unità"
     unit_name: "nome Unità"

@@ -47,9 +47,8 @@
     = modal(id: "working_times", class: "working-times", size: :large) do
       .modal-body
       .modal-footer
-
   - if reference.quantified?
-    = render 'quantifier_field', f: f, reference: reference, prefix: prefix
+    = render '/backend/interventions/quantifier_field', f: f, reference: reference, prefix: prefix
   - if (attr = reference.attribute(:new_name))
     - if attr.hidden?
       - if reference.procedure.of_category?(:planting)
@@ -91,7 +90,7 @@
   - if reference.attribute(:killable)
     = f.yes_no_radio :dead, label: reference.killable_question
   - if reference.component_of?
-    = render 'component_field', f: f, reference: reference, prefix: prefix
+    = render '/backend/interventions/component_field', f: f, reference: reference, prefix: prefix
 
 
   - if reference.readings.any?

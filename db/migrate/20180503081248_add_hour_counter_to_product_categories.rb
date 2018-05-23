@@ -1,7 +1,7 @@
 class AddHourCounterToProductCategories < ActiveRecord::Migration
   def up
     varieties = [:tractor]
-    product_nature_names = [:dumper, :forklift, :truck, :wheel_loader]
+    product_nature_names = %i[dumper forklift truck wheel_loader]
 
     update_by_variety(varieties)
     update_by_name(product_nature_names)
@@ -9,7 +9,7 @@ class AddHourCounterToProductCategories < ActiveRecord::Migration
 
   def down
     varieties = [:tractor]
-    product_nature_names = [:dumper, :forklift, :truck, :wheel_loader]
+    product_nature_names = %i[dumper forklift truck wheel_loader]
 
     update_by_variety(varieties, remove_hour_counter: true)
     update_by_name(product_nature_names, remove_hour_counter: true)
@@ -27,7 +27,7 @@ class AddHourCounterToProductCategories < ActiveRecord::Migration
     locale = Entity.of_company.language.to_sym
 
     product_natures_names.each do |product_nature_name|
-      translated_name = I18n.t("nomenclatures.product_nature_variants.items.#{ product_nature_name }", locale: locale)
+      translated_name = I18n.t("nomenclatures.product_nature_variants.items.#{product_nature_name}", locale: locale)
 
       product_natures = ProductNature.where(name: translated_name)
       update_hour_counter(product_natures, remove_hour_counter: remove_hour_counter)

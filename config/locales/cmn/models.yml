@@ -1560,6 +1560,7 @@ cmn:
     unconfirmed_email: "未经证实的邮件"
     undelivered_invoice_journal_entry: "未交付发票录入"
     undelivered_quantity: "未交付数量"
+    # unit: "Unit"
     unit_amount: "单位量"
     unit_currency: "货币单位"
     unit_name: "单位名称"

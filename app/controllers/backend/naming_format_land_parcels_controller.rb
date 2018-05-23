@@ -48,11 +48,11 @@ module Backend
     def permitted_params
       params
         .require(:naming_format_land_parcel)
-        .permit(fields_attributes: [
-          :id,
-          :field_name,
-          :_destroy
-        ])
+        .permit(fields_attributes: %i[
+                  id
+                  field_name
+                  _destroy
+                ])
     end
 
     def valid_permitted_params

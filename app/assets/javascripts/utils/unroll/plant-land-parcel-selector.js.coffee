@@ -11,15 +11,20 @@
       PLANT_VALUE: 'plant'
       LAND_PARCEL_VALUE: 'land_parcel'
 
+      PLANT_UNROLL_VALUE: 'is+plant+and+has+indicator+shape'
+      LAND_PARCEL_UNROLL_VALUE: 'is+land_parcel+and+has+indicator+shape'
+
       constructor: ->
 
 
       changeUnrollUrl: (event, unrollElement, supportId = null, activityProduction = null) ->
         selectedValue = $(event.target).val()
+        unrollExpression = @PLANT_UNROLL_VALUE
+        unrollExpression = @LAND_PARCEL_UNROLL_VALUE if selectedValue == @LAND_PARCEL_VALUE
 
         unrollRegex = /(unroll\?.*scope.*of_expression[^=]*)=([^&]*)(&?.*)/
         unrollPath = $(unrollElement).attr('data-selector')
-        unrollPath = unrollPath.replace(unrollRegex, "$1=is+#{ selectedValue }$3")
+        unrollPath = unrollPath.replace(unrollRegex, "$1=#{ unrollExpression }$3")
 
         ofActivityProduction = unrollPath.includes(@ACTIVITY_PRODUCTION_PARAM_NAME)
         withId = unrollPath.includes(@WITH_ID_PARAM_NAME)
