@@ -2,7 +2,7 @@
 class SaveAgainActivityProductionWithBatch < ActiveRecord::Migration
   def change
     ActivityProduction.where(batch_planting: true).each do |activity_production|
-      activity_production.save
+      DailyChargeJob.perform_now(activity_production)
     end
   end
 end
