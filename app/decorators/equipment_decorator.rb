@@ -21,8 +21,8 @@ class EquipmentDecorator < ProductDecorator
 
   def hour_counter
     hour_counter_product_reading = object
-                                     .readings
-                                     .find_by(indicator_name: :hour_counter)
+                                   .readings
+                                   .find_by(indicator_name: :hour_counter)
 
     return nil if hour_counter_product_reading.nil?
 

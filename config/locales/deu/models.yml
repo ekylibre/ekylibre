@@ -1559,6 +1559,7 @@ deu:
     unconfirmed_email: "Unbestätigten E-Mail"
     undelivered_invoice_journal_entry: "Nicht zugestellte Rechnungserfassung"
     undelivered_quantity: "nicht gelieferte Menge"
+    # unit: "Unit"
     unit_amount: "Einheitsbetrag"
     unit_currency: "Einheitswährung"
     unit_name: "Gerätename"

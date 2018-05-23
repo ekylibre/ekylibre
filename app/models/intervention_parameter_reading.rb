@@ -94,9 +94,8 @@ class InterventionParameterReading < Ekylibre::Record::Base
     return if self.product_reading.present? && self.product_reading.value > 0.in(:hour) && value.zero?
 
     return if self.product_reading.present? &&
-                self.product_reading.read_at.present? &&
-                self.product_reading.read_at > intervention.stopped_at
-
+              self.product_reading.read_at.present? &&
+              self.product_reading.read_at > intervention.stopped_at
 
     if self.product_reading.nil?
       self.product_reading ||= product.readings.new(indicator: indicator,

@@ -80,7 +80,7 @@ GEM
       execjs
     awesome_nested_set (3.1.4)
       activerecord (>= 4.0.0, < 5.3)
-    bcrypt (3.1.11)
+    bcrypt (3.1.12)
     beardley (1.4.2)
       rjb (>= 1.4.8)
       rjb-loader (>= 0.0.2)
@@ -567,7 +567,7 @@ GEM
       actionpack (>= 4.0)
       activesupport (>= 4.0)
       sprockets (>= 3.0.0)
-    sshkit (1.16.0)
+    sshkit (1.16.1)
       net-scp (>= 1.1.2)
       net-ssh (>= 2.8.0)
     state_machine (1.2.0)

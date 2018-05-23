@@ -23,6 +23,8 @@
     = f.input :procedure_name, as: :hidden, input_html: { data: { procedure: compute_backend_interventions_path(format: :json) }}
     = f.input :nature, as: :hidden
     = f.input :state, as: :hidden
+    = hidden_field_tag('is_harvesting', f.object.decorate.harvesting?)
+
     = f.referenced_association :issue, new: false
     - if f.object.record?
       = f.referenced_association :request_intervention, new: false, as: :hidden
@@ -44,19 +46,19 @@
         - stopped_at ||= Time.zone.now
         - started_at ||= stopped_at - 1.hour
         - f.object.working_periods.new(started_at: started_at, stopped_at: stopped_at)
-      = f.nested_association(:working_periods, minimum: 1, locals: {namespace: 'working_periods'})
+      = f.nested_association(:working_periods, minimum: 1, locals: {namespace: 'working_periods'}, collection: f.object.working_periods.sort_by(&:started_at), partial: '/backend/interventions/working_period_fields')
     #labellings
-      = f.nested_association(:labellings)
+      = f.nested_association(:labellings, partial: '/backend/interventions/labelling_fields')
 
   = field_set :parameters do
     - procedure.each_parameter do |parameter|
-      = render 'parameter_form', reference: parameter, f: f, namespace: ''
+      = render '/backend/interventions/parameter_form', reference: parameter, f: f, namespace: ''
 
     - if procedure.parameters.any?{|p| p.is_a?(Procedo::Procedure::ProductParameter) and p.beta?}
       %span.beta
         = :beta_description.tl
   = field_set :service_delivering do
-    = f.nested_association(:receptions, maximum: 1, button_label: :add_service_delivering.tl)
+    = f.nested_association(:receptions, maximum: 1, button_label: :add_service_delivering.tl, partial: '/backend/interventions/reception_fields')
 - else # Root Procedure Natures
   - main_period_selector(:year)
   - Nomen::ActivityFamily.find_each do |family|

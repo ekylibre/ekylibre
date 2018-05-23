@@ -24,7 +24,7 @@
           = radio_button_tag 'target', 'land_parcel', f.object.decorate.land_parcel?, class: 'land-parcel-radio-button'
           = label_tag :land_parcel_name.tl
 
-    = f.referenced_association :product, label: reference.human_name, source: { scope: reference.scope_hash.merge(availables: [at: started_at.strftime("%Y-%m-%d %H:%M")]), keep: true }, input_html: { class: "scoped-parameter", data: { intervention_updater: prefix + 'product_id' } }, new: false
+    = f.referenced_association :product, label: reference.human_name, source: { scope: reference.scope_hash.merge(availables: [at: started_at.strftime("%Y-%m-%d %H:%M")]), keep: true }, input_html: { class: "scoped-parameter", data: { intervention_updater: prefix + 'product_id', harvest_in_progress_error_message: t('errors.messages.harvest_in_progress') } }, new: false
 
     - if reference.tool?
       .tool-nested-readings.hidden
@@ -47,9 +47,8 @@
     = modal(id: "working_times", class: "working-times", size: :large) do
       .modal-body
       .modal-footer
-
   - if reference.quantified?
-    = render 'quantifier_field', f: f, reference: reference, prefix: prefix
+    = render '/backend/interventions/quantifier_field', f: f, reference: reference, prefix: prefix
   - if (attr = reference.attribute(:new_name))
     - if attr.hidden?
       - if reference.procedure.of_category?(:planting)
@@ -91,7 +90,7 @@
   - if reference.attribute(:killable)
     = f.yes_no_radio :dead, label: reference.killable_question
   - if reference.component_of?
-    = render 'component_field', f: f, reference: reference, prefix: prefix
+    = render '/backend/interventions/component_field', f: f, reference: reference, prefix: prefix
 
 
   - if reference.readings.any?

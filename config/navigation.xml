@@ -1051,6 +1051,7 @@
     <group name="schedulings">
       <item name="scheduling">
         <page to="backend/schedulings#index" nonexistent="true"/>
+        <page to="backend/schedulings#new_detailed_intervention" nonexistent="true"/>
       </item>
     </group>
   </part>
@@ -2187,6 +2188,9 @@
       <item name="activities">
         <page to="backend/activities#list_supports"/>
       </item>
+      <item name="activity_productions">
+        <page to="backend/activity_productions#list_plants"/>
+      </item>
       <item name="animal_groups">
         <page to="backend/animal_groups#list_reception_items"/>
         <page to="backend/animal_groups#list_shipment_items"/>
@@ -2256,11 +2260,9 @@
         <page to="backend/matters#list_shipment_items"/>
       </item>
       <item name="naming_format_land_parcels">
-        <page to="backend/naming_format_land_parcels#index"/>
         <page to="backend/naming_format_land_parcels#build_example"/>
         <page to="backend/naming_format_land_parcels#create"/>
         <page to="backend/naming_format_land_parcels#destroy"/>
-        <page to="backend/naming_format_land_parcels#list"/>
         <page to="backend/naming_format_land_parcels#new"/>
         <page to="backend/naming_format_land_parcels#show"/>
         <page to="backend/naming_format_land_parcels#update"/>
@@ -2269,7 +2271,6 @@
         <page to="backend/naming_formats#create"/>
         <page to="backend/naming_formats#destroy"/>
         <page to="backend/naming_formats#edit"/>
-        <page to="backend/naming_formats#list"/>
         <page to="backend/naming_formats#new"/>
         <page to="backend/naming_formats#show"/>
         <page to="backend/naming_formats#update"/>
@@ -2289,6 +2290,9 @@
       <item name="indicators">
         <page to="backend/products/indicators#variable_indicators"/>
       </item>
+      <item name="search_products">
+        <page to="backend/products/search_products#datas"/>
+      </item>
       <item name="search_variants">
         <page to="backend/products/search_variants#search_by_expression"/>
       </item>
@@ -2301,6 +2305,7 @@
       </item>
       <item name="reconcilation_states">
         <page to="backend/purchases/reconcilation_states#put_accepted_state"/>
+        <page to="backend/purchases/reconcilation_states#put_reconcile_state"/>
         <page to="backend/purchases/reconcilation_states#put_to_reconcile_state"/>
       </item>
       <item name="receptions">
