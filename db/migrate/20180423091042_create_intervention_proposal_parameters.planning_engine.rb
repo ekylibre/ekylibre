@@ -6,8 +6,6 @@ class CreateInterventionProposalParameters < ActiveRecord::Migration
       t.references :product, index: true, foreign_key: true
       t.references :product_nature_variant, index: { name: :intervention_product_nature_variant_id }, foreign_key: true
       t.string :product_type
-      t.decimal :quantity
-      t.string :unit
       t.timestamps null: false
     end
   end
