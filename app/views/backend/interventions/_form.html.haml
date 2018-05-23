@@ -44,7 +44,7 @@
         - stopped_at ||= Time.zone.now
         - started_at ||= stopped_at - 1.hour
         - f.object.working_periods.new(started_at: started_at, stopped_at: stopped_at)
-      = f.nested_association(:working_periods, minimum: 1, locals: {namespace: 'working_periods'}, partial: '/backend/interventions/working_period_fields')
+      = f.nested_association(:working_periods, minimum: 1, locals: {namespace: 'working_periods'}, collection: f.object.working_periods.sort_by(&:started_at), partial: '/backend/interventions/working_period_fields')
     #labellings
       = f.nested_association(:labellings, partial: '/backend/interventions/labelling_fields')
 
