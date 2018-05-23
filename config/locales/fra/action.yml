@@ -796,7 +796,7 @@ fra:
       not_saved:
         one: "1 erreur a empêché ce(tte) %{resource} d’être sauvegardé(e)\_:"
         other: "%{count} erreurs ont empêché ce(tte) %{resource} d’être sauvegardé(e)\_:"
-        intervention_already_planned: "Attention, une autre intervention est prévue pour cette %{product_type} dans la planification (%{intervention_name})"
+      intervention_already_planned: "Attention, une autre intervention est prévue pour cette %{product_type} dans la planification (%{intervention_name})"
     template:
       body: "Il y a eu des problèmes avec les champs suivants\_:"
       header:
