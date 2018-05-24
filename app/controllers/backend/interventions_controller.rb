@@ -296,6 +296,7 @@ module Backend
         permitted_params[:participations_attributes] = participations
       end
 
+      # binding.pry
       @intervention = Intervention.new(permitted_params)
       url = if params[:create_and_continue]
               { action: :new, continue: true }
