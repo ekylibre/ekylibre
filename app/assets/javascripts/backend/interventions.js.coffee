@@ -356,6 +356,7 @@
       E.interventions.updateAvailabilityInstant(started_at)
 
 
+
   $(document).on 'selector:change', '.intervention_tools_product .selector-search', (event) ->
     toolId = $(event.target).closest('.selector').find('.selector-value').val()
 
@@ -441,6 +442,22 @@
     E.interventionForm.checkHarvestInProgress(event, productId, landParcelPlantSelectorElement)
 
 
+  $(document).on 'keyup change dp.change', '.nested-fields.working-period input[data-intervention-updater]', (event) ->
+    nestedProductParameterBlock = $('.nested-product-parameter.nested-cultivation')
+    nestedProductParameterBlock = $('.nested-product-parameter.nested-plant') if $(nestedProductParameterBlock).length == 0
+    nestedProductParameterBlock = $('.nested-product-parameter.nested-land_parcel') if $(nestedProductParameterBlock).length == 0
+
+    productId = $(nestedProductParameterBlock).find('.selector .selector-value').val()
+    landParcelPlantSelectorElement = $(nestedProductParameterBlock).find('.nested-product_parameter .land-parcel-plant-selector')
+
+    unrollBlock = $(nestedProductParameterBlock).find('.intervention_targets_product .controls')
+    harvestInProgressError = $(unrollBlock).find('.harvest-in-progress-error')
+
+    $(harvestInProgressError).remove() if $(harvestInProgressError).length > 0
+
+    E.interventionForm.checkHarvestInProgress(event, productId, landParcelPlantSelectorElement, nestedProductParameterBlock)
+
+
   $(document).on 'selector:change', '.nested-parameters .nested-plant .intervention_targets_product .selector-search', (event) ->
     landParcelPlantSelectorElement = $(event.target).closest('.nested-product_parameter').find('.land-parcel-plant-selector')
     productId = $(event.target).closest('.selector').find('.selector-value').val()
@@ -497,7 +514,7 @@
             landParcelPlantSelectorElement.find('.plant-radio-button').prop('checked', true)
 
 
-    checkHarvestInProgress: (event, productId, landParcelPlantSelectorElement) ->
+    checkHarvestInProgress: (event, productId, landParcelPlantSelectorElement, nestedCultivationBlock = null) ->
       interventionNature = $('.intervention_nature input[type="hidden"]').val()
 
       return if $('#is_harvesting').val() == "true" ||
@@ -510,17 +527,19 @@
         url: "/backend/products/interventions/#{ productId }/has_harvesting",
         data: { intervention_started_at: interventionStartedAt }
         success: (data, status, request) ->
-          nestedCultivationBlock = $(event.target).closest('.nested-product-parameter')
+          nestedCultivationBlock ||= $(event.target).closest('.nested-product-parameter')
+
           unrollBlock = $(nestedCultivationBlock).find('.intervention_targets_product .controls')
           harvestInProgressError = $(unrollBlock).find('.harvest-in-progress-error')
+
+          if $(harvestInProgressError).length > 0
+            $(harvestInProgressError).remove()
 
           if data.has_harvesting
            unrollElement = $(nestedCultivationBlock).find('.intervention_targets_product .selector-search')
 
            error = $("<span class='help-inline harvest-in-progress-error'>#{ unrollElement.attr('data-harvest-in-progress-error-message') }</span>")
            $(unrollBlock).append(error)
-          else if $(harvestInProgressError).length > 0
-            $(harvestInProgressError).remove()
 
 
   $(document).ready ->

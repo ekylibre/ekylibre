@@ -9,7 +9,7 @@ module Planning
           .joins(:targets)
           .where(intervention_parameters: { product_id: product.id })
           .where('started_at < ?', intervention_started_at)
-          .select { |intervention| intervention.procedure.of_category?(:crop_protection) }
+          .select { |intervention| intervention.procedure.of_category?(:harvesting) }
       end
     end
   end
