@@ -1,6 +1,6 @@
 GIT
   remote: git@gitlab.com:ekylibre-integration/planning.git
-  revision: c26a9778a3a74560eefc67e7abae2bdba067daf2
+  revision: 2810bc0f979b0e2628328ecebffcf4f98ab29060
   branch: dev
   specs:
     planning (0.6.1)
