@@ -1,6 +1,6 @@
 GIT
   remote: git@gitlab.com:ekylibre-integration/planning.git
-  revision: 24202b545605e02cdcdbbe66bd206cb255babf61
+  revision: c26a9778a3a74560eefc67e7abae2bdba067daf2
   branch: dev
   specs:
     planning (0.6.1)
@@ -200,7 +200,7 @@ GEM
     enumerize (2.2.2)
       activesupport (>= 3.2)
     erubis (2.7.0)
-    et-orbi (1.1.1)
+    et-orbi (1.1.2)
       tzinfo
     eventmachine (1.2.7)
     exception_notification (4.2.2)
