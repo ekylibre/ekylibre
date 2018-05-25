@@ -1909,6 +1909,7 @@ fra:
     picture: "Photo"
     placeholder: "Espace réservé"
     places: "Lieux"
+    planned: "Planifiées"
     planned_at: "Date prévisionnelle" #?
     # planning: "Planning"
     plant: "Culture"
@@ -2433,7 +2434,7 @@ fra:
       one: "Valider mes miettes pour %{count} intervention"
       other: "Valider mes miettes pour %{count} interventions"
     validate_selected_entries: "Valider les écritures sélectionnées"
-    validated: "Validé"
+    validated: "Validées"
     values: "Valeurs"
     variable_indicators: "Indicateurs variables"
     variant: "Variante"

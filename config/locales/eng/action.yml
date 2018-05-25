@@ -1798,6 +1798,7 @@ eng:
     picture: "Picture" #?
     placeholder: "Placeholder" #?
     places: "Places"
+    planned: "Planned"
     planning: "Planning"
     plant: "Crop"
     plant_counting: "Counting" #?
