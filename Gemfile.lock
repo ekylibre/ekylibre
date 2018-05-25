@@ -1,6 +1,6 @@
 GIT
   remote: git@gitlab.com:ekylibre-integration/planning.git
-  revision: 54f9fb236e014e107dca607b99850ce6a0385cd1
+  revision: 30898c924d6fa047488e4bbb3e8528c4b78d47a4
   branch: dev
   specs:
     planning (0.6.1)
@@ -78,7 +78,7 @@ GEM
       sidekiq (>= 2.11)
     arel (6.0.4)
     ast (2.4.0)
-    autoprefixer-rails (8.5.0)
+    autoprefixer-rails (8.5.1)
       execjs
     awesome_nested_set (3.1.4)
       activerecord (>= 4.0.0, < 5.3)
