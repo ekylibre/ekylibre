@@ -20,12 +20,8 @@ module Backend
   module Products
     class InterventionsController < Backend::BaseController
       def has_harvesting
-        product = Product.find(permitted_params[:id])
-        intervention_started_at = Time.parse(permitted_params[:intervention_started_at])
-
-        harvesting_count = product
-                           .interventions
-                           .select{ |intervention| intervention.procedure.of_category?(:harvesting) && intervention.started_at < intervention_started_at }
+        harvesting_count = ::Interventions::HarvestInProgressQuery
+                           .call(Intervention, permitted_params)
                            .count
 
         render json: { has_harvesting: harvesting_count > 0 ? true : false }

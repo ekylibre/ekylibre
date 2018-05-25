@@ -1,7 +1,5 @@
-GIT
-  remote: git@gitlab.com:ekylibre-integration/planning.git
-  revision: 73bba22089d5631f1008cdf23d6ae3600fb20312
-  branch: dev
+PATH
+  remote: ../planning
   specs:
     planning (0.6.1)
       factory_bot
@@ -167,7 +165,7 @@ GEM
     coffee-script-source (1.12.2)
     colored (1.2)
     concurrent-ruby (1.0.5)
-    connection_pool (2.2.1)
+    connection_pool (2.2.2)
     crass (1.0.4)
     daemons (1.2.6)
     database_cleaner (1.7.0)
