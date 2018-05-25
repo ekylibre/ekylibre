@@ -137,7 +137,7 @@ module Backend
     # @TODO conditions: list_conditions, joins: [:production, :activity, :campaign, :support]
 
     # conditions: list_conditions,
-    list(conditions: list_conditions, joins: :receptions, order: { started_at: :desc }, line_class: :status) do |t|
+    list(conditions: list_conditions, order: { started_at: :desc }, line_class: :status) do |t|
       t.action :purchase, on: :both, method: :post
       t.action :sell,     on: :both, method: :post
       t.action :edit, if: :updateable?
@@ -296,15 +296,19 @@ module Backend
         permitted_params[:participations_attributes] = participations
       end
 
+      # binding.pry
       @intervention = Intervention.new(permitted_params)
       url = if params[:create_and_continue]
               { action: :new, continue: true }
+            elsif URI(request.referer).path == '/backend/schedulings/new_detailed_intervention'
+              backend_schedulings_path
             else
               params[:redirect] || { action: :show, id: 'id'.c }
             end
       @intervention.save
       reconcile_receptions
-      return if save_and_redirect(@intervention, url: url, notify: :record_x_created, identifier: :number)
+      notify = params[:intervention_proposal] ? :record_x_planned : :record_x_created
+      return if save_and_redirect(@intervention, url: url, notify: notify, identifier: :number)
       render(locals: { cancel_url: { action: :index }, with_continue: true })
     end
 

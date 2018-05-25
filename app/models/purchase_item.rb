@@ -332,13 +332,13 @@ class PurchaseItem < Ekylibre::Record::Base
   end
 
   def human_received_quantity
-    return unless purchase.is_a?(PurchaseOrder) || parcels_purchase_orders_items.empty?
+    return unless purchase.is_a?(PurchaseOrder) ||  parcels_purchase_orders_items.empty?
 
     received_quantity.l(precision: 3)
   end
 
   def quantity_to_receive
-    return unless purchase.is_a?(PurchaseOrder) || parcels_purchase_orders_items.empty?
+    return unless purchase.is_a?(PurchaseOrder) ||  parcels_purchase_orders_items.empty?
 
     (quantity - received_quantity).l(precision: 3)
   end
@@ -361,7 +361,7 @@ class PurchaseItem < Ekylibre::Record::Base
 
   def received_quantity
     parcels_purchase_orders_items
-      .select{ |reception_item| reception_item.reception.state.to_sym == :given }
+      .select { |reception_item| reception_item.reception.state.to_sym == :given }
       .map(&:population)
       .sum
   end

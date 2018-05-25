@@ -72,7 +72,10 @@ class InterventionOutput < InterventionProductParameter
       output.type = variant.matching_model.name
       output.born_at = intervention.started_at
       output.initial_born_at = output.born_at
-      output.name = compute_output_name
+
+      output.name = new_name unless procedure.of_category?(:planting)
+      output.name = compute_output_planting_name if procedure.of_category?(:planting)
+
       output.identification_number = identification_number if identification_number.present?
       # output.attributes = product_attributes
       reading = readings.find_by(indicator_name: :shape)
@@ -120,7 +123,7 @@ class InterventionOutput < InterventionProductParameter
     end
   end
 
-  def compute_output_name
+  def compute_output_planting_name
     land_parcel_name = group
                        .targets
                        .select { |target| target.product.is_a?(LandParcel) }
