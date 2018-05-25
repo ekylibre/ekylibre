@@ -448,6 +448,9 @@
     nestedProductParameterBlock = $('.nested-product-parameter.nested-land_parcel') if $(nestedProductParameterBlock).length == 0
 
     productId = $(nestedProductParameterBlock).find('.selector .selector-value').val()
+
+    return if productId == ""
+
     landParcelPlantSelectorElement = $(nestedProductParameterBlock).find('.nested-product_parameter .land-parcel-plant-selector')
 
     unrollBlock = $(nestedProductParameterBlock).find('.intervention_targets_product .controls')
