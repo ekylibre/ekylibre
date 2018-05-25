@@ -1318,7 +1318,7 @@ fra:
     documentation: "Documentation"
     doer_cost: "Coût de main d’œuvre"
     doers: "Opérateurs" #?
-    done: "Fait"
+    done: "Terminées"
     dont_generate_carrying_forward_entries: "— Ne pas générer les écritures de report à nouveau —"
     dont_generate_closure_entries: "— Ne pas générer les écritures de clôture —"
     dont_generate_result_entries: "— Ne pas générer les écritures de résultat —"
@@ -2431,7 +2431,7 @@ fra:
       one: "Valider mes miettes pour %{count} intervention"
       other: "Valider mes miettes pour %{count} interventions"
     validate_selected_entries: "Valider les écritures sélectionnées"
-    validated: "Validé"
+    validated: "Validées"
     values: "Valeurs"
     variable_indicators: "Indicateurs variables"
     variant: "Variante"
