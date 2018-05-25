@@ -361,6 +361,11 @@ module Backend
         head(:not_found)
         return
       end
+
+      intervention_params[:tools_attributes]
+        .values
+        .each { |tool_attributes| tool_attributes.except!(:readings_attributes) }
+
       intervention = Procedo::Engine.new_intervention(intervention_params)
       begin
         intervention.impact_with!(params[:updater])
