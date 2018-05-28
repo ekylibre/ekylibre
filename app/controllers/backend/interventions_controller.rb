@@ -362,9 +362,11 @@ module Backend
         return
       end
 
-      intervention_params[:tools_attributes]
-        .values
-        .each { |tool_attributes| tool_attributes.except!(:readings_attributes) }
+      unless intervention_params[:tools_attributes].nil?
+        intervention_params[:tools_attributes]
+          .values
+          .each { |tool_attributes| tool_attributes.except!(:readings_attributes) }
+      end
 
       intervention = Procedo::Engine.new_intervention(intervention_params)
       begin
