@@ -116,6 +116,10 @@ class InterventionParameter < Ekylibre::Record::Base
     true
   end
 
+  before_save do
+    self.intervention_id ||= self.intervention.id
+  end
+
   def self.role
     @role ||= name.gsub(/^Intervention/, '').underscore.to_sym
   end

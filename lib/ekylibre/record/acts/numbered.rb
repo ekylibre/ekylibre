@@ -21,7 +21,6 @@ module Ekylibre
             options = args.extract_options!
             numbered_column = args.shift || :number
 
-
             options = { start: '00000001' }.merge(options)
                                            .merge(usage: options[:usage] || main_class.name.tableize)
                                            .merge(column: numbered_column)
@@ -38,7 +37,7 @@ module Ekylibre
 
             validates :"#{options[:column]}", presence: true
 
-            unless enumeration_condition.present?
+            if enumeration_condition.blank?
               validates :"#{options[:column]}", uniqueness: true
             end
 
@@ -83,7 +82,7 @@ module Ekylibre
 
             define_method :"load_unique_predictable_#{column}" do
               if enumeration_condition.present?
-                unless self.send(self.class.enumeration_condition)
+                unless send(self.class.enumeration_condition)
                   sequence_manager.load_predictable_into self
                 end
               else
@@ -97,7 +96,7 @@ module Ekylibre
 
             define_method :"load_unique_reliable_#{column}" do
               if enumeration_condition.present?
-                unless self.send(self.class.enumeration_condition)
+                unless send(self.class.enumeration_condition)
                   sequence_manager.load_reliable_into self
                 end
               else

@@ -1560,6 +1560,7 @@ jpn:
     unconfirmed_email: "未確認メール"
     undelivered_invoice_journal_entry: "未引渡請求書入力"
     undelivered_quantity: "未配信量"
+    # unit: "Unit"
     unit_amount: "単位量"
     unit_currency: "単位通貨"
     unit_name: "装置名"

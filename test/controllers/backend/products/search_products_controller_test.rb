@@ -1,7 +1,7 @@
 require 'test_helper'
 module Backend
   module Products
-    class IndicatorsControllerTest < ActionController::TestCase
+    class SearchProductsControllerTest < ActionController::TestCase
       test_restfully_all_actions
     end
   end
