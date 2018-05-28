@@ -343,9 +343,9 @@ fra:
       edit_specified_request: "Modifier la demande de %{procedure_name} n°%{number}"
       index: "Interventions"
       new: "Nouvelle intervention"
-      new_request: "Nouvelle demande d’intervention"
+      new_request: "Nouvelle planification d’intervention"
       new_specified: "Nouvelle intervention de %{procedure_name}"
-      new_specified_request: "Nouvelle demande de %{procedure_name}"
+      new_specified_request: "Nouvelle planification de %{procedure_name}"
       show: "%{procedure_name} n°%{number}"
     backend/inventories:
       edit: "Modifier l’inventaire"
