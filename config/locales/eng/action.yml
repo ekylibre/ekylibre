@@ -1253,6 +1253,7 @@ eng:
     conditions:
       filter_on_attribute_of_class: "Filter on attribute of class"
       special-subscriber: "Special-subscriber"
+    conducted: "Conducted"
     configure: "Configure"
     confirmation_update_historical_plans: "Confirmation update historical plans"
     connect: "Connect"

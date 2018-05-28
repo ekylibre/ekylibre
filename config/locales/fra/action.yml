@@ -1169,6 +1169,7 @@ fra:
     conditions:
       filter_on_attribute_of_class: "Filtre sur %{attribute} (%{class})"
       special-subscriber: "Filtre Abonné"
+    conducted: 'Réalisée'
     configure: "Configurer"
     confirmation_update_historical_plans: "Voulez-vous appliquer ces modifications sur l'historique des noms de parcelles ?"
     confirmed: "Confirmées" #?
@@ -1909,7 +1910,9 @@ fra:
     picture: "Photo"
     placeholder: "Espace réservé"
     places: "Lieux"
-    planned: "Planifiées"
+    planned:
+      one: 'Planifiée'
+      other: 'Planifiées'
     planned_at: "Date prévisionnelle" #?
     # planning: "Planning"
     plant: "Culture"
