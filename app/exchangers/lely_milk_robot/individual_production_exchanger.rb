@@ -28,24 +28,24 @@ module LelyMilkRobot
 
         # if an animal exist
         if animal = Animal.find_by(work_number: r.animal_work_number)
-            # for milk
-            milk_daily_production_measure = r.milk_daily_production.in_kilogram_per_day
-            # for daily_weight
-            daily_weight_measure = r.daily_weight.in_kilogram
-            milk_daily_production_at = r.analysed_on.to_time
-            reference_number = "LELY-" + r.analysed_on.to_s + "-DAILY-"+ r.animal_work_number
-            # analysis
-            unless analysis = Analysis.where(reference_number: reference_number, analyser: analyser).first
-              analysis = Analysis.create!(reference_number: reference_number, nature: 'unitary_cow_milk_analysis',
-                                          analyser: analyser, sampled_at: milk_daily_production_at, analysed_at: milk_daily_production_at)
-              analysis.read!(:milk_daily_production, milk_daily_production_measure)
-              analysis.read!(:net_mass, daily_weight_measure)
-              analysis.product = animal
-              analysis.save!
-            end
-            # indicators on animal
-            animal.read!(:milk_daily_production, milk_daily_production_measure, at: milk_daily_production_at, force: true)
-            animal.read!(:net_mass, daily_weight_measure, at: milk_daily_production_at, force: true)
+          # for milk
+          milk_daily_production_measure = r.milk_daily_production.in_kilogram_per_day
+          # for daily_weight
+          daily_weight_measure = r.daily_weight.in_kilogram
+          milk_daily_production_at = r.analysed_on.to_time
+          reference_number = 'LELY-' + r.analysed_on.to_s + '-DAILY-' + r.animal_work_number
+          # analysis
+          unless analysis = Analysis.where(reference_number: reference_number, analyser: analyser).first
+            analysis = Analysis.create!(reference_number: reference_number, nature: 'unitary_cow_milk_analysis',
+                                        analyser: analyser, sampled_at: milk_daily_production_at, analysed_at: milk_daily_production_at)
+            analysis.read!(:milk_daily_production, milk_daily_production_measure)
+            analysis.read!(:net_mass, daily_weight_measure)
+            analysis.product = animal
+            analysis.save!
+          end
+          # indicators on animal
+          animal.read!(:milk_daily_production, milk_daily_production_measure, at: milk_daily_production_at, force: true)
+          animal.read!(:net_mass, daily_weight_measure, at: milk_daily_production_at, force: true)
         end
         w.check_point
       end
