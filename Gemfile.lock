@@ -1,6 +1,6 @@
 GIT
   remote: git@gitlab.com:ekylibre-integration/planning.git
-  revision: c36e94e41e3ef1a23334372fa6b42224274df7d2
+  revision: fb70891ace8658886882ffa8af8d8051cc6d6cec
   specs:
     planning (0.6.1)
       factory_bot
@@ -77,11 +77,11 @@ GEM
       sidekiq (>= 2.11)
     arel (6.0.4)
     ast (2.4.0)
-    autoprefixer-rails (8.5.0)
+    autoprefixer-rails (8.5.1)
       execjs
     awesome_nested_set (3.1.4)
       activerecord (>= 4.0.0, < 5.3)
-    bcrypt (3.1.11)
+    bcrypt (3.1.12)
     beardley (1.4.2)
       rjb (>= 1.4.8)
       rjb-loader (>= 0.0.2)
@@ -127,7 +127,7 @@ GEM
     capistrano-rbenv (2.1.3)
       capistrano (~> 3.1)
       sshkit (~> 1.3)
-    capybara (3.1.0)
+    capybara (3.1.1)
       addressable
       mini_mime (>= 0.1.3)
       nokogiri (~> 1.8)
@@ -166,7 +166,7 @@ GEM
     coffee-script-source (1.12.2)
     colored (1.2)
     concurrent-ruby (1.0.5)
-    connection_pool (2.2.1)
+    connection_pool (2.2.2)
     crass (1.0.4)
     daemons (1.2.6)
     database_cleaner (1.7.0)
@@ -186,7 +186,7 @@ GEM
       devise (>= 4.0.0)
     did_you_mean (0.10.0)
       interception
-    docile (1.3.0)
+    docile (1.3.1)
     domain_name (0.5.20180417)
       unf (>= 0.0.5, < 1.0.0)
     draper (2.1.0)
@@ -199,14 +199,14 @@ GEM
     enumerize (2.2.2)
       activesupport (>= 3.2)
     erubis (2.7.0)
-    et-orbi (1.1.1)
+    et-orbi (1.1.2)
       tzinfo
     eventmachine (1.2.7)
     exception_notification (4.2.2)
       actionmailer (>= 4.0, < 6)
       activesupport (>= 4.0, < 6)
     execjs (2.7.0)
-    factory_bot (4.8.2)
+    factory_bot (4.10.0)
       activesupport (>= 3.0.0)
     factory_girl (4.9.0)
       activesupport (>= 3.0.0)
@@ -299,7 +299,7 @@ GEM
       rb-fsevent (~> 0.9, >= 0.9.4)
       rb-inotify (~> 0.9, >= 0.9.7)
       ruby_dep (~> 1.2)
-    lodash-rails (4.17.5)
+    lodash-rails (4.17.10)
       railties (>= 3.1)
     loofah (2.2.2)
       crass (~> 1.0.2)
@@ -568,7 +568,7 @@ GEM
       actionpack (>= 4.0)
       activesupport (>= 4.0)
       sprockets (>= 3.0.0)
-    sshkit (1.16.0)
+    sshkit (1.16.1)
       net-scp (>= 1.1.2)
       net-ssh (>= 2.8.0)
     state_machine (1.2.0)
@@ -637,7 +637,7 @@ GEM
       activerecord (> 3.2)
       coffee-rails (> 3.2)
       kaminari (~> 0.16)
-    xpath (3.0.0)
+    xpath (3.1.0)
       nokogiri (~> 1.8)
 
 PLATFORMS

@@ -642,10 +642,13 @@ Rails.application.routes.draw do
         get :available_time_or_quantity
         put :update_proposal
         get :update_modal_time
+        get :new_detailed_intervention
+        post :create_intervention
       end
 
       member do
         post :update_estimated_date
+        post :update_intervention_dates
       end
     end
 
@@ -653,6 +656,12 @@ Rails.application.routes.draw do
       resources :costs, only: [] do
         collection do
           get :parameter_cost
+        end
+      end
+
+      resources :product_planning, only: [] do
+        member do
+          get :is_planned_intervention
         end
       end
     end
@@ -894,6 +903,12 @@ Rails.application.routes.draw do
     resources :preferences, only: %i[update]
 
     namespace :products do
+      resources :interventions, only: [] do
+        member do
+          get :has_harvesting
+        end
+      end
+
       resources :indicators, only: [] do
         member do
           get :variable_indicators

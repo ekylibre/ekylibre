@@ -296,15 +296,19 @@ module Backend
         permitted_params[:participations_attributes] = participations
       end
 
+      # binding.pry
       @intervention = Intervention.new(permitted_params)
       url = if params[:create_and_continue]
               { action: :new, continue: true }
+            elsif URI(request.referer).path == '/backend/schedulings/new_detailed_intervention'
+              backend_schedulings_path
             else
               params[:redirect] || { action: :show, id: 'id'.c }
             end
       @intervention.save
       reconcile_receptions
-      return if save_and_redirect(@intervention, url: url, notify: :record_x_created, identifier: :number)
+      notify = params[:intervention_proposal] ? :record_x_planned : :record_x_created
+      return if save_and_redirect(@intervention, url: url, notify: notify, identifier: :number)
       render(locals: { cancel_url: { action: :index }, with_continue: true })
     end
 
