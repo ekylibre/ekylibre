@@ -185,7 +185,7 @@ class Intervention < Ekylibre::Record::Base
     end
 
     if params[:product_id].present?
-      search_params << "#{Intervention.table_name}.id IN (SELECT intervention_id FROM intervention_parameters WHERE type = 'InterventionTarget' AND product_id = '#{params[:product_id]}')"
+      search_params << "#{Intervention.table_name}.id IN (SELECT intervention_id FROM intervention_parameters WHERE product_id = '#{params[:product_id]}')"
     end
 
     if params[:cultivable_zone_id].present?

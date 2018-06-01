@@ -98,7 +98,7 @@ module Backend
 
       # Support
       code << "if params[:product_id].to_i > 0\n"
-      code << "  c[0] << ' AND #{Intervention.table_name}.id IN (SELECT intervention_id FROM intervention_parameters WHERE type = \\'InterventionTarget\\' AND product_id IN (?))'\n"
+      code << "  c[0] << ' AND #{Intervention.table_name}.id IN (SELECT intervention_id FROM intervention_parameters WHERE product_id IN (?))'\n"
       code << "  c << params[:product_id].to_i\n"
       code << "end\n"
 
