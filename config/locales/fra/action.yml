@@ -343,9 +343,9 @@ fra:
       edit_specified_request: "Modifier la demande de %{procedure_name} n°%{number}"
       index: "Interventions"
       new: "Nouvelle intervention"
-      new_request: "Nouvelle demande d’intervention"
+      new_request: "Nouvelle planification d’intervention"
       new_specified: "Nouvelle intervention de %{procedure_name}"
-      new_specified_request: "Nouvelle demande de %{procedure_name}"
+      new_specified_request: "Nouvelle planification de %{procedure_name}"
       show: "%{procedure_name} n°%{number}"
     backend/inventories:
       edit: "Modifier l’inventaire"
@@ -948,7 +948,7 @@ fra:
     add_inspection_calibration_scale: "Ajouter une échelle de calibre"
     add_inspection_point_nature: "Ajouter un critère de qualité"
     add_intervention_record: "Enregistrer une intervention"
-    add_intervention_request: "Demander une intervention"
+    add_intervention_request: "Planifier une intervention"
     # add_intervention_template: "Add intervention template"
     add_item: "Ajouter un élément"
     add_labelling: "Ajouter l’étiquette"
@@ -1169,6 +1169,7 @@ fra:
     conditions:
       filter_on_attribute_of_class: "Filtre sur %{attribute} (%{class})"
       special-subscriber: "Filtre Abonné"
+    conducted: 'Réalisée'
     configure: "Configurer"
     confirmation_update_historical_plans: "Voulez-vous appliquer ces modifications sur l'historique des noms de parcelles ?"
     confirmed: "Confirmées" #?
@@ -1909,6 +1910,9 @@ fra:
     picture: "Photo"
     placeholder: "Espace réservé"
     places: "Lieux"
+    planned:
+      one: 'Planifiée'
+      other: 'Planifiées'
     planned_at: "Date prévisionnelle" #?
     # planning: "Planning"
     plant: "Culture"
@@ -2433,7 +2437,7 @@ fra:
       one: "Valider mes miettes pour %{count} intervention"
       other: "Valider mes miettes pour %{count} interventions"
     validate_selected_entries: "Valider les écritures sélectionnées"
-    validated: "Validé"
+    validated: "Validées"
     values: "Valeurs"
     variable_indicators: "Indicateurs variables"
     variant: "Variante"
