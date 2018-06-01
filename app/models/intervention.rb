@@ -220,7 +220,7 @@ class Intervention < Ekylibre::Record::Base
       search_params << "#{Intervention.table_name}.id IN (SELECT intervention_id FROM intervention_parameters WHERE type = 'InterventionTarget' AND product_id IN (SELECT target_id FROM target_distributions WHERE activity_production_id = '#{params[:production_id]}'))"
       # search_params << "#{Intervention.table_name}.id IN (SELECT intervention_id FROM intervention_parameters WHERE type = 'InterventionTarget' AND product_id = '#{params[:product_id]}')"
     elsif params[:activity_id].present?
-      search_params << "#{Intervention.table_name}.id IN (SELECT intervention_id FROM intervention_parameters WHERE type = 'InterventionTarget' AND product_id IN (SELECT target_id FROM target_distributions WHERE activity_id = '#{params[:activity_id]}'))"
+      search_params << "#{Intervention.table_name}.id IN (SELECT intervention_id FROM interventions INNER JOIN activities_interventions ON activities_interventions.intervention_id = interventions.id INNER JOIN activities ON activities.id = activities_interventions.activity_id WHERE activities.id = '#{params[:activity_id]}')"
     end
 
     if params[:driver_id].present?
