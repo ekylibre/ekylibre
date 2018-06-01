@@ -76,12 +76,12 @@ class InterventionParameterReading < Ekylibre::Record::Base
       if indicator_name == :hour_counter
         save_hour_counter
       else
-        self.product_reading ||= product.readings.new(indicator_name: indicator_name)
-        self.product_reading.originator = self
+        product_reading ||= product.readings.new(indicator_name: indicator_name)
+        product_reading.originator = self
 
-        self.product_reading.value = value
-        self.product_reading.read_at = product.born_at || intervention.started_at || Time.now
-        self.product_reading.save!
+        product_reading.value = value
+        product_reading.read_at = product.born_at || intervention.started_at || Time.now
+        product_reading.save!
       end
     end
   end
@@ -94,9 +94,8 @@ class InterventionParameterReading < Ekylibre::Record::Base
     return if self.product_reading.present? && self.product_reading.value > 0.in(:hour) && value.zero?
 
     return if self.product_reading.present? &&
-                self.product_reading.read_at.present? &&
-                self.product_reading.read_at > intervention.stopped_at
-
+              self.product_reading.read_at.present? &&
+              self.product_reading.read_at > intervention.stopped_at
 
     if self.product_reading.nil?
       self.product_reading ||= product.readings.new(indicator: indicator,

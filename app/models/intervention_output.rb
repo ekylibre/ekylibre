@@ -73,7 +73,7 @@ class InterventionOutput < InterventionProductParameter
       output.born_at = intervention.started_at
       output.initial_born_at = output.born_at
 
-      output.name = new_name unless procedure.of_category?(:planting)
+      output.name = new_name if !procedure.of_category?(:planting) && new_name.present?
       output.name = compute_output_planting_name if procedure.of_category?(:planting)
 
       output.identification_number = identification_number if identification_number.present?

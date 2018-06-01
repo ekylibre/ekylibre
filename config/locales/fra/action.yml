@@ -343,9 +343,9 @@ fra:
       edit_specified_request: "Modifier la demande de %{procedure_name} n°%{number}"
       index: "Interventions"
       new: "Nouvelle intervention"
-      new_request: "Nouvelle demande d’intervention"
+      new_request: "Nouvelle planification d’intervention"
       new_specified: "Nouvelle intervention de %{procedure_name}"
-      new_specified_request: "Nouvelle demande de %{procedure_name}"
+      new_specified_request: "Nouvelle planification de %{procedure_name}"
       show: "%{procedure_name} n°%{number}"
     backend/inventories:
       edit: "Modifier l’inventaire"
@@ -789,12 +789,14 @@ fra:
       already_confirmed: "a déjà été validé(e)"
       confirmation_period_expired: "doit être confirmé sous %{period}, refaites une nouvelle demande s’il vous plait"
       expired: "a expiré, merci d’en faire une nouvelle demande"
+      harvest_in_progress: "Attention, cette culture est en cours de récolte"
       not_enough: "not enough %{resource} to complete task"
       not_found: "n’a pas été trouvé(e)"
       not_locked: "n’était pas verrouillé(e)"
       not_saved:
         one: "1 erreur a empêché ce(tte) %{resource} d’être sauvegardé(e)\_:"
         other: "%{count} erreurs ont empêché ce(tte) %{resource} d’être sauvegardé(e)\_:"
+      intervention_already_planned: "Attention, une autre intervention est prévue pour cette %{product_type} dans la planification (%{intervention_name})"
     template:
       body: "Il y a eu des problèmes avec les champs suivants\_:"
       header:
@@ -946,7 +948,7 @@ fra:
     add_inspection_calibration_scale: "Ajouter une échelle de calibre"
     add_inspection_point_nature: "Ajouter un critère de qualité"
     add_intervention_record: "Enregistrer une intervention"
-    add_intervention_request: "Demander une intervention"
+    add_intervention_request: "Planifier une intervention"
     # add_intervention_template: "Add intervention template"
     add_item: "Ajouter un élément"
     add_labelling: "Ajouter l’étiquette"
@@ -1167,6 +1169,7 @@ fra:
     conditions:
       filter_on_attribute_of_class: "Filtre sur %{attribute} (%{class})"
       special-subscriber: "Filtre Abonné"
+    conducted: 'Réalisée'
     configure: "Configurer"
     confirmation_update_historical_plans: "Voulez-vous appliquer ces modifications sur l'historique des noms de parcelles ?"
     confirmed: "Confirmées" #?
@@ -1907,6 +1910,9 @@ fra:
     picture: "Photo"
     placeholder: "Espace réservé"
     places: "Lieux"
+    planned:
+      one: 'Planifiée'
+      other: 'Planifiées'
     planned_at: "Date prévisionnelle" #?
     # planning: "Planning"
     plant: "Culture"
@@ -2818,6 +2824,7 @@ fra:
       record_not_found: "Enregistrement introuvable"
       record_x_created: "%{record} %{name} créé"
       record_x_updated: "%{record} %{name} mise à jour"
+      record_x_planned: "%{record} %{name} planifiée"
       restoration_finished: "La restauration de la sauvegarde s’est terminée (en %{value} secondes)." #?
       sale_already_invoiced: "La vente a déjà été facturée: vous ne pouvez pas définir de livraison" #?
       sale_cannot_be_updated: "Le devis n’est plus modifiable." #?

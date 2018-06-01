@@ -1564,6 +1564,7 @@ spa:
     unconfirmed_email: "Correo electrónico sin confirmar"
     undelivered_invoice_journal_entry: "El registro de facturas no entregado"
     undelivered_quantity: "Cantidad no entregada"
+    # unit: "Unit"
     unit_amount: "Importe unitario"
     unit_currency: "Moneda de la unidad"
     unit_name: "Nombre de la unidad"

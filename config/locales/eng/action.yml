@@ -651,6 +651,8 @@ eng:
       show: "Product type: %{name}"
     backend/products/indicators:
       # variable_indicators: "Variable indicators indicator: %{name}"
+    backend/products/search_products:
+      # datas: "Datas search product: %{name}"
     backend/products/search_variants:
       # search_by_expression: "Search by expression search variant: %{name}"
     backend/products:
@@ -949,12 +951,14 @@ eng:
       already_confirmed: "was already confirmed, please try signing in"
       confirmation_period_expired: "needs to be confirmed within %{period}, please request a new one"
       expired: "has expired, please request a new one"
+      harvest_in_progress: "Be careful, this crop is being harvested"
       not_enough: "not enough %{resource} to complete task"
       not_found: "not found"
       not_locked: "was not locked"
       not_saved:
         one: "1 error prohibited this %{resource} from being saved:"
         other: "%{count} errors prohibited this %{resource} from being saved:"
+      intervention_already_planned: "Be careful, another intervention is planned for this %{product_type} in planning"
     template:
       body: "There were problems with the following fields:"
       header:
@@ -1249,6 +1253,7 @@ eng:
     conditions:
       filter_on_attribute_of_class: "Filter on attribute of class"
       special-subscriber: "Special-subscriber"
+    conducted: "Conducted"
     configure: "Configure"
     confirmation_update_historical_plans: "Confirmation update historical plans"
     connect: "Connect"
@@ -1573,6 +1578,7 @@ eng:
     journals: "Journals"
     label: "Label" #?
     label_value: "%{label}: %{value}"
+    # land_parcel_name: "Land parcel name"
     land_parcels: "Land parcels"
     last_analyses: "Last milk analysis"
     last_computed_balance: "Last computed balance" #?
@@ -1793,6 +1799,7 @@ eng:
     picture: "Picture" #?
     placeholder: "Placeholder" #?
     places: "Places"
+    planned: "Planned"
     planning: "Planning"
     plant: "Crop"
     plant_counting: "Counting" #?
@@ -1851,7 +1858,7 @@ eng:
     quandl: "Quandl" #?
     quantity: "Quantity"
     quantity_available: "Quantity available" #??
-    quantity_to_receive: "Quantity to receive"
+    quantity_to_receive: "Quantity to receive" #?
     query: "Query:" #?
     raw_income: "Raw income"
     reading_tasks: "Reading tasks" #?
@@ -2534,6 +2541,7 @@ eng:
       # csv: "Csv"
       # currency_state: "Currency state"
       # current: "Current"
+      # datas: "Datas"
       # depreciate: "Depreciate"
       # depreciate_all: "Depreciate all"
       destroy: "Destroy"
