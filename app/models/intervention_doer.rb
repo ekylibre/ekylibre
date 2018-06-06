@@ -76,6 +76,15 @@ class InterventionDoer < InterventionAgent
     end
   end
 
+  scope :with_empty_participations, lambda {
+    InterventionDoer
+      .select do |intervention_doer|
+        next if intervention_doer.intervention.nil?
+
+        intervention_doer.intervention.participations.where(product_id: intervention_doer.product_id).empty?
+      end
+  }
+
   def working_duration_params
     { intervention: intervention,
       participation: participation,
