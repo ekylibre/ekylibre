@@ -65,8 +65,8 @@ module Interventions
         intervention.working_periods.each do |working_period|
           working_periods << InterventionWorkingPeriod
                                .new(nature: nature,
-                                    started_at: working_period.started_at + 1.hour,
-                                    stopped_at: working_period.stopped_at + 1.hour,
+                                    started_at: working_period.started_at,
+                                    stopped_at: working_period.stopped_at,
                                     duration: working_period.duration)
         end
 
