@@ -162,6 +162,7 @@ fra:
       humans: "Tableau de bord des ressources humaines"
       index: "Tableaux de bord"
       new: "Nouveau tableau de bord"
+      # planning: "Planning"
       production: "Tableau de bord de la production"
       purchases: "Tableau de bord des achats"
       relationship: "Tableau de bord de la gestion des relations"
@@ -449,6 +450,11 @@ fra:
     backend/myselves:
       change_password: "Changer de mot de passe" #?
       show: "Mon compte"
+    backend/naming_format_land_parcels:
+      edit: "Format de nommage des Parcelles"
+      index: "Formats de nommage" #?
+    backend/naming_formats:
+      index: "Formats de nommage"
     backend/net_services:
       edit: "Modifier un service en ligne"
       index: "Services en ligne"
@@ -783,12 +789,14 @@ fra:
       already_confirmed: "a déjà été validé(e)"
       confirmation_period_expired: "doit être confirmé sous %{period}, refaites une nouvelle demande s’il vous plait"
       expired: "a expiré, merci d’en faire une nouvelle demande"
+      harvest_in_progress: "Attention, cette culture est en cours de récolte"
       not_enough: "not enough %{resource} to complete task"
       not_found: "n’a pas été trouvé(e)"
       not_locked: "n’était pas verrouillé(e)"
       not_saved:
         one: "1 erreur a empêché ce(tte) %{resource} d’être sauvegardé(e)\_:"
         other: "%{count} erreurs ont empêché ce(tte) %{resource} d’être sauvegardé(e)\_:"
+      intervention_already_planned: "Attention, une autre intervention est prévue pour cette %{product_type} dans la planification (%{intervention_name})"
     template:
       body: "Il y a eu des problèmes avec les champs suivants\_:"
       header:
@@ -932,6 +940,7 @@ fra:
     add_expense: "Ajouter une dépense"
     add_fax: "Ajouter un n° de fax"
     add_fees: "Ajouter des frais"
+    add_field: "Ajouter un champ"
     add_filter: "Ajouter un filtre"
     add_grading_check: "Ajouter un critère d’agréage"
     add_incoming_payment: "Ajouter un encaissement"
@@ -1161,6 +1170,7 @@ fra:
       filter_on_attribute_of_class: "Filtre sur %{attribute} (%{class})"
       special-subscriber: "Filtre Abonné"
     configure: "Configurer"
+    confirmation_update_historical_plans: "Voulez-vous appliquer ces modifications sur l'historique des noms de parcelles ?"
     confirmed: "Confirmées" #?
     confirmed_at: "Confirmée le" #?
     connect: "Se connecter"
@@ -1219,6 +1229,7 @@ fra:
     cropping_plan: "Assolement"
     cropping_plan_chart: "Assolement" #?
     cropping_plan_on_cultivable_zones: "Assolement (Parcelles culturales)"
+    crops: "Cultures"
     crumb_procedure_nature: "Type de procedure" #?
     crumbs: "Miettes"
     csv_statistics: "Statistiques à exporter au format CSV" #?
@@ -1400,6 +1411,7 @@ fra:
     fat_matters_concentration: "Teneur en matières grasses" #?
     fax: "Fax" #?
     fees: "Frais"
+    field: "Champ %{counter}"
     field_distribution: "Parcellaire"
     file_nature: "Type de fichier"
     file_pages_count: "Nombre de pages" #?
@@ -1465,7 +1477,10 @@ fra:
     hint: "Astuce\_: %{value}"
     historic: "Historique"
     home: "Accueil"
+    hour: "Heure"
+    hour_counter: "Compteur horaire"
     hours: "H"
+    hours_label: "Heures"
     human_target_names: "Nom des cibles" #?
     human_working_duration: "Temps de travail"
     human_working_zone_area: "Zone travaillée" #?
@@ -1708,6 +1723,7 @@ fra:
     moved_at: "Fait le" #?
     movements: "Mouvements"
     moves: "Mouvements de stocks" #?
+    n: "Non"
     name: "Nom"
     nature: "Type"
     nature_changed: "Le type des animaux a changé"
@@ -1814,6 +1830,7 @@ fra:
     number_of_cap_islets: "Nombre d’ilôt PAC"
     number_of_cap_land_parcels: "Nombre de parcelle PAC"
     number_options: "Options de numérotations" #?
+    number_with_param: "N° %{number}" #?
     numbers: "Numéros"
     on_account: "À remettre sur le compte"
     one_condition: "au moins une condition"
@@ -1992,6 +2009,7 @@ fra:
     quantity: "Quantité"
     quantity_available: "Quantité disponible"
     quantity_rest: "Quantité restante" #?
+    quantity_to_receive: "Quantité à réceptionner"
     quarterly: "Trimestrielle" #?
     query: "Requête:"
     raw_income: "Résultat d’exploitation"
@@ -2003,6 +2021,7 @@ fra:
     receipt_date: "Date de réception"
     receipt_responsible: "Responsable réception"
     received: "Reçue"
+    received_quantity: "Quantité réceptionée"
     receiving_address: "Adresse de réception"
     recent_events: "Derniers événements"
     recent_historic: "Historique récent" #?
@@ -2068,6 +2087,7 @@ fra:
     revenues: "Recettes"
     revenues_by_product_nature: "Chiffre d’affaire par type de produit"
     reverse: "Appliquer la condition inverse"
+    revise: "Mettre à jour"
     right_parts: #?
       accountancy: "Droits module Comptabilité" #?
       company: "Droits module Société" #?
@@ -2741,6 +2761,7 @@ fra:
       journal_reopened_on: "Le %{journal} a été déclôturé au %{closed_on} correctement."
       mails_are_sent: "Les courriels ont été envoyés"
       merge_is_done: "La fusion est terminée"
+      n: "Non" #?
       need_a_valid_payment_mode: "Besoin d’un mode de paiement valide"
       need_a_valid_purchase_nature_to_start_new_purchase: "Nécessite un type d’achat valide pour commencer un nouvel achat"
       need_a_valid_sale_nature_to_start_new_sale: "Nécessite un type de vente valide pour commencer une nouvelle vente"
@@ -2799,6 +2820,7 @@ fra:
       record_not_found: "Enregistrement introuvable"
       record_x_created: "%{record} %{name} créé"
       record_x_updated: "%{record} %{name} mise à jour"
+      record_x_planned: "%{record} %{name} planifiée"
       restoration_finished: "La restauration de la sauvegarde s’est terminée (en %{value} secondes)." #?
       sale_already_invoiced: "La vente a déjà été facturée: vous ne pouvez pas définir de livraison" #?
       sale_cannot_be_updated: "Le devis n’est plus modifiable." #?

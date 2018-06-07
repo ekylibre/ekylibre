@@ -66,33 +66,5 @@
 require 'test_helper'
 
 class ParcelItemTest < ActiveSupport::TestCase
-  test_model_actions
-
-  test "give doesn't create the dependent records if there is an exception during the process" do
-    product = create(:product)
-    parcel_item = create(:parcel_item, product: product, product_identification_number: '12345678', product_name: 'Product name')
-    ProductMovement.destroy_all
-    ProductLocalization.destroy_all
-    ProductEnjoyment.stub :create!, ->(*_args) { raise } do
-      begin
-        parcel_item.give
-      rescue
-      end
-      assert_empty ProductMovement.all
-      assert_empty ProductLocalization.all
-    end
-  end
-
-  test 'parcel_item without population give take the population of the source_product population' do
-    parcel_item = create(:outgoing_parcel_item)
-    assert_equal 1, parcel_item.population
-  end
-
-  test 'parcel_item with population have the given population' do
-    nature = create(:product_nature, population_counting: :decimal)
-    variant = create(:product_nature_variant, nature: nature)
-    product = create(:product, variant: variant)
-    parcel_item = create(:outgoing_parcel_item, population: 12, source_product: product)
-    assert_equal 12, parcel_item.population
-  end
+  # Add tests here...
 end

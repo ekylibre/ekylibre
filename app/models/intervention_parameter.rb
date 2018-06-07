@@ -23,6 +23,7 @@
 # == Table: intervention_parameters
 #
 #  assembly_id              :integer
+#  batch_number             :string
 #  component_id             :integer
 #  created_at               :datetime         not null
 #  creator_id               :integer
@@ -52,6 +53,7 @@
 #  updated_at               :datetime         not null
 #  updater_id               :integer
 #  variant_id               :integer
+#  variety                  :string
 #  working_zone             :geometry({:srid=>4326, :type=>"multi_polygon"})
 #
 class InterventionParameter < Ekylibre::Record::Base
@@ -61,7 +63,7 @@ class InterventionParameter < Ekylibre::Record::Base
   belongs_to :intervention, inverse_of: :parameters
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates :currency, :identification_number, :new_name, :quantity_handler, :quantity_indicator_name, :quantity_unit_name, length: { maximum: 500 }, allow_blank: true
+  validates :batch_number, :currency, :identification_number, :new_name, :quantity_handler, :quantity_indicator_name, :quantity_unit_name, :variety, length: { maximum: 500 }, allow_blank: true
   validates :dead, inclusion: { in: [true, false] }
   validates :quantity_population, :quantity_value, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }, allow_blank: true
   validates :reference_name, presence: true, length: { maximum: 500 }
@@ -112,6 +114,10 @@ class InterventionParameter < Ekylibre::Record::Base
       self.position = (precision * now.to_f).round - (precision * now.to_i)
     end
     true
+  end
+
+  before_save do
+    self.intervention_id ||= self.intervention.id
   end
 
   def self.role

@@ -27520,3 +27520,369 @@ journal_entry_items_811:
   state: draft
   updated_at: 2017-06-15 14:32:20.373525000 Z
   updater_id: 1
+journal_entry_items_812:
+  absolute_credit: 0.0
+  absolute_currency: EUR
+  absolute_debit: 3920.0
+  absolute_pretax_amount: 0.0
+  account_id: 147
+  balance: 3920.0
+  created_at: 2017-11-21 10:20:26.517277000 Z
+  creator_id: 1
+  credit: 0.0
+  cumulated_absolute_credit: 0.0
+  cumulated_absolute_debit: 4920.0
+  currency: EUR
+  debit: 3920.0
+  entry_id: 258
+  entry_number: PUR000008
+  financial_year_id: 27
+  id: 1030
+  journal_id: 4
+  lock_version: 0
+  name: 'translation missing: fra.models.purchase_invoice.bookkeep'
+  position: 1
+  pretax_amount: 0.0
+  printed_on: 2017-11-21
+  real_balance: 3920.0
+  real_credit: 0.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 3920.0
+  real_pretax_amount: 0.0
+  resource_id: 23
+  resource_prism: item_product
+  resource_type: PurchaseItem
+  state: draft
+  updated_at: 2017-11-21 10:20:26.517277000 Z
+  updater_id: 1
+  variant_id: 57
+journal_entry_items_813:
+  absolute_credit: 0.0
+  absolute_currency: EUR
+  absolute_debit: 784.0
+  absolute_pretax_amount: 3920.0
+  account_id: 39
+  balance: 784.0
+  created_at: 2017-11-21 10:20:26.528675000 Z
+  creator_id: 1
+  credit: 0.0
+  cumulated_absolute_credit: 1.87
+  cumulated_absolute_debit: 5320.95
+  currency: EUR
+  debit: 784.0
+  entry_id: 258
+  entry_number: PUR000008
+  financial_year_id: 27
+  id: 1031
+  journal_id: 4
+  lock_version: 0
+  name: 'translation missing: fra.models.purchase_invoice.bookkeep'
+  position: 2
+  pretax_amount: 3920.0
+  printed_on: 2017-11-21
+  real_balance: 784.0
+  real_credit: 0.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 784.0
+  real_pretax_amount: 3920.0
+  resource_id: 23
+  resource_prism: item_tax
+  resource_type: PurchaseItem
+  state: draft
+  tax_id: 3
+  updated_at: 2017-11-21 10:20:26.528675000 Z
+  updater_id: 1
+  variant_id: 57
+journal_entry_items_814:
+  absolute_credit: 0.0
+  absolute_currency: EUR
+  absolute_debit: 3325.0
+  absolute_pretax_amount: 0.0
+  account_id: 140
+  balance: 3325.0
+  created_at: 2017-11-21 10:20:26.534149000 Z
+  creator_id: 1
+  credit: 0.0
+  cumulated_absolute_credit: 0.0
+  cumulated_absolute_debit: 3325.0
+  currency: EUR
+  debit: 3325.0
+  entry_id: 258
+  entry_number: PUR000008
+  financial_year_id: 27
+  id: 1032
+  journal_id: 4
+  lock_version: 0
+  name: 'translation missing: fra.models.purchase_invoice.bookkeep'
+  position: 3
+  pretax_amount: 0.0
+  printed_on: 2017-11-21
+  real_balance: 3325.0
+  real_credit: 0.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 3325.0
+  real_pretax_amount: 0.0
+  resource_id: 22
+  resource_prism: item_product
+  resource_type: PurchaseItem
+  state: draft
+  updated_at: 2017-11-21 10:20:26.534149000 Z
+  updater_id: 1
+  variant_id: 8
+journal_entry_items_815:
+  absolute_credit: 0.0
+  absolute_currency: EUR
+  absolute_debit: 665.0
+  absolute_pretax_amount: 3325.0
+  account_id: 39
+  balance: 665.0
+  created_at: 2017-11-21 10:20:26.539283000 Z
+  creator_id: 1
+  credit: 0.0
+  cumulated_absolute_credit: 1.87
+  cumulated_absolute_debit: 5201.95
+  currency: EUR
+  debit: 665.0
+  entry_id: 258
+  entry_number: PUR000008
+  financial_year_id: 27
+  id: 1033
+  journal_id: 4
+  lock_version: 0
+  name: 'translation missing: fra.models.purchase_invoice.bookkeep'
+  position: 4
+  pretax_amount: 3325.0
+  printed_on: 2017-11-21
+  real_balance: 665.0
+  real_credit: 0.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 665.0
+  real_pretax_amount: 3325.0
+  resource_id: 22
+  resource_prism: item_tax
+  resource_type: PurchaseItem
+  state: draft
+  tax_id: 3
+  updated_at: 2017-11-21 10:20:26.539283000 Z
+  updater_id: 1
+  variant_id: 8
+journal_entry_items_816:
+  absolute_credit: 8694.0
+  absolute_currency: EUR
+  absolute_debit: 0.0
+  absolute_pretax_amount: 0.0
+  account_id: 204
+  balance: -8694.0
+  created_at: 2017-11-21 10:20:26.545069000 Z
+  creator_id: 1
+  credit: 8694.0
+  cumulated_absolute_credit: 11594.0
+  cumulated_absolute_debit: 2350.0
+  currency: EUR
+  debit: 0.0
+  entry_id: 258
+  entry_number: PUR000008
+  financial_year_id: 27
+  id: 1034
+  journal_id: 4
+  letter: C
+  lock_version: 0
+  name: 'translation missing: fra.models.purchase_invoice.bookkeep'
+  position: 5
+  pretax_amount: 0.0
+  printed_on: 2017-11-21
+  real_balance: -8694.0
+  real_credit: 8694.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 0.0
+  real_pretax_amount: 0.0
+  resource_prism: supplier
+  state: draft
+  updated_at: 2017-11-21 10:20:26.545069000 Z
+  updater_id: 1
+journal_entry_items_817:
+  absolute_credit: 0.0
+  absolute_currency: EUR
+  absolute_debit: 8694.0
+  absolute_pretax_amount: 0.0
+  account_id: 204
+  balance: 8694.0
+  created_at: 2017-11-21 10:20:54.418578000 Z
+  creator_id: 1
+  credit: 0.0
+  cumulated_absolute_credit: 11594.0
+  cumulated_absolute_debit: 11044.0
+  currency: EUR
+  debit: 8694.0
+  entry_id: 259
+  entry_number: BNK000101
+  financial_year_id: 27
+  id: 1035
+  journal_id: 2
+  letter: C
+  lock_version: 0
+  name: "[Décaissement d’achat D20170004] SEPA  pour BAKTOUBI Inc."
+  position: 1
+  pretax_amount: 0.0
+  printed_on: 2017-11-21
+  real_balance: 8694.0
+  real_credit: 0.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 8694.0
+  real_pretax_amount: 0.0
+  resource_id: 4
+  resource_prism: payee
+  resource_type: Entity
+  state: draft
+  updated_at: 2017-11-21 10:20:54.418578000 Z
+  updater_id: 1
+journal_entry_items_818:
+  absolute_credit: 8694.0
+  absolute_currency: EUR
+  absolute_debit: 0.0
+  absolute_pretax_amount: 0.0
+  account_id: 212
+  balance: -8694.0
+  created_at: 2017-11-21 10:20:54.423022000 Z
+  creator_id: 1
+  credit: 8694.0
+  cumulated_absolute_credit: 59666.76
+  cumulated_absolute_debit: 2183.3
+  currency: EUR
+  debit: 0.0
+  entry_id: 259
+  entry_number: BNK000101
+  financial_year_id: 27
+  id: 1036
+  journal_id: 2
+  lock_version: 0
+  name: "[Décaissement d’achat D20170004] SEPA  pour BAKTOUBI Inc."
+  position: 2
+  pretax_amount: 0.0
+  printed_on: 2017-11-21
+  real_balance: -8694.0
+  real_credit: 8694.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 0.0
+  real_pretax_amount: 0.0
+  resource_prism: bank
+  state: draft
+  updated_at: 2017-11-21 10:20:54.423022000 Z
+  updater_id: 1
+journal_entry_items_819:
+  absolute_credit: 0.0
+  absolute_currency: EUR
+  absolute_debit: 378.0
+  absolute_pretax_amount: 0.0
+  account_id: 147
+  balance: 378.0
+  created_at: 2017-11-21 10:21:30.497062000 Z
+  creator_id: 1
+  credit: 0.0
+  cumulated_absolute_credit: 0.0
+  cumulated_absolute_debit: 5298.0
+  currency: EUR
+  debit: 378.0
+  entry_id: 260
+  entry_number: PUR000009
+  financial_year_id: 27
+  id: 1037
+  journal_id: 4
+  lock_version: 0
+  name: 'translation missing: fra.models.purchase_invoice.bookkeep'
+  position: 1
+  pretax_amount: 0.0
+  printed_on: 2017-11-21
+  real_balance: 378.0
+  real_credit: 0.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 378.0
+  real_pretax_amount: 0.0
+  resource_id: 24
+  resource_prism: item_product
+  resource_type: PurchaseItem
+  state: draft
+  updated_at: 2017-11-21 10:21:30.497062000 Z
+  updater_id: 1
+  variant_id: 62
+journal_entry_items_820:
+  absolute_credit: 0.0
+  absolute_currency: EUR
+  absolute_debit: 0.0
+  absolute_pretax_amount: 378.0
+  account_id: 39
+  balance: 0.0
+  created_at: 2017-11-21 10:21:30.501894000 Z
+  creator_id: 1
+  credit: 0.0
+  cumulated_absolute_credit: 1.87
+  cumulated_absolute_debit: 5201.95
+  currency: EUR
+  debit: 0.0
+  entry_id: 260
+  entry_number: PUR000009
+  financial_year_id: 27
+  id: 1038
+  journal_id: 4
+  lock_version: 0
+  name: 'translation missing: fra.models.purchase_invoice.bookkeep'
+  position: 2
+  pretax_amount: 378.0
+  printed_on: 2017-11-21
+  real_balance: 0.0
+  real_credit: 0.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 0.0
+  real_pretax_amount: 378.0
+  resource_id: 24
+  resource_prism: item_tax
+  resource_type: PurchaseItem
+  state: draft
+  tax_id: 2
+  updated_at: 2017-11-21 10:21:30.501894000 Z
+  updater_id: 1
+  variant_id: 62
+journal_entry_items_821:
+  absolute_credit: 378.0
+  absolute_currency: EUR
+  absolute_debit: 0.0
+  absolute_pretax_amount: 0.0
+  account_id: 207
+  balance: -378.0
+  created_at: 2017-11-21 10:21:30.508569000 Z
+  creator_id: 1
+  credit: 378.0
+  cumulated_absolute_credit: 468.82
+  cumulated_absolute_debit: 27.0
+  currency: EUR
+  debit: 0.0
+  entry_id: 260
+  entry_number: PUR000009
+  financial_year_id: 27
+  id: 1039
+  journal_id: 4
+  letter: B*
+  lock_version: 0
+  name: 'translation missing: fra.models.purchase_invoice.bookkeep'
+  position: 3
+  pretax_amount: 0.0
+  printed_on: 2017-11-21
+  real_balance: -378.0
+  real_credit: 378.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 0.0
+  real_pretax_amount: 0.0
+  resource_prism: supplier
+  state: draft
+  updated_at: 2017-11-21 10:21:30.508569000 Z
+  updater_id: 1

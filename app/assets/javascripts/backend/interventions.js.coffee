@@ -356,6 +356,25 @@
       E.interventions.updateAvailabilityInstant(started_at)
 
 
+  $(document).on 'selector:change', '.intervention_tools_product .selector-search', (event) ->
+    toolId = $(event.target).closest('.selector').find('.selector-value').val()
+
+    $.ajax
+      url: "/backend/products/indicators/#{ toolId }/variable_indicators"
+      success: (data, status, request) ->
+        return if data['is_hour_counter'] == false
+
+        hourCounterBlock = $(event.target).closest('.nested-product-parameter').find('.tool-nested-readings')
+
+        return if hourCounterBlock.hasClass('visible')
+
+        hourCounterBlock.removeClass('hidden')
+        hourCounterBlock.addClass('visible')
+
+        hourCounterLinks = hourCounterBlock.find('.links')
+        hourCounterBlock.find('.add-reading').trigger('click') if hourCounterLinks.is(':visible')
+
+
   $(document).on "selector:change", 'input[data-selector-id="intervention_doer_product_id"], input[data-selector-id="intervention_tool_product_id"]', (event) ->
     element = $(event.target)
     blockElement = element.closest('.nested-fields')
@@ -395,6 +414,63 @@
     supplierLabel.addClass('required')
     supplierLabel.prepend("<abbr title='Obligatoire'>*</abbr>")
 
+  $(document).on 'change', '.nested-parameters .nested-cultivation .land-parcel-plant-selector', (event) ->
+    nestedCultivationBlock = $(event.target).closest('.nested-cultivation')
+    unrollElement = $(nestedCultivationBlock).find('.intervention_targets_product .selector-search')
+    unrollValueElement = $(nestedCultivationBlock).find('.intervention_targets_product .selector-value')
+
+    if unrollValueElement.val() != ""
+      unrollValueElement.val('')
+
+    harvestInProgressError = $(nestedCultivationBlock).find('.harvest-in-progress-error')
+    $(harvestInProgressError).remove() if $(harvestInProgressError).length > 0
+
+    plantLandParcelSelector = new E.PlantLandParcelSelector()
+    plantLandParcelSelector.changeUnrollUrl(event, unrollElement)
+
+
+  $(document).on 'selector:change', '.nested-parameters .nested-cultivation .intervention_targets_product .selector-search', (event) ->
+    landParcelPlantSelectorElement = $(event.target).closest('.nested-cultivation').find('.land-parcel-plant-selector')
+    productId = $(event.target).closest('.selector').find('.selector-value').val()
+
+    nestedCultivationBlock = $(event.target).closest('.nested-cultivation')
+    harvestInProgressError = $(nestedCultivationBlock).find('.harvest-in-progress-error')
+    $(harvestInProgressError).remove() if $(harvestInProgressError).length > 0
+
+    E.interventionForm.checkPlantLandParcelSelector(productId, landParcelPlantSelectorElement)
+    E.interventionForm.checkHarvestInProgress(event, productId, landParcelPlantSelectorElement)
+
+
+  $(document).on 'keyup change dp.change', '.nested-fields.working-period input[data-intervention-updater]', (event) ->
+    nestedProductParameterBlock = $('.nested-product-parameter.nested-cultivation')
+    nestedProductParameterBlock = $('.nested-product-parameter.nested-plant') if $(nestedProductParameterBlock).length == 0
+    nestedProductParameterBlock = $('.nested-product-parameter.nested-land_parcel') if $(nestedProductParameterBlock).length == 0
+
+    productId = $(nestedProductParameterBlock).find('.selector .selector-value').val()
+
+    return if productId == ""
+
+    landParcelPlantSelectorElement = $(nestedProductParameterBlock).find('.nested-product_parameter .land-parcel-plant-selector')
+
+    unrollBlock = $(nestedProductParameterBlock).find('.intervention_targets_product .controls')
+    harvestInProgressError = $(unrollBlock).find('.harvest-in-progress-error')
+
+    $(harvestInProgressError).remove() if $(harvestInProgressError).length > 0
+
+    E.interventionForm.checkHarvestInProgress(event, productId, landParcelPlantSelectorElement, nestedProductParameterBlock)
+
+
+  $(document).on 'selector:change', '.nested-parameters .nested-plant .intervention_targets_product .selector-search', (event) ->
+    landParcelPlantSelectorElement = $(event.target).closest('.nested-product_parameter').find('.land-parcel-plant-selector')
+    productId = $(event.target).closest('.selector').find('.selector-value').val()
+
+    nestedCultivationBlock = $(event.target).closest('.nested-product_parameter')
+    harvestInProgressError = $(nestedCultivationBlock).find('.harvest-in-progress-error')
+    $(harvestInProgressError).remove() if $(harvestInProgressError).length > 0
+
+    E.interventionForm.checkPlantLandParcelSelector(productId, landParcelPlantSelectorElement)
+    E.interventionForm.checkHarvestInProgress(event, productId, landParcelPlantSelectorElement)
+
 
   E.interventionForm =
     displayCost: (target, quantity, unitName) ->
@@ -428,6 +504,43 @@
               parameterCostBlock.append('<span class="product-parameter-cost-value">' + data.human_amount + '</span>')
 
               $(nestedProductParameter).find('.intervention_inputs_quantity').append(parameterCostBlock)
+
+    checkPlantLandParcelSelector: (productId, landParcelPlantSelectorElement) ->
+      $.ajax
+        url: "/backend/products/search_products/#{ productId }/datas",
+        success: (data, status, request) ->
+          if data.type == 'LandParcel'
+            landParcelPlantSelectorElement.find('.land-parcel-radio-button').prop('checked', true)
+          else
+            landParcelPlantSelectorElement.find('.plant-radio-button').prop('checked', true)
+
+
+    checkHarvestInProgress: (event, productId, landParcelPlantSelectorElement, nestedCultivationBlock = null) ->
+      interventionNature = $('.intervention_nature input[type="hidden"]').val()
+
+      return if $('#is_harvesting').val() == "true" ||
+                  landParcelPlantSelectorElement.find('.land-parcel-radio-button').is(':checked') ||
+                  interventionNature == "request"
+
+      interventionStartedAt = $('.intervention-started-at').val()
+
+      $.ajax
+        url: "/backend/products/interventions/#{ productId }/has_harvesting",
+        data: { intervention_started_at: interventionStartedAt }
+        success: (data, status, request) ->
+          nestedCultivationBlock ||= $(event.target).closest('.nested-product-parameter')
+
+          unrollBlock = $(nestedCultivationBlock).find('.intervention_targets_product .controls')
+          harvestInProgressError = $(unrollBlock).find('.harvest-in-progress-error')
+
+          if $(harvestInProgressError).length > 0
+            $(harvestInProgressError).remove()
+
+          if data.has_harvesting
+           unrollElement = $(nestedCultivationBlock).find('.intervention_targets_product .selector-search')
+
+           error = $("<span class='help-inline harvest-in-progress-error'>#{ unrollElement.attr('data-harvest-in-progress-error-message') }</span>")
+           $(unrollBlock).append(error)
 
 
   $(document).ready ->

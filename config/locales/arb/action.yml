@@ -169,6 +169,7 @@ arb:
       humans: "لوحة الموارد البشرية"
       index: "لوحات"
       new: "لوحة تحكم جديدة"
+      # planning: "Planning"
       production: "لوحة أجهزة القياس إنتاج"
       # purchases: "Purchases dashboard"
       relationship: "لوحة أجهزة القياس العلاقة"
@@ -461,6 +462,10 @@ arb:
     backend/myselves:
       show: "بلدي المعلومات"
       statistics: "احصائياتي" #?
+    backend/naming_format_land_parcels:
+      # edit: "Land parcel naming format"
+    backend/naming_formats:
+      # index: "Naming formats"
     backend/net_services:
       edit: "تعديل صافي الخدمة"
       index: "صافي الخدمات"
@@ -1047,6 +1052,7 @@ arb:
     add_expense: "إضافة حساب"
     add_fax: "إضافة الفاكس"
     # add_fees: "Add fees"
+    # add_field: "Add field"
     add_filter: "إضافة فلتر"
     add_grading_check: "إضافة الاختيار الدرجات"
     add_incoming_payment: "إضافة دفع الواردة"
@@ -1264,6 +1270,7 @@ arb:
       filter_on_attribute_of_class: "التصفية وفق %{attribute} (%{class})"
       special-subscriber: "تصفية وفق الاشتراك"
     configure: "تكوين"
+    # confirmation_update_historical_plans: "Confirmation update historical plans"
     confirmed: "تأكيد" #?
     confirmed_at: "تم تأكيده في" #?
     connect: "الدخول"
@@ -1313,6 +1320,7 @@ arb:
     critic_stocks: "الاسهم على حافة الخطر" #?
     cropping_plan: "خطة زراعة المحاصيل"
     cropping_plan_on_cultivable_zones: "زراعة المحاصيل الخطة على المناطق الصالحة للزراعة"
+    # crops: "Crops"
     crumbs: "فتات"
     csv_statistics: "نموذج احصائيات القيمة النقدية" #?
     cultivable_zone: "منطقة القابلة للزراعة"
@@ -1502,6 +1510,7 @@ arb:
     export_as_xcsv: "تصدير واكسل CSV"
     extract: "يستخرج" #?
     # fees: "Fees"
+    # field: "Field %{counter}"
     field_distribution: "مجال التوزيع"
     file_nature: "نوع الملف"
     file_preview: "معاينة"
@@ -1565,11 +1574,14 @@ arb:
     hint: "تلميح&nbsp;: %{value}"
     historic: "تاريخي"
     home: "الرجوع الى صفجة المساعدة الرئيسية"
+    # hour: "Hour"
+    # hour_counter: "Hour counter"
     hour_duration: #?
       one: "مجموع الوقت المستخدم : ساعة واحدة" #?
       other: "مجموع الوقت المستخدم%{count} ساعات" #?
       zero: "" #?
     # hours: "H"
+    # hours_label: "Hours"
     human_working_duration: "مدة العمل"
     # humans: "HR"
     iban: "رقم الحساب المصرفي الدولي (IBAN)"
@@ -1810,7 +1822,7 @@ arb:
     moves: "حركات الاسهم" #?
     my_company: "عن شركتك" #?
     my_self: "عن نفسك" #?
-    n: "لا شيء" #?
+    n: "لا شيء"
     name: "الاسم"
     national_deliveries: "الامدادات المحلية" #?
     national_normal_vat_collected: "معدل ضريبة القيمة المضافة المحلية العادية %19.6" #?
@@ -2093,6 +2105,7 @@ arb:
     # quantity_available: "Quantity available"
     quantity_rest: "الكمية المتبقية" #?
     quantity_to_credit: "شمولية الكمية بالائتمانات" #?
+    # quantity_to_receive: "Quantity to receive"
     quarterly: "Trimestrielle" #?
     query: ": الاستعلام"
     raw_income: "الدخل الخام"
@@ -2104,6 +2117,7 @@ arb:
     # receipt_date: "Receipt date"
     # receipt_responsible: "Receipt responsible"
     received: "مستلم"
+    # received_quantity: "Received quantity"
     # receiving_address: "Receiving address"
     recent_events: "الاحداث الاخيرة"
     # reception: "Reception"
@@ -2163,6 +2177,7 @@ arb:
     revenues: "إيرادات"
     revenues_by_product_nature: "الإيرادات حسب نوع المنتج"
     reverse: "تطبيق الحالة العكسية"
+    # revise: "Revise"
     right_parts: #?
       accountancy: "حقوق المحاسبة" #?
       company: "حقوق الشركة" #?

@@ -1023,6 +1023,38 @@
       </item>
     </group>
   </part>
+  <part name="planning">
+    <page to="backend/dashboards#planning"/>
+    <group name="models">
+      <item name="intervention_templates">
+        <page to="backend/intervention_templates#index" nonexistent="true"/>
+        <page to="backend/intervention_templates#create" nonexistent="true"/>
+        <page to="backend/intervention_templates#select_type" nonexistent="true"/>
+        <page to="backend/intervention_templates#new" nonexistent="true"/>
+        <page to="backend/intervention_templates#edit" nonexistent="true"/>
+        <page to="backend/intervention_templates#show" nonexistent="true"/>
+      </item>
+      <item name="technical_itineraries">
+        <page to="backend/technical_itineraries#index" nonexistent="true"/>
+        <page to="backend/technical_itineraries#create" nonexistent="true"/>
+        <page to="backend/technical_itineraries#select_type" nonexistent="true"/>
+        <page to="backend/technical_itineraries#new" nonexistent="true"/>
+        <page to="backend/technical_itineraries#edit" nonexistent="true"/>
+        <page to="backend/technical_itineraries#show" nonexistent="true"/>
+      </item>
+    </group>
+    <group name="synthesis">
+      <item name="load_plans">
+        <page to="backend/load_plans#index" nonexistent="true"/>
+      </item>
+    </group>
+    <group name="schedulings">
+      <item name="scheduling">
+        <page to="backend/schedulings#index" nonexistent="true"/>
+        <page to="backend/schedulings#new_detailed_intervention" nonexistent="true"/>
+      </item>
+    </group>
+  </part>
   <part name="humans">
     <page to="backend/dashboards#humans"/>
     <group name="payslips" icon="archive">
@@ -1277,6 +1309,11 @@
         <page to="backend/document_templates#update"/>
         <page to="backend/document_templates#show"/>
         <page to="backend/document_templates#unroll"/>
+      </item>
+      <item name="naming_format">
+        <page to="backend/naming_formats#index"/>
+        <page to="backend/naming_format_land_parcels#edit"/>
+        <page to="backend/naming_format_land_parcels#index"/>
       </item>
       <item name="sequences">
         <page to="backend/sequences#index"/>
@@ -2151,6 +2188,9 @@
       <item name="activities">
         <page to="backend/activities#list_supports"/>
       </item>
+      <item name="activity_productions">
+        <page to="backend/activity_productions#list_plants"/>
+      </item>
       <item name="animal_groups">
         <page to="backend/animal_groups#list_reception_items"/>
         <page to="backend/animal_groups#list_shipment_items"/>
@@ -2219,6 +2259,22 @@
         <page to="backend/matters#list_reception_items"/>
         <page to="backend/matters#list_shipment_items"/>
       </item>
+      <item name="naming_format_land_parcels">
+        <page to="backend/naming_format_land_parcels#build_example"/>
+        <page to="backend/naming_format_land_parcels#create"/>
+        <page to="backend/naming_format_land_parcels#destroy"/>
+        <page to="backend/naming_format_land_parcels#new"/>
+        <page to="backend/naming_format_land_parcels#show"/>
+        <page to="backend/naming_format_land_parcels#update"/>
+      </item>
+      <item name="naming_formats">
+        <page to="backend/naming_formats#create"/>
+        <page to="backend/naming_formats#destroy"/>
+        <page to="backend/naming_formats#edit"/>
+        <page to="backend/naming_formats#new"/>
+        <page to="backend/naming_formats#show"/>
+        <page to="backend/naming_formats#update"/>
+      </item>
       <item name="plants">
         <page to="backend/plants#list_reception_items"/>
         <page to="backend/plants#list_shipment_items"/>
@@ -2230,6 +2286,12 @@
       <item name="products">
         <page to="backend/products#list_reception_items"/>
         <page to="backend/products#list_shipment_items"/>
+      </item>
+      <item name="indicators">
+        <page to="backend/products/indicators#variable_indicators"/>
+      </item>
+      <item name="search_products">
+        <page to="backend/products/search_products#datas"/>
       </item>
       <item name="search_variants">
         <page to="backend/products/search_variants#search_by_expression"/>
@@ -2243,6 +2305,7 @@
       </item>
       <item name="reconcilation_states">
         <page to="backend/purchases/reconcilation_states#put_accepted_state"/>
+        <page to="backend/purchases/reconcilation_states#put_reconcile_state"/>
         <page to="backend/purchases/reconcilation_states#put_to_reconcile_state"/>
       </item>
       <item name="receptions">

@@ -145,6 +145,8 @@ class ProductNatureVariant < Ekylibre::Record::Base
 
   scope :of_category, ->(category) { where(category: category) }
 
+  scope :of_id, ->(id) { where(id: id) }
+
   protect(on: :destroy) do
     products.any? || sale_items.any? || purchase_items.any? ||
       reception_items.any? || shipment_items.any? || phases.any?

@@ -1,6 +1,39 @@
 class InterventionDecorator < Draper::Decorator
   delegate_all
 
+  def land_parcels_datas(*args)
+    options = args.extract_options!
+    contrasted_color_callback = options[:contrasted_color_callback]
+
+    land_parcels = []
+
+    object.targets.find_each do |target|
+      product = target.product
+
+      next unless product
+
+      datas = {}
+      datas[:color] = target.product.activity.color if product.activity
+
+      if activity_production = ActivityProduction.find_by(support: product)
+        datas[:color] = activity_production.activity.color
+
+        if activity_production.cultivable_zone
+          datas[:name] = activity_production.cultivable_zone.work_number
+        end
+      end
+
+      datas[:color] ||= '#777777'
+      datas[:name] ||= product.work_number.blank? ? product.name : product.work_number
+
+      datas[:text_color] = contrasted_color_callback.call(datas[:color]) unless contrasted_color_callback.nil?
+
+      land_parcels << datas
+    end
+
+    land_parcels
+  end
+
   def sum_working_zone_area_of_product(_product)
     parameters = object.targets unless planting?
     parameters = object.outputs if planting?
@@ -13,6 +46,10 @@ class InterventionDecorator < Draper::Decorator
 
   def planting?
     object.procedure.of_category?(:planting)
+  end
+
+  def harvesting?
+    object.procedure.of_category?(:harvesting)
   end
 
   def sum_targets_working_zone_area

@@ -165,6 +165,7 @@ spa:
       humans: "Cuadro de instrumentos de recursos humanos"
       index: "Cuadros de mando"
       new: "Nuevo tablero de instrumentos"
+      # planning: "Planning"
       production: "Tablero de producción"
       # purchases: "Purchases dashboard"
       relationship: "Relación salpicadero"
@@ -417,6 +418,10 @@ spa:
       # show: "Matter: %{name}"
     backend/myselves:
       show: "Mis estadisticas"
+    backend/naming_format_land_parcels:
+      # edit: "Land parcel naming format"
+    backend/naming_formats:
+      # index: "Naming formats"
     backend/net_services:
       edit: "Editar servicio de red"
       index: "Servicios de Net"
@@ -849,6 +854,7 @@ spa:
     add_expense: "Añadir expensas"
     add_fax: "Añadir fax"
     # add_fees: "Add fees"
+    # add_field: "Add field"
     add_filter: "Añadir filtro"
     add_grading_check: "Añadir comprobación de calificaciones"
     add_incoming_payment: "Añadir pago recibido"
@@ -1052,6 +1058,7 @@ spa:
       filter_on_attribute_of_class: "Filtro de atributo de la clase"
       special-subscriber: "Especial abonado"
     configure: "Configurar"
+    # confirmation_update_historical_plans: "Confirmation update historical plans"
     confirmed: "Confirmadas" #?
     connect: "Entrar"
     consume: "Consumir"
@@ -1096,6 +1103,7 @@ spa:
     critic_stocks: "Depósitos bajo el umbral crítico" #?
     cropping_plan: "Plan de cultivo"
     cropping_plan_on_cultivable_zones: "Recorte el plan de zonas cultivables"
+    # crops: "Crops"
     crumbs: "Migas"
     csv_statistics: "Statisticas a exportar al formato CSV" #?
     cultivable_zone: "Zona cultivable"
@@ -1257,6 +1265,7 @@ spa:
     export_as_ods: "Exportar como ODS"
     export_as_xcsv: "Exportar como Excel CSV"
     # fees: "Fees"
+    # field: "Field %{counter}"
     field_distribution: "Distribución de campo"
     file_nature: "Tipo de fichero"
     file_preview: "Avance"
@@ -1313,7 +1322,10 @@ spa:
     # hint: "Hint: %{value}"
     historic: "Histórico"
     home: "Vuelta a la cogida de la ayuda"
+    # hour: "Hour"
+    # hour_counter: "Hour counter"
     hours: "MARIDO"
+    # hours_label: "Hours"
     human_working_duration: "Duración de trabajo"
     humans: "HORA"
     iban: "Numero de cuento bancario internacional (IBAN)"
@@ -1511,6 +1523,7 @@ spa:
     moves: "Movimientos de depositos" #?
     my_company: "Coja las informaciones sobre su sociedad" #?
     my_self: "Coja sus informaciones" #?
+    # n: "No"
     name: "Nombre"
     national_deliveries: "Entregas intracolectivas" #?
     national_normal_vat_collected: "Tasa normal a 19,6%" #?
@@ -1734,6 +1747,7 @@ spa:
     # quantity_available: "Quantity available"
     quantity_rest: "Quantidad restante" #?
     quantity_to_credit: "Cantidad a pasar en activo" #?
+    # quantity_to_receive: "Quantity to receive"
     quarterly: "Trimestral" #?
     query: "Demanda:"
     raw_income: "Ingreso en bruto"
@@ -1745,6 +1759,7 @@ spa:
     # receipt_date: "Receipt date"
     # receipt_responsible: "Receipt responsible"
     received: "Recibido"
+    # received_quantity: "Received quantity"
     # receiving_address: "Receiving address"
     recent_events: "Eventos recientes"
     # reception: "Reception"
@@ -1800,6 +1815,7 @@ spa:
     revenues: "Los ingresos"
     revenues_by_product_nature: "Los ingresos por tipo de producto"
     reverse: "Condición inversa"
+    # revise: "Revise"
     right_parts: #?
       accountancy: "Derechos modulo contabilidad" #?
       company: "Derechos modulo sociedad" #?

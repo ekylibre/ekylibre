@@ -73,7 +73,7 @@
 
     - if intervention.tools.any?
       .block
-        %h3.block-title= Intervention.human_attribute_name(:tools)
+        %h3.block-title= :equipments.tl
 
         - intervention.tools.each do |tool|
           - title = tool.product.name

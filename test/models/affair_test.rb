@@ -82,13 +82,13 @@ class AffairTest < ActiveSupport::TestCase
   end
 
   test 'absorption' do
-    sale = Sale.first
+    sale = create(:sale)
     assert sale
     affair = sale.affair
     assert affair
     affair.refresh! # Needed until affair#deals_count is up-to-date
     count = affair.deals_count
-    purchase = Purchase.first
+    purchase = create(:purchase_invoice)
     assert purchase
     purchase.affair.refresh!
     count += purchase.affair.deals_count

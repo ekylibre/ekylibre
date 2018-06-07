@@ -606,3 +606,121 @@ parcel_items_032:
   updated_at: 2016-08-10 14:27:50.035720000 Z
   updater_id: 1
   variant_id: 71
+parcel_items_033:
+  created_at: 2017-11-21 09:58:16.071865000 Z
+  creator_id: 1
+  currency: EUR
+  delivery_mode: us
+  equipment_id: 137
+  id: 33
+  lock_version: 2
+  non_compliant: false
+  non_compliant_detail: ''
+  parcel_id: 26
+  parted: false
+  population: 4.0
+  pretax_amount: 0.0
+  product_name: ''
+  product_work_number: ''
+  role: merchandise
+  unit_pretax_amount: 0.0
+  unit_pretax_stock_amount: 0.0
+  updated_at: 2017-11-21 09:58:16.106941000 Z
+  updater_id: 1
+  variant_id: 58
+parcel_items_034:
+  created_at: 2017-11-21 09:58:16.116428000 Z
+  creator_id: 1
+  currency: EUR
+  delivery_mode: third
+  equipment_id: 137
+  id: 34
+  lock_version: 1
+  non_compliant: false
+  non_compliant_detail: ''
+  parcel_id: 26
+  parted: false
+  population: 500.0
+  pretax_amount: 0.0
+  product_name: ''
+  product_work_number: ''
+  role: merchandise
+  unit_pretax_amount: 0.0
+  unit_pretax_stock_amount: 1.56
+  updated_at: 2017-11-21 09:58:16.116428000 Z
+  updater_id: 1
+  variant_id: 18
+parcel_items_035:
+  created_at: 2017-11-21 10:11:04.221772000 Z
+  creator_id: 1
+  currency: EUR
+  delivery_mode: transporter
+  id: 35
+  lock_version: 1
+  non_compliant: true
+  non_compliant_detail: Paille moisi
+  parcel_id: 27
+  parted: false
+  population: 5.0
+  pretax_amount: 0.0
+  product_name: ''
+  product_work_number: ''
+  role: merchandise
+  transporter_id: 5
+  unit_pretax_amount: 0.0
+  unit_pretax_stock_amount: 0.0
+  updated_at: 2017-11-21 10:11:04.221772000 Z
+  updater_id: 1
+  variant_id: 9
+parcel_items_036:
+  analysis_id: 6
+  created_at: 2017-11-21 10:11:36.368792000 Z
+  creator_id: 1
+  currency: EUR
+  delivery_mode: us
+  id: 36
+  lock_version: 0
+  parcel_id: 28
+  parted: false
+  population: 4.0
+  pretax_amount: 0.0
+  source_product_id: 127
+  unit_pretax_amount: 0.0
+  unit_pretax_stock_amount: 0.0
+  updated_at: 2017-11-21 10:11:36.368792000 Z
+  updater_id: 1
+  variant_id: 58
+parcel_items_037:
+  created_at: 2017-11-21 10:11:36.371711000 Z
+  creator_id: 1
+  currency: EUR
+  delivery_mode: us
+  id: 37
+  lock_version: 0
+  parcel_id: 28
+  parted: false
+  population: 50.0
+  pretax_amount: 0.0
+  source_product_id: 144
+  unit_pretax_amount: 0.0
+  unit_pretax_stock_amount: 0.0
+  updated_at: 2017-11-21 10:11:36.371711000 Z
+  updater_id: 1
+  variant_id: 19
+parcel_items_038:
+  created_at: 2017-11-21 10:12:00.791584000 Z
+  creator_id: 1
+  currency: EUR
+  delivery_mode: us
+  id: 38
+  lock_version: 0
+  parcel_id: 29
+  parted: false
+  population: 1.0
+  pretax_amount: 0.0
+  source_product_id: 5
+  unit_pretax_amount: 0.0
+  unit_pretax_stock_amount: 0.0
+  updated_at: 2017-11-21 10:12:00.791584000 Z
+  updater_id: 1
+  variant_id: 17

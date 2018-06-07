@@ -279,6 +279,14 @@ fra:
       nature:
         background: "Fond"
         overlay: "Calque"
+    naming_format_field_land_parcel:
+      field_name:
+        activity: "Activité"
+        campaign: "Campagne"
+        cultivable_zone_code: "Code de la zone cultivable"
+        cultivable_zone_name: "Nom de la zone cultivale"
+        production_mode: "Mode de production"
+        season: "Saisonnalité"
     notification:
       level:
         error: "Erreur"

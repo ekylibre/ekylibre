@@ -78,42 +78,42 @@ class ProductNatureVariantTest < ActiveSupport::TestCase
     assert_nothing_raised { ProductNatureVariant.import_from_nomenclature(:seedling) }
   end
 
-  test 'current_outgoing_stock_ordered_not_delivered returns the right amount of variants when sale state is set to order and parcel state to prepared' do
+  test 'current_outgoing_stock_ordered_not_delivered returns the right amount of variants when sale state is set to order and shipment state to prepared' do
     variant = create(:product_nature_variant)
     sale = create(:sale)
     sale.update(state: 'order')
     create(:sale_item, sale: sale, variant: variant, quantity: 50.to_d)
-    parcel = create(:parcel, sale: sale)
-    parcel.update(state: 'prepared')
+    shipment = create(:shipment, sale: sale)
+    shipment.update(state: 'prepared')
     assert_equal 50.0, variant.current_outgoing_stock_ordered_not_delivered
   end
 
-  test 'current_outgoing_stock_ordered_not_delivered returns the right amount of variants when sale state is set to draft and parcel state to draft' do
+  test 'current_outgoing_stock_ordered_not_delivered returns the right amount of variants when sale state is set to draft and shipment state to draft' do
     variant = create(:product_nature_variant)
     sale = create(:sale)
     create(:sale_item, sale: sale, variant: variant, quantity: 50.to_d)
-    parcel = create(:parcel, sale: sale)
+    shipment = create(:shipment, sale: sale)
     assert_equal 0, variant.current_outgoing_stock_ordered_not_delivered
   end
 
-  test 'current_outgoing_stock_ordered_not_delivered returns the right amount of variants when sale state is set to order and parcel state to given' do
+  test 'current_outgoing_stock_ordered_not_delivered returns the right amount of variants when sale state is set to order and shipment state to given' do
     variant = create(:product_nature_variant)
-    product = create(:product)
+    product = create(:product, variant: variant)
     sale = create(:sale)
     sale.update(state: 'order')
     create(:sale_item, sale: sale, variant: variant, quantity: 50.to_d)
-    parcel = create(:parcel, sale: sale)
-    create(:parcel_item, parcel: parcel, variant: variant, population: 1.to_d, product: product, product_identification_number: '12345678', product_name: 'Product name')
-    parcel.update(state: 'given')
+    shipment = create(:shipment, sale: sale)
+    create(:shipment_item, shipment: shipment, variant: variant, population: 1.to_d, source_product: product, product_identification_number: '12345678', product_name: 'Product name')
+    shipment.update(state: 'given')
     assert_equal 49.0, variant.current_outgoing_stock_ordered_not_delivered
   end
 
-  test 'current_outgoing_stock_ordered_not_delivered returns the right amount of variants when parcel state is set to prepared and there is no sale related' do
+  test 'current_outgoing_stock_ordered_not_delivered returns the right amount of variants when shipment state is set to prepared and there is no sale related' do
     variant = create(:product_nature_variant)
-    parcel = create(:outgoing_parcel)
+    shipment = create(:shipment)
     product = create(:product, variant: variant)
-    t = create(:outgoing_parcel_item, parcel: parcel, source_product: product, population: 1.to_d)
-    parcel.update(state: 'prepared')
+    create(:shipment_item, shipment: shipment, source_product: product, population: 1.to_d)
+    shipment.update(state: 'prepared')
     assert_equal 1, variant.current_outgoing_stock_ordered_not_delivered
   end
 end

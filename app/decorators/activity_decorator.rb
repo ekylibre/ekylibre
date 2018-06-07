@@ -66,11 +66,11 @@ class ActivityDecorator < Draper::Decorator
   end
 
   def divider_costs(costs, divider)
-    costs.each { |key, value| costs[key] = value / divider }
+    costs.each { |key, value| costs[key] = value / divider unless value.zero? }
   end
 
   def human_costs(costs)
-    costs.each { |key, _value| costs[key] = costs[key].to_f.round(2) }
+    costs.each { |key, _value| costs[key] = costs[key].to_i }
   end
 
   def decorated_activity_productions(current_campaign)

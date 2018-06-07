@@ -51,7 +51,7 @@ analyses_001:
   analysed_at: 2013-10-27 15:34:00.000000000 Z
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator_id: 1
-  geolocation: SRID=4326;POINT(45.5 -0.79292768)
+  geolocation: SRID=4326;Point (45.5 -0.79292768)
   id: 1
   lock_version: 1
   nature: cow_milk_analysis
@@ -66,7 +66,7 @@ analyses_002:
   analysed_at: 2013-10-27 15:34:00.000000000 Z
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator_id: 1
-  geolocation: SRID=4326;POINT(45.5 -0.79292768)
+  geolocation: SRID=4326;Point (45.5 -0.79292768)
   id: 2
   lock_version: 1
   nature: cow_milk_analysis
@@ -82,7 +82,7 @@ analyses_003:
   analyser_id: 6
   created_at: 2015-06-02 19:44:16.060518000 Z
   creator_id: 1
-  geolocation: SRID=4326;POINT(45.4989016056061 -0.79240656931776)
+  geolocation: SRID=4326;Point (45.4989016056061 -0.79240656931776)
   id: 3
   lock_version: 0
   nature: soil_analysis
@@ -201,7 +201,7 @@ analyses_011:
 analyses_012:
   created_at: 2015-09-18 14:12:08.620496000 Z
   creator_id: 1
-  geolocation: SRID=4326;POINT(44.29 -0.89)
+  geolocation: SRID=4326;Point (44.29 -0.89)
   id: 12
   lock_version: 0
   nature: meteorological_analysis
@@ -214,7 +214,7 @@ analyses_012:
 analyses_013:
   created_at: 2015-09-18 14:16:46.553081000 Z
   creator_id: 1
-  geolocation: SRID=4326;POINT(-0.89 44.29)
+  geolocation: SRID=4326;Point (-0.89 44.29)
   id: 13
   lock_version: 0
   nature: meteorological_analysis
@@ -227,7 +227,7 @@ analyses_013:
 analyses_014:
   created_at: 2015-09-18 15:09:41.233768000 Z
   creator_id: 1
-  geolocation: SRID=4326;POINT(-0.851 44.7583)
+  geolocation: SRID=4326;Point (-0.851 44.7583)
   id: 14
   lock_version: 0
   nature: meteorological_analysis
@@ -241,7 +241,7 @@ analyses_014:
 analyses_015:
   created_at: 2015-09-18 15:11:10.135363000 Z
   creator_id: 1
-  geolocation: SRID=4326;POINT(-0.851 44.7583)
+  geolocation: SRID=4326;Point (-0.851 44.7583)
   id: 15
   lock_version: 0
   nature: meteorological_analysis
@@ -255,7 +255,7 @@ analyses_015:
 analyses_016:
   created_at: 2015-09-18 15:21:09.898704000 Z
   creator_id: 1
-  geolocation: SRID=4326;POINT(-0.8894 44.4481)
+  geolocation: SRID=4326;Point (-0.8894 44.4481)
   id: 16
   lock_version: 0
   nature: meteorological_analysis
@@ -269,7 +269,7 @@ analyses_016:
 analyses_017:
   created_at: 2015-09-18 15:28:34.805788000 Z
   creator_id: 1
-  geolocation: SRID=4326;POINT(-0.8894 44.4481)
+  geolocation: SRID=4326;Point (-0.8894 44.4481)
   id: 17
   lock_version: 0
   nature: meteorological_analysis
@@ -283,7 +283,7 @@ analyses_017:
 analyses_018:
   analysed_at: 2015-09-20 14:55:01.444746000 Z
   created_at: 2015-09-20 14:55:01.681928000 Z
-  geolocation: SRID=4326;POINT(-0.851 44.7583)
+  geolocation: SRID=4326;Point (-0.851 44.7583)
   id: 18
   lock_version: 0
   nature: meteorological_analysis
@@ -347,7 +347,7 @@ analyses_022:
   updater_id: 1
 analyses_023:
   created_at: 2016-09-09 08:56:02.706339000 Z
-  geolocation: SRID=4326;POINT(-0.6062 44.8066)
+  geolocation: SRID=4326;Point (-0.6062 44.8066)
   id: 23
   lock_version: 0
   nature: sensor_analysis
@@ -359,7 +359,7 @@ analyses_023:
   updated_at: 2016-09-09 08:56:02.706339000 Z
 analyses_024:
   created_at: 2016-09-09 08:56:02.741014000 Z
-  geolocation: SRID=4326;POINT(4.7579 44.1015)
+  geolocation: SRID=4326;Point (4.7579 44.1015)
   id: 24
   lock_version: 0
   nature: sensor_analysis
@@ -371,7 +371,7 @@ analyses_024:
   updated_at: 2016-09-09 08:56:02.741014000 Z
 analyses_025:
   created_at: 2016-09-09 08:56:02.760914000 Z
-  geolocation: SRID=4326;POINT(4.97 44.9491)
+  geolocation: SRID=4326;Point (4.97 44.9491)
   id: 25
   lock_version: 0
   nature: sensor_analysis
@@ -383,7 +383,7 @@ analyses_025:
   updated_at: 2016-09-09 08:56:02.760914000 Z
 analyses_026:
   created_at: 2016-09-09 08:56:02.780008000 Z
-  geolocation: SRID=4326;POINT(4.7235 43.4635)
+  geolocation: SRID=4326;Point (4.7235 43.4635)
   id: 26
   lock_version: 0
   nature: sensor_analysis
@@ -395,7 +395,7 @@ analyses_026:
   updated_at: 2016-09-09 08:56:02.780008000 Z
 analyses_027:
   created_at: 2016-09-09 08:56:02.798969000 Z
-  geolocation: SRID=4326;POINT(4.7114 43.8206)
+  geolocation: SRID=4326;Point (4.7114 43.8206)
   id: 27
   lock_version: 0
   nature: sensor_analysis
@@ -407,7 +407,7 @@ analyses_027:
   updated_at: 2016-09-09 08:56:02.798969000 Z
 analyses_028:
   created_at: 2016-09-09 08:56:02.818899000 Z
-  geolocation: SRID=4326;POINT(4.8846 44.6033)
+  geolocation: SRID=4326;Point (4.8846 44.6033)
   id: 28
   lock_version: 0
   nature: sensor_analysis
@@ -419,7 +419,7 @@ analyses_028:
   updated_at: 2016-09-09 08:56:02.818899000 Z
 analyses_029:
   created_at: 2016-09-09 08:56:02.837871000 Z
-  geolocation: SRID=4326;POINT(-0.6063 44.8067)
+  geolocation: SRID=4326;Point (-0.6063 44.8067)
   id: 29
   lock_version: 0
   nature: sensor_analysis
@@ -431,7 +431,7 @@ analyses_029:
   updated_at: 2016-09-09 08:56:02.837871000 Z
 analyses_030:
   created_at: 2016-09-09 08:56:02.857350000 Z
-  geolocation: SRID=4326;POINT(-0.6062 44.8068)
+  geolocation: SRID=4326;Point (-0.6062 44.8068)
   id: 30
   lock_version: 0
   nature: sensor_analysis
@@ -443,7 +443,7 @@ analyses_030:
   updated_at: 2016-09-09 08:56:02.857350000 Z
 analyses_031:
   created_at: 2016-09-09 08:56:02.876040000 Z
-  geolocation: SRID=4326;POINT(1.9131 47.8283)
+  geolocation: SRID=4326;Point (1.9131 47.8283)
   id: 31
   lock_version: 0
   nature: sensor_analysis
@@ -455,7 +455,7 @@ analyses_031:
   updated_at: 2016-09-09 08:56:02.876040000 Z
 analyses_032:
   created_at: 2016-09-09 08:57:46.540681000 Z
-  geolocation: SRID=4326;POINT(-0.6062 44.8066)
+  geolocation: SRID=4326;Point (-0.6062 44.8066)
   id: 32
   lock_version: 0
   nature: sensor_analysis
@@ -467,7 +467,7 @@ analyses_032:
   updated_at: 2016-09-09 08:57:46.540681000 Z
 analyses_033:
   created_at: 2016-09-09 08:57:46.569098000 Z
-  geolocation: SRID=4326;POINT(4.7579 44.1015)
+  geolocation: SRID=4326;Point (4.7579 44.1015)
   id: 33
   lock_version: 0
   nature: sensor_analysis
@@ -479,7 +479,7 @@ analyses_033:
   updated_at: 2016-09-09 08:57:46.569098000 Z
 analyses_034:
   created_at: 2016-09-09 08:57:46.587973000 Z
-  geolocation: SRID=4326;POINT(4.97 44.9491)
+  geolocation: SRID=4326;Point (4.97 44.9491)
   id: 34
   lock_version: 0
   nature: sensor_analysis
@@ -491,7 +491,7 @@ analyses_034:
   updated_at: 2016-09-09 08:57:46.587973000 Z
 analyses_035:
   created_at: 2016-09-09 08:57:46.607716000 Z
-  geolocation: SRID=4326;POINT(4.7235 43.4635)
+  geolocation: SRID=4326;Point (4.7235 43.4635)
   id: 35
   lock_version: 0
   nature: sensor_analysis
@@ -503,7 +503,7 @@ analyses_035:
   updated_at: 2016-09-09 08:57:46.607716000 Z
 analyses_036:
   created_at: 2016-09-09 08:57:46.626538000 Z
-  geolocation: SRID=4326;POINT(4.7114 43.8206)
+  geolocation: SRID=4326;Point (4.7114 43.8206)
   id: 36
   lock_version: 0
   nature: sensor_analysis
@@ -515,7 +515,7 @@ analyses_036:
   updated_at: 2016-09-09 08:57:46.626538000 Z
 analyses_037:
   created_at: 2016-09-09 08:57:46.644504000 Z
-  geolocation: SRID=4326;POINT(4.8846 44.6033)
+  geolocation: SRID=4326;Point (4.8846 44.6033)
   id: 37
   lock_version: 0
   nature: sensor_analysis
@@ -527,7 +527,7 @@ analyses_037:
   updated_at: 2016-09-09 08:57:46.644504000 Z
 analyses_038:
   created_at: 2016-09-09 08:57:46.662504000 Z
-  geolocation: SRID=4326;POINT(-0.6063 44.8067)
+  geolocation: SRID=4326;Point (-0.6063 44.8067)
   id: 38
   lock_version: 0
   nature: sensor_analysis
@@ -539,7 +539,7 @@ analyses_038:
   updated_at: 2016-09-09 08:57:46.662504000 Z
 analyses_039:
   created_at: 2016-09-09 08:57:46.680296000 Z
-  geolocation: SRID=4326;POINT(-0.6062 44.8068)
+  geolocation: SRID=4326;Point (-0.6062 44.8068)
   id: 39
   lock_version: 0
   nature: sensor_analysis
@@ -551,7 +551,7 @@ analyses_039:
   updated_at: 2016-09-09 08:57:46.680296000 Z
 analyses_040:
   created_at: 2016-09-09 08:57:46.696432000 Z
-  geolocation: SRID=4326;POINT(1.9131 47.8283)
+  geolocation: SRID=4326;Point (1.9131 47.8283)
   id: 40
   lock_version: 0
   nature: sensor_analysis
@@ -563,7 +563,7 @@ analyses_040:
   updated_at: 2016-09-09 08:57:46.696432000 Z
 analyses_041:
   created_at: 2016-09-09 09:01:19.990910000 Z
-  geolocation: SRID=4326;POINT(-0.6062 44.8066)
+  geolocation: SRID=4326;Point (-0.6062 44.8066)
   id: 41
   lock_version: 0
   nature: sensor_analysis
@@ -575,7 +575,7 @@ analyses_041:
   updated_at: 2016-09-09 09:01:19.990910000 Z
 analyses_042:
   created_at: 2016-09-09 09:01:20.026288000 Z
-  geolocation: SRID=4326;POINT(4.7579 44.1015)
+  geolocation: SRID=4326;Point (4.7579 44.1015)
   id: 42
   lock_version: 0
   nature: sensor_analysis
@@ -587,7 +587,7 @@ analyses_042:
   updated_at: 2016-09-09 09:01:20.026288000 Z
 analyses_043:
   created_at: 2016-09-09 09:01:20.046663000 Z
-  geolocation: SRID=4326;POINT(4.97 44.9491)
+  geolocation: SRID=4326;Point (4.97 44.9491)
   id: 43
   lock_version: 0
   nature: sensor_analysis
@@ -599,7 +599,7 @@ analyses_043:
   updated_at: 2016-09-09 09:01:20.046663000 Z
 analyses_044:
   created_at: 2016-09-09 09:01:20.065131000 Z
-  geolocation: SRID=4326;POINT(4.7235 43.4635)
+  geolocation: SRID=4326;Point (4.7235 43.4635)
   id: 44
   lock_version: 0
   nature: sensor_analysis
@@ -611,7 +611,7 @@ analyses_044:
   updated_at: 2016-09-09 09:01:20.065131000 Z
 analyses_045:
   created_at: 2016-09-09 09:01:20.083106000 Z
-  geolocation: SRID=4326;POINT(4.7114 43.8206)
+  geolocation: SRID=4326;Point (4.7114 43.8206)
   id: 45
   lock_version: 0
   nature: sensor_analysis
@@ -623,7 +623,7 @@ analyses_045:
   updated_at: 2016-09-09 09:01:20.083106000 Z
 analyses_046:
   created_at: 2016-09-09 09:01:20.101055000 Z
-  geolocation: SRID=4326;POINT(4.8846 44.6033)
+  geolocation: SRID=4326;Point (4.8846 44.6033)
   id: 46
   lock_version: 0
   nature: sensor_analysis
@@ -635,7 +635,7 @@ analyses_046:
   updated_at: 2016-09-09 09:01:20.101055000 Z
 analyses_047:
   created_at: 2016-09-09 09:01:20.117932000 Z
-  geolocation: SRID=4326;POINT(-0.6063 44.8067)
+  geolocation: SRID=4326;Point (-0.6063 44.8067)
   id: 47
   lock_version: 0
   nature: sensor_analysis
@@ -647,7 +647,7 @@ analyses_047:
   updated_at: 2016-09-09 09:01:20.117932000 Z
 analyses_048:
   created_at: 2016-09-09 09:01:20.135449000 Z
-  geolocation: SRID=4326;POINT(-0.6062 44.8068)
+  geolocation: SRID=4326;Point (-0.6062 44.8068)
   id: 48
   lock_version: 0
   nature: sensor_analysis
@@ -659,7 +659,7 @@ analyses_048:
   updated_at: 2016-09-09 09:01:20.135449000 Z
 analyses_049:
   created_at: 2016-09-09 09:01:20.151721000 Z
-  geolocation: SRID=4326;POINT(1.9131 47.8283)
+  geolocation: SRID=4326;Point (1.9131 47.8283)
   id: 49
   lock_version: 0
   nature: sensor_analysis
