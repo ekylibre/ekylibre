@@ -58,7 +58,6 @@ class Intervention < Ekylibre::Record::Base
   include CastGroupable
   include PeriodicCalculable
   include Customizable
-  include Planning::Intervention if defined?(Planning)
   attr_readonly :procedure_name, :production_id, :currency
   refers_to :currency
   enumerize :procedure_name, in: Procedo.procedure_names, i18n_scope: ['procedures']
@@ -119,15 +118,13 @@ class Intervention < Ekylibre::Record::Base
   before_validation :set_number, on: :create
 
   def set_number
-    if defined?(Planning) && intervention_proposal.present?
-      self.number = intervention_proposal.number
-    elsif request_intervention.present?
+    if request_intervention.present?
       self.number = request_intervention.number
     end
   end
 
   def run_sequence
-    (defined?(Planning).present? && intervention_proposal.present?) || request_intervention.present?
+    request_intervention.present?
   end
 
   accepts_nested_attributes_for :group_parameters, :participations, :doers, :inputs, :outputs, :targets, :tools, :working_periods, :labellings, allow_destroy: true

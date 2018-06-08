@@ -307,8 +307,7 @@ module Backend
             end
       @intervention.save
       reconcile_receptions
-      notify = params[:intervention_proposal] ? :record_x_planned : :record_x_created
-      return if save_and_redirect(@intervention, url: url, notify: notify, identifier: :number)
+      return if save_and_redirect(@intervention, url: url, notify: :record_x_created, identifier: :number)
       render(locals: { cancel_url: { action: :index }, with_continue: true })
     end
 

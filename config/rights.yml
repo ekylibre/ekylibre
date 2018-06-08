@@ -101,7 +101,6 @@
 #     - "backend/dashboards#accountancy"
 #     - "backend/dashboards#home"
 #     - "backend/dashboards#humans"
-#     - "backend/dashboards#planning"
 #     - "backend/dashboards#production"
 #     - "backend/dashboards#purchases"
 #     - "backend/dashboards#relationship"

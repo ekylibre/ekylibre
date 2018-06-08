@@ -529,9 +529,6 @@ activity_productions:
   tactic_id:
     type: integer
     references: activity_tactic
-  technical_itinerary_id:
-    type: integer
-    references: technical_itinerary
   updated_at:
     type: datetime
     required: true
@@ -1799,32 +1796,6 @@ custom_fields:
   updater_id:
     type: integer
     references: user
-daily_charges:
-  activity_production_id:
-    type: integer
-    references: activity_production
-  area:
-    type: decimal
-  created_at:
-    type: datetime
-    required: true
-  id:
-    type: integer
-    required: true
-  intervention_template_product_parameter_id:
-    type: integer
-    references: intervention_template/product_parameter
-  product_general_type:
-    type: string
-  product_type:
-    type: string
-  quantity:
-    type: decimal
-  reference_date:
-    type: date
-  updated_at:
-    type: datetime
-    required: true
 dashboards:
   created_at:
     type: datetime
@@ -3618,138 +3589,6 @@ intervention_participations:
   updater_id:
     type: integer
     references: user
-intervention_proposal_parameters:
-  created_at:
-    type: datetime
-    required: true
-  id:
-    type: integer
-    required: true
-  intervention_proposal_id:
-    type: integer
-    references: ''
-  intervention_template_product_parameter_id:
-    type: integer
-    references: ''
-  product_id:
-    type: integer
-    references: "~product_type"
-  product_nature_variant_id:
-    type: integer
-    references: product_nature_variant
-  product_type:
-    type: string
-  quantity:
-    type: decimal
-  unit:
-    type: string
-  updated_at:
-    type: datetime
-    required: true
-intervention_proposals:
-  activity_production_id:
-    type: integer
-    references: activity_production
-  area:
-    type: decimal
-  created_at:
-    type: datetime
-    required: true
-  estimated_date:
-    type: date
-  id:
-    type: integer
-    required: true
-  number:
-    type: integer
-  target:
-    type: string
-  technical_itinerary_intervention_template_id:
-    type: integer
-    references: technical_itinerary_intervention_template
-  updated_at:
-    type: datetime
-    required: true
-intervention_template_activities:
-  activity_id:
-    type: integer
-    references: activity
-  created_at:
-    type: datetime
-    required: true
-  id:
-    type: integer
-    required: true
-  intervention_template_id:
-    type: integer
-    references: intervention_template
-  updated_at:
-    type: datetime
-    required: true
-intervention_template_product_parameters:
-  activity_id:
-    type: integer
-    references: activity
-  created_at:
-    type: datetime
-    required: true
-  id:
-    type: integer
-    required: true
-  intervention_template_id:
-    type: integer
-    references: ''
-  procedure:
-    type: jsonb
-  product_nature_id:
-    type: integer
-    references: product_nature
-  product_nature_variant_id:
-    type: integer
-    references: product_nature_variant
-  quantity:
-    type: decimal
-  type:
-    type: string
-  unit:
-    type: string
-  updated_at:
-    type: datetime
-    required: true
-intervention_templates:
-  active:
-    type: boolean
-    default: true
-  campaign_id:
-    type: integer
-    references: campaign
-  created_at:
-    type: datetime
-    required: true
-  creator_id:
-    type: integer
-    references: user
-  description:
-    type: string
-  id:
-    type: integer
-    required: true
-  name:
-    type: string
-  preparation_time_hours:
-    type: integer
-  preparation_time_minutes:
-    type: integer
-  procedure_name:
-    type: string
-  updated_at:
-    type: datetime
-    required: true
-  updater_id:
-    type: integer
-    references: user
-  workflow:
-    type: decimal
 intervention_working_periods:
   created_at:
     type: datetime
@@ -8007,61 +7846,6 @@ teams:
   updater_id:
     type: integer
     references: user
-technical_itineraries:
-  activity_id:
-    type: integer
-    references: activity
-  campaign_id:
-    type: integer
-    references: campaign
-  created_at:
-    type: datetime
-    required: true
-  creator_id:
-    type: integer
-    references: user
-  description:
-    type: string
-  id:
-    type: integer
-    required: true
-  name:
-    type: string
-  updated_at:
-    type: datetime
-    required: true
-  updater_id:
-    type: integer
-    references: user
-technical_itinerary_intervention_templates:
-  created_at:
-    type: datetime
-    required: true
-  day_between_intervention:
-    type: integer
-  dont_divide_duration:
-    type: boolean
-    default: false
-  duration:
-    type: integer
-  id:
-    type: integer
-    required: true
-  intervention_template_id:
-    type: integer
-    references: intervention_template
-  parent_hash:
-    type: string
-  position:
-    type: integer
-  reference_hash:
-    type: string
-  technical_itinerary_id:
-    type: integer
-    references: technical_itinerary
-  updated_at:
-    type: datetime
-    required: true
 tokens:
   created_at:
     type: datetime

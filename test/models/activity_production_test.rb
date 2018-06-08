@@ -48,7 +48,6 @@
 #  support_nature         :string
 #  support_shape          :geometry({:srid=>4326, :type=>"multi_polygon"})
 #  tactic_id              :integer
-#  technical_itinerary_id :integer
 #  updated_at             :datetime         not null
 #  updater_id             :integer
 #  usage                  :string           not null

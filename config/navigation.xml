@@ -1023,38 +1023,6 @@
       </item>
     </group>
   </part>
-  <part name="planning">
-    <page to="backend/dashboards#planning"/>
-    <group name="models">
-      <item name="intervention_templates">
-        <page to="backend/intervention_templates#index" nonexistent="true"/>
-        <page to="backend/intervention_templates#create" nonexistent="true"/>
-        <page to="backend/intervention_templates#select_type" nonexistent="true"/>
-        <page to="backend/intervention_templates#new" nonexistent="true"/>
-        <page to="backend/intervention_templates#edit" nonexistent="true"/>
-        <page to="backend/intervention_templates#show" nonexistent="true"/>
-      </item>
-      <item name="technical_itineraries">
-        <page to="backend/technical_itineraries#index" nonexistent="true"/>
-        <page to="backend/technical_itineraries#create" nonexistent="true"/>
-        <page to="backend/technical_itineraries#select_type" nonexistent="true"/>
-        <page to="backend/technical_itineraries#new" nonexistent="true"/>
-        <page to="backend/technical_itineraries#edit" nonexistent="true"/>
-        <page to="backend/technical_itineraries#show" nonexistent="true"/>
-      </item>
-    </group>
-    <group name="synthesis">
-      <item name="load_plans">
-        <page to="backend/load_plans#index" nonexistent="true"/>
-      </item>
-    </group>
-    <group name="schedulings">
-      <item name="scheduling">
-        <page to="backend/schedulings#index" nonexistent="true"/>
-        <page to="backend/schedulings#new_detailed_intervention" nonexistent="true"/>
-      </item>
-    </group>
-  </part>
   <part name="humans">
     <page to="backend/dashboards#humans"/>
     <group name="payslips" icon="archive">

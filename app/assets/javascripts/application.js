@@ -79,7 +79,6 @@
 //= require_tree .
 //= require tour
 //= require bootstrap-slider
-//= require planning
 
 //= require vue
 //= require sortablejs/Sortable.min.js

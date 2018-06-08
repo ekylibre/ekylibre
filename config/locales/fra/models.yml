@@ -844,7 +844,6 @@ fra:
     custom_fields_columns: "Champs personnalisés colonnes"
     customized: "Enregistrement personnalisé" #?
     customized_type: "Type d’enregistrement personnalisé"
-    # daily_charges: "Daily charges"
     daily_nitrogen_production: "Excrétion d’azote journalière"
     dashboards: "Tableaux de bord"
     data: "Données complémentaires" #?
@@ -1168,9 +1167,6 @@ fra:
     intervention_participation: "Participation d’intervention"
     intervention_participations: "Participations d’intervention"
     intervention_product_parameters: "Casting"
-    # intervention_proposal: "Intervention proposal"
-    # intervention_template: "Intervention template"
-    # intervention_templates: "Intervention templates"
     interventions: "Interventions"
     interventions_used_in: "Interventions utilisées dans"
     intracommunity: "Intracommunautaire"
@@ -1818,7 +1814,6 @@ fra:
     tax_payability: "Exigibilité fiscale"
     taxations: "Taxations"
     team: "Équipe"
-    # technical_itinerary: "Technical itinerary"
     template: "Modèle"
     theme: "Thème"
     theoretical_number: "Numéro théorique"

@@ -607,61 +607,10 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :intervention_templates, concerns: :list do
-      collection do
-        get :select_type
-        get :templates_of_activity
-        get :interventions_have_activities
-      end
-      member do
-        get :list_technical_itineraries
-      end
-    end
-
-    resources :technical_itineraries, concerns: %i[list unroll] do
-      collection do
-        post :duplicate_intervention
-      end
-      member do
-        get :list_intervention_templates
-        get :list_activity_productions
-      end
-    end
-
-    resources :load_plans do
-      collection do
-        get :period_charges
-        get :period_charges_details
-      end
-    end
-
-    resources :schedulings do
-      collection do
-        get :weekly_daily_charges
-        get :new_intervention
-        get :available_time_or_quantity
-        put :update_proposal
-        get :update_modal_time
-        get :new_detailed_intervention
-        post :create_intervention
-      end
-
-      member do
-        post :update_estimated_date
-        post :update_intervention_dates
-      end
-    end
-
     namespace :interventions do
       resources :costs, only: [] do
         collection do
           get :parameter_cost
-        end
-      end
-
-      resources :product_planning, only: [] do
-        member do
-          get :is_planned_intervention
         end
       end
     end

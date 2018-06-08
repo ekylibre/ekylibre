@@ -1365,7 +1365,6 @@ arb:
     custom_fields: "الحقول الاضافية"
     custom_fields_columns: "الحقول المخصصة الأعمدة"
     customized_type: "نوع مرغوب"
-    # daily_charges: "Daily charges"
     daily_nitrogen_production: "إنتاج النيتروجين اليومي"
     dashboards: "لوحات"
     data: "بيانات اضافية" #?
@@ -1723,9 +1722,6 @@ arb:
     intervention_participation: "مشاركة التدخل"
     intervention_participations: "المساهمات تدخل"
     intervention_product_parameters: "يلقي تدخل"
-    # intervention_proposal: "Intervention proposal"
-    # intervention_template: "Intervention template"
-    # intervention_templates: "Intervention templates"
     interventions: "التدخلات"
     interventions_used_in: "التدخلات المستخدمة في"
     # intracommunity: "Intracommunity"
@@ -2477,7 +2473,6 @@ arb:
     taxations: "الأنظمة الضريبية"
     taxes: "الضرائب" #?
     team: "الفريق"
-    # technical_itinerary: "Technical itinerary"
     template: "نموذج"
     template_id: "نموذج" #?
     text_importance: "ذو شأن" #?
