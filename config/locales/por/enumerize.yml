@@ -46,7 +46,7 @@ por:
         sensor_error: "Erro do sensor"
     analysis_item:
       indicator_datatype:
-        # boolean: "Boolean"
+        boolean: "Boleano"
         choice: "Escolha"
         # decimal: "Decimal"
         geometry: "Geometria"
@@ -186,7 +186,7 @@ por:
     guide:
       frequency:
         daily: "Diariamente"
-        # decadely: "Decadely"
+        decadely: "Decentemente"
         hourly: "De hora em hora"
         monthly: "Por mês"
         none: "Nenhum"
@@ -194,7 +194,7 @@ por:
         yearly: "Anual"
     guide_analysis:
       acceptance_status:
-        # errored: "Errored"
+        errored: "Errado"
         failed: "Fracassado"
         passed: "Passado"
         passed_with_warnings: "Aprovada com avisos"
@@ -205,14 +205,14 @@ por:
         passed_with_warnings: "Passou com avisos" #?
     guide_analysis_point:
       acceptance_status:
-        # errored: "Errored"
+        errored: "Errado"
         failed: "Fracassado"
         passed: "Passado"
         passed_with_warnings: "Aprovada com avisos"
     import:
       state:
         aborted: "Abortado"
-        # errored: "Errored"
+        errored: "Errado"
         finished: "Acabado"
         in_progress: "Em progresso"
         undone: "Desfeito"
@@ -229,7 +229,7 @@ por:
         validated: "Validado"
     intervention_parameter_reading:
       indicator_datatype:
-        # boolean: "Boolean"
+        boolean: "Boleano"
         choice: "Escolha"
         # decimal: "Decimal"
         geometry: "Geometria"
@@ -264,7 +264,7 @@ por:
     listing_node:
       nature:
         belongs_to: "Pertence a"
-        # boolean: "Boolean"
+        boolean: "Boleano"
         column: "Coluna"
         custom: "Personalizadas"
         datetime: "Data hora"
@@ -290,7 +290,7 @@ por:
     map_layer:
       nature:
         background: "Fundo"
-        # overlay: "Overlay"
+        overlay: "Sobreposição"
     notification:
       level:
         error: "Erro"
@@ -325,7 +325,7 @@ por:
     preference:
       nature:
         accounting_system: "Sistema de contabilidade"
-        # boolean: "Boolean"
+        boolean: "Boleano"
         country: "País"
         currency: "Moeda"
         # decimal: "Decimal"
@@ -421,7 +421,7 @@ por:
         sale: "Venda"
     product_nature_variant_reading:
       indicator_datatype:
-        # boolean: "Boolean"
+        boolean: "Boleano"
         choice: "Escolha"
         # decimal: "Decimal"
         geometry: "Geometria"
@@ -437,7 +437,7 @@ por:
         unknown: "Desconhecido"
     product_reading:
       indicator_datatype:
-        # boolean: "Boolean"
+        boolean: "Boleano"
         choice: "Escolha"
         # decimal: "Decimal"
         geometry: "Geometria"
@@ -528,7 +528,7 @@ por:
         get_urls: "Obter urls"
       state:
         aborted: "Abortado"
-        # errored: "Errored"
+        errored: "Errado"
         finished: "Acabado"
         in_progress: "Em progresso"
         undone: "Desfeito"
