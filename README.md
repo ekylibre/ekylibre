@@ -7,7 +7,6 @@ More details can be found on the official website http://ekylibre.org.
 ## Code status
 
 [![Build Status](https://api.travis-ci.org/ekylibre/ekylibre.svg?branch=master)](https://travis-ci.org/ekylibre/ekylibre)
-[![Gem Dependency Status](https://gemnasium.com/ekylibre/ekylibre.svg)](https://gemnasium.com/ekylibre/ekylibre)
 [![Coverage Status](https://codecov.io/gh/ekylibre/ekylibre/branch/master/graph/badge.svg)](https://codecov.io/gh/ekylibre/ekylibre)
 [![Codacy Grade Status](https://api.codacy.com/project/badge/Grade/5c572d5e073643458230a53d2e7e5f3e)](https://www.codacy.com/app/ekylibre/ekylibre)
 
