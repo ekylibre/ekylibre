@@ -66,6 +66,9 @@ land_parcels:
       - 'parcelle.shx'
     in: 'telepac/2015'
 
+  telepac_v2017_cap_statements:
+    path: 'telepac/2017/statement.xml'
+
   equipments_georeadings:
     format: :archive
     path: 'equipments.zip'
@@ -276,6 +279,9 @@ interventions:
   ekylibre_interventions:
     path: 'alamano/interventions.csv'
 
+  # Import interventions from DAPLOS EDI
+  #agroedi_daplos:
+    #path: 'daplos/interventions.edi'
   # Import interventions from viniteca
   viniteca_interventions:
     format: :archive
