@@ -260,6 +260,10 @@ fra:
         unitary_in_parcel: "Articles unitaires ne peuvent être envoyés un par un"
         wrong_length: "%{attribute} n’est pas d’une bon longueur (%{count} caractères)"
       models:
+        account:
+          attributes:
+            number:
+              unauthorized: "Ce numéro ne peut pas correspondre à une classe radicale" #?
         activity:
           checked_off_with_inspections: "Des agréages sont déjà présents pour cette activité"
           checked_without_measures: "Au moins un type de mesure doit être sélectionné lorsque l'utilisation des agréages est demandée"

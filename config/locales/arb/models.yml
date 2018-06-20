@@ -694,6 +694,10 @@ arb:
         unitary_in_parcel: "لا يمكن إلا أن ترسل وحدات موحدة واحدا تلو الآخر"
         wrong_length: "%{attribute} الطول الخاطئ  ( %{count} يجب ان يكون عدد الاحرف)"
       models:
+        account:
+          attributes:
+            number:
+              # unauthorized: "This number can't correspond to a radical class"
         activity:
           checked_off_with_inspections: "وقد تم بالفعل خلق التفتيش لهذا النشاط"
           checked_without_measures: "على الأقل، يجب أن يتم اختيار نوع واحد الاجراء عندما أراد التفتيش"

@@ -128,6 +128,10 @@ eng:
         unitary_in_parcel: "Unitary items can only be sent one by one"
         wrong_length: "%{attribute} is the wrong length (should be %{count} characters)"
       models:
+        account:
+          attributes:
+            number:
+              unauthorized: "This number can't correspond to a radical class"
         activity:
           checked_off_with_inspections: "Inspections have already been created for this activity"
           checked_without_measures: "At least, one measure type should be selected when inspections are wanted"
