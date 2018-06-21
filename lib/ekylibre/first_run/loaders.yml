@@ -66,8 +66,17 @@ land_parcels:
       - 'parcelle.shx'
     in: 'telepac/2015'
 
+  telepac_v2015_cap_statements:
+    path: 'telepac/2015/statement.xml'
+
+  telepac_v2016_cap_statements:
+    path: 'telepac/2016/statement.xml'
+
   telepac_v2017_cap_statements:
     path: 'telepac/2017/statement.xml'
+
+  telepac_v2018_cap_statements:
+    path: 'telepac/2018/statement.xml'
 
   equipments_georeadings:
     format: :archive
