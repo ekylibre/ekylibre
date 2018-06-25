@@ -343,6 +343,7 @@ module Agroedi
       end
 
       ## save
+      w.info intervention.inspect.yellow
 
       ::Intervention.create!(intervention.to_attributes)
     end
