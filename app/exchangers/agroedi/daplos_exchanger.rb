@@ -244,6 +244,7 @@ module Agroedi
     end
 
     def record_default_intervention(i, target, procedure)
+      ## START && STOP
       start = i.intervention_started_at
       stop = i.intervention_stopped_at if i.intervention_stopped_at.present?
       stop ||= start
@@ -256,14 +257,6 @@ module Agroedi
         description: info
       }
 
-      ## working_periods
-      attributes[:working_periods_attributes] = {
-        '0' => {
-          started_at: Date.parse(start).strftime('%Y-%m-%d %H:%M'),
-          stopped_at: (Date.parse(stop).to_time + 61.seconds).strftime('%Y-%m-%d %H:%M')
-        }
-      }
-
       ## targets
       procedure.parameters_of_type(:target).each do |support|
         # next unless target.of_expression(support.filter)
@@ -274,6 +267,42 @@ module Agroedi
           working_zone: target.shape.to_geojson
         }
       end
+
+      working_zone_area = target.shape.area.in(:square_meter).convert(:hectare)
+      w.info "working_zone_area : #{working_zone_area}".inspect.yellow
+
+      ## DURATION
+      # get duration from EDI DAPLOS file
+      if i.intervention_duration.present? && i.intervention_duration.nonzero?
+        # TODO with format #JJHHMM ex : 010430 => 01 day 4 hour 30 minute
+        j = Measure.new(i.intervention_duration[0, 2].to_i, :day).convert(:second)
+        h = Measure.new(i.intervention_duration[2, 2].to_i, :hour).convert(:second)
+        s = Measure.new(i.intervention_duration[4, 2].to_i, :minute).convert(:second)
+        duration = j + h + s
+        stopped_at = Date.parse(start).to_time + catalog_duration.to_f.seconds
+        w.info "duration from EDI DAPLOS : #{duration}".inspect.red
+      # or compute from lexicon flow reference
+      elsif flow = MasterEquipmentFlow.find_by(procedure_name: procedure.name)
+        if flow && working_zone_area.to_f > 0.0
+          duration = (flow.intervention_flow.to_d * working_zone_area.to_d * 3600).in(:second)
+          stopped_at = Date.parse(start).to_time + duration.to_f.seconds
+        end
+        w.info "duration from flow reference : #{duration}".inspect.red
+      # or set 1 min duration
+      else
+        duration = 61
+        stopped_at = Date.parse(stop).to_time + duration.to_f.seconds
+      end
+      ## working_periods
+      attributes[:working_periods_attributes] = {
+        '0' => {
+          started_at: Date.parse(start).strftime('%Y-%m-%d %H:%M'),
+          stopped_at: stopped_at.strftime('%Y-%m-%d %H:%M'),
+          working_duration: duration
+        }
+      }
+
+
 
       ## inputs
       updaters = []
@@ -361,11 +390,37 @@ module Agroedi
         description: info
       }
 
+      working_zone_area = target.shape.area.in(:square_meter).convert(:hectare)
+      w.info "working_zone_area : #{working_zone_area}".inspect.yellow
+
+      ## DURATION
+      # get duration from EDI DAPLOS file
+      if i.intervention_duration.present? && i.intervention_duration.nonzero?
+        # TODO with format #JJHHMM ex : 010430 => 01 day 4 hour 30 minute
+        j = Measure.new(i.intervention_duration[0, 2].to_i, :day).convert(:second)
+        h = Measure.new(i.intervention_duration[2, 2].to_i, :hour).convert(:second)
+        s = Measure.new(i.intervention_duration[4, 2].to_i, :minute).convert(:second)
+        duration = j + h + s
+        stopped_at = Date.parse(start).to_time + catalog_duration.to_f.seconds
+        w.info "duration from EDI DAPLOS : #{duration}".inspect.red
+      # or compute from lexicon flow reference
+      elsif flow = MasterEquipmentFlow.find_by(procedure_name: procedure.name)
+        if flow && working_zone_area.to_f > 0.0
+          duration = (flow.intervention_flow.to_d * working_zone_area.to_d * 3600).in(:second)
+          stopped_at = Date.parse(start).to_time + duration.to_f.seconds
+        end
+        w.info "duration from flow reference : #{duration}".inspect.red
+      # or set 1 min duration
+      else
+        duration = 61
+        stopped_at = Date.parse(stop).to_time + duration.to_f.seconds
+      end
       ## working_periods
       attributes[:working_periods_attributes] = {
         '0' => {
           started_at: Date.parse(start).strftime('%Y-%m-%d %H:%M'),
-          stopped_at: (Date.parse(stop).to_time + 61.seconds).strftime('%Y-%m-%d %H:%M')
+          stopped_at: stopped_at.strftime('%Y-%m-%d %H:%M'),
+          working_duration: duration
         }
       }
 
