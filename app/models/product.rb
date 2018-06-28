@@ -368,7 +368,20 @@ class Product < Ekylibre::Record::Base
            to: :nature
 
   after_initialize :choose_default_name
-  after_save :set_initial_values, if: :initializeable?
+
+  after_save do
+    set_initial_values if initializeable?
+
+    unless initializeable?
+
+      product_phases = phases.where(product_id: id,
+                                    variant_id: variant.id,
+                                    nature_id: variant.nature.id,
+                                    category_id: variant.category.id)
+
+      build_new_phase unless product_phases.any?
+    end
+  end
 
   before_validation do
     self.initial_born_at ||= Time.zone.now
@@ -527,6 +540,18 @@ class Product < Ekylibre::Record::Base
       end
     end
   end
+
+  def build_new_phase
+    phases.build(
+      product_id: id,
+      variant_id: variant.id,
+      category_id: variant.category.id,
+      nature_id: variant.nature.id
+    )
+
+    save
+  end
+
 
   def shape=(new_shape)
     reading_cache[:shape] = new_shape

@@ -216,7 +216,7 @@
         datas['intervention_id'] = intervention_id
         datas['product_id'] = product_id
         datas['existing_participation'] = existingParticipation
-        datas['participations'] = participations
+        # datas['participations'] = participations
         datas['intervention_started_at'] = interventionStartedAt
         datas['auto_calcul_mode'] = autoCalculMode
 
