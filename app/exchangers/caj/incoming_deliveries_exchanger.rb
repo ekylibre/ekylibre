@@ -74,10 +74,9 @@ module Caj
         entries << r.parcel_number
 
         # find a product_nature_variant by mapping current name of matter in coop file in coop reference_name
-        product_nature_variant = nil
         product_nature_variant = ProductNatureVariant.find_by(work_number: r.coop_reference_number)
         unless product_nature_variant
-          product_nature_variant = ProductNatureVariant.import_from_nomenclature(r.product_nature_name)
+          product_nature_variant = ProductNatureVariant.import_from_nomenclature(r.product_nature_name, true)
           product_nature_variant.work_number = r.coop_reference_number if r.coop_reference_number
           product_nature_variant.name = r.coop_reference_name if r.coop_reference_name
           product_nature_variant.save!
@@ -92,7 +91,7 @@ module Caj
         catalog_item.save!
 
         # if r.parcel_status == :given
-        item = parcel.items.find_or_initialize_by(variant: product_nature_variant)
+        item = parcel.items.build(variant: product_nature_variant)
         item.product_name = r.coop_reference_name + ' (' + r.ordered_on.l + ')'
         item.product_identification_number = r.ordered_on.to_s + '_' + r.parcel_number + '_' + r.coop_reference_number
         item.quantity = r.quantity

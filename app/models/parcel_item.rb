@@ -225,8 +225,10 @@ class ParcelItem < Ekylibre::Record::Base
     product_params[:initial_born_at] = [checked_at, parcel_given_at].compact.min
 
     self.product = existing_product_in_storage unless no_fusing || storage.blank?
-
+    
     self.product ||= variant.create_product(product_params)
+    # FIXME bad fix for date collision between incoming parcel creation and intervention creation.
+    self.product.born_at = product_params[:initial_born_at]
 
     return false, self.product.errors if self.product.errors.any?
     true

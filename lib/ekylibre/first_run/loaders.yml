@@ -261,6 +261,8 @@ sales:
     path: 'alamano/incoming_payments.csv'
 
 deliveries:
+  caj_incoming_deliveries:
+    path: 'caj/appros.csv'
   charentes_alliance_incoming_deliveries:
     path: 'charentes_alliance/appros.csv'
   charentes_alliance_outgoing_deliveries:
