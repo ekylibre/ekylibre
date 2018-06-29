@@ -188,7 +188,7 @@ class PurchaseItem < Ekylibre::Record::Base
       started_on: purchase.invoiced_at.to_date,
       depreciable_amount: pretax_amount.to_f,
       depreciation_period: Preference.get(:default_depreciation_period).value,
-      depreciation_method: variant.fixed_asset_depreciation_method || :simplified_linear,
+      depreciation_method: variant.fixed_asset_depreciation_method || :linear,
       depreciation_percentage: variant.fixed_asset_depreciation_percentage || 20,
       journal: Journal.find_by(nature: :purchases),
       asset_account: variant.fixed_asset_account, # 2

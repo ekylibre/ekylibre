@@ -67,7 +67,7 @@ class FixedAsset < Ekylibre::Record::Base
   include Attachable
   include Customizable
   acts_as_numbered
-  enumerize :depreciation_method, in: %i[simplified_linear linear regressive none], predicates: { prefix: true } # graduated
+  enumerize :depreciation_method, in: %i[linear regressive none], predicates: { prefix: true } # graduated
   refers_to :currency
   belongs_to :asset_account, class_name: 'Account'
   belongs_to :expenses_account, class_name: 'Account'
@@ -140,10 +140,6 @@ class FixedAsset < Ekylibre::Record::Base
     self.purchase_amount ||= depreciable_amount
     self.purchased_on ||= started_on
     if depreciation_method_linear?
-      if stopped_on && started_on
-        self.depreciation_percentage = 100.0 * 365.25 / duration
-      end
-    elsif depreciation_method_simplified_linear?
       self.depreciation_percentage = 20 if depreciation_percentage.blank? || depreciation_percentage <= 0
       months = 12 * (100.0 / depreciation_percentage.to_f)
       self.stopped_on = started_on >> months.floor
@@ -376,37 +372,8 @@ class FixedAsset < Ekylibre::Record::Base
   end
 
   # Depreciate using linear method
-  def depreciate_with_linear_method(starts)
-    depreciable_days = duration.round(2)
-    depreciable_amount = self.depreciable_amount
-    depreciations.each do |depreciation|
-      depreciable_days -= depreciation.duration.round(2)
-      depreciable_amount -= depreciation.amount
-    end
-
-    # Create it if not exists?
-    remaining_amount = depreciable_amount.to_d
-    position = 1
-    starts.each_with_index do |start, index|
-      next if starts[index + 1].nil?
-      depreciation = depreciations.find_by(started_on: start)
-      unless depreciation
-        depreciation = depreciations.new(started_on: start, stopped_on: starts[index + 1] - 1)
-        duration = depreciation.duration.round(2)
-        depreciation.amount = [remaining_amount, currency.to_currency.round(depreciable_amount * duration / depreciable_days)].min
-        remaining_amount -= depreciation.amount
-      end
-      # depreciation.financial_year = FinancialYear.at(depreciation.started_on)
-
-      depreciation.position = position
-      position += 1
-      depreciation.save!
-    end
-  end
-
-  # Depreciate using simplified linear method
   # Years have 12 months with 30 days
-  def depreciate_with_simplified_linear_method(starts)
+  def depreciate_with_linear_method(starts)
     depreciable_days = duration
     depreciable_amount = self.depreciable_amount
     reload.depreciations.each do |depreciation|
@@ -479,7 +446,7 @@ class FixedAsset < Ekylibre::Record::Base
   def self.duration(started_on, stopped_on, options = {})
     days = 0
     options[:mode] ||= :linear
-    if options[:mode] == :simplified_linear
+    if options[:mode] == :linear
       sa = (started_on.day >= 30 || (started_on.end_of_month == started_on) ? 30 : started_on.day)
       so = (stopped_on.day >= 30 || (stopped_on.end_of_month == stopped_on) ? 30 : stopped_on.day)
 
@@ -494,28 +461,6 @@ class FixedAsset < Ekylibre::Record::Base
         end
         days += so
       end
-
-    # cursor = started_on.to_date
-    # if started_on == started_on.end_of_month or started_on.day >= 30
-    #   days += 1
-    #   cursor = started_on.end_of_month + 1
-    # elsif started_on.month == stopped_on.month and started_on.year == stopped_on.year
-    #   days += so - sa + 1
-    #   cursor = stopped_on
-    # elsif started_on != started_on.beginning_of_month
-    #   days += 30 - sa + 1
-    #   cursor = started_on.end_of_month + 1
-    # end
-
-    # while (cursor >> 1).beginning_of_month < stopped_on.beginning_of_month
-    #   cursor = cursor >> 1
-    #   days += 30
-    # end
-    # if cursor < stopped_on
-    #   days += [30, (so - cursor.day + 1)].min
-    # end
-    elsif options[:mode] == :linear
-      days = (stopped_on - started_on) + 1
     else
       raise "What ? #{options[:mode].inspect}"
     end

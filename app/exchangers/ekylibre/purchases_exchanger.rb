@@ -103,7 +103,7 @@ module Ekylibre
               suffix = r.variant[:fixed_asset_account][1..-1]
               r.variant[:fixed_asset_allocation_account] ||= "28#{suffix}"
               r.variant[:fixed_asset_expenses_account] ||= "68#{suffix}"
-              r.variant[:fixed_asset_depreciation_method] ||= :simplified_linear
+              r.variant[:fixed_asset_depreciation_method] ||= :linear
               r.variant[:fixed_asset_depreciation_percentage] ||= 15
             end
             %w[product charge fixed_asset fixed_asset_allocation fixed_asset_expenses].each do |type|

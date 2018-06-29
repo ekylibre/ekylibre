@@ -11,11 +11,8 @@
     = f.input :started_on
     = f.input :depreciation_period, as: :radio_buttons
 
-  = field_set(:simplified_linear_options) do
-    = f.input :depreciation_percentage
-
   = field_set(:linear_options) do
-    = f.input :stopped_on
+    = f.input :depreciation_percentage
 
   = field_set(:accountancy) do
     = f.referenced_association :journal
