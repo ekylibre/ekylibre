@@ -179,7 +179,7 @@ class Account < Ekylibre::Record::Base
   end
 
   validate do
-    errors.add(:number, :unauthorized) if self.number.match(/\A^[1-9]0*$\z/).present?
+    errors.add(:number, :unauthorized) if self.number.match(/\A[1-9]0*\z/).present?
   end
 
   protect(on: :destroy) do
