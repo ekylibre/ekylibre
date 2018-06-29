@@ -178,6 +178,10 @@ class Account < Ekylibre::Record::Base
     self.usages = Account.find_parent_usage(number) if usages.blank? && number
   end
 
+  validate do
+    errors.add(:number, :unauthorized) if self.number.match(/\A[1-9]0*\z/).present?
+  end
+
   protect(on: :destroy) do
     for r in self.class.reflect_on_all_associations(:has_many)
       return true if send(r.name).any?
