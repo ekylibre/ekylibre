@@ -179,7 +179,7 @@ class Account < Ekylibre::Record::Base
   end
 
   validate do
-    errors.add(:number, :unauthorized) if !is_number_valid?
+    errors.add(:number, :unauthorized) if self.number.match(/\A^[1-9]0*$\z/).present?
   end
 
   protect(on: :destroy) do
@@ -542,13 +542,6 @@ class Account < Ekylibre::Record::Base
   def journal_entry_items_calculate(column, started_at, stopped_at, operation = :sum)
     column = (column == :balance ? "#{JournalEntryItem.table_name}.real_debit - #{JournalEntryItem.table_name}.real_credit" : "#{JournalEntryItem.table_name}.real_#{column}")
     journal_entry_items.where(printed_on: started_at..stopped_at).calculate(operation, column)
-  end
-
-  def is_number_valid?
-    is_valid = true
-    split_number = self.number.split("")
-    is_valid = false if split_number.first == "0" || split_number.drop(1).all? { |n| n == "0" }
-    is_valid
   end
 
   # This method loads the balance for a given period.
