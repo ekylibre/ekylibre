@@ -2161,6 +2161,7 @@
       </item>
       <item name="master_production_natures">
         <page to="backend/master_production_natures#unroll"/>
+      </item>
       <item name="accounts">
         <page to="backend/accounts#set_interval_preference"/>
       </item>
@@ -2306,7 +2307,6 @@
       <item name="workers">
         <page to="backend/workers#list_reception_items"/>
         <page to="backend/workers#list_shipment_items"/>
->>>>>>> eb6cac6200f6bfa063916b8d67a5fb05fe2a71de
       </item>
     </group>
   </untreated-actions>
