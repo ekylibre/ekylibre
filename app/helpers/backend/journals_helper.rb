@@ -47,7 +47,14 @@ module Backend
     def journal_period_crit(*args)
       options = args.extract_options!
       name = args.shift || :period
-      value = args.shift
+      value = if preference = current_user.preferences.find_by(name: 'accounts_interval.period') && args.present? && args.first[:use_search_preference]
+                preference.value
+              elsif current_user.preferences.find_by(name: 'accounts_interval.started_on').present? && args.present? && args.first[:use_search_preference]
+                :interval
+              else
+                args.shift
+              end
+
       configuration = { custom: :interval }.merge(options)
       configuration[:id] ||= name.to_s.gsub(/\W+/, '_').gsub(/(^_|_$)/, '')
       value ||= params[name] || options[:default]
@@ -72,12 +79,12 @@ module Backend
       toggle_method = "toggle#{custom_id.camelcase}"
       if configuration[:custom]
         params[:started_on] = begin
-                                params[:started_on].to_date
+                                current_user.preferences.value('accounts_interval.started_on')&.to_date || params[:started_on].to_date
                               rescue
                                 (fy ? fy.started_on : Time.zone.today)
                               end
         params[:stopped_on] = begin
-                                params[:stopped_on].to_date
+                                current_user.preferences.value('accounts_interval.stopped_on')&.to_date || params[:stopped_on].to_date
                               rescue
                                 (fy ? fy.stopped_on : Time.zone.today)
                               end
@@ -91,9 +98,7 @@ module Backend
 
       code << select_tag(name, options_for_select(list, value), :id => configuration[:id], 'data-show-value' => "##{configuration[:id]}_")
 
-      if configuration[:custom]
-        code << ' ' << content_tag(:span, :manual_period.tl(start: date_field_tag(:started_on, params[:started_on], size: 10), finish: date_field_tag(:stopped_on, params[:stopped_on], size: 10)).html_safe, id: custom_id)
-      end
+      code << ' ' << content_tag(:span, :manual_period.tl(start: date_field_tag(:started_on, params[:started_on], size: 10), finish: date_field_tag(:stopped_on, params[:stopped_on], size: 10)).html_safe, id: custom_id)
       code.html_safe
     end
 

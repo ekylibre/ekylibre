@@ -277,20 +277,27 @@ entities_007:
 entities_008:
   active: true
   activity_code: ''
+  bank_account_holder_name: Yuey Corporate
+  bank_identifier_code: CCOPFRPPXXX
   client: true
   client_account_id: 202
   country: fr
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator_id: 1
   currency: EUR
+  custom_fields:
+    bpozesopdf: ''
+    sdqdqsdq_sd_qsq: ''
+    bla_dsfk_jioh_sdf: ''
   deliveries_conditions: ''
+  description: ''
   employee: false
-  first_name: ''
   full_name: Yuey LTD
+  iban: FR7611111222223333333333391
   id: 8
   language: fra
   last_name: Yuey LTD
-  lock_version: 3
+  lock_version: 4
   locked: false
   meeting_origin: ''
   nature: organization
@@ -301,8 +308,9 @@ entities_008:
   siret_number: '12369874500015'
   supplier: true
   supplier_account_id: 207
+  supplier_payment_delay: 30 days
   transporter: false
-  updated_at: 2015-06-13 09:43:31.283068000 Z
+  updated_at: 2017-11-21 10:18:46.972616000 Z
   updater_id: 1
   vat_number: ''
   vat_subjected: true

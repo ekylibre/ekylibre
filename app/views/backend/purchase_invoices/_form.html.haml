@@ -1,0 +1,68 @@
+= f.object.errors.full_messages if f.object.errors.present? && Rails.env.development?
+= content_for(:heading_toolbar) do
+  %h2.reconciliation-title.no-reconciliate-title= :to_reconciliate.tl
+  %h2.reconciliation-title.reconcile-title.hidden= :reconcile.tl
+  %h2.reconciliation-title.accepted-title.hidden= :accepted.tl
+
+= field_set do
+  = f.referenced_association :supplier, source: :suppliers, new: { supplier: 1 }
+  = f.input :reference_number
+  = f.referenced_association :responsible, source: :employees, new: { employed: 1 }
+  = f.association :nature, as: :hidden
+  = f.input :invoiced_at, as: :date
+  = f.input :payment_delay
+  = f.input :tax_payability, as: :radio_buttons
+  = f.input :description
+  = f.custom_fields
+
+  = field :element_status.tl, nil do
+    %span.purchase-process-reconciliation.reconciliation-state.no-reconciliate-state= :to_reconciliate.tl
+    %span.purchase-process-reconciliation.reconciliation-state.reconcile-state.hidden= :reconcile.tl
+    %span.purchase-process-reconciliation.reconciliation-state.accepted-state.hidden= :accepted.tl
+    = check_box_tag('purchase_invoice[reconciliation_state]', 'to_reconcile', true, id: 'purchase_invoice_reconciliate_state', class: 'hidden')
+    = check_box_tag('purchase_invoice[reconciliation_state]', 'accepted', (f.object.reconciliation_state == 'accepted' ? true : false), id: 'purchase_invoice_accepted_state')
+    = label_tag :accepted_for_paiment.tl
+
+  .invoice-totals
+    .invoice-total-row.total-except-tax
+      %span.total-label= :total_amount_without_taxes.tl
+      %span.total-value= f.object.decorate.total_amount_excluding_taxes
+      %span.total-currency= Nomen::Currency[f.object.currency].symbol
+    .invoice-total-row.vat-total
+      %span.total-label= :vat.tl
+      %span.total-value= f.object.decorate.total_vat_amount.round(2)
+      %span.total-currency= Nomen::Currency[f.object.currency].symbol
+    .invoice-total-row.invoice-total
+      %span.total-label= :total_amount_with_taxes.tl
+      %span.total-value= f.object.decorate.total_amount_including_taxes
+      %span.total-currency= Nomen::Currency[f.object.currency].symbol
+
+  .control-group.button-modal-reconciliation
+    .controls
+      = button_tag :reconciliate_with_receptions.tl, id: 'showReconciliationModal', class: 'btn btn-default', type: :button
+
+  = modal(id: "purchase_process_reconciliation", class: "", size: :large) do
+    .modal-body
+    .modal-footer
+
+  = f.attachments
+
+= field_set Purchase.human_attribute_name(:items) do
+  .items
+    %table.list#items-table
+      %thead.table-head
+        %tr.table-headers
+          %th.act
+          %th.act
+          %th.product-column= :merchandises_services_costs.tl
+          %th.quantity-column= PurchaseItem.human_attribute_name(:quantity)
+          %th.unit-amount-column= :unit_amount.tl
+          %th.pretax-amount-column= :total_amount_without_taxes.tl
+          %th.total-column= :total_amount_with_taxes.tl
+
+      = f.simple_fields_for :items, f.object.items.sort_by { |i| i.id.to_i } do |item|
+        = render 'item_fields', f: item
+
+      %tfoot#items-footer
+        %tr.total
+          %th{class: "links"}= link_to_add_association :add_line.tl, f, :items, partial: 'item_fields', 'data-association-insertion-node' => '#items-footer', 'data-association-insertion-method' => :before

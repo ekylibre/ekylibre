@@ -15657,3 +15657,79 @@ versions_282:
     iban: ''
     supplier_payment_mode_id:
   item_type: Entity
+versions_283:
+  created_at: 2017-11-21 10:18:46.982221000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: update
+  id: 320
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    first_name: ''
+    description:
+    siren: '123698745'
+    siret_number: '12369874500015'
+    custom_fields: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      bpozesopdf: ''
+      sdqdqsdq_sd_qsq: ''
+      bla_dsfk_jioh_sdf: ''
+    employee: false
+    employee_account_id:
+    codes:
+    supplier_payment_delay: 30 days
+    bank_account_holder_name: Yuey Corporate
+    bank_identifier_code: CCOPFRPPXXX
+    iban: FR7611111222223333333333391
+    supplier_payment_mode_id:
+  item_id: 8
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 8
+    nature: organization
+    last_name: Yuey LTD
+    first_name:
+    number: '3'
+    active: true
+    born_at:
+    dead_at:
+    client: true
+    client_account_id: 202
+    supplier: true
+    supplier_account_id: 207
+    transporter: false
+    prospect: false
+    vat_subjected: true
+    reminder_submissive: false
+    deliveries_conditions: ''
+    description: ''
+    language: fra
+    country: fr
+    currency: EUR
+    authorized_payments_count:
+    responsible_id:
+    proposer_id:
+    meeting_origin: ''
+    first_met_at:
+    activity_code: ''
+    vat_number: ''
+    siret_number: '12369874500015'
+    locked: false
+    of_company: false
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    created_at: 2014-10-31 17:19:32.000000000 Z
+    creator_id: 1
+    title:
+    custom_fields: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      bpozesopdf: ''
+      sdqdqsdq_sd_qsq: ''
+      bla_dsfk_jioh_sdf: ''
+    employee: false
+    employee_account_id:
+    codes:
+    supplier_payment_delay: 30 days
+    bank_account_holder_name: Yuey Corporate
+    bank_identifier_code: CCOPFRPPXXX
+    iban: FR7611111222223333333333391
+    supplier_payment_mode_id:
+  item_type: Entity

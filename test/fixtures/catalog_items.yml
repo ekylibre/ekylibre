@@ -320,3 +320,107 @@ catalog_items_021:
   updated_at: 2016-12-20 18:16:56.978348000 Z
   updater_id: 1
   variant_id: 63
+catalog_items_022:
+  all_taxes_included: false
+  amount: 200.0
+  catalog_id: 6
+  created_at: 2017-11-21 10:13:42.845671000 Z
+  creator_id: 1
+  currency: EUR
+  id: 34
+  lock_version: 0
+  name: Semoir
+  updated_at: 2017-11-21 10:13:42.845671000 Z
+  updater_id: 1
+  variant_id: 29
+catalog_items_023:
+  all_taxes_included: false
+  amount: 200.0
+  catalog_id: 5
+  created_at: 2017-11-21 10:13:42.853070000 Z
+  creator_id: 1
+  currency: EUR
+  id: 35
+  lock_version: 0
+  name: Semoir
+  updated_at: 2017-11-21 10:13:42.853070000 Z
+  updater_id: 1
+  variant_id: 29
+catalog_items_024:
+  all_taxes_included: false
+  amount: 25000.0
+  catalog_id: 6
+  created_at: 2017-11-21 10:19:20.014818000 Z
+  creator_id: 1
+  currency: EUR
+  id: 36
+  lock_version: 0
+  name: Bâtiment
+  updated_at: 2017-11-21 10:19:20.014818000 Z
+  updater_id: 1
+  variant_id: 51
+catalog_items_025:
+  all_taxes_included: false
+  amount: 25000.0
+  catalog_id: 5
+  created_at: 2017-11-21 10:19:20.020042000 Z
+  creator_id: 1
+  currency: EUR
+  id: 37
+  lock_version: 0
+  name: Bâtiment
+  updated_at: 2017-11-21 10:19:20.020042000 Z
+  updater_id: 1
+  variant_id: 51
+catalog_items_026:
+  all_taxes_included: false
+  amount: 35.0
+  catalog_id: 6
+  created_at: 2017-11-21 10:20:26.362719000 Z
+  creator_id: 1
+  currency: EUR
+  id: 38
+  lock_version: 0
+  name: Adexar 5 l
+  updated_at: 2017-11-21 10:20:26.362719000 Z
+  updater_id: 1
+  variant_id: 8
+catalog_items_027:
+  all_taxes_included: false
+  amount: 35.0
+  catalog_id: 5
+  created_at: 2017-11-21 10:20:26.368494000 Z
+  creator_id: 1
+  currency: EUR
+  id: 39
+  lock_version: 0
+  name: Adexar 5 l
+  updated_at: 2017-11-21 10:20:26.368494000 Z
+  updater_id: 1
+  variant_id: 8
+catalog_items_028:
+  all_taxes_included: false
+  amount: 42.0
+  catalog_id: 6
+  created_at: 2017-11-21 10:21:30.410695000 Z
+  creator_id: 1
+  currency: EUR
+  id: 40
+  lock_version: 0
+  name: So2 liquide 10%
+  updated_at: 2017-11-21 10:21:30.410695000 Z
+  updater_id: 1
+  variant_id: 62
+catalog_items_029:
+  all_taxes_included: false
+  amount: 42.0
+  catalog_id: 5
+  created_at: 2017-11-21 10:21:30.418096000 Z
+  creator_id: 1
+  currency: EUR
+  id: 41
+  lock_version: 0
+  name: So2 liquide 10%
+  updated_at: 2017-11-21 10:21:30.418096000 Z
+  updater_id: 1
+  variant_id: 62

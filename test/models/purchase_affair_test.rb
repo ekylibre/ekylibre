@@ -56,7 +56,8 @@ class PurchaseAffairTest < ActiveSupport::TestCase
   include Test::Affairable
 
   test 'homogeneousity' do
-    purchase = Purchase.order(:id).first
+    purchase = create(:purchase_invoice)
+    # byebug
     assert_equal PurchaseAffair, purchase.affair.class
     assert_raise Exception do
       purchase.affair.deal_with! Sale.first
@@ -171,9 +172,8 @@ class PurchaseAffairTest < ActiveSupport::TestCase
         tax: Tax.all.sample
       )
     end
-    purchase = Purchase.create!(supplier: supplier, nature: nature, items: items)
+    purchase = Purchase.create!(supplier: supplier, nature: nature, type: 'PurchaseInvoice', items: items)
     assert purchase.amount > 0, "Purchase amount should be greater than 0. Got: #{purchase.amount.inspect}"
-    purchase.invoice!
     purchase.reload
     assert purchase.affair, 'An affair should be present after invoicing'
     assert purchase.journal_entry, 'A journal entry should exists after purchase invoicing'

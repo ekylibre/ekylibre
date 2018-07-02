@@ -1,0 +1,7 @@
+---
+spa:
+  exchangers:
+    fermes_larrere_outgoing_parcels: Outgoing parcels - Larrere Farms
+    fermes_larrere_sales: Sales - Larrere Farms
+    fermes_larrere_various_journal_entries: Varias entradas de diario - Larrere Granjas
+    fermes_larrere_incoming_payments: La entrada de pagos - Larrere Granjas

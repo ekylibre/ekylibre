@@ -1,0 +1,49 @@
+= content_for(:heading_toolbar) do
+  = reconciliation_state_title(@purchase_invoice)
+
+- main_toolbar do |t|
+  = t.export :purchases_invoice
+  = t.edit resource if resource.updateable?
+  = t.new label: :duplicate.tl, params: { duplicate_of: resource.id, redirect: nil }
+  = t.destroy
+
+  .change-reconcilation-state-block
+    - checked = false
+    - checked = true if resource.reconciliation_state == :accepted
+    = check_box_tag 'new-reconcilation-state', checked, checked
+    %label= :accepted_for_paiment.tl
+
+= main_informations attachment: true do
+  = attributes_list do |l|
+    - l.attribute :supplier, label: :label, url: true
+    - l.attribute :number
+    - l.attribute :responsible, label: :full_name
+    - l.attribute :created_at
+    - l.attribute :confirmed_at
+    - l.attribute :invoiced_at
+    - l.attribute :planned_at
+    - l.attribute :payment_at if resource.invoiced_at?
+    - l.attribute :currency unless resource.currency == Preference[:currency]
+    - l.attribute :description unless resource.description.blank?
+    - l.attribute :delivery_address, label: :coordinate
+    - l.attribute :journal_entry, url: true if resource.journal_entry
+    - l.attribute :affair, url: true, label: :number if resource.affair
+    - l.attribute :undelivered_invoice_journal_entry, url: true if resource.undelivered_invoice_journal_entry
+    - l.attribute :quantity_gap_on_invoice_journal_entry, url: true if resource.quantity_gap_on_invoice_journal_entry
+
+= cobbles do |c|
+
+  - c.cobble :items, title: PurchaseInvoice.human_attribute_name(:items) do
+    = cobble_list :items do
+      %tr.total
+        %th{ colspan: 5 }
+        %td= resource.pretax_amount.l(currency: resource.currency)
+        %td= resource.amount.l(currency: resource.currency)
+
+  - if resource.affair
+    - c.cobble :affair do
+      = affair_of(resource, default: 'PurchasePayment')
+
+  - if resource.parcels.any?
+    - c.cobble :receptions, title: PurchaseInvoice.human_attribute_name(:receptions) do
+      = cobble_list :receptions

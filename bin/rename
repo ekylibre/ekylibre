@@ -447,6 +447,7 @@ class Renamer
       ns.gsub!(/(find\_and\_check[\(\ ]+):#{old_record}\s*(\)|\,|$)/, '\1:' + new_record + '\2')
       ns.gsub!(/(list[\(\ ]+):#{old_table}\s*(\)|\,|$)/, '\1:' + new_table + '\2')
       ns.gsub!(/(list[\(\ ]+):#{old_record}\s*(\)|\,|$)/, '\1:' + new_record + '\2')
+      ns.gsub!(/(require\_dependency[\(\ ]*)\'#{old_record}\'\s*([\)\ ]*$)/, '\1:' + new_record + '\2')
 
       ns.gsub!(/^(\ +)(search\_for)/, '\1# \2')
 

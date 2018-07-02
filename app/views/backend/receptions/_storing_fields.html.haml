@@ -1,0 +1,22 @@
+- storing ||= f.object
+- variant = Maybe(storing.parcel_item.variant)
+- storage_name = storing.storage.name if storing.storage
+
+.nested-fields.storing-fields
+  = f.referenced_association :storage, source: :storage, label: false, input_html: { class: 'storing-storage', data: { product_of_delivery_item: { url: backend_product_path("RECORD_ID", format: :json), scope: 'storage' }, required: true } }
+  %input.hidden{data: { 'when-item': 'name', 'when-set-value': 'RECORD_VALUE', 'when-scope': 'storage'}, value: storage_name}
+  = f.input :conditionning, wrapper: :conditionning_append do
+    = f.input_field :conditionning , class: "conditionning", data: { trade_component: 'conditionning' }
+    %span.add-on.storage-unit-name{data: { 'when-item': 'unit_name', 'when-set-value': 'RECORD_VALUE', 'when-scope': 'unit'}}
+      = variant.unit_name.or_else('#')
+  %div.control-group.multiplicator X
+  = f.input :conditionning_quantity, wrapper: :conditionning_append do
+    = f.input_field :conditionning_quantity , class: "conditionning-quantity", data: { trade_component: 'conditionning_quantity'}
+  .storing-quantifier
+    = f.input :quantity, wrapper: :append do
+      = f.input_field :quantity, class: 'storing-quantity', placeholder: '0', data: { required: true }
+      %span.add-on.storage-unit-name{data: { 'when-item': 'unit_name', 'when-set-value': 'RECORD_VALUE', 'when-scope': 'unit'}}
+        = variant.unit_name.or_else('#')
+  .nested-remove.act
+    - if f.object.destroyable?
+      = link_to_remove_association(content_tag(:i) + h(:destroy.tl), f, 'data-no-turbolink' => true, class: 'destroy remove remove-item')

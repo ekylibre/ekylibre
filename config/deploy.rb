@@ -50,4 +50,29 @@ namespace :deploy do
       execute :sudo, :service, "#{fetch(:application)}-web", :restart
     end
   end
+
+  before :updated, 'yarn:install'
+  # before :updated, 'yarn:build'
+end
+
+namespace :yarn do
+  desc 'Install yarn dependencies'
+  task :install do
+    on roles(:app) do
+      within release_path do
+        execute :yarn, :install, '--ignore-engines'
+      end
+    end
+  end
+
+  desc 'yarn dependencies'
+  task :build do
+    on roles(:app) do
+      within release_path do
+        with node_env: :production do
+          execute :yarn, :build
+        end
+      end
+    end
+  end
 end

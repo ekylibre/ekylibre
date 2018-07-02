@@ -19,6 +19,6 @@
 require 'test_helper'
 module Backend
   class ParcelsControllerTest < ActionController::TestCase
-    test_restfully_all_actions invoice: { mode: :multi_touch, fixture: { first: 3, second: 5 } }, ship: { mode: :multi_touch, fixture: { first: 3, second: 4 } }, check: :touch, order: :touch, prepare: :touch, cancel: :touch, give: :touch
+    test_restfully_all_actions
   end
 end

@@ -68,7 +68,6 @@
                   (&?.*)
                   ///
                   unrollPath = unrollPath.replace(scopeReg, "$1=#{encodeURIComponent(scopeValue)}$3")
-
                 input.attr('data-selector', unrollPath)
 
     toggleHandlers: (form, attributes, prefix = '') ->
@@ -183,6 +182,13 @@
             options.success.call(this, data, status, request) if options.success?
             console.groupEnd()
 
+            if options['display_cost']
+              targettedElement = options['targetted_element']
+              parentBlock = $(targettedElement).closest('.nested-product-parameter')
+              quantity = $(parentBlock).find('input[data-intervention-field="quantity-value"]').val()
+              unitName = $(parentBlock).find('select[data-intervention-field="quantity-handler"]').val()
+              E.interventionForm.displayCost(targettedElement, quantity, unitName)
+
     hideKujakuFilters: (hideFilters) ->
       if hideFilters
         $('.feathers input[name*="nature"], .feathers input[name*="state"]').closest('.feather').hide()
@@ -224,7 +230,8 @@
             @workingTimesModal.getModalContent().append(data)
             @workingTimesModal.getModal().modal 'show'
 
-    addLazyLoading: ->
+
+    addLazyLoading: (taskboard) ->
       loadContent = false
       currentPage = 1
       taskHeight = 60
@@ -251,6 +258,43 @@
               loadContent = false
               taskboard.addTaskClickEvent()
 
+    generateItemsArrayFromId: (input)->
+      intervention_id = input.parents().find('#intervention_id').val() if input.parents().find('#intervention_id').val().length > 0
+      purchase_id = input.parent().find('.selector-value').val()
+      $('.purchase-items-array').empty()
+      itemHeader = []
+      itemHeader.push("<span class='header-name'>Article</span>")
+      itemHeader.push("<span class='header-quantity'>Quantité</span>")
+      itemHeader.push("<span class='header-unit-pretax-amount'>Prix U HT</span>")
+      itemHeader.push("<span class='header-amount'>Prix total</span>")
+      $('.purchase-items-array').append("<li class='header-line'>" + itemHeader.join('') + "</li>")
+      $.get
+        url: "/backend/interventions/purchase_order_items"
+        data: { purchase_order_id: purchase_id, intervention_id: intervention_id}
+        success: (data, status, request) ->
+          for item, index in data.items
+            itemLine = []
+            if intervention_id? && item.is_reception
+              itemLine.push("<span class='item-id'><input name='intervention[receptions_attributes][0][items_attributes][#{-index}][id]' value='#{item.id}' type='hidden'></input></span>")
+            itemLine.push("<span class='item-name'><input name='intervention[receptions_attributes][0][items_attributes][#{-index}][variant_id]' value='#{item.variant_id}' type='hidden'></input>" + item.name + "</span>")
+            itemLine.push("<span class='item-quantity'><input type='number' class='input-quantity' name='intervention[receptions_attributes][0][items_attributes][#{-index}][population]' value ='#{item.quantity}'></input></span>")
+            itemLine.push("<span class='item-unit-pretax-amount'><input name='intervention[receptions_attributes][0][items_attributes][#{-index}][unit_pretax_amount]' value='#{item.unit_pretax_amount}' type='hidden'></input>" + item.unit_pretax_amount + "</span>")
+            itemLine.push("<span class='item-amount'>" + item.unit_pretax_amount * item.quantity +  "</span>")
+            itemLine.push("<span class='item-role'><input name='intervention[receptions_attributes][0][items_attributes][#{-index}][role]' value='#{item.role}' type='hidden'></input></span>")
+            itemLine.push("<span class='item-purchase-order-item-id'><input name='intervention[receptions_attributes][0][items_attributes][#{-index}][purchase_order_item_id]' value='#{item.purchase_order_item}' type='hidden'></input></span>")
+            $('.purchase-items-array').append("<li class='item-line'>" + itemLine.join('') + "</li>")
+
+    updateTotalAmount: (input) ->
+      quantity = input.val()
+      totalAmount = quantity * parseFloat(input.parents('li.item-line').find('.item-unit-pretax-amount').text())
+      input.parents('li.item-line').find('.item-amount').html(totalAmount.toFixed(2))
+
+    isPurchaseOrderSelectorEnabled: (input) ->
+      purchaseInput = input.parents('.fieldset-fields').find('.reception-purchase')
+      if input.val().length == 0
+        purchaseInput.attr("disabled",true)
+      else
+        purchaseInput.attr("disabled",false)
 
   ##############################################################################
   # Triggers
@@ -276,45 +320,227 @@
       E.interventions.refresh $(this)
 
   #  selector:initialized
-  $(document).on 'selector:change', '*[data-intervention-updater]', ->
+  $(document).on 'selector:change', '*[data-intervention-updater]', (event) ->
     $(this).each ->
-      E.interventions.refresh $(this)
+      options = {}
+      options['display_cost'] = true
+      options['targetted_element'] = $(event.target)
+
+      E.interventions.refresh $(this), options
 
   $(document).on 'keyup', 'input[data-selector]', (e) ->
     $(this).each ->
       E.interventions.refresh $(this)
 
-  $(document).on 'keyup change', 'input[data-intervention-updater]:not([data-selector])', (e) ->
+  $(document).on 'keyup change', 'input[data-intervention-updater]:not([data-selector])', (event) ->
     $(this).each ->
-      E.interventions.refresh $(this)
+      options = {}
+      options['display_cost'] = true
+      options['targetted_element'] = $(event.target)
 
-  $(document).on 'keyup change', 'select[data-intervention-updater]', ->
+      E.interventions.refresh $(this), options
+
+  $(document).on 'keyup change', 'select[data-intervention-updater]', (event) ->
     $(this).each ->
-      E.interventions.refresh $(this)
+      options = {}
+      options['display_cost'] = true
+      options['targetted_element'] = $(event.target)
+
+      E.interventions.refresh $(this), options
 
   $(document).on "keyup change dp.change", ".nested-fields.working-period:first-child input.intervention-started-at", (e) ->
+    value = $(this).val()
+    $('#intervention_working_periods_attributes_0_stopped_at').val(moment(new Date(value)).add(1, 'hours').format('Y-MM-DD H:m'))
+    started_at = $('#intervention_working_periods_attributes_0_started_at').val()
     $(this).each ->
-      E.interventions.updateAvailabilityInstant($(this).val())
+      E.interventions.updateAvailabilityInstant(started_at)
+
+
+  $(document).on 'selector:change', '.intervention_tools_product .selector-search', (event) ->
+    toolId = $(event.target).closest('.selector').find('.selector-value').val()
+
+    $.ajax
+      url: "/backend/products/indicators/#{ toolId }/variable_indicators"
+      success: (data, status, request) ->
+        return if data['is_hour_counter'] == false
+
+        hourCounterBlock = $(event.target).closest('.nested-product-parameter').find('.tool-nested-readings')
+
+        return if hourCounterBlock.hasClass('visible')
+
+        hourCounterBlock.removeClass('hidden')
+        hourCounterBlock.addClass('visible')
+
+        hourCounterLinks = hourCounterBlock.find('.links')
+        hourCounterBlock.find('.add-reading').trigger('click') if hourCounterLinks.is(':visible')
 
 
   $(document).on "selector:change", 'input[data-selector-id="intervention_doer_product_id"], input[data-selector-id="intervention_tool_product_id"]', (event) ->
     element = $(event.target)
     blockElement = element.closest('.nested-fields')
-
-    pictoTimer = $('<div class="has-intervention-participations picto picto-timer-off"></div>')
-
-    $(blockElement).append(pictoTimer)
-
     participation = blockElement.find('.intervention-participation')
+    hasInterventionParticipationBlock = blockElement.find('.has-intervention-participations')
 
     if participation.length > 0
       newProductId = element.closest('.selector').find('.selector-value').val()
       jsonParticipation = JSON.parse(participation.val())
       jsonParticipation.product_id = newProductId
-
       participation.val(JSON.stringify((jsonParticipation)))
       participation.attr('data-product-id', newProductId)
 
+    if hasInterventionParticipationBlock.length == 0
+      if participation.length > 0
+        pictoTimer = $('<div class="has-intervention-participations picto picto-timer"></div>')
+      else
+        pictoTimer = $('<div class="has-intervention-participations picto picto-timer-off"></div>')
+
+      $(blockElement).append(pictoTimer)
+
+
+  $(document).on "selector:change", 'input[data-generate-items]', ->
+    $(this).each ->
+      E.interventions.generateItemsArrayFromId($(this))
+
+  $(document).on "keyup change", 'input.input-quantity', ->
+    $(this).each ->
+      E.interventions.updateTotalAmount($(this))
+
+  $(document).on "selector:change change", 'input.reception-supplier', ->
+    $(this).each ->
+      E.interventions.isPurchaseOrderSelectorEnabled($(this))
+
+  $(document).behave "load", ".reception-supplier", ->
+    supplierLabel = $($(this).parents('.nested-receptions').find('.control-label')[0])
+    supplierLabel.addClass('required')
+    supplierLabel.prepend("<abbr title='Obligatoire'>*</abbr>")
+
+  $(document).on 'change', '.nested-parameters .nested-cultivation .land-parcel-plant-selector', (event) ->
+    nestedCultivationBlock = $(event.target).closest('.nested-cultivation')
+    unrollElement = $(nestedCultivationBlock).find('.intervention_targets_product .selector-search')
+    unrollValueElement = $(nestedCultivationBlock).find('.intervention_targets_product .selector-value')
+
+    if unrollValueElement.val() != ""
+      unrollValueElement.val('')
+
+    harvestInProgressError = $(nestedCultivationBlock).find('.harvest-in-progress-error')
+    $(harvestInProgressError).remove() if $(harvestInProgressError).length > 0
+
+    plantLandParcelSelector = new E.PlantLandParcelSelector()
+    plantLandParcelSelector.changeUnrollUrl(event, unrollElement)
+
+
+  $(document).on 'selector:change', '.nested-parameters .nested-cultivation .intervention_targets_product .selector-search', (event) ->
+    landParcelPlantSelectorElement = $(event.target).closest('.nested-cultivation').find('.land-parcel-plant-selector')
+    productId = $(event.target).closest('.selector').find('.selector-value').val()
+
+    nestedCultivationBlock = $(event.target).closest('.nested-cultivation')
+    harvestInProgressError = $(nestedCultivationBlock).find('.harvest-in-progress-error')
+    $(harvestInProgressError).remove() if $(harvestInProgressError).length > 0
+
+    E.interventionForm.checkPlantLandParcelSelector(productId, landParcelPlantSelectorElement)
+    E.interventionForm.checkHarvestInProgress(event, productId, landParcelPlantSelectorElement)
+
+
+  $(document).on 'keyup change dp.change', '.nested-fields.working-period input[data-intervention-updater]', (event) ->
+    nestedProductParameterBlock = $('.nested-product-parameter.nested-cultivation')
+    nestedProductParameterBlock = $('.nested-product-parameter.nested-plant') if $(nestedProductParameterBlock).length == 0
+    nestedProductParameterBlock = $('.nested-product-parameter.nested-land_parcel') if $(nestedProductParameterBlock).length == 0
+
+    productId = $(nestedProductParameterBlock).find('.selector .selector-value').val()
+
+    return if productId == ""
+
+    landParcelPlantSelectorElement = $(nestedProductParameterBlock).find('.nested-product_parameter .land-parcel-plant-selector')
+
+    unrollBlock = $(nestedProductParameterBlock).find('.intervention_targets_product .controls')
+    harvestInProgressError = $(unrollBlock).find('.harvest-in-progress-error')
+
+    $(harvestInProgressError).remove() if $(harvestInProgressError).length > 0
+
+    E.interventionForm.checkHarvestInProgress(event, productId, landParcelPlantSelectorElement, nestedProductParameterBlock)
+
+
+  $(document).on 'selector:change', '.nested-parameters .nested-plant .intervention_targets_product .selector-search', (event) ->
+    landParcelPlantSelectorElement = $(event.target).closest('.nested-product_parameter').find('.land-parcel-plant-selector')
+    productId = $(event.target).closest('.selector').find('.selector-value').val()
+
+    nestedCultivationBlock = $(event.target).closest('.nested-product_parameter')
+    harvestInProgressError = $(nestedCultivationBlock).find('.harvest-in-progress-error')
+    $(harvestInProgressError).remove() if $(harvestInProgressError).length > 0
+
+    E.interventionForm.checkPlantLandParcelSelector(productId, landParcelPlantSelectorElement)
+    E.interventionForm.checkHarvestInProgress(event, productId, landParcelPlantSelectorElement)
+
+
+  E.interventionForm =
+    displayCost: (target, quantity, unitName) ->
+
+      quantity = $(target).closest('.nested-fields').find('input[data-intervention-handler="quantity"]').val()
+      productId = $(target).closest('.nested-product-parameter').find(".selector .selector-value").val()
+
+      intervention = {}
+      intervention['quantity'] = quantity
+      intervention['intervention_id'] = $('input[name="intervention_id"]').val()
+      intervention['product_id'] = productId
+      intervention['existing_participation'] = $('.intervention-participation[data-product-id="' + productId + '"]').val()
+      intervention['intervention_started_at'] = $('#intervention_working_periods_attributes_0_started_at').val()
+      intervention['intervention_stopped_at'] = $('#intervention_working_periods_attributes_0_stopped_at').val()
+
+      if unitName
+        intervention['unit_name'] = unitName
+
+      $.ajax
+        url: "/backend/interventions/costs/parameter_cost",
+        data: { intervention: intervention }
+        success: (data, status, request) ->
+          if !data.human_amount.nature || data.human_amount.nature != "failed"
+            nestedProductParameter = $(target).closest('.nested-product-parameter')
+
+            if $(nestedProductParameter).find('.product-parameter-cost').length > 0
+              $(nestedProductParameter).find('.product-parameter-cost-value').text(data.human_amount)
+            else
+              parameterCostBlock = $('<div class="product-parameter-cost"></div>')
+              parameterCostBlock.append('<span class="product-parameter-cost-label">Coût : </span>')
+              parameterCostBlock.append('<span class="product-parameter-cost-value">' + data.human_amount + '</span>')
+
+              $(nestedProductParameter).find('.intervention_inputs_quantity').append(parameterCostBlock)
+
+    checkPlantLandParcelSelector: (productId, landParcelPlantSelectorElement) ->
+      $.ajax
+        url: "/backend/products/search_products/#{ productId }/datas",
+        success: (data, status, request) ->
+          if data.type == 'LandParcel'
+            landParcelPlantSelectorElement.find('.land-parcel-radio-button').prop('checked', true)
+          else
+            landParcelPlantSelectorElement.find('.plant-radio-button').prop('checked', true)
+
+
+    checkHarvestInProgress: (event, productId, landParcelPlantSelectorElement, nestedCultivationBlock = null) ->
+      interventionNature = $('.intervention_nature input[type="hidden"]').val()
+
+      return if $('#is_harvesting').val() == "true" ||
+                  landParcelPlantSelectorElement.find('.land-parcel-radio-button').is(':checked') ||
+                  interventionNature == "request"
+
+      interventionStartedAt = $('.intervention-started-at').val()
+
+      $.ajax
+        url: "/backend/products/interventions/#{ productId }/has_harvesting",
+        data: { intervention_started_at: interventionStartedAt }
+        success: (data, status, request) ->
+          nestedCultivationBlock ||= $(event.target).closest('.nested-product-parameter')
+
+          unrollBlock = $(nestedCultivationBlock).find('.intervention_targets_product .controls')
+          harvestInProgressError = $(unrollBlock).find('.harvest-in-progress-error')
+
+          if $(harvestInProgressError).length > 0
+            $(harvestInProgressError).remove()
+
+          if data.has_harvesting
+           unrollElement = $(nestedCultivationBlock).find('.intervention_targets_product .selector-search')
+
+           error = $("<span class='help-inline harvest-in-progress-error'>#{ unrollElement.attr('data-harvest-in-progress-error-message') }</span>")
+           $(unrollBlock).append(error)
 
 
   $(document).ready ->
@@ -324,12 +550,22 @@
     if $('.new_intervention, .edit_intervention').length > 0
       E.interventions.showInterventionParticipationsModal()
 
+
+    if $('.edit_intervention').length > 0
+      $('.nested-association.nested-inputs .nested-product-parameter').each((index, parameter) ->
+        productParameterCostBlock = $(parameter).find('.product-parameter-cost')
+
+        if productParameterCostBlock.length > 0
+          target = $(parameter).find('.intervention_inputs_quantity')
+          $(productParameterCostBlock).appendTo(target)
+      )
+
     if $('.taskboard').length > 0
 
       taskboard = new InterventionsTaskboard
       taskboard.initTaskboard()
 
-      E.interventions.addLazyLoading()
+      E.interventions.addLazyLoading(taskboard)
 
 
   class InterventionsTaskboard

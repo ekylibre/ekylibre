@@ -1,0 +1,62 @@
+= f.object.errors.full_messages if f.object.errors.present? && Rails.env.development?
+= content_for(:heading_toolbar) do
+  %h2.global-incident-warning.hidden{ data: { warn_if_checked: :reception_incident.tl } }
+  %h2.reconciliation-title.no-reconciliate-title= :to_reconciliate.tl
+  %h2.reconciliation-title.reconcile-title.hidden= :reconcile.tl
+
+= field_set :general_informations do
+  = f.input :nature, as: :hidden
+  = f.input :contract_id, as: :hidden
+  .delivery-item
+    = f.referenced_association :sender, required: true
+    = f.input :purchase_id, as: :hidden
+    = f.referenced_association :address, source: :mails, input_html: {data: {"when-item": "address_id", "when-set-value": "RECORD_VALUE"}}, new: { canal: :mail }, label: :receiving_address.tl
+    = f.input :reference_number, label: :reception_number.tl
+  = f.referenced_association :responsible, source: :employees, new: { employed: 1 }, label: :receipt_responsible.tl
+  -#= f.referenced_association :sale
+  = f.input :given_at, as: :date, required: false, label: :receipt_date.tl
+
+  .late-delivery-block
+    = f.input :late_delivery, input_html: { data: { warn_if_checked: :late.tl, show: '#due-on' } }
+    #due-on
+      %span.warn-message= :late_delivery.tl.upcase
+      = f.input :planned_at, as: :date, required: false
+
+  = field :element_status.tl, nil do
+    %span.purchase-process-reconciliation.reconciliation-state.no-reconciliate-state= :to_reconciliate.tl
+    %span.purchase-process-reconciliation.reconciliation-state.reconcile-state.hidden= :reconcile.tl
+    = hidden_field_tag('reception[reconciliation_state]', 'to_reconcile')
+
+  .control-group.button-modal-reconciliation
+    .controls
+      = button_tag :reconciliate_with_purchases_orders.tl, id: 'showReconciliationModal', class: 'btn btn-default', type: :button
+
+  = modal(id: "purchase_process_reconciliation", class: "", size: :large) do
+    .modal-body
+    .modal-footer
+
+  = f.custom_fields
+  = f.attachments
+
+
+- if f.object.allow_items_update?
+  = field_set f.object.class.human_attribute_name(:items) do
+    %table.list#receptions-items-table
+      %thead
+        %tr.table-headers
+          %th.act
+          %th.act
+          %th.product-column= ParcelItem.human_attribute_name(:product)
+          %th.storage-column= :storage.tl
+          %th.quantity-column= ParcelItem.human_attribute_name(:population)
+          %th.delivery-mode-column= ParcelItem.human_attribute_name(:delivery_mode)
+          / %th= ParcelItem.human_attribute_name(:storage)
+
+      = f.simple_fields_for :items, f.object.items do |item|
+        = render 'item_fields', f: item
+      - if f.object.allow_items_update?
+        %tfoot#items-footer
+          %tr.total
+            %th{colspan: 6, class: "links add-merchandise"}= link_to_add_association :add_merchandise.tl, f, :items, partial: 'item_fields', render_options: { locals: { role: 'merchandise' } }, 'data-association-insertion-node' => '#items-footer', 'data-association-insertion-method' => :before
+            %th{colspan: 6, class: "links add-service"}= link_to_add_association :add_service.tl, f, :items, partial: 'item_fields', render_options: { locals: { role: 'service' } }, 'data-association-insertion-node' => '#items-footer', 'data-association-insertion-method' => :before
+            %th{colspan: 6, class: "links add-cost"}= link_to_add_association :add_fees.tl, f, :items, partial: 'item_fields', render_options: { locals: { role: 'fees' } }, 'data-association-insertion-node' => '#items-footer', 'data-association-insertion-method' => :before

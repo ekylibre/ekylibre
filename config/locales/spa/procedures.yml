@@ -42,7 +42,7 @@ spa:
     corks: "Corchos"
     corn_topper: "topper maíz"
     cover_implanter: "Cubierta implantador"
-    crop: "Cultivo"
+    crop: "Cultivo" #?
     cropper: "Cultivador"
     cultivation: "Cultivo"
     cutter: "Cortador"

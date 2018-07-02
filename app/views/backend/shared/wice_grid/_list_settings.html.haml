@@ -1,0 +1,10 @@
+%div{ class: "dropdown wice-grid-toolbar list-settings #{ toolbar_classes }" }
+  = button_tag nil, class: "btn btn-default dropdown-toggle", id: 'wiceGridSettings', 'data-toggle': 'dropdown' do
+    %i.fa.fa-wrench
+
+  %ul
+    = content_tag :li, { class: 'parent' } do
+      = content_tag :a, class: 'columns' do
+        %i
+        %span= :wice_grid_columns.tl
+      %ul{ class: 'dropdown-columns-menu' }

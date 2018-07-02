@@ -32,6 +32,7 @@
 #  description                    :text
 #  event_id                       :integer
 #  id                             :integer          not null, primary key
+#  intervention_costs_id          :integer
 #  issue_id                       :integer
 #  journal_entry_id               :integer
 #  lock_version                   :integer          default(0), not null
@@ -39,6 +40,7 @@
 #  number                         :string
 #  prescription_id                :integer
 #  procedure_name                 :string           not null
+#  purchase_id                    :integer
 #  request_compliant              :boolean
 #  request_intervention_id        :integer
 #  started_at                     :datetime         not null

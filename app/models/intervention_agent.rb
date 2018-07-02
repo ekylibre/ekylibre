@@ -23,6 +23,7 @@
 # == Table: intervention_parameters
 #
 #  assembly_id              :integer
+#  batch_number             :string
 #  component_id             :integer
 #  created_at               :datetime         not null
 #  creator_id               :integer
@@ -52,6 +53,7 @@
 #  updated_at               :datetime         not null
 #  updater_id               :integer
 #  variant_id               :integer
+#  variety                  :string
 #  working_zone             :geometry({:srid=>4326, :type=>"multi_polygon"})
 #
 
@@ -82,18 +84,15 @@ class InterventionAgent < InterventionProductParameter
     unit_name = Nomen::Unit.find(:hour).human_name
     unit_name = unit_name.pluralize if quantity > 1
 
-    catalog_item = if nature.present? && nature != :intervention
-                     begin
-                       product.variant.catalog_items.joins(:catalog).where('catalogs.usage': "#{nature}_cost").first.catalog.usage
-                     rescue
-                       catalog_usage
-                     end
-                   else
-                     begin
-                       product.variant.catalog_items.joins(:catalog).where('catalogs.usage': 'cost').first.catalog.usage
-                     rescue
-                       catalog_usage
-                     end
+    catalog_item =
+      begin
+        if nature.present? && nature != :intervention
+          product.variant.catalog_items.joins(:catalog).where('catalogs.usage': "#{nature}_cost").first.catalog.usage
+        else
+          product.variant.catalog_items.joins(:catalog).where('catalogs.usage': 'cost').first.catalog.usage
+        end
+      rescue
+        catalog_usage
       end
 
     options = {

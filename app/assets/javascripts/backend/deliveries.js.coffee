@@ -19,11 +19,12 @@
 
 
   # Manage fields filling in sales/purchases
-  $(document).on "selector:change", "*[data-product-of-delivery-item]", ->
+  $(document).on "selector:set", "*[data-product-of-delivery-item]", ->
     element = $(this)
     options = element.data("product-of-delivery-item")
     product_id = element.selector('value')
     reg = new RegExp("\\bRECORD_ID\\b", "g")
+    scope = options['scope']
     if product_id?
       item = element.closest(".delivery-item")
       $.ajax
@@ -33,6 +34,7 @@
           unit = item.find(".item-population-unit-name")
           if data.unit_name
             unit.html(data.unit_name)
+            item.attr('data-unit-name', data.unit_name)
           else
             unit.html('#')
           if data.variant
@@ -59,57 +61,69 @@
 
           item.find('*[data-when-item]').each ->
             if typeof data[$(this).data('when-item')] != "undefined"
-              if typeof $(this).data("when-set-value") != "undefined"
-                if $(this).data("when-set-value") == "RECORD_VALUE"
-                  newVal = data[$(this).data("when-item")]
-                  newVal = newVal.toLowerCase() if typeof newVal == "string"
+              if typeof $(this).data('when-scope') == "undefined" or $(this).data('when-scope') == scope
+                if typeof $(this).data("when-set-value") != "undefined"
+                  if $(this).data("when-set-value") == "RECORD_VALUE"
+                    newVal = data[$(this).data("when-item")]
 
-                  if $(this).is ":ui-selector"
-                    $(this).selector("value", newVal)
-                  else if $(this).is "input"
-                    $(this).val(newVal)
+                    if $(this).is ":ui-selector"
+                      $(this).selector("value", newVal)
+                    else if $(this).is "select"
+                      $(this).val(newVal.toLowerCase()).change()
+                    else if $(this).is("input")
+                      $(this).val(newVal)
+                    else
+                      $(this).html(newVal)
+
+                    $(this).trigger 'change'
+
+                    if typeof newVal == "string"
+                      element = $(@)
+                      element.is(":ui-mapeditor")
+                      try
+                        value = $.parseJSON(newVal)
+
+                        if (value.geometries? and value.geometries.length > 0) || (value.coordinates? and value.coordinates.length > 0)
+                          element.mapeditor "show", value
+                          element.mapeditor "edit", value
+                          try
+                            element.mapeditor "view", "edit"
+
+                      catch
+
+                    if !$(this).is('select')
+                      $(this).val(newVal)
                   else
-                    $(this).html(newVal)
+                    $(this).val($(this).data("when-set-value"))
 
-                  $(this).trigger 'change'
+                if typeof $(this).data("when-prop-value") != "undefined"
+                  $(this).prop($(this).data("when-prop-value"), true)
 
-                  if typeof newVal == "string"
-                    element = $(@)
-                    element.is(":ui-mapeditor")
-                    try
-                      value = $.parseJSON(newVal)
+                if typeof $(this).data("when-display-value") != "undefined"
+                  if $(this).data("when-display-value") == true
+                    $(this).show()
+                  else
+                    $(this).hide()
 
-                      if (value.geometries? and value.geometries.length > 0) || (value.coordinates? and value.coordinates.length > 0)
-                        element.mapeditor "show", value
-                        element.mapeditor "edit", value
-                        try
-                          element.mapeditor "view", "edit"
-
-                    catch
-                      newVal = newVal.toLowerCase()
-
-                  $(this).val(newVal)
-                else
-                  $(this).val($(this).data("when-set-value"))
-
-              if typeof $(this).data("when-prop-value") != "undefined"
-                $(this).prop($(this).data("when-prop-value"), true)
-
-              if typeof $(this).data("when-display-value") != "undefined"
-                if $(this).data("when-display-value") == true
-                  $(this).show()
-                else
-                  $(this).hide()
+              if typeof $(this).data("when-filter-value") != "undefined"
+                key_filter = Object.keys($(this).data('when-filter-value'))[0]
+                scope = "scope[#{key_filter}]=#{data[$(this).data("when-item")]}"
+                selector_url = $(this).data('selector')
+                if selector_url.indexOf(scope) < 0
+                  if selector_url.indexOf('?') < 0 then selector_url += '?' else selector_url += '&'
+                  selector_url += scope
+                $(this).attr('data-selector', selector_url)
 
             else
               if typeof $(this).data("when-prop-value") != "undefined"
                 $(this).prop($(this).data("when-prop-value"), false)
 
               if typeof $(this).data("when-display-value") != "undefined"
-                if $(this).data("when-display-value") == true
-                  $(this).hide()
-                else
-                  $(this).show()
+                if typeof $(this).data('when-scope') == "undefined" or $(this).data('when-scope') == scope
+                  if $(this).data("when-display-value") == true
+                    $(this).hide()
+                  else
+                    $(this).show()
 
           # shape = item.find(options.population_field or ".item-shape")
           # if data.shape

@@ -22,36 +22,41 @@
 #
 # == Table: activity_productions
 #
-#  activity_id         :integer          not null
-#  campaign_id         :integer
-#  created_at          :datetime         not null
-#  creator_id          :integer
-#  cultivable_zone_id  :integer
-#  custom_fields       :jsonb
-#  id                  :integer          not null, primary key
-#  irrigated           :boolean          default(FALSE), not null
-#  lock_version        :integer          default(0), not null
-#  nitrate_fixing      :boolean          default(FALSE), not null
-#  rank_number         :integer          not null
-#  season_id           :integer
-#  size_indicator_name :string           not null
-#  size_unit_name      :string
-#  size_value          :decimal(19, 4)   not null
-#  started_on          :date
-#  state               :string
-#  stopped_on          :date
-#  support_id          :integer          not null
-#  support_nature      :string
-#  support_shape       :geometry({:srid=>4326, :type=>"multi_polygon"})
-#  tactic_id           :integer
-#  updated_at          :datetime         not null
-#  updater_id          :integer
-#  usage               :string           not null
+#  activity_id            :integer          not null
+#  batch_planting         :boolean
+#  campaign_id            :integer
+#  created_at             :datetime         not null
+#  creator_id             :integer
+#  cultivable_zone_id     :integer
+#  custom_fields          :jsonb
+#  id                     :integer          not null, primary key
+#  irrigated              :boolean          default(FALSE), not null
+#  lock_version           :integer          default(0), not null
+#  nitrate_fixing         :boolean          default(FALSE), not null
+#  number_of_batch        :integer
+#  predicated_sowing_date :date
+#  rank_number            :integer          not null
+#  season_id              :integer
+#  size_indicator_name    :string           not null
+#  size_unit_name         :string
+#  size_value             :decimal(19, 4)   not null
+#  sowing_interval        :integer
+#  started_on             :date
+#  state                  :string
+#  stopped_on             :date
+#  support_id             :integer          not null
+#  support_nature         :string
+#  support_shape          :geometry({:srid=>4326, :type=>"multi_polygon"})
+#  tactic_id              :integer
+#  updated_at             :datetime         not null
+#  updater_id             :integer
+#  usage                  :string           not null
 #
 
 class ActivityProduction < Ekylibre::Record::Base
   include Attachable
   include Customizable
+
   enumerize :support_nature, in: %i[cultivation fallow_land buffer border none animal_group], default: :cultivation
   refers_to :usage, class_name: 'ProductionUsage'
   refers_to :size_indicator, class_name: 'Indicator'
@@ -77,7 +82,10 @@ class ActivityProduction < Ekylibre::Record::Base
   composed_of :size, class_name: 'Measure', mapping: [%w[size_value to_d], %w[size_unit_name unit]]
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  validates :batch_planting, inclusion: { in: [true, false] }, allow_blank: true
   validates :irrigated, :nitrate_fixing, inclusion: { in: [true, false] }
+  validates :number_of_batch, :sowing_interval, numericality: { only_integer: true, greater_than: -2_147_483_649, less_than: 2_147_483_648 }, allow_blank: true
+  validates :predicated_sowing_date, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years }, type: :date }, allow_blank: true
   validates :rank_number, presence: true, numericality: { only_integer: true, greater_than: -2_147_483_649, less_than: 2_147_483_648 }
   validates :activity, :size_indicator_name, :support, :usage, presence: true
   validates :size_value, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
@@ -217,19 +225,21 @@ class ActivityProduction < Ekylibre::Record::Base
   def computed_support_name
     list = []
     list << cultivable_zone.name if cultivable_zone
-    list << activity.name
     list << campaign.name if campaign
+    list << activity.name
     list << :rank.t(number: rank_number)
     list.reverse! if 'i18n.dir'.t == 'rtl'
     list.join(' ')
   end
 
+  def interventions_of_nature(nature)
+    interventions
+      .where(nature: nature)
+  end
+
   def update_names
     if support
-      new_support_name = computed_support_name
-      if support.name != new_support_name
-        support.update_column(:name, new_support_name)
-      end
+      support.update_column(:name, name) if support.name != name
     end
   end
 
@@ -257,7 +267,7 @@ class ActivityProduction < Ekylibre::Record::Base
       end
       self.support ||= LandParcel.new
     end
-    support.name = computed_support_name
+    support.name = name
     support.initial_shape = self.support_shape
     support.initial_born_at = started_on
     support.initial_dead_at = stopped_on
@@ -277,7 +287,7 @@ class ActivityProduction < Ekylibre::Record::Base
   def initialize_animal_group_support!
     unless support
       self.support = AnimalGroup.new
-      support.name = computed_support_name
+      support.name = name
     end
     # FIXME: Need to find better category and population_counting...
     unless support.variant
@@ -311,7 +321,7 @@ class ActivityProduction < Ekylibre::Record::Base
 
   def initialize_equipment_fleet_support!
     self.support = EquipmentFleet.new unless support
-    support.name = computed_support_name
+    support.name = name
     # FIXME: Need to find better category and population_counting...
     unless support.variant
       nature = ProductNature.find_or_create_by!(
@@ -677,14 +687,11 @@ class ActivityProduction < Ekylibre::Record::Base
   end
 
   # Returns unique i18nized name for given production
-  def name(options = {})
-    list = []
-    list << activity.name unless options[:activity].is_a?(FalseClass)
-    list << cultivable_zone.name if cultivable_zone && plant_farming?
-    list << started_on.to_date.l(format: :month) if activity.annual? && started_on
-    list << :rank.t(number: rank_number)
-    list = list.reverse! if 'i18n.dir'.t == 'rtl'
-    list.join(' ')
+  def name(_options = {})
+    interactor = NamingFormats::LandParcels::BuildActivityProductionNameInteractor
+                 .call(activity_production: self)
+
+    return interactor.build_name if interactor.success?
   end
 
   def get(*args)

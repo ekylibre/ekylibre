@@ -22,31 +22,35 @@
 #
 # == Table: activity_productions
 #
-#  activity_id         :integer          not null
-#  campaign_id         :integer
-#  created_at          :datetime         not null
-#  creator_id          :integer
-#  cultivable_zone_id  :integer
-#  custom_fields       :jsonb
-#  id                  :integer          not null, primary key
-#  irrigated           :boolean          default(FALSE), not null
-#  lock_version        :integer          default(0), not null
-#  nitrate_fixing      :boolean          default(FALSE), not null
-#  rank_number         :integer          not null
-#  season_id           :integer
-#  size_indicator_name :string           not null
-#  size_unit_name      :string
-#  size_value          :decimal(19, 4)   not null
-#  started_on          :date
-#  state               :string
-#  stopped_on          :date
-#  support_id          :integer          not null
-#  support_nature      :string
-#  support_shape       :geometry({:srid=>4326, :type=>"multi_polygon"})
-#  tactic_id           :integer
-#  updated_at          :datetime         not null
-#  updater_id          :integer
-#  usage               :string           not null
+#  activity_id            :integer          not null
+#  batch_planting         :boolean
+#  campaign_id            :integer
+#  created_at             :datetime         not null
+#  creator_id             :integer
+#  cultivable_zone_id     :integer
+#  custom_fields          :jsonb
+#  id                     :integer          not null, primary key
+#  irrigated              :boolean          default(FALSE), not null
+#  lock_version           :integer          default(0), not null
+#  nitrate_fixing         :boolean          default(FALSE), not null
+#  number_of_batch        :integer
+#  predicated_sowing_date :date
+#  rank_number            :integer          not null
+#  season_id              :integer
+#  size_indicator_name    :string           not null
+#  size_unit_name         :string
+#  size_value             :decimal(19, 4)   not null
+#  sowing_interval        :integer
+#  started_on             :date
+#  state                  :string
+#  stopped_on             :date
+#  support_id             :integer          not null
+#  support_nature         :string
+#  support_shape          :geometry({:srid=>4326, :type=>"multi_polygon"})
+#  tactic_id              :integer
+#  updated_at             :datetime         not null
+#  updater_id             :integer
+#  usage                  :string           not null
 #
 require 'test_helper'
 

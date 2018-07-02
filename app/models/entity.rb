@@ -118,13 +118,13 @@ class Entity < Ekylibre::Record::Base
   has_many :purchase_payments, foreign_key: :payee_id
   has_many :ownerships, class_name: 'ProductOwnership', foreign_key: :owner_id
   has_many :participations, class_name: 'EventParticipation', foreign_key: :participant_id, dependent: :destroy
-  has_many :purchase_invoices, -> { where(state: 'invoice').order(created_at: :desc) },
-           class_name: 'Purchase', foreign_key: :supplier_id
+  has_many :purchase_invoices, class_name: 'PurchaseInvoice', foreign_key: :supplier_id
+  has_many :purchase_orders, class_name: 'PurchaseOrder', foreign_key: :supplier_id
   has_many :purchases, foreign_key: :supplier_id, dependent: :restrict_with_exception
   has_many :purchase_items, through: :purchases, source: :items
   has_many :parcels, foreign_key: :transporter_id
-  has_many :incoming_parcels, class_name: 'Parcel', foreign_key: :sender_id
-  has_many :outgoing_parcels, class_name: 'Parcel', foreign_key: :recipient_id
+  has_many :receptions, foreign_key: :sender_id
+  has_many :shipments, foreign_key: :recipient_id
   has_many :sales_invoices, -> { where(state: 'invoice').order(created_at: :desc) },
            class_name: 'Sale', foreign_key: :client_id
   has_many :sales, -> { order(created_at: :desc) }, foreign_key: :client_id, dependent: :restrict_with_exception
@@ -252,7 +252,7 @@ class Entity < Ekylibre::Record::Base
   end
 
   protect(on: :destroy) do
-    of_company? || sales_invoices.any? || participations.any? || sales.any? || parcels.any? || purchases.any? || incoming_parcels.any? || outgoing_parcels.any? || financial_year_with_opened_exchange?
+    of_company? || sales_invoices.any? || participations.any? || sales.any? || parcels.any? || purchases.any? || receptions.any? || shipments.any? || financial_year_with_opened_exchange?
   end
 
   class << self
@@ -288,6 +288,10 @@ class Entity < Ekylibre::Record::Base
       end
       company
     end
+  end
+
+  def entity_payment_mode_name
+    supplier_payment_mode&.name
   end
 
   # Convert a contact into organization or inverse

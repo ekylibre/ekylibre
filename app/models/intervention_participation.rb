@@ -50,7 +50,7 @@ class InterventionParticipation < Ekylibre::Record::Base
   validates :request_compliant, inclusion: { in: [true, false] }
   # ]VALIDATORS]
   validates :product, presence: true
-  validates :intervention, uniqueness: { scope: [:product_id] }, unless: -> { intervention.blank? }
+  validates :intervention, uniqueness: { scope: [:product_id] }, unless: -> { intervention.blank? || intervention.new_record? }
   validates :state, presence: true
 
   scope :unprompted, -> { where(intervention: nil) }

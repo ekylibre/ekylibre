@@ -6,7 +6,7 @@
   = t.export(*exports, key: :number)
   = t.duplicate resource, method: :post, params: {redirect: nil}
   - if current_user.can?(:write, :outgoing_deliveries) && resource.can_generate_parcel?
-    = t.new(resource, params: { controller: :parcels, sale_id: resource.id, nature: :outgoing }, label: :generate_parcel.tl)
+    = t.new(resource, params: { controller: :shipments, sale_id: resource.id }, label: :generate_parcel.tl)
   - if resource.invoice?
     = t.cancel(resource) if resource.cancellable?
   = t.edit resource if resource.draft?
@@ -58,8 +58,8 @@
     = affair_of(resource, default: 'IncomingPayment')
 
   - if resource.parcels.any?
-    - c.cobble :parcels, title: Sale.human_attribute_name(:parcels) do
-      = cobble_list :parcels
+    - c.cobble :shipments, title: Sale.human_attribute_name(:shipments) do
+      = cobble_list :shipments
 
   - if resource.credits.any?
     - c.cobble :credits do

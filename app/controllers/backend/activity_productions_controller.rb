@@ -42,5 +42,16 @@ module Backend
       t.column :issue, url: true
       # t.column :provisional
     end
+
+    list(:plants, model: :plant, conditions: { activity_production_id: 'params[:id]'.c }, order: { name: :asc }, line_class: :status) do |t|
+      t.column :name, url: true
+      t.column :work_number, hidden: true
+      t.column :variety
+      t.column :work_name, through: :container, hidden: true, url: true
+      t.column :net_surface_area, datatype: :measure
+      t.status
+      t.column :born_at
+      t.column :dead_at
+    end
   end
 end

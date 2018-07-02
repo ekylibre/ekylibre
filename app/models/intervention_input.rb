@@ -23,6 +23,7 @@
 # == Table: intervention_parameters
 #
 #  assembly_id              :integer
+#  batch_number             :string
 #  component_id             :integer
 #  created_at               :datetime         not null
 #  creator_id               :integer
@@ -52,6 +53,7 @@
 #  updated_at               :datetime         not null
 #  updater_id               :integer
 #  variant_id               :integer
+#  variety                  :string
 #  working_zone             :geometry({:srid=>4326, :type=>"multi_polygon"})
 #
 
@@ -203,10 +205,10 @@ class InterventionInput < InterventionProductParameter
 
   def cost_amount_computation(nature: nil, natures: {})
     return InterventionParameter::AmountComputation.failed unless product
-    incoming_parcel = product.incoming_parcel_item
+    reception_item = product.incoming_parcel_item
     options = { quantity: quantity_population, unit_name: product.unit_name }
-    if incoming_parcel && incoming_parcel.purchase_item
-      options[:purchase_item] = incoming_parcel.purchase_item
+    if reception_item && reception_item.purchase_order_item
+      options[:purchase_order_item] = reception_item.purchase_order_item
       return InterventionParameter::AmountComputation.quantity(:purchase, options)
     else
       options[:catalog_usage] = :purchase

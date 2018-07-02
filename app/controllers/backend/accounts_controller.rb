@@ -125,7 +125,19 @@ module Backend
 
     def reconciliation; end
 
+    def set_interval_preference(attribute)
+      if preference = current_user.preferences.find_by(name: "accounts_interval.#{attribute}")
+        preference.set(params[attribute])
+      else
+        current_user.preferences.get("accounts_interval.#{attribute}", params[attribute], :string)
+      end
+    end
+
     def mark
+      params[:started_on] ||= current_user.preferences.find_by(name: 'accounts_interval.started_on').try(:value)
+      params[:stopped_on] ||= current_user.preferences.find_by(name: 'accounts_interval.stopped_on').try(:value)
+      params[:period]     ||= current_user.preferences.find_by(name: 'accounts_interval.period').try(:value) || :interval
+
       return unless @account = find_and_check
       if request.post?
         if params[:journal_entry_item]
@@ -140,6 +152,15 @@ module Backend
         end
       end
       t3e @account.attributes
+
+      # Set the preference in function of the search
+      if params[:period].present? && params[:period] != 'all' && params[:period] == 'interval'
+        set_interval_preference(:started_on)
+        set_interval_preference(:stopped_on)
+        current_user.preferences.find_by(name: 'accounts_interval.period').try(:destroy)
+      elsif params[:period] != 'interval'
+        set_interval_preference(:period)
+      end
     end
 
     def unmark

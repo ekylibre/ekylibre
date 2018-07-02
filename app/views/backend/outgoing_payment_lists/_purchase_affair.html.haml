@@ -1,5 +1,5 @@
 :ruby
-  purchases = purchase_affair.purchases
+  purchases = purchase_affair.purchase_invoices.accepted_reconcile
 
 %tr{data: { outgoing_payment_purchase_affair: purchase_affair.id} }
   = hidden_field_tag 'purchase_affairs[]', nil, data: { outgoing_payment_purchase_affair_selection: true }
@@ -7,8 +7,8 @@
   - if purchases.count == 1
     - purchase = purchases.first
     %td= purchase.payment_at.nil? ? purchase.invoiced_at.l : purchase.payment_at.l
-    %td=link_to :purchase.tl + ' ' + purchase_affair.deal_work_name, backend_purchase_path(purchase)
-    %td=link_to purchase.reference_number, backend_purchase_path(purchase)
+    %td=link_to :purchase.tl + ' ' + purchase_affair.deal_work_name, backend_purchase_invoice_path(purchase)
+    %td=link_to purchase.reference_number, backend_purchase_invoice_path(purchase)
   - else
     %td= purchase_affair.created_at.l
     %td=link_to purchase_affair.class.model_name.human + ' ' + purchase_affair.number, backend_purchase_affair_path(purchase_affair)

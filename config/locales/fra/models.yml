@@ -66,6 +66,7 @@ fra:
         stopped_on: "Date de clôture"
       fixed_asset:
         asset_account: "Compte d'immobilisation"
+        asset_expenses_account: "Compte d'amortissement" #?
         depreciation_period: "Périodicité des amortissements"
         net_book_value: "Valeur nette comptable (VNC)" #?
         started_on: "Date de mise en service"
@@ -75,6 +76,7 @@ fra:
       incoming_payment: #?
         to_bank_at: "À encaisser le" #?
       inspection: #?
+        forecast_harvest_week: "Semaine de récolte prévisionnelle" #?
         points: "Points de contrôle" #?
       inspection_calibration: #?
         items_count: "Nombre de pièces" #?
@@ -103,6 +105,8 @@ fra:
       matter: #?
         born_at: "Fabriqué le" #?
         dead_at: "Détruit/consommé le" #?
+      naming_format_field:
+        field_name: "Champ"
       outgoing_parcel: #?
         items: "Lignes de colis à expédier" #?
       outgoing_payment:
@@ -116,6 +120,10 @@ fra:
         contract: "Contrat"
       parcel_item:
         population: "Quantité"
+      parcel_item_storing: #?
+        conditionning: "Conditionnement" #?
+        conditionning_quantity: "Quantité" #?
+        quantity: "Quantité totale" #?
       payslip_payment: #?
         delivered: "Remis au bénéficiaire" #?
         list: "Lot de décaissements" #?
@@ -142,7 +150,7 @@ fra:
         plants_count: "Nombre théorique de graines"
         seeding_density_value: "Densité théorique de semis"
       product_localization: #?
-        container: "Contenant" #?
+        container: "Zone de stockage" #?
         started_at: "Entrée" #?
         stopped_at: "Sortie" #?
       product_nature_category: #?
@@ -168,8 +176,24 @@ fra:
         label: "Commande" #?
         moved_at: "Reçu le" #?
         planned_at: "Réception prévue le" #?
-      purchase_item: #?
+      purchase_invoice: #?
+        description: "Notes" #?
+        invoiced_at: "Date de facture" #?
+        payment_delay: "Échéance" #?
+        reference_number: "Référence fournisseur (n° facture)" #?
+      purchase_item:
         amount: "Montant TTC" #?
+        conditionning: "Conditionnement" #?
+        conditionning_quantity: "Quantité" #?
+        fixed_asset_stopped_on: "Immobilisation arrêtée le"
+        quantity: "Quantité totale" #?
+      purchase_order: #?
+        command_mode: "Mode de commande" #?
+        description: "Notes" #?
+        estimate_reception_date: "Date prévisionnelle de réception" #?
+        ordered_at: "Date commande" #?
+        reference_number: "Référence fournisseur (n° commande)" #?
+        responsible: "Responsable de commande" #?
       purchase_payment: #?
         delivered: "Remis au bénéficiaire" #?
         list: "Lot de décaissements" #?
@@ -327,6 +351,13 @@ fra:
         outgoing_parcel_item:
           greater_than_undelivered_quantity: "La quantité de produit %{product} à livrer dépasse la quantité non livrée (%{maximum}%{unit})"
         purchase_item:
+          attributes:
+            fixed:
+              asset_account: "Compte d'immobilisation invalide"
+              asset_depreciation_method: "Méthode de dépréciation d'immobilisation non spécifiée"
+              asset_expenses_account: "Compte d'amortissement invalide"
+              asset_wrong_depreciation_method: "Le méthode de dépréciation doit être linéaire simplifée"
+              fixed_asset_stopped_on_invalid: "Vous devez spécifier une date de fin d'immobilisation"
           building_can_not_receive_product: "Le réservoir %{building} ne peut pas recevoir le produit %{product}, il contient déjà le produit %{contained_product}."
           serial_already_used_with_an_other_product: "%{attribute} a déjà été utilisé pour un autre type de produit du même fournisseur"
         sale_item:
@@ -502,8 +533,10 @@ fra:
       purchase: "Achat"
       purchase_affair: "Affaire d’achat"
       purchase_gap: "Écart d’achat"
+      purchase_invoice: "Facture d’achat"
       purchase_item: "Ligne d’achat"
       purchase_nature: "Type d’achat"
+      purchase_order: "Commande d’achat"
       purchase_payment: "Décaissement d’achat"
       # registered_agroedi_code: "Registered agroedi code"
       # registered_pfi_crop: "Registered pfi crop"
@@ -515,6 +548,8 @@ fra:
       # registered_phytosanitary_usage: "Registered phytosanitary usage"
       # registered_postal_zone: "Registered postal zone"
       # registered_seed: "Registered seed"
+      reception: "Réception"
+      # reception_item: "Reception item"
       regularization: "Régularisation"
       role: "Rôle"
       sale: "Vente"
@@ -527,6 +562,8 @@ fra:
       sensor: "Capteur"
       sequence: "Séquence"
       settlement: "Installation"
+      shipment: "Expédition"
+      # shipment_item: "Shipment item"
       sub_zone: "Sous-zone"
       subscription: "Abonnement"
       subscription_nature: "Type d’abonnement"
@@ -578,7 +615,7 @@ fra:
     active_sessions: "Sessions actives"
     activities: "Activités"
     activity: "Activité"
-    activity_budget: "Budget"
+    activity_budget: "Activité"
     activity_budgets: "Budgets"
     activity_code: "Code APE/NAF"
     activity_distributions: "Répartitions entre activités"
@@ -625,6 +662,7 @@ fra:
     archives: "Archives" #?
     archives_count: "Nombre d’archives" #?
     archiving: "Méthode d’archivage"
+    # area: "Area"
     # arguments: "Arguments"
     assembly: "Assemblée"
     asset_account: "Compte d’actifs"
@@ -663,6 +701,7 @@ fra:
     bank_statement_letter: "Lettre de déclaration de la Banque"
     bank_statements: "Relevés de compte bancaire"
     base_amount: "Montant de base"
+    batch_number: "N° de lot"
     battery_level: "Niveau de la batterie"
     birth: "Naissance" #?
     birth_date_completeness: "Complétude de la date de naissance"
@@ -740,6 +779,7 @@ fra:
     color: "Couleur"
     column_name: "Nom de colonne"
     columns: "Colonnes"
+    # command_mode: "Command mode"
     comment: "Commentaire"
     commercial: "Activité commerciale"
     commercial_description: "Description commerciale"
@@ -758,6 +798,8 @@ fra:
     conclusion: "Conclusion"
     condition_operator: "Comparateur"
     condition_value: "Valeur comparée"
+    # conditionning: "Conditionning"
+    # conditionning_quantity: "Conditionning quantity"
     conditions: "Conditions (SQL)"
     confirmation_sent_at: "Confirmation envoyée le"
     confirmation_token: "Jeton de confirmation"
@@ -945,7 +987,9 @@ fra:
     entry_on: "Entrée le"
     entry_reason: "Raison de l'entrée"
     # equipment_nature: "Equipment nature"
+    # equipment: "Equipment"
     establishment: "Établissement" #?
+    # estimate_reception_date: "Estimate reception date"
     # euid: "EUID"
     event: "Évènement"
     event_participation: "Participation à un évènement"
@@ -981,6 +1025,8 @@ fra:
     father_identification_number: "Numéro d'identification du père"
     father_variety: "Variété du père"
     faxes: "Fax"
+    # field_name: "Field name"
+    # fields: "Fields"
     fifth_producer: "Cinquième producteur" #?
     fifth_producer_way: "Voie du cinquième producteur" #?
     file: "Fichier"
@@ -1074,6 +1120,8 @@ fra:
     has_downpayment: "A un acompte"
     headers: "Têtes"
     host: "Hôte"
+    hour_counter: "Compteur horaire"
+    # hour_counter_unit_name: "Hour counter unit name"
     human_activities_names: "Nom des activités"
     # human_name: "Human name"
     human_shape_area: "Superficie"
@@ -1144,6 +1192,7 @@ fra:
     interpolations: "Interpolations"
     intervention: "Intervention"
     intervention_cast: "Acteur de l’intervention"
+    # intervention_id: "Intervention"
     intervention_parameter: "Paramètre d’intervention"
     intervention_participation: "Participation d’intervention"
     intervention_participations: "Participations d’intervention"
@@ -1216,6 +1265,7 @@ fra:
     last_transmission_at: "Dernière transmission"
     last_value: "Dernière valeur"
     last_year: "Dernière année"
+    late_delivery: "Livraison hors délais"
     latest: "Dernier"
     leaves_parameters: "Feuilles paramètres"
     lender: "Prêteur"
@@ -1299,6 +1349,7 @@ fra:
     members_count: "Nombre de membres"
     memberships: "Membres du groupe"
     memo: "Note"
+    merge_stock: "Fusionner avec les stocks existants"
     message: "Message"
     # messages: "Messages"
     metadata: "Méta-données"
@@ -1325,6 +1376,7 @@ fra:
     name: "Nom"
     name_1_to_2: "Nom «\_Personne 1 vers Personne 2\_»" #?
     name_2_to_1: "Nom «\_Personne 2 vers Personne 1\_»" #?
+    # naming_format: "Naming format"
     nature: "Type"
     nature_name: "Nom de la nature du produit"
     natures: "Natures"
@@ -1346,6 +1398,8 @@ fra:
     nitrogen_need: "Besoins de la culture (Pf)"
     node: "Nœud"
     nodes: "Nœuds d’extraction"
+    non_compliant: "Non conforme"
+    # non_compliant_detail: "Non compliant detail"
     noticed_start_amount: "Montant de début constaté"
     noticed_stop_amount: "Montant de fin constaté"
     notification: "Notification"
@@ -1387,6 +1441,7 @@ fra:
     parameter_name: "Nom du paramètre"
     parameters: "Paramètres"
     parcel: "Colis"
+    # parcel_item_storings: "Parcel item storings"
     parcel_items: "Éléments de colis"
     parcels: "Colis"
     parent: "Parent"
@@ -1461,6 +1516,7 @@ fra:
     printed_on: "Daté du"
     priority: "Priorité"
     probability_percentage: "Pourcentage de probabilité"
+    # procedure: "Procedure"
     procedure_name: "Nom de la procédure"
     procedures: "Procédures" #?
     process: "Process" #?
@@ -1474,6 +1530,7 @@ fra:
     product_creations: "Créations de produit" #?
     product_deaths: "Morts de produit" #?
     product_divisions: "Divisions de produit" #?
+    # product_enjoyment: "Product enjoyment"
     product_enjoyments: "Usufruit de produit"
     product_grading: "Agréage produit" #?
     product_identification_number: "Numéro d’identification"
@@ -1505,7 +1562,9 @@ fra:
     product_reading_tasks: "Tâches de relevé d’indicateur de produit"
     product_readings: "Relevés d’indicateur de produit"
     product_triple_mixings: "Triple mélanges de produit" #?
+    # product_type: "Product type"
     product_way: "Voie du produit" #?
+    product_work_number: "N° de travail"
     production: "Production"
     production_campaign: "Campagne rattachée"
     production_cycle: "Cycle de production"
@@ -1519,6 +1578,7 @@ fra:
     products: "Produits"
     products_categories: "Catégories de produits avec produit"
     progression_percentage: "Progression (%)"
+    project_budget: "Budget"
     proposer: "Parrain"
     prospect: "Prospect"
     provisional: "Prévisionnel"
@@ -1529,10 +1589,12 @@ fra:
     purchase_affair: "Affaire d’achat" #?
     purchase_affairs: "Affaires d'achat"
     purchase_amount: "Montant d’achat"
+    # purchase_invoice_item: "Purchase invoice item"
     purchase_invoices: "Factures d’achats"
     purchase_item: "Ligne d’achat"
     purchase_items: "Lignes d’achat"
     purchase_natures: "Types d’achat"
+    # purchase_order_item: "Purchase order item"
     purchase_payments: "Paiements d’achat"
     purchase_taxations: "Taxations d’achat"
     purchase_taxes: "Taxes à l’achat"
@@ -1564,14 +1626,18 @@ fra:
     receipt: "Reçu électronique"
     received: "Reçu"
     received_at: "Reçu le"
+    reception: "Réception" #?
     reception_amount: "Montant reçu"
     reception_cash: "Trésorie réceptrice"
     reception_currency: "Monnaie de réception"
+    # reception_items: "Reception items"
     reception_journal_entry: "Écriture de la réception"
+    receptions: "Réceptions"
     recipient: "Destinataire"
     recommended: "Prescrit"
     recommender: "Prescripteur"
     reconcilable: "Lettrable"
+    # reconciliation_state: "Reconciliation state"
     record_interventions: "Interventions record"
     record_value: "Enregistrement"
     record_value_type: "Type d’enregistrement"
@@ -1584,7 +1650,7 @@ fra:
     reductions: "Lignes de réductions" #?
     reference: "Référence" #?
     # reference_label_fra: "Reference label fra"
-    reference_name: "Référence"
+    reference_name: "Type d'intervention"
     reference_number: "N°Référence"
     reference_source_content_type: "Référence type de contenu source"
     reference_source_file_name: "Référence Nom du fichier source"
@@ -1680,10 +1746,14 @@ fra:
     separated_stock: "Ne pas fusionner avec les stocks existants"
     serial: "N°Lot"
     serial_number: "Serial number"
+    services: "Services" #?
     sessions: "Sessions"
     shape: "Forme"
     shift_duration: "Durée du différé"
     shift_method: "Méthode de différé"
+    shipment: "Expédition" #?
+    # shipment_items: "Shipment items"
+    # shipments: "Shipments"
     sign_in_count: "Nombre de connexions"
     signup_at: "Inscription au"
     siren: "N° SIREN"
@@ -1699,6 +1769,7 @@ fra:
     sold_on: "Date de cession"
     source: "Source"
     source_product: "Produit Source"
+    # source_product_movement: "Source product movement"
     spaced_iban: "IBAN"
     # specie: "Specie"
     sql_type: "Type SQL"
@@ -1718,8 +1789,9 @@ fra:
     stopped_at: "Arrêté le"
     stopped_on: "Arrêté le"
     storable: "Gérer les stocks"
-    storage: "Stockage"
+    storage: "Zone de stockage"
     storages: "Stockages"
+    storings: "Élements "
     story: "Historique"
     string_value: "Valeur textuelle"
     subdomains: "Sous-domaines"
@@ -1891,6 +1963,7 @@ fra:
     work_name: "Nom de travail"
     work_number: "Numéro de travail"
     worker: "Équipier"
+    workflow: "Débit de chantier" #?
     working_area: "Superficie travaillée" #?
     working_duration: "Durée travaillée"
     working_periods: "Périodes de travail"
@@ -2144,6 +2217,9 @@ fra:
         refused: "Refusé"
     purchase_gap:
       bookkeep: "[%{resource} %{number}] %{supplier}"
+    purchase_invoice: #?
+      bookkeep: "[%{resource} %{number}] %{products} de %{supplier}" #?
+      quantity_gap_on_invoice: "Ecart de stock en quantité [%{resource} %{number}] de %{entity}" #?
     purchase_item:
       name: "%{product} (%{quantity}%{unit}) à %{amount}%{currency}/%{unit}"
       name_with_tracking: "%{product}/%{tracking} (%{quantity}%{unit}) à %{amount}%{currency}/%{unit}"
@@ -2151,9 +2227,23 @@ fra:
     purchase_nature:
       default:
         name: "Achat standard"
+    purchase_order: #?
+      states: #?
+        closed: "Fermée" #?
+        estimate: "Brouillon" #?
+        opened: "Ouverte" #?
     purchase_payment:
       bookkeep: "[%{resource} %{number}] %{mode} %{check_number} pour %{payee}"
       label: "%{number}. %{amount} du %{date} en %{mode} pour %{payee}"
+    reception:
+      state_machine:
+        states:
+          draft: "Brouillon"
+          given: "Donné"
+          in_preparation: "En préparation"
+          ordered: "Commandé"
+          prepared: "Prêt"
+          received: "Reçu"
     role:
       default:
         administrator: "Gérant"
@@ -2233,6 +2323,15 @@ fra:
         sales_invoices: "F[year|4][number|6]"
         subscriptions: "ABO[number|8]"
         transports: "TR[number|8]"
+    shipment:
+      state_machine:
+        states:
+          draft: "Brouillon"
+          given: "Donné"
+          in_preparation: "En préparation"
+          ordered: "Commandé"
+          prepared: "Prêt"
+          received: "Reçu"
     task:
       state_machine:
         states:
