@@ -688,7 +688,7 @@ class ActivityProduction < Ekylibre::Record::Base
     return interactor.build_name if interactor.success?
     if interactor.fail?
       list = []
-      list << activity.name unless options[:activity].is_a?(FalseClass)
+      list << activity.name
       list << cultivable_zone.name if cultivable_zone && plant_farming?
       list << started_on.to_date.l(format: :month) if activity.annual? && started_on
       list << :rank.t(number: rank_number)
