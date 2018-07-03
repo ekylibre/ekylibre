@@ -23,7 +23,6 @@
 # == Table: activity_productions
 #
 #  activity_id            :integer          not null
-#  batch_planting         :boolean
 #  campaign_id            :integer
 #  created_at             :datetime         not null
 #  creator_id             :integer
@@ -33,8 +32,6 @@
 #  irrigated              :boolean          default(FALSE), not null
 #  lock_version           :integer          default(0), not null
 #  nitrate_fixing         :boolean          default(FALSE), not null
-#  number_of_batch        :integer
-#  predicated_sowing_date :date
 #  rank_number            :integer          not null
 #  season_id              :integer
 #  size_indicator_name    :string           not null
@@ -82,10 +79,7 @@ class ActivityProduction < Ekylibre::Record::Base
   composed_of :size, class_name: 'Measure', mapping: [%w[size_value to_d], %w[size_unit_name unit]]
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates :batch_planting, inclusion: { in: [true, false] }, allow_blank: true
   validates :irrigated, :nitrate_fixing, inclusion: { in: [true, false] }
-  validates :number_of_batch, :sowing_interval, numericality: { only_integer: true, greater_than: -2_147_483_649, less_than: 2_147_483_648 }, allow_blank: true
-  validates :predicated_sowing_date, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years }, type: :date }, allow_blank: true
   validates :rank_number, presence: true, numericality: { only_integer: true, greater_than: -2_147_483_649, less_than: 2_147_483_648 }
   validates :activity, :size_indicator_name, :support, :usage, presence: true
   validates :size_value, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
@@ -692,6 +686,15 @@ class ActivityProduction < Ekylibre::Record::Base
                  .call(activity_production: self)
 
     return interactor.build_name if interactor.success?
+    if interactor.fail?
+      list = []
+      list << activity.name unless options[:activity].is_a?(FalseClass)
+      list << cultivable_zone.name if cultivable_zone && plant_farming?
+      list << started_on.to_date.l(format: :month) if activity.annual? && started_on
+      list << :rank.t(number: rank_number)
+      list = list.reverse! if 'i18n.dir'.t == 'rtl'
+      list.join(' ')
+    end
   end
 
   def get(*args)
