@@ -791,13 +791,13 @@ fra:
       confirmation_period_expired: "doit être confirmé sous %{period}, refaites une nouvelle demande s’il vous plait"
       expired: "a expiré, merci d’en faire une nouvelle demande"
       harvest_in_progress: "Attention, cette culture est en cours de récolte"
+      intervention_already_planned: "Attention, une autre intervention est prévue pour cette %{product_type} dans la planification (%{intervention_name})" #?
       not_enough: "not enough %{resource} to complete task"
       not_found: "n’a pas été trouvé(e)"
       not_locked: "n’était pas verrouillé(e)"
       not_saved:
         one: "1 erreur a empêché ce(tte) %{resource} d’être sauvegardé(e)\_:"
         other: "%{count} erreurs ont empêché ce(tte) %{resource} d’être sauvegardé(e)\_:"
-      intervention_already_planned: "Attention, une autre intervention est prévue pour cette %{product_type} dans la planification (%{intervention_name})"
     template:
       body: "Il y a eu des problèmes avec les champs suivants\_:"
       header:
@@ -1439,8 +1439,8 @@ fra:
     fixed_asset_debts: "Dettes sur immobilisations"
     fixed_asset_depreciations: "Dépréciations d’immobilisation"
     fixed_assets: "Immobilisations"
-    france_maaid: "N° AMM" #?
     forecast_harvest_week: "Semaine de récolte"
+    france_maaid: "N° AMM" #?
     from: "À partir du"
     fruit_yield: "Rendement fruit" #?
     full_name: "Client" #?
@@ -2454,8 +2454,8 @@ fra:
     vat_amount: "Taxe due" #?
     vat_collected: "TVA BRUTE" #?
     vat_paid: "TVA DEDUCTIBLE" #?
-    vegetable_yield: "Rendement racine ou légume" #?
     vat_rate: "Taux TVA"
+    vegetable_yield: "Rendement racine ou légume" #?
     video: "Vidéo" #?
     view: "Affichage"
     view_map_when_creating_an_intervention: "Afficher la carte lors de la création d'interventions"
@@ -2464,10 +2464,10 @@ fra:
       resized: "Mode «\_Tout à l’écran\_»" #?
     virtual_quantity: "Quantité virtuelle" #?
     wages: "Rémunérations"
-    water_lakes: "Lacs"
-    water_rivers: "Rivières"
     warning_date_not_in_period: "Attention : La date saisie n'est pas sur l'exercice en cours."
     warning_if_no_activites_choose: "Si aucune activité n’est sélectionnée, le modèle d'intervention sera disponible pour toutes les activités." #?
+    water_lakes: "Lacs"
+    water_rivers: "Rivières"
     watering_concentration: "Eau consommée"
     wear: "Usure" #?
     weather: "Météo"
@@ -2833,8 +2833,8 @@ fra:
       record_has_not_been_removed: "L’enregistrement n’a pas être supprimé correctement" #?
       record_not_found: "Enregistrement introuvable"
       record_x_created: "%{record} %{name} créé"
+      record_x_planned: "%{record} %{name} planifiée" #?
       record_x_updated: "%{record} %{name} mise à jour"
-      record_x_planned: "%{record} %{name} planifiée"
       restoration_finished: "La restauration de la sauvegarde s’est terminée (en %{value} secondes)." #?
       sale_already_invoiced: "La vente a déjà été facturée: vous ne pouvez pas définir de livraison" #?
       sale_cannot_be_updated: "Le devis n’est plus modifiable." #?

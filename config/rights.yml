@@ -177,6 +177,7 @@
 #     - "backend/products#list_reception_items"
 #     - "backend/products#list_shipment_items"
 #     - "backend/products/indicators#variable_indicators"
+#     - "backend/products/interventions#has_harvesting"
 #     - "backend/products/search_products#datas"
 #     - "backend/products/search_variants#search_by_expression"
 #     - "backend/project_budgets#create"

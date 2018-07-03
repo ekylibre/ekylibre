@@ -652,6 +652,8 @@ eng:
       show: "Product type: %{name}"
     backend/products/indicators:
       # variable_indicators: "Variable indicators indicator: %{name}"
+    backend/products/interventions:
+      # has_harvesting: "Has harvesting intervention: %{name}"
     backend/products/search_products:
       # datas: "Datas search product: %{name}"
     backend/products/search_variants:
@@ -1598,9 +1600,9 @@ eng:
     last_purchases_invoices: "Last purchases"
     last_purchases_orders: "Last orders"
     last_sales: "Last sales"
-    # legal_dose: "Legal dose"
     late: "Late"
     late_delivery: "Late delivery"
+    # legal_dose: "Legal dose"
     letter: "Letter" #?
     letterable: "Letterable"
     lettered: "Lettered" #?
@@ -1656,7 +1658,6 @@ eng:
     mobile: "Mobile" #?
     mode: "Mode" #?
     model: "Model" #?
-    # models: "Models"
     modes: "Modes" #?
     month: "Month" #?
     month_period: "%{code} - %{month} %{year}"
@@ -1942,7 +1943,6 @@ eng:
     save_in_draft: "Save as draft"
     saved_but_couldnt_letter_x_and_y: "Successfully saved %{trade} and %{payment} but couldn't letter them."
     scheduled: "Scheduled" #?
-    # schedulings: "Schedulings"
     scrapped_on: "Scrapped on"
     search: "Search"
     search_placeholder: "Search…"
@@ -2161,9 +2161,9 @@ eng:
     view_map_when_creating_an_intervention: "View map when creating an intervention"
     # vine_yield: "Vine yield"
     wages: "Wages" #?
+    warning_date_not_in_period: "Warning: The date entered is not on the current exercise."
     water_lakes: "Water lakes" #?
     water_rivers: "Water rivers" #?
-    warning_date_not_in_period: "Warning: The date entered is not on the current exercise."
     watering_concentration: "Water use" #?
     # wear: "Wear"
     weather: "Weather"
@@ -2573,6 +2573,7 @@ eng:
       # fixed_assets_datas: "Fixed assets datas"
       generate_last_journal_entry: "Generate last journal entry" #?
       give: "Give"
+      # has_harvesting: "Has harvesting"
       import: "Import"
       incorporate: "Incorporate"
       index: "Index"

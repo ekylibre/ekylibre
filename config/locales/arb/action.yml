@@ -901,6 +901,7 @@ arb:
       already_confirmed: "وقد أكد بالفعل، من فضلك حاول تسجيل الدخول"
       # confirmation_period_expired: "needs to be confirmed within %{period}, please request a new one"
       expired: "انتهت، يرجى طلب كلمة مرور جديدة"
+      # harvest_in_progress: "Be careful, this crop is being harvested"
       # not_enough: "not enough %{resource} to complete task"
       not_found: "غير معثور عليه"
       not_locked: "كان غير مؤمن"
@@ -2514,9 +2515,9 @@ arb:
     virtual_quantity: "الكمية العملية" #?
     wages: "أجور"
     waiting: "أ€ التسدسد لاحقا" #?
+    # warning_date_not_in_period: "Warning: The date entered is not on the current exercise."
     # water_lakes: "Water lakes"
     # water_rivers: "Water rivers"
-    # warning_date_not_in_period: "Warning: The date entered is not on the current exercise."
     watering_concentration: "استخدام المياه"
     weather: "طقس"
     website: "موقع الكتروني"

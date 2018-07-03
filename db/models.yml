@@ -170,6 +170,8 @@
 - purchase_nature
 - purchase_order
 - purchase_payment
+- reception
+- reception_item
 - registered_agroedi_code
 - registered_building_zone
 - registered_pfi_crop
@@ -183,8 +185,6 @@
 - registered_seed
 - registered_water_lake
 - registered_water_river
-- reception
-- reception_item
 - regularization
 - role
 - sale

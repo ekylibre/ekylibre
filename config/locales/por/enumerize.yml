@@ -291,7 +291,6 @@ por:
       nature:
         background: "Fundo"
         overlay: "Sobreposição"
-        # overlay: "Overlay"
     naming_format_field_land_parcel:
       field_name:
         # activity: "Activity"

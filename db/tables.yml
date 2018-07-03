@@ -418,50 +418,11 @@ activity_inspection_point_natures:
   updater_id:
     type: integer
     references: user
-activity_production_batches:
-  activity_production_id:
-    type: integer
-    references: activity_production
-  created_at:
-    type: datetime
-    required: true
-  day_interval:
-    type: integer
-  id:
-    type: integer
-    required: true
-  irregular_batch:
-    type: boolean
-    default: false
-  number:
-    type: integer
-  updated_at:
-    type: datetime
-    required: true
-activity_production_irregular_batches:
-  activity_production_batch_id:
-    type: integer
-    references: ''
-  area:
-    type: decimal
-  created_at:
-    type: datetime
-    required: true
-  estimated_sowing_date:
-    type: date
-  id:
-    type: integer
-    required: true
-  updated_at:
-    type: datetime
-    required: true
 activity_productions:
   activity_id:
     type: integer
     references: activity
     required: true
-  batch_planting:
-    type: boolean
   campaign_id:
     type: integer
     references: campaign
@@ -490,10 +451,6 @@ activity_productions:
     type: boolean
     required: true
     default: false
-  number_of_batch:
-    type: integer
-  predicated_sowing_date:
-    type: date
   rank_number:
     type: integer
     required: true
@@ -510,8 +467,6 @@ activity_productions:
     precision: 19
     scale: 4
     required: true
-  sowing_interval:
-    type: integer
   started_on:
     type: date
   state:

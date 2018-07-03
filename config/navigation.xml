@@ -2150,18 +2150,6 @@
   </inaccessible-actions>
   <untreated-actions>
     <group>
-      <item name="grains_commercialization_threshold_simulators">
-        <page to="backend/calculators/grains_commercialization_threshold_simulators#show"/>
-      </item>
-      <item name="threshold_commercialization_by_production_cells">
-        <page to="backend/cells/threshold_commercialization_by_production_cells#show"/>
-      </item>
-      <item name="traceability_check_cells">
-        <page to="backend/cells/traceability_check_cells#show"/>
-      </item>
-      <item name="master_production_natures">
-        <page to="backend/master_production_natures#unroll"/>
-      </item>
       <item name="accounts">
         <page to="backend/accounts#set_interval_preference"/>
       </item>
@@ -2187,6 +2175,9 @@
         <page to="backend/buildings#list_reception_items"/>
         <page to="backend/buildings#list_shipment_items"/>
       </item>
+      <item name="grains_commercialization_threshold_simulators">
+        <page to="backend/calculators/grains_commercialization_threshold_simulators#show"/>
+      </item>
       <item name="last_purchases_invoices_cells">
         <page to="backend/cells/last_purchases_invoices_cells#list"/>
         <page to="backend/cells/last_purchases_invoices_cells#show"/>
@@ -2194,6 +2185,12 @@
       <item name="last_purchases_orders_cells">
         <page to="backend/cells/last_purchases_orders_cells#list"/>
         <page to="backend/cells/last_purchases_orders_cells#show"/>
+      </item>
+      <item name="threshold_commercialization_by_production_cells">
+        <page to="backend/cells/threshold_commercialization_by_production_cells#show"/>
+      </item>
+      <item name="traceability_check_cells">
+        <page to="backend/cells/traceability_check_cells#show"/>
       </item>
       <item name="contracts">
         <page to="backend/contracts#index"/>
@@ -2235,6 +2232,9 @@
         <page to="backend/land_parcels#list_reception_items"/>
         <page to="backend/land_parcels#list_shipment_items"/>
       </item>
+      <item name="master_production_natures">
+        <page to="backend/master_production_natures#unroll"/>
+      </item>
       <item name="matters">
         <page to="backend/matters#list_reception_items"/>
         <page to="backend/matters#list_shipment_items"/>
@@ -2269,6 +2269,9 @@
       </item>
       <item name="indicators">
         <page to="backend/products/indicators#variable_indicators"/>
+      </item>
+      <item name="interventions">
+        <page to="backend/products/interventions#has_harvesting"/>
       </item>
       <item name="search_products">
         <page to="backend/products/search_products#datas"/>

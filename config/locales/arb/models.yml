@@ -1022,6 +1022,8 @@ arb:
       purchase_nature: "نوع شراء"
       # purchase_order: "Purchase order"
       purchase_payment: "الدفعة"
+      # reception: "Reception"
+      # reception_item: "Reception item"
       # registered_agroedi_code: "Registered agroedi code"
       # registered_pfi_crop: "Registered pfi crop"
       # registered_pfi_dose: "Registered pfi dose"
@@ -1032,8 +1034,6 @@ arb:
       # registered_phytosanitary_usage: "Registered phytosanitary usage"
       # registered_postal_zone: "Registered postal zone"
       # registered_seed: "Registered seed"
-      # reception: "Reception"
-      # reception_item: "Reception item"
       regularization: "تسوية"
       role: "الدور"
       sale: "البيع"
@@ -1533,8 +1533,8 @@ arb:
     entry_number: "رقم الدخول"
     entry_on: "الدخول على موقع"
     entry_reason: "السبب دخول"
-    # equipment_nature: "Equipment nature"
     # equipment: "Equipment"
+    # equipment_nature: "Equipment nature"
     establishment: "المؤسسة" #?
     establishment_id: "مؤسسة" #?
     establishments: "المؤسسات" #?
