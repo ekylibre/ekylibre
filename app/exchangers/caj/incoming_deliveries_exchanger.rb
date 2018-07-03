@@ -58,8 +58,8 @@ module Caj
         )
 
         # create an parcel if not exist
-        parcel = Parcel.find_by(reference_number: r.parcel_number, currency: 'EUR', nature: :incoming) ||
-                 Parcel.create!(
+        parcel = Reception.find_by(reference_number: r.parcel_number, currency: 'EUR', nature: :incoming) ||
+                 Reception.create!(
                    nature: :incoming,
                    currency: 'EUR',
                    reference_number: r.parcel_number,
@@ -101,7 +101,7 @@ module Caj
       end
 
       entries.compact.uniq.each do |parcel_number|
-        p = Parcel.find_by(reference_number: parcel_number)
+        p = Reception.find_by(reference_number: parcel_number)
         p.give
       end
     end
