@@ -5850,7 +5850,8 @@ CREATE TABLE product_nature_variants (
     number character varying NOT NULL,
     stock_account_id integer,
     stock_movement_account_id integer,
-    france_maaid character varying
+    france_maaid character varying,
+    providers jsonb
 );
 
 
@@ -18673,4 +18674,6 @@ INSERT INTO schema_migrations (version) VALUES ('20180702124700');
 INSERT INTO schema_migrations (version) VALUES ('20180702124800');
 
 INSERT INTO schema_migrations (version) VALUES ('20180702124900');
+
+INSERT INTO schema_migrations (version) VALUES ('20180704145001');
 
