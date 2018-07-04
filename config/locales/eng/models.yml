@@ -480,6 +480,7 @@ eng:
     authorized_payments_count: "Authorized payments count"
     # auto_calculate_working_periods: "Auto calculate working periods"
     auto_updateable_addresses: "Auto updateable addresses"
+    auxiliary_number: "Auxiliary number"
     average_value: "Average value"
     balance: "Balance"
     balance_pretax_amount: "Balance pretax amount"
@@ -535,6 +536,7 @@ eng:
     category: "Category"
     ceded: "Ceded"
     ceded_on: "Ceded on"
+    centralizing_account: "Centralizing account"
     charge_account: "Charge account"
     charges_categories: "Charges categories"
     checks: "Checks" #?
