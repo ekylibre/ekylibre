@@ -74,7 +74,9 @@ class Account < Ekylibre::Record::Base
   has_many :loans,                        class_name: 'Loan', foreign_key: :loan_account_id
   has_many :loans_as_interest,            class_name: 'Loan', foreign_key: :interest_account_id
   has_many :loans_as_insurance,           class_name: 'Loan', foreign_key: :insurance_account_id
-  has_many :bank_guarantees_loans,               class_name: 'Loan', foreign_key: :bank_guarantee_account_id
+  has_many :bank_guarantees_loans,        class_name: 'Loan', foreign_key: :bank_guarantee_account_id
+  # has_many :auxiliary_accounts, -> {where(nature: 'centralizing') },       class_name: 'Account', through: :centralizing_account
+  belongs_to :centralizing_account, -> {where(nature: 'auxiliary') },      class_name: 'Account', foreign_key: :centralizing_account_id
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :debtor, :reconcilable, inclusion: { in: [true, false] }
   validates :description, :usages, length: { maximum: 500_000 }, allow_blank: true
@@ -86,6 +88,8 @@ class Account < Ekylibre::Record::Base
   validates :name, length: { allow_nil: true, maximum: 200 }
   validates :number, format: { with: /\A\d(\d(\d[0-9A-Z]*)?)?\z/ }
   validates :number, uniqueness: true
+
+  enumerize :nature, in: %i[general centralizing auxiliary], default: :general, predicates: true
 
   # default_scope order(:number, :name)
   scope :majors, -> { where("number LIKE '_'").order(:number, :name) }
@@ -168,6 +172,10 @@ class Account < Ekylibre::Record::Base
 
   scope :deductible_vat, -> {
     of_usages(:deductible_vat, :enterprise_deductible_vat)
+  }
+
+  scope :centralizing, -> {
+    where(nature: 'centralizing')
   }
 
   # This method:allows to create the parent accounts if it is necessary.
