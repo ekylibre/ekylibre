@@ -11,7 +11,7 @@
         element.attr(p1)
 
   # Toggle check boxes and radio buttons target
-  $.toggleCheckboxes = (master) ->
+  toggleCheckboxes = (master) ->
     checkable = $(this)
     masterShow = master.formScopedSelect(master.interpolatedData("show"))
     masterHide = master.formScopedSelect(master.interpolatedData("hide"))
@@ -24,28 +24,29 @@
       toShow.filter(':not(:visible)').slideDown slidingOptions
       toHide.filter(':visible').slideUp         slidingOptions
     else
-      toShow.filter (_, element) =>
-        masterShow.indexOf(element) == -1
-      toHide.filter (_, element) =>
-        masterHide.indexOf(element) == -1
+      toShow = toShow.filter (_, element) =>
+        !$(element).is(masterShow)
+      toHide = toHide.filter (_, element) =>
+        !$(element).is(masterHide)
       toShow.filter(':visible').slideUp         slidingOptions
       toHide.filter(':not(:visible)').slideDown slidingOptions
     return
 
-  $.toggleRadios = ->
+  toggleRadios = ->
     changed = $(this)
     $("input[type='radio'][data-show], input[type='radio'][data-hide]").each ->
-      $.toggleCheckboxes changed
+      toggleCheckboxes.call($(this), changed)
     return
 
+  # Hide/show blocks depending on check boxes
+  $(document).behave "load", "input[type='checkbox'][data-show], input[type='checkbox'][data-hide]", (e)->
+    toggleCheckboxes.call($(this), $(this))
+  $(document).behave "load", "input[type='radio'][data-show], input[type='radio'][data-hide]", (e)->
+    toggleRadios.call($(this))
   $(document).ready ->
-    # Hide/show blocks depending on check boxes
-    $(document).behave "load", "input[type='checkbox'][data-show], input[type='checkbox'][data-hide]", ->
-      $.toggleCheckboxes $(this)
-    $(document).on   "change", "input[type='checkbox'][data-show], input[type='checkbox'][data-hide]", ->
-      $.toggleCheckboxes $(this)
-    $(document).behave "load", "input[type='radio'][data-show], input[type='radio'][data-hide]", $.toggleRadios
-    $(document).on   "change", "input[type='radio'][data-show], input[type='radio'][data-hide]", $.toggleRadios
-
+    $("input[type='radio'][data-show], input[type='radio'][data-hide]").on "change", (e)->
+      toggleRadios.call($(this))
+    $("input[type='checkbox'][data-show], input[type='checkbox'][data-hide]").on "change", (e)->
+      toggleCheckboxes.call($(this), $(this))
   return
 ) jQuery
