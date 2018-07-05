@@ -76,7 +76,8 @@ class Account < Ekylibre::Record::Base
   has_many :loans_as_insurance,           class_name: 'Loan', foreign_key: :insurance_account_id
   has_many :bank_guarantees_loans,        class_name: 'Loan', foreign_key: :bank_guarantee_account_id
   # has_many :auxiliary_accounts, -> {where(nature: 'centralizing') },       class_name: 'Account', through: :centralizing_account
-  belongs_to :centralizing_account, -> {where(nature: 'auxiliary') },      class_name: 'Account', foreign_key: :centralizing_account_id
+  belongs_to :centralizing_account, class_name: 'Account'
+
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :debtor, :reconcilable, inclusion: { in: [true, false] }
   validates :description, :usages, length: { maximum: 500_000 }, allow_blank: true
@@ -86,8 +87,11 @@ class Account < Ekylibre::Record::Base
   validates :last_letter, length: { allow_nil: true, maximum: 10 }
   validates :number, length: { allow_nil: true, maximum: 20 }
   validates :name, length: { allow_nil: true, maximum: 200 }
-  validates :number, format: { with: /\A\d(\d(\d[0-9A-Z]*)?)?\z/ }
+  validates :number, format: { with: /\A\d(\d(\d[0-9A-Z]*)?)?\z/ }, unless: :auxiliary?
   validates :number, uniqueness: true
+  validates :number, length: { is: 3 }, if: :centralizing?
+  validates :auxiliary_number, presence: true, if: :auxiliary?
+  validates :auxiliary_number, format: { without: /\A(0*)\z/ }
 
   enumerize :nature, in: %i[general centralizing auxiliary], default: :general, predicates: true
 
@@ -180,7 +184,15 @@ class Account < Ekylibre::Record::Base
 
   # This method:allows to create the parent accounts if it is necessary.
   before_validation do
-    self.number = number.ljust(Preference[:account_number_digits], '0') if number
+    if self.general?
+      self.number = number.ljust(8, '0') if number
+    elsif self.centralizing?
+      self.number = number.ljust(3, '0') if number
+    elsif self.auxiliary?
+      self.auxiliary_number = auxiliary_number.split(//).last(9).join
+      self.auxiliary_number = auxiliary_number.rjust(5, '0')
+      self.number = centralizing_account.number + auxiliary_number
+    end
     self.reconcilable = reconcilableable? if reconcilable.nil?
     self.label = tc(:label, number: number.to_s, name: name.to_s)
     self.usages = Account.find_parent_usage(number) if usages.blank? && number

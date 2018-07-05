@@ -3,8 +3,8 @@
   .general-nature-options.centralizing-nature-options
     = f.input :number
   .auxiliary-nature-options
-    = f.input :auxiliary_number
-    = f.input :centralizing_account, collection: Account.centralizing
+    = f.input :auxiliary_number, required: true
+    = f.input :centralizing_account_id, collection: Account.centralizing, required: true
   = f.input :name
   = f.input :description, as: :text
   = f.input :usages, collection: Nomen::Account.selection
