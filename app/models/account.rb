@@ -22,21 +22,24 @@
 #
 # == Table: accounts
 #
-#  created_at    :datetime         not null
-#  creator_id    :integer
-#  custom_fields :jsonb
-#  debtor        :boolean          default(FALSE), not null
-#  description   :text
-#  id            :integer          not null, primary key
-#  label         :string           not null
-#  last_letter   :string
-#  lock_version  :integer          default(0), not null
-#  name          :string           not null
-#  number        :string           not null
-#  reconcilable  :boolean          default(FALSE), not null
-#  updated_at    :datetime         not null
-#  updater_id    :integer
-#  usages        :text
+#  auxiliary_number        :string
+#  centralizing_account_id :integer
+#  created_at              :datetime         not null
+#  creator_id              :integer
+#  custom_fields           :jsonb
+#  debtor                  :boolean          default(FALSE), not null
+#  description             :text
+#  id                      :integer          not null, primary key
+#  label                   :string           not null
+#  last_letter             :string
+#  lock_version            :integer          default(0), not null
+#  name                    :string           not null
+#  nature                  :string
+#  number                  :string           not null
+#  reconcilable            :boolean          default(FALSE), not null
+#  updated_at              :datetime         not null
+#  updater_id              :integer
+#  usages                  :text
 #
 
 class Account < Ekylibre::Record::Base
@@ -79,10 +82,10 @@ class Account < Ekylibre::Record::Base
   belongs_to :centralizing_account, class_name: 'Account'
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  validates :auxiliary_number, :last_letter, length: { maximum: 500 }, allow_blank: true
   validates :debtor, :reconcilable, inclusion: { in: [true, false] }
   validates :description, :usages, length: { maximum: 500_000 }, allow_blank: true
   validates :label, :name, :number, presence: true, length: { maximum: 500 }
-  validates :last_letter, length: { maximum: 500 }, allow_blank: true
   # ]VALIDATORS]
   validates :last_letter, length: { allow_nil: true, maximum: 10 }
   validates :name, length: { allow_nil: true, maximum: 200 }
@@ -92,7 +95,7 @@ class Account < Ekylibre::Record::Base
   validates :number, length: { is: 3 }, format: { without: /\A(0*)\z/ }, if: :centralizing?
   validates :number, length: { minimum: 8, maximum: 12 }, if: :auxiliary?
   validates :auxiliary_number, length: { allow_blank: true, minimum: 0 }, unless: :auxiliary?
-  validates :auxiliary_number, presence: true, length: { minimum: 5, maximum: 9}, format: { without: /\A(0*)\z/ }, if: :auxiliary?
+  validates :auxiliary_number, presence: true, length: { minimum: 5, maximum: 9 }, format: { without: /\A(0*)\z/ }, if: :auxiliary?
 
   enumerize :nature, in: %i[general centralizing auxiliary], default: :general, predicates: true
 
@@ -188,15 +191,15 @@ class Account < Ekylibre::Record::Base
   }
   # This method:allows to create the parent accounts if it is necessary.
   before_validation do
-    if self.general?
+    if general?
       self.auxiliary_number = nil
       self.centralizing_account = nil
       self.number = number.ljust(8, '0') if number
-    elsif self.centralizing?
+    elsif centralizing?
       self.auxiliary_number = nil
       self.centralizing_account = nil
       self.number = number.ljust(3, '0') if number
-    elsif self.auxiliary?
+    elsif auxiliary?
       self.auxiliary_number = auxiliary_number.rjust(5, '0')
       self.number = centralizing_account.number + auxiliary_number if centralizing_account
     end
