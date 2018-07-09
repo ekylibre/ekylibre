@@ -85,13 +85,14 @@ class Account < Ekylibre::Record::Base
   validates :last_letter, length: { maximum: 500 }, allow_blank: true
   # ]VALIDATORS]
   validates :last_letter, length: { allow_nil: true, maximum: 10 }
-  validates :number, length: { allow_nil: true, maximum: 20 }
   validates :name, length: { allow_nil: true, maximum: 200 }
   validates :number, format: { with: /\A\d(\d(\d[0-9A-Z]*)?)?\z/ }, unless: :auxiliary?
   validates :number, uniqueness: true
+  validates :number, length: { is: 8 }, if: :general?
   validates :number, length: { is: 3 }, if: :centralizing?
-  validates :auxiliary_number, presence: true, if: :auxiliary?
-  validates :auxiliary_number, format: { without: /\A(0*)\z/ }
+  validates :number, length: { minimum: 8, maximum: 12 }, if: :auxiliary?
+  validates :auxiliary_number, length: { allow_blank: true, minimum: 0 }, unless: :auxiliary?
+  validates :auxiliary_number, presence: true, length: { minimum: 5, maximum: 9}, format: { without: /\A(0*)\z/ }, if: :auxiliary?
 
   enumerize :nature, in: %i[general centralizing auxiliary], default: :general, predicates: true
 
@@ -189,9 +190,8 @@ class Account < Ekylibre::Record::Base
     elsif self.centralizing?
       self.number = number.ljust(3, '0') if number
     elsif self.auxiliary?
-      self.auxiliary_number = auxiliary_number.split(//).last(9).join
       self.auxiliary_number = auxiliary_number.rjust(5, '0')
-      self.number = centralizing_account.number + auxiliary_number
+      self.number = centralizing_account.number + auxiliary_number if centralizing_account
     end
     self.reconcilable = reconcilableable? if reconcilable.nil?
     self.label = tc(:label, number: number.to_s, name: name.to_s)
