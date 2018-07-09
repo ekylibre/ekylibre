@@ -131,10 +131,6 @@ deu:
         unitary_in_parcel: "Unitary Elemente können nur einzeln gesendet werden"
         # wrong_length: "%{attribute} is the wrong length (should be %{count} characters)"
       models:
-        account:
-          attributes:
-            number:
-              # unauthorized: "This number can't correspond to a radical class"
         activity:
           checked_off_with_inspections: "Die Kontrollen wurden bereits für diese Tätigkeit geschaffen"
           checked_without_measures: "Zumindest sollte eine Maßnahme Typ gewählt werden, wenn Kontrollen gewünscht werden"

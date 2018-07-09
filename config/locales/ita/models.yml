@@ -140,10 +140,6 @@ ita:
           one: "è della lunghezza sbagliata (deve essere di 1 carattere)" #?
           other: "è della lunghezza sbagliata (deve essere di %{count} caratteri)" #?
       models:
-        account:
-          attributes:
-            number:
-              # unauthorized: "This number can't correspond to a radical class"
         activity:
           checked_off_with_inspections: "Le ispezioni sono già stati creati per questa attività"
           checked_without_measures: "Almeno, un tipo di misura dovrebbe essere selezionato quando i controlli sono ricercati"
