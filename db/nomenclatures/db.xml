@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20171212081801">
+<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20180709134310">
   <nomenclature name="abilities" translateable="true">
     <properties>
       <property name="parameters" type="choice_list" choices="variety, issue_nature"/>
@@ -81,6 +81,7 @@
   </nomenclature>
   <nomenclature name="accounts" translateable="true">
     <properties>
+      <property name="centralizing" type="boolean" required="true" default="false"/>
       <property name="debtor" type="boolean" default="false"/>
       <property name="fr_pcg82" type="string" fallbacks="fr_pcga"/>
       <property name="fr_pcga" type="string" fallbacks="fr_pcg82"/>
@@ -101,7 +102,7 @@
       <item name="advertisement_expenses" fr_pcg82="62310000"/>
       <item name="advertising_expenses" fr_pcg82="62300000"/>
       <item name="agricultural_disasters_compensations" fr_pcga="74300000"/>
-      <item name="animal_derivative_stock" fr_pcga="37500000"/>
+      <item name="animal_derivative_stock" fr_pcga="37500000" centralizing="true"/>
       <item name="animal_derivatives_revenues" fr_pcga="70200000"/>
       <item name="animal_locative_expenses" fr_pcga="61440000"/>
       <item name="animal_medicine_matter_expenses" fr_pcga="60150000"/>
@@ -120,7 +121,7 @@
       <item name="associates_current_accounts" fr_pcga="45500000"/>
       <item name="associates_frozen_accounts" fr_pcga="45530000"/>
       <item name="associates_salary" fr_pcga="64130000"/>
-      <item name="attorneys" fr_pcg82="46700000"/>
+      <item name="attorneys" fr_pcg82="46700000" centralizing="true"/>
       <item name="banks" fr_pcg82="51200000"/>
       <item name="banks_and_similar" fr_pcg82="51000000" pt_snc="12000000"/>
       <item name="banks_services_expenses" fr_pcga="62700000"/>
@@ -135,7 +136,7 @@
       <item name="capitals" fr_pcg82="10000000" pt_snc="50000000"/>
       <item name="cashes" fr_pcg82="53000000" pt_snc="11000000"/>
       <item name="catalog_and_print_expenses" fr_pcg82="62360000"/>
-      <item name="clients" fr_pcg82="41100000" pt_snc="21000000"/>
+      <item name="clients" fr_pcg82="41100000" pt_snc="21000000" centralizing="true"/>
       <item name="co_ownership_and_locative_expenses" fr_pcga="61400000"/>
       <item name="collected_vat" fr_pcg82="44571000" pt_snc="24330000"/>
       <item name="collected_vat_to_resolve" fr_pcg82="44575000"/>
@@ -241,8 +242,8 @@
       <item name="holding_accounts" fr_pcg82="45100000"/>
       <item name="holding_company_and_associate_accounts" fr_pcg82="45000000" pt_snc="26000000"/>
       <item name="home_consumption_production" fr_pcga="72600000"/>
-      <item name="in_cycle_products_stock" fr_pcg82="33000000"/>
-      <item name="in_cycle_services_stock" fr_pcg82="34000000"/>
+      <item name="in_cycle_products_stock" fr_pcg82="33000000" centralizing="true"/>
+      <item name="in_cycle_services_stock" fr_pcg82="34000000" centralizing="true"/>
       <item name="income_taxes" fr_pcg82="44400000" pt_snc="24100000"/>
       <item name="income_taxes_expenses" fr_pcg82="69500000"/>
       <item name="incorporeal_asset_depreciation_revenues" fr_pcg82="78100000"/>
@@ -291,10 +292,10 @@
       <item name="long_cycle_products_stock" fr_pcga="35000000"/>
       <item name="long_cycle_products_wines_stock" fr_pcga="35100000"/>
       <item name="long_cycle_vegetals_inventory_variations" fr_pcga="71330000"/>
-      <item name="long_cycle_vegetals_stock" fr_pcga="33000000"/>
+      <item name="long_cycle_vegetals_stock" fr_pcga="33000000" centralizing="true"/>
       <item name="long_term_loans" fr_pcg82="16420000"/>
       <item name="long_term_loans_interests" fr_pcg82="66120000"/>
-      <item name="long_time_animal_stock" fr_pcga="31000000"/>
+      <item name="long_time_animal_stock" fr_pcga="31000000" centralizing="true"/>
       <item name="maintenance_expenses" fr_pcg82="61500000"/>
       <item name="maintenances_consumables_expenses" fr_pcga="60220000"/>
       <item name="maintenances_consumables_stock" fr_pcga="30220000"/>
@@ -385,7 +386,7 @@
       <item name="particular_operation_with_state" fr_pcg82="44300000"/>
       <item name="payment_guarantees" fr_pcg82="27500000"/>
       <item name="pending_deposit_payments" fr_pcg82="51100000" pt_snc="18000000"/>
-      <item name="plant_derivative_stock" fr_pcga="37400000"/>
+      <item name="plant_derivative_stock" fr_pcga="37400000" centralizing="true"/>
       <item name="plant_derivatives_revenues" fr_pcga="70100000"/>
       <item name="plant_medicine_matter_expenses" fr_pcga="60130000"/>
       <item name="plant_medicine_stock" fr_pcga="30130000"/>
@@ -396,7 +397,7 @@
       <item name="previous_product_deferral_expenses" fr_pcg82="69900000"/>
       <item name="principal_associates_current_accounts" fr_pcga="45510000"/>
       <item name="processing_products_revenues" fr_pcga="70300000"/>
-      <item name="processing_products_stock" fr_pcga="37600000"/>
+      <item name="processing_products_stock" fr_pcga="37600000" centralizing="true"/>
       <item name="product_accessory_revenues" fr_pcg82="70800000"/>
       <item name="product_inventory_variations" fr_pcg82="71300000"/>
       <item name="products_inventory_variations" fr_pcga="71370000"/>
@@ -443,20 +444,20 @@
       <item name="short_cycle_product_inventory_variations" fr_pcga="71360000"/>
       <item name="short_cycle_products_stock" fr_pcga="36000000"/>
       <item name="short_cycle_vegetals_inventory_variations" fr_pcga="71340000"/>
-      <item name="short_cycle_vegetals_stock" fr_pcga="34000000"/>
+      <item name="short_cycle_vegetals_stock" fr_pcga="34000000" centralizing="true"/>
       <item name="short_term_investment_financials_revenues" fr_pcg82="76400000"/>
       <item name="short_term_investment_transfer_expenses" fr_pcg82="66700000"/>
       <item name="short_term_investment_transfer_financials_revenues" fr_pcg82="76700000"/>
       <item name="short_term_loans" fr_pcg82="16430000"/>
       <item name="short_term_loans_interests" fr_pcg82="66130000"/>
-      <item name="short_time_animal_stock" fr_pcga="32000000"/>
+      <item name="short_time_animal_stock" fr_pcga="32000000" centralizing="true"/>
       <item name="social_agricultural_mutuality" fr_pcga="43100000"/>
       <item name="social_expense_on_vacations" fr_pcg82="43800000"/>
       <item name="social_security" fr_pcg82="43100000"/>
       <item name="staff_advances" fr_pcg82="42500000"/>
       <item name="staff_and_linked_accounts" fr_pcg82="42000000"/>
       <item name="staff_bonus_participation" fr_pcg82="42400000"/>
-      <item name="staff_due_remunerations" fr_pcg82="42100000" pt_snc="23100000"/>
+      <item name="staff_due_remunerations" fr_pcg82="42100000" pt_snc="23100000" centralizing="true"/>
       <item name="staff_expense_to_sold" fr_pcg82="42800000"/>
       <item name="staff_expenses" fr_pcga="64000000" pt_snc="63000000"/>
       <item name="staff_oppositions" fr_pcg82="42700000"/>
@@ -466,16 +467,16 @@
       <item name="state_and_other_public_entities" fr_pcg82="44000000" pt_snc="24000000"/>
       <item name="state_emission_quota_to_restitute" fr_pcg82="44900000"/>
       <item name="stocks" fr_pcg82="30000000" pt_snc="30000000"/>
-      <item name="stocks_variation" fr_pcga="60300000" pt_snc="60300000"/>
+      <item name="stocks_variation" fr_pcga="60300000" pt_snc="60300000" centralizing="true"/>
       <item name="studies_and_research_expenses" fr_pcga="61700000"/>
       <item name="subcontracting_expenses" fr_pcg82="61100000"/>
       <item name="subsidies" fr_pcga="74500000"/>
       <item name="subsidy_to_receive" fr_pcg82="44100000"/>
-      <item name="sundry_debtors_and_creditors" fr_pcga="46700000" pt_snc="27800000"/>
-      <item name="suppliers" fr_pcg82="40100000" pt_snc="22100000"/>
+      <item name="sundry_debtors_and_creditors" fr_pcga="46700000" pt_snc="27800000" centralizing="true"/>
+      <item name="suppliers" fr_pcg82="40100000" pt_snc="22100000" centralizing="true"/>
       <item name="suppliers_balance_after_compensation" fr_pcg82="40200000"/>
       <item name="suppliers_invoices_not_received" fr_pcg82="40800000" pt_snc="22500000"/>
-      <item name="supply_stock" fr_pcga="30100000"/>
+      <item name="supply_stock" fr_pcga="30100000" centralizing="true"/>
       <item name="supply_stocks_variation" fr_pcga="60310000"/>
       <item name="sustainable_packaging_asset_depreciations" fr_pcga="28186000"/>
       <item name="sustainable_packaging_assets" fr_pcga="21860000"/>
