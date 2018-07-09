@@ -183,6 +183,9 @@ class Account < Ekylibre::Record::Base
     where(nature: 'centralizing')
   }
 
+  scope :not_centralizing, -> {
+    where.not(nature: 'centralizing')
+  }
   # This method:allows to create the parent accounts if it is necessary.
   before_validation do
     if self.general?
