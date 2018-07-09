@@ -189,8 +189,12 @@ class Account < Ekylibre::Record::Base
   # This method:allows to create the parent accounts if it is necessary.
   before_validation do
     if self.general?
+      self.auxiliary_number = nil
+      self.centralizing_account = nil
       self.number = number.ljust(8, '0') if number
     elsif self.centralizing?
+      self.auxiliary_number = nil
+      self.centralizing_account = nil
       self.number = number.ljust(3, '0') if number
     elsif self.auxiliary?
       self.auxiliary_number = auxiliary_number.rjust(5, '0')
