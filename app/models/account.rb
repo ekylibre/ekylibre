@@ -89,11 +89,11 @@ class Account < Ekylibre::Record::Base
   # ]VALIDATORS]
   validates :last_letter, length: { allow_nil: true, maximum: 10 }
   validates :name, length: { allow_nil: true, maximum: 200 }
-  validates :number, format: { with: /\A\d(\d(\d[0-9A-Z]*)?)?\z/ }, unless: :auxiliary?
   validates :number, uniqueness: true
   validates :number, length: { is: 8 }, format: { without: /\A[1-9]0*\z|\A0/ }, if: :general?
   validates :number, length: { is: 3 }, format: { without: /\A(0*)\z/ }, if: :centralizing?
   validates :number, length: { minimum: 8, maximum: 12 }, if: :auxiliary?
+  validates :number, format: { with: /\A\d(\d(\d[0-9A-Z]*)?)?\z/ }, unless: :auxiliary?
   validates :auxiliary_number, length: { allow_blank: true, minimum: 0 }, unless: :auxiliary?
   validates :auxiliary_number, presence: true, length: { minimum: 5, maximum: 9 }, format: { without: /\A(0*)\z/ }, if: :auxiliary?
 
@@ -317,18 +317,40 @@ class Account < Ekylibre::Record::Base
       where(regexp_condition(expr))
     end
 
+    def number_unique?(number)
+      Account.where(number: number).count == 0
+    end
+
     # Find or create an account with its name in accounting system if not exist in DB
     def find_or_import_from_nomenclature(usage)
       item = Nomen::Account.find(usage)
       raise ArgumentError, "The usage #{usage.inspect} is unknown" unless item
       raise ArgumentError, "The usage #{usage.inspect} is not implemented in #{accounting_system.inspect}" unless item.send(accounting_system)
       account = find_in_nomenclature(usage)
-      account ||= create!(
-        name: item.human_name,
-        number: item.send(accounting_system),
-        debtor: !!item.debtor,
-        usages: item.name
-      )
+      begin
+        unless account
+          item_number = item.send(accounting_system)
+          item_number_with_ending_0 = item_number.ljust(8, '0')
+          return unless number_unique?(item_number_with_ending_0)
+          return if item_number == "NONE"
+          Nomen::Account.find_each do |compared_account|
+            account_number = compared_account.send(accounting_system)
+            next if item_number == account_number
+            account_number_without_ending_0 = account_number.sub(/0*$/, "")
+            return if item_number == account_number_without_ending_0
+          end
+          account = new(
+            name: item.human_name,
+            number: item.centralizing ? item.send(accounting_system)[0...3] : item.send(accounting_system),
+            debtor: !!item.debtor,
+            usages: item.name,
+            nature: item.centralizing ? "centralizing" : "general"
+          )
+          account.save!
+        end
+      rescue
+        byebug
+      end
       account
     end
     alias import_from_nomenclature find_or_import_from_nomenclature
@@ -374,7 +396,7 @@ class Account < Ekylibre::Record::Base
           account.destroy if account.destroyable?
         end
         Nomen::Account.find_each do |item|
-          if item.send(accounting_system)
+          if item.send(accounting_system).match(/\A[1-9]0*\z|\A0/).nil?
             find_or_import_from_nomenclature(item.name)
           end
         end
