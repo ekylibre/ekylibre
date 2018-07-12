@@ -321,35 +321,32 @@ class Account < Ekylibre::Record::Base
       Account.where(number: number).count == 0
     end
 
+    def valid_item?(item)
+      item_number = item.send(accounting_system)
+      return false unless item_number != "NONE" && number_unique?(item_number.ljust(8, '0'))
+      Nomen::Account.find_each do |compared_account|
+        compared_account_number = compared_account.send(accounting_system)
+        return false if item_number == compared_account_number.sub(/0*$/, "") && item_number != compared_account_number
+      end
+      true
+    end
+
     # Find or create an account with its name in accounting system if not exist in DB
     def find_or_import_from_nomenclature(usage)
       item = Nomen::Account.find(usage)
       raise ArgumentError, "The usage #{usage.inspect} is unknown" unless item
       raise ArgumentError, "The usage #{usage.inspect} is not implemented in #{accounting_system.inspect}" unless item.send(accounting_system)
       account = find_in_nomenclature(usage)
-      begin
-        unless account
-          item_number = item.send(accounting_system)
-          item_number_with_ending_0 = item_number.ljust(8, '0')
-          return unless number_unique?(item_number_with_ending_0)
-          return if item_number == "NONE"
-          Nomen::Account.find_each do |compared_account|
-            account_number = compared_account.send(accounting_system)
-            next if item_number == account_number
-            account_number_without_ending_0 = account_number.sub(/0*$/, "")
-            return if item_number == account_number_without_ending_0
-          end
-          account = new(
-            name: item.human_name,
-            number: item.centralizing ? item.send(accounting_system)[0...3] : item.send(accounting_system),
-            debtor: !!item.debtor,
-            usages: item.name,
-            nature: item.centralizing ? "centralizing" : "general"
-          )
-          account.save!
-        end
-      rescue
-        byebug
+      unless account
+        return unless valid_item?(item)
+        account = new(
+          name: item.human_name,
+          number: item.centralizing ? item.send(accounting_system)[0...3] : item.send(accounting_system),
+          debtor: !!item.debtor,
+          usages: item.name,
+          nature: item.centralizing ? "centralizing" : "general"
+        )
+        account.save!
       end
       account
     end
