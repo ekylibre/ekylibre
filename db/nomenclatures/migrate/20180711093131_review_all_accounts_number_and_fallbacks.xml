@@ -170,7 +170,7 @@
   <item-change item="accounts#initial_society_capital" fr_pcga="1015" fr_pcg82="1015"/>
   <item-change item="accounts#installation_sustainable_plant_assets" fr_pcga="2467" fr_pcg82="2467"/>
   <item-change item="accounts#insurance_expenses" fr_pcga="616" fr_pcg82="616"/>
-  <item-removal item="accounts#interests_expenses"/>
+  <item-removal item="accounts#interests_expenses" fr_pcga="661" fr_pcg82="661"/>
   <item-change item="accounts#internal_transfers" fr_pcga="58" fr_pcg82="58"/>
   <item-change item="accounts#inventory_variations" fr_pcga="71" fr_pcg82="71"/>
   <item-change item="accounts#invoice_to_create_clients" fr_pcga="418" fr_pcg82="418"/>
@@ -265,7 +265,7 @@
   <item-change item="accounts#other_supplies" fr_pcga="NONE" fr_pcg82="32"/>
   <item-change item="accounts#other_supply_expenses" fr_pcga="602" fr_pcg82="602"/>
   <item-change item="accounts#other_supply_stocks_variation" fr_pcga="6032" fr_pcg82="6032"/>
-  <item-removal item="accounts#other_taxes"/>
+  <item-removal item="accounts#other_taxes" fr_pcga="635" fr_pcg82="635"/>
   <item-change item="accounts#other_usual_running_expenses" fr_pcga="658" fr_pcg82="658"/>
   <item-change item="accounts#other_usual_running_profits" fr_pcga="758" fr_pcg82="758"/>
   <item-change item="accounts#other_various_interests_expenses" fr_pcga="66188" fr_pcg82="66188"/>
