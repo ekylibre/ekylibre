@@ -249,7 +249,7 @@ class Account < Ekylibre::Record::Base
     end
 
     # Find account with its usage among all existing account records
-    def find_in_nomenclature(usage)
+    def find_by_usage(usage)
       account = of_usage(usage).first
       unless account
         item = Nomen::Account[usage]
@@ -336,7 +336,7 @@ class Account < Ekylibre::Record::Base
       item = Nomen::Account.find(usage)
       raise ArgumentError, "The usage #{usage.inspect} is unknown" unless item
       raise ArgumentError, "The usage #{usage.inspect} is not implemented in #{accounting_system.inspect}" unless item.send(accounting_system)
-      account = find_in_nomenclature(usage)
+      account = find_by_usage(usage)
       unless account
         return unless valid_item?(item)
         account = new(
