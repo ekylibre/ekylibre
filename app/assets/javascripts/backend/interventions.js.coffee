@@ -206,7 +206,20 @@
         interventionStartedAt = $('#intervention_working_periods_attributes_0_started_at').val()
 
         participations = []
-        $('.intervention-participation').each ->
+
+        doersParameters = targetted_element.closest('.nested-doers')
+        tractorsParameters = targetted_element.closest('.nested-tractor').closest('.nested-tools')
+        doersToolsParameters = $('.nested-parameters.nested-doers, .nested-parameters.nested-tools')
+
+        if doersParameters.length > 0
+          interventionParticipations = doersParameters.find('.intervention-participation')
+        else if tractorsParameters.length > 0
+          interventionParticipations = doersToolsParameters.find('.nested-product-parameter.nested-driver, .nested-product-parameter.nested-tractor').find('.intervention-participation')
+        else
+          interventionParticipations = doersToolsParameters.find('.nested-product-parameter').not('.nested-tractor').find('.intervention-participation')
+
+
+        interventionParticipations.each ->
           participations.push($(this).val())
 
         autoCalculMode = $('#intervention_auto_calculate_working_periods').val()
