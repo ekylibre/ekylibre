@@ -78,8 +78,8 @@ class Account < Ekylibre::Record::Base
   has_many :loans_as_interest,            class_name: 'Loan', foreign_key: :interest_account_id
   has_many :loans_as_insurance,           class_name: 'Loan', foreign_key: :insurance_account_id
   has_many :bank_guarantees_loans,        class_name: 'Loan', foreign_key: :bank_guarantee_account_id
-  # has_many :auxiliary_accounts, -> {where(nature: 'centralizing') },       class_name: 'Account', through: :centralizing_account
-  belongs_to :centralizing_account, class_name: 'Account'
+  has_many :auxiliary_accounts,           class_name: 'Account', foreign_key: :centralizing_account_id
+  belongs_to :centralizing_account,       class_name: 'Account'
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :auxiliary_number, :last_letter, length: { maximum: 500 }, allow_blank: true
@@ -209,10 +209,7 @@ class Account < Ekylibre::Record::Base
   end
 
   protect(on: :destroy) do
-    for r in self.class.reflect_on_all_associations(:has_many)
-      return true if send(r.name).any?
-    end
-    return false
+    self.class.reflect_on_all_associations(:has_many).any? { |a| send(a.name).any? }
   end
 
   class << self
