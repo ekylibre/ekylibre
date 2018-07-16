@@ -18,7 +18,7 @@ class NormalizeAccountNumber < ActiveRecord::Migration
             UPDATE accounts
             SET nature = 'centralizing',
                 number = '#{account}'
-            WHERE number ~ '^(#{account})(?=0*$)'
+            WHERE number = '#{account}'
           SQL
 
           # Create centralizing account if there is auxiliary account not attached with centralizing account because it doesn't exist
@@ -27,7 +27,7 @@ class NormalizeAccountNumber < ActiveRecord::Migration
               SELECT number, name, label, 'centralizing', NOW(), NOW()
               FROM (SELECT SUBSTRING(number, 0, 4) AS number, SUBSTRING(number, 0, 4) AS name, SUBSTRING(number, 0, 4) AS label
                     FROM accounts
-                    WHERE number ~ '^(#{account})(?!0*$)'
+                    WHERE number ~ '^(#{account})(?=.+$)'
                     AND centralizing_account_id IS NULL) AS missing_centralizing_account
               WHERE NOT missing_centralizing_account.number IN (SELECT number
                                                                 FROM accounts
@@ -43,7 +43,7 @@ class NormalizeAccountNumber < ActiveRecord::Migration
                 centralizing_account_id = (SELECT id
                                            FROM accounts
                                            WHERE number = '#{account}' LIMIT 1)
-            WHERE number ~ '^(#{account})(?!0*$)'
+            WHERE number ~ '^(#{account})(?=.+$)'
           SQL
 
         end
