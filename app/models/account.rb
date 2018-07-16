@@ -189,6 +189,10 @@ class Account < Ekylibre::Record::Base
   scope :not_centralizing, -> {
     where.not(nature: 'centralizing')
   }
+
+  scope :not_auxiliary, -> {
+    where.not(nature: 'auxiliary')
+  }
   # This method:allows to create the parent accounts if it is necessary.
   before_validation do
     if general?
@@ -246,8 +250,17 @@ class Account < Ekylibre::Record::Base
     end
 
     # Find account with its usage among all existing account records
-    def find_by_usage(usage)
-      account = of_usage(usage).first
+    def find_by_usage(usage, options={} )
+      accounts = of_usage(usage)
+      if options[:except]
+        except_scope = "not_#{options[:except]}"
+        accounts = accounts.send(except_scope)
+      end
+      if options[:sort_by][:nature]
+        nature_sort = options[:sort_by][:nature]
+        accounts = accounts.sort_by {|a| a.nature == nature_sort ? 0 : 1}
+      end
+      account = accounts.first
       unless account
         item = Nomen::Account[usage]
         account = find_by(number: item.send(accounting_system)) if item
@@ -333,7 +346,7 @@ class Account < Ekylibre::Record::Base
       item = Nomen::Account.find(usage)
       raise ArgumentError, "The usage #{usage.inspect} is unknown" unless item
       raise ArgumentError, "The usage #{usage.inspect} is not implemented in #{accounting_system.inspect}" unless item.send(accounting_system)
-      account = find_by_usage(usage)
+      account = find_by_usage(usage, { except: :auxiliary, sort_by: { nature: :centralizing } } )
       unless account
         return unless valid_item?(item)
         account = new(
