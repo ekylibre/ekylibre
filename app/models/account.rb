@@ -100,7 +100,6 @@ class Account < Ekylibre::Record::Base
   enumerize :nature, in: %i[general centralizing auxiliary], default: :general, predicates: true
 
   # default_scope order(:number, :name)
-  scope :majors, -> { where("number LIKE '_'").order(:number, :name) }
   scope :of_usage, lambda { |usage|
     unless Nomen::Account.find(usage)
       raise ArgumentError, "Unknown usage #{usage.inspect}"
