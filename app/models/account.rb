@@ -189,9 +189,6 @@ class Account < Ekylibre::Record::Base
     where.not(nature: 'centralizing')
   }
 
-  scope :not_auxiliary, -> {
-    where.not(nature: 'auxiliary')
-  }
   # This method:allows to create the parent accounts if it is necessary.
   before_validation do
     if general?
@@ -249,22 +246,22 @@ class Account < Ekylibre::Record::Base
     end
 
     # Find account with its usage among all existing account records
-    def find_by_usage(usage, options={} )
+    def find_by_usage(usage, except: [], sort_by: [])
       accounts = of_usage(usage)
-      if options[:except]
-        except_scope = "not_#{options[:except]}"
-        accounts = accounts.send(except_scope)
+      accounts = Array(except).reduce(accounts) do |accs, (criterion_or_key, value)|
+        key = criterion = criterion_or_key
+        next accs.where.not(key => value) if value
+        next accs.where.not(id: Account.send(criterion)) if criterion_or_key.is_a? Symbol
+        accounts.where.not(id: except)
       end
-      if options[:sort_by][:nature]
-        nature_sort = options[:sort_by][:nature]
-        accounts = accounts.sort_by {|a| a.nature == nature_sort ? 0 : 1}
+      accounts = Array(sort_by).reduce(accounts) do |accs, (criterion_or_key, desc_or_asc)|
+        key = criterion = criterion_or_key
+        next accs.order(key => desc_or_asc) if desc_or_asc
+        accs.order(criterion)
       end
-      account = accounts.first
-      unless account
-        item = Nomen::Account[usage]
-        account = find_by(number: item.send(accounting_system)) if item
-      end
-      account
+      return accounts.first if accounts.any?
+      item = Nomen::Account[usage]
+      find_by(number: item.send(accounting_system)) if item
     end
 
     # Find usage in parent account by number
@@ -332,10 +329,10 @@ class Account < Ekylibre::Record::Base
 
     def valid_item?(item)
       item_number = item.send(accounting_system)
-      return false unless item_number != "NONE" && number_unique?(item_number.ljust(8, '0'))
+      return false unless item_number != 'NONE' && number_unique?(item_number.ljust(8, '0'))
       Nomen::Account.find_each do |compared_account|
         compared_account_number = compared_account.send(accounting_system)
-        return false if item_number == compared_account_number.sub(/0*$/, "") && item_number != compared_account_number
+        return false if item_number == compared_account_number.sub(/0*$/, '') && item_number != compared_account_number
       end
       true
     end
@@ -345,7 +342,7 @@ class Account < Ekylibre::Record::Base
       item = Nomen::Account.find(usage)
       raise ArgumentError, "The usage #{usage.inspect} is unknown" unless item
       raise ArgumentError, "The usage #{usage.inspect} is not implemented in #{accounting_system.inspect}" unless item.send(accounting_system)
-      account = find_by_usage(usage, { except: :auxiliary, sort_by: { nature: :centralizing } } )
+      account = find_by_usage(usage, except: { nature: :auxiliary }, sort_by: "nature = 'centralizing' DESC")
       unless account
         return unless valid_item?(item)
         account = new(
@@ -353,7 +350,7 @@ class Account < Ekylibre::Record::Base
           number: item.centralizing ? item.send(accounting_system)[0...3] : item.send(accounting_system),
           debtor: !!item.debtor,
           usages: item.name,
-          nature: item.centralizing ? "centralizing" : "general"
+          nature: item.centralizing ? 'centralizing' : 'general'
         )
         account.save!
       end
