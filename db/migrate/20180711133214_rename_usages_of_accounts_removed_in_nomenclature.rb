@@ -7,7 +7,7 @@ class RenameUsagesOfAccountsRemovedInNomenclature < ActiveRecord::Migration
     exceptionnal_charge_transfer_revenues: 'exceptional_charge_transfer_revenues',
     exceptionnal_depreciations_inputations_expenses: 'exceptional_depreciations_inputations_expenses',
     exceptionnal_incorporeal_asset_depreciation_revenues: 'exceptional_incorporeal_asset_depreciation_revenues'
-  }
+  }.freeze
 
   def change
     reversible do |d|

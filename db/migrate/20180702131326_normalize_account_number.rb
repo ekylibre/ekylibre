@@ -1,5 +1,5 @@
 class NormalizeAccountNumber < ActiveRecord::Migration
-  NON_GENERAL_ACCOUNTS = %w{401 411 421 467 301 302 310 320 330 340 374 375 376 603}
+  NON_GENERAL_ACCOUNTS = %w[401 411 421 467 301 302 310 320 330 340 374 375 376 603].freeze
   def change
     add_column :accounts, :auxiliary_number, :string
     add_column :accounts, :nature, :string
@@ -45,7 +45,6 @@ class NormalizeAccountNumber < ActiveRecord::Migration
                                            WHERE number = '#{account}' LIMIT 1)
             WHERE number ~ '^(#{account})(?=.+$)'
           SQL
-
         end
       end
 
