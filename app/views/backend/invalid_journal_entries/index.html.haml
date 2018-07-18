@@ -1,1 +1,24 @@
-= 'toto'
+- invalid_entries = JournalEntry.where.not(balance: 0.0)
+- main_toolbar do |t|
+  = tool_to(:delete_x_entries.tl(count: invalid_entries.count), { controller: :invalid_journal_entries, action: :delete_all}, data: { confirm: :are_you_sure.tl }, icon: false)
+%table
+  %thead
+    %th= Journal.name
+    %th= JournalEntryItem.human_attribute_name(:entry_number)
+    %th= JournalEntryItem.human_attribute_name(:printed_on)
+    %th= JournalEntryItem.human_attribute_name(:account)
+    %th= JournalEntryItem.human_attribute_name(:name)
+    %th= JournalEntryItem.human_attribute_name(:debit)
+    %th= JournalEntryItem.human_attribute_name(:credit)
+  %tbody.first-item
+    - invalid_entries.each do |entry|
+      - entry.items.each do |item|
+        - first_item = (entry.items.first === item)
+        %tr{class: ("first-item" if first_item) }
+          %td= link_to(entry.journal.name, { controller: :journals, action: :show, id: entry.journal.id} ) if first_item
+          %td= link_to(entry.number, { controller: :journal_entry_items, action: :show, id: item.id} ) if first_item
+          %td= entry.printed_on if first_item
+          %td= link_to(item.account_label, { controller: :accounts, action: :show, id: item.account.id})
+          %td= truncate(item.name, length: 50)
+          %td= item.debit
+          %td= item.credit

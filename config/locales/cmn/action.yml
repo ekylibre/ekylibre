@@ -991,6 +991,9 @@ cmn:
     delete_only_record: "或者只删除所选的干预（多个），并显示该请求关联？"
     delete_request: "还删除请求关联到所选择的干预（S）"
     delete_selected_interventions: "删除选定的干预措施"
+    delete_x_entries:
+      # one: "Delete %{count} entry"
+      # other: "Delete %{count} entries"
     deliver: "送货到达"
     deliveries: "交付"
     delivery: "交货"

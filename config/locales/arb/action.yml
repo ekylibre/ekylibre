@@ -1314,6 +1314,9 @@ arb:
     delete_only_record: "أو حذف فقط تدخل مختارة (ق) وعرض طلب الزميلة؟"
     delete_request: "حذف أيضا على طلب المنتسبين إلى تدخل مختارة (ق)"
     delete_selected_interventions: "حذف التدخلات المنتقاة"
+    delete_x_entries:
+      # one: "Delete %{count} entry"
+      # other: "Delete %{count} entries"
     deliver: "التأكد من ارسال التسليم"
     deliveries: "التسليم"
     delivery: "خدمه توصيل"

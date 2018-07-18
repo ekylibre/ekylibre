@@ -1058,6 +1058,9 @@ jpn:
     delete_only_record: "のみ選択した介入（複数可）を削除し、要求が会合を表示しますか？"
     delete_request: "選択した介入にもリクエストが会合を削除（複数可）"
     delete_selected_interventions: "選択された介入を削除します。"
+    delete_x_entries:
+      # one: "Delete %{count} entry"
+      # other: "Delete %{count} entries"
     deliver: "で配信"
     deliveries: "出荷"
     delivery: "配信"

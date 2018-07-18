@@ -1209,6 +1209,9 @@ fra:
       one: "Supprimer l’intervention et la demande associée" #?
       other: "Supprimer les interventions et les demandes associées" #?
     delete_selected_interventions: "Supprimer les interventions sélectionnées"
+    delete_x_entries:
+      one: "Supprimer l'écriture"
+      other: "Supprimer les %{count} écritures"
     deliver: "Valider l’envoi des livraisons"
     deliveries: "Livraisons"
     delivery: "Livraison"

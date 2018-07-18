@@ -991,6 +991,9 @@ deu:
     delete_only_record: "Oder löschen Sie nur die ausgewählte Intervention (en) und die Anforderung Mitarbeiter angezeigt werden?"
     delete_request: "Löschen Sie auch die Anfrage assoziierten Unternehmens an den ausgewählten Intervention (n)"
     delete_selected_interventions: "Löschen Sie die ausgewählten Interventionen"
+    delete_x_entries:
+      # one: "Delete %{count} entry"
+      # other: "Delete %{count} entries"
     deliver: "Geliefert an"
     deliveries: "Lieferungen"
     delivery: "Lieferung"

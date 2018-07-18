@@ -1093,6 +1093,9 @@ spa:
     delete_only_record: "O eliminar sólo la intervención (s) seleccionado y mostrará la solicitud de asociación?"
     delete_request: "Eliminar también la solicitud de asociación a la intervención seleccionada (s)"
     delete_selected_interventions: "Eliminar las intervenciones seleccionadas"
+    delete_x_entries:
+      # one: "Delete %{count} entry"
+      # other: "Delete %{count} entries"
     deliver: "Entregado en"
     deliveries: "Entregas"
     delivery: "Entrega"

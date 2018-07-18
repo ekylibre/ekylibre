@@ -996,6 +996,9 @@ por:
     delete_only_record: "Ou excluir apenas a intervenção (s) selecionado e exibir o pedido associado?"
     delete_request: "Excluir também o pedido associado à intervenção selecionado (s)"
     delete_selected_interventions: "Excluir as intervenções selecionadas"
+    delete_x_entries:
+      # one: "Delete %{count} entry"
+      # other: "Delete %{count} entries"
     deliver: "Entregue em"
     deliveries: "Expedição"
     delivery: "Entrega"

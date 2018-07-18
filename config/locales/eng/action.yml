@@ -407,6 +407,7 @@ eng:
       # sell: "Sell intervention: %{name}"
       show: "%{procedure_name}"
     backend/invalid_journal_entries:
+      # delete_all: "Delete all invalid journal entry: %{name}"
       index: "Journal entries to balance"
     backend/inventories:
       edit: "Edit inventory"
@@ -1160,9 +1161,9 @@ eng:
     charge_value: "Charge value"
     chart: "Chart"
     check: "Check" #?
-    check_x_entries_to_balance:
-      one: "Check entry to balance (%{count})"
-      other: "Check entries to balance (%{count})"
+    check_x_entries_to_balance: #?!
+      one: "Check entry to balance (%{count})" #?!
+      other: "Check entries to balance (%{count})" #?!
     children: "Children"
     choices: "Choices"
     choose_a_type_of_product: "Choose a type of product"
@@ -1262,9 +1263,13 @@ eng:
     deformity_percentage_evolution: "Deformity percentage evolution"
     delay: "Delay"
     delete: "Delete"
+    # delete_all: "Delete all"
     delete_only_record: "Or only delete the selected intervention(s) and display the request associate ?" #?
     delete_request: "Delete also the request associate to the selected intervention(s)" #?
     delete_selected_interventions: "Delete the selected interventions"
+    delete_x_entries: #?!
+      one: "Delete %{count} entry" #?!
+      other: "Delete %{count} entries" #?!
     deliver: "Delivered on" #?
     deliveries: "Deliveries" #?
     delivery: "Delivery" #?
@@ -2388,6 +2393,7 @@ eng:
       # csv: "Csv"
       # currency_state: "Currency state"
       # current: "Current"
+      # delete_all: "Delete all"
       # depreciate: "Depreciate"
       # depreciate_all: "Depreciate all"
       destroy: "Destroy"
