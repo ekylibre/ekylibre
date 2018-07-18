@@ -407,7 +407,7 @@ eng:
       # sell: "Sell intervention: %{name}"
       show: "%{procedure_name}"
     backend/invalid_journal_entries:
-      # index: "Invalid journal entries"
+      index: "Journal entries to balance"
     backend/inventories:
       edit: "Edit inventory"
       index: "Inventories"
@@ -1160,9 +1160,9 @@ eng:
     charge_value: "Charge value"
     chart: "Chart"
     check: "Check" #?
-    check_x_invalid_entries:
-      one: "Check invalid entry (%{count})"
-      other: "Check invalid entries (%{count})"
+    check_x_entries_to_balance:
+      one: "Check entry to balance (%{count})"
+      other: "Check entries to balance (%{count})"
     children: "Children"
     choices: "Choices"
     choose_a_type_of_product: "Choose a type of product"

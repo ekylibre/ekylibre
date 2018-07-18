@@ -303,6 +303,8 @@ deu:
       new_specified: "New Intervention"
       new_specified_request: "Neue angeforderte Intervention"
       # show: "%{procedure_name}"
+    backend/invalid_journal_entries:
+      # index: "Journal entries to balance"
     backend/inventories:
       edit: "Bearbeiten Inventar"
       index: "Die Vorräte"
@@ -887,9 +889,9 @@ deu:
     charge_value: "Ladewert"
     chart: "Diagramm"
     check: "Prüfen"
-    check_x_invalid_entries:
-      # one: "Check invalid entry (%{count})"
-      # other: "Check invalid entries (%{count})"
+    check_x_entries_to_balance:
+      # one: "Check entry to balance (%{count})"
+      # other: "Check entries to balance (%{count})"
     children: "Kinder"
     choices: "Auswahlmöglichkeiten"
     choose_a_type_of_product: "Wählen Sie eine Art von Produkt"

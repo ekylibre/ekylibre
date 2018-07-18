@@ -308,6 +308,8 @@ por:
       new_specified: "Nova intervenção"
       new_specified_request: "Intervenção New solicitado"
       # show: "%{procedure_name}"
+    backend/invalid_journal_entries:
+      # index: "Journal entries to balance"
     backend/inventories:
       edit: "Editar inventário"
       index: "Inventários"
@@ -892,9 +894,9 @@ por:
     charge_value: "Valor de carga"
     chart: "Gráfico"
     check: "Verifica"
-    check_x_invalid_entries:
-      # one: "Check invalid entry (%{count})"
-      # other: "Check invalid entries (%{count})"
+    check_x_entries_to_balance:
+      # one: "Check entry to balance (%{count})"
+      # other: "Check entries to balance (%{count})"
     children: "Crianças"
     choices: "Escolhas"
     choose_a_type_of_product: "Escolha um tipo de produto"

@@ -303,6 +303,8 @@ cmn:
       new_specified: "新的干预"
       new_specified_request: "新要求干预"
       # show: "%{procedure_name}"
+    backend/invalid_journal_entries:
+      # index: "Journal entries to balance"
     backend/inventories:
       edit: "编辑盘点"
       index: "存货"
@@ -887,9 +889,9 @@ cmn:
     charge_value: "充值"
     chart: "图表"
     check: "检查"
-    check_x_invalid_entries:
-      # one: "Check invalid entry (%{count})"
-      # other: "Check invalid entries (%{count})"
+    check_x_entries_to_balance:
+      # one: "Check entry to balance (%{count})"
+      # other: "Check entries to balance (%{count})"
     children: "孩子"
     choices: "选择"
     choose_a_type_of_product: "选择产品类型"

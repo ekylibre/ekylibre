@@ -344,6 +344,8 @@ fra:
       new_specified: "Nouvelle intervention de %{procedure_name}"
       new_specified_request: "Nouvelle demande de %{procedure_name}"
       show: "%{procedure_name} n°%{number}"
+    backend/invalid_journal_entries:
+      index: "Écritures à équilibrer"
     backend/inventories:
       edit: "Modifier l’inventaire"
       index: "Inventaires"
@@ -1053,7 +1055,7 @@ fra:
     chart: "Graphique"
     check: "Vérifier"
     check_fields: "Vous devez cocher au moins une case pour effectuer la modification" #?
-    check_x_invalid_entries:
+    check_x_entries_to_balance:
       one: "Consulter l'écriture à équilibrer (%{count})"
       other: "Consulter les écritures à équilibrer (%{count})"
     checked_at: "Vérifié le" #?

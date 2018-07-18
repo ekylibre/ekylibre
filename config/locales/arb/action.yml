@@ -363,6 +363,8 @@ arb:
       new_specified: "تدخل جديد"
       new_specified_request: "تدخل طلب جديد"
       # show: "%{procedure_name}"
+    backend/invalid_journal_entries:
+      # index: "Journal entries to balance"
     backend/inventories:
       edit: "تعديل الجرد"
       index: "الجرد"
@@ -1182,9 +1184,9 @@ arb:
     charge_value: "قيمة تهمة"
     chart: "خريطة"
     check: "نحقق"
-    check_x_invalid_entries:
-      # one: "Check invalid entry (%{count})"
-      # other: "Check invalid entries (%{count})"
+    check_x_entries_to_balance:
+      # one: "Check entry to balance (%{count})"
+      # other: "Check entries to balance (%{count})"
     children: "الأطفال"
     choices: "خيارات"
     choose_a_type_of_product: "اختر نوع المنتج"
