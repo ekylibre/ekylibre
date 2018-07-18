@@ -887,6 +887,9 @@ deu:
     charge_value: "Ladewert"
     chart: "Diagramm"
     check: "Prüfen"
+    check_x_invalid_entries:
+      # one: "Check invalid entry (%{count})"
+      # other: "Check invalid entries (%{count})"
     children: "Kinder"
     choices: "Auswahlmöglichkeiten"
     choose_a_type_of_product: "Wählen Sie eine Art von Produkt"

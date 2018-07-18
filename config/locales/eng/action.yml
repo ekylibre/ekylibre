@@ -406,6 +406,8 @@ eng:
       # purchase: "Purchase intervention: %{name}"
       # sell: "Sell intervention: %{name}"
       show: "%{procedure_name}"
+    backend/invalid_journal_entries:
+      # index: "Invalid journal entries"
     backend/inventories:
       edit: "Edit inventory"
       index: "Inventories"
@@ -437,6 +439,7 @@ eng:
       show: "Journal entry item: %{name}"
     backend/journals:
       bookkeep: "Bookkeep"
+      # check_invalid_entries: "Check invalid entries journal: %{name}"
       close: "Close journal: %{name}"
       edit: "Edit journal: %{name}"
       index: "Journals"
@@ -1157,6 +1160,9 @@ eng:
     charge_value: "Charge value"
     chart: "Chart"
     check: "Check" #?
+    check_x_invalid_entries:
+      one: "Check invalid entry (%{count})"
+      other: "Check invalid entries (%{count})"
     children: "Children"
     choices: "Choices"
     choose_a_type_of_product: "Choose a type of product"
@@ -1841,7 +1847,7 @@ eng:
     # show_export_preview: "Show export preview"
     sign_out: "Sign out" #?
     simplified: "Simplified Accounting" #?
-    simplified_linear_options: "Simplified linear options"
+    simplified_linear_options: "Simplified linear options" #?!
     social_debts: "Social debts" #?!
     social_expenses: "Social expenses" #?!
     sold_on: "Sold on"
@@ -2369,6 +2375,7 @@ eng:
       # change_password: "Change password"
       # change_state: "Change state"
       check: "Check"
+      # check_invalid_entries: "Check invalid entries"
       close: "Close"
       compute: "Compute"
       compute_balances: "Compute balances"

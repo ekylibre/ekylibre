@@ -163,7 +163,7 @@ fra:
         linear: "Linéaire"
         none: "Aucune"
         regressive: "Dégressive"
-        simplified_linear: "Linéaire simplifiée"
+        simplified_linear: "Linéaire simplifiée" #?
       depreciation_period:
         monthly: "Mensuelle"
         quarterly: "Trimestrielle"

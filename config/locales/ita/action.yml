@@ -953,6 +953,9 @@ ita:
     charge_value: "Valore di carica"
     chart: "Grafico"
     check: "Dai un'occhiata"
+    check_x_invalid_entries:
+      # one: "Check invalid entry (%{count})"
+      # other: "Check invalid entries (%{count})"
     children: "Bambini"
     choices: "scelte"
     choose_a_type_of_product: "Scegliere un tipo di prodotto"

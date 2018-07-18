@@ -166,7 +166,7 @@ jpn:
         linear: "リニア"
         none: "なし"
         regressive: "回帰"
-        simplified_linear: "簡体リニア"
+        simplified_linear: "簡体リニア" #?
       depreciation_period:
         monthly: "毎月"
         quarterly: "季刊"

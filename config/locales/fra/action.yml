@@ -1053,6 +1053,9 @@ fra:
     chart: "Graphique"
     check: "Vérifier"
     check_fields: "Vous devez cocher au moins une case pour effectuer la modification" #?
+    check_x_invalid_entries:
+      one: "Consulter l'écriture à équilibrer (%{count})"
+      other: "Consulter les écritures à équilibrer (%{count})"
     checked_at: "Vérifié le" #?
     children: "Descendance"
     childrens: "Enfants" #?

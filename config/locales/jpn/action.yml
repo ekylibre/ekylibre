@@ -954,6 +954,9 @@ jpn:
     charge_value: "電荷値"
     chart: "チャート"
     check: "チェック"
+    check_x_invalid_entries:
+      # one: "Check invalid entry (%{count})"
+      # other: "Check invalid entries (%{count})"
     children: "子供"
     choices: "選択肢"
     choose_a_type_of_product: "製品の種類を選択してください"

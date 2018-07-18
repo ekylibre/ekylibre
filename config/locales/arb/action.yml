@@ -1182,6 +1182,9 @@ arb:
     charge_value: "قيمة تهمة"
     chart: "خريطة"
     check: "نحقق"
+    check_x_invalid_entries:
+      # one: "Check invalid entry (%{count})"
+      # other: "Check invalid entries (%{count})"
     children: "الأطفال"
     choices: "خيارات"
     choose_a_type_of_product: "اختر نوع المنتج"

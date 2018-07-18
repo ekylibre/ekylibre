@@ -892,6 +892,9 @@ por:
     charge_value: "Valor de carga"
     chart: "Gráfico"
     check: "Verifica"
+    check_x_invalid_entries:
+      # one: "Check invalid entry (%{count})"
+      # other: "Check invalid entries (%{count})"
     children: "Crianças"
     choices: "Escolhas"
     choose_a_type_of_product: "Escolha um tipo de produto"

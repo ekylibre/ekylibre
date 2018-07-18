@@ -263,7 +263,7 @@ fra:
         account:
           attributes:
             number:
-              unauthorized: "Ce numéro ne peut pas correspondre à une classe radicale" #?
+              unauthorized: "Ce numéro ne peut pas correspondre à une classe radicale"
         activity:
           checked_off_with_inspections: "Des agréages sont déjà présents pour cette activité"
           checked_without_measures: "Au moins un type de mesure doit être sélectionné lorsque l'utilisation des agréages est demandée"

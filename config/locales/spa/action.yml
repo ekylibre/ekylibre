@@ -978,6 +978,9 @@ spa:
     charge_value: "Valor de carga"
     chart: "Gráfico"
     check: "Comprobar"
+    check_x_invalid_entries:
+      # one: "Check invalid entry (%{count})"
+      # other: "Check invalid entries (%{count})"
     children: "Niños"
     choices: "Elecciones"
     choose_a_type_of_product: "Elija un tipo de producto"

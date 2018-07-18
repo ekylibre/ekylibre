@@ -887,6 +887,9 @@ cmn:
     charge_value: "充值"
     chart: "图表"
     check: "检查"
+    check_x_invalid_entries:
+      # one: "Check invalid entry (%{count})"
+      # other: "Check invalid entries (%{count})"
     children: "孩子"
     choices: "选择"
     choose_a_type_of_product: "选择产品类型"

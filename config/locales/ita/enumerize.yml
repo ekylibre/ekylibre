@@ -166,7 +166,7 @@ ita:
         linear: "Lineare"
         none: "Nessuna"
         regressive: "Regressivo"
-        simplified_linear: "lineari semplificato"
+        simplified_linear: "lineari semplificato" #?
       depreciation_period:
         monthly: "Mensile"
         quarterly: "Trimestrale"
