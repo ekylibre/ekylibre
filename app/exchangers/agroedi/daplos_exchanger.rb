@@ -30,6 +30,8 @@ module Agroedi
 
       # TODO: check siret
 
+      recorded_interventions_with_inputs = {}
+
       # crop
       daplos.interchange.crops.each do |crop|
         # get specie and area
@@ -72,7 +74,7 @@ module Agroedi
           if %w[sowing_without_plant_output harvesting].any? { |code| transcoded_procedure.to_s.include? code }
             record_complex_intervention(i, target, procedure)
           else
-            record_default_intervention(i, target, procedure)
+            record_default_intervention(i, target, procedure, recorded_interventions_with_inputs)
           end
         end
         w.check_point
@@ -243,7 +245,7 @@ module Agroedi
       end
     end
 
-    def record_default_intervention(i, target, procedure)
+    def record_default_intervention(i, target, procedure, intervention_input_attributes = {})
       ## START && STOP
       start = i.intervention_started_at
       stop = i.intervention_stopped_at if i.intervention_stopped_at.present?
@@ -307,6 +309,7 @@ module Agroedi
       ## inputs
       updaters = []
 
+      input_attributes = []
       i.inputs.each_with_index do |actor, index|
         p = find_or_create_product(actor, actor.input_name, actor.input_nature_edicode, actor.input_unity_edicode, Date.parse(start).to_time)
 
@@ -352,6 +355,13 @@ module Agroedi
             quantity_value: value_for_input.to_f
           }
 
+          input_attributes << {
+            reference_name: input.name,
+            product_id: p.id,
+            area_quantity: actor.input_quantity_per_hectare.to_f,
+            quantity: value_for_input.to_f
+          }
+
           # puts "inputs attributes #{attributes}".inspect.yellow
 
           updaters << "inputs[#{index}]quantity_value"
@@ -373,8 +383,30 @@ module Agroedi
 
       ## save
       w.info intervention.inspect.yellow
-
-      ::Intervention.create!(intervention.to_attributes)
+      intervention_attributes = intervention.to_attributes
+      matching_interventions = ::Intervention.where(id:
+          InterventionWorkingPeriod.where(intervention_attributes[:working_periods_attributes]['0'].slice(:started_at))
+          .select(:id))
+      interventions_with_matching_inputs = intervention_input_attributes.select do |id, inputs|
+        inputs.map { |h| h.except(:quantity) } == input_attributes.map { |h| h.except(:quantity) }
+      end
+      matching_interventions = matching_interventions.where(id: interventions_with_matching_inputs.keys)
+      existing_intervention = matching_interventions.find_by(
+        procedure_name: intervention_attributes[:procedure_name]
+      )
+      if existing_intervention
+        existing_intervention.targets.create!(intervention_attributes[:targets_attributes]['0'])
+        existing_intervention.inputs.each do |input|
+          new_input = input_attributes.find { |i| i[:reference_name].to_s == input.reference_name && i[:product_id] == input.product_id }
+          byebug unless new_input
+          input.quantity_value += new_input[:quantity]
+          input.save!
+        end
+      else
+        existing_intervention = ::Intervention.create!(intervention.to_attributes)
+      end
+      intervention_input_attributes[existing_intervention.id] = input_attributes
+      true
     end
 
     def record_complex_intervention(i, target, procedure)
@@ -560,10 +592,10 @@ module Agroedi
           w.debug "output_name : #{output_name}".inspect.red
 
           # find or import variant
-          output_variant = ProductNatureVariant.find_by(name: output_name)
+          output_variant = ProductNatureVariant.find_by(name: output_name, derivative_of: target_variety)
           unless output_variant
             output_variant = ProductNatureVariant.find_or_import!(output_nature_transcode[output_nature_agroedi.reference_code], derivative_of: target_variety).first
-            output_variant ||= ProductNatureVariant.find_or_import!(output_nature_transcode[output_nature_agroedi.reference_code]).first
+            output_variant ||= ProductNatureVariant.import_from_nomenclature(output_nature_transcode[output_nature_agroedi.reference_code], force: true)
             output_variant.name = output_name
             output_variant.derivative_of = target_variety
             output_variant.save!
