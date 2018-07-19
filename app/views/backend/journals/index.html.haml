@@ -3,5 +3,5 @@
   = t.bookkeep
   - invalid_entries_count = JournalEntry.where.not(balance: 0.0).count
   - if invalid_entries_count > 0
-    = t.check_invalid_entries(label: :check_x_invalid_entries.tl(count: invalid_entries_count))
+    = t.check_invalid_entries(label: :check_x_entries_to_balance.tl(count: invalid_entries_count))
 = main_list
