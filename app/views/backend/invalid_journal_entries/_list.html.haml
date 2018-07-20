@@ -13,6 +13,7 @@
       %i
 %table
   %thead
+    - currency = Preference[:currency]
     %th= Journal.name
     %th= JournalEntryItem.human_attribute_name(:entry_number)
     %th= JournalEntryItem.human_attribute_name(:printed_on)
@@ -30,5 +31,5 @@
           %td= entry.printed_on.strftime("%d/%m/%Y") if first_item
           %td= link_to(item.account_label, { controller: :accounts, action: :show, id: item.account.id})
           %td= truncate(item.name, length: 50)
-          %td= item.debit
-          %td= item.credit
+          %td= number_to_accountancy(item.debit, currency)
+          %td= number_to_accountancy(item.credit, currency)
