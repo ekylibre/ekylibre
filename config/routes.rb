@@ -607,10 +607,9 @@ Rails.application.routes.draw do
     resources :invalid_journal_entries, only: :index do
       collection do
         get :delete_all
+        get :list
       end
     end
-
-    resources :paginate_invalid_journal_entries, only: :index
 
     resources :inventories, concerns: %i[list unroll] do
       member do
