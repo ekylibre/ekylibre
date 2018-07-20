@@ -13,7 +13,8 @@ module Isagri
         depreciation_method_transcode = {
           'Linéaire' => :linear,
           'Non amortissable' => :none,
-          'Dégressif' => :regressive
+          'Dégressif' => :regressive,
+          'Dérogatoire' => :regressive
         }
 
         # get default allocation and expenses account
@@ -41,7 +42,8 @@ module Isagri
             duration_in_year: row[9].blank? ? nil : row[9].to_i,
             depreciation_rate: row[10].blank? ? nil : row[10].tr(',', '.').to_f,
             asset_sale_method: row[11].blank? ? nil : row[11].to_s,
-            net_value: row[20].blank? ? nil : row[20].tr(',', '.').to_d
+            net_value: row[20].blank? ? nil : row[20].tr(',', '.').to_d,
+            product_work_number: row[26].blank? ? nil : row[26].to_s
           }.to_struct
 
           unless r.asset_account
@@ -97,7 +99,8 @@ module Isagri
         depreciation_method_transcode = {
           'Linéaire' => :linear,
           'Non amortissable' => :none,
-          'Dégressif' => :regressive
+          'Dégressif' => :regressive,
+          'Dérogatoire' => :regressive
         }
 
         # get default allocation and expenses account
@@ -120,7 +123,8 @@ module Isagri
             duration_in_year: row[9].blank? ? nil : row[9].to_i,
             depreciation_rate: row[10].blank? ? nil : row[10].tr(',', '.').to_f,
             asset_sale_method: row[11].blank? ? nil : row[11].to_s,
-            net_value: row[20].blank? ? nil : row[20].tr(',', '.').to_d
+            net_value: row[20].blank? ? nil : row[20].tr(',', '.').to_d,
+            product_work_number: row[26].blank? ? nil : row[26].to_s
           }.to_struct
 
           description = r.number + ' | ' + r.name + ' | ' + r.purchase_on.to_s + ' | ' + r.net_value.to_s
@@ -173,6 +177,15 @@ module Isagri
             asset = FixedAsset.create!(asset_attributes)
             w.info prompt + "Fixed asset created : #{asset.name.inspect.green}"
             # Update asset
+          end
+
+          # link asset to his product if exist
+          if r.product_work_number
+            p = Product.find_by(work_number: r.product_work_number)
+            if p
+              asset.product_id = p.id
+              asset.save!
+            end
           end
 
           w.check_point
