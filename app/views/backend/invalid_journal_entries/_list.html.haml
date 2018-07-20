@@ -14,6 +14,10 @@
 %table
   %thead
     - currency = Preference[:currency]
+    %th.act
+      %i.icon.icon-edit
+    %th.act
+      %i.icon.icon-destroy
     %th= Journal.name
     %th= JournalEntryItem.human_attribute_name(:entry_number)
     %th= JournalEntryItem.human_attribute_name(:printed_on)
@@ -26,6 +30,8 @@
       - entry.items.each do |item|
         - first_item = (entry.items.first === item)
         %tr{class: ("first-item" if first_item) }
+          %td.act= link_to('<i></i>'.html_safe, edit_backend_journal_entry_path(entry), class: "edit") if first_item
+          %td.act= link_to('<i></i>'.html_safe, edit_backend_journal_entry_path(entry), class: "destroy") if first_item
           %td= link_to(entry.journal.name, { controller: :journals, action: :show, id: entry.journal.id} ) if first_item
           %td= link_to(entry.number, { controller: :journal_entry_items, action: :show, id: item.id} ) if first_item
           %td= entry.printed_on.strftime("%d/%m/%Y") if first_item
