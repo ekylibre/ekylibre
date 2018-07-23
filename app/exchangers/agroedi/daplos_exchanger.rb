@@ -33,7 +33,7 @@ module Agroedi
       recorded_interventions_with_inputs = {}
 
       # crop
-      daplos.interchange.crops.each do |crop|
+      imported_interventions = daplos.interchange.crops.map do |crop|
         # get specie and area
         production_nature = MasterProductionNature.where(agroedi_crop_code: crop.crop_specie_edicode).first
         w.info '------------------------------CROP-----------------------------------'
@@ -61,7 +61,7 @@ module Agroedi
         end
 
         # parse interventions from daplos file and create each one
-        crop.interventions.each do |i|
+        imported_crop_interventions = crop.interventions.map do |i|
           w.info '------------------------------INTERVENTION-----------------------------------'
           # get intervention nature
           intervention_agroedi_code = RegisteredAgroediCode.where(repository_id: 14, reference_code: i.intervention_nature_edicode).first
@@ -78,6 +78,18 @@ module Agroedi
           end
         end
         w.check_point
+        imported_crop_interventions
+      end
+      # check and group intervention based on same target, same date and same intervention nature
+      imported_interventions = imported_interventions.flatten.uniq.compact
+      imported_interventions.group_by do |intervention|
+        [intervention.procedure_name, intervention.working_periods.first.started_at, intervention.targets.pluck(:product_id).sort]
+      end.values.each do |group|
+        group.reduce do |merged_intervention, other_intervention|
+          other_intervention.inputs.each { |input| input.tap(&:reload).update(intervention_id: merged_intervention.id) }
+          other_intervention.destroy
+          merged_intervention.tap(&:reload)
+        end
       end
     end
 
@@ -406,7 +418,7 @@ module Agroedi
         existing_intervention = ::Intervention.create!(intervention.to_attributes)
       end
       intervention_input_attributes[existing_intervention.id] = input_attributes
-      true
+      existing_intervention
     end
 
     def record_complex_intervention(i, target, procedure)
@@ -553,7 +565,7 @@ module Agroedi
         w.debug 'SOWING'.inspect.red
 
         ## save
-        ::Intervention.create!(intervention.to_attributes)
+        intervention = ::Intervention.create!(intervention.to_attributes)
 
       ###############################
       ####  HARVESTING           ####
@@ -640,16 +652,12 @@ module Agroedi
         w.debug 'HARVESTING'.inspect.red
 
         ## save
-        ::Intervention.create!(intervention.to_attributes)
+        intervention = ::Intervention.create!(intervention.to_attributes)
       else
         w.debug 'Problem to recognize intervention and create it ' + procedure.name.inspect
       end
 
-      # complete equipment if not present
-
-      # complete worker if not present
-
-      nil
+      intervention
     end
   end
 end

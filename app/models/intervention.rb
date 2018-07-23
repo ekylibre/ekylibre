@@ -355,7 +355,7 @@ class Intervention < Ekylibre::Record::Base
 
   # Prevents from deleting an intervention that was executed
   protect on: :destroy do
-    with_undestroyable_products? || procedure.of_category?(:planting)
+    with_undestroyable_products?
   end
 
   # This method permits to add stock journal entries corresponding to the
