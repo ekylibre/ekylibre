@@ -688,9 +688,10 @@ class ActivityProduction < Ekylibre::Record::Base
     if interactor.fail?
       list = []
       list << activity.name
+      list << campaign.harvest_year.to_s if activity.annual? && started_on
+      # list << started_on.to_date.l(format: :month) if activity.annual? && started_on
       list << cultivable_zone.name if cultivable_zone && plant_farming?
-      list << started_on.to_date.l(format: :month) if activity.annual? && started_on
-      list << :rank.t(number: rank_number)
+      # list << :rank.t(number: rank_number)
       list = list.reverse! if 'i18n.dir'.t == 'rtl'
       list.join(' ')
     end

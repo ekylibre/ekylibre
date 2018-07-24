@@ -62,5 +62,10 @@ class CapIslet < Ekylibre::Record::Base
     points.first.values
   end
 
+  def city_name
+    name = RegisteredPostalZone.find_by(code: town_number)
+    return name.city_name if name
+  end
+
   alias net_surface_area shape_area
 end

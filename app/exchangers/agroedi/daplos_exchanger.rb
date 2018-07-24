@@ -49,9 +49,17 @@ module Agroedi
         max_area = crop_area + (crop_area * 0.05)
         min_area = crop_area - (crop_area * 0.05)
 
-        # find existing activity production with specie and area +/- 5% and then a support
-        # TODO add campaign
-        activity_production = ActivityProduction.of_cultivation_variety(production_nature.specie).where('size_value <= ?', max_area).where('size_value >= ?', min_area).first
+        campaign = Campaign.find_by(harvest_year: crop.harvest_year.to_i)
+
+        # find existing activity production with specie and area +/- 5% and then a support and the good campaign
+        activity_production = ActivityProduction.of_cultivation_variety(production_nature.specie).of_campaign(campaign).where('size_value <= ?', max_area).where('size_value >= ?', min_area).first
+
+        # update started_on if present
+        #if !crop.crop_started_on.blank?
+        #  activity_production.started_on = Date.parse(crop.crop_started_on)
+        #  activity_production.save!
+        #end
+
         target = activity_production.support if activity_production
         if target
           w.info "target : #{target.name}".inspect.yellow
