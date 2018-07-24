@@ -79,29 +79,6 @@ class Preference < Ekylibre::Record::Base
     end
   end
 
-  before_save do
-    if name == 'account_number_digits' && integer_value_changed?
-      connection = Account.connection
-      default_value = reference[:account_number_digits][:default]
-      new_value = integer_value || default_value
-      old_value = integer_value_was || default_value
-      if new_value < old_value
-        connection.execute <<-SQL
-          UPDATE accounts
-          SET
-            number = (
-              CASE
-                WHEN LENGTH(RTRIM(number, '0')) < #{new_value} THEN RPAD(RTRIM(number, '0'), #{new_value}, '0')
-                ELSE RTRIM(number, '0')
-              END
-            )
-        SQL
-      else
-        connection.execute "UPDATE accounts SET number = RPAD(number, #{new_value}, '0') WHERE LENGTH(number) < #{new_value}"
-      end
-    end
-  end
-
   class << self
     def prefer(name, nature, default_value = nil)
       @@reference ||= HashWithIndifferentAccess.new

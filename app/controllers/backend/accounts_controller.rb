@@ -45,7 +45,7 @@ module Backend
       t.column :number, url: true
       t.column :name, url: true
       t.column :usages, hidden: true
-      t.column :reconcilable
+      t.column :nature
       t.column :description
     end
 

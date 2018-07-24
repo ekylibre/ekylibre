@@ -22,21 +22,24 @@
 #
 # == Table: accounts
 #
-#  created_at    :datetime         not null
-#  creator_id    :integer
-#  custom_fields :jsonb
-#  debtor        :boolean          default(FALSE), not null
-#  description   :text
-#  id            :integer          not null, primary key
-#  label         :string           not null
-#  last_letter   :string
-#  lock_version  :integer          default(0), not null
-#  name          :string           not null
-#  number        :string           not null
-#  reconcilable  :boolean          default(FALSE), not null
-#  updated_at    :datetime         not null
-#  updater_id    :integer
-#  usages        :text
+#  auxiliary_number        :string
+#  centralizing_account_id :integer
+#  created_at              :datetime         not null
+#  creator_id              :integer
+#  custom_fields           :jsonb
+#  debtor                  :boolean          default(FALSE), not null
+#  description             :text
+#  id                      :integer          not null, primary key
+#  label                   :string           not null
+#  last_letter             :string
+#  lock_version            :integer          default(0), not null
+#  name                    :string           not null
+#  nature                  :string
+#  number                  :string           not null
+#  reconcilable            :boolean          default(FALSE), not null
+#  updated_at              :datetime         not null
+#  updater_id              :integer
+#  usages                  :text
 #
 
 class Account < Ekylibre::Record::Base
@@ -74,21 +77,29 @@ class Account < Ekylibre::Record::Base
   has_many :loans,                        class_name: 'Loan', foreign_key: :loan_account_id
   has_many :loans_as_interest,            class_name: 'Loan', foreign_key: :interest_account_id
   has_many :loans_as_insurance,           class_name: 'Loan', foreign_key: :insurance_account_id
-  has_many :bank_guarantees_loans,               class_name: 'Loan', foreign_key: :bank_guarantee_account_id
+  has_many :bank_guarantees_loans,        class_name: 'Loan', foreign_key: :bank_guarantee_account_id
+  has_many :auxiliary_accounts,           class_name: 'Account', foreign_key: :centralizing_account_id
+  belongs_to :centralizing_account,       class_name: 'Account'
+
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  validates :auxiliary_number, :last_letter, length: { maximum: 500 }, allow_blank: true
   validates :debtor, :reconcilable, inclusion: { in: [true, false] }
   validates :description, :usages, length: { maximum: 500_000 }, allow_blank: true
   validates :label, :name, :number, presence: true, length: { maximum: 500 }
-  validates :last_letter, length: { maximum: 500 }, allow_blank: true
   # ]VALIDATORS]
   validates :last_letter, length: { allow_nil: true, maximum: 10 }
-  validates :number, length: { allow_nil: true, maximum: 20 }
   validates :name, length: { allow_nil: true, maximum: 200 }
-  validates :number, format: { with: /\A\d(\d(\d[0-9A-Z]*)?)?\z/ }
   validates :number, uniqueness: true
+  validates :number, length: { is: 8 }, format: { without: /\A[1-9]0*\z|\A0/ }, if: :general?
+  validates :number, length: { is: 3 }, format: { without: /\A(0*)\z/ }, if: :centralizing?
+  validates :number, length: { minimum: 8, maximum: 12 }, if: :auxiliary?
+  validates :number, format: { with: /\A\d(\d(\d[0-9A-Z]*)?)?\z/ }, unless: :auxiliary?
+  validates :auxiliary_number, length: { allow_blank: true, minimum: 0 }, unless: :auxiliary?
+  validates :auxiliary_number, presence: true, length: { minimum: 5, maximum: 9 }, format: { without: /\A(0*)\z/ }, if: :auxiliary?
+
+  enumerize :nature, in: %i[general centralizing auxiliary], default: :general, predicates: true
 
   # default_scope order(:number, :name)
-  scope :majors, -> { where("number LIKE '_'").order(:number, :name) }
   scope :of_usage, lambda { |usage|
     unless Nomen::Account.find(usage)
       raise ArgumentError, "Unknown usage #{usage.inspect}"
@@ -170,23 +181,35 @@ class Account < Ekylibre::Record::Base
     of_usages(:deductible_vat, :enterprise_deductible_vat)
   }
 
+  scope :centralizing, -> {
+    where(nature: 'centralizing')
+  }
+
+  scope :not_centralizing, -> {
+    where.not(nature: 'centralizing')
+  }
+
   # This method:allows to create the parent accounts if it is necessary.
   before_validation do
-    self.number = number.ljust(Preference[:account_number_digits], '0') if number
+    if general?
+      self.auxiliary_number = nil
+      self.centralizing_account = nil
+      self.number = number.ljust(8, '0') if number
+    elsif centralizing?
+      self.auxiliary_number = nil
+      self.centralizing_account = nil
+      self.number = number.ljust(3, '0') if number
+    elsif auxiliary?
+      self.auxiliary_number = auxiliary_number.rjust(5, '0')
+      self.number = centralizing_account.number + auxiliary_number if centralizing_account
+    end
     self.reconcilable = reconcilableable? if reconcilable.nil?
     self.label = tc(:label, number: number.to_s, name: name.to_s)
     self.usages = Account.find_parent_usage(number) if usages.blank? && number
   end
 
-  validate do
-    errors.add(:number, :unauthorized) if self.number.match(/\A[1-9]0*\z/).present?
-  end
-
   protect(on: :destroy) do
-    for r in self.class.reflect_on_all_associations(:has_many)
-      return true if send(r.name).any?
-    end
-    return false
+    self.class.reflect_on_all_associations(:has_many).any? { |a| send(a.name).any? }
   end
 
   class << self
@@ -223,13 +246,22 @@ class Account < Ekylibre::Record::Base
     end
 
     # Find account with its usage among all existing account records
-    def find_in_nomenclature(usage)
-      account = of_usage(usage).first
-      unless account
-        item = Nomen::Account[usage]
-        account = find_by(number: item.send(accounting_system)) if item
+    def find_by_usage(usage, except: [], sort_by: [])
+      accounts = of_usage(usage)
+      accounts = Array(except).reduce(accounts) do |accs, (criterion_or_key, value)|
+        key = criterion = criterion_or_key
+        next accs.where.not(key => value) if value
+        next accs.where.not(id: Account.send(criterion)) if criterion_or_key.is_a? Symbol
+        accounts.where.not(id: except)
       end
-      account
+      accounts = Array(sort_by).reduce(accounts) do |accs, (criterion_or_key, desc_or_asc)|
+        key = criterion = criterion_or_key
+        next accs.order(key => desc_or_asc) if desc_or_asc
+        accs.order(criterion)
+      end
+      return accounts.first if accounts.any?
+      item = Nomen::Account[usage]
+      find_by(number: item.send(accounting_system)) if item
     end
 
     # Find usage in parent account by number
@@ -291,18 +323,37 @@ class Account < Ekylibre::Record::Base
       where(regexp_condition(expr))
     end
 
+    def number_unique?(number)
+      Account.where(number: number).count == 0
+    end
+
+    def valid_item?(item)
+      item_number = item.send(accounting_system)
+      return false unless item_number != 'NONE' && number_unique?(item_number.ljust(8, '0'))
+      Nomen::Account.find_each do |compared_account|
+        compared_account_number = compared_account.send(accounting_system)
+        return false if item_number == compared_account_number.sub(/0*$/, '') && item_number != compared_account_number
+      end
+      true
+    end
+
     # Find or create an account with its name in accounting system if not exist in DB
     def find_or_import_from_nomenclature(usage)
       item = Nomen::Account.find(usage)
       raise ArgumentError, "The usage #{usage.inspect} is unknown" unless item
       raise ArgumentError, "The usage #{usage.inspect} is not implemented in #{accounting_system.inspect}" unless item.send(accounting_system)
-      account = find_in_nomenclature(usage)
-      account ||= create!(
-        name: item.human_name,
-        number: item.send(accounting_system),
-        debtor: !!item.debtor,
-        usages: item.name
-      )
+      account = find_by_usage(usage, except: { nature: :auxiliary }, sort_by: "nature = 'centralizing' DESC")
+      unless account
+        return unless valid_item?(item)
+        account = new(
+          name: item.human_name,
+          number: item.centralizing ? item.send(accounting_system)[0...3] : item.send(accounting_system),
+          debtor: !!item.debtor,
+          usages: item.name,
+          nature: item.centralizing ? 'centralizing' : 'general'
+        )
+        account.save!
+      end
       account
     end
     alias import_from_nomenclature find_or_import_from_nomenclature
@@ -348,7 +399,7 @@ class Account < Ekylibre::Record::Base
           account.destroy if account.destroyable?
         end
         Nomen::Account.find_each do |item|
-          if item.send(accounting_system)
+          if item.send(accounting_system).match(/\A[1-9]0*\z|\A0/).nil?
             find_or_import_from_nomenclature(item.name)
           end
         end
