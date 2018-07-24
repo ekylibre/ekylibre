@@ -25,11 +25,11 @@ class RenameUsagesOfAccountsRemovedInPreferedAccountingSystem < ActiveRecord::Mi
     reversible do |d|
       d.up do
         accounting_systems = %i[fr_pcg82 fr_pcga]
-        current_accounting_system = Preference[:accounting_system].to_sym
+        current_accounting_system = preferred_accounting_system
         accounts_to_update = ACCOUNTS.select { |account| account[current_accounting_system] == 'NONE' }.compact
         accounts_to_update.each do |account|
-          filter_accounting_system = (accounting_systems - [current_accounting_system]).first
-          new_usage = ACCOUNTS.map { |a| a.slice(:name) if a[current_accounting_system] == account[filter_accounting_system] }.compact.first[:name]
+          other_accounting_system = (accounting_systems - [current_accounting_system]).first
+          new_usage = ACCOUNTS.find { |a| a[current_accounting_system] == account[other_accounting_system] }[:name]
           execute <<-SQL
             UPDATE accounts
             SET usages = '#{new_usage}'
@@ -42,5 +42,13 @@ class RenameUsagesOfAccountsRemovedInPreferedAccountingSystem < ActiveRecord::Mi
         # NOOP
       end
     end
+  end
+
+  private
+
+  def preferred_accounting_system
+    execute(<<-SQL).first['string_value'].to_sym
+      SELECT  "preferences".string_value FROM "preferences" WHERE "preferences"."name" = 'accounting_system' LIMIT 1
+    SQL
   end
 end
