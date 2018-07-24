@@ -24,6 +24,10 @@ class AddLoanAccountsAndStates < ActiveRecord::Migration
 
     # # Update mandatory loans accounts
 
+    # This has been commented since it's model-dependent. The migration has
+    # already run on the remote server.
+    # TODO: Properly decouple it someday instead of having it commented out.
+
     # loans_account = Account.find_or_import_from_nomenclature(:loans)
     # interests_account = Account.find_or_import_from_nomenclature(:loans_interests)
 
