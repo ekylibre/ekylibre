@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  # resources :interventions_costs, concerns: [:list, :unroll]
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
@@ -47,7 +48,9 @@ Rails.application.routes.draw do
       get :list_readings
       get :list_trackings
       get :list_members
-      get :list_parcel_items
+      get :list_shipment_items
+      get :list_reception_items
+      get :list_parcel_item_storings
       get :list_places
       get :take
     end
@@ -125,7 +128,7 @@ Rails.application.routes.draw do
 
     resources :dashboards, concerns: [:list] do
       collection do
-        %i[home relationship accountancy trade stocks production humans tools settings].each do |part|
+        %i[home relationship accountancy sales purchases stocks production humans tools settings].each do |part|
           get part
         end
         get :sandbox
@@ -174,7 +177,8 @@ Rails.application.routes.draw do
       resource :last_movements_cell, only: :show, concerns: :list
       resource :last_outgoing_parcels_cell, only: :show, concerns: :list
       resource :last_products_cell, only: :show, concerns: :list
-      resource :last_purchases_cell, only: :show, concerns: :list
+      resource :last_purchases_invoices_cell, only: :show, concerns: :list
+      resource :last_purchases_orders_cell, only: :show, concerns: :list
       resource :last_sales_cell, only: :show, concerns: :list
       resource :main_settings_cell, only: :show
       resource :map_cell, only: :show
@@ -221,6 +225,7 @@ Rails.application.routes.draw do
         get :list_inspections
         # get :list_interventions
         get :list_productions
+        get :list_supports
       end
     end
 
@@ -236,6 +241,7 @@ Rails.application.routes.draw do
     resources :activity_productions, concerns: [:unroll] do
       member do
         get :list_interventions
+        get :list_plants
       end
     end
 
@@ -365,7 +371,7 @@ Rails.application.routes.draw do
     resources :contracts, concerns: [:list] do
       member do
         get :list_items
-        get :list_parcels
+        get :list_receptions
         post :lose
         post :negociate
         post :prospect
@@ -405,6 +411,8 @@ Rails.application.routes.draw do
     resources :deliveries, concerns: %i[list unroll] do
       member do
         get :list_parcels
+        get :list_receptions
+        get :list_shipments
         post :order
         post :prepare
         post :check
@@ -455,13 +463,15 @@ Rails.application.routes.draw do
         get :list_contracts
         get :list_event_participations
         get :list_incoming_payments
-        get :list_incoming_parcels
+        get :list_receptions
         get :list_issues
         get :list_links
         get :list_purchases
+        get :list_purchase_invoices
+        get :list_purchase_orders
         get :list_observations
         get :list_purchase_payments
-        get :list_outgoing_parcels
+        get :list_shipments
         get :list_sale_opportunities
         get :list_sales
         get :list_subscriptions
@@ -589,12 +599,22 @@ Rails.application.routes.draw do
         get :modal
         post :change_state
         get :change_page
+        get :purchase_order_items
       end
       member do
         post :sell
         post :purchase
         get :list_product_parameters
         get :list_record_interventions
+        get :list_service_deliveries
+      end
+    end
+
+    namespace :interventions do
+      resources :costs, only: [] do
+        collection do
+          get :parameter_cost
+        end
       end
     end
 
@@ -718,7 +738,17 @@ Rails.application.routes.draw do
 
     resources :master_production_natures, only: [], concerns: %i[unroll]
 
-    resources :matters, concerns: :products
+    resources :matters do
+      concerns :products, :list
+    end
+
+    resources :naming_formats, concerns: %i[list unroll]
+
+    resources :naming_format_land_parcels, concerns: %i[list unroll] do
+      collection do
+        get :build_example
+      end
+    end
 
     resources :net_services, concerns: [:list] do
       member do
@@ -751,11 +781,19 @@ Rails.application.routes.draw do
 
     # resources :contacts, concerns: :entities
 
-    resources :parcels, concerns: %i[list unroll] do
+    resources :receptions, concerns: %i[list unroll] do
       member do
-        post :invoice
-        get :list_incoming_items
-        get :list_outgoing_items
+        get :list_items
+        get :list_storings
+
+        post :give
+      end
+    end
+
+    resources :shipments, concerns: %i[list unroll] do
+      member do
+        get :list_items
+
         post :ship
 
         post :order
@@ -799,6 +837,15 @@ Rails.application.routes.draw do
 
     resources :products, concerns: %i[products many]
 
+    namespace :purchase_process do
+      resources :reconciliation, only: [] do
+        collection do
+          get :purchase_orders_to_reconciliate
+          get :receptions_to_reconciliate
+        end
+      end
+    end
+
     resources :inspections, concerns: %i[list unroll] do
       member do
         get :export, defaults: { format: 'ods' }
@@ -808,6 +855,32 @@ Rails.application.routes.draw do
     resources :plant_countings, concerns: [:list]
 
     resources :preferences, only: %i[update]
+
+    namespace :products do
+      resources :interventions, only: [] do
+        member do
+          get :has_harvesting
+        end
+      end
+
+      resources :indicators, only: [] do
+        member do
+          get :variable_indicators
+        end
+      end
+
+      resources :search_products, only: [] do
+        member do
+          get :datas
+        end
+      end
+
+      resources :search_variants, only: [] do
+        collection do
+          get :search_by_expression
+        end
+      end
+    end
 
     resources :product_groups, concerns: :products
 
@@ -870,6 +943,36 @@ Rails.application.routes.draw do
       end
     end
 
+    namespace :purchases do
+      resources :reconcilation_states, only: [] do
+        member do
+          get :put_reconcile_state
+          get :put_to_reconcile_state
+          get :put_accepted_state
+        end
+      end
+    end
+
+    resources :purchase_orders, concerns: %i[list unroll] do
+      collection do
+        get :reconciliate_modal
+      end
+      member do
+        get :list_items
+        post :open
+        post :close
+      end
+    end
+
+    resources :purchase_invoices, concerns: %i[list unroll] do
+      member do
+        get :list_items
+        get :list_receptions
+        get :payment_mode
+        post :pay
+      end
+    end
+
     resources :quick_purchases, only: %i[new create], path: 'quick-purchases'
     resources :quick_sales,     only: %i[new create], path: 'quick-sales'
 
@@ -917,7 +1020,7 @@ Rails.application.routes.draw do
         get :list_items
         get :list_undelivered_items
         get :list_subscriptions
-        get :list_parcels
+        get :list_shipments
         get :list_credits
         post :abort
         post :confirm
@@ -995,6 +1098,8 @@ Rails.application.routes.draw do
 
     resources :teams, concerns: %i[list unroll]
 
+    resources :project_budgets, concerns: %i[list unroll]
+
     resources :tours, only: [] do
       member do
         post :finish
@@ -1016,10 +1121,33 @@ Rails.application.routes.draw do
       end
     end
 
+    namespace :users do
+      resources :wice_grid_preferences, only: [] do
+        collection do
+          post :save_column
+        end
+      end
+    end
+
     resources :tax_declarations, concerns: %i[list unroll], path: 'tax-declarations' do
       member do
         post :propose
         post :confirm
+      end
+    end
+
+    resources :unreceived_purchase_orders, concerns: [:list] do
+      member do
+        post :open
+        post :close
+      end
+    end
+
+    namespace :variants do
+      resources :fixed_assets, only: [] do
+        member do
+          get :fixed_assets_datas
+        end
       end
     end
 

@@ -2167,6 +2167,7 @@ eng:
         healthy: "Healthiness"
         height: "Height"
         horizontal_rotation: "Horizontal rotation"
+        hour_counter: "Hour counter"
         immunoglobulins_concentration: "Immunoglobulins concentration"
         impurity_concentration: "Impurity concentration"
         inhibitors_presence: "Inhibitors presence"

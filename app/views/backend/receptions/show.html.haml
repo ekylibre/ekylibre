@@ -1,0 +1,46 @@
+= content_for(:heading_toolbar) do
+  = reconciliation_state(@reception)
+  - if @reception.in_accident?
+    %h2.global-incident-warning{ data: { warn_if_checked: :reception_incident.tl } }
+
+- main_toolbar do |t|
+  = t.edit resource if resource.updateable?
+  = t.destroy
+
+- renamings = {}
+- renamings = renamings.merge(given: :received)
+= main_state_bar(resource, renamings: renamings)
+
+= main_informations attachment: true do
+  = attributes_list do |l|
+    - l.attribute :number
+    - l.attribute :nature
+    - l.attribute :sender, url: true
+    - if resource.contract
+      - l.attribute :contract, url: true
+    - l.attribute :separated_stock
+    - l.attribute :with_delivery
+    - l.attribute :delivery_mode
+    - l.attribute :delivery, url: true
+    -# l.attribute :net_mass
+    -# l.attribute :purchase, url: true
+    - l.attribute :address
+    - if resource.delivery_mode_transporter?
+      - l.attribute :transporter, url: true
+    - l.attribute :planned_at
+    - l.attribute :ordered_at
+    - l.attribute :in_preparation_at
+    - l.attribute :prepared_at
+    - l.attribute :given_at
+    - l.attribute :journal_entry, url: true if resource.journal_entry
+    - l.attribute :undelivered_invoice_journal_entry, url: true if resource.undelivered_invoice_journal_entry
+
+
+= cobbles do |c|
+  - if @reception.items.where(role: 'service').any?
+    - c.cobble :items, title: resource_model.human_attribute_name(:services) do
+      = cobble_list :items
+
+  - if @reception.storings.any?
+    - c.cobble :storings, title: resource_model.human_attribute_name(:storings) do
+      = cobble_list :storings

@@ -317,3 +317,7 @@ interventions:
       - 'equipments_transcode.csv'
       - 'interventions.csv'
     in: 'isaculture'
+
+accountancy:
+  isagri_isacompta_fixed_assets:
+    path: 'isacompta/fixed_assets.csv'

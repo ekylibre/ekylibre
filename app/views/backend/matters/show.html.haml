@@ -37,28 +37,27 @@
         %span.title= resource_model.human_attribute_name(:incoming_parcel_item)
         %span.value
           %i.picto{class: "picto-movements"}
-          = link_to(resource.incoming_parcel_item.parcel.number, controller: :parcels, action: :show, id: resource.incoming_parcel_item.parcel.id)
+          = link_to(resource.incoming_parcel_item.reception.number, controller: :receptions, action: :show, id: resource.incoming_parcel_item.reception.id)
     - if resource.outgoing_parcel_item
       .med-info.important
         %span.title= resource_model.human_attribute_name(:outgoing_parcel_item)
         %span.value
           %i.picto{class: "picto-movements"}
-          = link_to(resource.outgoing_parcel_item.parcel.number, controller: :parcels, action: :show, id: resource.outgoing_parcel_item.parcel.id)
+          = link_to(resource.outgoing_parcel_item.shipment.number, controller: :shipments, action: :show, id: resource.outgoing_parcel_item.shipment.id)
   = labels_info(resource.labels)
 
 = cobbles do |c|
-
-
-
-
   - c.cobble(:movements) do
     = movements_chart(resource)
 
   -# c.cobble(:variable_indicators) do
     = variable_readings(resource)
 
-  - c.cobble(:parcel_items) do
-    = cobble_list(:parcel_items)
+  - c.cobble(:reception_items) do
+    = cobble_list(:reception_items)
+
+  - c.cobble(:shipment_items) do
+    = cobble_list(:shipment_items)
 
   -# c.cobble(tl(:x_readings, count: resource.readings.count)) do
     = cobble_list(:readings)

@@ -23,39 +23,41 @@
     = f.input :procedure_name, as: :hidden, input_html: { data: { procedure: compute_backend_interventions_path(format: :json) }}
     = f.input :nature, as: :hidden
     = f.input :state, as: :hidden
-    = f.referenced_association :issue, new: false
-    - if f.object.record?
-      = f.referenced_association :request_intervention, new: false, as: :hidden
-    = f.input :description
-    - procedure.mandatory_actions.each do |a|
-      = hidden_field_tag('intervention[actions][]', a.name)
-    - if procedure.optional_actions.any?
-      = f.items_list(:actions, selection: procedure.optional_actions_selection, required: procedure.mandatory_actions.empty?)
-    - if f.object.record?
-      = f.input :trouble_encountered, show: '#problem-description'
-      #problem-description
-        = f.input :trouble_description, as: :text
-    = f.custom_fields
-    #prescriptions
-      = f.referenced_association :prescription
-      -#= f.referenced_association :recommender
+    = hidden_field_tag('is_harvesting', f.object.decorate.harvesting?)
     #working-periods
       - unless f.object.working_periods.any?
         - stopped_at ||= Time.zone.now
         - started_at ||= stopped_at - 1.hour
         - f.object.working_periods.new(started_at: started_at, stopped_at: stopped_at)
-      = f.nested_association(:working_periods, minimum: 1, locals: {namespace: 'working_periods'})
+      = f.nested_association(:working_periods, minimum: 1, locals: {namespace: 'working_periods'}, collection: f.object.working_periods.sort_by(&:started_at), partial: '/backend/interventions/working_period_fields')
+    - if f.object.record?
+      = f.referenced_association :request_intervention, new: false, as: :hidden
+    - procedure.mandatory_actions.each do |a|
+      = hidden_field_tag('intervention[actions][]', a.name)
+    - if procedure.optional_actions.any?
+      = f.items_list(:actions, selection: procedure.optional_actions_selection, required: procedure.mandatory_actions.empty?)
+    = f.input :description
+    - if f.object.record?
+      = f.input :trouble_encountered, show: '#problem-description'
+      #problem-description
+        = f.input :trouble_description, as: :text
+      = f.referenced_association :issue, new: false
+    = f.custom_fields
+    #prescriptions
+      = f.referenced_association :prescription
+      -#= f.referenced_association :recommender
     #labellings
-      = f.nested_association(:labellings)
+      = f.nested_association(:labellings, partial: '/backend/interventions/labelling_fields')
 
   = field_set :parameters do
     - procedure.each_parameter do |parameter|
-      = render 'parameter_form', reference: parameter, f: f, namespace: ''
+      = render '/backend/interventions/parameter_form', reference: parameter, f: f, namespace: ''
 
     - if procedure.parameters.any?{|p| p.is_a?(Procedo::Procedure::ProductParameter) and p.beta?}
       %span.beta
         = :beta_description.tl
-
+  = field_set :service_delivering do
+    = f.nested_association(:receptions, maximum: 1, button_label: :add_service_delivering.tl, partial: '/backend/interventions/reception_fields')
 - else # Root Procedure Natures
   - main_period_selector(:year)
   - Nomen::ActivityFamily.find_each do |family|

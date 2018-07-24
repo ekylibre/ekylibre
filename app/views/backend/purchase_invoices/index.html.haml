@@ -1,0 +1,18 @@
+= kujaku do |k|
+  - k.text
+  - k.helper :journal_period_crit, label: :invoice_period.tl
+  - k.choice :all, :to_reconcile, :accepted, :reconcile, name: :reconciliation_state
+  - k.choice :all, :unpaid, name: :nature, label: :element_status.tl
+  - responsibles = User.where(id: PurchaseInvoice.select(:responsible_id).distinct)
+  - supplier_payment_modes = OutgoingPaymentMode.where(id: Entity.select(:supplier_payment_mode_id).distinct)
+  - if responsibles.any?
+    - k.helper do
+      %label= PurchaseInvoice.human_attribute_name(:responsible)
+      = select_tag(:responsible_id, options_for_select([[]] +  responsibles.map{|u| [u.label, u.id]}, params[:responsible_id].to_i))
+  - if supplier_payment_modes.any?
+    - k.helper do
+      %label= :supplier_payment_mode.tl
+      = select_tag(:payment_mode_id, options_for_select([[]] +  supplier_payment_modes.map{|u| [u.name, u.id]}, params[:payment_mode_id].to_i))
+- main_toolbar do |t|
+  = t.new params: { redirect: nil }
+= main_list

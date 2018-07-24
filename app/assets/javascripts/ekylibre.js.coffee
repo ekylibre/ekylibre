@@ -36,6 +36,34 @@
       if event.preventDefault
         event.preventDefault()
 
+  E.toggleValidateButton = (container) ->
+    requiredFields = container.find('input[data-required]:visible')
+    validateItemButton = container.find('button[data-validate]')
+    requiredFields.each ->
+      if $(this).val() ==''
+        validateItemButton.attr("disabled",true)
+        return false
+      else
+        validateItemButton.attr("disabled",null)
+    requiredFields.each ->
+      element = $(this)
+      element.on "selector:change", ->
+        requiredFields.each ->
+          if $(this).val() ==''
+            validateItemButton.attr("disabled",true)
+            return false
+          else
+            validateItemButton.attr("disabled",null)
+      element.change ->
+        requiredFields.each ->
+          if $(this).val() ==''
+            validateItemButton.attr("disabled",true)
+            return false
+          else
+            validateItemButton.attr("disabled",null)
+
+  E.setStorageUnitName = (container) ->
+    container.find('.storing-fields:visible').last().find('.storage-unit-name').html(container.find('.storing-fields').first().find('.storage-unit-name').first().text())
 
 
 ) ekylibre, jQuery

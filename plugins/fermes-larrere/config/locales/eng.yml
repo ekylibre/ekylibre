@@ -1,0 +1,6 @@
+eng:
+  exchangers:
+    fermes_larrere_various_journal_entries: "Various journal entries - Larrere Farms"
+    fermes_larrere_incoming_payments: "Incoming payments - Larrere Farms"
+    fermes_larrere_outgoing_parcels: 'Outgoing parcels - Larrere Farms'
+    fermes_larrere_sales: 'Sales - Larrere Farms'

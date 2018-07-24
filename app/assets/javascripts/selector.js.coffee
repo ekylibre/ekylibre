@@ -13,41 +13,47 @@
     id: null
 
     _create: ->
-      @element.wrap $("<div>", class: "selector")
-
-      @element.attr "autocomplete", "off"
-      @element.addClass('selector-search')
-
-      # Create drop down button
-      @dropDownButton = $ "<a>",
-          href: "##{@element.attr('id')}"
-          rel: 'dropdown'
-          tabindex: -1
-          class: 'selector-dropdown btn btn-default dropdown-toggle sr-only'
-        .insertAfter @element
       @lastSearch = @element.val()
-
-      # Create drop down menu
-      @dropDownMenu = $ "<div>",
-          class: "items-menu selector-choices-list"
-        .hide()
-        .insertAfter(@element)
-
-      # Create value field if it doesn't exist
-      if @element.data("valueField")?
-        @valueField = $ @element.data("valueField")
+      if @element.parent().is('.selector')
+        parent = @element.parent()
+        @dropDownButton = parent.find('.selector-dropdown[rel="dropdown"]').first()
+        @dropDownMenu = parent.find('.selector-choices-list').first()
+        @valueField = parent.find('.selector-value').first()
       else
-        @valueField = $ "<input>",
-          type: "hidden"
-          name: @element.attr('name')
-          class: 'selector-value'
-          'data-parameter-name': @element.attr('data-value-parameter-name')
-        @element.after @valueField
-      @element.removeAttr "name"
-      if @element.attr("required") is "true"
-        @valueField.attr "required", "true"
-      unless @valueField.val()? and @valueField.val() != ''
-        @valueField.attr("value", @element.val())
+        @element.wrap $("<div>", class: "selector")
+
+        @element.attr "autocomplete", "off"
+        @element.addClass('selector-search')
+
+        # Create drop down button
+        @dropDownButton = $ "<a>",
+            href: "##{@element.attr('id')}"
+            rel: 'dropdown'
+            tabindex: -1
+            class: 'selector-dropdown btn btn-default dropdown-toggle sr-only'
+          .insertAfter @element
+
+        # Create drop down menu
+        @dropDownMenu = $ "<div>",
+            class: "items-menu selector-choices-list"
+          .hide()
+          .insertAfter(@element)
+
+        # Create value field if it doesn't exist
+        if @element.data("valueField")?
+          @valueField = $ @element.data("valueField")
+        else
+          @valueField = $ "<input>",
+            type: "hidden"
+            name: @element.attr('name')
+            class: 'selector-value'
+            'data-parameter-name': @element.attr('data-value-parameter-name')
+          @element.after @valueField
+        @element.removeAttr "name"
+        if @element.attr("required") is "true"
+          @valueField.attr "required", "true"
+        unless @valueField.val()? and @valueField.val() != ''
+          @valueField.attr("value", @element.val())
       this._on @element,
         keypress: "_keypress"
         keyup: "_keyup"
@@ -68,9 +74,9 @@
 
       @initializing = true
       if @valueField.val()? and @valueField.val().length > 0
-        this._set @valueField.val()
+        this._set @valueField.val(), true
       else if @element.val()? and @element.val().length > 0
-        this._set @element.val()
+        this._set @element.val(), true
       else
         @initializing = false
       @element.prop("widgetInitialized", true)
@@ -154,7 +160,6 @@
           console.error "Cannot get details of item on #{url} (#{request.status}/#{request.readyState}/#{request.statusCode()}) (#{status}): #{error}"
 
     _select: (id, label, triggerEvents = false, selectedElement = null) ->
-      # console.log "select"
       @lastSearch = label
       len = 4 * Math.round(Math.round(1.11 * label.length) / 4)
       @element.attr "size", (if len < 20 then 20 else (if len > 80 then 80 else len))
@@ -164,15 +169,18 @@
       @id = parseInt id
       if @dropDownMenu.is(":visible")
         @dropDownMenu.hide()
-      if triggerEvents is true
-        @valueField.trigger "selector:change"
-        @element.trigger "selector:change", selectedElement
-      if @initializing
-        @valueField.trigger "selector:initialized"
-        @element.trigger "selector:initialized"
-        @initializing = false
-      @valueField.trigger "selector:set"
-      @element.trigger "selector:set"
+      unless $(document).data('editedMode')
+        if triggerEvents is true
+          @valueField.trigger "selector:change"
+          @element.trigger "selector:change", selectedElement
+        if @initializing
+          @valueField.trigger "selector:initialized"
+          @element.trigger "selector:initialized"
+          @initializing = false
+        @valueField.trigger "selector:set"
+        @element.trigger "selector:set"
+      $(document).data('editedMode', false)
+
       if (redirect = @element.data("redirect-on-change-url")) && (param = @element.attr('id')) && id
         if @element.closest('form').data('dialog') is undefined
           window.location = redirect + "?" + param + "="+ id
@@ -197,7 +205,6 @@
       this
 
     _openMenu: (search) ->
-      # console.log "openMenu"
       data = {}
       if search?
         data.q = search
@@ -350,6 +357,7 @@
   $(document).behave "load", "input[data-selector]", (event) ->
     $("input[data-selector]").each ->
       $(this).selector()
+
   $(document).on "selector:change", (changeEvent, value) ->
       $("*[data-selector-update]").each ->
         updateSource = $(this)

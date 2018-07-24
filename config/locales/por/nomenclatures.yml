@@ -2153,6 +2153,7 @@ por:
         healthy: "Estado de doença animal"
         height: "Altura"
         horizontal_rotation: "Rotação horizontal"
+        # hour_counter: "Hour counter"
         immunoglobulins_concentration: "Concentração de imunoglobulinas"
         impurity_concentration: "Concentração de impurezas"
         inhibitors_presence: "Presença inibidores"

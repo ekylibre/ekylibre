@@ -1,0 +1,13 @@
+= kujaku do |k|
+  - k.text
+  - responsibles = User.where(id: Purchase.select(:responsible_id).distinct)
+  - suppliers = Entity.where(id: Purchase.select(:supplier_id).distinct)
+  - if responsibles.any?
+    - k.helper do
+      %label= PurchaseOrder.human_attribute_name(:responsible)
+      = select_tag(:responsible_id, options_for_select([[]] +  responsibles.map{|u| [u.label, u.id]}, params[:responsible_id].to_i))
+  - if suppliers.any?
+    - k.helper do
+      %label= PurchaseOrder.human_attribute_name(:supplier)
+      = select_tag(:supplier_id, options_for_select([[]] +  suppliers.map{|u| [u.label, u.id]}, params[:supplier_id].to_i))
+= main_list

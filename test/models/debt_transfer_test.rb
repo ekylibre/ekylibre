@@ -65,9 +65,8 @@ class DebtTransferTest < ActiveSupport::TestCase
 
     ### purchase
     purchase_nature = PurchaseNature.first
-    purchase = Purchase.create!(nature: purchase_nature, supplier: Entity.normal.first)
+    purchase = PurchaseInvoice.create!(nature: purchase_nature, supplier: Entity.normal.first)
     purchase.items.create!(variant: variants.first, quantity: 1, unit_pretax_amount: purchase_amount, tax: tax)
-    purchase.invoice
 
     # just to avoid false negative
     assert_equal purchase.items.first.amount, purchase_amount, "can't run debt transfer test without a valid purchase"

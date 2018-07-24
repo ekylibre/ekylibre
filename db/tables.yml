@@ -3272,6 +3272,8 @@ inspections:
   creator_id:
     type: integer
     references: user
+  forecast_harvest_week:
+    type: integer
   id:
     type: integer
     required: true
@@ -3342,6 +3344,18 @@ integrations:
   updater_id:
     type: integer
     references: user
+intervention_costs:
+  doers_cost:
+    type: decimal
+  id:
+    type: integer
+    required: true
+  inputs_cost:
+    type: decimal
+  receptions_cost:
+    type: decimal
+  tools_cost:
+    type: decimal
 intervention_labellings:
   created_at:
     type: datetime
@@ -3443,6 +3457,8 @@ intervention_parameters:
   assembly_id:
     type: integer
     references: product
+  batch_number:
+    type: string
   component_id:
     type: integer
     references: product_nature_variant_component
@@ -3529,6 +3545,8 @@ intervention_parameters:
   variant_id:
     type: integer
     references: product_nature_variant
+  variety:
+    type: string
   working_zone:
     type: geometry
     limit:
@@ -3629,6 +3647,9 @@ interventions:
   id:
     type: integer
     required: true
+  intervention_costs_id:
+    type: integer
+    references: intervention_costs
   issue_id:
     type: integer
     references: issue
@@ -3649,6 +3670,9 @@ interventions:
   procedure_name:
     type: string
     required: true
+  purchase_id:
+    type: integer
+    references: purchase
   request_compliant:
     type: boolean
   request_intervention_id:
@@ -4008,6 +4032,9 @@ journal_entry_items:
   entry_number:
     type: string
     required: true
+  equipment_id:
+    type: integer
+    references: equipment
   financial_year_id:
     type: integer
     references: financial_year
@@ -4037,6 +4064,9 @@ journal_entry_items:
   printed_on:
     type: date
     required: true
+  project_budget_id:
+    type: integer
+    references: project_budget
   real_balance:
     type: decimal
     precision: 19
@@ -4878,6 +4908,35 @@ master_production_outputs:
   production_system_name:
     type: string
     required: true
+naming_format_fields:
+  field_name:
+    type: string
+    required: true
+  id:
+    type: integer
+    required: true
+  naming_format_id:
+    type: integer
+    references: naming_format
+  position:
+    type: integer
+  type:
+    type: string
+    required: true
+naming_formats:
+  created_at:
+    type: datetime
+  id:
+    type: integer
+    required: true
+  name:
+    type: string
+    required: true
+  type:
+    type: string
+    required: true
+  updated_at:
+    type: datetime
 net_services:
   created_at:
     type: datetime
@@ -5122,6 +5181,44 @@ outgoing_payments:
   updater_id:
     type: integer
     references: user
+parcel_item_storings:
+  conditionning:
+    type: integer
+  conditionning_quantity:
+    type: integer
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  id:
+    type: integer
+    required: true
+  lock_version:
+    type: integer
+    required: true
+  parcel_item_id:
+    type: integer
+    references: parcel_item
+    required: true
+  product_id:
+    type: integer
+    references: product
+  quantity:
+    type: decimal
+    precision: 19
+    scale: 4
+  storage_id:
+    type: integer
+    references: product
+    required: true
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
 parcel_items:
   analysis_id:
     type: integer
@@ -5134,12 +5231,27 @@ parcel_items:
     references: user
   currency:
     type: string
+  delivery_id:
+    type: integer
+    references: delivery
+  delivery_mode:
+    type: string
+  equipment_id:
+    type: integer
+    references: equipment
   id:
     type: integer
     required: true
   lock_version:
     type: integer
     required: true
+  merge_stock:
+    type: boolean
+    default: true
+  non_compliant:
+    type: boolean
+  non_compliant_detail:
+    type: string
   parcel_id:
     type: integer
     references: parcel
@@ -5176,9 +5288,22 @@ parcel_items:
   product_ownership_id:
     type: integer
     references: product_ownership
-  purchase_item_id:
+  product_work_number:
+    type: string
+  project_budget_id:
+    type: integer
+    references: project_budget
+  purchase_invoice_item_id:
     type: integer
     references: purchase_item
+  purchase_order_item_id:
+    type: integer
+    references: purchase_item
+  purchase_order_to_close_id:
+    type: integer
+    references: purchase_order
+  role:
+    type: string
   sale_item_id:
     type: integer
     references: sale_item
@@ -5193,6 +5318,11 @@ parcel_items:
   source_product_movement_id:
     type: integer
     references: product_movement
+  transporter_id:
+    type: integer
+    references: entity
+  type:
+    type: string
   unit_pretax_amount:
     type: decimal
     precision: 19
@@ -5243,9 +5373,14 @@ parcels:
     required: true
   in_preparation_at:
     type: datetime
+  intervention_id:
+    type: integer
+    references: intervention
   journal_entry_id:
     type: integer
     references: journal_entry
+  late_delivery:
+    type: boolean
   lock_version:
     type: integer
     required: true
@@ -5275,6 +5410,8 @@ parcels:
   recipient_id:
     type: integer
     references: entity
+  reconciliation_state:
+    type: string
   reference_number:
     type: string
   remain_owner:
@@ -5301,6 +5438,8 @@ parcels:
   transporter_id:
     type: integer
     references: entity
+  type:
+    type: string
   undelivered_invoice_journal_entry_id:
     type: integer
     references: journal_entry
@@ -6661,6 +6800,20 @@ products:
     required: true
   work_number:
     type: string
+project_budgets:
+  created_at:
+    type: datetime
+    required: true
+  description:
+    type: text
+  id:
+    type: integer
+    required: true
+  name:
+    type: string
+  updated_at:
+    type: datetime
+    required: true
 purchase_items:
   account_id:
     type: integer
@@ -6676,6 +6829,10 @@ purchase_items:
     required: true
   annotation:
     type: text
+  conditionning:
+    type: integer
+  conditionning_quantity:
+    type: integer
   created_at:
     type: datetime
     required: true
@@ -6688,6 +6845,9 @@ purchase_items:
   depreciable_product_id:
     type: integer
     references: product
+  equipment_id:
+    type: integer
+    references: equipment
   fixed:
     type: boolean
     required: true
@@ -6695,6 +6855,8 @@ purchase_items:
   fixed_asset_id:
     type: integer
     references: fixed_asset
+  fixed_asset_stopped_on:
+    type: date
   id:
     type: integer
     required: true
@@ -6712,6 +6874,9 @@ purchase_items:
     precision: 19
     scale: 4
     required: true
+  project_budget_id:
+    type: integer
+    references: project_budget
   purchase_id:
     type: integer
     references: purchase
@@ -6726,6 +6891,8 @@ purchase_items:
     precision: 19
     scale: 4
     required: true
+  role:
+    type: string
   tax_id:
     type: integer
     references: tax
@@ -6752,7 +6919,6 @@ purchase_items:
   variant_id:
     type: integer
     references: product_nature_variant
-    required: true
 purchase_natures:
   active:
     type: boolean
@@ -6808,6 +6974,8 @@ purchases:
     precision: 19
     scale: 4
     required: true
+  command_mode:
+    type: string
   confirmed_at:
     type: datetime
   contract_id:
@@ -6829,6 +6997,8 @@ purchases:
     references: entity_address
   description:
     type: text
+  estimate_reception_date:
+    type: datetime
   id:
     type: integer
     required: true
@@ -6846,6 +7016,8 @@ purchases:
   number:
     type: string
     required: true
+  ordered_at:
+    type: datetime
   payment_at:
     type: datetime
   payment_delay:
@@ -6860,6 +7032,8 @@ purchases:
   quantity_gap_on_invoice_journal_entry_id:
     type: integer
     references: journal_entry
+  reconciliation_state:
+    type: string
   reference_number:
     type: string
   responsible_id:
@@ -6875,6 +7049,8 @@ purchases:
   tax_payability:
     type: string
     required: true
+  type:
+    type: string
   undelivered_invoice_journal_entry_id:
     type: integer
     references: journal_entry
@@ -8297,3 +8473,17 @@ versions:
     type: text
   item_type:
     type: string
+wice_grid_serialized_queries:
+  created_at:
+    type: datetime
+  grid_name:
+    type: string
+  id:
+    type: integer
+    required: true
+  name:
+    type: string
+  query:
+    type: text
+  updated_at:
+    type: datetime

@@ -523,7 +523,7 @@ accounts_038:
   debtor: false
   id: 204
   label: 401198 - BAKTOUBI Inc.
-  last_letter: B
+  last_letter: C
   lock_version: 0
   name: BAKTOUBI Inc.
   number: '401198'
@@ -564,7 +564,7 @@ accounts_041:
   debtor: false
   id: 207
   label: 4013 - Yuey LTD
-  last_letter: A
+  last_letter: B
   lock_version: 0
   name: Yuey LTD
   number: '4013'
@@ -4217,3 +4217,16 @@ accounts_336:
   updated_at: 2017-06-07 16:21:11.941427000 Z
   updater_id: 1
   usages: staff_due_remunerations
+accounts_337:
+  created_at: 2017-11-21 10:11:36.382996000 Z
+  creator_id: 1
+  debtor: false
+  id: 683
+  label: 418 - Clients - Produits non encore facturés
+  lock_version: 0
+  name: Clients - Produits non encore facturés
+  number: '418'
+  reconcilable: false
+  updated_at: 2017-11-21 10:11:36.382996000 Z
+  updater_id: 1
+  usages: invoice_to_create_clients

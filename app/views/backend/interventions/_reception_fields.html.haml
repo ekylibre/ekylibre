@@ -1,0 +1,25 @@
+.nested-fields.reception-form.delivery-item{ class: ('cant-be-update' if @intervention.receptions_is_given?) }
+	- sender = @intervention.receptions.count >= 1 ? @intervention.receptions.first.sender_id : ""
+	- purchase_order = @intervention.receptions.count >= 1 ? @intervention.receptions.first.purchase_id : ""
+	= field Entity.human_attribute_name(:supplier),
+	selector_tag(:supplier_id,
+	{controller: :entities,
+		action: :unroll,
+		scope: :suppliers },
+		{},
+		class: "reception-supplier",
+			name: "intervention[receptions_attributes][0][sender_id]",
+			value: sender,
+			data: { product_of_delivery_item: { url: backend_entity_path("RECORD_ID",
+				format: :json) }})
+	.purchase-order-input
+		= f.referenced_association :purchase_order, label: :order.tl, input_html: { class: "reception-purchase",
+			name: "intervention[receptions_attributes][0][purchase_id]",
+			disabled: true,
+			value: purchase_order,
+			data: { 'when-item': 'id',
+				'when-filter-value': { of_supplier: 'RECORD_VALUE'}, 'generate-items': true }},
+				required: true
+	= f.input :reference_number, label: :supplier_reference.tl, input_html: {name:"intervention[receptions_attributes][0][reference_number]"}
+	.purchase-items-array
+	= link_to_remove_nested_association(:destroy.ta, f)

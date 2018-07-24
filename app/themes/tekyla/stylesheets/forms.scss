@@ -384,3 +384,26 @@ div.nested-fields {
   padding-right: $default-gap;
   @include inline-block;
 }
+
+#financial-year-dates {
+  color: #e61e1a;
+  margin-left: 45px;
+}
+
+.form-field {
+  .multiplicator {
+    margin-top: 25px;
+    margin-right: 10px;
+  }
+}
+
+.form-errors {
+  .errors-messages {
+    list-style: disc;
+    padding-left: 2em;
+  }
+
+  .close {
+    font-size: 16px !important;
+  }
+}

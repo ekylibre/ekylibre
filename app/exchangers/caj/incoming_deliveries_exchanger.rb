@@ -58,8 +58,8 @@ module Caj
         )
 
         # create an parcel if not exist
-        parcel = Parcel.find_by(reference_number: r.parcel_number, currency: 'EUR', nature: :incoming) ||
-                 Parcel.create!(
+        parcel = Reception.find_by(reference_number: r.parcel_number, currency: 'EUR', nature: :incoming) ||
+                 Reception.create!(
                    nature: :incoming,
                    currency: 'EUR',
                    reference_number: r.parcel_number,
@@ -73,11 +73,15 @@ module Caj
                  )
         entries << r.parcel_number
 
-        # find a product_nature_variant by mapping current name of matter in coop file in coop reference_name
-        product_nature_variant = ProductNatureVariant.find_by(work_number: r.coop_reference_number)
+
+        # try to find the correct variant from id of provider
+        product_nature_variant = ProductNatureVariant.where('providers ->> ? = ?', sender.id, r.coop_reference_number).first
+        # try to find the correct variant from name
+        product_nature_variant ||= ProductNatureVariant.where('name ILIKE ?', r.coop_reference_name).first
+        # create the variant
         unless product_nature_variant
           product_nature_variant = ProductNatureVariant.import_from_nomenclature(r.product_nature_name, true)
-          product_nature_variant.work_number = r.coop_reference_number if r.coop_reference_number
+          product_nature_variant.providers = { sender.id => r.coop_reference_number } if r.coop_reference_number
           product_nature_variant.name = r.coop_reference_name if r.coop_reference_name
           product_nature_variant.save!
         end
@@ -86,9 +90,11 @@ module Caj
         product_nature_variant.nature.update_columns(population_counting: :decimal)
         # find a price from current supplier for a consider variant
         # TODO: waiting for a product price capitalization method
-        catalog_item = purchase_catalog.items.find_or_initialize_by(variant_id: product_nature_variant.id)
-        catalog_item.amount = r.product_unit_price
-        catalog_item.save!
+        if r.product_unit_price.to_d > 0.0
+          catalog_item = purchase_catalog.items.find_or_initialize_by(variant_id: product_nature_variant.id)
+          catalog_item.amount = r.product_unit_price
+          catalog_item.save!
+        end
 
         # if r.parcel_status == :given
         item = parcel.items.build(variant: product_nature_variant)
@@ -97,11 +103,12 @@ module Caj
         item.quantity = r.quantity
         item.unit_pretax_amount = r.product_unit_price
         item.save!
+        item.storings.create!(storage_id: building_division.id, quantity: r.quantity)
         w.check_point
       end
 
       entries.compact.uniq.each do |parcel_number|
-        p = Parcel.find_by(reference_number: parcel_number)
+        p = Reception.find_by(reference_number: parcel_number)
         p.give
       end
     end

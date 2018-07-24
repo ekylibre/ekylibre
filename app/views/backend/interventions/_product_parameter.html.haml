@@ -3,7 +3,7 @@
   - intervention = product_parameter.intervention
   - product = product_parameter.product
 
-  - if intervention.participations.empty?
+  - if intervention.participations.empty? || product.decorate.not_worker_or_equipment? || product.decorate.no_participation?(intervention.id)
     = add_working_period_cost(product_parameter)
   - else
     - participation = product_parameter.participation if product_parameter.is_a?(InterventionDoer)

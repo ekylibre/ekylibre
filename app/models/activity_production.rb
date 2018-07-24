@@ -52,6 +52,7 @@
 class ActivityProduction < Ekylibre::Record::Base
   include Attachable
   include Customizable
+
   enumerize :support_nature, in: %i[cultivation fallow_land buffer border none animal_group], default: :cultivation
   refers_to :usage, class_name: 'ProductionUsage'
   refers_to :size_indicator, class_name: 'Indicator'
@@ -217,19 +218,21 @@ class ActivityProduction < Ekylibre::Record::Base
   def computed_support_name
     list = []
     list << cultivable_zone.name if cultivable_zone
-    list << activity.name
     list << campaign.name if campaign
+    list << activity.name
     list << :rank.t(number: rank_number)
     list.reverse! if 'i18n.dir'.t == 'rtl'
     list.join(' ')
   end
 
+  def interventions_of_nature(nature)
+    interventions
+      .where(nature: nature)
+  end
+
   def update_names
     if support
-      new_support_name = computed_support_name
-      if support.name != new_support_name
-        support.update_column(:name, new_support_name)
-      end
+      support.update_column(:name, name) if support.name != name
     end
   end
 
@@ -257,7 +260,7 @@ class ActivityProduction < Ekylibre::Record::Base
       end
       self.support ||= LandParcel.new
     end
-    support.name = computed_support_name
+    support.name = name
     support.initial_shape = self.support_shape
     support.initial_born_at = started_on
     support.initial_dead_at = stopped_on
@@ -277,7 +280,7 @@ class ActivityProduction < Ekylibre::Record::Base
   def initialize_animal_group_support!
     unless support
       self.support = AnimalGroup.new
-      support.name = computed_support_name
+      support.name = name
     end
     # FIXME: Need to find better category and population_counting...
     unless support.variant
@@ -311,7 +314,7 @@ class ActivityProduction < Ekylibre::Record::Base
 
   def initialize_equipment_fleet_support!
     self.support = EquipmentFleet.new unless support
-    support.name = computed_support_name
+    support.name = name
     # FIXME: Need to find better category and population_counting...
     unless support.variant
       nature = ProductNature.find_or_create_by!(
@@ -677,14 +680,20 @@ class ActivityProduction < Ekylibre::Record::Base
   end
 
   # Returns unique i18nized name for given production
-  def name(options = {})
-    list = []
-    list << activity.name unless options[:activity].is_a?(FalseClass)
-    list << cultivable_zone.name if cultivable_zone && plant_farming?
-    list << started_on.to_date.l(format: :month) if activity.annual? && started_on
-    list << :rank.t(number: rank_number)
-    list = list.reverse! if 'i18n.dir'.t == 'rtl'
-    list.join(' ')
+  def name(_options = {})
+    interactor = NamingFormats::LandParcels::BuildActivityProductionNameInteractor
+                 .call(activity_production: self)
+
+    return interactor.build_name if interactor.success?
+    if interactor.fail?
+      list = []
+      list << activity.name
+      list << cultivable_zone.name if cultivable_zone && plant_farming?
+      list << started_on.to_date.l(format: :month) if activity.annual? && started_on
+      list << :rank.t(number: rank_number)
+      list = list.reverse! if 'i18n.dir'.t == 'rtl'
+      list.join(' ')
+    end
   end
 
   def get(*args)

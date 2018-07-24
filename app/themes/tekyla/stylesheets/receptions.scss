@@ -1,0 +1,521 @@
+.warn-message {
+  background-color: $caution-color;
+	display: inline-block;
+	margin-left: $default-gap;
+	margin-right: $default-gap;
+	padding-left: $default-gap;
+	padding-right: $default-gap;
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: $fs-small;
+  color: white;
+}
+
+.global-incident-warning {
+  background-color: $caution-color;
+	margin-top: $default-gap;
+	margin-left: $default-gap;
+	margin-right: $default-gap;
+	padding-left: $default-gap;
+	padding-right: $default-gap;
+	padding-top: $default-gap;
+	padding-bottom: $default-gap;
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: $fs-huge;
+  color: white;
+}
+
+
+.new_reception,
+.edit_reception {
+
+	.late-delivery-block {
+	  @include flex-row(flex-start);
+
+	  .reception_late_delivery {
+	    flex-basis: 29.5%;
+        @include flex-row(flex-start);
+	  }
+
+	  .reception_late_delivery .control-label {
+	    flex-basis: 90%;
+        max-width: none;
+	  }
+
+	  .reception_late_delivery .controls {
+	    margin-left: 0;
+	    flex-basis: 4%;
+	  }
+
+	  #due-on {
+	    @include flex-row(flex-start);
+	    flex-basis: 70%;
+	  }
+
+	  #due-on .warn-message {
+	    margin-right: 2em;
+	  }
+
+	  #due-on .control-group {
+	    flex-basis: 25%;
+	  }
+	}
+
+  .list {
+    @include flex-column();
+
+	.incoming-parcel-item:hover td,
+	.nested-item-form:hover td {
+	  background-color: $white !important;
+	}
+
+    thead {
+      @include flex-row();
+      width: 100%;
+      border-bottom: 1px solid #dedede;
+    }
+
+    tbody {
+      @include flex-column(flex-start);
+      border-top: none;
+      width: 100%;
+
+      .nested-item-form:not(.hidden) {
+        @include flex-row();
+        width: 100%;
+      }
+
+      .cell-form {
+        width: 100%;
+        border-top: none;
+      }
+
+      .item-display:not(.hidden) {
+        @include flex-row(flex-start);
+        width: 100%;
+      }
+
+      .item-non-compliant-detail-label {
+        color: $lightened-grey;
+      }
+
+      #storing-display .storage-quantity {
+        display: block;
+      }
+
+      #storing-display .storage-zone {
+        border-top: solid 1px #ddd;
+        border-bottom: solid 1px #ddd;
+      }
+    }
+
+    tfoot {
+      margin-top: $default-gap * 2;
+      width: 100%;
+
+      .total {
+        @include flex-row(flex-start);
+        background: #f7f7f7;
+        border: 1px solid #e8e8e8;
+      }
+
+      .links:first-child {
+        flex-basis: 11%;
+      }
+
+      .links {
+        @include flex-row();
+        flex-basis: 7%;
+        padding: $default-gap / 2 $default-gap * 3;
+        width: 100%;
+        border: none;
+      }
+    }
+
+    .table-headers {
+      display: flex;
+      width: 100%;
+    }
+
+    .act {
+      width: 16px;
+    }
+
+    .nested-remove.act[style*="display: none"] {
+      display: block !important;
+      visibility: hidden;
+    }
+
+    .product-column {
+      flex-basis: 35.4%;
+    }
+
+    .storage-column {
+      flex-basis: 28.2%;
+    }
+
+    .quantity-column {
+      flex-basis: 13.8%;
+    }
+  }
+
+  .nested-item-form .item-form {
+    @include flex-column();
+    margin: $default-gap;
+    padding: $default-gap * 2;
+    background-color: #f8f8f8;
+    border: solid 1px #e5e5e5;
+  }
+
+  .nested-item-form .item-form .form-block {
+    @include flex-row(flex-start, flex-start);
+    margin-bottom: $default-gap * 5;
+    width: 100%;
+
+    .item-block {
+      margin: 0 3em;
+    }
+
+    .reception_items_variant {
+      margin: 0;
+      padding: 0;
+    }
+
+    .reception_items_variant .control-label,
+    .storing-labels .control-label {
+      width: initial;
+    }
+
+    .unitary-variant-fields {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      margin-top: $default-gap * 2;
+    }
+
+    .merchandise {
+      @include flex-column(flex-start);
+      flex: 58%;
+
+      .control-group {
+        width: 100%;
+      }
+
+      .controls {
+        max-width: 86%;
+      }
+
+      .selector,
+      .selector-search {
+        width: 100%;
+      }
+    }
+
+    &.service,
+    &.fees {
+
+      .merchandise {
+        flex: 70%;
+      }
+
+      .merchandise .reception_items_variant .controls {
+        width: 50%;
+      }
+
+      .item-quantifier {
+        flex: 58%;
+      }
+
+	  .item-quantifier .item-quantifier-population {
+	    margin-left: 33%;
+	  }
+
+	  .item-quantifier .control-label {
+        width: initial;
+      }
+    }
+
+	.control-label abbr {
+      margin-left: $default-gap * 0.7;
+	}
+
+    .non-compliant {
+      @include flex-column(flex-start);
+      margin-top: $default-gap * 2;
+      width: 100%;
+
+      .control-group {
+        order: 1;
+      }
+
+      .warn-message {
+        order: 2;
+        margin-left: 8%;
+      }
+
+      .non_compliant_detail_text {
+        order: 3;
+        margin-left: 8%;
+        width: 84%;
+      }
+
+      .non_compliant_detail_text .controls,
+      .item-non-compliant-detail {
+        width: 100%;
+      }
+    }
+
+    .item-add-storing {
+      flex: 90%;
+    }
+
+    .item-add-storing.nested-association {
+      border: none;
+    }
+
+    .item-delivery-mode {
+      flex: 25%;
+    }
+
+    .transporter-delivery-mode {
+      .control-group {
+        margin-top: $default-gap * 2 !important;
+      }
+
+      .controls {
+        max-width: inherit;
+      }
+    }
+
+    .control-label {
+      margin: 0;
+      margin-bottom: $default-gap;
+      max-width: none;
+      width: 100%;
+    }
+
+    .controls {
+      margin: 0;
+    }
+
+    .reception_items_non_compliant {
+      display: flex;
+      flex-direction: row-reverse;
+      justify-content: center;
+      align-content: center;
+      width: 100%;
+    }
+
+    .reception_items_non_compliant .control-label {
+      margin-left: $default-gap;
+      margin-bottom: 0;
+    }
+
+    .reception_items_non_compliant_detail {
+      @include flex-row(flex-start);
+    }
+
+    .reception_items_non_compliant_detail .control-label {
+      max-width: 4em;
+      @include flex-row(flex-start);
+    }
+
+    .storing-labels {
+      @include flex-row(flex-start);
+      padding-left: 9%;
+      border-bottom: solid 1px #DDD;
+
+      .storage-label {
+        flex: 90%;
+      }
+
+      .quantity-label {
+        flex: 30%;
+      }
+    }
+
+    .storing-fields {
+      @include flex-row(flex-start);
+
+      &> .control-group {
+        flex: 73%;
+        order: 2;
+        margin-right: $default-gap * 3;
+      }
+
+      &> .conditionning-flex {
+        flex: 18%;
+        margin-right: 10px;
+      }
+
+      &> .control-group.multiplicator {
+        margin-top: 20px;
+        margin-right: 10px;
+      }
+
+      .control-group.multiplicator {
+        flex:3%;
+      }
+
+      .reception_items_storings_conditionning_quantity, .reception_items_storings_conditionning {
+        flex: 40%
+      }
+
+      .control-group .controls {
+        max-width: none;
+      }
+
+      .control-group .selector {
+        width: 80%;
+      }
+
+      .storing-quantifier {
+        flex: 25%;
+        order: 3;
+      }
+
+      .nested-remove.act  {
+        right: inherit;
+        position: initial;
+      }
+
+      .act {
+        flex: 10%;
+        order: 1;
+      }
+
+      .control-label {
+        border-bottom: solid 1px $default-border-color;
+      }
+
+      & ~ .storings-footer {
+        border-top: solid 1px $default-border-color;
+      }
+    }
+
+    .storings-footer {
+      @include flex-row();
+      padding: $default-gap / 2 0;
+      padding-left: 9%;
+      border-bottom: solid 1px $default-border-color;
+
+      .link-add-storing {
+        flex: 90%;
+      }
+
+      .total-labels {
+        flex: 30%;
+      }
+
+      .total {
+        margin-right: $default-gap;
+      }
+    }
+
+    .item-delivery-mode {
+      .control-group {
+        @include flex-column(flex-start);
+        margin: 0;
+        padding: 0;
+      }
+
+      .controls {
+        @include flex-column(flex-start);
+        flex-direction: column-reverse;
+
+        .radio {
+          margin: 0;
+        }
+      }
+    }
+  }
+
+  .nested-item-form .buttons {
+    align-self: flex-end;
+
+    .btn:first-child {
+      margin-right: $default-gap * 2;
+    }
+  }
+
+  .form-field.second-row {
+    width: 100%;
+
+    .item-form {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      border: none;
+    }
+
+    .reception_items_equipment .control-label{
+      max-width: 40%;
+      margin-left: $default-gap * 2.57;
+    }
+
+    .reception_items_equipment .controls{
+      margin-left: $default-gap * 2.57;
+    }
+
+    .reconciliation-item-state-block {
+      margin-left: $default-gap * 2.5;
+    }
+
+    #showItemReconciliationModal {
+      margin-top: $default-gap * 4;
+    }
+    .reception_items_project_budget {
+      display: block;
+      .controls {
+        margin-left: 0%;
+        input {
+          width: 100%;
+        }
+      }
+    }
+  }
+}
+
+
+// Responsive media queries
+@media (max-width: $medium-screen) {
+
+  .new_reception,
+  .edit_reception {
+
+    .list {
+
+      .product-column {
+	    flex-basis: 28.5%;
+	  }
+
+	  .storage-column {
+	    flex-basis: 22.8%;
+	  }
+
+	  .quantity-column {
+	    flex-basis: 14.7%;
+	  }
+    }
+
+    .form-block .merchandise {
+      flex: 28% !important;
+    }
+
+    .form-block .item-add-storing {
+      flex: 54% !important;
+	}
+  }
+}
+
+.merge-stock {
+  .reception_items_merge_stock {
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: row-reverse;
+    .control-label {
+      margin-left: 10px !important;
+    }
+  }
+}

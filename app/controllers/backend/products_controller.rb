@@ -17,7 +17,6 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
-
 module Backend
   class ProductsController < Backend::BaseController
     manage_restfully t3e: { nature: :nature_name }, subclass_inheritance: true, multipart: true
@@ -174,10 +173,19 @@ module Backend
     end
 
     # Lists parcel items of the current product
-    list(:parcel_items, conditions: { product_id: 'params[:id]'.c }, order: { created_at: :desc }) do |t|
-      t.column :parcel, url: true
-      t.column :nature, through: :parcel
-      t.column :given_at, through: :parcel, datatype: :datetime
+    list(:reception_items, model: :parcel_item_storings, joins: :parcel_item, conditions: { product_id: 'params[:id]'.c }, order: { created_at: :desc }) do |t|
+      t.column :reception, label_method: :reception_number, url: { controller: :receptions, id: 'RECORD.parcel_item.parcel_id'.c }
+      t.column :nature, label_method: :reception_nature
+      t.column :given_at, label_method: :reception_given_at, datatype: :datetime
+      t.column :population, label_method: :quantity
+      t.column :product_identification_number, through: :parcel_item
+    end
+
+    # Lists parcel items of the current product
+    list(:shipment_items, model: :shipment_items, conditions: { product_id: 'params[:id]'.c, parcels: { nature: :outgoing } }, order: { created_at: :desc }) do |t|
+      t.column :shipment, url: { controller: :shipments }
+      t.column :nature, through: :shipment
+      t.column :given_at, through: :shipment, datatype: :datetime
       t.column :population
       t.column :product_identification_number
     end
@@ -234,7 +242,7 @@ module Backend
 
     def edit_many
       activity = Activity.find_by(id: params[:activity_id]) if params[:activity_id]
-      targetable_products = Product.where(type: %w[Plant LandParcel Animal])
+      targetable_products = Product.where(type: %w[Animal])
 
       @targets = activity.present? ? targetable_products.where(activity_production_id: activity.productions.pluck(:id).push(nil)) : targetable_products
       @targets = @targets.order(:activity_production_id)

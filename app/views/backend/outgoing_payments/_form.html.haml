@@ -9,7 +9,9 @@
       = f.association :affair, as: :hidden
   = f.referenced_association :payee
   = f.input :amount, as: :string, input_html: { pattern: "[0-9]+([\.][0-9]+)?" }
-  = f.input :to_bank_at
+  = f.input :to_bank_at, wrapper_html: { class: 'apply-fy-date' }
+  %span.hidden#financial-year-dates{ financial_year_started_on_stopped_on }
+    = :warning_date_not_in_period.tl
   = f.input :delivered
   = f.referenced_association :mode
   = f.custom_fields

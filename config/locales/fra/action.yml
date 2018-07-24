@@ -165,9 +165,9 @@ fra:
       index: "Tableaux de bord"
       new: "Nouveau tableau de bord"
       production: "Tableau de bord de la production"
-      purchases: "Tableau de bord des achats" #?
+      purchases: "Tableau de bord des achats"
       relationship: "Tableau de bord de la gestion des relations"
-      sales: "Tableau de bord des ventes" #?
+      sales: "Tableau de bord des ventes"
       sandbox: "Bac à sable - tableau de bord: %{name}"
       search: "Recherche de\_: %{searched}"
       settings: "Configuration"
@@ -323,6 +323,8 @@ fra:
       index: "Encaissements"
       new: "Nouvel encaissement"
       show: "Encaissement n°%{number} de %{entity}"
+    backend/input_receptions: #?
+      new: "Nouvelle réception d'intrants" #?
     backend/inspections:
       edit: "Modifier l’agréage\_: %{number}"
       index: "Agréages"
@@ -421,6 +423,8 @@ fra:
       index: "Emprunts"
       new: "Nouvel emprunt"
       show: "Emprunt\_: %{name}"
+    backend/maintenance_supply_receptions: #?
+      new: "Nouvelle réception de matériels et de matières" #?
     backend/manure_management_plans:
       edit: "Modifier le plan de fumure\_: %{name}"
       index: "Plans de fumure"
@@ -447,6 +451,11 @@ fra:
     backend/myselves:
       change_password: "Changer de mot de passe" #?
       show: "Mon compte"
+    backend/naming_format_land_parcels:
+      edit: "Format de nommage des Parcelles"
+      index: "Formats de nommage" #?
+    backend/naming_formats:
+      index: "Formats de nommage"
     backend/net_services:
       edit: "Modifier un service en ligne"
       index: "Services en ligne"
@@ -565,6 +574,17 @@ fra:
       index: "Produits"
       new: "Créer un produit"
       show: "%{nature}\_: %{name}"
+    backend/project_budgets: #?
+      edit: "Modifier le budget\_: %{name}" #?
+      index: "Budgets " #?
+      new: "Nouveau budget" #?
+    backend/purchase_invoices:
+      edit: "Modifier la facture: %{number}"
+      index: "Factures"
+      new: "Nouvelle facture"
+      pay: "Payer"
+      payment_mode: "Selection du mode de paiement"
+      show: "Facture\_: %{number} au fournisseur %{supplier}"
     backend/purchase_items: #?
       edit: "Modifier une ligne de la commande" #?
       new: "Nouveau produit à la commande" #?
@@ -573,29 +593,49 @@ fra:
       index: "Types d’achat"
       new: "Nouveau type d’achat"
       show: "Type d’achat\_: %{name}"
+    backend/purchase_orders:
+      # close: "Close order: %{number}"
+      edit: "Modifier la commande\_: %{number}"
+      index: "Commandes"
+      new: "Nouvelle commande"
+      # open: "Open order: %{number}"
+      # reconciliate_modal: "Reconciliate modal order: %{number}"
+      show: "Commande\_: %{number} au fournisseur %{supplier}"
     backend/purchase_payments:
       edit: "Modifier le décaissement\_: %{number}"
       index: "Décaissements"
       new: "Nouveau décaissement"
       show: "Décaissement n°%{number} pour %{payee}"
-    backend/purchases:
-      abort: "Annuler l’achat"
-      confirm: "Confimer l’achat et attendre les arrivages"
-      correct: "Corriger l’achat"
-      edit: "Modifier l’achat\_: %{number}"
+    backend/purchases: #?
+      abort: "Annuler l’achat" #?
+      confirm: "Confimer l’achat et attendre les arrivages" #?
+      correct: "Corriger l’achat" #?
+      edit: "Modifier l’achat\_: %{number}" #?
       finish: "Finir l’achat" #?
-      index: "Achats"
-      invoice: "Réception de la facture"
-      new: "Nouvel achat"
-      payment_mode: "Selection du mode de paiement"
-      propose: "Commande soumise au fournisseur"
-      propose_and_invoice: "Facturer directement"
-      refuse: "Commande refusée"
-      show: "Achat\_: %{number} au fournisseur %{supplier}"
+      index: "Achats" #?
+      invoice: "Réception de la facture" #?
+      new: "Nouvel achat" #?
+      payment_mode: "Selection du mode de paiement" #?
+      propose: "Commande soumise au fournisseur" #?
+      propose_and_invoice: "Facturer directement" #?
+      refuse: "Commande refusée" #?
+      show: "Achat\_: %{number} au fournisseur %{supplier}" #?
     backend/quick_purchases:
       new: "Nouvel Achat/Décaissement"
     backend/quick_sales:
       new: "Nouvelle Vente/Encaissement"
+    backend/receptions:
+      cancel: "Annuler réception: %{number}" #?
+      check: "Vérifier réception: %{number}" #?
+      edit: "Modifier réception: %{number}"
+      give: "Give reception: %{number}"
+      index: "Réceptions"
+      invoice: "Invoice reception: %{number}" #?
+      new: "Nouvelle réception"
+      order: "Order reception: %{number}" #?
+      prepare: "Prepare reception: %{number}" #?
+      ship: "Expédier la réception" #?
+      show: "Réception: %{number}"
     backend/registrations:
       edit: "Modifier inscription"
       index: "Inscriptions"
@@ -653,6 +693,18 @@ fra:
       index: "Installations"
       new: "Nouvelle installation"
       show: "Installation\_: %{name}"
+    backend/shipments:
+      cancel: "Annuler l'expédition: %{number}"
+      check: "Vérifier l'expédition: %{number}"
+      edit: "Modifier l'expédition: %{number}"
+      give: "Give shipment: %{number}"
+      index: "Expéditions"
+      invoice: "Invoice shipment: %{number}" #?
+      new: "Nouvelle expédition"
+      order: "Order shipment: %{number}"
+      prepare: "Préparation de l'expédition: %{number}"
+      ship: "Expédier la réception"
+      show: "Expédition\_: %{number}"
     backend/subscription_natures:
       edit: "Modifier le type d’abonnement\_: %{name}"
       index: "Types d’abonnement"
@@ -710,6 +762,10 @@ fra:
       index: "Produits transformés" #?
     backend/trial_balances:
       show: "Balance"
+    backend/unreceived_purchase_orders:
+      # edit: "Edit unreceived order: %{name}"
+      index: "Commandes à réceptionner"
+      # show: "Unreceived order: %{name}"
     backend/users:
       edit: "Modifier l’utilisateur\_: %{first_name} %{last_name}"
       index: "Utilisateurs"
@@ -734,6 +790,8 @@ fra:
       already_confirmed: "a déjà été validé(e)"
       confirmation_period_expired: "doit être confirmé sous %{period}, refaites une nouvelle demande s’il vous plait"
       expired: "a expiré, merci d’en faire une nouvelle demande"
+      harvest_in_progress: "Attention, cette culture est en cours de récolte"
+      intervention_already_planned: "Attention, une autre intervention est prévue pour cette %{product_type} dans la planification (%{intervention_name})" #?
       not_enough: "not enough %{resource} to complete task"
       not_found: "n’a pas été trouvé(e)"
       not_locked: "n’était pas verrouillé(e)"
@@ -816,6 +874,8 @@ fra:
       zoomOutTitle: "Dézoomer"
   labels:
     abilities: "Compétences" #?
+    accepted: "Acceptée"
+    accepted_for_paiment: "Acceptée pour paiement"
     access: "Accès"
     access_parameters: "Paramètres de connexion"
     account_accruals: "Comptes de régularisation" #?
@@ -880,6 +940,8 @@ fra:
     add_exit: "Ajouter une sortie"
     add_expense: "Ajouter une dépense"
     add_fax: "Ajouter un n° de fax"
+    add_fees: "Ajouter des frais"
+    add_field: "Ajouter un champ"
     add_filter: "Ajouter un filtre"
     add_grading_check: "Ajouter un critère d’agréage"
     add_incoming_payment: "Ajouter un encaissement"
@@ -893,6 +955,7 @@ fra:
     add_line: "Ajouter une ligne"
     add_linestring: "Ajouter une ligne"
     add_mail: "Ajouter une adresse postale"
+    add_merchandise: "Ajouter une marchandise"
     add_mobile: "Ajouter un n° de portable"
     add_new_record: "Ajouter un nouvel enregistrement"
     add_outgoing_payment: "Ajouter un décaissement"
@@ -906,15 +969,20 @@ fra:
     add_polygon: "Ajouter un polygone"
     add_production: "Ajouter une production"
     add_purchase: "Ajouter un achat"
+    add_purchase_invoice: "Ajouter une facture d'achat"
     add_purchase_payment: "Ajouter un décaissement"
     add_purchase_taxation: "Ajouter une taxe d’achat"
     add_quickly_an_item: "Ajouter rapidement une ligne de produit"
     add_reading: "Ajouter une mesure pour un indicateur"
+    add_reception: "Ajouter une réception"
     add_regularization: "Ajouter une régularisation"
     add_revenue: "Ajouter une recette"
     add_sale: "Ajouter une vente"
     add_sale_taxation: "Ajouter une taxe de vente"
     add_season: "Ajouter une saison"
+    add_service: "Ajouter un service"
+    add_service_delivering: "Ajouter une prestation de service"
+    add_storing: "Ajouter une zone de stockage"
     add_subscription_for_sale_line: "Ajouter un abonnement pour la ligne N°%{position}"
     add_support: "Ajouter un support de production"
     add_tactic: "Ajouter un itinéraire technique"
@@ -938,6 +1006,7 @@ fra:
     all_cash_balances: "Soldes des comptes" #?
     all_columns: "Toutes les colonnes"
     all_conditions: "toutes les conditions"
+    all_f: "Toutes" #?
     all_periods: "Tous les exercices"
     already_credited_quantity: "Qté. déjà passée en avoir" #?
     amount: "Montant"
@@ -993,6 +1062,7 @@ fra:
     attorney: "Informations mandataire" #?
     automatic: "Auto"
     available: "Disponible"
+    available_area: "Surface disponible"
     available_columns: "Champs disponibles\_: %{columns}"
     average: "Moyenne"
     back: "Revenir à la page précédente"
@@ -1001,6 +1071,7 @@ fra:
     balance: "Solde"
     balance_of_selection: "Solde de la sélection"
     bank_account: "Compte bancaire"
+    bank_reconciliation: "Rapprochement bancaire" #?
     bank_statement_number: "N° du relevé de compte bancaire"
     bank_statements: "Relevés de compte bancaire"
     bban: "Relevé d’identité bancaire (RIB)"
@@ -1086,6 +1157,7 @@ fra:
     column_organization: "Organisation" #?
     column_title: "Titre" #?
     columns: "Colonnes à importer"
+    comment: "Commentaire"
     commission: "Commission"
     company: "Société"
     complement_sort: "Trier les choix par nom" #?
@@ -1100,6 +1172,7 @@ fra:
       filter_on_attribute_of_class: "Filtre sur %{attribute} (%{class})"
       special-subscriber: "Filtre Abonné"
     configure: "Configurer"
+    confirmation_update_historical_plans: "Voulez-vous appliquer ces modifications sur l'historique des noms de parcelles ?"
     confirmed: "Confirmées" #?
     confirmed_at: "Confirmée le" #?
     connect: "Se connecter"
@@ -1158,12 +1231,14 @@ fra:
     cropping_plan: "Assolement"
     cropping_plan_chart: "Assolement" #?
     cropping_plan_on_cultivable_zones: "Assolement (Parcelles culturales)"
+    crops: "Cultures"
     crumb_procedure_nature: "Type de procedure" #?
     crumbs: "Miettes"
     csv_statistics: "Statistiques à exporter au format CSV" #?
     cultivable_zone: "Zone cultivable"
     cultivable_zone_abbreviation: "ZC" #?
     cultivable_zones: "Zones cultivables"
+    cultivated_hectare_costs: "Coût par hectare cultivé"
     cumul: "Cumul du total et du solde précédent N°%{number}"
     currency: "Devise" #?
     currency_conversion_rate: "Taux de conversion de la nouvelle monnaie"
@@ -1173,6 +1248,7 @@ fra:
     current_cultivation: "Culture actuelle"
     current_letter: "Lettre en cours\_: %{letter}" #?
     current_result_before_taxe: "Résulat courant avant impôts"
+    current_stock: "Stock actuel"
     current_stocks_by_variety: "État des stocks"
     currently_subscribed_to: "Actuellement abonné à"
     custom_fields: "Champs personnalisés"
@@ -1228,6 +1304,7 @@ fra:
     direct_expenses: "Charges directes" #?
     direct_margin: "Marge directe" #?
     discount: "Réduc. (%)"
+    discount_without_percent: "Remise"
     disease: "Maladie"
     disease_deformity_percentage: "Pourcentage de maladies et malformations"
     disease_percentage: "Maladies (%)"
@@ -1256,6 +1333,7 @@ fra:
     download_firefox: "Télécharger Mozilla Firefox…" #?
     downpayment: "Acompte"
     draft: "Brouillard"
+    driver: "Conducteur"
     drug: "Médicament" #?
     duplicate: "Dupliquer"
     duration: "Durée"
@@ -1266,6 +1344,7 @@ fra:
     edit_budget: "Modifier le budget"
     ekylibre: "www.ekylibre.org"
     elapsed_interventions_times_by_activities: "Temps passé par activité"
+    element_status: "Statut"
     email: "Email:"
     emissions_and_reevaluation_gaps: "Ecart de réévaluation, primes d’émission"
     employee: "Employé" #?
@@ -1301,7 +1380,8 @@ fra:
     evaluated_doer_cost: "Coût main d’œuvre"
     evaluated_input_cost: "Coût intrants"
     evaluated_other_cost: "Coût autres"
-    evaluated_tool_cost: "Coût outils"
+    evaluated_reception_cost: "Coût prestation de service"
+    evaluated_tool_cost: "Coût équipements"
     events: "Évènements"
     evolution: "Evolution"
     example: "Exemple\_: %{value}"
@@ -1325,12 +1405,16 @@ fra:
     export: "Exporter"
     export_as_csv: "Exporter en CSV"
     export_as_ods: "Exporter en ODS"
+    export_as_odt: "Exporter en ODT" #?
+    export_as_pdf: "Exporter en PDF" #?
     export_as_xcsv: "Exporter en CSV pour Excel"
     export_backup: "Export d’un fichier de sauvegarde" #?
     exportation: "Exportation" #?
     extract: "Extraire" #?
     fat_matters_concentration: "Teneur en matières grasses" #?
     fax: "Fax" #?
+    fees: "Frais"
+    field: "Champ %{counter}"
     field_distribution: "Parcellaire"
     file_nature: "Type de fichier"
     file_pages_count: "Nombre de pages" #?
@@ -1355,6 +1439,7 @@ fra:
     fixed_asset_debts: "Dettes sur immobilisations"
     fixed_asset_depreciations: "Dépréciations d’immobilisation"
     fixed_assets: "Immobilisations"
+    forecast_harvest_week: "Semaine de récolte"
     france_maaid: "N° AMM" #?
     from: "À partir du"
     fruit_yield: "Rendement fruit" #?
@@ -1373,6 +1458,7 @@ fra:
     generate_repayments: "Passer en comptabilité"
     geolocation: "Géolocalisation"
     give_discount: "Octroyer une remise" #?
+    global_costs: "Coût global"
     global_preferences: "Préférences générales"
     go: "Valider"
     gradings: "Agréages"
@@ -1387,6 +1473,7 @@ fra:
     groups: "Groupes"
     guide_evolution: "Évolution du guide"
     guides: "Référentiels" #?
+    harvested_area: "Surface récoltée"
     harvested_at: "Récolté le"
     healthy: "Phase du bioprocessus de maladie d’un animal" #?
     help: "Aide"
@@ -1395,7 +1482,10 @@ fra:
     hint: "Astuce\_: %{value}"
     historic: "Historique"
     home: "Accueil"
+    hour: "Heure"
+    hour_counter: "Compteur horaire"
     hours: "H"
+    hours_label: "Heures"
     human_target_names: "Nom des cibles" #?
     human_working_duration: "Temps de travail"
     human_working_zone_area: "Zone travaillée" #?
@@ -1448,7 +1538,7 @@ fra:
     interactive_maps: "Une librairie JavaScript pour des cartes interactives"
     interface_preferences: "Préférences de l’interface"
     internal_error: "Oups, quelque chose s’est mal passé."
-    interval: "Intervalle personnalisé"
+    interval: " personnalisé"
     intervention: "Intervention"
     intervention_at: "%{intervention} du %{at}"
     intervention_message_miscibility: "Mélange autorisé"
@@ -1470,6 +1560,7 @@ fra:
     investment_security: "Valeur mobilière de placement"
     investment_subsidies: "Subventions d’investissement"
     invitation_status: "État"
+    invoice: "Facture"
     invoice_period: "Période de facturation"
     invoice_status: "État de facturation"
     invoiced: "Facturés"
@@ -1531,7 +1622,11 @@ fra:
     last_procedures: "Dernières procédures" #?
     last_products: "Dernières naissances"
     last_purchases: "Derniers achats"
+    last_purchases_invoices: "Dernières factures"
+    last_purchases_orders: "Dernières commandes"
     last_sales: "Dernières ventes"
+    late: "En retard"
+    late_delivery: "Hors délai"
     left_balance_amount: "Report du crédit antérieur non imputé et non remboursé" #?
     legal_dose: "Dose homologuée" #?
     letter: "Lettrer"
@@ -1607,8 +1702,10 @@ fra:
     members: "Membres"
     members_count: "Nombre de membres" #?
     menus: "Menus"
+    merchandise: "Marchandise"
     merchandises_purchases: "Marchandises"
     merchandises_purchases_stocks_variation: "Variation de stocks de marchandises"
+    merchandises_services_costs: "Marchandise, Service ou Frais"
     merge: "Fusionner"
     method: "Méthode"
     milk_withdrawal_period: "Période d’attente avant remise en vente de lait" #?
@@ -1622,6 +1719,7 @@ fra:
     mobile: "Portable"
     mode: "Mode"
     model: "Model"
+    models: "Modèles" #?
     modes: "Modes"
     month: "Mois"
     month_period: "%{code} — %{month} %{year}"
@@ -1631,12 +1729,14 @@ fra:
     moved_at: "Fait le" #?
     movements: "Mouvements"
     moves: "Mouvements de stocks" #?
+    n: "Non"
     name: "Nom"
     nature: "Type"
     nature_changed: "Le type des animaux a changé"
     natures: "Types"
     need_building_to_create_production: "Vous devez créer un lieu de stockage pour pouvoir enregistrer vos productions" #?
     need_entities_to_consult_mandates: "Vous devez créer des fiches clients/fournisseurs avant" #?
+    needed_quantity: "Quantité nécessaire"
     net_income: "Résultat d’exercice"
     net_margin: "Marge nette" #?
     net_mass: "Masse nette"
@@ -1671,6 +1771,7 @@ fra:
     new_in_line: "Ajouter un produit intrant" #?
     new_incoming_parcel: "Nouveau colis entrant"
     new_incoming_payment: "Nouveau encaissement"
+    new_inspection: "Nouvel agréage" #?
     new_inventory: "Nouvel inventaire"
     new_issue: "Nouvel incident"
     new_listing: "Nouvelle extraction"
@@ -1684,9 +1785,11 @@ fra:
     new_purchase: "Nouvel achat" #?
     new_purchase_price: "Créer un prix d’achat" #?
     new_quote: "Nouvelle estimation"
+    new_reception: "Nouvelle réception"
     new_reservoir: "Ajouter un réservoir" #?
     new_sale: "Nouvelle vente" #?
     new_sales_price: "Ajouter un prix de vente" #?
+    new_shipment: "Nouvelle expédition"
     new_title: "Nouveau titre" #?
     new_value: "Nouvelle valeur" #?
     new_writing: "Nouvel écrit"
@@ -1715,6 +1818,8 @@ fra:
     no_tracking: "Aucun lot" #?
     no_transfers: "Aucun transfert à réaliser" #?
     nominal_storable_easement_area: "Surface de stockage au sol"
+    non_compliant: "Non conforme"
+    non_compliant_with_request: "Non conforme par rapport à l'attente"
     none: "Aucun"
     normal: "Régime du réel normal"
     not_assessable_operations: "Opérations non imposables" #?
@@ -1722,6 +1827,7 @@ fra:
     not_contains: "Ne contient pas" #?
     not_delivered: "Non délivré"
     not_finishes: "Ne termine pas par" #?
+    not_informed: "Non renseigné"
     not_is: "N’est pas" #?
     not_letterable: "Impossible de lettrer"
     not_ready: "Pas prêt(e)"
@@ -1732,6 +1838,7 @@ fra:
     number_of_cap_land_parcels: "Nombre de parcelle PAC"
     number_of_cap_neutral_areas: "Nombre d'élèments SNA"
     number_options: "Options de numérotations" #?
+    number_with_param: "N° %{number}" #?
     numbers: "Numéros"
     on_account: "À remettre sur le compte"
     one_condition: "au moins une condition"
@@ -1859,12 +1966,14 @@ fra:
     product_bar: "Produit par catégories" #?
     product_category: "Produits"
     product_name: "Produit"
+    product_nature_variants: "Variantes" #?
     product_natures: "Types de produit"
     product_price_listings: "Listes de prix" #?
     product_price_templates: "Types de prix" #?
     product_value: "Chiffre d’affaire de l’exercice %{financial_year}"
     production: "Production"
     production_cost: "Coût de production"
+    production_costs: "Coûts de production"
     production_distribution: "Répartition de la production"
     production_support: "Support de production"
     productions: "Productions"
@@ -1881,12 +1990,14 @@ fra:
     profits: "Produits d’exploitation"
     profits_and_losses: "Les profits et pertes"
     protein_matters_concentration: "Teneur en matières protéïques" #?
+    provider: "Fournisseur" #?
     provisional_grains_yield: "Rendement prévisionnel en grains" #?
     provisionnal_budget: "Budget prévisionnel" #?
     provisions_revenues: "Reprises sur provisions et transfert de charges"
     purchase: "Achat"
     purchase_items: "Lignes de l’achat"
     purchase_number: "N° d’achat"
+    purchase_order: "Commande"
     purchase_payments: "Décaissements"
     purchase_steps: #?
       deliveries: "Livraisons" #?
@@ -1906,7 +2017,9 @@ fra:
     quality: "Qualité"
     quandl: "Quandl"
     quantity: "Quantité"
+    quantity_available: "Quantité disponible"
     quantity_rest: "Quantité restante" #?
+    quantity_to_receive: "Quantité à réceptionner"
     quarterly: "Trimestrielle" #?
     query: "Requête:"
     raw_income: "Résultat d’exploitation"
@@ -1915,13 +2028,28 @@ fra:
     readings: "Relevés d’indicateur"
     ready: "Prêt(e)"
     ready_to_harvest: "Prêt(e) à être récolté(e)"
+    receipt_date: "Date de réception"
+    receipt_responsible: "Responsable réception"
     received: "Reçue"
+    received_quantity: "Quantité réceptionée"
+    receiving_address: "Adresse de réception"
     recent_events: "Derniers événements"
     recent_historic: "Historique récent" #?
+    reception: "Réception"
+    reception_date: "Date de réception : %{date}" #?
+    reception_incident: "Réception en incident"
+    reception_items: "Articles réceptionnés"
+    reception_number: "N° du bon de réception"
+    reception_number_with_reference: "N° du bon de réception : %{reference_number}" #?
+    receptions: "Réceptions"
+    reconcile: "Rapprochée"
+    reconciliate_with_purchases_orders: "Rapprocher avec une ou des commandes"
+    reconciliate_with_receptions: "Rapprocher avec une ou des réceptions"
     record: "Enregistrement"
     record_has_been_correctly_removed: "L’enregistrement a été supprimé correctement." #?
     record_has_not_been_removed: "L’enregistrement n’a pu être supprimé." #?
     record_maintenance: "Enregistrer une maintenance"
+    reference_supplier: "Référence fournisseur : %{reference_number}"
     reflect: "Refléter"
     reflected: "Changements répercutés"
     reflections: "Réflections"
@@ -1969,6 +2097,7 @@ fra:
     revenues: "Recettes"
     revenues_by_product_nature: "Chiffre d’affaire par type de produit"
     reverse: "Appliquer la condition inverse"
+    revise: "Mettre à jour"
     right_parts: #?
       accountancy: "Droits module Comptabilité" #?
       company: "Droits module Société" #?
@@ -2060,6 +2189,9 @@ fra:
     sensor_model: "Modèle du capteur"
     sensors: "Capteurs"
     sequences_load: "Charger les séquences manquantes" #?
+    service: "Service"
+    service_deliveries: "Prestations de services"
+    service_delivering: "Prestation de service"
     sessions: "Sessions"
     set_reconcilable_new_but_existing_third_accounts: "Rendre lettrables les nouveaux comptes tiers déjà existants"
     settings: "Configuration"
@@ -2067,6 +2199,8 @@ fra:
     sex: "Sexe"
     shape: "Forme"
     ship: "Prévue le"
+    shipment_items: "Articles expédiés"
+    shipments: "Expéditions"
     show: "Afficher"
     show_export_preview: "Afficher un aperçu du document (peut augmenter le temps de chargement)" #?
     sign_out: "Se déconnecter"
@@ -2090,6 +2224,7 @@ fra:
     status: "État" #?
     stewardship: "Assistant"
     stock: "Stock"
+    stock_after_order: "Stock après commande"
     stock_container_map: "Carte des lieux de stockage"
     stock_in_ground: "Stock en terre"
     stock_in_ground_by_calibration: "Stock en terre net par calibre"
@@ -2105,7 +2240,8 @@ fra:
     stop: "Jusqu’au"
     stopped: "Arrêtés"
     stopped_on: "Nous nous sommes arrêtés sur"
-    storage: "Support"
+    stopped_on_block: "Date de fin" #?
+    storage: "Zone de stockage"
     string_case: "Options pour le texte" #?
     subject: "Sujet"
     submit: "Envoyer"
@@ -2126,11 +2262,12 @@ fra:
     supplier_informations: "Informations fournisseur"
     supplier_payment_mode: "Mode de paiement du fournisseur"
     supplier_receivables: "Fournisseurs d'exploitations et comptes rattachés"
+    supplier_reference: "Référence fournisseur"
     supply: "Livraison"
     support: "Support"
     supports: "Supports de production"
     supports_chart: "Graphique des supports" #?
-    synthesis: "Synthèse"
+    synthesis: "Synthèses"
     target: "Cible"
     target_name: "Nom de la cible" #?
     target_zone: "Zone cible" #?
@@ -2175,6 +2312,8 @@ fra:
     to_deposit_now: "À encaisser maintenant"
     to_pay: "À payer"
     to_reclaim: "À réclamer"
+    to_reconcile: "À rapprocher"
+    to_reconciliate: "À rapprocher"
     today: "Aujourd’hui"
     tool_cost: "Coût de matériel"
     tool_cost_per_hectare: "Coût de matériel par hectare" #?
@@ -2182,6 +2321,8 @@ fra:
     tools_list: "Liste d’outils" #?
     total: "Total"
     total_amount: "Montant total HT"
+    total_amount_with_taxes: "Total TTC"
+    total_amount_without_taxes: "Total HT"
     total_bacteria_concentration: "Dénombrement des germes totaux" #?
     total_cost: "Coût total"
     total_cost_per_working_unit: "Coût total par unité d’œuvre" #?
@@ -2253,6 +2394,7 @@ fra:
     uninvoiced: "Non facturés"
     uninvoiced_amount: "Montant non facturé" #?
     unit: "Unité"
+    unit_amount: "Prix unit. HT"
     unit_and_indicator: "%{unit} (%{indicator})"
     unit_price_amount: "PU HT" #?
     unit_price_amount_with_taxes: "PU TTC" #?
@@ -2305,12 +2447,14 @@ fra:
     validated: "Validé"
     values: "Valeurs"
     variable_indicators: "Indicateurs variables"
+    variant: "Variante"
     variants: "Variantes"
     vat: "TVA"
     vat_acquisitions: "Acquisitions intracommunautaires" #?
     vat_amount: "Taxe due" #?
     vat_collected: "TVA BRUTE" #?
     vat_paid: "TVA DEDUCTIBLE" #?
+    vat_rate: "Taux TVA"
     vegetable_yield: "Rendement racine ou légume" #?
     video: "Vidéo" #?
     view: "Affichage"
@@ -2320,6 +2464,8 @@ fra:
       resized: "Mode «\_Tout à l’écran\_»" #?
     virtual_quantity: "Quantité virtuelle" #?
     wages: "Rémunérations"
+    warning_date_not_in_period: "Attention : La date saisie n'est pas sur l'exercice en cours."
+    warning_if_no_activites_choose: "Si aucune activité n’est sélectionnée, le modèle d'intervention sera disponible pour toutes les activités." #?
     water_lakes: "Lacs"
     water_rivers: "Rivières"
     watering_concentration: "Eau consommée"
@@ -2327,17 +2473,22 @@ fra:
     weather: "Météo"
     website: "Site web"
     week: "Semaine" #?
+    wice_grid_columns: "Colonnes"
     wind_speed: "Vitesse du vent"
     wine_tanks: "Cuverie" #?
     with_fixed_assets_depreciations: "Inclure les amortissements des immobilisations"
     with_prints: "Inclure les impressions (factures, commandes…)" #?
     worked_on: "Travaillé le" #?
+    worker: "Équipier" #?
     workers: "Équipiers"
+    workforce: "Main d'oeuvre"
     working_area: "Surface travaillée" #?
     working_duration: "Temps de travail"
+    working_hectare_costs: "Coût par hectare travaillé"
     working_sets_stocks: "Stocks d’ensembles de produits"
     working_times: "Temps de travaux de %{name}"
     working_zone: "Zone travaillée" #?
+    workload: "Charge de travail"
     x_cashes:
       one: "1 compte bancaire"
       other: "%{count} comptes bancaires"
@@ -2453,15 +2604,30 @@ fra:
     x_prices: #?
       one: "%{count} prix" #?
       other: "%{count} prix" #?
+    x_purchase_invoices: #?
+      one: "%{count} facture" #?
+      other: "%{count} factures" #?
+    x_purchase_orders: #?
+      one: "%{count} commande" #?
+      other: "%{count} commandes" #?
     x_purchase_payments:
       one: "%{count} paiement d'achat"
       other: "%{count} paiements d'achats"
     x_purchases:
       one: "%{count} achat"
       other: "%{count} achats"
+    x_purchases_invoices:
+      # one: "%{count} purchase"
+      # other: "%{count} purchase"
+    x_purchases_orders:
+      # one: "%{count} purchase order"
+      # other: "%{count} purchase orders"
     x_readings:
       one: "%{count} indicateur"
       other: "%{count} indicateurs"
+    x_receptions:
+      one: "%{count} réception"
+      other: "%{count} réceptions"
     x_results:
       one: "%{count} résultat trouvé"
       other: "%{count} résultats trouvés"
@@ -2477,6 +2643,9 @@ fra:
     x_seconds:
       one: "%{count} seconde"
       other: "%{count} secondes"
+    x_shipments:
+      one: "%{count} expédition"
+      other: "%{count} expéditions"
     x_stock_transfers_to_confirm: #?
       one: "%{count} transfert à effectuer" #?
       other: "%{count} transferts à effectuer" #?
@@ -2606,6 +2775,7 @@ fra:
       journal_reopened_on: "Le %{journal} a été déclôturé au %{closed_on} correctement."
       mails_are_sent: "Les courriels ont été envoyés"
       merge_is_done: "La fusion est terminée"
+      n: "Non" #?
       need_a_valid_payment_mode: "Besoin d’un mode de paiement valide"
       need_a_valid_purchase_nature_to_start_new_purchase: "Nécessite un type d’achat valide pour commencer un nouvel achat"
       need_a_valid_sale_nature_to_start_new_sale: "Nécessite un type de vente valide pour commencer une nouvelle vente"
@@ -2663,6 +2833,7 @@ fra:
       record_has_not_been_removed: "L’enregistrement n’a pas être supprimé correctement" #?
       record_not_found: "Enregistrement introuvable"
       record_x_created: "%{record} %{name} créé"
+      record_x_planned: "%{record} %{name} planifiée" #?
       record_x_updated: "%{record} %{name} mise à jour"
       restoration_finished: "La restauration de la sauvegarde s’est terminée (en %{value} secondes)." #?
       sale_already_invoiced: "La vente a déjà été facturée: vous ne pouvez pas définir de livraison" #?
@@ -2865,9 +3036,10 @@ fra:
     backend/plants: "%{name} ‒ %{work_number}"
     backend/prescriptions: "%{reference_number}"
     backend/product_memberships: "%{started_at}"
-    backend/product_nature_variants: "%{name} (%{unit_name})"
+    backend/product_nature_variants: "%{name} (%{unit_name}) - %{charge_account_number}"
     backend/product_natures: "%{name}"
     backend/products: "%{work_number} %{name} (%{number}) - %{container_name}"
     backend/purchase_payments: "%{number}. %{mode_name} pour %{payee_full_name} de %{amount} %{currency}"
+    backend/purchases: "%{number} - %{reference_number} - %{ordered_at} - %{pretax_amount} €" #?
     backend/trackings: "%{serial} ‒ %{name} ‒ %{producer_full_name}"
     backend/users: "%{first_name} %{last_name}"

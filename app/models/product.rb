@@ -134,13 +134,15 @@ class Product < Ekylibre::Record::Base
   has_many :populations, class_name: 'ProductPopulation', foreign_key: :product_id, dependent: :destroy
   has_many :ownerships, class_name: 'ProductOwnership', foreign_key: :product_id, dependent: :destroy
   has_many :inspections, class_name: 'Inspection', foreign_key: :product_id, dependent: :destroy
-  has_many :parcel_items, dependent: :restrict_with_exception
+  has_many :parcel_item_storings, foreign_key: :product_id
+  has_many :parcel_items, through: :parcel_item_storings, dependent: :restrict_with_exception
   has_many :phases, class_name: 'ProductPhase', dependent: :destroy
   has_many :intervention_participations, class_name: 'InterventionParticipation', dependent: :destroy
   has_many :sensors
   has_many :supports, class_name: 'ActivityProduction', foreign_key: :support_id, inverse_of: :support
   has_many :trackings, class_name: 'Tracking', foreign_key: :product_id, inverse_of: :product
   has_many :variants, class_name: 'ProductNatureVariant', through: :phases
+  has_many :purchase_items, class_name: 'PurchaseItem', inverse_of: :equipment
   has_one :current_phase,        -> { current }, class_name: 'ProductPhase',        foreign_key: :product_id
   has_one :current_localization, -> { current }, class_name: 'ProductLocalization', foreign_key: :product_id
   has_one :current_enjoyment,    -> { current }, class_name: 'ProductEnjoyment',    foreign_key: :product_id
@@ -150,8 +152,8 @@ class Product < Ekylibre::Record::Base
   has_one :container, through: :current_localization
   has_many :groups, through: :current_memberships
   # FIXME: These reflections are meaningless. Will be removed soon or later.
-  has_one :incoming_parcel_item, -> { with_nature(:incoming) }, class_name: 'ParcelItem', foreign_key: :product_id, inverse_of: :product
-  has_one :outgoing_parcel_item, -> { with_nature(:outgoing) }, class_name: 'ParcelItem', foreign_key: :product_id, inverse_of: :product
+  has_one :incoming_parcel_item, -> { with_nature(:incoming) }, class_name: 'ReceptionItem', foreign_key: :product_id, inverse_of: :product
+  has_one :outgoing_parcel_item, -> { with_nature(:outgoing) }, class_name: 'ShipmentItem', foreign_key: :product_id, inverse_of: :product
   has_one :last_intervention_target, -> { order(id: :desc).limit(1) }, class_name: 'InterventionTarget'
   belongs_to :member_variant, class_name: 'ProductNatureVariant'
 
@@ -187,7 +189,7 @@ class Product < Ekylibre::Record::Base
   scope :of_expression, lambda { |expression|
     joins(:nature).where(WorkingSet.to_sql(expression, default: :products, abilities: :product_natures, indicators: :product_natures))
   }
-  scope :of_nature, ->(nature) { where(nature_id: nature.id) }
+  scope :of_nature, ->(nature) { where(nature_id: nature.try(:id) || nature) }
   scope :of_variant, lambda { |variant, _at = Time.zone.now|
     where(variant_id: (variant.is_a?(ProductNatureVariant) ? variant.id : variant))
   }
@@ -283,6 +285,14 @@ class Product < Ekylibre::Record::Base
 
   scope :usable_in_fixed_asset, -> { depreciables.joins('LEFT JOIN fixed_assets ON products.id = fixed_assets.product_id').where('fixed_assets.id IS NULL') }
 
+  scope :with_id, lambda { |id|
+    where(id: id)
+  }
+
+  scope :of_activity_production, lambda { |activity_production|
+    where(activity_production: activity_production)
+  }
+
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :birth_date_completeness, :birth_farm_number, :country, :end_of_life_reason, :father_country, :father_identification_number, :father_variety, :filiation_status, :identification_number, :mother_country, :mother_identification_number, :mother_variety, :origin_country, :origin_identification_number, :picture_content_type, :picture_file_name, :work_number, length: { maximum: 500 }, allow_blank: true
   validates :born_at, :dead_at, :first_calving_on, :initial_born_at, :initial_dead_at, :picture_updated_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
@@ -301,6 +311,13 @@ class Product < Ekylibre::Record::Base
   validate :dead_at_in_interventions, if: ->(product) { product.dead_at? && product.interventions.pluck(:stopped_at).any? }
 
   store :reading_cache, accessors: Nomen::Indicator.all, coder: ReadingsCoder
+
+  after_commit do
+    if nature.population_counting_unitary? && population.zero?
+      m = movements.build(delta: 1, started_at: Time.now)
+      m.save!
+    end
+  end
 
   # [DEPRECATIONS[
   #  - fixed_asset_id

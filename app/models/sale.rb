@@ -67,6 +67,7 @@
 #  updated_at                               :datetime         not null
 #  updater_id                               :integer
 #
+require 'benchmark'
 
 class Sale < Ekylibre::Record::Base
   include Attachable
@@ -87,7 +88,7 @@ class Sale < Ekylibre::Record::Base
   belongs_to :responsible, -> { contacts }, class_name: 'Entity'
   belongs_to :transporter, class_name: 'Entity'
   has_many :credits, class_name: 'Sale', foreign_key: :credited_sale_id
-  has_many :parcels, dependent: :destroy, inverse_of: :sale
+  has_many :parcels, dependent: :destroy, inverse_of: :sale, class_name: 'Shipment'
   has_many :items, -> { order('position, id') }, class_name: 'SaleItem', dependent: :destroy, inverse_of: :sale
   has_many :journal_entries, as: :resource
   has_many :subscriptions, through: :items, class_name: 'Subscription', source: 'subscription'
@@ -222,10 +223,13 @@ class Sale < Ekylibre::Record::Base
     b.journal_entry(self.nature.journal, printed_on: invoiced_on, if: (with_accounting && invoice? && items.any?)) do |entry|
       label = tc(:bookkeep, resource: state_label, number: number, client: client.full_name, products: (description.blank? ? items.pluck(:label).to_sentence : description), sale: initial_number)
       entry.add_debit(label, client.account(:client).id, amount, as: :client)
-      items.each do |item|
-        entry.add_credit(label, (item.account || item.variant.product_account).id, item.pretax_amount, activity_budget: item.activity_budget, team: item.team, as: :item_product, resource: item, variant: item.variant)
+
+      for item in items
+        item_variant = item.variant
         tax = item.tax
-        entry.add_credit(label, tax.collect_account_id, item.taxes_amount, tax: tax, pretax_amount: item.pretax_amount, as: :item_tax, resource: item, variant: item.variant)
+
+        entry.add_credit(label, (item.account || item_variant.product_account).id, item.pretax_amount, activity_budget: item.activity_budget, team: item.team, as: :item_product, resource: item, variant: item_variant)
+        entry.add_credit(label, tax.collect_account_id, item.taxes_amount, tax: tax, pretax_amount: item.pretax_amount, as: :item_tax, resource: item, variant: item_variant)
       end
     end
 
@@ -233,7 +237,7 @@ class Sale < Ekylibre::Record::Base
     # exchange undelivered invoice from parcel
     journal = unsuppress { Journal.used_for_unbilled_payables!(currency: self.currency) }
     b.journal_entry(journal, printed_on: invoiced_on, as: :undelivered_invoice, if: (with_accounting && invoice?)) do |entry|
-      parcels.each do |parcel|
+      for parcel in parcels
         next unless parcel.undelivered_invoice_journal_entry
         label = tc(:exchange_undelivered_invoice, resource: parcel.class.model_name.human, number: parcel.number, entity: supplier.full_name, mode: parcel.nature.tl)
         undelivered_items = parcel.undelivered_invoice_journal_entry.items
@@ -249,12 +253,13 @@ class Sale < Ekylibre::Record::Base
     journal = unsuppress { Journal.used_for_permanent_stock_inventory!(currency: self.currency) }
     b.journal_entry(journal, printed_on: invoiced_on, as: :quantity_gap_on_invoice, if: (with_accounting && invoice? && items.any?)) do |entry|
       label = tc(:quantity_gap_on_invoice, resource: self.class.model_name.human, number: number, entity: client.full_name)
-      items.each do |item|
+
+      for item in items
         next unless item.variant && item.variant.storable?
-        parcel_items_quantity = item.parcel_items.map(&:population).compact.sum
-        gap = item.quantity - parcel_items_quantity
-        next unless item.parcel_items.any? && item.parcel_items.first.unit_pretax_stock_amount
-        quantity = item.parcel_items.first.unit_pretax_stock_amount
+        shipment_items_quantity = item.shipment_items.map(&:population).compact.sum
+        gap = item.quantity - shipment_items_quantity
+        next unless item.shipment_items.any? && item.shipment_items.first.unit_pretax_stock_amount
+        quantity = item.shipment_items.first.unit_pretax_stock_amount
         gap_value = gap * quantity
         next if gap_value.zero?
         entry.add_credit(label, item.variant.stock_account_id, gap_value, resource: item, as: :stock, variant: item.variant)
@@ -366,14 +371,18 @@ class Sale < Ekylibre::Record::Base
       self.confirmed_at ||= self.invoiced_at
       self.payment_at ||= Delay.new(self.payment_delay).compute(self.invoiced_at)
       self.initial_number = number
+
       if sequence = Sequence.of(:sales_invoices)
         loop do
           self.number = sequence.next_value!
           break unless self.class.find_by(number: number)
         end
       end
+
       save!
+
       client.add_event(:sales_invoice_creation, updater.person) if updater
+
       return super
     end
     false

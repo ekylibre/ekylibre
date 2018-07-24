@@ -2164,6 +2164,7 @@ jpn:
         healthy: "動物の疾患状態"
         height: "高さ"
         horizontal_rotation: "水平回転"
+        # hour_counter: "Hour counter"
         immunoglobulins_concentration: "免疫グロブリン濃度"
         impurity_concentration: "不純物濃度"
         inhibitors_presence: "阻害剤の存在"

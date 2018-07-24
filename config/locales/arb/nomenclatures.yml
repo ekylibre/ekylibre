@@ -2162,6 +2162,7 @@ arb:
         healthy: "الدولة الأمراض الحيوانية"
         height: "ارتفاع"
         horizontal_rotation: "دوران أفقي"
+        # hour_counter: "Hour counter"
         immunoglobulins_concentration: "تركيز المناعية"
         impurity_concentration: "تركيز الشوائب"
         inhibitors_presence: "وجود مثبطات"

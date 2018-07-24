@@ -289,6 +289,14 @@ cmn:
       nature:
         background: "背景"
         overlay: "覆盖"
+    naming_format_field_land_parcel:
+      field_name:
+        # activity: "Activity"
+        # campaign: "Campaign"
+        # cultivable_zone_code: "Cultivable zone code"
+        # cultivable_zone_name: "Cultivable zone name"
+        # production_mode: "Production mode"
+        # season: "Season"
     notification:
       level:
         error: "错误"
@@ -316,6 +324,11 @@ cmn:
         in_preparation: "在准备" #?
         ordered: "有序" #?
         prepared: "准备" #?
+    parcel_item:
+      delivery_mode:
+        # third: "Transported by recipient"
+        # transporter: "Transported by transporter"
+        # us: "Transported by us"
     plant_counting:
       nature:
         germination: "在发芽"

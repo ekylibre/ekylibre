@@ -35,7 +35,6 @@ module Unrollable
           head :bad_request
           return false
         end
-
         kept ||= filtered_items.keeping(params[:id]) unless Unrollable::Toolbelt.true?(params[:keep])
 
         items = kept || filtered_items.ordered_matches(keys, searchable_filters, search_term.mb_chars.downcase.normalize)

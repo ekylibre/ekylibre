@@ -289,6 +289,14 @@ spa:
       nature:
         background: "Fondo"
         overlay: "Cubrir"
+    naming_format_field_land_parcel:
+      field_name:
+        # activity: "Activity"
+        # campaign: "Campaign"
+        # cultivable_zone_code: "Cultivable zone code"
+        # cultivable_zone_name: "Cultivable zone name"
+        # production_mode: "Production mode"
+        # season: "Season"
     notification:
       level:
         # error: "Error"
@@ -316,6 +324,11 @@ spa:
         in_preparation: "En la preparación de" #?
         ordered: "Ordenado" #?
         prepared: "Preparado" #?
+    parcel_item:
+      delivery_mode:
+        # third: "Transported by recipient"
+        # transporter: "Transported by transporter"
+        # us: "Transported by us"
     plant_counting:
       nature:
         germination: "En la germinación"
