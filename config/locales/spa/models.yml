@@ -131,10 +131,6 @@ spa:
         unitary_in_parcel: "artículos unitarios sólo se pueden enviar una a una"
         # wrong_length: "%{attribute} is the wrong length (should be %{count} characters)"
       models:
-        account:
-          attributes:
-            number:
-              # unauthorized: "This number can't correspond to a radical class"
         activity:
           checked_off_with_inspections: "Inspecciones ya se han creado para esta actividad"
           checked_without_measures: "Al menos, un tipo de medida debe seleccionarse cuando se quieren inspecciones"
@@ -486,6 +482,7 @@ spa:
     author: "Autor"
     authorized_payments_count: "Pagos autorizados cuentan"
     auto_updateable_addresses: "Actualizables direcciones de automóviles"
+    # auxiliary_number: "Auxiliary number"
     average_value: "Valor promedio"
     balance: "Equilibrar"
     balance_pretax_amount: "Equilibrar la cantidad antes de impuestos"
@@ -537,6 +534,7 @@ spa:
     category: "Categoría"
     ceded: "Cedido"
     ceded_on: "Cedido en"
+    # centralizing_account: "Centralizing account"
     charge_account: "Cuenta de cargo"
     charges_categories: "Cargos categorías"
     checks: "Los cheques"
