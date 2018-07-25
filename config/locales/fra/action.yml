@@ -1101,6 +1101,12 @@ fra:
     confirmed_at: "Confirmée le" #?
     connect: "Se connecter"
     consult: "Consulter" #?
+    consult_the_day_book:
+      one: "Consulter le brouillard (%{count} écriture)" #?
+      other: "Consulter le brouillard (%{count} écritures)" #?
+    consult_unbalanced_entries:
+      one: "Consulter les écritures à équilibrer (%{count})" #?
+      other: "Consulter les écritures à équilibrer (%{count})" #?
     consume: "Consommé"
     contact: "à l’adresse" #?
     contained_products: "Produits contenus"

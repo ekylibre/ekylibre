@@ -1,4 +1,10 @@
 - main_toolbar do |t|
   = t.new params: { redirect: nil }
   = t.bookkeep
+  - unless @draft_entries_count < 1
+    = link_to t("labels.consult_the_day_book", count: @draft_entries_count), { controller: :draft_journals, action: :show }, { class: 'btn btn-default no-icn' }
+  - unless @unbalanced_entries_count < 1
+    - # Insert correct link after merging duck's branch
+    = link_to t("labels.consult_unbalanced_entries", count: @unbalanced_entries_count), { controller: :draft_journals, action: :show }, { class: 'btn btn-default no-icn' }
+
 = main_list

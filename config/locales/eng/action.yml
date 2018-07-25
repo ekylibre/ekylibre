@@ -1185,6 +1185,12 @@ eng:
       special-subscriber: "Special-subscriber"
     configure: "Configure"
     connect: "Connect"
+    consult_the_day_book:
+      one: "Consult the day book (%{count} entry)" #?
+      other: "Consult the day book (%{count} entries)" #?
+    consult_unbalanced_entries:
+      one: "Consult unbalanced entries (%{count})" #?
+      other: "Consult unbalanced entries (%{count})" #?
     consume: "Consume" #?
     contained_products: "Contained products"
     container: "Container"
