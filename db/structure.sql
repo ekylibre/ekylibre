@@ -251,7 +251,10 @@ CREATE TABLE accounts (
     creator_id integer,
     updater_id integer,
     lock_version integer DEFAULT 0 NOT NULL,
-    custom_fields jsonb
+    custom_fields jsonb,
+    auxiliary_number character varying,
+    nature character varying,
+    centralizing_account_id integer
 );
 
 
@@ -17937,4 +17940,10 @@ INSERT INTO schema_migrations (version) VALUES ('20171211091817');
 INSERT INTO schema_migrations (version) VALUES ('20171212100101');
 
 INSERT INTO schema_migrations (version) VALUES ('20180629093901');
+
+INSERT INTO schema_migrations (version) VALUES ('20180702131326');
+
+INSERT INTO schema_migrations (version) VALUES ('20180711133214');
+
+INSERT INTO schema_migrations (version) VALUES ('20180712091619');
 
