@@ -1343,7 +1343,7 @@ eng:
     events: "Events"
     evolution: "Evolution"
     example: "Example: %{value}" #?
-    exceptional_expenses: "Exceptional expenses" #?!
+    exceptional_expenses: "Exceptional expenses" #??
     exceptional_products: "Exceptional products" #?!
     exceptional_result: "Exceptional result" #?!
     exchange: "Exchange"

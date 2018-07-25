@@ -140,10 +140,6 @@ ita:
           one: "è della lunghezza sbagliata (deve essere di 1 carattere)" #?
           other: "è della lunghezza sbagliata (deve essere di %{count} caratteri)" #?
       models:
-        account:
-          attributes:
-            number:
-              # unauthorized: "This number can't correspond to a radical class"
         activity:
           checked_off_with_inspections: "Le ispezioni sono già stati creati per questa attività"
           checked_without_measures: "Almeno, un tipo di misura dovrebbe essere selezionato quando i controlli sono ricercati"
@@ -516,6 +512,7 @@ ita:
     author: "Autore"
     authorized_payments_count: "contano pagamenti autorizzati"
     auto_updateable_addresses: "Auto indirizzi aggiornabili"
+    # auxiliary_number: "Auxiliary number"
     average_value: "Valore medio"
     balance: "Equilibrio"
     balance_pretax_amount: "Saldo importo lordo delle imposte"
@@ -567,6 +564,7 @@ ita:
     category: "Categoria"
     ceded: "ceduta"
     ceded_on: "ceduto su"
+    # centralizing_account: "Centralizing account"
     charge_account: "conto di carica"
     charges_categories: "oneri categorie"
     checks: "controlli"
