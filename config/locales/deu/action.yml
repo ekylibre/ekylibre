@@ -303,6 +303,8 @@ deu:
       new_specified: "New Intervention"
       new_specified_request: "Neue angeforderte Intervention"
       # show: "%{procedure_name}"
+    backend/invalid_journal_entries:
+      # index: "Journal entries to balance"
     backend/inventories:
       edit: "Bearbeiten Inventar"
       index: "Die Vorräte"
@@ -887,6 +889,9 @@ deu:
     charge_value: "Ladewert"
     chart: "Diagramm"
     check: "Prüfen"
+    check_x_entries_to_balance:
+      # one: "Check entry to balance (%{count})"
+      # other: "Check entries to balance (%{count})"
     children: "Kinder"
     choices: "Auswahlmöglichkeiten"
     choose_a_type_of_product: "Wählen Sie eine Art von Produkt"
@@ -986,6 +991,9 @@ deu:
     delete_only_record: "Oder löschen Sie nur die ausgewählte Intervention (en) und die Anforderung Mitarbeiter angezeigt werden?"
     delete_request: "Löschen Sie auch die Anfrage assoziierten Unternehmens an den ausgewählten Intervention (n)"
     delete_selected_interventions: "Löschen Sie die ausgewählten Interventionen"
+    delete_x_entries:
+      # one: "Delete %{count} entry"
+      # other: "Delete %{count} entries"
     deliver: "Geliefert an"
     deliveries: "Lieferungen"
     delivery: "Lieferung"

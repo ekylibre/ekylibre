@@ -1,0 +1,4 @@
+- main_toolbar do |t|
+  = tool_to(:delete_x_entries.tl(count: @invalid_entries.count), { controller: :invalid_journal_entries, action: :delete_all}, data: { confirm: :are_you_sure.tl }, icon: false)
+#test
+  = render "backend/invalid_journal_entries/list"

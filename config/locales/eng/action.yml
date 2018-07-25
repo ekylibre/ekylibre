@@ -406,6 +406,9 @@ eng:
       # purchase: "Purchase intervention: %{name}"
       # sell: "Sell intervention: %{name}"
       show: "%{procedure_name}"
+    backend/invalid_journal_entries:
+      # delete_all: "Delete all invalid journal entry: %{name}"
+      index: "Journal entries to balance"
     backend/inventories:
       edit: "Edit inventory"
       index: "Inventories"
@@ -437,6 +440,7 @@ eng:
       show: "Journal entry item: %{name}"
     backend/journals:
       bookkeep: "Bookkeep"
+      # check_invalid_entries: "Check invalid entries journal: %{name}"
       close: "Close journal: %{name}"
       edit: "Edit journal: %{name}"
       index: "Journals"
@@ -1157,6 +1161,9 @@ eng:
     charge_value: "Charge value"
     chart: "Chart"
     check: "Check" #?
+    check_x_entries_to_balance: #?!
+      one: "Check entry to balance (%{count})" #?!
+      other: "Check entries to balance (%{count})" #?!
     children: "Children"
     choices: "Choices"
     choose_a_type_of_product: "Choose a type of product"
@@ -1262,9 +1269,13 @@ eng:
     deformity_percentage_evolution: "Deformity percentage evolution"
     delay: "Delay"
     delete: "Delete"
+    # delete_all: "Delete all"
     delete_only_record: "Or only delete the selected intervention(s) and display the request associate ?" #?
     delete_request: "Delete also the request associate to the selected intervention(s)" #?
     delete_selected_interventions: "Delete the selected interventions"
+    delete_x_entries: #?!
+      one: "Delete %{count} entry" #?!
+      other: "Delete %{count} entries" #?!
     deliver: "Delivered on" #?
     deliveries: "Deliveries" #?
     delivery: "Delivery" #?
@@ -1847,7 +1858,7 @@ eng:
     # show_export_preview: "Show export preview"
     sign_out: "Sign out" #?
     simplified: "Simplified Accounting" #?
-    simplified_linear_options: "Simplified linear options"
+    simplified_linear_options: "Simplified linear options" #?!
     social_debts: "Social debts" #?!
     social_expenses: "Social expenses" #?!
     sold_on: "Sold on"
@@ -2375,6 +2386,7 @@ eng:
       # change_password: "Change password"
       # change_state: "Change state"
       check: "Check"
+      # check_invalid_entries: "Check invalid entries"
       close: "Close"
       compute: "Compute"
       compute_balances: "Compute balances"
@@ -2387,6 +2399,7 @@ eng:
       # csv: "Csv"
       # currency_state: "Currency state"
       # current: "Current"
+      # delete_all: "Delete all"
       # depreciate: "Depreciate"
       # depreciate_all: "Depreciate all"
       destroy: "Destroy"

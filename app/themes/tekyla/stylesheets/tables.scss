@@ -126,6 +126,11 @@ table {
           }
         }
       }
+      &.first-item {
+        td {
+          border-top-color: $invalid-color;
+        }
+      }
     }
   }
   tr.total, tr.title {
