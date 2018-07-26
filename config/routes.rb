@@ -638,7 +638,6 @@ Rails.application.routes.draw do
     resources :journals, concerns: %i[list unroll] do
       collection do
         match 'bookkeep', via: %i[get put post]
-        get :check_invalid_entries
       end
       member do
         get :list_mixed

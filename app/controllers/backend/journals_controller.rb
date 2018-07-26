@@ -172,9 +172,5 @@ module Backend
         end
       end
     end
-
-    def check_invalid_entries
-      redirect_to controller: :invalid_journal_entries, action: :index
-    end
   end
 end

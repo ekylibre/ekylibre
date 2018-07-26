@@ -1,6 +1,7 @@
 module Backend
   class InvalidJournalEntriesController < Backend::BaseController
     def index
+      notify_now(:need_to_edit_or_correct_entries_before_validating)
       @current_page = 1
       @invalid_entries = JournalEntry.where.not(balance: 0.0).order(:printed_on)
       @invalid_entries_count = @invalid_entries.count

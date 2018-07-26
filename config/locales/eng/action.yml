@@ -2285,6 +2285,7 @@ eng:
       need_entries_to_reconciliate: "No entries to reconciliate on bank statement period"
       need_payment_mode_to_create_deposit: "You must specify a mode of payment in order to make deposits"
       need_stocks_to_create_inventories: "You have to manage some stocks in order to manage inventories"
+      need_to_edit_or_correct_entries_before_validating: "You have to correct or delete these entries before you can enclose the financial year or validate them."
       net_services_and_identifiers_are_always_available_but_are_deprecated_and_will_be_removed_in_next_major_release: "Net services and identifiers are always available but are deprecated and will be removed in next major release"
       no_archived_prints: "No archived prints"
       no_budget_defined_for_current_campaign: "No budget defined for current campaign"

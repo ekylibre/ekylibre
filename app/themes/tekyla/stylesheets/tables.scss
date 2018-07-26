@@ -26,6 +26,9 @@ table {
     background: white;
     min-height: $lh-normal;
   }
+  .right-align {
+    text-align: right;
+  }
   thead{
     tr{
       &.warning {
@@ -88,7 +91,6 @@ table {
     }
     td.act {
       width: 16px;
-      padding-bottom: 0 !important;
       a {
         font-size: 0;
         i {
