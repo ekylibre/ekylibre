@@ -1,0 +1,93 @@
+---
+encoding: 'ISO-8859-15'
+lines:
+  purchase:
+    key: "UNH  "
+    cells:
+      - purchase_order: string-14 #
+    children:
+      - header: 1
+      - suppliers: "*"
+      - clients: "*"
+      - currency: 1
+      - items: "*"
+      - footer: 1
+
+  header:
+    key: "BGM  "
+    occurrence: 1
+    cells:
+      - purchase_type: string-3 #invoice : 380 /
+      - unknow_1: string-3
+      - purchase_title: string-32
+      - purchase_number: string-12
+      - unknow_2: string-23
+      - purchase_printed_on: date
+
+  client:
+    key: "NAD3 "
+    occurrence: 1
+    cells:
+      - client_name: string-28 #invoice : 380 /
+
+  supplier:
+    key: "NAD1 "
+    cells:
+      - supplier_type: string-3 #invoice : 380 /
+      - supplier_number: string-14 #invoice : 380 /
+
+  currency:
+    key: "CUX  "
+    occurrence: 1
+    cells:
+      - currency: string-3 #EUR
+
+  item:
+    key: "LIN  "
+    cells:
+      - order: string-6
+      - work_number: string-9
+      - unknow_1: string-67
+      - price_unit: float-17.3
+      - unit: string-5
+      - quantity: float-10.3
+      - pretax_amount: float-18.3
+    children:
+      - detail: 1
+      - tax: 1
+
+  detail:
+    key: "IMD  "
+    occurrence: 1
+    cells:
+      - order: string-3
+      - description: string-35
+      - number: string-12
+      - unknow: string-23
+      - category: string-35
+
+  tax:
+    key: "TRI  "
+    occurrence: 1
+    cells:
+      - order: string-6
+      - rate: float-6.2
+
+  footer:
+    key: "TMA  "
+    occurrence: 1
+    cells:
+      - global_amount: float-17.3
+      - global_pretax_amount: float-17.3
+      - unknow: string-51
+      - global_tax_amount: float-17.3
+    children:
+      - taxe_subtotals: "*"
+
+  taxe_subtotal:
+    key: "TXS  "
+    cells:
+      - code: string-6
+      - rate: float-6.2
+      - pretax_amount: float-19.3
+      - tax_amount: float-17.3
