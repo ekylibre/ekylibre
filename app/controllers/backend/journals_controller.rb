@@ -108,6 +108,7 @@ module Backend
       end
       @journal_view = journal_view.value
       t3e @journal
+      @draft_entries_count = JournalEntry.where(journal_id: params[:id], state: :draft).count
     end
 
     def close

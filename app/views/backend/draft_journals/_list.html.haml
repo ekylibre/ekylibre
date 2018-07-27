@@ -1,22 +1,29 @@
 .main-toolbar.toolbar
-  = link_to t("labels.delete_x_entries", count: @invalid_entries_count), { controller: :invalid_journal_entries, action: :delete_all }, { class: 'btn btn-default no-icn', data: { confirm: :are_you_sure.tl } }
+  = form_tag list_backend_draft_journal_path, method: :get, remote: true do
+    = select_tag :journal_id, options_from_collection_for_select(Journal.all, :id, :name, @journal_id == 'All' ? nil : @journal_id), prompt: :any_journal.tl
+    = date_field_tag :to, @current_date.strftime("%F"), class: 'no-arrow-date-input'
+    = hidden_field_tag :redirection, @redirection
+    = submit_tag :filter.tl
+
 .meta-toolbar.toolbar
   %span.list-pagination{data:{list_ref: "items-list"}}
-    - limit  = 20
-    - current_page = @invalid_entries.current_page
-    - pages_count = @invalid_entries.total_pages
-    - count = @invalid_entries_count
+    - limit  = 2
+    - current_page = @draft_entries.current_page
+    - pages_count = @draft_entries.total_pages
+    - count = @draft_entries_count
     - x = limit * (current_page - 1) + 1
     - y = (current_page < pages_count) ? current_page * limit : count
     %span.status= 'list.pagination.x_to_y_of_total'.t(x: x, y: y, total: count)
     %span.paginator
-      %a{href: list_backend_invalid_journal_entries_path(page: current_page - 1), class: [("btn previous-page"),("disabled" if current_page == 1)], data: {remote: :true}}
+      %a{href: list_backend_draft_journal_path(page: current_page - 1, journal_id: @journal_id, to: @current_date.strftime("%F"), redirection: @redirection), class: [("btn previous-page"),("disabled" if current_page == 1)], data: {remote: :true}}
         %i
-      %a{href: list_backend_invalid_journal_entries_path(page: current_page + 1), class: [("btn next-page"),("disabled" if current_page == @invalid_entries.total_pages)], data: {remote: :true}}
+      %a{href: list_backend_draft_journal_path(page: current_page + 1, journal_id: @journal_id, to: @current_date.strftime("%F"), redirection: @redirection), class: [("btn next-page"),("disabled" if current_page == @draft_entries.total_pages)], data: {remote: :true}}
         %i
 %table
   %thead
     - currency = Preference[:currency]
+    %th.act
+      %i.icon.icon-check
     %th.act
       %i.icon.icon-edit
     %th.act
@@ -29,10 +36,14 @@
     %th.right-align= JournalEntryItem.human_attribute_name(:debit)
     %th.right-align= JournalEntryItem.human_attribute_name(:credit)
   %tbody.first-item
-    - @invalid_entries.each do |entry|
+    - @draft_entries.each do |entry|
       - entry.items.each do |item|
         - first_item = (entry.items.first === item)
-        %tr{class: ("first-item" if first_item) }
+        %tr{class: [("first-item" if first_item),('error' unless entry.balanced?)] }
+          %td.act
+            - if entry.balanced? && first_item
+              %i.icon.icon-check{ style: "color: #688ED8;" }
+
           %td.act= link_to("<i class='icon icon-edit'></i>".html_safe, edit_backend_journal_entry_path(entry), class: "edit") if first_item
           %td.act= link_to("<i class='icon icon-destroy'></i>".html_safe, backend_journal_entry_path(entry), method: :delete, class: "destroy") if first_item
           %td= link_to(entry.journal.name, { controller: :journals, action: :show, id: entry.journal.id} ) if first_item
@@ -42,3 +53,6 @@
           %td= truncate(item.name, length: 50)
           %td.right-align= number_to_accountancy(item.debit, currency, false)
           %td.right-align= number_to_accountancy(item.credit, currency, false)
+
+- unless @draft_entries_count < 1
+  = link_to t("labels.validate_x_entries", count: @draft_entries_count), { controller: :draft_journals, action: :confirm_all, to: @current_date, journal_id: @journal_id, redirection: params[:redirection] }, { class: [('btn btn-default no-icn'),('disabled' if @unbalanced_entries_count > 0)], data: { confirm: :are_you_sure.tl }, method: :post}

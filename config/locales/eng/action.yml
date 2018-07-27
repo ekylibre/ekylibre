@@ -1085,6 +1085,7 @@ eng:
     animal_details: "Animal details" #?!
     # animal_management: "Animal management"
     animals: "Animals"
+    any_journal: "Any journal"
     archives: "Archives"
     are_you_sure: "Are you sure you want to do this?"
     are_you_sure_you_want_to:
@@ -1193,6 +1194,7 @@ eng:
     configure: "Configure"
     connect: "Connect"
     consult_the_day_book:
+      zero: "Consult the day book (%{count} entry)"
       one: "Consult the day book (%{count} entry)" #?
       other: "Consult the day book (%{count} entries)" #?
     consult_unbalanced_entries:
@@ -2021,6 +2023,9 @@ eng:
       one: "Validate crumbs for %{count} intervention"
       other: "Validate crumbs for %{count} interventions"
     validate_selected_entries: "Validate selected entries"
+    validate_x_entries:
+      one: "Validate the entry"
+      other: "Validate %{count} entries"
     validated: "Validated"
     values: "Values"
     variable_indicators: "Variable indicators"
@@ -2327,6 +2332,9 @@ eng:
       the_automatic_lettering_cannot_be_done_in_accountancy_because_too_many_thirds_are_present: "The automatic lettering cannot be done in accountancy because too many thirds are present"
       the_bookkeep_date_format_is_invalid: "The bookkeep date format is invalid"
       the_sales_invoice_is_not_cancellable: "The sales invoice is not cancellable"
+      there_are_x_remaining_unbalanced_entries:
+        one: "%{count} entry during this period remain unbalanced. You have to correct it to be able to perform a global validation."
+        other: "%{count} entries during this period remain unbalanced. You have to correct them to be able to perform a global validation."
       this_service_is_not_activated: "This service is not activated" #?
       unavailable_resource: "Nonexistent %{type} #%{id}"
       unbalanced_journal_entries_are_present_in_year: "Some unbalanced journal entries are present in the financial year." #?

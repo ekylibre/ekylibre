@@ -203,7 +203,7 @@ fra:
       new: "Nouveau document"
       show: "Document\_: %{name}"
     backend/draft_journals:
-      show: "Brouillard"
+      show: "Brouillard comptable"
     backend/entities:
       destroy: "Supprimer la fiche" #?
       edit: "Modifier la fiche\_: %{full_name}"
@@ -962,6 +962,7 @@ fra:
     animal_pie: "Animaux par lot" #?
     animal_productions: "Productions animales" #?
     animals: "Animaux"
+    any_journal: "Tous les journaux"
     apply: "Appliquer" #?
     archived_at: "Archivé à" #?
     archives: "Archives"
@@ -1107,6 +1108,7 @@ fra:
     connect: "Se connecter"
     consult: "Consulter" #?
     consult_the_day_book:
+      zero: "Consulter le brouillard (%{count} écriture)"
       one: "Consulter le brouillard (%{count} écriture)" #?
       other: "Consulter le brouillard (%{count} écritures)" #?
     consult_unbalanced_entries:
@@ -2308,6 +2310,9 @@ fra:
       one: "Valider mes miettes pour %{count} intervention"
       other: "Valider mes miettes pour %{count} interventions"
     validate_selected_entries: "Valider les écritures sélectionnées"
+    validate_x_entries:
+      one: "Valider l'écriture"
+      other: "Valider les %{count} écritures"
     validated: "Validé"
     values: "Valeurs"
     variable_indicators: "Indicateurs variables"
@@ -2688,6 +2693,9 @@ fra:
       the_automatic_lettering_cannot_be_done_in_accountancy_because_too_many_thirds_are_present: "Le lettrage automatique ne peut pas être fait en comptabilité parce que trop de tiers sont présents"
       the_bookkeep_date_format_is_invalid: "Le format de la date de comptabilisation n’est pas valide"
       the_sales_invoice_is_not_cancellable: "La facture ne peut pas être passée en avoir"
+      there_are_x_remaining_unbalanced_entries:
+        one: "%{count} écriture sur la période n'est pas équilibrée. Elle doit être corrigée pour effectuer une validation globale."
+        other: "%{count} écritures sur la période ne sont pas équilibrées. Elle doivent être corrigées pour effectuer une validation globale."
       this_service_is_not_activated: "Ce service n’est pas activé"
       unavailable_resource: "%{type} indisponible ou inexistant(e) #%{id}"
       unbalanced_journal_entries_are_present_in_year: "L'exercice comporte des écritures non-équilibrées."

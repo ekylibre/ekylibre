@@ -5,14 +5,14 @@ module Backend
       @current_page = 1
       @invalid_entries = JournalEntry.where.not(balance: 0.0).order(:printed_on)
       @invalid_entries_count = @invalid_entries.count
-      @invalid_entries = @invalid_entries.page(@current_page).per(2)
+      @invalid_entries = @invalid_entries.page(@current_page).per(20)
     end
 
     def list
       @current_page = params[:page].to_i
       @invalid_entries = JournalEntry.where.not(balance: 0.0).order(:printed_on)
       @invalid_entries_count = @invalid_entries.count
-      @invalid_entries = @invalid_entries.page(params[:page]).per(2)
+      @invalid_entries = @invalid_entries.page(params[:page]).per(20)
     end
 
     def delete_all
