@@ -55,4 +55,5 @@
           %td.right-align= number_to_accountancy(item.credit, currency, false)
 
 - unless @draft_entries_count < 1
-  = link_to t("labels.validate_x_entries", count: @draft_entries_count), { controller: :draft_journals, action: :confirm_all, to: @current_date, journal_id: @journal_id, redirection: params[:redirection] }, { class: [('btn btn-default no-icn'),('disabled' if @unbalanced_entries_count > 0)], data: { confirm: :are_you_sure.tl }, method: :post}
+  .footer-btn-container
+    = link_to t("labels.validate_x_entries", count: @draft_entries_count), { controller: :draft_journals, action: :confirm_all, to: @current_date, journal_id: @journal_id, redirection: params[:redirection] }, { class: [('btn btn-default no-icn'),('disabled' if @unbalanced_entries_count > 0)], data: { confirm: :are_you_sure.tl }, method: :post}

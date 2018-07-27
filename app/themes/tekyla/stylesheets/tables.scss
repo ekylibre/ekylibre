@@ -473,3 +473,9 @@ table {
     background: $menu-border-color;
   }
 }
+
+.footer-btn-container {
+  display: flex;
+  justify-content: center;
+  padding: 20px 0px;
+}
