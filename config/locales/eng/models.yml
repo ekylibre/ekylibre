@@ -1374,6 +1374,7 @@ eng:
     proposer: "Proposer"
     prospect: "Prospect"
     # provider: "Provider"
+    # providers: "Providers"
     provisional: "Provisional" #?
     provisional_intervention: "Provisional intervention" #?
     # public_token: "Public token"

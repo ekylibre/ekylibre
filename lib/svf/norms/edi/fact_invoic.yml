@@ -1,5 +1,8 @@
 ---
 encoding: 'ISO-8859-15'
+root:
+  - purchases: "*"
+
 lines:
   purchase:
     key: "UNH  "
@@ -10,8 +13,10 @@ lines:
       - suppliers: "*"
       - clients: "*"
       - currency: 1
+      - start_item: "*"
       - items: "*"
       - footer: 1
+      - purchase_end: 1
 
   header:
     key: "BGM  "
@@ -22,7 +27,7 @@ lines:
       - purchase_title: string-32
       - purchase_number: string-12
       - unknow_2: string-23
-      - purchase_printed_on: date
+      - purchase_printed_on: string-8
 
   client:
     key: "NAD3 "
@@ -42,19 +47,34 @@ lines:
     cells:
       - currency: string-3 #EUR
 
+  start_item:
+    key: "UNS  "
+    occurrence: 2
+    cells:
+      - type: string-1 #EUR
+
   item:
     key: "LIN  "
     cells:
       - order: string-6
       - work_number: string-9
       - unknow_1: string-67
-      - price_unit: float-17.3
+      - price_unit: decimal-17.3
       - unit: string-5
-      - quantity: float-10.3
-      - pretax_amount: float-18.3
+      - quantity: decimal-10.3
+      - pretax_amount: decimal-18.3
     children:
-      - detail: 1
+      - reference: "?"
+      - detail: "?"
       - tax: 1
+
+  reference:
+    key: "RFF  "
+    occurrence: 1
+    cells:
+      - code: string-3
+      - description: string-35
+      - date: string-8
 
   detail:
     key: "IMD  "
@@ -71,16 +91,16 @@ lines:
     occurrence: 1
     cells:
       - order: string-6
-      - rate: float-6.2
+      - rate: decimal-6.2
 
   footer:
     key: "TMA  "
     occurrence: 1
     cells:
-      - global_amount: float-17.3
-      - global_pretax_amount: float-17.3
+      - global_amount: decimal-17.3
+      - global_pretax_amount: decimal-17.3
       - unknow: string-51
-      - global_tax_amount: float-17.3
+      - global_tax_amount: decimal-17.3
     children:
       - taxe_subtotals: "*"
 
@@ -88,6 +108,13 @@ lines:
     key: "TXS  "
     cells:
       - code: string-6
-      - rate: float-6.2
-      - pretax_amount: float-19.3
-      - tax_amount: float-17.3
+      - rate: decimal-6.2
+      - pretax_amount: decimal-19.3
+      - tax_amount: decimal-17.3
+
+  purchase_end:
+    key: "UNT  "
+    occurrence: 1
+    cells:
+      - global_order_number: string-14
+      - purchase_order: string-14

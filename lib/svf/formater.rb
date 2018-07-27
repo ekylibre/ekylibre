@@ -24,6 +24,11 @@ module SVF
 
       code << "  class Base\n"
       code << '    attr_accessor ' + @root.collect { |x| ":#{x.name}" }.join(', ') + "\n\n"
+      code << "    def initialize\n"
+      @root.each do |attr|
+        code << "    @#{attr.name} = []\n" if attr.numerous?
+      end
+      code << "    end\n"
       code << "    def self.parse_line(line, _number)\n"
       code << "      return nil if line.nil?\n"
       # code << "      puts line.gsub(/\\r\\n$/, '').yellow + '$'.green\n"

@@ -39,6 +39,7 @@
 #  picture_file_name         :string
 #  picture_file_size         :integer
 #  picture_updated_at        :datetime
+#  providers                 :jsonb
 #  reference_name            :string
 #  stock_account_id          :integer
 #  stock_movement_account_id :integer

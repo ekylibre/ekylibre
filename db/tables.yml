@@ -6363,6 +6363,8 @@ product_nature_variants:
     type: integer
   picture_updated_at:
     type: datetime
+  providers:
+    type: jsonb
   reference_name:
     type: string
   stock_account_id:
