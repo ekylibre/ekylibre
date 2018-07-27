@@ -1357,6 +1357,7 @@ fra:
     file_to_upload: "Fichier à importer"
     filter: "Filtrer"
     filter_entries_with: "Filtrer les écritures avec" #?
+    filter_on: "Filtrer sur"
     final_balance: "Solde final"
     financial_assets: "Immobilisations financières"
     financial_expenses: "Charges financières"
@@ -2283,6 +2284,7 @@ fra:
     unreceived: "Non reçus" #?
     unset_reconcilable_old_third_accounts: "Rendre non-lettrables les anciens comptes tiers"
     unsubcribed_capital: "Capital non appellé"
+    until: "jusqu'au"
     unused_payment: "Encaissement à utiliser" #?
     unvalid_date: "Date incorrecte" #?
     unvalidated_operations: "Travaux non validés" #?

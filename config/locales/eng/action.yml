@@ -1384,6 +1384,7 @@ eng:
     file_preview: "Preview" #?
     file_to_upload: "File to upload"
     filter: "Filter" #?
+    filter_on: "Filter on"
     final_balance: "Final balance"
     financial_assets: "Financial assets" #?
     financial_expenses: "Financial expenses" #??
@@ -2008,6 +2009,7 @@ eng:
     unpaid_sales: "Unpaid sales" #?
     unset_reconcilable_old_third_accounts: "Unset reconcilable old third accounts (clients, suppliers and attorneys)" #?
     unsubcribed_capital: "Unsubcribed capital" #?!
+    until: "until"
     up: "Up" #?
     up_to: "Up to"
     update: "Update"

@@ -47,7 +47,7 @@ module Backend
       journal_entries = @journal_id == '' ? JournalEntry.all : JournalEntry.where(journal_id: @journal_id)
       @draft_entries = journal_entries.where(state: :draft).where('printed_on <= ?', @current_date).order(:printed_on)
       @draft_entries_count = @draft_entries.count
-      @draft_entries = @draft_entries.page(@current_page).per(2)
+      @draft_entries = @draft_entries.page(@current_page).per(20)
       @unbalanced_entries_count = journal_entries.where('printed_on <= ?', @current_date).select { |entry| !entry.balanced? }.count
       notify_warning_now(:there_are_x_remaining_unbalanced_entries, count: @unbalanced_entries_count) unless @unbalanced_entries_count < 1
     end
@@ -60,7 +60,7 @@ module Backend
       journal_entries = @journal_id == '' ? JournalEntry.all : JournalEntry.where(journal_id: @journal_id)
       @draft_entries = journal_entries.where(state: :draft).where('printed_on <= ?', @current_date).order(:printed_on)
       @draft_entries_count = @draft_entries.count
-      @draft_entries = @draft_entries.page(@current_page).per(2)
+      @draft_entries = @draft_entries.page(@current_page).per(20)
       @unbalanced_entries_count = journal_entries.where('printed_on <= ?', @current_date).select { |entry| !entry.balanced? }.count
       notify_warning_now(:there_are_x_remaining_unbalanced_entries, count: @unbalanced_entries_count) unless @unbalanced_entries_count < 1
     end

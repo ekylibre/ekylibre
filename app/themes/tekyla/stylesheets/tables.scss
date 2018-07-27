@@ -479,3 +479,22 @@ table {
   justify-content: center;
   padding: 20px 0px;
 }
+
+.custom-main-toolbar, .custom-meta-toolbar {
+  float: none !important;
+  margin-bottom: 0px !important;
+  margin-top: 0px !important;
+}
+
+.custom-main-toolbar {
+  display: flex;
+  justify-content: center;
+  > form {
+    display: inline-block;
+  }
+}
+
+.toolbar-content {
+  padding: 9px 0px;
+  background: #C5D4F0;
+}

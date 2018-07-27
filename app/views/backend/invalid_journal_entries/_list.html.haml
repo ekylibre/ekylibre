@@ -2,7 +2,7 @@
   = link_to t("labels.delete_x_entries", count: @invalid_entries_count), { controller: :invalid_journal_entries, action: :delete_all }, { class: 'btn btn-default no-icn', data: { confirm: :are_you_sure.tl } }
 .meta-toolbar.toolbar
   %span.list-pagination{data:{list_ref: "items-list"}}
-    - limit  = 20
+    - limit = 20
     - current_page = @invalid_entries.current_page
     - pages_count = @invalid_entries.total_pages
     - count = @invalid_entries_count
