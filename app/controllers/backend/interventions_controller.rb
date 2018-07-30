@@ -390,7 +390,6 @@ module Backend
     def purchase_order_items
       purchase_order = Purchase.find(params[:purchase_order_id])
       reception = Intervention.find(params[:intervention_id]).receptions.first if params[:intervention_id].present?
-
       order_hash = if reception.present? && reception.purchase_id == purchase_order.id
                      find_items(reception.id, reception.pretax_amount, reception.items)
                    else

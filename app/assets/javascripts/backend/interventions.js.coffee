@@ -296,6 +296,8 @@
             itemLine.push("<span class='item-role'><input name='intervention[receptions_attributes][0][items_attributes][#{-index}][role]' value='#{item.role}' type='hidden'></input></span>")
             itemLine.push("<span class='item-purchase-order-item-id'><input name='intervention[receptions_attributes][0][items_attributes][#{-index}][purchase_order_item_id]' value='#{item.purchase_order_item}' type='hidden'></input></span>")
             $('.purchase-items-array').append("<li class='item-line'>" + itemLine.join('') + "</li>")
+            if $('.cant-be-update').length > 0
+              $('.purchase-items-array').find('.item-line input').attr('disabled',true)
 
     updateTotalAmount: (input) ->
       quantity = input.val()
@@ -308,6 +310,8 @@
         purchaseInput.attr("disabled",true)
       else
         purchaseInput.attr("disabled",false)
+      if $('.cant-be-update').length > 0
+        input.parents('.fieldset-fields').find('input').attr('disabled', true)
 
   ##############################################################################
   # Triggers
