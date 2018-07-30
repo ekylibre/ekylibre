@@ -1192,6 +1192,7 @@ eng:
       filter_on_attribute_of_class: "Filter on attribute of class"
       special-subscriber: "Special-subscriber"
     configure: "Configure"
+    confirmation: "Confirmation"
     connect: "Connect"
     consult_the_day_book:
       zero: "Consult the day book (%{count} entry)"
@@ -1491,6 +1492,7 @@ eng:
     journal: "Journal"
     journal_entries: "Journal's entries" #?
     journal_entries_states: "States of entries"
+    journal_entries_deletion_confirmation_message: "Once validated, you won't be able to edit or delete these entries. Are you sure you want to validate these entries ?"
     journal_entry_items: "Journal entry items"
     journal_entry_items_with_taxes_out_of_range:
       one: "%{count} journal entry item with taxes before declaration started on"

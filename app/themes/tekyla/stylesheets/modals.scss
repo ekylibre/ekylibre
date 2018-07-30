@@ -8,10 +8,17 @@
           border: none;
           span {
             font-size: $fs-large;
+            i {
+              font-size: 22px;
+              color: black;
+              opacity: 0.5;
+            }
           }
         }
         h4 {
           font-weight: bold;
+          display: inline-block;
+          font-size: 15px;
         }
       }
       .modal-body {
@@ -33,4 +40,23 @@
       }
     }
   }
+}
+
+.modal {
+  text-align: center;
+}
+
+@media screen and (min-width: 768px) {
+  .modal:before {
+    display: inline-block;
+    vertical-align: middle;
+    content: " ";
+    height: 100%;
+  }
+}
+
+.modal-dialog {
+  display: inline-block;
+  text-align: left;
+  vertical-align: middle;
 }

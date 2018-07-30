@@ -498,3 +498,29 @@ table {
   padding: 9px 0px;
   background: #C5D4F0;
 }
+
+#custom-list {
+  table {
+    margin-bottom: 0px;
+    thead {
+      display: table;
+      width: 100%;
+      table-layout: fixed;
+
+      th.act {
+        width: 16px;
+      }
+    }
+    tbody {
+      display: block;
+      height: calc(100vh - 96px - 54px - 47px - 35px - 70px - 5px);
+      overflow: auto;
+
+      tr {
+        width: 100%;
+        display: table;
+        table-layout: fixed;
+      }
+    }
+  }
+}
