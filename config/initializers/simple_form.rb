@@ -143,7 +143,7 @@ end
 
 module SeparatorHandling
   def input(wrapper_options = nil)
-    validation = <<~JS
+    validation = <<-JS
       if(/^\\d*[\.,]\\d*$/.test(value)){
         value=value.replace(",",".");
       } else {
