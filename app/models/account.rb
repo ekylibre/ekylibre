@@ -226,6 +226,7 @@ class Account < Ekylibre::Record::Base
         end
       end
       item = Nomen::Account.items.values.detect { |i| i.send(accounting_system) == number }
+      number = number.ljust(8, '0') if item && !item.centralizing
       account = find_by(number: number)
       if account
         if item && !account.usages_array.include?(item)
