@@ -303,6 +303,8 @@ ita:
       new_specified: "Nuovo intervento"
       new_specified_request: "Nuovo intervento richiesto"
       # show: "%{procedure_name}"
+    backend/invalid_journal_entries:
+      # index: "Journal entries to balance"
     backend/inventories:
       edit: "Modifica l'inventario"
       index: "rimanenze"
@@ -953,6 +955,9 @@ ita:
     charge_value: "Valore di carica"
     chart: "Grafico"
     check: "Dai un'occhiata"
+    check_x_entries_to_balance:
+      # one: "Check entry to balance (%{count})"
+      # other: "Check entries to balance (%{count})"
     children: "Bambini"
     choices: "scelte"
     choose_a_type_of_product: "Scegliere un tipo di prodotto"
@@ -1052,6 +1057,9 @@ ita:
     delete_only_record: "O solo eliminare l’intervento selezionato (s) e visualizzare la richiesta di associazione?"
     delete_request: "Elimina anche la richiesta di associare all’intervento selezionato (s)"
     delete_selected_interventions: "Eliminare gli interventi selezionati"
+    delete_x_entries:
+      # one: "Delete %{count} entry"
+      # other: "Delete %{count} entries"
     deliver: "consegnato su"
     deliveries: "Le consegne"
     delivery: "Consegna"

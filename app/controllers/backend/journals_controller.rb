@@ -26,14 +26,12 @@ module Backend
 
     list(order: :name) do |t|
       # t.action :document_print, url: {:code => :JOURNAL, :journal => "RECORD.id"}
-      t.action :close, if: :closable?, image: :unlock
       t.action :edit
       t.action :destroy
       t.column :name, url: true
       t.column :code, url: true
       t.column :nature
       t.column :currency
-      t.column :closed_on
     end
 
     hide_action :journal_views
@@ -89,6 +87,16 @@ module Backend
       t.column :absolute_credit, currency: :absolute_currency, hidden: true
     end
 
+    def index
+      @draft_entries_count = JournalEntry.where(state: :draft).count
+      @unbalanced_entries_count = JournalEntry.select { |entry| !entry.balanced? }.count
+      respond_to do |format|
+        format.html
+        format.xml  { render xml:  Journal.all }
+        format.json { render json: Journal.all }
+      end
+    end
+
     # Displays details of one journal selected with +params[:id]+
     def show
       return unless @journal = find_and_check
@@ -100,6 +108,7 @@ module Backend
       end
       @journal_view = journal_view.value
       t3e @journal
+      @draft_entries_count = JournalEntry.where(journal_id: params[:id], state: :draft).count
     end
 
     def close

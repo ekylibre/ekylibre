@@ -76,9 +76,9 @@ module ApplicationHelper
       content_tag(:label, ::I18n.translate('general.n'), for: "#{object_name}_#{method}_#{unchecked_value}")
   end
 
-  def number_to_accountancy(value, currency = nil)
+  def number_to_accountancy(value, currency = nil, allow_blank = true)
     number = value.to_f
-    (number.zero? ? '' : number.l(currency: currency || Preference[:currency]))
+    (number.zero? && allow_blank ? '' : number.l(currency: currency || Preference[:currency]))
   end
 
   def number_to_management(value)
