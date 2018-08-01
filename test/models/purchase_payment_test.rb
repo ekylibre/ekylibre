@@ -67,8 +67,8 @@ class PurchasePaymentTest < ActiveSupport::TestCase
   test 'delete outgoing payment delete journal entry' do
     now = Time.new(2016, 11, 17, 19)
     currency = FinancialYear.at(now).currency
-    main = Account.find_or_create_by_number('512INR001')
-    suspense = Account.find_or_create_by_number('511INR001')
+    main = Account.find_or_create_by_number('512INR0')
+    suspense = Account.find_or_create_by_number('511INR0')
 
     cash = Cash.create!(
       name: 'Namaste Bank',
