@@ -1113,7 +1113,7 @@ fra:
       one: "Consulter le brouillard (%{count} écriture)" #?
       other: "Consulter le brouillard (%{count} écritures)" #?
     consult_unbalanced_entries:
-      one: "Consulter les écritures à équilibrer (%{count})" #?
+      one: "Consulter l'écriture à équilibrer" #?
       other: "Consulter les écritures à équilibrer (%{count})" #?
     consume: "Consommé"
     contact: "à l’adresse" #?

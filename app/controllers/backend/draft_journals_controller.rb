@@ -44,7 +44,7 @@ module Backend
       @current_page = 1
       @current_date = Date.today
       @journal_id = params[:journal_id] ? params[:journal_id].to_i : ''
-      journal_entries = @journal_id == '' ? JournalEntry.all : JournalEntry.where(journal_id: @journal_id)
+      journal_entries = @journal_id.blank? ? JournalEntry.all : JournalEntry.where(journal_id: @journal_id)
       @draft_entries = journal_entries.where(state: :draft).where('printed_on <= ?', @current_date).order(:printed_on)
       @draft_entries_count = @draft_entries.count
       @draft_entries = @draft_entries.page(@current_page).per(20)
@@ -56,8 +56,8 @@ module Backend
       @redirection = params[:redirection]
       @current_page = params[:page] ? params[:page].to_i : 1
       @current_date = Date.parse(params[:to]) if params[:to]
-      @journal_id = params[:journal_id] == '' ? params[:journal_id] : params[:journal_id].to_i
-      journal_entries = @journal_id == '' ? JournalEntry.all : JournalEntry.where(journal_id: @journal_id)
+      @journal_id = params[:journal_id].blank? ? params[:journal_id] : params[:journal_id].to_i
+      journal_entries = @journal_id.blank? ? JournalEntry.all : JournalEntry.where(journal_id: @journal_id)
       @draft_entries = journal_entries.where(state: :draft).where('printed_on <= ?', @current_date).order(:printed_on)
       @draft_entries_count = @draft_entries.count
       @draft_entries = @draft_entries.page(@current_page).per(20)
@@ -91,8 +91,8 @@ module Backend
     end
 
     def confirm_all
-      journal_id = params[:journal_id] == '' ? params[:journal_id] : params[:journal_id].to_i
-      journal_entries = journal_id == '' ? JournalEntry.all : JournalEntry.where(journal_id: journal_id)
+      journal_id = params[:journal_id].blank? ? params[:journal_id] : params[:journal_id].to_i
+      journal_entries = journal_id.blank? ? JournalEntry.all : JournalEntry.where(journal_id: journal_id)
       journal_entries_to_validate = journal_entries.where(state: :draft).where('printed_on <= ?', params[:to]).order(:printed_on)
       journal_entries_to_validate_count = journal_entries_to_validate.count
 
