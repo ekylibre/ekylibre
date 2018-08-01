@@ -89,9 +89,9 @@ class FixedAssetTest < ActiveSupport::TestCase
 
     @journal = Journal.where(nature: 'various', currency: currency).first
 
-    @asset_account = Account.find_or_create_by_number('2154')
-    @allocation_account = Account.find_or_create_by_number('2815')
-    @expenses_account = Account.find_or_create_by_number('6811')
+    @asset_account = Account.find_or_create_by_number('998765')
+    @allocation_account = Account.find_or_create_by_number('998764')
+    @expenses_account = Account.find_or_create_by_number('998763')
 
     @started_on = Date.parse('2017-01-01')
 
@@ -165,6 +165,36 @@ class FixedAssetTest < ActiveSupport::TestCase
     assert_equal 1, FixedAsset.count
     count = FixedAsset.depreciate(until: Date.civil(2020, 8, 15))
     assert_equal 4, count, 'Count of depreciations is invalid' + fixed_asset.depreciations.pluck(:started_on, :amount).to_yaml.yellow
+  end
+
+  test 'Fixed asset with regressive depreciation' do
+    started_on = Date.parse('2018-06-15')
+    attributes = {
+      name: @product.name,
+      depreciable_amount: 50_000,
+      depreciation_method: :regressive,
+      started_on: started_on,
+      depreciation_period: :yearly,
+      depreciation_percentage: 20.00,
+      depreciation_fiscal_coefficient: 1.75,
+      asset_account: @asset_account,
+      allocation_account: @allocation_account,
+      expenses_account: @expenses_account,
+      product: @product,
+      journal_id: @journal.id
+    }
+
+    fixed_asset = FixedAsset.create!(attributes)
+
+    assert_equal 5, fixed_asset.depreciations.count
+    
+    depreciation_amount_assertion = [10208.33, 13927.08, 9052.61, 8405.99, 8405.99]
+
+    currency = Preference[:currency]
+
+    fixed_asset.depreciations.each_with_index do |depreciation, index|
+      assert_equal currency.to_currency.round(depreciation_amount_assertion[index]), depreciation.amount.to_f 
+    end
   end
 
   private

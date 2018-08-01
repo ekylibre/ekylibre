@@ -14,6 +14,10 @@
   = field_set(:linear_options) do
     = f.input :depreciation_percentage
 
+  = field_set(:regressive_options) do
+    = f.input :depreciation_percentage
+    = f.input :depreciation_fiscal_coefficient
+
   = field_set(:accountancy) do
     = f.referenced_association :journal
     = f.referenced_association :asset_account, :source => :assets

@@ -101,6 +101,8 @@ class FixedAsset < Ekylibre::Record::Base
   validates :asset_account, :expenses_account, presence: true
   enumerize :depreciation_period, in: %i[monthly quarterly yearly], default: -> { Preference.get(:default_depreciation_period).value || Preference.set!(:default_depreciation_period, :yearly, :string) }
 
+  validates :depreciation_fiscal_coefficient, presence: true, if: -> { depreciation_method_regressive? }
+
   scope :drafts, -> { where(state: %w[draft]) }
 
   # [DEPRECATIONS[
@@ -141,6 +143,13 @@ class FixedAsset < Ekylibre::Record::Base
     self.purchased_on ||= started_on
     if depreciation_method_linear?
       self.depreciation_percentage = 20 if depreciation_percentage.blank? || depreciation_percentage <= 0
+      months = 12 * (100.0 / depreciation_percentage.to_f)
+      self.stopped_on = started_on >> months.floor
+      self.stopped_on += (months - months.floor) * 30.0 - 1
+    end
+    if depreciation_method_regressive?
+      self.depreciation_percentage = 20 if depreciation_percentage.blank? || depreciation_percentage <= 0
+      self.depreciation_fiscal_coefficient ||= 1.75
       months = 12 * (100.0 / depreciation_percentage.to_f)
       self.stopped_on = started_on >> months.floor
       self.stopped_on += (months - months.floor) * 30.0 - 1
@@ -403,7 +412,36 @@ class FixedAsset < Ekylibre::Record::Base
 
   # Depreciate using regressive method
   def depreciate_with_regressive_method(starts)
-    # TODO
+    depreciable_days = duration
+    depreciable_amount = self.depreciable_amount
+    reload.depreciations.each do |depreciation|
+      depreciable_days -= depreciation.duration
+      depreciable_amount -= depreciation.amount
+    end
+
+    regressive_depreciation_percentage = depreciation_percentage * depreciation_fiscal_coefficient
+
+    ## Create it if not exists?
+    remaining_amount = depreciable_amount.to_d
+    position = 1
+    starts.each_with_index do |start, index|
+      next if starts[index + 1].nil? || remaining_amount <= 0
+      depreciation = depreciations.find_by(started_on: start)
+      unless depreciation
+        depreciation = depreciations.new(started_on: start, stopped_on: starts[index + 1] - 1)
+        duration = depreciation.duration
+
+        remaining_linear_depreciation_percentage = (100 * depreciation_percentage / (100 - (index * depreciation_percentage))).round(2)
+        percentage = [regressive_depreciation_percentage, remaining_linear_depreciation_percentage].max
+
+        depreciation.amount = currency.to_currency.round(remaining_amount * (percentage / 100) * (duration / 360))
+        remaining_amount -= depreciation.amount
+      end
+
+      depreciation.position = position
+      position += 1
+      depreciation.save!
+    end
   end
 
   # Depreciate using regressive method
@@ -448,6 +486,21 @@ class FixedAsset < Ekylibre::Record::Base
     options[:mode] ||= :linear
     if options[:mode] == :linear
       sa = (started_on.day >= 30 || (started_on.end_of_month == started_on) ? 30 : started_on.day)
+      so = (stopped_on.day >= 30 || (stopped_on.end_of_month == stopped_on) ? 30 : stopped_on.day)
+
+      if started_on.beginning_of_month == stopped_on.beginning_of_month
+        days = so - sa + 1
+      else
+        days = 30 - sa + 1
+        cursor = started_on.beginning_of_month
+        while (cursor >> 1) < stopped_on.beginning_of_month
+          cursor = cursor >> 1
+          days += 30
+        end
+        days += so
+      end
+    elsif options[:mode] == :regressive
+      sa = (started_on.day >= 30 || (started_on.end_of_month == started_on) ? 30 : 1)
       so = (stopped_on.day >= 30 || (stopped_on.end_of_month == stopped_on) ? 30 : stopped_on.day)
 
       if started_on.beginning_of_month == stopped_on.beginning_of_month
