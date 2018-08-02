@@ -384,3 +384,12 @@ div.nested-fields {
   padding-right: $default-gap;
   @include inline-block;
 }
+
+.filter-form {
+  > * {
+    margin: 0px 3px;
+  }
+  input[type='submit'] {
+    margin: 0px 3px;
+  }
+}

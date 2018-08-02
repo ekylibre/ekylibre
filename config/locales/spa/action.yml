@@ -329,6 +329,8 @@ spa:
       new_specified: "Intervención New"
       new_specified_request: "Intervención New solicitado"
       # show: "%{procedure_name}"
+    backend/invalid_journal_entries:
+      # index: "Journal entries to balance"
     backend/inventories:
       edit: "Modificación del inventario"
       index: "Inventarios"
@@ -978,6 +980,9 @@ spa:
     charge_value: "Valor de carga"
     chart: "Gráfico"
     check: "Comprobar"
+    check_x_entries_to_balance:
+      # one: "Check entry to balance (%{count})"
+      # other: "Check entries to balance (%{count})"
     children: "Niños"
     choices: "Elecciones"
     choose_a_type_of_product: "Elija un tipo de producto"
@@ -1088,6 +1093,9 @@ spa:
     delete_only_record: "O eliminar sólo la intervención (s) seleccionado y mostrará la solicitud de asociación?"
     delete_request: "Eliminar también la solicitud de asociación a la intervención seleccionada (s)"
     delete_selected_interventions: "Eliminar las intervenciones seleccionadas"
+    delete_x_entries:
+      # one: "Delete %{count} entry"
+      # other: "Delete %{count} entries"
     deliver: "Entregado en"
     deliveries: "Entregas"
     delivery: "Entrega"

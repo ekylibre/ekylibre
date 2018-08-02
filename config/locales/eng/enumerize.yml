@@ -168,7 +168,6 @@ eng:
         linear: "Linear"
         none: "None"
         regressive: "Regressive"
-        simplified_linear: "Simplified linear"
       depreciation_period:
         monthly: "Monthly"
         quarterly: "Quarterly"

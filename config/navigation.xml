@@ -129,11 +129,10 @@
         <page to="backend/regularizations#create"/>
         <page to="backend/regularizations#destroy"/>
         <page to="backend/regularizations#show"/>
-      </item>
-      <item name="draft">
         <page to="backend/draft_journals#show"/>
         <page to="backend/draft_journals#confirm"/>
         <page to="backend/draft_journals#list_journal_entry_items"/>
+        <page to="backend/invalid_journal_entries#index"/>
       </item>
       <item name="reconciliation">
         <page to="backend/accounts#reconciliation"/>

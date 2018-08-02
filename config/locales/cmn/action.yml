@@ -303,6 +303,8 @@ cmn:
       new_specified: "新的干预"
       new_specified_request: "新要求干预"
       # show: "%{procedure_name}"
+    backend/invalid_journal_entries:
+      # index: "Journal entries to balance"
     backend/inventories:
       edit: "编辑盘点"
       index: "存货"
@@ -887,6 +889,9 @@ cmn:
     charge_value: "充值"
     chart: "图表"
     check: "检查"
+    check_x_entries_to_balance:
+      # one: "Check entry to balance (%{count})"
+      # other: "Check entries to balance (%{count})"
     children: "孩子"
     choices: "选择"
     choose_a_type_of_product: "选择产品类型"
@@ -986,6 +991,9 @@ cmn:
     delete_only_record: "或者只删除所选的干预（多个），并显示该请求关联？"
     delete_request: "还删除请求关联到所选择的干预（S）"
     delete_selected_interventions: "删除选定的干预措施"
+    delete_x_entries:
+      # one: "Delete %{count} entry"
+      # other: "Delete %{count} entries"
     deliver: "送货到达"
     deliveries: "交付"
     delivery: "交货"

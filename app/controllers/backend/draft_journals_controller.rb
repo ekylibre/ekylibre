@@ -39,7 +39,31 @@ module Backend
     end
 
     # this method lists all the entries generated in draft mode
-    def show; end
+    def show
+      @redirection = params[:redirection]
+      @current_page = 1
+      @current_date = Date.today
+      @journal_id = params[:journal_id] ? params[:journal_id].to_i : ''
+      journal_entries = @journal_id.blank? ? JournalEntry.all : JournalEntry.where(journal_id: @journal_id)
+      @draft_entries = journal_entries.where(state: :draft).where('printed_on <= ?', @current_date).order(:printed_on)
+      @draft_entries_count = @draft_entries.count
+      @draft_entries = @draft_entries.page(@current_page).per(20)
+      @unbalanced_entries_count = journal_entries.where('printed_on <= ?', @current_date).select { |entry| !entry.balanced? }.count
+      notify_warning_now(:there_are_x_remaining_unbalanced_entries, count: @unbalanced_entries_count) unless @unbalanced_entries_count < 1
+    end
+
+    def list
+      @redirection = params[:redirection]
+      @current_page = params[:page] ? params[:page].to_i : 1
+      @current_date = Date.parse(params[:to]) if params[:to]
+      @journal_id = params[:journal_id].blank? ? params[:journal_id] : params[:journal_id].to_i
+      journal_entries = @journal_id.blank? ? JournalEntry.all : JournalEntry.where(journal_id: @journal_id)
+      @draft_entries = journal_entries.where(state: :draft).where('printed_on <= ?', @current_date).order(:printed_on)
+      @draft_entries_count = @draft_entries.count
+      @draft_entries = @draft_entries.page(@current_page).per(20)
+      @unbalanced_entries_count = journal_entries.where('printed_on <= ?', @current_date).select { |entry| !entry.balanced? }.count
+      notify_warning_now(:there_are_x_remaining_unbalanced_entries, count: @unbalanced_entries_count) unless @unbalanced_entries_count < 1
+    end
 
     # This method confirm all draft entries
     def confirm
@@ -64,6 +88,20 @@ module Backend
         notify_success(:draft_journal_entries_have_been_validated, count: count)
       end
       redirect_to action: :show
+    end
+
+    def confirm_all
+      journal_id = params[:journal_id].blank? ? params[:journal_id] : params[:journal_id].to_i
+      journal_entries = journal_id.blank? ? JournalEntry.all : JournalEntry.where(journal_id: journal_id)
+      journal_entries_to_validate = journal_entries.where(state: :draft).where('printed_on <= ?', params[:to]).order(:printed_on)
+      journal_entries_to_validate_count = journal_entries_to_validate.count
+
+      ActiveRecord::Base.transaction do
+        journal_entries_to_validate.update_all(state: :confirmed, validated_at: Time.zone.now)
+        JournalEntryItem.where(entry_id: journal_entries_to_validate).update_all(state: :confirmed)
+      end
+      notify_success(:draft_journal_entries_have_been_validated, count: journal_entries_to_validate_count)
+      redirect_to params[:redirection]
     end
   end
 end

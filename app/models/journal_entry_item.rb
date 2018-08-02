@@ -108,7 +108,7 @@ class JournalEntryItem < Ekylibre::Record::Base
   validates :account, presence: true
 
   delegate :balanced?, to: :entry, prefix: true
-  delegate :name, :number, to: :account, prefix: true
+  delegate :name, :number, :label, to: :account, prefix: true
   delegate :entity_country, :expected_financial_year, :continuous_number, to: :entry
 
   acts_as_list scope: :entry

@@ -406,6 +406,9 @@ eng:
       # purchase: "Purchase intervention: %{name}"
       # sell: "Sell intervention: %{name}"
       show: "%{procedure_name}"
+    backend/invalid_journal_entries:
+      # delete_all: "Delete all invalid journal entry: %{name}"
+      index: "Journal entries to balance"
     backend/inventories:
       edit: "Edit inventory"
       index: "Inventories"
@@ -437,6 +440,7 @@ eng:
       show: "Journal entry item: %{name}"
     backend/journals:
       bookkeep: "Bookkeep"
+      # check_invalid_entries: "Check invalid entries journal: %{name}"
       close: "Close journal: %{name}"
       edit: "Edit journal: %{name}"
       index: "Journals"
@@ -1081,6 +1085,7 @@ eng:
     animal_details: "Animal details" #?!
     # animal_management: "Animal management"
     animals: "Animals"
+    any_journal: "Any journal"
     archives: "Archives"
     are_you_sure: "Are you sure you want to do this?"
     are_you_sure_you_want_to:
@@ -1157,6 +1162,9 @@ eng:
     charge_value: "Charge value"
     chart: "Chart"
     check: "Check" #?
+    check_x_entries_to_balance: #?!
+      one: "Check entry to balance (%{count})" #?!
+      other: "Check entries to balance (%{count})" #?!
     children: "Children"
     choices: "Choices"
     choose_a_type_of_product: "Choose a type of product"
@@ -1184,7 +1192,15 @@ eng:
       filter_on_attribute_of_class: "Filter on attribute of class"
       special-subscriber: "Special-subscriber"
     configure: "Configure"
+    confirmation: "Confirmation"
     connect: "Connect"
+    consult_the_day_book:
+      zero: "Consult the day book (%{count} entry)"
+      one: "Consult the day book (%{count} entry)" #?
+      other: "Consult the day book (%{count} entries)" #?
+    consult_unbalanced_entries:
+      one: "Consult the unbalanced entry" #?
+      other: "Consult unbalanced entries (%{count})" #?
     consume: "Consume" #?
     contained_products: "Contained products"
     container: "Container"
@@ -1256,9 +1272,13 @@ eng:
     deformity_percentage_evolution: "Deformity percentage evolution"
     delay: "Delay"
     delete: "Delete"
+    # delete_all: "Delete all"
     delete_only_record: "Or only delete the selected intervention(s) and display the request associate ?" #?
     delete_request: "Delete also the request associate to the selected intervention(s)" #?
     delete_selected_interventions: "Delete the selected interventions"
+    delete_x_entries: #?!
+      one: "Delete %{count} entry" #?!
+      other: "Delete %{count} entries" #?!
     deliver: "Delivered on" #?
     deliveries: "Deliveries" #?
     delivery: "Delivery" #?
@@ -1365,6 +1385,7 @@ eng:
     file_preview: "Preview" #?
     file_to_upload: "File to upload"
     filter: "Filter" #?
+    filter_on: "Filter on"
     final_balance: "Final balance"
     financial_assets: "Financial assets" #?
     financial_expenses: "Financial expenses" #??
@@ -1471,6 +1492,7 @@ eng:
     journal: "Journal"
     journal_entries: "Journal's entries" #?
     journal_entries_states: "States of entries"
+    journal_entries_deletion_confirmation_message: "Once validated, you won't be able to edit or delete these entries. Are you sure you want to validate these entries ?"
     journal_entry_items: "Journal entry items"
     journal_entry_items_with_taxes_out_of_range:
       one: "%{count} journal entry item with taxes before declaration started on"
@@ -1841,7 +1863,7 @@ eng:
     # show_export_preview: "Show export preview"
     sign_out: "Sign out" #?
     simplified: "Simplified Accounting" #?
-    simplified_linear_options: "Simplified linear options"
+    simplified_linear_options: "Simplified linear options" #?!
     social_debts: "Social debts" #?!
     social_expenses: "Social expenses" #?!
     sold_on: "Sold on"
@@ -1989,6 +2011,7 @@ eng:
     unpaid_sales: "Unpaid sales" #?
     unset_reconcilable_old_third_accounts: "Unset reconcilable old third accounts (clients, suppliers and attorneys)" #?
     unsubcribed_capital: "Unsubcribed capital" #?!
+    until: "until"
     up: "Up" #?
     up_to: "Up to"
     update: "Update"
@@ -2004,6 +2027,9 @@ eng:
       one: "Validate crumbs for %{count} intervention"
       other: "Validate crumbs for %{count} interventions"
     validate_selected_entries: "Validate selected entries"
+    validate_x_entries:
+      one: "Validate the entry"
+      other: "Validate %{count} entries"
     validated: "Validated"
     values: "Values"
     variable_indicators: "Variable indicators"
@@ -2268,6 +2294,7 @@ eng:
       need_entries_to_reconciliate: "No entries to reconciliate on bank statement period"
       need_payment_mode_to_create_deposit: "You must specify a mode of payment in order to make deposits"
       need_stocks_to_create_inventories: "You have to manage some stocks in order to manage inventories"
+      need_to_edit_or_correct_entries_before_validating: "You have to correct or delete these entries before you can enclose the financial year or validate them."
       net_services_and_identifiers_are_always_available_but_are_deprecated_and_will_be_removed_in_next_major_release: "Net services and identifiers are always available but are deprecated and will be removed in next major release"
       no_archived_prints: "No archived prints"
       no_budget_defined_for_current_campaign: "No budget defined for current campaign"
@@ -2309,6 +2336,9 @@ eng:
       the_automatic_lettering_cannot_be_done_in_accountancy_because_too_many_thirds_are_present: "The automatic lettering cannot be done in accountancy because too many thirds are present"
       the_bookkeep_date_format_is_invalid: "The bookkeep date format is invalid"
       the_sales_invoice_is_not_cancellable: "The sales invoice is not cancellable"
+      there_are_x_remaining_unbalanced_entries:
+        one: "%{count} entry during this period remain unbalanced. You have to correct it to be able to perform a global validation."
+        other: "%{count} entries during this period remain unbalanced. You have to correct them to be able to perform a global validation."
       this_service_is_not_activated: "This service is not activated" #?
       unavailable_resource: "Nonexistent %{type} #%{id}"
       unbalanced_journal_entries_are_present_in_year: "Some unbalanced journal entries are present in the financial year." #?
@@ -2369,6 +2399,7 @@ eng:
       # change_password: "Change password"
       # change_state: "Change state"
       check: "Check"
+      # check_invalid_entries: "Check invalid entries"
       close: "Close"
       compute: "Compute"
       compute_balances: "Compute balances"
@@ -2381,6 +2412,7 @@ eng:
       # csv: "Csv"
       # currency_state: "Currency state"
       # current: "Current"
+      # delete_all: "Delete all"
       # depreciate: "Depreciate"
       # depreciate_all: "Depreciate all"
       destroy: "Destroy"

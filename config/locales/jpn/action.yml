@@ -303,6 +303,8 @@ jpn:
       new_specified: "新介入"
       new_specified_request: "新しい要求介入"
       # show: "%{procedure_name}"
+    backend/invalid_journal_entries:
+      # index: "Journal entries to balance"
     backend/inventories:
       edit: "編集インベントリ"
       index: "棚卸"
@@ -954,6 +956,9 @@ jpn:
     charge_value: "電荷値"
     chart: "チャート"
     check: "チェック"
+    check_x_entries_to_balance:
+      # one: "Check entry to balance (%{count})"
+      # other: "Check entries to balance (%{count})"
     children: "子供"
     choices: "選択肢"
     choose_a_type_of_product: "製品の種類を選択してください"
@@ -1053,6 +1058,9 @@ jpn:
     delete_only_record: "のみ選択した介入（複数可）を削除し、要求が会合を表示しますか？"
     delete_request: "選択した介入にもリクエストが会合を削除（複数可）"
     delete_selected_interventions: "選択された介入を削除します。"
+    delete_x_entries:
+      # one: "Delete %{count} entry"
+      # other: "Delete %{count} entries"
     deliver: "で配信"
     deliveries: "出荷"
     delivery: "配信"
