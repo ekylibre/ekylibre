@@ -231,7 +231,7 @@ class FixedAsset < Ekylibre::Record::Base
     waiting_asset_account = Account.find_or_import_from_nomenclature(:outstanding_assets)
     fixed_assets_suppliers_account = Account.find_or_import_from_nomenclature(:fixed_assets_suppliers)
     fixed_assets_values_account = Account.find_or_import_from_nomenclature(:fixed_assets_values)
-    exceptionnal_depreciations_inputations_expenses_account = Account.find_or_import_from_nomenclature(:exceptionnal_depreciations_inputations_expenses)
+    exceptionnal_depreciations_inputations_expenses_account = Account.find_or_import_from_nomenclature(:exceptional_depreciations_inputations_expenses)
 
     # fixed asset link to purchase item
     if purchase_items.any? && in_use?
