@@ -709,6 +709,7 @@ ita:
     depreciable_amount: "Il valore ammortizzabile"
     depreciable_product: "Prodotto ammortizzabile"
     depreciated_amount: "importo ammortizzati"
+    # depreciation_fiscal_coefficient: "Depreciation fiscal coefficient"
     depreciation_method: "metodo di ammortamento"
     depreciation_percentage: "percentuale di ammortamento"
     depreciation_period: "Periodo di ammortamento"

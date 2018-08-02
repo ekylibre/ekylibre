@@ -1412,6 +1412,7 @@ arb:
     depreciable_amount: "قيمة الاستهلاك"
     depreciable_product: "المنتج للاستهلاك"
     depreciated_amount: "كمية المستهلكة"
+    # depreciation_fiscal_coefficient: "Depreciation fiscal coefficient"
     depreciation_method: "طريقة الاستهلاك"
     depreciation_percentage: "نسبة الاستهلاك"
     depreciation_period: "فترة الاستهلاك"

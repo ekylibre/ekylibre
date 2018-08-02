@@ -22,45 +22,46 @@
 #
 # == Table: fixed_assets
 #
-#  accounted_at              :datetime
-#  allocation_account_id     :integer          not null
-#  asset_account_id          :integer
-#  ceded                     :boolean
-#  ceded_on                  :date
-#  created_at                :datetime         not null
-#  creator_id                :integer
-#  currency                  :string           not null
-#  current_amount            :decimal(19, 4)
-#  custom_fields             :jsonb
-#  depreciable_amount        :decimal(19, 4)   not null
-#  depreciated_amount        :decimal(19, 4)   not null
-#  depreciation_method       :string           not null
-#  depreciation_percentage   :decimal(19, 4)
-#  depreciation_period       :string
-#  description               :text
-#  expenses_account_id       :integer
-#  id                        :integer          not null, primary key
-#  journal_entry_id          :integer
-#  journal_id                :integer          not null
-#  lock_version              :integer          default(0), not null
-#  name                      :string           not null
-#  number                    :string           not null
-#  product_id                :integer
-#  purchase_amount           :decimal(19, 4)
-#  purchase_id               :integer
-#  purchase_item_id          :integer
-#  purchased_on              :date
-#  sale_id                   :integer
-#  sale_item_id              :integer
-#  scrapped_journal_entry_id :integer
-#  scrapped_on               :date
-#  sold_journal_entry_id     :integer
-#  sold_on                   :date
-#  started_on                :date             not null
-#  state                     :string
-#  stopped_on                :date             not null
-#  updated_at                :datetime         not null
-#  updater_id                :integer
+#  accounted_at                    :datetime
+#  allocation_account_id           :integer          not null
+#  asset_account_id                :integer
+#  ceded                           :boolean
+#  ceded_on                        :date
+#  created_at                      :datetime         not null
+#  creator_id                      :integer
+#  currency                        :string           not null
+#  current_amount                  :decimal(19, 4)
+#  custom_fields                   :jsonb
+#  depreciable_amount              :decimal(19, 4)   not null
+#  depreciated_amount              :decimal(19, 4)   not null
+#  depreciation_fiscal_coefficient :decimal(, )
+#  depreciation_method             :string           not null
+#  depreciation_percentage         :decimal(19, 4)
+#  depreciation_period             :string
+#  description                     :text
+#  expenses_account_id             :integer
+#  id                              :integer          not null, primary key
+#  journal_entry_id                :integer
+#  journal_id                      :integer          not null
+#  lock_version                    :integer          default(0), not null
+#  name                            :string           not null
+#  number                          :string           not null
+#  product_id                      :integer
+#  purchase_amount                 :decimal(19, 4)
+#  purchase_id                     :integer
+#  purchase_item_id                :integer
+#  purchased_on                    :date
+#  sale_id                         :integer
+#  sale_item_id                    :integer
+#  scrapped_journal_entry_id       :integer
+#  scrapped_on                     :date
+#  sold_journal_entry_id           :integer
+#  sold_on                         :date
+#  started_on                      :date             not null
+#  state                           :string
+#  stopped_on                      :date             not null
+#  updated_at                      :datetime         not null
+#  updater_id                      :integer
 #
 require 'test_helper'
 
@@ -187,13 +188,13 @@ class FixedAssetTest < ActiveSupport::TestCase
     fixed_asset = FixedAsset.create!(attributes)
 
     assert_equal 5, fixed_asset.depreciations.count
-    
-    depreciation_amount_assertion = [10208.33, 13927.08, 9052.61, 8405.99, 8405.99]
+
+    depreciation_amount_assertion = [10_208.33, 13_927.08, 9052.61, 8405.99, 8405.99]
 
     currency = Preference[:currency]
 
     fixed_asset.depreciations.each_with_index do |depreciation, index|
-      assert_equal currency.to_currency.round(depreciation_amount_assertion[index]), depreciation.amount.to_f 
+      assert_equal currency.to_currency.round(depreciation_amount_assertion[index]), depreciation.amount.to_f
     end
   end
 

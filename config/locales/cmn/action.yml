@@ -815,6 +815,7 @@ cmn:
     animal_details: "动物细节"
     animal_productions: "动物生产" #?
     animals: "动物"
+    # any_journal: "Any journal"
     archives: "档案"
     are_you_sure: "你确定要这么做吗？"
     are_you_sure_you_want_to:
@@ -918,7 +919,15 @@ cmn:
       filter_on_attribute_of_class: "在类的属性过滤器"
       special-subscriber: "特殊用户"
     configure: "配置"
+    # confirmation: "Confirmation"
     connect: "接"
+    consult_the_day_book:
+      # one: "Consult the day book (%{count} entry)"
+      # other: "Consult the day book (%{count} entries)"
+      # zero: "Consult the day book (%{count} entry)"
+    consult_unbalanced_entries:
+      # one: "Consult the unbalanced entry"
+      # other: "Consult unbalanced entries (%{count})"
     consume: "消耗"
     contained_products: "产品所含"
     container: "容器"
@@ -1102,6 +1111,7 @@ cmn:
     file_preview: "预习"
     file_to_upload: "文件上传"
     filter: "过滤"
+    # filter_on: "Filter on"
     final_balance: "最终平衡"
     financial_assets: "金融资产"
     financial_expenses: "财务费用"
@@ -1207,6 +1217,7 @@ cmn:
     items: "项目"
     journal: "日志"
     journal_entries: "日报的条目"
+    # journal_entries_deletion_confirmation_message: "Once validated, you won't be able to edit or delete these entries. Are you sure you want to validate these entries ?"
     journal_entries_states: "项国"
     journal_entry_items: "日记条目项目"
     journal_entry_items_with_taxes_out_of_range:
@@ -1736,6 +1747,7 @@ cmn:
     unpaid_sales: "未付销售"
     unset_reconcilable_old_third_accounts: "取消设置调和的旧第三账户（客户，供应商和律师）"
     unsubcribed_capital: "Unsubcribed资本"
+    # until: "until"
     up: "向上"
     up_to: "取决于"
     update: "更新"
@@ -1751,6 +1763,9 @@ cmn:
       # one: "Validate crumbs for %{count} intervention"
       # other: "Validate crumbs for %{count} interventions"
     validate_selected_entries: "验证选定的条目"
+    validate_x_entries:
+      # one: "Validate the entry"
+      # other: "Validate %{count} entries"
     validated: "验证"
     values: "值"
     variable_indicators: "变量指标"
@@ -2010,6 +2025,7 @@ cmn:
       need_entries_to_reconciliate: "没有条目reconciliate银行对帐单周期"
       need_payment_mode_to_create_deposit: "你必须为了使存款指定付款方式"
       need_stocks_to_create_inventories: "你必须为了管理库存管理部分个股"
+      # need_to_edit_or_correct_entries_before_validating: "You have to correct or delete these entries before you can enclose the financial year or validate them."
       net_services_and_identifiers_are_always_available_but_are_deprecated_and_will_be_removed_in_next_major_release: "网络服务和标识符始终可用，但被取消，并将在下一主要版本中删除"
       no_archived_prints: "没有打印存档"
       no_budget_defined_for_current_campaign: "没有当前活动定义预算"
@@ -2049,6 +2065,9 @@ cmn:
       the_automatic_lettering_cannot_be_done_in_accountancy_because_too_many_thirds_are_present: "自动刻字不能在会计完成，因为太多的三分之二都存在"
       the_bookkeep_date_format_is_invalid: "书签日期格式无效"
       the_sales_invoice_is_not_cancellable: "销售发票不撤销"
+      there_are_x_remaining_unbalanced_entries:
+        # one: "%{count} entry during this period remain unbalanced. You have to correct it to be able to perform a global validation."
+        # other: "%{count} entries during this period remain unbalanced. You have to correct them to be able to perform a global validation."
       this_service_is_not_activated: "该服务未启动"
       # unavailable_resource: "Nonexistent %{type} #%{id}"
       unbalanced_journal_entries_are_present_in_year: "一些不平衡的日记账分录存在于财政年度。"

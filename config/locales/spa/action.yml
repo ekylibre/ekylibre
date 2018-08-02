@@ -883,6 +883,7 @@ spa:
     animal_details: "Detalles de los animales"
     animal_productions: "Producciones animales" #?
     animals: "Animales"
+    # any_journal: "Any journal"
     archives: "Archivo"
     are_you_sure: "¿Seguro que quieres hacer esto?"
     are_you_sure_you_want_to:
@@ -1010,8 +1011,16 @@ spa:
       filter_on_attribute_of_class: "Filtro de atributo de la clase"
       special-subscriber: "Especial abonado"
     configure: "Configurar"
+    # confirmation: "Confirmation"
     confirmed: "Confirmadas" #?
     connect: "Entrar"
+    consult_the_day_book:
+      # one: "Consult the day book (%{count} entry)"
+      # other: "Consult the day book (%{count} entries)"
+      # zero: "Consult the day book (%{count} entry)"
+    consult_unbalanced_entries:
+      # one: "Consult the unbalanced entry"
+      # other: "Consult unbalanced entries (%{count})"
     consume: "Consumir"
     contained_products: "Productos contenidos"
     container: "Envase"
@@ -1223,6 +1232,7 @@ spa:
     file_to_upload: "Un archivo para subir"
     filter: "Filtrar"
     filter_entries_with: "Flitrar las escrituras con" #?
+    # filter_on: "Filter on"
     final_balance: "Saldo final"
     financial_assets: "Activos financieros"
     financial_expenses: "Gastos financieros"
@@ -1340,6 +1350,7 @@ spa:
     items: "Elementos"
     journal: "Periodico"
     journal_entries: "Escrituras"
+    # journal_entries_deletion_confirmation_message: "Once validated, you won't be able to edit or delete these entries. Are you sure you want to validate these entries ?"
     journal_entries_states: "Estados de las entradas"
     journal_entry_items: "Artículos entrada de diario"
     journal_entry_items_states: "Estado de las escrituras utilizadas" #?
@@ -1968,6 +1979,7 @@ spa:
     unpaid_sales: "Ventas no pagadas"
     unset_reconcilable_old_third_accounts: "Viejos terceros cuentas conciliables no definidas (clientes, proveedores y abogados)"
     unsubcribed_capital: "El capital Unsubcribed"
+    # until: "until"
     up: "Arriba"
     up_to: "Hasta"
     update: "Actualizar"
@@ -1988,6 +2000,9 @@ spa:
       # one: "Validate crumbs for %{count} intervention"
       # other: "Validate crumbs for %{count} interventions"
     validate_selected_entries: "Validar la escrituras seleccionadas"
+    validate_x_entries:
+      # one: "Validate the entry"
+      # other: "Validate %{count} entries"
     validated: "Validado"
     values: "Valores"
     variable_indicators: "Indicadores variables"
@@ -2271,6 +2286,7 @@ spa:
       need_quantities_to_cancel_an_sales_invoice: "Se debe especifiar una quantidad para hacer un haber" #?
       need_stocks_building_to_create_products: "Se debe crear un lugar de almacenamiento para crear un producto" #?
       need_stocks_to_create_inventories: "Se debe administrar los depositos a lo menos de un producto para hacer un inventario"
+      # need_to_edit_or_correct_entries_before_validating: "You have to correct or delete these entries before you can enclose the financial year or validate them."
       net_services_and_identifiers_are_always_available_but_are_deprecated_and_will_be_removed_in_next_major_release: "Servicios de la red y los identificadores están siempre disponibles, pero están en desuso y se eliminará en la siguiente versión importante"
       no_archived_prints: "No hay huellas archivadas"
       no_balance_template: "No hay modelo de documento para este equilibrio" #?
@@ -2331,6 +2347,9 @@ spa:
       the_automatic_lettering_cannot_be_done_in_accountancy_because_too_many_thirds_are_present: "Las letras automático no se puede realizar en la contabilidad porque demasiados tercios están presentes"
       the_bookkeep_date_format_is_invalid: "El formato de fecha del libro es inválido"
       the_sales_invoice_is_not_cancellable: "La factura de venta no se puede cancelar"
+      there_are_x_remaining_unbalanced_entries:
+        # one: "%{count} entry during this period remain unbalanced. You have to correct it to be able to perform a global validation."
+        # other: "%{count} entries during this period remain unbalanced. You have to correct them to be able to perform a global validation."
       this_service_is_not_activated: "Este servicio no está activado"
       unavailable_model: "%{model} indisponible o inexistente (%{id})" #?
       # unavailable_resource: "Nonexistent %{type} #%{id}"

@@ -820,6 +820,7 @@ por:
     animal_details: "Detalhes de animais"
     animal_productions: "Produção animal" #?
     animals: "Animais"
+    # any_journal: "Any journal"
     archives: "Arquivos"
     are_you_sure: "Você tem certeza de que quer fazer isso?"
     are_you_sure_you_want_to:
@@ -923,7 +924,15 @@ por:
       filter_on_attribute_of_class: "Filtrar atributo da classe"
       special-subscriber: "Especial assinante"
     configure: "Configurar"
+    # confirmation: "Confirmation"
     connect: "Conectar"
+    consult_the_day_book:
+      # one: "Consult the day book (%{count} entry)"
+      # other: "Consult the day book (%{count} entries)"
+      # zero: "Consult the day book (%{count} entry)"
+    consult_unbalanced_entries:
+      # one: "Consult the unbalanced entry"
+      # other: "Consult unbalanced entries (%{count})"
     consume: "Consumir"
     contained_products: "Produtos contidos"
     container: "Recipiente"
@@ -1107,6 +1116,7 @@ por:
     file_preview: "Visualização"
     file_to_upload: "Arquivo para upload"
     filter: "Filtro"
+    # filter_on: "Filter on"
     final_balance: "saldo final"
     financial_assets: "Ativos financeiros"
     financial_expenses: "Despesas financeiras"
@@ -1212,6 +1222,7 @@ por:
     items: "Itens"
     journal: "Diário"
     journal_entries: "Entradas da revista"
+    # journal_entries_deletion_confirmation_message: "Once validated, you won't be able to edit or delete these entries. Are you sure you want to validate these entries ?"
     journal_entries_states: "Estados de entradas"
     journal_entry_items: "Itens de entrada de diário"
     journal_entry_items_with_taxes_out_of_range:
@@ -1740,6 +1751,7 @@ por:
     unpaid_sales: "Vendas não pagas"
     unset_reconcilable_old_third_accounts: "Unset conciliáveis ​​contas antigas terceiros (clientes, fornecedores e advogados)"
     unsubcribed_capital: "Capital de Unsubcribed"
+    # until: "until"
     up: "Acima"
     up_to: "Até"
     update: "Atualizar"
@@ -1755,6 +1767,9 @@ por:
       # one: "Validate crumbs for %{count} intervention"
       # other: "Validate crumbs for %{count} interventions"
     validate_selected_entries: "Validar entradas selecionadas"
+    validate_x_entries:
+      # one: "Validate the entry"
+      # other: "Validate %{count} entries"
     validated: "Validado"
     values: "Valores"
     variable_indicators: "Indicadores de variáveis"
@@ -2014,6 +2029,7 @@ por:
       need_entries_to_reconciliate: "Nenhuma entrada para reconciliar no período de extrato bancário"
       need_payment_mode_to_create_deposit: "Você deve especificar um modo de pagamento, a fim de fazer depósitos"
       need_stocks_to_create_inventories: "Você tem que gerir algumas ações a fim de gerir inventários"
+      # need_to_edit_or_correct_entries_before_validating: "You have to correct or delete these entries before you can enclose the financial year or validate them."
       net_services_and_identifiers_are_always_available_but_are_deprecated_and_will_be_removed_in_next_major_release: "Líquida de serviços e identificadores estão sempre disponíveis, mas são obsoleto e será removido em próximo grande lançamento"
       no_archived_prints: "Nenhuma digital arquivados"
       no_budget_defined_for_current_campaign: "Sem orçamento definido para a campanha atual"
@@ -2053,6 +2069,9 @@ por:
       the_automatic_lettering_cannot_be_done_in_accountancy_because_too_many_thirds_are_present: "A rotulação automática não pode ser feito em contabilidade porque muitas terços estão presentes"
       the_bookkeep_date_format_is_invalid: "O formato da data do livro não é válido"
       the_sales_invoice_is_not_cancellable: "A factura de venda não é revogável"
+      there_are_x_remaining_unbalanced_entries:
+        # one: "%{count} entry during this period remain unbalanced. You have to correct it to be able to perform a global validation."
+        # other: "%{count} entries during this period remain unbalanced. You have to correct them to be able to perform a global validation."
       this_service_is_not_activated: "Este serviço não está ativado"
       # unavailable_resource: "Nonexistent %{type} #%{id}"
       unbalanced_journal_entries_are_present_in_year: "Algumas anotações não periódicas do jornal estão presentes no exercício."

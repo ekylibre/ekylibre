@@ -678,6 +678,7 @@ jpn:
     depreciable_amount: "償却可能価額"
     depreciable_product: "減価償却製品"
     depreciated_amount: "減価償却額"
+    # depreciation_fiscal_coefficient: "Depreciation fiscal coefficient"
     depreciation_method: "減価償却法"
     depreciation_percentage: "減価償却率"
     depreciation_period: "減価償却期間"

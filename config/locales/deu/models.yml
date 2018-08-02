@@ -678,6 +678,7 @@ deu:
     depreciable_amount: "Das Abschreibungsvolumen"
     depreciable_product: "Die abnutzbaren Produkt"
     depreciated_amount: "Abgeschrieben Menge"
+    # depreciation_fiscal_coefficient: "Depreciation fiscal coefficient"
     depreciation_method: "Abschreibungsmethode"
     depreciation_percentage: "Abschreibungsprozent"
     depreciation_period: "Abschreibungszeitraum"
