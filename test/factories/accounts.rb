@@ -4,18 +4,19 @@ FactoryBot.define do
     reconcilable false
     nature 'general'
     sequence(:name) { |n| "801 - Compte général #{n}" }
-    sequence(:number) { |n| "8010000#{n}" }
+    # Validation will take care to get a 8 character length number
+    sequence(:number) { |n| "801#{n}" }
 
     trait :centralizing do
       nature 'centralizing'
       sequence(:name) { |n| "411 - Compte centralisateur #{n}" }
-      sequence(:number) { |n| "411#{n}" }
+      sequence(:number) { |n| "41#{n}" }
     end
 
     trait :auxiliary do
       nature 'auxiliary'
       sequence(:name) { |n| "411 - Compte auxiliaire #{n}" }
-      sequence(:number) { |n| "4110000#{n}" }
+      sequence(:number) { |n| "411000 12#{n}" }
     end
   end
 end
