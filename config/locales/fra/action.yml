@@ -1573,7 +1573,7 @@ fra:
     lipolysis: "Lipolyse" #?
     liquid_assets_on_turnover: "Taux de liquidités / CA (Disponibilités / Chiffre d’affaire HT) %{financial_year}"
     list: "Liste"
-    listing_extract: "Éxécuter l’extraction" #?
+    listing_extract: "Exécuter l’extraction" #?
     listing_mail: "Envoyer un courriel" #?
     listings: "Extractions de données" #?
     load: "Charger"
@@ -2830,7 +2830,7 @@ fra:
       repay: "Rembourser"
       reset: "Ré-initialiser"
       retrieve: "Relever"
-      run: "Éxécuter"
+      run: "Exécuter"
       search: "Rechercher"
       select: "Selectionner"
       sell: "Passer en vente"
