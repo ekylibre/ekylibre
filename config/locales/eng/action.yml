@@ -1288,6 +1288,7 @@ eng:
     depreciation: "Depreciation"
     depreciations: "Depreciations"
     depreciations_inputations_expenses: "Depreciations inputations expenses" #?
+    derogatory_depreciation_explanation: "Ekylibre doesn't handle derogatory depreciations" #?!
     derogatory_depreciations: "Derogatory depreciations" #?!
     description: "Description" #?
     destroy: "Destroy"

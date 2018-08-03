@@ -1018,6 +1018,7 @@ por:
     depreciation: "Depreciação"
     depreciations: "Depreciações"
     depreciations_inputations_expenses: "As despesas de depreciação inputations"
+    # derogatory_depreciation_explanation: "Ekylibre doesn't handle derogatory depreciations"
     derogatory_depreciations: "Depreciações depreciativos"
     description: "Descrição"
     destroy: "Destruir"

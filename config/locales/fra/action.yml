@@ -1231,6 +1231,7 @@ fra:
     depreciation: "Amortissement"
     depreciations: "Dépréciations"
     depreciations_inputations_expenses: "Dotations aux amortissements et aux provisions"
+    derogatory_depreciation_explanation: "Ekylibre ne gère pas les amortissements dérogatoires."
     derogatory_depreciations: "Amortissements dérogatoires"
     description: "Description"
     desposits: "Remises en banque" #?

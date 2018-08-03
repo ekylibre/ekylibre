@@ -1080,6 +1080,7 @@ jpn:
     depreciation: "減価償却費"
     depreciations: "減価償却"
     depreciations_inputations_expenses: "減価償却費inputations"
+    # derogatory_depreciation_explanation: "Ekylibre doesn't handle derogatory depreciations"
     derogatory_depreciations: "軽蔑的な減価償却"
     description: "説明"
     destroy: "破壊する"

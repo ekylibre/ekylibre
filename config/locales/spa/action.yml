@@ -1123,6 +1123,7 @@ spa:
     depreciation: "Depreciación"
     depreciations: "Depreciaciones"
     depreciations_inputations_expenses: "Gastos de depreciaciones inputations"
+    # derogatory_depreciation_explanation: "Ekylibre doesn't handle derogatory depreciations"
     derogatory_depreciations: "Depreciaciones derogatorios"
     description: "Descripción general"
     destroy: "Destruir"

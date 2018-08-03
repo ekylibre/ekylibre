@@ -1013,6 +1013,7 @@ deu:
     depreciation: "Abschreibung"
     depreciations: "Abschreibungen"
     depreciations_inputations_expenses: "Abschreibungen inputations Aufwendungen"
+    # derogatory_depreciation_explanation: "Ekylibre doesn't handle derogatory depreciations"
     derogatory_depreciations: "Derogatory Abwertungen"
     description: "Beschreibung"
     destroy: "Zerstören"

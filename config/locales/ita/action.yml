@@ -1079,6 +1079,7 @@ ita:
     depreciation: "Ammortamento"
     depreciations: "Ammortamenti"
     depreciations_inputations_expenses: "Ammortamenti inputations spese"
+    # derogatory_depreciation_explanation: "Ekylibre doesn't handle derogatory depreciations"
     derogatory_depreciations: "Ammortamenti sprezzanti"
     description: "Descrizione"
     destroy: "Distruggere"

@@ -1013,6 +1013,7 @@ cmn:
     depreciation: "折旧"
     depreciations: "贬值"
     depreciations_inputations_expenses: "折旧费用inputations"
+    # derogatory_depreciation_explanation: "Ekylibre doesn't handle derogatory depreciations"
     derogatory_depreciations: "贬贬值"
     description: "描述"
     destroy: "破坏"
