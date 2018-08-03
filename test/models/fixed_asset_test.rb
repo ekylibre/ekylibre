@@ -104,7 +104,7 @@ class FixedAssetTest < ActiveSupport::TestCase
     attributes = {
       name: @product.name,
       depreciable_amount: 150_000,
-      depreciation_method: :simplified_linear,
+      depreciation_method: :linear,
       started_on: @started_on,
       depreciation_period: :monthly,
       depreciation_percentage: 10.00,
