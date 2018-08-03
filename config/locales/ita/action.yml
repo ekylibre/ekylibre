@@ -1582,6 +1582,7 @@ ita:
     reflections: "Riflessi"
     refresh: "ricaricare"
     register_intervention_request: "Registrati richiesta di intervento"
+    # regressive_options: "Regressive options"
     rejected: "Respinto"
     relationship: "Relazione"
     # relationship_of_entity: "%{relationship} of %{entity}"

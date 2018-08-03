@@ -1702,6 +1702,7 @@ spa:
     refresh: "Refrescar"
     register: "Crear una nueva compañía" #?
     register_intervention_request: "Register solicitud de intervención"
+    # regressive_options: "Regressive options"
     rejected: "Rechazado"
     relations: "Relaciones clientos/abastecedores" #?
     relationship: "Relación"

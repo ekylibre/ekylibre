@@ -1786,7 +1786,7 @@ eng:
     reflections: "Reflections" #?
     refresh: "Refresh" #?
     register_intervention_request: "Register intervention request" #?!
-    # regressive_options: "Regressive options"
+    regressive_options: "Regressive options"
     rejected: "Rejected" #?
     relationship: "Relationship"
     relationship_of_entity: "%{relationship} of %{entity}"

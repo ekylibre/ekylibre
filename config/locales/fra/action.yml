@@ -1939,6 +1939,7 @@ fra:
     reflections: "Réflections"
     refresh: "Rafraîchir"
     register_intervention_request: "Enregistrer la demande d’intervention"
+    regressive_options: "Options de l'amortissement dégressif"
     rejected: "Refusé"
     related_people: "En lien avec" #?
     relationship: "Tiers"

@@ -1517,6 +1517,7 @@ cmn:
     reflections: "思考"
     refresh: "刷新"
     register_intervention_request: "注册的请求干预"
+    # regressive_options: "Regressive options"
     rejected: "拒绝"
     relationship: "关系"
     # relationship_of_entity: "%{relationship} of %{entity}"

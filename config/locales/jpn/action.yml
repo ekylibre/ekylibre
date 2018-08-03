@@ -1588,6 +1588,7 @@ jpn:
     reflections: "リフレクションズ"
     refresh: "リフレッシュ"
     register_intervention_request: "介入要求を登録"
+    # regressive_options: "Regressive options"
     rejected: "拒否されました"
     relationship: "関係"
     # relationship_of_entity: "%{relationship} of %{entity}"

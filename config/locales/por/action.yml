@@ -1521,6 +1521,7 @@ por:
     reflections: "Reflexões"
     refresh: "Refrescar"
     register_intervention_request: "Registre pedido de intervenção"
+    # regressive_options: "Regressive options"
     rejected: "Rejeitado"
     relationship: "Relações"
     # relationship_of_entity: "%{relationship} of %{entity}"

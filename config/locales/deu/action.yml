@@ -1516,6 +1516,7 @@ deu:
     reflections: "Reflexionen"
     refresh: "erfrischen"
     register_intervention_request: "Registrieren Serviceanfrage"
+    # regressive_options: "Regressive options"
     rejected: "Zurückgewiesen"
     relationship: "Beziehung"
     # relationship_of_entity: "%{relationship} of %{entity}"
