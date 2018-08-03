@@ -246,6 +246,7 @@ eng:
       show: "Document: %{name}"
     backend/draft_journals:
       # confirm: "Confirm draft journal: %{name}"
+      # confirm_all: "Confirm all draft journal: %{name}"
       show: "Draft"
     backend/entities:
       # autocomplete: "Autocomplete entity: %{name}"
@@ -440,7 +441,6 @@ eng:
       show: "Journal entry item: %{name}"
     backend/journals:
       bookkeep: "Bookkeep"
-      # check_invalid_entries: "Check invalid entries journal: %{name}"
       close: "Close journal: %{name}"
       edit: "Edit journal: %{name}"
       index: "Journals"
@@ -1194,11 +1194,11 @@ eng:
     configure: "Configure"
     confirmation: "Confirmation"
     connect: "Connect"
-    consult_the_day_book:
-      zero: "Consult the day book (%{count} entry)"
+    consult_the_day_book: #?
       one: "Consult the day book (%{count} entry)" #?
       other: "Consult the day book (%{count} entries)" #?
-    consult_unbalanced_entries:
+      zero: "Consult the day book (%{count} entry)" #?
+    consult_unbalanced_entries: #?
       one: "Consult the unbalanced entry" #?
       other: "Consult unbalanced entries (%{count})" #?
     consume: "Consume" #?
@@ -1272,13 +1272,12 @@ eng:
     deformity_percentage_evolution: "Deformity percentage evolution"
     delay: "Delay"
     delete: "Delete"
-    # delete_all: "Delete all"
     delete_only_record: "Or only delete the selected intervention(s) and display the request associate ?" #?
     delete_request: "Delete also the request associate to the selected intervention(s)" #?
     delete_selected_interventions: "Delete the selected interventions"
-    delete_x_entries: #?!
-      one: "Delete %{count} entry" #?!
-      other: "Delete %{count} entries" #?!
+    delete_x_entries: #?
+      one: "Delete %{count} entry" #?
+      other: "Delete %{count} entries" #?
     deliver: "Delivered on" #?
     deliveries: "Deliveries" #?
     delivery: "Delivery" #?
@@ -1289,6 +1288,7 @@ eng:
     depreciation: "Depreciation"
     depreciations: "Depreciations"
     depreciations_inputations_expenses: "Depreciations inputations expenses" #?
+    derogatory_depreciation_explanation: "Ekylibre doesn't handle derogatory depreciations" #?!
     derogatory_depreciations: "Derogatory depreciations" #?!
     description: "Description" #?
     destroy: "Destroy"
@@ -1384,7 +1384,7 @@ eng:
     file_nature: "File type"
     file_preview: "Preview" #?
     file_to_upload: "File to upload"
-    filter: "Filter" #?
+    filter: "Filter"
     filter_on: "Filter on"
     final_balance: "Final balance"
     financial_assets: "Financial assets" #?
@@ -1491,8 +1491,8 @@ eng:
     items: "Items"
     journal: "Journal"
     journal_entries: "Journal's entries" #?
-    journal_entries_states: "States of entries"
     journal_entries_deletion_confirmation_message: "Once validated, you won't be able to edit or delete these entries. Are you sure you want to validate these entries ?"
+    journal_entries_states: "States of entries"
     journal_entry_items: "Journal entry items"
     journal_entry_items_with_taxes_out_of_range:
       one: "%{count} journal entry item with taxes before declaration started on"
@@ -1787,6 +1787,7 @@ eng:
     reflections: "Reflections" #?
     refresh: "Refresh" #?
     register_intervention_request: "Register intervention request" #?!
+    regressive_options: "Regressive options"
     rejected: "Rejected" #?
     relationship: "Relationship"
     relationship_of_entity: "%{relationship} of %{entity}"
@@ -2026,10 +2027,10 @@ eng:
     validate_crumbs_for_x_interventions:
       one: "Validate crumbs for %{count} intervention"
       other: "Validate crumbs for %{count} interventions"
-    validate_selected_entries: "Validate selected entries"
-    validate_x_entries:
-      one: "Validate the entry"
-      other: "Validate %{count} entries"
+    validate_selected_entries: "Validate selected entries" #?!
+    validate_x_entries: #?
+      one: "Validate the entry" #?
+      other: "Validate %{count} entries" #?
     validated: "Validated"
     values: "Values"
     variable_indicators: "Variable indicators"
@@ -2399,11 +2400,11 @@ eng:
       # change_password: "Change password"
       # change_state: "Change state"
       check: "Check"
-      # check_invalid_entries: "Check invalid entries"
       close: "Close"
       compute: "Compute"
       compute_balances: "Compute balances"
       confirm: "Confirm"
+      # confirm_all: "Confirm all"
       contacts: "Contacts"
       convert: "Convert"
       correct: "Correct"

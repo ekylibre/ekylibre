@@ -861,6 +861,7 @@ fra:
     depreciable_amount: "Montant amortissable"
     depreciable_product: "Liée au produit suivant"
     depreciated_amount: "Montant amorti"
+    depreciation_fiscal_coefficient: "Coefficient fiscal d'amortissement"
     depreciation_method: "Méthode d’amortissement"
     depreciation_percentage: "Pourcentage d’amortissement"
     depreciation_period: "Durée d’amortissement"
@@ -943,7 +944,7 @@ fra:
     expected_stop_amount: "Montant final attendu"
     expected_yield: "Rendement évalué (y)"
     expenses: "Dépenses"
-    expenses_account: "Comptes de charge"
+    expenses_account: "Compte de charge"
     expenses_accounts: "Comptes de charge" #?
     expiration_delay: "Délai d’expiration"
     expired_at: "Date d’expiration"

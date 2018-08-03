@@ -2066,6 +2066,15 @@
     </group>
   </inaccessible-actions>
   <untreated-actions>
-    <group/>
+    <group>
+      <item name="draft_journals">
+        <page to="backend/draft_journals#confirm_all"/>
+        <page to="backend/draft_journals#list"/>
+      </item>
+      <item name="invalid_journal_entries">
+        <page to="backend/invalid_journal_entries#delete_all"/>
+        <page to="backend/invalid_journal_entries#list"/>
+      </item>
+    </group>
   </untreated-actions>
 </navigation>

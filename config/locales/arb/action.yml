@@ -1081,6 +1081,7 @@ arb:
     animal_details: "تفاصيل الحيوان"
     animal_productions: "الإنتاج الحيواني" #?
     animals: "الحيوانات"
+    # any_journal: "Any journal"
     apply: "تطبيق" #?
     archives: "أرشيف"
     are_you_sure: "هل انت متأكد من رغبتك بالقيام به؟"
@@ -1220,10 +1221,18 @@ arb:
       filter_on_attribute_of_class: "التصفية وفق %{attribute} (%{class})"
       special-subscriber: "تصفية وفق الاشتراك"
     configure: "تكوين"
+    # confirmation: "Confirmation"
     confirmed: "تأكيد" #?
     confirmed_at: "تم تأكيده في" #?
     connect: "الدخول"
     consult: "استشارة" #?
+    consult_the_day_book:
+      # one: "Consult the day book (%{count} entry)"
+      # other: "Consult the day book (%{count} entries)"
+      # zero: "Consult the day book (%{count} entry)"
+    consult_unbalanced_entries:
+      # one: "Consult the unbalanced entry"
+      # other: "Consult unbalanced entries (%{count})"
     consume: "تستهلك"
     contact: "العنوان" #?
     contact_create: "اضافة مشترك جديد" #?
@@ -1337,6 +1346,7 @@ arb:
     depreciation: "الاستهلاك"
     depreciations: "انخفاض قيمة"
     depreciations_inputations_expenses: "مصاريف انخفاض قيمة inputations"
+    # derogatory_depreciation_explanation: "Ekylibre doesn't handle derogatory depreciations"
     derogatory_depreciations: "انخفاض قيمة مهينة"
     description: "الوصف"
     destroy: "هدم"
@@ -1467,6 +1477,7 @@ arb:
     file_to_upload: "ملف لتحميل"
     filter: "تصفية"
     filter_entries_with: "تصفية الادخالات مع" #?
+    # filter_on: "Filter on"
     final_balance: "الرصيد النهائي"
     financial_assets: "الأصول المالية"
     financial_expenses: "نفقات مالية"
@@ -1600,6 +1611,7 @@ arb:
     journal: "دفتراليومية"
     journal_detail: "اغلق في %{closed_at}" #?
     journal_entries: "المدخالات"
+    # journal_entries_deletion_confirmation_message: "Once validated, you won't be able to edit or delete these entries. Are you sure you want to validate these entries ?"
     journal_entries_states: "الولايات إدخالات"
     journal_entry_items: "البنود إدخال دفتر اليومية"
     journal_entry_items_states: "بيان المدخلات المستخدمة" #?
@@ -2050,6 +2062,7 @@ arb:
     refresh: "تحديث"
     register: "تسجيل شركة جديدة" #?
     register_intervention_request: "تسجيل طلب تدخل"
+    # regressive_options: "Regressive options"
     rejected: "مرفوض"
     relations: "ادارة علاقات العملاء / والمموليين" #?
     relationship: "صلة"
@@ -2372,6 +2385,7 @@ arb:
     unreceived: "غير مقبوضة" #?
     unset_reconcilable_old_third_accounts: "حسابات الثالثة القديمة للمصالحة ضبطه (العملاء والموردين والمحامين)"
     unsubcribed_capital: "العاصمة Unsubcribed"
+    # until: "until"
     unused_payment: "دفعات غير مستخدمة" #?
     unvalidated_operations: "عمل غير صحيح" #?
     up: "يرتفع"
@@ -2396,6 +2410,9 @@ arb:
       # one: "Validate crumbs for %{count} intervention"
       # other: "Validate crumbs for %{count} interventions"
     validate_selected_entries: "التحقق من المدخلات المختارة"
+    validate_x_entries:
+      # one: "Validate the entry"
+      # other: "Validate %{count} entries"
     validated: "التحقق من صحة"
     values: "القيم"
     variable_indicators: "مؤشرات متغيرة"
@@ -2709,6 +2726,7 @@ arb:
       need_quantities_to_cancel_an_sales_invoice: "يجب عليك تحديد الكمية لتتمكن من اجراءات الفاتورة" #?
       need_stocks_building_to_create_products: "يجب عليك انشاء موقع للتخزين لتتمكن من انشاء منتج" #?
       need_stocks_to_create_inventories: "يجب عليك ادارة الاسهم لمنتج واحد كحد ادنى لتتمكن من اجراء عمليات الجرد"
+      # need_to_edit_or_correct_entries_before_validating: "You have to correct or delete these entries before you can enclose the financial year or validate them."
       net_services_and_identifiers_are_always_available_but_are_deprecated_and_will_be_removed_in_next_major_release: "صافي الخدمات والمعرفات هي دائما موجودة، ولكن تم إيقاف وسيتم إزالتها في الافراج الرئيسي القادم"
       no_archived_prints: "لا يطبع المحفوظة"
       no_balance_template: "ليس هناك من نموذج لوثيقة الرصيد" #?
@@ -2769,6 +2787,9 @@ arb:
       the_automatic_lettering_cannot_be_done_in_accountancy_because_too_many_thirds_are_present: "حروف التلقائي لا يمكن القيام به في مجال المحاسبة لأن الكثير من ثلثي موجودة"
       the_bookkeep_date_format_is_invalid: "تنسيق تاريخ حجز الكتب غير صالح"
       the_sales_invoice_is_not_cancellable: "فاتورة المبيعات ليست للإلغاء"
+      there_are_x_remaining_unbalanced_entries:
+        # one: "%{count} entry during this period remain unbalanced. You have to correct it to be able to perform a global validation."
+        # other: "%{count} entries during this period remain unbalanced. You have to correct them to be able to perform a global validation."
       this_service_is_not_activated: "لم يتم تنشيط هذه الخدمة"
       unavailable_model: "%{model} غير متوفر أو غير موجود (%{id})" #?
       # unavailable_resource: "Nonexistent %{type} #%{id}"

@@ -678,6 +678,7 @@ por:
     depreciable_amount: "Quantia depreciável"
     depreciable_product: "Produto depreciável"
     depreciated_amount: "Montante depreciado"
+    # depreciation_fiscal_coefficient: "Depreciation fiscal coefficient"
     depreciation_method: "Método de depreciação"
     depreciation_percentage: "Percentual de depreciação"
     depreciation_period: "Período de amortização"

@@ -2598,6 +2598,8 @@ fixed_assets:
     precision: 19
     scale: 4
     required: true
+  depreciation_fiscal_coefficient:
+    type: decimal
   depreciation_method:
     type: string
     required: true
