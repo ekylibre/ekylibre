@@ -159,8 +159,10 @@ module Backend
         unless infos[:tax_id] = (item.reference_tax ? item.reference_tax.id : nil)
           infos[:tax_id] = if (items = SaleItem.where(variant_id: @product_nature_variant.id)) && items.any?
                              items.order(id: :desc).first.tax_id
+                           elsif @product_nature_variant.category.sale_taxes.any?
+                             @product_nature_variant.category.sale_taxes.first.id
                            else
-                             Tax.first.id
+                             Tax.current.first.id
                            end
         end
         if tax = Tax.find_by(id: infos[:tax_id])
@@ -173,18 +175,44 @@ module Backend
           end
         end
       elsif params[:mode] == 'last_purchase_item'
+        # get last item with tax, pretax amount and amount
         if (items = PurchaseItem.where(variant_id: @product_nature_variant.id)) && items.any?
           item = items.order(id: :desc).first
           infos[:tax_id] = item.tax_id
           infos[:unit][:pretax_amount] = item.unit_pretax_amount
           infos[:unit][:amount] = item.unit_amount
+        # or get tax and amount from catalog
+        elsif (items = @product_nature_variant.catalog_items.of_usage(:purchase)) && items.any?
+          if item.all_taxes_included
+            infos[:unit][:pretax_amount] = item.reference_tax.pretax_amount_of(item.amount)
+            infos[:unit][:amount] = item.amount
+          else
+            infos[:unit][:pretax_amount] = item.amount
+            infos[:unit][:amount] = item.reference_tax.amount_of(item.amount)
+          end
+        # or get tax from category
+        elsif @product_nature_variant.category.sale_taxes.any?
+          infos[:tax_id] = @product_nature_variant.category.sale_taxes.first.id
         end
       elsif params[:mode] == 'last_sale_item'
+        # get last item with tax, pretax amount and amount
         if (items = SaleItem.where(variant_id: @product_nature_variant.id)) && items.any?
           item = items.order(id: :desc).first
           infos[:tax_id] = item.tax_id
           infos[:unit][:pretax_amount] = item.unit_pretax_amount
           infos[:unit][:amount] = item.unit_amount
+        # or get tax and amount from catalog
+        elsif (items = @product_nature_variant.catalog_items.of_usage(:sale)) && items.any?
+          if item.all_taxes_included
+            infos[:unit][:pretax_amount] = item.reference_tax.pretax_amount_of(item.amount)
+            infos[:unit][:amount] = item.amount
+          else
+            infos[:unit][:pretax_amount] = item.amount
+            infos[:unit][:amount] = item.reference_tax.amount_of(item.amount)
+          end
+        # or get tax from category
+        elsif @product_nature_variant.category.purchase_taxes.any?
+          infos[:tax_id] = @product_nature_variant.category.purchase_taxes.first.id
         end
       end
       render json: infos
