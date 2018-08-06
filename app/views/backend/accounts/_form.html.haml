@@ -1,10 +1,10 @@
 = field_set do
-  = f.input :nature, as: :radio_buttons, show: '.{{value}}-nature-options'
+  = f.input :nature, as: :radio_buttons, collection: [[:general.tl,'general'], [:auxiliary.tl,'auxiliary']], show: '.{{value}}-nature-options'
   .general-nature-options.centralizing-nature-options
     = f.input :number
   .auxiliary-nature-options
-    = f.input :auxiliary_number, required: true
     = f.input :centralizing_account_id, collection: Account.centralizing, required: true
+    = f.input :auxiliary_number, required: true
   = f.input :name
   = f.input :description, as: :text
   = f.input :usages, collection: Nomen::Account.selection
