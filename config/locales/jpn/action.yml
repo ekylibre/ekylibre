@@ -906,6 +906,7 @@ jpn:
     attachment: "アタッチメント"
     attachments: "添付ファイル"
     automatic: "オート"
+    # auxiliary: "Auxiliary"
     available: "利用できます"
     # available_columns: "Available columns: %{columns}"
     average: "平均"

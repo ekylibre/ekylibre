@@ -909,6 +909,7 @@ spa:
     attachment: "Pieza juntada"
     attachments: "Archivos adjuntos"
     # automatic: "Auto"
+    # auxiliary: "Auxiliary"
     available: "Disponible"
     available_columns: "Campos disponibles\_: %{columns}"
     average: "Promedio"

@@ -905,6 +905,7 @@ ita:
     attachment: "Allegati"
     attachments: "allegati"
     # automatic: "Auto"
+    # auxiliary: "Auxiliary"
     available: "A disposizione"
     # available_columns: "Available columns: %{columns}"
     average: "Media"

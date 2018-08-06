@@ -1109,6 +1109,7 @@ eng:
     attachment: "Attachment"
     attachments: "Attachments"
     automatic: "Auto" #?
+    auxiliary: "Auxiliary"
     available: "Available"
     available_columns: "Available columns: %{columns}"
     average: "Average"
@@ -1288,7 +1289,7 @@ eng:
     depreciation: "Depreciation"
     depreciations: "Depreciations"
     depreciations_inputations_expenses: "Depreciations inputations expenses" #?
-    derogatory_depreciation_explanation: "Ekylibre doesn't handle derogatory depreciations" #?!
+    derogatory_depreciation_explanation: "Ekylibre doesn't handle derogatory depreciations"
     derogatory_depreciations: "Derogatory depreciations" #?!
     description: "Description" #?
     destroy: "Destroy"
@@ -1403,7 +1404,7 @@ eng:
     fungi: "Fungi" #?
     future_events: "Future events"
     genealogy: "Genealogy"
-    general: "General" #?
+    general: "General"
     general_informations: "General informations"
     generate: "Generate"
     generate_last_journal_entry: "Generate last journal entry"

@@ -839,6 +839,7 @@ deu:
     attachment: "Befestigung"
     attachments: "Zubehör"
     # automatic: "Auto"
+    # auxiliary: "Auxiliary"
     available: "Erhältlich"
     # available_columns: "Available columns: %{columns}"
     average: "Durchschnittlich"

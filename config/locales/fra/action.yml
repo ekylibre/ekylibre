@@ -994,6 +994,7 @@ fra:
     attachments: "Pièces jointes"
     attorney: "Informations mandataire" #?
     automatic: "Auto"
+    auxiliary: "Auxiliaire"
     available: "Disponible"
     available_columns: "Champs disponibles\_: %{columns}"
     average: "Moyenne"
@@ -1382,7 +1383,7 @@ fra:
     fungi: "Champignons"
     future_events: "Futurs événements"
     genealogy: "Généalogie"
-    general: "Informations générales"
+    general: "Général"
     general_informations: "Informations générales"
     general_ledger: "Grand livre" #?
     generate: "Générer"

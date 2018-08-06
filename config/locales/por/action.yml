@@ -844,6 +844,7 @@ por:
     attachment: "Acessório"
     attachments: "Anexos"
     # automatic: "Auto"
+    # auxiliary: "Auxiliary"
     available: "Disponível"
     # available_columns: "Available columns: %{columns}"
     average: "Média"

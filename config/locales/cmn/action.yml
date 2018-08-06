@@ -839,6 +839,7 @@ cmn:
     attachment: "附件"
     attachments: "附件"
     automatic: "汽车"
+    # auxiliary: "Auxiliary"
     available: "可用的"
     # available_columns: "Available columns: %{columns}"
     average: "平均"
