@@ -399,7 +399,8 @@ class Account < Ekylibre::Record::Base
           account.destroy if account.destroyable?
         end
         Nomen::Account.find_each do |item|
-          if item.send(accounting_system).match(/\A[1-9]0*\z|\A0/).nil?
+          # Load except radical and centralizing accounts
+          if item.send(accounting_system).match(/\A[1-9]0*\z|\A0/).nil? && !item.centralizing
             find_or_import_from_nomenclature(item.name)
           end
         end
