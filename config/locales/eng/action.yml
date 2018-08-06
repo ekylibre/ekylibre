@@ -1178,6 +1178,7 @@ eng:
     client: "Client" #?
     client_informations: "Client informations"
     client_receivables: "Client receivables" #?!
+    clients: "Clients" #?
     close: "Close"
     close_financial_year: "Close financial year"
     close_journal: "Close the journal"
@@ -1905,6 +1906,7 @@ eng:
     supplier_informations: "Supplier informations"
     supplier_payment_mode: "Supplier payment mode"
     supplier_receivables: "Supplier receivables" #?!
+    suppliers: "Suppliers" #?
     supply: "Supply" #?
     support: "Support" #?
     supports: "Supports" #?

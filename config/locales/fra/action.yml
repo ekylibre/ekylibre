@@ -1078,6 +1078,7 @@ fra:
     client_informations: "Informations client"
     client_phone: "Téléphone" #?
     client_receivables: "Créances client"
+    clients: "Clients"
     close: "Fermer"
     close_financial_year: "Clôturer l’exercice"
     close_journal: "Clôturer le journal"
@@ -2141,6 +2142,7 @@ fra:
     supplier_informations: "Informations fournisseur"
     supplier_payment_mode: "Mode de paiement du fournisseur"
     supplier_receivables: "Fournisseurs d'exploitations et comptes rattachés"
+    suppliers: "Fournisseurs"
     supply: "Livraison"
     support: "Support"
     supports: "Supports de production"

@@ -1203,6 +1203,7 @@ arb:
     client_accounting_balance: "رصيد العميل" #?
     client_informations: "المعلومات العميل"
     client_receivables: "ذمم العملاء"
+    # clients: "Clients"
     close: "اغلاق الدفتر اليومي"
     close_financial_year: "وثيق السنة المالية"
     close_journal: "إغلاق مجلة"
@@ -2248,6 +2249,7 @@ arb:
     supplier_informations: "المعلومات المورد"
     supplier_payment_mode: "المورد وضع الدفع"
     supplier_receivables: "ذمم المورد"
+    # suppliers: "Suppliers"
     supply: "التسليم"
     support: "الدعم"
     supports: "الدعم"
