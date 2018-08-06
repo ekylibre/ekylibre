@@ -92,10 +92,10 @@ class Account < Ekylibre::Record::Base
   validates :number, uniqueness: true
   validates :number, length: { is: 8 }, format: { without: /\A[1-9]0*\z|\A0/ }, if: :general?
   validates :number, length: { is: 3 }, format: { without: /\A(0*)\z/ }, if: :centralizing?
-  validates :number, length: { minimum: 8, maximum: 12 }, if: :auxiliary?
+  validates :number, length: { minimum: 4, maximum: 12 }, if: :auxiliary?
   validates :number, format: { with: /\A\d(\d(\d[0-9A-Z]*)?)?\z/ }, unless: :auxiliary?
   validates :auxiliary_number, length: { allow_blank: true, minimum: 0 }, unless: :auxiliary?
-  validates :auxiliary_number, presence: true, length: { minimum: 5, maximum: 9 }, format: { without: /\A(0*)\z/ }, if: :auxiliary?
+  validates :auxiliary_number, presence: true, length: { maximum: 9 }, format: { without: /\A(0*)\z/ }, if: :auxiliary?
 
   enumerize :nature, in: %i[general centralizing auxiliary], default: :general, predicates: true
 
@@ -200,7 +200,6 @@ class Account < Ekylibre::Record::Base
       self.centralizing_account = nil
       self.number = number.ljust(3, '0') if number
     elsif auxiliary?
-      self.auxiliary_number = auxiliary_number.rjust(5, '0')
       self.number = centralizing_account.number + auxiliary_number if centralizing_account
     end
     self.reconcilable = reconcilableable? if reconcilable.nil?
