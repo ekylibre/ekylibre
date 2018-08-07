@@ -42,14 +42,11 @@
     = f.input :reminder_submissive, show: :reduction_percentage
     = f.input :authorized_payments_count
     = f.input :deliveries_conditions, as: :text
-    - scopes = { clients: true, not_centralizing: true}
-    = f.referenced_association :client_account, source: {scope: scopes}, buttons: { new: { number: Account.find_or_import_from_nomenclature(:clients).number}}
-
+    = f.referenced_association :client_account, source: :clients, buttons: { new: { number: Account.find_centralizing_account_from_nomenclature(:clients).send(Account.accounting_system)}}
 = field_set(:supplier_informations) do
   = f.input :supplier, show: '#supplier-informations'
   #supplier-informations
-    - scopes = { suppliers: true, not_centralizing: true}
-    = f.referenced_association :supplier_account, source: {scope: scopes}, buttons: { new: { number: Account.find_or_import_from_nomenclature(:suppliers).number}}
+    = f.referenced_association :supplier_account, source: :suppliers, buttons: { new: { number: Account.find_centralizing_account_from_nomenclature(:clients).send(Account.accounting_system)}}
     = f.input :supplier_payment_delay
     = f.referenced_association :supplier_payment_mode
     = f.input :transporter
