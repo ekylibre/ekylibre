@@ -68,9 +68,8 @@ account_balances:
 accounts:
   auxiliary_number:
     type: string
-  centralizing_account_id:
-    type: integer
-    references: account
+  centralizing_account:
+    type: string
   created_at:
     type: datetime
     required: true
