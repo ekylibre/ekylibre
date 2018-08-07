@@ -534,6 +534,7 @@ por:
     ceded: "Cedido"
     ceded_on: "Cedida em"
     # centralizing_account: "Centralizing account"
+    # centralizing_account_name: "Centralizing account name"
     charge_account: "Conta de crédito"
     charges_categories: "Categorias encargos"
     checks: "Verificações"

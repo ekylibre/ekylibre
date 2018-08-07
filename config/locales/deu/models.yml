@@ -534,6 +534,7 @@ deu:
     ceded: "Rückversicherer"
     ceded_on: "Rückversicherer auf"
     # centralizing_account: "Centralizing account"
+    # centralizing_account_name: "Centralizing account name"
     charge_account: "Kundenkonto"
     charges_categories: "Kosten Kategorien"
     checks: "Schecks"

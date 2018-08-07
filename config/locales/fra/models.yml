@@ -693,6 +693,7 @@ fra:
     ceded: "Cédé"
     ceded_on: "Cédé le"
     centralizing_account: "Compte centralisateur"
+    # centralizing_account_name: "Centralizing account name"
     charge_account: "Compte d’achat"
     charges_categories: "Catégories de produits avec charge"
     check_state: "Vérifier l’état" #?

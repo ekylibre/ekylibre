@@ -68,7 +68,7 @@ account_balances:
 accounts:
   auxiliary_number:
     type: string
-  centralizing_account:
+  centralizing_account_name:
     type: string
   created_at:
     type: datetime

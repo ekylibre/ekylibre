@@ -533,6 +533,7 @@ eng:
     ceded: "Ceded"
     ceded_on: "Ceded on"
     centralizing_account: "Centralizing account"
+    centralizing_account_name: "Centralizing account name"
     charge_account: "Charge account"
     charges_categories: "Charges categories"
     checks: "Checks" #?
