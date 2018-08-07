@@ -22,24 +22,24 @@
 #
 # == Table: accounts
 #
-#  auxiliary_number        :string
-#  centralizing_account_id :integer
-#  created_at              :datetime         not null
-#  creator_id              :integer
-#  custom_fields           :jsonb
-#  debtor                  :boolean          default(FALSE), not null
-#  description             :text
-#  id                      :integer          not null, primary key
-#  label                   :string           not null
-#  last_letter             :string
-#  lock_version            :integer          default(0), not null
-#  name                    :string           not null
-#  nature                  :string
-#  number                  :string           not null
-#  reconcilable            :boolean          default(FALSE), not null
-#  updated_at              :datetime         not null
-#  updater_id              :integer
-#  usages                  :text
+#  auxiliary_number          :string
+#  centralizing_account_name :string
+#  created_at                :datetime         not null
+#  creator_id                :integer
+#  custom_fields             :jsonb
+#  debtor                    :boolean          default(FALSE), not null
+#  description               :text
+#  id                        :integer          not null, primary key
+#  label                     :string           not null
+#  last_letter               :string
+#  lock_version              :integer          default(0), not null
+#  name                      :string           not null
+#  nature                    :string
+#  number                    :string           not null
+#  reconcilable              :boolean          default(FALSE), not null
+#  updated_at                :datetime         not null
+#  updater_id                :integer
+#  usages                    :text
 #
 
 class Account < Ekylibre::Record::Base
@@ -78,11 +78,11 @@ class Account < Ekylibre::Record::Base
   has_many :loans_as_interest,            class_name: 'Loan', foreign_key: :interest_account_id
   has_many :loans_as_insurance,           class_name: 'Loan', foreign_key: :insurance_account_id
   has_many :bank_guarantees_loans,        class_name: 'Loan', foreign_key: :bank_guarantee_account_id
-  has_many :auxiliary_accounts,           class_name: 'Account', foreign_key: :centralizing_account_id
-  belongs_to :centralizing_account,       class_name: 'Account'
+  # has_many :auxiliary_accounts,           class_name: 'Account', foreign_key: :centralizing_account_id
+  refers_to :centralizing_account, -> { where(centralizing: true) }, class_name: 'Account'
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates :auxiliary_number, :last_letter, length: { maximum: 500 }, allow_blank: true
+  validates :auxiliary_number, :centralizing_account_name, :last_letter, length: { maximum: 500 }, allow_blank: true
   validates :debtor, :reconcilable, inclusion: { in: [true, false] }
   validates :description, :usages, length: { maximum: 500_000 }, allow_blank: true
   validates :label, :name, :number, presence: true, length: { maximum: 500 }
@@ -200,7 +200,8 @@ class Account < Ekylibre::Record::Base
       self.centralizing_account = nil
       self.number = number.ljust(3, '0') if number
     elsif auxiliary?
-      self.number = centralizing_account.number + auxiliary_number if centralizing_account
+      centralizing_account_number = self.centralizing_account.send(Account.accounting_system)
+      self.number = centralizing_account_number + auxiliary_number if centralizing_account
     end
     self.reconcilable = reconcilableable? if reconcilable.nil?
     self.label = tc(:label, number: number.to_s, name: name.to_s)
