@@ -2,9 +2,10 @@
   = f.input :nature, as: :radio_buttons, show: '.{{value}}-nature-options'
   .general-nature-options.centralizing-nature-options
     = f.input :number
-  .auxiliary-nature-options
-    = f.input :auxiliary_number, required: true
-    = f.input :centralizing_account_id, collection: Account.centralizing, required: true
+  - unless f.object.protected_auxiliary_number?
+    .auxiliary-nature-options
+      = f.input :auxiliary_number, required: true
+      = f.input :centralizing_account_id, collection: Account.centralizing, required: true
   = f.input :name
   = f.input :description, as: :text
   = f.input :usages, collection: Nomen::Account.selection
