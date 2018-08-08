@@ -18,14 +18,14 @@ eng:
       destroy: "Log out" #?
       new: "New session"
     backend/accounts:
-      edit: "Edit account: %{number} - %{name}"
+      edit: "Edit account: %{label}"
       index: "Accounting plans"
       load: "Load an accounting plan"
-      mark: "Reconciliate account: %{number} - %{name}"
+      mark: "Reconciliate account: %{label}"
       # mask_lettered_items: "Mask lettered items account: %{name}"
       new: "New account"
       reconciliation: "Account reconciliation"
-      show: "Account: %{number} - %{name}"
+      show: "Account: %{label}"
       unmark: "Unmark account"
     backend/activities:
       edit: "Edit activity: %{name}"

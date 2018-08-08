@@ -196,6 +196,10 @@ class Account < Ekylibre::Record::Base
     self.usages = Account.find_parent_usage(number) if usages.blank? && number
   end
 
+  def protected_auxiliary_number?
+    journal_entry_items.where.not(state: :draft).any?
+  end
+
   protect(on: :destroy) do
     self.class.reflect_on_all_associations(:has_many).any? { |a| send(a.name).any? }
   end

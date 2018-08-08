@@ -13,13 +13,13 @@ fra:
       new: "Connexion"
       renew: "Renouveller la session" #?
     backend/accounts:
-      edit: "Modifier le compte\_: %{number} - %{name}"
+      edit: "Modifier le compte\_: %{label}"
       index: "Plan de comptes"
       load: "Charger un plan de compte"
-      mark: "Lettrage du compte\_: %{number} - %{name}"
+      mark: "Lettrage du compte\_: %{label}"
       new: "Nouveau compte"
       reconciliation: "Lettrage de comptes"
-      show: "Compte\_: %{number} - %{name}"
+      show: "Compte\_: %{label}"
       unmark: "Délettrer un compte"
     backend/activities:
       edit: "Modifier une activité\_: %{name}"
