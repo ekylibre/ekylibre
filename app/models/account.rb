@@ -78,7 +78,7 @@ class Account < Ekylibre::Record::Base
   has_many :loans_as_interest,            class_name: 'Loan', foreign_key: :interest_account_id
   has_many :loans_as_insurance,           class_name: 'Loan', foreign_key: :insurance_account_id
   has_many :bank_guarantees_loans,        class_name: 'Loan', foreign_key: :bank_guarantee_account_id
-  # has_many :auxiliary_accounts,           class_name: 'Account', foreign_key: :centralizing_account_id
+
   refers_to :centralizing_account, -> { where(centralizing: true) }, class_name: 'Account'
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
@@ -91,13 +91,13 @@ class Account < Ekylibre::Record::Base
   validates :name, length: { allow_nil: true, maximum: 200 }
   validates :number, uniqueness: true
   validates :number, length: { is: 8 }, format: { without: /\A[1-9]0*\z|\A0/ }, if: :general?
-  validates :number, length: { is: 3 }, format: { without: /\A(0*)\z/ }, if: :centralizing?
   validates :number, length: { minimum: 4, maximum: 12 }, if: :auxiliary?
   validates :number, format: { with: /\A\d(\d(\d[0-9A-Z]*)?)?\z/ }, unless: :auxiliary?
   validates :auxiliary_number, length: { allow_blank: true, minimum: 0 }, unless: :auxiliary?
   validates :auxiliary_number, presence: true, length: { maximum: 9 }, format: { without: /\A(0*)\z/ }, if: :auxiliary?
+  validates :centralizing_account_name, presence: true, if: :auxiliary?
 
-  enumerize :nature, in: %i[general centralizing auxiliary], default: :general, predicates: true
+  enumerize :nature, in: %i[general auxiliary], default: :general, predicates: true
 
   # default_scope order(:number, :name)
   scope :of_usage, lambda { |usage|
@@ -181,27 +181,15 @@ class Account < Ekylibre::Record::Base
     of_usages(:deductible_vat, :enterprise_deductible_vat)
   }
 
-  scope :centralizing, -> {
-    where(nature: 'centralizing')
-  }
-
-  scope :not_centralizing, -> {
-    where.not(nature: 'centralizing')
-  }
-
   # This method:allows to create the parent accounts if it is necessary.
   before_validation do
     if general?
       self.auxiliary_number = nil
       self.centralizing_account = nil
       self.number = number.ljust(8, '0') if number
-    elsif centralizing?
-      self.auxiliary_number = nil
-      self.centralizing_account = nil
-      self.number = number.ljust(3, '0') if number
-    elsif auxiliary?
+    elsif auxiliary? && centralizing_account
       centralizing_account_number = self.centralizing_account.send(Account.accounting_system)
-      self.number = centralizing_account_number + auxiliary_number if centralizing_account
+      self.number = centralizing_account_number + auxiliary_number
     end
     self.reconcilable = reconcilableable? if reconcilable.nil?
     self.label = tc(:label, number: number.to_s, name: name.to_s)
@@ -342,21 +330,33 @@ class Account < Ekylibre::Record::Base
       item = Nomen::Account.find(usage)
       raise ArgumentError, "The usage #{usage.inspect} is unknown" unless item
       raise ArgumentError, "The usage #{usage.inspect} is not implemented in #{accounting_system.inspect}" unless item.send(accounting_system)
-      account = find_by_usage(usage, except: { nature: :auxiliary }, sort_by: "nature = 'centralizing' DESC")
+      account = find_by_usage(usage, except: { nature: :auxiliary })
       unless account
         return unless valid_item?(item)
         account = new(
           name: item.human_name,
-          number: item.centralizing ? item.send(accounting_system)[0...3] : item.send(accounting_system),
+          number: item.send(accounting_system),
           debtor: !!item.debtor,
           usages: item.name,
-          nature: item.centralizing ? 'centralizing' : 'general'
+          nature: 'general'
         )
         account.save!
       end
       account
     end
     alias import_from_nomenclature find_or_import_from_nomenclature
+
+    def generate_auxiliary_account_number(usage)
+      item = Nomen::Account.select { |a| a.name == usage.to_s && a.centralizing }.first
+      raise ArgumentError, "The usage #{usage.inspect} is unknown" unless item
+      raise ArgumentError, "The usage #{usage.inspect} is not implemented in #{accounting_system.inspect}" unless item.send(accounting_system)
+      centralizing_number = item.send(accounting_system)
+      auxiliary_number = '1'
+      until Account.find_by('number LIKE ?', centralizing_number + auxiliary_number).nil?
+        auxiliary_number.succ!
+      end
+      auxiliary_number
+    end
 
     # Returns the name of the used accounting system
     # It takes the information in preferences
