@@ -230,7 +230,6 @@ class ProductNatureVariant < Ekylibre::Record::Base
       options[:auxiliary_number] = category_account.number + number[-6, 6].rjust(6)
       options[:centralizing_account_id] = category_account.id
       options[:name] = category_account.name + ' [' + self.name + ']'
-      options[:label] = options[:number] + ' - ' + options[:name]
       options[:usages] = category_account.usages
       Account.create!(options)
     else
