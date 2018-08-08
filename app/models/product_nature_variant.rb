@@ -224,14 +224,7 @@ class ProductNatureVariant < Ekylibre::Record::Base
       # We want to notice => raise.
       raise "Account '#{account_key}' is not configured on category of #{self.name.inspect} variant. You have to check category first"
     end
-
-    options = {}
-    options[:number] = category_account.number + number[-6, 6].rjust(6)
-    options[:name] = category_account.name + ' [' + self.name + ']'
-    options[:label] = options[:number] + ' - ' + options[:name]
-    options[:usages] = category_account.usages
-
-    Account.create!(options)
+    category_account
   end
 
   # add animals to new variant
