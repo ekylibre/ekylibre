@@ -59,4 +59,11 @@ class AccountTest < ActiveSupport::TestCase
     main.merge_with(double)
     assert_nil Account.find_by(id: double.id)
   end
+
+  test 'creation fails if its number starts with a zero' do
+    rec = assert_raises ActiveRecord::RecordInvalid do
+      Account.create!(number: '01234567', name: 'fixture', nature: :general)
+    end
+    assert_equal 'Validations failed: Number is invalid', rec.message
+  end
 end
