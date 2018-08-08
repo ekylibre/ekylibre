@@ -672,25 +672,8 @@ preferences_058:
   lock_version: 0
   name: list._accounts_list_accounts_tag
   nature: string
-  string_value:
-    content_for: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-      actions: main_toolbar
-      pagination: meta_toolbar
-      settings: meta_toolbar
-    period: ''
-    started_on: '2017-09-01'
-    stopped_on: '2018-08-31'
-    sort: nature
-    dir: asc
-    only: content
-    redirect: "/backend/accounts"
-    controller: backend/accounts
-    action: list
-    hidden_columns:
-    - :usages
-    page: 1
-    per_page: 20
-  updated_at: 2018-08-06 08:17:42.317119000 Z
+  string_value: {}
+  updated_at: 2014-10-31 18:46:10.520396000 Z
   updater_id: 1
   user_id: 1
 preferences_059:
@@ -4960,77 +4943,12 @@ preferences_428:
   updater_id: 1
   user_id: 1
 preferences_429:
-  created_at: 2018-08-06 08:17:33.369711000 Z
+  created_at: 2018-08-08 15:35:22.020066000 Z
   creator_id: 1
   id: 430
   lock_version: 0
   name: kujaku.feathers.backend-accounts-index-1:0.default
   nature: string
-  updated_at: 2018-08-06 08:17:33.369711000 Z
-  updater_id: 1
-  user_id: 1
-preferences_430:
-  created_at: 2018-08-06 08:33:09.456472000 Z
-  creator_id: 1
-  id: 431
-  lock_version: 0
-  name: cobbler.accounts-show
-  nature: string
-  string_value: {}
-  updated_at: 2018-08-06 08:33:09.456472000 Z
-  updater_id: 1
-  user_id: 1
-preferences_431:
-  created_at: 2018-08-06 08:33:09.480246000 Z
-  creator_id: 1
-  id: 432
-  lock_version: 0
-  name: list._accounts_list_product_nature_variants_tag
-  nature: string
-  string_value: {}
-  updated_at: 2018-08-06 08:33:09.480246000 Z
-  updater_id: 1
-  user_id: 1
-preferences_432:
-  boolean_value: true
-  created_at: 2018-08-06 08:33:09.491719000 Z
-  creator_id: 1
-  id: 433
-  lock_version: 0
-  name: interface.kujakus.backend-accounts-show-24.collapsed
-  nature: boolean
-  updated_at: 2018-08-06 08:33:09.491719000 Z
-  updater_id: 1
-  user_id: 1
-preferences_433:
-  created_at: 2018-08-06 08:33:09.497547000 Z
-  creator_id: 1
-  id: 434
-  lock_version: 0
-  name: kujaku.feathers.backend-accounts-show-24:0.default
-  nature: string
-  updated_at: 2018-08-06 08:33:09.497547000 Z
-  updater_id: 1
-  user_id: 1
-preferences_434:
-  boolean_value: false
-  created_at: 2018-08-06 08:33:09.601737000 Z
-  creator_id: 1
-  id: 435
-  lock_version: 0
-  name: backend/accounts.journal_entry_items-list.lettered_items.masked
-  nature: boolean
-  updated_at: 2018-08-06 08:33:09.601737000 Z
-  updater_id: 1
-  user_id: 1
-preferences_435:
-  boolean_value: false
-  created_at: 2018-08-06 09:16:18.447591000 Z
-  creator_id: 1
-  id: 436
-  lock_version: 0
-  name: interface.kujakus.backend-trial_balances-show-10.collapsed
-  nature: boolean
-  updated_at: 2018-08-06 09:16:31.775077000 Z
+  updated_at: 2018-08-08 15:35:22.020066000 Z
   updater_id: 1
   user_id: 1
