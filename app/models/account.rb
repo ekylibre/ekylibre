@@ -230,7 +230,7 @@ class Account < Ekylibre::Record::Base
         end
       end
       item = Nomen::Account.items.values.detect { |i| i.send(accounting_system) == number }
-      account = find_by(number: number)
+      account = find_by(number: number) || find_by(number: number.ljust(8, '0'))
       if account
         if item && !account.usages_array.include?(item)
           account.usages ||= ''
@@ -242,6 +242,8 @@ class Account < Ekylibre::Record::Base
           options[:name] ||= item.human_name
           options[:usages] ||= ''
           options[:usages] << ' ' + item.name.to_s
+          nature = (item.centralizing ? 'centralizing' : 'general')
+          options[:nature] ||= nature
         end
         options[:name] ||= number.to_s
         account = create!(options.merge(number: number))

@@ -154,7 +154,9 @@ class Tax < Ekylibre::Record::Base
         next unless name = nature.send("#{account}_account")
         tax_radical = Account.find_or_import_from_nomenclature(name)
         # find if already account tax  by number was created
-        tax_account = Account.find_or_create_by_number("#{tax_radical.number}#{nature.suffix}")
+        tax_radical_number = tax_radical.number.sub(/[1-9](0+$)/, '')
+        number_to_find_with = (tax_radical_number + nature.suffix).truncate(8)
+        tax_account = Account.find_or_create_by_number(number_to_find_with)
         tax_account.name = item.human_name
         tax_account.usages = tax_radical.usages
         tax_account.save!
