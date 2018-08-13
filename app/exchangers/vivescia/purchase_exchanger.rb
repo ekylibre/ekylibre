@@ -13,11 +13,31 @@ module Vivescia
 
       # please refer to lib/svf/norms/edi/fact_invoic.yml
 
+      units_transcode = { 'KGM' => :kilogram,
+                          'DTN' => :quintal,
+                          'KK' => :quintal,
+                          'GRM' => :gram,
+                          'TNE' => :ton,
+                          'EA' => :unity,
+                          'NAR' => :unity,
+                          'DOS' => :unity,
+                          'PCE' => :unity,
+                          'MTR' => :meter,
+                          'KMT' => :kilometer,
+                          'LTR' => :liter,
+                          'MTQ' => :cubic_meter }
+
       # Load hash to transcode EDI items categories to variant
       here = Pathname.new(__FILE__).dirname
       inputs_transcode = {}.with_indifferent_access
       CSV.foreach(here.join('inputs.csv'), headers: true) do |row|
         inputs_transcode[row[0]] = row[1].to_sym
+      end
+
+      # use edi_purchase_item.work_number on LIN segment
+      catalog_transcode = {}.with_indifferent_access
+      CSV.foreach(here.join('catalog.csv'), headers: true) do |row|
+        catalog_transcode[row[1]] = { name: row[4], unit: units_transcode[row[5]], account_number: row[6], account_name: row[7]}
       end
 
       begin
@@ -49,18 +69,9 @@ module Vivescia
         purchase_ids << purchase.id
 
         edi_purchase.items.each do |edi_purchase_item|
-          # check unit
-          units_transcode = { 'KGM' => :kilogram,
-                              'LTR' => :liter,
-                              'TNE' => :ton,
-                              'NAR' => :unity,
-                              'DOS' => :unity,
-                              'PCE' => :unity,
-                              'DTN' => :quintal,
-                              'MTQ' => :cubic_meter }
 
           # transcode detail number in EDI into variant nomen
-          pivot = inputs_transcode[edi_purchase_item.detail.number]
+          pivot = catalog_transcode[edi_purchase_item.work_number]
 
           # try to find the correct variant from id of provider
           product_nature_variant = ProductNatureVariant.where('providers ->> ? = ?', sender.id, edi_purchase_item.work_number).first if edi_purchase_item.work_number.present?
@@ -68,10 +79,22 @@ module Vivescia
           product_nature_variant ||= ProductNatureVariant.where('name ILIKE ?', edi_purchase_item.detail.description).first
           # create the variant
           unless product_nature_variant
-            product_nature_variant = ProductNatureVariant.import_from_nomenclature(pivot, true)
+            # find the correct category of product bases on pivot
+            account_number = pivot[:account_number].sub!(/0+$/, '')
+            account = Account.find_or_create_by_number(account_number) do |a|
+              a.name = pivot[:account_name]
+            end
+            # find category by charge or product account
+            pnc = ProductNatureCategory.where(charge_account_id: account.id).first
+            pnc ||= ProductNatureCategory.where(product_account_id: account.id).first
+            unless pnc
+              puts 'No categories availables'
+              next
+            end
+            product_nature_variant = ProductNatureVariant.where(category_id: pnc.id).first
             product_nature_variant.providers = { sender.id => edi_purchase_item.work_number } if edi_purchase_item.work_number.present?
-            product_nature_variant.name = edi_purchase_item.detail.description if edi_purchase_item.detail.description
-            product_nature_variant.unit_name = units_transcode[edi_purchase_item.unit] if edi_purchase_item.unit
+            product_nature_variant.name = pivot[:name]
+            product_nature_variant.unit_name = Nomen::Unit[pivot[:unit]].human_name
             product_nature_variant.save!
           end
 
