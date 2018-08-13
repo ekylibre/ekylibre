@@ -52,7 +52,7 @@
         %span.title= :total_cost.tl
         %span.value= resource.total_cost.round(currency.precision).l(currency: currency.name)
 
-      - if resource.working_zone_area > 0.0.in_square_meter
+      - if resource.working_zone_area.to_f > 0.0
         .big-info
           %span.title= Intervention.human_attribute_name(:working_zone_area)
           %span.value= resource.human_working_zone_area(precision: 2)
