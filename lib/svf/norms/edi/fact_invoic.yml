@@ -23,11 +23,14 @@ lines:
     occurrence: 1
     cells:
       - purchase_type: string-3 #invoice : 380 /
-      - unknow_1: string-3
+      - purchase_code: string-3 # ACA / ACF / ...
       - purchase_title: string-32
-      - purchase_number: string-12
-      - unknow_2: string-23
+      - purchase_number: string-35
       - purchase_printed_on: string-8
+      - unknow_2: string-2
+      - account_type: string-2 # CC / CS
+      - activity_type: string-2 # 01 / 03
+      - activity_name: string-31
 
   client:
     key: "NAD3 "
@@ -57,12 +60,14 @@ lines:
     key: "LIN  "
     cells:
       - order: string-6
-      - work_number: string-9
-      - unknow_1: string-67
+      - work_number: string-35
+      - work_number_type: string-3 # SA / EN
+      - client_work_number: string-35
+      - client_work_number_type: string-3 # TA / TC / IN
       - price_unit: decimal-17.3
-      - unit: string-5
-      - quantity: decimal-10.3
-      - pretax_amount: decimal-18.3
+      - unit: string-3
+      - quantity: decimal-11.4
+      - pretax_amount: decimal-17.3
     children:
       - reference: "?"
       - detail: "?"
@@ -82,8 +87,7 @@ lines:
     cells:
       - order: string-3
       - description: string-35
-      - number: string-12
-      - unknow: string-23
+      - number: string-35
       - category: string-35
 
   tax:
@@ -91,7 +95,8 @@ lines:
     occurrence: 1
     cells:
       - order: string-6
-      - rate: decimal-6.2
+      - rate: decimal-8.4
+      - amount: decimal-17.3
 
   footer:
     key: "TMA  "
@@ -108,8 +113,8 @@ lines:
     key: "TXS  "
     cells:
       - code: string-6
-      - rate: decimal-6.2
-      - pretax_amount: decimal-19.3
+      - rate: decimal-8.4
+      - pretax_amount: decimal-17.3
       - tax_amount: decimal-17.3
 
   purchase_end:
