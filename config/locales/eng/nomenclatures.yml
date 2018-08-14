@@ -2996,6 +2996,7 @@ eng:
       items:
         adult_cat: "Adult cat"
         adult_dog: "Adult dog"
+        # agricultural_taxe: "Agricultural taxe"
         animal_food: "Animal food"
         animal_housing_services: "Animal housing services"
         animal_litter: "Animal litter"
@@ -3291,6 +3292,7 @@ eng:
         cattle_liquid_slurry: "Cattle liquid slurry"
         cattle_manure: "Cattle manure"
         cattle_slurry: "Cattle slurry"
+        # cereal_taxe: "Cereal taxe"
         cereals_feed_bag_25: "Cereals feed bag 25"
         cereals_harvest_insurance: "Cereals harvest insurance"
         chainsaw: "Chainsaw"
@@ -3965,6 +3967,7 @@ eng:
         crop: "Crop"
         crop_protective_item: "Crop protective item"
         crop_residue: "Crop residue"
+        # crop_taxe: "Crop taxe"
         cultivable_zone: "Cultivable zone"
         discount_and_reduction: "Discount and reduction"
         disinfectant_product: "Disinfectant product"

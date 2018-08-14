@@ -60,14 +60,18 @@ lines:
     key: "LIN  "
     cells:
       - order: string-6
-      - work_number: string-35
+      - work_number: string-10
+      - unknow_1: string-25
       - work_number_type: string-3 # SA / EN
       - client_work_number: string-35
       - client_work_number_type: string-3 # TA / TC / IN
       - price_unit: decimal-17.3
+      - unknow_2: string-2
       - unit: string-3
       - quantity: decimal-11.4
       - pretax_amount: decimal-17.3
+      - unknow_3: string-17
+      - sign: string-1 # F = + / A = -
     children:
       - reference: "?"
       - detail: "?"
