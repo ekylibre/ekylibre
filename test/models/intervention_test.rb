@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2017 Brice Texier, David Joulin
+# Copyright (C) 2012-2018 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -116,11 +116,6 @@ class InterventionTest < ActiveSupport::TestCase
     refute intervention.save, 'Intervention with invalid actions should not be saved: ' + intervention.errors.full_messages.to_sentence(locale: :eng)
     intervention = Intervention.new(procedure_name: :sowing, actions: %i[sowing loosening], working_periods: fake_working_periods)
     refute intervention.save, 'Intervention with invalid actions should not be saved: ' + intervention.errors.full_messages.to_sentence(locale: :eng)
-  end
-
-  test 'destroy intervention update intervention_activities_db_view' do
-    first_activity_intervention = Intervention::HABTM_Activities.first
-    assert Intervention.destroy(first_activity_intervention.intervention_id)
   end
 
   test 'killing target' do

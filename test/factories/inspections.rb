@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :corn_inspection, class: Inspection do
     sampled_at                  { DateTime.now }
     sampling_distance           3.in :meter

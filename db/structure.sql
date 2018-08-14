@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 9.6.4
--- Dumped by pg_dump version 9.6.4
+-- Dumped from database version 9.6.6
+-- Dumped by pg_dump version 9.6.6
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -481,21 +481,72 @@ CREATE TABLE interventions (
 
 
 --
--- Name: target_distributions; Type: TABLE; Schema: public; Owner: -
+-- Name: products; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE target_distributions (
+CREATE TABLE products (
     id integer NOT NULL,
-    target_id integer NOT NULL,
-    activity_production_id integer NOT NULL,
-    activity_id integer NOT NULL,
-    started_at timestamp without time zone,
-    stopped_at timestamp without time zone,
+    type character varying,
+    name character varying NOT NULL,
+    number character varying NOT NULL,
+    variant_id integer NOT NULL,
+    nature_id integer NOT NULL,
+    category_id integer NOT NULL,
+    initial_born_at timestamp without time zone,
+    initial_dead_at timestamp without time zone,
+    initial_container_id integer,
+    initial_owner_id integer,
+    initial_enjoyer_id integer,
+    initial_population numeric(19,4) DEFAULT 0.0,
+    initial_shape postgis.geometry(MultiPolygon,4326),
+    initial_father_id integer,
+    initial_mother_id integer,
+    variety character varying NOT NULL,
+    derivative_of character varying,
+    tracking_id integer,
+    fixed_asset_id integer,
+    born_at timestamp without time zone,
+    dead_at timestamp without time zone,
+    description text,
+    picture_file_name character varying,
+    picture_content_type character varying,
+    picture_file_size integer,
+    picture_updated_at timestamp without time zone,
+    identification_number character varying,
+    work_number character varying,
+    address_id integer,
+    parent_id integer,
+    default_storage_id integer,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
     creator_id integer,
     updater_id integer,
-    lock_version integer DEFAULT 0 NOT NULL
+    lock_version integer DEFAULT 0 NOT NULL,
+    person_id integer,
+    initial_geolocation postgis.geometry(Point,4326),
+    uuid uuid,
+    initial_movement_id integer,
+    custom_fields jsonb,
+    team_id integer,
+    member_variant_id integer,
+    birth_date_completeness character varying,
+    birth_farm_number character varying,
+    country character varying,
+    filiation_status character varying,
+    first_calving_on timestamp without time zone,
+    mother_country character varying,
+    mother_variety character varying,
+    mother_identification_number character varying,
+    father_country character varying,
+    father_variety character varying,
+    father_identification_number character varying,
+    origin_country character varying,
+    origin_identification_number character varying,
+    end_of_life_reason character varying,
+    originator_id integer,
+    codes jsonb,
+    reading_cache jsonb DEFAULT '{}'::jsonb,
+    activity_production_id integer
 );
 
 
@@ -508,8 +559,8 @@ CREATE VIEW activities_interventions AS
     activities.id AS activity_id
    FROM ((((activities
      JOIN activity_productions ON ((activity_productions.activity_id = activities.id)))
-     JOIN target_distributions ON ((target_distributions.activity_production_id = activity_productions.id)))
-     JOIN intervention_parameters ON ((target_distributions.target_id = intervention_parameters.product_id)))
+     JOIN products ON ((products.activity_production_id = activity_productions.id)))
+     JOIN intervention_parameters ON ((products.id = intervention_parameters.product_id)))
      JOIN interventions ON ((intervention_parameters.intervention_id = interventions.id)))
   ORDER BY interventions.id;
 
@@ -761,10 +812,10 @@ ALTER SEQUENCE activity_productions_id_seq OWNED BY activity_productions.id;
 
 CREATE VIEW activity_productions_interventions AS
  SELECT DISTINCT interventions.id AS intervention_id,
-    target_distributions.activity_production_id
-   FROM (((activities
-     JOIN target_distributions ON ((target_distributions.activity_id = activities.id)))
-     JOIN intervention_parameters ON ((target_distributions.target_id = intervention_parameters.product_id)))
+    products.activity_production_id
+   FROM (((activity_productions
+     JOIN products ON ((products.activity_production_id = activity_productions.id)))
+     JOIN intervention_parameters ON ((products.id = intervention_parameters.product_id)))
      JOIN interventions ON ((intervention_parameters.intervention_id = interventions.id)))
   ORDER BY interventions.id;
 
@@ -1305,8 +1356,8 @@ CREATE VIEW campaigns_interventions AS
     interventions.id AS intervention_id
    FROM ((((interventions
      JOIN intervention_parameters ON ((intervention_parameters.intervention_id = interventions.id)))
-     JOIN target_distributions ON ((target_distributions.target_id = intervention_parameters.product_id)))
-     JOIN activity_productions ON ((target_distributions.activity_production_id = activity_productions.id)))
+     JOIN products ON ((products.id = intervention_parameters.product_id)))
+     JOIN activity_productions ON ((products.activity_production_id = activity_productions.id)))
      JOIN campaigns ON ((activity_productions.campaign_id = campaigns.id)))
   ORDER BY campaigns.id;
 
@@ -5825,75 +5876,6 @@ ALTER SEQUENCE product_readings_id_seq OWNED BY product_readings.id;
 
 
 --
--- Name: products; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE products (
-    id integer NOT NULL,
-    type character varying,
-    name character varying NOT NULL,
-    number character varying NOT NULL,
-    variant_id integer NOT NULL,
-    nature_id integer NOT NULL,
-    category_id integer NOT NULL,
-    initial_born_at timestamp without time zone,
-    initial_dead_at timestamp without time zone,
-    initial_container_id integer,
-    initial_owner_id integer,
-    initial_enjoyer_id integer,
-    initial_population numeric(19,4) DEFAULT 0.0,
-    initial_shape postgis.geometry(MultiPolygon,4326),
-    initial_father_id integer,
-    initial_mother_id integer,
-    variety character varying NOT NULL,
-    derivative_of character varying,
-    tracking_id integer,
-    fixed_asset_id integer,
-    born_at timestamp without time zone,
-    dead_at timestamp without time zone,
-    description text,
-    picture_file_name character varying,
-    picture_content_type character varying,
-    picture_file_size integer,
-    picture_updated_at timestamp without time zone,
-    identification_number character varying,
-    work_number character varying,
-    address_id integer,
-    parent_id integer,
-    default_storage_id integer,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL,
-    creator_id integer,
-    updater_id integer,
-    lock_version integer DEFAULT 0 NOT NULL,
-    person_id integer,
-    initial_geolocation postgis.geometry(Point,4326),
-    uuid uuid,
-    initial_movement_id integer,
-    custom_fields jsonb,
-    team_id integer,
-    member_variant_id integer,
-    birth_date_completeness character varying,
-    birth_farm_number character varying,
-    country character varying,
-    filiation_status character varying,
-    first_calving_on timestamp without time zone,
-    mother_country character varying,
-    mother_variety character varying,
-    mother_identification_number character varying,
-    father_country character varying,
-    father_variety character varying,
-    father_identification_number character varying,
-    origin_country character varying,
-    origin_identification_number character varying,
-    end_of_life_reason character varying,
-    originator_id integer,
-    codes jsonb,
-    reading_cache jsonb DEFAULT '{}'::jsonb
-);
-
-
---
 -- Name: products_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
@@ -6444,6 +6426,25 @@ CREATE SEQUENCE synchronization_operations_id_seq
 --
 
 ALTER SEQUENCE synchronization_operations_id_seq OWNED BY synchronization_operations.id;
+
+
+--
+-- Name: target_distributions; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE target_distributions (
+    id integer NOT NULL,
+    target_id integer NOT NULL,
+    activity_production_id integer NOT NULL,
+    activity_id integer NOT NULL,
+    started_at timestamp without time zone,
+    stopped_at timestamp without time zone,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    creator_id integer,
+    updater_id integer,
+    lock_version integer DEFAULT 0 NOT NULL
+);
 
 
 --
@@ -15413,6 +15414,13 @@ CREATE INDEX index_product_readings_on_updater_id ON product_readings USING btre
 
 
 --
+-- Name: index_products_on_activity_production_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_products_on_activity_production_id ON products USING btree (activity_production_id);
+
+
+--
 -- Name: index_products_on_address_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -17193,6 +17201,14 @@ ALTER TABLE ONLY tax_declaration_item_parts
 
 
 --
+-- Name: products fk_rails_5e587cedec; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY products
+    ADD CONSTRAINT fk_rails_5e587cedec FOREIGN KEY (activity_production_id) REFERENCES activity_productions(id);
+
+
+--
 -- Name: payslip_natures fk_rails_6835dfa420; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -17871,4 +17887,6 @@ INSERT INTO schema_migrations (version) VALUES ('20170818134454');
 INSERT INTO schema_migrations (version) VALUES ('20170831071726');
 
 INSERT INTO schema_migrations (version) VALUES ('20170831180835');
+
+INSERT INTO schema_migrations (version) VALUES ('20171010075206');
 

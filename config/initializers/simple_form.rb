@@ -140,3 +140,21 @@ SimpleForm.setup do |config|
   # Cache SimpleForm inputs discovery
   # config.cache_discovery = !Rails.env.development?
 end
+
+module SeparatorHandling
+  def input(wrapper_options = nil)
+    validation = <<-JS
+      if(/^\\d*[\.,]\\d*$/.test(value)){
+        value=value.replace(",",".");
+      } else {
+        value=value.replace(/[^\\d.-]/g, "")
+                   .replace(/\\./, "DOT")
+                   .replace(/\\./g, "")
+                   .replace(/DOT/, ".");
+      };
+    JS
+    super(wrapper_options.merge(oninput: validation)).gsub("type=\"number\"", "type=\"text\"")
+  end
+end
+
+SimpleForm::Inputs::NumericInput.prepend(SeparatorHandling)

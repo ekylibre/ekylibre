@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :product do
     association :category, factory: :product_nature_category
     association :nature, factory: :product_nature

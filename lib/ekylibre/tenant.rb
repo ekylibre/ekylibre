@@ -151,17 +151,29 @@ module Ekylibre
       end
 
       def rename(old, new)
+        return if old == new
         check!(old)
-        raise TenantError, "Unexistent tenant: #{name}" unless exist?(old)
+        raise TenantError, "Unexistent tenant: #{old}" unless Apartment.connection.schema_exists?(old)
+        raise TenantError, "Tenant already exists: #{new}" if Apartment.connection.schema_exists?(new)
         ActiveRecord::Base.connection.execute("ALTER SCHEMA #{old.to_s.inspect} RENAME TO #{new.to_s.inspect};")
+        if private_directory(old).exist?
+          FileUtils.rm_rf(private_directory(new))
+          FileUtils.mv(private_directory(old), private_directory(new))
+        end
         @list[env].delete(old.to_s)
         @list[env] << new.to_s
+        write
       end
 
       # Dump database and files data to a zip archive with specific places
       # This archive is database independent
       def dump(name, options = {})
+        raise "Tenant doesn't exist: #{name}" unless exist?(name)
+        verbose = !options[:verbose].is_a?(FalseClass)
+        start = Time.current
         dump_v3(name, options)
+        duration = Time.current - start
+        puts "Done! (#{duration.round(2)}s)".yellow if verbose
       end
 
       # Restore an archive
@@ -185,13 +197,20 @@ module Ekylibre
           raise 'Cannot not handle this archive'
         else
           manifest = YAML.load_file(archive_path.join('manifest.yml')).symbolize_keys
+          # Bugfix
+          if manifest[:tenant] == 'Ekylibre::Tenant'
+            Dir.chdir(archive_path) do
+              f = Dir.glob('*.sql').first
+              manifest[:tenant] = f.gsub('.sql', '') if f
+            end
+          end
           unless name = options[:tenant] || manifest[:tenant]
             raise 'No given name for the tenant'
           end
 
           format_version = manifest[:format_version].to_s
           if format_version == '3'
-            restore_v3(archive_path, name, options)
+            restore_v3(archive_path, name, options.merge(dump_file: archive_path.join("#{manifest[:tenant]}.sql")))
           elsif ['2.0', '2'].include? format_version
             restore_v2(archive_path, name, options)
           else
@@ -389,11 +408,14 @@ module Ekylibre
       end
 
       def restore_v3(archive_path, name, options = {})
-        restore_dump(archive_path, name, options) { |opt| restore_tables_v3(opt) }
+        restore_dump(archive_path, name, options) do |opt|
+          tenant_name = opt[:tenant_name]
+          restore_tables_v3(opt)
+          Fixturing.migrate(tenant_name, origin: opt[:version])
+        end
       end
 
       def dump_archive(name, options = {})
-        start = Time.current
         destination_path = options.delete(:path) || Rails.root.join('tmp', 'archives')
         switch(name) do
           archive_file = destination_path.join("#{name}.zip")
@@ -411,15 +433,12 @@ module Ekylibre
 
           dump_files(files_path)
           dump_mimetype(archive_path)
-          dump_manifest(archive_path, version, options)
+          dump_manifest(archive_path, version, name, options)
 
           FileUtils.rm_rf(archive_file)
           zip_up(archive_path, into: archive_file)
           FileUtils.rm_rf(archive_path)
         end
-
-        duration = Time.current - start
-        puts "Done! (#{duration.round(2)}s)".yellow
       end
 
       def restore_dump(archive_path, name, options = {})
@@ -457,6 +476,7 @@ module Ekylibre
             verbose: verbose
           )
           yield(restore_options)
+          puts 'Restored!'.yellow if verbose
         end
 
         duration = Time.current - start
@@ -469,14 +489,14 @@ module Ekylibre
         end
       end
 
-      def dump_manifest(archive_path, version, options = {})
+      def dump_manifest(archive_path, version, name, options = {})
         File.open(archive_path.join('manifest.yml'), 'wb') do |f|
           options.update(
             tenant: name,
             format_version: 3,
             database_version: version,
             creation_at: Time.zone.now,
-            created_with: "Ekylibre #{Ekylibre::VERSION}"
+            created_with: "Ekylibre #{Ekylibre::VERSION}".strip
           )
           f.write options.stringify_keys.to_yaml
         end
@@ -498,28 +518,27 @@ module Ekylibre
         path = options[:archive_path]
         tenant = options[:tenant_name]
         Dir.chdir path do
-          `pg_dump -n #{tenant} -x -O --dbname=#{db_url} > #{tenant}.sql`
-          `sed -i '/^CREATE SCHEMA/,+1 d' #{tenant}.sql`
-          `sed -i '/^SET search_path = /,+1 d' #{tenant}.sql`
+          sh("pg_dump -n #{tenant} -x -O --dbname=#{db_url} > #{tenant}.sql")
+          sh("sed -i '/^CREATE SCHEMA/,+1 d' #{tenant}.sql")
+          sh("sed -i '/^SET search_path = /,+1 d' #{tenant}.sql")
         end
+        ActiveRecord::Migrator.current_version
       end
 
       def restore_tables_v3(options)
         path = options[:path]
-        file = options[:tenant_name]
-        Dir.chdir path.dirname do
-          # DROP/CREATE
-          `echo "SET client_min_messages TO WARNING; DROP SCHEMA \\"#{file}\\" CASCADE; SET client_min_messages TO NOTICE;" | psql --dbname=#{db_url}`
-          `echo "CREATE SCHEMA \\"#{file}\\";" | psql --dbname=#{db_url}`
+        tenant_name = options[:tenant_name]
 
-          # Prepend SET search_path to sql
-          `echo "SET search_path = \\"#{file}\\", pg_catalog;" > /tmp/set_search_#{file}`
-          `cat #{file}.sql >> /tmp/set_search_#{file}`
-          `mv /tmp/set_search_#{file} #{file}.sql`
+        # DROP/CREATE
+        sh("echo 'SET client_min_messages TO WARNING; DROP SCHEMA IF EXISTS \"#{tenant_name}\" CASCADE; SET client_min_messages TO NOTICE;' | psql --dbname=#{db_url}")
+        sh("echo 'CREATE SCHEMA \"#{tenant_name}\";' | psql --dbname=#{db_url}")
 
-          # Restore
-          `cat #{file}.sql | psql --dbname=#{db_url}`
-        end
+        # Prepend SET search_path to sql
+        sh("echo 'SET search_path = \"#{tenant_name}\", postgis, lexicon, pg_catalog;' | cat - #{Shellwords.escape(options[:dump_file].to_s)} | psql --dbname=#{db_url}")
+      end
+
+      def sh(command)
+        system(command)
       end
 
       def db_url
