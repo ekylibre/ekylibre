@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2017 Brice Texier, David Joulin
+# Copyright (C) 2012-2018 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -104,7 +104,7 @@ class EntityAddress < Ekylibre::Record::Base
       end
       if entity
         self.mail_line_1 = entity.full_name if mail_line_1.blank?
-        self.mail_auto_update = (entity.full_name == mail_line_1 ? true : false)
+        self.mail_auto_update = (entity.full_name == mail_line_1)
       end
       self.coordinate = mail_lines
     elsif website?

@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # == License
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2011 Brice Texier, Thibaud Merigon
@@ -20,6 +19,6 @@
 require 'test_helper'
 module Backend
   class BuildingsControllerTest < ActionController::TestCase
-    test_restfully_all_actions destroy: { fixture: 13 }
+    test_restfully_all_actions except: %i[update_many edit_many], destroy: { fixture: 13 }
   end
 end

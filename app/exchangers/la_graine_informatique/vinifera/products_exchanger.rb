@@ -1,5 +1,3 @@
-# coding: utf-8
-
 module LaGraineInformatique
   module Vinifera
     class ProductsExchanger < ActiveExchanger::Base

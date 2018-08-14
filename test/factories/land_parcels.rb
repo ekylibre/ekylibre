@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :land_parcel do
     shape = '{
               "type": "Feature",

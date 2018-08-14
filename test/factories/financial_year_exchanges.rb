@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :financial_year_exchange do
     # needs financial_year
 

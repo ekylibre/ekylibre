@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :product_nature do
     sequence(:name)     { |n| "Semence #{n}" }
     population_counting 'unitary'

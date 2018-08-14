@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2017 Brice Texier, David Joulin
+# Copyright (C) 2012-2018 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -268,11 +268,6 @@ class Activity < Ekylibre::Record::Base
     define_method base_family.name.to_s + '?' do
       family && Nomen::ActivityFamily.find(family) <= base_family
     end
-  end
-
-  def not_distributed_products
-    Product.mine_or_undefined.of_variety(cultivation_variety, support_variety)
-           .where(id: InterventionTarget.where.not(product_id: TargetDistribution.select(:target_id)).includes(:product))
   end
 
   def of_campaign?(campaign)

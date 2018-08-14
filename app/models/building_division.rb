@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2017 Brice Texier, David Joulin
+# Copyright (C) 2012-2018 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -22,6 +22,7 @@
 #
 # == Table: products
 #
+#  activity_production_id       :integer
 #  address_id                   :integer
 #  birth_date_completeness      :string
 #  birth_farm_number            :string
@@ -90,6 +91,6 @@ class BuildingDivision < SubZone
   has_many :productions, class_name: 'ActivityProduction', foreign_key: :support_id
 
   scope :of_production, lambda { |production|
-    where(id: TargetDistribution.select(:target_id).where(production_id: production))
+    where(activity_production: production)
   }
 end

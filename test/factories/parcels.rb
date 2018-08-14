@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :parcel do
     association :sender, factory: :entity
     association :storage, factory: :product
