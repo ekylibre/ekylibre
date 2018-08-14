@@ -78,7 +78,7 @@ module Backend
     def basic_calendar(all_records, options = {}, &block)
       # options[:events] = all_records
       options[:param_name] ||= :started_on
-      BasicCalendar.new(self, options).render do |event_on, records|
+      BasicCalendar.new(self, options).render do |event_on, _records|
         records = all_records.select do |event|
           event_on == event.started_at.to_date
         end

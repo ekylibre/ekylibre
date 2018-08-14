@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :tax do
     country 'fr'
     nature 'intermediate_vat'

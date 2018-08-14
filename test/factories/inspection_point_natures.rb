@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :ugly_point_natures, class: ActivityInspectionPointNature do
     name 'Ugly'
     category :deformity

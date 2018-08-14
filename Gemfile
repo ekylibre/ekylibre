@@ -239,7 +239,7 @@ group :test do
   gem 'shoulda-context'
 
   gem 'capybara'
-  gem 'capybara-webkit'
+  gem 'capybara-webkit', '>= 1.14.0'
   gem 'selenium-webdriver'
 
   gem 'codacy-coverage', require: false
@@ -249,7 +249,7 @@ group :test do
 
   gem 'minitest-reporters'
 
-  gem 'factory_girl'
+  gem 'factory_bot'
 end
 
 # Load Gemfile.local, Gemfile.plugins, plugins', and custom Gemfiles
