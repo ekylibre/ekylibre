@@ -168,6 +168,7 @@ gem 'roo'
 gem 'rubyzip'
 gem 'sepa_king'
 # gem 'sepa_king', path: '/home/jonathan/Workspace/sepa_king'
+gem 'odf-report'
 gem 'rodf'
 
 # Demo data
@@ -248,6 +249,8 @@ group :test do
   gem 'simplecov', require: false
 
   gem 'minitest-reporters'
+
+  gem 'pdf-reader'
 
   gem 'factory_bot'
 end

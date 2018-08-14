@@ -32,6 +32,8 @@ jpn:
         started_on: "起動日付"
       fixed_asset_depreciation:
         asset_amount: "責任値"
+      journal_entry_item:
+        name: "エントリーアイテムラベル"
       land_parcel:
         born_at: "で作成されました"
       land_parcel_group:
@@ -479,6 +481,7 @@ jpn:
     author: "著者"
     authorized_payments_count: "認定支払いカウント"
     auto_updateable_addresses: "自動更新可能なアドレス"
+    # auxiliary_number: "Auxiliary number"
     average_value: "平均値"
     balance: "バランス"
     balance_pretax_amount: "税引前量のバランスをとります"
@@ -530,6 +533,7 @@ jpn:
     category: "カテゴリ"
     ceded: "割譲"
     ceded_on: "上の割譲"
+    # centralizing_account: "Centralizing account"
     charge_account: "掛売口座"
     charges_categories: "料金カテゴリー"
     checks: "チェック"
@@ -586,6 +590,7 @@ jpn:
     content: "コンテンツ"
     content_localizations: "コンテンツのローカライズ"
     contents: "コンテンツ"
+    continuous_number: "連続番号"
     contract: "契約する"
     contract_items: "契約項目"
     contracts: "契約"
@@ -1543,6 +1548,7 @@ jpn:
     user: "ユーザー"
     users: "ユーザー"
     # uuid: "UUID"
+    validated_at: "検証日："
     value: "値"
     variable_indicators_list: "可変指標一覧"
     variant: "バリアント"

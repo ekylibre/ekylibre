@@ -1,5 +1,10 @@
 deu:
   enumerize:
+    account:
+      nature:
+        # auxiliary: "Auxiliary"
+        # centralizing: "Centralizing"
+        # general: "General"
     activity:
       nature:
         auxiliary: "Hilfs"

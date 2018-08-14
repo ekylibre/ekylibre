@@ -32,6 +32,8 @@ ita:
         started_on: "Inizia l’aggiornamento"
       fixed_asset_depreciation:
         asset_amount: "valore contabile"
+      journal_entry_item:
+        name: "Etichetta dell’articolo in entrata"
       land_parcel:
         born_at: "creato a"
       land_parcel_group:
@@ -510,6 +512,7 @@ ita:
     author: "Autore"
     authorized_payments_count: "contano pagamenti autorizzati"
     auto_updateable_addresses: "Auto indirizzi aggiornabili"
+    # auxiliary_number: "Auxiliary number"
     average_value: "Valore medio"
     balance: "Equilibrio"
     balance_pretax_amount: "Saldo importo lordo delle imposte"
@@ -561,6 +564,7 @@ ita:
     category: "Categoria"
     ceded: "ceduta"
     ceded_on: "ceduto su"
+    # centralizing_account: "Centralizing account"
     charge_account: "conto di carica"
     charges_categories: "oneri categorie"
     checks: "controlli"
@@ -617,6 +621,7 @@ ita:
     content: "contenuto"
     content_localizations: "localizzazioni di contenuti"
     contents: "Contenuto"
+    continuous_number: "Numero continuo"
     contract: "Contrarre"
     contract_items: "Articoli di contratto"
     contracts: "Contratti"
@@ -1574,6 +1579,7 @@ ita:
     user: "Utente"
     users: "utenti"
     # uuid: "UUID"
+    validated_at: "Convalidato a"
     value: "Valore"
     variable_indicators_list: "Lista indicatori variabili"
     variant: "Variante"

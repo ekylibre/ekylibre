@@ -182,11 +182,11 @@ jpn:
         equity_securities: "持分証券"
         equity_security_asset_impairment_losses: "持分証券資産減損損失"
         establishment_charge_assets: "設立チャージ資産"
+        exceptional_charge_transfer_revenues: "Exceptionnal電荷移動収入"
+        exceptional_depreciations_inputations_expenses: "Exceptionnal減価償却inputations費"
+        exceptional_depreciations_inputations_revenues: "Exceptionnal無形資産の減価償却費収入"
         exceptional_expenses: "例外的な経費"
         exceptional_revenues: "例外的な収入"
-        exceptionnal_charge_transfer_revenues: "Exceptionnal電荷移動収入"
-        exceptionnal_depreciations_inputations_expenses: "Exceptionnal減価償却inputations費"
-        exceptionnal_incorporeal_asset_depreciation_revenues: "Exceptionnal無形資産の減価償却費収入"
         expenses: "経費"
         exploitation_depreciations_inputations_expenses: "搾取の減価償却費inputations"
         exploitation_expenses_transfers: "搾取費転送"
@@ -252,7 +252,7 @@ jpn:
         initial_society_capital: "初期の社会資本"
         installation_sustainable_plant_assets: "インストールサステイナブル・プラント資産"
         insurance_expenses: "保険費"
-        interests_expenses: "興味費"
+        interests_expenses: "興味費" #?
         internal_transfers: "内部転送"
         inventory_variations: "在庫変動"
         invoice_to_create_clients: "クライアントを作成するための請求書"
@@ -347,7 +347,7 @@ jpn:
         other_supplies: "その他の消耗品"
         other_supply_expenses: "他の供給費用"
         other_supply_stocks_variation: "その他の供給株式変動"
-        other_taxes: "その他の税金"
+        other_taxes: "その他の税金" #?
         other_usual_running_expenses: "その他の通常のランニング費用"
         other_usual_running_profits: "その他の通常のランニング利益"
         other_various_interests_expenses: "その他、様々な利害関係費"
@@ -478,7 +478,7 @@ jpn:
         sustainables_plants_assets: "植物の資産をSustainables"
         sustainables_plants_on_other_land_parcel_assets: "他の土地区画資産のSustainables植物"
         sustainables_plants_on_own_land_parcel_assets: "自分の土地区画資産のSustainables植物"
-        tax_depreciation_revenues: "Taxeの減価償却費収入"
+        tax_depreciation_revenues: "Taxeの減価償却費収入" #?
         taxes_expenses: "税金費用"
         technical_installation_equipment_and_tools_assets: "技術的なインストール機器やツール資産"
         technical_installation_on_other_land_parcel_assets: "他の土地区画資産に係る技術のインストール"
@@ -2049,6 +2049,18 @@ jpn:
         spheroid: "回転楕円体"
         vehicle: "車両"
       name: "統計"
+    fiscal_positions:
+      items:
+        fr_ba_ir: "フランスの農業（BA）所得税"
+        fr_ba_is: "フランスの農業（BA）法人課税"
+        fr_bic_ir: "フランスの商業、工業または職人ビジネス（BIC）所得税"
+        fr_bic_is: "フランスの商業、工業または職人ビジネス（BIC）法人税"
+        fr_bnc_ir: "フランスの専門業務所得税"
+        fr_bnc_is: "フランスの専門業務法人課税"
+      name: "財政状態"
+      property_natures:
+        code: "コード"
+        country: "国"
     guide_natures:
       items:
         best_practices: "ベストプラクティス"

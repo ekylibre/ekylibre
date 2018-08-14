@@ -32,6 +32,8 @@ eng:
         started_on: "start-up date"
       fixed_asset_depreciation:
         asset_amount: "Accountable value"
+      journal_entry_item:
+        name: "Entry item label"
       land_parcel:
         born_at: "Created at"
       land_parcel_group:
@@ -474,6 +476,8 @@ eng:
     authorized_payments_count: "Authorized payments count"
     # auto_calculate_working_periods: "Auto calculate working periods"
     auto_updateable_addresses: "Auto updateable addresses"
+    # auxiliary_accounts: "Auxiliary accounts"
+    auxiliary_number: "Auxiliary number"
     average_value: "Average value"
     balance: "Balance"
     balance_pretax_amount: "Balance pretax amount"
@@ -529,6 +533,7 @@ eng:
     category: "Category"
     ceded: "Ceded"
     ceded_on: "Ceded on"
+    centralizing_account: "Centralizing account"
     charge_account: "Charge account"
     charges_categories: "Charges categories"
     checks: "Checks" #?
@@ -587,6 +592,7 @@ eng:
     content: "Content"
     content_localizations: "Content localizations"
     contents: "Contents"
+    continuous_number: "Continuous number"
     contract: "Contract"
     contract_items: "Contract items"
     contracts: "Contracts"
@@ -1590,6 +1596,7 @@ eng:
     user: "User"
     users: "Users"
     uuid: "UUID"
+    validated_at: "Validated at"
     value: "Value"
     variable_indicators_list: "Variable indicators list"
     variant: "Variant"

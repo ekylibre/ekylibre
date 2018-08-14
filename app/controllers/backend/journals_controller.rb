@@ -27,7 +27,6 @@ module Backend
     list(order: :name) do |t|
       # t.action :document_print, url: {:code => :JOURNAL, :journal => "RECORD.id"}
       t.action :close, if: :closable?, image: :unlock
-      t.action :reopen, if: :reopenable?, image: :lock
       t.action :edit
       t.action :destroy
       t.column :name, url: true
@@ -48,7 +47,8 @@ module Backend
       t.column :account, url: true
       t.column :account_number, through: :account, label_method: :number, url: true, hidden: true
       t.column :account_name, through: :account, label_method: :name, url: true, hidden: true
-      t.column :name
+      t.column :name, label: :entry_item_label
+      t.column :reference_number, through: :entry
       t.column :state_label
       t.column :real_debit,  currency: :real_currency
       t.column :real_credit, currency: :real_currency
@@ -112,22 +112,6 @@ module Backend
       if request.post?
         if @journal.close(params[:closed_on].to_date)
           notify_success(:journal_closed_on, closed_on: @journal.closed_on.l, journal: @journal.name)
-          redirect_to action: :index
-        end
-      end
-      t3e @journal
-    end
-
-    def reopen
-      return unless @journal = find_and_check
-      unless @journal.reopenable?
-        notify(:no_reopenable_journal)
-        redirect_to action: :index
-        return
-      end
-      if request.post?
-        if @journal.reopen(params[:closed_on].to_date)
-          notify_success(:journal_reopened_on, closed_on: @journal.closed_on.l, journal: @journal.name)
           redirect_to action: :index
         end
       end

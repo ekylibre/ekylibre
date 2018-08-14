@@ -109,12 +109,4 @@ class JournalTest < ActiveSupport::TestCase
     journal.accountant = create(:entity, :accountant)
     refute journal.closable?
   end
-
-  test 'cannot be reopened with an accountant' do
-    journal = create(:journal, :various)
-    assert journal.close!(Time.zone.now.to_date)
-    assert journal.reopenable?
-    journal.accountant = create(:entity, :accountant)
-    refute journal.reopenable?
-  end
 end

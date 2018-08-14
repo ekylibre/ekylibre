@@ -20,9 +20,14 @@
 
 module Backend
   class TrialBalancesController < Backend::BaseController
+    include PdfPrinter
     def show
-      filename = "#{human_action_name} #{Time.zone.now.l(format: '%Y-%m-%d')}"
+      # build variables for reporting (document_nature, key, filename and dataset)
+      document_nature = Nomen::DocumentNature.find(:trial_balance)
+      key = "#{document_nature.name}-#{Time.zone.now.l(format: '%Y-%m-%d-%H:%M:%S')}"
+      filename = document_nature.human_name
       @balance = Journal.trial_balance(params) if params[:period]
+
       respond_to do |format|
         format.html
         format.ods do
@@ -43,10 +48,41 @@ module Backend
           end
           send_data(csv_string, filename: filename << '.csv')
         end
+        format.pdf do
+          template_path = find_open_document_template(:trial_balance)
+          raise 'Cannot find template' if template_path.nil?
+          send_file to_odt(@balance, document_nature, key, template_path, params[:period]),
+                    type: 'application/pdf', disposition: 'attachment', filename: filename << '.pdf'
+        end
       end
     end
 
     protected
+
+    def to_odt(balance, document_nature, key, template_path, period)
+      report = generate_document(document_nature, key, template_path) do |r|
+        # TODO: add a helper with generic metod to implemend header and footer
+
+        e = Entity.of_company
+        company_name = e.full_name
+        company_address = e.default_mail_address.coordinate
+
+        r.add_field 'COMPANY_ADDRESS', company_address
+        r.add_field 'FILE_NAME', document_nature.human_name
+        r.add_field 'PERIOD', period
+
+        r.add_table('Tableau2', balance, header: false) do |t|
+          t.add_column(:a) { |item| item[0] }
+          t.add_column(:b) do |item|
+            Account.find(item[1]).name if item[1].to_i > 0
+          end
+          t.add_column(:debit) { |item| item[2].to_f }
+          t.add_column(:credit) { |item| item[3].to_f }
+          t.add_column(:balance) { |item| item[4].to_f }
+        end
+      end
+      report.file.path
+    end
 
     def to_csv(balance, csv)
       csv << [

@@ -2,20 +2,24 @@
 - main_toolbar do |t|
   = t.new label: :duplicate.tl, params: { duplicate_of: resource.id, redirect: nil }
   = t.export :journal_entry_sheet
-  = t.edit resource if resource.updateable?
+  = t.edit resource if resource.editable?
   = t.destroy
+
+= main_state_bar(resource, disable_transitions: true)
 
 = main_informations attachment: true do
   = attributes_list do |l|
     - l.attribute :number
     - l.attribute :printed_on
     - l.attribute :created_at
-    - l.attribute :state_label
     - if resource.resource
       - l.attribute :resource, url: true
     - l.attribute :journal, url: true
     - l.attribute :real_debit,  currency: :real_currency
     - l.attribute :real_credit, currency: :real_currency
+    - if resource.continuous_number
+      - l.attribute :continuous_number
+      - l.attribute :validated_at
     - if resource.real_currency != resource.currency
       - l.attribute :real_currency_rate
       - l.attribute :debit,  currency: true

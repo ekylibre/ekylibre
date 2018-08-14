@@ -66,6 +66,11 @@ account_balances:
     type: integer
     references: user
 accounts:
+  auxiliary_number:
+    type: string
+  centralizing_account_id:
+    type: integer
+    references: account
   created_at:
     type: datetime
     required: true
@@ -94,6 +99,8 @@ accounts:
   name:
     type: string
     required: true
+  nature:
+    type: string
   number:
     type: string
     required: true
@@ -3813,6 +3820,8 @@ journal_entries:
     precision: 19
     scale: 4
     required: true
+  continuous_number:
+    type: integer
   created_at:
     type: datetime
     required: true
@@ -3877,6 +3886,8 @@ journal_entries:
     precision: 19
     scale: 4
     required: true
+  reference_number:
+    type: string
   resource_id:
     type: integer
     references: "~resource_type"
@@ -3893,6 +3904,8 @@ journal_entries:
   updater_id:
     type: integer
     references: user
+  validated_at:
+    type: datetime
 journal_entry_items:
   absolute_credit:
     type: decimal

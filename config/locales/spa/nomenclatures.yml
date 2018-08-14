@@ -182,11 +182,11 @@ spa:
         equity_securities: "Valores de renta variable"
         equity_security_asset_impairment_losses: "Las pérdidas por deterioro de activos de renta variable de seguridad"
         establishment_charge_assets: "Establecimiento de carga activos"
+        exceptional_charge_transfer_revenues: "Los ingresos de transferencia de carga excepcional"
+        exceptional_depreciations_inputations_expenses: "Gastos de depreciaciones exceptionnal inputations"
+        exceptional_depreciations_inputations_revenues: "Los ingresos de depreciación de activos incorpóreos exceptionnal"
         exceptional_expenses: "Gastos de carácter excepcional"
         exceptional_revenues: "Los ingresos excepcionales"
-        exceptionnal_charge_transfer_revenues: "Los ingresos de transferencia de carga excepcional"
-        exceptionnal_depreciations_inputations_expenses: "Gastos de depreciaciones exceptionnal inputations"
-        exceptionnal_incorporeal_asset_depreciation_revenues: "Los ingresos de depreciación de activos incorpóreos exceptionnal"
         expenses: "Gastos"
         exploitation_depreciations_inputations_expenses: "Los gastos de explotación depreciaciones inputations"
         exploitation_expenses_transfers: "Las transferencias de gastos de explotación"
@@ -252,7 +252,7 @@ spa:
         initial_society_capital: "La sociedad de capital inicial"
         installation_sustainable_plant_assets: "Instalación activos vegetales sostenible"
         insurance_expenses: "Gastos de seguro"
-        interests_expenses: "Gastos de intereses"
+        interests_expenses: "Gastos de intereses" #?
         internal_transfers: "Las transferencias internas"
         inventory_variations: "Variaciones de inventario"
         invoice_to_create_clients: "Factura para crear clientes"
@@ -347,7 +347,7 @@ spa:
         other_supplies: "Otros suministros"
         other_supply_expenses: "Otros gastos de suministro"
         other_supply_stocks_variation: "Variación de otras poblaciones de suministro"
-        other_taxes: "Otros impuestos"
+        other_taxes: "Otros impuestos" #?
         other_usual_running_expenses: "Otros gastos de funcionamiento habituales"
         other_usual_running_profits: "Otros beneficios de funcionamiento habituales"
         other_various_interests_expenses: "Otros gastos diversos intereses"
@@ -478,7 +478,7 @@ spa:
         sustainables_plants_assets: "Sostenibles activos plantas"
         sustainables_plants_on_other_land_parcel_assets: "Plantas sostenibles del resto de activos de parcelas de terreno"
         sustainables_plants_on_own_land_parcel_assets: "Plantas sostenibles de los activos de parcelas de terreno propio"
-        tax_depreciation_revenues: "Los ingresos taxe de depreciación"
+        tax_depreciation_revenues: "Los ingresos taxe de depreciación" #?
         taxes_expenses: "Gastos de impuestos"
         technical_installation_equipment_and_tools_assets: "La instalación de equipos técnicos e instrumentos activos"
         technical_installation_on_other_land_parcel_assets: "Instalación técnica sobre otros activos de parcelas de terreno"
@@ -2044,6 +2044,18 @@ spa:
         spheroid: "Esferoide"
         vehicle: "Vehículo"
       name: "Figuras"
+    fiscal_positions:
+      items:
+        fr_ba_ir: "Impuesto sobre la renta de la agricultura francesa (BA)"
+        fr_ba_is: "Impuestos a la agricultura en Francia (BA)"
+        fr_bic_ir: "Impuesto a la renta comercial, industrial o artesanal francés (BIC)"
+        fr_bic_is: "Impuestos corporativos comerciales, industriales o artesanales franceses (BIC)"
+        fr_bnc_ir: "Impuesto sobre la renta de las operaciones profesionales francesas"
+        fr_bnc_is: "Impuestos corporativos de las operaciones profesionales francesas"
+      name: "Posiciones fiscales"
+      property_natures:
+        code: "Código"
+        country: "País"
     guide_natures:
       items:
         best_practices: "Mejores prácticas"

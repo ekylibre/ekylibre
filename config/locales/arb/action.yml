@@ -1086,6 +1086,7 @@ arb:
       abort_issue: "هل أنت متأكد أنك تريد إجهاض هذه المسألة؟"
       close_issue: "هل أنت متأكد أنك تريد إغلاق هذه القضية؟"
       reopen_issue: "هل أنت متأكد أنك تريد إعادة فتح هذه القضية؟"
+    are_you_sure_you_want_to_change_account_digits: "هل تريد بالتأكيد تغيير عدد الأحرف على أرقام الحسابات؟"
     are_you_sure_you_want_to_confirm: "هل انت متأكد من رغبتك بالمضي بطلب الشراء؟"
     are_you_sure_you_want_to_delete: "هل انت متاكد من رغبتك بالقيام به؟"
     are_you_sure_you_want_to_delete_delivery: "هل انت متأكد من رغبتك بازالة التسليم من وسائل النقل؟" #?
@@ -1443,7 +1444,12 @@ arb:
     export: "اصدار الوثائق"
     export_as_csv: "التصدير، CSV"
     export_as_ods: "التصدير، المواد المستنفدة للأوزون"
+    export_as_pdf: "تصدير كملف بدف"
     export_as_xcsv: "تصدير واكسل CSV"
+    export_fec_all: "تصدير فيك (افتراضي)"
+    export_fec_ba_bnc_ir_commercial_accountancy: "تصدير فيك للزراعة والعمليات المهنية ضريبة الدخل المحاسبة التجارية"
+    export_fec_ba_ir_cash_accountancy: "تصدير فيك الزراعة ضريبة الدخل المحاسبة النقدية"
+    export_fec_bnc_ir_cash_accountancy: "تصدير فيك العمليات المهنية ضريبة الدخل المحاسبة النقدية"
     extract: "يستخرج" #?
     field_distribution: "مجال التوزيع"
     file_nature: "نوع الملف"
@@ -2780,6 +2786,7 @@ arb:
       you_need_to_review_your_application_configuration: "تحتاج إلى مراجعة تكوين التطبيق الخاص بك"
       you_will_lose_all_your_current_data: "اذا قمت بالمتابعة، فسوف تفقد جميع البيانات الحالية. فهل ترغب بالاستمرار؟" #?
   preferences:
+    account_number_digits: "طول رقم الحساب"
     accountancy: #?
       accounts: #?
         capital_gains: "(نتيجة العمل (الارباح" #?

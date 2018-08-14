@@ -182,11 +182,11 @@ arb:
         equity_securities: "الأوراق المالية"
         equity_security_asset_impairment_losses: "خسائر انخفاض القيمة الأصول أوراق مالية"
         establishment_charge_assets: "الأصول تهمة إنشاء"
+        exceptional_charge_transfer_revenues: "اكسسيبتيونال إيرادات نقل المسؤول"
+        exceptional_depreciations_inputations_expenses: "مصاريف انخفاض قيمة اكسسيبتيونال inputations"
+        exceptional_depreciations_inputations_revenues: "اكسسيبتيونال المعنوية إيرادات انخفاض قيمة الأصول"
         exceptional_expenses: "نفقات استثنائية"
         exceptional_revenues: "إيرادات استثنائية"
-        exceptionnal_charge_transfer_revenues: "اكسسيبتيونال إيرادات نقل المسؤول"
-        exceptionnal_depreciations_inputations_expenses: "مصاريف انخفاض قيمة اكسسيبتيونال inputations"
-        exceptionnal_incorporeal_asset_depreciation_revenues: "اكسسيبتيونال المعنوية إيرادات انخفاض قيمة الأصول"
         expenses: "مصاريف"
         exploitation_depreciations_inputations_expenses: "مصاريف انخفاض قيمة استغلال inputations"
         exploitation_expenses_transfers: "نقل نفقات الاستغلال"
@@ -252,7 +252,7 @@ arb:
         initial_society_capital: "عاصمة المجتمع الأولي"
         installation_sustainable_plant_assets: "الأصول تركيب محطة المستدام"
         insurance_expenses: "نفقات التأمين"
-        interests_expenses: "مصروفات الفوائد"
+        interests_expenses: "مصروفات الفوائد" #?
         internal_transfers: "التحويلات الداخلية"
         inventory_variations: "الاختلافات المخزون"
         invoice_to_create_clients: "فاتورة لخلق عملاء"
@@ -347,7 +347,7 @@ arb:
         other_supplies: "غيرها من اللوازم"
         other_supply_expenses: "نفقات إمدادات أخرى"
         other_supply_stocks_variation: "تباين الأسهم إمدادات أخرى"
-        other_taxes: "الضرائب الأخرى"
+        other_taxes: "الضرائب الأخرى" #?
         other_usual_running_expenses: "مصروفات التشغيل الأخرى المعتادة"
         other_usual_running_profits: "أرباح التشغيل المعتادة أخرى"
         other_various_interests_expenses: "غيرها من النفقات المصالح المختلفة"
@@ -478,7 +478,7 @@ arb:
         sustainables_plants_assets: "Sustainables أصول النباتات"
         sustainables_plants_on_other_land_parcel_assets: "النباتات Sustainables على الأصول قطعة أرض أخرى"
         sustainables_plants_on_own_land_parcel_assets: "النباتات Sustainables على الأصول قطعة أرض الخاصة"
-        tax_depreciation_revenues: "إيرادات و taxe الاستهلاك"
+        tax_depreciation_revenues: "إيرادات و taxe الاستهلاك" #?
         taxes_expenses: "نفقات الضرائب"
         technical_installation_equipment_and_tools_assets: "معدات التركيب الفني وأدوات الأصول"
         technical_installation_on_other_land_parcel_assets: "تركيب فني على الأصول قطعة أرض أخرى"
@@ -2047,6 +2047,18 @@ arb:
         spheroid: "الكرواني جسم شبيه بالكرة"
         vehicle: "مركبة"
       name: "الأرقام"
+    fiscal_positions:
+      items:
+        fr_ba_ir: "الزراعة الفرنسية (با) ضريبة الدخل"
+        fr_ba_is: "الزراعة الفرنسية (با) الضرائب على الشركات"
+        fr_bic_ir: "الضريبة التجارية الفرنسية أو الصناعية أو الحرفية (بيك) ضريبة الدخل"
+        fr_bic_is: "الأعمال التجارية التجارية الفرنسية أو الصناعية أو الحرفية (بيك) ضريبة الشركات"
+        fr_bnc_ir: "الفرنسية المهنية ضريبة الدخل العمليات"
+        fr_bnc_is: "الفرنسية المهنية عمليات الشركات الضرائب"
+      name: "المواقف المالية"
+      property_natures:
+        code: "الشفرة"
+        country: "بلد"
     guide_natures:
       items:
         best_practices: "أفضل الممارسات"

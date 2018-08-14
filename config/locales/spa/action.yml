@@ -887,6 +887,7 @@ spa:
       abort_issue: "¿Está seguro de que quiere abortar este problema?"
       close_issue: "¿Seguro que desea cerrar este problema?"
       reopen_issue: "¿Está seguro de que desea volver a abrir este problema?"
+    are_you_sure_you_want_to_change_account_digits: "¿Seguro que quieres cambiar la cantidad de caracteres en los números de cuenta?"
     are_you_sure_you_want_to_confirm: "¿Seguro que quiere pedir"
     are_you_sure_you_want_to_delete: "¿Está seguro de que desea eliminar este registro?"
     are_you_sure_you_want_to_invoice: "¿Seguro que desea facturar?"
@@ -1201,7 +1202,12 @@ spa:
     export: "Exportación de un fichero de salvaguardia"
     export_as_csv: "Exportar como CSV"
     export_as_ods: "Exportar como ODS"
+    export_as_pdf: "Exportar como PDF"
     export_as_xcsv: "Exportar como Excel CSV"
+    export_fec_all: "Exportar FEC (predeterminado)"
+    export_fec_ba_bnc_ir_commercial_accountancy: "Exportar FEC para agricultura y operaciones profesionales impuesto sobre la renta contabilidad comercial"
+    export_fec_ba_ir_cash_accountancy: "Exportación FEC contabilidad de caja de impuestos sobre la renta agrícola"
+    export_fec_bnc_ir_cash_accountancy: "Exportar FEC operaciones profesionales impuestos a los ingresos contabilidad de efectivo"
     field_distribution: "Distribución de campo"
     file_nature: "Tipo de fichero"
     file_preview: "Avance"
@@ -2344,6 +2350,7 @@ spa:
       you_need_to_review_your_application_configuration: "Es necesario revisar la configuración de su aplicación"
       you_will_lose_all_your_current_data: "Si continua, va a perder todos los datos en curso de embargo. Se quiere perseguir ?" #?
   preferences:
+    account_number_digits: "Longitud del número de cuenta"
     accounting_system: "Catálogo de cuentas"
     bookkeep_automatically: "Active la contabilidad automática"
     bookkeep_in_draft: "Guardar los registros en modo de borrador en la contabilidad"

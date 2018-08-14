@@ -32,6 +32,8 @@ spa:
         started_on: "Iniciar la actualización"
       fixed_asset_depreciation:
         asset_amount: "Valor contable"
+      journal_entry_item:
+        name: "Etiqueta de elemento de entrada"
       land_parcel:
         born_at: "Creado en"
       land_parcel_group:
@@ -480,6 +482,7 @@ spa:
     author: "Autor"
     authorized_payments_count: "Pagos autorizados cuentan"
     auto_updateable_addresses: "Actualizables direcciones de automóviles"
+    # auxiliary_number: "Auxiliary number"
     average_value: "Valor promedio"
     balance: "Equilibrar"
     balance_pretax_amount: "Equilibrar la cantidad antes de impuestos"
@@ -531,6 +534,7 @@ spa:
     category: "Categoría"
     ceded: "Cedido"
     ceded_on: "Cedido en"
+    # centralizing_account: "Centralizing account"
     charge_account: "Cuenta de cargo"
     charges_categories: "Cargos categorías"
     checks: "Los cheques"
@@ -589,6 +593,7 @@ spa:
     content: "Contenido"
     content_localizations: "Localizaciones de contenido"
     contents: "Contenido"
+    continuous_number: "Número continuo"
     contract: "Contrato"
     contract_items: "Las posiciones de contrato"
     contracts: "Contratos"
@@ -1547,6 +1552,7 @@ spa:
     user: "Usuario"
     users: "Usuarios"
     # uuid: "UUID"
+    validated_at: "Validado en"
     value: "Valor"
     variable_indicators_list: "Lista de indicadores variables"
     variant: "Variante"

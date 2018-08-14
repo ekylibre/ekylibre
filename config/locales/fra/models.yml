@@ -85,8 +85,9 @@ fra:
         storage: "Support" #?
       inventory_item: #?
         quantity: "Quantité constatée" #?
-      journal_entry_item: #?
+      journal_entry_item:
         closed: "Cloturée" #?
+        name: "Libellé de l'écriture"
       land_parcel:
         born_at: "Créé le"
         children: "Sous-parcelle" #?
@@ -259,6 +260,10 @@ fra:
         unitary_in_parcel: "Articles unitaires ne peuvent être envoyés un par un"
         wrong_length: "%{attribute} n’est pas d’une bon longueur (%{count} caractères)"
       models:
+        account: #?
+          attributes: #?
+            number: #?
+              unauthorized: "Ce numéro ne peut pas correspondre à une classe radicale" #?
         activity:
           checked_off_with_inspections: "Des agréages sont déjà présents pour cette activité"
           checked_without_measures: "Au moins un type de mesure doit être sélectionné lorsque l'utilisation des agréages est demandée"
@@ -626,6 +631,7 @@ fra:
     author: "Auteur"
     authorized_payments_count: "Nombre d’encaissements autorisés"
     auto_updateable_addresses: "Adresses mises à jour automatiquement"
+    auxiliary_number: "Numéro auxiliaire"
     average_value: "Valeur moyenne"
     balance: "Solde"
     balance_amount: "Solde" #?
@@ -686,6 +692,7 @@ fra:
     category: "Catégorie"
     ceded: "Cédé"
     ceded_on: "Cédé le"
+    centralizing_account: "Compte centralisateur"
     charge_account: "Compte d’achat"
     charges_categories: "Catégories de produits avec charge"
     check_state: "Vérifier l’état" #?
@@ -754,6 +761,7 @@ fra:
     content_maximal_quantity: "Quantité maximale du contenu" #?
     content_nature: "Nature du contenu" #?
     contents: "Contenu"
+    continuous_number: "N° unique"
     contour: "Silhouette" #?
     contract: "Contrat"
     contract_items: "Éléments du contrat"
@@ -1828,6 +1836,7 @@ fra:
     user: "Utilisateur"
     users: "Utilisateurs"
     uuid: "UUID"
+    validated_at: "Validée le"
     value: "Valeur"
     variable_indicators: "Indicateurs variables" #?
     variable_indicators_list: "Liste des indicateurs variables"

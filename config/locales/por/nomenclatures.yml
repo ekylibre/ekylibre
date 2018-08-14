@@ -182,11 +182,11 @@ por:
         equity_securities: "Títulos de capital"
         equity_security_asset_impairment_losses: "Perdas por imparidade de activos de segurança de capital"
         establishment_charge_assets: "Ativos de carga Estabelecimento"
+        exceptional_charge_transfer_revenues: "As receitas de transferência de carga excepcional"
+        exceptional_depreciations_inputations_expenses: "As despesas de depreciação excepcional inputations"
+        exceptional_depreciations_inputations_revenues: "As receitas de depreciação dos ativos imateriais exceptionnal"
         exceptional_expenses: "Despesas excepcionais"
         exceptional_revenues: "As receitas excepcionais"
-        exceptionnal_charge_transfer_revenues: "As receitas de transferência de carga excepcional"
-        exceptionnal_depreciations_inputations_expenses: "As despesas de depreciação excepcional inputations"
-        exceptionnal_incorporeal_asset_depreciation_revenues: "As receitas de depreciação dos ativos imateriais exceptionnal"
         expenses: "Gastos"
         exploitation_depreciations_inputations_expenses: "As despesas de exploração depreciações inputations"
         exploitation_expenses_transfers: "Transferências de despesas de exploração"
@@ -252,7 +252,7 @@ por:
         initial_society_capital: "Capital da sociedade inicial"
         installation_sustainable_plant_assets: "Ativos de instalação de plantas sustentável"
         insurance_expenses: "Despesas de seguros"
-        interests_expenses: "Despesa de juros"
+        interests_expenses: "Despesa de juros" #?
         internal_transfers: "Transferências internas"
         inventory_variations: "Variações de inventário"
         invoice_to_create_clients: "Fatura para criar clientes"
@@ -347,7 +347,7 @@ por:
         other_supplies: "Outros fornecimentos"
         other_supply_expenses: "Outras despesas de fornecimento"
         other_supply_stocks_variation: "Variação outras ações de abastecimento"
-        other_taxes: "Outros impostos"
+        other_taxes: "Outros impostos" #?
         other_usual_running_expenses: "Outras despesas de funcionamento habituais"
         other_usual_running_profits: "Outros lucros de funcionamento habituais"
         other_various_interests_expenses: "Outras despesas vários interesses"
@@ -478,7 +478,7 @@ por:
         sustainables_plants_assets: "Sustentávels plantas ativos"
         sustainables_plants_on_other_land_parcel_assets: "Plantas Sustentávels em outros activos das parcelas de terra"
         sustainables_plants_on_own_land_parcel_assets: "Plantas Sustentávels em ativos próprios das parcelas de terra"
-        tax_depreciation_revenues: "As receitas de depreciação taxe"
+        tax_depreciation_revenues: "As receitas de depreciação taxe" #?
         taxes_expenses: "Despesas de impostos"
         technical_installation_equipment_and_tools_assets: "Equipamento de montagem e ferramentas técnicas ativos"
         technical_installation_on_other_land_parcel_assets: "Instalação técnica de outros activos das parcelas de terra"
@@ -2038,6 +2038,18 @@ por:
         spheroid: "Esferóide"
         vehicle: "Veículo"
       name: "Figuras"
+    fiscal_positions:
+      items:
+        fr_ba_ir: "Agricultura francesa (BA) tributação de renda"
+        fr_ba_is: "Agricultura francesa (BA) tributação corporativa"
+        fr_bic_ir: "Negócio comercial, industrial ou artesanal francês (BIC) tributação de renda"
+        fr_bic_is: "Imposto sobre empresas comerciais, industriais ou empresariais francesas (BIC)"
+        fr_bnc_ir: "Operações profissionais francesas tributação de renda"
+        fr_bnc_is: "Operações profissionais francesas tributação corporativa"
+      name: "Posições fiscais"
+      property_natures:
+        code: "Código"
+        country: "País"
     guide_natures:
       items:
         best_practices: "Melhores práticas"

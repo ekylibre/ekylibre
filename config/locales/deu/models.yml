@@ -32,6 +32,8 @@ deu:
         started_on: "Update starten"
       fixed_asset_depreciation:
         asset_amount: "verantwortlich Wert"
+      journal_entry_item:
+        name: "Eintrag Artikelbezeichnung"
       land_parcel:
         born_at: "Hergestellt in"
       land_parcel_group:
@@ -479,6 +481,7 @@ deu:
     author: "Autor"
     authorized_payments_count: "Autorisierte Zahlungen rechnen"
     auto_updateable_addresses: "Auto aktualisierbar Adressen"
+    # auxiliary_number: "Auxiliary number"
     average_value: "Durchschnittswert"
     # balance: "Balance"
     balance_pretax_amount: "Balancieren Vorsteuer-Betrag"
@@ -530,6 +533,7 @@ deu:
     category: "Kategorie"
     ceded: "Rückversicherer"
     ceded_on: "Rückversicherer auf"
+    # centralizing_account: "Centralizing account"
     charge_account: "Kundenkonto"
     charges_categories: "Kosten Kategorien"
     checks: "Schecks"
@@ -586,6 +590,7 @@ deu:
     content: "Inhalt"
     content_localizations: "Inhalt Lokalisierungen"
     contents: "Inhalt"
+    continuous_number: "Fortlaufende Nummer"
     contract: "Vertrag"
     contract_items: "Vertrags Artikel"
     contracts: "Verträge"
@@ -1542,6 +1547,7 @@ deu:
     user: "Benutzer"
     users: "Benutzer"
     # uuid: "UUID"
+    validated_at: "Validiert bei"
     value: "Wert"
     variable_indicators_list: "Variable Indikatoren Liste"
     variant: "Variante"

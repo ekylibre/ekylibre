@@ -1,4 +1,4 @@
-= backend_form_for(resource, url: backend_company_path) do |f|
+= backend_form_for(resource, url: backend_company_path, html: { class: 'company-edit-form', 'data-confirm-account-digits' => :are_you_sure_you_want_to_change_account_digits.tl }) do |f|
   - if params[:redirect]
     = hidden_field_tag(:redirect, params[:redirect])
   - f.add(:submit, :update.tl, data: {disable_with: :please_wait.tl}, class: 'primary')
@@ -29,7 +29,7 @@
     = render 'preferences_form', list: [:map_measure_srs]
 
   = field_set :accountancy_preferences do
-    = render 'preferences_form', list: [:bookkeep_automatically, :bookkeep_in_draft, :permanent_stock_inventory, :unbilled_payables, :detail_payments_in_deposit_bookkeeping, :use_entity_codes_for_account_numbers, :client_account_radix, :supplier_account_radix, :employee_account_radix, :default_depreciation_period]
+    = render 'preferences_form', list: [:bookkeep_automatically, :bookkeep_in_draft, :permanent_stock_inventory, :unbilled_payables, :detail_payments_in_deposit_bookkeeping, :use_entity_codes_for_account_numbers, :client_account_radix, :supplier_account_radix, :employee_account_radix, :default_depreciation_period, :account_number_digits]
 
   = field_set :analytic_preferences do
     = render 'preferences_form', list: [:distribute_sales_and_purchases_on_activities, :distribute_sales_and_purchases_on_teams]

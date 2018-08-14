@@ -53,16 +53,25 @@ module Backend
       value ||= params[name] || options[:default]
       list = []
       list << [:all_periods.tl, 'all']
-      for year in FinancialYear.reorder(started_on: :desc)
+
+      financial_years = FinancialYear.reorder(options[:sort] == :asc ? :started_on : { started_on: :desc })
+      if options[:limit_to_draft]
+        financial_years = financial_years.distinct.joins(:journal_entries).where(journal_entries: { state: :draft })
+        financial_years = financial_years.where('journal_entries.printed_on BETWEEN financial_years.started_on AND financial_years.stopped_on') # TODO: remove once journal entries will always have its financial_year_id associated to the printed_on
+      end
+      for year in financial_years
         list << [year.code, year.started_on.to_s << '_' << year.stopped_on.to_s]
         list2 = []
         date = year.started_on
         while date < year.stopped_on && date < Time.zone.today
           date2 = date.end_of_month
-          list2 << [:month_period.tl(year: date.year, month: 'date.month_names'.t[date.month], code: year.code), date.to_s << '_' << date2.to_s]
+          if !options[:limit_to_draft] || year.journal_entries.where(state: :draft, printed_on: (date..date2)).any?
+            list2 << [:month_period.tl(year: date.year, month: 'date.month_names'.t[date.month], code: year.code), date.to_s << '_' << date2.to_s]
+          end
           date = date2 + 1
         end
-        list += list2.reverse
+        list2.reverse! unless options[:sort] == :asc
+        list += list2
       end
       code = ''
       code << content_tag(:label, options[:label] || :period.tl, for: configuration[:id]) + ' '
