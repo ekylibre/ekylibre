@@ -13,13 +13,13 @@ fra:
       new: "Connexion"
       renew: "Renouveller la session" #?
     backend/accounts:
-      edit: "Modifier le compte\_: %{number} - %{name}"
+      edit: "Modifier le compte\_: %{label}"
       index: "Plan de comptes"
       load: "Charger un plan de compte"
-      mark: "Lettrage du compte\_: %{number} - %{name}"
+      mark: "Lettrage du compte\_: %{label}"
       new: "Nouveau compte"
       reconciliation: "Lettrage de comptes"
-      show: "Compte\_: %{number} - %{name}"
+      show: "Compte\_: %{label}"
       unmark: "Délettrer un compte"
     backend/activities:
       edit: "Modifier une activité\_: %{name}"
@@ -203,7 +203,7 @@ fra:
       new: "Nouveau document"
       show: "Document\_: %{name}"
     backend/draft_journals:
-      show: "Brouillard"
+      show: "Brouillard comptable"
     backend/entities:
       destroy: "Supprimer la fiche" #?
       edit: "Modifier la fiche\_: %{full_name}"
@@ -344,6 +344,8 @@ fra:
       new_specified: "Nouvelle intervention de %{procedure_name}"
       new_specified_request: "Nouvelle demande de %{procedure_name}"
       show: "%{procedure_name} n°%{number}"
+    backend/invalid_journal_entries:
+      index: "Écritures à équilibrer"
     backend/inventories:
       edit: "Modifier l’inventaire"
       index: "Inventaires"
@@ -960,6 +962,7 @@ fra:
     animal_pie: "Animaux par lot" #?
     animal_productions: "Productions animales" #?
     animals: "Animaux"
+    any_journal: "Tous les journaux"
     apply: "Appliquer" #?
     archived_at: "Archivé à" #?
     archives: "Archives"
@@ -1053,6 +1056,9 @@ fra:
     chart: "Graphique"
     check: "Vérifier"
     check_fields: "Vous devez cocher au moins une case pour effectuer la modification" #?
+    check_x_entries_to_balance:
+      one: "Consulter l'écriture à équilibrer (%{count})"
+      other: "Consulter les écritures à équilibrer (%{count})"
     checked_at: "Vérifié le" #?
     children: "Descendance"
     childrens: "Enfants" #?
@@ -1097,10 +1103,18 @@ fra:
       filter_on_attribute_of_class: "Filtre sur %{attribute} (%{class})"
       special-subscriber: "Filtre Abonné"
     configure: "Configurer"
+    confirmation: "Confirmation"
     confirmed: "Confirmées" #?
     confirmed_at: "Confirmée le" #?
     connect: "Se connecter"
     consult: "Consulter" #?
+    consult_the_day_book:
+      one: "Consulter le brouillard (%{count} écriture)"
+      other: "Consulter le brouillard (%{count} écritures)"
+      zero: "Consulter le brouillard (%{count} écriture)"
+    consult_unbalanced_entries:
+      one: "Consulter l'écriture à équilibrer"
+      other: "Consulter les écritures à équilibrer (%{count})"
     consume: "Consommé"
     contact: "à l’adresse" #?
     contained_products: "Produits contenus"
@@ -1204,6 +1218,9 @@ fra:
       one: "Supprimer l’intervention et la demande associée" #?
       other: "Supprimer les interventions et les demandes associées" #?
     delete_selected_interventions: "Supprimer les interventions sélectionnées"
+    delete_x_entries:
+      one: "Supprimer l'écriture"
+      other: "Supprimer les %{count} écritures"
     deliver: "Valider l’envoi des livraisons"
     deliveries: "Livraisons"
     delivery: "Livraison"
@@ -1214,6 +1231,7 @@ fra:
     depreciation: "Amortissement"
     depreciations: "Dépréciations"
     depreciations_inputations_expenses: "Dotations aux amortissements et aux provisions"
+    derogatory_depreciation_explanation: "Ekylibre ne gère pas les amortissements dérogatoires."
     derogatory_depreciations: "Amortissements dérogatoires"
     description: "Description"
     desposits: "Remises en banque" #?
@@ -1341,6 +1359,7 @@ fra:
     file_to_upload: "Fichier à importer"
     filter: "Filtrer"
     filter_entries_with: "Filtrer les écritures avec" #?
+    filter_on: "Filtrer sur"
     final_balance: "Solde final"
     financial_assets: "Immobilisations financières"
     financial_expenses: "Charges financières"
@@ -1485,6 +1504,7 @@ fra:
     journal: "Journal"
     journal_detail: "Cloturé au %{closed_on}" #?
     journal_entries: "Écritures"
+    journal_entries_deletion_confirmation_message: "Une fois validées, vous ne pourrez plus modifier ou supprimer ces écritures. Êtes-vous sûr de vouloir valider ces écritures ?"
     journal_entries_states: "États des écritures utilisées"
     journal_entry_items: "Lignes d’écritures comptables"
     journal_entry_items_with_taxes_out_of_range:
@@ -1920,6 +1940,7 @@ fra:
     reflections: "Réflections"
     refresh: "Rafraîchir"
     register_intervention_request: "Enregistrer la demande d’intervention"
+    regressive_options: "Options de l'amortissement dégressif"
     rejected: "Refusé"
     related_people: "En lien avec" #?
     relationship: "Tiers"
@@ -2267,6 +2288,7 @@ fra:
     unreceived: "Non reçus" #?
     unset_reconcilable_old_third_accounts: "Rendre non-lettrables les anciens comptes tiers"
     unsubcribed_capital: "Capital non appellé"
+    until: "jusqu'au"
     unused_payment: "Encaissement à utiliser" #?
     unvalid_date: "Date incorrecte" #?
     unvalidated_operations: "Travaux non validés" #?
@@ -2294,6 +2316,9 @@ fra:
       one: "Valider mes miettes pour %{count} intervention"
       other: "Valider mes miettes pour %{count} interventions"
     validate_selected_entries: "Valider les écritures sélectionnées"
+    validate_x_entries:
+      one: "Valider l'écriture"
+      other: "Valider les %{count} écritures"
     validated: "Validé"
     values: "Valeurs"
     variable_indicators: "Indicateurs variables"
@@ -2610,6 +2635,7 @@ fra:
       need_stocks_building_to_create_products: "Vous devez créer un lieu de stockage pour pouvoir créer un produit" #?
       need_stocks_to_create_inventories: "Vous devez gérer les stocks d’au moins un produit pour pouvoir faire un inventaire"
       need_to_create_activity: "Vous devez créer des activités pour pouvoir affecter vos écritures comptables" #?
+      need_to_edit_or_correct_entries_before_validating: "Il est nécessaire de corriger ou de supprimer ces écritures avant de réaliser une clotûre ou une validation globale du brouillard."
       net_services_and_identifiers_are_always_available_but_are_deprecated_and_will_be_removed_in_next_major_release: "Les services en ligne et les identifiants sont toujours disponibles mais sont deconseillés et seront remplacés dans la prochaine version majeure"
       new_values_are_calculated: "De nouvelles valeurs ont été calculées" #?
       no_archived_prints: "Aucune impression déjà archivée"
@@ -2673,6 +2699,9 @@ fra:
       the_automatic_lettering_cannot_be_done_in_accountancy_because_too_many_thirds_are_present: "Le lettrage automatique ne peut pas être fait en comptabilité parce que trop de tiers sont présents"
       the_bookkeep_date_format_is_invalid: "Le format de la date de comptabilisation n’est pas valide"
       the_sales_invoice_is_not_cancellable: "La facture ne peut pas être passée en avoir"
+      there_are_x_remaining_unbalanced_entries:
+        one: "%{count} écriture sur la période n'est pas équilibrée. Elle doit être corrigée pour effectuer une validation globale."
+        other: "%{count} écritures sur la période ne sont pas équilibrées. Elle doivent être corrigées pour effectuer une validation globale."
       this_service_is_not_activated: "Ce service n’est pas activé"
       unavailable_resource: "%{type} indisponible ou inexistant(e) #%{id}"
       unbalanced_journal_entries_are_present_in_year: "L'exercice comporte des écritures non-équilibrées."

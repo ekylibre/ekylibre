@@ -173,7 +173,7 @@ por:
         linear: "Linear"
         none: "Nenhum"
         regressive: "Regressivo"
-        simplified_linear: "Linear simplificado"
+        simplified_linear: "Linear simplificado" #?
       depreciation_period:
         monthly: "Por mês"
         quarterly: "Trimestral"

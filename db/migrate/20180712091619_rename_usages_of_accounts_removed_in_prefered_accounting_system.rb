@@ -51,7 +51,7 @@ class RenameUsagesOfAccountsRemovedInPreferedAccountingSystem < ActiveRecord::Mi
       SELECT  "preferences".string_value FROM "preferences" WHERE "preferences"."name" = 'accounting_system' LIMIT 1
     SQL
     return :fr_pcg82 unless accounting_system
-    
+
     accounting_system['string_value'].to_sym
   end
 end

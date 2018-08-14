@@ -303,6 +303,8 @@ ita:
       new_specified: "Nuovo intervento"
       new_specified_request: "Nuovo intervento richiesto"
       # show: "%{procedure_name}"
+    backend/invalid_journal_entries:
+      # index: "Journal entries to balance"
     backend/inventories:
       edit: "Modifica l'inventario"
       index: "rimanenze"
@@ -879,6 +881,7 @@ ita:
     animal_details: "dettagli animali"
     animal_productions: "produzioni animali" #?
     animals: "Animali"
+    # any_journal: "Any journal"
     archives: "archivio"
     are_you_sure: "Sei sicuro di volerlo fare?"
     are_you_sure_you_want_to:
@@ -953,6 +956,9 @@ ita:
     charge_value: "Valore di carica"
     chart: "Grafico"
     check: "Dai un'occhiata"
+    check_x_entries_to_balance:
+      # one: "Check entry to balance (%{count})"
+      # other: "Check entries to balance (%{count})"
     children: "Bambini"
     choices: "scelte"
     choose_a_type_of_product: "Scegliere un tipo di prodotto"
@@ -979,7 +985,15 @@ ita:
       filter_on_attribute_of_class: "Filtro su attributo della classe"
       special-subscriber: "Special-abbonato"
     configure: "Configurazione"
+    # confirmation: "Confirmation"
     connect: "Collegare"
+    consult_the_day_book:
+      # one: "Consult the day book (%{count} entry)"
+      # other: "Consult the day book (%{count} entries)"
+      # zero: "Consult the day book (%{count} entry)"
+    consult_unbalanced_entries:
+      # one: "Consult the unbalanced entry"
+      # other: "Consult unbalanced entries (%{count})"
     consume: "Consumare"
     contained_products: "prodotti contenuti"
     container: "Contenitore"
@@ -1052,6 +1066,9 @@ ita:
     delete_only_record: "O solo eliminare l’intervento selezionato (s) e visualizzare la richiesta di associazione?"
     delete_request: "Elimina anche la richiesta di associare all’intervento selezionato (s)"
     delete_selected_interventions: "Eliminare gli interventi selezionati"
+    delete_x_entries:
+      # one: "Delete %{count} entry"
+      # other: "Delete %{count} entries"
     deliver: "consegnato su"
     deliveries: "Le consegne"
     delivery: "Consegna"
@@ -1062,6 +1079,7 @@ ita:
     depreciation: "Ammortamento"
     depreciations: "Ammortamenti"
     depreciations_inputations_expenses: "Ammortamenti inputations spese"
+    # derogatory_depreciation_explanation: "Ekylibre doesn't handle derogatory depreciations"
     derogatory_depreciations: "Ammortamenti sprezzanti"
     description: "Descrizione"
     destroy: "Distruggere"
@@ -1160,6 +1178,7 @@ ita:
     file_preview: "Anteprima"
     file_to_upload: "File da caricare"
     filter: "Filtro"
+    # filter_on: "Filter on"
     final_balance: "consuntivo"
     financial_assets: "Le attività finanziarie"
     financial_expenses: "Spese finanziarie"
@@ -1265,6 +1284,7 @@ ita:
     items: "Elementi"
     journal: "rivista"
     journal_entries: "voci di diario"
+    # journal_entries_deletion_confirmation_message: "Once validated, you won't be able to edit or delete these entries. Are you sure you want to validate these entries ?"
     journal_entries_states: "Stati di voci"
     journal_entry_items: "articoli voce di diario"
     journal_entry_items_with_taxes_out_of_range:
@@ -1563,6 +1583,7 @@ ita:
     reflections: "Riflessi"
     refresh: "ricaricare"
     register_intervention_request: "Registrati richiesta di intervento"
+    # regressive_options: "Regressive options"
     rejected: "Respinto"
     relationship: "Relazione"
     # relationship_of_entity: "%{relationship} of %{entity}"
@@ -1793,6 +1814,7 @@ ita:
     unpaid_sales: "vendite non pagate"
     unset_reconcilable_old_third_accounts: "Unset conciliabili conti terzo vecchi (clienti, fornitori e avvocati)"
     unsubcribed_capital: "Capitale Unsubcribed"
+    # until: "until"
     up: "Su"
     up_to: "Fino a"
     update: "Aggiornare"
@@ -1808,6 +1830,9 @@ ita:
       # one: "Validate crumbs for %{count} intervention"
       # other: "Validate crumbs for %{count} interventions"
     validate_selected_entries: "Convalida voci selezionate"
+    validate_x_entries:
+      # one: "Validate the entry"
+      # other: "Validate %{count} entries"
     validated: "Convalidato"
     values: "Valori"
     variable_indicators: "indicatori variabili"
@@ -2067,6 +2092,7 @@ ita:
       need_entries_to_reconciliate: "Nessuna voce di riconciliare il periodo di estratto conto bancario"
       need_payment_mode_to_create_deposit: "È necessario specificare una modalità di pagamento, al fine di effettuare depositi"
       need_stocks_to_create_inventories: "È necessario gestire alcune azioni al fine di gestire le scorte"
+      # need_to_edit_or_correct_entries_before_validating: "You have to correct or delete these entries before you can enclose the financial year or validate them."
       net_services_and_identifiers_are_always_available_but_are_deprecated_and_will_be_removed_in_next_major_release: "Servizi di rete e gli identificatori sono sempre disponibili, ma sono obsolete e saranno rimossi in prossima major release"
       no_archived_prints: "Non ci sono impronte archiviati"
       no_budget_defined_for_current_campaign: "Nessun bilancio definito per la campagna in corso"
@@ -2106,6 +2132,9 @@ ita:
       the_automatic_lettering_cannot_be_done_in_accountancy_because_too_many_thirds_are_present: "La scritta automatica non può essere fatto in contabilità perché troppi terzi sono presenti"
       the_bookkeep_date_format_is_invalid: "Il formato di data di contabilità non è valido"
       the_sales_invoice_is_not_cancellable: "La fattura di vendita non è cancellabile"
+      there_are_x_remaining_unbalanced_entries:
+        # one: "%{count} entry during this period remain unbalanced. You have to correct it to be able to perform a global validation."
+        # other: "%{count} entries during this period remain unbalanced. You have to correct them to be able to perform a global validation."
       this_service_is_not_activated: "Questo servizio non è attivato"
       # unavailable_resource: "Nonexistent %{type} #%{id}"
       unbalanced_journal_entries_are_present_in_year: "Alcune voci di giornale squilibrate sono presenti nell’anno finanziario."

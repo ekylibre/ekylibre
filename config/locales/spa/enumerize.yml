@@ -171,7 +171,7 @@ spa:
         linear: "Lineal"
         none: "Ninguna"
         regressive: "Regresivo"
-        simplified_linear: "Lineal simplificado"
+        simplified_linear: "Lineal simplificado" #?
       depreciation_period:
         monthly: "Mensual"
         quarterly: "Trimestral"

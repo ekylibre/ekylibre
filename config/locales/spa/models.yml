@@ -681,6 +681,7 @@ spa:
     depreciable_amount: "Importe depreciable"
     depreciable_product: "Producto depreciable"
     depreciated_amount: "Importe amortizado"
+    # depreciation_fiscal_coefficient: "Depreciation fiscal coefficient"
     depreciation_method: "Método de depreciación"
     depreciation_percentage: "Porcentaje de depreciación"
     depreciation_period: "Período de depreciación"
