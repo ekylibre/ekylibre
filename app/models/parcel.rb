@@ -458,14 +458,28 @@ class Parcel < Ekylibre::Record::Base
 
         # Adds items
         parcels.each do |parcel|
-          parcel.items.each do |item|
+          parcel.items.order(:id).each do |item|
             # raise "#{item.variant.name} cannot be sold" unless item.variant.saleable?
             next unless item.variant.saleable? && item.population && item.population > 0
             catalog_item = Catalog.by_default!(:sale).items.find_by(variant: item.variant)
+            # check all taxes included to build unit_pretax_amount and tax from catalog with all taxes included
+            unit_pretax_amount = item.pretax_amount.zero? ? nil : item.pretax_amount
+            tax = Tax.current.first
+            if catalog_item && catalog_item.all_taxes_included
+              unit_pretax_amount ||= catalog_item.reference_tax.pretax_amount_of(catalog_item.amount)
+              tax = catalog_item.reference_tax || item.variant.category.sale_taxes.first || Tax.current.first
+            # from catalog without taxes
+            elsif catalog_item
+              unit_pretax_amount ||= catalog_item.amount
+            # from last sale item
+            elsif (last_sale_items = SaleItem.where(variant: item.variant)) && last_sale_items.any?
+              unit_pretax_amount ||= last_sale_items.order(id: :desc).first.unit_pretax_amount
+              tax = last_sale_items.order(id: :desc).first.tax
+            end
             item.sale_item = sale.items.create!(
               variant: item.variant,
-              unit_pretax_amount: (catalog_item ? catalog_item.amount : 0.0),
-              tax: item.variant.category.sale_taxes.first || Tax.current.first,
+              unit_pretax_amount: unit_pretax_amount || 0.0,
+              tax: tax,
               quantity: item.population
             )
             item.save!
@@ -513,13 +527,27 @@ class Parcel < Ekylibre::Record::Base
 
         # Adds items
         parcels.each do |parcel|
-          parcel.items.each do |item|
+          parcel.items.order(:id).each do |item|
             next unless item.variant.purchasable? && item.population && item.population > 0
             catalog_item = Catalog.by_default!(:purchase).items.find_by(variant: item.variant)
+            unit_pretax_amount = item.pretax_amount.zero? ? nil : item.pretax_amount
+            tax = Tax.current.first
+            # check all taxes included to build unit_pretax_amount and tax from catalog with all taxes included
+            if catalog_item && catalog_item.all_taxes_included
+              unit_pretax_amount ||= catalog_item.reference_tax.pretax_amount_of(catalog_item.amount)
+              tax = catalog_item.reference_tax || item.variant.category.purchase_taxes.first || Tax.current.first
+            # from catalog without taxes
+            elsif catalog_item
+              unit_pretax_amount ||= catalog_item.amount
+            # from last purchase item
+            elsif (last_purchase_items = PurchaseItem.where(variant: item.variant)) && last_purchase_items.any?
+              unit_pretax_amount ||= last_purchase_items.order(id: :desc).first.unit_pretax_amount
+              tax = last_purchase_items.order(id: :desc).first.tax
+            end
             item.purchase_item = purchase.items.create!(
               variant: item.variant,
-              unit_pretax_amount: (item.unit_pretax_amount.nil? || item.unit_pretax_amount.zero? ? (catalog_item ? catalog_item.amount : 0.0) : item.unit_pretax_amount),
-              tax: item.variant.category.purchase_taxes.first || Tax.current.first,
+              unit_pretax_amount: unit_pretax_amount || 0.0,
+              tax: tax,
               quantity: item.population
             )
             item.save!
