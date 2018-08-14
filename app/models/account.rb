@@ -200,12 +200,16 @@ class Account < Ekylibre::Record::Base
       self.centralizing_account = nil
       self.number = number.ljust(3, '0') if number
     elsif auxiliary?
-      self.auxiliary_number = auxiliary_number.rjust(5, '0')
+      self.auxiliary_number = auxiliary_number.rjust(5, '0') unless protected_auxiliary_number?
       self.number = centralizing_account.number + auxiliary_number if centralizing_account
     end
     self.reconcilable = reconcilableable? if reconcilable.nil?
     self.label = tc(:label, number: number.to_s, name: name.to_s)
     self.usages = Account.find_parent_usage(number) if usages.blank? && number
+  end
+
+  def protected_auxiliary_number?
+    journal_entry_items.where.not(state: :draft).any?
   end
 
   protect(on: :destroy) do
