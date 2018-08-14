@@ -2209,12 +2209,16 @@ eng:
       changes_have_not_been_reflected: "The changes have not been reflected in the stocks state" #?
       closed_financial_periods: "The fixed asset's duration spans across closed financial periods."
       closed_financial_year_exchange: "The financial year exchange has been closed successfully"
-      closed_financial_years: "The financial year has been closed successfully"
+      closed_financial_years: "The financial year has been closed successfully" #?
+      closure_process_started: "Closure process started."
       columns_are_already_uses: "One or many columns are selected many times"
       could_not_attach_x_or_y_to_affair: "Could not attach %{x} or %{y} to affair"
       dashboard_is_being_developed: "Dashboard is under heavy development"
       density_is_not_computable_in_counting: "Could not compute the density for this counting. The missing values should be completed in the counting's properties or the sower's indicators."
+      depreciation_failed: "Assets could not be depreciated." #?
+      depreciation_successful: "Assets have been successfully depreciated." #?
       document_in_preparation: "Your document is in preparation a notification will be sent to you when it is ready"
+      draft_journal_entries_are_present: "Draft journal entries are present." #?
       draft_journal_entries_have_been_validated:
         one: "%{count} entry has been validated"
         other: "%{count} entries have been validated"
@@ -2227,6 +2231,10 @@ eng:
       error_during_file_generation: "An error occurred while generating a file" #?
       fails_to_extract_listing: "The listing can't be made: %{message}"
       file_generated: "Your file was successfully generated" #?
+      financial_year_already_closed: "The financial year has already been closed." #?
+      financial_year_is_not_past: "The financial year hasn't passed yet." #?
+      financial_year_x_could_not_be_closed: "Financial Year  %{name} could not be closed."
+      financial_year_x_successfully_closed: "Financial Year %{name} successfully closed !"
       financial_years_missing: "You must create every missing financial years since the first registered"
       financial_years_missing_tax_declarations: "You must create every declarations for the following financial years: %{codes}"
       implemented_with_dummy_data: "Implemented with dummy data"
@@ -2270,6 +2278,7 @@ eng:
       no_reopenable_journal: "You can not re-open this journal."
       no_replacements_since_beginning: "No replacements since beginning"
       # no_worker_associated_with_user_account: "No worker associated with user account"
+      previouos_financial_year_is_not_closed: "The previous financial year hasn't been closed." #?
       purchases_invalid_for_sepa: "Purchases selected invalid for SEPA transfer (invalid disbursement mode or wrong currency or missing payee's IBAN or bank account holder name)"
       record_already_imported: "Record already imported"
       record_cannot_be_removed: "The record can not be deleted"
@@ -2295,6 +2304,7 @@ eng:
       the_sales_invoice_is_not_cancellable: "The sales invoice is not cancellable"
       this_service_is_not_activated: "This service is not activated" #?
       unavailable_resource: "Nonexistent %{type} #%{id}"
+      unbalanced_journal_entries_are_present_in_year: "Some unbalanced journal entries are present in the financial year." #?
       unexpected_resource_type: "Unexpected resource type: %{type}"
       update_is_done: "The update has been made"
       x_fixed_asset_depreciations_have_been_bookkept_successfully:

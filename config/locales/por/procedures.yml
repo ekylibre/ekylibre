@@ -20,7 +20,7 @@ por:
     animal_food: "Comida animal"
     animal_housing: "Alojamento dos animais"
     animal_medicine: "Medicina de animais"
-    # baler: "Baler"
+    baler: "Empacadeira"
     bird_band: "Bird band" #?
     bottles: "Garrafas"
     caregiver: "Cuidador"

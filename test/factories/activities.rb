@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :activity do
     sequence(:name)  { |n| "Fake Activity #{n}" }
     family           :plant_farming

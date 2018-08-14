@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 class Mailman < ActionMailer::Base
   def mailing(expedier, recipient, subject, text, piece = nil)
     # from       expedier
