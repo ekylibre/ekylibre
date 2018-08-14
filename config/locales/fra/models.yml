@@ -1714,7 +1714,7 @@ fra:
     suppliers: "Fournisseurs"
     support: "Support"
     support_nature: "Type de support"
-    support_shape: "Parcelle"
+    support_shape: "Forme du support"
     support_variant: "Type de support"
     support_variant_indicator: "Indicateur d’œuvre"
     support_variant_unit: "Unité d’œuvre"
@@ -1867,8 +1867,6 @@ fra:
     working_zone_area: "Surface de la zone travaillée"
     zone_memberships: "Appartenances de zone"
     zones: "Zones"
-    land_parcel_hint1: "Ici, vous pouvez ajouter une nouvelle zone de parcelle pour un type de culture particulier dans les zones cultivables sélectionnées."
-    land_parcel_hint2: "Il est possible de réduire une zone pour rendre une parcelle de terrain plus petite que la zone cultivable."
   models:
     account:
       label: "%{number} - %{name}"

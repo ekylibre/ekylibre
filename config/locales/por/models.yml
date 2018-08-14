@@ -1435,7 +1435,7 @@ por:
     suppliers: "Fornecedores"
     support: "Apoio"
     support_nature: "Tipo de suporte"
-    support_shape: "Parcela de terra"
+    support_shape: "Forma de suporte"
     support_variant: "Variante de apoio"
     support_variant_indicator: "Indicador de trabalho"
     support_variant_unit: "Unidade variante apoio"
@@ -1578,8 +1578,6 @@ por:
     working_zone_area: "área de zona de trabalho"
     zone_memberships: "Associações da zona"
     zones: "Zonas"
-    land_parcel_hint1: "Aqui você pode adicionar uma nova área de parcela de terra para um tipo de cultivo específico em zonas cultiváveis ​​selecionadas."
-    land_parcel_hint2: "É possível reduzir uma zona para fazer uma parcela de Terra menor do que a Zona cultivável."
   models:
     account:
       label: "%{number} - %{name}"

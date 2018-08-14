@@ -2391,7 +2391,7 @@ arb:
     suppliers: "الممولين"
     support: "الدعم"
     support_nature: "نوع الدعم"
-    support_shape: "الكتلة"
+    support_shape: "شكل الدعم"
     support_variant: "الدعم البديل"
     support_variant_indicator: "مؤشر العمل"
     support_variant_unit: "وحدة الدعم البديل"
@@ -2570,8 +2570,6 @@ arb:
     working_zone_area: "منطقة منطقة العمل"
     zone_memberships: "عضوية منطقة"
     zones: "المناطق"
-    land_parcel_hint1: "هنا يمكنك إضافة منطقة جديدة قطعة أرض لنوع معين من المحاصيل تحت مناطق زراعية مختارة."
-    land_parcel_hint2: "فمن الممكن للحد من منطقة لجعل قطعة أرض أصغر من المنطقة القابلة للزراعة."
   models:
     account:
       default_account_name: "دفتر الحسابات %{number}" #?

@@ -1435,7 +1435,7 @@ jpn:
     suppliers: "サプライヤー"
     support: "サポート"
     support_nature: "サポートタイプ"
-    support_shape: "土地区画"
+    support_shape: "サポート形状"
     support_variant: "サポートバリアント"
     support_variant_indicator: "作業指示"
     support_variant_unit: "支持変形部"
@@ -1578,8 +1578,6 @@ jpn:
     working_zone_area: "ワーキングゾーン領域"
     zone_memberships: "ゾーンメンバーシップ"
     zones: "ゾーン"
-    land_parcel_hint1: "ここでは、選択した栽培可能区域の下に特定の作物タイプのための新しい土地区域を追加することができます。"
-    land_parcel_hint2: "土地区画を栽培可能区域よりも小さくするために区画を縮小することは可能である。"
   models:
     account:
       # label: "%{number} - %{name}"

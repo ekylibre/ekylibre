@@ -1,50 +1,33 @@
 - activity = f.object.activity
 = f.object.errors.inspect if f.object.errors.any? && Rails.env.development?
 = field_set do
-  .row.no-margin
-    -# = f.input :name
-    = f.referenced_association :activity, as: :hidden
-    - if activity.plant_farming?
-      .col-md-5.no-padding
-        - if activity.annual?
-          - f.object.campaign ||= current_campaign
-          = f.referenced_association :campaign
-        = f.date_range
-        - if f.object.use_seasons?
-          = f.association :season, as: :radio_buttons, collection: activity.seasons
-          -# Vegetal cropsra
-        .radio_block
-          = f.input :support_nature, as: :radio_buttons
-        - f.object.usage ||= :grain
-        = f.input :usage
-        - if activity && activity.production_system.present?
-          - source = { scope: { of_production_system: activity.production_system.name } }
-        = f.input :irrigated
-        = f.input :nitrate_fixing
-        = f.custom_fields
-      .col-md-7.no-padding
-        = f.referenced_association :cultivable_zone, source: source
-        .highlight
-          = f.label :land_parcel_hint1
-        = f.shape :support_shape
-        .highlight
-          = f.label :land_parcel_hint2
-    - else
-      .col-md-12
-        - if activity.annual?
-          - f.object.campaign ||= current_campaign
-          = f.referenced_association :campaign
-        = f.date_range
-        - if f.object.use_seasons?
-          = f.association :season, as: :radio_buttons, collection: activity.seasons
-        - if activity.animal_farming?
-          -# Animal farming
-          = f.referenced_association :support, source: { scope: { of_variety: :animal_group } }, new: {controller: :animal_groups}
-          = f.input :size_value, label: :indicative_group_size.tl
-        - elsif activity.tool_maintaining?
-          = f.input :size_value, label: ActivityProduction.human_attribute_name(:size)
-        - elsif activity.with_supports
-          -# Other families
-          = f.referenced_association :support
-        = f.custom_fields
+  -# = f.input :name
+  = f.referenced_association :activity, as: :hidden
+  - if activity.annual?
+    - f.object.campaign ||= current_campaign
+    = f.referenced_association :campaign
+  = f.date_range
+  - if f.object.use_seasons?
+    = f.association :season, as: :radio_buttons, collection: activity.seasons
+  - if activity.plant_farming?
+    -# Vegetal cropsra
+    = f.input :support_nature, as: :radio_buttons
+    - f.object.usage ||= :grain
+    = f.input :usage
+    - if activity && activity.production_system.present?
+      - source = { scope: { of_production_system: activity.production_system.name } }
+    = f.referenced_association :cultivable_zone, source: source
+    = f.shape :support_shape
+    = f.input :irrigated
+    = f.input :nitrate_fixing
+  - elsif activity.animal_farming?
+    -# Animal farming
+    = f.referenced_association :support, source: { scope: { of_variety: :animal_group } }, new: {controller: :animal_groups}
+    = f.input :size_value, label: :indicative_group_size.tl
+  - elsif activity.tool_maintaining?
+    = f.input :size_value, label: ActivityProduction.human_attribute_name(:size)
+  - elsif activity.with_supports
+    -# Other families
+    = f.referenced_association :support
+  = f.custom_fields
 = f.attachments_field_set

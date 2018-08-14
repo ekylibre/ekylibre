@@ -1435,7 +1435,7 @@ deu:
     suppliers: "Lieferanten"
     support: "Unterstützen"
     support_nature: "Unterstützung Art"
-    support_shape: "Parzelle"
+    support_shape: "Unterstützung Form"
     support_variant: "Unterstützung Variante"
     support_variant_indicator: "Arbeitsanzeige"
     support_variant_unit: "Unterstützung Variante Einheit"
@@ -1576,8 +1576,6 @@ deu:
     working_zone: "Arbeitszone"
     working_zone_area: "Arbeitszonenbereich"
     zone_memberships: "Zone Mitgliedschaften"
-    land_parcel_hint1: "Hier kunt u een nieuw landpakketgebied toevoegen voor bepaalde soorten gewassen onder geselecteerde teeltruimten."
-    land_parcel_hint2: "Het is mogelijk om een ​​zone te verminderen om een ​​landpakket kleiner te maken dan de teeltzone."
     zones: "Zonen"
   models:
     account:

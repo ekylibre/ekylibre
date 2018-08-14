@@ -266,28 +266,6 @@ $help-width: round($default-ratio * $side-width);
   @include border-left(1px solid #AAA);
 }
 
-.no-padding {
-  padding: 0 !important;
-}
-.no-margin {
-  margin: 0 !important;
-}
-
-.radio_block {
-  span.radio{
-    display: block;
-    margin: 0 !important;
-  }
-}
-
-.highlight {
-  margin: 10px 0px 10px 7px;
-  display: block;
-  background: #F7F7F7;
-  font-size: 13px;
-  padding: 3px 5px;
-  border-radius: 5px;
-}
 
 html.backend {
   &.turbolinks-progress-bar::before {

@@ -1466,7 +1466,7 @@ ita:
     suppliers: "fornitori"
     support: "Supporto"
     support_nature: "tipo di Supporto"
-    support_shape: "parcelle"
+    support_shape: "forma di sostegno"
     support_variant: "variante di sostegno"
     support_variant_indicator: "indicatore di funzionamento"
     support_variant_unit: "unità di supporto variante"
@@ -1609,8 +1609,6 @@ ita:
     working_zone_area: "zona zona di lavoro"
     zone_memberships: "appartenenze Zone"
     zones: "zone"
-    land_parcel_hint1: "Qui è possibile aggiungere nuove parcelle di terreno per un particolare tipo di coltura in zone selezionabili selezionabili."
-    land_parcel_hint2: "È possibile ridurre una zona per fare un pacco di terreno più piccolo della zona coltivabile."
   models:
     account:
       # label: "%{number} - %{name}"

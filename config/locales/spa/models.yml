@@ -1439,7 +1439,7 @@ spa:
     suppliers: "Proveedores"
     support: "Apoyo"
     support_nature: "Tipo de soporte"
-    support_shape: "Parcela de tierra"
+    support_shape: "La forma apoyo"
     support_variant: "Variante de apoyo"
     support_variant_indicator: "Indicador de trabajo"
     support_variant_unit: "Unidad de apoyo variante"
@@ -1582,8 +1582,6 @@ spa:
     working_zone_area: "área de la zona de trabajo"
     zone_memberships: "Zona de miembro"
     zones: "Zonas"
-    land_parcel_hint1: "Aquí puede agregar una nueva área de parcela de tierra para un tipo de cultivo particular en zonas cultivables seleccionadas."
-    land_parcel_hint2: "Es posible reducir una zona para hacer que un terreno sea más pequeño que la zona cultivable."
   models:
     account:
       # label: "%{number} - %{name}"

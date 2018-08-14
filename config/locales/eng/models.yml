@@ -1478,7 +1478,7 @@ eng:
     suppliers: "Suppliers"
     support: "Support"
     support_nature: "Support type"
-    support_shape: "Land parcel"
+    support_shape: "Support shape"
     support_variant: "Support variant" #?
     support_variant_indicator: "Working indicator" #?
     support_variant_unit: "Support variant unit" #?
@@ -1624,8 +1624,6 @@ eng:
     working_zone_area: "Working zone area"
     zone_memberships: "Zone memberships" #?
     zones: "Zones"
-    land_parcel_hint1: "Here you can add new land parcel area for particular crop type under selected cultivable zones."
-    land_parcel_hint2: "It is possible to reduce a zone to make a Land parcel smaller than the cultivable Zone."
   models:
     account:
       label: "%{number} - %{name}"

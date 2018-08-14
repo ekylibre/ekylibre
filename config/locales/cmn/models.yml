@@ -1435,7 +1435,7 @@ cmn:
     suppliers: "供应商"
     support: "支持"
     support_nature: "支持类型"
-    support_shape: "地块"
+    support_shape: "支持形状"
     support_variant: "支持变种"
     support_variant_indicator: "工作指示灯"
     support_variant_unit: "支持单位变种"
@@ -1578,8 +1578,6 @@ cmn:
     working_zone_area: "工作区区域"
     zone_memberships: "会员区"
     zones: "区"
-    land_parcel_hint1: "在这里，您可以在选定的可栽培区域内为特定作物种类添加新的地块区域。"
-    land_parcel_hint2: "可以减少一个区域使土地小于可耕区。"
   models:
     account:
       # label: "%{number} - %{name}"
