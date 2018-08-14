@@ -98,9 +98,7 @@ module Ekylibre
         animal_variant = ProductNatureVariant.find_by(work_number: r.member_nature) ||
                          ProductNatureVariant.find_by(reference_name: r.member_nature) ||
                          ProductNatureVariant.import_from_nomenclature(r.member_nature)
-        unless animal_variant
-          animal_variant = ProductNatureVariant.import_from_nomenclature(r.member_nature)
-        end
+        animal_variant ||= ProductNatureVariant.import_from_nomenclature(r.member_nature)
 
         # get animal default container
         animal_container = BuildingDivision.find_by(work_number: r.place)
@@ -175,7 +173,7 @@ module Ekylibre
           # if animals and production_support, add animals to the target distribution
           if animals.any? && ap.present?
             animals.each do |animal|
-              td = TargetDistribution.where(activity: activity, activity_production: ap, target: animal).first_or_create!
+              animal.update(activity_production: ap)
               animal.memberships.where(group: animal_group, started_at: animal.born_at + r.minimum_age, nature: :interior).first_or_create!
               animal.localizations.where(started_at: animal.born_at + r.minimum_age, nature: :interior, container: animal_container).first_or_create!
             end

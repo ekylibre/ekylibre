@@ -21,7 +21,7 @@
       .big-info{class: (operating_margin > 0 ? :positive : operating_margin < 0 ? :negative : :caution)}
         %span.title= :operating_margin.tl(financial_year: @financial_year.name)
         %span.value= operating_margin.l(currency: Preference[:currency])
-    - if raw_income
+    -# if raw_income
       .big-info{class: (raw_income > 0 ? :positive : raw_income < 0 ? :negative : :caution)}
         %span.title= :raw_income.tl(financial_year: @financial_year.name)
         %span.value= raw_income.l(currency: Preference[:currency])

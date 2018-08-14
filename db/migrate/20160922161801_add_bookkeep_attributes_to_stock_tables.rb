@@ -1,5 +1,3 @@
-# coding: utf-8
-
 class AddBookkeepAttributesToStockTables < ActiveRecord::Migration
   # Built with following code:
   # Nomen::ProductNatureCategory.list.each_with_object({}) { |c, h| next if c.stock_movement_account.blank?; a = Nomen::Account.find(c.stock_movement_account); h[c.name.to_sym] = { name: I18n.available_locales.each_with_object({}) {|l,h| h[l] = a.human_name(locale: l) }, usages: a.name, number: a.fr_pcga || a.fr_pcg82 } }.to_yaml

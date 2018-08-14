@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 { fra: {
   i18n: {
     dir: 'ltr',

@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2017 Brice Texier, David Joulin
+# Copyright (C) 2012-2018 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -489,7 +489,7 @@ class Entity < Ekylibre::Record::Base
       # Add summary observation of the merge
       if author
         content = "Merged entity (ID=#{other.id}):\n"
-        other.attributes.sort.each do |attr, value|
+        other.attributes.sort.each do |attr, _value|
           value = other.send(attr).to_s
           content << "  - #{Entity.human_attribute_name(attr)} : #{value}\n" if value.present?
         end

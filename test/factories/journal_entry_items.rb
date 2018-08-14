@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :journal_entry_item do
     association :entry, factory: %i[journal_entry with_items]
     account

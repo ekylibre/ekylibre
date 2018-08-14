@@ -46,10 +46,6 @@
 
 = cobbles do |c|
 
-  - if resource.animal_farming? && (resource.support.is_a?(AnimalGroup))
-    - c.cobble :animals do
-      = cobble_list(:target_distributions)
-
   - if resource.plant_farming? && (resource.support.is_a?(LandParcel) || resource.support.is_a?(Plant))
     - c.cobble :weather do
       = cell :weather, params: {id: resource.cultivable_zone.id} unless resource.cultivable_zone.nil?

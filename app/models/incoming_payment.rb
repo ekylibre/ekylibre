@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2017 Brice Texier, David Joulin
+# Copyright (C) 2012-2018 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -106,7 +106,7 @@ class IncomingPayment < Ekylibre::Record::Base
 
   before_validation(on: :create) do
     self.to_bank_at ||= Time.zone.now
-    self.scheduled = (self.to_bank_at > Time.zone.now ? true : false)
+    self.scheduled = (self.to_bank_at > Time.zone.now)
     self.received = false if scheduled
     true
   end
