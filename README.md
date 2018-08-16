@@ -49,15 +49,6 @@ We encourage you to contribute to Ekylibre.
   have your own version, or is otherwise necessary, that is fine, but please
   isolate to its own commit so we can cherry-pick around it.
 
-## Testing
-
-To run integration test, do:
-``` bash
-wget https://github.com/mozilla/geckodriver/releases/download/v0.11.1/geckodriver-v0.11.1-linux64.tar.gz
-tar xzvf geckodriver-v0.11.1-linux64.tar.gz
-sudo cp geckodriver /usr/bin
-```
-
 ## See also
 
 * [Forum](http://forum.ekylibre.org)
