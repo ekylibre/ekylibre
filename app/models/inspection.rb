@@ -26,6 +26,7 @@
 #  comment                        :text
 #  created_at                     :datetime         not null
 #  creator_id                     :integer
+#  forecast_harvest_week          :integer
 #  id                             :integer          not null, primary key
 #  implanter_application_width    :decimal(19, 4)
 #  implanter_rows_number          :integer
@@ -51,15 +52,16 @@ class Inspection < Ekylibre::Record::Base
   has_many :scales, through: :activity, source: :inspection_calibration_scales
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :comment, length: { maximum: 500_000 }, allow_blank: true
+  validates :forecast_harvest_week, :implanter_rows_number, numericality: { only_integer: true, greater_than: -2_147_483_649, less_than: 2_147_483_648 }, allow_blank: true
   validates :implanter_application_width, :implanter_working_width, :product_net_surface_area_value, :sampling_distance, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }, allow_blank: true
-  validates :implanter_rows_number, numericality: { only_integer: true, greater_than: -2_147_483_649, less_than: 2_147_483_648 }, allow_blank: true
   validates :number, presence: true, length: { maximum: 500 }
   validates :product_net_surface_area_unit, length: { maximum: 500 }, allow_blank: true
   validates :sampled_at, presence: true, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }
   validates :activity, :product, presence: true
   # ]VALIDATORS]
-  validates :implanter_rows_number, :product_net_surface_area, :implanter_application_width, :sampling_distance, numericality: { greater_than: 0 }, allow_blank: false
-  validates :implanter_rows_number, :product_net_surface_area, :implanter_application_width, :sampling_distance, presence: true
+  validates :implanter_rows_number, :product_net_surface_area_value, :implanter_application_width, :sampling_distance, numericality: { greater_than: 0 }, allow_blank: false
+  validates :implanter_rows_number, :product_net_surface_area_value, :implanter_application_width, :sampling_distance, presence: true
+  validates :forecast_harvest_week, length: { maximum: 2 }
 
   composed_of :product_net_surface_area, class_name: 'Measure',
                                          mapping: [%w[product_net_surface_area_value to_d], %w[product_net_surface_area_unit unit]]

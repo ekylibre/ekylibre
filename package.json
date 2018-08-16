@@ -1,0 +1,14 @@
+{
+  "name": "larrere",
+  "version": "2.54.0 - 2.2",
+  "main": "index.js",
+  "repository": "git@gitlab.com:ekylibre-integration/larrere.git",
+  "author": "Alexandre Lécuelle <alecuelle@ekylibre.com>",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "chart.js": "^2.7.2",
+    "vue-chartjs": "^3.2.1",
+    "vuedraggable": "^2.16.0"
+  }
+}

@@ -23,6 +23,7 @@
 # == Table: intervention_parameters
 #
 #  assembly_id              :integer
+#  batch_number             :string
 #  component_id             :integer
 #  created_at               :datetime         not null
 #  creator_id               :integer
@@ -52,6 +53,7 @@
 #  updated_at               :datetime         not null
 #  updater_id               :integer
 #  variant_id               :integer
+#  variety                  :string
 #  working_zone             :geometry({:srid=>4326, :type=>"multi_polygon"})
 #
 class InterventionDoer < InterventionAgent
@@ -73,6 +75,15 @@ class InterventionDoer < InterventionAgent
       event_participation.destroy!
     end
   end
+
+  scope :with_empty_participations, lambda {
+    InterventionDoer
+      .select do |intervention_doer|
+        next if intervention_doer.intervention.nil?
+
+        intervention_doer.intervention.participations.where(product_id: intervention_doer.product_id).empty?
+      end
+  }
 
   def working_duration_params
     { intervention: intervention,

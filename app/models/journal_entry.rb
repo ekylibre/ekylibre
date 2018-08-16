@@ -152,6 +152,7 @@ class JournalEntry < Ekylibre::Record::Base
       if stopped_on.present? && (stopped_on.is_a?(Date) || stopped_on =~ /^\d\d\d\d\-\d\d\-\d\d$/)
         conditions << "#{table}.printed_on <= #{connection.quote(stopped_on.to_date)}"
       end
+
       return connection.quoted_false if conditions.empty?
       return '(' + conditions.join(' AND ') + ')'
     end
@@ -301,6 +302,10 @@ class JournalEntry < Ekylibre::Record::Base
   def expected_financial_year
     raise 'Missing printed_on' unless printed_on
     FinancialYear.on(printed_on)
+  end
+
+  def entities_bank_statement_number
+    items.where.not(bank_statement_letter: nil).first&.bank_statement_letter
   end
 
   def self.state_label(state)

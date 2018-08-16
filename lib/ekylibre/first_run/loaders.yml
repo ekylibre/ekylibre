@@ -66,6 +66,18 @@ land_parcels:
       - 'parcelle.shx'
     in: 'telepac/2015'
 
+  telepac_v2015_cap_statements:
+    path: 'telepac/2015/statement.xml'
+
+  telepac_v2016_cap_statements:
+    path: 'telepac/2016/statement.xml'
+
+  telepac_v2017_cap_statements:
+    path: 'telepac/2017/statement.xml'
+
+  telepac_v2018_cap_statements:
+    path: 'telepac/2018/statement.xml'
+
   equipments_georeadings:
     format: :archive
     path: 'equipments.zip'
@@ -249,6 +261,8 @@ sales:
     path: 'alamano/incoming_payments.csv'
 
 deliveries:
+  caj_incoming_deliveries:
+    path: 'caj/appros.csv'
   charentes_alliance_incoming_deliveries:
     path: 'charentes_alliance/appros.csv'
   charentes_alliance_outgoing_deliveries:
@@ -276,6 +290,9 @@ interventions:
   ekylibre_interventions:
     path: 'alamano/interventions.csv'
 
+  # Import interventions from DAPLOS EDI
+  #agroedi_daplos:
+    #path: 'daplos/interventions.edi'
   # Import interventions from viniteca
   viniteca_interventions:
     format: :archive
@@ -300,3 +317,7 @@ interventions:
       - 'equipments_transcode.csv'
       - 'interventions.csv'
     in: 'isaculture'
+
+accountancy:
+  isagri_isacompta_fixed_assets:
+    path: 'isacompta/fixed_assets.csv'

@@ -41,6 +41,7 @@
 #  nature                       :string           not null
 #  production_campaign          :string
 #  production_cycle             :string           not null
+#  production_nature_id         :integer
 #  production_system_name       :string
 #  size_indicator_name          :string
 #  size_unit_name               :string
@@ -87,6 +88,8 @@ class Activity < Ekylibre::Record::Base
     has_many :inspection_calibration_natures, class_name: 'ActivityInspectionCalibrationNature', through: :inspection_calibration_scales, source: :natures
   end
   has_many :supports, through: :productions
+
+  belongs_to :production_nature, class_name: 'MasterProductionNature'
 
   has_and_belongs_to_many :interventions
   has_and_belongs_to_many :campaigns
@@ -243,6 +246,18 @@ class Activity < Ekylibre::Record::Base
     end
   end
 
+  def pfi_activity_ratio(campaign)
+    global_area = []
+    production_pfi_per_area = []
+    productions.of_campaign(campaign).each do |production|
+      area_in_hectare = production.net_surface_area.to_d(:hectare)
+      production_pfi_per_area << (production.pfi_parcel_ratio * area_in_hectare).round(2)
+      global_area << area_in_hectare
+    end
+    pfi_activity = (production_pfi_per_area.compact.sum / global_area.compact.sum).round(2)
+    pfi_activity
+  end
+
   def interventions
     Intervention.of_activity(self)
   end
@@ -312,6 +327,18 @@ class Activity < Ekylibre::Record::Base
     budget = budget_of(campaign)
     return 0.0 unless budget
     budget.expenses_amount
+  end
+
+  def quandl_dataset
+    if Nomen::Variety[self.cultivation_variety.to_sym] <= :triticum_aestivum
+      'CHRIS/LIFFE_EBM4'
+    elsif Nomen::Variety[self.cultivation_variety.to_sym] <= :brassica_napus
+      'CHRIS/LIFFE_ECO4'
+    elsif Nomen::Variety[self.cultivation_variety.to_sym] <= :hordeum_hexastichum
+      'CHRIS/ICE_BW2'
+    elsif Nomen::Variety[self.cultivation_variety.to_sym] <= :zea
+      'CHRIS/LIFFE_EMA10'
+    end
   end
 
   COLORS_INDEX = Rails.root.join('db', 'nomenclatures', 'colors.yml').freeze

@@ -16,15 +16,17 @@
         <page to="backend/entities#list_issues"/>
         <page to="backend/entities#list_links"/>
         <page to="backend/entities#list_contracts"/>
-        <page to="backend/entities#list_incoming_parcels"/>
-        <page to="backend/entities#list_outgoing_parcels"/>
+        <page to="backend/entities#list_incoming_parcels" nonexistent="true"/>
+        <page to="backend/entities#list_outgoing_parcels" nonexistent="true"/>
         <page to="backend/entities#list_observations"/>
         <page to="backend/entities#list_purchase_payments"/>
-        <page to="backend/entities#list_purchases"/>
+        <page to="backend/entities#list_purchases" nonexistent="true"/>
         <page to="backend/entities#list_sale_opportunities"/>
         <page to="backend/entities#list_sales"/>
         <page to="backend/entities#list_subscriptions"/>
         <page to="backend/entities#list_tasks"/>
+        <page to="backend/entities#list_receptions"/>
+        <page to="backend/entities#list_shipments"/>
         <page to="backend/entities#list_client_journal_entry_items"/>
         <page to="backend/entities#list_supplier_journal_entry_items"/>
         <page to="backend/entities#mask_lettered_items"/>
@@ -262,8 +264,8 @@
       </item>
     </group>
   </part>
-  <part name="trade" icon="bar-chart">
-    <page to="backend/dashboards#trade"/>
+  <part name="sales" icon="bar-chart">
+    <page to="backend/dashboards#sales"/>
     <group name="sales" icon="bar-chart">
       <item name="sales">
         <page to="backend/sales#index"/>
@@ -279,7 +281,7 @@
         <page to="backend/sales#invoice"/>
         <page to="backend/sales#list"/>
         <page to="backend/sales#list_credits"/>
-        <page to="backend/sales#list_parcels"/>
+        <page to="backend/sales#list_parcels" nonexistent="true"/>
         <page to="backend/sales#list_items"/>
         <page to="backend/sales#list_subscriptions"/>
         <page to="backend/sales#list_undelivered_items"/>
@@ -369,61 +371,6 @@
         <page to="backend/subscriptions#takeover"/>
       </item>
     </group>
-    <group name="purchases" icon="shopping-cart">
-      <item name="purchases">
-        <page to="backend/purchases#index"/>
-        <page to="backend/purchases#abort"/>
-        <page to="backend/purchases#confirm"/>
-        <page to="backend/purchases#correct"/>
-        <page to="backend/purchases#create"/>
-        <page to="backend/purchases#destroy"/>
-        <page to="backend/purchases#edit"/>
-        <page to="backend/purchases#invoice"/>
-        <page to="backend/purchases#list"/>
-        <page to="backend/purchases#list_parcels"/>
-        <page to="backend/purchases#list_items"/>
-        <page to="backend/purchases#propose"/>
-        <page to="backend/purchases#propose_and_invoice"/>
-        <page to="backend/purchases#refuse"/>
-        <page to="backend/purchases#show"/>
-        <page to="backend/purchases#unroll"/>
-        <page to="backend/purchases#update"/>
-        <page to="backend/purchases#new"/>
-        <page to="backend/purchases#pay"/>
-        <page to="backend/purchases#payment_mode"/>
-        <page to="backend/purchase_affairs#index"/>
-        <page to="backend/purchase_affairs#attach"/>
-        <page to="backend/purchase_affairs#detach"/>
-        <page to="backend/purchase_affairs#detach_gaps"/>
-        <page to="backend/purchase_affairs#finish"/>
-        <page to="backend/purchase_affairs#list"/>
-        <page to="backend/purchase_affairs#select"/>
-        <page to="backend/purchase_affairs#show"/>
-        <page to="backend/purchase_affairs#unroll"/>
-        <page to="backend/purchase_gaps#index"/>
-        <page to="backend/purchase_gaps#destroy"/>
-        <page to="backend/purchase_gaps#list"/>
-        <page to="backend/purchase_gaps#list_items"/>
-        <page to="backend/purchase_gaps#show"/>
-      </item>
-      <item name="contracts">
-        <page to="backend/contracts#index"/>
-        <page to="backend/contracts#create"/>
-        <page to="backend/contracts#destroy"/>
-        <page to="backend/contracts#edit"/>
-        <page to="backend/contracts#list"/>
-        <page to="backend/contracts#list_items"/>
-        <page to="backend/contracts#list_parcels"/>
-        <page to="backend/contracts#lose"/>
-        <page to="backend/contracts#negociate"/>
-        <page to="backend/contracts#new"/>
-        <page to="backend/contracts#prospect"/>
-        <page to="backend/contracts#quote"/>
-        <page to="backend/contracts#show"/>
-        <page to="backend/contracts#update"/>
-        <page to="backend/contracts#win"/>
-      </item>
-    </group>
     <group name="payments" icon="credit-card">
       <item name="incoming_payments">
         <page to="backend/incoming_payments#index"/>
@@ -435,17 +382,6 @@
         <page to="backend/incoming_payments#show"/>
         <page to="backend/incoming_payments#unroll"/>
         <page to="backend/incoming_payments#update"/>
-      </item>
-      <item name="outgoing_payments">
-        <page to="backend/purchase_payments#index"/>
-        <page to="backend/purchase_payments#create"/>
-        <page to="backend/purchase_payments#destroy"/>
-        <page to="backend/purchase_payments#edit"/>
-        <page to="backend/purchase_payments#list"/>
-        <page to="backend/purchase_payments#new"/>
-        <page to="backend/purchase_payments#show"/>
-        <page to="backend/purchase_payments#unroll"/>
-        <page to="backend/purchase_payments#update"/>
       </item>
       <item name="deposits">
         <page to="backend/deposits#index"/>
@@ -461,6 +397,67 @@
         <page to="backend/deposits#show"/>
         <page to="backend/deposits#unvalidateds"/>
         <page to="backend/deposits#update"/>
+      </item>
+    </group>
+  </part>
+  <part name="purchases" icon="bar-chart">
+    <page to="backend/dashboards#purchases"/>
+    <group name="purchases" icon="shopping-cart">
+      <item name="purchase_orders">
+        <page to="backend/purchase_orders#index"/>
+        <page to="backend/purchase_orders#create"/>
+        <page to="backend/purchase_orders#destroy"/>
+        <page to="backend/purchase_orders#edit"/>
+        <page to="backend/purchase_orders#new"/>
+        <page to="backend/purchase_orders#list"/>
+        <page to="backend/purchase_orders#list_items"/>
+        <page to="backend/purchase_orders#open"/>
+        <page to="backend/purchase_orders#close"/>
+        <page to="backend/purchase_orders#show"/>
+        <page to="backend/purchase_orders#unroll"/>
+        <page to="backend/purchase_orders#update"/>
+      </item>
+      <item name="purchase_invoices">
+        <page to="backend/purchase_invoices#index"/>
+        <page to="backend/purchase_invoices#create"/>
+        <page to="backend/purchase_invoices#destroy"/>
+        <page to="backend/purchase_invoices#edit"/>
+        <page to="backend/purchase_invoices#list"/>
+        <page to="backend/purchase_invoices#list_items"/>
+        <page to="backend/purchase_invoices#list_parcels" nonexistent="true"/>
+        <page to="backend/purchase_invoices#new"/>
+        <page to="backend/purchase_invoices#pay"/>
+        <page to="backend/purchase_invoices#payment_mode"/>
+        <page to="backend/purchase_invoices#show"/>
+        <page to="backend/purchase_invoices#unroll"/>
+        <page to="backend/purchase_invoices#update"/>
+        <page to="backend/purchase_affairs#index"/>
+        <page to="backend/purchase_affairs#attach"/>
+        <page to="backend/purchase_affairs#detach"/>
+        <page to="backend/purchase_affairs#detach_gaps"/>
+        <page to="backend/purchase_affairs#finish"/>
+        <page to="backend/purchase_affairs#list"/>
+        <page to="backend/purchase_affairs#select"/>
+        <page to="backend/purchase_affairs#show"/>
+        <page to="backend/purchase_affairs#unroll"/>
+        <page to="backend/purchase_gaps#index"/>
+        <page to="backend/purchase_gaps#destroy"/>
+        <page to="backend/purchase_gaps#list"/>
+        <page to="backend/purchase_gaps#list_items"/>
+        <page to="backend/purchase_gaps#show"/>
+      </item>
+    </group>
+    <group name="payments" icon="credit-card">
+      <item name="outgoing_payments">
+        <page to="backend/purchase_payments#index"/>
+        <page to="backend/purchase_payments#create"/>
+        <page to="backend/purchase_payments#destroy"/>
+        <page to="backend/purchase_payments#edit"/>
+        <page to="backend/purchase_payments#list"/>
+        <page to="backend/purchase_payments#new"/>
+        <page to="backend/purchase_payments#show"/>
+        <page to="backend/purchase_payments#unroll"/>
+        <page to="backend/purchase_payments#update"/>
       </item>
       <item name="outgoing_payment_lists">
         <page to="backend/outgoing_payment_lists#index"/>
@@ -491,7 +488,7 @@
         <page to="backend/matters#list_groups"/>
         <page to="backend/matters#list_readings"/>
         <page to="backend/matters#list_intervention_product_parameters"/>
-        <page to="backend/matters#list_parcel_items"/>
+        <page to="backend/matters#list_parcel_items" nonexistent="true"/>
         <page to="backend/matters#list_issues"/>
         <page to="backend/matters#list_members"/>
         <page to="backend/matters#list_places"/>
@@ -519,7 +516,7 @@
         <page to="backend/products#list_readings"/>
         <page to="backend/products#list_fixed_assets"/>
         <page to="backend/products#list_intervention_product_parameters"/>
-        <page to="backend/products#list_parcel_items"/>
+        <page to="backend/products#list_parcel_items" nonexistent="true"/>
         <page to="backend/products#list_members"/>
         <page to="backend/products#list_places"/>
         <page to="backend/products#list_carried_linkages"/>
@@ -541,7 +538,7 @@
         <page to="backend/product_groups#list_contained_products"/>
         <page to="backend/product_groups#list_fixed_assets"/>
         <page to="backend/product_groups#list_inspections"/>
-        <page to="backend/product_groups#list_parcel_items"/>
+        <page to="backend/product_groups#list_parcel_items" nonexistent="true"/>
         <page to="backend/product_groups#list_groups"/>
         <page to="backend/product_groups#list_readings"/>
         <page to="backend/product_groups#list_intervention_product_parameters"/>
@@ -583,27 +580,56 @@
         <page to="backend/inventories#update"/>
       </item>
     </group>
-    <group name="movements" icon="truck">
-      <item name="parcels">
-        <page to="backend/parcels#index"/>
-        <page to="backend/parcels#create"/>
-        <page to="backend/parcels#destroy"/>
-        <page to="backend/parcels#edit"/>
-        <page to="backend/parcels#invoice"/>
-        <page to="backend/parcels#list"/>
-        <page to="backend/parcels#list_incoming_items"/>
-        <page to="backend/parcels#list_outgoing_items"/>
-        <page to="backend/parcels#new"/>
-        <page to="backend/parcels#ship"/>
-        <page to="backend/parcels#show"/>
-        <page to="backend/parcels#unroll"/>
-        <page to="backend/parcels#update"/>
-        <page to="backend/parcels#cancel"/>
-        <page to="backend/parcels#check"/>
-        <page to="backend/parcels#give"/>
-        <page to="backend/parcels#order"/>
-        <page to="backend/parcels#prepare"/>
+    <group name="receptions" icon="truck">
+      <item name="unreceived_purchase_orders">
+        <page to="backend/unreceived_purchase_orders#index"/>
+        <page to="backend/unreceived_purchase_orders#create"/>
+        <page to="backend/unreceived_purchase_orders#destroy"/>
+        <page to="backend/unreceived_purchase_orders#edit"/>
+        <page to="backend/unreceived_purchase_orders#list"/>
       </item>
+      <item name="receptions">
+        <page to="backend/receptions#index"/>
+        <page to="backend/receptions#create"/>
+        <page to="backend/receptions#destroy"/>
+        <page to="backend/receptions#edit"/>
+        <page to="backend/receptions#invoice" nonexistent="true"/>
+        <page to="backend/receptions#list"/>
+        <page to="backend/receptions#new"/>
+        <page to="backend/receptions#ship" nonexistent="true"/>
+        <page to="backend/receptions#show"/>
+        <page to="backend/receptions#unroll"/>
+        <page to="backend/receptions#update"/>
+        <page to="backend/receptions#cancel" nonexistent="true"/>
+        <page to="backend/receptions#check" nonexistent="true"/>
+        <page to="backend/receptions#give"/>
+        <page to="backend/receptions#order" nonexistent="true"/>
+        <page to="backend/receptions#prepare" nonexistent="true"/>
+        <page to="backend/receptions#list_items"/>
+      </item>
+    </group>
+    <group name="shipments" icon="truck">
+      <item name="shipments">
+        <page to="backend/shipments#index"/>
+        <page to="backend/shipments#create"/>
+        <page to="backend/shipments#destroy"/>
+        <page to="backend/shipments#edit"/>
+        <page to="backend/shipments#invoice" nonexistent="true"/>
+        <page to="backend/shipments#list"/>
+        <page to="backend/shipments#new"/>
+        <page to="backend/shipments#ship"/>
+        <page to="backend/shipments#show"/>
+        <page to="backend/shipments#unroll"/>
+        <page to="backend/shipments#update"/>
+        <page to="backend/shipments#cancel"/>
+        <page to="backend/shipments#check"/>
+        <page to="backend/shipments#give"/>
+        <page to="backend/shipments#order"/>
+        <page to="backend/shipments#prepare"/>
+        <page to="backend/shipments#list_items"/>
+      </item>
+    </group>
+    <group name="deliveries" icon="truck">
       <item name="deliveries">
         <page to="backend/deliveries#index"/>
         <page to="backend/deliveries#create"/>
@@ -611,6 +637,8 @@
         <page to="backend/deliveries#edit"/>
         <page to="backend/deliveries#list"/>
         <page to="backend/deliveries#list_parcels"/>
+        <page to="backend/deliveries#list_receptions"/>
+        <page to="backend/deliveries#list_shipments"/>
         <page to="backend/deliveries#new"/>
         <page to="backend/deliveries#show"/>
         <page to="backend/deliveries#unroll"/>
@@ -636,7 +664,7 @@
         <page to="backend/activities#family"/>
         <page to="backend/activities#list"/>
         <page to="backend/activities#list_distributions"/>
-        <page to="backend/activities#list_inspections"/>
+        <page to="backend/activities#list_inspections" nonexistent="true"/>
         <page to="backend/activities#list_productions"/>
         <page to="backend/activities#new"/>
         <page to="backend/activities#show"/>
@@ -711,7 +739,7 @@
         <page to="backend/fungi#list_fixed_assets"/>
         <page to="backend/fungi#list_groups"/>
         <page to="backend/fungi#list_intervention_product_parameters"/>
-        <page to="backend/fungi#list_parcel_items"/>
+        <page to="backend/fungi#list_parcel_items" nonexistent="true"/>
         <page to="backend/fungi#list_issues"/>
         <page to="backend/fungi#list_members"/>
         <page to="backend/fungi#list_places"/>
@@ -848,7 +876,7 @@
         <page to="backend/land_parcels#edit_many"/>
         <page to="backend/land_parcels#update_many"/>
         <page to="backend/land_parcels#list_carried_linkages"/>
-        <page to="backend/land_parcels#list_parcel_items"/>
+        <page to="backend/land_parcels#list_parcel_items" nonexistent="true"/>
         <page to="backend/land_parcels#list_carrier_linkages"/>
         <page to="backend/land_parcels#list_contained_products"/>
         <page to="backend/land_parcels#list_inspections"/>
@@ -880,7 +908,7 @@
         <page to="backend/plants#list_fixed_assets"/>
         <page to="backend/plants#list_groups"/>
         <page to="backend/plants#list_inspections"/>
-        <page to="backend/plants#list_parcel_items"/>
+        <page to="backend/plants#list_parcel_items" nonexistent="true"/>
         <page to="backend/plants#list_plant_countings"/>
         <page to="backend/plants#list_readings"/>
         <page to="backend/plants#list_intervention_product_parameters"/>
@@ -919,7 +947,7 @@
         <page to="backend/animals#edit_many"/>
         <page to="backend/animals#update_many"/>
         <page to="backend/animals#picture"/>
-        <page to="backend/animals#list_parcel_items"/>
+        <page to="backend/animals#list_parcel_items" nonexistent="true"/>
         <page to="backend/animals#list_contained_products"/>
         <page to="backend/animals#list_inspections"/>
         <page to="backend/animals#list_groups"/>
@@ -958,7 +986,7 @@
         <page to="backend/animal_groups#list_intervention_product_parameters"/>
         <page to="backend/animal_groups#list_issues"/>
         <page to="backend/animal_groups#list_members"/>
-        <page to="backend/animal_groups#list_parcel_items"/>
+        <page to="backend/animal_groups#list_parcel_items" nonexistent="true"/>
         <page to="backend/animal_groups#list_readings"/>
         <page to="backend/animal_groups#list_trackings"/>
         <page to="backend/animal_groups#list_fixed_assets"/>
@@ -1250,6 +1278,11 @@
         <page to="backend/document_templates#show"/>
         <page to="backend/document_templates#unroll"/>
       </item>
+      <item name="naming_format">
+        <page to="backend/naming_formats#index"/>
+        <page to="backend/naming_format_land_parcels#edit"/>
+        <page to="backend/naming_format_land_parcels#index"/>
+      </item>
       <item name="sequences">
         <page to="backend/sequences#index"/>
         <page to="backend/sequences#create"/>
@@ -1272,6 +1305,17 @@
         <page to="backend/teams#show"/>
         <page to="backend/teams#unroll"/>
         <page to="backend/teams#update"/>
+      </item>
+      <item name="project_budgets">
+        <page to="backend/project_budgets#index"/>
+        <page to="backend/project_budgets#create"/>
+        <page to="backend/project_budgets#destroy"/>
+        <page to="backend/project_budgets#edit"/>
+        <page to="backend/project_budgets#list"/>
+        <page to="backend/project_budgets#new"/>
+        <page to="backend/project_budgets#show"/>
+        <page to="backend/project_budgets#unroll"/>
+        <page to="backend/project_budgets#update"/>
       </item>
       <item name="about">
         <page to="backend/settings#about"/>
@@ -1558,7 +1602,7 @@
         <page to="backend/workers#list_readings"/>
         <page to="backend/workers#list_intervention_product_parameters"/>
         <page to="backend/workers#list_issues"/>
-        <page to="backend/workers#list_parcel_items"/>
+        <page to="backend/workers#list_parcel_items" nonexistent="true"/>
         <page to="backend/workers#list_members"/>
         <page to="backend/workers#list_places"/>
         <page to="backend/workers#list_trackings"/>
@@ -1580,7 +1624,7 @@
         <page to="backend/equipments#update"/>
         <page to="backend/equipments#edit_many"/>
         <page to="backend/equipments#update_many"/>
-        <page to="backend/equipments#list_parcel_items"/>
+        <page to="backend/equipments#list_parcel_items" nonexistent="true"/>
         <page to="backend/equipments#list_contained_products"/>
         <page to="backend/equipments#list_inspections"/>
         <page to="backend/equipments#list_fixed_assets"/>
@@ -1613,7 +1657,7 @@
         <page to="backend/buildings#list_inspections"/>
         <page to="backend/buildings#list_groups"/>
         <page to="backend/buildings#list_issues"/>
-        <page to="backend/buildings#list_parcel_items"/>
+        <page to="backend/buildings#list_parcel_items" nonexistent="true"/>
         <page to="backend/buildings#list_readings"/>
         <page to="backend/buildings#list_intervention_product_parameters"/>
         <page to="backend/buildings#list_members"/>
@@ -1641,7 +1685,7 @@
         <page to="backend/building_divisions#list_groups"/>
         <page to="backend/building_divisions#list_issues"/>
         <page to="backend/building_divisions#list_readings"/>
-        <page to="backend/building_divisions#list_parcel_items"/>
+        <page to="backend/building_divisions#list_parcel_items" nonexistent="true"/>
         <page to="backend/building_divisions#list_intervention_product_parameters"/>
         <page to="backend/building_divisions#list_members"/>
         <page to="backend/building_divisions#list_places"/>
@@ -1667,7 +1711,7 @@
         <page to="backend/settlements#list_intervention_product_parameters"/>
         <page to="backend/settlements#list_issues"/>
         <page to="backend/settlements#list_members"/>
-        <page to="backend/settlements#list_parcel_items"/>
+        <page to="backend/settlements#list_parcel_items" nonexistent="true"/>
         <page to="backend/settlements#list_places"/>
         <page to="backend/settlements#list_trackings"/>
         <page to="backend/settlements#picture"/>
@@ -1924,8 +1968,8 @@
         <page to="backend/cells/guide_evolution_cells#show"/>
       </item>
       <item name="last_purchases_cells">
-        <page to="backend/cells/last_purchases_cells#list"/>
-        <page to="backend/cells/last_purchases_cells#show"/>
+        <page to="backend/cells/last_purchases_cells#list" nonexistent="true"/>
+        <page to="backend/cells/last_purchases_cells#show" nonexistent="true"/>
       </item>
       <item name="last_sales_cells">
         <page to="backend/cells/last_sales_cells#list"/>
@@ -2053,10 +2097,47 @@
         <page to="backend/outgoing_payments#unroll"/>
         <page to="backend/outgoing_payments#update"/>
       </item>
+      <group>
+        <item name="parcels">
+          <page to="backend/parcels#index" nonexistent="true"/>
+          <page to="backend/parcels#cancel" nonexistent="true"/>
+          <page to="backend/parcels#check" nonexistent="true"/>
+          <page to="backend/parcels#give" nonexistent="true"/>
+          <page to="backend/parcels#invoice" nonexistent="true"/>
+          <page to="backend/parcels#new" nonexistent="true"/>
+          <page to="backend/parcels#order" nonexistent="true"/>
+          <page to="backend/parcels#prepare" nonexistent="true"/>
+          <page to="backend/parcels#ship" nonexistent="true"/>
+          <page to="backend/parcels#show" nonexistent="true"/>
+        </item>
+      </group>
     </group>
     <group>
       <item name="preferences">
         <page to="backend/preferences#update"/>
+      </item>
+      <item name="purchases">
+        <page to="backend/purchases#create" nonexistent="true"/>
+        <page to="backend/purchases#new" nonexistent="true"/>
+        <page to="backend/purchases#show" nonexistent="true"/>
+      </item>
+      <item name="unreceived_purchase_orders">
+        <page to="backend/unreceived_purchase_orders#show"/>
+        <page to="backend/unreceived_purchase_orders#update"/>
+      </item>
+    </group>
+    <group>
+      <item name="parcels">
+        <page to="backend/parcels#index" nonexistent="true"/>
+        <page to="backend/parcels#cancel" nonexistent="true"/>
+        <page to="backend/parcels#check" nonexistent="true"/>
+        <page to="backend/parcels#give" nonexistent="true"/>
+        <page to="backend/parcels#invoice" nonexistent="true"/>
+        <page to="backend/parcels#new" nonexistent="true"/>
+        <page to="backend/parcels#order" nonexistent="true"/>
+        <page to="backend/parcels#prepare" nonexistent="true"/>
+        <page to="backend/parcels#ship" nonexistent="true"/>
+        <page to="backend/parcels#show" nonexistent="true"/>
       </item>
       <item name="production_cost_cobbles">
         <page to="backend/cobbles/production_cost_cobbles#show"/>
@@ -2068,6 +2149,168 @@
     </group>
   </inaccessible-actions>
   <untreated-actions>
-    <group/>
+    <group>
+      <item name="accounts">
+        <page to="backend/accounts#set_interval_preference"/>
+      </item>
+      <item name="activities">
+        <page to="backend/activities#list_supports"/>
+      </item>
+      <item name="activity_productions">
+        <page to="backend/activity_productions#list_plants"/>
+      </item>
+      <item name="animal_groups">
+        <page to="backend/animal_groups#list_reception_items"/>
+        <page to="backend/animal_groups#list_shipment_items"/>
+      </item>
+      <item name="animals">
+        <page to="backend/animals#list_reception_items"/>
+        <page to="backend/animals#list_shipment_items"/>
+      </item>
+      <item name="building_divisions">
+        <page to="backend/building_divisions#list_reception_items"/>
+        <page to="backend/building_divisions#list_shipment_items"/>
+      </item>
+      <item name="buildings">
+        <page to="backend/buildings#list_reception_items"/>
+        <page to="backend/buildings#list_shipment_items"/>
+      </item>
+      <item name="grains_commercialization_threshold_simulators">
+        <page to="backend/calculators/grains_commercialization_threshold_simulators#show"/>
+      </item>
+      <item name="last_purchases_invoices_cells">
+        <page to="backend/cells/last_purchases_invoices_cells#list"/>
+        <page to="backend/cells/last_purchases_invoices_cells#show"/>
+      </item>
+      <item name="last_purchases_orders_cells">
+        <page to="backend/cells/last_purchases_orders_cells#list"/>
+        <page to="backend/cells/last_purchases_orders_cells#show"/>
+      </item>
+      <item name="threshold_commercialization_by_production_cells">
+        <page to="backend/cells/threshold_commercialization_by_production_cells#show"/>
+      </item>
+      <item name="traceability_check_cells">
+        <page to="backend/cells/traceability_check_cells#show"/>
+      </item>
+      <item name="contracts">
+        <page to="backend/contracts#index"/>
+        <page to="backend/contracts#create"/>
+        <page to="backend/contracts#destroy"/>
+        <page to="backend/contracts#edit"/>
+        <page to="backend/contracts#list"/>
+        <page to="backend/contracts#list_items"/>
+        <page to="backend/contracts#list_receptions"/>
+        <page to="backend/contracts#lose"/>
+        <page to="backend/contracts#negociate"/>
+        <page to="backend/contracts#new"/>
+        <page to="backend/contracts#prospect"/>
+        <page to="backend/contracts#quote"/>
+        <page to="backend/contracts#show"/>
+        <page to="backend/contracts#update"/>
+        <page to="backend/contracts#win"/>
+      </item>
+      <item name="entities">
+        <page to="backend/entities#list_purchase_invoices"/>
+        <page to="backend/entities#list_purchase_orders"/>
+      </item>
+      <item name="equipments">
+        <page to="backend/equipments#list_reception_items"/>
+        <page to="backend/equipments#list_shipment_items"/>
+      </item>
+      <item name="fungi">
+        <page to="backend/fungi#list_reception_items"/>
+        <page to="backend/fungi#list_shipment_items"/>
+      </item>
+      <item name="interventions">
+        <page to="backend/interventions#list_service_deliveries"/>
+        <page to="backend/interventions#purchase_order_items"/>
+      </item>
+      <item name="costs">
+        <page to="backend/interventions/costs#parameter_cost"/>
+      </item>
+      <item name="land_parcels">
+        <page to="backend/land_parcels#list_reception_items"/>
+        <page to="backend/land_parcels#list_shipment_items"/>
+      </item>
+      <item name="master_production_natures">
+        <page to="backend/master_production_natures#unroll"/>
+      </item>
+      <item name="matters">
+        <page to="backend/matters#list_reception_items"/>
+        <page to="backend/matters#list_shipment_items"/>
+      </item>
+      <item name="naming_format_land_parcels">
+        <page to="backend/naming_format_land_parcels#build_example"/>
+        <page to="backend/naming_format_land_parcels#create"/>
+        <page to="backend/naming_format_land_parcels#destroy"/>
+        <page to="backend/naming_format_land_parcels#new"/>
+        <page to="backend/naming_format_land_parcels#show"/>
+        <page to="backend/naming_format_land_parcels#update"/>
+      </item>
+      <item name="naming_formats">
+        <page to="backend/naming_formats#create"/>
+        <page to="backend/naming_formats#destroy"/>
+        <page to="backend/naming_formats#edit"/>
+        <page to="backend/naming_formats#new"/>
+        <page to="backend/naming_formats#show"/>
+        <page to="backend/naming_formats#update"/>
+      </item>
+      <item name="plants">
+        <page to="backend/plants#list_reception_items"/>
+        <page to="backend/plants#list_shipment_items"/>
+      </item>
+      <item name="product_groups">
+        <page to="backend/product_groups#list_reception_items"/>
+        <page to="backend/product_groups#list_shipment_items"/>
+      </item>
+      <item name="products">
+        <page to="backend/products#list_reception_items"/>
+        <page to="backend/products#list_shipment_items"/>
+      </item>
+      <item name="indicators">
+        <page to="backend/products/indicators#variable_indicators"/>
+      </item>
+      <item name="interventions">
+        <page to="backend/products/interventions#has_harvesting"/>
+      </item>
+      <item name="search_products">
+        <page to="backend/products/search_products#datas"/>
+      </item>
+      <item name="search_variants">
+        <page to="backend/products/search_variants#search_by_expression"/>
+      </item>
+      <item name="purchase_invoices">
+        <page to="backend/purchase_invoices#list_receptions"/>
+      </item>
+      <item name="reconciliation">
+        <page to="backend/purchase_process/reconciliation#purchase_orders_to_reconciliate"/>
+        <page to="backend/purchase_process/reconciliation#receptions_to_reconciliate"/>
+      </item>
+      <item name="reconcilation_states">
+        <page to="backend/purchases/reconcilation_states#put_accepted_state"/>
+        <page to="backend/purchases/reconcilation_states#put_reconcile_state"/>
+        <page to="backend/purchases/reconcilation_states#put_to_reconcile_state"/>
+      </item>
+      <item name="receptions">
+        <page to="backend/receptions#list_storings"/>
+      </item>
+      <item name="sales">
+        <page to="backend/sales#list_shipments"/>
+      </item>
+      <item name="settlements">
+        <page to="backend/settlements#list_reception_items"/>
+        <page to="backend/settlements#list_shipment_items"/>
+      </item>
+      <item name="wice_grid_preferences">
+        <page to="backend/users/wice_grid_preferences#save_column"/>
+      </item>
+      <item name="fixed_assets">
+        <page to="backend/variants/fixed_assets#fixed_assets_datas"/>
+      </item>
+      <item name="workers">
+        <page to="backend/workers#list_reception_items"/>
+        <page to="backend/workers#list_shipment_items"/>
+      </item>
+    </group>
   </untreated-actions>
 </navigation>

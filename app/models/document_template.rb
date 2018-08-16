@@ -256,9 +256,7 @@ class DocumentTemplate < Ekylibre::Record::Base
           sales_order: :sale,
           sales_estimate: :sale,
           sales_invoice: :sale,
-          purchases_order: :purchase,
-          purchases_estimate: :purchase,
-          purchases_invoice: :purchase
+          purchases_estimate: :purchases_order
         }[nature.to_sym]
         if fallback
           stack << root.join("#{fallback}.xml")

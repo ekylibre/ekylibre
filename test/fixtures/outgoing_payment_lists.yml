@@ -56,3 +56,14 @@ outgoing_payment_lists_002:
   number: OPL000000000002
   updated_at: 2016-10-26 15:31:44.103996000 Z
   updater_id: 1
+outgoing_payment_lists_003:
+  cached_payment_count: 1
+  cached_total_sum: 8694.0
+  created_at: 2017-11-21 10:20:54.359319000 Z
+  creator_id: 1
+  id: 3
+  lock_version: 0
+  mode_id: 3
+  number: OPL000000000003
+  updated_at: 2017-11-21 10:20:54.359319000 Z
+  updater_id: 1

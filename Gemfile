@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-ruby '>= 2.2.3', '< 3.0.0'
+# ruby '2.2.3'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.10'
@@ -9,7 +9,7 @@ gem 'rails', '4.2.10'
 gem 'mail', '~> 2.6.6.rc1'
 
 # Database adapters
-gem 'activerecord-postgis-adapter', '>= 3.0.0'
+gem 'activerecord-postgis-adapter' # , '>= 3.0.0'
 gem 'pg', '~> 0.20.0' # Needed for some tasks
 
 # Multi-tenancy
@@ -51,6 +51,8 @@ gem 'skylight'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
+# Use Vue.js as Javascript framework
+gem 'vuejs-rails'
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 gem 'jquery-turbolinks'
 gem 'turbolinks', '~> 2.0'
@@ -71,7 +73,9 @@ gem 'jbuilder', '~> 2.0'
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '~> 0.4.0', group: :doc
 # gem 'rails-api'
-gem 'kaminari'
+# gem 'kaminari'
+
+gem 'rake', '~>12.0.0'
 
 # Freeze time for demo and/or tests
 gem 'timecop'
@@ -82,19 +86,35 @@ gem 'charta', '>= 0.1.9'
 # Manage daemons
 gem 'foreman'
 
+# active_list alternative
+gem 'font-awesome-sass'
+gem 'kaminari', '~> 0.16.0'
+gem 'wice_grid' # , github: "leikind/wice_grid", branch: "rails3"
+
 # Background jobs
 gem 'sidekiq', '~> 4.0'
 gem 'sidekiq-cron', '>= 0.4.0'
 gem 'sidekiq-unique-jobs', '~> 4.0'
 
+# Decorator pattern
+gem 'draper'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
 # Use Unicorn as the app server
-gem 'unicorn', group: :production
+gem 'loofah' # , group: :production
+gem 'unicorn' # , group: :production
 
 # Use Capistrano for deployment
-# gem 'capistrano-rails', group: :development
+group :development do
+  gem 'capistrano', '3.9.1'
+  gem 'capistrano-bundler', require: false
+  gem 'capistrano-git-with-submodules', '~> 2.0'
+  gem 'capistrano-rails', require: false
+  gem 'capistrano-rails-console', require: false
+  gem 'capistrano-rbenv', require: false
+end
 
 # Exception management
 gem 'exception_notification'
@@ -168,6 +188,7 @@ gem 'roo'
 gem 'rubyzip'
 gem 'sepa_king'
 # gem 'sepa_king', path: '/home/jonathan/Workspace/sepa_king'
+gem 'quandl'
 gem 'rodf'
 
 # Demo data
@@ -196,6 +217,7 @@ gem 'luhn'
 
 # For interval selector
 gem 'bootstrap-slider-rails'
+
 
 group :development do
   gem 'bullet', '< 5.6.0'
@@ -253,7 +275,7 @@ group :test do
 end
 
 # Load Gemfile.local, Gemfile.plugins, plugins', and custom Gemfiles
-gemfiles = Dir.glob File.expand_path('../{Gemfile.local,Gemfile.plugins,plugins/*/Gemfile}', __FILE__)
+gemfiles = Dir.glob File.expand_path('../{Gemfile.local,Gemfile.dev,Gemfile.plugins,plugins/*/Gemfile}', __FILE__)
 gemfiles << ENV['CUSTOM_PLUGIN_GEMFILE'] unless ENV['CUSTOM_PLUGIN_GEMFILE'].nil?
 gemfiles.each do |file|
   next unless File.readable?(file)

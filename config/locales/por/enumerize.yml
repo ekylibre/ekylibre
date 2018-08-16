@@ -291,6 +291,14 @@ por:
       nature:
         background: "Fundo"
         overlay: "Sobreposição"
+    naming_format_field_land_parcel:
+      field_name:
+        # activity: "Activity"
+        # campaign: "Campaign"
+        # cultivable_zone_code: "Cultivable zone code"
+        # cultivable_zone_name: "Cultivable zone name"
+        # production_mode: "Production mode"
+        # season: "Season"
     notification:
       level:
         error: "Erro"
@@ -318,6 +326,11 @@ por:
         in_preparation: "Em preparação" #?
         ordered: "Pedido" #?
         prepared: "Preparado" #?
+    parcel_item:
+      delivery_mode:
+        # third: "Transported by recipient"
+        # transporter: "Transported by transporter"
+        # us: "Transported by us"
     plant_counting:
       nature:
         germination: "Na germinação"

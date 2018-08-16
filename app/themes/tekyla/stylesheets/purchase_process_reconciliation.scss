@@ -1,0 +1,135 @@
+.button-modal-reconciliation {
+  margin-top: $default-gap * 3;
+  margin-bottom: $default-gap * 3;
+}
+
+.item-form .reconciliation-item-state-block {
+  flex-direction: row !important;
+  flex-basis: 35%;
+  justify-content: flex-start !important;
+  align-self: center;
+
+  .reconciliation-item-state {
+    margin-right: $default-gap * 14;
+  }
+}
+
+.purchase-process-reconciliation.heading-toolbar, .heading-toolbar {
+  @include flex-row();
+
+  .reconciliation-title {
+    margin-top: 7px;
+    margin-left: 7px;
+    margin-right: 7px;
+    padding-left: 7px;
+    padding-right: 7px;
+    padding-top: 7px;
+    padding-bottom: 7px;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 27px;
+  }
+
+  .no-reconciliate-title {
+    color: #f44336;
+    border: solid 2px #f44336;
+  }
+
+  .reconcile-title,
+  .accepted-title {
+    color: #4CAF50;
+    border: solid 2px #4CAF50;
+  }
+}
+
+.purchase-process-reconciliation {
+  &.reconciliation-state {
+    margin-right: $default-gap * 4;
+    font-weight: bold;
+  }
+
+  &.no-reconciliate-state {
+    color: #F44336;
+  }
+
+  &.reconcile-state,
+  &.accepted-state {
+    color: #4CAF50;
+  }
+}
+
+#purchase_process_reconciliation {
+  .modal-dialog {
+    width: 70%;
+  }
+
+  .modal-content {
+    padding: $default-gap * 6 0;
+  }
+
+  .list-headers {
+  	@include flex-row(flex-start);
+    padding-left: $default-gap * 7;
+    border-bottom: solid 1px #ddd;
+
+    .list-header.form-name {
+      flex-basis: 80%;
+      text-align: left;
+    }
+
+    .list-header {
+      text-align: center;
+      flex-basis: 20%;
+    }
+  }
+
+  .list-models {
+    .model {
+      padding: $default-gap * 2 $default-gap * 5 $default-gap * 0.7;
+      border-bottom: solid 1px #ddd;
+    }
+  }
+
+  .list-items {
+    padding-left: $default-gap * 4;
+
+    .item {
+      @include flex-row(flex-start);
+      margin: $default-gap 0;
+      list-style: none;
+
+      .item-checkbox {
+        margin-right: $default-gap;
+      }
+
+      .variant {
+        flex-basis: 60%;
+      }
+
+      .item-value {
+        flex-basis: 14.5%;
+        text-align: center;
+      }
+
+      .item-unit-cost {
+        //flex-basis: 10%;
+      }
+    }
+  }
+
+  .close-purchase-order {
+    margin-top: 1em;
+
+    &-label {
+      font-style: italic;
+    }
+
+    &-radio {
+      margin-left: 1em;
+    }
+
+    &-radio-label {
+      font-style: italic;
+    }
+  }
+}

@@ -40,7 +40,7 @@
       - l.side :observations, at: :observed_at
       - l.side :events, at: :started_at, params: {controller: :events, nature: :meeting, participations: {"0" => {participant_id: resource.third_id, state: :accepted}, "1" => {participant_id: current_user.person_id, state: :accepted}}}
       - l.side :sales, new: false
-      - l.side :purchases, new: false
+      - l.side :purchase_invoices, new: false
       - l.side :incoming_payments, new: false
       - l.side :outgoing_payments, new: false
       - l.side :gaps, new: false

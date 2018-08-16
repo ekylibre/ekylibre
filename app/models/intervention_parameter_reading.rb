@@ -73,11 +73,41 @@ class InterventionParameterReading < Ekylibre::Record::Base
 
   after_commit do
     if product
-      product_reading ||= product.readings.new(indicator: indicator)
-      product_reading.originator = self
-      product_reading.value = value
-      product_reading.read_at = product.born_at || intervention.started_at || Time.now
-      product_reading.save!
+      if indicator_name == :hour_counter
+        save_hour_counter
+      else
+        product_reading ||= product.readings.new(indicator_name: indicator_name)
+        product_reading.originator = self
+
+        product_reading.value = value
+        product_reading.read_at = product.born_at || intervention.started_at || Time.now
+        product_reading.save!
+      end
     end
+  end
+
+  private
+
+  def save_hour_counter
+    self.product_reading ||= product.readings.find_by(indicator_name: indicator_name)
+
+    return if self.product_reading.present? && self.product_reading.value > 0.in(:hour) && value.zero?
+
+    return if self.product_reading.present? &&
+              self.product_reading.read_at.present? &&
+              self.product_reading.read_at > intervention.stopped_at
+
+    if self.product_reading.nil?
+      self.product_reading ||= product.readings.new(indicator: indicator,
+                                                    measure_value_value: value,
+                                                    measure_value_unit: measure_value_unit,
+                                                    read_at: intervention.stopped_at)
+
+      return
+    end
+
+    self.product_reading.read_at = intervention.stopped_at
+    self.product_reading.value = value
+    self.product_reading.save!
   end
 end

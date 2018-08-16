@@ -23,6 +23,7 @@
 # == Table: intervention_parameters
 #
 #  assembly_id              :integer
+#  batch_number             :string
 #  component_id             :integer
 #  created_at               :datetime         not null
 #  creator_id               :integer
@@ -52,6 +53,7 @@
 #  updated_at               :datetime         not null
 #  updater_id               :integer
 #  variant_id               :integer
+#  variety                  :string
 #  working_zone             :geometry({:srid=>4326, :type=>"multi_polygon"})
 #
 
@@ -70,7 +72,10 @@ class InterventionOutput < InterventionProductParameter
       output.type = variant.matching_model.name
       output.born_at = intervention.started_at
       output.initial_born_at = output.born_at
-      output.name = new_name if new_name.present?
+
+      output.name = new_name if !procedure.of_category?(:planting) && new_name.present?
+      output.name = compute_output_planting_name if procedure.of_category?(:planting)
+
       output.identification_number = identification_number if identification_number.present?
       # output.attributes = product_attributes
       reading = readings.find_by(indicator_name: :shape)
@@ -116,5 +121,42 @@ class InterventionOutput < InterventionProductParameter
     else
       return InterventionParameter::AmountComputation.failed
     end
+  end
+
+  def compute_output_planting_name
+    land_parcel_name = group
+                       .targets
+                       .select { |target| target.product.is_a?(LandParcel) }
+                       .first
+                       .product
+                       .name
+
+    compute_name = [land_parcel_name]
+
+    return output_name_without_params(compute_name) if variety.blank? && batch_number.blank?
+
+    compute_name << variety if variety.present?
+    compute_name << batch_number if batch_number.present?
+
+    output_duplicate_count = output_name_count(compute_name.join(' '))
+
+    compute_name << "(#{output_duplicate_count})" unless output_duplicate_count.zero?
+    compute_name.join(' ')
+  end
+
+  private
+
+  def output_name_without_params(compute_name)
+    compute_name << variant.name
+    output_duplicate_count = output_name_count(compute_name.join(' '))
+
+    rank_number = I18n.t('labels.number_with_param', number: output_duplicate_count + 1)
+    compute_name << rank_number.downcase
+
+    compute_name.join(' ')
+  end
+
+  def output_name_count(name)
+    Plant.where('name like ?', "%#{Regexp.escape(name)}%").count
   end
 end

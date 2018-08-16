@@ -53,6 +53,11 @@ module Backend
       Ekylibre.menu
     end
 
+    # Sort list of array (with label and id) with accent
+    def accented_sort(list)
+      list.sort_by { |e, _i| I18n.transliterate e }
+    end
+
     # BasicCalendar permits to fix some SimpleCalendar issues with param name
     # and partial.
     class BasicCalendar < SimpleCalendar::MonthCalendar
@@ -290,6 +295,11 @@ module Backend
       end
       current_user.current_financial_year = @current_financial_year || FinancialYear.find_by(id: financial_year_id)
       render 'backend/shared/financial_year_selector', financial_year: current_user.current_financial_year, param_name: options[:param_name] || :current_financial_year
+    end
+
+    def financial_year_started_on_stopped_on
+      fy = FinancialYear.current
+      { data: { started_on: fy.started_on, stopped_on: fy.stopped_on } }
     end
 
     def lights(status, html_options = {})

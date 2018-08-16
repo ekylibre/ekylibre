@@ -1,0 +1,126 @@
+- item ||= f.object
+- variant = Maybe(item.variant)
+- f.object.currency = Preference[:currency]
+%tbody.nested-fields.purchase-invoice-items.delivery-item{ data: { trade_item: "purchase", iceberg: true } }
+  %tr.item-display.hidden
+    %td.act
+      - if f.object.destroyable?
+        = link_to_remove_association(content_tag(:i) + h(:destroy.tl), f, 'data-no-turbolink' => true, class: 'destroy remove remove-item')
+    %td.act
+      = link_to("#", class: 'edit edit-item', data: { edit: "item-form" }) do
+        %i
+        = :edit.tl
+    %td.product-column
+      %label{ data: { item_value: "input.invoice-variant" } }= f.object.variant ? f.object.variant.name : '??????'
+    %td.quantity-column
+      %label{ data: { item_value: "input.invoice-quantity" } }= f.object.variant ? f.object.variant.name : '??????'
+      %label{ data: { item_value: "span.item-population-unit-name"}}= f.object.variant ? f.object.variant.unit_name : '#'
+    %td.unit-amount-column.two-rows-column
+      %span
+        %label{ data: { item_value: "input.invoice-unit-amount" } }= f.object.variant ? f.object.variant.name : '??????'
+        %label= Nomen::Currency.find(f.object.currency).symbol
+      %label{class: "invoice-second-row-label"}= :discount_without_percent.tl
+      %span
+        %label{ data: { item_value: "input.invoice-discount-percentage" } }= f.object.variant ? f.object.variant.name : '??????'
+        %label= "%"
+    %td.pretax-amount-column
+      %span
+        %label{ class: 'amount-excluding-taxes', data: { item_value: "input.pre-tax-invoice-total" } }= f.object.variant ? f.object.variant.name : '??????'
+        %label= Nomen::Currency.find(f.object.currency).symbol
+    %td.total-column.two-rows-column
+      %span
+        %label{ class: 'amount-including-taxes', data: { item_value: "input.invoice-total" } }= f.object.variant ? f.object.variant.name : '??????'
+        %label= Nomen::Currency.find(f.object.currency).symbol
+      %label{ class: "invoice-second-row-label"}= :vat_rate.tl
+      %label{ class: 'vat-rate', data: { item_value: "select.invoice-vat-total option:selected", selected_value: f.object.tax_id } }= f.object.variant ? f.object.variant.name : '??????'
+
+  %tr.nested-item-form
+    %td.form-field.merchandise
+      = f.referenced_association(:variant, label: :merchandise.tl, source: {scope: :purchaseables}, input_html: {class: "invoice-variant", data: {variant_of_deal_item: {url: detail_backend_product_nature_variant_path("RECORD_ID", mode: :last_purchase_item)}, product_of_delivery_item: {url: backend_product_nature_variant_path("RECORD_ID", format: :json)}, required: true}})
+
+      - classes = 'supplier-ref-block'
+      - classes << ' hidden' if f.object.new_record?
+      %div{ class: classes }
+        %span.supplier-ref-label= "#{ :reception_number.tl } : "
+        %span.supplier-ref-value= f.object.new_record? ? "" : f.object.decorate.reception_number
+
+      - display = ""
+      - display = "display: none;" unless item && item.variant && item.variant.depreciable?
+      .fixed-asset-fields{style: display, data: {"when-item": "depreciable", "when-display-value": 'true'}}
+        = f.input :fixed
+
+        - display = "display: none;" unless item.fixed
+        .assets{style: display}
+          = f.input :preexisting_asset, label: :asset_exists.tl
+
+          - display_existing_asset = "display: none;" unless item.preexisting_asset
+          .existing_asset{style: display_existing_asset}
+            = f.referenced_association :fixed_asset, source: :drafts
+
+          - display_new_asset = "display: none;" if item.preexisting_asset
+          .new_asset{style: display_new_asset}
+            = f.referenced_association(:depreciable_product)
+
+          - display_stopped_on = "display: none;" if (item.new_record? && item.preexisting_asset) || (!item.new_record? && item.fixed_asset_stopped_on.nil?)
+          .fixed-asset-stopped-on{style: display_stopped_on}
+            = f.input :fixed_asset_stopped_on, required: true
+
+    %td.form-field.decimal
+      = f.input :conditionning, wrapper: :append do
+        = f.input_field :conditionning , class: "order-quantity invoice-conditionning", data: { trade_component: 'conditionning' }
+        %span.add-on.item-population-unit-name
+          = variant.unit_name.or_else('#')
+      %span.multiplicator X
+      = f.input :conditionning_quantity, wrapper: :append do
+        = f.input_field :conditionning_quantity , class: "order-quantity invoice-conditionning-quantity", data: { trade_component: 'conditionning_quantity'}
+    %td.form-field.decimal
+      = f.input :quantity, wrapper: :append do
+        = f.input_field :quantity, class: "invoice-quantity", placeholder: '0', size: 7, data: {trade_component: "quantity", required: true}
+        %span.add-on.item-population-unit-name
+          = variant.unit_name.or_else('#')
+    %td.form-field
+      = f.input :unit_pretax_amount, wrapper: :append do
+        = f.input_field :unit_pretax_amount, class: "invoice-unit-amount", label: :unit_amount.tl, data: {trade_component: "unit_pretax_amount"}
+        %span.add-on
+          = Nomen::Currency.find(f.object.currency).symbol
+    %td.form-field
+      = f.input :reduction_percentage, wrapper: :append do
+        = f.input_field :reduction_percentage, label: :discount_without_percent.tl, class: "invoice-discount-percentage", data: {trade_component: "reduction_percentage", required: true}
+        %span.add-on
+          = '%'
+    %td.form-field.decimal
+      = f.input :pretax_amount, wrapper: :append do
+        = f.input_field :pretax_amount, class: "pta pre-tax-invoice-total", data: {trade_component: "pretax_amount", required: true}
+        %span.add-on
+          = Nomen::Currency.find(f.object.currency).symbol
+    %td.form-field.decimal= f.input(:tax_id, label: :vat_rate.tl, collection: Tax.current.collect{|t| [t.short_label, t.id, {'data-rate' => ((100 + t.usable_amount)/100)}]}, selected: f.object.tax_id, input_html: { class: "invoice-vat-total", data: {value: 'rate', trade_component: "tax"}})
+    -#%td.action= link_to_remove_association(content_tag(:i) + h(:destroy.ta), f, 'data-no-turbolink' => true, class: 'remove-item')
+
+    %td.form-field.decimal
+      = f.input :amount, wrapper: :append do
+        = f.input_field :amount, class: "pta invoice-total", data: {trade_component: "amount", required: true}
+        %span.add-on
+          = Nomen::Currency.find(f.object.currency).symbol
+
+    %td.form-field.third-row
+      - parcels_purchase_invoice_item_id = f.object.parcels_purchase_invoice_items.empty? ? nil : [f.object.parcels_purchase_invoice_items.first.id].to_s
+      = hidden_field_tag 'purchase_invoice[items_attributes][RECORD_ID][parcels_purchase_invoice_items]', parcels_purchase_invoice_item_id, class: "purchase-item-attribute"
+      .item-form
+        .control-group.reconciliation-item-state-block
+          %label.reconciliation-item-state= :element_status.tl
+          %span.purchase-process-reconciliation.reconciliation-state.no-reconciliate-state= :to_reconciliate.tl
+          %span.purchase-process-reconciliation.reconciliation-state.reconcile-state.hidden= :reconcile.tl
+
+        - if Preference[:distribute_sales_and_purchases_on_activities] && current_user.can?(:read, :activities) && ActivityBudget.opened.any?
+          = f.referenced_association(:activity_budget, new: false)
+        = f.referenced_association(:project_budget)
+        - if Preference[:distribute_sales_and_purchases_on_teams] && current_user.can?(:read, :teams)
+          = f.referenced_association(:team)
+        = f.referenced_association :equipment, source: :tools, label: :equipment.tl, input_html: {data: { remember: 'equipment'}}
+
+    %td.form-field.fourth-row
+      = button_tag :reconciliate_with_receptions.tl, id: 'showItemReconciliationModal', class: 'btn btn-default', type: :button
+
+    %td.buttons
+      %button.btn{ data: { cancel: 'item-form' } }= :cancel.tl
+      %button.btn.btn-primary{ data: { validate: 'item-form' }}= :validate.tl

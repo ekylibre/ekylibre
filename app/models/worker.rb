@@ -94,6 +94,8 @@ class Worker < Product
   validates :person, presence: true
   has_many :intervention_participations, inverse_of: :product, foreign_key: :product_id, dependent: :destroy
 
+  scope :drivers, -> { Worker.where(id: InterventionParameter.where(reference_name: :driver).pluck(:product_id).uniq) }
+
   before_validation do
     self.team_id = user.team_id if user && user.team
   end

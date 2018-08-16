@@ -6,6 +6,7 @@ module SVF
       @name = name
       source = YAML.load_file(file)
       @lines = {}
+      @encoding = source['encoding'] || 'ISO8859-1'
       source['lines'].each do |name, line|
         @lines[name.to_sym] = Line.new(name, line['key'], line['cells'], line['children'], line['to'])
       end
@@ -23,6 +24,11 @@ module SVF
 
       code << "  class Base\n"
       code << '    attr_accessor ' + @root.collect { |x| ":#{x.name}" }.join(', ') + "\n\n"
+      code << "    def initialize\n"
+      @root.each do |attr|
+        code << "    @#{attr.name} = []\n" if attr.numerous?
+      end
+      code << "    end\n"
       code << "    def self.parse_line(line, _number)\n"
       code << "      return nil if line.nil?\n"
       # code << "      puts line.gsub(/\\r\\n$/, '').yellow + '$'.green\n"
@@ -55,7 +61,7 @@ module SVF
 
       code << "    def self.parse(file)\n"
       code << "      base = Base.new\n"
-      code << "      ::File.open(file, 'rb:ISO8859-1') do |f|\n"
+      code << "      ::File.open(file, 'rb:#{@encoding}') do |f|\n"
       code << "        line_number = 0\n"
       code << parse_code(@root, file: 'f', root: 'base').strip.gsub(/^/, '        ') + "\n"
       code << "      end\n"

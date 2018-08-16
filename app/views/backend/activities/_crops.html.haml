@@ -1,0 +1,65 @@
+- calibrations_natures = @crops.resultset.map(&:inspections).flatten.map(&:calibrations).flatten.map(&:nature).uniq
+- sorted_calibrations_natures = calibrations_natures.sort_by{ |calibration_nature| calibration_nature.name }
+
+= grid(@crops) do |g|
+  - g.column name: :plant.tl, html: { id: 'plantColumn' } do |crop|
+    - link_to(crop.name, backend_product_path(crop))
+
+
+  - g.column name: :last_inspection.tl, html: { id: 'lastInspectionColumn' } do |crop|
+    - if crop.last_inspection.nil?
+      - crop.last_inspection_number
+    - else
+      - link_to(crop.last_inspection_number, backend_inspection_path(crop.last_inspection))
+
+
+  - g.column name: :forecast_harvest_week.tl, html: { id: 'forecastHarvestWeekColumn' } do |crop|
+    - crop.last_inspection_forecast_harvest_week
+
+
+  - g.column name: :harvested_area.tl, html: { id: 'harvestedAreaColumn' } do |crop|
+    - crop.human_harvested_area
+
+
+  - g.column name: :available_area.tl, html: { id: 'availableAreaColumn' } do |crop|
+    - crop.human_available_area
+
+
+  - g.column name: 'Volume net disponible', html: { id: 'netVolumeAvailableColumn' } do |crop|
+    - content_tag(:div, nil) do
+      %p= crop.human_net_volume_available(:items_count, crop.items_count_quantity_unit, crop.items_count_per_area_unit)
+      %p= crop.human_net_volume_available(:net_mass, crop.net_mass_quantity_unit, crop.net_mass_per_area_unit)
+
+
+  - sorted_calibrations_natures.each_with_index do |calibration_nature, index|
+    - element_id = "inspectionCalibration#{index}"
+    - column_preference = Preference.get("wice_grid_column.#{element_id}")
+
+    - custom_classes = ''
+    - custom_classes << 'hidden' if column_preference.value.nil? || column_preference.value == "false"
+
+    - g.column name: calibration_nature.name, html: { id: element_id, class: custom_classes } do |crop|
+      - content_tag(:div, nil) do
+        - items_count_quantity = crop.human_last_inspection_calibration_quantity(calibration_nature, :items_count, crop.items_count_quantity_unit)
+        - items_count_percentage = crop.human_last_inspection_calibration_percentage(calibration_nature, :items_count)
+        - net_mass_quantity = crop.human_last_inspection_calibration_quantity(calibration_nature, :net_mass, crop.net_mass_quantity_unit)
+        - net_mass_percentage = crop.human_last_inspection_calibration_percentage(calibration_nature, :net_mass)
+
+        %p= "#{ items_count_quantity } (#{ items_count_percentage })"
+        %p= "#{ net_mass_quantity } (#{ net_mass_percentage })"
+
+
+  - g.column name: :disease_percentage.tl, html: { id: 'diseasePercentageColumn' } do |crop|
+    - content_tag(:div, nil) do
+      %p= crop.last_inspection_disease_percentage(:items_count, crop.items_count_quantity_unit)
+      %p= crop.last_inspection_disease_percentage(:net_mass, crop.net_mass_quantity_unit)
+
+
+  - g.column name: :deformity_percentage.tl, html: { id: 'deformityPercentageColumn' } do |crop|
+    - content_tag(:div, nil) do
+      %p= crop.last_inspection_deformity_percentage(:items_count, crop.items_count_quantity_unit)
+      %p= crop.last_inspection_deformity_percentage(:net_mass, crop.net_mass_quantity_unit)
+
+
+  - g.column name: :comment.tl, html: { id: 'commentColumn' } do |crop|
+    - crop.last_inspection_comment
