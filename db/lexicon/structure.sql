@@ -54,7 +54,8 @@ CREATE TABLE master_production_outputs (
   name VARCHAR NOT NULL,
   average_yield NUMERIC(19,4),
   main BOOLEAN NOT NULL DEFAULT FALSE,
-  analysis_items VARCHAR[]
+  analysis_items VARCHAR[],
+  PRIMARY KEY (production_nature_id, production_system_name, name)
 );
 CREATE INDEX master_production_outputs_nature_id ON master_production_outputs(production_nature_id);
 CREATE INDEX master_production_outputs_system_name ON master_production_outputs(production_system_name);
@@ -65,6 +66,7 @@ CREATE TABLE master_equipment_natures (
   name jsonb,
   nature character varying UNIQUE NOT NULL,
   main_frozen_indicator_name character varying,
+  main_frozen_indicator_unit character varying,
   other_frozen_indicator_name character varying
 );
 CREATE INDEX master_equipment_natures_name ON master_equipment_natures(name);
@@ -133,10 +135,13 @@ CREATE INDEX registered_building_zones_centroid ON registered_building_zones USI
 
 CREATE TABLE registered_crop_zones (
   id character varying NOT NULL,
-  shape postgis.geometry(Polygon,4326) NOT NULL
+  city_name character varying,
+  shape postgis.geometry(Polygon,4326) NOT NULL,
+  centroid postgis.geometry(Point,4326)
 );
 CREATE INDEX registered_crop_zones_id ON registered_crop_zones(id);
 CREATE INDEX registered_crop_zones_shape ON registered_crop_zones USING GIST (shape);
+CREATE INDEX registered_crop_zones_centroid ON registered_crop_zones USING GIST (centroid);
 
 CREATE TABLE registered_enterprises (
   establishment_number character varying PRIMARY KEY NOT NULL,
