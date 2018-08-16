@@ -1019,6 +1019,7 @@ eng:
     introduction: "Introduction"
     # inventories: "Inventories"
     inventory: "Inventory"
+    inventory_items: "Inventory items"
     invitation_accepted_at: "Invitation accepted at"
     invitation_created_at: "Invitation created at"
     invitation_limit: "Invitation limit"
@@ -1125,6 +1126,7 @@ eng:
     main_crop_precision: "Main crop precision"
     main_crop_seed_production: "Main crop seed production"
     # main_frozen_indicator_name: "Main frozen indicator name"
+    # main_frozen_indicator_unit: "Main frozen indicator unit"
     # main_journal_entry_items: "Main journal entry items"
     main_production: "Main production" #?
     managed: "Managed"

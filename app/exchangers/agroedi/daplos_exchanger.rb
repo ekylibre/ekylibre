@@ -55,10 +55,10 @@ module Agroedi
         activity_production = ActivityProduction.of_cultivation_variety(production_nature.specie).of_campaign(campaign).where('size_value <= ?', max_area).where('size_value >= ?', min_area).first
 
         # update started_on if present
-        #if !crop.crop_started_on.blank?
+        # if !crop.crop_started_on.blank?
         #  activity_production.started_on = Date.parse(crop.crop_started_on)
         #  activity_production.save!
-        #end
+        # end
 
         target = activity_production.support if activity_production
         if target
@@ -296,7 +296,7 @@ module Agroedi
       ## DURATION
       # get duration from EDI DAPLOS file
       if i.intervention_duration.present? && i.intervention_duration.nonzero?
-        # TODO with format #JJHHMM ex : 010430 => 01 day 4 hour 30 minute
+        # TODO: with format #JJHHMM ex : 010430 => 01 day 4 hour 30 minute
         j = Measure.new(i.intervention_duration[0, 2].to_i, :day).convert(:second)
         h = Measure.new(i.intervention_duration[2, 2].to_i, :hour).convert(:second)
         s = Measure.new(i.intervention_duration[4, 2].to_i, :minute).convert(:second)
@@ -323,8 +323,6 @@ module Agroedi
           working_duration: duration
         }
       }
-
-
 
       ## inputs
       updaters = []
@@ -407,7 +405,7 @@ module Agroedi
       matching_interventions = ::Intervention.where(id:
           InterventionWorkingPeriod.where(intervention_attributes[:working_periods_attributes]['0'].slice(:started_at))
           .select(:id))
-      interventions_with_matching_inputs = intervention_input_attributes.select do |id, inputs|
+      interventions_with_matching_inputs = intervention_input_attributes.select do |_id, inputs|
         inputs.map { |h| h.except(:quantity) } == input_attributes.map { |h| h.except(:quantity) }
       end
       matching_interventions = matching_interventions.where(id: interventions_with_matching_inputs.keys)
@@ -448,7 +446,7 @@ module Agroedi
       ## DURATION
       # get duration from EDI DAPLOS file
       if i.intervention_duration.present? && i.intervention_duration.nonzero?
-        # TODO with format #JJHHMM ex : 010430 => 01 day 4 hour 30 minute
+        # TODO: with format #JJHHMM ex : 010430 => 01 day 4 hour 30 minute
         j = Measure.new(i.intervention_duration[0, 2].to_i, :day).convert(:second)
         h = Measure.new(i.intervention_duration[2, 2].to_i, :hour).convert(:second)
         s = Measure.new(i.intervention_duration[4, 2].to_i, :minute).convert(:second)

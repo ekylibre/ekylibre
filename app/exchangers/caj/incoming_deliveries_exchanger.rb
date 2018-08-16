@@ -73,7 +73,6 @@ module Caj
                  )
         entries << r.parcel_number
 
-
         # try to find the correct variant from id of provider
         product_nature_variant = ProductNatureVariant.where('providers ->> ? = ?', sender.id, r.coop_reference_number).first
         # try to find the correct variant from name

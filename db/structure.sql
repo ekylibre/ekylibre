@@ -2,15 +2,14 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 10.5
--- Dumped by pg_dump version 10.5
+-- Dumped from database version 9.6.5
+-- Dumped by pg_dump version 9.6.5
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
 SET idle_in_transaction_session_timeout = 0;
 SET client_encoding = 'UTF8';
 SET standard_conforming_strings = on;
-SELECT pg_catalog.set_config('search_path', '', false);
 SET check_function_bodies = false;
 SET client_min_messages = warning;
 SET row_security = off;
@@ -22,11 +21,13 @@ SET row_security = off;
 CREATE SCHEMA postgis;
 
 
+SET search_path = public, pg_catalog;
+
 --
 -- Name: compute_outgoing_payment_list_cache(); Type: FUNCTION; Schema: public; Owner: -
 --
 
-CREATE FUNCTION public.compute_outgoing_payment_list_cache() RETURNS trigger
+CREATE FUNCTION compute_outgoing_payment_list_cache() RETURNS trigger
     LANGUAGE plpgsql
     AS $$
               DECLARE
@@ -63,7 +64,7 @@ CREATE FUNCTION public.compute_outgoing_payment_list_cache() RETURNS trigger
 -- Name: compute_partial_lettering(); Type: FUNCTION; Schema: public; Owner: -
 --
 
-CREATE FUNCTION public.compute_partial_lettering() RETURNS trigger
+CREATE FUNCTION compute_partial_lettering() RETURNS trigger
     LANGUAGE plpgsql
     AS $$
     DECLARE
@@ -129,7 +130,7 @@ $$;
 -- Name: synchronize_jei_with_entry(); Type: FUNCTION; Schema: public; Owner: -
 --
 
-CREATE FUNCTION public.synchronize_jei_with_entry() RETURNS trigger
+CREATE FUNCTION synchronize_jei_with_entry() RETURNS trigger
     LANGUAGE plpgsql
     AS $$
 DECLARE
@@ -177,7 +178,7 @@ SET default_with_oids = false;
 -- Name: account_balances; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.account_balances (
+CREATE TABLE account_balances (
     id integer NOT NULL,
     account_id integer NOT NULL,
     financial_year_id integer NOT NULL,
@@ -202,8 +203,7 @@ CREATE TABLE public.account_balances (
 -- Name: account_balances_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.account_balances_id_seq
-    AS integer
+CREATE SEQUENCE account_balances_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -215,14 +215,14 @@ CREATE SEQUENCE public.account_balances_id_seq
 -- Name: account_balances_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.account_balances_id_seq OWNED BY public.account_balances.id;
+ALTER SEQUENCE account_balances_id_seq OWNED BY account_balances.id;
 
 
 --
 -- Name: accounts; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.accounts (
+CREATE TABLE accounts (
     id integer NOT NULL,
     number character varying NOT NULL,
     name character varying NOT NULL,
@@ -245,8 +245,7 @@ CREATE TABLE public.accounts (
 -- Name: accounts_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.accounts_id_seq
-    AS integer
+CREATE SEQUENCE accounts_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -258,14 +257,14 @@ CREATE SEQUENCE public.accounts_id_seq
 -- Name: accounts_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.accounts_id_seq OWNED BY public.accounts.id;
+ALTER SEQUENCE accounts_id_seq OWNED BY accounts.id;
 
 
 --
 -- Name: activities; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.activities (
+CREATE TABLE activities (
     id integer NOT NULL,
     name character varying NOT NULL,
     description text,
@@ -306,7 +305,7 @@ CREATE TABLE public.activities (
 -- Name: activity_budgets; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.activity_budgets (
+CREATE TABLE activity_budgets (
     id integer NOT NULL,
     activity_id integer NOT NULL,
     campaign_id integer NOT NULL,
@@ -323,7 +322,7 @@ CREATE TABLE public.activity_budgets (
 -- Name: activity_productions; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.activity_productions (
+CREATE TABLE activity_productions (
     id integer NOT NULL,
     support_id integer NOT NULL,
     created_at timestamp without time zone NOT NULL,
@@ -356,7 +355,7 @@ CREATE TABLE public.activity_productions (
 -- Name: campaigns; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.campaigns (
+CREATE TABLE campaigns (
     id integer NOT NULL,
     name character varying NOT NULL,
     description text,
@@ -375,16 +374,16 @@ CREATE TABLE public.campaigns (
 -- Name: activities_campaigns; Type: VIEW; Schema: public; Owner: -
 --
 
-CREATE VIEW public.activities_campaigns AS
+CREATE VIEW activities_campaigns AS
  SELECT DISTINCT c.id AS campaign_id,
     a.id AS activity_id
-   FROM (public.activities a
-     LEFT JOIN public.campaigns c ON ((((a.id, c.id) IN ( SELECT ab.activity_id,
+   FROM (activities a
+     LEFT JOIN campaigns c ON ((((a.id, c.id) IN ( SELECT ab.activity_id,
             ab.campaign_id
-           FROM public.activity_budgets ab
+           FROM activity_budgets ab
           WHERE ((ab.campaign_id = c.id) AND (ab.activity_id = a.id)))) OR ((a.id, c.id) IN ( SELECT ap.activity_id,
             ap.campaign_id
-           FROM public.activity_productions ap
+           FROM activity_productions ap
           WHERE ((ap.campaign_id = c.id) AND (ap.activity_id = a.id)))))));
 
 
@@ -392,8 +391,7 @@ CREATE VIEW public.activities_campaigns AS
 -- Name: activities_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.activities_id_seq
-    AS integer
+CREATE SEQUENCE activities_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -405,14 +403,14 @@ CREATE SEQUENCE public.activities_id_seq
 -- Name: activities_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.activities_id_seq OWNED BY public.activities.id;
+ALTER SEQUENCE activities_id_seq OWNED BY activities.id;
 
 
 --
 -- Name: intervention_parameters; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.intervention_parameters (
+CREATE TABLE intervention_parameters (
     id integer NOT NULL,
     intervention_id integer NOT NULL,
     product_id integer,
@@ -453,7 +451,7 @@ CREATE TABLE public.intervention_parameters (
 -- Name: interventions; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.interventions (
+CREATE TABLE interventions (
     id integer NOT NULL,
     issue_id integer,
     prescription_id integer,
@@ -491,7 +489,7 @@ CREATE TABLE public.interventions (
 -- Name: products; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.products (
+CREATE TABLE products (
     id integer NOT NULL,
     type character varying,
     name character varying NOT NULL,
@@ -561,14 +559,14 @@ CREATE TABLE public.products (
 -- Name: activities_interventions; Type: VIEW; Schema: public; Owner: -
 --
 
-CREATE VIEW public.activities_interventions AS
+CREATE VIEW activities_interventions AS
  SELECT DISTINCT interventions.id AS intervention_id,
     activities.id AS activity_id
-   FROM ((((public.activities
-     JOIN public.activity_productions ON ((activity_productions.activity_id = activities.id)))
-     JOIN public.products ON ((products.activity_production_id = activity_productions.id)))
-     JOIN public.intervention_parameters ON ((products.id = intervention_parameters.product_id)))
-     JOIN public.interventions ON ((intervention_parameters.intervention_id = interventions.id)))
+   FROM ((((activities
+     JOIN activity_productions ON ((activity_productions.activity_id = activities.id)))
+     JOIN products ON ((products.activity_production_id = activity_productions.id)))
+     JOIN intervention_parameters ON ((products.id = intervention_parameters.product_id)))
+     JOIN interventions ON ((intervention_parameters.intervention_id = interventions.id)))
   ORDER BY interventions.id;
 
 
@@ -576,7 +574,7 @@ CREATE VIEW public.activities_interventions AS
 -- Name: activity_budget_items; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.activity_budget_items (
+CREATE TABLE activity_budget_items (
     id integer NOT NULL,
     variant_id integer,
     direction character varying NOT NULL,
@@ -602,8 +600,7 @@ CREATE TABLE public.activity_budget_items (
 -- Name: activity_budget_items_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.activity_budget_items_id_seq
-    AS integer
+CREATE SEQUENCE activity_budget_items_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -615,15 +612,14 @@ CREATE SEQUENCE public.activity_budget_items_id_seq
 -- Name: activity_budget_items_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.activity_budget_items_id_seq OWNED BY public.activity_budget_items.id;
+ALTER SEQUENCE activity_budget_items_id_seq OWNED BY activity_budget_items.id;
 
 
 --
 -- Name: activity_budgets_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.activity_budgets_id_seq
-    AS integer
+CREATE SEQUENCE activity_budgets_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -635,14 +631,14 @@ CREATE SEQUENCE public.activity_budgets_id_seq
 -- Name: activity_budgets_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.activity_budgets_id_seq OWNED BY public.activity_budgets.id;
+ALTER SEQUENCE activity_budgets_id_seq OWNED BY activity_budgets.id;
 
 
 --
 -- Name: activity_distributions; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.activity_distributions (
+CREATE TABLE activity_distributions (
     id integer NOT NULL,
     activity_id integer NOT NULL,
     affectation_percentage numeric(19,4) NOT NULL,
@@ -659,8 +655,7 @@ CREATE TABLE public.activity_distributions (
 -- Name: activity_distributions_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.activity_distributions_id_seq
-    AS integer
+CREATE SEQUENCE activity_distributions_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -672,14 +667,14 @@ CREATE SEQUENCE public.activity_distributions_id_seq
 -- Name: activity_distributions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.activity_distributions_id_seq OWNED BY public.activity_distributions.id;
+ALTER SEQUENCE activity_distributions_id_seq OWNED BY activity_distributions.id;
 
 
 --
 -- Name: activity_inspection_calibration_natures; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.activity_inspection_calibration_natures (
+CREATE TABLE activity_inspection_calibration_natures (
     id integer NOT NULL,
     scale_id integer NOT NULL,
     marketable boolean DEFAULT false NOT NULL,
@@ -697,8 +692,7 @@ CREATE TABLE public.activity_inspection_calibration_natures (
 -- Name: activity_inspection_calibration_natures_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.activity_inspection_calibration_natures_id_seq
-    AS integer
+CREATE SEQUENCE activity_inspection_calibration_natures_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -710,14 +704,14 @@ CREATE SEQUENCE public.activity_inspection_calibration_natures_id_seq
 -- Name: activity_inspection_calibration_natures_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.activity_inspection_calibration_natures_id_seq OWNED BY public.activity_inspection_calibration_natures.id;
+ALTER SEQUENCE activity_inspection_calibration_natures_id_seq OWNED BY activity_inspection_calibration_natures.id;
 
 
 --
 -- Name: activity_inspection_calibration_scales; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.activity_inspection_calibration_scales (
+CREATE TABLE activity_inspection_calibration_scales (
     id integer NOT NULL,
     activity_id integer NOT NULL,
     size_indicator_name character varying NOT NULL,
@@ -734,8 +728,7 @@ CREATE TABLE public.activity_inspection_calibration_scales (
 -- Name: activity_inspection_calibration_scales_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.activity_inspection_calibration_scales_id_seq
-    AS integer
+CREATE SEQUENCE activity_inspection_calibration_scales_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -747,14 +740,14 @@ CREATE SEQUENCE public.activity_inspection_calibration_scales_id_seq
 -- Name: activity_inspection_calibration_scales_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.activity_inspection_calibration_scales_id_seq OWNED BY public.activity_inspection_calibration_scales.id;
+ALTER SEQUENCE activity_inspection_calibration_scales_id_seq OWNED BY activity_inspection_calibration_scales.id;
 
 
 --
 -- Name: activity_inspection_point_natures; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.activity_inspection_point_natures (
+CREATE TABLE activity_inspection_point_natures (
     id integer NOT NULL,
     activity_id integer NOT NULL,
     created_at timestamp without time zone NOT NULL,
@@ -771,8 +764,7 @@ CREATE TABLE public.activity_inspection_point_natures (
 -- Name: activity_inspection_point_natures_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.activity_inspection_point_natures_id_seq
-    AS integer
+CREATE SEQUENCE activity_inspection_point_natures_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -784,19 +776,19 @@ CREATE SEQUENCE public.activity_inspection_point_natures_id_seq
 -- Name: activity_inspection_point_natures_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.activity_inspection_point_natures_id_seq OWNED BY public.activity_inspection_point_natures.id;
+ALTER SEQUENCE activity_inspection_point_natures_id_seq OWNED BY activity_inspection_point_natures.id;
 
 
 --
 -- Name: activity_productions_campaigns; Type: VIEW; Schema: public; Owner: -
 --
 
-CREATE VIEW public.activity_productions_campaigns AS
+CREATE VIEW activity_productions_campaigns AS
  SELECT DISTINCT c.id AS campaign_id,
     ap.id AS activity_production_id
-   FROM ((public.activity_productions ap
-     JOIN public.activities a ON ((ap.activity_id = a.id)))
-     LEFT JOIN public.campaigns c ON (((c.id = ap.campaign_id) OR ((c.id IS NOT NULL) AND ((a.production_cycle)::text = 'perennial'::text) AND ((((a.production_campaign)::text = 'at_cycle_start'::text) AND (((ap.stopped_on IS NULL) AND ((c.harvest_year)::double precision >= date_part('year'::text, ap.started_on))) OR ((ap.stopped_on IS NOT NULL) AND (date_part('year'::text, ap.started_on) <= (c.harvest_year)::double precision) AND ((c.harvest_year)::double precision < date_part('year'::text, ap.stopped_on))))) OR (((a.production_campaign)::text = 'at_cycle_end'::text) AND (((ap.stopped_on IS NULL) AND ((c.harvest_year)::double precision > date_part('year'::text, ap.started_on))) OR ((ap.stopped_on IS NOT NULL) AND (date_part('year'::text, ap.started_on) < (c.harvest_year)::double precision) AND ((c.harvest_year)::double precision <= date_part('year'::text, ap.stopped_on))))))))))
+   FROM ((activity_productions ap
+     JOIN activities a ON ((ap.activity_id = a.id)))
+     LEFT JOIN campaigns c ON (((c.id = ap.campaign_id) OR ((c.id IS NOT NULL) AND ((a.production_cycle)::text = 'perennial'::text) AND ((((a.production_campaign)::text = 'at_cycle_start'::text) AND (((ap.stopped_on IS NULL) AND ((c.harvest_year)::double precision >= date_part('year'::text, ap.started_on))) OR ((ap.stopped_on IS NOT NULL) AND (date_part('year'::text, ap.started_on) <= (c.harvest_year)::double precision) AND ((c.harvest_year)::double precision < date_part('year'::text, ap.stopped_on))))) OR (((a.production_campaign)::text = 'at_cycle_end'::text) AND (((ap.stopped_on IS NULL) AND ((c.harvest_year)::double precision > date_part('year'::text, ap.started_on))) OR ((ap.stopped_on IS NOT NULL) AND (date_part('year'::text, ap.started_on) < (c.harvest_year)::double precision) AND ((c.harvest_year)::double precision <= date_part('year'::text, ap.stopped_on))))))))))
   ORDER BY c.id;
 
 
@@ -804,8 +796,7 @@ CREATE VIEW public.activity_productions_campaigns AS
 -- Name: activity_productions_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.activity_productions_id_seq
-    AS integer
+CREATE SEQUENCE activity_productions_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -817,20 +808,20 @@ CREATE SEQUENCE public.activity_productions_id_seq
 -- Name: activity_productions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.activity_productions_id_seq OWNED BY public.activity_productions.id;
+ALTER SEQUENCE activity_productions_id_seq OWNED BY activity_productions.id;
 
 
 --
 -- Name: activity_productions_interventions; Type: VIEW; Schema: public; Owner: -
 --
 
-CREATE VIEW public.activity_productions_interventions AS
+CREATE VIEW activity_productions_interventions AS
  SELECT DISTINCT interventions.id AS intervention_id,
     products.activity_production_id
-   FROM (((public.activity_productions
-     JOIN public.products ON ((products.activity_production_id = activity_productions.id)))
-     JOIN public.intervention_parameters ON ((products.id = intervention_parameters.product_id)))
-     JOIN public.interventions ON ((intervention_parameters.intervention_id = interventions.id)))
+   FROM (((activity_productions
+     JOIN products ON ((products.activity_production_id = activity_productions.id)))
+     JOIN intervention_parameters ON ((products.id = intervention_parameters.product_id)))
+     JOIN interventions ON ((intervention_parameters.intervention_id = interventions.id)))
   ORDER BY interventions.id;
 
 
@@ -838,7 +829,7 @@ CREATE VIEW public.activity_productions_interventions AS
 -- Name: activity_seasons; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.activity_seasons (
+CREATE TABLE activity_seasons (
     id integer NOT NULL,
     activity_id integer NOT NULL,
     name character varying NOT NULL,
@@ -854,8 +845,7 @@ CREATE TABLE public.activity_seasons (
 -- Name: activity_seasons_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.activity_seasons_id_seq
-    AS integer
+CREATE SEQUENCE activity_seasons_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -867,14 +857,14 @@ CREATE SEQUENCE public.activity_seasons_id_seq
 -- Name: activity_seasons_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.activity_seasons_id_seq OWNED BY public.activity_seasons.id;
+ALTER SEQUENCE activity_seasons_id_seq OWNED BY activity_seasons.id;
 
 
 --
 -- Name: activity_tactics; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.activity_tactics (
+CREATE TABLE activity_tactics (
     id integer NOT NULL,
     activity_id integer NOT NULL,
     name character varying NOT NULL,
@@ -893,8 +883,7 @@ CREATE TABLE public.activity_tactics (
 -- Name: activity_tactics_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.activity_tactics_id_seq
-    AS integer
+CREATE SEQUENCE activity_tactics_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -906,14 +895,14 @@ CREATE SEQUENCE public.activity_tactics_id_seq
 -- Name: activity_tactics_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.activity_tactics_id_seq OWNED BY public.activity_tactics.id;
+ALTER SEQUENCE activity_tactics_id_seq OWNED BY activity_tactics.id;
 
 
 --
 -- Name: affairs; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.affairs (
+CREATE TABLE affairs (
     id integer NOT NULL,
     number character varying,
     closed boolean DEFAULT false NOT NULL,
@@ -948,8 +937,7 @@ CREATE TABLE public.affairs (
 -- Name: affairs_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.affairs_id_seq
-    AS integer
+CREATE SEQUENCE affairs_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -961,14 +949,14 @@ CREATE SEQUENCE public.affairs_id_seq
 -- Name: affairs_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.affairs_id_seq OWNED BY public.affairs.id;
+ALTER SEQUENCE affairs_id_seq OWNED BY affairs.id;
 
 
 --
 -- Name: alert_phases; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.alert_phases (
+CREATE TABLE alert_phases (
     id integer NOT NULL,
     alert_id integer NOT NULL,
     started_at timestamp without time zone NOT NULL,
@@ -985,8 +973,7 @@ CREATE TABLE public.alert_phases (
 -- Name: alert_phases_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.alert_phases_id_seq
-    AS integer
+CREATE SEQUENCE alert_phases_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -998,14 +985,14 @@ CREATE SEQUENCE public.alert_phases_id_seq
 -- Name: alert_phases_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.alert_phases_id_seq OWNED BY public.alert_phases.id;
+ALTER SEQUENCE alert_phases_id_seq OWNED BY alert_phases.id;
 
 
 --
 -- Name: alerts; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.alerts (
+CREATE TABLE alerts (
     id integer NOT NULL,
     sensor_id integer,
     nature character varying NOT NULL,
@@ -1021,8 +1008,7 @@ CREATE TABLE public.alerts (
 -- Name: alerts_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.alerts_id_seq
-    AS integer
+CREATE SEQUENCE alerts_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -1034,14 +1020,14 @@ CREATE SEQUENCE public.alerts_id_seq
 -- Name: alerts_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.alerts_id_seq OWNED BY public.alerts.id;
+ALTER SEQUENCE alerts_id_seq OWNED BY alerts.id;
 
 
 --
 -- Name: analyses; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.analyses (
+CREATE TABLE analyses (
     id integer NOT NULL,
     number character varying NOT NULL,
     nature character varying NOT NULL,
@@ -1072,8 +1058,7 @@ CREATE TABLE public.analyses (
 -- Name: analyses_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.analyses_id_seq
-    AS integer
+CREATE SEQUENCE analyses_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -1085,14 +1070,14 @@ CREATE SEQUENCE public.analyses_id_seq
 -- Name: analyses_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.analyses_id_seq OWNED BY public.analyses.id;
+ALTER SEQUENCE analyses_id_seq OWNED BY analyses.id;
 
 
 --
 -- Name: analysis_items; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.analysis_items (
+CREATE TABLE analysis_items (
     id integer NOT NULL,
     analysis_id integer NOT NULL,
     indicator_name character varying NOT NULL,
@@ -1123,8 +1108,7 @@ CREATE TABLE public.analysis_items (
 -- Name: analysis_items_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.analysis_items_id_seq
-    AS integer
+CREATE SEQUENCE analysis_items_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -1136,14 +1120,14 @@ CREATE SEQUENCE public.analysis_items_id_seq
 -- Name: analysis_items_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.analysis_items_id_seq OWNED BY public.analysis_items.id;
+ALTER SEQUENCE analysis_items_id_seq OWNED BY analysis_items.id;
 
 
 --
 -- Name: attachments; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.attachments (
+CREATE TABLE attachments (
     id integer NOT NULL,
     resource_id integer NOT NULL,
     resource_type character varying NOT NULL,
@@ -1162,8 +1146,7 @@ CREATE TABLE public.attachments (
 -- Name: attachments_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.attachments_id_seq
-    AS integer
+CREATE SEQUENCE attachments_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -1175,14 +1158,14 @@ CREATE SEQUENCE public.attachments_id_seq
 -- Name: attachments_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.attachments_id_seq OWNED BY public.attachments.id;
+ALTER SEQUENCE attachments_id_seq OWNED BY attachments.id;
 
 
 --
 -- Name: bank_statement_items; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.bank_statement_items (
+CREATE TABLE bank_statement_items (
     id integer NOT NULL,
     bank_statement_id integer NOT NULL,
     name character varying NOT NULL,
@@ -1206,8 +1189,7 @@ CREATE TABLE public.bank_statement_items (
 -- Name: bank_statement_items_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.bank_statement_items_id_seq
-    AS integer
+CREATE SEQUENCE bank_statement_items_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -1219,14 +1201,14 @@ CREATE SEQUENCE public.bank_statement_items_id_seq
 -- Name: bank_statement_items_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.bank_statement_items_id_seq OWNED BY public.bank_statement_items.id;
+ALTER SEQUENCE bank_statement_items_id_seq OWNED BY bank_statement_items.id;
 
 
 --
 -- Name: bank_statements; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.bank_statements (
+CREATE TABLE bank_statements (
     id integer NOT NULL,
     cash_id integer NOT NULL,
     started_on date NOT NULL,
@@ -1252,8 +1234,7 @@ CREATE TABLE public.bank_statements (
 -- Name: bank_statements_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.bank_statements_id_seq
-    AS integer
+CREATE SEQUENCE bank_statements_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -1265,14 +1246,14 @@ CREATE SEQUENCE public.bank_statements_id_seq
 -- Name: bank_statements_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.bank_statements_id_seq OWNED BY public.bank_statements.id;
+ALTER SEQUENCE bank_statements_id_seq OWNED BY bank_statements.id;
 
 
 --
 -- Name: call_messages; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.call_messages (
+CREATE TABLE call_messages (
     id integer NOT NULL,
     status character varying,
     headers text,
@@ -1298,8 +1279,7 @@ CREATE TABLE public.call_messages (
 -- Name: call_messages_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.call_messages_id_seq
-    AS integer
+CREATE SEQUENCE call_messages_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -1311,14 +1291,14 @@ CREATE SEQUENCE public.call_messages_id_seq
 -- Name: call_messages_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.call_messages_id_seq OWNED BY public.call_messages.id;
+ALTER SEQUENCE call_messages_id_seq OWNED BY call_messages.id;
 
 
 --
 -- Name: calls; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.calls (
+CREATE TABLE calls (
     id integer NOT NULL,
     state character varying,
     integration_name character varying,
@@ -1338,8 +1318,7 @@ CREATE TABLE public.calls (
 -- Name: calls_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.calls_id_seq
-    AS integer
+CREATE SEQUENCE calls_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -1351,15 +1330,14 @@ CREATE SEQUENCE public.calls_id_seq
 -- Name: calls_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.calls_id_seq OWNED BY public.calls.id;
+ALTER SEQUENCE calls_id_seq OWNED BY calls.id;
 
 
 --
 -- Name: campaigns_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.campaigns_id_seq
-    AS integer
+CREATE SEQUENCE campaigns_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -1371,21 +1349,21 @@ CREATE SEQUENCE public.campaigns_id_seq
 -- Name: campaigns_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.campaigns_id_seq OWNED BY public.campaigns.id;
+ALTER SEQUENCE campaigns_id_seq OWNED BY campaigns.id;
 
 
 --
 -- Name: campaigns_interventions; Type: VIEW; Schema: public; Owner: -
 --
 
-CREATE VIEW public.campaigns_interventions AS
+CREATE VIEW campaigns_interventions AS
  SELECT DISTINCT campaigns.id AS campaign_id,
     interventions.id AS intervention_id
-   FROM ((((public.interventions
-     JOIN public.intervention_parameters ON ((intervention_parameters.intervention_id = interventions.id)))
-     JOIN public.products ON ((products.id = intervention_parameters.product_id)))
-     JOIN public.activity_productions ON ((products.activity_production_id = activity_productions.id)))
-     JOIN public.campaigns ON ((activity_productions.campaign_id = campaigns.id)))
+   FROM ((((interventions
+     JOIN intervention_parameters ON ((intervention_parameters.intervention_id = interventions.id)))
+     JOIN products ON ((products.id = intervention_parameters.product_id)))
+     JOIN activity_productions ON ((products.activity_production_id = activity_productions.id)))
+     JOIN campaigns ON ((activity_productions.campaign_id = campaigns.id)))
   ORDER BY campaigns.id;
 
 
@@ -1393,7 +1371,7 @@ CREATE VIEW public.campaigns_interventions AS
 -- Name: cap_islets; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.cap_islets (
+CREATE TABLE cap_islets (
     id integer NOT NULL,
     cap_statement_id integer NOT NULL,
     islet_number character varying NOT NULL,
@@ -1411,8 +1389,7 @@ CREATE TABLE public.cap_islets (
 -- Name: cap_islets_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.cap_islets_id_seq
-    AS integer
+CREATE SEQUENCE cap_islets_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -1424,14 +1401,14 @@ CREATE SEQUENCE public.cap_islets_id_seq
 -- Name: cap_islets_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.cap_islets_id_seq OWNED BY public.cap_islets.id;
+ALTER SEQUENCE cap_islets_id_seq OWNED BY cap_islets.id;
 
 
 --
 -- Name: cap_land_parcels; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.cap_land_parcels (
+CREATE TABLE cap_land_parcels (
     id integer NOT NULL,
     cap_islet_id integer NOT NULL,
     support_id integer,
@@ -1453,8 +1430,7 @@ CREATE TABLE public.cap_land_parcels (
 -- Name: cap_land_parcels_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.cap_land_parcels_id_seq
-    AS integer
+CREATE SEQUENCE cap_land_parcels_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -1466,14 +1442,14 @@ CREATE SEQUENCE public.cap_land_parcels_id_seq
 -- Name: cap_land_parcels_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.cap_land_parcels_id_seq OWNED BY public.cap_land_parcels.id;
+ALTER SEQUENCE cap_land_parcels_id_seq OWNED BY cap_land_parcels.id;
 
 
 --
 -- Name: cap_neutral_areas; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.cap_neutral_areas (
+CREATE TABLE cap_neutral_areas (
     id integer NOT NULL,
     cap_statement_id integer NOT NULL,
     number character varying NOT NULL,
@@ -1492,8 +1468,7 @@ CREATE TABLE public.cap_neutral_areas (
 -- Name: cap_neutral_areas_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.cap_neutral_areas_id_seq
-    AS integer
+CREATE SEQUENCE cap_neutral_areas_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -1505,14 +1480,14 @@ CREATE SEQUENCE public.cap_neutral_areas_id_seq
 -- Name: cap_neutral_areas_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.cap_neutral_areas_id_seq OWNED BY public.cap_neutral_areas.id;
+ALTER SEQUENCE cap_neutral_areas_id_seq OWNED BY cap_neutral_areas.id;
 
 
 --
 -- Name: cap_statements; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.cap_statements (
+CREATE TABLE cap_statements (
     id integer NOT NULL,
     campaign_id integer NOT NULL,
     declarant_id integer,
@@ -1531,8 +1506,7 @@ CREATE TABLE public.cap_statements (
 -- Name: cap_statements_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.cap_statements_id_seq
-    AS integer
+CREATE SEQUENCE cap_statements_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -1544,14 +1518,14 @@ CREATE SEQUENCE public.cap_statements_id_seq
 -- Name: cap_statements_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.cap_statements_id_seq OWNED BY public.cap_statements.id;
+ALTER SEQUENCE cap_statements_id_seq OWNED BY cap_statements.id;
 
 
 --
 -- Name: cash_sessions; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.cash_sessions (
+CREATE TABLE cash_sessions (
     id integer NOT NULL,
     cash_id integer NOT NULL,
     number character varying,
@@ -1573,8 +1547,7 @@ CREATE TABLE public.cash_sessions (
 -- Name: cash_sessions_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.cash_sessions_id_seq
-    AS integer
+CREATE SEQUENCE cash_sessions_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -1586,14 +1559,14 @@ CREATE SEQUENCE public.cash_sessions_id_seq
 -- Name: cash_sessions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.cash_sessions_id_seq OWNED BY public.cash_sessions.id;
+ALTER SEQUENCE cash_sessions_id_seq OWNED BY cash_sessions.id;
 
 
 --
 -- Name: cash_transfers; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.cash_transfers (
+CREATE TABLE cash_transfers (
     id integer NOT NULL,
     number character varying NOT NULL,
     description text,
@@ -1621,8 +1594,7 @@ CREATE TABLE public.cash_transfers (
 -- Name: cash_transfers_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.cash_transfers_id_seq
-    AS integer
+CREATE SEQUENCE cash_transfers_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -1634,14 +1606,14 @@ CREATE SEQUENCE public.cash_transfers_id_seq
 -- Name: cash_transfers_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.cash_transfers_id_seq OWNED BY public.cash_transfers.id;
+ALTER SEQUENCE cash_transfers_id_seq OWNED BY cash_transfers.id;
 
 
 --
 -- Name: cashes; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.cashes (
+CREATE TABLE cashes (
     id integer NOT NULL,
     name character varying NOT NULL,
     nature character varying DEFAULT 'bank_account'::character varying NOT NULL,
@@ -1678,8 +1650,7 @@ CREATE TABLE public.cashes (
 -- Name: cashes_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.cashes_id_seq
-    AS integer
+CREATE SEQUENCE cashes_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -1691,14 +1662,14 @@ CREATE SEQUENCE public.cashes_id_seq
 -- Name: cashes_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.cashes_id_seq OWNED BY public.cashes.id;
+ALTER SEQUENCE cashes_id_seq OWNED BY cashes.id;
 
 
 --
 -- Name: catalog_items; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.catalog_items (
+CREATE TABLE catalog_items (
     id integer NOT NULL,
     name character varying NOT NULL,
     variant_id integer NOT NULL,
@@ -1721,8 +1692,7 @@ CREATE TABLE public.catalog_items (
 -- Name: catalog_items_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.catalog_items_id_seq
-    AS integer
+CREATE SEQUENCE catalog_items_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -1734,14 +1704,14 @@ CREATE SEQUENCE public.catalog_items_id_seq
 -- Name: catalog_items_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.catalog_items_id_seq OWNED BY public.catalog_items.id;
+ALTER SEQUENCE catalog_items_id_seq OWNED BY catalog_items.id;
 
 
 --
 -- Name: catalogs; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.catalogs (
+CREATE TABLE catalogs (
     id integer NOT NULL,
     name character varying NOT NULL,
     usage character varying NOT NULL,
@@ -1762,8 +1732,7 @@ CREATE TABLE public.catalogs (
 -- Name: catalogs_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.catalogs_id_seq
-    AS integer
+CREATE SEQUENCE catalogs_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -1775,14 +1744,14 @@ CREATE SEQUENCE public.catalogs_id_seq
 -- Name: catalogs_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.catalogs_id_seq OWNED BY public.catalogs.id;
+ALTER SEQUENCE catalogs_id_seq OWNED BY catalogs.id;
 
 
 --
 -- Name: contract_items; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.contract_items (
+CREATE TABLE contract_items (
     id integer NOT NULL,
     contract_id integer NOT NULL,
     variant_id integer NOT NULL,
@@ -1801,8 +1770,7 @@ CREATE TABLE public.contract_items (
 -- Name: contract_items_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.contract_items_id_seq
-    AS integer
+CREATE SEQUENCE contract_items_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -1814,14 +1782,14 @@ CREATE SEQUENCE public.contract_items_id_seq
 -- Name: contract_items_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.contract_items_id_seq OWNED BY public.contract_items.id;
+ALTER SEQUENCE contract_items_id_seq OWNED BY contract_items.id;
 
 
 --
 -- Name: contracts; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.contracts (
+CREATE TABLE contracts (
     id integer NOT NULL,
     number character varying,
     description character varying,
@@ -1846,8 +1814,7 @@ CREATE TABLE public.contracts (
 -- Name: contracts_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.contracts_id_seq
-    AS integer
+CREATE SEQUENCE contracts_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -1859,14 +1826,14 @@ CREATE SEQUENCE public.contracts_id_seq
 -- Name: contracts_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.contracts_id_seq OWNED BY public.contracts.id;
+ALTER SEQUENCE contracts_id_seq OWNED BY contracts.id;
 
 
 --
 -- Name: crumbs; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.crumbs (
+CREATE TABLE crumbs (
     id integer NOT NULL,
     user_id integer,
     geolocation postgis.geometry(Point,4326) NOT NULL,
@@ -1889,8 +1856,7 @@ CREATE TABLE public.crumbs (
 -- Name: crumbs_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.crumbs_id_seq
-    AS integer
+CREATE SEQUENCE crumbs_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -1902,14 +1868,14 @@ CREATE SEQUENCE public.crumbs_id_seq
 -- Name: crumbs_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.crumbs_id_seq OWNED BY public.crumbs.id;
+ALTER SEQUENCE crumbs_id_seq OWNED BY crumbs.id;
 
 
 --
 -- Name: cultivable_zones; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.cultivable_zones (
+CREATE TABLE cultivable_zones (
     id integer NOT NULL,
     name character varying NOT NULL,
     work_number character varying NOT NULL,
@@ -1934,8 +1900,7 @@ CREATE TABLE public.cultivable_zones (
 -- Name: cultivable_zones_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.cultivable_zones_id_seq
-    AS integer
+CREATE SEQUENCE cultivable_zones_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -1947,14 +1912,14 @@ CREATE SEQUENCE public.cultivable_zones_id_seq
 -- Name: cultivable_zones_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.cultivable_zones_id_seq OWNED BY public.cultivable_zones.id;
+ALTER SEQUENCE cultivable_zones_id_seq OWNED BY cultivable_zones.id;
 
 
 --
 -- Name: custom_field_choices; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.custom_field_choices (
+CREATE TABLE custom_field_choices (
     id integer NOT NULL,
     custom_field_id integer NOT NULL,
     name character varying NOT NULL,
@@ -1972,8 +1937,7 @@ CREATE TABLE public.custom_field_choices (
 -- Name: custom_field_choices_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.custom_field_choices_id_seq
-    AS integer
+CREATE SEQUENCE custom_field_choices_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -1985,14 +1949,14 @@ CREATE SEQUENCE public.custom_field_choices_id_seq
 -- Name: custom_field_choices_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.custom_field_choices_id_seq OWNED BY public.custom_field_choices.id;
+ALTER SEQUENCE custom_field_choices_id_seq OWNED BY custom_field_choices.id;
 
 
 --
 -- Name: custom_fields; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.custom_fields (
+CREATE TABLE custom_fields (
     id integer NOT NULL,
     name character varying NOT NULL,
     nature character varying NOT NULL,
@@ -2017,8 +1981,7 @@ CREATE TABLE public.custom_fields (
 -- Name: custom_fields_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.custom_fields_id_seq
-    AS integer
+CREATE SEQUENCE custom_fields_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -2030,14 +1993,14 @@ CREATE SEQUENCE public.custom_fields_id_seq
 -- Name: custom_fields_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.custom_fields_id_seq OWNED BY public.custom_fields.id;
+ALTER SEQUENCE custom_fields_id_seq OWNED BY custom_fields.id;
 
 
 --
 -- Name: dashboards; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.dashboards (
+CREATE TABLE dashboards (
     id integer NOT NULL,
     owner_id integer NOT NULL,
     name character varying NOT NULL,
@@ -2054,8 +2017,7 @@ CREATE TABLE public.dashboards (
 -- Name: dashboards_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.dashboards_id_seq
-    AS integer
+CREATE SEQUENCE dashboards_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -2067,14 +2029,14 @@ CREATE SEQUENCE public.dashboards_id_seq
 -- Name: dashboards_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.dashboards_id_seq OWNED BY public.dashboards.id;
+ALTER SEQUENCE dashboards_id_seq OWNED BY dashboards.id;
 
 
 --
 -- Name: debt_transfers; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.debt_transfers (
+CREATE TABLE debt_transfers (
     id integer NOT NULL,
     affair_id integer NOT NULL,
     debt_transfer_affair_id integer NOT NULL,
@@ -2096,8 +2058,7 @@ CREATE TABLE public.debt_transfers (
 -- Name: debt_transfers_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.debt_transfers_id_seq
-    AS integer
+CREATE SEQUENCE debt_transfers_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -2109,14 +2070,14 @@ CREATE SEQUENCE public.debt_transfers_id_seq
 -- Name: debt_transfers_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.debt_transfers_id_seq OWNED BY public.debt_transfers.id;
+ALTER SEQUENCE debt_transfers_id_seq OWNED BY debt_transfers.id;
 
 
 --
 -- Name: deliveries; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.deliveries (
+CREATE TABLE deliveries (
     id integer NOT NULL,
     transporter_id integer,
     responsible_id integer,
@@ -2142,8 +2103,7 @@ CREATE TABLE public.deliveries (
 -- Name: deliveries_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.deliveries_id_seq
-    AS integer
+CREATE SEQUENCE deliveries_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -2155,14 +2115,14 @@ CREATE SEQUENCE public.deliveries_id_seq
 -- Name: deliveries_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.deliveries_id_seq OWNED BY public.deliveries.id;
+ALTER SEQUENCE deliveries_id_seq OWNED BY deliveries.id;
 
 
 --
 -- Name: delivery_tools; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.delivery_tools (
+CREATE TABLE delivery_tools (
     id integer NOT NULL,
     delivery_id integer,
     tool_id integer,
@@ -2178,8 +2138,7 @@ CREATE TABLE public.delivery_tools (
 -- Name: delivery_tools_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.delivery_tools_id_seq
-    AS integer
+CREATE SEQUENCE delivery_tools_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -2191,14 +2150,14 @@ CREATE SEQUENCE public.delivery_tools_id_seq
 -- Name: delivery_tools_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.delivery_tools_id_seq OWNED BY public.delivery_tools.id;
+ALTER SEQUENCE delivery_tools_id_seq OWNED BY delivery_tools.id;
 
 
 --
 -- Name: deposits; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.deposits (
+CREATE TABLE deposits (
     id integer NOT NULL,
     number character varying NOT NULL,
     cash_id integer NOT NULL,
@@ -2223,8 +2182,7 @@ CREATE TABLE public.deposits (
 -- Name: deposits_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.deposits_id_seq
-    AS integer
+CREATE SEQUENCE deposits_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -2236,14 +2194,14 @@ CREATE SEQUENCE public.deposits_id_seq
 -- Name: deposits_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.deposits_id_seq OWNED BY public.deposits.id;
+ALTER SEQUENCE deposits_id_seq OWNED BY deposits.id;
 
 
 --
 -- Name: districts; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.districts (
+CREATE TABLE districts (
     id integer NOT NULL,
     name character varying NOT NULL,
     code character varying,
@@ -2259,8 +2217,7 @@ CREATE TABLE public.districts (
 -- Name: districts_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.districts_id_seq
-    AS integer
+CREATE SEQUENCE districts_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -2272,14 +2229,14 @@ CREATE SEQUENCE public.districts_id_seq
 -- Name: districts_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.districts_id_seq OWNED BY public.districts.id;
+ALTER SEQUENCE districts_id_seq OWNED BY districts.id;
 
 
 --
 -- Name: document_templates; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.document_templates (
+CREATE TABLE document_templates (
     id integer NOT NULL,
     name character varying NOT NULL,
     active boolean DEFAULT false NOT NULL,
@@ -2301,8 +2258,7 @@ CREATE TABLE public.document_templates (
 -- Name: document_templates_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.document_templates_id_seq
-    AS integer
+CREATE SEQUENCE document_templates_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -2314,14 +2270,14 @@ CREATE SEQUENCE public.document_templates_id_seq
 -- Name: document_templates_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.document_templates_id_seq OWNED BY public.document_templates.id;
+ALTER SEQUENCE document_templates_id_seq OWNED BY document_templates.id;
 
 
 --
 -- Name: documents; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.documents (
+CREATE TABLE documents (
     id integer NOT NULL,
     number character varying NOT NULL,
     name character varying NOT NULL,
@@ -2349,8 +2305,7 @@ CREATE TABLE public.documents (
 -- Name: documents_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.documents_id_seq
-    AS integer
+CREATE SEQUENCE documents_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -2362,14 +2317,14 @@ CREATE SEQUENCE public.documents_id_seq
 -- Name: documents_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.documents_id_seq OWNED BY public.documents.id;
+ALTER SEQUENCE documents_id_seq OWNED BY documents.id;
 
 
 --
 -- Name: entities; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.entities (
+CREATE TABLE entities (
     id integer NOT NULL,
     nature character varying NOT NULL,
     last_name character varying NOT NULL,
@@ -2429,7 +2384,7 @@ CREATE TABLE public.entities (
 -- Name: incoming_payments; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.incoming_payments (
+CREATE TABLE incoming_payments (
     id integer NOT NULL,
     paid_at timestamp without time zone,
     amount numeric(19,4) NOT NULL,
@@ -2466,7 +2421,7 @@ CREATE TABLE public.incoming_payments (
 -- Name: journal_entry_items; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.journal_entry_items (
+CREATE TABLE journal_entry_items (
     id integer NOT NULL,
     entry_id integer NOT NULL,
     journal_id integer NOT NULL,
@@ -2521,7 +2476,7 @@ CREATE TABLE public.journal_entry_items (
 -- Name: outgoing_payments; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.outgoing_payments (
+CREATE TABLE outgoing_payments (
     id integer NOT NULL,
     accounted_at timestamp without time zone,
     amount numeric(19,4) DEFAULT 0.0 NOT NULL,
@@ -2555,7 +2510,7 @@ CREATE TABLE public.outgoing_payments (
 -- Name: purchase_items; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.purchase_items (
+CREATE TABLE purchase_items (
     id integer NOT NULL,
     purchase_id integer NOT NULL,
     variant_id integer,
@@ -2595,7 +2550,7 @@ CREATE TABLE public.purchase_items (
 -- Name: purchases; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.purchases (
+CREATE TABLE purchases (
     id integer NOT NULL,
     supplier_id integer NOT NULL,
     number character varying NOT NULL,
@@ -2638,7 +2593,7 @@ CREATE TABLE public.purchases (
 -- Name: sale_items; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.sale_items (
+CREATE TABLE sale_items (
     id integer NOT NULL,
     sale_id integer NOT NULL,
     variant_id integer NOT NULL,
@@ -2672,7 +2627,7 @@ CREATE TABLE public.sale_items (
 -- Name: sales; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.sales (
+CREATE TABLE sales (
     id integer NOT NULL,
     client_id integer NOT NULL,
     nature_id integer,
@@ -2724,7 +2679,7 @@ CREATE TABLE public.sales (
 -- Name: economic_situations; Type: VIEW; Schema: public; Owner: -
 --
 
-CREATE VIEW public.economic_situations AS
+CREATE VIEW economic_situations AS
  SELECT entities.id,
     COALESCE(client_accounting.balance, (0)::numeric) AS client_accounting_balance,
     COALESCE(supplier_accounting.balance, (0)::numeric) AS supplier_accounting_balance,
@@ -2737,44 +2692,44 @@ CREATE VIEW public.economic_situations AS
     entities.updater_id,
     entities.updated_at,
     entities.lock_version
-   FROM ((((public.entities
+   FROM ((((entities
      LEFT JOIN ( SELECT entities_1.id AS entity_id,
             (- sum(client_items.balance)) AS balance
-           FROM ((public.entities entities_1
-             JOIN public.accounts clients ON ((entities_1.client_account_id = clients.id)))
-             JOIN public.journal_entry_items client_items ON ((clients.id = client_items.account_id)))
+           FROM ((entities entities_1
+             JOIN accounts clients ON ((entities_1.client_account_id = clients.id)))
+             JOIN journal_entry_items client_items ON ((clients.id = client_items.account_id)))
           GROUP BY entities_1.id) client_accounting ON ((entities.id = client_accounting.entity_id)))
      LEFT JOIN ( SELECT entities_1.id AS entity_id,
             (- sum(supplier_items.balance)) AS balance
-           FROM ((public.entities entities_1
-             JOIN public.accounts suppliers ON ((entities_1.supplier_account_id = suppliers.id)))
-             JOIN public.journal_entry_items supplier_items ON ((suppliers.id = supplier_items.account_id)))
+           FROM ((entities entities_1
+             JOIN accounts suppliers ON ((entities_1.supplier_account_id = suppliers.id)))
+             JOIN journal_entry_items supplier_items ON ((suppliers.id = supplier_items.account_id)))
           GROUP BY entities_1.id) supplier_accounting ON ((entities.id = supplier_accounting.entity_id)))
      LEFT JOIN ( SELECT client_tradings.entity_id,
             sum(client_tradings.amount) AS balance
            FROM ( SELECT entities_1.id AS entity_id,
                     (- sale_items.amount) AS amount
-                   FROM ((public.entities entities_1
-                     JOIN public.sales ON ((entities_1.id = sales.client_id)))
-                     JOIN public.sale_items ON ((sales.id = sale_items.sale_id)))
+                   FROM ((entities entities_1
+                     JOIN sales ON ((entities_1.id = sales.client_id)))
+                     JOIN sale_items ON ((sales.id = sale_items.sale_id)))
                 UNION ALL
                  SELECT entities_1.id AS entity_id,
                     incoming_payments.amount
-                   FROM (public.entities entities_1
-                     JOIN public.incoming_payments ON ((entities_1.id = incoming_payments.payer_id)))) client_tradings
+                   FROM (entities entities_1
+                     JOIN incoming_payments ON ((entities_1.id = incoming_payments.payer_id)))) client_tradings
           GROUP BY client_tradings.entity_id) client_trade ON ((entities.id = client_trade.entity_id)))
      LEFT JOIN ( SELECT supplier_tradings.entity_id,
             sum(supplier_tradings.amount) AS balance
            FROM ( SELECT entities_1.id AS entity_id,
                     purchase_items.amount
-                   FROM ((public.entities entities_1
-                     JOIN public.purchases ON ((entities_1.id = purchases.supplier_id)))
-                     JOIN public.purchase_items ON ((purchases.id = purchase_items.purchase_id)))
+                   FROM ((entities entities_1
+                     JOIN purchases ON ((entities_1.id = purchases.supplier_id)))
+                     JOIN purchase_items ON ((purchases.id = purchase_items.purchase_id)))
                 UNION ALL
                  SELECT entities_1.id AS entity_id,
                     (- outgoing_payments.amount) AS amount
-                   FROM (public.entities entities_1
-                     JOIN public.outgoing_payments ON ((entities_1.id = outgoing_payments.payee_id)))) supplier_tradings
+                   FROM (entities entities_1
+                     JOIN outgoing_payments ON ((entities_1.id = outgoing_payments.payee_id)))) supplier_tradings
           GROUP BY supplier_tradings.entity_id) supplier_trade ON ((entities.id = supplier_trade.entity_id)));
 
 
@@ -2782,8 +2737,7 @@ CREATE VIEW public.economic_situations AS
 -- Name: entities_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.entities_id_seq
-    AS integer
+CREATE SEQUENCE entities_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -2795,14 +2749,14 @@ CREATE SEQUENCE public.entities_id_seq
 -- Name: entities_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.entities_id_seq OWNED BY public.entities.id;
+ALTER SEQUENCE entities_id_seq OWNED BY entities.id;
 
 
 --
 -- Name: entity_addresses; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.entity_addresses (
+CREATE TABLE entity_addresses (
     id integer NOT NULL,
     entity_id integer NOT NULL,
     canal character varying NOT NULL,
@@ -2833,8 +2787,7 @@ CREATE TABLE public.entity_addresses (
 -- Name: entity_addresses_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.entity_addresses_id_seq
-    AS integer
+CREATE SEQUENCE entity_addresses_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -2846,14 +2799,14 @@ CREATE SEQUENCE public.entity_addresses_id_seq
 -- Name: entity_addresses_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.entity_addresses_id_seq OWNED BY public.entity_addresses.id;
+ALTER SEQUENCE entity_addresses_id_seq OWNED BY entity_addresses.id;
 
 
 --
 -- Name: entity_links; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.entity_links (
+CREATE TABLE entity_links (
     id integer NOT NULL,
     nature character varying NOT NULL,
     entity_id integer NOT NULL,
@@ -2877,8 +2830,7 @@ CREATE TABLE public.entity_links (
 -- Name: entity_links_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.entity_links_id_seq
-    AS integer
+CREATE SEQUENCE entity_links_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -2890,14 +2842,14 @@ CREATE SEQUENCE public.entity_links_id_seq
 -- Name: entity_links_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.entity_links_id_seq OWNED BY public.entity_links.id;
+ALTER SEQUENCE entity_links_id_seq OWNED BY entity_links.id;
 
 
 --
 -- Name: event_participations; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.event_participations (
+CREATE TABLE event_participations (
     id integer NOT NULL,
     event_id integer NOT NULL,
     participant_id integer NOT NULL,
@@ -2914,8 +2866,7 @@ CREATE TABLE public.event_participations (
 -- Name: event_participations_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.event_participations_id_seq
-    AS integer
+CREATE SEQUENCE event_participations_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -2927,14 +2878,14 @@ CREATE SEQUENCE public.event_participations_id_seq
 -- Name: event_participations_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.event_participations_id_seq OWNED BY public.event_participations.id;
+ALTER SEQUENCE event_participations_id_seq OWNED BY event_participations.id;
 
 
 --
 -- Name: events; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.events (
+CREATE TABLE events (
     id integer NOT NULL,
     name character varying NOT NULL,
     started_at timestamp without time zone NOT NULL,
@@ -2958,8 +2909,7 @@ CREATE TABLE public.events (
 -- Name: events_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.events_id_seq
-    AS integer
+CREATE SEQUENCE events_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -2971,14 +2921,14 @@ CREATE SEQUENCE public.events_id_seq
 -- Name: events_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.events_id_seq OWNED BY public.events.id;
+ALTER SEQUENCE events_id_seq OWNED BY events.id;
 
 
 --
 -- Name: financial_year_exchanges; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.financial_year_exchanges (
+CREATE TABLE financial_year_exchanges (
     id integer NOT NULL,
     financial_year_id integer NOT NULL,
     started_on date NOT NULL,
@@ -3002,8 +2952,7 @@ CREATE TABLE public.financial_year_exchanges (
 -- Name: financial_year_exchanges_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.financial_year_exchanges_id_seq
-    AS integer
+CREATE SEQUENCE financial_year_exchanges_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -3015,14 +2964,14 @@ CREATE SEQUENCE public.financial_year_exchanges_id_seq
 -- Name: financial_year_exchanges_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.financial_year_exchanges_id_seq OWNED BY public.financial_year_exchanges.id;
+ALTER SEQUENCE financial_year_exchanges_id_seq OWNED BY financial_year_exchanges.id;
 
 
 --
 -- Name: financial_years; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.financial_years (
+CREATE TABLE financial_years (
     id integer NOT NULL,
     code character varying NOT NULL,
     closed boolean DEFAULT false NOT NULL,
@@ -3047,8 +2996,7 @@ CREATE TABLE public.financial_years (
 -- Name: financial_years_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.financial_years_id_seq
-    AS integer
+CREATE SEQUENCE financial_years_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -3060,14 +3008,14 @@ CREATE SEQUENCE public.financial_years_id_seq
 -- Name: financial_years_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.financial_years_id_seq OWNED BY public.financial_years.id;
+ALTER SEQUENCE financial_years_id_seq OWNED BY financial_years.id;
 
 
 --
 -- Name: fixed_asset_depreciations; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.fixed_asset_depreciations (
+CREATE TABLE fixed_asset_depreciations (
     id integer NOT NULL,
     fixed_asset_id integer NOT NULL,
     journal_entry_id integer,
@@ -3093,8 +3041,7 @@ CREATE TABLE public.fixed_asset_depreciations (
 -- Name: fixed_asset_depreciations_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.fixed_asset_depreciations_id_seq
-    AS integer
+CREATE SEQUENCE fixed_asset_depreciations_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -3106,14 +3053,14 @@ CREATE SEQUENCE public.fixed_asset_depreciations_id_seq
 -- Name: fixed_asset_depreciations_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.fixed_asset_depreciations_id_seq OWNED BY public.fixed_asset_depreciations.id;
+ALTER SEQUENCE fixed_asset_depreciations_id_seq OWNED BY fixed_asset_depreciations.id;
 
 
 --
 -- Name: fixed_assets; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.fixed_assets (
+CREATE TABLE fixed_assets (
     id integer NOT NULL,
     allocation_account_id integer NOT NULL,
     journal_id integer NOT NULL,
@@ -3160,8 +3107,7 @@ CREATE TABLE public.fixed_assets (
 -- Name: fixed_assets_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.fixed_assets_id_seq
-    AS integer
+CREATE SEQUENCE fixed_assets_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -3173,14 +3119,14 @@ CREATE SEQUENCE public.fixed_assets_id_seq
 -- Name: fixed_assets_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.fixed_assets_id_seq OWNED BY public.fixed_assets.id;
+ALTER SEQUENCE fixed_assets_id_seq OWNED BY fixed_assets.id;
 
 
 --
 -- Name: gap_items; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.gap_items (
+CREATE TABLE gap_items (
     id integer NOT NULL,
     gap_id integer NOT NULL,
     pretax_amount numeric(19,4) DEFAULT 0.0 NOT NULL,
@@ -3199,8 +3145,7 @@ CREATE TABLE public.gap_items (
 -- Name: gap_items_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.gap_items_id_seq
-    AS integer
+CREATE SEQUENCE gap_items_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -3212,14 +3157,14 @@ CREATE SEQUENCE public.gap_items_id_seq
 -- Name: gap_items_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.gap_items_id_seq OWNED BY public.gap_items.id;
+ALTER SEQUENCE gap_items_id_seq OWNED BY gap_items.id;
 
 
 --
 -- Name: gaps; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.gaps (
+CREATE TABLE gaps (
     id integer NOT NULL,
     number character varying NOT NULL,
     printed_at timestamp without time zone NOT NULL,
@@ -3244,8 +3189,7 @@ CREATE TABLE public.gaps (
 -- Name: gaps_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.gaps_id_seq
-    AS integer
+CREATE SEQUENCE gaps_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -3257,14 +3201,14 @@ CREATE SEQUENCE public.gaps_id_seq
 -- Name: gaps_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.gaps_id_seq OWNED BY public.gaps.id;
+ALTER SEQUENCE gaps_id_seq OWNED BY gaps.id;
 
 
 --
 -- Name: georeadings; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.georeadings (
+CREATE TABLE georeadings (
     id integer NOT NULL,
     name character varying NOT NULL,
     nature character varying NOT NULL,
@@ -3283,8 +3227,7 @@ CREATE TABLE public.georeadings (
 -- Name: georeadings_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.georeadings_id_seq
-    AS integer
+CREATE SEQUENCE georeadings_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -3296,14 +3239,14 @@ CREATE SEQUENCE public.georeadings_id_seq
 -- Name: georeadings_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.georeadings_id_seq OWNED BY public.georeadings.id;
+ALTER SEQUENCE georeadings_id_seq OWNED BY georeadings.id;
 
 
 --
 -- Name: guide_analyses; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.guide_analyses (
+CREATE TABLE guide_analyses (
     id integer NOT NULL,
     guide_id integer NOT NULL,
     execution_number integer NOT NULL,
@@ -3323,8 +3266,7 @@ CREATE TABLE public.guide_analyses (
 -- Name: guide_analyses_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.guide_analyses_id_seq
-    AS integer
+CREATE SEQUENCE guide_analyses_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -3336,14 +3278,14 @@ CREATE SEQUENCE public.guide_analyses_id_seq
 -- Name: guide_analyses_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.guide_analyses_id_seq OWNED BY public.guide_analyses.id;
+ALTER SEQUENCE guide_analyses_id_seq OWNED BY guide_analyses.id;
 
 
 --
 -- Name: guide_analysis_points; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.guide_analysis_points (
+CREATE TABLE guide_analysis_points (
     id integer NOT NULL,
     analysis_id integer NOT NULL,
     reference_name character varying NOT NULL,
@@ -3361,8 +3303,7 @@ CREATE TABLE public.guide_analysis_points (
 -- Name: guide_analysis_points_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.guide_analysis_points_id_seq
-    AS integer
+CREATE SEQUENCE guide_analysis_points_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -3374,14 +3315,14 @@ CREATE SEQUENCE public.guide_analysis_points_id_seq
 -- Name: guide_analysis_points_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.guide_analysis_points_id_seq OWNED BY public.guide_analysis_points.id;
+ALTER SEQUENCE guide_analysis_points_id_seq OWNED BY guide_analysis_points.id;
 
 
 --
 -- Name: guides; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.guides (
+CREATE TABLE guides (
     id integer NOT NULL,
     name character varying NOT NULL,
     nature character varying NOT NULL,
@@ -3405,8 +3346,7 @@ CREATE TABLE public.guides (
 -- Name: guides_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.guides_id_seq
-    AS integer
+CREATE SEQUENCE guides_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -3418,14 +3358,14 @@ CREATE SEQUENCE public.guides_id_seq
 -- Name: guides_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.guides_id_seq OWNED BY public.guides.id;
+ALTER SEQUENCE guides_id_seq OWNED BY guides.id;
 
 
 --
 -- Name: identifiers; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.identifiers (
+CREATE TABLE identifiers (
     id integer NOT NULL,
     net_service_id integer,
     nature character varying NOT NULL,
@@ -3442,8 +3382,7 @@ CREATE TABLE public.identifiers (
 -- Name: identifiers_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.identifiers_id_seq
-    AS integer
+CREATE SEQUENCE identifiers_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -3455,14 +3394,14 @@ CREATE SEQUENCE public.identifiers_id_seq
 -- Name: identifiers_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.identifiers_id_seq OWNED BY public.identifiers.id;
+ALTER SEQUENCE identifiers_id_seq OWNED BY identifiers.id;
 
 
 --
 -- Name: imports; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.imports (
+CREATE TABLE imports (
     id integer NOT NULL,
     state character varying NOT NULL,
     nature character varying NOT NULL,
@@ -3485,8 +3424,7 @@ CREATE TABLE public.imports (
 -- Name: imports_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.imports_id_seq
-    AS integer
+CREATE SEQUENCE imports_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -3498,14 +3436,14 @@ CREATE SEQUENCE public.imports_id_seq
 -- Name: imports_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.imports_id_seq OWNED BY public.imports.id;
+ALTER SEQUENCE imports_id_seq OWNED BY imports.id;
 
 
 --
 -- Name: incoming_payment_modes; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.incoming_payment_modes (
+CREATE TABLE incoming_payment_modes (
     id integer NOT NULL,
     name character varying NOT NULL,
     cash_id integer,
@@ -3532,8 +3470,7 @@ CREATE TABLE public.incoming_payment_modes (
 -- Name: incoming_payment_modes_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.incoming_payment_modes_id_seq
-    AS integer
+CREATE SEQUENCE incoming_payment_modes_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -3545,15 +3482,14 @@ CREATE SEQUENCE public.incoming_payment_modes_id_seq
 -- Name: incoming_payment_modes_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.incoming_payment_modes_id_seq OWNED BY public.incoming_payment_modes.id;
+ALTER SEQUENCE incoming_payment_modes_id_seq OWNED BY incoming_payment_modes.id;
 
 
 --
 -- Name: incoming_payments_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.incoming_payments_id_seq
-    AS integer
+CREATE SEQUENCE incoming_payments_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -3565,14 +3501,14 @@ CREATE SEQUENCE public.incoming_payments_id_seq
 -- Name: incoming_payments_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.incoming_payments_id_seq OWNED BY public.incoming_payments.id;
+ALTER SEQUENCE incoming_payments_id_seq OWNED BY incoming_payments.id;
 
 
 --
 -- Name: inspection_calibrations; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.inspection_calibrations (
+CREATE TABLE inspection_calibrations (
     id integer NOT NULL,
     inspection_id integer NOT NULL,
     nature_id integer NOT NULL,
@@ -3592,8 +3528,7 @@ CREATE TABLE public.inspection_calibrations (
 -- Name: inspection_calibrations_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.inspection_calibrations_id_seq
-    AS integer
+CREATE SEQUENCE inspection_calibrations_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -3605,14 +3540,14 @@ CREATE SEQUENCE public.inspection_calibrations_id_seq
 -- Name: inspection_calibrations_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.inspection_calibrations_id_seq OWNED BY public.inspection_calibrations.id;
+ALTER SEQUENCE inspection_calibrations_id_seq OWNED BY inspection_calibrations.id;
 
 
 --
 -- Name: inspection_points; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.inspection_points (
+CREATE TABLE inspection_points (
     id integer NOT NULL,
     inspection_id integer NOT NULL,
     nature_id integer NOT NULL,
@@ -3632,8 +3567,7 @@ CREATE TABLE public.inspection_points (
 -- Name: inspection_points_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.inspection_points_id_seq
-    AS integer
+CREATE SEQUENCE inspection_points_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -3645,14 +3579,14 @@ CREATE SEQUENCE public.inspection_points_id_seq
 -- Name: inspection_points_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.inspection_points_id_seq OWNED BY public.inspection_points.id;
+ALTER SEQUENCE inspection_points_id_seq OWNED BY inspection_points.id;
 
 
 --
 -- Name: inspections; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.inspections (
+CREATE TABLE inspections (
     id integer NOT NULL,
     activity_id integer NOT NULL,
     product_id integer NOT NULL,
@@ -3678,8 +3612,7 @@ CREATE TABLE public.inspections (
 -- Name: inspections_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.inspections_id_seq
-    AS integer
+CREATE SEQUENCE inspections_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -3691,14 +3624,14 @@ CREATE SEQUENCE public.inspections_id_seq
 -- Name: inspections_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.inspections_id_seq OWNED BY public.inspections.id;
+ALTER SEQUENCE inspections_id_seq OWNED BY inspections.id;
 
 
 --
 -- Name: integrations; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.integrations (
+CREATE TABLE integrations (
     id integer NOT NULL,
     nature character varying NOT NULL,
     initialization_vectors jsonb,
@@ -3716,8 +3649,7 @@ CREATE TABLE public.integrations (
 -- Name: integrations_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.integrations_id_seq
-    AS integer
+CREATE SEQUENCE integrations_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -3729,14 +3661,14 @@ CREATE SEQUENCE public.integrations_id_seq
 -- Name: integrations_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.integrations_id_seq OWNED BY public.integrations.id;
+ALTER SEQUENCE integrations_id_seq OWNED BY integrations.id;
 
 
 --
 -- Name: intervention_costs; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.intervention_costs (
+CREATE TABLE intervention_costs (
     id integer NOT NULL,
     inputs_cost numeric,
     doers_cost numeric,
@@ -3749,8 +3681,7 @@ CREATE TABLE public.intervention_costs (
 -- Name: intervention_costs_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.intervention_costs_id_seq
-    AS integer
+CREATE SEQUENCE intervention_costs_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -3762,14 +3693,14 @@ CREATE SEQUENCE public.intervention_costs_id_seq
 -- Name: intervention_costs_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.intervention_costs_id_seq OWNED BY public.intervention_costs.id;
+ALTER SEQUENCE intervention_costs_id_seq OWNED BY intervention_costs.id;
 
 
 --
 -- Name: intervention_labellings; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.intervention_labellings (
+CREATE TABLE intervention_labellings (
     id integer NOT NULL,
     intervention_id integer NOT NULL,
     label_id integer NOT NULL,
@@ -3785,8 +3716,7 @@ CREATE TABLE public.intervention_labellings (
 -- Name: intervention_labellings_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.intervention_labellings_id_seq
-    AS integer
+CREATE SEQUENCE intervention_labellings_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -3798,14 +3728,14 @@ CREATE SEQUENCE public.intervention_labellings_id_seq
 -- Name: intervention_labellings_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.intervention_labellings_id_seq OWNED BY public.intervention_labellings.id;
+ALTER SEQUENCE intervention_labellings_id_seq OWNED BY intervention_labellings.id;
 
 
 --
 -- Name: intervention_parameter_readings; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.intervention_parameter_readings (
+CREATE TABLE intervention_parameter_readings (
     id integer NOT NULL,
     indicator_name character varying NOT NULL,
     indicator_datatype character varying NOT NULL,
@@ -3834,8 +3764,7 @@ CREATE TABLE public.intervention_parameter_readings (
 -- Name: intervention_parameter_readings_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.intervention_parameter_readings_id_seq
-    AS integer
+CREATE SEQUENCE intervention_parameter_readings_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -3847,15 +3776,14 @@ CREATE SEQUENCE public.intervention_parameter_readings_id_seq
 -- Name: intervention_parameter_readings_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.intervention_parameter_readings_id_seq OWNED BY public.intervention_parameter_readings.id;
+ALTER SEQUENCE intervention_parameter_readings_id_seq OWNED BY intervention_parameter_readings.id;
 
 
 --
 -- Name: intervention_parameters_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.intervention_parameters_id_seq
-    AS integer
+CREATE SEQUENCE intervention_parameters_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -3867,14 +3795,14 @@ CREATE SEQUENCE public.intervention_parameters_id_seq
 -- Name: intervention_parameters_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.intervention_parameters_id_seq OWNED BY public.intervention_parameters.id;
+ALTER SEQUENCE intervention_parameters_id_seq OWNED BY intervention_parameters.id;
 
 
 --
 -- Name: intervention_participations; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.intervention_participations (
+CREATE TABLE intervention_participations (
     id integer NOT NULL,
     intervention_id integer,
     product_id integer,
@@ -3893,8 +3821,7 @@ CREATE TABLE public.intervention_participations (
 -- Name: intervention_participations_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.intervention_participations_id_seq
-    AS integer
+CREATE SEQUENCE intervention_participations_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -3906,14 +3833,14 @@ CREATE SEQUENCE public.intervention_participations_id_seq
 -- Name: intervention_participations_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.intervention_participations_id_seq OWNED BY public.intervention_participations.id;
+ALTER SEQUENCE intervention_participations_id_seq OWNED BY intervention_participations.id;
 
 
 --
 -- Name: intervention_working_periods; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.intervention_working_periods (
+CREATE TABLE intervention_working_periods (
     id integer NOT NULL,
     intervention_id integer,
     started_at timestamp without time zone NOT NULL,
@@ -3933,8 +3860,7 @@ CREATE TABLE public.intervention_working_periods (
 -- Name: intervention_working_periods_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.intervention_working_periods_id_seq
-    AS integer
+CREATE SEQUENCE intervention_working_periods_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -3946,15 +3872,14 @@ CREATE SEQUENCE public.intervention_working_periods_id_seq
 -- Name: intervention_working_periods_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.intervention_working_periods_id_seq OWNED BY public.intervention_working_periods.id;
+ALTER SEQUENCE intervention_working_periods_id_seq OWNED BY intervention_working_periods.id;
 
 
 --
 -- Name: interventions_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.interventions_id_seq
-    AS integer
+CREATE SEQUENCE interventions_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -3966,14 +3891,14 @@ CREATE SEQUENCE public.interventions_id_seq
 -- Name: interventions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.interventions_id_seq OWNED BY public.interventions.id;
+ALTER SEQUENCE interventions_id_seq OWNED BY interventions.id;
 
 
 --
 -- Name: inventories; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.inventories (
+CREATE TABLE inventories (
     id integer NOT NULL,
     number character varying NOT NULL,
     reflected_at timestamp without time zone,
@@ -3998,8 +3923,7 @@ CREATE TABLE public.inventories (
 -- Name: inventories_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.inventories_id_seq
-    AS integer
+CREATE SEQUENCE inventories_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -4011,14 +3935,14 @@ CREATE SEQUENCE public.inventories_id_seq
 -- Name: inventories_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.inventories_id_seq OWNED BY public.inventories.id;
+ALTER SEQUENCE inventories_id_seq OWNED BY inventories.id;
 
 
 --
 -- Name: inventory_items; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.inventory_items (
+CREATE TABLE inventory_items (
     id integer NOT NULL,
     inventory_id integer NOT NULL,
     product_id integer NOT NULL,
@@ -4039,8 +3963,7 @@ CREATE TABLE public.inventory_items (
 -- Name: inventory_items_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.inventory_items_id_seq
-    AS integer
+CREATE SEQUENCE inventory_items_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -4052,14 +3975,14 @@ CREATE SEQUENCE public.inventory_items_id_seq
 -- Name: inventory_items_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.inventory_items_id_seq OWNED BY public.inventory_items.id;
+ALTER SEQUENCE inventory_items_id_seq OWNED BY inventory_items.id;
 
 
 --
 -- Name: issues; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.issues (
+CREATE TABLE issues (
     id integer NOT NULL,
     target_id integer,
     target_type character varying,
@@ -4089,8 +4012,7 @@ CREATE TABLE public.issues (
 -- Name: issues_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.issues_id_seq
-    AS integer
+CREATE SEQUENCE issues_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -4102,14 +4024,14 @@ CREATE SEQUENCE public.issues_id_seq
 -- Name: issues_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.issues_id_seq OWNED BY public.issues.id;
+ALTER SEQUENCE issues_id_seq OWNED BY issues.id;
 
 
 --
 -- Name: journal_entries; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.journal_entries (
+CREATE TABLE journal_entries (
     id integer NOT NULL,
     journal_id integer NOT NULL,
     financial_year_id integer,
@@ -4144,8 +4066,7 @@ CREATE TABLE public.journal_entries (
 -- Name: journal_entries_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.journal_entries_id_seq
-    AS integer
+CREATE SEQUENCE journal_entries_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -4157,15 +4078,14 @@ CREATE SEQUENCE public.journal_entries_id_seq
 -- Name: journal_entries_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.journal_entries_id_seq OWNED BY public.journal_entries.id;
+ALTER SEQUENCE journal_entries_id_seq OWNED BY journal_entries.id;
 
 
 --
 -- Name: journal_entry_items_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.journal_entry_items_id_seq
-    AS integer
+CREATE SEQUENCE journal_entry_items_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -4177,14 +4097,14 @@ CREATE SEQUENCE public.journal_entry_items_id_seq
 -- Name: journal_entry_items_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.journal_entry_items_id_seq OWNED BY public.journal_entry_items.id;
+ALTER SEQUENCE journal_entry_items_id_seq OWNED BY journal_entry_items.id;
 
 
 --
 -- Name: journals; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.journals (
+CREATE TABLE journals (
     id integer NOT NULL,
     nature character varying NOT NULL,
     name character varying NOT NULL,
@@ -4210,8 +4130,7 @@ CREATE TABLE public.journals (
 -- Name: journals_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.journals_id_seq
-    AS integer
+CREATE SEQUENCE journals_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -4223,14 +4142,14 @@ CREATE SEQUENCE public.journals_id_seq
 -- Name: journals_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.journals_id_seq OWNED BY public.journals.id;
+ALTER SEQUENCE journals_id_seq OWNED BY journals.id;
 
 
 --
 -- Name: labels; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.labels (
+CREATE TABLE labels (
     id integer NOT NULL,
     name character varying NOT NULL,
     color character varying NOT NULL,
@@ -4246,8 +4165,7 @@ CREATE TABLE public.labels (
 -- Name: labels_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.labels_id_seq
-    AS integer
+CREATE SEQUENCE labels_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -4259,14 +4177,14 @@ CREATE SEQUENCE public.labels_id_seq
 -- Name: labels_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.labels_id_seq OWNED BY public.labels.id;
+ALTER SEQUENCE labels_id_seq OWNED BY labels.id;
 
 
 --
 -- Name: listing_node_items; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.listing_node_items (
+CREATE TABLE listing_node_items (
     id integer NOT NULL,
     node_id integer NOT NULL,
     nature character varying NOT NULL,
@@ -4283,8 +4201,7 @@ CREATE TABLE public.listing_node_items (
 -- Name: listing_node_items_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.listing_node_items_id_seq
-    AS integer
+CREATE SEQUENCE listing_node_items_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -4296,14 +4213,14 @@ CREATE SEQUENCE public.listing_node_items_id_seq
 -- Name: listing_node_items_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.listing_node_items_id_seq OWNED BY public.listing_node_items.id;
+ALTER SEQUENCE listing_node_items_id_seq OWNED BY listing_node_items.id;
 
 
 --
 -- Name: listing_nodes; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.listing_nodes (
+CREATE TABLE listing_nodes (
     id integer NOT NULL,
     name character varying NOT NULL,
     label character varying NOT NULL,
@@ -4336,8 +4253,7 @@ CREATE TABLE public.listing_nodes (
 -- Name: listing_nodes_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.listing_nodes_id_seq
-    AS integer
+CREATE SEQUENCE listing_nodes_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -4349,14 +4265,14 @@ CREATE SEQUENCE public.listing_nodes_id_seq
 -- Name: listing_nodes_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.listing_nodes_id_seq OWNED BY public.listing_nodes.id;
+ALTER SEQUENCE listing_nodes_id_seq OWNED BY listing_nodes.id;
 
 
 --
 -- Name: listings; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.listings (
+CREATE TABLE listings (
     id integer NOT NULL,
     name character varying NOT NULL,
     root_model character varying NOT NULL,
@@ -4378,8 +4294,7 @@ CREATE TABLE public.listings (
 -- Name: listings_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.listings_id_seq
-    AS integer
+CREATE SEQUENCE listings_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -4391,14 +4306,14 @@ CREATE SEQUENCE public.listings_id_seq
 -- Name: listings_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.listings_id_seq OWNED BY public.listings.id;
+ALTER SEQUENCE listings_id_seq OWNED BY listings.id;
 
 
 --
 -- Name: loan_repayments; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.loan_repayments (
+CREATE TABLE loan_repayments (
     id integer NOT NULL,
     loan_id integer NOT NULL,
     "position" integer NOT NULL,
@@ -4424,8 +4339,7 @@ CREATE TABLE public.loan_repayments (
 -- Name: loan_repayments_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.loan_repayments_id_seq
-    AS integer
+CREATE SEQUENCE loan_repayments_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -4437,14 +4351,14 @@ CREATE SEQUENCE public.loan_repayments_id_seq
 -- Name: loan_repayments_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.loan_repayments_id_seq OWNED BY public.loan_repayments.id;
+ALTER SEQUENCE loan_repayments_id_seq OWNED BY loan_repayments.id;
 
 
 --
 -- Name: loans; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.loans (
+CREATE TABLE loans (
     id integer NOT NULL,
     lender_id integer NOT NULL,
     name character varying NOT NULL,
@@ -4486,8 +4400,7 @@ CREATE TABLE public.loans (
 -- Name: loans_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.loans_id_seq
-    AS integer
+CREATE SEQUENCE loans_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -4499,14 +4412,14 @@ CREATE SEQUENCE public.loans_id_seq
 -- Name: loans_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.loans_id_seq OWNED BY public.loans.id;
+ALTER SEQUENCE loans_id_seq OWNED BY loans.id;
 
 
 --
 -- Name: manure_management_plan_zones; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.manure_management_plan_zones (
+CREATE TABLE manure_management_plan_zones (
     id integer NOT NULL,
     plan_id integer NOT NULL,
     activity_production_id integer NOT NULL,
@@ -4540,8 +4453,7 @@ CREATE TABLE public.manure_management_plan_zones (
 -- Name: manure_management_plan_zones_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.manure_management_plan_zones_id_seq
-    AS integer
+CREATE SEQUENCE manure_management_plan_zones_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -4553,14 +4465,14 @@ CREATE SEQUENCE public.manure_management_plan_zones_id_seq
 -- Name: manure_management_plan_zones_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.manure_management_plan_zones_id_seq OWNED BY public.manure_management_plan_zones.id;
+ALTER SEQUENCE manure_management_plan_zones_id_seq OWNED BY manure_management_plan_zones.id;
 
 
 --
 -- Name: manure_management_plans; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.manure_management_plans (
+CREATE TABLE manure_management_plans (
     id integer NOT NULL,
     name character varying NOT NULL,
     campaign_id integer NOT NULL,
@@ -4582,8 +4494,7 @@ CREATE TABLE public.manure_management_plans (
 -- Name: manure_management_plans_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.manure_management_plans_id_seq
-    AS integer
+CREATE SEQUENCE manure_management_plans_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -4595,14 +4506,14 @@ CREATE SEQUENCE public.manure_management_plans_id_seq
 -- Name: manure_management_plans_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.manure_management_plans_id_seq OWNED BY public.manure_management_plans.id;
+ALTER SEQUENCE manure_management_plans_id_seq OWNED BY manure_management_plans.id;
 
 
 --
 -- Name: map_layers; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.map_layers (
+CREATE TABLE map_layers (
     id integer NOT NULL,
     name character varying NOT NULL,
     url character varying NOT NULL,
@@ -4630,8 +4541,7 @@ CREATE TABLE public.map_layers (
 -- Name: map_layers_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.map_layers_id_seq
-    AS integer
+CREATE SEQUENCE map_layers_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -4643,14 +4553,14 @@ CREATE SEQUENCE public.map_layers_id_seq
 -- Name: map_layers_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.map_layers_id_seq OWNED BY public.map_layers.id;
+ALTER SEQUENCE map_layers_id_seq OWNED BY map_layers.id;
 
 
 --
 -- Name: naming_format_fields; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.naming_format_fields (
+CREATE TABLE naming_format_fields (
     id integer NOT NULL,
     type character varying NOT NULL,
     field_name character varying NOT NULL,
@@ -4663,8 +4573,7 @@ CREATE TABLE public.naming_format_fields (
 -- Name: naming_format_fields_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.naming_format_fields_id_seq
-    AS integer
+CREATE SEQUENCE naming_format_fields_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -4676,14 +4585,14 @@ CREATE SEQUENCE public.naming_format_fields_id_seq
 -- Name: naming_format_fields_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.naming_format_fields_id_seq OWNED BY public.naming_format_fields.id;
+ALTER SEQUENCE naming_format_fields_id_seq OWNED BY naming_format_fields.id;
 
 
 --
 -- Name: naming_formats; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.naming_formats (
+CREATE TABLE naming_formats (
     id integer NOT NULL,
     name character varying NOT NULL,
     type character varying NOT NULL,
@@ -4696,8 +4605,7 @@ CREATE TABLE public.naming_formats (
 -- Name: naming_formats_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.naming_formats_id_seq
-    AS integer
+CREATE SEQUENCE naming_formats_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -4709,14 +4617,14 @@ CREATE SEQUENCE public.naming_formats_id_seq
 -- Name: naming_formats_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.naming_formats_id_seq OWNED BY public.naming_formats.id;
+ALTER SEQUENCE naming_formats_id_seq OWNED BY naming_formats.id;
 
 
 --
 -- Name: net_services; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.net_services (
+CREATE TABLE net_services (
     id integer NOT NULL,
     reference_name character varying NOT NULL,
     created_at timestamp without time zone NOT NULL,
@@ -4731,8 +4639,7 @@ CREATE TABLE public.net_services (
 -- Name: net_services_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.net_services_id_seq
-    AS integer
+CREATE SEQUENCE net_services_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -4744,14 +4651,14 @@ CREATE SEQUENCE public.net_services_id_seq
 -- Name: net_services_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.net_services_id_seq OWNED BY public.net_services.id;
+ALTER SEQUENCE net_services_id_seq OWNED BY net_services.id;
 
 
 --
 -- Name: notifications; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.notifications (
+CREATE TABLE notifications (
     id integer NOT NULL,
     recipient_id integer NOT NULL,
     message character varying NOT NULL,
@@ -4773,8 +4680,7 @@ CREATE TABLE public.notifications (
 -- Name: notifications_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.notifications_id_seq
-    AS integer
+CREATE SEQUENCE notifications_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -4786,14 +4692,14 @@ CREATE SEQUENCE public.notifications_id_seq
 -- Name: notifications_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.notifications_id_seq OWNED BY public.notifications.id;
+ALTER SEQUENCE notifications_id_seq OWNED BY notifications.id;
 
 
 --
 -- Name: observations; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.observations (
+CREATE TABLE observations (
     id integer NOT NULL,
     subject_id integer NOT NULL,
     subject_type character varying NOT NULL,
@@ -4813,8 +4719,7 @@ CREATE TABLE public.observations (
 -- Name: observations_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.observations_id_seq
-    AS integer
+CREATE SEQUENCE observations_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -4826,14 +4731,14 @@ CREATE SEQUENCE public.observations_id_seq
 -- Name: observations_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.observations_id_seq OWNED BY public.observations.id;
+ALTER SEQUENCE observations_id_seq OWNED BY observations.id;
 
 
 --
 -- Name: outgoing_payment_lists; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.outgoing_payment_lists (
+CREATE TABLE outgoing_payment_lists (
     id integer NOT NULL,
     number character varying,
     created_at timestamp without time zone,
@@ -4851,8 +4756,7 @@ CREATE TABLE public.outgoing_payment_lists (
 -- Name: outgoing_payment_lists_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.outgoing_payment_lists_id_seq
-    AS integer
+CREATE SEQUENCE outgoing_payment_lists_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -4864,14 +4768,14 @@ CREATE SEQUENCE public.outgoing_payment_lists_id_seq
 -- Name: outgoing_payment_lists_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.outgoing_payment_lists_id_seq OWNED BY public.outgoing_payment_lists.id;
+ALTER SEQUENCE outgoing_payment_lists_id_seq OWNED BY outgoing_payment_lists.id;
 
 
 --
 -- Name: outgoing_payment_modes; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.outgoing_payment_modes (
+CREATE TABLE outgoing_payment_modes (
     id integer NOT NULL,
     name character varying NOT NULL,
     with_accounting boolean DEFAULT false NOT NULL,
@@ -4891,8 +4795,7 @@ CREATE TABLE public.outgoing_payment_modes (
 -- Name: outgoing_payment_modes_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.outgoing_payment_modes_id_seq
-    AS integer
+CREATE SEQUENCE outgoing_payment_modes_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -4904,15 +4807,14 @@ CREATE SEQUENCE public.outgoing_payment_modes_id_seq
 -- Name: outgoing_payment_modes_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.outgoing_payment_modes_id_seq OWNED BY public.outgoing_payment_modes.id;
+ALTER SEQUENCE outgoing_payment_modes_id_seq OWNED BY outgoing_payment_modes.id;
 
 
 --
 -- Name: outgoing_payments_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.outgoing_payments_id_seq
-    AS integer
+CREATE SEQUENCE outgoing_payments_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -4924,14 +4826,14 @@ CREATE SEQUENCE public.outgoing_payments_id_seq
 -- Name: outgoing_payments_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.outgoing_payments_id_seq OWNED BY public.outgoing_payments.id;
+ALTER SEQUENCE outgoing_payments_id_seq OWNED BY outgoing_payments.id;
 
 
 --
 -- Name: parcel_item_storings; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.parcel_item_storings (
+CREATE TABLE parcel_item_storings (
     id integer NOT NULL,
     parcel_item_id integer NOT NULL,
     storage_id integer NOT NULL,
@@ -4951,8 +4853,7 @@ CREATE TABLE public.parcel_item_storings (
 -- Name: parcel_item_storings_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.parcel_item_storings_id_seq
-    AS integer
+CREATE SEQUENCE parcel_item_storings_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -4964,14 +4865,14 @@ CREATE SEQUENCE public.parcel_item_storings_id_seq
 -- Name: parcel_item_storings_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.parcel_item_storings_id_seq OWNED BY public.parcel_item_storings.id;
+ALTER SEQUENCE parcel_item_storings_id_seq OWNED BY parcel_item_storings.id;
 
 
 --
 -- Name: parcel_items; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.parcel_items (
+CREATE TABLE parcel_items (
     id integer NOT NULL,
     parcel_id integer NOT NULL,
     sale_item_id integer,
@@ -5019,8 +4920,7 @@ CREATE TABLE public.parcel_items (
 -- Name: parcel_items_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.parcel_items_id_seq
-    AS integer
+CREATE SEQUENCE parcel_items_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -5032,14 +4932,14 @@ CREATE SEQUENCE public.parcel_items_id_seq
 -- Name: parcel_items_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.parcel_items_id_seq OWNED BY public.parcel_items.id;
+ALTER SEQUENCE parcel_items_id_seq OWNED BY parcel_items.id;
 
 
 --
 -- Name: parcels; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.parcels (
+CREATE TABLE parcels (
     id integer NOT NULL,
     number character varying NOT NULL,
     nature character varying NOT NULL,
@@ -5087,8 +4987,7 @@ CREATE TABLE public.parcels (
 -- Name: parcels_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.parcels_id_seq
-    AS integer
+CREATE SEQUENCE parcels_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -5100,14 +4999,14 @@ CREATE SEQUENCE public.parcels_id_seq
 -- Name: parcels_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.parcels_id_seq OWNED BY public.parcels.id;
+ALTER SEQUENCE parcels_id_seq OWNED BY parcels.id;
 
 
 --
 -- Name: payslip_natures; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.payslip_natures (
+CREATE TABLE payslip_natures (
     id integer NOT NULL,
     name character varying NOT NULL,
     currency character varying NOT NULL,
@@ -5128,8 +5027,7 @@ CREATE TABLE public.payslip_natures (
 -- Name: payslip_natures_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.payslip_natures_id_seq
-    AS integer
+CREATE SEQUENCE payslip_natures_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -5141,14 +5039,14 @@ CREATE SEQUENCE public.payslip_natures_id_seq
 -- Name: payslip_natures_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.payslip_natures_id_seq OWNED BY public.payslip_natures.id;
+ALTER SEQUENCE payslip_natures_id_seq OWNED BY payslip_natures.id;
 
 
 --
 -- Name: payslips; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.payslips (
+CREATE TABLE payslips (
     id integer NOT NULL,
     number character varying NOT NULL,
     nature_id integer NOT NULL,
@@ -5176,8 +5074,7 @@ CREATE TABLE public.payslips (
 -- Name: payslips_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.payslips_id_seq
-    AS integer
+CREATE SEQUENCE payslips_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -5189,14 +5086,14 @@ CREATE SEQUENCE public.payslips_id_seq
 -- Name: payslips_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.payslips_id_seq OWNED BY public.payslips.id;
+ALTER SEQUENCE payslips_id_seq OWNED BY payslips.id;
 
 
 --
 -- Name: plant_counting_items; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.plant_counting_items (
+CREATE TABLE plant_counting_items (
     id integer NOT NULL,
     plant_counting_id integer NOT NULL,
     value integer NOT NULL,
@@ -5212,8 +5109,7 @@ CREATE TABLE public.plant_counting_items (
 -- Name: plant_counting_items_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.plant_counting_items_id_seq
-    AS integer
+CREATE SEQUENCE plant_counting_items_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -5225,14 +5121,14 @@ CREATE SEQUENCE public.plant_counting_items_id_seq
 -- Name: plant_counting_items_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.plant_counting_items_id_seq OWNED BY public.plant_counting_items.id;
+ALTER SEQUENCE plant_counting_items_id_seq OWNED BY plant_counting_items.id;
 
 
 --
 -- Name: plant_countings; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.plant_countings (
+CREATE TABLE plant_countings (
     id integer NOT NULL,
     plant_id integer NOT NULL,
     plant_density_abacus_id integer NOT NULL,
@@ -5256,8 +5152,7 @@ CREATE TABLE public.plant_countings (
 -- Name: plant_countings_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.plant_countings_id_seq
-    AS integer
+CREATE SEQUENCE plant_countings_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -5269,14 +5164,14 @@ CREATE SEQUENCE public.plant_countings_id_seq
 -- Name: plant_countings_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.plant_countings_id_seq OWNED BY public.plant_countings.id;
+ALTER SEQUENCE plant_countings_id_seq OWNED BY plant_countings.id;
 
 
 --
 -- Name: plant_density_abaci; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.plant_density_abaci (
+CREATE TABLE plant_density_abaci (
     id integer NOT NULL,
     name character varying NOT NULL,
     germination_percentage numeric(19,4),
@@ -5295,8 +5190,7 @@ CREATE TABLE public.plant_density_abaci (
 -- Name: plant_density_abaci_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.plant_density_abaci_id_seq
-    AS integer
+CREATE SEQUENCE plant_density_abaci_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -5308,14 +5202,14 @@ CREATE SEQUENCE public.plant_density_abaci_id_seq
 -- Name: plant_density_abaci_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.plant_density_abaci_id_seq OWNED BY public.plant_density_abaci.id;
+ALTER SEQUENCE plant_density_abaci_id_seq OWNED BY plant_density_abaci.id;
 
 
 --
 -- Name: plant_density_abacus_items; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.plant_density_abacus_items (
+CREATE TABLE plant_density_abacus_items (
     id integer NOT NULL,
     plant_density_abacus_id integer NOT NULL,
     seeding_density_value numeric(19,4) NOT NULL,
@@ -5332,8 +5226,7 @@ CREATE TABLE public.plant_density_abacus_items (
 -- Name: plant_density_abacus_items_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.plant_density_abacus_items_id_seq
-    AS integer
+CREATE SEQUENCE plant_density_abacus_items_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -5345,14 +5238,14 @@ CREATE SEQUENCE public.plant_density_abacus_items_id_seq
 -- Name: plant_density_abacus_items_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.plant_density_abacus_items_id_seq OWNED BY public.plant_density_abacus_items.id;
+ALTER SEQUENCE plant_density_abacus_items_id_seq OWNED BY plant_density_abacus_items.id;
 
 
 --
 -- Name: postal_zones; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.postal_zones (
+CREATE TABLE postal_zones (
     id integer NOT NULL,
     postal_code character varying NOT NULL,
     name character varying NOT NULL,
@@ -5373,8 +5266,7 @@ CREATE TABLE public.postal_zones (
 -- Name: postal_zones_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.postal_zones_id_seq
-    AS integer
+CREATE SEQUENCE postal_zones_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -5386,14 +5278,14 @@ CREATE SEQUENCE public.postal_zones_id_seq
 -- Name: postal_zones_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.postal_zones_id_seq OWNED BY public.postal_zones.id;
+ALTER SEQUENCE postal_zones_id_seq OWNED BY postal_zones.id;
 
 
 --
 -- Name: preferences; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.preferences (
+CREATE TABLE preferences (
     id integer NOT NULL,
     name character varying NOT NULL,
     nature character varying NOT NULL,
@@ -5416,8 +5308,7 @@ CREATE TABLE public.preferences (
 -- Name: preferences_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.preferences_id_seq
-    AS integer
+CREATE SEQUENCE preferences_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -5429,14 +5320,14 @@ CREATE SEQUENCE public.preferences_id_seq
 -- Name: preferences_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.preferences_id_seq OWNED BY public.preferences.id;
+ALTER SEQUENCE preferences_id_seq OWNED BY preferences.id;
 
 
 --
 -- Name: prescriptions; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.prescriptions (
+CREATE TABLE prescriptions (
     id integer NOT NULL,
     prescriptor_id integer NOT NULL,
     reference_number character varying,
@@ -5455,8 +5346,7 @@ CREATE TABLE public.prescriptions (
 -- Name: prescriptions_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.prescriptions_id_seq
-    AS integer
+CREATE SEQUENCE prescriptions_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -5468,14 +5358,14 @@ CREATE SEQUENCE public.prescriptions_id_seq
 -- Name: prescriptions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.prescriptions_id_seq OWNED BY public.prescriptions.id;
+ALTER SEQUENCE prescriptions_id_seq OWNED BY prescriptions.id;
 
 
 --
 -- Name: product_enjoyments; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.product_enjoyments (
+CREATE TABLE product_enjoyments (
     id integer NOT NULL,
     originator_id integer,
     originator_type character varying,
@@ -5497,8 +5387,7 @@ CREATE TABLE public.product_enjoyments (
 -- Name: product_enjoyments_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.product_enjoyments_id_seq
-    AS integer
+CREATE SEQUENCE product_enjoyments_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -5510,14 +5399,14 @@ CREATE SEQUENCE public.product_enjoyments_id_seq
 -- Name: product_enjoyments_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.product_enjoyments_id_seq OWNED BY public.product_enjoyments.id;
+ALTER SEQUENCE product_enjoyments_id_seq OWNED BY product_enjoyments.id;
 
 
 --
 -- Name: product_labellings; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.product_labellings (
+CREATE TABLE product_labellings (
     id integer NOT NULL,
     product_id integer NOT NULL,
     label_id integer NOT NULL,
@@ -5533,8 +5422,7 @@ CREATE TABLE public.product_labellings (
 -- Name: product_labellings_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.product_labellings_id_seq
-    AS integer
+CREATE SEQUENCE product_labellings_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -5546,14 +5434,14 @@ CREATE SEQUENCE public.product_labellings_id_seq
 -- Name: product_labellings_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.product_labellings_id_seq OWNED BY public.product_labellings.id;
+ALTER SEQUENCE product_labellings_id_seq OWNED BY product_labellings.id;
 
 
 --
 -- Name: product_linkages; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.product_linkages (
+CREATE TABLE product_linkages (
     id integer NOT NULL,
     originator_id integer,
     originator_type character varying,
@@ -5576,8 +5464,7 @@ CREATE TABLE public.product_linkages (
 -- Name: product_linkages_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.product_linkages_id_seq
-    AS integer
+CREATE SEQUENCE product_linkages_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -5589,14 +5476,14 @@ CREATE SEQUENCE public.product_linkages_id_seq
 -- Name: product_linkages_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.product_linkages_id_seq OWNED BY public.product_linkages.id;
+ALTER SEQUENCE product_linkages_id_seq OWNED BY product_linkages.id;
 
 
 --
 -- Name: product_links; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.product_links (
+CREATE TABLE product_links (
     id integer NOT NULL,
     originator_id integer,
     originator_type character varying,
@@ -5618,8 +5505,7 @@ CREATE TABLE public.product_links (
 -- Name: product_links_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.product_links_id_seq
-    AS integer
+CREATE SEQUENCE product_links_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -5631,14 +5517,14 @@ CREATE SEQUENCE public.product_links_id_seq
 -- Name: product_links_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.product_links_id_seq OWNED BY public.product_links.id;
+ALTER SEQUENCE product_links_id_seq OWNED BY product_links.id;
 
 
 --
 -- Name: product_localizations; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.product_localizations (
+CREATE TABLE product_localizations (
     id integer NOT NULL,
     originator_id integer,
     originator_type character varying,
@@ -5660,8 +5546,7 @@ CREATE TABLE public.product_localizations (
 -- Name: product_localizations_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.product_localizations_id_seq
-    AS integer
+CREATE SEQUENCE product_localizations_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -5673,14 +5558,14 @@ CREATE SEQUENCE public.product_localizations_id_seq
 -- Name: product_localizations_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.product_localizations_id_seq OWNED BY public.product_localizations.id;
+ALTER SEQUENCE product_localizations_id_seq OWNED BY product_localizations.id;
 
 
 --
 -- Name: product_memberships; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.product_memberships (
+CREATE TABLE product_memberships (
     id integer NOT NULL,
     originator_id integer,
     originator_type character varying,
@@ -5702,8 +5587,7 @@ CREATE TABLE public.product_memberships (
 -- Name: product_memberships_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.product_memberships_id_seq
-    AS integer
+CREATE SEQUENCE product_memberships_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -5715,14 +5599,14 @@ CREATE SEQUENCE public.product_memberships_id_seq
 -- Name: product_memberships_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.product_memberships_id_seq OWNED BY public.product_memberships.id;
+ALTER SEQUENCE product_memberships_id_seq OWNED BY product_memberships.id;
 
 
 --
 -- Name: product_movements; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.product_movements (
+CREATE TABLE product_movements (
     id integer NOT NULL,
     product_id integer NOT NULL,
     intervention_id integer,
@@ -5745,8 +5629,7 @@ CREATE TABLE public.product_movements (
 -- Name: product_movements_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.product_movements_id_seq
-    AS integer
+CREATE SEQUENCE product_movements_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -5758,14 +5641,14 @@ CREATE SEQUENCE public.product_movements_id_seq
 -- Name: product_movements_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.product_movements_id_seq OWNED BY public.product_movements.id;
+ALTER SEQUENCE product_movements_id_seq OWNED BY product_movements.id;
 
 
 --
 -- Name: product_nature_categories; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.product_nature_categories (
+CREATE TABLE product_nature_categories (
     id integer NOT NULL,
     name character varying NOT NULL,
     number character varying NOT NULL,
@@ -5801,8 +5684,7 @@ CREATE TABLE public.product_nature_categories (
 -- Name: product_nature_categories_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.product_nature_categories_id_seq
-    AS integer
+CREATE SEQUENCE product_nature_categories_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -5814,14 +5696,14 @@ CREATE SEQUENCE public.product_nature_categories_id_seq
 -- Name: product_nature_categories_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.product_nature_categories_id_seq OWNED BY public.product_nature_categories.id;
+ALTER SEQUENCE product_nature_categories_id_seq OWNED BY product_nature_categories.id;
 
 
 --
 -- Name: product_nature_category_taxations; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.product_nature_category_taxations (
+CREATE TABLE product_nature_category_taxations (
     id integer NOT NULL,
     product_nature_category_id integer NOT NULL,
     tax_id integer NOT NULL,
@@ -5838,8 +5720,7 @@ CREATE TABLE public.product_nature_category_taxations (
 -- Name: product_nature_category_taxations_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.product_nature_category_taxations_id_seq
-    AS integer
+CREATE SEQUENCE product_nature_category_taxations_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -5851,14 +5732,14 @@ CREATE SEQUENCE public.product_nature_category_taxations_id_seq
 -- Name: product_nature_category_taxations_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.product_nature_category_taxations_id_seq OWNED BY public.product_nature_category_taxations.id;
+ALTER SEQUENCE product_nature_category_taxations_id_seq OWNED BY product_nature_category_taxations.id;
 
 
 --
 -- Name: product_nature_variant_components; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.product_nature_variant_components (
+CREATE TABLE product_nature_variant_components (
     id integer NOT NULL,
     product_nature_variant_id integer NOT NULL,
     part_product_nature_variant_id integer,
@@ -5877,8 +5758,7 @@ CREATE TABLE public.product_nature_variant_components (
 -- Name: product_nature_variant_components_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.product_nature_variant_components_id_seq
-    AS integer
+CREATE SEQUENCE product_nature_variant_components_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -5890,14 +5770,14 @@ CREATE SEQUENCE public.product_nature_variant_components_id_seq
 -- Name: product_nature_variant_components_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.product_nature_variant_components_id_seq OWNED BY public.product_nature_variant_components.id;
+ALTER SEQUENCE product_nature_variant_components_id_seq OWNED BY product_nature_variant_components.id;
 
 
 --
 -- Name: product_nature_variant_readings; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.product_nature_variant_readings (
+CREATE TABLE product_nature_variant_readings (
     id integer NOT NULL,
     variant_id integer NOT NULL,
     indicator_name character varying NOT NULL,
@@ -5926,8 +5806,7 @@ CREATE TABLE public.product_nature_variant_readings (
 -- Name: product_nature_variant_readings_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.product_nature_variant_readings_id_seq
-    AS integer
+CREATE SEQUENCE product_nature_variant_readings_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -5939,14 +5818,14 @@ CREATE SEQUENCE public.product_nature_variant_readings_id_seq
 -- Name: product_nature_variant_readings_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.product_nature_variant_readings_id_seq OWNED BY public.product_nature_variant_readings.id;
+ALTER SEQUENCE product_nature_variant_readings_id_seq OWNED BY product_nature_variant_readings.id;
 
 
 --
 -- Name: product_nature_variants; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.product_nature_variants (
+CREATE TABLE product_nature_variants (
     id integer NOT NULL,
     category_id integer NOT NULL,
     nature_id integer NOT NULL,
@@ -5980,8 +5859,7 @@ CREATE TABLE public.product_nature_variants (
 -- Name: product_nature_variants_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.product_nature_variants_id_seq
-    AS integer
+CREATE SEQUENCE product_nature_variants_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -5993,14 +5871,14 @@ CREATE SEQUENCE public.product_nature_variants_id_seq
 -- Name: product_nature_variants_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.product_nature_variants_id_seq OWNED BY public.product_nature_variants.id;
+ALTER SEQUENCE product_nature_variants_id_seq OWNED BY product_nature_variants.id;
 
 
 --
 -- Name: product_natures; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.product_natures (
+CREATE TABLE product_natures (
     id integer NOT NULL,
     category_id integer NOT NULL,
     name character varying NOT NULL,
@@ -6039,8 +5917,7 @@ CREATE TABLE public.product_natures (
 -- Name: product_natures_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.product_natures_id_seq
-    AS integer
+CREATE SEQUENCE product_natures_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -6052,14 +5929,14 @@ CREATE SEQUENCE public.product_natures_id_seq
 -- Name: product_natures_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.product_natures_id_seq OWNED BY public.product_natures.id;
+ALTER SEQUENCE product_natures_id_seq OWNED BY product_natures.id;
 
 
 --
 -- Name: product_ownerships; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.product_ownerships (
+CREATE TABLE product_ownerships (
     id integer NOT NULL,
     originator_id integer,
     originator_type character varying,
@@ -6081,8 +5958,7 @@ CREATE TABLE public.product_ownerships (
 -- Name: product_ownerships_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.product_ownerships_id_seq
-    AS integer
+CREATE SEQUENCE product_ownerships_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -6094,14 +5970,14 @@ CREATE SEQUENCE public.product_ownerships_id_seq
 -- Name: product_ownerships_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.product_ownerships_id_seq OWNED BY public.product_ownerships.id;
+ALTER SEQUENCE product_ownerships_id_seq OWNED BY product_ownerships.id;
 
 
 --
 -- Name: product_phases; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.product_phases (
+CREATE TABLE product_phases (
     id integer NOT NULL,
     originator_id integer,
     originator_type character varying,
@@ -6124,8 +6000,7 @@ CREATE TABLE public.product_phases (
 -- Name: product_phases_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.product_phases_id_seq
-    AS integer
+CREATE SEQUENCE product_phases_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -6137,31 +6012,33 @@ CREATE SEQUENCE public.product_phases_id_seq
 -- Name: product_phases_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.product_phases_id_seq OWNED BY public.product_phases.id;
+ALTER SEQUENCE product_phases_id_seq OWNED BY product_phases.id;
 
 
 --
--- Name: product_populations; Type: VIEW; Schema: public; Owner: -
+-- Name: product_populations; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE VIEW public.product_populations AS
-SELECT
-    NULL::integer AS product_id,
-    NULL::timestamp without time zone AS started_at,
-    NULL::numeric AS value,
-    NULL::integer AS creator_id,
-    NULL::timestamp without time zone AS created_at,
-    NULL::timestamp without time zone AS updated_at,
-    NULL::integer AS updater_id,
-    NULL::integer AS id,
-    NULL::integer AS lock_version;
+CREATE TABLE product_populations (
+    product_id integer,
+    started_at timestamp without time zone,
+    value numeric,
+    creator_id integer,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone,
+    updater_id integer,
+    id integer,
+    lock_version integer
+);
+
+ALTER TABLE ONLY product_populations REPLICA IDENTITY NOTHING;
 
 
 --
 -- Name: product_readings; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.product_readings (
+CREATE TABLE product_readings (
     id integer NOT NULL,
     originator_id integer,
     originator_type character varying,
@@ -6193,8 +6070,7 @@ CREATE TABLE public.product_readings (
 -- Name: product_readings_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.product_readings_id_seq
-    AS integer
+CREATE SEQUENCE product_readings_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -6206,15 +6082,14 @@ CREATE SEQUENCE public.product_readings_id_seq
 -- Name: product_readings_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.product_readings_id_seq OWNED BY public.product_readings.id;
+ALTER SEQUENCE product_readings_id_seq OWNED BY product_readings.id;
 
 
 --
 -- Name: products_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.products_id_seq
-    AS integer
+CREATE SEQUENCE products_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -6226,14 +6101,14 @@ CREATE SEQUENCE public.products_id_seq
 -- Name: products_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.products_id_seq OWNED BY public.products.id;
+ALTER SEQUENCE products_id_seq OWNED BY products.id;
 
 
 --
 -- Name: project_budgets; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.project_budgets (
+CREATE TABLE project_budgets (
     id integer NOT NULL,
     name character varying,
     description text,
@@ -6246,8 +6121,7 @@ CREATE TABLE public.project_budgets (
 -- Name: project_budgets_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.project_budgets_id_seq
-    AS integer
+CREATE SEQUENCE project_budgets_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -6259,15 +6133,14 @@ CREATE SEQUENCE public.project_budgets_id_seq
 -- Name: project_budgets_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.project_budgets_id_seq OWNED BY public.project_budgets.id;
+ALTER SEQUENCE project_budgets_id_seq OWNED BY project_budgets.id;
 
 
 --
 -- Name: purchase_items_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.purchase_items_id_seq
-    AS integer
+CREATE SEQUENCE purchase_items_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -6279,14 +6152,14 @@ CREATE SEQUENCE public.purchase_items_id_seq
 -- Name: purchase_items_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.purchase_items_id_seq OWNED BY public.purchase_items.id;
+ALTER SEQUENCE purchase_items_id_seq OWNED BY purchase_items.id;
 
 
 --
 -- Name: purchase_natures; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.purchase_natures (
+CREATE TABLE purchase_natures (
     id integer NOT NULL,
     active boolean DEFAULT true NOT NULL,
     name character varying,
@@ -6309,8 +6182,7 @@ CREATE TABLE public.purchase_natures (
 -- Name: purchase_natures_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.purchase_natures_id_seq
-    AS integer
+CREATE SEQUENCE purchase_natures_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -6322,15 +6194,14 @@ CREATE SEQUENCE public.purchase_natures_id_seq
 -- Name: purchase_natures_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.purchase_natures_id_seq OWNED BY public.purchase_natures.id;
+ALTER SEQUENCE purchase_natures_id_seq OWNED BY purchase_natures.id;
 
 
 --
 -- Name: purchases_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.purchases_id_seq
-    AS integer
+CREATE SEQUENCE purchases_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -6342,14 +6213,14 @@ CREATE SEQUENCE public.purchases_id_seq
 -- Name: purchases_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.purchases_id_seq OWNED BY public.purchases.id;
+ALTER SEQUENCE purchases_id_seq OWNED BY purchases.id;
 
 
 --
 -- Name: regularizations; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.regularizations (
+CREATE TABLE regularizations (
     id integer NOT NULL,
     affair_id integer NOT NULL,
     journal_entry_id integer NOT NULL,
@@ -6366,8 +6237,7 @@ CREATE TABLE public.regularizations (
 -- Name: regularizations_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.regularizations_id_seq
-    AS integer
+CREATE SEQUENCE regularizations_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -6379,14 +6249,14 @@ CREATE SEQUENCE public.regularizations_id_seq
 -- Name: regularizations_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.regularizations_id_seq OWNED BY public.regularizations.id;
+ALTER SEQUENCE regularizations_id_seq OWNED BY regularizations.id;
 
 
 --
 -- Name: roles; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.roles (
+CREATE TABLE roles (
     id integer NOT NULL,
     name character varying NOT NULL,
     rights text,
@@ -6403,8 +6273,7 @@ CREATE TABLE public.roles (
 -- Name: roles_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.roles_id_seq
-    AS integer
+CREATE SEQUENCE roles_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -6416,15 +6285,14 @@ CREATE SEQUENCE public.roles_id_seq
 -- Name: roles_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.roles_id_seq OWNED BY public.roles.id;
+ALTER SEQUENCE roles_id_seq OWNED BY roles.id;
 
 
 --
 -- Name: sale_items_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.sale_items_id_seq
-    AS integer
+CREATE SEQUENCE sale_items_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -6436,14 +6304,14 @@ CREATE SEQUENCE public.sale_items_id_seq
 -- Name: sale_items_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.sale_items_id_seq OWNED BY public.sale_items.id;
+ALTER SEQUENCE sale_items_id_seq OWNED BY sale_items.id;
 
 
 --
 -- Name: sale_natures; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.sale_natures (
+CREATE TABLE sale_natures (
     id integer NOT NULL,
     name character varying NOT NULL,
     active boolean DEFAULT true NOT NULL,
@@ -6473,8 +6341,7 @@ CREATE TABLE public.sale_natures (
 -- Name: sale_natures_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.sale_natures_id_seq
-    AS integer
+CREATE SEQUENCE sale_natures_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -6486,15 +6353,14 @@ CREATE SEQUENCE public.sale_natures_id_seq
 -- Name: sale_natures_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.sale_natures_id_seq OWNED BY public.sale_natures.id;
+ALTER SEQUENCE sale_natures_id_seq OWNED BY sale_natures.id;
 
 
 --
 -- Name: sales_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.sales_id_seq
-    AS integer
+CREATE SEQUENCE sales_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -6506,14 +6372,14 @@ CREATE SEQUENCE public.sales_id_seq
 -- Name: sales_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.sales_id_seq OWNED BY public.sales.id;
+ALTER SEQUENCE sales_id_seq OWNED BY sales.id;
 
 
 --
 -- Name: schema_migrations; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.schema_migrations (
+CREATE TABLE schema_migrations (
     version character varying NOT NULL
 );
 
@@ -6522,7 +6388,7 @@ CREATE TABLE public.schema_migrations (
 -- Name: sensors; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.sensors (
+CREATE TABLE sensors (
     id integer NOT NULL,
     vendor_euid character varying,
     model_euid character varying,
@@ -6551,8 +6417,7 @@ CREATE TABLE public.sensors (
 -- Name: sensors_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.sensors_id_seq
-    AS integer
+CREATE SEQUENCE sensors_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -6564,14 +6429,14 @@ CREATE SEQUENCE public.sensors_id_seq
 -- Name: sensors_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.sensors_id_seq OWNED BY public.sensors.id;
+ALTER SEQUENCE sensors_id_seq OWNED BY sensors.id;
 
 
 --
 -- Name: sequences; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.sequences (
+CREATE TABLE sequences (
     id integer NOT NULL,
     name character varying NOT NULL,
     number_format character varying NOT NULL,
@@ -6595,8 +6460,7 @@ CREATE TABLE public.sequences (
 -- Name: sequences_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.sequences_id_seq
-    AS integer
+CREATE SEQUENCE sequences_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -6608,14 +6472,14 @@ CREATE SEQUENCE public.sequences_id_seq
 -- Name: sequences_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.sequences_id_seq OWNED BY public.sequences.id;
+ALTER SEQUENCE sequences_id_seq OWNED BY sequences.id;
 
 
 --
 -- Name: subscription_natures; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.subscription_natures (
+CREATE TABLE subscription_natures (
     id integer NOT NULL,
     name character varying NOT NULL,
     description text,
@@ -6631,8 +6495,7 @@ CREATE TABLE public.subscription_natures (
 -- Name: subscription_natures_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.subscription_natures_id_seq
-    AS integer
+CREATE SEQUENCE subscription_natures_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -6644,14 +6507,14 @@ CREATE SEQUENCE public.subscription_natures_id_seq
 -- Name: subscription_natures_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.subscription_natures_id_seq OWNED BY public.subscription_natures.id;
+ALTER SEQUENCE subscription_natures_id_seq OWNED BY subscription_natures.id;
 
 
 --
 -- Name: subscriptions; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.subscriptions (
+CREATE TABLE subscriptions (
     id integer NOT NULL,
     started_on date NOT NULL,
     stopped_on date NOT NULL,
@@ -6678,8 +6541,7 @@ CREATE TABLE public.subscriptions (
 -- Name: subscriptions_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.subscriptions_id_seq
-    AS integer
+CREATE SEQUENCE subscriptions_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -6691,14 +6553,14 @@ CREATE SEQUENCE public.subscriptions_id_seq
 -- Name: subscriptions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.subscriptions_id_seq OWNED BY public.subscriptions.id;
+ALTER SEQUENCE subscriptions_id_seq OWNED BY subscriptions.id;
 
 
 --
 -- Name: supervision_items; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.supervision_items (
+CREATE TABLE supervision_items (
     id integer NOT NULL,
     supervision_id integer NOT NULL,
     sensor_id integer NOT NULL,
@@ -6715,8 +6577,7 @@ CREATE TABLE public.supervision_items (
 -- Name: supervision_items_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.supervision_items_id_seq
-    AS integer
+CREATE SEQUENCE supervision_items_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -6728,14 +6589,14 @@ CREATE SEQUENCE public.supervision_items_id_seq
 -- Name: supervision_items_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.supervision_items_id_seq OWNED BY public.supervision_items.id;
+ALTER SEQUENCE supervision_items_id_seq OWNED BY supervision_items.id;
 
 
 --
 -- Name: supervisions; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.supervisions (
+CREATE TABLE supervisions (
     id integer NOT NULL,
     name character varying NOT NULL,
     time_window integer,
@@ -6753,8 +6614,7 @@ CREATE TABLE public.supervisions (
 -- Name: supervisions_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.supervisions_id_seq
-    AS integer
+CREATE SEQUENCE supervisions_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -6766,14 +6626,14 @@ CREATE SEQUENCE public.supervisions_id_seq
 -- Name: supervisions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.supervisions_id_seq OWNED BY public.supervisions.id;
+ALTER SEQUENCE supervisions_id_seq OWNED BY supervisions.id;
 
 
 --
 -- Name: synchronization_operations; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.synchronization_operations (
+CREATE TABLE synchronization_operations (
     id integer NOT NULL,
     operation_name character varying NOT NULL,
     state character varying NOT NULL,
@@ -6795,8 +6655,7 @@ CREATE TABLE public.synchronization_operations (
 -- Name: synchronization_operations_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.synchronization_operations_id_seq
-    AS integer
+CREATE SEQUENCE synchronization_operations_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -6808,14 +6667,14 @@ CREATE SEQUENCE public.synchronization_operations_id_seq
 -- Name: synchronization_operations_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.synchronization_operations_id_seq OWNED BY public.synchronization_operations.id;
+ALTER SEQUENCE synchronization_operations_id_seq OWNED BY synchronization_operations.id;
 
 
 --
 -- Name: target_distributions; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.target_distributions (
+CREATE TABLE target_distributions (
     id integer NOT NULL,
     target_id integer NOT NULL,
     activity_production_id integer NOT NULL,
@@ -6834,8 +6693,7 @@ CREATE TABLE public.target_distributions (
 -- Name: target_distributions_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.target_distributions_id_seq
-    AS integer
+CREATE SEQUENCE target_distributions_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -6847,14 +6705,14 @@ CREATE SEQUENCE public.target_distributions_id_seq
 -- Name: target_distributions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.target_distributions_id_seq OWNED BY public.target_distributions.id;
+ALTER SEQUENCE target_distributions_id_seq OWNED BY target_distributions.id;
 
 
 --
 -- Name: tasks; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.tasks (
+CREATE TABLE tasks (
     id integer NOT NULL,
     name character varying NOT NULL,
     state character varying NOT NULL,
@@ -6877,8 +6735,7 @@ CREATE TABLE public.tasks (
 -- Name: tasks_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.tasks_id_seq
-    AS integer
+CREATE SEQUENCE tasks_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -6890,14 +6747,14 @@ CREATE SEQUENCE public.tasks_id_seq
 -- Name: tasks_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.tasks_id_seq OWNED BY public.tasks.id;
+ALTER SEQUENCE tasks_id_seq OWNED BY tasks.id;
 
 
 --
 -- Name: tax_declaration_item_parts; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.tax_declaration_item_parts (
+CREATE TABLE tax_declaration_item_parts (
     id integer NOT NULL,
     tax_declaration_item_id integer NOT NULL,
     journal_entry_item_id integer NOT NULL,
@@ -6919,8 +6776,7 @@ CREATE TABLE public.tax_declaration_item_parts (
 -- Name: tax_declaration_item_parts_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.tax_declaration_item_parts_id_seq
-    AS integer
+CREATE SEQUENCE tax_declaration_item_parts_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -6932,14 +6788,14 @@ CREATE SEQUENCE public.tax_declaration_item_parts_id_seq
 -- Name: tax_declaration_item_parts_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.tax_declaration_item_parts_id_seq OWNED BY public.tax_declaration_item_parts.id;
+ALTER SEQUENCE tax_declaration_item_parts_id_seq OWNED BY tax_declaration_item_parts.id;
 
 
 --
 -- Name: tax_declaration_items; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.tax_declaration_items (
+CREATE TABLE tax_declaration_items (
     id integer NOT NULL,
     tax_declaration_id integer NOT NULL,
     tax_id integer NOT NULL,
@@ -6966,8 +6822,7 @@ CREATE TABLE public.tax_declaration_items (
 -- Name: tax_declaration_items_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.tax_declaration_items_id_seq
-    AS integer
+CREATE SEQUENCE tax_declaration_items_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -6979,14 +6834,14 @@ CREATE SEQUENCE public.tax_declaration_items_id_seq
 -- Name: tax_declaration_items_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.tax_declaration_items_id_seq OWNED BY public.tax_declaration_items.id;
+ALTER SEQUENCE tax_declaration_items_id_seq OWNED BY tax_declaration_items.id;
 
 
 --
 -- Name: tax_declarations; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.tax_declarations (
+CREATE TABLE tax_declarations (
     id integer NOT NULL,
     financial_year_id integer NOT NULL,
     journal_entry_id integer,
@@ -7013,8 +6868,7 @@ CREATE TABLE public.tax_declarations (
 -- Name: tax_declarations_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.tax_declarations_id_seq
-    AS integer
+CREATE SEQUENCE tax_declarations_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -7026,14 +6880,14 @@ CREATE SEQUENCE public.tax_declarations_id_seq
 -- Name: tax_declarations_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.tax_declarations_id_seq OWNED BY public.tax_declarations.id;
+ALTER SEQUENCE tax_declarations_id_seq OWNED BY tax_declarations.id;
 
 
 --
 -- Name: taxes; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.taxes (
+CREATE TABLE taxes (
     id integer NOT NULL,
     name character varying NOT NULL,
     amount numeric(19,4) DEFAULT 0.0 NOT NULL,
@@ -7060,8 +6914,7 @@ CREATE TABLE public.taxes (
 -- Name: taxes_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.taxes_id_seq
-    AS integer
+CREATE SEQUENCE taxes_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -7073,14 +6926,14 @@ CREATE SEQUENCE public.taxes_id_seq
 -- Name: taxes_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.taxes_id_seq OWNED BY public.taxes.id;
+ALTER SEQUENCE taxes_id_seq OWNED BY taxes.id;
 
 
 --
 -- Name: teams; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.teams (
+CREATE TABLE teams (
     id integer NOT NULL,
     name character varying NOT NULL,
     description text,
@@ -7100,8 +6953,7 @@ CREATE TABLE public.teams (
 -- Name: teams_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.teams_id_seq
-    AS integer
+CREATE SEQUENCE teams_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -7113,14 +6965,14 @@ CREATE SEQUENCE public.teams_id_seq
 -- Name: teams_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.teams_id_seq OWNED BY public.teams.id;
+ALTER SEQUENCE teams_id_seq OWNED BY teams.id;
 
 
 --
 -- Name: tokens; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.tokens (
+CREATE TABLE tokens (
     id integer NOT NULL,
     name character varying NOT NULL,
     value character varying NOT NULL,
@@ -7136,8 +6988,7 @@ CREATE TABLE public.tokens (
 -- Name: tokens_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.tokens_id_seq
-    AS integer
+CREATE SEQUENCE tokens_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -7149,14 +7000,14 @@ CREATE SEQUENCE public.tokens_id_seq
 -- Name: tokens_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.tokens_id_seq OWNED BY public.tokens.id;
+ALTER SEQUENCE tokens_id_seq OWNED BY tokens.id;
 
 
 --
 -- Name: trackings; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.trackings (
+CREATE TABLE trackings (
     id integer NOT NULL,
     name character varying NOT NULL,
     serial character varying,
@@ -7178,8 +7029,7 @@ CREATE TABLE public.trackings (
 -- Name: trackings_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.trackings_id_seq
-    AS integer
+CREATE SEQUENCE trackings_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -7191,14 +7041,14 @@ CREATE SEQUENCE public.trackings_id_seq
 -- Name: trackings_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.trackings_id_seq OWNED BY public.trackings.id;
+ALTER SEQUENCE trackings_id_seq OWNED BY trackings.id;
 
 
 --
 -- Name: users; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.users (
+CREATE TABLE users (
     id integer NOT NULL,
     first_name character varying NOT NULL,
     last_name character varying NOT NULL,
@@ -7254,8 +7104,7 @@ CREATE TABLE public.users (
 -- Name: users_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.users_id_seq
-    AS integer
+CREATE SEQUENCE users_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -7267,14 +7116,14 @@ CREATE SEQUENCE public.users_id_seq
 -- Name: users_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.users_id_seq OWNED BY public.users.id;
+ALTER SEQUENCE users_id_seq OWNED BY users.id;
 
 
 --
 -- Name: versions; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.versions (
+CREATE TABLE versions (
     id integer NOT NULL,
     event character varying NOT NULL,
     item_id integer,
@@ -7291,8 +7140,7 @@ CREATE TABLE public.versions (
 -- Name: versions_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.versions_id_seq
-    AS integer
+CREATE SEQUENCE versions_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -7304,14 +7152,14 @@ CREATE SEQUENCE public.versions_id_seq
 -- Name: versions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.versions_id_seq OWNED BY public.versions.id;
+ALTER SEQUENCE versions_id_seq OWNED BY versions.id;
 
 
 --
 -- Name: wice_grid_serialized_queries; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.wice_grid_serialized_queries (
+CREATE TABLE wice_grid_serialized_queries (
     id integer NOT NULL,
     name character varying,
     grid_name character varying,
@@ -7325,8 +7173,7 @@ CREATE TABLE public.wice_grid_serialized_queries (
 -- Name: wice_grid_serialized_queries_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.wice_grid_serialized_queries_id_seq
-    AS integer
+CREATE SEQUENCE wice_grid_serialized_queries_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -7338,1106 +7185,1106 @@ CREATE SEQUENCE public.wice_grid_serialized_queries_id_seq
 -- Name: wice_grid_serialized_queries_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.wice_grid_serialized_queries_id_seq OWNED BY public.wice_grid_serialized_queries.id;
+ALTER SEQUENCE wice_grid_serialized_queries_id_seq OWNED BY wice_grid_serialized_queries.id;
 
 
 --
 -- Name: account_balances id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.account_balances ALTER COLUMN id SET DEFAULT nextval('public.account_balances_id_seq'::regclass);
+ALTER TABLE ONLY account_balances ALTER COLUMN id SET DEFAULT nextval('account_balances_id_seq'::regclass);
 
 
 --
 -- Name: accounts id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.accounts ALTER COLUMN id SET DEFAULT nextval('public.accounts_id_seq'::regclass);
+ALTER TABLE ONLY accounts ALTER COLUMN id SET DEFAULT nextval('accounts_id_seq'::regclass);
 
 
 --
 -- Name: activities id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.activities ALTER COLUMN id SET DEFAULT nextval('public.activities_id_seq'::regclass);
+ALTER TABLE ONLY activities ALTER COLUMN id SET DEFAULT nextval('activities_id_seq'::regclass);
 
 
 --
 -- Name: activity_budget_items id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.activity_budget_items ALTER COLUMN id SET DEFAULT nextval('public.activity_budget_items_id_seq'::regclass);
+ALTER TABLE ONLY activity_budget_items ALTER COLUMN id SET DEFAULT nextval('activity_budget_items_id_seq'::regclass);
 
 
 --
 -- Name: activity_budgets id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.activity_budgets ALTER COLUMN id SET DEFAULT nextval('public.activity_budgets_id_seq'::regclass);
+ALTER TABLE ONLY activity_budgets ALTER COLUMN id SET DEFAULT nextval('activity_budgets_id_seq'::regclass);
 
 
 --
 -- Name: activity_distributions id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.activity_distributions ALTER COLUMN id SET DEFAULT nextval('public.activity_distributions_id_seq'::regclass);
+ALTER TABLE ONLY activity_distributions ALTER COLUMN id SET DEFAULT nextval('activity_distributions_id_seq'::regclass);
 
 
 --
 -- Name: activity_inspection_calibration_natures id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.activity_inspection_calibration_natures ALTER COLUMN id SET DEFAULT nextval('public.activity_inspection_calibration_natures_id_seq'::regclass);
+ALTER TABLE ONLY activity_inspection_calibration_natures ALTER COLUMN id SET DEFAULT nextval('activity_inspection_calibration_natures_id_seq'::regclass);
 
 
 --
 -- Name: activity_inspection_calibration_scales id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.activity_inspection_calibration_scales ALTER COLUMN id SET DEFAULT nextval('public.activity_inspection_calibration_scales_id_seq'::regclass);
+ALTER TABLE ONLY activity_inspection_calibration_scales ALTER COLUMN id SET DEFAULT nextval('activity_inspection_calibration_scales_id_seq'::regclass);
 
 
 --
 -- Name: activity_inspection_point_natures id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.activity_inspection_point_natures ALTER COLUMN id SET DEFAULT nextval('public.activity_inspection_point_natures_id_seq'::regclass);
+ALTER TABLE ONLY activity_inspection_point_natures ALTER COLUMN id SET DEFAULT nextval('activity_inspection_point_natures_id_seq'::regclass);
 
 
 --
 -- Name: activity_productions id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.activity_productions ALTER COLUMN id SET DEFAULT nextval('public.activity_productions_id_seq'::regclass);
+ALTER TABLE ONLY activity_productions ALTER COLUMN id SET DEFAULT nextval('activity_productions_id_seq'::regclass);
 
 
 --
 -- Name: activity_seasons id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.activity_seasons ALTER COLUMN id SET DEFAULT nextval('public.activity_seasons_id_seq'::regclass);
+ALTER TABLE ONLY activity_seasons ALTER COLUMN id SET DEFAULT nextval('activity_seasons_id_seq'::regclass);
 
 
 --
 -- Name: activity_tactics id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.activity_tactics ALTER COLUMN id SET DEFAULT nextval('public.activity_tactics_id_seq'::regclass);
+ALTER TABLE ONLY activity_tactics ALTER COLUMN id SET DEFAULT nextval('activity_tactics_id_seq'::regclass);
 
 
 --
 -- Name: affairs id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.affairs ALTER COLUMN id SET DEFAULT nextval('public.affairs_id_seq'::regclass);
+ALTER TABLE ONLY affairs ALTER COLUMN id SET DEFAULT nextval('affairs_id_seq'::regclass);
 
 
 --
 -- Name: alert_phases id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.alert_phases ALTER COLUMN id SET DEFAULT nextval('public.alert_phases_id_seq'::regclass);
+ALTER TABLE ONLY alert_phases ALTER COLUMN id SET DEFAULT nextval('alert_phases_id_seq'::regclass);
 
 
 --
 -- Name: alerts id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.alerts ALTER COLUMN id SET DEFAULT nextval('public.alerts_id_seq'::regclass);
+ALTER TABLE ONLY alerts ALTER COLUMN id SET DEFAULT nextval('alerts_id_seq'::regclass);
 
 
 --
 -- Name: analyses id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.analyses ALTER COLUMN id SET DEFAULT nextval('public.analyses_id_seq'::regclass);
+ALTER TABLE ONLY analyses ALTER COLUMN id SET DEFAULT nextval('analyses_id_seq'::regclass);
 
 
 --
 -- Name: analysis_items id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.analysis_items ALTER COLUMN id SET DEFAULT nextval('public.analysis_items_id_seq'::regclass);
+ALTER TABLE ONLY analysis_items ALTER COLUMN id SET DEFAULT nextval('analysis_items_id_seq'::regclass);
 
 
 --
 -- Name: attachments id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.attachments ALTER COLUMN id SET DEFAULT nextval('public.attachments_id_seq'::regclass);
+ALTER TABLE ONLY attachments ALTER COLUMN id SET DEFAULT nextval('attachments_id_seq'::regclass);
 
 
 --
 -- Name: bank_statement_items id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.bank_statement_items ALTER COLUMN id SET DEFAULT nextval('public.bank_statement_items_id_seq'::regclass);
+ALTER TABLE ONLY bank_statement_items ALTER COLUMN id SET DEFAULT nextval('bank_statement_items_id_seq'::regclass);
 
 
 --
 -- Name: bank_statements id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.bank_statements ALTER COLUMN id SET DEFAULT nextval('public.bank_statements_id_seq'::regclass);
+ALTER TABLE ONLY bank_statements ALTER COLUMN id SET DEFAULT nextval('bank_statements_id_seq'::regclass);
 
 
 --
 -- Name: call_messages id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.call_messages ALTER COLUMN id SET DEFAULT nextval('public.call_messages_id_seq'::regclass);
+ALTER TABLE ONLY call_messages ALTER COLUMN id SET DEFAULT nextval('call_messages_id_seq'::regclass);
 
 
 --
 -- Name: calls id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.calls ALTER COLUMN id SET DEFAULT nextval('public.calls_id_seq'::regclass);
+ALTER TABLE ONLY calls ALTER COLUMN id SET DEFAULT nextval('calls_id_seq'::regclass);
 
 
 --
 -- Name: campaigns id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.campaigns ALTER COLUMN id SET DEFAULT nextval('public.campaigns_id_seq'::regclass);
+ALTER TABLE ONLY campaigns ALTER COLUMN id SET DEFAULT nextval('campaigns_id_seq'::regclass);
 
 
 --
 -- Name: cap_islets id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.cap_islets ALTER COLUMN id SET DEFAULT nextval('public.cap_islets_id_seq'::regclass);
+ALTER TABLE ONLY cap_islets ALTER COLUMN id SET DEFAULT nextval('cap_islets_id_seq'::regclass);
 
 
 --
 -- Name: cap_land_parcels id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.cap_land_parcels ALTER COLUMN id SET DEFAULT nextval('public.cap_land_parcels_id_seq'::regclass);
+ALTER TABLE ONLY cap_land_parcels ALTER COLUMN id SET DEFAULT nextval('cap_land_parcels_id_seq'::regclass);
 
 
 --
 -- Name: cap_neutral_areas id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.cap_neutral_areas ALTER COLUMN id SET DEFAULT nextval('public.cap_neutral_areas_id_seq'::regclass);
+ALTER TABLE ONLY cap_neutral_areas ALTER COLUMN id SET DEFAULT nextval('cap_neutral_areas_id_seq'::regclass);
 
 
 --
 -- Name: cap_statements id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.cap_statements ALTER COLUMN id SET DEFAULT nextval('public.cap_statements_id_seq'::regclass);
+ALTER TABLE ONLY cap_statements ALTER COLUMN id SET DEFAULT nextval('cap_statements_id_seq'::regclass);
 
 
 --
 -- Name: cash_sessions id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.cash_sessions ALTER COLUMN id SET DEFAULT nextval('public.cash_sessions_id_seq'::regclass);
+ALTER TABLE ONLY cash_sessions ALTER COLUMN id SET DEFAULT nextval('cash_sessions_id_seq'::regclass);
 
 
 --
 -- Name: cash_transfers id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.cash_transfers ALTER COLUMN id SET DEFAULT nextval('public.cash_transfers_id_seq'::regclass);
+ALTER TABLE ONLY cash_transfers ALTER COLUMN id SET DEFAULT nextval('cash_transfers_id_seq'::regclass);
 
 
 --
 -- Name: cashes id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.cashes ALTER COLUMN id SET DEFAULT nextval('public.cashes_id_seq'::regclass);
+ALTER TABLE ONLY cashes ALTER COLUMN id SET DEFAULT nextval('cashes_id_seq'::regclass);
 
 
 --
 -- Name: catalog_items id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.catalog_items ALTER COLUMN id SET DEFAULT nextval('public.catalog_items_id_seq'::regclass);
+ALTER TABLE ONLY catalog_items ALTER COLUMN id SET DEFAULT nextval('catalog_items_id_seq'::regclass);
 
 
 --
 -- Name: catalogs id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.catalogs ALTER COLUMN id SET DEFAULT nextval('public.catalogs_id_seq'::regclass);
+ALTER TABLE ONLY catalogs ALTER COLUMN id SET DEFAULT nextval('catalogs_id_seq'::regclass);
 
 
 --
 -- Name: contract_items id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.contract_items ALTER COLUMN id SET DEFAULT nextval('public.contract_items_id_seq'::regclass);
+ALTER TABLE ONLY contract_items ALTER COLUMN id SET DEFAULT nextval('contract_items_id_seq'::regclass);
 
 
 --
 -- Name: contracts id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.contracts ALTER COLUMN id SET DEFAULT nextval('public.contracts_id_seq'::regclass);
+ALTER TABLE ONLY contracts ALTER COLUMN id SET DEFAULT nextval('contracts_id_seq'::regclass);
 
 
 --
 -- Name: crumbs id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.crumbs ALTER COLUMN id SET DEFAULT nextval('public.crumbs_id_seq'::regclass);
+ALTER TABLE ONLY crumbs ALTER COLUMN id SET DEFAULT nextval('crumbs_id_seq'::regclass);
 
 
 --
 -- Name: cultivable_zones id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.cultivable_zones ALTER COLUMN id SET DEFAULT nextval('public.cultivable_zones_id_seq'::regclass);
+ALTER TABLE ONLY cultivable_zones ALTER COLUMN id SET DEFAULT nextval('cultivable_zones_id_seq'::regclass);
 
 
 --
 -- Name: custom_field_choices id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.custom_field_choices ALTER COLUMN id SET DEFAULT nextval('public.custom_field_choices_id_seq'::regclass);
+ALTER TABLE ONLY custom_field_choices ALTER COLUMN id SET DEFAULT nextval('custom_field_choices_id_seq'::regclass);
 
 
 --
 -- Name: custom_fields id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.custom_fields ALTER COLUMN id SET DEFAULT nextval('public.custom_fields_id_seq'::regclass);
+ALTER TABLE ONLY custom_fields ALTER COLUMN id SET DEFAULT nextval('custom_fields_id_seq'::regclass);
 
 
 --
 -- Name: dashboards id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.dashboards ALTER COLUMN id SET DEFAULT nextval('public.dashboards_id_seq'::regclass);
+ALTER TABLE ONLY dashboards ALTER COLUMN id SET DEFAULT nextval('dashboards_id_seq'::regclass);
 
 
 --
 -- Name: debt_transfers id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.debt_transfers ALTER COLUMN id SET DEFAULT nextval('public.debt_transfers_id_seq'::regclass);
+ALTER TABLE ONLY debt_transfers ALTER COLUMN id SET DEFAULT nextval('debt_transfers_id_seq'::regclass);
 
 
 --
 -- Name: deliveries id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.deliveries ALTER COLUMN id SET DEFAULT nextval('public.deliveries_id_seq'::regclass);
+ALTER TABLE ONLY deliveries ALTER COLUMN id SET DEFAULT nextval('deliveries_id_seq'::regclass);
 
 
 --
 -- Name: delivery_tools id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.delivery_tools ALTER COLUMN id SET DEFAULT nextval('public.delivery_tools_id_seq'::regclass);
+ALTER TABLE ONLY delivery_tools ALTER COLUMN id SET DEFAULT nextval('delivery_tools_id_seq'::regclass);
 
 
 --
 -- Name: deposits id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.deposits ALTER COLUMN id SET DEFAULT nextval('public.deposits_id_seq'::regclass);
+ALTER TABLE ONLY deposits ALTER COLUMN id SET DEFAULT nextval('deposits_id_seq'::regclass);
 
 
 --
 -- Name: districts id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.districts ALTER COLUMN id SET DEFAULT nextval('public.districts_id_seq'::regclass);
+ALTER TABLE ONLY districts ALTER COLUMN id SET DEFAULT nextval('districts_id_seq'::regclass);
 
 
 --
 -- Name: document_templates id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.document_templates ALTER COLUMN id SET DEFAULT nextval('public.document_templates_id_seq'::regclass);
+ALTER TABLE ONLY document_templates ALTER COLUMN id SET DEFAULT nextval('document_templates_id_seq'::regclass);
 
 
 --
 -- Name: documents id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.documents ALTER COLUMN id SET DEFAULT nextval('public.documents_id_seq'::regclass);
+ALTER TABLE ONLY documents ALTER COLUMN id SET DEFAULT nextval('documents_id_seq'::regclass);
 
 
 --
 -- Name: entities id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.entities ALTER COLUMN id SET DEFAULT nextval('public.entities_id_seq'::regclass);
+ALTER TABLE ONLY entities ALTER COLUMN id SET DEFAULT nextval('entities_id_seq'::regclass);
 
 
 --
 -- Name: entity_addresses id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.entity_addresses ALTER COLUMN id SET DEFAULT nextval('public.entity_addresses_id_seq'::regclass);
+ALTER TABLE ONLY entity_addresses ALTER COLUMN id SET DEFAULT nextval('entity_addresses_id_seq'::regclass);
 
 
 --
 -- Name: entity_links id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.entity_links ALTER COLUMN id SET DEFAULT nextval('public.entity_links_id_seq'::regclass);
+ALTER TABLE ONLY entity_links ALTER COLUMN id SET DEFAULT nextval('entity_links_id_seq'::regclass);
 
 
 --
 -- Name: event_participations id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.event_participations ALTER COLUMN id SET DEFAULT nextval('public.event_participations_id_seq'::regclass);
+ALTER TABLE ONLY event_participations ALTER COLUMN id SET DEFAULT nextval('event_participations_id_seq'::regclass);
 
 
 --
 -- Name: events id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.events ALTER COLUMN id SET DEFAULT nextval('public.events_id_seq'::regclass);
+ALTER TABLE ONLY events ALTER COLUMN id SET DEFAULT nextval('events_id_seq'::regclass);
 
 
 --
 -- Name: financial_year_exchanges id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.financial_year_exchanges ALTER COLUMN id SET DEFAULT nextval('public.financial_year_exchanges_id_seq'::regclass);
+ALTER TABLE ONLY financial_year_exchanges ALTER COLUMN id SET DEFAULT nextval('financial_year_exchanges_id_seq'::regclass);
 
 
 --
 -- Name: financial_years id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.financial_years ALTER COLUMN id SET DEFAULT nextval('public.financial_years_id_seq'::regclass);
+ALTER TABLE ONLY financial_years ALTER COLUMN id SET DEFAULT nextval('financial_years_id_seq'::regclass);
 
 
 --
 -- Name: fixed_asset_depreciations id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.fixed_asset_depreciations ALTER COLUMN id SET DEFAULT nextval('public.fixed_asset_depreciations_id_seq'::regclass);
+ALTER TABLE ONLY fixed_asset_depreciations ALTER COLUMN id SET DEFAULT nextval('fixed_asset_depreciations_id_seq'::regclass);
 
 
 --
 -- Name: fixed_assets id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.fixed_assets ALTER COLUMN id SET DEFAULT nextval('public.fixed_assets_id_seq'::regclass);
+ALTER TABLE ONLY fixed_assets ALTER COLUMN id SET DEFAULT nextval('fixed_assets_id_seq'::regclass);
 
 
 --
 -- Name: gap_items id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.gap_items ALTER COLUMN id SET DEFAULT nextval('public.gap_items_id_seq'::regclass);
+ALTER TABLE ONLY gap_items ALTER COLUMN id SET DEFAULT nextval('gap_items_id_seq'::regclass);
 
 
 --
 -- Name: gaps id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.gaps ALTER COLUMN id SET DEFAULT nextval('public.gaps_id_seq'::regclass);
+ALTER TABLE ONLY gaps ALTER COLUMN id SET DEFAULT nextval('gaps_id_seq'::regclass);
 
 
 --
 -- Name: georeadings id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.georeadings ALTER COLUMN id SET DEFAULT nextval('public.georeadings_id_seq'::regclass);
+ALTER TABLE ONLY georeadings ALTER COLUMN id SET DEFAULT nextval('georeadings_id_seq'::regclass);
 
 
 --
 -- Name: guide_analyses id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.guide_analyses ALTER COLUMN id SET DEFAULT nextval('public.guide_analyses_id_seq'::regclass);
+ALTER TABLE ONLY guide_analyses ALTER COLUMN id SET DEFAULT nextval('guide_analyses_id_seq'::regclass);
 
 
 --
 -- Name: guide_analysis_points id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.guide_analysis_points ALTER COLUMN id SET DEFAULT nextval('public.guide_analysis_points_id_seq'::regclass);
+ALTER TABLE ONLY guide_analysis_points ALTER COLUMN id SET DEFAULT nextval('guide_analysis_points_id_seq'::regclass);
 
 
 --
 -- Name: guides id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.guides ALTER COLUMN id SET DEFAULT nextval('public.guides_id_seq'::regclass);
+ALTER TABLE ONLY guides ALTER COLUMN id SET DEFAULT nextval('guides_id_seq'::regclass);
 
 
 --
 -- Name: identifiers id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.identifiers ALTER COLUMN id SET DEFAULT nextval('public.identifiers_id_seq'::regclass);
+ALTER TABLE ONLY identifiers ALTER COLUMN id SET DEFAULT nextval('identifiers_id_seq'::regclass);
 
 
 --
 -- Name: imports id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.imports ALTER COLUMN id SET DEFAULT nextval('public.imports_id_seq'::regclass);
+ALTER TABLE ONLY imports ALTER COLUMN id SET DEFAULT nextval('imports_id_seq'::regclass);
 
 
 --
 -- Name: incoming_payment_modes id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.incoming_payment_modes ALTER COLUMN id SET DEFAULT nextval('public.incoming_payment_modes_id_seq'::regclass);
+ALTER TABLE ONLY incoming_payment_modes ALTER COLUMN id SET DEFAULT nextval('incoming_payment_modes_id_seq'::regclass);
 
 
 --
 -- Name: incoming_payments id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.incoming_payments ALTER COLUMN id SET DEFAULT nextval('public.incoming_payments_id_seq'::regclass);
+ALTER TABLE ONLY incoming_payments ALTER COLUMN id SET DEFAULT nextval('incoming_payments_id_seq'::regclass);
 
 
 --
 -- Name: inspection_calibrations id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.inspection_calibrations ALTER COLUMN id SET DEFAULT nextval('public.inspection_calibrations_id_seq'::regclass);
+ALTER TABLE ONLY inspection_calibrations ALTER COLUMN id SET DEFAULT nextval('inspection_calibrations_id_seq'::regclass);
 
 
 --
 -- Name: inspection_points id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.inspection_points ALTER COLUMN id SET DEFAULT nextval('public.inspection_points_id_seq'::regclass);
+ALTER TABLE ONLY inspection_points ALTER COLUMN id SET DEFAULT nextval('inspection_points_id_seq'::regclass);
 
 
 --
 -- Name: inspections id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.inspections ALTER COLUMN id SET DEFAULT nextval('public.inspections_id_seq'::regclass);
+ALTER TABLE ONLY inspections ALTER COLUMN id SET DEFAULT nextval('inspections_id_seq'::regclass);
 
 
 --
 -- Name: integrations id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.integrations ALTER COLUMN id SET DEFAULT nextval('public.integrations_id_seq'::regclass);
+ALTER TABLE ONLY integrations ALTER COLUMN id SET DEFAULT nextval('integrations_id_seq'::regclass);
 
 
 --
 -- Name: intervention_costs id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.intervention_costs ALTER COLUMN id SET DEFAULT nextval('public.intervention_costs_id_seq'::regclass);
+ALTER TABLE ONLY intervention_costs ALTER COLUMN id SET DEFAULT nextval('intervention_costs_id_seq'::regclass);
 
 
 --
 -- Name: intervention_labellings id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.intervention_labellings ALTER COLUMN id SET DEFAULT nextval('public.intervention_labellings_id_seq'::regclass);
+ALTER TABLE ONLY intervention_labellings ALTER COLUMN id SET DEFAULT nextval('intervention_labellings_id_seq'::regclass);
 
 
 --
 -- Name: intervention_parameter_readings id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.intervention_parameter_readings ALTER COLUMN id SET DEFAULT nextval('public.intervention_parameter_readings_id_seq'::regclass);
+ALTER TABLE ONLY intervention_parameter_readings ALTER COLUMN id SET DEFAULT nextval('intervention_parameter_readings_id_seq'::regclass);
 
 
 --
 -- Name: intervention_parameters id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.intervention_parameters ALTER COLUMN id SET DEFAULT nextval('public.intervention_parameters_id_seq'::regclass);
+ALTER TABLE ONLY intervention_parameters ALTER COLUMN id SET DEFAULT nextval('intervention_parameters_id_seq'::regclass);
 
 
 --
 -- Name: intervention_participations id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.intervention_participations ALTER COLUMN id SET DEFAULT nextval('public.intervention_participations_id_seq'::regclass);
+ALTER TABLE ONLY intervention_participations ALTER COLUMN id SET DEFAULT nextval('intervention_participations_id_seq'::regclass);
 
 
 --
 -- Name: intervention_working_periods id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.intervention_working_periods ALTER COLUMN id SET DEFAULT nextval('public.intervention_working_periods_id_seq'::regclass);
+ALTER TABLE ONLY intervention_working_periods ALTER COLUMN id SET DEFAULT nextval('intervention_working_periods_id_seq'::regclass);
 
 
 --
 -- Name: interventions id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.interventions ALTER COLUMN id SET DEFAULT nextval('public.interventions_id_seq'::regclass);
+ALTER TABLE ONLY interventions ALTER COLUMN id SET DEFAULT nextval('interventions_id_seq'::regclass);
 
 
 --
 -- Name: inventories id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.inventories ALTER COLUMN id SET DEFAULT nextval('public.inventories_id_seq'::regclass);
+ALTER TABLE ONLY inventories ALTER COLUMN id SET DEFAULT nextval('inventories_id_seq'::regclass);
 
 
 --
 -- Name: inventory_items id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.inventory_items ALTER COLUMN id SET DEFAULT nextval('public.inventory_items_id_seq'::regclass);
+ALTER TABLE ONLY inventory_items ALTER COLUMN id SET DEFAULT nextval('inventory_items_id_seq'::regclass);
 
 
 --
 -- Name: issues id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.issues ALTER COLUMN id SET DEFAULT nextval('public.issues_id_seq'::regclass);
+ALTER TABLE ONLY issues ALTER COLUMN id SET DEFAULT nextval('issues_id_seq'::regclass);
 
 
 --
 -- Name: journal_entries id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.journal_entries ALTER COLUMN id SET DEFAULT nextval('public.journal_entries_id_seq'::regclass);
+ALTER TABLE ONLY journal_entries ALTER COLUMN id SET DEFAULT nextval('journal_entries_id_seq'::regclass);
 
 
 --
 -- Name: journal_entry_items id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.journal_entry_items ALTER COLUMN id SET DEFAULT nextval('public.journal_entry_items_id_seq'::regclass);
+ALTER TABLE ONLY journal_entry_items ALTER COLUMN id SET DEFAULT nextval('journal_entry_items_id_seq'::regclass);
 
 
 --
 -- Name: journals id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.journals ALTER COLUMN id SET DEFAULT nextval('public.journals_id_seq'::regclass);
+ALTER TABLE ONLY journals ALTER COLUMN id SET DEFAULT nextval('journals_id_seq'::regclass);
 
 
 --
 -- Name: labels id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.labels ALTER COLUMN id SET DEFAULT nextval('public.labels_id_seq'::regclass);
+ALTER TABLE ONLY labels ALTER COLUMN id SET DEFAULT nextval('labels_id_seq'::regclass);
 
 
 --
 -- Name: listing_node_items id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.listing_node_items ALTER COLUMN id SET DEFAULT nextval('public.listing_node_items_id_seq'::regclass);
+ALTER TABLE ONLY listing_node_items ALTER COLUMN id SET DEFAULT nextval('listing_node_items_id_seq'::regclass);
 
 
 --
 -- Name: listing_nodes id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.listing_nodes ALTER COLUMN id SET DEFAULT nextval('public.listing_nodes_id_seq'::regclass);
+ALTER TABLE ONLY listing_nodes ALTER COLUMN id SET DEFAULT nextval('listing_nodes_id_seq'::regclass);
 
 
 --
 -- Name: listings id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.listings ALTER COLUMN id SET DEFAULT nextval('public.listings_id_seq'::regclass);
+ALTER TABLE ONLY listings ALTER COLUMN id SET DEFAULT nextval('listings_id_seq'::regclass);
 
 
 --
 -- Name: loan_repayments id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.loan_repayments ALTER COLUMN id SET DEFAULT nextval('public.loan_repayments_id_seq'::regclass);
+ALTER TABLE ONLY loan_repayments ALTER COLUMN id SET DEFAULT nextval('loan_repayments_id_seq'::regclass);
 
 
 --
 -- Name: loans id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.loans ALTER COLUMN id SET DEFAULT nextval('public.loans_id_seq'::regclass);
+ALTER TABLE ONLY loans ALTER COLUMN id SET DEFAULT nextval('loans_id_seq'::regclass);
 
 
 --
 -- Name: manure_management_plan_zones id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.manure_management_plan_zones ALTER COLUMN id SET DEFAULT nextval('public.manure_management_plan_zones_id_seq'::regclass);
+ALTER TABLE ONLY manure_management_plan_zones ALTER COLUMN id SET DEFAULT nextval('manure_management_plan_zones_id_seq'::regclass);
 
 
 --
 -- Name: manure_management_plans id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.manure_management_plans ALTER COLUMN id SET DEFAULT nextval('public.manure_management_plans_id_seq'::regclass);
+ALTER TABLE ONLY manure_management_plans ALTER COLUMN id SET DEFAULT nextval('manure_management_plans_id_seq'::regclass);
 
 
 --
 -- Name: map_layers id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.map_layers ALTER COLUMN id SET DEFAULT nextval('public.map_layers_id_seq'::regclass);
+ALTER TABLE ONLY map_layers ALTER COLUMN id SET DEFAULT nextval('map_layers_id_seq'::regclass);
 
 
 --
 -- Name: naming_format_fields id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.naming_format_fields ALTER COLUMN id SET DEFAULT nextval('public.naming_format_fields_id_seq'::regclass);
+ALTER TABLE ONLY naming_format_fields ALTER COLUMN id SET DEFAULT nextval('naming_format_fields_id_seq'::regclass);
 
 
 --
 -- Name: naming_formats id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.naming_formats ALTER COLUMN id SET DEFAULT nextval('public.naming_formats_id_seq'::regclass);
+ALTER TABLE ONLY naming_formats ALTER COLUMN id SET DEFAULT nextval('naming_formats_id_seq'::regclass);
 
 
 --
 -- Name: net_services id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.net_services ALTER COLUMN id SET DEFAULT nextval('public.net_services_id_seq'::regclass);
+ALTER TABLE ONLY net_services ALTER COLUMN id SET DEFAULT nextval('net_services_id_seq'::regclass);
 
 
 --
 -- Name: notifications id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.notifications ALTER COLUMN id SET DEFAULT nextval('public.notifications_id_seq'::regclass);
+ALTER TABLE ONLY notifications ALTER COLUMN id SET DEFAULT nextval('notifications_id_seq'::regclass);
 
 
 --
 -- Name: observations id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.observations ALTER COLUMN id SET DEFAULT nextval('public.observations_id_seq'::regclass);
+ALTER TABLE ONLY observations ALTER COLUMN id SET DEFAULT nextval('observations_id_seq'::regclass);
 
 
 --
 -- Name: outgoing_payment_lists id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.outgoing_payment_lists ALTER COLUMN id SET DEFAULT nextval('public.outgoing_payment_lists_id_seq'::regclass);
+ALTER TABLE ONLY outgoing_payment_lists ALTER COLUMN id SET DEFAULT nextval('outgoing_payment_lists_id_seq'::regclass);
 
 
 --
 -- Name: outgoing_payment_modes id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.outgoing_payment_modes ALTER COLUMN id SET DEFAULT nextval('public.outgoing_payment_modes_id_seq'::regclass);
+ALTER TABLE ONLY outgoing_payment_modes ALTER COLUMN id SET DEFAULT nextval('outgoing_payment_modes_id_seq'::regclass);
 
 
 --
 -- Name: outgoing_payments id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.outgoing_payments ALTER COLUMN id SET DEFAULT nextval('public.outgoing_payments_id_seq'::regclass);
+ALTER TABLE ONLY outgoing_payments ALTER COLUMN id SET DEFAULT nextval('outgoing_payments_id_seq'::regclass);
 
 
 --
 -- Name: parcel_item_storings id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.parcel_item_storings ALTER COLUMN id SET DEFAULT nextval('public.parcel_item_storings_id_seq'::regclass);
+ALTER TABLE ONLY parcel_item_storings ALTER COLUMN id SET DEFAULT nextval('parcel_item_storings_id_seq'::regclass);
 
 
 --
 -- Name: parcel_items id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.parcel_items ALTER COLUMN id SET DEFAULT nextval('public.parcel_items_id_seq'::regclass);
+ALTER TABLE ONLY parcel_items ALTER COLUMN id SET DEFAULT nextval('parcel_items_id_seq'::regclass);
 
 
 --
 -- Name: parcels id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.parcels ALTER COLUMN id SET DEFAULT nextval('public.parcels_id_seq'::regclass);
+ALTER TABLE ONLY parcels ALTER COLUMN id SET DEFAULT nextval('parcels_id_seq'::regclass);
 
 
 --
 -- Name: payslip_natures id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.payslip_natures ALTER COLUMN id SET DEFAULT nextval('public.payslip_natures_id_seq'::regclass);
+ALTER TABLE ONLY payslip_natures ALTER COLUMN id SET DEFAULT nextval('payslip_natures_id_seq'::regclass);
 
 
 --
 -- Name: payslips id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.payslips ALTER COLUMN id SET DEFAULT nextval('public.payslips_id_seq'::regclass);
+ALTER TABLE ONLY payslips ALTER COLUMN id SET DEFAULT nextval('payslips_id_seq'::regclass);
 
 
 --
 -- Name: plant_counting_items id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.plant_counting_items ALTER COLUMN id SET DEFAULT nextval('public.plant_counting_items_id_seq'::regclass);
+ALTER TABLE ONLY plant_counting_items ALTER COLUMN id SET DEFAULT nextval('plant_counting_items_id_seq'::regclass);
 
 
 --
 -- Name: plant_countings id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.plant_countings ALTER COLUMN id SET DEFAULT nextval('public.plant_countings_id_seq'::regclass);
+ALTER TABLE ONLY plant_countings ALTER COLUMN id SET DEFAULT nextval('plant_countings_id_seq'::regclass);
 
 
 --
 -- Name: plant_density_abaci id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.plant_density_abaci ALTER COLUMN id SET DEFAULT nextval('public.plant_density_abaci_id_seq'::regclass);
+ALTER TABLE ONLY plant_density_abaci ALTER COLUMN id SET DEFAULT nextval('plant_density_abaci_id_seq'::regclass);
 
 
 --
 -- Name: plant_density_abacus_items id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.plant_density_abacus_items ALTER COLUMN id SET DEFAULT nextval('public.plant_density_abacus_items_id_seq'::regclass);
+ALTER TABLE ONLY plant_density_abacus_items ALTER COLUMN id SET DEFAULT nextval('plant_density_abacus_items_id_seq'::regclass);
 
 
 --
 -- Name: postal_zones id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.postal_zones ALTER COLUMN id SET DEFAULT nextval('public.postal_zones_id_seq'::regclass);
+ALTER TABLE ONLY postal_zones ALTER COLUMN id SET DEFAULT nextval('postal_zones_id_seq'::regclass);
 
 
 --
 -- Name: preferences id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.preferences ALTER COLUMN id SET DEFAULT nextval('public.preferences_id_seq'::regclass);
+ALTER TABLE ONLY preferences ALTER COLUMN id SET DEFAULT nextval('preferences_id_seq'::regclass);
 
 
 --
 -- Name: prescriptions id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.prescriptions ALTER COLUMN id SET DEFAULT nextval('public.prescriptions_id_seq'::regclass);
+ALTER TABLE ONLY prescriptions ALTER COLUMN id SET DEFAULT nextval('prescriptions_id_seq'::regclass);
 
 
 --
 -- Name: product_enjoyments id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.product_enjoyments ALTER COLUMN id SET DEFAULT nextval('public.product_enjoyments_id_seq'::regclass);
+ALTER TABLE ONLY product_enjoyments ALTER COLUMN id SET DEFAULT nextval('product_enjoyments_id_seq'::regclass);
 
 
 --
 -- Name: product_labellings id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.product_labellings ALTER COLUMN id SET DEFAULT nextval('public.product_labellings_id_seq'::regclass);
+ALTER TABLE ONLY product_labellings ALTER COLUMN id SET DEFAULT nextval('product_labellings_id_seq'::regclass);
 
 
 --
 -- Name: product_linkages id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.product_linkages ALTER COLUMN id SET DEFAULT nextval('public.product_linkages_id_seq'::regclass);
+ALTER TABLE ONLY product_linkages ALTER COLUMN id SET DEFAULT nextval('product_linkages_id_seq'::regclass);
 
 
 --
 -- Name: product_links id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.product_links ALTER COLUMN id SET DEFAULT nextval('public.product_links_id_seq'::regclass);
+ALTER TABLE ONLY product_links ALTER COLUMN id SET DEFAULT nextval('product_links_id_seq'::regclass);
 
 
 --
 -- Name: product_localizations id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.product_localizations ALTER COLUMN id SET DEFAULT nextval('public.product_localizations_id_seq'::regclass);
+ALTER TABLE ONLY product_localizations ALTER COLUMN id SET DEFAULT nextval('product_localizations_id_seq'::regclass);
 
 
 --
 -- Name: product_memberships id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.product_memberships ALTER COLUMN id SET DEFAULT nextval('public.product_memberships_id_seq'::regclass);
+ALTER TABLE ONLY product_memberships ALTER COLUMN id SET DEFAULT nextval('product_memberships_id_seq'::regclass);
 
 
 --
 -- Name: product_movements id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.product_movements ALTER COLUMN id SET DEFAULT nextval('public.product_movements_id_seq'::regclass);
+ALTER TABLE ONLY product_movements ALTER COLUMN id SET DEFAULT nextval('product_movements_id_seq'::regclass);
 
 
 --
 -- Name: product_nature_categories id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.product_nature_categories ALTER COLUMN id SET DEFAULT nextval('public.product_nature_categories_id_seq'::regclass);
+ALTER TABLE ONLY product_nature_categories ALTER COLUMN id SET DEFAULT nextval('product_nature_categories_id_seq'::regclass);
 
 
 --
 -- Name: product_nature_category_taxations id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.product_nature_category_taxations ALTER COLUMN id SET DEFAULT nextval('public.product_nature_category_taxations_id_seq'::regclass);
+ALTER TABLE ONLY product_nature_category_taxations ALTER COLUMN id SET DEFAULT nextval('product_nature_category_taxations_id_seq'::regclass);
 
 
 --
 -- Name: product_nature_variant_components id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.product_nature_variant_components ALTER COLUMN id SET DEFAULT nextval('public.product_nature_variant_components_id_seq'::regclass);
+ALTER TABLE ONLY product_nature_variant_components ALTER COLUMN id SET DEFAULT nextval('product_nature_variant_components_id_seq'::regclass);
 
 
 --
 -- Name: product_nature_variant_readings id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.product_nature_variant_readings ALTER COLUMN id SET DEFAULT nextval('public.product_nature_variant_readings_id_seq'::regclass);
+ALTER TABLE ONLY product_nature_variant_readings ALTER COLUMN id SET DEFAULT nextval('product_nature_variant_readings_id_seq'::regclass);
 
 
 --
 -- Name: product_nature_variants id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.product_nature_variants ALTER COLUMN id SET DEFAULT nextval('public.product_nature_variants_id_seq'::regclass);
+ALTER TABLE ONLY product_nature_variants ALTER COLUMN id SET DEFAULT nextval('product_nature_variants_id_seq'::regclass);
 
 
 --
 -- Name: product_natures id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.product_natures ALTER COLUMN id SET DEFAULT nextval('public.product_natures_id_seq'::regclass);
+ALTER TABLE ONLY product_natures ALTER COLUMN id SET DEFAULT nextval('product_natures_id_seq'::regclass);
 
 
 --
 -- Name: product_ownerships id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.product_ownerships ALTER COLUMN id SET DEFAULT nextval('public.product_ownerships_id_seq'::regclass);
+ALTER TABLE ONLY product_ownerships ALTER COLUMN id SET DEFAULT nextval('product_ownerships_id_seq'::regclass);
 
 
 --
 -- Name: product_phases id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.product_phases ALTER COLUMN id SET DEFAULT nextval('public.product_phases_id_seq'::regclass);
+ALTER TABLE ONLY product_phases ALTER COLUMN id SET DEFAULT nextval('product_phases_id_seq'::regclass);
 
 
 --
 -- Name: product_readings id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.product_readings ALTER COLUMN id SET DEFAULT nextval('public.product_readings_id_seq'::regclass);
+ALTER TABLE ONLY product_readings ALTER COLUMN id SET DEFAULT nextval('product_readings_id_seq'::regclass);
 
 
 --
 -- Name: products id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.products ALTER COLUMN id SET DEFAULT nextval('public.products_id_seq'::regclass);
+ALTER TABLE ONLY products ALTER COLUMN id SET DEFAULT nextval('products_id_seq'::regclass);
 
 
 --
 -- Name: project_budgets id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.project_budgets ALTER COLUMN id SET DEFAULT nextval('public.project_budgets_id_seq'::regclass);
+ALTER TABLE ONLY project_budgets ALTER COLUMN id SET DEFAULT nextval('project_budgets_id_seq'::regclass);
 
 
 --
 -- Name: purchase_items id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.purchase_items ALTER COLUMN id SET DEFAULT nextval('public.purchase_items_id_seq'::regclass);
+ALTER TABLE ONLY purchase_items ALTER COLUMN id SET DEFAULT nextval('purchase_items_id_seq'::regclass);
 
 
 --
 -- Name: purchase_natures id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.purchase_natures ALTER COLUMN id SET DEFAULT nextval('public.purchase_natures_id_seq'::regclass);
+ALTER TABLE ONLY purchase_natures ALTER COLUMN id SET DEFAULT nextval('purchase_natures_id_seq'::regclass);
 
 
 --
 -- Name: purchases id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.purchases ALTER COLUMN id SET DEFAULT nextval('public.purchases_id_seq'::regclass);
+ALTER TABLE ONLY purchases ALTER COLUMN id SET DEFAULT nextval('purchases_id_seq'::regclass);
 
 
 --
 -- Name: regularizations id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.regularizations ALTER COLUMN id SET DEFAULT nextval('public.regularizations_id_seq'::regclass);
+ALTER TABLE ONLY regularizations ALTER COLUMN id SET DEFAULT nextval('regularizations_id_seq'::regclass);
 
 
 --
 -- Name: roles id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.roles ALTER COLUMN id SET DEFAULT nextval('public.roles_id_seq'::regclass);
+ALTER TABLE ONLY roles ALTER COLUMN id SET DEFAULT nextval('roles_id_seq'::regclass);
 
 
 --
 -- Name: sale_items id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.sale_items ALTER COLUMN id SET DEFAULT nextval('public.sale_items_id_seq'::regclass);
+ALTER TABLE ONLY sale_items ALTER COLUMN id SET DEFAULT nextval('sale_items_id_seq'::regclass);
 
 
 --
 -- Name: sale_natures id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.sale_natures ALTER COLUMN id SET DEFAULT nextval('public.sale_natures_id_seq'::regclass);
+ALTER TABLE ONLY sale_natures ALTER COLUMN id SET DEFAULT nextval('sale_natures_id_seq'::regclass);
 
 
 --
 -- Name: sales id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.sales ALTER COLUMN id SET DEFAULT nextval('public.sales_id_seq'::regclass);
+ALTER TABLE ONLY sales ALTER COLUMN id SET DEFAULT nextval('sales_id_seq'::regclass);
 
 
 --
 -- Name: sensors id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.sensors ALTER COLUMN id SET DEFAULT nextval('public.sensors_id_seq'::regclass);
+ALTER TABLE ONLY sensors ALTER COLUMN id SET DEFAULT nextval('sensors_id_seq'::regclass);
 
 
 --
 -- Name: sequences id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.sequences ALTER COLUMN id SET DEFAULT nextval('public.sequences_id_seq'::regclass);
+ALTER TABLE ONLY sequences ALTER COLUMN id SET DEFAULT nextval('sequences_id_seq'::regclass);
 
 
 --
 -- Name: subscription_natures id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.subscription_natures ALTER COLUMN id SET DEFAULT nextval('public.subscription_natures_id_seq'::regclass);
+ALTER TABLE ONLY subscription_natures ALTER COLUMN id SET DEFAULT nextval('subscription_natures_id_seq'::regclass);
 
 
 --
 -- Name: subscriptions id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.subscriptions ALTER COLUMN id SET DEFAULT nextval('public.subscriptions_id_seq'::regclass);
+ALTER TABLE ONLY subscriptions ALTER COLUMN id SET DEFAULT nextval('subscriptions_id_seq'::regclass);
 
 
 --
 -- Name: supervision_items id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.supervision_items ALTER COLUMN id SET DEFAULT nextval('public.supervision_items_id_seq'::regclass);
+ALTER TABLE ONLY supervision_items ALTER COLUMN id SET DEFAULT nextval('supervision_items_id_seq'::regclass);
 
 
 --
 -- Name: supervisions id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.supervisions ALTER COLUMN id SET DEFAULT nextval('public.supervisions_id_seq'::regclass);
+ALTER TABLE ONLY supervisions ALTER COLUMN id SET DEFAULT nextval('supervisions_id_seq'::regclass);
 
 
 --
 -- Name: synchronization_operations id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.synchronization_operations ALTER COLUMN id SET DEFAULT nextval('public.synchronization_operations_id_seq'::regclass);
+ALTER TABLE ONLY synchronization_operations ALTER COLUMN id SET DEFAULT nextval('synchronization_operations_id_seq'::regclass);
 
 
 --
 -- Name: target_distributions id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.target_distributions ALTER COLUMN id SET DEFAULT nextval('public.target_distributions_id_seq'::regclass);
+ALTER TABLE ONLY target_distributions ALTER COLUMN id SET DEFAULT nextval('target_distributions_id_seq'::regclass);
 
 
 --
 -- Name: tasks id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.tasks ALTER COLUMN id SET DEFAULT nextval('public.tasks_id_seq'::regclass);
+ALTER TABLE ONLY tasks ALTER COLUMN id SET DEFAULT nextval('tasks_id_seq'::regclass);
 
 
 --
 -- Name: tax_declaration_item_parts id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.tax_declaration_item_parts ALTER COLUMN id SET DEFAULT nextval('public.tax_declaration_item_parts_id_seq'::regclass);
+ALTER TABLE ONLY tax_declaration_item_parts ALTER COLUMN id SET DEFAULT nextval('tax_declaration_item_parts_id_seq'::regclass);
 
 
 --
 -- Name: tax_declaration_items id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.tax_declaration_items ALTER COLUMN id SET DEFAULT nextval('public.tax_declaration_items_id_seq'::regclass);
+ALTER TABLE ONLY tax_declaration_items ALTER COLUMN id SET DEFAULT nextval('tax_declaration_items_id_seq'::regclass);
 
 
 --
 -- Name: tax_declarations id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.tax_declarations ALTER COLUMN id SET DEFAULT nextval('public.tax_declarations_id_seq'::regclass);
+ALTER TABLE ONLY tax_declarations ALTER COLUMN id SET DEFAULT nextval('tax_declarations_id_seq'::regclass);
 
 
 --
 -- Name: taxes id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.taxes ALTER COLUMN id SET DEFAULT nextval('public.taxes_id_seq'::regclass);
+ALTER TABLE ONLY taxes ALTER COLUMN id SET DEFAULT nextval('taxes_id_seq'::regclass);
 
 
 --
 -- Name: teams id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.teams ALTER COLUMN id SET DEFAULT nextval('public.teams_id_seq'::regclass);
+ALTER TABLE ONLY teams ALTER COLUMN id SET DEFAULT nextval('teams_id_seq'::regclass);
 
 
 --
 -- Name: tokens id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.tokens ALTER COLUMN id SET DEFAULT nextval('public.tokens_id_seq'::regclass);
+ALTER TABLE ONLY tokens ALTER COLUMN id SET DEFAULT nextval('tokens_id_seq'::regclass);
 
 
 --
 -- Name: trackings id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.trackings ALTER COLUMN id SET DEFAULT nextval('public.trackings_id_seq'::regclass);
+ALTER TABLE ONLY trackings ALTER COLUMN id SET DEFAULT nextval('trackings_id_seq'::regclass);
 
 
 --
 -- Name: users id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.users ALTER COLUMN id SET DEFAULT nextval('public.users_id_seq'::regclass);
+ALTER TABLE ONLY users ALTER COLUMN id SET DEFAULT nextval('users_id_seq'::regclass);
 
 
 --
 -- Name: versions id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.versions ALTER COLUMN id SET DEFAULT nextval('public.versions_id_seq'::regclass);
+ALTER TABLE ONLY versions ALTER COLUMN id SET DEFAULT nextval('versions_id_seq'::regclass);
 
 
 --
 -- Name: wice_grid_serialized_queries id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.wice_grid_serialized_queries ALTER COLUMN id SET DEFAULT nextval('public.wice_grid_serialized_queries_id_seq'::regclass);
+ALTER TABLE ONLY wice_grid_serialized_queries ALTER COLUMN id SET DEFAULT nextval('wice_grid_serialized_queries_id_seq'::regclass);
 
 
 --
 -- Name: account_balances account_balances_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.account_balances
+ALTER TABLE ONLY account_balances
     ADD CONSTRAINT account_balances_pkey PRIMARY KEY (id);
 
 
@@ -8445,7 +8292,7 @@ ALTER TABLE ONLY public.account_balances
 -- Name: accounts accounts_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.accounts
+ALTER TABLE ONLY accounts
     ADD CONSTRAINT accounts_pkey PRIMARY KEY (id);
 
 
@@ -8453,7 +8300,7 @@ ALTER TABLE ONLY public.accounts
 -- Name: activities activities_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.activities
+ALTER TABLE ONLY activities
     ADD CONSTRAINT activities_pkey PRIMARY KEY (id);
 
 
@@ -8461,7 +8308,7 @@ ALTER TABLE ONLY public.activities
 -- Name: activity_budget_items activity_budget_items_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.activity_budget_items
+ALTER TABLE ONLY activity_budget_items
     ADD CONSTRAINT activity_budget_items_pkey PRIMARY KEY (id);
 
 
@@ -8469,7 +8316,7 @@ ALTER TABLE ONLY public.activity_budget_items
 -- Name: activity_budgets activity_budgets_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.activity_budgets
+ALTER TABLE ONLY activity_budgets
     ADD CONSTRAINT activity_budgets_pkey PRIMARY KEY (id);
 
 
@@ -8477,7 +8324,7 @@ ALTER TABLE ONLY public.activity_budgets
 -- Name: activity_distributions activity_distributions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.activity_distributions
+ALTER TABLE ONLY activity_distributions
     ADD CONSTRAINT activity_distributions_pkey PRIMARY KEY (id);
 
 
@@ -8485,7 +8332,7 @@ ALTER TABLE ONLY public.activity_distributions
 -- Name: activity_inspection_calibration_natures activity_inspection_calibration_natures_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.activity_inspection_calibration_natures
+ALTER TABLE ONLY activity_inspection_calibration_natures
     ADD CONSTRAINT activity_inspection_calibration_natures_pkey PRIMARY KEY (id);
 
 
@@ -8493,7 +8340,7 @@ ALTER TABLE ONLY public.activity_inspection_calibration_natures
 -- Name: activity_inspection_calibration_scales activity_inspection_calibration_scales_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.activity_inspection_calibration_scales
+ALTER TABLE ONLY activity_inspection_calibration_scales
     ADD CONSTRAINT activity_inspection_calibration_scales_pkey PRIMARY KEY (id);
 
 
@@ -8501,7 +8348,7 @@ ALTER TABLE ONLY public.activity_inspection_calibration_scales
 -- Name: activity_inspection_point_natures activity_inspection_point_natures_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.activity_inspection_point_natures
+ALTER TABLE ONLY activity_inspection_point_natures
     ADD CONSTRAINT activity_inspection_point_natures_pkey PRIMARY KEY (id);
 
 
@@ -8509,7 +8356,7 @@ ALTER TABLE ONLY public.activity_inspection_point_natures
 -- Name: activity_productions activity_productions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.activity_productions
+ALTER TABLE ONLY activity_productions
     ADD CONSTRAINT activity_productions_pkey PRIMARY KEY (id);
 
 
@@ -8517,7 +8364,7 @@ ALTER TABLE ONLY public.activity_productions
 -- Name: activity_seasons activity_seasons_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.activity_seasons
+ALTER TABLE ONLY activity_seasons
     ADD CONSTRAINT activity_seasons_pkey PRIMARY KEY (id);
 
 
@@ -8525,7 +8372,7 @@ ALTER TABLE ONLY public.activity_seasons
 -- Name: activity_tactics activity_tactics_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.activity_tactics
+ALTER TABLE ONLY activity_tactics
     ADD CONSTRAINT activity_tactics_pkey PRIMARY KEY (id);
 
 
@@ -8533,7 +8380,7 @@ ALTER TABLE ONLY public.activity_tactics
 -- Name: affairs affairs_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.affairs
+ALTER TABLE ONLY affairs
     ADD CONSTRAINT affairs_pkey PRIMARY KEY (id);
 
 
@@ -8541,7 +8388,7 @@ ALTER TABLE ONLY public.affairs
 -- Name: alert_phases alert_phases_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.alert_phases
+ALTER TABLE ONLY alert_phases
     ADD CONSTRAINT alert_phases_pkey PRIMARY KEY (id);
 
 
@@ -8549,7 +8396,7 @@ ALTER TABLE ONLY public.alert_phases
 -- Name: alerts alerts_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.alerts
+ALTER TABLE ONLY alerts
     ADD CONSTRAINT alerts_pkey PRIMARY KEY (id);
 
 
@@ -8557,7 +8404,7 @@ ALTER TABLE ONLY public.alerts
 -- Name: analyses analyses_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.analyses
+ALTER TABLE ONLY analyses
     ADD CONSTRAINT analyses_pkey PRIMARY KEY (id);
 
 
@@ -8565,7 +8412,7 @@ ALTER TABLE ONLY public.analyses
 -- Name: analysis_items analysis_items_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.analysis_items
+ALTER TABLE ONLY analysis_items
     ADD CONSTRAINT analysis_items_pkey PRIMARY KEY (id);
 
 
@@ -8573,7 +8420,7 @@ ALTER TABLE ONLY public.analysis_items
 -- Name: attachments attachments_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.attachments
+ALTER TABLE ONLY attachments
     ADD CONSTRAINT attachments_pkey PRIMARY KEY (id);
 
 
@@ -8581,7 +8428,7 @@ ALTER TABLE ONLY public.attachments
 -- Name: bank_statement_items bank_statement_items_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.bank_statement_items
+ALTER TABLE ONLY bank_statement_items
     ADD CONSTRAINT bank_statement_items_pkey PRIMARY KEY (id);
 
 
@@ -8589,7 +8436,7 @@ ALTER TABLE ONLY public.bank_statement_items
 -- Name: bank_statements bank_statements_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.bank_statements
+ALTER TABLE ONLY bank_statements
     ADD CONSTRAINT bank_statements_pkey PRIMARY KEY (id);
 
 
@@ -8597,7 +8444,7 @@ ALTER TABLE ONLY public.bank_statements
 -- Name: call_messages call_messages_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.call_messages
+ALTER TABLE ONLY call_messages
     ADD CONSTRAINT call_messages_pkey PRIMARY KEY (id);
 
 
@@ -8605,7 +8452,7 @@ ALTER TABLE ONLY public.call_messages
 -- Name: calls calls_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.calls
+ALTER TABLE ONLY calls
     ADD CONSTRAINT calls_pkey PRIMARY KEY (id);
 
 
@@ -8613,7 +8460,7 @@ ALTER TABLE ONLY public.calls
 -- Name: campaigns campaigns_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.campaigns
+ALTER TABLE ONLY campaigns
     ADD CONSTRAINT campaigns_pkey PRIMARY KEY (id);
 
 
@@ -8621,7 +8468,7 @@ ALTER TABLE ONLY public.campaigns
 -- Name: cap_islets cap_islets_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.cap_islets
+ALTER TABLE ONLY cap_islets
     ADD CONSTRAINT cap_islets_pkey PRIMARY KEY (id);
 
 
@@ -8629,7 +8476,7 @@ ALTER TABLE ONLY public.cap_islets
 -- Name: cap_land_parcels cap_land_parcels_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.cap_land_parcels
+ALTER TABLE ONLY cap_land_parcels
     ADD CONSTRAINT cap_land_parcels_pkey PRIMARY KEY (id);
 
 
@@ -8637,7 +8484,7 @@ ALTER TABLE ONLY public.cap_land_parcels
 -- Name: cap_neutral_areas cap_neutral_areas_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.cap_neutral_areas
+ALTER TABLE ONLY cap_neutral_areas
     ADD CONSTRAINT cap_neutral_areas_pkey PRIMARY KEY (id);
 
 
@@ -8645,7 +8492,7 @@ ALTER TABLE ONLY public.cap_neutral_areas
 -- Name: cap_statements cap_statements_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.cap_statements
+ALTER TABLE ONLY cap_statements
     ADD CONSTRAINT cap_statements_pkey PRIMARY KEY (id);
 
 
@@ -8653,7 +8500,7 @@ ALTER TABLE ONLY public.cap_statements
 -- Name: cash_sessions cash_sessions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.cash_sessions
+ALTER TABLE ONLY cash_sessions
     ADD CONSTRAINT cash_sessions_pkey PRIMARY KEY (id);
 
 
@@ -8661,7 +8508,7 @@ ALTER TABLE ONLY public.cash_sessions
 -- Name: cash_transfers cash_transfers_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.cash_transfers
+ALTER TABLE ONLY cash_transfers
     ADD CONSTRAINT cash_transfers_pkey PRIMARY KEY (id);
 
 
@@ -8669,7 +8516,7 @@ ALTER TABLE ONLY public.cash_transfers
 -- Name: cashes cashes_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.cashes
+ALTER TABLE ONLY cashes
     ADD CONSTRAINT cashes_pkey PRIMARY KEY (id);
 
 
@@ -8677,7 +8524,7 @@ ALTER TABLE ONLY public.cashes
 -- Name: catalog_items catalog_items_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.catalog_items
+ALTER TABLE ONLY catalog_items
     ADD CONSTRAINT catalog_items_pkey PRIMARY KEY (id);
 
 
@@ -8685,7 +8532,7 @@ ALTER TABLE ONLY public.catalog_items
 -- Name: catalogs catalogs_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.catalogs
+ALTER TABLE ONLY catalogs
     ADD CONSTRAINT catalogs_pkey PRIMARY KEY (id);
 
 
@@ -8693,7 +8540,7 @@ ALTER TABLE ONLY public.catalogs
 -- Name: contract_items contract_items_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.contract_items
+ALTER TABLE ONLY contract_items
     ADD CONSTRAINT contract_items_pkey PRIMARY KEY (id);
 
 
@@ -8701,7 +8548,7 @@ ALTER TABLE ONLY public.contract_items
 -- Name: contracts contracts_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.contracts
+ALTER TABLE ONLY contracts
     ADD CONSTRAINT contracts_pkey PRIMARY KEY (id);
 
 
@@ -8709,7 +8556,7 @@ ALTER TABLE ONLY public.contracts
 -- Name: crumbs crumbs_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.crumbs
+ALTER TABLE ONLY crumbs
     ADD CONSTRAINT crumbs_pkey PRIMARY KEY (id);
 
 
@@ -8717,7 +8564,7 @@ ALTER TABLE ONLY public.crumbs
 -- Name: cultivable_zones cultivable_zones_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.cultivable_zones
+ALTER TABLE ONLY cultivable_zones
     ADD CONSTRAINT cultivable_zones_pkey PRIMARY KEY (id);
 
 
@@ -8725,7 +8572,7 @@ ALTER TABLE ONLY public.cultivable_zones
 -- Name: custom_field_choices custom_field_choices_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.custom_field_choices
+ALTER TABLE ONLY custom_field_choices
     ADD CONSTRAINT custom_field_choices_pkey PRIMARY KEY (id);
 
 
@@ -8733,7 +8580,7 @@ ALTER TABLE ONLY public.custom_field_choices
 -- Name: custom_fields custom_fields_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.custom_fields
+ALTER TABLE ONLY custom_fields
     ADD CONSTRAINT custom_fields_pkey PRIMARY KEY (id);
 
 
@@ -8741,7 +8588,7 @@ ALTER TABLE ONLY public.custom_fields
 -- Name: dashboards dashboards_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.dashboards
+ALTER TABLE ONLY dashboards
     ADD CONSTRAINT dashboards_pkey PRIMARY KEY (id);
 
 
@@ -8749,7 +8596,7 @@ ALTER TABLE ONLY public.dashboards
 -- Name: debt_transfers debt_transfers_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.debt_transfers
+ALTER TABLE ONLY debt_transfers
     ADD CONSTRAINT debt_transfers_pkey PRIMARY KEY (id);
 
 
@@ -8757,7 +8604,7 @@ ALTER TABLE ONLY public.debt_transfers
 -- Name: deliveries deliveries_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.deliveries
+ALTER TABLE ONLY deliveries
     ADD CONSTRAINT deliveries_pkey PRIMARY KEY (id);
 
 
@@ -8765,7 +8612,7 @@ ALTER TABLE ONLY public.deliveries
 -- Name: delivery_tools delivery_tools_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.delivery_tools
+ALTER TABLE ONLY delivery_tools
     ADD CONSTRAINT delivery_tools_pkey PRIMARY KEY (id);
 
 
@@ -8773,7 +8620,7 @@ ALTER TABLE ONLY public.delivery_tools
 -- Name: deposits deposits_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.deposits
+ALTER TABLE ONLY deposits
     ADD CONSTRAINT deposits_pkey PRIMARY KEY (id);
 
 
@@ -8781,7 +8628,7 @@ ALTER TABLE ONLY public.deposits
 -- Name: districts districts_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.districts
+ALTER TABLE ONLY districts
     ADD CONSTRAINT districts_pkey PRIMARY KEY (id);
 
 
@@ -8789,7 +8636,7 @@ ALTER TABLE ONLY public.districts
 -- Name: document_templates document_templates_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.document_templates
+ALTER TABLE ONLY document_templates
     ADD CONSTRAINT document_templates_pkey PRIMARY KEY (id);
 
 
@@ -8797,7 +8644,7 @@ ALTER TABLE ONLY public.document_templates
 -- Name: documents documents_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.documents
+ALTER TABLE ONLY documents
     ADD CONSTRAINT documents_pkey PRIMARY KEY (id);
 
 
@@ -8805,7 +8652,7 @@ ALTER TABLE ONLY public.documents
 -- Name: entities entities_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.entities
+ALTER TABLE ONLY entities
     ADD CONSTRAINT entities_pkey PRIMARY KEY (id);
 
 
@@ -8813,7 +8660,7 @@ ALTER TABLE ONLY public.entities
 -- Name: entity_addresses entity_addresses_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.entity_addresses
+ALTER TABLE ONLY entity_addresses
     ADD CONSTRAINT entity_addresses_pkey PRIMARY KEY (id);
 
 
@@ -8821,7 +8668,7 @@ ALTER TABLE ONLY public.entity_addresses
 -- Name: entity_links entity_links_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.entity_links
+ALTER TABLE ONLY entity_links
     ADD CONSTRAINT entity_links_pkey PRIMARY KEY (id);
 
 
@@ -8829,7 +8676,7 @@ ALTER TABLE ONLY public.entity_links
 -- Name: event_participations event_participations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.event_participations
+ALTER TABLE ONLY event_participations
     ADD CONSTRAINT event_participations_pkey PRIMARY KEY (id);
 
 
@@ -8837,7 +8684,7 @@ ALTER TABLE ONLY public.event_participations
 -- Name: events events_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.events
+ALTER TABLE ONLY events
     ADD CONSTRAINT events_pkey PRIMARY KEY (id);
 
 
@@ -8845,7 +8692,7 @@ ALTER TABLE ONLY public.events
 -- Name: financial_year_exchanges financial_year_exchanges_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.financial_year_exchanges
+ALTER TABLE ONLY financial_year_exchanges
     ADD CONSTRAINT financial_year_exchanges_pkey PRIMARY KEY (id);
 
 
@@ -8853,7 +8700,7 @@ ALTER TABLE ONLY public.financial_year_exchanges
 -- Name: financial_years financial_years_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.financial_years
+ALTER TABLE ONLY financial_years
     ADD CONSTRAINT financial_years_pkey PRIMARY KEY (id);
 
 
@@ -8861,7 +8708,7 @@ ALTER TABLE ONLY public.financial_years
 -- Name: fixed_asset_depreciations fixed_asset_depreciations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.fixed_asset_depreciations
+ALTER TABLE ONLY fixed_asset_depreciations
     ADD CONSTRAINT fixed_asset_depreciations_pkey PRIMARY KEY (id);
 
 
@@ -8869,7 +8716,7 @@ ALTER TABLE ONLY public.fixed_asset_depreciations
 -- Name: fixed_assets fixed_assets_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.fixed_assets
+ALTER TABLE ONLY fixed_assets
     ADD CONSTRAINT fixed_assets_pkey PRIMARY KEY (id);
 
 
@@ -8877,7 +8724,7 @@ ALTER TABLE ONLY public.fixed_assets
 -- Name: gap_items gap_items_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.gap_items
+ALTER TABLE ONLY gap_items
     ADD CONSTRAINT gap_items_pkey PRIMARY KEY (id);
 
 
@@ -8885,7 +8732,7 @@ ALTER TABLE ONLY public.gap_items
 -- Name: gaps gaps_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.gaps
+ALTER TABLE ONLY gaps
     ADD CONSTRAINT gaps_pkey PRIMARY KEY (id);
 
 
@@ -8893,7 +8740,7 @@ ALTER TABLE ONLY public.gaps
 -- Name: georeadings georeadings_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.georeadings
+ALTER TABLE ONLY georeadings
     ADD CONSTRAINT georeadings_pkey PRIMARY KEY (id);
 
 
@@ -8901,7 +8748,7 @@ ALTER TABLE ONLY public.georeadings
 -- Name: guide_analyses guide_analyses_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.guide_analyses
+ALTER TABLE ONLY guide_analyses
     ADD CONSTRAINT guide_analyses_pkey PRIMARY KEY (id);
 
 
@@ -8909,7 +8756,7 @@ ALTER TABLE ONLY public.guide_analyses
 -- Name: guide_analysis_points guide_analysis_points_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.guide_analysis_points
+ALTER TABLE ONLY guide_analysis_points
     ADD CONSTRAINT guide_analysis_points_pkey PRIMARY KEY (id);
 
 
@@ -8917,7 +8764,7 @@ ALTER TABLE ONLY public.guide_analysis_points
 -- Name: guides guides_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.guides
+ALTER TABLE ONLY guides
     ADD CONSTRAINT guides_pkey PRIMARY KEY (id);
 
 
@@ -8925,7 +8772,7 @@ ALTER TABLE ONLY public.guides
 -- Name: identifiers identifiers_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.identifiers
+ALTER TABLE ONLY identifiers
     ADD CONSTRAINT identifiers_pkey PRIMARY KEY (id);
 
 
@@ -8933,7 +8780,7 @@ ALTER TABLE ONLY public.identifiers
 -- Name: imports imports_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.imports
+ALTER TABLE ONLY imports
     ADD CONSTRAINT imports_pkey PRIMARY KEY (id);
 
 
@@ -8941,7 +8788,7 @@ ALTER TABLE ONLY public.imports
 -- Name: incoming_payment_modes incoming_payment_modes_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.incoming_payment_modes
+ALTER TABLE ONLY incoming_payment_modes
     ADD CONSTRAINT incoming_payment_modes_pkey PRIMARY KEY (id);
 
 
@@ -8949,7 +8796,7 @@ ALTER TABLE ONLY public.incoming_payment_modes
 -- Name: incoming_payments incoming_payments_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.incoming_payments
+ALTER TABLE ONLY incoming_payments
     ADD CONSTRAINT incoming_payments_pkey PRIMARY KEY (id);
 
 
@@ -8957,7 +8804,7 @@ ALTER TABLE ONLY public.incoming_payments
 -- Name: inspection_calibrations inspection_calibrations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.inspection_calibrations
+ALTER TABLE ONLY inspection_calibrations
     ADD CONSTRAINT inspection_calibrations_pkey PRIMARY KEY (id);
 
 
@@ -8965,7 +8812,7 @@ ALTER TABLE ONLY public.inspection_calibrations
 -- Name: inspection_points inspection_points_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.inspection_points
+ALTER TABLE ONLY inspection_points
     ADD CONSTRAINT inspection_points_pkey PRIMARY KEY (id);
 
 
@@ -8973,7 +8820,7 @@ ALTER TABLE ONLY public.inspection_points
 -- Name: inspections inspections_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.inspections
+ALTER TABLE ONLY inspections
     ADD CONSTRAINT inspections_pkey PRIMARY KEY (id);
 
 
@@ -8981,7 +8828,7 @@ ALTER TABLE ONLY public.inspections
 -- Name: integrations integrations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.integrations
+ALTER TABLE ONLY integrations
     ADD CONSTRAINT integrations_pkey PRIMARY KEY (id);
 
 
@@ -8989,7 +8836,7 @@ ALTER TABLE ONLY public.integrations
 -- Name: intervention_costs intervention_costs_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.intervention_costs
+ALTER TABLE ONLY intervention_costs
     ADD CONSTRAINT intervention_costs_pkey PRIMARY KEY (id);
 
 
@@ -8997,7 +8844,7 @@ ALTER TABLE ONLY public.intervention_costs
 -- Name: intervention_labellings intervention_labellings_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.intervention_labellings
+ALTER TABLE ONLY intervention_labellings
     ADD CONSTRAINT intervention_labellings_pkey PRIMARY KEY (id);
 
 
@@ -9005,7 +8852,7 @@ ALTER TABLE ONLY public.intervention_labellings
 -- Name: intervention_parameter_readings intervention_parameter_readings_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.intervention_parameter_readings
+ALTER TABLE ONLY intervention_parameter_readings
     ADD CONSTRAINT intervention_parameter_readings_pkey PRIMARY KEY (id);
 
 
@@ -9013,7 +8860,7 @@ ALTER TABLE ONLY public.intervention_parameter_readings
 -- Name: intervention_parameters intervention_parameters_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.intervention_parameters
+ALTER TABLE ONLY intervention_parameters
     ADD CONSTRAINT intervention_parameters_pkey PRIMARY KEY (id);
 
 
@@ -9021,7 +8868,7 @@ ALTER TABLE ONLY public.intervention_parameters
 -- Name: intervention_participations intervention_participations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.intervention_participations
+ALTER TABLE ONLY intervention_participations
     ADD CONSTRAINT intervention_participations_pkey PRIMARY KEY (id);
 
 
@@ -9029,7 +8876,7 @@ ALTER TABLE ONLY public.intervention_participations
 -- Name: intervention_working_periods intervention_working_periods_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.intervention_working_periods
+ALTER TABLE ONLY intervention_working_periods
     ADD CONSTRAINT intervention_working_periods_pkey PRIMARY KEY (id);
 
 
@@ -9037,7 +8884,7 @@ ALTER TABLE ONLY public.intervention_working_periods
 -- Name: interventions interventions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.interventions
+ALTER TABLE ONLY interventions
     ADD CONSTRAINT interventions_pkey PRIMARY KEY (id);
 
 
@@ -9045,7 +8892,7 @@ ALTER TABLE ONLY public.interventions
 -- Name: inventories inventories_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.inventories
+ALTER TABLE ONLY inventories
     ADD CONSTRAINT inventories_pkey PRIMARY KEY (id);
 
 
@@ -9053,7 +8900,7 @@ ALTER TABLE ONLY public.inventories
 -- Name: inventory_items inventory_items_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.inventory_items
+ALTER TABLE ONLY inventory_items
     ADD CONSTRAINT inventory_items_pkey PRIMARY KEY (id);
 
 
@@ -9061,7 +8908,7 @@ ALTER TABLE ONLY public.inventory_items
 -- Name: issues issues_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.issues
+ALTER TABLE ONLY issues
     ADD CONSTRAINT issues_pkey PRIMARY KEY (id);
 
 
@@ -9069,7 +8916,7 @@ ALTER TABLE ONLY public.issues
 -- Name: journal_entries journal_entries_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.journal_entries
+ALTER TABLE ONLY journal_entries
     ADD CONSTRAINT journal_entries_pkey PRIMARY KEY (id);
 
 
@@ -9077,7 +8924,7 @@ ALTER TABLE ONLY public.journal_entries
 -- Name: journal_entry_items journal_entry_items_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.journal_entry_items
+ALTER TABLE ONLY journal_entry_items
     ADD CONSTRAINT journal_entry_items_pkey PRIMARY KEY (id);
 
 
@@ -9085,7 +8932,7 @@ ALTER TABLE ONLY public.journal_entry_items
 -- Name: journals journals_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.journals
+ALTER TABLE ONLY journals
     ADD CONSTRAINT journals_pkey PRIMARY KEY (id);
 
 
@@ -9093,7 +8940,7 @@ ALTER TABLE ONLY public.journals
 -- Name: labels labels_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.labels
+ALTER TABLE ONLY labels
     ADD CONSTRAINT labels_pkey PRIMARY KEY (id);
 
 
@@ -9101,7 +8948,7 @@ ALTER TABLE ONLY public.labels
 -- Name: listing_node_items listing_node_items_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.listing_node_items
+ALTER TABLE ONLY listing_node_items
     ADD CONSTRAINT listing_node_items_pkey PRIMARY KEY (id);
 
 
@@ -9109,7 +8956,7 @@ ALTER TABLE ONLY public.listing_node_items
 -- Name: listing_nodes listing_nodes_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.listing_nodes
+ALTER TABLE ONLY listing_nodes
     ADD CONSTRAINT listing_nodes_pkey PRIMARY KEY (id);
 
 
@@ -9117,7 +8964,7 @@ ALTER TABLE ONLY public.listing_nodes
 -- Name: listings listings_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.listings
+ALTER TABLE ONLY listings
     ADD CONSTRAINT listings_pkey PRIMARY KEY (id);
 
 
@@ -9125,7 +8972,7 @@ ALTER TABLE ONLY public.listings
 -- Name: loan_repayments loan_repayments_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.loan_repayments
+ALTER TABLE ONLY loan_repayments
     ADD CONSTRAINT loan_repayments_pkey PRIMARY KEY (id);
 
 
@@ -9133,7 +8980,7 @@ ALTER TABLE ONLY public.loan_repayments
 -- Name: loans loans_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.loans
+ALTER TABLE ONLY loans
     ADD CONSTRAINT loans_pkey PRIMARY KEY (id);
 
 
@@ -9141,7 +8988,7 @@ ALTER TABLE ONLY public.loans
 -- Name: manure_management_plan_zones manure_management_plan_zones_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.manure_management_plan_zones
+ALTER TABLE ONLY manure_management_plan_zones
     ADD CONSTRAINT manure_management_plan_zones_pkey PRIMARY KEY (id);
 
 
@@ -9149,7 +8996,7 @@ ALTER TABLE ONLY public.manure_management_plan_zones
 -- Name: manure_management_plans manure_management_plans_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.manure_management_plans
+ALTER TABLE ONLY manure_management_plans
     ADD CONSTRAINT manure_management_plans_pkey PRIMARY KEY (id);
 
 
@@ -9157,7 +9004,7 @@ ALTER TABLE ONLY public.manure_management_plans
 -- Name: map_layers map_layers_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.map_layers
+ALTER TABLE ONLY map_layers
     ADD CONSTRAINT map_layers_pkey PRIMARY KEY (id);
 
 
@@ -9165,7 +9012,7 @@ ALTER TABLE ONLY public.map_layers
 -- Name: naming_format_fields naming_format_fields_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.naming_format_fields
+ALTER TABLE ONLY naming_format_fields
     ADD CONSTRAINT naming_format_fields_pkey PRIMARY KEY (id);
 
 
@@ -9173,7 +9020,7 @@ ALTER TABLE ONLY public.naming_format_fields
 -- Name: naming_formats naming_formats_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.naming_formats
+ALTER TABLE ONLY naming_formats
     ADD CONSTRAINT naming_formats_pkey PRIMARY KEY (id);
 
 
@@ -9181,7 +9028,7 @@ ALTER TABLE ONLY public.naming_formats
 -- Name: net_services net_services_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.net_services
+ALTER TABLE ONLY net_services
     ADD CONSTRAINT net_services_pkey PRIMARY KEY (id);
 
 
@@ -9189,7 +9036,7 @@ ALTER TABLE ONLY public.net_services
 -- Name: notifications notifications_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.notifications
+ALTER TABLE ONLY notifications
     ADD CONSTRAINT notifications_pkey PRIMARY KEY (id);
 
 
@@ -9197,7 +9044,7 @@ ALTER TABLE ONLY public.notifications
 -- Name: observations observations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.observations
+ALTER TABLE ONLY observations
     ADD CONSTRAINT observations_pkey PRIMARY KEY (id);
 
 
@@ -9205,7 +9052,7 @@ ALTER TABLE ONLY public.observations
 -- Name: outgoing_payment_lists outgoing_payment_lists_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.outgoing_payment_lists
+ALTER TABLE ONLY outgoing_payment_lists
     ADD CONSTRAINT outgoing_payment_lists_pkey PRIMARY KEY (id);
 
 
@@ -9213,7 +9060,7 @@ ALTER TABLE ONLY public.outgoing_payment_lists
 -- Name: outgoing_payment_modes outgoing_payment_modes_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.outgoing_payment_modes
+ALTER TABLE ONLY outgoing_payment_modes
     ADD CONSTRAINT outgoing_payment_modes_pkey PRIMARY KEY (id);
 
 
@@ -9221,7 +9068,7 @@ ALTER TABLE ONLY public.outgoing_payment_modes
 -- Name: outgoing_payments outgoing_payments_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.outgoing_payments
+ALTER TABLE ONLY outgoing_payments
     ADD CONSTRAINT outgoing_payments_pkey PRIMARY KEY (id);
 
 
@@ -9229,7 +9076,7 @@ ALTER TABLE ONLY public.outgoing_payments
 -- Name: parcel_item_storings parcel_item_storings_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.parcel_item_storings
+ALTER TABLE ONLY parcel_item_storings
     ADD CONSTRAINT parcel_item_storings_pkey PRIMARY KEY (id);
 
 
@@ -9237,7 +9084,7 @@ ALTER TABLE ONLY public.parcel_item_storings
 -- Name: parcel_items parcel_items_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.parcel_items
+ALTER TABLE ONLY parcel_items
     ADD CONSTRAINT parcel_items_pkey PRIMARY KEY (id);
 
 
@@ -9245,7 +9092,7 @@ ALTER TABLE ONLY public.parcel_items
 -- Name: parcels parcels_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.parcels
+ALTER TABLE ONLY parcels
     ADD CONSTRAINT parcels_pkey PRIMARY KEY (id);
 
 
@@ -9253,7 +9100,7 @@ ALTER TABLE ONLY public.parcels
 -- Name: payslip_natures payslip_natures_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.payslip_natures
+ALTER TABLE ONLY payslip_natures
     ADD CONSTRAINT payslip_natures_pkey PRIMARY KEY (id);
 
 
@@ -9261,7 +9108,7 @@ ALTER TABLE ONLY public.payslip_natures
 -- Name: payslips payslips_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.payslips
+ALTER TABLE ONLY payslips
     ADD CONSTRAINT payslips_pkey PRIMARY KEY (id);
 
 
@@ -9269,7 +9116,7 @@ ALTER TABLE ONLY public.payslips
 -- Name: plant_counting_items plant_counting_items_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.plant_counting_items
+ALTER TABLE ONLY plant_counting_items
     ADD CONSTRAINT plant_counting_items_pkey PRIMARY KEY (id);
 
 
@@ -9277,7 +9124,7 @@ ALTER TABLE ONLY public.plant_counting_items
 -- Name: plant_countings plant_countings_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.plant_countings
+ALTER TABLE ONLY plant_countings
     ADD CONSTRAINT plant_countings_pkey PRIMARY KEY (id);
 
 
@@ -9285,7 +9132,7 @@ ALTER TABLE ONLY public.plant_countings
 -- Name: plant_density_abaci plant_density_abaci_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.plant_density_abaci
+ALTER TABLE ONLY plant_density_abaci
     ADD CONSTRAINT plant_density_abaci_pkey PRIMARY KEY (id);
 
 
@@ -9293,7 +9140,7 @@ ALTER TABLE ONLY public.plant_density_abaci
 -- Name: plant_density_abacus_items plant_density_abacus_items_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.plant_density_abacus_items
+ALTER TABLE ONLY plant_density_abacus_items
     ADD CONSTRAINT plant_density_abacus_items_pkey PRIMARY KEY (id);
 
 
@@ -9301,7 +9148,7 @@ ALTER TABLE ONLY public.plant_density_abacus_items
 -- Name: postal_zones postal_zones_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.postal_zones
+ALTER TABLE ONLY postal_zones
     ADD CONSTRAINT postal_zones_pkey PRIMARY KEY (id);
 
 
@@ -9309,7 +9156,7 @@ ALTER TABLE ONLY public.postal_zones
 -- Name: preferences preferences_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.preferences
+ALTER TABLE ONLY preferences
     ADD CONSTRAINT preferences_pkey PRIMARY KEY (id);
 
 
@@ -9317,7 +9164,7 @@ ALTER TABLE ONLY public.preferences
 -- Name: prescriptions prescriptions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.prescriptions
+ALTER TABLE ONLY prescriptions
     ADD CONSTRAINT prescriptions_pkey PRIMARY KEY (id);
 
 
@@ -9325,7 +9172,7 @@ ALTER TABLE ONLY public.prescriptions
 -- Name: product_enjoyments product_enjoyments_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.product_enjoyments
+ALTER TABLE ONLY product_enjoyments
     ADD CONSTRAINT product_enjoyments_pkey PRIMARY KEY (id);
 
 
@@ -9333,7 +9180,7 @@ ALTER TABLE ONLY public.product_enjoyments
 -- Name: product_labellings product_labellings_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.product_labellings
+ALTER TABLE ONLY product_labellings
     ADD CONSTRAINT product_labellings_pkey PRIMARY KEY (id);
 
 
@@ -9341,7 +9188,7 @@ ALTER TABLE ONLY public.product_labellings
 -- Name: product_linkages product_linkages_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.product_linkages
+ALTER TABLE ONLY product_linkages
     ADD CONSTRAINT product_linkages_pkey PRIMARY KEY (id);
 
 
@@ -9349,7 +9196,7 @@ ALTER TABLE ONLY public.product_linkages
 -- Name: product_links product_links_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.product_links
+ALTER TABLE ONLY product_links
     ADD CONSTRAINT product_links_pkey PRIMARY KEY (id);
 
 
@@ -9357,7 +9204,7 @@ ALTER TABLE ONLY public.product_links
 -- Name: product_localizations product_localizations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.product_localizations
+ALTER TABLE ONLY product_localizations
     ADD CONSTRAINT product_localizations_pkey PRIMARY KEY (id);
 
 
@@ -9365,7 +9212,7 @@ ALTER TABLE ONLY public.product_localizations
 -- Name: product_memberships product_memberships_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.product_memberships
+ALTER TABLE ONLY product_memberships
     ADD CONSTRAINT product_memberships_pkey PRIMARY KEY (id);
 
 
@@ -9373,7 +9220,7 @@ ALTER TABLE ONLY public.product_memberships
 -- Name: product_movements product_movements_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.product_movements
+ALTER TABLE ONLY product_movements
     ADD CONSTRAINT product_movements_pkey PRIMARY KEY (id);
 
 
@@ -9381,7 +9228,7 @@ ALTER TABLE ONLY public.product_movements
 -- Name: product_nature_categories product_nature_categories_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.product_nature_categories
+ALTER TABLE ONLY product_nature_categories
     ADD CONSTRAINT product_nature_categories_pkey PRIMARY KEY (id);
 
 
@@ -9389,7 +9236,7 @@ ALTER TABLE ONLY public.product_nature_categories
 -- Name: product_nature_category_taxations product_nature_category_taxations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.product_nature_category_taxations
+ALTER TABLE ONLY product_nature_category_taxations
     ADD CONSTRAINT product_nature_category_taxations_pkey PRIMARY KEY (id);
 
 
@@ -9397,7 +9244,7 @@ ALTER TABLE ONLY public.product_nature_category_taxations
 -- Name: product_nature_variant_components product_nature_variant_components_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.product_nature_variant_components
+ALTER TABLE ONLY product_nature_variant_components
     ADD CONSTRAINT product_nature_variant_components_pkey PRIMARY KEY (id);
 
 
@@ -9405,7 +9252,7 @@ ALTER TABLE ONLY public.product_nature_variant_components
 -- Name: product_nature_variant_readings product_nature_variant_readings_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.product_nature_variant_readings
+ALTER TABLE ONLY product_nature_variant_readings
     ADD CONSTRAINT product_nature_variant_readings_pkey PRIMARY KEY (id);
 
 
@@ -9413,7 +9260,7 @@ ALTER TABLE ONLY public.product_nature_variant_readings
 -- Name: product_nature_variants product_nature_variants_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.product_nature_variants
+ALTER TABLE ONLY product_nature_variants
     ADD CONSTRAINT product_nature_variants_pkey PRIMARY KEY (id);
 
 
@@ -9421,7 +9268,7 @@ ALTER TABLE ONLY public.product_nature_variants
 -- Name: product_natures product_natures_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.product_natures
+ALTER TABLE ONLY product_natures
     ADD CONSTRAINT product_natures_pkey PRIMARY KEY (id);
 
 
@@ -9429,7 +9276,7 @@ ALTER TABLE ONLY public.product_natures
 -- Name: product_ownerships product_ownerships_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.product_ownerships
+ALTER TABLE ONLY product_ownerships
     ADD CONSTRAINT product_ownerships_pkey PRIMARY KEY (id);
 
 
@@ -9437,7 +9284,7 @@ ALTER TABLE ONLY public.product_ownerships
 -- Name: product_phases product_phases_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.product_phases
+ALTER TABLE ONLY product_phases
     ADD CONSTRAINT product_phases_pkey PRIMARY KEY (id);
 
 
@@ -9445,7 +9292,7 @@ ALTER TABLE ONLY public.product_phases
 -- Name: product_readings product_readings_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.product_readings
+ALTER TABLE ONLY product_readings
     ADD CONSTRAINT product_readings_pkey PRIMARY KEY (id);
 
 
@@ -9453,7 +9300,7 @@ ALTER TABLE ONLY public.product_readings
 -- Name: products products_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.products
+ALTER TABLE ONLY products
     ADD CONSTRAINT products_pkey PRIMARY KEY (id);
 
 
@@ -9461,7 +9308,7 @@ ALTER TABLE ONLY public.products
 -- Name: project_budgets project_budgets_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.project_budgets
+ALTER TABLE ONLY project_budgets
     ADD CONSTRAINT project_budgets_pkey PRIMARY KEY (id);
 
 
@@ -9469,7 +9316,7 @@ ALTER TABLE ONLY public.project_budgets
 -- Name: purchase_items purchase_items_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.purchase_items
+ALTER TABLE ONLY purchase_items
     ADD CONSTRAINT purchase_items_pkey PRIMARY KEY (id);
 
 
@@ -9477,7 +9324,7 @@ ALTER TABLE ONLY public.purchase_items
 -- Name: purchase_natures purchase_natures_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.purchase_natures
+ALTER TABLE ONLY purchase_natures
     ADD CONSTRAINT purchase_natures_pkey PRIMARY KEY (id);
 
 
@@ -9485,7 +9332,7 @@ ALTER TABLE ONLY public.purchase_natures
 -- Name: purchases purchases_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.purchases
+ALTER TABLE ONLY purchases
     ADD CONSTRAINT purchases_pkey PRIMARY KEY (id);
 
 
@@ -9493,7 +9340,7 @@ ALTER TABLE ONLY public.purchases
 -- Name: regularizations regularizations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.regularizations
+ALTER TABLE ONLY regularizations
     ADD CONSTRAINT regularizations_pkey PRIMARY KEY (id);
 
 
@@ -9501,7 +9348,7 @@ ALTER TABLE ONLY public.regularizations
 -- Name: roles roles_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.roles
+ALTER TABLE ONLY roles
     ADD CONSTRAINT roles_pkey PRIMARY KEY (id);
 
 
@@ -9509,7 +9356,7 @@ ALTER TABLE ONLY public.roles
 -- Name: sale_items sale_items_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.sale_items
+ALTER TABLE ONLY sale_items
     ADD CONSTRAINT sale_items_pkey PRIMARY KEY (id);
 
 
@@ -9517,7 +9364,7 @@ ALTER TABLE ONLY public.sale_items
 -- Name: sale_natures sale_natures_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.sale_natures
+ALTER TABLE ONLY sale_natures
     ADD CONSTRAINT sale_natures_pkey PRIMARY KEY (id);
 
 
@@ -9525,7 +9372,7 @@ ALTER TABLE ONLY public.sale_natures
 -- Name: sales sales_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.sales
+ALTER TABLE ONLY sales
     ADD CONSTRAINT sales_pkey PRIMARY KEY (id);
 
 
@@ -9533,7 +9380,7 @@ ALTER TABLE ONLY public.sales
 -- Name: sensors sensors_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.sensors
+ALTER TABLE ONLY sensors
     ADD CONSTRAINT sensors_pkey PRIMARY KEY (id);
 
 
@@ -9541,7 +9388,7 @@ ALTER TABLE ONLY public.sensors
 -- Name: sequences sequences_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.sequences
+ALTER TABLE ONLY sequences
     ADD CONSTRAINT sequences_pkey PRIMARY KEY (id);
 
 
@@ -9549,7 +9396,7 @@ ALTER TABLE ONLY public.sequences
 -- Name: subscription_natures subscription_natures_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.subscription_natures
+ALTER TABLE ONLY subscription_natures
     ADD CONSTRAINT subscription_natures_pkey PRIMARY KEY (id);
 
 
@@ -9557,7 +9404,7 @@ ALTER TABLE ONLY public.subscription_natures
 -- Name: subscriptions subscriptions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.subscriptions
+ALTER TABLE ONLY subscriptions
     ADD CONSTRAINT subscriptions_pkey PRIMARY KEY (id);
 
 
@@ -9565,7 +9412,7 @@ ALTER TABLE ONLY public.subscriptions
 -- Name: supervision_items supervision_items_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.supervision_items
+ALTER TABLE ONLY supervision_items
     ADD CONSTRAINT supervision_items_pkey PRIMARY KEY (id);
 
 
@@ -9573,7 +9420,7 @@ ALTER TABLE ONLY public.supervision_items
 -- Name: supervisions supervisions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.supervisions
+ALTER TABLE ONLY supervisions
     ADD CONSTRAINT supervisions_pkey PRIMARY KEY (id);
 
 
@@ -9581,7 +9428,7 @@ ALTER TABLE ONLY public.supervisions
 -- Name: synchronization_operations synchronization_operations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.synchronization_operations
+ALTER TABLE ONLY synchronization_operations
     ADD CONSTRAINT synchronization_operations_pkey PRIMARY KEY (id);
 
 
@@ -9589,7 +9436,7 @@ ALTER TABLE ONLY public.synchronization_operations
 -- Name: target_distributions target_distributions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.target_distributions
+ALTER TABLE ONLY target_distributions
     ADD CONSTRAINT target_distributions_pkey PRIMARY KEY (id);
 
 
@@ -9597,7 +9444,7 @@ ALTER TABLE ONLY public.target_distributions
 -- Name: tasks tasks_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.tasks
+ALTER TABLE ONLY tasks
     ADD CONSTRAINT tasks_pkey PRIMARY KEY (id);
 
 
@@ -9605,7 +9452,7 @@ ALTER TABLE ONLY public.tasks
 -- Name: tax_declaration_item_parts tax_declaration_item_parts_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.tax_declaration_item_parts
+ALTER TABLE ONLY tax_declaration_item_parts
     ADD CONSTRAINT tax_declaration_item_parts_pkey PRIMARY KEY (id);
 
 
@@ -9613,7 +9460,7 @@ ALTER TABLE ONLY public.tax_declaration_item_parts
 -- Name: tax_declaration_items tax_declaration_items_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.tax_declaration_items
+ALTER TABLE ONLY tax_declaration_items
     ADD CONSTRAINT tax_declaration_items_pkey PRIMARY KEY (id);
 
 
@@ -9621,7 +9468,7 @@ ALTER TABLE ONLY public.tax_declaration_items
 -- Name: tax_declarations tax_declarations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.tax_declarations
+ALTER TABLE ONLY tax_declarations
     ADD CONSTRAINT tax_declarations_pkey PRIMARY KEY (id);
 
 
@@ -9629,7 +9476,7 @@ ALTER TABLE ONLY public.tax_declarations
 -- Name: taxes taxes_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.taxes
+ALTER TABLE ONLY taxes
     ADD CONSTRAINT taxes_pkey PRIMARY KEY (id);
 
 
@@ -9637,7 +9484,7 @@ ALTER TABLE ONLY public.taxes
 -- Name: teams teams_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.teams
+ALTER TABLE ONLY teams
     ADD CONSTRAINT teams_pkey PRIMARY KEY (id);
 
 
@@ -9645,7 +9492,7 @@ ALTER TABLE ONLY public.teams
 -- Name: tokens tokens_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.tokens
+ALTER TABLE ONLY tokens
     ADD CONSTRAINT tokens_pkey PRIMARY KEY (id);
 
 
@@ -9653,7 +9500,7 @@ ALTER TABLE ONLY public.tokens
 -- Name: trackings trackings_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.trackings
+ALTER TABLE ONLY trackings
     ADD CONSTRAINT trackings_pkey PRIMARY KEY (id);
 
 
@@ -9661,7 +9508,7 @@ ALTER TABLE ONLY public.trackings
 -- Name: users users_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.users
+ALTER TABLE ONLY users
     ADD CONSTRAINT users_pkey PRIMARY KEY (id);
 
 
@@ -9669,7 +9516,7 @@ ALTER TABLE ONLY public.users
 -- Name: versions versions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.versions
+ALTER TABLE ONLY versions
     ADD CONSTRAINT versions_pkey PRIMARY KEY (id);
 
 
@@ -9677,7 +9524,7 @@ ALTER TABLE ONLY public.versions
 -- Name: wice_grid_serialized_queries wice_grid_serialized_queries_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.wice_grid_serialized_queries
+ALTER TABLE ONLY wice_grid_serialized_queries
     ADD CONSTRAINT wice_grid_serialized_queries_pkey PRIMARY KEY (id);
 
 
@@ -9685,8107 +9532,8107 @@ ALTER TABLE ONLY public.wice_grid_serialized_queries
 -- Name: index_account_balances_on_account_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_account_balances_on_account_id ON public.account_balances USING btree (account_id);
+CREATE INDEX index_account_balances_on_account_id ON account_balances USING btree (account_id);
 
 
 --
 -- Name: index_account_balances_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_account_balances_on_created_at ON public.account_balances USING btree (created_at);
+CREATE INDEX index_account_balances_on_created_at ON account_balances USING btree (created_at);
 
 
 --
 -- Name: index_account_balances_on_creator_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_account_balances_on_creator_id ON public.account_balances USING btree (creator_id);
+CREATE INDEX index_account_balances_on_creator_id ON account_balances USING btree (creator_id);
 
 
 --
 -- Name: index_account_balances_on_financial_year_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_account_balances_on_financial_year_id ON public.account_balances USING btree (financial_year_id);
+CREATE INDEX index_account_balances_on_financial_year_id ON account_balances USING btree (financial_year_id);
 
 
 --
 -- Name: index_account_balances_on_updated_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_account_balances_on_updated_at ON public.account_balances USING btree (updated_at);
+CREATE INDEX index_account_balances_on_updated_at ON account_balances USING btree (updated_at);
 
 
 --
 -- Name: index_account_balances_on_updater_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_account_balances_on_updater_id ON public.account_balances USING btree (updater_id);
+CREATE INDEX index_account_balances_on_updater_id ON account_balances USING btree (updater_id);
 
 
 --
 -- Name: index_accounts_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_accounts_on_created_at ON public.accounts USING btree (created_at);
+CREATE INDEX index_accounts_on_created_at ON accounts USING btree (created_at);
 
 
 --
 -- Name: index_accounts_on_creator_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_accounts_on_creator_id ON public.accounts USING btree (creator_id);
+CREATE INDEX index_accounts_on_creator_id ON accounts USING btree (creator_id);
 
 
 --
 -- Name: index_accounts_on_updated_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_accounts_on_updated_at ON public.accounts USING btree (updated_at);
+CREATE INDEX index_accounts_on_updated_at ON accounts USING btree (updated_at);
 
 
 --
 -- Name: index_accounts_on_updater_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_accounts_on_updater_id ON public.accounts USING btree (updater_id);
+CREATE INDEX index_accounts_on_updater_id ON accounts USING btree (updater_id);
 
 
 --
 -- Name: index_activities_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_activities_on_created_at ON public.activities USING btree (created_at);
+CREATE INDEX index_activities_on_created_at ON activities USING btree (created_at);
 
 
 --
 -- Name: index_activities_on_creator_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_activities_on_creator_id ON public.activities USING btree (creator_id);
+CREATE INDEX index_activities_on_creator_id ON activities USING btree (creator_id);
 
 
 --
 -- Name: index_activities_on_name; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_activities_on_name ON public.activities USING btree (name);
+CREATE INDEX index_activities_on_name ON activities USING btree (name);
 
 
 --
 -- Name: index_activities_on_updated_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_activities_on_updated_at ON public.activities USING btree (updated_at);
+CREATE INDEX index_activities_on_updated_at ON activities USING btree (updated_at);
 
 
 --
 -- Name: index_activities_on_updater_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_activities_on_updater_id ON public.activities USING btree (updater_id);
+CREATE INDEX index_activities_on_updater_id ON activities USING btree (updater_id);
 
 
 --
 -- Name: index_activity_budget_items_on_activity_budget_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_activity_budget_items_on_activity_budget_id ON public.activity_budget_items USING btree (activity_budget_id);
+CREATE INDEX index_activity_budget_items_on_activity_budget_id ON activity_budget_items USING btree (activity_budget_id);
 
 
 --
 -- Name: index_activity_budget_items_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_activity_budget_items_on_created_at ON public.activity_budget_items USING btree (created_at);
+CREATE INDEX index_activity_budget_items_on_created_at ON activity_budget_items USING btree (created_at);
 
 
 --
 -- Name: index_activity_budget_items_on_creator_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_activity_budget_items_on_creator_id ON public.activity_budget_items USING btree (creator_id);
+CREATE INDEX index_activity_budget_items_on_creator_id ON activity_budget_items USING btree (creator_id);
 
 
 --
 -- Name: index_activity_budget_items_on_updated_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_activity_budget_items_on_updated_at ON public.activity_budget_items USING btree (updated_at);
+CREATE INDEX index_activity_budget_items_on_updated_at ON activity_budget_items USING btree (updated_at);
 
 
 --
 -- Name: index_activity_budget_items_on_updater_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_activity_budget_items_on_updater_id ON public.activity_budget_items USING btree (updater_id);
+CREATE INDEX index_activity_budget_items_on_updater_id ON activity_budget_items USING btree (updater_id);
 
 
 --
 -- Name: index_activity_budget_items_on_variant_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_activity_budget_items_on_variant_id ON public.activity_budget_items USING btree (variant_id);
+CREATE INDEX index_activity_budget_items_on_variant_id ON activity_budget_items USING btree (variant_id);
 
 
 --
 -- Name: index_activity_budgets_on_activity_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_activity_budgets_on_activity_id ON public.activity_budgets USING btree (activity_id);
+CREATE INDEX index_activity_budgets_on_activity_id ON activity_budgets USING btree (activity_id);
 
 
 --
 -- Name: index_activity_budgets_on_activity_id_and_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX index_activity_budgets_on_activity_id_and_campaign_id ON public.activity_budgets USING btree (activity_id, campaign_id);
+CREATE UNIQUE INDEX index_activity_budgets_on_activity_id_and_campaign_id ON activity_budgets USING btree (activity_id, campaign_id);
 
 
 --
 -- Name: index_activity_budgets_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_activity_budgets_on_campaign_id ON public.activity_budgets USING btree (campaign_id);
+CREATE INDEX index_activity_budgets_on_campaign_id ON activity_budgets USING btree (campaign_id);
 
 
 --
 -- Name: index_activity_budgets_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_activity_budgets_on_created_at ON public.activity_budgets USING btree (created_at);
+CREATE INDEX index_activity_budgets_on_created_at ON activity_budgets USING btree (created_at);
 
 
 --
 -- Name: index_activity_budgets_on_creator_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_activity_budgets_on_creator_id ON public.activity_budgets USING btree (creator_id);
+CREATE INDEX index_activity_budgets_on_creator_id ON activity_budgets USING btree (creator_id);
 
 
 --
 -- Name: index_activity_budgets_on_updated_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_activity_budgets_on_updated_at ON public.activity_budgets USING btree (updated_at);
+CREATE INDEX index_activity_budgets_on_updated_at ON activity_budgets USING btree (updated_at);
 
 
 --
 -- Name: index_activity_budgets_on_updater_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_activity_budgets_on_updater_id ON public.activity_budgets USING btree (updater_id);
+CREATE INDEX index_activity_budgets_on_updater_id ON activity_budgets USING btree (updater_id);
 
 
 --
 -- Name: index_activity_distributions_on_activity_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_activity_distributions_on_activity_id ON public.activity_distributions USING btree (activity_id);
+CREATE INDEX index_activity_distributions_on_activity_id ON activity_distributions USING btree (activity_id);
 
 
 --
 -- Name: index_activity_distributions_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_activity_distributions_on_created_at ON public.activity_distributions USING btree (created_at);
+CREATE INDEX index_activity_distributions_on_created_at ON activity_distributions USING btree (created_at);
 
 
 --
 -- Name: index_activity_distributions_on_creator_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_activity_distributions_on_creator_id ON public.activity_distributions USING btree (creator_id);
+CREATE INDEX index_activity_distributions_on_creator_id ON activity_distributions USING btree (creator_id);
 
 
 --
 -- Name: index_activity_distributions_on_main_activity_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_activity_distributions_on_main_activity_id ON public.activity_distributions USING btree (main_activity_id);
+CREATE INDEX index_activity_distributions_on_main_activity_id ON activity_distributions USING btree (main_activity_id);
 
 
 --
 -- Name: index_activity_distributions_on_updated_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_activity_distributions_on_updated_at ON public.activity_distributions USING btree (updated_at);
+CREATE INDEX index_activity_distributions_on_updated_at ON activity_distributions USING btree (updated_at);
 
 
 --
 -- Name: index_activity_distributions_on_updater_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_activity_distributions_on_updater_id ON public.activity_distributions USING btree (updater_id);
+CREATE INDEX index_activity_distributions_on_updater_id ON activity_distributions USING btree (updater_id);
 
 
 --
 -- Name: index_activity_inspection_calibration_natures_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_activity_inspection_calibration_natures_on_created_at ON public.activity_inspection_calibration_natures USING btree (created_at);
+CREATE INDEX index_activity_inspection_calibration_natures_on_created_at ON activity_inspection_calibration_natures USING btree (created_at);
 
 
 --
 -- Name: index_activity_inspection_calibration_natures_on_creator_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_activity_inspection_calibration_natures_on_creator_id ON public.activity_inspection_calibration_natures USING btree (creator_id);
+CREATE INDEX index_activity_inspection_calibration_natures_on_creator_id ON activity_inspection_calibration_natures USING btree (creator_id);
 
 
 --
 -- Name: index_activity_inspection_calibration_natures_on_scale_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_activity_inspection_calibration_natures_on_scale_id ON public.activity_inspection_calibration_natures USING btree (scale_id);
+CREATE INDEX index_activity_inspection_calibration_natures_on_scale_id ON activity_inspection_calibration_natures USING btree (scale_id);
 
 
 --
 -- Name: index_activity_inspection_calibration_natures_on_updated_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_activity_inspection_calibration_natures_on_updated_at ON public.activity_inspection_calibration_natures USING btree (updated_at);
+CREATE INDEX index_activity_inspection_calibration_natures_on_updated_at ON activity_inspection_calibration_natures USING btree (updated_at);
 
 
 --
 -- Name: index_activity_inspection_calibration_natures_on_updater_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_activity_inspection_calibration_natures_on_updater_id ON public.activity_inspection_calibration_natures USING btree (updater_id);
+CREATE INDEX index_activity_inspection_calibration_natures_on_updater_id ON activity_inspection_calibration_natures USING btree (updater_id);
 
 
 --
 -- Name: index_activity_inspection_calibration_scales_on_activity_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_activity_inspection_calibration_scales_on_activity_id ON public.activity_inspection_calibration_scales USING btree (activity_id);
+CREATE INDEX index_activity_inspection_calibration_scales_on_activity_id ON activity_inspection_calibration_scales USING btree (activity_id);
 
 
 --
 -- Name: index_activity_inspection_calibration_scales_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_activity_inspection_calibration_scales_on_created_at ON public.activity_inspection_calibration_scales USING btree (created_at);
+CREATE INDEX index_activity_inspection_calibration_scales_on_created_at ON activity_inspection_calibration_scales USING btree (created_at);
 
 
 --
 -- Name: index_activity_inspection_calibration_scales_on_creator_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_activity_inspection_calibration_scales_on_creator_id ON public.activity_inspection_calibration_scales USING btree (creator_id);
+CREATE INDEX index_activity_inspection_calibration_scales_on_creator_id ON activity_inspection_calibration_scales USING btree (creator_id);
 
 
 --
 -- Name: index_activity_inspection_calibration_scales_on_updated_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_activity_inspection_calibration_scales_on_updated_at ON public.activity_inspection_calibration_scales USING btree (updated_at);
+CREATE INDEX index_activity_inspection_calibration_scales_on_updated_at ON activity_inspection_calibration_scales USING btree (updated_at);
 
 
 --
 -- Name: index_activity_inspection_calibration_scales_on_updater_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_activity_inspection_calibration_scales_on_updater_id ON public.activity_inspection_calibration_scales USING btree (updater_id);
+CREATE INDEX index_activity_inspection_calibration_scales_on_updater_id ON activity_inspection_calibration_scales USING btree (updater_id);
 
 
 --
 -- Name: index_activity_inspection_point_natures_on_activity_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_activity_inspection_point_natures_on_activity_id ON public.activity_inspection_point_natures USING btree (activity_id);
+CREATE INDEX index_activity_inspection_point_natures_on_activity_id ON activity_inspection_point_natures USING btree (activity_id);
 
 
 --
 -- Name: index_activity_inspection_point_natures_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_activity_inspection_point_natures_on_created_at ON public.activity_inspection_point_natures USING btree (created_at);
+CREATE INDEX index_activity_inspection_point_natures_on_created_at ON activity_inspection_point_natures USING btree (created_at);
 
 
 --
 -- Name: index_activity_inspection_point_natures_on_creator_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_activity_inspection_point_natures_on_creator_id ON public.activity_inspection_point_natures USING btree (creator_id);
+CREATE INDEX index_activity_inspection_point_natures_on_creator_id ON activity_inspection_point_natures USING btree (creator_id);
 
 
 --
 -- Name: index_activity_inspection_point_natures_on_updated_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_activity_inspection_point_natures_on_updated_at ON public.activity_inspection_point_natures USING btree (updated_at);
+CREATE INDEX index_activity_inspection_point_natures_on_updated_at ON activity_inspection_point_natures USING btree (updated_at);
 
 
 --
 -- Name: index_activity_inspection_point_natures_on_updater_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_activity_inspection_point_natures_on_updater_id ON public.activity_inspection_point_natures USING btree (updater_id);
+CREATE INDEX index_activity_inspection_point_natures_on_updater_id ON activity_inspection_point_natures USING btree (updater_id);
 
 
 --
 -- Name: index_activity_productions_on_activity_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_activity_productions_on_activity_id ON public.activity_productions USING btree (activity_id);
+CREATE INDEX index_activity_productions_on_activity_id ON activity_productions USING btree (activity_id);
 
 
 --
 -- Name: index_activity_productions_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_activity_productions_on_campaign_id ON public.activity_productions USING btree (campaign_id);
+CREATE INDEX index_activity_productions_on_campaign_id ON activity_productions USING btree (campaign_id);
 
 
 --
 -- Name: index_activity_productions_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_activity_productions_on_created_at ON public.activity_productions USING btree (created_at);
+CREATE INDEX index_activity_productions_on_created_at ON activity_productions USING btree (created_at);
 
 
 --
 -- Name: index_activity_productions_on_creator_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_activity_productions_on_creator_id ON public.activity_productions USING btree (creator_id);
+CREATE INDEX index_activity_productions_on_creator_id ON activity_productions USING btree (creator_id);
 
 
 --
 -- Name: index_activity_productions_on_cultivable_zone_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_activity_productions_on_cultivable_zone_id ON public.activity_productions USING btree (cultivable_zone_id);
+CREATE INDEX index_activity_productions_on_cultivable_zone_id ON activity_productions USING btree (cultivable_zone_id);
 
 
 --
 -- Name: index_activity_productions_on_season_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_activity_productions_on_season_id ON public.activity_productions USING btree (season_id);
+CREATE INDEX index_activity_productions_on_season_id ON activity_productions USING btree (season_id);
 
 
 --
 -- Name: index_activity_productions_on_support_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_activity_productions_on_support_id ON public.activity_productions USING btree (support_id);
+CREATE INDEX index_activity_productions_on_support_id ON activity_productions USING btree (support_id);
 
 
 --
 -- Name: index_activity_productions_on_tactic_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_activity_productions_on_tactic_id ON public.activity_productions USING btree (tactic_id);
+CREATE INDEX index_activity_productions_on_tactic_id ON activity_productions USING btree (tactic_id);
 
 
 --
 -- Name: index_activity_productions_on_updated_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_activity_productions_on_updated_at ON public.activity_productions USING btree (updated_at);
+CREATE INDEX index_activity_productions_on_updated_at ON activity_productions USING btree (updated_at);
 
 
 --
 -- Name: index_activity_productions_on_updater_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_activity_productions_on_updater_id ON public.activity_productions USING btree (updater_id);
+CREATE INDEX index_activity_productions_on_updater_id ON activity_productions USING btree (updater_id);
 
 
 --
 -- Name: index_activity_seasons_on_activity_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_activity_seasons_on_activity_id ON public.activity_seasons USING btree (activity_id);
+CREATE INDEX index_activity_seasons_on_activity_id ON activity_seasons USING btree (activity_id);
 
 
 --
 -- Name: index_activity_seasons_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_activity_seasons_on_created_at ON public.activity_seasons USING btree (created_at);
+CREATE INDEX index_activity_seasons_on_created_at ON activity_seasons USING btree (created_at);
 
 
 --
 -- Name: index_activity_seasons_on_creator_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_activity_seasons_on_creator_id ON public.activity_seasons USING btree (creator_id);
+CREATE INDEX index_activity_seasons_on_creator_id ON activity_seasons USING btree (creator_id);
 
 
 --
 -- Name: index_activity_seasons_on_updated_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_activity_seasons_on_updated_at ON public.activity_seasons USING btree (updated_at);
+CREATE INDEX index_activity_seasons_on_updated_at ON activity_seasons USING btree (updated_at);
 
 
 --
 -- Name: index_activity_seasons_on_updater_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_activity_seasons_on_updater_id ON public.activity_seasons USING btree (updater_id);
+CREATE INDEX index_activity_seasons_on_updater_id ON activity_seasons USING btree (updater_id);
 
 
 --
 -- Name: index_activity_tactics_on_activity_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_activity_tactics_on_activity_id ON public.activity_tactics USING btree (activity_id);
+CREATE INDEX index_activity_tactics_on_activity_id ON activity_tactics USING btree (activity_id);
 
 
 --
 -- Name: index_activity_tactics_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_activity_tactics_on_created_at ON public.activity_tactics USING btree (created_at);
+CREATE INDEX index_activity_tactics_on_created_at ON activity_tactics USING btree (created_at);
 
 
 --
 -- Name: index_activity_tactics_on_creator_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_activity_tactics_on_creator_id ON public.activity_tactics USING btree (creator_id);
+CREATE INDEX index_activity_tactics_on_creator_id ON activity_tactics USING btree (creator_id);
 
 
 --
 -- Name: index_activity_tactics_on_updated_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_activity_tactics_on_updated_at ON public.activity_tactics USING btree (updated_at);
+CREATE INDEX index_activity_tactics_on_updated_at ON activity_tactics USING btree (updated_at);
 
 
 --
 -- Name: index_activity_tactics_on_updater_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_activity_tactics_on_updater_id ON public.activity_tactics USING btree (updater_id);
+CREATE INDEX index_activity_tactics_on_updater_id ON activity_tactics USING btree (updater_id);
 
 
 --
 -- Name: index_affairs_on_cash_session_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_affairs_on_cash_session_id ON public.affairs USING btree (cash_session_id);
+CREATE INDEX index_affairs_on_cash_session_id ON affairs USING btree (cash_session_id);
 
 
 --
 -- Name: index_affairs_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_affairs_on_created_at ON public.affairs USING btree (created_at);
+CREATE INDEX index_affairs_on_created_at ON affairs USING btree (created_at);
 
 
 --
 -- Name: index_affairs_on_creator_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_affairs_on_creator_id ON public.affairs USING btree (creator_id);
+CREATE INDEX index_affairs_on_creator_id ON affairs USING btree (creator_id);
 
 
 --
 -- Name: index_affairs_on_journal_entry_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_affairs_on_journal_entry_id ON public.affairs USING btree (journal_entry_id);
+CREATE INDEX index_affairs_on_journal_entry_id ON affairs USING btree (journal_entry_id);
 
 
 --
 -- Name: index_affairs_on_name; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_affairs_on_name ON public.affairs USING btree (name);
+CREATE INDEX index_affairs_on_name ON affairs USING btree (name);
 
 
 --
 -- Name: index_affairs_on_number; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX index_affairs_on_number ON public.affairs USING btree (number);
+CREATE UNIQUE INDEX index_affairs_on_number ON affairs USING btree (number);
 
 
 --
 -- Name: index_affairs_on_responsible_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_affairs_on_responsible_id ON public.affairs USING btree (responsible_id);
+CREATE INDEX index_affairs_on_responsible_id ON affairs USING btree (responsible_id);
 
 
 --
 -- Name: index_affairs_on_third_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_affairs_on_third_id ON public.affairs USING btree (third_id);
+CREATE INDEX index_affairs_on_third_id ON affairs USING btree (third_id);
 
 
 --
 -- Name: index_affairs_on_updated_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_affairs_on_updated_at ON public.affairs USING btree (updated_at);
+CREATE INDEX index_affairs_on_updated_at ON affairs USING btree (updated_at);
 
 
 --
 -- Name: index_affairs_on_updater_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_affairs_on_updater_id ON public.affairs USING btree (updater_id);
+CREATE INDEX index_affairs_on_updater_id ON affairs USING btree (updater_id);
 
 
 --
 -- Name: index_alert_phases_on_alert_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_alert_phases_on_alert_id ON public.alert_phases USING btree (alert_id);
+CREATE INDEX index_alert_phases_on_alert_id ON alert_phases USING btree (alert_id);
 
 
 --
 -- Name: index_alert_phases_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_alert_phases_on_created_at ON public.alert_phases USING btree (created_at);
+CREATE INDEX index_alert_phases_on_created_at ON alert_phases USING btree (created_at);
 
 
 --
 -- Name: index_alert_phases_on_creator_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_alert_phases_on_creator_id ON public.alert_phases USING btree (creator_id);
+CREATE INDEX index_alert_phases_on_creator_id ON alert_phases USING btree (creator_id);
 
 
 --
 -- Name: index_alert_phases_on_updated_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_alert_phases_on_updated_at ON public.alert_phases USING btree (updated_at);
+CREATE INDEX index_alert_phases_on_updated_at ON alert_phases USING btree (updated_at);
 
 
 --
 -- Name: index_alert_phases_on_updater_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_alert_phases_on_updater_id ON public.alert_phases USING btree (updater_id);
+CREATE INDEX index_alert_phases_on_updater_id ON alert_phases USING btree (updater_id);
 
 
 --
 -- Name: index_alerts_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_alerts_on_created_at ON public.alerts USING btree (created_at);
+CREATE INDEX index_alerts_on_created_at ON alerts USING btree (created_at);
 
 
 --
 -- Name: index_alerts_on_creator_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_alerts_on_creator_id ON public.alerts USING btree (creator_id);
+CREATE INDEX index_alerts_on_creator_id ON alerts USING btree (creator_id);
 
 
 --
 -- Name: index_alerts_on_sensor_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_alerts_on_sensor_id ON public.alerts USING btree (sensor_id);
+CREATE INDEX index_alerts_on_sensor_id ON alerts USING btree (sensor_id);
 
 
 --
 -- Name: index_alerts_on_updated_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_alerts_on_updated_at ON public.alerts USING btree (updated_at);
+CREATE INDEX index_alerts_on_updated_at ON alerts USING btree (updated_at);
 
 
 --
 -- Name: index_alerts_on_updater_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_alerts_on_updater_id ON public.alerts USING btree (updater_id);
+CREATE INDEX index_alerts_on_updater_id ON alerts USING btree (updater_id);
 
 
 --
 -- Name: index_analyses_on_analyser_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_analyses_on_analyser_id ON public.analyses USING btree (analyser_id);
+CREATE INDEX index_analyses_on_analyser_id ON analyses USING btree (analyser_id);
 
 
 --
 -- Name: index_analyses_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_analyses_on_created_at ON public.analyses USING btree (created_at);
+CREATE INDEX index_analyses_on_created_at ON analyses USING btree (created_at);
 
 
 --
 -- Name: index_analyses_on_creator_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_analyses_on_creator_id ON public.analyses USING btree (creator_id);
+CREATE INDEX index_analyses_on_creator_id ON analyses USING btree (creator_id);
 
 
 --
 -- Name: index_analyses_on_host_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_analyses_on_host_id ON public.analyses USING btree (host_id);
+CREATE INDEX index_analyses_on_host_id ON analyses USING btree (host_id);
 
 
 --
 -- Name: index_analyses_on_nature; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_analyses_on_nature ON public.analyses USING btree (nature);
+CREATE INDEX index_analyses_on_nature ON analyses USING btree (nature);
 
 
 --
 -- Name: index_analyses_on_number; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_analyses_on_number ON public.analyses USING btree (number);
+CREATE INDEX index_analyses_on_number ON analyses USING btree (number);
 
 
 --
 -- Name: index_analyses_on_product_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_analyses_on_product_id ON public.analyses USING btree (product_id);
+CREATE INDEX index_analyses_on_product_id ON analyses USING btree (product_id);
 
 
 --
 -- Name: index_analyses_on_reference_number; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_analyses_on_reference_number ON public.analyses USING btree (reference_number);
+CREATE INDEX index_analyses_on_reference_number ON analyses USING btree (reference_number);
 
 
 --
 -- Name: index_analyses_on_sampler_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_analyses_on_sampler_id ON public.analyses USING btree (sampler_id);
+CREATE INDEX index_analyses_on_sampler_id ON analyses USING btree (sampler_id);
 
 
 --
 -- Name: index_analyses_on_sensor_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_analyses_on_sensor_id ON public.analyses USING btree (sensor_id);
+CREATE INDEX index_analyses_on_sensor_id ON analyses USING btree (sensor_id);
 
 
 --
 -- Name: index_analyses_on_updated_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_analyses_on_updated_at ON public.analyses USING btree (updated_at);
+CREATE INDEX index_analyses_on_updated_at ON analyses USING btree (updated_at);
 
 
 --
 -- Name: index_analyses_on_updater_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_analyses_on_updater_id ON public.analyses USING btree (updater_id);
+CREATE INDEX index_analyses_on_updater_id ON analyses USING btree (updater_id);
 
 
 --
 -- Name: index_analysis_items_on_analysis_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_analysis_items_on_analysis_id ON public.analysis_items USING btree (analysis_id);
+CREATE INDEX index_analysis_items_on_analysis_id ON analysis_items USING btree (analysis_id);
 
 
 --
 -- Name: index_analysis_items_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_analysis_items_on_created_at ON public.analysis_items USING btree (created_at);
+CREATE INDEX index_analysis_items_on_created_at ON analysis_items USING btree (created_at);
 
 
 --
 -- Name: index_analysis_items_on_creator_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_analysis_items_on_creator_id ON public.analysis_items USING btree (creator_id);
+CREATE INDEX index_analysis_items_on_creator_id ON analysis_items USING btree (creator_id);
 
 
 --
 -- Name: index_analysis_items_on_indicator_name; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_analysis_items_on_indicator_name ON public.analysis_items USING btree (indicator_name);
+CREATE INDEX index_analysis_items_on_indicator_name ON analysis_items USING btree (indicator_name);
 
 
 --
 -- Name: index_analysis_items_on_product_reading_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_analysis_items_on_product_reading_id ON public.analysis_items USING btree (product_reading_id);
+CREATE INDEX index_analysis_items_on_product_reading_id ON analysis_items USING btree (product_reading_id);
 
 
 --
 -- Name: index_analysis_items_on_updated_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_analysis_items_on_updated_at ON public.analysis_items USING btree (updated_at);
+CREATE INDEX index_analysis_items_on_updated_at ON analysis_items USING btree (updated_at);
 
 
 --
 -- Name: index_analysis_items_on_updater_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_analysis_items_on_updater_id ON public.analysis_items USING btree (updater_id);
+CREATE INDEX index_analysis_items_on_updater_id ON analysis_items USING btree (updater_id);
 
 
 --
 -- Name: index_attachments_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_attachments_on_created_at ON public.attachments USING btree (created_at);
+CREATE INDEX index_attachments_on_created_at ON attachments USING btree (created_at);
 
 
 --
 -- Name: index_attachments_on_creator_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_attachments_on_creator_id ON public.attachments USING btree (creator_id);
+CREATE INDEX index_attachments_on_creator_id ON attachments USING btree (creator_id);
 
 
 --
 -- Name: index_attachments_on_document_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_attachments_on_document_id ON public.attachments USING btree (document_id);
+CREATE INDEX index_attachments_on_document_id ON attachments USING btree (document_id);
 
 
 --
 -- Name: index_attachments_on_resource_type_and_resource_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_attachments_on_resource_type_and_resource_id ON public.attachments USING btree (resource_type, resource_id);
+CREATE INDEX index_attachments_on_resource_type_and_resource_id ON attachments USING btree (resource_type, resource_id);
 
 
 --
 -- Name: index_attachments_on_updated_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_attachments_on_updated_at ON public.attachments USING btree (updated_at);
+CREATE INDEX index_attachments_on_updated_at ON attachments USING btree (updated_at);
 
 
 --
 -- Name: index_attachments_on_updater_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_attachments_on_updater_id ON public.attachments USING btree (updater_id);
+CREATE INDEX index_attachments_on_updater_id ON attachments USING btree (updater_id);
 
 
 --
 -- Name: index_bank_statement_items_on_bank_statement_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_bank_statement_items_on_bank_statement_id ON public.bank_statement_items USING btree (bank_statement_id);
+CREATE INDEX index_bank_statement_items_on_bank_statement_id ON bank_statement_items USING btree (bank_statement_id);
 
 
 --
 -- Name: index_bank_statement_items_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_bank_statement_items_on_created_at ON public.bank_statement_items USING btree (created_at);
+CREATE INDEX index_bank_statement_items_on_created_at ON bank_statement_items USING btree (created_at);
 
 
 --
 -- Name: index_bank_statement_items_on_creator_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_bank_statement_items_on_creator_id ON public.bank_statement_items USING btree (creator_id);
+CREATE INDEX index_bank_statement_items_on_creator_id ON bank_statement_items USING btree (creator_id);
 
 
 --
 -- Name: index_bank_statement_items_on_letter; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_bank_statement_items_on_letter ON public.bank_statement_items USING btree (letter);
+CREATE INDEX index_bank_statement_items_on_letter ON bank_statement_items USING btree (letter);
 
 
 --
 -- Name: index_bank_statement_items_on_name; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_bank_statement_items_on_name ON public.bank_statement_items USING btree (name);
+CREATE INDEX index_bank_statement_items_on_name ON bank_statement_items USING btree (name);
 
 
 --
 -- Name: index_bank_statement_items_on_transaction_number; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_bank_statement_items_on_transaction_number ON public.bank_statement_items USING btree (transaction_number);
+CREATE INDEX index_bank_statement_items_on_transaction_number ON bank_statement_items USING btree (transaction_number);
 
 
 --
 -- Name: index_bank_statement_items_on_updated_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_bank_statement_items_on_updated_at ON public.bank_statement_items USING btree (updated_at);
+CREATE INDEX index_bank_statement_items_on_updated_at ON bank_statement_items USING btree (updated_at);
 
 
 --
 -- Name: index_bank_statement_items_on_updater_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_bank_statement_items_on_updater_id ON public.bank_statement_items USING btree (updater_id);
+CREATE INDEX index_bank_statement_items_on_updater_id ON bank_statement_items USING btree (updater_id);
 
 
 --
 -- Name: index_bank_statements_on_cash_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_bank_statements_on_cash_id ON public.bank_statements USING btree (cash_id);
+CREATE INDEX index_bank_statements_on_cash_id ON bank_statements USING btree (cash_id);
 
 
 --
 -- Name: index_bank_statements_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_bank_statements_on_created_at ON public.bank_statements USING btree (created_at);
+CREATE INDEX index_bank_statements_on_created_at ON bank_statements USING btree (created_at);
 
 
 --
 -- Name: index_bank_statements_on_creator_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_bank_statements_on_creator_id ON public.bank_statements USING btree (creator_id);
+CREATE INDEX index_bank_statements_on_creator_id ON bank_statements USING btree (creator_id);
 
 
 --
 -- Name: index_bank_statements_on_journal_entry_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_bank_statements_on_journal_entry_id ON public.bank_statements USING btree (journal_entry_id);
+CREATE INDEX index_bank_statements_on_journal_entry_id ON bank_statements USING btree (journal_entry_id);
 
 
 --
 -- Name: index_bank_statements_on_updated_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_bank_statements_on_updated_at ON public.bank_statements USING btree (updated_at);
+CREATE INDEX index_bank_statements_on_updated_at ON bank_statements USING btree (updated_at);
 
 
 --
 -- Name: index_bank_statements_on_updater_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_bank_statements_on_updater_id ON public.bank_statements USING btree (updater_id);
+CREATE INDEX index_bank_statements_on_updater_id ON bank_statements USING btree (updater_id);
 
 
 --
 -- Name: index_call_messages_on_call_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_call_messages_on_call_id ON public.call_messages USING btree (call_id);
+CREATE INDEX index_call_messages_on_call_id ON call_messages USING btree (call_id);
 
 
 --
 -- Name: index_call_messages_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_call_messages_on_created_at ON public.call_messages USING btree (created_at);
+CREATE INDEX index_call_messages_on_created_at ON call_messages USING btree (created_at);
 
 
 --
 -- Name: index_call_messages_on_creator_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_call_messages_on_creator_id ON public.call_messages USING btree (creator_id);
+CREATE INDEX index_call_messages_on_creator_id ON call_messages USING btree (creator_id);
 
 
 --
 -- Name: index_call_messages_on_request_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_call_messages_on_request_id ON public.call_messages USING btree (request_id);
+CREATE INDEX index_call_messages_on_request_id ON call_messages USING btree (request_id);
 
 
 --
 -- Name: index_call_messages_on_updated_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_call_messages_on_updated_at ON public.call_messages USING btree (updated_at);
+CREATE INDEX index_call_messages_on_updated_at ON call_messages USING btree (updated_at);
 
 
 --
 -- Name: index_call_messages_on_updater_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_call_messages_on_updater_id ON public.call_messages USING btree (updater_id);
+CREATE INDEX index_call_messages_on_updater_id ON call_messages USING btree (updater_id);
 
 
 --
 -- Name: index_calls_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_calls_on_created_at ON public.calls USING btree (created_at);
+CREATE INDEX index_calls_on_created_at ON calls USING btree (created_at);
 
 
 --
 -- Name: index_calls_on_creator_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_calls_on_creator_id ON public.calls USING btree (creator_id);
+CREATE INDEX index_calls_on_creator_id ON calls USING btree (creator_id);
 
 
 --
 -- Name: index_calls_on_source_type_and_source_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_calls_on_source_type_and_source_id ON public.calls USING btree (source_type, source_id);
+CREATE INDEX index_calls_on_source_type_and_source_id ON calls USING btree (source_type, source_id);
 
 
 --
 -- Name: index_calls_on_updated_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_calls_on_updated_at ON public.calls USING btree (updated_at);
+CREATE INDEX index_calls_on_updated_at ON calls USING btree (updated_at);
 
 
 --
 -- Name: index_calls_on_updater_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_calls_on_updater_id ON public.calls USING btree (updater_id);
+CREATE INDEX index_calls_on_updater_id ON calls USING btree (updater_id);
 
 
 --
 -- Name: index_campaigns_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_campaigns_on_created_at ON public.campaigns USING btree (created_at);
+CREATE INDEX index_campaigns_on_created_at ON campaigns USING btree (created_at);
 
 
 --
 -- Name: index_campaigns_on_creator_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_campaigns_on_creator_id ON public.campaigns USING btree (creator_id);
+CREATE INDEX index_campaigns_on_creator_id ON campaigns USING btree (creator_id);
 
 
 --
 -- Name: index_campaigns_on_updated_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_campaigns_on_updated_at ON public.campaigns USING btree (updated_at);
+CREATE INDEX index_campaigns_on_updated_at ON campaigns USING btree (updated_at);
 
 
 --
 -- Name: index_campaigns_on_updater_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_campaigns_on_updater_id ON public.campaigns USING btree (updater_id);
+CREATE INDEX index_campaigns_on_updater_id ON campaigns USING btree (updater_id);
 
 
 --
 -- Name: index_cap_islets_on_cap_statement_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_cap_islets_on_cap_statement_id ON public.cap_islets USING btree (cap_statement_id);
+CREATE INDEX index_cap_islets_on_cap_statement_id ON cap_islets USING btree (cap_statement_id);
 
 
 --
 -- Name: index_cap_islets_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_cap_islets_on_created_at ON public.cap_islets USING btree (created_at);
+CREATE INDEX index_cap_islets_on_created_at ON cap_islets USING btree (created_at);
 
 
 --
 -- Name: index_cap_islets_on_creator_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_cap_islets_on_creator_id ON public.cap_islets USING btree (creator_id);
+CREATE INDEX index_cap_islets_on_creator_id ON cap_islets USING btree (creator_id);
 
 
 --
 -- Name: index_cap_islets_on_updated_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_cap_islets_on_updated_at ON public.cap_islets USING btree (updated_at);
+CREATE INDEX index_cap_islets_on_updated_at ON cap_islets USING btree (updated_at);
 
 
 --
 -- Name: index_cap_islets_on_updater_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_cap_islets_on_updater_id ON public.cap_islets USING btree (updater_id);
+CREATE INDEX index_cap_islets_on_updater_id ON cap_islets USING btree (updater_id);
 
 
 --
 -- Name: index_cap_land_parcels_on_cap_islet_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_cap_land_parcels_on_cap_islet_id ON public.cap_land_parcels USING btree (cap_islet_id);
+CREATE INDEX index_cap_land_parcels_on_cap_islet_id ON cap_land_parcels USING btree (cap_islet_id);
 
 
 --
 -- Name: index_cap_land_parcels_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_cap_land_parcels_on_created_at ON public.cap_land_parcels USING btree (created_at);
+CREATE INDEX index_cap_land_parcels_on_created_at ON cap_land_parcels USING btree (created_at);
 
 
 --
 -- Name: index_cap_land_parcels_on_creator_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_cap_land_parcels_on_creator_id ON public.cap_land_parcels USING btree (creator_id);
+CREATE INDEX index_cap_land_parcels_on_creator_id ON cap_land_parcels USING btree (creator_id);
 
 
 --
 -- Name: index_cap_land_parcels_on_support_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_cap_land_parcels_on_support_id ON public.cap_land_parcels USING btree (support_id);
+CREATE INDEX index_cap_land_parcels_on_support_id ON cap_land_parcels USING btree (support_id);
 
 
 --
 -- Name: index_cap_land_parcels_on_updated_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_cap_land_parcels_on_updated_at ON public.cap_land_parcels USING btree (updated_at);
+CREATE INDEX index_cap_land_parcels_on_updated_at ON cap_land_parcels USING btree (updated_at);
 
 
 --
 -- Name: index_cap_land_parcels_on_updater_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_cap_land_parcels_on_updater_id ON public.cap_land_parcels USING btree (updater_id);
+CREATE INDEX index_cap_land_parcels_on_updater_id ON cap_land_parcels USING btree (updater_id);
 
 
 --
 -- Name: index_cap_neutral_areas_on_cap_statement_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_cap_neutral_areas_on_cap_statement_id ON public.cap_neutral_areas USING btree (cap_statement_id);
+CREATE INDEX index_cap_neutral_areas_on_cap_statement_id ON cap_neutral_areas USING btree (cap_statement_id);
 
 
 --
 -- Name: index_cap_neutral_areas_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_cap_neutral_areas_on_created_at ON public.cap_neutral_areas USING btree (created_at);
+CREATE INDEX index_cap_neutral_areas_on_created_at ON cap_neutral_areas USING btree (created_at);
 
 
 --
 -- Name: index_cap_neutral_areas_on_creator_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_cap_neutral_areas_on_creator_id ON public.cap_neutral_areas USING btree (creator_id);
+CREATE INDEX index_cap_neutral_areas_on_creator_id ON cap_neutral_areas USING btree (creator_id);
 
 
 --
 -- Name: index_cap_neutral_areas_on_updated_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_cap_neutral_areas_on_updated_at ON public.cap_neutral_areas USING btree (updated_at);
+CREATE INDEX index_cap_neutral_areas_on_updated_at ON cap_neutral_areas USING btree (updated_at);
 
 
 --
 -- Name: index_cap_neutral_areas_on_updater_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_cap_neutral_areas_on_updater_id ON public.cap_neutral_areas USING btree (updater_id);
+CREATE INDEX index_cap_neutral_areas_on_updater_id ON cap_neutral_areas USING btree (updater_id);
 
 
 --
 -- Name: index_cap_statements_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_cap_statements_on_campaign_id ON public.cap_statements USING btree (campaign_id);
+CREATE INDEX index_cap_statements_on_campaign_id ON cap_statements USING btree (campaign_id);
 
 
 --
 -- Name: index_cap_statements_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_cap_statements_on_created_at ON public.cap_statements USING btree (created_at);
+CREATE INDEX index_cap_statements_on_created_at ON cap_statements USING btree (created_at);
 
 
 --
 -- Name: index_cap_statements_on_creator_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_cap_statements_on_creator_id ON public.cap_statements USING btree (creator_id);
+CREATE INDEX index_cap_statements_on_creator_id ON cap_statements USING btree (creator_id);
 
 
 --
 -- Name: index_cap_statements_on_declarant_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_cap_statements_on_declarant_id ON public.cap_statements USING btree (declarant_id);
+CREATE INDEX index_cap_statements_on_declarant_id ON cap_statements USING btree (declarant_id);
 
 
 --
 -- Name: index_cap_statements_on_updated_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_cap_statements_on_updated_at ON public.cap_statements USING btree (updated_at);
+CREATE INDEX index_cap_statements_on_updated_at ON cap_statements USING btree (updated_at);
 
 
 --
 -- Name: index_cap_statements_on_updater_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_cap_statements_on_updater_id ON public.cap_statements USING btree (updater_id);
+CREATE INDEX index_cap_statements_on_updater_id ON cap_statements USING btree (updater_id);
 
 
 --
 -- Name: index_cash_sessions_on_cash_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_cash_sessions_on_cash_id ON public.cash_sessions USING btree (cash_id);
+CREATE INDEX index_cash_sessions_on_cash_id ON cash_sessions USING btree (cash_id);
 
 
 --
 -- Name: index_cash_sessions_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_cash_sessions_on_created_at ON public.cash_sessions USING btree (created_at);
+CREATE INDEX index_cash_sessions_on_created_at ON cash_sessions USING btree (created_at);
 
 
 --
 -- Name: index_cash_sessions_on_creator_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_cash_sessions_on_creator_id ON public.cash_sessions USING btree (creator_id);
+CREATE INDEX index_cash_sessions_on_creator_id ON cash_sessions USING btree (creator_id);
 
 
 --
 -- Name: index_cash_sessions_on_number; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_cash_sessions_on_number ON public.cash_sessions USING btree (number);
+CREATE INDEX index_cash_sessions_on_number ON cash_sessions USING btree (number);
 
 
 --
 -- Name: index_cash_sessions_on_updated_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_cash_sessions_on_updated_at ON public.cash_sessions USING btree (updated_at);
+CREATE INDEX index_cash_sessions_on_updated_at ON cash_sessions USING btree (updated_at);
 
 
 --
 -- Name: index_cash_sessions_on_updater_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_cash_sessions_on_updater_id ON public.cash_sessions USING btree (updater_id);
+CREATE INDEX index_cash_sessions_on_updater_id ON cash_sessions USING btree (updater_id);
 
 
 --
 -- Name: index_cash_transfers_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_cash_transfers_on_created_at ON public.cash_transfers USING btree (created_at);
+CREATE INDEX index_cash_transfers_on_created_at ON cash_transfers USING btree (created_at);
 
 
 --
 -- Name: index_cash_transfers_on_creator_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_cash_transfers_on_creator_id ON public.cash_transfers USING btree (creator_id);
+CREATE INDEX index_cash_transfers_on_creator_id ON cash_transfers USING btree (creator_id);
 
 
 --
 -- Name: index_cash_transfers_on_emission_cash_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_cash_transfers_on_emission_cash_id ON public.cash_transfers USING btree (emission_cash_id);
+CREATE INDEX index_cash_transfers_on_emission_cash_id ON cash_transfers USING btree (emission_cash_id);
 
 
 --
 -- Name: index_cash_transfers_on_emission_journal_entry_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_cash_transfers_on_emission_journal_entry_id ON public.cash_transfers USING btree (emission_journal_entry_id);
+CREATE INDEX index_cash_transfers_on_emission_journal_entry_id ON cash_transfers USING btree (emission_journal_entry_id);
 
 
 --
 -- Name: index_cash_transfers_on_reception_cash_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_cash_transfers_on_reception_cash_id ON public.cash_transfers USING btree (reception_cash_id);
+CREATE INDEX index_cash_transfers_on_reception_cash_id ON cash_transfers USING btree (reception_cash_id);
 
 
 --
 -- Name: index_cash_transfers_on_reception_journal_entry_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_cash_transfers_on_reception_journal_entry_id ON public.cash_transfers USING btree (reception_journal_entry_id);
+CREATE INDEX index_cash_transfers_on_reception_journal_entry_id ON cash_transfers USING btree (reception_journal_entry_id);
 
 
 --
 -- Name: index_cash_transfers_on_updated_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_cash_transfers_on_updated_at ON public.cash_transfers USING btree (updated_at);
+CREATE INDEX index_cash_transfers_on_updated_at ON cash_transfers USING btree (updated_at);
 
 
 --
 -- Name: index_cash_transfers_on_updater_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_cash_transfers_on_updater_id ON public.cash_transfers USING btree (updater_id);
+CREATE INDEX index_cash_transfers_on_updater_id ON cash_transfers USING btree (updater_id);
 
 
 --
 -- Name: index_cashes_on_container_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_cashes_on_container_id ON public.cashes USING btree (container_id);
+CREATE INDEX index_cashes_on_container_id ON cashes USING btree (container_id);
 
 
 --
 -- Name: index_cashes_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_cashes_on_created_at ON public.cashes USING btree (created_at);
+CREATE INDEX index_cashes_on_created_at ON cashes USING btree (created_at);
 
 
 --
 -- Name: index_cashes_on_creator_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_cashes_on_creator_id ON public.cashes USING btree (creator_id);
+CREATE INDEX index_cashes_on_creator_id ON cashes USING btree (creator_id);
 
 
 --
 -- Name: index_cashes_on_journal_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_cashes_on_journal_id ON public.cashes USING btree (journal_id);
+CREATE INDEX index_cashes_on_journal_id ON cashes USING btree (journal_id);
 
 
 --
 -- Name: index_cashes_on_main_account_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_cashes_on_main_account_id ON public.cashes USING btree (main_account_id);
+CREATE INDEX index_cashes_on_main_account_id ON cashes USING btree (main_account_id);
 
 
 --
 -- Name: index_cashes_on_owner_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_cashes_on_owner_id ON public.cashes USING btree (owner_id);
+CREATE INDEX index_cashes_on_owner_id ON cashes USING btree (owner_id);
 
 
 --
 -- Name: index_cashes_on_suspense_account_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_cashes_on_suspense_account_id ON public.cashes USING btree (suspense_account_id);
+CREATE INDEX index_cashes_on_suspense_account_id ON cashes USING btree (suspense_account_id);
 
 
 --
 -- Name: index_cashes_on_updated_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_cashes_on_updated_at ON public.cashes USING btree (updated_at);
+CREATE INDEX index_cashes_on_updated_at ON cashes USING btree (updated_at);
 
 
 --
 -- Name: index_cashes_on_updater_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_cashes_on_updater_id ON public.cashes USING btree (updater_id);
+CREATE INDEX index_cashes_on_updater_id ON cashes USING btree (updater_id);
 
 
 --
 -- Name: index_catalog_items_on_catalog_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_catalog_items_on_catalog_id ON public.catalog_items USING btree (catalog_id);
+CREATE INDEX index_catalog_items_on_catalog_id ON catalog_items USING btree (catalog_id);
 
 
 --
 -- Name: index_catalog_items_on_catalog_id_and_variant_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX index_catalog_items_on_catalog_id_and_variant_id ON public.catalog_items USING btree (catalog_id, variant_id);
+CREATE UNIQUE INDEX index_catalog_items_on_catalog_id_and_variant_id ON catalog_items USING btree (catalog_id, variant_id);
 
 
 --
 -- Name: index_catalog_items_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_catalog_items_on_created_at ON public.catalog_items USING btree (created_at);
+CREATE INDEX index_catalog_items_on_created_at ON catalog_items USING btree (created_at);
 
 
 --
 -- Name: index_catalog_items_on_creator_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_catalog_items_on_creator_id ON public.catalog_items USING btree (creator_id);
+CREATE INDEX index_catalog_items_on_creator_id ON catalog_items USING btree (creator_id);
 
 
 --
 -- Name: index_catalog_items_on_name; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_catalog_items_on_name ON public.catalog_items USING btree (name);
+CREATE INDEX index_catalog_items_on_name ON catalog_items USING btree (name);
 
 
 --
 -- Name: index_catalog_items_on_reference_tax_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_catalog_items_on_reference_tax_id ON public.catalog_items USING btree (reference_tax_id);
+CREATE INDEX index_catalog_items_on_reference_tax_id ON catalog_items USING btree (reference_tax_id);
 
 
 --
 -- Name: index_catalog_items_on_updated_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_catalog_items_on_updated_at ON public.catalog_items USING btree (updated_at);
+CREATE INDEX index_catalog_items_on_updated_at ON catalog_items USING btree (updated_at);
 
 
 --
 -- Name: index_catalog_items_on_updater_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_catalog_items_on_updater_id ON public.catalog_items USING btree (updater_id);
+CREATE INDEX index_catalog_items_on_updater_id ON catalog_items USING btree (updater_id);
 
 
 --
 -- Name: index_catalog_items_on_variant_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_catalog_items_on_variant_id ON public.catalog_items USING btree (variant_id);
+CREATE INDEX index_catalog_items_on_variant_id ON catalog_items USING btree (variant_id);
 
 
 --
 -- Name: index_catalogs_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_catalogs_on_created_at ON public.catalogs USING btree (created_at);
+CREATE INDEX index_catalogs_on_created_at ON catalogs USING btree (created_at);
 
 
 --
 -- Name: index_catalogs_on_creator_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_catalogs_on_creator_id ON public.catalogs USING btree (creator_id);
+CREATE INDEX index_catalogs_on_creator_id ON catalogs USING btree (creator_id);
 
 
 --
 -- Name: index_catalogs_on_updated_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_catalogs_on_updated_at ON public.catalogs USING btree (updated_at);
+CREATE INDEX index_catalogs_on_updated_at ON catalogs USING btree (updated_at);
 
 
 --
 -- Name: index_catalogs_on_updater_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_catalogs_on_updater_id ON public.catalogs USING btree (updater_id);
+CREATE INDEX index_catalogs_on_updater_id ON catalogs USING btree (updater_id);
 
 
 --
 -- Name: index_contract_items_on_contract_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_contract_items_on_contract_id ON public.contract_items USING btree (contract_id);
+CREATE INDEX index_contract_items_on_contract_id ON contract_items USING btree (contract_id);
 
 
 --
 -- Name: index_contract_items_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_contract_items_on_created_at ON public.contract_items USING btree (created_at);
+CREATE INDEX index_contract_items_on_created_at ON contract_items USING btree (created_at);
 
 
 --
 -- Name: index_contract_items_on_creator_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_contract_items_on_creator_id ON public.contract_items USING btree (creator_id);
+CREATE INDEX index_contract_items_on_creator_id ON contract_items USING btree (creator_id);
 
 
 --
 -- Name: index_contract_items_on_updated_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_contract_items_on_updated_at ON public.contract_items USING btree (updated_at);
+CREATE INDEX index_contract_items_on_updated_at ON contract_items USING btree (updated_at);
 
 
 --
 -- Name: index_contract_items_on_updater_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_contract_items_on_updater_id ON public.contract_items USING btree (updater_id);
+CREATE INDEX index_contract_items_on_updater_id ON contract_items USING btree (updater_id);
 
 
 --
 -- Name: index_contract_items_on_variant_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_contract_items_on_variant_id ON public.contract_items USING btree (variant_id);
+CREATE INDEX index_contract_items_on_variant_id ON contract_items USING btree (variant_id);
 
 
 --
 -- Name: index_contracts_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_contracts_on_created_at ON public.contracts USING btree (created_at);
+CREATE INDEX index_contracts_on_created_at ON contracts USING btree (created_at);
 
 
 --
 -- Name: index_contracts_on_creator_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_contracts_on_creator_id ON public.contracts USING btree (creator_id);
+CREATE INDEX index_contracts_on_creator_id ON contracts USING btree (creator_id);
 
 
 --
 -- Name: index_contracts_on_responsible_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_contracts_on_responsible_id ON public.contracts USING btree (responsible_id);
+CREATE INDEX index_contracts_on_responsible_id ON contracts USING btree (responsible_id);
 
 
 --
 -- Name: index_contracts_on_supplier_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_contracts_on_supplier_id ON public.contracts USING btree (supplier_id);
+CREATE INDEX index_contracts_on_supplier_id ON contracts USING btree (supplier_id);
 
 
 --
 -- Name: index_contracts_on_updated_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_contracts_on_updated_at ON public.contracts USING btree (updated_at);
+CREATE INDEX index_contracts_on_updated_at ON contracts USING btree (updated_at);
 
 
 --
 -- Name: index_contracts_on_updater_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_contracts_on_updater_id ON public.contracts USING btree (updater_id);
+CREATE INDEX index_contracts_on_updater_id ON contracts USING btree (updater_id);
 
 
 --
 -- Name: index_crumbs_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_crumbs_on_created_at ON public.crumbs USING btree (created_at);
+CREATE INDEX index_crumbs_on_created_at ON crumbs USING btree (created_at);
 
 
 --
 -- Name: index_crumbs_on_creator_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_crumbs_on_creator_id ON public.crumbs USING btree (creator_id);
+CREATE INDEX index_crumbs_on_creator_id ON crumbs USING btree (creator_id);
 
 
 --
 -- Name: index_crumbs_on_intervention_parameter_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_crumbs_on_intervention_parameter_id ON public.crumbs USING btree (intervention_parameter_id);
+CREATE INDEX index_crumbs_on_intervention_parameter_id ON crumbs USING btree (intervention_parameter_id);
 
 
 --
 -- Name: index_crumbs_on_intervention_participation_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_crumbs_on_intervention_participation_id ON public.crumbs USING btree (intervention_participation_id);
+CREATE INDEX index_crumbs_on_intervention_participation_id ON crumbs USING btree (intervention_participation_id);
 
 
 --
 -- Name: index_crumbs_on_nature; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_crumbs_on_nature ON public.crumbs USING btree (nature);
+CREATE INDEX index_crumbs_on_nature ON crumbs USING btree (nature);
 
 
 --
 -- Name: index_crumbs_on_read_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_crumbs_on_read_at ON public.crumbs USING btree (read_at);
+CREATE INDEX index_crumbs_on_read_at ON crumbs USING btree (read_at);
 
 
 --
 -- Name: index_crumbs_on_updated_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_crumbs_on_updated_at ON public.crumbs USING btree (updated_at);
+CREATE INDEX index_crumbs_on_updated_at ON crumbs USING btree (updated_at);
 
 
 --
 -- Name: index_crumbs_on_updater_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_crumbs_on_updater_id ON public.crumbs USING btree (updater_id);
+CREATE INDEX index_crumbs_on_updater_id ON crumbs USING btree (updater_id);
 
 
 --
 -- Name: index_crumbs_on_user_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_crumbs_on_user_id ON public.crumbs USING btree (user_id);
+CREATE INDEX index_crumbs_on_user_id ON crumbs USING btree (user_id);
 
 
 --
 -- Name: index_cultivable_zones_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_cultivable_zones_on_created_at ON public.cultivable_zones USING btree (created_at);
+CREATE INDEX index_cultivable_zones_on_created_at ON cultivable_zones USING btree (created_at);
 
 
 --
 -- Name: index_cultivable_zones_on_creator_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_cultivable_zones_on_creator_id ON public.cultivable_zones USING btree (creator_id);
+CREATE INDEX index_cultivable_zones_on_creator_id ON cultivable_zones USING btree (creator_id);
 
 
 --
 -- Name: index_cultivable_zones_on_farmer_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_cultivable_zones_on_farmer_id ON public.cultivable_zones USING btree (farmer_id);
+CREATE INDEX index_cultivable_zones_on_farmer_id ON cultivable_zones USING btree (farmer_id);
 
 
 --
 -- Name: index_cultivable_zones_on_owner_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_cultivable_zones_on_owner_id ON public.cultivable_zones USING btree (owner_id);
+CREATE INDEX index_cultivable_zones_on_owner_id ON cultivable_zones USING btree (owner_id);
 
 
 --
 -- Name: index_cultivable_zones_on_updated_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_cultivable_zones_on_updated_at ON public.cultivable_zones USING btree (updated_at);
+CREATE INDEX index_cultivable_zones_on_updated_at ON cultivable_zones USING btree (updated_at);
 
 
 --
 -- Name: index_cultivable_zones_on_updater_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_cultivable_zones_on_updater_id ON public.cultivable_zones USING btree (updater_id);
+CREATE INDEX index_cultivable_zones_on_updater_id ON cultivable_zones USING btree (updater_id);
 
 
 --
 -- Name: index_custom_field_choices_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_custom_field_choices_on_created_at ON public.custom_field_choices USING btree (created_at);
+CREATE INDEX index_custom_field_choices_on_created_at ON custom_field_choices USING btree (created_at);
 
 
 --
 -- Name: index_custom_field_choices_on_creator_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_custom_field_choices_on_creator_id ON public.custom_field_choices USING btree (creator_id);
+CREATE INDEX index_custom_field_choices_on_creator_id ON custom_field_choices USING btree (creator_id);
 
 
 --
 -- Name: index_custom_field_choices_on_custom_field_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_custom_field_choices_on_custom_field_id ON public.custom_field_choices USING btree (custom_field_id);
+CREATE INDEX index_custom_field_choices_on_custom_field_id ON custom_field_choices USING btree (custom_field_id);
 
 
 --
 -- Name: index_custom_field_choices_on_updated_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_custom_field_choices_on_updated_at ON public.custom_field_choices USING btree (updated_at);
+CREATE INDEX index_custom_field_choices_on_updated_at ON custom_field_choices USING btree (updated_at);
 
 
 --
 -- Name: index_custom_field_choices_on_updater_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_custom_field_choices_on_updater_id ON public.custom_field_choices USING btree (updater_id);
+CREATE INDEX index_custom_field_choices_on_updater_id ON custom_field_choices USING btree (updater_id);
 
 
 --
 -- Name: index_custom_fields_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_custom_fields_on_created_at ON public.custom_fields USING btree (created_at);
+CREATE INDEX index_custom_fields_on_created_at ON custom_fields USING btree (created_at);
 
 
 --
 -- Name: index_custom_fields_on_creator_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_custom_fields_on_creator_id ON public.custom_fields USING btree (creator_id);
+CREATE INDEX index_custom_fields_on_creator_id ON custom_fields USING btree (creator_id);
 
 
 --
 -- Name: index_custom_fields_on_updated_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_custom_fields_on_updated_at ON public.custom_fields USING btree (updated_at);
+CREATE INDEX index_custom_fields_on_updated_at ON custom_fields USING btree (updated_at);
 
 
 --
 -- Name: index_custom_fields_on_updater_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_custom_fields_on_updater_id ON public.custom_fields USING btree (updater_id);
+CREATE INDEX index_custom_fields_on_updater_id ON custom_fields USING btree (updater_id);
 
 
 --
 -- Name: index_dashboards_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_dashboards_on_created_at ON public.dashboards USING btree (created_at);
+CREATE INDEX index_dashboards_on_created_at ON dashboards USING btree (created_at);
 
 
 --
 -- Name: index_dashboards_on_creator_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_dashboards_on_creator_id ON public.dashboards USING btree (creator_id);
+CREATE INDEX index_dashboards_on_creator_id ON dashboards USING btree (creator_id);
 
 
 --
 -- Name: index_dashboards_on_owner_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_dashboards_on_owner_id ON public.dashboards USING btree (owner_id);
+CREATE INDEX index_dashboards_on_owner_id ON dashboards USING btree (owner_id);
 
 
 --
 -- Name: index_dashboards_on_updated_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_dashboards_on_updated_at ON public.dashboards USING btree (updated_at);
+CREATE INDEX index_dashboards_on_updated_at ON dashboards USING btree (updated_at);
 
 
 --
 -- Name: index_dashboards_on_updater_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_dashboards_on_updater_id ON public.dashboards USING btree (updater_id);
+CREATE INDEX index_dashboards_on_updater_id ON dashboards USING btree (updater_id);
 
 
 --
 -- Name: index_debt_transfers_on_affair_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_debt_transfers_on_affair_id ON public.debt_transfers USING btree (affair_id);
+CREATE INDEX index_debt_transfers_on_affair_id ON debt_transfers USING btree (affair_id);
 
 
 --
 -- Name: index_debt_transfers_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_debt_transfers_on_created_at ON public.debt_transfers USING btree (created_at);
+CREATE INDEX index_debt_transfers_on_created_at ON debt_transfers USING btree (created_at);
 
 
 --
 -- Name: index_debt_transfers_on_creator_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_debt_transfers_on_creator_id ON public.debt_transfers USING btree (creator_id);
+CREATE INDEX index_debt_transfers_on_creator_id ON debt_transfers USING btree (creator_id);
 
 
 --
 -- Name: index_debt_transfers_on_debt_transfer_affair_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_debt_transfers_on_debt_transfer_affair_id ON public.debt_transfers USING btree (debt_transfer_affair_id);
+CREATE INDEX index_debt_transfers_on_debt_transfer_affair_id ON debt_transfers USING btree (debt_transfer_affair_id);
 
 
 --
 -- Name: index_debt_transfers_on_updated_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_debt_transfers_on_updated_at ON public.debt_transfers USING btree (updated_at);
+CREATE INDEX index_debt_transfers_on_updated_at ON debt_transfers USING btree (updated_at);
 
 
 --
 -- Name: index_debt_transfers_on_updater_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_debt_transfers_on_updater_id ON public.debt_transfers USING btree (updater_id);
+CREATE INDEX index_debt_transfers_on_updater_id ON debt_transfers USING btree (updater_id);
 
 
 --
 -- Name: index_deliveries_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_deliveries_on_created_at ON public.deliveries USING btree (created_at);
+CREATE INDEX index_deliveries_on_created_at ON deliveries USING btree (created_at);
 
 
 --
 -- Name: index_deliveries_on_creator_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_deliveries_on_creator_id ON public.deliveries USING btree (creator_id);
+CREATE INDEX index_deliveries_on_creator_id ON deliveries USING btree (creator_id);
 
 
 --
 -- Name: index_deliveries_on_driver_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_deliveries_on_driver_id ON public.deliveries USING btree (driver_id);
+CREATE INDEX index_deliveries_on_driver_id ON deliveries USING btree (driver_id);
 
 
 --
 -- Name: index_deliveries_on_responsible_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_deliveries_on_responsible_id ON public.deliveries USING btree (responsible_id);
+CREATE INDEX index_deliveries_on_responsible_id ON deliveries USING btree (responsible_id);
 
 
 --
 -- Name: index_deliveries_on_transporter_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_deliveries_on_transporter_id ON public.deliveries USING btree (transporter_id);
+CREATE INDEX index_deliveries_on_transporter_id ON deliveries USING btree (transporter_id);
 
 
 --
 -- Name: index_deliveries_on_transporter_purchase_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_deliveries_on_transporter_purchase_id ON public.deliveries USING btree (transporter_purchase_id);
+CREATE INDEX index_deliveries_on_transporter_purchase_id ON deliveries USING btree (transporter_purchase_id);
 
 
 --
 -- Name: index_deliveries_on_updated_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_deliveries_on_updated_at ON public.deliveries USING btree (updated_at);
+CREATE INDEX index_deliveries_on_updated_at ON deliveries USING btree (updated_at);
 
 
 --
 -- Name: index_deliveries_on_updater_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_deliveries_on_updater_id ON public.deliveries USING btree (updater_id);
+CREATE INDEX index_deliveries_on_updater_id ON deliveries USING btree (updater_id);
 
 
 --
 -- Name: index_delivery_tools_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_delivery_tools_on_created_at ON public.delivery_tools USING btree (created_at);
+CREATE INDEX index_delivery_tools_on_created_at ON delivery_tools USING btree (created_at);
 
 
 --
 -- Name: index_delivery_tools_on_creator_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_delivery_tools_on_creator_id ON public.delivery_tools USING btree (creator_id);
+CREATE INDEX index_delivery_tools_on_creator_id ON delivery_tools USING btree (creator_id);
 
 
 --
 -- Name: index_delivery_tools_on_delivery_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_delivery_tools_on_delivery_id ON public.delivery_tools USING btree (delivery_id);
+CREATE INDEX index_delivery_tools_on_delivery_id ON delivery_tools USING btree (delivery_id);
 
 
 --
 -- Name: index_delivery_tools_on_tool_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_delivery_tools_on_tool_id ON public.delivery_tools USING btree (tool_id);
+CREATE INDEX index_delivery_tools_on_tool_id ON delivery_tools USING btree (tool_id);
 
 
 --
 -- Name: index_delivery_tools_on_updated_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_delivery_tools_on_updated_at ON public.delivery_tools USING btree (updated_at);
+CREATE INDEX index_delivery_tools_on_updated_at ON delivery_tools USING btree (updated_at);
 
 
 --
 -- Name: index_delivery_tools_on_updater_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_delivery_tools_on_updater_id ON public.delivery_tools USING btree (updater_id);
+CREATE INDEX index_delivery_tools_on_updater_id ON delivery_tools USING btree (updater_id);
 
 
 --
 -- Name: index_deposits_on_cash_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_deposits_on_cash_id ON public.deposits USING btree (cash_id);
+CREATE INDEX index_deposits_on_cash_id ON deposits USING btree (cash_id);
 
 
 --
 -- Name: index_deposits_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_deposits_on_created_at ON public.deposits USING btree (created_at);
+CREATE INDEX index_deposits_on_created_at ON deposits USING btree (created_at);
 
 
 --
 -- Name: index_deposits_on_creator_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_deposits_on_creator_id ON public.deposits USING btree (creator_id);
+CREATE INDEX index_deposits_on_creator_id ON deposits USING btree (creator_id);
 
 
 --
 -- Name: index_deposits_on_journal_entry_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_deposits_on_journal_entry_id ON public.deposits USING btree (journal_entry_id);
+CREATE INDEX index_deposits_on_journal_entry_id ON deposits USING btree (journal_entry_id);
 
 
 --
 -- Name: index_deposits_on_mode_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_deposits_on_mode_id ON public.deposits USING btree (mode_id);
+CREATE INDEX index_deposits_on_mode_id ON deposits USING btree (mode_id);
 
 
 --
 -- Name: index_deposits_on_responsible_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_deposits_on_responsible_id ON public.deposits USING btree (responsible_id);
+CREATE INDEX index_deposits_on_responsible_id ON deposits USING btree (responsible_id);
 
 
 --
 -- Name: index_deposits_on_updated_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_deposits_on_updated_at ON public.deposits USING btree (updated_at);
+CREATE INDEX index_deposits_on_updated_at ON deposits USING btree (updated_at);
 
 
 --
 -- Name: index_deposits_on_updater_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_deposits_on_updater_id ON public.deposits USING btree (updater_id);
+CREATE INDEX index_deposits_on_updater_id ON deposits USING btree (updater_id);
 
 
 --
 -- Name: index_districts_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_districts_on_created_at ON public.districts USING btree (created_at);
+CREATE INDEX index_districts_on_created_at ON districts USING btree (created_at);
 
 
 --
 -- Name: index_districts_on_creator_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_districts_on_creator_id ON public.districts USING btree (creator_id);
+CREATE INDEX index_districts_on_creator_id ON districts USING btree (creator_id);
 
 
 --
 -- Name: index_districts_on_updated_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_districts_on_updated_at ON public.districts USING btree (updated_at);
+CREATE INDEX index_districts_on_updated_at ON districts USING btree (updated_at);
 
 
 --
 -- Name: index_districts_on_updater_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_districts_on_updater_id ON public.districts USING btree (updater_id);
+CREATE INDEX index_districts_on_updater_id ON districts USING btree (updater_id);
 
 
 --
 -- Name: index_document_templates_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_document_templates_on_created_at ON public.document_templates USING btree (created_at);
+CREATE INDEX index_document_templates_on_created_at ON document_templates USING btree (created_at);
 
 
 --
 -- Name: index_document_templates_on_creator_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_document_templates_on_creator_id ON public.document_templates USING btree (creator_id);
+CREATE INDEX index_document_templates_on_creator_id ON document_templates USING btree (creator_id);
 
 
 --
 -- Name: index_document_templates_on_updated_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_document_templates_on_updated_at ON public.document_templates USING btree (updated_at);
+CREATE INDEX index_document_templates_on_updated_at ON document_templates USING btree (updated_at);
 
 
 --
 -- Name: index_document_templates_on_updater_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_document_templates_on_updater_id ON public.document_templates USING btree (updater_id);
+CREATE INDEX index_document_templates_on_updater_id ON document_templates USING btree (updater_id);
 
 
 --
 -- Name: index_documents_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_documents_on_created_at ON public.documents USING btree (created_at);
+CREATE INDEX index_documents_on_created_at ON documents USING btree (created_at);
 
 
 --
 -- Name: index_documents_on_creator_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_documents_on_creator_id ON public.documents USING btree (creator_id);
+CREATE INDEX index_documents_on_creator_id ON documents USING btree (creator_id);
 
 
 --
 -- Name: index_documents_on_name; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_documents_on_name ON public.documents USING btree (name);
+CREATE INDEX index_documents_on_name ON documents USING btree (name);
 
 
 --
 -- Name: index_documents_on_nature; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_documents_on_nature ON public.documents USING btree (nature);
+CREATE INDEX index_documents_on_nature ON documents USING btree (nature);
 
 
 --
 -- Name: index_documents_on_nature_and_key; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_documents_on_nature_and_key ON public.documents USING btree (nature, key);
+CREATE INDEX index_documents_on_nature_and_key ON documents USING btree (nature, key);
 
 
 --
 -- Name: index_documents_on_number; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_documents_on_number ON public.documents USING btree (number);
+CREATE INDEX index_documents_on_number ON documents USING btree (number);
 
 
 --
 -- Name: index_documents_on_template_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_documents_on_template_id ON public.documents USING btree (template_id);
+CREATE INDEX index_documents_on_template_id ON documents USING btree (template_id);
 
 
 --
 -- Name: index_documents_on_updated_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_documents_on_updated_at ON public.documents USING btree (updated_at);
+CREATE INDEX index_documents_on_updated_at ON documents USING btree (updated_at);
 
 
 --
 -- Name: index_documents_on_updater_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_documents_on_updater_id ON public.documents USING btree (updater_id);
+CREATE INDEX index_documents_on_updater_id ON documents USING btree (updater_id);
 
 
 --
 -- Name: index_entities_on_client_account_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_entities_on_client_account_id ON public.entities USING btree (client_account_id);
+CREATE INDEX index_entities_on_client_account_id ON entities USING btree (client_account_id);
 
 
 --
 -- Name: index_entities_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_entities_on_created_at ON public.entities USING btree (created_at);
+CREATE INDEX index_entities_on_created_at ON entities USING btree (created_at);
 
 
 --
 -- Name: index_entities_on_creator_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_entities_on_creator_id ON public.entities USING btree (creator_id);
+CREATE INDEX index_entities_on_creator_id ON entities USING btree (creator_id);
 
 
 --
 -- Name: index_entities_on_employee_account_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_entities_on_employee_account_id ON public.entities USING btree (employee_account_id);
+CREATE INDEX index_entities_on_employee_account_id ON entities USING btree (employee_account_id);
 
 
 --
 -- Name: index_entities_on_full_name; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_entities_on_full_name ON public.entities USING btree (full_name);
+CREATE INDEX index_entities_on_full_name ON entities USING btree (full_name);
 
 
 --
 -- Name: index_entities_on_number; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_entities_on_number ON public.entities USING btree (number);
+CREATE INDEX index_entities_on_number ON entities USING btree (number);
 
 
 --
 -- Name: index_entities_on_of_company; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_entities_on_of_company ON public.entities USING btree (of_company);
+CREATE INDEX index_entities_on_of_company ON entities USING btree (of_company);
 
 
 --
 -- Name: index_entities_on_proposer_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_entities_on_proposer_id ON public.entities USING btree (proposer_id);
+CREATE INDEX index_entities_on_proposer_id ON entities USING btree (proposer_id);
 
 
 --
 -- Name: index_entities_on_responsible_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_entities_on_responsible_id ON public.entities USING btree (responsible_id);
+CREATE INDEX index_entities_on_responsible_id ON entities USING btree (responsible_id);
 
 
 --
 -- Name: index_entities_on_supplier_account_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_entities_on_supplier_account_id ON public.entities USING btree (supplier_account_id);
+CREATE INDEX index_entities_on_supplier_account_id ON entities USING btree (supplier_account_id);
 
 
 --
 -- Name: index_entities_on_supplier_payment_mode_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_entities_on_supplier_payment_mode_id ON public.entities USING btree (supplier_payment_mode_id);
+CREATE INDEX index_entities_on_supplier_payment_mode_id ON entities USING btree (supplier_payment_mode_id);
 
 
 --
 -- Name: index_entities_on_updated_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_entities_on_updated_at ON public.entities USING btree (updated_at);
+CREATE INDEX index_entities_on_updated_at ON entities USING btree (updated_at);
 
 
 --
 -- Name: index_entities_on_updater_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_entities_on_updater_id ON public.entities USING btree (updater_id);
+CREATE INDEX index_entities_on_updater_id ON entities USING btree (updater_id);
 
 
 --
 -- Name: index_entity_addresses_on_by_default; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_entity_addresses_on_by_default ON public.entity_addresses USING btree (by_default);
+CREATE INDEX index_entity_addresses_on_by_default ON entity_addresses USING btree (by_default);
 
 
 --
 -- Name: index_entity_addresses_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_entity_addresses_on_created_at ON public.entity_addresses USING btree (created_at);
+CREATE INDEX index_entity_addresses_on_created_at ON entity_addresses USING btree (created_at);
 
 
 --
 -- Name: index_entity_addresses_on_creator_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_entity_addresses_on_creator_id ON public.entity_addresses USING btree (creator_id);
+CREATE INDEX index_entity_addresses_on_creator_id ON entity_addresses USING btree (creator_id);
 
 
 --
 -- Name: index_entity_addresses_on_deleted_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_entity_addresses_on_deleted_at ON public.entity_addresses USING btree (deleted_at);
+CREATE INDEX index_entity_addresses_on_deleted_at ON entity_addresses USING btree (deleted_at);
 
 
 --
 -- Name: index_entity_addresses_on_entity_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_entity_addresses_on_entity_id ON public.entity_addresses USING btree (entity_id);
+CREATE INDEX index_entity_addresses_on_entity_id ON entity_addresses USING btree (entity_id);
 
 
 --
 -- Name: index_entity_addresses_on_mail_postal_zone_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_entity_addresses_on_mail_postal_zone_id ON public.entity_addresses USING btree (mail_postal_zone_id);
+CREATE INDEX index_entity_addresses_on_mail_postal_zone_id ON entity_addresses USING btree (mail_postal_zone_id);
 
 
 --
 -- Name: index_entity_addresses_on_thread; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_entity_addresses_on_thread ON public.entity_addresses USING btree (thread);
+CREATE INDEX index_entity_addresses_on_thread ON entity_addresses USING btree (thread);
 
 
 --
 -- Name: index_entity_addresses_on_updated_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_entity_addresses_on_updated_at ON public.entity_addresses USING btree (updated_at);
+CREATE INDEX index_entity_addresses_on_updated_at ON entity_addresses USING btree (updated_at);
 
 
 --
 -- Name: index_entity_addresses_on_updater_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_entity_addresses_on_updater_id ON public.entity_addresses USING btree (updater_id);
+CREATE INDEX index_entity_addresses_on_updater_id ON entity_addresses USING btree (updater_id);
 
 
 --
 -- Name: index_entity_links_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_entity_links_on_created_at ON public.entity_links USING btree (created_at);
+CREATE INDEX index_entity_links_on_created_at ON entity_links USING btree (created_at);
 
 
 --
 -- Name: index_entity_links_on_creator_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_entity_links_on_creator_id ON public.entity_links USING btree (creator_id);
+CREATE INDEX index_entity_links_on_creator_id ON entity_links USING btree (creator_id);
 
 
 --
 -- Name: index_entity_links_on_entity_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_entity_links_on_entity_id ON public.entity_links USING btree (entity_id);
+CREATE INDEX index_entity_links_on_entity_id ON entity_links USING btree (entity_id);
 
 
 --
 -- Name: index_entity_links_on_entity_role; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_entity_links_on_entity_role ON public.entity_links USING btree (entity_role);
+CREATE INDEX index_entity_links_on_entity_role ON entity_links USING btree (entity_role);
 
 
 --
 -- Name: index_entity_links_on_linked_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_entity_links_on_linked_id ON public.entity_links USING btree (linked_id);
+CREATE INDEX index_entity_links_on_linked_id ON entity_links USING btree (linked_id);
 
 
 --
 -- Name: index_entity_links_on_linked_role; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_entity_links_on_linked_role ON public.entity_links USING btree (linked_role);
+CREATE INDEX index_entity_links_on_linked_role ON entity_links USING btree (linked_role);
 
 
 --
 -- Name: index_entity_links_on_nature; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_entity_links_on_nature ON public.entity_links USING btree (nature);
+CREATE INDEX index_entity_links_on_nature ON entity_links USING btree (nature);
 
 
 --
 -- Name: index_entity_links_on_updated_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_entity_links_on_updated_at ON public.entity_links USING btree (updated_at);
+CREATE INDEX index_entity_links_on_updated_at ON entity_links USING btree (updated_at);
 
 
 --
 -- Name: index_entity_links_on_updater_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_entity_links_on_updater_id ON public.entity_links USING btree (updater_id);
+CREATE INDEX index_entity_links_on_updater_id ON entity_links USING btree (updater_id);
 
 
 --
 -- Name: index_event_participations_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_event_participations_on_created_at ON public.event_participations USING btree (created_at);
+CREATE INDEX index_event_participations_on_created_at ON event_participations USING btree (created_at);
 
 
 --
 -- Name: index_event_participations_on_creator_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_event_participations_on_creator_id ON public.event_participations USING btree (creator_id);
+CREATE INDEX index_event_participations_on_creator_id ON event_participations USING btree (creator_id);
 
 
 --
 -- Name: index_event_participations_on_event_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_event_participations_on_event_id ON public.event_participations USING btree (event_id);
+CREATE INDEX index_event_participations_on_event_id ON event_participations USING btree (event_id);
 
 
 --
 -- Name: index_event_participations_on_participant_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_event_participations_on_participant_id ON public.event_participations USING btree (participant_id);
+CREATE INDEX index_event_participations_on_participant_id ON event_participations USING btree (participant_id);
 
 
 --
 -- Name: index_event_participations_on_updated_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_event_participations_on_updated_at ON public.event_participations USING btree (updated_at);
+CREATE INDEX index_event_participations_on_updated_at ON event_participations USING btree (updated_at);
 
 
 --
 -- Name: index_event_participations_on_updater_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_event_participations_on_updater_id ON public.event_participations USING btree (updater_id);
+CREATE INDEX index_event_participations_on_updater_id ON event_participations USING btree (updater_id);
 
 
 --
 -- Name: index_events_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_events_on_created_at ON public.events USING btree (created_at);
+CREATE INDEX index_events_on_created_at ON events USING btree (created_at);
 
 
 --
 -- Name: index_events_on_creator_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_events_on_creator_id ON public.events USING btree (creator_id);
+CREATE INDEX index_events_on_creator_id ON events USING btree (creator_id);
 
 
 --
 -- Name: index_events_on_updated_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_events_on_updated_at ON public.events USING btree (updated_at);
+CREATE INDEX index_events_on_updated_at ON events USING btree (updated_at);
 
 
 --
 -- Name: index_events_on_updater_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_events_on_updater_id ON public.events USING btree (updater_id);
+CREATE INDEX index_events_on_updater_id ON events USING btree (updater_id);
 
 
 --
 -- Name: index_financial_year_exchanges_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_financial_year_exchanges_on_created_at ON public.financial_year_exchanges USING btree (created_at);
+CREATE INDEX index_financial_year_exchanges_on_created_at ON financial_year_exchanges USING btree (created_at);
 
 
 --
 -- Name: index_financial_year_exchanges_on_creator_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_financial_year_exchanges_on_creator_id ON public.financial_year_exchanges USING btree (creator_id);
+CREATE INDEX index_financial_year_exchanges_on_creator_id ON financial_year_exchanges USING btree (creator_id);
 
 
 --
 -- Name: index_financial_year_exchanges_on_financial_year_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_financial_year_exchanges_on_financial_year_id ON public.financial_year_exchanges USING btree (financial_year_id);
+CREATE INDEX index_financial_year_exchanges_on_financial_year_id ON financial_year_exchanges USING btree (financial_year_id);
 
 
 --
 -- Name: index_financial_year_exchanges_on_public_token; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX index_financial_year_exchanges_on_public_token ON public.financial_year_exchanges USING btree (public_token);
+CREATE UNIQUE INDEX index_financial_year_exchanges_on_public_token ON financial_year_exchanges USING btree (public_token);
 
 
 --
 -- Name: index_financial_year_exchanges_on_updated_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_financial_year_exchanges_on_updated_at ON public.financial_year_exchanges USING btree (updated_at);
+CREATE INDEX index_financial_year_exchanges_on_updated_at ON financial_year_exchanges USING btree (updated_at);
 
 
 --
 -- Name: index_financial_year_exchanges_on_updater_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_financial_year_exchanges_on_updater_id ON public.financial_year_exchanges USING btree (updater_id);
+CREATE INDEX index_financial_year_exchanges_on_updater_id ON financial_year_exchanges USING btree (updater_id);
 
 
 --
 -- Name: index_financial_years_on_accountant_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_financial_years_on_accountant_id ON public.financial_years USING btree (accountant_id);
+CREATE INDEX index_financial_years_on_accountant_id ON financial_years USING btree (accountant_id);
 
 
 --
 -- Name: index_financial_years_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_financial_years_on_created_at ON public.financial_years USING btree (created_at);
+CREATE INDEX index_financial_years_on_created_at ON financial_years USING btree (created_at);
 
 
 --
 -- Name: index_financial_years_on_creator_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_financial_years_on_creator_id ON public.financial_years USING btree (creator_id);
+CREATE INDEX index_financial_years_on_creator_id ON financial_years USING btree (creator_id);
 
 
 --
 -- Name: index_financial_years_on_last_journal_entry_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_financial_years_on_last_journal_entry_id ON public.financial_years USING btree (last_journal_entry_id);
+CREATE INDEX index_financial_years_on_last_journal_entry_id ON financial_years USING btree (last_journal_entry_id);
 
 
 --
 -- Name: index_financial_years_on_updated_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_financial_years_on_updated_at ON public.financial_years USING btree (updated_at);
+CREATE INDEX index_financial_years_on_updated_at ON financial_years USING btree (updated_at);
 
 
 --
 -- Name: index_financial_years_on_updater_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_financial_years_on_updater_id ON public.financial_years USING btree (updater_id);
+CREATE INDEX index_financial_years_on_updater_id ON financial_years USING btree (updater_id);
 
 
 --
 -- Name: index_fixed_asset_depreciations_on_accountable; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_fixed_asset_depreciations_on_accountable ON public.fixed_asset_depreciations USING btree (accountable);
+CREATE INDEX index_fixed_asset_depreciations_on_accountable ON fixed_asset_depreciations USING btree (accountable);
 
 
 --
 -- Name: index_fixed_asset_depreciations_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_fixed_asset_depreciations_on_created_at ON public.fixed_asset_depreciations USING btree (created_at);
+CREATE INDEX index_fixed_asset_depreciations_on_created_at ON fixed_asset_depreciations USING btree (created_at);
 
 
 --
 -- Name: index_fixed_asset_depreciations_on_creator_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_fixed_asset_depreciations_on_creator_id ON public.fixed_asset_depreciations USING btree (creator_id);
+CREATE INDEX index_fixed_asset_depreciations_on_creator_id ON fixed_asset_depreciations USING btree (creator_id);
 
 
 --
 -- Name: index_fixed_asset_depreciations_on_financial_year_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_fixed_asset_depreciations_on_financial_year_id ON public.fixed_asset_depreciations USING btree (financial_year_id);
+CREATE INDEX index_fixed_asset_depreciations_on_financial_year_id ON fixed_asset_depreciations USING btree (financial_year_id);
 
 
 --
 -- Name: index_fixed_asset_depreciations_on_fixed_asset_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_fixed_asset_depreciations_on_fixed_asset_id ON public.fixed_asset_depreciations USING btree (fixed_asset_id);
+CREATE INDEX index_fixed_asset_depreciations_on_fixed_asset_id ON fixed_asset_depreciations USING btree (fixed_asset_id);
 
 
 --
 -- Name: index_fixed_asset_depreciations_on_journal_entry_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_fixed_asset_depreciations_on_journal_entry_id ON public.fixed_asset_depreciations USING btree (journal_entry_id);
+CREATE INDEX index_fixed_asset_depreciations_on_journal_entry_id ON fixed_asset_depreciations USING btree (journal_entry_id);
 
 
 --
 -- Name: index_fixed_asset_depreciations_on_locked; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_fixed_asset_depreciations_on_locked ON public.fixed_asset_depreciations USING btree (locked);
+CREATE INDEX index_fixed_asset_depreciations_on_locked ON fixed_asset_depreciations USING btree (locked);
 
 
 --
 -- Name: index_fixed_asset_depreciations_on_stopped_on; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_fixed_asset_depreciations_on_stopped_on ON public.fixed_asset_depreciations USING btree (stopped_on);
+CREATE INDEX index_fixed_asset_depreciations_on_stopped_on ON fixed_asset_depreciations USING btree (stopped_on);
 
 
 --
 -- Name: index_fixed_asset_depreciations_on_updated_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_fixed_asset_depreciations_on_updated_at ON public.fixed_asset_depreciations USING btree (updated_at);
+CREATE INDEX index_fixed_asset_depreciations_on_updated_at ON fixed_asset_depreciations USING btree (updated_at);
 
 
 --
 -- Name: index_fixed_asset_depreciations_on_updater_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_fixed_asset_depreciations_on_updater_id ON public.fixed_asset_depreciations USING btree (updater_id);
+CREATE INDEX index_fixed_asset_depreciations_on_updater_id ON fixed_asset_depreciations USING btree (updater_id);
 
 
 --
 -- Name: index_fixed_assets_on_allocation_account_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_fixed_assets_on_allocation_account_id ON public.fixed_assets USING btree (allocation_account_id);
+CREATE INDEX index_fixed_assets_on_allocation_account_id ON fixed_assets USING btree (allocation_account_id);
 
 
 --
 -- Name: index_fixed_assets_on_asset_account_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_fixed_assets_on_asset_account_id ON public.fixed_assets USING btree (asset_account_id);
+CREATE INDEX index_fixed_assets_on_asset_account_id ON fixed_assets USING btree (asset_account_id);
 
 
 --
 -- Name: index_fixed_assets_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_fixed_assets_on_created_at ON public.fixed_assets USING btree (created_at);
+CREATE INDEX index_fixed_assets_on_created_at ON fixed_assets USING btree (created_at);
 
 
 --
 -- Name: index_fixed_assets_on_creator_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_fixed_assets_on_creator_id ON public.fixed_assets USING btree (creator_id);
+CREATE INDEX index_fixed_assets_on_creator_id ON fixed_assets USING btree (creator_id);
 
 
 --
 -- Name: index_fixed_assets_on_expenses_account_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_fixed_assets_on_expenses_account_id ON public.fixed_assets USING btree (expenses_account_id);
+CREATE INDEX index_fixed_assets_on_expenses_account_id ON fixed_assets USING btree (expenses_account_id);
 
 
 --
 -- Name: index_fixed_assets_on_journal_entry_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_fixed_assets_on_journal_entry_id ON public.fixed_assets USING btree (journal_entry_id);
+CREATE INDEX index_fixed_assets_on_journal_entry_id ON fixed_assets USING btree (journal_entry_id);
 
 
 --
 -- Name: index_fixed_assets_on_journal_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_fixed_assets_on_journal_id ON public.fixed_assets USING btree (journal_id);
+CREATE INDEX index_fixed_assets_on_journal_id ON fixed_assets USING btree (journal_id);
 
 
 --
 -- Name: index_fixed_assets_on_number; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_fixed_assets_on_number ON public.fixed_assets USING btree (number);
+CREATE INDEX index_fixed_assets_on_number ON fixed_assets USING btree (number);
 
 
 --
 -- Name: index_fixed_assets_on_product_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_fixed_assets_on_product_id ON public.fixed_assets USING btree (product_id);
+CREATE INDEX index_fixed_assets_on_product_id ON fixed_assets USING btree (product_id);
 
 
 --
 -- Name: index_fixed_assets_on_purchase_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_fixed_assets_on_purchase_id ON public.fixed_assets USING btree (purchase_id);
+CREATE INDEX index_fixed_assets_on_purchase_id ON fixed_assets USING btree (purchase_id);
 
 
 --
 -- Name: index_fixed_assets_on_purchase_item_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_fixed_assets_on_purchase_item_id ON public.fixed_assets USING btree (purchase_item_id);
+CREATE INDEX index_fixed_assets_on_purchase_item_id ON fixed_assets USING btree (purchase_item_id);
 
 
 --
 -- Name: index_fixed_assets_on_sale_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_fixed_assets_on_sale_id ON public.fixed_assets USING btree (sale_id);
+CREATE INDEX index_fixed_assets_on_sale_id ON fixed_assets USING btree (sale_id);
 
 
 --
 -- Name: index_fixed_assets_on_sale_item_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_fixed_assets_on_sale_item_id ON public.fixed_assets USING btree (sale_item_id);
+CREATE INDEX index_fixed_assets_on_sale_item_id ON fixed_assets USING btree (sale_item_id);
 
 
 --
 -- Name: index_fixed_assets_on_scrapped_journal_entry_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_fixed_assets_on_scrapped_journal_entry_id ON public.fixed_assets USING btree (scrapped_journal_entry_id);
+CREATE INDEX index_fixed_assets_on_scrapped_journal_entry_id ON fixed_assets USING btree (scrapped_journal_entry_id);
 
 
 --
 -- Name: index_fixed_assets_on_sold_journal_entry_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_fixed_assets_on_sold_journal_entry_id ON public.fixed_assets USING btree (sold_journal_entry_id);
+CREATE INDEX index_fixed_assets_on_sold_journal_entry_id ON fixed_assets USING btree (sold_journal_entry_id);
 
 
 --
 -- Name: index_fixed_assets_on_updated_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_fixed_assets_on_updated_at ON public.fixed_assets USING btree (updated_at);
+CREATE INDEX index_fixed_assets_on_updated_at ON fixed_assets USING btree (updated_at);
 
 
 --
 -- Name: index_fixed_assets_on_updater_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_fixed_assets_on_updater_id ON public.fixed_assets USING btree (updater_id);
+CREATE INDEX index_fixed_assets_on_updater_id ON fixed_assets USING btree (updater_id);
 
 
 --
 -- Name: index_gap_items_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_gap_items_on_created_at ON public.gap_items USING btree (created_at);
+CREATE INDEX index_gap_items_on_created_at ON gap_items USING btree (created_at);
 
 
 --
 -- Name: index_gap_items_on_creator_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_gap_items_on_creator_id ON public.gap_items USING btree (creator_id);
+CREATE INDEX index_gap_items_on_creator_id ON gap_items USING btree (creator_id);
 
 
 --
 -- Name: index_gap_items_on_gap_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_gap_items_on_gap_id ON public.gap_items USING btree (gap_id);
+CREATE INDEX index_gap_items_on_gap_id ON gap_items USING btree (gap_id);
 
 
 --
 -- Name: index_gap_items_on_tax_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_gap_items_on_tax_id ON public.gap_items USING btree (tax_id);
+CREATE INDEX index_gap_items_on_tax_id ON gap_items USING btree (tax_id);
 
 
 --
 -- Name: index_gap_items_on_updated_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_gap_items_on_updated_at ON public.gap_items USING btree (updated_at);
+CREATE INDEX index_gap_items_on_updated_at ON gap_items USING btree (updated_at);
 
 
 --
 -- Name: index_gap_items_on_updater_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_gap_items_on_updater_id ON public.gap_items USING btree (updater_id);
+CREATE INDEX index_gap_items_on_updater_id ON gap_items USING btree (updater_id);
 
 
 --
 -- Name: index_gaps_on_affair_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_gaps_on_affair_id ON public.gaps USING btree (affair_id);
+CREATE INDEX index_gaps_on_affair_id ON gaps USING btree (affair_id);
 
 
 --
 -- Name: index_gaps_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_gaps_on_created_at ON public.gaps USING btree (created_at);
+CREATE INDEX index_gaps_on_created_at ON gaps USING btree (created_at);
 
 
 --
 -- Name: index_gaps_on_creator_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_gaps_on_creator_id ON public.gaps USING btree (creator_id);
+CREATE INDEX index_gaps_on_creator_id ON gaps USING btree (creator_id);
 
 
 --
 -- Name: index_gaps_on_direction; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_gaps_on_direction ON public.gaps USING btree (direction);
+CREATE INDEX index_gaps_on_direction ON gaps USING btree (direction);
 
 
 --
 -- Name: index_gaps_on_entity_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_gaps_on_entity_id ON public.gaps USING btree (entity_id);
+CREATE INDEX index_gaps_on_entity_id ON gaps USING btree (entity_id);
 
 
 --
 -- Name: index_gaps_on_journal_entry_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_gaps_on_journal_entry_id ON public.gaps USING btree (journal_entry_id);
+CREATE INDEX index_gaps_on_journal_entry_id ON gaps USING btree (journal_entry_id);
 
 
 --
 -- Name: index_gaps_on_number; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_gaps_on_number ON public.gaps USING btree (number);
+CREATE INDEX index_gaps_on_number ON gaps USING btree (number);
 
 
 --
 -- Name: index_gaps_on_updated_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_gaps_on_updated_at ON public.gaps USING btree (updated_at);
+CREATE INDEX index_gaps_on_updated_at ON gaps USING btree (updated_at);
 
 
 --
 -- Name: index_gaps_on_updater_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_gaps_on_updater_id ON public.gaps USING btree (updater_id);
+CREATE INDEX index_gaps_on_updater_id ON gaps USING btree (updater_id);
 
 
 --
 -- Name: index_georeadings_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_georeadings_on_created_at ON public.georeadings USING btree (created_at);
+CREATE INDEX index_georeadings_on_created_at ON georeadings USING btree (created_at);
 
 
 --
 -- Name: index_georeadings_on_creator_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_georeadings_on_creator_id ON public.georeadings USING btree (creator_id);
+CREATE INDEX index_georeadings_on_creator_id ON georeadings USING btree (creator_id);
 
 
 --
 -- Name: index_georeadings_on_name; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_georeadings_on_name ON public.georeadings USING btree (name);
+CREATE INDEX index_georeadings_on_name ON georeadings USING btree (name);
 
 
 --
 -- Name: index_georeadings_on_nature; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_georeadings_on_nature ON public.georeadings USING btree (nature);
+CREATE INDEX index_georeadings_on_nature ON georeadings USING btree (nature);
 
 
 --
 -- Name: index_georeadings_on_number; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_georeadings_on_number ON public.georeadings USING btree (number);
+CREATE INDEX index_georeadings_on_number ON georeadings USING btree (number);
 
 
 --
 -- Name: index_georeadings_on_updated_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_georeadings_on_updated_at ON public.georeadings USING btree (updated_at);
+CREATE INDEX index_georeadings_on_updated_at ON georeadings USING btree (updated_at);
 
 
 --
 -- Name: index_georeadings_on_updater_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_georeadings_on_updater_id ON public.georeadings USING btree (updater_id);
+CREATE INDEX index_georeadings_on_updater_id ON georeadings USING btree (updater_id);
 
 
 --
 -- Name: index_guide_analyses_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_guide_analyses_on_created_at ON public.guide_analyses USING btree (created_at);
+CREATE INDEX index_guide_analyses_on_created_at ON guide_analyses USING btree (created_at);
 
 
 --
 -- Name: index_guide_analyses_on_creator_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_guide_analyses_on_creator_id ON public.guide_analyses USING btree (creator_id);
+CREATE INDEX index_guide_analyses_on_creator_id ON guide_analyses USING btree (creator_id);
 
 
 --
 -- Name: index_guide_analyses_on_guide_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_guide_analyses_on_guide_id ON public.guide_analyses USING btree (guide_id);
+CREATE INDEX index_guide_analyses_on_guide_id ON guide_analyses USING btree (guide_id);
 
 
 --
 -- Name: index_guide_analyses_on_updated_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_guide_analyses_on_updated_at ON public.guide_analyses USING btree (updated_at);
+CREATE INDEX index_guide_analyses_on_updated_at ON guide_analyses USING btree (updated_at);
 
 
 --
 -- Name: index_guide_analyses_on_updater_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_guide_analyses_on_updater_id ON public.guide_analyses USING btree (updater_id);
+CREATE INDEX index_guide_analyses_on_updater_id ON guide_analyses USING btree (updater_id);
 
 
 --
 -- Name: index_guide_analysis_points_on_analysis_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_guide_analysis_points_on_analysis_id ON public.guide_analysis_points USING btree (analysis_id);
+CREATE INDEX index_guide_analysis_points_on_analysis_id ON guide_analysis_points USING btree (analysis_id);
 
 
 --
 -- Name: index_guide_analysis_points_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_guide_analysis_points_on_created_at ON public.guide_analysis_points USING btree (created_at);
+CREATE INDEX index_guide_analysis_points_on_created_at ON guide_analysis_points USING btree (created_at);
 
 
 --
 -- Name: index_guide_analysis_points_on_creator_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_guide_analysis_points_on_creator_id ON public.guide_analysis_points USING btree (creator_id);
+CREATE INDEX index_guide_analysis_points_on_creator_id ON guide_analysis_points USING btree (creator_id);
 
 
 --
 -- Name: index_guide_analysis_points_on_updated_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_guide_analysis_points_on_updated_at ON public.guide_analysis_points USING btree (updated_at);
+CREATE INDEX index_guide_analysis_points_on_updated_at ON guide_analysis_points USING btree (updated_at);
 
 
 --
 -- Name: index_guide_analysis_points_on_updater_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_guide_analysis_points_on_updater_id ON public.guide_analysis_points USING btree (updater_id);
+CREATE INDEX index_guide_analysis_points_on_updater_id ON guide_analysis_points USING btree (updater_id);
 
 
 --
 -- Name: index_guides_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_guides_on_created_at ON public.guides USING btree (created_at);
+CREATE INDEX index_guides_on_created_at ON guides USING btree (created_at);
 
 
 --
 -- Name: index_guides_on_creator_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_guides_on_creator_id ON public.guides USING btree (creator_id);
+CREATE INDEX index_guides_on_creator_id ON guides USING btree (creator_id);
 
 
 --
 -- Name: index_guides_on_updated_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_guides_on_updated_at ON public.guides USING btree (updated_at);
+CREATE INDEX index_guides_on_updated_at ON guides USING btree (updated_at);
 
 
 --
 -- Name: index_guides_on_updater_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_guides_on_updater_id ON public.guides USING btree (updater_id);
+CREATE INDEX index_guides_on_updater_id ON guides USING btree (updater_id);
 
 
 --
 -- Name: index_identifiers_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_identifiers_on_created_at ON public.identifiers USING btree (created_at);
+CREATE INDEX index_identifiers_on_created_at ON identifiers USING btree (created_at);
 
 
 --
 -- Name: index_identifiers_on_creator_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_identifiers_on_creator_id ON public.identifiers USING btree (creator_id);
+CREATE INDEX index_identifiers_on_creator_id ON identifiers USING btree (creator_id);
 
 
 --
 -- Name: index_identifiers_on_nature; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_identifiers_on_nature ON public.identifiers USING btree (nature);
+CREATE INDEX index_identifiers_on_nature ON identifiers USING btree (nature);
 
 
 --
 -- Name: index_identifiers_on_net_service_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_identifiers_on_net_service_id ON public.identifiers USING btree (net_service_id);
+CREATE INDEX index_identifiers_on_net_service_id ON identifiers USING btree (net_service_id);
 
 
 --
 -- Name: index_identifiers_on_updated_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_identifiers_on_updated_at ON public.identifiers USING btree (updated_at);
+CREATE INDEX index_identifiers_on_updated_at ON identifiers USING btree (updated_at);
 
 
 --
 -- Name: index_identifiers_on_updater_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_identifiers_on_updater_id ON public.identifiers USING btree (updater_id);
+CREATE INDEX index_identifiers_on_updater_id ON identifiers USING btree (updater_id);
 
 
 --
 -- Name: index_imports_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_imports_on_created_at ON public.imports USING btree (created_at);
+CREATE INDEX index_imports_on_created_at ON imports USING btree (created_at);
 
 
 --
 -- Name: index_imports_on_creator_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_imports_on_creator_id ON public.imports USING btree (creator_id);
+CREATE INDEX index_imports_on_creator_id ON imports USING btree (creator_id);
 
 
 --
 -- Name: index_imports_on_imported_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_imports_on_imported_at ON public.imports USING btree (imported_at);
+CREATE INDEX index_imports_on_imported_at ON imports USING btree (imported_at);
 
 
 --
 -- Name: index_imports_on_importer_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_imports_on_importer_id ON public.imports USING btree (importer_id);
+CREATE INDEX index_imports_on_importer_id ON imports USING btree (importer_id);
 
 
 --
 -- Name: index_imports_on_updated_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_imports_on_updated_at ON public.imports USING btree (updated_at);
+CREATE INDEX index_imports_on_updated_at ON imports USING btree (updated_at);
 
 
 --
 -- Name: index_imports_on_updater_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_imports_on_updater_id ON public.imports USING btree (updater_id);
+CREATE INDEX index_imports_on_updater_id ON imports USING btree (updater_id);
 
 
 --
 -- Name: index_incoming_payment_modes_on_cash_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_incoming_payment_modes_on_cash_id ON public.incoming_payment_modes USING btree (cash_id);
+CREATE INDEX index_incoming_payment_modes_on_cash_id ON incoming_payment_modes USING btree (cash_id);
 
 
 --
 -- Name: index_incoming_payment_modes_on_commission_account_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_incoming_payment_modes_on_commission_account_id ON public.incoming_payment_modes USING btree (commission_account_id);
+CREATE INDEX index_incoming_payment_modes_on_commission_account_id ON incoming_payment_modes USING btree (commission_account_id);
 
 
 --
 -- Name: index_incoming_payment_modes_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_incoming_payment_modes_on_created_at ON public.incoming_payment_modes USING btree (created_at);
+CREATE INDEX index_incoming_payment_modes_on_created_at ON incoming_payment_modes USING btree (created_at);
 
 
 --
 -- Name: index_incoming_payment_modes_on_creator_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_incoming_payment_modes_on_creator_id ON public.incoming_payment_modes USING btree (creator_id);
+CREATE INDEX index_incoming_payment_modes_on_creator_id ON incoming_payment_modes USING btree (creator_id);
 
 
 --
 -- Name: index_incoming_payment_modes_on_depositables_account_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_incoming_payment_modes_on_depositables_account_id ON public.incoming_payment_modes USING btree (depositables_account_id);
+CREATE INDEX index_incoming_payment_modes_on_depositables_account_id ON incoming_payment_modes USING btree (depositables_account_id);
 
 
 --
 -- Name: index_incoming_payment_modes_on_depositables_journal_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_incoming_payment_modes_on_depositables_journal_id ON public.incoming_payment_modes USING btree (depositables_journal_id);
+CREATE INDEX index_incoming_payment_modes_on_depositables_journal_id ON incoming_payment_modes USING btree (depositables_journal_id);
 
 
 --
 -- Name: index_incoming_payment_modes_on_updated_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_incoming_payment_modes_on_updated_at ON public.incoming_payment_modes USING btree (updated_at);
+CREATE INDEX index_incoming_payment_modes_on_updated_at ON incoming_payment_modes USING btree (updated_at);
 
 
 --
 -- Name: index_incoming_payment_modes_on_updater_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_incoming_payment_modes_on_updater_id ON public.incoming_payment_modes USING btree (updater_id);
+CREATE INDEX index_incoming_payment_modes_on_updater_id ON incoming_payment_modes USING btree (updater_id);
 
 
 --
 -- Name: index_incoming_payments_on_accounted_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_incoming_payments_on_accounted_at ON public.incoming_payments USING btree (accounted_at);
+CREATE INDEX index_incoming_payments_on_accounted_at ON incoming_payments USING btree (accounted_at);
 
 
 --
 -- Name: index_incoming_payments_on_affair_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_incoming_payments_on_affair_id ON public.incoming_payments USING btree (affair_id);
+CREATE INDEX index_incoming_payments_on_affair_id ON incoming_payments USING btree (affair_id);
 
 
 --
 -- Name: index_incoming_payments_on_commission_account_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_incoming_payments_on_commission_account_id ON public.incoming_payments USING btree (commission_account_id);
+CREATE INDEX index_incoming_payments_on_commission_account_id ON incoming_payments USING btree (commission_account_id);
 
 
 --
 -- Name: index_incoming_payments_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_incoming_payments_on_created_at ON public.incoming_payments USING btree (created_at);
+CREATE INDEX index_incoming_payments_on_created_at ON incoming_payments USING btree (created_at);
 
 
 --
 -- Name: index_incoming_payments_on_creator_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_incoming_payments_on_creator_id ON public.incoming_payments USING btree (creator_id);
+CREATE INDEX index_incoming_payments_on_creator_id ON incoming_payments USING btree (creator_id);
 
 
 --
 -- Name: index_incoming_payments_on_deposit_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_incoming_payments_on_deposit_id ON public.incoming_payments USING btree (deposit_id);
+CREATE INDEX index_incoming_payments_on_deposit_id ON incoming_payments USING btree (deposit_id);
 
 
 --
 -- Name: index_incoming_payments_on_journal_entry_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_incoming_payments_on_journal_entry_id ON public.incoming_payments USING btree (journal_entry_id);
+CREATE INDEX index_incoming_payments_on_journal_entry_id ON incoming_payments USING btree (journal_entry_id);
 
 
 --
 -- Name: index_incoming_payments_on_mode_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_incoming_payments_on_mode_id ON public.incoming_payments USING btree (mode_id);
+CREATE INDEX index_incoming_payments_on_mode_id ON incoming_payments USING btree (mode_id);
 
 
 --
 -- Name: index_incoming_payments_on_payer_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_incoming_payments_on_payer_id ON public.incoming_payments USING btree (payer_id);
+CREATE INDEX index_incoming_payments_on_payer_id ON incoming_payments USING btree (payer_id);
 
 
 --
 -- Name: index_incoming_payments_on_responsible_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_incoming_payments_on_responsible_id ON public.incoming_payments USING btree (responsible_id);
+CREATE INDEX index_incoming_payments_on_responsible_id ON incoming_payments USING btree (responsible_id);
 
 
 --
 -- Name: index_incoming_payments_on_updated_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_incoming_payments_on_updated_at ON public.incoming_payments USING btree (updated_at);
+CREATE INDEX index_incoming_payments_on_updated_at ON incoming_payments USING btree (updated_at);
 
 
 --
 -- Name: index_incoming_payments_on_updater_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_incoming_payments_on_updater_id ON public.incoming_payments USING btree (updater_id);
+CREATE INDEX index_incoming_payments_on_updater_id ON incoming_payments USING btree (updater_id);
 
 
 --
 -- Name: index_inspection_calibrations_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_inspection_calibrations_on_created_at ON public.inspection_calibrations USING btree (created_at);
+CREATE INDEX index_inspection_calibrations_on_created_at ON inspection_calibrations USING btree (created_at);
 
 
 --
 -- Name: index_inspection_calibrations_on_creator_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_inspection_calibrations_on_creator_id ON public.inspection_calibrations USING btree (creator_id);
+CREATE INDEX index_inspection_calibrations_on_creator_id ON inspection_calibrations USING btree (creator_id);
 
 
 --
 -- Name: index_inspection_calibrations_on_inspection_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_inspection_calibrations_on_inspection_id ON public.inspection_calibrations USING btree (inspection_id);
+CREATE INDEX index_inspection_calibrations_on_inspection_id ON inspection_calibrations USING btree (inspection_id);
 
 
 --
 -- Name: index_inspection_calibrations_on_nature_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_inspection_calibrations_on_nature_id ON public.inspection_calibrations USING btree (nature_id);
+CREATE INDEX index_inspection_calibrations_on_nature_id ON inspection_calibrations USING btree (nature_id);
 
 
 --
 -- Name: index_inspection_calibrations_on_updated_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_inspection_calibrations_on_updated_at ON public.inspection_calibrations USING btree (updated_at);
+CREATE INDEX index_inspection_calibrations_on_updated_at ON inspection_calibrations USING btree (updated_at);
 
 
 --
 -- Name: index_inspection_calibrations_on_updater_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_inspection_calibrations_on_updater_id ON public.inspection_calibrations USING btree (updater_id);
+CREATE INDEX index_inspection_calibrations_on_updater_id ON inspection_calibrations USING btree (updater_id);
 
 
 --
 -- Name: index_inspection_points_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_inspection_points_on_created_at ON public.inspection_points USING btree (created_at);
+CREATE INDEX index_inspection_points_on_created_at ON inspection_points USING btree (created_at);
 
 
 --
 -- Name: index_inspection_points_on_creator_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_inspection_points_on_creator_id ON public.inspection_points USING btree (creator_id);
+CREATE INDEX index_inspection_points_on_creator_id ON inspection_points USING btree (creator_id);
 
 
 --
 -- Name: index_inspection_points_on_inspection_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_inspection_points_on_inspection_id ON public.inspection_points USING btree (inspection_id);
+CREATE INDEX index_inspection_points_on_inspection_id ON inspection_points USING btree (inspection_id);
 
 
 --
 -- Name: index_inspection_points_on_nature_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_inspection_points_on_nature_id ON public.inspection_points USING btree (nature_id);
+CREATE INDEX index_inspection_points_on_nature_id ON inspection_points USING btree (nature_id);
 
 
 --
 -- Name: index_inspection_points_on_updated_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_inspection_points_on_updated_at ON public.inspection_points USING btree (updated_at);
+CREATE INDEX index_inspection_points_on_updated_at ON inspection_points USING btree (updated_at);
 
 
 --
 -- Name: index_inspection_points_on_updater_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_inspection_points_on_updater_id ON public.inspection_points USING btree (updater_id);
+CREATE INDEX index_inspection_points_on_updater_id ON inspection_points USING btree (updater_id);
 
 
 --
 -- Name: index_inspections_on_activity_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_inspections_on_activity_id ON public.inspections USING btree (activity_id);
+CREATE INDEX index_inspections_on_activity_id ON inspections USING btree (activity_id);
 
 
 --
 -- Name: index_inspections_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_inspections_on_created_at ON public.inspections USING btree (created_at);
+CREATE INDEX index_inspections_on_created_at ON inspections USING btree (created_at);
 
 
 --
 -- Name: index_inspections_on_creator_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_inspections_on_creator_id ON public.inspections USING btree (creator_id);
+CREATE INDEX index_inspections_on_creator_id ON inspections USING btree (creator_id);
 
 
 --
 -- Name: index_inspections_on_product_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_inspections_on_product_id ON public.inspections USING btree (product_id);
+CREATE INDEX index_inspections_on_product_id ON inspections USING btree (product_id);
 
 
 --
 -- Name: index_inspections_on_updated_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_inspections_on_updated_at ON public.inspections USING btree (updated_at);
+CREATE INDEX index_inspections_on_updated_at ON inspections USING btree (updated_at);
 
 
 --
 -- Name: index_inspections_on_updater_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_inspections_on_updater_id ON public.inspections USING btree (updater_id);
+CREATE INDEX index_inspections_on_updater_id ON inspections USING btree (updater_id);
 
 
 --
 -- Name: index_integrations_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_integrations_on_created_at ON public.integrations USING btree (created_at);
+CREATE INDEX index_integrations_on_created_at ON integrations USING btree (created_at);
 
 
 --
 -- Name: index_integrations_on_creator_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_integrations_on_creator_id ON public.integrations USING btree (creator_id);
+CREATE INDEX index_integrations_on_creator_id ON integrations USING btree (creator_id);
 
 
 --
 -- Name: index_integrations_on_nature; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX index_integrations_on_nature ON public.integrations USING btree (nature);
+CREATE UNIQUE INDEX index_integrations_on_nature ON integrations USING btree (nature);
 
 
 --
 -- Name: index_integrations_on_updated_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_integrations_on_updated_at ON public.integrations USING btree (updated_at);
+CREATE INDEX index_integrations_on_updated_at ON integrations USING btree (updated_at);
 
 
 --
 -- Name: index_integrations_on_updater_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_integrations_on_updater_id ON public.integrations USING btree (updater_id);
+CREATE INDEX index_integrations_on_updater_id ON integrations USING btree (updater_id);
 
 
 --
 -- Name: index_intervention_labellings_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_intervention_labellings_on_created_at ON public.intervention_labellings USING btree (created_at);
+CREATE INDEX index_intervention_labellings_on_created_at ON intervention_labellings USING btree (created_at);
 
 
 --
 -- Name: index_intervention_labellings_on_creator_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_intervention_labellings_on_creator_id ON public.intervention_labellings USING btree (creator_id);
+CREATE INDEX index_intervention_labellings_on_creator_id ON intervention_labellings USING btree (creator_id);
 
 
 --
 -- Name: index_intervention_labellings_on_intervention_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_intervention_labellings_on_intervention_id ON public.intervention_labellings USING btree (intervention_id);
+CREATE INDEX index_intervention_labellings_on_intervention_id ON intervention_labellings USING btree (intervention_id);
 
 
 --
 -- Name: index_intervention_labellings_on_intervention_id_and_label_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX index_intervention_labellings_on_intervention_id_and_label_id ON public.intervention_labellings USING btree (intervention_id, label_id);
+CREATE UNIQUE INDEX index_intervention_labellings_on_intervention_id_and_label_id ON intervention_labellings USING btree (intervention_id, label_id);
 
 
 --
 -- Name: index_intervention_labellings_on_label_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_intervention_labellings_on_label_id ON public.intervention_labellings USING btree (label_id);
+CREATE INDEX index_intervention_labellings_on_label_id ON intervention_labellings USING btree (label_id);
 
 
 --
 -- Name: index_intervention_labellings_on_updated_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_intervention_labellings_on_updated_at ON public.intervention_labellings USING btree (updated_at);
+CREATE INDEX index_intervention_labellings_on_updated_at ON intervention_labellings USING btree (updated_at);
 
 
 --
 -- Name: index_intervention_labellings_on_updater_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_intervention_labellings_on_updater_id ON public.intervention_labellings USING btree (updater_id);
+CREATE INDEX index_intervention_labellings_on_updater_id ON intervention_labellings USING btree (updater_id);
 
 
 --
 -- Name: index_intervention_parameter_readings_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_intervention_parameter_readings_on_created_at ON public.intervention_parameter_readings USING btree (created_at);
+CREATE INDEX index_intervention_parameter_readings_on_created_at ON intervention_parameter_readings USING btree (created_at);
 
 
 --
 -- Name: index_intervention_parameter_readings_on_creator_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_intervention_parameter_readings_on_creator_id ON public.intervention_parameter_readings USING btree (creator_id);
+CREATE INDEX index_intervention_parameter_readings_on_creator_id ON intervention_parameter_readings USING btree (creator_id);
 
 
 --
 -- Name: index_intervention_parameter_readings_on_indicator_name; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_intervention_parameter_readings_on_indicator_name ON public.intervention_parameter_readings USING btree (indicator_name);
+CREATE INDEX index_intervention_parameter_readings_on_indicator_name ON intervention_parameter_readings USING btree (indicator_name);
 
 
 --
 -- Name: index_intervention_parameter_readings_on_parameter_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_intervention_parameter_readings_on_parameter_id ON public.intervention_parameter_readings USING btree (parameter_id);
+CREATE INDEX index_intervention_parameter_readings_on_parameter_id ON intervention_parameter_readings USING btree (parameter_id);
 
 
 --
 -- Name: index_intervention_parameter_readings_on_updated_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_intervention_parameter_readings_on_updated_at ON public.intervention_parameter_readings USING btree (updated_at);
+CREATE INDEX index_intervention_parameter_readings_on_updated_at ON intervention_parameter_readings USING btree (updated_at);
 
 
 --
 -- Name: index_intervention_parameter_readings_on_updater_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_intervention_parameter_readings_on_updater_id ON public.intervention_parameter_readings USING btree (updater_id);
+CREATE INDEX index_intervention_parameter_readings_on_updater_id ON intervention_parameter_readings USING btree (updater_id);
 
 
 --
 -- Name: index_intervention_parameters_on_assembly_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_intervention_parameters_on_assembly_id ON public.intervention_parameters USING btree (assembly_id);
+CREATE INDEX index_intervention_parameters_on_assembly_id ON intervention_parameters USING btree (assembly_id);
 
 
 --
 -- Name: index_intervention_parameters_on_component_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_intervention_parameters_on_component_id ON public.intervention_parameters USING btree (component_id);
+CREATE INDEX index_intervention_parameters_on_component_id ON intervention_parameters USING btree (component_id);
 
 
 --
 -- Name: index_intervention_parameters_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_intervention_parameters_on_created_at ON public.intervention_parameters USING btree (created_at);
+CREATE INDEX index_intervention_parameters_on_created_at ON intervention_parameters USING btree (created_at);
 
 
 --
 -- Name: index_intervention_parameters_on_creator_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_intervention_parameters_on_creator_id ON public.intervention_parameters USING btree (creator_id);
+CREATE INDEX index_intervention_parameters_on_creator_id ON intervention_parameters USING btree (creator_id);
 
 
 --
 -- Name: index_intervention_parameters_on_event_participation_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_intervention_parameters_on_event_participation_id ON public.intervention_parameters USING btree (event_participation_id);
+CREATE INDEX index_intervention_parameters_on_event_participation_id ON intervention_parameters USING btree (event_participation_id);
 
 
 --
 -- Name: index_intervention_parameters_on_group_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_intervention_parameters_on_group_id ON public.intervention_parameters USING btree (group_id);
+CREATE INDEX index_intervention_parameters_on_group_id ON intervention_parameters USING btree (group_id);
 
 
 --
 -- Name: index_intervention_parameters_on_intervention_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_intervention_parameters_on_intervention_id ON public.intervention_parameters USING btree (intervention_id);
+CREATE INDEX index_intervention_parameters_on_intervention_id ON intervention_parameters USING btree (intervention_id);
 
 
 --
 -- Name: index_intervention_parameters_on_new_container_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_intervention_parameters_on_new_container_id ON public.intervention_parameters USING btree (new_container_id);
+CREATE INDEX index_intervention_parameters_on_new_container_id ON intervention_parameters USING btree (new_container_id);
 
 
 --
 -- Name: index_intervention_parameters_on_new_group_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_intervention_parameters_on_new_group_id ON public.intervention_parameters USING btree (new_group_id);
+CREATE INDEX index_intervention_parameters_on_new_group_id ON intervention_parameters USING btree (new_group_id);
 
 
 --
 -- Name: index_intervention_parameters_on_new_variant_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_intervention_parameters_on_new_variant_id ON public.intervention_parameters USING btree (new_variant_id);
+CREATE INDEX index_intervention_parameters_on_new_variant_id ON intervention_parameters USING btree (new_variant_id);
 
 
 --
 -- Name: index_intervention_parameters_on_outcoming_product_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_intervention_parameters_on_outcoming_product_id ON public.intervention_parameters USING btree (outcoming_product_id);
+CREATE INDEX index_intervention_parameters_on_outcoming_product_id ON intervention_parameters USING btree (outcoming_product_id);
 
 
 --
 -- Name: index_intervention_parameters_on_product_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_intervention_parameters_on_product_id ON public.intervention_parameters USING btree (product_id);
+CREATE INDEX index_intervention_parameters_on_product_id ON intervention_parameters USING btree (product_id);
 
 
 --
 -- Name: index_intervention_parameters_on_reference_name; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_intervention_parameters_on_reference_name ON public.intervention_parameters USING btree (reference_name);
+CREATE INDEX index_intervention_parameters_on_reference_name ON intervention_parameters USING btree (reference_name);
 
 
 --
 -- Name: index_intervention_parameters_on_type; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_intervention_parameters_on_type ON public.intervention_parameters USING btree (type);
+CREATE INDEX index_intervention_parameters_on_type ON intervention_parameters USING btree (type);
 
 
 --
 -- Name: index_intervention_parameters_on_updated_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_intervention_parameters_on_updated_at ON public.intervention_parameters USING btree (updated_at);
+CREATE INDEX index_intervention_parameters_on_updated_at ON intervention_parameters USING btree (updated_at);
 
 
 --
 -- Name: index_intervention_parameters_on_updater_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_intervention_parameters_on_updater_id ON public.intervention_parameters USING btree (updater_id);
+CREATE INDEX index_intervention_parameters_on_updater_id ON intervention_parameters USING btree (updater_id);
 
 
 --
 -- Name: index_intervention_parameters_on_variant_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_intervention_parameters_on_variant_id ON public.intervention_parameters USING btree (variant_id);
+CREATE INDEX index_intervention_parameters_on_variant_id ON intervention_parameters USING btree (variant_id);
 
 
 --
 -- Name: index_intervention_participations_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_intervention_participations_on_created_at ON public.intervention_participations USING btree (created_at);
+CREATE INDEX index_intervention_participations_on_created_at ON intervention_participations USING btree (created_at);
 
 
 --
 -- Name: index_intervention_participations_on_creator_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_intervention_participations_on_creator_id ON public.intervention_participations USING btree (creator_id);
+CREATE INDEX index_intervention_participations_on_creator_id ON intervention_participations USING btree (creator_id);
 
 
 --
 -- Name: index_intervention_participations_on_intervention_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_intervention_participations_on_intervention_id ON public.intervention_participations USING btree (intervention_id);
+CREATE INDEX index_intervention_participations_on_intervention_id ON intervention_participations USING btree (intervention_id);
 
 
 --
 -- Name: index_intervention_participations_on_product_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_intervention_participations_on_product_id ON public.intervention_participations USING btree (product_id);
+CREATE INDEX index_intervention_participations_on_product_id ON intervention_participations USING btree (product_id);
 
 
 --
 -- Name: index_intervention_participations_on_updated_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_intervention_participations_on_updated_at ON public.intervention_participations USING btree (updated_at);
+CREATE INDEX index_intervention_participations_on_updated_at ON intervention_participations USING btree (updated_at);
 
 
 --
 -- Name: index_intervention_participations_on_updater_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_intervention_participations_on_updater_id ON public.intervention_participations USING btree (updater_id);
+CREATE INDEX index_intervention_participations_on_updater_id ON intervention_participations USING btree (updater_id);
 
 
 --
 -- Name: index_intervention_working_periods_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_intervention_working_periods_on_created_at ON public.intervention_working_periods USING btree (created_at);
+CREATE INDEX index_intervention_working_periods_on_created_at ON intervention_working_periods USING btree (created_at);
 
 
 --
 -- Name: index_intervention_working_periods_on_creator_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_intervention_working_periods_on_creator_id ON public.intervention_working_periods USING btree (creator_id);
+CREATE INDEX index_intervention_working_periods_on_creator_id ON intervention_working_periods USING btree (creator_id);
 
 
 --
 -- Name: index_intervention_working_periods_on_intervention_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_intervention_working_periods_on_intervention_id ON public.intervention_working_periods USING btree (intervention_id);
+CREATE INDEX index_intervention_working_periods_on_intervention_id ON intervention_working_periods USING btree (intervention_id);
 
 
 --
 -- Name: index_intervention_working_periods_on_updated_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_intervention_working_periods_on_updated_at ON public.intervention_working_periods USING btree (updated_at);
+CREATE INDEX index_intervention_working_periods_on_updated_at ON intervention_working_periods USING btree (updated_at);
 
 
 --
 -- Name: index_intervention_working_periods_on_updater_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_intervention_working_periods_on_updater_id ON public.intervention_working_periods USING btree (updater_id);
+CREATE INDEX index_intervention_working_periods_on_updater_id ON intervention_working_periods USING btree (updater_id);
 
 
 --
 -- Name: index_interventions_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_interventions_on_created_at ON public.interventions USING btree (created_at);
+CREATE INDEX index_interventions_on_created_at ON interventions USING btree (created_at);
 
 
 --
 -- Name: index_interventions_on_creator_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_interventions_on_creator_id ON public.interventions USING btree (creator_id);
+CREATE INDEX index_interventions_on_creator_id ON interventions USING btree (creator_id);
 
 
 --
 -- Name: index_interventions_on_event_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_interventions_on_event_id ON public.interventions USING btree (event_id);
+CREATE INDEX index_interventions_on_event_id ON interventions USING btree (event_id);
 
 
 --
 -- Name: index_interventions_on_issue_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_interventions_on_issue_id ON public.interventions USING btree (issue_id);
+CREATE INDEX index_interventions_on_issue_id ON interventions USING btree (issue_id);
 
 
 --
 -- Name: index_interventions_on_journal_entry_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_interventions_on_journal_entry_id ON public.interventions USING btree (journal_entry_id);
+CREATE INDEX index_interventions_on_journal_entry_id ON interventions USING btree (journal_entry_id);
 
 
 --
 -- Name: index_interventions_on_nature; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_interventions_on_nature ON public.interventions USING btree (nature);
+CREATE INDEX index_interventions_on_nature ON interventions USING btree (nature);
 
 
 --
 -- Name: index_interventions_on_prescription_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_interventions_on_prescription_id ON public.interventions USING btree (prescription_id);
+CREATE INDEX index_interventions_on_prescription_id ON interventions USING btree (prescription_id);
 
 
 --
 -- Name: index_interventions_on_procedure_name; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_interventions_on_procedure_name ON public.interventions USING btree (procedure_name);
+CREATE INDEX index_interventions_on_procedure_name ON interventions USING btree (procedure_name);
 
 
 --
 -- Name: index_interventions_on_purchase_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_interventions_on_purchase_id ON public.interventions USING btree (purchase_id);
+CREATE INDEX index_interventions_on_purchase_id ON interventions USING btree (purchase_id);
 
 
 --
 -- Name: index_interventions_on_request_intervention_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_interventions_on_request_intervention_id ON public.interventions USING btree (request_intervention_id);
+CREATE INDEX index_interventions_on_request_intervention_id ON interventions USING btree (request_intervention_id);
 
 
 --
 -- Name: index_interventions_on_started_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_interventions_on_started_at ON public.interventions USING btree (started_at);
+CREATE INDEX index_interventions_on_started_at ON interventions USING btree (started_at);
 
 
 --
 -- Name: index_interventions_on_stopped_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_interventions_on_stopped_at ON public.interventions USING btree (stopped_at);
+CREATE INDEX index_interventions_on_stopped_at ON interventions USING btree (stopped_at);
 
 
 --
 -- Name: index_interventions_on_updated_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_interventions_on_updated_at ON public.interventions USING btree (updated_at);
+CREATE INDEX index_interventions_on_updated_at ON interventions USING btree (updated_at);
 
 
 --
 -- Name: index_interventions_on_updater_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_interventions_on_updater_id ON public.interventions USING btree (updater_id);
+CREATE INDEX index_interventions_on_updater_id ON interventions USING btree (updater_id);
 
 
 --
 -- Name: index_inventories_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_inventories_on_created_at ON public.inventories USING btree (created_at);
+CREATE INDEX index_inventories_on_created_at ON inventories USING btree (created_at);
 
 
 --
 -- Name: index_inventories_on_creator_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_inventories_on_creator_id ON public.inventories USING btree (creator_id);
+CREATE INDEX index_inventories_on_creator_id ON inventories USING btree (creator_id);
 
 
 --
 -- Name: index_inventories_on_financial_year_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_inventories_on_financial_year_id ON public.inventories USING btree (financial_year_id);
+CREATE INDEX index_inventories_on_financial_year_id ON inventories USING btree (financial_year_id);
 
 
 --
 -- Name: index_inventories_on_journal_entry_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_inventories_on_journal_entry_id ON public.inventories USING btree (journal_entry_id);
+CREATE INDEX index_inventories_on_journal_entry_id ON inventories USING btree (journal_entry_id);
 
 
 --
 -- Name: index_inventories_on_responsible_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_inventories_on_responsible_id ON public.inventories USING btree (responsible_id);
+CREATE INDEX index_inventories_on_responsible_id ON inventories USING btree (responsible_id);
 
 
 --
 -- Name: index_inventories_on_updated_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_inventories_on_updated_at ON public.inventories USING btree (updated_at);
+CREATE INDEX index_inventories_on_updated_at ON inventories USING btree (updated_at);
 
 
 --
 -- Name: index_inventories_on_updater_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_inventories_on_updater_id ON public.inventories USING btree (updater_id);
+CREATE INDEX index_inventories_on_updater_id ON inventories USING btree (updater_id);
 
 
 --
 -- Name: index_inventory_items_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_inventory_items_on_created_at ON public.inventory_items USING btree (created_at);
+CREATE INDEX index_inventory_items_on_created_at ON inventory_items USING btree (created_at);
 
 
 --
 -- Name: index_inventory_items_on_creator_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_inventory_items_on_creator_id ON public.inventory_items USING btree (creator_id);
+CREATE INDEX index_inventory_items_on_creator_id ON inventory_items USING btree (creator_id);
 
 
 --
 -- Name: index_inventory_items_on_inventory_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_inventory_items_on_inventory_id ON public.inventory_items USING btree (inventory_id);
+CREATE INDEX index_inventory_items_on_inventory_id ON inventory_items USING btree (inventory_id);
 
 
 --
 -- Name: index_inventory_items_on_product_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_inventory_items_on_product_id ON public.inventory_items USING btree (product_id);
+CREATE INDEX index_inventory_items_on_product_id ON inventory_items USING btree (product_id);
 
 
 --
 -- Name: index_inventory_items_on_product_movement_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_inventory_items_on_product_movement_id ON public.inventory_items USING btree (product_movement_id);
+CREATE INDEX index_inventory_items_on_product_movement_id ON inventory_items USING btree (product_movement_id);
 
 
 --
 -- Name: index_inventory_items_on_updated_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_inventory_items_on_updated_at ON public.inventory_items USING btree (updated_at);
+CREATE INDEX index_inventory_items_on_updated_at ON inventory_items USING btree (updated_at);
 
 
 --
 -- Name: index_inventory_items_on_updater_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_inventory_items_on_updater_id ON public.inventory_items USING btree (updater_id);
+CREATE INDEX index_inventory_items_on_updater_id ON inventory_items USING btree (updater_id);
 
 
 --
 -- Name: index_issues_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_issues_on_created_at ON public.issues USING btree (created_at);
+CREATE INDEX index_issues_on_created_at ON issues USING btree (created_at);
 
 
 --
 -- Name: index_issues_on_creator_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_issues_on_creator_id ON public.issues USING btree (creator_id);
+CREATE INDEX index_issues_on_creator_id ON issues USING btree (creator_id);
 
 
 --
 -- Name: index_issues_on_name; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_issues_on_name ON public.issues USING btree (name);
+CREATE INDEX index_issues_on_name ON issues USING btree (name);
 
 
 --
 -- Name: index_issues_on_nature; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_issues_on_nature ON public.issues USING btree (nature);
+CREATE INDEX index_issues_on_nature ON issues USING btree (nature);
 
 
 --
 -- Name: index_issues_on_target_type_and_target_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_issues_on_target_type_and_target_id ON public.issues USING btree (target_type, target_id);
+CREATE INDEX index_issues_on_target_type_and_target_id ON issues USING btree (target_type, target_id);
 
 
 --
 -- Name: index_issues_on_updated_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_issues_on_updated_at ON public.issues USING btree (updated_at);
+CREATE INDEX index_issues_on_updated_at ON issues USING btree (updated_at);
 
 
 --
 -- Name: index_issues_on_updater_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_issues_on_updater_id ON public.issues USING btree (updater_id);
+CREATE INDEX index_issues_on_updater_id ON issues USING btree (updater_id);
 
 
 --
 -- Name: index_journal_entries_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_journal_entries_on_created_at ON public.journal_entries USING btree (created_at);
+CREATE INDEX index_journal_entries_on_created_at ON journal_entries USING btree (created_at);
 
 
 --
 -- Name: index_journal_entries_on_creator_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_journal_entries_on_creator_id ON public.journal_entries USING btree (creator_id);
+CREATE INDEX index_journal_entries_on_creator_id ON journal_entries USING btree (creator_id);
 
 
 --
 -- Name: index_journal_entries_on_financial_year_exchange_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_journal_entries_on_financial_year_exchange_id ON public.journal_entries USING btree (financial_year_exchange_id);
+CREATE INDEX index_journal_entries_on_financial_year_exchange_id ON journal_entries USING btree (financial_year_exchange_id);
 
 
 --
 -- Name: index_journal_entries_on_financial_year_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_journal_entries_on_financial_year_id ON public.journal_entries USING btree (financial_year_id);
+CREATE INDEX index_journal_entries_on_financial_year_id ON journal_entries USING btree (financial_year_id);
 
 
 --
 -- Name: index_journal_entries_on_journal_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_journal_entries_on_journal_id ON public.journal_entries USING btree (journal_id);
+CREATE INDEX index_journal_entries_on_journal_id ON journal_entries USING btree (journal_id);
 
 
 --
 -- Name: index_journal_entries_on_number; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_journal_entries_on_number ON public.journal_entries USING btree (number);
+CREATE INDEX index_journal_entries_on_number ON journal_entries USING btree (number);
 
 
 --
 -- Name: index_journal_entries_on_printed_on; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_journal_entries_on_printed_on ON public.journal_entries USING btree (printed_on);
+CREATE INDEX index_journal_entries_on_printed_on ON journal_entries USING btree (printed_on);
 
 
 --
 -- Name: index_journal_entries_on_resource_type_and_resource_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_journal_entries_on_resource_type_and_resource_id ON public.journal_entries USING btree (resource_type, resource_id);
+CREATE INDEX index_journal_entries_on_resource_type_and_resource_id ON journal_entries USING btree (resource_type, resource_id);
 
 
 --
 -- Name: index_journal_entries_on_updated_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_journal_entries_on_updated_at ON public.journal_entries USING btree (updated_at);
+CREATE INDEX index_journal_entries_on_updated_at ON journal_entries USING btree (updated_at);
 
 
 --
 -- Name: index_journal_entries_on_updater_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_journal_entries_on_updater_id ON public.journal_entries USING btree (updater_id);
+CREATE INDEX index_journal_entries_on_updater_id ON journal_entries USING btree (updater_id);
 
 
 --
 -- Name: index_journal_entry_items_on_account_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_journal_entry_items_on_account_id ON public.journal_entry_items USING btree (account_id);
+CREATE INDEX index_journal_entry_items_on_account_id ON journal_entry_items USING btree (account_id);
 
 
 --
 -- Name: index_journal_entry_items_on_activity_budget_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_journal_entry_items_on_activity_budget_id ON public.journal_entry_items USING btree (activity_budget_id);
+CREATE INDEX index_journal_entry_items_on_activity_budget_id ON journal_entry_items USING btree (activity_budget_id);
 
 
 --
 -- Name: index_journal_entry_items_on_bank_statement_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_journal_entry_items_on_bank_statement_id ON public.journal_entry_items USING btree (bank_statement_id);
+CREATE INDEX index_journal_entry_items_on_bank_statement_id ON journal_entry_items USING btree (bank_statement_id);
 
 
 --
 -- Name: index_journal_entry_items_on_bank_statement_letter; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_journal_entry_items_on_bank_statement_letter ON public.journal_entry_items USING btree (bank_statement_letter);
+CREATE INDEX index_journal_entry_items_on_bank_statement_letter ON journal_entry_items USING btree (bank_statement_letter);
 
 
 --
 -- Name: index_journal_entry_items_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_journal_entry_items_on_created_at ON public.journal_entry_items USING btree (created_at);
+CREATE INDEX index_journal_entry_items_on_created_at ON journal_entry_items USING btree (created_at);
 
 
 --
 -- Name: index_journal_entry_items_on_creator_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_journal_entry_items_on_creator_id ON public.journal_entry_items USING btree (creator_id);
+CREATE INDEX index_journal_entry_items_on_creator_id ON journal_entry_items USING btree (creator_id);
 
 
 --
 -- Name: index_journal_entry_items_on_entry_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_journal_entry_items_on_entry_id ON public.journal_entry_items USING btree (entry_id);
+CREATE INDEX index_journal_entry_items_on_entry_id ON journal_entry_items USING btree (entry_id);
 
 
 --
 -- Name: index_journal_entry_items_on_entry_number; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_journal_entry_items_on_entry_number ON public.journal_entry_items USING btree (entry_number);
+CREATE INDEX index_journal_entry_items_on_entry_number ON journal_entry_items USING btree (entry_number);
 
 
 --
 -- Name: index_journal_entry_items_on_financial_year_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_journal_entry_items_on_financial_year_id ON public.journal_entry_items USING btree (financial_year_id);
+CREATE INDEX index_journal_entry_items_on_financial_year_id ON journal_entry_items USING btree (financial_year_id);
 
 
 --
 -- Name: index_journal_entry_items_on_journal_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_journal_entry_items_on_journal_id ON public.journal_entry_items USING btree (journal_id);
+CREATE INDEX index_journal_entry_items_on_journal_id ON journal_entry_items USING btree (journal_id);
 
 
 --
 -- Name: index_journal_entry_items_on_letter; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_journal_entry_items_on_letter ON public.journal_entry_items USING btree (letter);
+CREATE INDEX index_journal_entry_items_on_letter ON journal_entry_items USING btree (letter);
 
 
 --
 -- Name: index_journal_entry_items_on_name; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_journal_entry_items_on_name ON public.journal_entry_items USING btree (name);
+CREATE INDEX index_journal_entry_items_on_name ON journal_entry_items USING btree (name);
 
 
 --
 -- Name: index_journal_entry_items_on_printed_on; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_journal_entry_items_on_printed_on ON public.journal_entry_items USING btree (printed_on);
+CREATE INDEX index_journal_entry_items_on_printed_on ON journal_entry_items USING btree (printed_on);
 
 
 --
 -- Name: index_journal_entry_items_on_project_budget_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_journal_entry_items_on_project_budget_id ON public.journal_entry_items USING btree (project_budget_id);
+CREATE INDEX index_journal_entry_items_on_project_budget_id ON journal_entry_items USING btree (project_budget_id);
 
 
 --
 -- Name: index_journal_entry_items_on_resource_type_and_resource_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_journal_entry_items_on_resource_type_and_resource_id ON public.journal_entry_items USING btree (resource_type, resource_id);
+CREATE INDEX index_journal_entry_items_on_resource_type_and_resource_id ON journal_entry_items USING btree (resource_type, resource_id);
 
 
 --
 -- Name: index_journal_entry_items_on_tax_declaration_item_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_journal_entry_items_on_tax_declaration_item_id ON public.journal_entry_items USING btree (tax_declaration_item_id);
+CREATE INDEX index_journal_entry_items_on_tax_declaration_item_id ON journal_entry_items USING btree (tax_declaration_item_id);
 
 
 --
 -- Name: index_journal_entry_items_on_tax_declaration_mode; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_journal_entry_items_on_tax_declaration_mode ON public.journal_entry_items USING btree (tax_declaration_mode);
+CREATE INDEX index_journal_entry_items_on_tax_declaration_mode ON journal_entry_items USING btree (tax_declaration_mode);
 
 
 --
 -- Name: index_journal_entry_items_on_tax_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_journal_entry_items_on_tax_id ON public.journal_entry_items USING btree (tax_id);
+CREATE INDEX index_journal_entry_items_on_tax_id ON journal_entry_items USING btree (tax_id);
 
 
 --
 -- Name: index_journal_entry_items_on_team_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_journal_entry_items_on_team_id ON public.journal_entry_items USING btree (team_id);
+CREATE INDEX index_journal_entry_items_on_team_id ON journal_entry_items USING btree (team_id);
 
 
 --
 -- Name: index_journal_entry_items_on_updated_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_journal_entry_items_on_updated_at ON public.journal_entry_items USING btree (updated_at);
+CREATE INDEX index_journal_entry_items_on_updated_at ON journal_entry_items USING btree (updated_at);
 
 
 --
 -- Name: index_journal_entry_items_on_updater_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_journal_entry_items_on_updater_id ON public.journal_entry_items USING btree (updater_id);
+CREATE INDEX index_journal_entry_items_on_updater_id ON journal_entry_items USING btree (updater_id);
 
 
 --
 -- Name: index_journal_entry_items_on_variant_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_journal_entry_items_on_variant_id ON public.journal_entry_items USING btree (variant_id);
+CREATE INDEX index_journal_entry_items_on_variant_id ON journal_entry_items USING btree (variant_id);
 
 
 --
 -- Name: index_journals_on_accountant_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_journals_on_accountant_id ON public.journals USING btree (accountant_id);
+CREATE INDEX index_journals_on_accountant_id ON journals USING btree (accountant_id);
 
 
 --
 -- Name: index_journals_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_journals_on_created_at ON public.journals USING btree (created_at);
+CREATE INDEX index_journals_on_created_at ON journals USING btree (created_at);
 
 
 --
 -- Name: index_journals_on_creator_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_journals_on_creator_id ON public.journals USING btree (creator_id);
+CREATE INDEX index_journals_on_creator_id ON journals USING btree (creator_id);
 
 
 --
 -- Name: index_journals_on_updated_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_journals_on_updated_at ON public.journals USING btree (updated_at);
+CREATE INDEX index_journals_on_updated_at ON journals USING btree (updated_at);
 
 
 --
 -- Name: index_journals_on_updater_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_journals_on_updater_id ON public.journals USING btree (updater_id);
+CREATE INDEX index_journals_on_updater_id ON journals USING btree (updater_id);
 
 
 --
 -- Name: index_labels_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_labels_on_created_at ON public.labels USING btree (created_at);
+CREATE INDEX index_labels_on_created_at ON labels USING btree (created_at);
 
 
 --
 -- Name: index_labels_on_creator_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_labels_on_creator_id ON public.labels USING btree (creator_id);
+CREATE INDEX index_labels_on_creator_id ON labels USING btree (creator_id);
 
 
 --
 -- Name: index_labels_on_name; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX index_labels_on_name ON public.labels USING btree (name);
+CREATE UNIQUE INDEX index_labels_on_name ON labels USING btree (name);
 
 
 --
 -- Name: index_labels_on_updated_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_labels_on_updated_at ON public.labels USING btree (updated_at);
+CREATE INDEX index_labels_on_updated_at ON labels USING btree (updated_at);
 
 
 --
 -- Name: index_labels_on_updater_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_labels_on_updater_id ON public.labels USING btree (updater_id);
+CREATE INDEX index_labels_on_updater_id ON labels USING btree (updater_id);
 
 
 --
 -- Name: index_listing_node_items_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_listing_node_items_on_created_at ON public.listing_node_items USING btree (created_at);
+CREATE INDEX index_listing_node_items_on_created_at ON listing_node_items USING btree (created_at);
 
 
 --
 -- Name: index_listing_node_items_on_creator_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_listing_node_items_on_creator_id ON public.listing_node_items USING btree (creator_id);
+CREATE INDEX index_listing_node_items_on_creator_id ON listing_node_items USING btree (creator_id);
 
 
 --
 -- Name: index_listing_node_items_on_node_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_listing_node_items_on_node_id ON public.listing_node_items USING btree (node_id);
+CREATE INDEX index_listing_node_items_on_node_id ON listing_node_items USING btree (node_id);
 
 
 --
 -- Name: index_listing_node_items_on_updated_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_listing_node_items_on_updated_at ON public.listing_node_items USING btree (updated_at);
+CREATE INDEX index_listing_node_items_on_updated_at ON listing_node_items USING btree (updated_at);
 
 
 --
 -- Name: index_listing_node_items_on_updater_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_listing_node_items_on_updater_id ON public.listing_node_items USING btree (updater_id);
+CREATE INDEX index_listing_node_items_on_updater_id ON listing_node_items USING btree (updater_id);
 
 
 --
 -- Name: index_listing_nodes_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_listing_nodes_on_created_at ON public.listing_nodes USING btree (created_at);
+CREATE INDEX index_listing_nodes_on_created_at ON listing_nodes USING btree (created_at);
 
 
 --
 -- Name: index_listing_nodes_on_creator_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_listing_nodes_on_creator_id ON public.listing_nodes USING btree (creator_id);
+CREATE INDEX index_listing_nodes_on_creator_id ON listing_nodes USING btree (creator_id);
 
 
 --
 -- Name: index_listing_nodes_on_exportable; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_listing_nodes_on_exportable ON public.listing_nodes USING btree (exportable);
+CREATE INDEX index_listing_nodes_on_exportable ON listing_nodes USING btree (exportable);
 
 
 --
 -- Name: index_listing_nodes_on_item_listing_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_listing_nodes_on_item_listing_id ON public.listing_nodes USING btree (item_listing_id);
+CREATE INDEX index_listing_nodes_on_item_listing_id ON listing_nodes USING btree (item_listing_id);
 
 
 --
 -- Name: index_listing_nodes_on_item_listing_node_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_listing_nodes_on_item_listing_node_id ON public.listing_nodes USING btree (item_listing_node_id);
+CREATE INDEX index_listing_nodes_on_item_listing_node_id ON listing_nodes USING btree (item_listing_node_id);
 
 
 --
 -- Name: index_listing_nodes_on_listing_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_listing_nodes_on_listing_id ON public.listing_nodes USING btree (listing_id);
+CREATE INDEX index_listing_nodes_on_listing_id ON listing_nodes USING btree (listing_id);
 
 
 --
 -- Name: index_listing_nodes_on_name; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_listing_nodes_on_name ON public.listing_nodes USING btree (name);
+CREATE INDEX index_listing_nodes_on_name ON listing_nodes USING btree (name);
 
 
 --
 -- Name: index_listing_nodes_on_nature; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_listing_nodes_on_nature ON public.listing_nodes USING btree (nature);
+CREATE INDEX index_listing_nodes_on_nature ON listing_nodes USING btree (nature);
 
 
 --
 -- Name: index_listing_nodes_on_parent_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_listing_nodes_on_parent_id ON public.listing_nodes USING btree (parent_id);
+CREATE INDEX index_listing_nodes_on_parent_id ON listing_nodes USING btree (parent_id);
 
 
 --
 -- Name: index_listing_nodes_on_updated_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_listing_nodes_on_updated_at ON public.listing_nodes USING btree (updated_at);
+CREATE INDEX index_listing_nodes_on_updated_at ON listing_nodes USING btree (updated_at);
 
 
 --
 -- Name: index_listing_nodes_on_updater_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_listing_nodes_on_updater_id ON public.listing_nodes USING btree (updater_id);
+CREATE INDEX index_listing_nodes_on_updater_id ON listing_nodes USING btree (updater_id);
 
 
 --
 -- Name: index_listings_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_listings_on_created_at ON public.listings USING btree (created_at);
+CREATE INDEX index_listings_on_created_at ON listings USING btree (created_at);
 
 
 --
 -- Name: index_listings_on_creator_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_listings_on_creator_id ON public.listings USING btree (creator_id);
+CREATE INDEX index_listings_on_creator_id ON listings USING btree (creator_id);
 
 
 --
 -- Name: index_listings_on_name; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_listings_on_name ON public.listings USING btree (name);
+CREATE INDEX index_listings_on_name ON listings USING btree (name);
 
 
 --
 -- Name: index_listings_on_root_model; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_listings_on_root_model ON public.listings USING btree (root_model);
+CREATE INDEX index_listings_on_root_model ON listings USING btree (root_model);
 
 
 --
 -- Name: index_listings_on_updated_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_listings_on_updated_at ON public.listings USING btree (updated_at);
+CREATE INDEX index_listings_on_updated_at ON listings USING btree (updated_at);
 
 
 --
 -- Name: index_listings_on_updater_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_listings_on_updater_id ON public.listings USING btree (updater_id);
+CREATE INDEX index_listings_on_updater_id ON listings USING btree (updater_id);
 
 
 --
 -- Name: index_loan_repayments_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_loan_repayments_on_created_at ON public.loan_repayments USING btree (created_at);
+CREATE INDEX index_loan_repayments_on_created_at ON loan_repayments USING btree (created_at);
 
 
 --
 -- Name: index_loan_repayments_on_creator_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_loan_repayments_on_creator_id ON public.loan_repayments USING btree (creator_id);
+CREATE INDEX index_loan_repayments_on_creator_id ON loan_repayments USING btree (creator_id);
 
 
 --
 -- Name: index_loan_repayments_on_journal_entry_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_loan_repayments_on_journal_entry_id ON public.loan_repayments USING btree (journal_entry_id);
+CREATE INDEX index_loan_repayments_on_journal_entry_id ON loan_repayments USING btree (journal_entry_id);
 
 
 --
 -- Name: index_loan_repayments_on_loan_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_loan_repayments_on_loan_id ON public.loan_repayments USING btree (loan_id);
+CREATE INDEX index_loan_repayments_on_loan_id ON loan_repayments USING btree (loan_id);
 
 
 --
 -- Name: index_loan_repayments_on_updated_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_loan_repayments_on_updated_at ON public.loan_repayments USING btree (updated_at);
+CREATE INDEX index_loan_repayments_on_updated_at ON loan_repayments USING btree (updated_at);
 
 
 --
 -- Name: index_loan_repayments_on_updater_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_loan_repayments_on_updater_id ON public.loan_repayments USING btree (updater_id);
+CREATE INDEX index_loan_repayments_on_updater_id ON loan_repayments USING btree (updater_id);
 
 
 --
 -- Name: index_loans_on_cash_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_loans_on_cash_id ON public.loans USING btree (cash_id);
+CREATE INDEX index_loans_on_cash_id ON loans USING btree (cash_id);
 
 
 --
 -- Name: index_loans_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_loans_on_created_at ON public.loans USING btree (created_at);
+CREATE INDEX index_loans_on_created_at ON loans USING btree (created_at);
 
 
 --
 -- Name: index_loans_on_creator_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_loans_on_creator_id ON public.loans USING btree (creator_id);
+CREATE INDEX index_loans_on_creator_id ON loans USING btree (creator_id);
 
 
 --
 -- Name: index_loans_on_journal_entry_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_loans_on_journal_entry_id ON public.loans USING btree (journal_entry_id);
+CREATE INDEX index_loans_on_journal_entry_id ON loans USING btree (journal_entry_id);
 
 
 --
 -- Name: index_loans_on_lender_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_loans_on_lender_id ON public.loans USING btree (lender_id);
+CREATE INDEX index_loans_on_lender_id ON loans USING btree (lender_id);
 
 
 --
 -- Name: index_loans_on_updated_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_loans_on_updated_at ON public.loans USING btree (updated_at);
+CREATE INDEX index_loans_on_updated_at ON loans USING btree (updated_at);
 
 
 --
 -- Name: index_loans_on_updater_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_loans_on_updater_id ON public.loans USING btree (updater_id);
+CREATE INDEX index_loans_on_updater_id ON loans USING btree (updater_id);
 
 
 --
 -- Name: index_manure_management_plan_zones_on_activity_production_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_manure_management_plan_zones_on_activity_production_id ON public.manure_management_plan_zones USING btree (activity_production_id);
+CREATE INDEX index_manure_management_plan_zones_on_activity_production_id ON manure_management_plan_zones USING btree (activity_production_id);
 
 
 --
 -- Name: index_manure_management_plan_zones_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_manure_management_plan_zones_on_created_at ON public.manure_management_plan_zones USING btree (created_at);
+CREATE INDEX index_manure_management_plan_zones_on_created_at ON manure_management_plan_zones USING btree (created_at);
 
 
 --
 -- Name: index_manure_management_plan_zones_on_creator_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_manure_management_plan_zones_on_creator_id ON public.manure_management_plan_zones USING btree (creator_id);
+CREATE INDEX index_manure_management_plan_zones_on_creator_id ON manure_management_plan_zones USING btree (creator_id);
 
 
 --
 -- Name: index_manure_management_plan_zones_on_plan_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_manure_management_plan_zones_on_plan_id ON public.manure_management_plan_zones USING btree (plan_id);
+CREATE INDEX index_manure_management_plan_zones_on_plan_id ON manure_management_plan_zones USING btree (plan_id);
 
 
 --
 -- Name: index_manure_management_plan_zones_on_updated_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_manure_management_plan_zones_on_updated_at ON public.manure_management_plan_zones USING btree (updated_at);
+CREATE INDEX index_manure_management_plan_zones_on_updated_at ON manure_management_plan_zones USING btree (updated_at);
 
 
 --
 -- Name: index_manure_management_plan_zones_on_updater_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_manure_management_plan_zones_on_updater_id ON public.manure_management_plan_zones USING btree (updater_id);
+CREATE INDEX index_manure_management_plan_zones_on_updater_id ON manure_management_plan_zones USING btree (updater_id);
 
 
 --
 -- Name: index_manure_management_plans_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_manure_management_plans_on_campaign_id ON public.manure_management_plans USING btree (campaign_id);
+CREATE INDEX index_manure_management_plans_on_campaign_id ON manure_management_plans USING btree (campaign_id);
 
 
 --
 -- Name: index_manure_management_plans_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_manure_management_plans_on_created_at ON public.manure_management_plans USING btree (created_at);
+CREATE INDEX index_manure_management_plans_on_created_at ON manure_management_plans USING btree (created_at);
 
 
 --
 -- Name: index_manure_management_plans_on_creator_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_manure_management_plans_on_creator_id ON public.manure_management_plans USING btree (creator_id);
+CREATE INDEX index_manure_management_plans_on_creator_id ON manure_management_plans USING btree (creator_id);
 
 
 --
 -- Name: index_manure_management_plans_on_recommender_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_manure_management_plans_on_recommender_id ON public.manure_management_plans USING btree (recommender_id);
+CREATE INDEX index_manure_management_plans_on_recommender_id ON manure_management_plans USING btree (recommender_id);
 
 
 --
 -- Name: index_manure_management_plans_on_updated_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_manure_management_plans_on_updated_at ON public.manure_management_plans USING btree (updated_at);
+CREATE INDEX index_manure_management_plans_on_updated_at ON manure_management_plans USING btree (updated_at);
 
 
 --
 -- Name: index_manure_management_plans_on_updater_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_manure_management_plans_on_updater_id ON public.manure_management_plans USING btree (updater_id);
+CREATE INDEX index_manure_management_plans_on_updater_id ON manure_management_plans USING btree (updater_id);
 
 
 --
 -- Name: index_map_layers_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_map_layers_on_created_at ON public.map_layers USING btree (created_at);
+CREATE INDEX index_map_layers_on_created_at ON map_layers USING btree (created_at);
 
 
 --
 -- Name: index_map_layers_on_creator_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_map_layers_on_creator_id ON public.map_layers USING btree (creator_id);
+CREATE INDEX index_map_layers_on_creator_id ON map_layers USING btree (creator_id);
 
 
 --
 -- Name: index_map_layers_on_name; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_map_layers_on_name ON public.map_layers USING btree (name);
+CREATE INDEX index_map_layers_on_name ON map_layers USING btree (name);
 
 
 --
 -- Name: index_map_layers_on_updated_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_map_layers_on_updated_at ON public.map_layers USING btree (updated_at);
+CREATE INDEX index_map_layers_on_updated_at ON map_layers USING btree (updated_at);
 
 
 --
 -- Name: index_map_layers_on_updater_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_map_layers_on_updater_id ON public.map_layers USING btree (updater_id);
+CREATE INDEX index_map_layers_on_updater_id ON map_layers USING btree (updater_id);
 
 
 --
 -- Name: index_naming_format_fields_on_naming_format_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_naming_format_fields_on_naming_format_id ON public.naming_format_fields USING btree (naming_format_id);
+CREATE INDEX index_naming_format_fields_on_naming_format_id ON naming_format_fields USING btree (naming_format_id);
 
 
 --
 -- Name: index_net_services_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_net_services_on_created_at ON public.net_services USING btree (created_at);
+CREATE INDEX index_net_services_on_created_at ON net_services USING btree (created_at);
 
 
 --
 -- Name: index_net_services_on_creator_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_net_services_on_creator_id ON public.net_services USING btree (creator_id);
+CREATE INDEX index_net_services_on_creator_id ON net_services USING btree (creator_id);
 
 
 --
 -- Name: index_net_services_on_reference_name; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_net_services_on_reference_name ON public.net_services USING btree (reference_name);
+CREATE INDEX index_net_services_on_reference_name ON net_services USING btree (reference_name);
 
 
 --
 -- Name: index_net_services_on_updated_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_net_services_on_updated_at ON public.net_services USING btree (updated_at);
+CREATE INDEX index_net_services_on_updated_at ON net_services USING btree (updated_at);
 
 
 --
 -- Name: index_net_services_on_updater_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_net_services_on_updater_id ON public.net_services USING btree (updater_id);
+CREATE INDEX index_net_services_on_updater_id ON net_services USING btree (updater_id);
 
 
 --
 -- Name: index_notifications_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_notifications_on_created_at ON public.notifications USING btree (created_at);
+CREATE INDEX index_notifications_on_created_at ON notifications USING btree (created_at);
 
 
 --
 -- Name: index_notifications_on_creator_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_notifications_on_creator_id ON public.notifications USING btree (creator_id);
+CREATE INDEX index_notifications_on_creator_id ON notifications USING btree (creator_id);
 
 
 --
 -- Name: index_notifications_on_level; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_notifications_on_level ON public.notifications USING btree (level);
+CREATE INDEX index_notifications_on_level ON notifications USING btree (level);
 
 
 --
 -- Name: index_notifications_on_read_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_notifications_on_read_at ON public.notifications USING btree (read_at);
+CREATE INDEX index_notifications_on_read_at ON notifications USING btree (read_at);
 
 
 --
 -- Name: index_notifications_on_recipient_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_notifications_on_recipient_id ON public.notifications USING btree (recipient_id);
+CREATE INDEX index_notifications_on_recipient_id ON notifications USING btree (recipient_id);
 
 
 --
 -- Name: index_notifications_on_target_type_and_target_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_notifications_on_target_type_and_target_id ON public.notifications USING btree (target_type, target_id);
+CREATE INDEX index_notifications_on_target_type_and_target_id ON notifications USING btree (target_type, target_id);
 
 
 --
 -- Name: index_notifications_on_updated_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_notifications_on_updated_at ON public.notifications USING btree (updated_at);
+CREATE INDEX index_notifications_on_updated_at ON notifications USING btree (updated_at);
 
 
 --
 -- Name: index_notifications_on_updater_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_notifications_on_updater_id ON public.notifications USING btree (updater_id);
+CREATE INDEX index_notifications_on_updater_id ON notifications USING btree (updater_id);
 
 
 --
 -- Name: index_observations_on_author_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_observations_on_author_id ON public.observations USING btree (author_id);
+CREATE INDEX index_observations_on_author_id ON observations USING btree (author_id);
 
 
 --
 -- Name: index_observations_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_observations_on_created_at ON public.observations USING btree (created_at);
+CREATE INDEX index_observations_on_created_at ON observations USING btree (created_at);
 
 
 --
 -- Name: index_observations_on_creator_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_observations_on_creator_id ON public.observations USING btree (creator_id);
+CREATE INDEX index_observations_on_creator_id ON observations USING btree (creator_id);
 
 
 --
 -- Name: index_observations_on_subject_type_and_subject_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_observations_on_subject_type_and_subject_id ON public.observations USING btree (subject_type, subject_id);
+CREATE INDEX index_observations_on_subject_type_and_subject_id ON observations USING btree (subject_type, subject_id);
 
 
 --
 -- Name: index_observations_on_updated_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_observations_on_updated_at ON public.observations USING btree (updated_at);
+CREATE INDEX index_observations_on_updated_at ON observations USING btree (updated_at);
 
 
 --
 -- Name: index_observations_on_updater_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_observations_on_updater_id ON public.observations USING btree (updater_id);
+CREATE INDEX index_observations_on_updater_id ON observations USING btree (updater_id);
 
 
 --
 -- Name: index_outgoing_payment_lists_on_creator_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_outgoing_payment_lists_on_creator_id ON public.outgoing_payment_lists USING btree (creator_id);
+CREATE INDEX index_outgoing_payment_lists_on_creator_id ON outgoing_payment_lists USING btree (creator_id);
 
 
 --
 -- Name: index_outgoing_payment_lists_on_mode_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_outgoing_payment_lists_on_mode_id ON public.outgoing_payment_lists USING btree (mode_id);
+CREATE INDEX index_outgoing_payment_lists_on_mode_id ON outgoing_payment_lists USING btree (mode_id);
 
 
 --
 -- Name: index_outgoing_payment_lists_on_updater_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_outgoing_payment_lists_on_updater_id ON public.outgoing_payment_lists USING btree (updater_id);
+CREATE INDEX index_outgoing_payment_lists_on_updater_id ON outgoing_payment_lists USING btree (updater_id);
 
 
 --
 -- Name: index_outgoing_payment_modes_on_cash_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_outgoing_payment_modes_on_cash_id ON public.outgoing_payment_modes USING btree (cash_id);
+CREATE INDEX index_outgoing_payment_modes_on_cash_id ON outgoing_payment_modes USING btree (cash_id);
 
 
 --
 -- Name: index_outgoing_payment_modes_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_outgoing_payment_modes_on_created_at ON public.outgoing_payment_modes USING btree (created_at);
+CREATE INDEX index_outgoing_payment_modes_on_created_at ON outgoing_payment_modes USING btree (created_at);
 
 
 --
 -- Name: index_outgoing_payment_modes_on_creator_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_outgoing_payment_modes_on_creator_id ON public.outgoing_payment_modes USING btree (creator_id);
+CREATE INDEX index_outgoing_payment_modes_on_creator_id ON outgoing_payment_modes USING btree (creator_id);
 
 
 --
 -- Name: index_outgoing_payment_modes_on_updated_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_outgoing_payment_modes_on_updated_at ON public.outgoing_payment_modes USING btree (updated_at);
+CREATE INDEX index_outgoing_payment_modes_on_updated_at ON outgoing_payment_modes USING btree (updated_at);
 
 
 --
 -- Name: index_outgoing_payment_modes_on_updater_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_outgoing_payment_modes_on_updater_id ON public.outgoing_payment_modes USING btree (updater_id);
+CREATE INDEX index_outgoing_payment_modes_on_updater_id ON outgoing_payment_modes USING btree (updater_id);
 
 
 --
 -- Name: index_outgoing_payments_on_affair_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_outgoing_payments_on_affair_id ON public.outgoing_payments USING btree (affair_id);
+CREATE INDEX index_outgoing_payments_on_affair_id ON outgoing_payments USING btree (affair_id);
 
 
 --
 -- Name: index_outgoing_payments_on_cash_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_outgoing_payments_on_cash_id ON public.outgoing_payments USING btree (cash_id);
+CREATE INDEX index_outgoing_payments_on_cash_id ON outgoing_payments USING btree (cash_id);
 
 
 --
 -- Name: index_outgoing_payments_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_outgoing_payments_on_created_at ON public.outgoing_payments USING btree (created_at);
+CREATE INDEX index_outgoing_payments_on_created_at ON outgoing_payments USING btree (created_at);
 
 
 --
 -- Name: index_outgoing_payments_on_creator_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_outgoing_payments_on_creator_id ON public.outgoing_payments USING btree (creator_id);
+CREATE INDEX index_outgoing_payments_on_creator_id ON outgoing_payments USING btree (creator_id);
 
 
 --
 -- Name: index_outgoing_payments_on_journal_entry_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_outgoing_payments_on_journal_entry_id ON public.outgoing_payments USING btree (journal_entry_id);
+CREATE INDEX index_outgoing_payments_on_journal_entry_id ON outgoing_payments USING btree (journal_entry_id);
 
 
 --
 -- Name: index_outgoing_payments_on_mode_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_outgoing_payments_on_mode_id ON public.outgoing_payments USING btree (mode_id);
+CREATE INDEX index_outgoing_payments_on_mode_id ON outgoing_payments USING btree (mode_id);
 
 
 --
 -- Name: index_outgoing_payments_on_payee_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_outgoing_payments_on_payee_id ON public.outgoing_payments USING btree (payee_id);
+CREATE INDEX index_outgoing_payments_on_payee_id ON outgoing_payments USING btree (payee_id);
 
 
 --
 -- Name: index_outgoing_payments_on_responsible_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_outgoing_payments_on_responsible_id ON public.outgoing_payments USING btree (responsible_id);
+CREATE INDEX index_outgoing_payments_on_responsible_id ON outgoing_payments USING btree (responsible_id);
 
 
 --
 -- Name: index_outgoing_payments_on_updated_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_outgoing_payments_on_updated_at ON public.outgoing_payments USING btree (updated_at);
+CREATE INDEX index_outgoing_payments_on_updated_at ON outgoing_payments USING btree (updated_at);
 
 
 --
 -- Name: index_outgoing_payments_on_updater_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_outgoing_payments_on_updater_id ON public.outgoing_payments USING btree (updater_id);
+CREATE INDEX index_outgoing_payments_on_updater_id ON outgoing_payments USING btree (updater_id);
 
 
 --
 -- Name: index_parcel_item_storings_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_parcel_item_storings_on_created_at ON public.parcel_item_storings USING btree (created_at);
+CREATE INDEX index_parcel_item_storings_on_created_at ON parcel_item_storings USING btree (created_at);
 
 
 --
 -- Name: index_parcel_item_storings_on_creator_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_parcel_item_storings_on_creator_id ON public.parcel_item_storings USING btree (creator_id);
+CREATE INDEX index_parcel_item_storings_on_creator_id ON parcel_item_storings USING btree (creator_id);
 
 
 --
 -- Name: index_parcel_item_storings_on_parcel_item_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_parcel_item_storings_on_parcel_item_id ON public.parcel_item_storings USING btree (parcel_item_id);
+CREATE INDEX index_parcel_item_storings_on_parcel_item_id ON parcel_item_storings USING btree (parcel_item_id);
 
 
 --
 -- Name: index_parcel_item_storings_on_product_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_parcel_item_storings_on_product_id ON public.parcel_item_storings USING btree (product_id);
+CREATE INDEX index_parcel_item_storings_on_product_id ON parcel_item_storings USING btree (product_id);
 
 
 --
 -- Name: index_parcel_item_storings_on_storage_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_parcel_item_storings_on_storage_id ON public.parcel_item_storings USING btree (storage_id);
+CREATE INDEX index_parcel_item_storings_on_storage_id ON parcel_item_storings USING btree (storage_id);
 
 
 --
 -- Name: index_parcel_item_storings_on_updated_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_parcel_item_storings_on_updated_at ON public.parcel_item_storings USING btree (updated_at);
+CREATE INDEX index_parcel_item_storings_on_updated_at ON parcel_item_storings USING btree (updated_at);
 
 
 --
 -- Name: index_parcel_item_storings_on_updater_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_parcel_item_storings_on_updater_id ON public.parcel_item_storings USING btree (updater_id);
+CREATE INDEX index_parcel_item_storings_on_updater_id ON parcel_item_storings USING btree (updater_id);
 
 
 --
 -- Name: index_parcel_items_on_analysis_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_parcel_items_on_analysis_id ON public.parcel_items USING btree (analysis_id);
+CREATE INDEX index_parcel_items_on_analysis_id ON parcel_items USING btree (analysis_id);
 
 
 --
 -- Name: index_parcel_items_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_parcel_items_on_created_at ON public.parcel_items USING btree (created_at);
+CREATE INDEX index_parcel_items_on_created_at ON parcel_items USING btree (created_at);
 
 
 --
 -- Name: index_parcel_items_on_creator_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_parcel_items_on_creator_id ON public.parcel_items USING btree (creator_id);
+CREATE INDEX index_parcel_items_on_creator_id ON parcel_items USING btree (creator_id);
 
 
 --
 -- Name: index_parcel_items_on_delivery_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_parcel_items_on_delivery_id ON public.parcel_items USING btree (delivery_id);
+CREATE INDEX index_parcel_items_on_delivery_id ON parcel_items USING btree (delivery_id);
 
 
 --
 -- Name: index_parcel_items_on_parcel_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_parcel_items_on_parcel_id ON public.parcel_items USING btree (parcel_id);
+CREATE INDEX index_parcel_items_on_parcel_id ON parcel_items USING btree (parcel_id);
 
 
 --
 -- Name: index_parcel_items_on_product_enjoyment_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_parcel_items_on_product_enjoyment_id ON public.parcel_items USING btree (product_enjoyment_id);
+CREATE INDEX index_parcel_items_on_product_enjoyment_id ON parcel_items USING btree (product_enjoyment_id);
 
 
 --
 -- Name: index_parcel_items_on_product_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_parcel_items_on_product_id ON public.parcel_items USING btree (product_id);
+CREATE INDEX index_parcel_items_on_product_id ON parcel_items USING btree (product_id);
 
 
 --
 -- Name: index_parcel_items_on_product_localization_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_parcel_items_on_product_localization_id ON public.parcel_items USING btree (product_localization_id);
+CREATE INDEX index_parcel_items_on_product_localization_id ON parcel_items USING btree (product_localization_id);
 
 
 --
 -- Name: index_parcel_items_on_product_movement_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_parcel_items_on_product_movement_id ON public.parcel_items USING btree (product_movement_id);
+CREATE INDEX index_parcel_items_on_product_movement_id ON parcel_items USING btree (product_movement_id);
 
 
 --
 -- Name: index_parcel_items_on_product_ownership_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_parcel_items_on_product_ownership_id ON public.parcel_items USING btree (product_ownership_id);
+CREATE INDEX index_parcel_items_on_product_ownership_id ON parcel_items USING btree (product_ownership_id);
 
 
 --
 -- Name: index_parcel_items_on_project_budget_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_parcel_items_on_project_budget_id ON public.parcel_items USING btree (project_budget_id);
+CREATE INDEX index_parcel_items_on_project_budget_id ON parcel_items USING btree (project_budget_id);
 
 
 --
 -- Name: index_parcel_items_on_purchase_invoice_item_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_parcel_items_on_purchase_invoice_item_id ON public.parcel_items USING btree (purchase_invoice_item_id);
+CREATE INDEX index_parcel_items_on_purchase_invoice_item_id ON parcel_items USING btree (purchase_invoice_item_id);
 
 
 --
 -- Name: index_parcel_items_on_sale_item_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_parcel_items_on_sale_item_id ON public.parcel_items USING btree (sale_item_id);
+CREATE INDEX index_parcel_items_on_sale_item_id ON parcel_items USING btree (sale_item_id);
 
 
 --
 -- Name: index_parcel_items_on_source_product_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_parcel_items_on_source_product_id ON public.parcel_items USING btree (source_product_id);
+CREATE INDEX index_parcel_items_on_source_product_id ON parcel_items USING btree (source_product_id);
 
 
 --
 -- Name: index_parcel_items_on_source_product_movement_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_parcel_items_on_source_product_movement_id ON public.parcel_items USING btree (source_product_movement_id);
+CREATE INDEX index_parcel_items_on_source_product_movement_id ON parcel_items USING btree (source_product_movement_id);
 
 
 --
 -- Name: index_parcel_items_on_transporter_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_parcel_items_on_transporter_id ON public.parcel_items USING btree (transporter_id);
+CREATE INDEX index_parcel_items_on_transporter_id ON parcel_items USING btree (transporter_id);
 
 
 --
 -- Name: index_parcel_items_on_updated_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_parcel_items_on_updated_at ON public.parcel_items USING btree (updated_at);
+CREATE INDEX index_parcel_items_on_updated_at ON parcel_items USING btree (updated_at);
 
 
 --
 -- Name: index_parcel_items_on_updater_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_parcel_items_on_updater_id ON public.parcel_items USING btree (updater_id);
+CREATE INDEX index_parcel_items_on_updater_id ON parcel_items USING btree (updater_id);
 
 
 --
 -- Name: index_parcel_items_on_variant_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_parcel_items_on_variant_id ON public.parcel_items USING btree (variant_id);
+CREATE INDEX index_parcel_items_on_variant_id ON parcel_items USING btree (variant_id);
 
 
 --
 -- Name: index_parcels_on_address_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_parcels_on_address_id ON public.parcels USING btree (address_id);
+CREATE INDEX index_parcels_on_address_id ON parcels USING btree (address_id);
 
 
 --
 -- Name: index_parcels_on_contract_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_parcels_on_contract_id ON public.parcels USING btree (contract_id);
+CREATE INDEX index_parcels_on_contract_id ON parcels USING btree (contract_id);
 
 
 --
 -- Name: index_parcels_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_parcels_on_created_at ON public.parcels USING btree (created_at);
+CREATE INDEX index_parcels_on_created_at ON parcels USING btree (created_at);
 
 
 --
 -- Name: index_parcels_on_creator_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_parcels_on_creator_id ON public.parcels USING btree (creator_id);
+CREATE INDEX index_parcels_on_creator_id ON parcels USING btree (creator_id);
 
 
 --
 -- Name: index_parcels_on_delivery_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_parcels_on_delivery_id ON public.parcels USING btree (delivery_id);
+CREATE INDEX index_parcels_on_delivery_id ON parcels USING btree (delivery_id);
 
 
 --
 -- Name: index_parcels_on_intervention_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_parcels_on_intervention_id ON public.parcels USING btree (intervention_id);
+CREATE INDEX index_parcels_on_intervention_id ON parcels USING btree (intervention_id);
 
 
 --
 -- Name: index_parcels_on_journal_entry_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_parcels_on_journal_entry_id ON public.parcels USING btree (journal_entry_id);
+CREATE INDEX index_parcels_on_journal_entry_id ON parcels USING btree (journal_entry_id);
 
 
 --
 -- Name: index_parcels_on_nature; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_parcels_on_nature ON public.parcels USING btree (nature);
+CREATE INDEX index_parcels_on_nature ON parcels USING btree (nature);
 
 
 --
 -- Name: index_parcels_on_number; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX index_parcels_on_number ON public.parcels USING btree (number);
+CREATE UNIQUE INDEX index_parcels_on_number ON parcels USING btree (number);
 
 
 --
 -- Name: index_parcels_on_purchase_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_parcels_on_purchase_id ON public.parcels USING btree (purchase_id);
+CREATE INDEX index_parcels_on_purchase_id ON parcels USING btree (purchase_id);
 
 
 --
 -- Name: index_parcels_on_recipient_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_parcels_on_recipient_id ON public.parcels USING btree (recipient_id);
+CREATE INDEX index_parcels_on_recipient_id ON parcels USING btree (recipient_id);
 
 
 --
 -- Name: index_parcels_on_responsible_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_parcels_on_responsible_id ON public.parcels USING btree (responsible_id);
+CREATE INDEX index_parcels_on_responsible_id ON parcels USING btree (responsible_id);
 
 
 --
 -- Name: index_parcels_on_sale_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_parcels_on_sale_id ON public.parcels USING btree (sale_id);
+CREATE INDEX index_parcels_on_sale_id ON parcels USING btree (sale_id);
 
 
 --
 -- Name: index_parcels_on_sender_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_parcels_on_sender_id ON public.parcels USING btree (sender_id);
+CREATE INDEX index_parcels_on_sender_id ON parcels USING btree (sender_id);
 
 
 --
 -- Name: index_parcels_on_state; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_parcels_on_state ON public.parcels USING btree (state);
+CREATE INDEX index_parcels_on_state ON parcels USING btree (state);
 
 
 --
 -- Name: index_parcels_on_storage_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_parcels_on_storage_id ON public.parcels USING btree (storage_id);
+CREATE INDEX index_parcels_on_storage_id ON parcels USING btree (storage_id);
 
 
 --
 -- Name: index_parcels_on_transporter_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_parcels_on_transporter_id ON public.parcels USING btree (transporter_id);
+CREATE INDEX index_parcels_on_transporter_id ON parcels USING btree (transporter_id);
 
 
 --
 -- Name: index_parcels_on_undelivered_invoice_journal_entry_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_parcels_on_undelivered_invoice_journal_entry_id ON public.parcels USING btree (undelivered_invoice_journal_entry_id);
+CREATE INDEX index_parcels_on_undelivered_invoice_journal_entry_id ON parcels USING btree (undelivered_invoice_journal_entry_id);
 
 
 --
 -- Name: index_parcels_on_updated_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_parcels_on_updated_at ON public.parcels USING btree (updated_at);
+CREATE INDEX index_parcels_on_updated_at ON parcels USING btree (updated_at);
 
 
 --
 -- Name: index_parcels_on_updater_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_parcels_on_updater_id ON public.parcels USING btree (updater_id);
+CREATE INDEX index_parcels_on_updater_id ON parcels USING btree (updater_id);
 
 
 --
 -- Name: index_payslip_natures_on_account_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_payslip_natures_on_account_id ON public.payslip_natures USING btree (account_id);
+CREATE INDEX index_payslip_natures_on_account_id ON payslip_natures USING btree (account_id);
 
 
 --
 -- Name: index_payslip_natures_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_payslip_natures_on_created_at ON public.payslip_natures USING btree (created_at);
+CREATE INDEX index_payslip_natures_on_created_at ON payslip_natures USING btree (created_at);
 
 
 --
 -- Name: index_payslip_natures_on_creator_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_payslip_natures_on_creator_id ON public.payslip_natures USING btree (creator_id);
+CREATE INDEX index_payslip_natures_on_creator_id ON payslip_natures USING btree (creator_id);
 
 
 --
 -- Name: index_payslip_natures_on_journal_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_payslip_natures_on_journal_id ON public.payslip_natures USING btree (journal_id);
+CREATE INDEX index_payslip_natures_on_journal_id ON payslip_natures USING btree (journal_id);
 
 
 --
 -- Name: index_payslip_natures_on_name; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX index_payslip_natures_on_name ON public.payslip_natures USING btree (name);
+CREATE UNIQUE INDEX index_payslip_natures_on_name ON payslip_natures USING btree (name);
 
 
 --
 -- Name: index_payslip_natures_on_updated_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_payslip_natures_on_updated_at ON public.payslip_natures USING btree (updated_at);
+CREATE INDEX index_payslip_natures_on_updated_at ON payslip_natures USING btree (updated_at);
 
 
 --
 -- Name: index_payslip_natures_on_updater_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_payslip_natures_on_updater_id ON public.payslip_natures USING btree (updater_id);
+CREATE INDEX index_payslip_natures_on_updater_id ON payslip_natures USING btree (updater_id);
 
 
 --
 -- Name: index_payslips_on_account_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_payslips_on_account_id ON public.payslips USING btree (account_id);
+CREATE INDEX index_payslips_on_account_id ON payslips USING btree (account_id);
 
 
 --
 -- Name: index_payslips_on_affair_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_payslips_on_affair_id ON public.payslips USING btree (affair_id);
+CREATE INDEX index_payslips_on_affair_id ON payslips USING btree (affair_id);
 
 
 --
 -- Name: index_payslips_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_payslips_on_created_at ON public.payslips USING btree (created_at);
+CREATE INDEX index_payslips_on_created_at ON payslips USING btree (created_at);
 
 
 --
 -- Name: index_payslips_on_creator_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_payslips_on_creator_id ON public.payslips USING btree (creator_id);
+CREATE INDEX index_payslips_on_creator_id ON payslips USING btree (creator_id);
 
 
 --
 -- Name: index_payslips_on_employee_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_payslips_on_employee_id ON public.payslips USING btree (employee_id);
+CREATE INDEX index_payslips_on_employee_id ON payslips USING btree (employee_id);
 
 
 --
 -- Name: index_payslips_on_journal_entry_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_payslips_on_journal_entry_id ON public.payslips USING btree (journal_entry_id);
+CREATE INDEX index_payslips_on_journal_entry_id ON payslips USING btree (journal_entry_id);
 
 
 --
 -- Name: index_payslips_on_nature_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_payslips_on_nature_id ON public.payslips USING btree (nature_id);
+CREATE INDEX index_payslips_on_nature_id ON payslips USING btree (nature_id);
 
 
 --
 -- Name: index_payslips_on_number; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_payslips_on_number ON public.payslips USING btree (number);
+CREATE INDEX index_payslips_on_number ON payslips USING btree (number);
 
 
 --
 -- Name: index_payslips_on_started_on; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_payslips_on_started_on ON public.payslips USING btree (started_on);
+CREATE INDEX index_payslips_on_started_on ON payslips USING btree (started_on);
 
 
 --
 -- Name: index_payslips_on_stopped_on; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_payslips_on_stopped_on ON public.payslips USING btree (stopped_on);
+CREATE INDEX index_payslips_on_stopped_on ON payslips USING btree (stopped_on);
 
 
 --
 -- Name: index_payslips_on_updated_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_payslips_on_updated_at ON public.payslips USING btree (updated_at);
+CREATE INDEX index_payslips_on_updated_at ON payslips USING btree (updated_at);
 
 
 --
 -- Name: index_payslips_on_updater_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_payslips_on_updater_id ON public.payslips USING btree (updater_id);
+CREATE INDEX index_payslips_on_updater_id ON payslips USING btree (updater_id);
 
 
 --
 -- Name: index_plant_counting_items_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_plant_counting_items_on_created_at ON public.plant_counting_items USING btree (created_at);
+CREATE INDEX index_plant_counting_items_on_created_at ON plant_counting_items USING btree (created_at);
 
 
 --
 -- Name: index_plant_counting_items_on_creator_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_plant_counting_items_on_creator_id ON public.plant_counting_items USING btree (creator_id);
+CREATE INDEX index_plant_counting_items_on_creator_id ON plant_counting_items USING btree (creator_id);
 
 
 --
 -- Name: index_plant_counting_items_on_plant_counting_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_plant_counting_items_on_plant_counting_id ON public.plant_counting_items USING btree (plant_counting_id);
+CREATE INDEX index_plant_counting_items_on_plant_counting_id ON plant_counting_items USING btree (plant_counting_id);
 
 
 --
 -- Name: index_plant_counting_items_on_updated_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_plant_counting_items_on_updated_at ON public.plant_counting_items USING btree (updated_at);
+CREATE INDEX index_plant_counting_items_on_updated_at ON plant_counting_items USING btree (updated_at);
 
 
 --
 -- Name: index_plant_counting_items_on_updater_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_plant_counting_items_on_updater_id ON public.plant_counting_items USING btree (updater_id);
+CREATE INDEX index_plant_counting_items_on_updater_id ON plant_counting_items USING btree (updater_id);
 
 
 --
 -- Name: index_plant_countings_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_plant_countings_on_created_at ON public.plant_countings USING btree (created_at);
+CREATE INDEX index_plant_countings_on_created_at ON plant_countings USING btree (created_at);
 
 
 --
 -- Name: index_plant_countings_on_creator_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_plant_countings_on_creator_id ON public.plant_countings USING btree (creator_id);
+CREATE INDEX index_plant_countings_on_creator_id ON plant_countings USING btree (creator_id);
 
 
 --
 -- Name: index_plant_countings_on_plant_density_abacus_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_plant_countings_on_plant_density_abacus_id ON public.plant_countings USING btree (plant_density_abacus_id);
+CREATE INDEX index_plant_countings_on_plant_density_abacus_id ON plant_countings USING btree (plant_density_abacus_id);
 
 
 --
 -- Name: index_plant_countings_on_plant_density_abacus_item_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_plant_countings_on_plant_density_abacus_item_id ON public.plant_countings USING btree (plant_density_abacus_item_id);
+CREATE INDEX index_plant_countings_on_plant_density_abacus_item_id ON plant_countings USING btree (plant_density_abacus_item_id);
 
 
 --
 -- Name: index_plant_countings_on_plant_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_plant_countings_on_plant_id ON public.plant_countings USING btree (plant_id);
+CREATE INDEX index_plant_countings_on_plant_id ON plant_countings USING btree (plant_id);
 
 
 --
 -- Name: index_plant_countings_on_updated_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_plant_countings_on_updated_at ON public.plant_countings USING btree (updated_at);
+CREATE INDEX index_plant_countings_on_updated_at ON plant_countings USING btree (updated_at);
 
 
 --
 -- Name: index_plant_countings_on_updater_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_plant_countings_on_updater_id ON public.plant_countings USING btree (updater_id);
+CREATE INDEX index_plant_countings_on_updater_id ON plant_countings USING btree (updater_id);
 
 
 --
 -- Name: index_plant_density_abaci_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_plant_density_abaci_on_created_at ON public.plant_density_abaci USING btree (created_at);
+CREATE INDEX index_plant_density_abaci_on_created_at ON plant_density_abaci USING btree (created_at);
 
 
 --
 -- Name: index_plant_density_abaci_on_creator_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_plant_density_abaci_on_creator_id ON public.plant_density_abaci USING btree (creator_id);
+CREATE INDEX index_plant_density_abaci_on_creator_id ON plant_density_abaci USING btree (creator_id);
 
 
 --
 -- Name: index_plant_density_abaci_on_name; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX index_plant_density_abaci_on_name ON public.plant_density_abaci USING btree (name);
+CREATE UNIQUE INDEX index_plant_density_abaci_on_name ON plant_density_abaci USING btree (name);
 
 
 --
 -- Name: index_plant_density_abaci_on_updated_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_plant_density_abaci_on_updated_at ON public.plant_density_abaci USING btree (updated_at);
+CREATE INDEX index_plant_density_abaci_on_updated_at ON plant_density_abaci USING btree (updated_at);
 
 
 --
 -- Name: index_plant_density_abaci_on_updater_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_plant_density_abaci_on_updater_id ON public.plant_density_abaci USING btree (updater_id);
+CREATE INDEX index_plant_density_abaci_on_updater_id ON plant_density_abaci USING btree (updater_id);
 
 
 --
 -- Name: index_plant_density_abacus_items_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_plant_density_abacus_items_on_created_at ON public.plant_density_abacus_items USING btree (created_at);
+CREATE INDEX index_plant_density_abacus_items_on_created_at ON plant_density_abacus_items USING btree (created_at);
 
 
 --
 -- Name: index_plant_density_abacus_items_on_creator_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_plant_density_abacus_items_on_creator_id ON public.plant_density_abacus_items USING btree (creator_id);
+CREATE INDEX index_plant_density_abacus_items_on_creator_id ON plant_density_abacus_items USING btree (creator_id);
 
 
 --
 -- Name: index_plant_density_abacus_items_on_plant_density_abacus_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_plant_density_abacus_items_on_plant_density_abacus_id ON public.plant_density_abacus_items USING btree (plant_density_abacus_id);
+CREATE INDEX index_plant_density_abacus_items_on_plant_density_abacus_id ON plant_density_abacus_items USING btree (plant_density_abacus_id);
 
 
 --
 -- Name: index_plant_density_abacus_items_on_updated_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_plant_density_abacus_items_on_updated_at ON public.plant_density_abacus_items USING btree (updated_at);
+CREATE INDEX index_plant_density_abacus_items_on_updated_at ON plant_density_abacus_items USING btree (updated_at);
 
 
 --
 -- Name: index_plant_density_abacus_items_on_updater_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_plant_density_abacus_items_on_updater_id ON public.plant_density_abacus_items USING btree (updater_id);
+CREATE INDEX index_plant_density_abacus_items_on_updater_id ON plant_density_abacus_items USING btree (updater_id);
 
 
 --
 -- Name: index_pnc_on_financial_asset_allocation_account_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_pnc_on_financial_asset_allocation_account_id ON public.product_nature_categories USING btree (fixed_asset_allocation_account_id);
+CREATE INDEX index_pnc_on_financial_asset_allocation_account_id ON product_nature_categories USING btree (fixed_asset_allocation_account_id);
 
 
 --
 -- Name: index_pnc_on_financial_asset_expenses_account_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_pnc_on_financial_asset_expenses_account_id ON public.product_nature_categories USING btree (fixed_asset_expenses_account_id);
+CREATE INDEX index_pnc_on_financial_asset_expenses_account_id ON product_nature_categories USING btree (fixed_asset_expenses_account_id);
 
 
 --
 -- Name: index_postal_zones_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_postal_zones_on_created_at ON public.postal_zones USING btree (created_at);
+CREATE INDEX index_postal_zones_on_created_at ON postal_zones USING btree (created_at);
 
 
 --
 -- Name: index_postal_zones_on_creator_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_postal_zones_on_creator_id ON public.postal_zones USING btree (creator_id);
+CREATE INDEX index_postal_zones_on_creator_id ON postal_zones USING btree (creator_id);
 
 
 --
 -- Name: index_postal_zones_on_district_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_postal_zones_on_district_id ON public.postal_zones USING btree (district_id);
+CREATE INDEX index_postal_zones_on_district_id ON postal_zones USING btree (district_id);
 
 
 --
 -- Name: index_postal_zones_on_updated_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_postal_zones_on_updated_at ON public.postal_zones USING btree (updated_at);
+CREATE INDEX index_postal_zones_on_updated_at ON postal_zones USING btree (updated_at);
 
 
 --
 -- Name: index_postal_zones_on_updater_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_postal_zones_on_updater_id ON public.postal_zones USING btree (updater_id);
+CREATE INDEX index_postal_zones_on_updater_id ON postal_zones USING btree (updater_id);
 
 
 --
 -- Name: index_preferences_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_preferences_on_created_at ON public.preferences USING btree (created_at);
+CREATE INDEX index_preferences_on_created_at ON preferences USING btree (created_at);
 
 
 --
 -- Name: index_preferences_on_creator_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_preferences_on_creator_id ON public.preferences USING btree (creator_id);
+CREATE INDEX index_preferences_on_creator_id ON preferences USING btree (creator_id);
 
 
 --
 -- Name: index_preferences_on_name; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_preferences_on_name ON public.preferences USING btree (name);
+CREATE INDEX index_preferences_on_name ON preferences USING btree (name);
 
 
 --
 -- Name: index_preferences_on_record_value_type_and_record_value_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_preferences_on_record_value_type_and_record_value_id ON public.preferences USING btree (record_value_type, record_value_id);
+CREATE INDEX index_preferences_on_record_value_type_and_record_value_id ON preferences USING btree (record_value_type, record_value_id);
 
 
 --
 -- Name: index_preferences_on_updated_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_preferences_on_updated_at ON public.preferences USING btree (updated_at);
+CREATE INDEX index_preferences_on_updated_at ON preferences USING btree (updated_at);
 
 
 --
 -- Name: index_preferences_on_updater_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_preferences_on_updater_id ON public.preferences USING btree (updater_id);
+CREATE INDEX index_preferences_on_updater_id ON preferences USING btree (updater_id);
 
 
 --
 -- Name: index_preferences_on_user_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_preferences_on_user_id ON public.preferences USING btree (user_id);
+CREATE INDEX index_preferences_on_user_id ON preferences USING btree (user_id);
 
 
 --
 -- Name: index_preferences_on_user_id_and_name; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX index_preferences_on_user_id_and_name ON public.preferences USING btree (user_id, name);
+CREATE UNIQUE INDEX index_preferences_on_user_id_and_name ON preferences USING btree (user_id, name);
 
 
 --
 -- Name: index_prescriptions_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_prescriptions_on_created_at ON public.prescriptions USING btree (created_at);
+CREATE INDEX index_prescriptions_on_created_at ON prescriptions USING btree (created_at);
 
 
 --
 -- Name: index_prescriptions_on_creator_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_prescriptions_on_creator_id ON public.prescriptions USING btree (creator_id);
+CREATE INDEX index_prescriptions_on_creator_id ON prescriptions USING btree (creator_id);
 
 
 --
 -- Name: index_prescriptions_on_delivered_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_prescriptions_on_delivered_at ON public.prescriptions USING btree (delivered_at);
+CREATE INDEX index_prescriptions_on_delivered_at ON prescriptions USING btree (delivered_at);
 
 
 --
 -- Name: index_prescriptions_on_prescriptor_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_prescriptions_on_prescriptor_id ON public.prescriptions USING btree (prescriptor_id);
+CREATE INDEX index_prescriptions_on_prescriptor_id ON prescriptions USING btree (prescriptor_id);
 
 
 --
 -- Name: index_prescriptions_on_reference_number; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_prescriptions_on_reference_number ON public.prescriptions USING btree (reference_number);
+CREATE INDEX index_prescriptions_on_reference_number ON prescriptions USING btree (reference_number);
 
 
 --
 -- Name: index_prescriptions_on_updated_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_prescriptions_on_updated_at ON public.prescriptions USING btree (updated_at);
+CREATE INDEX index_prescriptions_on_updated_at ON prescriptions USING btree (updated_at);
 
 
 --
 -- Name: index_prescriptions_on_updater_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_prescriptions_on_updater_id ON public.prescriptions USING btree (updater_id);
+CREATE INDEX index_prescriptions_on_updater_id ON prescriptions USING btree (updater_id);
 
 
 --
 -- Name: index_product_enjoyments_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_product_enjoyments_on_created_at ON public.product_enjoyments USING btree (created_at);
+CREATE INDEX index_product_enjoyments_on_created_at ON product_enjoyments USING btree (created_at);
 
 
 --
 -- Name: index_product_enjoyments_on_creator_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_product_enjoyments_on_creator_id ON public.product_enjoyments USING btree (creator_id);
+CREATE INDEX index_product_enjoyments_on_creator_id ON product_enjoyments USING btree (creator_id);
 
 
 --
 -- Name: index_product_enjoyments_on_enjoyer_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_product_enjoyments_on_enjoyer_id ON public.product_enjoyments USING btree (enjoyer_id);
+CREATE INDEX index_product_enjoyments_on_enjoyer_id ON product_enjoyments USING btree (enjoyer_id);
 
 
 --
 -- Name: index_product_enjoyments_on_intervention_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_product_enjoyments_on_intervention_id ON public.product_enjoyments USING btree (intervention_id);
+CREATE INDEX index_product_enjoyments_on_intervention_id ON product_enjoyments USING btree (intervention_id);
 
 
 --
 -- Name: index_product_enjoyments_on_originator_type_and_originator_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_product_enjoyments_on_originator_type_and_originator_id ON public.product_enjoyments USING btree (originator_type, originator_id);
+CREATE INDEX index_product_enjoyments_on_originator_type_and_originator_id ON product_enjoyments USING btree (originator_type, originator_id);
 
 
 --
 -- Name: index_product_enjoyments_on_product_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_product_enjoyments_on_product_id ON public.product_enjoyments USING btree (product_id);
+CREATE INDEX index_product_enjoyments_on_product_id ON product_enjoyments USING btree (product_id);
 
 
 --
 -- Name: index_product_enjoyments_on_started_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_product_enjoyments_on_started_at ON public.product_enjoyments USING btree (started_at);
+CREATE INDEX index_product_enjoyments_on_started_at ON product_enjoyments USING btree (started_at);
 
 
 --
 -- Name: index_product_enjoyments_on_stopped_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_product_enjoyments_on_stopped_at ON public.product_enjoyments USING btree (stopped_at);
+CREATE INDEX index_product_enjoyments_on_stopped_at ON product_enjoyments USING btree (stopped_at);
 
 
 --
 -- Name: index_product_enjoyments_on_updated_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_product_enjoyments_on_updated_at ON public.product_enjoyments USING btree (updated_at);
+CREATE INDEX index_product_enjoyments_on_updated_at ON product_enjoyments USING btree (updated_at);
 
 
 --
 -- Name: index_product_enjoyments_on_updater_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_product_enjoyments_on_updater_id ON public.product_enjoyments USING btree (updater_id);
+CREATE INDEX index_product_enjoyments_on_updater_id ON product_enjoyments USING btree (updater_id);
 
 
 --
 -- Name: index_product_labellings_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_product_labellings_on_created_at ON public.product_labellings USING btree (created_at);
+CREATE INDEX index_product_labellings_on_created_at ON product_labellings USING btree (created_at);
 
 
 --
 -- Name: index_product_labellings_on_creator_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_product_labellings_on_creator_id ON public.product_labellings USING btree (creator_id);
+CREATE INDEX index_product_labellings_on_creator_id ON product_labellings USING btree (creator_id);
 
 
 --
 -- Name: index_product_labellings_on_label_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_product_labellings_on_label_id ON public.product_labellings USING btree (label_id);
+CREATE INDEX index_product_labellings_on_label_id ON product_labellings USING btree (label_id);
 
 
 --
 -- Name: index_product_labellings_on_product_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_product_labellings_on_product_id ON public.product_labellings USING btree (product_id);
+CREATE INDEX index_product_labellings_on_product_id ON product_labellings USING btree (product_id);
 
 
 --
 -- Name: index_product_labellings_on_product_id_and_label_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX index_product_labellings_on_product_id_and_label_id ON public.product_labellings USING btree (product_id, label_id);
+CREATE UNIQUE INDEX index_product_labellings_on_product_id_and_label_id ON product_labellings USING btree (product_id, label_id);
 
 
 --
 -- Name: index_product_labellings_on_updated_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_product_labellings_on_updated_at ON public.product_labellings USING btree (updated_at);
+CREATE INDEX index_product_labellings_on_updated_at ON product_labellings USING btree (updated_at);
 
 
 --
 -- Name: index_product_labellings_on_updater_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_product_labellings_on_updater_id ON public.product_labellings USING btree (updater_id);
+CREATE INDEX index_product_labellings_on_updater_id ON product_labellings USING btree (updater_id);
 
 
 --
 -- Name: index_product_linkages_on_carried_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_product_linkages_on_carried_id ON public.product_linkages USING btree (carried_id);
+CREATE INDEX index_product_linkages_on_carried_id ON product_linkages USING btree (carried_id);
 
 
 --
 -- Name: index_product_linkages_on_carrier_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_product_linkages_on_carrier_id ON public.product_linkages USING btree (carrier_id);
+CREATE INDEX index_product_linkages_on_carrier_id ON product_linkages USING btree (carrier_id);
 
 
 --
 -- Name: index_product_linkages_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_product_linkages_on_created_at ON public.product_linkages USING btree (created_at);
+CREATE INDEX index_product_linkages_on_created_at ON product_linkages USING btree (created_at);
 
 
 --
 -- Name: index_product_linkages_on_creator_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_product_linkages_on_creator_id ON public.product_linkages USING btree (creator_id);
+CREATE INDEX index_product_linkages_on_creator_id ON product_linkages USING btree (creator_id);
 
 
 --
 -- Name: index_product_linkages_on_intervention_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_product_linkages_on_intervention_id ON public.product_linkages USING btree (intervention_id);
+CREATE INDEX index_product_linkages_on_intervention_id ON product_linkages USING btree (intervention_id);
 
 
 --
 -- Name: index_product_linkages_on_originator_type_and_originator_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_product_linkages_on_originator_type_and_originator_id ON public.product_linkages USING btree (originator_type, originator_id);
+CREATE INDEX index_product_linkages_on_originator_type_and_originator_id ON product_linkages USING btree (originator_type, originator_id);
 
 
 --
 -- Name: index_product_linkages_on_started_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_product_linkages_on_started_at ON public.product_linkages USING btree (started_at);
+CREATE INDEX index_product_linkages_on_started_at ON product_linkages USING btree (started_at);
 
 
 --
 -- Name: index_product_linkages_on_stopped_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_product_linkages_on_stopped_at ON public.product_linkages USING btree (stopped_at);
+CREATE INDEX index_product_linkages_on_stopped_at ON product_linkages USING btree (stopped_at);
 
 
 --
 -- Name: index_product_linkages_on_updated_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_product_linkages_on_updated_at ON public.product_linkages USING btree (updated_at);
+CREATE INDEX index_product_linkages_on_updated_at ON product_linkages USING btree (updated_at);
 
 
 --
 -- Name: index_product_linkages_on_updater_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_product_linkages_on_updater_id ON public.product_linkages USING btree (updater_id);
+CREATE INDEX index_product_linkages_on_updater_id ON product_linkages USING btree (updater_id);
 
 
 --
 -- Name: index_product_links_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_product_links_on_created_at ON public.product_links USING btree (created_at);
+CREATE INDEX index_product_links_on_created_at ON product_links USING btree (created_at);
 
 
 --
 -- Name: index_product_links_on_creator_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_product_links_on_creator_id ON public.product_links USING btree (creator_id);
+CREATE INDEX index_product_links_on_creator_id ON product_links USING btree (creator_id);
 
 
 --
 -- Name: index_product_links_on_intervention_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_product_links_on_intervention_id ON public.product_links USING btree (intervention_id);
+CREATE INDEX index_product_links_on_intervention_id ON product_links USING btree (intervention_id);
 
 
 --
 -- Name: index_product_links_on_linked_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_product_links_on_linked_id ON public.product_links USING btree (linked_id);
+CREATE INDEX index_product_links_on_linked_id ON product_links USING btree (linked_id);
 
 
 --
 -- Name: index_product_links_on_originator_type_and_originator_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_product_links_on_originator_type_and_originator_id ON public.product_links USING btree (originator_type, originator_id);
+CREATE INDEX index_product_links_on_originator_type_and_originator_id ON product_links USING btree (originator_type, originator_id);
 
 
 --
 -- Name: index_product_links_on_product_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_product_links_on_product_id ON public.product_links USING btree (product_id);
+CREATE INDEX index_product_links_on_product_id ON product_links USING btree (product_id);
 
 
 --
 -- Name: index_product_links_on_started_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_product_links_on_started_at ON public.product_links USING btree (started_at);
+CREATE INDEX index_product_links_on_started_at ON product_links USING btree (started_at);
 
 
 --
 -- Name: index_product_links_on_stopped_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_product_links_on_stopped_at ON public.product_links USING btree (stopped_at);
+CREATE INDEX index_product_links_on_stopped_at ON product_links USING btree (stopped_at);
 
 
 --
 -- Name: index_product_links_on_updated_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_product_links_on_updated_at ON public.product_links USING btree (updated_at);
+CREATE INDEX index_product_links_on_updated_at ON product_links USING btree (updated_at);
 
 
 --
 -- Name: index_product_links_on_updater_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_product_links_on_updater_id ON public.product_links USING btree (updater_id);
+CREATE INDEX index_product_links_on_updater_id ON product_links USING btree (updater_id);
 
 
 --
 -- Name: index_product_localizations_on_container_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_product_localizations_on_container_id ON public.product_localizations USING btree (container_id);
+CREATE INDEX index_product_localizations_on_container_id ON product_localizations USING btree (container_id);
 
 
 --
 -- Name: index_product_localizations_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_product_localizations_on_created_at ON public.product_localizations USING btree (created_at);
+CREATE INDEX index_product_localizations_on_created_at ON product_localizations USING btree (created_at);
 
 
 --
 -- Name: index_product_localizations_on_creator_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_product_localizations_on_creator_id ON public.product_localizations USING btree (creator_id);
+CREATE INDEX index_product_localizations_on_creator_id ON product_localizations USING btree (creator_id);
 
 
 --
 -- Name: index_product_localizations_on_intervention_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_product_localizations_on_intervention_id ON public.product_localizations USING btree (intervention_id);
+CREATE INDEX index_product_localizations_on_intervention_id ON product_localizations USING btree (intervention_id);
 
 
 --
 -- Name: index_product_localizations_on_originator; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_product_localizations_on_originator ON public.product_localizations USING btree (originator_id, originator_type);
+CREATE INDEX index_product_localizations_on_originator ON product_localizations USING btree (originator_id, originator_type);
 
 
 --
 -- Name: index_product_localizations_on_product_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_product_localizations_on_product_id ON public.product_localizations USING btree (product_id);
+CREATE INDEX index_product_localizations_on_product_id ON product_localizations USING btree (product_id);
 
 
 --
 -- Name: index_product_localizations_on_started_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_product_localizations_on_started_at ON public.product_localizations USING btree (started_at);
+CREATE INDEX index_product_localizations_on_started_at ON product_localizations USING btree (started_at);
 
 
 --
 -- Name: index_product_localizations_on_stopped_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_product_localizations_on_stopped_at ON public.product_localizations USING btree (stopped_at);
+CREATE INDEX index_product_localizations_on_stopped_at ON product_localizations USING btree (stopped_at);
 
 
 --
 -- Name: index_product_localizations_on_updated_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_product_localizations_on_updated_at ON public.product_localizations USING btree (updated_at);
+CREATE INDEX index_product_localizations_on_updated_at ON product_localizations USING btree (updated_at);
 
 
 --
 -- Name: index_product_localizations_on_updater_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_product_localizations_on_updater_id ON public.product_localizations USING btree (updater_id);
+CREATE INDEX index_product_localizations_on_updater_id ON product_localizations USING btree (updater_id);
 
 
 --
 -- Name: index_product_memberships_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_product_memberships_on_created_at ON public.product_memberships USING btree (created_at);
+CREATE INDEX index_product_memberships_on_created_at ON product_memberships USING btree (created_at);
 
 
 --
 -- Name: index_product_memberships_on_creator_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_product_memberships_on_creator_id ON public.product_memberships USING btree (creator_id);
+CREATE INDEX index_product_memberships_on_creator_id ON product_memberships USING btree (creator_id);
 
 
 --
 -- Name: index_product_memberships_on_group_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_product_memberships_on_group_id ON public.product_memberships USING btree (group_id);
+CREATE INDEX index_product_memberships_on_group_id ON product_memberships USING btree (group_id);
 
 
 --
 -- Name: index_product_memberships_on_intervention_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_product_memberships_on_intervention_id ON public.product_memberships USING btree (intervention_id);
+CREATE INDEX index_product_memberships_on_intervention_id ON product_memberships USING btree (intervention_id);
 
 
 --
 -- Name: index_product_memberships_on_member_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_product_memberships_on_member_id ON public.product_memberships USING btree (member_id);
+CREATE INDEX index_product_memberships_on_member_id ON product_memberships USING btree (member_id);
 
 
 --
 -- Name: index_product_memberships_on_originator_type_and_originator_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_product_memberships_on_originator_type_and_originator_id ON public.product_memberships USING btree (originator_type, originator_id);
+CREATE INDEX index_product_memberships_on_originator_type_and_originator_id ON product_memberships USING btree (originator_type, originator_id);
 
 
 --
 -- Name: index_product_memberships_on_started_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_product_memberships_on_started_at ON public.product_memberships USING btree (started_at);
+CREATE INDEX index_product_memberships_on_started_at ON product_memberships USING btree (started_at);
 
 
 --
 -- Name: index_product_memberships_on_stopped_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_product_memberships_on_stopped_at ON public.product_memberships USING btree (stopped_at);
+CREATE INDEX index_product_memberships_on_stopped_at ON product_memberships USING btree (stopped_at);
 
 
 --
 -- Name: index_product_memberships_on_updated_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_product_memberships_on_updated_at ON public.product_memberships USING btree (updated_at);
+CREATE INDEX index_product_memberships_on_updated_at ON product_memberships USING btree (updated_at);
 
 
 --
 -- Name: index_product_memberships_on_updater_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_product_memberships_on_updater_id ON public.product_memberships USING btree (updater_id);
+CREATE INDEX index_product_memberships_on_updater_id ON product_memberships USING btree (updater_id);
 
 
 --
 -- Name: index_product_movements_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_product_movements_on_created_at ON public.product_movements USING btree (created_at);
+CREATE INDEX index_product_movements_on_created_at ON product_movements USING btree (created_at);
 
 
 --
 -- Name: index_product_movements_on_creator_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_product_movements_on_creator_id ON public.product_movements USING btree (creator_id);
+CREATE INDEX index_product_movements_on_creator_id ON product_movements USING btree (creator_id);
 
 
 --
 -- Name: index_product_movements_on_intervention_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_product_movements_on_intervention_id ON public.product_movements USING btree (intervention_id);
+CREATE INDEX index_product_movements_on_intervention_id ON product_movements USING btree (intervention_id);
 
 
 --
 -- Name: index_product_movements_on_originator_type_and_originator_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_product_movements_on_originator_type_and_originator_id ON public.product_movements USING btree (originator_type, originator_id);
+CREATE INDEX index_product_movements_on_originator_type_and_originator_id ON product_movements USING btree (originator_type, originator_id);
 
 
 --
 -- Name: index_product_movements_on_product_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_product_movements_on_product_id ON public.product_movements USING btree (product_id);
+CREATE INDEX index_product_movements_on_product_id ON product_movements USING btree (product_id);
 
 
 --
 -- Name: index_product_movements_on_started_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_product_movements_on_started_at ON public.product_movements USING btree (started_at);
+CREATE INDEX index_product_movements_on_started_at ON product_movements USING btree (started_at);
 
 
 --
 -- Name: index_product_movements_on_stopped_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_product_movements_on_stopped_at ON public.product_movements USING btree (stopped_at);
+CREATE INDEX index_product_movements_on_stopped_at ON product_movements USING btree (stopped_at);
 
 
 --
 -- Name: index_product_movements_on_updated_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_product_movements_on_updated_at ON public.product_movements USING btree (updated_at);
+CREATE INDEX index_product_movements_on_updated_at ON product_movements USING btree (updated_at);
 
 
 --
 -- Name: index_product_movements_on_updater_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_product_movements_on_updater_id ON public.product_movements USING btree (updater_id);
+CREATE INDEX index_product_movements_on_updater_id ON product_movements USING btree (updater_id);
 
 
 --
 -- Name: index_product_nature_categories_on_charge_account_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_product_nature_categories_on_charge_account_id ON public.product_nature_categories USING btree (charge_account_id);
+CREATE INDEX index_product_nature_categories_on_charge_account_id ON product_nature_categories USING btree (charge_account_id);
 
 
 --
 -- Name: index_product_nature_categories_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_product_nature_categories_on_created_at ON public.product_nature_categories USING btree (created_at);
+CREATE INDEX index_product_nature_categories_on_created_at ON product_nature_categories USING btree (created_at);
 
 
 --
 -- Name: index_product_nature_categories_on_creator_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_product_nature_categories_on_creator_id ON public.product_nature_categories USING btree (creator_id);
+CREATE INDEX index_product_nature_categories_on_creator_id ON product_nature_categories USING btree (creator_id);
 
 
 --
 -- Name: index_product_nature_categories_on_fixed_asset_account_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_product_nature_categories_on_fixed_asset_account_id ON public.product_nature_categories USING btree (fixed_asset_account_id);
+CREATE INDEX index_product_nature_categories_on_fixed_asset_account_id ON product_nature_categories USING btree (fixed_asset_account_id);
 
 
 --
 -- Name: index_product_nature_categories_on_name; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_product_nature_categories_on_name ON public.product_nature_categories USING btree (name);
+CREATE INDEX index_product_nature_categories_on_name ON product_nature_categories USING btree (name);
 
 
 --
 -- Name: index_product_nature_categories_on_number; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX index_product_nature_categories_on_number ON public.product_nature_categories USING btree (number);
+CREATE UNIQUE INDEX index_product_nature_categories_on_number ON product_nature_categories USING btree (number);
 
 
 --
 -- Name: index_product_nature_categories_on_product_account_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_product_nature_categories_on_product_account_id ON public.product_nature_categories USING btree (product_account_id);
+CREATE INDEX index_product_nature_categories_on_product_account_id ON product_nature_categories USING btree (product_account_id);
 
 
 --
 -- Name: index_product_nature_categories_on_stock_account_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_product_nature_categories_on_stock_account_id ON public.product_nature_categories USING btree (stock_account_id);
+CREATE INDEX index_product_nature_categories_on_stock_account_id ON product_nature_categories USING btree (stock_account_id);
 
 
 --
 -- Name: index_product_nature_categories_on_stock_movement_account_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_product_nature_categories_on_stock_movement_account_id ON public.product_nature_categories USING btree (stock_movement_account_id);
+CREATE INDEX index_product_nature_categories_on_stock_movement_account_id ON product_nature_categories USING btree (stock_movement_account_id);
 
 
 --
 -- Name: index_product_nature_categories_on_updated_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_product_nature_categories_on_updated_at ON public.product_nature_categories USING btree (updated_at);
+CREATE INDEX index_product_nature_categories_on_updated_at ON product_nature_categories USING btree (updated_at);
 
 
 --
 -- Name: index_product_nature_categories_on_updater_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_product_nature_categories_on_updater_id ON public.product_nature_categories USING btree (updater_id);
+CREATE INDEX index_product_nature_categories_on_updater_id ON product_nature_categories USING btree (updater_id);
 
 
 --
 -- Name: index_product_nature_category_taxations_on_category_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_product_nature_category_taxations_on_category_id ON public.product_nature_category_taxations USING btree (product_nature_category_id);
+CREATE INDEX index_product_nature_category_taxations_on_category_id ON product_nature_category_taxations USING btree (product_nature_category_id);
 
 
 --
 -- Name: index_product_nature_category_taxations_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_product_nature_category_taxations_on_created_at ON public.product_nature_category_taxations USING btree (created_at);
+CREATE INDEX index_product_nature_category_taxations_on_created_at ON product_nature_category_taxations USING btree (created_at);
 
 
 --
 -- Name: index_product_nature_category_taxations_on_creator_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_product_nature_category_taxations_on_creator_id ON public.product_nature_category_taxations USING btree (creator_id);
+CREATE INDEX index_product_nature_category_taxations_on_creator_id ON product_nature_category_taxations USING btree (creator_id);
 
 
 --
 -- Name: index_product_nature_category_taxations_on_tax_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_product_nature_category_taxations_on_tax_id ON public.product_nature_category_taxations USING btree (tax_id);
+CREATE INDEX index_product_nature_category_taxations_on_tax_id ON product_nature_category_taxations USING btree (tax_id);
 
 
 --
 -- Name: index_product_nature_category_taxations_on_updated_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_product_nature_category_taxations_on_updated_at ON public.product_nature_category_taxations USING btree (updated_at);
+CREATE INDEX index_product_nature_category_taxations_on_updated_at ON product_nature_category_taxations USING btree (updated_at);
 
 
 --
 -- Name: index_product_nature_category_taxations_on_updater_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_product_nature_category_taxations_on_updater_id ON public.product_nature_category_taxations USING btree (updater_id);
+CREATE INDEX index_product_nature_category_taxations_on_updater_id ON product_nature_category_taxations USING btree (updater_id);
 
 
 --
 -- Name: index_product_nature_category_taxations_on_usage; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_product_nature_category_taxations_on_usage ON public.product_nature_category_taxations USING btree (usage);
+CREATE INDEX index_product_nature_category_taxations_on_usage ON product_nature_category_taxations USING btree (usage);
 
 
 --
 -- Name: index_product_nature_variant_components_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_product_nature_variant_components_on_created_at ON public.product_nature_variant_components USING btree (created_at);
+CREATE INDEX index_product_nature_variant_components_on_created_at ON product_nature_variant_components USING btree (created_at);
 
 
 --
 -- Name: index_product_nature_variant_components_on_creator_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_product_nature_variant_components_on_creator_id ON public.product_nature_variant_components USING btree (creator_id);
+CREATE INDEX index_product_nature_variant_components_on_creator_id ON product_nature_variant_components USING btree (creator_id);
 
 
 --
 -- Name: index_product_nature_variant_components_on_deleted_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_product_nature_variant_components_on_deleted_at ON public.product_nature_variant_components USING btree (deleted_at);
+CREATE INDEX index_product_nature_variant_components_on_deleted_at ON product_nature_variant_components USING btree (deleted_at);
 
 
 --
 -- Name: index_product_nature_variant_components_on_parent_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_product_nature_variant_components_on_parent_id ON public.product_nature_variant_components USING btree (parent_id);
+CREATE INDEX index_product_nature_variant_components_on_parent_id ON product_nature_variant_components USING btree (parent_id);
 
 
 --
 -- Name: index_product_nature_variant_components_on_part_variant; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_product_nature_variant_components_on_part_variant ON public.product_nature_variant_components USING btree (part_product_nature_variant_id);
+CREATE INDEX index_product_nature_variant_components_on_part_variant ON product_nature_variant_components USING btree (part_product_nature_variant_id);
 
 
 --
 -- Name: index_product_nature_variant_components_on_updated_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_product_nature_variant_components_on_updated_at ON public.product_nature_variant_components USING btree (updated_at);
+CREATE INDEX index_product_nature_variant_components_on_updated_at ON product_nature_variant_components USING btree (updated_at);
 
 
 --
 -- Name: index_product_nature_variant_components_on_updater_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_product_nature_variant_components_on_updater_id ON public.product_nature_variant_components USING btree (updater_id);
+CREATE INDEX index_product_nature_variant_components_on_updater_id ON product_nature_variant_components USING btree (updater_id);
 
 
 --
 -- Name: index_product_nature_variant_components_on_variant; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_product_nature_variant_components_on_variant ON public.product_nature_variant_components USING btree (product_nature_variant_id);
+CREATE INDEX index_product_nature_variant_components_on_variant ON product_nature_variant_components USING btree (product_nature_variant_id);
 
 
 --
 -- Name: index_product_nature_variant_name_unique; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX index_product_nature_variant_name_unique ON public.product_nature_variant_components USING btree (name, product_nature_variant_id);
+CREATE UNIQUE INDEX index_product_nature_variant_name_unique ON product_nature_variant_components USING btree (name, product_nature_variant_id);
 
 
 --
 -- Name: index_product_nature_variant_readings_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_product_nature_variant_readings_on_created_at ON public.product_nature_variant_readings USING btree (created_at);
+CREATE INDEX index_product_nature_variant_readings_on_created_at ON product_nature_variant_readings USING btree (created_at);
 
 
 --
 -- Name: index_product_nature_variant_readings_on_creator_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_product_nature_variant_readings_on_creator_id ON public.product_nature_variant_readings USING btree (creator_id);
+CREATE INDEX index_product_nature_variant_readings_on_creator_id ON product_nature_variant_readings USING btree (creator_id);
 
 
 --
 -- Name: index_product_nature_variant_readings_on_indicator_name; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_product_nature_variant_readings_on_indicator_name ON public.product_nature_variant_readings USING btree (indicator_name);
+CREATE INDEX index_product_nature_variant_readings_on_indicator_name ON product_nature_variant_readings USING btree (indicator_name);
 
 
 --
 -- Name: index_product_nature_variant_readings_on_updated_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_product_nature_variant_readings_on_updated_at ON public.product_nature_variant_readings USING btree (updated_at);
+CREATE INDEX index_product_nature_variant_readings_on_updated_at ON product_nature_variant_readings USING btree (updated_at);
 
 
 --
 -- Name: index_product_nature_variant_readings_on_updater_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_product_nature_variant_readings_on_updater_id ON public.product_nature_variant_readings USING btree (updater_id);
+CREATE INDEX index_product_nature_variant_readings_on_updater_id ON product_nature_variant_readings USING btree (updater_id);
 
 
 --
 -- Name: index_product_nature_variant_readings_on_variant_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_product_nature_variant_readings_on_variant_id ON public.product_nature_variant_readings USING btree (variant_id);
+CREATE INDEX index_product_nature_variant_readings_on_variant_id ON product_nature_variant_readings USING btree (variant_id);
 
 
 --
 -- Name: index_product_nature_variants_on_category_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_product_nature_variants_on_category_id ON public.product_nature_variants USING btree (category_id);
+CREATE INDEX index_product_nature_variants_on_category_id ON product_nature_variants USING btree (category_id);
 
 
 --
 -- Name: index_product_nature_variants_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_product_nature_variants_on_created_at ON public.product_nature_variants USING btree (created_at);
+CREATE INDEX index_product_nature_variants_on_created_at ON product_nature_variants USING btree (created_at);
 
 
 --
 -- Name: index_product_nature_variants_on_creator_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_product_nature_variants_on_creator_id ON public.product_nature_variants USING btree (creator_id);
+CREATE INDEX index_product_nature_variants_on_creator_id ON product_nature_variants USING btree (creator_id);
 
 
 --
 -- Name: index_product_nature_variants_on_nature_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_product_nature_variants_on_nature_id ON public.product_nature_variants USING btree (nature_id);
+CREATE INDEX index_product_nature_variants_on_nature_id ON product_nature_variants USING btree (nature_id);
 
 
 --
 -- Name: index_product_nature_variants_on_number; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX index_product_nature_variants_on_number ON public.product_nature_variants USING btree (number);
+CREATE UNIQUE INDEX index_product_nature_variants_on_number ON product_nature_variants USING btree (number);
 
 
 --
 -- Name: index_product_nature_variants_on_stock_account_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_product_nature_variants_on_stock_account_id ON public.product_nature_variants USING btree (stock_account_id);
+CREATE INDEX index_product_nature_variants_on_stock_account_id ON product_nature_variants USING btree (stock_account_id);
 
 
 --
 -- Name: index_product_nature_variants_on_stock_movement_account_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_product_nature_variants_on_stock_movement_account_id ON public.product_nature_variants USING btree (stock_movement_account_id);
+CREATE INDEX index_product_nature_variants_on_stock_movement_account_id ON product_nature_variants USING btree (stock_movement_account_id);
 
 
 --
 -- Name: index_product_nature_variants_on_updated_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_product_nature_variants_on_updated_at ON public.product_nature_variants USING btree (updated_at);
+CREATE INDEX index_product_nature_variants_on_updated_at ON product_nature_variants USING btree (updated_at);
 
 
 --
 -- Name: index_product_nature_variants_on_updater_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_product_nature_variants_on_updater_id ON public.product_nature_variants USING btree (updater_id);
+CREATE INDEX index_product_nature_variants_on_updater_id ON product_nature_variants USING btree (updater_id);
 
 
 --
 -- Name: index_product_natures_on_category_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_product_natures_on_category_id ON public.product_natures USING btree (category_id);
+CREATE INDEX index_product_natures_on_category_id ON product_natures USING btree (category_id);
 
 
 --
 -- Name: index_product_natures_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_product_natures_on_created_at ON public.product_natures USING btree (created_at);
+CREATE INDEX index_product_natures_on_created_at ON product_natures USING btree (created_at);
 
 
 --
 -- Name: index_product_natures_on_creator_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_product_natures_on_creator_id ON public.product_natures USING btree (creator_id);
+CREATE INDEX index_product_natures_on_creator_id ON product_natures USING btree (creator_id);
 
 
 --
 -- Name: index_product_natures_on_name; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_product_natures_on_name ON public.product_natures USING btree (name);
+CREATE INDEX index_product_natures_on_name ON product_natures USING btree (name);
 
 
 --
 -- Name: index_product_natures_on_number; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX index_product_natures_on_number ON public.product_natures USING btree (number);
+CREATE UNIQUE INDEX index_product_natures_on_number ON product_natures USING btree (number);
 
 
 --
 -- Name: index_product_natures_on_subscription_nature_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_product_natures_on_subscription_nature_id ON public.product_natures USING btree (subscription_nature_id);
+CREATE INDEX index_product_natures_on_subscription_nature_id ON product_natures USING btree (subscription_nature_id);
 
 
 --
 -- Name: index_product_natures_on_updated_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_product_natures_on_updated_at ON public.product_natures USING btree (updated_at);
+CREATE INDEX index_product_natures_on_updated_at ON product_natures USING btree (updated_at);
 
 
 --
 -- Name: index_product_natures_on_updater_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_product_natures_on_updater_id ON public.product_natures USING btree (updater_id);
+CREATE INDEX index_product_natures_on_updater_id ON product_natures USING btree (updater_id);
 
 
 --
 -- Name: index_product_ownerships_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_product_ownerships_on_created_at ON public.product_ownerships USING btree (created_at);
+CREATE INDEX index_product_ownerships_on_created_at ON product_ownerships USING btree (created_at);
 
 
 --
 -- Name: index_product_ownerships_on_creator_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_product_ownerships_on_creator_id ON public.product_ownerships USING btree (creator_id);
+CREATE INDEX index_product_ownerships_on_creator_id ON product_ownerships USING btree (creator_id);
 
 
 --
 -- Name: index_product_ownerships_on_intervention_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_product_ownerships_on_intervention_id ON public.product_ownerships USING btree (intervention_id);
+CREATE INDEX index_product_ownerships_on_intervention_id ON product_ownerships USING btree (intervention_id);
 
 
 --
 -- Name: index_product_ownerships_on_originator_type_and_originator_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_product_ownerships_on_originator_type_and_originator_id ON public.product_ownerships USING btree (originator_type, originator_id);
+CREATE INDEX index_product_ownerships_on_originator_type_and_originator_id ON product_ownerships USING btree (originator_type, originator_id);
 
 
 --
 -- Name: index_product_ownerships_on_owner_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_product_ownerships_on_owner_id ON public.product_ownerships USING btree (owner_id);
+CREATE INDEX index_product_ownerships_on_owner_id ON product_ownerships USING btree (owner_id);
 
 
 --
 -- Name: index_product_ownerships_on_product_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_product_ownerships_on_product_id ON public.product_ownerships USING btree (product_id);
+CREATE INDEX index_product_ownerships_on_product_id ON product_ownerships USING btree (product_id);
 
 
 --
 -- Name: index_product_ownerships_on_started_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_product_ownerships_on_started_at ON public.product_ownerships USING btree (started_at);
+CREATE INDEX index_product_ownerships_on_started_at ON product_ownerships USING btree (started_at);
 
 
 --
 -- Name: index_product_ownerships_on_stopped_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_product_ownerships_on_stopped_at ON public.product_ownerships USING btree (stopped_at);
+CREATE INDEX index_product_ownerships_on_stopped_at ON product_ownerships USING btree (stopped_at);
 
 
 --
 -- Name: index_product_ownerships_on_updated_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_product_ownerships_on_updated_at ON public.product_ownerships USING btree (updated_at);
+CREATE INDEX index_product_ownerships_on_updated_at ON product_ownerships USING btree (updated_at);
 
 
 --
 -- Name: index_product_ownerships_on_updater_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_product_ownerships_on_updater_id ON public.product_ownerships USING btree (updater_id);
+CREATE INDEX index_product_ownerships_on_updater_id ON product_ownerships USING btree (updater_id);
 
 
 --
 -- Name: index_product_phases_on_category_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_product_phases_on_category_id ON public.product_phases USING btree (category_id);
+CREATE INDEX index_product_phases_on_category_id ON product_phases USING btree (category_id);
 
 
 --
 -- Name: index_product_phases_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_product_phases_on_created_at ON public.product_phases USING btree (created_at);
+CREATE INDEX index_product_phases_on_created_at ON product_phases USING btree (created_at);
 
 
 --
 -- Name: index_product_phases_on_creator_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_product_phases_on_creator_id ON public.product_phases USING btree (creator_id);
+CREATE INDEX index_product_phases_on_creator_id ON product_phases USING btree (creator_id);
 
 
 --
 -- Name: index_product_phases_on_intervention_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_product_phases_on_intervention_id ON public.product_phases USING btree (intervention_id);
+CREATE INDEX index_product_phases_on_intervention_id ON product_phases USING btree (intervention_id);
 
 
 --
 -- Name: index_product_phases_on_nature_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_product_phases_on_nature_id ON public.product_phases USING btree (nature_id);
+CREATE INDEX index_product_phases_on_nature_id ON product_phases USING btree (nature_id);
 
 
 --
 -- Name: index_product_phases_on_originator_type_and_originator_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_product_phases_on_originator_type_and_originator_id ON public.product_phases USING btree (originator_type, originator_id);
+CREATE INDEX index_product_phases_on_originator_type_and_originator_id ON product_phases USING btree (originator_type, originator_id);
 
 
 --
 -- Name: index_product_phases_on_product_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_product_phases_on_product_id ON public.product_phases USING btree (product_id);
+CREATE INDEX index_product_phases_on_product_id ON product_phases USING btree (product_id);
 
 
 --
 -- Name: index_product_phases_on_started_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_product_phases_on_started_at ON public.product_phases USING btree (started_at);
+CREATE INDEX index_product_phases_on_started_at ON product_phases USING btree (started_at);
 
 
 --
 -- Name: index_product_phases_on_stopped_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_product_phases_on_stopped_at ON public.product_phases USING btree (stopped_at);
+CREATE INDEX index_product_phases_on_stopped_at ON product_phases USING btree (stopped_at);
 
 
 --
 -- Name: index_product_phases_on_updated_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_product_phases_on_updated_at ON public.product_phases USING btree (updated_at);
+CREATE INDEX index_product_phases_on_updated_at ON product_phases USING btree (updated_at);
 
 
 --
 -- Name: index_product_phases_on_updater_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_product_phases_on_updater_id ON public.product_phases USING btree (updater_id);
+CREATE INDEX index_product_phases_on_updater_id ON product_phases USING btree (updater_id);
 
 
 --
 -- Name: index_product_phases_on_variant_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_product_phases_on_variant_id ON public.product_phases USING btree (variant_id);
+CREATE INDEX index_product_phases_on_variant_id ON product_phases USING btree (variant_id);
 
 
 --
 -- Name: index_product_readings_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_product_readings_on_created_at ON public.product_readings USING btree (created_at);
+CREATE INDEX index_product_readings_on_created_at ON product_readings USING btree (created_at);
 
 
 --
 -- Name: index_product_readings_on_creator_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_product_readings_on_creator_id ON public.product_readings USING btree (creator_id);
+CREATE INDEX index_product_readings_on_creator_id ON product_readings USING btree (creator_id);
 
 
 --
 -- Name: index_product_readings_on_indicator_name; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_product_readings_on_indicator_name ON public.product_readings USING btree (indicator_name);
+CREATE INDEX index_product_readings_on_indicator_name ON product_readings USING btree (indicator_name);
 
 
 --
 -- Name: index_product_readings_on_originator; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_product_readings_on_originator ON public.product_readings USING btree (originator_id, originator_type);
+CREATE INDEX index_product_readings_on_originator ON product_readings USING btree (originator_id, originator_type);
 
 
 --
 -- Name: index_product_readings_on_product_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_product_readings_on_product_id ON public.product_readings USING btree (product_id);
+CREATE INDEX index_product_readings_on_product_id ON product_readings USING btree (product_id);
 
 
 --
 -- Name: index_product_readings_on_read_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_product_readings_on_read_at ON public.product_readings USING btree (read_at);
+CREATE INDEX index_product_readings_on_read_at ON product_readings USING btree (read_at);
 
 
 --
 -- Name: index_product_readings_on_updated_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_product_readings_on_updated_at ON public.product_readings USING btree (updated_at);
+CREATE INDEX index_product_readings_on_updated_at ON product_readings USING btree (updated_at);
 
 
 --
 -- Name: index_product_readings_on_updater_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_product_readings_on_updater_id ON public.product_readings USING btree (updater_id);
+CREATE INDEX index_product_readings_on_updater_id ON product_readings USING btree (updater_id);
 
 
 --
 -- Name: index_products_on_activity_production_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_products_on_activity_production_id ON public.products USING btree (activity_production_id);
+CREATE INDEX index_products_on_activity_production_id ON products USING btree (activity_production_id);
 
 
 --
 -- Name: index_products_on_address_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_products_on_address_id ON public.products USING btree (address_id);
+CREATE INDEX index_products_on_address_id ON products USING btree (address_id);
 
 
 --
 -- Name: index_products_on_category_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_products_on_category_id ON public.products USING btree (category_id);
+CREATE INDEX index_products_on_category_id ON products USING btree (category_id);
 
 
 --
 -- Name: index_products_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_products_on_created_at ON public.products USING btree (created_at);
+CREATE INDEX index_products_on_created_at ON products USING btree (created_at);
 
 
 --
 -- Name: index_products_on_creator_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_products_on_creator_id ON public.products USING btree (creator_id);
+CREATE INDEX index_products_on_creator_id ON products USING btree (creator_id);
 
 
 --
 -- Name: index_products_on_default_storage_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_products_on_default_storage_id ON public.products USING btree (default_storage_id);
+CREATE INDEX index_products_on_default_storage_id ON products USING btree (default_storage_id);
 
 
 --
 -- Name: index_products_on_fixed_asset_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_products_on_fixed_asset_id ON public.products USING btree (fixed_asset_id);
+CREATE INDEX index_products_on_fixed_asset_id ON products USING btree (fixed_asset_id);
 
 
 --
 -- Name: index_products_on_initial_container_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_products_on_initial_container_id ON public.products USING btree (initial_container_id);
+CREATE INDEX index_products_on_initial_container_id ON products USING btree (initial_container_id);
 
 
 --
 -- Name: index_products_on_initial_enjoyer_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_products_on_initial_enjoyer_id ON public.products USING btree (initial_enjoyer_id);
+CREATE INDEX index_products_on_initial_enjoyer_id ON products USING btree (initial_enjoyer_id);
 
 
 --
 -- Name: index_products_on_initial_father_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_products_on_initial_father_id ON public.products USING btree (initial_father_id);
+CREATE INDEX index_products_on_initial_father_id ON products USING btree (initial_father_id);
 
 
 --
 -- Name: index_products_on_initial_mother_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_products_on_initial_mother_id ON public.products USING btree (initial_mother_id);
+CREATE INDEX index_products_on_initial_mother_id ON products USING btree (initial_mother_id);
 
 
 --
 -- Name: index_products_on_initial_movement_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_products_on_initial_movement_id ON public.products USING btree (initial_movement_id);
+CREATE INDEX index_products_on_initial_movement_id ON products USING btree (initial_movement_id);
 
 
 --
 -- Name: index_products_on_initial_owner_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_products_on_initial_owner_id ON public.products USING btree (initial_owner_id);
+CREATE INDEX index_products_on_initial_owner_id ON products USING btree (initial_owner_id);
 
 
 --
 -- Name: index_products_on_member_variant_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_products_on_member_variant_id ON public.products USING btree (member_variant_id);
+CREATE INDEX index_products_on_member_variant_id ON products USING btree (member_variant_id);
 
 
 --
 -- Name: index_products_on_name; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_products_on_name ON public.products USING btree (name);
+CREATE INDEX index_products_on_name ON products USING btree (name);
 
 
 --
 -- Name: index_products_on_nature_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_products_on_nature_id ON public.products USING btree (nature_id);
+CREATE INDEX index_products_on_nature_id ON products USING btree (nature_id);
 
 
 --
 -- Name: index_products_on_number; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX index_products_on_number ON public.products USING btree (number);
+CREATE UNIQUE INDEX index_products_on_number ON products USING btree (number);
 
 
 --
 -- Name: index_products_on_originator_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_products_on_originator_id ON public.products USING btree (originator_id);
+CREATE INDEX index_products_on_originator_id ON products USING btree (originator_id);
 
 
 --
 -- Name: index_products_on_parent_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_products_on_parent_id ON public.products USING btree (parent_id);
+CREATE INDEX index_products_on_parent_id ON products USING btree (parent_id);
 
 
 --
 -- Name: index_products_on_team_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_products_on_team_id ON public.products USING btree (team_id);
+CREATE INDEX index_products_on_team_id ON products USING btree (team_id);
 
 
 --
 -- Name: index_products_on_tracking_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_products_on_tracking_id ON public.products USING btree (tracking_id);
+CREATE INDEX index_products_on_tracking_id ON products USING btree (tracking_id);
 
 
 --
 -- Name: index_products_on_type; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_products_on_type ON public.products USING btree (type);
+CREATE INDEX index_products_on_type ON products USING btree (type);
 
 
 --
 -- Name: index_products_on_updated_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_products_on_updated_at ON public.products USING btree (updated_at);
+CREATE INDEX index_products_on_updated_at ON products USING btree (updated_at);
 
 
 --
 -- Name: index_products_on_updater_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_products_on_updater_id ON public.products USING btree (updater_id);
+CREATE INDEX index_products_on_updater_id ON products USING btree (updater_id);
 
 
 --
 -- Name: index_products_on_uuid; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_products_on_uuid ON public.products USING btree (uuid);
+CREATE INDEX index_products_on_uuid ON products USING btree (uuid);
 
 
 --
 -- Name: index_products_on_variant_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_products_on_variant_id ON public.products USING btree (variant_id);
+CREATE INDEX index_products_on_variant_id ON products USING btree (variant_id);
 
 
 --
 -- Name: index_products_on_variety; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_products_on_variety ON public.products USING btree (variety);
+CREATE INDEX index_products_on_variety ON products USING btree (variety);
 
 
 --
 -- Name: index_purchase_items_on_account_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_purchase_items_on_account_id ON public.purchase_items USING btree (account_id);
+CREATE INDEX index_purchase_items_on_account_id ON purchase_items USING btree (account_id);
 
 
 --
 -- Name: index_purchase_items_on_activity_budget_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_purchase_items_on_activity_budget_id ON public.purchase_items USING btree (activity_budget_id);
+CREATE INDEX index_purchase_items_on_activity_budget_id ON purchase_items USING btree (activity_budget_id);
 
 
 --
 -- Name: index_purchase_items_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_purchase_items_on_created_at ON public.purchase_items USING btree (created_at);
+CREATE INDEX index_purchase_items_on_created_at ON purchase_items USING btree (created_at);
 
 
 --
 -- Name: index_purchase_items_on_creator_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_purchase_items_on_creator_id ON public.purchase_items USING btree (creator_id);
+CREATE INDEX index_purchase_items_on_creator_id ON purchase_items USING btree (creator_id);
 
 
 --
 -- Name: index_purchase_items_on_depreciable_product_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_purchase_items_on_depreciable_product_id ON public.purchase_items USING btree (depreciable_product_id);
+CREATE INDEX index_purchase_items_on_depreciable_product_id ON purchase_items USING btree (depreciable_product_id);
 
 
 --
 -- Name: index_purchase_items_on_fixed_asset_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_purchase_items_on_fixed_asset_id ON public.purchase_items USING btree (fixed_asset_id);
+CREATE INDEX index_purchase_items_on_fixed_asset_id ON purchase_items USING btree (fixed_asset_id);
 
 
 --
 -- Name: index_purchase_items_on_project_budget_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_purchase_items_on_project_budget_id ON public.purchase_items USING btree (project_budget_id);
+CREATE INDEX index_purchase_items_on_project_budget_id ON purchase_items USING btree (project_budget_id);
 
 
 --
 -- Name: index_purchase_items_on_purchase_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_purchase_items_on_purchase_id ON public.purchase_items USING btree (purchase_id);
+CREATE INDEX index_purchase_items_on_purchase_id ON purchase_items USING btree (purchase_id);
 
 
 --
 -- Name: index_purchase_items_on_tax_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_purchase_items_on_tax_id ON public.purchase_items USING btree (tax_id);
+CREATE INDEX index_purchase_items_on_tax_id ON purchase_items USING btree (tax_id);
 
 
 --
 -- Name: index_purchase_items_on_team_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_purchase_items_on_team_id ON public.purchase_items USING btree (team_id);
+CREATE INDEX index_purchase_items_on_team_id ON purchase_items USING btree (team_id);
 
 
 --
 -- Name: index_purchase_items_on_updated_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_purchase_items_on_updated_at ON public.purchase_items USING btree (updated_at);
+CREATE INDEX index_purchase_items_on_updated_at ON purchase_items USING btree (updated_at);
 
 
 --
 -- Name: index_purchase_items_on_updater_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_purchase_items_on_updater_id ON public.purchase_items USING btree (updater_id);
+CREATE INDEX index_purchase_items_on_updater_id ON purchase_items USING btree (updater_id);
 
 
 --
 -- Name: index_purchase_items_on_variant_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_purchase_items_on_variant_id ON public.purchase_items USING btree (variant_id);
+CREATE INDEX index_purchase_items_on_variant_id ON purchase_items USING btree (variant_id);
 
 
 --
 -- Name: index_purchase_natures_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_purchase_natures_on_created_at ON public.purchase_natures USING btree (created_at);
+CREATE INDEX index_purchase_natures_on_created_at ON purchase_natures USING btree (created_at);
 
 
 --
 -- Name: index_purchase_natures_on_creator_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_purchase_natures_on_creator_id ON public.purchase_natures USING btree (creator_id);
+CREATE INDEX index_purchase_natures_on_creator_id ON purchase_natures USING btree (creator_id);
 
 
 --
 -- Name: index_purchase_natures_on_currency; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_purchase_natures_on_currency ON public.purchase_natures USING btree (currency);
+CREATE INDEX index_purchase_natures_on_currency ON purchase_natures USING btree (currency);
 
 
 --
 -- Name: index_purchase_natures_on_journal_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_purchase_natures_on_journal_id ON public.purchase_natures USING btree (journal_id);
+CREATE INDEX index_purchase_natures_on_journal_id ON purchase_natures USING btree (journal_id);
 
 
 --
 -- Name: index_purchase_natures_on_updated_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_purchase_natures_on_updated_at ON public.purchase_natures USING btree (updated_at);
+CREATE INDEX index_purchase_natures_on_updated_at ON purchase_natures USING btree (updated_at);
 
 
 --
 -- Name: index_purchase_natures_on_updater_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_purchase_natures_on_updater_id ON public.purchase_natures USING btree (updater_id);
+CREATE INDEX index_purchase_natures_on_updater_id ON purchase_natures USING btree (updater_id);
 
 
 --
 -- Name: index_purchases_on_accounted_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_purchases_on_accounted_at ON public.purchases USING btree (accounted_at);
+CREATE INDEX index_purchases_on_accounted_at ON purchases USING btree (accounted_at);
 
 
 --
 -- Name: index_purchases_on_affair_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_purchases_on_affair_id ON public.purchases USING btree (affair_id);
+CREATE INDEX index_purchases_on_affair_id ON purchases USING btree (affair_id);
 
 
 --
 -- Name: index_purchases_on_contract_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_purchases_on_contract_id ON public.purchases USING btree (contract_id);
+CREATE INDEX index_purchases_on_contract_id ON purchases USING btree (contract_id);
 
 
 --
 -- Name: index_purchases_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_purchases_on_created_at ON public.purchases USING btree (created_at);
+CREATE INDEX index_purchases_on_created_at ON purchases USING btree (created_at);
 
 
 --
 -- Name: index_purchases_on_creator_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_purchases_on_creator_id ON public.purchases USING btree (creator_id);
+CREATE INDEX index_purchases_on_creator_id ON purchases USING btree (creator_id);
 
 
 --
 -- Name: index_purchases_on_currency; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_purchases_on_currency ON public.purchases USING btree (currency);
+CREATE INDEX index_purchases_on_currency ON purchases USING btree (currency);
 
 
 --
 -- Name: index_purchases_on_delivery_address_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_purchases_on_delivery_address_id ON public.purchases USING btree (delivery_address_id);
+CREATE INDEX index_purchases_on_delivery_address_id ON purchases USING btree (delivery_address_id);
 
 
 --
 -- Name: index_purchases_on_journal_entry_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_purchases_on_journal_entry_id ON public.purchases USING btree (journal_entry_id);
+CREATE INDEX index_purchases_on_journal_entry_id ON purchases USING btree (journal_entry_id);
 
 
 --
 -- Name: index_purchases_on_nature_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_purchases_on_nature_id ON public.purchases USING btree (nature_id);
+CREATE INDEX index_purchases_on_nature_id ON purchases USING btree (nature_id);
 
 
 --
 -- Name: index_purchases_on_quantity_gap_on_invoice_journal_entry_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_purchases_on_quantity_gap_on_invoice_journal_entry_id ON public.purchases USING btree (quantity_gap_on_invoice_journal_entry_id);
+CREATE INDEX index_purchases_on_quantity_gap_on_invoice_journal_entry_id ON purchases USING btree (quantity_gap_on_invoice_journal_entry_id);
 
 
 --
 -- Name: index_purchases_on_responsible_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_purchases_on_responsible_id ON public.purchases USING btree (responsible_id);
+CREATE INDEX index_purchases_on_responsible_id ON purchases USING btree (responsible_id);
 
 
 --
 -- Name: index_purchases_on_supplier_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_purchases_on_supplier_id ON public.purchases USING btree (supplier_id);
+CREATE INDEX index_purchases_on_supplier_id ON purchases USING btree (supplier_id);
 
 
 --
 -- Name: index_purchases_on_undelivered_invoice_journal_entry_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_purchases_on_undelivered_invoice_journal_entry_id ON public.purchases USING btree (undelivered_invoice_journal_entry_id);
+CREATE INDEX index_purchases_on_undelivered_invoice_journal_entry_id ON purchases USING btree (undelivered_invoice_journal_entry_id);
 
 
 --
 -- Name: index_purchases_on_updated_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_purchases_on_updated_at ON public.purchases USING btree (updated_at);
+CREATE INDEX index_purchases_on_updated_at ON purchases USING btree (updated_at);
 
 
 --
 -- Name: index_purchases_on_updater_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_purchases_on_updater_id ON public.purchases USING btree (updater_id);
+CREATE INDEX index_purchases_on_updater_id ON purchases USING btree (updater_id);
 
 
 --
 -- Name: index_regularizations_on_affair_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_regularizations_on_affair_id ON public.regularizations USING btree (affair_id);
+CREATE INDEX index_regularizations_on_affair_id ON regularizations USING btree (affair_id);
 
 
 --
 -- Name: index_regularizations_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_regularizations_on_created_at ON public.regularizations USING btree (created_at);
+CREATE INDEX index_regularizations_on_created_at ON regularizations USING btree (created_at);
 
 
 --
 -- Name: index_regularizations_on_creator_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_regularizations_on_creator_id ON public.regularizations USING btree (creator_id);
+CREATE INDEX index_regularizations_on_creator_id ON regularizations USING btree (creator_id);
 
 
 --
 -- Name: index_regularizations_on_journal_entry_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_regularizations_on_journal_entry_id ON public.regularizations USING btree (journal_entry_id);
+CREATE INDEX index_regularizations_on_journal_entry_id ON regularizations USING btree (journal_entry_id);
 
 
 --
 -- Name: index_regularizations_on_updated_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_regularizations_on_updated_at ON public.regularizations USING btree (updated_at);
+CREATE INDEX index_regularizations_on_updated_at ON regularizations USING btree (updated_at);
 
 
 --
 -- Name: index_regularizations_on_updater_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_regularizations_on_updater_id ON public.regularizations USING btree (updater_id);
+CREATE INDEX index_regularizations_on_updater_id ON regularizations USING btree (updater_id);
 
 
 --
 -- Name: index_roles_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_roles_on_created_at ON public.roles USING btree (created_at);
+CREATE INDEX index_roles_on_created_at ON roles USING btree (created_at);
 
 
 --
 -- Name: index_roles_on_creator_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_roles_on_creator_id ON public.roles USING btree (creator_id);
+CREATE INDEX index_roles_on_creator_id ON roles USING btree (creator_id);
 
 
 --
 -- Name: index_roles_on_updated_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_roles_on_updated_at ON public.roles USING btree (updated_at);
+CREATE INDEX index_roles_on_updated_at ON roles USING btree (updated_at);
 
 
 --
 -- Name: index_roles_on_updater_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_roles_on_updater_id ON public.roles USING btree (updater_id);
+CREATE INDEX index_roles_on_updater_id ON roles USING btree (updater_id);
 
 
 --
 -- Name: index_sale_items_on_account_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_sale_items_on_account_id ON public.sale_items USING btree (account_id);
+CREATE INDEX index_sale_items_on_account_id ON sale_items USING btree (account_id);
 
 
 --
 -- Name: index_sale_items_on_activity_budget_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_sale_items_on_activity_budget_id ON public.sale_items USING btree (activity_budget_id);
+CREATE INDEX index_sale_items_on_activity_budget_id ON sale_items USING btree (activity_budget_id);
 
 
 --
 -- Name: index_sale_items_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_sale_items_on_created_at ON public.sale_items USING btree (created_at);
+CREATE INDEX index_sale_items_on_created_at ON sale_items USING btree (created_at);
 
 
 --
 -- Name: index_sale_items_on_creator_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_sale_items_on_creator_id ON public.sale_items USING btree (creator_id);
+CREATE INDEX index_sale_items_on_creator_id ON sale_items USING btree (creator_id);
 
 
 --
 -- Name: index_sale_items_on_credited_item_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_sale_items_on_credited_item_id ON public.sale_items USING btree (credited_item_id);
+CREATE INDEX index_sale_items_on_credited_item_id ON sale_items USING btree (credited_item_id);
 
 
 --
 -- Name: index_sale_items_on_sale_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_sale_items_on_sale_id ON public.sale_items USING btree (sale_id);
+CREATE INDEX index_sale_items_on_sale_id ON sale_items USING btree (sale_id);
 
 
 --
 -- Name: index_sale_items_on_tax_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_sale_items_on_tax_id ON public.sale_items USING btree (tax_id);
+CREATE INDEX index_sale_items_on_tax_id ON sale_items USING btree (tax_id);
 
 
 --
 -- Name: index_sale_items_on_team_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_sale_items_on_team_id ON public.sale_items USING btree (team_id);
+CREATE INDEX index_sale_items_on_team_id ON sale_items USING btree (team_id);
 
 
 --
 -- Name: index_sale_items_on_updated_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_sale_items_on_updated_at ON public.sale_items USING btree (updated_at);
+CREATE INDEX index_sale_items_on_updated_at ON sale_items USING btree (updated_at);
 
 
 --
 -- Name: index_sale_items_on_updater_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_sale_items_on_updater_id ON public.sale_items USING btree (updater_id);
+CREATE INDEX index_sale_items_on_updater_id ON sale_items USING btree (updater_id);
 
 
 --
 -- Name: index_sale_items_on_variant_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_sale_items_on_variant_id ON public.sale_items USING btree (variant_id);
+CREATE INDEX index_sale_items_on_variant_id ON sale_items USING btree (variant_id);
 
 
 --
 -- Name: index_sale_natures_on_catalog_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_sale_natures_on_catalog_id ON public.sale_natures USING btree (catalog_id);
+CREATE INDEX index_sale_natures_on_catalog_id ON sale_natures USING btree (catalog_id);
 
 
 --
 -- Name: index_sale_natures_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_sale_natures_on_created_at ON public.sale_natures USING btree (created_at);
+CREATE INDEX index_sale_natures_on_created_at ON sale_natures USING btree (created_at);
 
 
 --
 -- Name: index_sale_natures_on_creator_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_sale_natures_on_creator_id ON public.sale_natures USING btree (creator_id);
+CREATE INDEX index_sale_natures_on_creator_id ON sale_natures USING btree (creator_id);
 
 
 --
 -- Name: index_sale_natures_on_journal_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_sale_natures_on_journal_id ON public.sale_natures USING btree (journal_id);
+CREATE INDEX index_sale_natures_on_journal_id ON sale_natures USING btree (journal_id);
 
 
 --
 -- Name: index_sale_natures_on_payment_mode_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_sale_natures_on_payment_mode_id ON public.sale_natures USING btree (payment_mode_id);
+CREATE INDEX index_sale_natures_on_payment_mode_id ON sale_natures USING btree (payment_mode_id);
 
 
 --
 -- Name: index_sale_natures_on_updated_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_sale_natures_on_updated_at ON public.sale_natures USING btree (updated_at);
+CREATE INDEX index_sale_natures_on_updated_at ON sale_natures USING btree (updated_at);
 
 
 --
 -- Name: index_sale_natures_on_updater_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_sale_natures_on_updater_id ON public.sale_natures USING btree (updater_id);
+CREATE INDEX index_sale_natures_on_updater_id ON sale_natures USING btree (updater_id);
 
 
 --
 -- Name: index_sales_on_accounted_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_sales_on_accounted_at ON public.sales USING btree (accounted_at);
+CREATE INDEX index_sales_on_accounted_at ON sales USING btree (accounted_at);
 
 
 --
 -- Name: index_sales_on_address_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_sales_on_address_id ON public.sales USING btree (address_id);
+CREATE INDEX index_sales_on_address_id ON sales USING btree (address_id);
 
 
 --
 -- Name: index_sales_on_affair_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_sales_on_affair_id ON public.sales USING btree (affair_id);
+CREATE INDEX index_sales_on_affair_id ON sales USING btree (affair_id);
 
 
 --
 -- Name: index_sales_on_client_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_sales_on_client_id ON public.sales USING btree (client_id);
+CREATE INDEX index_sales_on_client_id ON sales USING btree (client_id);
 
 
 --
 -- Name: index_sales_on_codes; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_sales_on_codes ON public.sales USING btree (codes);
+CREATE INDEX index_sales_on_codes ON sales USING btree (codes);
 
 
 --
 -- Name: index_sales_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_sales_on_created_at ON public.sales USING btree (created_at);
+CREATE INDEX index_sales_on_created_at ON sales USING btree (created_at);
 
 
 --
 -- Name: index_sales_on_creator_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_sales_on_creator_id ON public.sales USING btree (creator_id);
+CREATE INDEX index_sales_on_creator_id ON sales USING btree (creator_id);
 
 
 --
 -- Name: index_sales_on_credited_sale_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_sales_on_credited_sale_id ON public.sales USING btree (credited_sale_id);
+CREATE INDEX index_sales_on_credited_sale_id ON sales USING btree (credited_sale_id);
 
 
 --
 -- Name: index_sales_on_currency; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_sales_on_currency ON public.sales USING btree (currency);
+CREATE INDEX index_sales_on_currency ON sales USING btree (currency);
 
 
 --
 -- Name: index_sales_on_delivery_address_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_sales_on_delivery_address_id ON public.sales USING btree (delivery_address_id);
+CREATE INDEX index_sales_on_delivery_address_id ON sales USING btree (delivery_address_id);
 
 
 --
 -- Name: index_sales_on_invoice_address_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_sales_on_invoice_address_id ON public.sales USING btree (invoice_address_id);
+CREATE INDEX index_sales_on_invoice_address_id ON sales USING btree (invoice_address_id);
 
 
 --
 -- Name: index_sales_on_journal_entry_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_sales_on_journal_entry_id ON public.sales USING btree (journal_entry_id);
+CREATE INDEX index_sales_on_journal_entry_id ON sales USING btree (journal_entry_id);
 
 
 --
 -- Name: index_sales_on_nature_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_sales_on_nature_id ON public.sales USING btree (nature_id);
+CREATE INDEX index_sales_on_nature_id ON sales USING btree (nature_id);
 
 
 --
 -- Name: index_sales_on_number; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_sales_on_number ON public.sales USING btree (number);
+CREATE INDEX index_sales_on_number ON sales USING btree (number);
 
 
 --
 -- Name: index_sales_on_quantity_gap_on_invoice_journal_entry_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_sales_on_quantity_gap_on_invoice_journal_entry_id ON public.sales USING btree (quantity_gap_on_invoice_journal_entry_id);
+CREATE INDEX index_sales_on_quantity_gap_on_invoice_journal_entry_id ON sales USING btree (quantity_gap_on_invoice_journal_entry_id);
 
 
 --
 -- Name: index_sales_on_responsible_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_sales_on_responsible_id ON public.sales USING btree (responsible_id);
+CREATE INDEX index_sales_on_responsible_id ON sales USING btree (responsible_id);
 
 
 --
 -- Name: index_sales_on_transporter_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_sales_on_transporter_id ON public.sales USING btree (transporter_id);
+CREATE INDEX index_sales_on_transporter_id ON sales USING btree (transporter_id);
 
 
 --
 -- Name: index_sales_on_undelivered_invoice_journal_entry_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_sales_on_undelivered_invoice_journal_entry_id ON public.sales USING btree (undelivered_invoice_journal_entry_id);
+CREATE INDEX index_sales_on_undelivered_invoice_journal_entry_id ON sales USING btree (undelivered_invoice_journal_entry_id);
 
 
 --
 -- Name: index_sales_on_updated_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_sales_on_updated_at ON public.sales USING btree (updated_at);
+CREATE INDEX index_sales_on_updated_at ON sales USING btree (updated_at);
 
 
 --
 -- Name: index_sales_on_updater_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_sales_on_updater_id ON public.sales USING btree (updater_id);
+CREATE INDEX index_sales_on_updater_id ON sales USING btree (updater_id);
 
 
 --
 -- Name: index_sensors_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_sensors_on_created_at ON public.sensors USING btree (created_at);
+CREATE INDEX index_sensors_on_created_at ON sensors USING btree (created_at);
 
 
 --
 -- Name: index_sensors_on_creator_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_sensors_on_creator_id ON public.sensors USING btree (creator_id);
+CREATE INDEX index_sensors_on_creator_id ON sensors USING btree (creator_id);
 
 
 --
 -- Name: index_sensors_on_host_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_sensors_on_host_id ON public.sensors USING btree (host_id);
+CREATE INDEX index_sensors_on_host_id ON sensors USING btree (host_id);
 
 
 --
 -- Name: index_sensors_on_model_euid; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_sensors_on_model_euid ON public.sensors USING btree (model_euid);
+CREATE INDEX index_sensors_on_model_euid ON sensors USING btree (model_euid);
 
 
 --
 -- Name: index_sensors_on_name; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_sensors_on_name ON public.sensors USING btree (name);
+CREATE INDEX index_sensors_on_name ON sensors USING btree (name);
 
 
 --
 -- Name: index_sensors_on_product_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_sensors_on_product_id ON public.sensors USING btree (product_id);
+CREATE INDEX index_sensors_on_product_id ON sensors USING btree (product_id);
 
 
 --
 -- Name: index_sensors_on_updated_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_sensors_on_updated_at ON public.sensors USING btree (updated_at);
+CREATE INDEX index_sensors_on_updated_at ON sensors USING btree (updated_at);
 
 
 --
 -- Name: index_sensors_on_updater_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_sensors_on_updater_id ON public.sensors USING btree (updater_id);
+CREATE INDEX index_sensors_on_updater_id ON sensors USING btree (updater_id);
 
 
 --
 -- Name: index_sensors_on_vendor_euid; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_sensors_on_vendor_euid ON public.sensors USING btree (vendor_euid);
+CREATE INDEX index_sensors_on_vendor_euid ON sensors USING btree (vendor_euid);
 
 
 --
 -- Name: index_sequences_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_sequences_on_created_at ON public.sequences USING btree (created_at);
+CREATE INDEX index_sequences_on_created_at ON sequences USING btree (created_at);
 
 
 --
 -- Name: index_sequences_on_creator_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_sequences_on_creator_id ON public.sequences USING btree (creator_id);
+CREATE INDEX index_sequences_on_creator_id ON sequences USING btree (creator_id);
 
 
 --
 -- Name: index_sequences_on_updated_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_sequences_on_updated_at ON public.sequences USING btree (updated_at);
+CREATE INDEX index_sequences_on_updated_at ON sequences USING btree (updated_at);
 
 
 --
 -- Name: index_sequences_on_updater_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_sequences_on_updater_id ON public.sequences USING btree (updater_id);
+CREATE INDEX index_sequences_on_updater_id ON sequences USING btree (updater_id);
 
 
 --
 -- Name: index_subscription_natures_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_subscription_natures_on_created_at ON public.subscription_natures USING btree (created_at);
+CREATE INDEX index_subscription_natures_on_created_at ON subscription_natures USING btree (created_at);
 
 
 --
 -- Name: index_subscription_natures_on_creator_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_subscription_natures_on_creator_id ON public.subscription_natures USING btree (creator_id);
+CREATE INDEX index_subscription_natures_on_creator_id ON subscription_natures USING btree (creator_id);
 
 
 --
 -- Name: index_subscription_natures_on_updated_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_subscription_natures_on_updated_at ON public.subscription_natures USING btree (updated_at);
+CREATE INDEX index_subscription_natures_on_updated_at ON subscription_natures USING btree (updated_at);
 
 
 --
 -- Name: index_subscription_natures_on_updater_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_subscription_natures_on_updater_id ON public.subscription_natures USING btree (updater_id);
+CREATE INDEX index_subscription_natures_on_updater_id ON subscription_natures USING btree (updater_id);
 
 
 --
 -- Name: index_subscriptions_on_address_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_subscriptions_on_address_id ON public.subscriptions USING btree (address_id);
+CREATE INDEX index_subscriptions_on_address_id ON subscriptions USING btree (address_id);
 
 
 --
 -- Name: index_subscriptions_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_subscriptions_on_created_at ON public.subscriptions USING btree (created_at);
+CREATE INDEX index_subscriptions_on_created_at ON subscriptions USING btree (created_at);
 
 
 --
 -- Name: index_subscriptions_on_creator_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_subscriptions_on_creator_id ON public.subscriptions USING btree (creator_id);
+CREATE INDEX index_subscriptions_on_creator_id ON subscriptions USING btree (creator_id);
 
 
 --
 -- Name: index_subscriptions_on_nature_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_subscriptions_on_nature_id ON public.subscriptions USING btree (nature_id);
+CREATE INDEX index_subscriptions_on_nature_id ON subscriptions USING btree (nature_id);
 
 
 --
 -- Name: index_subscriptions_on_parent_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_subscriptions_on_parent_id ON public.subscriptions USING btree (parent_id);
+CREATE INDEX index_subscriptions_on_parent_id ON subscriptions USING btree (parent_id);
 
 
 --
 -- Name: index_subscriptions_on_sale_item_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_subscriptions_on_sale_item_id ON public.subscriptions USING btree (sale_item_id);
+CREATE INDEX index_subscriptions_on_sale_item_id ON subscriptions USING btree (sale_item_id);
 
 
 --
 -- Name: index_subscriptions_on_started_on; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_subscriptions_on_started_on ON public.subscriptions USING btree (started_on);
+CREATE INDEX index_subscriptions_on_started_on ON subscriptions USING btree (started_on);
 
 
 --
 -- Name: index_subscriptions_on_stopped_on; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_subscriptions_on_stopped_on ON public.subscriptions USING btree (stopped_on);
+CREATE INDEX index_subscriptions_on_stopped_on ON subscriptions USING btree (stopped_on);
 
 
 --
 -- Name: index_subscriptions_on_subscriber_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_subscriptions_on_subscriber_id ON public.subscriptions USING btree (subscriber_id);
+CREATE INDEX index_subscriptions_on_subscriber_id ON subscriptions USING btree (subscriber_id);
 
 
 --
 -- Name: index_subscriptions_on_updated_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_subscriptions_on_updated_at ON public.subscriptions USING btree (updated_at);
+CREATE INDEX index_subscriptions_on_updated_at ON subscriptions USING btree (updated_at);
 
 
 --
 -- Name: index_subscriptions_on_updater_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_subscriptions_on_updater_id ON public.subscriptions USING btree (updater_id);
+CREATE INDEX index_subscriptions_on_updater_id ON subscriptions USING btree (updater_id);
 
 
 --
 -- Name: index_supervision_items_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_supervision_items_on_created_at ON public.supervision_items USING btree (created_at);
+CREATE INDEX index_supervision_items_on_created_at ON supervision_items USING btree (created_at);
 
 
 --
 -- Name: index_supervision_items_on_creator_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_supervision_items_on_creator_id ON public.supervision_items USING btree (creator_id);
+CREATE INDEX index_supervision_items_on_creator_id ON supervision_items USING btree (creator_id);
 
 
 --
 -- Name: index_supervision_items_on_sensor_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_supervision_items_on_sensor_id ON public.supervision_items USING btree (sensor_id);
+CREATE INDEX index_supervision_items_on_sensor_id ON supervision_items USING btree (sensor_id);
 
 
 --
 -- Name: index_supervision_items_on_supervision_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_supervision_items_on_supervision_id ON public.supervision_items USING btree (supervision_id);
+CREATE INDEX index_supervision_items_on_supervision_id ON supervision_items USING btree (supervision_id);
 
 
 --
 -- Name: index_supervision_items_on_updated_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_supervision_items_on_updated_at ON public.supervision_items USING btree (updated_at);
+CREATE INDEX index_supervision_items_on_updated_at ON supervision_items USING btree (updated_at);
 
 
 --
 -- Name: index_supervision_items_on_updater_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_supervision_items_on_updater_id ON public.supervision_items USING btree (updater_id);
+CREATE INDEX index_supervision_items_on_updater_id ON supervision_items USING btree (updater_id);
 
 
 --
 -- Name: index_supervisions_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_supervisions_on_created_at ON public.supervisions USING btree (created_at);
+CREATE INDEX index_supervisions_on_created_at ON supervisions USING btree (created_at);
 
 
 --
 -- Name: index_supervisions_on_creator_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_supervisions_on_creator_id ON public.supervisions USING btree (creator_id);
+CREATE INDEX index_supervisions_on_creator_id ON supervisions USING btree (creator_id);
 
 
 --
 -- Name: index_supervisions_on_name; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_supervisions_on_name ON public.supervisions USING btree (name);
+CREATE INDEX index_supervisions_on_name ON supervisions USING btree (name);
 
 
 --
 -- Name: index_supervisions_on_updated_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_supervisions_on_updated_at ON public.supervisions USING btree (updated_at);
+CREATE INDEX index_supervisions_on_updated_at ON supervisions USING btree (updated_at);
 
 
 --
 -- Name: index_supervisions_on_updater_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_supervisions_on_updater_id ON public.supervisions USING btree (updater_id);
+CREATE INDEX index_supervisions_on_updater_id ON supervisions USING btree (updater_id);
 
 
 --
 -- Name: index_synchronization_operations_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_synchronization_operations_on_created_at ON public.synchronization_operations USING btree (created_at);
+CREATE INDEX index_synchronization_operations_on_created_at ON synchronization_operations USING btree (created_at);
 
 
 --
 -- Name: index_synchronization_operations_on_creator_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_synchronization_operations_on_creator_id ON public.synchronization_operations USING btree (creator_id);
+CREATE INDEX index_synchronization_operations_on_creator_id ON synchronization_operations USING btree (creator_id);
 
 
 --
 -- Name: index_synchronization_operations_on_operation_name; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_synchronization_operations_on_operation_name ON public.synchronization_operations USING btree (operation_name);
+CREATE INDEX index_synchronization_operations_on_operation_name ON synchronization_operations USING btree (operation_name);
 
 
 --
 -- Name: index_synchronization_operations_on_updated_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_synchronization_operations_on_updated_at ON public.synchronization_operations USING btree (updated_at);
+CREATE INDEX index_synchronization_operations_on_updated_at ON synchronization_operations USING btree (updated_at);
 
 
 --
 -- Name: index_synchronization_operations_on_updater_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_synchronization_operations_on_updater_id ON public.synchronization_operations USING btree (updater_id);
+CREATE INDEX index_synchronization_operations_on_updater_id ON synchronization_operations USING btree (updater_id);
 
 
 --
 -- Name: index_target_distributions_on_activity_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_target_distributions_on_activity_id ON public.target_distributions USING btree (activity_id);
+CREATE INDEX index_target_distributions_on_activity_id ON target_distributions USING btree (activity_id);
 
 
 --
 -- Name: index_target_distributions_on_activity_production_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_target_distributions_on_activity_production_id ON public.target_distributions USING btree (activity_production_id);
+CREATE INDEX index_target_distributions_on_activity_production_id ON target_distributions USING btree (activity_production_id);
 
 
 --
 -- Name: index_target_distributions_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_target_distributions_on_created_at ON public.target_distributions USING btree (created_at);
+CREATE INDEX index_target_distributions_on_created_at ON target_distributions USING btree (created_at);
 
 
 --
 -- Name: index_target_distributions_on_creator_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_target_distributions_on_creator_id ON public.target_distributions USING btree (creator_id);
+CREATE INDEX index_target_distributions_on_creator_id ON target_distributions USING btree (creator_id);
 
 
 --
 -- Name: index_target_distributions_on_target_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_target_distributions_on_target_id ON public.target_distributions USING btree (target_id);
+CREATE INDEX index_target_distributions_on_target_id ON target_distributions USING btree (target_id);
 
 
 --
 -- Name: index_target_distributions_on_updated_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_target_distributions_on_updated_at ON public.target_distributions USING btree (updated_at);
+CREATE INDEX index_target_distributions_on_updated_at ON target_distributions USING btree (updated_at);
 
 
 --
 -- Name: index_target_distributions_on_updater_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_target_distributions_on_updater_id ON public.target_distributions USING btree (updater_id);
+CREATE INDEX index_target_distributions_on_updater_id ON target_distributions USING btree (updater_id);
 
 
 --
 -- Name: index_tasks_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_tasks_on_created_at ON public.tasks USING btree (created_at);
+CREATE INDEX index_tasks_on_created_at ON tasks USING btree (created_at);
 
 
 --
 -- Name: index_tasks_on_creator_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_tasks_on_creator_id ON public.tasks USING btree (creator_id);
+CREATE INDEX index_tasks_on_creator_id ON tasks USING btree (creator_id);
 
 
 --
 -- Name: index_tasks_on_entity_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_tasks_on_entity_id ON public.tasks USING btree (entity_id);
+CREATE INDEX index_tasks_on_entity_id ON tasks USING btree (entity_id);
 
 
 --
 -- Name: index_tasks_on_executor_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_tasks_on_executor_id ON public.tasks USING btree (executor_id);
+CREATE INDEX index_tasks_on_executor_id ON tasks USING btree (executor_id);
 
 
 --
 -- Name: index_tasks_on_sale_opportunity_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_tasks_on_sale_opportunity_id ON public.tasks USING btree (sale_opportunity_id);
+CREATE INDEX index_tasks_on_sale_opportunity_id ON tasks USING btree (sale_opportunity_id);
 
 
 --
 -- Name: index_tasks_on_updated_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_tasks_on_updated_at ON public.tasks USING btree (updated_at);
+CREATE INDEX index_tasks_on_updated_at ON tasks USING btree (updated_at);
 
 
 --
 -- Name: index_tasks_on_updater_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_tasks_on_updater_id ON public.tasks USING btree (updater_id);
+CREATE INDEX index_tasks_on_updater_id ON tasks USING btree (updater_id);
 
 
 --
 -- Name: index_tax_declaration_item_parts_on_account_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_tax_declaration_item_parts_on_account_id ON public.tax_declaration_item_parts USING btree (account_id);
+CREATE INDEX index_tax_declaration_item_parts_on_account_id ON tax_declaration_item_parts USING btree (account_id);
 
 
 --
 -- Name: index_tax_declaration_item_parts_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_tax_declaration_item_parts_on_created_at ON public.tax_declaration_item_parts USING btree (created_at);
+CREATE INDEX index_tax_declaration_item_parts_on_created_at ON tax_declaration_item_parts USING btree (created_at);
 
 
 --
 -- Name: index_tax_declaration_item_parts_on_creator_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_tax_declaration_item_parts_on_creator_id ON public.tax_declaration_item_parts USING btree (creator_id);
+CREATE INDEX index_tax_declaration_item_parts_on_creator_id ON tax_declaration_item_parts USING btree (creator_id);
 
 
 --
 -- Name: index_tax_declaration_item_parts_on_direction; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_tax_declaration_item_parts_on_direction ON public.tax_declaration_item_parts USING btree (direction);
+CREATE INDEX index_tax_declaration_item_parts_on_direction ON tax_declaration_item_parts USING btree (direction);
 
 
 --
 -- Name: index_tax_declaration_item_parts_on_journal_entry_item_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_tax_declaration_item_parts_on_journal_entry_item_id ON public.tax_declaration_item_parts USING btree (journal_entry_item_id);
+CREATE INDEX index_tax_declaration_item_parts_on_journal_entry_item_id ON tax_declaration_item_parts USING btree (journal_entry_item_id);
 
 
 --
 -- Name: index_tax_declaration_item_parts_on_tax_declaration_item_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_tax_declaration_item_parts_on_tax_declaration_item_id ON public.tax_declaration_item_parts USING btree (tax_declaration_item_id);
+CREATE INDEX index_tax_declaration_item_parts_on_tax_declaration_item_id ON tax_declaration_item_parts USING btree (tax_declaration_item_id);
 
 
 --
 -- Name: index_tax_declaration_item_parts_on_updated_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_tax_declaration_item_parts_on_updated_at ON public.tax_declaration_item_parts USING btree (updated_at);
+CREATE INDEX index_tax_declaration_item_parts_on_updated_at ON tax_declaration_item_parts USING btree (updated_at);
 
 
 --
 -- Name: index_tax_declaration_item_parts_on_updater_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_tax_declaration_item_parts_on_updater_id ON public.tax_declaration_item_parts USING btree (updater_id);
+CREATE INDEX index_tax_declaration_item_parts_on_updater_id ON tax_declaration_item_parts USING btree (updater_id);
 
 
 --
 -- Name: index_tax_declaration_items_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_tax_declaration_items_on_created_at ON public.tax_declaration_items USING btree (created_at);
+CREATE INDEX index_tax_declaration_items_on_created_at ON tax_declaration_items USING btree (created_at);
 
 
 --
 -- Name: index_tax_declaration_items_on_creator_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_tax_declaration_items_on_creator_id ON public.tax_declaration_items USING btree (creator_id);
+CREATE INDEX index_tax_declaration_items_on_creator_id ON tax_declaration_items USING btree (creator_id);
 
 
 --
 -- Name: index_tax_declaration_items_on_tax_declaration_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_tax_declaration_items_on_tax_declaration_id ON public.tax_declaration_items USING btree (tax_declaration_id);
+CREATE INDEX index_tax_declaration_items_on_tax_declaration_id ON tax_declaration_items USING btree (tax_declaration_id);
 
 
 --
 -- Name: index_tax_declaration_items_on_tax_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_tax_declaration_items_on_tax_id ON public.tax_declaration_items USING btree (tax_id);
+CREATE INDEX index_tax_declaration_items_on_tax_id ON tax_declaration_items USING btree (tax_id);
 
 
 --
 -- Name: index_tax_declaration_items_on_updated_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_tax_declaration_items_on_updated_at ON public.tax_declaration_items USING btree (updated_at);
+CREATE INDEX index_tax_declaration_items_on_updated_at ON tax_declaration_items USING btree (updated_at);
 
 
 --
 -- Name: index_tax_declaration_items_on_updater_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_tax_declaration_items_on_updater_id ON public.tax_declaration_items USING btree (updater_id);
+CREATE INDEX index_tax_declaration_items_on_updater_id ON tax_declaration_items USING btree (updater_id);
 
 
 --
 -- Name: index_tax_declarations_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_tax_declarations_on_created_at ON public.tax_declarations USING btree (created_at);
+CREATE INDEX index_tax_declarations_on_created_at ON tax_declarations USING btree (created_at);
 
 
 --
 -- Name: index_tax_declarations_on_creator_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_tax_declarations_on_creator_id ON public.tax_declarations USING btree (creator_id);
+CREATE INDEX index_tax_declarations_on_creator_id ON tax_declarations USING btree (creator_id);
 
 
 --
 -- Name: index_tax_declarations_on_financial_year_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_tax_declarations_on_financial_year_id ON public.tax_declarations USING btree (financial_year_id);
+CREATE INDEX index_tax_declarations_on_financial_year_id ON tax_declarations USING btree (financial_year_id);
 
 
 --
 -- Name: index_tax_declarations_on_journal_entry_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_tax_declarations_on_journal_entry_id ON public.tax_declarations USING btree (journal_entry_id);
+CREATE INDEX index_tax_declarations_on_journal_entry_id ON tax_declarations USING btree (journal_entry_id);
 
 
 --
 -- Name: index_tax_declarations_on_responsible_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_tax_declarations_on_responsible_id ON public.tax_declarations USING btree (responsible_id);
+CREATE INDEX index_tax_declarations_on_responsible_id ON tax_declarations USING btree (responsible_id);
 
 
 --
 -- Name: index_tax_declarations_on_updated_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_tax_declarations_on_updated_at ON public.tax_declarations USING btree (updated_at);
+CREATE INDEX index_tax_declarations_on_updated_at ON tax_declarations USING btree (updated_at);
 
 
 --
 -- Name: index_tax_declarations_on_updater_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_tax_declarations_on_updater_id ON public.tax_declarations USING btree (updater_id);
+CREATE INDEX index_tax_declarations_on_updater_id ON tax_declarations USING btree (updater_id);
 
 
 --
 -- Name: index_taxes_on_collect_account_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_taxes_on_collect_account_id ON public.taxes USING btree (collect_account_id);
+CREATE INDEX index_taxes_on_collect_account_id ON taxes USING btree (collect_account_id);
 
 
 --
 -- Name: index_taxes_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_taxes_on_created_at ON public.taxes USING btree (created_at);
+CREATE INDEX index_taxes_on_created_at ON taxes USING btree (created_at);
 
 
 --
 -- Name: index_taxes_on_creator_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_taxes_on_creator_id ON public.taxes USING btree (creator_id);
+CREATE INDEX index_taxes_on_creator_id ON taxes USING btree (creator_id);
 
 
 --
 -- Name: index_taxes_on_deduction_account_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_taxes_on_deduction_account_id ON public.taxes USING btree (deduction_account_id);
+CREATE INDEX index_taxes_on_deduction_account_id ON taxes USING btree (deduction_account_id);
 
 
 --
 -- Name: index_taxes_on_fixed_asset_collect_account_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_taxes_on_fixed_asset_collect_account_id ON public.taxes USING btree (fixed_asset_collect_account_id);
+CREATE INDEX index_taxes_on_fixed_asset_collect_account_id ON taxes USING btree (fixed_asset_collect_account_id);
 
 
 --
 -- Name: index_taxes_on_fixed_asset_deduction_account_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_taxes_on_fixed_asset_deduction_account_id ON public.taxes USING btree (fixed_asset_deduction_account_id);
+CREATE INDEX index_taxes_on_fixed_asset_deduction_account_id ON taxes USING btree (fixed_asset_deduction_account_id);
 
 
 --
 -- Name: index_taxes_on_intracommunity_payable_account_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_taxes_on_intracommunity_payable_account_id ON public.taxes USING btree (intracommunity_payable_account_id);
+CREATE INDEX index_taxes_on_intracommunity_payable_account_id ON taxes USING btree (intracommunity_payable_account_id);
 
 
 --
 -- Name: index_taxes_on_updated_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_taxes_on_updated_at ON public.taxes USING btree (updated_at);
+CREATE INDEX index_taxes_on_updated_at ON taxes USING btree (updated_at);
 
 
 --
 -- Name: index_taxes_on_updater_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_taxes_on_updater_id ON public.taxes USING btree (updater_id);
+CREATE INDEX index_taxes_on_updater_id ON taxes USING btree (updater_id);
 
 
 --
 -- Name: index_teams_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_teams_on_created_at ON public.teams USING btree (created_at);
+CREATE INDEX index_teams_on_created_at ON teams USING btree (created_at);
 
 
 --
 -- Name: index_teams_on_creator_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_teams_on_creator_id ON public.teams USING btree (creator_id);
+CREATE INDEX index_teams_on_creator_id ON teams USING btree (creator_id);
 
 
 --
 -- Name: index_teams_on_parent_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_teams_on_parent_id ON public.teams USING btree (parent_id);
+CREATE INDEX index_teams_on_parent_id ON teams USING btree (parent_id);
 
 
 --
 -- Name: index_teams_on_updated_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_teams_on_updated_at ON public.teams USING btree (updated_at);
+CREATE INDEX index_teams_on_updated_at ON teams USING btree (updated_at);
 
 
 --
 -- Name: index_teams_on_updater_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_teams_on_updater_id ON public.teams USING btree (updater_id);
+CREATE INDEX index_teams_on_updater_id ON teams USING btree (updater_id);
 
 
 --
 -- Name: index_tokens_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_tokens_on_created_at ON public.tokens USING btree (created_at);
+CREATE INDEX index_tokens_on_created_at ON tokens USING btree (created_at);
 
 
 --
 -- Name: index_tokens_on_creator_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_tokens_on_creator_id ON public.tokens USING btree (creator_id);
+CREATE INDEX index_tokens_on_creator_id ON tokens USING btree (creator_id);
 
 
 --
 -- Name: index_tokens_on_name; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX index_tokens_on_name ON public.tokens USING btree (name);
+CREATE UNIQUE INDEX index_tokens_on_name ON tokens USING btree (name);
 
 
 --
 -- Name: index_tokens_on_updated_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_tokens_on_updated_at ON public.tokens USING btree (updated_at);
+CREATE INDEX index_tokens_on_updated_at ON tokens USING btree (updated_at);
 
 
 --
 -- Name: index_tokens_on_updater_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_tokens_on_updater_id ON public.tokens USING btree (updater_id);
+CREATE INDEX index_tokens_on_updater_id ON tokens USING btree (updater_id);
 
 
 --
 -- Name: index_trackings_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_trackings_on_created_at ON public.trackings USING btree (created_at);
+CREATE INDEX index_trackings_on_created_at ON trackings USING btree (created_at);
 
 
 --
 -- Name: index_trackings_on_creator_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_trackings_on_creator_id ON public.trackings USING btree (creator_id);
+CREATE INDEX index_trackings_on_creator_id ON trackings USING btree (creator_id);
 
 
 --
 -- Name: index_trackings_on_producer_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_trackings_on_producer_id ON public.trackings USING btree (producer_id);
+CREATE INDEX index_trackings_on_producer_id ON trackings USING btree (producer_id);
 
 
 --
 -- Name: index_trackings_on_product_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_trackings_on_product_id ON public.trackings USING btree (product_id);
+CREATE INDEX index_trackings_on_product_id ON trackings USING btree (product_id);
 
 
 --
 -- Name: index_trackings_on_updated_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_trackings_on_updated_at ON public.trackings USING btree (updated_at);
+CREATE INDEX index_trackings_on_updated_at ON trackings USING btree (updated_at);
 
 
 --
 -- Name: index_trackings_on_updater_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_trackings_on_updater_id ON public.trackings USING btree (updater_id);
+CREATE INDEX index_trackings_on_updater_id ON trackings USING btree (updater_id);
 
 
 --
 -- Name: index_users_on_authentication_token; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX index_users_on_authentication_token ON public.users USING btree (authentication_token);
+CREATE UNIQUE INDEX index_users_on_authentication_token ON users USING btree (authentication_token);
 
 
 --
 -- Name: index_users_on_confirmation_token; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX index_users_on_confirmation_token ON public.users USING btree (confirmation_token);
+CREATE UNIQUE INDEX index_users_on_confirmation_token ON users USING btree (confirmation_token);
 
 
 --
 -- Name: index_users_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_users_on_created_at ON public.users USING btree (created_at);
+CREATE INDEX index_users_on_created_at ON users USING btree (created_at);
 
 
 --
 -- Name: index_users_on_creator_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_users_on_creator_id ON public.users USING btree (creator_id);
+CREATE INDEX index_users_on_creator_id ON users USING btree (creator_id);
 
 
 --
 -- Name: index_users_on_email; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX index_users_on_email ON public.users USING btree (email);
+CREATE UNIQUE INDEX index_users_on_email ON users USING btree (email);
 
 
 --
 -- Name: index_users_on_invitation_token; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX index_users_on_invitation_token ON public.users USING btree (invitation_token);
+CREATE UNIQUE INDEX index_users_on_invitation_token ON users USING btree (invitation_token);
 
 
 --
 -- Name: index_users_on_invitations_count; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_users_on_invitations_count ON public.users USING btree (invitations_count);
+CREATE INDEX index_users_on_invitations_count ON users USING btree (invitations_count);
 
 
 --
 -- Name: index_users_on_invited_by_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_users_on_invited_by_id ON public.users USING btree (invited_by_id);
+CREATE INDEX index_users_on_invited_by_id ON users USING btree (invited_by_id);
 
 
 --
 -- Name: index_users_on_person_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_users_on_person_id ON public.users USING btree (person_id);
+CREATE INDEX index_users_on_person_id ON users USING btree (person_id);
 
 
 --
 -- Name: index_users_on_provider; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_users_on_provider ON public.users USING btree (provider);
+CREATE INDEX index_users_on_provider ON users USING btree (provider);
 
 
 --
 -- Name: index_users_on_reset_password_token; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX index_users_on_reset_password_token ON public.users USING btree (reset_password_token);
+CREATE UNIQUE INDEX index_users_on_reset_password_token ON users USING btree (reset_password_token);
 
 
 --
 -- Name: index_users_on_role_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_users_on_role_id ON public.users USING btree (role_id);
+CREATE INDEX index_users_on_role_id ON users USING btree (role_id);
 
 
 --
 -- Name: index_users_on_team_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_users_on_team_id ON public.users USING btree (team_id);
+CREATE INDEX index_users_on_team_id ON users USING btree (team_id);
 
 
 --
 -- Name: index_users_on_uid; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_users_on_uid ON public.users USING btree (uid);
+CREATE INDEX index_users_on_uid ON users USING btree (uid);
 
 
 --
 -- Name: index_users_on_unlock_token; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX index_users_on_unlock_token ON public.users USING btree (unlock_token);
+CREATE UNIQUE INDEX index_users_on_unlock_token ON users USING btree (unlock_token);
 
 
 --
 -- Name: index_users_on_updated_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_users_on_updated_at ON public.users USING btree (updated_at);
+CREATE INDEX index_users_on_updated_at ON users USING btree (updated_at);
 
 
 --
 -- Name: index_users_on_updater_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_users_on_updater_id ON public.users USING btree (updater_id);
+CREATE INDEX index_users_on_updater_id ON users USING btree (updater_id);
 
 
 --
 -- Name: index_versions_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_versions_on_created_at ON public.versions USING btree (created_at);
+CREATE INDEX index_versions_on_created_at ON versions USING btree (created_at);
 
 
 --
 -- Name: index_versions_on_creator_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_versions_on_creator_id ON public.versions USING btree (creator_id);
+CREATE INDEX index_versions_on_creator_id ON versions USING btree (creator_id);
 
 
 --
 -- Name: index_versions_on_item_type_and_item_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_versions_on_item_type_and_item_id ON public.versions USING btree (item_type, item_id);
+CREATE INDEX index_versions_on_item_type_and_item_id ON versions USING btree (item_type, item_id);
 
 
 --
 -- Name: index_wice_grid_serialized_queries_on_grid_name; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_wice_grid_serialized_queries_on_grid_name ON public.wice_grid_serialized_queries USING btree (grid_name);
+CREATE INDEX index_wice_grid_serialized_queries_on_grid_name ON wice_grid_serialized_queries USING btree (grid_name);
 
 
 --
 -- Name: index_wice_grid_serialized_queries_on_grid_name_and_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_wice_grid_serialized_queries_on_grid_name_and_id ON public.wice_grid_serialized_queries USING btree (grid_name, id);
+CREATE INDEX index_wice_grid_serialized_queries_on_grid_name_and_id ON wice_grid_serialized_queries USING btree (grid_name, id);
 
 
 --
 -- Name: unique_schema_migrations; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX unique_schema_migrations ON public.schema_migrations USING btree (version);
+CREATE UNIQUE INDEX unique_schema_migrations ON schema_migrations USING btree (version);
 
 
 --
 -- Name: product_populations _RETURN; Type: RULE; Schema: public; Owner: -
 --
 
-CREATE OR REPLACE VIEW public.product_populations AS
- SELECT DISTINCT ON (movements.started_at, movements.product_id) movements.product_id,
+CREATE RULE "_RETURN" AS
+    ON SELECT TO product_populations DO INSTEAD  SELECT DISTINCT ON (movements.started_at, movements.product_id) movements.product_id,
     movements.started_at,
     sum(precedings.delta) AS value,
     max(movements.creator_id) AS creator_id,
@@ -17794,11 +17641,11 @@ CREATE OR REPLACE VIEW public.product_populations AS
     max(movements.updater_id) AS updater_id,
     min(movements.id) AS id,
     1 AS lock_version
-   FROM (public.product_movements movements
+   FROM (product_movements movements
      LEFT JOIN ( SELECT sum(product_movements.delta) AS delta,
             product_movements.product_id,
             product_movements.started_at
-           FROM public.product_movements
+           FROM product_movements
           GROUP BY product_movements.product_id, product_movements.started_at) precedings ON (((movements.started_at >= precedings.started_at) AND (movements.product_id = precedings.product_id))))
   GROUP BY movements.id;
 
@@ -17808,7 +17655,7 @@ CREATE OR REPLACE VIEW public.product_populations AS
 --
 
 CREATE RULE delete_activities_campaigns AS
-    ON DELETE TO public.activities_campaigns DO INSTEAD NOTHING;
+    ON DELETE TO activities_campaigns DO INSTEAD NOTHING;
 
 
 --
@@ -17816,7 +17663,7 @@ CREATE RULE delete_activities_campaigns AS
 --
 
 CREATE RULE delete_activities_interventions AS
-    ON DELETE TO public.activities_interventions DO INSTEAD NOTHING;
+    ON DELETE TO activities_interventions DO INSTEAD NOTHING;
 
 
 --
@@ -17824,7 +17671,7 @@ CREATE RULE delete_activities_interventions AS
 --
 
 CREATE RULE delete_activity_productions_campaigns AS
-    ON DELETE TO public.activity_productions_campaigns DO INSTEAD NOTHING;
+    ON DELETE TO activity_productions_campaigns DO INSTEAD NOTHING;
 
 
 --
@@ -17832,7 +17679,7 @@ CREATE RULE delete_activity_productions_campaigns AS
 --
 
 CREATE RULE delete_activity_productions_interventions AS
-    ON DELETE TO public.activity_productions_interventions DO INSTEAD NOTHING;
+    ON DELETE TO activity_productions_interventions DO INSTEAD NOTHING;
 
 
 --
@@ -17840,7 +17687,7 @@ CREATE RULE delete_activity_productions_interventions AS
 --
 
 CREATE RULE delete_campaigns_interventions AS
-    ON DELETE TO public.campaigns_interventions DO INSTEAD NOTHING;
+    ON DELETE TO campaigns_interventions DO INSTEAD NOTHING;
 
 
 --
@@ -17848,338 +17695,338 @@ CREATE RULE delete_campaigns_interventions AS
 --
 
 CREATE RULE delete_product_populations AS
-    ON DELETE TO public.product_populations DO INSTEAD NOTHING;
+    ON DELETE TO product_populations DO INSTEAD NOTHING;
 
 
 --
 -- Name: journal_entry_items compute_partial_lettering_status_insert_delete; Type: TRIGGER; Schema: public; Owner: -
 --
 
-CREATE TRIGGER compute_partial_lettering_status_insert_delete AFTER INSERT OR DELETE ON public.journal_entry_items FOR EACH ROW EXECUTE PROCEDURE public.compute_partial_lettering();
+CREATE TRIGGER compute_partial_lettering_status_insert_delete AFTER INSERT OR DELETE ON journal_entry_items FOR EACH ROW EXECUTE PROCEDURE compute_partial_lettering();
 
 
 --
 -- Name: journal_entry_items compute_partial_lettering_status_update; Type: TRIGGER; Schema: public; Owner: -
 --
 
-CREATE TRIGGER compute_partial_lettering_status_update AFTER UPDATE OF credit, debit, account_id, letter ON public.journal_entry_items FOR EACH ROW WHEN ((((COALESCE(old.letter, ''::character varying))::text <> (COALESCE(new.letter, ''::character varying))::text) OR (old.account_id <> new.account_id) OR (old.credit <> new.credit) OR (old.debit <> new.debit))) EXECUTE PROCEDURE public.compute_partial_lettering();
+CREATE TRIGGER compute_partial_lettering_status_update AFTER UPDATE OF credit, debit, account_id, letter ON journal_entry_items FOR EACH ROW WHEN ((((COALESCE(old.letter, ''::character varying))::text <> (COALESCE(new.letter, ''::character varying))::text) OR (old.account_id <> new.account_id) OR (old.credit <> new.credit) OR (old.debit <> new.debit))) EXECUTE PROCEDURE compute_partial_lettering();
 
 
 --
 -- Name: outgoing_payments outgoing_payment_list_cache; Type: TRIGGER; Schema: public; Owner: -
 --
 
-CREATE TRIGGER outgoing_payment_list_cache AFTER INSERT OR DELETE OR UPDATE OF list_id, amount ON public.outgoing_payments FOR EACH ROW EXECUTE PROCEDURE public.compute_outgoing_payment_list_cache();
+CREATE TRIGGER outgoing_payment_list_cache AFTER INSERT OR DELETE OR UPDATE OF list_id, amount ON outgoing_payments FOR EACH ROW EXECUTE PROCEDURE compute_outgoing_payment_list_cache();
 
 
 --
 -- Name: journal_entry_items synchronize_jei_with_entry; Type: TRIGGER; Schema: public; Owner: -
 --
 
-CREATE TRIGGER synchronize_jei_with_entry AFTER INSERT OR UPDATE ON public.journal_entry_items FOR EACH ROW EXECUTE PROCEDURE public.synchronize_jei_with_entry('jei');
+CREATE TRIGGER synchronize_jei_with_entry AFTER INSERT OR UPDATE ON journal_entry_items FOR EACH ROW EXECUTE PROCEDURE synchronize_jei_with_entry('jei');
 
 
 --
 -- Name: journal_entries synchronize_jeis_of_entry; Type: TRIGGER; Schema: public; Owner: -
 --
 
-CREATE TRIGGER synchronize_jeis_of_entry AFTER INSERT OR UPDATE ON public.journal_entries FOR EACH ROW EXECUTE PROCEDURE public.synchronize_jei_with_entry('entry');
+CREATE TRIGGER synchronize_jeis_of_entry AFTER INSERT OR UPDATE ON journal_entries FOR EACH ROW EXECUTE PROCEDURE synchronize_jei_with_entry('entry');
 
 
 --
 -- Name: payslips fk_rails_02f6ec2213; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.payslips
-    ADD CONSTRAINT fk_rails_02f6ec2213 FOREIGN KEY (nature_id) REFERENCES public.payslip_natures(id);
+ALTER TABLE ONLY payslips
+    ADD CONSTRAINT fk_rails_02f6ec2213 FOREIGN KEY (nature_id) REFERENCES payslip_natures(id);
 
 
 --
 -- Name: parcel_items fk_rails_10aa40af5e; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.parcel_items
-    ADD CONSTRAINT fk_rails_10aa40af5e FOREIGN KEY (purchase_order_to_close_id) REFERENCES public.purchases(id);
+ALTER TABLE ONLY parcel_items
+    ADD CONSTRAINT fk_rails_10aa40af5e FOREIGN KEY (purchase_order_to_close_id) REFERENCES purchases(id);
 
 
 --
 -- Name: outgoing_payments fk_rails_15244a5c09; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.outgoing_payments
-    ADD CONSTRAINT fk_rails_15244a5c09 FOREIGN KEY (mode_id) REFERENCES public.outgoing_payment_modes(id) ON DELETE RESTRICT;
+ALTER TABLE ONLY outgoing_payments
+    ADD CONSTRAINT fk_rails_15244a5c09 FOREIGN KEY (mode_id) REFERENCES outgoing_payment_modes(id) ON DELETE RESTRICT;
 
 
 --
 -- Name: parcel_item_storings fk_rails_182d7ce6a7; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.parcel_item_storings
-    ADD CONSTRAINT fk_rails_182d7ce6a7 FOREIGN KEY (product_id) REFERENCES public.products(id);
+ALTER TABLE ONLY parcel_item_storings
+    ADD CONSTRAINT fk_rails_182d7ce6a7 FOREIGN KEY (product_id) REFERENCES products(id);
 
 
 --
 -- Name: outgoing_payments fk_rails_1facec8a15; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.outgoing_payments
-    ADD CONSTRAINT fk_rails_1facec8a15 FOREIGN KEY (list_id) REFERENCES public.outgoing_payment_lists(id);
+ALTER TABLE ONLY outgoing_payments
+    ADD CONSTRAINT fk_rails_1facec8a15 FOREIGN KEY (list_id) REFERENCES outgoing_payment_lists(id);
 
 
 --
 -- Name: outgoing_payments fk_rails_214eda6f83; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.outgoing_payments
-    ADD CONSTRAINT fk_rails_214eda6f83 FOREIGN KEY (payee_id) REFERENCES public.entities(id) ON DELETE RESTRICT;
+ALTER TABLE ONLY outgoing_payments
+    ADD CONSTRAINT fk_rails_214eda6f83 FOREIGN KEY (payee_id) REFERENCES entities(id) ON DELETE RESTRICT;
 
 
 --
 -- Name: journal_entry_items fk_rails_3143e6e260; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.journal_entry_items
-    ADD CONSTRAINT fk_rails_3143e6e260 FOREIGN KEY (variant_id) REFERENCES public.product_nature_variants(id);
+ALTER TABLE ONLY journal_entry_items
+    ADD CONSTRAINT fk_rails_3143e6e260 FOREIGN KEY (variant_id) REFERENCES product_nature_variants(id);
 
 
 --
 -- Name: parcel_items fk_rails_41a9d1c170; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.parcel_items
-    ADD CONSTRAINT fk_rails_41a9d1c170 FOREIGN KEY (project_budget_id) REFERENCES public.project_budgets(id);
+ALTER TABLE ONLY parcel_items
+    ADD CONSTRAINT fk_rails_41a9d1c170 FOREIGN KEY (project_budget_id) REFERENCES project_budgets(id);
 
 
 --
 -- Name: crumbs fk_rails_434e943648; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.crumbs
-    ADD CONSTRAINT fk_rails_434e943648 FOREIGN KEY (intervention_participation_id) REFERENCES public.intervention_participations(id);
+ALTER TABLE ONLY crumbs
+    ADD CONSTRAINT fk_rails_434e943648 FOREIGN KEY (intervention_participation_id) REFERENCES intervention_participations(id);
 
 
 --
 -- Name: journal_entries fk_rails_5076105ec1; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.journal_entries
-    ADD CONSTRAINT fk_rails_5076105ec1 FOREIGN KEY (financial_year_exchange_id) REFERENCES public.financial_year_exchanges(id) ON UPDATE CASCADE ON DELETE SET NULL;
+ALTER TABLE ONLY journal_entries
+    ADD CONSTRAINT fk_rails_5076105ec1 FOREIGN KEY (financial_year_exchange_id) REFERENCES financial_year_exchanges(id) ON UPDATE CASCADE ON DELETE SET NULL;
 
 
 --
 -- Name: tax_declaration_item_parts fk_rails_5be0cd019c; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.tax_declaration_item_parts
-    ADD CONSTRAINT fk_rails_5be0cd019c FOREIGN KEY (account_id) REFERENCES public.accounts(id);
+ALTER TABLE ONLY tax_declaration_item_parts
+    ADD CONSTRAINT fk_rails_5be0cd019c FOREIGN KEY (account_id) REFERENCES accounts(id);
 
 
 --
 -- Name: products fk_rails_5e587cedec; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.products
-    ADD CONSTRAINT fk_rails_5e587cedec FOREIGN KEY (activity_production_id) REFERENCES public.activity_productions(id);
+ALTER TABLE ONLY products
+    ADD CONSTRAINT fk_rails_5e587cedec FOREIGN KEY (activity_production_id) REFERENCES activity_productions(id);
 
 
 --
 -- Name: purchase_items fk_rails_62e7d4b959; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.purchase_items
-    ADD CONSTRAINT fk_rails_62e7d4b959 FOREIGN KEY (project_budget_id) REFERENCES public.project_budgets(id);
+ALTER TABLE ONLY purchase_items
+    ADD CONSTRAINT fk_rails_62e7d4b959 FOREIGN KEY (project_budget_id) REFERENCES project_budgets(id);
 
 
 --
 -- Name: payslip_natures fk_rails_6835dfa420; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.payslip_natures
-    ADD CONSTRAINT fk_rails_6835dfa420 FOREIGN KEY (account_id) REFERENCES public.accounts(id);
+ALTER TABLE ONLY payslip_natures
+    ADD CONSTRAINT fk_rails_6835dfa420 FOREIGN KEY (account_id) REFERENCES accounts(id);
 
 
 --
 -- Name: parcel_items fk_rails_7010820bb4; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.parcel_items
-    ADD CONSTRAINT fk_rails_7010820bb4 FOREIGN KEY (purchase_order_item_id) REFERENCES public.purchase_items(id);
+ALTER TABLE ONLY parcel_items
+    ADD CONSTRAINT fk_rails_7010820bb4 FOREIGN KEY (purchase_order_item_id) REFERENCES purchase_items(id);
 
 
 --
 -- Name: interventions fk_rails_76eca6ee87; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.interventions
-    ADD CONSTRAINT fk_rails_76eca6ee87 FOREIGN KEY (purchase_id) REFERENCES public.purchases(id);
+ALTER TABLE ONLY interventions
+    ADD CONSTRAINT fk_rails_76eca6ee87 FOREIGN KEY (purchase_id) REFERENCES purchases(id);
 
 
 --
 -- Name: alert_phases fk_rails_7a9749733c; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.alert_phases
-    ADD CONSTRAINT fk_rails_7a9749733c FOREIGN KEY (alert_id) REFERENCES public.alerts(id);
+ALTER TABLE ONLY alert_phases
+    ADD CONSTRAINT fk_rails_7a9749733c FOREIGN KEY (alert_id) REFERENCES alerts(id);
 
 
 --
 -- Name: regularizations fk_rails_8043b7d279; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.regularizations
-    ADD CONSTRAINT fk_rails_8043b7d279 FOREIGN KEY (affair_id) REFERENCES public.affairs(id);
+ALTER TABLE ONLY regularizations
+    ADD CONSTRAINT fk_rails_8043b7d279 FOREIGN KEY (affair_id) REFERENCES affairs(id);
 
 
 --
 -- Name: payslip_natures fk_rails_82e76fb89d; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.payslip_natures
-    ADD CONSTRAINT fk_rails_82e76fb89d FOREIGN KEY (journal_id) REFERENCES public.journals(id);
+ALTER TABLE ONLY payslip_natures
+    ADD CONSTRAINT fk_rails_82e76fb89d FOREIGN KEY (journal_id) REFERENCES journals(id);
 
 
 --
 -- Name: intervention_participations fk_rails_930f08f448; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.intervention_participations
-    ADD CONSTRAINT fk_rails_930f08f448 FOREIGN KEY (intervention_id) REFERENCES public.interventions(id);
+ALTER TABLE ONLY intervention_participations
+    ADD CONSTRAINT fk_rails_930f08f448 FOREIGN KEY (intervention_id) REFERENCES interventions(id);
 
 
 --
 -- Name: tax_declaration_item_parts fk_rails_9d08cd4dc8; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.tax_declaration_item_parts
-    ADD CONSTRAINT fk_rails_9d08cd4dc8 FOREIGN KEY (tax_declaration_item_id) REFERENCES public.tax_declaration_items(id);
+ALTER TABLE ONLY tax_declaration_item_parts
+    ADD CONSTRAINT fk_rails_9d08cd4dc8 FOREIGN KEY (tax_declaration_item_id) REFERENCES tax_declaration_items(id);
 
 
 --
 -- Name: alerts fk_rails_a31061effa; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.alerts
-    ADD CONSTRAINT fk_rails_a31061effa FOREIGN KEY (sensor_id) REFERENCES public.sensors(id);
+ALTER TABLE ONLY alerts
+    ADD CONSTRAINT fk_rails_a31061effa FOREIGN KEY (sensor_id) REFERENCES sensors(id);
 
 
 --
 -- Name: intervention_working_periods fk_rails_a9b45798a3; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.intervention_working_periods
-    ADD CONSTRAINT fk_rails_a9b45798a3 FOREIGN KEY (intervention_participation_id) REFERENCES public.intervention_participations(id);
+ALTER TABLE ONLY intervention_working_periods
+    ADD CONSTRAINT fk_rails_a9b45798a3 FOREIGN KEY (intervention_participation_id) REFERENCES intervention_participations(id);
 
 
 --
 -- Name: payslips fk_rails_ac1b8c6e79; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.payslips
-    ADD CONSTRAINT fk_rails_ac1b8c6e79 FOREIGN KEY (account_id) REFERENCES public.accounts(id);
+ALTER TABLE ONLY payslips
+    ADD CONSTRAINT fk_rails_ac1b8c6e79 FOREIGN KEY (account_id) REFERENCES accounts(id);
 
 
 --
 -- Name: tax_declaration_item_parts fk_rails_adb1cc875c; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.tax_declaration_item_parts
-    ADD CONSTRAINT fk_rails_adb1cc875c FOREIGN KEY (journal_entry_item_id) REFERENCES public.journal_entry_items(id);
+ALTER TABLE ONLY tax_declaration_item_parts
+    ADD CONSTRAINT fk_rails_adb1cc875c FOREIGN KEY (journal_entry_item_id) REFERENCES journal_entry_items(id);
 
 
 --
 -- Name: financial_years fk_rails_b170b89c1e; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.financial_years
-    ADD CONSTRAINT fk_rails_b170b89c1e FOREIGN KEY (accountant_id) REFERENCES public.entities(id);
+ALTER TABLE ONLY financial_years
+    ADD CONSTRAINT fk_rails_b170b89c1e FOREIGN KEY (accountant_id) REFERENCES entities(id);
 
 
 --
 -- Name: journals fk_rails_be4d04c726; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.journals
-    ADD CONSTRAINT fk_rails_be4d04c726 FOREIGN KEY (accountant_id) REFERENCES public.entities(id);
+ALTER TABLE ONLY journals
+    ADD CONSTRAINT fk_rails_be4d04c726 FOREIGN KEY (accountant_id) REFERENCES entities(id);
 
 
 --
 -- Name: payslips fk_rails_c0e66eeaff; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.payslips
-    ADD CONSTRAINT fk_rails_c0e66eeaff FOREIGN KEY (employee_id) REFERENCES public.entities(id);
+ALTER TABLE ONLY payslips
+    ADD CONSTRAINT fk_rails_c0e66eeaff FOREIGN KEY (employee_id) REFERENCES entities(id);
 
 
 --
 -- Name: payslips fk_rails_c3bf0a90b6; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.payslips
-    ADD CONSTRAINT fk_rails_c3bf0a90b6 FOREIGN KEY (affair_id) REFERENCES public.affairs(id);
+ALTER TABLE ONLY payslips
+    ADD CONSTRAINT fk_rails_c3bf0a90b6 FOREIGN KEY (affair_id) REFERENCES affairs(id);
 
 
 --
 -- Name: parcels fk_rails_c4b289405e; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.parcels
-    ADD CONSTRAINT fk_rails_c4b289405e FOREIGN KEY (intervention_id) REFERENCES public.interventions(id);
+ALTER TABLE ONLY parcels
+    ADD CONSTRAINT fk_rails_c4b289405e FOREIGN KEY (intervention_id) REFERENCES interventions(id);
 
 
 --
 -- Name: regularizations fk_rails_ca9854019b; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.regularizations
-    ADD CONSTRAINT fk_rails_ca9854019b FOREIGN KEY (journal_entry_id) REFERENCES public.journal_entries(id);
+ALTER TABLE ONLY regularizations
+    ADD CONSTRAINT fk_rails_ca9854019b FOREIGN KEY (journal_entry_id) REFERENCES journal_entries(id);
 
 
 --
 -- Name: payslips fk_rails_e319c31e6b; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.payslips
-    ADD CONSTRAINT fk_rails_e319c31e6b FOREIGN KEY (journal_entry_id) REFERENCES public.journal_entries(id);
+ALTER TABLE ONLY payslips
+    ADD CONSTRAINT fk_rails_e319c31e6b FOREIGN KEY (journal_entry_id) REFERENCES journal_entries(id);
 
 
 --
 -- Name: intervention_participations fk_rails_e81467e70f; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.intervention_participations
-    ADD CONSTRAINT fk_rails_e81467e70f FOREIGN KEY (product_id) REFERENCES public.products(id);
+ALTER TABLE ONLY intervention_participations
+    ADD CONSTRAINT fk_rails_e81467e70f FOREIGN KEY (product_id) REFERENCES products(id);
 
 
 --
 -- Name: outgoing_payments fk_rails_ee973f6d0f; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.outgoing_payments
-    ADD CONSTRAINT fk_rails_ee973f6d0f FOREIGN KEY (journal_entry_id) REFERENCES public.journal_entries(id);
+ALTER TABLE ONLY outgoing_payments
+    ADD CONSTRAINT fk_rails_ee973f6d0f FOREIGN KEY (journal_entry_id) REFERENCES journal_entries(id);
 
 
 --
 -- Name: financial_year_exchanges fk_rails_f0120f1957; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.financial_year_exchanges
-    ADD CONSTRAINT fk_rails_f0120f1957 FOREIGN KEY (financial_year_id) REFERENCES public.financial_years(id) ON UPDATE CASCADE ON DELETE CASCADE;
+ALTER TABLE ONLY financial_year_exchanges
+    ADD CONSTRAINT fk_rails_f0120f1957 FOREIGN KEY (financial_year_id) REFERENCES financial_years(id) ON UPDATE CASCADE ON DELETE CASCADE;
 
 
 --
 -- Name: journal_entry_items fk_rails_f46de3d8ed; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.journal_entry_items
-    ADD CONSTRAINT fk_rails_f46de3d8ed FOREIGN KEY (project_budget_id) REFERENCES public.project_budgets(id);
+ALTER TABLE ONLY journal_entry_items
+    ADD CONSTRAINT fk_rails_f46de3d8ed FOREIGN KEY (project_budget_id) REFERENCES project_budgets(id);
 
 
 --
 -- Name: cap_neutral_areas fk_rails_f9fd6a9e09; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.cap_neutral_areas
-    ADD CONSTRAINT fk_rails_f9fd6a9e09 FOREIGN KEY (cap_statement_id) REFERENCES public.cap_statements(id);
+ALTER TABLE ONLY cap_neutral_areas
+    ADD CONSTRAINT fk_rails_f9fd6a9e09 FOREIGN KEY (cap_statement_id) REFERENCES cap_statements(id);
 
 
 --

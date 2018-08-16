@@ -12,7 +12,7 @@ namespace :maintenance do
         doers_without_participations = InterventionDoer.with_empty_participations
 
         Interventions::Participations::FillEmptyParticipationsInteractor
-          .call({ intervention_agents: doers_without_participations })
+          .call(intervention_agents: doers_without_participations)
       end
     end
 
@@ -24,7 +24,7 @@ namespace :maintenance do
 
       puts "Switch to tenant #{tenant}"
       Ekylibre::Tenant.switch(tenant) do
-        puts "Interventions without participations: #{ InterventionDoer.with_empty_participations.count }"
+        puts "Interventions without participations: #{InterventionDoer.with_empty_participations.count}"
       end
     end
   end

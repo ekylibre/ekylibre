@@ -20,11 +20,6 @@ spa:
     doer_cost: "Costo hacedor"
     doer_name: "Nombre del hacedor"
     doers_name: "Nombre hacedores"
-    tools_name: "nombre de herramientas"
-    targets_name: "Nombre de destino"
-    support_irrigated: "Apoyo irrigado"
-    support_nitrate_fixing: "Soporte fijación de Nitrato"
-    total_cost_per_area: "costo total por área"
     duration_in_hour: "Duración en horas"
     ede_cattling_number: "Número cattling Ede"
     ede_owner_number: "Número propietario Ede"
@@ -99,7 +94,12 @@ spa:
     stock_production: "De la producción" #?
     stocks_variation: "Variación de las existencias" #?
     subsidies: "Subsidios" #?
+    support_irrigated: "Apoyo irrigado" #?
+    support_nitrate_fixing: "Soporte fijación de Nitrato" #?
     target_name: "Nombre del Destinatario" #?
+    targets_name: "Nombre de destino"
+    tools_name: "nombre de herramientas"
+    total_cost_per_area: "costo total por área" #?
     variable_name: "Nombre de la variable" #?
     variant_name: "Nombre variante"
     variant_variety: "Variedad variante" #?

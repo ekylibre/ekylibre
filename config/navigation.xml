@@ -16,11 +16,8 @@
         <page to="backend/entities#list_issues"/>
         <page to="backend/entities#list_links"/>
         <page to="backend/entities#list_contracts"/>
-        <page to="backend/entities#list_incoming_parcels" nonexistent="true"/>
-        <page to="backend/entities#list_outgoing_parcels" nonexistent="true"/>
         <page to="backend/entities#list_observations"/>
         <page to="backend/entities#list_purchase_payments"/>
-        <page to="backend/entities#list_purchases" nonexistent="true"/>
         <page to="backend/entities#list_sale_opportunities"/>
         <page to="backend/entities#list_sales"/>
         <page to="backend/entities#list_subscriptions"/>
@@ -281,7 +278,6 @@
         <page to="backend/sales#invoice"/>
         <page to="backend/sales#list"/>
         <page to="backend/sales#list_credits"/>
-        <page to="backend/sales#list_parcels" nonexistent="true"/>
         <page to="backend/sales#list_items"/>
         <page to="backend/sales#list_subscriptions"/>
         <page to="backend/sales#list_undelivered_items"/>
@@ -424,7 +420,6 @@
         <page to="backend/purchase_invoices#edit"/>
         <page to="backend/purchase_invoices#list"/>
         <page to="backend/purchase_invoices#list_items"/>
-        <page to="backend/purchase_invoices#list_parcels" nonexistent="true"/>
         <page to="backend/purchase_invoices#new"/>
         <page to="backend/purchase_invoices#pay"/>
         <page to="backend/purchase_invoices#payment_mode"/>
@@ -488,7 +483,6 @@
         <page to="backend/matters#list_groups"/>
         <page to="backend/matters#list_readings"/>
         <page to="backend/matters#list_intervention_product_parameters"/>
-        <page to="backend/matters#list_parcel_items" nonexistent="true"/>
         <page to="backend/matters#list_issues"/>
         <page to="backend/matters#list_members"/>
         <page to="backend/matters#list_places"/>
@@ -516,7 +510,6 @@
         <page to="backend/products#list_readings"/>
         <page to="backend/products#list_fixed_assets"/>
         <page to="backend/products#list_intervention_product_parameters"/>
-        <page to="backend/products#list_parcel_items" nonexistent="true"/>
         <page to="backend/products#list_members"/>
         <page to="backend/products#list_places"/>
         <page to="backend/products#list_carried_linkages"/>
@@ -538,7 +531,6 @@
         <page to="backend/product_groups#list_contained_products"/>
         <page to="backend/product_groups#list_fixed_assets"/>
         <page to="backend/product_groups#list_inspections"/>
-        <page to="backend/product_groups#list_parcel_items" nonexistent="true"/>
         <page to="backend/product_groups#list_groups"/>
         <page to="backend/product_groups#list_readings"/>
         <page to="backend/product_groups#list_intervention_product_parameters"/>
@@ -593,18 +585,12 @@
         <page to="backend/receptions#create"/>
         <page to="backend/receptions#destroy"/>
         <page to="backend/receptions#edit"/>
-        <page to="backend/receptions#invoice" nonexistent="true"/>
         <page to="backend/receptions#list"/>
         <page to="backend/receptions#new"/>
-        <page to="backend/receptions#ship" nonexistent="true"/>
         <page to="backend/receptions#show"/>
         <page to="backend/receptions#unroll"/>
         <page to="backend/receptions#update"/>
-        <page to="backend/receptions#cancel" nonexistent="true"/>
-        <page to="backend/receptions#check" nonexistent="true"/>
         <page to="backend/receptions#give"/>
-        <page to="backend/receptions#order" nonexistent="true"/>
-        <page to="backend/receptions#prepare" nonexistent="true"/>
         <page to="backend/receptions#list_items"/>
       </item>
     </group>
@@ -614,7 +600,6 @@
         <page to="backend/shipments#create"/>
         <page to="backend/shipments#destroy"/>
         <page to="backend/shipments#edit"/>
-        <page to="backend/shipments#invoice" nonexistent="true"/>
         <page to="backend/shipments#list"/>
         <page to="backend/shipments#new"/>
         <page to="backend/shipments#ship"/>
@@ -664,7 +649,6 @@
         <page to="backend/activities#family"/>
         <page to="backend/activities#list"/>
         <page to="backend/activities#list_distributions"/>
-        <page to="backend/activities#list_inspections" nonexistent="true"/>
         <page to="backend/activities#list_productions"/>
         <page to="backend/activities#new"/>
         <page to="backend/activities#show"/>
@@ -739,7 +723,6 @@
         <page to="backend/fungi#list_fixed_assets"/>
         <page to="backend/fungi#list_groups"/>
         <page to="backend/fungi#list_intervention_product_parameters"/>
-        <page to="backend/fungi#list_parcel_items" nonexistent="true"/>
         <page to="backend/fungi#list_issues"/>
         <page to="backend/fungi#list_members"/>
         <page to="backend/fungi#list_places"/>
@@ -876,7 +859,6 @@
         <page to="backend/land_parcels#edit_many"/>
         <page to="backend/land_parcels#update_many"/>
         <page to="backend/land_parcels#list_carried_linkages"/>
-        <page to="backend/land_parcels#list_parcel_items" nonexistent="true"/>
         <page to="backend/land_parcels#list_carrier_linkages"/>
         <page to="backend/land_parcels#list_contained_products"/>
         <page to="backend/land_parcels#list_inspections"/>
@@ -908,7 +890,6 @@
         <page to="backend/plants#list_fixed_assets"/>
         <page to="backend/plants#list_groups"/>
         <page to="backend/plants#list_inspections"/>
-        <page to="backend/plants#list_parcel_items" nonexistent="true"/>
         <page to="backend/plants#list_plant_countings"/>
         <page to="backend/plants#list_readings"/>
         <page to="backend/plants#list_intervention_product_parameters"/>
@@ -947,7 +928,6 @@
         <page to="backend/animals#edit_many"/>
         <page to="backend/animals#update_many"/>
         <page to="backend/animals#picture"/>
-        <page to="backend/animals#list_parcel_items" nonexistent="true"/>
         <page to="backend/animals#list_contained_products"/>
         <page to="backend/animals#list_inspections"/>
         <page to="backend/animals#list_groups"/>
@@ -986,7 +966,6 @@
         <page to="backend/animal_groups#list_intervention_product_parameters"/>
         <page to="backend/animal_groups#list_issues"/>
         <page to="backend/animal_groups#list_members"/>
-        <page to="backend/animal_groups#list_parcel_items" nonexistent="true"/>
         <page to="backend/animal_groups#list_readings"/>
         <page to="backend/animal_groups#list_trackings"/>
         <page to="backend/animal_groups#list_fixed_assets"/>
@@ -1602,7 +1581,6 @@
         <page to="backend/workers#list_readings"/>
         <page to="backend/workers#list_intervention_product_parameters"/>
         <page to="backend/workers#list_issues"/>
-        <page to="backend/workers#list_parcel_items" nonexistent="true"/>
         <page to="backend/workers#list_members"/>
         <page to="backend/workers#list_places"/>
         <page to="backend/workers#list_trackings"/>
@@ -1624,7 +1602,6 @@
         <page to="backend/equipments#update"/>
         <page to="backend/equipments#edit_many"/>
         <page to="backend/equipments#update_many"/>
-        <page to="backend/equipments#list_parcel_items" nonexistent="true"/>
         <page to="backend/equipments#list_contained_products"/>
         <page to="backend/equipments#list_inspections"/>
         <page to="backend/equipments#list_fixed_assets"/>
@@ -1657,7 +1634,6 @@
         <page to="backend/buildings#list_inspections"/>
         <page to="backend/buildings#list_groups"/>
         <page to="backend/buildings#list_issues"/>
-        <page to="backend/buildings#list_parcel_items" nonexistent="true"/>
         <page to="backend/buildings#list_readings"/>
         <page to="backend/buildings#list_intervention_product_parameters"/>
         <page to="backend/buildings#list_members"/>
@@ -1685,7 +1661,6 @@
         <page to="backend/building_divisions#list_groups"/>
         <page to="backend/building_divisions#list_issues"/>
         <page to="backend/building_divisions#list_readings"/>
-        <page to="backend/building_divisions#list_parcel_items" nonexistent="true"/>
         <page to="backend/building_divisions#list_intervention_product_parameters"/>
         <page to="backend/building_divisions#list_members"/>
         <page to="backend/building_divisions#list_places"/>
@@ -1711,7 +1686,6 @@
         <page to="backend/settlements#list_intervention_product_parameters"/>
         <page to="backend/settlements#list_issues"/>
         <page to="backend/settlements#list_members"/>
-        <page to="backend/settlements#list_parcel_items" nonexistent="true"/>
         <page to="backend/settlements#list_places"/>
         <page to="backend/settlements#list_trackings"/>
         <page to="backend/settlements#picture"/>
@@ -1967,10 +1941,6 @@
       <item name="guide_evolution_cells">
         <page to="backend/cells/guide_evolution_cells#show"/>
       </item>
-      <item name="last_purchases_cells">
-        <page to="backend/cells/last_purchases_cells#list" nonexistent="true"/>
-        <page to="backend/cells/last_purchases_cells#show" nonexistent="true"/>
-      </item>
       <item name="last_sales_cells">
         <page to="backend/cells/last_sales_cells#list"/>
         <page to="backend/cells/last_sales_cells#show"/>
@@ -2097,29 +2067,10 @@
         <page to="backend/outgoing_payments#unroll"/>
         <page to="backend/outgoing_payments#update"/>
       </item>
-      <group>
-        <item name="parcels">
-          <page to="backend/parcels#index" nonexistent="true"/>
-          <page to="backend/parcels#cancel" nonexistent="true"/>
-          <page to="backend/parcels#check" nonexistent="true"/>
-          <page to="backend/parcels#give" nonexistent="true"/>
-          <page to="backend/parcels#invoice" nonexistent="true"/>
-          <page to="backend/parcels#new" nonexistent="true"/>
-          <page to="backend/parcels#order" nonexistent="true"/>
-          <page to="backend/parcels#prepare" nonexistent="true"/>
-          <page to="backend/parcels#ship" nonexistent="true"/>
-          <page to="backend/parcels#show" nonexistent="true"/>
-        </item>
-      </group>
     </group>
     <group>
       <item name="preferences">
         <page to="backend/preferences#update"/>
-      </item>
-      <item name="purchases">
-        <page to="backend/purchases#create" nonexistent="true"/>
-        <page to="backend/purchases#new" nonexistent="true"/>
-        <page to="backend/purchases#show" nonexistent="true"/>
       </item>
       <item name="unreceived_purchase_orders">
         <page to="backend/unreceived_purchase_orders#show"/>
@@ -2127,18 +2078,6 @@
       </item>
     </group>
     <group>
-      <item name="parcels">
-        <page to="backend/parcels#index" nonexistent="true"/>
-        <page to="backend/parcels#cancel" nonexistent="true"/>
-        <page to="backend/parcels#check" nonexistent="true"/>
-        <page to="backend/parcels#give" nonexistent="true"/>
-        <page to="backend/parcels#invoice" nonexistent="true"/>
-        <page to="backend/parcels#new" nonexistent="true"/>
-        <page to="backend/parcels#order" nonexistent="true"/>
-        <page to="backend/parcels#prepare" nonexistent="true"/>
-        <page to="backend/parcels#ship" nonexistent="true"/>
-        <page to="backend/parcels#show" nonexistent="true"/>
-      </item>
       <item name="production_cost_cobbles">
         <page to="backend/cobbles/production_cost_cobbles#show"/>
         <page to="backend/cobbles/stock_in_ground_cobbles#show"/>

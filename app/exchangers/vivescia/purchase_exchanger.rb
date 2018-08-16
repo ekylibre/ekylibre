@@ -114,11 +114,11 @@ module Vivescia
                 end
               end
 
-              if edi_purchase_item.tax
-                item = Nomen::Tax.find_by(country: purchase.supplier.country.to_sym, amount: edi_purchase_item.tax.rate.to_f)
-              else
-                item = Nomen::Tax.find_by(country: purchase.supplier.country.to_sym, nature: :null_vat, amount: 0.0)
-              end
+              item = if edi_purchase_item.tax
+                       Nomen::Tax.find_by(country: purchase.supplier.country.to_sym, amount: edi_purchase_item.tax.rate.to_f)
+                     else
+                       Nomen::Tax.find_by(country: purchase.supplier.country.to_sym, nature: :null_vat, amount: 0.0)
+                     end
               tax = Tax.import_from_nomenclature(item.name)
 
               next unless tax && product_nature_variant
@@ -218,23 +218,23 @@ module Vivescia
                 end
               end
 
-              if edi_sale_item.tax
-                item = Nomen::Tax.find_by(country: sale.client.country.to_sym, amount: edi_sale_item.tax.rate.to_f)
-              else
-                item = Nomen::Tax.find_by(country: sale.client.country.to_sym, nature: :null_vat, amount: 0.0)
-              end
+              item = if edi_sale_item.tax
+                       Nomen::Tax.find_by(country: sale.client.country.to_sym, amount: edi_sale_item.tax.rate.to_f)
+                     else
+                       Nomen::Tax.find_by(country: sale.client.country.to_sym, nature: :null_vat, amount: 0.0)
+                     end
               tax = Tax.import_from_nomenclature(item.name)
 
               # set unit_pretax_amount in correct sign
               if edi_sale_item.sign && edi_sale_item.sign == 'A'
-                      upta = -edi_sale_item.price_unit
-                      pta = -edi_sale_item.pretax_amount
-                     elsif edi_sale_item.client_work_number_type && (edi_sale_item.client_work_number_type == 'TA' || edi_sale_item.client_work_number_type == 'TC')
-                       upta = -edi_sale_item.price_unit
-                       pta = -edi_sale_item.pretax_amount
-                     else
-                       upta = edi_sale_item.price_unit
-                       pta = edi_sale_item.pretax_amount
+                upta = -edi_sale_item.price_unit
+                pta = -edi_sale_item.pretax_amount
+              elsif edi_sale_item.client_work_number_type && (edi_sale_item.client_work_number_type == 'TA' || edi_sale_item.client_work_number_type == 'TC')
+                upta = -edi_sale_item.price_unit
+                pta = -edi_sale_item.pretax_amount
+              else
+                upta = edi_sale_item.price_unit
+                pta = edi_sale_item.pretax_amount
                      end
 
               if edi_sale_item.quantity > 0.0
@@ -249,9 +249,7 @@ module Vivescia
               # check good quantity on EDI based on pretax_amount
               a = (qty * upta).abs
               b = pta.abs
-              if a.to_i != b.to_i
-                qty = (pta / upta).abs
-              end
+              qty = (pta / upta).abs if a.to_i != b.to_i
 
               next if sale_item = SaleItem.where(
                 sale_id: sale.id,
@@ -269,9 +267,9 @@ module Vivescia
               )
             end
             # sale.reload
-            #sale.propose if sale.draft?
-            #sale.confirm
-            #sale.invoice(sale.invoiced_at)
+            # sale.propose if sale.draft?
+            # sale.confirm
+            # sale.invoice(sale.invoiced_at)
 
           end
 

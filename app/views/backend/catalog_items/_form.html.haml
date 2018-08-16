@@ -7,7 +7,7 @@
     - if price_label_with_taxes
       %span.add-on= :unit_price_amount_with_taxes.tl
     - else
-      %span.add-on= :unit_price_amount.tl  
+      %span.add-on= :unit_price_amount.tl
   - if price_label_with_taxes
     = f.referenced_association :reference_tax
   = f.input :commercial_name

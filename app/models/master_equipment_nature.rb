@@ -24,6 +24,7 @@
 #
 #  id                          :integer          not null, primary key
 #  main_frozen_indicator_name  :string
+#  main_frozen_indicator_unit  :string
 #  name                        :jsonb
 #  nature                      :string           not null
 #  other_frozen_indicator_name :string

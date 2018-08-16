@@ -18,7 +18,7 @@ class CreateNamingFormatTable < ActiveRecord::Migration
 
   def create_default_land_parcel_naming
     locale = Entity.of_company.language.to_sym
-    #FIXME put in Nomenclature
+    # FIXME: put in Nomenclature
     locale ||= :fra
 
     NamingFormatLandParcel.create(
