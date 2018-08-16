@@ -106,16 +106,6 @@ gem 'draper'
 gem 'loofah' # , group: :production
 gem 'unicorn' # , group: :production
 
-# Use Capistrano for deployment
-group :development do
-  gem 'capistrano', '3.9.1'
-  gem 'capistrano-bundler', require: false
-  gem 'capistrano-git-with-submodules', '~> 2.0'
-  gem 'capistrano-rails', require: false
-  gem 'capistrano-rails-console', require: false
-  gem 'capistrano-rbenv', require: false
-end
-
 # Exception management
 gem 'exception_notification'
 
@@ -275,7 +265,7 @@ group :test do
 end
 
 # Load Gemfile.local, Gemfile.plugins, plugins', and custom Gemfiles
-gemfiles = Dir.glob File.expand_path('../{Gemfile.local,Gemfile.dev,Gemfile.plugins,plugins/*/Gemfile}', __FILE__)
+gemfiles = Dir.glob File.expand_path('../{Gemfile.local,Gemfile.plugins,plugins/*/Gemfile}', __FILE__)
 gemfiles << ENV['CUSTOM_PLUGIN_GEMFILE'] unless ENV['CUSTOM_PLUGIN_GEMFILE'].nil?
 gemfiles.each do |file|
   next unless File.readable?(file)
