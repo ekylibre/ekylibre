@@ -50,6 +50,12 @@
             today: 'icon icon-screenshot'
             clear: 'icon icon-trash'
             close: 'icon icon-remove'
+          tooltips:
+            selectMonth:  I18n.translate('date.dateTooltipFormats.selectMonth')
+            incrementHour: I18n.translate('date.dateTooltipFormats.incrementHour')
+            incrementMinute: I18n.translate('date.dateTooltipFormats.incrementMinute')
+            decrementHour: I18n.translate('date.dateTooltipFormats.decrementHour')
+            decrementMinute: I18n.translate('date.dateTooltipFormats.decrementMinute')
           showClear: true
           showClose: true
           showTodayButton: true

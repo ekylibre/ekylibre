@@ -25,8 +25,8 @@
           <!-- looking for all ActivityProduction in current zone and campaign -->
           <sections for="support" in="zone.activity_productions.of_campaign(campaign)" of-type="record">
             <title name="support_name" of="support"/>
-            <property name="support_irrigated" value="support.irrigated"/>
-            <property name="support_nitrate_fixing" value="support.nitrate_fixing"/>
+            <property name="support_irrigated" value="support.irrigated.l"/>
+            <property name="support_nitrate_fixing" value="support.nitrate_fixing.l"/>
             <property name="support_nature" value="support.support_nature.l"/>
             <property name="support_variety" value="support.cultivation_variety.l"/>
             <property name="implanted_at" if="support.implanted_at" value="support.implanted_at" type="datetime"/>
@@ -44,11 +44,11 @@
             <property name="stopped_at" value="intervention.stopped_at" type="datetime"/>
             <property name="working_duration" if="intervention.working_duration" value="intervention.working_duration.in(:second).in(:hour).round(2).l" type="measure"/>
             <property name="working_zone_area" if="intervention.working_zone_area" value="intervention.working_zone_area.round(2).l" type="measure"/>
-            <property name="targets_name" value="intervention.human_target_names"/>
-            <property name="doers_name" value="intervention.human_doer_names"/>
-            <property name="tools_name" value="intervention.human_tool_names"/>
-            <property name="total_cost" value="intervention.total_cost"/>
-            <property name="total_cost_per_area" if="intervention.cost_per_area" value="intervention.cost_per_area"/>
+            <property name="targets_name" value="intervention.human_target_names.l"/>
+            <property name="doers_name" value="intervention.human_doer_names.l"/>
+            <property name="tools_name" value="intervention.human_tool_names.l"/>
+            <property name="total_cost" value="intervention.total_cost.round(2).l"/>
+            <property name="total_cost_per_area" if="intervention.cost_per_area" value="intervention.cost_per_area.round(2).l"/>
             <section name="issue" of="intervention.issue">
               <property name="id" level="api"/>
               <property name="nature"/>
