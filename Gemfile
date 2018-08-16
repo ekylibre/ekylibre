@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-# ruby '2.2.3'
+ruby '>= 2.2.3', '< 3.0.0'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.10'
@@ -9,7 +9,7 @@ gem 'rails', '4.2.10'
 gem 'mail', '~> 2.6.6.rc1'
 
 # Database adapters
-gem 'activerecord-postgis-adapter' # , '>= 3.0.0'
+gem 'activerecord-postgis-adapter', '>= 3.0.0'
 gem 'pg', '~> 0.20.0' # Needed for some tasks
 
 # Multi-tenancy
@@ -73,9 +73,8 @@ gem 'jbuilder', '~> 2.0'
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '~> 0.4.0', group: :doc
 # gem 'rails-api'
-# gem 'kaminari'
 
-gem 'rake', '~>12.0.0'
+gem 'rake', '~>12.0'
 
 # Freeze time for demo and/or tests
 gem 'timecop'
@@ -93,7 +92,7 @@ gem 'wice_grid' # , github: "leikind/wice_grid", branch: "rails3"
 
 # Background jobs
 gem 'sidekiq', '~> 4.0'
-gem 'sidekiq-cron', '>= 0.4.0'
+gem 'sidekiq-cron', '~> 0.6'
 gem 'sidekiq-unique-jobs', '~> 4.0'
 
 # Decorator pattern
@@ -103,8 +102,11 @@ gem 'draper'
 # gem 'bcrypt', '~> 3.1.7'
 
 # Use Unicorn as the app server
-gem 'loofah' # , group: :production
-gem 'unicorn' # , group: :production
+gem 'unicorn', group: :production
+gem 'loofah', group: :production
+
+# Use Capistrano for deployment
+# gem 'capistrano-rails', group: :development
 
 # Exception management
 gem 'exception_notification'
