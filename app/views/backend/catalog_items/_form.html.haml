@@ -1,3 +1,4 @@
+- f.object.catalog_id = params[:catalog_id] if f.object.new_record?
 - all_taxes_included = f.object.catalog.all_taxes_included
 = field_set do
   = f.association :catalog, as: :hidden
@@ -5,6 +6,7 @@
     %label.control-label= CatalogItem.human_attribute_name(:catalog)
     .controls
       %strong= f.object.catalog.name
+      = hidden_field_tag(:catalog_id, f.object.catalog)
   = f.referenced_association :variant
   = f.input(:amount, wrapper: :append) do
     = f.input_field :amount, as: :string, input_html: { pattern: "[0-9]+([\.][0-9]+)?" }
