@@ -206,7 +206,7 @@ class FinancialYear < Ekylibre::Record::Base
 
   def previous_consecutives?
     years = FinancialYear.select(:started_on, :stopped_on).where('started_on <= ?', started_on).order(:started_on)
-    years[1..-1].find.with_index { |year, index| year.started_on - years[index].stopped_on > 1 }.blank?
+    years.each_cons(2).all? { |previous_year, year| year.started_on == previous_year.stopped_on + 1.day }
   end
 
   def default_code
