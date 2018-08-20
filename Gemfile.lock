@@ -627,7 +627,7 @@ DEPENDENCIES
   ekylibre-ofx-parser
   enumerize
   exception_notification
-  factory_bot (~> 4.8.2)
+  factory_bot
   feedjira
   ffaker (>= 2.0.0)
   figaro

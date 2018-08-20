@@ -262,7 +262,7 @@ group :test do
 
   gem 'minitest-reporters'
 
-  gem 'factory_bot', '~> 4.8.2'
+  gem 'factory_bot'
 end
 
 # Load Gemfile.local, Gemfile.plugins, plugins', and custom Gemfiles
