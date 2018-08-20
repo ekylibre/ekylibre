@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :shipment do
     association :address, factory: :entity_address
     association :recipient, factory: :entity

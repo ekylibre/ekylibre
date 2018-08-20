@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :shipment_item do
     shipment
     association :variant, factory: :product_nature_variant

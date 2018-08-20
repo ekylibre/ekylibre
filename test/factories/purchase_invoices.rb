@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :purchase_invoice do
     association :affair, factory: :purchase_affair
     association :supplier, factory: %i[entity supplier]
