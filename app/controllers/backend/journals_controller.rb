@@ -137,12 +137,12 @@ module Backend
     def bookkeep
       params[:stopped_on] = begin
                               params[:stopped_on].to_date
-                            rescue StandardError
+                            rescue
                               Time.zone.today
                             end
       params[:started_on] = begin
                               params[:started_on].to_date
-                            rescue StandardError
+                            rescue
                               (params[:stopped_on] - 1.year).beginning_of_month
                             end
       @natures = %i[sale incoming_payment deposit purchase purchase_payment

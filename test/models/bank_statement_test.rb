@@ -52,7 +52,7 @@ class BankStatementTest < ActiveSupport::TestCase
     assert bank_statement.valid?, inspect_errors(bank_statement)
     bank_statement.initial_balance_debit = 5
     bank_statement.initial_balance_credit = 5
-    assert_not bank_statement.valid?, inspect_errors(bank_statement)
+    assert !bank_statement.valid?, inspect_errors(bank_statement)
   end
 
   test 'debit, credit and currency are computed during validations' do
@@ -119,7 +119,7 @@ class BankStatementTest < ActiveSupport::TestCase
         debit: nil,
         transfered_on: Date.parse('2016-05-11') }
     ]
-    assert_not bank_statement.save_with_items(new_invalid_items), inspect_errors(bank_statement)
+    assert !bank_statement.save_with_items(new_invalid_items), inspect_errors(bank_statement)
     bank_statement.reload
     assert_equal bank_statement_item_names.to_set, bank_statement.items.map(&:name).to_set
   end
@@ -377,7 +377,7 @@ class BankStatementTest < ActiveSupport::TestCase
   end
 
   def assert_not_lettered_by(operation)
-    assert_not operation
+    refute operation
     if @payment.journal_entry
       assert_empty @payment.journal_entry.items.pluck(:bank_statement_letter).uniq.compact
     end

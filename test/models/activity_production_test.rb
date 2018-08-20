@@ -58,11 +58,11 @@ class ActivityProductionTest < ActiveSupport::TestCase
     p = activity.productions.new(started_on: '2015-07-01', stopped_on: '2016-01-15', campaign: Campaign.of(2016), cultivable_zone: CultivableZone.first)
     assert p.save, p.errors.inspect
     p = activity.productions.new(started_on: '2015-07-01', stopped_on: '72016-01-15', campaign: Campaign.of(2016), cultivable_zone: CultivableZone.first)
-    assert_not p.save, p.errors.inspect
+    assert !p.save, p.errors.inspect
     p = activity.productions.new(started_on: '15-07-01', stopped_on: '2016-01-15', campaign: Campaign.of(2016), cultivable_zone: CultivableZone.first)
     assert p.save, p.errors.inspect
     p = activity.productions.new(started_on: '2017-07-01', stopped_on: '2016-01-15', campaign: Campaign.of(2016), cultivable_zone: CultivableZone.first)
-    assert_not p.save, p.errors.inspect
+    assert !p.save, p.errors.inspect
   end
 
   test 'harvest_yield returns a measure' do

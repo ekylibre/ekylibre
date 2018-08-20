@@ -5,7 +5,7 @@ module Backend
     class RssCellsController < Backend::Cells::BaseController
       def show
         @feed = Feedjira::Feed.fetch_and_parse(params[:url]) if params[:url]
-      rescue StandardError => e
+      rescue => e
         @error = :informations_feed_is_unreachable.tn(url: params[:url], message: e.message)
       end
     end

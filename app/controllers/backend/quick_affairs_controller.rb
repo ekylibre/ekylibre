@@ -47,7 +47,7 @@ module Backend
 
           @affair.attach @payment
         end
-      rescue StandardError
+      rescue
         notify_error :could_not_attach_x_or_y_to_affair.tl(trade: self.class::Trade.model_name.human, payment: self.class::Payment.model_name.human)
         @redirect_to = params[:redirect]
         return render :new

@@ -59,7 +59,7 @@ module Diagram
             references = attributes['references']
             next unless references
             next if references =~ /\A~/
-            if tables.key?(references.pluralize)
+            if tables.keys.include?(references.pluralize)
               graph.arrow(table_name + ':f' + index.to_s, references.pluralize + ':f999')
             end
           end

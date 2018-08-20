@@ -14,7 +14,7 @@ module TimeLineable
     before_validation do
       following_object = begin
                            following
-                         rescue StandardError
+                         rescue
                            nil
                          end
       if started_at && following_object

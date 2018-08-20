@@ -5,7 +5,7 @@ module Api
       def index
         last_synchro = begin
                          DateTime.parse(permitted_params[:last_synchro])
-                       rescue StandardError
+                       rescue
                          DateTime.new(1, 1, 1, 1, 1, 1).in_time_zone
                        end
 

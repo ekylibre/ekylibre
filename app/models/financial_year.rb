@@ -398,7 +398,7 @@ class FinancialYear < Ekylibre::Record::Base
         last_journal_entry.add_debit(name, depreciation.fixed_asset.expenses_account, depreciation.amount)
         # Allocation
         last_journal_entry.add_credit(name, depreciation.fixed_asset.allocation_account, depreciation.amount)
-        depreciation.update(journal_entry_id: last_journal_entry.id)
+        depreciation.update_attributes(journal_entry_id: last_journal_entry.id)
       end
     end
     self

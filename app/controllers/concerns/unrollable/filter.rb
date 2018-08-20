@@ -42,7 +42,7 @@ module Unrollable
     class << self
       def searchables_in(filters, controller)
         searchables = filters.select(&:searchable?)
-        searchables.presence || raise(<<-NO_SEARCHABLE_FILTERS)
+        searchables.blank? ? raise(<<-NO_SEARCHABLE_FILTERS) : searchables
           No searchable filters for #{controller}#unroll.
           Filters: #{filters.inspect}
           Columns: #{filters.map(&:column)}

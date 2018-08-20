@@ -109,6 +109,7 @@ module Procedo
         @procedure.parameters.reject { |v| v == self }
       end
 
+      #
       def handled?
         @handlers.any?
       end
@@ -138,7 +139,7 @@ module Procedo
           return nil unless candidates.any?
           return candidates.first if candidates.count == 1
           best = candidates.select { |h| h.unit.name.to_s == quantity.unit.to_s }
-          (best || candidates.first)
+          (best ? best : candidates.first)
         elsif quantity.is_a?(Numeric)
           candidates = handlers.select { |h| h.indicator.datatype == :decimal }
           return nil unless candidates.any?
@@ -323,7 +324,7 @@ module Procedo
 
         begin
           return Nomen::Variety[parameter_item] >= actor_item
-        rescue StandardError # manage the case when there is no item in nomenclature for the varieties to compare
+        rescue # manage the case when there is no item in nomenclature for the varieties to compare
           return false
         end
       end

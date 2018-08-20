@@ -17,7 +17,7 @@ module Ekylibre
         end
         @term_width = begin
                         `/usr/bin/env tput cols`.to_i
-                      rescue StandardError
+                      rescue
                         80
                       end
         @term_width = 80 unless @term_width > 0

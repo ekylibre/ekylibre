@@ -32,7 +32,7 @@ class OfxImport
     content = File.open(file.path, encoding: encoding).read
     @parsed = OfxParser::OfxParser.parse(content)
     true
-  rescue StandardError => error
+  rescue => error
     message = I18n.translate('activerecord.errors.models.bank_statement.ofx_file_invalid')
     @error = InvalidOfxFile.new(message)
     @internal_error = error
@@ -121,7 +121,7 @@ class OfxImport
   def save_bank_statement
     @bank_statement.save!
     true
-  rescue StandardError => error
+  rescue => error
     @error = error
     false
   end

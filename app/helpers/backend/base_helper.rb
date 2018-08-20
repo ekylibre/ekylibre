@@ -198,7 +198,7 @@ module Backend
       series = []
       now = (Time.zone.now + 7.days)
       window = 1.day
-      min = (resource.born_at || now - window)
+      min = (resource.born_at ? resource.born_at : now - window)
       min = now - window if (now - min) < window
       indicators.each do |indicator| # [:population, :nitrogen_concentration].collect{|i| Nomen::Indicator[i] }
         items = ProductReading.where(indicator_name: indicator.name, product: resource).where('? < read_at AND read_at < ?', min, now).order(:read_at)
@@ -223,7 +223,7 @@ module Backend
       series = []
       now = (Time.zone.now + 7.days)
       window = 1.day
-      min = (resource.born_at || now - window) - 7.days
+      min = (resource.born_at ? resource.born_at : now - window) - 7.days
       min = now - window if (now - min) < window
       if populations.any?
         data = []

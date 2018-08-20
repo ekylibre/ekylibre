@@ -11,7 +11,7 @@ module LelyMilkRobot
 
       begin
         rows = CSV.read(file, encoding: 'UTF-8', col_sep: ';', headers: true)
-      rescue StandardError
+      rescue
         raise NotWellFormedFileError
       end
       w.count = rows.size

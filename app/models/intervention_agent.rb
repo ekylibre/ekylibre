@@ -91,7 +91,7 @@ class InterventionAgent < InterventionProductParameter
         else
           product.variant.catalog_items.joins(:catalog).where('catalogs.usage': 'cost').first.catalog.usage
         end
-      rescue StandardError
+      rescue
         catalog_usage
       end
 

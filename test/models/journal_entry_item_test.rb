@@ -82,7 +82,7 @@ class JournalEntryItemTest < ActiveSupport::TestCase
     item.real_debit += 5
     assert item.valid?, item.inspect + "\n" + item.errors.full_messages.to_sentence
     item.real_credit += 17
-    assert_not item.valid?, item.inspect + "\n" + item.errors.full_messages.to_sentence
+    assert !item.valid?, item.inspect + "\n" + item.errors.full_messages.to_sentence
     item.real_debit = 0
     assert item.valid?, item.inspect + "\n" + item.errors.full_messages.to_sentence
   end
@@ -165,7 +165,7 @@ class JournalEntryItemTest < ActiveSupport::TestCase
         JournalEntryItem.new(account: Account.second, real_debit: 20, real_credit: 125, name: 'Yeah!')
       ]
     )
-    assert_not entry.save, entry.inspect + ":\n - " + entry.items.map(&:inspect).join("\n - ")
+    assert !entry.save, entry.inspect + ":\n - " + entry.items.map(&:inspect).join("\n - ")
   end
 
   test 'journal entry items pointed by a bank statement' do
@@ -236,6 +236,6 @@ class JournalEntryItemTest < ActiveSupport::TestCase
     create(:entity, employee_account_id: account.id)
     create(:entity, client_account_id: account.id)
     item = create(:journal_entry_item, account: account, financial_year: financial_year)
-    assert_not item.third_party
+    refute item.third_party
   end
 end

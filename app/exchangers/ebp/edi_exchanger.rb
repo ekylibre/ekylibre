@@ -6,7 +6,7 @@ module EBP
       File.open(file, 'rb:CP1252') do |f|
         header = begin
                    f.readline.strip
-                 rescue StandardError
+                 rescue
                    nil
                  end
         unless header == 'EBP.EDI'
@@ -24,7 +24,7 @@ module EBP
           loop do
             begin
               line = f.readline.delete("\n")
-            rescue StandardError
+            rescue
               break
             end
             unless FinancialYear.find_by(started_on: started_on, stopped_on: stopped_on)
@@ -37,7 +37,7 @@ module EBP
               end
             elsif line[0] == 'E'
               journal = Journal.create_with(name: line[3], nature: :various, closed_on: (started_on - 1.day).end_of_day).find_or_create_by!(code: line[3])
-              number = line[4].presence || '000000'
+              number = line[4].blank? ? '000000' : line[4]
               line[2] = Date.civil(line[2][4..7].to_i, line[2][2..3].to_i, line[2][0..1].to_i).to_datetime
               unless entries[number]
                 entries[number] = {

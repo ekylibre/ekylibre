@@ -21,8 +21,8 @@ module Nomen
       set.change_item(:vehicles, :race_car, parent: nil)
       set.add_nomenclature(:trailers)
 
-      assert_not set.nomenclature(:behicles)
-      assert_not set.nomenclature('behicles')
+      assert !set.nomenclature(:behicles)
+      assert !set.nomenclature('behicles')
       assert set.nomenclature(:vehicles)
       assert set.nomenclature('vehicles')
       assert set.item(:vehicles, :truck)

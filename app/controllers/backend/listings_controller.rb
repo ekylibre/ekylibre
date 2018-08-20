@@ -135,7 +135,7 @@ module Backend
           session[:mail] = params.dup
           session[:mail].delete(:attachment)
           texts = [params[:mail_subject], params[:mail_body]]
-          if attachment = params[:attachment].presence
+          if attachment = (params[:attachment].blank? ? nil : params[:attachment])
             # file = "#{Rails.root.to_s}/tmp/uploads/attachment_#{attachment.original_filename.gsub(/\W/,'_')}"
             # File.open(file, "wb") { |f| f.write(attachment.read)}
             attachment = { filename: attachment.original_filename, content_type: attachment.content_type, body: attachment.read.dup }

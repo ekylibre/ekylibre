@@ -36,7 +36,7 @@ module Ekylibre
         person = Entity.find_by(number: r.number) if r.number
         person ||= Entity.where('first_name ILIKE ? AND last_name ILIKE ?', r.first_name.strip, r.last_name.strip).first
         if person
-          person.update!(country: r.country) if person.country.blank?
+          person.update_attributes!(country: r.country) if person.country.blank?
         elsif
           person = Entity.new(
             first_name: r.first_name,

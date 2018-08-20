@@ -8,7 +8,7 @@ module Backend
     test 'production_cost_charts returns html' do
       activity_production = create(:activity_production)
       charts = production_cost_charts(activity_production)
-      assert_not_empty Nokogiri::HTML(charts).search('div[data-highcharts]')
+      refute_empty Nokogiri::HTML(charts).search('div[data-highcharts]')
     end
   end
 end

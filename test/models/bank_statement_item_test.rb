@@ -50,11 +50,11 @@ class BankStatementItemTest < ActiveSupport::TestCase
     item.credit = 5
     assert item.valid?, inspect_errors(item)
     item.debit = 17
-    assert_not item.valid?, inspect_errors(item)
+    assert !item.valid?, inspect_errors(item)
     item.debit = 0
     assert item.valid?, inspect_errors(item)
     item.credit = 0
-    assert_not item.valid?, inspect_errors(item)
+    assert !item.valid?, inspect_errors(item)
   end
 
   test 'currency is set on validations from the bank statement' do

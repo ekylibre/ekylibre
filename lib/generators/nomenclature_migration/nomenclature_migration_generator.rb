@@ -1,5 +1,5 @@
 class NomenclatureMigrationGenerator < Rails::Generators::Base
-  source_root File.expand_path('templates', __dir__)
+  source_root File.expand_path('../templates', __FILE__)
   argument :name
 
   def generate_migration

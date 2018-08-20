@@ -92,7 +92,7 @@ module Userstamp
 
       def stamper_class #:nodoc:
         stamper_class_name.to_s.capitalize.constantize
-      rescue StandardError
+      rescue
         nil
       end
     end
@@ -102,7 +102,7 @@ module Userstamp
 
       def has_stamper?
         !self.class.stamper_class.nil? && !self.class.stamper_class.stamper.nil?
-      rescue StandardError
+      rescue
         false
       end
 

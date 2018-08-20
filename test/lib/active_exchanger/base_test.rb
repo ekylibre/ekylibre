@@ -25,7 +25,7 @@ module ActiveExchanger
       end
 
       assert BasicExchanger.deprecated?
-      assert_not OtherExchanger.deprecated?
+      refute OtherExchanger.deprecated?
 
       assert ActiveExchanger::Base.importers_selection.any?
     end

@@ -34,7 +34,7 @@ class AdjustTriggerOnPartialLetteringUpdate < ActiveRecord::Migration
                   OR OLD.credit <> NEW.credit
                   OR OLD.debit <> NEW.debit)
                   EXECUTE PROCEDURE compute_partial_lettering();
-        SQL
+            SQL
       end
     end
   end

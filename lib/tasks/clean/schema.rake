@@ -23,7 +23,7 @@ namespace :clean do
       max = columns.map(&:name).map(&:size).max + 1
       model = begin
                 table.classify.constantize
-              rescue StandardError
+              rescue
                 nil
               end
       for column in columns

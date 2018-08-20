@@ -151,8 +151,8 @@ class AffairTest < ActiveSupport::TestCase
            "Affair should have letterable journal entry items:\n" + deal_entries(affair)
     assert affair.journal_entry_items_balanced?,
            "Journal entry items should be balanced:\n" + deal_entries(affair)
-    assert_not affair.multi_thirds?
-    assert_not affair.journal_entry_items_already_lettered?
+    assert !affair.multi_thirds?
+    assert !affair.journal_entry_items_already_lettered?
     assert affair.match_with_accountancy?,
            "Affair should match with accountancy:\n" + deal_entries(affair)
 

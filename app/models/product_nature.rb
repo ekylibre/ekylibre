@@ -191,7 +191,7 @@ class ProductNature < Ekylibre::Record::Base
       for ancestor in item.self_and_parents
         next unless model = begin
                               ancestor.name.camelcase.constantize
-                            rescue StandardError
+                            rescue
                               nil
                             end
         return model if model <= Product

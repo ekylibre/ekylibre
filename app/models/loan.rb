@@ -215,7 +215,7 @@ class Loan < Ekylibre::Record::Base
       .compute_repayments(repayment_method)
       .each do |repayment|
         if r = repayments.find_by(position: repayment[:position])
-          r.update!(repayment)
+          r.update_attributes!(repayment)
         else
           r = repayments.create!(repayment)
         end

@@ -27,7 +27,7 @@ module Ekylibre
         line_number = index + 2
         r = {
           invoiced_at:        (row[0].blank? ? nil : Date.parse(row[0].to_s)),
-          payer_full_name:    row[1].presence,
+          payer_full_name:    (row[1].blank? ? nil : row[1]),
           reference_number:   (row[2].blank? ? nil : row[2].upcase),
           incoming_payment_mode_name: (row[3].blank? ? nil : row[3].to_s),
           amount: (row[4].blank? ? nil : row[4].tr(',', '.').to_d),
@@ -95,7 +95,7 @@ module Ekylibre
         w.check_point && next if row[0].blank?
         r = {
           invoiced_at:        (row[0].blank? ? nil : Date.parse(row[0].to_s)),
-          payer_full_name:    row[1].presence,
+          payer_full_name:    (row[1].blank? ? nil : row[1]),
           reference_number:   (row[2].blank? ? nil : row[2].upcase),
           incoming_payment_mode_name: (row[3].blank? ? nil : row[3].to_s),
           amount: (row[4].blank? ? nil : row[4].tr(',', '.').to_d),

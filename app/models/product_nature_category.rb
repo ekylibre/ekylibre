@@ -160,7 +160,7 @@ class ProductNatureCategory < Ekylibre::Record::Base
         reductible: item.reductible,
         saleable: item.saleable,
         storable: item.storable,
-        fixed_asset_depreciation_percentage: (item.depreciation_percentage.presence || 20),
+        fixed_asset_depreciation_percentage: (item.depreciation_percentage.present? ? item.depreciation_percentage : 20),
         fixed_asset_depreciation_method: :simplified_linear
       }.with_indifferent_access
       %i[fixed_asset fixed_asset_allocation fixed_asset_expenses

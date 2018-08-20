@@ -15,10 +15,10 @@ module Ekylibre
 
         r = {
           invoiced_at:        (row[0].blank? ? nil : Date.parse(row[0].to_s)),
-          supplier_full_name: row[1].presence,
+          supplier_full_name: (row[1].blank? ? nil : row[1]),
           reference_number:   (row[2].blank? ? nil : row[2].upcase),
-          variant_code:       row[3].presence,
-          annotation:         row[4].presence,
+          variant_code:       (row[3].blank? ? nil : row[3]),
+          annotation:         (row[4].blank? ? nil : row[4]),
           quantity:           (row[5].blank? ? nil : row[5].tr(',', '.').to_d),
           unit_pretax_amount: (row[6].blank? ? nil : row[6].tr(',', '.').to_d),
           vat_percentage:     (row[7].blank? ? nil : row[7].tr(',', '.').to_d),
@@ -68,10 +68,10 @@ module Ekylibre
 
         r = {
           invoiced_at:        (row[0].blank? ? nil : Date.parse(row[0].to_s)),
-          supplier_full_name: row[1].presence,
+          supplier_full_name: (row[1].blank? ? nil : row[1]),
           reference_number:   (row[2].blank? ? nil : row[2].upcase),
-          variant_code:       row[3].presence,
-          annotation:         row[4].presence,
+          variant_code:       (row[3].blank? ? nil : row[3]),
+          annotation:         (row[4].blank? ? nil : row[4]),
           quantity:           (row[5].blank? ? nil : row[5].tr(',', '.').to_d),
           unit_pretax_amount: (row[6].blank? ? nil : row[6].tr(',', '.').to_d),
           vat_percentage:     (row[7].blank? ? nil : row[7].tr(',', '.').to_d),

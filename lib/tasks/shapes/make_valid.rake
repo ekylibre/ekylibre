@@ -51,7 +51,7 @@ namespace :shapes do
 
       begin
         ActiveRecord::Base.connection.execute(request)
-      rescue StandardError => exception
+      rescue => exception
         not_valid_production_ids << activity_production_id
       end
     end

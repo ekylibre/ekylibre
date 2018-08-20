@@ -45,7 +45,7 @@ module Backend
       return unless @affair = find_and_check
       if deal = begin
                   params[:deal_type].camelcase.constantize.find_by(id: params[:deal_id])
-                rescue StandardError
+                rescue
                   nil
                 end
         deal.deal_with! @affair
@@ -61,7 +61,7 @@ module Backend
       return unless @affair = find_and_check
       if deal = begin
                   params[:deal_type].camelcase.constantize.find_by(id: params[:deal_id])
-                rescue StandardError
+                rescue
                   nil
                 end
         deal.undeal! @affair

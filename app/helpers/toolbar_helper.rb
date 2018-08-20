@@ -56,7 +56,7 @@ module ToolbarHelper
     def extract(options = {})
       return nil unless @template.current_user.can?(:execute, :listings)
       model = options[:model] || @template.controller_name.to_s.singularize
-      unless Listing.root_model.value?(model.to_s)
+      unless Listing.root_model.values.include?(model.to_s)
         raise "Invalid model for listing: #{model}"
       end
       listings = Listing.where(root_model: model).order(:name)
@@ -142,7 +142,7 @@ module ToolbarHelper
     html = capture(toolbar, &block)
     unless options[:extract].is_a?(FalseClass) || action_name != 'index'
       model = controller_name.to_s.singularize
-      if Listing.root_model.value?(model.to_s)
+      if Listing.root_model.values.include?(model.to_s)
         html << capture(toolbar) do |t|
           t.extract(options[:extract].is_a?(Hash) ? options[:extract] : {})
         end

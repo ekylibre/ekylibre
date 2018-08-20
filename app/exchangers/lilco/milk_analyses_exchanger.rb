@@ -9,7 +9,7 @@ module Lilco
 
       begin
         rows = CSV.read(file, encoding: 'CP1252', col_sep: "\t", headers: true)
-      rescue StandardError
+      rescue
         raise NotWellFormedFileError
       end
       w.count = rows.size

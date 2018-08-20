@@ -88,7 +88,7 @@ module ActiveExchanger
         end
         GC.start
         valid
-      rescue StandardError
+      rescue
         false
       end
 

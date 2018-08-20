@@ -32,7 +32,7 @@ module Backend
           end
 
           activity_color ||= '#777777'
-          displayed_name ||= product.work_number.presence || product.name
+          displayed_name ||= product.work_number.blank? ? product.name : product.work_number
 
           icon = if product.is_a?(LandParcel) || product.is_a?(Plant)
                    'land-parcels'

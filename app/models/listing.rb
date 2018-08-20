@@ -66,7 +66,7 @@ class Listing < Ekylibre::Record::Base
     # Ekylibre::Record.human_name(self.root_model.underscore)
 
     root_model.classify.constantize.model_name.human
-  rescue StandardError
+  rescue
     '???'
   end
 
@@ -88,7 +88,7 @@ class Listing < Ekylibre::Record::Base
       unless columns_to_export.size.zero?
         query << ' ORDER BY ' + exportable_fields.map { |n| conn.quote_column_name(n.label) }.join(', ')
       end
-    rescue StandardError
+    rescue
       query = ''
     end
     query
@@ -99,7 +99,7 @@ class Listing < Ekylibre::Record::Base
     c = ''
     if klass = begin
                  root_model.classify.constantize
-               rescue StandardError
+               rescue
                  nil
                end
       if klass.columns_definition[:type] && klass.table_name != klass.name.tableize

@@ -224,7 +224,7 @@ class JournalEntryTest < ActiveSupport::TestCase
     entry = JournalEntry.new(journal: journal, printed_on: exchange.stopped_on + 1.day, items: fake_items)
     assert entry.valid?
     entry.printed_on = exchange.started_on + 1.day
-    assert_not entry.valid?
+    refute entry.valid?
   end
 
   test 'cannot be updated to a date in financial year exchange date range' do
@@ -233,7 +233,7 @@ class JournalEntryTest < ActiveSupport::TestCase
     entry = create(:journal_entry, printed_on: exchange.stopped_on + 1.day, items: fake_items)
     assert entry.valid?
     entry.printed_on = exchange.started_on + 1.day
-    assert_not entry.valid?
+    refute entry.valid?
   end
 
   def fake_items(options = {})

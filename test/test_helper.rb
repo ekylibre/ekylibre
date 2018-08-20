@@ -29,7 +29,7 @@ else
   end
 end
 
-require File.expand_path('../config/environment', __dir__)
+require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
 require 'capybara/rails'
 
@@ -232,7 +232,7 @@ module ActionController
         model_name = options.delete(:class_name) || table_name.classify
         model = begin
                   model_name.constantize
-                rescue StandardError
+                rescue
                   nil
                 end
         record = model_name.underscore
@@ -576,14 +576,14 @@ module ActionController
         if action_name == :new
           model = begin
                     array.first.split(/\//).last.classify.constantize
-                  rescue StandardError
+                  rescue
                     nil
                   end
           return :new_product if model && model <= Product
         elsif action_name == :show
           model = begin
                     array.first.split(/\//).last.classify.constantize
-                  rescue StandardError
+                  rescue
                     nil
                   end
           return :show_sti_record if model && (model <= Product || model <= Affair)

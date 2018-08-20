@@ -80,7 +80,7 @@ class Progress
     value = File.read(progress_file).to_f
     return value.to_f / 100 * @max.to_f unless percentage && @max
     (value * magnitude).round / magnitude.to_f
-  rescue StandardError
+  rescue
     0
   end
 

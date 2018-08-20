@@ -134,7 +134,7 @@ module Nomen
 
     def change_nomenclature(nomenclature_name, updates = {})
       nomenclature = find!(nomenclature_name)
-      nomenclature.update(updates)
+      nomenclature.update_attributes(updates)
       if updates[:name]
         nomenclature = move_nomenclature(nomenclature_name, updates[:name])
       end

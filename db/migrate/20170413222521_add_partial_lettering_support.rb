@@ -59,7 +59,7 @@ class AddPartialLetteringSupport < ActiveRecord::Migration
           RETURN NEW;
         END;
         $$ language plpgsql;
-    SQL
+        SQL
 
     execute <<-SQL.strip_heredoc
           CREATE TRIGGER compute_partial_lettering_status_insert_delete
@@ -67,7 +67,7 @@ class AddPartialLetteringSupport < ActiveRecord::Migration
             ON journal_entry_items
             FOR EACH ROW
               EXECUTE PROCEDURE compute_partial_lettering();
-    SQL
+        SQL
 
     execute <<-SQL.strip_heredoc
           CREATE TRIGGER compute_partial_lettering_status_update
@@ -76,7 +76,7 @@ class AddPartialLetteringSupport < ActiveRecord::Migration
             FOR EACH ROW
               WHEN (COALESCE(OLD.letter, '') <> COALESCE(NEW.letter, ''))
               EXECUTE PROCEDURE compute_partial_lettering();
-    SQL
+        SQL
 
     execute "UPDATE journal_entry_items SET letter = letter || '*' FROM (SELECT min(id) AS id FROM journal_entry_items WHERE letter IS NOT NULL GROUP BY letter) AS l WHERE l.id = journal_entry_items.id;"
 
@@ -92,7 +92,7 @@ class AddPartialLetteringSupport < ActiveRecord::Migration
               OR OLD.credit <> NEW.credit
               OR OLD.debit <> NEW.debit)
               EXECUTE PROCEDURE compute_partial_lettering();
-    SQL
+        SQL
   end
 
   def down

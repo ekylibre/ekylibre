@@ -28,7 +28,7 @@ class CreateInterventionParticipationsTables < ActiveRecord::Migration
             FROM  intervention_participations AS participations
             WHERE working_periods.intervention_participation_id = participations.id
               AND working_periods.intervention_id IS NULL;
-        SQL
+          SQL
         change_column_null :intervention_working_periods, :intervention_id, false
       end
     end

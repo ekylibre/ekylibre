@@ -138,7 +138,7 @@ class PlantCountingTest < ActiveSupport::TestCase
 
   test 'density_computable? returns false when required data is unavailable, true when it is' do
     counting = new_counting
-    assert_not counting.density_computable? # No sower
+    refute counting.density_computable? # No sower
 
     plant = sow_plant
     counting.update!(plant_id: plant.id)
@@ -152,13 +152,13 @@ class PlantCountingTest < ActiveSupport::TestCase
     assert ok_counting.values_expected?
 
     wrong_counting = new_counting plant: plant, nature: :sowing, item_values: [54, 49, 58, 52]
-    assert_not wrong_counting.values_expected?
+    refute wrong_counting.values_expected?
   end
 
   test 'values_expected? should be computed correctly when at germination' do
     plant = sow_plant
     wrong_counting = new_counting plant: plant, nature: :germination, item_values: [73, 70, 65, 66, 75]
-    assert_not wrong_counting.values_expected?
+    refute wrong_counting.values_expected?
 
     ok_counting = new_counting plant: plant, nature: :germination, item_values: [54, 49, 58, 52]
     assert ok_counting.values_expected?

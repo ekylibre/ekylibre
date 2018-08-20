@@ -8,7 +8,7 @@ module Backend
     def update
       # Update company
       @company = Entity.of_company
-      @company.update(permitted_params[:entity])
+      @company.update_attributes(permitted_params[:entity])
       @company.nature = :organization
       @company.save
       # Update preferences

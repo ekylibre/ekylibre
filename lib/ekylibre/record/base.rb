@@ -131,7 +131,7 @@ module Ekylibre
           end
           arity = begin
                     body.arity
-                  rescue StandardError
+                  rescue
                     0
                   end
           self.scopes << Scope.new(name.to_sym, arity)

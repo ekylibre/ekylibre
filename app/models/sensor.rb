@@ -130,7 +130,7 @@ class Sensor < Ekylibre::Record::Base
       end
     end
     analysis
-  rescue StandardError => e
+  rescue => e
     # save failure
     # NOPE
     raise e

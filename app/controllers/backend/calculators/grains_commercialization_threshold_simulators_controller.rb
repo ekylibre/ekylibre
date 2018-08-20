@@ -1,3 +1,5 @@
+# coding: utf-8
+
 # == License
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2012-2015 David Joulin, Brice Texier

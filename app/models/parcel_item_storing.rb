@@ -50,20 +50,20 @@ class ParcelItemStoring < Ekylibre::Record::Base
   after_create do
     population = parcel_item.population
     population += quantity
-    parcel_item.update(population: population)
+    parcel_item.update_attributes(population: population)
   end
 
   after_update do
     population = parcel_item.population
     population -= quantity_was
     population += quantity
-    parcel_item.update(population: population)
+    parcel_item.update_attributes(population: population)
   end
 
   after_destroy do
     population = parcel_item.population
     population -= quantity_was
-    parcel_item.update(population: population)
+    parcel_item.update_attributes(population: population)
   end
 
   def reception

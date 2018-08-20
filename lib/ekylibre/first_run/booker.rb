@@ -37,7 +37,7 @@ module Ekylibre
           if model == Worker
             options[:first_name] ||= ::FFaker::Name.first_name
             options[:last_name] ||= ::FFaker::Name.last_name
-            options[:born_at] ||= Date.new(rand(1970..1989), rand(1..12), rand(1..28))
+            options[:born_at] ||= Date.new(1970 + rand(20), 1 + rand(12), 1 + rand(28))
             unless person = Contact.find_by(first_name: options[:first_name], last_name: options[:last_name])
               person = Contact.create!(first_name: options[:first_name], last_name: options[:last_name], born_at: options[:born_at])
             end

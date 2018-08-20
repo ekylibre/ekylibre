@@ -15,8 +15,8 @@ class AddProjectBudgetAndEquipmentToJournalEntriesItems < ActiveRecord::Migratio
 
         next if journal_entry_item.nil?
 
-        journal_entry_item.update(equipment_id: purchase_invoice_item.equipment_id,
-                                  project_budget_id: purchase_invoice_item.project_budget_id)
+        journal_entry_item.update_attributes(equipment_id: purchase_invoice_item.equipment_id,
+                                             project_budget_id: purchase_invoice_item.project_budget_id)
       end
     end
   end

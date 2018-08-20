@@ -29,7 +29,7 @@ class MapEditorManager
 
       options[:layers].each do |layer|
         sym_layer = layer.to_sym
-        next unless LAYERS.key?(sym_layer)
+        next unless LAYERS.keys.include? sym_layer
 
         layer_serie = "#{sym_layer}_serie"
         mapeditor[:show][:series][layer_serie] = send(layer_serie, options)

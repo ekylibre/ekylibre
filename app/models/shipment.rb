@@ -233,7 +233,7 @@ class Shipment < Parcel
       transaction do
         if options[:transporter_id]
           options[:delivery_mode] ||= :transporter
-        elsif !delivery_mode.value?(options[:delivery_mode].to_s)
+        elsif !delivery_mode.values.include? options[:delivery_mode].to_s
           raise "Need a valid delivery mode at least if no transporter given. Got: #{options[:delivery_mode].inspect}. Expecting one of: #{delivery_mode.values.map(&:inspect).to_sentence}"
         end
         delivery_mode = options[:delivery_mode].to_sym

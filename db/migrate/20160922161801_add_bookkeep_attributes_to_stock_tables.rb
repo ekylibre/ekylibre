@@ -627,7 +627,7 @@ class AddBookkeepAttributesToStockTables < ActiveRecord::Migration
         spa: Variación de otras poblaciones de suministro
       usages: other_supply_stocks_variation
       number: '6032'
-  YAML
+YAML
                             ).deep_symbolize_keys.freeze
 
   def change

@@ -107,7 +107,7 @@ class Import < Ekylibre::Record::Base
 
   def progress
     File.read(progress_file).to_i
-  rescue StandardError
+  rescue
     0
   end
 

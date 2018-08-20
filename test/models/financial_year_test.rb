@@ -78,14 +78,14 @@ class FinancialYearTest < ActiveSupport::TestCase
 
   test 'cannot create exchange without accountant' do
     year = financial_years(:financial_years_025)
-    assert_not year.can_create_exchange?
+    refute year.can_create_exchange?
   end
 
   test 'cannot create exchange without journal booked by the accountant' do
     accountant = create(:entity, :accountant)
     year = financial_years(:financial_years_025)
     assert year.update_column(:accountant_id, accountant.id)
-    assert_not year.can_create_exchange?
+    refute year.can_create_exchange?
   end
 
   test 'create exchange when it has no opened exchange but journal booked by the accountant' do
@@ -101,7 +101,7 @@ class FinancialYearTest < ActiveSupport::TestCase
     year = financial_years(:financial_years_025)
     assert year.update_column(:accountant_id, accountant.id)
     create(:financial_year_exchange, :opened, financial_year: year)
-    assert_not year.can_create_exchange?
+    refute year.can_create_exchange?
   end
 
   test 'cannot change accountant with opened exchange' do
@@ -110,7 +110,7 @@ class FinancialYearTest < ActiveSupport::TestCase
     assert year.update_column(:accountant_id, accountant.id)
     create(:financial_year_exchange, :opened, financial_year: year)
     year.accountant = create(:entity, :accountant)
-    assert_not year.valid?
+    refute year.valid?
   end
 
   test 'cannot change started_on with exchange' do
@@ -119,7 +119,7 @@ class FinancialYearTest < ActiveSupport::TestCase
     assert year.update_column(:accountant_id, accountant.id)
     create(:financial_year_exchange, :opened, financial_year: year)
     year.started_on = year.started_on + 1.day
-    assert_not year.valid?
+    refute year.valid?
   end
 
   test 'has opened exchange with opened exchanges' do
@@ -134,7 +134,7 @@ class FinancialYearTest < ActiveSupport::TestCase
     year = financial_years(:financial_years_025)
     accountant = create(:entity, :accountant, :with_booked_journals)
     assert year.update_column(:accountant_id, accountant.id)
-    assert_not year.opened_exchange?
+    refute year.opened_exchange?
   end
 
   test 'Create years between company born at and searched year' do
@@ -146,19 +146,19 @@ class FinancialYearTest < ActiveSupport::TestCase
     assert searched_financial_year.nil?
 
     year = FinancialYear.on(searched_date)
-    assert_not year.nil?
+    refute year.nil?
     assert_includes year.started_on..year.stopped_on, searched_date
 
     before_searched_date = Date.today + 19.years
     searched_financial_year = FinancialYear.where('? BETWEEN started_on AND stopped_on', before_searched_date).order(started_on: :desc).first
 
-    assert_not searched_financial_year.nil?
+    refute searched_financial_year.nil?
     assert_includes searched_financial_year.started_on..searched_financial_year.stopped_on, before_searched_date
 
     before_searched_date = Date.today + 10.years
     searched_financial_year = FinancialYear.where('? BETWEEN started_on AND stopped_on', before_searched_date).order(started_on: :desc).first
 
-    assert_not searched_financial_year.nil?
+    refute searched_financial_year.nil?
     assert_includes searched_financial_year.started_on..searched_financial_year.stopped_on, before_searched_date
   end
 
@@ -175,10 +175,10 @@ class FinancialYearTest < ActiveSupport::TestCase
     FinancialYear.create!(started_on: future_started_date, stopped_on: future_stopped_date, currency: 'EUR')
 
     searched_financial_year = FinancialYear.where('? BETWEEN started_on AND stopped_on', searched_date).order(started_on: :desc).first
-    assert_not searched_financial_year.nil?
+    refute searched_financial_year.nil?
 
     year = FinancialYear.on(searched_date)
-    assert_not year.nil?
+    refute year.nil?
     assert_includes year.started_on..year.stopped_on, searched_date
   end
 

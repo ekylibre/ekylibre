@@ -66,7 +66,7 @@ module Synel
               weight = (age < 990 ? 700 * Math.sin(age / (100 * 2 * Math::PI)) + 50.0 : 750)
               weight += rand(weight * variation * 2) - (weight * variation)
               animal.read!(:net_mass, weight.in_kilogram.round(1), at: weighted_at)
-              weighted_at += rand(70..109).days + 30.minutes - rand(60).minutes
+              weighted_at += (70 + rand(40)).days + 30.minutes - rand(60).minutes
             end
           end
         end

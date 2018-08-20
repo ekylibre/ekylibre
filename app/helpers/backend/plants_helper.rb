@@ -58,12 +58,12 @@ module Backend
       if configuration[:custom]
         params["#{name}_started_on"] = begin
                                 params["#{name}_started_on"].to_date
-                              rescue StandardError
+                              rescue
                                 (fy ? fy.started_on : Time.zone.today)
                               end
         params["#{name}_stoped_on"] = begin
                                 params["#{name}_stopped_on"].to_date
-                              rescue StandardError
+                              rescue
                                 (fy ? fy.stopped_on : Time.zone.today)
                               end
         params["#{name}_stoped_on"] = params["#{name}_started_on"] if params["#{name}_started_on"] > params["#{name}_stoped_on"]

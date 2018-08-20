@@ -76,7 +76,7 @@ class ShipmentItemTest < ActiveSupport::TestCase
     ProductEnjoyment.stub :create!, ->(*_args) { raise } do
       begin
         shipment_item.give
-      rescue StandardError
+      rescue
       end
       assert_empty ProductMovement.all
       assert_empty ProductLocalization.all

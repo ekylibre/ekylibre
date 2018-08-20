@@ -156,7 +156,7 @@ class ActivityProduction < Ekylibre::Record::Base
 
   before_validation on: :create do
     if activity
-      self.rank_number = (activity.productions.maximum(:rank_number) || 0) + 1
+      self.rank_number = (activity.productions.maximum(:rank_number) ? activity.productions.maximum(:rank_number) : 0) + 1
     end
     true
   end
@@ -168,7 +168,7 @@ class ActivityProduction < Ekylibre::Record::Base
       self.stopped_on ||= self.started_on + 1.year - 1.day if annual?
       self.size_indicator_name ||= activity_size_indicator_name if activity_size_indicator_name
       self.size_unit_name = activity_size_unit_name
-      self.rank_number ||= (activity.productions.maximum(:rank_number) || 0) + 1
+      self.rank_number ||= (activity.productions.maximum(:rank_number) ? activity.productions.maximum(:rank_number) : 0) + 1
       if valid_period_for_support?
         if plant_farming?
           initialize_land_parcel_support!
@@ -367,7 +367,7 @@ class ActivityProduction < Ekylibre::Record::Base
     return self.started_on if annual?
     on = begin
            Date.civil(campaign.harvest_year, self.started_on.month, self.started_on.day)
-         rescue StandardError
+         rescue
            Date.civil(campaign.harvest_year, self.started_on.month, self.started_on.day - 1)
          end
     on -= 1.year if at_cycle_end?
@@ -648,7 +648,7 @@ class ActivityProduction < Ekylibre::Record::Base
   end
 
   def unified_size_unit
-    size_unit_name.presence || :unity
+    size_unit_name.blank? ? :unity : size_unit_name
   end
 
   # Compute quantity of a support as defined in production

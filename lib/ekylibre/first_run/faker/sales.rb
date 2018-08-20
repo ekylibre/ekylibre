@@ -111,13 +111,13 @@ module Ekylibre
             # Sale nature
             sale_nature   = SaleNature.actives.first
             sale_nature ||= SaleNature.create!(name: I18n.t('models.sale_nature.default.name'), currency: Preference[:currency], active: true)
-            rand(140..159).times do |i|
+            (140 + rand(20)).times do |i|
               # Sale
               d = Time.zone.now - (7 * i - rand(4)).days
               sale = Sale.create!(created_at: d, client_id: cooperative.id, nature_id: sale_nature.id, responsible: responsibles.sample)
               # Sale items
-              rand(1..5).times do
-                catalog_item = self.class.find_or_create_catalog_item(catalog, wheat, rand(180..239), d, reference_tax: wheat_taxes.sample)
+              (rand(5) + 1).times do
+                catalog_item = self.class.find_or_create_catalog_item(catalog, wheat, rand(60) + 180, d, reference_tax: wheat_taxes.sample)
                 sale.items.create!(quantity: rand(12.5) + 0.5, tax: wheat_taxes.sample, unit_pretax_amount: catalog_item.amount, variant: catalog_item.variant)
               end
               self.class.generate_sale_cycle(sale, d)
@@ -156,14 +156,14 @@ module Ekylibre
             # Sale nature
             sale_nature   = SaleNature.actives.first
             sale_nature ||= SaleNature.create!(name: I18n.t('models.sale_nature.default.name'), currency: Preference[:currency], active: true)
-            rand(140..159).times do |i|
+            (140 + rand(20)).times do |i|
               # Sale
               d = Time.zone.now - (7 * i - rand(4)).days
               sale = Sale.create!(created_at: d, client_id: cooperative.id, nature_id: sale_nature.id)
               # Sale items
-              rand(1..5).times do
-                catalog_item = self.class.find_or_create_catalog_item(catalog, cow, rand(140..179), d, reference_tax: cow_catalog_item_template_taxes.sample)
-                sale.items.create!(quantity: rand(1..4), unit_pretax_amount: catalog_item.amount, variant: catalog_item.variant, tax: cow_catalog_item_template_taxes.sample)
+              (rand(5) + 1).times do
+                catalog_item = self.class.find_or_create_catalog_item(catalog, cow, rand(40) + 140, d, reference_tax: cow_catalog_item_template_taxes.sample)
+                sale.items.create!(quantity: rand(4) + 1, unit_pretax_amount: catalog_item.amount, variant: catalog_item.variant, tax: cow_catalog_item_template_taxes.sample)
               end
               self.class.generate_sale_cycle(sale, d)
               w.check_point
@@ -204,7 +204,7 @@ module Ekylibre
               sale = Sale.create!(created_at: d, client: cooperative, nature: sale_nature)
               # Sale items
               catalog_item = self.class.find_or_create_catalog_item(catalog, milk, rand(0.04) + 0.300, d, reference_tax: milk_catalog_item_template_tax)
-              sale.items.create!(quantity: rand(30_000..34_999), unit_pretax_amount: catalog_item.amount, variant: catalog_item.variant, tax: milk_catalog_item_template_tax)
+              sale.items.create!(quantity: rand(5000) + 30_000, unit_pretax_amount: catalog_item.amount, variant: catalog_item.variant, tax: milk_catalog_item_template_tax)
               self.class.generate_sale_cycle(sale, d)
               w.check_point
             end
@@ -242,14 +242,14 @@ module Ekylibre
             # Sale nature
             sale_nature   = SaleNature.actives.first
             sale_nature ||= SaleNature.create!(name: I18n.t('models.sale_nature.default.name'), currency: Preference[:currency], active: true)
-            rand(140..159).times do |i|
+            (140 + rand(20)).times do |i|
               # Sale
               d = Time.zone.now - (7 * i - rand(4)).days
               sale = Sale.create!(created_at: d, client_id: cooperative.id, nature_id: sale_nature.id, responsible: responsibles.sample)
               # Sale items
-              rand(1..5).times do
+              (rand(5) + 1).times do
                 catalog_item = self.class.find_or_create_catalog_item(catalog, wine, rand(2.8) + 8, d, reference_tax: wine_taxes.sample)
-                sale.items.create!(quantity: rand(60..179), tax: wine_taxes.sample, unit_pretax_amount: catalog_item.amount, variant: catalog_item.variant)
+                sale.items.create!(quantity: rand(120) + 60, tax: wine_taxes.sample, unit_pretax_amount: catalog_item.amount, variant: catalog_item.variant)
               end
               self.class.generate_sale_cycle(sale, d)
               w.check_point
@@ -288,22 +288,22 @@ module Ekylibre
             # Sale nature
             sale_nature   = SaleNature.actives.first
             sale_nature ||= SaleNature.create!(name: I18n.t('models.sale_nature.default.name'), currency: Preference[:currency], active: true)
-            rand(2..3).times do |i|
+            (2 + rand(2)).times do |i|
               # Sale
               d = Time.zone.now - (7 * i - rand(4)).days
               sale = Sale.create!(created_at: d, client_id: cooperative.id, nature_id: sale_nature.id, responsible: responsibles.sample)
               # Sale items
-              rand(1..5).times do
+              (rand(5) + 1).times do
                 # # find or create a catalog_item
                 # # @FIXME = waiting for a working method in ProductCatalog_Item.catalog_item
                 # catalog_item = ble.catalog_item(:amount => rand(150)+25, :tax => wheat_tax)
                 catalog_item = catalog.items.find_by(variant_id: wine.id)
                 catalog_item ||= catalog.items.create!(currency: Preference[:currency],
-                                                       amount: rand(850..979),
+                                                       amount: rand(130) + 850,
                                                        reference_tax: wine_taxes.sample,
                                                        variant_id: wine.id)
 
-                sale.items.create!(quantity: rand(10..34),
+                sale.items.create!(quantity: rand(25) + 10,
                                    tax: wine_taxes.sample, unit_pretax_amount: catalog_item.amount, variant: catalog_item.variant)
               end
               self.class.generate_sale_cycle(sale, d)

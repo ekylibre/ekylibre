@@ -219,11 +219,11 @@ class SaleTest < ActiveSupport::TestCase
         @sale = Sale.new(client: entities(:entities_003), nature: sale_natures(:sale_natures_001))
         assert @sale.save, @sale.errors.inspect
         assert_equal Date.today, @sale.created_at.to_date
-        assert_not @sale.affair.nil?, 'A sale must be linked to an affair'
+        assert !@sale.affair.nil?, 'A sale must be linked to an affair'
         assert_equal @sale.amount, @sale.affair_credit, "Affair amount is not the same as the sale amount (#{@sale.affair.inspect})"
 
         for y in 1..10
-          item = @sale.items.new(quantity: 1 + rand(70) * rand, product_id: products("matters_#{rand(3..4).to_s.rjust(3, '0')}".to_sym).id) # , :price_id => product_nature_prices("product_nature_prices_#{(3+rand(2)).to_s.rjust(3, '0')}".to_sym).id, :warehouse_id => products(:warehouses_001).id)
+          item = @sale.items.new(quantity: 1 + rand(70) * rand, product_id: products("matters_#{(3 + rand(2)).to_s.rjust(3, '0')}".to_sym).id) # , :price_id => product_nature_prices("product_nature_prices_#{(3+rand(2)).to_s.rjust(3, '0')}".to_sym).id, :warehouse_id => products(:warehouses_001).id)
           # assert item.valid?, [product.prices, item.price].inspect
           assert item.save, item.errors.inspect
         end

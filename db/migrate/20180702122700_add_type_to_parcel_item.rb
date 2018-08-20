@@ -22,7 +22,7 @@ class AddTypeToParcelItem < ActiveRecord::Migration
 		 		FROM parcels
 		 		WHERE parcels.nature = 'incoming'
 	 		)
-    SQL
+	  SQL
   end
 
   def set_parcel_items_type_to_shipment_item
@@ -35,7 +35,7 @@ class AddTypeToParcelItem < ActiveRecord::Migration
 		 		FROM parcels
 		 		WHERE parcels.nature = 'outgoing'
 	 		)
-    SQL
+	  SQL
   end
 
   def set_parcel_items_type_to_null
@@ -43,6 +43,6 @@ class AddTypeToParcelItem < ActiveRecord::Migration
 	    UPDATE parcel_items pi
 		  SET type = NULL
 	 		)
-    SQL
+	  SQL
   end
 end

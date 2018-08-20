@@ -324,7 +324,7 @@ module Backend
 
         delete_working_periods(participations)
       end
-      if @intervention.update(permitted_params)
+      if @intervention.update_attributes(permitted_params)
         reconcile_receptions
         redirect_to action: :show
       else
@@ -382,7 +382,7 @@ module Backend
       rescue Procedo::Error => e
         respond_to do |format|
           # format.xml  { render xml:  { errors: e.message }, status: 500 }
-          format.json { render json: { errors: e.message }, status: :internal_server_error }
+          format.json { render json: { errors: e.message }, status: 500 }
         end
       end
     end

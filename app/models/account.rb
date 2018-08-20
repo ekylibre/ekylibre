@@ -236,7 +236,7 @@ class Account < Ekylibre::Record::Base
 
       max = number.size - 1
       # get usages of nearest existing account by number
-      (0..max).to_a.reverse_each do |i|
+      (0..max).to_a.reverse.each do |i|
         n = number[0, i]
         items = Nomen::Account.where(accounting_system.to_sym => n)
         parent_accounts = Account.find_with_regexp(n).where('LENGTH("accounts"."number") <= ?', i).reorder(:number)

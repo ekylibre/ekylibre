@@ -43,6 +43,6 @@ class UpdateParcelItemStoringForOldReception < ActiveRecord::Migration
       UPDATE parcel_item_storings AS pis
       SET product_id = NULL
       WHERE pis.product_id IS NOT NULL
-    SQL
+      SQL
   end
 end

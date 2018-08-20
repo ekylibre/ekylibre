@@ -394,7 +394,7 @@ class Intervention < Ekylibre::Record::Base
 
     costs_attributes[:receptions_cost] = receptions_cost.to_f.round(2)
 
-    costs.update(costs_attributes)
+    costs.update_attributes(costs_attributes)
   end
 
   def initialize_record(state: :done)
@@ -736,7 +736,7 @@ class Intervention < Ekylibre::Record::Base
   def run!
     ActiveSupport::Deprecation.warn 'Intervention#run! is deprecated, because it never works. Use classical AR methods instead to create interventions'
     raise 'Cannot run intervention without procedure' unless runnable?
-    update(state: :done)
+    update_attributes(state: :done)
     self
   end
 

@@ -84,9 +84,9 @@ class EntityTest < ActiveSupport::TestCase
     entity = Entity.create(nature: :zarb)
     assert entity.errors.include?(:nature), 'Entity must not accept invalid nature'
     entity = Entity.create(nature: :contact)
-    assert_not entity.errors.include?(:nature), 'Entity must accept contact nature'
+    assert !entity.errors.include?(:nature), 'Entity must accept contact nature'
     entity = Entity.create(nature: :organization)
-    assert_not entity.errors.include?(:nature), 'Entity must accept organization nature'
+    assert !entity.errors.include?(:nature), 'Entity must accept organization nature'
   end
 
   test 'have a number' do
@@ -96,12 +96,12 @@ class EntityTest < ActiveSupport::TestCase
 
   test 'has many booked journals' do
     accountant = create(:entity, :accountant, :with_booked_journals)
-    assert_not accountant.booked_journals.empty?
+    refute accountant.booked_journals.empty?
   end
 
   test 'does not have financial year with opened exchange without financial year' do
     accountant = create(:entity, :accountant)
-    assert_not accountant.financial_year_with_opened_exchange?
+    refute accountant.financial_year_with_opened_exchange?
   end
 
   test 'has financial year with opened exchange' do

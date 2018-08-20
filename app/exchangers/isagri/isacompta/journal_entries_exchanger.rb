@@ -79,12 +79,14 @@ module Isagri
           w.info "--------------------index : #{index} | number : #{number}--------------------------"
           unless entries[number]
             journal = Journal.find_by(code: r.journal_code)
-            journal ||= Journal.create!(
-              code: r.journal_code,
-              name: r.journal_code,
-              currency: 'EUR',
-              nature: :various
-            )
+            unless journal
+              journal = Journal.create!(
+                code: r.journal_code,
+                name: r.journal_code,
+                currency: 'EUR',
+                nature: :various
+              )
+            end
             entries[number] = {
               printed_on: r.printed_on,
               journal: journal,

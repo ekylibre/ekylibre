@@ -7,7 +7,7 @@ module Map
       assert path.exist?, "Map layers config file doesn't exist"
 
       Map::Layer.load path
-      assert_not Map::Layer.items.empty?, 'No Layers loaded'
+      assert !Map::Layer.items.empty?, 'No Layers loaded'
 
       fixtures = YAML.load_file(path).deep_symbolize_keys
 

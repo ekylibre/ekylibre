@@ -175,7 +175,7 @@ class PurchaseItem < Ekylibre::Record::Base
   end
 
   before_destroy do
-    parcels_purchase_invoice_items.map { |parcel_item| parcel_item.update(purchase_invoice_item_id: nil) }
+    parcels_purchase_invoice_items.map { |parcel_item| parcel_item.update_attributes(purchase_invoice_item_id: nil) }
   end
 
   after_destroy do

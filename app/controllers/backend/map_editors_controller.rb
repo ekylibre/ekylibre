@@ -40,7 +40,7 @@ module Backend
         when 'geojson'
           geo = (begin
                    geometry.is_a?(Hash) ? geometry : JSON.parse(geometry)
-                 rescue StandardError
+                 rescue
                    {}
                  end) || {}
           srid = geo.try(:[], 'crs').try(:[], 'properties').try(:[], 'name')
@@ -92,7 +92,7 @@ module Backend
         else
           return { error: 'invalid_format' }
         end
-      rescue StandardError
+      rescue
         return { error: 'invalid_file' }
       end
 

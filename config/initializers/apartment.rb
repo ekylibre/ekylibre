@@ -73,7 +73,7 @@ module Apartment
       rescue ::Apartment::TenantNotFound
         request = Rack::Request.new(env)
         Rails.logger.error "Apartment Tenant not found: #{subdomain(request.host)}"
-        [404, { 'Content-Type' => 'text/html' }, [File.read(Rails.root.join('public', '404.html'))]]
+        return [404, { 'Content-Type' => 'text/html' }, [File.read(Rails.root.join('public', '404.html'))]]
       end
     end
   end
