@@ -44,10 +44,6 @@ gem 'therubyracer', platforms: :ruby
 
 # Exception analysis and metrics
 gem 'binding_of_caller'
-gem 'redis-namespace' # Fix for missing dependency in skylight
-gem 'sentry-raven', require: false
-gem 'sidekiq-skylight'
-gem 'skylight'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'

@@ -386,8 +386,6 @@ GEM
       ffi (>= 0.5.0, < 2)
     rdoc (4.3.0)
     redis (3.3.5)
-    redis-namespace (1.6.0)
-      redis (>= 3.0.4)
     ref (2.0.0)
     remotipart (1.3.1)
     require_all (1.5.0)
@@ -457,8 +455,6 @@ GEM
     selenium-webdriver (3.11.0)
       childprocess (~> 0.5)
       rubyzip (~> 1.2)
-    sentry-raven (2.7.2)
-      faraday (>= 0.7.6, < 1.0)
     sepa_king (0.10.1)
       activemodel (>= 3.0.0)
       builder
@@ -473,9 +469,6 @@ GEM
     sidekiq-cron (0.6.3)
       rufus-scheduler (>= 3.3.0)
       sidekiq (>= 4.2.1)
-    sidekiq-skylight (0.2.0)
-      sidekiq (>= 3.3.0)
-      skylight (>= 0.5.2)
     sidekiq-unique-jobs (4.0.18)
       sidekiq (>= 2.6)
       thor
@@ -489,8 +482,6 @@ GEM
       json (>= 1.8, < 3)
       simplecov-html (~> 0.10.0)
     simplecov-html (0.10.2)
-    skylight (1.6.0)
-      activesupport (>= 3.0.0)
     socksify (1.7.1)
     spring (2.0.2)
       activesupport (>= 4.2)
@@ -646,7 +637,6 @@ DEPENDENCIES
   quiet_assets
   rails (= 4.2.10)
   rails_best_practices
-  redis-namespace
   remotipart (~> 1.2)
   rest-client
   rgeo-geojson
@@ -661,17 +651,14 @@ DEPENDENCIES
   savon
   sdoc (~> 0.4.0)
   selenium-webdriver
-  sentry-raven
   sepa_king
   shoulda-context
   sidekiq (~> 4.0)
   sidekiq-cron (>= 0.4.0)
-  sidekiq-skylight
   sidekiq-unique-jobs (~> 4.0)
   simple_calendar
   simple_form (~> 3.4)
   simplecov
-  skylight
   spring
   state_machine
   teaspoon-jasmine
@@ -693,4 +680,4 @@ RUBY VERSION
    ruby 2.3.3p222
 
 BUNDLED WITH
-   1.16.0
+   1.16.4
