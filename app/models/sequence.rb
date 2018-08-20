@@ -68,7 +68,7 @@ class Sequence < Ekylibre::Record::Base
       sequence = new(usage: usage)
       sequence.name = begin
                         sequence.usage.to_s.classify.constantize.model_name.human
-                      rescue
+                      rescue StandardError
                         sequence.usage
                       end
       sequence.number_format = tc("default.#{usage}", default: sequence.usage.to_s.split(/\_/).map { |w| w[0..0] }.join.upcase + '[number|12]')
@@ -91,7 +91,7 @@ class Sequence < Ekylibre::Record::Base
       keys.delete(:number)
       # Because period size correspond to alphabetical order
       # We use thaht to find the littlest period
-      keys.sort.first
+      keys.min
     end
 
     # Load defaults sequences

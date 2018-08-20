@@ -121,7 +121,7 @@ module Backend
     def depreciate_all
       begin
         bookkeep_until = Date.parse(params[:until])
-      rescue
+      rescue StandardError
         notify_error(:the_bookkeep_date_format_is_invalid)
         return redirect_to(params[:redirect] || { action: :index })
       end

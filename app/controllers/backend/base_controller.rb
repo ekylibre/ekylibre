@@ -108,7 +108,7 @@ module Backend
       klass = nil
       begin
         klass = model.to_s.camelize.constantize
-      rescue
+      rescue StandardError
         notify_error(:unexpected_resource_type, type: model.inspect)
         return false
       end

@@ -117,7 +117,7 @@ module Backend
             raise StandardError, 'No block accepted for cells'
             # options[:content] = @template.capture(&block)
           end
-          if @cells.keys.include? name.to_s
+          if @cells.key?(name.to_s)
             raise StandardError, "A cell with a given name (#{name}) has already been given."
           end
           c = Cell.new(name, options)

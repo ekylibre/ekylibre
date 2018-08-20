@@ -146,7 +146,7 @@ module Clean
 
         version = begin
                     ActiveRecord::Migrator.current_version
-                  rescue
+                  rescue StandardError
                     0
                   end
 

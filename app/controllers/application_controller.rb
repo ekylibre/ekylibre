@@ -203,7 +203,7 @@ class ApplicationController < ActionController::Base
 
   def configure_application(exception)
     title = exception.class.name.underscore.t(scope: 'exceptions')
-    render '/public/configure_application', layout: 'exception', locals: { title: title, message: exception.message, class_name: exception.class.name }, status: 500
+    render '/public/configure_application', layout: 'exception', locals: { title: title, message: exception.message, class_name: exception.class.name }, status: :internal_server_error
   end
 
   def set_raven_context

@@ -123,7 +123,7 @@ module Clean
         Clean::Support.actions_hash(except: [::ApiController, ::Backend::Cells::BaseController]).each do |controller_path, actions|
           existing_actions = begin
                                ::I18n.translate("actions.#{controller_path}").stringify_keys.keys
-                             rescue
+                             rescue StandardError
                                []
                              end
           translateable_actions = []
@@ -134,7 +134,7 @@ module Clean
             name = ::I18n.hardtranslate("actions.#{controller_path}.#{action_name}")
             to_translate += 1
             untranslated += 1 if actions.include?(action_name) && name.blank?
-            translation << "      #{missing_prompt if name.blank?}#{action_name}: " + Clean::Support.yaml_value(name.blank? ? Clean::Support.default_action_title(controller_path, action_name) : name, 3)
+            translation << "      #{missing_prompt if name.blank?}#{action_name}: " + Clean::Support.yaml_value(name.presence || Clean::Support.default_action_title(controller_path, action_name), 3)
             translation << ' #?' unless actions.include?(action_name)
             translation << "\n"
           end
@@ -177,7 +177,7 @@ module Clean
             untranslated += 1
             line << missing_prompt
           end
-          line << "#{key}:" + (trans.is_a?(Hash) ? '' : ' ') + Clean::Support.yaml_value((trans.blank? ? key.to_s.humanize : trans), 2)
+          line << "#{key}:" + (trans.is_a?(Hash) ? '' : ' ') + Clean::Support.yaml_value((trans.presence || key.to_s.humanize), 2)
           if unknown_labels.include?(key)
             if Clean::Support.text_found?(/#{key}/, watched_files)
               line.gsub!(/\ *$/, ' #?')
@@ -209,7 +209,7 @@ module Clean
             untranslated += 1
             line += missing_prompt
           end
-          line += "#{key}:" + (trans.is_a?(Hash) ? '' : ' ') + Clean::Support.yaml_value((trans.blank? ? key.to_s.humanize : trans), 3)
+          line += "#{key}:" + (trans.is_a?(Hash) ? '' : ' ') + Clean::Support.yaml_value((trans.presence || key.to_s.humanize), 3)
           line.gsub!(/\ *$/, ' #?') if unknown_notifications.include?(key)
           translation << line + "\n"
         end
@@ -235,7 +235,7 @@ module Clean
             untranslated += 1
             line += missing_prompt
           end
-          line += "#{key}: " + Clean::Support.yaml_value((trans.blank? ? key.to_s.humanize : trans), 2)
+          line += "#{key}: " + Clean::Support.yaml_value((trans.presence || key.to_s.humanize), 2)
           line.gsub!(/$/, ' #?') if unknown_preferences.include?(key)
           translation << line + "\n"
         end
@@ -248,7 +248,7 @@ module Clean
         actions = {} unless actions.is_a?(Hash)
         unknown_actions = actions.keys
         Clean::Support.look_for_rest_actions.map(&:to_sym).each do |action|
-          if actions.keys.include? action
+          if actions.key?(action)
             unknown_actions.delete(action.to_sym)
           else
             actions[action] = ''
@@ -261,7 +261,7 @@ module Clean
             untranslated += 1
             line += missing_prompt
           end
-          line += "#{key}: " + Clean::Support.yaml_value((trans.blank? ? key.to_s.humanize : trans), 3)
+          line += "#{key}: " + Clean::Support.yaml_value((trans.presence || key.to_s.humanize), 3)
           line.gsub!(/$/, ' #?') if unknown_actions.include?(key)
           translation << line + "\n"
         end
@@ -282,7 +282,7 @@ module Clean
         to_translate += Clean::Support.hash_count(unrolls)
         for key, trans in unrolls.sort { |a, b| a[0].to_s <=> b[0].to_s }
           line = '    '
-          line += "#{key}: " + Clean::Support.yaml_value((trans.blank? ? key.to_s.humanize : trans), 2)
+          line += "#{key}: " + Clean::Support.yaml_value((trans.presence || key.to_s.humanize), 2)
           line.gsub!(/$/, ' #?') if unknown_unrolls.include?(key)
           translation << line + "\n"
         end
@@ -752,7 +752,7 @@ module Clean
 
       def load_file(file)
         Clean::Support.yaml_to_hash(file)[locale] || {}
-      rescue
+      rescue StandardError
         {}
       end
     end

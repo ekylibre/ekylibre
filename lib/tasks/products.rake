@@ -48,7 +48,7 @@ namespace :products do
 
       product_nature = model.find(id)
       derivative_of = Nomen::Variety[derivative_of]
-      unless product_nature.update_attributes(variety: variety, derivative_of: derivative_of)
+      unless product_nature.update(variety: variety, derivative_of: derivative_of)
         puts "id: #{id} errors: #{product_nature.errors.messages}"
       end
     end

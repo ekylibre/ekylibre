@@ -7,7 +7,7 @@ module Backend
                                  async_content_empty_message: :no_data.tl,
                                  async_content_error_message: :internal_error.tl
                                }
-      ))
+                             ))
     end
   end
 end

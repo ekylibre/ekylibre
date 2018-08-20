@@ -65,9 +65,9 @@ module Ekylibre
                   end
 
                   # Sowing 15-10-N -> 30-10-N
-                  int = Ekylibre::FirstRun::Booker.intervene(:sowing, year - 1, 10, 15, 6.92 * coeff, range: 15, support: support, parameters: { readings: { 'base-sowing-0-1-readcount' => 2_000_000 + rand(250_000) } }) do |i|
+                  int = Ekylibre::FirstRun::Booker.intervene(:sowing, year - 1, 10, 15, 6.92 * coeff, range: 15, support: support, parameters: { readings: { 'base-sowing-0-1-readcount' => rand(2_000_000..2_249_999) } }) do |i|
                     i.add_cast(reference_name: 'seeds',        actor: i.find(Product, variety: :seed, derivative_of: variety.name, can: 'grow'))
-                    i.add_cast(reference_name: 'seeds_to_sow', population: rand(5) + 1)
+                    i.add_cast(reference_name: 'seeds_to_sow', population: rand(1..5))
                     i.add_cast(reference_name: 'sower',        actor: products[:sow].sample)
                     i.add_cast(reference_name: 'driver',       actor: workers.sample)
                     i.add_cast(reference_name: 'tractor',      actor: products[:tractor][:sower].sample)
@@ -145,9 +145,9 @@ module Ekylibre
                   end
 
                   # Sowing 15-04-N -> 30-05-N
-                  int = Ekylibre::FirstRun::Booker.intervene(:all_in_one_sowing, year, 5, 2, 6.92 * coeff, range: 15, support: support, parameters: { readings: { 'base-all_in_one_sowing-0-1-readcount' => 80_000 + rand(10_000) } }) do |i|
+                  int = Ekylibre::FirstRun::Booker.intervene(:all_in_one_sowing, year, 5, 2, 6.92 * coeff, range: 15, support: support, parameters: { readings: { 'base-all_in_one_sowing-0-1-readcount' => rand(80_000..89_999) } }) do |i|
                     i.add_cast(reference_name: 'seeds',        actor: i.find(Product, variety: :seed, derivative_of: variety.name, can: 'grow'))
-                    i.add_cast(reference_name: 'seeds_to_sow', population: (rand(4) + 6) * coeff)
+                    i.add_cast(reference_name: 'seeds_to_sow', population: rand(6..9) * coeff)
 
                     i.add_cast(reference_name: 'fertilizer',   actor: products[:fertilizer].sample)
                     i.add_cast(reference_name: 'fertilizer_to_spread', population: (rand(0.2) + 1) * coeff)
@@ -245,7 +245,7 @@ module Ekylibre
                 sowing = support.interventions.where(reference_name: 'sowing').where('started_at < ?', Date.civil(year, 6, 6)).order('stopped_at DESC').first
                 if cultivation = begin
                                    sowing.product_parameters.find_by(reference_name: 'cultivation').actor
-                                 rescue
+                                 rescue StandardError
                                    nil
                                  end
                   int = Ekylibre::FirstRun::Booker.intervene(:plant_mowing, year, 6, 6, 2.8 * coeff, support: support) do |i|
@@ -288,7 +288,7 @@ module Ekylibre
                 sowing = support.interventions.where(reference_name: 'sowing').where('started_at < ?', Date.civil(year, 7, 1)).order('stopped_at DESC').first
                 if cultivation = begin
                                    sowing.product_parameters.find_by(reference_name: 'cultivation').actor
-                                 rescue
+                                 rescue StandardError
                                    nil
                                  end
                   Ekylibre::FirstRun::Booker.intervene(:grains_harvest, year, 7, 1, 3.13 * coeff, support: support) do |i|
@@ -321,7 +321,7 @@ module Ekylibre
                     i.add_cast(reference_name: 'animal',           actor: animal)
                     i.add_cast(reference_name: 'caregiver',        actor: workers.sample)
                     i.add_cast(reference_name: 'animal_medicine',  actor: products.sample)
-                    i.add_cast(reference_name: 'animal_medicine_to_give', population: 1 + rand(3))
+                    i.add_cast(reference_name: 'animal_medicine_to_give', population: rand(1..3))
                   end
                 end
                 w.check_point

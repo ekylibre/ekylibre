@@ -44,7 +44,7 @@ module Legrain
           }
         end
 
-        started_on = entries.values.map { |v| v[:printed_on] }.uniq.sort.first
+        started_on = entries.values.map { |v| v[:printed_on] }.uniq.min
         FinancialYear.create!(started_on: started_on.beginning_of_month) unless FinancialYear.on(started_on)
 
         w.reset!(entries.keys.size)

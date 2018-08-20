@@ -217,7 +217,7 @@ class ListingNode < Ekylibre::Record::Base
     else
       parent.model.reflect_on_association(attribute_name).class_name
     end.pluralize.classify.constantize
-  rescue
+  rescue StandardError
     nil
   end
 

@@ -22,7 +22,7 @@ class SetPurchaseItemRoleToNotNilValue < ActiveRecord::Migration
 		 		FROM product_nature_variants
 		 		WHERE product_nature_variants.variety = 'service'
 	 		)
-	  SQL
+    SQL
   end
 
   def set_purchase_items_role_to_merchandise
@@ -39,13 +39,13 @@ class SetPurchaseItemRoleToNotNilValue < ActiveRecord::Migration
 		 			WHERE product_nature_categories.purchasable = true)
 				AND product_nature_variants.variety <> 'service'
 	 		)
-	  SQL
+    SQL
   end
 
   def set_purchase_items_role_to_null
     <<-SQL
 	    UPDATE purchase_items pi
 		  SET role = NULL
-	  SQL
+    SQL
   end
 end

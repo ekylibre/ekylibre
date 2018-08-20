@@ -11,7 +11,7 @@ module Ekylibre
           variant_reference_name: row[1].blank? ? nil : row[1].to_sym,
           work_number: row[2].blank? ? nil : row[2].to_s,
           place_code: row[3].blank? ? nil : row[3].to_s,
-          born_at: (row[4].blank? ? Date.civil(2000, 2, 2) : row[4]).to_datetime,
+          born_at: (row[4].presence || Date.civil(2000, 2, 2)).to_datetime,
           brand: row[5].blank? ? nil : row[5].to_s,
           model: row[6].blank? ? nil : row[6].to_s,
           external: row[7].present?,

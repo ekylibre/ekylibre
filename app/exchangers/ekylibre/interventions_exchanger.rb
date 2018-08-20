@@ -281,7 +281,6 @@ module Ekylibre
       end
       unit = unit.to_sym if unit
       nomen_unit = Nomen::Unit[unit] if unit
-      #
       w.debug value.inspect.yellow
       if value >= 0.0 && nomen_unit
         measure = Measure.new(value, unit)
@@ -328,12 +327,12 @@ module Ekylibre
 
     # shortcut to call population_conversion function
     def actor_population_conversion(actor, working_measure)
-      population_conversion((actor.product.present? ? actor.product : actor.variant), actor.input_population, actor.input_unit_name, actor.input_unit_target_dose, working_measure)
+      population_conversion((actor.product.presence || actor.variant), actor.input_population, actor.input_unit_name, actor.input_unit_target_dose, working_measure)
     end
 
     # shortcut to call population_conversion function
     def actor_measure_conversion(actor)
-      measure_conversion((actor.product.present? ? actor.product : actor.variant), actor.input_population, actor.input_unit_name, actor.input_unit_target_dose)
+      measure_conversion((actor.product.presence || actor.variant), actor.input_population, actor.input_unit_name, actor.input_unit_target_dose)
     end
 
     # Parse a row of the current file using this reference:
@@ -721,7 +720,7 @@ module Ekylibre
 
         # # impact
         intervention = Procedo::Engine.new_intervention(attributes)
-        updaters.reverse.each do |updater|
+        updaters.reverse_each do |updater|
           intervention.impact_with!(updater)
         end
 

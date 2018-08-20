@@ -53,7 +53,7 @@ class FinancialYearExchangeTest < ActiveSupport::TestCase
   test 'opened scope does not include closed exchanges' do
     financial_year = financial_years(:financial_years_025)
     exchange = create(:financial_year_exchange, financial_year: financial_year)
-    refute FinancialYearExchange.opened.pluck(:id).include?(exchange.id)
+    assert_not FinancialYearExchange.opened.pluck(:id).include?(exchange.id)
   end
 
   test 'closed scope includes closed exchanges' do
@@ -65,7 +65,7 @@ class FinancialYearExchangeTest < ActiveSupport::TestCase
   test 'closed scope does not include opened exchanges' do
     financial_year = financial_years(:financial_years_025)
     exchange = create(:financial_year_exchange, :opened, financial_year: financial_year)
-    refute FinancialYearExchange.closed.pluck(:id).include?(exchange.id)
+    assert_not FinancialYearExchange.closed.pluck(:id).include?(exchange.id)
   end
 
   test 'for_public_token returns the exchange when the token is not expired' do
@@ -104,27 +104,27 @@ class FinancialYearExchangeTest < ActiveSupport::TestCase
     financial_year = financial_years(:financial_years_025)
     exchange = build(:financial_year_exchange, financial_year: financial_year)
     exchange.stopped_on = nil
-    refute exchange.valid?
+    assert_not exchange.valid?
   end
 
   test 'stopped on is before financial year stopped on' do
     financial_year = financial_years(:financial_years_025)
     exchange = build(:financial_year_exchange, financial_year: financial_year)
     exchange.stopped_on = exchange.financial_year.stopped_on + 1.day
-    refute exchange.valid?
+    assert_not exchange.valid?
   end
 
   test 'needs a financial year' do
     financial_year = financial_years(:financial_years_025)
     exchange = build(:financial_year_exchange, financial_year: financial_year)
     exchange.financial_year = nil
-    refute exchange.valid?
+    assert_not exchange.valid?
   end
 
   test 'started on is set before create validations' do
     financial_year = financial_years(:financial_years_025)
     exchange = FinancialYearExchange.new(financial_year: financial_year)
-    refute exchange.started_on.present?
+    assert_not exchange.started_on.present?
     exchange.valid?
     assert exchange.started_on.present?
   end
@@ -132,7 +132,7 @@ class FinancialYearExchangeTest < ActiveSupport::TestCase
   test 'generates public token' do
     financial_year = financial_years(:financial_years_025)
     exchange = build(:financial_year_exchange, financial_year: financial_year)
-    refute exchange.public_token.present?
+    assert_not exchange.public_token.present?
     exchange.generate_public_token!
     assert exchange.public_token.present?
   end
@@ -268,7 +268,7 @@ class FinancialYearExchangeTest < ActiveSupport::TestCase
     assert accountant, 'Accountant is missing'
     accountant.emails.delete_all if accountant.emails.any?
     assert exchange.accountant.emails.empty?
-    refute exchange.accountant_email?
+    assert_not exchange.accountant_email?
     accountant.emails.create!(coordinate: 'accountant@accounting.org')
     exchange.reload
     assert exchange.accountant_email?
@@ -285,7 +285,7 @@ class FinancialYearExchangeTest < ActiveSupport::TestCase
     financial_year = financial_years(:financial_years_025)
     exchange = create(:financial_year_exchange, financial_year: financial_year)
     assert exchange.closed_at.present?
-    refute exchange.opened?
+    assert_not exchange.opened?
   end
 
   test 'it closes' do

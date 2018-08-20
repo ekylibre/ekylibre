@@ -1,5 +1,5 @@
 class RenamingMigrationGenerator < Rails::Generators::Base
-  source_root File.expand_path('../templates', __FILE__)
+  source_root File.expand_path('templates', __dir__)
   argument :old_name
   argument :new_name
   argument :procedure_name

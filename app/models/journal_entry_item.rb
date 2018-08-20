@@ -138,7 +138,6 @@ class JournalEntryItem < Ekylibre::Record::Base
     state :closed
   end
 
-  #
   before_validation do
     self.name = name.to_s[0..254]
     self.letter = nil if letter.blank?
@@ -181,7 +180,6 @@ class JournalEntryItem < Ekylibre::Record::Base
     # end
   end
 
-  #
   validate do
     # unless self.updateable?
     #   errors.add(:number, :closed_entry)
@@ -364,7 +362,6 @@ class JournalEntryItem < Ekylibre::Record::Base
     mode
   end
 
-  #
   def resource
     if entry
       entry.resource_type

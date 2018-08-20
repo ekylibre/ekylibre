@@ -68,7 +68,7 @@ module Ekylibre
       def read_tables
         hash = begin
                  YAML.load_file(root.join('tables.yml')).deep_symbolize_keys
-               rescue
+               rescue StandardError
                  {}
                end
         tables = {}.with_indifferent_access

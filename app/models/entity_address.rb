@@ -127,7 +127,7 @@ class EntityAddress < Ekylibre::Record::Base
     current_time = Time.zone.now
     stamper = begin
                 self.class.stamper_class.stamper
-              rescue
+              rescue StandardError
                 nil
               end
     # raise stamper.inspect unless stamper.nil?

@@ -42,7 +42,7 @@ class FixPurchasePaymentAt < ActiveRecord::Migration
             RETURN d;
           END;
           $$ LANGUAGE plpgsql
-SQL
+        SQL
 
         execute 'UPDATE purchases SET payment_at = compute_delay(COALESCE(invoiced_at, planned_at), payment_delay) WHERE LENGTH(TRIM(payment_delay)) > 0 AND (invoiced_at IS NOT NULL OR planned_at IS NOT NULL)'
         execute 'UPDATE purchases SET payment_at = COALESCE(invoiced_at, planned_at) WHERE LENGTH(TRIM(payment_delay)) = 0 AND (invoiced_at IS NOT NULL OR planned_at IS NOT NULL)'

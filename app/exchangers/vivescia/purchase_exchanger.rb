@@ -4,7 +4,7 @@ module Vivescia
     def check
       SVF::EdiFactInvoic.parse(file)
     rescue SVF::InvalidSyntax
-      return false
+      false
     end
 
     def import

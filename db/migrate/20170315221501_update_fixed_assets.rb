@@ -5,7 +5,7 @@ class UpdateFixedAssets < ActiveRecord::Migration
         eng: Outstanding assets
         por: Ativos em circulação
       number: 23
-    YAML
+  YAML
 
   def change
     add_reference :purchase_items, :depreciable_product, index: true

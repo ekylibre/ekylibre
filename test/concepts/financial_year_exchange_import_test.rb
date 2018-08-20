@@ -23,7 +23,7 @@ class FinancialYearExchangeImportTest < ActiveSupport::TestCase
   test 'run fails when the file is invalid' do
     invalid_file = File.open(fixture_file('financial_year_exchange_import_invalid.csv'))
     import = FinancialYearExchangeImport.new(invalid_file, financial_year_exchange)
-    refute import.run
+    assert_not import.run
     assert import.error.present?
     assert import.error.is_a?(FinancialYearExchangeImport::InvalidFile)
   end
@@ -31,7 +31,7 @@ class FinancialYearExchangeImportTest < ActiveSupport::TestCase
   test 'run fails when the file headers does not match the expected ones' do
     invalid_file = File.open(fixture_file('financial_year_exchange_import_invalid_headers.csv'))
     import = FinancialYearExchangeImport.new(invalid_file, financial_year_exchange)
-    refute import.run
+    assert_not import.run
     assert import.error.present?
     assert import.error.is_a?(FinancialYearExchangeImport::InvalidFile)
   end
@@ -39,7 +39,7 @@ class FinancialYearExchangeImportTest < ActiveSupport::TestCase
   test 'run fails when the file contains a nonexistant journal' do
     invalid_file = File.open(fixture_file('financial_year_exchange_import_nonexistant_journal.csv'))
     import = FinancialYearExchangeImport.new(invalid_file, financial_year_exchange)
-    refute import.run
+    assert_not import.run
     assert import.error.present?
     assert import.error.is_a?(FinancialYearExchangeImport::InvalidFile)
   end
@@ -47,7 +47,7 @@ class FinancialYearExchangeImportTest < ActiveSupport::TestCase
   test 'run fails when the file contains entries with printed on out of financial year range' do
     invalid_file = File.open(fixture_file('financial_year_exchange_import_entry_date_invalid.csv'))
     import = FinancialYearExchangeImport.new(invalid_file, financial_year_exchange)
-    refute import.run
+    assert_not import.run
     assert import.error.present?
     assert import.error.is_a?(FinancialYearExchangeImport::InvalidFile)
   end
@@ -55,7 +55,7 @@ class FinancialYearExchangeImportTest < ActiveSupport::TestCase
   test 'run fails when the file contains entries with printed on unparsable' do
     invalid_file = File.open(fixture_file('financial_year_exchange_import_entry_date_unparsable.csv'))
     import = FinancialYearExchangeImport.new(invalid_file, financial_year_exchange)
-    refute import.run
+    assert_not import.run
     assert import.error.present?
     assert import.error.is_a?(FinancialYearExchangeImport::InvalidFile)
   end
@@ -64,7 +64,7 @@ class FinancialYearExchangeImportTest < ActiveSupport::TestCase
     journal_entry_ids = booked_journal.entries.map(&:id)
     file = File.open(fixture_file('financial_year_exchange_import_balance_invalid.csv'))
     import = FinancialYearExchangeImport.new(file, financial_year_exchange)
-    refute import.run
+    assert_not import.run
     assert_equal journal_entry_ids.length, JournalEntry.where(id: journal_entry_ids).count
   end
 
@@ -72,15 +72,15 @@ class FinancialYearExchangeImportTest < ActiveSupport::TestCase
     journal_entry_ids = booked_journal.entries.map(&:id)
     file = File.open(fixture_file('financial_year_exchange_import_balance_invalid.csv'))
     import = FinancialYearExchangeImport.new(file, financial_year_exchange)
-    refute import.run
+    assert_not import.run
     assert_equal journal_entry_ids.length, JournalEntry.where(id: journal_entry_ids).count
   end
 
   test 'does not store the file when run fails due to invalid balance on a specific entry' do
     file = File.open(fixture_file('financial_year_exchange_import_balance_invalid.csv'))
     import = FinancialYearExchangeImport.new(file, financial_year_exchange)
-    refute import.run
-    refute financial_year_exchange.reload.import_file.exists?
+    assert_not import.run
+    assert_not financial_year_exchange.reload.import_file.exists?
   end
 
   test 'destroy journal entries in journal booked by the accountant in the same financial year' do

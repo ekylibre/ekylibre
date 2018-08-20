@@ -172,7 +172,7 @@ module Backend
     def load
       if request.post?
         Account.accounting_system = params[:accounting_system]
-        if Nomen::Account.property_natures.keys.include?(Account.accounting_system.to_s)
+        if Nomen::Account.property_natures.key?(Account.accounting_system.to_s)
           Account.load_defaults
         else
           raise 'Arrrggggg'

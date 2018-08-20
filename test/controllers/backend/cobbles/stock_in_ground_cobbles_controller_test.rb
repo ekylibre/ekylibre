@@ -7,7 +7,7 @@ module Backend
         sign_in(user)
         activity = create :corn_activity, :fully_inspectable
         get :show, id: activity.id, dimension: :net_mass
-        refute_empty Nokogiri::HTML(response.body).search('div[data-highcharts]')
+        assert_not_empty Nokogiri::HTML(response.body).search('div[data-highcharts]')
       end
     end
   end

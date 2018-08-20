@@ -28,7 +28,7 @@ class FinancialYearExchangeImport
   def read_and_parse_file
     @parsed = CSV.parse(file.read, headers: true, header_converters: ->(header) { format_header(header) })
     true
-  rescue => error
+  rescue StandardError => error
     message = I18n.translate('activerecord.errors.models.financial_year_exchange.csv_file_invalid')
     @error = InvalidFile.new(message)
     @internal_error = error
@@ -57,7 +57,7 @@ class FinancialYearExchangeImport
     return true if parsed.all? do |row|
       row_date = begin
                    Date.parse(row[:jour])
-                 rescue
+                 rescue StandardError
                    nil
                  end
       row_date && range.cover?(row_date)
@@ -82,7 +82,7 @@ class FinancialYearExchangeImport
   def import_journal_entries
     import_journal_entries!
     true
-  rescue => e
+  rescue StandardError => e
     @error = e
     false
   end

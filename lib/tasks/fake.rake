@@ -325,7 +325,7 @@ module Ekylibre
         options[:nature] ||= find_or_create_sale_nature(options)
         sale = Sale.create!(options)
         variants = []
-        (1 + rand(4)).times do
+        rand(1..4).times do
           next unless (variant = Variant.saleables.sample)
           next if variants.include? variant
           variants << variant
@@ -366,7 +366,7 @@ module Ekylibre
         supplier_type = Variant.supplier_types.sample
         purchase = Purchase.create!(options)
         variants = []
-        (2 + rand(4)).times do |_i|
+        rand(2..5).times do |_i|
           next unless (variant = Variant.purchaseables(supplier_type).sample)
           next if variants.include? variant
           variants << variant

@@ -70,7 +70,7 @@ class Journal < Ekylibre::Record::Base
   selects_among_all :used_for_permanent_stock_inventory, if: :stocks?, scope: :currency
 
   scope :used_for, lambda { |nature|
-    unless Journal.nature.values.include?(nature.to_s)
+    unless Journal.nature.value?(nature.to_s)
       raise ArgumentError, "Journal#used_for must be one of these: #{Journal.nature.values.join(', ')}"
     end
     where(nature: nature.to_s)

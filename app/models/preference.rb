@@ -82,7 +82,7 @@ class Preference < Ekylibre::Record::Base
   class << self
     def prefer(name, nature, default_value = nil)
       @@reference ||= HashWithIndifferentAccess.new
-      unless self.nature.values.include?(nature.to_s)
+      unless self.nature.value?(nature.to_s)
         raise ArgumentError, "Nature (#{nature.inspect}) is unacceptable. #{self.nature.values.to_sentence} are accepted."
       end
       @@reference[name] = { name: name, nature: nature.to_sym, default: default_value }
@@ -96,7 +96,7 @@ class Preference < Ekylibre::Record::Base
 
     def type_to_nature(object)
       klass = object.class.to_s
-      if object.is_a?(Nomen::Item) && nature = object.nomenclature.name.to_s.singularize.to_sym && nature.values.include?(nature)
+      if object.is_a?(Nomen::Item) && nature = object.nomenclature.name.to_s.singularize.to_sym && nature.value?(nature)
         nature
       elsif %w[String Symbol NilClass].include? klass
         :string

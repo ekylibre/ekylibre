@@ -6,7 +6,7 @@ module Tele
       class << self
         def from_xml(xml_io)
           result = Nokogiri::XML(xml_io)
-          return { result.root.name.to_sym => xml_node_to_hash(result.root) }
+          { result.root.name.to_sym => xml_node_to_hash(result.root) }
         rescue Exception => e
           # raise your custom exception here
         end

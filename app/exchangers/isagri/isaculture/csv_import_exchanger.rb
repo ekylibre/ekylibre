@@ -95,7 +95,7 @@ module Isagri
             hash[char] = source.count(char)
             hash
           end
-          separator = stats.sort { |a, b| b.second <=> a.second }.first.first
+          separator = stats.min { |a, b| b.second <=> a.second }.first
           w.info "Detected separator: '#{separator}'"
 
           rows = CSV.read(path, headers: true, col_sep: separator, encoding: detection[:encoding]).sort do |a, b|
@@ -135,7 +135,7 @@ module Isagri
                 products_input_unit: (buffer[17].blank? ? nil : buffer[17].split(';').reject(&:empty?)), # .to_s.downcase
                 # one or more extrant_product could be in each buffer cell
                 extrants_name: (buffer[22].blank? ? nil : buffer[22].split(';').reject(&:empty?)),
-                extrants_population: (buffer[24].blank? ? nil : buffer[24].split(';').reject(&:empty?)), #
+                extrants_population: (buffer[24].blank? ? nil : buffer[24].split(';').reject(&:empty?)),
                 extrants_population_unit: (buffer[25].blank? ? nil : buffer[25].split(';').reject(&:empty?)),
                 equipments_name: (buffer[26].blank? ? nil : buffer[26].split(';').reject(&:empty?)),
                 workers_name: (buffer[28].blank? ? nil : buffer[28].split(';').reject(&:empty?))

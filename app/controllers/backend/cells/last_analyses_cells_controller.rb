@@ -7,17 +7,17 @@ module Backend
           months = 12 if months.zero?
           @product = begin
                        Product.find(params[:product_id])
-                     rescue
+                     rescue StandardError
                        nil
                      end
           @stopped_at = begin
                           params[:stopped_at].to_date
-                        rescue
+                        rescue StandardError
                           Time.zone.today.end_of_month << 1
                         end
           @started_at = begin
                           params[:started_at].to_date
-                        rescue
+                        rescue StandardError
                           @stopped_at.beginning_of_month << (months - 1)
                         end
           @stopped_at = @started_at.end_of_month if @stopped_at < @started_at

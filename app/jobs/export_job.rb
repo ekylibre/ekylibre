@@ -24,7 +24,7 @@ class ExportJob < ActiveJob::Base
       document_id = Document.find_by(key: key).id
       # Send a notification to user
       notification = user.notifications.build(valid_generation_notification_params(path, filename, document_id))
-    rescue => error
+    rescue StandardError => error
       # When error create a notification with error message
       notification = user.notifications.build(error_generation_notification_params(filename, params['id'], error.message))
     end

@@ -8,7 +8,7 @@ class AddPaymentModeToOutgoingPaymentList < ActiveRecord::Migration
             SET "mode_id" = "outgoing_payments"."mode_id"
             FROM "outgoing_payments"
             WHERE "outgoing_payments"."list_id" = "outgoing_payment_lists"."id"
-SQL
+        SQL
       end
     end
     change_column_null :outgoing_payment_lists, :mode_id, false

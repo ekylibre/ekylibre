@@ -4,7 +4,7 @@ module Agroedi
     def check
       SVF::EdiDaplos2.parse(file)
     rescue SVF::InvalidSyntax
-      return false
+      false
     end
 
     def import
@@ -124,7 +124,6 @@ module Agroedi
       end
       unit = unit.to_sym if unit
       nomen_unit = Nomen::Unit[unit] if unit
-      #
       w.debug value.inspect.yellow
       if value >= 0.0 && nomen_unit
         measure = Measure.new(value, unit)
@@ -564,7 +563,7 @@ module Agroedi
 
         # # impact
         intervention = Procedo::Engine.new_intervention(attributes)
-        updaters.reverse.each do |updater|
+        updaters.reverse_each do |updater|
           intervention.impact_with!(updater)
         end
 

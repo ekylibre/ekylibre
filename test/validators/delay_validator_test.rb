@@ -14,7 +14,7 @@ class DelayValidatorTest < ActiveSupport::TestCase
 
   def test_invalidates_object_for_invalid_email
     @obj.delay = '30 days fdm'
-    refute @obj.valid?
+    assert_not @obj.valid?
   end
 
   def test_adds_error_for_invalid_email

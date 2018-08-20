@@ -95,7 +95,7 @@ class IncomingPaymentTest < ActiveSupport::TestCase
       received: true
     )
     # Should not save without exception raise
-    refute incoming_payment.save
+    assert_not incoming_payment.save
   end
 
   test 'delete incoming payment delete journal entry' do

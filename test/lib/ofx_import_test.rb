@@ -5,28 +5,28 @@ class OfxImportTest < ActiveSupport::TestCase
     invalid_file = open_fixture_file('ofx_invalid.ofx')
     cash = cashes(:cashes_003)
     import = OfxImport.new(invalid_file, cash)
-    assert !import.run
+    assert_not import.run
     assert import.error.present?
     assert OfxImport::InvalidOfxFile === import.error
     assert import.internal_error.present?
-    assert !import.recoverable?
+    assert_not import.recoverable?
   end
 
   test 'run fails when the OFX has multiple bank accounts' do
     file = open_fixture_file('ofx_multiple_bank_accounts.ofx')
     cash = cashes(:cashes_003)
     import = OfxImport.new(file, cash)
-    assert !import.run
+    assert_not import.run
     assert import.error.present?
     assert OfxImport::OfxFileHasMultipleAccounts === import.error
-    assert !import.recoverable?
+    assert_not import.recoverable?
   end
 
   test 'run fails but is recoverable when the OFX statement has more than 99 days' do
     file = open_fixture_file('ofx_more_than_99_days.ofx')
     cash = cashes(:cashes_003)
     import = OfxImport.new(file, cash)
-    assert !import.run
+    assert_not import.run
     assert import.error.present?
     assert import.recoverable?
     assert import.bank_statement.present?

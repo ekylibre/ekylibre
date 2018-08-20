@@ -163,7 +163,7 @@ module Ekylibre
         default_values = options[:default_values] || {}
         if options[:rename]
           options[:rename].each do |old_column, new_column|
-            raise "What is #{old_column}? #{columns.keys.sort.to_sentence} only are accepted." unless columns.keys.include?(old_column)
+            raise "What is #{old_column}? #{columns.keys.sort.to_sentence} only are accepted." unless columns.key?(old_column)
             renamings[old_column] = new_column
           end
         end
@@ -229,7 +229,6 @@ module Ekylibre
 
       w.check_point
 
-      #
       f = File.open(database)
       doc = Nokogiri::XML(f) do |config|
         config.strict.nonet.noblanks.noent

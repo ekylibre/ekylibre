@@ -41,7 +41,7 @@ module Procedo
           end
           list.compact!
           return 0.0 if list.empty?
-          list.sum.to_d(unit ? unit : indicator.unit)
+          list.sum.to_d(unit || indicator.unit)
         end
 
         def sum_working_zone_areas(set, unit = nil)
@@ -89,14 +89,14 @@ module Procedo
         end
 
         def area(shape)
-          return shape.area.in(:square_meter).to_f(:square_meter)
-        rescue
+          shape.area.in(:square_meter).to_f(:square_meter)
+        rescue StandardError
           raise Procedo::Errors::FailedFunctionCall
         end
 
         def intersection(shape, other_shape)
-          return shape.intersection(other_shape)
-        rescue
+          shape.intersection(other_shape)
+        rescue StandardError
           raise Procedo::Errors::FailedFunctionCall
         end
 
@@ -108,13 +108,13 @@ module Procedo
           else
             return 0
           end
-        rescue
+        rescue StandardError
           raise Procedo::Errors::FailedFunctionCall
         end
 
         def contents_count(container)
-          return container.actor.containeds.count(&:available?)
-        rescue
+          container.actor.containeds.count(&:available?)
+        rescue StandardError
           raise Procedo::Errors::FailedFunctionCall
         end
 
@@ -139,27 +139,27 @@ module Procedo
         end
 
         def variety_of(product)
-          return product.variety
-        rescue
+          product.variety
+        rescue StandardError
           raise Procedo::Errors::FailedFunctionCall
         end
 
         def variant_of(product)
           return product.member_variant unless product.nil?
           nil
-        rescue
+        rescue StandardError
           raise Procedo::Errors::FailedFunctionCall
         end
 
         def father_of(vial)
-          return vial.mother.last_transplantation.input.father || vial.mother.last_insemination.input.producer
-        rescue
+          vial.mother.last_transplantation.input.father || vial.mother.last_insemination.input.producer
+        rescue StandardError
           raise Procedo::Errors::FailedFunctionCall
         end
 
         def mother_of(vial)
-          return vial.mother.last_transplantation.input.mother || vial.mother
-        rescue
+          vial.mother.last_transplantation.input.mother || vial.mother
+        rescue StandardError
           raise Procedo::Errors::FailedFunctionCall
         end
 

@@ -54,7 +54,7 @@ class Observation < Ekylibre::Record::Base
     self.observed_at ||= Time.zone.now
     begin
       self.author_id ||= self.class.stamper_class.stamper
-    rescue
+    rescue StandardError
       nil
     end
   end
@@ -68,7 +68,7 @@ class Observation < Ekylibre::Record::Base
   def subject_type=(class_name)
     unless normalized_class_name = begin
                                      class_name.to_s.classify.constantize.base_class.name
-                                   rescue
+                                   rescue StandardError
                                      nil
                                    end
       raise "Invalid class name: #{class_name.inspect}"

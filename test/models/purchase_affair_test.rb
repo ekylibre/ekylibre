@@ -164,7 +164,7 @@ class PurchaseAffairTest < ActiveSupport::TestCase
     nature.save!
     items = (0..4).to_a.map do |index|
       PurchaseItem.new(
-        quantity: 1 + rand(20),
+        quantity: rand(1..20),
         unit_pretax_amount: 10 + (100 * rand).round(2),
         variant: ProductNatureVariant.where(
           category: ProductNatureCategory.where(purchasable: true)
@@ -187,8 +187,8 @@ class PurchaseAffairTest < ActiveSupport::TestCase
     assert purchase.affair.journal_entry_items_unbalanced?,
            "Journal entry items should be unbalanced:\n" +
            purchase.affair.letterable_journal_entry_items.map { |i| " - #{i.account_number.ljust(14)} | #{i.debit.to_s.rjust(10)} | #{i.credit.to_s.rjust(10)}" }.join("\n")
-    assert !purchase.affair.multi_thirds?
-    assert !purchase.affair.journal_entry_items_already_lettered?
+    assert_not purchase.affair.multi_thirds?
+    assert_not purchase.affair.journal_entry_items_already_lettered?
 
     # REVIEW: This should be confirmed by someone.
     # Test changed by @aquaj because it seems to be the desired behaviour

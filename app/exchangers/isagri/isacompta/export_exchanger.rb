@@ -5,7 +5,7 @@ module Isagri
       def check
         SVF::Isacompta8550.parse(file)
       rescue SVF::InvalidSyntax
-        return false
+        false
       end
 
       def import
@@ -21,11 +21,11 @@ module Isagri
           File.open(file, 'rb:CP1252') do |f|
             version = f.readline.to_s[13..16].to_i
           end
-        rescue
+        rescue StandardError
           raise ActiveExchanger::NotWellFormedFileError
         end
         used_versions = [8550]
-        version = used_versions.select { |x| x <= version }.sort[-1]
+        version = used_versions.select { |x| x <= version }.max
 
         if version == 8550
           begin
@@ -57,7 +57,7 @@ module Isagri
             all_accounts = {}
             isa_fy.accounts.each do |isa_account|
               unless account = Account.find_by(number: isa_account.number)
-                account = Account.create!(name: (isa_account.label.blank? ? isa_account.number : isa_account.label), number: isa_account.number, reconcilable: isa_account.reconcilable, last_letter: isa_account.letter, debtor: (isa_account.input_direction == 'de'), description: isa_account.to_s)
+                account = Account.create!(name: (isa_account.label.presence || isa_account.number), number: isa_account.number, reconcilable: isa_account.reconcilable, last_letter: isa_account.letter, debtor: (isa_account.input_direction == 'de'), description: isa_account.to_s)
               end
               all_accounts[isa_account.number] = account.id
               w.check_point
@@ -83,7 +83,7 @@ module Isagri
                   journals = Journal.where("TRANSLATE(LOWER(name), 'àâäéèêëìîïòôöùûüỳŷÿ', 'aaaeeeeiiiooouuuyyy') LIKE ? ", '%' + isa_journal.label.mb_chars.downcase.gsub(/\s+/, '%') + '%')
                   journal = journals[0] if journals.size == 1
                 end
-                journal ||= Journal.create!(code: isa_journal.code, name: (isa_journal.label.blank? ? "[#{isa_journal.code}]" : isa_journal.label), nature: default_journal_natures[isa_journal.type] || :various) # , :closed_on => isa_journal.last_close_on
+                journal ||= Journal.create!(code: isa_journal.code, name: (isa_journal.label.presence || "[#{isa_journal.code}]"), nature: default_journal_natures[isa_journal.type] || :various) # , :closed_on => isa_journal.last_close_on
                 all_journals[isa_journal.code] = journal.id
               end
               w.check_point

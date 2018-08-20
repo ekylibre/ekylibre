@@ -102,6 +102,6 @@ class PlantTest < ActiveSupport::TestCase
 
   test 'shape render value' do
     p = Plant.last
-    assert !p.shape.nil?
+    assert_not p.shape.nil?
   end
 end

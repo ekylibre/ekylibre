@@ -72,7 +72,7 @@ module Procedo
         end
 
         def parse!(code, options = {})
-          return Procedo::Formula.parse(code.to_s, options)
+          Procedo::Formula.parse(code.to_s, options)
         rescue Procedo::Formula::SyntaxError => e
           message = options[:message] || "Syntax error in #{code.inspect}."
           raise message + ' ' + e.message + "\n" +

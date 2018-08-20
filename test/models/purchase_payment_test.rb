@@ -61,7 +61,7 @@ class PurchasePaymentTest < ActiveSupport::TestCase
       delivered: true
     )
     # Should not save without exception raise
-    refute purchase_payment.save
+    assert_not purchase_payment.save
   end
 
   test 'delete outgoing payment delete journal entry' do

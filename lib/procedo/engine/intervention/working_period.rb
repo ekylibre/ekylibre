@@ -12,13 +12,13 @@ module Procedo
           @id = id.to_s
           @started_at = begin
                           Time.new(*attributes[:started_at].split(/\D+/))
-                        rescue
+                        rescue StandardError
                           nil
                         end
           @started_at ||= (Time.zone.now - DEFAULT_DURATION)
           @stopped_at = begin
                           Time.new(*attributes[:stopped_at].split(/\D+/))
-                        rescue
+                        rescue StandardError
                           nil
                         end
           @stopped_at ||= (@started_at + DEFAULT_DURATION)

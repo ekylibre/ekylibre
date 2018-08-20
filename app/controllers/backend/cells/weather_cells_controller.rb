@@ -14,7 +14,7 @@ module Backend
 
           json = begin
                    JSON.parse(res.body)
-                 rescue
+                 rescue StandardError
                    nil
                  end
           unless json.nil?

@@ -169,7 +169,7 @@ module Backend
         end
       end
 
-      if @purchase_invoice.update_attributes(permitted_params)
+      if @purchase_invoice.update(permitted_params)
         redirect_to action: :show
       else
         render :edit

@@ -338,7 +338,6 @@ module RestfullyManageable
       class_eval(code)
     end
 
-    #
     def manage_restfully_picture
       name = controller_name
       record_name = name.to_s.singularize

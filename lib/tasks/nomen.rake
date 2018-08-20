@@ -193,7 +193,7 @@ namespace :nomen do
           attrs[:authority_reference] = auth_ref.join(':')
           attrs[:srid] = row['srid']
 
-          attrs[:urn] = OGC_CRS_URN[row['srid']] if OGC_CRS_URN.keys.include?(row['srid'])
+          attrs[:urn] = OGC_CRS_URN[row['srid']] if OGC_CRS_URN.key?(row['srid'])
 
           # if already exists.
           item = systems.find_by(srid: row['auth_srid'].to_i)

@@ -11,7 +11,7 @@ module Milklic
 
       begin
         rows = CSV.read(file, encoding: 'CP1252', col_sep: ';', headers: true)
-      rescue
+      rescue StandardError
         raise NotWellFormedFileError
       end
       w.count = rows.size

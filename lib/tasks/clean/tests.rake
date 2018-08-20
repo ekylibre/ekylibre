@@ -50,7 +50,7 @@ namespace :clean do
     yaml = nil
     files = Dir.glob(Rails.root.join('test', 'fixtures', '*.yml')).map(&:to_s)
     Ekylibre::Schema.tables.each do |table, columns|
-      next unless columns.keys.include?('id')
+      next unless columns.key?('id')
       log.write("> fixtures #{table}\n") if verbose
       file = Rails.root.join('test', 'fixtures', "#{table}.yml")
       if File.exist?(file)

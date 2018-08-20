@@ -24,7 +24,7 @@ module Ekylibre
 
         # If landparcel already exist update it
         if zone = LandParcel.find_by(work_number: r.code)
-          zone.update_attributes(name: r.name)
+          zone.update(name: r.name)
           zone.save!
         # else if landparcel shape already exist in georeadding then create it with shape
         elsif georeading = Georeading.find_by(number: r.shape_number)
@@ -36,7 +36,7 @@ module Ekylibre
 
         if zone
           if container = Product.find_by(work_number: r.place_code)
-            zone.update_attributes(initial_container: container)
+            zone.update(initial_container: container)
             zone.save!
           end
           if r.soil_nature

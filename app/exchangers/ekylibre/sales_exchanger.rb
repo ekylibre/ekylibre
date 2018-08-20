@@ -8,9 +8,9 @@ module Ekylibre
       rows.each do |row|
         r = {
           invoiced_at:        (row[0].blank? ? nil : Date.parse(row[0].to_s)),
-          client_full_name: (row[1].blank? ? nil : row[1]),
+          client_full_name: row[1].presence,
           reference_number:   (row[2].blank? ? nil : row[2].upcase),
-          variant_code: (row[3].blank? ? nil : row[3]),
+          variant_code: row[3].presence,
           quantity: (row[4].blank? ? nil : row[4].tr(',', '.').to_d),
           unit_pretax_amount: (row[5].blank? ? nil : row[5].tr(',', '.').to_d),
           vat_rate: (row[6].blank? ? nil : row[6].tr(',', '.').to_d),

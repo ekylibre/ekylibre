@@ -362,7 +362,7 @@ module Backend
     def import
       @step = begin
                 params[:id].to_sym
-              rescue
+              rescue StandardError
                 :upload
               end
       if @step == :upload
@@ -432,7 +432,7 @@ module Backend
         begin
           notify_success(:merge_is_done)
           redirect_to action: :show, id: @master.id
-        rescue
+        rescue StandardError
           notify_error_now(:cannot_merge_entities)
         end
       end

@@ -24,7 +24,7 @@ class InterventionDecorator < Draper::Decorator
       end
 
       datas[:color] ||= '#777777'
-      datas[:name] ||= product.work_number.blank? ? product.name : product.work_number
+      datas[:name] ||= product.work_number.presence || product.name
 
       datas[:text_color] = contrasted_color_callback.call(datas[:color]) unless contrasted_color_callback.nil?
 

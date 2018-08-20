@@ -7,7 +7,7 @@ module Unrollable
       end
 
       def if_there(obj)
-        obj.present? ? obj : nil
+        obj.presence
       end
 
       def true?(object)

@@ -24,7 +24,7 @@ module Backend
                            .call(Intervention, permitted_params)
                            .count
 
-        render json: { has_harvesting: harvesting_count > 0 ? true : false }
+        render json: { has_harvesting: harvesting_count > 0 }
       end
 
       private

@@ -73,13 +73,13 @@ class JournalTest < ActiveSupport::TestCase
   test 'accountant cannot be set on non-various journals' do
     bank_journal = create(:journal, :bank)
     bank_journal.accountant = create(:entity, :accountant)
-    refute bank_journal.valid?
+    assert_not bank_journal.valid?
   end
 
   test 'accountant cannot be on journals with cashes' do
     journal_with_cash = create(:journal, :various, :with_cash)
     journal_with_cash.accountant = create(:entity, :accountant)
-    refute journal_with_cash.valid?
+    assert_not journal_with_cash.valid?
   end
 
   test 'cannot set an accountant which has opened exchanges in its financial year' do
@@ -90,7 +90,7 @@ class JournalTest < ActiveSupport::TestCase
 
     journal = create(:journal, :various)
     journal.accountant = financial_year.accountant
-    refute journal.valid?
+    assert_not journal.valid?
   end
 
   test 'cannot remove accountant which has opened exchanges in its financial year' do
@@ -100,14 +100,14 @@ class JournalTest < ActiveSupport::TestCase
     journal = create(:journal, :various, accountant_id: accountant.id)
     create(:financial_year_exchange, :opened, financial_year: financial_year)
     journal.accountant = nil
-    refute journal.valid?
+    assert_not journal.valid?
   end
 
   test 'cannot be closed with an accountant' do
     journal = create(:journal, :various)
     assert journal.closable?, 'Journal should be closable'
     journal.accountant = create(:entity, :accountant)
-    refute journal.closable?
+    assert_not journal.closable?
   end
 
   test 'cannot be reopened with an accountant' do
@@ -115,6 +115,6 @@ class JournalTest < ActiveSupport::TestCase
     assert journal.close!(Time.zone.now.to_date)
     assert journal.reopenable?
     journal.accountant = create(:entity, :accountant)
-    refute journal.reopenable?
+    assert_not journal.reopenable?
   end
 end
