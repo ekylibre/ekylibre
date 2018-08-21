@@ -20,11 +20,6 @@ arb:
     doer_cost: "تكلفة الفاعل"
     doer_name: "اسم الفاعل"
     doers_name: "اسم الظالمين"
-    tools_name: "اسم الأدوات"
-    targets_name: "اسم الهدف"
-    support_irrigated: "دعم المروية"
-    support_nitrate_fixing: "دعم نترات تحديد"
-    total_cost_per_area: "التكلفة الإجمالية لكل منطقة"
     duration_in_hour: "مدة في ساعة"
     ede_cattling_number: "إيدي عدد cattling"
     ede_owner_number: "عدد مالك إيدي"
@@ -99,7 +94,12 @@ arb:
     stock_production: "إنتاج الأوراق المالية" #?
     stocks_variation: "الأسهم الاختلاف" #?
     subsidies: "الدعم" #?
+    support_irrigated: "دعم المروية" #?
+    support_nitrate_fixing: "دعم نترات تحديد" #?
     target_name: "اسم الهدف" #?
+    targets_name: "اسم الهدف"
+    tools_name: "اسم الأدوات"
+    total_cost_per_area: "التكلفة الإجمالية لكل منطقة" #?
     variable_name: "اسم المتغير" #?
     variant_name: "اسم البديل"
     variant_variety: "متنوعة متفاوتة" #?
