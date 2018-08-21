@@ -26,11 +26,6 @@ por:
     doer_cost: "Custo doer"
     doer_name: "Nome executor"
     doers_name: "Nome fazedores"
-    tools_name: "nome das ferramentas"
-    targets_name: "Nome do alvo"
-    support_irrigated: "Apoio irrigado"
-    support_nitrate_fixing: "Apoio à fixação de nitratos"
-    total_cost_per_area: "custo total por área"
     duration_in_hour: "Duração em horas"
     ede_cattling_number: "Número cattling Ede"
     ede_owner_number: "Número proprietário Ede"
@@ -125,7 +120,12 @@ por:
     stock_production: "Produção em estoque" #?
     stocks_variation: "Variação de estoque" #?
     subsidies: "Subsidios" #?
+    support_irrigated: "Apoio irrigado" #?
+    support_nitrate_fixing: "Apoio à fixação de nitratos" #?
     target_name: "Nome alvo" #?
+    targets_name: "Nome do alvo"
+    tools_name: "nome das ferramentas"
+    total_cost_per_area: "custo total por área" #?
     unitary_quantity: "Quantidade unitária" #?
     variable_name: "Nome variável" #?
     variant_name: "Nome da variante"

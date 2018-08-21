@@ -20,11 +20,6 @@ deu:
     doer_cost: "Macher Kosten"
     doer_name: "Macher Name"
     doers_name: "Macher Name"
-    tools_name: "Werkzeugname"
-    targets_name: "Zielname"
-    support_irrigated: "Unterstützung bewässert"
-    support_nitrate_fixing: "Support Nitratfixierung"
-    total_cost_per_area: "Gesamtkosten pro Fläche"
     duration_in_hour: "Laufzeit in Stunden"
     ede_cattling_number: "Ede cattling Nummer"
     ede_owner_number: "Ede Inhaber Zahl"
@@ -98,6 +93,11 @@ deu:
     stock_production: "Auf Produktions" #?
     stocks_variation: "Aktien Variation" #?
     subsidies: "Subventionen" #?
+    support_irrigated: "Unterstützung bewässert" #?
+    support_nitrate_fixing: "Support Nitratfixierung" #?
+    targets_name: "Zielname"
+    tools_name: "Werkzeugname"
+    total_cost_per_area: "Gesamtkosten pro Fläche" #?
     variant_name: "Name der Variante"
     vine_yield: "Vine Ausbeute"
     wages: "Lohn" #?

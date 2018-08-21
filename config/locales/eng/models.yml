@@ -935,6 +935,7 @@ eng:
     introduction: "Introduction"
     # inventories: "Inventories"
     inventory: "Inventory"
+    inventory_items: "Inventory items"
     invitation_accepted_at: "Invitation accepted at"
     invitation_created_at: "Invitation created at"
     invitation_limit: "Invitation limit"

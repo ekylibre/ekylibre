@@ -541,11 +541,9 @@ class Intervention < Ekylibre::Record::Base
 
   def total_cost_per_area(area_unit = :hectare)
     zone_area = working_zone_area(area_unit).to_f.round(2)
-    if zone_area > 0.0
-      (total_cost / zone_area) * area_cost_coefficient
-    end
+    (total_cost / zone_area) * area_cost_coefficient if zone_area > 0.0
   end
-  
+
   def area_cost_coefficient
     zone_area = working_zone_area(:hectare).to_f.round(2)
     global_area = activity_production_zone_area(:hectare).to_f.round(2)
@@ -554,7 +552,7 @@ class Intervention < Ekylibre::Record::Base
     if zone_area && global_area && global_area > 0.0
       coef = zone_area / global_area
     end
-    return coef
+    coef
   end
 
   def currency
@@ -566,7 +564,7 @@ class Intervention < Ekylibre::Record::Base
     return params.map(&:earn).compact.sum if params.any?
     nil
   end
-  
+
   # return all working zone area of targets
   def working_zone_area(*args)
     options = args.extract_options!
@@ -577,7 +575,7 @@ class Intervention < Ekylibre::Record::Base
     area ||= 0.0.in(unit)
     area
   end
-  
+
   # return all initial area of supports of targets
   def activity_production_zone_area(*args)
     options = args.extract_options!
