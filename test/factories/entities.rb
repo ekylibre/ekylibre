@@ -1,35 +1,35 @@
 FactoryBot.define do
   factory :entity do
-    active true
-    client false
-    employee false
-    locked false
-    of_company false
-    prospect false
-    reminder_submissive false
-    supplier false
-    transporter false
-    vat_subjected true
-    currency 'EUR'
-    language 'fra'
-    nature 'contact'
-    full_name 'Dupond Comptable'
-    last_name 'Dupond'
-    country 'fr'
-    iban ''
+    active { true }
+    client { false }
+    employee { false }
+    locked { false }
+    of_company { false }
+    prospect { false }
+    reminder_submissive { false }
+    supplier { false }
+    transporter { false }
+    vat_subjected { true }
+    currency { 'EUR' }
+    language { 'fra' }
+    nature { 'contact' }
+    full_name { 'Dupond Comptable' }
+    last_name { 'Dupond' }
+    country { 'fr' }
+    iban { '' }
 
     trait :accountant do
     end
 
     trait :client do
-      client true
+      client { true }
       after(:build) do |entity|
         entity.client_account = Account.find_by!(number: '411')
       end
     end
 
     trait :supplier do
-      supplier true
+      supplier { true }
       after(:build) do |entity|
         entity.supplier_account = Account.find_by!(number: '401')
       end
