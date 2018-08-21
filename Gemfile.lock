@@ -163,11 +163,6 @@ GEM
     docile (1.3.1)
     domain_name (0.5.20180417)
       unf (>= 0.0.5, < 1.0.0)
-    draper (2.1.0)
-      actionpack (>= 3.0)
-      activemodel (>= 3.0)
-      activesupport (>= 3.0)
-      request_store (~> 1.0)
     ekylibre-ofx-parser (1.2.2)
       hpricot (>= 0.6)
     enumerize (2.2.2)
@@ -180,7 +175,7 @@ GEM
       actionmailer (>= 4.0, < 6)
       activesupport (>= 4.0, < 6)
     execjs (2.7.0)
-    factory_bot (4.8.2)
+    factory_bot (4.11.0)
       activesupport (>= 3.0.0)
     faraday (0.12.2)
       multipart-post (>= 1.2, < 3)
@@ -195,8 +190,6 @@ GEM
     ffi (1.9.25)
     figaro (1.1.1)
       thor (~> 0.14)
-    font-awesome-sass (5.2.0)
-      sassc (>= 1.11)
     foreman (0.85.0)
       thor (~> 0.19.1)
     formize (2.1.0)
@@ -248,9 +241,18 @@ GEM
       railties (>= 3.2.16)
     json (1.8.6)
     jwt (1.5.6)
-    kaminari (0.16.3)
-      actionpack (>= 3.0.0)
-      activesupport (>= 3.0.0)
+    kaminari (1.1.1)
+      activesupport (>= 4.1.0)
+      kaminari-actionview (= 1.1.1)
+      kaminari-activerecord (= 1.1.1)
+      kaminari-core (= 1.1.1)
+    kaminari-actionview (1.1.1)
+      actionview
+      kaminari-core (= 1.1.1)
+    kaminari-activerecord (1.1.1)
+      activerecord
+      kaminari-core (= 1.1.1)
+    kaminari-core (1.1.1)
     kgio (2.11.2)
     launchy (2.4.3)
       addressable (~> 2.3)
@@ -273,7 +275,9 @@ GEM
       ntlm-http (~> 0.1, >= 0.1.1)
       webrobots (>= 0.0.9, < 0.2)
     method_source (0.9.0)
-    mime-types (2.99.3)
+    mime-types (3.2.2)
+      mime-types-data (~> 3.2015)
+    mime-types-data (3.2018.0812)
     mimemagic (0.3.2)
     mini_mime (1.0.1)
     mini_portile2 (2.3.0)
@@ -336,10 +340,6 @@ GEM
     pry-rails (0.3.6)
       pry (>= 0.10.4)
     public_suffix (3.0.3)
-    quandl (1.0.3)
-      activesupport (>= 4.2.3)
-      json (~> 1.8.3)
-      rest-client (~> 1.8.0)
     quiet_assets (1.1.0)
       railties (>= 3.1, < 5.0)
     raabro (1.1.6)
@@ -393,16 +393,14 @@ GEM
     redis (3.3.5)
     ref (2.0.0)
     remotipart (1.4.2)
-    request_store (1.4.1)
-      rack (>= 1.4)
     require_all (2.0.0)
     responders (2.4.0)
       actionpack (>= 4.2.0, < 5.3)
       railties (>= 4.2.0, < 5.3)
-    rest-client (1.8.0)
+    rest-client (2.0.2)
       http-cookie (>= 1.0.2, < 2.0)
-      mime-types (>= 1.16, < 3.0)
-      netrc (~> 0.7)
+      mime-types (>= 1.16, < 4.0)
+      netrc (~> 0.8)
     rgeo (0.6.0)
     rgeo-activerecord (4.0.5)
       activerecord (~> 4.2)
@@ -434,8 +432,6 @@ GEM
     ruby-progressbar (1.10.0)
     rubyntlm (0.6.2)
     rubyzip (1.2.1)
-    rufus-scheduler (3.5.2)
-      fugit (~> 1.1, >= 1.1.5)
     sass (3.5.7)
       sass-listen (~> 4.0.0)
     sass-listen (4.0.0)
@@ -447,9 +443,6 @@ GEM
       sprockets (>= 2.8, < 4.0)
       sprockets-rails (>= 2.0, < 4.0)
       tilt (>= 1.1, < 3)
-    sassc (1.12.1)
-      ffi (~> 1.9.6)
-      sass (>= 3.3.0)
     savon (2.12.0)
       akami (~> 1.2)
       builder (>= 2.1.2)
@@ -464,9 +457,8 @@ GEM
       rdoc (~> 4.0)
     selenium-webdriver (3.14.0)
       childprocess (~> 0.5)
-      rubyzip (~> 1.2)
-    sepa_king (0.10.1)
-      activemodel (>= 3.0.0)
+      rubyzip (~> 1.2)    sepa_king (0.11.0)
+      activemodel (>= 3.1)
       builder
       iban-tools
     sexp_processor (4.11.0)
@@ -476,8 +468,8 @@ GEM
       connection_pool (~> 2.2, >= 2.2.0)
       rack-protection (>= 1.5.0)
       redis (~> 3.2, >= 3.2.1)
-    sidekiq-cron (0.6.3)
-      rufus-scheduler (>= 3.3.0)
+    sidekiq-cron (1.0.4)
+      fugit (~> 1.1)
       sidekiq (>= 4.2.1)
     sidekiq-unique-jobs (4.0.18)
       sidekiq (>= 2.6)
@@ -552,7 +544,6 @@ GEM
     uniform_notifier (1.10.0)
     url (0.3.2)
     uuidtools (2.1.5)
-    vuejs-rails (2.5.13)
     wannabe_bool (0.7.1)
     warden (1.2.7)
       rack (>= 1.0)
@@ -564,10 +555,6 @@ GEM
       debug_inspector
       railties (>= 4.2)
     webrobots (0.1.2)
-    wice_grid (3.6.2)
-      activerecord (> 3.2)
-      coffee-rails (> 3.2)
-      kaminari (~> 0.16)
     xpath (3.1.0)
       nokogiri (~> 1.8)
 
@@ -612,7 +599,6 @@ DEPENDENCIES
   devise-i18n-views
   devise_invitable
   did_you_mean (~> 0.9)
-  draper
   ekylibre-ofx-parser
   enumerize
   exception_notification
@@ -620,7 +606,6 @@ DEPENDENCIES
   feedjira
   ffaker (>= 2.0.0)
   figaro
-  font-awesome-sass
   foreman
   formize (~> 2.1.0)
   haml
@@ -634,9 +619,8 @@ DEPENDENCIES
   jquery-scrollto-rails
   jquery-turbolinks
   jquery-ui-rails
-  kaminari (~> 0.16.0)
+  kaminari
   letter_opener
-  loofah
   luhn
   mail (~> 2.6.6.rc1)
   mechanize
@@ -652,11 +636,9 @@ DEPENDENCIES
   possibly
   pry-byebug
   pry-rails
-  quandl
   quiet_assets
   rails (= 4.2.10)
   rails_best_practices
-  rake (~> 12.0)
   remotipart (~> 1.2)
   rest-client
   rgeo-geojson
@@ -674,7 +656,7 @@ DEPENDENCIES
   sepa_king
   shoulda-context
   sidekiq (~> 4.0)
-  sidekiq-cron (~> 0.6)
+  sidekiq-cron (>= 0.4.0)
   sidekiq-unique-jobs (~> 4.0)
   simple_calendar
   simple_form (~> 3.4)
@@ -693,10 +675,8 @@ DEPENDENCIES
   uglifier (>= 1.3.0)
   unicorn
   uuidtools
-  vuejs-rails
   wannabe_bool
   web-console (~> 3.0)
-  wice_grid
 
 RUBY VERSION
    ruby 2.4.3p205
