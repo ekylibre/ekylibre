@@ -27,11 +27,6 @@ fra:
     doer_cost: "Cout de main d'oeuvre"
     doer_name: "Acteur"
     doers_name: "Nom des acteurs"
-    tools_name: "nom de l'outil"
-    targets_name: "Nom de la cible"
-    support_irrigated: "Soutien irrigué"
-    support_nitrate_fixing: "Soutenir la fixation de nitrate"
-    total_cost_per_area: "coût total par zone"
     duration_in_hour: "Durée (heures)"
     ede_cattling_number: "Numéro d'élevage EDE"
     ede_owner_number: "Numéro de propriétaire EDE"
@@ -122,7 +117,12 @@ fra:
     stock_production: "Production de stock" #?
     stocks_variation: "Variation de stocks" #?
     subsidies: "Subventions" #?
+    support_irrigated: "Soutien irrigué" #?
+    support_nitrate_fixing: "Soutenir la fixation de nitrate" #?
     target_name: "Cible" #?
+    targets_name: "Nom de la cible"
+    tools_name: "nom de l'outil"
+    total_cost_per_area: "coût total par zone" #?
     variable_name: "Variable" #?
     variant_name: "Variante"
     variant_variety: "Variété de la variante" #?
