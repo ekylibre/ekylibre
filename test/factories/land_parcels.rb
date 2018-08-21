@@ -35,10 +35,10 @@ FactoryBot.define do
                 ]
               }
             }'
-    initial_shape Charta.new_geometry(shape)
+    initial_shape { Charta.new_geometry(shape) }
     association :category, factory: :product_nature_category
     association :nature, factory: :land_parcel_nature
     association :variant, factory: :land_parcel_nature_variant
-    variety 'land_parcel'
+    variety { 'land_parcel' }
   end
 end
