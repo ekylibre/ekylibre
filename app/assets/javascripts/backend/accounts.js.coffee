@@ -2,6 +2,7 @@
   'use strict'
 
   $(document).ready ->
+    return unless $('.edit_account').length
     url = $('form').attr('action')
     $.ajax
       url: "#{url}.json"
