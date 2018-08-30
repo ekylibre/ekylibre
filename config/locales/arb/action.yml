@@ -1484,6 +1484,7 @@ arb:
     financial_products: "المنتجات المالية"
     financial_state: "الوضع المالي" #?
     financial_year_create: "فتح مهنة جديدة للمحاسبة" #?
+    # financial_year_needed: "All commercial and financial operations need to be accounted on an opened financial year. Please open a financial year for the current period or ask a manager"
     financials_assets: "الأصول المالية" #?
     finish: "انهاء"
     finished: "تم الانتهاء من"
@@ -1705,6 +1706,7 @@ arb:
     main_settings: "الضبط الرئيسي"
     make_your_production_support: "جعل دعم الإنتاج الخاص"
     manage_activities: "إدارة الأنشطة"
+    # manage_financial_years: "Manage financial years"
     management: "ادارة الاعمال" #?
     management_index: "دليل ادارة الاعمال" #?
     mandate_create: "انشاء تفويض" #?
@@ -1839,6 +1841,7 @@ arb:
     no_deliveries: "ليس هناك من تسليم بالانتظار" #?
     no_deliveries_for_this_sale: "لم يتم التسليم لهذا الطلب من البيع" #?
     no_deposits: "التأكد من عدم اقتطاعات البنك"
+    # no_financial_year_opened: "No financial year opened on current date"
     no_intervention_participations_to_check: "لا المساهمات تدخل للتحقق"
     no_javascript: "ان متصفح الويب الخاص بك لا يدعم نسخة الجافا، لذا تحتاج الى تفعيله من اجل استخدام ايكيليبغ." #?
     no_notifications: "أي إخطارات"

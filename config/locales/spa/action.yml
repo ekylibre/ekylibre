@@ -1239,6 +1239,7 @@ spa:
     financial_expenses: "Gastos financieros"
     financial_products: "Productos financieros"
     financial_year_create: "Abrir un nuevo ejercicio contable" #?
+    # financial_year_needed: "All commercial and financial operations need to be accounted on an opened financial year. Please open a financial year for the current period or ask a manager"
     financials_assets: "Activos Finanzas" #?
     finish: "Acabado"
     finished: "Terminado"
@@ -1434,6 +1435,7 @@ spa:
     main_settings: "Ajustes principales"
     make_your_production_support: "Haga su apoyo a la producción"
     manage_activities: "Gestionar las actividades"
+    # manage_financial_years: "Manage financial years"
     management: "Administración comercial" #?
     mandatory_provisions: "Las disposiciones obligatorias"
     # manual: "Manual"
@@ -1528,6 +1530,7 @@ spa:
     no_crumbs_to_check: "No hay migajas para comprobar"
     no_data: "Sin datos"
     no_deposits: "Sin depósitos"
+    # no_financial_year_opened: "No financial year opened on current date"
     no_intervention_participations_to_check: "No hay participaciones de intervención para comprobar"
     no_javascript: "Su navegante no soporta el javascript. se debe activarlo para utilizar el software. Gracias para su comprension." #?
     no_notifications: "No Notificaciones"

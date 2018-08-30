@@ -1288,7 +1288,7 @@ eng:
     depreciation: "Depreciation"
     depreciations: "Depreciations"
     depreciations_inputations_expenses: "Depreciations inputations expenses" #?
-    derogatory_depreciation_explanation: "Ekylibre doesn't handle derogatory depreciations" #?!
+    derogatory_depreciation_explanation: "Ekylibre doesn't handle derogatory depreciations"
     derogatory_depreciations: "Derogatory depreciations" #?!
     description: "Description" #?
     destroy: "Destroy"
@@ -1390,6 +1390,7 @@ eng:
     financial_assets: "Financial assets" #?
     financial_expenses: "Financial expenses" #??
     financial_products: "Financial products" #??
+    financial_year_needed: "All commercial and financial operations need to be accounted on an opened financial year. Please open a financial year for the current period or ask a manager" #?!
     # financials_assets: "Financials assets"
     finish: "Finish" #?
     finished: "Finished"
@@ -1556,6 +1557,7 @@ eng:
     main_settings: "Main settings"
     make_your_production_support: "Make your production support"
     manage_activities: "Manage activities"
+    manage_financial_years: "Manage financial years" #?!
     mandatory_provisions: "Mandatory provisions" #?!
     manual: "Manual" #?
     manual_period: "from %{start} to %{finish}"
@@ -1637,6 +1639,7 @@ eng:
     no_crumbs_to_check: "No crumbs to check"
     no_data: "No data"
     no_deposits: "No deposits"
+    no_financial_year_opened: "No financial year opened on current date" #??
     no_intervention_participations_to_check: "No intervention participations to check"
     no_notifications: "No notifications"
     no_particular_periods: "No particular period" #?
@@ -2272,7 +2275,7 @@ eng:
       financial_year_x_could_not_be_closed: "Financial Year  %{name} could not be closed."
       financial_year_x_successfully_closed: "Financial Year %{name} successfully closed !"
       financial_years_missing: "You must create every missing financial years since the first registered"
-      financial_years_missing_tax_declarations: "You must create every declarations for the following financial years: %{codes}"
+      financial_years_missing_tax_declarations: "You must create every declarations for the following financial years: %{codes}" #?
       implemented_with_dummy_data: "Implemented with dummy data"
       import_failed: "Import %{name} failed: %{message}"
       import_finished_successfully: "Import %{name} finished successfully"

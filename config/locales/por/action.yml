@@ -1122,6 +1122,7 @@ por:
     financial_assets: "Ativos financeiros"
     financial_expenses: "Despesas financeiras"
     financial_products: "Produtos financeiros"
+    # financial_year_needed: "All commercial and financial operations need to be accounted on an opened financial year. Please open a financial year for the current period or ask a manager"
     financials_assets: "Ativos Financials" #?
     finish: "Terminar"
     finished: "Acabado"
@@ -1288,6 +1289,7 @@ por:
     main_settings: "Configurações principais"
     make_your_production_support: "Faça o seu apoio à produção"
     manage_activities: "Gerenciar as atividades"
+    # manage_financial_years: "Manage financial years"
     mandatory_provisions: "As disposições obrigatórias"
     # manual: "Manual"
     # manual_period: "from %{start} to %{finish}"
@@ -1370,6 +1372,7 @@ por:
     no_crumbs_to_check: "Não migalhas para verificar"
     no_data: "Não existem dados"
     no_deposits: "Não há depósitos"
+    # no_financial_year_opened: "No financial year opened on current date"
     no_intervention_participations_to_check: "Não há participações de intervenção para verificar"
     no_notifications: "Nenhuma notificação"
     no_particular_periods: "No período específico"
