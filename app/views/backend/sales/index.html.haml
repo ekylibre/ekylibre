@@ -1,13 +1,5 @@
-- if FinancialYear.where('? BETWEEN started_on AND stopped_on', Date.today).length == 0
-  .warning-container
-    %i
-    .warning-message
-      .warning-title
-        %b= 'Aucun exercice ouvert à la date actuelle'
-      .warning-description
-        = 'Toutes les opérations commerciales et financières doivent être comptabilisées sur un exercice ouvert.\n Veuillez ouvrir un exercice pour la période en cours ou demander à votre responsable.'
-      .warning-button
-        = link_to('Gérer les exercices comptables', backend_financial_years_path, class: 'btn btn-default')
+= render 'backend/shared/financial_year_warning'
+
 = kujaku do |k|
   - k.text
   - sm = Sale.state_machine.states

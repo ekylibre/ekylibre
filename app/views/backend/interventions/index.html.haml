@@ -1,3 +1,5 @@
+= render 'backend/shared/financial_year_warning' if Preference.find_by(name: :permanent_stock_inventory).boolean_value
+
 = kujaku do |k|
   - k.text
   - k.multi_choice :state, [:done, :in_progress, :validated, :rejected].map{ |s| [s.tl, s] }
