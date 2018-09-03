@@ -156,6 +156,11 @@ jpn:
         refused: "拒否されました"
         waiting: "待っています"
     financial_year:
+      state:
+        # close_in_preparation: "Close in preparation"
+        # closed: "Closed"
+        # locked: "Locked"
+        # opened: "Opened"
       tax_declaration_frequency:
         monthly: "毎月"
         none: "なし"

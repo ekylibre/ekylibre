@@ -1078,7 +1078,7 @@ fra:
     client_phone: "Téléphone" #?
     client_receivables: "Créances client"
     close: "Fermer"
-    close_financial_year: "Clôturer l’exercice"
+    close_financial_year: "Clôturer %{financial_year_name}"
     close_journal: "Clôturer le journal"
     closed: "Verrouillées"
     clostridial_spores_concentration: "Concentration en spores butyriques" #?
@@ -1365,9 +1365,8 @@ fra:
     financial_expenses: "Charges financières"
     financial_products: "Produits financiers"
     financial_state: "État financier" #?
-    financial_year_needed:
-      <p> Toutes les opérations commerciales et financières doivent être comptabilisées sur un exercice ouvert. <br/>
-      Veuillez ouvrir un exercice pour la période en cours ou demander à votre responsable. </p>
+    financial_year_needed: "<p> Toutes les opérations commerciales et financières doivent être comptabilisées sur un exercice ouvert. <br/> Veuillez ouvrir un exercice pour la période en cours ou demander à votre responsable. </p>"
+    financial_year_warning: "<p> Si l’exercice n’est pas clôturé ou verrouillé avant le %{last_financial_year_end_date}, vous ne pourrez pas ouvrir d’exercice au %{new_financial_year_start_date}. En effet, il n’est pas possible d’avoir plus de 2 exercices ouverts simultanément. De plus, il est nécessaire d’avoir un exercice ouvert à la date en cours pour saisir des opérations commerciales et financières. <br/> Si vous ne gérez pas votre comptabilité avec Ekylibre, vous avez aussi la possibilité de verrouiller votre exercice. <br/> Attention : les exercices verrouillés ne peuvent plus être modifiés comme un exercice clôturé."
     finish: "Terminer"
     finished: "Terminé"
     finished_income_statement: "Produits" #?
@@ -1585,6 +1584,7 @@ fra:
     locale: "Langue"
     localization: "Localisation géographique"
     lock: "Verrouiller"
+    lock_financial_year: "Verrouiller %{financial_year_name}"
     logout: "Déconnexion" #?
     losses: "Charges d’exploitations"
     mail: "Envoyer un courriel"
@@ -1759,6 +1759,7 @@ fra:
     open_a_campaign: "Ouvrir une campagne de production" #?
     open_a_production: "Créer une production"
     open_an_activity: "Créer une activité"
+    open_financial_year: "Ouvrir %{financial_year_name}"
     operating_margin: "EBE (Excédent Brut d’Exploitation) %{financial_year}"
     operating_margin_on_turnover: "EBE / CA (Excédent Brut d’Exploitation / Chiffre d’affaire HT) %{financial_year}"
     operating_profit: "Résultat d’exploitation %{financial_year}"
@@ -2543,6 +2544,7 @@ fra:
     yield_by_calibration: "Rendement net par calibre"
     yield_by_calibration_x: "Rendement net par calibre - %{x}" #?
     yield_by_calibrations: "Rendement par calibre" #?
+    you_can_close_financial_year: "Vous pouvez clôturer ou verrouiller votre exercice %{financial_year_to_close} pour ouvrir %{financial_year_to_open}"
     zones: "Zones"
   notifications:
     levels:

@@ -1123,6 +1123,7 @@ por:
     financial_expenses: "Despesas financeiras"
     financial_products: "Produtos financeiros"
     # financial_year_needed: "All commercial and financial operations need to be accounted on an opened financial year. Please open a financial year for the current period or ask a manager"
+    # financial_year_warning: "<p> If the financial year is not closed or locked before the %{last_financial_year_end_date}, you will not be able to open a financial year on %{new_financial_year_start_date}. Indeed, it is not possible to have more than 2 financial years opened simultaneously. Furthermore, it is necessary to have an opened financial year on the ongoing date to input commercial and financial operations. <br/> If you don't manage your accountacy with Ekylibre, you have the possibility to lock your financial year. <br/> Attention : locked financial years can't be modified like a closed financial year."
     financials_assets: "Ativos Financials" #?
     finish: "Terminar"
     finished: "Acabado"
@@ -1280,6 +1281,7 @@ por:
     locale: "Língua"
     localization: "Localização"
     lock: "Trancar"
+    # lock_financial_year: "Lock %{financial_year_name}"
     losses: "Perdas"
     mail: "Enviar um email"
     mailing: "Envio"
@@ -1398,6 +1400,7 @@ por:
     open_a_campaign: "Abra uma campanha" #?
     open_a_production: "Abra uma produção"
     open_an_activity: "Abra uma atividade"
+    # open_financial_year: "Open %{financial_year_name}"
     operating_margin: "Margem operacional"
     operating_margin_on_turnover: "A margem operacional no volume de negócios"
     # operating_profit: "Operating profit %{financial_year}"
@@ -1954,6 +1957,7 @@ por:
     year: "Ano"
     yield: "Produção"
     yield_by_calibration: "Rendimento por calibração"
+    # you_can_close_financial_year: "You can close or lock your financial year %{financial_year_to_close} to open %{financial_year_to_open}"
     zones: "Zonas"
   notifications:
     levels:

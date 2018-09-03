@@ -156,6 +156,11 @@ cmn:
         refused: "拒绝"
         waiting: "等候"
     financial_year:
+      state:
+        # close_in_preparation: "Close in preparation"
+        # closed: "Closed"
+        # locked: "Locked"
+        # opened: "Opened"
       tax_declaration_frequency:
         monthly: "每月一次"
         none: "没有"

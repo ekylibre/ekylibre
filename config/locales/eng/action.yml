@@ -1178,7 +1178,7 @@ eng:
     client_informations: "Client informations"
     client_receivables: "Client receivables" #?!
     close: "Close"
-    close_financial_year: "Close financial year"
+    close_financial_year: "Close %{financial_year_name}"
     close_journal: "Close the journal"
     closed: "Closed" #?
     cobbles: "Cobbles" #?
@@ -1390,7 +1390,8 @@ eng:
     financial_assets: "Financial assets" #?
     financial_expenses: "Financial expenses" #??
     financial_products: "Financial products" #??
-    financial_year_needed: "All commercial and financial operations need to be accounted on an opened financial year. Please open a financial year for the current period or ask a manager" #?!
+    financial_year_needed: "All commercial and financial operations need to be accounted on an opened financial year. Please open a financial year for the current period or ask a manager"
+    financial_year_warning: "<p> If the financial year is not closed or locked before the %{last_financial_year_end_date}, you will not be able to open a financial year on %{new_financial_year_start_date}. Indeed, it is not possible to have more than 2 financial years opened simultaneously. Furthermore, it is necessary to have an opened financial year on the ongoing date to input commercial and financial operations. <br/> If you don't manage your accountacy with Ekylibre, you have the possibility to lock your financial year. <br/> Attention : locked financial years can't be modified like a closed financial year."
     # financials_assets: "Financials assets"
     finish: "Finish" #?
     finished: "Finished"
@@ -1548,6 +1549,7 @@ eng:
     locale: "Language"
     localization: "Localization" #?
     lock: "Lock" #?
+    lock_financial_year: "Lock %{financial_year_name}"
     losses: "Losses" #?
     mail: "Send an email" #?
     mailing: "Mailing" #?
@@ -1557,7 +1559,7 @@ eng:
     main_settings: "Main settings"
     make_your_production_support: "Make your production support"
     manage_activities: "Manage activities"
-    manage_financial_years: "Manage financial years" #?!
+    manage_financial_years: "Manage financial years"
     mandatory_provisions: "Mandatory provisions" #?!
     manual: "Manual" #?
     manual_period: "from %{start} to %{finish}"
@@ -1639,7 +1641,7 @@ eng:
     no_crumbs_to_check: "No crumbs to check"
     no_data: "No data"
     no_deposits: "No deposits"
-    no_financial_year_opened: "No financial year opened on current date" #??
+    no_financial_year_opened: "No financial year opened on current date"
     no_intervention_participations_to_check: "No intervention participations to check"
     no_notifications: "No notifications"
     no_particular_periods: "No particular period" #?
@@ -1663,8 +1665,10 @@ eng:
     # observations: "Observations"
     on_account: "On account" #?
     one_condition: "One condition" #??
+    # open: "Open"
     open_a_production: "Open a production"
     open_an_activity: "Open an activity"
+    open_financial_year: "Open %{financial_year_name}" #??
     operating_margin: "Operating margin %{financial_year}"
     operating_margin_on_turnover: "Operating margin on turnover %{financial_year}" #?
     operating_profit: "Operating profit %{financial_year}" #?!
@@ -2218,6 +2222,7 @@ eng:
     yield: "Yield" #?
     yield_by_calibration: "Yield by calibration" #?
     # yield_by_calibration_x: "Yield by calibration x"
+    you_can_close_financial_year: "You can close or lock your financial year %{financial_year_to_close} to open %{financial_year_to_open}"
     zones: "Zones"
     # }: "}"
   notifications:
