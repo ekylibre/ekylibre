@@ -137,5 +137,9 @@ module Backend
       params[:closure_journal_id] = (journal ? journal.id : 0)
       t3e @financial_year.attributes
     end
+
+    def index
+      @financial_years = FinancialYear.all
+    end
   end
 end
