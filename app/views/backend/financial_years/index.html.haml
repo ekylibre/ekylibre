@@ -12,15 +12,15 @@
       .financial-year-title
         %b= :you_can_close_financial_year.tl(financial_year_to_close: @fy_to_close.name, financial_year_to_open: @fy_to_open.code)
       .financial-year-description
-        = :financial_year_warning.tl(last_financial_year_end_date: @fy_to_close.stopped_on.strftime("%d/%m/%Y"), new_financial_year_start_date: @fy_to_open.started_on.strftime("%d/%m/%Y")).html_safe
+        = :financial_year_warning.tl(last_financial_year_end_date: @fy_to_close.stopped_on.l, new_financial_year_start_date: @fy_to_open.started_on.l).html_safe
       .financial-year-button
-        = link_to(:close_financial_year.tl(financial_year_name: @fy_to_close.name), backend_financial_years_path, class: 'btn btn-default')
-        = link_to(:lock_financial_year.tl(financial_year_name: @fy_to_close.name), backend_financial_years_path, class: 'btn btn-default')
+        = link_to(:close_financial_year.tl(code: @fy_to_close.name), close_backend_financial_year_path(@fy_to_close), class: 'btn btn-default')
+        = link_to(:lock_financial_year.tl(code: @fy_to_close.name), lock_backend_financial_year_path(@fy_to_close), class: 'btn btn-default')
 
 - main_toolbar do |t|
-  = tool_to(:open_financial_year.tl(financial_year_name: @fy_to_open.code), { action: :new, controller: :financial_years }, tool: false, class: 'btn-new-financial-year')
-  = tool_to(:close_financial_year.tl(financial_year_name: @fy_to_close.name), { action: :close, controller: :financial_years, id: @fy_to_close.id }, tool: false)
-  -# = t.new params: { redirect: nil }, icon: false, label: :open_financial_year.tl(financial_year_name: @fy_to_open.code, class: 'btn-new-financial-year')
+  = tool_to(:open_financial_year.tl(code: @fy_to_open.code), { action: :new, controller: :financial_years }, tool: false, class: 'btn-new-financial-year')
+  = tool_to(:close_financial_year.tl(code: @fy_to_close.name), { action: :close, controller: :financial_years, id: @fy_to_close.id }, tool: false)
+  -# = t.new params: { redirect: nil }, icon: false, label: :open_financial_year.tl(code: @fy_to_open.code, class: 'btn-new-financial-year')
   -# - year = FinancialYear.closables.first
   -# = t.close year icon: false if year && year.closable?
 
