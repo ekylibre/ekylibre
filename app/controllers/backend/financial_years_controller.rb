@@ -141,5 +141,10 @@ module Backend
     def index
       @financial_years = FinancialYear.all
     end
+
+    def lock
+      return unless @financial_year = find_and_check
+      t3e @financial_year.attributes
+    end
   end
 end

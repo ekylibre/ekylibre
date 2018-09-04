@@ -1,0 +1,29 @@
+= form_tag do
+  = field_set(:details, title: 'Paramètres de verrouillage') do
+    = field FinancialYear.model_name.human, @financial_year.code
+    = field FinancialYear.human_attribute_name(:stopped_on), @financial_year.stopped_on.l
+
+  .lock-table
+    %table
+      %tr
+        %th= 'Cette opération est irréversible'
+      %tr
+        = check_box_tag 'confirm-revised-accounts'
+        %td= 'Je certifie que mes comptes ont été révisés en dehors du logiciel par la personne compétente.'
+  = form_actions do
+    = button_tag 'Verrouiller l\'exercice', data: { toggle: 'modal', target: '#myModal' }, class: "btn btn-primary", id: "lock-btn", type: 'button', disabled: true
+    -# = submit_tag(:lock_financial_year.tl(code: ''), disabled: true, data: {confirm: 'Le verrouillage validera définitivement toutes les écritures de l’exercice, qui ne pourront plus être modifiées ou supprimées. Il ne sera plus possible d’en ajouter de nouvelles aussi. Il faudra vous rapprocher de la personne qui a effectué la clôture en dehors du logiciel pour récupérer vos documents de fin d’exercice.'}, id: 'lock-btn', class: 'primary')
+    = link_to(:cancel.tl, (params[:redirect] || {action: :index}), class: "btn")
+
+#myModal.modal.fade{ tabindex: '-1', role: 'dialog', 'aria-labelledby': 'indexModal', 'aria-hidden': 'true' }
+  .modal-dialog{ role: 'document' }
+    .modal-content
+      .modal-header
+        %button.close{ data: { dismiss: 'modal' }, 'arial-label': 'close' }
+          %span.icon.icon-times{ 'aria-hidden': 'true' }
+        %b.modal-title= 'Dernière confirmation avant verrouillage définitif'
+      .modal-body
+        %p= 'Le verrouillage validera définitivement toutes les écritures de l’exercice, qui ne pourront plus être modifiées ou supprimées. Il ne sera plus possible d’en ajouter de nouvelles aussi. Il faudra vous rapprocher de la personne qui a effectué la clôture en dehors du logiciel pour récupérer vos documents de fin d’exercice.'
+      .modal-footer
+        = link_to(:cancel.tl, (params[:redirect] || {action: :index}), class: "btn")
+        = link_to 'Verrouiller l\'exercice', lock_backend_financial_year_path, method: :post, class: "btn btn-primary"

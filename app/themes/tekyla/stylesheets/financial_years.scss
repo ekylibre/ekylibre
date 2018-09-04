@@ -31,3 +31,14 @@
     }
   }
 }
+
+.lock-table {
+  margin: 11px;
+  table, th, td{
+    border: 1px solid #BC2121;
+    border-collapse: collapse;
+  }
+  th {
+    color: #BC2121;
+  }
+}
