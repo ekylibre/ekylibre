@@ -225,6 +225,7 @@ jpn:
       edit: "新しい会計年度の編集"
       # generate_last_journal_entry: "Generate last journal entry of %{code}"
       index: "ファイナンシャル年"
+      # lock: "Lock financial year %{code}"
       new: "新しい会計年度開きます"
       # show: "Financial year %{code}"
     backend/fixed_assets:
@@ -1344,7 +1345,7 @@ jpn:
     locale: "言語"
     localization: "ローカライゼーション"
     lock: "ロック"
-    # lock_financial_year: "Lock %{financial_year_name}"
+    # lock_financial_year: "Lock %{code}"
     losses: "損失"
     mail: "メールを送る"
     mailing: "郵送"
@@ -1467,7 +1468,7 @@ jpn:
     open_a_campaign: "キャンペーンを開きます。" #?
     open_a_production: "生産を開きます"
     open_an_activity: "アクティビティを開きます"
-    # open_financial_year: "Open %{financial_year_name}"
+    # open_financial_year: "Open %{code}"
     operating_margin: "営業利益率"
     operating_margin_on_turnover: "売上高に対する営業利益率"
     # operating_profit: "Operating profit %{financial_year}"

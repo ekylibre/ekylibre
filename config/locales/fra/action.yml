@@ -251,6 +251,7 @@ fra:
       edit: "Modifier un nouvel exercice"
       generate_last_journal_entry: "Générer l’écriture de fin de l’exercice %{code}"
       index: "Exercices comptables"
+      lock: "Verrouiller l'exercice %{code}"
       new: "Nouvel exercice"
       show: "Exercice comptable %{code}"
     backend/fixed_assets:
@@ -1078,7 +1079,7 @@ fra:
     client_phone: "Téléphone" #?
     client_receivables: "Créances client"
     close: "Fermer"
-    close_financial_year: "Clôturer %{financial_year_name}"
+    close_financial_year: "Clôturer %{code}"
     close_journal: "Clôturer le journal"
     closed: "Verrouillées"
     clostridial_spores_concentration: "Concentration en spores butyriques" #?
@@ -1584,7 +1585,7 @@ fra:
     locale: "Langue"
     localization: "Localisation géographique"
     lock: "Verrouiller"
-    lock_financial_year: "Verrouiller %{financial_year_name}"
+    lock_financial_year: "Verrouiller %{code}"
     logout: "Déconnexion" #?
     losses: "Charges d’exploitations"
     mail: "Envoyer un courriel"
@@ -1759,7 +1760,7 @@ fra:
     open_a_campaign: "Ouvrir une campagne de production" #?
     open_a_production: "Créer une production"
     open_an_activity: "Créer une activité"
-    open_financial_year: "Ouvrir %{financial_year_name}"
+    open_financial_year: "Ouvrir %{code}"
     operating_margin: "EBE (Excédent Brut d’Exploitation) %{financial_year}"
     operating_margin_on_turnover: "EBE / CA (Excédent Brut d’Exploitation / Chiffre d’affaire HT) %{financial_year}"
     operating_profit: "Résultat d’exploitation %{financial_year}"

@@ -225,6 +225,7 @@ deu:
       edit: "Bearbeiten Sie neue Geschäftsjahr"
       # generate_last_journal_entry: "Generate last journal entry of %{code}"
       index: "Geschäftsjahre"
+      # lock: "Lock financial year %{code}"
       new: "Öffnen Sie eine neue Geschäftsjahr"
       # show: "Financial year %{code}"
     backend/fixed_assets:
@@ -1276,7 +1277,7 @@ deu:
     locale: "Sprache"
     localization: "Lokalisierung"
     lock: "Sperren"
-    # lock_financial_year: "Lock %{financial_year_name}"
+    # lock_financial_year: "Lock %{code}"
     losses: "Verluste"
     mail: "Eine E-Mail senden"
     # mailing: "Mailing"
@@ -1395,7 +1396,7 @@ deu:
     open_a_campaign: "Öffnen Sie eine Kampagne" #?
     open_a_production: "Öffnen einer Produktions"
     open_an_activity: "Öffnen Sie eine Aktivität"
-    # open_financial_year: "Open %{financial_year_name}"
+    # open_financial_year: "Open %{code}"
     operating_margin: "Die operative Marge"
     operating_margin_on_turnover: "Die operative Marge auf den Umsatz"
     # operating_profit: "Operating profit %{financial_year}"

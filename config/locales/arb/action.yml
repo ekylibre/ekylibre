@@ -283,6 +283,7 @@ arb:
       edit: "تعديل المهنة الجديدة"
       # generate_last_journal_entry: "Generate last journal entry of %{code}"
       index: "ممارسة المحاسبة"
+      # lock: "Lock financial year %{code}"
       new: "انشاء مهنة جديدة"
       show: "ممارسة المحاسبة %{code}"
     backend/fixed_assets:
@@ -1697,7 +1698,7 @@ arb:
     locale: "اللغة"
     localization: "الموقع الجغرافي"
     lock: "القفل"
-    # lock_financial_year: "Lock %{financial_year_name}"
+    # lock_financial_year: "Lock %{code}"
     losses: "خسائر"
     mail: "ارسال البريد الالكتروني"
     mailing: "المراسلات"
@@ -1883,7 +1884,7 @@ arb:
     open_a_campaign: "فتح حملة" #?
     open_a_production: "فتح الإنتاج"
     open_an_activity: "فتح النشاط"
-    # open_financial_year: "Open %{financial_year_name}"
+    # open_financial_year: "Open %{code}"
     operating_margin: "هامش التشغيل"
     operating_margin_on_turnover: "هامش تعمل على دوران"
     # operating_profit: "Operating profit %{financial_year}"

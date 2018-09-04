@@ -230,6 +230,7 @@ por:
       edit: "Editar balanço fiscal"
       generate_last_journal_entry: "Gerar uma ultima entrada de diário %{code}"
       index: "Anos fiscais"
+      # lock: "Lock financial year %{code}"
       new: "Abrir um novo ano fiscal"
       show: "Ano fiscal %{code}"
     backend/fixed_assets:
@@ -1281,7 +1282,7 @@ por:
     locale: "Língua"
     localization: "Localização"
     lock: "Trancar"
-    # lock_financial_year: "Lock %{financial_year_name}"
+    # lock_financial_year: "Lock %{code}"
     losses: "Perdas"
     mail: "Enviar um email"
     mailing: "Envio"
@@ -1400,7 +1401,7 @@ por:
     open_a_campaign: "Abra uma campanha" #?
     open_a_production: "Abra uma produção"
     open_an_activity: "Abra uma atividade"
-    # open_financial_year: "Open %{financial_year_name}"
+    # open_financial_year: "Open %{code}"
     operating_margin: "Margem operacional"
     operating_margin_on_turnover: "A margem operacional no volume de negócios"
     # operating_profit: "Operating profit %{financial_year}"

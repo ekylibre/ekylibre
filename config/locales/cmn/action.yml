@@ -225,6 +225,7 @@ cmn:
       edit: "编辑新的财政年度"
       # generate_last_journal_entry: "Generate last journal entry of %{code}"
       index: "财政年度"
+      # lock: "Lock financial year %{code}"
       new: "打开一个新的财政年度"
       # show: "Financial year %{code}"
     backend/fixed_assets:
@@ -1277,7 +1278,7 @@ cmn:
     locale: "语言"
     localization: "本土化"
     lock: "锁"
-    # lock_financial_year: "Lock %{financial_year_name}"
+    # lock_financial_year: "Lock %{code}"
     losses: "损失"
     mail: "发送电​​子邮件"
     mailing: "邮件"
@@ -1396,7 +1397,7 @@ cmn:
     open_a_campaign: "打开活动" #?
     open_a_production: "打开一个生产"
     open_an_activity: "打开活动"
-    # open_financial_year: "Open %{financial_year_name}"
+    # open_financial_year: "Open %{code}"
     operating_margin: "营业利润率"
     operating_margin_on_turnover: "营业额营业利润率"
     # operating_profit: "Operating profit %{financial_year}"

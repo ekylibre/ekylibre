@@ -305,6 +305,7 @@ eng:
       edit: "Edit new financial year"
       generate_last_journal_entry: "Generate last journal entry of %{code}" #?
       index: "Financial years"
+      lock: "Lock financial year %{code}"
       new: "Open a new financial year"
       show: "Financial year %{code}"
     backend/fixed_asset_depreciations:
@@ -1178,7 +1179,7 @@ eng:
     client_informations: "Client informations"
     client_receivables: "Client receivables" #?!
     close: "Close"
-    close_financial_year: "Close %{financial_year_name}"
+    close_financial_year: "Close %{code}"
     close_journal: "Close the journal"
     closed: "Closed" #?
     cobbles: "Cobbles" #?
@@ -1549,7 +1550,7 @@ eng:
     locale: "Language"
     localization: "Localization" #?
     lock: "Lock" #?
-    lock_financial_year: "Lock %{financial_year_name}"
+    lock_financial_year: "Lock %{code}"
     losses: "Losses" #?
     mail: "Send an email" #?
     mailing: "Mailing" #?
@@ -1665,10 +1666,9 @@ eng:
     # observations: "Observations"
     on_account: "On account" #?
     one_condition: "One condition" #??
-    # open: "Open"
     open_a_production: "Open a production"
     open_an_activity: "Open an activity"
-    open_financial_year: "Open %{financial_year_name}" #??
+    open_financial_year: "Open %{code}"
     operating_margin: "Operating margin %{financial_year}"
     operating_margin_on_turnover: "Operating margin on turnover %{financial_year}" #?
     operating_profit: "Operating profit %{financial_year}" #?!

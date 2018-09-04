@@ -251,6 +251,7 @@ spa:
       edit: "Modificar un nuevo ejercicio"
       # generate_last_journal_entry: "Generate last journal entry of %{code}"
       index: "Exercicios contables"
+      # lock: "Lock financial year %{code}"
       new: "Crear un nuevo ejercicio"
       show: "Exercicio contable %{code}"
     backend/fixed_assets:
@@ -1427,7 +1428,7 @@ spa:
     locale: "Idioma"
     localization: "Localisación geografica"
     lock: "Bloquear"
-    # lock_financial_year: "Lock %{financial_year_name}"
+    # lock_financial_year: "Lock %{code}"
     losses: "Pérdidas"
     mail: "Enviar un correo electrónico"
     mailing: "Envío"
@@ -1560,7 +1561,7 @@ spa:
     open_a_campaign: "Abrir una campaña" #?
     open_a_production: "Abrir una producción"
     open_an_activity: "Abra una actividad"
-    # open_financial_year: "Open %{financial_year_name}"
+    # open_financial_year: "Open %{code}"
     operating_margin: "Margen operativo"
     operating_margin_on_turnover: "El margen operativo sobre el volumen de negocios"
     # operating_profit: "Operating profit %{financial_year}"

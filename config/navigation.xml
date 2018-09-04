@@ -1370,6 +1370,7 @@
         <page to="backend/financial_years#list_account_balances"/>
         <page to="backend/financial_years#list_exchanges"/>
         <page to="backend/financial_years#list_fixed_asset_depreciations"/>
+        <page to="backend/financial_years#lock"/>
         <page to="backend/financial_years#new"/>
         <page to="backend/financial_years#show"/>
         <page to="backend/financial_years#unroll"/>

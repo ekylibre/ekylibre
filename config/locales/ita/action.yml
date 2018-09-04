@@ -225,6 +225,7 @@ ita:
       edit: "Modifica nuovo esercizio"
       # generate_last_journal_entry: "Generate last journal entry of %{code}"
       index: "esercizi"
+      # lock: "Lock financial year %{code}"
       new: "Aprire un nuovo esercizio"
       # show: "Financial year %{code}"
     backend/fixed_assets:
@@ -1342,7 +1343,7 @@ ita:
     locale: "Lingua"
     localization: "Localizzazione"
     lock: "Serratura"
-    # lock_financial_year: "Lock %{financial_year_name}"
+    # lock_financial_year: "Lock %{code}"
     losses: "Perdite"
     mail: "Invia una e-mail"
     # mailing: "Mailing"
@@ -1461,7 +1462,7 @@ ita:
     open_a_campaign: "Aprire una campagna" #?
     open_a_production: "Aprire una produzione"
     open_an_activity: "Aprire un'attività"
-    # open_financial_year: "Open %{financial_year_name}"
+    # open_financial_year: "Open %{code}"
     operating_margin: "Margine di operatività"
     operating_margin_on_turnover: "Il margine operativo sul fatturato"
     # operating_profit: "Operating profit %{financial_year}"
