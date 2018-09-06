@@ -27,8 +27,8 @@ module Backend
       key = "#{document_nature.name}-#{Time.zone.now.l(format: '%Y-%m-%d-%H:%M:%S')}"
       filename = document_nature.human_name
       if params[:period] == 'all'
-        params[:started_on] = FinancialYear.all.map { |fy| fy.started_on }.sort.first.to_s
-        params[:stopped_on] = FinancialYear.all.map { |fy| fy.stopped_on }.sort.last.to_s
+        params[:started_on] = FinancialYear.order(:started_on).pluck(:started_on).first.to_s
+        params[:stopped_on] = FinancialYear.order(:started_on).pluck(:started_on).last.to_s
       end
       unless params[:period] == 'all' || params[:period] == 'interval'
         params[:started_on] = params[:period].split('_').first
