@@ -110,7 +110,7 @@ class FinancialYear < Ekylibre::Record::Base
       on(Time.zone.today)
     end
 
-    def closables_or_lockable
+    def closable_or_lockable
       closables_or_lockables.first
     end
 
@@ -120,6 +120,14 @@ class FinancialYear < Ekylibre::Record::Base
         return year.stopped_on
       end
       nil
+    end
+
+    def previous
+      FinancialYear.on(FinancialYear.current.started_on - 1.day)
+    end
+
+    def next
+      FinancialYear.on(FinancialYear.current.stopped_on + 1.day)
     end
   end
 

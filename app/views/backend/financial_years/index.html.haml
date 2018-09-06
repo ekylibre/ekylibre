@@ -1,26 +1,19 @@
-- @fy_to_close = FinancialYear.closables_or_lockable if FinancialYear.closables_or_lockable
-- @fy_to_open = FinancialYear.new
+- fy_to_close = FinancialYear.closable_or_lockable if FinancialYear.closable_or_lockable
+- fy_to_open = FinancialYear.new
 - f = FinancialYear.last
-- @fy_to_open.started_on = f.stopped_on + 1 unless f.nil?
-- @fy_to_open.stopped_on = ((@fy_to_open.started_on - 1) >> 12).end_of_month
-- @fy_to_open.code = @fy_to_open.default_code
+- fy_to_open.started_on = f.stopped_on + 1 unless f.nil?
+- fy_to_open.stopped_on = ((fy_to_open.started_on - 1) >> 12).end_of_month
+- fy_to_open.code = fy_to_open.default_code
 
-- if FinancialYear.closables_or_lockables.count > 2 && FinancialYear.limit(2).order(started_on: :desc).all? { |fy| fy.opened? }
-  .financial-year-container
-    %i
-    .financial-year-message
-      .financial-year-title
-        %b= :you_can_close_financial_year.tl(financial_year_to_close: @fy_to_close.name, financial_year_to_open: @fy_to_open.code)
-      .financial-year-description
-        = :financial_year_warning.tl(last_financial_year_end_date: @fy_to_close.stopped_on.l, new_financial_year_start_date: @fy_to_open.started_on.l).html_safe
-      .financial-year-button
-        = link_to(:close_financial_year.tl(code: @fy_to_close.name), close_backend_financial_year_path(@fy_to_close), class: 'btn btn-default')
-        = link_to(:lock_financial_year.tl(code: @fy_to_close.name), lock_backend_financial_year_path(@fy_to_close), class: 'btn btn-default')
+- if FinancialYear.current.nil? && FinancialYear.all.order(started_on: :desc).limit(2).all? { |fy| fy.opened? }
+  = render 'help', locals: { title: :you_can_close_financial_year_to_open_a_new_one, fy_to_close: fy_to_close, fy_to_open: fy_to_open }
+- elsif FinancialYear.current.stopped_on < (Date.today + 6.months) && FinancialYear.next.nil? && FinancialYear.previous.opened?
+  = render 'help', locals: { title: :you_can_close_financial_year, fy_to_close: fy_to_close, fy_to_open: fy_to_open }
 
 - main_toolbar do |t|
-  = t.new params: { redirect: nil }, icon: false, label: :open_financial_year.tl(code: @fy_to_open.code), class: 'btn-new-financial-year'
-  - to_disable = @fy_to_close.present? ? false : true
-  - year = @fy_to_close || FinancialYear.current
+  = t.new params: { redirect: nil }, icon: false, label: :open_financial_year.tl(code: fy_to_open.code), class: 'btn-new-financial-year'
+  - to_disable = fy_to_close.present? ? false : true
+  - year = fy_to_close || FinancialYear.current
   = t.close year, label: :close_financial_year.tl(code: year.name), icon: false, disabled: to_disable
   = t.lock year, label: :lock_financial_year.tl(code: year.name), icon: false, disabled: to_disable
 
