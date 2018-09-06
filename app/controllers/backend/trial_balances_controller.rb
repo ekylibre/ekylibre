@@ -28,7 +28,7 @@ module Backend
       filename = document_nature.human_name
       if params[:period] == 'all'
         params[:started_on] = FinancialYear.order(:started_on).pluck(:started_on).first.to_s
-        params[:stopped_on] = FinancialYear.order(:started_on).pluck(:started_on).last.to_s
+        params[:stopped_on] = FinancialYear.order(:started_on).pluck(:stopped_on).last.to_s
       end
       unless params[:period] == 'all' || params[:period] == 'interval'
         params[:started_on] = params[:period].split('_').first
