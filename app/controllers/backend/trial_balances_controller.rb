@@ -26,32 +26,58 @@ module Backend
       document_nature = Nomen::DocumentNature.find(:trial_balance)
       key = "#{document_nature.name}-#{Time.zone.now.l(format: '%Y-%m-%d-%H:%M:%S')}"
       filename = document_nature.human_name
+      if params[:period] == 'all'
+        params[:started_on] = FinancialYear.order(:started_on).pluck(:started_on).first.to_s
+        params[:stopped_on] = FinancialYear.order(:stopped_on).pluck(:stopped_on).last.to_s
+      end
+      unless params[:period] == 'all' || params[:period] == 'interval'
+        params[:started_on] = params[:period].split('_').first
+        params[:stopped_on] = params[:period].split('_').last
+      end
       @balance = Journal.trial_balance(params) if params[:period]
+
+      @prev_balance = []
+      if params[:previous_year] && params[:started_on] && Date.parse(params[:stopped_on]) - Date.parse(params[:started_on]) < 366
+        @prev_balance = @balance.map do |item|
+                          parameters = params.dup
+                          parameters[:started_on] = (Date.parse(params[:started_on]) - 1.year).to_s
+                          parameters[:stopped_on] = (Date.parse(params[:stopped_on]) - 1.year).to_s
+                          parameters[:period] = "#{parameters[:started_on]}_#{parameters[:stopped_on]}"
+                          if item[1].to_i < 0 && !item[0].blank?
+                            parameters[:centralize] = item[0]
+                          elsif item[1].to_i > 0
+                            parameters[:accounts] = item[0]
+                          end
+                          prev_balance = Journal.trial_balance(parameters)
+                          prev_items = prev_balance.select { |i| i[0] == item[0] }
+                          prev_items.any? ? prev_items.first : []
+                        end
+      end
 
       respond_to do |format|
         format.html
         format.ods do
           send_data(
-            to_ods(@balance).bytes,
+            to_ods(@balance, @prev_balance).bytes,
             filename: filename << '.ods'
           )
         end
         format.csv do
           csv_string = CSV.generate(headers: true) do |csv|
-            to_csv(@balance, csv)
+            to_csv(@balance, @prev_balance, csv)
           end
           send_data(csv_string, filename: filename << '.csv')
         end
         format.xcsv do
           csv_string = CSV.generate(headers: true, col_sep: ';', encoding: 'CP1252') do |csv|
-            to_csv(@balance, csv)
+            to_csv(@balance, @prev_balance, csv)
           end
           send_data(csv_string, filename: filename << '.csv')
         end
         format.pdf do
           template_path = find_open_document_template(:trial_balance)
           raise 'Cannot find template' if template_path.nil?
-          send_file to_odt(@balance, document_nature, key, template_path, params[:period]),
+          send_file to_odt(@balance, @prev_balance, document_nature, key, template_path, params[:period]),
                     type: 'application/pdf', disposition: 'attachment', filename: filename << '.pdf'
         end
       end
@@ -59,36 +85,42 @@ module Backend
 
     protected
 
-    def to_odt(balance, document_nature, key, template_path, period)
+    def to_odt(balance, prev_balance, document_nature, key, template_path, period)
       report = generate_document(document_nature, key, template_path) do |r|
         # TODO: add a helper with generic metod to implemend header and footer
 
         e = Entity.of_company
         company_name = e.full_name
         company_address = e.default_mail_address.coordinate
+        balances = balance.map.with_index { |item, index| [balance[index], prev_balance[index] || []] }
 
         r.add_field 'COMPANY_ADDRESS', company_address
         r.add_field 'FILE_NAME', document_nature.human_name
         r.add_field 'PERIOD', period
 
-        r.add_table('Tableau2', balance, header: false) do |t|
-          t.add_column(:a) { |item| item[0] }
+        r.add_table('Tableau2', balances, header: false) do |t|
+          t.add_column(:a) { |item| item[0][0] }
           t.add_column(:b) do |item|
-            Account.find(item[1]).name if item[1].to_i > 0
+            Account.find(item[0][1]).name if item[0][1].to_i > 0
           end
-          t.add_column(:debit) { |item| item[2].to_f }
-          t.add_column(:credit) { |item| item[3].to_f }
-          t.add_column(:balance) { |item| item[4].to_f }
+          t.add_column(:debit) { |item| item[0][2].to_f }
+          t.add_column(:debit_n) { |item| item[1].any? ? item[1][2].to_f : 0 }
+          t.add_column(:credit) { |item| item[0][3].to_f }
+          t.add_column(:credit_n) { |item| item[1].any? ? item[1][3].to_f : 0 }
+          t.add_column(:balance) { |item| item[0][4].to_f }
+          t.add_column(:balance_n) { |item| item[1].any? ? item[1][4].to_f : 0 }
         end
       end
       report.file.path
     end
 
-    def to_csv(balance, csv)
+    def to_csv(balance, prev_balance, csv)
       csv << [
         JournalEntryItem.human_attribute_name(:account_number),
         JournalEntryItem.human_attribute_name(:account_name),
         :total.tl,
+        '',
+        '',
         '',
         :balance.tl
       ]
@@ -97,10 +129,15 @@ module Backend
         '',
         JournalEntry.human_attribute_name(:debit),
         JournalEntry.human_attribute_name(:credit),
+        JournalEntry.human_attribute_name(:debit) + ' N-1',
+        JournalEntry.human_attribute_name(:credit) + ' N-1',
         JournalEntry.human_attribute_name(:debit),
-        JournalEntry.human_attribute_name(:credit)
+        JournalEntry.human_attribute_name(:credit),
+        JournalEntry.human_attribute_name(:debit) + ' N-1',
+        JournalEntry.human_attribute_name(:credit) + ' N-1'
       ]
-      balance.each do |item|
+      balance.each_with_index do |item, index|
+        prev_item = prev_balance[index] || []
         if item[1].to_i > 0
           account = Account.find(item[1])
           account_name = account.name
@@ -114,8 +151,12 @@ module Backend
             account_name,
             item[2].to_f,
             item[3].to_f,
+            prev_item[2].to_f,
+            prev_item[3].to_f,
             item[4].to_f > 0 ? item[4].to_f : 0,
-            item[4].to_f < 0 ? -item[4].to_f : 0
+            item[4].to_f < 0 ? -item[4].to_f : 0,
+            prev_item[4].to_f > 0 ? prev_item[4].to_f : 0,
+            prev_item[4].to_f < 0 ? -prev_item[4].to_f : 0
           ]
         elsif item[1].to_i == -1
           # Part for the total
@@ -124,8 +165,12 @@ module Backend
             :total.tl,
             item[2].to_f,
             item[3].to_f,
+            prev_item[2].to_f,
+            prev_item[3].to_f,
             item[4].to_f > 0 ? item[4].to_f : 0,
-            item[4].to_f < 0 ? -item[4].to_f : 0
+            item[4].to_f < 0 ? -item[4].to_f : 0,
+            prev_item[4].to_f > 0 ? prev_item[4].to_f : 0,
+            prev_item[4].to_f < 0 ? -prev_item[4].to_f : 0
           ]
         elsif item[1].to_i == -2
           csv << [
@@ -133,8 +178,12 @@ module Backend
             :subtotal.tl(name: item[0]).l,
             item[2].to_f,
             item[3].to_f,
+            prev_item[2].to_f,
+            prev_item[3].to_f,
             item[4].to_f > 0 ? item[4].to_f : 0,
-            item[4].to_f < 0 ? -item[4].to_f : 0
+            item[4].to_f < 0 ? -item[4].to_f : 0,
+            prev_item[4].to_f > 0 ? prev_item[4].to_f : 0,
+            prev_item[4].to_f < 0 ? -prev_item[4].to_f : 0
           ]
         elsif item[1].to_i == -3
           csv << [
@@ -142,14 +191,18 @@ module Backend
             :centralized_account.tl(name: item[0]).l,
             item[2].to_f,
             item[3].to_f,
+            prev_item[2].to_f,
+            prev_item[3].to_f,
             item[4].to_f > 0 ? item[4].to_f : 0,
-            item[4].to_f < 0 ? -item[4].to_f : 0
+            item[4].to_f < 0 ? -item[4].to_f : 0,
+            prev_item[4].to_f > 0 ? prev_item[4].to_f : 0,
+            prev_item[4].to_f < 0 ? -prev_item[4].to_f : 0
           ]
         end
       end
     end
 
-    def to_ods(balance)
+    def to_ods(balance, prev_balance)
       require 'rodf'
       output = RODF::Spreadsheet.new
       action_name = human_action_name
@@ -176,8 +229,8 @@ module Backend
           row do
             cell JournalEntryItem.human_attribute_name(:account_number), style: :head
             cell JournalEntryItem.human_attribute_name(:account_name), style: :head
-            cell :total.tl, style: :head, span: 2
-            cell :balance.tl, style: :head, span: 2
+            cell :total.tl, style: :head, span: 4
+            cell :balance.tl, style: :head, span: 4
           end
 
           row do
@@ -185,11 +238,16 @@ module Backend
             cell ''
             cell JournalEntry.human_attribute_name(:debit), style: :head
             cell JournalEntry.human_attribute_name(:credit), style: :head
+            cell JournalEntry.human_attribute_name(:debit) + ' N-1', style: :head
+            cell JournalEntry.human_attribute_name(:credit) + ' N-1', style: :head
             cell JournalEntry.human_attribute_name(:debit), style: :head
             cell JournalEntry.human_attribute_name(:credit), style: :head
+            cell JournalEntry.human_attribute_name(:debit) + ' N-1', style: :head
+            cell JournalEntry.human_attribute_name(:credit) + ' N-1', style: :head
           end
 
-          balance.each do |item|
+          balance.each_with_index do |item, index|
+            prev_item = prev_balance[index] || []
             if item[1].to_i > 0
               account = Account.find(item[1])
               row do
@@ -197,8 +255,12 @@ module Backend
                 cell account.name
                 cell (item[2]).l, type: :float
                 cell (item[3]).l, type: :float
+                cell prev_item.any? ? prev_item[2].l : 0, type: :float
+                cell prev_item.any? ? prev_item[3].l : 0, type: :float
                 cell (item[4].to_f > 0 ? item[4] : 0).l, type: :float
                 cell (item[4].to_f < 0 ? (-item[4].to_f).to_s : 0).l, type: :float
+                cell (prev_item.any? && prev_item[4].to_f > 0 ? prev_item[4] : 0).l, type: :float
+                cell (prev_item.any? && prev_item[4].to_f < 0 ? (-prev_item[4].to_f).to_s : 0).l, type: :float
               end
 
             elsif item[1].to_i == -1
@@ -207,8 +269,12 @@ module Backend
                 cell :total.tl, style: :bold
                 cell (item[2]).l, style: :bold, type: :float
                 cell (item[3]).l, style: :bold, type: :float
+                cell prev_item.any? ? prev_item[2].l : 0, style: :bold, type: :float
+                cell prev_item.any? ? prev_item[3].l : 0, style: :bold, type: :float
                 cell (item[4].to_f > 0 ? item[4] : 0).l, style: :bold, type: :float
                 cell (item[4].to_f < 0 ? (-item[4].to_f).to_s : 0).l, style: :bold, type: :float
+                cell (prev_item.any? && prev_item[4].to_f > 0 ? prev_item[4] : 0).l, style: :bold, type: :float
+                cell (prev_item.any? && prev_item[4].to_f < 0 ? (-prev_item[4].to_f).to_s : 0).l, style: :bold, type: :float
               end
             elsif item[1].to_i == -2
               row do
@@ -216,8 +282,12 @@ module Backend
                 cell :subtotal.tl(name: item[0]).l, style: :right
                 cell (item[2]).l, style: :bold, type: :float
                 cell (item[3]).l, style: :bold, type: :float
+                cell prev_item.any? ? prev_item[2].l : 0, style: :bold, type: :float
+                cell prev_item.any? ? prev_item[3].l : 0, style: :bold, type: :float
                 cell (item[4].to_f > 0 ? item[4] : 0).l, style: :bold, type: :float
                 cell (item[4].to_f < 0 ? (-item[4].to_f).to_s : 0).l, style: :bold, type: :float
+                cell (prev_item.any? && prev_item[4].to_f > 0 ? prev_item[4] : 0).l, style: :bold, type: :float
+                cell (prev_item.any? && prev_item[4].to_f < 0 ? (-prev_item[4].to_f).to_s : 0).l, style: :bold, type: :float
               end
             elsif item[1].to_i == -3
               row do
@@ -225,8 +295,12 @@ module Backend
                 cell :centralized_account.tl(name: item[0]).l, style: :italic
                 cell (item[2]).l, style: :italic, type: :float
                 cell (item[3]).l, style: :italic, type: :float
+                cell prev_item.any? ? prev_item[2].l : 0, style: :italic, type: :float
+                cell prev_item.any? ? prev_item[3].l : 0, style: :italic, type: :float
                 cell (item[4].to_f > 0 ? item[4] : 0).l, style: :italic, type: :float
                 cell (item[4].to_f < 0 ? (-item[4].to_f).to_s : 0).l, style: :italic, type: :float
+                cell (prev_item.any? && prev_item[4].to_f > 0 ? prev_item[4] : 0).l, style: :italic, type: :float
+                cell (prev_item.any? && prev_item[4].to_f < 0 ? (-prev_item[4].to_f).to_s : 0).l, style: :italic, type: :float
               end
             end
           end
