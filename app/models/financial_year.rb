@@ -72,9 +72,9 @@ class FinancialYear < Ekylibre::Record::Base
 
   # This order must be the natural order
   # It permit to find the first and the last financial year
-  scope :closed, -> { where(closed: true).reorder(:started_on) }
-  scope :opened, -> { where(closed: false).reorder(:started_on) }
-  scope :closables, -> { where(closed: false).where('stopped_on < ?', Time.zone.now).reorder(:started_on).limit(1) }
+  scope :closed, -> { where(state: 'closed').reorder(:started_on) }
+  scope :opened, -> { where(state: 'opened').reorder(:started_on) }
+  scope :closables_or_lockables, -> { where(state: 'opened').where('stopped_on < ?', Time.zone.now).reorder(:started_on).limit(1) }
   scope :with_tax_declaration, -> { where.not(tax_declaration_mode: :none) }
   scope :with_missing_tax_declaration, -> { where('id NOT IN (SELECT f.id FROM financial_years AS f JOIN tax_declarations AS d ON (f.stopped_on BETWEEN d.started_on AND d.stopped_on))') }
 
@@ -90,7 +90,6 @@ class FinancialYear < Ekylibre::Record::Base
       nil
       # born_on = Entity.of_company.born_on
       # return nil if searched_on < born_on
-      # byebug
       # year = FinancialYear.where('stopped_on < ?', searched_on).order(stopped_on: :desc).first
       # year ||= FinancialYear.create_with(stopped_on: (born_on >> 11).end_of_month).find_or_create_by!(started_on: born_on)
       # year = year.find_or_create_next! while year.stopped_on < searched_on
@@ -111,8 +110,8 @@ class FinancialYear < Ekylibre::Record::Base
       on(Time.zone.today)
     end
 
-    def closable
-      closables.first
+    def closables_or_lockable
+      closables_or_lockables.first
     end
 
     # Returns the date of the last closure if any

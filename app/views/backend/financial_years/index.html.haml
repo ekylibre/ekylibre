@@ -1,11 +1,11 @@
-- @fy_to_close = FinancialYear.closable
+- @fy_to_close = FinancialYear.closables_or_lockable if FinancialYear.closables_or_lockable
 - @fy_to_open = FinancialYear.new
 - f = FinancialYear.last
 - @fy_to_open.started_on = f.stopped_on + 1 unless f.nil?
 - @fy_to_open.stopped_on = ((@fy_to_open.started_on - 1) >> 12).end_of_month
 - @fy_to_open.code = @fy_to_open.default_code
 
-- if FinancialYear.count > 2 && FinancialYear.limit(2).order(started_on: :desc).all? { |fy| fy.opened? }
+- if FinancialYear.closables_or_lockables.count > 2 && FinancialYear.limit(2).order(started_on: :desc).all? { |fy| fy.opened? }
   .financial-year-container
     %i
     .financial-year-message
@@ -19,7 +19,8 @@
 
 - main_toolbar do |t|
   = tool_to(:open_financial_year.tl(code: @fy_to_open.code), { action: :new, controller: :financial_years }, tool: false, class: 'btn-new-financial-year')
-  = tool_to(:close_financial_year.tl(code: @fy_to_close.name), { action: :close, controller: :financial_years, id: @fy_to_close.id }, tool: false)
+  = tool_to(:close_financial_year.tl(code: @fy_to_close.name), { action: :close, controller: :financial_years, id: @fy_to_close.id }, tool: false) if @fy_to_close
+  = tool_to(:lock_financial_year.tl(code: @fy_to_close.name), { action: :lock, controller: :financial_years, id: @fy_to_close.id }, tool: false) if @fy_to_close
   -# = t.new params: { redirect: nil }, icon: false, label: :open_financial_year.tl(code: @fy_to_open.code, class: 'btn-new-financial-year')
   -# - year = FinancialYear.closables.first
   -# = t.close year icon: false if year && year.closable?
