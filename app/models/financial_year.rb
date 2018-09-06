@@ -74,7 +74,7 @@ class FinancialYear < Ekylibre::Record::Base
   # It permit to find the first and the last financial year
   scope :closed, -> { where(state: 'closed').reorder(:started_on) }
   scope :opened, -> { where(state: 'opened').reorder(:started_on) }
-  scope :closables_or_lockables, -> { where(state: 'opened').where('stopped_on < ?', Time.zone.now).reorder(:started_on).limit(1) }
+  scope :closables_or_lockables, -> { where(state: 'opened').where('stopped_on < ?', Time.zone.now).reorder(:started_on) }
   scope :with_tax_declaration, -> { where.not(tax_declaration_mode: :none) }
   scope :with_missing_tax_declaration, -> { where('id NOT IN (SELECT f.id FROM financial_years AS f JOIN tax_declarations AS d ON (f.stopped_on BETWEEN d.started_on AND d.stopped_on))') }
 
