@@ -775,6 +775,7 @@ jpn:
   labels:
     access: "アクセス"
     access_parameters: "アクセス・パラメータ"
+    # account_certification_by_competent_person: "I certify that my accounts have been revised by a competent person."
     account_for: "以下のためのアカウント"
     accountancy: "会計学"
     accountancy_balance: "会計収支"
@@ -1186,6 +1187,7 @@ jpn:
     financial_assets: "金融資産"
     financial_expenses: "金融費用"
     financial_products: "金融商品"
+    # financial_year_lock_message: "The lock will definitively validate all entries of the financial year, which may not be modified or deleted. It will not be possible to add new ones too. You will need to get in contact the person who did the close out of the software to get back your year-end documents"
     # financial_year_needed: "All commercial and financial operations need to be accounted on an opened financial year. Please open a financial year for the current period or ask a manager"
     # financial_year_warning: "<p> If the financial year is not closed or locked before the %{last_financial_year_end_date}, you will not be able to open a financial year on %{new_financial_year_start_date}. Indeed, it is not possible to have more than 2 financial years opened simultaneously. Furthermore, it is necessary to have an opened financial year on the ongoing date to input commercial and financial operations. <br/> If you don't manage your accountacy with Ekylibre, you have the possibility to lock your financial year. <br/> Attention : locked financial years can't be modified like a closed financial year."
     financials_assets: "金融資産" #?
@@ -1281,6 +1283,7 @@ jpn:
     invoiced: "請求済み"
     invoiced_amount: "売上請求額" #?
     invoices: "請求書"
+    # irreversible_operation: "This operation is irreversible"
     is: "あります"
     issue: "問題"
     issues: "問題"
@@ -1315,6 +1318,7 @@ jpn:
     land_parcels: "土地区画"
     last_analyses: "最後のミルク分析"
     last_computed_balance: "最後に計算バランス"
+    # last_confirmation_before_definitive_lock: "Last confirmation before definitive lock"
     last_documents: "最終文書"
     last_entities: "最後のエンティティ"
     last_events: "最後のイベント"
@@ -1346,6 +1350,8 @@ jpn:
     localization: "ローカライゼーション"
     lock: "ロック"
     # lock_financial_year: "Lock %{code}"
+    # lock_settings: "Lock settings"
+    # lock_the_financial_year: "Lock the financial year"
     losses: "損失"
     mail: "メールを送る"
     mailing: "郵送"
@@ -2026,7 +2032,8 @@ jpn:
     year: "年"
     yield: "産出"
     yield_by_calibration: "キャリブレーションによって収量"
-    # you_can_close_financial_year: "You can close or lock your financial year %{financial_year_to_close} to open %{financial_year_to_open}"
+    # you_can_close_financial_year: "You can close or lock your financial year %{financial_year_to_close}"
+    # you_can_close_financial_year_to_open_a_new_one: "You can close or lock your financial year %{financial_year_to_close} to open %{financial_year_to_open}"
     zones: "ゾーン"
   list: #?
     pagination: #?

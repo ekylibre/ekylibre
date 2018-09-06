@@ -709,6 +709,7 @@ deu:
   labels:
     access: "Zugriff"
     access_parameters: "Zugangsparameter"
+    # account_certification_by_competent_person: "I certify that my accounts have been revised by a competent person."
     account_for: "Erklären"
     accountancy: "Buchhaltung"
     accountancy_balance: "Rechnungswesen Balance"
@@ -1118,6 +1119,7 @@ deu:
     financial_assets: "Vermögenswerte"
     financial_expenses: "Finanzielle Auslagen"
     financial_products: "Finanzielle Produkte"
+    # financial_year_lock_message: "The lock will definitively validate all entries of the financial year, which may not be modified or deleted. It will not be possible to add new ones too. You will need to get in contact the person who did the close out of the software to get back your year-end documents"
     # financial_year_needed: "All commercial and financial operations need to be accounted on an opened financial year. Please open a financial year for the current period or ask a manager"
     # financial_year_warning: "<p> If the financial year is not closed or locked before the %{last_financial_year_end_date}, you will not be able to open a financial year on %{new_financial_year_start_date}. Indeed, it is not possible to have more than 2 financial years opened simultaneously. Furthermore, it is necessary to have an opened financial year on the ongoing date to input commercial and financial operations. <br/> If you don't manage your accountacy with Ekylibre, you have the possibility to lock your financial year. <br/> Attention : locked financial years can't be modified like a closed financial year."
     financials_assets: "Finanzvermögen" #?
@@ -1213,6 +1215,7 @@ deu:
     invoiced: "Die fakturierten"
     invoiced_amount: "Der Umsatz Rechnungsbetrag" #?
     invoices: "Rechnungen"
+    # irreversible_operation: "This operation is irreversible"
     is: "ist"
     issue: "Problem"
     issues: "Probleme"
@@ -1247,6 +1250,7 @@ deu:
     land_parcels: "Parzellen"
     last_analyses: "Zuletzt Milch Analyse"
     last_computed_balance: "Zuletzt berechnete Gleichgewicht"
+    # last_confirmation_before_definitive_lock: "Last confirmation before definitive lock"
     last_documents: "Letzte Dokumente"
     last_entities: "Letzte Einheiten"
     last_events: "Letzte Veranstaltungen"
@@ -1278,6 +1282,8 @@ deu:
     localization: "Lokalisierung"
     lock: "Sperren"
     # lock_financial_year: "Lock %{code}"
+    # lock_settings: "Lock settings"
+    # lock_the_financial_year: "Lock the financial year"
     losses: "Verluste"
     mail: "Eine E-Mail senden"
     # mailing: "Mailing"
@@ -1953,7 +1959,8 @@ deu:
     year: "Jahr"
     yield: "Ausbeute"
     yield_by_calibration: "Ausbeute nach der Kalibrierung"
-    # you_can_close_financial_year: "You can close or lock your financial year %{financial_year_to_close} to open %{financial_year_to_open}"
+    # you_can_close_financial_year: "You can close or lock your financial year %{financial_year_to_close}"
+    # you_can_close_financial_year_to_open_a_new_one: "You can close or lock your financial year %{financial_year_to_close} to open %{financial_year_to_open}"
     zones: "Zonen"
   notifications:
     levels:

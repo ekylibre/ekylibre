@@ -775,6 +775,7 @@ ita:
   labels:
     access: "Accesso"
     access_parameters: "parametri di accesso"
+    # account_certification_by_competent_person: "I certify that my accounts have been revised by a competent person."
     account_for: "Conto per"
     accountancy: "Contabilità"
     accountancy_balance: "equilibrio Contabilità"
@@ -1184,6 +1185,7 @@ ita:
     financial_assets: "Le attività finanziarie"
     financial_expenses: "Spese finanziarie"
     financial_products: "Prodotti finanziari"
+    # financial_year_lock_message: "The lock will definitively validate all entries of the financial year, which may not be modified or deleted. It will not be possible to add new ones too. You will need to get in contact the person who did the close out of the software to get back your year-end documents"
     # financial_year_needed: "All commercial and financial operations need to be accounted on an opened financial year. Please open a financial year for the current period or ask a manager"
     # financial_year_warning: "<p> If the financial year is not closed or locked before the %{last_financial_year_end_date}, you will not be able to open a financial year on %{new_financial_year_start_date}. Indeed, it is not possible to have more than 2 financial years opened simultaneously. Furthermore, it is necessary to have an opened financial year on the ongoing date to input commercial and financial operations. <br/> If you don't manage your accountacy with Ekylibre, you have the possibility to lock your financial year. <br/> Attention : locked financial years can't be modified like a closed financial year."
     financials_assets: "beni Financials" #?
@@ -1279,6 +1281,7 @@ ita:
     invoiced: "Fatturato"
     invoiced_amount: "Vendite importo fatturato" #?
     invoices: "Fatture"
+    # irreversible_operation: "This operation is irreversible"
     is: "È"
     issue: "Problema"
     issues: "Problemi"
@@ -1313,6 +1316,7 @@ ita:
     land_parcels: "appezzamenti"
     last_analyses: "Ultima analisi del latte"
     last_computed_balance: "Ultima equilibrio computerizzata"
+    # last_confirmation_before_definitive_lock: "Last confirmation before definitive lock"
     last_documents: "ultimi documenti"
     last_entities: "ultimi entità"
     last_events: "ultimi eventi"
@@ -1344,6 +1348,8 @@ ita:
     localization: "Localizzazione"
     lock: "Serratura"
     # lock_financial_year: "Lock %{code}"
+    # lock_settings: "Lock settings"
+    # lock_the_financial_year: "Lock the financial year"
     losses: "Perdite"
     mail: "Invia una e-mail"
     # mailing: "Mailing"
@@ -2019,7 +2025,8 @@ ita:
     year: "Anno"
     yield: "dare la precedenza"
     yield_by_calibration: "Resa mediante calibrazione"
-    # you_can_close_financial_year: "You can close or lock your financial year %{financial_year_to_close} to open %{financial_year_to_open}"
+    # you_can_close_financial_year: "You can close or lock your financial year %{financial_year_to_close}"
+    # you_can_close_financial_year_to_open_a_new_one: "You can close or lock your financial year %{financial_year_to_close} to open %{financial_year_to_open}"
     zones: "zone"
   notifications:
     levels:

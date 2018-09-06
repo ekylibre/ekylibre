@@ -709,6 +709,7 @@ cmn:
   labels:
     access: "访问"
     access_parameters: "访问参数"
+    # account_certification_by_competent_person: "I certify that my accounts have been revised by a competent person."
     account_for: "帐户"
     accountancy: "会计"
     accountancy_balance: "会计平衡"
@@ -1118,6 +1119,7 @@ cmn:
     financial_assets: "金融资产"
     financial_expenses: "财务费用"
     financial_products: "理财产品"
+    # financial_year_lock_message: "The lock will definitively validate all entries of the financial year, which may not be modified or deleted. It will not be possible to add new ones too. You will need to get in contact the person who did the close out of the software to get back your year-end documents"
     # financial_year_needed: "All commercial and financial operations need to be accounted on an opened financial year. Please open a financial year for the current period or ask a manager"
     # financial_year_warning: "<p> If the financial year is not closed or locked before the %{last_financial_year_end_date}, you will not be able to open a financial year on %{new_financial_year_start_date}. Indeed, it is not possible to have more than 2 financial years opened simultaneously. Furthermore, it is necessary to have an opened financial year on the ongoing date to input commercial and financial operations. <br/> If you don't manage your accountacy with Ekylibre, you have the possibility to lock your financial year. <br/> Attention : locked financial years can't be modified like a closed financial year."
     financials_assets: "金融资产" #?
@@ -1213,6 +1215,7 @@ cmn:
     invoiced: "已开发票"
     invoiced_amount: "销售发票金额" #?
     invoices: "发票"
+    # irreversible_operation: "This operation is irreversible"
     is: "是"
     issue: "问题"
     issues: "问题"
@@ -1248,6 +1251,7 @@ cmn:
     land_parcels: "地块"
     last_analyses: "最后分析牛奶"
     last_computed_balance: "最后计算出的平衡"
+    # last_confirmation_before_definitive_lock: "Last confirmation before definitive lock"
     last_documents: "最后文件"
     last_entities: "最后实体"
     last_events: "上次事件"
@@ -1279,6 +1283,8 @@ cmn:
     localization: "本土化"
     lock: "锁"
     # lock_financial_year: "Lock %{code}"
+    # lock_settings: "Lock settings"
+    # lock_the_financial_year: "Lock the financial year"
     losses: "损失"
     mail: "发送电​​子邮件"
     mailing: "邮件"
@@ -1954,7 +1960,8 @@ cmn:
     year: "年"
     yield: "产量"
     yield_by_calibration: "产量由校准"
-    # you_can_close_financial_year: "You can close or lock your financial year %{financial_year_to_close} to open %{financial_year_to_open}"
+    # you_can_close_financial_year: "You can close or lock your financial year %{financial_year_to_close}"
+    # you_can_close_financial_year_to_open_a_new_one: "You can close or lock your financial year %{financial_year_to_close} to open %{financial_year_to_open}"
     zones: "区"
   notifications:
     levels:

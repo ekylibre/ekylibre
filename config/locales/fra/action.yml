@@ -821,6 +821,7 @@ fra:
     access_parameters: "Paramètres de connexion"
     account_accruals: "Comptes de régularisation" #?
     account_attorney_to_create: "— Créer automatiquement un compte mandataire —" #?
+    account_certification_by_competent_person: "Je certifie que mes comptes ont été révisés en dehors du logiciel par la personne compétente."
     account_claims_assets: "Créances" #?
     account_client_to_create: "— Créer automatiquement un compte client —" #?
     account_current_assets: "Actif circulant" #?
@@ -1366,6 +1367,7 @@ fra:
     financial_expenses: "Charges financières"
     financial_products: "Produits financiers"
     financial_state: "État financier" #?
+    financial_year_lock_message: "<p>Le verrouillage validera définitivement toutes les écritures de l’exercice, qui ne pourront plus être modifiées ou supprimées. Il ne sera plus possible d’en ajouter de nouvelles aussi. <br/> Il faudra vous rapprocher de la personne qui a effectué la clôture en dehors du logiciel pour récupérer vos documents de fin d’exercice. </p>"
     financial_year_needed: "<p> Toutes les opérations commerciales et financières doivent être comptabilisées sur un exercice ouvert. <br/> Veuillez ouvrir un exercice pour la période en cours ou demander à votre responsable. </p>"
     financial_year_warning: "<p> Si l’exercice n’est pas clôturé ou verrouillé avant le %{last_financial_year_end_date}, vous ne pourrez pas ouvrir d’exercice au %{new_financial_year_start_date}. En effet, il n’est pas possible d’avoir plus de 2 exercices ouverts simultanément. De plus, il est nécessaire d’avoir un exercice ouvert à la date en cours pour saisir des opérations commerciales et financières. <br/> Si vous ne gérez pas votre comptabilité avec Ekylibre, vous avez aussi la possibilité de verrouiller votre exercice. <br/> Attention : les exercices verrouillés ne peuvent plus être modifiés comme un exercice clôturé."
     finish: "Terminer"
@@ -1497,6 +1499,7 @@ fra:
     invoiced_amount: "Montant facturé" #?
     invoices: "Factures"
     invoices_only: "Utiliser seulement les factures" #?
+    irreversible_operation: "Cette opération est irréversible"
     is: "Est"
     issue: "Incident"
     issues: "Incidents"
@@ -1538,6 +1541,7 @@ fra:
     last_animals: "Dernières naissances" #?
     last_clients: "Derniers clients" #?
     last_computed_balance: "Dernière balance calculée"
+    last_confirmation_before_definitive_lock: " Dernière confirmation avant verrouillage définitif "
     last_documents: "Derniers archivages"
     last_entities: "Derniers tiers"
     last_events: "Derniers évènements"
@@ -1586,6 +1590,8 @@ fra:
     localization: "Localisation géographique"
     lock: "Verrouiller"
     lock_financial_year: "Verrouiller %{code}"
+    lock_settings: "Paramètres de verrouillage"
+    lock_the_financial_year: "Verrouiller l’exercice"
     logout: "Déconnexion" #?
     losses: "Charges d’exploitations"
     mail: "Envoyer un courriel"
@@ -2545,7 +2551,8 @@ fra:
     yield_by_calibration: "Rendement net par calibre"
     yield_by_calibration_x: "Rendement net par calibre - %{x}" #?
     yield_by_calibrations: "Rendement par calibre" #?
-    you_can_close_financial_year: "Vous pouvez clôturer ou verrouiller votre exercice %{financial_year_to_close} pour ouvrir %{financial_year_to_open}"
+    you_can_close_financial_year: "Vous pouvez clôturer ou verrouiller votre exercice %{financial_year_to_close}"
+    you_can_close_financial_year_to_open_a_new_one: "Vous pouvez clôturer ou verrouiller votre exercice %{financial_year_to_close} pour ouvrir %{financial_year_to_open}"
     zones: "Zones"
   notifications:
     levels:
