@@ -24,10 +24,9 @@ module Backend
 
     list(order: { started_on: :desc }) do |t|
       t.action :edit, unless: :closed?
-      t.action :close, if: :closable?
       t.action :destroy, unless: :closed?
       t.column :code, url: true
-      t.column :closed, label_method: :closed
+      t.column :state
       t.column :started_on, url: true
       t.column :stopped_on, url: true
       t.column :currency
@@ -122,6 +121,7 @@ module Backend
         end
         FinancialYearCloseJob.perform_later(@financial_year, current_user, closed_on.to_s, **params.symbolize_keys.slice(:result_journal_id, :forward_journal_id, :closure_journal_id))
         notify_success(:closure_process_started)
+        @financial_year.update(state: 'close_in_preparation')
         return redirect_to(action: :index)
       end
 
@@ -144,6 +144,10 @@ module Backend
 
     def lock
       return unless @financial_year = find_and_check
+      if request.post?
+        @financial_year.update(state: 'locked')
+        return redirect_to(action: :index)
+      end
       t3e @financial_year.attributes
     end
   end

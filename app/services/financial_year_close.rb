@@ -28,7 +28,7 @@ class FinancialYearClose
       end
       @progress.increment!
 
-      @year.update_attributes(stopped_on: @to_close_on, closed: true)
+      @year.update_attributes(stopped_on: @to_close_on, closed: true, state: 'closed')
     end
 
     true
