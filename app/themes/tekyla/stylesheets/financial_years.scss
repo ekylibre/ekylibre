@@ -41,4 +41,21 @@
   th {
     color: #BC2121;
   }
+
+  i {
+    color: #BC2121;
+    @include is-icon(19px);
+    @include use-icon(warning);
+  }
+
+  input[type="checkbox"] {
+    margin-right: 12px;
+    margin-left: 7px;
+  }
+}
+
+#confirmLockModal {
+  .modal-title {
+    font-size: 15px;
+  }
 }
