@@ -127,9 +127,9 @@ class Purchase < Ekylibre::Record::Base
       transition estimate: :order, if: :has_content?
     end
     event :invoice do
-      transition order: :invoice, if: :has_content?
-      transition estimate: :invoice, if: :has_content_not_deliverable?
-      transition draft: :invoice
+      transition order: :invoice, if: :has_content? && :opened_financial_year?
+      transition estimate: :invoice, if: :has_content_not_deliverable? && :opened_financial_year?
+      transition draft: :invoice, if: :opened_financial_year?
     end
     event :abort do
       transition %i[draft estimate] => :aborted # , :order
@@ -278,6 +278,10 @@ class Purchase < Ekylibre::Record::Base
 
   def has_content?
     items.any?
+  end
+
+  def opened_financial_year?
+    FinancialYear.on(invoiced_at)&.opened?
   end
 
   def purchased?

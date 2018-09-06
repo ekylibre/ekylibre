@@ -148,7 +148,7 @@ class Sale < Ekylibre::Record::Base
       transition estimate: :order, if: :has_content?
     end
     event :invoice do
-      transition %i[draft estimate order] => :invoice, if: :has_content?
+      transition %i[draft estimate order] => :invoice, if: (:has_content? && :opened_financial_year?)
     end
     event :abort do
       transition draft: :aborted
@@ -330,6 +330,10 @@ class Sale < Ekylibre::Record::Base
   # Test if there is some items in the sale.
   def has_content?
     items.any?
+  end
+
+  def opened_financial_year?
+    FinancialYear.on(invoiced_at)&.opened?
   end
 
   # Returns if the sale has been validated and so if it can be
