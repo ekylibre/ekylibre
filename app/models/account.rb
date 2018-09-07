@@ -336,7 +336,7 @@ class Account < Ekylibre::Record::Base
       raise ArgumentError, "The usage #{usage.inspect} is not implemented in #{accounting_system.inspect}" unless item.send(accounting_system)
       account = find_by_usage(usage, except: { nature: :auxiliary })
       unless account
-        return unless valid_item?(item)
+        return unless valid_item?(item) && item.send(accounting_system).match(/\A[1-9]0*\z|\A0/).nil?
         account = new(
           name: item.human_name,
           number: item.send(accounting_system),
