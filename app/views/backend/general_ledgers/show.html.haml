@@ -1,3 +1,8 @@
+- financial_year = FinancialYear.find_by(id: params[:current_financial_year])
+- financial_year ||= FinancialYear.current
+- main_financial_year_selector(financial_year)
+- params[:period] = financial_year.started_on.to_s << '_' << financial_year.stopped_on.to_s
+
 - if params[:period]
   = main_toolbar do |t|
     = dropdown_menu_button(:export.ta, icon: :download) do |d|
@@ -8,8 +13,7 @@
       - d.item :export_as_odt.tl, params: export_params.merge(format: :odt)
 
 = kujaku do |k|
-  - k.text
-  - k.helper :journal_period_crit
+  - k.helper :ledger_crit
   - k.helper :journal_entries_states_crit
   - k.helper :accounts_range_crit
   - k.helper :journals_crit
