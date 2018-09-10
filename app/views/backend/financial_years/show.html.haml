@@ -5,7 +5,7 @@
   - attrs = {}
   - attrs["data-confirm"] = :are_you_sure.tl if resource.last_journal_entry
   -# = t.generate_last_journal_entry resource, attrs
-  - if resource == resource_model.closable
+  - if resource == resource_model.closable_or_lockable
     = t.close resource
   = dropdown_menu_button(:export_fec.ta, icon: :download) do |d|
     - export_params = params.slice(:id)
