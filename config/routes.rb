@@ -505,6 +505,10 @@ Rails.application.routes.draw do
     resources :fixed_asset_depreciations, path: 'fixed-asset-depreciations', only: [:show]
 
     resources :financial_years, concerns: %i[list unroll], path: 'financial-years' do
+      collection do
+        post :destroy_all_empty
+      end
+
       member do
         match 'close', via: %i[get post]
         post :compute_balances
