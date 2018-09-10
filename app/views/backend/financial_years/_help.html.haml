@@ -1,3 +1,11 @@
+- @years_to_delete = []
+-# Get an array of destroyable records
+- destroyable_fy = FinancialYear.order(:started_on).select { |fy| fy.destroyable? && fy != FinancialYear.current }
+- destroyable_fy.each do |fy|
+  - @years_to_delete << fy
+  -# If 2 destroyable records aren't over consecutive years, the list stops here
+  - destroyable_fy.include?(fy.next) ? next : break
+
 .financial-year-container
   %i
   .financial-year-message
@@ -8,3 +16,4 @@
     .financial-year-button
       = link_to(:close_financial_year.tl(code: locals[:fy_to_close].name), close_backend_financial_year_path(locals[:fy_to_close]), class: 'btn btn-default')
       = link_to(:lock_financial_year.tl(code: locals[:fy_to_close].name), lock_backend_financial_year_path(locals[:fy_to_close]), class: 'btn btn-default')
+      = link_to(:delete_x_financial_years_without_entry.tl(count: @years_to_delete.count, first_financial_year_code: @years_to_delete.first.code, last_financial_year_code: @years_to_delete.last.code), destroy_all_empty_backend_financial_years_path(years_id: @years_to_delete), method: :post, class: 'btn btn-default') if @years_to_delete.count > 1

@@ -150,5 +150,11 @@ module Backend
       end
       t3e @financial_year.attributes
     end
+
+    def destroy_all_empty
+      ids_array =  params[:years_id]
+      FinancialYear.where(id: ids_array).delete_all
+      return redirect_to(action: :index)
+    end
   end
 end
