@@ -1,3 +1,4 @@
+# coding: utf-8
 class FinancialYearClose
   def initialize(year, to_close_on, options = {})
     @year = year
@@ -20,8 +21,12 @@ class FinancialYearClose
       generate_result_entry! if @result_journal
       @progress.increment!
 
+      disable_partial_lettering
+
       generate_carrying_forward_entry!
       @progress.increment!
+
+      enable_partial_lettering
 
       Journal.find_each do |journal|
         journal.close!(@to_close_on) if journal.closed_on < @to_close_on
@@ -177,14 +182,12 @@ class FinancialYearClose
     unbalanced_letters = unbalanced_items_for(account, include_nil: true)
     progress = Progress.new(:close_lettering, id: @year.id, max: unbalanced_letters.count)
 
-    unbalanced_letters.each do |info|
-      entry_id = info.first
-      letter = info.last
+    reletterings = {}
+
+    unbalanced_letters.each do |entry_id, letter|
       letter_match = letter ? [letter, letter + '*'] : nil
 
-      lettering_items = JournalEntry.find(entry_id)
-                                    .items
-                                    .where(letter: letter_match, account: account)
+      lettering_items = JournalEntryItem.where(entry_id: entry_id, letter: letter_match, account: account)
                                     .find_each.map do |item|
                                       {
                                         account_id: account.id,
@@ -197,11 +200,13 @@ class FinancialYearClose
 
       result = lettering_items.map { |i| i[:real_debit] - i[:real_credit] }.sum
 
-      entries = generate_closing_and_opening_entry!(lettering_items, result, letter: letter)
-
+      new_letter = generate_closing_and_opening_entry!(lettering_items, result, letter: letter)
+      reletterings[letter] = new_letter unless letter.nil? && new_letter.nil?
       progress.increment!
-
-      entries
+    end
+    # Update letters globally
+    reletterings.each do |letter, new_letter|
+      update_lettered_later!(letter, new_letter, account.id)
     end
   ensure
     progress.clean!
@@ -229,8 +234,7 @@ class FinancialYearClose
                                        { number: '891', name: 'Bilan de clôture' },
                                        items,
                                        result)
-
-    update_lettered_later!(letter, new_letter, items.first[:account_id])
+    new_letter
   end
 
   def reletter_items!(items, letter)
@@ -249,19 +253,50 @@ class FinancialYearClose
   end
 
   def update_lettered_later!(letter, new_letter, account_id)
-    account = Account.find(account_id)
-
-    @updated_affairs ||= {}
-
-    lettered_later = account.journal_entry_items.where('printed_on > ?', @to_close_on).where(letter: letter)
+    return if letter == new_letter
+    lettered_later = JournalEntryItem.includes(:entry).where(account_id: account_id, letter: letter).where('journal_entry_items.printed_on > ?', @to_close_on)
     lettered_later.update_all(letter: new_letter)
-    lettered_later.each do |item|
-      affair = item.entry.resource && item.entry.resource.respond_to?(:affair) && item.entry.resource.affair
-      next unless affair && !@updated_affairs[affair.id]
 
-      @updated_affairs[affair.id] = true
-      affair.update_columns(letter: new_letter)
+    Affair.affairable_types.each do |type|
+      model = type.constantize
+      table = model.table_name
+      root_model = model.table_name.singularize.camelize
+      query = "UPDATE affairs SET letter = #{ActiveRecord::Base.connection.quote(new_letter)} " +
+            "  FROM journal_entry_items AS jei" +
+            "    JOIN #{table} AS res ON (resource_id = res.id AND resource_type = #{ActiveRecord::Base.connection.quote(root_model)}) " +
+            "  WHERE jei.account_id = #{account_id} AND jei.letter = #{ActiveRecord::Base.connection.quote(letter)} AND jei.printed_on > #{ActiveRecord::Base.connection.quote(@to_close_on)} "
+            "    AND res.affair_id = affairs.id"
+      Affair.connection.execute query
     end
+  end
+
+  def disable_partial_lettering
+    ActiveRecord::Base.connection.execute('ALTER TABLE journal_entry_items DISABLE TRIGGER compute_partial_lettering_status_insert_delete')
+    ActiveRecord::Base.connection.execute('ALTER TABLE journal_entry_items DISABLE TRIGGER compute_partial_lettering_status_update')
+  end
+
+  def enable_partial_lettering
+    account_letterings = <<-SQL.strip_heredoc
+        SELECT account_id,
+          RTRIM(letter, '*') AS letter_radix,
+          SUM(debit) = SUM(credit) AS balanced,
+          RTRIM(letter, '*') || CASE WHEN SUM(debit) <> SUM(credit) THEN '*' ELSE '' END
+            AS new_letter
+        FROM journal_entry_items AS jei
+        WHERE account_id IS NOT NULL AND LENGTH(TRIM(COALESCE(letter, ''))) > 0
+        GROUP BY account_id, RTRIM(letter, '*')
+    SQL
+
+    ActiveRecord::Base.connection.execute <<-SQL.strip_heredoc
+        UPDATE journal_entry_items AS jei
+          SET letter = ref.new_letter
+          FROM (#{account_letterings}) AS ref
+          WHERE jei.account_id = ref.account_id
+            AND RTRIM(COALESCE(jei.letter, ''), '*') = ref.letter_radix
+            AND letter <> ref.new_letter;
+    SQL
+    ActiveRecord::Base.connection.execute('ALTER TABLE journal_entry_items ENABLE TRIGGER compute_partial_lettering_status_insert_delete')
+    ActiveRecord::Base.connection.execute('ALTER TABLE journal_entry_items ENABLE TRIGGER compute_partial_lettering_status_update')
   end
 
   def generate_closing_or_opening_entry!(journal, account_info, items, result, printed_on: @to_close_on)

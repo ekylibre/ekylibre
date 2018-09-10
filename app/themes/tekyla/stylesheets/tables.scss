@@ -56,6 +56,12 @@ table {
     &.boolean {
       @include text-align(center);
     }
+    &.center {
+      text-align: center !important;
+    }
+    &.right {
+      text-align: right !important;
+    }
   }
   th {
     font-weight: bold;
