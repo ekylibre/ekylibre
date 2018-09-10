@@ -1115,6 +1115,7 @@ eng:
     back: "Back to the previous page"
     balance: "Balance"
     balance_of_selection: "Balance of selection"
+    balanced: "Balanced"
     bank_account: "Bank account"
     # bank_guarantees: "Bank guarantees"
     bank_statement_number: "Bank statement number" #?
@@ -1302,6 +1303,7 @@ eng:
     disease_percentage: "Disease (%)" #?
     disease_percentage_evolution: "Disease percentage evolution"
     display: "Display" #?
+    display_accounts: "Display accounts"
     display_n_1: "Display N-1"
     distribute_unaffected_products: "Distribute unaffected products"
     distributions: "Distributions" #?
@@ -1988,6 +1990,7 @@ eng:
     transfer: "Transfer" #?
     transport: "Transport" #?
     trimester: "Trimester" #?
+    unbalanced: "Unbalanced"
     unbalanced_clients: "Unbalanced clients" #?
     unbalanced_suppliers: "Unbalanced suppliers" #?
     unbilled_payables: "Unbilled payables"
