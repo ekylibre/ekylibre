@@ -1223,6 +1223,9 @@ fra:
     delete_x_entries:
       one: "Supprimer l'écriture"
       other: "Supprimer les %{count} écritures"
+    delete_x_financial_years_without_entry:
+      one: "Supprimer l'exercice sans écriture %{financial_year_code}"
+      other: "Supprimer les %{count} exercices sans écriture de %{first_financial_year_code} à %{last_financial_year_code}"
     deliver: "Valider l’envoi des livraisons"
     deliveries: "Livraisons"
     delivery: "Livraison"

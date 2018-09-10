@@ -302,6 +302,7 @@ eng:
     backend/financial_years:
       close: "Close financial year: %{code}"
       compute_balances: "Compute financial year balance"
+      # destroy_all_empty: "Destroy all empty financial year: %{name}"
       edit: "Edit new financial year"
       generate_last_journal_entry: "Generate last journal entry of %{code}" #?
       index: "Financial years"
@@ -1280,6 +1281,9 @@ eng:
     delete_x_entries: #?
       one: "Delete %{count} entry" #?
       other: "Delete %{count} entries" #?
+    delete_x_financial_years_without_entry: #?!
+      one: "Delete the financial year without entry %{financial_year_code}" #?!
+      other: "Delete the %{count} financial years without entry from %{first_financial_year_code} to %{last_financial_year_code}" #?!
     deliver: "Delivered on" #?
     deliveries: "Deliveries" #?
     delivery: "Delivery" #?
@@ -1392,7 +1396,7 @@ eng:
     financial_assets: "Financial assets" #?
     financial_expenses: "Financial expenses" #??
     financial_products: "Financial products" #??
-    financial_year_lock_message: "<p> The lock will definitively validate all entries of the financial year, which may not be modified or deleted. It will not be possible to add new ones too. <br/> You will need to get in contact the person who did the close out of the software to get back your year-end documents. </p>" #?!
+    financial_year_lock_message: "<p> The lock will definitively validate all entries of the financial year, which may not be modified or deleted. It will not be possible to add new ones too. <br/> You will need to get in contact the person who did the close out of the software to get back your year-end documents. </p>"
     financial_year_needed: "All commercial and financial operations need to be accounted on an opened financial year. Please open a financial year for the current period or ask a manager"
     financial_year_warning: "<p> If the financial year is not closed or locked before the %{last_financial_year_end_date}, you will not be able to open a financial year on %{new_financial_year_start_date}. Indeed, it is not possible to have more than 2 financial years opened simultaneously. Furthermore, it is necessary to have an opened financial year on the ongoing date to input commercial and financial operations. <br/> If you don't manage your accountacy with Ekylibre, you have the possibility to lock your financial year. <br/> Attention : locked financial years can't be modified like a closed financial year."
     # financials_assets: "Financials assets"
@@ -2228,8 +2232,8 @@ eng:
     yield: "Yield" #?
     yield_by_calibration: "Yield by calibration" #?
     # yield_by_calibration_x: "Yield by calibration x"
-    you_can_close_financial_year: "You can close or lock your financial year %{financial_year_to_close}"
-    you_can_close_financial_year_to_open_a_new_one: "You can close or lock your financial year %{financial_year_to_close} to open %{financial_year_to_open}"
+    you_can_close_financial_year: "You can close or lock your financial year %{financial_year_to_close}" #?
+    you_can_close_financial_year_to_open_a_new_one: "You can close or lock your financial year %{financial_year_to_close} to open %{financial_year_to_open}" #?
     zones: "Zones"
     # }: "}"
   notifications:
@@ -2434,6 +2438,7 @@ eng:
       # depreciate: "Depreciate"
       # depreciate_all: "Depreciate all"
       destroy: "Destroy"
+      # destroy_all_empty: "Destroy all empty"
       detach: "Detach"
       # detach_gaps: "Detach gaps"
       detail: "Detail"
