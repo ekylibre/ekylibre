@@ -30,7 +30,7 @@ module Backend
         params[:started_on] = FinancialYear.order(:started_on).pluck(:started_on).first.to_s
         params[:stopped_on] = FinancialYear.order(:stopped_on).pluck(:stopped_on).last.to_s
       end
-      unless params[:period] == 'all' || params[:period] == 'interval'
+      unless !params[:period] || params[:period] == 'all' || params[:period] == 'interval'
         params[:started_on] = params[:period].split('_').first
         params[:stopped_on] = params[:period].split('_').last
       end
