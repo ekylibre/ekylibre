@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2017 Brice Texier, David Joulin
+# Copyright (C) 2012-2018 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -82,8 +82,22 @@ class InterventionAgent < InterventionProductParameter
     unit_name = Nomen::Unit.find(:hour).human_name
     unit_name = unit_name.pluralize if quantity > 1
 
+    catalog_item = if nature.present? && nature != :intervention
+                     begin
+                       product.variant.catalog_items.joins(:catalog).where('catalogs.usage': "#{nature}_cost").first.catalog.usage
+                     rescue
+                       catalog_usage
+                     end
+                   else
+                     begin
+                       product.variant.catalog_items.joins(:catalog).where('catalogs.usage': 'cost').first.catalog.usage
+                     rescue
+                       catalog_usage
+                     end
+      end
+
     options = {
-      catalog_usage: catalog_usage,
+      catalog_usage: catalog_item,
       quantity: quantity.to_d,
       unit_name: unit_name
     }

@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2017 Brice Texier, David Joulin
+# Copyright (C) 2012-2018 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -22,52 +22,53 @@
 #
 # == Table: fixed_assets
 #
-#  accounted_at              :datetime
-#  allocation_account_id     :integer          not null
-#  asset_account_id          :integer
-#  ceded                     :boolean
-#  ceded_on                  :date
-#  created_at                :datetime         not null
-#  creator_id                :integer
-#  currency                  :string           not null
-#  current_amount            :decimal(19, 4)
-#  custom_fields             :jsonb
-#  depreciable_amount        :decimal(19, 4)   not null
-#  depreciated_amount        :decimal(19, 4)   not null
-#  depreciation_method       :string           not null
-#  depreciation_percentage   :decimal(19, 4)
-#  depreciation_period       :string
-#  description               :text
-#  expenses_account_id       :integer
-#  id                        :integer          not null, primary key
-#  journal_entry_id          :integer
-#  journal_id                :integer          not null
-#  lock_version              :integer          default(0), not null
-#  name                      :string           not null
-#  number                    :string           not null
-#  product_id                :integer
-#  purchase_amount           :decimal(19, 4)
-#  purchase_id               :integer
-#  purchase_item_id          :integer
-#  purchased_on              :date
-#  sale_id                   :integer
-#  sale_item_id              :integer
-#  scrapped_journal_entry_id :integer
-#  scrapped_on               :date
-#  sold_journal_entry_id     :integer
-#  sold_on                   :date
-#  started_on                :date             not null
-#  state                     :string
-#  stopped_on                :date             not null
-#  updated_at                :datetime         not null
-#  updater_id                :integer
+#  accounted_at                    :datetime
+#  allocation_account_id           :integer          not null
+#  asset_account_id                :integer
+#  ceded                           :boolean
+#  ceded_on                        :date
+#  created_at                      :datetime         not null
+#  creator_id                      :integer
+#  currency                        :string           not null
+#  current_amount                  :decimal(19, 4)
+#  custom_fields                   :jsonb
+#  depreciable_amount              :decimal(19, 4)   not null
+#  depreciated_amount              :decimal(19, 4)   not null
+#  depreciation_fiscal_coefficient :decimal(, )
+#  depreciation_method             :string           not null
+#  depreciation_percentage         :decimal(19, 4)
+#  depreciation_period             :string
+#  description                     :text
+#  expenses_account_id             :integer
+#  id                              :integer          not null, primary key
+#  journal_entry_id                :integer
+#  journal_id                      :integer          not null
+#  lock_version                    :integer          default(0), not null
+#  name                            :string           not null
+#  number                          :string           not null
+#  product_id                      :integer
+#  purchase_amount                 :decimal(19, 4)
+#  purchase_id                     :integer
+#  purchase_item_id                :integer
+#  purchased_on                    :date
+#  sale_id                         :integer
+#  sale_item_id                    :integer
+#  scrapped_journal_entry_id       :integer
+#  scrapped_on                     :date
+#  sold_journal_entry_id           :integer
+#  sold_on                         :date
+#  started_on                      :date             not null
+#  state                           :string
+#  stopped_on                      :date             not null
+#  updated_at                      :datetime         not null
+#  updater_id                      :integer
 #
 
 class FixedAsset < Ekylibre::Record::Base
   include Attachable
   include Customizable
   acts_as_numbered
-  enumerize :depreciation_method, in: %i[simplified_linear linear regressive none], predicates: { prefix: true } # graduated
+  enumerize :depreciation_method, in: %i[linear regressive none], predicates: { prefix: true } # graduated
   refers_to :currency
   belongs_to :asset_account, class_name: 'Account'
   belongs_to :expenses_account, class_name: 'Account'
@@ -90,6 +91,7 @@ class FixedAsset < Ekylibre::Record::Base
   validates :allocation_account, :currency, :depreciation_method, :journal, presence: true
   validates :current_amount, :depreciation_percentage, :purchase_amount, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }, allow_blank: true
   validates :depreciable_amount, :depreciated_amount, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
+  validates :depreciation_fiscal_coefficient, numericality: true, allow_blank: true
   validates :description, length: { maximum: 500_000 }, allow_blank: true
   validates :name, :number, presence: true, length: { maximum: 500 }
   validates :started_on, presence: true, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 50.years }, type: :date }
@@ -100,6 +102,8 @@ class FixedAsset < Ekylibre::Record::Base
   validates :depreciation_method, inclusion: { in: depreciation_method.values }
   validates :asset_account, :expenses_account, presence: true
   enumerize :depreciation_period, in: %i[monthly quarterly yearly], default: -> { Preference.get(:default_depreciation_period).value || Preference.set!(:default_depreciation_period, :yearly, :string) }
+
+  validates :depreciation_fiscal_coefficient, presence: true, if: -> { depreciation_method_regressive? }
 
   scope :drafts, -> { where(state: %w[draft]) }
 
@@ -140,11 +144,14 @@ class FixedAsset < Ekylibre::Record::Base
     self.purchase_amount ||= depreciable_amount
     self.purchased_on ||= started_on
     if depreciation_method_linear?
-      if stopped_on && started_on
-        self.depreciation_percentage = 100.0 * 365.25 / duration
-      end
-    elsif depreciation_method_simplified_linear?
       self.depreciation_percentage = 20 if depreciation_percentage.blank? || depreciation_percentage <= 0
+      months = 12 * (100.0 / depreciation_percentage.to_f)
+      self.stopped_on = started_on >> months.floor
+      self.stopped_on += (months - months.floor) * 30.0 - 1
+    end
+    if depreciation_method_regressive?
+      self.depreciation_percentage = 20 if depreciation_percentage.blank? || depreciation_percentage <= 0
+      self.depreciation_fiscal_coefficient ||= 1.75
       months = 12 * (100.0 / depreciation_percentage.to_f)
       self.stopped_on = started_on >> months.floor
       self.stopped_on += (months - months.floor) * 30.0 - 1
@@ -235,7 +242,7 @@ class FixedAsset < Ekylibre::Record::Base
     waiting_asset_account = Account.find_or_import_from_nomenclature(:outstanding_assets)
     fixed_assets_suppliers_account = Account.find_or_import_from_nomenclature(:fixed_assets_suppliers)
     fixed_assets_values_account = Account.find_or_import_from_nomenclature(:fixed_assets_values)
-    exceptionnal_depreciations_inputations_expenses_account = Account.find_or_import_from_nomenclature(:exceptionnal_depreciations_inputations_expenses)
+    exceptionnal_depreciations_inputations_expenses_account = Account.find_or_import_from_nomenclature(:exceptional_depreciations_inputations_expenses)
 
     # fixed asset link to purchase item
     if purchase_items.any? && in_use?
@@ -376,37 +383,8 @@ class FixedAsset < Ekylibre::Record::Base
   end
 
   # Depreciate using linear method
-  def depreciate_with_linear_method(starts)
-    depreciable_days = duration.round(2)
-    depreciable_amount = self.depreciable_amount
-    depreciations.each do |depreciation|
-      depreciable_days -= depreciation.duration.round(2)
-      depreciable_amount -= depreciation.amount
-    end
-
-    # Create it if not exists?
-    remaining_amount = depreciable_amount.to_d
-    position = 1
-    starts.each_with_index do |start, index|
-      next if starts[index + 1].nil?
-      depreciation = depreciations.find_by(started_on: start)
-      unless depreciation
-        depreciation = depreciations.new(started_on: start, stopped_on: starts[index + 1] - 1)
-        duration = depreciation.duration.round(2)
-        depreciation.amount = [remaining_amount, currency.to_currency.round(depreciable_amount * duration / depreciable_days)].min
-        remaining_amount -= depreciation.amount
-      end
-      # depreciation.financial_year = FinancialYear.at(depreciation.started_on)
-
-      depreciation.position = position
-      position += 1
-      depreciation.save!
-    end
-  end
-
-  # Depreciate using simplified linear method
   # Years have 12 months with 30 days
-  def depreciate_with_simplified_linear_method(starts)
+  def depreciate_with_linear_method(starts)
     depreciable_days = duration
     depreciable_amount = self.depreciable_amount
     reload.depreciations.each do |depreciation|
@@ -436,7 +414,47 @@ class FixedAsset < Ekylibre::Record::Base
 
   # Depreciate using regressive method
   def depreciate_with_regressive_method(starts)
-    # TODO
+    depreciable_days = duration
+    depreciable_amount = self.depreciable_amount
+    reload.depreciations.each do |depreciation|
+      depreciable_days -= depreciation.duration
+      depreciable_amount -= depreciation.amount
+    end
+
+    remaining_days = depreciable_days
+    regressive_depreciation_percentage = depreciation_percentage * depreciation_fiscal_coefficient
+
+    ## Create it if not exists?
+    remaining_amount = depreciable_amount.to_d
+    position = 1
+
+    starts.each_with_index do |start, index|
+      next if starts[index + 1].nil? || remaining_amount <= 0
+      depreciation = depreciations.find_by(started_on: start)
+      unless depreciation
+        depreciation = depreciations.new(started_on: start, stopped_on: starts[index + 1] - 1)
+        duration = depreciation.duration
+
+        current_year = index
+        if depreciation_period == :quarterly
+          current_year /= 4
+        elsif depreciation_period == :monthly
+          current_year /= 12
+        end
+
+        remaining_linear_depreciation_percentage = (100 * depreciation_percentage / (100 - (current_year * depreciation_percentage))).round(2)
+        percentage = [regressive_depreciation_percentage, remaining_linear_depreciation_percentage].max
+
+        depreciation.amount = currency.to_currency.round(remaining_amount * (percentage / 100) * (duration / 360))
+        remaining_amount -= depreciation.amount
+      end
+      next if depreciation.amount.to_f == 0.0
+
+      depreciation.position = position
+      position += 1
+      depreciation.save!
+      remaining_days -= duration
+    end
   end
 
   # Depreciate using regressive method
@@ -479,7 +497,7 @@ class FixedAsset < Ekylibre::Record::Base
   def self.duration(started_on, stopped_on, options = {})
     days = 0
     options[:mode] ||= :linear
-    if options[:mode] == :simplified_linear
+    if options[:mode] == :linear
       sa = (started_on.day >= 30 || (started_on.end_of_month == started_on) ? 30 : started_on.day)
       so = (stopped_on.day >= 30 || (stopped_on.end_of_month == stopped_on) ? 30 : stopped_on.day)
 
@@ -494,28 +512,21 @@ class FixedAsset < Ekylibre::Record::Base
         end
         days += so
       end
+    elsif options[:mode] == :regressive
+      sa = (started_on.day >= 30 || (started_on.end_of_month == started_on) ? 30 : 1)
+      so = (stopped_on.day >= 30 || (stopped_on.end_of_month == stopped_on) ? 30 : stopped_on.day)
 
-    # cursor = started_on.to_date
-    # if started_on == started_on.end_of_month or started_on.day >= 30
-    #   days += 1
-    #   cursor = started_on.end_of_month + 1
-    # elsif started_on.month == stopped_on.month and started_on.year == stopped_on.year
-    #   days += so - sa + 1
-    #   cursor = stopped_on
-    # elsif started_on != started_on.beginning_of_month
-    #   days += 30 - sa + 1
-    #   cursor = started_on.end_of_month + 1
-    # end
-
-    # while (cursor >> 1).beginning_of_month < stopped_on.beginning_of_month
-    #   cursor = cursor >> 1
-    #   days += 30
-    # end
-    # if cursor < stopped_on
-    #   days += [30, (so - cursor.day + 1)].min
-    # end
-    elsif options[:mode] == :linear
-      days = (stopped_on - started_on) + 1
+      if started_on.beginning_of_month == stopped_on.beginning_of_month
+        days = so - sa + 1
+      else
+        days = 30 - sa + 1
+        cursor = started_on.beginning_of_month
+        while (cursor >> 1) < stopped_on.beginning_of_month
+          cursor = cursor >> 1
+          days += 30
+        end
+        days += so
+      end
     else
       raise "What ? #{options[:mode].inspect}"
     end

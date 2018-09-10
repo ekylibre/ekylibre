@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2017 Brice Texier, David Joulin
+# Copyright (C) 2012-2018 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -154,7 +154,7 @@ class Journal < Ekylibre::Record::Base
       raise ArgumentError, "Unvalid journal name: #{name.inspect}" unless self.class.preferences_reference.key? pref_name
       unless journal = preferred(pref_name)
         journal = journals.find_by(nature: name)
-        journal = journals.create!(name: tc("default.journals.#{name}"), nature: name, currency: default_currency) unless journal
+        journal ||= journals.create!(name: tc("default.journals.#{name}"), nature: name, currency: default_currency)
         prefer!(pref_name, journal)
       end
       journal
@@ -277,8 +277,8 @@ class Journal < Ekylibre::Record::Base
   def close!(closed_on)
     finished = false
     ActiveRecord::Base.transaction do
-      JournalEntryItem.where('printed_on < ?', closed_on).where.not(state: :closed).update_all(state: :closed)
-      JournalEntry.where('printed_on < ?', closed_on).where.not(state: :closed).update_all(state: :closed)
+      JournalEntryItem.where(journal_id: self.id).where('printed_on < ?', closed_on).where.not(state: :closed).update_all(state: :closed)
+      JournalEntry.where(journal_id: self.id).where('printed_on < ?', closed_on).where.not(state: :closed).update_all(state: :closed)
       update_column(:closed_on, closed_on)
       finished = true
     end

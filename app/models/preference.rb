@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2017 Brice Texier, David Joulin
+# Copyright (C) 2012-2018 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -85,7 +85,7 @@ class Preference < Ekylibre::Record::Base
       unless self.nature.values.include?(nature.to_s)
         raise ArgumentError, "Nature (#{nature.inspect}) is unacceptable. #{self.nature.values.to_sentence} are accepted."
       end
-      @@reference[name] = { name: :name, nature: nature.to_sym, default: default_value }
+      @@reference[name] = { name: name, nature: nature.to_sym, default: default_value }
     end
 
     def check!
@@ -181,7 +181,6 @@ class Preference < Ekylibre::Record::Base
   prefer :bookkeep_in_draft, :boolean, true
   prefer :detail_payments_in_deposit_bookkeeping, :boolean, true
   prefer :use_global_search, :boolean, false
-  prefer :use_contextual_help, :boolean, false
   prefer :use_entity_codes_for_account_numbers, :boolean, true
   prefer :sales_conditions, :string, ''
   prefer :accounting_system, :accounting_system, Nomen::AccountingSystem.default
@@ -194,6 +193,7 @@ class Preference < Ekylibre::Record::Base
   prefer :client_account_radix, :string, ''
   prefer :supplier_account_radix, :string, ''
   prefer :employee_account_radix, :string, ''
+  prefer :account_number_digits, :integer, 8
   # TODO: manage period as list selector
   prefer :default_depreciation_period, :string, 'yearly'
 

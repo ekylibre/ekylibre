@@ -66,6 +66,11 @@ account_balances:
     type: integer
     references: user
 accounts:
+  auxiliary_number:
+    type: string
+  centralizing_account_id:
+    type: integer
+    references: account
   created_at:
     type: datetime
     required: true
@@ -94,6 +99,8 @@ accounts:
   name:
     type: string
     required: true
+  nature:
+    type: string
   number:
     type: string
     required: true
@@ -2591,6 +2598,8 @@ fixed_assets:
     precision: 19
     scale: 4
     required: true
+  depreciation_fiscal_coefficient:
+    type: decimal
   depreciation_method:
     type: string
     required: true

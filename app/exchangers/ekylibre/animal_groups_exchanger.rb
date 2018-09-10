@@ -98,9 +98,7 @@ module Ekylibre
         animal_variant = ProductNatureVariant.find_by(work_number: r.member_nature) ||
                          ProductNatureVariant.find_by(reference_name: r.member_nature) ||
                          ProductNatureVariant.import_from_nomenclature(r.member_nature)
-        unless animal_variant
-          animal_variant = ProductNatureVariant.import_from_nomenclature(r.member_nature)
-        end
+        animal_variant ||= ProductNatureVariant.import_from_nomenclature(r.member_nature)
 
         # get animal default container
         animal_container = BuildingDivision.find_by(work_number: r.place)

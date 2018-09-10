@@ -1,3 +1,5 @@
+.flash.information
+  %p= :derogatory_depreciation_explanation.tl 
 = field_set do
   = f.input :name
   = f.input :description, as: :text
@@ -11,11 +13,12 @@
     = f.input :started_on
     = f.input :depreciation_period, as: :radio_buttons
 
-  = field_set(:simplified_linear_options) do
+  = field_set(:linear_options) do
     = f.input :depreciation_percentage
 
-  = field_set(:linear_options) do
-    = f.input :stopped_on
+  = field_set(:regressive_options) do
+    = f.input :depreciation_percentage
+    = f.input :depreciation_fiscal_coefficient
 
   = field_set(:accountancy) do
     = f.referenced_association :journal

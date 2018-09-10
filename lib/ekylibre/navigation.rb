@@ -1,5 +1,3 @@
-# encoding: utf-8
-
 module Ekylibre
   module Navigation
     autoload :DSL,  'ekylibre/navigation/dsl'

@@ -354,3 +354,7 @@
     }
   }
 }
+
+.no-arrow-date-input::-webkit-calendar-picker-indicator, .no-arrow-date-input::-webkit-inner-spin-button, .no-arrow-date-input::-webkit-clear-button {
+  display: none;
+}

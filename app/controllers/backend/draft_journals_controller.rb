@@ -39,30 +39,69 @@ module Backend
     end
 
     # this method lists all the entries generated in draft mode
-    def show; end
+    def show
+      @redirection = params[:redirection]
+      @current_page = 1
+      @current_date = Date.today
+      @journal_id = params[:journal_id] ? params[:journal_id].to_i : ''
+      journal_entries = @journal_id.blank? ? JournalEntry.all : JournalEntry.where(journal_id: @journal_id)
+      @draft_entries = journal_entries.where(state: :draft).where('printed_on <= ?', @current_date).order(:printed_on)
+      @draft_entries_count = @draft_entries.count
+      @draft_entries = @draft_entries.page(@current_page).per(20)
+      @unbalanced_entries_count = journal_entries.where('printed_on <= ?', @current_date).select { |entry| !entry.balanced? }.count
+      notify_warning_now(:there_are_x_remaining_unbalanced_entries, count: @unbalanced_entries_count) unless @unbalanced_entries_count < 1
+    end
+
+    def list
+      @redirection = params[:redirection]
+      @current_page = params[:page] ? params[:page].to_i : 1
+      @current_date = Date.parse(params[:to]) if params[:to]
+      @journal_id = params[:journal_id].blank? ? params[:journal_id] : params[:journal_id].to_i
+      journal_entries = @journal_id.blank? ? JournalEntry.all : JournalEntry.where(journal_id: @journal_id)
+      @draft_entries = journal_entries.where(state: :draft).where('printed_on <= ?', @current_date).order(:printed_on)
+      @draft_entries_count = @draft_entries.count
+      @draft_entries = @draft_entries.page(@current_page).per(20)
+      @unbalanced_entries_count = journal_entries.where('printed_on <= ?', @current_date).select { |entry| !entry.balanced? }.count
+      notify_warning_now(:there_are_x_remaining_unbalanced_entries, count: @unbalanced_entries_count) unless @unbalanced_entries_count < 1
+    end
 
     # This method confirm all draft entries
     def confirm
       conditions = eval(self.class.journal_entries_conditions(with_journals: true, state: :draft))
       journal_entries = JournalEntry.reorder(:printed_on).where(conditions)
-      journal_entries = journal_entries.joins(:financial_year).where('journal_entries.printed_on BETWEEN financial_years.started_on AND financial_years.stopped_on') # TODO remove once journal entries will always have its financial_year_id associated to the printed_on
+      journal_entries = journal_entries.joins(:financial_year).where('journal_entries.printed_on BETWEEN financial_years.started_on AND financial_years.stopped_on') # TODO: remove once journal entries will always have its financial_year_id associated to the printed_on
       if journal_entries.empty?
         redirect_to action: :show
         return
       end
       previous_draft_entries = JournalEntry.where(state: :draft).where('printed_on < ?', journal_entries.first.printed_on)
-      previous_draft_entries = previous_draft_entries.joins(:financial_year).where('journal_entries.printed_on BETWEEN financial_years.started_on AND financial_years.stopped_on') # TODO remove once journal entries will always have its financial_year_id associated to the printed_on
+      previous_draft_entries = previous_draft_entries.joins(:financial_year).where('journal_entries.printed_on BETWEEN financial_years.started_on AND financial_years.stopped_on') # TODO: remove once journal entries will always have its financial_year_id associated to the printed_on
       if previous_draft_entries.any?
         notify_error(:draft_journal_entries_cannot_be_validated)
       else
         count = journal_entries.count
         JournalEntry.transaction do
+          ActiveRecord::Base.connection.execute('LOCK journal_entries IN ACCESS EXCLUSIVE MODE')
           journal_entries.update_all(state: :confirmed, validated_at: Time.zone.now)
           JournalEntryItem.where(entry_id: journal_entries).update_all(state: :confirmed)
         end
         notify_success(:draft_journal_entries_have_been_validated, count: count)
       end
       redirect_to action: :show
+    end
+
+    def confirm_all
+      journal_id = params[:journal_id].blank? ? params[:journal_id] : params[:journal_id].to_i
+      journal_entries = journal_id.blank? ? JournalEntry.all : JournalEntry.where(journal_id: journal_id)
+      journal_entries_to_validate = journal_entries.where(state: :draft).where('printed_on <= ?', params[:to]).order(:printed_on)
+      journal_entries_to_validate_count = journal_entries_to_validate.count
+
+      ActiveRecord::Base.transaction do
+        journal_entries_to_validate.update_all(state: :confirmed, validated_at: Time.zone.now)
+        JournalEntryItem.where(entry_id: journal_entries_to_validate).update_all(state: :confirmed)
+      end
+      notify_success(:draft_journal_entries_have_been_validated, count: journal_entries_to_validate_count)
+      redirect_to params[:redirection]
     end
   end
 end

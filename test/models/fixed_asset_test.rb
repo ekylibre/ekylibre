@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2017 Brice Texier, David Joulin
+# Copyright (C) 2012-2018 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -22,45 +22,46 @@
 #
 # == Table: fixed_assets
 #
-#  accounted_at              :datetime
-#  allocation_account_id     :integer          not null
-#  asset_account_id          :integer
-#  ceded                     :boolean
-#  ceded_on                  :date
-#  created_at                :datetime         not null
-#  creator_id                :integer
-#  currency                  :string           not null
-#  current_amount            :decimal(19, 4)
-#  custom_fields             :jsonb
-#  depreciable_amount        :decimal(19, 4)   not null
-#  depreciated_amount        :decimal(19, 4)   not null
-#  depreciation_method       :string           not null
-#  depreciation_percentage   :decimal(19, 4)
-#  depreciation_period       :string
-#  description               :text
-#  expenses_account_id       :integer
-#  id                        :integer          not null, primary key
-#  journal_entry_id          :integer
-#  journal_id                :integer          not null
-#  lock_version              :integer          default(0), not null
-#  name                      :string           not null
-#  number                    :string           not null
-#  product_id                :integer
-#  purchase_amount           :decimal(19, 4)
-#  purchase_id               :integer
-#  purchase_item_id          :integer
-#  purchased_on              :date
-#  sale_id                   :integer
-#  sale_item_id              :integer
-#  scrapped_journal_entry_id :integer
-#  scrapped_on               :date
-#  sold_journal_entry_id     :integer
-#  sold_on                   :date
-#  started_on                :date             not null
-#  state                     :string
-#  stopped_on                :date             not null
-#  updated_at                :datetime         not null
-#  updater_id                :integer
+#  accounted_at                    :datetime
+#  allocation_account_id           :integer          not null
+#  asset_account_id                :integer
+#  ceded                           :boolean
+#  ceded_on                        :date
+#  created_at                      :datetime         not null
+#  creator_id                      :integer
+#  currency                        :string           not null
+#  current_amount                  :decimal(19, 4)
+#  custom_fields                   :jsonb
+#  depreciable_amount              :decimal(19, 4)   not null
+#  depreciated_amount              :decimal(19, 4)   not null
+#  depreciation_fiscal_coefficient :decimal(, )
+#  depreciation_method             :string           not null
+#  depreciation_percentage         :decimal(19, 4)
+#  depreciation_period             :string
+#  description                     :text
+#  expenses_account_id             :integer
+#  id                              :integer          not null, primary key
+#  journal_entry_id                :integer
+#  journal_id                      :integer          not null
+#  lock_version                    :integer          default(0), not null
+#  name                            :string           not null
+#  number                          :string           not null
+#  product_id                      :integer
+#  purchase_amount                 :decimal(19, 4)
+#  purchase_id                     :integer
+#  purchase_item_id                :integer
+#  purchased_on                    :date
+#  sale_id                         :integer
+#  sale_item_id                    :integer
+#  scrapped_journal_entry_id       :integer
+#  scrapped_on                     :date
+#  sold_journal_entry_id           :integer
+#  sold_on                         :date
+#  started_on                      :date             not null
+#  state                           :string
+#  stopped_on                      :date             not null
+#  updated_at                      :datetime         not null
+#  updater_id                      :integer
 #
 require 'test_helper'
 
@@ -89,9 +90,9 @@ class FixedAssetTest < ActiveSupport::TestCase
 
     @journal = Journal.where(nature: 'various', currency: currency).first
 
-    @asset_account = Account.find_or_create_by_number('2154')
-    @allocation_account = Account.find_or_create_by_number('2815')
-    @expenses_account = Account.find_or_create_by_number('6811')
+    @asset_account = Account.find_or_create_by_number('998765')
+    @allocation_account = Account.find_or_create_by_number('998764')
+    @expenses_account = Account.find_or_create_by_number('998763')
 
     @started_on = Date.parse('2017-01-01')
 
@@ -167,9 +168,39 @@ class FixedAssetTest < ActiveSupport::TestCase
     assert_equal 4, count, 'Count of depreciations is invalid' + fixed_asset.depreciations.pluck(:started_on, :amount).to_yaml.yellow
   end
 
+  test 'Fixed asset with regressive depreciation' do
+    started_on = Date.parse('2018-06-15')
+    attributes = {
+      name: @product.name,
+      depreciable_amount: 50_000,
+      depreciation_method: :regressive,
+      started_on: started_on,
+      depreciation_period: :yearly,
+      depreciation_percentage: 20.00,
+      depreciation_fiscal_coefficient: 1.75,
+      asset_account: @asset_account,
+      allocation_account: @allocation_account,
+      expenses_account: @expenses_account,
+      product: @product,
+      journal_id: @journal.id
+    }
+
+    fixed_asset = FixedAsset.create!(attributes)
+
+    assert_equal 5, fixed_asset.depreciations.count
+
+    depreciation_amount_assertion = [10_208.33, 13_927.08, 9052.61, 8405.99, 8405.99]
+
+    currency = Preference[:currency]
+
+    fixed_asset.depreciations.each_with_index do |depreciation, index|
+      assert_equal currency.to_currency.round(depreciation_amount_assertion[index]), depreciation.amount.to_f
+    end
+  end
+
   private
 
-  def depreciate_up_to(depreciations, date)
+  def depreciate_up_to(_depreciations, date)
     depreciations = FixedAssetDepreciation.with_active_asset.up_to(date)
     success = true
 

@@ -435,6 +435,8 @@ Rails.application.routes.draw do
     resource :draft_journal, only: [:show] do
       member do
         post :confirm
+        post :confirm_all
+        get :list
         get :list_journal_entry_items
       end
     end
@@ -601,6 +603,13 @@ Rails.application.routes.draw do
       end
       member do
         post :convert
+      end
+    end
+
+    resources :invalid_journal_entries, only: :index do
+      collection do
+        get :delete_all
+        get :list
       end
     end
 

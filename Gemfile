@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-ruby '>= 2.2.3', '< 3.0.0'
+ruby '>= 2.3.3', '< 3.0.0'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.10'
@@ -168,8 +168,8 @@ gem 'roo'
 gem 'rubyzip'
 gem 'sepa_king'
 # gem 'sepa_king', path: '/home/jonathan/Workspace/sepa_king'
-gem 'rodf'
 gem 'odf-report'
+gem 'rodf'
 
 # Demo data
 gem 'ffaker', '>= 2.0.0'
@@ -240,7 +240,7 @@ group :test do
   gem 'shoulda-context'
 
   gem 'capybara'
-  gem 'capybara-webkit'
+  gem 'capybara-webkit', '>= 1.14.0'
   gem 'selenium-webdriver'
 
   gem 'codacy-coverage', require: false
@@ -250,7 +250,9 @@ group :test do
 
   gem 'minitest-reporters'
 
-  gem 'factory_girl'
+  gem 'pdf-reader'
+
+  gem 'factory_bot'
 end
 
 # Load Gemfile.local, Gemfile.plugins, plugins', and custom Gemfiles

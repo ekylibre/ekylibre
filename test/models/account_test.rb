@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2017 Brice Texier, David Joulin
+# Copyright (C) 2012-2018 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -22,21 +22,24 @@
 #
 # == Table: accounts
 #
-#  created_at    :datetime         not null
-#  creator_id    :integer
-#  custom_fields :jsonb
-#  debtor        :boolean          default(FALSE), not null
-#  description   :text
-#  id            :integer          not null, primary key
-#  label         :string           not null
-#  last_letter   :string
-#  lock_version  :integer          default(0), not null
-#  name          :string           not null
-#  number        :string           not null
-#  reconcilable  :boolean          default(FALSE), not null
-#  updated_at    :datetime         not null
-#  updater_id    :integer
-#  usages        :text
+#  auxiliary_number        :string
+#  centralizing_account_id :integer
+#  created_at              :datetime         not null
+#  creator_id              :integer
+#  custom_fields           :jsonb
+#  debtor                  :boolean          default(FALSE), not null
+#  description             :text
+#  id                      :integer          not null, primary key
+#  label                   :string           not null
+#  last_letter             :string
+#  lock_version            :integer          default(0), not null
+#  name                    :string           not null
+#  nature                  :string
+#  number                  :string           not null
+#  reconcilable            :boolean          default(FALSE), not null
+#  updated_at              :datetime         not null
+#  updater_id              :integer
+#  usages                  :text
 #
 require 'test_helper'
 

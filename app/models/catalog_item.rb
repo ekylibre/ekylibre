@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2017 Brice Texier, David Joulin
+# Copyright (C) 2012-2018 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -41,6 +41,7 @@
 
 # CatalogItem stores all the prices used in sales and purchases.
 class CatalogItem < Ekylibre::Record::Base
+  attr_readonly :catalog_id
   refers_to :currency
   belongs_to :variant, class_name: 'ProductNatureVariant'
   belongs_to :reference_tax, class_name: 'Tax'

@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2017 Brice Texier, David Joulin
+# Copyright (C) 2012-2018 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -88,7 +88,7 @@ class CashTransfer < Ekylibre::Record::Base
   end
 
   bookkeep do |b|
-    transfer_account = Account.find_in_nomenclature(:internal_transfers)
+    transfer_account = Account.find_by_usage(:internal_transfers)
     label = tc(:bookkeep, resource: self.class.model_name.human, number: number, description: description, emission: emission_cash.name, reception: reception_cash.name)
     b.journal_entry(emission_cash.journal, printed_on: self.transfered_at.to_date, as: :emission) do |entry|
       entry.add_debit(label, transfer_account.id, emission_amount, as: :transfer)

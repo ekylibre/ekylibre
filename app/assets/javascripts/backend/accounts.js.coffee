@@ -2,23 +2,15 @@
   'use strict'
 
   $(document).ready ->
-    $('input[data-mask-lettered-items]').each ->
-      E.accounts.toggleLetteredItemsVisibility.call($(this))
-
-    $('input[data-mask-lettered-items]').on 'change', (e) ->
-      E.accounts.toggleLetteredItemsVisibility.call($(this))
-
-  E.accounts =
-    toggleLetteredItemsVisibility: ->
-      $input = $(this)
-      $list = $($input.data('mask-lettered-items'))
-      $letteredItems = $list.find('.lettered-item')
-      $letteredItems.toggle !$input.is(':checked')
-
-      $.ajax
-        url: $input.data('preference-url')
-        type: 'PATCH'
-        data:
-          masked: $input.is(':checked') ? 'true' : 'false'
+    url = $('form').attr('action')
+    $.ajax
+      url: "#{url}.json"
+      success: (data, status, request) ->
+        if data.has_auxiliary_accounts
+          $('.account_nature input[type=radio]').attr('disabled',true)
+          $('.account_number input[type=text]').attr('disabled',true)
+        else
+          $('.account_nature input[type=radio]').attr('disabled',false)
+          $('.account_number input[type=text]').attr('disabled',false)
 
 ) ekylibre, jQuery

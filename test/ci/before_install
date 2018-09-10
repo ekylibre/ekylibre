@@ -15,7 +15,7 @@ sudo apt-get remove postgresql-client-9.1 postgresql-client-9.2 postgresql-clien
 echo""
 echo "Dependencies install..."
 echo""
-sudo apt-get install -f -qq postgresql-9.6-postgis-2.3 graphicsmagick tesseract-ocr tesseract-ocr-fra tesseract-ocr-eng tesseract-ocr-spa pdftk libreoffice poppler-utils poppler-data qt5-default libqt5webkit5-dev gstreamer1.0-x gstreamer1.0-tools gstreamer1.0-plugins-base libgeos-dev libproj-dev
+sudo apt-get install -f -q postgresql-9.6-postgis-2.3 graphicsmagick tesseract-ocr tesseract-ocr-fra tesseract-ocr-eng tesseract-ocr-spa pdftk libreoffice poppler-utils poppler-data qt5-default libqt5webkit5-dev gstreamer1.0-x gstreamer1.0-tools gstreamer1.0-plugins-base libgeos-dev libproj-dev
 gem uninstall bundler -a -x && gem install bundler -v 1.14.6
 echo ""
 echo "Dependencies installed!"
