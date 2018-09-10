@@ -79,8 +79,7 @@ class FinancialYear < Ekylibre::Record::Base
   scope :with_missing_tax_declaration, -> { where('id NOT IN (SELECT f.id FROM financial_years AS f JOIN tax_declarations AS d ON (f.stopped_on BETWEEN d.started_on AND d.stopped_on))') }
 
   protect on: :destroy do
-    fixed_asset_depreciations.any? || tax_declarations.any? || journal_entries.any? ||
-      inventories.any?
+    tax_declarations.any? || journal_entries.any? || inventories.any?
   end
 
   class << self
@@ -122,11 +121,11 @@ class FinancialYear < Ekylibre::Record::Base
       nil
     end
 
-    def previous
+    def previous_year
       FinancialYear.on(FinancialYear.current.started_on - 1.day)
     end
 
-    def next
+    def next_year
       FinancialYear.on(FinancialYear.current.stopped_on + 1.day)
     end
   end
