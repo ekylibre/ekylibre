@@ -109,4 +109,42 @@ class JournalTest < ActiveSupport::TestCase
     journal.accountant = create(:entity, :accountant)
     refute journal.closable?
   end
+
+  test 'balance is correctly computed' do
+    clean_irrelevant_fixtures
+
+    financial_year_18 = create(:financial_year, started_on: '01/01/2018', stopped_on: '31/12/2018')
+    client = create(:entity, :client)
+    sale = create(:sale_with_accounting, client: client)
+    sale_item = create(:sale_item, sale: sale)
+    sale.invoice!
+    params = {
+               period: "2018-01-01_2018-12-31",
+               started_on: "2018-01-01",
+               stopped_on: "2018-12-31",
+               states: { draft: "1", confirmed: "1", closed: "1" },
+               centralize: "301 302 310 320 330 340 374 401 411 421 467 603"
+             }
+    balance = Journal.trial_balance(params)
+    assert_equal BigDecimal.new(balance[0][2]), sale.amount
+    assert_equal BigDecimal.new(balance[1][3]), sale.pretax_amount
+    assert_equal BigDecimal.new(balance[2][3]), sale.amount - sale.pretax_amount
+    assert_equal BigDecimal.new(balance[3][2]), sale.amount
+    assert_equal BigDecimal.new(balance[3][3]), sale.amount
+  end
+
+  private
+
+  def clean_irrelevant_fixtures
+    FinancialYear.delete_all
+    OutgoingPayment.delete_all
+    Sale.delete_all
+    SaleItem.delete_all
+    Regularization.delete_all
+    Payslip.delete_all
+    JournalEntry.delete_all
+    JournalEntryItem.delete_all
+    Affair.delete_all
+    TaxDeclaration.delete_all
+  end
 end
