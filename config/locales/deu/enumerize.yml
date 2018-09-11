@@ -166,7 +166,7 @@ deu:
         # linear: "Linear"
         none: "Keiner"
         regressive: "Regressiv"
-        simplified_linear: "vereinfachte lineare"
+        simplified_linear: "vereinfachte lineare" #?
       depreciation_period:
         monthly: "Monatlich"
         quarterly: "Vierteljährlich"

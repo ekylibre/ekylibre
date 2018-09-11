@@ -184,9 +184,9 @@ cmn:
         establishment_charge_assets: "建立收费资产"
         exceptional_expenses: "特殊支出"
         exceptional_revenues: "特殊的收入"
-        exceptionnal_charge_transfer_revenues: "Exceptionnal电荷转移收入"
-        exceptionnal_depreciations_inputations_expenses: "Exceptionnal贬值inputations费用"
-        exceptionnal_incorporeal_asset_depreciation_revenues: "Exceptionnal无形的资产减值收入"
+        exceptionnal_charge_transfer_revenues: "Exceptionnal电荷转移收入" #?
+        exceptionnal_depreciations_inputations_expenses: "Exceptionnal贬值inputations费用" #?
+        exceptionnal_incorporeal_asset_depreciation_revenues: "Exceptionnal无形的资产减值收入" #?
         expenses: "开支"
         exploitation_depreciations_inputations_expenses: "开发贬值inputations费用"
         exploitation_expenses_transfers: "开发费用转移"
@@ -252,7 +252,7 @@ cmn:
         initial_society_capital: "最初的社会里，资本"
         installation_sustainable_plant_assets: "安装可持续工厂资产"
         insurance_expenses: "保险费用"
-        interests_expenses: "利息费用"
+        interests_expenses: "利息费用" #?
         internal_transfers: "内部转账"
         inventory_variations: "库存变化"
         invoice_to_create_clients: "发票创建客户"
@@ -347,7 +347,7 @@ cmn:
         other_supplies: "其他用品"
         other_supply_expenses: "其他供应费用"
         other_supply_stocks_variation: "其他股票供给变化"
-        other_taxes: "其他税种"
+        other_taxes: "其他税种" #?
         other_usual_running_expenses: "其他常规运行费用"
         other_usual_running_profits: "其他常规运行利润"
         other_various_interests_expenses: "其他各种利息费用"
@@ -478,7 +478,7 @@ cmn:
         sustainables_plants_assets: "Sustainables厂资产"
         sustainables_plants_on_other_land_parcel_assets: "其他地块资产Sustainables厂"
         sustainables_plants_on_own_land_parcel_assets: "在自己的地块资产Sustainables厂"
-        tax_depreciation_revenues: "Taxe折旧收入"
+        tax_depreciation_revenues: "Taxe折旧收入" #?
         taxes_expenses: "税收支出"
         technical_installation_equipment_and_tools_assets: "技术安装设备和工具资产"
         technical_installation_on_other_land_parcel_assets: "其他地块的资产技术的安装"

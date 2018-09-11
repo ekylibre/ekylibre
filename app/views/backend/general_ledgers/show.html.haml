@@ -2,6 +2,7 @@
 - financial_year ||= FinancialYear.current
 - main_financial_year_selector(financial_year)
 - params[:period] = financial_year.started_on.to_s << '_' << financial_year.stopped_on.to_s
+- params[:current_financial_year] ||= financial_year.id
 
 - if params[:period]
   = main_toolbar do |t|
@@ -12,12 +13,8 @@
       - d.item :export_as_xcsv.tl, params: export_params.merge(format: :xcsv)
       - d.item :export_as_odt.tl, params: export_params.merge(format: :odt)
 
-= kujaku do |k|
+= kujaku actions: false do |k|
   - k.helper :ledger_crit
-  - k.helper :journal_entries_states_crit
-  - k.helper :accounts_range_crit
-  - k.helper :journals_crit
-  - k.number :amount_range_crit
-  - k.multi_choice :lettering_state, [:lettered, :unlettered, :partially_lettered].map{ |s| [s.tl, s] }, label: :lettering_state.tl
+  - k.helper :financial_year_crit, :current_financial_year, params[:current_financial_year]
 
 = main_list(:journal_entry_items)

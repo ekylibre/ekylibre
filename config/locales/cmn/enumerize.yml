@@ -166,7 +166,7 @@ cmn:
         linear: "线性"
         none: "没有"
         regressive: "累退"
-        simplified_linear: "线性简化"
+        simplified_linear: "线性简化" #?
       depreciation_period:
         monthly: "每月一次"
         quarterly: "季刊"

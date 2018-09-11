@@ -1481,7 +1481,7 @@ arb:
     genealogy: "علم الانساب"
     general: "معلومات عامة"
     general_informations: "معلومات عامة"
-    general_ledger: "دفتر الحسابات" #?
+    general_ledger: "دفتر الحسابات"
     generate: "توليد"
     generate_last_journal_entry: "تولد الماضي إدخال دفتر اليومية"
     generate_parcel: "تولد لا يتجزأ"
@@ -2202,6 +2202,7 @@ arb:
     storage: "تخزين"
     string_case: "خيارات للنص" #?
     subject: "الموضوع"
+    # subledger_of_accounts_x: "Sub-ledger of accounts %{account}"
     submit: "ارسال"
     subscribed_on: "اشتركت في"
     subscriber_period: "تم التسجيل في %{subscribed_at}"

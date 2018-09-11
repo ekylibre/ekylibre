@@ -32,7 +32,7 @@ module Backend
       end
       return '' unless k.feathers.any?
       collapsed = current_user.preference("interface.kujakus.#{k.uid}.collapsed", (options.key?(:collapsed) ? !!options[:collapsed] : true), :boolean).value
-      render('backend/shared/kujaku', kujaku: k, url: url, collapsed: collapsed, with_form: !options[:form].is_a?(FalseClass))
+      render('backend/shared/kujaku', kujaku: k, url: url, collapsed: collapsed, with_form: !options[:form].is_a?(FalseClass), with_actions: !options[:actions].is_a?(FalseClass))
     end
 
     class Kujaku

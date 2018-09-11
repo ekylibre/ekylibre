@@ -1233,7 +1233,7 @@ spa:
     genealogy: "Genealogía"
     general: "Descripción general"
     general_informations: "Informaciones generales"
-    general_ledger: "Grande libro" #?
+    general_ledger: "Grande libro"
     generate: "Generar"
     generate_last_journal_entry: "Generar última entrada en el diario"
     generate_parcel: "generar parcela"
@@ -1818,6 +1818,7 @@ spa:
     stopped_on: "Detenido en"
     storage: "Almacenamiento"
     subject: "Tema"
+    # subledger_of_accounts_x: "Sub-ledger of accounts %{account}"
     submit: "Enviar"
     subscribed_on: "Suscrito el"
     # subscriber_period: "Subscribed on %{subscribed_at}"

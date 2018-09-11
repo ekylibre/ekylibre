@@ -1360,7 +1360,7 @@ fra:
     genealogy: "Généalogie"
     general: "Informations générales"
     general_informations: "Informations générales"
-    general_ledger: "Grand livre" #?
+    general_ledger: "Grand-livre général"
     generate: "Générer"
     generate_last_journal_entry: "Générer la dernière écriture"
     generate_parcel: "Générer bon de préparation"
@@ -2096,6 +2096,7 @@ fra:
     storage: "Support"
     string_case: "Options pour le texte" #?
     subject: "Sujet"
+    subledger_of_accounts_x: "Grand-livre auxiliaire des comptes %{account}"
     submit: "Envoyer"
     subscribed_on: "Abonné au"
     subscriber_period: "Abonné(e) le %{subscribed_at}"

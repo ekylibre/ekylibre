@@ -43,6 +43,37 @@ module Backend
       content_tag(:dl, code, id: 'journal-views')
     end
 
+    def financial_year_crit(*args)
+      options = args.extract_options!
+      name = args.shift || :financial_year
+      value = args.shift
+      name.to_s.gsub(/\W+/, '_').gsub(/(^_|_$)/, '')
+      code = ''
+      code << hidden_field_tag(name, value)
+      code.html_safe
+    end
+
+    def ledger_crit(*args)
+      options = args.extract_options!
+      name = args.shift || :ledger
+      value = args.shift
+      configuration = { custom: :general_ledger }.merge(options)
+      configuration[:id] ||= name.to_s.gsub(/\W+/, '_').gsub(/(^_|_$)/, '')
+      value ||= params[name] || options[:default]
+
+      list = Account.centralizing.order(:name).collect do |account|
+        [:subledger_of_accounts_x.tl(account: account.name), account.number]
+      end
+
+      list.unshift [:general_ledger.tl, :general_ledger]
+
+      code = ''
+      code << content_tag(:label, options[:label] || :display.tl, for: configuration[:id]) + ' '
+      custom_id = "#{configuration[:id]}_#{configuration[:custom]}"
+      code << select_tag(name, options_for_select(list, value), :id => configuration[:id], 'data-show-value' => custom_id)
+      code.html_safe
+    end
+
     # Create a widget with all the possible periods
     def journal_period_crit(*args)
       options = args.extract_options!
