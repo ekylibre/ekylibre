@@ -23,19 +23,16 @@ module Backend
     def self.list_conditions
       code = ''
       code << search_conditions({ journal_entry_item: %i[name debit credit real_debit real_credit] }, conditions: 'c') + "\n"
+      code << ledger_crit('params')
       code << journal_period_crit('params')
-      code << journal_entries_states_crit('params')
       code << accounts_range_crit('params')
-      code << journals_crit('params')
-      code << journal_letter_crit('params')
-      code << amount_range_crit('params')
       code << "c\n"
       code.c
     end
 
     list(:journal_entry_items, conditions: list_conditions, joins: %i[entry account journal], order: "accounts.number, journal_entries.number, #{JournalEntryItem.table_name}.position") do |t|
       t.column :account, url: true
-      t.column :account_number, through: :account, label_method: :number, url: true, hidden: true
+      t.column :account_number, through: :account, label_method: :number, url: { controller: :general_ledgers, accounts: 'RECORD.account.number'.c }
       t.column :account_name, through: :account, label_method: :name, url: true, hidden: true
       t.column :entry_number, url: true
       t.column :continuous_number
@@ -94,32 +91,32 @@ module Backend
       # TODO: add a generic template system path
       report = ODFReport::Report.new(Rails.root.join('config', 'locales', 'fra', 'reporting', 'general_ledger.odt')) do |r|
         # TODO: add a helper with generic metod to implemend header and footer
-        
+
         data_filters = []
         unless params[:accounts].empty?
-          data_filters << Account.human_attribute_name(:account) + " : " + params[:accounts]
+          data_filters << Account.human_attribute_name(:account) + ' : ' + params[:accounts]
         end
-        
+
         if params[:lettering_state]
           content = []
-          content << :unlettered.tl if params[:lettering_state].include?("unlettered")
-          content << :partially_lettered.tl if params[:lettering_state].include?("partially_lettered")
-          content << :lettered.tl if params[:lettering_state].include?("lettered")
-          data_filters << :lettering_state.tl + " : " + content.to_sentence
+          content << :unlettered.tl if params[:lettering_state].include?('unlettered')
+          content << :partially_lettered.tl if params[:lettering_state].include?('partially_lettered')
+          content << :lettered.tl if params[:lettering_state].include?('lettered')
+          data_filters << :lettering_state.tl + ' : ' + content.to_sentence
         end
-        
+
         if params[:states].any?
           content = []
-          content << :draft.tl if params[:states].include?("draft") && params[:states]["draft"].to_i == 1
-          content << :confirmed.tl if params[:states].include?("confirmed") && params[:states]["confirmed"].to_i == 1
-          content << :closed.tl if params[:states].include?("closed") && params[:states]["closed"].to_i == 1
-          data_filters << :journal_entries_states.tl + " : " + content.to_sentence
+          content << :draft.tl if params[:states].include?('draft') && params[:states]['draft'].to_i == 1
+          content << :confirmed.tl if params[:states].include?('confirmed') && params[:states]['confirmed'].to_i == 1
+          content << :closed.tl if params[:states].include?('closed') && params[:states]['closed'].to_i == 1
+          data_filters << :journal_entries_states.tl + ' : ' + content.to_sentence
         end
-        
+
         e = Entity.of_company
         company_name = e.full_name
         company_address = e.default_mail_address.coordinate
-        
+
         started_on = params[:period].split('_').first if params[:period]
         stopped_on = params[:period].split('_').last if params[:period]
 
@@ -129,10 +126,9 @@ module Backend
         r.add_field 'PRINTED_AT', Time.zone.now.l(format: '%d/%m/%Y %T')
         r.add_field 'STARTED_ON', started_on.to_date.strftime('%d/%m/%Y') if started_on
         r.add_field 'STOPPED_ON', stopped_on.to_date.strftime('%d/%m/%Y') if stopped_on
-        r.add_field 'DATA_FILTERS', data_filters*" | "
+        r.add_field 'DATA_FILTERS', data_filters * ' | '
 
         r.add_section('Section1', general_ledger) do |s|
-
           s.add_field(:account_number, :account_number)
           s.add_field(:account_name, :account_name)
           s.add_field(:count, :count)

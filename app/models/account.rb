@@ -180,12 +180,24 @@ class Account < Ekylibre::Record::Base
     of_usages(:deductible_vat, :enterprise_deductible_vat)
   }
 
+  scope :general, -> {
+    where(nature: 'general')
+  }
+
   scope :centralizing, -> {
     where(nature: 'centralizing')
   }
 
   scope :not_centralizing, -> {
     where.not(nature: 'centralizing')
+  }
+
+  scope :auxiliary, -> {
+    where(nature: 'auxiliary')
+  }
+
+  scope :not_auxiliary, -> {
+    where.not(nature: 'auxiliary')
   }
 
   # This method:allows to create the parent accounts if it is necessary.

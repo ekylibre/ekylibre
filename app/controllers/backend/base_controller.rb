@@ -341,6 +341,18 @@ module Backend
         code.c
       end
 
+      # accountancy -> ledger_crit
+      def ledger_crit(variable, conditions = 'c')
+        variable = "params[:#{variable}]" unless variable.is_a? String
+        code = ''
+        code << "if #{variable}[:ledger] == 'general_ledger'\n"
+        code << "  #{conditions}[0] += ' AND #{JournalEntryItem.table_name}.account_id IN ('+Account.not_auxiliary.select(:id).to_sql+')'\n"
+        code << "elsif centralizing_account = Account.find_by(number: #{variable}[:ledger])\n"
+        code << "  #{conditions}[0] += ' AND #{JournalEntryItem.table_name}.account_id IN ('+Account.where(centralizing_account_id: centralizing_account).select(:id).to_sql+')'\n"
+        code << "end\n"
+        code.c
+      end
+
       # accountancy -> journals_crit
       def journals_crit(variable, conditions = 'c')
         variable = "params[:#{variable}]" unless variable.is_a? String
