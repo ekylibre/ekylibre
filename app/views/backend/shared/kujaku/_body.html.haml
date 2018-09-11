@@ -1,4 +1,4 @@
-- if kujaku.feathers.count > 1
+- if kujaku.feathers.reject{ |f| f.class.name.demodulize =~ /^Hidden/ }.count > 1
   = link_to(toggle_backend_kujaku_path(kujaku.uid), data: {toggle: "kujaku"}) do
     %i
 .feathers

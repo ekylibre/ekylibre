@@ -15,6 +15,6 @@
 
 = kujaku actions: false do |k|
   - k.helper :ledger_crit
-  - k.helper :financial_year_crit, :current_financial_year, params[:current_financial_year]
+  - k.hidden :current_financial_year
 
 = main_list(:journal_entry_items)

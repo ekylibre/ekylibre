@@ -43,16 +43,6 @@ module Backend
       content_tag(:dl, code, id: 'journal-views')
     end
 
-    def financial_year_crit(*args)
-      options = args.extract_options!
-      name = args.shift || :financial_year
-      value = args.shift
-      name.to_s.gsub(/\W+/, '_').gsub(/(^_|_$)/, '')
-      code = ''
-      code << hidden_field_tag(name, value)
-      code.html_safe
-    end
-
     def ledger_crit(*args)
       options = args.extract_options!
       name = args.shift || :ledger
