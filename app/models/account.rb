@@ -677,7 +677,6 @@ class Account < Ekylibre::Record::Base
 
   # this method loads the general ledger for all the accounts.
   def self.ledger(options = {})
-    
     # build filter for accounts
     accounts_filter_conditions = '1=1'
     list_accounts = options[:accounts].split(' ')
@@ -686,42 +685,42 @@ class Account < Ekylibre::Record::Base
         "accounts.number LIKE '" + account.to_s + "%'"
       end.join(' OR ')
     end
-    
+
     # build filter for lettering_state
     # "lettering_state"=>["unlettered", "partially_lettered"]
     c = options[:lettering_state].count if options[:lettering_state]
-    if c == 3 && options[:lettering_state].to_set.superset?(["unlettered", "partially_lettered", "lettered"].to_set)
-      lettering_state_filter_conditions = '1=1'
-    elsif c == 2 && options[:lettering_state].to_set.superset?(["partially_lettered", "lettered"].to_set)
-      lettering_state_filter_conditions = 'letter IS NOT NULL'
-    elsif c == 2 && options[:lettering_state].to_set.superset?(["partially_lettered", "unlettered"].to_set)
-      lettering_state_filter_conditions = "letter IS NULL OR letter ILIKE '%*' "
-    elsif c == 2 && options[:lettering_state].to_set.superset?(["lettered", "unlettered"].to_set)
-      lettering_state_filter_conditions = "letter IS NULL OR letter NOT ILIKE '%*' "
-    elsif c == 1 && options[:lettering_state].to_set.superset?(["unlettered"].to_set)
-      lettering_state_filter_conditions = 'letter IS NULL'
-    elsif c == 1 && options[:lettering_state].to_set.superset?(["lettered"].to_set)
-      lettering_state_filter_conditions = "letter IS NOT NULL AND letter NOT ILIKE '%*'"
-    elsif c == 1 && options[:lettering_state].to_set.superset?(["partially_lettered"].to_set)
-      lettering_state_filter_conditions = "letter IS NOT NULL AND letter ILIKE '%*'"
-    else
-      lettering_state_filter_conditions = '1=1'
-    end
-    
+    lettering_state_filter_conditions = if c == 3 && options[:lettering_state].to_set.superset?(%w[unlettered partially_lettered lettered].to_set)
+                                          '1=1'
+                                        elsif c == 2 && options[:lettering_state].to_set.superset?(%w[partially_lettered lettered].to_set)
+                                          'letter IS NOT NULL'
+                                        elsif c == 2 && options[:lettering_state].to_set.superset?(%w[partially_lettered unlettered].to_set)
+                                          "letter IS NULL OR letter ILIKE '%*' "
+                                        elsif c == 2 && options[:lettering_state].to_set.superset?(%w[lettered unlettered].to_set)
+                                          "letter IS NULL OR letter NOT ILIKE '%*' "
+                                        elsif c == 1 && options[:lettering_state].to_set.superset?(['unlettered'].to_set)
+                                          'letter IS NULL'
+                                        elsif c == 1 && options[:lettering_state].to_set.superset?(['lettered'].to_set)
+                                          "letter IS NOT NULL AND letter NOT ILIKE '%*'"
+                                        elsif c == 1 && options[:lettering_state].to_set.superset?(['partially_lettered'].to_set)
+                                          "letter IS NOT NULL AND letter ILIKE '%*'"
+                                        else
+                                          '1=1'
+                                        end
+
     # options[:states]
     if options[:states].any?
-      a = options[:states].select{|k,v| v.to_i == 1}.map{|pair| "'#{pair.first}'"}.join(", ")
+      a = options[:states].select { |_k, v| v.to_i == 1 }.map { |pair| "'#{pair.first}'" }.join(', ')
       states_array = "state IN (#{a})"
     else
       states_array = '1=1'
     end
-    
+
     # build dates
     start = options[:period].split('_').first if options[:period]
     stop = options[:period].split('_').last if options[:period]
-    
+
     ledger = []
-    
+
     accounts = Account
                .where(accounts_filter_conditions)
                .includes(journal_entry_items: %i[entry variant])

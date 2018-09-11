@@ -5,7 +5,7 @@ class GeneralLedgerPrinter
     options[:started_on] ||= '2016-01-01'
     options[:stopped_on] ||= '2016-12-31'
 
-    puts 'STEP 1 - Build dataset'.inspect.yellow
+    # puts 'STEP 1 - Build dataset'.inspect.yellow
 
     a_start = Time.zone.now
 
@@ -18,9 +18,9 @@ class GeneralLedgerPrinter
     a_stop = Time.zone.now
     d = (a_stop - a_start).seconds
 
-    puts "STEP 1 - Done in #{d} seconds".inspect.green
+    # puts "STEP 1 - Done in #{d} seconds".inspect.green
 
-    puts "STEP 2 - Populate report #{filename}".inspect.yellow
+    # puts "STEP 2 - Populate report #{filename}".inspect.yellow
 
     b_start = Time.zone.now
 
@@ -69,11 +69,11 @@ class GeneralLedgerPrinter
     b_stop = Time.zone.now
     d = (b_stop - b_start).seconds
 
-    puts "STEP 2 - Done in #{d} seconds".inspect.green
+    # puts "STEP 2 - Done in #{d} seconds".inspect.green
 
     # generate the report
 
-    puts "STEP 3 - Generate #{filename}".inspect.yellow
+    # puts "STEP 3 - Generate #{filename}".inspect.yellow
 
     c_start = Time.zone.now
 
@@ -82,6 +82,6 @@ class GeneralLedgerPrinter
     c_stop = Time.zone.now
     d = (c_stop - c_start).seconds
 
-    puts "STEP 3 - Done in #{d} seconds".inspect.green
+    # puts "STEP 3 - Done in #{d} seconds".inspect.green
   end
 end
