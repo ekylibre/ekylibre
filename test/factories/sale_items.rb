@@ -12,7 +12,8 @@ FactoryBot.define do
     currency 'EUR'
 
     after(:build) do |sale_item|
-      sale_item.variant = ProductNatureVariant.last unless sale_item.variant
+      sale_item.variant = create :product_nature_variant
+      # sale_item.variant = ProductNatureVariant.last unless sale_item.variant
     end
   end
 end
