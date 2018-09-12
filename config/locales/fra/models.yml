@@ -1134,6 +1134,7 @@ fra:
     intracommunity_payable_account: "Compte de taxe intracommunautaire due"
     introduction: "Introduction"
     inventory: "Inventaire"
+    # inventory_items: "Inventory items"
     invitation_accepted_at: "Invitation acceptée à"
     invitation_created_at: "Invitation créé"
     invitation_limit: "Limite d'invitation"

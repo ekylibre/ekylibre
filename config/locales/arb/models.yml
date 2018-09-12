@@ -1708,7 +1708,7 @@ arb:
     inventories: "عمليات الجرد" #?
     inventory: "عملية الجرد"
     inventory_id: "عملية جرد" #?
-    inventory_items: "طرق الجرد" #?
+    inventory_items: "طرق الجرد"
     invitation_accepted_at: "دعوة مقبولة في"
     invitation_created_at: "دعوة التي تم إنشاؤها في"
     invitation_limit: "حد دعوة"

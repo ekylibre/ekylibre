@@ -1,12 +1,20 @@
+- f.object.catalog_id = params[:catalog_id] if f.object.new_record?
+- all_taxes_included = f.object.catalog.all_taxes_included
 = field_set do
-  = f.referenced_association :catalog
+  = f.association :catalog, as: :hidden
+  .control-group
+    %label.control-label= CatalogItem.human_attribute_name(:catalog)
+    .controls
+      %strong= f.object.catalog.name
+      = hidden_field_tag(:catalog_id, f.object.catalog)
   = f.referenced_association :variant
-  = f.input :all_taxes_included , show: :taxes
   = f.input(:amount, wrapper: :append) do
     = f.input_field :amount, as: :string, input_html: { pattern: "[0-9]+([\.][0-9]+)?" }
-    -# TODO need to add all tax included or without tax label
-      %span.add-on= "HT"
-  #taxes
+    - if all_taxes_included
+      %span.add-on= :unit_price_amount_with_taxes.tl
+    - else
+      %span.add-on= :unit_price_amount.tl
+  - if all_taxes_included
     = f.referenced_association :reference_tax
   = f.input :commercial_name
   = f.input :commercial_description

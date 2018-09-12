@@ -117,7 +117,12 @@ fra:
     stock_production: "Production de stock" #?
     stocks_variation: "Variation de stocks" #?
     subsidies: "Subventions" #?
+    support_irrigated: "Soutien irrigué" #?
+    support_nitrate_fixing: "Soutenir la fixation de nitrate" #?
     target_name: "Cible" #?
+    targets_name: "Nom de la cible"
+    tools_name: "nom de l'outil"
+    total_cost_per_area: "coût total par zone" #?
     variable_name: "Variable" #?
     variant_name: "Variante"
     variant_variety: "Variété de la variante" #?

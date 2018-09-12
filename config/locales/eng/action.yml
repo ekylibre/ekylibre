@@ -1304,6 +1304,7 @@ eng:
     disease_percentage: "Disease (%)" #?
     disease_percentage_evolution: "Disease percentage evolution"
     display: "Display" #?
+    display_n_1: "Display N-1"
     distribute_unaffected_products: "Distribute unaffected products"
     distributions: "Distributions" #?
     divide: "Divide"
@@ -2001,6 +2002,8 @@ eng:
     uninvoiced: "Uninvoiced"
     unit: "Unit"
     unit_and_indicator: "%{unit} (%{indicator})"
+    # unit_price_amount: "Unit price amount"
+    # unit_price_amount_with_taxes: "Unit price amount with taxes"
     unknown: "Unknown"
     unknown_condition: "Unknown condition"
     unknown_user: "Unknown user"

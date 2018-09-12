@@ -916,6 +916,7 @@ jpn:
     intracommunity_payable_account: "Intracommunity買掛金勘定"
     introduction: "導入"
     inventory: "インベントリ"
+    # inventory_items: "Inventory items"
     invitation_accepted_at: "招待で受け付け"
     invitation_created_at: "で作成された招待状"
     invitation_limit: "招待制限"

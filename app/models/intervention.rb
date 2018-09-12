@@ -517,11 +517,11 @@ class Intervention < Ekylibre::Record::Base
   end
 
   def cost_per_area(role = :input, area_unit = :hectare)
-    zone_area = working_zone_area(area_unit)
-    if zone_area > 0.0.in(area_unit)
+    zone_area = working_zone_area(area_unit).to_f.round(2)
+    if zone_area > 0.0
       params = product_parameters.of_generic_role(role)
       costs = params.map(&:cost).compact
-      return (costs.sum / zone_area.to_d) if costs.any?
+      return (costs.sum / zone_area) * area_cost_coefficient if costs.any?
       nil
     end
     nil
@@ -540,9 +540,19 @@ class Intervention < Ekylibre::Record::Base
   end
 
   def total_cost_per_area(area_unit = :hectare)
-    if working_zone_area > 0.0.in_square_meter
-      (total_cost / working_zone_area(area_unit).to_d)
+    zone_area = working_zone_area(area_unit).to_f.round(2)
+    (total_cost / zone_area) * area_cost_coefficient if zone_area > 0.0
+  end
+
+  def area_cost_coefficient
+    zone_area = working_zone_area(:hectare).to_f.round(2)
+    global_area = activity_production_zone_area(:hectare).to_f.round(2)
+    coef = 1.0
+    # build coef for area's
+    if zone_area && global_area && global_area > 0.0
+      coef = zone_area / global_area
     end
+    coef
   end
 
   def currency
@@ -555,11 +565,24 @@ class Intervention < Ekylibre::Record::Base
     nil
   end
 
+  # return all working zone area of targets
   def working_zone_area(*args)
     options = args.extract_options!
     unit = args.shift || options[:unit] || :hectare
     if targets.any?
       area = targets.with_working_zone.map(&:working_zone_area).sum.in(unit)
+    end
+    area ||= 0.0.in(unit)
+    area
+  end
+
+  # return all initial area of supports of targets
+  def activity_production_zone_area(*args)
+    options = args.extract_options!
+    unit = args.shift || options[:unit] || :hectare
+    if targets.any?
+      ap = ActivityProduction.where(support_id: targets.pluck(:product_id))
+      area = ap.map(&:support_shape_area).sum.in(:square_meter).convert(unit)
     end
     area ||= 0.0.in(unit)
     area

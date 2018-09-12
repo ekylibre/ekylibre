@@ -13,7 +13,7 @@ This a short explanation on installation steps for developers.
 
 *   Then, install all dependencies. Command and package can differ between
     distributions or OS:
-        brew install zlib qt icu4c postgresql postgis
+        brew install zlib qt icu4c postgresql postgis yarn
         gem install charlock_holmes -- --with-icu-dir=/usr/local/opt/icu4c
         brew install imagemagick graphicsmagick tesseract-ocr tesseract-ocr-ara tesseract-ocr-jpn tesseract-ocr-fra tesseract-ocr-eng tesseract-ocr-spa pdftk libreoffice poppler-utils poppler-data ghostscript openjdk-7-jdk libicu52 redis-server postgresql-9.5-postgis-2.2 postgresql-contrib-9.5 libcurl4-openssl-dev libgeos-dev libgeos++-dev libproj-dev libpq-dev libxml2-dev libxslt1-dev zlib1g-dev libicu-dev libqtwebkit-dev
 
