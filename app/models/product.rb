@@ -506,6 +506,21 @@ class Product < Ekylibre::Record::Base
     localization.container = self.initial_container
     localization.save!
 
+    # Add first frozen indicator on a product from his variant
+    if variant
+      phase = phases.first_of_all || phases.build
+      phase.variant = variant
+      phase.save!
+      # set indicators from variant in products readings
+      variant.readings.each do |variant_reading|
+        reading = readings.first_of_all(variant_reading.indicator_name) ||
+        readings.new(indicator_name: variant_reading.indicator_name)
+        reading.value = variant_reading.value
+        reading.read_at = born_at
+        reading.save!
+      end
+    end
+
     if born_at
       # Configure initial_movement
       movement = initial_movement || build_initial_movement
@@ -522,21 +537,6 @@ class Product < Ekylibre::Record::Base
         reading.read_at = born_at
         reading.save!
         ProductReading.destroy readings.where.not(id: reading.id).where(indicator_name: :shape, read_at: reading.read_at).pluck(:id)
-      end
-    end
-
-    # Add first frozen indicator on a product from his variant
-    if variant
-      phase = phases.first_of_all || phases.build
-      phase.variant = variant
-      phase.save!
-      # set indicators from variant in products readings
-      variant.readings.each do |variant_reading|
-        reading = readings.first_of_all(variant_reading.indicator_name) ||
-                  readings.new(indicator_name: variant_reading.indicator_name)
-        reading.value = variant_reading.value
-        reading.read_at = born_at
-        reading.save!
       end
     end
   end
