@@ -9616,7 +9616,7 @@ journal_entry_items_287:
   absolute_currency: EUR
   absolute_debit: 0.0
   absolute_pretax_amount: 0.0
-  account_id: 152
+  account_id: 535
   balance: -2230.0
   created_at: 2016-11-20 22:12:19.151058000 Z
   creator_id: 1
@@ -9729,7 +9729,7 @@ journal_entry_items_290:
   absolute_currency: EUR
   absolute_debit: 2230.0
   absolute_pretax_amount: 0.0
-  account_id: 152
+  account_id: 535
   balance: 2230.0
   created_at: 2016-11-20 22:12:46.261368000 Z
   creator_id: 1
@@ -10334,7 +10334,7 @@ journal_entry_items_307:
   absolute_currency: EUR
   absolute_debit: 0.0
   absolute_pretax_amount: 0.0
-  account_id: 152
+  account_id: 535
   balance: -363.64
   created_at: 2016-12-20 08:54:01.509524000 Z
   creator_id: 1
