@@ -45,7 +45,6 @@
 class Account < Ekylibre::Record::Base
   include Customizable
   @@references = []
-  attr_readonly :number
   # has_many :account_balances
   # has_many :attorneys, class_name: "Entity", foreign_key: :attorney_account_id
   has_many :balances, class_name: 'AccountBalance', dependent: :destroy

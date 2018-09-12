@@ -93,6 +93,11 @@ deu:
     stock_production: "Auf Produktions" #?
     stocks_variation: "Aktien Variation" #?
     subsidies: "Subventionen" #?
+    support_irrigated: "Unterstützung bewässert" #?
+    support_nitrate_fixing: "Support Nitratfixierung" #?
+    targets_name: "Zielname"
+    tools_name: "Werkzeugname"
+    total_cost_per_area: "Gesamtkosten pro Fläche" #?
     variant_name: "Name der Variante"
     vine_yield: "Vine Ausbeute"
     wages: "Lohn" #?

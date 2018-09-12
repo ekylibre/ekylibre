@@ -94,7 +94,12 @@ jpn:
     stock_production: "在庫生産" #?
     stocks_variation: "株式の変動" #?
     subsidies: "補助金" #?
+    support_irrigated: "潅漑サポート" #?
+    support_nitrate_fixing: "サポート硝酸塩固定" #?
     target_name: "ターゲット名" #?
+    targets_name: "ターゲット名"
+    tools_name: "ツール名"
+    total_cost_per_area: "面積あたりの合計費用" #?
     variable_name: "変数名" #?
     variant_name: "バリアント名"
     variant_variety: "バリアント多様" #?

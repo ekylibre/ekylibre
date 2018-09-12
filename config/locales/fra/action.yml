@@ -1250,6 +1250,7 @@ fra:
     disease_percentage_evolution: "Evolution des maladies"
     display: "Afficher"
     display_help: "Afficher l’aide" #?
+    display_n_1: "Afficher N-1"
     distribute_unaffected_products: "Distribuer les produits non affectés"
     distributions: "Répartitions"
     district_x: "%{name} (%{code})" #?

@@ -93,6 +93,11 @@ ita:
     stock_production: "produzione della" #?
     stocks_variation: "Azioni variazione" #?
     subsidies: "sussidi" #?
+    support_irrigated: "Supporto irrigato" #?
+    support_nitrate_fixing: "Supporto di fissaggio di nitrati" #?
+    targets_name: "Nome destinazione"
+    tools_name: "nome degli strumenti"
+    total_cost_per_area: "costo totale per area" #?
     variant_name: "nome variante"
     vine_yield: "Produzione in vigna"
     wages: "Salari" #?

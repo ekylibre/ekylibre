@@ -916,6 +916,7 @@ cmn:
     intracommunity_payable_account: "社区内应付账款"
     introduction: "介绍"
     inventory: "库存"
+    # inventory_items: "Inventory items"
     invitation_accepted_at: "已接受邀请在"
     invitation_created_at: "在邀请函创建"
     invitation_limit: "邀请极限"

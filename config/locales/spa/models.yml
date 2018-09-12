@@ -920,6 +920,7 @@ spa:
     intracommunity_payable_account: "Cuenta por pagar intracomunitario"
     introduction: "Introducción"
     inventory: "Inventario"
+    # inventory_items: "Inventory items"
     invitation_accepted_at: "Invitación aceptada en"
     invitation_created_at: "Invitación creado el"
     invitation_limit: "Límite de la invitación"

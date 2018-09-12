@@ -916,6 +916,7 @@ deu:
     intracommunity_payable_account: "Inner zahlbar Konto"
     introduction: "Einführung"
     inventory: "Inventar"
+    # inventory_items: "Inventory items"
     invitation_accepted_at: "Einladung akzeptiert bei"
     invitation_created_at: "Einladung erstellt am"
     invitation_limit: "Einladung Grenze"

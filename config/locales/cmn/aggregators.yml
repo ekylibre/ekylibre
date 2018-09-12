@@ -94,7 +94,12 @@ cmn:
     stock_production: "按库存生产" #?
     stocks_variation: "库存变化" #?
     subsidies: "补贴" #?
+    support_irrigated: "支持灌溉" #?
+    support_nitrate_fixing: "支持硝酸鹽固定" #?
     target_name: "指标名称" #?
+    targets_name: "目標名稱"
+    tools_name: "工具名稱"
+    total_cost_per_area: "總面積成本" #?
     variable_name: "变量名" #?
     variant_name: "版本名称"
     variant_variety: "变异品种" #?

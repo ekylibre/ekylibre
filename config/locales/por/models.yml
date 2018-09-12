@@ -916,6 +916,7 @@ por:
     intracommunity_payable_account: "Conta a pagar intracomunitário"
     introduction: "Introdução"
     inventory: "Inventário"
+    # inventory_items: "Inventory items"
     invitation_accepted_at: "Convite aceito em"
     invitation_created_at: "Convite criado dia"
     invitation_limit: "Limite de convite"
