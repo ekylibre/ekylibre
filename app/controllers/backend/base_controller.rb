@@ -314,6 +314,15 @@ module Backend
         code.c
       end
 
+      def account_crit(variable, conditions = 'c')
+        variable = "params[:#{variable}]" unless variable.is_a? String
+        code = ''
+        code << "if #{variable}[:account_number] \n"
+        code << %Q(#{conditions}[0] += " AND #{Account.table_name}.number = \#{Account.connection.quote(#{variable}[:account_number])}"\n)
+        code << "end \n"
+        code.c
+      end
+     
       # accountancy -> crit_params
       def crit_params(hash)
         nh = {}

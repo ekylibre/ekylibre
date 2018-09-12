@@ -241,6 +241,7 @@ jpn:
       index: "ギャップ"
       # show: "Gap: %{number}"
     backend/general_ledgers:
+      # index: "General ledger"
       show: "総勘定元帳"
     backend/georeadings:
       # edit: "Edit georeading: %{name}"

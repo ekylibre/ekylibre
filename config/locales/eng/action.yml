@@ -331,7 +331,8 @@ eng:
       index: "Gaps"
       show: "Gap: %{number}"
     backend/general_ledgers:
-      show: "General ledger"
+      index: "General ledger"
+      show: "General ledger\_: %{account}"
     backend/georeadings:
       edit: "Edit georeading: %{name}"
       index: "Georeadings"

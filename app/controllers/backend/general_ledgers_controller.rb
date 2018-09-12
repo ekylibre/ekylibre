@@ -25,14 +25,14 @@ module Backend
       code << search_conditions({ journal_entry_item: %i[name debit credit real_debit real_credit] }, conditions: 'c') + "\n"
       code << ledger_crit('params')
       code << journal_period_crit('params')
-      code << accounts_range_crit('params')
+      code << account_crit('params')
       code << "c\n"
       code.c
     end
 
     list(:journal_entry_items, conditions: list_conditions, joins: %i[entry account journal], order: "accounts.number, journal_entries.number, #{JournalEntryItem.table_name}.position") do |t|
       t.column :account, url: true
-      t.column :account_number, through: :account, label_method: :number, url: { controller: :general_ledgers, accounts: 'RECORD.account.number'.c, ledger: 'RECORD.account&.centralizing_account&.number'.c, current_financial_year: 'params[:current_financial_year]'.c }
+      t.column :account_number, through: :account, label_method: :number, url: { controller: :general_ledgers, account_number: 'RECORD.account.number'.c, current_financial_year: 'params[:current_financial_year]'.c }
       t.column :account_name, through: :account, label_method: :name, url: true, hidden: true
       t.column :entry_number, url: true
       t.column :continuous_number
@@ -52,7 +52,43 @@ module Backend
       t.column :cumulated_absolute_credit, currency: :absolute_currency, on_select: :sum
     end
 
+    def index
+      document_name = human_action_name.to_s
+      filename = "#{human_action_name}_#{Time.zone.now.l(format: '%Y%m%d%H%M%S')}"
+      respond_to do |format|
+        format.html
+        format.ods do
+          @general_ledger = Account.ledger(params) if params[:period]
+          send_data(
+            to_ods(@general_ledger).bytes,
+            filename: filename << '.ods'
+          )
+        end
+        format.csv do
+          @general_ledger = Account.ledger(params) if params[:period]
+          csv_string = CSV.generate(headers: true) do |csv|
+            to_csv(@general_ledger, csv)
+          end
+          send_data(csv_string, filename: filename << '.csv')
+        end
+        format.xcsv do
+          @general_ledger = Account.ledger(params) if params[:period]
+          csv_string = CSV.generate(headers: true, col_sep: ';', encoding: 'CP1252') do |csv|
+            to_csv(@general_ledger, csv)
+          end
+          send_data(csv_string, filename: filename << '.csv')
+        end
+        format.odt do
+          @general_ledger = Account.ledger(params) if params[:period]
+          send_data to_odt(@general_ledger, document_name, filename, params).generate, type: 'application/vnd.oasis.opendocument.text', disposition: 'attachment', filename: filename << '.odt'
+        end
+      end
+    end
+
     def show
+      return redirect_to(backend_general_ledgers_path) unless params[:account_number] && account = Account.find_by(number: params[:account_number])
+
+      t3e(account: account.label)
       document_name = human_action_name.to_s
       filename = "#{human_action_name}_#{Time.zone.now.l(format: '%Y%m%d%H%M%S')}"
       respond_to do |format|

@@ -241,6 +241,7 @@ ita:
       index: "lacune"
       # show: "Gap: %{number}"
     backend/general_ledgers:
+      # index: "General ledger"
       show: "Libro mastro generale"
     backend/georeadings:
       # edit: "Edit georeading: %{name}"

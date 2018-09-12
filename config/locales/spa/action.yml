@@ -267,6 +267,7 @@ spa:
       index: "Brechas"
       # show: "Gap: %{number}"
     backend/general_ledgers:
+      # index: "General ledger"
       show: "Grande libro"
     backend/georeadings:
       # edit: "Edit georeading: %{name}"

@@ -269,7 +269,8 @@ fra:
       index: "Pertes et profits"
       show: "Perte ou profit N°%{number}"
     backend/general_ledgers:
-      show: "Grand livre"
+      index: "Grand-livre"
+      show: "Grand-livre\_: %{account}"
     backend/georeadings:
       edit: "Modifier le relevé topographique\_: %{name}"
       index: "Relevés topographiques"
