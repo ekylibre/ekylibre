@@ -233,6 +233,10 @@ module Backend
         end
       end
 
+      class NavigationFeather < HelperFeather; end
+      class PreviousNavigationFeather < NavigationFeather; end
+      class NextNavigationFeather < NavigationFeather; end
+
       attr_reader :feathers, :template, :uid
       def initialize(template, uid)
         @template = template
@@ -242,6 +246,11 @@ module Backend
 
       def inspect
         "<#{self.class.name}##{@uid}>"
+      end
+
+      def visible_feathers
+        # TODO Improve
+        feathers.reject{ |f| f.class.name.demodulize =~ /^Hidden|PreviousNavigation|NextNavigation/ }
       end
 
       private

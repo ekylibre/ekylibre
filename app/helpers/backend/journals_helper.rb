@@ -64,6 +64,53 @@ module Backend
       code.html_safe
     end
 
+    def subledger_crit(*args)
+      options = args.extract_options!
+      name = args.shift || :account_number
+      value = args.shift
+      configuration = {}.merge(options)
+      configuration[:id] ||= name.to_s.gsub(/\W+/, '_').gsub(/(^_|_$)/, '')
+      value ||= params[name] || options[:default]
+
+      code = ''
+
+      if centralizing_account = Account.find_by(number: params[:ledger])
+        code << select_tag(name, options_from_collection_for_select(centralizing_account.auxiliary_accounts.order(:number), 'number', 'label', value), id: configuration[:id])
+      end
+      
+      code.html_safe
+    end
+
+    def previous_ledger(*args)
+      options = args.extract_options!
+      parameters = options.delete(:params)
+
+      code = ''
+
+      acc = Account.find_by(number: params[:account_number])
+
+      if acc.previous
+        code << link_to(acc.previous.label, backend_general_ledger_path(acc.previous.number, parameters), options)
+      end
+
+      code.html_safe
+    end
+
+    def next_ledger(*args)
+      options = args.extract_options!
+      parameters = options.delete(:params)
+
+      code = ''
+
+      acc = Account.find_by(number: params[:account_number])
+
+      if acc.following
+        code << link_to(acc.following.label, backend_general_ledger_path(acc.following.number, parameters), options)
+      end
+
+      code.html_safe
+    end
+
     # Create a widget with all the possible periods
     def journal_period_crit(*args)
       options = args.extract_options!

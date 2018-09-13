@@ -610,6 +610,13 @@ class Account < Ekylibre::Record::Base
     journal_entry_items.where(printed_on: started_at..stopped_at).calculate(operation, column)
   end
 
+  def previous
+    self.class.order(number: :desc).where(centralizing_account_id: centralizing_account_id).where('number < ?', number).limit(1).first
+  end
+
+  def following
+    self.class.order(:number).where(centralizing_account_id: centralizing_account_id).where('number > ?', number).limit(1).first
+  end
   # This method loads the balance for a given period.
   def self.balance(from, to, list_accounts = [])
     balance = []

@@ -1317,6 +1317,8 @@ html.backend {
       @include use-icon(plus-square-o);
     }
     .feathers {
+      position: relative;
+
       .feather {
         display: none;
         &:first-child {
@@ -1324,6 +1326,18 @@ html.backend {
           .btn-filter {
             display: inline;
           }
+        }
+        &.feather-previous-navigation, &.feather-next-navigation{
+          display: block;
+          position:absolute;
+          top: 0;
+          border: none;
+        }
+        &.feather-previous-navigation {
+          left: 0;
+        }
+        &.feather-next-navigation {
+          right: 0;
         }
       }
     }
