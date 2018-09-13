@@ -1,10 +1,13 @@
 - @years_to_delete = []
--# Get an array of destroyable records
-- destroyable_fy = FinancialYear.order(:started_on).select { |fy| fy.destroyable? && fy != FinancialYear.current }
-- destroyable_fy.each do |fy|
-  - @years_to_delete << fy
-  -# If 2 destroyable records aren't over consecutive years, the list stops here
-  - destroyable_fy.include?(fy.next) ? next : break
+- fys = FinancialYear.order(:started_on)
+- current_fy_index = fys.index(FinancialYear.current)
+- fys.to_a.pop(fys.count - current_fy_index)
+- fys.each do |fy|
+  - if fy.destroyable?
+    - @years_to_delete << fy
+    - next
+  - else
+    - break
 
 .financial-year-container
   %i
