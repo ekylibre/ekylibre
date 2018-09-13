@@ -1332,6 +1332,8 @@ html.backend {
           position:absolute;
           top: 0;
           border: none;
+          margin-left: $default-gap;
+          margin-right: $default-gap;
         }
         &.feather-previous-navigation {
           left: 0;
