@@ -1420,6 +1420,7 @@ spa:
     mark_all_as_read: "Marcar todo como leido"
     mark_as_read: "Marcar como leído"
     marketable_net_mass: "masa neta comercializable"
+    # mask_draft_items: "Mask draft items"
     mask_lettered_items: "Máscara artículos con letras"
     # mass: "Masse"
     maximal_temperature: "La temperatura máxima"

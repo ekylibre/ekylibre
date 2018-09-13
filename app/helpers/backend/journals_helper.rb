@@ -77,7 +77,7 @@ module Backend
       if centralizing_account = Account.find_by(number: params[:ledger])
         code << select_tag(name, options_from_collection_for_select(centralizing_account.auxiliary_accounts.order(:number), 'number', 'label', value), id: configuration[:id])
       end
-      
+
       code.html_safe
     end
 
@@ -231,6 +231,21 @@ module Backend
                         preference_url: url_for(controller: options[:controller], action: :mask_lettered_items, context: mask_context)
                       }) +
           :mask_lettered_items.tl
+      end
+    end
+
+    def mask_draft_items_button(*args)
+      options = args.extract_options!
+      list_id = args.shift || options[:list_id] || :journal_entry_items
+      mask_context = options[:context] || list_id
+      options[:controller] ||= controller_path
+      label_tag do
+        check_box_tag(:masked, 'true', current_user.mask_draft_items?(controller: options[:controller].dup, context: mask_context),
+                      data: {
+                        mask_draft_items: '#' + list_id.to_s,
+                        preference_url: url_for(controller: options[:controller], action: :mask_draft_items, context: mask_context)
+                      }) +
+          :mask_draft_items.tl
       end
     end
   end

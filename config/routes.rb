@@ -528,7 +528,9 @@ Rails.application.routes.draw do
     resources :fungi, concerns: :products
 
     resources :general_ledgers, only: %i[index show], path: 'general-ledgers', param: :account_number do
-      collection do 
+      collection do
+        patch :mask_lettered_items
+        patch :mask_draft_items
         get :list_journal_entry_items
       end
       member do

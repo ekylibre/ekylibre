@@ -269,5 +269,21 @@ module Backend
       end
       output
     end
+
+    def mask_lettered_items
+      preference_name = 'backend/general_ledgers'
+      preference_name << ".#{params[:context]}" if params[:context]
+      preference_name << '.lettered_items.masked'
+      current_user.prefer!(preference_name, params[:masked].to_s == 'true', :boolean)
+      head :ok
+    end
+
+    def mask_draft_items
+      preference_name = 'backend/general_ledgers'
+      preference_name << ".#{params[:context]}" if params[:context]
+      preference_name << '.draft_items.masked'
+      current_user.prefer!(preference_name, params[:masked].to_s == 'true', :boolean)
+      head :ok
+    end
   end
 end

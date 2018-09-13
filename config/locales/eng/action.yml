@@ -1553,6 +1553,7 @@ eng:
     mark_all_as_read: "Mark all as read"
     mark_as_read: "Mark as read"
     marketable_net_mass: "Marketable net mass" #?!
+    mask_draft_items: "Mask draft items"
     mask_lettered_items: "Mask lettered items"
     mass: "Masse" #?
     maximal_temperature: "Maximal temperature"

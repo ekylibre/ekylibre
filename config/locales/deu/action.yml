@@ -1269,6 +1269,7 @@ deu:
     mark_all_as_read: "Alles als gelesen markieren"
     mark_as_read: "als gelesen markieren"
     marketable_net_mass: "Marktgängige Nettomasse"
+    # mask_draft_items: "Mask draft items"
     mask_lettered_items: "Maske beschriftete Gegenstände"
     # mass: "Masse"
     maximal_temperature: "Maximaltemperatur"

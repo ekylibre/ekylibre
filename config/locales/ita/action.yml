@@ -1335,6 +1335,7 @@ ita:
     mark_all_as_read: "Segna tutti come letti"
     mark_as_read: "segna come letto"
     marketable_net_mass: "massa netta commerciabile"
+    # mask_draft_items: "Mask draft items"
     mask_lettered_items: "Maschera articoli da lettere"
     # mass: "Masse"
     maximal_temperature: "temperatura massima"

@@ -1693,6 +1693,7 @@ arb:
     mark_all_as_read: "علامة جميع للقراءة"
     mark_as_read: "كمقروء"
     marketable_net_mass: "الكتلة الصافية للتسويق"
+    # mask_draft_items: "Mask draft items"
     mask_lettered_items: "قناع العناصر بحروف"
     mass: "الوزن"
     maximal_temperature: "درجة الحرارة القصوى"
