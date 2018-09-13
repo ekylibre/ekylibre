@@ -231,7 +231,7 @@ class FinancialYear < Ekylibre::Record::Base
     list = []
     list << :financial_year_already_closed if closed
     list << :draft_journal_entries_are_present if journal_entries.where(state: :draft).any?
-    list << :previous_financial_year_is_not_closed if previous && !previous.closed
+    list << :previous_financial_year_is_not_closed if !previous&.closed? && !previous&.locked?
     list << :unbalanced_journal_entries_are_present_in_year unless journal_entries.where('debit != credit').empty?
     list << :financial_year_is_not_past if stopped_on >= noticed_on
     list
