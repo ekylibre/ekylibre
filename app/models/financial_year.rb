@@ -82,6 +82,10 @@ class FinancialYear < Ekylibre::Record::Base
     tax_declarations.any? || journal_entries.any? || inventories.any?
   end
 
+  protect on: :update do
+    closed? || locked?
+  end
+
   class << self
     def on(searched_on)
       year = where('? BETWEEN started_on AND stopped_on', searched_on).order(started_on: :desc).first

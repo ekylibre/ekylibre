@@ -23,8 +23,8 @@ module Backend
     unroll
 
     list(order: { started_on: :desc }) do |t|
-      t.action :edit, unless: :closed?
-      t.action :destroy, unless: :closed?
+      t.action :edit
+      t.action :destroy
       t.column :code, url: true
       t.column :state
       t.column :started_on, url: true
