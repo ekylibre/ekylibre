@@ -230,7 +230,7 @@ product_nature_categories_008:
   reductible: false
   reference_name: crop
   saleable: true
-  stock_account_id: 160
+  stock_account_id: 792
   stock_movement_account_id: 535
   storable: true
   subscribing: false
