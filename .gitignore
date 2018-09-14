@@ -8,6 +8,9 @@
 # Ignore bundler config.
 /.bundle
 
+# Ignore node modules
+/node_modules
+
 /.sass-cache
 .rspec
 .settings
