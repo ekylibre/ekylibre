@@ -1,6 +1,6 @@
 language: ruby
 bundler_args: "--full-index --without development"
-# cache: bundler
+cache: bundler
 sudo: required
 rvm:
 - 2.3.4
