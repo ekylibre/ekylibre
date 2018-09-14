@@ -55,7 +55,7 @@ class CustomFieldTest < ActiveSupport::TestCase
 
   Ekylibre::Schema.models.each do |model_name|
     model = model_name.to_s.camelcase.constantize
-    if !model.customizable?
+    if !model.respond_to?(:customizable?) || !model.customizable?
       test "should not add custom fields on #{model_name}" do
         assert_raise ActiveRecord::RecordInvalid, "Souldn't add custom field on not customizable models like #{model.name}" do
           CustomField.create!(name: 'たてがみ', nature: :text, customized_type: model.name)
