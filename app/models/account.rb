@@ -90,10 +90,10 @@ class Account < Ekylibre::Record::Base
   validates :name, length: { allow_nil: true, maximum: 200 }
   validates :number, uniqueness: true
   validates :number, length: { is: 8 }, format: { without: /\A[1-9]0*\z|\A0/ }, if: :general?
-  validates :number, length: { minimum: 4, maximum: 12 }, if: :auxiliary?
+  validates :number, length: { minimum: 4 }, if: :auxiliary?
   validates :number, format: { with: /\A\d(\d(\d[0-9A-Z]*)?)?\z/ }, unless: :auxiliary?
   validates :auxiliary_number, length: { allow_blank: true, minimum: 0 }, unless: :auxiliary?
-  validates :auxiliary_number, presence: true, length: { maximum: 9 }, format: { without: /\A(0*)\z/ }, if: :auxiliary?
+  validates :auxiliary_number, presence: true, format: { without: /\A(0*)\z/ }, if: :auxiliary?
   validates :centralizing_account_name, presence: true, if: :auxiliary?
 
   enumerize :nature, in: %i[general auxiliary], default: :general, predicates: true
