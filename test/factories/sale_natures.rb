@@ -3,10 +3,10 @@ FactoryBot.define do
     catalog
     journal
     sequence(:name) { |n| "Vente standard #{n}" }
-    currency 'EUR'
+    currency { 'EUR' }
 
     factory :sale_nature_with_accounting do
-      with_accounting true
+      with_accounting { true }
     end
   end
 end
