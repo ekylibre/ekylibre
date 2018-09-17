@@ -210,8 +210,8 @@ class Account < Ekylibre::Record::Base
       number = args.shift.to_s.strip
       options[:name] ||= args.shift
       numbers = Nomen::Account.items.values.collect { |i| i.send(accounting_system) }
-      number.ljust(8, '0') unless numbers.include?(number)
       item = Nomen::Account.items.values.detect { |i| i.send(accounting_system) == number }
+      number = number.ljust(8, '0') unless numbers.include?(number)
       account = find_by(number: number)
       if account
         if item && !account.usages_array.include?(item)
