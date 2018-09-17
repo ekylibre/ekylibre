@@ -26,6 +26,22 @@ module Backend
       code << ledger_crit('params')
       code << journal_period_crit('params')
       code << account_crit('params')
+      code << "params[:lettering_state] = ['lettered', 'partially_lettered', 'unlettered']\n"
+      code << "preference_basename = 'backend/general_ledgers.journal_entry_items-list' \n"
+
+      code << "if current_user.preference(preference_basename + '.lettered_items.masked', false, :boolean).value \n"
+      code << "  params[:lettering_state].reject!{|s| s == 'lettered'}\n"
+      code << "end \n"
+      code << "states = #{JournalEntry.states}\n"
+      code << "if current_user.preference(preference_basename + '.draft_items.masked', false, :boolean).value \n"
+      code << "  states.reject!{|s| s == :draft}\n"
+      code << "end \n"
+      code << "states = states.each_with_object({}) do |v, h| \n"
+      code << "  h[v] = v \n"
+      code << "end \n"
+      code << "params[:states] = states\n"
+      code << journal_letter_crit('params')
+      code << journal_entries_states_crit('params')
       code << "c\n"
       code.c
     end
@@ -119,6 +135,22 @@ module Backend
           send_data to_odt(@general_ledger, document_name, filename, params).generate, type: 'application/vnd.oasis.opendocument.text', disposition: 'attachment', filename: filename << '.odt'
         end
       end
+    end
+
+    def mask_lettered_items
+      preference_name = 'backend/general_ledgers'
+      preference_name << ".#{params[:context]}" if params[:context]
+      preference_name << '.lettered_items.masked'
+      current_user.prefer!(preference_name, params[:masked].to_s == 'true', :boolean)
+      head :ok
+    end
+
+    def mask_draft_items
+      preference_name = 'backend/general_ledgers'
+      preference_name << ".#{params[:context]}" if params[:context]
+      preference_name << '.draft_items.masked'
+      current_user.prefer!(preference_name, params[:masked].to_s == 'true', :boolean)
+      head :ok
     end
 
     protected
@@ -268,22 +300,6 @@ module Backend
         end
       end
       output
-    end
-
-    def mask_lettered_items
-      preference_name = 'backend/general_ledgers'
-      preference_name << ".#{params[:context]}" if params[:context]
-      preference_name << '.lettered_items.masked'
-      current_user.prefer!(preference_name, params[:masked].to_s == 'true', :boolean)
-      head :ok
-    end
-
-    def mask_draft_items
-      preference_name = 'backend/general_ledgers'
-      preference_name << ".#{params[:context]}" if params[:context]
-      preference_name << '.draft_items.masked'
-      current_user.prefer!(preference_name, params[:masked].to_s == 'true', :boolean)
-      head :ok
     end
   end
 end
