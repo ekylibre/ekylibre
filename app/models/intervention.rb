@@ -316,10 +316,6 @@ class Intervention < Ekylibre::Record::Base
     true
   end
 
-  before_create do
-    self.costs = InterventionCosts.create!(inputs_cost: 0, doers_cost: 0, tools_cost: 0, receptions_cost: 0)
-  end
-
   after_save do
     # puts self.inspect.green
     targets.find_each do |target|
@@ -342,7 +338,7 @@ class Intervention < Ekylibre::Record::Base
     participations.update_all(state: state) unless state == :in_progress
     participations.update_all(request_compliant: request_compliant) if request_compliant
 
-    create_intervention_costs
+    update_intervention_costs
 
     add_activity_production_to_output if procedure.of_category?(:planting)
   end
@@ -382,8 +378,8 @@ class Intervention < Ekylibre::Record::Base
     end
   end
 
-  def create_intervention_costs
-    costs_attributes = {}
+  def update_intervention_costs
+    costs_attributes = { inputs_cost: 0, doers_cost: 0, tools_cost: 0, receptions_cost: 0 }
 
     %i[input tool doer].each do |type|
       type_cost = cost(type)
@@ -394,7 +390,9 @@ class Intervention < Ekylibre::Record::Base
 
     costs_attributes[:receptions_cost] = receptions_cost.to_f.round(2)
 
-    costs.update_attributes(costs_attributes)
+    self.costs ||= InterventionCosts.new
+    self.costs.attributes = costs_attributes
+    self.costs.save
   end
 
   def initialize_record(state: :done)
