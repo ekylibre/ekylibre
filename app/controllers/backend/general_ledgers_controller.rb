@@ -69,7 +69,7 @@ module Backend
       t.column :cumulated_absolute_credit, currency: :absolute_currency, on_select: :sum, hidden: true
     end
 
-    list(:journal_entry_items, conditions: list_conditions, joins: %i[entry account journal], order: "accounts.number, journal_entries.number, #{JournalEntryItem.table_name}.position") do |t|
+    list(:journal_entry_items, conditions: list_conditions, joins: %i[entry account journal], order: "#{JournalEntryItem.table_name}.printed_on, #{JournalEntryItem.table_name}.id") do |t|
       t.column :printed_on
       t.column :journal_name, url: true, label: :journal
       t.column :account, url: true, hidden: true
