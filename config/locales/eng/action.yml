@@ -332,6 +332,8 @@ eng:
       show: "Gap: %{number}"
     backend/general_ledgers:
       index: "General ledger"
+      # mask_draft_items: "Mask draft items general ledger: %{name}"
+      # mask_lettered_items: "Mask lettered items general ledger: %{name}"
       show: "General ledger\_: %{account}"
     backend/georeadings:
       edit: "Edit georeading: %{name}"
@@ -1332,6 +1334,7 @@ eng:
     entries_to_point: "Entries pointing to" #?!
     entry_item_label: "Entry item label" #?
     entry_items: "Entry items" #?
+    entry_resource_label: "Record" #?
     equipment: "Equipment" #?
     equipment_name: "Name of equipment" #?
     equipments: "Equipment"
@@ -2429,6 +2432,7 @@ eng:
       lose: "Lose"
       mail: "Mail"
       mark: "Mark"
+      # mask_draft_items: "Mask draft items"
       # mask_lettered_items: "Mask lettered items"
       # matching_interventions: "Matching interventions"
       merge: "Merge"
