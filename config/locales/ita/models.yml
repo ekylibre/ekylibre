@@ -951,6 +951,7 @@ ita:
     indicator_datatype: "indicatore tipo di dati"
     indicator_name: "nome indicatore"
     # indicator_unit: "Indicator unit"
+    # indicator_value: "Indicator value"
     indicators: "indicatori"
     indirect_links: "legami indiretti"
     initial_balance_credit: "Di credito equilibrio iniziale"

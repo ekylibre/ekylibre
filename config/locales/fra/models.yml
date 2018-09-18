@@ -1152,6 +1152,7 @@ fra:
     indicator_datatype: "Type de l’indicateur"
     indicator_name: "Indicateur"
     # indicator_unit: "Indicator unit"
+    # indicator_value: "Indicator value"
     indicators: "Indicateurs"
     indirect_links: "Liens indirects"
     individual: "Individuel" #?

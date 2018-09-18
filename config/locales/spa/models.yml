@@ -924,6 +924,7 @@ spa:
     indicator_datatype: "Indicador de tipo de datos"
     indicator_name: "Nombre del indicador"
     # indicator_unit: "Indicator unit"
+    # indicator_value: "Indicator value"
     indicators: "Indicadores"
     indirect_links: "Vínculos indirectos"
     initial_balance_credit: "Crédito saldo inicial"

@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 9.6.5
--- Dumped by pg_dump version 9.6.5
+-- Dumped from database version 9.6.6
+-- Dumped by pg_dump version 9.6.6
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -481,7 +481,7 @@ CREATE TABLE interventions (
     request_compliant boolean,
     auto_calculate_working_periods boolean DEFAULT false,
     purchase_id integer,
-    intervention_costs_id integer
+    costing_id integer
 );
 
 
@@ -3665,23 +3665,28 @@ ALTER SEQUENCE integrations_id_seq OWNED BY integrations.id;
 
 
 --
--- Name: intervention_costs; Type: TABLE; Schema: public; Owner: -
+-- Name: intervention_costings; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE intervention_costs (
+CREATE TABLE intervention_costings (
     id integer NOT NULL,
     inputs_cost numeric,
     doers_cost numeric,
     tools_cost numeric,
-    receptions_cost numeric
+    receptions_cost numeric,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone,
+    creator_id integer,
+    updater_id integer,
+    lock_version integer DEFAULT 0 NOT NULL
 );
 
 
 --
--- Name: intervention_costs_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: intervention_costings_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE intervention_costs_id_seq
+CREATE SEQUENCE intervention_costings_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -3690,10 +3695,10 @@ CREATE SEQUENCE intervention_costs_id_seq
 
 
 --
--- Name: intervention_costs_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+-- Name: intervention_costings_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE intervention_costs_id_seq OWNED BY intervention_costs.id;
+ALTER SEQUENCE intervention_costings_id_seq OWNED BY intervention_costings.id;
 
 
 --
@@ -7672,10 +7677,10 @@ ALTER TABLE ONLY integrations ALTER COLUMN id SET DEFAULT nextval('integrations_
 
 
 --
--- Name: intervention_costs id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: intervention_costings id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY intervention_costs ALTER COLUMN id SET DEFAULT nextval('intervention_costs_id_seq'::regclass);
+ALTER TABLE ONLY intervention_costings ALTER COLUMN id SET DEFAULT nextval('intervention_costings_id_seq'::regclass);
 
 
 --
@@ -8833,11 +8838,11 @@ ALTER TABLE ONLY integrations
 
 
 --
--- Name: intervention_costs intervention_costs_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: intervention_costings intervention_costings_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY intervention_costs
-    ADD CONSTRAINT intervention_costs_pkey PRIMARY KEY (id);
+ALTER TABLE ONLY intervention_costings
+    ADD CONSTRAINT intervention_costings_pkey PRIMARY KEY (id);
 
 
 --
@@ -12732,6 +12737,20 @@ CREATE INDEX index_integrations_on_updated_at ON integrations USING btree (updat
 --
 
 CREATE INDEX index_integrations_on_updater_id ON integrations USING btree (updater_id);
+
+
+--
+-- Name: index_intervention_costings_on_creator_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_intervention_costings_on_creator_id ON intervention_costings USING btree (creator_id);
+
+
+--
+-- Name: index_intervention_costings_on_updater_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_intervention_costings_on_updater_id ON intervention_costings USING btree (updater_id);
 
 
 --
@@ -18676,4 +18695,6 @@ INSERT INTO schema_migrations (version) VALUES ('20180702124800');
 INSERT INTO schema_migrations (version) VALUES ('20180702124900');
 
 INSERT INTO schema_migrations (version) VALUES ('20180704145001');
+
+INSERT INTO schema_migrations (version) VALUES ('20180918182905');
 

@@ -143,7 +143,7 @@ class Product < Ekylibre::Record::Base
   has_many :supports, class_name: 'ActivityProduction', foreign_key: :support_id, inverse_of: :support
   has_many :trackings, class_name: 'Tracking', foreign_key: :product_id, inverse_of: :product
   has_many :variants, class_name: 'ProductNatureVariant', through: :phases
-  has_many :purchase_items, class_name: 'PurchaseItem', inverse_of: :equipment
+  has_many :purchase_items, class_name: 'PurchaseItem', inverse_of: :equipment, foreign_key: :equipment_id
   has_one :current_phase,        -> { current }, class_name: 'ProductPhase',        foreign_key: :product_id
   has_one :current_localization, -> { current }, class_name: 'ProductLocalization', foreign_key: :product_id
   has_one :current_enjoyment,    -> { current }, class_name: 'ProductEnjoyment',    foreign_key: :product_id

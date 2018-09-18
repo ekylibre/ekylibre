@@ -30,7 +30,6 @@
 #     - "backend/activity_productions#list_plants"
 #     - "backend/animal_groups#list_reception_items"
 #     - "backend/animal_groups#list_shipment_items"
-
 #     - "backend/attachments#create"
 #     - "backend/attachments#destroy"
 #     - "backend/attachments#show"
@@ -112,7 +111,6 @@
 #     - "backend/dashboards#settings"
 #     - "backend/dashboards#stocks"
 #     - "backend/dashboards#tools"
-
 #     - "backend/equipments#list_reception_items"
 #     - "backend/equipments#list_shipment_items"
 #     - "backend/fungi#list_reception_items"
@@ -419,8 +417,6 @@ animals:
     - "backend/animals#index"
     - "backend/animals#keep"
     - "backend/animals#list"
-    - "backend/animals#list_reception_items"
-    - "backend/animals#list_shipment_items"
     - "backend/animals#list_carried_linkages"
     - "backend/animals#list_carrier_linkages"
     - "backend/animals#list_children"
@@ -434,6 +430,8 @@ animals:
     - "backend/animals#list_parcel_items" #?
     - "backend/animals#list_places"
     - "backend/animals#list_readings"
+    - "backend/animals#list_reception_items"
+    - "backend/animals#list_shipment_items"
     - "backend/animals#list_trackings"
     - "backend/animals#matching_interventions"
     - "backend/animals#picture"
@@ -825,20 +823,20 @@ entities:
     - "backend/entities#list"
     - "backend/entities#list_client_journal_entry_items"
     - "backend/entities#list_event_participations"
-    - "backend/entities#list_purchase_invoices"
-    - "backend/entities#list_purchase_orders"
-    - "backend/entities#list_receptions"
-    - "backend/entities#list_shipments"
     - "backend/entities#list_incoming_parcels" #?
     - "backend/entities#list_incoming_payments"
     - "backend/entities#list_issues"
     - "backend/entities#list_links"
     - "backend/entities#list_observations"
     - "backend/entities#list_outgoing_parcels" #?
+    - "backend/entities#list_purchase_invoices"
+    - "backend/entities#list_purchase_orders"
     - "backend/entities#list_purchase_payments"
     - "backend/entities#list_purchases" #?
+    - "backend/entities#list_receptions"
     - "backend/entities#list_sale_opportunities"
     - "backend/entities#list_sales"
+    - "backend/entities#list_shipments"
     - "backend/entities#list_subscriptions"
     - "backend/entities#list_supplier_journal_entry_items"
     - "backend/entities#list_tasks"

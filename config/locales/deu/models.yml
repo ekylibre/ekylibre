@@ -920,6 +920,7 @@ deu:
     indicator_datatype: "Anzeige Datentyp"
     indicator_name: "Anzeige Name"
     # indicator_unit: "Indicator unit"
+    # indicator_value: "Indicator value"
     indicators: "Indikatoren"
     indirect_links: "indirekte Links"
     initial_balance_credit: "Initial Balance Kredit"

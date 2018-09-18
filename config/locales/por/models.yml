@@ -920,6 +920,7 @@ por:
     indicator_datatype: "Tipo de dados indicador"
     indicator_name: "Nome do indicador"
     # indicator_unit: "Indicator unit"
+    # indicator_value: "Indicator value"
     indicators: "Indicadores"
     indirect_links: "Ligações indiretas"
     initial_balance_credit: "Crédito saldo inicial"

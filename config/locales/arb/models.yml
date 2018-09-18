@@ -1710,6 +1710,7 @@ arb:
     indicator_datatype: "مؤشر نوع البيانات"
     indicator_name: "اسم المؤشر"
     # indicator_unit: "Indicator unit"
+    # indicator_value: "Indicator value"
     indicators: "مؤشرات"
     indirect_links: "روابط مباشرة"
     initial_balance_credit: "الائتمان توازن الأولية"

@@ -1,4 +1,4 @@
-class InterventionCostsDecorator < Draper::Decorator
+class InterventionCostingDecorator < Draper::Decorator
   delegate_all
 
   def to_h

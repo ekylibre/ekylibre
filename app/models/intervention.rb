@@ -25,6 +25,7 @@
 #  accounted_at                   :datetime
 #  actions                        :string
 #  auto_calculate_working_periods :boolean          default(FALSE)
+#  costing_id                     :integer
 #  created_at                     :datetime         not null
 #  creator_id                     :integer
 #  currency                       :string
@@ -32,7 +33,6 @@
 #  description                    :text
 #  event_id                       :integer
 #  id                             :integer          not null, primary key
-#  intervention_costs_id          :integer
 #  issue_id                       :integer
 #  journal_entry_id               :integer
 #  lock_version                   :integer          default(0), not null
@@ -69,7 +69,7 @@ class Intervention < Ekylibre::Record::Base
   belongs_to :prescription
   belongs_to :journal_entry, dependent: :destroy
   belongs_to :purchase
-  belongs_to :costs, class_name: 'InterventionCosts', foreign_key: :intervention_costs_id
+  belongs_to :costing, class_name: 'InterventionCosting'
   has_many :receptions, class_name: 'Reception', dependent: :destroy
   has_many :labellings, class_name: 'InterventionLabelling', dependent: :destroy, inverse_of: :intervention
   has_many :labels, through: :labellings
@@ -338,7 +338,7 @@ class Intervention < Ekylibre::Record::Base
     participations.update_all(state: state) unless state == :in_progress
     participations.update_all(request_compliant: request_compliant) if request_compliant
 
-    update_intervention_costs
+    update_costing
 
     add_activity_production_to_output if procedure.of_category?(:planting)
   end
@@ -378,21 +378,21 @@ class Intervention < Ekylibre::Record::Base
     end
   end
 
-  def update_intervention_costs
-    costs_attributes = { inputs_cost: 0, doers_cost: 0, tools_cost: 0, receptions_cost: 0 }
+  def update_costing
+    attributes = { inputs_cost: 0, doers_cost: 0, tools_cost: 0, receptions_cost: 0 }
 
     %i[input tool doer].each do |type|
       type_cost = cost(type)
       type_cost = 0 if type_cost.nil?
 
-      costs_attributes["#{type.to_s.pluralize}_cost"] = type_cost
+      attributes["#{type.to_s.pluralize}_cost"] = type_cost
     end
 
-    costs_attributes[:receptions_cost] = receptions_cost.to_f.round(2)
+    attributes[:receptions_cost] = receptions_cost.to_f.round(2)
 
-    self.costs ||= InterventionCosts.new
-    self.costs.attributes = costs_attributes
-    self.costs.save
+    self.costing ||= InterventionCosting.new
+    self.costing.attributes = costing_attributes
+    self.costing.save
   end
 
   def initialize_record(state: :done)

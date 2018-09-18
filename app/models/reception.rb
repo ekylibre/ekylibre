@@ -120,8 +120,8 @@ class Reception < Parcel
                    number: number, entity: entity.full_name, mode: nature.l)
         account = Account.find_or_import_from_nomenclature(usage)
         items.each do |item|
-          amount = (item.trade_item && item.trade_item.pretax_amount) || 
-                     item.stock_amount
+          amount = (item.trade_item && item.trade_item.pretax_amount) ||
+                   item.stock_amount
           next unless item.variant && item.variant.charge_account && amount.nonzero?
           if order
             entry.add_credit label, account.id, amount, resource: item, as: :unbilled, variant: item.variant

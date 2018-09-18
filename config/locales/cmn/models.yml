@@ -920,6 +920,7 @@ cmn:
     indicator_datatype: "指标数据类型"
     indicator_name: "指标名称"
     # indicator_unit: "Indicator unit"
+    # indicator_value: "Indicator value"
     indicators: "指标"
     indirect_links: "间接链接"
     initial_balance_credit: "初始余额信贷"

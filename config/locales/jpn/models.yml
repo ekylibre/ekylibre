@@ -920,6 +920,7 @@ jpn:
     indicator_datatype: "インジケータデータ型"
     indicator_name: "指標名"
     # indicator_unit: "Indicator unit"
+    # indicator_value: "Indicator value"
     indicators: "インジケータ"
     indirect_links: "間接リンク"
     initial_balance_credit: "初期バランスクレジット"

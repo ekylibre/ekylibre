@@ -3344,7 +3344,12 @@ integrations:
   updater_id:
     type: integer
     references: user
-intervention_costs:
+intervention_costings:
+  created_at:
+    type: datetime
+  creator_id:
+    type: integer
+    references: user
   doers_cost:
     type: decimal
   id:
@@ -3352,10 +3357,18 @@ intervention_costs:
     required: true
   inputs_cost:
     type: decimal
+  lock_version:
+    type: integer
+    required: true
   receptions_cost:
     type: decimal
   tools_cost:
     type: decimal
+  updated_at:
+    type: datetime
+  updater_id:
+    type: integer
+    references: user
 intervention_labellings:
   created_at:
     type: datetime
@@ -3629,6 +3642,9 @@ interventions:
   auto_calculate_working_periods:
     type: boolean
     default: false
+  costing_id:
+    type: integer
+    references: intervention_costing
   created_at:
     type: datetime
     required: true
@@ -3647,9 +3663,6 @@ interventions:
   id:
     type: integer
     required: true
-  intervention_costs_id:
-    type: integer
-    references: intervention_costs
   issue_id:
     type: integer
     references: issue

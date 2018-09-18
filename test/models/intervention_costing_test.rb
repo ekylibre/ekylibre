@@ -20,16 +20,21 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
-# == Table: intervention_costs
+# == Table: intervention_costings
 #
+#  created_at      :datetime
+#  creator_id      :integer
 #  doers_cost      :decimal(, )
 #  id              :integer          not null, primary key
 #  inputs_cost     :decimal(, )
+#  lock_version    :integer          default(0), not null
 #  receptions_cost :decimal(, )
 #  tools_cost      :decimal(, )
+#  updated_at      :datetime
+#  updater_id      :integer
 #
 require 'test_helper'
 
-class InterventionCostsTest < ActiveSupport::TestCase
+class InterventionCostingTest < ActiveSupport::TestCase
   # Add tests here...
 end
