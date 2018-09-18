@@ -532,8 +532,8 @@ module Ekylibre
         tenant = options[:tenant_name]
         Dir.chdir path do
           sh("pg_dump -n #{tenant} -x -O --dbname=#{db_url} > #{tenant}.sql")
-          sh("sed -i '/^CREATE SCHEMA/,+1 d' #{tenant}.sql")
-          sh("sed -i '/^SET search_path = /,+1 d' #{tenant}.sql")
+          sh("sed -i'' -e '/^CREATE SCHEMA/d' #{tenant}.sql")
+          sh("sed -i'' -e '/^SET search_path = /d' #{tenant}.sql")
         end
         ActiveRecord::Migrator.current_version
       end

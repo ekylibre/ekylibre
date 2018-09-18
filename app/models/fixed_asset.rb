@@ -340,13 +340,13 @@ class FixedAsset < Ekylibre::Record::Base
                     else
                       FixedAssetDepreciation.with_active_asset
                     end
-
+    count = depreciations.count
     transaction do
       # trusting the bookkeep to take care of the accounting
       depreciations.find_each { |depreciation| depreciation.update_attribute(:accountable, true) }
     end
 
-    depreciations.count
+    count
   end
 
   def depreciate!
