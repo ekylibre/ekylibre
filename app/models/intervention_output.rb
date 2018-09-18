@@ -124,14 +124,11 @@ class InterventionOutput < InterventionProductParameter
   end
 
   def compute_output_planting_name
-    land_parcel_name = group
-                       .targets
-                       .select { |target| target.product.is_a?(LandParcel) }
-                       .first
-                       .product
-                       .name
-
-    compute_name = [land_parcel_name]
+    compute_name = []
+    if self.group && self.group.targets.any?
+      land_parcel = self.group.targets.detect { |target| target.product.is_a?(LandParcel) }
+      compute_name << land_parcel.product.name if land_parcel
+    end
 
     return output_name_without_params(compute_name) if variety.blank? && batch_number.blank?
 

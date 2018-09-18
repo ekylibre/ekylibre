@@ -70,18 +70,21 @@ class ReceptionTest < ActiveSupport::TestCase
     @variant = ProductNatureVariant.import_from_nomenclature(:carrot)
     @sender = Entity.create!(last_name: 'Reception test')
     @address = @sender.addresses.create!(canal: 'mail', mail_line_1: 'Yolo', mail_line_2: 'Another test')
+    @storage = BuildingDivision.first
   end
 
   test 'receptions' do
     @variant.products.create!(
       initial_population: 50
     )
+    assert_equal 1, @variant.products.count
+
     reception = new_reception
     reception.give!
 
     @variant.reload
 
-    assert_equal 2, @variant.products.count
+    assert_equal 2, @variant.products.count, "Expecting 2 products. Got: #{@variant.products.map(&:population).to_yaml}"
     assert_equal 20, @variant.products.order(:created_at).last.population
   end
 
@@ -142,19 +145,25 @@ class ReceptionTest < ActiveSupport::TestCase
       initial_container: @storage,
       initial_population: 1
     )
-    to_send = [{
-      population: 1,
-      source_product: @product,
+    assert_equal 1, unitary_variant.products.count
+    to_receive = [{
+      # population: 1,
+      # source_product: @product,
       variant: unitary_variant,
       product_name: 'Moo',
-      product_identification_number: 'Cow-wow'
+      product_identification_number: 'Cow-wow',
+      storings_attributes: [
+        { quantity: 1,
+          storage: @storage # Building.first
+        }
+      ]
     }]
 
-    reception = new_reception(items_attributes: to_send, separated: false)
+    reception = new_reception(items_attributes: to_receive, separated: false)
     reception.give!
     unitary_variant.reload
 
-    assert_equal 2, unitary_variant.products.count
+    assert_equal 2, unitary_variant.products.count, "Expecting 2 products. Got: #{unitary_variant.products.map(&:population).to_yaml}"
     assert_equal 1, unitary_variant.products.order(:created_at).last.population
   end
 
@@ -167,7 +176,7 @@ class ReceptionTest < ActiveSupport::TestCase
 
   private
 
-  def new_reception(delivery_mode: :third, address: nil, sender: nil, separated: nil, items_attributes: nil)
+  def new_reception(delivery_mode: :third, address: nil, sender: nil, separated: nil, items_attributes: nil, storage: nil)
     attributes = {
       delivery_mode: delivery_mode,
       address: address || @address,
@@ -176,9 +185,15 @@ class ReceptionTest < ActiveSupport::TestCase
     }
 
     items_attributes ||= [{
-      population: 20,
+      # population: 20,
       unit_pretax_stock_amount: 15,
-      variant: @variant
+      variant: @variant,
+      storings_attributes: [
+        {
+          quantity: 20,
+          storage: storage || @storage
+        }
+      ]
     }]
 
     reception = Reception.create!(attributes)

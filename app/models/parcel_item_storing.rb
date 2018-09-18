@@ -72,6 +72,8 @@ class ParcelItemStoring < Ekylibre::Record::Base
 
   delegate :number, to: :reception, prefix: true
 
+  # FIXME: Invalid method name for human data. Prefer reception_nature_label or
+  #        human_reception_nature
   def reception_nature
     reception.nature.tl
   end
