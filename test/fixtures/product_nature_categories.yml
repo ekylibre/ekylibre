@@ -97,7 +97,7 @@ product_nature_categories_002:
   reductible: true
   saleable: true
   stock_account_id: 1
-  stock_movement_account_id: 861
+  stock_movement_account_id: 591
   storable: true
   subscribing: false
   updated_at: 2014-12-24 11:11:43.081342000 Z
@@ -120,7 +120,7 @@ product_nature_categories_003:
   reference_name: plant_medicine
   saleable: true
   stock_account_id: 141
-  stock_movement_account_id: 861
+  stock_movement_account_id: 591
   storable: true
   subscribing: false
   updated_at: 2014-10-31 20:11:19.871117000 Z
@@ -142,7 +142,7 @@ product_nature_categories_004:
   reference_name: straw
   saleable: true
   stock_account_id: 139
-  stock_movement_account_id: 861
+  stock_movement_account_id: 591
   storable: true
   subscribing: false
   updated_at: 2014-10-31 20:11:30.463762000 Z
@@ -257,8 +257,8 @@ product_nature_categories_009:
   reductible: false
   reference_name: female_adult_cow
   saleable: true
-  stock_account_id: 2034
-  stock_movement_account_id: 861
+  stock_account_id: 99
+  stock_movement_account_id: 591
   storable: true
   subscribing: false
   updated_at: 2014-12-24 11:14:06.381046000 Z
@@ -281,7 +281,7 @@ product_nature_categories_010:
   reference_name: milk
   saleable: true
   stock_account_id: 14
-  stock_movement_account_id: 861
+  stock_movement_account_id: 591
   storable: true
   subscribing: false
   updated_at: 2014-11-01 19:09:20.923402000 Z
@@ -303,7 +303,7 @@ product_nature_categories_011:
   reference_name: grain
   saleable: true
   stock_account_id: 139
-  stock_movement_account_id: 861
+  stock_movement_account_id: 591
   storable: true
   subscribing: false
   updated_at: 2014-11-01 19:10:35.057312000 Z
@@ -411,7 +411,7 @@ product_nature_categories_016:
   reductible: false
   reference_name: cattle_herd
   saleable: false
-  stock_account_id: 2034
+  stock_account_id: 99
   storable: false
   subscribing: false
   updated_at: 2014-11-04 17:27:32.635406000 Z
@@ -456,7 +456,7 @@ product_nature_categories_018:
   reference_name: grass
   saleable: true
   stock_account_id: 139
-  stock_movement_account_id: 861
+  stock_movement_account_id: 591
   storable: true
   subscribing: false
   updated_at: 2014-11-07 15:46:45.124919000 Z
@@ -527,7 +527,7 @@ product_nature_categories_021:
   reference_name: wine
   saleable: true
   stock_account_id: 139
-  stock_movement_account_id: 861
+  stock_movement_account_id: 591
   storable: true
   subscribing: false
   updated_at: 2014-11-07 17:10:23.458618000 Z
@@ -550,7 +550,7 @@ product_nature_categories_022:
   reference_name: oenological_product
   saleable: true
   stock_account_id: 141
-  stock_movement_account_id: 861
+  stock_movement_account_id: 591
   storable: true
   subscribing: false
   updated_at: 2014-11-07 19:03:43.632961000 Z
@@ -573,7 +573,7 @@ product_nature_categories_023:
   reference_name: wine_package_consumable
   saleable: true
   stock_account_id: 116
-  stock_movement_account_id: 861
+  stock_movement_account_id: 591
   storable: true
   subscribing: false
   updated_at: 2014-11-07 19:29:27.376345000 Z
