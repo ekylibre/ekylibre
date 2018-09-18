@@ -141,7 +141,7 @@ class PurchaseItem < Ekylibre::Record::Base
                        # select outstanding_assets during purchase
                        Account.find_or_import_from_nomenclature(:outstanding_assets)
                      else
-                       variant.charge_account || Account.find_by_usage(:expenses)
+                       variant.charge_account || Account.find_by(usage: :expenses)
                      end
     end
   end

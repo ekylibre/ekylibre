@@ -1050,6 +1050,7 @@ deu:
     entries_to_point: "Einträge hinzu, um"
     # entry_item_label: "Entry item label"
     entry_items: "Eintrag Artikel"
+    # entry_resource_label: "Record"
     equipment: "Ausrüstung"
     equipment_name: "Name der Ausrüstung"
     equipments: "Ausrüstungen"

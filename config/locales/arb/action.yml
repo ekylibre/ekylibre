@@ -1401,6 +1401,7 @@ arb:
     entries_to_point: "اعداد المدخلات"
     # entry_item_label: "Entry item label"
     entry_items: "البنود دخول"
+    # entry_resource_label: "Record"
     equipment: "معدات"
     equipment_name: "اسم معدات"
     equipments: "المعدات"

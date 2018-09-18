@@ -1118,6 +1118,7 @@ jpn:
     entries_to_point: "を指しているエントリ"
     # entry_item_label: "Entry item label"
     entry_items: "入力項目"
+    # entry_resource_label: "Record"
     equipment: "装置"
     equipment_name: "機器の名前"
     equipments: "機器"

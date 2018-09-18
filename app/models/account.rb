@@ -617,6 +617,7 @@ class Account < Ekylibre::Record::Base
   def following
     self.class.order(:number).where(centralizing_account_id: centralizing_account_id).where('number > ?', number).limit(1).first
   end
+
   # This method loads the balance for a given period.
   def self.balance(from, to, list_accounts = [])
     balance = []

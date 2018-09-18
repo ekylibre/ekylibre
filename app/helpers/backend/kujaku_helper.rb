@@ -249,8 +249,8 @@ module Backend
       end
 
       def visible_feathers
-        # TODO Improve
-        feathers.reject{ |f| f.class.name.demodulize =~ /^Hidden|PreviousNavigation|NextNavigation/ }
+        # TODO: Improve
+        feathers.reject { |f| f.class.name.demodulize =~ /^Hidden|PreviousNavigation|NextNavigation/ }
       end
 
       private

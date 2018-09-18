@@ -78,7 +78,7 @@ module Backend
       t.column :entry_number, url: true
       t.column :continuous_number, hidden: true
       t.column :code, through: :journal, label: :journal, hidden: true
-      t.column :entry_resource_label, url: { controller: 'RECORD&.entry&.resource&.class&.model_name&.plural'.c, id: 'RECORD&.entry&.resource&.id'.c }
+      t.column :entry_resource_label, url: { controller: 'RECORD&.entry&.resource&.class&.model_name&.plural'.c, id: 'RECORD&.entry&.resource&.id'.c }, label: :entry_resource_label
       t.column :name
       t.column :reference_number, through: :entry
       t.column :variant, url: true, hidden: true

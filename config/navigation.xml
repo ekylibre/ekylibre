@@ -2072,6 +2072,11 @@
         <page to="backend/draft_journals#confirm_all"/>
         <page to="backend/draft_journals#list"/>
       </item>
+      <item name="general_ledgers">
+        <page to="backend/general_ledgers#list_ledgers_journal_entry_items"/>
+        <page to="backend/general_ledgers#mask_draft_items"/>
+        <page to="backend/general_ledgers#mask_lettered_items"/>
+      </item>
       <item name="invalid_journal_entries">
         <page to="backend/invalid_journal_entries#delete_all"/>
         <page to="backend/invalid_journal_entries#list"/>

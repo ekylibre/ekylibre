@@ -1116,6 +1116,7 @@ ita:
     entries_to_point: "Voci che puntano a"
     # entry_item_label: "Entry item label"
     entry_items: "articoli di ingresso"
+    # entry_resource_label: "Record"
     equipment: "attrezzatura"
     equipment_name: "Nome di attrezzature"
     equipments: "apparecchiature"

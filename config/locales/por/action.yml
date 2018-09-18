@@ -1055,6 +1055,7 @@ por:
     entries_to_point: "Entradas que apontam para"
     # entry_item_label: "Entry item label"
     entry_items: "Itens de entrada"
+    # entry_resource_label: "Record"
     equipment: "Equipamento"
     equipment_name: "Nome do equipamento"
     equipments: "Equipamentos"

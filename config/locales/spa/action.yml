@@ -1164,6 +1164,7 @@ spa:
     entries_to_point: "Escrituras a despuntar"
     # entry_item_label: "Entry item label"
     entry_items: "Elementos de entrada"
+    # entry_resource_label: "Record"
     equipment: "Equipo"
     equipment_name: "Nombre del equipo"
     equipments: "Equipamientos"

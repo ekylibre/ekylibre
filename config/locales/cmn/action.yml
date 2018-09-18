@@ -1050,6 +1050,7 @@ cmn:
     entries_to_point: "条目指向"
     # entry_item_label: "Entry item label"
     entry_items: "入境物品"
+    # entry_resource_label: "Record"
     equipment: "设备"
     equipment_name: "设备名称"
     equipments: "设备"
