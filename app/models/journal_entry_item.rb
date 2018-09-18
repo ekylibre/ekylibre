@@ -110,6 +110,7 @@ class JournalEntryItem < Ekylibre::Record::Base
   delegate :balanced?, to: :entry, prefix: true
   delegate :name, :number, :label, to: :account, prefix: true
   delegate :entity_country, :expected_financial_year, :continuous_number, to: :entry
+  delegate :resource_label, to: :entry, prefix: true
 
   acts_as_list scope: :entry
 

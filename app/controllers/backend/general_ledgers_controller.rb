@@ -46,14 +46,39 @@ module Backend
       code.c
     end
 
-    list(:journal_entry_items, conditions: list_conditions, joins: %i[entry account journal], order: "accounts.number, journal_entries.number, #{JournalEntryItem.table_name}.position") do |t|
-      t.column :account, url: true
+    list(:ledgers_journal_entry_items, model: :journal_entry_items, conditions: list_conditions, joins: %i[entry account journal], order: "accounts.number, journal_entries.number, #{JournalEntryItem.table_name}.position") do |t|
+      t.column :account, url: true, hidden: true
       t.column :account_number, through: :account, label_method: :number, url: { controller: :general_ledgers, account_number: 'RECORD.account.number'.c, current_financial_year: 'params[:current_financial_year]'.c, ledger: 'RECORD.account&.centralizing_account&.number'.c }
+      t.column :account_name, through: :account, label_method: :name, url: true
+      t.column :description
+      t.column :entry_number, url: true, hidden: true
+      t.column :continuous_number, hidden: true
+      t.column :code, through: :journal, label: :journal, hidden: true
+      t.column :printed_on, hidden: true
+      t.column :name, hidden: true
+      t.column :reference_number, through: :entry, hidden: true
+      t.column :variant, url: true, hidden: true
+      t.column :letter, hidden: true
+      t.column :real_debit,  currency: :real_currency, hidden: true
+      t.column :real_credit, currency: :real_currency, hidden: true
+      t.column :debit,  currency: true, on_select: :sum, hidden: true
+      t.column :credit, currency: true, on_select: :sum, hidden: true
+      t.column :absolute_debit,  currency: :absolute_currency, on_select: :sum
+      t.column :absolute_credit, currency: :absolute_currency, on_select: :sum
+      t.column :cumulated_absolute_debit,  currency: :absolute_currency, on_select: :sum, hidden: true
+      t.column :cumulated_absolute_credit, currency: :absolute_currency, on_select: :sum, hidden: true
+    end
+
+    list(:journal_entry_items, conditions: list_conditions, joins: %i[entry account journal], order: "accounts.number, journal_entries.number, #{JournalEntryItem.table_name}.position") do |t|
+      t.column :printed_on
+      t.column :journal_name, url: true, label: :journal
+      t.column :account, url: true, hidden: true
+      t.column :account_number, through: :account, label_method: :number, url: { controller: :general_ledgers, account_number: 'RECORD.account.number'.c, current_financial_year: 'params[:current_financial_year]'.c, ledger: 'RECORD.account&.centralizing_account&.number'.c }, hidden: true
       t.column :account_name, through: :account, label_method: :name, url: true, hidden: true
       t.column :entry_number, url: true
-      t.column :continuous_number
-      t.column :code, through: :journal, label: :journal
-      t.column :printed_on
+      t.column :continuous_number, hidden: true
+      t.column :code, through: :journal, label: :journal, hidden: true
+      t.column :entry_resource_label, url: true
       t.column :name
       t.column :reference_number, through: :entry
       t.column :variant, url: true, hidden: true
@@ -64,8 +89,8 @@ module Backend
       t.column :credit, currency: true, hidden: true, on_select: :sum
       t.column :absolute_debit,  currency: :absolute_currency, on_select: :sum
       t.column :absolute_credit, currency: :absolute_currency, on_select: :sum
-      t.column :cumulated_absolute_debit,  currency: :absolute_currency, on_select: :sum
-      t.column :cumulated_absolute_credit, currency: :absolute_currency, on_select: :sum
+      t.column :cumulated_absolute_debit,  currency: :absolute_currency, on_select: :sum, hidden: true
+      t.column :cumulated_absolute_credit, currency: :absolute_currency, on_select: :sum, hidden: true
     end
 
     def index

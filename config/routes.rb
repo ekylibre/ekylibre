@@ -531,7 +531,7 @@ Rails.application.routes.draw do
       collection do
         patch :mask_lettered_items
         patch :mask_draft_items
-        get :list_journal_entry_items
+        get :list_ledgers_journal_entry_items
       end
       member do
         get :list_journal_entry_items
