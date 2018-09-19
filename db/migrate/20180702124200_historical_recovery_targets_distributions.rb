@@ -1,5 +1,7 @@
 class HistoricalRecoveryTargetsDistributions < ActiveRecord::Migration
   def up
+    execute 'UPDATE products SET activity_production_id = NULL WHERE activity_production_id NOT IN (SELECT id FROM activity_productions)'
+
     add_activity_production_to_land_parcels
     add_activity_production_to_plants
   end
@@ -7,45 +9,28 @@ class HistoricalRecoveryTargetsDistributions < ActiveRecord::Migration
   def down; end
 
   def add_activity_production_to_land_parcels
-    products_without_production = LandParcel.where(activity_production_id: nil)
-
-    ActivityProduction.all.each do |activity_production|
-      language = activity_production.creator.language if activity_production.creator
-      language ||= 'fra'
-
-      finded_land_parcel = products_without_production
-                           .where('name like ?', "%#{activity_production.activity.name}%")
-                           .where('name like ?', "%#{:rank.t(number: activity_production.rank_number, locale: language)}%")
-
-      if finded_land_parcel.any?
-        finded_land_parcel.first.update_attribute(:activity_production_id, activity_production.id)
-      end
-    end
+    execute "UPDATE products AS lp
+    SET activity_production_id = ap.id
+    FROM activity_productions AS ap
+      JOIN activities AS a ON (a.id = ap.activity_id)
+    WHERE lp.type = 'LandParcel'
+      AND lp.activity_production_id IS NULL
+      AND lp.name ILIKE '%' || a.name || '%'
+      AND (lp.name ILIKE '%n°' || ap.rank_number || '%' OR lp.name ILIKE '%#' || ap.rank_number || '%')".gsub(/[[:space:]]+/, ' ')
   end
 
   def add_activity_production_to_plants
-    products_without_production = Plant.where(activity_production_id: nil)
-
-    products_without_production.each do |product|
-      intervention_group_parameters = product
-                                      .intervention_product_parameters
-                                      .select { |parameter| parameter.is_a?(InterventionOutput) }
-                                      .first
-                                      .intervention
-                                      .group_parameters
-
-      product_group_parameter = intervention_group_parameters
-                                .select { |parameter| parameter.outputs.first.product_id == product.id }
-
-      activity_production_id = product_group_parameter
-                               .first
-                               .targets
-                               .select { |target| target.reference_name.to_sym == :land_parcel }
-                               .first
-                               .product
-                               .activity_production_id
-
-      product.update_attribute(:activity_production_id, activity_production_id) unless activity_production_id.nil?
-    end
+   execute "UPDATE products
+    SET activity_production_id = lp.activity_production_id
+    FROM (SELECT land_parcels.activity_production_id, outputs.product_id AS plant_id
+            FROM products AS land_parcels
+              JOIN intervention_parameters AS targets ON (targets.product_id = land_parcels.id AND targets.type = 'InterventionTarget' AND reference_name = 'land_parcel')
+              JOIN intervention_parameters AS groups ON (targets.group_id = groups.id)
+              JOIN intervention_parameters AS outputs ON (outputs.group_id = groups.id AND outputs.type = 'InterventionOutput')
+            WHERE land_parcels.type = 'LandParcel'
+              AND land_parcels.activity_production_id IS NOT NULL) AS lp
+    WHERE products.type = 'Plant'
+      AND products.activity_production_id IS NULL
+      AND products.id = lp.plant_id".gsub(/[[:space:]]+/, ' ')
   end
 end

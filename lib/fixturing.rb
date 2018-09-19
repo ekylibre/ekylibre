@@ -92,7 +92,8 @@ module Fixturing
       path = options[:path] || directory
       Ekylibre::Schema.tables.each do |table, columns|
         records = {}
-        ActiveRecord::Base.connection.select_all("SELECT * FROM #{table} ORDER BY id").each do |row|
+        sort_column = %w[id number name].detect { |column| ActiveRecord::Base.connection.column_exists?(table, column) }
+        ActiveRecord::Base.connection.select_all("SELECT * FROM #{table} #{sort_column ? 'ORDER BY ' + sort_column : ''}").each do |row|
           record = {}
           row.sort.each do |attribute, value|
             if columns[attribute]

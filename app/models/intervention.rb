@@ -379,20 +379,21 @@ class Intervention < Ekylibre::Record::Base
   end
 
   def update_costing
-    attributes = { inputs_cost: 0, doers_cost: 0, tools_cost: 0, receptions_cost: 0 }
-
+    attributes = {}
     %i[input tool doer].each do |type|
-      type_cost = cost(type)
-      type_cost = 0 if type_cost.nil?
-
-      attributes["#{type.to_s.pluralize}_cost"] = type_cost
+      attributes["#{type.to_s.pluralize}_cost"] = cost(type) || 0
     end
-
     attributes[:receptions_cost] = receptions_cost.to_f.round(2)
 
-    self.costing ||= InterventionCosting.new
-    self.costing.attributes = costing_attributes
-    self.costing.save
+    if self.costing
+      self.costing.update(attributes)
+    else
+      self.update_columns(costing_id: InterventionCosting.create!(attributes))
+    end
+  end
+
+  def create_missing_costing
+    update_costing unless self.costing.present?
   end
 
   def initialize_record(state: :done)
