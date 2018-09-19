@@ -35,11 +35,8 @@ namespace :shapes do
 
   def find_invalid_productions
     not_valid_production_ids = []
-    valid_activity_productions_ids = []
 
-    activity_productions_ids = ActivityProduction.all.map(&:id)
-
-    (1...ActivityProduction.count).each do |index|
+    (1..ActivityProduction.count).each do |index|
       production_ids = ActivityProduction.first(index).map(&:id)
       activity_production_id = production_ids.last
 
