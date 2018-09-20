@@ -22,11 +22,14 @@
 #
 # == Table: naming_formats
 #
-#  created_at :datetime
-#  id         :integer          not null, primary key
-#  name       :string           not null
-#  type       :string           not null
-#  updated_at :datetime
+#  created_at   :datetime
+#  creator_id   :integer
+#  id           :integer          not null, primary key
+#  lock_version :integer          default(0), not null
+#  name         :string           not null
+#  type         :string           not null
+#  updated_at   :datetime
+#  updater_id   :integer
 #
 require 'test_helper'
 

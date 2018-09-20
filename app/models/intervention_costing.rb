@@ -37,5 +37,5 @@ class InterventionCosting < Ekylibre::Record::Base
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :doers_cost, :inputs_cost, :receptions_cost, :tools_cost, numericality: true, allow_blank: true
   # ]VALIDATORS]
-  has_one :intervention, inverse_of: :costing
+  has_one :intervention, inverse_of: :costing, foreign_key: :costing_id
 end

@@ -16,6 +16,8 @@
         <page to="backend/entities#list_issues"/>
         <page to="backend/entities#list_links"/>
         <page to="backend/entities#list_contracts"/>
+        <page to="backend/entities#list_purchase_invoices"/>
+        <page to="backend/entities#list_purchase_orders"/>
         <page to="backend/entities#list_observations"/>
         <page to="backend/entities#list_purchase_payments"/>
         <page to="backend/entities#list_sale_opportunities"/>
@@ -276,6 +278,7 @@
         <page to="backend/sales#duplicate"/>
         <page to="backend/sales#edit"/>
         <page to="backend/sales#invoice"/>
+        <page to="backend/sales#list_shipments"/>
         <page to="backend/sales#list"/>
         <page to="backend/sales#list_credits"/>
         <page to="backend/sales#list_items"/>
@@ -421,6 +424,12 @@
         <page to="backend/purchase_invoices#list"/>
         <page to="backend/purchase_invoices#list_items"/>
         <page to="backend/purchase_invoices#new"/>
+        <page to="backend/purchase_invoices#list_receptions"/>
+        <page to="backend/purchase_process/reconciliation#receptions_to_reconciliate"/>
+        <page to="backend/purchases/reconcilation_states#put_accepted_state"/>
+        <page to="backend/purchases/reconcilation_states#put_reconcile_state"/>
+        <page to="backend/purchases/reconcilation_states#put_to_reconcile_state"/>
+        <page to="backend/purchase_process/reconciliation#purchase_orders_to_reconciliate"/>
         <page to="backend/purchase_invoices#pay"/>
         <page to="backend/purchase_invoices#payment_mode"/>
         <page to="backend/purchase_invoices#show"/>
@@ -440,6 +449,23 @@
         <page to="backend/purchase_gaps#list"/>
         <page to="backend/purchase_gaps#list_items"/>
         <page to="backend/purchase_gaps#show"/>
+      </item>
+      <item name="contracts">
+        <page to="backend/contracts#index"/>
+        <page to="backend/contracts#create"/>
+        <page to="backend/contracts#destroy"/>
+        <page to="backend/contracts#edit"/>
+        <page to="backend/contracts#list"/>
+        <page to="backend/contracts#list_items"/>
+        <page to="backend/contracts#list_receptions"/>
+        <page to="backend/contracts#lose"/>
+        <page to="backend/contracts#negociate"/>
+        <page to="backend/contracts#new"/>
+        <page to="backend/contracts#prospect"/>
+        <page to="backend/contracts#quote"/>
+        <page to="backend/contracts#show"/>
+        <page to="backend/contracts#update"/>
+        <page to="backend/contracts#win"/>
       </item>
     </group>
     <group name="payments" icon="credit-card">
@@ -479,6 +505,8 @@
         <page to="backend/matters#list_carrier_linkages"/>
         <page to="backend/matters#list_contained_products"/>
         <page to="backend/matters#list_inspections"/>
+        <page to="backend/matters#list_reception_items"/>
+        <page to="backend/matters#list_shipment_items"/>
         <page to="backend/matters#list_fixed_assets"/>
         <page to="backend/matters#list_groups"/>
         <page to="backend/matters#list_readings"/>
@@ -509,6 +537,12 @@
         <page to="backend/products#list_issues"/>
         <page to="backend/products#list_readings"/>
         <page to="backend/products#list_fixed_assets"/>
+        <page to="backend/products#list_reception_items"/>
+        <page to="backend/products/interventions#has_harvesting"/>
+        <page to="backend/products/search_products#datas"/>
+        <page to="backend/products/search_variants#search_by_expression"/>
+        <page to="backend/products/indicators#variable_indicators"/>
+        <page to="backend/products#list_shipment_items"/>
         <page to="backend/products#list_intervention_product_parameters"/>
         <page to="backend/products#list_members"/>
         <page to="backend/products#list_places"/>
@@ -530,6 +564,8 @@
         <page to="backend/product_groups#list_carrier_linkages"/>
         <page to="backend/product_groups#list_contained_products"/>
         <page to="backend/product_groups#list_fixed_assets"/>
+        <page to="backend/product_groups#list_reception_items"/>
+        <page to="backend/product_groups#list_shipment_items"/>
         <page to="backend/product_groups#list_inspections"/>
         <page to="backend/product_groups#list_groups"/>
         <page to="backend/product_groups#list_readings"/>
@@ -585,6 +621,7 @@
         <page to="backend/receptions#create"/>
         <page to="backend/receptions#destroy"/>
         <page to="backend/receptions#edit"/>
+        <page to="backend/receptions#list_storings"/>
         <page to="backend/receptions#list"/>
         <page to="backend/receptions#new"/>
         <page to="backend/receptions#show"/>
@@ -652,11 +689,13 @@
         <page to="backend/activities#list_productions"/>
         <page to="backend/activities#new"/>
         <page to="backend/activities#show"/>
+        <page to="backend/activities#list_supports"/>
         <page to="backend/activities#update"/>
         <page to="backend/activities#unroll"/>
         <page to="backend/activity_productions#index"/>
         <page to="backend/activity_productions#list_interventions"/>
         <page to="backend/activity_productions#show"/>
+        <page to="backend/activity_productions#list_plants"/>
         <page to="backend/activity_productions#unroll"/>
         <page to="backend/activity_productions#create"/>
         <page to="backend/activity_productions#destroy"/>
@@ -716,6 +755,8 @@
         <page to="backend/fungi#destroy"/>
         <page to="backend/fungi#edit"/>
         <page to="backend/fungi#list"/>
+        <page to="backend/fungi#list_reception_items"/>
+        <page to="backend/fungi#list_shipment_items"/>
         <page to="backend/fungi#list_inspections"/>
         <page to="backend/fungi#list_carried_linkages"/>
         <page to="backend/fungi#list_carrier_linkages"/>
@@ -752,6 +793,9 @@
         <page to="backend/interventions#destroy"/>
         <page to="backend/interventions#edit"/>
         <page to="backend/interventions#list"/>
+        <page to="backend/interventions#list_service_deliveries"/>
+        <page to="backend/interventions/costs#parameter_cost"/>
+        <page to="backend/interventions#purchase_order_items"/>
         <page to="backend/interventions#new"/>
         <page to="backend/interventions#show"/>
         <page to="backend/interventions#update"/>
@@ -859,6 +903,8 @@
         <page to="backend/land_parcels#edit_many"/>
         <page to="backend/land_parcels#update_many"/>
         <page to="backend/land_parcels#list_carried_linkages"/>
+        <page to="backend/land_parcels#list_reception_items"/>
+        <page to="backend/land_parcels#list_shipment_items"/>
         <page to="backend/land_parcels#list_carrier_linkages"/>
         <page to="backend/land_parcels#list_contained_products"/>
         <page to="backend/land_parcels#list_inspections"/>
@@ -888,6 +934,8 @@
         <page to="backend/plants#list_carrier_linkages"/>
         <page to="backend/plants#list_contained_products"/>
         <page to="backend/plants#list_fixed_assets"/>
+        <page to="backend/plants#list_reception_items"/>
+        <page to="backend/plants#list_shipment_items"/>
         <page to="backend/plants#list_groups"/>
         <page to="backend/plants#list_inspections"/>
         <page to="backend/plants#list_plant_countings"/>
@@ -941,6 +989,8 @@
         <page to="backend/animals#list_trackings"/>
         <page to="backend/animals#list_fixed_assets"/>
         <page to="backend/animals#take"/>
+        <page to="backend/animals#list_reception_items"/>
+        <page to="backend/animals#list_shipment_items"/>
         <page to="backend/animals#unroll"/>
         <page to="backend/animals#change"/>
         <page to="backend/animals#load_animals"/>
@@ -955,6 +1005,8 @@
         <page to="backend/animal_groups#show"/>
         <page to="backend/animal_groups#update"/>
         <page to="backend/animal_groups#edit_many"/>
+        <page to="backend/animal_groups#list_reception_items"/>
+        <page to="backend/animal_groups#list_shipment_items"/>
         <page to="backend/animal_groups#update_many"/>
         <page to="backend/animal_groups#list_animals"/>
         <page to="backend/animal_groups#list_places"/>
@@ -1261,6 +1313,18 @@
         <page to="backend/naming_formats#index"/>
         <page to="backend/naming_format_land_parcels#edit"/>
         <page to="backend/naming_format_land_parcels#index"/>
+        <page to="backend/naming_format_land_parcels#build_example"/>
+        <page to="backend/naming_format_land_parcels#create"/>
+        <page to="backend/naming_format_land_parcels#destroy"/>
+        <page to="backend/naming_format_land_parcels#new"/>
+        <page to="backend/naming_format_land_parcels#show"/>
+        <page to="backend/naming_format_land_parcels#update"/>
+        <page to="backend/naming_formats#create"/>
+        <page to="backend/naming_formats#destroy"/>
+        <page to="backend/naming_formats#edit"/>
+        <page to="backend/naming_formats#new"/>
+        <page to="backend/naming_formats#show"/>
+        <page to="backend/naming_formats#update"/>
       </item>
       <item name="sequences">
         <page to="backend/sequences#index"/>
@@ -1321,6 +1385,7 @@
         <page to="backend/users#destroy"/>
         <page to="backend/users#edit"/>
         <page to="backend/users#list"/>
+        <page to="backend/users/wice_grid_preferences#save_column"/>
         <page to="backend/users#lock"/>
         <page to="backend/users#new"/>
         <page to="backend/users#show"/>
@@ -1383,6 +1448,7 @@
         <page to="backend/accounts#show"/>
         <page to="backend/accounts#unroll"/>
         <page to="backend/accounts#update"/>
+        <page to="backend/accounts#set_interval_preference"/>
       </item>
       <item name="financial_years">
         <page to="backend/financial_years#index"/>
@@ -1526,6 +1592,7 @@
         <page to="backend/product_nature_variants#list"/>
         <page to="backend/product_nature_variants#new"/>
         <page to="backend/product_nature_variants#pick"/>
+        <page to="backend/variants/fixed_assets#fixed_assets_datas"/>
         <page to="backend/product_nature_variants#picture"/>
         <page to="backend/product_nature_variants#quantifiers"/>
         <page to="backend/product_nature_variants#show"/>
@@ -1569,6 +1636,8 @@
         <page to="backend/workers#list"/>
         <page to="backend/workers#new"/>
         <page to="backend/workers#show"/>
+        <page to="backend/workers#list_reception_items"/>
+        <page to="backend/workers#list_shipment_items"/>
         <page to="backend/workers#update"/>
         <page to="backend/workers#edit_many"/>
         <page to="backend/workers#update_many"/>
@@ -1593,6 +1662,8 @@
         <page to="backend/equipments#create"/>
         <page to="backend/equipments#destroy"/>
         <page to="backend/equipments#edit"/>
+        <page to="backend/equipments#list_reception_items"/>
+        <page to="backend/equipments#list_shipment_items"/>
         <page to="backend/equipments#list"/>
         <page to="backend/equipments#list_intervention_product_parameters"/>
         <page to="backend/equipments#new"/>
@@ -1640,6 +1711,8 @@
         <page to="backend/buildings#list_places"/>
         <page to="backend/buildings#list_trackings"/>
         <page to="backend/buildings#picture"/>
+        <page to="backend/buildings#list_reception_items"/>
+        <page to="backend/buildings#list_shipment_items"/>
         <page to="backend/buildings#list_carried_linkages"/>
         <page to="backend/buildings#list_carrier_linkages"/>
       </item>
@@ -1651,6 +1724,8 @@
         <page to="backend/building_divisions#list"/>
         <page to="backend/building_divisions#new"/>
         <page to="backend/building_divisions#show"/>
+        <page to="backend/building_divisions#list_reception_items"/>
+        <page to="backend/building_divisions#list_shipment_items"/>
         <page to="backend/building_divisions#list_contained_products"/>
         <page to="backend/building_divisions#take"/>
         <page to="backend/building_divisions#unroll"/>
@@ -1677,6 +1752,8 @@
         <page to="backend/settlements#edit"/>
         <page to="backend/settlements#list"/>
         <page to="backend/settlements#list_carried_linkages"/>
+        <page to="backend/settlements#list_reception_items"/>
+        <page to="backend/settlements#list_shipment_items"/>
         <page to="backend/settlements#list_carrier_linkages"/>
         <page to="backend/settlements#list_contained_products"/>
         <page to="backend/settlements#list_inspections"/>
@@ -2085,35 +2162,6 @@
       <item name="resources_visualizations">
         <page to="backend/visualizations/resources_visualizations#show"/>
       </item>
-    </group>
-  </inaccessible-actions>
-  <untreated-actions>
-    <group>
-      <item name="accounts">
-        <page to="backend/accounts#set_interval_preference"/>
-      </item>
-      <item name="activities">
-        <page to="backend/activities#list_supports"/>
-      </item>
-      <item name="activity_productions">
-        <page to="backend/activity_productions#list_plants"/>
-      </item>
-      <item name="animal_groups">
-        <page to="backend/animal_groups#list_reception_items"/>
-        <page to="backend/animal_groups#list_shipment_items"/>
-      </item>
-      <item name="animals">
-        <page to="backend/animals#list_reception_items"/>
-        <page to="backend/animals#list_shipment_items"/>
-      </item>
-      <item name="building_divisions">
-        <page to="backend/building_divisions#list_reception_items"/>
-        <page to="backend/building_divisions#list_shipment_items"/>
-      </item>
-      <item name="buildings">
-        <page to="backend/buildings#list_reception_items"/>
-        <page to="backend/buildings#list_shipment_items"/>
-      </item>
       <item name="grains_commercialization_threshold_simulators">
         <page to="backend/calculators/grains_commercialization_threshold_simulators#show"/>
       </item>
@@ -2131,125 +2179,12 @@
       <item name="traceability_check_cells">
         <page to="backend/cells/traceability_check_cells#show"/>
       </item>
-      <item name="contracts">
-        <page to="backend/contracts#index"/>
-        <page to="backend/contracts#create"/>
-        <page to="backend/contracts#destroy"/>
-        <page to="backend/contracts#edit"/>
-        <page to="backend/contracts#list"/>
-        <page to="backend/contracts#list_items"/>
-        <page to="backend/contracts#list_receptions"/>
-        <page to="backend/contracts#lose"/>
-        <page to="backend/contracts#negociate"/>
-        <page to="backend/contracts#new"/>
-        <page to="backend/contracts#prospect"/>
-        <page to="backend/contracts#quote"/>
-        <page to="backend/contracts#show"/>
-        <page to="backend/contracts#update"/>
-        <page to="backend/contracts#win"/>
-      </item>
-      <item name="entities">
-        <page to="backend/entities#list_purchase_invoices"/>
-        <page to="backend/entities#list_purchase_orders"/>
-      </item>
-      <item name="equipments">
-        <page to="backend/equipments#list_reception_items"/>
-        <page to="backend/equipments#list_shipment_items"/>
-      </item>
-      <item name="fungi">
-        <page to="backend/fungi#list_reception_items"/>
-        <page to="backend/fungi#list_shipment_items"/>
-      </item>
-      <item name="interventions">
-        <page to="backend/interventions#list_service_deliveries"/>
-        <page to="backend/interventions#purchase_order_items"/>
-      </item>
-      <item name="costs">
-        <page to="backend/interventions/costs#parameter_cost"/>
-      </item>
-      <item name="land_parcels">
-        <page to="backend/land_parcels#list_reception_items"/>
-        <page to="backend/land_parcels#list_shipment_items"/>
-      </item>
       <item name="master_production_natures">
         <page to="backend/master_production_natures#unroll"/>
       </item>
-      <item name="matters">
-        <page to="backend/matters#list_reception_items"/>
-        <page to="backend/matters#list_shipment_items"/>
-      </item>
-      <item name="naming_format_land_parcels">
-        <page to="backend/naming_format_land_parcels#build_example"/>
-        <page to="backend/naming_format_land_parcels#create"/>
-        <page to="backend/naming_format_land_parcels#destroy"/>
-        <page to="backend/naming_format_land_parcels#new"/>
-        <page to="backend/naming_format_land_parcels#show"/>
-        <page to="backend/naming_format_land_parcels#update"/>
-      </item>
-      <item name="naming_formats">
-        <page to="backend/naming_formats#create"/>
-        <page to="backend/naming_formats#destroy"/>
-        <page to="backend/naming_formats#edit"/>
-        <page to="backend/naming_formats#new"/>
-        <page to="backend/naming_formats#show"/>
-        <page to="backend/naming_formats#update"/>
-      </item>
-      <item name="plants">
-        <page to="backend/plants#list_reception_items"/>
-        <page to="backend/plants#list_shipment_items"/>
-      </item>
-      <item name="product_groups">
-        <page to="backend/product_groups#list_reception_items"/>
-        <page to="backend/product_groups#list_shipment_items"/>
-      </item>
-      <item name="products">
-        <page to="backend/products#list_reception_items"/>
-        <page to="backend/products#list_shipment_items"/>
-      </item>
-      <item name="indicators">
-        <page to="backend/products/indicators#variable_indicators"/>
-      </item>
-      <item name="interventions">
-        <page to="backend/products/interventions#has_harvesting"/>
-      </item>
-      <item name="search_products">
-        <page to="backend/products/search_products#datas"/>
-      </item>
-      <item name="search_variants">
-        <page to="backend/products/search_variants#search_by_expression"/>
-      </item>
-      <item name="purchase_invoices">
-        <page to="backend/purchase_invoices#list_receptions"/>
-      </item>
-      <item name="reconciliation">
-        <page to="backend/purchase_process/reconciliation#purchase_orders_to_reconciliate"/>
-        <page to="backend/purchase_process/reconciliation#receptions_to_reconciliate"/>
-      </item>
-      <item name="reconcilation_states">
-        <page to="backend/purchases/reconcilation_states#put_accepted_state"/>
-        <page to="backend/purchases/reconcilation_states#put_reconcile_state"/>
-        <page to="backend/purchases/reconcilation_states#put_to_reconcile_state"/>
-      </item>
-      <item name="receptions">
-        <page to="backend/receptions#list_storings"/>
-      </item>
-      <item name="sales">
-        <page to="backend/sales#list_shipments"/>
-      </item>
-      <item name="settlements">
-        <page to="backend/settlements#list_reception_items"/>
-        <page to="backend/settlements#list_shipment_items"/>
-      </item>
-      <item name="wice_grid_preferences">
-        <page to="backend/users/wice_grid_preferences#save_column"/>
-      </item>
-      <item name="fixed_assets">
-        <page to="backend/variants/fixed_assets#fixed_assets_datas"/>
-      </item>
-      <item name="workers">
-        <page to="backend/workers#list_reception_items"/>
-        <page to="backend/workers#list_shipment_items"/>
-      </item>
     </group>
+  </inaccessible-actions>
+  <untreated-actions>
+    <group/>
   </untreated-actions>
 </navigation>

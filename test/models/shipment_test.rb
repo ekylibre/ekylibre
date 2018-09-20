@@ -135,7 +135,7 @@ class ShipmentTest < ActiveSupport::TestCase
 
   # ???? TODO: Figure what that test was supposed to be
   test 'prevent empty items' do
-    item = parcel_items(:parcel_items_001).attributes.slice('product_id', 'population', 'shape')
+    item = parcel_items(:shipment_items_001).attributes.slice('product_id', 'population', 'shape')
     Shipment.new items_attributes: { '123456789' => { 'product_id' => '', '_destroy' => 'false' }, '852' => item }
     # parcel.items.map(&:net_mass)
   end

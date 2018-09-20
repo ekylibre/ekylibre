@@ -34,7 +34,7 @@
 #  started_on         :date             not null
 #  stopped_on         :date             not null
 #
-class MasterProductionNature < Ekylibre::Record::Base
+class MasterProductionNature < ActiveRecord::Base
   include Lexiconable
   belongs_to :pfi_crop, class_name: 'RegisteredPfiCrop', foreign_key: :pfi_crop_code
 end

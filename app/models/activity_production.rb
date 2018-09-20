@@ -623,6 +623,7 @@ class ActivityProduction < Ekylibre::Record::Base
                           size_unit_name: volume_unit_name,
                           surface_unit_name: surface_unit_name)
   end
+  alias vine_yield fruit_yield
 
   # TODO: Which yield is computed? usage is not very good to determine yields
   #   because many yields can be computed...

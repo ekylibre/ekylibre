@@ -50,7 +50,6 @@ Rails.application.routes.draw do
       get :list_members
       get :list_shipment_items
       get :list_reception_items
-      get :list_parcel_item_storings
       get :list_places
       get :take
     end
@@ -222,8 +221,6 @@ Rails.application.routes.draw do
       end
       member do
         get :list_distributions
-        get :list_inspections
-        # get :list_interventions
         get :list_productions
         get :list_supports
       end
@@ -466,7 +463,6 @@ Rails.application.routes.draw do
         get :list_receptions
         get :list_issues
         get :list_links
-        get :list_purchases
         get :list_purchase_invoices
         get :list_purchase_orders
         get :list_observations
@@ -742,9 +738,9 @@ Rails.application.routes.draw do
       concerns :products, :list
     end
 
-    resources :naming_formats, concerns: %i[list unroll]
+    resources :naming_formats
 
-    resources :naming_format_land_parcels, concerns: %i[list unroll] do
+    resources :naming_format_land_parcels do
       collection do
         get :build_example
       end
@@ -927,22 +923,6 @@ Rails.application.routes.draw do
 
     resources :purchase_payments, concerns: %i[list unroll], path: 'purchase-payments'
 
-    resources :purchases, concerns: %i[list unroll] do
-      member do
-        get :list_items
-        get :list_parcels
-        get :payment_mode
-        post :abort
-        post :confirm
-        post :correct
-        post :invoice
-        post :pay
-        post :propose
-        post :propose_and_invoice
-        post :refuse
-      end
-    end
-
     namespace :purchases do
       resources :reconcilation_states, only: [] do
         member do
@@ -954,9 +934,6 @@ Rails.application.routes.draw do
     end
 
     resources :purchase_orders, concerns: %i[list unroll] do
-      collection do
-        get :reconciliate_modal
-      end
       member do
         get :list_items
         post :open
@@ -1136,12 +1113,7 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :unreceived_purchase_orders, concerns: [:list] do
-      member do
-        post :open
-        post :close
-      end
-    end
+    resources :unreceived_purchase_orders, except: [:new], concerns: [:list]
 
     namespace :variants do
       resources :fixed_assets, only: [] do

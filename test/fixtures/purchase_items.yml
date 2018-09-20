@@ -72,6 +72,7 @@ purchase_items_001:
   purchase_id: 6
   quantity: 3.0
   reduction_percentage: 0.0
+  role: merchandise
   tax_id: 3
   unit_amount: 42.0
   unit_pretax_amount: 35.0
@@ -93,6 +94,7 @@ purchase_items_002:
   purchase_id: 7
   quantity: 1.0
   reduction_percentage: 0.0
+  role: merchandise
   tax_id: 2
   unit_amount: 1850.0
   unit_pretax_amount: 1850.0
@@ -115,6 +117,7 @@ purchase_items_003:
   purchase_id: 6
   quantity: 11.0
   reduction_percentage: 0.0
+  role: merchandise
   tax_id: 3
   unit_amount: 4.56
   unit_pretax_amount: 3.8
@@ -136,6 +139,7 @@ purchase_items_004:
   purchase_id: 8
   quantity: 10.0
   reduction_percentage: 0.0
+  role: merchandise
   tax_id: 3
   unit_amount: 184.8
   unit_pretax_amount: 154.0
@@ -157,6 +161,7 @@ purchase_items_005:
   purchase_id: 11
   quantity: 5000.0
   reduction_percentage: 0.0
+  role: merchandise
   tax_id: 3
   unit_amount: 4.104
   unit_pretax_amount: 3.42
@@ -178,6 +183,7 @@ purchase_items_006:
   purchase_id: 12
   quantity: 1.0
   reduction_percentage: 0.0
+  role: merchandise
   tax_id: 3
   unit_amount: 1848.0
   unit_pretax_amount: 1540.0
@@ -200,6 +206,7 @@ purchase_items_007:
   purchase_id: 13
   quantity: 11.0
   reduction_percentage: 7.0
+  role: merchandise
   tax_id: 8
   unit_amount: 1694.0
   unit_pretax_amount: 1540.0
@@ -222,6 +229,7 @@ purchase_items_008:
   purchase_id: 14
   quantity: 6.0
   reduction_percentage: 0.0
+  role: merchandise
   tax_id: 3
   unit_amount: 119.52
   unit_pretax_amount: 99.6
@@ -244,6 +252,7 @@ purchase_items_009:
   purchase_id: 15
   quantity: 4.0
   reduction_percentage: 0.0
+  role: merchandise
   tax_id: 3
   unit_amount: 300.0
   unit_pretax_amount: 250.0
@@ -266,6 +275,7 @@ purchase_items_010:
   purchase_id: 16
   quantity: 3.0
   reduction_percentage: 4.0
+  role: merchandise
   tax_id: 8
   unit_amount: 1694.0
   unit_pretax_amount: 1540.0
@@ -288,6 +298,7 @@ purchase_items_011:
   purchase_id: 17
   quantity: 510.0
   reduction_percentage: 3.0
+  role: merchandise
   tax_id: 8
   unit_amount: 0.99
   unit_pretax_amount: 0.9
@@ -295,133 +306,26 @@ purchase_items_011:
   updater_id: 1
   variant_id: 63
 purchase_items_012:
-  account_id: 54
-  amount: 12467.84
-  created_at: 2017-11-21 10:13:42.814678000 Z
+  account_id: 16
+  amount: 1746.0
+  conditionning: 5
+  conditionning_quantity: 12
+  created_at: 2018-09-20 09:33:25.939324000 Z
   creator_id: 1
   currency: EUR
-  equipment_id: 137
   fixed: false
   id: 19
-  label: Ammonitre 33,5%  Big Bag
+  label: Acetal
   lock_version: 0
   position: 1
-  pretax_amount: 11334.4
+  pretax_amount: 1455.0
   purchase_id: 18
-  quantity: 8.0
-  reduction_percentage: 8.0
-  role: merchandise
-  tax_id: 8
-  unit_amount: 1694.0
-  unit_pretax_amount: 1540.0
-  updated_at: 2017-11-21 10:13:42.814678000 Z
-  updater_id: 1
-  variant_id: 39
-purchase_items_013:
-  account_id: 47
-  amount: 540.0
-  created_at: 2017-11-21 10:13:42.826572000 Z
-  creator_id: 1
-  currency: EUR
-  equipment_id: 137
-  fixed: false
-  id: 20
-  label: Semoir
-  lock_version: 0
-  position: 2
-  pretax_amount: 540.0
-  purchase_id: 18
-  quantity: 3.0
-  reduction_percentage: 10.0
-  role: merchandise
-  tax_id: 2
-  unit_amount: 200.0
-  unit_pretax_amount: 200.0
-  updated_at: 2017-11-21 10:13:42.826572000 Z
-  updater_id: 1
-  variant_id: 29
-purchase_items_014:
-  account_id: 134
-  amount: 97000.0
-  created_at: 2017-11-21 10:19:20.002643000 Z
-  creator_id: 1
-  currency: EUR
-  fixed: false
-  id: 21
-  label: Bâtiment
-  lock_version: 0
-  position: 1
-  pretax_amount: 97000.0
-  purchase_id: 19
-  quantity: 4.0
+  quantity: 60.0
   reduction_percentage: 3.0
   role: merchandise
-  tax_id: 2
-  unit_amount: 25000.0
-  unit_pretax_amount: 25000.0
-  updated_at: 2017-11-21 10:19:20.002643000 Z
-  updater_id: 1
-  variant_id: 51
-purchase_items_015:
-  account_id: 140
-  amount: 3990.0
-  created_at: 2017-11-21 10:20:26.350625000 Z
-  creator_id: 1
-  currency: EUR
-  fixed: false
-  id: 22
-  label: Adexar 5 l
-  lock_version: 0
-  position: 1
-  pretax_amount: 3325.0
-  purchase_id: 20
-  quantity: 95.0
-  reduction_percentage: 0.0
   tax_id: 3
-  unit_amount: 42.0
-  unit_pretax_amount: 35.0
-  updated_at: 2017-11-21 10:20:26.350625000 Z
+  unit_amount: 30.0
+  unit_pretax_amount: 25.0
+  updated_at: 2018-09-20 09:33:25.939324000 Z
   updater_id: 1
-  variant_id: 8
-purchase_items_016:
-  account_id: 147
-  amount: 4704.0
-  created_at: 2017-11-21 10:20:26.370818000 Z
-  creator_id: 1
-  currency: EUR
-  fixed: false
-  id: 23
-  label: Acide lactique ‒ 25kg
-  lock_version: 0
-  position: 2
-  pretax_amount: 3920.0
-  purchase_id: 20
-  quantity: 16.0
-  reduction_percentage: 2.0
-  tax_id: 3
-  unit_amount: 300.0
-  unit_pretax_amount: 250.0
-  updated_at: 2017-11-21 10:20:26.370818000 Z
-  updater_id: 1
-  variant_id: 57
-purchase_items_017:
-  account_id: 147
-  amount: 378.0
-  created_at: 2017-11-21 10:21:30.397455000 Z
-  creator_id: 1
-  currency: EUR
-  fixed: false
-  id: 24
-  label: So2 liquide 10%
-  lock_version: 0
-  position: 1
-  pretax_amount: 378.0
-  purchase_id: 21
-  quantity: 9.0
-  reduction_percentage: 0.0
-  tax_id: 2
-  unit_amount: 42.0
-  unit_pretax_amount: 42.0
-  updated_at: 2017-11-21 10:21:30.397455000 Z
-  updater_id: 1
-  variant_id: 62
+  variant_id: 21

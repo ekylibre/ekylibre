@@ -295,7 +295,6 @@ receptions_011:
   number: ID20140012
   planned_at: 2014-11-07 16:47:34.635509000 Z
   pretax_amount: 0.0
-  purchase_id: 11
   reference_number: '2008030001215'
   remain_owner: false
   sender_id: 13
@@ -465,58 +464,6 @@ receptions_018:
   updated_at: 2016-08-10 14:27:50.028641000 Z
   updater_id: 1
   with_delivery: false
-receptions_019:
-  accounted_at: 2017-11-21 09:58:16.176450000 Z
-  address_id: 9
-  created_at: 2017-11-21 09:58:16.067008000 Z
-  creator_id: 1
-  currency: EUR
-  delivery_mode: us
-  given_at: 2017-10-31 23:00:00.000000000 Z
-  id: 26
-  late_delivery: false
-  lock_version: 0
-  nature: incoming
-  number: P000000000007
-  planned_at: 2017-11-20 23:00:00.000000000 Z
-  position: 6
-  pretax_amount: 0.0
-  reconciliation_state: to_reconcile
-  reference_number: R000012
-  remain_owner: false
-  responsible_id: 1
-  sender_id: 9
-  state: draft
-  type: Reception
-  updated_at: 2017-11-21 09:58:16.067008000 Z
-  updater_id: 1
-  with_delivery: false
-receptions_020:
-  accounted_at: 2017-11-21 10:11:04.272053000 Z
-  address_id: 9
-  created_at: 2017-11-21 10:09:18.097184000 Z
-  creator_id: 1
-  currency: EUR
-  delivery_mode: us
-  given_at: 2017-10-31 23:00:00.000000000 Z
-  id: 27
-  late_delivery: true
-  lock_version: 1
-  nature: incoming
-  number: P000000000008
-  planned_at: 2017-10-27 22:00:00.000000000 Z
-  position: 7
-  pretax_amount: 0.0
-  reconciliation_state: reconcile
-  reference_number: R000013
-  remain_owner: false
-  responsible_id: 1
-  sender_id: 3
-  state: draft
-  type: Reception
-  updated_at: 2017-11-21 10:11:04.210263000 Z
-  updater_id: 1
-  with_delivery: false
 shipments_001:
   address_id: 12
   created_at: 2014-11-05 14:15:20.016507000 Z
@@ -663,49 +610,5 @@ shipments_007:
   state: given
   type: Shipment
   updated_at: 2016-07-01 20:13:27.345557000 Z
-  updater_id: 1
-  with_delivery: false
-shipments_008:
-  accounted_at: 2017-11-21 10:11:36.402733000 Z
-  address_id: 14
-  created_at: 2017-11-21 10:11:36.364394000 Z
-  creator_id: 1
-  currency: EUR
-  delivery_mode: us
-  id: 28
-  lock_version: 0
-  nature: outgoing
-  number: P000000000009
-  planned_at: 2017-11-20 23:00:00.000000000 Z
-  position: 8
-  pretax_amount: 0.0
-  recipient_id: 14
-  reconciliation_state: to_reconcile
-  remain_owner: false
-  state: draft
-  type: Shipment
-  updated_at: 2017-11-21 10:11:36.364394000 Z
-  updater_id: 1
-  with_delivery: true
-shipments_009:
-  accounted_at: 2017-11-21 10:12:00.809784000 Z
-  address_id: 12
-  created_at: 2017-11-21 10:12:00.787926000 Z
-  creator_id: 1
-  currency: EUR
-  delivery_mode: third
-  id: 29
-  lock_version: 0
-  nature: outgoing
-  number: P000000000010
-  planned_at: 2017-11-20 23:00:00.000000000 Z
-  position: 9
-  pretax_amount: 0.0
-  recipient_id: 13
-  reconciliation_state: to_reconcile
-  remain_owner: false
-  state: draft
-  type: Shipment
-  updated_at: 2017-11-21 10:12:00.787926000 Z
   updater_id: 1
   with_delivery: false

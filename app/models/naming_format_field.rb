@@ -22,13 +22,21 @@
 #
 # == Table: naming_format_fields
 #
+#  created_at       :datetime
+#  creator_id       :integer
 #  field_name       :string           not null
 #  id               :integer          not null, primary key
+#  lock_version     :integer          default(0), not null
 #  naming_format_id :integer
 #  position         :integer
 #  type             :string           not null
+#  updated_at       :datetime
+#  updater_id       :integer
 #
 class NamingFormatField < Ekylibre::Record::Base
+  # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  validates :field_name, presence: true, length: { maximum: 500 }
+  # ]VALIDATORS]
   belongs_to :naming_format
 
   before_create do

@@ -4924,10 +4924,18 @@ master_production_outputs:
     type: string
     required: true
 naming_format_fields:
+  created_at:
+    type: datetime
+  creator_id:
+    type: integer
+    references: user
   field_name:
     type: string
     required: true
   id:
+    type: integer
+    required: true
+  lock_version:
     type: integer
     required: true
   naming_format_id:
@@ -4938,10 +4946,21 @@ naming_format_fields:
   type:
     type: string
     required: true
+  updated_at:
+    type: datetime
+  updater_id:
+    type: integer
+    references: user
 naming_formats:
   created_at:
     type: datetime
+  creator_id:
+    type: integer
+    references: user
   id:
+    type: integer
+    required: true
+  lock_version:
     type: integer
     required: true
   name:
@@ -4952,6 +4971,9 @@ naming_formats:
     required: true
   updated_at:
     type: datetime
+  updater_id:
+    type: integer
+    references: user
 net_services:
   created_at:
     type: datetime
@@ -6821,9 +6843,15 @@ project_budgets:
   created_at:
     type: datetime
     required: true
+  creator_id:
+    type: integer
+    references: user
   description:
     type: text
   id:
+    type: integer
+    required: true
+  lock_version:
     type: integer
     required: true
   name:
@@ -6831,6 +6859,9 @@ project_budgets:
   updated_at:
     type: datetime
     required: true
+  updater_id:
+    type: integer
+    references: user
 purchase_items:
   account_id:
     type: integer
@@ -7085,12 +7116,10 @@ registered_agroedi_codes:
     type: string
   reference_id:
     type: string
-    references: ''
   reference_label:
     type: string
   repository_id:
     type: string
-    references: ''
 registered_building_zones:
   centroid:
     type: geometry

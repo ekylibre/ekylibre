@@ -4570,7 +4570,12 @@ CREATE TABLE naming_format_fields (
     type character varying NOT NULL,
     field_name character varying NOT NULL,
     "position" integer,
-    naming_format_id integer
+    naming_format_id integer,
+    creator_id integer,
+    created_at timestamp without time zone,
+    updater_id integer,
+    updated_at timestamp without time zone,
+    lock_version integer DEFAULT 0 NOT NULL
 );
 
 
@@ -4602,7 +4607,10 @@ CREATE TABLE naming_formats (
     name character varying NOT NULL,
     type character varying NOT NULL,
     created_at timestamp without time zone,
-    updated_at timestamp without time zone
+    updated_at timestamp without time zone,
+    creator_id integer,
+    updater_id integer,
+    lock_version integer DEFAULT 0 NOT NULL
 );
 
 
@@ -6118,7 +6126,10 @@ CREATE TABLE project_budgets (
     name character varying,
     description text,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    creator_id integer,
+    updater_id integer,
+    lock_version integer DEFAULT 0 NOT NULL
 );
 
 
@@ -13944,10 +13955,38 @@ CREATE INDEX index_map_layers_on_updater_id ON map_layers USING btree (updater_i
 
 
 --
+-- Name: index_naming_format_fields_on_creator_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_naming_format_fields_on_creator_id ON naming_format_fields USING btree (creator_id);
+
+
+--
 -- Name: index_naming_format_fields_on_naming_format_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_naming_format_fields_on_naming_format_id ON naming_format_fields USING btree (naming_format_id);
+
+
+--
+-- Name: index_naming_format_fields_on_updater_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_naming_format_fields_on_updater_id ON naming_format_fields USING btree (updater_id);
+
+
+--
+-- Name: index_naming_formats_on_creator_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_naming_formats_on_creator_id ON naming_formats USING btree (creator_id);
+
+
+--
+-- Name: index_naming_formats_on_updater_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_naming_formats_on_updater_id ON naming_formats USING btree (updater_id);
 
 
 --
@@ -16181,6 +16220,20 @@ CREATE INDEX index_products_on_variant_id ON products USING btree (variant_id);
 --
 
 CREATE INDEX index_products_on_variety ON products USING btree (variety);
+
+
+--
+-- Name: index_project_budgets_on_creator_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_project_budgets_on_creator_id ON project_budgets USING btree (creator_id);
+
+
+--
+-- Name: index_project_budgets_on_updater_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_project_budgets_on_updater_id ON project_budgets USING btree (updater_id);
 
 
 --
@@ -18697,4 +18750,8 @@ INSERT INTO schema_migrations (version) VALUES ('20180702124900');
 INSERT INTO schema_migrations (version) VALUES ('20180704145001');
 
 INSERT INTO schema_migrations (version) VALUES ('20180918182905');
+
+INSERT INTO schema_migrations (version) VALUES ('20180920121004');
+
+INSERT INTO schema_migrations (version) VALUES ('20180920134223');
 

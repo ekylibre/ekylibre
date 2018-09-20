@@ -76,7 +76,7 @@ class CustomFieldTest < ActiveSupport::TestCase
           assert_equal first_column_name, field.column_name, 'Column name should not change'
 
           record = model.all.detect { |r| r.valid? && r.updateable? }
-          assert record.present?, 'A valid and updateable record must exist to test custom fields on it'
+          assert record.present?, "A valid and updateable #{model.name} must exist to test custom fields on it"
 
           # Set value
           method_name = "#{field.column_name}="

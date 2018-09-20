@@ -9,7 +9,7 @@ class FixturesTest < ActiveSupport::TestCase
       record_type = model.name.underscore
       # print "#{model.name.green}"
       reflections = model.reflect_on_all_associations(:belongs_to).delete_if { |r| r.name.to_s == 'item' && model == Version }
-      model.includes(reflections.collect(&:name)).find_each do |record|
+      model.includes(reflections.collect(&:name)).each do |record|
         begin
           unless record.valid?
             invalids << "#{model.name}##{record.id}: #{record.errors.full_messages.to_sentence}"

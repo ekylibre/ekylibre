@@ -22,11 +22,16 @@
 #
 # == Table: naming_format_fields
 #
+#  created_at       :datetime
+#  creator_id       :integer
 #  field_name       :string           not null
 #  id               :integer          not null, primary key
+#  lock_version     :integer          default(0), not null
 #  naming_format_id :integer
 #  position         :integer
 #  type             :string           not null
+#  updated_at       :datetime
+#  updater_id       :integer
 #
 class NamingFormatFieldLandParcel < NamingFormatField
   enumerize :field_name, in: %i[cultivable_zone_name cultivable_zone_code activity campaign season production_mode], default: :cultivable_zone_name
