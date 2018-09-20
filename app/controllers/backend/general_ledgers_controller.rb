@@ -69,28 +69,30 @@ module Backend
       t.column :cumulated_absolute_credit, currency: :absolute_currency, on_select: :sum, hidden: true
     end
 
-    list(:journal_entry_items, conditions: list_conditions, joins: %i[entry account journal], order: "#{JournalEntryItem.table_name}.printed_on, #{JournalEntryItem.table_name}.id") do |t|
+    list(:subledger_journal_entry_items, model: :journal_entry_items, conditions: list_conditions, joins: %i[entry account journal], order: "#{JournalEntryItem.table_name}.printed_on, #{JournalEntryItem.table_name}.id") do |t|
       t.column :printed_on
-      t.column :journal_name, url: true, label: :journal
+      t.column :journal_name, url: { controller: :journals, id: 'RECORD.journal_id'.c }, label: :journal
       t.column :account, url: true, hidden: true
       t.column :account_number, through: :account, label_method: :number, url: { controller: :general_ledgers, account_number: 'RECORD.account.number'.c, current_financial_year: 'params[:current_financial_year]'.c, ledger: 'RECORD.account&.centralizing_account&.number'.c }, hidden: true
       t.column :account_name, through: :account, label_method: :name, url: true, hidden: true
-      t.column :entry_number, url: true
+      t.column :entry_number, url: { controller: :journal_entries, id: 'RECORD.entry_id'.c }  
       t.column :continuous_number, hidden: true
       t.column :code, through: :journal, label: :journal, hidden: true
-      t.column :entry_resource_label, url: { controller: 'RECORD&.entry&.resource&.class&.model_name&.plural'.c, id: 'RECORD&.entry&.resource&.id'.c }, label: :entry_resource_label
-      t.column :name
-      t.column :reference_number, through: :entry
+      t.column :entry_resource_label, url: { controller: 'RECORD&.entry&.resource&.class&.model_name&.plural'.c, id: 'RECORD&.entry&.resource&.id'.c }, label: :entry_resource_label, class: 'entry-resource-label'
+      t.column :name, class: 'entry-name'
+      t.column :reference_number, through: :entry, hidden: true
       t.column :variant, url: true, hidden: true
       t.column :letter
       t.column :real_debit,  currency: :real_currency, hidden: true
       t.column :real_credit, currency: :real_currency, hidden: true
-      t.column :debit,  currency: true, hidden: true, on_select: :sum
-      t.column :credit, currency: true, hidden: true, on_select: :sum
-      t.column :absolute_debit,  currency: :absolute_currency, on_select: :sum
-      t.column :absolute_credit, currency: :absolute_currency, on_select: :sum
-      t.column :cumulated_absolute_debit,  currency: :absolute_currency, on_select: :sum, hidden: true
-      t.column :cumulated_absolute_credit, currency: :absolute_currency, on_select: :sum, hidden: true
+      t.column :debit,  currency: true, class: :gutter
+      t.column :credit, currency: true, class: :gutter
+      t.column :absolute_debit,  currency: :absolute_currency, hidden: true
+      t.column :absolute_credit, currency: :absolute_currency, hidden: true
+      t.column :cumulated_absolute_debit,  currency: :absolute_currency, hidden: true
+      t.column :cumulated_absolute_credit, currency: :absolute_currency, hidden: true
+      t.column :cumulated_absolute_debit_balance, currency: :absolute_currency, class: :gutter
+      t.column :cumulated_absolute_credit_balance, currency: :absolute_currency, class: :gutter
     end
 
     def index
@@ -129,9 +131,22 @@ module Backend
     def show
       return redirect_to(backend_general_ledgers_path) unless params[:account_number] && account = Account.find_by(number: params[:account_number])
 
+      financial_year = FinancialYear.find_by(id: params[:current_financial_year])
+      financial_year ||= FinancialYear.current
+      params[:period] = financial_year.started_on.to_s << '_' << financial_year.stopped_on.to_s
+      params[:current_financial_year] ||= financial_year.id
+
       t3e(account: account.label)
       document_name = human_action_name.to_s
       filename = "#{human_action_name}_#{Time.zone.now.l(format: '%Y%m%d%H%M%S')}"
+
+      conditions_code = '(' + self.class.list_conditions.gsub(/\s*\n\s*/, ';') + ')'
+
+      obj = eval(conditions_code)
+
+      @calculations = JournalEntryItem.joins(%i[entry account journal]).where(obj).pluck("SUM(#{JournalEntryItem.table_name}.absolute_debit) AS cumulated_absolute_debit, SUM(#{JournalEntryItem.table_name}.absolute_credit) AS cumulated_absolute_credit").first
+      @calculations << @calculations[0] - @calculations[1]
+
       respond_to do |format|
         format.html
         format.ods do

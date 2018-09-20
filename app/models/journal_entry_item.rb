@@ -359,6 +359,14 @@ class JournalEntryItem < Ekylibre::Record::Base
     (self.cumulated_absolute_debit - self.cumulated_absolute_credit)
   end
 
+  def cumulated_absolute_debit_balance
+    cumulated_absolute_balance >= 0 ? cumulated_absolute_balance : 0
+  end
+
+  def cumulated_absolute_credit_balance
+    cumulated_absolute_balance < 0 ? cumulated_absolute_balance.abs : 0
+  end
+
   #   # this method allows to lock the entry_item.
   #   def close
   #     self.update_column(:closed, true)
