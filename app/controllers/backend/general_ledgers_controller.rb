@@ -61,12 +61,12 @@ module Backend
       t.column :letter, hidden: true
       t.column :real_debit,  currency: :real_currency, hidden: true
       t.column :real_credit, currency: :real_currency, hidden: true
-      t.column :debit,  currency: true, on_select: :sum, hidden: true
-      t.column :credit, currency: true, on_select: :sum, hidden: true
-      t.column :absolute_debit,  currency: :absolute_currency, on_select: :sum
-      t.column :absolute_credit, currency: :absolute_currency, on_select: :sum
-      t.column :cumulated_absolute_debit,  currency: :absolute_currency, on_select: :sum, hidden: true
-      t.column :cumulated_absolute_credit, currency: :absolute_currency, on_select: :sum, hidden: true
+      t.column :debit,  currency: true, hidden: true
+      t.column :credit, currency: true, hidden: true
+      t.column :absolute_debit,  currency: :absolute_currency
+      t.column :absolute_credit, currency: :absolute_currency
+      t.column :cumulated_absolute_debit,  currency: :absolute_currency, hidden: true
+      t.column :cumulated_absolute_credit, currency: :absolute_currency, hidden: true
     end
 
     list(:subledger_journal_entry_items, model: :journal_entry_items, conditions: list_conditions, joins: %i[entry account journal], order: "#{JournalEntryItem.table_name}.printed_on, #{JournalEntryItem.table_name}.id") do |t|
@@ -85,14 +85,14 @@ module Backend
       t.column :letter
       t.column :real_debit,  currency: :real_currency, hidden: true
       t.column :real_credit, currency: :real_currency, hidden: true
-      t.column :debit,  currency: true, class: :gutter
-      t.column :credit, currency: true, class: :gutter
+      t.column :debit,  currency: true, class: :gutter, default: ''
+      t.column :credit, currency: true, class: :gutter, default: ''
       t.column :absolute_debit,  currency: :absolute_currency, hidden: true
       t.column :absolute_credit, currency: :absolute_currency, hidden: true
       t.column :cumulated_absolute_debit,  currency: :absolute_currency, hidden: true
       t.column :cumulated_absolute_credit, currency: :absolute_currency, hidden: true
-      t.column :cumulated_absolute_debit_balance, currency: :absolute_currency, class: :gutter
-      t.column :cumulated_absolute_credit_balance, currency: :absolute_currency, class: :gutter
+      t.column :cumulated_absolute_debit_balance, currency: :absolute_currency, class: :gutter, default: ''
+      t.column :cumulated_absolute_credit_balance, currency: :absolute_currency, class: :gutter, default: ''
     end
 
     def index
@@ -144,7 +144,7 @@ module Backend
 
       obj = eval(conditions_code)
 
-      @calculations = JournalEntryItem.joins(%i[entry account journal]).where(obj).pluck("SUM(#{JournalEntryItem.table_name}.absolute_debit) AS cumulated_absolute_debit, SUM(#{JournalEntryItem.table_name}.absolute_credit) AS cumulated_absolute_credit").first
+      @calculations = JournalEntryItem.joins(%i[entry account journal]).where(obj).pluck("COALESCE(SUM(#{JournalEntryItem.table_name}.absolute_debit), 0) AS cumulated_absolute_debit, COALESCE(SUM(#{JournalEntryItem.table_name}.absolute_credit), 0) AS cumulated_absolute_credit").first
       @calculations << @calculations[0] - @calculations[1]
 
       respond_to do |format|
