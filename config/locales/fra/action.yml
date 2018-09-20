@@ -1589,8 +1589,8 @@ fra:
     markers: "Objectifs" #?
     marketable_items_count: "Nombre de pièces commercialisables" #?
     marketable_net_mass: "Masse nette commercialisable"
-    mask_draft_items: "Masquer les lignes d'écriture en brouillard"
-    mask_lettered_items: "Masquer les lignes lettrées"
+    mask_draft_items: "Retirer les lignes d'écriture en brouillard"
+    mask_lettered_items: "Retirer les lignes d'écriture lettrées"
     mass: "Masse"
     max_level: "Niveau maximum" #?
     maximal_temperature: "Température maximale"
