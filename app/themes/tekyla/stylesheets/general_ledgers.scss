@@ -14,6 +14,21 @@
   }
 }
 
+#subledger-journal-entry-items-totals {
+  td {
+    height: $fixed-footer-line-height;
+    line-height: $fixed-footer-line-height;
+    padding-top: 0;
+    padding-bottom: 0;
+    text-align: right;
+    vertical-align: middle;
+
+    &.gutter{
+      background-color: white;
+    }
+  }
+}
+
 #subledger_journal_entry_items-list, #subledger-journal-entry-items-totals {
   display: block;
 
