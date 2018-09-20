@@ -385,15 +385,15 @@ class Intervention < Ekylibre::Record::Base
     end
     attributes[:receptions_cost] = receptions_cost.to_f.round(2)
 
-    if self.costing
-      self.costing.update(attributes)
+    if costing
+      costing.update(attributes)
     else
-      self.update_columns(costing_id: InterventionCosting.create!(attributes))
+      update_columns(costing_id: InterventionCosting.create!(attributes))
     end
   end
 
   def create_missing_costing
-    update_costing unless self.costing.present?
+    update_costing if costing.blank?
   end
 
   def initialize_record(state: :done)

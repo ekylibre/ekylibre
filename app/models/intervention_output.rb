@@ -125,8 +125,8 @@ class InterventionOutput < InterventionProductParameter
 
   def compute_output_planting_name
     compute_name = []
-    if self.group && self.group.targets.any?
-      land_parcel = self.group.targets.detect { |target| target.product.is_a?(LandParcel) }
+    if group && group.targets.any?
+      land_parcel = group.targets.detect { |target| target.product.is_a?(LandParcel) }
       compute_name << land_parcel.product.name if land_parcel
     end
 

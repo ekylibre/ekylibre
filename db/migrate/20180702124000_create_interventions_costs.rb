@@ -9,7 +9,7 @@ class CreateInterventionsCosts < ActiveRecord::Migration
 
     add_column :interventions, :intervention_costs_id, :integer
 
-    say "Please think to run `bundle exec rake maintenance:interventions:update_costings`".yellow
+    say 'Please think to run `bundle exec rake maintenance:interventions:update_costings`'.yellow
   end
 
   def down
