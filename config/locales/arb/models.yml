@@ -253,6 +253,8 @@ arb:
         account: "حساب" #?
         comment: "تعليق" #?
         created_at: "انشأت ففي" #?
+        # cumulated_absolute_credit_balance: "Credit balance"
+        # cumulated_absolute_debit_balance: "Debit balance"
         # name: "Entry item label"
         real_credit: "ائتمان" #?
       land_parcel:

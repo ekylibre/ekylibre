@@ -773,6 +773,7 @@ jpn:
     access: "アクセス"
     access_parameters: "アクセス・パラメータ"
     account_for: "以下のためのアカウント"
+    # account_totals: "Account Totals"
     accountancy: "会計学"
     accountancy_balance: "会計収支"
     accountancy_preferences: "会計の好み"

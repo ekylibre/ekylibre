@@ -763,6 +763,7 @@ spa:
       entities: "Personas" #?
       journal_entries: "Éscrituras" #?
     account_tangible_fixed_assets: "Inmobilisaciones corporales" #?
+    # account_totals: "Account Totals"
     account_untangible_fixed_assets: "Inmobilisacions incorporales" #?
     account_update: "Modificar el cuento" #?
     account_value_current: "BRUT" #?

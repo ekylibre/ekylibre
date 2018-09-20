@@ -773,6 +773,7 @@ ita:
     access: "Accesso"
     access_parameters: "parametri di accesso"
     account_for: "Conto per"
+    # account_totals: "Account Totals"
     accountancy: "Contabilità"
     accountancy_balance: "equilibrio Contabilità"
     accountancy_preferences: "Preferenze di contabilità"

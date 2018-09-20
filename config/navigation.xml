@@ -148,7 +148,7 @@
       <item name="general_ledger">
         <page to="backend/general_ledgers#index"/>
         <page to="backend/general_ledgers#show"/>
-        <page to="backend/general_ledgers#list_journal_entry_items"/>
+        <page to="backend/general_ledgers#list_journal_entry_items" nonexistent="true"/>
       </item>
     </group>
     <group name="fixed_assets" icon="home">
@@ -2074,6 +2074,7 @@
       </item>
       <item name="general_ledgers">
         <page to="backend/general_ledgers#list_ledgers_journal_entry_items"/>
+        <page to="backend/general_ledgers#list_subledger_journal_entry_items"/>
         <page to="backend/general_ledgers#mask_draft_items"/>
         <page to="backend/general_ledgers#mask_lettered_items"/>
       </item>

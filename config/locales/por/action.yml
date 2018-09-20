@@ -712,6 +712,7 @@ por:
     access: "Acesso"
     access_parameters: "Parâmetros de acesso"
     account_for: "Responsável por"
+    # account_totals: "Account Totals"
     accountancy: "Contabilidade"
     accountancy_balance: "Contabilidade do balanço de"
     accountancy_preferences: "Preferências de contabilidade"

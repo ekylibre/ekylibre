@@ -33,6 +33,8 @@ deu:
       fixed_asset_depreciation:
         asset_amount: "verantwortlich Wert"
       journal_entry_item:
+        # cumulated_absolute_credit_balance: "Credit balance"
+        # cumulated_absolute_debit_balance: "Debit balance"
         # name: "Entry item label"
       land_parcel:
         born_at: "Hergestellt in"

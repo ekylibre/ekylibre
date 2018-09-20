@@ -534,7 +534,7 @@ Rails.application.routes.draw do
         get :list_ledgers_journal_entry_items
       end
       member do
-        get :list_journal_entry_items
+        get :list_subledger_journal_entry_items
       end
     end
 

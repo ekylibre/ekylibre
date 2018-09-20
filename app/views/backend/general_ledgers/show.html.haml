@@ -1,9 +1,4 @@
-- financial_year = FinancialYear.find_by(id: params[:current_financial_year])
-- financial_year ||= FinancialYear.current
-- main_financial_year_selector(financial_year)
-- params[:period] = financial_year.started_on.to_s << '_' << financial_year.stopped_on.to_s
-- params[:current_financial_year] ||= financial_year.id
-
+- main_financial_year_selector(FinancialYear.find_by(id: params[:current_financial_year]))
 - if params[:period]
   = main_toolbar do |t|
     = dropdown_menu_button(:export.ta, icon: :download) do |d|
@@ -20,8 +15,18 @@
   - k.next_navigation :next_ledger, class: "btn btn-next icn icn-after", params: params.slice(:current_financial_year, :ledger)
 
 
-= main_list(:journal_entry_items)
+= main_list(:subledger_journal_entry_items)
 - content_for 'meta_toolbar'.to_sym do
   .active-list-actions
     = mask_lettered_items_button 'journal_entry_items-list'
     = mask_draft_items_button 'journal_entry_items-list'
+
+= footer_line do
+  %table#subledger-journal-entry-items-totals 
+    %tbody
+      %tr
+        %td{colspan: 6}= :account_totals.tl
+        %td.gutter= number_to_accountancy @calculations[0]
+        %td.gutter= number_to_accountancy @calculations[1]
+        %td.gutter= @calculations[2] >= 0 ? number_to_accountancy(@calculations[2]) : nil
+        %td.gutter= @calculations[2] < 0 ? number_to_accountancy(@calculations[2].abs) : nil

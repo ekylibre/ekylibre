@@ -707,6 +707,7 @@ deu:
     access: "Zugriff"
     access_parameters: "Zugangsparameter"
     account_for: "Erklären"
+    # account_totals: "Account Totals"
     accountancy: "Buchhaltung"
     accountancy_balance: "Rechnungswesen Balance"
     accountancy_preferences: "Accountancy Präferenzen"

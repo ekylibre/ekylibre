@@ -982,6 +982,7 @@ eng:
     access: "Access"
     access_parameters: "Access parameters"
     account_for: "Account for"
+    account_totals: "Account Totals"
     accountancy: "Accountancy"
     accountancy_balance: "Accountancy balance"
     accountancy_preferences: "Accountancy preferences"

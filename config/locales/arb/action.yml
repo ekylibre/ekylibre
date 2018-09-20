@@ -959,6 +959,7 @@ arb:
       entities: "أشخاص" #?
       journal_entry_items: "ادخالات الدفاتر اليومية" #?
     account_tangible_fixed_assets: "موجودات ثابتة وملموسة" #?
+    # account_totals: "Account Totals"
     account_untangible_fixed_assets: "موجودات ثابتة وغير ملموسة" #?
     account_update: "تعديل الحسابات" #?
     account_value_current: "القيمة الحالية" #?
