@@ -377,6 +377,7 @@ class Account < Ekylibre::Record::Base
         raise ArgumentError, "The accounting system #{name.inspect} is unknown."
       end
       Preference.set!(:accounting_system, item.name)
+      @accounting_system = item.name
     end
 
     # Returns the human name of the accounting system
