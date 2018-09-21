@@ -140,7 +140,10 @@ animals_003:
   name: Bonnemine
   nature_id: 16
   number: P00000000004
-  reading_cache: {}
+  reading_cache:
+    length:
+    - Measure
+    - 0.0 meter
   type: Animal
   updated_at: 2014-11-01 19:29:58.088036000 Z
   updater_id: 1
@@ -163,7 +166,10 @@ animals_004:
   name: Isabelle
   nature_id: 16
   number: P00000000005
-  reading_cache: {}
+  reading_cache:
+    length:
+    - Measure
+    - 0.0 meter
   type: Animal
   updated_at: 2014-11-01 19:35:50.372083000 Z
   updater_id: 1
@@ -2121,7 +2127,10 @@ matters_008:
   name: Semence d’avoine d’hiver une de mai ‒ sac de 25kg
   nature_id: 10
   number: P00000000001
-  reading_cache: {}
+  reading_cache:
+    length:
+    - Measure
+    - 0.0 meter
   type: Matter
   updated_at: 2016-02-08 10:33:27.670999000 Z
   updater_id: 1
@@ -2142,7 +2151,10 @@ matters_009:
   name: Botte de paille de blé ‒ balle ronde
   nature_id: 9
   number: P00000000002
-  reading_cache: {}
+  reading_cache:
+    length:
+    - Measure
+    - 0.0 meter
   type: Matter
   updated_at: 2014-11-01 16:00:08.339341000 Z
   updater_id: 1
@@ -2163,7 +2175,10 @@ matters_010:
   name: Semence d’avoine d’hiver une de mai ‒ sac de 25kg (1)
   nature_id: 10
   number: P00000000003
-  reading_cache: {}
+  reading_cache:
+    length:
+    - Measure
+    - 0.0 meter
   type: Matter
   updated_at: 2014-11-01 16:01:24.156172000 Z
   updater_id: 1
@@ -2183,7 +2198,10 @@ matters_011:
   name: Microthiol sp disp
   nature_id: 8
   number: P00000000006
-  reading_cache: {}
+  reading_cache:
+    length:
+    - Measure
+    - 0.0 meter
   type: Matter
   updated_at: 2014-11-01 20:19:35.354902000 Z
   updater_id: 1
@@ -2203,7 +2221,10 @@ matters_012:
   name: Riflexine
   nature_id: 19
   number: ARLXP00000000006
-  reading_cache: {}
+  reading_cache:
+    length:
+    - Measure
+    - 0.0 meter
   type: Matter
   updated_at: 2014-11-01 20:23:54.912213000 Z
   updater_id: 1
@@ -2223,7 +2244,10 @@ matters_013:
   name: Acetal
   nature_id: 19
   number: WARLXP00000000007
-  reading_cache: {}
+  reading_cache:
+    length:
+    - Measure
+    - 0.0 meter
   type: Matter
   updated_at: 2014-11-01 20:23:55.247530000 Z
   updater_id: 1
@@ -2360,7 +2384,10 @@ matters_019:
   name: Ammonitre 33,5%  Big Bag
   nature_id: 33
   number: PR00000000042
-  reading_cache: {}
+  reading_cache:
+    length:
+    - Measure
+    - 0.0 meter
   type: Matter
   updated_at: 2014-11-07 15:25:51.192693000 Z
   updater_id: 1
@@ -2404,7 +2431,10 @@ matters_021:
   name: Semence de trèfle violet ‒ Ségur ‒ sac de 10kg
   nature_id: 10
   number: PR00000000044
-  reading_cache: {}
+  reading_cache:
+    length:
+    - Measure
+    - 0.0 meter
   type: Matter
   updated_at: 2014-11-07 15:44:20.455537000 Z
   updater_id: 1
@@ -2425,7 +2455,10 @@ matters_022:
   name: Semence mixte
   nature_id: 10
   number: PR00000000045
-  reading_cache: {}
+  reading_cache:
+    length:
+    - Measure
+    - 0.0 meter
   type: Matter
   updated_at: 2014-11-07 15:44:20.589234000 Z
   updater_id: 1
@@ -2494,7 +2527,10 @@ matters_025:
   name: Plant de vigne So4/Sauvignon blanc
   nature_id: 37
   number: PR00000000051
-  reading_cache: {}
+  reading_cache:
+    length:
+    - Measure
+    - 0.0 meter
   tracking_id: 3
   type: Matter
   updated_at: 2014-11-07 16:47:34.638130000 Z
@@ -2725,7 +2761,10 @@ matters_035:
   name: Acide lactique ‒ 25kg
   nature_id: 49
   number: PR00000000069
-  reading_cache: {}
+  reading_cache:
+    length:
+    - Measure
+    - 0.0 meter
   type: Matter
   updated_at: 2014-11-07 19:05:46.886304000 Z
   updater_id: 1
@@ -2745,7 +2784,10 @@ matters_036:
   name: Acide malique ‒ 25kg
   nature_id: 49
   number: PR00000000070
-  reading_cache: {}
+  reading_cache:
+    length:
+    - Measure
+    - 0.0 meter
   type: Matter
   updated_at: 2014-11-07 19:05:46.968107000 Z
   updater_id: 1
@@ -2766,7 +2808,10 @@ matters_037:
   name: Levure œnologique ‒ sachet de 500g
   nature_id: 50
   number: PR00000000071
-  reading_cache: {}
+  reading_cache:
+    length:
+    - Measure
+    - 0.0 meter
   type: Matter
   updated_at: 2014-11-07 19:05:47.037645000 Z
   updater_id: 1
@@ -2833,7 +2878,10 @@ matters_040:
   name: Sucre blanc ‒ 25kg
   nature_id: 51
   number: PR00000000074
-  reading_cache: {}
+  reading_cache:
+    length:
+    - Measure
+    - 0.0 meter
   type: Matter
   updated_at: 2014-11-07 19:12:04.938158000 Z
   updater_id: 1
@@ -2876,7 +2924,10 @@ matters_042:
   name: SO₂ liquide 10%
   nature_id: 53
   number: PR00000000076
-  reading_cache: {}
+  reading_cache:
+    length:
+    - Measure
+    - 0.0 meter
   type: Matter
   updated_at: 2014-11-07 19:22:38.077250000 Z
   updater_id: 1
@@ -2920,7 +2971,10 @@ matters_044:
   name: Bouteilles vides
   nature_id: 54
   number: PR00000000080
-  reading_cache: {}
+  reading_cache:
+    length:
+    - Measure
+    - 32.0 centimeter
   type: Matter
   updated_at: 2014-11-07 19:34:09.456173000 Z
   updater_id: 1
@@ -2941,7 +2995,10 @@ matters_045:
   name: Bouchon naturel
   nature_id: 55
   number: PR00000000081
-  reading_cache: {}
+  reading_cache:
+    length:
+    - Measure
+    - 5.0 centimeter
   type: Matter
   updated_at: 2014-11-07 19:34:09.539919000 Z
   updater_id: 1
@@ -3469,7 +3526,10 @@ workers_001:
   number: '21001'
   parent_id: 65
   person_id: 9
-  reading_cache: {}
+  reading_cache:
+    length:
+    - Measure
+    - 0.0 meter
   team_id: 1
   type: Worker
   updated_at: 2014-10-31 17:19:32.000000000 Z

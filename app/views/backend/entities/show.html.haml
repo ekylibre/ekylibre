@@ -58,7 +58,8 @@
       - l.side :sale_opportunities, new: resource.client?, if: Proc.new {|r| r.sale_opportunities.any? || r.client?}
       - l.side :sales, new: (resource.client? ? { redirect: nil } : false) , if: Proc.new {|r| r.sales.any? || r.client? }
       - l.side :shipments, new: resource.client?, if: Proc.new {|r| r.shipments.any? || r.client? }
-      - l.side :purchases, new: resource.supplier?, if: Proc.new {|r| r.purchases.any? || r.supplier? }
+      - l.side :purchase_orders, new: resource.supplier?, if: Proc.new { |r| r.purchase_orders.any? || r.supplier? }
+      - l.side :purchase_invoices, new: resource.supplier?, if: Proc.new { |r| r.purchase_invoices.any? || r.supplier? }
       - l.side :receptions, new: resource.supplier?, if: Proc.new {|r| r.receptions.any? || r.supplier? }
       - l.side :incoming_payments, new: false, if: Proc.new {|r| r.incoming_payments.any? || r.client? }
       - l.side :purchase_payments, new: false, if: Proc.new {|r| r.purchase_payments.any? || r.supplier? }

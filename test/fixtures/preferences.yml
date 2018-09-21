@@ -5070,3 +5070,134 @@ preferences_440:
   updated_at: 2018-09-20 09:33:27.675258000 Z
   updater_id: 1
   user_id: 1
+preferences_441:
+  boolean_value: false
+  created_at: 2018-09-20 14:11:20.606167000 Z
+  creator_id: 1
+  id: 442
+  lock_version: 0
+  name: interface.snippets.receptions.collapsed
+  nature: boolean
+  updated_at: 2018-09-20 14:11:20.606167000 Z
+  updater_id: 1
+  user_id: 1
+preferences_442:
+  boolean_value: false
+  created_at: 2018-09-20 14:11:20.641797000 Z
+  creator_id: 1
+  id: 443
+  lock_version: 0
+  name: interface.snippets.shipments.collapsed
+  nature: boolean
+  updated_at: 2018-09-20 14:11:20.641797000 Z
+  updater_id: 1
+  user_id: 1
+preferences_443:
+  boolean_value: false
+  created_at: 2018-09-20 14:11:20.657698000 Z
+  creator_id: 1
+  id: 444
+  lock_version: 0
+  name: interface.snippets.deliveries.collapsed
+  nature: boolean
+  updated_at: 2018-09-20 14:11:20.657698000 Z
+  updater_id: 1
+  user_id: 1
+preferences_444:
+  boolean_value: true
+  created_at: 2018-09-20 14:11:32.631071000 Z
+  creator_id: 1
+  id: 445
+  lock_version: 0
+  name: interface.kujakus.backend-receptions-index-4.collapsed
+  nature: boolean
+  updated_at: 2018-09-20 14:11:32.631071000 Z
+  updater_id: 1
+  user_id: 1
+preferences_445:
+  created_at: 2018-09-20 14:11:32.673013000 Z
+  creator_id: 1
+  id: 446
+  lock_version: 0
+  name: kujaku.feathers.backend-receptions-index-4:0.default
+  nature: string
+  updated_at: 2018-09-20 14:11:32.673013000 Z
+  updater_id: 1
+  user_id: 1
+preferences_446:
+  created_at: 2018-09-20 14:11:33.149445000 Z
+  creator_id: 1
+  id: 447
+  lock_version: 0
+  name: list._receptions_list_receptions_tag
+  nature: string
+  string_value: {}
+  updated_at: 2018-09-20 14:11:33.149445000 Z
+  updater_id: 1
+  user_id: 1
+preferences_447:
+  created_at: 2018-09-20 14:11:51.881855000 Z
+  creator_id: 1
+  id: 448
+  lock_version: 0
+  name: cobbler.receptions-show
+  nature: string
+  string_value: {}
+  updated_at: 2018-09-20 14:11:51.881855000 Z
+  updater_id: 1
+  user_id: 1
+preferences_448:
+  created_at: 2018-09-20 14:11:51.920729000 Z
+  creator_id: 1
+  id: 449
+  lock_version: 0
+  name: list._receptions_list_storings_tag
+  nature: string
+  string_value: {}
+  updated_at: 2018-09-20 14:11:51.920729000 Z
+  updater_id: 1
+  user_id: 1
+preferences_449:
+  created_at: 2018-09-20 14:12:41.225893000 Z
+  creator_id: 1
+  id: 450
+  lock_version: 0
+  name: cobbler.purchase_invoices-show
+  nature: string
+  string_value: {}
+  updated_at: 2018-09-20 14:12:41.225893000 Z
+  updater_id: 1
+  user_id: 1
+preferences_450:
+  created_at: 2018-09-20 14:12:41.239500000 Z
+  creator_id: 1
+  id: 451
+  lock_version: 0
+  name: list._purchase_invoices_list_items_tag
+  nature: string
+  string_value: {}
+  updated_at: 2018-09-20 14:12:41.239500000 Z
+  updater_id: 1
+  user_id: 1
+preferences_451:
+  created_at: 2018-09-20 14:12:41.988248000 Z
+  creator_id: 1
+  id: 452
+  lock_version: 0
+  name: list._purchase_invoices_list_receptions_tag
+  nature: string
+  string_value: {}
+  updated_at: 2018-09-20 14:12:41.988248000 Z
+  updater_id: 1
+  user_id: 1
+preferences_452:
+  created_at: 2018-09-21 12:13:07.843183000 Z
+  creator_id: 1
+  id: 453
+  lock_version: 0
+  name: list._project_budgets_list_project_budgets_tag
+  nature: string
+  string_value: {}
+  updated_at: 2018-09-21 12:13:07.843183000 Z
+  updater_id: 1
+  user_id: 1
