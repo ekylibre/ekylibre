@@ -46,27 +46,21 @@ module Backend
       code.c
     end
 
-    list(:ledgers_journal_entry_items, model: :journal_entry_items, conditions: list_conditions, joins: %i[entry account journal], order: "accounts.number, journal_entries.number, #{JournalEntryItem.table_name}.position") do |t|
-      t.column :account, url: true, hidden: true
-      t.column :account_number, through: :account, label_method: :number, url: { controller: :general_ledgers, account_number: 'RECORD.account.number'.c, current_financial_year: 'params[:current_financial_year]'.c, ledger: 'RECORD.account&.centralizing_account&.number'.c }
-      t.column :account_name, through: :account, label_method: :name, url: true
+    def self.account_conditions
+      code = ''
+      code << search_conditions({ journal_entry_item: %i[name debit credit real_debit real_credit] }, conditions: 'c') + "\n"
+      code << account_journal_period_crit('params')
+      code << centralizing_crit('params')
+      code << "c\n"
+      code.c
+    end
+
+    list(:ledger_accounts, model: :accounts, conditions: account_conditions, joins: %i[journal_entry_items], order: 'accounts.number', distinct: 'accounts.number') do |t|
+      t.column :number, url: { controller: :general_ledgers, account_number: 'RECORD.number'.c, current_financial_year: 'params[:current_financial_year]'.c, ledger: 'RECORD.centralizing_account&.number'.c }
+      t.column :name, url: true
       t.column :description
-      t.column :entry_number, url: true, hidden: true
-      t.column :continuous_number, hidden: true
-      t.column :code, through: :journal, label: :journal, hidden: true
-      t.column :printed_on, hidden: true
-      t.column :name, hidden: true
-      t.column :reference_number, through: :entry, hidden: true
-      t.column :variant, url: true, hidden: true
-      t.column :letter, hidden: true
-      t.column :real_debit,  currency: :real_currency, hidden: true
-      t.column :real_credit, currency: :real_currency, hidden: true
-      t.column :debit,  currency: true, hidden: true
-      t.column :credit, currency: true, hidden: true
-      t.column :absolute_debit,  currency: :absolute_currency
-      t.column :absolute_credit, currency: :absolute_currency
-      t.column :cumulated_absolute_debit,  currency: :absolute_currency, hidden: true
-      t.column :cumulated_absolute_credit, currency: :absolute_currency, hidden: true
+      # t.column :cumulated_absolute_debit_balance,  currency: :absolute_currency
+      # t.column :cumulated_absolute_credit_balance, currency: :absolute_currency
     end
 
     list(:subledger_journal_entry_items, model: :journal_entry_items, conditions: list_conditions, joins: %i[entry account journal], order: "#{JournalEntryItem.table_name}.printed_on, #{JournalEntryItem.table_name}.id") do |t|
