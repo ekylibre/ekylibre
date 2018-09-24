@@ -3,7 +3,7 @@ class CreateNamingFormatTable < ActiveRecord::Migration
     create_table :naming_formats do |t|
       t.string :name, null: false
       t.string :type, null: false
-      t.timestamps
+      t.timestamps null: true
     end
 
     create_table :naming_format_fields do |t|

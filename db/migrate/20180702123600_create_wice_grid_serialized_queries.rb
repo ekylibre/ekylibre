@@ -5,7 +5,7 @@ class CreateWiceGridSerializedQueries < ::ActiveRecord::Migration #:nodoc:
       t.column :grid_name, :string
       t.column :query,     :text
 
-      t.timestamps
+      t.timestamps null: true
     end
     add_index :wice_grid_serialized_queries, :grid_name
     add_index :wice_grid_serialized_queries, %i[grid_name id]
