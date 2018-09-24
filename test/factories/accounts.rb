@@ -5,6 +5,7 @@ FactoryBot.define do
     nature { 'general' }
     sequence(:name) { |n| "Compte 801 - #{n}" }
     sequence(:number) { |n| (801000 + n).to_s }
+    number_is_valid { true }
 
     trait :client do
       sequence(:name) { |n| "Compte client #{n}" }
