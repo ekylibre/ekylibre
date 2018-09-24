@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 9.6.3
--- Dumped by pg_dump version 9.6.3
+-- Dumped from database version 9.6.6
+-- Dumped by pg_dump version 9.6.6
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -254,7 +254,8 @@ CREATE TABLE accounts (
     custom_fields jsonb,
     auxiliary_number character varying,
     nature character varying,
-    centralizing_account_name character varying
+    centralizing_account_name character varying,
+    number_is_valid boolean DEFAULT false NOT NULL
 );
 
 
@@ -17949,4 +17950,6 @@ INSERT INTO schema_migrations (version) VALUES ('20180711133214');
 INSERT INTO schema_migrations (version) VALUES ('20180712091619');
 
 INSERT INTO schema_migrations (version) VALUES ('20180730150532');
+
+INSERT INTO schema_migrations (version) VALUES ('20180921092835');
 

@@ -89,12 +89,16 @@ class Account < Ekylibre::Record::Base
   validates :last_letter, length: { allow_nil: true, maximum: 10 }
   validates :name, length: { allow_nil: true, maximum: 200 }
   validates :number, uniqueness: true
-  validates :number, length: { is: 8 }, format: { without: /\A[1-9]0*\z|\A0/ }, if: :general?
+  validates :number, length: { is: 8 }, format: { without: /\A[1-9]0*\z|\A0/ }, unless: :invalid_number_unchanged?
   validates :number, length: { minimum: 4 }, if: :auxiliary?
   validates :number, format: { with: /\A\d(\d(\d[0-9A-Z]*)?)?\z/ }, unless: :auxiliary?
   validates :auxiliary_number, length: { allow_blank: true, minimum: 0 }, unless: :auxiliary?
   validates :auxiliary_number, presence: true, format: { without: /\A(0*)\z/ }, if: :auxiliary?
   validates :centralizing_account_name, presence: true, if: :auxiliary?
+
+  def invalid_number_unchanged?
+    self.general? && !self.number_is_valid && !self.changed.include?('number')
+  end
 
   enumerize :nature, in: %i[general auxiliary], default: :general, predicates: true
 
@@ -181,7 +185,7 @@ class Account < Ekylibre::Record::Base
   }
 
   # This method:allows to create the parent accounts if it is necessary.
-  before_validation do
+  before_validation(on: :create) do
     if general?
       self.auxiliary_number = nil
       self.centralizing_account = nil
@@ -193,6 +197,19 @@ class Account < Ekylibre::Record::Base
     self.reconcilable = reconcilableable? if reconcilable.nil?
     self.label = tc(:label, number: number.to_s, name: name.to_s)
     self.usages = Account.find_parent_usage(number) if usages.blank? && number
+    self.number_is_valid = true
+  end
+
+  before_validation(on: :update) do
+    self.number = number.ljust(8, '0') if general? && new_number?
+  end
+
+  def new_number?
+    self.changed.include?('number')
+  end
+
+  after_validation do
+    self.number_is_valid = true if !self.number_is_valid && self.number.length == 8
   end
 
   def protected_auxiliary_number?
