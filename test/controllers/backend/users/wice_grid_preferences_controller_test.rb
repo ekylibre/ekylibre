@@ -2,7 +2,7 @@ require 'test_helper'
 module Backend
   module Users
     class WiceGridPreferencesControllerTest < ActionController::TestCase
-      test_restfully_all_actions
+      test_restfully_all_actions except: :save_column
     end
   end
 end

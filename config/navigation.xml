@@ -689,7 +689,6 @@
         <page to="backend/activities#list_productions"/>
         <page to="backend/activities#new"/>
         <page to="backend/activities#show"/>
-        <page to="backend/activities#list_supports"/>
         <page to="backend/activities#update"/>
         <page to="backend/activities#unroll"/>
         <page to="backend/activity_productions#index"/>
@@ -1448,7 +1447,6 @@
         <page to="backend/accounts#show"/>
         <page to="backend/accounts#unroll"/>
         <page to="backend/accounts#update"/>
-        <page to="backend/accounts#set_interval_preference"/>
       </item>
       <item name="financial_years">
         <page to="backend/financial_years#index"/>

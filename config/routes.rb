@@ -222,7 +222,6 @@ Rails.application.routes.draw do
       member do
         get :list_distributions
         get :list_productions
-        get :list_supports
       end
     end
 

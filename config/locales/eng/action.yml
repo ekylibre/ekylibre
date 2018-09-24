@@ -25,7 +25,6 @@ eng:
       # mask_lettered_items: "Mask lettered items account: %{name}"
       new: "New account"
       reconciliation: "Account reconciliation"
-      # set_interval_preference: "Set interval preference account: %{name}"
       show: "Account: %{number} - %{name}"
       unmark: "Unmark account"
     backend/activities:
@@ -2645,7 +2644,6 @@ eng:
       # search_by_expression: "Search by expression"
       select: "Select"
       sell: "Turn into sale"
-      # set_interval_preference: "Set interval preference"
       ship: "Ship"
       show: "Show"
       show_export_preview: "View a preview of the document (may increase loading time)" #?
