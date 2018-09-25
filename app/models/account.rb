@@ -97,6 +97,7 @@ class Account < Ekylibre::Record::Base
   validates :centralizing_account_name, presence: true, if: :auxiliary?
 
   def invalid_number_unchanged?
+    return true if self.auxiliary?
     self.general? && !self.number_is_valid && !self.changed.include?('number')
   end
 
