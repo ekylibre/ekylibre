@@ -1,8 +1,11 @@
 language: ruby
 bundler_args: "--jobs 3 --retry 3 --without development"
 cache:
+  bundler: true
+  yarn: true
   directories:
     - vendor/bundle
+    - node_modules
 sudo: required
 rvm:
 - 2.3.4
