@@ -57,8 +57,8 @@ module Backend
 
     def self.ledger_accounts_selections
       s = []
-      s << ['CASE WHEN (SUM(journal_entry_items.real_debit) - SUM(journal_entry_items.real_credit)) >= 0 THEN SUM(journal_entry_items.real_debit) - SUM(journal_entry_items.real_credit) ELSE 0 END', 'sum_real_debit_balance']
-      s << ['CASE WHEN (SUM(journal_entry_items.real_debit) - SUM(journal_entry_items.real_credit)) < 0 THEN @ SUM(journal_entry_items.real_debit) - SUM(journal_entry_items.real_credit) ELSE 0 END', 'sum_real_credit_balance']
+      s << ['CASE WHEN (SUM(journal_entry_items.real_debit) - SUM(journal_entry_items.real_credit)) >= 0 THEN SUM(journal_entry_items.real_debit) - SUM(journal_entry_items.real_credit) ELSE 0 END', 'cumulated_absolute_debit_balance']
+      s << ['CASE WHEN (SUM(journal_entry_items.real_debit) - SUM(journal_entry_items.real_credit)) < 0 THEN @ SUM(journal_entry_items.real_debit) - SUM(journal_entry_items.real_credit) ELSE 0 END', 'cumulated_absolute_credit_balance']
       s << ['accounts.number']
       s << ['accounts.name'] << ['accounts.description'] << ['accounts.id'] << ['accounts.centralizing_account_id']
     end
@@ -67,8 +67,8 @@ module Backend
       t.column :number, url: { controller: :general_ledgers, account_number: 'RECORD.number'.c, current_financial_year: 'params[:current_financial_year]'.c, ledger: 'RECORD.centralizing_account&.number'.c }
       t.column :name, url: true
       t.column :description
-      t.column :sum_real_debit_balance
-      t.column :sum_real_credit_balance
+      t.column :cumulated_absolute_debit_balance
+      t.column :cumulated_absolute_credit_balance
     end
 
     list(:subledger_journal_entry_items, model: :journal_entry_items, conditions: list_conditions, joins: %i[entry account journal], order: "#{JournalEntryItem.table_name}.printed_on, #{JournalEntryItem.table_name}.id") do |t|

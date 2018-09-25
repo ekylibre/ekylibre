@@ -1,6 +1,9 @@
 eng:
   activerecord:
     attributes:
+      account:
+        cumulated_absolute_credit_balance: "Credit balance"
+        cumulated_absolute_debit_balance: "Debit balance"
       activity_budget:
         expenses_amount: "Expenses amount"
         revenues_amount: "Revenues amount"

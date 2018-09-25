@@ -8,6 +8,9 @@ fra:
               greater_than: "Le montant à payer doit être supérieur à zéro" #?
   activerecord:
     attributes:
+      account:
+        cumulated_absolute_credit_balance: "Solde crédit"
+        cumulated_absolute_debit_balance: "Solde débit"
       activity: #?
         nature: "Type de centre analytique" #?
         net_margin: "Marge nette" #?
