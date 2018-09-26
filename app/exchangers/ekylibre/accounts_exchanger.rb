@@ -34,7 +34,7 @@ module Ekylibre
         }.to_struct
 
         # Exclude number dedicated to centralizing accounts
-        next if r.number == '401' || '411'
+        next if r.number.eql?('401') || r.number.eql?('411')
 
         # get usage from parent account or import account from nomenclature
         usages = Account.find_parent_usage(r.number)
@@ -50,7 +50,6 @@ module Ekylibre
         if r.number.start_with?('401','411')
           attributes[:centralizing_account_name] = r.number.start_with?('401') ? 'suppliers' : 'clients'
           attributes[:auxiliary_number] = r.number[3, r.number.length]
-          attributes[:number] = r.number[0...3]
           attributes[:nature] = 'auxiliary'
         end
         account.attributes = attributes
