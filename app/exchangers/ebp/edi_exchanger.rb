@@ -41,10 +41,10 @@ module EBP
                   number: line[1]
                 }
                 if line[1].start_with?('401','411')
-                    attributes[:centralizing_account_name] = line[1].start_with?('401') ? 'suppliers' : 'clients'
-                    attributes[:auxiliary_number] = line[1][3, line[1].length]
-                    attributes[:number] = line[1][0...3]
-                    attributes[:nature] = 'auxiliary'
+                  attributes[:centralizing_account_name] = line[1].start_with?('401') ? 'suppliers' : 'clients'
+                  attributes[:auxiliary_number] = line[1][3, line[1].length]
+                  attributes[:number] = line[1][0...3]
+                  attributes[:nature] = 'auxiliary'
                 end
                 Account.create!(attributes)
               end
