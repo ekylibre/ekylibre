@@ -189,7 +189,7 @@ class Account < Ekylibre::Record::Base
     if general?
       self.auxiliary_number = nil
       self.centralizing_account = nil
-      self.number = number.ljust(8, '0') if number && already_existing
+      self.number = number.ljust(8, '0') if number && !already_existing
     elsif auxiliary? && centralizing_account
       centralizing_account_number = self.centralizing_account.send(Account.accounting_system)
       self.number = centralizing_account_number + auxiliary_number
@@ -219,7 +219,7 @@ class Account < Ekylibre::Record::Base
       options[:name] ||= args.shift
       numbers = Nomen::Account.items.values.collect { |i| i.send(accounting_system) }
       item = Nomen::Account.items.values.detect { |i| i.send(accounting_system) == number }
-      number = number.ljust(8, '0') unless numbers.include?(number)
+      number = number.ljust(8, '0') unless numbers.include?(number) || options[:already_existing]
       account = find_by(number: number)
       if account
         if item && !account.usages_array.include?(item)
@@ -234,7 +234,12 @@ class Account < Ekylibre::Record::Base
           options[:usages] << ' ' + item.name.to_s
         end
         options[:name] ||= number.to_s
-        account = create!(options.merge(number: number))
+        already_existing = options[:already_existing] if options[:already_existing]
+        merge_attributes = {
+          number: number,
+          already_existing: already_existing
+        }
+        account = create!(options.merge(merge_attributes))
       end
       account
     end
