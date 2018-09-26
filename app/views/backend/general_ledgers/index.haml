@@ -17,4 +17,11 @@
   - k.helper :ledger_crit
   - k.hidden :current_financial_year
 
-= main_list(:ledger_accounts)
+:ruby
+  list = if params[:ledger] == 'general_ledger'
+           :centralized_ledger_accounts
+         else
+           :subledger_accounts
+         end
+
+= main_list(list)

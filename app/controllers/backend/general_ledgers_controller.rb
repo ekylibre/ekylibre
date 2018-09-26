@@ -55,7 +55,7 @@ module Backend
       code.c
     end
 
-    def self.ledger_accounts_selections
+    def self.subledger_accounts_selections
       s = []
       s << ['CASE WHEN (SUM(journal_entry_items.real_debit) - SUM(journal_entry_items.real_credit)) >= 0 THEN SUM(journal_entry_items.real_debit) - SUM(journal_entry_items.real_credit) ELSE 0 END', 'cumulated_absolute_debit_balance']
       s << ['CASE WHEN (SUM(journal_entry_items.real_debit) - SUM(journal_entry_items.real_credit)) < 0 THEN @ SUM(journal_entry_items.real_debit) - SUM(journal_entry_items.real_credit) ELSE 0 END', 'cumulated_absolute_credit_balance']
@@ -63,8 +63,20 @@ module Backend
       s << ['accounts.name'] << ['accounts.description'] << ['accounts.id'] << ['accounts.centralizing_account_id']
     end
 
-    list(:ledger_accounts, model: :accounts, conditions: account_conditions, joins: %i[journal_entry_items], order: 'accounts.number', select: ledger_accounts_selections, group: %w[accounts.number accounts.name accounts.description accounts.id], count: 'DISTINCT accounts.number') do |t|
+    def self.union_subquery
+      %Q{(SELECT  rpad(accounts.number, 8, '0') AS account_number, accounts.number, accounts.name, accounts.id, accounts.description, CASE WHEN (SUM(journal_entry_items.real_debit) - SUM(journal_entry_items.real_credit)) >= 0 THEN SUM(journal_entry_items.real_debit) - SUM(journal_entry_items.real_credit) ELSE 0 END AS cumulated_absolute_debit_balance, CASE WHEN (SUM(journal_entry_items.real_debit) - SUM(journal_entry_items.real_credit)) < 0 THEN @ SUM(journal_entry_items.real_debit) - SUM(journal_entry_items.real_credit) ELSE 0 END AS cumulated_absolute_credit_balance FROM "accounts" INNER JOIN "accounts" AS child ON accounts.id = child.centralizing_account_id INNER JOIN "journal_entry_items" ON "journal_entry_items"."account_id" = child."id" INNER JOIN "journal_entries" ON "journal_entries"."id" = "journal_entry_items"."entry_id" WHERE journal_entries.printed_on >= '2016-09-01' AND journal_entries.printed_on <= '2017-08-31' AND accounts.nature = 'centralizing' GROUP BY accounts.number, accounts.name, accounts.id, accounts.description UNION SELECT g.number, g.number, g.name, g.id, g.description, CASE WHEN (SUM(journal_entry_items.real_debit) - SUM(journal_entry_items.real_credit)) >= 0 THEN SUM(journal_entry_items.real_debit) - SUM(journal_entry_items.real_credit) ELSE 0 END AS cumulated_absolute_debit_balance, CASE WHEN (SUM(journal_entry_items.real_debit) - SUM(journal_entry_items.real_credit)) < 0 THEN @ SUM(journal_entry_items.real_debit) - SUM(journal_entry_items.real_credit) ELSE 0 END AS cumulated_absolute_credit_balance FROM "accounts" AS g INNER JOIN "journal_entry_items" ON "journal_entry_items"."account_id" = g."id" INNER JOIN "journal_entries" ON "journal_entries"."id" = "journal_entry_items"."entry_id" WHERE journal_entries.printed_on >= '2016-09-01' AND journal_entries.printed_on <= '2017-08-31' AND g.nature = 'general' GROUP BY g.number, g.name, g.id, g.description ) AS U}
+    end
+
+    list(:subledger_accounts, model: :accounts, conditions: account_conditions, joins: %i[journal_entry_items], order: 'accounts.number', select: subledger_accounts_selections, group: %w[accounts.number accounts.name accounts.description accounts.id], count: 'DISTINCT accounts.number') do |t|
       t.column :number, url: { controller: :general_ledgers, account_number: 'RECORD.number'.c, current_financial_year: 'params[:current_financial_year]'.c, ledger: 'RECORD.centralizing_account&.number'.c }
+      t.column :name, url: true
+      t.column :description
+      t.column :cumulated_absolute_debit_balance
+      t.column :cumulated_absolute_credit_balance
+    end
+
+    list(:centralized_ledger_accounts, model: :accounts, select: [['*']], from: union_subquery, count: 'DISTINCT U.account_number', group: 'U.account_number, U.number, U.name, U.id, U.cumulated_absolute_credit_balance, U.cumulated_absolute_debit_balance, U.description',order: 'U.account_number') do |t|
+      t.column :account_number, url: { controller: :general_ledgers, action: :index, current_financial_year: 'params[:current_financial_year]'.c, ledger: 'RECORD.number'.c }
       t.column :name, url: true
       t.column :description
       t.column :cumulated_absolute_debit_balance
@@ -98,6 +110,14 @@ module Backend
     end
 
     def index
+      if params[:ledger] == 'general_ledger'
+        ledger_label = :general_ledger.tl
+      elsif account = Account.find_by(number: params[:ledger])
+        ledger_label = :subledger_of_accounts_x.tl(account: account.name)
+      end
+
+      t3e(ledger: ledger_label)
+
       document_name = human_action_name.to_s
       filename = "#{human_action_name}_#{Time.zone.now.l(format: '%Y%m%d%H%M%S')}"
       respond_to do |format|

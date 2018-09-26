@@ -331,7 +331,7 @@ eng:
       index: "Gaps"
       show: "Gap: %{number}"
     backend/general_ledgers:
-      index: "General ledger"
+      index: "%{ledger}"
       # mask_draft_items: "Mask draft items general ledger: %{name}"
       # mask_lettered_items: "Mask lettered items general ledger: %{name}"
       show: "General ledger\_: %{account}"
