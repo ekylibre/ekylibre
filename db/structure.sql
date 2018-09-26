@@ -255,7 +255,7 @@ CREATE TABLE accounts (
     auxiliary_number character varying,
     nature character varying,
     centralizing_account_name character varying,
-    number_is_valid boolean DEFAULT false NOT NULL
+    already_existing boolean DEFAULT false NOT NULL
 );
 
 
