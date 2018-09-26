@@ -373,7 +373,7 @@ preferences_030:
   lock_version: 0
   name: accounting_system
   nature: accounting_system
-  string_value: fr_pcg82
+  string_value: fr_pcga
   updated_at: 2014-10-31 18:36:11.733725000 Z
   updater_id: 1
 preferences_031:
