@@ -96,6 +96,7 @@ class Account < Ekylibre::Record::Base
   validates :centralizing_account_name, presence: true, if: :auxiliary?
 
   def already_existing_and_general
+    return true if self.auxiliary?
     self.already_existing && self.general?
   end
 
@@ -188,7 +189,7 @@ class Account < Ekylibre::Record::Base
     if general?
       self.auxiliary_number = nil
       self.centralizing_account = nil
-      self.number = number.ljust(8, '0') if number
+      self.number = number.ljust(8, '0') if number && already_existing
     elsif auxiliary? && centralizing_account
       centralizing_account_number = self.centralizing_account.send(Account.accounting_system)
       self.number = centralizing_account_number + auxiliary_number
