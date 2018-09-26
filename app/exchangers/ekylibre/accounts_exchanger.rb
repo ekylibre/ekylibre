@@ -41,10 +41,11 @@ module Ekylibre
         attributes = {
           name: r.name,
           number: r.number,
-          usages: usages
+          usages: usages,
+          already_existing: true
         }
 
-        account = Account.find_or_initialize_by(number: r.number)
+        account = Account.find_by(number: r.number) || Account.find_or_initialize_by(number: r.number.ljust(8, '0'))
         account.attributes = attributes
         account.save!
 
