@@ -841,6 +841,11 @@ eng:
       new: "New tracking"
       show: "Tracking: %{name}"
     backend/trial_balances:
+      # archive_report: "Archive report trial balance: %{name}"
+      # find_open_document_template: "Find open document template trial balance: %{name}"
+      # generate_document: "Generate document trial balance: %{name}"
+      # generate_report: "Generate report trial balance: %{name}"
+      # generate_report_file: "Generate report file trial balance: %{name}"
       show: "Trial balance"
     backend/users:
       edit: "Edit user: %{first_name} %{last_name}"
@@ -1109,7 +1114,7 @@ eng:
     attachment: "Attachment"
     attachments: "Attachments"
     automatic: "Auto" #?
-    auxiliary: "Auxiliary"
+    auxiliary: "Auxiliary" #?
     available: "Available"
     available_columns: "Available columns: %{columns}"
     average: "Average"
@@ -1408,7 +1413,7 @@ eng:
     fungi: "Fungi" #?
     future_events: "Future events"
     genealogy: "Genealogy"
-    general: "General"
+    general: "General" #?
     general_informations: "General informations"
     generate: "Generate"
     generate_last_journal_entry: "Generate last journal entry"
@@ -2279,7 +2284,7 @@ eng:
       financial_year_x_could_not_be_closed: "Financial Year  %{name} could not be closed."
       financial_year_x_successfully_closed: "Financial Year %{name} successfully closed !"
       financial_years_missing: "You must create every missing financial years since the first registered"
-      financial_years_missing_tax_declarations: "You must create every declarations for the following financial years: %{codes}"
+      financial_years_missing_tax_declarations: "You must create every declarations for the following financial years: %{codes}" #?
       implemented_with_dummy_data: "Implemented with dummy data"
       import_failed: "Import %{name} failed: %{message}"
       import_finished_successfully: "Import %{name} finished successfully"
@@ -2399,6 +2404,7 @@ eng:
       # add_to_container: "Add to container"
       # add_to_group: "Add to group"
       # add_to_variant: "Add to variant"
+      # archive_report: "Archive report"
       attach: "Attach"
       # autocomplete: "Autocomplete"
       bookkeep: "Bookkeep"
@@ -2441,8 +2447,12 @@ eng:
       extract: "Extract"
       # failure: "Failure"
       family: "Family"
+      # find_open_document_template: "Find open document template"
       finish: "Finish"
+      # generate_document: "Generate document"
       generate_last_journal_entry: "Generate last journal entry" #?
+      # generate_report: "Generate report"
+      # generate_report_file: "Generate report file"
       give: "Give"
       import: "Import"
       incorporate: "Incorporate"

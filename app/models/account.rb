@@ -22,6 +22,7 @@
 #
 # == Table: accounts
 #
+#  already_existing          :boolean          default(FALSE), not null
 #  auxiliary_number          :string
 #  centralizing_account_name :string
 #  created_at                :datetime         not null
@@ -81,8 +82,8 @@ class Account < Ekylibre::Record::Base
   refers_to :centralizing_account, -> { where(centralizing: true) }, class_name: 'Account'
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates :auxiliary_number, :centralizing_account_name, :last_letter, length: { maximum: 500 }, allow_blank: true
-  validates :debtor, :reconcilable, inclusion: { in: [true, false] }
+  validates :already_existing, :debtor, :reconcilable, inclusion: { in: [true, false] }
+  validates :auxiliary_number, :last_letter, length: { maximum: 500 }, allow_blank: true
   validates :description, :usages, length: { maximum: 500_000 }, allow_blank: true
   validates :label, :name, :number, presence: true, length: { maximum: 500 }
   # ]VALIDATORS]
@@ -96,8 +97,8 @@ class Account < Ekylibre::Record::Base
   validates :centralizing_account_name, presence: true, if: :auxiliary?
 
   def already_existing_and_general
-    return true if self.auxiliary?
-    self.already_existing && self.general?
+    return true if auxiliary?
+    already_existing && general?
   end
 
   enumerize :nature, in: %i[general auxiliary], default: :general, predicates: true
@@ -191,7 +192,7 @@ class Account < Ekylibre::Record::Base
       self.centralizing_account = nil
       self.number = number.ljust(8, '0') if number && !already_existing
     elsif auxiliary? && centralizing_account
-      centralizing_account_number = self.centralizing_account.send(Account.accounting_system)
+      centralizing_account_number = centralizing_account.send(Account.accounting_system)
       self.number = centralizing_account_number + auxiliary_number
     end
     self.reconcilable = reconcilableable? if reconcilable.nil?
@@ -200,7 +201,7 @@ class Account < Ekylibre::Record::Base
   end
 
   before_validation(on: :update) do
-    self.number = number.ljust(8, '0') if !self.already_existing
+    self.number = number.ljust(8, '0') unless already_existing
   end
 
   def protected_auxiliary_number?
@@ -234,10 +235,9 @@ class Account < Ekylibre::Record::Base
           options[:usages] << ' ' + item.name.to_s
         end
         options[:name] ||= number.to_s
-        already_existing = options[:already_existing] if options[:already_existing]
         merge_attributes = {
           number: number,
-          already_existing: already_existing
+          already_existing: (options[:already_existing] ? already_existing : false)
         }
         account = create!(options.merge(merge_attributes))
       end
