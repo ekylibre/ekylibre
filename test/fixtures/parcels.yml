@@ -295,7 +295,6 @@ receptions_011:
   number: ID20140012
   planned_at: 2014-11-07 16:47:34.635509000 Z
   pretax_amount: 0.0
-  purchase_id: 11
   reference_number: '2008030001215'
   remain_owner: false
   sender_id: 13

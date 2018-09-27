@@ -35,23 +35,29 @@
 #
 ---
 naming_format_field_land_parcels_001:
+  created_at: 2018-09-24 07:53:33.000000000 Z
   field_name: cultivable_zone_name
   id: 1
   lock_version: 0
   naming_format_id: 1
   position: 0
   type: NamingFormatFieldLandParcel
+  updated_at: 2018-09-24 07:53:33.000000000 Z
 naming_format_field_land_parcels_002:
+  created_at: 2018-09-24 07:53:33.000000000 Z
   field_name: activity
   id: 2
   lock_version: 0
   naming_format_id: 1
   position: 1
   type: NamingFormatFieldLandParcel
+  updated_at: 2018-09-24 07:53:33.000000000 Z
 naming_format_field_land_parcels_003:
+  created_at: 2018-09-24 07:53:33.000000000 Z
   field_name: campaign
   id: 3
   lock_version: 0
   naming_format_id: 1
   position: 2
   type: NamingFormatFieldLandParcel
+  updated_at: 2018-09-24 07:53:33.000000000 Z
