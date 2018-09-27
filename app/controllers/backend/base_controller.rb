@@ -358,14 +358,22 @@ module Backend
         code.c
       end
 
-      def centralizing_crit(variable, conditions = 'c')
+      def centralizing_account_crit(variable, conditions = 'c')
         variable = "params[:#{variable}]" unless variable.is_a? String
         code = ''
         code << "if #{variable}[:ledger] == 'general_ledger'\n"
-        code << "  #{conditions}[0] += ' AND #{Account.table_name}.id IN ( ' + Account.centralizing.select(:id).to_sql+')'\n"
+        code << "  #{conditions}[0] += \" AND accounts.nature != 'auxiliary'\"\n"
         code << "elsif centralizing_account = Account.find_by(number: #{variable}[:ledger])\n"
-        code << "  #{conditions}[0] += ' AND centralizing_account_id = ' + centralizing_account.id.to_s\n"
+        code << "  #{conditions}[0] += \" AND accounts.nature = 'auxiliary'\"\n"
+        code << "  #{conditions}[0] += ' AND accounts.centralizing_account_id = '+ centralizing_account.id.to_s\n"
         code << "end\n"
+        code.c
+      end
+
+      def centralizing_account_journal_period_crit(variable, conditions = 'c')
+        variable = "params[:#{variable}]" unless variable.is_a? String
+        code = ''
+        code << "#{conditions}[0] += ' AND ' + JournalEntry.period_condition(#{variable}[:period], #{variable}[:started_on], #{variable}[:stopped_on])\n"
         code.c
       end
 

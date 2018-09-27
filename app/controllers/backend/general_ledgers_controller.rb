@@ -50,7 +50,16 @@ module Backend
       code = ''
       code << search_conditions({ journal_entry_item: %i[name debit credit real_debit real_credit] }, conditions: 'c') + "\n"
       code << account_journal_period_crit('params')
-      code << centralizing_crit('params')
+      code << centralizing_account_crit('params')
+      code << "c\n"
+      code.c
+    end
+
+    def self.centralized_account_conditions
+      code = ''
+      code << search_conditions({ journal_entry_item: %i[name debit credit real_debit real_credit] }, conditions: 'c') + "\n"
+      code << centralizing_account_crit('params')
+      code << centralizing_account_journal_period_crit('params')
       code << "c\n"
       code.c
     end
@@ -64,7 +73,19 @@ module Backend
     end
 
     def self.union_subquery
-      %Q{(SELECT  rpad(accounts.number, 8, '0') AS account_number, accounts.number, accounts.name, accounts.id, accounts.description, CASE WHEN (SUM(journal_entry_items.real_debit) - SUM(journal_entry_items.real_credit)) >= 0 THEN SUM(journal_entry_items.real_debit) - SUM(journal_entry_items.real_credit) ELSE 0 END AS cumulated_absolute_debit_balance, CASE WHEN (SUM(journal_entry_items.real_debit) - SUM(journal_entry_items.real_credit)) < 0 THEN @ SUM(journal_entry_items.real_debit) - SUM(journal_entry_items.real_credit) ELSE 0 END AS cumulated_absolute_credit_balance FROM "accounts" INNER JOIN "accounts" AS child ON accounts.id = child.centralizing_account_id INNER JOIN "journal_entry_items" ON "journal_entry_items"."account_id" = child."id" INNER JOIN "journal_entries" ON "journal_entries"."id" = "journal_entry_items"."entry_id" WHERE journal_entries.printed_on >= '2016-09-01' AND journal_entries.printed_on <= '2017-08-31' AND accounts.nature = 'centralizing' GROUP BY accounts.number, accounts.name, accounts.id, accounts.description UNION SELECT g.number, g.number, g.name, g.id, g.description, CASE WHEN (SUM(journal_entry_items.real_debit) - SUM(journal_entry_items.real_credit)) >= 0 THEN SUM(journal_entry_items.real_debit) - SUM(journal_entry_items.real_credit) ELSE 0 END AS cumulated_absolute_debit_balance, CASE WHEN (SUM(journal_entry_items.real_debit) - SUM(journal_entry_items.real_credit)) < 0 THEN @ SUM(journal_entry_items.real_debit) - SUM(journal_entry_items.real_credit) ELSE 0 END AS cumulated_absolute_credit_balance FROM "accounts" AS g INNER JOIN "journal_entry_items" ON "journal_entry_items"."account_id" = g."id" INNER JOIN "journal_entries" ON "journal_entries"."id" = "journal_entry_items"."entry_id" WHERE journal_entries.printed_on >= '2016-09-01' AND journal_entries.printed_on <= '2017-08-31' AND g.nature = 'general' GROUP BY g.number, g.name, g.id, g.description ) AS U}
+      q1 = %q{Account.select("rpad(accounts.number, 8, '0') AS account_number, accounts.number, accounts.name, accounts.id, accounts.description, CASE WHEN (SUM(journal_entry_items.real_debit) - SUM(journal_entry_items.real_credit)) >= 0 THEN SUM(journal_entry_items.real_debit) - SUM(journal_entry_items.real_credit) ELSE 0 END AS cumulated_absolute_debit_balance, CASE WHEN (SUM(journal_entry_items.real_debit) - SUM(journal_entry_items.real_credit)) < 0 THEN @ SUM(journal_entry_items.real_debit) - SUM(journal_entry_items.real_credit) ELSE 0 END AS cumulated_absolute_credit_balance").joins('INNER JOIN "accounts" AS child ON accounts.id = child.centralizing_account_id').joins('INNER JOIN "journal_entry_items" ON "journal_entry_items"."account_id" = child."id"').joins('INNER JOIN "journal_entries" ON "journal_entries"."id" = "journal_entry_items"."entry_id"').group('accounts.number, accounts.name, accounts.id, accounts.description')}
+
+      q2 = %q{Account.select('accounts.number, accounts.number, accounts.name, accounts.id, accounts.description, CASE WHEN (SUM(journal_entry_items.real_debit) - SUM(journal_entry_items.real_credit)) >= 0 THEN SUM(journal_entry_items.real_debit) - SUM(journal_entry_items.real_credit) ELSE 0 END AS cumulated_absolute_debit_balance, CASE WHEN (SUM(journal_entry_items.real_debit) - SUM(journal_entry_items.real_credit)) < 0 THEN @ SUM(journal_entry_items.real_debit) - SUM(journal_entry_items.real_credit) ELSE 0 END AS cumulated_absolute_credit_balance').joins('INNER JOIN "journal_entry_items" ON "journal_entry_items"."account_id" = accounts."id"').joins('INNER JOIN "journal_entries" ON "journal_entries"."id" = "journal_entry_items"."entry_id"').group('accounts.number, accounts.name, accounts.id, accounts.description')}
+
+      code = "k = ''\n"
+      code << centralized_account_conditions.to_s
+      code << "k << '(' \n"
+      code << "k << #{q1.c}.where(c).to_sql \n"
+      code << "k << ' UNION '\n"
+      code << "k << #{q2.c}.where(c).to_sql \n"
+      code << "k << ') AS U'\n"
+      code << "k\n"
+      code.c
     end
 
     list(:subledger_accounts, model: :accounts, conditions: account_conditions, joins: %i[journal_entry_items], order: 'accounts.number', select: subledger_accounts_selections, group: %w[accounts.number accounts.name accounts.description accounts.id], count: 'DISTINCT accounts.number') do |t|
