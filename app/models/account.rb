@@ -89,12 +89,16 @@ class Account < Ekylibre::Record::Base
   validates :last_letter, length: { allow_nil: true, maximum: 10 }
   validates :name, length: { allow_nil: true, maximum: 200 }
   validates :number, uniqueness: true
-  validates :number, length: { is: 8 }, format: { without: /\A[1-9]0*\z|\A0/ }, if: :general?
-  validates :number, length: { minimum: 4, maximum: 12 }, if: :auxiliary?
-  validates :number, format: { with: /\A\d(\d(\d[0-9A-Z]*)?)?\z/ }, unless: :auxiliary?
-  validates :auxiliary_number, length: { allow_blank: true, minimum: 0 }, unless: :auxiliary?
-  validates :auxiliary_number, presence: true, length: { maximum: 9 }, format: { without: /\A(0*)\z/ }, if: :auxiliary?
+  validates :number, length: { is: 8 }, format: { without: /\A[1-9]0*\z|\A0/ }, unless: :already_existing_and_general
+  validates :number, length: { minimum: 4 }, if: :auxiliary?
+  validates :number, format: { with: /\A\d(\d(\d[0-9A-Z]*)?)?\z/ }
+  validates :auxiliary_number, presence: true, format: { without: /\A(0*)\z/ }, if: :auxiliary?
   validates :centralizing_account_name, presence: true, if: :auxiliary?
+
+  def already_existing_and_general
+    return true if self.auxiliary?
+    self.already_existing && self.general?
+  end
 
   enumerize :nature, in: %i[general auxiliary], default: :general, predicates: true
 
@@ -181,11 +185,11 @@ class Account < Ekylibre::Record::Base
   }
 
   # This method:allows to create the parent accounts if it is necessary.
-  before_validation do
+  before_validation(on: :create) do
     if general?
       self.auxiliary_number = nil
       self.centralizing_account = nil
-      self.number = number.ljust(8, '0') if number
+      self.number = number.ljust(8, '0') if number && !already_existing
     elsif auxiliary? && centralizing_account
       centralizing_account_number = self.centralizing_account.send(Account.accounting_system)
       self.number = centralizing_account_number + auxiliary_number
@@ -193,6 +197,10 @@ class Account < Ekylibre::Record::Base
     self.reconcilable = reconcilableable? if reconcilable.nil?
     self.label = tc(:label, number: number.to_s, name: name.to_s)
     self.usages = Account.find_parent_usage(number) if usages.blank? && number
+  end
+
+  before_validation(on: :update) do
+    self.number = number.ljust(8, '0') if !self.already_existing
   end
 
   def protected_auxiliary_number?
@@ -210,13 +218,8 @@ class Account < Ekylibre::Record::Base
       number = args.shift.to_s.strip
       options[:name] ||= args.shift
       numbers = Nomen::Account.items.values.collect { |i| i.send(accounting_system) }
-      unless numbers.include?(number)
-        while number =~ /0$/
-          break if numbers.include?(number)
-          number.gsub!(/0$/, '')
-        end
-      end
       item = Nomen::Account.items.values.detect { |i| i.send(accounting_system) == number }
+      number = number.ljust(8, '0') unless numbers.include?(number) || options[:already_existing]
       account = find_by(number: number)
       if account
         if item && !account.usages_array.include?(item)
@@ -231,7 +234,12 @@ class Account < Ekylibre::Record::Base
           options[:usages] << ' ' + item.name.to_s
         end
         options[:name] ||= number.to_s
-        account = create!(options.merge(number: number))
+        already_existing = options[:already_existing] if options[:already_existing]
+        merge_attributes = {
+          number: number,
+          already_existing: already_existing
+        }
+        account = create!(options.merge(merge_attributes))
       end
       account
     end
@@ -382,6 +390,7 @@ class Account < Ekylibre::Record::Base
         raise ArgumentError, "The accounting system #{name.inspect} is unknown."
       end
       Preference.set!(:accounting_system, item.name)
+      @accounting_system = item.name
     end
 
     # Returns the human name of the accounting system

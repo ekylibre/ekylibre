@@ -88,7 +88,6 @@ class ProductNatureVariant < Ekylibre::Record::Base
   validates :category, :nature, :variety, presence: true
   # ]VALIDATORS]
   validates :number, length: { allow_nil: true, maximum: 60 }
-  validates :number, uniqueness: true
   validates :derivative_of, :variety, length: { allow_nil: true, maximum: 120 }
   validates :gtin, length: { allow_nil: true, maximum: 14 }
   validates_attachment_content_type :picture, content_type: /image/
