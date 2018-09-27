@@ -55,8 +55,8 @@ class AccountTest < ActiveSupport::TestCase
   end
 
   test 'merge' do
-    main = Account.first
-    double = Account.second
+    main = create :account
+    double = create :account
     main.merge_with(double)
     assert_nil Account.find_by(id: double.id)
   end
