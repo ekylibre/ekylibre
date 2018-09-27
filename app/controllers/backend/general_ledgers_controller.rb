@@ -70,12 +70,13 @@ module Backend
       s << ['CASE WHEN (SUM(journal_entry_items.real_debit) - SUM(journal_entry_items.real_credit)) < 0 THEN @ SUM(journal_entry_items.real_debit) - SUM(journal_entry_items.real_credit) ELSE 0 END', 'cumulated_absolute_credit_balance']
       s << ['accounts.number']
       s << ['accounts.name'] << ['accounts.description'] << ['accounts.id'] << ['accounts.centralizing_account_id']
+      s << ['journal_entry_items.absolute_currency AS account_currency']
     end
 
     def self.union_subquery
-      q1 = %q{Account.select("rpad(accounts.number, 8, '0') AS account_number, accounts.number, accounts.name, accounts.id, accounts.description, CASE WHEN (SUM(journal_entry_items.real_debit) - SUM(journal_entry_items.real_credit)) >= 0 THEN SUM(journal_entry_items.real_debit) - SUM(journal_entry_items.real_credit) ELSE 0 END AS cumulated_absolute_debit_balance, CASE WHEN (SUM(journal_entry_items.real_debit) - SUM(journal_entry_items.real_credit)) < 0 THEN @ SUM(journal_entry_items.real_debit) - SUM(journal_entry_items.real_credit) ELSE 0 END AS cumulated_absolute_credit_balance").joins('INNER JOIN "accounts" AS child ON accounts.id = child.centralizing_account_id').joins('INNER JOIN "journal_entry_items" ON "journal_entry_items"."account_id" = child."id"').joins('INNER JOIN "journal_entries" ON "journal_entries"."id" = "journal_entry_items"."entry_id"').group('accounts.number, accounts.name, accounts.id, accounts.description')}
+      q1 = %q{Account.select("rpad(accounts.number, 8, '0') AS account_number, accounts.number, accounts.name, accounts.id, accounts.description, CASE WHEN (SUM(journal_entry_items.real_debit) - SUM(journal_entry_items.real_credit)) >= 0 THEN SUM(journal_entry_items.real_debit) - SUM(journal_entry_items.real_credit) ELSE 0 END AS cumulated_absolute_debit_balance, CASE WHEN (SUM(journal_entry_items.real_debit) - SUM(journal_entry_items.real_credit)) < 0 THEN @ SUM(journal_entry_items.real_debit) - SUM(journal_entry_items.real_credit) ELSE 0 END AS cumulated_absolute_credit_balance, journal_entry_items.absolute_currency AS account_currency").joins('INNER JOIN "accounts" AS child ON accounts.id = child.centralizing_account_id').joins('INNER JOIN "journal_entry_items" ON "journal_entry_items"."account_id" = child."id"').joins('INNER JOIN "journal_entries" ON "journal_entries"."id" = "journal_entry_items"."entry_id"').group('accounts.number, accounts.name, accounts.id, accounts.description, account_currency')}
 
-      q2 = %q{Account.select('accounts.number, accounts.number, accounts.name, accounts.id, accounts.description, CASE WHEN (SUM(journal_entry_items.real_debit) - SUM(journal_entry_items.real_credit)) >= 0 THEN SUM(journal_entry_items.real_debit) - SUM(journal_entry_items.real_credit) ELSE 0 END AS cumulated_absolute_debit_balance, CASE WHEN (SUM(journal_entry_items.real_debit) - SUM(journal_entry_items.real_credit)) < 0 THEN @ SUM(journal_entry_items.real_debit) - SUM(journal_entry_items.real_credit) ELSE 0 END AS cumulated_absolute_credit_balance').joins('INNER JOIN "journal_entry_items" ON "journal_entry_items"."account_id" = accounts."id"').joins('INNER JOIN "journal_entries" ON "journal_entries"."id" = "journal_entry_items"."entry_id"').group('accounts.number, accounts.name, accounts.id, accounts.description')}
+      q2 = %q{Account.select('accounts.number, accounts.number, accounts.name, accounts.id, accounts.description, CASE WHEN (SUM(journal_entry_items.real_debit) - SUM(journal_entry_items.real_credit)) >= 0 THEN SUM(journal_entry_items.real_debit) - SUM(journal_entry_items.real_credit) ELSE 0 END AS cumulated_absolute_debit_balance, CASE WHEN (SUM(journal_entry_items.real_debit) - SUM(journal_entry_items.real_credit)) < 0 THEN @ SUM(journal_entry_items.real_debit) - SUM(journal_entry_items.real_credit) ELSE 0 END AS cumulated_absolute_credit_balance, journal_entry_items.absolute_currency AS account_currency').joins('INNER JOIN "journal_entry_items" ON "journal_entry_items"."account_id" = accounts."id"').joins('INNER JOIN "journal_entries" ON "journal_entries"."id" = "journal_entry_items"."entry_id"').group('accounts.number, accounts.name, accounts.id, accounts.description, account_currency')}
 
       code = "k = ''\n"
       code << centralized_account_conditions.to_s
@@ -88,20 +89,20 @@ module Backend
       code.c
     end
 
-    list(:subledger_accounts, model: :accounts, conditions: account_conditions, joins: %i[journal_entry_items], order: 'accounts.number', select: subledger_accounts_selections, group: %w[accounts.number accounts.name accounts.description accounts.id], count: 'DISTINCT accounts.number') do |t|
+    list(:subledger_accounts, model: :accounts, conditions: account_conditions, joins: %i[journal_entry_items], order: 'accounts.number', select: subledger_accounts_selections, group: %w[accounts.number accounts.name accounts.description accounts.id account_currency], count: 'DISTINCT accounts.number') do |t|
       t.column :number, url: { controller: :general_ledgers, account_number: 'RECORD.number'.c, current_financial_year: 'params[:current_financial_year]'.c, ledger: 'RECORD.centralizing_account&.number'.c }
       t.column :name, url: true
       t.column :description
-      t.column :cumulated_absolute_debit_balance
-      t.column :cumulated_absolute_credit_balance
+      t.column :cumulated_absolute_debit_balance, currency: :account_currency, class: :gutter, default: ''
+      t.column :cumulated_absolute_credit_balance, currency: :account_currency, class: :gutter, default: ''
     end
 
-    list(:centralized_ledger_accounts, model: :accounts, select: [['*']], from: union_subquery, count: 'DISTINCT U.account_number', group: 'U.account_number, U.number, U.name, U.id, U.cumulated_absolute_credit_balance, U.cumulated_absolute_debit_balance, U.description',order: 'U.account_number') do |t|
+    list(:centralized_ledger_accounts, model: :accounts, select: [['*']], from: union_subquery, count: 'DISTINCT U.account_number', group: 'U.account_number, U.number, U.name, U.id, U.cumulated_absolute_credit_balance, U.cumulated_absolute_debit_balance, U.description, U.account_currency',order: 'U.account_number') do |t|
       t.column :account_number, url: { controller: :general_ledgers, action: :index, current_financial_year: 'params[:current_financial_year]'.c, ledger: 'RECORD.number'.c }
       t.column :name, url: true
       t.column :description
-      t.column :cumulated_absolute_debit_balance
-      t.column :cumulated_absolute_credit_balance
+      t.column :cumulated_absolute_debit_balance, currency: :account_currency, class: :gutter, default: ''
+      t.column :cumulated_absolute_credit_balance, currency: :account_currency, class: :gutter, default: ''
     end
 
     list(:subledger_journal_entry_items, model: :journal_entry_items, conditions: list_conditions, joins: %i[entry account journal], order: "#{JournalEntryItem.table_name}.printed_on, #{JournalEntryItem.table_name}.id") do |t|
