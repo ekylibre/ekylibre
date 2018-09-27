@@ -405,7 +405,6 @@ fra:
     sowing: "Semis"
     sowing_with_insecticide_and_molluscicide: "Semis (avec insecticide et molluscicide)" #?
     sowing_with_spraying: "Semis avec pulvérisation"
-    sowing_without_plant_output: "Semis (sans culture)"
     spraying: "Pulvérisation"
     spraying_on_cultivation: "Pulvérisation sur culture" #?
     spraying_on_land_parcel: "Pulvérisation sur parcelle" #?

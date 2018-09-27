@@ -241,7 +241,6 @@ jpn:
     silage_unload: "サイレージのアンロード" #?
     sowing: "種蒔き"
     sowing_with_spraying: "噴霧で播種"
-    # sowing_without_plant_output: "Sowing (without plant output)"
     spraying: "吹きかけます"
     standard_enclosing: "標準囲んで"
     steam_weeding: "スチーム除草"

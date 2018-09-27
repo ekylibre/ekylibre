@@ -241,7 +241,6 @@ ita:
     silage_unload: "insilato scarico" #?
     sowing: "Semina"
     sowing_with_spraying: "Semina con spruzzo"
-    # sowing_without_plant_output: "Sowing (without plant output)"
     spraying: "Spruzzare"
     standard_enclosing: "racchiude standard"
     steam_weeding: "diserbo Steam"

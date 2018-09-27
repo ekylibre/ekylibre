@@ -241,7 +241,6 @@ por:
     silage_unload: "Descarregamento silagem" #?
     sowing: "Semeadura"
     sowing_with_spraying: "Semeando com pulverização"
-    # sowing_without_plant_output: "Sowing (without plant output)"
     spraying: "Pulverização"
     standard_enclosing: "Delimitador padrão"
     steam_weeding: "Capina vapor"

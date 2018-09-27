@@ -241,7 +241,6 @@ arb:
     silage_unload: "السيلاج تفريغ" #?
     sowing: "بذر"
     sowing_with_spraying: "بذر مع الرش"
-    # sowing_without_plant_output: "Sowing (without plant output)"
     spraying: "رش"
     standard_enclosing: "أرفق القياسية"
     steam_weeding: "إزالة الأعشاب الضارة البخار"

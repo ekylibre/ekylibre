@@ -241,7 +241,6 @@ spa:
     silage_unload: "Descarga ensilado" #?
     sowing: "Siembra"
     sowing_with_spraying: "Siembra con pulverización"
-    # sowing_without_plant_output: "Sowing (without plant output)"
     spraying: "Rociar"
     standard_enclosing: "Estándar de encerramiento"
     steam_weeding: "Escarda vapor"

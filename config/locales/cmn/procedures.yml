@@ -241,7 +241,6 @@ cmn:
     silage_unload: "青贮卸载" #?
     sowing: "播种"
     sowing_with_spraying: "喷涂播种"
-    # sowing_without_plant_output: "Sowing (without plant output)"
     spraying: "喷"
     standard_enclosing: "标准封闭"
     steam_weeding: "蒸汽除草"

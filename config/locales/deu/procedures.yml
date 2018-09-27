@@ -241,7 +241,6 @@ deu:
     silage_unload: "Silageentnahme" #?
     sowing: "Aussaat"
     sowing_with_spraying: "Aussaat mit Spritzen"
-    # sowing_without_plant_output: "Sowing (without plant output)"
     spraying: "Sprühen"
     standard_enclosing: "Standard einschließe"
     steam_weeding: "Dampf Jäten"
