@@ -42,7 +42,7 @@ module SVF
             "  #{c.parse_value}"
           end.join(",\n") + "\n)\n"
           line_code << "rescue Exception => e\n"
-          line_code << "  puts \"[Line #\#{_number + 1}] Cannot parse #{line.name}: \" + line.inspect.cyan\n"
+          line_code << "  puts \"[Line #\#{_number + 1}][\#{e.inspect}] Cannot parse #{line.name}: \" + line.inspect.cyan\n"
           line.cells.each do |c|
             line_code << "  puts '#{c.start.to_s.rjust(3)}:#{c.stop.to_s.rjust(3)}:#{c.name.to_s.rjust(20)}: ' + line[#{c.start}..#{c.stop}].to_s.inspect.cyan\n"
           end
