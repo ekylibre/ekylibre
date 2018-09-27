@@ -1003,6 +1003,7 @@ fra:
     backups: "Sauvegardes" #?
     balance: "Solde"
     balance_of_selection: "Solde de la sélection"
+    balanced: "Soldés"
     bank_account: "Compte bancaire"
     bank_statement_number: "N° du relevé de compte bancaire"
     bank_statements: "Relevés de compte bancaire"
@@ -1249,6 +1250,7 @@ fra:
     disease_percentage: "Maladies (%)"
     disease_percentage_evolution: "Evolution des maladies"
     display: "Afficher"
+    display_accounts: "Affichage des comptes"
     display_help: "Afficher l’aide" #?
     display_n_1: "Afficher N-1"
     distribute_unaffected_products: "Distribuer les produits non affectés"
@@ -2259,6 +2261,7 @@ fra:
     treatment: "Traitement" #?
     trimester: "Trimestre"
     true: "Vrai" #?
+    unbalanced: "Non soldés"
     unbalanced_clients: "Comptes à réconcilier - Clients"
     unbalanced_suppliers: "Comptes à réconcilier - Fournisseurs"
     unbilled_payables: "Factures non parvenues"

@@ -451,6 +451,7 @@ eng:
     all_addresses: "All addresses"
     all_taxes_included: "All taxes included"
     allocation_account: "Allocation account"
+    # already_existing: "Already existing"
     amount: "Amount"
     analysed_at: "Analysed at"
     analyser: "Analyser"

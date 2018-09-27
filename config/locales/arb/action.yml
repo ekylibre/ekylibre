@@ -1131,6 +1131,7 @@ arb:
         safari: "سفاري رحلة قنص" #?
     balance: "رصيد الحساب"
     balance_of_selection: "ميزان اختيار"
+    # balanced: "Balanced"
     bank_account: "حساب البنك"
     bank_accounts: "" #?
     bank_statement_number: "عدد بيان البنك"
@@ -1363,7 +1364,9 @@ arb:
     disease_percentage: "مرض (٪)"
     disease_percentage_evolution: "تطور نسبة المرض"
     display: "عرض"
+    # display_accounts: "Display accounts"
     display_help: "عرض المساعدة" #?
+    # display_n_1: "Display N-1"
     distribute_unaffected_products: "توزيع المنتجات لم تتأثر"
     distributions: "التوزيعات"
     district_create: "اضافة منطقة ادارية" #?
@@ -2353,6 +2356,7 @@ arb:
       financial_year: "السنة المالية غير متوفرة %{value}" #?
       journal: "الدفتر اليومي المطلوب غير متوفر (%{value})" #?
       product: "المنتج المطلوب غير متوفر" #?
+    # unbalanced: "Unbalanced"
     unbalanced_clients: "عملاء غير متوازن"
     unbalanced_suppliers: "الموردين غير متوازن"
     unbilled_payables: "دائنة غير المفوترة"
