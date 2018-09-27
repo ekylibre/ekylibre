@@ -16,8 +16,10 @@ module Agroedi
       # Load hash to transcode EDI code to procedure
       here = Pathname.new(__FILE__).dirname
       procedures_transcode = {}.with_indifferent_access
-      CSV.foreach(here.join('procedures.csv'), headers: true) do |row|
-        procedures_transcode[row[0]] = row[1].to_sym
+      if here.join('procedures.csv')
+        CSV.foreach(here.join('procedures.csv'), headers: true) do |row|
+          procedures_transcode[row[0]] = row[1].to_sym
+        end
       end
 
       begin
@@ -204,8 +206,10 @@ module Agroedi
       here = Pathname.new(__FILE__).dirname
 
       inputs_transcode = {}.with_indifferent_access
-      CSV.foreach(here.join('inputs.csv'), headers: true) do |row|
-        inputs_transcode[row[0]] = row[1].to_sym
+      if here.join('inputs.csv').exist?
+        CSV.foreach(here.join('inputs.csv'), headers: true) do |row|
+          inputs_transcode[row[0]] = row[1].to_sym
+        end
       end
 
       variant = ProductNatureVariant.where(name: name, active: true).first
