@@ -1298,6 +1298,7 @@ fra:
     entity_to_update: "Fiche à mettre à jour avec les éléments du doublon"
     entries: "Écritures"
     entries_to_point: "Écritures à pointer"
+    entry_item_label: "Libellé de l'écriture"
     entry_items: "Lignes d’écriture"
     equipment: "Équipement"
     equipment_name: "Nom de l’équipement"
