@@ -19,6 +19,7 @@
 module Backend
   class JournalsController < Backend::BaseController
     include JournalEntriesCondition
+    include PdfPrinter
 
     manage_restfully nature: 'params[:nature]'.c, currency: 'Preference[:currency]'.c
 
@@ -109,6 +110,22 @@ module Backend
       @journal_view = journal_view.value
       t3e @journal
       @draft_entries_count = JournalEntry.where(journal_id: params[:id], state: :draft).count
+
+
+      # build variables for reporting (document_nature, key, filename and dataset)
+      document_nature = Nomen::DocumentNature.find(:journal_ledger)
+      key = "#{document_nature.name}-#{Time.zone.now.l(format: '%Y-%m-%d-%H:%M:%S')}"
+      filename = document_nature.human_name
+      respond_to do |format|
+        format.html
+        format.pdf do
+          template_path = find_open_document_template(:journal_ledger)
+          raise 'Cannot find template' if template_path.nil?
+          @journal_ledger = JournalEntry.journal_ledger(params, @journal.id) if params
+          send_file to_odt(@journal_ledger, document_nature, key, template_path, params), type: 'application/pdf', disposition: 'attachment', filename: filename << '.pdf'
+        end
+      end
+
     end
 
     def close
