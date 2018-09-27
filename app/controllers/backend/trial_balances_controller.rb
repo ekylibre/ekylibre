@@ -35,6 +35,11 @@ module Backend
         params[:stopped_on] = params[:period].split('_').last
       end
       @balance = Journal.trial_balance(params) if params[:period]
+      if @balance && params[:balance] == 'balanced'
+        @balance = @balance.select { |item| item[1].to_i < 0 || Account.find(item[1]).journal_entry_items.pluck(:real_balance).reduce(:+) == 0 }
+      elsif @balance && params[:balance] == 'unbalanced'
+        @balance = @balance.select { |item| item[1].to_i < 0 || Account.find(item[1]).journal_entry_items.pluck(:real_balance).reduce(:+) != 0 }
+      end
 
       @prev_balance = []
       if params[:previous_year] && params[:started_on] && Date.parse(params[:stopped_on]) - Date.parse(params[:started_on]) < 366
@@ -104,8 +109,8 @@ module Backend
             Account.find(item[0][1]).name if item[0][1].to_i > 0
           end
           t.add_column(:debit) { |item| item[0][2].to_f }
-          t.add_column(:debit_n) { |item| item[1].any? ? item[1][2].to_f : 0 }
           t.add_column(:credit) { |item| item[0][3].to_f }
+          t.add_column(:debit_n) { |item| item[1].any? ? item[1][2].to_f : 0 }
           t.add_column(:credit_n) { |item| item[1].any? ? item[1][3].to_f : 0 }
           t.add_column(:balance) { |item| item[0][4].to_f }
           t.add_column(:balance_n) { |item| item[1].any? ? item[1][4].to_f : 0 }
