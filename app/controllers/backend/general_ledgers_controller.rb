@@ -131,9 +131,12 @@ module Backend
     end
 
     def index
-      if params[:ledger] == 'general_ledger'
-        ledger_label = :general_ledger.tl
-      elsif account = Account.find_by(number: params[:ledger])
+
+      ledger_label = :general_ledger.tl
+
+      params[:ledger] ||= 'general_ledger'
+
+      if account = Account.find_by(number: params[:ledger])
         ledger_label = :subledger_of_accounts_x.tl(account: account.name)
       end
 
