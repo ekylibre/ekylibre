@@ -10,7 +10,7 @@
       E.ledgers.toggleLetteredItemsVisibility.call($(this))
 
     $('input[data-mask-lettered-items]').on 'change', (e) ->
-      E.ledgers.toggleLetteredItemsVisibility.call($(this))
+      E.ledgers.toggleLetteredItemsVisibility.call($(this), true)
 
     $('input[data-mask-draft-items]').each ->
       E.ledgers.toggleDraftItemsVisibility.call($(this))
@@ -19,7 +19,7 @@
       E.ledgers.toggleDraftItemsVisibility.call($(this))
 
   E.ledgers =
-    toggleLetteredItemsVisibility: ->
+    toggleLetteredItemsVisibility:(changed) ->
       $input = $(this)
       $list = $($input.data('mask-lettered-items'))
       $letteredItems = $list.find('.lettered-item')
@@ -30,8 +30,10 @@
         type: 'PATCH'
         data:
           masked: $input.is(':checked') ? 'true' : 'false'
+        success:
+          location.reload() if changed
 
-    toggleDraftItemsVisibility: ->
+    toggleDraftItemsVisibility: (changed) ->
       $input = $(this)
       $list = $($input.data('mask-draft-items'))
       $letteredItems = $list.find('.draft-item')
@@ -42,4 +44,7 @@
         type: 'PATCH'
         data:
           masked: $input.is(':checked') ? 'true' : 'false'
+        success:
+          location.reload() if changed
+
 ) ekylibre, jQuery
