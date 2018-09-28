@@ -1,11 +1,12 @@
+# frozen_string_literal: true
+
 require 'quandl'
 module Backend
   module Cells
     class QuandlCellsController < Backend::Cells::BaseController
       def show
-        finished = '2017-12-31'
-        started = '2017-01-01'
-        # params[:threshold] = 183.50
+        start = Time.zone.today << 12
+        finish = start >> 12 - 1
         api_key = ENV['QUANDL_API_KEY']
         Quandl::ApiConfig.api_key = api_key
         # Quandl::ApiConfig.api_version = '2015-04-09'
