@@ -1402,6 +1402,7 @@ eng:
     fixed_asset_depreciations: "Fixed asset depreciations"
     fixed_assets: "Fixed assets"
     from: "From"
+    from_to_date: "from %{from} to %{to}"
     fullscreen: "Fullscreen"
     function: "Function"
     fungi: "Fungi" #?
@@ -1663,6 +1664,7 @@ eng:
     numbers: "Numbers" #?
     # observations: "Observations"
     on_account: "On account" #?
+    on_all_exercises: "on all exercises"
     one_condition: "One condition" #??
     open_a_production: "Open a production"
     open_an_activity: "Open an activity"
