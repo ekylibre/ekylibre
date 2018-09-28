@@ -411,6 +411,7 @@ class Journal < Ekylibre::Record::Base
     account_range_condition = Account.range_condition(options[:accounts], accounts)
     account_range = ' AND (' + account_range_condition + ')' if account_range_condition
 
+    # FIXME: There no centralizing account anymore in DB, the query needs to be adjusted
     centralize = options[:centralize].to_s.strip.split(/[^A-Z0-9]+/)
     centralized = '(' + centralize.collect { |c| "#{accounts}.number LIKE #{conn.quote(c + '%')}" }.join(' OR ') + ')'
 
