@@ -237,7 +237,7 @@ class Account < Ekylibre::Record::Base
         options[:name] ||= number.to_s
         merge_attributes = {
           number: number,
-          already_existing: (options[:already_existing] ? already_existing : false)
+          already_existing: (options[:already_existing] ? options[:already_existing] : false)
         }
         account = create!(options.merge(merge_attributes))
       end
