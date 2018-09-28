@@ -16,7 +16,7 @@
       E.ledgers.toggleDraftItemsVisibility.call($(this))
 
     $('input[data-mask-draft-items]').on 'change', (e) ->
-      E.ledgers.toggleDraftItemsVisibility.call($(this))
+      E.ledgers.toggleDraftItemsVisibility.call($(this), true)
 
   E.ledgers =
     toggleLetteredItemsVisibility:(changed) ->
