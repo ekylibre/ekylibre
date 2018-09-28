@@ -34,10 +34,10 @@
 #  updater_id       :integer
 #
 class NamingFormatField < Ekylibre::Record::Base
+  belongs_to :naming_format
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :field_name, presence: true, length: { maximum: 500 }
   # ]VALIDATORS]
-  belongs_to :naming_format
 
   before_create do
     last_field = naming_format.fields.last
