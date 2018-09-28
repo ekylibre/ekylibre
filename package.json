@@ -1,11 +1,4 @@
 {
-  "name": "ekylibre",
-  "version": "2.54.0",
-  "main": "index.js",
-  "repository": "git@github.com:ekylibre/ekylibre.git",
-  "author": "Alexandre Lécuelle <alecuelle@ekylibre.com>",
-  "license": "MIT",
-  "private": true,
   "dependencies": {
     "chart.js": "^2.7.2",
     "vue-chartjs": "^3.2.1",
