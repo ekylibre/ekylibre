@@ -90,7 +90,7 @@ class Account < Ekylibre::Record::Base
   validates :last_letter, length: { allow_nil: true, maximum: 10 }
   validates :name, length: { allow_nil: true, maximum: 200 }
   validates :number, uniqueness: true
-  validates :number, length: { is: 8 }, format: { without: /\A[1-9]0*\z|\A0/ }, unless: :already_existing_and_general
+  validates :number, length: { is: 8 }, format: { without: /\A0/ }, unless: :already_existing_and_general
   validates :number, length: { minimum: 4 }, if: :auxiliary?
   validates :number, format: { with: /\A\d(\d(\d[0-9A-Z]*)?)?\z/ }
   validates :auxiliary_number, presence: true, format: { without: /\A(0*)\z/ }, if: :auxiliary?
@@ -185,12 +185,19 @@ class Account < Ekylibre::Record::Base
     of_usages(:deductible_vat, :enterprise_deductible_vat)
   }
 
+  before_validation do
+    if general? && number && !already_existing
+      errors.add(:number, :centralizing_number) if number.match(/\A401|\A411/).present?
+      errors.add(:number, :radical_class) if number.match(/\A[1-9]0*\z/).present?
+      self.number = number.ljust(8, '0')
+    end
+  end
+
   # This method:allows to create the parent accounts if it is necessary.
   before_validation(on: :create) do
     if general?
       self.auxiliary_number = nil
       self.centralizing_account = nil
-      self.number = number.ljust(8, '0') if number && !already_existing
     elsif auxiliary? && centralizing_account
       centralizing_account_number = centralizing_account.send(Account.accounting_system)
       self.number = centralizing_account_number + auxiliary_number
@@ -198,10 +205,6 @@ class Account < Ekylibre::Record::Base
     self.reconcilable = reconcilableable? if reconcilable.nil?
     self.label = tc(:label, number: number.to_s, name: name.to_s)
     self.usages = Account.find_parent_usage(number) if usages.blank? && number
-  end
-
-  before_validation(on: :update) do
-    self.number = number.ljust(8, '0') unless already_existing
   end
 
   def protected_auxiliary_number?
