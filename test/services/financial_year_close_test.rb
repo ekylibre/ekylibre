@@ -146,7 +146,7 @@ class FinancialYearCloseTest < ActiveSupport::TestCase
       nil,
       nil,
       nil,
-      Account.create!(name: 'Test4x', number: '41101'),
+      Account.create!(name: 'Test4x', number: '123'),
       Account.create!(name: 'Test4x', number: '512'),
       nil,
       Account.create!(name: 'Test7x', number: '707')
