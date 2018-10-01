@@ -74,4 +74,15 @@ class AccountTest < ActiveSupport::TestCase
     client = create(:account, :client)
     assert client.number, client.centralizing_account.send(Account.accounting_system) + client.auxiliary_number
   end
+
+  test 'invalid numbers' do
+    account_1 = build(:account, number: '41123')
+    account_2 = build(:account, number: '40123456789')
+    account_3 = build(:account, number: '012345')
+    account_4 = build(:account, number: '1')
+    refute account_1.valid?
+    refute account_2.valid?
+    refute account_3.valid?
+    refute account_4.valid?
+  end
 end
