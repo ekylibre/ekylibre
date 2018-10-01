@@ -131,6 +131,9 @@ spa:
         unitary_in_parcel: "artículos unitarios sólo se pueden enviar una a una"
         # wrong_length: "%{attribute} is the wrong length (should be %{count} characters)"
       models:
+        account:
+          # centralizing_number: "The number can't start with '401' or '411' which are numbers used for auxiliary accounts"
+          # radical_class: "The account can't correpsond to a radical class"
         activity:
           checked_off_with_inspections: "Inspecciones ya se han creado para esta actividad"
           checked_without_measures: "Al menos, un tipo de medida debe seleccionarse cuando se quieren inspecciones"

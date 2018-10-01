@@ -1138,6 +1138,7 @@ ita:
     entity_to_update: "Persona di aggiornare"
     entries: "Inserimenti"
     entries_to_point: "Voci che puntano a"
+    # entry_item_label: "Entry item label"
     entry_items: "articoli di ingresso"
     equipment: "attrezzatura"
     equipment_name: "Nome di attrezzature"
@@ -1196,6 +1197,7 @@ ita:
     fixed_asset_depreciations: "svalutazioni di immobilizzazioni"
     fixed_assets: "immobilizzazioni"
     from: "Da parte di"
+    # from_to_date: "from %{from} to %{to}"
     fullscreen: "A schermo intero"
     function: "Funzione"
     fungi: "funghi"
@@ -1457,6 +1459,7 @@ ita:
     number_options: "Opzioni Numbers" #?
     numbers: "Numeri"
     on_account: "Sul conto"
+    # on_all_exercises: "on all exercises"
     one_condition: "Una condizione"
     open_a_campaign: "Aprire una campagna" #?
     open_a_production: "Aprire una produzione"
