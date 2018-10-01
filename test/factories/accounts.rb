@@ -5,7 +5,7 @@ FactoryBot.define do
     nature { 'general' }
     sequence(:name) { |n| "Compte 801 - #{n}" }
     sequence(:number) { |n| (801000 + n).to_s }
-    already_existing { true }
+    already_existing { false }
 
     trait :client do
       sequence(:name) { |n| "Compte client #{n}" }
