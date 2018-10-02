@@ -9,10 +9,10 @@ before_script: test/ci/before_script
 # script: xvfb-run bundle exec rake test:slow DRIVER=webkit && xvfb-run bundle exec rake test:fast DRIVER=webkit
 jobs:
   include:
-    - stage: "Slow"
-      name: "Slow and long tests"
-      script: xvfb-run bundle exec rake test:slow DRIVER=webkit
+    - name: "Main test suite"
       script: xvfb-run bundle exec rake test:fast DRIVER=webkit
+    - name: "Long running tests"
+      script: xvfb-run bundle exec rake test:slow DRIVER=webkit
 services:
 - redis-server
 notifications:
