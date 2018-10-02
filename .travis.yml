@@ -6,13 +6,15 @@ rvm:
 - 2.3.4
 before_install: test/ci/before_install
 before_script: test/ci/before_script
-# script: xvfb-run bundle exec rake test:models test:libs test:controllers DRIVER=webkit
-jobs:
-  include:
-    - stage: "Slow"
-    - name: "Slow and long tests"
-    - script: xvfb-run bundle exec rake test:slow DRIVER=webkit
-    - script: xvfb-run bundle exec rake test:fast DRIVER=webkit
+script:
+  - xvfb-run bundle exec rake test:slow DRIVER=webkit
+  - xvfb-run bundle exec rake test:fast DRIVER=webkit
+# jobs:
+#   include:
+#     - stage: "Slow"
+#     - name: "Slow and long tests"
+#     - script: xvfb-run bundle exec rake test:slow DRIVER=webkit
+#     - script: xvfb-run bundle exec rake test:fast DRIVER=webkit
 services:
 - redis-server
 notifications:
