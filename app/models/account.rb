@@ -207,6 +207,10 @@ class Account < Ekylibre::Record::Base
     self.usages = Account.find_parent_usage(number) if usages.blank? && number
   end
 
+  after_validation do
+    self.label = tc(:label, number: number.to_s, name: name.to_s)
+  end
+
   def protected_auxiliary_number?
     journal_entry_items.where.not(state: :draft).any?
   end
