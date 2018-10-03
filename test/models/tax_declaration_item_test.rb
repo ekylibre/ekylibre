@@ -45,6 +45,10 @@
 require 'test_helper'
 
 class TaxDeclarationItemTest < ActiveSupport::TestCase
+  teardown do
+    Timecop.return
+  end
+
   test 'it is possible to declare VAT for a financial year no matter if it has been done for previous financial years or not' do
     clean_irrelevant_fixtures
     create_journals
