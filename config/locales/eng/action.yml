@@ -1118,6 +1118,7 @@ eng:
     back: "Back to the previous page"
     balance: "Balance"
     balance_of_selection: "Balance of selection"
+    balanced: "Balanced"
     bank_account: "Bank account"
     # bank_guarantees: "Bank guarantees"
     bank_statement_number: "Bank statement number" #?
@@ -1308,6 +1309,7 @@ eng:
     disease_percentage: "Disease (%)" #?
     disease_percentage_evolution: "Disease percentage evolution"
     display: "Display" #?
+    display_accounts: "Display accounts"
     display_n_1: "Display N-1"
     distribute_unaffected_products: "Distribute unaffected products"
     distributions: "Distributions" #?
@@ -1348,6 +1350,7 @@ eng:
     entity_to_update: "Person to update"
     entries: "Entries" #?
     entries_to_point: "Entries pointing to" #?!
+    entry_item_label: "Entry item label"
     entry_items: "Entry items" #?
     equipment: "Equipment" #?
     equipment_name: "Name of equipment" #?
@@ -1408,6 +1411,7 @@ eng:
     fixed_asset_depreciations: "Fixed asset depreciations"
     fixed_assets: "Fixed assets"
     from: "From"
+    from_to_date: "from %{from} to %{to}"
     fullscreen: "Fullscreen"
     function: "Function"
     fungi: "Fungi" #?
@@ -1676,6 +1680,7 @@ eng:
     numbers: "Numbers" #?
     # observations: "Observations"
     on_account: "On account" #?
+    on_all_exercises: "on all exercises"
     one_condition: "One condition" #??
     open_a_production: "Open a production"
     open_an_activity: "Open an activity"
@@ -2005,6 +2010,7 @@ eng:
     transfer: "Transfer" #?
     transport: "Transport" #?
     trimester: "Trimester" #?
+    unbalanced: "Unbalanced"
     unbalanced_clients: "Unbalanced clients" #?
     unbalanced_suppliers: "Unbalanced suppliers" #?
     unbilled_payables: "Unbilled payables"

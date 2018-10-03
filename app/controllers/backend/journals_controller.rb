@@ -46,6 +46,7 @@ module Backend
       t.column :account_number, through: :account, label_method: :number, url: true, hidden: true
       t.column :account_name, through: :account, label_method: :name, url: true, hidden: true
       t.column :name, label: :entry_item_label
+      t.column :variant
       t.column :reference_number, through: :entry
       t.column :state_label
       t.column :real_debit,  currency: :real_currency

@@ -35,6 +35,11 @@ module Backend
         params[:stopped_on] = params[:period].split('_').last
       end
       @balance = Journal.trial_balance(params) if params[:period]
+      if @balance && params[:balance] == 'balanced'
+        @balance = @balance.select { |item| item[1].to_i < 0 || Account.find(item[1]).journal_entry_items.pluck(:real_balance).reduce(:+) == 0 }
+      elsif @balance && params[:balance] == 'unbalanced'
+        @balance = @balance.select { |item| item[1].to_i < 0 || Account.find(item[1]).journal_entry_items.pluck(:real_balance).reduce(:+) != 0 }
+      end
 
       @prev_balance = []
       if params[:previous_year] && params[:started_on] && Date.parse(params[:stopped_on]) - Date.parse(params[:started_on]) < 366
@@ -96,7 +101,8 @@ module Backend
 
         r.add_field 'COMPANY_ADDRESS', company_address
         r.add_field 'FILE_NAME', document_nature.human_name
-        r.add_field 'PERIOD', period
+        r.add_field 'PERIOD', period == 'all' ? :on_all_exercises.tl : t('labels.from_to_date', from: Date.parse(period.split('_').first).l, to: Date.parse(period.split('_').last).l)
+        r.add_field 'DATE', Date.today.l
 
         r.add_table('Tableau2', balances, header: false) do |t|
           t.add_column(:a) { |item| item[0][0] }
@@ -104,11 +110,11 @@ module Backend
             Account.find(item[0][1]).name if item[0][1].to_i > 0
           end
           t.add_column(:debit) { |item| item[0][2].to_f }
-          t.add_column(:debit_n) { |item| item[1].any? ? item[1][2].to_f : 0 }
           t.add_column(:credit) { |item| item[0][3].to_f }
-          t.add_column(:credit_n) { |item| item[1].any? ? item[1][3].to_f : 0 }
+          t.add_column(:debit_n) { |item| item[1].any? ? item[1][2].to_f : '' }
+          t.add_column(:credit_n) { |item| item[1].any? ? item[1][3].to_f : '' }
           t.add_column(:balance) { |item| item[0][4].to_f }
-          t.add_column(:balance_n) { |item| item[1].any? ? item[1][4].to_f : 0 }
+          t.add_column(:balance_n) { |item| item[1].any? ? item[1][4].to_f : '' }
         end
       end
       report.file.path
@@ -151,12 +157,12 @@ module Backend
             account_name,
             item[2].to_f,
             item[3].to_f,
-            prev_item[2].to_f,
-            prev_item[3].to_f,
+            prev_item[2].present? ? prev_item[2].to_f : '',
+            prev_item[3].present? ? prev_item[3].to_f : '',
             item[4].to_f > 0 ? item[4].to_f : 0,
             item[4].to_f < 0 ? -item[4].to_f : 0,
-            prev_item[4].to_f > 0 ? prev_item[4].to_f : 0,
-            prev_item[4].to_f < 0 ? -prev_item[4].to_f : 0
+            prev_item[4].present? ? (prev_item[4].to_f > 0 ? prev_item[4].to_f : 0) : '',
+            prev_item[4].present? ? (prev_item[4].to_f < 0 ? -prev_item[4].to_f : 0) : ''
           ]
         elsif item[1].to_i == -1
           # Part for the total
@@ -165,12 +171,12 @@ module Backend
             :total.tl,
             item[2].to_f,
             item[3].to_f,
-            prev_item[2].to_f,
-            prev_item[3].to_f,
+            prev_item[2].present? ? prev_item[2].to_f : '',
+            prev_item[3].present? ? prev_item[3].to_f : '',
             item[4].to_f > 0 ? item[4].to_f : 0,
             item[4].to_f < 0 ? -item[4].to_f : 0,
-            prev_item[4].to_f > 0 ? prev_item[4].to_f : 0,
-            prev_item[4].to_f < 0 ? -prev_item[4].to_f : 0
+            prev_item[4].present? ? (prev_item[4].to_f > 0 ? prev_item[4].to_f : 0) : '',
+            prev_item[4].present? ? (prev_item[4].to_f < 0 ? -prev_item[4].to_f : 0) : ''
           ]
         elsif item[1].to_i == -2
           csv << [
@@ -178,12 +184,12 @@ module Backend
             :subtotal.tl(name: item[0]).l,
             item[2].to_f,
             item[3].to_f,
-            prev_item[2].to_f,
-            prev_item[3].to_f,
+            prev_item[2].present? ? prev_item[2].to_f : '',
+            prev_item[3].present? ? prev_item[3].to_f : '',
             item[4].to_f > 0 ? item[4].to_f : 0,
             item[4].to_f < 0 ? -item[4].to_f : 0,
-            prev_item[4].to_f > 0 ? prev_item[4].to_f : 0,
-            prev_item[4].to_f < 0 ? -prev_item[4].to_f : 0
+            prev_item[4].present? ? (prev_item[4].to_f > 0 ? prev_item[4].to_f : 0) : '',
+            prev_item[4].present? ? (prev_item[4].to_f < 0 ? -prev_item[4].to_f : 0) : ''
           ]
         elsif item[1].to_i == -3
           csv << [
@@ -191,12 +197,12 @@ module Backend
             :centralized_account.tl(name: item[0]).l,
             item[2].to_f,
             item[3].to_f,
-            prev_item[2].to_f,
-            prev_item[3].to_f,
+            prev_item[2].present? ? prev_item[2].to_f : '',
+            prev_item[3].present? ? prev_item[3].to_f : '',
             item[4].to_f > 0 ? item[4].to_f : 0,
             item[4].to_f < 0 ? -item[4].to_f : 0,
-            prev_item[4].to_f > 0 ? prev_item[4].to_f : 0,
-            prev_item[4].to_f < 0 ? -prev_item[4].to_f : 0
+            prev_item[4].present? ? (prev_item[4].to_f > 0 ? prev_item[4].to_f : 0) : '',
+            prev_item[4].present? ? (prev_item[4].to_f < 0 ? -prev_item[4].to_f : 0) : ''
           ]
         end
       end
@@ -255,12 +261,12 @@ module Backend
                 cell account.name
                 cell (item[2]).l, type: :float
                 cell (item[3]).l, type: :float
-                cell prev_item.any? ? prev_item[2].l : 0, type: :float
-                cell prev_item.any? ? prev_item[3].l : 0, type: :float
+                cell prev_item.any? ? prev_item[2].l : '', type: :float
+                cell prev_item.any? ? prev_item[3].l : '', type: :float
                 cell (item[4].to_f > 0 ? item[4] : 0).l, type: :float
                 cell (item[4].to_f < 0 ? (-item[4].to_f).to_s : 0).l, type: :float
-                cell (prev_item.any? && prev_item[4].to_f > 0 ? prev_item[4] : 0).l, type: :float
-                cell (prev_item.any? && prev_item[4].to_f < 0 ? (-prev_item[4].to_f).to_s : 0).l, type: :float
+                cell (prev_item.any? ? (prev_item[4].to_f > 0 ? prev_item[4] : 0) : '').l, type: :float
+                cell (prev_item.any? ? (prev_item[4].to_f < 0 ? (-prev_item[4].to_f).to_s : 0) : '').l, type: :float
               end
 
             elsif item[1].to_i == -1
@@ -269,12 +275,12 @@ module Backend
                 cell :total.tl, style: :bold
                 cell (item[2]).l, style: :bold, type: :float
                 cell (item[3]).l, style: :bold, type: :float
-                cell prev_item.any? ? prev_item[2].l : 0, style: :bold, type: :float
-                cell prev_item.any? ? prev_item[3].l : 0, style: :bold, type: :float
+                cell prev_item.any? ? prev_item[2].l : '', style: :bold, type: :float
+                cell prev_item.any? ? prev_item[3].l : '', style: :bold, type: :float
                 cell (item[4].to_f > 0 ? item[4] : 0).l, style: :bold, type: :float
                 cell (item[4].to_f < 0 ? (-item[4].to_f).to_s : 0).l, style: :bold, type: :float
-                cell (prev_item.any? && prev_item[4].to_f > 0 ? prev_item[4] : 0).l, style: :bold, type: :float
-                cell (prev_item.any? && prev_item[4].to_f < 0 ? (-prev_item[4].to_f).to_s : 0).l, style: :bold, type: :float
+                cell (prev_item.any? ? (prev_item[4].to_f > 0 ? prev_item[4] : 0) : '').l, style: :bold, type: :float
+                cell (prev_item.any? ? (prev_item[4].to_f < 0 ? (-prev_item[4].to_f).to_s : 0) : '').l, style: :bold, type: :float
               end
             elsif item[1].to_i == -2
               row do
@@ -282,12 +288,12 @@ module Backend
                 cell :subtotal.tl(name: item[0]).l, style: :right
                 cell (item[2]).l, style: :bold, type: :float
                 cell (item[3]).l, style: :bold, type: :float
-                cell prev_item.any? ? prev_item[2].l : 0, style: :bold, type: :float
-                cell prev_item.any? ? prev_item[3].l : 0, style: :bold, type: :float
+                cell prev_item.any? ? prev_item[2].l : '', style: :bold, type: :float
+                cell prev_item.any? ? prev_item[3].l : '', style: :bold, type: :float
                 cell (item[4].to_f > 0 ? item[4] : 0).l, style: :bold, type: :float
                 cell (item[4].to_f < 0 ? (-item[4].to_f).to_s : 0).l, style: :bold, type: :float
-                cell (prev_item.any? && prev_item[4].to_f > 0 ? prev_item[4] : 0).l, style: :bold, type: :float
-                cell (prev_item.any? && prev_item[4].to_f < 0 ? (-prev_item[4].to_f).to_s : 0).l, style: :bold, type: :float
+                cell (prev_item.any? ? (prev_item[4].to_f > 0 ? prev_item[4] : 0) : '').l, style: :bold, type: :float
+                cell (prev_item.any? ? (prev_item[4].to_f < 0 ? (-prev_item[4].to_f).to_s : 0) : '').l, style: :bold, type: :float
               end
             elsif item[1].to_i == -3
               row do
@@ -295,12 +301,12 @@ module Backend
                 cell :centralized_account.tl(name: item[0]).l, style: :italic
                 cell (item[2]).l, style: :italic, type: :float
                 cell (item[3]).l, style: :italic, type: :float
-                cell prev_item.any? ? prev_item[2].l : 0, style: :italic, type: :float
-                cell prev_item.any? ? prev_item[3].l : 0, style: :italic, type: :float
+                cell prev_item.any? ? prev_item[2].l : '', style: :italic, type: :float
+                cell prev_item.any? ? prev_item[3].l : '', style: :italic, type: :float
                 cell (item[4].to_f > 0 ? item[4] : 0).l, style: :italic, type: :float
                 cell (item[4].to_f < 0 ? (-item[4].to_f).to_s : 0).l, style: :italic, type: :float
-                cell (prev_item.any? && prev_item[4].to_f > 0 ? prev_item[4] : 0).l, style: :italic, type: :float
-                cell (prev_item.any? && prev_item[4].to_f < 0 ? (-prev_item[4].to_f).to_s : 0).l, style: :italic, type: :float
+                cell (prev_item.any? ? (prev_item[4].to_f > 0 ? prev_item[4] : 0) : '').l, style: :italic, type: :float
+                cell (prev_item.any? ? (prev_item[4].to_f < 0 ? (-prev_item[4].to_f).to_s : 0) : '').l, style: :italic, type: :float
               end
             end
           end
