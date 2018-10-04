@@ -111,7 +111,7 @@ module Backend
       t.column :account, url: true, hidden: true
       t.column :account_number, through: :account, label_method: :number, url: { controller: :general_ledgers, account_number: 'RECORD.account.number'.c, current_financial_year: 'params[:current_financial_year]'.c, ledger: 'RECORD.account&.centralizing_account&.number'.c }, hidden: true
       t.column :account_name, through: :account, label_method: :name, url: true, hidden: true
-      t.column :entry_number, url: { controller: :journal_entries, id: 'RECORD.entry_id'.c }  
+      t.column :entry_number, url: { controller: :journal_entries, id: 'RECORD.entry_id'.c }
       t.column :continuous_number, hidden: true
       t.column :code, through: :journal, label: :journal, hidden: true
       t.column :entry_resource_label, url: { controller: 'RECORD&.entry&.resource&.class&.model_name&.plural'.c, id: 'RECORD&.entry&.resource&.id'.c }, label: :entry_resource_label, class: 'entry-resource-label'

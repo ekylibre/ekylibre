@@ -1,3 +1,14 @@
+GIT
+  remote: git://github.com/ekylibre/active_list.git
+  revision: 1e9245968abc6ad2c59b01df844858455ca969ac
+  specs:
+    active_list (6.9.4)
+      arel (>= 5.0.0)
+      code_string (>= 0.0.1)
+      i18n-complements
+      rails (>= 3.2, < 5.0.0)
+      rubyzip (>= 1.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -23,12 +34,6 @@ GEM
       erubis (~> 2.7.0)
       rails-dom-testing (~> 1.0, >= 1.0.5)
       rails-html-sanitizer (~> 1.0, >= 1.0.3)
-    active_list (6.9.4)
-      arel (>= 5.0.0)
-      code_string (>= 0.0.1)
-      i18n-complements
-      rails (>= 3.2, < 5.0.0)
-      rubyzip (>= 1.0)
     activejob (4.2.10)
       activesupport (= 4.2.10)
       globalid (>= 0.3.0)
@@ -583,7 +588,7 @@ PLATFORMS
 
 DEPENDENCIES
   actionpack-xml_parser
-  active_list (>= 6.9.3)
+  active_list!
   activerecord-postgis-adapter (>= 3.0.0)
   acts_as_list
   agric (~> 3.0)
@@ -708,4 +713,4 @@ RUBY VERSION
    ruby 2.3.3p222
 
 BUNDLED WITH
-   1.16.1
+   1.16.4
