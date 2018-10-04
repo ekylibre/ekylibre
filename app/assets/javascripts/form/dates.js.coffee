@@ -11,6 +11,7 @@
         $.extend options, $.datepicker.regional[locale],
           dateFormat: "yy-mm-dd"
           maxDate: element.data('max-date')
+        element.attr('type', 'text')
         element.datepicker options
         element.attr "autocomplete", "off"
       return

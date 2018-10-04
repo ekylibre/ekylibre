@@ -41,7 +41,7 @@ module Backend
     end
 
     list(:items, model: :journal_entry_items, conditions: { entry_id: 'params[:id]'.c }, order: :position) do |t|
-      t.column :name
+      t.column :displayed_label_in_accountancy, label: :entry_item_label
       t.column :account, url: true
       t.column :account_number, through: :account, label_method: :number, url: true, hidden: true
       t.column :account_name, through: :account, label_method: :name, url: true, hidden: true
