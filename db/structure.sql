@@ -17954,9 +17954,6 @@ INSERT INTO schema_migrations (version) VALUES ('20180712091619');
 
 INSERT INTO schema_migrations (version) VALUES ('20180730150532');
 
-<<<<<<< HEAD
-INSERT INTO schema_migrations (version) VALUES ('20181003092024');
-=======
 INSERT INTO schema_migrations (version) VALUES ('20180921092835');
->>>>>>> feature/update-accounts-normalization
 
+INSERT INTO schema_migrations (version) VALUES ('20181003092024');
