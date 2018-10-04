@@ -34,6 +34,7 @@
 #  last_journal_entry_id     :integer
 #  lock_version              :integer          default(0), not null
 #  started_on                :date             not null
+#  state                     :string
 #  stopped_on                :date             not null
 #  tax_declaration_frequency :string
 #  tax_declaration_mode      :string           not null

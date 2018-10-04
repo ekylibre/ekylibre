@@ -2072,6 +2072,9 @@
         <page to="backend/draft_journals#confirm_all"/>
         <page to="backend/draft_journals#list"/>
       </item>
+      <item name="financial_years">
+        <page to="backend/financial_years#destroy_all_empty"/>
+      </item>
       <item name="invalid_journal_entries">
         <page to="backend/invalid_journal_entries#delete_all"/>
         <page to="backend/invalid_journal_entries#list"/>

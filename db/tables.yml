@@ -2485,6 +2485,8 @@ financial_years:
   started_on:
     type: date
     required: true
+  state:
+    type: string
   stopped_on:
     type: date
     required: true
