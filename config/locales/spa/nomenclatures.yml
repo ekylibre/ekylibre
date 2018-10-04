@@ -1932,6 +1932,7 @@ spa:
         inventory_sheet: "Hoja de inventario"
         journal: "Diario"
         journal_entry_sheet: "Hoja de entrada Diario"
+        # journal_ledger: "Journal ledger"
         land_parcel_register: "Registro de parcelas"
         loan_registry: "Registro de préstamo"
         manure_management_plan: "Plan de manejo del estiércol"

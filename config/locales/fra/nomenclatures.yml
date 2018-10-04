@@ -2052,6 +2052,7 @@ fra:
         inventory_sheet: "Inventaire"
         journal: "Journal"
         journal_entry_sheet: "Journal feuille d’entrée"
+        journal_ledger: "Etat du journal"
         land_parcel_register: "Cahier de tracabilité ‒ Parcelles"
         loan_registry: "Registre de prêt"
         manure_management_plan: "Cahier d’épandage"

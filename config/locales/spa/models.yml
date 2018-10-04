@@ -425,6 +425,7 @@ spa:
     accountant: "Contador"
     accounted_at: "Representaron en"
     accounting_balance: "Saldo contable"
+    # accounting_label: "Accounting label"
     accuracy: "Exactitud"
     achieved_at: "Alcanzado en"
     actions: "Comportamiento"

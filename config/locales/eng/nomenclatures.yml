@@ -1925,6 +1925,7 @@ eng:
         inventory_sheet: "Inventory sheet"
         journal: "Journal"
         journal_entry_sheet: "Journal entry sheet"
+        journal_ledger: "Journal ledger"
         land_parcel_register: "Land parcel register"
         loan_registry: "Loan registry"
         manure_management_plan: "Manure management plan"

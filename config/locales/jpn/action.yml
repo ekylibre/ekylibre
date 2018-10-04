@@ -1140,6 +1140,7 @@ jpn:
     entity_to_update: "更新する人"
     entries: "エントリー"
     entries_to_point: "を指しているエントリ"
+    # entry_item_label: "Entry item label"
     entry_items: "入力項目"
     equipment: "装置"
     equipment_name: "機器の名前"
@@ -1198,6 +1199,7 @@ jpn:
     fixed_asset_depreciations: "固定資産の減価償却"
     fixed_assets: "固定資産"
     from: "から"
+    # from_to_date: "from %{from} to %{to}"
     fullscreen: "全画面表示"
     function: "機能"
     fungi: "菌類"
@@ -1463,6 +1465,7 @@ jpn:
     number_options: "オプション番号" #?
     numbers: "数字"
     on_account: "アカウントに"
+    # on_all_exercises: "on all exercises"
     one_condition: "一つの条件"
     open_a_campaign: "キャンペーンを開きます。" #?
     open_a_production: "生産を開きます"

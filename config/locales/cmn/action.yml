@@ -1072,6 +1072,7 @@ cmn:
     entity_to_update: "人更新"
     entries: "参赛作品"
     entries_to_point: "条目指向"
+    # entry_item_label: "Entry item label"
     entry_items: "入境物品"
     equipment: "设备"
     equipment_name: "设备名称"
@@ -1130,6 +1131,7 @@ cmn:
     fixed_asset_depreciations: "固定资产折旧"
     fixed_assets: "固定资产"
     from: "从"
+    # from_to_date: "from %{from} to %{to}"
     fullscreen: "全屏"
     function: "功能"
     fungi: "真菌"
@@ -1392,6 +1394,7 @@ cmn:
     number_options: "选项​​号码" #?
     numbers: "数字"
     on_account: "在帐户"
+    # on_all_exercises: "on all exercises"
     one_condition: "一个条件"
     open_a_campaign: "打开活动" #?
     open_a_production: "打开一个生产"

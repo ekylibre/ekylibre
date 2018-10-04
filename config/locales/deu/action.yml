@@ -1072,6 +1072,7 @@ deu:
     entity_to_update: "Person zu aktualisieren"
     entries: "Einträge"
     entries_to_point: "Einträge hinzu, um"
+    # entry_item_label: "Entry item label"
     entry_items: "Eintrag Artikel"
     equipment: "Ausrüstung"
     equipment_name: "Name der Ausrüstung"
@@ -1130,6 +1131,7 @@ deu:
     fixed_asset_depreciations: "Anlagevermögen Abschreibungen"
     fixed_assets: "Anlagevermögen"
     from: "Von"
+    # from_to_date: "from %{from} to %{to}"
     fullscreen: "Vollbild"
     function: "Funktion"
     fungi: "Pilze"
@@ -1391,6 +1393,7 @@ deu:
     number_options: "Optionen Zahlen" #?
     numbers: "Nummern"
     on_account: "Auf Rechnung"
+    # on_all_exercises: "on all exercises"
     one_condition: "Eine Bedingung"
     open_a_campaign: "Öffnen Sie eine Kampagne" #?
     open_a_production: "Öffnen einer Produktions"

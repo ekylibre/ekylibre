@@ -424,6 +424,7 @@ deu:
     accountant: "Buchhalter"
     accounted_at: "entfielen auf"
     accounting_balance: "Accounting Balance"
+    # accounting_label: "Accounting label"
     accuracy: "Genauigkeit"
     achieved_at: "erreicht bei"
     actions: "Aktionen"

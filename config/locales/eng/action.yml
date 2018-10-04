@@ -440,9 +440,14 @@ eng:
       index: "Journal entry items"
       show: "Journal entry item: %{name}"
     backend/journals:
+      # archive_report: "Archive report journal: %{name}"
       bookkeep: "Bookkeep"
       close: "Close journal: %{name}"
       edit: "Edit journal: %{name}"
+      # find_open_document_template: "Find open document template journal: %{name}"
+      # generate_document: "Generate document journal: %{name}"
+      # generate_report: "Generate report journal: %{name}"
+      # generate_report_file: "Generate report file journal: %{name}"
       index: "Journals"
       new: "New journal"
       reopen: "Reopen journal: %{name}" #?
@@ -1351,7 +1356,7 @@ eng:
     entity_to_update: "Person to update"
     entries: "Entries" #?
     entries_to_point: "Entries pointing to" #?!
-    entry_item_label: "Entry item label"
+    entry_item_label: "Entry item label" #?
     entry_items: "Entry items" #?
     equipment: "Equipment" #?
     equipment_name: "Name of equipment" #?
@@ -1409,7 +1414,7 @@ eng:
     fixed_asset_depreciations: "Fixed asset depreciations"
     fixed_assets: "Fixed assets"
     from: "From"
-    from_to_date: "from %{from} to %{to}"
+    from_to_date: "from %{from} to %{to}" #?
     fullscreen: "Fullscreen"
     function: "Function"
     fungi: "Fungi" #?

@@ -2075,6 +2075,13 @@
         <page to="backend/invalid_journal_entries#delete_all"/>
         <page to="backend/invalid_journal_entries#list"/>
       </item>
+      <item name="journals">
+        <page to="backend/journals#archive_report"/>
+        <page to="backend/journals#find_open_document_template"/>
+        <page to="backend/journals#generate_document"/>
+        <page to="backend/journals#generate_report"/>
+        <page to="backend/journals#generate_report_file"/>
+      </item>
       <item name="trial_balances">
         <page to="backend/trial_balances#archive_report"/>
         <page to="backend/trial_balances#find_open_document_template"/>

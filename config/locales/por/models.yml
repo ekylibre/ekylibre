@@ -424,6 +424,7 @@ por:
     accountant: "Contador"
     accounted_at: "Contabilizados ao"
     accounting_balance: "Saldo contábil"
+    # accounting_label: "Accounting label"
     accuracy: "Precisão"
     achieved_at: "Alcançados ao"
     actions: "Ações"

@@ -424,6 +424,7 @@ jpn:
     accountant: "会計士"
     accounted_at: "で会計処理"
     accounting_balance: "会計収支"
+    # accounting_label: "Accounting label"
     accuracy: "精度"
     achieved_at: "で達成"
     actions: "アクション"

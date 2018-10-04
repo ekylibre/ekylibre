@@ -27,6 +27,7 @@
 #  absolute_debit            :decimal(19, 4)   default(0.0), not null
 #  absolute_pretax_amount    :decimal(19, 4)   default(0.0), not null
 #  account_id                :integer          not null
+#  accounting_label          :string
 #  activity_budget_id        :integer
 #  balance                   :decimal(19, 4)   default(0.0), not null
 #  bank_statement_id         :integer

@@ -455,6 +455,7 @@ ita:
     accountant: "Contabile"
     accounted_at: "rappresentato a"
     accounting_balance: "Saldo contabile"
+    # accounting_label: "Accounting label"
     accuracy: "Precisione"
     achieved_at: "raggiunto a"
     actions: "azioni"

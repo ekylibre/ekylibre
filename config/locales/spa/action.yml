@@ -1186,6 +1186,7 @@ spa:
     entity_to_update: "Persona para actualizar"
     entries: "Escrituras"
     entries_to_point: "Escrituras a despuntar"
+    # entry_item_label: "Entry item label"
     entry_items: "Elementos de entrada"
     equipment: "Equipo"
     equipment_name: "Nombre del equipo"
@@ -1255,6 +1256,7 @@ spa:
     fixed_assets: "Los activos fijos"
     free_purchases: "Compras en franquisia" #?
     from: "Expedidor"
+    # from_to_date: "from %{from} to %{to}"
     fullscreen: "Pantalla completa"
     function: "Función"
     fungi: "Hongos"
@@ -1556,6 +1558,7 @@ spa:
     number_options: "Opciones números" #?
     numbers: "Números"
     on_account: "Volver a poner sobre la cuenta"
+    # on_all_exercises: "on all exercises"
     one_condition: "Una condición"
     open_a_campaign: "Abrir una campaña" #?
     open_a_production: "Abrir una producción"

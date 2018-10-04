@@ -1926,6 +1926,7 @@ deu:
         inventory_sheet: "Inventarliste"
         journal: "Zeitschrift"
         journal_entry_sheet: "Journal Erfassungsblatt"
+        # journal_ledger: "Journal ledger"
         land_parcel_register: "Registrieren Flurstück"
         loan_registry: "Loan-Registrierung"
         manure_management_plan: "Gülle-Management-Plan"

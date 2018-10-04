@@ -1935,6 +1935,7 @@ arb:
         inventory_sheet: "ورقة المخزون"
         journal: "مجلة"
         journal_entry_sheet: "ورقة إدخال دفتر اليومية"
+        # journal_ledger: "Journal ledger"
         land_parcel_register: "تسجيل قطعة أرض"
         loan_registry: "التسجيل قرض"
         manure_management_plan: "خطة إدارة السماد"

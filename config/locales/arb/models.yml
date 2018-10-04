@@ -1071,6 +1071,7 @@ arb:
     accountant: "محاسب"
     accounted_at: "تمت محاسبته يوم"
     accounting_balance: "ميزان المحاسبة"
+    # accounting_label: "Accounting label"
     accounts: "الحسابات" #?
     accuracy: "دقة"
     achieved_at: "تحقق في"
