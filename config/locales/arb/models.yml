@@ -727,6 +727,7 @@ arb:
               # on_or_after: "The date selected must be posterior to society's creation date (%{restriction})"
             stopped_on:
               end_of_month: "%{attribute} يجب ان يكون التاريخ في نهاية الشهر"
+          # can_only_update_code: "You can only update the code of a closed or locked financial year"
           overlap: "%{attribute} متواجد على قائمة السنة المالية الحالية"
         financial_year_exchange:
           csv_file_entry_dates_invalid: "بعض الإدخالات في CSV هي خارج نطاق تاريخ الصرف في العام المالي"

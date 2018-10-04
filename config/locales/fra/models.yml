@@ -294,6 +294,7 @@ fra:
               on_or_after: "La date de début doit être postérieure à la date de création de la société (%{restriction})"
             stopped_on:
               end_of_month: "%{attribute} doit être une date de fin de mois"
+          can_only_update_code: "Vous ne pouvez que modifier uniquement le code d'un exercice comptable fermé ou clotûré"
           overlap: "%{attribute} se trouve sur un exercice existant"
         financial_year_exchange:
           csv_file_entry_dates_invalid: "Certaines entrées du CSV ne sont pas comprises dans l'intervalle de l'exercice comptable"
