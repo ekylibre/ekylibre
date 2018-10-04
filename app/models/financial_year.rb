@@ -231,7 +231,7 @@ class FinancialYear < Ekylibre::Record::Base
     list = []
     list << :financial_year_already_closed if closed
     list << :draft_journal_entries_are_present if journal_entries.where(state: :draft).any?
-    list << :previous_financial_year_is_not_closed if !previous&.closed? && !previous&.locked?
+    list << :previous_financial_year_is_not_closed if previous_record && !previous_record.closed? && !previous_record.locked?
     list << :unbalanced_journal_entries_are_present_in_year unless journal_entries.where('debit != credit').empty?
     list << :financial_year_is_not_past if stopped_on >= noticed_on
     list
@@ -272,6 +272,14 @@ class FinancialYear < Ekylibre::Record::Base
   # this method returns the next financial_year by default.
   def next
     self.class.find_by(started_on: stopped_on + 1)
+  end
+
+  # this method returns the previous financial year record sorted by started_on
+  def previous_record
+    all_fy = self.class.all.sort_by(&:started_on)
+    return nil if all_fy.index(self).zero?
+    self_index = all_fy.index(self)
+    previous_record = all_fy[self_index - 1]
   end
 
   # Find or create the next financial year based on the date of the current
