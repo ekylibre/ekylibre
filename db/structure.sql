@@ -2436,7 +2436,8 @@ CREATE TABLE journal_entry_items (
     resource_type character varying,
     resource_prism character varying,
     variant_id integer,
-    tax_declaration_mode character varying
+    tax_declaration_mode character varying,
+    accounting_label character varying
 );
 
 
@@ -2504,7 +2505,8 @@ CREATE TABLE purchase_items (
     team_id integer,
     depreciable_product_id integer,
     fixed_asset_id integer,
-    preexisting_asset boolean
+    preexisting_asset boolean,
+    accounting_label character varying
 );
 
 
@@ -2576,7 +2578,8 @@ CREATE TABLE sale_items (
     activity_budget_id integer,
     team_id integer,
     codes jsonb,
-    compute_from character varying NOT NULL
+    compute_from character varying NOT NULL,
+    accounting_label character varying
 );
 
 
@@ -17940,4 +17943,6 @@ INSERT INTO schema_migrations (version) VALUES ('20171010075206');
 INSERT INTO schema_migrations (version) VALUES ('20171129091817');
 
 INSERT INTO schema_migrations (version) VALUES ('20171130092234');
+
+INSERT INTO schema_migrations (version) VALUES ('20181003092024');
 

@@ -423,6 +423,7 @@ eng:
     accountant: "Accountant"
     accounted_at: "Accounted at"
     accounting_balance: "Accounting balance"
+    accounting_label: "Accounting label"
     accuracy: "Accuracy"
     achieved_at: "Achieved at"
     actions: "Actions"
