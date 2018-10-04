@@ -564,7 +564,7 @@ fra:
     accountant: "Comptable"
     accounted_at: "Date comptabilisation"
     accounting_balance: "Solde comptable"
-    accounting_label: "Label comptable"
+    accounting_label: "Libellé comptable"
     accuracy: "Précision"
     achieved_at: "Achevé le"
     actions: "Actions"
