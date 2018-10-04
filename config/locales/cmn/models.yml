@@ -187,6 +187,7 @@ cmn:
         journal_entry:
           # closed_journal: "The journal %{journal} is closed on %{closed_on}. No updates are possible until this date."
           frozen_by_financial_year_exchange: "日记帐分录不能被记录在相应于一个财政年度交流的时间。"
+          # not_opened_financial_year: "The financial year corresponding to the given date is not opened"
           out_of_existing_financial_year: "日记帐分录必须记录在相应于现有财政年度期间。"
           unbalanced: "日记帐分录不平衡"
         journal_entry_item:

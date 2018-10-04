@@ -852,6 +852,7 @@ por:
     back: "Voltar para a página anterior"
     balance: "Equilibrar"
     balance_of_selection: "Balança de selecção"
+    # balanced: "Balanced"
     bank_account: "Conta bancária"
     bank_statement_number: "Número extrato bancário"
     bank_statements: "Extratos bancários"
@@ -1038,6 +1039,8 @@ por:
     disease_percentage: "Doença (%)"
     disease_percentage_evolution: "evolução percentual doença"
     display: "Exibição"
+    # display_accounts: "Display accounts"
+    # display_n_1: "Display N-1"
     distribute_unaffected_products: "Distribuir produtos não afetados"
     distributions: "Distribuições"
     divide: "Dividir"
@@ -1077,6 +1080,7 @@ por:
     entity_to_update: "Pessoa para atualizar"
     entries: "Entradas"
     entries_to_point: "Entradas que apontam para"
+    # entry_item_label: "Entry item label"
     entry_items: "Itens de entrada"
     equipment: "Equipamento"
     equipment_name: "Nome do equipamento"
@@ -1138,6 +1142,7 @@ por:
     fixed_asset_depreciations: "Depreciações de ativos fixos"
     fixed_assets: "Activos fixos"
     from: "A partir de"
+    # from_to_date: "from %{from} to %{to}"
     fullscreen: "Tela cheia"
     function: "Função"
     fungi: "Fungos"
@@ -1406,6 +1411,7 @@ por:
     number_options: "Opções Números" #?
     numbers: "Números"
     on_account: "Por conta"
+    # on_all_exercises: "on all exercises"
     one_condition: "Uma condição"
     open_a_campaign: "Abra uma campanha" #?
     open_a_production: "Abra uma produção"
@@ -1743,6 +1749,7 @@ por:
     transformations: "Transformações" #?
     transport: "Transporte"
     trimester: "Trimestre"
+    # unbalanced: "Unbalanced"
     unbalanced_clients: "Clientes desequilibradas"
     unbalanced_suppliers: "Fornecedores desequilibradas"
     unbilled_payables: "Contas a pagar não faturadas"

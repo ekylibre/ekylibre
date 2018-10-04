@@ -2691,7 +2691,7 @@ fra:
       no_unvalidated_operations: "Aucun travail à réaliser" #?
       password_successfully_changed: "Votre mot de passe a été mis à jour avec succès" #?
       previouos_financial_year_is_not_closed: "L’exercice précédent n’a pas été clôturé."
-      previous_financial_year_is_not_closed: "L'exercice précédent n'a pas encore été clôturé." #?
+      previous_financial_year_is_not_closed_nor_locked: "L'exercice précédent n'a pas encore été clôturé ou verrouillé." #?
       prices_import_succeeded: "Vos données ont été correctement importées" #?
       print_failure: "Impossible d’imprimer. Essayer de recharger les modèles de documents pour corriger le problème. %{error} (%{class})." #?
       purchase_already_invoiced: "Achat déjà facturé" #?

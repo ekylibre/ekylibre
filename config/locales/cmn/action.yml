@@ -847,6 +847,7 @@ cmn:
     back: "回到以前的页"
     balance: "平衡"
     balance_of_selection: "选择平衡"
+    # balanced: "Balanced"
     bank_account: "银行账户"
     bank_statement_number: "银行对账单号"
     bank_statements: "银行对账单"
@@ -1033,6 +1034,8 @@ cmn:
     disease_percentage: "疾病 （％）"
     disease_percentage_evolution: "疾病演变的百分比"
     display: "显示"
+    # display_accounts: "Display accounts"
+    # display_n_1: "Display N-1"
     distribute_unaffected_products: "分发产品不受影响"
     distributions: "分布"
     divide: "划分"
@@ -1072,6 +1075,7 @@ cmn:
     entity_to_update: "人更新"
     entries: "参赛作品"
     entries_to_point: "条目指向"
+    # entry_item_label: "Entry item label"
     entry_items: "入境物品"
     equipment: "设备"
     equipment_name: "设备名称"
@@ -1133,6 +1137,7 @@ cmn:
     fixed_asset_depreciations: "固定资产折旧"
     fixed_assets: "固定资产"
     from: "从"
+    # from_to_date: "from %{from} to %{to}"
     fullscreen: "全屏"
     function: "功能"
     fungi: "真菌"
@@ -1402,6 +1407,7 @@ cmn:
     number_options: "选项​​号码" #?
     numbers: "数字"
     on_account: "在帐户"
+    # on_all_exercises: "on all exercises"
     one_condition: "一个条件"
     open_a_campaign: "打开活动" #?
     open_a_production: "打开一个生产"
@@ -1739,6 +1745,7 @@ cmn:
     transformations: "转换" #?
     transport: "运输"
     trimester: "孕期"
+    # unbalanced: "Unbalanced"
     unbalanced_clients: "不平衡的客户"
     unbalanced_suppliers: "不平衡的供应商"
     unbilled_payables: "未开票应付账款"

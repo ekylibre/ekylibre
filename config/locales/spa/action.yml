@@ -929,6 +929,7 @@ spa:
         safari: "Safari" #?
     balance: "Saldo"
     balance_of_selection: "Balanza de selección"
+    # balanced: "Balanced"
     bank_account: "Cuenta bancaria"
     bank_statement_number: "Número de estado de cuenta bancaria"
     bank_statement_point: "Despuntar el levantar" #?
@@ -1143,6 +1144,8 @@ spa:
     disease_percentage: "Enfermedad (%)"
     disease_percentage_evolution: "Evolución porcentual de Enfermedades"
     display: "Monitor"
+    # display_accounts: "Display accounts"
+    # display_n_1: "Display N-1"
     distribute_unaffected_products: "Distribuir productos no afectados"
     distributions: "Distribuciones"
     divide: "Dividir"
@@ -1186,6 +1189,7 @@ spa:
     entity_to_update: "Persona para actualizar"
     entries: "Escrituras"
     entries_to_point: "Escrituras a despuntar"
+    # entry_item_label: "Entry item label"
     entry_items: "Elementos de entrada"
     equipment: "Equipo"
     equipment_name: "Nombre del equipo"
@@ -1258,6 +1262,7 @@ spa:
     fixed_assets: "Los activos fijos"
     free_purchases: "Compras en franquisia" #?
     from: "Expedidor"
+    # from_to_date: "from %{from} to %{to}"
     fullscreen: "Pantalla completa"
     function: "Función"
     fungi: "Hongos"
@@ -1566,6 +1571,7 @@ spa:
     number_options: "Opciones números" #?
     numbers: "Números"
     on_account: "Volver a poner sobre la cuenta"
+    # on_all_exercises: "on all exercises"
     one_condition: "Una condición"
     open_a_campaign: "Abrir una campaña" #?
     open_a_production: "Abrir una producción"
@@ -1967,6 +1973,7 @@ spa:
     transformations: "Transformaciones" #?
     transport: "Transporte"
     trimester: "Trimestre"
+    # unbalanced: "Unbalanced"
     unbalanced_clients: "Clientes desequilibradas"
     unbalanced_suppliers: "Proveedores desequilibradas"
     unbilled_payables: "Cuentas a pagar no facturadas"

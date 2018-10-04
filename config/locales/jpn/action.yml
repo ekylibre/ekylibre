@@ -914,6 +914,7 @@ jpn:
     back: "前のページに戻ります"
     balance: "バランス"
     balance_of_selection: "選択のバランス"
+    # balanced: "Balanced"
     bank_account: "銀行口座"
     bank_statement_number: "銀行取引明細書番号"
     bank_statements: "銀行取引明細書"
@@ -1100,7 +1101,9 @@ jpn:
     disease_percentage: "疾患（％）"
     disease_percentage_evolution: "疾病率進化"
     display: "表示"
+    # display_accounts: "Display accounts"
     display_help: "手伝い" #?
+    # display_n_1: "Display N-1"
     distribute_unaffected_products: "影響を受けない製品を販売"
     distributions: "ディストリビューション"
     divide: "分割"
@@ -1140,6 +1143,7 @@ jpn:
     entity_to_update: "更新する人"
     entries: "エントリー"
     entries_to_point: "を指しているエントリ"
+    # entry_item_label: "Entry item label"
     entry_items: "入力項目"
     equipment: "装置"
     equipment_name: "機器の名前"
@@ -1201,6 +1205,7 @@ jpn:
     fixed_asset_depreciations: "固定資産の減価償却"
     fixed_assets: "固定資産"
     from: "から"
+    # from_to_date: "from %{from} to %{to}"
     fullscreen: "全画面表示"
     function: "機能"
     fungi: "菌類"
@@ -1473,6 +1478,7 @@ jpn:
     number_options: "オプション番号" #?
     numbers: "数字"
     on_account: "アカウントに"
+    # on_all_exercises: "on all exercises"
     one_condition: "一つの条件"
     open_a_campaign: "キャンペーンを開きます。" #?
     open_a_production: "生産を開きます"
@@ -1810,6 +1816,7 @@ jpn:
     transformations: "変換" #?
     transport: "輸送"
     trimester: "学期"
+    # unbalanced: "Unbalanced"
     unbalanced_clients: "アンバランスのクライアント"
     unbalanced_suppliers: "アンバランスサプライヤー"
     unbilled_payables: "未請求の支払債務"

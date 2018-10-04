@@ -187,6 +187,7 @@ por:
         journal_entry:
           # closed_journal: "The journal %{journal} is closed on %{closed_on}. No updates are possible until this date."
           frozen_by_financial_year_exchange: "A entrada de diário não podem ser gravados em um período correspondente a uma troca de exercício."
+          # not_opened_financial_year: "The financial year corresponding to the given date is not opened"
           out_of_existing_financial_year: "A entrada de diário deve ser registrado em um período correspondente a um exercício existente."
           unbalanced: "A entrada de diário é desequilibrado"
         journal_entry_item:
