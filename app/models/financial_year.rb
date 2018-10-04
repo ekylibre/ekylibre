@@ -79,12 +79,12 @@ class FinancialYear < Ekylibre::Record::Base
   scope :with_missing_tax_declaration, -> { where('id NOT IN (SELECT f.id FROM financial_years AS f JOIN tax_declarations AS d ON (f.stopped_on BETWEEN d.started_on AND d.stopped_on))') }
 
   protect on: :destroy do
-    tax_declarations.any? || journal_entries.any? || inventories.any?
+    tax_declarations.any? || journal_entries.any? || inventories.any? || !opened?
   end
 
-  protect on: :update do
-    closed? || locked?
-  end
+  # protect on: :update do
+  #   state_was.in? ['locked', 'closed']
+  # end
 
   class << self
     def on(searched_on)
@@ -164,6 +164,7 @@ class FinancialYear < Ekylibre::Record::Base
     unless company.nil?
       errors.add(:started_on, :on_or_after, restriction: company.born_on) if company.born_on > started_on
     end
+    errors.add(:state, :can_only_update_code) if (closed? || locked?) && (changed.exclude?(code) || changed.many?)
   end
 
   def journal_entries(conditions = nil)
