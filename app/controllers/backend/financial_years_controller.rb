@@ -82,6 +82,7 @@ module Backend
             render_print_income_statement(@financial_year)
           end
         end
+        format.json
       end
     end
 
