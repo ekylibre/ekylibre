@@ -278,6 +278,7 @@ class JournalEntry < Ekylibre::Record::Base
     errors.add(:items, :empty) unless items.any?
     errors.add(:balance, :unbalanced) unless balance.zero?
     errors.add(:real_balance, :unbalanced) unless real_balance.zero?
+    errors.add(:printed_on, :not_opened_financial_year) unless financial_year&.opened?
   end
 
   after_save do
