@@ -344,7 +344,7 @@ class Account < Ekylibre::Record::Base
     end
 
     # Find or create an account with its name in accounting system if not exist in DB
-    def find_or_import_from_nomenclature(usage)
+    def find_or_import_from_nomenclature(usage, create_if_nonexistent: true)
       item = Nomen::Account.find(usage)
       raise ArgumentError, "The usage #{usage.inspect} is unknown" unless item
       raise ArgumentError, "The usage #{usage.inspect} is not implemented in #{accounting_system.inspect}" unless item.send(accounting_system)
@@ -358,7 +358,7 @@ class Account < Ekylibre::Record::Base
           usages: item.name,
           nature: 'general'
         )
-        account.save!
+        account.save! if create_if_nonexistent
       end
       account
     end
