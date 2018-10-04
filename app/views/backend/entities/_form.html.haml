@@ -62,6 +62,8 @@
   = field_set(:employee_informations) do
     = f.input :employee, show: '#employee-informations'
     #employee-informations
-      = f.referenced_association :employee_account, source: :employees, new: { number: Account.find_or_import_from_nomenclature(:staff_due_remunerations).number}
+      - new_number = Account.find_or_import_from_nomenclature(:staff_due_remunerations).number.ljust(8, '0')
+      - new_number.succ! while Account.find_by(number: new_number).present?
+      = f.referenced_association :employee_account, source: :employees, new: { number: new_number}
 
 = f.attachments_field_set
