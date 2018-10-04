@@ -199,7 +199,11 @@
             %td= truncate(item.name, length: 50)
             %td
               - if item.entry && item.entry.resource
-                = link_to(item.entry.resource.number, { controller: item.entry.resource_type.tableize, action: :show, id: item.entry.resource_id })
+                - begin
+                  - url = url_for(action: :show, controller: item.entry.resource_type.tableize, id: item.entry.resource_id)
+                  = link_to(item.entry.resource.number, { controller: item.entry.resource_type.tableize, action: :show, id: item.entry.resource_id })
+                - rescue
+                  = item.entry.resource.number
               - else
                 = '-'
             %td= item.printed_on.l

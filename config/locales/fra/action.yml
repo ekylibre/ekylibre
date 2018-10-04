@@ -994,6 +994,7 @@ fra:
     attachments: "Pièces jointes"
     attorney: "Informations mandataire" #?
     automatic: "Auto"
+    auxiliary: "Auxiliaire"
     available: "Disponible"
     available_columns: "Champs disponibles\_: %{columns}"
     average: "Moyenne"
@@ -1078,6 +1079,7 @@ fra:
     client_informations: "Informations client"
     client_phone: "Téléphone" #?
     client_receivables: "Créances client"
+    clients: "Clients"
     close: "Fermer"
     close_financial_year: "Clôturer l’exercice"
     close_journal: "Clôturer le journal"
@@ -1387,7 +1389,7 @@ fra:
     fungi: "Champignons"
     future_events: "Futurs événements"
     genealogy: "Généalogie"
-    general: "Informations générales"
+    general: "Général"
     general_informations: "Informations générales"
     general_ledger: "Grand livre" #?
     generate: "Générer"
@@ -2146,6 +2148,7 @@ fra:
     supplier_informations: "Informations fournisseur"
     supplier_payment_mode: "Mode de paiement du fournisseur"
     supplier_receivables: "Fournisseurs d'exploitations et comptes rattachés"
+    suppliers: "Fournisseurs"
     supply: "Livraison"
     support: "Support"
     supports: "Supports de production"

@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :fixed_asset do
     association :allocation_account, factory: :account
-    depreciation_method { 'simplified_linear' }
+    depreciation_method { 'linear' }
     journal
     depreciable_amount { 860.32 }
     sequence(:name) { |n| "Fixed asset #{n}" }

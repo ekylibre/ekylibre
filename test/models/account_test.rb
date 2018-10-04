@@ -22,24 +22,25 @@
 #
 # == Table: accounts
 #
-#  auxiliary_number        :string
-#  centralizing_account_id :integer
-#  created_at              :datetime         not null
-#  creator_id              :integer
-#  custom_fields           :jsonb
-#  debtor                  :boolean          default(FALSE), not null
-#  description             :text
-#  id                      :integer          not null, primary key
-#  label                   :string           not null
-#  last_letter             :string
-#  lock_version            :integer          default(0), not null
-#  name                    :string           not null
-#  nature                  :string
-#  number                  :string           not null
-#  reconcilable            :boolean          default(FALSE), not null
-#  updated_at              :datetime         not null
-#  updater_id              :integer
-#  usages                  :text
+#  already_existing          :boolean          default(FALSE), not null
+#  auxiliary_number          :string
+#  centralizing_account_name :string
+#  created_at                :datetime         not null
+#  creator_id                :integer
+#  custom_fields             :jsonb
+#  debtor                    :boolean          default(FALSE), not null
+#  description               :text
+#  id                        :integer          not null, primary key
+#  label                     :string           not null
+#  last_letter               :string
+#  lock_version              :integer          default(0), not null
+#  name                      :string           not null
+#  nature                    :string
+#  number                    :string           not null
+#  reconcilable              :boolean          default(FALSE), not null
+#  updated_at                :datetime         not null
+#  updater_id                :integer
+#  usages                    :text
 #
 require 'test_helper'
 
@@ -47,7 +48,7 @@ class AccountTest < ActiveSupport::TestCase
   test_model_actions
 
   test 'load the accounts' do
-    Account.accounting_systems.each do |accounting_system|
+    (Account.accounting_systems - ['pt_snc']).each do |accounting_system|
       Account.accounting_system = accounting_system
       Account.load_defaults
     end

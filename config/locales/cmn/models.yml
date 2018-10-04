@@ -534,6 +534,7 @@ cmn:
     ceded: "割让"
     ceded_on: "在割让"
     # centralizing_account: "Centralizing account"
+    # centralizing_account_name: "Centralizing account name"
     charge_account: "收费帐户"
     charges_categories: "收费类别"
     checks: "检查"

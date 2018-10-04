@@ -535,6 +535,7 @@ spa:
     ceded: "Cedido"
     ceded_on: "Cedido en"
     # centralizing_account: "Centralizing account"
+    # centralizing_account_name: "Centralizing account name"
     charge_account: "Cuenta de cargo"
     charges_categories: "Cargos categorías"
     checks: "Los cheques"

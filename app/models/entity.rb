@@ -361,29 +361,25 @@ class Entity < Ekylibre::Record::Base
       if prefix.blank?
         prefix = Nomen::Account.find(account_nomen).send(Account.accounting_system)
       end
-      tmp_account = Account.find_or_import_from_nomenclature(account_nomen)
-      if tmp_account.centralizing?
-        centralizing_account = tmp_account
-      elsif tmp_account.general?
-        return tmp_account
-      else
-        raise "You need to create a centralizing account with number '#{prefix}' in order to make this operation"
-      end
-      if Preference[:use_entity_codes_for_account_numbers]
-        number = prefix.to_s + self.number.to_s
-        auxiliary_number = self.number.to_s
-        unless valid_account = Account.find_by(number: number)
-          valid_account = Account.create(nature: 'auxiliary', auxiliary_number: auxiliary_number, name: full_name, centralizing_account_id: centralizing_account.id, reconcilable: true)
+      if account_nomen == "clients" || account_nomen == "suppliers"
+        if Preference[:use_entity_codes_for_account_numbers]
+          number = prefix.to_s + self.number.to_s
+          auxiliary_number = self.number.to_s
+          unless valid_account = Account.find_by(number: number)
+            valid_account = Account.create(nature: 'auxiliary', auxiliary_number: auxiliary_number, name: full_name, centralizing_account_name: account_nomen, reconcilable: true)
+          end
+        else
+          suffix = '1'
+          suffix = suffix.upper_ascii[0..5].rjust(6, '0')
+          account = 1
+          until account.nil?
+            account = Account.find_by('number LIKE ?', prefix.to_s + suffix.to_s)
+            suffix.succ! unless account.nil?
+          end
+          valid_account = Account.create(nature: 'auxiliary', auxiliary_number: suffix.to_s, name: full_name, centralizing_account_name: account_nomen, reconcilable: true)
         end
       else
-        suffix = '1'
-        suffix = suffix.upper_ascii[0..5].rjust(6, '0')
-        account = 1
-        until account.nil?
-          account = Account.find_by('number LIKE ?', prefix.to_s + suffix.to_s)
-          suffix.succ! unless account.nil?
-        end
-        valid_account = Account.create(nature: 'auxiliary', auxiliary_number: suffix.to_s, name: full_name, centralizing_account_id: centralizing_account.id, reconcilable: true)
+        tmp_account = Account.find_or_import_from_nomenclature(account_nomen)
       end
       reload.update_column("#{nature}_account_id", valid_account.id)
     end

@@ -565,6 +565,7 @@ ita:
     ceded: "ceduta"
     ceded_on: "ceduto su"
     # centralizing_account: "Centralizing account"
+    # centralizing_account_name: "Centralizing account name"
     charge_account: "conto di carica"
     charges_categories: "oneri categorie"
     checks: "controlli"

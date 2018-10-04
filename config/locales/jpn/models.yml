@@ -534,6 +534,7 @@ jpn:
     ceded: "割譲"
     ceded_on: "上の割譲"
     # centralizing_account: "Centralizing account"
+    # centralizing_account_name: "Centralizing account name"
     charge_account: "掛売口座"
     charges_categories: "料金カテゴリー"
     checks: "チェック"

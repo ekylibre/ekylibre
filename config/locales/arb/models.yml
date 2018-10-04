@@ -1214,6 +1214,7 @@ arb:
     ceded: "تنازلت"
     ceded_on: "تنازلت عن"
     # centralizing_account: "Centralizing account"
+    # centralizing_account_name: "Centralizing account name"
     charge_account: "حساب المسؤول"
     charges_categories: "فئات الرسوم"
     check_number: "رقم الشيك" #?

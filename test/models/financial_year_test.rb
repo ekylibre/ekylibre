@@ -193,7 +193,7 @@ class FinancialYearTest < ActiveSupport::TestCase
       next if f.closed?
       # FIXME: Test is not well written. Cheating...
       journal_entries = f.journal_entries.where(state: :draft)
-      journal_entries.find_each(&:confirm!) if journal_entries.any?
+      ValidateDraftJournalEntriesService.new(journal_entries).validate_all if journal_entries.any?
 
       assert f.closable?, "Financial year #{f.code} should be closable: " + f.closure_obstructions.to_sentence
 

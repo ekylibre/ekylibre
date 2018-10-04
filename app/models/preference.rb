@@ -183,7 +183,7 @@ class Preference < Ekylibre::Record::Base
   prefer :use_global_search, :boolean, false
   prefer :use_entity_codes_for_account_numbers, :boolean, true
   prefer :sales_conditions, :string, ''
-  prefer :accounting_system, :accounting_system, Nomen::AccountingSystem.default
+  prefer :accounting_system, :accounting_system, Nomen::AccountingSystem.default("fr_pcga")
   prefer :language, :language, Nomen::Language.default
   prefer :country,  :country, Nomen::Country.default
   prefer :currency, :currency, Nomen::Currency.default
