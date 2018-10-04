@@ -8,7 +8,6 @@
 
   $(document).on 'change', '#confirm-revised-accounts', ->
     lock_btn = $('#lock-btn')
-    lock_btn.attr('disabled', false) if this.checked == true
-    lock_btn.attr('disabled', true) if this.checked == false
+    lock_btn.attr('disabled', !this.checked)
 
 ) ekylibre, jQuery
