@@ -1,26 +1,16 @@
-- main_toolbar do |t|
-  = t.edit resource
-  = t.compute_balances resource, method: :post
-  = t.new(label: :new_financial_year_exchange.tl, params: { controller: :financial_year_exchanges, financial_year_id: resource.id }) if resource.can_create_exchange?
-  - attrs = {}
-  - attrs["data-confirm"] = :are_you_sure.tl if resource.last_journal_entry
-  -# = t.generate_last_journal_entry resource, attrs
-  - if resource == resource_model.closable_or_lockable
-    = t.close resource
-  = dropdown_menu_button(:export_fec.ta, icon: :download) do |d|
-    - export_params = params.slice(:id)
-    - %i[all ba_bnc_ir_commercial_accountancy ba_ir_cash_accountancy bnc_ir_cash_accountancy].each do |position|
-      - d.item "export_fec_#{position}".tl, action: :show, fiscal_position: position, format: :xml
-
 = main_informations attachment: true do
-  = attributes_list do |l|
-    - l.attribute :currency
-    - l.attribute :started_on
-    - l.attribute :stopped_on
-    - l.attribute :closed
-    - l.attribute :code
-    - l.attribute :accountant, url: true
-    - l.attribute :last_journal_entry, url: true
+  = infos do
+    .med-info.important
+      %span.title= :year_start.tl
+      %span.value= resource.started_on.l
+
+    .med-info.important
+      %span.title= :year_end.tl
+      %span.value= resource.stopped_on.l
+
+    .med-info.important
+      %span.title= "Monnaie"
+      %span.value= Nomen::Currency.find(resource.currency).human_name.upcase
 
 = cobbles do |c|
   - c.cobble(resource.closed ? :balance : :last_computed_balance) do
