@@ -442,9 +442,13 @@ class JournalEntry < Ekylibre::Record::Base
     ledger = []
 
     # fy = financial_year if financial_year.is_a? FinancialYear
-
-    started_on = options[:period].split("_").first if options[:period]
-    stopped_on = options[:period].split("_").last if options[:period]
+    if options[:period] == 'all'
+      started_on = FinancialYear.order(:started_on).pluck(:started_on).first.to_s
+      stopped_on = FinancialYear.order(:stopped_on).pluck(:stopped_on).last.to_s
+    else
+      started_on = options[:period].split("_").first if options[:period]
+      stopped_on = options[:period].split("_").last if options[:period]
+    end
 
     total_debit = 0.0
     total_credit = 0.0
