@@ -116,7 +116,6 @@ module Backend
       # build variables for reporting (document_nature, key, filename and dataset)
       document_nature = Nomen::DocumentNature.find(:journal_ledger)
       key = "#{document_nature.name}-#{Time.zone.now.l(format: '%Y-%m-%d-%H:%M:%S')}"
-      filename = document_nature.human_name
       respond_to do |format|
         format.html
         format.pdf do
@@ -191,5 +190,44 @@ module Backend
         end
       end
     end
+
+    protected
+
+    def to_odt(journal_ledger, document_nature, key, template_path, params)
+      report = generate_document(document_nature, key, template_path) do |r|
+        # TODO: add a helper with generic metod to implemend header and footer
+
+        e = Entity.of_company
+        company_name = e.full_name
+        company_address = e.default_mail_address.coordinate
+
+        r.add_field 'COMPANY_ADDRESS', company_address
+        r.add_field 'DOCUMENT_NAME', document_nature.human_name
+        r.add_field 'FILE_NAME', key
+        r.add_field 'PERIOD', params[:period] == 'all' ? :on_all_exercises.tl : t('labels.from_to_date', from: Date.parse(params[:period].split('_').first).l, to: Date.parse(params[:period].split('_').last).l)
+        r.add_field 'DATE', Date.today.l
+
+        r.add_field 'PRINTED_AT', Time.zone.now.l(format: '%d/%m/%Y %T')
+
+        r.add_table('Tableau1', journal_ledger, header: true) do |t|
+            t.add_column(:entry_number) { |item| item[:entry_number] }
+            t.add_column(:printed_on) { |item| item[:printed_on] }
+            t.add_column(:journal_name) { |item| item[:journal_name] }
+            t.add_column(:reference_number) { |item| item[:reference_number] }
+            t.add_column(:continuous_number) { |item| item[:continuous_number] }
+            t.add_column(:state) { |item| item[:state] }
+            t.add_column(:real_debit) { |item| item[:real_debit] }
+            t.add_column(:real_credit) { |item| item[:real_credit] }
+            t.add_column(:balance) { |item| item[:balance] }
+        end
+
+        r.add_field :entry_count, journal_ledger.last[:entry_count]
+        r.add_field :total_credit, journal_ledger.last[:total_credit]
+        r.add_field :total_debit, journal_ledger.last[:total_debit]
+        r.add_field :total_balance, journal_ledger.last[:total_balance]
+      end
+      report.file.path
+    end
+
   end
 end

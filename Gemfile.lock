@@ -145,7 +145,6 @@ GEM
     connection_pool (2.2.2)
     crass (1.0.4)
     daemons (1.2.6)
-    database_cleaner (1.7.0)
     dbf (3.1.2)
     debug_inspector (0.0.3)
     deep_cloneable (2.2.2)
@@ -619,7 +618,6 @@ DEPENDENCIES
   codecov
   coffee-rails (~> 4.1)
   colored
-  database_cleaner
   deep_cloneable (~> 2.2.1)
   devise
   devise-i18n-views
