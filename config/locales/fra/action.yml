@@ -1179,7 +1179,7 @@ fra:
     cultivable_zone_abbreviation: "ZC" #?
     cultivable_zones: "Zones cultivables"
     cumul: "Cumul du total et du solde précédent N°%{number}"
-    currency: "Devise" #?
+    currency: "Devise"
     currency_conversion_rate: "Taux de conversion de la nouvelle monnaie"
     currency_with_code: "%{code} - %{name}" #?
     current: "En cours"
@@ -2554,6 +2554,8 @@ fra:
       other: "%{count} ans"
     y: "Oui" #?
     year: "Année"
+    year_end: "Fin d'exercice"
+    year_start: "Début d'exercice"
     yearly: "Annuelle" #?
     years: "Années" #?
     years_count_in_historic: "Nombre d’années dans l’historique" #?

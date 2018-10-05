@@ -1247,6 +1247,7 @@ eng:
     cultivable_zone: "Cultivable zone" #?
     cultivable_zones: "arable areas" #?
     cumul: "Accumulation of tattle and previous balance N°%{number}" #?
+    currency: "Currency" #?
     currency_conversion_rate: "Currency conversion rate"
     current: "Current"
     current_assets: "Current assets" #?!
@@ -1386,10 +1387,10 @@ eng:
     export_as_ods: "Export as ODS"
     export_as_pdf: "Export as PDF"
     export_as_xcsv: "Export as Excel CSV"
-    export_fec_all: "Export FEC (Default)"
-    export_fec_ba_bnc_ir_commercial_accountancy: "Export FEC for agriculture and professional operations income taxation commercial accountancy"
-    export_fec_ba_ir_cash_accountancy: "Export FEC agriculture income taxation cash accountancy"
-    export_fec_bnc_ir_cash_accountancy: "Export FEC professional operations income taxation cash accountancy"
+    export_fec_all: "Export FEC (Default)" #?!
+    export_fec_ba_bnc_ir_commercial_accountancy: "Export FEC for agriculture and professional operations income taxation commercial accountancy" #?!
+    export_fec_ba_ir_cash_accountancy: "Export FEC agriculture income taxation cash accountancy" #?!
+    export_fec_bnc_ir_cash_accountancy: "Export FEC professional operations income taxation cash accountancy" #?!
     field_distribution: "Field distribution"
     file_nature: "File type"
     file_preview: "Preview" #?
@@ -2236,6 +2237,8 @@ eng:
       one: "%{count} year"
       other: "%{count} years"
     year: "Year" #?
+    year_end: "Year end" #?
+    year_start: "Year start" #?
     yield: "Yield" #?
     yield_by_calibration: "Yield by calibration" #?
     # yield_by_calibration_x: "Yield by calibration x"

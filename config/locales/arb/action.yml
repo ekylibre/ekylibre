@@ -1286,6 +1286,7 @@ arb:
     cultivable_zone: "منطقة القابلة للزراعة"
     cultivable_zones: "المناطق الصالحة للزراعة"
     cumul: "رقم الرصيد التراكمي الكلي والسابق%{number}"
+    # currency: "Currency"
     currency_conversion_rate: "سعر تحويل العملة"
     current: "الحالية"
     current_assets: "الاصول المتداولة"
@@ -2648,6 +2649,8 @@ arb:
       # other: "%{count} years"
     y: "نعم" #?
     year: "عام"
+    # year_end: "Year end"
+    # year_start: "Year start"
     yearly: "Annuelle" #?
     years_count_in_historic: "عدد السنوات عامة" #?
     yield: "يخضع أو يستسلم"
