@@ -153,6 +153,9 @@ fra:
         container: "Zone de stockage" #?
         started_at: "Entrée" #?
         stopped_at: "Sortie" #?
+      intervention_working_period:
+        stopped_at: Date de fin
+        started_at : Date de début
       product_nature_category: #?
         depreciable: "Ammortissable" #?
         duration: "Nombre de numéros OU période d’abonnement" #?
@@ -276,6 +279,7 @@ fra:
         overlap_sibling: "%{attribute} se trouve sur une période d'un autre enregistrement"
         period_overlap: "%{attribute} se trouve sur une période d’un enregistrement existant" #?
         posterior: "%{attribute} doit être postérieure à %{to}"
+        inferior: "%{attribute} doit être antérieure à %{to}"
         record_invalid: "Validations échouées\_: %{errors}"
         taken: "%{attribute} a déjà été pris"
         too_long: "%{attribute} est trop long (%{count} caractères maximum)"
