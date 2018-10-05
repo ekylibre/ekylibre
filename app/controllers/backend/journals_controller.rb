@@ -122,7 +122,7 @@ module Backend
           template_path = find_open_document_template(:journal_ledger)
           raise 'Cannot find template' if template_path.nil?
           @journal_ledger = JournalEntry.journal_ledger(params, @journal.id) if params
-          send_file to_odt(@journal_ledger, document_nature, key, template_path, params), type: 'application/pdf', disposition: 'attachment', filename: filename << '.pdf'
+          send_file to_odt(@journal_ledger, document_nature, key, template_path, params), type: 'application/pdf', disposition: 'attachment', filename: key << '.pdf'
         end
       end
 
