@@ -248,7 +248,7 @@ module Backend
         # TODO: add a helper with generic metod to implemend header and footer
 
         data_filters = []
-        unless params[:accounts].empty?
+        if params[:accounts]&.any?
           data_filters << Account.human_attribute_name(:account) + ' : ' + params[:accounts]
         end
 
@@ -260,7 +260,7 @@ module Backend
           data_filters << :lettering_state.tl + ' : ' + content.to_sentence
         end
 
-        if params[:states].any?
+        if params[:states]&.any?
           content = []
           content << :draft.tl if params[:states].include?('draft') && params[:states]['draft'].to_i == 1
           content << :confirmed.tl if params[:states].include?('confirmed') && params[:states]['confirmed'].to_i == 1
@@ -270,7 +270,7 @@ module Backend
 
         e = Entity.of_company
         company_name = e.full_name
-        company_address = e.default_mail_address.coordinate
+        company_address = e.default_mail_address&.coordinate
 
         started_on = params[:period].split('_').first if params[:period]
         stopped_on = params[:period].split('_').last if params[:period]

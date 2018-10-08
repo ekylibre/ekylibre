@@ -699,7 +699,7 @@ class Account < Ekylibre::Record::Base
   def self.ledger(options = {})
     # build filter for accounts
     accounts_filter_conditions = '1=1'
-    list_accounts = options[:accounts].split(' ')
+    list_accounts = options[:accounts] ? options[:accounts].split(' ') : ''
     unless list_accounts.empty?
       accounts_filter_conditions += ' AND ' + list_accounts.collect do |account|
         "accounts.number LIKE '" + account.to_s + "%'"
@@ -728,7 +728,7 @@ class Account < Ekylibre::Record::Base
                                         end
 
     # options[:states]
-    if options[:states].any?
+    if options[:states]&.any?
       a = options[:states].select { |_k, v| v.to_i == 1 }.map { |pair| "'#{pair.first}'" }.join(', ')
       states_array = "state IN (#{a})"
     else
