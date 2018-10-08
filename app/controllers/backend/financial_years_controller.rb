@@ -67,6 +67,7 @@ module Backend
           if @financial_year.closed? && @financial_year.account_balances.empty?
             @financial_year.compute_balances!
           end
+          notify_now(:locked_exercice_info) if @financial_year.locked?
           t3e @financial_year.attributes
         end
         format.xml do

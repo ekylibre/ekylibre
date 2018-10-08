@@ -1,3 +1,8 @@
+= content_for(:heading_toolbar) do
+  - if resource.state.locked?
+    .locked-financial-year-title
+      %h2= resource.state.t(scope: 'enumerize.financial_year.state')
+
 = main_informations attachment: true do
   = infos do
     .med-info.important
@@ -9,7 +14,7 @@
       %span.value= resource.stopped_on.l
 
     .med-info.important
-      %span.title= "Monnaie"
+      %span.title= :currency.t(scope: 'preferences')
       %span.value= Nomen::Currency.find(resource.currency).human_name.upcase
 
 = cobbles do |c|

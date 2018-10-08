@@ -59,3 +59,19 @@
     font-size: 15px;
   }
 }
+
+.locked-financial-year-title {
+    border: 2px solid #F42727;
+    border-radius: 5px;
+    width: 183px;
+    height: 42px;
+
+    h2 {
+      font-size: 27px;
+      color: #F42727;
+      margin-top: 8px;
+      font-weight: bold;
+      text-align: center;
+      text-transform: uppercase;
+    }
+}
