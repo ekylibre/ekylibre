@@ -467,10 +467,20 @@ class JournalEntry < Ekylibre::Record::Base
       item[:journal_name] = e.journal.name.to_s
       item[:continuous_number] = e.continuous_number.to_s if e.continuous_number
       item[:reference_number] = e.reference_number.to_s
-      item[:state] = e.state
+      item[:label] = e.items.first.displayed_label_in_accountancy.to_s
+      item[:state] = e.state_label
       item[:real_debit] = e.real_debit
       item[:real_credit] = e.real_credit
       item[:balance] = e.balance
+      item[:entry_items] = []
+      e.items.each do |i|
+        entry_item = HashWithIndifferentAccess.new
+        entry_item[:account_number] = i.account.number.to_s
+        entry_item[:account_name] = i.account.name.to_s
+        entry_item[:real_debit] = i.real_debit
+        entry_item[:real_credit] = i.real_credit
+        item[:entry_items] << entry_item
+      end
 
       total_debit += e.real_debit
       total_credit += e.real_credit
