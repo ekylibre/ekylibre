@@ -2046,6 +2046,7 @@ cmn:
       # journal_entry_has_been_saved_with_a_new_number: "The journal entry has been successfully saved with a new number: %{number}"
       # journal_entry_items_marked_with_letter: "Journal entry items have been marked with letter %{letter}"
       # journal_reopened_on: "The journal “%{journal}” has been re-opened on %{closed_on}."
+      # locked_exercice_info: "This financial year is locked. Please get in contact with the person who closed this financial year in order to retrieve your documents and exports of year end"
       mails_are_sent: "这些电子邮件被送到"
       merge_is_done: "合并完成"
       need_a_valid_payment_mode: "需要有效的支付模式"
