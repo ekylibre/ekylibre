@@ -1409,6 +1409,10 @@ fra:
     export_as_ods: "Exporter en ODS"
     export_as_odt: "Exporter en ODT" #?
     export_as_pdf: "Exporter en PDF" #?
+    extract_non_letter_pdf: "Extrait de compte - Non lettrés en PDF"
+    etract_account_as_pdf: "Extrait de compte en PDF"
+    etract_account_as_odt: "Extrait de compte en ODT"
+    extract_non_letter_odt: "Extrait de compte - Non lettrés en ODT"
     export_as_xcsv: "Exporter en CSV pour Excel"
     export_backup: "Export d’un fichier de sauvegarde" #?
     exportation: "Exportation" #?

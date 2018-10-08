@@ -146,7 +146,6 @@ module Backend
         company_address = e.default_mail_address.present? ? e.default_mail_address.coordinate : '-'
         company_phone = e.phones.present? ? e.phones.first.coordinate : '-'
         company_email = order_reporting[:purchase_responsible_email]
-
         r.add_field 'COMPANY_ADDRESS', company_address
         r.add_field 'COMPANY_NAME', company_name
         r.add_field 'COMPANY_PHONE', company_phone
