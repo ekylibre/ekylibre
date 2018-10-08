@@ -165,7 +165,7 @@ class FinancialYear < Ekylibre::Record::Base
     unless company.nil?
       errors.add(:started_on, :on_or_after, restriction: company.born_on) if company.born_on > started_on
     end
-    errors.add(:state, :can_only_update_code) if (closed? || locked?) && (changed.exclude?(code) || changed.many?)
+    errors.add(:state, :can_only_update_code) if (state_was.in? ['locked', 'closed']) && (changed.exclude?(code) || changed.many?)
   end
 
   def journal_entries(conditions = nil)
