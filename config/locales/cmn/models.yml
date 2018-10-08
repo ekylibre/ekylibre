@@ -197,6 +197,8 @@ cmn:
           unvalid_amounts: "日记条目必须同时填写无论是借记卡还是信用卡，但并非如此。"
         outgoing_parcel_item:
           # greater_than_undelivered_quantity: "The quantity of %{product} to deliver is greater than the available quantity (%{maximum}%{unit})"
+        purchase:
+          # not_opened_financial_year: "The financial year corresponding to the given date is not opened"
         purchase_item:
           # building_can_not_receive_product: "The building %{building} can not receive %{product}, it already contains %{contained_product}."
           # serial_already_used_with_an_other_product: "%{attribute} has been already used for an other product of the same supplier"

@@ -333,6 +333,8 @@ fra:
           unvalid_amounts: "L’écriture doit être renseignée soit au débit, soit au crédit mais pas les deux en même temps."
         outgoing_parcel_item:
           greater_than_undelivered_quantity: "La quantité de produit %{product} à livrer dépasse la quantité non livrée (%{maximum}%{unit})"
+        purchase:
+          not_opened_financial_year: "L'exercice comptable correspondant à la date donnée n'est pas ouvert"
         purchase_item:
           building_can_not_receive_product: "Le réservoir %{building} ne peut pas recevoir le produit %{product}, il contient déjà le produit %{contained_product}."
           serial_already_used_with_an_other_product: "%{attribute} a déjà été utilisé pour un autre type de produit du même fournisseur"
