@@ -20,6 +20,7 @@
 
 module Backend
   class GeneralLedgersController < Backend::BaseController
+    include PdfPrinter
     def self.list_conditions
       code = ''
       code << search_conditions({ journal_entry_item: %i[name debit credit real_debit real_credit] }, conditions: 'c') + "\n"
@@ -143,8 +144,9 @@ module Backend
 
       t3e(ledger: ledger_label)
 
-      document_name = human_action_name.to_s
-      filename = "#{human_action_name}_#{Time.zone.now.l(format: '%Y%m%d%H%M%S')}"
+      document_nature = Nomen::DocumentNature.find(:general_ledger)
+      key = "#{document_nature.name}_#{Time.zone.now.l(format: '%Y%m%d%H%M%S')}"
+      filename = document_nature.human_name
       respond_to do |format|
         format.html
         format.ods do
@@ -169,8 +171,10 @@ module Backend
           send_data(csv_string, filename: filename << '.csv')
         end
         format.odt do
+          template_path = find_open_document_template(:general_ledger)
           @general_ledger = Account.ledger(params) if params[:period]
-          send_data to_odt(@general_ledger, document_name, filename, params).generate, type: 'application/vnd.oasis.opendocument.text', disposition: 'attachment', filename: filename << '.odt'
+          raise 'Cannot find template' if template_path.nil?
+          send_file to_odt(@general_ledger, document_nature, key, template_path, params), type: 'application/vnd.oasis.opendocument.text', disposition: 'attachment', filename: filename << '.odt'
         end
       end
     end
@@ -184,8 +188,9 @@ module Backend
       params[:current_financial_year] ||= financial_year.id
 
       t3e(account: account.label)
-      document_name = human_action_name.to_s
-      filename = "#{human_action_name}_#{Time.zone.now.l(format: '%Y%m%d%H%M%S')}"
+      document_nature = Nomen::DocumentNature.find(:general_ledger)
+      key = "#{document_nature.name}_#{Time.zone.now.l(format: '%Y%m%d%H%M%S')}"
+      filename = document_nature.human_name
 
       conditions_code = '(' + self.class.list_conditions.gsub(/\s*\n\s*/, ';') + ')'
 
@@ -218,8 +223,10 @@ module Backend
           send_data(csv_string, filename: filename << '.csv')
         end
         format.odt do
+          template_path = find_open_document_template(:general_ledger)
           @general_ledger = Account.ledger(params) if params[:period]
-          send_data to_odt(@general_ledger, document_name, filename, params).generate, type: 'application/vnd.oasis.opendocument.text', disposition: 'attachment', filename: filename << '.odt'
+          raise 'Cannot find template' if template_path.nil?
+          send_file to_odt(@general_ledger, document_nature, key, template_path, params), type: 'application/vnd.oasis.opendocument.text', disposition: 'attachment', filename: filename << '.odt'
         end
       end
     end
@@ -242,9 +249,8 @@ module Backend
 
     protected
 
-    def to_odt(general_ledger, document_name, filename, params)
-      # TODO: add a generic template system path
-      report = ODFReport::Report.new(Rails.root.join('config', 'locales', 'fra', 'reporting', 'general_ledger.odt')) do |r|
+    def to_odt(general_ledger, document_nature, key, template_path, params)
+      report = generate_document(document_nature, key, template_path) do |r|
         # TODO: add a helper with generic metod to implemend header and footer
 
         data_filters = []
@@ -276,8 +282,8 @@ module Backend
         stopped_on = params[:period].split('_').last if params[:period]
 
         r.add_field 'COMPANY_ADDRESS', company_address
-        r.add_field 'DOCUMENT_NAME', document_name
-        r.add_field 'FILENAME', filename
+        r.add_field 'DOCUMENT_NATURE', document_nature
+        r.add_field 'FILENAME', document_nature.human_name
         r.add_field 'PRINTED_AT', Time.zone.now.l(format: '%d/%m/%Y %T')
         r.add_field 'STARTED_ON', started_on.to_date.strftime('%d/%m/%Y') if started_on
         r.add_field 'STOPPED_ON', stopped_on.to_date.strftime('%d/%m/%Y') if stopped_on
@@ -297,9 +303,9 @@ module Backend
           s.add_table('Tableau1', :items, header: true) do |t|
             t.add_column(:entry_number) { |item| item[:entry_number] }
             t.add_column(:continuous_number) { |item| item[:continuous_number] }
+            t.add_column(:reference_number) { |item| item[:reference_number] }
             t.add_column(:printed_on) { |item| item[:printed_on] }
             t.add_column(:name) { |item| item[:name] }
-            t.add_column(:variant) { |item| item[:variant] }
             t.add_column(:journal_name) { |item| item[:journal_name] }
             t.add_column(:letter) { |item| item[:letter] }
             t.add_column(:real_debit) { |item| item[:real_debit] }
@@ -308,6 +314,7 @@ module Backend
           end
         end
       end
+      report.file.path
     end
 
     def to_ods(general_ledger)

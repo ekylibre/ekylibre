@@ -768,9 +768,9 @@ class Account < Ekylibre::Record::Base
         item = HashWithIndifferentAccess.new
         item[:entry_number] = e.entry_number
         item[:continuous_number] = e.continuous_number.to_s if e.continuous_number
+        item[:reference_number] = e.entry.reference_number.to_s if e.entry.reference_number
         item[:printed_on] = e.printed_on.strftime('%d/%m/%Y')
         item[:name] = e.name.to_s
-        item[:variant] = (e.variant ? e.variant.name : '')
         item[:journal_name] = e.entry.journal.name.to_s
         item[:letter] = e.letter
         item[:real_debit] = e.real_debit
