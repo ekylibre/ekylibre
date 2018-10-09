@@ -1,6 +1,6 @@
 - fy_to_close = FinancialYear.closable_or_lockable if FinancialYear.closable_or_lockable
 - fy_to_open = FinancialYear.new
-- f = FinancialYear.last
+- f = FinancialYear.order(stopped_on: :desc).first
 - fy_to_open.started_on = f.stopped_on + 1 unless f.nil?
 - fy_to_open.stopped_on = ((fy_to_open.started_on - 1) >> 12).end_of_month
 - fy_to_open.code = fy_to_open.default_code
