@@ -188,7 +188,7 @@ cmn:
         journal_entry:
           # closed_journal: "The journal %{journal} is closed on %{closed_on}. No updates are possible until this date."
           frozen_by_financial_year_exchange: "日记帐分录不能被记录在相应于一个财政年度交流的时间。"
-          # not_opened_financial_year: "The financial year corresponding to the given date is not opened"
+          # not_opened_financial_year: "An opened financial year is necessary"
           out_of_existing_financial_year: "日记帐分录必须记录在相应于现有财政年度期间。"
           unbalanced: "日记帐分录不平衡"
         journal_entry_item:
@@ -198,10 +198,12 @@ cmn:
         outgoing_parcel_item:
           # greater_than_undelivered_quantity: "The quantity of %{product} to deliver is greater than the available quantity (%{maximum}%{unit})"
         purchase:
-          # not_opened_financial_year: "The financial year corresponding to the given date is not opened"
+          # not_opened_financial_year: "An opened financial year is necessary"
         purchase_item:
           # building_can_not_receive_product: "The building %{building} can not receive %{product}, it already contains %{contained_product}."
           # serial_already_used_with_an_other_product: "%{attribute} has been already used for an other product of the same supplier"
+        sale:
+          # not_opened_financial_year: "An opened financial year is necessary"
         sale_item:
           # building_can_not_transfer_product: "%{product} can not be found in %{building}, it only contains %{contained_product}."
           # can_not_use_this_tracking: "You can not user the S/N %{tracking}, the quantity is greater than the available quantity"
@@ -428,6 +430,7 @@ cmn:
     accountant: "会计"
     accounted_at: "在占"
     accounting_balance: "会计平衡"
+    # accounting_label: "Accounting label"
     accuracy: "准确性"
     achieved_at: "在实现"
     actions: "操作"

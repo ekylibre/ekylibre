@@ -324,7 +324,7 @@ fra:
         journal_entry:
           closed_journal: "Le journal est clôturé au %{closed_on} donc vous ne pouvez plus créer, modifier ou supprimer de pièces jusqu’à cette date-là."
           frozen_by_financial_year_exchange: "L'écriture ne peut être enregistrée lors d'un échange d'exercice comptable."
-          not_opened_financial_year: "L'exercice comptable correspondant à la date donnée n'est pas ouvert"
+          not_opened_financial_year: "Un exercice comptable ouvert est nécessaire"
           out_of_existing_financial_year: "L’écriture doit être enregistrée dans un exercice comptable existant."
           unbalanced: "La pièce n’est pas équilibrée"
         journal_entry_item:
@@ -334,10 +334,12 @@ fra:
         outgoing_parcel_item:
           greater_than_undelivered_quantity: "La quantité de produit %{product} à livrer dépasse la quantité non livrée (%{maximum}%{unit})"
         purchase:
-          not_opened_financial_year: "L'exercice comptable correspondant à la date donnée n'est pas ouvert"
+          not_opened_financial_year: "Un exercice comptable ouvert est nécessaire"
         purchase_item:
           building_can_not_receive_product: "Le réservoir %{building} ne peut pas recevoir le produit %{product}, il contient déjà le produit %{contained_product}."
           serial_already_used_with_an_other_product: "%{attribute} a déjà été utilisé pour un autre type de produit du même fournisseur"
+        sale:
+          not_opened_financial_year: "Un exercice comptable ouvert est nécessaire"
         sale_item:
           building_can_not_transfer_product: "Le produit %{product} ne peut être sorti du réservoir %{building}, celui-ci contient %{contained_product}."
           can_not_use_this_tracking: "Vous ne  pouvez pas utiliser le lot %{tracking}, la quantité commandée est supérieure à la quantité disponible"
