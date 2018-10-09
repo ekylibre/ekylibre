@@ -90,7 +90,7 @@ module Backend
 
     def index
       @draft_entries_count = JournalEntry.where(state: :draft).count
-      @unbalanced_entries_count = JournalEntry.reject(&:balanced?).count
+      @unbalanced_entries_count = JournalEntry.all.reject(&:balanced?).count
       respond_to do |format|
         format.html
         format.xml  { render xml:  Journal.all }
