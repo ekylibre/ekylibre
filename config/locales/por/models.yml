@@ -197,6 +197,8 @@ por:
           unvalid_amounts: "A entrada de diário deve ser preenchido tanto de débito ou de crédito, mas não ao mesmo tempo."
         outgoing_parcel_item:
           # greater_than_undelivered_quantity: "The quantity of %{product} to deliver is greater than the available quantity (%{maximum}%{unit})"
+        parcel:
+          # not_opened_financial_year: "An opened financial year is necessary"
         purchase:
           # not_opened_financial_year: "An opened financial year is necessary"
         purchase_item:

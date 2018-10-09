@@ -206,6 +206,8 @@ ita:
           unvalid_amounts: "La voce di diario deve essere compilato o di debito o di credito, ma non allo stesso tempo."
         outgoing_parcel_item:
           # greater_than_undelivered_quantity: "The quantity of %{product} to deliver is greater than the available quantity (%{maximum}%{unit})"
+        parcel:
+          # not_opened_financial_year: "An opened financial year is necessary"
         purchase:
           # not_opened_financial_year: "An opened financial year is necessary"
         purchase_item:
