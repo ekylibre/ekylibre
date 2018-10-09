@@ -187,6 +187,7 @@ class Sale < Ekylibre::Record::Base
   validate do
     if invoiced_at
       errors.add(:invoiced_at, :before, restriction: Time.zone.now.l) if invoiced_at > Time.zone.now
+      errors.add(:invoiced_at, :not_opened_financial_year) unless opened_financial_year?
     end
     %i[address delivery_address invoice_address].each do |mail_address|
       next unless send(mail_address)
