@@ -55,7 +55,7 @@ class FinancialYear < Ekylibre::Record::Base
   belongs_to :accountant, class_name: 'Entity'
   has_many :account_balances, dependent: :delete_all
   has_many :exchanges, class_name: 'FinancialYearExchange', dependent: :destroy
-  has_many :fixed_asset_depreciations, dependent: :restrict_with_exception
+  has_many :fixed_asset_depreciations, dependent: :destroy
   has_many :inventories, dependent: :restrict_with_exception
   has_many :journal_entries, dependent: :restrict_with_exception
   has_many :tax_declarations, dependent: :restrict_with_exception
