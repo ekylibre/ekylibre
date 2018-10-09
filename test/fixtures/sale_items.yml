@@ -23,6 +23,7 @@
 # == Table: sale_items
 #
 #  account_id           :integer
+#  accounting_label     :string
 #  activity_budget_id   :integer
 #  amount               :decimal(19, 4)   default(0.0), not null
 #  annotation           :text
