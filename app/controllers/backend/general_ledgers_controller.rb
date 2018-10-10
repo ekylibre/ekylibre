@@ -38,7 +38,7 @@ module Backend
       code << "  states.reject!{|s| s == :draft}\n"
       code << "end \n"
       code << "states = states.each_with_object({}) do |v, h| \n"
-      code << "  h[v] = v \n"
+      code << "  h[v] = 1 \n"
       code << "end \n"
       code << "params[:states] = states\n"
       code << journal_letter_crit('params')
@@ -133,20 +133,19 @@ module Backend
     end
 
     def index
-
       ledger_label = :general_ledger.tl
 
       params[:ledger] ||= 'general_ledger'
 
       if account = Account.find_by(number: params[:ledger])
         ledger_label = :subledger_of_accounts_x.tl(account: account.name)
+        params[:account_number] = account.number
       end
-
       t3e(ledger: ledger_label)
 
       document_nature = Nomen::DocumentNature.find(:general_ledger)
-      key = "#{document_nature.name}_#{Time.zone.now.l(format: '%Y%m%d%H%M%S')}"
-      filename = document_nature.human_name
+      key = filename = "#{document_nature.human_name}_#{Time.zone.now.l(format: '%Y%m%d%H%M%S')}"
+
       respond_to do |format|
         format.html
         format.ods do
@@ -182,15 +181,10 @@ module Backend
     def show
       return redirect_to(backend_general_ledgers_path) unless params[:account_number] && account = Account.find_by(number: params[:account_number])
 
-      financial_year = FinancialYear.find_by(id: params[:current_financial_year])
-      financial_year ||= FinancialYear.current
-      params[:period] = financial_year.started_on.to_s << '_' << financial_year.stopped_on.to_s
-      params[:current_financial_year] ||= financial_year.id
-
       t3e(account: account.label)
+
       document_nature = Nomen::DocumentNature.find(:general_ledger)
-      key = "#{document_nature.name}_#{Time.zone.now.l(format: '%Y%m%d%H%M%S')}"
-      filename = document_nature.human_name
+      key = filename = "#{document_nature.human_name}_#{Time.zone.now.l(format: '%Y%m%d%H%M%S')}"
 
       conditions_code = '(' + self.class.list_conditions.gsub(/\s*\n\s*/, ';') + ')'
 
@@ -254,7 +248,7 @@ module Backend
         # TODO: add a helper with generic metod to implemend header and footer
 
         data_filters = []
-        if params[:accounts]&.any?
+        if params[:accounts]
           data_filters << Account.human_attribute_name(:account) + ' : ' + params[:accounts]
         end
 
@@ -282,8 +276,8 @@ module Backend
         stopped_on = params[:period].split('_').last if params[:period]
 
         r.add_field 'COMPANY_ADDRESS', company_address
-        r.add_field 'DOCUMENT_NATURE', document_nature
-        r.add_field 'FILENAME', document_nature.human_name
+        r.add_field 'DOCUMENT_NATURE', document_nature.human_name
+        r.add_field 'FILENAME', key
         r.add_field 'PRINTED_AT', Time.zone.now.l(format: '%d/%m/%Y %T')
         r.add_field 'STARTED_ON', started_on.to_date.strftime('%d/%m/%Y') if started_on
         r.add_field 'STOPPED_ON', stopped_on.to_date.strftime('%d/%m/%Y') if stopped_on

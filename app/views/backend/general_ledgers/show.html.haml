@@ -1,4 +1,10 @@
-- main_financial_year_selector(FinancialYear.find_by(id: params[:current_financial_year]))
+- financial_year = FinancialYear.find_by(id: params[:current_financial_year])
+- financial_year ||= FinancialYear.current
+- main_financial_year_selector(financial_year)
+- params[:period] = financial_year.started_on.to_s << '_' << financial_year.stopped_on.to_s
+- params[:current_financial_year] ||= financial_year.id
+- params[:accounts] = Account.find_by(number: params[:account_number]).name
+
 - if params[:period]
   = main_toolbar do |t|
     = dropdown_menu_button(:export.ta, icon: :download) do |d|
@@ -22,7 +28,7 @@
     = mask_draft_items_button 'journal_entry_items-list'
 
 = footer_line do
-  %table#subledger-journal-entry-items-totals 
+  %table#subledger-journal-entry-items-totals
     %tbody
       %tr
         %td{colspan: 6}= :account_totals.tl
