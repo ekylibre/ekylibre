@@ -321,67 +321,37 @@ module Backend
           property :paragraph, 'text-align': :center
         end
 
-        office_style :right, family: :cell do
-          property :paragraph, 'text-align': :right
-        end
-
-        office_style :bold, family: :cell do
-          property :text, 'font-weight': :bold
-        end
-
-        office_style :italic, family: :cell do
-          property :text, 'font-style': :italic
-        end
-
         table 'ledger' do
           row do
             cell JournalEntryItem.human_attribute_name(:account_number), style: :head
             cell JournalEntryItem.human_attribute_name(:account_name), style: :head
             cell JournalEntryItem.human_attribute_name(:entry_number), style: :head
+            cell JournalEntryItem.human_attribute_name(:continuous_number), style: :head
             cell JournalEntryItem.human_attribute_name(:printed_on), style: :head
             cell JournalEntryItem.human_attribute_name(:name), style: :head
-            cell JournalEntryItem.human_attribute_name(:variant), style: :head
-            cell JournalEntryItem.human_attribute_name(:journal), style: :head
+            cell JournalEntryItem.human_attribute_name(:reference_number), style: :head
+            cell JournalEntryItem.human_attribute_name(:journal_name), style: :head
             cell JournalEntryItem.human_attribute_name(:letter), style: :head
-            cell JournalEntry.human_attribute_name(:debit), style: :head
-            cell JournalEntry.human_attribute_name(:credit), style: :head
-            cell JournalEntry.human_attribute_name(:balance), style: :head
+            cell JournalEntry.human_attribute_name(:real_debit), style: :head
+            cell JournalEntry.human_attribute_name(:real_credit), style: :head
+            cell JournalEntry.human_attribute_name(:cumulated_balance), style: :head
           end
 
           general_ledger.each do |account|
-            account.each do |item|
-              if item[0] == 'header'
-                row do
-                  cell item[1], style: :head
-                  cell item[2], style: :head
-                end
-              elsif item[0] == 'body'
-                row do
-                  cell item[1]
-                  cell item[2]
-                  cell item[3]
-                  cell item[4]
-                  cell item[5]
-                  cell item[6]
-                  cell item[7]
-                  cell item[8]
-                  cell item[9]
-                  cell item[10]
-                  cell item[11]
-                end
-              elsif item[0] == 'footer'
-                row do
-                  cell ''
-                  cell item[2]
-                  cell ''
-                  cell ''
-                  cell ''
-                  cell ''
-                  cell ''
-                  cell :subtotal.tl(name: item[1]).l, style: :right
-                  cell item[12], style: :bold
-                  cell item[13], style: :bold
-                end
+            account[:items].each do |item|
+              row do
+                cell account[:account_number], style: :head
+                cell account[:account_name], style: :head
+                cell item[:entry_number]
+                cell item[:continuous_number]
+                cell item[:printed_on]
+                cell item[:name]
+                cell item[:reference_number]
+                cell item[:journal_name]
+                cell item[:letter]
+                cell item[:real_debit]
+                cell item[:real_credit]
+                cell item[:cumulated_balance]
               end
             end
           end
