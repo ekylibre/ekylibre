@@ -30,21 +30,21 @@
         type: 'PATCH'
         data:
           masked: $input.is(':checked') ? 'true' : 'false'
-        success:
+        success: ->
           location.reload() if changed
 
     toggleDraftItemsVisibility: (changed) ->
       $input = $(this)
       $list = $($input.data('mask-draft-items'))
-      $letteredItems = $list.find('.draft-item')
-      $letteredItems.toggle !$input.is(':checked')
+      $draftItems = $list.find('.draft-item')
+      $draftItems.toggle !$input.is(':checked')
 
       $.ajax
         url: $input.data('preference-url')
         type: 'PATCH'
         data:
           masked: $input.is(':checked') ? 'true' : 'false'
-        success:
+        success: ->
           location.reload() if changed
 
 ) ekylibre, jQuery
