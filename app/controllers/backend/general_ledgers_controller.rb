@@ -311,6 +311,53 @@ module Backend
       report.file.path
     end
 
+    def to_csv(general_ledger, csv)
+      csv << [
+        JournalEntryItem.human_attribute_name(:account_number),
+        JournalEntryItem.human_attribute_name(:account_name),
+        JournalEntryItem.human_attribute_name(:entry_number),
+        JournalEntryItem.human_attribute_name(:continuous_number),
+        JournalEntryItem.human_attribute_name(:printed_on),
+        JournalEntryItem.human_attribute_name(:name),
+        JournalEntryItem.human_attribute_name(:reference_number),
+        JournalEntryItem.human_attribute_name(:journal_name),
+        JournalEntryItem.human_attribute_name(:letter),
+        JournalEntry.human_attribute_name(:real_debit),
+        JournalEntry.human_attribute_name(:real_credit),
+        JournalEntry.human_attribute_name(:cumulated_balance)
+      ]
+
+      general_ledger.each do |account|
+        account[:items].each do |item|
+
+          item_name = item[:name]
+          account_name = account[:account_name]
+          journal_name = item[:journal_name]
+
+          if csv.encoding.eql?(Encoding::CP1252)
+            item_name = item_name.encode('CP1252', invalid: :replace, undef: :replace, replace: '?')
+            account_name = account_name.encode('CP1252', invalid: :replace, undef: :replace, replace: '?')
+            journal_name = journal_name.encode('CP1252', invalid: :replace, undef: :replace, replace: '?')
+          end
+
+          csv << [
+            account[:account_number],
+            account_name,
+            item[:entry_number],
+            item[:continuous_number],
+            item[:printed_on],
+            item_name,
+            item[:reference_number],
+            item[:journal_name],
+            item[:letter],
+            item[:real_debit],
+            item[:real_credit],
+            item[:cumulated_balance]
+          ]
+        end
+      end
+    end
+
     def to_ods(general_ledger)
       require 'rodf'
       output = RODF::Spreadsheet.new
