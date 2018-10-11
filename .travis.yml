@@ -11,7 +11,7 @@ jobs:
     - name: "Main test suite"
       script: xvfb-run bundle exec rake test:fast DRIVER=webkit
     - name: "Long running tests"
-      script: travis_wait xvfb-run bundle exec rake test:slow DRIVER=webkit
+      script: travis_wait 30 xvfb-run bundle exec rake test:slow DRIVER=webkit
 services:
 - redis-server
 notifications:
