@@ -506,6 +506,13 @@ table {
 }
 
 #custom-list {
+  .toolbar-content {
+    .custom-main-toolbar {
+      input, select {
+        margin-right: 10px;
+      }
+    }
+  }
   table {
     margin-bottom: 0px;
     thead {

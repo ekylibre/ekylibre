@@ -1322,6 +1322,7 @@ eng:
     dont_use_journal: "— Do not use journal —" #?!
     # dose: "Dose"
     down: "Down" #?
+    download: "Download"
     downpayment: "Downpayment"
     draft: "Draft" #?
     duplicate: "Duplicate"
@@ -1394,6 +1395,7 @@ eng:
     financial_assets: "Financial assets" #?
     financial_expenses: "Financial expenses" #??
     financial_products: "Financial products" #??
+    financial_year: "Financial year"
     # financials_assets: "Financials assets"
     finish: "Finish" #?
     finished: "Finished"
@@ -1993,6 +1995,7 @@ eng:
     transfer: "Transfer" #?
     transport: "Transport" #?
     trimester: "Trimester" #?
+    type_of_structure: "Type of structure"
     unbalanced: "Unbalanced"
     unbalanced_clients: "Unbalanced clients" #?
     unbalanced_suppliers: "Unbalanced suppliers" #?

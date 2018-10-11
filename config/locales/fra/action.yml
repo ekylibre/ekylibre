@@ -1270,6 +1270,7 @@ fra:
     dont_use_journal: "— Ne pas utiliser de journal —"
     down: "Descendre"
     down_to_level: "Détailler jusqu’au niveau" #?
+    download: "Télécharger"
     download_firefox: "Télécharger Mozilla Firefox…" #?
     downpayment: "Acompte"
     draft: "Brouillard"
@@ -1369,6 +1370,7 @@ fra:
     financial_expenses: "Charges financières"
     financial_products: "Produits financiers"
     financial_state: "État financier" #?
+    financial_year: "Exercice comptable"
     finish: "Terminer"
     finished: "Terminé"
     finished_income_statement: "Produits" #?
@@ -2261,6 +2263,7 @@ fra:
     treatment: "Traitement" #?
     trimester: "Trimestre"
     true: "Vrai" #?
+    type_of_structure: "Type de structure"
     unbalanced: "Non soldés"
     unbalanced_clients: "Comptes à réconcilier - Clients"
     unbalanced_suppliers: "Comptes à réconcilier - Fournisseurs"
