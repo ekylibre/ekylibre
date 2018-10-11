@@ -3931,6 +3931,8 @@ journal_entry_items:
     type: integer
     references: account
     required: true
+  accounting_label:
+    type: string
   activity_budget_id:
     type: integer
     references: activity_budget
@@ -6438,6 +6440,8 @@ purchase_items:
     type: integer
     references: account
     required: true
+  accounting_label:
+    type: string
   activity_budget_id:
     type: integer
     references: activity_budget
@@ -6716,6 +6720,8 @@ sale_items:
   account_id:
     type: integer
     references: account
+  accounting_label:
+    type: string
   activity_budget_id:
     type: integer
     references: activity_budget

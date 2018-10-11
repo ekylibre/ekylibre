@@ -2073,7 +2073,8 @@
         <page to="backend/draft_journals#list"/>
       </item>
       <item name="general_ledgers">
-        <page to="backend/general_ledgers#list_ledgers_journal_entry_items"/>
+        <page to="backend/general_ledgers#list_centralized_ledger_accounts"/>
+        <page to="backend/general_ledgers#list_subledger_accounts"/>
         <page to="backend/general_ledgers#list_subledger_journal_entry_items"/>
         <page to="backend/general_ledgers#mask_draft_items"/>
         <page to="backend/general_ledgers#mask_lettered_items"/>

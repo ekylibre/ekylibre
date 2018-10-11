@@ -1232,6 +1232,7 @@ fra:
     display: "Afficher"
     display_accounts: "Affichage des comptes"
     display_help: "Afficher l’aide" #?
+    # display_n_1: "Display N-1"
     distribute_unaffected_products: "Distribuer les produits non affectés"
     distributions: "Répartitions"
     district_x: "%{name} (%{code})" #?

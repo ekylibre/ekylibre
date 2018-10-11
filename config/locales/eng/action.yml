@@ -1293,7 +1293,7 @@ eng:
     disease_deformity_percentage: "Disease and deformity percentage"
     disease_percentage: "Disease (%)" #?
     disease_percentage_evolution: "Disease percentage evolution"
-    display: "Display" #?
+    display: "Display"
     display_accounts: "Display accounts"
     display_n_1: "Display N-1"
     distribute_unaffected_products: "Distribute unaffected products"
@@ -1335,7 +1335,7 @@ eng:
     entity_to_update: "Person to update"
     entries: "Entries" #?
     entries_to_point: "Entries pointing to" #?!
-    entry_item_label: "Entry item label"
+    entry_item_label: "Entry item label" #?
     entry_items: "Entry items" #?
     entry_resource_label: "Record" #?
     equipment: "Equipment" #?
@@ -1391,7 +1391,7 @@ eng:
     fixed_asset_depreciations: "Fixed asset depreciations"
     fixed_assets: "Fixed assets"
     from: "From"
-    from_to_date: "from %{from} to %{to}"
+    from_to_date: "from %{from} to %{to}" #?
     fullscreen: "Fullscreen"
     function: "Function"
     fungi: "Fungi" #?

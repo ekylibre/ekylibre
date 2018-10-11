@@ -1,6 +1,9 @@
 deu:
   activerecord:
     attributes:
+      account:
+        # cumulated_absolute_credit_balance: "Credit balance"
+        # cumulated_absolute_debit_balance: "Debit balance"
       activity_budget:
         expenses_amount: "Die Aufwendungen Menge"
         revenues_amount: "Der Umsatz Betrag"
@@ -426,6 +429,7 @@ deu:
     accountant: "Buchhalter"
     accounted_at: "entfielen auf"
     accounting_balance: "Accounting Balance"
+    # accounting_label: "Accounting label"
     accuracy: "Genauigkeit"
     achieved_at: "erreicht bei"
     actions: "Aktionen"

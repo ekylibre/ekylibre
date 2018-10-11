@@ -241,7 +241,7 @@ ita:
       index: "lacune"
       # show: "Gap: %{number}"
     backend/general_ledgers:
-      # index: "General ledger"
+      # index: "%{ledger}"
       show: "Libro mastro generale"
     backend/georeadings:
       # edit: "Edit georeading: %{name}"
@@ -908,6 +908,7 @@ ita:
     back: "torna alla PAGINA precedente"
     balance: "Equilibrio"
     balance_of_selection: "Equilibrio di selezione"
+    # balanced: "Balanced"
     bank_account: "conto bancario"
     bank_statement_number: "Banca numero di dichiarazione"
     bank_statements: "estratti conto"
@@ -1076,6 +1077,8 @@ ita:
     disease_percentage: "Malattia (%)"
     disease_percentage_evolution: "percentuale delle malattie evoluzione"
     # display: "Display"
+    # display_accounts: "Display accounts"
+    # display_n_1: "Display N-1"
     distribute_unaffected_products: "Distribuire prodotti non colpiti"
     distributions: "distribuzioni"
     divide: "Dividere"
@@ -1170,6 +1173,7 @@ ita:
     fixed_asset_depreciations: "svalutazioni di immobilizzazioni"
     fixed_assets: "immobilizzazioni"
     from: "Da parte di"
+    # from_to_date: "from %{from} to %{to}"
     fullscreen: "A schermo intero"
     function: "Funzione"
     fungi: "funghi"
@@ -1432,6 +1436,7 @@ ita:
     number_options: "Opzioni Numbers" #?
     numbers: "Numeri"
     on_account: "Sul conto"
+    # on_all_exercises: "on all exercises"
     one_condition: "Una condizione"
     open_a_campaign: "Aprire una campagna" #?
     open_a_production: "Aprire una produzione"
@@ -1768,6 +1773,7 @@ ita:
     transformations: "trasformazioni" #?
     transport: "Trasporto"
     trimester: "Trimestre"
+    # unbalanced: "Unbalanced"
     unbalanced_clients: "I clienti non bilanciati"
     unbalanced_suppliers: "Fornitori sbilanciate"
     unbilled_payables: "I debiti non ancora fatturate"

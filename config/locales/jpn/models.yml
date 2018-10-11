@@ -1,6 +1,9 @@
 jpn:
   activerecord:
     attributes:
+      account:
+        # cumulated_absolute_credit_balance: "Credit balance"
+        # cumulated_absolute_debit_balance: "Debit balance"
       activity_budget:
         expenses_amount: "費用額"
         revenues_amount: "収益額"
@@ -426,6 +429,7 @@ jpn:
     accountant: "会計士"
     accounted_at: "で会計処理"
     accounting_balance: "会計収支"
+    # accounting_label: "Accounting label"
     accuracy: "精度"
     achieved_at: "で達成"
     actions: "アクション"

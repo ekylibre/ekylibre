@@ -1,6 +1,9 @@
 ita:
   activerecord:
     attributes:
+      account:
+        # cumulated_absolute_credit_balance: "Credit balance"
+        # cumulated_absolute_debit_balance: "Debit balance"
       activity_budget:
         expenses_amount: "Le spese importo"
         revenues_amount: "I ricavi sono pari"
@@ -457,6 +460,7 @@ ita:
     accountant: "Contabile"
     accounted_at: "rappresentato a"
     accounting_balance: "Saldo contabile"
+    # accounting_label: "Accounting label"
     accuracy: "Precisione"
     achieved_at: "raggiunto a"
     actions: "azioni"
