@@ -1109,6 +1109,7 @@ arb:
     attachments: "مرفقات"
     attorney: "معلومات الوكيل" #?
     automatic: "السيارات"
+    # auxiliary: "Auxiliary"
     available: "متاح"
     available_columns: "الحقول المتاحة : %{columns}"
     average: "متوسط"
@@ -1127,6 +1128,7 @@ arb:
         safari: "سفاري رحلة قنص" #?
     balance: "رصيد الحساب"
     balance_of_selection: "ميزان اختيار"
+    # balanced: "Balanced"
     bank_account: "حساب البنك"
     bank_accounts: "" #?
     bank_statement_number: "عدد بيان البنك"
@@ -1196,6 +1198,7 @@ arb:
     client_accounting_balance: "رصيد العميل" #?
     client_informations: "المعلومات العميل"
     client_receivables: "ذمم العملاء"
+    # clients: "Clients"
     close: "اغلاق الدفتر اليومي"
     close_financial_year: "وثيق السنة المالية"
     close_journal: "إغلاق مجلة"
@@ -1343,7 +1346,9 @@ arb:
     disease_percentage: "مرض (٪)"
     disease_percentage_evolution: "تطور نسبة المرض"
     display: "عرض"
+    # display_accounts: "Display accounts"
     display_help: "عرض المساعدة" #?
+    # display_n_1: "Display N-1"
     distribute_unaffected_products: "توزيع المنتجات لم تتأثر"
     distributions: "التوزيعات"
     district_create: "اضافة منطقة ادارية" #?
@@ -1477,6 +1482,7 @@ arb:
     free_purchases: "المشتريات مجانية" #?
     from: "من"
     from_date: "من تاريخ" #?
+    # from_to_date: "from %{from} to %{to}"
     fullscreen: "تكبير الشاشة"
     function: "وظيفة"
     fungi: "الفطريات"
@@ -1853,6 +1859,7 @@ arb:
     numbers: "أرقام"
     observation_create: "اضافة ملاحظة" #?
     on_account: "أ€ يضع على الحساب"
+    # on_all_exercises: "on all exercises"
     one_condition: "ما لا يقل عن شرط واحد"
     open_a_campaign: "فتح حملة" #?
     open_a_production: "فتح الإنتاج"
@@ -2226,6 +2233,7 @@ arb:
     supplier_informations: "المعلومات المورد"
     supplier_payment_mode: "المورد وضع الدفع"
     supplier_receivables: "ذمم المورد"
+    # suppliers: "Suppliers"
     supply: "التسليم"
     support: "الدعم"
     supports: "الدعم"
@@ -2329,6 +2337,7 @@ arb:
       financial_year: "السنة المالية غير متوفرة %{value}" #?
       journal: "الدفتر اليومي المطلوب غير متوفر (%{value})" #?
       product: "المنتج المطلوب غير متوفر" #?
+    # unbalanced: "Unbalanced"
     unbalanced_clients: "عملاء غير متوازن"
     unbalanced_suppliers: "الموردين غير متوازن"
     unbilled_payables: "دائنة غير المفوترة"

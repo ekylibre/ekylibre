@@ -2,9 +2,8 @@ eng:
   enumerize:
     account:
       nature:
-        # auxiliary: "Auxiliary"
-        # centralizing: "Centralizing"
-        # general: "General"
+        auxiliary: "Auxiliary"
+        general: "General"
     activity:
       nature:
         auxiliary: "Auxiliary"

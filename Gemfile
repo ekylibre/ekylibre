@@ -245,7 +245,6 @@ group :test do
 
   gem 'codacy-coverage', require: false
   gem 'codecov', require: false
-  gem 'database_cleaner'
   gem 'simplecov', require: false
 
   gem 'minitest-reporters'

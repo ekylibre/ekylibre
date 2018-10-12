@@ -843,6 +843,11 @@ eng:
       new: "New tracking"
       show: "Tracking: %{name}"
     backend/trial_balances:
+      # archive_report: "Archive report trial balance: %{name}"
+      # find_open_document_template: "Find open document template trial balance: %{name}"
+      # generate_document: "Generate document trial balance: %{name}"
+      # generate_report: "Generate report trial balance: %{name}"
+      # generate_report_file: "Generate report file trial balance: %{name}"
       show: "Trial balance"
     backend/users:
       edit: "Edit user: %{first_name} %{last_name}"
@@ -1112,6 +1117,7 @@ eng:
     attachment: "Attachment"
     attachments: "Attachments"
     automatic: "Auto" #?
+    auxiliary: "Auxiliary" #?
     available: "Available"
     available_columns: "Available columns: %{columns}"
     average: "Average"
@@ -1178,6 +1184,7 @@ eng:
     client: "Client" #?
     client_informations: "Client informations"
     client_receivables: "Client receivables" #?!
+    clients: "Clients" #?
     close: "Close"
     close_financial_year: "Close financial year"
     close_journal: "Close the journal"
@@ -1280,7 +1287,7 @@ eng:
     depreciation: "Depreciation"
     depreciations: "Depreciations"
     depreciations_inputations_expenses: "Depreciations inputations expenses" #?
-    # derogatory_depreciation_explanation: "Derogatory depreciation explanation"
+    derogatory_depreciation_explanation: "Ekylibre doesn't handle derogatory depreciations"
     derogatory_depreciations: "Derogatory depreciations" #?!
     description: "Description" #?
     destroy: "Destroy"
@@ -1335,7 +1342,7 @@ eng:
     entity_to_update: "Person to update"
     entries: "Entries" #?
     entries_to_point: "Entries pointing to" #?!
-    entry_item_label: "Entry item label"
+    entry_item_label: "Entry item label" #?
     entry_items: "Entry items" #?
     entry_resource_label: "Record" #?
     equipment: "Equipment" #?
@@ -1391,7 +1398,7 @@ eng:
     fixed_asset_depreciations: "Fixed asset depreciations"
     fixed_assets: "Fixed assets"
     from: "From"
-    from_to_date: "from %{from} to %{to}"
+    from_to_date: "from %{from} to %{to}" #?
     fullscreen: "Fullscreen"
     function: "Function"
     fungi: "Fungi" #?
@@ -1902,6 +1909,7 @@ eng:
     supplier_informations: "Supplier informations"
     supplier_payment_mode: "Supplier payment mode"
     supplier_receivables: "Supplier receivables" #?!
+    suppliers: "Suppliers" #?
     supply: "Supply" #?
     support: "Support" #?
     supports: "Supports" #?
@@ -2377,6 +2385,7 @@ eng:
       # add_to_container: "Add to container"
       # add_to_group: "Add to group"
       # add_to_variant: "Add to variant"
+      # archive_report: "Archive report"
       attach: "Attach"
       # autocomplete: "Autocomplete"
       bookkeep: "Bookkeep"
@@ -2419,8 +2428,12 @@ eng:
       extract: "Extract"
       # failure: "Failure"
       family: "Family"
+      # find_open_document_template: "Find open document template"
       finish: "Finish"
+      # generate_document: "Generate document"
       generate_last_journal_entry: "Generate last journal entry" #?
+      # generate_report: "Generate report"
+      # generate_report_file: "Generate report file"
       give: "Give"
       import: "Import"
       incorporate: "Incorporate"

@@ -1,5 +1,9 @@
 arb:
   enumerize:
+    account:
+      nature:
+        # auxiliary: "Auxiliary"
+        # general: "General"
     activity:
       nature:
         auxiliary: "مساعد"

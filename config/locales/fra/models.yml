@@ -265,6 +265,9 @@ fra:
         unitary_in_parcel: "Articles unitaires ne peuvent être envoyés un par un"
         wrong_length: "%{attribute} n’est pas d’une bon longueur (%{count} caractères)"
       models:
+        account:
+          centralizing_number: "Le numéro ne peut pas commencer par '401' ou '411' qui sont réservés pour les comptes auxiliaires"
+          radical_class: "Le numéro ne peut pas correspondre à une classe radicale"
         activity:
           checked_off_with_inspections: "Des agréages sont déjà présents pour cette activité"
           checked_without_measures: "Au moins un type de mesure doit être sélectionné lorsque l'utilisation des agréages est demandée"
@@ -565,7 +568,7 @@ fra:
     accountant: "Comptable"
     accounted_at: "Date comptabilisation"
     accounting_balance: "Solde comptable"
-    accounting_label: "Label comptable"
+    accounting_label: "Libellé comptable"
     accuracy: "Précision"
     achieved_at: "Achevé le"
     actions: "Actions"
@@ -693,6 +696,8 @@ fra:
     category: "Catégorie"
     ceded: "Cédé"
     ceded_on: "Cédé le"
+    centralizing_account: "Compte centralisateur"
+    # centralizing_account_name: "Centralizing account name"
     charge_account: "Compte d’achat"
     charges_categories: "Catégories de produits avec charge"
     check_state: "Vérifier l’état" #?

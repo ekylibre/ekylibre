@@ -906,6 +906,7 @@ spa:
     attachment: "Pieza juntada"
     attachments: "Archivos adjuntos"
     # automatic: "Auto"
+    # auxiliary: "Auxiliary"
     available: "Disponible"
     available_columns: "Campos disponibles\_: %{columns}"
     average: "Promedio"
@@ -924,6 +925,7 @@ spa:
         safari: "Safari" #?
     balance: "Saldo"
     balance_of_selection: "Balanza de selección"
+    # balanced: "Balanced"
     bank_account: "Cuenta bancaria"
     bank_statement_number: "Número de estado de cuenta bancaria"
     bank_statement_point: "Despuntar el levantar" #?
@@ -990,6 +992,7 @@ spa:
     client: "Cliente"
     client_informations: "Informaciones Atención al cliente"
     client_receivables: "Cobrar cliente"
+    # clients: "Clients"
     close: "Cerrar"
     close_financial_year: "Fin del ejercicio contable"
     close_journal: "Cierre la revista"
@@ -1120,6 +1123,8 @@ spa:
     disease_percentage: "Enfermedad (%)"
     disease_percentage_evolution: "Evolución porcentual de Enfermedades"
     display: "Monitor"
+    # display_accounts: "Display accounts"
+    # display_n_1: "Display N-1"
     distribute_unaffected_products: "Distribuir productos no afectados"
     distributions: "Distribuciones"
     divide: "Dividir"
@@ -1229,6 +1234,7 @@ spa:
     fixed_assets: "Los activos fijos"
     free_purchases: "Compras en franquisia" #?
     from: "Expedidor"
+    # from_to_date: "from %{from} to %{to}"
     fullscreen: "Pantalla completa"
     function: "Función"
     fungi: "Hongos"
@@ -1530,6 +1536,7 @@ spa:
     number_options: "Opciones números" #?
     numbers: "Números"
     on_account: "Volver a poner sobre la cuenta"
+    # on_all_exercises: "on all exercises"
     one_condition: "Una condición"
     open_a_campaign: "Abrir una campaña" #?
     open_a_production: "Abrir una producción"
@@ -1838,6 +1845,7 @@ spa:
     supplier_informations: "Información sobre los proveedores"
     supplier_payment_mode: "Modo de pago del proveedor"
     supplier_receivables: "Cobrar proveedor"
+    # suppliers: "Suppliers"
     supply: "Suministro"
     support: "Apoyo"
     supports: "Soportes"
@@ -1930,6 +1938,7 @@ spa:
     transformations: "Transformaciones" #?
     transport: "Transporte"
     trimester: "Trimestre"
+    # unbalanced: "Unbalanced"
     unbalanced_clients: "Clientes desequilibradas"
     unbalanced_suppliers: "Proveedores desequilibradas"
     unbilled_payables: "Cuentas a pagar no facturadas"

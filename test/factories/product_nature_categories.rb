@@ -1,6 +1,7 @@
 FactoryBot.define do
   factory :product_nature_category do
     sequence(:name) { |n| "Service bancaire #{n}" }
+    association :product_account, factory: :account
   end
 
   factory :plants_category, class: ProductNatureCategory do

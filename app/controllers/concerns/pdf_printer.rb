@@ -1,7 +1,7 @@
 module PdfPrinter
   extend ActiveSupport::Concern
 
-  protected
+  # protected
 
   # return data
   def generate_report(template_name_or_path, &block)
@@ -33,9 +33,9 @@ module PdfPrinter
   # nature must a Nomen::DocumentNature object
   def archive_report(nature, key, data_or_path, options = { archiving: :last })
     data = data_or_path.is_a?(File) ? data_or_path : StringIO.new(data_or_path)
-    name = options[:name] || nature.human_name
+    name = options[:name] || [nature, key].join(' ')
     Document.create!(
-      nature: nature.name,
+      nature: nature,
       key: key,
       name: name,
       file: data,

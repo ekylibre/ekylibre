@@ -1,3 +1,32 @@
+Rake::Task['test:run'].clear
+
+SLOW_TESTS = %w[
+  Backend::ProductNaturesControllerTest
+  Ekylibre::SettingsExchangerTest
+  UPRA::ReproductorsExchangerTest
+  Synel::AnimalsExchangerTest
+  Ekylibre::FirstRunTest
+  Backend::AccountsControllerTest
+  FinancialYearCloseTest
+  AggeratioTest
+  Backend::MattersControllerTest
+  CustomFieldTest
+  FixturesTest
+  CharentesAlliance::IncomingDeliveriesExchangerTest
+  Lilco::MilkAnalysesExchangerTest
+  Backend::ActivitiesControllerTest
+  FIEA::GalacteaExchangerTest
+  Backend::JournalEntriesControllerTest
+  Backend::ProductNatureVariantsControllerTest
+  FinancialYearTest
+  AccountTest
+  Ekylibre::AccountsExchangerTest
+]
+
+def slow_test_paths
+  SLOW_TESTS.map { |test| 'test/**/' + test.underscore + '.rb' }
+end
+
 namespace :test do
   # desc 'Run tests for libraries'
   Rails::TestTask.new(lib: 'test:prepare') do |t|
@@ -17,6 +46,14 @@ namespace :test do
   # desc 'Run tests for concepts'
   Rails::TestTask.new(concepts: 'test:prepare') do |t|
     t.pattern = 'test/concepts/**/*_test.rb'
+  end
+
+  Rails::TestTask.new(slow: 'test:prepare') do |t|
+    t.test_files = slow_test_paths
+  end
+
+  Rails::TestTask.new(fast: 'test:prepare') do |t|
+    t.test_files = FileList['test/**/*_test.rb'].exclude(slow_test_paths)
   end
 
   task javascripts: [:teaspoon]

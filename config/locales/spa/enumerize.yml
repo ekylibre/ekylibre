@@ -1,5 +1,9 @@
 spa:
   enumerize:
+    account:
+      nature:
+        # auxiliary: "Auxiliary"
+        # general: "General"
     activity:
       nature:
         auxiliary: "Auxiliar"

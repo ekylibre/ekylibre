@@ -1,5 +1,9 @@
 cmn:
   enumerize:
+    account:
+      nature:
+        # auxiliary: "Auxiliary"
+        # general: "General"
     activity:
       nature:
         auxiliary: "辅"

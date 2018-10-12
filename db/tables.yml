@@ -66,11 +66,14 @@ account_balances:
     type: integer
     references: user
 accounts:
+  already_existing:
+    type: boolean
+    required: true
+    default: false
   auxiliary_number:
     type: string
-  centralizing_account_id:
-    type: integer
-    references: account
+  centralizing_account_name:
+    type: string
   created_at:
     type: datetime
     required: true
