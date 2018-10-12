@@ -3,13 +3,12 @@ deu:
     account:
       nature:
         # auxiliary: "Auxiliary"
-        # centralizing: "Centralizing"
         # general: "General"
     activity:
       nature:
         auxiliary: "Hilfs"
         # main: "Main"
-        standalone: "Eigenständige"
+        # standalone: "Standalone"
       production_campaign:
         at_cycle_end: "Am Zyklusende"
         at_cycle_start: "Bei Zyklusbeginn"
@@ -50,7 +49,7 @@ deu:
         sensor_error: "Sensorfehler"
     analysis_item:
       indicator_datatype:
-        boolean: "Boolescher"
+        # boolean: "Boolean"
         choice: "Wahl"
         decimal: "Dezimal"
         geometry: "Geometrie"
@@ -71,7 +70,7 @@ deu:
         slaughter: "Schlachten"
       filiation_status:
         certified: "Bescheinigt"
-        uncertified: "Nicht zertifiziert"
+        # uncertified: "Uncertified"
         unknown: "Unbekannt"
     call_message:
       nature:
@@ -189,7 +188,7 @@ deu:
     guide:
       frequency:
         daily: "Täglich"
-        decadely: "Dekadisch"
+        # decadely: "Decadely"
         hourly: "Stündlich"
         monthly: "Monatlich"
         none: "Keiner"
@@ -197,7 +196,7 @@ deu:
         yearly: "Jährlich"
     guide_analysis:
       acceptance_status:
-        errored: "Fehler"
+        # errored: "Errored"
         failed: "Gescheitert"
         passed: "Bestanden"
         passed_with_warnings: "Mit Warnungen bestanden"
@@ -208,14 +207,14 @@ deu:
         passed_with_warnings: "Mit Warnungen bestanden" #?
     guide_analysis_point:
       acceptance_status:
-        errored: "Fehler"
+        # errored: "Errored"
         failed: "Gescheitert"
         passed: "Bestanden"
         passed_with_warnings: "Mit Warnungen bestanden"
     import:
       state:
         aborted: "Abgebrochen"
-        errored: "Fehler"
+        # errored: "Errored"
         finished: "Fertig"
         in_progress: "In Bearbeitung"
         undone: "Unerledigt"
@@ -232,7 +231,7 @@ deu:
         validated: "Validierte"
     intervention_parameter_reading:
       indicator_datatype:
-        boolean: "Boolescher"
+        # boolean: "Boolean"
         choice: "Wahl"
         decimal: "Dezimal"
         geometry: "Geometrie"
@@ -267,7 +266,7 @@ deu:
     listing_node:
       nature:
         belongs_to: "Gehört"
-        boolean: "Boolescher"
+        # boolean: "Boolean"
         column: "Spalte"
         custom: "Brauch"
         datetime: "Terminzeit"
@@ -328,7 +327,7 @@ deu:
     preference:
       nature:
         accounting_system: "Abrechnungssystem"
-        boolean: "Boolescher"
+        # boolean: "Boolean"
         country: "Land"
         currency: "Währung"
         decimal: "Dezimal"
@@ -424,7 +423,7 @@ deu:
         sale: "Verkauf"
     product_nature_variant_reading:
       indicator_datatype:
-        boolean: "Boolescher"
+        # boolean: "Boolean"
         choice: "Wahl"
         decimal: "Dezimal"
         geometry: "Geometrie"
@@ -440,7 +439,7 @@ deu:
         unknown: "Unbekannt"
     product_reading:
       indicator_datatype:
-        boolean: "Boolescher"
+        # boolean: "Boolean"
         choice: "Wahl"
         decimal: "Dezimal"
         geometry: "Geometrie"
@@ -455,7 +454,7 @@ deu:
         at_paying: "Zu zahlen"
     purchase_nature:
       nature:
-        payslip: "Lohnzettel"
+        # payslip: "Payslip"
         purchase: "Kauf"
     sale_item: #?
       compute_from: #?
@@ -483,7 +482,7 @@ deu:
         deliveries: "Lieferungen"
         deposits: "Einlagen"
         documents: "Unterlagen"
-        entities: "Drittel"
+        # entities: "Thirds"
         fixed_assets: "Anlagevermögen"
         gaps: "Lücken"
         incoming_payments: "Eingehende Zahlungen"
@@ -493,7 +492,7 @@ deu:
         opportunities: "Chancen"
         outgoing_payment_lists: "Abgehende Zahlungslisten"
         outgoing_payments: "Auszahlungen"
-        parcels: "Pakete"
+        # parcels: "Parcels"
         plant_countings: "Pflanzenzählungen"
         plants: "Pflanzen"
         product_nature_categories: "Produkt Natur Kategorien"
@@ -520,7 +519,7 @@ deu:
         get_urls: "Erhalten Sie Urls"
       state:
         aborted: "Abgebrochen"
-        errored: "Fehler"
+        # errored: "Errored"
         finished: "Fertig"
         in_progress: "In Bearbeitung"
         undone: "Unerledigt"

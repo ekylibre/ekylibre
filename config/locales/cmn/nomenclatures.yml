@@ -182,11 +182,11 @@ cmn:
         equity_securities: "股本证券"
         equity_security_asset_impairment_losses: "股本证券资产减值损失"
         establishment_charge_assets: "建立收费资产"
-        exceptional_charge_transfer_revenues: "Exceptionnal电荷转移收入"
-        exceptional_depreciations_inputations_expenses: "Exceptionnal贬值inputations费用"
-        exceptional_depreciations_inputations_revenues: "Exceptionnal无形的资产减值收入"
         exceptional_expenses: "特殊支出"
         exceptional_revenues: "特殊的收入"
+        exceptionnal_charge_transfer_revenues: "Exceptionnal电荷转移收入" #?
+        exceptionnal_depreciations_inputations_expenses: "Exceptionnal贬值inputations费用" #?
+        exceptionnal_incorporeal_asset_depreciation_revenues: "Exceptionnal无形的资产减值收入" #?
         expenses: "开支"
         exploitation_depreciations_inputations_expenses: "开发贬值inputations费用"
         exploitation_expenses_transfers: "开发费用转移"
@@ -515,7 +515,7 @@ cmn:
         debtor: "债务人"
         fr_pcg82: "法国PCG82"
         fr_pcga: "法国PCGA"
-        pt_snc: "葡萄牙SNC"
+        # pt_snc: "Protuguese SNC"
     activity_families:
       choices:
         nature:
@@ -1307,7 +1307,7 @@ cmn:
         roentgenium: "錀"
         rubidium: "铷"
         ruthenium: "钌"
-        rutherfordium: "鈩"
+        # rutherfordium: "Rutherfordium"
         samarium: "钐"
         scandium: "钪"
         # seaborgium: "Seaborgium"
@@ -1926,6 +1926,7 @@ cmn:
         inventory_sheet: "库存表"
         journal: "日志"
         journal_entry_sheet: "日记条目表"
+        # journal_ledger: "Journal ledger"
         land_parcel_register: "地块寄存器"
         loan_registry: "贷款注册表"
         manure_management_plan: "粪便管理计划"
@@ -2038,18 +2039,6 @@ cmn:
         spheroid: "球体"
         vehicle: "车辆"
       name: "人物"
-    fiscal_positions:
-      items:
-        fr_ba_ir: "法国农业（BA）所得税"
-        fr_ba_is: "法国农业（BA）公司税"
-        fr_bic_ir: "法国商业，工业或手工业务（BIC）所得税"
-        fr_bic_is: "法国商业，工业或手工业（BIC）公司税"
-        fr_bnc_ir: "法国专业营运所得税"
-        fr_bnc_is: "法国专业运营公司税收"
-      name: "财政状况"
-      property_natures:
-        code: "码"
-        country: "国家"
     guide_natures:
       items:
         best_practices: "最佳实践"
@@ -2359,7 +2348,7 @@ cmn:
         fungus_disease: "真菌病"
         fusarium: "镰刀菌"
         fusarium_head_blight: "赤霉病"
-        galium_aparine: "猪殃殃"
+        # galium_aparine: "Galium aparine"
         grapevine_yellows: "黄色葡萄"
         husk_fly: "稻壳飞"
         insecta_disease: "昆虫病"
@@ -2392,7 +2381,7 @@ cmn:
         pseudomonas_syringae: "丁香假单胞菌"
         respiratory_problem: "呼吸问题"
         rhizoctonia: "水稻纹枯病"
-        rumex_crispus: "典酸模"
+        # rumex_crispus: "Rumex crispus"
         scale_insect: "介壳虫"
         scaphoideus_titanus_leafhopper: "Scaphoideus TITANUS叶蝉"
         sclerotinia: "菌核病"
@@ -2568,7 +2557,7 @@ cmn:
         sodium_chloride: "氯化钠"
         sucrose: "蔗糖"
         sulfur_dioxide: "二氧化硫"
-        tetraphosphorus_decaoxide: "四氧化二磷"
+        # tetraphosphorus_decaoxide: "Tetraphosphorus decaoxide"
         water: "水"
       name: "分子"
       property_natures:
@@ -2928,7 +2917,7 @@ cmn:
       items:
         container: "容器"
         doer: "杜尔"
-        includer: "包入"
+        # includer: "Includer"
         input: "输入"
         input_origin: "输入起点"
         output: "产量"
@@ -4829,7 +4818,7 @@ cmn:
         # bromus: "Bromes"
         building: "建造"
         building_division: "建设司"
-        cairina: "疣鼻栖鸭"
+        # cairina: "Cairina"
         cairina_moschata: "番鸭"
         camelina: "亚麻"
         camelina_sativa: "荠蓝"
@@ -5958,7 +5947,7 @@ cmn:
         ovis_aries: "羊"
         packaged_matter: "包装物"
         palaquium: "胶木属"
-        palaquium_gutta: "杜仲胶"
+        # palaquium_gutta: "Gutta percha"
         panicum: "柳枝"
         panicum_miliaceum: "粢"
         papaver: "罂粟"
@@ -6302,7 +6291,7 @@ cmn:
         raphanus_sativus_oleiformis_compass: "牧草萝卜指南针"
         raspberry: "覆盆子"
         raw_matter: "生物质"
-        rhagoletis_completa: "Rhagoletis完成"
+        # rhagoletis_completa: "Rhagoletis completa"
         ribes: "糖茶"
         ribes_nigrum: "黑加仑"
         ribes_nigrum_andega: "黑加仑Andega"

@@ -575,7 +575,7 @@ html.exception {
   clear: both;
   @include calc(height, "100vh - #{$header-height + $topbar-height}");
   .toolbar + & {
-    @include calc(height, "100vh - #{$header-height + $topbar-height + $toolbar-height}");
+    @include calc(height, "100vh - #{$header-height + $topbar-height + $toolbar-height} - 1px");
   }
 }
 
@@ -1317,6 +1317,8 @@ html.backend {
       @include use-icon(plus-square-o);
     }
     .feathers {
+      position: relative;
+
       .feather {
         display: none;
         &:first-child {
@@ -1324,6 +1326,20 @@ html.backend {
           .btn-filter {
             display: inline;
           }
+        }
+        &.feather-previous-navigation, &.feather-next-navigation{
+          display: block;
+          position:absolute;
+          top: 0;
+          border: none;
+          margin-left: $default-gap;
+          margin-right: $default-gap;
+        }
+        &.feather-previous-navigation {
+          left: 0;
+        }
+        &.feather-next-navigation {
+          right: 0;
         }
       }
     }

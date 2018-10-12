@@ -527,9 +527,15 @@ Rails.application.routes.draw do
 
     resources :fungi, concerns: :products
 
-    resource :general_ledger, only: [:show], path: 'general-ledger' do
+    resources :general_ledgers, only: %i[index show], path: 'general-ledgers', param: :account_number do
+      collection do
+        patch :mask_lettered_items
+        patch :mask_draft_items
+        get :list_subledger_accounts
+        get :list_centralized_ledger_accounts
+      end
       member do
-        get :list_journal_entry_items
+        get :list_subledger_journal_entry_items
       end
     end
 

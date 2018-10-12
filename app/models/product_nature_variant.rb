@@ -88,7 +88,6 @@ class ProductNatureVariant < Ekylibre::Record::Base
   validates :category, :nature, :variety, presence: true
   # ]VALIDATORS]
   validates :number, length: { allow_nil: true, maximum: 60 }
-  validates :number, uniqueness: true
   validates :derivative_of, :variety, length: { allow_nil: true, maximum: 120 }
   validates :gtin, length: { allow_nil: true, maximum: 14 }
   validates_attachment_content_type :picture, content_type: /image/
@@ -224,14 +223,7 @@ class ProductNatureVariant < Ekylibre::Record::Base
       # We want to notice => raise.
       raise "Account '#{account_key}' is not configured on category of #{self.name.inspect} variant. You have to check category first"
     end
-
-    options = {}
-    options[:number] = category_account.number + number[-6, 6].rjust(6)
-    options[:name] = category_account.name + ' [' + self.name + ']'
-    options[:label] = options[:number] + ' - ' + options[:name]
-    options[:usages] = category_account.usages
-
-    Account.create!(options)
+    category_account
   end
 
   # add animals to new variant

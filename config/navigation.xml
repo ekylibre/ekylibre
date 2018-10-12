@@ -146,8 +146,9 @@
         <page to="backend/trial_balances#show"/>
       </item>
       <item name="general_ledger">
+        <page to="backend/general_ledgers#index"/>
         <page to="backend/general_ledgers#show"/>
-        <page to="backend/general_ledgers#list_journal_entry_items"/>
+        <page to="backend/general_ledgers#list_journal_entry_items" nonexistent="true"/>
       </item>
     </group>
     <group name="fixed_assets" icon="home">
@@ -2071,9 +2072,30 @@
         <page to="backend/draft_journals#confirm_all"/>
         <page to="backend/draft_journals#list"/>
       </item>
+      <item name="general_ledgers">
+        <page to="backend/general_ledgers#list_centralized_ledger_accounts"/>
+        <page to="backend/general_ledgers#list_subledger_accounts"/>
+        <page to="backend/general_ledgers#list_subledger_journal_entry_items"/>
+        <page to="backend/general_ledgers#mask_draft_items"/>
+        <page to="backend/general_ledgers#mask_lettered_items"/>
+      </item>
       <item name="invalid_journal_entries">
         <page to="backend/invalid_journal_entries#delete_all"/>
         <page to="backend/invalid_journal_entries#list"/>
+      </item>
+      <item name="journals">
+        <page to="backend/journals#archive_report"/>
+        <page to="backend/journals#find_open_document_template"/>
+        <page to="backend/journals#generate_document"/>
+        <page to="backend/journals#generate_report"/>
+        <page to="backend/journals#generate_report_file"/>
+      </item>
+      <item name="trial_balances">
+        <page to="backend/trial_balances#archive_report"/>
+        <page to="backend/trial_balances#find_open_document_template"/>
+        <page to="backend/trial_balances#generate_document"/>
+        <page to="backend/trial_balances#generate_report"/>
+        <page to="backend/trial_balances#generate_report_file"/>
       </item>
     </group>
   </untreated-actions>

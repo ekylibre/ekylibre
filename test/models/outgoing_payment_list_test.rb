@@ -36,7 +36,13 @@
 require 'test_helper'
 
 class OutgoingPaymentListTest < ActiveSupport::TestCase
-  setup { @list = outgoing_payment_lists(:outgoing_payment_lists_001) }
+  setup do
+    @list = outgoing_payment_lists(:outgoing_payment_lists_001)
+  end
+
+  teardown do
+    Timecop.return
+  end
 
   test 'to_sepa' do
     Timecop.freeze(Time.new(2016, 10, 1, 11, 1, 35, '+02:00')) do

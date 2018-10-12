@@ -3,7 +3,7 @@ fra:
     account:
       nature:
         auxiliary: "Auxiliaire"
-        centralizing: "Centralisateur"
+        centralizing: "Centralisateur" #?
         general: "General"
     activity:
       nature:

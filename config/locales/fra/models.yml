@@ -8,6 +8,9 @@ fra:
               greater_than: "Le montant à payer doit être supérieur à zéro" #?
   activerecord:
     attributes:
+      account:
+        cumulated_absolute_credit_balance: "Solde crédit"
+        cumulated_absolute_debit_balance: "Solde débit"
       activity: #?
         nature: "Type de centre analytique" #?
         net_margin: "Marge nette" #?
@@ -87,6 +90,8 @@ fra:
         quantity: "Quantité constatée" #?
       journal_entry_item:
         closed: "Cloturée" #?
+        cumulated_absolute_credit_balance: "Solde crédit"
+        cumulated_absolute_debit_balance: "Solde débit"
         name: "Libellé de l'écriture"
       land_parcel:
         born_at: "Créé le"
@@ -260,10 +265,9 @@ fra:
         unitary_in_parcel: "Articles unitaires ne peuvent être envoyés un par un"
         wrong_length: "%{attribute} n’est pas d’une bon longueur (%{count} caractères)"
       models:
-        account: #?
-          attributes: #?
-            number: #?
-              unauthorized: "Ce numéro ne peut pas correspondre à une classe radicale" #?
+        account:
+          centralizing_number: "Le numéro ne peut pas commencer par '401' ou '411' qui sont réservés pour les comptes auxiliaires"
+          radical_class: "Le numéro ne peut pas correspondre à une classe radicale"
         activity:
           checked_off_with_inspections: "Des agréages sont déjà présents pour cette activité"
           checked_without_measures: "Au moins un type de mesure doit être sélectionné lorsque l'utilisation des agréages est demandée"
@@ -632,7 +636,6 @@ fra:
     author: "Auteur"
     authorized_payments_count: "Nombre d’encaissements autorisés"
     auto_updateable_addresses: "Adresses mises à jour automatiquement"
-    auxiliary_number: "Numéro auxiliaire"
     average_value: "Valeur moyenne"
     balance: "Solde"
     balance_amount: "Solde" #?
@@ -694,6 +697,7 @@ fra:
     ceded: "Cédé"
     ceded_on: "Cédé le"
     centralizing_account: "Compte centralisateur"
+    # centralizing_account_name: "Centralizing account name"
     charge_account: "Compte d’achat"
     charges_categories: "Catégories de produits avec charge"
     check_state: "Vérifier l’état" #?
@@ -862,7 +866,6 @@ fra:
     depreciable_amount: "Montant amortissable"
     depreciable_product: "Liée au produit suivant"
     depreciated_amount: "Montant amorti"
-    depreciation_fiscal_coefficient: "Coefficient fiscal d'amortissement"
     depreciation_method: "Méthode d’amortissement"
     depreciation_percentage: "Pourcentage d’amortissement"
     depreciation_period: "Durée d’amortissement"
@@ -945,7 +948,7 @@ fra:
     expected_stop_amount: "Montant final attendu"
     expected_yield: "Rendement évalué (y)"
     expenses: "Dépenses"
-    expenses_account: "Compte de charge"
+    expenses_account: "Comptes de charge"
     expenses_accounts: "Comptes de charge" #?
     expiration_delay: "Délai d’expiration"
     expired_at: "Date d’expiration"

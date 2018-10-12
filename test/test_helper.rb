@@ -36,7 +36,7 @@ require 'capybara/rails'
 require 'minitest/reporters'
 Minitest::Reporters.use! Minitest::Reporters::DefaultReporter.new
 # DefaultReporter => ...........
-# SpecRemporter   => Test names (1 test/line)
+# SpecReporter   => Test names (1 test/line)
 
 # Permits to test locales
 I18n.locale = ENV['LOCALE'] if ENV['LOCALE']
@@ -726,7 +726,8 @@ class CapybaraIntegrationTest < ActionDispatch::IntegrationTest
 end
 
 def without_output(&block)
-  main.stub :puts, Proc.new, &block
+  # main.stub :puts, Proc.new, &block
+  block.call
 end
 
 def main

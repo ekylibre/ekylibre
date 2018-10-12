@@ -254,7 +254,8 @@ CREATE TABLE accounts (
     custom_fields jsonb,
     auxiliary_number character varying,
     nature character varying,
-    centralizing_account_id integer
+    centralizing_account_name character varying,
+    already_existing boolean DEFAULT false NOT NULL
 );
 
 
@@ -17952,6 +17953,8 @@ INSERT INTO schema_migrations (version) VALUES ('20180711133214');
 INSERT INTO schema_migrations (version) VALUES ('20180712091619');
 
 INSERT INTO schema_migrations (version) VALUES ('20180730150532');
+
+INSERT INTO schema_migrations (version) VALUES ('20180921092835');
 
 INSERT INTO schema_migrations (version) VALUES ('20181003092024');
 
