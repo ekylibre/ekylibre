@@ -299,7 +299,7 @@ arb:
       index: "ثغرات"
       # show: "Gap: %{number}"
     backend/general_ledgers:
-      # index: "General ledger"
+      # index: "%{ledger}"
       show: "دفتر الحسابات"
     backend/georeadings:
       # edit: "Edit georeading: %{name}"

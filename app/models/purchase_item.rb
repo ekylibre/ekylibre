@@ -23,6 +23,7 @@
 # == Table: purchase_items
 #
 #  account_id             :integer          not null
+#  accounting_label       :string
 #  activity_budget_id     :integer
 #  amount                 :decimal(19, 4)   default(0.0), not null
 #  annotation             :text
@@ -65,6 +66,7 @@ class PurchaseItem < Ekylibre::Record::Base
   has_many :products, through: :parcel_items
   has_one :product_nature_category, through: :variant, source: :category
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  validates :accounting_label, length: { maximum: 500 }, allow_blank: true
   validates :amount, :pretax_amount, :quantity, :reduction_percentage, :unit_amount, :unit_pretax_amount, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
   validates :annotation, :label, length: { maximum: 500_000 }, allow_blank: true
   validates :account, :currency, :purchase, :tax, :variant, presence: true

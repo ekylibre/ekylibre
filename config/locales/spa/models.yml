@@ -1,6 +1,9 @@
 spa:
   activerecord:
     attributes:
+      account:
+        # cumulated_absolute_credit_balance: "Credit balance"
+        # cumulated_absolute_debit_balance: "Debit balance"
       activity_budget:
         expenses_amount: "Importe los gastos"
         revenues_amount: "Monto de los ingresos"
@@ -430,6 +433,7 @@ spa:
     accountant: "Contador"
     accounted_at: "Representaron en"
     accounting_balance: "Saldo contable"
+    # accounting_label: "Accounting label"
     accuracy: "Exactitud"
     achieved_at: "Alcanzado en"
     actions: "Comportamiento"

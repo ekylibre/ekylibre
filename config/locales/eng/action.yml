@@ -1300,7 +1300,7 @@ eng:
     disease_deformity_percentage: "Disease and deformity percentage"
     disease_percentage: "Disease (%)" #?
     disease_percentage_evolution: "Disease percentage evolution"
-    display: "Display" #?
+    display: "Display"
     display_accounts: "Display accounts"
     display_n_1: "Display N-1"
     distribute_unaffected_products: "Distribute unaffected products"

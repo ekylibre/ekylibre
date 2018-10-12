@@ -1,10 +1,12 @@
 arb:
   activerecord:
     attributes:
-      account: #?
+      account:
         comment: "تعليق" #?
         company_id: "الشركة" #?
         created_at: "انشأت بي" #?
+        # cumulated_absolute_credit_balance: "Credit balance"
+        # cumulated_absolute_debit_balance: "Debit balance"
         label: "مملصق" #?
         parent: "الاقرباء" #?
         parent_id: "الاقرباء" #?
@@ -1076,6 +1078,7 @@ arb:
     accountant: "محاسب"
     accounted_at: "تمت محاسبته يوم"
     accounting_balance: "ميزان المحاسبة"
+    # accounting_label: "Accounting label"
     accounts: "الحسابات" #?
     accuracy: "دقة"
     achieved_at: "تحقق في"

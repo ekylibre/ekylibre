@@ -241,7 +241,7 @@ cmn:
       index: "差距"
       # show: "Gap: %{number}"
     backend/general_ledgers:
-      # index: "General ledger"
+      # index: "%{ledger}"
       show: "总帐"
     backend/georeadings:
       # edit: "Edit georeading: %{name}"

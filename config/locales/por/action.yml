@@ -246,7 +246,7 @@ por:
       index: "Lacunas"
       show: "Lacuna: %{number}"
     backend/general_ledgers:
-      # index: "General ledger"
+      # index: "%{ledger}"
       show: "Livro grande"
     backend/georeadings:
       edit: "Editar geo informações: %{name}"

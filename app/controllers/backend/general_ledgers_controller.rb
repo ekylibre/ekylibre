@@ -20,6 +20,7 @@
 
 module Backend
   class GeneralLedgersController < Backend::BaseController
+    include PdfPrinter
     def self.list_conditions
       code = ''
       code << search_conditions({ journal_entry_item: %i[name debit credit real_debit real_credit] }, conditions: 'c') + "\n"
@@ -37,7 +38,7 @@ module Backend
       code << "  states.reject!{|s| s == :draft}\n"
       code << "end \n"
       code << "states = states.each_with_object({}) do |v, h| \n"
-      code << "  h[v] = v \n"
+      code << "  h[v] = 1 \n"
       code << "end \n"
       code << "params[:states] = states\n"
       code << journal_letter_crit('params')
@@ -132,19 +133,19 @@ module Backend
     end
 
     def index
-
       ledger_label = :general_ledger.tl
 
       params[:ledger] ||= 'general_ledger'
 
       if account = Account.find_by(number: params[:ledger])
         ledger_label = :subledger_of_accounts_x.tl(account: account.name)
+        params[:account_number] = account.number
       end
-
       t3e(ledger: ledger_label)
 
-      document_name = human_action_name.to_s
-      filename = "#{human_action_name}_#{Time.zone.now.l(format: '%Y%m%d%H%M%S')}"
+      document_nature = Nomen::DocumentNature.find(:general_ledger)
+      key = filename = "#{document_nature.human_name}_#{Time.zone.now.l(format: '%Y%m%d%H%M%S')}"
+
       respond_to do |format|
         format.html
         format.ods do
@@ -169,8 +170,10 @@ module Backend
           send_data(csv_string, filename: filename << '.csv')
         end
         format.odt do
+          template_path = find_open_document_template(:general_ledger)
           @general_ledger = Account.ledger(params) if params[:period]
-          send_data to_odt(@general_ledger, document_name, filename, params).generate, type: 'application/vnd.oasis.opendocument.text', disposition: 'attachment', filename: filename << '.odt'
+          raise 'Cannot find template' if template_path.nil?
+          send_file to_odt(@general_ledger, document_nature, key, template_path, params), type: 'application/vnd.oasis.opendocument.text', disposition: 'attachment', filename: filename << '.odt'
         end
       end
     end
@@ -178,14 +181,10 @@ module Backend
     def show
       return redirect_to(backend_general_ledgers_path) unless params[:account_number] && account = Account.find_by(number: params[:account_number])
 
-      financial_year = FinancialYear.find_by(id: params[:current_financial_year])
-      financial_year ||= FinancialYear.current
-      params[:period] = financial_year.started_on.to_s << '_' << financial_year.stopped_on.to_s
-      params[:current_financial_year] ||= financial_year.id
-
       t3e(account: account.label)
-      document_name = human_action_name.to_s
-      filename = "#{human_action_name}_#{Time.zone.now.l(format: '%Y%m%d%H%M%S')}"
+
+      document_nature = Nomen::DocumentNature.find(:general_ledger)
+      key = filename = "#{document_nature.human_name}_#{Time.zone.now.l(format: '%Y%m%d%H%M%S')}"
 
       conditions_code = '(' + self.class.list_conditions.gsub(/\s*\n\s*/, ';') + ')'
 
@@ -218,8 +217,10 @@ module Backend
           send_data(csv_string, filename: filename << '.csv')
         end
         format.odt do
+          template_path = find_open_document_template(:general_ledger)
           @general_ledger = Account.ledger(params) if params[:period]
-          send_data to_odt(@general_ledger, document_name, filename, params).generate, type: 'application/vnd.oasis.opendocument.text', disposition: 'attachment', filename: filename << '.odt'
+          raise 'Cannot find template' if template_path.nil?
+          send_file to_odt(@general_ledger, document_nature, key, template_path, params), type: 'application/vnd.oasis.opendocument.text', disposition: 'attachment', filename: filename << '.odt'
         end
       end
     end
@@ -242,13 +243,12 @@ module Backend
 
     protected
 
-    def to_odt(general_ledger, document_name, filename, params)
-      # TODO: add a generic template system path
-      report = ODFReport::Report.new(Rails.root.join('config', 'locales', 'fra', 'reporting', 'general_ledger.odt')) do |r|
+    def to_odt(general_ledger, document_nature, key, template_path, params)
+      report = generate_document(document_nature, key, template_path) do |r|
         # TODO: add a helper with generic metod to implemend header and footer
 
         data_filters = []
-        unless params[:accounts].empty?
+        if params[:accounts]
           data_filters << Account.human_attribute_name(:account) + ' : ' + params[:accounts]
         end
 
@@ -260,7 +260,7 @@ module Backend
           data_filters << :lettering_state.tl + ' : ' + content.to_sentence
         end
 
-        if params[:states].any?
+        if params[:states]&.any?
           content = []
           content << :draft.tl if params[:states].include?('draft') && params[:states]['draft'].to_i == 1
           content << :confirmed.tl if params[:states].include?('confirmed') && params[:states]['confirmed'].to_i == 1
@@ -270,14 +270,14 @@ module Backend
 
         e = Entity.of_company
         company_name = e.full_name
-        company_address = e.default_mail_address.coordinate
+        company_address = e.default_mail_address&.coordinate
 
         started_on = params[:period].split('_').first if params[:period]
         stopped_on = params[:period].split('_').last if params[:period]
 
         r.add_field 'COMPANY_ADDRESS', company_address
-        r.add_field 'DOCUMENT_NAME', document_name
-        r.add_field 'FILENAME', filename
+        r.add_field 'DOCUMENT_NATURE', document_nature.human_name
+        r.add_field 'FILENAME', key
         r.add_field 'PRINTED_AT', Time.zone.now.l(format: '%d/%m/%Y %T')
         r.add_field 'STARTED_ON', started_on.to_date.strftime('%d/%m/%Y') if started_on
         r.add_field 'STOPPED_ON', stopped_on.to_date.strftime('%d/%m/%Y') if stopped_on
@@ -297,15 +297,63 @@ module Backend
           s.add_table('Tableau1', :items, header: true) do |t|
             t.add_column(:entry_number) { |item| item[:entry_number] }
             t.add_column(:continuous_number) { |item| item[:continuous_number] }
+            t.add_column(:reference_number) { |item| item[:reference_number] }
             t.add_column(:printed_on) { |item| item[:printed_on] }
             t.add_column(:name) { |item| item[:name] }
-            t.add_column(:variant) { |item| item[:variant] }
             t.add_column(:journal_name) { |item| item[:journal_name] }
             t.add_column(:letter) { |item| item[:letter] }
             t.add_column(:real_debit) { |item| item[:real_debit] }
             t.add_column(:real_credit) { |item| item[:real_credit] }
             t.add_column(:cumulated_balance) { |item| item[:cumulated_balance] }
           end
+        end
+      end
+      report.file.path
+    end
+
+    def to_csv(general_ledger, csv)
+      csv << [
+        JournalEntryItem.human_attribute_name(:account_number),
+        JournalEntryItem.human_attribute_name(:account_name),
+        JournalEntryItem.human_attribute_name(:entry_number),
+        JournalEntryItem.human_attribute_name(:continuous_number),
+        JournalEntryItem.human_attribute_name(:printed_on),
+        JournalEntryItem.human_attribute_name(:name),
+        JournalEntryItem.human_attribute_name(:reference_number),
+        JournalEntryItem.human_attribute_name(:journal_name),
+        JournalEntryItem.human_attribute_name(:letter),
+        JournalEntry.human_attribute_name(:real_debit),
+        JournalEntry.human_attribute_name(:real_credit),
+        JournalEntry.human_attribute_name(:cumulated_balance)
+      ]
+
+      general_ledger.each do |account|
+        account[:items].each do |item|
+
+          item_name = item[:name]
+          account_name = account[:account_name]
+          journal_name = item[:journal_name]
+
+          if csv.encoding.eql?(Encoding::CP1252)
+            item_name = item_name.encode('CP1252', invalid: :replace, undef: :replace, replace: '?')
+            account_name = account_name.encode('CP1252', invalid: :replace, undef: :replace, replace: '?')
+            journal_name = journal_name.encode('CP1252', invalid: :replace, undef: :replace, replace: '?')
+          end
+
+          csv << [
+            account[:account_number],
+            account_name,
+            item[:entry_number],
+            item[:continuous_number],
+            item[:printed_on],
+            item_name,
+            item[:reference_number],
+            item[:journal_name],
+            item[:letter],
+            item[:real_debit],
+            item[:real_credit],
+            item[:cumulated_balance]
+          ]
         end
       end
     end
@@ -320,67 +368,37 @@ module Backend
           property :paragraph, 'text-align': :center
         end
 
-        office_style :right, family: :cell do
-          property :paragraph, 'text-align': :right
-        end
-
-        office_style :bold, family: :cell do
-          property :text, 'font-weight': :bold
-        end
-
-        office_style :italic, family: :cell do
-          property :text, 'font-style': :italic
-        end
-
         table 'ledger' do
           row do
             cell JournalEntryItem.human_attribute_name(:account_number), style: :head
             cell JournalEntryItem.human_attribute_name(:account_name), style: :head
             cell JournalEntryItem.human_attribute_name(:entry_number), style: :head
+            cell JournalEntryItem.human_attribute_name(:continuous_number), style: :head
             cell JournalEntryItem.human_attribute_name(:printed_on), style: :head
             cell JournalEntryItem.human_attribute_name(:name), style: :head
-            cell JournalEntryItem.human_attribute_name(:variant), style: :head
-            cell JournalEntryItem.human_attribute_name(:journal), style: :head
+            cell JournalEntryItem.human_attribute_name(:reference_number), style: :head
+            cell JournalEntryItem.human_attribute_name(:journal_name), style: :head
             cell JournalEntryItem.human_attribute_name(:letter), style: :head
-            cell JournalEntry.human_attribute_name(:debit), style: :head
-            cell JournalEntry.human_attribute_name(:credit), style: :head
-            cell JournalEntry.human_attribute_name(:balance), style: :head
+            cell JournalEntry.human_attribute_name(:real_debit), style: :head
+            cell JournalEntry.human_attribute_name(:real_credit), style: :head
+            cell JournalEntry.human_attribute_name(:cumulated_balance), style: :head
           end
 
           general_ledger.each do |account|
-            account.each do |item|
-              if item[0] == 'header'
-                row do
-                  cell item[1], style: :head
-                  cell item[2], style: :head
-                end
-              elsif item[0] == 'body'
-                row do
-                  cell item[1]
-                  cell item[2]
-                  cell item[3]
-                  cell item[4]
-                  cell item[5]
-                  cell item[6]
-                  cell item[7]
-                  cell item[8]
-                  cell item[9]
-                  cell item[10]
-                  cell item[11]
-                end
-              elsif item[0] == 'footer'
-                row do
-                  cell ''
-                  cell item[2]
-                  cell ''
-                  cell ''
-                  cell ''
-                  cell ''
-                  cell ''
-                  cell :subtotal.tl(name: item[1]).l, style: :right
-                  cell item[12], style: :bold
-                  cell item[13], style: :bold
-                end
+            account[:items].each do |item|
+              row do
+                cell account[:account_number], style: :head
+                cell account[:account_name], style: :head
+                cell item[:entry_number]
+                cell item[:continuous_number]
+                cell item[:printed_on]
+                cell item[:name]
+                cell item[:reference_number]
+                cell item[:journal_name]
+                cell item[:letter]
+                cell item[:real_debit]
+                cell item[:real_credit]
+                cell item[:cumulated_balance]
               end
             end
           end

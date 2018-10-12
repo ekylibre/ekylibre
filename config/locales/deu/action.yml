@@ -241,7 +241,7 @@ deu:
       index: "Lücken"
       # show: "Gap: %{number}"
     backend/general_ledgers:
-      # index: "General ledger"
+      # index: "%{ledger}"
       show: "Hauptbuch"
     backend/georeadings:
       # edit: "Edit georeading: %{name}"
