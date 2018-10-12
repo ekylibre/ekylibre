@@ -1937,6 +1937,7 @@ jpn:
         inventory_sheet: "インベントリシート"
         journal: "ジャーナル"
         journal_entry_sheet: "ジャーナルエントリーシート"
+        # journal_ledger: "Journal ledger"
         land_parcel_register: "土地区画レジスタ"
         loan_registry: "ローンレジストリ"
         manure_management_plan: "肥料管理計画"

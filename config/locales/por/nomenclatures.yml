@@ -1926,6 +1926,7 @@ por:
         inventory_sheet: "Folha de inventário"
         journal: "Diário"
         journal_entry_sheet: "Folha entrada Jornal"
+        # journal_ledger: "Journal ledger"
         land_parcel_register: "Registo parcela de terra"
         loan_registry: "Registro empréstimo"
         manure_management_plan: "Plano de gestão de estrume"

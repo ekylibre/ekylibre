@@ -1926,6 +1926,7 @@ cmn:
         inventory_sheet: "库存表"
         journal: "日志"
         journal_entry_sheet: "日记条目表"
+        # journal_ledger: "Journal ledger"
         land_parcel_register: "地块寄存器"
         loan_registry: "贷款注册表"
         manure_management_plan: "粪便管理计划"
