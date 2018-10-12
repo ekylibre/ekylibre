@@ -43,6 +43,7 @@
 #
 
 class Inspection < Ekylibre::Record::Base
+  include Attachable
   belongs_to :activity
   belongs_to :product
   has_many :calibrations, class_name: 'InspectionCalibration',
