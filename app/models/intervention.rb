@@ -170,7 +170,7 @@ class Intervention < Ekylibre::Record::Base
       search_params << if procedures.empty?
                          "#{Intervention.table_name}.number ILIKE '%#{params[:q]}%'"
                        else
-                         "(#{Intervention.table_name}.number ILIKE '%#{params[:q]}%' OR procedure_name IN (#{procedures}))"
+                         "(#{Intervention.table_name}.number ILIKE '%#{params[:q]}%' OR #{Intervention.table_name}.procedure_name IN (#{procedures}))"
                       end
     end
 
@@ -229,7 +229,7 @@ class Intervention < Ekylibre::Record::Base
     if params[:nature].present?
       search_params << "#{Intervention.table_name}.nature = '#{params[:nature]}'"
       if params[:nature] == :request
-        search_params << "#{Intervention.table_name}.state != '#{Intervention.state.rejected}' AND #{Intervention.table_name}.id NOT IN (SELECT request_intervention_id from #{Intervention.table_name} WHERE request_intervention_id IS NOT NULL)"
+        search_params << "#{Intervention.table_name}.state != '#{Intervention.state.rejected}' AND I.request_intervention_id IS NULL"
       end
     end
 
@@ -241,7 +241,9 @@ class Intervention < Ekylibre::Record::Base
     page ||= 1
 
     request = where(search_params.join(' AND '))
+              .joins('LEFT OUTER JOIN interventions I ON interventions.id = I.request_intervention_id')
               .includes(:doers)
+              .includes(:targets)
               .references(product_parameters: [:product])
               .order(started_at: :desc)
 

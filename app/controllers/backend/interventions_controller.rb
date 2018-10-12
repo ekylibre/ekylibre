@@ -37,7 +37,7 @@ module Backend
       conn = Intervention.connection
       # , productions: [:name], campaigns: [:name], activities: [:name], products: [:name]
       expressions = []
-      expressions << 'CASE ' + Procedo.selection.map { |l, n| "WHEN procedure_name = #{conn.quote(n)} THEN #{conn.quote(l)}" }.join(' ') + " ELSE '' END"
+      expressions << 'CASE ' + Procedo.selection.map { |l, n| "WHEN #{Intervention.table_name}.procedure_name = #{conn.quote(n)} THEN #{conn.quote(l)}" }.join(' ') + " ELSE '' END"
       code = search_conditions({ interventions: %i[state procedure_name number] }, expressions: expressions) + " ||= []\n"
       code << "unless params[:state].blank?\n"
       code << "  c[0] << ' AND #{Intervention.table_name}.state IN (?)'\n"
@@ -49,9 +49,10 @@ module Backend
       code << "  c << params[:nature]\n"
       code << "end\n"
 
-      code << "c[0] << ' AND ((#{Intervention.table_name}.nature = ? AND #{Intervention.table_name}.state != ? AND (#{Intervention.table_name}.request_intervention_id IS NULL OR #{Intervention.table_name}.request_intervention_id NOT IN (SELECT id from #{Intervention.table_name})) OR #{Intervention.table_name}.nature = ?))'\n"
-      code << "c << 'request'\n"
+      code << "c[0] << ' AND #{Intervention.table_name}.state != ?'\n"
+      code << "c[0] << ' AND ((#{Intervention.table_name}.nature = ? AND I.request_intervention_id IS NULL) OR #{Intervention.table_name}.nature = ?)'\n"
       code << "c << '#{Intervention.state.rejected}'\n"
+      code << "c << 'request'\n"
       code << "c << 'record'\n"
 
       code << "unless params[:procedure_name].blank?\n"
@@ -137,7 +138,7 @@ module Backend
     # @TODO conditions: list_conditions, joins: [:production, :activity, :campaign, :support]
 
     # conditions: list_conditions,
-    list(conditions: list_conditions, order: { started_at: :desc }, line_class: :status) do |t|
+    list(conditions: list_conditions, order: { started_at: :desc }, line_class: :status, includes: [:receptions, :activities, :targets, :participations], joins:'LEFT OUTER JOIN interventions I ON interventions.id = I.request_intervention_id') do |t|
       t.action :purchase, on: :both, method: :post
       t.action :sell,     on: :both, method: :post
       t.action :edit, if: :updateable?
