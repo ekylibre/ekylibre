@@ -449,6 +449,6 @@ class JournalEntryItem < Ekylibre::Record::Base
   end
 
   def displayed_label_in_accountancy
-    accounting_label || name
+    accounting_label.present? ? accounting_label : name
   end
 end
