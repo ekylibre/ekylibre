@@ -141,8 +141,6 @@ module Ekylibre
       # Load accounts
       if can_load_default?(:accounts)
         # Account number can't start with a '0' and are 8 caracters length
-        min_account_number = 10000000
-        max_account_number = 99999999
         @manifest[:accounts] = Cash.nature.values.each_with_object({}) do |nature, hash|
           nature_account = { bank_account: "512", cash_box: "53", associate_account: "455" }
           hash[nature] = { name: "enumerize.cash.nature.#{nature}".t,
