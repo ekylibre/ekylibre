@@ -158,7 +158,7 @@ jpn:
       tax_declaration_frequency:
         monthly: "毎月"
         none: "なし"
-        quaterly: "随時"
+        # quaterly: "Quaterly"
         yearly: "毎年"
       tax_declaration_mode:
         debit: "借方"
@@ -188,7 +188,7 @@ jpn:
     guide:
       frequency:
         daily: "デイリー"
-        decadely: "デカデリー"
+        # decadely: "Decadely"
         hourly: "毎時"
         monthly: "毎月"
         none: "なし"

@@ -299,6 +299,7 @@ arb:
       index: "ثغرات"
       # show: "Gap: %{number}"
     backend/general_ledgers:
+      # index: "%{ledger}"
       show: "دفتر الحسابات"
     backend/georeadings:
       # edit: "Edit georeading: %{name}"
@@ -363,8 +364,6 @@ arb:
       new_specified: "تدخل جديد"
       new_specified_request: "تدخل طلب جديد"
       # show: "%{procedure_name}"
-    backend/invalid_journal_entries:
-      # index: "Journal entries to balance"
     backend/inventories:
       edit: "تعديل الجرد"
       index: "الجرد"
@@ -396,7 +395,6 @@ arb:
       edit: "تعديل الدفتر اليومي : %{name}"
       index: "الدفاتر اليومية"
       new: "انشاء دفتر يومي جديد"
-      reopen: "فتح %{name}"
       show: "الدفتر اليومي : %{name} (%{code})"
     backend/labels:
       # edit: "Edit label: %{name}"
@@ -961,6 +959,7 @@ arb:
       entities: "أشخاص" #?
       journal_entry_items: "ادخالات الدفاتر اليومية" #?
     account_tangible_fixed_assets: "موجودات ثابتة وملموسة" #?
+    # account_totals: "Account Totals"
     account_untangible_fixed_assets: "موجودات ثابتة وغير ملموسة" #?
     account_update: "تعديل الحسابات" #?
     account_value_current: "القيمة الحالية" #?
@@ -1081,7 +1080,6 @@ arb:
     animal_details: "تفاصيل الحيوان"
     animal_productions: "الإنتاج الحيواني" #?
     animals: "الحيوانات"
-    # any_journal: "Any journal"
     apply: "تطبيق" #?
     archives: "أرشيف"
     are_you_sure: "هل انت متأكد من رغبتك بالقيام به؟"
@@ -1089,7 +1087,6 @@ arb:
       abort_issue: "هل أنت متأكد أنك تريد إجهاض هذه المسألة؟"
       close_issue: "هل أنت متأكد أنك تريد إغلاق هذه القضية؟"
       reopen_issue: "هل أنت متأكد أنك تريد إعادة فتح هذه القضية؟"
-    are_you_sure_you_want_to_change_account_digits: "هل تريد بالتأكيد تغيير عدد الأحرف على أرقام الحسابات؟"
     are_you_sure_you_want_to_confirm: "هل انت متأكد من رغبتك بالمضي بطلب الشراء؟"
     are_you_sure_you_want_to_delete: "هل انت متاكد من رغبتك بالقيام به؟"
     are_you_sure_you_want_to_delete_delivery: "هل انت متأكد من رغبتك بازالة التسليم من وسائل النقل؟" #?
@@ -1187,9 +1184,6 @@ arb:
     charge_value: "قيمة تهمة"
     chart: "خريطة"
     check: "نحقق"
-    check_x_entries_to_balance:
-      # one: "Check entry to balance (%{count})"
-      # other: "Check entries to balance (%{count})"
     children: "الأطفال"
     choices: "خيارات"
     choose_a_type_of_product: "اختر نوع المنتج"
@@ -1224,18 +1218,10 @@ arb:
       filter_on_attribute_of_class: "التصفية وفق %{attribute} (%{class})"
       special-subscriber: "تصفية وفق الاشتراك"
     configure: "تكوين"
-    # confirmation: "Confirmation"
     confirmed: "تأكيد" #?
     confirmed_at: "تم تأكيده في" #?
     connect: "الدخول"
     consult: "استشارة" #?
-    consult_the_day_book:
-      # one: "Consult the day book (%{count} entry)"
-      # other: "Consult the day book (%{count} entries)"
-      # zero: "Consult the day book (%{count} entry)"
-    consult_unbalanced_entries:
-      # one: "Consult the unbalanced entry"
-      # other: "Consult unbalanced entries (%{count})"
     consume: "تستهلك"
     contact: "العنوان" #?
     contact_create: "اضافة مشترك جديد" #?
@@ -1326,9 +1312,6 @@ arb:
     delete_only_record: "أو حذف فقط تدخل مختارة (ق) وعرض طلب الزميلة؟"
     delete_request: "حذف أيضا على طلب المنتسبين إلى تدخل مختارة (ق)"
     delete_selected_interventions: "حذف التدخلات المنتقاة"
-    delete_x_entries:
-      # one: "Delete %{count} entry"
-      # other: "Delete %{count} entries"
     deliver: "التأكد من ارسال التسليم"
     deliveries: "التسليم"
     delivery: "خدمه توصيل"
@@ -1349,7 +1332,6 @@ arb:
     depreciation: "الاستهلاك"
     depreciations: "انخفاض قيمة"
     depreciations_inputations_expenses: "مصاريف انخفاض قيمة inputations"
-    # derogatory_depreciation_explanation: "Ekylibre doesn't handle derogatory depreciations"
     derogatory_depreciations: "انخفاض قيمة مهينة"
     description: "الوصف"
     destroy: "هدم"
@@ -1425,6 +1407,7 @@ arb:
     entries_to_point: "اعداد المدخلات"
     # entry_item_label: "Entry item label"
     entry_items: "البنود دخول"
+    # entry_resource_label: "Record"
     equipment: "معدات"
     equipment_name: "اسم معدات"
     equipments: "المعدات"
@@ -1468,12 +1451,8 @@ arb:
     export: "اصدار الوثائق"
     export_as_csv: "التصدير، CSV"
     export_as_ods: "التصدير، المواد المستنفدة للأوزون"
-    export_as_pdf: "تصدير كملف بدف"
+    # export_as_odt: "Export as ODT"
     export_as_xcsv: "تصدير واكسل CSV"
-    export_fec_all: "تصدير فيك (افتراضي)"
-    export_fec_ba_bnc_ir_commercial_accountancy: "تصدير فيك للزراعة والعمليات المهنية ضريبة الدخل المحاسبة التجارية"
-    export_fec_ba_ir_cash_accountancy: "تصدير فيك الزراعة ضريبة الدخل المحاسبة النقدية"
-    export_fec_bnc_ir_cash_accountancy: "تصدير فيك العمليات المهنية ضريبة الدخل المحاسبة النقدية"
     extract: "يستخرج" #?
     field_distribution: "مجال التوزيع"
     file_nature: "نوع الملف"
@@ -1483,7 +1462,6 @@ arb:
     file_to_upload: "ملف لتحميل"
     filter: "تصفية"
     filter_entries_with: "تصفية الادخالات مع" #?
-    # filter_on: "Filter on"
     final_balance: "الرصيد النهائي"
     financial_assets: "الأصول المالية"
     financial_expenses: "نفقات مالية"
@@ -1512,7 +1490,7 @@ arb:
     genealogy: "علم الانساب"
     general: "معلومات عامة"
     general_informations: "معلومات عامة"
-    general_ledger: "دفتر الحسابات" #?
+    general_ledger: "دفتر الحسابات"
     generate: "توليد"
     generate_last_journal_entry: "تولد الماضي إدخال دفتر اليومية"
     generate_parcel: "تولد لا يتجزأ"
@@ -1618,7 +1596,6 @@ arb:
     journal: "دفتراليومية"
     journal_detail: "اغلق في %{closed_at}" #?
     journal_entries: "المدخالات"
-    # journal_entries_deletion_confirmation_message: "Once validated, you won't be able to edit or delete these entries. Are you sure you want to validate these entries ?"
     journal_entries_states: "الولايات إدخالات"
     journal_entry_items: "البنود إدخال دفتر اليومية"
     journal_entry_items_states: "بيان المدخلات المستخدمة" #?
@@ -1724,6 +1701,7 @@ arb:
     mark_all_as_read: "علامة جميع للقراءة"
     mark_as_read: "كمقروء"
     marketable_net_mass: "الكتلة الصافية للتسويق"
+    # mask_draft_items: "Mask draft items"
     mask_lettered_items: "قناع العناصر بحروف"
     mass: "الوزن"
     maximal_temperature: "درجة الحرارة القصوى"
@@ -2070,7 +2048,6 @@ arb:
     refresh: "تحديث"
     register: "تسجيل شركة جديدة" #?
     register_intervention_request: "تسجيل طلب تدخل"
-    # regressive_options: "Regressive options"
     rejected: "مرفوض"
     relations: "ادارة علاقات العملاء / والمموليين" #?
     relationship: "صلة"
@@ -2236,6 +2213,7 @@ arb:
     storage: "تخزين"
     string_case: "خيارات للنص" #?
     subject: "الموضوع"
+    # subledger_of_accounts_x: "Sub-ledger of accounts %{account}"
     submit: "ارسال"
     subscribed_on: "اشتركت في"
     subscriber_period: "تم التسجيل في %{subscribed_at}"
@@ -2395,7 +2373,6 @@ arb:
     unreceived: "غير مقبوضة" #?
     unset_reconcilable_old_third_accounts: "حسابات الثالثة القديمة للمصالحة ضبطه (العملاء والموردين والمحامين)"
     unsubcribed_capital: "العاصمة Unsubcribed"
-    # until: "until"
     unused_payment: "دفعات غير مستخدمة" #?
     unvalidated_operations: "عمل غير صحيح" #?
     up: "يرتفع"
@@ -2420,9 +2397,6 @@ arb:
       # one: "Validate crumbs for %{count} intervention"
       # other: "Validate crumbs for %{count} interventions"
     validate_selected_entries: "التحقق من المدخلات المختارة"
-    validate_x_entries:
-      # one: "Validate the entry"
-      # other: "Validate %{count} entries"
     validated: "التحقق من صحة"
     values: "القيم"
     variable_indicators: "مؤشرات متغيرة"
@@ -2670,15 +2644,12 @@ arb:
       closed_financial_periods: "تمتد فترة األصول الثابتة عبر فترات مالية مغلقة."
       closed_financial_year_exchange: "تم إغلاق الصرف في العام المالي بنجاح"
       closed_financial_years: "تم اغلاق السنة المالية بشكل صحيح"
-      closure_process_started: "بدأت عملية الإغلاق."
       columns_are_already_uses: "تم اخيار عامود او اكثر للتحميل لمرات عدة"
       # could_not_attach_x_or_y_to_affair: "Could not attach %{x} or %{y} to affair"
       dashboard_is_being_developed: "لوحة أجهزة القياس هي قيد التطوير الثقيلة"
       density_is_not_computable_in_counting: "لا يمكن حساب كثافة لهذا العد. وينبغي الانتهاء من القيم المفقودة في خصائص العد أو مؤشرات الزارع و."
-      depreciation_failed: "لا يمكن استهلاك الأصول."
-      depreciation_successful: "وقد انخفضت قيمة الأصول بنجاح."
       document_in_preparation: "المستند الخاص بك هو في إعداد سيتم إرسال إشعار لك عندما يكون جاهزا"
-      draft_journal_entries_are_present: "توجد مسودات إدخالات دفتر اليومية."
+      # draft_journal_entries_cannot_be_validated: "You need to validate every previous entries before these ones"
       draft_journal_entries_have_been_validated:
         one: "تم التحقق من صحة الملفات واخراجها من قائمة المسودات"
         other: "واخراجها من قائمة المسودات %{count} تم التحقق من صحة الملفات الاخرى"
@@ -2693,10 +2664,6 @@ arb:
       expired_session: ".نهاية الدورة. الرجاء معاودة الاتصال" #?
       fails_to_extract_listing: "لم يتمكن الاستخراج من اتمام التنفيذ : %{message}"
       file_generated: "تم إنشاء الملف بنجاح"
-      financial_year_already_closed: "وقد تم بالفعل إغلاق السنة المالية."
-      financial_year_is_not_past: "ولم تنته بعد السنة المالية."
-      # financial_year_x_could_not_be_closed: "Financial Year  %{name} could not be closed."
-      # financial_year_x_successfully_closed: "Financial Year %{name} successfully closed !"
       financial_years_missing: "يجب عليك إنشاء كل المفقودين سنة مالية منذ سجلت لأول مرة"
       # financial_years_missing_tax_declarations: "You must create every declarations for the following financial years: %{codes}"
       implemented_with_dummy_data: "نفذت مع بيانات وهمية"
@@ -2718,7 +2685,6 @@ arb:
       # journal_entry_has_been_saved_with_a_new_number: "The journal entry has been successfully saved with a new number: %{number}"
       # journal_entry_items_marked_with_letter: "Journal entry items have been marked with letter %{letter}"
       journal_reopened_at: "%{journal} تم اعادة فتحه في %{closed_at} بشكل صحيح." #?
-      # journal_reopened_on: "The journal “%{journal}” has been re-opened on %{closed_on}."
       mails_are_sent: "تم ارسال رسائل البريد الالكتروني"
       merge_is_done: "ويتم دمج"
       need_a_valid_payment_mode: "تحتاج إلى وضع دفع صالح"
@@ -2736,7 +2702,6 @@ arb:
       need_quantities_to_cancel_an_sales_invoice: "يجب عليك تحديد الكمية لتتمكن من اجراءات الفاتورة" #?
       need_stocks_building_to_create_products: "يجب عليك انشاء موقع للتخزين لتتمكن من انشاء منتج" #?
       need_stocks_to_create_inventories: "يجب عليك ادارة الاسهم لمنتج واحد كحد ادنى لتتمكن من اجراء عمليات الجرد"
-      # need_to_edit_or_correct_entries_before_validating: "You have to correct or delete these entries before you can enclose the financial year or validate them."
       net_services_and_identifiers_are_always_available_but_are_deprecated_and_will_be_removed_in_next_major_release: "صافي الخدمات والمعرفات هي دائما موجودة، ولكن تم إيقاف وسيتم إزالتها في الافراج الرئيسي القادم"
       no_archived_prints: "لا يطبع المحفوظة"
       no_balance_template: "ليس هناك من نموذج لوثيقة الرصيد" #?
@@ -2757,14 +2722,12 @@ arb:
       no_production_found_you_can_add_it_or_copy_from_previous_records: "لم يتم العثور على الإنتاج. يمكنك إضافة جديد أو نسخ بعض من حملة السابقة."
       no_purchase_affair_found_on_given_period: "أي شراء علاقة جدت في فترة معينة"
       no_purchases_given: "لا مشتريات الممنوحة"
-      no_reopenable_journal: "ليس بامكانك اعادة فتح الدفاتر اليومية"
       no_replacements_since_beginning: "لا البدلاء منذ بداية"
       no_stocks: "ليس لديك اية سهم، اذا رغبت بادارة سهم المنتج، الرجاء ضع علامة على خيار «ادارة الاسهم» في خصائص منتجاتك" #?
       no_template_journal: "ليس هنالك من نموذج للدفتر اليومي" #?
       no_template_journal_by_id: "ليس هنالك من نموذج للدفتر اليومي" #?
       no_unvalidated_operations: "لم يتم تحقيق اية اجراء" #?
       password_successfully_changed: "تم تغيير كلمة المرور الخاصة بك بنجاح" #?
-      previouos_financial_year_is_not_closed: "لم يتم إقفال السنة المالية السابقة."
       prices_import_succeeded: "تم استيراد بياناتك بشكل صحيح" #?
       print_failure: " غير قابل للطباعة، حاول تحديث نماذج الوئائق لتصحيح المشكلة%{error} (%{class})." #?
       purchases_invalid_for_sepa: "الشراء المحددة غير صالحة لنقل المصلحة (الوضع صرف العملة غير صالح أو خاطئة أو مفقودة المستفيد IBAN أو صاحب حساب مصرفي الاسم)"
@@ -2797,13 +2760,9 @@ arb:
       the_automatic_lettering_cannot_be_done_in_accountancy_because_too_many_thirds_are_present: "حروف التلقائي لا يمكن القيام به في مجال المحاسبة لأن الكثير من ثلثي موجودة"
       the_bookkeep_date_format_is_invalid: "تنسيق تاريخ حجز الكتب غير صالح"
       the_sales_invoice_is_not_cancellable: "فاتورة المبيعات ليست للإلغاء"
-      there_are_x_remaining_unbalanced_entries:
-        # one: "%{count} entry during this period remain unbalanced. You have to correct it to be able to perform a global validation."
-        # other: "%{count} entries during this period remain unbalanced. You have to correct them to be able to perform a global validation."
       this_service_is_not_activated: "لم يتم تنشيط هذه الخدمة"
       unavailable_model: "%{model} غير متوفر أو غير موجود (%{id})" #?
       # unavailable_resource: "Nonexistent %{type} #%{id}"
-      unbalanced_journal_entries_are_present_in_year: "بعض إدخالات دفتر اليومية غير المتوازنة موجودة في السنة المالية."
       # unexpected_resource_type: "Unexpected resource type: %{type}"
       unknown_action: "الصفحة المطلوبة غير متوفرة (%{url})" #?
       unknown_company: "شركة غير معروفة" #?
@@ -2825,7 +2784,6 @@ arb:
       you_need_to_review_your_application_configuration: "تحتاج إلى مراجعة تكوين التطبيق الخاص بك"
       you_will_lose_all_your_current_data: "اذا قمت بالمتابعة، فسوف تفقد جميع البيانات الحالية. فهل ترغب بالاستمرار؟" #?
   preferences:
-    account_number_digits: "طول رقم الحساب"
     accountancy: #?
       accounts: #?
         capital_gains: "(نتيجة العمل (الارباح" #?

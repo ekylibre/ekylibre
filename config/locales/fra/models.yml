@@ -8,6 +8,9 @@ fra:
               greater_than: "Le montant à payer doit être supérieur à zéro" #?
   activerecord:
     attributes:
+      account:
+        cumulated_absolute_credit_balance: "Solde crédit"
+        cumulated_absolute_debit_balance: "Solde débit"
       activity: #?
         nature: "Type de centre analytique" #?
         net_margin: "Marge nette" #?
@@ -87,6 +90,8 @@ fra:
         quantity: "Quantité constatée" #?
       journal_entry_item:
         closed: "Cloturée" #?
+        cumulated_absolute_credit_balance: "Solde crédit"
+        cumulated_absolute_debit_balance: "Solde débit"
         name: "Libellé de l'écriture"
       land_parcel:
         born_at: "Créé le"
@@ -631,7 +636,6 @@ fra:
     author: "Auteur"
     authorized_payments_count: "Nombre d’encaissements autorisés"
     auto_updateable_addresses: "Adresses mises à jour automatiquement"
-    auxiliary_number: "Numéro auxiliaire"
     average_value: "Valeur moyenne"
     balance: "Solde"
     balance_amount: "Solde" #?
@@ -862,7 +866,6 @@ fra:
     depreciable_amount: "Montant amortissable"
     depreciable_product: "Liée au produit suivant"
     depreciated_amount: "Montant amorti"
-    depreciation_fiscal_coefficient: "Coefficient fiscal d'amortissement"
     depreciation_method: "Méthode d’amortissement"
     depreciation_percentage: "Pourcentage d’amortissement"
     depreciation_period: "Durée d’amortissement"
@@ -945,7 +948,7 @@ fra:
     expected_stop_amount: "Montant final attendu"
     expected_yield: "Rendement évalué (y)"
     expenses: "Dépenses"
-    expenses_account: "Compte de charge"
+    expenses_account: "Comptes de charge"
     expenses_accounts: "Comptes de charge" #?
     expiration_delay: "Délai d’expiration"
     expired_at: "Date d’expiration"

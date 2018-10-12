@@ -277,8 +277,8 @@ class Journal < Ekylibre::Record::Base
   def close!(closed_on)
     finished = false
     ActiveRecord::Base.transaction do
-      JournalEntryItem.where(journal_id: self.id).where('printed_on < ?', closed_on).where.not(state: :closed).update_all(state: :closed)
-      JournalEntry.where(journal_id: self.id).where('printed_on < ?', closed_on).where.not(state: :closed).update_all(state: :closed)
+      JournalEntryItem.where(journal_id: id).where('printed_on < ?', closed_on).where.not(state: :closed).update_all(state: :closed)
+      JournalEntry.where(journal_id: id).where('printed_on < ?', closed_on).where.not(state: :closed).update_all(state: :closed)
       update_column(:closed_on, closed_on)
       finished = true
     end

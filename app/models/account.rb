@@ -185,6 +185,26 @@ class Account < Ekylibre::Record::Base
     of_usages(:deductible_vat, :enterprise_deductible_vat)
   }
 
+  scope :general, -> {
+    where(nature: 'general')
+  }
+
+  scope :centralizing, -> {
+    where(nature: 'centralizing')
+  }
+
+  scope :not_centralizing, -> {
+    where.not(nature: 'centralizing')
+  }
+
+  scope :auxiliary, -> {
+    where(nature: 'auxiliary')
+  }
+
+  scope :not_auxiliary, -> {
+    where.not(nature: 'auxiliary')
+  }
+
   before_validation do
     if general? && number && !already_existing
       errors.add(:number, :centralizing_number) if number.match(/\A401|\A411/).present?
@@ -615,6 +635,14 @@ class Account < Ekylibre::Record::Base
     journal_entry_items.where(printed_on: started_at..stopped_at).calculate(operation, column)
   end
 
+  def previous
+    self.class.order(number: :desc).where(centralizing_account_id: centralizing_account_id).where('number < ?', number).limit(1).first
+  end
+
+  def following
+    self.class.order(:number).where(centralizing_account_id: centralizing_account_id).where('number > ?', number).limit(1).first
+  end
+
   # This method loads the balance for a given period.
   def self.balance(from, to, list_accounts = [])
     balance = []
@@ -692,32 +720,100 @@ class Account < Ekylibre::Record::Base
     balance.compact
   end
 
-  # this method loads the general ledger for.all the accounts.
-  def self.ledger(from, to)
+  # this method loads the general ledger for all the accounts.
+  def self.ledger(options = {})
+    # build filter for accounts
+    accounts_filter_conditions = '1=1'
+    list_accounts = options[:account_number] ? options[:account_number].split(' ') : ''
+    unless list_accounts.empty?
+      accounts_filter_conditions += ' AND ' + list_accounts.collect do |account|
+        "accounts.number LIKE '" + account.to_s + "%'"
+      end.join(' OR ')
+    end
+
+    # build filter for lettering_state
+    # "lettering_state"=>["unlettered", "partially_lettered"]
+    c = options[:lettering_state].count if options[:lettering_state]
+    lettering_state_filter_conditions = if c == 3 && options[:lettering_state].to_set.superset?(%w[unlettered partially_lettered lettered].to_set)
+                                          '1=1'
+                                        elsif c == 2 && options[:lettering_state].to_set.superset?(%w[partially_lettered lettered].to_set)
+                                          'letter IS NOT NULL'
+                                        elsif c == 2 && options[:lettering_state].to_set.superset?(%w[partially_lettered unlettered].to_set)
+                                          "letter IS NULL OR letter ILIKE '%*' "
+                                        elsif c == 2 && options[:lettering_state].to_set.superset?(%w[lettered unlettered].to_set)
+                                          "letter IS NULL OR letter NOT ILIKE '%*' "
+                                        elsif c == 1 && options[:lettering_state].to_set.superset?(['unlettered'].to_set)
+                                          'letter IS NULL'
+                                        elsif c == 1 && options[:lettering_state].to_set.superset?(['lettered'].to_set)
+                                          "letter IS NOT NULL AND letter NOT ILIKE '%*'"
+                                        elsif c == 1 && options[:lettering_state].to_set.superset?(['partially_lettered'].to_set)
+                                          "letter IS NOT NULL AND letter ILIKE '%*'"
+                                        else
+                                          '1=1'
+                                        end
+
+    # options[:states]
+    if options[:states]&.any?
+      a = options[:states].select { |_k, v| v.to_i == 1 }.map { |pair| "'#{pair.first}'" }.join(', ')
+      states_array = "state IN (#{a})"
+    else
+      states_array = '1=1'
+    end
+
+    # build dates
+    start = options[:period].split('_').first if options[:period]
+    stop = options[:period].split('_').last if options[:period]
+
     ledger = []
-    accounts = Account.order('number ASC')
+
+    accounts = Account
+               .where(accounts_filter_conditions)
+               .includes(journal_entry_items: %i[entry variant])
+               .where(journal_entry_items: { printed_on: start..stop })
+               .reorder('accounts.number ASC, journal_entries.number ASC')
+
     accounts.each do |account|
-      compute = [] # HashWithIndifferentAccess.new
+      journal_entry_items = account.journal_entry_items.where(lettering_state_filter_conditions).where(states_array).where(printed_on: start..stop).reorder('printed_on ASC, entry_number ASC')
 
-      journal_entry_items = account.journal_entry_items.where('r.created_at' => from..to).joins("INNER JOIN #{JournalEntry.table_name} AS r ON r.id=#{JournalEntryItem.table_name}.entry_id").order('r.number ASC')
+      account_entry = HashWithIndifferentAccess.new
+      # compute << account.number.to_i
+      # compute << account.name.to_s
+      account_balance = 0.0
+      total_debit = 0.0
+      total_credit = 0.0
+      entry_count = 0
 
-      next if journal_entry_items.empty?
-      entries = []
-      compute << account.number.to_i
-      compute << account.name.to_s
+      account_entry[:account_number] = account.number
+      account_entry [:account_name] = account.name
+      account_entry [:currency] = journal_entry_items.first.currency if journal_entry_items.any?
+
+      account_entry[:items] = []
+
       journal_entry_items.each do |e|
-        entry = HashWithIndifferentAccess.new
-        entry[:date] = e.entry.created_at
-        entry[:name] = e.name.to_s
-        entry[:number_entry] = e.entry.number
-        entry[:journal] = e.entry.journal.name.to_s
-        entry[:credit] = e.credit
-        entry[:debit] = e.debit
-        entries << entry
-        # compute[:journal_entry_items] << entry
+        item = HashWithIndifferentAccess.new
+        item[:entry_number] = e.entry_number
+        item[:continuous_number] = e.continuous_number.to_s if e.continuous_number
+        item[:reference_number] = e.entry.reference_number.to_s if e.entry.reference_number
+        item[:printed_on] = e.printed_on.strftime('%d/%m/%Y')
+        item[:name] = e.name.to_s
+        item[:journal_name] = e.entry.journal.name.to_s
+        item[:letter] = e.letter
+        item[:real_debit] = e.real_debit
+        item[:real_credit] = e.real_credit
+        item[:cumulated_balance] = (account_balance += (e.real_debit - e.real_credit))
+
+        account_entry[:items] << item
+
+        total_debit += e.real_debit
+        total_credit += e.real_credit
+        entry_count += 1
       end
-      compute << entries
-      ledger << compute
+
+      account_entry[:count] = entry_count.to_s
+      account_entry[:total_debit] = total_debit
+      account_entry[:total_credit] = total_credit
+
+      ledger << account_entry
     end
 
     ledger.compact

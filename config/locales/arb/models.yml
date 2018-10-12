@@ -1,10 +1,12 @@
 arb:
   activerecord:
     attributes:
-      account: #?
+      account:
         comment: "تعليق" #?
         company_id: "الشركة" #?
         created_at: "انشأت بي" #?
+        # cumulated_absolute_credit_balance: "Credit balance"
+        # cumulated_absolute_debit_balance: "Debit balance"
         label: "مملصق" #?
         parent: "الاقرباء" #?
         parent_id: "الاقرباء" #?
@@ -253,7 +255,9 @@ arb:
         account: "حساب" #?
         comment: "تعليق" #?
         created_at: "انشأت ففي" #?
-        name: "تسمية عنصر الدخول"
+        # cumulated_absolute_credit_balance: "Credit balance"
+        # cumulated_absolute_debit_balance: "Debit balance"
+        # name: "Entry item label"
         real_credit: "ائتمان" #?
       land_parcel:
         born_at: "أنشئت في"
@@ -1074,6 +1078,7 @@ arb:
     accountant: "محاسب"
     accounted_at: "تمت محاسبته يوم"
     accounting_balance: "ميزان المحاسبة"
+    # accounting_label: "Accounting label"
     accounts: "الحسابات" #?
     accuracy: "دقة"
     achieved_at: "تحقق في"
@@ -1145,7 +1150,6 @@ arb:
     author: "مؤلف"
     authorized_payments_count: "عدد الدفعات المصرحة بها"
     auto_updateable_addresses: "السيارات عناوين للتحديث"
-    # auxiliary_number: "Auxiliary number"
     available_prices: "الاسعار المتوفرة" #?
     available_products: "المنتجات المتوفرة" #?
     average_value: "متوسط ​​القيمة"
@@ -1294,7 +1298,7 @@ arb:
     content: "محتوى"
     content_localizations: "تعريب المحتوى"
     contents: "محتويات"
-    continuous_number: "عدد مستمر"
+    # continuous_number: "Continuous number"
     contract: "عقد"
     contract_items: "بنود العقد"
     contracts: "عقود"
@@ -1416,7 +1420,6 @@ arb:
     depreciable_amount: "قيمة الاستهلاك"
     depreciable_product: "المنتج للاستهلاك"
     depreciated_amount: "كمية المستهلكة"
-    # depreciation_fiscal_coefficient: "Depreciation fiscal coefficient"
     depreciation_method: "طريقة الاستهلاك"
     depreciation_percentage: "نسبة الاستهلاك"
     depreciation_period: "فترة الاستهلاك"
@@ -2537,7 +2540,7 @@ arb:
     users: "المستخدمين"
     uses: "المعدات المستخدمة" #?
     # uuid: "UUID"
-    validated_at: "تم التحقق منه في"
+    # validated_at: "Validated at"
     value: "القيمة"
     value_format: "التصميم" #?
     variable_indicators_list: "قائمة مؤشرات متغيرة"

@@ -56,7 +56,7 @@ class TaxDeclarationItemTest < ActiveSupport::TestCase
     financial_year_17 = create(:financial_year, started_on: '01/01/2017', stopped_on: '31/12/2017')
     financial_year_18 = create(:financial_year, started_on: '01/01/2018', stopped_on: '31/12/2018')
 
-    Timecop.travel(Time.new(2018, 01, 02))
+    Timecop.travel(Time.new(2018, 0o1, 0o2))
 
     sale = create(:sale_with_accounting)
     sale_item = create(:sale_item, sale: sale)
@@ -82,13 +82,13 @@ class TaxDeclarationItemTest < ActiveSupport::TestCase
     financial_year_17 = create(:financial_year, started_on: '01/01/2017', stopped_on: '31/12/2017')
     financial_year_18 = create(:financial_year, started_on: '01/01/2018', stopped_on: '31/12/2018')
 
-    Timecop.travel(Time.new(2017, 01, 02))
+    Timecop.travel(Time.new(2017, 0o1, 0o2))
 
     sale_one = create(:sale_with_accounting)
     sale_item_one = create(:sale_item, sale: sale_one)
     sale_one.invoice!
 
-    Timecop.travel(Time.new(2018, 01, 02))
+    Timecop.travel(Time.new(2018, 0o1, 0o2))
 
     sale_two = create(:sale_with_accounting, nature: sale_one.nature)
     sale_item_two = create(:sale_item, sale: sale_two)
@@ -114,7 +114,7 @@ class TaxDeclarationItemTest < ActiveSupport::TestCase
     financial_year_18 = create(:financial_year, started_on: '01/01/2018', stopped_on: '31/12/2018')
     financial_year_19 = create(:financial_year, started_on: '01/01/2019', stopped_on: '31/12/2019')
 
-    Timecop.travel(Time.new(2018, 01, 02))
+    Timecop.travel(Time.new(2018, 0o1, 0o2))
     sale_one = create(:sale_with_accounting)
     sale_item_one = create(:sale_item, sale: sale_one)
     sale_one.invoice!
@@ -130,9 +130,9 @@ class TaxDeclarationItemTest < ActiveSupport::TestCase
     tax_declaration.propose
     tax_declaration.confirm
 
-    JournalEntry.all.each { |ji| ji.confirm }
+    JournalEntry.all.each(&:confirm)
 
-    Timecop.travel(Time.new(2019, 01, 02))
+    Timecop.travel(Time.new(2019, 0o1, 0o2))
     financial_year_18.close(Date.new(2018, 12, 31),
                             result_journal_id: Journal.where(nature: 'result').first.id,
                             forward_journal_id: Journal.where(nature: 'forward').first.id,

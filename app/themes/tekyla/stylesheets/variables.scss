@@ -168,4 +168,6 @@ $zen-header-line-height: $lh-very-huge;
 $zen-height: 100vh - 2 * $zen-vertical-padding;
 $zen-width: 100vw - 2 * $zen-horizontal-padding;
 
+$fixed-footer-line-height: 30px;
+
 @import "bootstrap/variables";

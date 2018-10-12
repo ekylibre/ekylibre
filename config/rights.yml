@@ -97,6 +97,11 @@
 #     - "backend/dashboards#trade"
 #     - "backend/draft_journals#confirm_all"
 #     - "backend/draft_journals#list"
+#     - "backend/general_ledgers#list_centralized_ledger_accounts"
+#     - "backend/general_ledgers#list_subledger_accounts"
+#     - "backend/general_ledgers#list_subledger_journal_entry_items"
+#     - "backend/general_ledgers#mask_draft_items"
+#     - "backend/general_ledgers#mask_lettered_items"
 #     - "backend/golumns#reset"
 #     - "backend/golumns#show"
 #     - "backend/golumns#update"
@@ -1300,7 +1305,8 @@ journal_entries:
 journals:
   read:
     actions:
-    - "backend/general_ledgers#list_journal_entry_items"
+    - "backend/general_ledgers#index"
+    - "backend/general_ledgers#list_journal_entry_items" #?
     - "backend/general_ledgers#show"
     - "backend/journals#index"
     - "backend/journals#list"

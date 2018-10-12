@@ -1,6 +1,9 @@
 cmn:
   activerecord:
     attributes:
+      account:
+        # cumulated_absolute_credit_balance: "Credit balance"
+        # cumulated_absolute_debit_balance: "Debit balance"
       activity_budget:
         expenses_amount: "支出金额"
         revenues_amount: "收入金额"
@@ -33,7 +36,9 @@ cmn:
       fixed_asset_depreciation:
         asset_amount: "问责值"
       journal_entry_item:
-        name: "输入项目标签"
+        # cumulated_absolute_credit_balance: "Credit balance"
+        # cumulated_absolute_debit_balance: "Debit balance"
+        # name: "Entry item label"
       land_parcel:
         born_at: "创建时间"
       land_parcel_group:
@@ -427,6 +432,7 @@ cmn:
     accountant: "会计"
     accounted_at: "在占"
     accounting_balance: "会计平衡"
+    # accounting_label: "Accounting label"
     accuracy: "准确性"
     achieved_at: "在实现"
     actions: "操作"
@@ -484,7 +490,6 @@ cmn:
     author: "作者"
     authorized_payments_count: "授权支付数"
     auto_updateable_addresses: "自动更新地址"
-    # auxiliary_number: "Auxiliary number"
     average_value: "平均值"
     balance: "平衡"
     balance_pretax_amount: "平衡税前金额"
@@ -594,7 +599,7 @@ cmn:
     content: "内容"
     content_localizations: "内容本地化"
     contents: "内容"
-    continuous_number: "连续号码"
+    # continuous_number: "Continuous number"
     contract: "合同"
     contract_items: "合同项目"
     contracts: "合同"
@@ -682,7 +687,6 @@ cmn:
     depreciable_amount: "折旧额"
     depreciable_product: "折旧产品"
     depreciated_amount: "折旧金额"
-    # depreciation_fiscal_coefficient: "Depreciation fiscal coefficient"
     depreciation_method: "折旧方法"
     depreciation_percentage: "折旧率"
     depreciation_period: "折旧年限"
@@ -1302,7 +1306,7 @@ cmn:
     reflected_at: "在反射"
     reflection_nodes: "节点的反思"
     reflections: "思考"
-    regularizations: "正则化"
+    # regularizations: "Regularizations"
     remain_owner: "保持所有者"
     remaining_amount: "剩余数量"
     remaining_lifespan: "剩余寿命"
@@ -1554,7 +1558,7 @@ cmn:
     user: "用户"
     users: "用户"
     # uuid: "UUID"
-    validated_at: "经过验证"
+    # validated_at: "Validated at"
     value: "值"
     variable_indicators_list: "变量指标清单"
     variant: "变种"
