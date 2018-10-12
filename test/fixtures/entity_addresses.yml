@@ -50,7 +50,7 @@
 entity_addresses_001:
   by_default: true
   canal: phone
-  coordinate: 0123456789
+  coordinate: '0123456789'
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator_id: 1
   entity_id: 6
@@ -141,7 +141,7 @@ entity_addresses_006:
 entity_addresses_007:
   by_default: true
   canal: mail
-  coordinate: "碇 ユイ, 17123 CHAR-EN-TEUX, France"
+  coordinate: 碇 ユイ, 17123 CHAR-EN-TEUX, France
   created_at: 2014-11-01 20:16:17.397421000 Z
   creator_id: 1
   entity_id: 11
@@ -149,7 +149,7 @@ entity_addresses_007:
   lock_version: 1
   mail_auto_update: true
   mail_country: fr
-  mail_line_1: "碇 ユイ"
+  mail_line_1: 碇 ユイ
   mail_line_2: ''
   mail_line_3: ''
   mail_line_4: ''
@@ -252,7 +252,7 @@ entity_addresses_012:
 entity_addresses_013:
   by_default: true
   canal: mail
-  coordinate: "冬月コウゾウ, 東京都中央区八重洲1-5-3, 東京中央郵便局, 〒100-8994, Japon"
+  coordinate: 冬月コウゾウ, 東京都中央区八重洲1-5-3, 東京中央郵便局, 〒100-8994, Japon
   created_at: 2015-04-21 08:21:32.441951000 Z
   creator_id: 1
   entity_id: 10
@@ -260,11 +260,11 @@ entity_addresses_013:
   lock_version: 1
   mail_auto_update: false
   mail_country: jp
-  mail_line_1: "冬月コウゾウ"
+  mail_line_1: 冬月コウゾウ
   mail_line_2: ''
   mail_line_3: ''
-  mail_line_4: "東京都中央区八重洲1-5-3"
-  mail_line_5: "東京中央郵便局"
+  mail_line_4: 東京都中央区八重洲1-5-3
+  mail_line_5: 東京中央郵便局
   mail_line_6: "〒100-8994"
   mail_postal_zone_id: 8
   thread: AAAA
@@ -283,10 +283,10 @@ entity_addresses_014:
   mail_country: gr
   mail_line_1: M.  Περικλῆς
   mail_line_2: ''
-  mail_line_3: "Ακρόπολη Αθηνών"
+  mail_line_3: Ακρόπολη Αθηνών
   mail_line_4: ''
   mail_line_5: ''
-  mail_line_6: "Ἀθῆναι"
+  mail_line_6: Ἀθῆναι
   mail_postal_zone_id: 13
   thread: AAAA
   updated_at: 2016-07-01 19:26:02.131928000 Z

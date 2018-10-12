@@ -55,9 +55,34 @@ class AccountTest < ActiveSupport::TestCase
   end
 
   test 'merge' do
-    main = Account.first
-    double = Account.second
+    main = create :account
+    double = create :account
     main.merge_with(double)
     assert_nil Account.find_by(id: double.id)
+  end
+
+  test 'already existing account can get updated with any number' do
+    account_1 = create(:account, already_existing: true)
+    account_1.update(number: '123')
+    assert account_1.number, '123'
+    account_2 = create(:account, already_existing: true)
+    account_2.update(number: '123456789')
+    assert account_2.number, '123456789'
+  end
+
+  test 'number of auxiliary account is the concatenation of the centralizing account number and auxiliary number' do
+    client = create(:account, :client)
+    assert client.number, client.centralizing_account.send(Account.accounting_system) + client.auxiliary_number
+  end
+
+  test 'invalid numbers' do
+    account_1 = build(:account, number: '41123')
+    account_2 = build(:account, number: '40123456789')
+    account_3 = build(:account, number: '012345')
+    account_4 = build(:account, number: '1')
+    refute account_1.valid?
+    refute account_2.valid?
+    refute account_3.valid?
+    refute account_4.valid?
   end
 end

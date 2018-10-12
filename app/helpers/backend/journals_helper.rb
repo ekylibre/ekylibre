@@ -43,6 +43,74 @@ module Backend
       content_tag(:dl, code, id: 'journal-views')
     end
 
+    def ledger_crit(*args)
+      options = args.extract_options!
+      name = args.shift || :ledger
+      value = args.shift
+      configuration = { custom: :general_ledger }.merge(options)
+      configuration[:id] ||= name.to_s.gsub(/\W+/, '_').gsub(/(^_|_$)/, '')
+      value ||= params[name] || options[:default]
+
+      list = Account.centralizing.order(:name).collect do |account|
+        [:subledger_of_accounts_x.tl(account: account.name), account.number]
+      end
+
+      list.unshift [:general_ledger.tl, :general_ledger]
+
+      code = ''
+      code << content_tag(:label, options[:label] || :display.tl, for: configuration[:id]) + ' '
+      custom_id = "#{configuration[:id]}_#{configuration[:custom]}"
+      code << select_tag(name, options_for_select(list, value), :id => configuration[:id], 'data-show-value' => custom_id)
+      code.html_safe
+    end
+
+    def subledger_crit(*args)
+      options = args.extract_options!
+      name = args.shift || :account_number
+      value = args.shift
+      configuration = {}.merge(options)
+      configuration[:id] ||= name.to_s.gsub(/\W+/, '_').gsub(/(^_|_$)/, '')
+      value ||= params[name] || options[:default]
+
+      code = ''
+
+      if centralizing_account = Account.find_by(number: params[:ledger])
+        code << select_tag(name, options_from_collection_for_select(centralizing_account.auxiliary_accounts.order(:number), 'number', 'label', value), id: configuration[:id])
+      end
+
+      code.html_safe
+    end
+
+    def previous_ledger(*args)
+      options = args.extract_options!
+      parameters = options.delete(:params)
+
+      code = ''
+
+      acc = Account.find_by(number: params[:account_number])
+
+      if acc.previous
+        code << link_to(acc.previous.label, backend_general_ledger_path(acc.previous.number, parameters), options)
+      end
+
+      code.html_safe
+    end
+
+    def next_ledger(*args)
+      options = args.extract_options!
+      parameters = options.delete(:params)
+
+      code = ''
+
+      acc = Account.find_by(number: params[:account_number])
+
+      if acc.following
+        code << link_to(acc.following.label, backend_general_ledger_path(acc.following.number, parameters), options)
+      end
+
+      code.html_safe
+    end
+
     # Create a widget with all the possible periods
     def journal_period_crit(*args)
       options = args.extract_options!
@@ -163,6 +231,21 @@ module Backend
                         preference_url: url_for(controller: options[:controller], action: :mask_lettered_items, context: mask_context)
                       }) +
           :mask_lettered_items.tl
+      end
+    end
+
+    def mask_draft_items_button(*args)
+      options = args.extract_options!
+      list_id = args.shift || options[:list_id] || :journal_entry_items
+      mask_context = options[:context] || list_id
+      options[:controller] ||= controller_path
+      label_tag do
+        check_box_tag(:masked, 'true', current_user.mask_draft_items?(controller: options[:controller].dup, context: mask_context),
+                      data: {
+                        mask_draft_items: '#' + list_id.to_s,
+                        preference_url: url_for(controller: options[:controller], action: :mask_draft_items, context: mask_context)
+                      }) +
+          :mask_draft_items.tl
       end
     end
   end

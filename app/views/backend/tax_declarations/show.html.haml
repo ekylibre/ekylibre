@@ -202,7 +202,7 @@
                 - begin
                   - url = url_for(action: :show, controller: item.entry.resource_type.tableize, id: item.entry.resource_id)
                   = link_to(item.entry.resource.number, { controller: item.entry.resource_type.tableize, action: :show, id: item.entry.resource_id })
-                - rescue
+                - rescue ActionController::UrlGenerationError => e
                   = item.entry.resource.number
               - else
                 = '-'

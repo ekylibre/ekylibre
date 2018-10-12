@@ -18,14 +18,14 @@ eng:
       destroy: "Log out" #?
       new: "New session"
     backend/accounts:
-      edit: "Edit account: %{label}"
+      edit: "Edit account: %{number} - %{name}"
       index: "Accounting plans"
       load: "Load an accounting plan"
-      mark: "Reconciliate account: %{label}"
+      mark: "Reconciliate account: %{number} - %{name}"
       # mask_lettered_items: "Mask lettered items account: %{name}"
       new: "New account"
       reconciliation: "Account reconciliation"
-      show: "Account: %{label}"
+      show: "Account: %{number} - %{name}"
       unmark: "Unmark account"
     backend/activities:
       edit: "Edit activity: %{name}"
@@ -331,7 +331,10 @@ eng:
       index: "Gaps"
       show: "Gap: %{number}"
     backend/general_ledgers:
-      show: "General ledger"
+      index: "%{ledger}"
+      # mask_draft_items: "Mask draft items general ledger: %{name}"
+      # mask_lettered_items: "Mask lettered items general ledger: %{name}"
+      show: "General ledger\_: %{account}"
     backend/georeadings:
       edit: "Edit georeading: %{name}"
       index: "Georeadings"
@@ -409,7 +412,7 @@ eng:
       show: "%{procedure_name}"
     backend/invalid_journal_entries:
       # delete_all: "Delete all invalid journal entry: %{name}"
-      index: "Journal entries to balance"
+      # index: "Invalid journal entries"
     backend/inventories:
       edit: "Edit inventory"
       index: "Inventories"
@@ -450,7 +453,6 @@ eng:
       # generate_report_file: "Generate report file journal: %{name}"
       index: "Journals"
       new: "New journal"
-      reopen: "Reopen journal: %{name}" #?
       show: "Journal: %{name} (%{code})"
     backend/kujakus:
       # toggle: "Toggle kujaku: %{name}"
@@ -990,6 +992,7 @@ eng:
     access: "Access"
     access_parameters: "Access parameters"
     account_for: "Account for"
+    account_totals: "Account Totals"
     accountancy: "Accountancy"
     accountancy_balance: "Accountancy balance"
     accountancy_preferences: "Accountancy preferences"
@@ -1095,14 +1098,14 @@ eng:
     animal_details: "Animal details" #?!
     # animal_management: "Animal management"
     animals: "Animals"
-    any_journal: "Any journal"
+    # any_journal: "Any journal"
     archives: "Archives"
     are_you_sure: "Are you sure you want to do this?"
     are_you_sure_you_want_to:
       abort_issue: "Are you sure you want to abort this issue?"
       close_issue: "Are you sure you want to close this issue?"
       reopen_issue: "Are you sure you want to reopen this issue?"
-    are_you_sure_you_want_to_change_account_digits: "Are you sure you want to change the number of characters on account numbers?"
+    # are_you_sure_you_want_to_change_account_digits: "Are you sure you want to change account digits"
     are_you_sure_you_want_to_confirm: "Are you sure you want to order"
     are_you_sure_you_want_to_delete: "Are you sure you want to delete this record?"
     are_you_sure_you_want_to_invoice: "Are you sure you want to invoice?"
@@ -1174,9 +1177,6 @@ eng:
     charge_value: "Charge value"
     chart: "Chart"
     check: "Check" #?
-    check_x_entries_to_balance: #?!
-      one: "Check entry to balance (%{count})" #?!
-      other: "Check entries to balance (%{count})" #?!
     children: "Children"
     choices: "Choices"
     choose_a_type_of_product: "Choose a type of product"
@@ -1193,7 +1193,7 @@ eng:
     close: "Close"
     close_financial_year: "Close financial year"
     close_journal: "Close the journal"
-    closed: "Closed" #?
+    closed: "Closed"
     cobbles: "Cobbles" #?
     column: "Column"
     columns: "Columns to import"
@@ -1205,15 +1205,9 @@ eng:
       filter_on_attribute_of_class: "Filter on attribute of class"
       special-subscriber: "Special-subscriber"
     configure: "Configure"
-    confirmation: "Confirmation"
+    # confirmation: "Confirmation"
+    # confirmed: "Confirmed"
     connect: "Connect"
-    consult_the_day_book: #?
-      one: "Consult the day book (%{count} entry)" #?
-      other: "Consult the day book (%{count} entries)" #?
-      zero: "Consult the day book (%{count} entry)" #?
-    consult_unbalanced_entries: #?
-      one: "Consult the unbalanced entry" #?
-      other: "Consult unbalanced entries (%{count})" #?
     consume: "Consume" #?
     contained_products: "Contained products"
     container: "Container"
@@ -1288,9 +1282,6 @@ eng:
     delete_only_record: "Or only delete the selected intervention(s) and display the request associate ?" #?
     delete_request: "Delete also the request associate to the selected intervention(s)" #?
     delete_selected_interventions: "Delete the selected interventions"
-    delete_x_entries: #?
-      one: "Delete %{count} entry" #?
-      other: "Delete %{count} entries" #?
     deliver: "Delivered on" #?
     deliveries: "Deliveries" #?
     delivery: "Delivery" #?
@@ -1314,7 +1305,7 @@ eng:
     disease_deformity_percentage: "Disease and deformity percentage"
     disease_percentage: "Disease (%)" #?
     disease_percentage_evolution: "Disease percentage evolution"
-    display: "Display" #?
+    display: "Display"
     display_accounts: "Display accounts"
     display_n_1: "Display N-1"
     distribute_unaffected_products: "Distribute unaffected products"
@@ -1335,7 +1326,7 @@ eng:
     # dose: "Dose"
     down: "Down" #?
     downpayment: "Downpayment"
-    draft: "Draft" #?
+    draft: "Draft"
     duplicate: "Duplicate"
     duration: "Duration"
     duration_in_hours_and_minutes: "%{hours}h %{minutes}min"
@@ -1358,6 +1349,7 @@ eng:
     entries_to_point: "Entries pointing to" #?!
     entry_item_label: "Entry item label" #?
     entry_items: "Entry items" #?
+    entry_resource_label: "Record" #?
     equipment: "Equipment" #?
     equipment_name: "Name of equipment" #?
     equipments: "Equipment"
@@ -1387,21 +1379,18 @@ eng:
     expired_since: "Expired since" #?
     expired_within: "Expired within" #?
     exploitation_results: "Exploitation results" #?!
-    export: "Export documents"
+    export: "Export documents" #?
     export_as_csv: "Export as CSV"
     export_as_ods: "Export as ODS"
-    export_as_pdf: "Export as PDF"
+    export_as_odt: "Export as ODT"
+    # export_as_pdf: "Export as pdf"
     export_as_xcsv: "Export as Excel CSV"
-    export_fec_all: "Export FEC (Default)"
-    export_fec_ba_bnc_ir_commercial_accountancy: "Export FEC for agriculture and professional operations income taxation commercial accountancy"
-    export_fec_ba_ir_cash_accountancy: "Export FEC agriculture income taxation cash accountancy"
-    export_fec_bnc_ir_cash_accountancy: "Export FEC professional operations income taxation cash accountancy"
     field_distribution: "Field distribution"
     file_nature: "File type"
     file_preview: "Preview" #?
     file_to_upload: "File to upload"
     filter: "Filter"
-    filter_on: "Filter on"
+    # filter_on: "Filter on"
     final_balance: "Final balance"
     financial_assets: "Financial assets" #?
     financial_expenses: "Financial expenses" #??
@@ -1422,6 +1411,7 @@ eng:
     genealogy: "Genealogy"
     general: "General" #?
     general_informations: "General informations"
+    general_ledger: "General ledger"
     generate: "Generate"
     generate_last_journal_entry: "Generate last journal entry"
     generate_parcel: "Generate parcel"
@@ -1508,7 +1498,7 @@ eng:
     items: "Items"
     journal: "Journal"
     journal_entries: "Journal's entries" #?
-    journal_entries_deletion_confirmation_message: "Once validated, you won't be able to edit or delete these entries. Are you sure you want to validate these entries ?"
+    # journal_entries_deletion_confirmation_message: "Journal entries deletion confirmation message"
     journal_entries_states: "States of entries"
     journal_entry_items: "Journal entry items"
     journal_entry_items_with_taxes_out_of_range:
@@ -1549,7 +1539,7 @@ eng:
     last_sales: "Last sales"
     letter: "Letter" #?
     letterable: "Letterable"
-    lettered: "Lettered" #?
+    lettered: "Lettered"
     lettering_state: "Lettering state"
     liabilities: "Liabilities" #?!
     liabilities_gaps: "Liabilities gaps" #?!
@@ -1582,6 +1572,7 @@ eng:
     mark_all_as_read: "Mark all as read"
     mark_as_read: "Mark as read"
     marketable_net_mass: "Marketable net mass" #?!
+    mask_draft_items: "Mask draft items"
     mask_lettered_items: "Mask lettered items"
     mass: "Masse" #?
     maximal_temperature: "Maximal temperature"
@@ -1708,7 +1699,7 @@ eng:
     parameters: "Parameters"
     parcel_items: "Parcel items"
     parcels: "Parcels"
-    partially_lettered: "Partially lettered" #?
+    partially_lettered: "Partially lettered"
     participants: "Participants"
     participations: "Participations"
     parts: "Modules"
@@ -1805,7 +1796,7 @@ eng:
     reflections: "Reflections" #?
     refresh: "Refresh" #?
     register_intervention_request: "Register intervention request" #?!
-    regressive_options: "Regressive options"
+    # regressive_options: "Regressive options"
     rejected: "Rejected" #?
     relationship: "Relationship"
     relationship_of_entity: "%{relationship} of %{entity}"
@@ -1907,6 +1898,7 @@ eng:
     stopped_on: "Stopped on"
     storage: "Storage" #?
     subject: "Subject"
+    subledger_of_accounts_x: "Sub-ledger of accounts %{account}"
     submit: "Submit" #?
     subscribed_on: "Subscribed on" #?
     subscriber_period: "Subscribed on %{subscribed_at}"
@@ -2024,7 +2016,7 @@ eng:
     unknown_condition: "Unknown condition"
     unknown_user: "Unknown user"
     unknown_variant: "Unknown variant"
-    unlettered: "Unlettered" #?
+    unlettered: "Unlettered"
     unlock: "Unlock" #?
     unmark: "Unmark" #?
     unmarketable_inspection_categories_evolution: "Unmarketable inspection categories evolution"
@@ -2034,7 +2026,7 @@ eng:
     unpaid_sales: "Unpaid sales" #?
     unset_reconcilable_old_third_accounts: "Unset reconcilable old third accounts (clients, suppliers and attorneys)" #?
     unsubcribed_capital: "Unsubcribed capital" #?!
-    until: "until"
+    # until: "Until"
     up: "Up" #?
     up_to: "Up to"
     update: "Update"
@@ -2050,9 +2042,6 @@ eng:
       one: "Validate crumbs for %{count} intervention"
       other: "Validate crumbs for %{count} interventions"
     validate_selected_entries: "Validate selected entries" #?!
-    validate_x_entries: #?
-      one: "Validate the entry" #?
-      other: "Validate %{count} entries" #?
     validated: "Validated"
     values: "Values"
     variable_indicators: "Variable indicators"
@@ -2265,16 +2254,13 @@ eng:
       closed_financial_periods: "The fixed asset's duration spans across closed financial periods."
       closed_financial_year_exchange: "The financial year exchange has been closed successfully"
       closed_financial_years: "The financial year has been closed successfully" #?
-      closure_process_started: "Closure process started."
+      # closure_process_started: "Closure process started"
       columns_are_already_uses: "One or many columns are selected many times"
       could_not_attach_x_or_y_to_affair: "Could not attach %{x} or %{y} to affair"
       dashboard_is_being_developed: "Dashboard is under heavy development"
       density_is_not_computable_in_counting: "Could not compute the density for this counting. The missing values should be completed in the counting's properties or the sower's indicators."
-      depreciation_failed: "Assets could not be depreciated." #?
-      depreciation_successful: "Assets have been successfully depreciated." #?
       document_in_preparation: "Your document is in preparation a notification will be sent to you when it is ready"
-      draft_journal_entries_are_present: "Draft journal entries are present." #?
-      # draft_journal_entries_cannot_be_validated: "Draft journal entries cannot be validated"
+      draft_journal_entries_cannot_be_validated: "You need to validate every previous entries before these ones"
       draft_journal_entries_have_been_validated:
         one: "%{count} entry has been validated"
         other: "%{count} entries have been validated"
@@ -2287,10 +2273,8 @@ eng:
       error_during_file_generation: "An error occurred while generating a file" #?
       fails_to_extract_listing: "The listing can't be made: %{message}"
       file_generated: "Your file was successfully generated" #?
-      financial_year_already_closed: "The financial year has already been closed." #?
-      financial_year_is_not_past: "The financial year hasn't passed yet." #?
-      financial_year_x_could_not_be_closed: "Financial Year  %{name} could not be closed."
-      financial_year_x_successfully_closed: "Financial Year %{name} successfully closed !"
+      # financial_year_x_could_not_be_closed: "Financial year x could not be closed"
+      # financial_year_x_successfully_closed: "Financial year x successfully closed"
       financial_years_missing: "You must create every missing financial years since the first registered"
       financial_years_missing_tax_declarations: "You must create every declarations for the following financial years: %{codes}" #?
       implemented_with_dummy_data: "Implemented with dummy data"
@@ -2307,7 +2291,6 @@ eng:
       journal_entry_has_been_saved: "The journal entry %{number} has been successfully saved"
       journal_entry_has_been_saved_with_a_new_number: "The journal entry has been successfully saved with a new number: %{number}"
       journal_entry_items_marked_with_letter: "Journal entry items have been marked with letter %{letter}"
-      journal_reopened_on: "The journal “%{journal}” has been re-opened on %{closed_on}." #?
       mails_are_sent: "The emails were sent"
       merge_is_done: "Merge is done"
       need_a_valid_payment_mode: "Need a valid payment mode"
@@ -2317,7 +2300,7 @@ eng:
       need_entries_to_reconciliate: "No entries to reconciliate on bank statement period"
       need_payment_mode_to_create_deposit: "You must specify a mode of payment in order to make deposits"
       need_stocks_to_create_inventories: "You have to manage some stocks in order to manage inventories"
-      need_to_edit_or_correct_entries_before_validating: "You have to correct or delete these entries before you can enclose the financial year or validate them."
+      # need_to_edit_or_correct_entries_before_validating: "Need to edit or correct entries before validating"
       net_services_and_identifiers_are_always_available_but_are_deprecated_and_will_be_removed_in_next_major_release: "Net services and identifiers are always available but are deprecated and will be removed in next major release"
       no_archived_prints: "No archived prints"
       no_budget_defined_for_current_campaign: "No budget defined for current campaign"
@@ -2332,10 +2315,8 @@ eng:
       no_production_found_you_can_add_it_or_copy_from_previous_records: "No production found. You can add new or copy some from previous campaign."
       no_purchase_affair_found_on_given_period: "No purchase affair found on given period"
       no_purchases_given: "No purchases given"
-      no_reopenable_journal: "You can not re-open this journal." #?
       no_replacements_since_beginning: "No replacements since beginning"
       # no_worker_associated_with_user_account: "No worker associated with user account"
-      previouos_financial_year_is_not_closed: "The previous financial year hasn't been closed." #?
       purchases_invalid_for_sepa: "Purchases selected invalid for SEPA transfer (invalid disbursement mode or wrong currency or missing payee's IBAN or bank account holder name)"
       record_already_imported: "Record already imported"
       record_cannot_be_removed: "The record can not be deleted"
@@ -2359,12 +2340,9 @@ eng:
       the_automatic_lettering_cannot_be_done_in_accountancy_because_too_many_thirds_are_present: "The automatic lettering cannot be done in accountancy because too many thirds are present"
       the_bookkeep_date_format_is_invalid: "The bookkeep date format is invalid"
       the_sales_invoice_is_not_cancellable: "The sales invoice is not cancellable"
-      there_are_x_remaining_unbalanced_entries:
-        one: "%{count} entry during this period remain unbalanced. You have to correct it to be able to perform a global validation."
-        other: "%{count} entries during this period remain unbalanced. You have to correct them to be able to perform a global validation."
+      # there_are_x_remaining_unbalanced_entries: "There are x remaining unbalanced entries"
       this_service_is_not_activated: "This service is not activated" #?
       unavailable_resource: "Nonexistent %{type} #%{id}"
-      unbalanced_journal_entries_are_present_in_year: "Some unbalanced journal entries are present in the financial year." #?
       unexpected_resource_type: "Unexpected resource type: %{type}"
       update_is_done: "The update has been made"
       x_fixed_asset_depreciations_have_been_bookkept_successfully:
@@ -2379,7 +2357,7 @@ eng:
       you_must_have_an_email_column: "You must have an email address in your extraction"
       you_need_to_review_your_application_configuration: "You need to review your application configuration"
   preferences:
-    account_number_digits: "Account number length"
+    # account_number_digits: "Account number digits"
     accounting_system: "Accounting plan"
     bookkeep_automatically: "Activate the automatic bookkeeping"
     bookkeep_in_draft: "Save the records in draft mode during bookkeeping"
@@ -2478,6 +2456,7 @@ eng:
       lose: "Lose"
       mail: "Mail"
       mark: "Mark"
+      # mask_draft_items: "Mask draft items"
       # mask_lettered_items: "Mask lettered items"
       # matching_interventions: "Matching interventions"
       merge: "Merge"

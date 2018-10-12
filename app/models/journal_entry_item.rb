@@ -111,6 +111,7 @@ class JournalEntryItem < Ekylibre::Record::Base
   delegate :balanced?, to: :entry, prefix: true
   delegate :name, :number, :label, to: :account, prefix: true
   delegate :entity_country, :expected_financial_year, :continuous_number, to: :entry
+  delegate :resource_label, to: :entry, prefix: true
 
   acts_as_list scope: :entry
 
@@ -357,6 +358,14 @@ class JournalEntryItem < Ekylibre::Record::Base
   # Returns the balance as cumulated_absolute_debit - cumulated_absolute_credit
   def cumulated_absolute_balance
     (self.cumulated_absolute_debit - self.cumulated_absolute_credit)
+  end
+
+  def cumulated_absolute_debit_balance
+    cumulated_absolute_balance >= 0 ? cumulated_absolute_balance : 0
+  end
+
+  def cumulated_absolute_credit_balance
+    cumulated_absolute_balance < 0 ? cumulated_absolute_balance.abs : 0
   end
 
   #   # this method allows to lock the entry_item.

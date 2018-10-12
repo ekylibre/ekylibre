@@ -146,8 +146,9 @@
         <page to="backend/trial_balances#show"/>
       </item>
       <item name="general_ledger">
+        <page to="backend/general_ledgers#index"/>
         <page to="backend/general_ledgers#show"/>
-        <page to="backend/general_ledgers#list_journal_entry_items"/>
+        <page to="backend/general_ledgers#list_journal_entry_items" nonexistent="true"/>
       </item>
     </group>
     <group name="fixed_assets" icon="home">
@@ -2070,6 +2071,13 @@
       <item name="draft_journals">
         <page to="backend/draft_journals#confirm_all"/>
         <page to="backend/draft_journals#list"/>
+      </item>
+      <item name="general_ledgers">
+        <page to="backend/general_ledgers#list_centralized_ledger_accounts"/>
+        <page to="backend/general_ledgers#list_subledger_accounts"/>
+        <page to="backend/general_ledgers#list_subledger_journal_entry_items"/>
+        <page to="backend/general_ledgers#mask_draft_items"/>
+        <page to="backend/general_ledgers#mask_lettered_items"/>
       </item>
       <item name="invalid_journal_entries">
         <page to="backend/invalid_journal_entries#delete_all"/>

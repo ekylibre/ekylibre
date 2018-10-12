@@ -1,6 +1,9 @@
 spa:
   activerecord:
     attributes:
+      account:
+        # cumulated_absolute_credit_balance: "Credit balance"
+        # cumulated_absolute_debit_balance: "Debit balance"
       activity_budget:
         expenses_amount: "Importe los gastos"
         revenues_amount: "Monto de los ingresos"
@@ -33,7 +36,9 @@ spa:
       fixed_asset_depreciation:
         asset_amount: "Valor contable"
       journal_entry_item:
-        name: "Etiqueta de elemento de entrada"
+        # cumulated_absolute_credit_balance: "Credit balance"
+        # cumulated_absolute_debit_balance: "Debit balance"
+        # name: "Entry item label"
       land_parcel:
         born_at: "Creado en"
       land_parcel_group:
@@ -131,6 +136,9 @@ spa:
         unitary_in_parcel: "artículos unitarios sólo se pueden enviar una a una"
         # wrong_length: "%{attribute} is the wrong length (should be %{count} characters)"
       models:
+        account:
+          # centralizing_number: "The number can't start with '401' or '411' which are numbers used for auxiliary accounts"
+          # radical_class: "The account can't correpsond to a radical class"
         activity:
           checked_off_with_inspections: "Inspecciones ya se han creado para esta actividad"
           checked_without_measures: "Al menos, un tipo de medida debe seleccionarse cuando se quieren inspecciones"
@@ -483,7 +491,6 @@ spa:
     author: "Autor"
     authorized_payments_count: "Pagos autorizados cuentan"
     auto_updateable_addresses: "Actualizables direcciones de automóviles"
-    # auxiliary_number: "Auxiliary number"
     average_value: "Valor promedio"
     balance: "Equilibrar"
     balance_pretax_amount: "Equilibrar la cantidad antes de impuestos"
@@ -595,7 +602,7 @@ spa:
     content: "Contenido"
     content_localizations: "Localizaciones de contenido"
     contents: "Contenido"
-    continuous_number: "Número continuo"
+    # continuous_number: "Continuous number"
     contract: "Contrato"
     contract_items: "Las posiciones de contrato"
     contracts: "Contratos"
@@ -683,7 +690,6 @@ spa:
     depreciable_amount: "Importe depreciable"
     depreciable_product: "Producto depreciable"
     depreciated_amount: "Importe amortizado"
-    # depreciation_fiscal_coefficient: "Depreciation fiscal coefficient"
     depreciation_method: "Método de depreciación"
     depreciation_percentage: "Porcentaje de depreciación"
     depreciation_period: "Período de depreciación"
@@ -1033,7 +1039,7 @@ spa:
     marketable_yield: "rendimiento comercial"
     mass: "Masa (kg)"
     max_inputs_count: "Las potencias máximas cuentan"
-    max_zoom: "Zoom máximo"
+    # max_zoom: "Max zoom"
     maximal_grantable_reduction_percentage: "Porcentaje de reducción máxima otorgable"
     maximal_length: "Longitud máxima"
     maximal_size: "tamaño máximo"
@@ -1405,7 +1411,7 @@ spa:
     sold_on: "Vendido en"
     source: "Fuente"
     source_product: "Producto de código"
-    spaced_iban: "IBAN espaciado"
+    # spaced_iban: "Spaced IBAN"
     sql_type: "Tipo de SQL"
     ssl: "Ssl"
     start: "Comienzo"
@@ -1556,7 +1562,7 @@ spa:
     user: "Usuario"
     users: "Usuarios"
     # uuid: "UUID"
-    validated_at: "Validado en"
+    # validated_at: "Validated at"
     value: "Valor"
     variable_indicators_list: "Lista de indicadores variables"
     variant: "Variante"
@@ -1875,7 +1881,7 @@ spa:
       # tracking: "S/N: %{serial}"
     sale_nature:
       default:
-        name: "Venta estándar"
+        # name: "Standard sale"
     sale_opportunity:
       state_machine:
         states:

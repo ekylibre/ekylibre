@@ -314,6 +314,15 @@ module Backend
         code.c
       end
 
+      def account_crit(variable, conditions = 'c')
+        variable = "params[:#{variable}]" unless variable.is_a? String
+        code = ''
+        code << "if #{variable}[:account_number] \n"
+        code << %(#{conditions}[0] += " AND #{Account.table_name}.number = \#{Account.connection.quote(#{variable}[:account_number])}"\n)
+        code << "end \n"
+        code.c
+      end
+
       # accountancy -> crit_params
       def crit_params(hash)
         nh = {}
@@ -338,6 +347,45 @@ module Backend
         variable = "params[:#{variable}]" unless variable.is_a? String
         code = ''
         code << "#{conditions}[0] += ' AND '+JournalEntry.period_condition(#{variable}[:period], #{variable}[:started_on], #{variable}[:stopped_on])\n"
+        code.c
+      end
+
+      def account_journal_period_crit(variable, conditions = 'c')
+        variable = "params[:#{variable}]" unless variable.is_a? String
+        code = ''
+        code << "subquery = JournalEntryItem.joins(:entry).where(JournalEntry.period_condition(#{variable}[:period], #{variable}[:started_on], #{variable}[:stopped_on])).select(:account_id).distinct(:account_id).to_sql \n"
+        code << "#{conditions}[0] += ' AND #{Account.table_name}.id IN ( '+ subquery +')'\n"
+        code.c
+      end
+
+      def centralizing_account_crit(variable, conditions = 'c')
+        variable = "params[:#{variable}]" unless variable.is_a? String
+        code = ''
+        code << "if #{variable}[:ledger] == 'general_ledger'\n"
+        code << "  #{conditions}[0] += \" AND accounts.nature != 'auxiliary'\"\n"
+        code << "elsif centralizing_account = Account.find_by(number: #{variable}[:ledger])\n"
+        code << "  #{conditions}[0] += \" AND accounts.nature = 'auxiliary'\"\n"
+        code << "  #{conditions}[0] += ' AND accounts.centralizing_account_id = '+ centralizing_account.id.to_s\n"
+        code << "end\n"
+        code.c
+      end
+
+      def centralizing_account_journal_period_crit(variable, conditions = 'c')
+        variable = "params[:#{variable}]" unless variable.is_a? String
+        code = ''
+        code << "#{conditions}[0] += ' AND ' + JournalEntry.period_condition(#{variable}[:period], #{variable}[:started_on], #{variable}[:stopped_on])\n"
+        code.c
+      end
+
+      # accountancy -> ledger_crit
+      def ledger_crit(variable, conditions = 'c')
+        variable = "params[:#{variable}]" unless variable.is_a? String
+        code = ''
+        code << "if #{variable}[:ledger] == 'general_ledger'\n"
+        code << "  #{conditions}[0] += ' AND #{JournalEntryItem.table_name}.account_id IN ('+Account.not_auxiliary.select(:id).to_sql+')'\n"
+        code << "elsif centralizing_account = Account.find_by(number: #{variable}[:ledger])\n"
+        code << "  #{conditions}[0] += ' AND #{JournalEntryItem.table_name}.account_id IN ('+Account.where(centralizing_account_id: centralizing_account).select(:id).to_sql+')'\n"
+        code << "end\n"
         code.c
       end
 

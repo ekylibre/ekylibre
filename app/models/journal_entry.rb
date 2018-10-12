@@ -82,6 +82,10 @@ class JournalEntry < Ekylibre::Record::Base
   has_one :financial_year_as_last, foreign_key: :last_journal_entry_id, class_name: 'FinancialYear', dependent: :nullify
   has_many :bank_statements, through: :useful_items
 
+  def resource_label
+    @resource_label ||= resource.class.model_name.human + ' ' + resource.number
+  end
+
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :absolute_credit, :absolute_debit, :balance, :credit, :debit, :real_balance, :real_credit, :real_debit, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
   validates :absolute_currency, :currency, :journal, :real_currency, presence: true
