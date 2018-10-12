@@ -223,9 +223,9 @@ class Sale < Ekylibre::Record::Base
       label = tc(:bookkeep, resource: state_label, number: number, client: client.full_name, products: (description.blank? ? items.pluck(:label).to_sentence : description), sale: initial_number)
       entry.add_debit(label, client.account(:client).id, amount, as: :client)
       items.each do |item|
-        entry.add_credit(label, (item.account || item.variant.product_account).id, item.pretax_amount, activity_budget: item.activity_budget, team: item.team, as: :item_product, resource: item, variant: item.variant, accounting_label: item.accounting_label && !item.accounting_label.blank? ? "#{item.accounting_label} (#{initial_number})" : nil)
+        entry.add_credit(label, (item.account || item.variant.product_account).id, item.pretax_amount, activity_budget: item.activity_budget, team: item.team, as: :item_product, resource: item, variant: item.variant, accounting_label: item.accounting_label.present? ? "#{item.accounting_label} (#{initial_number})" : nil)
         tax = item.tax
-        entry.add_credit(label, tax.collect_account_id, item.taxes_amount, tax: tax, pretax_amount: item.pretax_amount, as: :item_tax, resource: item, variant: item.variant, accounting_label: item.accounting_label && !item.accounting_label.blank? ? "#{item.accounting_label} (#{initial_number})" : nil)
+        entry.add_credit(label, tax.collect_account_id, item.taxes_amount, tax: tax, pretax_amount: item.pretax_amount, as: :item_tax, resource: item, variant: item.variant, accounting_label: item.accounting_label.present? ? "#{item.accounting_label} (#{initial_number})" : nil)
       end
     end
 
