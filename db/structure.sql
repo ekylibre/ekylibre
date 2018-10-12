@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 9.6.6
--- Dumped by pg_dump version 9.6.6
+-- Dumped from database version 9.6.3
+-- Dumped by pg_dump version 9.6.3
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -2441,7 +2441,8 @@ CREATE TABLE journal_entry_items (
     resource_type character varying,
     resource_prism character varying,
     variant_id integer,
-    tax_declaration_mode character varying
+    tax_declaration_mode character varying,
+    accounting_label character varying
 );
 
 
@@ -2509,7 +2510,8 @@ CREATE TABLE purchase_items (
     team_id integer,
     depreciable_product_id integer,
     fixed_asset_id integer,
-    preexisting_asset boolean
+    preexisting_asset boolean,
+    accounting_label character varying
 );
 
 
@@ -2581,7 +2583,8 @@ CREATE TABLE sale_items (
     activity_budget_id integer,
     team_id integer,
     codes jsonb,
-    compute_from character varying NOT NULL
+    compute_from character varying NOT NULL,
+    accounting_label character varying
 );
 
 
@@ -17952,4 +17955,6 @@ INSERT INTO schema_migrations (version) VALUES ('20180712091619');
 INSERT INTO schema_migrations (version) VALUES ('20180730150532');
 
 INSERT INTO schema_migrations (version) VALUES ('20180921092835');
+
+INSERT INTO schema_migrations (version) VALUES ('20181003092024');
 
