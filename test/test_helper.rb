@@ -34,7 +34,7 @@ require 'rails/test_help'
 require 'capybara/rails'
 
 require 'minitest/reporters'
-Minitest::Reporters.use! Minitest::Reporters::SpecReporter.new
+Minitest::Reporters.use! Minitest::Reporters::DefaultReporter.new
 # DefaultReporter => ...........
 # SpecReporter   => Test names (1 test/line)
 
