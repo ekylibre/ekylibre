@@ -140,6 +140,9 @@ ita:
           one: "è della lunghezza sbagliata (deve essere di 1 carattere)" #?
           other: "è della lunghezza sbagliata (deve essere di %{count} caratteri)" #?
       models:
+        account:
+          # centralizing_number: "The number can't start with '401' or '411' which are numbers used for auxiliary accounts"
+          # radical_class: "The account can't correpsond to a radical class"
         activity:
           checked_off_with_inspections: "Le ispezioni sono già stati creati per questa attività"
           checked_without_measures: "Almeno, un tipo di misura dovrebbe essere selezionato quando i controlli sono ricercati"
@@ -565,6 +568,7 @@ ita:
     ceded: "ceduta"
     ceded_on: "ceduto su"
     # centralizing_account: "Centralizing account"
+    # centralizing_account_name: "Centralizing account name"
     charge_account: "conto di carica"
     charges_categories: "oneri categorie"
     checks: "controlli"

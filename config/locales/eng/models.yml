@@ -128,6 +128,9 @@ eng:
         unitary_in_parcel: "Unitary items can only be sent one by one"
         wrong_length: "%{attribute} is the wrong length (should be %{count} characters)"
       models:
+        account:
+          centralizing_number: "The number can't start with '401' or '411' which are numbers used for auxiliary accounts"
+          radical_class: "The account can't correpsond to a radical class"
         activity:
           checked_off_with_inspections: "Inspections have already been created for this activity"
           checked_without_measures: "At least, one measure type should be selected when inspections are wanted"
@@ -452,6 +455,7 @@ eng:
     all_addresses: "All addresses"
     all_taxes_included: "All taxes included"
     allocation_account: "Allocation account"
+    # already_existing: "Already existing"
     amount: "Amount"
     analysed_at: "Analysed at"
     analyser: "Analyser"
@@ -477,7 +481,6 @@ eng:
     authorized_payments_count: "Authorized payments count"
     # auto_calculate_working_periods: "Auto calculate working periods"
     auto_updateable_addresses: "Auto updateable addresses"
-    # auxiliary_accounts: "Auxiliary accounts"
     auxiliary_number: "Auxiliary number"
     average_value: "Average value"
     balance: "Balance"
@@ -535,6 +538,7 @@ eng:
     ceded: "Ceded"
     ceded_on: "Ceded on"
     centralizing_account: "Centralizing account"
+    centralizing_account_name: "Centralizing account name"
     charge_account: "Charge account"
     charges_categories: "Charges categories"
     checks: "Checks" #?

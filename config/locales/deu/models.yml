@@ -131,6 +131,9 @@ deu:
         unitary_in_parcel: "Unitary Elemente können nur einzeln gesendet werden"
         # wrong_length: "%{attribute} is the wrong length (should be %{count} characters)"
       models:
+        account:
+          # centralizing_number: "The number can't start with '401' or '411' which are numbers used for auxiliary accounts"
+          # radical_class: "The account can't correpsond to a radical class"
         activity:
           checked_off_with_inspections: "Die Kontrollen wurden bereits für diese Tätigkeit geschaffen"
           checked_without_measures: "Zumindest sollte eine Maßnahme Typ gewählt werden, wenn Kontrollen gewünscht werden"
@@ -534,6 +537,7 @@ deu:
     ceded: "Rückversicherer"
     ceded_on: "Rückversicherer auf"
     # centralizing_account: "Centralizing account"
+    # centralizing_account_name: "Centralizing account name"
     charge_account: "Kundenkonto"
     charges_categories: "Kosten Kategorien"
     checks: "Schecks"

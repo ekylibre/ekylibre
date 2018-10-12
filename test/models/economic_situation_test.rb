@@ -40,8 +40,8 @@ require 'test_helper'
 class EconomicSituationTest < ActiveSupport::TestCase
   setup do
     @entity = Entity.create!(first_name: 'John', last_name: 'Doe')
-    @client_account = Account.create!(name: 'John the client', number: '411123')
-    @supplier_account = Account.create!(name: 'John the supplier', number: '401123')
+    @client_account = create(:account, :client)
+    @supplier_account = create(:account, :supplier)
     trash_account = Account.create!(name: 'Just needed', number: '666')
     @entity.update(client: true, client_account: @client_account)
     @entity.update(supplier: true, supplier_account: @supplier_account)

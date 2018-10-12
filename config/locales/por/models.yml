@@ -131,6 +131,9 @@ por:
         unitary_in_parcel: "itens unitárias só podem ser enviadas uma a uma"
         # wrong_length: "%{attribute} is the wrong length (should be %{count} characters)"
       models:
+        account:
+          # centralizing_number: "The number can't start with '401' or '411' which are numbers used for auxiliary accounts"
+          # radical_class: "The account can't correpsond to a radical class"
         activity:
           checked_off_with_inspections: "Inspeções já foram criados para esta atividade"
           checked_without_measures: "Pelo menos, um tipo de medida deve ser selecionada quando as inspecções são procurados"
@@ -534,6 +537,7 @@ por:
     ceded: "Cedido"
     ceded_on: "Cedida em"
     # centralizing_account: "Centralizing account"
+    # centralizing_account_name: "Centralizing account name"
     charge_account: "Conta de crédito"
     charges_categories: "Categorias encargos"
     checks: "Verificações"
