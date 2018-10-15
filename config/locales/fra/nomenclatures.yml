@@ -2186,6 +2186,18 @@ fra:
         spheroid: "Sphéroïde"
         vehicle: "Véhicule"
       name: "Formes"
+    fiscal_positions:
+      items:
+        fr_ba_ir: "Bénéfices agricoles - Impôt sur le revenu"
+        fr_ba_is: "Bénéfices agricoles - Impôt sur les sociétés"
+        fr_bic_ir: "Bénéfices industriels et commerciaux - Impôt sur le revenu"
+        fr_bic_is: "Bénéfices industriels et commerciaux - Impôt sur les sociétés"
+        fr_bnc_ir: "Bénéfices non commerciaux - Impôt sur le revenu"
+        fr_bnc_is: "Bénéfices non commerciaux - Impôt sur les sociétés"
+      name: "Régimes fiscaux"
+      property_natures:
+        code: "Code"
+        country: "Pays"
     guide_natures:
       items:
         best_practices: "Bonnes pratiques"
