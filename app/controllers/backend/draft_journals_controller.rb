@@ -92,7 +92,7 @@ module Backend
       journal_entries_to_validate = journal_entries.where(state: :draft).where('printed_on <= ?', params[:to]).order(:printed_on)
       journal_entries_to_validate_count = journal_entries_to_validate.count
 
-      ValidateDraftJournalEntriesService.new(journal_entries).validate_all
+      ValidateDraftJournalEntriesService.new(journal_entries_to_validate).validate_all
       notify_success(:draft_journal_entries_have_been_validated, count: journal_entries_to_validate_count)
       redirect_to params[:redirection]
     end
