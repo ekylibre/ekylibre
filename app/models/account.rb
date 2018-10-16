@@ -189,14 +189,6 @@ class Account < Ekylibre::Record::Base
     where(nature: 'general')
   }
 
-  scope :centralizing, -> {
-    where(nature: 'centralizing')
-  }
-
-  scope :not_centralizing, -> {
-    where.not(nature: 'centralizing')
-  }
-
   scope :auxiliary, -> {
     where(nature: 'auxiliary')
   }
