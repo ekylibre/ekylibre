@@ -18,7 +18,7 @@
     = form_tag list_backend_draft_journal_path, method: :get, remote: true, class: 'filter-form' do
       = label_tag :filter_on.tl
       = select_tag :journal_id, options_from_collection_for_select(Journal.all, :id, :name, @journal_id == 'All' ? nil : @journal_id), prompt: :any_journal.tl
-      = label_tag :until.tl
+      = label_tag :to, :until.tl
       = date_field_tag :to, @current_date.strftime("%F"), class: 'no-arrow-date-input'
       = hidden_field_tag :redirection, @redirection
       = button_tag type: 'submit', class: 'btn btn-default' do
@@ -33,13 +33,15 @@
       %i.icon.icon-edit
     %th.act
       %i.icon.icon-destroy
-    %th= Journal.name
-    %th= JournalEntryItem.human_attribute_name(:entry_number)
-    %th= JournalEntryItem.human_attribute_name(:printed_on)
+    %th.med= Journal.name
+    %th.sm= JournalEntryItem.human_attribute_name(:entry_number)
+    %th.sm= JournalEntryItem.human_attribute_name(:printed_on)
     %th= JournalEntryItem.human_attribute_name(:account)
     %th= JournalEntryItem.human_attribute_name(:name)
-    %th.right-align= JournalEntryItem.human_attribute_name(:debit)
-    %th.right-align= JournalEntryItem.human_attribute_name(:credit)
+    %th.med= JournalEntryItem.human_attribute_name(:variant)
+    %th.med= JournalEntry.human_attribute_name(:reference_number)
+    %th.right-align.sm= JournalEntryItem.human_attribute_name(:debit)
+    %th.right-align.sm= JournalEntryItem.human_attribute_name(:credit)
   %tbody.first-item
     - @draft_entries.each do |entry|
       - entry.items.each do |item|
@@ -48,16 +50,17 @@
           %td.act
             - if entry.balanced? && first_item
               %i.icon.icon-check{ style: "color: #688ED8;" }
-
           %td.act= link_to("<i class='icon icon-edit'></i>".html_safe, edit_backend_journal_entry_path(entry), class: "edit") if first_item
           %td.act= link_to("<i class='icon icon-destroy'></i>".html_safe, backend_journal_entry_path(entry), method: :delete, class: "destroy") if first_item
-          %td= link_to(entry.journal.name, { controller: :journals, action: :show, id: entry.journal.id} ) if first_item
-          %td= link_to(entry.number, { controller: :journal_entry_items, action: :show, id: item.id} ) if first_item
-          %td= entry.printed_on.strftime("%d/%m/%Y") if first_item
+          %td.med= link_to(entry.journal.name, { controller: :journals, action: :show, id: entry.journal.id} ) if first_item
+          %td.sm= link_to(entry.number, { controller: :journal_entry_items, action: :show, id: item.id} ) if first_item
+          %td.sm= entry.printed_on.strftime("%d/%m/%Y") if first_item
           %td= link_to(item.account_label, { controller: :accounts, action: :show, id: item.account.id})
           %td= truncate(item.name, length: 50)
-          %td.right-align= number_to_accountancy(item.debit, currency, false)
-          %td.right-align= number_to_accountancy(item.credit, currency, false)
+          %td.med= item.variant&.name
+          %td.med= entry.reference_number
+          %td.right-align.sm= number_to_accountancy(item.debit, currency, false)
+          %td.right-align.sm= number_to_accountancy(item.credit, currency, false)
 
 - unless @draft_entries_count < 1
   .footer-btn-container

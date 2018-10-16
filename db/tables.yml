@@ -66,11 +66,14 @@ account_balances:
     type: integer
     references: user
 accounts:
+  already_existing:
+    type: boolean
+    required: true
+    default: false
   auxiliary_number:
     type: string
-  centralizing_account_id:
-    type: integer
-    references: account
+  centralizing_account_name:
+    type: string
   created_at:
     type: datetime
     required: true
@@ -3931,6 +3934,8 @@ journal_entry_items:
     type: integer
     references: account
     required: true
+  accounting_label:
+    type: string
   activity_budget_id:
     type: integer
     references: activity_budget
@@ -6438,6 +6443,8 @@ purchase_items:
     type: integer
     references: account
     required: true
+  accounting_label:
+    type: string
   activity_budget_id:
     type: integer
     references: activity_budget
@@ -6716,6 +6723,8 @@ sale_items:
   account_id:
     type: integer
     references: account
+  accounting_label:
+    type: string
   activity_budget_id:
     type: integer
     references: activity_budget

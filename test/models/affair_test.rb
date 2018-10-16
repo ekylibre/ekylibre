@@ -104,8 +104,9 @@ class AffairTest < ActiveSupport::TestCase
     account = client.client_account
     subject = create(:sale_affair, client: client)
 
-    deal = create(:sale, nature: sale_natures(:sale_natures_001), affair: subject, state: 'draft')
+    deal = create(:sale_with_accounting, affair: subject, state: 'draft')
     create :sale_item, sale: deal, tax: a_tax
+
     assert deal.invoice # bookkeep affair which creates its journal entry
 
     deal_entry_items_in_third_account = deal.journal_entry.items.select { |item| item.account == account }

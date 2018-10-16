@@ -353,6 +353,13 @@ class User < Ekylibre::Record::Base
     preference(preference_name, false, :boolean).value
   end
 
+  def mask_draft_items?(options = {})
+    preference_name = options[:controller] || 'all'
+    preference_name << ".#{options[:context]}" if options[:context]
+    preference_name << '.draft_items.masked'
+    preference(preference_name, false, :boolean).value
+  end
+
   def card
     nil
   end

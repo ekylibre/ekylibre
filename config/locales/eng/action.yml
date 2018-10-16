@@ -331,7 +331,10 @@ eng:
       index: "Gaps"
       show: "Gap: %{number}"
     backend/general_ledgers:
-      show: "General ledger"
+      index: "%{ledger}"
+      # mask_draft_items: "Mask draft items general ledger: %{name}"
+      # mask_lettered_items: "Mask lettered items general ledger: %{name}"
+      show: "General ledger\_: %{account}"
     backend/georeadings:
       edit: "Edit georeading: %{name}"
       index: "Georeadings"
@@ -440,9 +443,14 @@ eng:
       index: "Journal entry items"
       show: "Journal entry item: %{name}"
     backend/journals:
+      # archive_report: "Archive report journal: %{name}"
       bookkeep: "Bookkeep"
       close: "Close journal: %{name}"
       edit: "Edit journal: %{name}"
+      # find_open_document_template: "Find open document template journal: %{name}"
+      # generate_document: "Generate document journal: %{name}"
+      # generate_report: "Generate report journal: %{name}"
+      # generate_report_file: "Generate report file journal: %{name}"
       index: "Journals"
       new: "New journal"
       reopen: "Reopen journal: %{name}" #?
@@ -841,6 +849,11 @@ eng:
       new: "New tracking"
       show: "Tracking: %{name}"
     backend/trial_balances:
+      # archive_report: "Archive report trial balance: %{name}"
+      # find_open_document_template: "Find open document template trial balance: %{name}"
+      # generate_document: "Generate document trial balance: %{name}"
+      # generate_report: "Generate report trial balance: %{name}"
+      # generate_report_file: "Generate report file trial balance: %{name}"
       show: "Trial balance"
     backend/users:
       edit: "Edit user: %{first_name} %{last_name}"
@@ -980,6 +993,7 @@ eng:
     access: "Access"
     access_parameters: "Access parameters"
     account_for: "Account for"
+    account_totals: "Account Totals"
     accountancy: "Accountancy"
     accountancy_balance: "Accountancy balance"
     accountancy_preferences: "Accountancy preferences"
@@ -1109,6 +1123,7 @@ eng:
     attachment: "Attachment"
     attachments: "Attachments"
     automatic: "Auto" #?
+    auxiliary: "Auxiliary" #?
     available: "Available"
     available_columns: "Available columns: %{columns}"
     average: "Average"
@@ -1178,6 +1193,7 @@ eng:
     client: "Client" #?
     client_informations: "Client informations"
     client_receivables: "Client receivables" #?!
+    clients: "Clients" #?
     close: "Close"
     close_financial_year: "Close financial year"
     close_journal: "Close the journal"
@@ -1194,6 +1210,7 @@ eng:
       special-subscriber: "Special-subscriber"
     configure: "Configure"
     confirmation: "Confirmation"
+    # confirmed: "Confirmed"
     connect: "Connect"
     consult_the_day_book: #?
       one: "Consult the day book (%{count} entry)" #?
@@ -1324,7 +1341,7 @@ eng:
     down: "Down" #?
     download: "Download"
     downpayment: "Downpayment"
-    draft: "Draft" #?
+    draft: "Draft"
     duplicate: "Duplicate"
     duration: "Duration"
     duration_in_hours_and_minutes: "%{hours}h %{minutes}min"
@@ -1345,8 +1362,9 @@ eng:
     entity_to_update: "Person to update"
     entries: "Entries" #?
     entries_to_point: "Entries pointing to" #?!
-    entry_item_label: "Entry item label"
+    entry_item_label: "Entry item label" #?
     entry_items: "Entry items" #?
+    entry_resource_label: "Record" #?
     equipment: "Equipment" #?
     equipment_name: "Name of equipment" #?
     equipments: "Equipment"
@@ -1376,9 +1394,10 @@ eng:
     expired_since: "Expired since" #?
     expired_within: "Expired within" #?
     exploitation_results: "Exploitation results" #?!
-    export: "Export documents"
+    export: "Export documents" #?
     export_as_csv: "Export as CSV"
     export_as_ods: "Export as ODS"
+    export_as_odt: "Export as ODT"
     export_as_pdf: "Export as PDF"
     export_as_xcsv: "Export as Excel CSV"
     export_fec_all: "Export FEC corporate tax"
@@ -1404,7 +1423,7 @@ eng:
     fixed_asset_depreciations: "Fixed asset depreciations"
     fixed_assets: "Fixed assets"
     from: "From"
-    from_to_date: "from %{from} to %{to}"
+    from_to_date: "from %{from} to %{to}" #?
     fullscreen: "Fullscreen"
     function: "Function"
     fungi: "Fungi" #?
@@ -1412,6 +1431,7 @@ eng:
     genealogy: "Genealogy"
     general: "General" #?
     general_informations: "General informations"
+    general_ledger: "General ledger"
     generate: "Generate"
     generate_last_journal_entry: "Generate last journal entry"
     generate_parcel: "Generate parcel"
@@ -1539,7 +1559,7 @@ eng:
     last_sales: "Last sales"
     letter: "Letter" #?
     letterable: "Letterable"
-    lettered: "Lettered" #?
+    lettered: "Lettered"
     lettering_state: "Lettering state"
     liabilities: "Liabilities" #?!
     liabilities_gaps: "Liabilities gaps" #?!
@@ -1572,6 +1592,7 @@ eng:
     mark_all_as_read: "Mark all as read"
     mark_as_read: "Mark as read"
     marketable_net_mass: "Marketable net mass" #?!
+    mask_draft_items: "Mask draft items"
     mask_lettered_items: "Mask lettered items"
     mass: "Masse" #?
     maximal_temperature: "Maximal temperature"
@@ -1698,7 +1719,7 @@ eng:
     parameters: "Parameters"
     parcel_items: "Parcel items"
     parcels: "Parcels"
-    partially_lettered: "Partially lettered" #?
+    partially_lettered: "Partially lettered"
     participants: "Participants"
     participations: "Participations"
     parts: "Modules"
@@ -1897,6 +1918,7 @@ eng:
     stopped_on: "Stopped on"
     storage: "Storage" #?
     subject: "Subject"
+    subledger_of_accounts_x: "Sub-ledger of accounts %{account}"
     submit: "Submit" #?
     subscribed_on: "Subscribed on" #?
     subscriber_period: "Subscribed on %{subscribed_at}"
@@ -1912,6 +1934,7 @@ eng:
     supplier_informations: "Supplier informations"
     supplier_payment_mode: "Supplier payment mode"
     supplier_receivables: "Supplier receivables" #?!
+    suppliers: "Suppliers" #?
     supply: "Supply" #?
     support: "Support" #?
     supports: "Supports" #?
@@ -2014,7 +2037,7 @@ eng:
     unknown_condition: "Unknown condition"
     unknown_user: "Unknown user"
     unknown_variant: "Unknown variant"
-    unlettered: "Unlettered" #?
+    unlettered: "Unlettered"
     unlock: "Unlock" #?
     unmark: "Unmark" #?
     unmarketable_inspection_categories_evolution: "Unmarketable inspection categories evolution"
@@ -2264,7 +2287,7 @@ eng:
       depreciation_successful: "Assets have been successfully depreciated." #?
       document_in_preparation: "Your document is in preparation a notification will be sent to you when it is ready"
       draft_journal_entries_are_present: "Draft journal entries are present." #?
-      # draft_journal_entries_cannot_be_validated: "Draft journal entries cannot be validated"
+      draft_journal_entries_cannot_be_validated: "You need to validate every previous entries before these ones"
       draft_journal_entries_have_been_validated:
         one: "%{count} entry has been validated"
         other: "%{count} entries have been validated"
@@ -2402,6 +2425,7 @@ eng:
       # add_to_container: "Add to container"
       # add_to_group: "Add to group"
       # add_to_variant: "Add to variant"
+      # archive_report: "Archive report"
       attach: "Attach"
       # autocomplete: "Autocomplete"
       bookkeep: "Bookkeep"
@@ -2445,8 +2469,12 @@ eng:
       extract: "Extract"
       # failure: "Failure"
       family: "Family"
+      # find_open_document_template: "Find open document template"
       finish: "Finish"
+      # generate_document: "Generate document"
       generate_last_journal_entry: "Generate last journal entry" #?
+      # generate_report: "Generate report"
+      # generate_report_file: "Generate report file"
       give: "Give"
       import: "Import"
       incorporate: "Incorporate"
@@ -2464,6 +2492,7 @@ eng:
       lose: "Lose"
       mail: "Mail"
       mark: "Mark"
+      # mask_draft_items: "Mask draft items"
       # mask_lettered_items: "Mask lettered items"
       # matching_interventions: "Matching interventions"
       merge: "Merge"

@@ -104,7 +104,7 @@ class JournalEntryTest < ActiveSupport::TestCase
       items_attributes: {
         '0' => {
           name: 'Insurance care',
-          account: Account.find_or_create_by_number('41123456'),
+          account: Account.find_or_create_by_number('42123456'),
           real_credit: 4500
         },
         '1' => {
@@ -150,7 +150,7 @@ class JournalEntryTest < ActiveSupport::TestCase
       items_attributes: {
         '0' => {
           name: 'Insurance care',
-          account: Account.find_or_create_by_number('41123456'),
+          account: Account.find_or_create_by_number('42123456'),
           real_credit: 4500
         },
         '1' => {
@@ -181,7 +181,7 @@ class JournalEntryTest < ActiveSupport::TestCase
       items_attributes: {
         '0' => {
           name: 'Insurance care',
-          account: Account.find_or_create_by_number('41123456'),
+          account: Account.find_or_create_by_number('42123456'),
           real_credit: 4500
         },
         '1' => {

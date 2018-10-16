@@ -82,6 +82,10 @@ class JournalEntry < Ekylibre::Record::Base
   has_one :financial_year_as_last, foreign_key: :last_journal_entry_id, class_name: 'FinancialYear', dependent: :nullify
   has_many :bank_statements, through: :useful_items
 
+  def resource_label
+    @resource_label ||= resource.class.model_name.human + ' ' + resource.number
+  end
+
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :absolute_credit, :absolute_debit, :balance, :credit, :debit, :real_balance, :real_credit, :real_debit, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
   validates :absolute_currency, :currency, :journal, :real_currency, presence: true
@@ -436,4 +440,64 @@ class JournalEntry < Ekylibre::Record::Base
     return unless financial_year
     financial_year.exchanges.any? { |e| (e.started_on..e.stopped_on).cover?(printed_on) }
   end
+
+  # this method loads the journal ledger for.the given financial year
+  def self.journal_ledger(options = {}, selected_journal_id = 0)
+    ledger = []
+
+    # fy = financial_year if financial_year.is_a? FinancialYear
+    if options[:period] == 'all'
+      started_on = FinancialYear.order(:started_on).pluck(:started_on).first.to_s
+      stopped_on = FinancialYear.order(:stopped_on).pluck(:stopped_on).last.to_s
+    else
+      started_on = options[:period].split("_").first if options[:period]
+      stopped_on = options[:period].split("_").last if options[:period]
+    end
+
+    total_debit = 0.0
+    total_credit = 0.0
+    entry_count = 0
+
+    if selected_journal_id > 0
+      je = JournalEntry.between(started_on, stopped_on).where(journal_id: selected_journal_id).order('journal_entries.printed_on ASC, journal_entries.number ASC')
+    else
+      je = JournalEntry.between(started_on, stopped_on).order('journal_entries.printed_on ASC, journal_entries.number ASC')
+    end
+
+    je.each do |e|
+      item = HashWithIndifferentAccess.new
+      item[:entry_number] = e.number
+      item[:printed_on] = e.printed_on.strftime('%d/%m/%Y')
+      item[:journal_name] = e.journal.name.to_s
+      item[:continuous_number] = e.continuous_number.to_s if e.continuous_number
+      item[:reference_number] = e.reference_number.to_s
+      item[:label] = e.items.first.displayed_label_in_accountancy.to_s
+      item[:state] = e.state_label
+      item[:real_debit] = e.real_debit
+      item[:real_credit] = e.real_credit
+      item[:balance] = e.balance
+      item[:entry_items] = []
+      e.items.each do |i|
+        entry_item = HashWithIndifferentAccess.new
+        entry_item[:account_number] = i.account.number.to_s
+        entry_item[:account_name] = i.account.name.to_s
+        entry_item[:real_debit] = i.real_debit
+        entry_item[:real_credit] = i.real_credit
+        item[:entry_items] << entry_item
+      end
+
+      total_debit += e.real_debit
+      total_credit += e.real_credit
+      entry_count += 1
+
+      ledger << item
+    end
+
+    total_balance = total_debit - total_credit
+
+    ledger << {entry_count: entry_count, total_credit: total_credit, total_debit: total_debit, total_balance: total_balance}
+
+    ledger.compact
+  end
+
 end

@@ -1,4 +1,5 @@
 # coding: utf-8
+
 class FinancialYearClose
   def initialize(year, to_close_on, options = {})
     @year = year
@@ -117,10 +118,10 @@ class FinancialYearClose
 
   def loss_or_profit_item(result)
     if result > 0
-      profit = Account.find_by_usage(:financial_year_result_profit)
+      profit = Account.find_by(usage: :financial_year_result_profit)
       return { account_id: profit.id, name: profit.name, real_debit: 0.0, real_credit: result, state: :confirmed }
     end
-    losses = Account.find_by_usage(:financial_year_result_loss)
+    losses = Account.find_by(usage: :financial_year_result_loss)
     { account_id: losses.id, name: losses.name, real_debit: result.abs, real_credit: 0.0, state: :confirmed }
   end
 
@@ -188,15 +189,15 @@ class FinancialYearClose
       letter_match = letter ? [letter, letter + '*'] : nil
 
       lettering_items = JournalEntryItem.where(entry_id: entry_id, letter: letter_match, account: account)
-                                    .find_each.map do |item|
-                                      {
-                                        account_id: account.id,
-                                        name: item.name,
-                                        real_debit: item.real_debit,
-                                        real_credit: item.real_credit,
-                                        state: :confirmed
-                                      }
-                                    end
+                                        .find_each.map do |item|
+        {
+          account_id: account.id,
+          name: item.name,
+          real_debit: item.real_debit,
+          real_credit: item.real_credit,
+          state: :confirmed
+        }
+      end
 
       result = lettering_items.map { |i| i[:real_debit] - i[:real_credit] }.sum
 
@@ -261,11 +262,11 @@ class FinancialYearClose
       model = type.constantize
       table = model.table_name
       root_model = model.table_name.singularize.camelize
-      query = "UPDATE affairs SET letter = #{ActiveRecord::Base.connection.quote(new_letter)} " +
-            "  FROM journal_entry_items AS jei" +
-            "    JOIN #{table} AS res ON (resource_id = res.id AND resource_type = #{ActiveRecord::Base.connection.quote(root_model)}) " +
-            "  WHERE jei.account_id = #{account_id} AND jei.letter = #{ActiveRecord::Base.connection.quote(letter)} AND jei.printed_on > #{ActiveRecord::Base.connection.quote(@to_close_on)} "
-            "    AND res.affair_id = affairs.id"
+      query = "UPDATE affairs SET letter = #{ActiveRecord::Base.connection.quote(new_letter)} " \
+              '  FROM journal_entry_items AS jei' \
+              "    JOIN #{table} AS res ON (resource_id = res.id AND resource_type = #{ActiveRecord::Base.connection.quote(root_model)}) " \
+              "  WHERE jei.account_id = #{account_id} AND jei.letter = #{ActiveRecord::Base.connection.quote(letter)} AND jei.printed_on > #{ActiveRecord::Base.connection.quote(@to_close_on)} "
+      '    AND res.affair_id = affairs.id'
       Affair.connection.execute query
     end
   end
@@ -301,7 +302,7 @@ class FinancialYearClose
 
   def generate_closing_or_opening_entry!(journal, account_info, items, result, printed_on: @to_close_on)
     return unless journal
-    account = Account.find_by_number(account_info[:number].ljust(8, '0'))
+    account = Account.find_by(number: account_info[:number].ljust(8, '0'))
     account ||= Account.create!(number: account_info[:number].ljust(8, '0'), name: account_info[:name])
 
     journal.entries.create!(

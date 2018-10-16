@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<migration name="Edit accounts to unlock first run">
+  <item-change item="product_nature_categories#animal_food" product_account="processing_products_revenues"/>
+  <item-change item="product_nature_categories#animal_medicine" product_account="processing_products_revenues"/>
+  <item-change item="product_nature_categories#plant_medicine" product_account="residual_products_revenues"/>
+  <item-change item="product_nature_categories#biological_auxiliary" product_account="merchandising_revenues"/>
+  <item-change item="product_nature_categories#duty_and_taxe" charge_account="government_tax_expenses"/>
+  <item-change item="product_nature_categories#electronic_equipment" charge_account="materials_expenses" stock_account="other_materials_stock"/>
+  <item-change item="product_nature_categories#loan_interest" charge_account="loans_interests"/>
+  <item-change item="product_nature_categories#oenological_product" product_account="merchandising_revenues"/>
+  <item-change item="product_nature_categories#office_furniture_equipment" charge_account="office_supply_matter_expenses"/>
+  <item-change item="product_nature_categories#other_consumable" product_account="merchandising_revenues"/>
+  <item-change item="product_nature_categories#plant" product_account="plant_derivatives_revenues"/>
+  <item-change item="product_nature_categories#seed" product_account="plant_derivatives_revenues"/>
+  <item-change item="product_nature_categories#small_electronic_equipment" charge_account="materials_expenses"/>
+  <item-change item="product_nature_categories#small_equipment" product_account="merchandising_revenues"/>
+  <item-change item="product_nature_categories#wine_package_consumable" product_account="merchandising_revenues"/>
+  <item-change item="product_nature_categories#worker" product_account="services_revenues"/>
+  <item-change item="product_nature_categories#equipment_rent" product_account="services_revenues"/>
+  <item-change item="product_nature_categories#rent" product_account="services_revenues"/>
+</migration>

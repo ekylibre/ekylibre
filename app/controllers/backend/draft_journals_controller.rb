@@ -48,7 +48,7 @@ module Backend
       @draft_entries = journal_entries.where(state: :draft).where('printed_on <= ?', @current_date).order(:printed_on)
       @draft_entries_count = @draft_entries.count
       @draft_entries = @draft_entries.page(@current_page).per(20)
-      @unbalanced_entries_count = journal_entries.where('printed_on <= ?', @current_date).select { |entry| !entry.balanced? }.count
+      @unbalanced_entries_count = journal_entries.where('printed_on <= ?', @current_date).reject(&:balanced?).count
       notify_warning_now(:there_are_x_remaining_unbalanced_entries, count: @unbalanced_entries_count) unless @unbalanced_entries_count < 1
     end
 
@@ -61,7 +61,7 @@ module Backend
       @draft_entries = journal_entries.where(state: :draft).where('printed_on <= ?', @current_date).order(:printed_on)
       @draft_entries_count = @draft_entries.count
       @draft_entries = @draft_entries.page(@current_page).per(20)
-      @unbalanced_entries_count = journal_entries.where('printed_on <= ?', @current_date).select { |entry| !entry.balanced? }.count
+      @unbalanced_entries_count = journal_entries.where('printed_on <= ?', @current_date).reject(&:balanced?).count
       notify_warning_now(:there_are_x_remaining_unbalanced_entries, count: @unbalanced_entries_count) unless @unbalanced_entries_count < 1
     end
 
@@ -80,11 +80,7 @@ module Backend
         notify_error(:draft_journal_entries_cannot_be_validated)
       else
         count = journal_entries.count
-        JournalEntry.transaction do
-          ActiveRecord::Base.connection.execute('LOCK journal_entries IN ACCESS EXCLUSIVE MODE')
-          journal_entries.update_all(state: :confirmed, validated_at: Time.zone.now)
-          JournalEntryItem.where(entry_id: journal_entries).update_all(state: :confirmed)
-        end
+        ValidateDraftJournalEntriesService.new(journal_entries).validate_all
         notify_success(:draft_journal_entries_have_been_validated, count: count)
       end
       redirect_to action: :show
@@ -96,10 +92,7 @@ module Backend
       journal_entries_to_validate = journal_entries.where(state: :draft).where('printed_on <= ?', params[:to]).order(:printed_on)
       journal_entries_to_validate_count = journal_entries_to_validate.count
 
-      ActiveRecord::Base.transaction do
-        journal_entries_to_validate.update_all(state: :confirmed, validated_at: Time.zone.now)
-        JournalEntryItem.where(entry_id: journal_entries_to_validate).update_all(state: :confirmed)
-      end
+      ValidateDraftJournalEntriesService.new(journal_entries_to_validate).validate_all
       notify_success(:draft_journal_entries_have_been_validated, count: journal_entries_to_validate_count)
       redirect_to params[:redirection]
     end
