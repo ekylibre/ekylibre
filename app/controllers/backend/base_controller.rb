@@ -362,7 +362,7 @@ module Backend
         variable = "params[:#{variable}]" unless variable.is_a? String
         code = ''
         code << "if #{variable}[:ledger] == 'general_ledger'\n"
-        code << "  #{conditions}[0] += \" AND accounts.nature != 'auxiliary'\"\n"
+        code << "  #{conditions}[0] += \" AND accounts.nature = 'general'\"\n"
         code << "elsif centralizing_account = Account.find_by(number: #{variable}[:ledger])\n"
         code << "  #{conditions}[0] += \" AND accounts.nature = 'auxiliary'\"\n"
         code << "  #{conditions}[0] += ' AND accounts.centralizing_account_id = '+ centralizing_account.id.to_s\n"
