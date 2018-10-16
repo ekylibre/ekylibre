@@ -1254,6 +1254,12 @@ html.backend {
 }
 
 
+#general-ledger {
+  .feathers {
+    position: relative;
+  }
+}
+
 .kujaku {
   $color: $text-color;
   $background-color: lighten($active-color, 23%);
@@ -1317,8 +1323,6 @@ html.backend {
       @include use-icon(plus-square-o);
     }
     .feathers {
-      position: relative;
-
       .feather {
         display: none;
         &:first-child {
