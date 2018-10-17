@@ -363,9 +363,9 @@ module Backend
         code = ''
         code << "if #{variable}[:ledger] == 'general_ledger'\n"
         code << "  #{conditions}[0] += \" AND accounts.nature = 'general'\"\n"
-        code << "elsif centralizing_account = Account.find_by(number: #{variable}[:ledger])\n"
+        code << "elsif auxiliary_accounts = Account.where('number ~* ?', #{variable}[:ledger] + '(.*$)')\n"
         code << "  #{conditions}[0] += \" AND accounts.nature = 'auxiliary'\"\n"
-        code << "  #{conditions}[0] += ' AND accounts.centralizing_account_id = '+ centralizing_account.id.to_s\n"
+        code << "  #{conditions}[0] += \" AND accounts.id IN (\#{auxiliary_accounts.pluck(:id).join(', ')})\"\n"
         code << "end\n"
         code.c
       end

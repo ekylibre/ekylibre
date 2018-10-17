@@ -70,7 +70,7 @@ module Backend
       s << ['CASE WHEN (SUM(journal_entry_items.real_debit) - SUM(journal_entry_items.real_credit)) >= 0 THEN SUM(journal_entry_items.real_debit) - SUM(journal_entry_items.real_credit) ELSE 0 END', 'cumulated_absolute_debit_balance']
       s << ['CASE WHEN (SUM(journal_entry_items.real_debit) - SUM(journal_entry_items.real_credit)) < 0 THEN @ SUM(journal_entry_items.real_debit) - SUM(journal_entry_items.real_credit) ELSE 0 END', 'cumulated_absolute_credit_balance']
       s << ['accounts.number']
-      s << ['accounts.name'] << ['accounts.description'] << ['accounts.id'] << ['accounts.centralizing_account_id']
+      s << ['accounts.name'] << ['accounts.id']
       s << ['journal_entry_items.absolute_currency AS account_currency']
     end
 
@@ -90,10 +90,9 @@ module Backend
       code.c
     end
 
-    list(:subledger_accounts, model: :accounts, conditions: account_conditions, joins: %i[journal_entry_items], order: 'accounts.number', select: subledger_accounts_selections, group: %w[accounts.number accounts.name accounts.description accounts.id account_currency], count: 'DISTINCT accounts.number') do |t|
-      t.column :number, url: { controller: :general_ledgers, account_number: 'RECORD.number'.c, current_financial_year: 'params[:current_financial_year]'.c, ledger: 'RECORD.centralizing_account&.number'.c }
+    list(:subledger_accounts, model: :accounts, conditions: account_conditions, joins: %i[journal_entry_items], order: 'accounts.number', select: subledger_accounts_selections, group: %w[accounts.number accounts.name accounts.id account_currency], count: 'DISTINCT accounts.number') do |t|
+      t.column :number, url: { controller: :general_ledgers, account_number: 'RECORD.number'.c, current_financial_year: 'params[:current_financial_year]'.c, ledger: 'RECORD.number[0..2]'.c }
       t.column :name, url: true
-      t.column :description
       t.column :cumulated_absolute_debit_balance, currency: :account_currency, class: :gutter, default: ''
       t.column :cumulated_absolute_credit_balance, currency: :account_currency, class: :gutter, default: ''
     end
