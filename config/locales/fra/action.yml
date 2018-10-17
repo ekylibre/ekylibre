@@ -1368,6 +1368,7 @@ fra:
     file_to_download: "Fichier à importer" #?
     file_to_import: "Fichier à importer" #?
     file_to_upload: "Fichier à importer"
+    file_trimming: "Découpage du fichier :"
     filter: "Filtrer"
     filter_entries_with: "Filtrer les écritures avec" #?
     filter_on: "Filtrer sur"

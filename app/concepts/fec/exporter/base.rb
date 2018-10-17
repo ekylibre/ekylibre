@@ -3,9 +3,11 @@ module FEC
     class Base
       attr_reader :financial_year, :fiscal_position
 
-      def initialize(financial_year, fiscal_position = nil)
+      def initialize(financial_year, fiscal_position = nil, started_on, stopped_on)
         @financial_year = financial_year
         @fiscal_position = fiscal_position
+        @started_on = started_on
+        @stopped_on = stopped_on
       end
 
       def write(path, options = {})

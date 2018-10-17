@@ -8,7 +8,19 @@
           = select_tag :financial_year_id, options_from_collection_for_select(FinancialYear.order(started_on: :desc), :id, :name, current_user.current_financial_year.id)
           = label_tag :type_of_structure.tl
           = select_tag :fiscal_position, options_for_select(fiscal_positions, 'all')
-
+    .toolbar-content
+      .main-toolbar.toolbar.custom-main-toolbar
+        = label_tag :file_trimming.tl, nil, class: 'main-label'
+        = label_tag 'year', :year.tl
+        = radio_button_tag :interval, 'year', true
+        = label_tag 'semesters', :semester.tl.pluralize
+        = radio_button_tag :interval, 'semesters'
+        = label_tag 'trimesters', :trimester.tl.pluralize
+        = radio_button_tag :interval, 'trimesters'
+        = label_tag 'months', :month.tl.pluralize
+        = radio_button_tag :interval, 'months'
+    .toolbar-content.submit-filters
+      .main-toolbar.toolbar.custom-main-toolbar
         = button_tag class: 'btn btn-default', id: 'fec-export-submit' do
           <i class='icon icon-download'></i> #{:download.tl}
 

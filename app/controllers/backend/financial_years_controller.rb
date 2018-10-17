@@ -71,7 +71,7 @@ module Backend
           t3e @financial_year.attributes
         end
         format.xml do
-          FecExportJob.perform_later(@financial_year, params[:fiscal_position], current_user)
+          FecExportJob.perform_later(@financial_year, params[:fiscal_position], params[:interval], current_user)
           notify_success(:document_in_preparation)
           redirect_to :back
         end
