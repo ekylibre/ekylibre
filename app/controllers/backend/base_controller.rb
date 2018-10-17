@@ -361,9 +361,7 @@ module Backend
       def centralizing_account_crit(variable, conditions = 'c')
         variable = "params[:#{variable}]" unless variable.is_a? String
         code = ''
-        code << "if #{variable}[:ledger] == 'general_ledger'\n"
-        code << "  #{conditions}[0] += \" AND accounts.nature = 'general'\"\n"
-        code << "elsif auxiliary_accounts = Account.where('number ~* ?', #{variable}[:ledger] + '(.*$)')\n"
+        code << "if #{variable}[:ledger] != 'general_ledger' && auxiliary_accounts = Account.where('number ~* ?', #{variable}[:ledger] + '(.*$)')\n"
         code << "  #{conditions}[0] += \" AND accounts.nature = 'auxiliary'\"\n"
         code << "  #{conditions}[0] += \" AND accounts.id IN (\#{auxiliary_accounts.pluck(:id).join(', ')})\"\n"
         code << "end\n"

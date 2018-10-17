@@ -59,7 +59,7 @@ module Backend
     def self.centralized_account_conditions
       code = ''
       code << search_conditions({ journal_entry_item: %i[name debit credit real_debit real_credit] }, conditions: 'c') + "\n"
-      # code << centralizing_account_crit('params')
+      code << centralizing_account_crit('params')
       code << centralizing_account_journal_period_crit('params')
       code << "c\n"
       code.c
@@ -77,7 +77,7 @@ module Backend
     def self.union_subquery
       q1 = %q{Account.select("rpad(accounts.number, 3, '0') AS account_number, accounts.centralizing_account_name AS account_name, CASE WHEN (SUM(journal_entry_items.real_debit) - SUM(journal_entry_items.real_credit)) >= 0 THEN SUM(journal_entry_items.real_debit) - SUM(journal_entry_items.real_credit) ELSE 0 END AS cumulated_absolute_debit_balance, CASE WHEN (SUM(journal_entry_items.real_debit) - SUM(journal_entry_items.real_credit)) < 0 THEN @ SUM(journal_entry_items.real_debit) - SUM(journal_entry_items.real_credit) ELSE 0 END AS cumulated_absolute_credit_balance, journal_entry_items.absolute_currency AS account_currency").joins('INNER JOIN "journal_entry_items" ON "journal_entry_items"."account_id" = accounts."id"').joins('INNER JOIN "journal_entries" ON "journal_entries"."id" = "journal_entry_items"."entry_id"').where("nature = 'auxiliary'").group('account_name, account_number, account_currency')}
 
-      q2 = %q{Account.select('accounts.number AS account_number, accounts.name, CASE WHEN (SUM(journal_entry_items.real_debit) - SUM(journal_entry_items.real_credit)) >= 0 THEN SUM(journal_entry_items.real_debit) - SUM(journal_entry_items.real_credit) ELSE 0 END AS cumulated_absolute_debit_balance, CASE WHEN (SUM(journal_entry_items.real_debit) - SUM(journal_entry_items.real_credit)) < 0 THEN @ SUM(journal_entry_items.real_debit) - SUM(journal_entry_items.real_credit) ELSE 0 END AS cumulated_absolute_credit_balance, journal_entry_items.absolute_currency AS account_currency').joins('INNER JOIN "journal_entry_items" ON "journal_entry_items"."account_id" = accounts."id"').joins('INNER JOIN "journal_entries" ON "journal_entries"."id" = "journal_entry_items"."entry_id"').group('accounts.number, accounts.name, accounts.id, accounts.description, account_currency')}
+      q2 = %q{Account.select('accounts.number AS account_number, accounts.name, CASE WHEN (SUM(journal_entry_items.real_debit) - SUM(journal_entry_items.real_credit)) >= 0 THEN SUM(journal_entry_items.real_debit) - SUM(journal_entry_items.real_credit) ELSE 0 END AS cumulated_absolute_debit_balance, CASE WHEN (SUM(journal_entry_items.real_debit) - SUM(journal_entry_items.real_credit)) < 0 THEN @ SUM(journal_entry_items.real_debit) - SUM(journal_entry_items.real_credit) ELSE 0 END AS cumulated_absolute_credit_balance, journal_entry_items.absolute_currency AS account_currency').joins('INNER JOIN "journal_entry_items" ON "journal_entry_items"."account_id" = accounts."id"').joins('INNER JOIN "journal_entries" ON "journal_entries"."id" = "journal_entry_items"."entry_id"').where("nature = 'general'").group('accounts.number, accounts.name, accounts.id, accounts.description, account_currency')}
 
       code = "k = ''\n"
       code << centralized_account_conditions.to_s
@@ -99,7 +99,7 @@ module Backend
 
     list(:centralized_ledger_accounts, model: :accounts, select: [['*']], from: union_subquery, count: 'DISTINCT U.account_number', group: 'U.account_number, U.account_name, U.cumulated_absolute_credit_balance, U.cumulated_absolute_debit_balance, U.account_currency', order: 'U.account_number') do |t|
       t.column :account_number, url: { controller: :general_ledgers, action: :index, current_financial_year: 'params[:current_financial_year]'.c, ledger: 'RECORD.account_number'.c }
-      t.column :account_name
+      t.column :account_name, url: { controller: :general_ledgers, action: :index, current_financial_year: 'params[:current_financial_year]'.c, ledger: 'RECORD.account_number'.c }
       t.column :cumulated_absolute_debit_balance, currency: :account_currency, class: :gutter, default: ''
       t.column :cumulated_absolute_credit_balance, currency: :account_currency, class: :gutter, default: ''
     end
