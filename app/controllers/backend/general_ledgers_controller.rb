@@ -108,7 +108,7 @@ module Backend
       t.column :printed_on
       t.column :journal_name, url: { controller: :journals, id: 'RECORD.journal_id'.c }, label: :journal
       t.column :account, url: true, hidden: true
-      t.column :account_number, through: :account, label_method: :number, url: { controller: :general_ledgers, account_number: 'RECORD.account.number'.c, current_financial_year: 'params[:current_financial_year]'.c, ledger: 'RECORD.account&.centralizing_account&.number'.c }, hidden: true
+      t.column :account_number, through: :account, label_method: :number, url: { controller: :general_ledgers, account_number: 'RECORD.account.number'.c, current_financial_year: 'params[:current_financial_year]'.c, ledger: 'RECORD.account&.number[0..2]'.c }, hidden: true
       t.column :account_name, through: :account, label_method: :name, url: true, hidden: true
       t.column :entry_number, url: { controller: :journal_entries, id: 'RECORD.entry_id'.c }
       t.column :continuous_number, hidden: true
