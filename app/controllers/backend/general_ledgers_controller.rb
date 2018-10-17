@@ -131,6 +131,8 @@ module Backend
     end
 
     def index
+      return redirect_to(controller: :general_ledgers, action: :show, account_number: Account.find_by(number: params[:ledger]).number, current_financial_year: params[:current_financial_year]) if params[:ledger] && Account.find_by(number: params[:ledger])
+
       ledger_label = :general_ledger.tl
 
       params[:ledger] ||= 'general_ledger'
