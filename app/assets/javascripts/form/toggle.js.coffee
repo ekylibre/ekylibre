@@ -43,5 +43,8 @@
   $(document).ready ->
     $("input[type='radio'][data-show], input[type='radio'][data-hide]").on "change", toggleRadios
     $("input[type='checkbox'][data-show], input[type='checkbox'][data-hide]").on "change",  toggleCheckboxes
+  $(document).behave "load", ".ui-dialog", ->
+    $("input[type='radio'][data-show], input[type='radio'][data-hide]").on "change", toggleRadios
+    $("input[type='checkbox'][data-show], input[type='checkbox'][data-hide]").on "change",  toggleCheckboxes
   return
 ) jQuery

@@ -161,7 +161,7 @@ module Ekylibre
         # country via supplier if information exist
         raise "Missing VAT at line #{line_index}" unless r.vat_percentage
 
-        tax = Tax.find_on(invoiced_at.to_date, country: purchase.supplier.country.to_sym, amount: r.vat_percentage)
+        tax = Tax.find_on(purchase.invoiced_at.to_date, country: purchase.supplier.country.to_sym, amount: r.vat_percentage)
         raise "No tax found for given #{r.vat_percentage}" unless tax
 
         # find or create a purchase line

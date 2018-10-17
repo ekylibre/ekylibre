@@ -513,8 +513,16 @@ table {
       width: 100%;
       table-layout: fixed;
 
-      th.act {
-        width: 16px;
+      th {
+        &.act {
+          width: 16px;
+        }
+        &.sm {
+          width: 8%;
+        }
+        &.med {
+          width: 10%;
+        }
       }
     }
     tbody {
@@ -526,6 +534,15 @@ table {
         width: 100%;
         display: table;
         table-layout: fixed;
+
+        td {
+          &.sm {
+            width: 8%;
+          }
+          &.med {
+            width: 10%;
+          }
+        }
       }
     }
   }

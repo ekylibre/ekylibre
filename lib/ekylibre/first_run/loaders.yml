@@ -273,8 +273,9 @@ bank_statements:
 
 interventions:
   # Import interventions from Ekylibre conventions
-  ekylibre_interventions:
-    path: 'alamano/interventions.csv'
+  # Need to be reviewed
+  # ekylibre_interventions:
+    # path: 'alamano/interventions.csv'
 
   # Import interventions from viniteca
   viniteca_interventions:

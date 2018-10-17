@@ -1,6 +1,9 @@
 cmn:
   activerecord:
     attributes:
+      account:
+        # cumulated_absolute_credit_balance: "Credit balance"
+        # cumulated_absolute_debit_balance: "Debit balance"
       activity_budget:
         expenses_amount: "支出金额"
         revenues_amount: "收入金额"
@@ -33,7 +36,9 @@ cmn:
       fixed_asset_depreciation:
         asset_amount: "问责值"
       journal_entry_item:
-        name: "输入项目标签"
+        # cumulated_absolute_credit_balance: "Credit balance"
+        # cumulated_absolute_debit_balance: "Debit balance"
+        # name: "Entry item label"
       land_parcel:
         born_at: "创建时间"
       land_parcel_group:
@@ -131,6 +136,9 @@ cmn:
         unitary_in_parcel: "酉项只能由一个被发送的一个"
         # wrong_length: "%{attribute} is the wrong length (should be %{count} characters)"
       models:
+        account:
+          # centralizing_number: "The number can't start with '401' or '411' which are numbers used for auxiliary accounts"
+          # radical_class: "The account can't correpsond to a radical class"
         activity:
           checked_off_with_inspections: "检查已为这一活动创建"
           checked_without_measures: "至少，当检查被通缉应选择的一种度量类型"
@@ -490,7 +498,6 @@ cmn:
     author: "作者"
     authorized_payments_count: "授权支付数"
     auto_updateable_addresses: "自动更新地址"
-    # auxiliary_number: "Auxiliary number"
     average_value: "平均值"
     balance: "平衡"
     balance_pretax_amount: "平衡税前金额"
@@ -543,6 +550,7 @@ cmn:
     ceded: "割让"
     ceded_on: "在割让"
     # centralizing_account: "Centralizing account"
+    # centralizing_account_name: "Centralizing account name"
     charge_account: "收费帐户"
     charges_categories: "收费类别"
     checks: "检查"
@@ -599,7 +607,7 @@ cmn:
     content: "内容"
     content_localizations: "内容本地化"
     contents: "内容"
-    continuous_number: "连续号码"
+    # continuous_number: "Continuous number"
     contract: "合同"
     contract_items: "合同项目"
     contracts: "合同"
@@ -687,7 +695,6 @@ cmn:
     depreciable_amount: "折旧额"
     depreciable_product: "折旧产品"
     depreciated_amount: "折旧金额"
-    # depreciation_fiscal_coefficient: "Depreciation fiscal coefficient"
     depreciation_method: "折旧方法"
     depreciation_percentage: "折旧率"
     depreciation_period: "折旧年限"
@@ -1307,7 +1314,7 @@ cmn:
     reflected_at: "在反射"
     reflection_nodes: "节点的反思"
     reflections: "思考"
-    regularizations: "正则化"
+    # regularizations: "Regularizations"
     remain_owner: "保持所有者"
     remaining_amount: "剩余数量"
     remaining_lifespan: "剩余寿命"
@@ -1559,7 +1566,7 @@ cmn:
     user: "用户"
     users: "用户"
     # uuid: "UUID"
-    validated_at: "经过验证"
+    # validated_at: "Validated at"
     value: "值"
     variable_indicators_list: "变量指标清单"
     variant: "变种"

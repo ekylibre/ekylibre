@@ -1,13 +1,13 @@
 require 'test_helper'
 
 class AddAnAnimalTest < CapybaraIntegrationTest
-  setup do
-    login_with_user
-  end
+  # setup do
+  #   login_with_user
+  # end
 
-  teardown do
-    Warden.test_reset!
-  end
+  # teardown do
+  #   Warden.test_reset!
+  # end
 
   # TODO: Re-activate the following
 
@@ -60,8 +60,8 @@ class AddAnAnimalTest < CapybaraIntegrationTest
   #   shoot_screen 'issues/create'
   # end
 
-  test 'view an issue on an animal' do
-    visit '/backend/issues'
-    shoot_screen 'issues/index'
-  end
+  # test 'view an issue on an animal' do
+  #   visit '/backend/issues'
+  #   shoot_screen 'issues/index'
+  # end
 end

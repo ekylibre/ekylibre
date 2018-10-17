@@ -1,6 +1,9 @@
 ita:
   activerecord:
     attributes:
+      account:
+        # cumulated_absolute_credit_balance: "Credit balance"
+        # cumulated_absolute_debit_balance: "Debit balance"
       activity_budget:
         expenses_amount: "Le spese importo"
         revenues_amount: "I ricavi sono pari"
@@ -33,7 +36,9 @@ ita:
       fixed_asset_depreciation:
         asset_amount: "valore contabile"
       journal_entry_item:
-        name: "Etichetta dell’articolo in entrata"
+        # cumulated_absolute_credit_balance: "Credit balance"
+        # cumulated_absolute_debit_balance: "Debit balance"
+        # name: "Entry item label"
       land_parcel:
         born_at: "creato a"
       land_parcel_group:
@@ -140,6 +145,9 @@ ita:
           one: "è della lunghezza sbagliata (deve essere di 1 carattere)" #?
           other: "è della lunghezza sbagliata (deve essere di %{count} caratteri)" #?
       models:
+        account:
+          # centralizing_number: "The number can't start with '401' or '411' which are numbers used for auxiliary accounts"
+          # radical_class: "The account can't correpsond to a radical class"
         activity:
           checked_off_with_inspections: "Le ispezioni sono già stati creati per questa attività"
           checked_without_measures: "Almeno, un tipo di misura dovrebbe essere selezionato quando i controlli sono ricercati"
@@ -521,7 +529,6 @@ ita:
     author: "Autore"
     authorized_payments_count: "contano pagamenti autorizzati"
     auto_updateable_addresses: "Auto indirizzi aggiornabili"
-    # auxiliary_number: "Auxiliary number"
     average_value: "Valore medio"
     balance: "Equilibrio"
     balance_pretax_amount: "Saldo importo lordo delle imposte"
@@ -574,6 +581,7 @@ ita:
     ceded: "ceduta"
     ceded_on: "ceduto su"
     # centralizing_account: "Centralizing account"
+    # centralizing_account_name: "Centralizing account name"
     charge_account: "conto di carica"
     charges_categories: "oneri categorie"
     checks: "controlli"
@@ -630,7 +638,7 @@ ita:
     content: "contenuto"
     content_localizations: "localizzazioni di contenuti"
     contents: "Contenuto"
-    continuous_number: "Numero continuo"
+    # continuous_number: "Continuous number"
     contract: "Contrarre"
     contract_items: "Articoli di contratto"
     contracts: "Contratti"
@@ -718,7 +726,6 @@ ita:
     depreciable_amount: "Il valore ammortizzabile"
     depreciable_product: "Prodotto ammortizzabile"
     depreciated_amount: "importo ammortizzati"
-    # depreciation_fiscal_coefficient: "Depreciation fiscal coefficient"
     depreciation_method: "metodo di ammortamento"
     depreciation_percentage: "percentuale di ammortamento"
     depreciation_period: "Periodo di ammortamento"
@@ -1067,7 +1074,7 @@ ita:
     marketable_yield: "resa commerciabile"
     mass: "Massa (kg)"
     max_inputs_count: "Contano ingressi Massimo"
-    max_zoom: "Zoom massimo"
+    # max_zoom: "Max zoom"
     maximal_grantable_reduction_percentage: "percentuale di riduzione concedibili Maximal"
     maximal_length: "lunghezza massima"
     maximal_size: "dimensione massima"
@@ -1439,7 +1446,7 @@ ita:
     sold_on: "Venduto"
     source: "fonte"
     source_product: "prodotto di origine"
-    spaced_iban: "IBAN distanziati"
+    # spaced_iban: "Spaced IBAN"
     sql_type: "tipo SQL"
     ssl: "Ssl"
     start: "Inizio"
@@ -1590,7 +1597,7 @@ ita:
     user: "Utente"
     users: "utenti"
     # uuid: "UUID"
-    validated_at: "Convalidato a"
+    # validated_at: "Validated at"
     value: "Valore"
     variable_indicators_list: "Lista indicatori variabili"
     variant: "Variante"

@@ -1,6 +1,9 @@
 eng:
   activerecord:
     attributes:
+      account:
+        cumulated_absolute_credit_balance: "Credit balance"
+        cumulated_absolute_debit_balance: "Debit balance"
       activity_budget:
         expenses_amount: "Expenses amount"
         revenues_amount: "Revenues amount"
@@ -33,6 +36,8 @@ eng:
       fixed_asset_depreciation:
         asset_amount: "Accountable value"
       journal_entry_item:
+        cumulated_absolute_credit_balance: "Credit balance"
+        cumulated_absolute_debit_balance: "Debit balance"
         name: "Entry item label"
       land_parcel:
         born_at: "Created at"
@@ -128,6 +133,9 @@ eng:
         unitary_in_parcel: "Unitary items can only be sent one by one"
         wrong_length: "%{attribute} is the wrong length (should be %{count} characters)"
       models:
+        account:
+          centralizing_number: "The number can't start with '401' or '411' which are numbers used for auxiliary accounts"
+          radical_class: "The account can't correpsond to a radical class"
         activity:
           checked_off_with_inspections: "Inspections have already been created for this activity"
           checked_without_measures: "At least, one measure type should be selected when inspections are wanted"
@@ -460,6 +468,7 @@ eng:
     all_addresses: "All addresses"
     all_taxes_included: "All taxes included"
     allocation_account: "Allocation account"
+    # already_existing: "Already existing"
     amount: "Amount"
     analysed_at: "Analysed at"
     analyser: "Analyser"
@@ -543,6 +552,7 @@ eng:
     ceded: "Ceded"
     ceded_on: "Ceded on"
     centralizing_account: "Centralizing account"
+    centralizing_account_name: "Centralizing account name"
     charge_account: "Charge account"
     charges_categories: "Charges categories"
     checks: "Checks" #?

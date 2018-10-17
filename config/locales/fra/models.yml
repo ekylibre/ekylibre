@@ -8,6 +8,9 @@ fra:
               greater_than: "Le montant à payer doit être supérieur à zéro" #?
   activerecord:
     attributes:
+      account:
+        cumulated_absolute_credit_balance: "Solde crédit"
+        cumulated_absolute_debit_balance: "Solde débit"
       activity: #?
         nature: "Type de centre analytique" #?
         net_margin: "Marge nette" #?
@@ -87,6 +90,8 @@ fra:
         quantity: "Quantité constatée" #?
       journal_entry_item:
         closed: "Cloturée" #?
+        cumulated_absolute_credit_balance: "Solde crédit"
+        cumulated_absolute_debit_balance: "Solde débit"
         name: "Libellé de l'écriture"
       land_parcel:
         born_at: "Créé le"
@@ -260,10 +265,12 @@ fra:
         unitary_in_parcel: "Articles unitaires ne peuvent être envoyés un par un"
         wrong_length: "%{attribute} n’est pas d’une bon longueur (%{count} caractères)"
       models:
-        account: #?
+        account:
           attributes: #?
             number: #?
-              unauthorized: "Ce numéro ne peut pas correspondre à une classe radicale" #?
+              unauthorized: "Ce numéro ne peut pas correspondre à une classe radicale." #?
+          centralizing_number: "Le numéro ne peut pas commencer par '401' ou '411' qui sont réservés pour les comptes auxiliaires"
+          radical_class: "Le numéro ne peut pas correspondre à une classe radicale"
         activity:
           checked_off_with_inspections: "Des agréages sont déjà présents pour cette activité"
           checked_without_measures: "Au moins un type de mesure doit être sélectionné lorsque l'utilisation des agréages est demandée"
@@ -702,6 +709,7 @@ fra:
     ceded: "Cédé"
     ceded_on: "Cédé le"
     centralizing_account: "Compte centralisateur"
+    # centralizing_account_name: "Centralizing account name"
     charge_account: "Compte d’achat"
     charges_categories: "Catégories de produits avec charge"
     check_state: "Vérifier l’état" #?

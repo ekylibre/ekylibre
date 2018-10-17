@@ -203,7 +203,7 @@ fra:
       new: "Nouveau document"
       show: "Document\_: %{name}"
     backend/draft_journals:
-      show: "Brouillard comptable"
+      show: "Brouillard"
     backend/entities:
       destroy: "Supprimer la fiche" #?
       edit: "Modifier la fiche\_: %{full_name}"
@@ -270,7 +270,8 @@ fra:
       index: "Pertes et profits"
       show: "Perte ou profit N°%{number}"
     backend/general_ledgers:
-      show: "Grand livre"
+      index: "%{ledger}"
+      show: "Grand-livre\_: %{account}"
     backend/georeadings:
       edit: "Modifier le relevé topographique\_: %{name}"
       index: "Relevés topographiques"
@@ -835,6 +836,7 @@ fra:
     account_provision: "Provisions pour risques et charges" #?
     account_supplier_to_create: "— Créer automatiquement un compte fournisseur —" #?
     account_tangible_fixed_assets: "Immobilisations corporelles" #?
+    account_totals: "Totaux du compte"
     account_untangible_fixed_assets: "Immobilisations incorporelles" #?
     account_value_current: "Brut" #?
     account_value_previous: "Brut N-1" #?
@@ -996,6 +998,7 @@ fra:
     attachments: "Pièces jointes"
     attorney: "Informations mandataire" #?
     automatic: "Auto"
+    auxiliary: "Auxiliaire"
     available: "Disponible"
     available_columns: "Champs disponibles\_: %{columns}"
     average: "Moyenne"
@@ -1080,6 +1083,7 @@ fra:
     client_informations: "Informations client"
     client_phone: "Téléphone" #?
     client_receivables: "Créances client"
+    clients: "Clients"
     close: "Fermer"
     close_financial_year: "Clôturer %{code}"
     close_journal: "Clôturer le journal"
@@ -1305,6 +1309,7 @@ fra:
     entries_to_point: "Écritures à pointer"
     entry_item_label: "Libellé de l'écriture"
     entry_items: "Lignes d’écriture"
+    entry_resource_label: "Pièce"
     equipment: "Équipement"
     equipment_name: "Nom de l’équipement"
     equipments: "Équipements"
@@ -1348,13 +1353,14 @@ fra:
     export: "Exporter"
     export_as_csv: "Exporter en CSV"
     export_as_ods: "Exporter en ODS"
+    export_as_odt: "Exporter en ODT"
     export_as_pdf: "Exporter en PDF"
     export_as_xcsv: "Exporter en CSV pour Excel"
     export_backup: "Export d’un fichier de sauvegarde" #?
-    export_fec_all: "Export FEC - Cas général"
+    export_fec_all: "Export FEC - Cas général - impôt sur les sociétés"
     export_fec_ba_bnc_ir_commercial_accountancy: "Export FEC - Cas BA BNC IR - comptabilité commerciale"
-    export_fec_ba_ir_cash_accountancy: "Export FEC - Cas BA IR comptabilité de trésorerie"
-    export_fec_bnc_ir_cash_accountancy: "Export FEC - Cas BNC IR comptabilité de trésorerie"
+    export_fec_ba_ir_cash_accountancy: "Export FEC - Cas BA IR - comptabilité de trésorerie"
+    export_fec_bnc_ir_cash_accountancy: "Export FEC - Cas BNC IR - comptabilité de trésorerie"
     exportation: "Exportation" #?
     extract: "Extraire" #?
     fat_matters_concentration: "Teneur en matières grasses" #?
@@ -1630,6 +1636,7 @@ fra:
     markers: "Objectifs" #?
     marketable_items_count: "Nombre de pièces commercialisables" #?
     marketable_net_mass: "Masse nette commercialisable"
+    mask_draft_items: "Retirer les lignes d'écriture en brouillard"
     mask_lettered_items: "Masquer les lignes lettrées"
     mass: "Masse"
     max_level: "Niveau maximum" #?
@@ -2144,6 +2151,7 @@ fra:
     storage: "Support"
     string_case: "Options pour le texte" #?
     subject: "Sujet"
+    subledger_of_accounts_x: "Grand-livre auxiliaire des comptes %{account}"
     submit: "Envoyer"
     subscribed_on: "Abonné au"
     subscriber_period: "Abonné(e) le %{subscribed_at}"
@@ -2162,6 +2170,7 @@ fra:
     supplier_informations: "Informations fournisseur"
     supplier_payment_mode: "Mode de paiement du fournisseur"
     supplier_receivables: "Fournisseurs d'exploitations et comptes rattachés"
+    suppliers: "Fournisseurs"
     supply: "Livraison"
     support: "Support"
     supports: "Supports de production"
@@ -2608,6 +2617,7 @@ fra:
       depreciation_successful: "Les immobilisations ont correctement été dépréciées."
       document_in_preparation: "Votre document est en préparation une notification vous sera envoyé quand il sera prêt"
       draft_journal_entries_are_present: "Des écritures sont encore présentes dans le brouillard."
+      draft_journal_entries_cannot_be_validated: "Vous devez valider toutes les écritures précédentes avant de valider celles-ci"
       draft_journal_entries_have_been_validated:
         one: "%{count} écriture du brouillard validée"
         other: "%{count} écritures du brouillard validées"
@@ -2731,8 +2741,8 @@ fra:
         one: "%{count} écriture sur la période n'est pas équilibrée. Elle doit être corrigée pour effectuer une validation globale."
         other: "%{count} écritures sur la période ne sont pas équilibrées. Elle doivent être corrigées pour effectuer une validation globale."
       this_service_is_not_activated: "Ce service n’est pas activé"
-      unavailable_resource: "%{type} indisponible ou inexistant(e) #%{id}"
       unbalanced_journal_entries_are_present_in_year: "L'exercice comporte des écritures non-équilibrées."
+      unavailable_resource: "%{type} indisponible ou inexistant(e) #%{id}"
       unexpected_resource_type: "Type de ressource inattendue\_: %{type}"
       unknown_action: "La page demandée est indisponible (%{url})" #?
       unknown_company: "Société inconnue" #?

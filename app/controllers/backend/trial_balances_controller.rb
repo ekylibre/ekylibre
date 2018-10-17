@@ -44,19 +44,19 @@ module Backend
       @prev_balance = []
       if params[:previous_year] && params[:started_on] && Date.parse(params[:stopped_on]) - Date.parse(params[:started_on]) < 366
         @prev_balance = @balance.map do |item|
-                          parameters = params.dup
-                          parameters[:started_on] = (Date.parse(params[:started_on]) - 1.year).to_s
-                          parameters[:stopped_on] = (Date.parse(params[:stopped_on]) - 1.year).to_s
-                          parameters[:period] = "#{parameters[:started_on]}_#{parameters[:stopped_on]}"
-                          if item[1].to_i < 0 && !item[0].blank?
-                            parameters[:centralize] = item[0]
-                          elsif item[1].to_i > 0
-                            parameters[:accounts] = item[0]
-                          end
-                          prev_balance = Journal.trial_balance(parameters)
-                          prev_items = prev_balance.select { |i| i[0] == item[0] }
-                          prev_items.any? ? prev_items.first : []
-                        end
+          parameters = params.dup
+          parameters[:started_on] = (Date.parse(params[:started_on]) - 1.year).to_s
+          parameters[:stopped_on] = (Date.parse(params[:stopped_on]) - 1.year).to_s
+          parameters[:period] = "#{parameters[:started_on]}_#{parameters[:stopped_on]}"
+          if item[1].to_i < 0 && item[0].present?
+            parameters[:centralize] = item[0]
+          elsif item[1].to_i > 0
+            parameters[:accounts] = item[0]
+          end
+          prev_balance = Journal.trial_balance(parameters)
+          prev_items = prev_balance.select { |i| i[0] == item[0] }
+          prev_items.any? ? prev_items.first : []
+        end
       end
 
       respond_to do |format|
@@ -97,7 +97,7 @@ module Backend
         e = Entity.of_company
         company_name = e.full_name
         company_address = e.default_mail_address.coordinate
-        balances = balance.map.with_index { |item, index| [balance[index], prev_balance[index] || []] }
+        balances = balance.map.with_index { |_item, index| [balance[index], prev_balance[index] || []] }
 
         r.add_field 'COMPANY_ADDRESS', company_address
         r.add_field 'FILE_NAME', document_nature.human_name

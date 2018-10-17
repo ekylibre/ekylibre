@@ -33,7 +33,8 @@ module Ekylibre
           nature: (row[2].blank? ? nil : row[2].to_sym)
         }.to_struct
 
-        # puts "line : #{line_number} - number : #{r.number}".inspect.red
+        # Exclude number dedicated to centralizing accounts
+        next if r.number.eql?('401') || r.number.eql?('411')
 
         # get usage from parent account or import account from nomenclature
         usages = Account.find_parent_usage(r.number)
@@ -41,14 +42,18 @@ module Ekylibre
         attributes = {
           name: r.name,
           number: r.number,
-          usages: usages
+          usages: usages,
+          already_existing: true
         }
 
-        account = Account.find_or_initialize_by(number: r.number)
+        account = Account.find_by(number: r.number) || Account.find_or_initialize_by(number: r.number.ljust(8, '0'))
+        if r.number.start_with?('401','411')
+          attributes[:centralizing_account_name] = r.number.start_with?('401') ? 'suppliers' : 'clients'
+          attributes[:auxiliary_number] = r.number[3, r.number.length]
+          attributes[:nature] = 'auxiliary'
+        end
         account.attributes = attributes
         account.save!
-
-        # puts "line : #{line_number} - account created/updated : #{account.name}".inspect.green
 
         w.check_point
       end
