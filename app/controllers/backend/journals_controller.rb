@@ -206,8 +206,8 @@ module Backend
         r.add_field 'FILE_NAME', key
         r.add_field 'PERIOD', params[:period] == 'all' ? :on_all_exercises.tl : t('labels.from_to_date', from: Date.parse(params[:period].split('_').first).l, to: Date.parse(params[:period].split('_').last).l)
         r.add_field 'DATE', Date.today.l
-
         r.add_field 'PRINTED_AT', Time.zone.now.l(format: '%d/%m/%Y %T')
+        r.add_field 'DATA_FILTERS', ''
 
         r.add_section('Section1', journal_ledger[0...-1]) do |s|
             s.add_field(:entry_number) { |item| item[:entry_number] }

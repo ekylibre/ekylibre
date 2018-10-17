@@ -83,7 +83,7 @@ module Backend
           template_path = find_open_document_template(:trial_balance)
           raise 'Cannot find template' if template_path.nil?
           send_file to_odt(@balance, @prev_balance, document_nature, key, template_path, params[:period]),
-                    type: 'application/pdf', disposition: 'attachment', filename: filename << '.pdf'
+                    type: 'application/pdf', disposition: 'attachment', filename: key << '.pdf'
         end
       end
     end
@@ -100,9 +100,12 @@ module Backend
         balances = balance.map.with_index { |_item, index| [balance[index], prev_balance[index] || []] }
 
         r.add_field 'COMPANY_ADDRESS', company_address
-        r.add_field 'FILE_NAME', document_nature.human_name
+        r.add_field 'DOCUMENT_NAME', document_nature.human_name
+        r.add_field 'FILE_NAME', key
         r.add_field 'PERIOD', period == 'all' ? :on_all_exercises.tl : t('labels.from_to_date', from: Date.parse(period.split('_').first).l, to: Date.parse(period.split('_').last).l)
         r.add_field 'DATE', Date.today.l
+        r.add_field 'PRINTED_AT', Time.zone.now.l(format: '%d/%m/%Y %T')
+        r.add_field 'DATA_FILTERS', ''
 
         r.add_table('Tableau2', balances, header: false) do |t|
           t.add_column(:a) { |item| item[0][0] }

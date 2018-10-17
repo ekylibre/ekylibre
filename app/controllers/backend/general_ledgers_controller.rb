@@ -144,7 +144,7 @@ module Backend
       t3e(ledger: ledger_label)
 
       document_nature = Nomen::DocumentNature.find(:general_ledger)
-      key = filename = "#{document_nature.human_name}_#{Time.zone.now.l(format: '%Y%m%d%H%M%S')}"
+      key = "#{document_nature.name}-#{Time.zone.now.l(format: '%Y-%m-%d-%H:%M:%S')}"
 
       respond_to do |format|
         format.html
@@ -152,7 +152,7 @@ module Backend
           @general_ledger = Account.ledger(params) if params[:period]
           send_data(
             to_ods(@general_ledger).bytes,
-            filename: filename << '.ods'
+            filename: key << '.ods'
           )
         end
         format.csv do
@@ -160,20 +160,20 @@ module Backend
           csv_string = CSV.generate(headers: true) do |csv|
             to_csv(@general_ledger, csv)
           end
-          send_data(csv_string, filename: filename << '.csv')
+          send_data(csv_string, filename: key << '.csv')
         end
         format.xcsv do
           @general_ledger = Account.ledger(params) if params[:period]
           csv_string = CSV.generate(headers: true, col_sep: ';', encoding: 'CP1252') do |csv|
             to_csv(@general_ledger, csv)
           end
-          send_data(csv_string, filename: filename << '.csv')
+          send_data(csv_string, filename: key << '.csv')
         end
-        format.odt do
+        format.pdf do
           template_path = find_open_document_template(:general_ledger)
           @general_ledger = Account.ledger(params) if params[:period]
           raise 'Cannot find template' if template_path.nil?
-          send_file to_odt(@general_ledger, document_nature, key, template_path, params), type: 'application/vnd.oasis.opendocument.text', disposition: 'attachment', filename: filename << '.odt'
+          send_file to_odt(@general_ledger, document_nature, key, template_path, params), type: 'application/pdf', disposition: 'attachment', filename: key << '.pdf'
         end
       end
     end
@@ -184,7 +184,7 @@ module Backend
       t3e(account: account.label)
 
       document_nature = Nomen::DocumentNature.find(:general_ledger)
-      key = filename = "#{document_nature.human_name}_#{Time.zone.now.l(format: '%Y%m%d%H%M%S')}"
+      key = "#{document_nature.name}-#{Time.zone.now.l(format: '%Y-%m-%d-%H:%M:%S')}"
 
       conditions_code = '(' + self.class.list_conditions.gsub(/\s*\n\s*/, ';') + ')'
 
@@ -216,11 +216,11 @@ module Backend
           end
           send_data(csv_string, filename: filename << '.csv')
         end
-        format.odt do
+        format.pdf do
           template_path = find_open_document_template(:general_ledger)
           @general_ledger = Account.ledger(params) if params[:period]
           raise 'Cannot find template' if template_path.nil?
-          send_file to_odt(@general_ledger, document_nature, key, template_path, params), type: 'application/vnd.oasis.opendocument.text', disposition: 'attachment', filename: filename << '.odt'
+          send_file to_odt(@general_ledger, document_nature, key, template_path, params), type: 'application/pdf', disposition: 'attachment', filename: key << '.pdf'
         end
       end
     end
@@ -270,14 +270,16 @@ module Backend
 
         e = Entity.of_company
         company_name = e.full_name
-        company_address = e.default_mail_address&.coordinate
+        company_address = e.default_mail_address.coordinate
 
         started_on = params[:period].split('_').first if params[:period]
         stopped_on = params[:period].split('_').last if params[:period]
 
         r.add_field 'COMPANY_ADDRESS', company_address
-        r.add_field 'DOCUMENT_NATURE', document_nature.human_name
-        r.add_field 'FILENAME', key
+        r.add_field 'DOCUMENT_NAME', document_nature.human_name
+        r.add_field 'FILE_NAME', key
+        r.add_field 'PERIOD', params[:period] == 'all' ? :on_all_exercises.tl : t('labels.from_to_date', from: Date.parse(params[:period].split('_').first).l, to: Date.parse(params[:period].split('_').last).l)
+        r.add_field 'DATE', Date.today.l
         r.add_field 'PRINTED_AT', Time.zone.now.l(format: '%d/%m/%Y %T')
         r.add_field 'STARTED_ON', started_on.to_date.strftime('%d/%m/%Y') if started_on
         r.add_field 'STOPPED_ON', stopped_on.to_date.strftime('%d/%m/%Y') if stopped_on
