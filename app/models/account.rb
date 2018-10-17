@@ -628,11 +628,11 @@ class Account < Ekylibre::Record::Base
   end
 
   def previous
-    self.class.order(number: :desc).where(centralizing_account_id: centralizing_account_id).where('number < ?', number).limit(1).first
+    self.class.order(number: :desc).where('number ~* ?', number[0..2] + '(.*$)').where('number < ?', number).limit(1).first
   end
 
   def following
-    self.class.order(:number).where(centralizing_account_id: centralizing_account_id).where('number > ?', number).limit(1).first
+    self.class.order(:number).where('number ~* ?', number[0..2] + '(.*$)').where('number > ?', number).limit(1).first
   end
 
   # This method loads the balance for a given period.
