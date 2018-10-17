@@ -98,7 +98,7 @@ module Backend
 
       # Support
       code << "if params[:product_id].to_i > 0\n"
-      code << "  c[0] << ' AND #{Intervention.table_name}.id IN (SELECT intervention_id FROM intervention_parameters WHERE type = \\'InterventionTarget\\' AND product_id IN (?))'\n"
+      code << "  c[0] << ' AND #{Intervention.table_name}.id IN (SELECT intervention_id FROM intervention_parameters WHERE product_id IN (?))'\n"
       code << "  c << params[:product_id].to_i\n"
       code << "end\n"
 
@@ -113,7 +113,7 @@ module Backend
       code << "  c[0] << ' AND #{Intervention.table_name}.id IN (SELECT intervention_id FROM intervention_parameters WHERE type = \\'InterventionTarget\\' AND product_id IN (SELECT target_id FROM target_distributions WHERE activity_production_id = ?))'\n"
       code << "  c << params[:production_id].to_i\n"
       code << "elsif params[:activity_id].to_i > 0\n"
-      code << "  c[0] << ' AND #{Intervention.table_name}.id IN (SELECT intervention_id FROM intervention_parameters WHERE type = \\'InterventionTarget\\' AND product_id IN (SELECT target_id FROM target_distributions WHERE activity_id = ?))'\n"
+      code << "  c[0] << 'AND #{Intervention.table_name}.id IN (SELECT intervention_id FROM interventions INNER JOIN activities_interventions ON activities_interventions.intervention_id = interventions.id INNER JOIN activities ON activities.id = activities_interventions.activity_id WHERE activities.id = ?)'\n"
       code << "  c << params[:activity_id].to_i\n"
       code << "end\n"
 

@@ -1,7 +1,7 @@
 = kujaku do |k|
   - k.text
-  - k.multi_choice :state, [:done, :in_progress, :validated, :rejected].map{ |s| [s.tl, s] }
-  - k.multi_choice :nature, [:request, :record].map{ |s| [s.tl, s] }
+  - k.multi_choice :state, [:in_progress, :done, :validated].map{ |s| [s.tl, s] }
+  - k.multi_choice :nature, [[:planned.tl(count: 1), :request], [:conducted.tl, :record]]
   - k.helper do
     %label= CultivableZone.model_name.human
     = select_tag :cultivable_zone_id, options_for_select([[]] + CultivableZone.pluck(:name, :id).sort, params[:cultivable_zone_id])
@@ -68,7 +68,7 @@
 
         - board.column :requests do |column|
           - requested_interventions = Intervention.with_unroll(search_params.merge(nature: :request))
-          - column.header :requests.tl + " (" + requested_interventions[:total_count].to_s + ")", headers_actions, class: header_class
+          - column.header :planned.tl(count: requested_interventions[:total_count]) + " (" + requested_interventions[:total_count].to_s + ")", headers_actions, class: header_class
           - add_taskboard_tasks(requested_interventions[:interventions], column)
 
         - board.column :current do |column|
