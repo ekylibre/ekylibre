@@ -137,9 +137,10 @@ module Backend
 
       params[:ledger] ||= 'general_ledger'
 
-      if account = Account.get_auxiliary_accounts(params[:ledger]).first
-        ledger_label = :subledger_of_accounts_x.tl(account: account.centralizing_account_name.tl)
-        params[:account_number] = account.number
+      accounts = Account.get_auxiliary_accounts(params[:ledger])
+      if accounts.present?
+        ledger_label = :subledger_of_accounts_x.tl(account: accounts.first.centralizing_account_name.tl)
+        params[:accounts] = accounts.pluck(:number)
       end
       t3e(ledger: ledger_label)
 
@@ -249,7 +250,7 @@ module Backend
 
         data_filters = []
         if params[:accounts]
-          data_filters << Account.human_attribute_name(:account) + ' : ' + params[:accounts]
+          data_filters << Account.human_attribute_name(:account) + ' : ' + params[:accounts].to_sentence
         end
 
         if params[:lettering_state]
