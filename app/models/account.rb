@@ -193,10 +193,6 @@ class Account < Ekylibre::Record::Base
     where(nature: 'auxiliary')
   }
 
-  scope :not_auxiliary, -> {
-    where.not(nature: 'auxiliary')
-  }
-
   before_validation do
     if general? && number && !already_existing
       errors.add(:number, :centralizing_number) if number.match(/\A401|\A411/).present?
