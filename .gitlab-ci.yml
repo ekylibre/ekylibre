@@ -1,21 +1,56 @@
 image: "ruby:2.4.0"
-services:
-  - postgres:latest
-  - elasticsearch:latest
 variables:
-  POSTGRES_DB: dbname
-  POSTGRES_USER: username
-  POSTGRES_PASSWORD: ""
-before_script:
-  - apt-get update -qq && apt-get install -y -qq graphicsmagick tesseract-ocr tesseract-ocr-fra tesseract-ocr-eng tesseract-ocr-spa pdftk libreoffice poppler-utils poppler-data qt5-default libqt5webkit5-dev gstreamer1.0-x gstreamer1.0-tools gstreamer1.0-plugins-base libgeos-dev libproj-dev
-  - apt-get update -qq && apt-get install -y -qq postgresql postgresql-contrib libpq-dev cmake
-  - ruby -v
-  - which ruby
+  POSTGRES_DB: ekylibre_test
+  POSTGRES_USER: runner
+  POSTGRES_PASSXORD: $password 
+before_script: 
+  - echo "--------------------------------------------------------------------------------"
+  - echo "Install authentication key:"
+  - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client git -y )'
+  - eval $(ssh-agent -s)
+  - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add - > /dev/null
+  - mkdir -p ~/.ssh
+  - chmod 700 ~/.ssh
+  - ssh-keyscan gitlab.com >> ~/.ssh/known_hosts
+  - chmod 644 ~/.ssh/known_hosts
+  - echo "Dependencies install..."
+  - echo 'deb http://ftp.debian.org/debian jessie-backports main' >> /etc/apt/sources.list.d/postgresql.list
+  - echo 'deb http://ftp.debian.org/debian stretch main' >> /etc/apt/sources.list.d/postgresql.list
+  - apt-get update -qq
+  - apt-get install -fy aptitude
+  - aptitude update
+  - apt-get install -y postgresql-9.6=9.6.6-0+deb9u1~bpo8+1 postgresql-client-9.6=9.6.6-0+deb9u1~bpo8+1 postgresql-contrib-9.6=9.6.6-0+deb9u1~bpo8+1 postgresql-9.6-postgis-2.3
+  - apt install -fy graphicsmagick tesseract-ocr tesseract-ocr-fra tesseract-ocr-eng tesseract-ocr-spa pdftk libreoffice poppler-utils poppler-data qt5-default libqt5webkit5-dev gstreamer1.0-x gstreamer1.0-tools gstreamer1.0-plugins-base libgeos-dev libproj-dev redis-server libicu-dev
+  - apt-get install -y tzdata=2018e-0+deb8u1
+  - aptitude remove -fy default-jre-headless openjdk-8-jre openjdk-8-jre-headless
+  - aptitude install -fy openjdk-7-jdk libicu52
+  - aptitude install -fy -t jessie-backports libpq5 libpq-dev postgresql-client-9.6
+  - aptitude install -fy build-essential
   - gem install bundler -v 1.14.6 --no-ri --no-rdoc
-  - RAILS_ENV=test bundle update active_list
-  - RAILS_ENV=test bundle install --full-index --without development --jobs $(nproc) "${FLAGS[@]}"
-  - cp config/database-gitlab.yml config/database.yml
-  - RAILS_ENV=test bundle exec rake db:create db:migrate
-test:
-  script:
-    - bundle exec rake test
+  - sed -i '1i local all all trust' /etc/postgresql/9.6/main/pg_hba.conf
+  - /etc/init.d/postgresql stop
+  - /etc/init.d/postgresql start 9.6
+  - JAVA_HOME=/usr/lib/jvm/java-7-openjdk-amd64 RAILS_ENV=test bundle install --full-index --without development --jobs $(nproc) "${FLAGS[@]}"
+  - psql -U 'postgres' -c "CREATE USER runner WITH PASSWORD '$password' CREATEDB;"
+  - psql -U 'postgres' -c "CREATE DATABASE ekylibre_test OWNER runner;"
+  - psql -U 'postgres' ekylibre_test -c 'CREATE EXTENSION postgis;'
+  - psql -U 'postgres' ekylibre_test -c 'CREATE EXTENSION "uuid-ossp";'
+  - psql -U 'postgres' ekylibre_test -c 'CREATE EXTENSION "unaccent";'
+  - psql -U 'postgres' ekylibre_test -c 'CREATE SCHEMA IF NOT EXISTS postgis;'
+  - psql -U 'postgres' ekylibre_test -c 'CREATE EXTENSION IF NOT EXISTS postgis SCHEMA postgis;'
+  - psql -U 'postgres' ekylibre_test -c 'CREATE EXTENSION IF NOT EXISTS "uuid-ossp" SCHEMA postgis;'
+  - psql -U 'postgres' ekylibre_test -c 'CREATE EXTENSION IF NOT EXISTS "unaccent" SCHEMA postgis;'
+  - cp -f test/ci/database.yml config/database.yml
+  - bundle exec rake db:migrate RAILS_ENV=test  
+
+test_libs:
+  stage: test
+  script: "RAILS_ENV=test bundle exec rake test:libs"
+
+test_models:
+  stage: test
+  script: "RAILS_ENV=test bundle exec rake test:models"
+
+test_controllers:
+  stage: test
+  script: "RAILS_ENV=test bundle exec rake test:controllers"

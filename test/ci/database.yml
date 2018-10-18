@@ -3,5 +3,6 @@ test:
   encoding: unicode
   database: ekylibre_test
   schema_search_path: public,postgis
-  username: postgres
+  username: runner
+  password: $password
   postgis_extension: []
