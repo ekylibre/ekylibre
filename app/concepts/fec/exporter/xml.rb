@@ -38,7 +38,7 @@ module FEC
                       xml.NatOp '' if fiscal_position == 'ba_ir_cash_accountancy'
                       xml.IdClient (resource.has_attribute?(:client_id).get && resource.client.get ? resource.client.get.number : (resource.has_attribute?(:supplier_id).get && resource.supplier.get ? resource.supplier.get.full_name : '')) if resource.is_some? && fiscal_position == 'bnc_ir_cash_accountancy'
 
-                      entry.items.find_each do |item|
+                      entry.items.includes(:account).find_each do |item|
                         xml.ligne do
                           xml.CompteNum item.account.number.ljust(3, '0')
                           xml.CompteLib item.account.name
