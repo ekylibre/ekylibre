@@ -182,6 +182,9 @@ arb:
         equity_securities: "الأوراق المالية"
         equity_security_asset_impairment_losses: "خسائر انخفاض القيمة الأصول أوراق مالية"
         establishment_charge_assets: "الأصول تهمة إنشاء"
+        # exceptional_charge_transfer_revenues: "Exceptional charge transfer revenues"
+        # exceptional_depreciations_inputations_expenses: "Exceptional depreciations inputations expenses"
+        # exceptional_depreciations_inputations_revenues: "Exceptional depreciations inputations revenues"
         exceptional_expenses: "نفقات استثنائية"
         exceptional_revenues: "إيرادات استثنائية"
         exceptionnal_charge_transfer_revenues: "اكسسيبتيونال إيرادات نقل المسؤول" #?
@@ -2048,6 +2051,17 @@ arb:
         spheroid: "الكرواني جسم شبيه بالكرة"
         vehicle: "مركبة"
       name: "الأرقام"
+    fiscal_positions:
+      items:
+        # fr_ba_ir: "French agriculture (BA) income taxation"
+        # fr_ba_is: "French agriculture (BA) corporate taxation"
+        # fr_bic_ir: "French commercial, industrial or artisanal business (BIC) income taxation"
+        # fr_bic_is: "French commercial, industrial or artisanal business (BIC) corporate taxation"
+        # fr_bnc_ir: "French professional operations income taxation"
+        # fr_bnc_is: "French professional operations corporate taxation"
+      property_natures:
+        # code: "Code"
+        # country: "Country"
     guide_natures:
       items:
         best_practices: "أفضل الممارسات"

@@ -51,7 +51,7 @@ module Backend
       configuration[:id] ||= name.to_s.gsub(/\W+/, '_').gsub(/(^_|_$)/, '')
       value ||= params[name] || options[:default]
 
-      list = Account.auxiliary.pluck(:centralizing_account_name, :number).map{|a| [a[0], a[1][0..2]]}.uniq.collect do |account_name, account_number|
+      list = Account.auxiliary.pluck(:centralizing_account_name, :number).map { |a| [a[0], a[1][0..2]] }.uniq.collect do |account_name, account_number|
         [:subledger_of_accounts_x.tl(account: account_name.tl), account_number]
       end
 

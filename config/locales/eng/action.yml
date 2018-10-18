@@ -331,6 +331,11 @@ eng:
       index: "Gaps"
       show: "Gap: %{number}"
     backend/general_ledgers:
+      # archive_report: "Archive report general ledger: %{name}"
+      # find_open_document_template: "Find open document template general ledger: %{name}"
+      # generate_document: "Generate document general ledger: %{name}"
+      # generate_report: "Generate report general ledger: %{name}"
+      # generate_report_file: "Generate report file general ledger: %{name}"
       index: "%{ledger}"
       # mask_draft_items: "Mask draft items general ledger: %{name}"
       # mask_lettered_items: "Mask lettered items general ledger: %{name}"
@@ -1197,7 +1202,7 @@ eng:
     close: "Close"
     close_financial_year: "Close financial year"
     close_journal: "Close the journal"
-    closed: "Closed" #?
+    closed: "Closed"
     cobbles: "Cobbles" #?
     column: "Column"
     columns: "Columns to import"
@@ -1306,7 +1311,7 @@ eng:
     depreciation: "Depreciation"
     depreciations: "Depreciations"
     depreciations_inputations_expenses: "Depreciations inputations expenses" #?
-    derogatory_depreciation_explanation: "Ekylibre doesn't handle derogatory depreciations" #?!
+    derogatory_depreciation_explanation: "Ekylibre doesn't handle derogatory depreciations"
     derogatory_depreciations: "Derogatory depreciations" #?!
     description: "Description" #?
     destroy: "Destroy"
@@ -1319,7 +1324,7 @@ eng:
     disease_deformity_percentage: "Disease and deformity percentage"
     disease_percentage: "Disease (%)" #?
     disease_percentage_evolution: "Disease percentage evolution"
-    display: "Display" #?
+    display: "Display"
     display_accounts: "Display accounts"
     display_n_1: "Display N-1"
     distribute_unaffected_products: "Distribute unaffected products"
@@ -2302,7 +2307,7 @@ eng:
       financial_year_x_could_not_be_closed: "Financial Year  %{name} could not be closed."
       financial_year_x_successfully_closed: "Financial Year %{name} successfully closed !"
       financial_years_missing: "You must create every missing financial years since the first registered"
-      financial_years_missing_tax_declarations: "You must create every declarations for the following financial years: %{codes}"
+      financial_years_missing_tax_declarations: "You must create every declarations for the following financial years: %{codes}" #?
       implemented_with_dummy_data: "Implemented with dummy data"
       import_failed: "Import %{name} failed: %{message}"
       import_finished_successfully: "Import %{name} finished successfully"

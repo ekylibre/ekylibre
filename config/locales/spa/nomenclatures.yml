@@ -182,6 +182,9 @@ spa:
         equity_securities: "Valores de renta variable"
         equity_security_asset_impairment_losses: "Las pérdidas por deterioro de activos de renta variable de seguridad"
         establishment_charge_assets: "Establecimiento de carga activos"
+        # exceptional_charge_transfer_revenues: "Exceptional charge transfer revenues"
+        # exceptional_depreciations_inputations_expenses: "Exceptional depreciations inputations expenses"
+        # exceptional_depreciations_inputations_revenues: "Exceptional depreciations inputations revenues"
         exceptional_expenses: "Gastos de carácter excepcional"
         exceptional_revenues: "Los ingresos excepcionales"
         exceptionnal_charge_transfer_revenues: "Los ingresos de transferencia de carga excepcional" #?
@@ -2045,6 +2048,17 @@ spa:
         spheroid: "Esferoide"
         vehicle: "Vehículo"
       name: "Figuras"
+    fiscal_positions:
+      items:
+        # fr_ba_ir: "French agriculture (BA) income taxation"
+        # fr_ba_is: "French agriculture (BA) corporate taxation"
+        # fr_bic_ir: "French commercial, industrial or artisanal business (BIC) income taxation"
+        # fr_bic_is: "French commercial, industrial or artisanal business (BIC) corporate taxation"
+        # fr_bnc_ir: "French professional operations income taxation"
+        # fr_bnc_is: "French professional operations corporate taxation"
+      property_natures:
+        # code: "Code"
+        # country: "Country"
     guide_natures:
       items:
         best_practices: "Mejores prácticas"
