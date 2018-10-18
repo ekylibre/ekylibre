@@ -21,7 +21,7 @@ SLOW_TESTS = %w[
   FinancialYearTest
   AccountTest
   Ekylibre::AccountsExchangerTest
-]
+].freeze
 
 def slow_test_paths
   SLOW_TESTS.map { |test| 'test/**/' + test.underscore + '.rb' }

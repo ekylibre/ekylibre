@@ -47,7 +47,7 @@ module Ekylibre
         }
 
         account = Account.find_by(number: r.number) || Account.find_or_initialize_by(number: r.number.ljust(8, '0'))
-        if r.number.start_with?('401','411')
+        if r.number.start_with?('401', '411')
           attributes[:centralizing_account_name] = r.number.start_with?('401') ? 'suppliers' : 'clients'
           attributes[:auxiliary_number] = r.number[3, r.number.length]
           attributes[:nature] = 'auxiliary'

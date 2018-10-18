@@ -183,6 +183,9 @@ fra:
         equity_securities: "Titres de participations"
         equity_security_asset_impairment_losses: "Provisions pour dépréciations des participations et créances rattachées à des participations"
         establishment_charge_assets: "Immobilisations des frais d’établissement"
+        # exceptional_charge_transfer_revenues: "Exceptional charge transfer revenues"
+        # exceptional_depreciations_inputations_expenses: "Exceptional depreciations inputations expenses"
+        # exceptional_depreciations_inputations_revenues: "Exceptional depreciations inputations revenues"
         exceptional_expenses: "Charges exceptionnelles"
         exceptional_revenues: "Revenus exceptionnelles"
         exceptionnal_charge_transfer_revenues: "Transferts de charges exceptionnelles" #?
@@ -2194,7 +2197,7 @@ fra:
         fr_bic_is: "Bénéfices industriels et commerciaux - Impôt sur les sociétés"
         fr_bnc_ir: "Bénéfices non commerciaux - Impôt sur le revenu"
         fr_bnc_is: "Bénéfices non commerciaux - Impôt sur les sociétés"
-      name: "Régimes fiscaux"
+      name: "Régimes fiscaux" #?
       property_natures:
         code: "Code"
         country: "Pays"

@@ -361,7 +361,7 @@ class Entity < Ekylibre::Record::Base
       if prefix.blank?
         prefix = Nomen::Account.find(account_nomen).send(Account.accounting_system)
       end
-      if account_nomen == "clients" || account_nomen == "suppliers"
+      if account_nomen == 'clients' || account_nomen == 'suppliers'
         if Preference[:use_entity_codes_for_account_numbers]
           number = prefix.to_s + self.number.to_s
           auxiliary_number = self.number.to_s
