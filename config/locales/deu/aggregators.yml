@@ -93,6 +93,8 @@ deu:
     stock_production: "Auf Produktions" #?
     stocks_variation: "Aktien Variation" #?
     subsidies: "Subventionen" #?
+    # targets_name: "Targets name"
+    # tools_name: "Tools name"
     variant_name: "Name der Variante"
     vine_yield: "Vine Ausbeute"
     wages: "Lohn" #?

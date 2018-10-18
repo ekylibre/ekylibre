@@ -2073,6 +2073,11 @@
         <page to="backend/draft_journals#list"/>
       </item>
       <item name="general_ledgers">
+        <page to="backend/general_ledgers#archive_report"/>
+        <page to="backend/general_ledgers#find_open_document_template"/>
+        <page to="backend/general_ledgers#generate_document"/>
+        <page to="backend/general_ledgers#generate_report"/>
+        <page to="backend/general_ledgers#generate_report_file"/>
         <page to="backend/general_ledgers#list_centralized_ledger_accounts"/>
         <page to="backend/general_ledgers#list_subledger_accounts"/>
         <page to="backend/general_ledgers#list_subledger_journal_entry_items"/>

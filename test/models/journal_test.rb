@@ -119,13 +119,13 @@ class JournalTest < ActiveSupport::TestCase
     sale_item = create(:sale_item, sale: sale)
     sale.invoice!
     params = {
-               period: "2018-01-01_2018-12-31",
-               started_on: "2018-01-01",
-               stopped_on: "2018-12-31",
-               states: { draft: "1", confirmed: "1", closed: "1" },
-               # centralize option should be removed after the update of Journal.trial_balance method with the fact that there is no centralizing account anymore in DB
-               centralize: "301 302 310 320 330 340 374 401 411 421 467 603"
-             }
+      period: '2018-01-01_2018-12-31',
+      started_on: '2018-01-01',
+      stopped_on: '2018-12-31',
+      states: { draft: '1', confirmed: '1', closed: '1' },
+      # centralize option should be removed after the update of Journal.trial_balance method with the fact that there is no centralizing account anymore in DB
+      centralize: '301 302 310 320 330 340 374 401 411 421 467 603'
+    }
     balance = Journal.trial_balance(params)
     assert_equal BigDecimal.new(balance[0][2]), sale.amount
     assert_equal BigDecimal.new(balance[2][3]), sale.pretax_amount

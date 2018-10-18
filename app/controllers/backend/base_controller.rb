@@ -361,11 +361,9 @@ module Backend
       def centralizing_account_crit(variable, conditions = 'c')
         variable = "params[:#{variable}]" unless variable.is_a? String
         code = ''
-        code << "if #{variable}[:ledger] == 'general_ledger'\n"
-        code << "  #{conditions}[0] += \" AND accounts.nature != 'auxiliary'\"\n"
-        code << "elsif centralizing_account = Account.find_by(number: #{variable}[:ledger])\n"
+        code << "if #{variable}[:ledger] != 'general_ledger' && auxiliary_accounts = Account.get_auxiliary_accounts(#{variable}[:ledger])\n"
         code << "  #{conditions}[0] += \" AND accounts.nature = 'auxiliary'\"\n"
-        code << "  #{conditions}[0] += ' AND accounts.centralizing_account_id = '+ centralizing_account.id.to_s\n"
+        code << "  #{conditions}[0] += \" AND accounts.id IN (\#{auxiliary_accounts.pluck(:id).join(', ')})\"\n"
         code << "end\n"
         code.c
       end
@@ -382,7 +380,7 @@ module Backend
         variable = "params[:#{variable}]" unless variable.is_a? String
         code = ''
         code << "if #{variable}[:ledger] == 'general_ledger'\n"
-        code << "  #{conditions}[0] += ' AND #{JournalEntryItem.table_name}.account_id IN ('+Account.not_auxiliary.select(:id).to_sql+')'\n"
+        code << "  #{conditions}[0] += ' AND #{JournalEntryItem.table_name}.account_id IN ('+Account.general.select(:id).to_sql+')'\n"
         code << "elsif centralizing_account = Account.find_by(number: #{variable}[:ledger])\n"
         code << "  #{conditions}[0] += ' AND #{JournalEntryItem.table_name}.account_id IN ('+Account.where(centralizing_account_id: centralizing_account).select(:id).to_sql+')'\n"
         code << "end\n"

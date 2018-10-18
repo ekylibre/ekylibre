@@ -725,9 +725,9 @@ class CapybaraIntegrationTest < ActionDispatch::IntegrationTest
   end
 end
 
-def without_output(&block)
+def without_output
   # main.stub :puts, Proc.new, &block
-  block.call
+  yield
 end
 
 def main

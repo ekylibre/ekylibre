@@ -95,6 +95,8 @@ spa:
     stocks_variation: "Variación de las existencias" #?
     subsidies: "Subsidios" #?
     target_name: "Nombre del Destinatario" #?
+    # targets_name: "Targets name"
+    # tools_name: "Tools name"
     variable_name: "Nombre de la variable" #?
     variant_name: "Nombre variante"
     variant_variety: "Variedad variante" #?

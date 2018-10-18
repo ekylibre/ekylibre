@@ -83,7 +83,7 @@ class JournalEntry < Ekylibre::Record::Base
   has_many :bank_statements, through: :useful_items
 
   def resource_label
-    @resource_label ||= resource.class.model_name.human + ' ' + resource.number
+    @resource_label ||= [resource&.class&.model_name&.human, resource&.number].compact.join(' ')
   end
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.

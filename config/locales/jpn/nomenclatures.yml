@@ -182,6 +182,9 @@ jpn:
         equity_securities: "持分証券"
         equity_security_asset_impairment_losses: "持分証券資産減損損失"
         establishment_charge_assets: "設立チャージ資産"
+        # exceptional_charge_transfer_revenues: "Exceptional charge transfer revenues"
+        # exceptional_depreciations_inputations_expenses: "Exceptional depreciations inputations expenses"
+        # exceptional_depreciations_inputations_revenues: "Exceptional depreciations inputations revenues"
         exceptional_expenses: "例外的な経費"
         exceptional_revenues: "例外的な収入"
         exceptionnal_charge_transfer_revenues: "Exceptionnal電荷移動収入" #?
@@ -2050,6 +2053,17 @@ jpn:
         spheroid: "回転楕円体"
         vehicle: "車両"
       name: "統計"
+    fiscal_positions:
+      items:
+        # fr_ba_ir: "French agriculture (BA) income taxation"
+        # fr_ba_is: "French agriculture (BA) corporate taxation"
+        # fr_bic_ir: "French commercial, industrial or artisanal business (BIC) income taxation"
+        # fr_bic_is: "French commercial, industrial or artisanal business (BIC) corporate taxation"
+        # fr_bnc_ir: "French professional operations income taxation"
+        # fr_bnc_is: "French professional operations corporate taxation"
+      property_natures:
+        # code: "Code"
+        # country: "Country"
     guide_natures:
       items:
         best_practices: "ベストプラクティス"
