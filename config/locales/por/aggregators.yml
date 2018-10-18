@@ -121,6 +121,8 @@ por:
     stocks_variation: "Variação de estoque" #?
     subsidies: "Subsidios" #?
     target_name: "Nome alvo" #?
+    # targets_name: "Targets name"
+    # tools_name: "Tools name"
     unitary_quantity: "Quantidade unitária" #?
     variable_name: "Nome variável" #?
     variant_name: "Nome da variante"

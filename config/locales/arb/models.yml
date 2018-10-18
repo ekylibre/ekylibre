@@ -1150,6 +1150,7 @@ arb:
     author: "مؤلف"
     authorized_payments_count: "عدد الدفعات المصرحة بها"
     auto_updateable_addresses: "السيارات عناوين للتحديث"
+    # auxiliary_number: "Auxiliary number"
     available_prices: "الاسعار المتوفرة" #?
     available_products: "المنتجات المتوفرة" #?
     average_value: "متوسط ​​القيمة"
@@ -1420,6 +1421,7 @@ arb:
     depreciable_amount: "قيمة الاستهلاك"
     depreciable_product: "المنتج للاستهلاك"
     depreciated_amount: "كمية المستهلكة"
+    # depreciation_fiscal_coefficient: "Depreciation fiscal coefficient"
     depreciation_method: "طريقة الاستهلاك"
     depreciation_percentage: "نسبة الاستهلاك"
     depreciation_period: "فترة الاستهلاك"

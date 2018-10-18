@@ -1395,7 +1395,7 @@ fra:
     genealogy: "Généalogie"
     general: "Informations générales"
     general_informations: "Informations générales"
-    general_ledger: "Grand livre" #?
+    general_ledger: "Grand livre"
     generate: "Générer"
     generate_last_journal_entry: "Générer la dernière écriture"
     generate_parcel: "Générer bon de préparation"
@@ -2720,8 +2720,8 @@ fra:
         one: "%{count} écriture sur la période n'est pas équilibrée. Elle doit être corrigée pour effectuer une validation globale."
         other: "%{count} écritures sur la période ne sont pas équilibrées. Elle doivent être corrigées pour effectuer une validation globale."
       this_service_is_not_activated: "Ce service n’est pas activé"
-      unbalanced_journal_entries_are_present_in_year: "L'exercice comporte des écritures non-équilibrées."
       unavailable_resource: "%{type} indisponible ou inexistant(e) #%{id}"
+      unbalanced_journal_entries_are_present_in_year: "L'exercice comporte des écritures non-équilibrées."
       unexpected_resource_type: "Type de ressource inattendue\_: %{type}"
       unknown_action: "La page demandée est indisponible (%{url})" #?
       unknown_company: "Société inconnue" #?

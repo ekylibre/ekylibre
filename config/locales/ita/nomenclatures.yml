@@ -182,6 +182,9 @@ ita:
         equity_securities: "Titoli azionari"
         equity_security_asset_impairment_losses: "Azionari perdite di valore delle attività di sicurezza"
         establishment_charge_assets: "Le attività di carica Establishment"
+        # exceptional_charge_transfer_revenues: "Exceptional charge transfer revenues"
+        # exceptional_depreciations_inputations_expenses: "Exceptional depreciations inputations expenses"
+        # exceptional_depreciations_inputations_revenues: "Exceptional depreciations inputations revenues"
         exceptional_expenses: "le spese eccezionali"
         exceptional_revenues: "ricavi eccezionali"
         exceptionnal_charge_transfer_revenues: "I ricavi di trasferimento di carica eccezionale" #?
@@ -2039,6 +2042,17 @@ ita:
         spheroid: "Sferoide"
         vehicle: "Veicolo"
       name: "figure"
+    fiscal_positions:
+      items:
+        # fr_ba_ir: "French agriculture (BA) income taxation"
+        # fr_ba_is: "French agriculture (BA) corporate taxation"
+        # fr_bic_ir: "French commercial, industrial or artisanal business (BIC) income taxation"
+        # fr_bic_is: "French commercial, industrial or artisanal business (BIC) corporate taxation"
+        # fr_bnc_ir: "French professional operations income taxation"
+        # fr_bnc_is: "French professional operations corporate taxation"
+      property_natures:
+        # code: "Code"
+        # country: "Country"
     guide_natures:
       items:
         best_practices: "Migliori pratiche"
