@@ -717,12 +717,14 @@ class Account < Ekylibre::Record::Base
     def ledger(options = {})
       # build filter for accounts
       accounts_filter_conditions = '1=1'
-      list_accounts = options[:account_number] ? options[:account_number].split(' ') : ''
+      list_accounts = options[:accounts] ? options[:accounts] : ''
+      p list_accounts
       unless list_accounts.empty?
         accounts_filter_conditions += ' AND ' + list_accounts.collect do |account|
           "accounts.number LIKE '" + account.to_s + "%'"
         end.join(' OR ')
       end
+      p accounts_filter_conditions
 
       # build filter for lettering_state
       # "lettering_state"=>["unlettered", "partially_lettered"]
