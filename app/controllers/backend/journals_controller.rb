@@ -216,7 +216,6 @@ module Backend
         r.add_field 'PRINTED_AT', Time.zone.now.l(format: '%d/%m/%Y %T')
         r.add_field 'DATA_FILTERS', data_filters * ' | '
 
-<<<<<<< HEAD
 
         r.add_section('Section2', journal_ledger[0...-1]) do |sm|
 
@@ -248,27 +247,6 @@ module Backend
           sm.add_field(:month_balance) { |month| month[:balance] }
           sm.add_field(:month_entry_count) { |month| month[:entry_count] }
 
-=======
-        r.add_section('Section1', journal_ledger[0...-1]) do |s|
-          s.add_field(:entry_number) { |item| item[:entry_number] }
-          s.add_field(:printed_on) { |item| item[:printed_on] }
-          s.add_field(:journal_name) { |item| item[:journal_name] }
-          s.add_field(:reference_number) { |item| item[:reference_number] }
-          s.add_field(:label) { |item| item[:label] }
-          s.add_field(:continuous_number) { |item| item[:continuous_number] }
-
-          s.add_table('Tableau2', 'entry_items') do |t|
-            t.add_column(:item_account_number) { |entry_item| entry_item[:account_number] }
-            t.add_column(:item_account_name) { |entry_item| entry_item[:account_name] }
-            t.add_column(:item_real_debit) { |entry_item| entry_item[:real_debit] }
-            t.add_column(:item_real_credit) { |entry_item| entry_item[:real_credit] }
-          end
-
-          s.add_field(:state) { |item| item[:state] }
-          s.add_field(:real_debit) { |item| item[:real_debit] }
-          s.add_field(:real_credit) { |item| item[:real_credit] }
-          s.add_field(:balance) { |item| item[:balance] }
->>>>>>> develop/accountancy-2018
         end
 
         r.add_field :entry_count, journal_ledger.last[:entry_count]
