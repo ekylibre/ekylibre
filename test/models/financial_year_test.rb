@@ -210,7 +210,8 @@ class FinancialYearTest < ActiveSupport::TestCase
   end
 
   test 'compute periods given a specific interval' do
-    financial_year_18_19 = FinancialYear.find_by_code('EX2018/2019')
+    FinancialYear.delete_all
+    financial_year_18_19 = create(:financial_year, started_on: Date.new(2018, 9, 1), stopped_on: Date.new(2019, 8, 31))
 
     assert_equal financial_year_18_19.split_into_periods('semesters'), [
                                                                          [Date.new(2018, 9, 1), Date.new(2019, 2, 28)],
