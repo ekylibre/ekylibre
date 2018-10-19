@@ -118,6 +118,18 @@ module Backend
                                  procs: proc { |options| options[:builder].tag!(:url, backend_fixed_asset_url(@fixed_asset)) })
     end
 
+    def create
+      parameters = permitted_params
+      parameters['depreciation_percentage'] = case parameters['depreciation_method']
+        when 'linear' then parameters.delete('linear_depreciation_percentage')
+        when 'regressive' then parameters.delete('regressive_depreciation_percentage')
+        else ''
+      end
+      @fixed_asset = resource_model.new(parameters.to_h.except('linear_depreciation_percentage', 'regressive_depreciation_percentage'))
+      return if save_and_redirect(@fixed_asset, url: (params[:create_and_continue] ? {:action=>:new, :continue=>true} : (params[:redirect] || ({ action: :show, id: 'id'.c }))), notify: ((params[:create_and_continue] || params[:redirect]) ? :record_x_created : false), identifier: :name)
+      render(locals: { cancel_url: {:action=>:index}, with_continue: false })
+    end
+
     def depreciate_all
       begin
         bookkeep_until = Date.parse(params[:until])
