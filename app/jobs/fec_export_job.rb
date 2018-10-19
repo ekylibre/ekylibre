@@ -2,7 +2,8 @@ class FecExportJob < ActiveJob::Base
   queue_as :default
   include Rails.application.routes.url_helpers
 
-  def perform(financial_year, fiscal_position, interval = 'year', user)
+  def perform(financial_year, fiscal_position, interval, user)
+    interval ||= 'year'
     financial_year.split_into_periods(interval).each_with_index do |period, index|
       begin
         filename = interval == 'year' ? "#{Entity.of_company.siren_number}FEC#{financial_year.stopped_on.l(format: '%Y%m%d')}.xml" : "#{Entity.of_company.siren_number}FEC#{financial_year.stopped_on.l(format: '%Y%m%d')}_#{index + 1}.xml"
