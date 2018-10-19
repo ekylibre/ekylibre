@@ -142,6 +142,12 @@ module Backend
 
     def index
       @financial_years = FinancialYear.all
+      @fy_to_close = FinancialYear.closable_or_lockable if FinancialYear.closable_or_lockable
+      f = FinancialYear.order(stopped_on: :desc).first
+      @fy_to_open = FinancialYear.new
+      @fy_to_open.started_on = f.present? ? f.stopped_on + 1 : Time.now.to_date
+      @fy_to_open.stopped_on = ((fy_to_open.started_on - 1) >> 12).end_of_month
+      @fy_to_open.code = fy_to_open.default_code
     end
 
     def lock
