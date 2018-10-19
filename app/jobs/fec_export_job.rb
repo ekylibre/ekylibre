@@ -6,7 +6,8 @@ class FecExportJob < ActiveJob::Base
     interval ||= 'year'
     financial_year.split_into_periods(interval).each_with_index do |period, index|
       begin
-        filename = interval == 'year' ? "#{Entity.of_company.siren_number}FEC#{financial_year.stopped_on.l(format: '%Y%m%d')}.xml" : "#{Entity.of_company.siren_number}FEC#{financial_year.stopped_on.l(format: '%Y%m%d')}_#{index + 1}.xml"
+        siren = Entity.of_company.siret_number.present? ? Entity.of_company.siren_number : ''
+        filename = interval == 'year' ? "#{siren}FEC#{financial_year.stopped_on.l(format: '%Y%m%d')}.xml" : "#{siren}FEC#{financial_year.stopped_on.l(format: '%Y%m%d')}_#{index + 1}.xml"
         fec = FEC::Exporter::XML.new(financial_year, fiscal_position, period.first, period.last)
         file_path = Ekylibre::Tenant.private_directory.join('tmp', "#{filename}")
         FileUtils.mkdir_p(file_path.dirname)
@@ -16,7 +17,6 @@ class FecExportJob < ActiveJob::Base
       rescue => error
         Rails.logger.error $!
         Rails.logger.error $!.backtrace.join("\n")
-        ExceptionNotifier.notify_exception($!, env: request.env, data: { message: "Raised during telepac import." })
         notification = user.notifications.build(error_generation_notification_params(filename, 'exchange_accountancy_file_fr', error.message))
       end
       notification.save
