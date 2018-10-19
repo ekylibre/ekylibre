@@ -6,7 +6,7 @@ module Backend
     test 'confirm all draft journal entries' do
       get :show
       assert_response :success
-      post :confirm_all, redirection: backend_journals_path
+      post :confirm_all, to: Date.today.strftime('%Y-%m-%d'), redirection: backend_journals_path
       assert_equal 0, JournalEntry.where(state: :draft).count
       assert_redirected_to backend_journals_path
     end
