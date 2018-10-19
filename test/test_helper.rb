@@ -47,6 +47,8 @@ Ekylibre::Tenant.setup!('test', keep_files: true)
 
 FactoryBot.find_definitions
 
+Capybara.server = :webrick
+
 class FixtureRetriever
   ROLES = %w[zeroth first second third fourth fifth sixth seventh eighth nineth tenth].freeze
   @@truc = {}
