@@ -14,6 +14,9 @@ class FecExportJob < ActiveJob::Base
         document = Document.create!(nature: "exchange_accountancy_file_fr", key: "#{Time.now.to_i}-#{filename}", name: filename, file: File.open(file_path))
         notification = user.notifications.build(valid_generation_notification_params(file_path, filename, document.id))
       rescue => error
+        Rails.logger.error $!
+        Rails.logger.error $!.backtrace.join("\n")
+        ExceptionNotifier.notify_exception($!, env: request.env, data: { message: "Raised during telepac import." })
         notification = user.notifications.build(error_generation_notification_params(filename, 'exchange_accountancy_file_fr', error.message))
       end
       notification.save
