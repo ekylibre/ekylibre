@@ -2309,10 +2309,8 @@ spa:
       journal_record_has_been_saved: "La pieza N°%{number} ha sido registrada correctamente" #?
       journal_reopened_at: "%{journal} ha sido re-abierto %{closed_at} correctamente." #?
       # journal_reopened_on: "The journal “%{journal}” has been re-opened on %{closed_on}."
-<<<<<<< HEAD
+
       # locked_exercice_info: "This financial year is locked. Please get in contact with the person who closed this financial year in order to retrieve your documents and exports of year end"
-=======
->>>>>>> 7b60fdc36688ebdbe39982b83bffd37b88b371d0
       mails_are_sent: "Los correos electronicos han sido enviados"
       merge_is_done: "Combinar que se hace"
       need_a_valid_payment_mode: "¿Necesita un modo de pago válido"

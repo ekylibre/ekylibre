@@ -2122,10 +2122,7 @@ ita:
       # journal_entry_has_been_saved_with_a_new_number: "The journal entry has been successfully saved with a new number: %{number}"
       # journal_entry_items_marked_with_letter: "Journal entry items have been marked with letter %{letter}"
       # journal_reopened_on: "The journal “%{journal}” has been re-opened on %{closed_on}."
-<<<<<<< HEAD
       # locked_exercice_info: "This financial year is locked. Please get in contact with the person who closed this financial year in order to retrieve your documents and exports of year end"
-=======
->>>>>>> 7b60fdc36688ebdbe39982b83bffd37b88b371d0
       mails_are_sent: "I messaggi di posta elettronica sono stati inviati"
       merge_is_done: "Merge è fatto"
       need_a_valid_payment_mode: "Hai bisogno di una modalità di pagamento valido"
