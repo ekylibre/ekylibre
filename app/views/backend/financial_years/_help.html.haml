@@ -1,14 +1,3 @@
-- @years_to_delete = []
-- fys = FinancialYear.order(:started_on)
-- current_fy_index = fys.index(FinancialYear.current)
-- fys.to_a.pop(fys.count - current_fy_index)
-- fys.each do |fy|
-  - if fy.destroyable?
-    - @years_to_delete << fy
-    - next
-  - else
-    - break
-
 .financial-year-container
   %i
   .financial-year-message
@@ -19,4 +8,6 @@
     .financial-year-button
       = link_to(:close_financial_year.tl(code: locals[:fy_to_close].name), close_backend_financial_year_path(locals[:fy_to_close]), class: 'btn btn-default')
       = link_to(:lock_financial_year.tl(code: locals[:fy_to_close].name), lock_backend_financial_year_path(locals[:fy_to_close]), class: 'btn btn-default')
-      = link_to(:delete_x_financial_years_without_entry.tl(count: @years_to_delete.count, first_financial_year_code: @years_to_delete.first.code, last_financial_year_code: @years_to_delete.last.code), destroy_all_empty_backend_financial_years_path(years_id: @years_to_delete), method: :post, class: 'btn btn-default') if @years_to_delete.count > 1
+
+      - destroyables = FinancialYear.consecutive_destroyables
+      = link_to(:delete_x_financial_years_without_entry.tl(count: destroyables.count, first_financial_year_code: destroyables.first.code, last_financial_year_code: destroyables.last.code), destroy_all_empty_backend_financial_years_path(year_ids: destroyables.pluck(:id)), method: :post, class: 'btn btn-default') if destroyables.count > 1

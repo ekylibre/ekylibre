@@ -167,7 +167,7 @@ module Backend
     end
 
     def destroy_all_empty
-      ids_array =  params[:years_id]
+      ids_array =  params[:year_ids]
       FinancialYear.where(id: ids_array).delete_all
       return redirect_to(action: :index)
     end
