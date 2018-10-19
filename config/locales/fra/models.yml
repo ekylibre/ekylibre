@@ -263,7 +263,7 @@ fra:
         too_long: "%{attribute} est trop long (%{count} caractères maximum)"
         too_short: "%{attribute} est trop court (%{count} caractères minimum)"
         unitary_in_parcel: "Articles unitaires ne peuvent être envoyés un par un"
-        wrong_length: "%{attribute} n’est pas d’une bon longueur (%{count} caractères)"
+        wrong_length: "%{attribute} n’est pas d’une bonne longueur (%{count} caractères)"
       models:
         account:
           attributes: #?
