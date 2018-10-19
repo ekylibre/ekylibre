@@ -22,6 +22,7 @@
 #
 # == Table: accounts
 #
+#  already_existing          :boolean          default(FALSE), not null
 #  auxiliary_number          :string
 #  centralizing_account_name :string
 #  created_at                :datetime         not null

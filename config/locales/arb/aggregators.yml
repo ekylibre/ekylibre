@@ -95,6 +95,8 @@ arb:
     stocks_variation: "الأسهم الاختلاف" #?
     subsidies: "الدعم" #?
     target_name: "اسم الهدف" #?
+    # targets_name: "Targets name"
+    # tools_name: "Tools name"
     variable_name: "اسم المتغير" #?
     variant_name: "اسم البديل"
     variant_variety: "متنوعة متفاوتة" #?

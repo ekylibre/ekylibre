@@ -83,7 +83,7 @@ class JournalEntry < Ekylibre::Record::Base
   has_many :bank_statements, through: :useful_items
 
   def resource_label
-    @resource_label ||= resource.class.model_name.human + ' ' + resource.number
+    @resource_label ||= [resource&.class&.model_name&.human, resource&.number].compact.join(' ')
   end
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
@@ -455,43 +455,72 @@ class JournalEntry < Ekylibre::Record::Base
       stopped_on = options[:period].split("_").last if options[:period]
     end
 
+    # options[:states]
+    if options[:states]&.any?
+      a = options[:states].select { |_k, v| v.to_i == 1 }.map { |pair| "'#{pair.first}'" }.join(', ')
+      states_array = "state IN (#{a})"
+    else
+      states_array = '1=1'
+    end
+
+    # options[:journal]
+    if selected_journal_id > 0
+      select_journal = "journal_id = #{selected_journal_id}"
+    else
+      select_journal = "1=1"
+    end
+
     total_debit = 0.0
     total_credit = 0.0
     entry_count = 0
 
-    if selected_journal_id > 0
-      je = JournalEntry.between(started_on, stopped_on).where(journal_id: selected_journal_id).order('journal_entries.printed_on ASC, journal_entries.number ASC')
-    else
-      je = JournalEntry.between(started_on, stopped_on).order('journal_entries.printed_on ASC, journal_entries.number ASC')
-    end
+    je = JournalEntry.between(started_on, stopped_on)
+                     .where(select_journal)
+                     .where(states_array)
+                     .order('journal_entries.printed_on ASC, journal_entries.number ASC')
 
-    je.each do |e|
-      item = HashWithIndifferentAccess.new
-      item[:entry_number] = e.number
-      item[:printed_on] = e.printed_on.strftime('%d/%m/%Y')
-      item[:journal_name] = e.journal.name.to_s
-      item[:continuous_number] = e.continuous_number.to_s if e.continuous_number
-      item[:reference_number] = e.reference_number.to_s
-      item[:label] = e.items.first.displayed_label_in_accountancy.to_s
-      item[:state] = e.state_label
-      item[:real_debit] = e.real_debit
-      item[:real_credit] = e.real_credit
-      item[:balance] = e.balance
-      item[:entry_items] = []
-      e.items.each do |i|
-        entry_item = HashWithIndifferentAccess.new
-        entry_item[:account_number] = i.account.number.to_s
-        entry_item[:account_name] = i.account.name.to_s
-        entry_item[:real_debit] = i.real_debit
-        entry_item[:real_credit] = i.real_credit
-        item[:entry_items] << entry_item
+    je.group_by { |e| [e.printed_on.month, e.printed_on.year] }.each do |((month_number, year), entries)|
+      month = HashWithIndifferentAccess.new
+      month[:name] = month_number.to_s + '/' + year.to_s
+      month[:items] = []
+      month_total_debit = 0.0
+      month_total_credit = 0.0
+      month_entry_count = entries.count
+      entries.each do |e|
+        item = HashWithIndifferentAccess.new
+        item[:entry_number] = e.number
+        item[:printed_on] = e.printed_on.strftime('%d/%m/%Y')
+        item[:journal_name] = e.journal.name.to_s
+        item[:continuous_number] = e.continuous_number.to_s if e.continuous_number
+        item[:reference_number] = e.reference_number.to_s
+        item[:label] = e.items.first.displayed_label_in_accountancy.to_s
+        item[:state] = e.state_label
+        item[:real_debit] = e.real_debit
+        item[:real_credit] = e.real_credit
+        item[:balance] = e.balance
+        item[:entry_items] = []
+        e.items.each do |i|
+          entry_item = HashWithIndifferentAccess.new
+          entry_item[:account_number] = i.account.number.to_s
+          entry_item[:account_name] = i.account.name.to_s
+          entry_item[:real_debit] = i.real_debit
+          entry_item[:real_credit] = i.real_credit
+          item[:entry_items] << entry_item
+        end
+        month_total_debit += e.real_debit
+        month_total_credit += e.real_credit
+        month[:items] << item
+        total_debit += e.real_debit
+        total_credit += e.real_credit
+        entry_count += 1
       end
+      month[:total_debit] = month_total_debit
+      month[:total_credit] = month_total_credit
+      month[:balance] = month_total_debit - month_total_credit
+      month[:entry_count] = month_entry_count
 
-      total_debit += e.real_debit
-      total_credit += e.real_credit
-      entry_count += 1
+      ledger << month
 
-      ledger << item
     end
 
     total_balance = total_debit - total_credit

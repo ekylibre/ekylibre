@@ -182,6 +182,9 @@ cmn:
         equity_securities: "股本证券"
         equity_security_asset_impairment_losses: "股本证券资产减值损失"
         establishment_charge_assets: "建立收费资产"
+        # exceptional_charge_transfer_revenues: "Exceptional charge transfer revenues"
+        # exceptional_depreciations_inputations_expenses: "Exceptional depreciations inputations expenses"
+        # exceptional_depreciations_inputations_revenues: "Exceptional depreciations inputations revenues"
         exceptional_expenses: "特殊支出"
         exceptional_revenues: "特殊的收入"
         exceptionnal_charge_transfer_revenues: "Exceptionnal电荷转移收入" #?
@@ -2039,6 +2042,17 @@ cmn:
         spheroid: "球体"
         vehicle: "车辆"
       name: "人物"
+    fiscal_positions:
+      items:
+        # fr_ba_ir: "French agriculture (BA) income taxation"
+        # fr_ba_is: "French agriculture (BA) corporate taxation"
+        # fr_bic_ir: "French commercial, industrial or artisanal business (BIC) income taxation"
+        # fr_bic_is: "French commercial, industrial or artisanal business (BIC) corporate taxation"
+        # fr_bnc_ir: "French professional operations income taxation"
+        # fr_bnc_is: "French professional operations corporate taxation"
+      property_natures:
+        # code: "Code"
+        # country: "Country"
     guide_natures:
       items:
         best_practices: "最佳实践"

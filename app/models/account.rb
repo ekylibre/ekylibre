@@ -189,20 +189,8 @@ class Account < Ekylibre::Record::Base
     where(nature: 'general')
   }
 
-  scope :centralizing, -> {
-    where(nature: 'centralizing')
-  }
-
-  scope :not_centralizing, -> {
-    where.not(nature: 'centralizing')
-  }
-
   scope :auxiliary, -> {
     where(nature: 'auxiliary')
-  }
-
-  scope :not_auxiliary, -> {
-    where.not(nature: 'auxiliary')
   }
 
   before_validation do
@@ -636,186 +624,194 @@ class Account < Ekylibre::Record::Base
   end
 
   def previous
-    self.class.order(number: :desc).where(centralizing_account_id: centralizing_account_id).where('number < ?', number).limit(1).first
+    self.class.order(number: :desc).where('number < ?', number).limit(1).first
   end
 
   def following
-    self.class.order(:number).where(centralizing_account_id: centralizing_account_id).where('number > ?', number).limit(1).first
+    self.class.order(:number).where('number > ?', number).limit(1).first
   end
 
-  # This method loads the balance for a given period.
-  def self.balance(from, to, list_accounts = [])
-    balance = []
-    conditions = '1=1'
-    unless list_accounts.empty?
-      conditions += ' AND ' + list_accounts.collect do |account|
-        "number LIKE '" + account.to_s + "%'"
-      end.join(' OR ')
+  class << self
+    def get_auxiliary_accounts(centralizing_number)
+      Account.auxiliary.where('number ~* ?', '^' + centralizing_number + '(.*$)')
     end
-    accounts = Account.where(conditions).order('number ASC')
-    # solde = 0
 
-    res_debit = 0
-    res_credit = 0
-    res_balance = 0
+    # This method loads the balance for a given period.
+    def balance(from, to, list_accounts = [])
+      balance = []
+      conditions = '1=1'
+      unless list_accounts.empty?
+        conditions += ' AND ' + list_accounts.collect do |account|
+          "number LIKE '" + account.to_s + "%'"
+        end.join(' OR ')
+      end
+      accounts = Account.where(conditions).order('number ASC')
+      # solde = 0
 
-    accounts.each do |account|
-      debit  = account.journal_entry_items.sum(:debit,  conditions: { 'r.created_at' => from..to }, joins: "INNER JOIN #{JournalEntry.table_name} AS r ON r.id=#{JournalEntryItem.table_name}.entry_id").to_f
-      credit = account.journal_entry_items.sum(:credit, conditions: { 'r.created_at' => from..to }, joins: "INNER JOIN #{JournalEntry.table_name} AS r ON r.id=#{JournalEntryItem.table_name}.entry_id").to_f
+      res_debit = 0
+      res_credit = 0
+      res_balance = 0
 
-      compute = HashWithIndifferentAccess.new
-      compute[:id] = account.id.to_i
-      compute[:number] = account.number.to_i
-      compute[:name] = account.name.to_s
-      compute[:debit] = debit
-      compute[:credit] = credit
-      compute[:balance] = debit - credit
+      accounts.each do |account|
+        debit  = account.journal_entry_items.sum(:debit,  conditions: { 'r.created_at' => from..to }, joins: "INNER JOIN #{JournalEntry.table_name} AS r ON r.id=#{JournalEntryItem.table_name}.entry_id").to_f
+        credit = account.journal_entry_items.sum(:credit, conditions: { 'r.created_at' => from..to }, joins: "INNER JOIN #{JournalEntry.table_name} AS r ON r.id=#{JournalEntryItem.table_name}.entry_id").to_f
 
-      if debit.zero? || credit.zero?
+        compute = HashWithIndifferentAccess.new
+        compute[:id] = account.id.to_i
+        compute[:number] = account.number.to_i
+        compute[:name] = account.name.to_s
         compute[:debit] = debit
         compute[:credit] = credit
-      end
+        compute[:balance] = debit - credit
 
-      # if not debit.zero? and not credit.zero?
-      #         if compute[:balance] > 0
-      #           compute[:debit] = compute[:balance]
-      #           compute[:credit] = 0
-      #         else
-      #           compute[:debit] = 0
-      #           compute[:credit] = compute[:balance].abs
-      #         end
-      #       end
-
-      # if account.number.match /^12/
-      # raise StandardError.new compute[:balance].to_s
-      # end
-
-      if account.number =~ /^(6|7)/
-        res_debit += compute[:debit]
-        res_credit += compute[:credit]
-        res_balance += compute[:balance]
-      end
-
-      # solde += compute[:balance] if account.number.match /^(6|7)/
-      #      raise StandardError.new solde.to_s if account.number.match /^(6|7)/
-      balance << compute
-    end
-    # raise StandardError.new res_balance.to_s
-    balance.each do |account|
-      if res_balance > 0
-        if account[:number].to_s =~ /^12/
-          account[:debit] += res_debit
-          account[:credit] += res_credit
-          account[:balance] += res_balance # solde
+        if debit.zero? || credit.zero?
+          compute[:debit] = debit
+          compute[:credit] = credit
         end
-      elsif res_balance < 0
-        if account[:number].to_s =~ /^129/
-          account[:debit] += res_debit
-          account[:credit] += res_credit
-          account[:balance] += res_balance # solde
+
+        # if not debit.zero? and not credit.zero?
+        #         if compute[:balance] > 0
+        #           compute[:debit] = compute[:balance]
+        #           compute[:credit] = 0
+        #         else
+        #           compute[:debit] = 0
+        #           compute[:credit] = compute[:balance].abs
+        #         end
+        #       end
+
+        # if account.number.match /^12/
+        # raise StandardError.new compute[:balance].to_s
+        # end
+
+        if account.number =~ /^(6|7)/
+          res_debit += compute[:debit]
+          res_credit += compute[:credit]
+          res_balance += compute[:balance]
+        end
+
+        # solde += compute[:balance] if account.number.match /^(6|7)/
+        #      raise StandardError.new solde.to_s if account.number.match /^(6|7)/
+        balance << compute
+      end
+      # raise StandardError.new res_balance.to_s
+      balance.each do |account|
+        if res_balance > 0
+          if account[:number].to_s =~ /^12/
+            account[:debit] += res_debit
+            account[:credit] += res_credit
+            account[:balance] += res_balance # solde
+          end
+        elsif res_balance < 0
+          if account[:number].to_s =~ /^129/
+            account[:debit] += res_debit
+            account[:credit] += res_credit
+            account[:balance] += res_balance # solde
+          end
         end
       end
-    end
-    # raise StandardError.new(balance.inspect)
-    balance.compact
-  end
-
-  # this method loads the general ledger for all the accounts.
-  def self.ledger(options = {})
-    # build filter for accounts
-    accounts_filter_conditions = '1=1'
-    list_accounts = options[:account_number] ? options[:account_number].split(' ') : ''
-    unless list_accounts.empty?
-      accounts_filter_conditions += ' AND ' + list_accounts.collect do |account|
-        "accounts.number LIKE '" + account.to_s + "%'"
-      end.join(' OR ')
+      # raise StandardError.new(balance.inspect)
+      balance.compact
     end
 
-    # build filter for lettering_state
-    # "lettering_state"=>["unlettered", "partially_lettered"]
-    c = options[:lettering_state].count if options[:lettering_state]
-    lettering_state_filter_conditions = if c == 3 && options[:lettering_state].to_set.superset?(%w[unlettered partially_lettered lettered].to_set)
-                                          '1=1'
-                                        elsif c == 2 && options[:lettering_state].to_set.superset?(%w[partially_lettered lettered].to_set)
-                                          'letter IS NOT NULL'
-                                        elsif c == 2 && options[:lettering_state].to_set.superset?(%w[partially_lettered unlettered].to_set)
-                                          "letter IS NULL OR letter ILIKE '%*' "
-                                        elsif c == 2 && options[:lettering_state].to_set.superset?(%w[lettered unlettered].to_set)
-                                          "letter IS NULL OR letter NOT ILIKE '%*' "
-                                        elsif c == 1 && options[:lettering_state].to_set.superset?(['unlettered'].to_set)
-                                          'letter IS NULL'
-                                        elsif c == 1 && options[:lettering_state].to_set.superset?(['lettered'].to_set)
-                                          "letter IS NOT NULL AND letter NOT ILIKE '%*'"
-                                        elsif c == 1 && options[:lettering_state].to_set.superset?(['partially_lettered'].to_set)
-                                          "letter IS NOT NULL AND letter ILIKE '%*'"
-                                        else
-                                          '1=1'
-                                        end
+    # this method loads the general ledger for all the accounts.
+    def ledger(options = {})
+      # build filter for accounts
+      accounts_filter_conditions = '1=1'
+      list_accounts = options[:accounts] ? options[:accounts] : ''
+      p list_accounts
+      unless list_accounts.empty?
+        accounts_filter_conditions += ' AND ' + list_accounts.collect do |account|
+          "accounts.number LIKE '" + account.to_s + "%'"
+        end.join(' OR ')
+      end
+      p accounts_filter_conditions
 
-    # options[:states]
-    if options[:states]&.any?
-      a = options[:states].select { |_k, v| v.to_i == 1 }.map { |pair| "'#{pair.first}'" }.join(', ')
-      states_array = "state IN (#{a})"
-    else
-      states_array = '1=1'
-    end
+      # build filter for lettering_state
+      # "lettering_state"=>["unlettered", "partially_lettered"]
+      c = options[:lettering_state].count if options[:lettering_state]
+      lettering_state_filter_conditions = if c == 3 && options[:lettering_state].to_set.superset?(%w[unlettered partially_lettered lettered].to_set)
+                                            '1=1'
+                                          elsif c == 2 && options[:lettering_state].to_set.superset?(%w[partially_lettered lettered].to_set)
+                                            'letter IS NOT NULL'
+                                          elsif c == 2 && options[:lettering_state].to_set.superset?(%w[partially_lettered unlettered].to_set)
+                                            "letter IS NULL OR letter ILIKE '%*' "
+                                          elsif c == 2 && options[:lettering_state].to_set.superset?(%w[lettered unlettered].to_set)
+                                            "letter IS NULL OR letter NOT ILIKE '%*' "
+                                          elsif c == 1 && options[:lettering_state].to_set.superset?(['unlettered'].to_set)
+                                            'letter IS NULL'
+                                          elsif c == 1 && options[:lettering_state].to_set.superset?(['lettered'].to_set)
+                                            "letter IS NOT NULL AND letter NOT ILIKE '%*'"
+                                          elsif c == 1 && options[:lettering_state].to_set.superset?(['partially_lettered'].to_set)
+                                            "letter IS NOT NULL AND letter ILIKE '%*'"
+                                          else
+                                            '1=1'
+                                          end
 
-    # build dates
-    start = options[:period].split('_').first if options[:period]
-    stop = options[:period].split('_').last if options[:period]
-
-    ledger = []
-
-    accounts = Account
-               .where(accounts_filter_conditions)
-               .includes(journal_entry_items: %i[entry variant])
-               .where(journal_entry_items: { printed_on: start..stop })
-               .reorder('accounts.number ASC, journal_entries.number ASC')
-
-    accounts.each do |account|
-      journal_entry_items = account.journal_entry_items.where(lettering_state_filter_conditions).where(states_array).where(printed_on: start..stop).reorder('printed_on ASC, entry_number ASC')
-
-      account_entry = HashWithIndifferentAccess.new
-      # compute << account.number.to_i
-      # compute << account.name.to_s
-      account_balance = 0.0
-      total_debit = 0.0
-      total_credit = 0.0
-      entry_count = 0
-
-      account_entry[:account_number] = account.number
-      account_entry [:account_name] = account.name
-      account_entry [:currency] = journal_entry_items.first.currency if journal_entry_items.any?
-
-      account_entry[:items] = []
-
-      journal_entry_items.each do |e|
-        item = HashWithIndifferentAccess.new
-        item[:entry_number] = e.entry_number
-        item[:continuous_number] = e.continuous_number.to_s if e.continuous_number
-        item[:reference_number] = e.entry.reference_number.to_s if e.entry.reference_number
-        item[:printed_on] = e.printed_on.strftime('%d/%m/%Y')
-        item[:name] = e.name.to_s
-        item[:journal_name] = e.entry.journal.name.to_s
-        item[:letter] = e.letter
-        item[:real_debit] = e.real_debit
-        item[:real_credit] = e.real_credit
-        item[:cumulated_balance] = (account_balance += (e.real_debit - e.real_credit))
-
-        account_entry[:items] << item
-
-        total_debit += e.real_debit
-        total_credit += e.real_credit
-        entry_count += 1
+      # options[:states]
+      if options[:states]&.any?
+        a = options[:states].select { |_k, v| v.to_i == 1 }.map { |pair| "'#{pair.first}'" }.join(', ')
+        states_array = "state IN (#{a})"
+      else
+        states_array = '1=1'
       end
 
-      account_entry[:count] = entry_count.to_s
-      account_entry[:total_debit] = total_debit
-      account_entry[:total_credit] = total_credit
+      # build dates
+      start = options[:period].split('_').first if options[:period]
+      stop = options[:period].split('_').last if options[:period]
 
-      ledger << account_entry
+      ledger = []
+
+      accounts = Account
+                 .where(accounts_filter_conditions)
+                 .includes(journal_entry_items: %i[entry variant])
+                 .where(journal_entry_items: { printed_on: start..stop })
+                 .reorder('accounts.number ASC, journal_entries.number ASC')
+
+      accounts.each do |account|
+        journal_entry_items = account.journal_entry_items.where(lettering_state_filter_conditions).where(states_array).where(printed_on: start..stop).reorder('printed_on ASC, entry_number ASC')
+
+        account_entry = HashWithIndifferentAccess.new
+        # compute << account.number.to_i
+        # compute << account.name.to_s
+        account_balance = 0.0
+        total_debit = 0.0
+        total_credit = 0.0
+        entry_count = 0
+
+        account_entry[:account_number] = account.number
+        account_entry [:account_name] = account.name
+        account_entry [:currency] = journal_entry_items.first.currency if journal_entry_items.any?
+
+        account_entry[:items] = []
+
+        journal_entry_items.each do |e|
+          item = HashWithIndifferentAccess.new
+          item[:entry_number] = e.entry_number
+          item[:continuous_number] = e.continuous_number.to_s if e.continuous_number
+          item[:reference_number] = e.entry.reference_number.to_s if e.entry.reference_number
+          item[:printed_on] = e.printed_on.strftime('%d/%m/%Y')
+          item[:name] = e.name.to_s
+          item[:journal_name] = e.entry.journal.name.to_s
+          item[:letter] = e.letter
+          item[:real_debit] = e.real_debit
+          item[:real_credit] = e.real_credit
+          item[:cumulated_balance] = (account_balance += (e.real_debit - e.real_credit))
+
+          account_entry[:items] << item
+
+          total_debit += e.real_debit
+          total_credit += e.real_credit
+          entry_count += 1
+        end
+
+        account_entry[:count] = entry_count.to_s
+        account_entry[:total_debit] = total_debit
+        account_entry[:total_credit] = total_credit
+
+        ledger << account_entry
+      end
+
+      ledger.compact
     end
-
-    ledger.compact
   end
 end

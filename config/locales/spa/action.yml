@@ -331,6 +331,8 @@ spa:
       new_specified: "Intervención New"
       new_specified_request: "Intervención New solicitado"
       # show: "%{procedure_name}"
+    backend/invalid_journal_entries:
+      # index: "Journal entries to balance"
     backend/inventories:
       edit: "Modificación del inventario"
       index: "Inventarios"
@@ -362,6 +364,7 @@ spa:
       edit: "Modicicar el periodico\_: %{name}"
       index: "Periodicos"
       new: "Crear un nuevo periodico"
+      # reopen: "Reopen journal: %{name}"
       show: "Periodico\_: %{name} (%{code})"
     backend/labels:
       # edit: "Edit label: %{name}"
@@ -884,12 +887,14 @@ spa:
     animal_details: "Detalles de los animales"
     animal_productions: "Producciones animales" #?
     animals: "Animales"
+    # any_journal: "Any journal"
     archives: "Archivo"
     are_you_sure: "¿Seguro que quieres hacer esto?"
     are_you_sure_you_want_to:
       abort_issue: "¿Está seguro de que quiere abortar este problema?"
       close_issue: "¿Seguro que desea cerrar este problema?"
       reopen_issue: "¿Está seguro de que desea volver a abrir este problema?"
+    # are_you_sure_you_want_to_change_account_digits: "Are you sure you want to change the number of characters on account numbers?"
     are_you_sure_you_want_to_confirm: "¿Seguro que quiere pedir"
     are_you_sure_you_want_to_delete: "¿Está seguro de que desea eliminar este registro?"
     are_you_sure_you_want_to_invoice: "¿Seguro que desea facturar?"
@@ -982,6 +987,9 @@ spa:
     charge_value: "Valor de carga"
     chart: "Gráfico"
     check: "Comprobar"
+    check_x_entries_to_balance:
+      # one: "Check entry to balance (%{count})"
+      # other: "Check entries to balance (%{count})"
     children: "Niños"
     choices: "Elecciones"
     choose_a_type_of_product: "Elija un tipo de producto"
@@ -1010,8 +1018,16 @@ spa:
       filter_on_attribute_of_class: "Filtro de atributo de la clase"
       special-subscriber: "Especial abonado"
     configure: "Configurar"
+    # confirmation: "Confirmation"
     confirmed: "Confirmadas" #?
     connect: "Entrar"
+    consult_the_day_book:
+      # one: "Consult the day book (%{count} entry)"
+      # other: "Consult the day book (%{count} entries)"
+      # zero: "Consult the day book (%{count} entry)"
+    consult_unbalanced_entries:
+      # one: "Consult the unbalanced entry"
+      # other: "Consult unbalanced entries (%{count})"
     consume: "Consumir"
     contained_products: "Productos contenidos"
     container: "Envase"
@@ -1118,6 +1134,7 @@ spa:
     depreciation: "Depreciación"
     depreciations: "Depreciaciones"
     depreciations_inputations_expenses: "Gastos de depreciaciones inputations"
+    # derogatory_depreciation_explanation: "Ekylibre doesn't handle derogatory depreciations"
     derogatory_depreciations: "Depreciaciones derogatorios"
     description: "Descripción general"
     destroy: "Destruir"
@@ -1219,7 +1236,12 @@ spa:
     export_as_csv: "Exportar como CSV"
     export_as_ods: "Exportar como ODS"
     # export_as_odt: "Export as ODT"
+    # export_as_pdf: "Export as PDF"
     export_as_xcsv: "Exportar como Excel CSV"
+    # export_fec_all: "Export FEC corporate tax"
+    # export_fec_ba_bnc_ir_commercial_accountancy: "Export FEC for agriculture and professional operations income taxation commercial accountancy"
+    # export_fec_ba_ir_cash_accountancy: "Export FEC agriculture income taxation cash accountancy"
+    # export_fec_bnc_ir_cash_accountancy: "Export FEC professional operations income taxation cash accountancy"
     field_distribution: "Distribución de campo"
     file_nature: "Tipo de fichero"
     file_preview: "Avance"
@@ -1227,6 +1249,7 @@ spa:
     file_to_upload: "Un archivo para subir"
     filter: "Filtrar"
     filter_entries_with: "Flitrar las escrituras con" #?
+    # filter_on: "Filter on"
     final_balance: "Saldo final"
     financial_assets: "Activos financieros"
     financial_expenses: "Gastos financieros"
@@ -1349,6 +1372,7 @@ spa:
     items: "Elementos"
     journal: "Periodico"
     journal_entries: "Escrituras"
+    # journal_entries_deletion_confirmation_message: "Once validated, you won't be able to edit or delete these entries. Are you sure you want to validate these entries ?"
     journal_entries_states: "Estados de las entradas"
     journal_entry_items: "Artículos entrada de diario"
     journal_entry_items_states: "Estado de las escrituras utilizadas" #?
@@ -1709,6 +1733,7 @@ spa:
     refresh: "Refrescar"
     register: "Crear una nueva compañía" #?
     register_intervention_request: "Register solicitud de intervención"
+    # regressive_options: "Regressive options"
     rejected: "Rechazado"
     relations: "Relaciones clientos/abastecedores" #?
     relationship: "Relación"
@@ -1989,6 +2014,7 @@ spa:
     unpaid_sales: "Ventas no pagadas"
     unset_reconcilable_old_third_accounts: "Viejos terceros cuentas conciliables no definidas (clientes, proveedores y abogados)"
     unsubcribed_capital: "El capital Unsubcribed"
+    # until: "until"
     up: "Arriba"
     up_to: "Hasta"
     update: "Actualizar"
@@ -2009,6 +2035,9 @@ spa:
       # one: "Validate crumbs for %{count} intervention"
       # other: "Validate crumbs for %{count} interventions"
     validate_selected_entries: "Validar la escrituras seleccionadas"
+    validate_x_entries:
+      # one: "Validate the entry"
+      # other: "Validate %{count} entries"
     validated: "Validado"
     values: "Valores"
     variable_indicators: "Indicadores variables"
@@ -2226,14 +2255,18 @@ spa:
       closed_financial_periods: "La duración del activo fijo se extiende a través de períodos financieros cerrados."
       closed_financial_year_exchange: "El cambio de ejercicio se ha cerrado con éxito"
       closed_financial_years: "El ejercicio ha sido correctamente cerrado"
+      # closure_process_started: "Closure process started."
       columns_are_already_uses: "Una o varias columnas que hay que importar son seleccionados muchas veces"
       # could_not_attach_x_or_y_to_affair: "Could not attach %{x} or %{y} to affair"
       dashboard_is_being_developed: "Dashboard es en fuerte desarrollo"
       density_is_not_computable_in_counting: "No se pudo calcular la densidad de este conteo. Los valores que faltan deben ser completados en las propiedades del conteo o indicadores del sembrador."
+      # depreciation_failed: "Assets could not be depreciated."
+      # depreciation_successful: "Assets have been successfully depreciated."
       document_in_preparation: "Su documento está en preparación y se le enviará una notificación cuando esté listo"
       draft_entries_are_validated: #?
         one: "La pieza ha sido validada y es sacada de la niebla" #?
         other: "%{count} han sido validadas y son sacadas de la niebla" #?
+      # draft_journal_entries_are_present: "Draft journal entries are present."
       # draft_journal_entries_cannot_be_validated: "You need to validate every previous entries before these ones"
       draft_journal_entries_have_been_validated:
         one: "Una entrada ha sido validada"
@@ -2248,6 +2281,10 @@ spa:
       expired_session: "sesion espirada. por favor reconectese." #?
       fails_to_extract_listing: "La extracción no ha podido hacerse\_: %{message}"
       file_generated: "Su archivo fue generado con éxito"
+      # financial_year_already_closed: "The financial year has already been closed."
+      # financial_year_is_not_past: "The financial year hasn't passed yet."
+      # financial_year_x_could_not_be_closed: "Financial Year  %{name} could not be closed."
+      # financial_year_x_successfully_closed: "Financial Year %{name} successfully closed !"
       financial_years_missing: "Debe crear cada faltan los ejercicios desde la primera registrada"
       # financial_years_missing_tax_declarations: "You must create every declarations for the following financial years: %{codes}"
       implemented_with_dummy_data: "Implementado con datos ficticios"
@@ -2272,7 +2309,10 @@ spa:
       journal_record_has_been_saved: "La pieza N°%{number} ha sido registrada correctamente" #?
       journal_reopened_at: "%{journal} ha sido re-abierto %{closed_at} correctamente." #?
       # journal_reopened_on: "The journal “%{journal}” has been re-opened on %{closed_on}."
+<<<<<<< HEAD
       # locked_exercice_info: "This financial year is locked. Please get in contact with the person who closed this financial year in order to retrieve your documents and exports of year end"
+=======
+>>>>>>> 7b60fdc36688ebdbe39982b83bffd37b88b371d0
       mails_are_sent: "Los correos electronicos han sido enviados"
       merge_is_done: "Combinar que se hace"
       need_a_valid_payment_mode: "¿Necesita un modo de pago válido"
@@ -2290,6 +2330,7 @@ spa:
       need_quantities_to_cancel_an_sales_invoice: "Se debe especifiar una quantidad para hacer un haber" #?
       need_stocks_building_to_create_products: "Se debe crear un lugar de almacenamiento para crear un producto" #?
       need_stocks_to_create_inventories: "Se debe administrar los depositos a lo menos de un producto para hacer un inventario"
+      # need_to_edit_or_correct_entries_before_validating: "You have to correct or delete these entries before you can enclose the financial year or validate them."
       net_services_and_identifiers_are_always_available_but_are_deprecated_and_will_be_removed_in_next_major_release: "Servicios de la red y los identificadores están siempre disponibles, pero están en desuso y se eliminará en la siguiente versión importante"
       no_archived_prints: "No hay huellas archivadas"
       no_balance_template: "No hay modelo de documento para este equilibrio" #?
@@ -2310,12 +2351,14 @@ spa:
       no_production_found_you_can_add_it_or_copy_from_previous_records: "No se encontró producción. Se pueden añadir nuevos o copiar algunos de la campaña anterior."
       no_purchase_affair_found_on_given_period: "No es un asunto compra que figura en determinado período"
       no_purchases_given: "No se dan las compras"
+      # no_reopenable_journal: "You can not re-open this journal."
       no_replacements_since_beginning: "No hay que sustituir una desde el principio"
       no_stocks: "No hay ningun deposito. Si se quiere adùinistrar los depositos para une producto, por favor escroge la opción «administrar los depositos» dentro de las caracteristicas de vuestro producto." #?
       no_template_journal: "Ningun modelo de periodico" #?
       no_template_journal_by_id: "Ningun modedo de periodico" #?
       no_unvalidated_operations: "Ningún trabajo que hay que realizar" #?
       password_successfully_changed: "Su contraseña ha sido puesta a día con éxito" #?
+      # previouos_financial_year_is_not_closed: "The previous financial year hasn't been closed."
       prices_import_succeeded: "Sus datos han sido importados correctamente" #?
       print_failure: "Imposible de imprimir. Intenta recargar los modelos de documentos para corrgir el problema. %{error} (%{class})." #?
       purchases_invalid_for_sepa: "Las compras seleccionados no válido para la transferencia SEPA (modo de desembolso no válido o la moneda mala calidad o falta IBAN o titular de la cuenta bancaria Nombre del beneficiario)"
@@ -2348,9 +2391,13 @@ spa:
       the_automatic_lettering_cannot_be_done_in_accountancy_because_too_many_thirds_are_present: "Las letras automático no se puede realizar en la contabilidad porque demasiados tercios están presentes"
       the_bookkeep_date_format_is_invalid: "El formato de fecha del libro es inválido"
       the_sales_invoice_is_not_cancellable: "La factura de venta no se puede cancelar"
+      there_are_x_remaining_unbalanced_entries:
+        # one: "%{count} entry during this period remain unbalanced. You have to correct it to be able to perform a global validation."
+        # other: "%{count} entries during this period remain unbalanced. You have to correct them to be able to perform a global validation."
       this_service_is_not_activated: "Este servicio no está activado"
       unavailable_model: "%{model} indisponible o inexistente (%{id})" #?
       # unavailable_resource: "Nonexistent %{type} #%{id}"
+      # unbalanced_journal_entries_are_present_in_year: "Some unbalanced journal entries are present in the financial year."
       # unexpected_resource_type: "Unexpected resource type: %{type}"
       unknown_action: "La pagina que quiere esta indisponible (%{url})" #?
       unknown_company: "Sociedad desconocida" #?
@@ -2374,6 +2421,7 @@ spa:
       you_need_to_review_your_application_configuration: "Es necesario revisar la configuración de su aplicación"
       you_will_lose_all_your_current_data: "Si continua, va a perder todos los datos en curso de embargo. Se quiere perseguir ?" #?
   preferences:
+    # account_number_digits: "Account number length"
     accounting_system: "Catálogo de cuentas"
     bookkeep_automatically: "Active la contabilidad automática"
     bookkeep_in_draft: "Guardar los registros en modo de borrador en la contabilidad"

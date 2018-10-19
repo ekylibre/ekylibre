@@ -1279,6 +1279,7 @@ fra:
     dont_use_journal: "— Ne pas utiliser de journal —"
     down: "Descendre"
     down_to_level: "Détailler jusqu’au niveau" #?
+    download: "Télécharger"
     download_firefox: "Télécharger Mozilla Firefox…" #?
     downpayment: "Acompte"
     draft: "Brouillard"
@@ -1372,6 +1373,7 @@ fra:
     file_to_download: "Fichier à importer" #?
     file_to_import: "Fichier à importer" #?
     file_to_upload: "Fichier à importer"
+    file_trimming: "Découpage du fichier :"
     filter: "Filtrer"
     filter_entries_with: "Filtrer les écritures avec" #?
     filter_on: "Filtrer sur"
@@ -1383,6 +1385,7 @@ fra:
     financial_year_lock_message: "<p>Le verrouillage validera définitivement toutes les écritures de l’exercice, qui ne pourront plus être modifiées ou supprimées. Il ne sera plus possible d’en ajouter de nouvelles aussi. <br/> Il faudra vous rapprocher de la personne qui a effectué la clôture en dehors du logiciel pour récupérer vos documents de fin d’exercice. </p>"
     financial_year_needed: "<p> Toutes les opérations commerciales et financières doivent être comptabilisées sur un exercice ouvert. <br/> Veuillez ouvrir un exercice pour la période en cours ou demander à votre responsable. </p>"
     financial_year_warning: "<p> Si l’exercice n’est pas clôturé ou verrouillé avant le %{last_financial_year_end_date}, vous ne pourrez pas ouvrir d’exercice au %{new_financial_year_start_date}. En effet, il n’est pas possible d’avoir plus de 2 exercices ouverts simultanément. De plus, il est nécessaire d’avoir un exercice ouvert à la date en cours pour saisir des opérations commerciales et financières. <br/> Si vous ne gérez pas votre comptabilité avec Ekylibre, vous avez aussi la possibilité de verrouiller votre exercice. <br/> Attention : les exercices verrouillés ne peuvent plus être modifiés comme un exercice clôturé."
+    financial_year: "Exercice comptable"
     finish: "Terminer"
     finished: "Terminé"
     finished_income_statement: "Produits" #?
@@ -1403,7 +1406,7 @@ fra:
     genealogy: "Généalogie"
     general: "Informations générales"
     general_informations: "Informations générales"
-    general_ledger: "Grand livre" #?
+    general_ledger: "Grand livre"
     generate: "Générer"
     generate_last_journal_entry: "Générer la dernière écriture"
     generate_parcel: "Générer bon de préparation"
@@ -2286,6 +2289,7 @@ fra:
     treatment: "Traitement" #?
     trimester: "Trimestre"
     true: "Vrai" #?
+    type_of_structure: "Type de structure"
     unbalanced: "Non soldés"
     unbalanced_clients: "Comptes à réconcilier - Clients"
     unbalanced_suppliers: "Comptes à réconcilier - Fournisseurs"
@@ -2615,7 +2619,7 @@ fra:
       density_is_not_computable_in_counting: "La densité de semis n’a pas pu être calculée pour ce comptage. Veuillez compléter les informations manquantes dans le comptage ou dans les indicateurs du semoir."
       depreciation_failed: "Les immobilisations n’ont pas pu être dépréciées."
       depreciation_successful: "Les immobilisations ont correctement été dépréciées."
-      document_in_preparation: "Votre document est en préparation une notification vous sera envoyé quand il sera prêt"
+      document_in_preparation: "Votre document est en cours de préparation et une notification vous sera envoyée dès qu'il sera prêt."
       draft_journal_entries_are_present: "Des écritures sont encore présentes dans le brouillard."
       draft_journal_entries_cannot_be_validated: "Vous devez valider toutes les écritures précédentes avant de valider celles-ci"
       draft_journal_entries_have_been_validated:
@@ -2741,8 +2745,8 @@ fra:
         one: "%{count} écriture sur la période n'est pas équilibrée. Elle doit être corrigée pour effectuer une validation globale."
         other: "%{count} écritures sur la période ne sont pas équilibrées. Elle doivent être corrigées pour effectuer une validation globale."
       this_service_is_not_activated: "Ce service n’est pas activé"
-      unbalanced_journal_entries_are_present_in_year: "L'exercice comporte des écritures non-équilibrées."
       unavailable_resource: "%{type} indisponible ou inexistant(e) #%{id}"
+      unbalanced_journal_entries_are_present_in_year: "L'exercice comporte des écritures non-équilibrées."
       unexpected_resource_type: "Type de ressource inattendue\_: %{type}"
       unknown_action: "La page demandée est indisponible (%{url})" #?
       unknown_company: "Société inconnue" #?
@@ -2818,6 +2822,7 @@ fra:
       edit_many: "Modifier plusieurs"
       evaluate: "Évaluer"
       export: "Exporter"
+      export_fec: "Export FEC"
       export_to_sepa: "Export SEPA"
       extract: "Extraire"
       family: "Famille"

@@ -182,6 +182,9 @@ deu:
         equity_securities: "Dividendenpapiere"
         equity_security_asset_impairment_losses: "Aktien Sicherheit Vermögenswertminderungen"
         establishment_charge_assets: "Einrichtung Ladungsvermögen"
+        # exceptional_charge_transfer_revenues: "Exceptional charge transfer revenues"
+        # exceptional_depreciations_inputations_expenses: "Exceptional depreciations inputations expenses"
+        # exceptional_depreciations_inputations_revenues: "Exceptional depreciations inputations revenues"
         exceptional_expenses: "Außergewöhnliche Kosten"
         exceptional_revenues: "Außergewöhnliche Einnahmen"
         exceptionnal_charge_transfer_revenues: "Exceptionnal Ladungstransfererlöse" #?
@@ -2039,6 +2042,17 @@ deu:
         spheroid: "Sphäroid"
         vehicle: "Fahrzeug"
       name: "Figuren"
+    fiscal_positions:
+      items:
+        # fr_ba_ir: "French agriculture (BA) income taxation"
+        # fr_ba_is: "French agriculture (BA) corporate taxation"
+        # fr_bic_ir: "French commercial, industrial or artisanal business (BIC) income taxation"
+        # fr_bic_is: "French commercial, industrial or artisanal business (BIC) corporate taxation"
+        # fr_bnc_ir: "French professional operations income taxation"
+        # fr_bnc_is: "French professional operations corporate taxation"
+      property_natures:
+        # code: "Code"
+        # country: "Country"
     guide_natures:
       items:
         best_practices: "best Practices"
