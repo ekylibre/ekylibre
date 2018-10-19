@@ -1,12 +1,10 @@
-- if FinancialYear.closables_or_lockables.count > 1
-  = render 'help', locals: { title: :you_can_close_financial_year_to_open_a_new_one, fy_to_close: @fy_to_close, fy_to_open: @fy_to_open }
-- elsif FinancialYear.current && FinancialYear.current.stopped_on < (Date.today + 6.months) && FinancialYear.next_year.nil? && FinancialYear.previous_year&.opened?
-  = render 'help', locals: { title: :you_can_close_financial_year, fy_to_close: @fy_to_close, fy_to_open: @fy_to_open }
+- unless @title.empty?
+  = render 'help', locals: { title: @title, fy_to_close: @fy_to_close, fy_to_open: @fy_to_open }
 
 - main_toolbar do |t|
   = t.new params: { redirect: nil }, icon: false, label: :open_financial_year.tl(code: @fy_to_open.code), class: 'btn-new-financial-year'
   - year = @fy_to_close
-  = t.close year, label: :close_financial_year.tl(code: year.name), icon: false, disabled: year.present? if year
-  = t.lock year, label: :lock_financial_year.tl(code: year.name), icon: false, disabled: year.present? if year
+  = t.close year, label: :close_financial_year.tl(code: year.name), icon: false, disabled: @fy_to_close.present? if @fy_to_close
+  = t.lock year, label: :lock_financial_year.tl(code: year.name), icon: false, disabled: @fy_to_close.present? if @fy_to_close
 
 = main_list
