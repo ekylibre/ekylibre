@@ -480,7 +480,7 @@ class JournalEntry < Ekylibre::Record::Base
 
     je.group_by { |e| [e.printed_on.month, e.printed_on.year] }.each do |((month_number, year), entries)|
       month = HashWithIndifferentAccess.new
-      month[:name] = month_number.to_s + '/' + year.to_s
+      month[:name] = I18n.t('date.month_names')[month_number].capitalize + '/' + year.to_s
       month[:items] = []
       month_total_debit = 0.0
       month_total_credit = 0.0
