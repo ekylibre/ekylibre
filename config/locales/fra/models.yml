@@ -286,6 +286,10 @@ fra:
           currency_does_not_match: "La monnaie du journal %{journal} est différente de celle de la trésorerie"
           different_of_main_account: "%{attribute} doit être différent du compte comptable principal (%{account})"
           unvalid_bban: "La clé ne correspond pas. Un ou plusieurs éléments du RIB sont incorrects."
+        cash_transfer:
+          attributes:
+            transfered_at:
+              not_opened_financial_year: "Un exercice comptable ouvert est nécessaire"
         deposit:
           must_be_a_bank_account: "%{attribute} doit être un compte bancaire et non une caisse"
         entity:
@@ -309,6 +313,10 @@ fra:
           csv_file_headers_invalid: "Les en-têtes du fichier CSV sont invalides"
           csv_file_invalid: "Fichier CSV invalide"
           csv_file_journals_invalid: "Certains journaux sont présents dans le CSV mais n'existent pas dans Ekylibre : %{codes}"
+        fixed_asset:
+          attributes:
+            started_on:
+              not_opened_financial_year: "Un exercice comptable ouvert est nécessaire"
         fixed_asset_depreciation:
           attributes:
             started_on:

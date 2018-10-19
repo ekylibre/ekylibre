@@ -1395,6 +1395,7 @@ arb:
     dont_use_journal: "-- عدم استعمال الدفتر اليومي --"
     down: "للاسفل"
     down_to_level: "نزولا الى مستوى" #?
+    # download: "Download"
     download_firefox: "تحميل موزيلا فاير فوكس" #?
     downpayment: "شروط العربون"
     draft: "المسودات"
@@ -1491,6 +1492,7 @@ arb:
     file_to_download: "ملف الاستيراد" #?
     file_to_import: "ملف للاستيراد" #?
     file_to_upload: "ملف لتحميل"
+    # file_trimming: "File trimming :"
     filter: "تصفية"
     filter_entries_with: "تصفية الادخالات مع" #?
     # filter_on: "Filter on"
@@ -1499,6 +1501,7 @@ arb:
     financial_expenses: "نفقات مالية"
     financial_products: "المنتجات المالية"
     financial_state: "الوضع المالي" #?
+    # financial_year: "Financial year"
     financial_year_create: "فتح مهنة جديدة للمحاسبة" #?
     # financial_year_lock_message: "<p> The lock will definitively validate all entries of the financial year, which may not be modified or deleted. It will not be possible to add new ones too. <br/> You will need to get in contact the person who did the close out of the software to get back your year-end documents. </p>"
     # financial_year_needed: "All commercial and financial operations need to be accounted on an opened financial year. Please open a financial year for the current period or ask a manager"
@@ -2377,6 +2380,7 @@ arb:
     transport_create: "اضافة وسيلة نقل جديدة" #?
     transport_deliveries: "تسليم وسائل النقل" #?
     trimester: "الثلث"
+    # type_of_structure: "Type of structure"
     unavailable: #?
       entity: "السجل المطلوب غير متاح" #?
       financial_year: "السنة المالية غير متوفرة %{value}" #?
@@ -2747,7 +2751,6 @@ arb:
       # journal_entry_items_marked_with_letter: "Journal entry items have been marked with letter %{letter}"
       journal_reopened_at: "%{journal} تم اعادة فتحه في %{closed_at} بشكل صحيح." #?
       # journal_reopened_on: "The journal “%{journal}” has been re-opened on %{closed_on}."
-
       # locked_exercice_info: "This financial year is locked. Please get in contact with the person who closed this financial year in order to retrieve your documents and exports of year end"
       mails_are_sent: "تم ارسال رسائل البريد الالكتروني"
       merge_is_done: "ويتم دمج"
@@ -2956,6 +2959,7 @@ arb:
       edit_many: "تعديل العديد"
       evaluate: "تقييم"
       export: "تصدير"
+      # export_fec: "FEC export"
       export_to_sepa: "تصدير إلى المصلحة"
       extract: "استخراج"
       family: "أسرة"

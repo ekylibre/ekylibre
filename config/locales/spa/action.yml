@@ -1169,6 +1169,7 @@ spa:
     dont_use_journal: "-- No utilizar el periodico --"
     down: "Abajo"
     down_to_level: "Detallar hasta el nivel" #?
+    # download: "Download"
     download_firefox: "Carga Mozilla Firefox..." #?
     downpayment: "Pago inicial"
     draft: "Niebla"
@@ -1247,6 +1248,7 @@ spa:
     file_preview: "Avance"
     file_to_import: "Fichero a importar" #?
     file_to_upload: "Un archivo para subir"
+    # file_trimming: "File trimming :"
     filter: "Filtrar"
     filter_entries_with: "Flitrar las escrituras con" #?
     # filter_on: "Filter on"
@@ -1254,6 +1256,7 @@ spa:
     financial_assets: "Activos financieros"
     financial_expenses: "Gastos financieros"
     financial_products: "Productos financieros"
+    # financial_year: "Financial year"
     financial_year_create: "Abrir un nuevo ejercicio contable" #?
     # financial_year_lock_message: "<p> The lock will definitively validate all entries of the financial year, which may not be modified or deleted. It will not be possible to add new ones too. <br/> You will need to get in contact the person who did the close out of the software to get back your year-end documents. </p>"
     # financial_year_needed: "All commercial and financial operations need to be accounted on an opened financial year. Please open a financial year for the current period or ask a manager"
@@ -1983,6 +1986,7 @@ spa:
     transformations: "Transformaciones" #?
     transport: "Transporte"
     trimester: "Trimestre"
+    # type_of_structure: "Type of structure"
     # unbalanced: "Unbalanced"
     unbalanced_clients: "Clientes desequilibradas"
     unbalanced_suppliers: "Proveedores desequilibradas"
@@ -2309,7 +2313,6 @@ spa:
       journal_record_has_been_saved: "La pieza N°%{number} ha sido registrada correctamente" #?
       journal_reopened_at: "%{journal} ha sido re-abierto %{closed_at} correctamente." #?
       # journal_reopened_on: "The journal “%{journal}” has been re-opened on %{closed_on}."
-
       # locked_exercice_info: "This financial year is locked. Please get in contact with the person who closed this financial year in order to retrieve your documents and exports of year end"
       mails_are_sent: "Los correos electronicos han sido enviados"
       merge_is_done: "Combinar que se hace"
@@ -2471,6 +2474,7 @@ spa:
       edit_many: "Editar muchos"
       evaluate: "Evaluar"
       export: "Exportar"
+      # export_fec: "FEC export"
       export_to_sepa: "Exportar a la SEPA"
       extract: "Extraer"
       family: "Familia"

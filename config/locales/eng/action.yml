@@ -1409,7 +1409,7 @@ eng:
     export: "Export documents" #?
     export_as_csv: "Export as CSV"
     export_as_ods: "Export as ODS"
-    export_as_odt: "Export as ODT"
+    export_as_odt: "Export as ODT" #?!
     export_as_pdf: "Export as PDF"
     export_as_xcsv: "Export as Excel CSV"
     export_fec_all: "Export FEC corporate tax"
@@ -1427,10 +1427,10 @@ eng:
     financial_assets: "Financial assets" #?
     financial_expenses: "Financial expenses" #??
     financial_products: "Financial products" #??
+    financial_year: "Financial year"
     financial_year_lock_message: "<p> The lock will definitively validate all entries of the financial year, which may not be modified or deleted. It will not be possible to add new ones too. <br/> You will need to get in contact the person who did the close out of the software to get back your year-end documents. </p>"
     financial_year_needed: "All commercial and financial operations need to be accounted on an opened financial year. Please open a financial year for the current period or ask a manager"
     financial_year_warning: "<p> If the financial year is not closed or locked before the %{last_financial_year_end_date}, you will not be able to open a financial year on %{new_financial_year_start_date}. Indeed, it is not possible to have more than 2 financial years opened simultaneously. Furthermore, it is necessary to have an opened financial year on the ongoing date to input commercial and financial operations. <br/> If you don't manage your accountacy with Ekylibre, you have the possibility to lock your financial year. <br/> Attention : locked financial years can't be modified like a closed financial year."
-    financial_year: "Financial year"
     # financials_assets: "Financials assets"
     finish: "Finish" #?
     finished: "Finished"
@@ -1634,7 +1634,7 @@ eng:
     mode: "Mode" #?
     model: "Model" #?
     modes: "Modes" #?
-    month: "Month" #?
+    month: "Month"
     month_period: "%{code} - %{month} %{year}"
     monthly: "Monthly" #?
     months: "Months"
@@ -1901,7 +1901,7 @@ eng:
     select_file_to_upload: "Select file to upload"
     select_forward_journal: "Selected Journal to renew" #??
     selection: "Selection" #?
-    semester: "Semester" #?
+    semester: "Semester"
     send_mail: "Send mail"
     send_test_mail: "Send test mail"
     sensor_model: "Sensor model"
@@ -2041,7 +2041,7 @@ eng:
     transactions_by_month: "Transactions by month" #?
     transfer: "Transfer" #?
     transport: "Transport" #?
-    trimester: "Trimester" #?
+    trimester: "Trimester"
     type_of_structure: "Type of structure"
     unbalanced: "Unbalanced"
     unbalanced_clients: "Unbalanced clients" #?
@@ -2268,7 +2268,7 @@ eng:
     x_years:
       one: "%{count} year"
       other: "%{count} years"
-    year: "Year" #?
+    year: "Year"
     year_end: "Year end"
     year_start: "Year start"
     yield: "Yield" #?
@@ -2494,7 +2494,7 @@ eng:
       # ekylibre: "Ekylibre"
       evaluate: "Evaluate"
       export: "Export"
-      export_fec: "FEC export"
+      export_fec: "FEC export" #?
       export_to_sepa: "Export to SEPA"
       extract: "Extract"
       # failure: "Failure"

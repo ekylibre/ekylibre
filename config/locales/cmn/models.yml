@@ -152,6 +152,10 @@ cmn:
           # currency_does_not_match: "The currency of the %{journal} is different from that specified for the cash"
           # different_of_main_account: "%{attribute} must be different of main account (%{account})"
           unvalid_bban: "Unvalid BBAN。一个或多个元素是不正确的。"
+        cash_transfer:
+          attributes:
+            transfered_at:
+              # not_opened_financial_year: "An opened financial year is necessary"
         deposit:
           # must_be_a_bank_account: "%{attribute} must be a bank account and not a cash"
         entity:
@@ -175,6 +179,10 @@ cmn:
           csv_file_headers_invalid: "CSV标头是无效"
           csv_file_invalid: "CSV文件无效"
           # csv_file_journals_invalid: "Some journals are present in the CSV but not in Ekylibre : %{codes}"
+        fixed_asset:
+          attributes:
+            started_on:
+              # not_opened_financial_year: "An opened financial year is necessary"
         fixed_asset_depreciation:
           attributes:
             started_on:
