@@ -500,12 +500,28 @@ table {
   }
 }
 
-.toolbar-content {
-  padding: 9px 0px;
-  background: #C5D4F0;
-}
-
 #custom-list {
+  .toolbar-content {
+    padding: 9px 0px;
+    background: #C5D4F0;
+    &:not(:first-child):not(.submit-filters) {
+      border-top: 2px solid #b9cbed;
+    }
+    &.submit-filters {
+      background: #b9cbed;
+    }
+    .custom-main-toolbar {
+      input, select {
+        margin-right: 10px;
+      }
+      .main-label {
+        margin-right: 20px;
+      }
+      input[type='radio'] {
+        margin: 4px 10px 0px 5px;
+      }
+    }
+  }
   table {
     margin-bottom: 0px;
     thead {

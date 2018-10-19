@@ -412,7 +412,36 @@ class FinancialYear < Ekylibre::Record::Base
     exchanges.opened.any?
   end
 
+  def split_into_periods(interval)
+    case interval
+    when 'year'
+      [[started_on, stopped_on]]
+    when 'semesters'
+      compute_ranges(6)
+    when 'trimesters'
+      compute_ranges(3)
+    when 'months'
+      compute_ranges(1)
+    end
+  end
+
   private
+
+  def compute_ranges(number_of_months)
+    start_date = started_on
+    stop_date = started_on + number_of_months.month - 1.day
+    return [[started_on, stopped_on]] if stopped_on <= stop_date
+    ranges = []
+    i = 0
+    while stopped_on >= stop_date do
+      i += 1
+      ranges << [start_date, stop_date]
+      start_date = started_on + (number_of_months * i).month
+      stop_date = started_on + (number_of_months * (i + 1)).month - 1.day
+    end
+    ranges << [start_date, stopped_on] unless start_date >= stopped_on
+    ranges
+  end
 
   def accountant_with_booked_journal?
     accountant && accountant.booked_journals.any?
