@@ -119,14 +119,16 @@ module Backend
     end
 
     def create
-      parameters = permitted_params
-      parameters['depreciation_percentage'] = case parameters['depreciation_method']
-        when 'linear' then parameters.delete('linear_depreciation_percentage')
-        when 'regressive' then parameters.delete('regressive_depreciation_percentage')
-        else ''
-      end
-      @fixed_asset = resource_model.new(parameters.to_h.except('linear_depreciation_percentage', 'regressive_depreciation_percentage'))
+      @fixed_asset = resource_model.new(parameters_with_processed_percentage)
       return if save_and_redirect(@fixed_asset, url: (params[:create_and_continue] ? {:action=>:new, :continue=>true} : (params[:redirect] || ({ action: :show, id: 'id'.c }))), notify: ((params[:create_and_continue] || params[:redirect]) ? :record_x_created : false), identifier: :name)
+      render(locals: { cancel_url: {:action=>:index}, with_continue: false })
+    end
+
+    def update
+      return unless @fixed_asset = find_and_check(:fixed_asset)
+      t3e(@fixed_asset.attributes)
+      @fixed_asset.attributes = parameters_with_processed_percentage
+      return if save_and_redirect(@fixed_asset, url: params[:redirect] || ({ action: :show, id: 'id'.c }), notify: (params[:redirect] ? :record_x_updated : false), identifier: :name)
       render(locals: { cancel_url: {:action=>:index}, with_continue: false })
     end
 
@@ -179,6 +181,17 @@ module Backend
         return nil
       end
       fixed_assets
+    end
+
+
+    def parameters_with_processed_percentage
+      parameters = permitted_params.dup
+      parameters['depreciation_percentage'] = case parameters['depreciation_method']
+        when 'linear' then parameters.delete('linear_depreciation_percentage')
+        when 'regressive' then parameters.delete('regressive_depreciation_percentage')
+        else ''
+      end
+      parameters.to_h.except('linear_depreciation_percentage', 'regressive_depreciation_percentage')
     end
   end
 end
