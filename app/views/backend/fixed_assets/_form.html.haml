@@ -14,10 +14,10 @@
     = f.input :depreciation_period, as: :radio_buttons
 
   = field_set(:linear_options) do
-    = f.input :depreciation_percentage
+    = f.input :depreciation_percentage, input_html: { name: 'fixed_asset[linear_depreciation_percentage]' }
 
   = field_set(:regressive_options) do
-    = f.input :depreciation_percentage
+    = f.input :depreciation_percentage, input_html: { name: 'fixed_asset[regressive_depreciation_percentage]' }
     = f.input :depreciation_fiscal_coefficient
 
   = field_set(:accountancy) do
