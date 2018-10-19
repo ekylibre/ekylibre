@@ -5,7 +5,7 @@ module FEC
     class XMLTest < ActiveSupport::TestCase
       test 'build' do
         fy = JournalEntryItem.last.financial_year
-        exporter = FEC::Exporter::XML.new(fy)
+        exporter = FEC::Exporter::XML.new(fy, nil, fy.started_on, fy.stopped_on)
         assert exporter.write('tmp/fec.xml')
       end
     end
