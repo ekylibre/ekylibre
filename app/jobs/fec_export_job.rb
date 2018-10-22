@@ -17,6 +17,7 @@ class FecExportJob < ActiveJob::Base
       rescue => error
         Rails.logger.error $!
         Rails.logger.error $!.backtrace.join("\n")
+        ExceptionNotifier.notify_exception($!, data: { message: error })
         notification = user.notifications.build(error_generation_notification_params(filename, 'exchange_accountancy_file_fr', error.message))
       end
       notification.save
