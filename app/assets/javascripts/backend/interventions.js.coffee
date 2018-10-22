@@ -218,12 +218,10 @@
         else
           interventionParticipations = doersToolsParameters.find('.nested-product-parameter').not('.nested-tractor').find('.intervention-participation')
 
-
         interventionParticipations.each ->
           participations.push($(this).val())
 
         autoCalculMode = $('#intervention_auto_calculate_working_periods').val()
-
 
         datas = {}
         datas['intervention_id'] = intervention_id
@@ -233,11 +231,10 @@
         datas['intervention_started_at'] = interventionStartedAt
         datas['auto_calcul_mode'] = autoCalculMode
 
-        $.ajax
+        $.post
           url: "/backend/intervention_participations/participations_modal",
           data: datas
           success: (data, status, request) ->
-
             @workingTimesModal = new ekylibre.modal('#working_times')
             @workingTimesModal.removeModalContent()
             @workingTimesModal.getModalContent().append(data)
