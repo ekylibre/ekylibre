@@ -1020,6 +1020,7 @@ eng:
     activity_productions: "Activity productions"
     add: "Add"
     add_a_worker: "Add a worker"
+    add_an_account: "Add an account"
     add_animal: "Add animal"
     add_animal_group: "Add animal group"
     add_annotation: "Add annotation"
@@ -1965,6 +1966,7 @@ eng:
     supply: "Supply" #?
     support: "Support" #?
     supports: "Supports" #?
+    switch_accounting_plan: "Switch accounting plan"
     synthesis: "Synthesis"
     target: "Target"
     tasks: "Tasks" #?

@@ -3,8 +3,8 @@
   - k.helper :journal_period_crit, :label => :accounts_only_used_at.tl, :default => "", :include_blank => :no_particular_periods
 
 - main_toolbar do |t|
-  = t.new params: { redirect: nil }
-  = t.action :load
+  = t.new params: { redirect: nil }, label: :add_an_account.tl
+  = t.action :load, label: :switch_accounting_plan.tl
 
 = major_accounts_tabs_tag
 
