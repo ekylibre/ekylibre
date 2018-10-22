@@ -118,7 +118,8 @@ class FinancialYear < Ekylibre::Record::Base
       closables_or_lockables.first
     end
 
-    def consecutive_destroyables(from = Date.new(1,1,1), upto = FinancialYear.current.started_on)
+    def consecutive_destroyables(from = Date.new(1,1,1), upto = FinancialYear.current&.started_on)
+      upto ||= FinancialYear.where('started_on < ?', Date.today).order(started_on: :desc).first.started_on
       years = FinancialYear.where("started_on BETWEEN ? AND ?", from, upto)
                            .order(:started_on)
       years.to_a.select!.with_index { |year, index| years[0..index].all?(&:destroyable?) }
