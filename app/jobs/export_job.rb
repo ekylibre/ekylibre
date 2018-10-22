@@ -17,7 +17,7 @@ class ExportJob < ActiveJob::Base
     filename = "#{klass.human_name}.#{format}"
 
     key = params['key'] || SecureRandom.hex(2)
-    # Export & send file
+    # Export and send file
     begin
       # Export the file
       path = template.export(aggregator.to_xml, key, format)
