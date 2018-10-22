@@ -1006,6 +1006,7 @@ spa:
     close: "Cerrar"
     close_financial_year: "Fin del ejercicio contable"
     close_journal: "Cierre la revista"
+    # close_the_financial_year: "Close the financial year"
     closed: "Cerrados"
     cobbles: "Enguijarrado"
     code: "Codigo" #?
@@ -1257,6 +1258,7 @@ spa:
     financial_expenses: "Gastos financieros"
     financial_products: "Productos financieros"
     # financial_year: "Financial year"
+    # financial_year_close_message: "<p> The close will definitively validate all entries of the financial year, which may not be modified or deleted. It will not be possible to add new ones too. </p>"
     financial_year_create: "Abrir un nuevo ejercicio contable" #?
     # financial_year_lock_message: "<p> The lock will definitively validate all entries of the financial year, which may not be modified or deleted. It will not be possible to add new ones too. <br/> You will need to get in contact the person who did the close out of the software to get back your year-end documents. </p>"
     # financial_year_needed: "All commercial and financial operations need to be accounted on an opened financial year. Please open a financial year for the current period or ask a manager"
@@ -1406,6 +1408,7 @@ spa:
     land_parcels: "Parcelas"
     last_analyses: "Análisis Última leche"
     last_computed_balance: "Último balance computarizada"
+    # last_confirmation_before_definitive_close: "Last confirmation before definitive close"
     # last_confirmation_before_definitive_lock: "Last confirmation before definitive lock"
     last_documents: "últimos documentos"
     last_entities: "Últimos entidades"

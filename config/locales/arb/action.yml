@@ -1212,6 +1212,7 @@ arb:
     close: "اغلاق الدفتر اليومي"
     close_financial_year: "وثيق السنة المالية"
     close_journal: "إغلاق مجلة"
+    # close_the_financial_year: "Close the financial year"
     closed: "مغلق"
     cobbles: "الحصى"
     code: "الرمز" #?
@@ -1502,6 +1503,7 @@ arb:
     financial_products: "المنتجات المالية"
     financial_state: "الوضع المالي" #?
     # financial_year: "Financial year"
+    # financial_year_close_message: "<p> The close will definitively validate all entries of the financial year, which may not be modified or deleted. It will not be possible to add new ones too. </p>"
     financial_year_create: "فتح مهنة جديدة للمحاسبة" #?
     # financial_year_lock_message: "<p> The lock will definitively validate all entries of the financial year, which may not be modified or deleted. It will not be possible to add new ones too. <br/> You will need to get in contact the person who did the close out of the software to get back your year-end documents. </p>"
     # financial_year_needed: "All commercial and financial operations need to be accounted on an opened financial year. Please open a financial year for the current period or ask a manager"
@@ -1671,6 +1673,7 @@ arb:
     land_parcels: "قائمة بالنظام"
     last_analyses: "تحليل الحليب الماضي"
     last_computed_balance: "ميزان حسابها الماضي"
+    # last_confirmation_before_definitive_close: "Last confirmation before definitive close"
     # last_confirmation_before_definitive_lock: "Last confirmation before definitive lock"
     last_documents: "مشاركة المستندات"
     last_entities: "مشاركة الكيانات"

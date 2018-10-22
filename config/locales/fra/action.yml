@@ -1087,6 +1087,7 @@ fra:
     close: "Fermer"
     close_financial_year: "Clôturer %{code}"
     close_journal: "Clôturer le journal"
+    close_the_financial_year: "Clôturer l’exercice"
     closed: "Verrouillées"
     clostridial_spores_concentration: "Concentration en spores butyriques" #?
     clusters_work_number: "Numéro d’ilot(s)" #?
@@ -1383,6 +1384,7 @@ fra:
     financial_products: "Produits financiers"
     financial_state: "État financier" #?
     financial_year: "Exercice comptable"
+    financial_year_close_message: "<p> La clôture validera définitivement toutes les écritures de l’exercice, qui ne pourront plus être modifiées ou supprimées. Il ne sera plus possible d’en ajouter de nouvelles aussi. </p>"
     financial_year_lock_message: "<p>Le verrouillage validera définitivement toutes les écritures de l’exercice, qui ne pourront plus être modifiées ou supprimées. Il ne sera plus possible d’en ajouter de nouvelles aussi. <br/> Il faudra vous rapprocher de la personne qui a effectué la clôture en dehors du logiciel pour récupérer vos documents de fin d’exercice. </p>"
     financial_year_needed: "<p> Toutes les opérations commerciales et financières doivent être comptabilisées sur un exercice ouvert. <br/> Veuillez ouvrir un exercice pour la période en cours ou demander à votre responsable. </p>"
     financial_year_warning: "<p> Si l’exercice n’est pas clôturé ou verrouillé avant le %{last_financial_year_end_date}, vous ne pourrez pas ouvrir d’exercice au %{new_financial_year_start_date}. En effet, il n’est pas possible d’avoir plus de 2 exercices ouverts simultanément. De plus, il est nécessaire d’avoir un exercice ouvert à la date en cours pour saisir des opérations commerciales et financières. <br/> Si vous ne gérez pas votre comptabilité avec Ekylibre, vous avez aussi la possibilité de verrouiller votre exercice. <br/> Attention : les exercices verrouillés ne peuvent plus être modifiés comme un exercice clôturé."
@@ -1558,6 +1560,7 @@ fra:
     last_animals: "Dernières naissances" #?
     last_clients: "Derniers clients" #?
     last_computed_balance: "Dernière balance calculée"
+    last_confirmation_before_definitive_close: "Dernière confirmation avant clôture définitive"
     last_confirmation_before_definitive_lock: " Dernière confirmation avant verrouillage définitif "
     last_documents: "Derniers archivages"
     last_entities: "Derniers tiers"

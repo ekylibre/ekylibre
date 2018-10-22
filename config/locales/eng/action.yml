@@ -1205,6 +1205,7 @@ eng:
     close: "Close"
     close_financial_year: "Close %{code}"
     close_journal: "Close the journal"
+    close_the_financial_year: "Close the financial year"
     closed: "Closed"
     cobbles: "Cobbles" #?
     column: "Column"
@@ -1428,6 +1429,7 @@ eng:
     financial_expenses: "Financial expenses" #??
     financial_products: "Financial products" #??
     financial_year: "Financial year"
+    financial_year_close_message: "<p> The close will definitively validate all entries of the financial year, which may not be modified or deleted. It will not be possible to add new ones too. </p>"
     financial_year_lock_message: "<p> The lock will definitively validate all entries of the financial year, which may not be modified or deleted. It will not be possible to add new ones too. <br/> You will need to get in contact the person who did the close out of the software to get back your year-end documents. </p>"
     financial_year_needed: "All commercial and financial operations need to be accounted on an opened financial year. Please open a financial year for the current period or ask a manager"
     financial_year_warning: "<p> If the financial year is not closed or locked before the %{last_financial_year_end_date}, you will not be able to open a financial year on %{new_financial_year_start_date}. Indeed, it is not possible to have more than 2 financial years opened simultaneously. Furthermore, it is necessary to have an opened financial year on the ongoing date to input commercial and financial operations. <br/> If you don't manage your accountacy with Ekylibre, you have the possibility to lock your financial year. <br/> Attention : locked financial years can't be modified like a closed financial year."
@@ -1561,6 +1563,7 @@ eng:
     land_parcels: "Land parcels"
     last_analyses: "Last milk analysis"
     last_computed_balance: "Last computed balance" #?
+    last_confirmation_before_definitive_close: "Last confirmation before definitive close"
     last_confirmation_before_definitive_lock: "Last confirmation before definitive lock"
     last_documents: "Last documents" #?
     last_entities: "Last entities"
