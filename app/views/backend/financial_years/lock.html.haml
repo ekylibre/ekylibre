@@ -13,6 +13,7 @@
         %td
           = check_box_tag 'confirm-revised-accounts'
           = :account_certification_by_competent_person.tl
+
   = form_actions do
     = button_tag :lock_the_financial_year.tl, data: { toggle: 'modal', target: '#confirmLockModal' }, class: "btn btn-primary", id: "lock-btn", type: 'button', disabled: true
     = link_to(:cancel.tl, (params[:redirect] || {action: :index}), class: "btn")

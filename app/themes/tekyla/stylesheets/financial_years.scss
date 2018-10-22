@@ -32,7 +32,7 @@
   }
 }
 
-.lock-table {
+.lock-table, .close-table {
   margin: 11px;
   table, th, td{
     border: 1px solid #BC2121;
@@ -54,7 +54,7 @@
   }
 }
 
-#confirmLockModal {
+#confirmLockModal, #confirmCloseModal {
   .modal-title {
     font-size: 15px;
   }
