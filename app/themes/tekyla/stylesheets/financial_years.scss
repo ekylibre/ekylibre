@@ -60,18 +60,42 @@
   }
 }
 
-.locked-financial-year-title {
+.financial-year-title {
+  border-radius: 5px;
+  height: 42px;
+
+  h2 {
+    font-size: 27px;
+    margin-top: 8px;
+    font-weight: bold;
+    text-align: center;
+    text-transform: uppercase;
+  }
+
+  &.locked-financial-year {
     border: 2px solid #F42727;
-    border-radius: 5px;
     width: 183px;
-    height: 42px;
 
     h2 {
-      font-size: 27px;
       color: #F42727;
-      margin-top: 8px;
-      font-weight: bold;
-      text-align: center;
-      text-transform: uppercase;
     }
+  }
+
+  &.opened-financial-year {
+    border: 2px solid #47A730;
+    width: 140px;
+
+    h2 {
+      color: #47A730;
+    }
+  }
+
+  &.closed-financial-year {
+    border: 2px solid #F42727;
+    width: 150px;
+
+    h2 {
+      color: #F42727;
+    }
+  }
 }

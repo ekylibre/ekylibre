@@ -1,7 +1,6 @@
 = content_for(:heading_toolbar) do
-  - if resource.state.locked?
-    .locked-financial-year-title
-      %h2= resource.state.t(scope: 'enumerize.financial_year.state')
+  .financial-year-title{ class: "#{resource.state}-financial-year"}
+    %h2= resource.state.t(scope: 'enumerize.financial_year.state')
 
 = main_informations attachment: true do
   = infos do
