@@ -1,4 +1,4 @@
-- if FinancialYear.where('? BETWEEN started_on AND stopped_on', Date.today).length == 0
+- if FinancialYear.current.nil?
   .warning-container
     %i
     .warning-message

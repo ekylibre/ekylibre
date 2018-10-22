@@ -3,8 +3,8 @@
 
 - main_toolbar do |t|
   = t.new params: { redirect: nil }, icon: false, label: :open_financial_year.tl(code: @fy_to_open.code), class: 'btn-new-financial-year'
-  - year = @fy_to_close
-  = t.close year, label: :close_financial_year.tl(code: year.name), icon: false, disabled: @fy_to_close.present? if @fy_to_close
-  = t.lock year, label: :lock_financial_year.tl(code: year.name), icon: false, disabled: @fy_to_close.present? if @fy_to_close
+  - if @fy_to_close
+    = t.close @fy_to_close, label: :close_financial_year.tl(code: @fy_to_close.name), icon: false, disabled: @fy_to_close.blank?
+    = t.lock @fy_to_close, label: :lock_financial_year.tl(code: @fy_to_close.name), icon: false, disabled: @fy_to_close.blank?
 
 = main_list
