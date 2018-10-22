@@ -1,6 +1,7 @@
 module Backend
   class ShipmentsController < Backend::ParcelsController
     manage_restfully
+    before_action :save_search_preference, only: :index
 
     respond_to :csv, :ods, :xlsx, :pdf, :odt, :docx, :html, :xml, :json
 

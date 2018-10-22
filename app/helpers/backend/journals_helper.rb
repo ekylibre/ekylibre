@@ -47,9 +47,11 @@ module Backend
     def journal_period_crit(*args)
       options = args.extract_options!
       name = args.shift || :period
-      value = if preference = current_user.preferences.find_by(name: 'accounts_interval.period') && args.present? && args.first[:use_search_preference]
+      controller = params[:controller]
+      action = params[:action]
+      value = if preference = current_user.preferences.find_by(name: "#{controller}##{action}.period") && args.present? && args.first[:use_search_preference]
                 preference.value
-              elsif current_user.preferences.find_by(name: 'accounts_interval.started_on').present? && args.present? && args.first[:use_search_preference]
+              elsif current_user.preferences.find_by(name: "#{controller}##{action}.started_on").present? && args.present? && args.first[:use_search_preference]
                 :interval
               else
                 args.shift
@@ -79,12 +81,12 @@ module Backend
       toggle_method = "toggle#{custom_id.camelcase}"
       if configuration[:custom]
         params[:started_on] = begin
-                                current_user.preferences.value('accounts_interval.started_on')&.to_date || params[:started_on].to_date
+                                current_user.preferences.value("#{controller}##{action}.started_on")&.to_date || params[:started_on].to_date
                               rescue
                                 (fy ? fy.started_on : Time.zone.today)
                               end
         params[:stopped_on] = begin
-                                current_user.preferences.value('accounts_interval.stopped_on')&.to_date || params[:stopped_on].to_date
+                                current_user.preferences.value("#{controller}##{action}.stopped_on")&.to_date || params[:stopped_on].to_date
                               rescue
                                 (fy ? fy.stopped_on : Time.zone.today)
                               end

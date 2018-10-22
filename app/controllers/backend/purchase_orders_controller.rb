@@ -23,6 +23,8 @@ module Backend
 
     unroll :number, :reference_number, :ordered_at, :pretax_amount, supplier: :full_name
 
+    before_action :save_search_preference, only: :index
+
     def self.list_conditions
       code = ''
       code = search_conditions(purchase_order: %i[number reference_number created_at pretax_amount], entities: %i[number full_name]) + " ||= []\n"
