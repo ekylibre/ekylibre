@@ -2,6 +2,12 @@
   .financial-year-title{ class: "#{resource.state}-financial-year"}
     %h2= resource.state.t(scope: 'enumerize.financial_year.state')
 
+- main_toolbar do |t|
+  = t.edit resource
+  - if resource == FinancialYear.closable_or_lockable
+    = t.close resource, label: :close_financial_year.tl(code: resource.name), icon: false
+    = t.lock resource, label: :lock_financial_year.tl(code: resource.name), icon: false
+
 = main_informations attachment: true do
   = infos do
     .med-info.important
