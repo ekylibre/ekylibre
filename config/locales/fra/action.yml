@@ -861,6 +861,7 @@ fra:
     activity_productions: "Productions"
     add: "Ajouter"
     add_a_worker: "Ajouter un équipier"
+    add_an_account: "Ajouter un compte"
     add_animal: "Ajouter un animal"
     add_animal_group: "Ajouter un troupeau"
     add_annotation: "Ajouter une annotation"
@@ -2162,6 +2163,7 @@ fra:
     support: "Support"
     supports: "Supports de production"
     supports_chart: "Graphique des supports" #?
+    switch_accounting_plan: "Changer de plan de comptes"
     synthesis: "Synthèse"
     target: "Cible"
     target_name: "Nom de la cible" #?
