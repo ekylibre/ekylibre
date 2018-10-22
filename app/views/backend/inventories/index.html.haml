@@ -1,4 +1,4 @@
-= render 'backend/shared/financial_year_warning' if Preference.find_by(name: :permanent_stock_inventory).boolean_value
+= render 'backend/shared/financial_year_warning' if Preference.get(:permanent_stock_inventory, true).boolean_value
 
 - main_toolbar do |t|
   = t.export :stocks
