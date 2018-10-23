@@ -99,3 +99,22 @@
     }
   }
 }
+
+.close-conditions {
+  font-weight: bold;
+  i {
+    // font-weight: bold;
+
+    &.wrong-validation {
+      @include is-icon(25px);
+      @include use-icon(close);
+      color: red;
+    }
+
+    &.correct-validation {
+      @include is-icon(20px);
+      @include use-icon(check);
+      color: #6BC728;
+    }
+  }
+}

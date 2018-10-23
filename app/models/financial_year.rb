@@ -230,9 +230,9 @@ class FinancialYear < Ekylibre::Record::Base
     noticed_on ||= Time.zone.today
     list = []
     list << :financial_year_already_closed if closed
-    list << :draft_journal_entries_are_present if journal_entries.where(state: :draft).any?
+    list << :draft_journal_entries_are_present if no_draft_entry?
     list << :previous_financial_year_is_not_closed if previous_record && !previous_record.closed? && !previous_record.locked?
-    list << :unbalanced_journal_entries_are_present_in_year unless journal_entries.where('debit != credit').empty?
+    list << :unbalanced_journal_entries_are_present_in_year unless no_entry_to_balance?
     list << :financial_year_is_not_past if stopped_on >= noticed_on
     list
   end
@@ -444,6 +444,39 @@ class FinancialYear < Ekylibre::Record::Base
     when 'months'
       compute_ranges(1)
     end
+  end
+
+  def all_previous_financial_years_closed_locked?
+    years = FinancialYear.where("started_on < ?", self.started_on).order(:started_on)
+    years.all? { |y| y.locked? || y.closed? }
+  end
+
+  def no_draft_entry?
+    journal_entries.where(state: :draft).any?
+  end
+
+  def no_entry_to_balance?
+    journal_entries.where('debit != credit').empty?
+  end
+
+  def unbalanced_radical_account_classes_array
+    # Expected to have a range from 1 to 7
+    radical_numbers = Nomen::Account.items.values.select { |a| a.send(Account.accounting_system)&.match(/^[1-9]$/) }.map { |a| a.send(Account.accounting_system) }
+    balanced_radical_account_classes = []
+    radical_numbers.each do |rad_numb|
+      # Get all accounts beginning by rad_numb
+      accounts = Account.where('number ~* ?', '^' + rad_numb)
+      # Get all journal entry items which is included in one the accounts and in current financial year
+      jei = JournalEntryItem.where(account_id: accounts.ids).where(financial_year_id: self.id)
+      if jei.any? && (jei.sum(:credit) - jei.sum(:debit) == 0)
+        # This array contains parameters to build link_to url
+        balanced_class = {}
+        balanced_class[:prefix] = rad_numb
+        balanced_class[:period] = self.started_on.to_s + '_' + self.stopped_on.to_s
+        balanced_radical_account_classes << balanced_class
+      end
+    end
+    balanced_radical_account_classes
   end
 
   private
