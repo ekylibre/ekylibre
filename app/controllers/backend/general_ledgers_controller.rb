@@ -93,41 +93,41 @@ module Backend
     list(:subledger_accounts, model: :accounts, conditions: account_conditions, joins: %i[journal_entry_items], order: 'accounts.number', select: subledger_accounts_selections, group: %w[accounts.number accounts.name accounts.id account_currency], count: 'DISTINCT accounts.number') do |t|
       t.column :number, url: { controller: :general_ledgers, account_number: 'RECORD.number'.c, current_financial_year: 'params[:current_financial_year]'.c, ledger: 'RECORD.number[0..2]'.c }
       t.column :name, url: true
-      t.column :cumulated_absolute_debit_balance, currency: :account_currency, class: :gutter, default: ''
-      t.column :cumulated_absolute_credit_balance, currency: :account_currency, class: :gutter, default: ''
+      t.column :cumulated_absolute_debit_balance, currency: :account_currency, class: "smallcolumns monetary_column debitcolor", default: ''
+      t.column :cumulated_absolute_credit_balance, currency: :account_currency, class: "smallcolumns monetary_column creditcolor", default: ''
     end
 
     list(:centralized_ledger_accounts, model: :accounts, select: [['*']], from: union_subquery, count: 'DISTINCT U.account_number', group: 'U.account_number, U.account_name, U.cumulated_absolute_credit_balance, U.cumulated_absolute_debit_balance, U.account_currency', order: 'U.account_number') do |t|
       t.column :account_number, url: { controller: :general_ledgers, action: :index, current_financial_year: 'params[:current_financial_year]'.c, ledger: 'RECORD.account_number'.c }
       t.column :account_name, url: { controller: :general_ledgers, action: :index, current_financial_year: 'params[:current_financial_year]'.c, ledger: 'RECORD.account_number'.c }
-      t.column :cumulated_absolute_debit_balance, currency: :account_currency, class: :gutter, default: ''
-      t.column :cumulated_absolute_credit_balance, currency: :account_currency, class: :gutter, default: ''
+      t.column :cumulated_absolute_debit_balance, currency: :account_currency, class: "smallcolumns monetary_column debitcolor", default: ''
+      t.column :cumulated_absolute_credit_balance, currency: :account_currency, class: "smallcolumns monetary_column creditcolor", default: ''
     end
 
     list(:subledger_journal_entry_items, model: :journal_entry_items, conditions: list_conditions, joins: %i[entry account journal], order: "#{JournalEntryItem.table_name}.printed_on, #{JournalEntryItem.table_name}.id") do |t|
-      t.column :printed_on
-      t.column :journal_name, url: { controller: :journals, id: 'RECORD.journal_id'.c }, label: :journal
-      t.column :account, url: true, hidden: true
-      t.column :account_number, through: :account, label_method: :number, url: { controller: :general_ledgers, account_number: 'RECORD.account.number'.c, current_financial_year: 'params[:current_financial_year]'.c, ledger: 'RECORD.account&.number[0..2]'.c }, hidden: true
-      t.column :account_name, through: :account, label_method: :name, url: true, hidden: true
-      t.column :entry_number, url: { controller: :journal_entries, id: 'RECORD.entry_id'.c }
+      t.column :printed_on, class: "smallcolumns printed_on_column"
+      t.column :journal_name, url: { controller: :journals, id: 'RECORD.journal_id'.c }, label: :journal, class: :mediumcolumns
+      t.column :account, url: true, hidden: true, class: :largecolumns
+      t.column :account_number, through: :account, label_method: :number, url: { controller: :general_ledgers, account_number: 'RECORD.account.number'.c, current_financial_year: 'params[:current_financial_year]'.c, ledger: 'RECORD.account&.number[0..2]'.c }, hidden: true, class: :mediumcolumns
+      t.column :account_name, through: :account, label_method: :name, url: true, hidden: true, class: :mediumcolumns
+      t.column :entry_number, url: { controller: :journal_entries, id: 'RECORD.entry_id'.c }, class: :smallcolumns
       t.column :continuous_number, hidden: true
-      t.column :code, through: :journal, label: :journal, hidden: true
-      t.column :entry_resource_label, url: { controller: 'RECORD&.entry&.resource&.class&.model_name&.plural'.c, id: 'RECORD&.entry&.resource&.id'.c }, label: :entry_resource_label, class: 'entry-resource-label'
-      t.column :name, class: 'entry-name'
-      t.column :reference_number, through: :entry, hidden: true
-      t.column :variant, url: true, hidden: true
-      t.column :letter
-      t.column :real_debit,  currency: :real_currency, hidden: true
-      t.column :real_credit, currency: :real_currency, hidden: true
-      t.column :debit,  currency: true, class: :gutter, default: ''
-      t.column :credit, currency: true, class: :gutter, default: ''
-      t.column :absolute_debit,  currency: :absolute_currency, hidden: true
-      t.column :absolute_credit, currency: :absolute_currency, hidden: true
-      t.column :cumulated_absolute_debit,  currency: :absolute_currency, hidden: true
-      t.column :cumulated_absolute_credit, currency: :absolute_currency, hidden: true
-      t.column :cumulated_absolute_debit_balance, currency: :absolute_currency, class: :gutter, default: ''
-      t.column :cumulated_absolute_credit_balance, currency: :absolute_currency, class: :gutter, default: ''
+      t.column :code, through: :journal, label: :journal, hidden: true, class: :smallcolumns
+      t.column :entry_resource_label, url: { controller: 'RECORD&.entry&.resource&.class&.model_name&.plural'.c, id: 'RECORD&.entry&.resource&.id'.c }, label: :entry_resource_label, class: :largecolumns
+      t.column :name, class: :entryname
+      t.column :reference_number, through: :entry, hidden: true, class: :smallcolumns
+      t.column :variant, url: true, hidden: true, class: :smallcolumns
+      t.column :letter, class: "smallcolumns letterscolumn"
+      t.column :real_debit,  currency: :real_currency, hidden: true, class: "smallcolumns monetary_column debitcolor"
+      t.column :real_credit, currency: :real_currency, hidden: true, class: "smallcolumns monetary_column creditcolor"
+      t.column :debit,  currency: true, class: "smallcolumns monetary_column debitcolor", default: ''
+      t.column :credit, currency: true, class: "smallcolumns monetary_column creditcolor", default: ''
+      t.column :absolute_debit,  currency: :absolute_currency, hidden: true, class: "smallcolumns monetary_column debitcolor"
+      t.column :absolute_credit, currency: :absolute_currency, hidden: true, class: "smallcolumns monetary_column creditcolor"
+      t.column :cumulated_absolute_debit,  currency: :absolute_currency, hidden: true, class: "smallcolumns monetary_column debitcolor"
+      t.column :cumulated_absolute_credit, currency: :absolute_currency, hidden: true, class: "smallcolumns monetary_column creditcolor"
+      t.column :cumulated_absolute_debit_balance, currency: :absolute_currency, class: "smallcolumns monetary_column debitcolor", default: ''
+      t.column :cumulated_absolute_credit_balance, currency: :absolute_currency, class: "smallcolumns monetary_column creditcolor", default: ''
     end
 
     def index
