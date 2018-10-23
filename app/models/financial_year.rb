@@ -83,21 +83,11 @@ class FinancialYear < Ekylibre::Record::Base
     tax_declarations.any? || journal_entries.any? || inventories.any? || !opened?
   end
 
-  # protect on: :update do
-  #   state_was.in? ['locked', 'closed']
-  # end
-
   class << self
     def on(searched_on)
       year = where('? BETWEEN started_on AND stopped_on', searched_on).order(started_on: :desc).first
       return year if year
       nil
-      # born_on = Entity.of_company.born_on
-      # return nil if searched_on < born_on
-      # year = FinancialYear.where('stopped_on < ?', searched_on).order(stopped_on: :desc).first
-      # year ||= FinancialYear.create_with(stopped_on: (born_on >> 11).end_of_month).find_or_create_by!(started_on: born_on)
-      # year = year.find_or_create_next! while year.stopped_on < searched_on
-      # year
     end
 
     # Find or create if possible the requested financial year for the searched date

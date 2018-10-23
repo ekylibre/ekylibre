@@ -148,7 +148,7 @@ class Sale < Ekylibre::Record::Base
       transition estimate: :order, if: :has_content?
     end
     event :invoice do
-      transition %i[draft estimate order] => :invoice, if: (:has_content? && :opened_financial_year?)
+      transition %i[draft estimate order] => :invoice, if: :has_content?
     end
     event :abort do
       transition draft: :aborted

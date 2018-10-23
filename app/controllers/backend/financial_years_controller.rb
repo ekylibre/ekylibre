@@ -122,7 +122,7 @@ module Backend
         end
         FinancialYearCloseJob.perform_later(@financial_year, current_user, closed_on.to_s, **params.symbolize_keys.slice(:result_journal_id, :forward_journal_id, :closure_journal_id))
         notify_success(:closure_process_started)
-        @financial_year.update(state: 'close_in_preparation')
+
         return redirect_to(action: :index)
       end
 
