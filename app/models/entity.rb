@@ -249,6 +249,9 @@ class Entity < Ekylibre::Record::Base
       a.mail_line_1 = full_name
       a.save
     end
+    # create account before bookkeep on sale and purchase
+    self.account(:client) if client
+    self.account(:supplier) if supplier
   end
 
   protect(on: :destroy) do
