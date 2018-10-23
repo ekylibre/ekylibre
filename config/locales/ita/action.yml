@@ -797,6 +797,7 @@ ita:
     activity_productions: "Produzioni di attività"
     add: "Aggiungere"
     add_a_worker: "Aggiungere un lavoratore"
+    # add_an_account: "Add an account"
     add_animal: "Aggiungere animale"
     add_animal_group: "Aggiungere gruppo animale"
     add_annotation: "Aggiungere annotazioni"
@@ -1743,6 +1744,7 @@ ita:
     support: "Supporto"
     supports: "supporti"
     supports_chart: "Supporta grafico" #?
+    # switch_accounting_plan: "Switch accounting plan"
     synthesis: "Sintesi"
     target: "Bersaglio"
     tasks: "Compiti"

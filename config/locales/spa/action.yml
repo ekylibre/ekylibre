@@ -795,6 +795,7 @@ spa:
     activity_productions: "Producciones de actividad"
     add: "Añadir"
     add_a_worker: "Añadir un trabajador"
+    # add_an_account: "Add an account"
     add_animal: "Añadir animales"
     add_animal_group: "Añadir grupo de animales"
     add_annotation: "Añadir anotación"
@@ -1901,6 +1902,7 @@ spa:
     support: "Apoyo"
     supports: "Soportes"
     supports_chart: "Soporta gráfica" #?
+    # switch_accounting_plan: "Switch accounting plan"
     synthesis: "Documentos de sintesis"
     target: "Objetivo"
     tasks: "Tareas"

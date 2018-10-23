@@ -991,6 +991,7 @@ arb:
     activity_productions: "إنتاجات آخر"
     add: "اضافة"
     add_a_worker: "إضافة عامل"
+    # add_an_account: "Add an account"
     add_animal: "إضافة الحيوانية"
     add_animal_group: "إضافة مجموعة الحيوانات"
     add_annotation: "إضافة تعليق توضيحي"
@@ -2289,6 +2290,7 @@ arb:
     support: "الدعم"
     supports: "الدعم"
     supports_chart: "يدعم الرسم البياني" #?
+    # switch_accounting_plan: "Switch accounting plan"
     synthesis: "تجميع الوثائق"
     target: "الهدف"
     tasks: "المهام"

@@ -731,6 +731,7 @@ deu:
     activity_productions: "Aktivität Produktionen"
     add: "Hinzufügen"
     add_a_worker: "Fügen Sie einen Arbeiter"
+    # add_an_account: "Add an account"
     add_animal: "Animal"
     add_animal_group: "In Tiergruppe"
     add_annotation: "Anmerkung hinzufügen"
@@ -1677,6 +1678,7 @@ deu:
     support: "Unterstützen"
     supports: "Unterstützungen"
     supports_chart: "unterstützt Grafik" #?
+    # switch_accounting_plan: "Switch accounting plan"
     synthesis: "Synthese"
     target: "Ziel"
     tasks: "Aufgaben"

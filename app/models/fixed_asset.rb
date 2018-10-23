@@ -240,7 +240,7 @@ class FixedAsset < Ekylibre::Record::Base
   def opened_financial_year?
     FinancialYear.on(started_on)&.opened?
   end
-  
+
   # This callback permits to add journal entry corresponding to the fixed asset when entering in use
   bookkeep do |b|
     label = tc(:bookkeep_in_use_assets, resource: self.class.model_name.human, number: number, name: name)

@@ -736,6 +736,7 @@ por:
     activity_productions: "Produções de atividade"
     add: "Adicionar"
     add_a_worker: "Adicionar um trabalhador"
+    # add_an_account: "Add an account"
     add_animal: "Adicione animais"
     add_animal_group: "Adicionar grupo de animais"
     add_annotation: "Adicionar anotação"
@@ -1682,6 +1683,7 @@ por:
     support: "Apoio"
     supports: "Suportes"
     supports_chart: "Suporta gráfico" #?
+    # switch_accounting_plan: "Switch accounting plan"
     synthesis: "Síntese"
     target: "Alvo"
     tasks: "Tarefas"

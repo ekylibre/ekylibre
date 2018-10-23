@@ -731,6 +731,7 @@ cmn:
     activity_productions: "活动制作"
     add: "加"
     add_a_worker: "添加一个工人"
+    # add_an_account: "Add an account"
     add_animal: "添加动物"
     add_animal_group: "添加动物群"
     add_annotation: "添加注释"
@@ -1678,6 +1679,7 @@ cmn:
     support: "支持"
     supports: "支持"
     supports_chart: "支持图" #?
+    # switch_accounting_plan: "Switch accounting plan"
     synthesis: "合成"
     target: "目标"
     tasks: "任务"
