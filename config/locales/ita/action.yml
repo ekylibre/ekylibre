@@ -982,6 +982,7 @@ ita:
     close: "Vicino"
     close_financial_year: "Chiudi esercizio"
     close_journal: "Chiudere il giornale"
+    # close_settings: "Close settings"
     # close_the_financial_year: "Close the financial year"
     closed: "Chiuso"
     cobbles: "ciottoli"

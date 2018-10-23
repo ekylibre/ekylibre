@@ -921,6 +921,7 @@ por:
     close: "Fechar"
     close_financial_year: "Fechar exercício"
     close_journal: "Feche a revista"
+    # close_settings: "Close settings"
     # close_the_financial_year: "Close the financial year"
     closed: "Fechadas"
     cobbles: "Godos"

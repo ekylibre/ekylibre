@@ -916,6 +916,7 @@ cmn:
     close: "关闭"
     close_financial_year: "关闭财政年度"
     close_journal: "关闭日记"
+    # close_settings: "Close settings"
     # close_the_financial_year: "Close the financial year"
     closed: "关闭"
     cobbles: "卵石"

@@ -1088,6 +1088,7 @@ fra:
     close: "Fermer"
     close_financial_year: "Clôturer %{code}"
     close_journal: "Clôturer le journal"
+    close_settings: "Paramètres de clôture"
     close_the_financial_year: "Clôturer l’exercice"
     closed: "Verrouillées"
     clostridial_spores_concentration: "Concentration en spores butyriques" #?

@@ -916,6 +916,7 @@ deu:
     close: "Schließen"
     close_financial_year: "Geschäftsjahresende"
     close_journal: "Schließen Sie die Zeitschrift"
+    # close_settings: "Close settings"
     # close_the_financial_year: "Close the financial year"
     closed: "Abgeschlossen"
     cobbles: "Pflaster"

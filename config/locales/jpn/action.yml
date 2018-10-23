@@ -983,6 +983,7 @@ jpn:
     close: "閉じる"
     close_financial_year: "閉じる会計年度"
     close_journal: "ジャーナルを閉じます"
+    # close_settings: "Close settings"
     # close_the_financial_year: "Close the financial year"
     closed: "閉じました"
     cobbles: "丸石"

@@ -1007,6 +1007,7 @@ spa:
     close: "Cerrar"
     close_financial_year: "Fin del ejercicio contable"
     close_journal: "Cierre la revista"
+    # close_settings: "Close settings"
     # close_the_financial_year: "Close the financial year"
     closed: "Cerrados"
     cobbles: "Enguijarrado"

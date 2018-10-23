@@ -1213,6 +1213,7 @@ arb:
     close: "اغلاق الدفتر اليومي"
     close_financial_year: "وثيق السنة المالية"
     close_journal: "إغلاق مجلة"
+    # close_settings: "Close settings"
     # close_the_financial_year: "Close the financial year"
     closed: "مغلق"
     cobbles: "الحصى"
