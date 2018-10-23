@@ -32,8 +32,8 @@
     %table#subledger-journal-entry-items-totals
       %tbody
         %tr
-          %td{colspan: 6}= :account_totals.tl
-          %td.gutter= number_to_accountancy @calculations[0]
-          %td.gutter= number_to_accountancy @calculations[1]
-          %td.gutter= @calculations[2] >= 0 ? number_to_accountancy(@calculations[2]) : nil
-          %td.gutter= @calculations[2] < 0 ? number_to_accountancy(@calculations[2].abs) : nil
+          %td.totalscolumn= :account_totals.tl
+          %td.smallcolumns= number_to_accountancy @calculations[0]
+          %td.smallcolumns= number_to_accountancy @calculations[1]
+          %td.smallcolumns= @calculations[2] >= 0 ? number_to_accountancy(@calculations[2]) : nil
+          %td.smallcolumns= @calculations[2] < 0 ? number_to_accountancy(@calculations[2].abs) : nil
