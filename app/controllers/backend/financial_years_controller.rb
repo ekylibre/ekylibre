@@ -148,18 +148,18 @@ module Backend
           @fy_to_open.started_on = f.present? ? f.stopped_on + 1 : Time.now.to_date
           @fy_to_open.stopped_on = ((@fy_to_open.started_on - 1) >> 12).end_of_month
           @fy_to_open.code = @fy_to_open.default_code
+
+          if FinancialYear.closables_or_lockables.count > 1
+            @title = :you_can_close_financial_year_to_open_a_new_one
+          elsif FinancialYear.current && FinancialYear.current.stopped_on < (Date.today + 6.months) && FinancialYear.next_year.nil? && FinancialYear.previous_year&.opened?
+            @title = :you_can_close_financial_year
+          else
+            @title = ''
+          end
         end
         format.json do
           @financial_years = FinancialYear.all
         end
-      end
-
-      if FinancialYear.closables_or_lockables.count > 1
-        @title = :you_can_close_financial_year_to_open_a_new_one
-      elsif FinancialYear.current && FinancialYear.current.stopped_on < (Date.today + 6.months) && FinancialYear.next_year.nil? && FinancialYear.previous_year&.opened?
-        @title = :you_can_close_financial_year
-      else
-        @title = ''
       end
     end
 
