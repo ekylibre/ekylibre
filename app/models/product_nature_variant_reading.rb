@@ -57,15 +57,7 @@ class ProductNatureVariantReading < Ekylibre::Record::Base
   validates :integer_value, numericality: { only_integer: true, greater_than: -2_147_483_649, less_than: 2_147_483_648 }, allow_blank: true
   validates :string_value, length: { maximum: 500_000 }, allow_blank: true
   # ]VALIDATORS]
-
-  validate do
-    if variant
-      unless variant.frozen_indicators.include?(indicator)
-        logger.debug "#{indicator.inspect} not in #{variant.reference_name}#{variant.frozen_indicators.inspect}"
-        errors.add(:indicator, :inclusion)
-      end
-    end
-  end
+  validates :indicator, inclusion: { in: -> (pnvr) { pnvr.variant.frozen_indicators }, if: :variant }
 
   def usable?
     variant.frozen_indicators.include?(indicator)

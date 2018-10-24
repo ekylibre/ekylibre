@@ -44,6 +44,7 @@ class ContractItem < Ekylibre::Record::Base
   validates :pretax_amount, :quantity, :unit_pretax_amount, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
   validates :contract, :variant, presence: true
   # ]VALIDATORS]
+  validates :quantity, exclusion: { in: [0], message: :invalid }
 
   delegate :currency, to: :contract
   sums :contract, :items, :pretax_amount
@@ -60,9 +61,5 @@ class ContractItem < Ekylibre::Record::Base
 
   before_validation do
     self.quantity ||= 0
-  end
-
-  validate do
-    errors.add(:quantity, :invalid) if self.quantity.zero?
   end
 end
