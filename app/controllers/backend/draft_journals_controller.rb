@@ -42,7 +42,7 @@ module Backend
     def show
       @redirection = params[:redirection]
       @current_page = 1
-      @current_date = FinancialYear.find(params[:current_financial_year]).stopped_on
+      @current_date = params[:current_financial_year] ? FinancialYear.find(params[:current_financial_year]).stopped_on : Date.today
       @journal_id = params[:journal_id] ? params[:journal_id].to_i : ''
       journal_entries = @journal_id.blank? ? JournalEntry.all : JournalEntry.where(journal_id: @journal_id)
       @draft_entries = journal_entries.where(state: :draft).where('printed_on <= ?', @current_date).order(:printed_on)
