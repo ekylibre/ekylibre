@@ -1,1 +1,0 @@
-json.state resource.state
