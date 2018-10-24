@@ -907,6 +907,8 @@ eng:
         one: "%{count} error prohibited this %{model} from being saved"
         other: "%{count} errors prohibited this %{model} from being saved"
   front-end:
+    bank_reconciliation:
+      remove: "Remove"
     leaflet:
       draw:
         handlers:
@@ -1715,6 +1717,7 @@ eng:
     product: "Product"
     product_account_number: "Product account number" #?
     product_category: "Product category" #?
+    payment_delay_custom_validation_message: "Insert custom message here"
     product_name: "Product name" #?
     # product_nature_variants: "Product nature variants"
     product_natures: "Product types"

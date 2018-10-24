@@ -151,7 +151,7 @@ class Delay
     module ClassMethods
       def validates_delay_format_of(*attr_names)
         attr_names.each do |attr_name|
-          validates attr_name, delay: true
+          validates attr_name, delay: { message: :payment_delay_custom_validation_message.tl }
         end
         # validates_with ActiveRecord::Base::DelayFormatValidator, *attr_names
       end
