@@ -23,7 +23,7 @@ module Backend
     unroll
 
     list(order: { started_on: :desc }) do |t|
-      t.action :edit
+      t.action :edit, if: :opened?
       t.action :destroy
       t.column :code, url: true
       t.column :state

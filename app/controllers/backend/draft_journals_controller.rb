@@ -94,7 +94,7 @@ module Backend
 
       ValidateDraftJournalEntriesService.new(journal_entries_to_validate).validate_all
       notify_success(:draft_journal_entries_have_been_validated, count: journal_entries_to_validate_count)
-      redirect_to params[:redirection]
+      redirect_to action: :show
     end
   end
 end
