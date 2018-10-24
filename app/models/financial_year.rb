@@ -50,7 +50,7 @@ class FinancialYear < Ekylibre::Record::Base
   enumerize :tax_declaration_frequency, in: %i[monthly quaterly yearly none],
                                         default: :monthly, predicates: { prefix: true }
   enumerize :tax_declaration_mode, in: %i[debit payment none], default: :none, predicates: { prefix: true }
-  enumerize :state, in: %i[opened closed locked close_in_preparation], default: :opened, predicates: true
+  enumerize :state, in: %i[opened closed locked], default: :opened, predicates: true
   belongs_to :last_journal_entry, class_name: 'JournalEntry'
   belongs_to :accountant, class_name: 'Entity'
   has_many :account_balances, dependent: :delete_all

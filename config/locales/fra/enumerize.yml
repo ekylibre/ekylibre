@@ -154,7 +154,6 @@ fra:
         waiting: "En attente de réponse"
     financial_year:
       state:
-        close_in_preparation: "Clôture en préparation"
         closed: "Clôturé"
         locked: "Verrouillé"
         opened: "Ouvert"

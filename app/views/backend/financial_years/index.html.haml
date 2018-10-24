@@ -2,7 +2,7 @@
   = render 'help', locals: { title: @title, fy_to_close: @fy_to_close, fy_to_open: @fy_to_open }
 
 - main_toolbar do |t|
-  = t.new params: { redirect: nil }, icon: false, label: :open_financial_year.tl(code: @fy_to_open.code), class: 'btn-new-financial-year'
+  = t.new params: { redirect: nil }, icon: false, label: :open_financial_year.tl(code: @fy_to_open.code), class: 'btn-new-financial-year', disabled: @financial_years_count > 1
   - if @fy_to_close
     = t.close @fy_to_close, label: :close_financial_year.tl(code: @fy_to_close.name), icon: false, disabled: @fy_to_close.blank?
     = t.lock @fy_to_close, label: :lock_financial_year.tl(code: @fy_to_close.name), icon: false, disabled: @fy_to_close.blank?

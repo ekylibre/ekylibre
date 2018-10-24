@@ -156,7 +156,6 @@ deu:
         waiting: "Warten"
     financial_year:
       state:
-        # close_in_preparation: "Close in preparation"
         # closed: "Closed"
         # locked: "Locked"
         # opened: "Opened"

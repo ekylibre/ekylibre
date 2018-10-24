@@ -69,6 +69,7 @@ module Backend
           end
           notify_now(:locked_exercice_info) if @financial_year.locked?
           t3e @financial_year.attributes
+
         end
         format.xml do
           FecExportJob.perform_later(@financial_year, params[:fiscal_position], params[:interval], current_user)
@@ -140,19 +141,13 @@ module Backend
     end
 
     def index
-      respond_to do |format|
-        format.html do
-          @fy_to_close = FinancialYear.closable_or_lockable if FinancialYear.closable_or_lockable
-          f = FinancialYear.order(stopped_on: :desc).first
-          @fy_to_open = FinancialYear.new
-          @fy_to_open.started_on = f.present? ? f.stopped_on + 1 : Time.now.to_date
-          @fy_to_open.stopped_on = ((@fy_to_open.started_on - 1) >> 12).end_of_month
-          @fy_to_open.code = @fy_to_open.default_code
-        end
-        format.json do
-          @financial_years = FinancialYear.all
-        end
-      end
+      @financial_years_count = FinancialYear.count
+      @fy_to_close = FinancialYear.closable_or_lockable if FinancialYear.closable_or_lockable
+      f = FinancialYear.order(stopped_on: :desc).first
+      @fy_to_open = FinancialYear.new
+      @fy_to_open.started_on = f.present? ? f.stopped_on + 1 : Time.now.to_date
+      @fy_to_open.stopped_on = ((@fy_to_open.started_on - 1) >> 12).end_of_month
+      @fy_to_open.code = @fy_to_open.default_code
 
       if FinancialYear.closables_or_lockables.count > 1
         @title = :you_can_close_financial_year_to_open_a_new_one

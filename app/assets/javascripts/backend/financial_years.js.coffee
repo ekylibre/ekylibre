@@ -1,20 +1,7 @@
 ((E, $) ->
-  $(document).ready ->
-    return unless $('.btn-new-financial-year').length
-    $.ajax
-      url: "/backend/financial-years.json"
-      success: (data, status, request) ->
-        if data.are_two_financials_years_opened > 1
-          $('.btn-new-financial-year').first().attr('disabled',true)
-
-  $(document).ready ->
-    if ($('.lock-table').find('#confirm-revised-accounts').length)
-      $('#confirm-revised-accounts').change ->
-        $('#lock-btn').attr('disabled', !this.checked)
-
-    if ($('.close-table').find('#confirm-revised-accounts').length)
-      $('#confirm-revised-accounts').change ->
-        $('#close-btn').attr('disabled', !this.checked)
+  $(document).on 'change', '#confirm-revised-accounts', ->
+    lock_btn = $('#lock-btn')
+    lock_btn.attr('disabled', !this.checked)
 
   $(document).ready ->
     return unless $('.edit_financial_year').length
