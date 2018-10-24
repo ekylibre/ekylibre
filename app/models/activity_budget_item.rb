@@ -62,8 +62,9 @@ class ActivityBudgetItem < Ekylibre::Record::Base
   validates :variant_indicator, :variant_unit, length: { maximum: 500 }, allow_blank: true
   # ]VALIDATORS]
   validates :variant, presence: true
+  validates :unit_amount, presence: { message: :invalid }
+  validates :currency, match: { with: :activity_budget, if: :activity_budget }
 
-  # delegate :supports_quantity, :supports_count, :support_indicator, :support_unit, to: :activity
   delegate :size_indicator, :size_unit, to: :activity
   delegate :currency, to: :activity_budget, prefix: true
   delegate :name, to: :variant, prefix: true
@@ -77,14 +78,10 @@ class ActivityBudgetItem < Ekylibre::Record::Base
   end
 
   validate do
-    if currency && activity_budget
-      errors.add(:currency, :invalid) if currency != activity_budget_currency
-    end
+    #???: Why do we even have both if we check that they're always equals??
     if currency && unit_currency
       errors.add(:currency, :invalid) if currency != unit_currency
     end
-
-    errors.add(:unit_amount, :invalid) if unit_amount.blank?
   end
 
   after_validation do

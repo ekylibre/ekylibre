@@ -72,7 +72,10 @@ class PurchaseItem < Ekylibre::Record::Base
   validates :preexisting_asset, inclusion: { in: [true, false] }, allow_blank: true
   # ]VALIDATORS]
   validates :currency, length: { allow_nil: true, maximum: 3 }
+  validates :currency, match: { with: :purchase, if: :purchase }
   validates :account, :tax, :reduction_percentage, presence: true
+  validates :quantity, exclusion: { in: [0], message: :invalid }
+
   validates_associated :fixed_asset
 
   delegate :invoiced_at, :journal_entry, :number, :computation_method, :computation_method_quantity_tax?, :computation_method_tax_quantity?, :computation_method_adaptative?, :computation_method_manual?, to: :purchase
@@ -160,10 +163,6 @@ class PurchaseItem < Ekylibre::Record::Base
       fixed_asset.add_amount(-pretax_amount.to_f) if fixed_asset
     end
     true
-  end
-  validate do
-    errors.add(:currency, :invalid) if purchase && currency != purchase_currency
-    errors.add(:quantity, :invalid) if self.quantity.zero?
   end
 
   after_save do

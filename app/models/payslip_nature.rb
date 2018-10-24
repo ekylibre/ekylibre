@@ -48,6 +48,7 @@ class PayslipNature < Ekylibre::Record::Base
   validates :currency, :journal, presence: true
   validates :name, presence: true, uniqueness: true, length: { maximum: 500 }
   # ]VALIDATORS]
+  validates :currency, match: { with: :journal, if: :journal }
 
   selects_among_all
 
@@ -58,9 +59,5 @@ class PayslipNature < Ekylibre::Record::Base
 
   protect on: :destroy do
     payslips.any?
-  end
-
-  validate do
-    errors.add(:currency, :invalid) if journal && currency.present? && journal.currency != currency
   end
 end
