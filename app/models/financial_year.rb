@@ -233,7 +233,7 @@ class FinancialYear < Ekylibre::Record::Base
     noticed_on ||= Time.zone.today
     list = []
     list << :financial_year_already_closed if closed
-    list << :draft_journal_entries_are_present if no_draft_entry?
+    list << :draft_journal_entries_are_present if !no_draft_entry?
     list << :previous_financial_year_is_not_closed if previous_record && !previous_record.closed? && !previous_record.locked?
     list << :unbalanced_journal_entries_are_present_in_year unless no_entry_to_balance?
     list << :financial_year_is_not_past if stopped_on >= noticed_on
@@ -455,7 +455,7 @@ class FinancialYear < Ekylibre::Record::Base
   end
 
   def no_draft_entry?
-    journal_entries.where(state: :draft).any?
+    journal_entries.where(state: :draft).empty?
   end
 
   def no_entry_to_balance?
