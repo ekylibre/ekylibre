@@ -18,7 +18,7 @@
         %p
           %i.wrong-validation
           = 'Des écritures sont à valider.'
-          = link_to('Voir le brouillard', backend_draft_journal_path)
+          = link_to('Voir le brouillard', backend_draft_journal_path(current_financial_year: @financial_year.id))
       - if @financial_year.no_entry_to_balance?
         %p
           %i.correct-validation
