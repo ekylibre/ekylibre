@@ -6,37 +6,43 @@ end
 class Delay
   SEPARATOR = ','.freeze
   TRANSLATIONS = {
-    'an' => :year,
-    'ans' => :year,
-    'année' => :year,
-    'années' => :year,
-    'annee' => :year,
-    'annees' => :year,
-    'year' => :year,
-    'years' => :year,
-    'mois' => :month,
-    'month' => :month,
-    'months' => :month,
-    'week' => :week,
-    'semaine' => :week,
-    'weeks' => :week,
-    'semaines' => :week,
-    'jour' => :day,
-    'day' => :day,
-    'jours' => :day,
-    'days' => :day,
-    'heure' => :hour,
-    'hour' => :hour,
-    'heures' => :hour,
-    'hours' => :hour,
-    'minute' => :minute,
-    'minutes' => :minute,
-    'seconde' => :second,
-    'second' => :second,
-    'secondes' => :second,
-    'seconds' => :second
+    fra: {
+      'an' => :year,
+      'ans' => :year,
+      'année' => :year,
+      'années' => :year,
+      'annee' => :year,
+      'annees' => :year,
+      'mois' => :month,
+      'semaine' => :week,
+      'semaines' => :week,
+      'jour' => :day,
+      'jours' => :day,
+      'heure' => :hour,
+      'heures' => :hour,
+      'minute' => :minute,
+      'minutes' => :minute,
+      'seconde' => :second,
+      'secondes' => :second
+    },
+    eng: {
+      'year' => :year,
+      'years' => :year,
+      'month' => :month,
+      'months' => :month,
+      'week' => :week,
+      'weeks' => :week,
+      'day' => :day,
+      'days' => :day,
+      'hour' => :hour,
+      'hours' => :hour,
+      'minute' => :minute,
+      'minutes' => :minute,
+      'second' => :second,
+      'seconds' => :second,
+    }
   }.freeze
-  KEYS = TRANSLATIONS.keys.join('|').freeze
+  KEYS = TRANSLATIONS[:fra].merge(TRANSLATIONS[:eng]).keys.join('|').freeze
 
   attr_reader :expression
 
@@ -55,10 +61,10 @@ class Delay
         [:bom]
       elsif step =~ /\A\d+\ (#{KEYS})(\ (avant|ago))?\z/
         words = step.split(/\s+/).map(&:to_s)
-        if TRANSLATIONS[words[1]].nil?
+        if TRANSLATIONS[:fra].merge(TRANSLATIONS[:eng])[words[1]].nil?
           raise InvalidDelayExpression, "#{words[1].inspect} is an undefined period (#{step.inspect} of #{base.inspect})"
         end
-        [TRANSLATIONS[words[1]], (words[2].blank? ? 1 : -1) * words[0].to_i]
+        [TRANSLATIONS[:fra].merge(TRANSLATIONS[:eng])[words[1]], (words[2].blank? ? 1 : -1) * words[0].to_i]
       elsif step.present?
         raise InvalidDelayExpression, "#{step.inspect} is an invalid step. (From #{base.inspect} => #{expression.inspect})"
       end
@@ -151,7 +157,7 @@ class Delay
     module ClassMethods
       def validates_delay_format_of(*attr_names)
         attr_names.each do |attr_name|
-          validates attr_name, delay: { message: :payment_delay_custom_validation_message.tl }
+          validates attr_name, delay: { message: proc { I18n.translate('activerecord.errors.models.purchase.payment_delay_custom_validation_message', values: (TRANSLATIONS[Preference[:language].to_sym]&.keys.join(', ') || TRANSLATIONS[:eng].keys.join(', ') )) } }
         end
         # validates_with ActiveRecord::Base::DelayFormatValidator, *attr_names
       end
