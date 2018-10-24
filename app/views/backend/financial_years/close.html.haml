@@ -38,7 +38,7 @@
           - links << link_to(rad_account[:prefix], backend_accounts_path(prefix: rad_account[:prefix], period: rad_account[:period]))
         %p
           %i.wrong-validation
-          = 'Les comptes des classes radicales ne sont nuls.'
+          = 'Les comptes des classes radicales ne sont pas nuls.'
           = 'Voir les comptes '.html_safe + links.to_sentence.html_safe
 
 
@@ -49,6 +49,19 @@
     = field FinancialYear.human_attribute_name(:result_journal), select_tag("result_journal_id", options_for_select([[:dont_generate_result_entries.tl, ""], [:create_journal.tl, 0]] + Journal.where(currency: @financial_year.currency, nature: :result).collect{|j| [j.name, j.id]}, selected: params[:result_journal_id]))
     = field FinancialYear.human_attribute_name(:closure_journal), select_tag("closure_journal_id", options_for_select([[:dont_generate_closure_entries.tl, ""], [:create_journal.tl, 0]] + Journal.where(currency: @financial_year.currency, nature: :closure).collect{|j| [j.name, j.id]}, selected: params[:closure_journal_id]))
     = field FinancialYear.human_attribute_name(:forward_journal), select_tag("forward_journal_id", options_for_select([[:dont_generate_carrying_forward_entries.tl, ""], [:create_journal.tl, 0]] + Journal.where(currency: @financial_year.currency, nature: :forward).collect{|j| [j.name, j.id]}, selected: params[:forward_journal_id]))
+
+    #confirmCloseModal.modal.fade{ tabindex: '-1', role: 'dialog', 'aria-labelledby': 'indexModal', 'aria-hidden': 'true' }
+      .modal-dialog{ role: 'document' }
+        .modal-content
+          .modal-header
+            %button.close{ data: { dismiss: 'modal' }, 'aria-label': 'Close', type: 'button' }
+              %i.icon.icon-destroy{ 'aria-hidden': 'true' }
+            %b.modal-title= :last_confirmation_before_definitive_close.tl
+          .modal-body
+            %p= :financial_year_close_message.tl.html_safe
+          .modal-footer
+            = link_to(:cancel.tl, {}, class: "btn")
+            = submit_tag(:close_financial_year.tl(code: ''), class: "primary")
 
   .close-table
     %table
@@ -64,16 +77,3 @@
   = form_actions do
     = button_tag :close_the_financial_year.tl, data: { toggle: 'modal', target: '#confirmCloseModal' }, class: "btn btn-primary", id: "close-btn", type: 'button', disabled: true
     = link_to(:cancel.tl, (params[:redirect] || {action: :index}), class: "btn")
-
-#confirmCloseModal.modal.fade{ tabindex: '-1', role: 'dialog', 'aria-labelledby': 'indexModal', 'aria-hidden': 'true' }
-  .modal-dialog{ role: 'document' }
-    .modal-content
-      .modal-header
-        %button.close{ data: { dismiss: 'modal' }, 'aria-label': 'Close', type: 'button' }
-          %i.icon.icon-destroy{ 'aria-hidden': 'true' }
-        %b.modal-title= :last_confirmation_before_definitive_close.tl
-      .modal-body
-        %p= :financial_year_close_message.tl.html_safe
-      .modal-footer
-        = link_to(:cancel.tl, {}, class: "btn")
-        = link_to :close_the_financial_year.tl, close_backend_financial_year_path, method: :post, class: "btn btn-primary"
