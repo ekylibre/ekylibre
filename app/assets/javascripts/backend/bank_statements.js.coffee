@@ -324,6 +324,9 @@
       toShow.each ->
         $(this).attr('id', linkType)
         $(this).find('span').html($(this).data("name-#{linkType}"))
+        console.log linkType
+        console.log $(this).data("name-#{linkType}")
+        # $(this).find('span').html(I18n.t("#{i18nRoot}.bank_reconciliation.remove")) if linkType == 'clear'
       toHide.each ->
         if $(this).attr('id') == linkType
           $(this).find('span').html('')
@@ -414,7 +417,7 @@
 
     _unletterItems: (letter) ->
       # url = '/backend/bank-reconciliation/letters/' + letter
-      url = $(event.target).closest('#clear').attr('href')
+      url = $(".letter:contains('#{letter}')").first().next('#clear').attr('href')
       $.ajax url,
         type: 'DELETE'
         dataType: 'JSON'
