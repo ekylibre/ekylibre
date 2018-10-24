@@ -75,7 +75,7 @@ class FinancialYear < Ekylibre::Record::Base
   # It permit to find the first and the last financial year
   scope :closed, -> { where(state: 'closed').reorder(:started_on) }
   scope :opened, -> { where(state: 'opened').reorder(:started_on) }
-  scope :closables_or_lockables, -> { where(state: 'opened').where.not('? BETWEEN started_on AND stopped_on', Time.zone.now).reorder(:started_on) }
+  scope :closables_or_lockables, -> { where(state: 'opened').where('started_on <= ?', Time.zone.now).where.not('? BETWEEN started_on AND stopped_on', Time.zone.now).reorder(:started_on) }
   scope :with_tax_declaration, -> { where.not(tax_declaration_mode: :none) }
   scope :with_missing_tax_declaration, -> { where('id NOT IN (SELECT f.id FROM financial_years AS f JOIN tax_declarations AS d ON (f.stopped_on BETWEEN d.started_on AND d.stopped_on))') }
 
@@ -83,11 +83,14 @@ class FinancialYear < Ekylibre::Record::Base
     tax_declarations.any? || journal_entries.any? || inventories.any? || !opened?
   end
 
+  protect on: :update do
+    state != :opened
+  end
+
   class << self
     def on(searched_on)
       year = where('? BETWEEN started_on AND stopped_on', searched_on).order(started_on: :desc).first
       return year if year
-      nil
     end
 
     # Find or create if possible the requested financial year for the searched date
@@ -276,7 +279,7 @@ class FinancialYear < Ekylibre::Record::Base
 
   # this method returns the previous financial year record sorted by started_on
   def previous_record
-    all_fy = self.class.all.sort_by(&:started_on)
+    all_fy = FinancialYear.order(:started_on)
     return nil if all_fy.index(self).zero?
     self_index = all_fy.index(self)
     previous_record = all_fy[self_index - 1]
