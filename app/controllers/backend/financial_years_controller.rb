@@ -141,7 +141,7 @@ module Backend
     end
 
     def index
-      @financial_years_count = FinancialYear.count
+      @opened_financial_years_count = FinancialYear.opened.count
       @fy_to_close = FinancialYear.closable_or_lockable if FinancialYear.closable_or_lockable
       f = FinancialYear.order(stopped_on: :desc).first
       @fy_to_open = FinancialYear.new
