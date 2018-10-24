@@ -31,14 +31,14 @@
       - if @financial_year.unbalanced_radical_account_classes_array.empty?
         %p
           %i.correct-validation
-          = 'Les comptes des classes radicales sont non nuls'
+          = "Les comptes de classes radicales (1 à 7) ne comportent pas d'écritures."
       - else
         - links = []
         - @financial_year.unbalanced_radical_account_classes_array.each do |rad_account|
           - links << link_to(rad_account[:prefix], backend_accounts_path(prefix: rad_account[:prefix], period: rad_account[:period]))
         %p
           %i.wrong-validation
-          = 'Les comptes des classes radicales ne sont pas nuls.'
+          = "Les comptes de classes radicales (1 à 7) comportent des écritures."
           = 'Voir les comptes '.html_safe + links.to_sentence.html_safe
 
 

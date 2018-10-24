@@ -83,10 +83,6 @@ class FinancialYear < Ekylibre::Record::Base
     tax_declarations.any? || journal_entries.any? || inventories.any? || !opened?
   end
 
-  protect on: :update do
-    state != :opened
-  end
-
   class << self
     def on(searched_on)
       year = where('? BETWEEN started_on AND stopped_on', searched_on).order(started_on: :desc).first
@@ -467,8 +463,8 @@ class FinancialYear < Ekylibre::Record::Base
     radical_numbers = Nomen::Account.items.values.select { |a| a.send(Account.accounting_system)&.match(/^[1-9]$/) }.map { |a| a.send(Account.accounting_system) }
     balanced_radical_account_classes = []
     radical_numbers.each do |rad_numb|
-      # Get all accounts beginning by rad_numb
-      accounts = Account.where('number ~* ?', '^' + rad_numb)
+      # Get account where number is rad_numb if exist
+      accounts = Account.where('number = ?', rad_numb)
       # Get all journal entry items which is included in one the accounts and in current financial year
       jei = JournalEntryItem.where(account_id: accounts.ids).where(financial_year_id: self.id)
       if jei.any? && (jei.sum(:credit) - jei.sum(:debit) == 0)
