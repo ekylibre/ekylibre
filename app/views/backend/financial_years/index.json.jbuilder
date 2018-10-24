@@ -1,1 +1,0 @@
-json.are_two_financials_years_opened @financial_years.opened.count
