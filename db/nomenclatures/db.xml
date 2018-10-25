@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20181004220301">
+<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20181025121101">
   <nomenclature name="abilities" translateable="true">
     <properties>
       <property name="parameters" type="choice_list" choices="variety, issue_nature"/>
@@ -2971,6 +2971,7 @@
     <items>
       <item name="adult_cat" fixed_asset_account="adult_animal_assets" fixed_asset_allocation_account="adult_animal_asset_depreciations" fixed_asset_expenses_account="animals_depreciations_inputations_expenses" charge_account="adult_animal_expenses" product_account="adult_animal_revenues" stock_account="long_time_animal_stock" purchasable="true" saleable="true" depreciable="true" storable="true" pictogram="cow" stock_movement_account="long_cycle_animals_inventory_variations"/>
       <item name="adult_dog" fixed_asset_account="adult_animal_assets" fixed_asset_allocation_account="adult_animal_asset_depreciations" fixed_asset_expenses_account="animals_depreciations_inputations_expenses" charge_account="adult_animal_expenses" product_account="adult_animal_revenues" stock_account="long_time_animal_stock" purchasable="true" saleable="true" depreciable="true" storable="true" pictogram="cow" stock_movement_account="long_cycle_animals_inventory_variations"/>
+      <item name="agricultural_taxe" charge_account="products_specials_taxes" product_account="products_specials_taxes" purchasable="true" saleable="true" pictogram="legal"/>
       <item name="animal_food" charge_account="livestock_feed_matter_expenses" product_account="processing_products_revenues" stock_account="livestock_feed_stock" purchasable="true" saleable="true" storable="true" pictogram="matter" stock_movement_account="livestock_feed_stocks_variation"/>
       <item name="animal_housing_services" charge_account="animals_making_expenses_expenses" product_account="making_services_revenues" purchasable="true" saleable="true" pictogram="barn"/>
       <item name="animal_litter" charge_account="raw_material_expenses" product_account="plant_derivatives_revenues" stock_account="plant_derivative_stock" purchasable="true" saleable="true" storable="true" pictogram="matter" stock_movement_account="products_inventory_variations"/>
@@ -2993,6 +2994,7 @@
       <item name="congress" charge_account="congress_and_symposium_expenses" purchasable="true" pictogram="plane"/>
       <item name="construction_materials_in_own_outstanding_installation" charge_account="outstanding_construction_on_own_land_parcel_assets" product_account="sales_assets_revenues" stock_account="other_materials_stock" purchasable="true" saleable="true" storable="true" pictogram="barn" stock_movement_account="merchandising_stocks_variation"/>
       <item name="consumer_goods_office_item" charge_account="office_supply_matter_expenses" purchasable="true" pictogram="fax"/>
+      <item name="cooperative_participation" charge_account="cooperative_participation_assets" product_account="cooperative_participation_assets" purchasable="true" saleable="true" pictogram="legal"/>
       <item name="crop" product_account="plant_derivatives_revenues" stock_account="short_cycle_vegetals_stock" saleable="true" storable="true" pictogram="leaf" stock_movement_account="short_cycle_vegetals_inventory_variations"/>
       <item name="cultivable_zone" pictogram="land_parcels"/>
       <item name="discount_and_reduction" charge_account="discount_and_reductions_expenses" product_account="discount_and_reductions_revenues" purchasable="true" saleable="true" pictogram="gift"/>
@@ -3004,6 +3006,7 @@
       <item name="equipment_fleet" pictogram="tractor"/>
       <item name="equipment_rent" charge_account="equipment_rent_expenses" product_account="services_revenues" purchasable="true" saleable="true" pictogram="tractor"/>
       <item name="equipment_repair_services" charge_account="equipment_maintenance_expenses" purchasable="true" pictogram="wrench"/>
+      <item name="equity" charge_account="banks_services_expenses" product_account="other_financials_asset_revenues" purchasable="true" saleable="true" pictogram="legal"/>
       <item name="exploitation_subsidies" product_account="exploitation_subsidies" saleable="true" pictogram="legal"/>
       <item name="farm_teaching_services" charge_account="making_services_expenses" product_account="making_services_revenues" purchasable="true" saleable="true" pictogram="barn"/>
       <item name="fee" charge_account="fees_expenses" purchasable="true" pictogram="tasks"/>
@@ -3201,6 +3204,7 @@
       <item name="cattle_liquid_slurry" nature="organic_fertilizer" variety="liquid_slurry" derivative_of="bos" frozen_indicators_values="net_volume: 1.00cubic_meter, net_mass: 1.00ton, nitrogen_concentration: 0.30percent" unit_name="cubic_meter"/>
       <item name="cattle_manure" nature="organic_fertilizer" variety="manure" derivative_of="bos" frozen_indicators_values="net_volume: 1.50cubic_meter, net_mass: 1.00ton, nitrogen_concentration: 0.54percent, potassium_concentration: 0.30percent, phosphorus_concentration: 0.11percent" unit_name="ton"/>
       <item name="cattle_slurry" nature="organic_fertilizer" variety="slurry" derivative_of="bos" frozen_indicators_values="net_volume: 1.00cubic_meter, net_mass: 1.00ton, nitrogen_concentration: 0.40percent" unit_name="cubic_meter"/>
+      <item name="cereal_taxe" nature="crop_taxe"/>
       <item name="cereals_feed_bag_25" nature="animal_food" variety="mix" derivative_of="poaceae" frozen_indicators_values="net_mass: 25.00kilogram" unit_name="25kg_bag"/>
       <item name="cereals_harvest_insurance" nature="harvest_insurance"/>
       <item name="chainsaw" nature="chainsaw" frozen_indicators_values="" unit_name="equipment"/>
@@ -3323,6 +3327,8 @@
       <item name="coop:uree_gr_vrac" nature="chemical_fertilizer" frozen_indicators_values="net_volume: 1.00cubic_meter, net_mass: 1.00ton, nitrogen_concentration: 46percent" unit_name="ton"/>
       <item name="coop:vesce_velue_savane_hiver_10k" nature="seed" derivative_of="vicia_villosa_savane" frozen_indicators_values="net_mass: 10.00kilogram, thousand_grains_mass: 32gram" unit_name="10kg_bag"/>
       <item name="coop:yellow_pea_grain" nature="grain" derivative_of="pisum" frozen_indicators_values="net_mass: 1.00ton"/>
+      <item name="cooperative_participation" nature="cooperative_participation"/>
+      <item name="cooperative_share" nature="share"/>
       <item name="corabel_hazelnut" nature="hazelnut" derivative_of="corylus_avellana_corabel" frozen_indicators_values="net_mass: 1.00kilogram" unit_name="kilogram"/>
       <item name="corker" nature="corker" frozen_indicators_values="" unit_name="equipment"/>
       <item name="corn_crop" nature="cereal_crop" variety="zea_mays" frozen_indicators_values="net_surface_area: 1.00hectare" unit_name="hectare"/>
@@ -3557,6 +3563,7 @@
       <item name="merlot_noir_so4_vine_seedling" nature="usual_vine_seedling" derivative_of="vitis_vinifera_merlot_noir" frozen_indicators_values="woodstock_variety: vitis_cinerea_x_vitis_riparia_SO4"/>
       <item name="merveille_hazelnut" nature="hazelnut" derivative_of="corylus_avellana_merveille" frozen_indicators_values="net_mass: 1.00kilogram" unit_name="kilogram"/>
       <item name="milk_tank" nature="milk_tank" frozen_indicators_values="" unit_name="equipment"/>
+      <item name="milk_taxe" nature="animal_taxe"/>
       <item name="milked_lamb_meat" nature="lamb_meat" derivative_of="ovis" frozen_indicators_values="net_volume: 1.00liter, net_mass: 1.00kilogram" unit_name="kilogram"/>
       <item name="milked_pork_meat" nature="pork_meat" derivative_of="sus" frozen_indicators_values="net_volume: 1.00liter, net_mass: 1.00kilogram" unit_name="kilogram"/>
       <item name="milking_division" nature="food_equipment_division" frozen_indicators_values="" unit_name="room"/>
@@ -3827,6 +3834,7 @@
       <item name="animal_litter" category="animal_litter" variety="matter" derivative_of="plant" population_counting="decimal" abilities="cover(building_division)" frozen_indicators="net_mass, net_volume"/>
       <item name="animal_medicine" category="animal_medicine" variety="preparation" population_counting="decimal" abilities="kill(bacteria), kill(virus), kill(fungus), care(animal)" variable_indicators="" frozen_indicators="net_mass, net_volume, meat_withdrawal_period, milk_withdrawal_period"/>
       <item name="animal_medicine_tank" category="equipment" variety="tank" population_counting="unitary" abilities="store(preparation)" variable_indicators="nominal_storable_net_volume" frozen_indicators=""/>
+      <item name="animal_taxe" category="agricultural_taxe" variety="service" population_counting="decimal" variable_indicators=""/>
       <item name="animals_making_services" category="animals_making_services" variety="service" population_counting="decimal" variable_indicators=""/>
       <item name="associate_social_contribution" category="associate_social_contribution" variety="service" population_counting="decimal" variable_indicators=""/>
       <item name="bale_collector" category="equipment" variety="trailed_equipment" population_counting="unitary" variable_indicators="geolocation" abilities="catch(straw), store(straw)"/>
@@ -3862,6 +3870,7 @@
       <item name="congress" category="congress" variety="service" population_counting="decimal" variable_indicators=""/>
       <item name="construction_material_in_own_outstanding_installation" category="construction_materials_in_own_outstanding_installation" variety="raw_matter" population_counting="decimal" variable_indicators="" frozen_indicators="net_volume, net_mass"/>
       <item name="consumer_goods_office_item" category="consumer_goods_office_item" variety="service" population_counting="integer" variable_indicators=""/>
+      <item name="cooperative_participation" category="cooperative_participation" variety="service" population_counting="decimal" variable_indicators=""/>
       <item name="cork" category="wine_package_consumable" variety="cork" population_counting="integer" abilities="close(cork_bottle)" variable_indicators="length, width"/>
       <item name="corker" category="equipment" variety="equipment" population_counting="unitary" abilities="close(bottle)" frozen_indicators=""/>
       <item name="corn_topper" category="equipment" variety="trailed_equipment" population_counting="unitary" abilities="castrate(plant), move" frozen_indicators="application_width, theoretical_working_speed" variable_indicators="geolocation"/>
@@ -3869,6 +3878,7 @@
       <item name="crop" category="crop" variety="plant" population_counting="decimal" abilities="consume(water), consume(preparation), produce(straw)" variable_indicators="fresh_mass, plant_life_state, plant_reproduction_state, plants_count, shape, tiller_count" frozen_indicators="net_surface_area" derivatives="straw"/>
       <item name="crop_protective_item" category="small_equipment" derivative_of="equipment" variety="matter" population_counting="integer" abilities="care(plant)" variable_indicators="length, width"/>
       <item name="crop_residue" category="straw" variety="straw" derivative_of="plant" population_counting="decimal" variable_indicators="" frozen_indicators="net_mass, net_volume"/>
+      <item name="crop_taxe" category="agricultural_taxe" variety="service" population_counting="decimal" variable_indicators=""/>
       <item name="cultivable_zone" category="cultivable_zone" variety="cultivable_zone" population_counting="decimal" abilities="consume(water), consume(seed), produce(plant), store(plant), store(animal), store(fungus)" variable_indicators="fence_perimeter, shape, soil_cultural_state" frozen_indicators="net_surface_area"/>
       <item name="discount_and_reduction" category="discount_and_reduction" variety="service" population_counting="decimal" variable_indicators=""/>
       <item name="disinfectant_product" category="other_consumable" variety="preparation" population_counting="decimal" abilities="clean(building_division), kill(bacteria)" frozen_indicators="net_mass, net_volume"/>
@@ -4066,6 +4076,7 @@
       <item name="seedbed_preparator" category="equipment" variety="trailed_equipment" population_counting="unitary" abilities="plow_superficially, implant" frozen_indicators="application_width, theoretical_working_speed" variable_indicators="geolocation"/>
       <item name="seedling" category="plant" variety="seedling" population_counting="integer" abilities="grow" variable_indicators="" frozen_indicators="net_mass, items_count" derivative_of="plant"/>
       <item name="settlement" category="settlement" variety="settlement" population_counting="unitary" abilities="store(building), store(building_division)" variable_indicators="net_surface_area, shape" frozen_indicators=""/>
+      <item name="share" category="equity" variety="service" population_counting="decimal" variable_indicators=""/>
       <item name="sheep_herd" category="cattle_herd" variety="animal_group" derivative_of="ovis" population_counting="unitary" abilities="move, consume(water), consume(poaceae), produce(excrement), consume(mix), consume(silage)" frozen_indicators=""/>
       <item name="shell_fruit_reaper" category="equipment" variety="trailed_equipment" population_counting="unitary" abilities="harvest(walnut), harvest(hazelnut), consume(oil), consume(fuel)" variable_indicators="application_width" frozen_indicators=""/>
       <item name="sieve_shaker" category="equipment" variety="trailed_equipment" population_counting="unitary" abilities="sieve" frozen_indicators="application_width, theoretical_working_speed" variable_indicators="geolocation"/>

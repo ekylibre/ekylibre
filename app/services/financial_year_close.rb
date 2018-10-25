@@ -1,4 +1,5 @@
 # coding: utf-8
+
 class FinancialYearClose
   def initialize(year, to_close_on, options = {})
     @year = year
@@ -10,31 +11,31 @@ class FinancialYearClose
     @options = options
   end
 
-  def benchmark(message, &block)
+  def benchmark(message)
     start = Time.now
-    moment = '[' + sprintf('%.1f', start - @start).rjust(6).red + '] '
+    moment = '[' + format('%.1f', start - @start).rjust(6).red + '] '
     Rails.logger.info(moment + message.yellow + '...')
     # puts moment + message.yellow + '...'
     yield
     stop = Time.now
-    puts moment + message.yellow + " (done in #{sprintf('%.2f', stop - start).green}s)"
-    Rails.logger.info(moment + message.yellow + " (done in #{sprintf('%.2f', stop - start).green}s)")
+    # puts moment + message.yellow + " (done in #{sprintf('%.2f', stop - start).green}s)"
+    Rails.logger.info(moment + message.yellow + " (done in #{format('%.2f', stop - start).green}s)")
   end
 
   def say(message)
     now = Time.now
-    moment = '[' + sprintf('%.1f', now - @start).rjust(6).red + ' '
+    moment = '[' + format('%.1f', now - @start).rjust(6).red + ' '
     # puts @counts.stringify_keys.to_yaml.cyan if @counts
 
-    if @previous_now
-      moment << sprintf('%.2f', now - @previous_now).rjust(6).green
-    else
-      moment << '—' * 6
-    end
+    moment << if @previous_now
+                format('%.2f', now - @previous_now).rjust(6).green
+              else
+                '—' * 6
+              end
     moment << '] '
 
     t = moment + message.yellow
-    puts t
+    # puts t
     Rails.logger.info(t)
     now
   end
@@ -43,7 +44,7 @@ class FinancialYearClose
     @previous_now = say(message)
   end
 
-  def cinc(name, increment = 1)
+  def cinc(name, _increment = 1)
     @counts ||= {}
     @counts[name] ||= 0
     @counts[name] += 1
@@ -55,12 +56,12 @@ class FinancialYearClose
     ensure_closability!
 
     ActiveRecord::Base.transaction do
-      benchmark("Compute Balance") do
+      benchmark('Compute Balance') do
         @year.compute_balances!
         @progress.increment!
       end
 
-      benchmark("Generate Result Entry") do
+      benchmark('Generate Result Entry') do
         generate_result_entry! if @result_journal
         @progress.increment!
       end
@@ -164,16 +165,16 @@ class FinancialYearClose
 
   def loss_or_profit_item(result)
     if result > 0
-      profit = Account.find_by_usage(:financial_year_result_profit)
+      profit = Account.find_by(usage: :financial_year_result_profit)
       return { account_id: profit.id, name: profit.name, real_debit: 0.0, real_credit: result, state: :confirmed }
     end
-    losses = Account.find_by_usage(:financial_year_result_loss)
+    losses = Account.find_by(usage: :financial_year_result_loss)
     { account_id: losses.id, name: losses.name, real_debit: result.abs, real_credit: 0.0, state: :confirmed }
   end
 
   # FIXME: Manage non-french accounts
   def generate_carrying_forward_entry!
-    log("Init Carrying Forward Entry Generation")
+    log('Init Carrying Forward Entry Generation')
 
     account_radices = %w[1 2 3 4 5]
     unlettered_items = []
@@ -182,7 +183,7 @@ class FinancialYearClose
                       .joins(:journal_entry_items)
                       .where('journal_entry_items.printed_on BETWEEN ? AND ?', @started_on, @to_close_on)
                       .where('journal_entry_items.financial_year_id = ?', @year.id)
-                      # .where("('x' || md5(accounts.number))::bit(32)::int % 15 = 1")
+    # .where("('x' || md5(accounts.number))::bit(32)::int % 15 = 1")
 
     letterable_accounts = accounts.joins(:journal_entry_items)
                                   .where('journal_entry_items.letter IS NOT NULL OR reconcilable')
@@ -193,10 +194,9 @@ class FinancialYearClose
                                     .uniq
 
     progress = Progress.new(:close_carry_forward, id: @year.id,
-                            max: letterable_accounts.count + unletterable_accounts.count)
+                                                  max: letterable_accounts.count + unletterable_accounts.count)
 
-
-    log "Generate List of Unlettered Items"
+    log 'Generate List of Unlettered Items'
 
     unletterable_accounts.find_each do |a|
       entry_items = a.journal_entry_items
@@ -214,7 +214,7 @@ class FinancialYearClose
       progress.increment!
     end
 
-    log "Generate Lettering Carry Forward for each Letterable Account"
+    log 'Generate Lettering Carry Forward for each Letterable Account'
     letterable_accounts.find_each do |a|
       log "Generate Lettering Carry Forward for each Account: #{a.number}"
       generate_lettering_carry_forward!(a)
@@ -227,9 +227,9 @@ class FinancialYearClose
     debit_items = unlettered_items.select { |i| i[:real_debit].nonzero? }
     credit_items = unlettered_items.select { |i| i[:real_credit].nonzero? }
 
-    log "Generate Closing+Opening Entry Debit Items"
+    log 'Generate Closing+Opening Entry Debit Items'
     generate_closing_and_opening_entry!(debit_items, debit_result)
-    log "Generate Closing+Opening Entry Credit Items"
+    log 'Generate Closing+Opening Entry Credit Items'
     generate_closing_and_opening_entry!(credit_items, -credit_result)
   ensure
     progress.clean!
@@ -246,13 +246,13 @@ class FinancialYearClose
 
       lettering_items = JournalEntryItem.where(entry_id: entry_id, letter: letter_match, account: account)
                                         .find_each.map do |item|
-                                {
-                                  account_id: account.id,
-                                  name: item.name,
-                                  real_debit: item.real_debit,
-                                  real_credit: item.real_credit,
-                                  state: :confirmed
-                                }
+        {
+          account_id: account.id,
+          name: item.name,
+          real_debit: item.real_debit,
+          real_credit: item.real_credit,
+          state: :confirmed
+        }
       end
 
       result = lettering_items.map { |i| i[:real_debit] - i[:real_credit] }.sum
@@ -319,7 +319,6 @@ class FinancialYearClose
       return
     end
     benchmark "Changing Letter #{letter} -> #{new_letter}" do
-
       lettered_later = JournalEntryItem.includes(:entry).where(account_id: account_id, letter: letter).where('journal_entry_items.printed_on > ?', @to_close_on)
       lettered_later.update_all(letter: new_letter)
 
@@ -327,11 +326,11 @@ class FinancialYearClose
         model = type.constantize
         table = model.table_name
         root_model = model.table_name.singularize.camelize
-        query = "UPDATE affairs SET letter = #{ActiveRecord::Base.connection.quote(new_letter)} " +
-              "  FROM journal_entry_items AS jei" +
-              "    JOIN #{table} AS res ON (resource_id = res.id AND resource_type = #{ActiveRecord::Base.connection.quote(root_model)}) " +
-              "  WHERE jei.account_id = #{account_id} AND jei.letter = #{ActiveRecord::Base.connection.quote(letter)} AND jei.printed_on > #{ActiveRecord::Base.connection.quote(@to_close_on)} "
-              "    AND res.affair_id = affairs.id"
+        query = "UPDATE affairs SET letter = #{ActiveRecord::Base.connection.quote(new_letter)} " \
+                '  FROM journal_entry_items AS jei' \
+                "    JOIN #{table} AS res ON (resource_id = res.id AND resource_type = #{ActiveRecord::Base.connection.quote(root_model)}) " \
+                "  WHERE jei.account_id = #{account_id} AND jei.letter = #{ActiveRecord::Base.connection.quote(letter)} AND jei.printed_on > #{ActiveRecord::Base.connection.quote(@to_close_on)} "
+        '    AND res.affair_id = affairs.id'
         Affair.connection.execute query
       end
     end
