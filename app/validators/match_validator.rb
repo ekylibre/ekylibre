@@ -19,14 +19,14 @@ class MatchValidator < ActiveModel::EachValidator
     opions[:to_invalidate] || @attribute
   end
 
-  def reference(record, attribute)
-    return @value unless options[:middleman]
-    record.send(middleman).send(attribute)
+  def reference
+    return @value unless middleman = options[:middleman]
+    @record.send(middleman).send(@attribute)
   end
 
   def comparison
     @record.send(options[:with])
-           .send(attribute)
+           .send(@attribute)
   end
 
   def equals?(val, oth)
