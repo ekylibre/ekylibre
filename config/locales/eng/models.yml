@@ -33,8 +33,12 @@ eng:
       fixed_asset_depreciation:
         asset_amount: "Accountable value"
       intervention_working_period:
-        stopped_at:  "Stopped at"
-        started_at : "Started at"
+        stopped_at: 
+          one: "Stopped at is inferior than expected"
+          other: "{{count}} Stopped at is inferior than expected"
+        started_at: 
+          one: "Started at is inferior than expected"
+          other: "{{count}} Started at is inferior than expected"
       land_parcel:
         born_at: "Created at"
       land_parcel_group:
