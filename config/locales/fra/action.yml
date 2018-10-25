@@ -943,6 +943,9 @@ fra:
     all_cash_balances: "Soldes des comptes" #?
     all_columns: "Toutes les colonnes"
     all_conditions: "toutes les conditions"
+    all_entries_balanced: "Toutes les écritures sont équilibrées."
+    all_financial_years_closed_or_locked: "Toutes les exercices précédents sont clôturés ou verrouillés."
+    all_financial_years_not_closed_or_locked: "Tous les exercices précédents ne sont pas clôturés ou verrouillés."
     all_periods: "Tous les exercices"
     already_credited_quantity: "Qté. déjà passée en avoir" #?
     amount: "Montant"
@@ -1286,6 +1289,7 @@ fra:
     download_firefox: "Télécharger Mozilla Firefox…" #?
     downpayment: "Acompte"
     draft: "Brouillard"
+    draft_entries_to_validate: "Des écritures sont à valider."
     drug: "Médicament" #?
     duplicate: "Dupliquer"
     duration: "Durée"
@@ -1310,6 +1314,7 @@ fra:
     entity_to_delete: "Doublon à fusionner (et faire disparaitre)"
     entity_to_update: "Fiche à mettre à jour avec les éléments du doublon"
     entries: "Écritures"
+    entries_to_balance: "Des écritures sont à équilibrer"
     entries_to_point: "Écritures à pointer"
     entry_item_label: "Libellé de l'écriture"
     entry_items: "Lignes d’écriture"
@@ -1750,6 +1755,7 @@ fra:
     no_deliveries: "Aucune livraison en attente" #?
     no_deliveries_for_this_sale: "Cette vente n’est associée à aucune livraison" #?
     no_deposits: "Aucune remise en banque à valider"
+    no_draft_entry: "Aucune écriture dans le brouillard."
     no_filters: "— Pas de filtre —" #?
     no_financial_year_opened: "Aucun exercice ouvert à la date actuelle"
     no_intervention_participations_to_check: "Pas de participations d’intervention à vérifier"
@@ -1880,6 +1886,7 @@ fra:
     potential_hydrogen: "Potentiel hydrogène (pH)"
     precipitation: "Précipitations"
     preferences: "Préférences"
+    prerequisites_checks_before_closure: "Vérifications préalables à la clôture"
     prescription: "Prescription"
     prescriptions: "Prescriptions"
     pretax_amount: "Montant HT"
@@ -1959,6 +1966,8 @@ fra:
     quantity_rest: "Quantité restante" #?
     quarterly: "Trimestrielle" #?
     query: "Requête:"
+    radical_class_accounts_dont_have_entries: "Les comptes de classes radicales ne comportent pas d'écritures."
+    radical_class_accounts_have_entries: "Les comptes de classes radicales comportent des écritures."
     raw_income: "Résultat d’exploitation"
     raw_margin: "Marge brute" #?
     reading_tasks: "Relevés d’indicateur"
@@ -2085,6 +2094,10 @@ fra:
     section_x: "%{section} %{x}"
     see_details: "Voir les détails"
     see_more_details: "Voir plus de détails"
+    see_the_accounts: "Voir les comptes"
+    see_the_day_book: "Voir le brouillard"
+    see_the_financial_years: "Voir les exercices"
+    see_the_unbalanced_entries: "Voir les écritures non équilibrées"
     select_a_journal: "Sélectionnez un journal"
     select_account_client: "Compte à lettrer" #?
     select_account_supplier: "Compte à lettrer" #?
