@@ -113,7 +113,7 @@ class InterventionWorkingPeriod < Ekylibre::Record::Base
   after_destroy :update_temporality, unless: -> { intervention.blank? || Intervention.find_by(id: intervention_id).nil? }
 
   validate do
-    if intervention.targets.present?
+    if intervention.present? && intervention.targets.present?
       intervention.targets.each do |target|
         activity_production = target.activity_production
         check_date_with_activity_production(activity_production) if activity_production.present?
