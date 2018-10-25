@@ -29,7 +29,7 @@ module Backend
       code << "      started_on = interval.first\n"
       code << "      stopped_on = interval.last\n"
       code << "    end \n"
-      code << "    c[0] << \" AND #{Reception.table_name}.planned_at::DATE BETWEEN ? AND ?\"\n"
+      code << "    c[0] << \" AND #{Shipment.table_name}.planned_at::DATE BETWEEN ? AND ?\"\n"
       code << "    c << started_on\n"
       code << "    c << stopped_on\n"
       code << "  end\n "
