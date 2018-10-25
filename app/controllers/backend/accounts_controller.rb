@@ -190,16 +190,6 @@ module Backend
       head :ok
     end
 
-    private
-
-    def set_interval_preference(attribute)
-      if preference = current_user.preferences.find_by(name: "accounts_interval.#{attribute}")
-        preference.set(params[attribute])
-      else
-        current_user.preferences.get("accounts_interval.#{attribute}", params[attribute], :string)
-      end
-    end
-
     protected
 
     def get_dataset_account
