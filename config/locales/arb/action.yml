@@ -1070,6 +1070,9 @@ arb:
     all_cash_balances: "جميع الأرصدة النقدية" #?
     all_columns: "جميع الأعمدة"
     all_conditions: "جميع الشروط"
+    # all_entries_balanced: "All entries are balanced"
+    # all_financial_years_closed_or_locked: "All financial years are closed or locked"
+    # all_financial_years_not_closed_or_locked: "All financial years are not closed or locked"
     all_periods: "كل سنة مالية"
     already_credited_quantity: "اشتملت الائتمانات الكمية من قبل" #?
     amount: "القيمة من دون الضرائب"
@@ -1402,6 +1405,7 @@ arb:
     download_firefox: "تحميل موزيلا فاير فوكس" #?
     downpayment: "شروط العربون"
     draft: "المسودات"
+    # draft_entries_to_validate: "There are draft entries to validate"
     duplicate: "تكرار"
     duration: "%{hours}ساعة %{minutes}دقيقة"
     # duration_in_hours_and_minutes: "%{hours}h %{minutes}min"
@@ -1434,6 +1438,7 @@ arb:
     entity_to_update: "وضع ملف اليوم مع العناصر المتكررة"
     entity_update: "تعديل الملف" #?
     entries: "السجلات"
+    # entries_to_balance: "Entries to balance"
     entries_to_point: "اعداد المدخلات"
     # entry_item_label: "Entry item label"
     entry_items: "البنود دخول"
@@ -1874,6 +1879,7 @@ arb:
     no_deliveries: "ليس هناك من تسليم بالانتظار" #?
     no_deliveries_for_this_sale: "لم يتم التسليم لهذا الطلب من البيع" #?
     no_deposits: "التأكد من عدم اقتطاعات البنك"
+    # no_draft_entry: "No draft entry"
     # no_financial_year_opened: "No financial year opened on current date"
     no_intervention_participations_to_check: "لا المساهمات تدخل للتحقق"
     no_javascript: "ان متصفح الويب الخاص بك لا يدعم نسخة الجافا، لذا تحتاج الى تفعيله من اجل استخدام ايكيليبغ." #?
@@ -2015,6 +2021,7 @@ arb:
     potential_hydrogen: "الهيدروجين محتمل"
     precipitation: "هطول"
     preferences: "التفضيلات"
+    # prerequisites_checks_before_closure: "Prerequisites checks before closure"
     prescription: "وصفة طبية"
     prescriptions: "وصفات"
     pretax_amount: "كمية ما قبل الضريبة"
@@ -2082,6 +2089,8 @@ arb:
     quantity_to_credit: "شمولية الكمية بالائتمانات" #?
     quarterly: "Trimestrielle" #?
     query: ": الاستعلام"
+    # radical_class_accounts_dont_have_entries: "Radical class accounts does not contain any entry"
+    # radical_class_accounts_have_entries: "Radical class accounts contains entries"
     raw_income: "الدخل الخام"
     raw_margin: "هامش الخام" #?
     reading_tasks: "مهام القراءة"
@@ -2200,6 +2209,10 @@ arb:
     # section_x: "Section %{x}"
     see_details: "انظر التفاصيل"
     see_more_details: "مشاهدة مزيد من التفاصيل"
+    # see_the_accounts: "See the accounts"
+    # see_the_day_book: "See the day book"
+    # see_the_financial_years: "See the financial years"
+    # see_the_unbalanced_entries: "See the unbalanced entries"
     select_a_journal: "حدد مجلة"
     select_account_client: "كتابة حسابات" #?
     select_account_supplier: "كتابة حسابات" #?

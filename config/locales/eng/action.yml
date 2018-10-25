@@ -1096,6 +1096,9 @@ eng:
     all_accounts: "All accounts"
     all_columns: "All columns" #?
     all_conditions: "All conditions" #?!
+    all_entries_balanced: "All entries are balanced"
+    all_financial_years_closed_or_locked: "All financial years are closed or locked"
+    all_financial_years_not_closed_or_locked: "All financial years are not closed or locked"
     all_periods: "All financial years"
     amount: "Amount" #?
     amount_computed_from: "Amount computed from %{source}"
@@ -1357,6 +1360,7 @@ eng:
     download: "Download"
     downpayment: "Downpayment"
     draft: "Draft"
+    draft_entries_to_validate: "There are draft entries to validate"
     duplicate: "Duplicate"
     duration: "Duration"
     duration_in_hours_and_minutes: "%{hours}h %{minutes}min"
@@ -1376,6 +1380,7 @@ eng:
     entity_to_delete: "Person to delete"
     entity_to_update: "Person to update"
     entries: "Entries" #?
+    entries_to_balance: "Entries to balance" #??
     entries_to_point: "Entries pointing to" #?!
     entry_item_label: "Entry item label" #?
     entry_items: "Entry items" #?
@@ -1692,6 +1697,7 @@ eng:
     no_crumbs_to_check: "No crumbs to check"
     no_data: "No data"
     no_deposits: "No deposits"
+    no_draft_entry: "No draft entry"
     no_financial_year_opened: "No financial year opened on current date"
     no_intervention_participations_to_check: "No intervention participations to check"
     no_notifications: "No notifications"
@@ -1789,6 +1795,7 @@ eng:
     potential_hydrogen: "Potential hydrogen" #?
     precipitation: "Precipitation"
     preferences: "Preferences"
+    prerequisites_checks_before_closure: "Prerequisites checks before closure"
     prescription: "Prescription" #?
     prescriptions: "Prescriptions" #?
     pretax_amount: "Pre-tax amount"
@@ -1831,6 +1838,8 @@ eng:
     quandl: "Quandl" #?
     quantity: "Quantity" #?
     query: "Query:" #?
+    radical_class_accounts_dont_have_entries: "Radical class accounts does not contain any entry"
+    radical_class_accounts_have_entries: "Radical class accounts contains entries"
     raw_income: "Raw income"
     reading_tasks: "Reading tasks" #?
     readings: "Readings"
@@ -1898,6 +1907,10 @@ eng:
     section_x: "Section %{x}"
     see_details: "See details"
     see_more_details: "See more details"
+    see_the_accounts: "See the accounts"
+    see_the_day_book: "See the day book"
+    see_the_financial_years: "See the financial years"
+    see_the_unbalanced_entries: "See the unbalanced entries"
     select_a_journal: "Select a journal"
     select_closure_date: "Choose closing date"
     select_columns: "Select columns" #??
@@ -2051,6 +2064,7 @@ eng:
     type_of_structure: "Type of structure"
     unbalanced: "Unbalanced"
     unbalanced_clients: "Unbalanced clients" #?
+    # unbalanced_journal_entries_are_present_in_year: "Unbalanced journal entries are present in year"
     unbalanced_suppliers: "Unbalanced suppliers" #?
     unbilled_payables: "Unbilled payables"
     undefined_activity: "Undefined activity"

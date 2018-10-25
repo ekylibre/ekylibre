@@ -1,45 +1,45 @@
 = form_tag do
-  = field_set do
+  = field_set :prerequisites_checks_before_closure.tl do
     .close-conditions
       - if @financial_year.all_previous_financial_years_closed_locked?
         %p
           %i.correct-validation
-          = 'Tous les exercices précédents sont clôturés ou verrouillés.'
+          = :all_financial_years_closed_or_locked.tl
       - else
         %p
           %i.wrong-validation
-          = 'Tous les exercices précédents ne sont pas clôturés ou verrouillés.'
-          = link_to('Voir les exercices', backend_financial_years_path)
+          = :all_financial_years_not_closed_or_locked.tl
+          = link_to(:see_the_financial_years.tl, backend_financial_years_path)
       - if @financial_year.no_draft_entry?
         %p
           %i.correct-validation
-          = 'Aucune écriture dans le brouillard.'
+          = :no_draft_entry.tl
       - else
         %p
           %i.wrong-validation
-          = 'Des écritures sont à valider.'
-          = link_to('Voir le brouillard', backend_draft_journal_path(current_financial_year: @financial_year.id))
+          = :draft_entries_to_validate.tl
+          = link_to(:see_the_day_book.tl, backend_draft_journal_path(current_financial_year: @financial_year.id))
       - if @financial_year.no_entry_to_balance?
         %p
           %i.correct-validation
-          = 'Toutes les écritures sont équilibrées'
+          = :all_entries_balanced.tl
       - else
         %p
           %i.wrong-validation
-          = 'Des écritures sont à équilibrer.'
-          = link_to('Voir les écritures non équilibrées', backend_invalid_journal_entries_path)
+          = :entries_to_balance.tl
+          = link_to(:see_the_unbalanced_entries.tl, backend_invalid_journal_entries_path)
       - if @financial_year.unbalanced_radical_account_classes_array.empty?
         %p
           %i.correct-validation
-          = "Les comptes de classes radicales (1 à 7) ne comportent pas d'écritures."
+          = :radical_class_accounts_dont_have_entries.tl
       - else
         - links = []
         - @financial_year.unbalanced_radical_account_classes_array.each do |rad_account|
           - links << link_to(rad_account[:number], backend_account_path(id: rad_account[:id], period: rad_account[:period]))
         %p
           %i.wrong-validation
-          = "Les comptes de classes radicales (1 à 7) comportent des écritures."
-          = 'Voir les comptes '.html_safe + links.to_sentence.html_safe
+          = :radical_class_accounts_have_entries.tl
+          = (:see_the_accounts.tl + ' ' + links.to_sentence).html_safe
 
 
   = field_set :close_settings.tl do
