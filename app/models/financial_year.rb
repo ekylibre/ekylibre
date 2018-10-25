@@ -445,7 +445,7 @@ class FinancialYear < Ekylibre::Record::Base
     end
   end
 
-  def all_previous_financial_years_closed_locked?
+  def all_previous_financial_years_closed_or_locked?
     years = FinancialYear.where("started_on < ?", self.started_on).order(:started_on)
     years.all? { |y| y.locked? || y.closed? }
   end
@@ -476,6 +476,11 @@ class FinancialYear < Ekylibre::Record::Base
       end
     end
     balanced_radical_account_classes
+  end
+
+  def any_invalid_closure_check?
+    checks = [all_previous_financial_years_closed_or_locked?, no_draft_entry?, no_entry_to_balance?, unbalanced_radical_account_classes_array.empty?]
+    checks.any? { |c| c == false } ? true : false
   end
 
   private

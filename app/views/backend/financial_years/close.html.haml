@@ -1,7 +1,7 @@
 = form_tag do
   = field_set :prerequisites_checks_before_closure.tl do
     .close-conditions
-      - if @financial_year.all_previous_financial_years_closed_locked?
+      - if @financial_year.all_previous_financial_years_closed_or_locked?
         %p
           %i.correct-validation
           = :all_financial_years_closed_or_locked.tl
@@ -71,7 +71,7 @@
           = :irreversible_operation.tl
       %tr
         %td
-          = check_box_tag 'confirm-revised-accounts'
+          = check_box_tag 'confirm-revised-accounts', '', false, disabled: @financial_year.any_invalid_closure_check?
           = :account_certification_by_competent_person.tl
 
   = form_actions do
