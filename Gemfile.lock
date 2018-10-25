@@ -336,6 +336,7 @@ GEM
     pry-rails (0.3.6)
       pry (>= 0.10.4)
     public_suffix (3.0.3)
+    puma (3.12.0)
     quandl (1.0.3)
       activesupport (>= 4.2.3)
       json (~> 1.8.3)
@@ -652,6 +653,7 @@ DEPENDENCIES
   possibly
   pry-byebug
   pry-rails
+  puma
   quandl
   quiet_assets
   rails (= 4.2.10)

@@ -245,6 +245,7 @@ group :development, :test do
 end
 
 group :test do
+  gem 'puma'
   gem 'shoulda-context'
 
   gem 'capybara'
