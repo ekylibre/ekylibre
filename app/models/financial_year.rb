@@ -280,8 +280,8 @@ class FinancialYear < Ekylibre::Record::Base
   # this method returns the previous financial year record sorted by started_on
   def previous_record
     all_fy = FinancialYear.order(:started_on)
-    return nil if all_fy.index(self).zero?
     self_index = all_fy.index(self)
+    return nil if self_index.zero?
     previous_record = all_fy[self_index - 1]
   end
 
