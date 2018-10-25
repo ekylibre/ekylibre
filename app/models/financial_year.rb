@@ -462,15 +462,15 @@ class FinancialYear < Ekylibre::Record::Base
     # Expected to have a range from 1 to 7
     radical_numbers = Nomen::Account.items.values.select { |a| a.send(Account.accounting_system)&.match(/^[1-9]$/) }.map { |a| a.send(Account.accounting_system) }
     balanced_radical_account_classes = []
-    radical_numbers.each do |rad_numb|
-      # Get account where number is rad_numb if exist
-      accounts = Account.where('number = ?', rad_numb)
+    accounts = radical_numbers.map { |rad_numb| Account.where('number ~* ?', '^' + rad_numb + '0*$') }.flatten
+    accounts.each do |account|
       # Get all journal entry items which is included in one the accounts and in current financial year
-      jei = JournalEntryItem.where(account_id: accounts.ids).where(financial_year_id: self.id)
+      jei = JournalEntryItem.where(account_id: account.id).where(financial_year_id: self.id)
       if jei.any? && (jei.sum(:credit) - jei.sum(:debit) == 0)
         # This array contains parameters to build link_to url
         balanced_class = {}
-        balanced_class[:prefix] = rad_numb
+        balanced_class[:id] = account.id
+        balanced_class[:number] = account.number
         balanced_class[:period] = self.started_on.to_s + '_' + self.stopped_on.to_s
         balanced_radical_account_classes << balanced_class
       end
