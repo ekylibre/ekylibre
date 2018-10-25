@@ -311,9 +311,21 @@
       @_showOrHideReconciliatedLines()
 
     _showOrHideClearButtons: ->
-      @_showAndHideLinkForCollection 'clear',
-        @_reconciliatedLines().find(".details a"),
-        @_notReconciliatedLines().find(".details a")
+      @_reconciliatedLines().each (_index, line) =>
+        letter = @_reconciliationLetter($(line))
+        bankStatementId = $(line).data('bank-statement-id') || $(".reconciliation-item[data-type='bank_statement_item'][data-letter='#{letter}']").first().data('bank-statement-id')
+        $(line).find('.details').html(@_clearButtonTemplate(bankStatementId, letter))
+
+      @_notReconciliatedLines().each ->
+        $(this).find('.details').html("<div class='letter'></div>")
+
+    _clearButtonTemplate: (bankStatementId, letter) ->
+      removeLabel = I18n.t("#{I18n.rootKey}.bank_reconciliation.remove")
+      "<div class='letter'>#{letter}</div>
+       <a href='/backend/bank-reconciliation/letters/#{bankStatementId}?letter=#{letter}' data-remote='true' rel='nofollow' data-method='delete' id='clear'>
+         <i></i>
+         <span>#{removeLabel}</span>
+       </a>"
 
     _showOrHideCompleteButtons: ->
       @_showAndHideLinkForCollection 'complete',
@@ -324,9 +336,6 @@
       toShow.each ->
         $(this).attr('id', linkType)
         $(this).find('span').html($(this).data("name-#{linkType}"))
-        console.log linkType
-        console.log $(this).data("name-#{linkType}")
-        # $(this).find('span').html(I18n.t("#{i18nRoot}.bank_reconciliation.remove")) if linkType == 'clear'
       toHide.each ->
         if $(this).attr('id') == linkType
           $(this).find('span').html('')
