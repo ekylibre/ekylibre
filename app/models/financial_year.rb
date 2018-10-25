@@ -483,6 +483,10 @@ class FinancialYear < Ekylibre::Record::Base
     checks.any? { |c| c == false } ? true : false
   end
 
+  def not_sent_tax_declarations
+    tax_declarations.where(state: [:draft, :validated])
+  end
+
   private
 
   def compute_ranges(number_of_months)

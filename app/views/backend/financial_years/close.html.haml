@@ -40,6 +40,16 @@
           %i.wrong-validation
           = :radical_class_accounts_have_entries.tl
           = (:see_the_accounts.tl + ' ' + links.to_sentence).html_safe
+      - if FixedAsset.drafts.any?
+        %p
+          %i.warning
+          = :draft_fixed_asset_on_current_financial_year.tl(code: @financial_year.code)
+          = link_to(:see_fixed_assets.tl, backend_fixed_assets_path)
+      - if @financial_year.not_sent_tax_declarations.any?
+        %p
+          %i.warning
+          = :not_sent_tax_declaration_on_current_financial_year.tl(code: @financial_year.code)
+          = link_to(:see_tax_declarations.tl, backend_tax_declarations_path)
 
 
   = field_set :close_settings.tl do

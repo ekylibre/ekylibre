@@ -101,7 +101,6 @@
 }
 
 .close-conditions {
-  // font-weight: bold;
   p + p{
     margin-top: 5px;
   }
@@ -122,6 +121,13 @@
       @include is-icon(20px);
       @include use-icon(check);
       color: #6BC728;
+    }
+
+    &.warning {
+      margin-left: 5px;
+      @include is-icon(20px);
+      @include use-icon(warning);
+      color: orange;
     }
   }
 }
