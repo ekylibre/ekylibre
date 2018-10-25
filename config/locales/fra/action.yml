@@ -1290,6 +1290,7 @@ fra:
     downpayment: "Acompte"
     draft: "Brouillard"
     draft_entries_to_validate: "Des écritures sont à valider."
+    draft_fixed_asset_on_current_financial_year: "Vous avez des immobilisation brouillons en cours. Une fois l'exercice clôs, il ne sera plus possible de les mettre en service sur cet exercice (%{code})."
     drug: "Médicament" #?
     duplicate: "Dupliquer"
     duration: "Durée"
@@ -1784,6 +1785,7 @@ fra:
     not_letterable: "Impossible de lettrer"
     not_ready: "Pas prêt(e)"
     not_received: "Non reçu"
+    not_sent_tax_declaration_on_current_financial_year: "Vous avec des déclarations de TVA non envoyées (brouillons ou validées) en cours, il ne sera plus possible de les envoyer sur cet exercice (%{code})."
     now: "Maintenant"
     number: "Numéro"
     number_of_cap_islets: "Nombre d’ilôt PAC"
@@ -2093,7 +2095,9 @@ fra:
     second_contact: "Adresse secondaire" #?
     section_x: "%{section} %{x}"
     see_details: "Voir les détails"
+    see_fixed_assets: "Voir les immobilisations"
     see_more_details: "Voir plus de détails"
+    see_tax_declarations: "Voir les déclarations de TVA"
     see_the_accounts: "Voir les comptes"
     see_the_day_book: "Voir le brouillard"
     see_the_financial_years: "Voir les exercices"
