@@ -36,6 +36,9 @@ Rails.application.routes.draw do
 
   concern :products do
     concerns :list, :unroll, :picture
+    collection do
+      get :available_time_or_quantity
+    end
     member do
       get :list_carried_linkages
       get :list_carrier_linkages

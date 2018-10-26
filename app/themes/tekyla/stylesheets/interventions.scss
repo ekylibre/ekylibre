@@ -2,6 +2,27 @@
 
 $preview-modal-height: 80vh;
 
+.big-infos .med-info .evaluation .picto {
+  color: #ffce00;
+  font-size: 35px;
+}
+
+#evaluate-intervention-modal .modal-body {
+  margin-left: 5%;
+}
+
+#intervention-form {
+  .control-group .selector-choices-list li {
+    display: flex;
+    .time-part {
+      margin-left: auto;
+    }
+  }
+  .controls .selector .items-menu .items-list {
+    max-width: 750px;
+  }
+}
+
 .interventions-modal {
   .intervention-activities {
     padding: $default-gap;

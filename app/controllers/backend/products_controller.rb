@@ -277,6 +277,25 @@ module Backend
       end
     end
 
+    def available_time_or_quantity
+      products = Product.where(id: params[:items])
+      date = Date.parse(params[:date])
+      if products.first.of_variety?(:equipment) || products.first.of_variety?(:worker)
+        @product_quantity = products.order(:name).map do |product|
+          { product_id: product.id, quantity: "#{ product.time_use_in_date(date).to_s.gsub!(/\./,",") } h"}
+        end
+      else
+        @product_quantity = products.includes(:variant).map do |product|
+          quantity = "#{product.population.round(2)} #{product.variant.unit_name.downcase}"
+          { product_id: product.id, quantity: quantity }
+        end
+      end
+
+      respond_to do |format|
+        format.json
+      end
+    end
+
     protected
 
     def check_variant_availability
