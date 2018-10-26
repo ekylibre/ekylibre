@@ -21,7 +21,7 @@ module Backend
     manage_restfully(
       started_on: 'Cash.find(params[:cash_id]).last_bank_statement.stopped_on + 1 rescue (Time.zone.today-1.month-2.days)'.c,
       stopped_on: 'Cash.find(params[:cash_id]).last_bank_statement.stopped_on >> 1 rescue (Time.zone.today-2.days)'.c,
-      redirect_to: "{controller: '/backend/bank_reconciliation/items', action: :index, id: 'id'.c}".c
+      redirect_to: "{controller: '/backend/bank_reconciliation/items', action: :index, bank_statement_id: 'id'.c}".c
     )
 
     unroll
