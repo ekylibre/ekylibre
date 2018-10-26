@@ -52,6 +52,7 @@ financial_years_001:
   id: 1
   lock_version: 1
   started_on: 1992-11-17
+  state: opened
   stopped_on: 1993-08-31
   tax_declaration_frequency: yearly
   tax_declaration_mode: payment
@@ -67,6 +68,7 @@ financial_years_002:
   id: 2
   lock_version: 1
   started_on: 2050-09-01
+  state: opened
   stopped_on: 2051-08-31
   tax_declaration_frequency: yearly
   tax_declaration_mode: payment
@@ -82,6 +84,7 @@ financial_years_003:
   id: 3
   lock_version: 1
   started_on: 1993-09-01
+  state: opened
   stopped_on: 1994-08-31
   tax_declaration_frequency: yearly
   tax_declaration_mode: payment
@@ -97,6 +100,7 @@ financial_years_004:
   id: 4
   lock_version: 1
   started_on: 1994-09-01
+  state: opened
   stopped_on: 1995-08-31
   tax_declaration_frequency: yearly
   tax_declaration_mode: payment
@@ -112,6 +116,7 @@ financial_years_005:
   id: 5
   lock_version: 1
   started_on: 1995-09-01
+  state: opened
   stopped_on: 1996-08-31
   tax_declaration_frequency: yearly
   tax_declaration_mode: payment
@@ -127,6 +132,7 @@ financial_years_006:
   id: 6
   lock_version: 1
   started_on: 1996-09-01
+  state: opened
   stopped_on: 1997-08-31
   tax_declaration_frequency: yearly
   tax_declaration_mode: payment
@@ -142,6 +148,7 @@ financial_years_007:
   id: 7
   lock_version: 1
   started_on: 1997-09-01
+  state: opened
   stopped_on: 1998-08-31
   tax_declaration_frequency: yearly
   tax_declaration_mode: payment
@@ -157,6 +164,7 @@ financial_years_008:
   id: 8
   lock_version: 2
   started_on: 1998-09-01
+  state: opened
   stopped_on: 1999-08-31
   tax_declaration_frequency: yearly
   tax_declaration_mode: debit
@@ -172,6 +180,7 @@ financial_years_009:
   id: 9
   lock_version: 1
   started_on: 1999-09-01
+  state: opened
   stopped_on: 2000-08-31
   tax_declaration_frequency: yearly
   tax_declaration_mode: payment
@@ -187,6 +196,7 @@ financial_years_010:
   id: 10
   lock_version: 1
   started_on: 2000-09-01
+  state: opened
   stopped_on: 2001-08-31
   tax_declaration_frequency: yearly
   tax_declaration_mode: payment
@@ -202,6 +212,7 @@ financial_years_011:
   id: 11
   lock_version: 1
   started_on: 2001-09-01
+  state: opened
   stopped_on: 2002-08-31
   tax_declaration_frequency: yearly
   tax_declaration_mode: payment
@@ -217,6 +228,7 @@ financial_years_012:
   id: 12
   lock_version: 1
   started_on: 2002-09-01
+  state: opened
   stopped_on: 2003-08-31
   tax_declaration_frequency: yearly
   tax_declaration_mode: payment
@@ -232,6 +244,7 @@ financial_years_013:
   id: 13
   lock_version: 1
   started_on: 2003-09-01
+  state: opened
   stopped_on: 2004-08-31
   tax_declaration_frequency: yearly
   tax_declaration_mode: payment
@@ -247,6 +260,7 @@ financial_years_014:
   id: 14
   lock_version: 1
   started_on: 2004-09-01
+  state: opened
   stopped_on: 2005-08-31
   tax_declaration_frequency: yearly
   tax_declaration_mode: payment
@@ -262,6 +276,7 @@ financial_years_015:
   id: 15
   lock_version: 1
   started_on: 2005-09-01
+  state: opened
   stopped_on: 2006-08-31
   tax_declaration_frequency: yearly
   tax_declaration_mode: payment
@@ -277,6 +292,7 @@ financial_years_016:
   id: 16
   lock_version: 1
   started_on: 2006-09-01
+  state: opened
   stopped_on: 2007-08-31
   tax_declaration_frequency: yearly
   tax_declaration_mode: payment
@@ -292,6 +308,7 @@ financial_years_017:
   id: 17
   lock_version: 1
   started_on: 2007-09-01
+  state: opened
   stopped_on: 2008-08-31
   tax_declaration_frequency: yearly
   tax_declaration_mode: payment
@@ -307,6 +324,7 @@ financial_years_018:
   id: 18
   lock_version: 1
   started_on: 2008-09-01
+  state: opened
   stopped_on: 2009-08-31
   tax_declaration_frequency: yearly
   tax_declaration_mode: payment
@@ -322,6 +340,7 @@ financial_years_019:
   id: 19
   lock_version: 1
   started_on: 2009-09-01
+  state: opened
   stopped_on: 2010-08-31
   tax_declaration_frequency: yearly
   tax_declaration_mode: payment
@@ -337,6 +356,7 @@ financial_years_020:
   id: 20
   lock_version: 1
   started_on: 2010-09-01
+  state: opened
   stopped_on: 2011-08-31
   tax_declaration_frequency: yearly
   tax_declaration_mode: payment
@@ -352,6 +372,7 @@ financial_years_021:
   id: 21
   lock_version: 1
   started_on: 2011-09-01
+  state: opened
   stopped_on: 2012-08-31
   tax_declaration_frequency: yearly
   tax_declaration_mode: payment
@@ -367,6 +388,7 @@ financial_years_022:
   id: 22
   lock_version: 1
   started_on: 2012-09-01
+  state: opened
   stopped_on: 2013-08-31
   tax_declaration_frequency: yearly
   tax_declaration_mode: payment
@@ -382,6 +404,7 @@ financial_years_023:
   id: 23
   lock_version: 1
   started_on: 2013-09-01
+  state: opened
   stopped_on: 2014-08-31
   tax_declaration_frequency: yearly
   tax_declaration_mode: payment
@@ -397,6 +420,7 @@ financial_years_024:
   id: 24
   lock_version: 1
   started_on: 2014-09-01
+  state: opened
   stopped_on: 2015-08-31
   tax_declaration_frequency: yearly
   tax_declaration_mode: payment
@@ -412,6 +436,7 @@ financial_years_025:
   id: 25
   lock_version: 2
   started_on: 2015-09-01
+  state: opened
   stopped_on: 2016-08-31
   tax_declaration_frequency: monthly
   tax_declaration_mode: payment
@@ -427,6 +452,7 @@ financial_years_026:
   id: 26
   lock_version: 2
   started_on: 2016-09-01
+  state: opened
   stopped_on: 2017-08-31
   tax_declaration_frequency: monthly
   tax_declaration_mode: payment
@@ -442,6 +468,7 @@ financial_years_027:
   id: 27
   lock_version: 0
   started_on: 2017-09-01
+  state: opened
   stopped_on: 2018-08-31
   tax_declaration_frequency: monthly
   tax_declaration_mode: none
@@ -457,6 +484,7 @@ financial_years_028:
   id: 28
   lock_version: 0
   started_on: 2018-09-01
+  state: opened
   stopped_on: 2019-08-31
   tax_declaration_frequency: monthly
   tax_declaration_mode: none

@@ -84,7 +84,7 @@ class FinancialYear < Ekylibre::Record::Base
   end
 
   protect on: :update do
-    state != :opened
+    state_was.to_s != "opened"
   end
 
   class << self
