@@ -159,10 +159,8 @@ module Backend
     end
 
     def lock
-      byebug
       return unless @financial_year = find_and_check
       if request.post?
-        byebug
         @financial_year.update(state: 'locked')
         return redirect_to(action: :index)
       end
