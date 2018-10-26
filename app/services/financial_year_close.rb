@@ -73,7 +73,7 @@ class FinancialYearClose
 
       enable_partial_lettering
 
-      locked_depreciations_repayments_and_tax_declaration
+      locked_depreciations_repayments
 
       Journal.find_each do |journal|
         journal.close!(@to_close_on) if journal.closed_on < @to_close_on
@@ -90,7 +90,7 @@ class FinancialYearClose
 
   private
 
-  def locked_depreciations_repayments_and_tax_declaration
+  def locked_depreciations_repayments
     # find and locked fixed asset depreciations in current financial year
     FixedAssetDepreciation.up_to(@to_close_on).where(locked: false).update_all(locked: true)
     # find and locked fixed asset depreciations in current financial year

@@ -56,6 +56,7 @@ module Backend
       t.column :name, url: true
       t.column :amount, currency: true
       t.column :cash, url: true
+      t.status
       t.column :started_on
       t.column :repayment_duration
       t.column :repayment_period

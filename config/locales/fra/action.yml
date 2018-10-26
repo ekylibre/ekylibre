@@ -1291,6 +1291,7 @@ fra:
     draft: "Brouillard"
     draft_entries_to_validate: "Des écritures sont à valider."
     draft_fixed_asset_on_current_financial_year: "Vous avez des immobilisation brouillons en cours. Une fois l'exercice clôs, il ne sera plus possible de les mettre en service sur cet exercice (%{code})."
+    draft_loan_on_current_financial_year: "Vous avez des emprunts brouillons en cours. Une fois l'exercice clôs, il ne sera plus possible de les mettre en service sur cet exercice (%{code})."
     drug: "Médicament" #?
     duplicate: "Dupliquer"
     duration: "Durée"
@@ -2096,6 +2097,7 @@ fra:
     section_x: "%{section} %{x}"
     see_details: "Voir les détails"
     see_fixed_assets: "Voir les immobilisations"
+    see_loans: "Voir les emprunts"
     see_more_details: "Voir plus de détails"
     see_tax_declarations: "Voir les déclarations de TVA"
     see_the_accounts: "Voir les comptes"

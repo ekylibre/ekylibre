@@ -92,6 +92,8 @@ class Loan < Ekylibre::Record::Base
   validates :insurance_account, presence: { if: -> { updateable? && insurance_percentage.present? && insurance_percentage.nonzero? } }
   validates :amount, numericality: { greater_than: 0 }
 
+  scope :drafts, -> { where(state: %w[draft]) }
+
   state_machine :state, initial: :draft do
     state :draft
     state :ongoing
@@ -229,6 +231,12 @@ class Loan < Ekylibre::Record::Base
     r = repayments.where('due_on <= ?', on).reorder(:position).last
     return nil unless r
     r.remaining_amount
+  end
+
+  def status
+    return :go if ongoing?
+    return :caution if draft?
+    return :stop if repaid?
   end
 
   # why ? we have state machine ?
