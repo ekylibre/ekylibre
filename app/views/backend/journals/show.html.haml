@@ -13,7 +13,7 @@
 = kujaku(popover: false) do |k|
   - k.text
   - k.helper :journal_entries_states_crit
-  - k.helper :journal_period_crit
+  - k.helper :journal_period_crit, default: @current_financial_year_period
 
 = main_list(:items)
 

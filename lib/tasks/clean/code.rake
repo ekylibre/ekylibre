@@ -48,8 +48,8 @@ namespace :clean do
     files.each do |f|
       log.write " - #{f}\n"
     end
-    log.write "\n"
-    log.write `rubocop --auto-correct --no-color #{files.join(' ')}`
+    # log.write "\n"
+    # log.write `rubocop --auto-correct --no-color #{files.join(' ')}`
     log.close
     puts `tail -n 1 log/clean-code.log`
   end
