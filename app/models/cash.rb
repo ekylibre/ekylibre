@@ -299,6 +299,7 @@ class Cash < Ekylibre::Record::Base
     new_letter = next_reconciliation_letter
     return false if (journal_entry_items + statement_items).length.zero?
 
+    bank_statement_id = statement_items.map(&:bank_statement_id).uniq.first
     statement_entries = JournalEntryItem.where(resource: statement_items)
     to_letter = journal_entry_items + statement_entries
     suspense_account.mark(to_letter) if suspend_until_reconciliation
@@ -306,7 +307,8 @@ class Cash < Ekylibre::Record::Base
     saved = true
     saved &&= statement_items.update_all(letter: new_letter)
     saved &&= journal_entry_items.update_all(
-      bank_statement_letter: new_letter
+      bank_statement_letter: new_letter,
+      bank_statement_id: bank_statement_id
     )
 
     saved && new_letter

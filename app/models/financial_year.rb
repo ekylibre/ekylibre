@@ -82,7 +82,7 @@ class FinancialYear < Ekylibre::Record::Base
   protect on: :destroy do
     tax_declarations.any? || journal_entries.any? || inventories.any? || !opened?
   end
-
+  
   class << self
     def on(searched_on)
       year = where('? BETWEEN started_on AND stopped_on', searched_on).order(started_on: :desc).first
@@ -276,8 +276,8 @@ class FinancialYear < Ekylibre::Record::Base
   # this method returns the previous financial year record sorted by started_on
   def previous_record
     all_fy = FinancialYear.order(:started_on)
-    return nil if all_fy.index(self).zero?
     self_index = all_fy.index(self)
+    return nil if self_index.zero?
     previous_record = all_fy[self_index - 1]
   end
 
