@@ -271,6 +271,9 @@ bank_statements:
   ekylibre_bank_statements:
     path: 'alamano/bank_statements.ods'
 
+cash_transfers:
+  ekylibre_cash_transfers:
+    path: 'alamano/cash_transfers.csv'
 interventions:
   # Import interventions from Ekylibre conventions
   # Need to be reviewed
