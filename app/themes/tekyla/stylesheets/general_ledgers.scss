@@ -24,8 +24,25 @@
     vertical-align: middle;
     border-left: 1px solid #E4E4E4;
 
-    &.gutter{
+    &.smallcolumns{
       background-color: white;
+    }
+  }
+}
+
+#subledger_accounts-list, #centralized_ledger_accounts-list {
+  th, td {
+    padding: 3px 5px;
+    &.monetary_column {
+      text-align: right;
+    }
+  }
+  td {
+    &.debitcolor {
+      color: $invalid-color;
+    }
+    &.creditcolor {
+      color: $success-color
     }
   }
 }
@@ -35,27 +52,47 @@
 
   thead tr, tbody tr {
     display: flex;
-    flex-flow: row wrap;
     align-items: stretch;
     @include calc(width, "100vw - #{$side-width}");
   }
   thead th, tbody td {
-    flex-grow: 1;
+    padding: 3px 5px;
+    max-width: none;
     &.hidden {
       display: none;
     }
-    &.gutter {
-      max-width: 7%;
+    &.smallcolumns {
+      flex: 0 0 6%;
+    }
+    &.mediumcolumns {
+      flex: 0 0 8%;
+    }
+    &.largecolumns {
+      flex: 0 0 13%;
+    }
+    &.entryname {
+      flex: 1 1 auto;
+    }
+    &.printed_on_column {
+      text-align: left;
+    }
+    &.monetary_column {
       text-align: right;
-      flex-grow: 2;
     }
-
-    &.entry-resource-label {
-      max-width: 10%;
+    &.totalscolumn {
+      flex: 1 1 auto;
     }
+    &.letterscolumn {
+      text-align: center;
+    }
+  }
 
-    &.entry-name {
-      max-width: 30%;
+  td {
+    &.debitcolor {
+      color: $invalid-color;
+    }
+    &.creditcolor {
+      color: $success-color;
     }
   }
 
