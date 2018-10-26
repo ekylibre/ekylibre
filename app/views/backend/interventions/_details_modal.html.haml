@@ -53,7 +53,7 @@
         - intervention.doers.each do |doer|
           - title = doer.product.name
           - detail = doer.name
-          = add_detail_to_modal_block(title, detail, {icon: 'picto-male'})
+          = add_detail_to_modal_block(title, detail, doer, {icon: 'picto-male'})
 
     - if intervention.inputs.any?
       .block
@@ -78,7 +78,7 @@
         - intervention.tools.each do |tool|
           - title = tool.product.name
           - detail = tool.product.nature.name
-          = add_detail_to_modal_block(title, detail, {icon: "picto-tractor"})
+          = add_detail_to_modal_block(title, detail, tool, {icon: "picto-tractor", natures: [:travel, :intervention]})
 
     - if intervention.receptions.any?
       .block

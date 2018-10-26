@@ -137,7 +137,7 @@ module ApplicationHelper
     vals = []
     vals << (seconds / 1.hour).floor
     seconds -= 1.hour * (seconds / 1.hour).floor
-    vals << (seconds / 1.minute).floor.to_s.rjust(2, '0')
+    vals << (seconds / 1.minute).round.to_s.rjust(2, '0')
     seconds -= 1.minute * (seconds / 1.minute).floor
     # vals << seconds.round.to_s.rjust(2, "0")
     vals.join(':')

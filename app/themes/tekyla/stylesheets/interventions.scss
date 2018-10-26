@@ -170,6 +170,20 @@ $preview-modal-height: 80vh;
       .data {
         padding: $default-gap;
         @include flex-row(flex-start, center);
+        .details {
+          display: inherit;
+          .working-time {
+            margin-left: 15px;
+            .quantity {
+              font-size: 15px;
+              margin-left: 5px;
+            }
+            .picto {
+              font-size: 25px;
+              color: #8c8c8c;
+            }
+          }
+        }
       }
 
       .data-title {
