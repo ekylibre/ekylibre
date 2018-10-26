@@ -136,8 +136,7 @@ class Sequence < Ekylibre::Record::Base
   # Produces the next value of the sequence and update last value in DB
   def next_value!
     reload
-    # FIXME: Bad method to prevent concurrency access to the method
-    sleep(rand(50) / 1000)
+    # FIXME: Prevent concurrency access to the method
     counters = next_counters
     self.last_number = counters[:number]
     self.last_cweek = counters[:cweek]

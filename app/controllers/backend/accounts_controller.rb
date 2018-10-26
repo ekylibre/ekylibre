@@ -24,6 +24,8 @@ module Backend
 
     unroll
 
+    before_action :save_search_preference, only: [:index, :mark]
+
     def self.accounts_conditions
       code = ''
       code << search_conditions(accounts: %i[name number description]) + ';'
@@ -55,11 +57,31 @@ module Backend
     def show
       return unless @account = find_and_check
       t3e @account
-      respond_with(@account, methods: [],
-                             include: [
-                               { journal_entry_items: { include: %i[financial_year tax tax_declaration_item] } }
-                             ],
-                             procs: proc { |options| options[:builder].tag!(:url, backend_account_url(@account)) })
+      respond_to do |format|
+        format.html {}
+        format.odt do
+          get_dataset_account
+          if params[:non_letter] == 'true'
+            filename = "Extrait_de_compte_non_lettrés_#{@account.number}"
+            send_data non_letter_odt.generate, type: 'application/vnd.oasis.opendocument.text', disposition: 'attachment', filename: filename << '.odt'
+          else
+            filename = "Extrait_de_compte_#{@account.number}"
+            send_data to_odt.generate, type: 'application/vnd.oasis.opendocument.text', disposition: 'attachment', filename: filename << '.odt'
+          end
+        end
+        format.pdf do
+          if params[:template].present?
+            respond_with(@account, methods: [],
+                                   include: [
+                                     { journal_entry_items: { include: %i[financial_year tax tax_declaration_item] } }
+                                   ],
+                                   procs: proc { |options| options[:builder].tag!(:url, backend_account_url(@account)) })
+          else
+            get_dataset_account
+            to_pdf
+          end
+        end
+      end
     end
 
     def self.account_moves_conditions(_options = {})
@@ -125,19 +147,7 @@ module Backend
 
     def reconciliation; end
 
-    def set_interval_preference(attribute)
-      if preference = current_user.preferences.find_by(name: "accounts_interval.#{attribute}")
-        preference.set(params[attribute])
-      else
-        current_user.preferences.get("accounts_interval.#{attribute}", params[attribute], :string)
-      end
-    end
-
     def mark
-      params[:started_on] ||= current_user.preferences.find_by(name: 'accounts_interval.started_on').try(:value)
-      params[:stopped_on] ||= current_user.preferences.find_by(name: 'accounts_interval.stopped_on').try(:value)
-      params[:period]     ||= current_user.preferences.find_by(name: 'accounts_interval.period').try(:value) || :interval
-
       return unless @account = find_and_check
       if request.post?
         if params[:journal_entry_item]
@@ -152,15 +162,6 @@ module Backend
         end
       end
       t3e @account.attributes
-
-      # Set the preference in function of the search
-      if params[:period].present? && params[:period] != 'all' && params[:period] == 'interval'
-        set_interval_preference(:started_on)
-        set_interval_preference(:stopped_on)
-        current_user.preferences.find_by(name: 'accounts_interval.period').try(:destroy)
-      elsif params[:period] != 'interval'
-        set_interval_preference(:period)
-      end
     end
 
     def unmark
@@ -187,6 +188,64 @@ module Backend
       preference_name << '.lettered_items.masked'
       current_user.prefer!(preference_name, params[:masked].to_s == 'true', :boolean)
       head :ok
+    end
+
+    protected
+
+    def get_dataset_account
+      @dataset_account = @account.account_statement_reporting(params[:non_letter])
+    end
+
+    def to_pdf
+      if params[:non_letter] == 'true'
+        filename = "Extrait_de_compte_non_lettrés_#{@account.number}"
+        file_odt = non_letter_odt.generate
+        generate_pdf_from_odt(file_odt, filename)
+      else
+        filename = "Extrait_de_compte_#{@account.number}"
+        file_odt = to_odt.generate
+        generate_pdf_from_odt(file_odt, filename)
+      end
+    end
+
+    def generate_pdf_from_odt(file_odt, filename)
+      tmp_dir = Ekylibre::Tenant.private_directory.join('tmp')
+      uuid = SecureRandom.uuid
+      source = tmp_dir.join(uuid + '.odt')
+      dest = tmp_dir.join(uuid + '.pdf')
+      FileUtils.mkdir_p tmp_dir
+      File.write source, file_odt
+      `soffice  --headless --convert-to pdf --outdir #{Shellwords.escape(tmp_dir.to_s)} #{Shellwords.escape(source)}`
+      send_data(File.read(dest), type: 'application/pdf', disposition: 'attachment', filename: filename + '.pdf')
+    end
+
+    def non_letter_odt
+      ODFReport::Report.new(Rails.root.join('config', 'locales', 'fra', 'reporting', 'account_statement_non_letter.odt')) do |r|
+        r.add_table('ITEM1', @dataset_account[:items], header: true) do |t|
+          add_columns_to_odt(t, false)
+        end
+      end
+    end
+
+    def to_odt
+      # add a generic template system path
+      ODFReport::Report.new(Rails.root.join('config', 'locales', 'fra', 'reporting', 'account_statement.odt')) do |r|
+        r.add_table('ITEM1', @dataset_account[:items], header: true) do |t|
+          add_columns_to_odt(t, true)
+        end
+      end
+    end
+
+    def add_columns_to_odt(t, letter)
+      t.add_column(:account_number) { |item| item[:account_number] }
+      t.add_column(:name)
+      t.add_column(:printed_on)
+      t.add_column(:journal_entry_items_number)
+      t.add_column(:sales_code)
+      t.add_column(:purchase_reference_number)
+      t.add_column(:letter) if letter
+      t.add_column(:real_debit)
+      t.add_column(:real_credit)
     end
   end
 end

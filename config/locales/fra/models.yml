@@ -153,6 +153,9 @@ fra:
         container: "Zone de stockage" #?
         started_at: "Entrée" #?
         stopped_at: "Sortie" #?
+      intervention_working_period:
+        stopped_at: Date de fin
+        started_at : Date de début
       product_nature_category: #?
         depreciable: "Ammortissable" #?
         duration: "Nombre de numéros OU période d’abonnement" #?
@@ -276,6 +279,7 @@ fra:
         overlap_sibling: "%{attribute} se trouve sur une période d'un autre enregistrement"
         period_overlap: "%{attribute} se trouve sur une période d’un enregistrement existant" #?
         posterior: "%{attribute} doit être postérieure à %{to}"
+        inferior: "%{attribute} doit être antérieure à %{to}"
         record_invalid: "Validations échouées\_: %{errors}"
         taken: "%{attribute} a déjà été pris"
         too_long: "%{attribute} est trop long (%{count} caractères maximum)"
@@ -406,6 +410,7 @@ fra:
       campaign: "Campagne"
       cap_islet: "Ilôt PAC"
       cap_land_parcel: "Parcelle PAC"
+      cap_neutral_area: "Surface non agricole (SNA)"
       cap_statement: "Déclaration PAC"
       cash: "Trésorerie"
       cash_session: "Session de caisse"
@@ -538,7 +543,17 @@ fra:
       purchase_order: "Commande d’achat"
       purchase_payment: "Décaissement d’achat"
       reception: "Réception"
-      # reception_item: "Reception item"
+      reception_item: "Élément de réception"
+      # registered_agroedi_code: "Registered agroedi code"
+      # registered_pfi_crop: "Registered pfi crop"
+      # registered_pfi_dose: "Registered pfi dose"
+      # registered_pfi_target: "Registered pfi target"
+      # registered_phytosanitary_phrase: "Registered phytosanitary phrase"
+      # registered_phytosanitary_product: "Registered phytosanitary product"
+      # registered_phytosanitary_risk: "Registered phytosanitary risk"
+      # registered_phytosanitary_usage: "Registered phytosanitary usage"
+      # registered_postal_zone: "Registered postal zone"
+      # registered_seed: "Registered seed"
       regularization: "Régularisation"
       role: "Rôle"
       sale: "Vente"
@@ -552,7 +567,7 @@ fra:
       sequence: "Séquence"
       settlement: "Installation"
       shipment: "Expédition"
-      # shipment_item: "Shipment item"
+      shipment_item: "Élément d'expédition"
       sub_zone: "Sous-zone"
       subscription: "Abonnement"
       subscription_nature: "Type d’abonnement"
@@ -626,6 +641,7 @@ fra:
     affectation_percentage: "Pourcentage d’affectation"
     affected_at: "Affecté le"
     age: "Âge"
+    # agroedi_crop_code: "Agroedi crop code"
     aim: "Objectif" #?
     alert: "Alerte"
     alerts: "Alertes"
@@ -639,6 +655,8 @@ fra:
     analysis: "Analyse"
     analysis_items: "Lignes d’analyse"
     annotation: "Annotation"
+    # applications_count: "Applications count"
+    # applications_frequency: "Applications frequency"
     archive: "Archive"
     archive_content_type: "Archive type de contenu"
     archive_file_name: "Nom de fichier Archive"
@@ -665,6 +683,7 @@ fra:
     authorized_payments_count: "Nombre d’encaissements autorisés"
     auto_updateable_addresses: "Adresses mises à jour automatiquement"
     average_value: "Valeur moyenne"
+    # average_yield: "Average yield"
     balance: "Solde"
     balance_amount: "Solde" #?
     balance_pretax_amount: "Solde montant HT"
@@ -704,10 +723,13 @@ fra:
     campaign: "Campagne"
     campaigns: "Campagnes"
     canal: "Canal"
+    # cap_2017_crop_code: "Cap 2017 crop code"
+    # cap_2018_crop_code: "Cap 2018 crop code"
     cap_islet: "Ilot PAC"
     cap_islets: "Ilots PAC"
     cap_land_parcel: "Parcelle PAC"
     cap_land_parcels: "Parcelles PAC"
+    cap_neutral_areas: "Surfaces non agricole (SNA)"
     cap_statement: "Déclaration PAC"
     cap_statements: "Déclarations PAC"
     carried: "Tracté"
@@ -725,6 +747,7 @@ fra:
     category: "Catégorie"
     ceded: "Cédé"
     ceded_on: "Cédé le"
+    # centroid: "Centroid"
     charge_account: "Compte d’achat"
     charges_categories: "Catégories de produits avec charge"
     check_state: "Vérifier l’état" #?
@@ -813,6 +836,7 @@ fra:
     credited_quantity: "Quantité passée en avoir"
     credited_sale: "Facture mise en avoir"
     credits: "Avoirs"
+    # crop: "Crop"
     crumbs: "Miettes"
     cultivable_zone: "Zone cultivable"
     cultivable_zones: "Zones cultivables"
@@ -919,6 +943,11 @@ fra:
     documents: "Documents"
     doers: "Équipiers"
     done_at: "Fait le" #?
+    # dose_quantity: "Dose quantity"
+    # dose_unit: "Dose unit"
+    # dose_unit_name: "Dose unit name"
+    # dose_unity: "Dose unity"
+    # doses: "Doses"
     downpayment: "Acompte"
     downpayment_amount: "Montant de l’acompte"
     downpayment_minimum: "Somme minimale"
@@ -962,6 +991,7 @@ fra:
     entry_on: "Entrée le"
     entry_reason: "Raison de l'entrée"
     # equipment: "Equipment"
+    # equipment_nature: "Equipment nature"
     establishment: "Établissement" #?
     # estimate_reception_date: "Estimate reception date"
     # euid: "EUID"
@@ -1019,6 +1049,7 @@ fra:
     finish_junction: "Jonction de fin" #?
     finish_way: "Voie de fin" #?
     finished_at: "Terminé à"
+    # firm_name: "Firm name"
     first_calving_on: "Premier vêlage le"
     first_met_at: "Date de la première rencontre"
     first_name: "Prénom"
@@ -1096,6 +1127,7 @@ fra:
     hour_counter: "Compteur horaire"
     # hour_counter_unit_name: "Hour counter unit name"
     human_activities_names: "Nom des activités"
+    # human_name: "Human name"
     human_shape_area: "Superficie"
     human_target_names: "Nom des cibles"
     human_working_duration: "Temps de travail"
@@ -1112,6 +1144,7 @@ fra:
     imported_at: "Importé le"
     importer: "Importateur"
     in_cash: "En espèce" #?
+    # in_field_reentry_delay: "In field reentry delay"
     in_preparation_at: "En préparation le"
     included: "Incluse"
     incoming_parcel_item: "Élement de colis à réceptionner"
@@ -1122,6 +1155,8 @@ fra:
     indicator: "Indicateur"
     indicator_datatype: "Type de l’indicateur"
     indicator_name: "Indicateur"
+    # indicator_unit: "Indicator unit"
+    # indicator_value: "Indicator value"
     indicators: "Indicateurs"
     indirect_links: "Liens indirects"
     individual: "Individuel" #?
@@ -1173,6 +1208,7 @@ fra:
     intracommunity_payable_account: "Compte de taxe intracommunautaire due"
     introduction: "Introduction"
     inventory: "Inventaire"
+    # inventory_items: "Inventory items"
     invitation_accepted_at: "Invitation acceptée à"
     invitation_created_at: "Invitation créé"
     invitation_limit: "Limite d'invitation"
@@ -1260,6 +1296,7 @@ fra:
     lock_version: "Version"
     locked: "Verrouillé"
     locked_at: "Verrouillé à"
+    # maaid: "Maaid"
     made_at: "Fait le" #?
     mail: "E-mail"
     mail_addresses: "Adresses postales"
@@ -1537,6 +1574,7 @@ fra:
     production: "Production"
     production_campaign: "Campagne rattachée"
     production_cycle: "Cycle de production"
+    # production_nature: "Production nature"
     production_support: "Support de production"
     production_supports: "Supports de production"
     production_system: "Système de production"
@@ -1617,6 +1655,7 @@ fra:
     reduction_percentage: "Réduction (%)"
     reductions: "Lignes de réductions" #?
     reference: "Référence" #?
+    # reference_label_fra: "Reference label fra"
     reference_name: "Type d'intervention"
     reference_number: "N°Référence"
     reference_source_content_type: "Référence type de contenu source"
@@ -1738,6 +1777,7 @@ fra:
     source_product: "Produit Source"
     # source_product_movement: "Source product movement"
     spaced_iban: "IBAN"
+    # specie: "Specie"
     sql_type: "Type SQL"
     ssl: "Ssl"
     start: "Début"

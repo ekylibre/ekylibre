@@ -1,0 +1,25 @@
+---
+last_name: Lely France
+nature: organization
+siret_number: 09642013800073
+supplier: true
+client: false
+phones_attributes:
+  0:
+    canal: phone
+    coordinate:  "+33223312200"
+mails_attributes:
+  0:
+    canal: mail
+    mail_line_4: 20 rue de la Seine
+    mail_line_5: Parc d'Activité Château Gaillard
+    mail_line_6: 35470 Bain de Bretagne
+    mail_country: fr
+emails_attributes:
+  0:
+    canal: email
+    coordinate: france@lely.com
+websites_attributes:
+  0:
+    canal: website
+    coordinate: "http://www.lely.com"

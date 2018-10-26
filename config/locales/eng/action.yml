@@ -25,7 +25,6 @@ eng:
       # mask_lettered_items: "Mask lettered items account: %{name}"
       new: "New account"
       reconciliation: "Account reconciliation"
-      # set_interval_preference: "Set interval preference account: %{name}"
       show: "Account: %{number} - %{name}"
       unmark: "Unmark account"
     backend/activities:
@@ -123,6 +122,8 @@ eng:
       show: "Building: %{name}"
       # take: "Take building: %{name}"
       # update_many: "Update many building: %{name}"
+    backend/calculators/grains_commercialization_threshold_simulators:
+      # show: "Grains commercialization threshold simulator: %{name}"
     backend/campaigns:
       # close: "Close campaign: %{name}"
       current: "Campaign"
@@ -650,6 +651,8 @@ eng:
       show: "Product type: %{name}"
     backend/products/indicators:
       # variable_indicators: "Variable indicators indicator: %{name}"
+    backend/products/interventions:
+      # has_harvesting: "Has harvesting intervention: %{name}"
     backend/products/search_products:
       # datas: "Datas search product: %{name}"
     backend/products/search_variants:
@@ -1190,6 +1193,7 @@ eng:
     budget: "Budget"
     budget_per_working_indicator: "Budget per working indicator"
     budgets: "Budgets" #?
+    building_zones: "Building zones" #?
     by_year: "By year"
     calculate: "Calculate" #?
     calculated_hours: "Calculated hours"
@@ -1250,6 +1254,7 @@ eng:
     conditions:
       filter_on_attribute_of_class: "Filter on attribute of class"
       special-subscriber: "Special-subscriber"
+    conducted: "Conducted"
     configure: "Configure"
     confirmation_update_historical_plans: "Confirmation update historical plans"
     connect: "Connect"
@@ -1348,6 +1353,7 @@ eng:
     destroyed_by_ago: "Destroyed by %{author} %{when}"
     detail: "Detail"
     details: "Details"
+    # direct_expenses: "Direct expenses"
     discount: "Discount (%)" #?
     discount_without_percent: "Discount"
     disease: "Disease" #?
@@ -1513,6 +1519,7 @@ eng:
     indicator_value: "Indicator value"
     indicators: "Indicators"
     indicators_evolutions: "Indicators evolutions"
+    # indirect_expenses: "Indirect expenses"
     info: "General parameters" #?
     # informations: "Informations"
     infos: "Product and quantity" #?
@@ -1595,6 +1602,7 @@ eng:
     last_sales: "Last sales"
     late: "Late"
     late_delivery: "Late delivery"
+    # legal_dose: "Legal dose"
     letter: "Letter" #?
     letterable: "Letterable"
     lettered: "Lettered" #?
@@ -1650,7 +1658,6 @@ eng:
     mobile: "Mobile" #?
     mode: "Mode" #?
     model: "Model" #?
-    # models: "Models"
     modes: "Modes" #?
     month: "Month" #?
     month_period: "%{code} - %{month} %{year}"
@@ -1668,6 +1675,7 @@ eng:
     net_mass: "Net mass"
     net_production_sales: "Net production sales"
     net_surface_area: "Net surface area"
+    neutral_area_category: "Neutral area category" #?
     new: "New"
     new_activity: "New activity"
     new_animal: "New animal"
@@ -1732,6 +1740,7 @@ eng:
     number: "Number" #?
     number_of_cap_islets: "Number of CAP islets"
     number_of_cap_land_parcels: "Number of CAP land parcels"
+    number_of_cap_neutral_areas: "Number of cap neutral areas"
     numbers: "Numbers" #?
     # observations: "Observations"
     on_account: "On account" #?
@@ -1790,11 +1799,16 @@ eng:
     permute: "Permute" #?
     personalized_mail: "Send a personalized mail"
     pertinence: "%{value}%"
+    # pfi_dose: "Pfi dose"
+    # pfi_parcel_ratio: "Pfi parcel ratio"
+    # pfi_treatment_ratio: "Pfi treatment ratio"
     phosphorus_concentration: "Phosphorus concentration" #?
     # phyto_data: "Phyto data"
     picture: "Picture" #?
     placeholder: "Placeholder" #?
     places: "Places"
+    planned: "Planned"
+    planning: "Planning"
     plant: "Crop"
     plant_counting: "Counting" #?
     plant_countings: "Countings" #?
@@ -1828,6 +1842,7 @@ eng:
     production_cost: "Production cost"
     production_costs: "Production costs"
     production_distribution: "Production distribution" #?
+    # production_nature: "Production nature"
     production_support: "Production support"
     productions: "Productions"
     productions_sales: "Productions sales" #??
@@ -1847,6 +1862,7 @@ eng:
     purchase_order: "Purchase order" #?
     purchase_payments: "Purchase payments"
     purchases: "Purchases"
+    # purchases_prices: "Purchases prices"
     purchases_stocks_variation: "Purchases stocks variation" #?!
     quality: "Quality"
     quandl: "Quandl" #?
@@ -1930,7 +1946,6 @@ eng:
     save_in_draft: "Save as draft"
     saved_but_couldnt_letter_x_and_y: "Successfully saved %{trade} and %{payment} but couldn't letter them."
     scheduled: "Scheduled" #?
-    # schedulings: "Schedulings"
     scrapped_on: "Scrapped on"
     search: "Search"
     search_placeholder: "Search…"
@@ -1967,6 +1982,7 @@ eng:
     sign_out: "Sign out" #?
     simplified: "Simplified Accounting" #?
     simplified_linear_options: "Simplified linear options"
+    # simulator: "Simulator"
     social_debts: "Social debts" #?!
     social_expenses: "Social expenses" #?!
     sold_on: "Sold on"
@@ -2108,6 +2124,8 @@ eng:
     unit: "Unit"
     unit_amount: "Unit cost excl. taxes"
     unit_and_indicator: "%{unit} (%{indicator})"
+    # unit_price_amount: "Unit price amount"
+    # unit_price_amount_with_taxes: "Unit price amount with taxes"
     unknown: "Unknown"
     unknown_condition: "Unknown condition"
     unknown_user: "Unknown user"
@@ -2149,6 +2167,8 @@ eng:
     # vine_yield: "Vine yield"
     wages: "Wages" #?
     warning_date_not_in_period: "Warning: The date entered is not on the current exercise."
+    water_lakes: "Water lakes" #?
+    water_rivers: "Water rivers" #?
     watering_concentration: "Water use" #?
     # wear: "Wear"
     weather: "Weather"
@@ -2501,7 +2521,7 @@ eng:
     sales_conditions: "Sales conditions"
     supplier_account_radix: "Supplier account radix"
     unbilled_payables: "Unbilled payables"
-    use_contextual_help: "Use contextual help"
+    use_contextual_help: "Use contextual help" #?
     use_entity_codes_for_account_numbers: "Use code for creating account numbers"
     use_global_search: "Use global search"
   rest:
@@ -2558,6 +2578,7 @@ eng:
       # fixed_assets_datas: "Fixed assets datas"
       generate_last_journal_entry: "Generate last journal entry" #?
       give: "Give"
+      # has_harvesting: "Has harvesting"
       import: "Import"
       incorporate: "Incorporate"
       index: "Index"
@@ -2626,7 +2647,6 @@ eng:
       # search_by_expression: "Search by expression"
       select: "Select"
       sell: "Turn into sale"
-      # set_interval_preference: "Set interval preference"
       ship: "Ship"
       show: "Show"
       show_export_preview: "View a preview of the document (may increase loading time)" #?

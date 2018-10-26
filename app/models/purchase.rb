@@ -172,7 +172,8 @@ class Purchase < Ekylibre::Record::Base
 
   # Save the last date when the purchase was confirmed
   def confirm(confirmed_at = nil)
-    return false unless can_confirm?
+    # no more usage of state machine
+    # return false unless can_confirm?
     reload
     self.confirmed_at ||= confirmed_at || Time.zone.now
     save!

@@ -83,7 +83,7 @@ ita:
     cash:
       mode:
         bban: "Bank Account Number di base (BBAN)"
-        # iban: "International Bank Account Number (IBAN)"
+        iban: "Numero di conto bancario internazionale (IBAN)"
       nature:
         associate_account: "conto Associate"
         bank_account: "conto bancario"

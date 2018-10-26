@@ -66,6 +66,9 @@ class LoanRepayment < Ekylibre::Record::Base
   }
 
   before_validation do
+    self.base_amount ||= 0
+    self.insurance_amount ||= 0
+    self.interest_amount ||= 0
     self.amount = base_amount + insurance_amount + interest_amount
   end
 

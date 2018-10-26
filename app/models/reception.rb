@@ -89,11 +89,6 @@ class Reception < Parcel
     self.state ||= :draft
   end
 
-  # Remove previous items, only if we are in an intervention and if the purchase change(in callback)
-  def remove_all_items
-    items.where.not(id: nil).destroy_all
-  end
-
   after_initialize do
     self.address ||= Entity.of_company.default_mail_address if new_record?
   end
@@ -102,7 +97,8 @@ class Reception < Parcel
     given?
   end
 
-  # Remove previous items, only if we are in an intervention and if the purchase change(in callback)
+  # Remove previous items, only if we are in an intervention and if the purchase
+  # change(in callback)
   def remove_all_items
     items.where.not(id: nil).destroy_all
   end
@@ -112,9 +108,9 @@ class Reception < Parcel
   # It depends on the preferences which permit to activate the "permanent stock
   # inventory" and "automatic bookkeeping".
   #
-  # | Parcel mode            | Debit                      | Credit                    |
-  # | incoming parcel        | stock (3X)                 | stock_movement (603X/71X) |
-  # | outgoing parcel        | stock_movement (603X/71X)  | stock (3X)                |
+  # | Parcel mode     | Debit                      | Credit                    |
+  # | incoming parcel | stock (3X)                 | stock_movement (603X/71X) |
+  # | outgoing parcel | stock_movement (603X/71X)  | stock (3X)                |
   bookkeep do |b|
     # For purchase_not_received or sale_not_emitted
     invoice = lambda do |usage, order|
@@ -124,7 +120,8 @@ class Reception < Parcel
                    number: number, entity: entity.full_name, mode: nature.l)
         account = Account.find_or_import_from_nomenclature(usage)
         items.each do |item|
-          amount = (item.trade_item && item.trade_item.pretax_amount) || item.stock_amount
+          amount = (item.trade_item && item.trade_item.pretax_amount) ||
+                   item.stock_amount
           next unless item.variant && item.variant.charge_account && amount.nonzero?
           if order
             entry.add_credit label, account.id, amount, resource: item, as: :unbilled, variant: item.variant

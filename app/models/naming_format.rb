@@ -22,14 +22,32 @@
 #
 # == Table: naming_formats
 #
-#  created_at :datetime
-#  id         :integer          not null, primary key
-#  name       :string           not null
-#  type       :string           not null
-#  updated_at :datetime
+#  created_at   :datetime
+#  creator_id   :integer
+#  id           :integer          not null, primary key
+#  lock_version :integer          default(0), not null
+#  name         :string           not null
+#  type         :string           not null
+#  updated_at   :datetime
+#  updater_id   :integer
 #
 class NamingFormat < Ekylibre::Record::Base
   has_many :fields, class_name: 'NamingFormatField'
+  # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  validates :name, presence: true, length: { maximum: 500 }
+  # ]VALIDATORS]
 
   accepts_nested_attributes_for :fields, reject_if: :all_blank, allow_destroy: true
+
+  # Load default
+  def load_defaults
+    create!(
+      name: I18n.t('labels.land_parcels', locale: Preference[:language]),
+      fields: [
+        new_land_parcel_field(:cultivable_zone_name, 1),
+        new_land_parcel_field(:activity, 2),
+        new_land_parcel_field(:campaign, 3)
+      ]
+    )
+  end
 end

@@ -59,7 +59,7 @@ por:
       journal_draft: "Diário provisório"
       journal_entries: "Lançamentos no diário"
       journals: "Diários"
-      # labels: "Labels"
+      labels: "Etiquetas"
       land_parcel_clusters: "Agrupamentos de pedaços de terra" #?
       land_parcel_groups: "Grupos de pedaços de terra" #?
       land_parcels: "Pedaços de terra"
@@ -70,6 +70,7 @@ por:
       map_layers: "Camadas do mapa"
       matters: "Matéria"
       myselves: "Meus"
+      # naming_formats: "Naming formats"
       net_services: "Receita Liquida"
       observations: "Observações"
       organizations: "Entidades Legais" #?
@@ -90,6 +91,7 @@ por:
       product_natures: "Natureza do Produto"
       productions: "Produções"
       products: "Produtos"
+      # project_budgets: "Project budgets"
       purchase_natures: "Natureza de Compra"
       purchases: "Compras"
       roles: "Regras"

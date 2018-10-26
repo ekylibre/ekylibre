@@ -22,35 +22,31 @@
 #
 # == Table: activity_productions
 #
-#  activity_id            :integer          not null
-#  batch_planting         :boolean
-#  campaign_id            :integer
-#  created_at             :datetime         not null
-#  creator_id             :integer
-#  cultivable_zone_id     :integer
-#  custom_fields          :jsonb
-#  id                     :integer          not null, primary key
-#  irrigated              :boolean          default(FALSE), not null
-#  lock_version           :integer          default(0), not null
-#  nitrate_fixing         :boolean          default(FALSE), not null
-#  number_of_batch        :integer
-#  predicated_sowing_date :date
-#  rank_number            :integer          not null
-#  season_id              :integer
-#  size_indicator_name    :string           not null
-#  size_unit_name         :string
-#  size_value             :decimal(19, 4)   not null
-#  sowing_interval        :integer
-#  started_on             :date
-#  state                  :string
-#  stopped_on             :date
-#  support_id             :integer          not null
-#  support_nature         :string
-#  support_shape          :geometry({:srid=>4326, :type=>"multi_polygon"})
-#  tactic_id              :integer
-#  updated_at             :datetime         not null
-#  updater_id             :integer
-#  usage                  :string           not null
+#  activity_id         :integer          not null
+#  campaign_id         :integer
+#  created_at          :datetime         not null
+#  creator_id          :integer
+#  cultivable_zone_id  :integer
+#  custom_fields       :jsonb
+#  id                  :integer          not null, primary key
+#  irrigated           :boolean          default(FALSE), not null
+#  lock_version        :integer          default(0), not null
+#  nitrate_fixing      :boolean          default(FALSE), not null
+#  rank_number         :integer          not null
+#  season_id           :integer
+#  size_indicator_name :string           not null
+#  size_unit_name      :string
+#  size_value          :decimal(19, 4)   not null
+#  started_on          :date
+#  state               :string
+#  stopped_on          :date
+#  support_id          :integer          not null
+#  support_nature      :string
+#  support_shape       :geometry({:srid=>4326, :type=>"multi_polygon"})
+#  tactic_id           :integer
+#  updated_at          :datetime         not null
+#  updater_id          :integer
+#  usage               :string           not null
 #
 
 class ActivityProduction < Ekylibre::Record::Base
@@ -82,10 +78,7 @@ class ActivityProduction < Ekylibre::Record::Base
   composed_of :size, class_name: 'Measure', mapping: [%w[size_value to_d], %w[size_unit_name unit]]
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates :batch_planting, inclusion: { in: [true, false] }, allow_blank: true
   validates :irrigated, :nitrate_fixing, inclusion: { in: [true, false] }
-  validates :number_of_batch, :sowing_interval, numericality: { only_integer: true, greater_than: -2_147_483_649, less_than: 2_147_483_648 }, allow_blank: true
-  validates :predicated_sowing_date, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years }, type: :date }, allow_blank: true
   validates :rank_number, presence: true, numericality: { only_integer: true, greater_than: -2_147_483_649, less_than: 2_147_483_648 }
   validates :activity, :size_indicator_name, :support, :usage, presence: true
   validates :size_value, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
@@ -269,6 +262,15 @@ class ActivityProduction < Ekylibre::Record::Base
     end
     support.name = name
     support.initial_shape = self.support_shape
+
+    if support.initial_movement
+      support.initial_movement.delta = support_shape_area.to_d(size_unit_name)
+      support.initial_movement.started_at = started_on
+      support.initial_movement.product = support
+      support.initial_movement.save!
+    end
+
+    support.initial_population = support_shape_area.to_d(size_unit_name)
     support.initial_born_at = started_on
     support.initial_dead_at = stopped_on
     support.born_at = started_on
@@ -398,6 +400,17 @@ class ActivityProduction < Ekylibre::Record::Base
       intervention.cost(role)
     end
     costs.compact.sum
+  end
+
+  def pfi_parcel_ratio
+    # compute pfi parcel ratio from pfi treatment ratios
+    pfi_parcel_ratio = 0.0
+    if interventions.any?
+      i_ids = interventions.real.of_nature('spraying').pluck(:id)
+      inputs = InterventionInput.where(intervention_id: i_ids, reference_name: 'plant_medicine')
+      pfi_parcel_ratio = inputs.map(&:pfi_treatment_ratio).compact.sum
+    end
+    pfi_parcel_ratio
   end
 
   # Returns the spreaded quantity of one chemicals components (N, P, K) per area unit
@@ -532,16 +545,20 @@ class ActivityProduction < Ekylibre::Record::Base
       return nil
     end
     harvest_yield_unit_name = "#{size_unit_name}_per_#{surface_unit_name}".to_sym
+    # puts "harvest_yield_unit_name : #{harvest_yield_unit_name}".inspect.red
     unless Nomen::Unit.find(harvest_yield_unit_name)
       raise "Harvest yield unit doesn't exist: #{harvest_yield_unit_name.inspect}"
     end
     total_quantity = 0.0.in(size_unit_name)
+    # puts "total_quantity : #{total_quantity}".inspect.red
 
     target_distribution_plants = Plant.where(activity_production: self)
-
     # get harvest_interventions firstly by distributions and secondly by inside_plants method
-    harvest_interventions = Intervention.real.of_category(procedure_category).with_targets(target_distribution_plants) if target_distribution_plants.any?
-    harvest_interventions ||= Intervention.real.of_category(procedure_category).with_targets(inside_plants)
+    # harvest_interventions = Intervention.real.of_category(procedure_category).with_targets(target_distribution_plants) if target_distribution_plants.any?
+    # harvest_interventions ||= Intervention.real.of_category(procedure_category).with_targets(inside_plants)
+    harvest_interventions ||= interventions.real.of_category(procedure_category)
+
+    # puts "harvest_interventions count : #{harvest_interventions.count}".inspect.yellow
 
     coef_area = []
     global_coef_harvest_yield = []
@@ -554,6 +571,7 @@ class ActivityProduction < Ekylibre::Record::Base
             harvest_working_area << ::Charta.new_geometry(zone).area.in(:square_meter)
           end
         end
+        # puts "harvest_working_area : #{harvest_working_area}".inspect.yellow
         harvest.outputs.each do |cast|
           actor = cast.product
           next unless actor && actor.variety
@@ -563,16 +581,24 @@ class ActivityProduction < Ekylibre::Record::Base
             total_quantity += quantity.convert(size_unit_name) if quantity
           end
         end
-        h = harvest_working_area.compact.sum.to_d.in(surface_unit_name).to_f
+        # puts "total_quantity : #{total_quantity}".inspect.yellow
+        h = harvest_working_area.compact.sum.to_d(surface_unit_name).to_f
+        # puts "surface_unit_name : #{surface_unit_name}".inspect.green
+        # puts "h : #{h}".inspect.green
         if h && h > 0.0
           global_coef_harvest_yield << (h * (total_quantity.to_f / h))
           coef_area << h
         end
+        # puts "global_coef_harvest_yield : #{global_coef_harvest_yield}".inspect.green
+        # puts "coef_area : #{coef_area}".inspect.green
       end
     end
 
     total_weighted_average_harvest_yield = global_coef_harvest_yield.compact.sum / coef_area.compact.sum if coef_area.compact.sum.to_d != 0.0
-    Measure.new(total_weighted_average_harvest_yield.to_f, harvest_yield_unit_name)
+    # puts "total_weighted_average_harvest_yield : #{total_weighted_average_harvest_yield}".inspect.red
+    m = Measure.new(total_weighted_average_harvest_yield.to_f, harvest_yield_unit_name)
+    # puts "m : #{m}".inspect.red
+    m.round(2)
   end
 
   # Returns the yield of grain in mass per surface unit
@@ -583,13 +609,30 @@ class ActivityProduction < Ekylibre::Record::Base
                           surface_unit_name: surface_unit_name)
   end
 
+  # Returns the yield of grain in mass per surface unit
+  def fodder_yield(mass_unit_name = :ton, surface_unit_name = :hectare)
+    harvest_yield(:grass, procedure_category: :harvesting,
+                          size_indicator_name: :net_mass,
+                          size_unit_name: mass_unit_name,
+                          surface_unit_name: surface_unit_name)
+  end
+
+  # Returns the yield of grain in mass per surface unit
+  def vegetable_yield(mass_unit_name = :ton, surface_unit_name = :hectare)
+    harvest_yield(:grain, procedure_category: :harvesting,
+                          size_indicator_name: :net_mass,
+                          size_unit_name: mass_unit_name,
+                          surface_unit_name: surface_unit_name)
+  end
+
   # Returns the yield of grape in volume per surface unit
-  def vine_yield(volume_unit_name = :hectoliter, surface_unit_name = :hectare)
+  def fruit_yield(volume_unit_name = :ton, surface_unit_name = :hectare)
     harvest_yield(:grape, procedure_category: :harvesting,
                           size_indicator_name: :net_volume,
                           size_unit_name: volume_unit_name,
                           surface_unit_name: surface_unit_name)
   end
+  alias vine_yield fruit_yield
 
   # TODO: Which yield is computed? usage is not very good to determine yields
   #   because many yields can be computed...
@@ -652,6 +695,16 @@ class ActivityProduction < Ekylibre::Record::Base
                  .call(activity_production: self)
 
     return interactor.build_name if interactor.success?
+    if interactor.fail?
+      list = []
+      list << activity.name
+      list << campaign.harvest_year.to_s if activity.annual? && started_on
+      # list << started_on.to_date.l(format: :month) if activity.annual? && started_on
+      list << cultivable_zone.name if cultivable_zone && plant_farming?
+      # list << :rank.t(number: rank_number)
+      list = list.reverse! if 'i18n.dir'.t == 'rtl'
+      list.join(' ')
+    end
   end
 
   def get(*args)

@@ -153,11 +153,18 @@ module Ekylibre
       end
 
       def rename(old, new)
+        return if old == new
         check!(old)
-        raise TenantError, "Unexistent tenant: #{name}" unless exist?(old)
+        raise TenantError, "Unexistent tenant: #{old}" unless Apartment.connection.schema_exists?(old)
+        raise TenantError, "Tenant already exists: #{new}" if Apartment.connection.schema_exists?(new)
         ActiveRecord::Base.connection.execute("ALTER SCHEMA #{old.to_s.inspect} RENAME TO #{new.to_s.inspect};")
+        if private_directory(old).exist?
+          FileUtils.rm_rf(private_directory(new))
+          FileUtils.mv(private_directory(old), private_directory(new))
+        end
         @list[env].delete(old.to_s)
         @list[env] << new.to_s
+        write
       end
 
       # Dump database and files data to a zip archive with specific places
@@ -525,8 +532,8 @@ module Ekylibre
         tenant = options[:tenant_name]
         Dir.chdir path do
           sh("pg_dump -n #{tenant} -x -O --dbname=#{db_url} > #{tenant}.sql")
-          sh("sed -i '/^CREATE SCHEMA/,+1 d' #{tenant}.sql")
-          sh("sed -i '/^SET search_path = /,+1 d' #{tenant}.sql")
+          sh("sed -i'' -e '/^CREATE SCHEMA/d' #{tenant}.sql")
+          sh("sed -i'' -e '/^SET search_path = /d' #{tenant}.sql")
         end
         ActiveRecord::Migrator.current_version
       end

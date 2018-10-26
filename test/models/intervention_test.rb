@@ -25,6 +25,7 @@
 #  accounted_at                   :datetime
 #  actions                        :string
 #  auto_calculate_working_periods :boolean          default(FALSE)
+#  costing_id                     :integer
 #  created_at                     :datetime         not null
 #  creator_id                     :integer
 #  currency                       :string
@@ -32,7 +33,6 @@
 #  description                    :text
 #  event_id                       :integer
 #  id                             :integer          not null, primary key
-#  intervention_costs_id          :integer
 #  issue_id                       :integer
 #  journal_entry_id               :integer
 #  lock_version                   :integer          default(0), not null
@@ -123,7 +123,7 @@ class InterventionTest < ActiveSupport::TestCase
   test 'killing target' do
     plant = Plant.all.detect { |p| p.dead_first_at.nil? && p.dead_at.nil? }
     assert plant
-    now = Time.utc(2016, 10, 25, 20, 20, 20)
+    now = Time.utc(2016, 07, 25, 20, 20, 20)
 
     last_death_at = now + 1.year
     last_intervention = add_harvesting_intervention(plant, last_death_at)

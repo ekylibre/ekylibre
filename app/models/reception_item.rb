@@ -143,7 +143,7 @@ class ReceptionItem < ParcelItem
   protected
 
   def check_incoming
-    fusing = merge_stock? || product_is_unitary?
+    fusing = merge_stock? && !product_is_unitary?
 
     # Create a matter for each storing
     storings.each do |storing|

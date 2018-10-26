@@ -852,6 +852,7 @@ arb:
       campaign: "حملة"
       cap_islet: "CAP جزيرة"
       cap_land_parcel: "CAP قطعة أرض"
+      # cap_neutral_area: "Cap neutral area"
       cap_statement: "بيان CAP"
       cash: "الخزينة"
       cash_session: "جلسة نقدية"
@@ -1023,6 +1024,16 @@ arb:
       purchase_payment: "الدفعة"
       # reception: "Reception"
       # reception_item: "Reception item"
+      # registered_agroedi_code: "Registered agroedi code"
+      # registered_pfi_crop: "Registered pfi crop"
+      # registered_pfi_dose: "Registered pfi dose"
+      # registered_pfi_target: "Registered pfi target"
+      # registered_phytosanitary_phrase: "Registered phytosanitary phrase"
+      # registered_phytosanitary_product: "Registered phytosanitary product"
+      # registered_phytosanitary_risk: "Registered phytosanitary risk"
+      # registered_phytosanitary_usage: "Registered phytosanitary usage"
+      # registered_postal_zone: "Registered postal zone"
+      # registered_seed: "Registered seed"
       regularization: "تسوية"
       role: "الدور"
       sale: "البيع"
@@ -1118,6 +1129,7 @@ arb:
     affected_at: "أثرت في"
     age: "عمر"
     agency_code: "رمز الوكالة" #?
+    # agroedi_crop_code: "Agroedi crop code"
     alert: "إنذار"
     alerts: "التنبيهات"
     all_addresses: "جميع العناوين"
@@ -1131,6 +1143,8 @@ arb:
     analysis: "تحليل"
     analysis_items: "عناصر التحليل"
     annotation: "ملاحظة"
+    # applications_count: "Applications count"
+    # applications_frequency: "Applications frequency"
     archive: "أرشيف"
     archive_content_type: "الأرشيف نوع المحتوى"
     archive_file_name: "اسم ملف الأرشيف"
@@ -1161,6 +1175,7 @@ arb:
     available_prices: "الاسعار المتوفرة" #?
     available_products: "المنتجات المتوفرة" #?
     average_value: "متوسط ​​القيمة"
+    # average_yield: "Average yield"
     balance: "توازن"
     balance_amount: "الرصيد" #?
     balance_pretax_amount: "تحقيق التوازن بين كمية قبل خصم الضرائب"
@@ -1206,10 +1221,13 @@ arb:
     campaign: "حملة"
     campaigns: "حملات"
     canal: "قناة"
+    # cap_2017_crop_code: "Cap 2017 crop code"
+    # cap_2018_crop_code: "Cap 2018 crop code"
     cap_islet: "كاب جزيرة"
     cap_islets: "الجزر كاب"
     cap_land_parcel: "كاب قطعة أرض"
     cap_land_parcels: "قطع الأراضي كاب"
+    # cap_neutral_areas: "Cap neutral areas"
     cap_statement: "بيان كاب"
     cap_statements: "البيانات كاب"
     carried: "حمل"
@@ -1229,6 +1247,7 @@ arb:
     category_id: "الفئة" #?
     ceded: "تنازلت"
     ceded_on: "تنازلت عن"
+    # centroid: "Centroid"
     charge_account: "حساب المسؤول"
     charges_categories: "فئات الرسوم"
     check_number: "رقم الشيك" #?
@@ -1328,6 +1347,7 @@ arb:
     credited_sale: "بيع الفضل"
     credits: "الائتمانات"
     critic_quantity_min: "الكمية المنتفدة كحد ادنى" #?
+    # crop: "Crop"
     crumbs: "فتات"
     crypt_key: "مفتاح التشفير" #?
     crypt_mode: "طؤيقة التشفير" #?
@@ -1458,6 +1478,11 @@ arb:
     document_templates: "نماذج الوثائق" #?
     documents: "الوثائق"
     doers: "الفاعلون"
+    # dose_quantity: "Dose quantity"
+    # dose_unit: "Dose unit"
+    # dose_unit_name: "Dose unit name"
+    # dose_unity: "Dose unity"
+    # doses: "Doses"
     downpayment: "القسط"
     downpayment_amount: "قيمة القسط"
     downpayment_minimum: "الحد الادنى للمجموع"
@@ -1509,6 +1534,7 @@ arb:
     entry_on: "الدخول على موقع"
     entry_reason: "السبب دخول"
     # equipment: "Equipment"
+    # equipment_nature: "Equipment nature"
     establishment: "المؤسسة" #?
     establishment_id: "مؤسسة" #?
     establishments: "المؤسسات" #?
@@ -1577,6 +1603,7 @@ arb:
     financial_years: "المهن" #?
     finish: "النهاية"
     finished_at: "انتهت في"
+    # firm_name: "Firm name"
     first_calving_on: "أول ولادة في"
     first_met_at: "تاريخ اول مقابلة"
     first_name: "الاسم الاول"
@@ -1652,6 +1679,7 @@ arb:
     # hour_counter_unit_name: "Hour counter unit name"
     hour_duration: "(ساعة (ساعات" #?
     human_activities_names: "أسماء الأنشطة"
+    # human_name: "Human name"
     human_shape_area: "منطقة الشكل"
     human_target_names: "أسماء المستهدفة"
     human_working_duration: "مدة العمل"
@@ -1669,6 +1697,7 @@ arb:
     importance: "ذو شأن"
     imported_at: "المستوردة في"
     importer: "المستورد"
+    # in_field_reentry_delay: "In field reentry delay"
     in_name: "الاختصارات تشمل اسم الملف" #?
     in_preparation_at: "في إطار التحضير في"
     included: "تضمنت"
@@ -1680,6 +1709,8 @@ arb:
     indicator: "مؤشر"
     indicator_datatype: "مؤشر نوع البيانات"
     indicator_name: "اسم المؤشر"
+    # indicator_unit: "Indicator unit"
+    # indicator_value: "Indicator value"
     indicators: "مؤشرات"
     indirect_links: "روابط مباشرة"
     initial_balance_credit: "الائتمان توازن الأولية"
@@ -1730,7 +1761,7 @@ arb:
     inventories: "عمليات الجرد" #?
     inventory: "عملية الجرد"
     inventory_id: "عملية جرد" #?
-    inventory_items: "طرق الجرد" #?
+    inventory_items: "طرق الجرد"
     invitation_accepted_at: "دعوة مقبولة في"
     invitation_created_at: "دعوة التي تم إنشاؤها في"
     invitation_limit: "حد دعوة"
@@ -1837,6 +1868,7 @@ arb:
     locked_at: "مغلق في"
     longitude: "خطوط الطول" #?
     lost: "الضائع" #?
+    # maaid: "Maaid"
     mail: "البريد الالكتروني"
     mail_addresses: "عناوين البريد"
     mail_auto_update: "التحديث التلقائي الإلكتروني"
@@ -2140,6 +2172,7 @@ arb:
     production: "الإنتاج"
     production_campaign: "حملة إنتاج"
     production_cycle: "دورة الإنتاج"
+    # production_nature: "Production nature"
     production_support: "دعم الإنتاج"
     production_supports: "يدعم الانتاج"
     production_system: "نظام الإنتاج"
@@ -2232,6 +2265,7 @@ arb:
     reduction_rate: "معدل الخصم" #?
     reduction_submissive: "خاضع للتخفيض" #?
     reductions: "طرق الخصومات" #?
+    # reference_label_fra: "Reference label fra"
     reference_name: "اسم الإشارة"
     reference_number: "الرقم المرجعي"
     reference_source_content_type: "مرجع نوع المحتوى مصدر"
@@ -2378,6 +2412,7 @@ arb:
     source_product: "مصدر المنتج"
     # source_product_movement: "Source product movement"
     spaced_iban: "متباعدة IBAN"
+    # specie: "Specie"
     sql_type: "SQL نوع"
     ssl: "خدمة تصميم المواقع"
     start: "البداية"

@@ -92,6 +92,8 @@ fra:
       index: "Bâtiments"
       new: "Nouveau bâtiment"
       show: "Détail du bâtiment\_: %{name}"
+    backend/calculators/grains_commercialization_threshold_simulators: #?
+      show: "Simulateur de rentabilité" #?
     backend/campaigns:
       current: "Campagne"
       edit: "Campagne\_: %{name}"
@@ -342,9 +344,9 @@ fra:
       edit_specified_request: "Modifier la demande de %{procedure_name} n°%{number}"
       index: "Interventions"
       new: "Nouvelle intervention"
-      new_request: "Nouvelle demande d’intervention"
+      new_request: "Nouvelle planification d’intervention"
       new_specified: "Nouvelle intervention de %{procedure_name}"
-      new_specified_request: "Nouvelle demande de %{procedure_name}"
+      new_specified_request: "Nouvelle planification de %{procedure_name}"
       show: "%{procedure_name} n°%{number}"
     backend/inventories:
       edit: "Modifier l’inventaire"
@@ -789,13 +791,13 @@ fra:
       confirmation_period_expired: "doit être confirmé sous %{period}, refaites une nouvelle demande s’il vous plait"
       expired: "a expiré, merci d’en faire une nouvelle demande"
       harvest_in_progress: "Attention, cette culture est en cours de récolte"
+      intervention_already_planned: "Attention, une autre intervention est prévue pour cette %{product_type} dans la planification (%{intervention_name})" #?
       not_enough: "not enough %{resource} to complete task"
       not_found: "n’a pas été trouvé(e)"
       not_locked: "n’était pas verrouillé(e)"
       not_saved:
         one: "1 erreur a empêché ce(tte) %{resource} d’être sauvegardé(e)\_:"
         other: "%{count} erreurs ont empêché ce(tte) %{resource} d’être sauvegardé(e)\_:"
-      intervention_already_planned: "Attention, une autre intervention est prévue pour cette %{product_type} dans la planification (%{intervention_name})"
     template:
       body: "Il y a eu des problèmes avec les champs suivants\_:"
       header:
@@ -901,7 +903,7 @@ fra:
     accounting_balance: "Balance comptable" #?
     accounts: "Comptes comptables"
     accounts_only_used_at: "Comptes utilisés seulement sur"
-    accounts_to_load: "Plan de compte à charger"
+    accounts_to_load: "Plan de comptes à charger"
     action_duration: "Durée de l'action"
     activate_entry_autocompletion: "Autocompléter l’écriture"
     active: "Actif"
@@ -947,7 +949,8 @@ fra:
     add_inspection_calibration_scale: "Ajouter une échelle de calibre"
     add_inspection_point_nature: "Ajouter un critère de qualité"
     add_intervention_record: "Enregistrer une intervention"
-    add_intervention_request: "Demander une intervention"
+    add_intervention_request: "Planifier une intervention"
+    # add_intervention_template: "Add intervention template"
     add_item: "Ajouter un élément"
     add_labelling: "Ajouter l’étiquette"
     add_line: "Ajouter une ligne"
@@ -1084,6 +1087,7 @@ fra:
     budget_per_working_indicator: "Budget par unité d’œuvre"
     budgets: "Budgets"
     building_name: "Sortie de" #?
+    building_zones: "Bâtiments"
     buildings_map: "Carte des bâtiments" #?
     by_year: "Par an"
     calculate: "Calculer"
@@ -1111,6 +1115,7 @@ fra:
     catalog: "Description pour catalogue"
     catalog_items: "Éléments de catalogue"
     category: "Catégorie"
+    category_code: "Code catégorie" #?
     category_name: "Catégorie" #?
     cells_concentration: "Dénombrement des cellules somatiques" #?
     centralize: "Comptes comptables centralisateurs"
@@ -1167,6 +1172,7 @@ fra:
     conditions:
       filter_on_attribute_of_class: "Filtre sur %{attribute} (%{class})"
       special-subscriber: "Filtre Abonné"
+    conducted: 'Réalisée'
     configure: "Configurer"
     confirmation_update_historical_plans: "Voulez-vous appliquer ces modifications sur l'historique des noms de parcelles ?"
     confirmed: "Confirmées" #?
@@ -1297,6 +1303,7 @@ fra:
     destroyed_by_ago: "Supprimé par %{author} %{when}"
     detail: "Détail"
     details: "Informations complémentaires"
+    direct_expenses: "Charges directes" #?
     direct_margin: "Marge directe" #?
     discount: "Réduc. (%)"
     discount_without_percent: "Remise"
@@ -1318,7 +1325,7 @@ fra:
     documentation: "Documentation"
     doer_cost: "Coût de main d’œuvre"
     doers: "Opérateurs" #?
-    done: "Fait"
+    done: "Terminée"
     dont_generate_carrying_forward_entries: "— Ne pas générer les écritures de report à nouveau —"
     dont_generate_closure_entries: "— Ne pas générer les écritures de clôture —"
     dont_generate_result_entries: "— Ne pas générer les écritures de résultat —"
@@ -1402,6 +1409,10 @@ fra:
     export_as_ods: "Exporter en ODS"
     export_as_odt: "Exporter en ODT" #?
     export_as_pdf: "Exporter en PDF" #?
+    extract_non_letter_pdf: "Extrait de compte - Non lettrés en PDF"
+    etract_account_as_pdf: "Extrait de compte en PDF"
+    etract_account_as_odt: "Extrait de compte en ODT"
+    extract_non_letter_odt: "Extrait de compte - Non lettrés en ODT"
     export_as_xcsv: "Exporter en CSV pour Excel"
     export_backup: "Export d’un fichier de sauvegarde" #?
     exportation: "Exportation" #?
@@ -1435,7 +1446,9 @@ fra:
     fixed_asset_depreciations: "Dépréciations d’immobilisation"
     fixed_assets: "Immobilisations"
     forecast_harvest_week: "Semaine de récolte"
+    france_maaid: "N° AMM" #?
     from: "À partir du"
+    fruit_yield: "Rendement fruit" #?
     full_name: "Client" #?
     fullscreen: "Plein écran"
     function: "Fonction"
@@ -1621,6 +1634,7 @@ fra:
     late: "En retard"
     late_delivery: "Hors délai"
     left_balance_amount: "Report du crédit antérieur non imputé et non remboursé" #?
+    legal_dose: "Dose homologuée" #?
     letter: "Lettrer"
     letter_options: "Lettre" #?
     letterable: "Lettrable"
@@ -1642,7 +1656,7 @@ fra:
     lipolysis: "Lipolyse" #?
     liquid_assets_on_turnover: "Taux de liquidités / CA (Disponibilités / Chiffre d’affaire HT) %{financial_year}"
     list: "Liste"
-    listing_extract: "Éxécuter l’extraction" #?
+    listing_extract: "Exécuter l’extraction" #?
     listing_mail: "Envoyer un courriel" #?
     listings: "Extractions de données" #?
     load: "Charger"
@@ -1736,6 +1750,7 @@ fra:
     net_surface_area: "Surface nette"
     net_vat_amount: "TVA nette due" #?
     net_volume: "Volume net" #?
+    neutral_area_category: "Catégorie de zones non agricoles"
     new: "Nouveau"
     new_activity: "Nouvelle activité"
     new_animal: "Nouvel animal"
@@ -1827,6 +1842,7 @@ fra:
     number: "Numéro"
     number_of_cap_islets: "Nombre d’ilôt PAC"
     number_of_cap_land_parcels: "Nombre de parcelle PAC"
+    number_of_cap_neutral_areas: "Nombre d'élèments SNA"
     number_options: "Options de numérotations" #?
     number_with_param: "N° %{number}" #?
     numbers: "Numéros"
@@ -1901,12 +1917,18 @@ fra:
     permute: "Permuter les fiches"
     personalized_mail: "Envoyer un mail personnalisé"
     pertinence: "%{value}%"
+    pfi_dose: "Dose de référence (IFT)" #?
+    pfi_parcel_ratio: "IFT parcelle" #?
+    pfi_treatment_ratio: "IFT traitement" #?
     phone: "Tél." #?
     phosphorus_concentration: "Teneur en phosphore (P)"
     phosphorus_concentration_per_hectare: "Teneur en phosphore par hectare" #?
     picture: "Photo"
     placeholder: "Espace réservé"
     places: "Lieux"
+    planned:
+      one: 'Planifiée'
+      other: 'Planifiées'
     planned_at: "Date prévisionnelle" #?
     plant: "Culture"
     plant_counting: "Comptage"
@@ -2352,6 +2374,7 @@ fra:
         user:
           content: "Ici, vous pouvez voir vos notifications, afficher l’aide, lire le nom de votre ferme. Vos préférences utilisateur sont modifiables à partir du menu aussi."
           title: "Menu utilisateur"
+    traceability_check: "Contrôle de cohérence de la tracabilité (Productions végétales)" #?
     tracking: "Lot"
     trade: "Ventes/Achats"
     trade_counts: "Totaux commerciaux"
@@ -2430,7 +2453,7 @@ fra:
       one: "Valider mes miettes pour %{count} intervention"
       other: "Valider mes miettes pour %{count} interventions"
     validate_selected_entries: "Valider les écritures sélectionnées"
-    validated: "Validé"
+    validated: "Validée"
     values: "Valeurs"
     variable_indicators: "Indicateurs variables"
     variant: "Variante"
@@ -2441,6 +2464,7 @@ fra:
     vat_collected: "TVA BRUTE" #?
     vat_paid: "TVA DEDUCTIBLE" #?
     vat_rate: "Taux TVA"
+    vegetable_yield: "Rendement racine ou légume" #?
     video: "Vidéo" #?
     view: "Affichage"
     view_map_when_creating_an_intervention: "Afficher la carte lors de la création d'interventions"
@@ -2451,6 +2475,8 @@ fra:
     wages: "Rémunérations"
     warning_date_not_in_period: "Attention : La date saisie n'est pas sur l'exercice en cours."
     warning_if_no_activites_choose: "Si aucune activité n’est sélectionnée, le modèle d'intervention sera disponible pour toutes les activités." #?
+    water_lakes: "Lacs"
+    water_rivers: "Rivières"
     watering_concentration: "Eau consommée"
     wear: "Usure" #?
     weather: "Météo"
@@ -2816,8 +2842,8 @@ fra:
       record_has_not_been_removed: "L’enregistrement n’a pas être supprimé correctement" #?
       record_not_found: "Enregistrement introuvable"
       record_x_created: "%{record} %{name} créé"
+      record_x_planned: "%{record} %{name} planifiée" #?
       record_x_updated: "%{record} %{name} mise à jour"
-      record_x_planned: "%{record} %{name} planifiée"
       restoration_finished: "La restauration de la sauvegarde s’est terminée (en %{value} secondes)." #?
       sale_already_invoiced: "La vente a déjà été facturée: vous ne pouvez pas définir de livraison" #?
       sale_cannot_be_updated: "Le devis n’est plus modifiable." #?
@@ -2965,7 +2991,7 @@ fra:
       repay: "Rembourser"
       reset: "Ré-initialiser"
       retrieve: "Relever"
-      run: "Éxécuter"
+      run: "Exécuter"
       search: "Rechercher"
       select: "Selectionner"
       sell: "Passer en vente"

@@ -22,19 +22,20 @@
 #
 # == Table: naming_formats
 #
-#  created_at :datetime
-#  id         :integer          not null, primary key
-#  name       :string           not null
-#  type       :string           not null
-#  updated_at :datetime
+#  created_at   :datetime
+#  creator_id   :integer
+#  id           :integer          not null, primary key
+#  lock_version :integer          default(0), not null
+#  name         :string           not null
+#  type         :string           not null
+#  updated_at   :datetime
+#  updater_id   :integer
 #
-
-
-# # Empty samples of naming_formats
-# naming_formats_001:
-#   id: 1
-#   name: 'NamingFormat 1'
-
-# naming_formats_002:
-#   id: 2
-#   name: 'NamingFormat 2'
+---
+naming_format_land_parcels_001:
+  created_at: 2018-09-19 15:59:57.824694000 Z
+  id: 1
+  lock_version: 0
+  name: Parcelles
+  type: NamingFormatLandParcel
+  updated_at: 2018-09-19 15:59:57.824694000 Z

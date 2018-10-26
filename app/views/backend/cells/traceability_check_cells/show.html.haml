@@ -1,0 +1,67 @@
+- c = CapStatement.of_campaign(@campaign).first
+- if c
+  :ruby
+    islets = c.cap_islets
+
+    campaign_area = @campaign.net_surface_area.convert(:hectare)
+
+    ratio_area = campaign_area.to_f - c.net_surface_area.to_f
+
+    b = CapIslet.bounding_box
+    buildings = RegisteredBuildingZone.in_bounding_box(b)
+    islet_intersecting = 0
+    buildings.each do |building|
+      i = islets.shape_intersecting(building.shape.buffer(50)).count
+      islet_intersecting += i if i > 0
+    end
+
+    rivers = RegisteredWaterRiver.in_bounding_box(b)
+    islet_water_intersecting = 0
+    rivers.each do |river|
+      j = islets.shape_intersecting(river.shape.buffer(20)).count
+      islet_water_intersecting += j if j > 0
+    end
+
+    i_of_campaing = Intervention.of_campaign(@campaign).count
+    started_at = Date.parse("2016-10-01T00:00")
+    stopped_at = Date.parse("2017-07-31T00:00")
+    i_of_cultural_period = Intervention.between(started_at, stopped_at).count
+    diff = i_of_campaing - i_of_cultural_period
+
+    ints = Intervention.of_campaign(@campaign).of_nature(:fertilizing)
+    unique_targets = InterventionTarget.where(intervention_id: ints.pluck(:id))
+    support_count = unique_targets.pluck(:product_id).uniq.count
+    avg = (ints.count / support_count) if unique_targets.any?
+
+  = infos do
+    .info.important
+      = lights('stop') if ratio_area < 1.0
+      = lights('caution') if ratio_area > 1.0
+      = lights('go') if ratio_area == 1.0
+      %span.title= "1 | Cohérence entre l'assolement réalisé et l'assolement PAC | "
+      %span.value= link_to("PAC : " + c.net_surface_area.round(2).l, backend_cap_statement_path(c))
+      %span.value= link_to("Assolement : " + campaign_area.round(2).l, backend_campaign_path(@campaign))
+    .info.important
+      = lights('stop') if islet_intersecting.to_f > 5.0
+      = lights('caution') if islet_intersecting.to_f < 5.0 && islet_intersecting.to_f > 0.0
+      = lights('go') if islet_intersecting.to_f == 0.0
+      %span.title= "4 | SPE | "
+      %span.value= link_to("Nombre d'habitations à moins de 50 m d'un ilôts : " + islet_intersecting.to_s, backend_cap_statement_path(c))
+    .info.important
+      = lights('stop') if diff.to_f > 5.0
+      = lights('caution') if diff.to_f < 5.0
+      = lights('go') if diff.to_f == 0.0
+      %span.title= "6 | Vérification | "
+      %span.value= link_to("Nombre d'interventions hors campagne culturale : " + diff.to_s, backend_interventions_path)
+    .info.important
+      = lights('stop') if avg.to_f > 6.0
+      = lights('caution') if avg.to_f < 6.0 && avg.to_f > 3.0
+      = lights('go') if avg.to_f <= 3.0
+      %span.title= "9 | fractionnement N | "
+      %span.value= link_to("Nombre moyen d'interventions de fertilisation par parcelle : " + avg.to_s, backend_interventions_path)
+    .info.important
+      = lights('stop') if islet_water_intersecting.to_f > 5.0
+      = lights('caution') if islet_water_intersecting.to_f < 5.0 && islet_water_intersecting.to_f > 0.0
+      = lights('go') if islet_water_intersecting.to_f == 0.0
+      %span.title= "13 | ZNT | "
+      %span.value= link_to("Nombre d'ilôts impactés par une zone de non traitement (20 m d'une rivière | ...) : " + islet_water_intersecting.to_s, backend_interventions_path)

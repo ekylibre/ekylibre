@@ -41,7 +41,7 @@ namespace :clean do
             column_hash[:scale] = column.scale
           end
         end
-        if column.name.end_with?('_id')
+        if column.name.end_with?('_id') && column.type != :string
           reference_name = column.name.to_s[0..-4].to_sym
           unless val = Ekylibre::Schema.references(table, column)
             # puts model.name.red + ": " + model.descendants.map(&:name).to_sentence.yellow

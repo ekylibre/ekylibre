@@ -206,25 +206,35 @@
         interventionStartedAt = $('#intervention_working_periods_attributes_0_started_at').val()
 
         participations = []
-        $('.intervention-participation').each ->
+
+        doersParameters = targetted_element.closest('.nested-doers')
+        tractorsParameters = targetted_element.closest('.nested-tractor').closest('.nested-tools')
+        doersToolsParameters = $('.nested-parameters.nested-doers, .nested-parameters.nested-tools')
+
+        if doersParameters.length > 0
+          interventionParticipations = doersParameters.find('.intervention-participation')
+        else if tractorsParameters.length > 0
+          interventionParticipations = doersToolsParameters.find('.nested-product-parameter.nested-driver, .nested-product-parameter.nested-tractor').find('.intervention-participation')
+        else
+          interventionParticipations = doersToolsParameters.find('.nested-product-parameter').not('.nested-tractor').find('.intervention-participation')
+
+        interventionParticipations.each ->
           participations.push($(this).val())
 
         autoCalculMode = $('#intervention_auto_calculate_working_periods').val()
-
 
         datas = {}
         datas['intervention_id'] = intervention_id
         datas['product_id'] = product_id
         datas['existing_participation'] = existingParticipation
-        datas['participations'] = participations
+        # datas['participations'] = participations
         datas['intervention_started_at'] = interventionStartedAt
         datas['auto_calcul_mode'] = autoCalculMode
 
-        $.ajax
+        $.post
           url: "/backend/intervention_participations/participations_modal",
           data: datas
           success: (data, status, request) ->
-
             @workingTimesModal = new ekylibre.modal('#working_times')
             @workingTimesModal.removeModalContent()
             @workingTimesModal.getModalContent().append(data)
@@ -283,6 +293,8 @@
             itemLine.push("<span class='item-role'><input name='intervention[receptions_attributes][0][items_attributes][#{-index}][role]' value='#{item.role}' type='hidden'></input></span>")
             itemLine.push("<span class='item-purchase-order-item-id'><input name='intervention[receptions_attributes][0][items_attributes][#{-index}][purchase_order_item_id]' value='#{item.purchase_order_item}' type='hidden'></input></span>")
             $('.purchase-items-array').append("<li class='item-line'>" + itemLine.join('') + "</li>")
+            if $('.cant-be-update').length > 0
+              $('.purchase-items-array').find('.item-line input').attr('disabled',true)
 
     updateTotalAmount: (input) ->
       quantity = input.val()
@@ -295,6 +307,8 @@
         purchaseInput.attr("disabled",true)
       else
         purchaseInput.attr("disabled",false)
+      if $('.cant-be-update').length > 0
+        input.parents('.fieldset-fields').find('input').attr('disabled', true)
 
   ##############################################################################
   # Triggers

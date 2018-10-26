@@ -21,7 +21,7 @@ module Ekylibre
             h
           end,
           notes: row[9].blank? ? nil : row[9].to_s,
-          unit_pretax_amount: row[10].blank? ? nil : row[10].to_d,
+          unit_pretax_amount: row[10].blank? ? nil : row[10].tr(',', '.').to_d,
           price_indicator: row[11].blank? ? nil : row[11].to_sym
         }.to_struct
 

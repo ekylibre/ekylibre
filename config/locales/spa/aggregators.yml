@@ -94,7 +94,12 @@ spa:
     stock_production: "De la producción" #?
     stocks_variation: "Variación de las existencias" #?
     subsidies: "Subsidios" #?
+    support_irrigated: "Apoyo irrigado" #?
+    support_nitrate_fixing: "Soporte fijación de Nitrato" #?
     target_name: "Nombre del Destinatario" #?
+    targets_name: "Nombre de destino"
+    tools_name: "nombre de herramientas"
+    total_cost_per_area: "costo total por área" #?
     variable_name: "Nombre de la variable" #?
     variant_name: "Nombre variante"
     variant_variety: "Variedad variante" #?

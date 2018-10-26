@@ -3,7 +3,7 @@ module Products
     def self.call(relation, scope, input_text, max)
       result = relation
                .availables
-               .of_expression(scope)
+      result = result.of_expression(scope) if scope.present?
 
       result = result.select { |product| product.name.downcase.include?(input_text.mb_chars.downcase) } if input_text.present?
 

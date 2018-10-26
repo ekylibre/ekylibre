@@ -56,5 +56,16 @@ class CapIslet < Ekylibre::Record::Base
     joins(:cap_statement).merge(CapStatement.of_campaign(*campaigns))
   }
 
+  def self.bounding_box
+    box = ActiveRecord::Base.connection.execute('SELECT ST_Extent(shape) FROM cap_islets').to_a.first['st_extent']
+    points = ActiveRecord::Base.connection.execute("SELECT ST_XMin(CAST('#{box}' As box2d)), ST_YMin(CAST('#{box}' As box2d)), ST_XMax(CAST('#{box}' As box2d)), ST_YMax(CAST('#{box}' As box2d))")
+    points.first.values
+  end
+
+  def city_name
+    name = RegisteredPostalZone.find_by(code: town_number)
+    return name.city_name if name
+  end
+
   alias net_surface_area shape_area
 end

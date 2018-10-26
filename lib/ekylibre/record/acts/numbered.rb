@@ -100,7 +100,7 @@ module Ekylibre
                   sequence_manager.load_reliable_into self
                 end
               else
-                sequence_manager.load_predictable_into self
+                sequence_manager.load_reliable_into self
               end
             end
           end

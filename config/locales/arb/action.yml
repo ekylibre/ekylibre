@@ -901,6 +901,7 @@ arb:
       already_confirmed: "وقد أكد بالفعل، من فضلك حاول تسجيل الدخول"
       # confirmation_period_expired: "needs to be confirmed within %{period}, please request a new one"
       expired: "انتهت، يرجى طلب كلمة مرور جديدة"
+      # harvest_in_progress: "Be careful, this crop is being harvested"
       # not_enough: "not enough %{resource} to complete task"
       not_found: "غير معثور عليه"
       not_locked: "كان غير مؤمن"
@@ -1198,6 +1199,7 @@ arb:
     building_create: "اضافة موقع تخزين" #?
     building_name: "انتاج" #?
     building_update: "تعديل موقع التخزين" #?
+    # building_zones: "Building zones"
     by_year: "وبحلول العام"
     calculate: "حساب"
     calculated_hours: "الساعات المحسوبة"
@@ -1844,6 +1846,7 @@ arb:
     net_production_sales: "صافي مبيعات الإنتاج"
     net_surface_area: "مساحة صافية"
     net_vat_amount: "صافي قيمة الضريبة الاضافية المستحقة" #?
+    # neutral_area_category: "Neutral area category"
     new: "انشاء دفعة جديدة"
     new_activity: "نشاط جديد"
     new_animal: "حيوان جديد"
@@ -1927,6 +1930,7 @@ arb:
     number: "رقم"
     number_of_cap_islets: "عدد من الجزر الصغيرة كاب"
     number_of_cap_land_parcels: "عدد من قطع الأراضي كاب"
+    # number_of_cap_neutral_areas: "Number of cap neutral areas"
     number_options: "أرقام الخيارات" #?
     numbers: "أرقام"
     observation_create: "اضافة ملاحظة" #?
@@ -2512,6 +2516,8 @@ arb:
     wages: "أجور"
     waiting: "أ€ التسدسد لاحقا" #?
     # warning_date_not_in_period: "Warning: The date entered is not on the current exercise."
+    # water_lakes: "Water lakes"
+    # water_rivers: "Water rivers"
     watering_concentration: "استخدام المياه"
     weather: "طقس"
     website: "موقع الكتروني"

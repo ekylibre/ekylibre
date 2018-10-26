@@ -22,6 +22,8 @@ module Backend
 
     respond_to :csv, :ods, :xlsx, :pdf, :odt, :docx, :html, :xml, :json
 
+    before_action :save_search_preference, only: :index
+
     unroll :number, :amount, :currency, :created_at, client: :full_name
 
     # management -> sales_conditions

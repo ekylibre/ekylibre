@@ -131,13 +131,15 @@ class ActivityProductionDecorator < Draper::Decorator
     sum_surface_area = 0.in(:hectare)
     sum_targets = intervention.sum_targets_working_zone_area.to_d
 
-    sum_surface_area = parameters.map do |parameter|
-      product = parameter.product.decorate
-      surface = product.net_surface_area unless product.is_a?(LandParcel)
-      surface = parameter.working_zone_area if product.is_a?(LandParcel)
+    if sum_targets != 0
+      sum_surface_area = parameters.map do |parameter|
+        product = parameter.product.decorate
+        surface = product.net_surface_area unless product.is_a?(LandParcel)
+        surface = parameter.working_zone_area if product.is_a?(LandParcel)
 
-      surface_area = surface.in(:hectare).round(2) / sum_targets
-    end.sum.in(:hectare).round(2)
+        surface_area = surface.in(:hectare).round(2) / sum_targets
+      end.sum.in(:hectare).round(2)
+    end
 
     multiply_costs(costs, sum_surface_area.to_d)
   end

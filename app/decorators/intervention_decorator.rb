@@ -112,14 +112,14 @@ class InterventionDecorator < Draper::Decorator
 
   def global_costs
     object
-      .costs
+      .costing
       .decorate
       .to_h
   end
 
   def human_global_costs
     object
-      .costs
+      .costing
       .decorate
       .to_human_h
   end

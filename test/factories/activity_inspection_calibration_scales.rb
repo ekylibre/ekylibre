@@ -1,7 +1,7 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :width_grading_scale, class: ActivityInspectionCalibrationScale do
-    size_unit_name 'centimeter'
-    size_indicator_name :width
+    size_unit_name { 'centimeter' }
+    size_indicator_name { :width }
 
     after(:create) do |instance|
       create :big_interval,   scale: instance, marketable: false
@@ -10,8 +10,8 @@ FactoryGirl.define do
   end
 
   factory :length_grading_scale, class: ActivityInspectionCalibrationScale do
-    size_unit_name 'centimeter'
-    size_indicator_name :length
+    size_unit_name { 'centimeter' }
+    size_indicator_name { :length }
 
     after(:create) do |instance|
       create :big_interval,   scale: instance, marketable: true

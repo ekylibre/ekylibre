@@ -246,7 +246,7 @@ jpn:
       show: "総勘定元帳"
     backend/georeadings:
       # edit: "Edit georeading: %{name}"
-      # index: "Georeadings"
+      index: "ジオラダイ"
       new: "新georeading"
       # show: "Georeading: %{name}"
     backend/guide_analyses:
@@ -331,7 +331,7 @@ jpn:
       new: "新しいエントリ項目" #?
       # show: "Journal entry item: %{name}"
     backend/journals:
-      # bookkeep: "Bookkeep"
+      bookkeep: "簿記"
       # close: "Close journal: %{name}"
       # edit: "Edit journal: %{name}"
       index: "ジャーナル"
@@ -438,7 +438,7 @@ jpn:
       # show: "Payslip: %{number}"
     backend/plant_countings:
       # edit: "Edit plant counting: #%{number}"
-      # index: "Countings"
+      index: "カウント"
       new: "新しいカウント"
       # show: "Plant counting #%{number}"
     backend/plants:
@@ -599,7 +599,7 @@ jpn:
       # show: "Subscription %{number}"
     backend/supervisions:
       # edit: "Edit supervision: %{name}"
-      # index: "Supervisions"
+      index: "監督"
       new: "新監督"
       # show: "Supervision: %{name}"
     backend/synchronizations:
@@ -635,7 +635,7 @@ jpn:
       # show: "Team: %{name}"
     backend/trackings:
       # edit: "Edit tracking: %{name}"
-      # index: "Trackings"
+      index: "トラッキング"
       new: "新しいトラッキング"
       # show: "Tracking: %{name}"
     backend/trial_balances:
@@ -732,6 +732,7 @@ jpn:
       already_confirmed: "すでに確認された、ログインしてみてください"
       # confirmation_period_expired: "needs to be confirmed within %{period}, please request a new one"
       expired: "有効期限が切れている、新しいものをリクエストしてください"
+      # harvest_in_progress: "Be careful, this crop is being harvested"
       # not_enough: "not enough %{resource} to complete task"
       not_found: "見つかりません"
       not_locked: "ロックされていませんでした"
@@ -967,11 +968,12 @@ jpn:
     beta: "ベータ版の機能"
     beta_description: "この機能は現在開発中であり、そのようなその結果が額面で取られるべきではありません。"
     body: "メッセージの本文"
-    # bookkeep: "Bookkeep"
+    bookkeep: "簿記"
     bookkeep_with_payment: "支払いとBookkeep"
     budget: "予算"
     budget_per_working_indicator: "作業指示あたりの予算"
     budgets: "予算"
+    # building_zones: "Building zones"
     by_year: "年度別"
     calculate: "計算"
     calculated_hours: "計算時間"
@@ -1053,7 +1055,7 @@ jpn:
     costs_map: "コストマップ" #?
     costs_per_hectare: "ヘクタールあたりの費用"
     # could_not_attach_x_or_y_to_affair: "Could not attach %{trade} or %{payment} to affair."
-    # countings: "Countings"
+    countings: "カウント"
     counts: "カウンツ"
     counts_by_nature: "タイプごとに考慮するドキュメントの数"
     create: "創造する"
@@ -1373,7 +1375,7 @@ jpn:
     # late: "Late"
     # late_delivery: "Late delivery"
     letter: "文字"
-    # letterable: "Letterable"
+    letterable: "手紙"
     lettered: "文字入り"
     lettering_state: "レターティング状態"
     liabilities: "負債"
@@ -1449,6 +1451,7 @@ jpn:
     net_mass: "正味質量"
     net_production_sales: "純生産販売"
     net_surface_area: "正味の表面積"
+    # neutral_area_category: "Neutral area category"
     new: "新しい"
     new_activity: "新しいアクティビティ"
     new_animal: "新しい動物"
@@ -1511,6 +1514,7 @@ jpn:
     number: "数"
     number_of_cap_islets: "キャップ膵島の数"
     number_of_cap_land_parcels: "キャップ土地区画の数"
+    # number_of_cap_neutral_areas: "Number of cap neutral areas"
     number_options: "オプション番号" #?
     numbers: "数字"
     on_account: "アカウントに"
@@ -1575,7 +1579,7 @@ jpn:
     places: "場所"
     plant: "工場"
     plant_counting: "集計"
-    # plant_countings: "Countings"
+    plant_countings: "カウント"
     plantation_density: "プランテーション密度"
     plants: "植物"
     please_wait: "お待ちください…"
@@ -1795,7 +1799,7 @@ jpn:
     tasks: "タスク"
     tax_declarations: "税務申告"
     tax_label: "税ラベル"
-    # taxations: "Taxations"
+    taxations: "課税"
     taxes: "税金"
     taxes_and_wages: "税と賃金"
     third_is_unbalanced: "第三にはアンバランスです。 （バランス - サプライヤーの口座残高）"
@@ -1894,7 +1898,7 @@ jpn:
     unknown_condition: "未知の状態"
     unknown_user: "不明なユーザー"
     unknown_variant: "未知のバリアント"
-    # unlettered: "Unlettered"
+    unlettered: "未発売"
     unlock: "アンロック"
     unmark: "マーク解除します"
     unmarketable_inspection_categories_evolution: "売れ検査カテゴリ進化"
@@ -1932,6 +1936,8 @@ jpn:
     view_map_when_creating_an_intervention: "介入を作成するときに地図を表示する"
     wages: "賃金"
     # warning_date_not_in_period: "Warning: The date entered is not on the current exercise."
+    # water_lakes: "Water lakes"
+    # water_rivers: "Water rivers"
     watering_concentration: "水利用"
     weather: "天気"
     website: "ウェブサイト"
@@ -2285,7 +2291,7 @@ jpn:
       abort: "アボート"
       about: "約"
       attach: "アタッチ"
-      # bookkeep: "Bookkeep"
+      bookkeep: "簿記"
       cancel: "キャンセル"
       category: "カテゴリ" #?
       check: "チェック"
@@ -2330,7 +2336,7 @@ jpn:
       mark: "マーク"
       merge: "マージ"
       move: "移動" #?
-      # negociate: "Negociate"
+      negociate: "ネゴシエート"
       new: "新しい"
       new_purchase: "新規購入"
       new_sale: "新発売"
@@ -2376,7 +2382,7 @@ jpn:
       unlock: "アンロック"
       unmark: "マーク解除します"
       unroll: "拡げます"
-      # unvalidateds: "Unvalidateds"
+      unvalidateds: "未検証"
       up: "アップ"
       update: "更新"
       update_password: "パスワードを更新します" #?

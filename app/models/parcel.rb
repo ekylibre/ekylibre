@@ -81,7 +81,7 @@ class Parcel < Ekylibre::Record::Base
   belongs_to :transporter, class_name: 'Entity'
   belongs_to :contract
   has_many :items, class_name: 'ParcelItem', inverse_of: :parcel, foreign_key: :parcel_id, dependent: :destroy
-  has_many :products, through: :items
+  has_many :products, through: :items, source: :product
   has_many :issues, as: :target
   # has_many :interventions, class_name: 'Intervention', as: :resource
 
@@ -192,12 +192,12 @@ class Parcel < Ekylibre::Record::Base
   end
 
   def nature
-    ActiveSupport::Deprecation.warn('Parcel#nature is deprecated, please use Parcel#type instead. This method will be removed in next major release 3.0')
+    # ActiveSupport::Deprecation.warn('Parcel#nature is deprecated, please use Parcel#type instead. This method will be removed in next major release 3.0')
     super
   end
 
   def nature=(value)
-    ActiveSupport::Deprecation.warn('Parcel#nature= is deprecated, please use STI instead. This method will be removed in next major release 3.0')
+    # ActiveSupport::Deprecation.warn('Parcel#nature= is deprecated, please use STI instead. This method will be removed in next major release 3.0')
     super(value)
   end
 
@@ -238,6 +238,143 @@ class Parcel < Ekylibre::Record::Base
     # Returns an array of all the transporter ids for the given parcels
     def transporters_of(parcels)
       parcels.map(&:transporter_id).compact
+    end
+
+    # Convert parcels to one sale. Assume that all parcels are checked before.
+    # Sale is written in DB with default values
+    def convert_to_sale(parcels)
+      sale = nil
+      transaction do
+        parcels = parcels.collect do |d|
+          (d.is_a?(self) ? d : find(d))
+        end.sort_by(&:first_available_date)
+        third = detect_third(parcels)
+        planned_at = parcels.last.first_available_date || Time.zone.now
+        unless nature = SaleNature.by_default
+          unless journal = Journal.sales.opened_on(planned_at).first
+            raise 'No sale journal'
+          end
+          nature = SaleNature.create!(
+            active: true,
+            currency: Preference[:currency],
+            with_accounting: true,
+            journal: journal,
+            by_default: true,
+            name: SaleNature.tc('default.name', default: SaleNature.model_name.human)
+          )
+        end
+        sale = Sale.create!(
+          client: third,
+          nature: nature,
+          # created_at: planned_at,
+          delivery_address: parcels.last.address
+        )
+
+        # Adds items
+        parcels.each do |parcel|
+          parcel.items.order(:id).each do |item|
+            # raise "#{item.variant.name} cannot be sold" unless item.variant.saleable?
+            next unless item.variant.saleable? && item.population && item.population > 0
+            catalog_item = Catalog.by_default!(:sale).items.find_by(variant: item.variant)
+            # check all taxes included to build unit_pretax_amount and tax from catalog with all taxes included
+            unit_pretax_amount = item.pretax_amount.zero? ? nil : item.pretax_amount
+            tax = Tax.current.first
+            if catalog_item && catalog_item.all_taxes_included
+              unit_pretax_amount ||= catalog_item.reference_tax.pretax_amount_of(catalog_item.amount)
+              tax = catalog_item.reference_tax || item.variant.category.sale_taxes.first || Tax.current.first
+            # from catalog without taxes
+            elsif catalog_item
+              unit_pretax_amount ||= catalog_item.amount
+            # from last sale item
+            elsif (last_sale_items = SaleItem.where(variant: item.variant)) && last_sale_items.any?
+              unit_pretax_amount ||= last_sale_items.order(id: :desc).first.unit_pretax_amount
+              tax = last_sale_items.order(id: :desc).first.tax
+            end
+            item.sale_item = sale.items.create!(
+              variant: item.variant,
+              unit_pretax_amount: unit_pretax_amount || 0.0,
+              tax: tax,
+              quantity: item.population
+            )
+            item.save!
+          end
+          parcel.reload
+          parcel.sale_id = sale.id
+          parcel.save!
+        end
+
+        # Refreshes affair
+        sale.save!
+      end
+      sale
+    end
+
+    # Convert parcels to one purchase. Assume that all parcels are checked before.
+    # Purchase is written in DB with default values
+    def convert_to_purchase(parcels)
+      purchase = nil
+      transaction do
+        parcels = parcels.collect do |d|
+          (d.is_a?(self) ? d : find(d))
+        end.sort_by(&:first_available_date)
+        third = detect_third(parcels)
+        planned_at = parcels.last.first_available_date || Time.zone.now
+        unless nature = PurchaseNature.by_default
+          unless journal = Journal.purchases.opened_on(planned_at).first
+            raise 'No purchase journal'
+          end
+          nature = PurchaseNature.create!(
+            active: true,
+            currency: Preference[:currency],
+            with_accounting: true,
+            journal: journal,
+            by_default: true,
+            name: PurchaseNature.tc('default.name', default: PurchaseNature.model_name.human)
+          )
+        end
+        purchase = Purchase.create!(
+          supplier: third,
+          nature: nature,
+          planned_at: planned_at,
+          delivery_address: parcels.last.address
+        )
+
+        # Adds items
+        parcels.each do |parcel|
+          parcel.items.order(:id).each do |item|
+            next unless item.variant.purchasable? && item.population && item.population > 0
+            catalog_item = Catalog.by_default!(:purchase).items.find_by(variant: item.variant)
+            unit_pretax_amount = item.pretax_amount.zero? ? nil : item.pretax_amount
+            tax = Tax.current.first
+            # check all taxes included to build unit_pretax_amount and tax from catalog with all taxes included
+            if catalog_item && catalog_item.all_taxes_included
+              unit_pretax_amount ||= catalog_item.reference_tax.pretax_amount_of(catalog_item.amount)
+              tax = catalog_item.reference_tax || item.variant.category.purchase_taxes.first || Tax.current.first
+            # from catalog without taxes
+            elsif catalog_item
+              unit_pretax_amount ||= catalog_item.amount
+            # from last purchase item
+            elsif (last_purchase_items = PurchaseItem.where(variant: item.variant)) && last_purchase_items.any?
+              unit_pretax_amount ||= last_purchase_items.order(id: :desc).first.unit_pretax_amount
+              tax = last_purchase_items.order(id: :desc).first.tax
+            end
+            item.purchase_item = purchase.items.create!(
+              variant: item.variant,
+              unit_pretax_amount: unit_pretax_amount || 0.0,
+              tax: tax,
+              quantity: item.population
+            )
+            item.save!
+          end
+          parcel.reload
+          parcel.purchase = purchase
+          parcel.save!
+        end
+
+        # Refreshes affair
+        purchase.save!
+      end
+      purchase
     end
 
     def detect_third(parcels)

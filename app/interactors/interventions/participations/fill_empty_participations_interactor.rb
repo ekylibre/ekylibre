@@ -14,33 +14,31 @@ module Interventions
       end
 
       def run
-        begin
-          @intervention_agents.each do |intervention_agent|
-            intervention = intervention_agent.intervention
-            intervention_state = intervention.state
-            working_periods = build_working_periods(intervention: intervention)
+        @intervention_agents.each do |intervention_agent|
+          intervention = intervention_agent.intervention
+          intervention_state = intervention.state
+          working_periods = build_working_periods(intervention: intervention)
 
-            intervention
-              .participations
-              .build(product: intervention_agent.product,
-                     intervention: intervention,
-                     state: :done,
-                     procedure_name: intervention.procedure_name,
-                     working_periods: working_periods)
+          intervention
+            .participations
+            .build(product: intervention_agent.product,
+                   intervention: intervention,
+                   state: :done,
+                   procedure_name: intervention.procedure_name,
+                   working_periods: working_periods)
 
-            has_equipment_participation = has_equipment_participation?(intervention)
-            intervention.auto_calculate_working_periods = !has_equipment_participation
+          has_equipment_participation = has_equipment_participation?(intervention)
+          intervention.auto_calculate_working_periods = !has_equipment_participation
 
-            unless has_equipment_participation
-              build_equipments_participations(intervention)
-            end
-
-            intervention.save!
-            intervention.update_column(:state, intervention_state)
+          unless has_equipment_participation
+            build_equipments_participations(intervention)
           end
-        rescue StandardError => exception
-          fail!(exception.message)
+
+          intervention.save!
+          intervention.update_column(:state, intervention_state)
         end
+      rescue StandardError => exception
+        fail!(exception.message)
       end
 
       def success?
@@ -64,10 +62,10 @@ module Interventions
 
         intervention.working_periods.each do |working_period|
           working_periods << InterventionWorkingPeriod
-                               .new(nature: nature,
-                                    started_at: working_period.started_at,
-                                    stopped_at: working_period.stopped_at,
-                                    duration: working_period.duration)
+                             .new(nature: nature,
+                                  started_at: working_period.started_at,
+                                  stopped_at: working_period.stopped_at,
+                                  duration: working_period.duration)
         end
 
         working_periods
@@ -76,9 +74,9 @@ module Interventions
 
       def has_equipment_participation?(intervention)
         participations_count = intervention
-                                 .participations
-                                 .select { |participation| participation.product.is_a?(Equipment) }
-                                 .count
+                               .participations
+                               .select { |participation| participation.product.is_a?(Equipment) }
+                               .count
 
         participations_count > 0
       end

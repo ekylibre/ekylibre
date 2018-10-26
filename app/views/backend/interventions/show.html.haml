@@ -1,9 +1,17 @@
+- displayed_state = resource.state.tl
+- displayed_state = resource.nature.l if resource.nature.to_sym == :request
+
 - main_toolbar do |t|
   = t.export :intervention_sheet
   = t.edit resource
   - unless @intervention.receptions_is_given?
     = t.destroy
   = t.new params: { request_intervention_id: resource.id } if resource.request?
+  = t.menu(displayed_state, class: 'btn btn-primary dropdown', icon: false, disable_with: tl(:please_wait)) do |menu|
+    - Intervention.state.options.each do |state, option|
+      - unless option.to_sym == :rejected || ( option.to_sym == resource.state.to_sym && resource.nature.to_sym != :request)
+        - menu.item state, change_state_backend_interventions_path(:intervention => { :interventions_ids => ([resource.id]).to_json, :state => option.to_sym }), method: :post
+
 
 - currency = Nomen::Currency.find(resource.currency)
 
@@ -56,7 +64,7 @@
           = resource.receptions_cost.l(currency: currency.name)
 
 
-      - if resource.working_zone_area > 0.0.in_square_meter
+      - if resource.working_zone_area.to_f > 0.0
         .big-info
           %span.title= Intervention.human_attribute_name(:working_zone_area)
           %span.value= resource.human_working_zone_area(precision: 2)
@@ -80,6 +88,8 @@
 
   - c.cobble(:general_informations) do
     = infos do
+      = attributes_list do |l|
+        - l.attribute :number
       -#.med-info.important
         %span.title= Intervention.human_attribute_name(:nature)
         %span.value= resource.nature.l #lights(resource.status)
@@ -93,6 +103,13 @@
         %span.value
           %i.picto.picto-calendar
           = resource.stopped_at.l
+      - if resource.duration_from_catalog
+        .med-info
+          %span.title= Intervention.human_attribute_name(:catalog_duration)
+          %span.value
+            %i.picto.picto-timelapse
+            = resource.duration_from_catalog.round(2).l
+
       -#.med-info
         %span.title= Intervention.human_attribute_name(:working_duration)
         %span.value

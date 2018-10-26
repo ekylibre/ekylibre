@@ -125,14 +125,5 @@ module Backend
       t.column :affectation_percentage, percentage: true
       t.column :main_activity, url: true
     end
-
-    # List of inspections
-    list(:supports, model: :plant, conditions: { activity_production_id: 'ActivityProduction.joins(:activity).where(activity_id: params[:id]).pluck(:id)'.c }) do |t|
-      t.column :name, url: true
-      t.column :last_inspection_number, url: { controller: '/backend/inspections', id: 'RECORD.last_inspection_id'.c }
-      t.column :last_inspection_forecast_harvest_week
-      t.column :last_inspection_comment
-      t.column :last_inspection_disease_percentage
-    end
   end
 end

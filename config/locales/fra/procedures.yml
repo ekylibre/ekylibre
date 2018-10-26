@@ -10,14 +10,16 @@ fra:
     mass_area_density: "Densité surfacique"
     mass_area_density_in_gram_per_square_meter: "Densité surfacique en grammes par mètre carré" #?
     mass_area_density_in_hectoliter_per_hectare: "Densité surfacique en hectolitres par hectare" #?
+    mass_area_density_in_ton: "Densité surfacique en tonnes"
     mass_area_density_in_ton_per_hectare: "Densité surfacique en tonnes par hectare"
     mass_volume_density: "Masse volumique" #?
     milk_mass_per_animal: "Masse de lait par animal" #?
     net_length: "Longueur nette" #?
     net_mass: "Masse nette"
-    net_mass_in_kilogram: "Masse nette en kilogrammes" #?
-    net_mass_in_ton: "Masse nette en tonnes" #?
-    net_volume: "Volume" #?
+    net_mass_in_kilogram: "Masse nette en kilogrammes"
+    net_mass_in_ton: "Masse nette en tonnes"
+    # net_surface_area: "Net surface area"
+    net_volume: "Volume"
     net_volume_in_liter: "Volume net en litre" #?
     nitrogen: "Unités d’azote par surface" #?
     nitrogen_unities_density: "Unités d’azote par surface" #?
@@ -33,7 +35,8 @@ fra:
     stakes_count: "Nombre de piquets" #?
     sulfur_dioxide_density: "Dioxyde de soufre par volume" #?
     surface_area_percentage: "% de surface couverte" #?
-    volume_area_density: "Densité surfacique" #?
+    ton: "Tonnes"
+    volume_area_density: "Densité surfacique"
     volume_area_density_in_liter_per_square_meter: "Densité volumique en litres par mètre carré" #?
     volume_density: "Densité volumique" #?
   procedure_killable_parameters:

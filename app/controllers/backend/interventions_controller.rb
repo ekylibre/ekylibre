@@ -37,7 +37,7 @@ module Backend
       conn = Intervention.connection
       # , productions: [:name], campaigns: [:name], activities: [:name], products: [:name]
       expressions = []
-      expressions << 'CASE ' + Procedo.selection.map { |l, n| "WHEN procedure_name = #{conn.quote(n)} THEN #{conn.quote(l)}" }.join(' ') + " ELSE '' END"
+      expressions << 'CASE ' + Procedo.selection.map { |l, n| "WHEN #{Intervention.table_name}.procedure_name = #{conn.quote(n)} THEN #{conn.quote(l)}" }.join(' ') + " ELSE '' END"
       code = search_conditions({ interventions: %i[state procedure_name number] }, expressions: expressions) + " ||= []\n"
       code << "unless params[:state].blank?\n"
       code << "  c[0] << ' AND #{Intervention.table_name}.state IN (?)'\n"
@@ -49,9 +49,10 @@ module Backend
       code << "  c << params[:nature]\n"
       code << "end\n"
 
-      code << "c[0] << ' AND ((#{Intervention.table_name}.nature = ? AND #{Intervention.table_name}.state != ? AND (#{Intervention.table_name}.request_intervention_id IS NULL OR #{Intervention.table_name}.request_intervention_id NOT IN (SELECT id from #{Intervention.table_name})) OR #{Intervention.table_name}.nature = ?))'\n"
-      code << "c << 'request'\n"
+      code << "c[0] << ' AND #{Intervention.table_name}.state != ?'\n"
+      code << "c[0] << ' AND ((#{Intervention.table_name}.nature = ? AND I.request_intervention_id IS NULL) OR #{Intervention.table_name}.nature = ?)'\n"
       code << "c << '#{Intervention.state.rejected}'\n"
+      code << "c << 'request'\n"
       code << "c << 'record'\n"
 
       code << "unless params[:procedure_name].blank?\n"
@@ -98,7 +99,7 @@ module Backend
 
       # Support
       code << "if params[:product_id].to_i > 0\n"
-      code << "  c[0] << ' AND #{Intervention.table_name}.id IN (SELECT intervention_id FROM intervention_parameters WHERE type = \\'InterventionTarget\\' AND product_id IN (?))'\n"
+      code << "  c[0] << ' AND #{Intervention.table_name}.id IN (SELECT intervention_id FROM intervention_parameters WHERE product_id IN (?))'\n"
       code << "  c << params[:product_id].to_i\n"
       code << "end\n"
 
@@ -113,7 +114,7 @@ module Backend
       code << "  c[0] << ' AND #{Intervention.table_name}.id IN (SELECT intervention_id FROM intervention_parameters WHERE type = \\'InterventionTarget\\' AND product_id IN (SELECT target_id FROM target_distributions WHERE activity_production_id = ?))'\n"
       code << "  c << params[:production_id].to_i\n"
       code << "elsif params[:activity_id].to_i > 0\n"
-      code << "  c[0] << ' AND #{Intervention.table_name}.id IN (SELECT intervention_id FROM intervention_parameters WHERE type = \\'InterventionTarget\\' AND product_id IN (SELECT target_id FROM target_distributions WHERE activity_id = ?))'\n"
+      code << "  c[0] << 'AND #{Intervention.table_name}.id IN (SELECT intervention_id FROM interventions INNER JOIN activities_interventions ON activities_interventions.intervention_id = interventions.id INNER JOIN activities ON activities.id = activities_interventions.activity_id WHERE activities.id = ?)'\n"
       code << "  c << params[:activity_id].to_i\n"
       code << "end\n"
 
@@ -137,7 +138,7 @@ module Backend
     # @TODO conditions: list_conditions, joins: [:production, :activity, :campaign, :support]
 
     # conditions: list_conditions,
-    list(conditions: list_conditions, order: { started_at: :desc }, line_class: :status) do |t|
+    list(conditions: list_conditions, order: { started_at: :desc }, line_class: :status, includes: [:receptions, :activities, :targets, :participations], joins:'LEFT OUTER JOIN interventions I ON interventions.id = I.request_intervention_id') do |t|
       t.action :purchase, on: :both, method: :post
       t.action :sell,     on: :both, method: :post
       t.action :edit, if: :updateable?
@@ -390,7 +391,6 @@ module Backend
     def purchase_order_items
       purchase_order = Purchase.find(params[:purchase_order_id])
       reception = Intervention.find(params[:intervention_id]).receptions.first if params[:intervention_id].present?
-
       order_hash = if reception.present? && reception.purchase_id == purchase_order.id
                      find_items(reception.id, reception.pretax_amount, reception.items)
                    else

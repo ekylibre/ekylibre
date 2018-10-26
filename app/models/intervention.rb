@@ -25,6 +25,7 @@
 #  accounted_at                   :datetime
 #  actions                        :string
 #  auto_calculate_working_periods :boolean          default(FALSE)
+#  costing_id                     :integer
 #  created_at                     :datetime         not null
 #  creator_id                     :integer
 #  currency                       :string
@@ -32,7 +33,6 @@
 #  description                    :text
 #  event_id                       :integer
 #  id                             :integer          not null, primary key
-#  intervention_costs_id          :integer
 #  issue_id                       :integer
 #  journal_entry_id               :integer
 #  lock_version                   :integer          default(0), not null
@@ -69,7 +69,7 @@ class Intervention < Ekylibre::Record::Base
   belongs_to :prescription
   belongs_to :journal_entry, dependent: :destroy
   belongs_to :purchase
-  belongs_to :costs, class_name: 'InterventionCosts', foreign_key: :intervention_costs_id
+  belongs_to :costing, class_name: 'InterventionCosting'
   has_many :receptions, class_name: 'Reception', dependent: :destroy
   has_many :labellings, class_name: 'InterventionLabelling', dependent: :destroy, inverse_of: :intervention
   has_many :labels, through: :labellings
@@ -118,9 +118,7 @@ class Intervention < Ekylibre::Record::Base
   before_validation :set_number, on: :create
 
   def set_number
-    if request_intervention.present?
-      self.number = request_intervention.number
-    end
+    self.number = request_intervention.number if request_intervention.present?
   end
 
   def run_sequence
@@ -138,7 +136,7 @@ class Intervention < Ekylibre::Record::Base
     where('EXTRACT(YEAR FROM started_at) = ?', year)
   }
 
-  scope :of_nature, ->(reference_name) { where(reference_name: reference_name) }
+  scope :of_nature, ->(reference_name) { where(procedure_name: reference_name) }
   scope :of_category, lambda { |category|
     where(procedure_name: Procedo::Procedure.of_category(category).map(&:name))
   }
@@ -172,7 +170,7 @@ class Intervention < Ekylibre::Record::Base
       search_params << if procedures.empty?
                          "#{Intervention.table_name}.number ILIKE '%#{params[:q]}%'"
                        else
-                         "(#{Intervention.table_name}.number ILIKE '%#{params[:q]}%' OR procedure_name IN (#{procedures}))"
+                         "(#{Intervention.table_name}.number ILIKE '%#{params[:q]}%' OR #{Intervention.table_name}.procedure_name IN (#{procedures}))"
                       end
     end
 
@@ -181,7 +179,7 @@ class Intervention < Ekylibre::Record::Base
     end
 
     if params[:product_id].present?
-      search_params << "#{Intervention.table_name}.id IN (SELECT intervention_id FROM intervention_parameters WHERE type = 'InterventionTarget' AND product_id = '#{params[:product_id]}')"
+      search_params << "#{Intervention.table_name}.id IN (SELECT intervention_id FROM intervention_parameters WHERE product_id = '#{params[:product_id]}')"
     end
 
     if params[:cultivable_zone_id].present?
@@ -216,7 +214,7 @@ class Intervention < Ekylibre::Record::Base
       search_params << "#{Intervention.table_name}.id IN (SELECT intervention_id FROM intervention_parameters WHERE type = 'InterventionTarget' AND product_id IN (SELECT target_id FROM target_distributions WHERE activity_production_id = '#{params[:production_id]}'))"
       # search_params << "#{Intervention.table_name}.id IN (SELECT intervention_id FROM intervention_parameters WHERE type = 'InterventionTarget' AND product_id = '#{params[:product_id]}')"
     elsif params[:activity_id].present?
-      search_params << "#{Intervention.table_name}.id IN (SELECT intervention_id FROM intervention_parameters WHERE type = 'InterventionTarget' AND product_id IN (SELECT target_id FROM target_distributions WHERE activity_id = '#{params[:activity_id]}'))"
+      search_params << "#{Intervention.table_name}.id IN (SELECT intervention_id FROM interventions INNER JOIN activities_interventions ON activities_interventions.intervention_id = interventions.id INNER JOIN activities ON activities.id = activities_interventions.activity_id WHERE activities.id = '#{params[:activity_id]}')"
     end
 
     if params[:driver_id].present?
@@ -231,7 +229,7 @@ class Intervention < Ekylibre::Record::Base
     if params[:nature].present?
       search_params << "#{Intervention.table_name}.nature = '#{params[:nature]}'"
       if params[:nature] == :request
-        search_params << "#{Intervention.table_name}.state != '#{Intervention.state.rejected}' AND #{Intervention.table_name}.id NOT IN (SELECT request_intervention_id from #{Intervention.table_name} WHERE request_intervention_id IS NOT NULL)"
+        search_params << "#{Intervention.table_name}.state != '#{Intervention.state.rejected}' AND I.request_intervention_id IS NULL"
       end
     end
 
@@ -243,7 +241,9 @@ class Intervention < Ekylibre::Record::Base
     page ||= 1
 
     request = where(search_params.join(' AND '))
+              .joins('LEFT OUTER JOIN interventions I ON interventions.id = I.request_intervention_id')
               .includes(:doers)
+              .includes(:targets)
               .references(product_parameters: [:product])
               .order(started_at: :desc)
 
@@ -318,11 +318,8 @@ class Intervention < Ekylibre::Record::Base
     true
   end
 
-  before_create do
-    self.costs = InterventionCosts.create!(inputs_cost: 0, doers_cost: 0, tools_cost: 0, receptions_cost: 0)
-  end
-
   after_save do
+    # puts self.inspect.green
     targets.find_each do |target|
       if target.new_container_id
         ProductLocalization.find_or_create_by(product: target.product, container: Product.find(target.new_container_id), intervention_id: target.intervention_id, started_at: working_periods.maximum(:stopped_at))
@@ -343,7 +340,7 @@ class Intervention < Ekylibre::Record::Base
     participations.update_all(state: state) unless state == :in_progress
     participations.update_all(request_compliant: request_compliant) if request_compliant
 
-    create_intervention_costs
+    update_costing
 
     add_activity_production_to_output if procedure.of_category?(:planting)
   end
@@ -354,7 +351,7 @@ class Intervention < Ekylibre::Record::Base
 
   # Prevents from deleting an intervention that was executed
   protect on: :destroy do
-    with_undestroyable_products? || procedure.of_category?(:planting)
+    with_undestroyable_products?
   end
 
   # This method permits to add stock journal entries corresponding to the
@@ -362,13 +359,11 @@ class Intervention < Ekylibre::Record::Base
   # It depends on the preferences which permit to activate the "permanent stock
   # inventory" and "automatic bookkeeping".
   #
-  # | Intervention mode      | Debit                      | Credit                    |
-  # | outputs                | stock (3X)                 | stock_movement (603X/71X) |
-  # | inputs                 | stock_movement (603X/71X)  | stock (3X)                |
+  # | Interv. mode | Debit                     | Credit                    |
+  # | outputs      | stock (3X)                | stock_movement (603X/71X) |
+  # | inputs       | stock_movement (603X/71X) | stock (3X)                |
   bookkeep do |b|
-    currency = Preference[:currency]
-    stock_journal = unsuppress { Journal.used_for_permanent_stock_inventory!(currency: currency) }
-
+    stock_journal = unsuppress { Journal.find_or_create_by!(name: :stocks.tl, nature: :various, used_for_permanent_stock_inventory: true) }
     b.journal_entry(stock_journal, printed_on: printed_on, if: (Preference[:permanent_stock_inventory] && record?)) do |entry|
       write_parameter_entry_items = lambda do |parameter, input|
         variant      = parameter.variant
@@ -385,19 +380,22 @@ class Intervention < Ekylibre::Record::Base
     end
   end
 
-  def create_intervention_costs
-    costs_attributes = {}
-
+  def update_costing
+    attributes = {}
     %i[input tool doer].each do |type|
-      type_cost = cost(type)
-      type_cost = 0 if type_cost.nil?
-
-      costs_attributes["#{type.to_s.pluralize}_cost"] = type_cost
+      attributes["#{type.to_s.pluralize}_cost"] = cost(type) || 0
     end
+    attributes[:receptions_cost] = receptions_cost.to_f.round(2)
 
-    costs_attributes[:receptions_cost] = receptions_cost.to_f.round(2)
+    if costing
+      costing.update(attributes)
+    else
+      update_columns(costing_id: InterventionCosting.create!(attributes))
+    end
+  end
 
-    costs.update_attributes(costs_attributes)
+  def create_missing_costing
+    update_costing if costing.blank?
   end
 
   def initialize_record(state: :done)
@@ -449,7 +447,7 @@ class Intervention < Ekylibre::Record::Base
   end
 
   def with_undestroyable_products?
-    outputs.map(&:product).detect do |product|
+    outputs.includes(:product).map(&:product).detect do |product|
       next unless product
       InterventionProductParameter.of_actor(product).where.not(type: 'InterventionOutput').any?
     end
@@ -598,11 +596,11 @@ class Intervention < Ekylibre::Record::Base
   end
 
   def cost_per_area(role = :input, area_unit = :hectare)
-    zone_area = working_zone_area(area_unit)
-    if zone_area > 0.0.in(area_unit)
+    zone_area = working_zone_area(area_unit).to_f.round(2)
+    if zone_area > 0.0
       params = product_parameters.of_generic_role(role)
       costs = params.map(&:cost).compact
-      return (costs.sum / zone_area.to_d) if costs.any?
+      return (costs.sum / zone_area) * area_cost_coefficient if costs.any?
       nil
     end
     nil
@@ -621,9 +619,19 @@ class Intervention < Ekylibre::Record::Base
   end
 
   def total_cost_per_area(area_unit = :hectare)
-    if working_zone_area > 0.0.in_square_meter
-      (total_cost / working_zone_area(area_unit).to_d)
+    zone_area = working_zone_area(area_unit).to_f.round(2)
+    (total_cost / zone_area) * area_cost_coefficient if zone_area > 0.0
+  end
+
+  def area_cost_coefficient
+    zone_area = working_zone_area(:hectare).to_f.round(2)
+    global_area = activity_production_zone_area(:hectare).to_f.round(2)
+    coef = 1.0
+    # build coef for area's
+    if zone_area && global_area && global_area > 0.0
+      coef = zone_area / global_area
     end
+    coef
   end
 
   def currency
@@ -636,11 +644,25 @@ class Intervention < Ekylibre::Record::Base
     nil
   end
 
+  # return all working zone area of targets
   def working_zone_area(*args)
     options = args.extract_options!
     unit = args.shift || options[:unit] || :hectare
+    area = if targets.any?
+             targets.with_working_zone.map(&:working_zone_area).sum.in(unit)
+           else
+             0.0.in(unit)
+           end
+    area
+  end
+
+  # return all initial area of supports of targets
+  def activity_production_zone_area(*args)
+    options = args.extract_options!
+    unit = args.shift || options[:unit] || :hectare
     if targets.any?
-      area = targets.with_working_zone.map(&:working_zone_area).sum.in(unit)
+      ap = ActivityProduction.where(support_id: targets.pluck(:product_id))
+      area = ap.map(&:support_shape_area).sum.in(:square_meter).convert(unit)
     end
     area ||= 0.0.in(unit)
     area
@@ -766,6 +788,15 @@ class Intervention < Ekylibre::Record::Base
 
   def first_worker_working_period(nature: nil, not_nature: nil)
     test = worker_working_periods(nature: nature, not_nature: not_nature)
+  end
+
+  # compute stopped_at and duration if not present and if duration <
+  def duration_from_catalog
+    flow = MasterEquipmentFlow.find_by(procedure_name: procedure_name)
+    if flow && working_zone_area.to_f > 0.0
+      real_stop = started_at + (flow.intervention_flow.to_d * working_zone_area.to_d * 3600)
+      catalog_duration = (real_stop - started_at).in(:second).convert(:hour)
+    end
   end
 
   class << self

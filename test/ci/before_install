@@ -1,0 +1,32 @@
+#!/bin/bash
+
+sudo apt-get update -qq
+
+echo ""
+echo "--------------------------------------------------------------------------------"
+echo "Install packages:"
+
+# Force stop to prevent conflict with existing PostgreSQL
+sudo /etc/init.d/postgresql stop
+
+# Install needed packages including PostgreSQL
+echo "Removing old Postgres versions."
+sudo apt-get remove postgresql-client-9.1 postgresql-client-9.2 postgresql-client-9.3 postgresql-client-9.4 postgresql-client-9.5
+echo""
+echo "Dependencies install..."
+echo""
+sudo apt-get install -f -q postgresql-9.6-postgis-2.3 graphicsmagick tesseract-ocr tesseract-ocr-fra tesseract-ocr-eng tesseract-ocr-spa pdftk libreoffice poppler-utils poppler-data qt5-default libqt5webkit5-dev gstreamer1.0-x gstreamer1.0-tools gstreamer1.0-plugins-base libgeos-dev libproj-dev
+gem uninstall bundler -a -x && gem install bundler -v 1.14.6
+echo ""
+echo "Dependencies installed!"
+echo ""
+
+# Configure PostgreSQL port to 5432
+sudo sed -i -r 's/port\s*=\s*[0-9]+/port = 5432/g' /etc/postgresql/9.6/main/postgresql.conf
+
+# Grant access to all
+sudo sed -i '1i local all all trust' /etc/postgresql/9.6/main/pg_hba.conf
+
+# Force PostgreSQL restart
+sudo /etc/init.d/postgresql stop
+sudo /etc/init.d/postgresql start 9.6

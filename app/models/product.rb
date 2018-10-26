@@ -134,6 +134,7 @@ class Product < Ekylibre::Record::Base
   has_many :populations, class_name: 'ProductPopulation', foreign_key: :product_id, dependent: :destroy
   has_many :ownerships, class_name: 'ProductOwnership', foreign_key: :product_id, dependent: :destroy
   has_many :inspections, class_name: 'Inspection', foreign_key: :product_id, dependent: :destroy
+  has_many :inventory_items, dependent: :restrict_with_exception
   has_many :parcel_item_storings, foreign_key: :product_id
   has_many :parcel_items, through: :parcel_item_storings, dependent: :restrict_with_exception
   has_many :phases, class_name: 'ProductPhase', dependent: :destroy
@@ -142,7 +143,7 @@ class Product < Ekylibre::Record::Base
   has_many :supports, class_name: 'ActivityProduction', foreign_key: :support_id, inverse_of: :support
   has_many :trackings, class_name: 'Tracking', foreign_key: :product_id, inverse_of: :product
   has_many :variants, class_name: 'ProductNatureVariant', through: :phases
-  has_many :purchase_items, class_name: 'PurchaseItem', inverse_of: :equipment
+  has_many :purchase_items, class_name: 'PurchaseItem', inverse_of: :equipment, foreign_key: :equipment_id
   has_one :current_phase,        -> { current }, class_name: 'ProductPhase',        foreign_key: :product_id
   has_one :current_localization, -> { current }, class_name: 'ProductLocalization', foreign_key: :product_id
   has_one :current_enjoyment,    -> { current }, class_name: 'ProductEnjoyment',    foreign_key: :product_id
@@ -367,7 +368,20 @@ class Product < Ekylibre::Record::Base
            to: :nature
 
   after_initialize :choose_default_name
-  after_save :set_initial_values, if: :initializeable?
+
+  after_save do
+    set_initial_values if initializeable?
+
+    unless initializeable?
+
+      product_phases = phases.where(product_id: id,
+                                    variant_id: variant.id,
+                                    nature_id: variant.nature.id,
+                                    category_id: variant.category.id)
+
+      build_new_phase unless product_phases.any?
+    end
+  end
 
   before_validation do
     self.initial_born_at ||= Time.zone.now
@@ -492,6 +506,21 @@ class Product < Ekylibre::Record::Base
     localization.container = self.initial_container
     localization.save!
 
+    # Add first frozen indicator on a product from his variant
+    if variant
+      phase = phases.first_of_all || phases.build
+      phase.variant = variant
+      phase.save!
+      # set indicators from variant in products readings
+      variant.readings.each do |variant_reading|
+        reading = readings.first_of_all(variant_reading.indicator_name) ||
+        readings.new(indicator_name: variant_reading.indicator_name)
+        reading.value = variant_reading.value
+        reading.read_at = born_at
+        reading.save!
+      end
+    end
+
     if born_at
       # Configure initial_movement
       movement = initial_movement || build_initial_movement
@@ -510,22 +539,19 @@ class Product < Ekylibre::Record::Base
         ProductReading.destroy readings.where.not(id: reading.id).where(indicator_name: :shape, read_at: reading.read_at).pluck(:id)
       end
     end
-
-    # Add first frozen indicator on a product from his variant
-    if variant
-      phase = phases.first_of_all || phases.build
-      phase.variant = variant
-      phase.save!
-      # set indicators from variant in products readings
-      variant.readings.each do |variant_reading|
-        reading = readings.first_of_all(variant_reading.indicator_name) ||
-                  readings.new(indicator_name: variant_reading.indicator_name)
-        reading.value = variant_reading.value
-        reading.read_at = born_at
-        reading.save!
-      end
-    end
   end
+
+  def build_new_phase
+    phases.build(
+      product_id: id,
+      variant_id: variant.id,
+      category_id: variant.category.id,
+      nature_id: variant.nature.id
+    )
+
+    save
+  end
+
 
   def shape=(new_shape)
     reading_cache[:shape] = new_shape

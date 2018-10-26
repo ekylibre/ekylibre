@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :cultivable_zone do
     shape = '{
               "type": "Feature",
@@ -35,7 +35,7 @@ FactoryGirl.define do
                 ]
               }
             }'
-    shape Charta.new_geometry(shape)
+    shape { Charta.new_geometry(shape) }
     sequence(:name) { |n| "Fake Cultivable Zone #{n}" }
   end
 end

@@ -192,7 +192,8 @@ class PurchaseInvoice < Purchase
 
   # Save the last date when the invoice of purchase was received
   def invoice(invoiced_at = nil)
-    return false unless can_invoice?
+    # no more usage of state machine
+    # return false unless can_invoice?
     reload
     self.invoiced_at ||= invoiced_at || Time.zone.now
     save!

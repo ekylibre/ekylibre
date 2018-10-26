@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<migration name="Add new plant variants">
+    <item-creation item="product_nature_variants#common_carrot_crop" nature="vegetable_crop" variety="daucus_carota" frozen_indicators_values="net_surface_area: 1.00hectare" unit_name="hectare"/>
+    <item-creation item="product_nature_variants#common_linum_crop" nature="crop" variety="linum_usitatissimum_annua" frozen_indicators_values="net_surface_area: 1.00hectare" unit_name="hectare"/>
+    <item-creation item="product_nature_variants#common_onion_crop" nature="crop" variety="allium_cepa" frozen_indicators_values="net_surface_area: 1.00hectare" unit_name="hectare"/>
+    <item-creation item="product_nature_variants#common_beta_crop" nature="crop" variety="beta_vulgaris" frozen_indicators_values="net_surface_area: 1.00hectare" unit_name="hectare"/>
+</migration>

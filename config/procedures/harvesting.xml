@@ -2,7 +2,7 @@
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
   <procedure name="harvesting" categories="harvesting" actions="harvest">
     <parameters>
-      <target name="plant" filter="is plant and has indicator shape">
+      <target name="plant" filter="(is plant or is land_parcel) and has indicator shape">
         <attribute name="working_zone" default-value="PRODUCT.shape" if="PRODUCT?"/>
         <attribute name="killable"/>
         <handler indicator="shape">
@@ -25,12 +25,16 @@
                  if="sum_working_zone_areas(plant, :hectare) >= 0.1 and VARIANT? and VARIANT.net_mass?"
                  backward="(POPULATION * VARIANT.net_mass(quintal)) / sum_working_zone_areas(plant, :hectare)"
                  forward="(VALUE * sum_working_zone_areas(plant, :hectare)) / VARIANT.net_mass(quintal)"/>
+                 <handler name="mass_area_density_in_ton" indicator="mass_area_density" unit="ton_per_hectare"
+                          if="sum_working_zone_areas(plant, :hectare) >= 0.1 and VARIANT? and VARIANT.net_mass?"
+                          backward="(POPULATION * VARIANT.net_mass(ton)) / sum_working_zone_areas(plant, :hectare)"
+                          forward="(VALUE * sum_working_zone_areas(plant, :hectare)) / VARIANT.net_mass(ton)"/>
       </output>
       <doer name="driver" filter="is worker and can drive(equipment)" cardinality="*"/>
       <doer name="doer" filter="is worker" cardinality="*"/>
       <tool name="tractor" filter="is equipment and can tow(equipment)" cardinality="*"/>
       <tool name="cropper" filter="can harvest(plant)" cardinality="*"/>
-      <tool name="implement" filter="is portable_equipment or can store(raw_matter) or can store_liquid" cardinality="*"/>
+      <tool name="implement" filter="is portable_equipment or (is equipment and (can store(raw_matter) or can store_liquid))" cardinality="*"/>
     </parameters>
   </procedure>
 </procedures>

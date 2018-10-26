@@ -23,6 +23,8 @@ module Backend
 
     unroll :number, :reference_number, :ordered_at, :pretax_amount, supplier: :full_name
 
+    before_action :save_search_preference, only: :index
+
     def self.list_conditions
       code = ''
       code = search_conditions(purchase_order: %i[number reference_number created_at pretax_amount], entities: %i[number full_name]) + " ||= []\n"
@@ -146,7 +148,6 @@ module Backend
         company_address = e.default_mail_address.present? ? e.default_mail_address.coordinate : '-'
         company_phone = e.phones.present? ? e.phones.first.coordinate : '-'
         company_email = order_reporting[:purchase_responsible_email]
-
         r.add_field 'COMPANY_ADDRESS', company_address
         r.add_field 'COMPANY_NAME', company_name
         r.add_field 'COMPANY_PHONE', company_phone
