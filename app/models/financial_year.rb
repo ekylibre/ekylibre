@@ -82,7 +82,7 @@ class FinancialYear < Ekylibre::Record::Base
   protect on: :destroy do
     tax_declarations.any? || journal_entries.any? || inventories.any? || !opened?
   end
-  
+
   class << self
     def on(searched_on)
       year = where('? BETWEEN started_on AND stopped_on', searched_on).order(started_on: :desc).first
@@ -496,11 +496,11 @@ class FinancialYear < Ekylibre::Record::Base
   end
 
   def any_not_invoiced_or_aborted_purchase?
-    Purchase.where('invoiced_at BETWEEN ? AND ?', self.started_on, self.stopped_on).where.not(state: [:invoiced, :aborted])
+    Purchase.where('invoiced_at BETWEEN ? AND ?', self.started_on, self.stopped_on).where.not(state: [:invoice, :aborted]).any?
   end
 
   def any_not_invoiced_or_aborted_sale?
-    Sale.where('invoiced_at BETWEEN ? AND ?', self.started_on, self.stopped_on).where.not(state: [:invoiced, :aborted])
+    Sale.where('invoiced_at BETWEEN ? AND ?', self.started_on, self.stopped_on).where.not(state: [:invoice, :aborted]).any?
   end
 
   private
