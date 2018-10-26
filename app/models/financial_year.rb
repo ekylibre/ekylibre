@@ -487,6 +487,22 @@ class FinancialYear < Ekylibre::Record::Base
     tax_declarations.where(state: [:draft, :validated])
   end
 
+  def any_not_given_incoming_parcel?
+    Parcel.with_nature(:incoming).where('planned_at BETWEEN ? AND ?', self.started_on, self.stopped_on).not_given.any?
+  end
+
+  def any_not_given_outgoing_parcel?
+    Parcel.with_nature(:outgoing).where('planned_at BETWEEN ? AND ?', self.started_on, self.stopped_on).not_given.any?
+  end
+
+  def any_not_invoiced_or_aborted_purchase?
+    Purchase.where('invoiced_at BETWEEN ? AND ?', self.started_on, self.stopped_on).where.not(state: [:invoiced, :aborted])
+  end
+
+  def any_not_invoiced_or_aborted_sale?
+    Sale.where('invoiced_at BETWEEN ? AND ?', self.started_on, self.stopped_on).where.not(state: [:invoiced, :aborted])
+  end
+
   private
 
   def compute_ranges(number_of_months)

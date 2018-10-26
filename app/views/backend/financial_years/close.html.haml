@@ -1,6 +1,7 @@
 = form_tag do
   = field_set :prerequisites_checks_before_closure.tl do
     .close-conditions
+      -# ------ Warnings ------
       - if FixedAsset.drafts.any?
         %p
           %i.warning
@@ -16,6 +17,32 @@
           %i.warning
           = :not_sent_tax_declaration_on_current_financial_year.tl(code: @financial_year.code)
           = link_to(:see_tax_declarations.tl, backend_tax_declarations_path)
+      - if @financial_year.any_not_given_incoming_parcel?
+        %p
+          %i.warning
+          = :not_sent_incoming_parcels_on_current_financial_year.tl(code: @financial_year.code)
+          - period_param = @financial_year.started_on.to_s + '_' + @financial_year.stopped_on.to_s
+          = link_to(:see_incoming_parcels.tl, backend_parcels_path(period: period_param, nature: :incoming))
+      - if @financial_year.any_not_invoiced_or_aborted_purchase?
+        %p
+          %i.warning
+          = :not_invoiced_or_aborted_purchases.tl(code: @financial_year.code)
+          - period_param = @financial_year.started_on.to_s + '_' + @financial_year.stopped_on.to_s
+          = link_to(:see_purchases.tl, backend_purchases_path(period: period_param, state: [:draft, :estimate, :refused, :order]))
+      - if @financial_year.any_not_given_outgoing_parcel?
+        %p
+          %i.warning
+          = :not_sent_outgoing_parcels_on_current_financial_year.tl(code: @financial_year.code)
+          - period_param = @financial_year.started_on.to_s + '_' + @financial_year.stopped_on.to_s
+          = link_to(:see_outgoing_parcels.tl, backend_parcels_path(period: period_param, nature: :outgoing))
+      - if @financial_year.any_not_invoiced_or_aborted_sale?
+        %p
+          %i.warning
+          = :not_invoiced_or_aborted_sales.tl(code: @financial_year.code)
+          - period_param = @financial_year.started_on.to_s + '_' + @financial_year.stopped_on.to_s
+          = link_to(:see_sales.tl, backend_sales_path(period: period_param, state: [:draft, :estimate, :refused, :order]))
+
+      -# ------ Checks ------
       - if @financial_year.all_previous_financial_years_closed_or_locked?
         %p
           %i.correct-validation
