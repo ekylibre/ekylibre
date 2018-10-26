@@ -103,7 +103,12 @@
         %span.value
           %i.picto.picto-calendar
           = resource.stopped_at.l
-      - if resource.duration_from_catalog
+
+      .med-info.actionner-cobble
+        = resource.decorate.planned_by
+        = resource.decorate.validated_by
+
+      - if resource.evaluation.present?
         .med-info
           %span.title= Intervention.human_attribute_name(:catalog_duration)
           %span.value

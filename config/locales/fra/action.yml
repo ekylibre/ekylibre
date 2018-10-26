@@ -1549,6 +1549,8 @@ fra:
     interval: " personnalisé"
     intervention: "Intervention"
     intervention_at: "%{intervention} du %{at}"
+    planned_by: "Planifiée par"
+    validated_by: "Validée par"
     intervention_message_miscibility: "Mélange autorisé"
     intervention_product_parameters: "Intervenants"
     interventions: "Interventions"

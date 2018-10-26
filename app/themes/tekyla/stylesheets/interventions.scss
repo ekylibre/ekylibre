@@ -16,6 +16,33 @@ $preview-modal-height: 80vh;
     display: flex;
     .time-part {
       margin-left: auto;
+
+.cobble-general-information .cobble-content .big-infos {
+  .actionner-cobble {
+    .info {
+      span {
+        text-align: left
+      }
+    }
+    .value {
+      font-size: 19px;
+      line-height: 23px;
+      height: 25px;
+    }
+  }
+}
+
+.interventions-modal {
+  .evaluation-part {
+    display: inline-block;
+    margin-right: 10%;
+    p {
+      display: inline-block;
+      margin-right: 10px;
+    }
+    .picto {
+      font-size: 20px;
+      color: #ffce00;
     }
   }
   .controls .selector .items-menu .items-list {

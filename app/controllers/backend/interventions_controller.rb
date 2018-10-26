@@ -465,6 +465,11 @@ module Backend
             new_intervention.request_intervention_id = intervention.id
           end
 
+          if new_state == :validated
+            new_intervention.evaluation = params[:evaluation]
+            new_intervention.validator = current_user
+          end
+
           new_intervention.state = new_state
           new_intervention.nature = :record
 
