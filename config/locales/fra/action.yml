@@ -1782,10 +1782,14 @@ fra:
     not_contains: "Ne contient pas" #?
     not_delivered: "Non délivré"
     not_finishes: "Ne termine pas par" #?
+    not_invoiced_or_aborted_purchases: "Vous avez des achats non facturés ou non abandonnés en cours. Une fois l'exercice clôs, il ne sera plus possible de les facturer ou de les envoyer sur cet exercice (%{code})."
+    not_invoiced_or_aborted_sales: "Vous avez des ventes non facturés ou non abandonnés en cours. Une fois l'exercice clôs, il ne sera plus possible de les facturer ou de les envoyer sur cet exercice (%{code})."
     not_is: "N’est pas" #?
     not_letterable: "Impossible de lettrer"
     not_ready: "Pas prêt(e)"
     not_received: "Non reçu"
+    not_sent_incoming_parcels_on_current_financial_year: "Vous avez des colis entrants non envoyées en cours. Une fois l'exercice clôs, il ne sera plus possible de les envoyer sur cet exercice (%{code})."
+    not_sent_outgoing_parcels_on_current_financial_year: "Vous avez des colis sortants non envoyées en cours. Une fois l'exercice clôs, il ne sera plus possible de les envoyer sur cet exercice (%{code})."
     not_sent_tax_declaration_on_current_financial_year: "Vous avec des déclarations de TVA non envoyées (brouillons ou validées) en cours, il ne sera plus possible de les envoyer sur cet exercice (%{code})."
     now: "Maintenant"
     number: "Numéro"
@@ -2097,8 +2101,12 @@ fra:
     section_x: "%{section} %{x}"
     see_details: "Voir les détails"
     see_fixed_assets: "Voir les immobilisations"
+    see_incoming_parcels: "Voir les colis entrants"
     see_loans: "Voir les emprunts"
     see_more_details: "Voir plus de détails"
+    see_outgoing_parcels: "Voir les colis sortants"
+    see_purchases: "Voir les achats"
+    see_sales: "Voir les ventes"
     see_tax_declarations: "Voir les déclarations de TVA"
     see_the_accounts: "Voir les comptes"
     see_the_day_book: "Voir le brouillard"
