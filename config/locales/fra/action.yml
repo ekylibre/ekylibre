@@ -1168,6 +1168,8 @@ fra:
     component: "Composant" #?
     component_name: "Nom du composant" #?
     components: "Composants" #?
+    all_the_categories: Toutes les categories
+    category_of_product: Catégorie de produit
     concentrations_map: "Carte des concentrations" #?
     conditions:
       filter_on_attribute_of_class: "Filtre sur %{attribute} (%{class})"
