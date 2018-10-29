@@ -1783,7 +1783,7 @@ fra:
     not_delivered: "Non délivré"
     not_finishes: "Ne termine pas par" #?
     not_invoiced_or_aborted_purchases: "Vous avez des achats non facturés ou non abandonnés en cours. Une fois l'exercice clos, il ne sera plus possible de les facturer ou de les envoyer sur cet exercice (%{code})."
-    not_invoiced_or_aborted_sales: "Vous avez des ventes non facturés ou non abandonnés en cours. Une fois l'exercice clos, il ne sera plus possible de les facturer ou de les envoyer sur cet exercice (%{code})."
+    not_invoiced_or_aborted_sales: "Vous avez des ventes non facturées ou non abandonnés en cours. Une fois l'exercice clos, il ne sera plus possible de les facturer ou de les envoyer sur cet exercice (%{code})."
     not_is: "N’est pas" #?
     not_letterable: "Impossible de lettrer"
     not_ready: "Pas prêt(e)"
