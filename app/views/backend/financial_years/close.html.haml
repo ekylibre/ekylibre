@@ -2,86 +2,21 @@
   = field_set :prerequisites_checks_before_closure.tl do
     .close-conditions
       -# ------ Warnings ------
-      - if FixedAsset.drafts.any?
-        %p
-          %i.warning
-          = :draft_fixed_asset_on_current_financial_year.tl(code: @financial_year.code)
-          = link_to(:see_fixed_assets.tl, backend_fixed_assets_path)
-      - if Loan.drafts.any?
-        %p
-          %i.warning
-          = :draft_loan_on_current_financial_year.tl(code: @financial_year.code)
-          = link_to(:see_loans.tl, backend_loans_path)
-      - if @financial_year.not_sent_tax_declarations.any?
-        %p
-          %i.warning
-          = :not_sent_tax_declaration_on_current_financial_year.tl(code: @financial_year.code)
-          = link_to(:see_tax_declarations.tl, backend_tax_declarations_path)
-      - if @financial_year.any_not_given_incoming_parcel?
-        %p
-          %i.warning
-          = :not_sent_incoming_parcels_on_current_financial_year.tl(code: @financial_year.code)
-          - period_param = @financial_year.started_on.to_s + '_' + @financial_year.stopped_on.to_s
-          = link_to(:see_incoming_parcels.tl, backend_parcels_path(period: period_param, nature: :incoming))
-      - if @financial_year.any_not_invoiced_or_aborted_purchase?
-        %p
-          %i.warning
-          = :not_invoiced_or_aborted_purchases.tl(code: @financial_year.code)
-          - period_param = @financial_year.started_on.to_s + '_' + @financial_year.stopped_on.to_s
-          = link_to(:see_purchases.tl, backend_purchases_path(period: period_param, state: [:draft, :estimate, :refused, :order]))
-      - if @financial_year.any_not_given_outgoing_parcel?
-        %p
-          %i.warning
-          = :not_sent_outgoing_parcels_on_current_financial_year.tl(code: @financial_year.code)
-          - period_param = @financial_year.started_on.to_s + '_' + @financial_year.stopped_on.to_s
-          = link_to(:see_outgoing_parcels.tl, backend_parcels_path(period: period_param, nature: :outgoing))
-      - if @financial_year.any_not_invoiced_or_aborted_sale?
-        %p
-          %i.warning
-          = :not_invoiced_or_aborted_sales.tl(code: @financial_year.code)
-          - period_param = @financial_year.started_on.to_s + '_' + @financial_year.stopped_on.to_s
-          = link_to(:see_sales.tl, backend_sales_path(period: period_param, state: [:draft, :estimate, :refused, :order]))
+      = warnings(@financial_year,
+                  fixed_assets: FixedAsset.drafts,
+                  loans: Loan.drafts,
+                  tax_declarations: :not_sent_tax_declarations,
+                  incoming_parcels: :not_given_incoming_parcel,
+                  purchases: :not_invoiced_or_aborted_purchase,
+                  outgoing_parcels: :not_given_outgoing_parcel,
+                  sales: :not_invoiced_or_aborted_sale)
 
       -# ------ Checks ------
-      - if @financial_year.all_previous_financial_years_closed_or_locked?
-        %p
-          %i.correct-validation
-          = :all_financial_years_closed_or_locked.tl
-      - else
-        %p
-          %i.wrong-validation
-          = :all_financial_years_not_closed_or_locked.tl
-          = link_to(:see_the_financial_years.tl, backend_financial_years_path)
-      - if @financial_year.no_draft_entry?
-        %p
-          %i.correct-validation
-          = :no_draft_entry.tl
-      - else
-        %p
-          %i.wrong-validation
-          = :draft_entries_to_validate.tl
-          = link_to(:see_the_day_book.tl, backend_draft_journal_path(current_financial_year: @financial_year.id))
-      - if @financial_year.no_entry_to_balance?
-        %p
-          %i.correct-validation
-          = :all_entries_balanced.tl
-      - else
-        %p
-          %i.wrong-validation
-          = :entries_to_balance.tl
-          = link_to(:see_the_unbalanced_entries.tl, backend_invalid_journal_entries_path)
-      - if @financial_year.unbalanced_radical_account_classes_array.empty?
-        %p
-          %i.correct-validation
-          = :radical_class_accounts_dont_have_entries.tl
-      - else
-        - links = []
-        - @financial_year.unbalanced_radical_account_classes_array.each do |rad_account|
-          - links << link_to(rad_account[:number], backend_account_path(id: rad_account[:id], period: rad_account[:period]))
-        %p
-          %i.wrong-validation
-          = :radical_class_accounts_have_entries.tl
-          = (:see_the_accounts.tl + ' ' + links.to_sentence).html_safe
+      = checks(@financial_year,
+               closed_previous_years: @financial_year.all_previous_financial_years_closed_or_locked?,
+               drafts_empty: @financial_year.no_draft_entry?,
+               entries_balanced: @financial_year.no_entry_to_balance?,
+               no_entries_on_radicals: @financial_year.unbalanced_radical_account_classes_array.empty?)
 
   = field_set :close_settings.tl do
     = field FinancialYear.model_name.human, @financial_year.code

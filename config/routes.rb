@@ -506,7 +506,7 @@ Rails.application.routes.draw do
 
     resources :financial_years, concerns: %i[list unroll], path: 'financial-years' do
       collection do
-        post :destroy_all_empty
+        delete :destroy_all_empty
       end
 
       member do
