@@ -162,6 +162,22 @@ module StateMachine::Integrations::ActiveModel
   end
 end
 
+module ActiveModel
+  module Validations
+    module MoreClusitivity
+      private
+
+      def include?(record, value)
+        value = value.to_s if value.is_a? Symbol
+        super record, value
+      end
+    end
+
+    InclusionValidator.include MoreClusitivity
+    ExclusionValidator.include MoreClusitivity
+  end
+end
+
 module ::I18n
   def self.locale_label(locale = nil)
     locale ||= self.locale
