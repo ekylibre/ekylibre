@@ -231,12 +231,6 @@ class Entity < Ekylibre::Record::Base
     self.supplier_payment_delay = '30 days' if supplier_payment_delay.blank?
   end
 
-  validate do
-    if siret_number.present?
-      errors.add(:siret_number, :invalid) unless Luhn.valid?(siret_number.strip)
-    end
-  end
-
   before_save do
     self.born_at ||= Time.new(2008, 1, 1) if of_company
   end
