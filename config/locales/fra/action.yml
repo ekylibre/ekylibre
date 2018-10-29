@@ -1290,8 +1290,8 @@ fra:
     downpayment: "Acompte"
     draft: "Brouillard"
     draft_entries_to_validate: "Des écritures sont à valider."
-    draft_fixed_asset_on_current_financial_year: "Vous avez des immobilisation brouillons en cours. Une fois l'exercice clôs, il ne sera plus possible de les mettre en service sur cet exercice (%{code})."
-    draft_loan_on_current_financial_year: "Vous avez des emprunts brouillons en cours. Une fois l'exercice clôs, il ne sera plus possible de les mettre en service sur cet exercice (%{code})."
+    draft_fixed_asset_on_current_financial_year: "Vous avez des immobilisations brouillon en cours. Une fois l'exercice clos, il ne sera plus possible de les mettre en service sur cet exercice (%{code})."
+    draft_loan_on_current_financial_year: "Vous avez des emprunts brouillons en cours. Une fois l'exercice clos, il ne sera plus possible de les mettre en service sur cet exercice (%{code})."
     drug: "Médicament" #?
     duplicate: "Dupliquer"
     duration: "Durée"
@@ -1782,15 +1782,15 @@ fra:
     not_contains: "Ne contient pas" #?
     not_delivered: "Non délivré"
     not_finishes: "Ne termine pas par" #?
-    not_invoiced_or_aborted_purchases: "Vous avez des achats non facturés ou non abandonnés en cours. Une fois l'exercice clôs, il ne sera plus possible de les facturer ou de les envoyer sur cet exercice (%{code})."
-    not_invoiced_or_aborted_sales: "Vous avez des ventes non facturés ou non abandonnés en cours. Une fois l'exercice clôs, il ne sera plus possible de les facturer ou de les envoyer sur cet exercice (%{code})."
+    not_invoiced_or_aborted_purchases: "Vous avez des achats non facturés ou non abandonnés en cours. Une fois l'exercice clos, il ne sera plus possible de les facturer ou de les envoyer sur cet exercice (%{code})."
+    not_invoiced_or_aborted_sales: "Vous avez des ventes non facturés ou non abandonnés en cours. Une fois l'exercice clos, il ne sera plus possible de les facturer ou de les envoyer sur cet exercice (%{code})."
     not_is: "N’est pas" #?
     not_letterable: "Impossible de lettrer"
     not_ready: "Pas prêt(e)"
     not_received: "Non reçu"
-    not_sent_incoming_parcels_on_current_financial_year: "Vous avez des colis entrants non envoyées en cours. Une fois l'exercice clôs, il ne sera plus possible de les envoyer sur cet exercice (%{code})."
-    not_sent_outgoing_parcels_on_current_financial_year: "Vous avez des colis sortants non envoyées en cours. Une fois l'exercice clôs, il ne sera plus possible de les envoyer sur cet exercice (%{code})."
-    not_sent_tax_declaration_on_current_financial_year: "Vous avec des déclarations de TVA non envoyées (brouillons ou validées) en cours, il ne sera plus possible de les envoyer sur cet exercice (%{code})."
+    not_sent_incoming_parcels_on_current_financial_year: "Vous avez des colis entrants non envoyées en cours. Une fois l'exercice clos, il ne sera plus possible de les envoyer sur cet exercice (%{code})."
+    not_sent_outgoing_parcels_on_current_financial_year: "Vous avez des colis sortants non envoyées en cours. Une fois l'exercice clos, il ne sera plus possible de les envoyer sur cet exercice (%{code})."
+    not_sent_tax_declaration_on_current_financial_year: "Vous avez des déclarations de TVA non envoyées (brouillons ou validées) en cours, il ne sera plus possible de les envoyer sur cet exercice (%{code})."
     now: "Maintenant"
     number: "Numéro"
     number_of_cap_islets: "Nombre d’ilôt PAC"
