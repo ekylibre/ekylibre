@@ -68,7 +68,7 @@ class FinancialYearCloseTest < ActiveSupport::TestCase
     @beginning = (Date.today - 1.month).beginning_of_month
     @end = (Date.today - 1.month).end_of_month
     @year = FinancialYear.create!(started_on: @beginning, stopped_on: @end)
-    @next_year = FinancialYear.ensure_exists_at! @end + 1.day
+    @next_year = FinancialYear.create!(started_on: Date.today.beginning_of_month, stopped_on: Date.today.end_of_month)
     @profits = Account.create!(name: 'FinancialYear result profit', number: '120', usages: :financial_year_result_profit)
     @losses = Account.create!(name: 'FinancialYear result loss', number: '129', usages: :financial_year_result_loss)
     @open  = Account.create!(number: '89', name: 'Opening account')
