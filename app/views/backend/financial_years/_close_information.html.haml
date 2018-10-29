@@ -1,4 +1,4 @@
 %p
-  %i{class: "#{icon_symbol}-validation"}
-  = message
-  = link unless link.empty?
+  %i{class: "#{params[:icon_symbol]}-validation"}
+  = params[:message]
+  = params[:link] unless params[:link]
