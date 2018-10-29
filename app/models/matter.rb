@@ -88,6 +88,8 @@
 class Matter < Product
   refers_to :variety, scope: :matter
   validates :initial_population, presence: true
+
+  scope :of_category, ->(category) { where(category: category) if category.present? }
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   # ]VALIDATORS]
 end

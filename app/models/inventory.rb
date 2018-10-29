@@ -50,6 +50,7 @@ class Inventory < Ekylibre::Record::Base
   has_many :items, class_name: 'InventoryItem', dependent: :destroy, inverse_of: :inventory
   belongs_to :journal_entry, dependent: :destroy
   belongs_to :financial_year
+  belongs_to :product_nature_category
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :accounted_at, :achieved_at, :reflected_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
   validates :name, :number, presence: true, length: { maximum: 500 }
@@ -145,7 +146,7 @@ class Inventory < Ekylibre::Record::Base
 
   def build_missing_items
     self.achieved_at ||= Time.zone.now
-    Matter.at(achieved_at).mine_or_undefined(achieved_at).find_each do |product|
+    Matter.at(achieved_at).mine_or_undefined(achieved_at).of_category(product_nature_category).includes(:populations).find_each do |product|
       next if items.detect { |i| i.product_id == product.id }
       population = product.population(at: self.achieved_at)
       # shape = product.shape(at: self.achieved_at)
