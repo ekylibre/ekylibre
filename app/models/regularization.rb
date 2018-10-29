@@ -42,8 +42,8 @@ class Regularization < Ekylibre::Record::Base
   validates :affair, :journal_entry, presence: true
   # ]VALIDATORS]
   validates :journal_entry, uniqueness: true
-  validates :currency, match: { with: :affair, if: :affair, message: :currency_does_not_match }
-  validates :currency, match: { with: :journal_entry, if: :affair, message: :currency_does_not_match }
+  validates :currency, match: { with: :affair, message: :currency_does_not_match }
+  validates :currency, match: { with: :journal_entry, message: :currency_does_not_match }
 
   delegate :number, to: :journal_entry
 

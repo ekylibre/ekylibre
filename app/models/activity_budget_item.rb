@@ -63,7 +63,7 @@ class ActivityBudgetItem < Ekylibre::Record::Base
   # ]VALIDATORS]
   validates :variant, presence: true
   validates :unit_amount, presence: { message: :invalid }
-  validates :currency, match: { with: :activity_budget, if: :activity_budget }
+  validates :currency, match: { with: :activity_budget }
 
   delegate :size_indicator, :size_unit, to: :activity
   delegate :currency, to: :activity_budget, prefix: true

@@ -4,6 +4,7 @@ class MatchValidator < ActiveModel::EachValidator
     @attribute = attribute
     @value = value
 
+    return if empty_comparisons?
     record.errors.add(attribute_to_invalidate, :invalid) unless equals?(reference, comparison)
   end
 
@@ -16,17 +17,31 @@ class MatchValidator < ActiveModel::EachValidator
   private
 
   def attribute_to_invalidate
-    opions[:to_invalidate] || @attribute
+    options[:to_invalidate] || @attribute
   end
 
   def reference
-    return @value unless middleman = options[:middleman]
-    @record.send(middleman).send(@attribute)
+    return @value unless options[:middleman]
+    middleman.send(@attribute)
+  end
+
+  def middleman
+    middleman = options[:middleman]
+    return unless middleman
+    @record.send(middleman)
+  end
+
+  def with
+    @record.send(options[:with])
   end
 
   def comparison
-    @record.send(options[:with])
-           .send(@attribute)
+    with.send(@attribute)
+  end
+
+  def empty_comparisons?
+    return with.blank? unless options[:middleman]
+    with.blank? && middleman.blank?
   end
 
   def equals?(val, oth)
@@ -34,5 +49,4 @@ class MatchValidator < ActiveModel::EachValidator
     oth = oth.to_s if oth.is_a? Symbol
     val == oth
   end
-
 end

@@ -91,7 +91,7 @@ class Loan < Ekylibre::Record::Base
   validates :loan_account, :interest_account, presence: true
   validates :insurance_account, presence: { if: -> { updateable? && insurance_percentage.present? && insurance_percentage.nonzero? } }
   validates :amount, numericality: { greater_than: 0 }
-  validates :currency, match: { with: :cash, if: :cash }
+  validates :currency, match: { with: :cash }
 
   state_machine :state, initial: :draft do
     state :draft

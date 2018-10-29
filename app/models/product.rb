@@ -296,7 +296,7 @@ class Product < Ekylibre::Record::Base
   # ]VALIDATORS]
   validates :derivative_of, :variety, length: { allow_nil: true, maximum: 120 }
   validates :nature, :variant, :name, :uuid, presence: true
-  validates :nature_id, match: { with: :variant, if: -> (p) { p.variant && p.nature } }
+  validates :nature, match: { with: :variant }
   validates_attachment_content_type :picture, content_type: /image/
 
   validate :born_at_in_interventions, if: ->(product) { product.born_at? && product.interventions_used_in.pluck(:started_at).any? }

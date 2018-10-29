@@ -48,7 +48,7 @@ class PayslipNature < Ekylibre::Record::Base
   validates :currency, :journal, presence: true
   validates :name, presence: true, uniqueness: true, length: { maximum: 500 }
   # ]VALIDATORS]
-  validates :currency, match: { with: :journal, if: :journal }
+  validates :currency, match: { with: :journal }
 
   selects_among_all
 

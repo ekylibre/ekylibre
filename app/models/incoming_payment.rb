@@ -84,8 +84,8 @@ class IncomingPayment < Ekylibre::Record::Base
   validates :payer, presence: true
   validates :commission_account, presence: { if: :with_commission? }
 
-  validates :currency, match: { with: :mode, if: :mode }
-  validates :mode_id, match: { with: :deposit, to_invalidate: :deposit_id, if: -> (ip) { ip.mode && ip.deposit } }
+  validates :currency, match: { with: :mode }
+  validates :mode, match: { with: :deposit, to_invalidate: :deposit_id }, allow_blank: true
 
   acts_as_numbered
   acts_as_affairable :payer, dealt_at: :to_bank_at, class_name: 'SaleAffair'

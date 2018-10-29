@@ -72,7 +72,7 @@ class PurchaseItem < Ekylibre::Record::Base
   validates :preexisting_asset, inclusion: { in: [true, false] }, allow_blank: true
   # ]VALIDATORS]
   validates :currency, length: { allow_nil: true, maximum: 3 }
-  validates :currency, match: { with: :purchase, if: :purchase }
+  validates :currency, match: { with: :purchase }
   validates :account, :tax, :reduction_percentage, presence: true
   validates :quantity, exclusion: { in: [0], message: :invalid }
 
