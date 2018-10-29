@@ -2,78 +2,21 @@
   = field_set :prerequisites_checks_before_closure.tl do
     .close-conditions
       -# ------ Warnings ------
-      - if FixedAsset.drafts.any?
-        = render partial: 'close_information', locals: {icon_symbol: 'warning', message: :draft_fixed_asset_on_current_financial_year.tl(code: @financial_year.code), link: link_to(:see_fixed_assets.tl, backend_fixed_assets_path)}
-
-      - if Loan.drafts.any?
-        = render partial: 'close_information', locals: {icon_symbol: 'warning', message: :draft_loan_on_current_financial_year.tl(code: @financial_year.code), link: link_to(:see_loans.tl, backend_loans_path)}
-
-      - if @financial_year.not_sent_tax_declarations.any?
-        = render partial: 'close_information', locals: {icon_symbol: 'warning', message: :not_sent_tax_declaration_on_current_financial_year.tl(code: @financial_year.code), link: link_to(:see_tax_declarations.tl, backend_tax_declarations_path)}
-
-      - if @financial_year.not_given_incoming_parcel.any?
-        - period_param = @financial_year.started_on.to_s + '_' + @financial_year.stopped_on.to_s
-        = render partial: 'close_information', locals: {icon_symbol: 'warning', message: :not_sent_incoming_parcels_on_current_financial_year.tl(code: @financial_year.code), link: link_to(:see_incoming_parcels.tl, backend_parcels_path(period: period_param, nature: :incoming))}
-
-      - if @financial_year.not_invoiced_or_aborted_purchase.any?
-        - period_param = @financial_year.started_on.to_s + '_' + @financial_year.stopped_on.to_s
-        = render partial: 'close_information', locals: {icon_symbol: 'warning', message: :not_invoiced_or_aborted_purchases.tl(code: @financial_year.code), link: link_to(:see_purchases.tl, backend_purchases_path(period: period_param, state: [:draft, :estimate, :refused, :order]))}
-
-      - if @financial_year.not_given_outgoing_parcel.any?
-        - period_param = @financial_year.started_on.to_s + '_' + @financial_year.stopped_on.to_s
-        = render partial: 'close_information', locals: {icon_symbol: 'warning', message: :not_sent_outgoing_parcels_on_current_financial_year.tl(code: @financial_year.code), link: link_to(:see_outgoing_parcels.tl, backend_parcels_path(period: period_param, nature: :outgoing))}
-
-      - if @financial_year.not_invoiced_or_aborted_sale.any?
-        - period_param = @financial_year.started_on.to_s + '_' + @financial_year.stopped_on.to_s
-        = render partial: 'close_information', locals: {icon_symbol: 'warning', message: :not_invoiced_or_aborted_sales.tl(code: @financial_year.code), link: link_to(:see_sales.tl, backend_sales_path(period: period_param, state: [:draft, :estimate, :refused, :order]))}
+      = warnings(@financial_year,
+                  fixed_assets: FixedAsset.drafts,
+                  loans: Loan.drafts,
+                  tax_declarations: :not_sent_tax_declarations,
+                  incoming_parcels: :not_given_incoming_parcel,
+                  purchases: :not_invoiced_or_aborted_purchase,
+                  outgoing_parcels: :not_given_outgoing_parcel,
+                  sales: :not_invoiced_or_aborted_sale)
 
       -# ------ Checks ------
-      - if @financial_year.all_previous_financial_years_closed_or_locked?
-        - params = {}
-        - params[:icon_symbol] = 'correct'
-        - params[:message] = :all_financial_years_closed_or_locked.tl
-      - else
-        - params = {}
-        - params[:icon_symbol] = 'wrong'
-        - params[:message] = :all_financial_years_not_closed_or_locked.tl
-        - params[:link] = link_to(:see_the_financial_years.tl, backend_financial_years_path)
-      = render partial: 'close_information', locals: { params: params }
-
-      - if @financial_year.no_draft_entry?
-        - params = {}
-        - params[:icon_symbol] = 'correct'
-        - params[:message] = :no_draft_entry.tl
-      - else
-        - params = {}
-        - params[:icon_symbol] = 'wrong'
-        - params[:message] = :draft_entries_to_validate.tl
-        - params[:link] = link_to(:see_the_day_book.tl, backend_draft_journal_path(current_financial_year: @financial_year.id))
-      = render partial: 'close_information', locals: { params: params }
-
-      - if @financial_year.no_entry_to_balance?
-        - params = {}
-        - params[:icon_symbol] = 'correct'
-        - params[:message] = :all_entries_balanced.tl
-      - else
-        - params = {}
-        - params[:icon_symbol] = 'wrong'
-        - params[:message] = :entries_to_balance.tl
-        - params[:link] = link_to(:see_the_unbalanced_entries.tl, backend_invalid_journal_entries_path)
-      = render partial: 'close_information', locals: { params: params }
-
-      - if @financial_year.unbalanced_radical_account_classes_array.empty?
-        - params = {}
-        - params[:icon_symbol] = 'correct'
-        - params[:message] = :radical_class_accounts_dont_have_entries.tl
-      - else
-        - params = {}
-        - params[:icon_symbol] = 'wrong'
-        - params[:message] = :radical_class_accounts_have_entries.tl
-        - links = []
-        - @financial_year.unbalanced_radical_account_classes_array.each do |rad_account|
-          - links << link_to(rad_account[:number], backend_account_path(id: rad_account[:id], period: rad_account[:period]))
-        - params[:link] = (:see_the_accounts.tl + ' ' + links.to_sentence).html_safe
-      = render partial: 'close_information', locals: { params: params }
+      = checks(@financial_year,
+               closed_previous_years: @financial_year.all_previous_financial_years_closed_or_locked?,
+               drafts_empty: @financial_year.no_draft_entry?,
+               entries_balanced: @financial_year.no_entry_to_balance?,
+               no_entries_on_radicals: @financial_year.unbalanced_radical_account_classes_array.empty?)
 
   = field_set :close_settings.tl do
     = field FinancialYear.model_name.human, @financial_year.code
