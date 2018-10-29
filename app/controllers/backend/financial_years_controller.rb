@@ -127,10 +127,6 @@ module Backend
         return redirect_to(action: :index)
       end
 
-      @financial_year.closure_obstructions.each do |obstruction|
-        notify_error obstruction.tn
-      end
-
       journal = Journal.where(currency: @financial_year.currency, nature: :result).first
       params[:result_journal_id] = (journal ? journal.id : 0)
       journal = Journal.where(currency: @financial_year.currency, nature: :forward).first
