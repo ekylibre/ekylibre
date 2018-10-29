@@ -15,7 +15,7 @@ fra:
     backend/accounts:
       edit: "Modifier le compte\_: %{label}"
       index: "Plan de comptes"
-      load: "Charger un plan de compte"
+      load: "Charger un plan de comptes"
       mark: "Lettrage du compte\_: %{label}"
       new: "Nouveau compte"
       reconciliation: "Lettrage de comptes"
