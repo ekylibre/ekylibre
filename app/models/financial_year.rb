@@ -132,6 +132,10 @@ class FinancialYear < Ekylibre::Record::Base
     end
   end
 
+  before_validation(on: :create) do
+    errors.add(:started_on, :can_only_have_two_years_opened) if FinancialYear.opened.count >= 2
+  end
+
   before_validation do
     self.currency ||= Preference[:currency]
     if ref = Nomen::Currency.find(self.currency)
