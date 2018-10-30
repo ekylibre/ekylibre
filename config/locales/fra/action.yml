@@ -15,7 +15,7 @@ fra:
     backend/accounts:
       edit: "Modifier le compte\_: %{label}"
       index: "Plan de comptes"
-      load: "Charger un plan de comptes"
+      load: "Changer de plan de comptes"
       mark: "Lettrage du compte\_: %{label}"
       new: "Nouveau compte"
       reconciliation: "Lettrage de comptes"
@@ -846,6 +846,7 @@ fra:
     accounts: "Comptes comptables"
     accounts_only_used_at: "Comptes utilisés seulement sur"
     accounts_to_load: "Plan de comptes à charger"
+    accounts_to_change: "Plan de comptes à changer"
     action_duration: "Durée de l'action"
     activate_entry_autocompletion: "Autocompléter l’écriture"
     active: "Actif"
@@ -895,6 +896,7 @@ fra:
     add_labelling: "Ajouter l’étiquette"
     add_line: "Ajouter une ligne"
     add_linestring: "Ajouter une ligne"
+    change: "Changer" #?
     add_mail: "Ajouter une adresse postale"
     add_mobile: "Ajouter un n° de portable"
     add_new_record: "Ajouter un nouvel enregistrement"
@@ -979,6 +981,7 @@ fra:
     are_you_sure_you_want_to_delete: "Êtes-vous sûr(e) de vouloir supprimer cet enregistrement\_?"
     are_you_sure_you_want_to_invoice: "Êtes-vous sûr(e) de vouloir facturer\_?"
     are_you_sure_you_want_to_send_mails: "Êtes-vous sûr(e) de vouloir envoyer les mails\_?"
+    are_you_sure_you_want_to_change_accounting_system: "Êtes-vous sûr(e) de vouloir changer de plan de comptes\_?"
     area: "Zone"
     area_measure: "Superficie" #?
     assessable_operations: "Opérations imposables (H.T)" #?

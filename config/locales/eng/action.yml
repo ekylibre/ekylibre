@@ -1006,6 +1006,7 @@ eng:
     accounts: "Accounts"
     accounts_only_used_at: "Accounts only used at"
     accounts_to_load: "Accounts to load"
+    accounts_to_change: "Accounts to change"
     action_duration: "Action duration"
     activate_entry_autocompletion: "Activate entry autocompletion"
     active: "Active" #?
@@ -1113,6 +1114,7 @@ eng:
       close_issue: "Are you sure you want to close this issue?"
       reopen_issue: "Are you sure you want to reopen this issue?"
     are_you_sure_you_want_to_change_account_digits: "Are you sure you want to change the number of characters on account numbers?"
+    are_you_sure_you_want_to_change_accounting_system: "Are you sure you want to change your accounting system ?"
     are_you_sure_you_want_to_confirm: "Are you sure you want to order"
     are_you_sure_you_want_to_delete: "Are you sure you want to delete this record?"
     are_you_sure_you_want_to_invoice: "Are you sure you want to invoice?"
@@ -1178,6 +1180,7 @@ eng:
     # cell: "Cell"
     centralize: "Centralize account"
     centralized_account: "Centralized account %{name}"
+    change: "Change" #?
     change_password: "Change password"
     change_state: "Change state"
     change_status_of_selected_interventions: "Change the status of selected interventions"
@@ -1403,7 +1406,7 @@ eng:
     export: "Export documents" #?
     export_as_csv: "Export as CSV"
     export_as_ods: "Export as ODS"
-    export_as_odt: "Export as ODT"
+    export_as_odt: "Export as ODT" #?!
     export_as_pdf: "Export as PDF"
     export_as_xcsv: "Export as Excel CSV"
     export_fec_all: "Export FEC corporate tax"
@@ -1619,7 +1622,7 @@ eng:
     mode: "Mode" #?
     model: "Model" #?
     modes: "Modes" #?
-    month: "Month" #?
+    month: "Month"
     month_period: "%{code} - %{month} %{year}"
     monthly: "Monthly" #?
     months: "Months"
@@ -1884,7 +1887,7 @@ eng:
     select_file_to_upload: "Select file to upload"
     select_forward_journal: "Selected Journal to renew" #??
     selection: "Selection" #?
-    semester: "Semester" #?
+    semester: "Semester"
     send_mail: "Send mail"
     send_test_mail: "Send test mail"
     sensor_model: "Sensor model"
@@ -2025,7 +2028,7 @@ eng:
     transactions_by_month: "Transactions by month" #?
     transfer: "Transfer" #?
     transport: "Transport" #?
-    trimester: "Trimester" #?
+    trimester: "Trimester"
     type_of_structure: "Type of structure"
     unbalanced: "Unbalanced"
     unbalanced_clients: "Unbalanced clients" #?
@@ -2252,7 +2255,7 @@ eng:
     x_years:
       one: "%{count} year"
       other: "%{count} years"
-    year: "Year" #?
+    year: "Year"
     yield: "Yield" #?
     yield_by_calibration: "Yield by calibration" #?
     # yield_by_calibration_x: "Yield by calibration x"
@@ -2472,7 +2475,7 @@ eng:
       # ekylibre: "Ekylibre"
       evaluate: "Evaluate"
       export: "Export"
-      export_fec: "FEC export"
+      export_fec: "FEC export" #?
       export_to_sepa: "Export to SEPA"
       extract: "Extract"
       # failure: "Failure"
