@@ -307,6 +307,7 @@ fra:
               end_of_month: "%{attribute} doit être une date de fin de mois"
           can_only_update_code: "Vous ne pouvez que modifier uniquement le code d'un exercice comptable fermé ou clotûré"
           overlap: "%{attribute} se trouve sur un exercice existant"
+          can_only_have_two_years_opened: "Vous ne pouvez avoir que 2 exercices ouverts en même temps"
         financial_year_exchange:
           csv_file_entry_dates_invalid: "Certaines entrées du CSV ne sont pas comprises dans l'intervalle de l'exercice comptable"
           csv_file_entry_invalid: "Certaines entrées du CSV sont invalides ('%{entry_number}')"
