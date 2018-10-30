@@ -1009,6 +1009,7 @@ eng:
     accounts: "Accounts"
     accounts_only_used_at: "Accounts only used at"
     accounts_to_load: "Accounts to load"
+    accounts_to_change: "Accounts to change"
     action_duration: "Action duration"
     activate_entry_autocompletion: "Activate entry autocompletion"
     active: "Active" #?
@@ -1116,6 +1117,7 @@ eng:
       close_issue: "Are you sure you want to close this issue?"
       reopen_issue: "Are you sure you want to reopen this issue?"
     are_you_sure_you_want_to_change_account_digits: "Are you sure you want to change the number of characters on account numbers?"
+    are_you_sure_you_want_to_change_accounting_system: "Are you sure you want to change your accounting system ?"
     are_you_sure_you_want_to_confirm: "Are you sure you want to order"
     are_you_sure_you_want_to_delete: "Are you sure you want to delete this record?"
     are_you_sure_you_want_to_invoice: "Are you sure you want to invoice?"
@@ -1181,6 +1183,7 @@ eng:
     # cell: "Cell"
     centralize: "Centralize account"
     centralized_account: "Centralized account %{name}"
+    change: "Change" #?
     change_password: "Change password"
     change_state: "Change state"
     change_status_of_selected_interventions: "Change the status of selected interventions"
