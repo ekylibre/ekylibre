@@ -82,8 +82,13 @@ module Backend
         format.pdf do
           template_path = find_open_document_template(:trial_balance)
           raise 'Cannot find template' if template_path.nil?
-          send_file to_odt(@balance, @prev_balance, document_nature, key, template_path, params[:period]),
-                    type: 'application/pdf', disposition: 'attachment', filename: key << '.pdf'
+          balance_printer = BalancePrinter.new(balance: @balance,
+                                               prev_balance: @prev_balance,
+                                               document_nature: document_nature,
+                                               key: key,
+                                               template_path: template_path,
+                                               period: params[:period])
+          send_file balance_printer.run, type: 'application/pdf', disposition: 'attachment', filename: key << '.pdf'
         end
       end
     end
