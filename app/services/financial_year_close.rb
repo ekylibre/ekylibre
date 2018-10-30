@@ -174,10 +174,10 @@ class FinancialYearClose
 
   def loss_or_profit_item(result)
     if result > 0
-      profit = Account.find_by(usage: :financial_year_result_profit)
+      profit = Account.find_by_usage(:financial_year_result_profit)
       return { account_id: profit.id, name: profit.name, real_debit: 0.0, real_credit: result, state: :confirmed }
     end
-    losses = Account.find_by(usage: :financial_year_result_loss)
+    losses = Account.find_by_usage(:financial_year_result_loss)
     { account_id: losses.id, name: losses.name, real_debit: result.abs, real_credit: 0.0, state: :confirmed }
   end
 
