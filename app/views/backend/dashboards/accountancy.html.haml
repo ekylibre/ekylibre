@@ -5,8 +5,6 @@
 
 = beehive do |b|
   - b.hbox do
-    - b.cell :cashes_balance, if: Cash.any?
     - b.cell :accountancy_balance
   - b.hbox do
-    - b.cell :cashes_balance_evolution
     - b.cell :profit_and_loss
