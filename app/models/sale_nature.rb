@@ -64,8 +64,8 @@ class SaleNature < Ekylibre::Record::Base
   validates :journal, presence: { if: :with_accounting? }
 
   validates :currency, presence: true
-  validates :currency, match: { with: :journal }
-  validates :currency, match: { with: :payment_mode }
+  validates :currency, match: { with: :journal, message: :currency_does_not_match }
+  validates :currency, match: { with: :payment_mode, message: :currency_does_not_match }
 
   validates :name, uniqueness: true
   validates_delay_format_of :payment_delay, :expiration_delay
