@@ -157,6 +157,10 @@ por:
         refused: "Recusado"
         waiting: "Esperando"
     financial_year:
+      state:
+        # closed: "Closed"
+        # locked: "Locked"
+        # opened: "Opened"
       tax_declaration_frequency:
         monthly: "Por mês"
         none: "Nenhum"

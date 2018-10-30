@@ -286,6 +286,10 @@ fra:
           currency_does_not_match: "La monnaie du journal %{journal} est différente de celle de la trésorerie"
           different_of_main_account: "%{attribute} doit être différent du compte comptable principal (%{account})"
           unvalid_bban: "La clé ne correspond pas. Un ou plusieurs éléments du RIB sont incorrects."
+        cash_transfer:
+          attributes:
+            transfered_at:
+              not_opened_financial_year: "Un exercice comptable ouvert est nécessaire"
         deposit:
           must_be_a_bank_account: "%{attribute} doit être un compte bancaire et non une caisse"
         entity:
@@ -301,6 +305,7 @@ fra:
               on_or_after: "La date de début doit être postérieure à la date de création de la société (%{restriction})"
             stopped_on:
               end_of_month: "%{attribute} doit être une date de fin de mois"
+          can_only_update_code: "Vous ne pouvez que modifier uniquement le code d'un exercice comptable fermé ou clotûré"
           overlap: "%{attribute} se trouve sur un exercice existant"
         financial_year_exchange:
           csv_file_entry_dates_invalid: "Certaines entrées du CSV ne sont pas comprises dans l'intervalle de l'exercice comptable"
@@ -308,6 +313,10 @@ fra:
           csv_file_headers_invalid: "Les en-têtes du fichier CSV sont invalides"
           csv_file_invalid: "Fichier CSV invalide"
           csv_file_journals_invalid: "Certains journaux sont présents dans le CSV mais n'existent pas dans Ekylibre : %{codes}"
+        fixed_asset:
+          attributes:
+            started_on:
+              not_opened_financial_year: "Un exercice comptable ouvert est nécessaire"
         fixed_asset_depreciation:
           attributes:
             started_on:
@@ -330,6 +339,7 @@ fra:
         journal_entry:
           closed_journal: "Le journal est clôturé au %{closed_on} donc vous ne pouvez plus créer, modifier ou supprimer de pièces jusqu’à cette date-là."
           frozen_by_financial_year_exchange: "L'écriture ne peut être enregistrée lors d'un échange d'exercice comptable."
+          not_opened_financial_year: "Un exercice comptable ouvert est nécessaire"
           out_of_existing_financial_year: "L’écriture doit être enregistrée dans un exercice comptable existant."
           unbalanced: "La pièce n’est pas équilibrée"
         journal_entry_item:
@@ -338,9 +348,15 @@ fra:
           unvalid_amounts: "L’écriture doit être renseignée soit au débit, soit au crédit mais pas les deux en même temps."
         outgoing_parcel_item:
           greater_than_undelivered_quantity: "La quantité de produit %{product} à livrer dépasse la quantité non livrée (%{maximum}%{unit})"
+        parcel:
+          not_opened_financial_year: "Un exercice comptable ouvert est nécessaire"
+        purchase:
+          not_opened_financial_year: "Un exercice comptable ouvert est nécessaire"
         purchase_item:
           building_can_not_receive_product: "Le réservoir %{building} ne peut pas recevoir le produit %{product}, il contient déjà le produit %{contained_product}."
           serial_already_used_with_an_other_product: "%{attribute} a déjà été utilisé pour un autre type de produit du même fournisseur"
+        sale:
+          not_opened_financial_year: "Un exercice comptable ouvert est nécessaire"
         sale_item:
           building_can_not_transfer_product: "Le produit %{product} ne peut être sorti du réservoir %{building}, celui-ci contient %{contained_product}."
           can_not_use_this_tracking: "Vous ne  pouvez pas utiliser le lot %{tracking}, la quantité commandée est supérieure à la quantité disponible"

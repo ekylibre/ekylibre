@@ -160,6 +160,7 @@ class Purchase < Ekylibre::Record::Base
   validate do
     if invoiced_at
       errors.add(:invoiced_at, :before, restriction: Time.zone.now.l) if invoiced_at > Time.zone.now
+      errors.add(:invoiced_at, :not_opened_financial_year) unless opened_financial_year?
     end
   end
 
@@ -278,6 +279,10 @@ class Purchase < Ekylibre::Record::Base
 
   def has_content?
     items.any?
+  end
+
+  def opened_financial_year?
+    FinancialYear.on(invoiced_at)&.opened?
   end
 
   def purchased?

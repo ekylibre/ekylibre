@@ -251,6 +251,7 @@ spa:
       edit: "Modificar un nuevo ejercicio"
       # generate_last_journal_entry: "Generate last journal entry of %{code}"
       index: "Exercicios contables"
+      # lock: "Lock financial year %{code}"
       new: "Crear un nuevo ejercicio"
       show: "Exercicio contable %{code}"
     backend/fixed_assets:
@@ -748,6 +749,7 @@ spa:
     access: "Acceso"
     access_parameters: "Parámetros de acceso"
     account_accruals: "Cuentos de regularisación" #?
+    # account_certification_by_competent_person: "I certify that my accounts have been revised by a competent person."
     account_claims_assets: "Creditos" #?
     account_create: "Registrar un nuevo cuento" #?
     account_current_assets: "Activo circulando" #?
@@ -793,6 +795,7 @@ spa:
     activity_productions: "Producciones de actividad"
     add: "Añadir"
     add_a_worker: "Añadir un trabajador"
+    # add_an_account: "Add an account"
     add_animal: "Añadir animales"
     add_animal_group: "Añadir grupo de animales"
     add_annotation: "Añadir anotación"
@@ -1004,6 +1007,7 @@ spa:
     close: "Cerrar"
     close_financial_year: "Fin del ejercicio contable"
     close_journal: "Cierre la revista"
+    # close_the_financial_year: "Close the financial year"
     closed: "Cerrados"
     cobbles: "Enguijarrado"
     code: "Codigo" #?
@@ -1073,6 +1077,7 @@ spa:
     cultivable_zone: "Zona cultivable"
     cultivable_zones: "Zonas cultivables"
     cumul: "Cumul del total y del saldo precedente N°%{number}"
+    # currency: "Currency"
     currency_conversion_rate: "Tasa de conversión de moneda"
     current: "Corriente"
     current_assets: "Activos circulantes"
@@ -1110,6 +1115,9 @@ spa:
     delete_x_entries:
       # one: "Delete %{count} entry"
       # other: "Delete %{count} entries"
+    delete_x_financial_years_without_entry:
+      # one: "Delete the financial year without entry %{financial_year_code}"
+      # other: "Delete the %{count} financial years without entry from %{first_financial_year_code} to %{last_financial_year_code}"
     deliver: "Entregado en"
     deliveries: "Entregas"
     delivery: "Entrega"
@@ -1163,6 +1171,7 @@ spa:
     dont_use_journal: "-- No utilizar el periodico --"
     down: "Abajo"
     down_to_level: "Detallar hasta el nivel" #?
+    # download: "Download"
     download_firefox: "Carga Mozilla Firefox..." #?
     downpayment: "Pago inicial"
     draft: "Niebla"
@@ -1241,6 +1250,7 @@ spa:
     file_preview: "Avance"
     file_to_import: "Fichero a importar" #?
     file_to_upload: "Un archivo para subir"
+    # file_trimming: "File trimming :"
     filter: "Filtrar"
     filter_entries_with: "Flitrar las escrituras con" #?
     # filter_on: "Filter on"
@@ -1248,7 +1258,12 @@ spa:
     financial_assets: "Activos financieros"
     financial_expenses: "Gastos financieros"
     financial_products: "Productos financieros"
+    # financial_year: "Financial year"
+    # financial_year_close_message: "<p> The close will definitively validate all entries of the financial year, which may not be modified or deleted. It will not be possible to add new ones too. </p>"
     financial_year_create: "Abrir un nuevo ejercicio contable" #?
+    # financial_year_lock_message: "<p> The lock will definitively validate all entries of the financial year, which may not be modified or deleted. It will not be possible to add new ones too. <br/> You will need to get in contact the person who did the close out of the software to get back your year-end documents. </p>"
+    # financial_year_needed: "All commercial and financial operations need to be accounted on an opened financial year. Please open a financial year for the current period or ask a manager"
+    # financial_year_warning: "<p> If the financial year is not closed or locked before the %{last_financial_year_end_date}, you will not be able to open a financial year on %{new_financial_year_start_date}. Indeed, it is not possible to have more than 2 financial years opened simultaneously. Furthermore, it is necessary to have an opened financial year on the ongoing date to input commercial and financial operations. <br/> If you don't manage your accountacy with Ekylibre, you have the possibility to lock your financial year. <br/> Attention : locked financial years can't be modified like a closed financial year."
     financials_assets: "Activos Finanzas" #?
     finish: "Acabado"
     finished: "Terminado"
@@ -1354,6 +1369,7 @@ spa:
     invoiced: "Facturado"
     invoiced_amount: "Ventas importe facturado" #?
     invoices: "Facturas"
+    # irreversible_operation: "This operation is irreversible"
     is: "Es"
     issue: "Problema"
     issues: "Problemas"
@@ -1393,6 +1409,8 @@ spa:
     land_parcels: "Parcelas"
     last_analyses: "Análisis Última leche"
     last_computed_balance: "Último balance computarizada"
+    # last_confirmation_before_definitive_close: "Last confirmation before definitive close"
+    # last_confirmation_before_definitive_lock: "Last confirmation before definitive lock"
     last_documents: "últimos documentos"
     last_entities: "Últimos entidades"
     last_events: "Últimos eventos"
@@ -1436,6 +1454,9 @@ spa:
     locale: "Idioma"
     localization: "Localisación geografica"
     lock: "Bloquear"
+    # lock_financial_year: "Lock %{code}"
+    # lock_settings: "Lock settings"
+    # lock_the_financial_year: "Lock the financial year"
     losses: "Pérdidas"
     mail: "Enviar un correo electrónico"
     mailing: "Envío"
@@ -1445,6 +1466,7 @@ spa:
     main_settings: "Ajustes principales"
     make_your_production_support: "Haga su apoyo a la producción"
     manage_activities: "Gestionar las actividades"
+    # manage_financial_years: "Manage financial years"
     management: "Administración comercial" #?
     mandatory_provisions: "Las disposiciones obligatorias"
     # manual: "Manual"
@@ -1540,6 +1562,7 @@ spa:
     no_crumbs_to_check: "No hay migajas para comprobar"
     no_data: "Sin datos"
     no_deposits: "Sin depósitos"
+    # no_financial_year_opened: "No financial year opened on current date"
     no_intervention_participations_to_check: "No hay participaciones de intervención para comprobar"
     no_javascript: "Su navegante no soporta el javascript. se debe activarlo para utilizar el software. Gracias para su comprension." #?
     no_notifications: "No Notificaciones"
@@ -1568,6 +1591,7 @@ spa:
     open_a_campaign: "Abrir una campaña" #?
     open_a_production: "Abrir una producción"
     open_an_activity: "Abra una actividad"
+    # open_financial_year: "Open %{code}"
     operating_margin: "Margen operativo"
     operating_margin_on_turnover: "El margen operativo sobre el volumen de negocios"
     # operating_profit: "Operating profit %{financial_year}"
@@ -1878,6 +1902,7 @@ spa:
     support: "Apoyo"
     supports: "Soportes"
     supports_chart: "Soporta gráfica" #?
+    # switch_accounting_plan: "Switch accounting plan"
     synthesis: "Documentos de sintesis"
     target: "Objetivo"
     tasks: "Tareas"
@@ -1966,6 +1991,7 @@ spa:
     transformations: "Transformaciones" #?
     transport: "Transporte"
     trimester: "Trimestre"
+    # type_of_structure: "Type of structure"
     # unbalanced: "Unbalanced"
     unbalanced_clients: "Clientes desequilibradas"
     unbalanced_suppliers: "Proveedores desequilibradas"
@@ -2199,10 +2225,14 @@ spa:
       one: "1 año"
       # other: "%{count} years"
     year: "Año"
+    # year_end: "Year end"
+    # year_start: "Year start"
     yearly: "Anual" #?
     years_count_in_historic: "Nombre de años en el historico" #?
     yield: "rendimiento"
     yield_by_calibration: "Yield de calibración"
+    # you_can_close_financial_year: "You can close or lock your financial year %{financial_year_to_close}"
+    # you_can_close_financial_year_to_open_a_new_one: "You can close or lock your financial year %{financial_year_to_close} to open %{financial_year_to_open}"
     zones: "Zonas"
   notifications:
     levels:
@@ -2288,6 +2318,7 @@ spa:
       journal_record_has_been_saved: "La pieza N°%{number} ha sido registrada correctamente" #?
       journal_reopened_at: "%{journal} ha sido re-abierto %{closed_at} correctamente." #?
       # journal_reopened_on: "The journal “%{journal}” has been re-opened on %{closed_on}."
+      # locked_exercice_info: "This financial year is locked. Please get in contact with the person who closed this financial year in order to retrieve your documents and exports of year end"
       mails_are_sent: "Los correos electronicos han sido enviados"
       merge_is_done: "Combinar que se hace"
       need_a_valid_payment_mode: "¿Necesita un modo de pago válido"
@@ -2448,6 +2479,7 @@ spa:
       edit_many: "Editar muchos"
       evaluate: "Evaluar"
       export: "Exportar"
+      # export_fec: "FEC export"
       export_to_sepa: "Exportar a la SEPA"
       extract: "Extraer"
       family: "Familia"

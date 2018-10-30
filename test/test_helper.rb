@@ -202,6 +202,13 @@ module ActionController
   class TestCase
     include Devise::Test::ControllerHelpers
 
+    setup do
+      Ekylibre::Tenant.filter_list!
+      Ekylibre::Tenant.switch_each do
+        Preference.set!("first_run.executed", true)
+      end
+    end
+
     def fixture_files
       #     Rails.root.join('test', 'fixture-files')
       Pathname.new('../fixture-files')
@@ -727,9 +734,8 @@ class CapybaraIntegrationTest < ActionDispatch::IntegrationTest
   end
 end
 
-def without_output
-  # main.stub :puts, Proc.new, &block
-  yield
+def without_output(&block)
+  main.stub :puts, Proc.new, &block
 end
 
 def main

@@ -23,11 +23,10 @@ module Backend
     unroll
 
     list(order: { started_on: :desc }) do |t|
-      t.action :edit, unless: :closed?
-      t.action :close, if: :closable?
-      t.action :destroy, unless: :closed?
+      t.action :edit
+      t.action :destroy
       t.column :code, url: true
-      t.column :closed, label_method: :closed
+      t.column :state
       t.column :started_on, url: true
       t.column :stopped_on, url: true
       t.column :currency
@@ -68,7 +67,9 @@ module Backend
           if @financial_year.closed? && @financial_year.account_balances.empty?
             @financial_year.compute_balances!
           end
+          notify_now(:locked_exercice_info) if @financial_year.locked?
           t3e @financial_year.attributes
+
         end
         format.xml do
           FecExportJob.perform_later(@financial_year, params[:fiscal_position], params[:interval], current_user)
@@ -82,6 +83,7 @@ module Backend
             render_print_income_statement(@financial_year)
           end
         end
+        format.json
       end
     end
 
@@ -121,6 +123,7 @@ module Backend
         end
         FinancialYearCloseJob.perform_later(@financial_year, current_user, closed_on.to_s, **params.symbolize_keys.slice(:result_journal_id, :forward_journal_id, :closure_journal_id))
         notify_success(:closure_process_started)
+
         return redirect_to(action: :index)
       end
 
@@ -135,6 +138,39 @@ module Backend
       journal = Journal.where(currency: @financial_year.currency, nature: :closure).first
       params[:closure_journal_id] = (journal ? journal.id : 0)
       t3e @financial_year.attributes
+    end
+
+    def index
+      @opened_financial_years_count = FinancialYear.opened.count
+      @fy_to_close = FinancialYear.closable_or_lockable if FinancialYear.closable_or_lockable
+      f = FinancialYear.order(stopped_on: :desc).first
+      @fy_to_open = FinancialYear.new
+      @fy_to_open.started_on = f.present? ? f.stopped_on + 1 : Time.now.to_date
+      @fy_to_open.stopped_on = ((@fy_to_open.started_on - 1) >> 12).end_of_month
+      @fy_to_open.code = @fy_to_open.default_code
+
+      if FinancialYear.closables_or_lockables.count > 1
+        @title = :you_can_close_financial_year_to_open_a_new_one
+      elsif FinancialYear.current && FinancialYear.current.stopped_on < (Date.today + 6.months) && FinancialYear.next_year.nil? && FinancialYear.previous_year&.opened?
+        @title = :you_can_close_financial_year
+      else
+        @title = ''
+      end
+    end
+
+    def lock
+      return unless @financial_year = find_and_check
+      if request.post?
+        @financial_year.update(state: 'locked')
+        return redirect_to(action: :index)
+      end
+      t3e @financial_year.attributes
+    end
+
+    def destroy_all_empty
+      ids_array =  params[:year_ids]
+      FinancialYear.where(id: ids_array).delete_all
+      return redirect_to(action: :index)
     end
   end
 end

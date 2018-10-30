@@ -152,6 +152,10 @@ deu:
           # currency_does_not_match: "The currency of the %{journal} is different from that specified for the cash"
           # different_of_main_account: "%{attribute} must be different of main account (%{account})"
           unvalid_bban: "Ungültige BBAN. Ein oder mehrere Elemente sind nicht korrekt."
+        cash_transfer:
+          attributes:
+            transfered_at:
+              # not_opened_financial_year: "An opened financial year is necessary"
         deposit:
           # must_be_a_bank_account: "%{attribute} must be a bank account and not a cash"
         entity:
@@ -167,6 +171,7 @@ deu:
               # on_or_after: "The date selected must be posterior to society's creation date (%{restriction})"
             stopped_on:
               # end_of_month: "%{attribute} must be an end of month"
+          # can_only_update_code: "You can only update the code of a closed or locked financial year"
           # overlap: "%{attribute} overlaps an existing financial year"
         financial_year_exchange:
           csv_file_entry_dates_invalid: "Einige Einträge in der CSV sind aus dem Geschäftsjahr Austausch Datumsbereich"
@@ -174,6 +179,10 @@ deu:
           csv_file_headers_invalid: "CSV-Header sind ungültig"
           csv_file_invalid: "CSV-Datei ist ungültig"
           # csv_file_journals_invalid: "Some journals are present in the CSV but not in Ekylibre : %{codes}"
+        fixed_asset:
+          attributes:
+            started_on:
+              # not_opened_financial_year: "An opened financial year is necessary"
         fixed_asset_depreciation:
           attributes:
             started_on:
@@ -195,6 +204,7 @@ deu:
         journal_entry:
           # closed_journal: "The journal %{journal} is closed on %{closed_on}. No updates are possible until this date."
           frozen_by_financial_year_exchange: "Der Journaleintrag kann nicht in einer Periode erfasst werden, entsprechend einem Geschäftsjahr Austausch."
+          # not_opened_financial_year: "An opened financial year is necessary"
           out_of_existing_financial_year: "Der Journaleintrag muss in einem Zeitraum aufgezeichnet werden entsprechend einer bestehenden Geschäftsjahr."
           unbalanced: "Der Journaleintrag ist unausgewogen"
         journal_entry_item:
@@ -203,9 +213,15 @@ deu:
           unvalid_amounts: "Der Journaleintrag muss entweder Debit- oder Kredit aber nicht gleichzeitig gefüllt werden."
         outgoing_parcel_item:
           # greater_than_undelivered_quantity: "The quantity of %{product} to deliver is greater than the available quantity (%{maximum}%{unit})"
+        parcel:
+          # not_opened_financial_year: "An opened financial year is necessary"
+        purchase:
+          # not_opened_financial_year: "An opened financial year is necessary"
         purchase_item:
           # building_can_not_receive_product: "The building %{building} can not receive %{product}, it already contains %{contained_product}."
           # serial_already_used_with_an_other_product: "%{attribute} has been already used for an other product of the same supplier"
+        sale:
+          # not_opened_financial_year: "An opened financial year is necessary"
         sale_item:
           # building_can_not_transfer_product: "%{product} can not be found in %{building}, it only contains %{contained_product}."
           # can_not_use_this_tracking: "You can not user the S/N %{tracking}, the quantity is greater than the available quantity"

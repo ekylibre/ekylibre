@@ -153,6 +153,10 @@ fra:
         refused: "Refusé"
         waiting: "En attente de réponse"
     financial_year:
+      state:
+        closed: "Clôturé"
+        locked: "Verrouillé"
+        opened: "Ouvert"
       tax_declaration_frequency:
         monthly: "Mensuelle"
         none: "Aucune"

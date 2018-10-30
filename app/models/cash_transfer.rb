@@ -85,6 +85,9 @@ class CashTransfer < Ekylibre::Record::Base
 
   validate do
     errors.add(:reception_cash_id, :invalid) if reception_cash_id == emission_cash_id
+    if transfered_at
+      errors.add(:transfered_at, :not_opened_financial_year) unless opened_financial_year?
+    end
   end
 
   bookkeep do |b|
@@ -98,5 +101,9 @@ class CashTransfer < Ekylibre::Record::Base
       entry.add_debit(label, reception_cash.account_id, reception_amount, as: :receiver)
       entry.add_credit(label, transfer_account.id, reception_amount, as: :transfer)
     end
+  end
+
+  def opened_financial_year?
+    FinancialYear.on(transfered_at)&.opened?
   end
 end

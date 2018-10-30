@@ -34,6 +34,7 @@
 #  last_journal_entry_id     :integer
 #  lock_version              :integer          default(0), not null
 #  started_on                :date             not null
+#  state                     :string
 #  stopped_on                :date             not null
 #  tax_declaration_frequency :string
 #  tax_declaration_mode      :string           not null
@@ -49,11 +50,12 @@ class FinancialYear < Ekylibre::Record::Base
   enumerize :tax_declaration_frequency, in: %i[monthly quaterly yearly none],
                                         default: :monthly, predicates: { prefix: true }
   enumerize :tax_declaration_mode, in: %i[debit payment none], default: :none, predicates: { prefix: true }
+  enumerize :state, in: %i[opened closed locked], default: :opened, predicates: true
   belongs_to :last_journal_entry, class_name: 'JournalEntry'
   belongs_to :accountant, class_name: 'Entity'
   has_many :account_balances, dependent: :delete_all
   has_many :exchanges, class_name: 'FinancialYearExchange', dependent: :destroy
-  has_many :fixed_asset_depreciations, dependent: :restrict_with_exception
+  has_many :fixed_asset_depreciations, dependent: :destroy
   has_many :inventories, dependent: :restrict_with_exception
   has_many :journal_entries, dependent: :restrict_with_exception
   has_many :tax_declarations, dependent: :restrict_with_exception
@@ -71,27 +73,24 @@ class FinancialYear < Ekylibre::Record::Base
 
   # This order must be the natural order
   # It permit to find the first and the last financial year
-  scope :closed, -> { where(closed: true).reorder(:started_on) }
-  scope :opened, -> { where(closed: false).reorder(:started_on) }
-  scope :closables, -> { where(closed: false).where('stopped_on < ?', Time.zone.now).reorder(:started_on).limit(1) }
+  scope :closed, -> { where(state: 'closed').reorder(:started_on) }
+  scope :opened, -> { where(state: 'opened').reorder(:started_on) }
+  scope :closables_or_lockables, -> { where(state: 'opened').where('started_on <= ?', Time.zone.now).where.not('? BETWEEN started_on AND stopped_on', Time.zone.now).reorder(:started_on) }
   scope :with_tax_declaration, -> { where.not(tax_declaration_mode: :none) }
   scope :with_missing_tax_declaration, -> { where('id NOT IN (SELECT f.id FROM financial_years AS f JOIN tax_declarations AS d ON (f.stopped_on BETWEEN d.started_on AND d.stopped_on))') }
 
   protect on: :destroy do
-    fixed_asset_depreciations.any? || tax_declarations.any? || journal_entries.any? ||
-      inventories.any?
+    tax_declarations.any? || journal_entries.any? || inventories.any? || !opened?
+  end
+
+  protect on: :update do
+    state_was.to_s != "opened"
   end
 
   class << self
     def on(searched_on)
       year = where('? BETWEEN started_on AND stopped_on', searched_on).order(started_on: :desc).first
       return year if year
-      born_on = Entity.of_company.born_on
-      return nil if searched_on < born_on
-      year = FinancialYear.where('stopped_on < ?', searched_on).order(stopped_on: :desc).first
-      year ||= FinancialYear.create_with(stopped_on: (born_on >> 11).end_of_month).find_or_create_by!(started_on: born_on)
-      year = year.find_or_create_next! while year.stopped_on < searched_on
-      year
     end
 
     # Find or create if possible the requested financial year for the searched date
@@ -108,8 +107,16 @@ class FinancialYear < Ekylibre::Record::Base
       on(Time.zone.today)
     end
 
-    def closable
-      closables.first
+    def closable_or_lockable
+      closables_or_lockables.first
+    end
+
+    def consecutive_destroyables(from = Date.new(1,1,1), upto = FinancialYear.current&.started_on)
+      upto ||= FinancialYear.where('started_on < ?', Date.today).order(started_on: :desc).first.started_on
+      years = FinancialYear.where("started_on BETWEEN ? AND ?", from, upto)
+                           .order(:started_on)
+      years.to_a.select!.with_index { |year, index| years[0..index].all?(&:destroyable?) }
+      FinancialYear.where(id: years.map(&:id))
     end
 
     # Returns the date of the last closure if any
@@ -118,6 +125,14 @@ class FinancialYear < Ekylibre::Record::Base
         return year.stopped_on
       end
       nil
+    end
+
+    def previous_year
+      FinancialYear.on(FinancialYear.current.started_on - 1.day)
+    end
+
+    def next_year
+      FinancialYear.on(FinancialYear.current.stopped_on + 1.day)
     end
   end
 
@@ -151,6 +166,7 @@ class FinancialYear < Ekylibre::Record::Base
     unless company.nil?
       errors.add(:started_on, :on_or_after, restriction: company.born_on) if company.born_on > started_on
     end
+    errors.add(:state, :can_only_update_code) if (state_was.in? ['locked', 'closed']) && (changed.exclude?(code) || changed.many?)
   end
 
   def journal_entries(conditions = nil)
@@ -218,7 +234,7 @@ class FinancialYear < Ekylibre::Record::Base
     list = []
     list << :financial_year_already_closed if closed
     list << :draft_journal_entries_are_present if journal_entries.where(state: :draft).any?
-    list << :previous_financial_year_is_not_closed if previous && !previous.closed
+    list << :previous_financial_year_is_not_closed if previous_record && !previous_record.closed? && !previous_record.locked?
     list << :unbalanced_journal_entries_are_present_in_year unless journal_entries.where('debit != credit').empty?
     list << :financial_year_is_not_past if stopped_on >= noticed_on
     list
@@ -259,6 +275,14 @@ class FinancialYear < Ekylibre::Record::Base
   # this method returns the next financial_year by default.
   def next
     self.class.find_by(started_on: stopped_on + 1)
+  end
+
+  # this method returns the previous financial year record sorted by started_on
+  def previous_record
+    all_fy = FinancialYear.order(:started_on)
+    self_index = all_fy.index(self)
+    return nil if self_index.zero?
+    previous_record = all_fy[self_index - 1]
   end
 
   # Find or create the next financial year based on the date of the current

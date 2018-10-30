@@ -165,6 +165,7 @@ class FixedAsset < Ekylibre::Record::Base
       errors.add(:journal, :invalid) if currency != journal.currency
     end
     if started_on
+      errors.add(:started_on, :not_opened_financial_year) unless opened_financial_year?
       if self.stopped_on
         unless self.stopped_on >= started_on
           errors.add(:stopped_on, :posterior, to: started_on.l)
@@ -234,6 +235,10 @@ class FixedAsset < Ekylibre::Record::Base
     unless depreciations.any?(&:journal_entry)
       update(purchase_amount: purchase_amount + amount, depreciable_amount: depreciable_amount + amount)
     end
+  end
+
+  def opened_financial_year?
+    FinancialYear.on(started_on)&.opened?
   end
 
   # This callback permits to add journal entry corresponding to the fixed asset when entering in use

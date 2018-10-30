@@ -1,6 +1,6 @@
 = field_set do
   = f.input :name
-  = f.referenced_association :financial_year
+  = f.referenced_association :financial_year, source: :opened, new: false
   = f.referenced_association :responsible #, source: :employees
   = f.input :achieved_at
   - %w(product_id product_nature_variant_id product_nature_id product_nature_category_id).each do |x|

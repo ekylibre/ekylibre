@@ -153,6 +153,10 @@ eng:
         refused: "Refused"
         waiting: "Waiting"
     financial_year:
+      state:
+        closed: "Closed"
+        locked: "Locked"
+        opened: "Opened"
       tax_declaration_frequency:
         monthly: "Monthly"
         none: "None"

@@ -157,6 +157,9 @@ class Parcel < Ekylibre::Record::Base
         errors.add :transporter_id, :invalid
       end
     end
+    if given_at
+      errors.add(:given_at, :not_opened_financial_year) unless opened_financial_year?
+    end
   end
 
   after_initialize do
@@ -329,6 +332,10 @@ class Parcel < Ekylibre::Record::Base
 
   def third
     (incoming? ? sender : recipient)
+  end
+
+  def opened_financial_year?
+    FinancialYear.on(given_at)&.opened?
   end
 
   def order

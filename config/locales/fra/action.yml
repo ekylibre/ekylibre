@@ -251,6 +251,7 @@ fra:
       edit: "Modifier un nouvel exercice"
       generate_last_journal_entry: "Générer l’écriture de fin de l’exercice %{code}"
       index: "Exercices comptables"
+      lock: "Verrouiller l'exercice %{code}"
       new: "Nouvel exercice"
       show: "Exercice comptable %{code}"
     backend/fixed_assets:
@@ -821,6 +822,7 @@ fra:
     access_parameters: "Paramètres de connexion"
     account_accruals: "Comptes de régularisation" #?
     account_attorney_to_create: "— Créer automatiquement un compte mandataire —" #?
+    account_certification_by_competent_person: "Je certifie que mes comptes ont été révisés en dehors du logiciel par la personne compétente."
     account_claims_assets: "Créances" #?
     account_client_to_create: "— Créer automatiquement un compte client —" #?
     account_current_assets: "Actif circulant" #?
@@ -1087,8 +1089,9 @@ fra:
     client_receivables: "Créances client"
     clients: "Clients"
     close: "Fermer"
-    close_financial_year: "Clôturer l’exercice"
+    close_financial_year: "Clôturer %{code}"
     close_journal: "Clôturer le journal"
+    close_the_financial_year: "Clôturer l’exercice"
     closed: "Verrouillées"
     clostridial_spores_concentration: "Concentration en spores butyriques" #?
     clusters_work_number: "Numéro d’ilot(s)" #?
@@ -1185,7 +1188,7 @@ fra:
     cultivable_zone_abbreviation: "ZC" #?
     cultivable_zones: "Zones cultivables"
     cumul: "Cumul du total et du solde précédent N°%{number}"
-    currency: "Devise" #?
+    currency: "Devise"
     currency_conversion_rate: "Taux de conversion de la nouvelle monnaie"
     currency_with_code: "%{code} - %{name}" #?
     current: "En cours"
@@ -1230,6 +1233,9 @@ fra:
     delete_x_entries:
       one: "Supprimer l'écriture"
       other: "Supprimer les %{count} écritures"
+    delete_x_financial_years_without_entry:
+      one: "Supprimer l'exercice sans écriture %{financial_year_code}"
+      other: "Supprimer les %{count} exercices sans écriture de %{first_financial_year_code} à %{last_financial_year_code}"
     deliver: "Valider l’envoi des livraisons"
     deliveries: "Livraisons"
     delivery: "Livraison"
@@ -1382,6 +1388,10 @@ fra:
     financial_products: "Produits financiers"
     financial_state: "État financier" #?
     financial_year: "Exercice comptable"
+    financial_year_close_message: "<p> La clôture validera définitivement toutes les écritures de l’exercice, qui ne pourront plus être modifiées ou supprimées. Il ne sera plus possible d’en ajouter de nouvelles aussi. </p>"
+    financial_year_lock_message: "<p>Le verrouillage validera définitivement toutes les écritures de l’exercice, qui ne pourront plus être modifiées ou supprimées. Il ne sera plus possible d’en ajouter de nouvelles aussi. <br/> Il faudra vous rapprocher de la personne qui a effectué la clôture en dehors du logiciel pour récupérer vos documents de fin d’exercice. </p>"
+    financial_year_needed: "<p> Toutes les opérations commerciales et financières doivent être comptabilisées sur un exercice ouvert. <br/> Veuillez ouvrir un exercice pour la période en cours ou demander à votre responsable. </p>"
+    financial_year_warning: "<p> Si l’exercice n’est pas clôturé ou verrouillé avant le %{last_financial_year_end_date}, vous ne pourrez pas ouvrir d’exercice au %{new_financial_year_start_date}. En effet, il n’est pas possible d’avoir plus de 2 exercices ouverts simultanément. De plus, il est nécessaire d’avoir un exercice ouvert à la date en cours pour saisir des opérations commerciales et financières. <br/> Si vous ne gérez pas votre comptabilité avec Ekylibre, vous avez aussi la possibilité de verrouiller votre exercice. <br/> Attention : les exercices verrouillés ne peuvent plus être modifiés comme un exercice clôturé."
     finish: "Terminer"
     finished: "Terminé"
     finished_income_statement: "Produits" #?
@@ -1512,6 +1522,7 @@ fra:
     invoiced_amount: "Montant facturé" #?
     invoices: "Factures"
     invoices_only: "Utiliser seulement les factures" #?
+    irreversible_operation: "Cette opération est irréversible"
     is: "Est"
     issue: "Incident"
     issues: "Incidents"
@@ -1553,6 +1564,8 @@ fra:
     last_animals: "Dernières naissances" #?
     last_clients: "Derniers clients" #?
     last_computed_balance: "Dernière balance calculée"
+    last_confirmation_before_definitive_close: "Dernière confirmation avant clôture définitive"
+    last_confirmation_before_definitive_lock: " Dernière confirmation avant verrouillage définitif "
     last_documents: "Derniers archivages"
     last_entities: "Derniers tiers"
     last_events: "Derniers évènements"
@@ -1600,6 +1613,9 @@ fra:
     locale: "Langue"
     localization: "Localisation géographique"
     lock: "Verrouiller"
+    lock_financial_year: "Verrouiller %{code}"
+    lock_settings: "Paramètres de verrouillage"
+    lock_the_financial_year: "Verrouiller l’exercice"
     logout: "Déconnexion" #?
     losses: "Charges d’exploitations"
     mail: "Envoyer un courriel"
@@ -1612,6 +1628,7 @@ fra:
     mammalia_lactation_state: "Phase du bioprocessus de lactation d’un mammifère" #?
     mammalia_reproduction_state: "Phase du bioprocessus de reproduction d’un mammifère" #?
     manage_activities: "Gérer les activités"
+    manage_financial_years: "Gérer les exercices comptables"
     management: "Gestion commerciale" #?
     management_index: "Index de la gestion commerciale" #?
     mandates_fields: "Vous devez saisir au moins une valeur dans l’un des champs" #?
@@ -1736,6 +1753,7 @@ fra:
     no_deliveries_for_this_sale: "Cette vente n’est associée à aucune livraison" #?
     no_deposits: "Aucune remise en banque à valider"
     no_filters: "— Pas de filtre —" #?
+    no_financial_year_opened: "Aucun exercice ouvert à la date actuelle"
     no_intervention_participations_to_check: "Pas de participations d’intervention à vérifier"
     no_javascript: "Votre navigateur ne supporte pas le javascript. Vous devez l’activer pour pouvoir utiliser le logiciel. Merci de votre compréhension." #?
     no_notifications: "Aucune notification"
@@ -1774,6 +1792,7 @@ fra:
     open_a_campaign: "Ouvrir une campagne de production" #?
     open_a_production: "Créer une production"
     open_an_activity: "Créer une activité"
+    open_financial_year: "Ouvrir %{code}"
     operating_margin: "EBE (Excédent Brut d’Exploitation) %{financial_year}"
     operating_margin_on_turnover: "EBE / CA (Excédent Brut d’Exploitation / Chiffre d’affaire HT) %{financial_year}"
     operating_profit: "Résultat d’exploitation %{financial_year}"
@@ -2556,6 +2575,8 @@ fra:
       other: "%{count} ans"
     y: "Oui" #?
     year: "Année"
+    year_end: "Fin d'exercice"
+    year_start: "Début d'exercice"
     yearly: "Annuelle" #?
     years: "Années" #?
     years_count_in_historic: "Nombre d’années dans l’historique" #?
@@ -2563,6 +2584,8 @@ fra:
     yield_by_calibration: "Rendement net par calibre"
     yield_by_calibration_x: "Rendement net par calibre - %{x}" #?
     yield_by_calibrations: "Rendement par calibre" #?
+    you_can_close_financial_year: "Vous pouvez clôturer ou verrouiller votre exercice %{financial_year_to_close}"
+    you_can_close_financial_year_to_open_a_new_one: "Vous pouvez clôturer ou verrouiller votre exercice %{financial_year_to_close} pour ouvrir %{financial_year_to_open}"
     zones: "Zones"
   notifications:
     levels:
@@ -2644,6 +2667,7 @@ fra:
       journal_entry_has_been_saved_with_a_new_number: "L’écriture a été enregistrée correctement avec un nouveau numéro\_: %{number}"
       journal_entry_items_marked_with_letter: "Les lignes d’écritures ont été lettrées avec la lettre %{letter}"
       journal_reopened_on: "Le %{journal} a été déclôturé au %{closed_on} correctement."
+      locked_exercice_info: "Cet exercice est verrouillé. Veuillez vous rapprocher de la personne qui a clôturé cet exercice pour récupérer vos documents et exports de fin d’exercice."
       mails_are_sent: "Les courriels ont été envoyés"
       merge_is_done: "La fusion est terminée"
       need_a_valid_payment_mode: "Besoin d’un mode de paiement valide"
@@ -2692,7 +2716,7 @@ fra:
       no_unvalidated_operations: "Aucun travail à réaliser" #?
       password_successfully_changed: "Votre mot de passe a été mis à jour avec succès" #?
       previouos_financial_year_is_not_closed: "L’exercice précédent n’a pas été clôturé."
-      previous_financial_year_is_not_closed: "L'exercice précédent n'a pas encore été clôturé." #?
+      previous_financial_year_is_not_closed_nor_locked: "L'exercice précédent n'a pas encore été clôturé ou verrouillé." #?
       prices_import_succeeded: "Vos données ont été correctement importées" #?
       print_failure: "Impossible d’imprimer. Essayer de recharger les modèles de documents pour corriger le problème. %{error} (%{class})." #?
       purchase_already_invoiced: "Achat déjà facturé" #?

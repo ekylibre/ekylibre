@@ -164,8 +164,8 @@ class FixedAssetTest < ActiveSupport::TestCase
     fixed_asset.update(state: 'in_use')
     # create(:fixed_asset_depreciation, fixed_asset: fixed_asset)
     assert_equal 1, FixedAsset.count
-    count = FixedAsset.depreciate(until: Date.civil(2020, 8, 15))
-    assert_equal 4, count, 'Count of depreciations is invalid' + fixed_asset.depreciations.pluck(:started_on, :amount).to_yaml.yellow
+    count = FixedAsset.depreciate(until: Date.civil(2018, 12, 31))
+    assert_equal 2, count, 'Count of depreciations is invalid' + fixed_asset.depreciations.pluck(:started_on, :amount).to_yaml.yellow
   end
 
   test 'Fixed asset with regressive depreciation' do

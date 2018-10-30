@@ -155,6 +155,10 @@ cmn:
         refused: "拒绝"
         waiting: "等候"
     financial_year:
+      state:
+        # closed: "Closed"
+        # locked: "Locked"
+        # opened: "Opened"
       tax_declaration_frequency:
         monthly: "每月一次"
         none: "没有"

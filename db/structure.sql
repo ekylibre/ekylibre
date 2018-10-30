@@ -3,7 +3,7 @@
 --
 
 -- Dumped from database version 9.6.10
--- Dumped by pg_dump version 9.6.6
+-- Dumped by pg_dump version 9.6.3
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -2953,7 +2953,8 @@ CREATE TABLE financial_years (
     custom_fields jsonb,
     tax_declaration_frequency character varying,
     tax_declaration_mode character varying NOT NULL,
-    accountant_id integer
+    accountant_id integer,
+    state character varying
 );
 
 
@@ -17953,6 +17954,8 @@ INSERT INTO schema_migrations (version) VALUES ('20180711133214');
 INSERT INTO schema_migrations (version) VALUES ('20180712091619');
 
 INSERT INTO schema_migrations (version) VALUES ('20180730150532');
+
+INSERT INTO schema_migrations (version) VALUES ('20180830120145');
 
 INSERT INTO schema_migrations (version) VALUES ('20180921092835');
 

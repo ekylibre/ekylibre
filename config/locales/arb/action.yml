@@ -283,6 +283,7 @@ arb:
       edit: "تعديل المهنة الجديدة"
       # generate_last_journal_entry: "Generate last journal entry of %{code}"
       index: "ممارسة المحاسبة"
+      # lock: "Lock financial year %{code}"
       new: "انشاء مهنة جديدة"
       show: "ممارسة المحاسبة %{code}"
     backend/fixed_assets:
@@ -944,6 +945,7 @@ arb:
     access_parameters: "المعلمات وصول"
     account_accruals: "حسابات الاستحقاق" #?
     account_attorney_to_create: "-- انشاء حساب للوكيل بشكل اوتوماتيكي --" #?
+    # account_certification_by_competent_person: "I certify that my accounts have been revised by a competent person."
     account_claims_assets: "الدين" #?
     account_client_to_create: "-- انشاء حساب للعميل بشكل اوتوماتيكي --" #?
     account_create: "تسجيل لحساب جديد" #?
@@ -989,6 +991,7 @@ arb:
     activity_productions: "إنتاجات آخر"
     add: "اضافة"
     add_a_worker: "إضافة عامل"
+    # add_an_account: "Add an account"
     add_animal: "إضافة الحيوانية"
     add_animal_group: "إضافة مجموعة الحيوانات"
     add_annotation: "إضافة تعليق توضيحي"
@@ -1210,6 +1213,7 @@ arb:
     close: "اغلاق الدفتر اليومي"
     close_financial_year: "وثيق السنة المالية"
     close_journal: "إغلاق مجلة"
+    # close_the_financial_year: "Close the financial year"
     closed: "مغلق"
     cobbles: "الحصى"
     code: "الرمز" #?
@@ -1288,6 +1292,7 @@ arb:
     cultivable_zone: "منطقة القابلة للزراعة"
     cultivable_zones: "المناطق الصالحة للزراعة"
     cumul: "رقم الرصيد التراكمي الكلي والسابق%{number}"
+    # currency: "Currency"
     currency_conversion_rate: "سعر تحويل العملة"
     current: "الحالية"
     current_assets: "الاصول المتداولة"
@@ -1331,6 +1336,9 @@ arb:
     delete_x_entries:
       # one: "Delete %{count} entry"
       # other: "Delete %{count} entries"
+    delete_x_financial_years_without_entry:
+      # one: "Delete the financial year without entry %{financial_year_code}"
+      # other: "Delete the %{count} financial years without entry from %{first_financial_year_code} to %{last_financial_year_code}"
     deliver: "التأكد من ارسال التسليم"
     deliveries: "التسليم"
     delivery: "خدمه توصيل"
@@ -1389,6 +1397,7 @@ arb:
     dont_use_journal: "-- عدم استعمال الدفتر اليومي --"
     down: "للاسفل"
     down_to_level: "نزولا الى مستوى" #?
+    # download: "Download"
     download_firefox: "تحميل موزيلا فاير فوكس" #?
     downpayment: "شروط العربون"
     draft: "المسودات"
@@ -1485,6 +1494,7 @@ arb:
     file_to_download: "ملف الاستيراد" #?
     file_to_import: "ملف للاستيراد" #?
     file_to_upload: "ملف لتحميل"
+    # file_trimming: "File trimming :"
     filter: "تصفية"
     filter_entries_with: "تصفية الادخالات مع" #?
     # filter_on: "Filter on"
@@ -1493,7 +1503,12 @@ arb:
     financial_expenses: "نفقات مالية"
     financial_products: "المنتجات المالية"
     financial_state: "الوضع المالي" #?
+    # financial_year: "Financial year"
+    # financial_year_close_message: "<p> The close will definitively validate all entries of the financial year, which may not be modified or deleted. It will not be possible to add new ones too. </p>"
     financial_year_create: "فتح مهنة جديدة للمحاسبة" #?
+    # financial_year_lock_message: "<p> The lock will definitively validate all entries of the financial year, which may not be modified or deleted. It will not be possible to add new ones too. <br/> You will need to get in contact the person who did the close out of the software to get back your year-end documents. </p>"
+    # financial_year_needed: "All commercial and financial operations need to be accounted on an opened financial year. Please open a financial year for the current period or ask a manager"
+    # financial_year_warning: "<p> If the financial year is not closed or locked before the %{last_financial_year_end_date}, you will not be able to open a financial year on %{new_financial_year_start_date}. Indeed, it is not possible to have more than 2 financial years opened simultaneously. Furthermore, it is necessary to have an opened financial year on the ongoing date to input commercial and financial operations. <br/> If you don't manage your accountacy with Ekylibre, you have the possibility to lock your financial year. <br/> Attention : locked financial years can't be modified like a closed financial year."
     financials_assets: "الأصول المالية" #?
     finish: "انهاء"
     finished: "تم الانتهاء من"
@@ -1613,6 +1628,7 @@ arb:
     invoiced: "فواتير"
     invoiced_amount: "قيمة الفاتورة" #?
     invoices: "الفواتير"
+    # irreversible_operation: "This operation is irreversible"
     is: "هل"
     issue: "القضية"
     issues: "مسائل"
@@ -1658,6 +1674,8 @@ arb:
     land_parcels: "قائمة بالنظام"
     last_analyses: "تحليل الحليب الماضي"
     last_computed_balance: "ميزان حسابها الماضي"
+    # last_confirmation_before_definitive_close: "Last confirmation before definitive close"
+    # last_confirmation_before_definitive_lock: "Last confirmation before definitive lock"
     last_documents: "مشاركة المستندات"
     last_entities: "مشاركة الكيانات"
     last_events: "مشاركة الأحداث"
@@ -1706,6 +1724,9 @@ arb:
     locale: "اللغة"
     localization: "الموقع الجغرافي"
     lock: "القفل"
+    # lock_financial_year: "Lock %{code}"
+    # lock_settings: "Lock settings"
+    # lock_the_financial_year: "Lock the financial year"
     losses: "خسائر"
     mail: "ارسال البريد الالكتروني"
     mailing: "المراسلات"
@@ -1716,6 +1737,7 @@ arb:
     main_settings: "الضبط الرئيسي"
     make_your_production_support: "جعل دعم الإنتاج الخاص"
     manage_activities: "إدارة الأنشطة"
+    # manage_financial_years: "Manage financial years"
     management: "ادارة الاعمال" #?
     management_index: "دليل ادارة الاعمال" #?
     mandate_create: "انشاء تفويض" #?
@@ -1851,6 +1873,7 @@ arb:
     no_deliveries: "ليس هناك من تسليم بالانتظار" #?
     no_deliveries_for_this_sale: "لم يتم التسليم لهذا الطلب من البيع" #?
     no_deposits: "التأكد من عدم اقتطاعات البنك"
+    # no_financial_year_opened: "No financial year opened on current date"
     no_intervention_participations_to_check: "لا المساهمات تدخل للتحقق"
     no_javascript: "ان متصفح الويب الخاص بك لا يدعم نسخة الجافا، لذا تحتاج الى تفعيله من اجل استخدام ايكيليبغ." #?
     no_notifications: "أي إخطارات"
@@ -1891,6 +1914,7 @@ arb:
     open_a_campaign: "فتح حملة" #?
     open_a_production: "فتح الإنتاج"
     open_an_activity: "فتح النشاط"
+    # open_financial_year: "Open %{code}"
     operating_margin: "هامش التشغيل"
     operating_margin_on_turnover: "هامش تعمل على دوران"
     # operating_profit: "Operating profit %{financial_year}"
@@ -2266,6 +2290,7 @@ arb:
     support: "الدعم"
     supports: "الدعم"
     supports_chart: "يدعم الرسم البياني" #?
+    # switch_accounting_plan: "Switch accounting plan"
     synthesis: "تجميع الوثائق"
     target: "الهدف"
     tasks: "المهام"
@@ -2360,6 +2385,7 @@ arb:
     transport_create: "اضافة وسيلة نقل جديدة" #?
     transport_deliveries: "تسليم وسائل النقل" #?
     trimester: "الثلث"
+    # type_of_structure: "Type of structure"
     unavailable: #?
       entity: "السجل المطلوب غير متاح" #?
       financial_year: "السنة المالية غير متوفرة %{value}" #?
@@ -2641,10 +2667,14 @@ arb:
       # other: "%{count} years"
     y: "نعم" #?
     year: "عام"
+    # year_end: "Year end"
+    # year_start: "Year start"
     yearly: "Annuelle" #?
     years_count_in_historic: "عدد السنوات عامة" #?
     yield: "يخضع أو يستسلم"
     yield_by_calibration: "العائد من المعايرة"
+    # you_can_close_financial_year: "You can close or lock your financial year %{financial_year_to_close}"
+    # you_can_close_financial_year_to_open_a_new_one: "You can close or lock your financial year %{financial_year_to_close} to open %{financial_year_to_open}"
     zones: "المناطق"
   notifications:
     levels:
@@ -2726,6 +2756,7 @@ arb:
       # journal_entry_items_marked_with_letter: "Journal entry items have been marked with letter %{letter}"
       journal_reopened_at: "%{journal} تم اعادة فتحه في %{closed_at} بشكل صحيح." #?
       # journal_reopened_on: "The journal “%{journal}” has been re-opened on %{closed_on}."
+      # locked_exercice_info: "This financial year is locked. Please get in contact with the person who closed this financial year in order to retrieve your documents and exports of year end"
       mails_are_sent: "تم ارسال رسائل البريد الالكتروني"
       merge_is_done: "ويتم دمج"
       need_a_valid_payment_mode: "تحتاج إلى وضع دفع صالح"
@@ -2933,6 +2964,7 @@ arb:
       edit_many: "تعديل العديد"
       evaluate: "تقييم"
       export: "تصدير"
+      # export_fec: "FEC export"
       export_to_sepa: "تصدير إلى المصلحة"
       extract: "استخراج"
       family: "أسرة"

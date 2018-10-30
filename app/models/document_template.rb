@@ -68,12 +68,6 @@ class DocumentTemplate < Ekylibre::Record::Base
     where(nature: natures, active: true).order(:name)
   }
 
-  scope :find_active_template, ->(name) do
-    where(active: true)
-      .where(name.is_a?(Integer) ? { id: name.to_i } : { by_default: true, nature: name.to_s })
-      .first
-  end
-
   protect(on: :destroy) do
     documents.any?
   end
@@ -238,6 +232,12 @@ class DocumentTemplate < Ekylibre::Record::Base
         return template.print(datasource, key, format, options)
       end
       nil
+    end
+
+    def find_active_template(name)
+      where(active: true)
+        .where(name.is_a?(Integer) ? { id: name.to_i } : { by_default: true, nature: name.to_s })
+        .first
     end
 
     # Returns the root directory for the document templates's sources

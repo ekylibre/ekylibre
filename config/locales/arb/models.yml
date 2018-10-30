@@ -714,6 +714,10 @@ arb:
           # currency_does_not_match: "The currency of the %{journal} is different from that specified for the cash"
           # different_of_main_account: "%{attribute} must be different of main account (%{account})"
           unvalid_bban: ".مكون واحد أو اكثر من موجه قاعدة المعلومات غير صحيح"
+        cash_transfer:
+          attributes:
+            transfered_at:
+              # not_opened_financial_year: "An opened financial year is necessary"
         custom_field_datum: #?
           greater_than: "%{field} اكبر من (%{maximum} كحد اقصى)" #?
           less_than: "%{field} اقل من (%{minimum} كحد ادنى)" #?
@@ -734,6 +738,7 @@ arb:
               # on_or_after: "The date selected must be posterior to society's creation date (%{restriction})"
             stopped_on:
               end_of_month: "%{attribute} يجب ان يكون التاريخ في نهاية الشهر"
+          # can_only_update_code: "You can only update the code of a closed or locked financial year"
           overlap: "%{attribute} متواجد على قائمة السنة المالية الحالية"
         financial_year_exchange:
           csv_file_entry_dates_invalid: "بعض الإدخالات في CSV هي خارج نطاق تاريخ الصرف في العام المالي"
@@ -741,6 +746,10 @@ arb:
           csv_file_headers_invalid: "رؤوس CSV غير صالحة"
           csv_file_invalid: "ملف CSV غير صالح"
           # csv_file_journals_invalid: "Some journals are present in the CSV but not in Ekylibre : %{codes}"
+        fixed_asset:
+          attributes:
+            started_on:
+              # not_opened_financial_year: "An opened financial year is necessary"
         fixed_asset_depreciation:
           attributes:
             started_on:
@@ -764,6 +773,7 @@ arb:
         journal_entry:
           closed_journal: ".مما لا يمكنك انشاءخ او تعديله او الغاءه لغاية هذا التاريخ %{closed_at} تم اغلاق الدفتر اليومي في"
           frozen_by_financial_year_exchange: "لا يمكن تسجيل الدخول للمجلة في الفترة المقابلة لتبادل السنة المالية."
+          # not_opened_financial_year: "An opened financial year is necessary"
           out_of_existing_financial_year: "يجب تسجيل الدخول للمجلة في الفترة المقابلة لعام المالي الحالي."
           out_of_financial_year: "يجب اغتنام السجل خلال السنة المالية" #?
           unbalanced: "ان السجل غير متعادل"
@@ -773,6 +783,8 @@ arb:
           unvalid_amounts: "يجب ان تكون المدخلات معرفة اما بالدين او بالائتمان، وليس الاثنان معا"
         outgoing_parcel_item:
           greater_than_undelivered_quantity: "%{product} كمية الانتاج المسلمة تفوق الكمية الغير مسلمة (%{maximum}%{unit})"
+        parcel:
+          # not_opened_financial_year: "An opened financial year is necessary"
         price: #?
           already_defined: "قد تم تحديد السعر لهذا المنتج وقائمة الاسعار سابقا" #?
           range_overlap: "تداخل فاصل زمني اخر للكمية (  %{min} الى\_ %{max})" #?
@@ -789,9 +801,13 @@ arb:
           building_can_not_transfer_product: "لا يمكنك تحويل المنتج %{product} من موقع التخزين %{building}, لاحتوائه على منتج %{contained_product}" #?
           building_can_not_waste_product: "لا يمكنك تسجيل الخسارة للمنتج %{product} من موقع التخزين %{building}, هذا ويحتوي المنتج %{contained_product}" #?
           buildings_can_not_be_identical: "مواقع التخزين (المغادرة والواصلة) قد لا تكون متطابقة" #?
+        purchase:
+          # not_opened_financial_year: "An opened financial year is necessary"
         purchase_item:
           building_can_not_receive_product: "لا يمكن للخزينة %{building} استقبال النتج %{product}, لاحتوائها منتج سابق %{contained_product}."
           serial_already_used_with_an_other_product: "%{attribute} تم استخدامها لنوع اخر من المنتج من نفس الممون"
+        sale:
+          # not_opened_financial_year: "An opened financial year is necessary"
         sale_item:
           building_can_not_transfer_product: "لا يمكن تحويل المنتج %{product} من خزينة %{building}, لاحتوائه على %{contained_product}."
           can_not_use_this_tracking: "لا يمكنك الاستفادة من الحصة %{tracking}, لان الكمية المطلوبة اكبر من الكمية المتاحة"
