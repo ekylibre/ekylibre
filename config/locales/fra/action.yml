@@ -1815,8 +1815,8 @@ fra:
     open_a_production: "Créer une production"
     open_an_activity: "Créer une activité"
     open_financial_year: "Ouvrir %{code}"
-    operating_margin: "EBE (Excédent Brut d’Exploitation) %{financial_year}"
-    operating_margin_on_turnover: "EBE / CA (Excédent Brut d’Exploitation / Chiffre d’affaire HT) %{financial_year}"
+    operating_margin: "EBE (Excédent Brut d’Exploitation)"
+    operating_margin_on_turnover: "EBE / CA (Excédent Brut d’Exploitation / Chiffre d’affaire HT)"
     operating_profit: "Résultat d’exploitation %{financial_year}"
     operation_items: "Intrants et sortants" #?
     operations: "Travaux"
