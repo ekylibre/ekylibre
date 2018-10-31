@@ -132,6 +132,10 @@ class FinancialYear < Ekylibre::Record::Base
     end
   end
 
+  before_validation(on: :create) do
+    errors.add(:started_on, :can_only_have_two_years_opened) if FinancialYear.opened.count >= 2
+  end
+
   before_validation do
     self.currency ||= Preference[:currency]
     if ref = Nomen::Currency.find(self.currency)
@@ -304,23 +308,9 @@ class FinancialYear < Ekylibre::Record::Base
     Journal.sum_entry_items(expression, options)
   end
 
-  # get the equation to compute from accountancy abacus
-  def get_mandatory_line_calculation(document = :profit_and_loss_statement, line = nil)
-    ac = Account.accounting_system
-    source = Rails.root.join('config', 'accoutancy_mandatory_documents.yml')
-    data = YAML.load_file(source).deep_symbolize_keys.stringify_keys if source.file?
-    if data && ac && document && line
-      data[ac.to_s][document][line] if data[ac.to_s] && data[ac.to_s][document]
-    end
-  end
-
   def sum_entry_items_with_mandatory_line(document = :profit_and_loss_statement, line = nil, options = {})
-    # remove closure entries
-    options[:unwanted_journal_nature] ||= [:closure] if document == :balance_sheet
-    options[:unwanted_journal_nature] ||= %i[result closure]
-
-    equation = get_mandatory_line_calculation(document, line) if line
-    equation ? sum_entry_items(equation, options) : 0
+    # deprecated use AccountancyComputation sum_entry_items_by_line instead
+    AccountancyComputation.new(self).sum_entry_items_by_line(document, line, options)
   end
 
   # Computes the value of list of accounts in a String
