@@ -133,7 +133,7 @@ class FinancialYear < Ekylibre::Record::Base
   end
 
   before_validation(on: :create) do
-    errors.add(:started_on, :can_only_have_two_years_opened) if FinancialYear.opened.count >= 2
+    errors.add(:started_on, :can_only_have_two_years_opened) if FinancialYear.opened.count >= 2 && !already_existing
   end
 
   before_validation do
