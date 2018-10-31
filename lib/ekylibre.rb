@@ -1,5 +1,6 @@
 module Ekylibre
   autoload :Access,            'ekylibre/access'
+  autoload :Bookkeeper,        'ekylibre/bookkeeper'
   autoload :CorporateIdentity, 'ekylibre/corporate_identity'
   autoload :Export,            'ekylibre/export'
   autoload :FirstRun,          'ekylibre/first_run'

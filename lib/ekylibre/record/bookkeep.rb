@@ -132,14 +132,16 @@ module Ekylibre
             options = options_or_klass || options
           else
             klass = options_or_klass
-            implicit_bookkeeper_name = "#{self.class.name}Bookkeeper"
+            implicit_bookkeeper_name = "#{self.name}Bookkeeper"
             if klass.nil? || const_defined?(implicit_bookkeeper_name)
               klass ||= const_get(implicit_bookkeeper_name)
             end
           end
 
           raise ArgumentError, 'Neither bookkeeping class nor block given' unless klass || block
-          raise ArgumentError, "Wrong number of arguments (#{block.arity} for 1)" unless block&.arity == 1
+          if block
+            raise ArgumentError, "Wrong number of arguments (#{block.arity} for 1)" unless block.arity == 1
+          end
           configuration = { on: Ekylibre::Record::Bookkeep.actions, column: :accounted_at, method_name: __method__ }
           configuration.update(options) if options.is_a?(Hash)
           configuration[:column] = configuration[:column].to_s
@@ -155,7 +157,9 @@ module Ekylibre
 
           define_method method_name do |action = :create, draft = nil|
             draft = ::Preference[:bookkeep_in_draft] if draft.nil?
-            send(core_method_name, Ekylibre::Record::Bookkeep::Base.new(self, action, draft))
+            unsuppress do
+              send(core_method_name, Ekylibre::Record::Bookkeep::Base.new(self, action, draft))
+            end
             self.class.where(id: id).update_all(configuration[:column] => Time.zone.now)
           end
 
