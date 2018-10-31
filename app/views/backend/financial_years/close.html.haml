@@ -18,8 +18,20 @@
                entries_balanced: @financial_year.no_entry_to_balance?,
                no_entries_on_radicals: @financial_year.unbalanced_radical_account_classes_array.empty?)
 
-      -# = AccountancyComputation.new(@financial_year).sum_entry_items_by_line(:profit_and_loss_statement, :exercice_result)
-      
+      .result
+        %span.result-icon= 'i'
+        %span.result-text
+          - result = AccountancyComputation.new(@financial_year).sum_entry_items_by_line(:profit_and_loss_statement, :exercice_result)
+          - profit_or_loss = (result >= 0) ? 'Bénéfice' : 'Perte'
+          - currency = Nomen::Currency.find(@financial_year.currency).symbol
+          - account_number = (profit_or_loss == 'Bénéfice') ? '12000000' : '12900000'
+          - color_to_apply = (profit_or_loss == 'Bénéfice') ? 'green' : 'red'
+          %p
+            %span= 'Résultat de l\'exercice : '
+            %span.colored-text{ style: "color: #{color_to_apply};"}= profit_or_loss + ' de ' + result.abs.to_s + ' ' + currency
+            %span= ' à comptabiliser sur le compte ' + account_number
+
+
   = field_set :close_settings.tl do
     = field FinancialYear.model_name.human, @financial_year.code
     = field FinancialYear.human_attribute_name(:stopped_on), @financial_year.stopped_on.l

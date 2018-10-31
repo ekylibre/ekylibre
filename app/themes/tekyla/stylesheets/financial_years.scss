@@ -130,4 +130,26 @@
       color: orange;
     }
   }
+
+  .result {
+    .result-icon {
+      width: 18px;
+      height: 18px;
+      border: 2px solid;
+      border-radius: 50%;
+      font-weight: bold;
+      text-align: center;
+      color: #5C85D5;
+      line-height: 18px;
+      margin-left: 5px;
+      display: inline-block;
+      margin-top: 12px;
+      font-size: 15px;
+    }
+
+    .result-text {
+      display: inline-block;
+      margin-top: 9px;
+    }
+  }
 }
