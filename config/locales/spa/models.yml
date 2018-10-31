@@ -171,6 +171,7 @@ spa:
               # on_or_after: "The date selected must be posterior to society's creation date (%{restriction})"
             stopped_on:
               # end_of_month: "%{attribute} must be an end of month"
+          # can_only_have_two_years_opened: "You can only have two financial years opened"
           # can_only_update_code: "You can only update the code of a closed or locked financial year"
           # overlap: "%{attribute} overlaps an existing financial year"
         financial_year_exchange:
@@ -483,6 +484,7 @@ spa:
     all_addresses: "Todas las direcciones"
     all_taxes_included: "Todos los impuestos incluidos"
     allocation_account: "Cuenta de la asignación"
+    # already_existing: "Already existing"
     amount: "Cantidad"
     analysed_at: "Analizado en"
     analyser: "Analizador"

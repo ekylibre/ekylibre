@@ -738,6 +738,7 @@ arb:
               # on_or_after: "The date selected must be posterior to society's creation date (%{restriction})"
             stopped_on:
               end_of_month: "%{attribute} يجب ان يكون التاريخ في نهاية الشهر"
+          # can_only_have_two_years_opened: "You can only have two financial years opened"
           # can_only_update_code: "You can only update the code of a closed or locked financial year"
           overlap: "%{attribute} متواجد على قائمة السنة المالية الحالية"
         financial_year_exchange:
@@ -1132,6 +1133,7 @@ arb:
     all_addresses: "جميع العناوين"
     all_taxes_included: "وتشمل جميع الضرائب"
     allocation_account: "حساب توزيع"
+    # already_existing: "Already existing"
     amount: "القيمة من دون الضرائب"
     amount_with_taxes: "القيمة مع كامل الضرائب" #?
     analysed_at: "تم تحليل المعلومات في"

@@ -847,8 +847,8 @@ fra:
     accounting_balance: "Balance comptable" #?
     accounts: "Comptes comptables"
     accounts_only_used_at: "Comptes utilisés seulement sur"
-    accounts_to_load: "Plan de comptes à charger"
     accounts_to_change: "Plan de comptes à changer"
+    accounts_to_load: "Plan de comptes à charger"
     action_duration: "Durée de l'action"
     activate_entry_autocompletion: "Autocompléter l’écriture"
     active: "Actif"
@@ -898,7 +898,6 @@ fra:
     add_labelling: "Ajouter l’étiquette"
     add_line: "Ajouter une ligne"
     add_linestring: "Ajouter une ligne"
-    change: "Changer" #?
     add_mail: "Ajouter une adresse postale"
     add_mobile: "Ajouter un n° de portable"
     add_new_record: "Ajouter un nouvel enregistrement"
@@ -982,11 +981,11 @@ fra:
       close_issue: "Êtes-vous sûr(e) de vouloir clore cet incident\_?"
       reopen_issue: "Êtes-vous sûr(e) de vouloir ré-ouvrir cet incident\_?"
     are_you_sure_you_want_to_change_account_digits: "Êtes vous sûr(e) de vouloir changer le nombre de caractères sur les numéros de comptes\_?"
+    are_you_sure_you_want_to_change_accounting_system: "Êtes-vous sûr(e) de vouloir changer de plan de comptes\_?"
     are_you_sure_you_want_to_confirm: "Êtes-vous sûr(e) de vouloir passer en commande\_?"
     are_you_sure_you_want_to_delete: "Êtes-vous sûr(e) de vouloir supprimer cet enregistrement\_?"
     are_you_sure_you_want_to_invoice: "Êtes-vous sûr(e) de vouloir facturer\_?"
     are_you_sure_you_want_to_send_mails: "Êtes-vous sûr(e) de vouloir envoyer les mails\_?"
-    are_you_sure_you_want_to_change_accounting_system: "Êtes-vous sûr(e) de vouloir changer de plan de comptes\_?"
     area: "Zone"
     area_measure: "Superficie" #?
     assessable_operations: "Opérations imposables (H.T)" #?
@@ -1061,6 +1060,7 @@ fra:
     cells_concentration: "Dénombrement des cellules somatiques" #?
     centralize: "Comptes comptables centralisateurs"
     centralized_account: "Compte centralisateur %{name}"
+    change: "Changer"
     change_password: "Changer de mot de passe"
     change_price: "Changer le prix unitaire" #?
     change_state: "Changement du statut"
@@ -1399,6 +1399,7 @@ fra:
     financial_year_close_message: "<p> La clôture validera définitivement toutes les écritures de l’exercice, qui ne pourront plus être modifiées ou supprimées. Il ne sera plus possible d’en ajouter de nouvelles aussi. </p>"
     financial_year_lock_message: "<p>Le verrouillage validera définitivement toutes les écritures de l’exercice, qui ne pourront plus être modifiées ou supprimées. Il ne sera plus possible d’en ajouter de nouvelles aussi. <br/> Il faudra vous rapprocher de la personne qui a effectué la clôture en dehors du logiciel pour récupérer vos documents de fin d’exercice. </p>"
     financial_year_needed: "<p> Toutes les opérations commerciales et financières doivent être comptabilisées sur un exercice ouvert. <br/> Veuillez ouvrir un exercice pour la période en cours ou demander à votre responsable. </p>"
+    financial_year_results: "Résultats de l'exercice : %{results}"
     financial_year_warning: "<p> Si l’exercice n’est pas clôturé ou verrouillé avant le %{last_financial_year_end_date}, vous ne pourrez pas ouvrir d’exercice au %{new_financial_year_start_date}. En effet, il n’est pas possible d’avoir plus de 2 exercices ouverts simultanément. De plus, il est nécessaire d’avoir un exercice ouvert à la date en cours pour saisir des opérations commerciales et financières. <br/> Si vous ne gérez pas votre comptabilité avec Ekylibre, vous avez aussi la possibilité de verrouiller votre exercice. <br/> Attention : les exercices verrouillés ne peuvent plus être modifiés comme un exercice clôturé."
     finish: "Terminer"
     finished: "Terminé"
@@ -1625,6 +1626,7 @@ fra:
     lock_settings: "Paramètres de verrouillage"
     lock_the_financial_year: "Verrouiller l’exercice"
     logout: "Déconnexion" #?
+    loss_is_x_for_account: "<span class='loss'> Perte de %{x} </span> à comptabiliser sur le compte %{account_number}"
     losses: "Charges d’exploitations"
     mail: "Envoyer un courriel"
     mailing: "Mailing"
@@ -1942,6 +1944,7 @@ fra:
     products_sales: "Ventes de marchandises"
     profile: "Profil"
     profit_and_loss: "Produits et charges"
+    profit_is_x_for_account: "<span class='profit'> Bénéfice de %{x} </span> à comptabiliser sur le compte %{account_number}"
     profit_or_loss: "Résultat de l’exercice"
     profit_taxe: "Impots sur les bénéfices (IS)"
     profitability: "Rentabilité" #?

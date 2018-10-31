@@ -180,6 +180,7 @@ ita:
               # on_or_after: "The date selected must be posterior to society's creation date (%{restriction})"
             stopped_on:
               # end_of_month: "%{attribute} must be an end of month"
+          # can_only_have_two_years_opened: "You can only have two financial years opened"
           # can_only_update_code: "You can only update the code of a closed or locked financial year"
           # overlap: "%{attribute} overlaps an existing financial year"
         financial_year_exchange:
@@ -513,6 +514,7 @@ ita:
     all_addresses: "Tutti gli indirizzi"
     all_taxes_included: "Tutte le tasse incluse"
     allocation_account: "conto Allocation"
+    # already_existing: "Already existing"
     amount: "Quantità"
     analysed_at: "Analizzati a"
     analyser: "Analizzatore"

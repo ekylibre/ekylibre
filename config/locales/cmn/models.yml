@@ -171,6 +171,7 @@ cmn:
               # on_or_after: "The date selected must be posterior to society's creation date (%{restriction})"
             stopped_on:
               # end_of_month: "%{attribute} must be an end of month"
+          # can_only_have_two_years_opened: "You can only have two financial years opened"
           # can_only_update_code: "You can only update the code of a closed or locked financial year"
           # overlap: "%{attribute} overlaps an existing financial year"
         financial_year_exchange:
@@ -482,6 +483,7 @@ cmn:
     all_addresses: "所有的地址"
     all_taxes_included: "包括任何税项"
     allocation_account: "分配帐户"
+    # already_existing: "Already existing"
     amount: "量"
     analysed_at: "在Analysed"
     analyser: "分析仪"

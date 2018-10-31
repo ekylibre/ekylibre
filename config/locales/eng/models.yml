@@ -168,9 +168,9 @@ eng:
               on_or_after: "The date selected must be posterior to society's creation date (%{restriction})"
             stopped_on:
               end_of_month: "%{attribute} must be an end of month"
+          can_only_have_two_years_opened: "You can only have two financial years opened"
           can_only_update_code: "You can only update the code of a closed or locked financial year"
           overlap: "%{attribute} overlaps an existing financial year"
-          can_only_have_two_years_opened: "You can only have two financial years opened"
         financial_year_exchange:
           csv_file_entry_dates_invalid: "Some entries in the CSV are out of the financial year exchange date range"
           csv_file_entry_invalid: "Some entries in the CSV are invalid ('%{entry_number}')"
@@ -477,7 +477,7 @@ eng:
     all_addresses: "All addresses"
     all_taxes_included: "All taxes included"
     allocation_account: "Allocation account"
-    # already_existing: "Already existing"
+    already_existing: "Already existing"
     amount: "Amount"
     analysed_at: "Analysed at"
     analyser: "Analyser"

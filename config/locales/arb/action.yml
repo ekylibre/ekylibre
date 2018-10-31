@@ -975,6 +975,7 @@ arb:
     accounting: "محاسبة"
     accounts: "حسابات المحاسب المستخدمة"
     accounts_only_used_at: "حسابات تستخدم فقط في"
+    # accounts_to_change: "Accounts to change"
     accounts_to_load: "حسابات لتحميل"
     action_duration: "مدة الإجراء"
     activate_entry_autocompletion: "تفعيل تكملة دخول"
@@ -1098,6 +1099,7 @@ arb:
       close_issue: "هل أنت متأكد أنك تريد إغلاق هذه القضية؟"
       reopen_issue: "هل أنت متأكد أنك تريد إعادة فتح هذه القضية؟"
     # are_you_sure_you_want_to_change_account_digits: "Are you sure you want to change the number of characters on account numbers?"
+    # are_you_sure_you_want_to_change_accounting_system: "Are you sure you want to change your accounting system ?"
     are_you_sure_you_want_to_confirm: "هل انت متأكد من رغبتك بالمضي بطلب الشراء؟"
     are_you_sure_you_want_to_delete: "هل انت متاكد من رغبتك بالقيام به؟"
     are_you_sure_you_want_to_delete_delivery: "هل انت متأكد من رغبتك بازالة التسليم من وسائل النقل؟" #?
@@ -1188,6 +1190,7 @@ arb:
     category: "فئة"
     centralize: "مركزية حسابات المحاسب"
     centralized_account: "مركزية الحسابات %{name}"
+    # change: "Change"
     change_password: "تغيير كلمة السر"
     change_price: "تغيير وحدة السعر" #?
     change_state: "تغيير الدولة"
@@ -1516,6 +1519,7 @@ arb:
     financial_year_create: "فتح مهنة جديدة للمحاسبة" #?
     # financial_year_lock_message: "<p> The lock will definitively validate all entries of the financial year, which may not be modified or deleted. It will not be possible to add new ones too. <br/> You will need to get in contact the person who did the close out of the software to get back your year-end documents. </p>"
     # financial_year_needed: "All commercial and financial operations need to be accounted on an opened financial year. Please open a financial year for the current period or ask a manager"
+    # financial_year_results: "Financial year results : %{results}"
     # financial_year_warning: "<p> If the financial year is not closed or locked before the %{last_financial_year_end_date}, you will not be able to open a financial year on %{new_financial_year_start_date}. Indeed, it is not possible to have more than 2 financial years opened simultaneously. Furthermore, it is necessary to have an opened financial year on the ongoing date to input commercial and financial operations. <br/> If you don't manage your accountacy with Ekylibre, you have the possibility to lock your financial year. <br/> Attention : locked financial years can't be modified like a closed financial year."
     financials_assets: "الأصول المالية" #?
     finish: "انهاء"
@@ -1735,6 +1739,7 @@ arb:
     # lock_financial_year: "Lock %{code}"
     # lock_settings: "Lock settings"
     # lock_the_financial_year: "Lock the financial year"
+    # loss_is_x_for_account: "<span class='loss'> Loss of %{x} </span> to account for the account %{account_number}"
     losses: "خسائر"
     mail: "ارسال البريد الالكتروني"
     mailing: "المراسلات"
@@ -2066,6 +2071,7 @@ arb:
     products_sales: "مبيعات المنتجات"
     profile: "الملف الشخصي"
     profit_and_loss: "الربح والخسارة"
+    # profit_is_x_for_account: "<span class='profit'> Profit of %{x} </span> to account for the account %{account_number}"
     profit_or_loss: "المالية نتيجة العام"
     profit_taxe: "و taxe الربح"
     profits: "الأرباح"

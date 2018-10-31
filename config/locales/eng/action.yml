@@ -1097,9 +1097,9 @@ eng:
     all_accounts: "All accounts"
     all_columns: "All columns" #?
     all_conditions: "All conditions" #?!
-    all_entries_balanced: "All entries are balanced"
-    all_financial_years_closed_or_locked: "All financial years are closed or locked"
-    all_financial_years_not_closed_or_locked: "All financial years are not closed or locked"
+    all_entries_balanced: "All entries are balanced" #?
+    all_financial_years_closed_or_locked: "All financial years are closed or locked" #?
+    all_financial_years_not_closed_or_locked: "All financial years are not closed or locked" #?
     all_periods: "All financial years"
     amount: "Amount" #?
     amount_computed_from: "Amount computed from %{source}"
@@ -1176,7 +1176,7 @@ eng:
     cash: "Cash"
     cash_balance: "Cash balance"
     cashe_debts: "Cashe debts" #?!
-    cashes_balance: "Cashes balance"
+    cashes_balance: "Cashes balance" #?
     cashes_balance_evolution: "Cashes balance evolution"
     casting: "Casting" #?
     casts: "Casts" #?
@@ -1190,7 +1190,8 @@ eng:
     change_password: "Change password"
     change_state: "Change state"
     change_status_of_selected_interventions: "Change the status of selected interventions"
-    charge_value: "Charge value"
+    charge_value: "Charge value" #?!
+    # charges: "Charges"
     chart: "Chart"
     check: "Check" #?
     check_x_entries_to_balance: #?!
@@ -1218,6 +1219,7 @@ eng:
     cobbles: "Cobbles" #?
     column: "Column"
     columns: "Columns to import"
+    # commercial_margin: "Commercial margin"
     commission: "Commission"
     company: "Society"
     completed: "Completed"
@@ -1363,7 +1365,7 @@ eng:
     download: "Download"
     downpayment: "Downpayment"
     draft: "Draft"
-    draft_entries_to_validate: "There are draft entries to validate"
+    draft_entries_to_validate: "There are draft entries to validate" #?
     draft_fixed_asset_on_current_financial_year: "You have draft fixed assets ongoing. Once the financial year closed, it won't be possible to enter them into service on this financial year (%{code})."
     draft_loan_on_current_financial_year: "You have draft loans ongoing. Once the financial year closed, it won't be possible to enter them into service on this financial year (%{code})."
     duplicate: "Duplicate"
@@ -1385,7 +1387,7 @@ eng:
     entity_to_delete: "Person to delete"
     entity_to_update: "Person to update"
     entries: "Entries" #?
-    entries_to_balance: "Entries to balance"
+    entries_to_balance: "Entries to balance" #?
     entries_to_point: "Entries pointing to" #?!
     entry_item_label: "Entry item label" #?
     entry_items: "Entry items" #?
@@ -1411,6 +1413,7 @@ eng:
     exchange: "Exchange"
     exchange_rate_from_x_to_y: "Exchange rate from %{x} to %{y}"
     exchanges: "Exchanges"
+    # exercice_production: "Exercice production"
     existing: "Existing" #?
     expected_quantity_is_x: "Expected quantity: %{x}"
     expedier: "Expedier"
@@ -1441,9 +1444,10 @@ eng:
     financial_expenses: "Financial expenses" #??
     financial_products: "Financial products" #??
     financial_year: "Financial year"
-    financial_year_close_message: "<p> The close will definitively validate all entries of the financial year, which may not be modified or deleted. It will not be possible to add new ones too. </p>" #?!
+    financial_year_close_message: "<p> The close will definitively validate all entries of the financial year, which may not be modified or deleted. It will not be possible to add new ones too. </p>"
     financial_year_lock_message: "<p> The lock will definitively validate all entries of the financial year, which may not be modified or deleted. It will not be possible to add new ones too. <br/> You will need to get in contact the person who did the close out of the software to get back your year-end documents. </p>"
     financial_year_needed: "All commercial and financial operations need to be accounted on an opened financial year. Please open a financial year for the current period or ask a manager"
+    financial_year_results: "Financial year results : %{results}"
     financial_year_warning: "<p> If the financial year is not closed or locked before the %{last_financial_year_end_date}, you will not be able to open a financial year on %{new_financial_year_start_date}. Indeed, it is not possible to have more than 2 financial years opened simultaneously. Furthermore, it is necessary to have an opened financial year on the ongoing date to input commercial and financial operations. <br/> If you don't manage your accountacy with Ekylibre, you have the possibility to lock your financial year. <br/> Attention : locked financial years can't be modified like a closed financial year."
     # financials_assets: "Financials assets"
     finish: "Finish" #?
@@ -1575,7 +1579,7 @@ eng:
     land_parcels: "Land parcels"
     last_analyses: "Last milk analysis"
     last_computed_balance: "Last computed balance" #?
-    last_confirmation_before_definitive_close: "Last confirmation before definitive close" #?!
+    last_confirmation_before_definitive_close: "Last confirmation before definitive close"
     last_confirmation_before_definitive_lock: "Last confirmation before definitive lock"
     last_documents: "Last documents" #?
     last_entities: "Last entities"
@@ -1610,6 +1614,7 @@ eng:
     lock_financial_year: "Lock %{code}"
     lock_settings: "Lock settings"
     lock_the_financial_year: "Lock the financial year"
+    loss_is_x_for_account: "<span class='loss'> Loss of %{x} </span> to account for the account %{account_number}"
     losses: "Losses" #?
     mail: "Send an email" #?
     mailing: "Mailing" #?
@@ -1659,9 +1664,9 @@ eng:
     nature: "Type"
     nature_changed: "Le type des animaux a changé" #?!
     natures: "Types" #?
-    net_income: "Net income"
+    net_income: "Net income" #?!
     net_mass: "Net mass"
-    net_production_sales: "Net production sales"
+    net_production_sales: "Net production sales" #?!
     net_surface_area: "Net surface area"
     new: "New"
     new_activity: "New activity"
@@ -1702,7 +1707,7 @@ eng:
     no_crumbs_to_check: "No crumbs to check"
     no_data: "No data"
     no_deposits: "No deposits"
-    no_draft_entry: "No draft entry"
+    no_draft_entry: "No draft entry" #?
     no_financial_year_opened: "No financial year opened on current date"
     no_intervention_participations_to_check: "No intervention participations to check"
     no_notifications: "No notifications"
@@ -1821,10 +1826,12 @@ eng:
     product_name: "Product name" #?
     # product_nature_variants: "Product nature variants"
     product_natures: "Product types"
-    product_value: "Product value %{financial_year}"
+    product_value: "Product value %{financial_year}" #??
     production: "Production"
     production_cost: "Production cost"
     production_distribution: "Production distribution" #?
+    # production_others_charges: "Production others charges"
+    # production_purchases: "Production purchases"
     production_support: "Production support"
     productions: "Productions"
     productions_sales: "Productions sales" #??
@@ -1833,6 +1840,7 @@ eng:
     products_sales: "Products sales" #??
     profile: "Profile"
     profit_and_loss: "Profit and loss"
+    profit_is_x_for_account: "<span class='profit'> Profit of %{x} </span> to account for the account %{account_number}"
     profit_or_loss: "Fiscal year result" #?!
     profit_taxe: "Profit taxe" #??
     profits: "Profits" #?
@@ -1848,9 +1856,9 @@ eng:
     quandl: "Quandl" #?
     quantity: "Quantity" #?
     query: "Query:" #?
-    radical_class_accounts_dont_have_entries: "Radical class accounts does not contain any entry"
-    radical_class_accounts_have_entries: "Radical class accounts contains entries"
-    raw_income: "Raw income"
+    radical_class_accounts_dont_have_entries: "Radical class accounts does not contain any entry" #?
+    radical_class_accounts_have_entries: "Radical class accounts contains entries" #?
+    raw_income: "Raw income" #?!
     reading_tasks: "Reading tasks" #?
     readings: "Readings"
     ready: "Ready"

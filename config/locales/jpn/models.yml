@@ -171,6 +171,7 @@ jpn:
               # on_or_after: "The date selected must be posterior to society's creation date (%{restriction})"
             stopped_on:
               # end_of_month: "%{attribute} must be an end of month"
+          # can_only_have_two_years_opened: "You can only have two financial years opened"
           # can_only_update_code: "You can only update the code of a closed or locked financial year"
           # overlap: "%{attribute} overlaps an existing financial year"
         financial_year_exchange:
@@ -482,6 +483,7 @@ jpn:
     all_addresses: "すべてのアドレス"
     all_taxes_included: "すべての税金が含ま"
     allocation_account: "割り当てアカウント"
+    # already_existing: "Already existing"
     amount: "量"
     analysed_at: "でAnalysed"
     analyser: "アナライザ"
