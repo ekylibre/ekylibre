@@ -118,12 +118,12 @@ module Backend
       t.column :reference_number, through: :entry, hidden: true, class: :smallcolumns
       t.column :variant, url: true, hidden: true, class: :smallcolumns
       t.column :letter, class: "smallcolumns letterscolumn"
-      t.column :real_debit,  currency: :real_currency, hidden: true, class: "smallcolumns monetary_column debitcolor"
-      t.column :real_credit, currency: :real_currency, hidden: true, class: "smallcolumns monetary_column creditcolor"
-      t.column :debit,  currency: true, class: "smallcolumns monetary_column debitcolor", default: ''
-      t.column :credit, currency: true, class: "smallcolumns monetary_column creditcolor", default: ''
-      t.column :absolute_debit,  currency: :absolute_currency, hidden: true, class: "smallcolumns monetary_column debitcolor"
-      t.column :absolute_credit, currency: :absolute_currency, hidden: true, class: "smallcolumns monetary_column creditcolor"
+      t.column :real_debit,  currency: :real_currency, hidden: true, class: "smallcolumns monetary_column"
+      t.column :real_credit, currency: :real_currency, hidden: true, class: "smallcolumns monetary_column"
+      t.column :debit,  currency: true, class: "smallcolumns monetary_column", default: ''
+      t.column :credit, currency: true, class: "smallcolumns monetary_column", default: ''
+      t.column :absolute_debit,  currency: :absolute_currency, hidden: true, class: "smallcolumns monetary_column"
+      t.column :absolute_credit, currency: :absolute_currency, hidden: true, class: "smallcolumns monetary_column"
       t.column :cumulated_absolute_debit,  currency: :absolute_currency, hidden: true, class: "smallcolumns monetary_column debitcolor"
       t.column :cumulated_absolute_credit, currency: :absolute_currency, hidden: true, class: "smallcolumns monetary_column creditcolor"
       t.column :cumulated_absolute_debit_balance, currency: :absolute_currency, class: "smallcolumns monetary_column debitcolor", default: ''

@@ -62,6 +62,10 @@ $brand-info: $neutral-color;
 $brand-warning: $caution-color;
 $brand-danger: $invalid-color;
 
+$background-debit-balance: #FCFCFC;
+$background-credit-balance: #f2f5f7;
+
+
 $hover-transparency: 0.92 !default;
 $hover-mask: transparentize($neutral-color, $hover-transparency);
 
