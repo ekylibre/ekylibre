@@ -1196,6 +1196,7 @@ arb:
     change_state: "تغيير الدولة"
     change_status_of_selected_interventions: "تغيير حالة بعض المداخلات المختارة"
     charge_value: "قيمة تهمة"
+    # charges: "Charges"
     chart: "خريطة"
     check: "نحقق"
     check_x_entries_to_balance:
@@ -1229,6 +1230,7 @@ arb:
     column_organization: "المنظمة" #?
     column_title: "العنوان" #?
     columns: "اعمدة الاستيراد"
+    # commercial_margin: "Commercial margin"
     commission: "عمولة"
     company: "المجتمع"
     completed: "منجز"
@@ -1479,6 +1481,8 @@ arb:
     # exchange_rate_from_x_to_y: "Exchange rate from %{x} to %{y}"
     exchanges: "التبادل"
     executed: "انجز" #?
+    # exercice_production: "Exercice production"
+    # exercice_result: "Exercice result"
     existing: "موجود"
     existing_part: "استخدام الدفعات الغير متضررة" #?
     # expected_quantity_is_x: "Expected quantity: %{x}"
@@ -1487,6 +1491,7 @@ arb:
     expenses_by_product_nature_category: "النفقات حسب الفئة طبيعة المنتج"
     expired_since: "انتهت منذ (بالأيام)"
     expired_within: "انتهت خلال (بالأيام)"
+    # exploitation_result: "Exploitation result"
     exploitation_results: "النتائج الاستغلال"
     export: "اصدار الوثائق"
     export_as_csv: "التصدير، CSV"
@@ -1513,6 +1518,7 @@ arb:
     financial_assets: "الأصول المالية"
     financial_expenses: "نفقات مالية"
     financial_products: "المنتجات المالية"
+    # financial_result: "Financial result"
     financial_state: "الوضع المالي" #?
     # financial_year: "Financial year"
     # financial_year_close_message: "<p> The close will definitively validate all entries of the financial year, which may not be modified or deleted. It will not be possible to add new ones too. </p>"
@@ -2063,6 +2069,8 @@ arb:
     production: "ادارة الانتاج"
     production_cost: "تكلفة الانتاج"
     production_distribution: "توزيع الانتاج"
+    # production_others_charges: "Production others charges"
+    # production_purchases: "Production purchases"
     production_support: "دعم الإنتاج"
     productions: "المنتجات"
     productions_sales: "مبيعات المنتجات"
