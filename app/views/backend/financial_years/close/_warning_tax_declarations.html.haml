@@ -1,4 +1,4 @@
 %p
   %i.warning-validation
   = :not_sent_tax_declaration_on_current_financial_year.tl(code: financial_year.code)
-  = link_to(:see_tax_declarations.tl, backend_tax_declarations_path)
+  = link_to(:see_tax_declarations.tl, backend_tax_declarations_path, target: '_blank')
