@@ -23,6 +23,7 @@
 # == Table: financial_years
 #
 #  accountant_id             :integer
+#  already_existing          :boolean          default(FALSE), not null
 #  closed                    :boolean          default(FALSE), not null
 #  code                      :string           not null
 #  created_at                :datetime         not null
@@ -60,7 +61,7 @@ class FinancialYear < Ekylibre::Record::Base
   has_many :journal_entries, dependent: :restrict_with_exception
   has_many :tax_declarations, dependent: :restrict_with_exception
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates :closed, inclusion: { in: [true, false] }
+  validates :already_existing, :closed, inclusion: { in: [true, false] }
   validates :code, presence: true, length: { maximum: 500 }
   validates :currency, :tax_declaration_mode, presence: true
   validates :currency_precision, numericality: { only_integer: true, greater_than: -2_147_483_649, less_than: 2_147_483_648 }, allow_blank: true
