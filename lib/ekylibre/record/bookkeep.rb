@@ -126,9 +126,20 @@ module Ekylibre
       end
 
       module ClassMethods
-        def bookkeep(options = {}, &block)
-          raise ArgumentError, 'No given block' unless block_given?
-          raise ArgumentError, "Wrong number of arguments (#{block.arity} for 1)" unless block.arity == 1
+        def bookkeep(options_or_klass = nil, options = {}, &block)
+          klass = nil
+          if block
+            options = options_or_klass || options
+          else
+            klass = options_or_klass
+            implicit_bookkeeper_name = "#{self.class.name}Bookkeeper"
+            if klass.nil? || const_defined?(implicit_bookkeeper_name)
+              klass ||= const_get(implicit_bookkeeper_name)
+            end
+          end
+
+          raise ArgumentError, 'Neither bookkeeping class nor block given' unless klass || block
+          raise ArgumentError, "Wrong number of arguments (#{block.arity} for 1)" unless block&.arity == 1
           configuration = { on: Ekylibre::Record::Bookkeep.actions, column: :accounted_at, method_name: __method__ }
           configuration.update(options) if options.is_a?(Hash)
           configuration[:column] = configuration[:column].to_s
@@ -159,7 +170,13 @@ module Ekylibre
             end
           end
 
-          send(:define_method, core_method_name, &block)
+          if block
+            send(:define_method, core_method_name, &block)
+          else
+            send(:define_method, core_method_name) { |*args|
+              klass.new(*args).call
+            }
+          end
         end
       end
 
