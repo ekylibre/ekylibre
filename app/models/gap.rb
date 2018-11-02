@@ -57,17 +57,14 @@ class Gap < Ekylibre::Record::Base
   validates :number, presence: true, length: { maximum: 500 }
   validates :printed_at, presence: true, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }
   # ]VALIDATORS]
+  # No Gap can be registered, only subclasses because role is needed
+  validates :type,  exclusion: { in: [Gap.name], message: :invalid }
 
   acts_as_numbered
   alias_attribute :label, :number
 
   before_validation do
     self.printed_at ||= Time.zone.now
-  end
-
-  validate do
-    # No Gap can be registered because role is needed
-    errors.add(:type, :invalid) if self.class == Gap
   end
 
   def printed_on
