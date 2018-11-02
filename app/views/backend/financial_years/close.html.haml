@@ -1,7 +1,6 @@
 = form_tag do
   = field_set :prerequisites_checks_before_closure.tl do
     .close-conditions
-      -# ------ Warnings ------
       = warnings(@financial_year,
                   fixed_assets: FixedAsset.drafts,
                   loans: Loan.drafts,
@@ -11,7 +10,6 @@
                   outgoing_parcels: :not_given_outgoing_parcel,
                   sales: :not_invoiced_or_aborted_sale)
 
-      -# ------ Checks ------
       = checks(@financial_year,
                closed_previous_years: @financial_year.all_previous_financial_years_closed_or_locked?,
                drafts_empty: @financial_year.no_draft_entry?,
