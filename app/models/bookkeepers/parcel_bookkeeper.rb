@@ -1,15 +1,15 @@
 class ParcelBookkeeper < Ekylibre::Bookkeeper
   def call
+    return unless given?
     # For purchase_not_received or sale_not_emitted
-    bookkeep_payables_not_billed
+    bookkeep_payables_not_billed if Preference[:unbilled_payables]
     # For permanent stock inventory
-    bookkeep_stock_inventory
+    bookkeep_stock_inventory if Preference[:permanent_stock_inventory]
   end
 
   private
 
   def bookkeep_payables_not_billed
-    return unless Preference[:unbilled_payables] && given?
     label = tc(:undelivered_invoice,
                resource: resource.class.model_name.human,
                number: number, entity: entity.full_name, mode: nature.l)
@@ -43,7 +43,7 @@ class ParcelBookkeeper < Ekylibre::Bookkeeper
   # | outgoing parcel        | stock_movement (603X/71X)  | stock (3X)                |
   def bookkeep_stock_inventory
     journal = Journal.used_for_permanent_stock_inventory!(currency: resource.currency)
-    journal_entry(journal, printed_on: printed_on, if: (Preference[:permanent_stock_inventory] && given?)) do |entry|
+    journal_entry(journal, printed_on: printed_on) do |entry|
       label = tc(:bookkeep, resource: resource.class.model_name.human,
                             number: number, entity: entity.full_name, mode: nature.l)
       items.each do |item|
