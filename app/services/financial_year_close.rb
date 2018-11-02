@@ -22,34 +22,6 @@ class FinancialYearClose
     Rails.logger.info(moment + message.yellow + " (done in #{format('%.2f', stop - start).green}s)")
   end
 
-  def say(message)
-    now = Time.now
-    moment = '[' + format('%.1f', now - @start).rjust(6).red + ' '
-    # puts @counts.stringify_keys.to_yaml.cyan if @counts
-
-    moment << if @previous_now
-                format('%.2f', now - @previous_now).rjust(6).green
-              else
-                '—' * 6
-              end
-    moment << '] '
-
-    t = moment + message.yellow
-    # puts t
-    Rails.logger.info(t)
-    now
-  end
-
-  def log(message)
-    @previous_now = say(message)
-  end
-
-  def cinc(name, _increment = 1)
-    @counts ||= {}
-    @counts[name] ||= 0
-    @counts[name] += 1
-  end
-
   def execute
     @start = Time.now
     return false unless @year.closable?
@@ -183,8 +155,6 @@ class FinancialYearClose
 
   # FIXME: Manage non-french accounts
   def generate_carrying_forward_entry!
-    log('Init Carrying Forward Entry Generation')
-
     account_radices = %w[1 2 3 4 5]
     unlettered_items = []
 
@@ -205,8 +175,6 @@ class FinancialYearClose
     progress = Progress.new(:close_carry_forward, id: @year.id,
                                                   max: letterable_accounts.count + unletterable_accounts.count)
 
-    log 'Generate List of Unlettered Items'
-
     unletterable_accounts.find_each do |a|
       entry_items = a.journal_entry_items
                      .where(financial_year_id: @year.id)
@@ -223,9 +191,7 @@ class FinancialYearClose
       progress.increment!
     end
 
-    log 'Generate Lettering Carry Forward for each Letterable Account'
     letterable_accounts.find_each do |a|
-      log "Generate Lettering Carry Forward for each Account: #{a.number}"
       generate_lettering_carry_forward!(a)
       progress.increment!
     end
@@ -236,9 +202,7 @@ class FinancialYearClose
     debit_items = unlettered_items.select { |i| i[:real_debit].nonzero? }
     credit_items = unlettered_items.select { |i| i[:real_credit].nonzero? }
 
-    log 'Generate Closing+Opening Entry Debit Items'
     generate_closing_and_opening_entry!(debit_items, debit_result)
-    log 'Generate Closing+Opening Entry Credit Items'
     generate_closing_and_opening_entry!(credit_items, -credit_result)
   ensure
     progress.clean!
@@ -279,7 +243,6 @@ class FinancialYearClose
   end
 
   def generate_closing_and_opening_entry!(items, result, letter: nil)
-    cinc :generate_closing_and_opening_entry
     return unless items.any?
     # return unless result.nonzero?
 
@@ -322,9 +285,7 @@ class FinancialYearClose
 
   def update_lettered_later!(letter, new_letter, account_id)
     # account = Account.find(account_id)
-    cinc :update_lettered_later
     if letter == new_letter
-      say "Skip Changing Letter #{letter.inspect}"
       return
     end
     benchmark "Changing Letter #{letter} -> #{new_letter}" do
