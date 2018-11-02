@@ -471,7 +471,7 @@ class FinancialYear < Ekylibre::Record::Base
 
   def any_invalid_closure_check?
     checks = [all_previous_financial_years_closed_or_locked?, no_draft_entry?, no_entry_to_balance?, unbalanced_radical_account_classes_array.empty?]
-    checks.any? { |c| c == false } ? true : false
+    checks.any? { |c| c == false }
   end
 
   def not_sent_tax_declarations
