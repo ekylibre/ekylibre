@@ -16,7 +16,7 @@ class ParcelBookkeeper < Ekylibre::Bookkeeper
 
     usages = { incoming: :suppliers_invoices_not_received,
                outgoing: :invoice_to_create_clients        }
-    account = Account.find_or_import_from_nomenclature(usages[nature])
+    account = Account.find_or_import_from_nomenclature(usages[nature.to_sym])
 
     # For unbilled payables
     journal = Journal.used_for_unbilled_payables!(currency: currency)
