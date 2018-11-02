@@ -130,18 +130,18 @@ module Ekylibre
           klass = nil
           if block
             options = options_or_klass || options
+            raise ArgumentError, "Wrong number of arguments (#{block.arity} for 1)" unless block.arity == 1
           else
             klass = options_or_klass
             implicit_bookkeeper_name = "#{self.name}Bookkeeper"
             if klass.nil? || const_defined?(implicit_bookkeeper_name)
               klass ||= const_get(implicit_bookkeeper_name)
             end
+            raise ArgumentError, 'Provided class does not respond to #call method' unless klass.nil? || klass.instance_methods.include?(:call)
           end
 
           raise ArgumentError, 'Neither bookkeeping class nor block given' unless klass || block
-          if block
-            raise ArgumentError, "Wrong number of arguments (#{block.arity} for 1)" unless block.arity == 1
-          end
+            
           configuration = { on: Ekylibre::Record::Bookkeep.actions, column: :accounted_at, method_name: __method__ }
           configuration.update(options) if options.is_a?(Hash)
           configuration[:column] = configuration[:column].to_s
