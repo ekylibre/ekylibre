@@ -146,7 +146,9 @@ ita:
           other: "è della lunghezza sbagliata (deve essere di %{count} caratteri)" #?
       models:
         account:
+          # cant_start_with_0: "The number can't start with a '0'"
           # centralizing_number: "The number can't start with '401' or '411' which are numbers used for auxiliary accounts"
+          # incorrect_length: "The number has not the correct lenght (%{number_length} caracters)"
           # radical_class: "The account can't correpsond to a radical class"
         activity:
           checked_off_with_inspections: "Le ispezioni sono già stati creati per questa attività"
