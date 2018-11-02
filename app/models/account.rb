@@ -90,16 +90,10 @@ class Account < Ekylibre::Record::Base
   validates :last_letter, length: { allow_nil: true, maximum: 10 }
   validates :name, length: { allow_nil: true, maximum: 200 }
   validates :number, uniqueness: true
-  validates :number, length: { is: Preference[:account_number_digits] }, format: { without: /\A0/ }, unless: :already_existing_and_general
   validates :number, length: { minimum: 4 }, if: :auxiliary?
   validates :number, format: { with: /\A\d(\d(\d[0-9A-Z]*)?)?\z/ }
   validates :auxiliary_number, presence: true, format: { without: /\A(0*)\z/ }, if: :auxiliary?
   validates :centralizing_account_name, presence: true, if: :auxiliary?
-
-  def already_existing_and_general
-    return true if auxiliary?
-    already_existing && general?
-  end
 
   enumerize :nature, in: %i[general auxiliary], default: :general, predicates: true
 
@@ -206,6 +200,8 @@ class Account < Ekylibre::Record::Base
     if general?
       self.auxiliary_number = nil
       self.centralizing_account = nil
+      errors.add(:number, :incorrect_length, number_length: Preference[:account_number_digits]) if number.length != Preference[:account_number_digits] && !already_existing
+      errors.add(:number, :cant_start_with_0) if number.match(/\A0/).present? && !already_existing
     elsif auxiliary? && centralizing_account
       centralizing_account_number = centralizing_account.send(Account.accounting_system)
       self.number = centralizing_account_number + auxiliary_number
