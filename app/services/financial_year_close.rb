@@ -1,6 +1,8 @@
 # coding: utf-8
 
 class FinancialYearClose
+  include PdfPrinter
+
   def initialize(year, to_close_on, options = {})
     @year = year
     @started_on = @year.started_on
@@ -56,6 +58,8 @@ class FinancialYearClose
     ensure_closability!
 
     ActiveRecord::Base.transaction do
+      generate_documents('prior_to_closure')
+
       benchmark('Compute Balance') do
         @year.compute_balances!
         @progress.increment!
@@ -427,5 +431,60 @@ class FinancialYearClose
          .where('local_balance != ?', 0)
          .where('accounts.number ~ ?', "^(#{account_numbers.join('|')})")
          .order('accounts.number')
+  end
+
+  def generate_documents(timing)
+    generate_balance_documents(timing)
+    generate_journals_documents(timing)
+    ['general_ledger', '401', '411'].each { |ledger| generate_general_ledger_documents(timing, { current_financial_year: @year.id.to_s, ledger: ledger, period: "#{@year.started_on}_#{@year.stopped_on}" }) }
+  end
+
+  def generate_balance_documents(timing)
+    document_nature = Nomen::DocumentNature.find(:trial_balance)
+    key = "#{document_nature.name}-#{Time.zone.now.l(format: '%Y-%m-%d-%H:%M:%S')}"
+    period = "#{@year.started_on}_#{@year.stopped_on}"
+
+    balance = Journal.trial_balance(started_on: @year.started_on,
+                                    stopped_on: @year.stopped_on,
+                                    period: period,
+                                    states: { "confirmed" => "1" },
+                                    balance: "all",
+                                    accounts: "",
+                                    centralize: "401 411")
+
+    balance_printer = BalancePrinter.new(balance: balance,
+                                         prev_balance: [],
+                                         document_nature: document_nature,
+                                         key: key,
+                                         template_path: find_open_document_template(:trial_balance),
+                                         period: period)
+    file_path = balance_printer.run
+
+    destination_path = Ekylibre::Tenant.private_directory.join('attachments', 'documents', 'financial_year_closures', "#{@year.id}", "#{timing}", 'balance', "#{key}")
+    FileUtils.mkdir_p destination_path.dirname
+    FileUtils.ln file_path, destination_path
+  end
+
+  def generate_general_ledger_documents(timing, params)
+    document_nature = Nomen::DocumentNature.find(:general_ledger)
+    key = "#{document_nature.name}-#{Time.zone.now.l(format: '%Y-%m-%d-%H:%M:%S')}"
+    template_path = find_open_document_template(:general_ledger)
+
+    general_ledger = Account.ledger(params)
+
+    general_ledger_printer = GeneralLedgerPrinter.new(general_ledger: general_ledger,
+                                                      document_nature: document_nature,
+                                                      key: key,
+                                                      template_path: template_path,
+                                                      params: params)
+    file_path = general_ledger_printer.run
+
+    destination_path = Ekylibre::Tenant.private_directory.join('attachments', 'documents', 'financial_year_closures', "#{@year.id}", "#{timing}", 'general_ledger', "#{key}")
+    FileUtils.mkdir_p destination_path.dirname
+    FileUtils.ln file_path, destination_path
+  end
+
+  def generate_journals_documents(timing)
+    #TODO: implement journal printing during closure
   end
 end
