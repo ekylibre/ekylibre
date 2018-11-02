@@ -1066,6 +1066,7 @@ fra:
     change_state: "Changement du statut"
     change_status_of_selected_interventions: "Modifier l’état d’interventions sélectionnées"
     charge_value: "Achats et charges externes"
+    charges: "Charges"
     chart: "Graphique"
     check: "Vérifier"
     check_fields: "Vous devez cocher au moins une case pour effectuer la modification" #?
@@ -1105,6 +1106,7 @@ fra:
     column_organization: "Organisation" #?
     column_title: "Titre" #?
     columns: "Colonnes à importer"
+    commercial_margin: "Marge commerciale"
     commission: "Commission"
     company: "Société"
     complement_sort: "Trier les choix par nom" #?
@@ -1354,6 +1356,8 @@ fra:
     exchange_rate_from_x_to_y: "Taux de change de %{x} à %{y}"
     exchanges: "Échanges"
     executed: "Réalisé" #?
+    exercice_production: "Production de l'exercice"
+    exercice_result: "Résultat d'exercice"
     existing: "Existant"
     existing_part: "Utiliser un encaissement non affecté" #?
     expected_quantity_is_x: "Quantité attendue\_: %{x}"
@@ -1363,6 +1367,7 @@ fra:
     expenses_by_product_nature_category: "Achats par catégories de produit"
     expired_since: "Expiré depuis"
     expired_within: "Expiré d’ici"
+    exploitation_result: "Résultat d'exploitation"
     exploitation_results: "Résultats d’exploitation"
     export: "Exporter"
     export_as_csv: "Exporter en CSV"
@@ -1394,6 +1399,7 @@ fra:
     financial_assets: "Immobilisations financières"
     financial_expenses: "Charges financières"
     financial_products: "Produits financiers"
+    financial_result: "Résultat financier"
     financial_state: "État financier" #?
     financial_year: "Exercice comptable"
     financial_year_close_message: "<p> La clôture validera définitivement toutes les écritures de l’exercice, qui ne pourront plus être modifiées ou supprimées. Il ne sera plus possible d’en ajouter de nouvelles aussi. </p>"
@@ -1809,8 +1815,8 @@ fra:
     open_a_production: "Créer une production"
     open_an_activity: "Créer une activité"
     open_financial_year: "Ouvrir %{code}"
-    operating_margin: "EBE (Excédent Brut d’Exploitation) %{financial_year}"
-    operating_margin_on_turnover: "EBE / CA (Excédent Brut d’Exploitation / Chiffre d’affaire HT) %{financial_year}"
+    operating_margin: "EBE (Excédent Brut d’Exploitation)"
+    operating_margin_on_turnover: "EBE / CA (Excédent Brut d’Exploitation / Chiffre d’affaire HT)"
     operating_profit: "Résultat d’exploitation %{financial_year}"
     operation_items: "Intrants et sortants" #?
     operations: "Travaux"
@@ -1935,6 +1941,8 @@ fra:
     production: "Production"
     production_cost: "Coût de production"
     production_distribution: "Répartition de la production"
+    production_others_charges: "Autres charges"
+    production_purchases: "Achats d'approvisionnements"
     production_support: "Support de production"
     productions: "Productions"
     productions_map: "Carte des productions" #?
