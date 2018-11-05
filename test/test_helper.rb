@@ -446,6 +446,11 @@ module ActionController
             test_code << "#{record} = #{fixtures_to_use.retrieve(:first)}\n"
             test_code << "post :#{action}, #{sanitized_params[id: 'RECORD.id'.c]}\n"
             test_code << "assert_response :redirect, #{context}\n"
+          elsif mode == :poke
+            test_code << "post :#{action}, #{sanitized_params[id: 'NaID']}\n"
+            test_code << "#{record} = #{fixtures_to_use.retrieve(:first)}\n"
+            test_code << "post :#{action}, #{sanitized_params[id: 'RECORD.id'.c]}\n"
+            test_code << "assert_response :success, #{context}\n"
           elsif mode == :evolve
             test_code << "#{record} = #{fixtures_to_use.retrieve(:first)}\n"
             model.state_machine.states.each do |state|
