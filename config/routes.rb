@@ -512,6 +512,7 @@ Rails.application.routes.draw do
       member do
         match 'close', via: %i[get post]
         post :compute_balances
+        post :download_archive
         get :list_account_balances
         get :list_fixed_asset_depreciations
         get :list_exchanges

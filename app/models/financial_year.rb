@@ -267,6 +267,10 @@ class FinancialYear < Ekylibre::Record::Base
     FinancialYearClose.new(self, to_close_on, options).execute
   end
 
+  def closed?
+    closed && state == 'closed'
+  end
+
   # this method returns the previous financial_year by default.
   def previous
     self.class.find_by(stopped_on: started_on - 1)

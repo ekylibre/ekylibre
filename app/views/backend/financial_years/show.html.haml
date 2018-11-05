@@ -28,6 +28,17 @@
       %span.title= :currency.t(scope: 'preferences')
       %span.value= Nomen::Currency.find(resource.currency).human_name.upcase
 
+    - if resource.closed?
+      .med-info.important
+        %span.title= :archive_prior_to_closure.tl
+        = link_to download_archive_backend_financial_year_path(resource, timing: 'prior_to_closure'), method: :post do
+          %button.btn.btn-default.icn.btn-download= :download_archive.tl
+
+      .med-info.important
+        %span.title= :archive_post_closure.tl
+        = link_to download_archive_backend_financial_year_path(resource, timing: 'post_closure'), method: :post do
+          %button.btn.btn-default.icn.btn-download= :download_archive.tl
+
 = cobbles do |c|
   - c.cobble(resource.closed ? :balance : :last_computed_balance) do
     = cobble_list :account_balances

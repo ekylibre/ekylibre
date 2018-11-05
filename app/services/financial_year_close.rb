@@ -85,6 +85,8 @@ class FinancialYearClose
       @progress.increment!
 
       @year.update_attributes(stopped_on: @to_close_on, closed: true, state: 'closed')
+
+      generate_documents('post_closure')
     end
 
     true
@@ -435,8 +437,8 @@ class FinancialYearClose
 
   def generate_documents(timing)
     generate_balance_documents(timing)
-    generate_journals_documents(timing)
     ['general_ledger', '401', '411'].each { |ledger| generate_general_ledger_documents(timing, { current_financial_year: @year.id.to_s, ledger: ledger, period: "#{@year.started_on}_#{@year.stopped_on}" }) }
+    Journal.all.each { |journal| generate_journals_documents(timing, { journal_id: journal.id, id: journal.id, period: "#{@year.started_on}_#{@year.stopped_on}", states: { confirmed: '1' } }) }
   end
 
   def generate_balance_documents(timing)
@@ -484,7 +486,24 @@ class FinancialYearClose
     FileUtils.ln file_path, destination_path
   end
 
-  def generate_journals_documents(timing)
-    #TODO: implement journal printing during closure
+  def generate_journals_documents(timing, params)
+    document_nature = Nomen::DocumentNature.find(:journal_ledger)
+    key = "#{document_nature.name}-#{Time.zone.now.l(format: '%Y-%m-%d-%H:%M:%S')}"
+    template_path = find_open_document_template(:journal_ledger)
+    journal = Journal.find(params[:id])
+
+    journal_ledger = JournalEntry.journal_ledger(params, journal.id)
+
+    journal_printer = JournalPrinter.new(journal: journal,
+                                         journal_ledger: journal_ledger,
+                                         document_nature: document_nature,
+                                         key: key,
+                                         template_path: template_path,
+                                         params: params)
+    file_path = journal_printer.run
+
+    destination_path = Ekylibre::Tenant.private_directory.join('attachments', 'documents', 'financial_year_closures', "#{@year.id}", "#{timing}", 'journal_ledger', "#{key}")
+    FileUtils.mkdir_p destination_path.dirname
+    FileUtils.ln file_path, destination_path
   end
 end

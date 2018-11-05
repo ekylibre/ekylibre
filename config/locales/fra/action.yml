@@ -974,6 +974,8 @@ fra:
     animals: "Animaux"
     any_journal: "Tous les journaux"
     apply: "Appliquer" #?
+    archive_post_closure: "Archive après clôture"
+    archive_prior_to_closure: "Archive avant clôture"
     archived_at: "Archivé à" #?
     archives: "Archives"
     are_you_sure: "Êtes-vous sûr(e) de vouloir faire cela\_?"
@@ -1289,6 +1291,7 @@ fra:
     down: "Descendre"
     down_to_level: "Détailler jusqu’au niveau" #?
     download: "Télécharger"
+    download_archive: "Télécharger l'archive (ZIP)"
     download_firefox: "Télécharger Mozilla Firefox…" #?
     downpayment: "Acompte"
     draft: "Brouillard"
