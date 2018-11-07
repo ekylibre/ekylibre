@@ -2075,6 +2075,7 @@
       </item>
       <item name="financial_years">
         <page to="backend/financial_years#destroy_all_empty"/>
+        <page to="backend/financial_years#download_archive"/>
       </item>
       <item name="general_ledgers">
         <page to="backend/general_ledgers#archive_report"/>
