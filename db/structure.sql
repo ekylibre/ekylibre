@@ -2272,7 +2272,9 @@ CREATE TABLE documents (
     file_fingerprint character varying,
     file_pages_count integer,
     file_content_text text,
-    custom_fields jsonb
+    custom_fields jsonb,
+    sha256_fingerprint character varying,
+    signature character varying
 );
 
 
@@ -2887,6 +2889,39 @@ CREATE SEQUENCE events_id_seq
 --
 
 ALTER SEQUENCE events_id_seq OWNED BY events.id;
+
+
+--
+-- Name: financial_year_archives; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE financial_year_archives (
+    id integer NOT NULL,
+    financial_year_id integer NOT NULL,
+    timing character varying NOT NULL,
+    sha256_fingerprint character varying NOT NULL,
+    signature character varying NOT NULL,
+    path character varying NOT NULL
+);
+
+
+--
+-- Name: financial_year_archives_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE financial_year_archives_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: financial_year_archives_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE financial_year_archives_id_seq OWNED BY financial_year_archives.id;
 
 
 --
@@ -7290,6 +7325,13 @@ ALTER TABLE ONLY events ALTER COLUMN id SET DEFAULT nextval('events_id_seq'::reg
 
 
 --
+-- Name: financial_year_archives id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY financial_year_archives ALTER COLUMN id SET DEFAULT nextval('financial_year_archives_id_seq'::regclass);
+
+
+--
 -- Name: financial_year_exchanges id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -8380,6 +8422,14 @@ ALTER TABLE ONLY event_participations
 
 ALTER TABLE ONLY events
     ADD CONSTRAINT events_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: financial_year_archives financial_year_archives_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY financial_year_archives
+    ADD CONSTRAINT financial_year_archives_pkey PRIMARY KEY (id);
 
 
 --
@@ -17960,4 +18010,6 @@ INSERT INTO schema_migrations (version) VALUES ('20180830120145');
 INSERT INTO schema_migrations (version) VALUES ('20180921092835');
 
 INSERT INTO schema_migrations (version) VALUES ('20181003092024');
+
+INSERT INTO schema_migrations (version) VALUES ('20181106100439');
 

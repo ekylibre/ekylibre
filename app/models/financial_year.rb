@@ -59,6 +59,7 @@ class FinancialYear < Ekylibre::Record::Base
   has_many :inventories, dependent: :restrict_with_exception
   has_many :journal_entries, dependent: :restrict_with_exception
   has_many :tax_declarations, dependent: :restrict_with_exception
+  has_many :financial_year_archives, dependent: :destroy
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :closed, inclusion: { in: [true, false] }
   validates :code, presence: true, length: { maximum: 500 }

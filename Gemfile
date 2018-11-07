@@ -198,6 +198,8 @@ gem 'luhn'
 # For interval selector
 gem 'bootstrap-slider-rails'
 
+gem 'gpgme'
+
 group :development do
   gem 'bullet', '< 5.6.0'
 

@@ -34,13 +34,20 @@ module PdfPrinter
   def archive_report(nature, key, data_or_path, options = { archiving: :last })
     data = data_or_path.is_a?(File) ? data_or_path : StringIO.new(data_or_path)
     name = options[:name] || [nature, key].join(' ')
-    Document.create!(
-      nature: nature,
-      key: key,
-      name: name,
-      file: data,
-      file_file_name: "#{key}.pdf"
-    )
+    document = Document.create!(
+                 nature: nature,
+                 key: key,
+                 name: name,
+                 file: data,
+                 file_file_name: "#{key}.pdf"
+               )
+    sha256 = Digest::SHA256.file document.file.path
+    crypto = GPGME::Crypto.new
+    signature = crypto.clearsign(sha256.to_s, signer: "lucas.sott@wanadoo.fr")
+    signature_path = document.file.path.gsub(/\.pdf/, '.asc')
+    File.write(signature_path, signature)
+    document.update!(sha256_fingerprint: sha256.to_s, signature: signature.to_s)
+    document
   end
 
   def find_open_document_template(name)
