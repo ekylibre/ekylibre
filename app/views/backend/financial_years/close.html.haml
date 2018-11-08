@@ -4,7 +4,7 @@
       = warnings(@financial_year,
                   fixed_assets: FixedAsset.start_before(@financial_year.stopped_on).drafts,
                   fixed_asset_depreciations: FixedAssetDepreciation.up_to(@financial_year.stopped_on).where(locked: false, accountable: false),
-                  loans: LoanRepayment.where('due_on <= ?', @financial_year.stopped_on).where(locked: false),
+                  loans: Loan.start_before(@financial_year.stopped_on).drafts,
                   tax_declarations: :not_sent_tax_declarations,
                   incoming_parcels: :not_given_incoming_parcel,
                   purchases: :not_invoiced_or_aborted_purchase,

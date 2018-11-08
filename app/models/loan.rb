@@ -93,6 +93,7 @@ class Loan < Ekylibre::Record::Base
   validates :amount, numericality: { greater_than: 0 }
 
   scope :drafts, -> { where(state: %w[draft]) }
+  scope :start_before, ->(date) { where('loans.ongoing_at <= ?', date.to_time) }
 
   state_machine :state, initial: :draft do
     state :draft
