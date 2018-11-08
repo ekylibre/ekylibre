@@ -1415,7 +1415,8 @@ fra:
     first_contact: "Adresse principale" #?
     first_line_as_title: "Titre en première ligne"
     fixed_asset_debts: "Dettes sur immobilisations"
-    fixed_asset_depreciations: "Dépréciations d’immobilisation"
+    fixed_asset_depreciations: "Ammortissements"
+    fixed_asset_depreciations_not_accounted_on_current_financial_year: "Des ammortissements n'ont pas été passé en comptabilité sur l'exercice %{code}"
     fixed_assets: "Immobilisations"
     from: "À partir du"
     from_to_date: "du %{from} au %{to}"

@@ -1535,6 +1535,7 @@ arb:
     first_line_as_title: "السطر الأول كما لقب"
     fixed_asset_debts: "الديون الأصول الثابتة"
     fixed_asset_depreciations: "انخفاض قيمة الأصول الثابتة"
+    # fixed_asset_depreciations_not_accounted_on_current_financial_year: "Fixed asset depreciations not accounted on current financial year"
     fixed_assets: "أصول ثابتة"
     format_date: #?
       iso: "(السنة-الشهر-اليوم)" #?

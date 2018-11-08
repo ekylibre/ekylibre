@@ -106,6 +106,7 @@ class FixedAsset < Ekylibre::Record::Base
   validates :depreciation_fiscal_coefficient, presence: true, if: -> { depreciation_method_regressive? }
 
   scope :drafts, -> { where(state: %w[draft]) }
+  scope :start_before, ->(date) { where('fixed_assets.started_on <= ?', date) }
 
   # [DEPRECATIONS[
   #  - purchase_id

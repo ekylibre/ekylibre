@@ -1458,6 +1458,7 @@ eng:
     first_line_as_title: "First line as title"
     fixed_asset_debts: "Fixed asset debts" #?!
     fixed_asset_depreciations: "Fixed asset depreciations"
+    fixed_asset_depreciations_not_accounted_on_current_financial_year: "Fixed asset depreciations not accounted on current financial year"
     fixed_assets: "Fixed assets"
     from: "From"
     from_to_date: "from %{from} to %{to}" #?

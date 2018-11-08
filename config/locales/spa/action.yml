@@ -1290,6 +1290,7 @@ spa:
     first_line_as_title: "Primera línea como el título"
     fixed_asset_debts: "Deudas de bienes de uso"
     fixed_asset_depreciations: "Amortizaciones de bienes de uso"
+    # fixed_asset_depreciations_not_accounted_on_current_financial_year: "Fixed asset depreciations not accounted on current financial year"
     fixed_assets: "Los activos fijos"
     free_purchases: "Compras en franquisia" #?
     from: "Expedidor"

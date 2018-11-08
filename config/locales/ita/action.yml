@@ -1232,6 +1232,7 @@ ita:
     first_line_as_title: "Prima linea come titolo"
     fixed_asset_debts: "Debiti delle immobilizzazioni"
     fixed_asset_depreciations: "svalutazioni di immobilizzazioni"
+    # fixed_asset_depreciations_not_accounted_on_current_financial_year: "Fixed asset depreciations not accounted on current financial year"
     fixed_assets: "immobilizzazioni"
     from: "Da parte di"
     # from_to_date: "from %{from} to %{to}"

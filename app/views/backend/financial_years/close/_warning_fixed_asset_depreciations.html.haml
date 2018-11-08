@@ -1,0 +1,5 @@
+%p
+  %i.warning-validation
+  - periods = "#{financial_year.started_on.to_s}_#{financial_year.stopped_on.to_s}"
+  = :fixed_asset_depreciations_not_accounted_on_current_financial_year.tl(code: financial_year.code)
+  = link_to(:see_fixed_assets.tl, backend_fixed_assets_path, target: '_blank')

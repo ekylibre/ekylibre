@@ -1171,6 +1171,7 @@ por:
     first_line_as_title: "Primeira linha como o título"
     fixed_asset_debts: "Dívidas de ativos fixos"
     fixed_asset_depreciations: "Depreciações de ativos fixos"
+    # fixed_asset_depreciations_not_accounted_on_current_financial_year: "Fixed asset depreciations not accounted on current financial year"
     fixed_assets: "Activos fixos"
     from: "A partir de"
     # from_to_date: "from %{from} to %{to}"

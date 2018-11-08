@@ -1166,6 +1166,7 @@ deu:
     first_line_as_title: "Erste Zeile als Titel"
     fixed_asset_debts: "Anlage Schulden"
     fixed_asset_depreciations: "Anlagevermögen Abschreibungen"
+    # fixed_asset_depreciations_not_accounted_on_current_financial_year: "Fixed asset depreciations not accounted on current financial year"
     fixed_assets: "Anlagevermögen"
     from: "Von"
     # from_to_date: "from %{from} to %{to}"
