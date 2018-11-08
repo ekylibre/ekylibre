@@ -1070,6 +1070,7 @@ eng:
     main_production: "Main production" #?
     managed: "Managed"
     managed_sales: "Managed sales"
+    mandatory: "Mandatory"
     manure_management_plan_zones: "Manure management plan zones"
     marketable: "Marketable"
     marketable_items_count: "Marketable items count" #?

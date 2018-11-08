@@ -2274,7 +2274,8 @@ CREATE TABLE documents (
     file_content_text text,
     custom_fields jsonb,
     sha256_fingerprint character varying,
-    signature character varying
+    signature text,
+    mandatory boolean DEFAULT false
 );
 
 
@@ -2900,7 +2901,7 @@ CREATE TABLE financial_year_archives (
     financial_year_id integer NOT NULL,
     timing character varying NOT NULL,
     sha256_fingerprint character varying NOT NULL,
-    signature character varying NOT NULL,
+    signature text NOT NULL,
     path character varying NOT NULL
 );
 

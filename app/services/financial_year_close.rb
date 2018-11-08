@@ -3,9 +3,10 @@
 class FinancialYearClose
   include PdfPrinter
 
-  def initialize(year, to_close_on, options = {})
+  def initialize(year, to_close_on, closer, options = {})
     @year = year
     @started_on = @year.started_on
+    @closer = closer
     @to_close_on = to_close_on || options[:to_close_on] || @year.stopped_on
     @progress = Progress.new(:close_main, id: @year.id, max: 4)
     @errors = []
@@ -445,6 +446,7 @@ class FinancialYearClose
   def generate_balance_documents(timing)
     document_nature = Nomen::DocumentNature.find(:trial_balance)
     key = "#{document_nature.name}-#{Time.zone.now.l(format: '%Y-%m-%d-%H:%M:%S')}"
+    template_path = find_open_document_template(:trial_balance)
     period = "#{@year.started_on}_#{@year.stopped_on}"
 
     balance = Journal.trial_balance(started_on: @year.started_on,
@@ -459,15 +461,12 @@ class FinancialYearClose
                                          prev_balance: [],
                                          document_nature: document_nature,
                                          key: key,
-                                         template_path: find_open_document_template(:trial_balance),
-                                         period: period)
+                                         template_path: template_path,
+                                         period: period,
+                                         mandatory: true,
+                                         closer: @closer)
     file_path = balance_printer.run
-
-    destination_path = Ekylibre::Tenant.private_directory.join('attachments', 'documents', 'financial_year_closures', "#{@year.id}", "#{timing}", 'balance', "#{key}.pdf")
-    signature_path = Ekylibre::Tenant.private_directory.join('attachments', 'documents', 'financial_year_closures', "#{@year.id}", "#{timing}", 'balance', "#{key}.asc")
-    FileUtils.mkdir_p destination_path.dirname
-    FileUtils.ln file_path, destination_path
-    FileUtils.ln file_path.gsub(/\.pdf/, '.asc'), signature_path
+    copy_generated_documents(timing, 'balance', key, file_path)
   end
 
   def generate_general_ledger_documents(timing, params)
@@ -481,14 +480,11 @@ class FinancialYearClose
                                                       document_nature: document_nature,
                                                       key: key,
                                                       template_path: template_path,
-                                                      params: params)
+                                                      params: params,
+                                                      mandatory: true,
+                                                      closer: @closer)
     file_path = general_ledger_printer.run
-
-    destination_path = Ekylibre::Tenant.private_directory.join('attachments', 'documents', 'financial_year_closures', "#{@year.id}", "#{timing}", 'general_ledger', "#{key}.pdf")
-    signature_path = Ekylibre::Tenant.private_directory.join('attachments', 'documents', 'financial_year_closures', "#{@year.id}", "#{timing}", 'general_ledger', "#{key}.asc")
-    FileUtils.mkdir_p destination_path.dirname
-    FileUtils.ln file_path, destination_path
-    FileUtils.ln file_path.gsub(/\.pdf/, '.asc'), signature_path
+    copy_generated_documents(timing, 'general_ledger', key, file_path)
   end
 
   def generate_journals_documents(timing, params)
@@ -504,11 +500,16 @@ class FinancialYearClose
                                          document_nature: document_nature,
                                          key: key,
                                          template_path: template_path,
-                                         params: params)
+                                         params: params,
+                                         mandatory: true,
+                                         closer: @closer)
     file_path = journal_printer.run
+    copy_generated_documents(timing, 'journal_ledger', key, file_path)
+  end
 
-    destination_path = Ekylibre::Tenant.private_directory.join('attachments', 'documents', 'financial_year_closures', "#{@year.id}", "#{timing}", 'journal_ledger', "#{key}.pdf")
-    signature_path = Ekylibre::Tenant.private_directory.join('attachments', 'documents', 'financial_year_closures', "#{@year.id}", "#{timing}", 'journal_ledger', "#{key}.asc")
+  def copy_generated_documents(timing, nature, key, file_path)
+    destination_path = Ekylibre::Tenant.private_directory.join('attachments', 'documents', 'financial_year_closures', "#{@year.id}", "#{timing}", "#{nature}", "#{key}.pdf")
+    signature_path = Ekylibre::Tenant.private_directory.join('attachments', 'documents', 'financial_year_closures', "#{@year.id}", "#{timing}", "#{nature}", "#{key}.asc")
     FileUtils.mkdir_p destination_path.dirname
     FileUtils.ln file_path, destination_path
     FileUtils.ln file_path.gsub(/\.pdf/, '.asc'), signature_path

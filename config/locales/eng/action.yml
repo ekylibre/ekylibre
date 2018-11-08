@@ -1453,6 +1453,7 @@ eng:
     financial_year_needed: "All commercial and financial operations need to be accounted on an opened financial year. Please open a financial year for the current period or ask a manager"
     financial_year_warning: "<p> If the financial year is not closed or locked before the %{last_financial_year_end_date}, you will not be able to open a financial year on %{new_financial_year_start_date}. Indeed, it is not possible to have more than 2 financial years opened simultaneously. Furthermore, it is necessary to have an opened financial year on the ongoing date to input commercial and financial operations. <br/> If you don't manage your accountacy with Ekylibre, you have the possibility to lock your financial year. <br/> Attention : locked financial years can't be modified like a closed financial year."
     # financials_assets: "Financials assets"
+    fingerprint_sha256: "Fingerprint (SHA256)"
     finish: "Finish" #?
     finished: "Finished"
     first_line_as_title: "First line as title"
@@ -1960,6 +1961,7 @@ eng:
     show: "Show"
     # show_export_preview: "Show export preview"
     sign_out: "Sign out" #?
+    signature_html: "Signature (<a href='%{url}'>Public key</a>)"
     simplified: "Simplified Accounting" #?
     simplified_linear_options: "Simplified linear options" #?!
     social_debts: "Social debts" #?!

@@ -8,10 +8,12 @@ class BalancePrinter
     @key             = options[:key]
     @template_path   = options[:template_path]
     @period          = options[:period]
+    @mandatory       = options[:mandatory]
+    @closer          = options[:closer]
   end
 
   def run
-    report = generate_document(@document_nature, @key, @template_path) do |r|
+    report = generate_document(@document_nature, @key, @template_path, @mandatory, @closer) do |r|
       e = Entity.of_company
       company_name = e.full_name
       company_address = e.default_mail_address.coordinate

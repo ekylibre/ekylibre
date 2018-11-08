@@ -264,8 +264,8 @@ class FinancialYear < Ekylibre::Record::Base
   end
 
   # When a financial year is closed,.all the matching journals are closed too.
-  def close(to_close_on = nil, options = {})
-    FinancialYearClose.new(self, to_close_on, options).execute
+  def close(closer, to_close_on = nil, options = {})
+    FinancialYearClose.new(self, to_close_on, closer, options).execute
   end
 
   def closed?

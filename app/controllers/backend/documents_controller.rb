@@ -28,14 +28,15 @@ module Backend
 
     list do |t|
       t.action :destroy, if: :destroyable?
+      t.column :mandatory, class: "center-align"
       t.column :number, url: true
       t.column :name, url: true
       t.column :nature
       t.column :created_at
       t.column :file_updated_at, url: { format: :pdf }
       t.column :template, url: true
-      t.column :file_pages_count
-      t.column :file_file_size
+      t.column :file_pages_count, class: "center-align"
+      t.column :file_file_size, class: "center-align"
       t.column :file_content_text, hidden: true
       t.column :file_fingerprint, hidden: true
     end

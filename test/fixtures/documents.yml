@@ -39,7 +39,7 @@
 #  nature             :string
 #  number             :string           not null
 #  sha256_fingerprint :string
-#  signature          :string
+#  signature          :text
 #  template_id        :integer
 #  updated_at         :datetime         not null
 #  updater_id         :integer

@@ -26,7 +26,7 @@
 #  id                 :integer          not null, primary key
 #  path               :string           not null
 #  sha256_fingerprint :string           not null
-#  signature          :string           not null
+#  signature          :text             not null
 #  timing             :string           not null
 #
 class FinancialYearArchive < Ekylibre::Record::Base

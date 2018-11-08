@@ -7,10 +7,12 @@ class GeneralLedgerPrinter
     @key             = options[:key]
     @template_path   = options[:template_path]
     @params          = options[:params]
+    @mandatory       = options[:mandatory]
+    @closer          = options[:closer]
   end
 
   def run
-    report = generate_document(@document_nature, @key, @template_path) do |r|
+    report = generate_document(@document_nature, @key, @template_path, @mandatory, @closer) do |r|
       data_filters = []
       if @params[:accounts]
         data_filters << Account.human_attribute_name(:account) + ' : ' + @params[:accounts].to_sentence

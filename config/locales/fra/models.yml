@@ -998,7 +998,7 @@ fra:
     file_file_name: "Nom de fichier du fichier"
     file_file_size: "Taille du fichier"
     file_fingerprint: "Empreinte du fichier"
-    file_pages_count: "Pages comptent"
+    file_pages_count: "Nombre de pages"
     file_updated_at: "Mis à jour à"
     filiation_status: "Statut de la filiation"
     filtered_columns: "Colonnes filtrées"
@@ -1272,6 +1272,7 @@ fra:
     managed: "Géré par le système"
     managed_sales: "Ventes gérées"
     mandates: "Responsabilités" #?
+    mandatory: "Obligatoire"
     manure_management_plan_zones: "Zones de plan de fumure"
     markers: "Repères" #?
     marketable: "Commercialisable"

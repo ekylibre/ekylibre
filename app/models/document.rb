@@ -39,7 +39,7 @@
 #  nature             :string
 #  number             :string           not null
 #  sha256_fingerprint :string
-#  signature          :string
+#  signature          :text
 #  template_id        :integer
 #  updated_at         :datetime         not null
 #  updater_id         :integer
@@ -57,8 +57,8 @@ class Document < Ekylibre::Record::Base
                            }
   refers_to :nature, class_name: 'DocumentNature'
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates :file_content_text, length: { maximum: 500_000 }, allow_blank: true
-  validates :file_content_type, :file_file_name, :file_fingerprint, :sha256_fingerprint, :signature, length: { maximum: 500 }, allow_blank: true
+  validates :file_content_text, :signature, length: { maximum: 500_000 }, allow_blank: true
+  validates :file_content_type, :file_file_name, :file_fingerprint, :sha256_fingerprint, length: { maximum: 500 }, allow_blank: true
   validates :file_file_size, numericality: { only_integer: true, greater_than: -2_147_483_649, less_than: 2_147_483_648 }, allow_blank: true
   validates :file_updated_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
   validates :key, :name, :number, presence: true, length: { maximum: 500 }
@@ -72,6 +72,10 @@ class Document < Ekylibre::Record::Base
 
   delegate :name, to: :template, prefix: true
   acts_as_numbered
+
+  protect(on: :destroy) do
+    mandatory
+  end
 
   # Returns the matching unique document for the given nature and key
   def self.of(nature, key)

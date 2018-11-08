@@ -2072,7 +2072,7 @@ documents:
   sha256_fingerprint:
     type: string
   signature:
-    type: string
+    type: text
   template_id:
     type: integer
     references: document_template
@@ -2428,7 +2428,7 @@ financial_year_archives:
     type: string
     required: true
   signature:
-    type: string
+    type: text
     required: true
   timing:
     type: string
