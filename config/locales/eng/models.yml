@@ -1988,6 +1988,11 @@ eng:
           todo: "To do"
     tax_declaration:
       bookkeep: "[%{resource} %{number}] From %{started_on} to %{stopped_on}"
+      state_machine:
+        states:
+          draft: "Draft"
+          sent: "Sent"
+          validated: "Validated"
     team:
       default: "Main team"
     user:

@@ -2247,6 +2247,11 @@ fra:
           todo: "À faire"
     tax_declaration:
       bookkeep: "[%{resource} %{number}] - Période du %{started_on} au %{stopped_on}"
+      state_machine:
+        states:
+          draft: "Brouillon"
+          sent: "Envoyée"
+          validated: "Validée"
     team:
       default: "Général"
     user:

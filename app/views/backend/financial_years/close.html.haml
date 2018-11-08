@@ -2,8 +2,8 @@
   = field_set :prerequisites_checks_before_closure.tl do
     .close-conditions
       = warnings(@financial_year,
-                  fixed_assets: FixedAsset.drafts,
-                  loans: Loan.drafts,
+                  fixed_assets: FixedAssetDepreciation.up_to(@financial_year.stopped_on).where(locked: false),
+                  loans: LoanRepayment.where('due_on <= ?', @financial_year.stopped_on).where(locked: false),
                   tax_declarations: :not_sent_tax_declarations,
                   incoming_parcels: :not_given_incoming_parcel,
                   purchases: :not_invoiced_or_aborted_purchase,
