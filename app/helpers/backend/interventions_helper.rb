@@ -12,9 +12,6 @@ module Backend
       can_select = intervention.state != :validated
       colors = []
       task_datas = []
-      text_icon = nil
-
-      text_icon = 'check' if intervention.completely_filled?
 
       if intervention.targets.any?
         intervention.targets.find_each do |target|
@@ -61,7 +58,7 @@ module Backend
       request_intervention_id = ''
       request_intervention_id = intervention.request_intervention_id unless intervention.request_intervention_id.nil?
 
-      [[{ text: intervention_datas[:name], icon: text_icon, icon_class: 'completely_filled' }],
+      [[{ text: intervention_datas[:name] }],
        task_datas, [], can_select, colors,
        params: { class: '', data: { intervention: intervention_datas.to_json, request_intervention_id: request_intervention_id } }]
     end
