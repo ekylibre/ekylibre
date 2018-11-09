@@ -81,7 +81,7 @@
       = f.input :new_variant_id, input_html: { data: { intervention_updater: prefix + 'new_variant_id' }}
 
   - if reference.attribute(:working_zone)
-    - if user_preference_value(User::PREFERENCE_SHOW_MAP_INTERVENTION_FORM)
+    - if user_preference_value(User::PREFERENCE_SHOW_MAP_INTERVENTION_FORM, true)
       = f.geometry :working_zone, { show: {}, input_html: { data: { intervention_updater: prefix + 'working_zone' }}, editor: {useFeatures: true, overlaySelector: { editionLayer: f.object.human_attribute_name(:working_zone) }, dynamic_series: backend_map_editor_shapes_path(layers: [:land_parcels, :plants], started_at: started_at)} }
     - else
       - working_zone = f.object.working_zone.to_json if f.object.working_zone.present?

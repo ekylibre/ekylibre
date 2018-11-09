@@ -564,7 +564,6 @@ ita:
     bank_statement_letter: "Lettera estratto conto bancario"
     bank_statements: "estratti conto"
     base_amount: "importo di base"
-    # batch_number: "Batch number"
     battery_level: "Livello batteria"
     birth_date_completeness: "Data di nascita completezza"
     birth_farm_number: "Numero di farm di nascita"

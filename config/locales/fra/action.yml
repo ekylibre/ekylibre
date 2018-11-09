@@ -950,7 +950,6 @@ fra:
     add_inspection_point_nature: "Ajouter un critère de qualité"
     add_intervention_record: "Enregistrer une intervention"
     add_intervention_request: "Planifier une intervention"
-    # add_intervention_template: "Add intervention template"
     add_item: "Ajouter un élément"
     add_labelling: "Ajouter l’étiquette"
     add_line: "Ajouter une ligne"

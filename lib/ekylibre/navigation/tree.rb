@@ -46,6 +46,18 @@ module Ekylibre
         @children << node
       end
 
+      def insert_part_after(node, key)
+        if node.type != levels.first
+          raise "Invalid node type: #{node.type.inspect}. Expecting #{levels.first.inspect}"
+        end
+
+        searched_key = search_index(key)
+
+        @children.insert(searched_key + 1, node)
+
+        rebuild_index!
+      end
+
       def rebuild_index!
         @index = {}.with_indifferent_access
         @reversions = {}.with_indifferent_access
@@ -63,6 +75,12 @@ module Ekylibre
 
       def inspect
         "<#{self.class.name} #{levels.inspect}>"
+      end
+
+      def search_index(key)
+        searched_node = get(key)
+
+        children.index(searched_node)
       end
     end
   end

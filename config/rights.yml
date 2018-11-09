@@ -1171,6 +1171,14 @@ integrations:
     - "backend/net_services#new"
     - "backend/net_services#update"
 
+intervention_templates:
+  read:
+    dependencies:
+    - read-intervention_templates
+  write:
+    dependencies:
+    - read-intervention_templates
+
 interventions:
   read:
     actions:
@@ -2185,6 +2193,14 @@ sales:
     - "backend/sale_credits#new"
     - "backend/sales#cancel"
 
+schedulings:
+  read:
+    dependencies:
+    - read-schedulings
+  write:
+    dependencies:
+    - read-schedulings
+
 sensors:
   read:
     actions:
@@ -2398,6 +2414,14 @@ teams:
     - "backend/teams#edit"
     - "backend/teams#new"
     - "backend/teams#update"
+
+technical_itineraries:
+  read:
+    dependencies:
+    - read-technical_itineraries
+  write:
+    dependencies:
+    - read-technical_itineraries
 
 trackings:
   read:
