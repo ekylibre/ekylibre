@@ -3,8 +3,6 @@ namespace :tva_declaration do
   # use it with command : rake tva_declaration:tax_declaration
   task tax_declaration: :environment do |t, args|
     set_parameters(args, false)
-    puts 'Generate tax declaration file ? (yes or no)'.blue
-    generate_file = STDIN.gets.chomp
     puts 'start to generate tax_declaration it could take a while...'.green
     l = []
     fy = FinancialYear.on(@started_on)
@@ -15,7 +13,6 @@ namespace :tva_declaration do
     end
     td.attachments.create!(document: Document.create!(file: File.open(path)))
     puts 'Tax declaration is generated'.green
-    create_tax_declaration_file if generate_file[0] == 'y'
   end
 
   desc "Generate tax declaration file"
