@@ -85,9 +85,6 @@ class FinancialYearClose
 
       log("Close Financial Year")
       @year.update_attributes(stopped_on: @to_close_on, closed: true)
-
-      log("Interrupt close")
-      raise "Stop"
     end
 
     true
