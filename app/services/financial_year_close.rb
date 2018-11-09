@@ -492,6 +492,6 @@ class FinancialYearClose
     signature = crypto.clearsign(sha256.to_s, signer: "lucas.sott@wanadoo.fr")
     signature_path = Ekylibre::Tenant.private_directory.join('attachments', 'documents', 'financial_year_closures', "#{@year.id}", "#{@year.id}_#{timing}.asc")
     File.write(signature_path, signature)
-    @year.financial_year_archives.create!(timing: timing, sha256_fingerprint: sha256.to_s, signature: signature.to_s, path: zip_path)
+    @year.archives.create!(timing: timing, sha256_fingerprint: sha256.to_s, signature: signature.to_s, path: zip_path)
   end
 end
