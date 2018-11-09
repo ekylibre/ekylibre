@@ -352,6 +352,7 @@ fra:
           not_opened_financial_year: "Un exercice comptable ouvert est nécessaire"
         purchase:
           not_opened_financial_year: "Un exercice comptable ouvert est nécessaire"
+          payment_delay_custom_validation_message: "Formats acceptés : %{values}"
         purchase_item:
           building_can_not_receive_product: "Le réservoir %{building} ne peut pas recevoir le produit %{product}, il contient déjà le produit %{contained_product}."
           serial_already_used_with_an_other_product: "%{attribute} a déjà été utilisé pour un autre type de produit du même fournisseur"
