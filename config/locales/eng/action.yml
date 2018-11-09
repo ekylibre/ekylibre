@@ -2018,6 +2018,7 @@ eng:
     taxes: "Taxes"
     taxes_and_wages: "Taxes and wages"
     third_is_unbalanced: "Third is unbalanced. (balance - supplier account balance)"
+    this_archive_is_digitally_signed: "This archive is digitally signed."
     thumb: "Thumb" #?
     time_cost: "Time cost" #?
     time_spent_by_activity: "Time spent by activity"

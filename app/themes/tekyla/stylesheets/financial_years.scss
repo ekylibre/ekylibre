@@ -131,3 +131,21 @@
     }
   }
 }
+
+.lock-picto {
+  @include is-icon(16px);
+  @include use-icon(lock);
+}
+.chevron {
+  @include is-icon(16px);
+  @include use-icon(chevron-right);
+  margin-left: 10px;
+  display: inline-block;
+  transform: rotate(0deg);
+
+  -webkit-transition: -webkit-transform 0.35s ease-out;
+  -moz-transition:    -moz-transform 0.35s ease-out;
+  -o-transition:      -o-transform 0.35s ease-out;
+  -ms-transition:     -ms-transform 0.35s ease-out;
+  transition:         transform 0.35s ease-out;
+}
