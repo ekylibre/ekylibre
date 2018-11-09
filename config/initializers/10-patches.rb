@@ -162,6 +162,26 @@ module StateMachine::Integrations::ActiveModel
   end
 end
 
+module ActiveModel
+  module Validations
+    module SymbolHandlingClusitivity
+      private
+
+      # Redefining the #include? method to make sure we only pass strings
+      # to be validated instead of "sometime strings, sometime symbols"
+      def include?(record, value)
+        value = value.to_s if value.is_a? Symbol
+        super record, value 
+        # `super` here references ActiveModel::Validations::Clusitivity#include?
+      end
+    end
+
+    # Including new module in the validators that use Clusivity
+    InclusionValidator.include SymbolHandlingClusitivity
+    ExclusionValidator.include SymbolHandlingClusitivity
+  end
+end
+
 module ::I18n
   def self.locale_label(locale = nil)
     locale ||= self.locale

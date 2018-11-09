@@ -193,14 +193,6 @@ class ProductNatureVariant < Ekylibre::Record::Base
           errors.add(:derivative_of, :blank)
         end
       end
-      # if storable?
-      #  unless self.stock_account
-      #    errors.add(:stock_account, :not_defined)
-      #  end
-      # unless self.stock_movement_account
-      #    errors.add(:stock_movement_account, :not_defined)
-      #  end
-      # end
     end
     if variety && products.any?
       if products.detect { |p| Nomen::Variety.find(p.variety) > variety }
