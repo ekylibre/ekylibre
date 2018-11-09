@@ -28,33 +28,36 @@ class PdfPrinterTest < ActiveSupport::TestCase
 
   test 'it archives a report from a file' do
     file = File.open(fixture_file('pdf_printer_1.odt'))
-    document = @subject.archive_report('balance_sheet', 'pdf-test', file)
+    document_nature = Nomen::DocumentNature.find(:balance_sheet)
+    document = @subject.archive_report(document_nature, 'pdf-test', file)
     assert document.is_a?(Document)
     assert_equal 'balance_sheet', document.nature
     assert_equal 'pdf-test', document.key
-    assert_equal I18n.translate('models.document_template.document_name', nature: 'balance_sheet', key: 'pdf-test'), document.name
+    assert_equal I18n.translate('models.document_template.document_name', nature: document_nature.human_name, key: 'pdf-test'), document.name
     assert_equal file.read, File.read(document.file.path)
   end
 
   test 'it archives a report from data' do
     data = File.read(fixture_file('pdf_printer_1.odt'))
-    document = @subject.archive_report('balance_sheet', 'pdf-test', data)
+    document_nature = Nomen::DocumentNature.find(:balance_sheet)
+    document = @subject.archive_report(document_nature, 'pdf-test', data)
     assert document.is_a?(Document)
     assert_equal 'balance_sheet', document.nature
     assert_equal 'pdf-test', document.key
-    assert_equal I18n.translate('models.document_template.document_name', nature: 'balance_sheet', key: 'pdf-test'), document.name
+    assert_equal I18n.translate('models.document_template.document_name', nature: document_nature.human_name, key: 'pdf-test'), document.name
     assert_equal data, File.read(document.file.path)
   end
 
   test 'it generates a document' do
     source = fixture_file('pdf_printer_1.odt')
-    document = @subject.generate_document('balance_sheet', 'pdf-test', source) do |r|
+    document_nature = Nomen::DocumentNature.find(:balance_sheet)
+    document = @subject.generate_document(document_nature, 'pdf-test', source) do |r|
       r.add_field 'FILE_NAME', 'My file name'
     end
     assert document.is_a?(Document)
     assert_equal 'balance_sheet', document.nature
     assert_equal 'pdf-test', document.key
-    assert_equal I18n.translate('models.document_template.document_name', nature: 'balance_sheet', key: 'pdf-test'), document.name
+    assert_equal I18n.translate('models.document_template.document_name', nature: document_nature.human_name, key: 'pdf-test'), document.name
     expected = read_pdf_data(File.read(fixture_file('pdf_printer_1_expected.pdf')))
     compare_pdfs expected, read_pdf_data(File.read(document.file.path))
   end
