@@ -99,7 +99,6 @@ class ProductReading < Ekylibre::Record::Base
 
     # if product && product.initial_shape_changed?
     #   product.net_surface_area = product.initial_shape.area.in(:hectare).round(3)
-    #   # binding.pry
     # end
   end
 

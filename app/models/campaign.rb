@@ -106,9 +106,13 @@ class Campaign < Ekylibre::Record::Base
     self.class.where('harvest_year < ?', harvest_year).order(harvest_year: :desc).first
   end
 
+  def followings
+    self.class.where('harvest_year > ?', harvest_year).order(:harvest_year)
+  end
+
   # Return the following campaign
   def following
-    self.class.where('harvest_year > ?', harvest_year).order(:harvest_year).first
+    followings.first
   end
 
   def opened?

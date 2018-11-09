@@ -176,10 +176,3 @@
         %span.title= Intervention.human_attribute_name(:trouble_encountered)
         %span.value= resource.trouble_description
     = labels_info(resource.labels)
-
-  - if resource.request?
-    - c.cobble(:record_interventions, title: :x_interventions.tl(count: resource.record_interventions.count)) do
-      = cobble_toolbar do |t|
-        .toolbar
-          = tool_to :new.ta, {action: :new, controller: :interventions, request_intervention_id: resource.id, procedure_name: resource.procedure_name}, tool: :new
-      =  cobble_list(:record_interventions)

@@ -472,13 +472,13 @@ module Backend
       element_class = html_options[:class] || 'period'
       title = html_options[:title] || ''
       url = html_options[:url] || nil
+      data_toggle = html_options['data-toggle'] || nil
 
-      content_tag(:div, style: style, class: element_class, title: title) do
+      content_tag(:div, style: style, class: element_class, data: html_options[:data]) do
         if url.nil?
-          content_tag(:i, '', class: "picto picto-#{picto_class}")
+          content_tag(:i, '', class: "picto picto-#{picto_class}", 'data-toggle': data_toggle, title: title)
         else
-
-          link_to(url) do
+          link_to(url, 'data-toggle': data_toggle, title: title) do
             content_tag(:i, '', class: "picto picto-#{picto_class}")
           end
         end

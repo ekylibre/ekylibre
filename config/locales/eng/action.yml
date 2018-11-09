@@ -1789,7 +1789,7 @@ eng:
     payments: "Payments"
     payments_count: "Payments count"
     payslip_number: "Payslip #" #?
-    payslips: "Payslips"
+    payslips: "Payslips" #?
     people: "People"
     percentage_by_calibration: "Percentage by calibration"
     # percentage_by_calibration_x: "Percentage by calibration x"

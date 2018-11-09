@@ -4,6 +4,9 @@ module Backend
       to_bank_at: 'Time.zone.today'.c,
       paid_at: 'Time.zone.today'.c,
       responsible_id: 'current_user.id'.c,
+      t3e: {
+        payee: 'RECORD&.payee&.full_name'.c
+      }
     )
 
     def self.list_conditions
