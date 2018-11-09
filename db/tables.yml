@@ -2480,6 +2480,10 @@ financial_years:
   accountant_id:
     type: integer
     references: entity
+  already_existing:
+    type: boolean
+    required: true
+    default: false
   closed:
     type: boolean
     required: true

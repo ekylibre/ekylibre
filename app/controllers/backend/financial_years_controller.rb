@@ -110,6 +110,12 @@ module Backend
     def close
       # Launch close process
       return unless @financial_year = find_and_check
+      t3e @financial_year.attributes
+      if request.get?
+        only_closable = FinancialYear.closable_or_lockable
+        return redirect_to backend_financial_years_path if @financial_year != only_closable
+        return render
+      end
       if request.post? && @financial_year.closable?
         closed_on = params[:financial_year][:stopped_on].to_date
         if params[:result_journal_id] == '0'
@@ -133,7 +139,6 @@ module Backend
       params[:forward_journal_id] = (journal ? journal.id : 0)
       journal = Journal.where(currency: @financial_year.currency, nature: :closure).first
       params[:closure_journal_id] = (journal ? journal.id : 0)
-      t3e @financial_year.attributes
     end
 
     def index
@@ -156,11 +161,16 @@ module Backend
 
     def lock
       return unless @financial_year = find_and_check
+      t3e @financial_year.attributes
+      if request.get?
+        only_lockable = FinancialYear.closable_or_lockable
+        return redirect_to backend_financial_years_path if @financial_year != only_lockable
+        return render
+      end
       if request.post?
         @financial_year.update(state: 'locked')
         return redirect_to(action: :index)
       end
-      t3e @financial_year.attributes
     end
 
     def destroy_all_empty

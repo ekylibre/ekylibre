@@ -134,7 +134,9 @@ eng:
         wrong_length: "%{attribute} is the wrong length (should be %{count} characters)"
       models:
         account:
+          cant_start_with_0: "The number can't start with a '0'"
           centralizing_number: "The number can't start with '401' or '411' which are numbers used for auxiliary accounts"
+          incorrect_length: "The number has not the correct lenght (%{number_length} caracters)"
           radical_class: "The account can't correpsond to a radical class"
         activity:
           checked_off_with_inspections: "Inspections have already been created for this activity"
@@ -168,9 +170,9 @@ eng:
               on_or_after: "The date selected must be posterior to society's creation date (%{restriction})"
             stopped_on:
               end_of_month: "%{attribute} must be an end of month"
+          can_only_have_two_years_opened: "You can only have two financial years opened"
           can_only_update_code: "You can only update the code of a closed or locked financial year"
           overlap: "%{attribute} overlaps an existing financial year"
-          can_only_have_two_years_opened: "You can only have two financial years opened"
         financial_year_exchange:
           csv_file_entry_dates_invalid: "Some entries in the CSV are out of the financial year exchange date range"
           csv_file_entry_invalid: "Some entries in the CSV are invalid ('%{entry_number}')"
@@ -215,6 +217,7 @@ eng:
           not_opened_financial_year: "An opened financial year is necessary"
         purchase:
           not_opened_financial_year: "An opened financial year is necessary"
+          payment_delay_custom_validation_message: "Accepted formats : %{values}"
         purchase_item:
           building_can_not_receive_product: "The building %{building} can not receive %{product}, it already contains %{contained_product}."
           serial_already_used_with_an_other_product: "%{attribute} has been already used for an other product of the same supplier"
@@ -477,7 +480,7 @@ eng:
     all_addresses: "All addresses"
     all_taxes_included: "All taxes included"
     allocation_account: "Allocation account"
-    # already_existing: "Already existing"
+    already_existing: "Already existing"
     amount: "Amount"
     analysed_at: "Analysed at"
     analyser: "Analyser"
@@ -1987,6 +1990,11 @@ eng:
           todo: "To do"
     tax_declaration:
       bookkeep: "[%{resource} %{number}] From %{started_on} to %{stopped_on}"
+      state_machine:
+        states:
+          draft: "Draft"
+          sent: "Sent"
+          validated: "Validated"
     team:
       default: "Main team"
     user:

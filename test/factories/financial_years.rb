@@ -7,7 +7,7 @@ FactoryBot.define do
 
     after(:build) do |year|
       year.code = year.default_code if year.started_on && year.stopped_on && year.code.blank?
-      year.currency = 'EUR'
+      year.currency = 'EUR' if year.currency.blank?
     end
 
     trait :skip_validate do

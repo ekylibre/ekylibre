@@ -9,7 +9,7 @@
   = f.association :nature, as: :hidden
   = f.input :reference_number
   = f.input :invoiced_at, autofocus: true
-  = f.input :payment_delay
+  = f.input :payment_delay, placeholder: :payment_delay_placeholder.tl
   = f.input :tax_payability, as: :radio_buttons
   = f.referenced_association :responsible, source: :employees, new: { employed: 1 }
   = f.input :description

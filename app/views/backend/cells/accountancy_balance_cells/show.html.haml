@@ -40,6 +40,6 @@
 
     series << { data: data }
 
-  = waterfall_highcharts(series, title: {text: :profit_and_loss.tl}, x_axis: { type: 'category'}, y_axis: {title: {text: 'EUR'}}, legend: { enabled: false }, tooltip: {point_format: '<b>{point.y:,.2f}</b>'})
+  = waterfall_highcharts(series, x_axis: { type: 'category'}, y_axis: {title: {text: 'EUR'}}, legend: { enabled: false }, tooltip: {point_format: '<b>{point.y:,.2f}</b>'})
 - else
   = no_data

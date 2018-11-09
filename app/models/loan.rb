@@ -91,8 +91,10 @@ class Loan < Ekylibre::Record::Base
   validates :loan_account, :interest_account, presence: true
   validates :insurance_account, presence: { if: -> { updateable? && insurance_percentage.present? && insurance_percentage.nonzero? } }
   validates :amount, numericality: { greater_than: 0 }
+  validates :currency, match: { with: :cash }
 
   scope :drafts, -> { where(state: %w[draft]) }
+  scope :start_before, ->(date) { where('loans.ongoing_at <= ?', date.to_time) }
 
   state_machine :state, initial: :draft do
     state :draft
@@ -117,12 +119,6 @@ class Loan < Ekylibre::Record::Base
     self.ongoing_at ||= started_on.to_time if started_on
     self.currency ||= cash.currency if cash
     self.shift_duration ||= 0
-  end
-
-  validate do
-    if self.currency && cash
-      errors.add(:currency, :invalid) unless self.currency == cash.currency
-    end
   end
 
   after_save do

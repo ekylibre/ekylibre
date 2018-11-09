@@ -9,7 +9,7 @@ before_script: test/ci/before_script
 jobs:
   include:
     - name: "Main test suite"
-      script: xvfb-run bundle exec rake test:fast DRIVER=webkit
+      script: travis_wait 60 xvfb-run bundle exec rake test:fast DRIVER=webkit
     - name: "Long running tests"
       script: travis_wait 60 xvfb-run bundle exec rake test:slow DRIVER=webkit
 services:

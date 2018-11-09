@@ -39,10 +39,10 @@
   }
   td {
     &.debitcolor {
-      color: $invalid-color;
+      background-color: $background-debit-balance;
     }
     &.creditcolor {
-      color: $success-color
+      background-color: $background-credit-balance;
     }
   }
 }
@@ -89,10 +89,10 @@
 
   td {
     &.debitcolor {
-      color: $invalid-color;
+      background-color: $background-debit-balance;
     }
     &.creditcolor {
-      color: $success-color;
+      background-color: $background-credit-balance;
     }
   }
 

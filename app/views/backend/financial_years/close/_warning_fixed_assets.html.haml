@@ -1,4 +1,5 @@
 %p
   %i.warning-validation
+  - periods = "#{financial_year.started_on.to_s}_#{financial_year.stopped_on.to_s}"
   = :draft_fixed_asset_on_current_financial_year.tl(code: financial_year.code)
-  = link_to(:see_fixed_assets.tl, backend_fixed_assets_path)
+  = link_to(:see_fixed_assets.tl, backend_fixed_assets_path(params: {period: periods, state: :draft}), target: '_blank')

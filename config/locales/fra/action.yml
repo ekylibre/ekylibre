@@ -748,6 +748,8 @@ fra:
         one: "%{count} erreur a empêché l’enregistrement (%{model})"
         other: "%{count} erreurs ont empêché l’enregistrement (%{model})"
   front-end:
+    bank_reconciliation:
+      remove: "Effacer"
     leaflet:
       draw:
         handlers:
@@ -847,8 +849,8 @@ fra:
     accounting_balance: "Balance comptable" #?
     accounts: "Comptes comptables"
     accounts_only_used_at: "Comptes utilisés seulement sur"
-    accounts_to_load: "Plan de comptes à charger"
     accounts_to_change: "Plan de comptes à changer"
+    accounts_to_load: "Plan de comptes à charger"
     action_duration: "Durée de l'action"
     activate_entry_autocompletion: "Autocompléter l’écriture"
     active: "Actif"
@@ -898,7 +900,6 @@ fra:
     add_labelling: "Ajouter l’étiquette"
     add_line: "Ajouter une ligne"
     add_linestring: "Ajouter une ligne"
-    change: "Changer" #?
     add_mail: "Ajouter une adresse postale"
     add_mobile: "Ajouter un n° de portable"
     add_new_record: "Ajouter un nouvel enregistrement"
@@ -984,11 +985,11 @@ fra:
       close_issue: "Êtes-vous sûr(e) de vouloir clore cet incident\_?"
       reopen_issue: "Êtes-vous sûr(e) de vouloir ré-ouvrir cet incident\_?"
     are_you_sure_you_want_to_change_account_digits: "Êtes vous sûr(e) de vouloir changer le nombre de caractères sur les numéros de comptes\_?"
+    are_you_sure_you_want_to_change_accounting_system: "Êtes-vous sûr(e) de vouloir changer de plan de comptes\_?"
     are_you_sure_you_want_to_confirm: "Êtes-vous sûr(e) de vouloir passer en commande\_?"
     are_you_sure_you_want_to_delete: "Êtes-vous sûr(e) de vouloir supprimer cet enregistrement\_?"
     are_you_sure_you_want_to_invoice: "Êtes-vous sûr(e) de vouloir facturer\_?"
     are_you_sure_you_want_to_send_mails: "Êtes-vous sûr(e) de vouloir envoyer les mails\_?"
-    are_you_sure_you_want_to_change_accounting_system: "Êtes-vous sûr(e) de vouloir changer de plan de comptes\_?"
     area: "Zone"
     area_measure: "Superficie" #?
     assessable_operations: "Opérations imposables (H.T)" #?
@@ -1063,11 +1064,13 @@ fra:
     cells_concentration: "Dénombrement des cellules somatiques" #?
     centralize: "Comptes comptables centralisateurs"
     centralized_account: "Compte centralisateur %{name}"
+    change: "Changer"
     change_password: "Changer de mot de passe"
     change_price: "Changer le prix unitaire" #?
     change_state: "Changement du statut"
     change_status_of_selected_interventions: "Modifier l’état d’interventions sélectionnées"
     charge_value: "Achats et charges externes"
+    charges: "Charges"
     chart: "Graphique"
     check: "Vérifier"
     check_fields: "Vous devez cocher au moins une case pour effectuer la modification" #?
@@ -1107,6 +1110,7 @@ fra:
     column_organization: "Organisation" #?
     column_title: "Titre" #?
     columns: "Colonnes à importer"
+    commercial_margin: "Marge commerciale"
     commission: "Commission"
     company: "Société"
     complement_sort: "Trier les choix par nom" #?
@@ -1357,6 +1361,8 @@ fra:
     exchange_rate_from_x_to_y: "Taux de change de %{x} à %{y}"
     exchanges: "Échanges"
     executed: "Réalisé" #?
+    exercice_production: "Production de l'exercice"
+    exercice_result: "Résultat d'exercice"
     existing: "Existant"
     existing_part: "Utiliser un encaissement non affecté" #?
     expected_quantity_is_x: "Quantité attendue\_: %{x}"
@@ -1366,6 +1372,7 @@ fra:
     expenses_by_product_nature_category: "Achats par catégories de produit"
     expired_since: "Expiré depuis"
     expired_within: "Expiré d’ici"
+    exploitation_result: "Résultat d'exploitation"
     exploitation_results: "Résultats d’exploitation"
     export: "Exporter"
     export_as_csv: "Exporter en CSV"
@@ -1397,11 +1404,13 @@ fra:
     financial_assets: "Immobilisations financières"
     financial_expenses: "Charges financières"
     financial_products: "Produits financiers"
+    financial_result: "Résultat financier"
     financial_state: "État financier" #?
     financial_year: "Exercice comptable"
     financial_year_close_message: "<p> La clôture validera définitivement toutes les écritures de l’exercice, qui ne pourront plus être modifiées ou supprimées. Il ne sera plus possible d’en ajouter de nouvelles aussi. </p>"
     financial_year_lock_message: "<p>Le verrouillage validera définitivement toutes les écritures de l’exercice, qui ne pourront plus être modifiées ou supprimées. Il ne sera plus possible d’en ajouter de nouvelles aussi. <br/> Il faudra vous rapprocher de la personne qui a effectué la clôture en dehors du logiciel pour récupérer vos documents de fin d’exercice. </p>"
     financial_year_needed: "<p> Toutes les opérations commerciales et financières doivent être comptabilisées sur un exercice ouvert. <br/> Veuillez ouvrir un exercice pour la période en cours ou demander à votre responsable. </p>"
+    financial_year_results: "Résultats de l'exercice : %{results}"
     financial_year_warning: "<p> Si l’exercice n’est pas clôturé ou verrouillé avant le %{last_financial_year_end_date}, vous ne pourrez pas ouvrir d’exercice au %{new_financial_year_start_date}. En effet, il n’est pas possible d’avoir plus de 2 exercices ouverts simultanément. De plus, il est nécessaire d’avoir un exercice ouvert à la date en cours pour saisir des opérations commerciales et financières. <br/> Si vous ne gérez pas votre comptabilité avec Ekylibre, vous avez aussi la possibilité de verrouiller votre exercice. <br/> Attention : les exercices verrouillés ne peuvent plus être modifiés comme un exercice clôturé."
     fingerprint_sha256: "Empreinte (SHA256)"
     finish: "Terminer"
@@ -1412,7 +1421,8 @@ fra:
     first_contact: "Adresse principale" #?
     first_line_as_title: "Titre en première ligne"
     fixed_asset_debts: "Dettes sur immobilisations"
-    fixed_asset_depreciations: "Dépréciations d’immobilisation"
+    fixed_asset_depreciations: "Ammortissements"
+    fixed_asset_depreciations_not_accounted_on_current_financial_year: "Des ammortissements n'ont pas été passé en comptabilité sur l'exercice %{code}"
     fixed_assets: "Immobilisations"
     from: "À partir du"
     from_to_date: "du %{from} au %{to}"
@@ -1629,6 +1639,7 @@ fra:
     lock_settings: "Paramètres de verrouillage"
     lock_the_financial_year: "Verrouiller l’exercice"
     logout: "Déconnexion" #?
+    loss_is_x_for_account: "<span class='loss'> Perte de %{x} </span> à comptabiliser sur le compte %{account_number}"
     losses: "Charges d’exploitations"
     mail: "Envoyer un courriel"
     mailing: "Mailing"
@@ -1811,8 +1822,8 @@ fra:
     open_a_production: "Créer une production"
     open_an_activity: "Créer une activité"
     open_financial_year: "Ouvrir %{code}"
-    operating_margin: "EBE (Excédent Brut d’Exploitation) %{financial_year}"
-    operating_margin_on_turnover: "EBE / CA (Excédent Brut d’Exploitation / Chiffre d’affaire HT) %{financial_year}"
+    operating_margin: "EBE (Excédent Brut d’Exploitation)"
+    operating_margin_on_turnover: "EBE / CA (Excédent Brut d’Exploitation / Chiffre d’affaire HT)"
     operating_profit: "Résultat d’exploitation %{financial_year}"
     operation_items: "Intrants et sortants" #?
     operations: "Travaux"
@@ -1862,6 +1873,7 @@ fra:
     payment_amount: "Montant de l’encaissement"
     payment_at: "Payé le"
     payment_conditions: "Conditions de règlement"
+    payment_delay_placeholder: "fdm, 5 jours avant"
     payment_label: "%{number}. %{amount} (%{usable_amount} restants) du %{date} par %{mode} de %{entity}" #?
     payment_mode: "Mode d’encaissement"
     payments: "Règlements"
@@ -1937,6 +1949,8 @@ fra:
     production: "Production"
     production_cost: "Coût de production"
     production_distribution: "Répartition de la production"
+    production_others_charges: "Autres charges"
+    production_purchases: "Achats d'approvisionnements"
     production_support: "Support de production"
     productions: "Productions"
     productions_map: "Carte des productions" #?
@@ -1946,6 +1960,7 @@ fra:
     products_sales: "Ventes de marchandises"
     profile: "Profil"
     profit_and_loss: "Produits et charges"
+    profit_is_x_for_account: "<span class='profit'> Bénéfice de %{x} </span> à comptabiliser sur le compte %{account_number}"
     profit_or_loss: "Résultat de l’exercice"
     profit_taxe: "Impots sur les bénéfices (IS)"
     profitability: "Rentabilité" #?

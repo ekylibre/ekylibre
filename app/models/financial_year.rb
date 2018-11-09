@@ -23,6 +23,7 @@
 # == Table: financial_years
 #
 #  accountant_id             :integer
+#  already_existing          :boolean          default(FALSE), not null
 #  closed                    :boolean          default(FALSE), not null
 #  code                      :string           not null
 #  created_at                :datetime         not null
@@ -61,7 +62,7 @@ class FinancialYear < Ekylibre::Record::Base
   has_many :tax_declarations, dependent: :restrict_with_exception
   has_many :archives, class_name: 'FinancialYearArchive', dependent: :destroy
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates :closed, inclusion: { in: [true, false] }
+  validates :already_existing, :closed, inclusion: { in: [true, false] }
   validates :code, presence: true, length: { maximum: 500 }
   validates :currency, :tax_declaration_mode, presence: true
   validates :currency_precision, numericality: { only_integer: true, greater_than: -2_147_483_649, less_than: 2_147_483_648 }, allow_blank: true
@@ -134,7 +135,7 @@ class FinancialYear < Ekylibre::Record::Base
   end
 
   before_validation(on: :create) do
-    errors.add(:started_on, :can_only_have_two_years_opened) if FinancialYear.opened.count >= 2
+    errors.add(:started_on, :can_only_have_two_years_opened) if FinancialYear.opened.count >= 2 && !already_existing
   end
 
   before_validation do
@@ -475,7 +476,7 @@ class FinancialYear < Ekylibre::Record::Base
 
   def any_invalid_closure_check?
     checks = [all_previous_financial_years_closed_or_locked?, no_draft_entry?, no_entry_to_balance?, unbalanced_radical_account_classes_array.empty?]
-    checks.any? { |c| c == false } ? true : false
+    checks.any? { |c| c == false }
   end
 
   def not_sent_tax_declarations

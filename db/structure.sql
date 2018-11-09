@@ -2990,7 +2990,8 @@ CREATE TABLE financial_years (
     tax_declaration_frequency character varying,
     tax_declaration_mode character varying NOT NULL,
     accountant_id integer,
-    state character varying
+    state character varying,
+    already_existing boolean DEFAULT false NOT NULL
 );
 
 
@@ -18011,6 +18012,8 @@ INSERT INTO schema_migrations (version) VALUES ('20180830120145');
 INSERT INTO schema_migrations (version) VALUES ('20180921092835');
 
 INSERT INTO schema_migrations (version) VALUES ('20181003092024');
+
+INSERT INTO schema_migrations (version) VALUES ('20181031091651');
 
 INSERT INTO schema_migrations (version) VALUES ('20181106100439');
 

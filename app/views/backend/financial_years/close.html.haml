@@ -1,25 +1,34 @@
 = form_tag do
   = field_set :prerequisites_checks_before_closure.tl do
     .close-conditions
-      -# ------ Warnings ------
       = warnings(@financial_year,
-                  fixed_assets: FixedAsset.drafts,
-                  loans: Loan.drafts,
+                  fixed_assets: FixedAsset.start_before(@financial_year.stopped_on).drafts,
+                  fixed_asset_depreciations: FixedAssetDepreciation.up_to(@financial_year.stopped_on).where(locked: false, accountable: false),
+                  loans: Loan.start_before(@financial_year.stopped_on).drafts,
                   tax_declarations: :not_sent_tax_declarations,
                   incoming_parcels: :not_given_incoming_parcel,
                   purchases: :not_invoiced_or_aborted_purchase,
                   outgoing_parcels: :not_given_outgoing_parcel,
                   sales: :not_invoiced_or_aborted_sale)
 
-      -# ------ Checks ------
       = checks(@financial_year,
                closed_previous_years: @financial_year.all_previous_financial_years_closed_or_locked?,
                drafts_empty: @financial_year.no_draft_entry?,
                entries_balanced: @financial_year.no_entry_to_balance?,
                no_entries_on_radicals: @financial_year.unbalanced_radical_account_classes_array.empty?)
 
-      -# = AccountancyComputation.new(@financial_year).sum_entry_items_by_line(:profit_and_loss_statement, :exercice_result)
-      
+      .result
+        %span.result-icon= 'i'
+        %span.result-text
+          - result = AccountancyComputation.new(@financial_year).sum_entry_items_by_line(:profit_and_loss_statement, :exercice_result)
+          - profit = (result >= 0)
+          - account_number = profit ? '12000000' : '12900000'
+          - color_to_apply = profit ? 'green' : 'red'
+          - result_direction = profit ? :profit : :loss
+          - localized_currency = number_to_accountancy(result.abs, @financial_year.currency)
+          - result_label = "#{result_direction}_is_x_for_account".tl(x: localized_currency, account_number: account_number)
+          %p= :financial_year_results.tl(results: result_label).html_safe
+
   = field_set :close_settings.tl do
     = field FinancialYear.model_name.human, @financial_year.code
     = field FinancialYear.human_attribute_name(:stopped_on), @financial_year.stopped_on.l

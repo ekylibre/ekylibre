@@ -101,6 +101,8 @@ class Parcel < Ekylibre::Record::Base
   validates :transporter, presence: { if: :delivery_mode_transporter? }
   validates :storage, presence: { unless: :outgoing? }
 
+  validates :transporter, match: { with: :delivery, if: ->(p) { p.delivery&.transporter } }, allow_blank: true
+
   scope :without_transporter, -> { with_delivery_mode(:transporter).where(transporter_id: nil) }
   scope :with_delivery, -> { where(with_delivery: true) }
   scope :to_deliver, -> { with_delivery.where(delivery_id: nil).where.not(state: :given) }
@@ -150,17 +152,6 @@ class Parcel < Ekylibre::Record::Base
     self.state ||= :draft
     self.currency ||= Preference[:currency]
     self.pretax_amount = items.sum(:pretax_amount)
-  end
-
-  validate do
-    if delivery && delivery.transporter && transporter
-      if delivery.transporter != transporter
-        errors.add :transporter_id, :invalid
-      end
-    end
-    if given_at
-      errors.add(:given_at, :not_opened_financial_year) unless opened_financial_year?
-    end
   end
 
   after_initialize do

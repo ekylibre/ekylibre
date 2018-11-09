@@ -23,6 +23,7 @@
 # == Table: financial_years
 #
 #  accountant_id             :integer
+#  already_existing          :boolean          default(FALSE), not null
 #  closed                    :boolean          default(FALSE), not null
 #  code                      :string           not null
 #  created_at                :datetime         not null

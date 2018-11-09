@@ -98,6 +98,7 @@ class SaleItem < Ekylibre::Record::Base
   # ]VALIDATORS]
   validates :currency, length: { allow_nil: true, maximum: 3 }
   validates :tax, presence: true
+  validates :quantity, exclusion: { in: [0], message: :invalid }
 
   # return all sale items  between two dates
   scope :between, lambda { |started_at, stopped_at|
@@ -170,20 +171,13 @@ class SaleItem < Ekylibre::Record::Base
     end
   end
 
-  validate do
-    errors.add(:quantity, :invalid) if quantity && quantity.zero?
-    # TODO: validates responsible can make reduction and reduction percentage is convenient
-  end
-
   after_save do
-    if Preference[:catalog_price_item_addition_if_blank]
-      %i[stock sale].each do |usage|
-        # set stock catalog price if blank
-        catalog = Catalog.by_default!(usage)
-        unless variant.catalog_items.of_usage(usage).any? || unit_pretax_amount.blank? || unit_pretax_amount.zero?
-          variant.catalog_items.create!(catalog: catalog, all_taxes_included: false, amount: unit_pretax_amount, currency: currency) if catalog
-        end
-      end
+    next unless Preference[:catalog_price_item_addition_if_blank]
+    %i[stock sale].each do |usage|
+      # set stock catalog price if blank
+      next unless catalog = Catalog.by_default!(usage)
+      next if variant.catalog_items.of_usage(usage).any? || unit_pretax_amount.blank? || unit_pretax_amount.zero?
+      variant.catalog_items.create!(catalog: catalog, all_taxes_included: false, amount: unit_pretax_amount, currency: currency)
     end
   end
 

@@ -975,6 +975,7 @@ arb:
     accounting: "محاسبة"
     accounts: "حسابات المحاسب المستخدمة"
     accounts_only_used_at: "حسابات تستخدم فقط في"
+    # accounts_to_change: "Accounts to change"
     accounts_to_load: "حسابات لتحميل"
     action_duration: "مدة الإجراء"
     activate_entry_autocompletion: "تفعيل تكملة دخول"
@@ -1098,6 +1099,7 @@ arb:
       close_issue: "هل أنت متأكد أنك تريد إغلاق هذه القضية؟"
       reopen_issue: "هل أنت متأكد أنك تريد إعادة فتح هذه القضية؟"
     # are_you_sure_you_want_to_change_account_digits: "Are you sure you want to change the number of characters on account numbers?"
+    # are_you_sure_you_want_to_change_accounting_system: "Are you sure you want to change your accounting system ?"
     are_you_sure_you_want_to_confirm: "هل انت متأكد من رغبتك بالمضي بطلب الشراء؟"
     are_you_sure_you_want_to_delete: "هل انت متاكد من رغبتك بالقيام به؟"
     are_you_sure_you_want_to_delete_delivery: "هل انت متأكد من رغبتك بازالة التسليم من وسائل النقل؟" #?
@@ -1188,11 +1190,13 @@ arb:
     category: "فئة"
     centralize: "مركزية حسابات المحاسب"
     centralized_account: "مركزية الحسابات %{name}"
+    # change: "Change"
     change_password: "تغيير كلمة السر"
     change_price: "تغيير وحدة السعر" #?
     change_state: "تغيير الدولة"
     change_status_of_selected_interventions: "تغيير حالة بعض المداخلات المختارة"
     charge_value: "قيمة تهمة"
+    # charges: "Charges"
     chart: "خريطة"
     check: "نحقق"
     check_x_entries_to_balance:
@@ -1226,6 +1230,7 @@ arb:
     column_organization: "المنظمة" #?
     column_title: "العنوان" #?
     columns: "اعمدة الاستيراد"
+    # commercial_margin: "Commercial margin"
     commission: "عمولة"
     company: "المجتمع"
     completed: "منجز"
@@ -1476,6 +1481,8 @@ arb:
     # exchange_rate_from_x_to_y: "Exchange rate from %{x} to %{y}"
     exchanges: "التبادل"
     executed: "انجز" #?
+    # exercice_production: "Exercice production"
+    # exercice_result: "Exercice result"
     existing: "موجود"
     existing_part: "استخدام الدفعات الغير متضررة" #?
     # expected_quantity_is_x: "Expected quantity: %{x}"
@@ -1484,6 +1491,7 @@ arb:
     expenses_by_product_nature_category: "النفقات حسب الفئة طبيعة المنتج"
     expired_since: "انتهت منذ (بالأيام)"
     expired_within: "انتهت خلال (بالأيام)"
+    # exploitation_result: "Exploitation result"
     exploitation_results: "النتائج الاستغلال"
     export: "اصدار الوثائق"
     export_as_csv: "التصدير، CSV"
@@ -1510,12 +1518,14 @@ arb:
     financial_assets: "الأصول المالية"
     financial_expenses: "نفقات مالية"
     financial_products: "المنتجات المالية"
+    # financial_result: "Financial result"
     financial_state: "الوضع المالي" #?
     # financial_year: "Financial year"
     # financial_year_close_message: "<p> The close will definitively validate all entries of the financial year, which may not be modified or deleted. It will not be possible to add new ones too. </p>"
     financial_year_create: "فتح مهنة جديدة للمحاسبة" #?
     # financial_year_lock_message: "<p> The lock will definitively validate all entries of the financial year, which may not be modified or deleted. It will not be possible to add new ones too. <br/> You will need to get in contact the person who did the close out of the software to get back your year-end documents. </p>"
     # financial_year_needed: "All commercial and financial operations need to be accounted on an opened financial year. Please open a financial year for the current period or ask a manager"
+    # financial_year_results: "Financial year results : %{results}"
     # financial_year_warning: "<p> If the financial year is not closed or locked before the %{last_financial_year_end_date}, you will not be able to open a financial year on %{new_financial_year_start_date}. Indeed, it is not possible to have more than 2 financial years opened simultaneously. Furthermore, it is necessary to have an opened financial year on the ongoing date to input commercial and financial operations. <br/> If you don't manage your accountacy with Ekylibre, you have the possibility to lock your financial year. <br/> Attention : locked financial years can't be modified like a closed financial year."
     financials_assets: "الأصول المالية" #?
     finish: "انهاء"
@@ -1525,6 +1535,7 @@ arb:
     first_line_as_title: "السطر الأول كما لقب"
     fixed_asset_debts: "الديون الأصول الثابتة"
     fixed_asset_depreciations: "انخفاض قيمة الأصول الثابتة"
+    # fixed_asset_depreciations_not_accounted_on_current_financial_year: "Fixed asset depreciations not accounted on current financial year"
     fixed_assets: "أصول ثابتة"
     format_date: #?
       iso: "(السنة-الشهر-اليوم)" #?
@@ -1735,6 +1746,7 @@ arb:
     # lock_financial_year: "Lock %{code}"
     # lock_settings: "Lock settings"
     # lock_the_financial_year: "Lock the financial year"
+    # loss_is_x_for_account: "<span class='loss'> Loss of %{x} </span> to account for the account %{account_number}"
     losses: "خسائر"
     mail: "ارسال البريد الالكتروني"
     mailing: "المراسلات"
@@ -2058,6 +2070,8 @@ arb:
     production: "ادارة الانتاج"
     production_cost: "تكلفة الانتاج"
     production_distribution: "توزيع الانتاج"
+    # production_others_charges: "Production others charges"
+    # production_purchases: "Production purchases"
     production_support: "دعم الإنتاج"
     productions: "المنتجات"
     productions_sales: "مبيعات المنتجات"
@@ -2066,6 +2080,7 @@ arb:
     products_sales: "مبيعات المنتجات"
     profile: "الملف الشخصي"
     profit_and_loss: "الربح والخسارة"
+    # profit_is_x_for_account: "<span class='profit'> Profit of %{x} </span> to account for the account %{account_number}"
     profit_or_loss: "المالية نتيجة العام"
     profit_taxe: "و taxe الربح"
     profits: "الأرباح"
