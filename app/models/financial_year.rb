@@ -85,6 +85,13 @@ class FinancialYear < Ekylibre::Record::Base
   end
 
   class << self
+    def closest(searched_on)
+      sql_date = ActiveRecord::Base.connection.quote(searched_on)
+      started_on_clause = "ABS(#{sql_date} - started_on)"
+      stopped_on_clause = "ABS(#{sql_date} - stopped_on)"
+      order("LEAST(#{started_on_clause}, #{stopped_on_clause}) ASC").first
+    end
+
     def on(searched_on)
       year = where('? BETWEEN started_on AND stopped_on', searched_on).order(started_on: :desc).first
       return year if year
@@ -94,7 +101,6 @@ class FinancialYear < Ekylibre::Record::Base
     def at(searched_at = Time.zone.now)
       on(searched_at.to_date)
     end
-    alias ensure_exists_at! at
 
     def first_of_all
       reorder(:started_on).first
