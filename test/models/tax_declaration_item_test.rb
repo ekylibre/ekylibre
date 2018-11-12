@@ -133,7 +133,8 @@ class TaxDeclarationItemTest < ActiveSupport::TestCase
     JournalEntry.all.each(&:confirm)
 
     Timecop.travel(Time.new(2019, 0o1, 0o2))
-    financial_year_18.close(Date.new(2018, 12, 31),
+    financial_year_18.close(User.first,
+                            Date.new(2018, 12, 31),
                             result_journal_id: Journal.where(nature: 'result').first.id,
                             forward_journal_id: Journal.where(nature: 'forward').first.id,
                             closure_journal_id: Journal.where(nature: 'closure').first.id)

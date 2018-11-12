@@ -25,7 +25,7 @@ class JournalPrinter
 
       e = Entity.of_company
       company_name = e.full_name
-      company_address = e.default_mail_address.coordinate
+      company_address = e.default_mail_address&.coordinate
 
       r.add_field 'COMPANY_ADDRESS', company_address
       r.add_field 'DOCUMENT_NAME', @document_nature.human_name + ' | ' + @journal.name

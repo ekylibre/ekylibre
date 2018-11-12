@@ -168,6 +168,12 @@ class Parcel < Ekylibre::Record::Base
     end
   end
 
+  validate do
+    if given_at
+      errors.add(:given_at, :not_opened_financial_year) unless opened_financial_year?
+    end
+  end
+
   protect on: :destroy do
     prepared? || given?
   end

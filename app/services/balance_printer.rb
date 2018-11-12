@@ -16,7 +16,7 @@ class BalancePrinter
     report = generate_document(@document_nature, @key, @template_path, @mandatory, @closer) do |r|
       e = Entity.of_company
       company_name = e.full_name
-      company_address = e.default_mail_address.coordinate
+      company_address = e.default_mail_address&.coordinate
       balances = @balance.map.with_index { |_item, index| [@balance[index], @prev_balance[index] || []] }
 
       r.add_field 'COMPANY_ADDRESS', company_address

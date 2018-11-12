@@ -36,7 +36,7 @@ class GeneralLedgerPrinter
 
       e = Entity.of_company
       company_name = e.full_name
-      company_address = e.default_mail_address.coordinate
+      company_address = e.default_mail_address&.coordinate
 
       started_on = @params[:period].split('_').first if @params[:period]
       stopped_on = @params[:period].split('_').last if @params[:period]
