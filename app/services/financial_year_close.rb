@@ -1,5 +1,4 @@
 # coding: utf-8
-
 class FinancialYearClose
   def initialize(year, to_close_on, options = {})
     @year = year
@@ -9,6 +8,34 @@ class FinancialYearClose
     @errors = []
     @currency = @year.currency
     @options = options
+  end
+
+  def say(message)
+    now = Time.now
+    moment = '[' + sprintf('%.1f', now - @start).rjust(6).red + ' '
+    # puts @counts.stringify_keys.to_yaml.cyan if @counts
+
+    if @previous_now
+      moment << sprintf('%.2f', now - @previous_now).rjust(6).green
+    else
+      moment << '—' * 6
+    end
+    moment << '] '
+
+    t = moment + message.yellow
+    puts t
+    Rails.logger.info(t)
+    now
+  end
+
+  def log(message)
+    @previous_now = say(message)
+  end
+
+  def cinc(name, increment = 1)
+    @counts ||= {}
+    @counts[name] ||= 0
+    @counts[name] += 1
   end
 
   def benchmark(message)
@@ -38,20 +65,24 @@ class FinancialYearClose
         @progress.increment!
       end
 
+      log("Disable Partial Lettering Triggers")
       disable_partial_lettering
 
       generate_carrying_forward_entry!
       @progress.increment!
 
+      log("Enable Partial Lettering Triggers")
       enable_partial_lettering
 
       locked_depreciations_repayments
 
+      log("Close Journals")
       Journal.find_each do |journal|
         journal.close!(@to_close_on) if journal.closed_on < @to_close_on
       end
       @progress.increment!
 
+      log("Close Financial Year")
       @year.update_attributes(stopped_on: @to_close_on, closed: true, state: 'closed')
     end
 
@@ -155,6 +186,7 @@ class FinancialYearClose
 
   # FIXME: Manage non-french accounts
   def generate_carrying_forward_entry!
+    log("Init Carrying Forward Entry Generation")
     account_radices = %w[1 2 3 4 5]
     unlettered_items = []
 
@@ -175,6 +207,8 @@ class FinancialYearClose
     progress = Progress.new(:close_carry_forward, id: @year.id,
                                                   max: letterable_accounts.count + unletterable_accounts.count)
 
+    log "Generate List of Unlettered Items"
+
     unletterable_accounts.find_each do |a|
       entry_items = a.journal_entry_items
                      .where(financial_year_id: @year.id)
@@ -191,7 +225,9 @@ class FinancialYearClose
       progress.increment!
     end
 
-    letterable_accounts.find_each do |a|
+    log "Generate Lettering Carry Forward for each Letterable Account"
+    letterable_accounts.find_each.each_with_index do |a, index|
+      log "Generate Lettering Carry Forward for each Account: #{a.number}"
       generate_lettering_carry_forward!(a)
       progress.increment!
     end
@@ -202,7 +238,9 @@ class FinancialYearClose
     debit_items = unlettered_items.select { |i| i[:real_debit].nonzero? }
     credit_items = unlettered_items.select { |i| i[:real_credit].nonzero? }
 
+    log "Generate Closing+Opening Entry Debit Items"
     generate_closing_and_opening_entry!(debit_items, debit_result)
+    log "Generate Closing+Opening Entry Credit Items"
     generate_closing_and_opening_entry!(credit_items, -credit_result)
   ensure
     progress.clean!
@@ -213,12 +251,15 @@ class FinancialYearClose
     progress = Progress.new(:close_lettering, id: @year.id, max: unbalanced_letters.count)
 
     reletterings = {}
+    items = {}
 
     unbalanced_letters.each do |entry_id, letter|
+      letter &&= letter.gsub('*', '')
       letter_match = letter ? [letter, letter + '*'] : nil
 
-      lettering_items = JournalEntryItem.where(entry_id: entry_id, letter: letter_match, account: account)
-                                        .find_each.map do |item|
+      item_criteria = { entry_id: entry_id, letter: letter_match, account: account }
+      items[item_criteria] ||= JournalEntryItem.where(**item_criteria)
+      lettering_items = items[item_criteria].find_each.map do |item|
         {
           account_id: account.id,
           name: item.name,
@@ -285,7 +326,9 @@ class FinancialYearClose
 
   def update_lettered_later!(letter, new_letter, account_id)
     # account = Account.find(account_id)
+    cinc :update_lettered_later
     if letter == new_letter
+      say "Skip Changing Letter #{letter.inspect}"
       return
     end
     benchmark "Changing Letter #{letter} -> #{new_letter}" do
@@ -304,20 +347,6 @@ class FinancialYearClose
         Affair.connection.execute query
       end
     end
-    # @updated_affairs ||= {}
-    # puts lettered_later.count.to_s.cyan
-    # lettered_later.find_each do |item|
-    #   print '.'
-    #   # affair = item.entry.resource && item.entry.resource.respond_to?(:affair) && item.entry.resource.affair
-    #   # next unless affair && !@updated_affairs[affair.id]
-    #   # @updated_affairs[affair.id] = true
-    #   # affair.update_columns(letter: new_letter) if affair.letter != new_letter
-    #
-    #   resource = item.entry.resource
-    #   next unless resource.respond_to?(:affair_id) && !@updated_affairs[resource.affair_id]
-    #   @updated_affairs[resource.affair_id] = true
-    #   Affair.where(id: resource.affair_id).update_all(letter: new_letter)
-    # end
   end
 
   def disable_partial_lettering
