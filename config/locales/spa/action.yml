@@ -680,6 +680,8 @@ spa:
         # one: "%{count} error prohibited this %{model} from being saved"
         # other: "%{count} errors prohibited this %{model} from being saved"
   front-end:
+    bank_reconciliation:
+      # remove: "Remove"
     leaflet:
       draw:
         handlers:
@@ -893,6 +895,8 @@ spa:
     animal_productions: "Producciones animales" #?
     animals: "Animales"
     # any_journal: "Any journal"
+    # archive_post_closure: "Post closure archive"
+    # archive_prior_to_closure: "Prior to closure archive"
     archives: "Archivo"
     are_you_sure: "¿Seguro que quieres hacer esto?"
     are_you_sure_you_want_to:
@@ -1181,6 +1185,7 @@ spa:
     down: "Abajo"
     down_to_level: "Detallar hasta el nivel" #?
     # download: "Download"
+    # download_archive: "Download archive (ZIP)"
     download_firefox: "Carga Mozilla Firefox..." #?
     downpayment: "Pago inicial"
     draft: "Niebla"
@@ -1283,6 +1288,7 @@ spa:
     # financial_year_results: "Financial year results : %{results}"
     # financial_year_warning: "<p> If the financial year is not closed or locked before the %{last_financial_year_end_date}, you will not be able to open a financial year on %{new_financial_year_start_date}. Indeed, it is not possible to have more than 2 financial years opened simultaneously. Furthermore, it is necessary to have an opened financial year on the ongoing date to input commercial and financial operations. <br/> If you don't manage your accountacy with Ekylibre, you have the possibility to lock your financial year. <br/> Attention : locked financial years can't be modified like a closed financial year."
     financials_assets: "Activos Finanzas" #?
+    # fingerprint_sha256: "Fingerprint (SHA256)"
     finish: "Acabado"
     finished: "Terminado"
     finished_income_statement: "Productos" #?
@@ -1668,6 +1674,7 @@ spa:
     payment_amount: "Cantidad de pago"
     payment_at: "El pago de"
     payment_conditions: "Condiciones de pago"
+    # payment_delay_placeholder: "eom, 5 days before"
     payment_mode: "Modo de pago"
     payments: "Encajonamientos"
     payments_count: "Nombre de %{mode}"
@@ -1898,6 +1905,7 @@ spa:
     ship: "Enviar"
     show: "Espectáculo"
     sign_out: "Desconectar"
+    # signature_html: "Signature (<a href='%{url}'>Public key</a>)"
     simplified: "Regimen del real simplificado"
     simplified_linear_options: "Opciones lineales simplificados"
     social_debts: "Deudas sociales"
@@ -1958,6 +1966,7 @@ spa:
     taxes_and_wages: "Impuestos y salarios"
     theoric_quantity: "cantidad teorica" #?
     third_is_unbalanced: "En tercer lugar está desequilibrada. (Balance - balance de la cuenta del proveedor)"
+    # this_archive_is_digitally_signed: "This archive is digitally signed."
     thumb: "Pulgar"
     time_cost: "Costo de tiempo"
     time_spent_by_activity: "El tiempo dedicado por la actividad"

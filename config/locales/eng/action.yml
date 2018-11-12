@@ -303,7 +303,6 @@ eng:
       close: "Close financial year: %{code}"
       compute_balances: "Compute financial year balance"
       # destroy_all_empty: "Destroy all empty financial year: %{name}"
-      # download_archive: "Download archive financial year: %{name}"
       edit: "Edit new financial year"
       generate_last_journal_entry: "Generate last journal entry of %{code}" #?
       index: "Financial years"
@@ -1971,7 +1970,7 @@ eng:
     show: "Show"
     # show_export_preview: "Show export preview"
     sign_out: "Sign out" #?
-    signature_html: "Signature (<a href='%{url}'>Public key</a>)"
+    signature_html: "Signature (<a href='%{url}'>Public key</a>)" #?
     simplified: "Simplified Accounting" #?
     simplified_linear_options: "Simplified linear options" #?!
     social_debts: "Social debts" #?!
@@ -2545,7 +2544,6 @@ eng:
       # detach_gaps: "Detach gaps"
       detail: "Detail"
       down: "Down"
-      # download_archive: "Download archive"
       duplicate: "Duplicate"
       edit: "Edit"
       edit_interval: "Reconciliate"

@@ -35,6 +35,7 @@
 #  id                 :integer          not null, primary key
 #  key                :string           not null
 #  lock_version       :integer          default(0), not null
+#  mandatory          :boolean          default(FALSE)
 #  name               :string           not null
 #  nature             :string
 #  number             :string           not null

@@ -708,6 +708,8 @@ jpn:
         # one: "%{count} error prohibited this %{model} from being saved"
         # other: "%{count} errors prohibited this %{model} from being saved"
   front-end:
+    bank_reconciliation:
+      # remove: "Remove"
     leaflet:
       draw:
         handlers:
@@ -892,6 +894,8 @@ jpn:
     animals: "動物"
     # any_journal: "Any journal"
     apply: "適用する" #?
+    # archive_post_closure: "Post closure archive"
+    # archive_prior_to_closure: "Prior to closure archive"
     archives: "アーカイブズ"
     are_you_sure: "あなたがこれを行うにしてもよろしいですか？"
     are_you_sure_you_want_to:
@@ -1137,6 +1141,7 @@ jpn:
     dont_use_journal: "- ジャーナルを使用しないでください -"
     down: "ダウン"
     # download: "Download"
+    # download_archive: "Download archive (ZIP)"
     downpayment: "頭金"
     draft: "ドラフト"
     # draft_entries_to_validate: "There are draft entries to validate"
@@ -1229,6 +1234,7 @@ jpn:
     # financial_year_results: "Financial year results : %{results}"
     # financial_year_warning: "<p> If the financial year is not closed or locked before the %{last_financial_year_end_date}, you will not be able to open a financial year on %{new_financial_year_start_date}. Indeed, it is not possible to have more than 2 financial years opened simultaneously. Furthermore, it is necessary to have an opened financial year on the ongoing date to input commercial and financial operations. <br/> If you don't manage your accountacy with Ekylibre, you have the possibility to lock your financial year. <br/> Attention : locked financial years can't be modified like a closed financial year."
     financials_assets: "金融資産" #?
+    # fingerprint_sha256: "Fingerprint (SHA256)"
     finish: "仕上げ"
     finished: "完成しました"
     first_line_as_title: "タイトルとして最初の行"
@@ -1564,6 +1570,7 @@ jpn:
     payment_amount: "支払額"
     payment_at: "お支払いについて"
     payment_conditions: "支払条件"
+    # payment_delay_placeholder: "eom, 5 days before"
     payment_mode: "お支払いモード"
     payments: "支払い"
     payments_count: "支払いは数えます"
@@ -1748,6 +1755,7 @@ jpn:
     ship: "船"
     show: "を表示"
     sign_out: "サインアウト"
+    # signature_html: "Signature (<a href='%{url}'>Public key</a>)"
     simplified: "簡便な会計"
     simplified_linear_options: "簡体リニアオプション"
     social_debts: "社会的な借金"
@@ -1803,6 +1811,7 @@ jpn:
     taxes: "税金"
     taxes_and_wages: "税と賃金"
     third_is_unbalanced: "第三にはアンバランスです。 （バランス - サプライヤーの口座残高）"
+    # this_archive_is_digitally_signed: "This archive is digitally signed."
     thumb: "親指"
     time_cost: "時間費用"
     time_spent_by_activity: "活動によって費やされた時間"

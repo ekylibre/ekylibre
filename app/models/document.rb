@@ -35,6 +35,7 @@
 #  id                 :integer          not null, primary key
 #  key                :string           not null
 #  lock_version       :integer          default(0), not null
+#  mandatory          :boolean          default(FALSE)
 #  name               :string           not null
 #  nature             :string
 #  number             :string           not null
@@ -62,6 +63,7 @@ class Document < Ekylibre::Record::Base
   validates :file_file_size, numericality: { only_integer: true, greater_than: -2_147_483_649, less_than: 2_147_483_648 }, allow_blank: true
   validates :file_updated_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
   validates :key, :name, :number, presence: true, length: { maximum: 500 }
+  validates :mandatory, inclusion: { in: [true, false] }, allow_blank: true
   validates :uploaded, inclusion: { in: [true, false] }
   # ]VALIDATORS]
   validates :number, length: { allow_nil: true, maximum: 60 }

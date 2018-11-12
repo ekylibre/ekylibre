@@ -806,6 +806,7 @@ arb:
           buildings_can_not_be_identical: "مواقع التخزين (المغادرة والواصلة) قد لا تكون متطابقة" #?
         purchase:
           # not_opened_financial_year: "An opened financial year is necessary"
+          # payment_delay_custom_validation_message: "Accepted formats : %{values}"
         purchase_item:
           building_can_not_receive_product: "لا يمكن للخزينة %{building} استقبال النتج %{product}, لاحتوائها منتج سابق %{contained_product}."
           serial_already_used_with_an_other_product: "%{attribute} تم استخدامها لنوع اخر من المنتج من نفس الممون"
@@ -1867,6 +1868,7 @@ arb:
     managed: "تمكنت"
     managed_sales: "مبيعات المدارة"
     mandates: "تفويضات" #?
+    # mandatory: "Mandatory"
     manure_management_plan_zones: "مناطق خطة إدارة السماد"
     marketable: "تسويق"
     marketable_items_count: "البنود تسويق عد"
@@ -2343,12 +2345,14 @@ arb:
     service_coeff: "معامل كمية الخدمة" #?
     sessions: "جلسات"
     sha256: "SHA256" #?
+    # sha256_fingerprint: "Sha256 fingerprint"
     shape: "شكل"
     shift_duration: "مدة التحول"
     shift_method: "طريقة التحول"
     shipped: "المستلم" #?
     shipped_at: "شحنها يوم" #?
     sign_in_count: "تسجيل الدخول العد"
+    # signature: "Signature"
     signup_at: "الاشتراك في"
     siren: "رقم صفارة الانذار"
     siret_number: "SIRET رقم"
@@ -2471,6 +2475,7 @@ arb:
     third_role: "دور الثالث"
     thread: "خيط"
     time_window: "نافذة الوقت (بالثواني)"
+    # timing: "Timing"
     title: "اللقب"
     # tms: "TMS"
     to: "ل"

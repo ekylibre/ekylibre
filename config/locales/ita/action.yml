@@ -708,6 +708,8 @@ ita:
         # one: "%{count} error prohibited this %{model} from being saved"
         # other: "%{count} errors prohibited this %{model} from being saved"
   front-end:
+    bank_reconciliation:
+      # remove: "Remove"
     leaflet:
       draw:
         handlers:
@@ -891,6 +893,8 @@ ita:
     animal_productions: "produzioni animali" #?
     animals: "Animali"
     # any_journal: "Any journal"
+    # archive_post_closure: "Post closure archive"
+    # archive_prior_to_closure: "Prior to closure archive"
     archives: "archivio"
     are_you_sure: "Sei sicuro di volerlo fare?"
     are_you_sure_you_want_to:
@@ -1135,6 +1139,7 @@ ita:
     dont_use_journal: "- Non utilizzare Journal -"
     down: "Giù"
     # download: "Download"
+    # download_archive: "Download archive (ZIP)"
     downpayment: "Acconto"
     draft: "Bozza"
     # draft_entries_to_validate: "There are draft entries to validate"
@@ -1227,6 +1232,7 @@ ita:
     # financial_year_results: "Financial year results : %{results}"
     # financial_year_warning: "<p> If the financial year is not closed or locked before the %{last_financial_year_end_date}, you will not be able to open a financial year on %{new_financial_year_start_date}. Indeed, it is not possible to have more than 2 financial years opened simultaneously. Furthermore, it is necessary to have an opened financial year on the ongoing date to input commercial and financial operations. <br/> If you don't manage your accountacy with Ekylibre, you have the possibility to lock your financial year. <br/> Attention : locked financial years can't be modified like a closed financial year."
     financials_assets: "beni Financials" #?
+    # fingerprint_sha256: "Fingerprint (SHA256)"
     finish: "finire"
     finished: "Finito"
     first_line_as_title: "Prima linea come titolo"
@@ -1558,6 +1564,7 @@ ita:
     payment_amount: "Importo del pagamento"
     payment_at: "pagamento su"
     payment_conditions: "Condizioni di pagamento"
+    # payment_delay_placeholder: "eom, 5 days before"
     payment_mode: "Metodo di pagamento"
     payments: "Pagamenti"
     payments_count: "contano Pagamenti"
@@ -1742,6 +1749,7 @@ ita:
     ship: "Nave"
     show: "Mostrare"
     sign_out: "disconnessione"
+    # signature_html: "Signature (<a href='%{url}'>Public key</a>)"
     simplified: "contabilità semplificata"
     simplified_linear_options: "Opzioni lineari semplificato"
     social_debts: "Debiti sociali"
@@ -1797,6 +1805,7 @@ ita:
     taxes: "Le tasse"
     taxes_and_wages: "Tasse e salari"
     third_is_unbalanced: "Terzo è sbilanciato. (Equilibrio - saldo del conto fornitore)"
+    # this_archive_is_digitally_signed: "This archive is digitally signed."
     thumb: "Pollice"
     time_cost: "tempo costo"
     time_spent_by_activity: "Il tempo speso per attività"
