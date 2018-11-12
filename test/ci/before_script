@@ -7,7 +7,7 @@ psql -U postgres -d ekylibre_test -c 'CREATE EXTENSION IF NOT EXISTS "unaccent" 
 
 cp -f test/ci/database.yml config/database.yml
 
-gpg --import '../fixture-files/my-private-key.asc'
+gpg --import 'project/test/fixture-files/my-private-key.asc'
 
 echo "GPG keys list:"
 gpg --list-keys
