@@ -875,6 +875,8 @@ arb:
         # one: "%{count} error prohibited this %{model} from being saved"
         # other: "%{count} errors prohibited this %{model} from being saved"
   front-end:
+    bank_reconciliation:
+      # remove: "Remove"
     leaflet:
       draw:
         handlers:
@@ -1739,6 +1741,7 @@ arb:
     listings: "استحراج البيانات" #?
     load: "حمل"
     load_demo_data: "تحميل البيانات التجريبية" #?
+    # loan_repayments_not_accounted_on_current_financial_year: "Loan repayments not accounted on current financial year"
     loans_debts: "القروض الديون"
     locale: "اللغة"
     localization: "الموقع الجغرافي"
@@ -2004,6 +2007,7 @@ arb:
     payment_amount: "المبلغ المدفوع"
     payment_at: "سدد في"
     payment_conditions: "شروط الدفع"
+    # payment_delay_placeholder: "eom, 5 days before"
     payment_label: "%{number}. %{amount} (%{usable_amount} المتبقي)  %{date} بواسطة %{mode} لاجل %{entity}" #?
     payment_mode: "طريقة تسديد الدفعة"
     payment_uses: "الدفعات" #?

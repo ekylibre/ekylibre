@@ -642,6 +642,8 @@ deu:
         # one: "%{count} error prohibited this %{model} from being saved"
         # other: "%{count} errors prohibited this %{model} from being saved"
   front-end:
+    bank_reconciliation:
+      # remove: "Remove"
     leaflet:
       draw:
         handlers:
@@ -1319,6 +1321,7 @@ deu:
     liquid_assets_on_turnover: "Die liquiden Mittel auf den Umsatz"
     list: "Liste"
     load: "Belastung"
+    # loan_repayments_not_accounted_on_current_financial_year: "Loan repayments not accounted on current financial year"
     loans_debts: "Kredite Schulden"
     locale: "Sprache"
     localization: "Lokalisierung"
@@ -1492,6 +1495,7 @@ deu:
     payment_amount: "Höhe der Zahlung"
     payment_at: "Zahlung auf"
     payment_conditions: "Zahlungsbedingungen"
+    # payment_delay_placeholder: "eom, 5 days before"
     payment_mode: "Zahlungsart"
     payments: "Zahlungen"
     payments_count: "Zahlungen rechnen"

@@ -680,6 +680,8 @@ spa:
         # one: "%{count} error prohibited this %{model} from being saved"
         # other: "%{count} errors prohibited this %{model} from being saved"
   front-end:
+    bank_reconciliation:
+      # remove: "Remove"
     leaflet:
       draw:
         handlers:
@@ -1469,6 +1471,7 @@ spa:
     listings: "Extracciones de datos" #?
     load: "Carga"
     load_demo_data: "Cargar datos de prueba" #?
+    # loan_repayments_not_accounted_on_current_financial_year: "Loan repayments not accounted on current financial year"
     loans_debts: "Préstamos deudas"
     locale: "Idioma"
     localization: "Localisación geografica"
@@ -1668,6 +1671,7 @@ spa:
     payment_amount: "Cantidad de pago"
     payment_at: "El pago de"
     payment_conditions: "Condiciones de pago"
+    # payment_delay_placeholder: "eom, 5 days before"
     payment_mode: "Modo de pago"
     payments: "Encajonamientos"
     payments_count: "Nombre de %{mode}"

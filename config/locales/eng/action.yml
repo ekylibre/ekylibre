@@ -1613,6 +1613,7 @@ eng:
     liquid_assets_on_turnover: "Liquid assets on turnover %{financial_year}" #?!
     list: "List" #?
     load: "Load" #?
+    loan_repayments_not_accounted_on_current_financial_year: "Loan repayments not accounted on current financial year"
     loans_debts: "Loans debts" #?!
     locale: "Language"
     localization: "Localization" #?

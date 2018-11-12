@@ -708,6 +708,8 @@ jpn:
         # one: "%{count} error prohibited this %{model} from being saved"
         # other: "%{count} errors prohibited this %{model} from being saved"
   front-end:
+    bank_reconciliation:
+      # remove: "Remove"
     leaflet:
       draw:
         handlers:
@@ -1387,6 +1389,7 @@ jpn:
     liquid_assets_on_turnover: "売上高に対する流動資産"
     list: "リスト"
     load: "負荷"
+    # loan_repayments_not_accounted_on_current_financial_year: "Loan repayments not accounted on current financial year"
     loans_debts: "ローンの債務"
     locale: "言語"
     localization: "ローカライゼーション"
@@ -1564,6 +1567,7 @@ jpn:
     payment_amount: "支払額"
     payment_at: "お支払いについて"
     payment_conditions: "支払条件"
+    # payment_delay_placeholder: "eom, 5 days before"
     payment_mode: "お支払いモード"
     payments: "支払い"
     payments_count: "支払いは数えます"

@@ -642,6 +642,8 @@ cmn:
         # one: "%{count} error prohibited this %{model} from being saved"
         # other: "%{count} errors prohibited this %{model} from being saved"
   front-end:
+    bank_reconciliation:
+      # remove: "Remove"
     leaflet:
       draw:
         handlers:
@@ -1320,6 +1322,7 @@ cmn:
     liquid_assets_on_turnover: "营业额流动资产"
     list: "名单"
     load: "加载"
+    # loan_repayments_not_accounted_on_current_financial_year: "Loan repayments not accounted on current financial year"
     loans_debts: "贷款债务"
     locale: "语言"
     localization: "本土化"
@@ -1493,6 +1496,7 @@ cmn:
     payment_amount: "支付金额"
     payment_at: "关于支付"
     payment_conditions: "支付条款"
+    # payment_delay_placeholder: "eom, 5 days before"
     payment_mode: "付款方式"
     payments: "支付"
     payments_count: "算上付款"

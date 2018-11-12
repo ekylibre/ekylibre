@@ -220,6 +220,7 @@ cmn:
           # not_opened_financial_year: "An opened financial year is necessary"
         purchase:
           # not_opened_financial_year: "An opened financial year is necessary"
+          # payment_delay_custom_validation_message: "Accepted formats : %{values}"
         purchase_item:
           # building_can_not_receive_product: "The building %{building} can not receive %{product}, it already contains %{contained_product}."
           # serial_already_used_with_an_other_product: "%{attribute} has been already used for an other product of the same supplier"

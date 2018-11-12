@@ -708,6 +708,8 @@ ita:
         # one: "%{count} error prohibited this %{model} from being saved"
         # other: "%{count} errors prohibited this %{model} from being saved"
   front-end:
+    bank_reconciliation:
+      # remove: "Remove"
     leaflet:
       draw:
         handlers:
@@ -1385,6 +1387,7 @@ ita:
     liquid_assets_on_turnover: "Le disponibilità liquide sul fatturato"
     list: "Lista"
     load: "Caricare"
+    # loan_repayments_not_accounted_on_current_financial_year: "Loan repayments not accounted on current financial year"
     loans_debts: "Prestiti debiti"
     locale: "Lingua"
     localization: "Localizzazione"
@@ -1558,6 +1561,7 @@ ita:
     payment_amount: "Importo del pagamento"
     payment_at: "pagamento su"
     payment_conditions: "Condizioni di pagamento"
+    # payment_delay_placeholder: "eom, 5 days before"
     payment_mode: "Metodo di pagamento"
     payments: "Pagamenti"
     payments_count: "contano Pagamenti"
