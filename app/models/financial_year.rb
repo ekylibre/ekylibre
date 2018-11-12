@@ -107,7 +107,7 @@ class FinancialYear < Ekylibre::Record::Base
     end
 
     def current
-      on(Time.zone.today)
+      on(Time.zone.today) || closest(Time.zone.today)
     end
 
     def closable_or_lockable
