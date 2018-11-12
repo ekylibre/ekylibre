@@ -90,16 +90,10 @@ class Account < Ekylibre::Record::Base
   validates :last_letter, length: { allow_nil: true, maximum: 10 }
   validates :name, length: { allow_nil: true, maximum: 200 }
   validates :number, uniqueness: true
-  validates :number, length: { is: 8 }, format: { without: /\A0/ }, unless: :already_existing_and_general
   validates :number, length: { minimum: 4 }, if: :auxiliary?
   validates :number, format: { with: /\A\d(\d(\d[0-9A-Z]*)?)?\z/ }
   validates :auxiliary_number, presence: true, format: { without: /\A(0*)\z/ }, if: :auxiliary?
   validates :centralizing_account_name, presence: true, if: :auxiliary?
-
-  def already_existing_and_general
-    return true if auxiliary?
-    already_existing && general?
-  end
 
   enumerize :nature, in: %i[general auxiliary], default: :general, predicates: true
 
@@ -197,7 +191,7 @@ class Account < Ekylibre::Record::Base
     if general? && number && !already_existing
       errors.add(:number, :centralizing_number) if number.match(/\A401|\A411/).present?
       errors.add(:number, :radical_class) if number.match(/\A[1-9]0*\z/).present?
-      self.number = number.ljust(8, '0')
+      self.number = number.ljust(Preference[:account_number_digits], '0')
     end
   end
 
@@ -206,6 +200,8 @@ class Account < Ekylibre::Record::Base
     if general?
       self.auxiliary_number = nil
       self.centralizing_account = nil
+      errors.add(:number, :incorrect_length, number_length: Preference[:account_number_digits]) if number.length != Preference[:account_number_digits] && !already_existing
+      errors.add(:number, :cant_start_with_0) if number.match(/\A0/).present? && !already_existing
     elsif auxiliary? && centralizing_account
       centralizing_account_number = centralizing_account.send(Account.accounting_system)
       self.number = centralizing_account_number + auxiliary_number
@@ -235,7 +231,7 @@ class Account < Ekylibre::Record::Base
       options[:name] ||= args.shift
       numbers = Nomen::Account.items.values.collect { |i| i.send(accounting_system) }
       item = Nomen::Account.items.values.detect { |i| i.send(accounting_system) == number }
-      number = number.ljust(8, '0') unless numbers.include?(number) || options[:already_existing]
+      number = number.ljust(Preference[:account_number_digits], '0') unless numbers.include?(number) || options[:already_existing]
       account = find_by(number: number)
       if account
         if item && !account.usages_array.include?(item)
@@ -282,22 +278,22 @@ class Account < Ekylibre::Record::Base
     def find_parent_usage(number)
       number = number.to_s
 
-      parent_accounts = nil
-      items = nil
+      parent_accounts = []
+      items = []
 
       max = number.size - 1
       # get usages of nearest existing account by number
       (0..max).to_a.reverse.each do |i|
         n = number[0, i]
-        items = Nomen::Account.where(accounting_system.to_sym => n)
-        parent_accounts = Account.find_with_regexp(n).where('LENGTH("accounts"."number") <= ?', i).reorder(:number)
-        break if parent_accounts.any?
+        items << Nomen::Account.where(accounting_system.to_sym => n)
+        parent_accounts << Account.find_with_regexp(n).where('LENGTH("accounts"."number") <= ?', i).reorder(:number)
+        break if parent_accounts.flatten.any?
       end
 
-      usages = if parent_accounts && parent_accounts.any? && parent_accounts.first.usages
-                 parent_accounts.first.usages
-               elsif items.present?
-                 items.first.name
+      usages = if parent_accounts && parent_accounts.flatten.any? && parent_accounts.flatten.first.usages
+                 parent_accounts.flatten.first.usages
+               elsif items.flatten.any?
+                 items.flatten.first.name
                end
 
       usages
@@ -343,7 +339,7 @@ class Account < Ekylibre::Record::Base
 
     def valid_item?(item)
       item_number = item.send(accounting_system)
-      return false unless item_number != 'NONE' && number_unique?(item_number.ljust(8, '0'))
+      return false unless item_number != 'NONE' && number_unique?(item_number.ljust(Preference[:account_number_digits], '0'))
       Nomen::Account.find_each do |compared_account|
         compared_account_number = compared_account.send(accounting_system)
         return false if item_number == compared_account_number.sub(/0*$/, '') && item_number != compared_account_number

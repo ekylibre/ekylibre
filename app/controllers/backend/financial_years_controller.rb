@@ -23,7 +23,7 @@ module Backend
     unroll
 
     list(order: { started_on: :desc }) do |t|
-      t.action :edit
+      t.action :edit, if: :opened?
       t.action :destroy
       t.column :code, url: true
       t.column :state
@@ -110,6 +110,12 @@ module Backend
     def close
       # Launch close process
       return unless @financial_year = find_and_check
+      t3e @financial_year.attributes
+      if request.get?
+        only_closable = FinancialYear.closable_or_lockable
+        return redirect_to backend_financial_years_path if @financial_year != only_closable
+        return render
+      end
       if request.post? && @financial_year.closable?
         closed_on = params[:financial_year][:stopped_on].to_date
         if params[:result_journal_id] == '0'
@@ -127,17 +133,12 @@ module Backend
         return redirect_to(action: :index)
       end
 
-      @financial_year.closure_obstructions.each do |obstruction|
-        notify_error obstruction.tn
-      end
-
       journal = Journal.where(currency: @financial_year.currency, nature: :result).first
       params[:result_journal_id] = (journal ? journal.id : 0)
       journal = Journal.where(currency: @financial_year.currency, nature: :forward).first
       params[:forward_journal_id] = (journal ? journal.id : 0)
       journal = Journal.where(currency: @financial_year.currency, nature: :closure).first
       params[:closure_journal_id] = (journal ? journal.id : 0)
-      t3e @financial_year.attributes
     end
 
     def index
@@ -160,11 +161,16 @@ module Backend
 
     def lock
       return unless @financial_year = find_and_check
+      t3e @financial_year.attributes
+      if request.get?
+        only_lockable = FinancialYear.closable_or_lockable
+        return redirect_to backend_financial_years_path if @financial_year != only_lockable
+        return render
+      end
       if request.post?
         @financial_year.update(state: 'locked')
         return redirect_to(action: :index)
       end
-      t3e @financial_year.attributes
     end
 
     def destroy_all_empty

@@ -23,6 +23,7 @@
 # == Table: financial_years
 #
 #  accountant_id             :integer
+#  already_existing          :boolean          default(FALSE), not null
 #  closed                    :boolean          default(FALSE), not null
 #  code                      :string           not null
 #  created_at                :datetime         not null
@@ -60,7 +61,7 @@ class FinancialYear < Ekylibre::Record::Base
   has_many :journal_entries, dependent: :restrict_with_exception
   has_many :tax_declarations, dependent: :restrict_with_exception
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates :closed, inclusion: { in: [true, false] }
+  validates :already_existing, :closed, inclusion: { in: [true, false] }
   validates :code, presence: true, length: { maximum: 500 }
   validates :currency, :tax_declaration_mode, presence: true
   validates :currency_precision, numericality: { only_integer: true, greater_than: -2_147_483_649, less_than: 2_147_483_648 }, allow_blank: true
@@ -83,11 +84,14 @@ class FinancialYear < Ekylibre::Record::Base
     tax_declarations.any? || journal_entries.any? || inventories.any? || !opened?
   end
 
-  protect on: :update do
-    state_was.to_s != "opened"
-  end
-
   class << self
+    def closest(searched_on)
+      sql_date = ActiveRecord::Base.connection.quote(searched_on)
+      started_on_clause = "ABS(#{sql_date} - started_on)"
+      stopped_on_clause = "ABS(#{sql_date} - stopped_on)"
+      order("LEAST(#{started_on_clause}, #{stopped_on_clause}) ASC").first
+    end
+
     def on(searched_on)
       year = where('? BETWEEN started_on AND stopped_on', searched_on).order(started_on: :desc).first
       return year if year
@@ -97,14 +101,13 @@ class FinancialYear < Ekylibre::Record::Base
     def at(searched_at = Time.zone.now)
       on(searched_at.to_date)
     end
-    alias ensure_exists_at! at
 
     def first_of_all
       reorder(:started_on).first
     end
 
     def current
-      on(Time.zone.today)
+      on(Time.zone.today) || closest(Time.zone.today)
     end
 
     def closable_or_lockable
@@ -134,6 +137,10 @@ class FinancialYear < Ekylibre::Record::Base
     def next_year
       FinancialYear.on(FinancialYear.current.stopped_on + 1.day)
     end
+  end
+
+  before_validation(on: :create) do
+    errors.add(:started_on, :can_only_have_two_years_opened) if FinancialYear.opened.count >= 2 && !already_existing
   end
 
   before_validation do
@@ -233,9 +240,9 @@ class FinancialYear < Ekylibre::Record::Base
     noticed_on ||= Time.zone.today
     list = []
     list << :financial_year_already_closed if closed
-    list << :draft_journal_entries_are_present if journal_entries.where(state: :draft).any?
+    list << :draft_journal_entries_are_present if !no_draft_entry?
     list << :previous_financial_year_is_not_closed if previous_record && !previous_record.closed? && !previous_record.locked?
-    list << :unbalanced_journal_entries_are_present_in_year unless journal_entries.where('debit != credit').empty?
+    list << :unbalanced_journal_entries_are_present_in_year unless no_entry_to_balance?
     list << :financial_year_is_not_past if stopped_on >= noticed_on
     list
   end
@@ -308,23 +315,9 @@ class FinancialYear < Ekylibre::Record::Base
     Journal.sum_entry_items(expression, options)
   end
 
-  # get the equation to compute from accountancy abacus
-  def get_mandatory_line_calculation(document = :profit_and_loss_statement, line = nil)
-    ac = Account.accounting_system
-    source = Rails.root.join('config', 'accoutancy_mandatory_documents.yml')
-    data = YAML.load_file(source).deep_symbolize_keys.stringify_keys if source.file?
-    if data && ac && document && line
-      data[ac.to_s][document][line] if data[ac.to_s] && data[ac.to_s][document]
-    end
-  end
-
   def sum_entry_items_with_mandatory_line(document = :profit_and_loss_statement, line = nil, options = {})
-    # remove closure entries
-    options[:unwanted_journal_nature] ||= [:closure] if document == :balance_sheet
-    options[:unwanted_journal_nature] ||= %i[result closure]
-
-    equation = get_mandatory_line_calculation(document, line) if line
-    equation ? sum_entry_items(equation, options) : 0
+    # deprecated use AccountancyComputation sum_entry_items_by_line instead
+    AccountancyComputation.new(self).sum_entry_items_by_line(document, line, options)
   end
 
   # Computes the value of list of accounts in a String
@@ -447,6 +440,64 @@ class FinancialYear < Ekylibre::Record::Base
     when 'months'
       compute_ranges(1)
     end
+  end
+
+  def all_previous_financial_years_closed_or_locked?
+    years = FinancialYear.where("started_on < ?", self.started_on).order(:started_on)
+    years.all? { |y| y.locked? || y.closed? }
+  end
+
+  def no_draft_entry?
+    journal_entries.where(state: :draft).empty?
+  end
+
+  def no_entry_to_balance?
+    journal_entries.where('debit != credit').empty?
+  end
+
+  def unbalanced_radical_account_classes_array
+    # Expected to have a range from 1 to 7
+    radical_numbers = Nomen::Account.items.values.select { |a| a.send(Account.accounting_system)&.match(/^[1-9]$/) }.map { |a| a.send(Account.accounting_system) }
+    balanced_radical_account_classes = []
+    accounts = radical_numbers.map { |rad_numb| Account.where('number ~* ?', '^' + rad_numb + '0*$') }.flatten
+    accounts.each do |account|
+      # Get all journal entry items which is included in one the accounts and in current financial year
+      jei = JournalEntryItem.where(account_id: account.id).where(financial_year_id: self.id)
+      if jei.any? && (jei.sum(:credit) - jei.sum(:debit) == 0)
+        # This array contains parameters to build link_to url
+        balanced_class = {}
+        balanced_class[:id] = account.id
+        balanced_class[:number] = account.number
+        balanced_class[:period] = self.started_on.to_s + '_' + self.stopped_on.to_s
+        balanced_radical_account_classes << balanced_class
+      end
+    end
+    balanced_radical_account_classes
+  end
+
+  def any_invalid_closure_check?
+    checks = [all_previous_financial_years_closed_or_locked?, no_draft_entry?, no_entry_to_balance?, unbalanced_radical_account_classes_array.empty?]
+    checks.any? { |c| c == false }
+  end
+
+  def not_sent_tax_declarations
+    tax_declarations.where(state: [:draft, :validated])
+  end
+
+  def not_given_incoming_parcel
+    Parcel.with_nature(:incoming).where('planned_at BETWEEN ? AND ?', self.started_on, self.stopped_on).not_given
+  end
+
+  def not_given_outgoing_parcel
+    Parcel.with_nature(:outgoing).where('planned_at BETWEEN ? AND ?', self.started_on, self.stopped_on).not_given
+  end
+
+  def not_invoiced_or_aborted_purchase
+    Purchase.where('invoiced_at BETWEEN ? AND ?', self.started_on, self.stopped_on).where.not(state: [:invoice, :aborted])
+  end
+
+  def not_invoiced_or_aborted_sale
+    Sale.where('invoiced_at BETWEEN ? AND ?', self.started_on, self.stopped_on).where.not(state: [:invoice, :aborted])
   end
 
   private

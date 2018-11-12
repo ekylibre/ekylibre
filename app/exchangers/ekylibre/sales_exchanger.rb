@@ -66,10 +66,13 @@ module Ekylibre
             variant_id: variant.id
           ).first
             sale.items.create!(
+              amount: nil,
+              pretax_amount: nil,
               quantity: r.quantity,
               tax: sale_item_tax,
               unit_pretax_amount: r.unit_pretax_amount,
-              variant: variant
+              variant: variant,
+              compute_from: :unit_pretax_amount
             )
           end
         end

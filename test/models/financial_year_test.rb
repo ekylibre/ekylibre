@@ -23,6 +23,7 @@
 # == Table: financial_years
 #
 #  accountant_id             :integer
+#  already_existing          :boolean          default(FALSE), not null
 #  closed                    :boolean          default(FALSE), not null
 #  code                      :string           not null
 #  created_at                :datetime         not null
@@ -57,10 +58,6 @@ class FinancialYearTest < ActiveSupport::TestCase
 
     assert_not_nil first_year.next.previous
     assert_equal first_year, first_year.next.previous
-
-    last_year = FinancialYear.order(stopped_on: :desc).first
-    # Test that we can add a new financial year
-    FinancialYear.create!(started_on: last_year.stopped_on + 1, stopped_on: last_year.stopped_on >> 15)
   end
 
   test 'accountant can be set' do
@@ -130,26 +127,6 @@ class FinancialYearTest < ActiveSupport::TestCase
     refute year.opened_exchange?
   end
 
-  test 'get existed year if searched year is superior to company born at' do
-    # Company born_at (in fixtures/entities.yml) is : 2015-01-06 09:00:00.000000000 Z
-
-    searched_date = Date.today + 25.years
-    future_started_date = searched_date.change(month: 1)
-    future_stopped_date = searched_date.change(month: 12).end_of_month
-
-    searched_financial_year = FinancialYear.where('? BETWEEN started_on AND stopped_on', searched_date).order(started_on: :desc).first
-    assert searched_financial_year.nil?
-
-    FinancialYear.create!(started_on: future_started_date, stopped_on: future_stopped_date, currency: 'EUR')
-
-    searched_financial_year = FinancialYear.where('? BETWEEN started_on AND stopped_on', searched_date).order(started_on: :desc).first
-    refute searched_financial_year.nil?
-
-    year = FinancialYear.on(searched_date)
-    refute year.nil?
-    assert_includes year.started_on..year.stopped_on, searched_date
-  end
-
   test 'financial year can t be created before company born at date' do
     assert FinancialYear.on(Date.civil(1900, 1, 4)).nil?
     assert FinancialYear.on(Date.civil(2015, 5, 4))
@@ -205,4 +182,72 @@ class FinancialYearTest < ActiveSupport::TestCase
                                                                       [Date.new(2019, 8, 1), Date.new(2019, 8, 31)],
                                                                     ]
   end
+
+  test 'can not get more than 2 opened financial years' do
+    FinancialYear.delete_all
+    year1 = create(:financial_year, started_on: '01-01-2015', stopped_on: '31-12-2015', state: :opened)
+    year2 = create(:financial_year, started_on: '01-01-2016', stopped_on: '31-12-2016', state: :opened)
+    assert_raise(ActiveRecord::RecordInvalid) { create(:financial_year, started_on: '01-01-2017', stopped_on: '31-12-2017', state: :opened) }
+
+    year1.update_attribute(:state, :closed)
+    assert create(:financial_year, started_on: '01-01-2017', stopped_on: '31-12-2017', state: :opened), 'There are still at least 2 financial years opened'
+  end
+
+  test 'can not create accountant elements on a closed financial year' do
+    FinancialYear.delete_all
+    year = create(:financial_year, started_on: '01-01-2017', stopped_on: '31-12-2017', state: :closed)
+
+    create_accountant_elements_should_raise '06-01-2017'
+  end
+
+  test 'can not create accountant elements on a locked financial year' do
+    FinancialYear.delete_all
+    year = create(:financial_year, started_on: '01-01-2017', stopped_on: '31-12-2017', state: :locked)
+
+    create_accountant_elements_should_raise '06-01-2017'
+  end
+
+  test 'destroy all consecutive financial years without entries' do
+    # This behaviour is intended for farms existing before the migration that adds the 'state' field. Those have lots of unused financial years and users want to quickly delete them.
+
+    # Clean data
+    FinancialYear.delete_all
+    TaxDeclaration.delete_all
+    Payslip.delete_all
+    Regularization.delete_all
+    OutgoingPayment.delete_all
+    JournalEntry.delete_all
+    Inventory.delete_all
+
+    # Generate financial years with no journal entries, no tax declarations and no inventory in order to make destroyable
+    start_date = '01-01-1995'
+    stop_date = '31-12-1995'
+    dates = Array.new(10) { Hash.new }
+
+    # Get array of hash containing dates, IE : [{started_on: '01-01-1995', stopped_on: '01-01-1995'}, {started_on: '01-01-1996', stopped_on: '01-01-1996'}]
+    dates.each_with_index do |d, i|
+      d[:started_on] = start_date.to_date + i.year
+      d[:stopped_on] = stop_date.to_date + i.year
+    end
+
+    # Create financial years
+    dates.each { |d| create(:financial_year, :skip_validate, started_on: d[:started_on], stopped_on:  d[:stopped_on], state: :opened) }
+    assert_equal FinancialYear.count, 10
+    assert_equal FinancialYear.consecutive_destroyables.count, FinancialYear.count
+
+    # Add an entry to a financial year, not the first nor the last, in order to make it not destroyable
+    printed_on = FinancialYear.order(:started_on)[7].started_on + 100.days
+    create(:journal_entry, :with_items, printed_on: printed_on)
+    assert_equal FinancialYear.consecutive_destroyables.count, 7
+    assert FinancialYear.consecutive_destroyables.delete_all
+  end
+
+  def create_accountant_elements_should_raise(accounting_date)
+    assert_raise(ActiveRecord::RecordInvalid) { create(:sale, invoiced_at: accounting_date) }
+    assert_raise(ActiveRecord::RecordInvalid) { create(:purchase, invoiced_at: accounting_date) }
+    assert_raise(ActiveRecord::RecordInvalid) { create(:cash_transfer, transfered_at: accounting_date) }
+    assert_raise(ActiveRecord::RecordInvalid) { create(:fixed_asset, started_on: accounting_date) }
+    assert_raise(ActiveRecord::RecordInvalid) { create(:parcel, given_at: accounting_date) }
+  end
+
 end

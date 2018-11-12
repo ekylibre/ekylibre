@@ -3,31 +3,43 @@
     # get accoutancy ratio in financial_year.sum_entry_items_with_mandatory_line(:ratio, :products)
     # operating_margin_on_turnover = ( operating_margin / turnover_value) * 100
 
+    base_compute = AccountancyComputation.new(@financial_year)
 
-    net_production_sales = @financial_year.sum_entry_items_with_mandatory_line(:ratio, :net_production_sales)
-    production_purchases = @financial_year.sum_entry_items_with_mandatory_line(:ratio, :production_purchases)
-    added_value = @financial_year.sum_entry_items_with_mandatory_line(:ratio, :added_value)
-    operating_margin = @financial_year.sum_entry_items_with_mandatory_line(:ratio, :operating_margin)
-    raw_income = @financial_year.sum_entry_items_with_mandatory_line(:ratio, :raw_income)
-    raw_income_before_taxe = @financial_year.sum_entry_items_with_mandatory_line(:ratio, :raw_income_before_taxe)
-    net_income = @financial_year.sum_entry_items_with_mandatory_line(:ratio, :net_income)
+    series = []
+    data = []
 
-  = infos do
-    - if net_production_sales
-      .big-info
-        %span.title= :net_production_sales.tl(financial_year: @financial_year.name)
-        %span.value= net_production_sales.l(currency: Preference[:currency])
-    - if operating_margin
-      .big-info{class: (operating_margin > 0 ? :positive : operating_margin < 0 ? :negative : :caution)}
-        %span.title= :operating_margin.tl(financial_year: @financial_year.name)
-        %span.value= operating_margin.l(currency: Preference[:currency])
-    -# if raw_income
-      .big-info{class: (raw_income > 0 ? :positive : raw_income < 0 ? :negative : :caution)}
-        %span.title= :raw_income.tl(financial_year: @financial_year.name)
-        %span.value= raw_income.l(currency: Preference[:currency])
-    - if net_income
-      .big-info{class: (net_income > 0 ? :positive : net_income < 0 ? :negative : :caution)}
-        %span.title= :net_income.tl(financial_year: @financial_year.name)
-        %span.value= net_income.l(currency: Preference[:currency])
+    # Products
+    exercice_production = base_compute.sum_entry_items_by_line(:ratio, :exercice_production)
+    data << {name: :exercice_production.tl(financial_year: @financial_year.name) , y: exercice_production.to_s.to_f, color: :green}
+
+    # commercial_margin
+    commercial_margin = base_compute.sum_entry_items_by_line(:ratio, :commercial_margin)
+    data << {name: :commercial_margin.tl(financial_year: @financial_year.name) , y: commercial_margin.to_s.to_f, color: :green}
+
+    # production_purchases
+    production_purchases = base_compute.sum_entry_items_by_line(:ratio, :production_purchases)
+    data << {name: :production_purchases.tl(financial_year: @financial_year.name) , y: - production_purchases.to_s.to_f, color: :red}
+
+    # production_others_charges
+    production_others_charges = base_compute.sum_entry_items_by_line(:ratio, :production_others_charges)
+    data << {name: :production_others_charges.tl(financial_year: @financial_year.name) , y: - production_others_charges.to_s.to_f, color: :red}
+
+    # added value
+    data << {name: :added_value.tl, isIntermediateSum: true}
+
+    # subsidies
+    subsidies = base_compute.sum_entry_items_by_line(:ratio, :subsidies)
+    data << {name: :subsidies.tl(financial_year: @financial_year.name) , y: subsidies.to_s.to_f, color: :green}
+
+    # taxes_and_wages
+    taxes_and_wages = base_compute.sum_entry_items_by_line(:ratio, :taxes_and_wages)
+    data << {name: :taxes_and_wages.tl(financial_year: @financial_year.name) , y: - taxes_and_wages.to_s.to_f, color: :red}
+
+    # operating_margin
+    data << {name: :operating_margin.tl, isSum: true}
+
+    series << { data: data }
+
+  = waterfall_highcharts(series, x_axis: { type: 'category'}, y_axis: {title: {text: 'EUR'}}, legend: { enabled: false }, tooltip: {point_format: '<b>{point.y:,.2f}</b>'})
 - else
   = no_data

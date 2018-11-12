@@ -269,7 +269,9 @@ fra:
           attributes: #?
             number: #?
               unauthorized: "Ce numéro ne peut pas correspondre à une classe radicale." #?
+          cant_start_with_0: "Le numéro ne peut pas commencer par un '0'"
           centralizing_number: "Le numéro ne peut pas commencer par '401' ou '411' qui sont réservés pour les comptes auxiliaires"
+          incorrect_length: "Le numéro n'a pas la bonne longueur (%{number_length} caractères)"
           radical_class: "Le numéro ne peut pas correspondre à une classe radicale"
         activity:
           checked_off_with_inspections: "Des agréages sont déjà présents pour cette activité"
@@ -305,6 +307,7 @@ fra:
               on_or_after: "La date de début doit être postérieure à la date de création de la société (%{restriction})"
             stopped_on:
               end_of_month: "%{attribute} doit être une date de fin de mois"
+          can_only_have_two_years_opened: "Vous ne pouvez avoir que 2 exercices ouverts en même temps"
           can_only_update_code: "Vous ne pouvez que modifier uniquement le code d'un exercice comptable fermé ou clotûré"
           overlap: "%{attribute} se trouve sur un exercice existant"
         financial_year_exchange:
@@ -625,6 +628,7 @@ fra:
     all_addresses: "Toutes les adresses"
     all_taxes_included: "Toutes taxes comprises"
     allocation_account: "Compte de dotation"
+    # already_existing: "Already existing"
     amount: "Montant"
     analysed_at: "Analysé le"
     analyser: "Analyseur"
@@ -2244,6 +2248,11 @@ fra:
           todo: "À faire"
     tax_declaration:
       bookkeep: "[%{resource} %{number}] - Période du %{started_on} au %{stopped_on}"
+      state_machine:
+        states:
+          draft: "Brouillon"
+          sent: "Envoyée"
+          validated: "Validée"
     team:
       default: "Général"
     user:

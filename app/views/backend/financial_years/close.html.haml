@@ -1,11 +1,67 @@
 = form_tag do
-  = field_set do
+  = field_set :prerequisites_checks_before_closure.tl do
+    .close-conditions
+      = warnings(@financial_year,
+                  fixed_assets: FixedAsset.start_before(@financial_year.stopped_on).drafts,
+                  fixed_asset_depreciations: FixedAssetDepreciation.up_to(@financial_year.stopped_on).where(locked: false, accountable: false),
+                  loans: Loan.start_before(@financial_year.stopped_on).drafts,
+                  loan_repayments: LoanRepayment.bookkeepable_before(@financial_year.stopped_on),
+                  tax_declarations: :not_sent_tax_declarations,
+                  incoming_parcels: :not_given_incoming_parcel,
+                  purchases: :not_invoiced_or_aborted_purchase,
+                  outgoing_parcels: :not_given_outgoing_parcel,
+                  sales: :not_invoiced_or_aborted_sale)
+
+      = checks(@financial_year,
+               closed_previous_years: @financial_year.all_previous_financial_years_closed_or_locked?,
+               drafts_empty: @financial_year.no_draft_entry?,
+               entries_balanced: @financial_year.no_entry_to_balance?,
+               no_entries_on_radicals: @financial_year.unbalanced_radical_account_classes_array.empty?)
+
+      .result
+        %span.result-icon= 'i'
+        %span.result-text
+          - result = AccountancyComputation.new(@financial_year).sum_entry_items_by_line(:profit_and_loss_statement, :exercice_result)
+          - profit = (result >= 0)
+          - account_number = profit ? '12000000' : '12900000'
+          - color_to_apply = profit ? 'green' : 'red'
+          - result_direction = profit ? :profit : :loss
+          - localized_currency = number_to_accountancy(result.abs, @financial_year.currency)
+          - result_label = "#{result_direction}_is_x_for_account".tl(x: localized_currency, account_number: account_number)
+          %p= :financial_year_results.tl(results: result_label).html_safe
+
+  = field_set :close_settings.tl do
     = field FinancialYear.model_name.human, @financial_year.code
     = field FinancialYear.human_attribute_name(:stopped_on), @financial_year.stopped_on.l
     = hidden_field_tag("financial_year[stopped_on]", @financial_year.stopped_on)
     = field FinancialYear.human_attribute_name(:result_journal), select_tag("result_journal_id", options_for_select([[:dont_generate_result_entries.tl, ""], [:create_journal.tl, 0]] + Journal.where(currency: @financial_year.currency, nature: :result).collect{|j| [j.name, j.id]}, selected: params[:result_journal_id]))
     = field FinancialYear.human_attribute_name(:closure_journal), select_tag("closure_journal_id", options_for_select([[:dont_generate_closure_entries.tl, ""], [:create_journal.tl, 0]] + Journal.where(currency: @financial_year.currency, nature: :closure).collect{|j| [j.name, j.id]}, selected: params[:closure_journal_id]))
     = field FinancialYear.human_attribute_name(:forward_journal), select_tag("forward_journal_id", options_for_select([[:dont_generate_carrying_forward_entries.tl, ""], [:create_journal.tl, 0]] + Journal.where(currency: @financial_year.currency, nature: :forward).collect{|j| [j.name, j.id]}, selected: params[:forward_journal_id]))
+
+    #confirmCloseModal.modal.fade{ tabindex: '-1', role: 'dialog', 'aria-labelledby': 'indexModal', 'aria-hidden': 'true' }
+      .modal-dialog{ role: 'document' }
+        .modal-content
+          .modal-header
+            %button.close{ data: { dismiss: 'modal' }, 'aria-label': 'Close', type: 'button' }
+              %i.icon.icon-destroy{ 'aria-hidden': 'true' }
+            %b.modal-title= :last_confirmation_before_definitive_close.tl
+          .modal-body
+            %p= :financial_year_close_message.tl.html_safe
+          .modal-footer
+            = link_to(:cancel.tl, {}, class: "btn")
+            = submit_tag(:close_financial_year.tl(code: ''), class: "primary")
+
+  .close-table
+    %table
+      %tr
+        %th
+          %i
+          = :irreversible_operation.tl
+      %tr
+        %td
+          = check_box_tag 'confirm-revised-accounts', '', false, disabled: @financial_year.any_invalid_closure_check?
+          = :account_certification_by_competent_person.tl
+
   = form_actions do
-    = submit_tag(:close_financial_year.tl(code: ''), data: { confirm: :are_you_sure.tl }, class: "primary")
+    = button_tag :close_the_financial_year.tl, data: { toggle: 'modal', target: '#confirmCloseModal' }, class: "btn btn-primary", id: "close-btn", type: 'button', disabled: true
     = link_to(:cancel.tl, (params[:redirect] || {action: :index}), class: "btn")

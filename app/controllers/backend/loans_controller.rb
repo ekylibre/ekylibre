@@ -38,6 +38,10 @@ module Backend
       code << "    c << interval.second\n"
       code << "  end\n"
       code << "end\n"
+      code << "unless params[:state].blank?\n"
+      code << "  c[0] << ' AND #{Loan.table_name}.state IN (?)'\n"
+      code << "  c << params[:state]\n"
+      code << "end\n"
       code << "if params[:repayment_period].present?\n"
       code << "  c[0] << ' AND #{Loan.table_name}.repayment_period IN (?)'\n"
       code << "  c << params[:repayment_period]\n"
@@ -56,6 +60,7 @@ module Backend
       t.column :name, url: true
       t.column :amount, currency: true
       t.column :cash, url: true
+      t.status
       t.column :started_on
       t.column :repayment_duration
       t.column :repayment_period
@@ -65,6 +70,7 @@ module Backend
     list :repayments, model: :loan_repayments, conditions: { loan_id: 'params[:id]'.c } do |t|
       t.action :edit
       t.column :position
+      t.column :accountable
       t.column :locked
       t.column :due_on
       t.column :amount, currency: true

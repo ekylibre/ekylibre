@@ -22,7 +22,28 @@ module Backend
 
     unroll
 
-    list(line_class: :status, order: { created_at: :desc, number: :desc }) do |t|
+    def self.tax_declarations_conditions
+      code = search_conditions(tax_declarations: %i[reference_number number description]) + " ||= []\n"
+      code << "if params[:period].present? && params[:period].to_s != 'all'\n"
+      code << "  c[0] << ' AND #{TaxDeclaration.table_name}.started_on BETWEEN ? AND ?'\n"
+      code << "  if params[:period].to_s == 'interval'\n"
+      code << "    c << params[:started_on]\n"
+      code << "    c << params[:stopped_on]\n"
+      code << "  else\n"
+      code << "    interval = params[:period].to_s.split('_')\n"
+      code << "    c << interval.first\n"
+      code << "    c << interval.second\n"
+      code << "  end\n"
+      code << "end\n"
+      code << "unless params[:state].blank?\n"
+      code << "  c[0] << ' AND #{TaxDeclaration.table_name}.state IN (?)'\n"
+      code << "  c << params[:state]\n"
+      code << "end\n"
+      code << "c\n"
+      code.c
+    end
+
+    list(conditions: tax_declarations_conditions, line_class: :status, order: { created_at: :desc, number: :desc }) do |t|
       t.action :edit, if: :editable?
       t.action :destroy, if: :destroyable?
       t.column :number, url: true

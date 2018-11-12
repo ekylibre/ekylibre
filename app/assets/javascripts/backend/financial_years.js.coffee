@@ -1,6 +1,11 @@
 ((E, $) ->
-  $(document).on 'change', '#confirm-revised-accounts', ->
-    lock_btn = $('#lock-btn')
-    lock_btn.attr('disabled', !this.checked)
+  $(document).ready ->
+    $('.lock-table #confirm-revised-accounts').on 'change', ->
+      lock_btn = $('#lock-btn')
+      lock_btn.attr('disabled', !this.checked)
+
+    $('.close-table #confirm-revised-accounts').on 'change', ->
+      close_btn = $('#close-btn')
+      close_btn.attr('disabled', !this.checked)
 
 ) ekylibre, jQuery

@@ -171,7 +171,7 @@ module ActiveModel
       # to be validated instead of "sometime strings, sometime symbols"
       def include?(record, value)
         value = value.to_s if value.is_a? Symbol
-        super record, value 
+        super record, value
         # `super` here references ActiveModel::Validations::Clusitivity#include?
       end
     end

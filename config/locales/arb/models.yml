@@ -699,7 +699,9 @@ arb:
         wrong_length: "%{attribute} الطول الخاطئ  ( %{count} يجب ان يكون عدد الاحرف)"
       models:
         account:
+          # cant_start_with_0: "The number can't start with a '0'"
           # centralizing_number: "The number can't start with '401' or '411' which are numbers used for auxiliary accounts"
+          # incorrect_length: "The number has not the correct lenght (%{number_length} caracters)"
           # radical_class: "The account can't correpsond to a radical class"
         activity:
           checked_off_with_inspections: "وقد تم بالفعل خلق التفتيش لهذا النشاط"
@@ -738,6 +740,7 @@ arb:
               # on_or_after: "The date selected must be posterior to society's creation date (%{restriction})"
             stopped_on:
               end_of_month: "%{attribute} يجب ان يكون التاريخ في نهاية الشهر"
+          # can_only_have_two_years_opened: "You can only have two financial years opened"
           # can_only_update_code: "You can only update the code of a closed or locked financial year"
           overlap: "%{attribute} متواجد على قائمة السنة المالية الحالية"
         financial_year_exchange:
@@ -803,6 +806,7 @@ arb:
           buildings_can_not_be_identical: "مواقع التخزين (المغادرة والواصلة) قد لا تكون متطابقة" #?
         purchase:
           # not_opened_financial_year: "An opened financial year is necessary"
+          # payment_delay_custom_validation_message: "Accepted formats : %{values}"
         purchase_item:
           building_can_not_receive_product: "لا يمكن للخزينة %{building} استقبال النتج %{product}, لاحتوائها منتج سابق %{contained_product}."
           serial_already_used_with_an_other_product: "%{attribute} تم استخدامها لنوع اخر من المنتج من نفس الممون"
@@ -1132,6 +1136,7 @@ arb:
     all_addresses: "جميع العناوين"
     all_taxes_included: "وتشمل جميع الضرائب"
     allocation_account: "حساب توزيع"
+    # already_existing: "Already existing"
     amount: "القيمة من دون الضرائب"
     amount_with_taxes: "القيمة مع كامل الضرائب" #?
     analysed_at: "تم تحليل المعلومات في"
@@ -3225,6 +3230,11 @@ arb:
           todo: "لكى يفعل"
     tax_declaration:
       # bookkeep: "[%{resource} %{number}] From %{started_on} to %{stopped_on}"
+      state_machine:
+        states:
+          # draft: "Draft"
+          # sent: "Sent"
+          # validated: "Validated"
     team:
       default: "فريق الرئيسي"
     user:

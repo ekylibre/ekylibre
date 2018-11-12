@@ -680,6 +680,8 @@ spa:
         # one: "%{count} error prohibited this %{model} from being saved"
         # other: "%{count} errors prohibited this %{model} from being saved"
   front-end:
+    bank_reconciliation:
+      # remove: "Remove"
     leaflet:
       draw:
         handlers:
@@ -779,6 +781,7 @@ spa:
     accounting: "Contabilidad"
     accounts: "Cuentos contables utilizados"
     accounts_only_used_at: "Solo las utilizan en"
+    # accounts_to_change: "Accounts to change"
     accounts_to_load: "Cuentas para cargar"
     action_duration: "Duración de la acción"
     activate_entry_autocompletion: "Activar la terminación automática de entrada"
@@ -872,6 +875,9 @@ spa:
     all_cash_balances: "Todos los saldos de efectivo" #?
     all_columns: "Todas las columnas"
     all_conditions: "Todas las condiciones de"
+    # all_entries_balanced: "All entries are balanced"
+    # all_financial_years_closed_or_locked: "All financial years are closed or locked"
+    # all_financial_years_not_closed_or_locked: "All financial years are not closed or locked"
     all_periods: "Todos los ejercicios"
     already_credited_quantity: "Cantidad ya pasada en activo" #?
     amount: "Total TVA a pagar"
@@ -896,6 +902,7 @@ spa:
       close_issue: "¿Seguro que desea cerrar este problema?"
       reopen_issue: "¿Está seguro de que desea volver a abrir este problema?"
     # are_you_sure_you_want_to_change_account_digits: "Are you sure you want to change the number of characters on account numbers?"
+    # are_you_sure_you_want_to_change_accounting_system: "Are you sure you want to change your accounting system ?"
     are_you_sure_you_want_to_confirm: "¿Seguro que quiere pedir"
     are_you_sure_you_want_to_delete: "¿Está seguro de que desea eliminar este registro?"
     are_you_sure_you_want_to_invoice: "¿Seguro que desea facturar?"
@@ -982,10 +989,12 @@ spa:
     category: "Categoría"
     centralize: "Cuentos contables centralizadores"
     centralized_account: "Cuento centralizador %{name}"
+    # change: "Change"
     change_password: "Cambia la contraseña"
     change_state: "Cambio de estado"
     change_status_of_selected_interventions: "Cambiar el estado de las intervenciones seleccionadas"
     charge_value: "Valor de carga"
+    # charges: "Charges"
     chart: "Gráfico"
     check: "Comprobar"
     check_x_entries_to_balance:
@@ -1007,12 +1016,14 @@ spa:
     close: "Cerrar"
     close_financial_year: "Fin del ejercicio contable"
     close_journal: "Cierre la revista"
+    # close_settings: "Close settings"
     # close_the_financial_year: "Close the financial year"
     closed: "Cerrados"
     cobbles: "Enguijarrado"
     code: "Codigo" #?
     column: "Columna"
     columns: "Columnas para importar"
+    # commercial_margin: "Commercial margin"
     commission: "Comisión"
     company: "Sociedad"
     completed: "Terminado"
@@ -1176,6 +1187,9 @@ spa:
     downpayment: "Pago inicial"
     draft: "Niebla"
     draft_entries: "niebla" #?
+    # draft_entries_to_validate: "There are draft entries to validate"
+    # draft_fixed_asset_on_current_financial_year: "You have draft fixed assets ongoing. Once the financial year closed, it won't be possible to enter them into service on this financial year (%{code})."
+    # draft_loan_on_current_financial_year: "You have draft loans ongoing. Once the financial year closed, it won't be possible to enter them into service on this financial year (%{code})."
     duplicate: "Duplicar"
     duration: "Duración"
     # duration_in_hours_and_minutes: "%{hours}h %{minutes}min"
@@ -1196,6 +1210,7 @@ spa:
     entity_to_delete: "Persona para borrar"
     entity_to_update: "Persona para actualizar"
     entries: "Escrituras"
+    # entries_to_balance: "Entries to balance"
     entries_to_point: "Escrituras a despuntar"
     # entry_item_label: "Entry item label"
     entry_items: "Elementos de entrada"
@@ -1227,6 +1242,8 @@ spa:
     exchange: "Intercambiar"
     # exchange_rate_from_x_to_y: "Exchange rate from %{x} to %{y}"
     exchanges: "Intercambios"
+    # exercice_production: "Exercice production"
+    # exercice_result: "Exercice result"
     existing: "Existente"
     # expected_quantity_is_x: "Expected quantity: %{x}"
     expedier: "Expédier"
@@ -1234,6 +1251,7 @@ spa:
     expenses_by_product_nature_category: "Los gastos por categoría de productos naturaleza"
     expired_since: "Expirado ya (en días)"
     expired_within: "Expirado el plazo de (en días)"
+    # exploitation_result: "Exploitation result"
     exploitation_results: "Los resultados de explotación"
     export: "Exportación de un fichero de salvaguardia"
     export_as_csv: "Exportar como CSV"
@@ -1258,11 +1276,13 @@ spa:
     financial_assets: "Activos financieros"
     financial_expenses: "Gastos financieros"
     financial_products: "Productos financieros"
+    # financial_result: "Financial result"
     # financial_year: "Financial year"
     # financial_year_close_message: "<p> The close will definitively validate all entries of the financial year, which may not be modified or deleted. It will not be possible to add new ones too. </p>"
     financial_year_create: "Abrir un nuevo ejercicio contable" #?
     # financial_year_lock_message: "<p> The lock will definitively validate all entries of the financial year, which may not be modified or deleted. It will not be possible to add new ones too. <br/> You will need to get in contact the person who did the close out of the software to get back your year-end documents. </p>"
     # financial_year_needed: "All commercial and financial operations need to be accounted on an opened financial year. Please open a financial year for the current period or ask a manager"
+    # financial_year_results: "Financial year results : %{results}"
     # financial_year_warning: "<p> If the financial year is not closed or locked before the %{last_financial_year_end_date}, you will not be able to open a financial year on %{new_financial_year_start_date}. Indeed, it is not possible to have more than 2 financial years opened simultaneously. Furthermore, it is necessary to have an opened financial year on the ongoing date to input commercial and financial operations. <br/> If you don't manage your accountacy with Ekylibre, you have the possibility to lock your financial year. <br/> Attention : locked financial years can't be modified like a closed financial year."
     financials_assets: "Activos Finanzas" #?
     finish: "Acabado"
@@ -1272,6 +1292,7 @@ spa:
     first_line_as_title: "Primera línea como el título"
     fixed_asset_debts: "Deudas de bienes de uso"
     fixed_asset_depreciations: "Amortizaciones de bienes de uso"
+    # fixed_asset_depreciations_not_accounted_on_current_financial_year: "Fixed asset depreciations not accounted on current financial year"
     fixed_assets: "Los activos fijos"
     free_purchases: "Compras en franquisia" #?
     from: "Expedidor"
@@ -1450,6 +1471,7 @@ spa:
     listings: "Extracciones de datos" #?
     load: "Carga"
     load_demo_data: "Cargar datos de prueba" #?
+    # loan_repayments_not_accounted_on_current_financial_year: "Loan repayments not accounted on current financial year"
     loans_debts: "Préstamos deudas"
     locale: "Idioma"
     localization: "Localisación geografica"
@@ -1457,6 +1479,7 @@ spa:
     # lock_financial_year: "Lock %{code}"
     # lock_settings: "Lock settings"
     # lock_the_financial_year: "Lock the financial year"
+    # loss_is_x_for_account: "<span class='loss'> Loss of %{x} </span> to account for the account %{account_number}"
     losses: "Pérdidas"
     mail: "Enviar un correo electrónico"
     mailing: "Envío"
@@ -1562,6 +1585,7 @@ spa:
     no_crumbs_to_check: "No hay migajas para comprobar"
     no_data: "Sin datos"
     no_deposits: "Sin depósitos"
+    # no_draft_entry: "No draft entry"
     # no_financial_year_opened: "No financial year opened on current date"
     no_intervention_participations_to_check: "No hay participaciones de intervención para comprobar"
     no_javascript: "Su navegante no soporta el javascript. se debe activarlo para utilizar el software. Gracias para su comprension." #?
@@ -1576,9 +1600,14 @@ spa:
     normal: "Regimen del real normal"
     not_assessable_operations: "Opéraciones no imposnibles" #?
     not_delivered: "No entregado"
+    # not_invoiced_or_aborted_purchases: "You have not invoiced or aborted purchases. Once the financial year closed, it won't be possible to invoice them or abort them on this financial year (%{code})."
+    # not_invoiced_or_aborted_sales: "You have not invoiced or aborted sales. Once the financial year closed, it won't be possible to invoice them or abort them on this financial year (%{code})."
     not_letterable: "No es capaz de carta"
     not_ready: "No está listo"
     not_received: "No recibido"
+    # not_sent_incoming_parcels_on_current_financial_year: "You have not sent incoming parcels. Once the financial year closed, it won't be possible to send them on this financial year (%{code})."
+    # not_sent_outgoing_parcels_on_current_financial_year: "You have not sent outgoing parcels. Once the financial year closed, it won't be possible to send them on this financial year (%{code})."
+    # not_sent_tax_declaration_on_current_financial_year: "You have not sent tax declarations (draft or validated) ongoing. Once the financial year closed, it won't be possible to sent them on this financial year (%{code})."
     now: "Ahora"
     number: "Número"
     number_of_cap_islets: "Número de islotes casquillo"
@@ -1642,6 +1671,7 @@ spa:
     payment_amount: "Cantidad de pago"
     payment_at: "El pago de"
     payment_conditions: "Condiciones de pago"
+    # payment_delay_placeholder: "eom, 5 days before"
     payment_mode: "Modo de pago"
     payments: "Encajonamientos"
     payments_count: "Nombre de %{mode}"
@@ -1672,6 +1702,7 @@ spa:
     potential_hydrogen: "Potencial de hidrógeno"
     precipitation: "Precipitación"
     preferences: "Preferencias"
+    # prerequisites_checks_before_closure: "Prerequisites checks before closure"
     prescription: "Prescripción"
     prescriptions: "Prescripciones"
     pretax_amount: "Cantidad antes de impuestos"
@@ -1693,6 +1724,8 @@ spa:
     production: "Administración de la producción"
     production_cost: "Costo de producción"
     production_distribution: "Distribución de la producción"
+    # production_others_charges: "Production others charges"
+    # production_purchases: "Production purchases"
     production_support: "Soporte de producción"
     productions: "Producciones"
     productions_sales: "Producciones ventas"
@@ -1701,6 +1734,7 @@ spa:
     products_sales: "Las ventas de productos"
     profile: "Perfil"
     profit_and_loss: "Ganancia y perdida"
+    # profit_is_x_for_account: "<span class='profit'> Profit of %{x} </span> to account for the account %{account_number}"
     profit_or_loss: "Resultado del ejercicio"
     profit_taxe: "Taxe ganancias"
     profits: "Las ganancias"
@@ -1724,6 +1758,8 @@ spa:
     quantity_to_credit: "Cantidad a pasar en activo" #?
     quarterly: "Trimestral" #?
     query: "Demanda:"
+    # radical_class_accounts_dont_have_entries: "Radical class accounts does not contain any entry"
+    # radical_class_accounts_have_entries: "Radical class accounts contains entries"
     raw_income: "Ingreso en bruto"
     raw_margin: "Margen en bruto" #?
     reading_tasks: "Tareas de lectura"
@@ -1821,7 +1857,18 @@ spa:
     search_placeholder: "Buscar…"
     # section_x: "Section %{x}"
     see_details: "Ver detalles"
+    # see_fixed_assets: "See fixed asset"
+    # see_incoming_parcels: "See the incoming parcels"
+    # see_loans: "See loans"
     see_more_details: "Ver más detalles"
+    # see_outgoing_parcels: "See the outgoing parcels"
+    # see_purchases: "See the purchases"
+    # see_sales: "See the sales"
+    # see_tax_declarations: "See tax declarations"
+    # see_the_accounts: "See the accounts"
+    # see_the_day_book: "See the day book"
+    # see_the_financial_years: "See the financial years"
+    # see_the_unbalanced_entries: "See the unbalanced entries"
     select_a_journal: "Seleccionar un diario"
     select_account_client: "Cuentos a marcar con letras" #?
     select_account_supplier: "Cuento a marcar con letra" #?

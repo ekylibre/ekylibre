@@ -146,7 +146,9 @@ ita:
           other: "è della lunghezza sbagliata (deve essere di %{count} caratteri)" #?
       models:
         account:
+          # cant_start_with_0: "The number can't start with a '0'"
           # centralizing_number: "The number can't start with '401' or '411' which are numbers used for auxiliary accounts"
+          # incorrect_length: "The number has not the correct lenght (%{number_length} caracters)"
           # radical_class: "The account can't correpsond to a radical class"
         activity:
           checked_off_with_inspections: "Le ispezioni sono già stati creati per questa attività"
@@ -180,6 +182,7 @@ ita:
               # on_or_after: "The date selected must be posterior to society's creation date (%{restriction})"
             stopped_on:
               # end_of_month: "%{attribute} must be an end of month"
+          # can_only_have_two_years_opened: "You can only have two financial years opened"
           # can_only_update_code: "You can only update the code of a closed or locked financial year"
           # overlap: "%{attribute} overlaps an existing financial year"
         financial_year_exchange:
@@ -226,6 +229,7 @@ ita:
           # not_opened_financial_year: "An opened financial year is necessary"
         purchase:
           # not_opened_financial_year: "An opened financial year is necessary"
+          # payment_delay_custom_validation_message: "Accepted formats : %{values}"
         purchase_item:
           # building_can_not_receive_product: "The building %{building} can not receive %{product}, it already contains %{contained_product}."
           # serial_already_used_with_an_other_product: "%{attribute} has been already used for an other product of the same supplier"
@@ -513,6 +517,7 @@ ita:
     all_addresses: "Tutti gli indirizzi"
     all_taxes_included: "Tutte le tasse incluse"
     allocation_account: "conto Allocation"
+    # already_existing: "Already existing"
     amount: "Quantità"
     analysed_at: "Analizzati a"
     analyser: "Analizzatore"
@@ -1971,6 +1976,11 @@ ita:
           todo: "Fare"
     tax_declaration:
       # bookkeep: "[%{resource} %{number}] From %{started_on} to %{stopped_on}"
+      state_machine:
+        states:
+          # draft: "Draft"
+          # sent: "Sent"
+          # validated: "Validated"
     team:
       default: "squadra principale"
     user:

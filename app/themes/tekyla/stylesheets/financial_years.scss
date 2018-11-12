@@ -1,7 +1,7 @@
-.financial-year-container {
+#financial-year-container {
   border: 1px solid #BC2121;
   border-radius: 3px;
-  height: 164px;
+  height: 190px;
   position: relative;
   margin: 9px;
   i {
@@ -32,7 +32,7 @@
   }
 }
 
-.lock-table {
+.lock-table, .close-table {
   margin: 11px;
   table, th, td{
     border: 1px solid #BC2121;
@@ -54,7 +54,7 @@
   }
 }
 
-#confirmLockModal {
+#confirmLockModal, #confirmCloseModal {
   .modal-title {
     font-size: 15px;
   }
@@ -96,6 +96,68 @@
 
     h2 {
       color: #F42727;
+    }
+  }
+}
+
+.close-conditions {
+  p + p{
+    margin-top: 5px;
+  }
+
+  a {
+    vertical-align: baseline;
+  }
+
+  i {
+    &.wrong-validation {
+      @include is-icon(25px);
+      @include use-icon(close);
+      color: red;
+    }
+
+    &.correct-validation {
+      margin-left: 5px;
+      @include is-icon(20px);
+      @include use-icon(check);
+      color: #6BC728;
+    }
+
+    &.warning-validation {
+      margin-left: 5px;
+      @include is-icon(20px);
+      @include use-icon(warning);
+      color: orange;
+    }
+  }
+
+  .result {
+    .result-icon {
+      width: 18px;
+      height: 18px;
+      border: 2px solid;
+      border-radius: 50%;
+      font-weight: bold;
+      text-align: center;
+      color: #5C85D5;
+      line-height: 18px;
+      margin-left: 5px;
+      display: inline-block;
+      margin-top: 12px;
+      font-size: 15px;
+    }
+
+    .result-text {
+      display: inline-block;
+      margin-top: 9px;
+    }
+
+    .profit {
+      color: green;
+    }
+
+    .loss {
+      color: red;
     }
   }
 }

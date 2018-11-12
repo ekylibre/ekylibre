@@ -1,0 +1,5 @@
+%p
+  %i.warning-validation
+  = :not_invoiced_or_aborted_sales.tl(code: financial_year.code)
+  - period_param = @financial_year.started_on.to_s + '_' + @financial_year.stopped_on.to_s
+  = link_to(:see_sales.tl, backend_sales_path(period: period_param, state: [:draft, :estimate, :refused, :order]), target: '_blank')
