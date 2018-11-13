@@ -489,7 +489,6 @@ class FinancialYearClose
 
     sha256 = Digest::SHA256.file zip_path
     crypto = GPGME::Crypto.new
-    GPGME::Key.import(File.open("test/fixture-files/my-private-key.asc"), password: ENV['GPG_KEY_PASSWORD'])
     signature = crypto.clearsign(sha256.to_s, signer: ENV['GPG_KEY_EMAIL'])
     signature_path = Ekylibre::Tenant.private_directory.join('attachments', 'documents', 'financial_year_closures', "#{@year.id}", "#{@year.id}_#{timing}.asc")
     File.write(signature_path, signature)

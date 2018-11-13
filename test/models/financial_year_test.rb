@@ -149,6 +149,19 @@ class FinancialYearTest < ActiveSupport::TestCase
                       Journal.create_one!(:result, f.currency)
     }
     assert f.close(User.first, nil, options), "Financial year #{f.code} should be closed"
+
+    assert f.prior_to_closure_archive.present?
+    assert f.post_closure_archive.present?
+
+    assert File.exist? f.prior_to_closure_archive.path
+    assert File.exist? f.post_closure_archive.path
+
+    assert File.exist? f.prior_to_closure_archive.path.gsub(/zip/, 'asc')
+    assert File.exist? f.post_closure_archive.path.gsub(/zip/, 'asc')
+
+    crypto = GPGME::Crypto.new
+    assert_equal crypto.verify(f.prior_to_closure_archive.signature) { |s| s.valid? }.class, 'Data'
+    assert_equal crypto.verify(f.post_closure_archive.signature) { |s| s.valid? }.class, 'Data'
   end
 
   test 'compute periods given a specific interval' do
