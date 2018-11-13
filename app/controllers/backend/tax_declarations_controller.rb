@@ -59,6 +59,26 @@ module Backend
       t.status
     end
 
+    def index
+      # build variables for reporting (document_nature, key, filename and dataset)
+      document_nature = Nomen::DocumentNature.find(:vat_report)
+      key = "#{document_nature.name}-#{Time.zone.now.l(format: '%Y-%m-%d-%H:%M:%S')}"
+      respond_to do |format|
+        format.html
+        format.pdf do
+          template_path = find_open_document_template(:vat_report)
+          raise 'Cannot find template' if template_path.nil?
+          @vat_dataset = TaxDeclaration.vat_dataset_report(params) if params
+          vat_printer = VatPrinter.new(dataset: @vat_dataset,
+                                               document_nature: document_nature,
+                                               key: key,
+                                               template_path: template_path,
+                                               params: params)
+          send_file vat_printer.run, type: 'application/pdf', disposition: 'attachment', filename: key << '.pdf'
+        end
+      end
+    end
+
     # Displays details of one tax declaration selected with +params[:id]+
     def show
       return unless @tax_declaration = find_and_check

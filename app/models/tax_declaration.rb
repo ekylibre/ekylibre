@@ -237,6 +237,55 @@ class TaxDeclaration < Ekylibre::Record::Base
     end
   end
 
+
+  def self.vat_dataset_report(options = {})
+
+    vat_dataset = []
+
+    if options[:period] == 'all'
+      started_on = FinancialYear.order(:started_on).pluck(:started_on).first.to_s
+      stopped_on = FinancialYear.order(:stopped_on).pluck(:stopped_on).last.to_s
+    else
+      started_on = options[:period].split("_").first if options[:period]
+      stopped_on = options[:period].split("_").last if options[:period]
+    end
+
+    # options[:states]
+    if options[:states]&.any?
+      a = options[:states].select { |_k, v| v.to_i == 1 }.map { |pair| "'#{pair.first}'" }.join(', ')
+      states_array = "state IN (#{a})"
+    else
+      states_array = '1=1'
+    end
+
+    taxe_declarations = TaxDeclaration.where('started_on >= ? AND stopped_on <= ?', started_on, stopped_on)
+
+    taxe_declarations.each do |td|
+      td.items.includes(parts: { journal_entry_item: :entry }).each do |i|
+        i.parts.each do |p|
+          jei = p.journal_entry_item
+          e = jei.entry
+          item = HashWithIndifferentAccess.new
+          item[:entry_id] = e.id
+          item[:entry_number] = e.number
+          item[:entry_printed_on] = e.printed_on.l
+          item[:entry_month_name] = I18n.l(Date::MONTHNAMES[e.printed_on.month])
+          item[:entry_item_account_number] = jei.account.number
+          item[:entry_item_account_name] = jei.account.name
+          item[:entry_item_name] = jei.name
+          item[:entry_item_debit] = jei.debit.to_f
+          item[:entry_item_credit] = jei.credit.to_f
+          item[:tax_amount] = p.tax_amount.to_f
+          item[:pretax_amount] = p.pretax_amount.to_f
+          item[:tax_name] = jei.tax.name
+          item[:tax_account] = jei.vat_item_to_product_account
+          vat_dataset << item
+        end
+      end
+    end
+    vat_dataset.compact
+  end
+
   private
 
   def set_entry_items_tax_modes
