@@ -124,10 +124,6 @@ module Backend
       t.column :credit, currency: true, class: "smallcolumns monetary_column", default: ''
       t.column :absolute_debit,  currency: :absolute_currency, hidden: true, class: "smallcolumns monetary_column"
       t.column :absolute_credit, currency: :absolute_currency, hidden: true, class: "smallcolumns monetary_column"
-      t.column :cumulated_absolute_debit,  currency: :absolute_currency, hidden: true, class: "smallcolumns monetary_column debitcolor"
-      t.column :cumulated_absolute_credit, currency: :absolute_currency, hidden: true, class: "smallcolumns monetary_column creditcolor"
-      t.column :cumulated_absolute_debit_balance, currency: :absolute_currency, class: "smallcolumns monetary_column debitcolor", default: ''
-      t.column :cumulated_absolute_credit_balance, currency: :absolute_currency, class: "smallcolumns monetary_column creditcolor", default: ''
     end
 
     def index
