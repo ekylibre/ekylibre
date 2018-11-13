@@ -8,7 +8,7 @@ class FinancialYearClose
     @started_on = @year.started_on
     @closer = closer
     @to_close_on = to_close_on || options[:to_close_on] || @year.stopped_on
-    @progress = Progress.new(:close_main, id: @year.id, max: 4)
+    @progress = Progress.new(:close_main, id: @year.id, max: 6)
     @errors = []
     @currency = @year.currency
     @options = options
@@ -32,6 +32,7 @@ class FinancialYearClose
 
     ActiveRecord::Base.transaction do
       generate_documents('prior_to_closure')
+      @progress.increment!
 
       benchmark('Compute Balance') do
         @year.compute_balances!
@@ -60,6 +61,7 @@ class FinancialYearClose
       @year.update_attributes(stopped_on: @to_close_on, closed: true, state: 'closed')
 
       generate_documents('post_closure')
+      @progress.increment!
     end
 
     true

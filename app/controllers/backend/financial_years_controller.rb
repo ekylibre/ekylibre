@@ -69,7 +69,7 @@ module Backend
           end
           notify_now(:locked_exercice_info) if @financial_year.locked?
           t3e @financial_year.attributes
-
+          @value = fetch_progress_value(params[:id])
         end
         format.xml do
           FecExportJob.perform_later(@financial_year, params[:fiscal_position], params[:interval], current_user)
@@ -130,7 +130,7 @@ module Backend
         FinancialYearCloseJob.perform_later(@financial_year, current_user, closed_on.to_s, **params.symbolize_keys.slice(:result_journal_id, :forward_journal_id, :closure_journal_id))
         notify_success(:closure_process_started)
 
-        return redirect_to(action: :index)
+        return redirect_to backend_financial_year_path(@financial_year)
       end
 
       journal = Journal.where(currency: @financial_year.currency, nature: :result).first
@@ -177,6 +177,18 @@ module Backend
       ids_array =  params[:year_ids]
       FinancialYear.where(id: ids_array).delete_all
       return redirect_to(action: :index)
+    end
+
+    def run_progress
+      value = fetch_progress_value(params[:id])
+      render partial: 'progress', locals: { value: value.round }
+    end
+
+    private
+
+    def fetch_progress_value(id)
+      progress = Progress.fetch('close_main', id: id)
+      progress ? progress.value.round : 0
     end
   end
 end

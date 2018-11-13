@@ -59,6 +59,8 @@
           .signature-title= t('labels.signature_html', url: 'http://www.google.com')
           = resource.post_closure_archive.signature.gsub(/\n/, '<br />').html_safe
 
+  = render 'progress', value: @value
+
 = cobbles do |c|
   - c.cobble(resource.closed ? :balance : :last_computed_balance) do
     = cobble_list :account_balances
