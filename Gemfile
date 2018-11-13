@@ -177,6 +177,7 @@ gem 'rubyzip'
 gem 'sepa_king'
 # gem 'sepa_king', path: '/home/jonathan/Workspace/sepa_king'
 gem 'quandl'
+gem 'odf-report'
 gem 'rodf'
 
 # Demo data
