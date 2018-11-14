@@ -1462,6 +1462,7 @@ fra:
     generate: "Générer"
     generate_last_journal_entry: "Générer la dernière écriture"
     generate_parcel: "Créer une réception"
+    create_shipment: "Créer une expédition"
     generate_repayments: "Passer en comptabilité"
     geolocation: "Géolocalisation"
     give_discount: "Octroyer une remise" #?
