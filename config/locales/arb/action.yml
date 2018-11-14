@@ -2525,6 +2525,7 @@ arb:
     wind_speed: "سرعة الرياح"
     with_fixed_assets_depreciations: "مع انخفاض قيمة الأصول الثابتة"
     with_prints: "(وتشمل الطباعة (الفواتير والاوامر" #?
+    # worked_zone_not_corresponding: "The worked zone is not corresponding to the planned one"
     workers: "العمال"
     # workforce: "Workforce"
     working_duration: "مدة العمل"

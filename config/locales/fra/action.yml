@@ -919,6 +919,7 @@ fra:
     activity_productions: "Productions"
     add: "Ajouter"
     add_a_worker: "Ajouter un équipier"
+    add_an_evaluation_for_this_intervention: "Evaluer cette intervention avant de la valider" #?
     add_animal: "Ajouter un animal"
     add_animal_group: "Ajouter un troupeau"
     add_annotation: "Ajouter une annotation"
@@ -1008,6 +1009,7 @@ fra:
     all_conditions: "toutes les conditions"
     all_f: "Toutes" #?
     all_periods: "Tous les exercices"
+    all_the_categories: "Toutes les categories" #?
     already_credited_quantity: "Qté. déjà passée en avoir" #?
     amount: "Montant"
     amount_computed_from: "Montant calculé à partir de %{source}"
@@ -1116,6 +1118,7 @@ fra:
     category: "Catégorie"
     category_code: "Code catégorie" #?
     category_name: "Catégorie" #?
+    category_of_product: "Catégorie de produit" #?
     cells_concentration: "Dénombrement des cellules somatiques" #?
     centralize: "Comptes comptables centralisateurs"
     centralized_account: "Compte centralisateur %{name}"
@@ -1160,6 +1163,7 @@ fra:
     comment: "Commentaire"
     commission: "Commission"
     company: "Société"
+    compare_planned_and_realised: "Comparer avec les interventions planifiées" #?
     complement_sort: "Trier les choix par nom" #?
     complements: "Champs personnalisés" #?
     completed: "Terminées"
@@ -1167,8 +1171,6 @@ fra:
     component: "Composant" #?
     component_name: "Nom du composant" #?
     components: "Composants" #?
-    all_the_categories: Toutes les categories
-    category_of_product: Catégorie de produit
     concentrations_map: "Carte des concentrations" #?
     conditions:
       filter_on_attribute_of_class: "Filtre sur %{attribute} (%{class})"
@@ -1378,6 +1380,8 @@ fra:
     estimate: "Devis" #?
     estimate_to_order: "Passer le devis en commande" #?
     estimate_yield: "Rendement estimé"
+    etract_account_as_odt: "Extrait de compte en ODT" #?
+    etract_account_as_pdf: "Extrait de compte en PDF" #?
     europe_out_export: "Exportations hors CE" #?
     evaluated_direct_margin: "Marge directe évaluée" #?
     evaluated_doer_cost: "Coût main d’œuvre"
@@ -1410,14 +1414,12 @@ fra:
     export_as_ods: "Exporter en ODS"
     export_as_odt: "Exporter en ODT" #?
     export_as_pdf: "Exporter en PDF" #?
-    extract_non_letter_pdf: "Extrait de compte - Non lettrés en PDF"
-    etract_account_as_pdf: "Extrait de compte en PDF"
-    etract_account_as_odt: "Extrait de compte en ODT"
-    extract_non_letter_odt: "Extrait de compte - Non lettrés en ODT"
     export_as_xcsv: "Exporter en CSV pour Excel"
     export_backup: "Export d’un fichier de sauvegarde" #?
     exportation: "Exportation" #?
     extract: "Extraire" #?
+    extract_non_letter_odt: "Extrait de compte - Non lettrés en ODT" #?
+    extract_non_letter_pdf: "Extrait de compte - Non lettrés en PDF" #?
     fat_matters_concentration: "Teneur en matières grasses" #?
     fax: "Fax" #?
     fees: "Frais"
@@ -1549,8 +1551,6 @@ fra:
     interval: " personnalisé"
     intervention: "Intervention"
     intervention_at: "%{intervention} du %{at}"
-    planned_by: "Planifiée par"
-    validated_by: "Validée par"
     intervention_message_miscibility: "Mélange autorisé"
     intervention_product_parameters: "Intervenants"
     interventions: "Interventions"
@@ -1934,6 +1934,7 @@ fra:
       one: 'Planifiée'
       other: 'Planifiées'
     planned_at: "Date prévisionnelle" #?
+    planned_by: "Planifiée par" #?
     plant: "Culture"
     plant_counting: "Comptage"
     plant_countings: "Comptages"
@@ -2458,6 +2459,7 @@ fra:
       other: "Valider mes miettes pour %{count} interventions"
     validate_selected_entries: "Valider les écritures sélectionnées"
     validated: "Validée"
+    validated_by: "Validée par" #?
     values: "Valeurs"
     variable_indicators: "Indicateurs variables"
     variant: "Variante"
@@ -2492,6 +2494,7 @@ fra:
     with_fixed_assets_depreciations: "Inclure les amortissements des immobilisations"
     with_prints: "Inclure les impressions (factures, commandes…)" #?
     worked_on: "Travaillé le" #?
+    worked_zone_not_corresponding: "La zone travaillée ne correspond pas à celle planifiée"
     worker: "Équipier" #?
     workers: "Équipiers"
     workforce: "Main d'oeuvre"

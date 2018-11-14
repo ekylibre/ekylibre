@@ -6,12 +6,9 @@
   = t.edit resource
   - unless @intervention.receptions_is_given?
     = t.destroy
-  = t.new params: { request_intervention_id: resource.id } if resource.request?
-  = t.menu(displayed_state, class: 'btn btn-primary dropdown', icon: false, disable_with: tl(:please_wait)) do |menu|
-    - Intervention.state.options.each do |state, option|
-      - unless option.to_sym == :rejected || ( option.to_sym == resource.state.to_sym && resource.nature.to_sym != :request)
-        - menu.item state, change_state_backend_interventions_path(:intervention => { :interventions_ids => ([resource.id]).to_json, :state => option.to_sym }), method: :post
-
+  - unless resource.state == 'validated'
+    = t.menu(displayed_state, class: "btn btn-primary dropdown #{'intervention-to-evaluate' if next_state[1] == 'validated'}", icon: false, disable_with: tl(:please_wait), force_menu: true) do |menu|
+      - menu.item(next_state[0], change_state_backend_interventions_path(:intervention => { :interventions_ids => ([resource.id]).to_json, state: next_state[1].to_sym }), method: :post) if next_state
 
 - currency = Nomen::Currency.find(resource.currency)
 

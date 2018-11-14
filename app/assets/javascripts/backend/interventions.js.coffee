@@ -260,10 +260,12 @@
           params['page'] = currentPage
 
           loadContent = true
+          if $('#compare-planned-and-realised').attr('checked')
+            comparePlannedRealised = true
 
           $.ajax
             url: "/backend/interventions/change_page",
-            data: { interventions_taskboard: params }
+            data: { interventions_taskboard: params, compare_planned_realised: comparePlannedRealised }
             success: (data, status, request) ->
               loadContent = false
               taskboard.addTaskClickEvent()
@@ -485,6 +487,23 @@
     E.interventionForm.checkPlantLandParcelSelector(productId, landParcelPlantSelectorElement)
     E.interventionForm.checkHarvestInProgress(event, productId, landParcelPlantSelectorElement)
 
+  $(document).on 'change', '#compare-planned-and-realised', (event) ->
+    $.ajax
+      url: '/backend/preferences/compare_planned_and_realised'
+      type: 'PATCH'
+      data: { value: event.target.checked }
+      success: (data) =>
+        window.location.reload(true)
+
+  $(document).on 'click', '.calendar-img', (event) ->
+    return if $(event.target).parents('.task-data').attr('class').includes('no-request')
+    intervention_id = $(event.target).parents('.task').data('intervention').id
+    $.ajax
+      url: '/backend/interventions/compare_realised_with_planned'
+      data: { intervention_id: intervention_id }
+      dataType: 'script'
+      success: (data) =>
+
   # Add value to unroll of product in intervention form
   $(document).on 'selector:menu-opened', '#intervention-form .nested-product-parameter .selector-search', (event) =>
     unless $(event.target).parents('.control-group').hasClass('intervention_targets_product')
@@ -505,6 +524,35 @@
               e.product_id == product_id
             $(this).append "<strong class='time-part'>(#{product.quantity || 0})</strong>"
 
+  $(document).on 'shown.bs.modal', '#compare-planned-with-realised', (event) ->
+
+    $('.details').each ->
+      product_id = $(this).data('productId')
+      type = $(this).data('type')
+      same_elements = $('.details[data-product-id=' + product_id + '][data-type=' + type + ']')
+      if same_elements.length == 1
+        $(this).find('h4').addClass("warning")
+        return true
+
+      planned_elements = $('.planned .details[data-product-id=' + product_id + '][data-type=' + type + ']')
+      realised_elements = $('.realised .details[data-product-id=' + product_id + '][data-type=' + type + ']')
+      planned_duration_sum = 0
+      realised_duration_sum = 0
+      accepted_error = { intervention_doer: 1.2, intervention_tool: 1.2 , intervention_input: 1.2}
+      data_selector = if type == 'InterventionInput' then 'quantity-population' else 'duration'
+      planned_elements.each ->
+        planned_quantity = $(this).data(data_selector)
+        planned_quantity = parseFloat(planned_quantity)
+        planned_duration_sum += planned_quantity
+      realised_elements.each ->
+        realised_quantity = $(this).data(data_selector)
+        realised_quantity = parseFloat(realised_quantity)
+        realised_duration_sum += realised_quantity
+
+      min_interval_error = planned_duration_sum / accepted_error[_.snakeCase(type)]
+      max_interval_error = planned_duration_sum * accepted_error[_.snakeCase(type)]
+      if min_interval_error >= realised_duration_sum || max_interval_error <= realised_duration_sum
+        $('.details[data-product-id=' + product_id + '][data-type=' + type + ']').find('.quantity').addClass("warning")
 
   E.interventionForm =
     displayCost: (target, quantity, unitName) ->
@@ -645,7 +693,6 @@
       @taskboard.getHeaderActions().find('.edit-tasks').on('click', (event) ->
 
         interventionsIds = instance._getSelectedInterventionsIds(event.target)
-
         $.ajax
           url: "/backend/interventions/modal",
           data: {interventions_ids: interventionsIds}
@@ -754,13 +801,12 @@
 
         element = $(event.target)
 
-        if (element.is(':input[type="checkbox"]'))
+        if (element.is(':input[type="checkbox"]') || $(event.target).attr('class') == 'calendar-img')
           return
 
         task = element.closest('.task')
 
         intervention = JSON.parse(task.attr('data-intervention'))
-
         $.ajax
           url: "/backend/interventions/modal",
           data: {intervention_id: intervention.id}

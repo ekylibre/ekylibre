@@ -461,9 +461,19 @@ module Backend
 
           if intervention.nature == :request
             new_intervention = intervention.dup
-            new_intervention.parameters = intervention.parameters
+            intervention.parameters.each do |parameter|
+              new_intervention.parameters.build(parameter.dup.attributes)
+            end
+            intervention.participations.includes(:working_periods).each do |participation|
+              dup_participation = participation.dup.attributes.merge({state: 'in_progress'})
+              new_participation = new_intervention.participations.build(dup_participation)
+              participation.working_periods.each do |wp|
+                new_participation.working_periods.build(wp.dup.attributes)
+              end
+            end
             new_intervention.request_intervention_id = intervention.id
           end
+
 
           if new_state == :validated
             new_intervention.evaluation = params[:evaluation]
@@ -475,6 +485,14 @@ module Backend
 
           next unless new_intervention.valid?
           new_intervention.save!
+        end
+      end
+
+      if @interventions.count == 1 && !(params[:intervention][:redirect] == 'false')
+        intervention = @interventions.first
+        if intervention.request? && intervention.record_interventions.any?
+          record_intervention = intervention.record_interventions.first
+          return redirect_to backend_intervention_path(record_intervention)
         end
       end
 
@@ -493,6 +511,14 @@ module Backend
         finished:  Intervention.with_unroll(options.merge(nature: :record, state: :done)),
         validated: Intervention.with_unroll(options.merge(nature: :record, state: :validated))
       }
+      respond_to do |format|
+        format.js
+      end
+    end
+
+    def compare_realised_with_planned
+      @intervention = Intervention.find(params[:intervention_id])
+      @request_intervention = @intervention.request_intervention
       respond_to do |format|
         format.js
       end

@@ -1872,6 +1872,7 @@ cmn:
     # wice_grid_columns: "Columns"
     wind_speed: "风速"
     with_fixed_assets_depreciations: "拥有固定资产折旧"
+    # worked_zone_not_corresponding: "The worked zone is not corresponding to the planned one"
     workers: "工人"
     # workforce: "Workforce"
     working_duration: "工作时间"

@@ -383,6 +383,7 @@ class Intervention < Ekylibre::Record::Base
 
   def update_costing
     attributes = {}
+
     %i[input tool doer].each do |type|
       attributes["#{type.to_s.pluralize}_cost"] = cost(type) || 0
     end
@@ -393,6 +394,77 @@ class Intervention < Ekylibre::Record::Base
     else
       update_columns(costing_id: InterventionCosting.create!(attributes))
     end
+  end
+
+  def compare_planned_and_realised
+    return :no_request if request_intervention.nil? || request_intervention.parameters.blank?
+    return false if request_intervention.duration != self.duration
+    accepted_error = { intervention_doer: 1.2, intervention_tool: 1.2, intervention_input: 1.2 }
+    params_result = true
+
+    associations = %i[doers tools inputs targets]
+    associations.each do |association|
+      self_parameters = send(association)
+      request_parameters = request_intervention.send(association)
+      if (self_parameters.empty? && request_parameters.any?) || (self_parameters.any? && request_parameters.empty?)
+        params_result = false
+        break false
+      end
+      unless self_parameters.empty? && request_parameters.empty?
+        if self_parameters.group_by(&:product_id).count != request_parameters.group_by(&:product_id).count
+          params_result = false
+          break false
+        end
+        request_parameters.group_by(&:product_id).each do |product_id, request_param|
+          self_param = product_parameters.where(product_id: product_id)
+
+          return false if self_param.empty?
+
+          # For InterventionDoer and InterventionTool
+          request_duration = 0
+          request_param.each { |param| request_duration += calculate_cost_amount_computation(param).quantity }
+
+          self_duration = 0
+          self_param.each { |param| self_duration += calculate_cost_amount_computation(param).quantity }
+
+          percent = accepted_error[request_param.first.type.underscore.to_sym] || 1.2
+          intervals = (request_duration / percent..request_duration * percent)
+
+          unless intervals.include?(self_duration)
+            params_result = false
+            break false
+          end
+          # For InterventionTarget
+          if self_param.map(&:working_zone).compact.sum != request_param.map(&:working_zone).compact.sum
+            params_result = false
+            break false
+          end
+
+          # For InterventionInput
+          request_quantity = request_param.map(&:quantity_population).compact.sum
+          self_quantity = self_param.map(&:quantity_population).compact.sum
+
+          percent = accepted_error[request_param.first.type.underscore.to_sym] || 1.2
+          intervals = (request_quantity / percent..request_quantity * percent)
+          unless intervals.include?(self_quantity)
+            params_result = false
+            break false
+          end
+        end
+      end
+    end
+    params_result
+  end
+
+  def calculate_cost_amount_computation(product_parameter)
+    if product_parameter.product.is_a?(Worker)
+      computation = product_parameter.cost_amount_computation
+    elsif product_parameter.product.try(:tractor?) && product_parameter.participation.present?
+      computation = product_parameter.cost_amount_computation(natures: %i[travel intervention])
+    else
+      computation = product_parameter.cost_amount_computation(natures: %i[intervention])
+    end
+    computation
   end
 
   def create_missing_costing

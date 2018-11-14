@@ -1944,6 +1944,7 @@ jpn:
     # wice_grid_columns: "Columns"
     wind_speed: "風速"
     with_fixed_assets_depreciations: "固定資産の減価償却と"
+    # worked_zone_not_corresponding: "The worked zone is not corresponding to the planned one"
     workers: "労働者"
     # workforce: "Workforce"
     working_duration: "作業期間"

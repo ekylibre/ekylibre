@@ -85,6 +85,9 @@ fra:
       intervention: #?
         production_support: "Support de production" #?
         storage: "Support" #?
+      intervention_working_period: #?
+        started_at: "Date de début" #?
+        stopped_at: "Date de fin" #?
       inventory_item: #?
         quantity: "Quantité constatée" #?
       journal_entry_item: #?
@@ -153,9 +156,6 @@ fra:
         container: "Zone de stockage" #?
         started_at: "Entrée" #?
         stopped_at: "Sortie" #?
-      intervention_working_period:
-        stopped_at: Date de fin
-        started_at : Date de début
       product_nature_category: #?
         depreciable: "Ammortissable" #?
         duration: "Nombre de numéros OU période d’abonnement" #?
@@ -255,6 +255,7 @@ fra:
         greater_than_or_equal_to: "%{attribute} doit être plus grand ou égal à %{count}"
         included_in: "La valeur de %{attribute} doit être comprise entre %{minimum} et %{maximum}"
         inclusion: "%{attribute} n’est pas inclus dans la liste"
+        inferior: "%{attribute} doit être antérieure à %{to}" #?
         invalid: "%{attribute} est invalide"
         invalid_at: "%{attribute} est invalide. Erreur près de %{error}"
         invalid_date: "%{attribute} est invalide"
@@ -279,7 +280,6 @@ fra:
         overlap_sibling: "%{attribute} se trouve sur une période d'un autre enregistrement"
         period_overlap: "%{attribute} se trouve sur une période d’un enregistrement existant" #?
         posterior: "%{attribute} doit être postérieure à %{to}"
-        inferior: "%{attribute} doit être antérieure à %{to}"
         record_invalid: "Validations échouées\_: %{errors}"
         taken: "%{attribute} a déjà été pris"
         too_long: "%{attribute} est trop long (%{count} caractères maximum)"
@@ -705,7 +705,9 @@ fra:
     bank_statement_letter: "Lettre de déclaration de la Banque"
     bank_statements: "Relevés de compte bancaire"
     base_amount: "Montant de base"
+    # batch: "Batch"
     batch_number: "N° de lot"
+    # batch_planting: "Batch planting"
     battery_level: "Niveau de la batterie"
     birth: "Naissance" #?
     birth_date_completeness: "Complétude de la date de naissance"
@@ -868,6 +870,7 @@ fra:
     custom_fields_columns: "Champs personnalisés colonnes"
     customized: "Enregistrement personnalisé" #?
     customized_type: "Type d’enregistrement personnalisé"
+    # daily_charges: "Daily charges"
     daily_nitrogen_production: "Excrétion d’azote journalière"
     dashboards: "Tableaux de bord"
     data: "Données complémentaires" #?
@@ -1202,6 +1205,10 @@ fra:
     intervention_participation: "Participation d’intervention"
     intervention_participations: "Participations d’intervention"
     intervention_product_parameters: "Casting"
+    # intervention_proposal: "Intervention proposal"
+    # intervention_proposals: "Intervention proposals"
+    # intervention_template: "Intervention template"
+    # intervention_templates: "Intervention templates"
     interventions: "Interventions"
     interventions_used_in: "Interventions utilisées dans"
     intracommunity: "Intracommunautaire"
@@ -1413,6 +1420,7 @@ fra:
     number: "Numéro"
     number_format: "Format du numéro"
     number_increment: "Incrément"
+    # number_of_batch: "Number of batch"
     number_start: "Début de la numération"
     observations: "Observations"
     observed_at: "Observé à"
@@ -1776,6 +1784,7 @@ fra:
     source: "Source"
     source_product: "Produit Source"
     # source_product_movement: "Source product movement"
+    # sowing_interval: "Sowing interval"
     spaced_iban: "IBAN"
     # specie: "Specie"
     sql_type: "Type SQL"
@@ -1854,6 +1863,7 @@ fra:
     tax_payability: "Exigibilité fiscale"
     taxations: "Taxations"
     team: "Équipe"
+    # technical_itinerary: "Technical itinerary"
     template: "Modèle"
     theme: "Thème"
     theoretical_number: "Numéro théorique"

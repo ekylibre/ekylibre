@@ -1,7 +1,6 @@
 @import "bootstrap/labels";
 
 $preview-modal-height: 80vh;
-
 .big-infos .med-info .evaluation .picto {
   color: #ffce00;
   font-size: 35px;
@@ -16,6 +15,80 @@ $preview-modal-height: 80vh;
     display: flex;
     .time-part {
       margin-left: auto;
+
+.compare-planned-realised {
+    display: block;
+    margin-top: 10px
+}
+
+#compare-planned-with-realised {
+  .modal-body {
+    h4 {
+      font-weight: bold;
+    }
+    .target-and-activity {
+      display: flex;
+      .intervention-activities {
+        a {
+          margin-right: 10px
+        }
+      }
+      .targets {
+        margin-left: 15px;
+        .warning {
+          color: orange;
+        }
+      }
+    }
+    .blocks {
+      display: flex;
+      justify-content: space-around;
+      margin-top: 15px;
+      .block {
+        .block-title {
+          text-align: center;
+        }
+        .calendar-img {
+          width: 30px;
+          position: relative;
+          left: -15px;
+          top: 58px;
+        }
+      }
+    }
+
+    .interventions-datas {
+      margin-top: 50px;
+
+      .title {
+        color: grey;
+        border-bottom: 1px solid grey;
+      }
+
+      .intervention-details {
+        margin-top: 50px;
+        .details-block {
+          display: flex;
+          justify-content: space-around;
+          margin-left: 50px;
+          margin-top: 10px;
+          .content {
+            display: inline-block;
+            width: 33%;
+            .picto {
+              font-size: 25px;
+              color: #8c8c8c;
+              line-height: normal;
+            }
+            .warning {
+              color: orange;
+            }
+          }
+        }
+      }
+    }
+  }
+}
 
 .cobble-general-information .cobble-content .big-infos {
   .actionner-cobble {
@@ -124,7 +197,9 @@ $preview-modal-height: 80vh;
   }
 
   .task {
-
+    .task-datas {
+      width: 100%;
+    }
     .completely_filled {
       margin-left: round($default-gap * 1.4);
       color: $success-color;
@@ -136,6 +211,14 @@ $preview-modal-height: 80vh;
     &-data.doers {
       background-color: $darkened-blue-grey;
       color: $white;
+    }
+
+    .task-calendar {
+      flex: 0 1 100%;
+      .calendar-img {
+        width: 25px;
+        float: right;
+      }
     }
   }
 }

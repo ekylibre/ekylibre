@@ -1876,6 +1876,7 @@ por:
     # wice_grid_columns: "Columns"
     wind_speed: "Velocidade do vento"
     with_fixed_assets_depreciations: "Com depreciações de ativos fixos"
+    # worked_zone_not_corresponding: "The worked zone is not corresponding to the planned one"
     workers: "Trabalhadores"
     # workforce: "Workforce"
     working_duration: "Duração de trabalho"

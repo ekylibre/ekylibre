@@ -598,6 +598,7 @@ Rails.application.routes.draw do
         post :change_state
         get :change_page
         get :purchase_order_items
+        get :compare_realised_with_planned
       end
       member do
         post :sell

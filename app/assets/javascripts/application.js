@@ -88,8 +88,9 @@
 
 //= require ext-plugins/vuejs/vue-chartjs
 
-
 //= require vue
+//= require utils/location_utils
+//= require lodash
 
 
 var visualization = {};

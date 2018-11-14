@@ -2110,6 +2110,7 @@ spa:
     wind_speed: "Velocidad del viento"
     with_fixed_assets_depreciations: "Con activos fijos amortizaciones"
     with_prints: "Incluir las impresiones (facturas, encargos...)" #?
+    # worked_zone_not_corresponding: "The worked zone is not corresponding to the planned one"
     workers: "Trabajadores"
     # workforce: "Workforce"
     working_duration: "Duración de trabajo"

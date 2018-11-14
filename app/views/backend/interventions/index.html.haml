@@ -40,11 +40,18 @@
     - count = current_user.intervention_participations.unprompted.count
     = t.index(params: {controller: :intervention_participations}, label: :validate_crumbs_for_x_interventions.tl(count: count), tool: "my-location")
 
+
 - main_period_selector
 
 - if current_campaign
   = janus do |j|
     - j.face :cobbles do
+
+      -# Add content to the main toolbar
+      - content_for(:main_toolbar) do
+        = label_tag(nil, nil, class: 'compare-planned-realised') do
+          = check_box_tag('compare-planned-and-realised', 'false', user_preference_value(User::PREFERENCE_SHOW_COMPARE_REALISED_PLANNED))
+          = :compare_planned_and_realised.tl
 
       - campaign ||= current_campaign
 

@@ -1937,6 +1937,7 @@ ita:
     # wice_grid_columns: "Columns"
     wind_speed: "Velocità del vento"
     with_fixed_assets_depreciations: "Con un patrimonio ammortamenti fisse"
+    # worked_zone_not_corresponding: "The worked zone is not corresponding to the planned one"
     workers: "Lavoratori"
     # workforce: "Workforce"
     working_duration: "durata di funzionamento"
