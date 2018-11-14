@@ -19,7 +19,7 @@
 module Backend
   class TaxDeclarationsController < Backend::BaseController
     manage_restfully except: %i[new show]
-
+    include PdfPrinter
     unroll
 
     def self.tax_declarations_conditions
@@ -61,20 +61,24 @@ module Backend
 
     def index
       # build variables for reporting (document_nature, key, filename and dataset)
-      document_nature = Nomen::DocumentNature.find(:vat_report)
+      document_nature = Nomen::DocumentNature.find(:vat_register)
       key = "#{document_nature.name}-#{Time.zone.now.l(format: '%Y-%m-%d-%H:%M:%S')}"
       respond_to do |format|
         format.html
         format.pdf do
-          template_path = find_open_document_template(:vat_report)
+          template_path = find_open_document_template(:vat_register)
           raise 'Cannot find template' if template_path.nil?
-          @vat_dataset = TaxDeclaration.vat_dataset_report(params) if params
-          vat_printer = VatPrinter.new(dataset: @vat_dataset,
-                                               document_nature: document_nature,
+          vat_printer = VatPrinter.new(        document_nature: document_nature,
                                                key: key,
                                                template_path: template_path,
                                                params: params)
-          send_file vat_printer.run, type: 'application/pdf', disposition: 'attachment', filename: key << '.pdf'
+          send_file vat_printer.run_pdf, type: 'application/pdf', disposition: 'attachment', filename: key << '.pdf'
+        end
+        format.csv do
+          vat_printer = VatPrinter.new(        document_nature: document_nature,
+                                               key: key,
+                                               params: params)
+          send_data vat_printer.run_csv, type: 'application/csv', disposition: 'attachment', filename: key << '.csv'
         end
       end
     end
