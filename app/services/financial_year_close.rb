@@ -3,6 +3,13 @@
 class FinancialYearClose
   include PdfPrinter
 
+  CLOSURE_STEPS = { 0 => 'generate_documents_prior_to_closure',
+                    1 => 'compute_balances',
+                    2 => 'close_result_entry',
+                    3 => 'close_carry_forward',
+                    4 => 'journals_closure',
+                    5 => 'generate_documents_post_closure' }
+
   def initialize(year, to_close_on, closer, options = {})
     @year = year
     @started_on = @year.started_on
@@ -400,10 +407,21 @@ class FinancialYearClose
   end
 
   def generate_documents(timing)
+    progress = Progress.new("generate_documents_#{timing}", id: @year.id, max: 4)
+
     generate_balance_documents(timing)
+    progress.increment!
+
     ['general_ledger', '401', '411'].each { |ledger| generate_general_ledger_documents(timing, { current_financial_year: @year.id.to_s, ledger: ledger, period: "#{@year.started_on}_#{@year.stopped_on}" }) }
+    progress.increment!
+
     Journal.all.each { |journal| generate_journals_documents(timing, { journal_id: journal.id, id: journal.id, period: "#{@year.started_on}_#{@year.stopped_on}", states: { confirmed: '1' } }) }
+    progress.increment!
+
     generate_archive(timing)
+    progress.increment!
+  ensure
+    progress.clean!
   end
 
   def generate_balance_documents(timing)

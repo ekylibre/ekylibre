@@ -10,6 +10,7 @@ class FinancialYearCloseJob < ActiveJob::Base
                             closure_journal_id: closure_journal_id)
       closer.notify(:financial_year_x_successfully_closed, name: financial_year.name)
     else
+      financial_year.update_attributes(state: 'opened')
       closer.notify(:financial_year_x_could_not_be_closed, name: financial_year.name)
     end
   end

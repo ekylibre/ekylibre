@@ -157,6 +157,8 @@ eng:
         closed: "Closed"
         locked: "Locked"
         opened: "Opened"
+        closure_in_preparation: "Closure in preparation"
+        closing: "Closure in progress"
       tax_declaration_frequency:
         monthly: "Monthly"
         none: "None"
