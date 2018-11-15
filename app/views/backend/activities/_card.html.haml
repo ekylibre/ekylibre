@@ -17,8 +17,7 @@
           - if activity.production_nature
             = activity.pfi_activity_ratio(campaign)
         .activity-indicator.opened-issues
-          - if issues.any?
-            = issues.opened.count.to_s + '/' + issues.count.to_s
+          = issues.opened.count.to_s + '/' + issues.count.to_s
         .activity-indicator.cumulated-time
           - interventions = Intervention.real.of_campaign(campaign).of_activity(activity)
           - if interventions.any?
