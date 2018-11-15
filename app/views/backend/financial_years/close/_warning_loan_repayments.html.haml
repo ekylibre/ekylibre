@@ -1,0 +1,5 @@
+%p
+  %i.warning-validation
+  - periods = "#{financial_year.started_on.to_s}_#{financial_year.stopped_on.to_s}"
+  = :loan_repayments_not_accounted_on_current_financial_year.tl(code: financial_year.code)
+  = link_to(:see_loans.tl, backend_loans_path, target: '_blank')

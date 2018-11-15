@@ -1638,6 +1638,7 @@ fra:
     listings: "Extractions de données" #?
     load: "Charger"
     load_demo_data: "Charger des données de tests" #?
+    loan_repayments_not_accounted_on_current_financial_year: "Des échéances d'emprunts n'ont pas été comptabilisées sur l'exercice"
     loans_debts: "Emprunts"
     locale: "Langue"
     localization: "Localisation géographique"
