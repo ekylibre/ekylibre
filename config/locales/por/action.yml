@@ -1689,7 +1689,7 @@ por:
     ship: "Navio"
     show: "Exposição"
     sign_out: "Sair"
-    # signature_html: "Signature (<a href='%{url}'>Public key</a>)"
+    # signature_html: "Signature (<a href='%{url}' target='_blank'>Public key</a>)"
     simplified: "Contabilidade simplificada"
     simplified_linear_options: "Opções lineares simplificados"
     social_debts: "Dívidas sociais"

@@ -1756,7 +1756,7 @@ jpn:
     ship: "船"
     show: "を表示"
     sign_out: "サインアウト"
-    # signature_html: "Signature (<a href='%{url}'>Public key</a>)"
+    # signature_html: "Signature (<a href='%{url}' target='_blank'>Public key</a>)"
     simplified: "簡便な会計"
     simplified_linear_options: "簡体リニアオプション"
     social_debts: "社会的な借金"

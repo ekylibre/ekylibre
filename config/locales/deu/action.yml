@@ -1684,7 +1684,7 @@ deu:
     ship: "Schiff"
     # show: "Show"
     sign_out: "Ausloggen"
-    # signature_html: "Signature (<a href='%{url}'>Public key</a>)"
+    # signature_html: "Signature (<a href='%{url}' target='_blank'>Public key</a>)"
     simplified: "vereinfachte Buchhaltung"
     simplified_linear_options: "Vereinfachte linear Optionen"
     social_debts: "Soziale Schulden"

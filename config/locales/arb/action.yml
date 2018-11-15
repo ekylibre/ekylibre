@@ -2286,7 +2286,7 @@ arb:
     ship: "بشريطة"
     show: "تبين"
     sign_out: "خروج"
-    # signature_html: "Signature (<a href='%{url}'>Public key</a>)"
+    # signature_html: "Signature (<a href='%{url}' target='_blank'>Public key</a>)"
     simplified: "نظام واقعي مبسط"
     simplified_linear_options: "خيارات الخطية المبسطة"
     social_debts: "الديون الاجتماعية"

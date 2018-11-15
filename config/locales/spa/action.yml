@@ -1906,7 +1906,7 @@ spa:
     ship: "Enviar"
     show: "Espectáculo"
     sign_out: "Desconectar"
-    # signature_html: "Signature (<a href='%{url}'>Public key</a>)"
+    # signature_html: "Signature (<a href='%{url}' target='_blank'>Public key</a>)"
     simplified: "Regimen del real simplificado"
     simplified_linear_options: "Opciones lineales simplificados"
     social_debts: "Deudas sociales"

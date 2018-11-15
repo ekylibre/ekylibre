@@ -41,7 +41,7 @@
         .signature-details
           .signature-title= :fingerprint_sha256.tl
           = resource.prior_to_closure_archive.sha256_fingerprint
-          .signature-title= t('labels.signature_html', url: 'http://www.google.com')
+          .signature-title= t('labels.signature_html', url: FinancialYearArchive::PUBLIC_KEY_URL)
           = resource.prior_to_closure_archive.signature.gsub(/\n/, '<br />').html_safe
 
       .med-info.important
