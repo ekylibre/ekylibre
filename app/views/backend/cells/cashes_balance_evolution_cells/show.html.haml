@@ -2,7 +2,16 @@
 - if cashes.any?
   :ruby
     stopped_on = Time.zone.today
-    started_on = (stopped_on - 2.year).beginning_of_month
+    # compute start from last closure
+    closure = FinancialYear.last_closure
+    if closure
+      d = (stopped_on - (closure + 1))
+    else
+      d = 2.years
+    end
+
+    started_on = (stopped_on - d).beginning_of_month
+
     if year = FinancialYear.first_of_all and year.started_on > started_on
       started_on = year.started_on
     end

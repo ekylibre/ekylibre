@@ -317,7 +317,9 @@ class User < Ekylibre::Record::Base
   end
 
   def current_financial_year
-    return nil unless default_financial_year = FinancialYear.on(Date.current)
+    default_financial_year   = FinancialYear.on(Date.current)
+    default_financial_year ||= FinancialYear.closest(Date.current)
+    return nil unless default_financial_year
     preference = self.preference('current_financial_year', default_financial_year, :record)
     unless financial_year = preference.value
       financial_year = default_financial_year
