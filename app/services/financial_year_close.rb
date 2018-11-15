@@ -39,7 +39,7 @@ class FinancialYearClose
   end
 
   def log(message)
-    @previous_now = say(message)
+    @previous_now = say(message) unless Rails.env.test?
   end
 
   def cinc(name, increment = 1)
