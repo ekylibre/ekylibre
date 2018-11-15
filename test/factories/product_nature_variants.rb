@@ -19,4 +19,13 @@ FactoryBot.define do
 
     association     :nature, factory: :plants_nature
   end
+
+  factory :deliverable_variant, class: ProductNatureVariant do
+    sequence(:name) { |n| "Seed #{n}" }
+    variety         { 'seed' }
+    unit_name       { 'seeds' }
+
+    association :nature, factory: :deliverable_nature
+    association :category, factory: :deliverable_category
+  end
 end
