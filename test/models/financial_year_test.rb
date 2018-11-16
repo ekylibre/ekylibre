@@ -160,8 +160,8 @@ class FinancialYearTest < ActiveSupport::TestCase
     assert File.exist? f.post_closure_archive.path.gsub(/zip/, 'asc')
 
     crypto = GPGME::Crypto.new
-    assert_equal crypto.verify(f.prior_to_closure_archive.signature) { |s| s.valid? }.class, 'Data'
-    assert_equal crypto.verify(f.post_closure_archive.signature) { |s| s.valid? }.class, 'Data'
+    assert_equal crypto.verify(f.prior_to_closure_archive.signature) { |s| s.valid? }.class, GPGME::Data
+    assert_equal crypto.verify(f.post_closure_archive.signature) { |s| s.valid? }.class, GPGME::Data
   end
 
   test 'compute periods given a specific interval' do
