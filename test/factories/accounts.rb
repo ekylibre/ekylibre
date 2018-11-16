@@ -21,9 +21,6 @@ FactoryBot.define do
       centralizing_account_name { 'suppliers' }
     end
 
-    sequence(:name) { |n| "801 - Compte #{n}" }
-    sequence(:number) { |n| "801000000#{n}" }
-
     factory :stock_account do
       sequence(:number) { |n| "301#{n.to_s.rjust(5, "0")}" }
       sequence(:name) { |n| "Account ##{number}" }

@@ -43,7 +43,7 @@
         .signature-details
           .signature-title= :fingerprint_sha256.tl
           = resource.prior_to_closure_archive.sha256_fingerprint
-          .signature-title= t('labels.signature_html', url: FinancialYearArchive::PUBLIC_KEY_URL)
+          .signature-title= t('labels.signature_html', url: "#{FinancialYearArchive::PUBLIC_KEY_URL}?signature=#{resource.prior_to_closure_archive.signature.gsub(/\n/, '¤').gsub(/\+/, '§')}")
           = resource.prior_to_closure_archive.signature.gsub(/\n/, '<br />').html_safe
 
       .med-info.important
@@ -58,7 +58,7 @@
         .signature-details
           .signature-title= :fingerprint_sha256.tl
           = resource.post_closure_archive.sha256_fingerprint
-          .signature-title= t('labels.signature_html', url: 'http://www.google.com')
+          .signature-title= t('labels.signature_html', url: "#{FinancialYearArchive::PUBLIC_KEY_URL}?signature=#{resource.post_closure_archive.signature.gsub(/\n/, '¤').gsub(/\+/, '§')}")
           = resource.post_closure_archive.signature.gsub(/\n/, '<br />').html_safe
 
   = render 'progress', value: @progress_status[:value], resource: resource, refresh: false, current_step: @progress_status[:step], steps_count: @progress_status[:total], step_label: @progress_status[:label]

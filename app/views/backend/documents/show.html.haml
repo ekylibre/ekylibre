@@ -20,5 +20,5 @@
     .signature-infos
       .signature-title= :fingerprint_sha256.tl
       = @document.sha256_fingerprint
-      .signature-title= t('labels.signature_html', url: FinancialYearArchive::PUBLIC_KEY_URL)
+      .signature-title= t('labels.signature_html', url: "#{FinancialYearArchive::PUBLIC_KEY_URL}?signature=#{@document.signature.gsub(/\n/, '¤').gsub(/\+/, '§')}")
       = @document.signature.gsub(/\n/, '<br />').html_safe
