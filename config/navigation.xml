@@ -2073,6 +2073,9 @@
         <page to="backend/draft_journals#confirm_all"/>
         <page to="backend/draft_journals#list"/>
       </item>
+      <item name="financial_year_archives">
+        <page to="backend/financial_year_archives#create"/>
+      </item>
       <item name="financial_years">
         <page to="backend/financial_years#destroy_all_empty"/>
       </item>

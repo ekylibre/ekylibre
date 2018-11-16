@@ -27,7 +27,10 @@ table {
     min-height: $lh-normal;
   }
   .right-align {
-    text-align: right;
+    text-align: right !important;
+  }
+  .center-align {
+    text-align: center !important;
   }
   thead{
     tr{

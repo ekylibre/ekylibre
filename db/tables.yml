@@ -2061,6 +2061,9 @@ documents:
   lock_version:
     type: integer
     required: true
+  mandatory:
+    type: boolean
+    default: false
   name:
     type: string
     required: true
@@ -2069,6 +2072,10 @@ documents:
   number:
     type: string
     required: true
+  sha256_fingerprint:
+    type: string
+  signature:
+    type: text
   template_id:
     type: integer
     references: document_template
@@ -2409,6 +2416,26 @@ events:
   updater_id:
     type: integer
     references: user
+financial_year_archives:
+  financial_year_id:
+    type: integer
+    references: financial_year
+    required: true
+  id:
+    type: integer
+    required: true
+  path:
+    type: string
+    required: true
+  sha256_fingerprint:
+    type: string
+    required: true
+  signature:
+    type: text
+    required: true
+  timing:
+    type: string
+    required: true
 financial_year_exchanges:
   closed_at:
     type: datetime

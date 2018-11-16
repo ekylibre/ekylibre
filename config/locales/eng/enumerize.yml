@@ -166,6 +166,10 @@ eng:
         debit: "Debit"
         none: "None"
         payment: "Payment"
+    financial_year_archive:
+      timing:
+        # post_closure: "Post closure"
+        # prior_to_closure: "Prior to closure"
     fixed_asset:
       depreciation_method:
         linear: "Linear"

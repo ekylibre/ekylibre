@@ -11,6 +11,14 @@
     - l.attribute :nature
     - l.attribute :number
     - l.attribute :key
-    -# l.attribute :file_pages_count
+    - l.attribute :mandatory
+    - l.attribute :file_pages_count
     -# l.attribute :file_fingerprint
     -# l.attribute :file_content_text
+
+  - if @document.mandatory
+    .signature-infos
+      .signature-title= :fingerprint_sha256.tl
+      = @document.sha256_fingerprint
+      .signature-title= t('labels.signature_html', url: FinancialYearArchive::PUBLIC_KEY_URL)
+      = @document.signature.gsub(/\n/, '<br />').html_safe

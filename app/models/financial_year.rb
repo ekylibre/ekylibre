@@ -60,6 +60,7 @@ class FinancialYear < Ekylibre::Record::Base
   has_many :inventories, dependent: :restrict_with_exception
   has_many :journal_entries, dependent: :restrict_with_exception
   has_many :tax_declarations, dependent: :restrict_with_exception
+  has_many :archives, class_name: 'FinancialYearArchive', dependent: :destroy
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :already_existing, :closed, inclusion: { in: [true, false] }
   validates :code, presence: true, length: { maximum: 500 }
@@ -270,8 +271,12 @@ class FinancialYear < Ekylibre::Record::Base
   end
 
   # When a financial year is closed,.all the matching journals are closed too.
-  def close(to_close_on = nil, options = {})
-    FinancialYearClose.new(self, to_close_on, options).execute
+  def close(closer, to_close_on = nil, options = {})
+    FinancialYearClose.new(self, to_close_on, closer, options).execute
+  end
+
+  def closed?
+    closed && state == 'closed'
   end
 
   # this method returns the previous financial_year by default.
@@ -498,6 +503,12 @@ class FinancialYear < Ekylibre::Record::Base
 
   def not_invoiced_or_aborted_sale
     Sale.where('invoiced_at BETWEEN ? AND ?', self.started_on, self.stopped_on).where.not(state: [:invoice, :aborted])
+  end
+
+  %i[prior_to_closure post_closure].each do |timing|
+    define_method "#{timing}_archive" do
+      archives.where(timing: timing).first
+    end
   end
 
   private

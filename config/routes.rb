@@ -530,6 +530,12 @@ Rails.application.routes.draw do
       end
     end
 
+    resources :financial_year_archives, only: [] do
+      member do
+        post :create
+      end
+    end
+
     resources :fungi, concerns: :products
 
     resources :general_ledgers, only: %i[index show], path: 'general-ledgers', param: :account_number do
