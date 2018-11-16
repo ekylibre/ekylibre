@@ -741,3 +741,9 @@ end
 def main
   TOPLEVEL_BINDING.eval('self')
 end
+
+module PdfPrinter
+  def convert_to_pdf(directory, odf_path)
+    system "soffice --headless --convert-to pdf --outdir #{directory} #{odf_path} &> /dev/null"
+  end
+end

@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :product_nature do
-    sequence(:name)     { |n| "Semence #{n}" }
+    sequence(:name)     { |n| "Cultivable Zone #{n}" }
     population_counting { 'unitary' }
     variety             { 'cultivable_zone' }
 
@@ -19,5 +19,13 @@ FactoryBot.define do
     variety             { :plant }
 
     association         :category, factory: :plants_category
+  end
+
+  factory :deliverable_nature, class: ProductNature do
+    sequence(:name)     { |n| "Seed #{n}" }
+    population_counting { :integer }
+    variety             { 'seed' }
+
+    association         :category, factory: :deliverable_category
   end
 end

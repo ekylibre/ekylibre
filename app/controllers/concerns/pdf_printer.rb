@@ -65,9 +65,13 @@ module PdfPrinter
       directory_path = Pathname.new(directory)
       odf_path = directory_path.join('source.odf').to_s
       report.generate odf_path
-      system "soffice --headless --convert-to pdf --outdir #{directory} #{odf_path}"
+      convert_to_pdf directory, odf_path
       pdf_path = directory_path.join('source.pdf').to_s
       File.read pdf_path
     end
+  end
+
+  def convert_to_pdf(directory, odf_path)
+    system "soffice --headless --convert-to pdf --outdir #{directory} #{odf_path}"
   end
 end
