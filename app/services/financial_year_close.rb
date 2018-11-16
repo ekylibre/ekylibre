@@ -33,7 +33,7 @@ class FinancialYearClose
     moment << '] '
 
     t = moment + message.yellow
-    puts t
+    # puts t
     Rails.logger.info(t)
     now
   end

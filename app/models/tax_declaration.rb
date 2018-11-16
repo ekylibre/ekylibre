@@ -150,7 +150,7 @@ class TaxDeclaration < Ekylibre::Record::Base
 
   # This callback bookkeeps the sale depending on its state
   bookkeep do |b|
-    journal = unsuppress { Journal.used_for_tax_declarations!(currency: currency) }
+    journal = Journal.used_for_tax_declarations!(currency: currency)
     b.journal_entry(journal, printed_on: invoiced_on, if: (has_content? && (validated? || sent?))) do |entry|
       label = tc(:bookkeep, resource: self.class.model_name.human, number: number, started_on: started_on.l, stopped_on: stopped_on.l)
       items.each do |item|

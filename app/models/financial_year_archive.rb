@@ -32,4 +32,6 @@
 class FinancialYearArchive < Ekylibre::Record::Base
   enumerize :timing, in: %i[prior_to_closure post_closure]
   belongs_to :financial_year
+
+  PUBLIC_KEY_URL = 'https://ekylibre.com/display'
 end

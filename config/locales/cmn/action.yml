@@ -1685,7 +1685,7 @@ cmn:
     ship: "船"
     show: "显示"
     sign_out: "登出"
-    # signature_html: "Signature (<a href='%{url}'>Public key</a>)"
+    # signature_html: "Signature (<a href='%{url}' target='_blank'>Public key</a>)"
     simplified: "简化会计"
     simplified_linear_options: "简化的线性选项"
     social_debts: "社会债务"

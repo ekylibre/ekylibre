@@ -1979,7 +1979,7 @@ eng:
     show: "Show"
     # show_export_preview: "Show export preview"
     sign_out: "Sign out" #?
-    signature_html: "Signature (<a href='%{url}'>Public key</a>)" #?
+    signature_html: "Signature (<a href='%{url}' target='_blank'>Public key</a>)" #?
     simplified: "Simplified Accounting" #?
     simplified_linear_options: "Simplified linear options" #?!
     social_debts: "Social debts" #?!

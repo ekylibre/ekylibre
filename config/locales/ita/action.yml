@@ -1750,7 +1750,7 @@ ita:
     ship: "Nave"
     show: "Mostrare"
     sign_out: "disconnessione"
-    # signature_html: "Signature (<a href='%{url}'>Public key</a>)"
+    # signature_html: "Signature (<a href='%{url}' target='_blank'>Public key</a>)"
     simplified: "contabilità semplificata"
     simplified_linear_options: "Opzioni lineari semplificato"
     social_debts: "Debiti sociali"
