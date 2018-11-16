@@ -96,6 +96,20 @@ class VatPrinter
         r.add_field 'PRINTED_AT', Time.zone.now.l(format: '%d/%m/%Y %T')
         r.add_field 'DATA_FILTERS', data_filters * ' | '
 
+        r.add_table('Tableau1', compute_dataset, header: true) do |t|
+          t.add_column(:entry_id) { |item| item[:entry_id] }
+          t.add_column(:entry_number) { |item| item[:entry_number] }
+          t.add_column(:entry_printed_on) { |item| item[:entry_printed_on] }
+          t.add_column(:entry_item_account_number) { |item| item[:entry_item_account_number] }
+          t.add_column(:entry_item_account_name) { |item| item[:entry_item_account_name] }
+          t.add_column(:entry_item_name) { |item| item[:entry_item_name] }
+          t.add_column(:entry_item_debit) { |item| item[:entry_item_debit] }
+          t.add_column(:entry_item_credit) { |item| item[:entry_item_credit] }
+          t.add_column(:tax_amount) { |item| item[:tax_amount] }
+          t.add_column(:pretax_amount) { |item| item[:pretax_amount] }
+          t.add_column(:tax_account) { |item| item[:tax_account] }
+        end
+
       end
       report.file.path
     end
