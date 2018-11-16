@@ -45,7 +45,7 @@ module PdfPrinter
     if mandatory
       sha256 = Digest::SHA256.file document.file.path
       crypto = GPGME::Crypto.new
-      signature = crypto.clearsign(sha256.to_s, signer: ENV['GPG_KEY_EMAIL'])
+      signature = crypto.clearsign(sha256.to_s, signer: ENV['GPG_EMAIL'])
       signature_path = document.file.path.gsub(/\.pdf/, '.asc')
       File.write(signature_path, signature)
       document.update!(sha256_fingerprint: sha256.to_s, signature: signature.to_s, mandatory: true, creator: closer, updater: closer)
