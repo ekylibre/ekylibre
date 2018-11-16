@@ -2236,7 +2236,7 @@ fra:
     target_zone: "Zone cible" #?
     targets: "Cibles" #?
     tasks: "Tâches"
-    tax_declarations: "Déclarations fiscales"
+    tax_declarations: "Déclarations de TVA"
     tax_label: "Nom Taxe"
     taxations: "Taxations"
     taxes: "Taxes"
@@ -2274,6 +2274,7 @@ fra:
     to_deposit_later: "À encaisser plus tard"
     to_deposit_now: "À encaisser maintenant"
     to_pay: "À payer"
+
     to_reclaim: "À réclamer"
     today: "Aujourd’hui"
     tool_cost: "Coût de matériel"

@@ -2017,7 +2017,7 @@ eng:
     synthesis: "Synthesis"
     target: "Target"
     tasks: "Tasks" #?
-    tax_declarations: "Tax declarations"
+    tax_declarations: "VAT declarations"
     tax_label: "Tax label" #?
     taxations: "Taxations"
     taxes: "Taxes"

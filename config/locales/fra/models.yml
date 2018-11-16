@@ -1774,10 +1774,10 @@ fra:
     tasks: "Tâches"
     tax: "Taxe"
     tax_declaration: "Déclaration d’impôts"
-    tax_declaration_frequency: "Fréquence de déclaration d’impôt"
+    tax_declaration_frequency: "Fréquence de déclaration de TVA"
     tax_declaration_item: "Tax élément de déclaration"
     tax_declaration_items: "Articles de déclaration d’impôt"
-    tax_declaration_mode: "Mode de déclaration d’impôt"
+    tax_declaration_mode: "Mode de déclaration de TVA"
     tax_declarations: "Déclarations fiscales"
     tax_payability: "Exigibilité fiscale"
     taxations: "Taxations"
@@ -2251,8 +2251,8 @@ fra:
       state_machine:
         states:
           draft: "Brouillon"
-          sent: "Envoyée"
           validated: "Validée"
+          sent: "Envoyée"
     team:
       default: "Général"
     user:
