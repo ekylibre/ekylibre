@@ -1621,10 +1621,7 @@ eng:
     source_product: "Source product"
     source_product_movement: "Source product movement"
     # source_type: "Source type"
-<<<<<<< HEAD
-=======
     sowing_interval: "Sowing interval"
->>>>>>> 70182af... Merge branch 'feature/check-realised-planned' into 'dev'
     spaced_iban: "Spaced IBAN"
     specie: "Specie"
     sql_type: "SQL type"
