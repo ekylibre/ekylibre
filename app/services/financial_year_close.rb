@@ -96,13 +96,17 @@ class FinancialYearClose
       @progress.increment!
 
       log("Close Financial Year")
-      @year.update_attributes(stopped_on: @to_close_on, closed: true, state: 'closed')
 
       generate_documents('post_closure')
       @progress.increment!
+
+      @year.update_attributes(stopped_on: @to_close_on, closed: true, state: 'closed')
     end
 
     true
+
+  rescue
+    return false
   ensure
     @progress.clean!
   end
