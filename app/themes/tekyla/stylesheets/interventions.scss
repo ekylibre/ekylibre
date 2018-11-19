@@ -10,15 +10,9 @@ $preview-modal-height: 80vh;
   margin-left: 5%;
 }
 
-#intervention-form {
-  .control-group .selector-choices-list li {
-    display: flex;
-    .time-part {
-      margin-left: auto;
-
 .compare-planned-realised {
-    display: block;
-    margin-top: 10px
+  display: block;
+  margin-top: 10px
 }
 
 #compare-planned-with-realised {
@@ -86,6 +80,16 @@ $preview-modal-height: 80vh;
           }
         }
       }
+    }
+  }
+}
+
+#intervention-form {
+  .control-group .selector-choices-list li {
+    display: flex;
+    .time-part {
+      margin-left: auto;
+
     }
   }
 }
