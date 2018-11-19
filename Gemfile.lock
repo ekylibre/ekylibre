@@ -265,6 +265,8 @@ GEM
     letter_opener (1.6.0)
       launchy (~> 2.2)
     libv8 (3.16.14.19)
+    lodash-rails (4.17.10)
+      railties (>= 3.1)
     loofah (2.2.2)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
@@ -648,6 +650,7 @@ DEPENDENCIES
   jquery-ui-rails
   kaminari (~> 0.16.0)
   letter_opener
+  lodash-rails
   loofah
   luhn
   mail (~> 2.6.6.rc1)

@@ -33,6 +33,8 @@ gem 'figaro'
 # Maintenance mode
 gem 'turnout'
 
+gem 'lodash-rails'
+
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets
