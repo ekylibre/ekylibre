@@ -577,6 +577,9 @@ html.exception {
   .toolbar + & {
     @include calc(height, "100vh - #{$header-height + $topbar-height + $toolbar-height} - 1px");
   }
+  .flash + & {
+    height: unset;
+  }
 }
 
 #about-us {
@@ -838,6 +841,7 @@ form.search {
   }
   .signature-details {
     display: none;
+    overflow-wrap: break-word;
   }
   .title {
     display: block;
