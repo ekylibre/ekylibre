@@ -1,0 +1,36 @@
+#tax-declaration-alert-container {
+  padding: 9px;
+
+  #tax-declaration-alert {
+  border: 1px solid #BC2121;
+  border-radius: 3px;
+  height: 170px;
+  position: relative;
+  i {
+    position: absolute;
+    left: 43px;
+    top: 68px;
+    @include is-icon(120px);
+    @include use-icon(warning);
+  }
+    .tax-declaration-alert-message {
+      position: absolute;
+      left: 183px;
+      top: 35px;
+      .tax-declaration-alert-title b {
+        font-size: 20px;
+        line-height: 24px;
+      }
+      .tax-declaration-alert-description {
+        margin-top: 4px;
+        width: 1000px;
+        p {
+          line-height: 16px;
+        }
+      }
+      .tax-declaration-alert-button {
+        margin-top: 12px;
+      }
+    }
+  }
+}

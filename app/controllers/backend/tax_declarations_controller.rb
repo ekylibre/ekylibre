@@ -18,7 +18,7 @@
 
 module Backend
   class TaxDeclarationsController < Backend::BaseController
-    manage_restfully except: %i[new show]
+    manage_restfully except: %i[new show index]
     include PdfPrinter
     unroll
 
@@ -48,7 +48,6 @@ module Backend
       t.action :destroy, if: :destroyable?
       t.column :number, url: true
       t.column :responsible
-      t.column :reference_number, url: true
       t.column :created_at
       t.column :started_on
       t.column :stopped_on
@@ -64,7 +63,9 @@ module Backend
       document_nature = Nomen::DocumentNature.find(:vat_register)
       key = "#{document_nature.name}-#{Time.zone.now.l(format: '%Y-%m-%d-%H:%M:%S')}"
       respond_to do |format|
-        format.html
+        format.html do
+          render "alert_no_VAT_declaration" unless FinancialYear.where.not(tax_declaration_mode: "none").any?
+        end
         format.pdf do
           template_path = find_open_document_template(:vat_register)
           raise 'Cannot find template' if template_path.nil?

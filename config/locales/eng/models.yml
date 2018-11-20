@@ -83,6 +83,10 @@ eng:
         status: "Status"
       tax:
         amount: "Value"
+      tax_declaration: #?
+        no_financial_year_title: "No financial year entered"
+        no_financial_year_message: "Please choose your tax declarartion mode in one of your financial years to access to your tax declarations"
+        no_financial_year_button: "Manage financial years"
       tax_declaration_item:
         collected: "Collected"
         deductible: "Deductible"
