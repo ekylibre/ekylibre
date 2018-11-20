@@ -46,7 +46,7 @@
             %th{ colspan: 6}= :to_reclaim.tl
             %td= (-to_pay).l(currency: resource.currency)
 
-      - resource.items.order(:id).each do |item|
+      - resource.items.joins(:tax).reorder('taxes.amount').each do |item|
         - tax = Tax.find(item.tax_id)
         %tbody
           %tr
