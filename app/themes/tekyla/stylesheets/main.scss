@@ -577,6 +577,9 @@ html.exception {
   .toolbar + & {
     @include calc(height, "100vh - #{$header-height + $topbar-height + $toolbar-height} - 1px");
   }
+  .flash + & {
+    height: unset;
+  }
 }
 
 #about-us {

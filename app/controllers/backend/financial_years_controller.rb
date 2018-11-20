@@ -69,7 +69,7 @@ module Backend
           end
           notify_now(:locked_exercice_info) if @financial_year.locked?
           t3e @financial_year.attributes
-
+          @progress_status = fetch_progress_values(params[:id])
         end
         format.xml do
           FecExportJob.perform_later(@financial_year, params[:fiscal_position], params[:interval], current_user)
@@ -127,10 +127,11 @@ module Backend
         if params[:closure_journal_id] == '0'
           params[:closure_journal_id] = Journal.create_one!(:closure, @financial_year.currency).id
         end
+        @financial_year.update!(state: 'closing')
         FinancialYearCloseJob.perform_later(@financial_year, current_user, closed_on.to_s, **params.symbolize_keys.slice(:result_journal_id, :forward_journal_id, :closure_journal_id))
         notify_success(:closure_process_started)
 
-        return redirect_to(action: :index)
+        return redirect_to backend_financial_year_path(@financial_year)
       end
 
       journal = Journal.where(currency: @financial_year.currency, nature: :result).first
@@ -177,6 +178,36 @@ module Backend
       ids_array =  params[:year_ids]
       FinancialYear.where(id: ids_array).delete_all
       return redirect_to(action: :index)
+    end
+
+    def run_progress
+      financial_year = FinancialYear.find(params[:id])
+      progress_status = fetch_progress_values(params[:id])
+      render partial: 'progress', locals: { value: progress_status[:value],
+                                            resource: financial_year,
+                                            refresh: params[:archives].to_i < 1 && financial_year.closed,
+                                            current_step: progress_status[:step],
+                                            steps_count: progress_status[:total],
+                                            step_label: progress_status[:label] }
+    end
+
+    private
+
+    def fetch_progress_values(id)
+      progress = Progress.fetch('close_main', id: id)
+      progress_value = progress ? progress.value : 0
+
+      progress_steps_count = FinancialYearClose::CLOSURE_STEPS.count
+      step_value = 100 / progress_steps_count
+      current_progress_step = (progress_value / step_value).round
+
+      sub_progress = Progress.fetch(FinancialYearClose::CLOSURE_STEPS[current_progress_step], id: id)
+      sub_progress_value = sub_progress ? sub_progress.value : 0
+
+      { value: (progress_value + sub_progress_value * step_value / 100).round,
+        step: current_progress_step + 1,
+        total: progress_steps_count,
+        label: FinancialYearClose::CLOSURE_STEPS[current_progress_step] }
     end
   end
 end
