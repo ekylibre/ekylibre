@@ -440,9 +440,15 @@ class FinancialYearClose
   end
 
   def generate_documents(timing)
-    progress = Progress.new("generate_documents_#{timing}", id: @year.id, max: 4)
+    progress = Progress.new("generate_documents_#{timing}", id: @year.id, max: 6)
 
-    generate_balance_documents(timing)
+    generate_balance_documents(timing, { accounts: "", centralize: "401 411" })
+    progress.increment!
+
+    generate_balance_documents(timing, { accounts: "401", centralize: "" })
+    progress.increment!
+
+    generate_balance_documents(timing, { accounts: "411", centralize: "" })
     progress.increment!
 
     ['general_ledger', '401', '411'].each { |ledger| generate_general_ledger_documents(timing, { current_financial_year: @year.id.to_s, ledger: ledger, period: "#{@year.started_on}_#{@year.stopped_on}" }) }
@@ -457,7 +463,7 @@ class FinancialYearClose
     progress.clean!
   end
 
-  def generate_balance_documents(timing)
+  def generate_balance_documents(timing, params)
     document_nature = Nomen::DocumentNature.find(:trial_balance)
     key = "#{document_nature.name}-#{Time.zone.now.l(format: '%Y-%m-%d-%H:%M:%S')}"
     template_path = find_open_document_template(:trial_balance)
@@ -468,8 +474,8 @@ class FinancialYearClose
                                     period: period,
                                     states: { "confirmed" => "1" },
                                     balance: "all",
-                                    accounts: "",
-                                    centralize: "401 411")
+                                    accounts: params[:accounts],
+                                    centralize: params[:centralize])
 
     balance_printer = BalancePrinter.new(balance: balance,
                                          prev_balance: [],
