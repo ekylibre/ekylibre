@@ -105,12 +105,12 @@
         = resource.decorate.planned_by
         = resource.decorate.validated_by
 
-      - if resource.evaluation.present?
-        .med-info
-          %span.title= Intervention.human_attribute_name(:catalog_duration)
-          %span.value
-            %i.picto.picto-timelapse
-            = resource.duration_from_catalog.round(2).l
+      -# - if resource.duration_from_catalog
+        -# .med-info
+          -# %span.title= Intervention.human_attribute_name(:catalog_duration)
+          -# %span.value
+            -# %i.picto.picto-timelapse
+            -# = resource.duration_from_catalog.round(2).l
 
       -#.med-info
         %span.title= Intervention.human_attribute_name(:working_duration)

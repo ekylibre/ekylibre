@@ -476,7 +476,6 @@ module Backend
 
 
           if new_state == :validated
-            new_intervention.evaluation = params[:evaluation]
             new_intervention.validator = current_user
           end
 
