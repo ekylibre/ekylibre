@@ -20,35 +20,17 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
-# == Table: documents
+# == Table: financial_year_archives
 #
-#  created_at         :datetime         not null
-#  creator_id         :integer
-#  custom_fields      :jsonb
-#  file_content_text  :text
-#  file_content_type  :string
-#  file_file_name     :string
-#  file_file_size     :integer
-#  file_fingerprint   :string
-#  file_pages_count   :integer
-#  file_updated_at    :datetime
+#  financial_year_id  :integer          not null
 #  id                 :integer          not null, primary key
-#  key                :string           not null
-#  lock_version       :integer          default(0), not null
-#  mandatory          :boolean          default(FALSE)
-#  name               :string           not null
-#  nature             :string
-#  number             :string           not null
-#  sha256_fingerprint :string
-#  signature          :text
-#  template_id        :integer
-#  updated_at         :datetime         not null
-#  updater_id         :integer
-#  uploaded           :boolean          default(FALSE), not null
+#  path               :string           not null
+#  sha256_fingerprint :string           not null
+#  signature          :text             not null
+#  timing             :string           not null
 #
 require 'test_helper'
 
-class DocumentTest < ActiveSupport::TestCase
-  test_model_actions
+class FinancialYearArchiveTest < ActiveSupport::TestCase
   # Add tests here...
 end

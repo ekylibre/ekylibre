@@ -1868,6 +1868,7 @@ arb:
     managed: "تمكنت"
     managed_sales: "مبيعات المدارة"
     mandates: "تفويضات" #?
+    # mandatory: "Mandatory"
     manure_management_plan_zones: "مناطق خطة إدارة السماد"
     marketable: "تسويق"
     marketable_items_count: "البنود تسويق عد"
@@ -2344,12 +2345,14 @@ arb:
     service_coeff: "معامل كمية الخدمة" #?
     sessions: "جلسات"
     sha256: "SHA256" #?
+    # sha256_fingerprint: "Sha256 fingerprint"
     shape: "شكل"
     shift_duration: "مدة التحول"
     shift_method: "طريقة التحول"
     shipped: "المستلم" #?
     shipped_at: "شحنها يوم" #?
     sign_in_count: "تسجيل الدخول العد"
+    # signature: "Signature"
     signup_at: "الاشتراك في"
     siren: "رقم صفارة الانذار"
     siret_number: "SIRET رقم"
@@ -2472,6 +2475,7 @@ arb:
     third_role: "دور الثالث"
     thread: "خيط"
     time_window: "نافذة الوقت (بالثواني)"
+    # timing: "Timing"
     title: "اللقب"
     # tms: "TMS"
     to: "ل"

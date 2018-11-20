@@ -975,6 +975,8 @@ fra:
     animals: "Animaux"
     any_journal: "Tous les journaux"
     apply: "Appliquer" #?
+    archive_post_closure: "Archive après clôture"
+    archive_prior_to_closure: "Archive avant clôture"
     archived_at: "Archivé à" #?
     archives: "Archives"
     are_you_sure: "Êtes-vous sûr(e) de vouloir faire cela\_?"
@@ -1293,6 +1295,7 @@ fra:
     down: "Descendre"
     down_to_level: "Détailler jusqu’au niveau" #?
     download: "Télécharger"
+    download_archive: "Télécharger l'archive (ZIP)"
     download_firefox: "Télécharger Mozilla Firefox…" #?
     downpayment: "Acompte"
     draft: "Brouillard"
@@ -1409,6 +1412,7 @@ fra:
     financial_year_needed: "<p> Toutes les opérations commerciales et financières doivent être comptabilisées sur un exercice ouvert. <br/> Veuillez ouvrir un exercice pour la période en cours ou demander à votre responsable. </p>"
     financial_year_results: "Résultats de l'exercice : %{results}"
     financial_year_warning: "<p> Si l’exercice n’est pas clôturé ou verrouillé avant le %{last_financial_year_end_date}, vous ne pourrez pas ouvrir d’exercice au %{new_financial_year_start_date}. En effet, il n’est pas possible d’avoir plus de 2 exercices ouverts simultanément. De plus, il est nécessaire d’avoir un exercice ouvert à la date en cours pour saisir des opérations commerciales et financières. <br/> Si vous ne gérez pas votre comptabilité avec Ekylibre, vous avez aussi la possibilité de verrouiller votre exercice. <br/> Attention : les exercices verrouillés ne peuvent plus être modifiés comme un exercice clôturé."
+    fingerprint_sha256: "Empreinte (SHA256)"
     finish: "Terminer"
     finished: "Terminé"
     finished_income_statement: "Produits" #?
@@ -2167,6 +2171,7 @@ fra:
     show: "Afficher"
     show_export_preview: "Afficher un aperçu du document (peut augmenter le temps de chargement)" #?
     sign_out: "Se déconnecter"
+    signature_html: "Signature (<a href='%{url}' target='_blank'>Clé publique</a>)"
     simplified: "Régime du réel simplifié"
     simplified_linear_options: "Options linéaire simplifié"
     social_debts: "Dettes sociales"
@@ -2245,6 +2250,7 @@ fra:
     theoric_quantity: "Quantité théorique" #?
     third_informations: "Informations tierces" #?
     third_is_unbalanced: "Tiers à soldes non-rapprochés. (solde - solde comptable fournisseur)"
+    this_archive_is_digitally_signed: "Cette archive est signée numériquement."
     thumb: "Miniature"
     time_cost: "Coût de main d’œuvre"
     time_cost_per_hectare: "Coût de main d’œuvre par hectare" #?

@@ -827,6 +827,8 @@ cmn:
     animal_productions: "动物生产" #?
     animals: "动物"
     # any_journal: "Any journal"
+    # archive_post_closure: "Post closure archive"
+    # archive_prior_to_closure: "Prior to closure archive"
     archives: "档案"
     are_you_sure: "你确定要这么做吗？"
     are_you_sure_you_want_to:
@@ -1071,6 +1073,7 @@ cmn:
     dont_use_journal: "- 不要使用日记 -"
     down: "下"
     # download: "Download"
+    # download_archive: "Download archive (ZIP)"
     downpayment: "首付"
     draft: "草案"
     # draft_entries_to_validate: "There are draft entries to validate"
@@ -1163,6 +1166,7 @@ cmn:
     # financial_year_results: "Financial year results : %{results}"
     # financial_year_warning: "<p> If the financial year is not closed or locked before the %{last_financial_year_end_date}, you will not be able to open a financial year on %{new_financial_year_start_date}. Indeed, it is not possible to have more than 2 financial years opened simultaneously. Furthermore, it is necessary to have an opened financial year on the ongoing date to input commercial and financial operations. <br/> If you don't manage your accountacy with Ekylibre, you have the possibility to lock your financial year. <br/> Attention : locked financial years can't be modified like a closed financial year."
     financials_assets: "金融资产" #?
+    # fingerprint_sha256: "Fingerprint (SHA256)"
     finish: "完"
     finished: "完"
     first_line_as_title: "第一行标题"
@@ -1681,6 +1685,7 @@ cmn:
     ship: "船"
     show: "显示"
     sign_out: "登出"
+    # signature_html: "Signature (<a href='%{url}' target='_blank'>Public key</a>)"
     simplified: "简化会计"
     simplified_linear_options: "简化的线性选项"
     social_debts: "社会债务"
@@ -1736,6 +1741,7 @@ cmn:
     taxes: "税"
     taxes_and_wages: "税收和工资"
     third_is_unbalanced: "三是不平衡的。 （平衡 - 供应商账户余额）"
+    # this_archive_is_digitally_signed: "This archive is digitally signed."
     thumb: "拇指"
     time_cost: "时间成本"
     time_spent_by_activity: "按时间花在活动"

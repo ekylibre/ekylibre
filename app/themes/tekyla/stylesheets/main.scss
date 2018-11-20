@@ -827,6 +827,18 @@ form.search {
   // border: 1px solid #DDD;
   // margin: 0 $default-gap $default-gap;
 
+  a > button {
+    margin: 10px 0px 5px 0px;
+  }
+  .signature-trigger {
+    cursor: pointer;
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+  .signature-details {
+    display: none;
+  }
   .title {
     display: block;
     @include legend-label;

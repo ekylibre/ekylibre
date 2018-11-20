@@ -28,6 +28,37 @@
       %span.title= :currency.t(scope: 'preferences')
       %span.value= Nomen::Currency.find(resource.currency).human_name.upcase
 
+    - if resource.closed?
+      .med-info.important
+        %span.title= :archive_prior_to_closure.tl
+        = link_to backend_financial_year_archive_path(resource, timing: 'prior_to_closure'), method: :post do
+          %button.btn.btn-default.icn.btn-download= :download_archive.tl
+        %br
+        %span.signature-trigger
+          %i.lock-picto
+          = :this_archive_is_digitally_signed.tl
+          %i.chevron
+        .signature-details
+          .signature-title= :fingerprint_sha256.tl
+          = resource.prior_to_closure_archive.sha256_fingerprint
+          .signature-title= t('labels.signature_html', url: FinancialYearArchive::PUBLIC_KEY_URL)
+          = resource.prior_to_closure_archive.signature.gsub(/\n/, '<br />').html_safe
+
+      .med-info.important
+        %span.title= :archive_post_closure.tl
+        = link_to backend_financial_year_archive_path(resource, timing: 'post_closure'), method: :post do
+          %button.btn.btn-default.icn.btn-download= :download_archive.tl
+        %br
+        %span.signature-trigger
+          %i.lock-picto
+          = :this_archive_is_digitally_signed.tl
+          %i.chevron
+        .signature-details
+          .signature-title= :fingerprint_sha256.tl
+          = resource.post_closure_archive.sha256_fingerprint
+          .signature-title= t('labels.signature_html', url: 'http://www.google.com')
+          = resource.post_closure_archive.signature.gsub(/\n/, '<br />').html_safe
+
 = cobbles do |c|
   - c.cobble(resource.closed ? :balance : :last_computed_balance) do
     = cobble_list :account_balances

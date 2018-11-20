@@ -86,7 +86,7 @@ class FinancialYearCloseTest < ActiveSupport::TestCase
     generate_entry(test_accounts[6063], -3000)
     validate_fog
 
-    close = FinancialYearClose.new(@year, @year.stopped_on, result_journal: result)
+    close = FinancialYearClose.new(@year, @year.stopped_on, User.first, result_journal: result)
     close.execute
 
     assert_equal 3, JournalEntry.count
@@ -117,7 +117,7 @@ class FinancialYearCloseTest < ActiveSupport::TestCase
     generate_entry(test_accounts[4], -300)
     validate_fog
 
-    close = FinancialYearClose.new(@year, @year.stopped_on,
+    close = FinancialYearClose.new(@year, @year.stopped_on, User.first,
                                    result_journal: result,
                                    closure_journal: closing,
                                    forward_journal: forward)
@@ -160,7 +160,7 @@ class FinancialYearCloseTest < ActiveSupport::TestCase
     next_years = generate_entry(test_accounts[4], -800, letter: letter, printed_on: @end + 2.days, destination_account: test_accounts[5])
     validate_fog
 
-    close = FinancialYearClose.new(@year, @year.stopped_on,
+    close = FinancialYearClose.new(@year, @year.stopped_on, User.first,
                                    result_journal: result,
                                    closure_journal: closing,
                                    forward_journal: forward)

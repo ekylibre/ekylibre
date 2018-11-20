@@ -3,7 +3,8 @@ class FinancialYearCloseJob < ActiveJob::Base
 
   def perform(financial_year, closer, to_close_on, result_journal_id:, forward_journal_id:, closure_journal_id:)
     to_close_on = Date.parse to_close_on
-    if financial_year.close(to_close_on,
+    if financial_year.close(closer,
+                            to_close_on,
                             result_journal_id: result_journal_id,
                             forward_journal_id: forward_journal_id,
                             closure_journal_id: closure_journal_id)

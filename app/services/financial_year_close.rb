@@ -1,8 +1,11 @@
 # coding: utf-8
 class FinancialYearClose
-  def initialize(year, to_close_on, options = {})
+  include PdfPrinter
+
+  def initialize(year, to_close_on, closer, options = {})
     @year = year
     @started_on = @year.started_on
+    @closer = closer
     @to_close_on = to_close_on || options[:to_close_on] || @year.stopped_on
     @progress = Progress.new(:close_main, id: @year.id, max: 4)
     @errors = []
@@ -23,7 +26,7 @@ class FinancialYearClose
     moment << '] '
 
     t = moment + message.yellow
-    puts t
+    # puts t
     Rails.logger.info(t)
     now
   end
@@ -55,6 +58,8 @@ class FinancialYearClose
     ensure_closability!
 
     ActiveRecord::Base.transaction do
+      generate_documents('prior_to_closure')
+
       benchmark('Compute Balance') do
         @year.compute_balances!
         @progress.increment!
@@ -84,6 +89,8 @@ class FinancialYearClose
 
       log("Close Financial Year")
       @year.update_attributes(stopped_on: @to_close_on, closed: true, state: 'closed')
+
+      generate_documents('post_closure')
     end
 
     true
@@ -417,5 +424,103 @@ class FinancialYearClose
          .where('local_balance != ?', 0)
          .where('accounts.number ~ ?', "^(#{account_numbers.join('|')})")
          .order('accounts.number')
+  end
+
+  def generate_documents(timing)
+    generate_balance_documents(timing)
+    ['general_ledger', '401', '411'].each { |ledger| generate_general_ledger_documents(timing, { current_financial_year: @year.id.to_s, ledger: ledger, period: "#{@year.started_on}_#{@year.stopped_on}" }) }
+    Journal.all.each { |journal| generate_journals_documents(timing, { journal_id: journal.id, id: journal.id, period: "#{@year.started_on}_#{@year.stopped_on}", states: { confirmed: '1' } }) }
+    generate_archive(timing)
+  end
+
+  def generate_balance_documents(timing)
+    document_nature = Nomen::DocumentNature.find(:trial_balance)
+    key = "#{document_nature.name}-#{Time.zone.now.l(format: '%Y-%m-%d-%H:%M:%S')}"
+    template_path = find_open_document_template(:trial_balance)
+    period = "#{@year.started_on}_#{@year.stopped_on}"
+
+    balance = Journal.trial_balance(started_on: @year.started_on,
+                                    stopped_on: @year.stopped_on,
+                                    period: period,
+                                    states: { "confirmed" => "1" },
+                                    balance: "all",
+                                    accounts: "",
+                                    centralize: "401 411")
+
+    balance_printer = BalancePrinter.new(balance: balance,
+                                         prev_balance: [],
+                                         document_nature: document_nature,
+                                         key: key,
+                                         template_path: template_path,
+                                         period: period,
+                                         mandatory: true,
+                                         closer: @closer)
+    file_path = balance_printer.run
+    copy_generated_documents(timing, 'balance', key, file_path)
+  end
+
+  def generate_general_ledger_documents(timing, params)
+    document_nature = Nomen::DocumentNature.find(:general_ledger)
+    key = "#{document_nature.name}-#{Time.zone.now.l(format: '%Y-%m-%d-%H:%M:%S')}"
+    template_path = find_open_document_template(:general_ledger)
+
+    general_ledger = Account.ledger(params)
+
+    general_ledger_printer = GeneralLedgerPrinter.new(general_ledger: general_ledger,
+                                                      document_nature: document_nature,
+                                                      key: key,
+                                                      template_path: template_path,
+                                                      params: params,
+                                                      mandatory: true,
+                                                      closer: @closer)
+    file_path = general_ledger_printer.run
+    copy_generated_documents(timing, 'general_ledger', key, file_path)
+  end
+
+  def generate_journals_documents(timing, params)
+    document_nature = Nomen::DocumentNature.find(:journal_ledger)
+    key = "#{document_nature.name}-#{Time.zone.now.l(format: '%Y-%m-%d-%H:%M:%S')}"
+    template_path = find_open_document_template(:journal_ledger)
+    journal = Journal.find(params[:id])
+
+    journal_ledger = JournalEntry.journal_ledger(params, journal.id)
+
+    journal_printer = JournalPrinter.new(journal: journal,
+                                         journal_ledger: journal_ledger,
+                                         document_nature: document_nature,
+                                         key: key,
+                                         template_path: template_path,
+                                         params: params,
+                                         mandatory: true,
+                                         closer: @closer)
+    file_path = journal_printer.run
+    copy_generated_documents(timing, 'journal_ledger', key, file_path)
+  end
+
+  def copy_generated_documents(timing, nature, key, file_path)
+    destination_path = Ekylibre::Tenant.private_directory.join('attachments', 'documents', 'financial_year_closures', "#{@year.id}", "#{timing}", "#{nature}", "#{key}.pdf")
+    signature_path = Ekylibre::Tenant.private_directory.join('attachments', 'documents', 'financial_year_closures', "#{@year.id}", "#{timing}", "#{nature}", "#{key}.asc")
+    FileUtils.mkdir_p destination_path.dirname
+    FileUtils.ln file_path, destination_path
+    FileUtils.ln file_path.gsub(/\.pdf/, '.asc'), signature_path
+  end
+
+  def generate_archive(timing)
+    zip_path = Ekylibre::Tenant.private_directory.join('attachments', 'documents', 'financial_year_closures', "#{@year.id}", "#{@year.id}_#{timing}.zip")
+    file_path = Ekylibre::Tenant.private_directory.join('attachments', 'documents', 'financial_year_closures', "#{@year.id}")
+    begin
+      Zip::File.open(zip_path, Zip::File::CREATE) do |zip|
+        Dir[File.join(file_path, "#{timing}/**/**")].each do |file|
+          zip.add(file.sub("#{file_path}/", ''), file)
+        end
+      end
+    end
+
+    sha256 = Digest::SHA256.file zip_path
+    crypto = GPGME::Crypto.new
+    signature = crypto.clearsign(sha256.to_s, signer: ENV['GPG_KEY_EMAIL'])
+    signature_path = Ekylibre::Tenant.private_directory.join('attachments', 'documents', 'financial_year_closures', "#{@year.id}", "#{@year.id}_#{timing}.asc")
+    File.write(signature_path, signature)
+    @year.archives.create!(timing: timing, sha256_fingerprint: sha256.to_s, signature: signature.to_s, path: zip_path)
   end
 end

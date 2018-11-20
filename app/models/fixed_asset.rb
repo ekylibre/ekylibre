@@ -164,6 +164,7 @@ class FixedAsset < Ekylibre::Record::Base
   end
 
   validate do
+    errors.add(:started_on, :not_opened_financial_year) if started_on && !opened_financial_year?
     if started_on && self.stopped_on && stopped_on < started_on
       errors.add(:stopped_on, :posterior, to: started_on.l)
     end
