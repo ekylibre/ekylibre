@@ -3,13 +3,15 @@
     %h2= resource.state.t(scope: 'enumerize.financial_year.state')
 
 - main_toolbar do |t|
-  = t.edit resource
-  = t.compute_balances resource, method: :post
+  - unless resource.closing?
+    = t.edit resource
+    = t.compute_balances resource, method: :post
   = t.new(label: :new_financial_year_exchange.tl, params: { controller: :financial_year_exchanges, financial_year_id: resource.id }) if resource.can_create_exchange?
   - if resource == FinancialYear.closable_or_lockable
     = t.close resource, label: :close_financial_year.tl(code: resource.name), icon: false
     = t.lock resource, label: :lock_financial_year.tl(code: resource.name), icon: false
-  = dropdown_menu_button(:export_fec.ta, icon: :download) do |d|
+  - style = resource.closing? ? 'disabled-btn' : ''
+  = dropdown_menu_button(:export_fec.ta, { icon: :download, class: style }) do |d|
     - export_params = params.slice(:id)
     - %i[all ba_bnc_ir_commercial_accountancy ba_ir_cash_accountancy bnc_ir_cash_accountancy].each do |position|
       - d.item "export_fec_#{position}".tl, action: :show, fiscal_position: position, format: :xml
@@ -41,7 +43,7 @@
         .signature-details
           .signature-title= :fingerprint_sha256.tl
           = resource.prior_to_closure_archive.sha256_fingerprint
-          .signature-title= t('labels.signature_html', url: FinancialYearArchive::PUBLIC_KEY_URL)
+          .signature-title= t('labels.signature_html', url: "#{FinancialYearArchive::PUBLIC_KEY_URL}?signature=#{resource.prior_to_closure_archive.signature.gsub(/\n/, '¤').gsub(/\+/, '§')}")
           = resource.prior_to_closure_archive.signature.gsub(/\n/, '<br />').html_safe
 
       .med-info.important
@@ -56,8 +58,10 @@
         .signature-details
           .signature-title= :fingerprint_sha256.tl
           = resource.post_closure_archive.sha256_fingerprint
-          .signature-title= t('labels.signature_html', url: 'http://www.google.com')
+          .signature-title= t('labels.signature_html', url: "#{FinancialYearArchive::PUBLIC_KEY_URL}?signature=#{resource.post_closure_archive.signature.gsub(/\n/, '¤').gsub(/\+/, '§')}")
           = resource.post_closure_archive.signature.gsub(/\n/, '<br />').html_safe
+
+  = render 'progress', value: @progress_status[:value], resource: resource, refresh: false, current_step: @progress_status[:step], steps_count: @progress_status[:total], step_label: @progress_status[:label]
 
 = cobbles do |c|
   - c.cobble(resource.closed ? :balance : :last_computed_balance) do

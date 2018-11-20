@@ -98,6 +98,24 @@
       color: #F42727;
     }
   }
+
+  &.closure_in_preparation-financial-year {
+    border: 2px solid $caution-color;
+    width: 380px;
+
+    h2 {
+      color: $caution-color;
+    }
+  }
+
+  &.closing-financial-year {
+    border: 2px solid $caution-color;
+    width: 300px;
+
+    h2 {
+      color: $caution-color;
+    }
+  }
 }
 
 .close-conditions {
@@ -178,4 +196,31 @@
   -o-transition:      -o-transform 0.35s ease-out;
   -ms-transition:     -ms-transform 0.35s ease-out;
   transition:         transform 0.35s ease-out;
+}
+
+.progress-container {
+  background-color: #FCEFDA;
+  margin: 0px -15px -15px -15px;
+  padding: 25px 36px;
+  .progress-title {
+    font-size: 19px;
+  }
+  .progress {
+    &.thin {
+      height: 5px;
+      margin: 5px 0px;
+      .progress-bar {
+        &.thin {
+          line-height: 5px;
+          background-color: #FF9D00;
+        }
+      }
+    }
+  }
+}
+
+.disabled-btn {
+  cursor: not-allowed;
+  pointer-events: none;
+  opacity: 0.5;
 }

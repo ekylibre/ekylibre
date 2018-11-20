@@ -2,12 +2,19 @@
 class FinancialYearClose
   include PdfPrinter
 
+  CLOSURE_STEPS = { 0 => 'generate_documents_prior_to_closure',
+                    1 => 'compute_balances',
+                    2 => 'close_result_entry',
+                    3 => 'close_carry_forward',
+                    4 => 'journals_closure',
+                    5 => 'generate_documents_post_closure' }
+
   def initialize(year, to_close_on, closer, options = {})
     @year = year
     @started_on = @year.started_on
     @closer = closer
     @to_close_on = to_close_on || options[:to_close_on] || @year.stopped_on
-    @progress = Progress.new(:close_main, id: @year.id, max: 4)
+    @progress = Progress.new(:close_main, id: @year.id, max: 6)
     @errors = []
     @currency = @year.currency
     @options = options
@@ -32,7 +39,7 @@ class FinancialYearClose
   end
 
   def log(message)
-    @previous_now = say(message)
+    @previous_now = say(message) unless Rails.env.test?
   end
 
   def cinc(name, increment = 1)
@@ -59,6 +66,7 @@ class FinancialYearClose
 
     ActiveRecord::Base.transaction do
       generate_documents('prior_to_closure')
+      @progress.increment!
 
       benchmark('Compute Balance') do
         @year.compute_balances!
@@ -88,12 +96,17 @@ class FinancialYearClose
       @progress.increment!
 
       log("Close Financial Year")
-      @year.update_attributes(stopped_on: @to_close_on, closed: true, state: 'closed')
 
       generate_documents('post_closure')
+      @progress.increment!
+
+      @year.update_attributes(stopped_on: @to_close_on, closed: true, state: 'closed')
     end
 
     true
+
+  rescue
+    return false
   ensure
     @progress.clean!
   end
@@ -427,13 +440,30 @@ class FinancialYearClose
   end
 
   def generate_documents(timing)
-    generate_balance_documents(timing)
+    progress = Progress.new("generate_documents_#{timing}", id: @year.id, max: 6)
+
+    generate_balance_documents(timing, { accounts: "", centralize: "401 411" })
+    progress.increment!
+
+    generate_balance_documents(timing, { accounts: "401", centralize: "" })
+    progress.increment!
+
+    generate_balance_documents(timing, { accounts: "411", centralize: "" })
+    progress.increment!
+
     ['general_ledger', '401', '411'].each { |ledger| generate_general_ledger_documents(timing, { current_financial_year: @year.id.to_s, ledger: ledger, period: "#{@year.started_on}_#{@year.stopped_on}" }) }
+    progress.increment!
+
     Journal.all.each { |journal| generate_journals_documents(timing, { journal_id: journal.id, id: journal.id, period: "#{@year.started_on}_#{@year.stopped_on}", states: { confirmed: '1' } }) }
+    progress.increment!
+
     generate_archive(timing)
+    progress.increment!
+  ensure
+    progress.clean!
   end
 
-  def generate_balance_documents(timing)
+  def generate_balance_documents(timing, params)
     document_nature = Nomen::DocumentNature.find(:trial_balance)
     key = "#{document_nature.name}-#{Time.zone.now.l(format: '%Y-%m-%d-%H:%M:%S')}"
     template_path = find_open_document_template(:trial_balance)
@@ -444,8 +474,8 @@ class FinancialYearClose
                                     period: period,
                                     states: { "confirmed" => "1" },
                                     balance: "all",
-                                    accounts: "",
-                                    centralize: "401 411")
+                                    accounts: params[:accounts],
+                                    centralize: params[:centralize])
 
     balance_printer = BalancePrinter.new(balance: balance,
                                          prev_balance: [],
@@ -518,7 +548,7 @@ class FinancialYearClose
 
     sha256 = Digest::SHA256.file zip_path
     crypto = GPGME::Crypto.new
-    signature = crypto.clearsign(sha256.to_s, signer: ENV['GPG_KEY_EMAIL'])
+    signature = crypto.clearsign(sha256.to_s, signer: ENV['GPG_EMAIL'])
     signature_path = Ekylibre::Tenant.private_directory.join('attachments', 'documents', 'financial_year_closures', "#{@year.id}", "#{@year.id}_#{timing}.asc")
     File.write(signature_path, signature)
     @year.archives.create!(timing: timing, sha256_fingerprint: sha256.to_s, signature: signature.to_s, path: zip_path)

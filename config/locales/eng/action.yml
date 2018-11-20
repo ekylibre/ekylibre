@@ -1215,8 +1215,10 @@ eng:
     client_receivables: "Client receivables" #?!
     clients: "Clients" #?
     close: "Close"
+    close_carry_forward: "Generating carrying forward entries"
     close_financial_year: "Close %{code}"
     close_journal: "Close the journal"
+    close_result_entry: "Generating result entries"
     close_settings: "Close settings"
     close_the_financial_year: "Close the financial year"
     closed: "Closed"
@@ -1228,6 +1230,7 @@ eng:
     company: "Society"
     completed: "Completed"
     # components: "Components"
+    compute_balances: "Computing balances"
     conditions:
       filter_on_attribute_of_class: "Filter on attribute of class"
       special-subscriber: "Special-subscriber"
@@ -1453,6 +1456,7 @@ eng:
     financial_result: "Financial result" #??
     financial_year: "Financial year"
     financial_year_close_message: "<p> The close will definitively validate all entries of the financial year, which may not be modified or deleted. It will not be possible to add new ones too. </p>"
+    financial_year_closing: "Financial year closure in progress"
     financial_year_lock_message: "<p> The lock will definitively validate all entries of the financial year, which may not be modified or deleted. It will not be possible to add new ones too. <br/> You will need to get in contact the person who did the close out of the software to get back your year-end documents. </p>"
     financial_year_needed: "All commercial and financial operations need to be accounted on an opened financial year. Please open a financial year for the current period or ask a manager"
     financial_year_results: "Financial year results : %{results}"
@@ -1477,6 +1481,8 @@ eng:
     general_informations: "General informations"
     general_ledger: "General ledger"
     generate: "Generate"
+    generate_documents_post_closure: "Generating mandatory documents post closure"
+    generate_documents_prior_to_closure: "Generating mandatory documents prior to closure"
     generate_last_journal_entry: "Generate last journal entry"
     generate_parcel: "Generate parcel"
     generate_repayments: "Pass bookkeeping" #?
@@ -1562,6 +1568,7 @@ eng:
     item_concentration_per_hectare: "Item concentration per hectare"
     items: "Items"
     journal: "Journal"
+    journals_closure: "Closing journals"
     journal_entries: "Journal's entries" #?
     journal_entries_deletion_confirmation_message: "Once validated, you won't be able to edit or delete these entries. Are you sure you want to validate these entries ?"
     journal_entries_states: "States of entries"
@@ -1857,6 +1864,7 @@ eng:
     profit_taxe: "Profit taxe" #??
     profits: "Profits" #?
     profits_and_losses: "Profits and losses"
+    progress_bar_current_step: "Step %{current}/%{total} : %{label}..."
     provisions_revenues: "Provisions revenues" #?!
     purchase: "Purchase"
     purchase_items: "Purchase items" #?
