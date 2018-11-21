@@ -1305,6 +1305,7 @@ fra:
     draft_entries_to_validate: "Des écritures sont à valider."
     draft_fixed_asset_on_current_financial_year: "Vous avez des immobilisations brouillon en cours. Une fois l'exercice clos, il ne sera plus possible de les mettre en service sur cet exercice (%{code})."
     draft_loan_on_current_financial_year: "Vous avez des emprunts brouillons en cours. Une fois l'exercice clos, il ne sera plus possible de les mettre en service sur cet exercice (%{code})."
+    draft_vat_declaration: "Etat de TVA préparatoire"
     drug: "Médicament" #?
     duplicate: "Dupliquer"
     duration: "Durée"
@@ -2168,6 +2169,7 @@ fra:
     sensor_informations: "Informations du capteur" #?
     sensor_model: "Modèle du capteur"
     sensors: "Capteurs"
+    sent_vat_declaration: "Déclaration de TVA"
     sequences_load: "Charger les séquences manquantes" #?
     sessions: "Sessions"
     set_reconcilable_new_but_existing_third_accounts: "Rendre lettrables les nouveaux comptes tiers déjà existants"
@@ -2287,9 +2289,9 @@ fra:
     to_deposit: "À encaisser"
     to_deposit_later: "À encaisser plus tard"
     to_deposit_now: "À encaisser maintenant"
-    to_pay: "À payer"
+    to_pay: "à payer"
 
-    to_reclaim: "À réclamer"
+    to_reclaim: "à réclamer"
     today: "Aujourd’hui"
     tool_cost: "Coût de matériel"
     tool_cost_per_hectare: "Coût de matériel par hectare" #?
@@ -2423,6 +2425,7 @@ fra:
       one: "Valider l'écriture"
       other: "Valider les %{count} écritures"
     validated: "Validé"
+    validated_vat_declaration: "Etat de TVA préparatoire"
     values: "Valeurs"
     variable_indicators: "Indicateurs variables"
     variants: "Variantes"

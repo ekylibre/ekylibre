@@ -1376,6 +1376,7 @@ eng:
     draft_entries_to_validate: "There are draft entries to validate" #?
     draft_fixed_asset_on_current_financial_year: "You have draft fixed assets ongoing. Once the financial year closed, it won't be possible to enter them into service on this financial year (%{code})."
     draft_loan_on_current_financial_year: "You have draft loans ongoing. Once the financial year closed, it won't be possible to enter them into service on this financial year (%{code})."
+    draft_vat_declaration: "Pending VAT declaration"
     duplicate: "Duplicate"
     duration: "Duration"
     duration_in_hours_and_minutes: "%{hours}h %{minutes}min"
@@ -1969,6 +1970,7 @@ eng:
     send_test_mail: "Send test mail"
     sensor_model: "Sensor model"
     sensors: "Sensors" #?
+    sent_vat_declaration: "VAT declaration"
     sessions: "Sessions" #?
     set_reconcilable_new_but_existing_third_accounts: "Set reconcilable the new but existing third accounts (clients, suppliers and attorneys)" #?
     settings: "Settings"
@@ -2059,8 +2061,8 @@ eng:
     to_deposit: "To deposit"
     to_deposit_later: "To deposit later" #?
     to_deposit_now: "To deposit now" #?
-    to_pay: "To pay"
-    to_reclaim: "To reclaim"
+    to_pay: "to pay"
+    to_reclaim: "to reclaim"
     today: "Today" #?
     tool_cost: "Tool cost"
     tools: "Tools"
@@ -2157,6 +2159,7 @@ eng:
       one: "Validate the entry" #?
       other: "Validate %{count} entries" #?
     validated: "Validated"
+    validated_vat_declaration: "Pending VAT declaration"
     values: "Values"
     variable_indicators: "Variable indicators"
     variants: "Variants" #?

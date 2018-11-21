@@ -86,10 +86,22 @@ module Backend
     # Displays details of one tax declaration selected with +params[:id]+
     def show
       return unless @tax_declaration = find_and_check
-      respond_with(@tax_declaration, methods: [],
-                                     include: {}) do |format|
+      document_nature = Nomen::DocumentNature.find(:vat_register)
+      key = "#{document_nature.name}-#{Time.zone.now.l(format: '%Y-%m-%d-%H:%M:%S')}"
+
+      respond_to do |format|
         format.html do
           t3e @tax_declaration.attributes
+        end
+        format.pdf do
+          template_path = find_open_document_template(:pending_vat_declaration)
+          raise 'Cannot find template' if template_path.nil?
+
+          vat_printer = PendingVatDeclarationPrinter.new(document_nature: document_nature,
+                                                         key: key,
+                                                         template_path: template_path,
+                                                         params: params)
+          send_file vat_printer.run_pdf, type: 'application/pdf', disposition: 'attachment', filename: key << '.pdf'
         end
       end
     end

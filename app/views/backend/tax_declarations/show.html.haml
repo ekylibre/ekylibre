@@ -1,6 +1,9 @@
 - main_toolbar do |t|
   = t.edit resource if resource.draft?
   = t.destroy if resource.destroyable?
+  = dropdown_menu_button(:export.ta, icon: :download) do |d|
+    - d.item :export_as_pdf.tl, params: { format: :pdf }
+    - d.item :export_as_csv.tl, params: { format: :csv }
 
 = main_state_bar(resource)
 
