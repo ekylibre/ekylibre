@@ -42,17 +42,17 @@
         %tr
           %th{rowspan: 2}= JournalEntryItem.human_attribute_name(:account_number)
           %th{rowspan: 2}= JournalEntryItem.human_attribute_name(:account_name)
-          %th.center{colspan: 4}= :total.tl
-          %th.center{colspan: 4}= :balance.tl
+          %th.center{colspan: 4, class: "totalcolor"}= :total.tl
+          %th.center{colspan: 4, class: "balancecolor"}= :balance.tl
         %tr
-          %th.right= JournalEntry.human_attribute_name(:debit)
-          %th.right= JournalEntry.human_attribute_name(:credit)
-          %th.right= JournalEntry.human_attribute_name(:debit) + " N-1"
-          %th.right= JournalEntry.human_attribute_name(:credit) + " N-1"
-          %th.right= JournalEntry.human_attribute_name(:debit)
-          %th.right= JournalEntry.human_attribute_name(:credit)
-          %th.right= JournalEntry.human_attribute_name(:debit) + " N-1"
-          %th.right= JournalEntry.human_attribute_name(:credit) + " N-1"
+          %th.right{class: "totalcolor"}= JournalEntry.human_attribute_name(:debit)
+          %th.right{class: "totalcolor"}= JournalEntry.human_attribute_name(:credit)
+          %th.right{class: "totalcolor"}= JournalEntry.human_attribute_name(:debit) + " N-1"
+          %th.right{class: "totalcolor"}= JournalEntry.human_attribute_name(:credit) + " N-1"
+          %th.right{class: "balancecolor"}= JournalEntry.human_attribute_name(:debit)
+          %th.right{class: "balancecolor"}= JournalEntry.human_attribute_name(:credit)
+          %th.right{class: "balancecolor"}= JournalEntry.human_attribute_name(:debit) + " N-1"
+          %th.right{class: "balancecolor"}= JournalEntry.human_attribute_name(:credit) + " N-1"
       - @balance.each_with_index do |item, index|
         - d = item[0].size-1
         - prev_item = @prev_balance[index] || []
@@ -61,46 +61,46 @@
           %tr{class: cycle(:odd, :even)}
             %td.code= link_to(account.number, action: :show, controller: :accounts, id: account.id)
             %td= link_to(account.name, action: :show, controller: :accounts, id: account.id)
-            %td.dec= number_to_accountancy(item[2], currency)
-            %td.dec= number_to_accountancy(item[3], currency)
-            %td.dec= number_to_accountancy(prev_item[2], currency)
-            %td.dec= number_to_accountancy(prev_item[3], currency)
-            %td.dec= number_to_accountancy(item[4], currency) if item[4].to_f > 0
-            %td.dec= number_to_accountancy(-item[4].to_f, currency) if item[4].to_f < 0
-            %td.dec= number_to_accountancy(prev_item[4], currency) if prev_item[4].to_f > 0
-            %td.dec= number_to_accountancy(-prev_item[4].to_f, currency) if prev_item[4].to_f < 0
+            %td.dec{class: "totalcolor"}= number_to_accountancy(item[2], currency)
+            %td.dec{class: "totalcolor"}= number_to_accountancy(item[3], currency)
+            %td.dec{class: "totalcolor"}= number_to_accountancy(prev_item[2], currency)
+            %td.dec{class: "totalcolor"}= number_to_accountancy(prev_item[3], currency)
+            %td.dec{class: "balancecolor"}= number_to_accountancy(item[4], currency) if item[4].to_f > 0
+            %td.dec{class: "balancecolor"}= number_to_accountancy(-item[4].to_f, currency) if item[4].to_f < 0
+            %td.dec{class: "balancecolor"}= number_to_accountancy(prev_item[4], currency) if prev_item[4].to_f > 0
+            %td.dec{class: "balancecolor"}= number_to_accountancy(-prev_item[4].to_f, currency) if prev_item[4].to_f < 0
         - elsif item[1].to_i == -1
           %tr.total
             %th{colspan: 2}= :total.tl
-            %td.dec= number_to_accountancy(item[2], currency)
-            %td.dec= number_to_accountancy(item[3], currency)
-            %td.dec= number_to_accountancy(prev_item[2], currency)
-            %td.dec= number_to_accountancy(prev_item[3], currency)
-            %td.dec= number_to_accountancy(item[4], currency) if item[4].to_f > 0
-            %td.dec= number_to_accountancy(-item[4].to_f, currency) if item[4].to_f < 0
-            %td.dec= number_to_accountancy(prev_item[4], currency) if prev_item[4].to_f > 0
-            %td.dec= number_to_accountancy(-prev_item[4].to_f, currency) if prev_item[4].to_f < 0
+            %td.dec{class: "totalcolor"}= number_to_accountancy(item[2], currency)
+            %td.dec{class: "totalcolor"}= number_to_accountancy(item[3], currency)
+            %td.dec{class: "totalcolor"}= number_to_accountancy(prev_item[2], currency)
+            %td.dec{class: "totalcolor"}= number_to_accountancy(prev_item[3], currency)
+            %td.dec{class: "balancecolor"}= number_to_accountancy(item[4], currency) if item[4].to_f > 0
+            %td.dec{class: "balancecolor"}= number_to_accountancy(-item[4].to_f, currency) if item[4].to_f < 0
+            %td.dec{class: "balancecolor"}= number_to_accountancy(prev_item[4], currency) if prev_item[4].to_f > 0
+            %td.dec{class: "balancecolor"}= number_to_accountancy(-prev_item[4].to_f, currency) if prev_item[4].to_f < 0
         - elsif item[1].to_i == -2
           %tr.subtotal
             %th{colspan: 2, style: "padding-left: #{d*8+4}px"}= :subtotal.tl(name: item[0])
-            %td.dec= number_to_accountancy(item[2], currency)
-            %td.dec= number_to_accountancy(item[3], currency)
-            %td.dec= number_to_accountancy(prev_item[2], currency)
-            %td.dec= number_to_accountancy(prev_item[3], currency)
-            %td.dec= number_to_accountancy(item[4], currency) if item[4].to_f > 0
-            %td.dec= number_to_accountancy(-item[4].to_f, currency) if item[4].to_f < 0
-            %td.dec= number_to_accountancy(prev_item[4], currency) if prev_item[4].to_f > 0
-            %td.dec= number_to_accountancy(-prev_item[4].to_f, currency) if prev_item[4].to_f < 0
+            %td.dec{class: "totalcolor"}= number_to_accountancy(item[2], currency)
+            %td.dec{class: "totalcolor"}= number_to_accountancy(item[3], currency)
+            %td.dec{class: "totalcolor"}= number_to_accountancy(prev_item[2], currency)
+            %td.dec{class: "totalcolor"}= number_to_accountancy(prev_item[3], currency)
+            %td.dec{class: "balancecolor"}= number_to_accountancy(item[4], currency) if item[4].to_f > 0
+            %td.dec{class: "balancecolor"}= number_to_accountancy(-item[4].to_f, currency) if item[4].to_f < 0
+            %td.dec{class: "balancecolor"}= number_to_accountancy(prev_item[4], currency) if prev_item[4].to_f > 0
+            %td.dec{class: "balancecolor"}= number_to_accountancy(-prev_item[4].to_f, currency) if prev_item[4].to_f < 0
         - elsif item[1].to_i == -3
           %tr.centralize{class: cycle(:odd, :even)}
             %td= item[0]
             %td= :centralized_account.tl(name: item[0])
-            %td.dec= number_to_accountancy(item[2], currency)
-            %td.dec= number_to_accountancy(item[3], currency)
-            %td.dec= number_to_accountancy(prev_item[2], currency)
-            %td.dec= number_to_accountancy(prev_item[3], currency)
-            %td.dec= number_to_accountancy(item[4], currency) if item[4].to_f > 0
-            %td.dec= number_to_accountancy(-item[4].to_f, currency) if item[4].to_f < 0
-            %td.dec= number_to_accountancy(prev_item[4], currency) if prev_item[4].to_f > 0
-            %td.dec= number_to_accountancy(-prev_item[4].to_f, currency) if prev_item[4].to_f < 0
+            %td.dec{class: "totalcolor"}= number_to_accountancy(item[2], currency)
+            %td.dec{class: "totalcolor"}= number_to_accountancy(item[3], currency)
+            %td.dec{class: "totalcolor"}= number_to_accountancy(prev_item[2], currency)
+            %td.dec{class: "totalcolor"}= number_to_accountancy(prev_item[3], currency)
+            %td.dec{class: "balancecolor"}= number_to_accountancy(item[4], currency) if item[4].to_f > 0
+            %td.dec{class: "balancecolor"}= number_to_accountancy(-item[4].to_f, currency) if item[4].to_f < 0
+            %td.dec{class: "balancecolor"}= number_to_accountancy(prev_item[4], currency) if prev_item[4].to_f > 0
+            %td.dec{class: "balancecolor"}= number_to_accountancy(-prev_item[4].to_f, currency) if prev_item[4].to_f < 0
 .end
