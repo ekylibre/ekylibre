@@ -2780,3 +2780,7 @@ a[data-annotate] {
 .invisible {
   visibility: hidden;
 }
+
+.fieldset .fieldset-fields tr.nested-fields input.numeric, .fieldset .fieldset-fields tbody.nested-fields input.numeric {
+  width: 5em;
+}
