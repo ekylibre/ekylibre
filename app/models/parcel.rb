@@ -99,6 +99,8 @@ class Parcel < Ekylibre::Record::Base
   validates :delivery_mode, :address, presence: true
   validates :transporter, presence: { if: :delivery_mode_transporter? }
 
+  validates :transporter, match: { with: :delivery, if: ->(p) { p.delivery&.transporter } }, allow_blank: true
+
   scope :without_transporter, -> { with_delivery_mode(:transporter).where(transporter_id: nil) }
   scope :with_delivery, -> { where(with_delivery: true) }
   scope :to_deliver, -> { with_delivery.where(delivery_id: nil).where.not(state: :given) }
@@ -115,11 +117,9 @@ class Parcel < Ekylibre::Record::Base
     self.pretax_amount = items.sum(:pretax_amount)
   end
 
-  validate do
-    if delivery && delivery.transporter && transporter
-      if delivery.transporter != transporter
-        errors.add :transporter_id, :invalid
-      end
+  after_initialize do
+    if new_record? && incoming?
+      self.address ||= Entity.of_company.default_mail_address
     end
   end
 
@@ -133,6 +133,12 @@ class Parcel < Ekylibre::Record::Base
 
   protect on: :destroy do
     prepared? || given?
+  end
+
+  bookkeep
+
+  def entity
+    incoming? ? sender : recipient
   end
 
   def printed_at

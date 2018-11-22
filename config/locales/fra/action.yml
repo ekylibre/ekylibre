@@ -804,6 +804,8 @@ fra:
         one: "%{count} erreur a empêché l’enregistrement (%{model})"
         other: "%{count} erreurs ont empêché l’enregistrement (%{model})"
   front-end:
+    bank_reconciliation:
+      remove: "Effacer"
     leaflet:
       draw:
         handlers:
@@ -1896,6 +1898,7 @@ fra:
     payment_amount: "Montant de l’encaissement"
     payment_at: "Payé le"
     payment_conditions: "Conditions de règlement"
+    payment_delay_placeholder: "fdm, 5 jours avant"
     payment_label: "%{number}. %{amount} (%{usable_amount} restants) du %{date} par %{mode} de %{entity}" #?
     payment_mode: "Mode d’encaissement"
     payments: "Règlements"

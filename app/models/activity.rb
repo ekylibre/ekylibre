@@ -192,22 +192,16 @@ class Activity < Ekylibre::Record::Base
   end
 
   validate do
-    if family_item = Nomen::ActivityFamily[family]
-      if with_supports && variety = Nomen::Variety[support_variety] && family_item.support_variety
-        errors.add(:support_variety, :invalid) unless variety <= family_item.support_variety
-      end
-      if with_cultivation && variety = Nomen::Variety[cultivation_variety]
-        if family_item.cultivation_variety.present?
-          errors.add(:cultivation_variety, :invalid) unless variety <= family_item.cultivation_variety
-        end
-      end
-    end
     errors.add :use_gradings, :checked_off_with_inspections if inspections.any? && !use_gradings
-    if use_gradings
-      unless measure_something?
-        errors.add :use_gradings, :checked_without_measures
-      end
+    errors.add :use_gradings, :checked_without_measures if use_gradings && !measure_something?
+
+    next unless family_item = Nomen::ActivityFamily[family]
+    if with_supports && variety = Nomen::Variety[support_variety] && family_item.support_variety
+      errors.add(:support_variety, :invalid) unless variety <= family_item.support_variety
     end
+    next unless with_cultivation && variety = Nomen::Variety[cultivation_variety]
+    next unless family_item.cultivation_variety.present?
+    errors.add(:cultivation_variety, :invalid) unless variety <= family_item.cultivation_variety
     true
   end
 

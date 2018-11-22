@@ -2,6 +2,8 @@ FactoryBot.define do
   factory :parcel do
     association :address, factory: :entity_address
 
+    nature { :incoming }
+
     factory :outgoing_parcel do
       nature { :outgoing }
       planned_at { Time.now }

@@ -235,7 +235,7 @@ class Sale < Ekylibre::Record::Base
 
     # For undelivered invoice
     # exchange undelivered invoice from parcel
-    journal = unsuppress { Journal.used_for_unbilled_payables!(currency: self.currency) }
+    journal = Journal.used_for_unbilled_payables!(currency: self.currency)
     b.journal_entry(journal, printed_on: invoiced_on, as: :undelivered_invoice, if: (with_accounting && invoice?)) do |entry|
       for parcel in parcels
         next unless parcel.undelivered_invoice_journal_entry
@@ -250,7 +250,7 @@ class Sale < Ekylibre::Record::Base
 
     # For gap between parcel item quantity and sale item quantity
     # if more quantity on sale than parcel then i have value in C of stock account
-    journal = unsuppress { Journal.used_for_permanent_stock_inventory!(currency: self.currency) }
+    journal = Journal.used_for_permanent_stock_inventory!(currency: self.currency)
     b.journal_entry(journal, printed_on: invoiced_on, as: :quantity_gap_on_invoice, if: (with_accounting && invoice? && items.any?)) do |entry|
       label = tc(:quantity_gap_on_invoice, resource: self.class.model_name.human, number: number, entity: client.full_name)
 

@@ -1,3 +1,14 @@
+GIT
+  remote: git://github.com/influitive/apartment.git
+  revision: a4332c3222210b11f5e8c27fa4c1a18b492e9629
+  branch: development
+  specs:
+    apartment (2.2.0)
+      activerecord (>= 3.1.2, < 6.0)
+      parallel (>= 0.7.1)
+      public_suffix (>= 2)
+      rack (>= 1.3.6)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -57,9 +68,6 @@ GEM
       gyoku (>= 0.4.0)
       nokogiri
     ansi (1.5.0)
-    apartment (1.2.0)
-      activerecord (>= 3.1.2, < 6.0)
-      rack (>= 1.3.6)
     apartment-sidekiq (1.2.0)
       apartment (>= 1.0)
       sidekiq (>= 2.11)
@@ -580,7 +588,7 @@ DEPENDENCIES
   activerecord-postgis-adapter (>= 3.0.0)
   acts_as_list
   agric (~> 3.0)
-  apartment (>= 1.2.0, < 2.0)
+  apartment!
   apartment-sidekiq
   awesome_nested_set (~> 3.1.1)
   beardley (~> 1.3)
@@ -702,4 +710,4 @@ RUBY VERSION
    ruby 2.4.3p205
 
 BUNDLED WITH
-   1.16.4
+   1.16.6

@@ -91,6 +91,7 @@ class Loan < Ekylibre::Record::Base
   validates :loan_account, :interest_account, presence: true
   validates :insurance_account, presence: { if: -> { updateable? && insurance_percentage.present? && insurance_percentage.nonzero? } }
   validates :amount, numericality: { greater_than: 0 }
+  validates :currency, match: { with: :cash }
 
   state_machine :state, initial: :draft do
     state :draft
@@ -115,12 +116,6 @@ class Loan < Ekylibre::Record::Base
     self.ongoing_at ||= started_on.to_time if started_on
     self.currency ||= cash.currency if cash
     self.shift_duration ||= 0
-  end
-
-  validate do
-    if self.currency && cash
-      errors.add(:currency, :invalid) unless self.currency == cash.currency
-    end
   end
 
   after_save do
@@ -153,11 +148,11 @@ class Loan < Ekylibre::Record::Base
       label = tc(:bookkeep, resource: self.class.model_name.human, name: name)
 
       entry.add_debit(label, cash.account_id, amount, as: :bank)
-      entry.add_credit(label, unsuppress { loan_account_id }, amount, as: :loan)
+      entry.add_credit(label, loan_account_id, amount, as: :loan)
 
       if use_bank_guarantee?
         label_guarantee = tc(:bookkeep_guarantee_payment, resource: self.class.model_name.human, name: name)
-        entry.add_debit(label_guarantee, unsuppress { bank_guarantee_account_id }, bank_guarantee_amount, as: :bank_guarantee)
+        entry.add_debit(label_guarantee, bank_guarantee_account_id, bank_guarantee_amount, as: :bank_guarantee)
         entry.add_credit(label_guarantee, cash.account_id, bank_guarantee_amount, as: :bank)
       end
     end

@@ -173,6 +173,7 @@ class Entity < Ekylibre::Record::Base
   validates :activity_code, length: { allow_nil: true, maximum: 30 }
   validates :deliveries_conditions, :number, length: { allow_nil: true, maximum: 60 }
   validates :iban, iban: true, allow_blank: true
+  validates :siret_number, siret_format: true, allow_blank: true
   validates_attachment_content_type :picture, content_type: /image/
   validates_delay_format_of :supplier_payment_delay
 
@@ -219,6 +220,7 @@ class Entity < Ekylibre::Record::Base
     # end
     full_name.strip!
     # self.name = self.name.to_s.strip.downcase.gsub(/[^a-z0-9\.\_]/,'')
+    self.siret_number = siret_number&.strip
     self.language = Preference[:language] if language.blank?
     self.currency = Preference[:currency] if currency.blank?
     self.country  = Preference[:country]  if country.blank?
@@ -227,17 +229,6 @@ class Entity < Ekylibre::Record::Base
     self.bank_account_holder_name = full_name if bank_account_holder_name.blank?
     self.bank_account_holder_name = I18n.transliterate(bank_account_holder_name) unless bank_account_holder_name.nil?
     self.supplier_payment_delay = '30 days' if supplier_payment_delay.blank?
-  end
-
-  validate do
-    if siret_number.present?
-      errors.add(:siret_number, :invalid) unless Luhn.valid?(siret_number.strip)
-    end
-    # if self.nature
-    #   if self.nature.in_name and not self.last_name.match(/( |^)#{self.nature.title}( |$)/i)
-    #     errors.add(:last_name, :missing_title, :title => self.nature.title)
-    #   end
-    # end
   end
 
   before_save do
