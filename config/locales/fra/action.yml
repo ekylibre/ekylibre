@@ -2704,6 +2704,7 @@ fra:
       equipment_is_worn_out: "L’équipement %{name} est usé. Temps de travail restant: %{remaining_time}."
       error_client_account_empty: "Opération impossible, le compte client est vide"
       error_during_file_generation: "Une erreur est survenue durant la génération d'un fichier"
+      error_during_vat_declaration_generation: "Une erreur est survenue durant la génération de la déclaration de TVA."
       expired_session: "Session expirée. Veuillez vous reconnecter." #?
       fails_to_extract_listing: "L’extraction n’a pas pu s’effectuer\_: %{message}"
       file_generated: "Votre fichier a été généré avec succès"
@@ -2825,6 +2826,8 @@ fra:
       unvalid_version_for_restore: "La version du logiciel utilisé pour effectuer la sauvegarde ne correspond pas à la version actuelle du logiciel" #?
       update_is_done: "La mise à jour a été effectuée"
       validates_old_inventories: "Il est conseillé de supprimer ou de valider les inventaires non validés avant d’en faire un nouveau" #?
+      vat_declaration_generated: "La déclaration de TVA a été générée avec succès."
+      vat_declaration_in_preparation: "La déclaration de TVA pour la période demandée est en cours de préparation, une notification vous sera envoyée dès qu'elle sera prête."
       x_fixed_asset_depreciations_have_been_bookkept_successfully:
         one: "%{count} amortissement d'immobilisation a été comptabilisé avec succès"
         other: "%{count} amortissements d'immobilisations ont été comptabilisés avec succès"

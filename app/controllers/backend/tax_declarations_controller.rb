@@ -108,8 +108,9 @@ module Backend
         notify_error :financial_years_missing
         redirect_to params[:redirect] || { action: :index }
       elsif financial_year.missing_tax_declaration?
-        tax_declaration = TaxDeclaration.create!(financial_year: financial_year)
-        redirect_to action: :show, id: tax_declaration.id
+        TaxDeclarationJob.perform_later(financial_year, current_user)
+        notify_success(:vat_declaration_in_preparation)
+        redirect_to :back
       else
         notify_error :all_tax_declarations_have_already_existing
         redirect_to params[:redirect] || { action: :index }

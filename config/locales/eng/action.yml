@@ -2397,6 +2397,7 @@ eng:
       equipment_is_worn_out: "Equipment %{name} is worn out. Remaining work time: %{remaining_time}." #?
       error_client_account_empty: "Can not operate, client account is empty"
       error_during_file_generation: "An error occurred while generating a file" #?
+      error_during_vat_declaration_generation: "An error occured while generating the VAT declaration."
       fails_to_extract_listing: "The listing can't be made: %{message}"
       file_generated: "Your file was successfully generated" #?
       financial_year_already_closed: "The financial year has already been closed." #?
@@ -2480,6 +2481,8 @@ eng:
       unbalanced_journal_entries_are_present_in_year: "Some unbalanced journal entries are present in the financial year." #?
       unexpected_resource_type: "Unexpected resource type: %{type}"
       update_is_done: "The update has been made"
+      vat_declaration_generated: "VAT declaration was successfully generated."
+      vat_declaration_in_preparation: "The VAT declaration for the selected period is currently being generated, you will receive a notification as soon as it has been processed."
       x_fixed_asset_depreciations_have_been_bookkept_successfully:
         one: "%{count} fixed asset depreciation has been bookkept successfully"
         other: "%{count} fixed asset depreciations have been bookkept successfully"
