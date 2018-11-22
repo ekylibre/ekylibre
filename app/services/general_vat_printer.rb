@@ -1,12 +1,12 @@
 
 # This object allow printing the general ledger
-class VatPrinter
+class GeneralVatPrinter
   include PdfPrinter
 
     def initialize(options)
-      @document_nature = options[:document_nature]
+      @document_nature = Nomen::DocumentNature.find(options[:document_nature])
       @key             = options[:key]
-      @template_path   = options[:template_path]
+      @template_path   = find_open_document_template("#{options[:state]}_#{options[:document_nature]}")
       @params          = options[:params]
     end
 

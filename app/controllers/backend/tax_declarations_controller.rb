@@ -59,27 +59,21 @@ module Backend
     end
 
     def index
-      # build variables for reporting (document_nature, key, filename and dataset)
-      document_nature = Nomen::DocumentNature.find(:vat_register)
-      key = "#{document_nature.name}-#{Time.zone.now.l(format: '%Y-%m-%d-%H:%M:%S')}"
+      key = "#{Nomen::DocumentNature.find(:vat_register).name}-#{Time.zone.now.l(format: '%Y-%m-%d-%H:%M:%S')}"
+
       respond_to do |format|
         format.html do
           render "alert_no_VAT_declaration" unless FinancialYear.where.not(tax_declaration_mode: "none").any?
         end
         format.pdf do
-          template_path = find_open_document_template(:vat_register)
-          raise 'Cannot find template' if template_path.nil?
-          vat_printer = VatPrinter.new(        document_nature: document_nature,
-                                               key: key,
-                                               template_path: template_path,
-                                               params: params)
-          send_file vat_printer.run_pdf, type: 'application/pdf', disposition: 'attachment', filename: key << '.pdf'
+          VatExportJob.perform_later('vat_register', key, 'general', 'pdf', params, current_user)
+          notify_success(:document_in_preparation)
+          redirect_to :back
         end
         format.csv do
-          vat_printer = VatPrinter.new(        document_nature: document_nature,
-                                               key: key,
-                                               params: params)
-          send_data vat_printer.run_csv, type: 'application/csv', disposition: 'attachment', filename: key << '.csv'
+          VatExportJob.perform_later('vat_register', key, 'general', 'csv', params, current_user)
+          notify_success(:document_in_preparation)
+          redirect_to :back
         end
       end
     end
@@ -87,28 +81,21 @@ module Backend
     # Displays details of one tax declaration selected with +params[:id]+
     def show
       return unless @tax_declaration = find_and_check
-      document_nature = Nomen::DocumentNature.find(:vat_register)
-      key = "#{document_nature.name}-#{Time.zone.now.l(format: '%Y-%m-%d-%H:%M:%S')}"
+      key = "#{Nomen::DocumentNature.find(:vat_register).name}-#{Time.zone.now.l(format: '%Y-%m-%d-%H:%M:%S')}"
 
       respond_to do |format|
         format.html do
           t3e @tax_declaration.attributes
         end
         format.pdf do
-          template_path = find_open_document_template(:pending_vat_declaration)
-          raise 'Cannot find template' if template_path.nil?
-
-          vat_printer = PendingVatDeclarationPrinter.new(document_nature: document_nature,
-                                                         key: key,
-                                                         template_path: template_path,
-                                                         params: params)
-          send_file vat_printer.run_pdf, type: 'application/pdf', disposition: 'attachment', filename: key << '.pdf'
+          VatExportJob.perform_later('vat_register', key, 'pending', 'pdf', params, current_user)
+          notify_success(:document_in_preparation)
+          redirect_to :back
         end
         format.csv do
-          vat_printer = PendingVatDeclarationPrinter.new(document_nature: document_nature,
-                                                         key: key,
-                                                         params: params)
-          send_data vat_printer.run_csv, type: 'application/csv', disposition: 'attachment', filename: key << '.csv'
+          VatExportJob.perform_later('vat_register', key, 'pending', 'csv', params, current_user)
+          notify_success(:document_in_preparation)
+          redirect_to :back
         end
       end
     end
