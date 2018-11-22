@@ -121,4 +121,51 @@ class PendingVatDeclarationPrinter
     end
     report.file.path
   end
+
+  def run_csv
+    dataset = compute_dataset
+
+    CSV.generate(headers: true) do |csv|
+      csv << [
+        "#{:date.tl} - #{:description.tl}",
+        :pretax_amount.tl,
+        :tax_amount.tl
+      ]
+
+      dataset[0...-2].each do |tax_nature|
+        csv << [
+          "#{:vat.tl} #{tax_nature[:name]}"
+        ]
+
+        tax_nature[:items].each do |tax|
+
+          tax[:parts].each do |part|
+            csv << [
+              "#{part[:entry_printed_on]} #{part[:entry_item_name]}",
+              part[:pretax_amount],
+              part[:tax_amount]
+            ]
+          end
+
+          csv << [
+            "#{:total.tl} #{tax[:name]}",
+            tax[:pretax_amount],
+            tax[:tax_amount]
+          ]
+        end
+
+        csv << [
+          "#{:general_total.tl} #{:vat.tl} #{tax_nature[:name]}",
+          tax_nature[:pretax_amount],
+          tax_nature[:tax_amount]
+        ]
+      end
+
+      csv << [
+        "#{:vat.tl} #{dataset[-2]}",
+        "",
+        dataset[-1]
+      ]
+    end
+  end
 end

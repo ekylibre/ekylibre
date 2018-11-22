@@ -1481,6 +1481,7 @@ eng:
     general: "General" #?
     general_informations: "General informations"
     general_ledger: "General ledger"
+    general_total: "General total"
     generate: "Generate"
     generate_documents_post_closure: "Generating mandatory documents post closure"
     generate_documents_prior_to_closure: "Generating mandatory documents prior to closure"
@@ -2032,6 +2033,7 @@ eng:
     synthesis: "Synthesis"
     target: "Target"
     tasks: "Tasks" #?
+    tax_amount: "VAT amount"
     tax_declarations: "VAT declarations"
     tax_label: "Tax label" #?
     taxations: "Taxations"

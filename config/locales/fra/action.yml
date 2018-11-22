@@ -1440,6 +1440,7 @@ fra:
     general: "Informations générales"
     general_informations: "Informations générales"
     general_ledger: "Grand livre"
+    general_total: "Total général"
     generate: "Générer"
     generate_documents_post_closure: "Génération des documents obligatoires post-clôture"
     generate_documents_prior_to_closure: "Génération des documents obligatoires pré-clôture"
@@ -2251,6 +2252,7 @@ fra:
     target_zone: "Zone cible" #?
     targets: "Cibles" #?
     tasks: "Tâches"
+    tax_amount: "Montant TVA"
     tax_declarations: "Déclarations de TVA"
     tax_label: "Nom Taxe"
     taxations: "Taxations"

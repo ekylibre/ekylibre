@@ -104,6 +104,12 @@ module Backend
                                                          params: params)
           send_file vat_printer.run_pdf, type: 'application/pdf', disposition: 'attachment', filename: key << '.pdf'
         end
+        format.csv do
+          vat_printer = PendingVatDeclarationPrinter.new(document_nature: document_nature,
+                                                         key: key,
+                                                         params: params)
+          send_data vat_printer.run_csv, type: 'application/csv', disposition: 'attachment', filename: key << '.csv'
+        end
       end
     end
 
