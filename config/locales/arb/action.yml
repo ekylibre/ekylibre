@@ -1222,8 +1222,10 @@ arb:
     client_receivables: "ذمم العملاء"
     # clients: "Clients"
     close: "اغلاق الدفتر اليومي"
+    # close_carry_forward: "Generating carrying forward entries"
     close_financial_year: "وثيق السنة المالية"
     close_journal: "إغلاق مجلة"
+    # close_result_entry: "Generating result entries"
     # close_settings: "Close settings"
     # close_the_financial_year: "Close the financial year"
     closed: "مغلق"
@@ -1239,6 +1241,7 @@ arb:
     company: "المجتمع"
     completed: "منجز"
     components: "العناصر" #?
+    # compute_balances: "Computing balances"
     conditions:
       filter_on_attribute_of_class: "التصفية وفق %{attribute} (%{class})"
       special-subscriber: "تصفية وفق الاشتراك"
@@ -1418,6 +1421,7 @@ arb:
     # draft_entries_to_validate: "There are draft entries to validate"
     # draft_fixed_asset_on_current_financial_year: "You have draft fixed assets ongoing. Once the financial year closed, it won't be possible to enter them into service on this financial year (%{code})."
     # draft_loan_on_current_financial_year: "You have draft loans ongoing. Once the financial year closed, it won't be possible to enter them into service on this financial year (%{code})."
+    # draft_vat_declaration: "Pending VAT declaration"
     duplicate: "تكرار"
     duration: "%{hours}ساعة %{minutes}دقيقة"
     # duration_in_hours_and_minutes: "%{hours}h %{minutes}min"
@@ -1527,6 +1531,7 @@ arb:
     financial_state: "الوضع المالي" #?
     # financial_year: "Financial year"
     # financial_year_close_message: "<p> The close will definitively validate all entries of the financial year, which may not be modified or deleted. It will not be possible to add new ones too. </p>"
+    # financial_year_closing: "Financial year closure in progress"
     financial_year_create: "فتح مهنة جديدة للمحاسبة" #?
     # financial_year_lock_message: "<p> The lock will definitively validate all entries of the financial year, which may not be modified or deleted. It will not be possible to add new ones too. <br/> You will need to get in contact the person who did the close out of the software to get back your year-end documents. </p>"
     # financial_year_needed: "All commercial and financial operations need to be accounted on an opened financial year. Please open a financial year for the current period or ask a manager"
@@ -1557,7 +1562,10 @@ arb:
     general: "معلومات عامة"
     general_informations: "معلومات عامة"
     general_ledger: "دفتر الحسابات"
+    # general_total: "General total"
     generate: "توليد"
+    # generate_documents_post_closure: "Generating mandatory documents post closure"
+    # generate_documents_prior_to_closure: "Generating mandatory documents prior to closure"
     generate_last_journal_entry: "تولد الماضي إدخال دفتر اليومية"
     generate_parcel: "تولد لا يتجزأ"
     generate_repayments: "تمرير مسك الدفاتر"
@@ -1689,6 +1697,7 @@ arb:
       items: "عناصر من إدخالات"
       mixed: "دمج السجلات"
     journals: "الدفاتر اليومية"
+    # journals_closure: "Closing journals"
     kame: "" #?
     label: "ملصق"
     # label_value: "%{label}: %{value}"
@@ -2094,6 +2103,7 @@ arb:
     profits: "الأرباح"
     profits_and_losses: "الأرباح والخسائر"
     profits_taxe: "الأرباح و taxe" #?
+    # progress_bar_current_step: "Step %{current}/%{total} : %{label}..."
     provisionnal_budget: "الميزانية Provisionnal" #?
     provisions_revenues: "عائدات أحكام"
     purchase: "الطلب"
@@ -2274,6 +2284,7 @@ arb:
     send_test_mail: "إرسال البريد اختبار"
     sensor_model: "نموذج الاستشعار"
     sensors: "أجهزة الاستشعار"
+    # sent_vat_declaration: "VAT declaration"
     sequence_create: "اضافة تسلسل" #?
     sequences: "التسلسل" #?
     sequences_load: "تحميل التسلسلات المفقودة" #?
@@ -2346,6 +2357,7 @@ arb:
     synthesis: "تجميع الوثائق"
     target: "الهدف"
     tasks: "المهام"
+    # tax_amount: "VAT amount"
     tax_create: "اضافة ضريبة جديدة" #?
     tax_declaration_create: "اضافة تصريح جديد" #?
     tax_declarations: "الإقرارات الضريبية"
@@ -2509,6 +2521,7 @@ arb:
       # one: "Validate the entry"
       # other: "Validate %{count} entries"
     validated: "التحقق من صحة"
+    # validated_vat_declaration: "Pending VAT declaration"
     values: "القيم"
     variable_indicators: "مؤشرات متغيرة"
     variants: "المتغيرات"
@@ -2780,6 +2793,7 @@ arb:
       # equipment_is_worn_out: "Equipment %{name} is worn out. Remaining work time: %{remaining_time}."
       error_client_account_empty: "لا يمكن تشغيل، حساب العميل فارغ"
       error_during_file_generation: "حدث خطأ أثناء إنشاء ملف"
+      # error_during_vat_declaration_generation: "An error occured while generating the VAT declaration."
       expired_session: ".نهاية الدورة. الرجاء معاودة الاتصال" #?
       fails_to_extract_listing: "لم يتمكن الاستخراج من اتمام التنفيذ : %{message}"
       file_generated: "تم إنشاء الملف بنجاح"
@@ -2901,6 +2915,8 @@ arb:
       unvalid_version_for_restore: "ان اصدار البرنامج المستخدم لتنفيذ النسخ الاحتياطية لا يطابق اصدار البرنامج الحالي" #?
       update_is_done: "قد انجز اعداد التحديث"
       validates_old_inventories: "ينصح بالغاء أو التحقق من صحة قوائم الجرد قبل اتخاذ جديد" #?
+      # vat_declaration_generated: "VAT declaration was successfully generated."
+      # vat_declaration_in_preparation: "The VAT declaration for the selected period is currently being generated, you will receive a notification as soon as it has been processed."
       x_fixed_asset_depreciations_have_been_bookkept_successfully:
         # one: "%{count} fixed asset depreciation has been bookkept successfully"
         # other: "%{count} fixed asset depreciations have been bookkept successfully"

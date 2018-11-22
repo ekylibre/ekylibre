@@ -308,6 +308,7 @@ eng:
       index: "Financial years"
       lock: "Lock financial year %{code}"
       new: "Open a new financial year"
+      # run_progress: "Run progress financial year: %{name}"
       show: "Financial year %{code}"
     backend/fixed_asset_depreciations:
       # show: "Fixed asset depreciation: %{name}"
@@ -831,8 +832,13 @@ eng:
       show: "Task: %{name}"
       # start: "Start task: %{name}"
     backend/tax_declarations:
+      # archive_report: "Archive report tax declaration: %{name}"
       confirm: "Confirm tax declaration: %{number}"
       edit: "Edit tax declaration: %{number}"
+      # find_open_document_template: "Find open document template tax declaration: %{name}"
+      # generate_document: "Generate document tax declaration: %{name}"
+      # generate_report: "Generate report tax declaration: %{name}"
+      # generate_report_file: "Generate report file tax declaration: %{name}"
       index: "Tax declarations"
       new: "New tax declaration"
       propose: "Propose tax declaration: %{number}"
@@ -1215,10 +1221,10 @@ eng:
     client_receivables: "Client receivables" #?!
     clients: "Clients" #?
     close: "Close"
-    close_carry_forward: "Generating carrying forward entries"
+    close_carry_forward: "Generating carrying forward entries" #?
     close_financial_year: "Close %{code}"
     close_journal: "Close the journal"
-    close_result_entry: "Generating result entries"
+    close_result_entry: "Generating result entries" #?
     close_settings: "Close settings"
     close_the_financial_year: "Close the financial year"
     closed: "Closed"
@@ -1230,7 +1236,7 @@ eng:
     company: "Society"
     completed: "Completed"
     # components: "Components"
-    compute_balances: "Computing balances"
+    compute_balances: "Computing balances" #?
     conditions:
       filter_on_attribute_of_class: "Filter on attribute of class"
       special-subscriber: "Special-subscriber"
@@ -1338,7 +1344,7 @@ eng:
     depreciations_inputations_expenses: "Depreciations inputations expenses" #?
     derogatory_depreciation_explanation: "Ekylibre doesn't handle derogatory depreciations"
     derogatory_depreciations: "Derogatory depreciations" #?!
-    description: "Description" #?
+    description: "Description"
     destroy: "Destroy"
     destroyed_at_by: "Destroyed at %{at} by %{author}"
     destroyed_by_ago: "Destroyed by %{author} %{when}"
@@ -1376,7 +1382,7 @@ eng:
     draft_entries_to_validate: "There are draft entries to validate" #?
     draft_fixed_asset_on_current_financial_year: "You have draft fixed assets ongoing. Once the financial year closed, it won't be possible to enter them into service on this financial year (%{code})."
     draft_loan_on_current_financial_year: "You have draft loans ongoing. Once the financial year closed, it won't be possible to enter them into service on this financial year (%{code})."
-    draft_vat_declaration: "Pending VAT declaration"
+    draft_vat_declaration: "Pending VAT declaration" #?!
     duplicate: "Duplicate"
     duration: "Duration"
     duration_in_hours_and_minutes: "%{hours}h %{minutes}min"
@@ -1483,8 +1489,8 @@ eng:
     general_ledger: "General ledger"
     general_total: "General total"
     generate: "Generate"
-    generate_documents_post_closure: "Generating mandatory documents post closure"
-    generate_documents_prior_to_closure: "Generating mandatory documents prior to closure"
+    generate_documents_post_closure: "Generating mandatory documents post closure" #?
+    generate_documents_prior_to_closure: "Generating mandatory documents prior to closure" #?
     generate_last_journal_entry: "Generate last journal entry"
     generate_parcel: "Generate parcel"
     generate_repayments: "Pass bookkeeping" #?
@@ -1570,7 +1576,6 @@ eng:
     item_concentration_per_hectare: "Item concentration per hectare"
     items: "Items"
     journal: "Journal"
-    journals_closure: "Closing journals"
     journal_entries: "Journal's entries" #?
     journal_entries_deletion_confirmation_message: "Once validated, you won't be able to edit or delete these entries. Are you sure you want to validate these entries ?"
     journal_entries_states: "States of entries"
@@ -1593,6 +1598,7 @@ eng:
       items: "Items of entries"
       mixed: "Entries and items"
     journals: "Journals"
+    journals_closure: "Closing journals" #?
     label: "Label" #?
     label_value: "%{label}: %{value}"
     land_parcels: "Land parcels"
@@ -1866,7 +1872,7 @@ eng:
     profit_taxe: "Profit taxe" #??
     profits: "Profits" #?
     profits_and_losses: "Profits and losses"
-    progress_bar_current_step: "Step %{current}/%{total} : %{label}..."
+    progress_bar_current_step: "Step %{current}/%{total} : %{label}..." #?
     provisions_revenues: "Provisions revenues" #?!
     purchase: "Purchase"
     purchase_items: "Purchase items" #?
@@ -1971,7 +1977,8 @@ eng:
     send_test_mail: "Send test mail"
     sensor_model: "Sensor model"
     sensors: "Sensors" #?
-    sent_vat_declaration: "VAT declaration"
+    # sent: "Sent"
+    sent_vat_declaration: "VAT declaration" #?!
     sessions: "Sessions" #?
     set_reconcilable_new_but_existing_third_accounts: "Set reconcilable the new but existing third accounts (clients, suppliers and attorneys)" #?
     settings: "Settings"
@@ -2035,6 +2042,7 @@ eng:
     tasks: "Tasks" #?
     tax_amount: "VAT amount"
     tax_declarations: "VAT declarations"
+    # tax_declarations_states: "Tax declarations states"
     tax_label: "Tax label" #?
     taxations: "Taxations"
     taxes: "Taxes"
@@ -2120,7 +2128,7 @@ eng:
     undefined_activity: "Undefined activity"
     undefined_container: "Undefined container"
     undelivered: "Undelivered" #?
-    undelivered_invoices: "Undelivered invoices" #??
+    undelivered_invoices: "Undelivered invoices" #?!
     undone: "Undone" #?
     uninvoiced: "Uninvoiced"
     unit: "Unit"
@@ -2161,7 +2169,7 @@ eng:
       one: "Validate the entry" #?
       other: "Validate %{count} entries" #?
     validated: "Validated"
-    validated_vat_declaration: "Pending VAT declaration"
+    validated_vat_declaration: "Pending VAT declaration" #?!
     values: "Values"
     variable_indicators: "Variable indicators"
     variants: "Variants" #?
@@ -2397,7 +2405,7 @@ eng:
       equipment_is_worn_out: "Equipment %{name} is worn out. Remaining work time: %{remaining_time}." #?
       error_client_account_empty: "Can not operate, client account is empty"
       error_during_file_generation: "An error occurred while generating a file" #?
-      error_during_vat_declaration_generation: "An error occured while generating the VAT declaration."
+      error_during_vat_declaration_generation: "An error occured while generating the VAT declaration." #?
       fails_to_extract_listing: "The listing can't be made: %{message}"
       file_generated: "Your file was successfully generated" #?
       financial_year_already_closed: "The financial year has already been closed." #?
@@ -2481,7 +2489,7 @@ eng:
       unbalanced_journal_entries_are_present_in_year: "Some unbalanced journal entries are present in the financial year." #?
       unexpected_resource_type: "Unexpected resource type: %{type}"
       update_is_done: "The update has been made"
-      vat_declaration_generated: "VAT declaration was successfully generated."
+      vat_declaration_generated: "VAT declaration was successfully generated." #?
       vat_declaration_in_preparation: "The VAT declaration for the selected period is currently being generated, you will receive a notification as soon as it has been processed."
       x_fixed_asset_depreciations_have_been_bookkept_successfully:
         one: "%{count} fixed asset depreciation has been bookkept successfully"
@@ -2636,6 +2644,7 @@ eng:
       reset: "Reset"
       retrieve: "Retrieve"
       run: "Run"
+      # run_progress: "Run progress"
       # scrap: "Scrap"
       search: "Search" #?
       select: "Select"

@@ -83,10 +83,10 @@ eng:
         status: "Status"
       tax:
         amount: "Value"
-      tax_declaration: #?
-        no_financial_year_title: "No financial year entered"
-        no_financial_year_message: "Please choose your tax declarartion mode in one of your financial years to access to your tax declarations"
+      tax_declaration:
         no_financial_year_button: "Manage financial years"
+        no_financial_year_message: "Please choose your tax declarartion mode in one of your financial years to access to your tax declarations"
+        no_financial_year_title: "No financial year entered"
       tax_declaration_item:
         collected: "Collected"
         deductible: "Deductible"
@@ -2003,8 +2003,8 @@ eng:
       state_machine:
         states:
           draft: "Draft"
-          validated: "Validated"
           sent: "Sent"
+          validated: "Validated"
     team:
       default: "Main team"
     user:

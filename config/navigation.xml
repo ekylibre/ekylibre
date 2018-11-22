@@ -2078,6 +2078,7 @@
       </item>
       <item name="financial_years">
         <page to="backend/financial_years#destroy_all_empty"/>
+        <page to="backend/financial_years#run_progress"/>
       </item>
       <item name="general_ledgers">
         <page to="backend/general_ledgers#archive_report"/>
@@ -2101,6 +2102,13 @@
         <page to="backend/journals#generate_document"/>
         <page to="backend/journals#generate_report"/>
         <page to="backend/journals#generate_report_file"/>
+      </item>
+      <item name="tax_declarations">
+        <page to="backend/tax_declarations#archive_report"/>
+        <page to="backend/tax_declarations#find_open_document_template"/>
+        <page to="backend/tax_declarations#generate_document"/>
+        <page to="backend/tax_declarations#generate_report"/>
+        <page to="backend/tax_declarations#generate_report_file"/>
       </item>
       <item name="trial_balances">
         <page to="backend/trial_balances#archive_report"/>

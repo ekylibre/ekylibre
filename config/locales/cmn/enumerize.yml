@@ -157,6 +157,8 @@ cmn:
     financial_year:
       state:
         # closed: "Closed"
+        # closing: "Closure in progress"
+        # closure_in_preparation: "Closure in preparation"
         # locked: "Locked"
         # opened: "Opened"
       tax_declaration_frequency:

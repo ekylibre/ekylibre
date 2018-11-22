@@ -199,13 +199,13 @@ fra:
         status: "Statut"
       tax:
         amount: "Valeur"
-      tax_declaration: #?
+      tax_declaration:
         address: "Adresse du service destinataire" #?
         amount: "TVA totale" #?
-        nature: "Régime de la déclaration"
-        no_financial_year_title: "Aucun exercice soumis"
-        no_financial_year_message: "Veuillez paramétrer le mode de déclaration de TVA dans un exercice comptable pour accéder à vos déclarations de TVA"
+        nature: "Régime de la déclaration" #?
         no_financial_year_button: "Gérer les exercices comptables"
+        no_financial_year_message: "Veuillez paramétrer le mode de déclaration de TVA dans un exercice comptable pour accéder à vos déclarations de TVA"
+        no_financial_year_title: "Aucun exercice soumis"
         period: "Période" #?
       tax_declaration_item:
         collected: "Collectée"
@@ -2258,8 +2258,8 @@ fra:
       state_machine:
         states:
           draft: "Brouillon"
-          validated: "Validée"
           sent: "Envoyée"
+          validated: "Validée"
     team:
       default: "Général"
     user:
