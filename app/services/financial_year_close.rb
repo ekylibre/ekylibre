@@ -104,8 +104,14 @@ class FinancialYearClose
     end
 
     true
+  rescue => error
+    @year.update_columns(state: 'opened')
+    FileUtils.rm_rf Ekylibre::Tenant.private_directory.join('attachments', 'documents', 'financial_year_closures', "#{@year.id}")
 
-  rescue
+    Rails.logger.error $!
+    Rails.logger.error $!.backtrace.join("\n")
+    ExceptionNotifier.notify_exception($!, data: { message: error })
+
     return false
   ensure
     @progress.clean!
