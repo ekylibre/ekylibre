@@ -2354,6 +2354,7 @@ CREATE TABLE entities (
     bank_identifier_code character varying,
     iban character varying,
     supplier_payment_mode_id integer,
+    financial_year_start_at timestamp without time zone,
     CONSTRAINT company_born_at_not_null CHECK (((of_company = false) OR ((of_company = true) AND (born_at IS NOT NULL))))
 );
 
@@ -18016,4 +18017,6 @@ INSERT INTO schema_migrations (version) VALUES ('20181003092024');
 INSERT INTO schema_migrations (version) VALUES ('20181031091651');
 
 INSERT INTO schema_migrations (version) VALUES ('20181106100439');
+
+INSERT INTO schema_migrations (version) VALUES ('20181123102741');
 
