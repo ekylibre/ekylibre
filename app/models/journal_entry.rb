@@ -270,7 +270,7 @@ class JournalEntry < Ekylibre::Record::Base
     # TODO: Validates number has journal's code as prefix
     if printed_on
       if journal
-        errors.add(:printed_on, :closed_journal, journal: journal.name, closed_on: ::I18n.localize(journal.closed_on)) if printed_on <= journal.closed_on
+        errors.add(:printed_on, :closed_journal, journal: journal.name, closed_on: ::I18n.localize(journal.closed_on)) if printed_on < journal.closed_on
       end
       unless financial_year
         errors.add(:printed_on, :out_of_existing_financial_year)
