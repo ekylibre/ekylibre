@@ -169,6 +169,8 @@ module Backend
         return render
       end
       if request.post?
+        FixedAssetDepreciation.up_to(@financial_year.stopped_on).where(locked: false).update_all(locked: true)
+        LoanRepayment.where('due_on <= ?', @financial_year.stopped_on).where(locked: false).update_all(locked: true)
         @financial_year.update(state: 'locked')
         return redirect_to(action: :index)
       end
