@@ -155,8 +155,8 @@ fra:
     financial_year:
       state:
         closed: "Clôturé"
-        closure_in_preparation: "Clôture en préparation"
         closing: "Clôture en cours"
+        closure_in_preparation: "Clôture en préparation"
         locked: "Verrouillé"
         opened: "Ouvert"
       tax_declaration_frequency:

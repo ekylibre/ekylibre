@@ -603,13 +603,16 @@ arb:
       tax:
         amount: "القيمة المالية"
         nature_label: "النوع" #?
-      tax_declaration: #?
+      tax_declaration:
         accounted_at: "تمت محاسبتها يوم" #?
         address: "عنوان خدمة المستلم" #?
         amount: "مجموع قيمة الضريبة الاضافية" #?
         financial_year: "المدة المقدرة" #?
         financial_year_id: "المدة المقدرة" #?
         nature: "نظام التصريح" #?
+        # no_financial_year_button: "Manage financial years"
+        # no_financial_year_message: "Please choose your tax declarartion mode in one of your financial years to access to your tax declarations"
+        # no_financial_year_title: "No financial year entered"
         updated_at: "تم تحديثها في" #?
       tax_declaration_item:
         collected: "جمع"

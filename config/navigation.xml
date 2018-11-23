@@ -150,6 +150,31 @@
         <page to="backend/general_ledgers#show"/>
         <page to="backend/general_ledgers#list_journal_entry_items" nonexistent="true"/>
       </item>
+      <item name="financial_years">
+        <page to="backend/financial_years#index"/>
+        <page to="backend/financial_years#close"/>
+        <page to="backend/financial_years#compute_balances"/>
+        <page to="backend/financial_years#create"/>
+        <page to="backend/financial_years#destroy"/>
+        <page to="backend/financial_years#edit"/>
+        <page to="backend/financial_years#list"/>
+        <page to="backend/financial_years#list_account_balances"/>
+        <page to="backend/financial_years#list_exchanges"/>
+        <page to="backend/financial_years#list_fixed_asset_depreciations"/>
+        <page to="backend/financial_years#lock"/>
+        <page to="backend/financial_years#new"/>
+        <page to="backend/financial_years#show"/>
+        <page to="backend/financial_years#unroll"/>
+        <page to="backend/financial_years#update"/>
+        <page to="backend/financial_year_exchanges#new"/>
+        <page to="backend/financial_year_exchanges#create"/>
+        <page to="backend/financial_year_exchanges#list_journal_entries"/>
+        <page to="backend/financial_year_exchanges#show"/>
+        <page to="backend/financial_year_exchanges#journal_entries_export"/>
+        <page to="backend/financial_year_exchanges#journal_entries_import"/>
+        <page to="backend/financial_year_exchanges#notify_accountant"/>
+        <page to="backend/financial_year_exchanges#close"/>
+      </item>
     </group>
     <group name="fixed_assets" icon="home">
       <item name="fixed_assets">
@@ -1360,31 +1385,6 @@
         <page to="backend/accounts#unroll"/>
         <page to="backend/accounts#update"/>
       </item>
-      <item name="financial_years">
-        <page to="backend/financial_years#index"/>
-        <page to="backend/financial_years#close"/>
-        <page to="backend/financial_years#compute_balances"/>
-        <page to="backend/financial_years#create"/>
-        <page to="backend/financial_years#destroy"/>
-        <page to="backend/financial_years#edit"/>
-        <page to="backend/financial_years#list"/>
-        <page to="backend/financial_years#list_account_balances"/>
-        <page to="backend/financial_years#list_exchanges"/>
-        <page to="backend/financial_years#list_fixed_asset_depreciations"/>
-        <page to="backend/financial_years#lock"/>
-        <page to="backend/financial_years#new"/>
-        <page to="backend/financial_years#show"/>
-        <page to="backend/financial_years#unroll"/>
-        <page to="backend/financial_years#update"/>
-        <page to="backend/financial_year_exchanges#new"/>
-        <page to="backend/financial_year_exchanges#create"/>
-        <page to="backend/financial_year_exchanges#list_journal_entries"/>
-        <page to="backend/financial_year_exchanges#show"/>
-        <page to="backend/financial_year_exchanges#journal_entries_export"/>
-        <page to="backend/financial_year_exchanges#journal_entries_import"/>
-        <page to="backend/financial_year_exchanges#notify_accountant"/>
-        <page to="backend/financial_year_exchanges#close"/>
-      </item>
       <item name="taxes">
         <page to="backend/taxes#index"/>
         <page to="backend/taxes#create"/>
@@ -2078,6 +2078,7 @@
       </item>
       <item name="financial_years">
         <page to="backend/financial_years#destroy_all_empty"/>
+        <page to="backend/financial_years#run_progress"/>
       </item>
       <item name="general_ledgers">
         <page to="backend/general_ledgers#archive_report"/>
@@ -2101,6 +2102,13 @@
         <page to="backend/journals#generate_document"/>
         <page to="backend/journals#generate_report"/>
         <page to="backend/journals#generate_report_file"/>
+      </item>
+      <item name="tax_declarations">
+        <page to="backend/tax_declarations#archive_report"/>
+        <page to="backend/tax_declarations#find_open_document_template"/>
+        <page to="backend/tax_declarations#generate_document"/>
+        <page to="backend/tax_declarations#generate_report"/>
+        <page to="backend/tax_declarations#generate_report_file"/>
       </item>
       <item name="trial_balances">
         <page to="backend/trial_balances#archive_report"/>

@@ -155,10 +155,10 @@ eng:
     financial_year:
       state:
         closed: "Closed"
+        closing: "Closure in progress"
+        closure_in_preparation: "Closure in preparation"
         locked: "Locked"
         opened: "Opened"
-        closure_in_preparation: "Closure in preparation"
-        closing: "Closure in progress"
       tax_declaration_frequency:
         monthly: "Monthly"
         none: "None"

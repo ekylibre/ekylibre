@@ -199,10 +199,13 @@ fra:
         status: "Statut"
       tax:
         amount: "Valeur"
-      tax_declaration: #?
+      tax_declaration:
         address: "Adresse du service destinataire" #?
         amount: "TVA totale" #?
         nature: "Régime de la déclaration" #?
+        no_financial_year_button: "Gérer les exercices comptables"
+        no_financial_year_message: "Veuillez paramétrer le mode de déclaration de TVA dans un exercice comptable pour accéder à vos déclarations de TVA"
+        no_financial_year_title: "Aucun exercice soumis"
         period: "Période" #?
       tax_declaration_item:
         collected: "Collectée"
@@ -1777,10 +1780,10 @@ fra:
     tasks: "Tâches"
     tax: "Taxe"
     tax_declaration: "Déclaration d’impôts"
-    tax_declaration_frequency: "Fréquence de déclaration d’impôt"
+    tax_declaration_frequency: "Fréquence de déclaration de TVA"
     tax_declaration_item: "Tax élément de déclaration"
     tax_declaration_items: "Articles de déclaration d’impôt"
-    tax_declaration_mode: "Mode de déclaration d’impôt"
+    tax_declaration_mode: "Mode de déclaration de TVA"
     tax_declarations: "Déclarations fiscales"
     tax_payability: "Exigibilité fiscale"
     taxations: "Taxations"

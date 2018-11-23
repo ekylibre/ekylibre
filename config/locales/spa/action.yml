@@ -1016,8 +1016,10 @@ spa:
     client_receivables: "Cobrar cliente"
     # clients: "Clients"
     close: "Cerrar"
+    # close_carry_forward: "Generating carrying forward entries"
     close_financial_year: "Fin del ejercicio contable"
     close_journal: "Cierre la revista"
+    # close_result_entry: "Generating result entries"
     # close_settings: "Close settings"
     # close_the_financial_year: "Close the financial year"
     closed: "Cerrados"
@@ -1029,6 +1031,7 @@ spa:
     commission: "Comisión"
     company: "Sociedad"
     completed: "Terminado"
+    # compute_balances: "Computing balances"
     conditions:
       filter_on_attribute_of_class: "Filtro de atributo de la clase"
       special-subscriber: "Especial abonado"
@@ -1193,6 +1196,7 @@ spa:
     # draft_entries_to_validate: "There are draft entries to validate"
     # draft_fixed_asset_on_current_financial_year: "You have draft fixed assets ongoing. Once the financial year closed, it won't be possible to enter them into service on this financial year (%{code})."
     # draft_loan_on_current_financial_year: "You have draft loans ongoing. Once the financial year closed, it won't be possible to enter them into service on this financial year (%{code})."
+    # draft_vat_declaration: "Pending VAT declaration"
     duplicate: "Duplicar"
     duration: "Duración"
     # duration_in_hours_and_minutes: "%{hours}h %{minutes}min"
@@ -1282,6 +1286,7 @@ spa:
     # financial_result: "Financial result"
     # financial_year: "Financial year"
     # financial_year_close_message: "<p> The close will definitively validate all entries of the financial year, which may not be modified or deleted. It will not be possible to add new ones too. </p>"
+    # financial_year_closing: "Financial year closure in progress"
     financial_year_create: "Abrir un nuevo ejercicio contable" #?
     # financial_year_lock_message: "<p> The lock will definitively validate all entries of the financial year, which may not be modified or deleted. It will not be possible to add new ones too. <br/> You will need to get in contact the person who did the close out of the software to get back your year-end documents. </p>"
     # financial_year_needed: "All commercial and financial operations need to be accounted on an opened financial year. Please open a financial year for the current period or ask a manager"
@@ -1309,7 +1314,10 @@ spa:
     general: "Descripción general"
     general_informations: "Informaciones generales"
     general_ledger: "Grande libro"
+    # general_total: "General total"
     generate: "Generar"
+    # generate_documents_post_closure: "Generating mandatory documents post closure"
+    # generate_documents_prior_to_closure: "Generating mandatory documents prior to closure"
     generate_last_journal_entry: "Generar última entrada en el diario"
     generate_parcel: "generar parcela"
     generate_repayments: "Contabilidad pase"
@@ -1429,6 +1437,7 @@ spa:
       mixed: "Piezas y Escrituras"
       records: "Piezas" #?
     journals: "Periodico general"
+    # journals_closure: "Closing journals"
     label: "Etiqueta"
     # label_value: "%{label}: %{value}"
     land_parcels: "Parcelas"
@@ -1744,6 +1753,7 @@ spa:
     profits: "Las ganancias"
     profits_and_losses: "Las pérdidas y ganancias"
     profits_taxe: "Los beneficios taxe" #?
+    # progress_bar_current_step: "Step %{current}/%{total} : %{label}..."
     provisionnal_budget: "Presupuesto Provisionnal" #?
     provisions_revenues: "Provisiones ingresos"
     purchase: "Compra"
@@ -1893,6 +1903,7 @@ spa:
     send_test_mail: "Enviar correo electrónico de prueba"
     sensor_model: "Modelo de sensor"
     sensors: "Sensores"
+    # sent_vat_declaration: "VAT declaration"
     sequence_create: "Añadir une sequencia" #?
     sequences: "Séquencias" #?
     sequences_load: "Cargar las secuencias faltantes" #?
@@ -1958,6 +1969,7 @@ spa:
     synthesis: "Documentos de sintesis"
     target: "Objetivo"
     tasks: "Tareas"
+    # tax_amount: "VAT amount"
     tax_create: "Añadir una nueva tasa" #?
     tax_declaration_create: "Añadir una nueva declaración" #?
     tax_declarations: "Declaraciones de impuestos"
@@ -2101,6 +2113,7 @@ spa:
       # one: "Validate the entry"
       # other: "Validate %{count} entries"
     validated: "Validado"
+    # validated_vat_declaration: "Pending VAT declaration"
     values: "Valores"
     variable_indicators: "Indicadores variables"
     variants: "Variantes"
@@ -2340,6 +2353,7 @@ spa:
       # equipment_is_worn_out: "Equipment %{name} is worn out. Remaining work time: %{remaining_time}."
       error_client_account_empty: "No se puede operar, la cuenta del cliente está vacía"
       error_during_file_generation: "Se produjo un error al generar un archivo"
+      # error_during_vat_declaration_generation: "An error occured while generating the VAT declaration."
       expired_session: "sesion espirada. por favor reconectese." #?
       fails_to_extract_listing: "La extracción no ha podido hacerse\_: %{message}"
       file_generated: "Su archivo fue generado con éxito"
@@ -2463,6 +2477,8 @@ spa:
       unvalid_version_for_restore: "La version del software utilisado para hacer la slvaguardia no corresponde a la version actueal del software" #?
       update_is_done: "La puesta al día ha sido efectuada"
       validates_old_inventories: "Es aconsejado suprimir o validar los inventarios que no lo son antes de hacer nuevos" #?
+      # vat_declaration_generated: "VAT declaration was successfully generated."
+      # vat_declaration_in_preparation: "The VAT declaration for the selected period is currently being generated, you will receive a notification as soon as it has been processed."
       x_fixed_asset_depreciations_have_been_bookkept_successfully:
         # one: "%{count} fixed asset depreciation has been bookkept successfully"
         # other: "%{count} fixed asset depreciations have been bookkept successfully"
