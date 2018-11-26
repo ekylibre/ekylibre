@@ -1413,6 +1413,8 @@ fra:
     financial_year: "Exercice comptable"
     financial_year_close_message: "<p> La clôture validera définitivement toutes les écritures de l’exercice, qui ne pourront plus être modifiées ou supprimées. Il ne sera plus possible d’en ajouter de nouvelles aussi. </p>"
     financial_year_closing: "Clôture de l'exercice en cours"
+    financial_year_closure_in_preparation_initiated_by_someone_else: "Clôture de %{code} en préparation, vous ne pouvez plus modifier d'écritures sur cet exercice."
+    financial_year_closure_in_preparation_initiated_by_you: "Clôture de %{code} en préparation, vous êtes le seul à pouvoir modifier les écritures sur cet exercice."
     financial_year_lock_message: "<p>Le verrouillage validera définitivement toutes les écritures de l’exercice, qui ne pourront plus être modifiées ou supprimées. Il ne sera plus possible d’en ajouter de nouvelles aussi. <br/> Il faudra vous rapprocher de la personne qui a effectué la clôture en dehors du logiciel pour récupérer vos documents de fin d’exercice. </p>"
     financial_year_needed: "<p> Toutes les opérations commerciales et financières doivent être comptabilisées sur un exercice ouvert. <br/> Veuillez ouvrir un exercice pour la période en cours ou demander à votre responsable. </p>"
     financial_year_results: "Résultats de l'exercice : %{results}"
@@ -1922,6 +1924,7 @@ fra:
     potential_hydrogen: "Potentiel hydrogène (pH)"
     precipitation: "Précipitations"
     preferences: "Préférences"
+    prepare_financial_year_for_closure: "Préparer la clôture de %{code}"
     prerequisites_checks_before_closure: "Vérifications préalables à la clôture"
     prescription: "Prescription"
     prescriptions: "Prescriptions"
@@ -2006,6 +2009,7 @@ fra:
     quantity_rest: "Quantité restante" #?
     quarterly: "Trimestrielle" #?
     query: "Requête:"
+    quit_financial_year_closure_preparation: "Quitter le mode préparatoire sur %{code}"
     radical_class_accounts_dont_have_entries: "Les comptes de classes radicales ne comportent pas d'écritures."
     radical_class_accounts_have_entries: "Les comptes de classes radicales comportent des écritures."
     raw_income: "Résultat d’exploitation"

@@ -54,6 +54,7 @@ class FinancialYear < Ekylibre::Record::Base
   enumerize :state, in: %i[opened closure_in_preparation closing closed locked], default: :opened, predicates: true
   belongs_to :last_journal_entry, class_name: 'JournalEntry'
   belongs_to :accountant, class_name: 'Entity'
+  belongs_to :closer, class_name: 'User'
   has_many :account_balances, dependent: :delete_all
   has_many :exchanges, class_name: 'FinancialYearExchange', dependent: :destroy
   has_many :fixed_asset_depreciations, dependent: :destroy
@@ -77,7 +78,8 @@ class FinancialYear < Ekylibre::Record::Base
   # It permit to find the first and the last financial year
   scope :closed, -> { where(state: 'closed').reorder(:started_on) }
   scope :opened, -> { where(state: 'opened').reorder(:started_on) }
-  scope :closables_or_lockables, -> { where(state: 'opened').where('started_on <= ?', Time.zone.now).where.not('? BETWEEN started_on AND stopped_on', Time.zone.now).reorder(:started_on) }
+  scope :in_preparation, -> { where(state: 'closure_in_preparation').reorder(:started_on) }
+  scope :closables_or_lockables, -> { where(state: %i[opened closure_in_preparation]).where('started_on <= ?', Time.zone.now).where.not('? BETWEEN started_on AND stopped_on', Time.zone.now).reorder(:started_on) }
   scope :with_tax_declaration, -> { where.not(tax_declaration_mode: :none) }
   scope :with_missing_tax_declaration, -> { where('id NOT IN (SELECT f.id FROM financial_years AS f JOIN tax_declarations AS d ON (f.stopped_on BETWEEN d.started_on AND d.stopped_on))') }
 

@@ -517,6 +517,7 @@ Rails.application.routes.draw do
         get :list_exchanges
         get :run_progress
         match 'lock', via: %i[get post]
+        match 'prepare_for_closure', via: %i[post delete]
       end
     end
 

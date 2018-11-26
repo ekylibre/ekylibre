@@ -1464,6 +1464,8 @@ eng:
     financial_year: "Financial year"
     financial_year_close_message: "<p> The close will definitively validate all entries of the financial year, which may not be modified or deleted. It will not be possible to add new ones too. </p>"
     financial_year_closing: "Financial year closure in progress"
+    financial_year_closure_in_preparation_initiated_by_someone_else: "Closure of %{code} in preparation, you can't edit entries related to this financial year anymore."
+    financial_year_closure_in_preparation_initiated_by_you: "Closure of %{code} in preparation, you're the only person able to edit entries related to this financial year."
     financial_year_lock_message: "<p> The lock will definitively validate all entries of the financial year, which may not be modified or deleted. It will not be possible to add new ones too. <br/> You will need to get in contact the person who did the close out of the software to get back your year-end documents. </p>"
     financial_year_needed: "All commercial and financial operations need to be accounted on an opened financial year. Please open a financial year for the current period or ask a manager"
     financial_year_results: "Financial year results : %{results}"
@@ -1837,6 +1839,7 @@ eng:
     potential_hydrogen: "Potential hydrogen" #?
     precipitation: "Precipitation"
     preferences: "Preferences"
+    prepare_financial_year_for_closure: "Prepare %{code} for closure"
     prerequisites_checks_before_closure: "Prerequisites checks before closure"
     prescription: "Prescription" #?
     prescriptions: "Prescriptions" #?
@@ -1884,6 +1887,7 @@ eng:
     quandl: "Quandl" #?
     quantity: "Quantity" #?
     query: "Query:" #?
+    quit_financial_year_closure_preparation: "Quit preparation mode for %{code}"
     radical_class_accounts_dont_have_entries: "Radical class accounts does not contain any entry" #?
     radical_class_accounts_have_entries: "Radical class accounts contains entries" #?
     raw_income: "Raw income" #?!
