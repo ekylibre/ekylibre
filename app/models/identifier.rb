@@ -39,16 +39,9 @@ class Identifier < Ekylibre::Record::Base
   validates :nature, presence: true
   validates :value, presence: true, length: { maximum: 500 }
   # ]VALIDATORS]
+  validates :nature, inclusion: { in: -> (i) { i.net_service_reference.identifiers.map(&:to_s) }, if: -> (i) { i.net_service&.reference } }
 
   delegate :reference, to: :net_service, prefix: true
-
-  validate do
-    if net_service && net_service_reference
-      unless net_service_reference.identifiers.include?(nature.to_sym)
-        errors.add(:nature, :inclusion)
-      end
-    end
-  end
 
   def name
     (nature ? Nomen::IdentifierNature[nature].human_name : :unknown.tl)

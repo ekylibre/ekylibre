@@ -306,10 +306,12 @@ class Product < Ekylibre::Record::Base
   # ]VALIDATORS]
   validates :derivative_of, :variety, length: { allow_nil: true, maximum: 120 }
   validates :nature, :variant, :name, :uuid, presence: true
+  validates :nature, match: { with: :variant }
   validates_attachment_content_type :picture, content_type: /image/
 
   validate :born_at_in_interventions, if: ->(product) { product.born_at? && product.interventions_used_in.pluck(:started_at).any? }
   validate :dead_at_in_interventions, if: ->(product) { product.dead_at? && product.interventions.pluck(:stopped_at).any? }
+
 
   store :reading_cache, accessors: Nomen::Indicator.all, coder: ReadingsCoder
 
@@ -403,9 +405,6 @@ class Product < Ekylibre::Record::Base
   end
 
   validate do
-    if nature && variant
-      errors.add(:nature_id, :invalid) if variant.nature_id != nature_id
-    end
     if dead_at && born_at
       errors.add(:dead_at, :invalid) if dead_at < born_at
     end

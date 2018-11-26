@@ -90,8 +90,11 @@ class PurchaseItem < Ekylibre::Record::Base
   validates :role, length: { maximum: 500 }, allow_blank: true
   # ]VALIDATORS]
   validates :currency, length: { allow_nil: true, maximum: 3 }
+  validates :currency, match: { with: :purchase }
   validates :account, :tax, :reduction_percentage, presence: true
   validates :variant, presence: true, unless: proc { |item| item.variant.variety.eql?('trailed_equipment') || item.variant.variety.eql?('equipment') }
+  validates :quantity, exclusion: { in: [0], message: :invalid }
+
   validates_associated :fixed_asset
 
   delegate :invoiced_at, :journal_entry, :number, :computation_method, :computation_method_quantity_tax?, :computation_method_tax_quantity?, :computation_method_adaptative?, :computation_method_manual?, to: :purchase
@@ -186,21 +189,17 @@ class PurchaseItem < Ekylibre::Record::Base
   end
 
   validate do
-    errors.add(:currency, :invalid) if purchase && currency != purchase_currency
-    errors.add(:quantity, :invalid) if self.quantity.zero?
+    next unless fixed
+    # Errors linked to fixed assets
 
-    if fixed
-      #  Errors linked to fixed assets
+    errors.add(:fixed, :asset_account) unless variant.fixed_asset_account
+    errors.add(:fixed, :asset_expenses_account) unless variant.fixed_asset_expenses_account
 
-      errors.add(:fixed, :asset_account) unless variant.fixed_asset_account
-      errors.add(:fixed, :asset_expenses_account) unless variant.fixed_asset_expenses_account
+    depreciation_method = variant.fixed_asset_depreciation_method
+    errors.add(:fixed, :asset_depreciation_method) if depreciation_method.blank?
 
-      depreciation_method = variant.fixed_asset_depreciation_method
-      errors.add(:fixed, :asset_depreciation_method) if depreciation_method.blank?
-
-      if depreciation_method.present? && depreciation_method.to_sym != :simplified_linear && fixed_asset_stopped_on.nil?
-        errors.add(:fixed, :fixed_asset_stopped_on_invalid)
-      end
+    if depreciation_method.present? && depreciation_method.to_sym != :simplified_linear && fixed_asset_stopped_on.nil?
+      errors.add(:fixed, :fixed_asset_stopped_on_invalid)
     end
   end
 

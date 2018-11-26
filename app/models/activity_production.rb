@@ -188,10 +188,7 @@ class ActivityProduction < Ekylibre::Record::Base
   end
 
   validate do
-    if plant_farming?
-      errors.add(:support_shape, :empty) if support_shape && support_shape.empty?
-    end
-    true
+    errors.add(:support_shape, :empty) if plant_farming? && support_shape && support_shape.empty?
   end
 
   after_save do

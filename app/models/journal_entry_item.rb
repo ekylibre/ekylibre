@@ -183,10 +183,6 @@ class JournalEntryItem < Ekylibre::Record::Base
 
   #
   validate do
-    # unless self.updateable?
-    #   errors.add(:number, :closed_entry)
-    #   return
-    # end
     errors.add(:credit, :unvalid_amounts) if debit.nonzero? && credit.nonzero?
     errors.add(:real_credit, :unvalid_amounts) if real_debit.nonzero? && real_credit.nonzero?
     errors.add(:absolute_credit, :unvalid_amounts) if absolute_debit.nonzero? && absolute_credit.nonzero?
