@@ -3,7 +3,7 @@
 	<property name="ireport.zoom" value="1.4019755979255695"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="48"/>
-	<template><![CDATA["/home/brice/Projets/ekylibre/ekylibre/config/corporate_identity/reporting_style.xml"]]></template>
+	<template><![CDATA["../../../corporate_identity/reporting_style.xml"]]></template>
 	<subDataset name="purchase_items" uuid="e1b74445-e266-4905-b7ca-c69a482d0793">
 		<queryString language="xPath">
 			<![CDATA[/purchase-invoice/items/item]]>
