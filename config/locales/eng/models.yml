@@ -33,12 +33,12 @@ eng:
       fixed_asset_depreciation:
         asset_amount: "Accountable value"
       intervention_working_period:
-        stopped_at: 
-          one: "Stopped at is inferior than expected"
-          other: "{{count}} Stopped at is inferior than expected"
-        started_at: 
+        started_at:
           one: "Started at is inferior than expected"
           other: "{{count}} Started at is inferior than expected"
+        stopped_at:
+          one: "Stopped at is inferior than expected"
+          other: "{{count}} Stopped at is inferior than expected"
       land_parcel:
         born_at: "Created at"
       land_parcel_group:
@@ -178,16 +178,16 @@ eng:
               invalid_date: "The depreciation must start on %{start} or on a beginning of month"
         incoming_parcel_item:
           greater_than_undelivered_quantity: "The quantity of product %{product} to deliver is greater than undelivered quantity (%{maximum}%{unit})"
-        intervention_working_period:
-          attributes:
-            stopped_at: 
-              inferior: "Stopped at is inferior than expected"
-            started_at: 
-              inferior: "Started at is inferior than expected"
         integration:
           attributes:
             parameters:
               check_errored: "Connexion check errored. Please ensure the validity of your input or try again later."
+        intervention_working_period:
+          attributes:
+            started_at:
+              inferior: "Started at is inferior than expected"
+            stopped_at:
+              inferior: "Stopped at is inferior than expected"
         journal:
           attributes:
             accountant:
@@ -366,19 +366,6 @@ eng:
       payslip_affair: "Payslip affair"
       payslip_nature: "Payslip type"
       payslip_payment: "Payslip payment"
-      # planning/activity_production_ext/batch: "Planning/activity production ext/batch"
-      # planning/activity_production_ext/irregular_batch: "Planning/activity production ext/irregular batch"
-      # planning/daily_charge: "Planning/daily charge"
-      # planning/intervention_proposal: "Planning/intervention proposal"
-      # planning/intervention_proposal/parameter: "Planning/intervention proposal/parameter"
-      # planning/intervention_template: "Planning/intervention template"
-      # planning/intervention_template/product_parameter: "Planning/intervention template/product parameter"
-      # planning/intervention_template_activity: "Planning/intervention template activity"
-      # planning/scenario: "Planning/scenario"
-      # planning/scenario_activity: "Planning/scenario activity"
-      # planning/scenario_activity/plot: "Planning/scenario activity/plot"
-      # planning/technical_itinerary: "Planning/technical itinerary"
-      # planning/technical_itinerary_intervention_template: "Planning/technical itinerary intervention template"
       plant: "Plant"
       plant_counting: "Plant counting"
       plant_counting_item: "Plant counting item"
@@ -540,8 +527,6 @@ eng:
     assembly: "Assembly"
     asset_account: "Asset account"
     asset_exists: "Asset exists" #?
-    # association_activities: "Association activities"
-    # associations_intervention_templates: "Associations intervention templates"
     attachments: "Attachments"
     attribute_name: "Attribute name"
     attribution: "Attribution"
@@ -572,9 +557,9 @@ eng:
     bank_statement_letter: "Bank statement letter"
     bank_statements: "Bank statements"
     base_amount: "Base amount"
-    batch: "Batch"
+    batch: "Batch" #?
     batch_number: "Batch number"
-    batch_planting: "Batch planting"
+    batch_planting: "Batch planting" #?
     battery_level: "Battery level"
     birth_date_completeness: "Birth date completeness"
     birth_farm_number: "Birth farm number"
@@ -726,7 +711,7 @@ eng:
     custom_fields: "Custom fields"
     custom_fields_columns: "Custom fields columns"
     customized_type: "Customized type"
-    daily_charges: "Daily charges"
+    daily_charges: "Daily charges" #?
     daily_nitrogen_production: "Daily nitrogen production"
     dashboards: "Dashboards"
     # data: "Data"
@@ -841,7 +826,6 @@ eng:
     equipment_nature: "Equipment nature"
     estimate_reception_date: "Estimate reception date"
     euid: "EUID"
-    # evaluation: "Evaluation"
     event: "Event"
     event_participation: "Event participation"
     events: "Events"
@@ -1042,11 +1026,10 @@ eng:
     intervention_participation: "Intervention participation"
     intervention_participations: "Intervention participations"
     intervention_product_parameters: "Intervention casts"
-    intervention_proposal: "Intervention proposal"
-    intervention_proposals: "Intervention proposals"
-    intervention_template: "Intervention template"
-    # intervention_template_product_parameter: "Intervention template product parameter"
-    intervention_templates: "Intervention templates"
+    intervention_proposal: "Intervention proposal" #?
+    intervention_proposals: "Intervention proposals" #?
+    intervention_template: "Intervention template" #?
+    intervention_templates: "Intervention templates" #?
     interventions: "Interventions"
     interventions_used_in: "Interventions used in"
     intracommunity: "Intracommunity"
@@ -1068,8 +1051,7 @@ eng:
     invoiced_at: "Invoiced on"
     invoiced_on: "Invoiced on"
     ip_address: "IP address"
-    irregular_batch: "Irregular batch"
-    # irregular_batches: "Irregular batches"
+    irregular_batch: "Irregular batch" #?
     irrigated: "Irrigated"
     irrigation_water_nitrogen: "Irrigation water nitrogen"
     islet: "Islet"
@@ -1126,9 +1108,7 @@ eng:
     linkage_points_list: "Linkage points list"
     linkages: "Linkages"
     linked: "Linked"
-    # linked_intervention_template: "Linked intervention template"
     linked_role: "Entity 2 role"
-    # linked_technical_itinerary: "Linked technical itinerary"
     links: "Links"
     list: "List"
     listing: "Listing"
@@ -1253,7 +1233,7 @@ eng:
     number: "Number"
     number_format: "Number format"
     number_increment: "Number increment"
-    number_of_batch: "Number of batch"
+    number_of_batch: "Number of batch" #?
     number_start: "Number start"
     observations: "Observations"
     observed_at: "Observed at"
@@ -1344,8 +1324,6 @@ eng:
     plant_density_abacus: "Plant density abacus"
     plant_density_abacus_item: "Plant density abacus item"
     plants_count: "Plants count"
-    # plot: "Plot"
-    # plots: "Plots"
     point: "Point"
     point_value: "Point value"
     points: "Points"
@@ -1569,9 +1547,6 @@ eng:
     sampling_temporal_mode: "Sampling temporal mode"
     scale: "Scale"
     # scales: "Scales"
-    # scenario: "Scenario"
-    # scenario_activities: "Scenario activities"
-    # scenario_activity: "Scenario activity"
     scheduled: "Scheduled"
     scrapped_journal_entry: "Scrapped journal entry"
     scrapped_on: "Scrapped on"
@@ -1621,7 +1596,7 @@ eng:
     source_product: "Source product"
     source_product_movement: "Source product movement"
     # source_type: "Source type"
-    sowing_interval: "Sowing interval"
+    sowing_interval: "Sowing interval" #?
     spaced_iban: "Spaced IBAN"
     specie: "Specie"
     sql_type: "SQL type"
@@ -1703,10 +1678,7 @@ eng:
     tax_payability: "Tax payability"
     taxations: "Taxations"
     team: "Team"
-    # technical_itineraries: "Technical itineraries"
-    technical_itinerary: "Technical itinerary"
-    # technical_itinerary_intervention_template: "Technical itinerary intervention template"
-    # technical_itinerary_intervention_templates: "Technical itinerary intervention templates"
+    technical_itinerary: "Technical itinerary" #?
     template: "Template"
     theme: "Theme"
     theoretical_number: "Theoretical number" #?

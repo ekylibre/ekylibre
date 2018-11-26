@@ -1057,6 +1057,7 @@ spa:
     conditions:
       filter_on_attribute_of_class: "Filtro de atributo de la clase"
       special-subscriber: "Especial abonado"
+    # conducted: "Conducted"
     configure: "Configurar"
     # confirmation_update_historical_plans: "Confirmation update historical plans"
     confirmed: "Confirmadas" #?
@@ -1682,6 +1683,8 @@ spa:
     picture: "Imagen"
     placeholder: "Marcador de posición"
     places: "Lugares"
+    # planned: "Planned"
+    # planning: "Planning"
     plant: "Planta"
     plant_counting: "Contando"
     plant_countings: "Los recuentos"
@@ -1717,6 +1720,7 @@ spa:
     production_cost: "Costo de producción"
     # production_costs: "Production costs"
     production_distribution: "Distribución de la producción"
+    # production_nature: "Production nature"
     production_support: "Soporte de producción"
     productions: "Producciones"
     productions_sales: "Producciones ventas"
@@ -1741,6 +1745,7 @@ spa:
       products: "Creación de la compra" #?
       summary: "Desembolsos" #?
     purchases: "Compras"
+    # purchases_prices: "Purchases prices"
     purchases_stocks_variation: "Variación de existencias compras"
     quality: "Calidad"
     # quandl: "Quandl"

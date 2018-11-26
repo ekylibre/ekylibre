@@ -229,6 +229,13 @@ arb:
         amount: "قيمة المخصصة للبيع" #?
         expense_id: "تكلفة" #?
         updated_at: "تم تحديثها في" #?
+      intervention_working_period:
+        started_at:
+          # one: "Started at is inferior than expected"
+          # other: "{{count}} Started at is inferior than expected"
+        stopped_at:
+          # one: "Stopped at is inferior than expected"
+          # other: "{{count}} Stopped at is inferior than expected"
       inventory: #?
         comment: "تعليق" #?
         created_at: "اكتمل يوم" #?
@@ -746,6 +753,12 @@ arb:
           attributes:
             parameters:
               check_errored: "التحقق من خطأ كونيكسيون. يرجى التأكد من صلاحية الإدخال أو إعادة المحاولة لاحقا."
+        intervention_working_period:
+          attributes:
+            started_at:
+              # inferior: "Started at is inferior than expected"
+            stopped_at:
+              # inferior: "Stopped at is inferior than expected"
         journal:
           attributes:
             accountant:
@@ -1783,6 +1796,7 @@ arb:
     invoiced_at: "فواتير على"
     invoiced_on: "فواتير على"
     ip_address: "عنوان بروتوكول الإنترنت"
+    # irregular_batch: "Irregular batch"
     irrigated: "المروية"
     irrigation_water_nitrogen: "الري النيتروجين المياه"
     is_debit: "مدين" #?

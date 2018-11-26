@@ -32,6 +32,13 @@ deu:
         started_on: "Update starten"
       fixed_asset_depreciation:
         asset_amount: "verantwortlich Wert"
+      intervention_working_period:
+        started_at:
+          # one: "Started at is inferior than expected"
+          # other: "{{count}} Started at is inferior than expected"
+        stopped_at:
+          # one: "Stopped at is inferior than expected"
+          # other: "{{count}} Stopped at is inferior than expected"
       land_parcel:
         born_at: "Hergestellt in"
       land_parcel_group:
@@ -178,6 +185,12 @@ deu:
           attributes:
             parameters:
               check_errored: "Connexion check fehlerhaft Bitte stellen Sie die Gültigkeit Ihrer Eingabe sicher oder versuchen Sie es später erneut."
+        intervention_working_period:
+          attributes:
+            started_at:
+              # inferior: "Started at is inferior than expected"
+            stopped_at:
+              # inferior: "Stopped at is inferior than expected"
         journal:
           attributes:
             accountant:
@@ -988,6 +1001,7 @@ deu:
     invoiced_at: "in Rechnung zu"
     invoiced_on: "Die fakturierten auf"
     ip_address: "IP-Adresse"
+    # irregular_batch: "Irregular batch"
     irrigated: "bewässerte"
     irrigation_water_nitrogen: "Bewässerungswasser Stickstoff"
     islet: "Inselchen"

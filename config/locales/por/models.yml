@@ -32,6 +32,13 @@ por:
         started_on: "Começar atualização"
       fixed_asset_depreciation:
         asset_amount: "Valor contábil"
+      intervention_working_period:
+        started_at:
+          # one: "Started at is inferior than expected"
+          # other: "{{count}} Started at is inferior than expected"
+        stopped_at:
+          # one: "Stopped at is inferior than expected"
+          # other: "{{count}} Stopped at is inferior than expected"
       land_parcel:
         born_at: "Criado em"
       land_parcel_group:
@@ -178,6 +185,12 @@ por:
           attributes:
             parameters:
               check_errored: "Cheque de conexão com erro. Certifique-se da validade da sua entrada ou tente novamente mais tarde."
+        intervention_working_period:
+          attributes:
+            started_at:
+              # inferior: "Started at is inferior than expected"
+            stopped_at:
+              # inferior: "Stopped at is inferior than expected"
         journal:
           attributes:
             accountant:
@@ -988,6 +1001,7 @@ por:
     invoiced_at: "Facturado"
     invoiced_on: "Facturado"
     ip_address: "Endereço de IP"
+    # irregular_batch: "Irregular batch"
     irrigated: "Irrigada"
     irrigation_water_nitrogen: "Azoto água de irrigação"
     islet: "Ilhota"

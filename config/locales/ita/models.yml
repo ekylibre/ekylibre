@@ -32,6 +32,13 @@ ita:
         started_on: "Inizia l’aggiornamento"
       fixed_asset_depreciation:
         asset_amount: "valore contabile"
+      intervention_working_period:
+        started_at:
+          # one: "Started at is inferior than expected"
+          # other: "{{count}} Started at is inferior than expected"
+        stopped_at:
+          # one: "Stopped at is inferior than expected"
+          # other: "{{count}} Stopped at is inferior than expected"
       land_parcel:
         born_at: "creato a"
       land_parcel_group:
@@ -187,6 +194,12 @@ ita:
           attributes:
             parameters:
               check_errored: "Verifica di connessione errata. Assicurati la validità del tuo contributo o riprova più tardi."
+        intervention_working_period:
+          attributes:
+            started_at:
+              # inferior: "Started at is inferior than expected"
+            stopped_at:
+              # inferior: "Stopped at is inferior than expected"
         journal:
           attributes:
             accountant:
@@ -1019,6 +1032,7 @@ ita:
     invoiced_at: "fatturato su"
     invoiced_on: "Fatturato su"
     ip_address: "Indirizzo IP"
+    # irregular_batch: "Irregular batch"
     irrigated: "Irrigato"
     irrigation_water_nitrogen: "azoto Irrigazione"
     islet: "Isolotto"
@@ -1514,10 +1528,9 @@ ita:
     source: "fonte"
     source_product: "prodotto di origine"
     # source_product_movement: "Source product movement"
+    # sowing_interval: "Sowing interval"
     spaced_iban: "IBAN distanziati"
     # specie: "Specie"
-    # sowing_interval: "Sowing interval"
-    # spaced_iban: "Spaced IBAN"
     sql_type: "tipo SQL"
     ssl: "Ssl"
     start: "Inizio"

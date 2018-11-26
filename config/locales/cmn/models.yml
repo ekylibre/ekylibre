@@ -32,6 +32,13 @@ cmn:
         started_on: "开始升级"
       fixed_asset_depreciation:
         asset_amount: "问责值"
+      intervention_working_period:
+        started_at:
+          # one: "Started at is inferior than expected"
+          # other: "{{count}} Started at is inferior than expected"
+        stopped_at:
+          # one: "Stopped at is inferior than expected"
+          # other: "{{count}} Stopped at is inferior than expected"
       land_parcel:
         born_at: "创建时间"
       land_parcel_group:
@@ -178,6 +185,12 @@ cmn:
           attributes:
             parameters:
               check_errored: "连接检查错误。请确保输入的有效性或稍后再试。"
+        intervention_working_period:
+          attributes:
+            started_at:
+              # inferior: "Started at is inferior than expected"
+            stopped_at:
+              # inferior: "Stopped at is inferior than expected"
         journal:
           attributes:
             accountant:
@@ -988,6 +1001,7 @@ cmn:
     invoiced_at: "开具发票的上"
     invoiced_on: "开具发票的上"
     ip_address: "IP地址"
+    # irregular_batch: "Irregular batch"
     irrigated: "灌溉"
     irrigation_water_nitrogen: "灌溉水氮"
     islet: "坻"

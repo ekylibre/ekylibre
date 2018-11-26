@@ -32,6 +32,13 @@ spa:
         started_on: "Iniciar la actualización"
       fixed_asset_depreciation:
         asset_amount: "Valor contable"
+      intervention_working_period:
+        started_at:
+          # one: "Started at is inferior than expected"
+          # other: "{{count}} Started at is inferior than expected"
+        stopped_at:
+          # one: "Stopped at is inferior than expected"
+          # other: "{{count}} Stopped at is inferior than expected"
       land_parcel:
         born_at: "Creado en"
       land_parcel_group:
@@ -178,6 +185,12 @@ spa:
           attributes:
             parameters:
               check_errored: "Comprobación de conexión errónea. Asegúrese de que la entrada es válida o vuelva a intentarlo más tarde."
+        intervention_working_period:
+          attributes:
+            started_at:
+              # inferior: "Started at is inferior than expected"
+            stopped_at:
+              # inferior: "Stopped at is inferior than expected"
         journal:
           attributes:
             accountant:
@@ -992,6 +1005,7 @@ spa:
     invoiced_at: "Facturado sobre"
     invoiced_on: "Facturado sobre"
     ip_address: "Dirección IP"
+    # irregular_batch: "Irregular batch"
     irrigated: "Regadío"
     irrigation_water_nitrogen: "Irrigación de nitrógeno del agua"
     islet: "Isleta"
@@ -1487,10 +1501,9 @@ spa:
     source: "Fuente"
     source_product: "Producto de código"
     # source_product_movement: "Source product movement"
+    # sowing_interval: "Sowing interval"
     spaced_iban: "IBAN espaciado"
     # specie: "Specie"
-    # sowing_interval: "Sowing interval"
-    # spaced_iban: "Spaced IBAN"
     sql_type: "Tipo de SQL"
     ssl: "Ssl"
     start: "Comienzo"

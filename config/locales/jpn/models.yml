@@ -32,6 +32,13 @@ jpn:
         started_on: "起動日付"
       fixed_asset_depreciation:
         asset_amount: "責任値"
+      intervention_working_period:
+        started_at:
+          # one: "Started at is inferior than expected"
+          # other: "{{count}} Started at is inferior than expected"
+        stopped_at:
+          # one: "Stopped at is inferior than expected"
+          # other: "{{count}} Stopped at is inferior than expected"
       land_parcel:
         born_at: "で作成されました"
       land_parcel_group:
@@ -178,6 +185,12 @@ jpn:
           attributes:
             parameters:
               check_errored: "コネクションチェックがエラーを起こしました。あなたの入力の有効性を確認するか、後でやり直してください。"
+        intervention_working_period:
+          attributes:
+            started_at:
+              # inferior: "Started at is inferior than expected"
+            stopped_at:
+              # inferior: "Stopped at is inferior than expected"
         journal:
           attributes:
             accountant:
@@ -988,6 +1001,7 @@ jpn:
     invoiced_at: "上の請求済み"
     invoiced_on: "上の請求済み"
     ip_address: "IPアドレス"
+    # irregular_batch: "Irregular batch"
     irrigated: "灌漑"
     irrigation_water_nitrogen: "灌漑水の窒素"
     islet: "小島"

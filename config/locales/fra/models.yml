@@ -85,9 +85,9 @@ fra:
       intervention: #?
         production_support: "Support de production" #?
         storage: "Support" #?
-      intervention_working_period: #?
-        started_at: "Date de début" #?
-        stopped_at: "Date de fin" #?
+      intervention_working_period:
+        started_at: "Date de début" #? Hash expected ({:one=>"Started at is inferior than expected", :other=>"{{count}} Started at is inferior than expected"})
+        stopped_at: "Date de fin" #? Hash expected ({:one=>"Stopped at is inferior than expected", :other=>"{{count}} Stopped at is inferior than expected"})
       inventory_item: #?
         quantity: "Quantité constatée" #?
       journal_entry_item: #?
@@ -334,6 +334,12 @@ fra:
           attributes:
             parameters:
               check_errored: "La connexion au partenaire a échoué. Veuillez vérifier les informations saisies ou réessayer plus tard."
+        intervention_working_period:
+          attributes:
+            started_at:
+              # inferior: "Started at is inferior than expected"
+            stopped_at:
+              # inferior: "Stopped at is inferior than expected"
         journal:
           attributes:
             accountant:
@@ -1229,6 +1235,7 @@ fra:
     invoiced_on: "Facturé sur"
     invoices_count: "Nombre de factures" #?
     ip_address: "Adresse IP"
+    # irregular_batch: "Irregular batch"
     irrigated: "Irrigué"
     irrigation_water_nitrogen: "Azote apporté par l’eau d’irrigation (Nirr)"
     islet: "Ilôt"

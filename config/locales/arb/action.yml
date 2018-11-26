@@ -1269,6 +1269,7 @@ arb:
     conditions:
       filter_on_attribute_of_class: "التصفية وفق %{attribute} (%{class})"
       special-subscriber: "تصفية وفق الاشتراك"
+    # conducted: "Conducted"
     configure: "تكوين"
     # confirmation_update_historical_plans: "Confirmation update historical plans"
     confirmed: "تأكيد" #?
@@ -2024,7 +2025,9 @@ arb:
     picture: "صورة"
     placeholder: "نائب"
     places: "الأماكن"
+    # planned: "Planned"
     planned_at: "قرر يوم" #?
+    # planning: "Planning"
     plant: "نبات"
     plant_counting: "عد"
     plant_countings: "فرزان"
@@ -2068,6 +2071,7 @@ arb:
     production_cost: "تكلفة الانتاج"
     # production_costs: "Production costs"
     production_distribution: "توزيع الانتاج"
+    # production_nature: "Production nature"
     production_support: "دعم الإنتاج"
     productions: "المنتجات"
     productions_sales: "مبيعات المنتجات"
@@ -2099,6 +2103,7 @@ arb:
     purchases: "المشتريات"
     purchases_number: "" #?
     purchases_price_create: "اضافة سعر الشراء" #?
+    # purchases_prices: "Purchases prices"
     purchases_stocks_variation: "تباين الأسهم مشتريات"
     quality: "جودة"
     # quandl: "Quandl"

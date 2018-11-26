@@ -1306,6 +1306,7 @@ eng:
     create_or_import_incoming_parcels: "Create or import incoming parcels"
     create_or_import_interventions: "Create or import interventions"
     create_or_import_workers: "Create or import workers"
+    # create_shipment: "Create shipment"
     created_at: "Created on" #?
     created_at_by: "Created at %{at} by %{author}"
     created_between: "Created between %{started_at} and %{stopped_at}"
@@ -1812,7 +1813,7 @@ eng:
     payments: "Payments"
     payments_count: "Payments count"
     payslip_number: "Payslip #" #?
-    payslips: "Payslips" #?
+    payslips: "Payslips"
     people: "People"
     percentage_by_calibration: "Percentage by calibration"
     # percentage_by_calibration_x: "Percentage by calibration x"
@@ -1831,7 +1832,7 @@ eng:
     placeholder: "Placeholder" #?
     places: "Places"
     planned: "Planned"
-    planning: "Planning"
+    planning: "Planning" #?
     plant: "Crop"
     plant_counting: "Counting" #?
     plant_countings: "Countings" #?
@@ -1849,7 +1850,6 @@ eng:
     prescriptions: "Prescriptions" #?
     pretax_amount: "Pre-tax amount"
     previous: "Previous"
-    # prevision: "Prevision"
     price: "Price" #?
     prices: "Prices" #?
     print: "Print" #?
@@ -1866,7 +1866,7 @@ eng:
     production_cost: "Production cost"
     production_costs: "Production costs"
     production_distribution: "Production distribution" #?
-    # production_nature: "Production nature"
+    production_nature: "Production nature"
     production_support: "Production support"
     productions: "Productions"
     productions_sales: "Productions sales" #??
@@ -1886,7 +1886,7 @@ eng:
     purchase_order: "Purchase order" #?
     purchase_payments: "Purchase payments"
     purchases: "Purchases"
-    # purchases_prices: "Purchases prices"
+    purchases_prices: "Purchases prices"
     purchases_stocks_variation: "Purchases stocks variation" #?!
     quality: "Quality"
     quandl: "Quandl" #?
@@ -1939,7 +1939,7 @@ eng:
     report: "Report" #?
     request: "Request" #?
     request_maintenance: "Request maintenance"
-    requests: "Requests"
+    requests: "Requests" #?
     reserve: "Reserve" #?
     reset: "Reset"
     resource: "View original document: %{resource} %{number}" #?
@@ -2200,7 +2200,7 @@ eng:
     wice_grid_columns: "Columns"
     wind_speed: "Wind speed"
     with_fixed_assets_depreciations: "With fixed assets depreciations"
-    worked_zone_not_corresponding: "The worked zone is not corresponding to the planned one" #?!
+    worked_zone_not_corresponding: "The worked zone is not corresponding to the planned one"
     workers: "Workers"
     workforce: "Workforce" #?!
     # working_area: "Working area"

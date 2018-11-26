@@ -1175,7 +1175,7 @@ fra:
     conditions:
       filter_on_attribute_of_class: "Filtre sur %{attribute} (%{class})"
       special-subscriber: "Filtre Abonné"
-    conducted: 'Réalisée'
+    conducted: "Réalisée"
     configure: "Configurer"
     confirmation_update_historical_plans: "Voulez-vous appliquer ces modifications sur l'historique des noms de parcelles ?"
     confirmed: "Confirmées" #?
@@ -1220,6 +1220,7 @@ fra:
     create_or_import_incoming_parcels: "Créer ou importer des colis à réceptionner"
     create_or_import_interventions: "Créer ou importer des interventions"
     create_or_import_workers: "Créer ou importer des équipiers"
+    create_shipment: "Créer une expédition" #?
     created_at: "Créée le"
     created_at_by: "Créé le %{at} par %{author}"
     created_between: "Enregistré entre le %{started_at} et le %{stopped_at}"
@@ -1464,7 +1465,6 @@ fra:
     generate: "Générer"
     generate_last_journal_entry: "Générer la dernière écriture"
     generate_parcel: "Créer une réception"
-    create_shipment: "Créer une expédition"
     generate_repayments: "Passer en comptabilité"
     geolocation: "Géolocalisation"
     give_discount: "Octroyer une remise" #?
@@ -1930,11 +1930,12 @@ fra:
     picture: "Photo"
     placeholder: "Espace réservé"
     places: "Lieux"
-    planned:
-      one: 'Planifiée'
-      other: 'Planifiées'
+    planned: #? String expected ("Planned")
+      one: "Planifiée" #?
+      other: "Planifiées" #?
     planned_at: "Date prévisionnelle" #?
     planned_by: "Planifiée par" #?
+    # planning: "Planning"
     plant: "Culture"
     plant_counting: "Comptage"
     plant_countings: "Comptages"
@@ -1989,6 +1990,7 @@ fra:
     production_cost: "Coût de production"
     production_costs: "Coûts de production"
     production_distribution: "Répartition de la production"
+    production_nature: "Type de production"
     production_support: "Support de production"
     productions: "Productions"
     productions_map: "Carte des productions" #?
@@ -2020,6 +2022,7 @@ fra:
     purchases: "Achats"
     purchases_bar: "Achats par type" #?
     purchases_expense_bar: "Dépenses par mois" #?
+    purchases_prices: "Evolution du prix d'achat"
     purchases_selections: #?
       aborted: "Annulée" #?
       draft: "Brouillon" #?
