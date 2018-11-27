@@ -90,9 +90,9 @@ module Backend
     def new
       @financial_year = FinancialYear.new
       f = FinancialYear.last
-      @financial_year.started_on = f.stopped_on + 1 unless f.nil?
+      @financial_year.started_on = f.nil? ? Entity.of_company&.born_at : f.stopped_on + 1
       @financial_year.started_on ||= Time.zone.today
-      @financial_year.stopped_on = ((@financial_year.started_on - 1) >> 12).end_of_month
+      @financial_year.stopped_on = f.nil? && Entity.of_company&.first_financial_year_ends_on ? Entity.of_company.first_financial_year_ends_on : ((@financial_year.started_on - 1) >> 12).end_of_month
       @financial_year.code = @financial_year.default_code
       @financial_year.currency = @financial_year.previous.currency if @financial_year.previous
       @financial_year.currency ||= Preference[:currency]
