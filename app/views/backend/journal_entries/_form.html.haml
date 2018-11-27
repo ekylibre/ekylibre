@@ -14,7 +14,7 @@
       = f.input :reference_number
       = f.input :printed_on, autofocus: true
       = f.input :real_currency_rate, label_html: { data: { change_label: :exchange_rate_from_x_to_y.tl(x: '{{FROM}}', y: '{{TO}}') } }, wrapper_html: { class: 'currency-change' }
-
+      = f.association :creator, input_html: { value: current_user.id }, as: :hidden
       = f.custom_fields
 
       .items

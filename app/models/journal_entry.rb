@@ -282,7 +282,8 @@ class JournalEntry < Ekylibre::Record::Base
     errors.add(:items, :empty) unless items.any?
     errors.add(:balance, :unbalanced) unless balance.zero?
     errors.add(:real_balance, :unbalanced) unless real_balance.zero?
-    errors.add(:printed_on, :not_opened_financial_year) unless financial_year&.opened?
+    errors.add(:printed_on, :not_opened_financial_year) unless financial_year&.opened? || financial_year&.closure_in_preparation?
+    errors.add(:printed_on, :financial_year_matching_this_date_is_in_closure_preparation) if financial_year&.closure_in_preparation? && financial_year.closer.id != creator_id
   end
 
   after_save do

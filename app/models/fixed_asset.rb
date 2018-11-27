@@ -164,7 +164,8 @@ class FixedAsset < Ekylibre::Record::Base
   end
 
   validate do
-    errors.add(:started_on, :not_opened_financial_year) if started_on && !opened_financial_year?
+    errors.add(:started_on, :not_opened_financial_year) if started_on && !opened_financial_year? && !financial_year_in_closure_preparation?
+    errors.add(:started_on, :financial_year_matching_this_date_is_in_closure_preparation) if financial_year_in_closure_preparation? && FinancialYear.on(started_on).closer.id != creator_id
     if started_on && self.stopped_on && stopped_on < started_on
       errors.add(:stopped_on, :posterior, to: started_on.l)
     end
@@ -235,6 +236,10 @@ class FixedAsset < Ekylibre::Record::Base
 
   def opened_financial_year?
     FinancialYear.on(started_on)&.opened?
+  end
+
+  def financial_year_in_closure_preparation?
+    FinancialYear.on(started_on)&.closure_in_preparation?
   end
 
   # This callback permits to add journal entry corresponding to the fixed asset when entering in use

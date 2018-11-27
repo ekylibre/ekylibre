@@ -7,7 +7,11 @@
     = t.edit resource
     = t.compute_balances resource, method: :post
   = t.new(label: :new_financial_year_exchange.tl, params: { controller: :financial_year_exchanges, financial_year_id: resource.id }) if resource.can_create_exchange?
-  - if resource == FinancialYear.closable_or_lockable
+  - if resource == FinancialYear.closable_or_lockable && !resource.closure_in_preparation?
+    = t.prepare_for_closure resource, redirect: backend_financial_year_path(resource), method: :post, label: :prepare_financial_year_for_closure.tl(code: resource.code), icon: false
+    = t.lock resource, label: :lock_financial_year.tl(code: resource.name), icon: false
+  - if resource.closure_in_preparation? && @closer == current_user
+    = t.prepare_for_closure resource, redirect: backend_financial_year_path(resource), method: :delete, label: :quit_financial_year_closure_preparation.tl(code: resource.code), icon: false
     = t.close resource, label: :close_financial_year.tl(code: resource.name), icon: false
     = t.lock resource, label: :lock_financial_year.tl(code: resource.name), icon: false
   - style = resource.closing? ? 'disabled-btn' : ''

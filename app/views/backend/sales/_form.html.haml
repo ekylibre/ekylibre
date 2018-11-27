@@ -13,6 +13,7 @@
   = f.referenced_association :responsible, source: {scope: :users}, new: {employed: 1}
   = f.referenced_association :transporter, source: :transporters
   = f.input :description
+  = f.association :creator, input_html: { value: current_user.id }, as: :hidden
 
   - if f.object.credited_sale
     = f.association :affair, as: :hidden

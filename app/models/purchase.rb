@@ -156,7 +156,8 @@ class Purchase < Ekylibre::Record::Base
   validate do
     if invoiced_at
       errors.add(:invoiced_at, :before, restriction: Time.zone.now.l) if invoiced_at > Time.zone.now
-      errors.add(:invoiced_at, :not_opened_financial_year) unless opened_financial_year?
+      errors.add(:invoiced_at, :not_opened_financial_year) unless opened_financial_year? || financial_year_in_closure_preparation?
+      errors.add(:invoiced_at, :financial_year_matching_this_date_is_in_closure_preparation) if financial_year_in_closure_preparation? && FinancialYear.on(invoiced_at).closer.id != creator_id
     end
   end
 
@@ -287,6 +288,10 @@ class Purchase < Ekylibre::Record::Base
 
   def opened_financial_year?
     FinancialYear.on(invoiced_at)&.opened?
+  end
+
+  def financial_year_in_closure_preparation?
+    FinancialYear.on(invoiced_at)&.closure_in_preparation?
   end
 
   def purchased?

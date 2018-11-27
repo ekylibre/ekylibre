@@ -24,6 +24,7 @@
   = f.input :given_at, required: false
   - if f.object.outgoing?
     = f.input :remain_owner
+  = f.association :creator, input_html: { value: current_user.id }, as: :hidden
   = f.custom_fields
   = f.attachments
   -# = f.object.errors.inspect

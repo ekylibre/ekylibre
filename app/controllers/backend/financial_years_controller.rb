@@ -67,6 +67,10 @@ module Backend
           if @financial_year.closed? && @financial_year.account_balances.empty?
             @financial_year.compute_balances!
           end
+          if @financial_year.closure_in_preparation?
+            @closer = @financial_year.closer
+            @closer == current_user ? notify_now(:financial_year_closure_in_preparation_initiated_by_you.tl(code: @financial_year.code)) : notify_now(:financial_year_closure_in_preparation_initiated_by_someone_else.tl(code: @financial_year.code))
+          end
           notify_now(:locked_exercice_info) if @financial_year.locked?
           t3e @financial_year.attributes
           @progress_status = fetch_progress_values(params[:id])
