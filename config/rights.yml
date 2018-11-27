@@ -100,6 +100,7 @@
 #     - "backend/financial_year_archives#create"
 #     - "backend/financial_years#destroy_all_empty"
 #     - "backend/financial_years#lock"
+#     - "backend/financial_years#prepare_for_closure"
 #     - "backend/financial_years#run_progress"
 #     - "backend/general_ledgers#archive_report"
 #     - "backend/general_ledgers#find_open_document_template"

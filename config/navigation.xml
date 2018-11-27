@@ -2078,6 +2078,7 @@
       </item>
       <item name="financial_years">
         <page to="backend/financial_years#destroy_all_empty"/>
+        <page to="backend/financial_years#prepare_for_closure"/>
         <page to="backend/financial_years#run_progress"/>
       </item>
       <item name="general_ledgers">

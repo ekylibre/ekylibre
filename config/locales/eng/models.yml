@@ -595,6 +595,7 @@ eng:
     closed: "Closed"
     closed_at: "Closed at"
     closed_on: "Closed on"
+    # closer: "Closer"
     closure_journal: "Closure journal" #?
     clusters_work_number: "Clusters work number" #?
     code: "Code"
