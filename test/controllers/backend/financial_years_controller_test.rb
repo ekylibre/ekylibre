@@ -19,7 +19,7 @@
 require 'test_helper'
 module Backend
   class FinancialYearsControllerTest < ActionController::TestCase
-    test_restfully_all_actions generate_last_journal_entry: :get_and_post, close: :get_and_post, compute_balances: :touch, destroy_all_empty: :destroy, except: %i[synthesis run_progress]
+    test_restfully_all_actions generate_last_journal_entry: :get_and_post, close: :get_and_post, compute_balances: :touch, destroy_all_empty: :destroy, except: %i[synthesis run_progress prepare_for_closure]
 
     test 'locking a financial year locks its fixed asset depreciations as well' do
       FinancialYear.delete_all
