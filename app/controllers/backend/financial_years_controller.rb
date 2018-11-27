@@ -92,7 +92,11 @@ module Backend
       f = FinancialYear.last
       @financial_year.started_on = f.nil? ? Entity.of_company&.born_at : f.stopped_on + 1
       @financial_year.started_on ||= Time.zone.today
-      @financial_year.stopped_on = f.nil? && Entity.of_company&.first_financial_year_ends_on ? Entity.of_company.first_financial_year_ends_on : ((@financial_year.started_on - 1) >> 12).end_of_month
+      if f.nil? && Entity.of_company&.first_financial_year_ends_on
+        @financial_year.stopped_on = Entity.of_company.first_financial_year_ends_on
+      else
+        @financial_year.stopped_on = ((@financial_year.started_on - 1) + 1.year).end_of_month
+      end
       @financial_year.code = @financial_year.default_code
       @financial_year.currency = @financial_year.previous.currency if @financial_year.previous
       @financial_year.currency ||= Preference[:currency]
