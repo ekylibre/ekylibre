@@ -76,7 +76,7 @@ module Ekylibre
         company.last_name = @company[:name]
         company.born_at = @company[:born_at]
         company.siret_number = @company[:siret_number]
-        company.financial_year_start_at = @company[:financial_year_start_at]
+        company.first_financial_year_ends_at = @company[:first_financial_year_ends_at]
         company.save!
         # Create default phone number
         if @company[:phone].present?
