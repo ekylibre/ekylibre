@@ -5,5 +5,4 @@
   = f.input :currency_rate
   = f.referenced_association :reception_cash
   = f.input :description, field: :text
-  = f.association :creator, input_html: { value: current_user.id }, as: :hidden
   = f.custom_fields

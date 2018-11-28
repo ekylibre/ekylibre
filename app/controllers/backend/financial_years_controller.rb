@@ -203,18 +203,6 @@ module Backend
                                             step_label: progress_status[:label] }
     end
 
-    def prepare_for_closure
-      return unless financial_year = find_and_check
-      if request.post?
-        financial_year.update(state: 'closure_in_preparation', closer: current_user)
-        return redirect_to params[:redirect]
-      end
-      if request.delete?
-        financial_year.update(state: 'opened', closer: nil)
-        return redirect_to params[:redirect]
-      end
-    end
-
     private
 
     def fetch_progress_values(id)

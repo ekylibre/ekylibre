@@ -4,7 +4,6 @@
   = f.input :name
   = f.input :description, as: :text
   = f.referenced_association :product, :source => :depreciables
-  = f.association :creator, input_html: { value: current_user.id }, as: :hidden
   = f.custom_fields
 
 - if f.object.draft? || f.object.new_record?

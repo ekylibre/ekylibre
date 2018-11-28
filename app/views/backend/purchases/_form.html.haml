@@ -13,7 +13,6 @@
   = f.input :tax_payability, as: :radio_buttons
   = f.referenced_association :responsible, source: :employees, new: { employed: 1 }
   = f.input :description
-  = f.association :creator, input_html: { value: current_user.id }, as: :hidden
   = f.custom_fields
 
 = field_set Purchase.human_attribute_name(:items) do

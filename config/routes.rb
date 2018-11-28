@@ -517,7 +517,6 @@ Rails.application.routes.draw do
         get :list_exchanges
         get :run_progress
         match 'lock', via: %i[get post]
-        match 'prepare_for_closure', via: %i[post delete]
       end
     end
 
@@ -531,6 +530,8 @@ Rails.application.routes.draw do
         get :close
       end
     end
+
+    resource :financial_year_closure_preparations, only: %i[create destroy]
 
     resources :financial_year_archives, only: [] do
       member do
