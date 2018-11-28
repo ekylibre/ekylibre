@@ -308,7 +308,6 @@ eng:
       index: "Financial years"
       lock: "Lock financial year %{code}"
       new: "Open a new financial year"
-      # prepare_for_closure: "Prepare for closure financial year: %{name}"
       # run_progress: "Run progress financial year: %{name}"
       show: "Financial year %{code}"
     backend/fixed_asset_depreciations:
@@ -2632,7 +2631,6 @@ eng:
       pick: "Pick"
       picture: "Picture"
       prepare: "Prepare"
-      # prepare_for_closure: "Prepare for closure"
       # progress: "Progress"
       propose: "Propose"
       propose_and_invoice: "Propose and invoice"
