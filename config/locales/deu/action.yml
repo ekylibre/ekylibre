@@ -2267,7 +2267,7 @@ deu:
       increment: "Zuwachs" #?
       # index: "Index"
       invoice: "Rechnung"
-      journal_entries_csv_export: "CSV-Datei herunterladen"
+      journal_entries_export: "CSV-Datei herunterladen"
       journal_entries_import: "CSV-Import"
       list: "Liste"
       load: "Belastung"

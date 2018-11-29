@@ -2344,7 +2344,7 @@ jpn:
       increment: "インクリメント" #?
       index: "インデックス"
       invoice: "請求書"
-      journal_entries_csv_export: "CSVをダウンロード"
+      journal_entries_export: "CSVをダウンロード"
       journal_entries_import: "CSVのインポート"
       list: "リスト"
       load: "負荷"

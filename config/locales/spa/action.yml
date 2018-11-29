@@ -2560,7 +2560,7 @@ spa:
       increment: "Incremento" #?
       index: "Índice"
       invoice: "Factura"
-      journal_entries_csv_export: "Descargar CSV"
+      journal_entries_export: "Descargar CSV"
       journal_entries_import: "Importar CSV"
       list: "Lista"
       load: "Carga"

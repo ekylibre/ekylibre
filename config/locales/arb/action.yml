@@ -3045,7 +3045,7 @@ arb:
       increment: "زيادة" #?
       index: "فهرس"
       invoice: "فاتورة"
-      journal_entries_csv_export: "تنزيل ملف CSV"
+      journal_entries_export: "تنزيل ملف CSV"
       journal_entries_import: "استيراد CSV"
       list: "قائمة"
       load: "حمل"

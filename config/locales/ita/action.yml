@@ -2334,7 +2334,7 @@ ita:
       increment: "Incremento" #?
       index: "Indice"
       invoice: "Fattura"
-      journal_entries_csv_export: "Scarica CSV"
+      journal_entries_export: "Scarica CSV"
       journal_entries_import: "Importa CSV"
       list: "Lista"
       load: "Caricare"

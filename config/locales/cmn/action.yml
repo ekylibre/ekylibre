@@ -2269,7 +2269,7 @@ cmn:
       increment: "增量" #?
       index: "指数"
       invoice: "发票"
-      journal_entries_csv_export: "下载CSV"
+      journal_entries_export: "下载CSV"
       journal_entries_import: "导入CSV"
       list: "名单"
       load: "加载"
