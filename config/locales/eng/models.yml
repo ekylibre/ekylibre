@@ -1402,6 +1402,7 @@ eng:
     responses: "Responses"
     responsible: "Responsible"
     restricted: "Restricted"
+    result_journal: "Result journal"
     retrieval_message: "Retrieval message"
     retrieval_mode: "Retrieval mode"
     retrieval_status: "Retrieval status"
