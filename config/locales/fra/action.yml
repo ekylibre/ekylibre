@@ -2416,6 +2416,7 @@ fra:
     unit: "Unité"
     unit_amount: "Prix unit. HT"
     unit_and_indicator: "%{unit} (%{indicator})"
+    unit_pretax_amount: "Prix unitaire HT"
     unit_price_amount: "PU HT" #?
     unit_price_amount_with_taxes: "PU TTC" #?
     units_load: "Charger les unités de base manquantes" #?

@@ -745,6 +745,8 @@ jpn:
         # one: "%{count} error prohibited this %{model} from being saved"
         # other: "%{count} errors prohibited this %{model} from being saved"
   front-end:
+    bank_reconciliation:
+      # remove: "Remove"
     leaflet:
       draw:
         handlers:
@@ -1561,6 +1563,7 @@ jpn:
     payment_amount: "支払額"
     payment_at: "お支払いについて"
     payment_conditions: "支払条件"
+    # payment_delay_placeholder: "eom, 5 days before"
     payment_mode: "お支払いモード"
     payments: "支払い"
     payments_count: "支払いは数えます"
@@ -1899,6 +1902,7 @@ jpn:
     unit: "単位"
     # unit_amount: "Unit cost excl. taxes"
     # unit_and_indicator: "%{unit} (%{indicator})"
+    # unit_pretax_amount: "Unit pretax amount"
     unknown: "不明"
     unknown_condition: "未知の状態"
     unknown_user: "不明なユーザー"

@@ -914,6 +914,8 @@ arb:
         # one: "%{count} error prohibited this %{model} from being saved"
         # other: "%{count} errors prohibited this %{model} from being saved"
   front-end:
+    bank_reconciliation:
+      # remove: "Remove"
     leaflet:
       draw:
         handlers:
@@ -2003,6 +2005,7 @@ arb:
     payment_amount: "المبلغ المدفوع"
     payment_at: "سدد في"
     payment_conditions: "شروط الدفع"
+    # payment_delay_placeholder: "eom, 5 days before"
     payment_label: "%{number}. %{amount} (%{usable_amount} المتبقي)  %{date} بواسطة %{mode} لاجل %{entity}" #?
     payment_mode: "طريقة تسديد الدفعة"
     payment_uses: "الدفعات" #?
@@ -2459,6 +2462,7 @@ arb:
     # unit_amount: "Unit cost excl. taxes"
     # unit_and_indicator: "%{unit} (%{indicator})"
     unit_create: "اضافة وحدة قياس جديدة" #?
+    # unit_pretax_amount: "Unit pretax amount"
     unit_price_amount: "PU HT" #?
     unit_price_amount_with_taxes: "PU TTC" #?
     units_load: "تحميل الوحدات الاساسية المفقودة" #?

@@ -210,6 +210,8 @@ jpn:
           unvalid_amounts: "ジャーナルエントリは、同時にデビットカードまたはクレジットではなく、どちらかを満たさなければなりません。"
         outgoing_parcel_item:
           # greater_than_undelivered_quantity: "The quantity of %{product} to deliver is greater than the available quantity (%{maximum}%{unit})"
+        purchase:
+          # payment_delay_custom_validation_message: "Accepted formats : %{values}"
         purchase_item:
           attributes:
             fixed:

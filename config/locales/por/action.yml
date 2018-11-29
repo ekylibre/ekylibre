@@ -684,6 +684,8 @@ por:
         # one: "%{count} error prohibited this %{model} from being saved"
         # other: "%{count} errors prohibited this %{model} from being saved"
   front-end:
+    bank_reconciliation:
+      # remove: "Remove"
     leaflet:
       draw:
         handlers:
@@ -1494,6 +1496,7 @@ por:
     payment_amount: "Quantidade de pagamento"
     payment_at: "Sobre o pagamento"
     payment_conditions: "Condições de pagamento"
+    # payment_delay_placeholder: "eom, 5 days before"
     payment_mode: "Modo de pagamento"
     payments: "Pagamentos"
     payments_count: "Pagamentos contar"
@@ -1832,6 +1835,7 @@ por:
     unit: "Unidade"
     # unit_amount: "Unit cost excl. taxes"
     # unit_and_indicator: "%{unit} (%{indicator})"
+    # unit_pretax_amount: "Unit pretax amount"
     unknown: "Desconhecido"
     unknown_condition: "Condição desconhecida"
     unknown_user: "Usuário desconhecido"

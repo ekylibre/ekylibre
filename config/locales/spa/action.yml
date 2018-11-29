@@ -717,6 +717,8 @@ spa:
         # one: "%{count} error prohibited this %{model} from being saved"
         # other: "%{count} errors prohibited this %{model} from being saved"
   front-end:
+    bank_reconciliation:
+      # remove: "Remove"
     leaflet:
       draw:
         handlers:
@@ -1666,6 +1668,7 @@ spa:
     payment_amount: "Cantidad de pago"
     payment_at: "El pago de"
     payment_conditions: "Condiciones de pago"
+    # payment_delay_placeholder: "eom, 5 days before"
     payment_mode: "Modo de pago"
     payments: "Encajonamientos"
     payments_count: "Nombre de %{mode}"
@@ -2057,6 +2060,7 @@ spa:
     # unit_amount: "Unit cost excl. taxes"
     # unit_and_indicator: "%{unit} (%{indicator})"
     unit_create: "Añadir una nueva unidad de medida" #?
+    # unit_pretax_amount: "Unit pretax amount"
     unit_price_amount: "PU HT" #?
     unit_price_amount_with_taxes: "PU TTC" #?
     units_load: "Cargar las unidades de base que falten" #?

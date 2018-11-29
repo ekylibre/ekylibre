@@ -100,7 +100,7 @@
         end
         series << {name: resource.name, data: data }
 
-      = spline_highcharts(series, legend: { layout: 'vertical', align: 'bottom', vertical_align: 'bottom', border_width: 0 }, y_axis: {title: { text: :population.tl}, min: 0}, x_axis: {type: 'datetime', title: { enabled: true, text: :months.tl}})
+      = spline_highcharts(series, legend: { layout: 'vertical', align: 'bottom', vertical_align: 'bottom', border_width: 0 }, y_axis: {title: { text: :unit_pretax_amount.tl}, min: 0}, x_axis: {type: 'datetime', title: { enabled: true, text: :months.tl}})
 
 
   - if resource.products.any?

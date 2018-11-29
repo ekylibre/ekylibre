@@ -679,6 +679,8 @@ cmn:
         # one: "%{count} error prohibited this %{model} from being saved"
         # other: "%{count} errors prohibited this %{model} from being saved"
   front-end:
+    bank_reconciliation:
+      # remove: "Remove"
     leaflet:
       draw:
         handlers:
@@ -1490,6 +1492,7 @@ cmn:
     payment_amount: "支付金额"
     payment_at: "关于支付"
     payment_conditions: "支付条款"
+    # payment_delay_placeholder: "eom, 5 days before"
     payment_mode: "付款方式"
     payments: "支付"
     payments_count: "算上付款"
@@ -1828,6 +1831,7 @@ cmn:
     unit: "单元"
     # unit_amount: "Unit cost excl. taxes"
     # unit_and_indicator: "%{unit} (%{indicator})"
+    # unit_pretax_amount: "Unit pretax amount"
     unknown: "未知"
     unknown_condition: "未知状态"
     unknown_user: "未知的用户"

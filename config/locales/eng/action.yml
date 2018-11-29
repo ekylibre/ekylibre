@@ -2151,6 +2151,7 @@ eng:
     unit: "Unit"
     unit_amount: "Unit cost excl. taxes"
     unit_and_indicator: "%{unit} (%{indicator})"
+    unit_pretax_amount: "Unit pretax amount"
     # unit_price_amount: "Unit price amount"
     # unit_price_amount_with_taxes: "Unit price amount with taxes"
     unknown: "Unknown"

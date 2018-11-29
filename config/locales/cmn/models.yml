@@ -210,6 +210,8 @@ cmn:
           unvalid_amounts: "日记条目必须同时填写无论是借记卡还是信用卡，但并非如此。"
         outgoing_parcel_item:
           # greater_than_undelivered_quantity: "The quantity of %{product} to deliver is greater than the available quantity (%{maximum}%{unit})"
+        purchase:
+          # payment_delay_custom_validation_message: "Accepted formats : %{values}"
         purchase_item:
           attributes:
             fixed:
