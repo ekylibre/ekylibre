@@ -20,9 +20,9 @@
     %table#items-table
       %thead
         %tr
-          %th= PurchaseItem.human_attribute_name(:accounting_label)
           %th= PurchaseItem.human_attribute_name(:variant)
           %th= Parcel.human_attribute_name(:number) if f.object.parcels.any?
+          %th= PurchaseItem.human_attribute_name(:accounting_label)
           %th= PurchaseItem.human_attribute_name(:quantity)
           %th= PurchaseItem.human_attribute_name(:unit_pretax_amount)
           %th= PurchaseItem.human_attribute_name(:tax)

@@ -89,14 +89,20 @@ module Backend
 
     def new
       @financial_year = FinancialYear.new
-      f = FinancialYear.last
-      @financial_year.started_on = f.stopped_on + 1 unless f.nil?
+
+      f = FinancialYear.order(:stopped_on).last
+      if f.present?
+        @financial_year.started_on = f.stopped_on + 1
+      else
+        @financial_year.started_on = Entity.of_company&.born_at
+        @financial_year.stopped_on = Entity.of_company&.first_financial_year_ends_on
+      end
       @financial_year.started_on ||= Time.zone.today
-      @financial_year.stopped_on = ((@financial_year.started_on - 1) >> 12).end_of_month
+      @financial_year.stopped_on ||= ((@financial_year.started_on - 1) + 1.year).end_of_month
+
       @financial_year.code = @financial_year.default_code
       @financial_year.currency = @financial_year.previous.currency if @financial_year.previous
       @financial_year.currency ||= Preference[:currency]
-      # render_restfully_form
     end
 
     def compute_balances
