@@ -1641,6 +1641,7 @@ fra:
     responses: "Réponses"
     responsible: "Responsable"
     restricted: "Réservé"
+    result_journal: "Journal de résultat"
     retrieval_message: "Message"
     retrieval_mode: "Mode de récupération"
     retrieval_status: "Statut de la récupération"

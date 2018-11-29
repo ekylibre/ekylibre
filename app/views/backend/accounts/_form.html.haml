@@ -6,7 +6,7 @@
     .auxiliary-nature-options
       = f.input :centralizing_account, collection: Nomen::Account.select(&:centralizing), required: true, value_method: :name, label_method: lambda {|a| a.send(Account.accounting_system)+ " - " + a.name.tl}
       = f.input :auxiliary_number, required: true
-  = f.input :name
+  = f.input :name, as: :text
   = f.input :description, as: :text
   = f.input :usages, collection: Nomen::Account.selection
   = f.custom_fields

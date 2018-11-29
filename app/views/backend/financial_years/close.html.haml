@@ -60,7 +60,7 @@
       %tr
         %td
           = check_box_tag 'confirm-revised-accounts', '', false, disabled: @financial_year.any_invalid_closure_check?
-          = :account_certification_by_competent_person.tl
+          = :account_certification_by_competent_person_close.tl
 
   = form_actions do
     = button_tag :close_the_financial_year.tl, data: { toggle: 'modal', target: '#confirmCloseModal' }, class: "btn btn-primary", id: "close-btn", type: 'button', disabled: true
