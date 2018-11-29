@@ -88,7 +88,7 @@ class Account < Ekylibre::Record::Base
   validates :label, :name, :number, presence: true, length: { maximum: 500 }
   # ]VALIDATORS]
   validates :last_letter, length: { allow_nil: true, maximum: 10 }
-  validates :name, length: { allow_nil: true, maximum: 200 }
+  validates :name, length: { allow_nil: true, maximum: 500 }
   validates :number, uniqueness: true
   validates :number, length: { minimum: 4 }, if: :auxiliary?
   validates :number, format: { with: /\A\d(\d(\d[0-9A-Z]*)?)?\z/ }
