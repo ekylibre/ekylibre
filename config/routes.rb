@@ -531,6 +531,8 @@ Rails.application.routes.draw do
       end
     end
 
+    resource :financial_year_closure_preparations, only: %i[create destroy]
+
     resources :financial_year_archives, only: [] do
       member do
         post :create

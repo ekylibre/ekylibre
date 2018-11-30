@@ -2493,6 +2493,9 @@ financial_years:
     type: boolean
     required: true
     default: false
+  closer_id:
+    type: integer
+    references: user
   code:
     type: string
     required: true

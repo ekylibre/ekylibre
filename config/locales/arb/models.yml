@@ -723,6 +723,7 @@ arb:
           attributes:
             transfered_at:
               # financial_year_exchange_on_this_period: "There is a financial year exchange at this period"
+              # financial_year_matching_this_date_is_in_closure_preparation: "The financial year matching this date is currently being prepared for closure by another user"
               # not_opened_financial_year: "An opened financial year is necessary"
         custom_field_datum: #?
           greater_than: "%{field} اكبر من (%{maximum} كحد اقصى)" #?
@@ -757,6 +758,7 @@ arb:
           attributes:
             started_on:
               # financial_year_exchange_on_this_period: "There is a financial year exchange at this period"
+              # financial_year_matching_this_date_is_in_closure_preparation: "The financial year matching this date is currently being prepared for closure by another user"
               # not_opened_financial_year: "An opened financial year is necessary"
         fixed_asset_depreciation:
           attributes:
@@ -780,6 +782,7 @@ arb:
               # end_of_month: "%{attribute} must be an end of month (%{closed_on})"
         journal_entry:
           closed_journal: ".مما لا يمكنك انشاءخ او تعديله او الغاءه لغاية هذا التاريخ %{closed_at} تم اغلاق الدفتر اليومي في"
+          # financial_year_matching_this_date_is_in_closure_preparation: "The financial year matching this date is currently being prepared for closure by another user"
           frozen_by_financial_year_exchange: "لا يمكن تسجيل الدخول للمجلة في الفترة المقابلة لتبادل السنة المالية."
           # not_opened_financial_year: "An opened financial year is necessary"
           out_of_existing_financial_year: "يجب تسجيل الدخول للمجلة في الفترة المقابلة لعام المالي الحالي."
@@ -793,6 +796,7 @@ arb:
           greater_than_undelivered_quantity: "%{product} كمية الانتاج المسلمة تفوق الكمية الغير مسلمة (%{maximum}%{unit})"
         parcel:
           # financial_year_exchange_on_this_period: "There is a financial year exchange at this period"
+          # financial_year_matching_this_date_is_in_closure_preparation: "The financial year matching this date is currently being prepared for closure by another user"
           # not_opened_financial_year: "An opened financial year is necessary"
         price: #?
           already_defined: "قد تم تحديد السعر لهذا المنتج وقائمة الاسعار سابقا" #?
@@ -812,6 +816,7 @@ arb:
           buildings_can_not_be_identical: "مواقع التخزين (المغادرة والواصلة) قد لا تكون متطابقة" #?
         purchase:
           # financial_year_exchange_on_this_period: "There is a financial year exchange at this period"
+          # financial_year_matching_this_date_is_in_closure_preparation: "The financial year matching this date is currently being prepared for closure by another user"
           # not_opened_financial_year: "An opened financial year is necessary"
           # payment_delay_custom_validation_message: "Accepted formats : %{values}"
         purchase_item:
@@ -819,6 +824,7 @@ arb:
           serial_already_used_with_an_other_product: "%{attribute} تم استخدامها لنوع اخر من المنتج من نفس الممون"
         sale:
           # financial_year_exchange_on_this_period: "There is a financial year exchange at this period"
+          # financial_year_matching_this_date_is_in_closure_preparation: "The financial year matching this date is currently being prepared for closure by another user"
           # not_opened_financial_year: "An opened financial year is necessary"
         sale_item:
           building_can_not_transfer_product: "لا يمكن تحويل المنتج %{product} من خزينة %{building}, لاحتوائه على %{contained_product}."

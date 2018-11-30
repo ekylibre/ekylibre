@@ -67,6 +67,10 @@ module Backend
           if @financial_year.closed? && @financial_year.account_balances.empty?
             @financial_year.compute_balances!
           end
+          if @financial_year.closure_in_preparation?
+            @closer = @financial_year.closer
+            @closer == current_user ? notify_now(:financial_year_closure_in_preparation_initiated_by_you.tl(code: @financial_year.code)) : notify_now(:financial_year_closure_in_preparation_initiated_by_someone_else.tl(code: @financial_year.code))
+          end
           notify_now(:locked_exercice_info) if @financial_year.locked?
           t3e @financial_year.attributes
           @progress_status = fetch_progress_values(params[:id])
@@ -151,6 +155,12 @@ module Backend
     def index
       @opened_financial_years_count = FinancialYear.opened.count
       @fy_to_close = FinancialYear.closable_or_lockable if FinancialYear.closable_or_lockable
+      @fys_in_preparation = FinancialYear.in_preparation
+      if @fys_in_preparation.any?
+        @fy_in_preparation = @fys_in_preparation.first
+        @closer = @fy_in_preparation.closer
+        @closer == current_user ? notify_now(:financial_year_closure_in_preparation_initiated_by_you.tl(code: @fy_in_preparation.code)) : notify_now(:financial_year_closure_in_preparation_initiated_by_someone_else.tl(code: @fy_in_preparation.code))
+      end
       f = FinancialYear.order(stopped_on: :desc).first
       @fy_to_open = FinancialYear.new
       @fy_to_open.started_on = f.present? ? f.stopped_on + 1 : Time.now.to_date

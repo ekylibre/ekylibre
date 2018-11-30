@@ -157,7 +157,11 @@ class Purchase < Ekylibre::Record::Base
     if invoiced_at
       errors.add(:invoiced_at, :financial_year_exchange_on_this_period) if invoiced_during_financial_year_exchange?
       errors.add(:invoiced_at, :before, restriction: Time.zone.now.l) if invoiced_at > Time.zone.now
-      errors.add(:invoiced_at, :not_opened_financial_year) unless opened_financial_year?
+      if invoiced_during_financial_year_closure_preparation?
+        errors.add(:invoiced_at, :financial_year_matching_this_date_is_in_closure_preparation) if FinancialYear.on(invoiced_at).closer.id != creator_id
+      else
+        errors.add(:invoiced_at, :not_opened_financial_year) unless opened_financial_year?
+      end
     end
   end
 
@@ -292,6 +296,10 @@ class Purchase < Ekylibre::Record::Base
 
   def opened_financial_year?
     FinancialYear.on(invoiced_at)&.opened?
+  end
+
+  def invoiced_during_financial_year_closure_preparation?
+    FinancialYear.on(invoiced_at)&.closure_in_preparation?
   end
 
   def purchased?

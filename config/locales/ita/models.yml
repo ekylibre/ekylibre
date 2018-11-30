@@ -171,6 +171,7 @@ ita:
           attributes:
             transfered_at:
               # financial_year_exchange_on_this_period: "There is a financial year exchange at this period"
+              # financial_year_matching_this_date_is_in_closure_preparation: "The financial year matching this date is currently being prepared for closure by another user"
               # not_opened_financial_year: "An opened financial year is necessary"
         deposit:
           # must_be_a_bank_account: "%{attribute} must be a bank account and not a cash"
@@ -200,6 +201,7 @@ ita:
           attributes:
             started_on:
               # financial_year_exchange_on_this_period: "There is a financial year exchange at this period"
+              # financial_year_matching_this_date_is_in_closure_preparation: "The financial year matching this date is currently being prepared for closure by another user"
               # not_opened_financial_year: "An opened financial year is necessary"
         fixed_asset_depreciation:
           attributes:
@@ -221,6 +223,7 @@ ita:
               # end_of_month: "%{attribute} must be an end of month (%{closed_on})"
         journal_entry:
           # closed_journal: "The journal %{journal} is closed on %{closed_on}. No updates are possible until this date."
+          # financial_year_matching_this_date_is_in_closure_preparation: "The financial year matching this date is currently being prepared for closure by another user"
           frozen_by_financial_year_exchange: "La voce del diario non può essere registrato in un periodo corrispondente ad uno scambio esercizio."
           # not_opened_financial_year: "An opened financial year is necessary"
           out_of_existing_financial_year: "La voce di diario deve essere registrato in un periodo corrispondente a un esercizio esistente."
@@ -233,9 +236,11 @@ ita:
           # greater_than_undelivered_quantity: "The quantity of %{product} to deliver is greater than the available quantity (%{maximum}%{unit})"
         parcel:
           # financial_year_exchange_on_this_period: "There is a financial year exchange at this period"
+          # financial_year_matching_this_date_is_in_closure_preparation: "The financial year matching this date is currently being prepared for closure by another user"
           # not_opened_financial_year: "An opened financial year is necessary"
         purchase:
           # financial_year_exchange_on_this_period: "There is a financial year exchange at this period"
+          # financial_year_matching_this_date_is_in_closure_preparation: "The financial year matching this date is currently being prepared for closure by another user"
           # not_opened_financial_year: "An opened financial year is necessary"
           # payment_delay_custom_validation_message: "Accepted formats : %{values}"
         purchase_item:
@@ -243,6 +248,7 @@ ita:
           # serial_already_used_with_an_other_product: "%{attribute} has been already used for an other product of the same supplier"
         sale:
           # financial_year_exchange_on_this_period: "There is a financial year exchange at this period"
+          # financial_year_matching_this_date_is_in_closure_preparation: "The financial year matching this date is currently being prepared for closure by another user"
           # not_opened_financial_year: "An opened financial year is necessary"
         sale_item:
           # building_can_not_transfer_product: "%{product} can not be found in %{building}, it only contains %{contained_product}."
