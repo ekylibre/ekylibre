@@ -161,6 +161,7 @@ por:
         cash_transfer:
           attributes:
             transfered_at:
+              # financial_year_exchange_on_this_period: "There is a financial year exchange at this period"
               # financial_year_matching_this_date_is_in_closure_preparation: "The financial year matching this date is currently being prepared for closure by another user"
               # not_opened_financial_year: "An opened financial year is necessary"
         deposit:
@@ -190,6 +191,7 @@ por:
         fixed_asset:
           attributes:
             started_on:
+              # financial_year_exchange_on_this_period: "There is a financial year exchange at this period"
               # financial_year_matching_this_date_is_in_closure_preparation: "The financial year matching this date is currently being prepared for closure by another user"
               # not_opened_financial_year: "An opened financial year is necessary"
         fixed_asset_depreciation:
@@ -224,9 +226,11 @@ por:
         outgoing_parcel_item:
           # greater_than_undelivered_quantity: "The quantity of %{product} to deliver is greater than the available quantity (%{maximum}%{unit})"
         parcel:
+          # financial_year_exchange_on_this_period: "There is a financial year exchange at this period"
           # financial_year_matching_this_date_is_in_closure_preparation: "The financial year matching this date is currently being prepared for closure by another user"
           # not_opened_financial_year: "An opened financial year is necessary"
         purchase:
+          # financial_year_exchange_on_this_period: "There is a financial year exchange at this period"
           # financial_year_matching_this_date_is_in_closure_preparation: "The financial year matching this date is currently being prepared for closure by another user"
           # not_opened_financial_year: "An opened financial year is necessary"
           # payment_delay_custom_validation_message: "Accepted formats : %{values}"
@@ -234,6 +238,7 @@ por:
           # building_can_not_receive_product: "The building %{building} can not receive %{product}, it already contains %{contained_product}."
           # serial_already_used_with_an_other_product: "%{attribute} has been already used for an other product of the same supplier"
         sale:
+          # financial_year_exchange_on_this_period: "There is a financial year exchange at this period"
           # financial_year_matching_this_date_is_in_closure_preparation: "The financial year matching this date is currently being prepared for closure by another user"
           # not_opened_financial_year: "An opened financial year is necessary"
         sale_item:
@@ -1368,6 +1373,7 @@ por:
     responses: "Respostas"
     responsible: "Responsável"
     restricted: "Restringido"
+    # result_journal: "Result journal"
     retrieval_message: "Mensagem de recuperação"
     retrieval_mode: "Modo recuperação"
     retrieval_status: "Estatuto de recuperação"

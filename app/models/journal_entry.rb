@@ -443,7 +443,7 @@ class JournalEntry < Ekylibre::Record::Base
 
   def in_financial_year_exchange?
     return unless financial_year
-    financial_year.exchanges.any? { |e| (e.started_on..e.stopped_on).cover?(printed_on) }
+    financial_year.exchanges.opened.any? { |e| (e.started_on..e.stopped_on).cover?(printed_on) }
   end
 
   # this method loads the journal ledger for.the given financial year

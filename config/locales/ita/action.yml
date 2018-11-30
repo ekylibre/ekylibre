@@ -778,7 +778,8 @@ ita:
   labels:
     access: "Accesso"
     access_parameters: "parametri di accesso"
-    # account_certification_by_competent_person: "I certify that my accounts have been revised by a competent person."
+    # account_certification_by_competent_person: "I certify that my accounts have been revised outside of the software by a competent person."
+    # account_certification_by_competent_person_close: "I certify that my accounts have been revised by a competent person."
     account_for: "Conto per"
     # account_totals: "Account Totals"
     accountancy: "Contabilità"
@@ -2338,7 +2339,7 @@ ita:
       increment: "Incremento" #?
       index: "Indice"
       invoice: "Fattura"
-      journal_entries_csv_export: "Scarica CSV"
+      journal_entries_export: "Scarica CSV"
       journal_entries_import: "Importa CSV"
       list: "Lista"
       load: "Caricare"

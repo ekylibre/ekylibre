@@ -48,7 +48,7 @@ a.btn, button.btn {
     }
   }
   &.no-icn {
-    line-height: 22px !important;
+    line-height: 21px !important;
   }
   &.dropdown-toggle {
     @include icon-after(caret-down, $font-size: 14px);

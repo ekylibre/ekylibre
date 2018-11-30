@@ -222,3 +222,18 @@
   pointer-events: none;
   opacity: 0.5;
 }
+
+i {
+  #exchanges-list .list .export-action & {
+    @include is-icon();
+    @include use-icon(download);
+  }
+  #exchanges-list .list .import-action & {
+    @include is-icon();
+    @include use-icon(upload);
+  }
+  #exchanges-list .list .email-action & {
+    @include is-icon();
+    @include use-icon(envelope);
+  }
+}

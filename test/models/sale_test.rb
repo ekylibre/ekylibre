@@ -316,4 +316,14 @@ class SaleTest < ActiveSupport::TestCase
     assert_not jei_s.variant.nil?
     assert_equal jei_s.variant, @variant
   end
+
+  test 'Cannot create a sale during a financial year exchange' do
+    FinancialYear.delete_all
+    financial_year = create(:financial_year, started_on: Date.today.beginning_of_year, stopped_on: Date.today.end_of_year)
+    exchange = FinancialYearExchange.create(financial_year: financial_year, stopped_on: Date.today - 2.day)
+    assert create(:sale, invoiced_at: Date.today - 1.day)
+    assert_raises ActiveRecord::RecordInvalid do
+      create(:sale, invoiced_at: Date.today - 3.day)
+    end
+  end
 end

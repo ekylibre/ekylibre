@@ -22,57 +22,58 @@
 #
 # == Table: entities
 #
-#  active                    :boolean          default(TRUE), not null
-#  activity_code             :string
-#  authorized_payments_count :integer
-#  bank_account_holder_name  :string
-#  bank_identifier_code      :string
-#  born_at                   :datetime
-#  client                    :boolean          default(FALSE), not null
-#  client_account_id         :integer
-#  codes                     :jsonb
-#  country                   :string
-#  created_at                :datetime         not null
-#  creator_id                :integer
-#  currency                  :string           not null
-#  custom_fields             :jsonb
-#  dead_at                   :datetime
-#  deliveries_conditions     :string
-#  description               :text
-#  employee                  :boolean          default(FALSE), not null
-#  employee_account_id       :integer
-#  first_met_at              :datetime
-#  first_name                :string
-#  full_name                 :string           not null
-#  iban                      :string
-#  id                        :integer          not null, primary key
-#  language                  :string           not null
-#  last_name                 :string           not null
-#  lock_version              :integer          default(0), not null
-#  locked                    :boolean          default(FALSE), not null
-#  meeting_origin            :string
-#  nature                    :string           not null
-#  number                    :string
-#  of_company                :boolean          default(FALSE), not null
-#  picture_content_type      :string
-#  picture_file_name         :string
-#  picture_file_size         :integer
-#  picture_updated_at        :datetime
-#  proposer_id               :integer
-#  prospect                  :boolean          default(FALSE), not null
-#  reminder_submissive       :boolean          default(FALSE), not null
-#  responsible_id            :integer
-#  siret_number              :string
-#  supplier                  :boolean          default(FALSE), not null
-#  supplier_account_id       :integer
-#  supplier_payment_delay    :string
-#  supplier_payment_mode_id  :integer
-#  title                     :string
-#  transporter               :boolean          default(FALSE), not null
-#  updated_at                :datetime         not null
-#  updater_id                :integer
-#  vat_number                :string
-#  vat_subjected             :boolean          default(TRUE), not null
+#  active                       :boolean          default(TRUE), not null
+#  activity_code                :string
+#  authorized_payments_count    :integer
+#  bank_account_holder_name     :string
+#  bank_identifier_code         :string
+#  born_at                      :datetime
+#  client                       :boolean          default(FALSE), not null
+#  client_account_id            :integer
+#  codes                        :jsonb
+#  country                      :string
+#  created_at                   :datetime         not null
+#  creator_id                   :integer
+#  currency                     :string           not null
+#  custom_fields                :jsonb
+#  dead_at                      :datetime
+#  deliveries_conditions        :string
+#  description                  :text
+#  employee                     :boolean          default(FALSE), not null
+#  employee_account_id          :integer
+#  first_financial_year_ends_on :date
+#  first_met_at                 :datetime
+#  first_name                   :string
+#  full_name                    :string           not null
+#  iban                         :string
+#  id                           :integer          not null, primary key
+#  language                     :string           not null
+#  last_name                    :string           not null
+#  lock_version                 :integer          default(0), not null
+#  locked                       :boolean          default(FALSE), not null
+#  meeting_origin               :string
+#  nature                       :string           not null
+#  number                       :string
+#  of_company                   :boolean          default(FALSE), not null
+#  picture_content_type         :string
+#  picture_file_name            :string
+#  picture_file_size            :integer
+#  picture_updated_at           :datetime
+#  proposer_id                  :integer
+#  prospect                     :boolean          default(FALSE), not null
+#  reminder_submissive          :boolean          default(FALSE), not null
+#  responsible_id               :integer
+#  siret_number                 :string
+#  supplier                     :boolean          default(FALSE), not null
+#  supplier_account_id          :integer
+#  supplier_payment_delay       :string
+#  supplier_payment_mode_id     :integer
+#  title                        :string
+#  transporter                  :boolean          default(FALSE), not null
+#  updated_at                   :datetime         not null
+#  updater_id                   :integer
+#  vat_number                   :string
+#  vat_subjected                :boolean          default(TRUE), not null
 #
 
 require 'digest/sha2'
@@ -163,6 +164,7 @@ class Entity < Ekylibre::Record::Base
   validates :born_at, :dead_at, :first_met_at, :picture_updated_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
   validates :currency, :language, :nature, presence: true
   validates :description, length: { maximum: 500_000 }, allow_blank: true
+  validates :first_financial_year_ends_on, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years }, type: :date }, allow_blank: true
   validates :full_name, :last_name, presence: true, length: { maximum: 500 }
   validates :picture_file_size, numericality: { only_integer: true, greater_than: -2_147_483_649, less_than: 2_147_483_648 }, allow_blank: true
   # ]VALIDATORS]

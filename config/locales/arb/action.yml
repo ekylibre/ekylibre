@@ -947,7 +947,8 @@ arb:
     access_parameters: "المعلمات وصول"
     account_accruals: "حسابات الاستحقاق" #?
     account_attorney_to_create: "-- انشاء حساب للوكيل بشكل اوتوماتيكي --" #?
-    # account_certification_by_competent_person: "I certify that my accounts have been revised by a competent person."
+    # account_certification_by_competent_person: "I certify that my accounts have been revised outside of the software by a competent person."
+    # account_certification_by_competent_person_close: "I certify that my accounts have been revised by a competent person."
     account_claims_assets: "الدين" #?
     account_client_to_create: "-- انشاء حساب للعميل بشكل اوتوماتيكي --" #?
     account_create: "تسجيل لحساب جديد" #?
@@ -3049,7 +3050,7 @@ arb:
       increment: "زيادة" #?
       index: "فهرس"
       invoice: "فاتورة"
-      journal_entries_csv_export: "تنزيل ملف CSV"
+      journal_entries_export: "تنزيل ملف CSV"
       journal_entries_import: "استيراد CSV"
       list: "قائمة"
       load: "حمل"

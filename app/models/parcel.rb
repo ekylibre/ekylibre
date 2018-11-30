@@ -170,6 +170,7 @@ class Parcel < Ekylibre::Record::Base
 
   validate do
     if given_at
+      errors.add(:given_at, :financial_year_exchange_on_this_period) if given_during_financial_year_exchange?
       if given_during_financial_year_closure_preparation?
         errors.add(:given_at, :financial_year_matching_this_date_is_in_closure_preparation) if FinancialYear.on(given_at).closer.id != creator_id
       else
@@ -279,6 +280,10 @@ class Parcel < Ekylibre::Record::Base
 
   def third
     (incoming? ? sender : recipient)
+  end
+
+  def given_during_financial_year_exchange?
+    FinancialYearExchange.opened.where('? BETWEEN started_on AND stopped_on', given_at).any?
   end
 
   def opened_financial_year?

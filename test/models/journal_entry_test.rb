@@ -222,7 +222,7 @@ class JournalEntryTest < ActiveSupport::TestCase
 
   test 'cannot be created when in financial year exchange date range' do
     financial_year = financial_years(:financial_years_025)
-    exchange = create(:financial_year_exchange, financial_year: financial_year)
+    exchange = create(:financial_year_exchange, :opened, financial_year: financial_year)
     journal = create(:journal)
     entry = JournalEntry.new(journal: journal, printed_on: exchange.stopped_on + 1.day, items: fake_items)
     assert entry.valid?
@@ -232,7 +232,7 @@ class JournalEntryTest < ActiveSupport::TestCase
 
   test 'cannot be updated to a date in financial year exchange date range' do
     financial_year = financial_years(:financial_years_025)
-    exchange = create(:financial_year_exchange, financial_year: financial_year)
+    exchange = create(:financial_year_exchange, :opened, financial_year: financial_year)
     entry = create(:journal_entry, printed_on: exchange.stopped_on + 1.day, items: fake_items)
     assert entry.valid?
     entry.printed_on = exchange.started_on + 1.day

@@ -186,6 +186,7 @@ class Sale < Ekylibre::Record::Base
 
   validate do
     if invoiced_at
+      errors.add(:invoiced_at, :financial_year_exchange_on_this_period) if invoiced_during_financial_year_exchange?
       errors.add(:invoiced_at, :before, restriction: Time.zone.now.l) if invoiced_at > Time.zone.now
       if invoiced_during_financial_year_closure_preparation?
         errors.add(:invoiced_at, :financial_year_matching_this_date_is_in_closure_preparation) if FinancialYear.on(invoiced_at).closer.id != creator_id
@@ -335,6 +336,10 @@ class Sale < Ekylibre::Record::Base
   # Test if there is some items in the sale.
   def has_content?
     items.any?
+  end
+
+  def invoiced_during_financial_year_exchange?
+    FinancialYearExchange.opened.where('? BETWEEN started_on AND stopped_on', invoiced_at).any?
   end
 
   def opened_financial_year?

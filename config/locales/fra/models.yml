@@ -294,6 +294,7 @@ fra:
         cash_transfer:
           attributes:
             transfered_at:
+              financial_year_exchange_on_this_period: "Un échange comptable est ouvert à cette période"
               financial_year_matching_this_date_is_in_closure_preparation: "L'exercice comptable correspondant à cette date est en préparation de clôture par un autre utilisateur"
               not_opened_financial_year: "Un exercice comptable ouvert est nécessaire"
         deposit:
@@ -323,6 +324,7 @@ fra:
         fixed_asset:
           attributes:
             started_on:
+              financial_year_exchange_on_this_period: "Un échange comptable est ouvert à cette période"
               financial_year_matching_this_date_is_in_closure_preparation: "L'exercice comptable correspondant à cette date est en préparation de clôture par un autre utilisateur"
               not_opened_financial_year: "Un exercice comptable ouvert est nécessaire"
         fixed_asset_depreciation:
@@ -358,9 +360,11 @@ fra:
         outgoing_parcel_item:
           greater_than_undelivered_quantity: "La quantité de produit %{product} à livrer dépasse la quantité non livrée (%{maximum}%{unit})"
         parcel:
+          financial_year_exchange_on_this_period: "Un échange comptable est ouvert à cette période"
           financial_year_matching_this_date_is_in_closure_preparation: "L'exercice comptable correspondant à cette date est en préparation de clôture par un autre utilisateur"
           not_opened_financial_year: "Un exercice comptable ouvert est nécessaire"
         purchase:
+          financial_year_exchange_on_this_period: "Un échange comptable est ouvert à cette période"
           financial_year_matching_this_date_is_in_closure_preparation: "L'exercice comptable correspondant à cette date est en préparation de clôture par un autre utilisateur"
           not_opened_financial_year: "Un exercice comptable ouvert est nécessaire"
           payment_delay_custom_validation_message: "Formats acceptés : %{values}"
@@ -368,6 +372,7 @@ fra:
           building_can_not_receive_product: "Le réservoir %{building} ne peut pas recevoir le produit %{product}, il contient déjà le produit %{contained_product}."
           serial_already_used_with_an_other_product: "%{attribute} a déjà été utilisé pour un autre type de produit du même fournisseur"
         sale:
+          financial_year_exchange_on_this_period: "Un échange comptable est ouvert à cette période"
           financial_year_matching_this_date_is_in_closure_preparation: "L'exercice comptable correspondant à cette date est en préparation de clôture par un autre utilisateur"
           not_opened_financial_year: "Un exercice comptable ouvert est nécessaire"
         sale_item:

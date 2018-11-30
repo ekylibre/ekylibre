@@ -712,7 +712,8 @@ deu:
   labels:
     access: "Zugriff"
     access_parameters: "Zugangsparameter"
-    # account_certification_by_competent_person: "I certify that my accounts have been revised by a competent person."
+    # account_certification_by_competent_person: "I certify that my accounts have been revised outside of the software by a competent person."
+    # account_certification_by_competent_person_close: "I certify that my accounts have been revised by a competent person."
     account_for: "Erklären"
     # account_totals: "Account Totals"
     accountancy: "Buchhaltung"
@@ -2271,7 +2272,7 @@ deu:
       increment: "Zuwachs" #?
       # index: "Index"
       invoice: "Rechnung"
-      journal_entries_csv_export: "CSV-Datei herunterladen"
+      journal_entries_export: "CSV-Datei herunterladen"
       journal_entries_import: "CSV-Import"
       list: "Liste"
       load: "Belastung"
