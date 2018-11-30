@@ -187,7 +187,11 @@ class Sale < Ekylibre::Record::Base
   validate do
     if invoiced_at
       errors.add(:invoiced_at, :before, restriction: Time.zone.now.l) if invoiced_at > Time.zone.now
-      errors.add(:invoiced_at, :not_opened_financial_year) unless opened_financial_year?
+      if invoiced_during_financial_year_closure_preparation?
+        errors.add(:invoiced_at, :financial_year_matching_this_date_is_in_closure_preparation) if FinancialYear.on(invoiced_at).closer.id != creator_id
+      else
+        errors.add(:invoiced_at, :not_opened_financial_year) unless opened_financial_year?
+      end
     end
     %i[address delivery_address invoice_address].each do |mail_address|
       next unless send(mail_address)
@@ -335,6 +339,10 @@ class Sale < Ekylibre::Record::Base
 
   def opened_financial_year?
     FinancialYear.on(invoiced_at)&.opened?
+  end
+
+  def invoiced_during_financial_year_closure_preparation?
+    FinancialYear.on(invoiced_at)&.closure_in_preparation?
   end
 
   # Returns if the sale has been validated and so if it can be

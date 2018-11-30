@@ -2076,6 +2076,10 @@
       <item name="financial_year_archives">
         <page to="backend/financial_year_archives#create"/>
       </item>
+      <item name="financial_year_closure_preparations">
+        <page to="backend/financial_year_closure_preparations#create"/>
+        <page to="backend/financial_year_closure_preparations#destroy"/>
+      </item>
       <item name="financial_years">
         <page to="backend/financial_years#destroy_all_empty"/>
         <page to="backend/financial_years#run_progress"/>

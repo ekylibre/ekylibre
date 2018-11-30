@@ -170,7 +170,11 @@ class Parcel < Ekylibre::Record::Base
 
   validate do
     if given_at
-      errors.add(:given_at, :not_opened_financial_year) unless opened_financial_year?
+      if given_during_financial_year_closure_preparation?
+        errors.add(:given_at, :financial_year_matching_this_date_is_in_closure_preparation) if FinancialYear.on(given_at).closer.id != creator_id
+      else
+        errors.add(:given_at, :not_opened_financial_year) unless opened_financial_year?
+      end
     end
   end
 
@@ -279,6 +283,10 @@ class Parcel < Ekylibre::Record::Base
 
   def opened_financial_year?
     FinancialYear.on(given_at)&.opened?
+  end
+
+  def given_during_financial_year_closure_preparation?
+    FinancialYear.on(given_at)&.closure_in_preparation?
   end
 
   def order

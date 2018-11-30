@@ -98,6 +98,8 @@
 #     - "backend/draft_journals#confirm_all"
 #     - "backend/draft_journals#list"
 #     - "backend/financial_year_archives#create"
+#     - "backend/financial_year_closure_preparations#create"
+#     - "backend/financial_year_closure_preparations#destroy"
 #     - "backend/financial_years#destroy_all_empty"
 #     - "backend/financial_years#lock"
 #     - "backend/financial_years#run_progress"

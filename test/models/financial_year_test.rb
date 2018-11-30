@@ -25,6 +25,7 @@
 #  accountant_id             :integer
 #  already_existing          :boolean          default(FALSE), not null
 #  closed                    :boolean          default(FALSE), not null
+#  closer_id                 :integer
 #  code                      :string           not null
 #  created_at                :datetime         not null
 #  creator_id                :integer

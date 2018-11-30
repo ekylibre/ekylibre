@@ -86,7 +86,11 @@ class CashTransfer < Ekylibre::Record::Base
   validate do
     errors.add(:reception_cash_id, :invalid) if reception_cash_id == emission_cash_id
     if transfered_at
-      errors.add(:transfered_at, :not_opened_financial_year) unless opened_financial_year?
+      if transferred_during_financial_year_closure_preparation?
+        errors.add(:transfered_at, :financial_year_matching_this_date_is_in_closure_preparation) if FinancialYear.on(transfered_at).closer.id != creator_id
+      else
+        errors.add(:transfered_at, :not_opened_financial_year) unless opened_financial_year?
+      end
     end
   end
 
@@ -105,5 +109,9 @@ class CashTransfer < Ekylibre::Record::Base
 
   def opened_financial_year?
     FinancialYear.on(transfered_at)&.opened?
+  end
+
+  def transferred_during_financial_year_closure_preparation?
+    FinancialYear.on(transfered_at)&.closure_in_preparation?
   end
 end
