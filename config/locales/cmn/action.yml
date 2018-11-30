@@ -712,7 +712,8 @@ cmn:
   labels:
     access: "访问"
     access_parameters: "访问参数"
-    # account_certification_by_competent_person: "I certify that my accounts have been revised by a competent person."
+    # account_certification_by_competent_person: "I certify that my accounts have been revised outside of the software by a competent person."
+    # account_certification_by_competent_person_close: "I certify that my accounts have been revised by a competent person."
     account_for: "帐户"
     # account_totals: "Account Totals"
     accountancy: "会计"

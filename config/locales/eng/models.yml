@@ -833,6 +833,7 @@ eng:
     finish: "Finish"
     finished_at: "Finished at"
     first_calving_on: "First calving on"
+    # first_financial_year_ends_on: "First financial year ends on"
     first_met_at: "First met on"
     first_name: "First name"
     first_number: "First number" #?
@@ -1407,7 +1408,7 @@ eng:
     responses: "Responses"
     responsible: "Responsible"
     restricted: "Restricted"
-    result_journal: "Result journal"
+    result_journal: "Result journal" #?
     retrieval_message: "Retrieval message"
     retrieval_mode: "Retrieval mode"
     retrieval_status: "Retrieval status"

@@ -2593,8 +2593,7 @@ eng:
       incorporate: "Incorporate"
       index: "Index"
       invoice: "Invoice"
-      journal_entries_export: "Download CSV" #?
-      # journal_entries_export: "Journal entries export"
+      journal_entries_export: "Download CSV"
       journal_entries_import: "Import CSV"
       # keep: "Keep"
       # last_locations: "Last locations"

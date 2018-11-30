@@ -161,6 +161,7 @@ jpn:
         cash_transfer:
           attributes:
             transfered_at:
+              # financial_year_exchange_on_this_period: "There is a financial year exchange at this period"
               # not_opened_financial_year: "An opened financial year is necessary"
         deposit:
           # must_be_a_bank_account: "%{attribute} must be a bank account and not a cash"
@@ -189,6 +190,7 @@ jpn:
         fixed_asset:
           attributes:
             started_on:
+              # financial_year_exchange_on_this_period: "There is a financial year exchange at this period"
               # not_opened_financial_year: "An opened financial year is necessary"
         fixed_asset_depreciation:
           attributes:
@@ -221,14 +223,17 @@ jpn:
         outgoing_parcel_item:
           # greater_than_undelivered_quantity: "The quantity of %{product} to deliver is greater than the available quantity (%{maximum}%{unit})"
         parcel:
+          # financial_year_exchange_on_this_period: "There is a financial year exchange at this period"
           # not_opened_financial_year: "An opened financial year is necessary"
         purchase:
+          # financial_year_exchange_on_this_period: "There is a financial year exchange at this period"
           # not_opened_financial_year: "An opened financial year is necessary"
           # payment_delay_custom_validation_message: "Accepted formats : %{values}"
         purchase_item:
           # building_can_not_receive_product: "The building %{building} can not receive %{product}, it already contains %{contained_product}."
           # serial_already_used_with_an_other_product: "%{attribute} has been already used for an other product of the same supplier"
         sale:
+          # financial_year_exchange_on_this_period: "There is a financial year exchange at this period"
           # not_opened_financial_year: "An opened financial year is necessary"
         sale_item:
           # building_can_not_transfer_product: "%{product} can not be found in %{building}, it only contains %{contained_product}."
@@ -1362,6 +1367,7 @@ jpn:
     responses: "反応"
     responsible: "責任"
     restricted: "制限されました"
+    # result_journal: "Result journal"
     retrieval_message: "検索メッセージ"
     retrieval_mode: "検索モード"
     retrieval_status: "検索のステータス"
