@@ -155,6 +155,7 @@ class Purchase < Ekylibre::Record::Base
 
   validate do
     if invoiced_at
+      errors.add(:invoiced_at, :financial_year_exchange_on_this_period) if invoiced_during_financial_year_exchange?
       errors.add(:invoiced_at, :before, restriction: Time.zone.now.l) if invoiced_at > Time.zone.now
       errors.add(:invoiced_at, :not_opened_financial_year) unless opened_financial_year?
     end
@@ -283,6 +284,10 @@ class Purchase < Ekylibre::Record::Base
 
   def has_content?
     items.any?
+  end
+
+  def invoiced_during_financial_year_exchange?
+    FinancialYearExchange.opened.where('? BETWEEN started_on AND stopped_on', invoiced_at).any?
   end
 
   def opened_financial_year?
