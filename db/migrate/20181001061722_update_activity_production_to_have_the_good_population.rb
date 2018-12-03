@@ -8,6 +8,6 @@ class UpdateActivityProductionToHaveTheGoodPopulation < ActiveRecord::Migration
         unvalid_activity_productions << activity_production.id
       end
     end
-    puts unvalid_activity_productions
+    # puts unvalid_activity_productions
   end
 end

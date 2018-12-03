@@ -17,7 +17,7 @@ class FinancialYearClose
     # puts moment + message.yellow + '...'
     yield
     stop = Time.now
-    puts moment + message.yellow + " (done in #{sprintf('%.2f', stop - start).green}s)"
+    # puts moment + message.yellow + " (done in #{sprintf('%.2f', stop - start).green}s)"
     Rails.logger.info(moment + message.yellow + " (done in #{sprintf('%.2f', stop - start).green}s)")
   end
 
@@ -34,7 +34,7 @@ class FinancialYearClose
     moment << '] '
 
     t = moment + message.yellow
-    puts t
+    # puts t
     Rails.logger.info(t)
     now
   end

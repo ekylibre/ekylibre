@@ -2183,6 +2183,49 @@
     </group>
   </inaccessible-actions>
   <untreated-actions>
-    <group/>
+    <group>
+      <item name="animal_groups">
+        <page to="backend/animal_groups#available_time_or_quantity"/>
+      </item>
+      <item name="animals">
+        <page to="backend/animals#available_time_or_quantity"/>
+      </item>
+      <item name="building_divisions">
+        <page to="backend/building_divisions#available_time_or_quantity"/>
+      </item>
+      <item name="buildings">
+        <page to="backend/buildings#available_time_or_quantity"/>
+      </item>
+      <item name="equipments">
+        <page to="backend/equipments#available_time_or_quantity"/>
+      </item>
+      <item name="fungi">
+        <page to="backend/fungi#available_time_or_quantity"/>
+      </item>
+      <item name="interventions">
+        <page to="backend/interventions#compare_realised_with_planned"/>
+      </item>
+      <item name="land_parcels">
+        <page to="backend/land_parcels#available_time_or_quantity"/>
+      </item>
+      <item name="matters">
+        <page to="backend/matters#available_time_or_quantity"/>
+      </item>
+      <item name="plants">
+        <page to="backend/plants#available_time_or_quantity"/>
+      </item>
+      <item name="product_groups">
+        <page to="backend/product_groups#available_time_or_quantity"/>
+      </item>
+      <item name="products">
+        <page to="backend/products#available_time_or_quantity"/>
+      </item>
+      <item name="settlements">
+        <page to="backend/settlements#available_time_or_quantity"/>
+      </item>
+      <item name="workers">
+        <page to="backend/workers#available_time_or_quantity"/>
+      </item>
+    </group>
   </untreated-actions>
 </navigation>
