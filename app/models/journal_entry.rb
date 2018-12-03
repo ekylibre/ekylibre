@@ -285,7 +285,7 @@ class JournalEntry < Ekylibre::Record::Base
     if financial_year&.closure_in_preparation?
       errors.add(:printed_on, :financial_year_matching_this_date_is_in_closure_preparation) if financial_year.closer.id != creator_id
     else
-      errors.add(:printed_on, :not_opened_financial_year) unless financial_year&.opened?
+      errors.add(:printed_on, :not_opened_financial_year) unless financial_year&.opened? || financial_year&.closing?
     end
   end
 
