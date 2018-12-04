@@ -493,7 +493,7 @@ class Parcel < Ekylibre::Record::Base
           parcel.items.order(:id).each do |item|
             next unless item.variant.purchasable? && item.population && item.population > 0
             catalog_item = Catalog.by_default!(:purchase).items.find_by(variant: item.variant)
-            unit_pretax_amount = item.pretax_amount.zero? ? nil : item.pretax_amount
+            unit_pretax_amount = item.unit_pretax_amount.zero? ? nil : item.unit_pretax_amount
             tax = Tax.current.first
             # check all taxes included to build unit_pretax_amount and tax from catalog with all taxes included
             if catalog_item && catalog_item.all_taxes_included

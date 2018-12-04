@@ -224,6 +224,19 @@ class ParcelTest < ActiveSupport::TestCase
     assert_operator 0, :<, jei_s.real_credit.to_i
   end
 
+  test 'convert to purchase should have the correct amount' do
+    v = ProductNatureVariant.import_from_nomenclature(:fungicide, true)
+    to_recieve = [{
+        unit_pretax_amount: 10,
+        quantity: 10,
+        variant: v
+                  }]
+    parcel = new_parcel(items_attributes: to_recieve)
+    purchase = Parcel.convert_to_purchase [parcel]
+
+    assert_equal 100.to_d, purchase.amount
+  end
+
   test 'unitary items in parcels' do
     unitary_variant = ProductNatureVariant.import_from_nomenclature(:female_adult_cow, true)
     unitary_variant.products.create!(
