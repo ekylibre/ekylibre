@@ -65,7 +65,9 @@ class CashTransfer < Ekylibre::Record::Base
   # ]VALIDATORS]
   validates :emission_currency, :reception_currency, length: { allow_nil: true, maximum: 3 }
   validates :emission_amount, numericality: { greater_than: 0.0 }
-  validates :transfered_at, presence: true
+  validates :transfered_at, presence: true, financial_year_writeable: true
+
+
 
   before_validation do
     self.transfered_at ||= Time.zone.today
@@ -87,11 +89,6 @@ class CashTransfer < Ekylibre::Record::Base
     errors.add(:reception_cash_id, :invalid) if reception_cash_id == emission_cash_id
     if transfered_at
       errors.add(:transfered_at, :financial_year_exchange_on_this_period) if transfered_during_financial_year_exchange?
-      if transferred_during_financial_year_closure_preparation?
-        errors.add(:transfered_at, :financial_year_matching_this_date_is_in_closure_preparation) if FinancialYear.on(transfered_at).closer.id != creator_id
-      else
-        errors.add(:transfered_at, :not_opened_financial_year) unless opened_financial_year?
-      end
     end
   end
 

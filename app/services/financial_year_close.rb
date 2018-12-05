@@ -65,6 +65,8 @@ class FinancialYearClose
     ensure_closability!
 
     ActiveRecord::Base.transaction do
+      @year.update_attributes({state: 'opened'})
+
       generate_documents('prior_to_closure')
       @progress.increment!
 

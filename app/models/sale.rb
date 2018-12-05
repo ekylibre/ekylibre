@@ -103,7 +103,7 @@ class Sale < Ekylibre::Record::Base
   validates :currency, length: { allow_nil: true, maximum: 3 }
   validates :initial_number, :number, :state, length: { allow_nil: true, maximum: 60 }
   validates :client, :currency, :nature, presence: true
-  validates :invoiced_at, presence: { if: :invoice? }
+  validates :invoiced_at, presence: { if: :invoice? }, financial_year_writeable: true
   validates_delay_format_of :payment_delay, :expiration_delay
 
   acts_as_numbered :number, readonly: false
@@ -188,11 +188,6 @@ class Sale < Ekylibre::Record::Base
     if invoiced_at
       errors.add(:invoiced_at, :financial_year_exchange_on_this_period) if invoiced_during_financial_year_exchange?
       errors.add(:invoiced_at, :before, restriction: Time.zone.now.l) if invoiced_at > Time.zone.now
-      if invoiced_during_financial_year_closure_preparation?
-        errors.add(:invoiced_at, :financial_year_matching_this_date_is_in_closure_preparation) if FinancialYear.on(invoiced_at).closer.id != creator_id
-      else
-        errors.add(:invoiced_at, :not_opened_financial_year) unless opened_financial_year?
-      end
     end
     %i[address delivery_address invoice_address].each do |mail_address|
       next unless send(mail_address)
