@@ -1390,6 +1390,9 @@ fra:
     export_fec_ba_bnc_ir_commercial_accountancy: "Export FEC - Cas BA BNC IR - comptabilité commerciale"
     export_fec_ba_ir_cash_accountancy: "Export FEC - Cas BA IR - comptabilité de trésorerie"
     export_fec_bnc_ir_cash_accountancy: "Export FEC - Cas BNC IR - comptabilité de trésorerie"
+    export_fixed_assets_by_account: "Etat des immobilisations par compte"
+    export_fixed_assets_gain_and_loss: "Etat des plus et moins values"
+    export_fixed_assets_general: "Etat des immobilisations"
     exportation: "Exportation" #?
     extract: "Extraire" #?
     fat_matters_concentration: "Teneur en matières grasses" #?

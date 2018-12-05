@@ -108,6 +108,7 @@ class FixedAsset < Ekylibre::Record::Base
   validates :depreciation_fiscal_coefficient, presence: true, if: -> { depreciation_method_regressive? }
 
   scope :drafts, -> { where(state: %w[draft]) }
+  scope :used, -> { where(state: %w[in_use]) }
   scope :start_before, ->(date) { where('fixed_assets.started_on <= ?', date) }
 
   # [DEPRECATIONS[
@@ -478,10 +479,10 @@ class FixedAsset < Ekylibre::Record::Base
 
   # return the current_depreciation at current date
   def current_depreciation(on = Date.today)
-    # get active depreciation (state  = in use)
-    asset_depreciation = depreciations.where('? BETWEEN started_on AND stopped_on', on).where(locked: false).reorder(:position).last
-    # get last active depreciation (state = scrapped or sold)
-    asset_depreciation ||= depreciations.where('journal_entry_id IS NOT NULL').reorder(:position).last
+    # get active depreciation
+    asset_depreciation = depreciations.where('? BETWEEN started_on AND stopped_on', on).reorder(:position).last
+    # get last active depreciation
+    asset_depreciation ||= depreciations.reorder(:position).last
     return nil unless asset_depreciation
     asset_depreciation
   end

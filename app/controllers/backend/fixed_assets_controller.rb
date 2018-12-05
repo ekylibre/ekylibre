@@ -88,12 +88,24 @@ module Backend
 
     # Show a list of fixed_assets
     def index
-      @fixed_assets = FixedAsset.all.reorder(:started_on)
-      # passing a parameter to Jasper for company full name and id
-      @entity_of_company_full_name = Entity.of_company.full_name
-      @entity_of_company_id = Entity.of_company.id
+      key = "#{Nomen::DocumentNature.find(:fixed_asset_registry).name}-#{Time.zone.now.l(format: '%Y-%m-%d-%H:%M:%S')}"
 
-      respond_with @fixed_assets, methods: [:net_book_value], include: %i[asset_account expenses_account allocation_account product]
+      respond_to do |format|
+        format.html do
+          @fixed_assets = FixedAsset.all.reorder(:started_on)
+          # passing a parameter to Jasper for company full name and id
+          @entity_of_company_full_name = Entity.of_company.full_name
+          @entity_of_company_id = Entity.of_company.id
+
+          respond_with @fixed_assets, methods: [:net_book_value], include: %i[asset_account expenses_account allocation_account product]
+        end
+
+        format.pdf do
+          FixedAssetExportJob.perform_later('fixed_asset_registry', key, params[:state], params[:period], current_user)
+          notify_success(:document_in_preparation)
+          redirect_to :back
+        end
+      end
     end
 
     def show
