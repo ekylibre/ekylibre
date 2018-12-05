@@ -87,7 +87,7 @@ class FinancialYearCloseTest < ActiveSupport::TestCase
     validate_fog
 
     close = FinancialYearClose.new(@year, @year.stopped_on, User.first, result_journal: result)
-    close.execute
+    assert close.execute
 
     assert_equal 3, JournalEntry.count
     assert_equal 0, test_accounts[6012].journal_entry_items.sum('debit - credit')
@@ -121,7 +121,7 @@ class FinancialYearCloseTest < ActiveSupport::TestCase
                                    result_journal: result,
                                    closure_journal: closing,
                                    forward_journal: forward)
-    close.execute
+    assert close.execute
 
     assert_equal 10, @year.journal_entries.count
 
@@ -164,7 +164,7 @@ class FinancialYearCloseTest < ActiveSupport::TestCase
                                    result_journal: result,
                                    closure_journal: closing,
                                    forward_journal: forward)
-    close.execute
+    assert close.execute
 
     assert_equal 6, @year.journal_entries.count
     assert_equal 4, @next_year.journal_entries.count
