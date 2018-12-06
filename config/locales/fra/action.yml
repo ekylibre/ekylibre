@@ -11,7 +11,7 @@ fra:
     authentication/sessions:
       destroy: "Se déconnecter"
       new: "Connexion"
-      renew: "Renouveller la session" #?
+      renew: "Renouveler la session" #?
     backend/accounts:
       edit: "Modifier le compte\_: %{label}"
       index: "Plan de comptes"
@@ -2947,7 +2947,7 @@ fra:
       reflect: "Refléter"
       refresh: "Rafraîchir"
       refuse: "Refuser"
-      renew: "Renouveller"
+      renew: "Renouveler"
       reopen: "Réouvrir"
       repay: "Rembourser"
       reset: "Ré-initialiser"
