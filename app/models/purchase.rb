@@ -86,7 +86,7 @@ class Purchase < Ekylibre::Record::Base
   validates :number, :state, length: { allow_nil: true, maximum: 60 }
   validates :created_at, :state, :nature, presence: true
   validates :number, uniqueness: true
-  validates :invoiced_at, financial_year_writeable: true
+  validates :invoiced_at, financial_year_writeable: true, allow_blank: true
   validates_associated :items
   validates_delay_format_of :payment_delay
 

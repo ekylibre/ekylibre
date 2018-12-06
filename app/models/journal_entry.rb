@@ -102,7 +102,7 @@ class JournalEntry < Ekylibre::Record::Base
   validates :number, format: { with: /\A[\dA-Z]+\z/ }
   validates :real_currency_rate, numericality: { greater_than: 0 }
   validates :number, uniqueness: { scope: %i[journal_id financial_year_id] }
-  validates :printed_on, financial_year_writeable: true
+  validates :printed_on, financial_year_writeable: true, allow_blank: true
 
   accepts_nested_attributes_for :items, reject_if: :all_blank, allow_destroy: true
 

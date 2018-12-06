@@ -100,7 +100,7 @@ class Parcel < Ekylibre::Record::Base
   validates :sender, presence: { if: :incoming? }
   validates :transporter, presence: { if: :delivery_mode_transporter? }
   validates :storage, presence: { unless: :outgoing? }
-  validates :given_at, financial_year_writeable: true
+  validates :given_at, financial_year_writeable: true, allow_blank: true
   validates :transporter, match: { with: :delivery, if: ->(p) { p.delivery&.transporter } }, allow_blank: true
 
   scope :without_transporter, -> { with_delivery_mode(:transporter).where(transporter_id: nil) }

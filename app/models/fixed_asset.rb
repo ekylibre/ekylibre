@@ -103,7 +103,7 @@ class FixedAsset < Ekylibre::Record::Base
   validates :asset_account, :expenses_account, presence: true
   validates :currency, match: { with: :journal, to_invalidate: :journal }
   validates :depreciation_fiscal_coefficient, presence: true, if: -> { depreciation_method_regressive? }
-  validates :started_on, financial_year_writeable: true
+  validates :started_on, financial_year_writeable: true, allow_blank: true
 
   enumerize :depreciation_period, in: %i[monthly quarterly yearly], default: -> { Preference.get(:default_depreciation_period).value || Preference.set!(:default_depreciation_period, :yearly, :string) }
 

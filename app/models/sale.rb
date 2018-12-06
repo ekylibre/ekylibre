@@ -103,7 +103,7 @@ class Sale < Ekylibre::Record::Base
   validates :currency, length: { allow_nil: true, maximum: 3 }
   validates :initial_number, :number, :state, length: { allow_nil: true, maximum: 60 }
   validates :client, :currency, :nature, presence: true
-  validates :invoiced_at, presence: { if: :invoice? }, financial_year_writeable: true
+  validates :invoiced_at, presence: { if: :invoice? }, financial_year_writeable: true, allow_blank: true
   validates_delay_format_of :payment_delay, :expiration_delay
 
   acts_as_numbered :number, readonly: false

@@ -28,13 +28,13 @@ class FinancialYearWriteableValidatorTest < ActiveSupport::TestCase
   class ValidatableWithFinancialYear
     include ActiveModel::Validations
 
-    def printed_on
-      Date.new(1993,04,30)
+    def initialize
+      @printed_on = Date.new(1993, 04, 30)
     end
 
     validates :printed_on, financial_year_writeable: true
 
-    attr_accessor :financial_year, :creator_id
+    attr_accessor :financial_year, :creator_id, :printed_on
   end
 
   def setup
@@ -70,7 +70,7 @@ class FinancialYearWriteableValidatorTest < ActiveSupport::TestCase
     @record.financial_year = @financial_year
   end
 
-  test 'fails_when_financial_year_is_closed' do
+  test 'fails when financial year is closed' do
     def @financial_year.closed?
       true
     end
@@ -78,7 +78,7 @@ class FinancialYearWriteableValidatorTest < ActiveSupport::TestCase
     refute_empty @record.tap(&:valid?).errors
   end
 
-  test 'fails_when_financial_year_is_closing' do
+  test 'fails when financial year is closing' do
     def @financial_year.closing?
       true
     end
@@ -86,7 +86,7 @@ class FinancialYearWriteableValidatorTest < ActiveSupport::TestCase
     refute_empty @record.tap(&:valid?).errors
   end
 
-  test 'fails_when_financial_year_is_closure_preparation_and_not_closer' do
+  test 'fails when financial year is closure preparation and not closer' do
     def @financial_year.closure_in_preparation?
       true
     end
@@ -96,7 +96,7 @@ class FinancialYearWriteableValidatorTest < ActiveSupport::TestCase
     refute_empty @record.tap(&:valid?).errors
   end
 
-  test 'succeed_when_financial_year_opened' do
+  test 'succeed when financial year opened' do
     def @financial_year.opened?
       true
     end
@@ -104,7 +104,7 @@ class FinancialYearWriteableValidatorTest < ActiveSupport::TestCase
     assert_empty @record.tap(&:valid?).errors
   end
 
-  test 'succeed_when_financial_year_is_closure_preparation_and_closer' do
+  test 'succeed when financial year is closure preparation and closer' do
     def @financial_year.closure_in_preparation?
       true
     end
@@ -114,10 +114,16 @@ class FinancialYearWriteableValidatorTest < ActiveSupport::TestCase
     assert_empty @record.tap(&:valid?).errors
   end
 
-  test 'query_database_if_record_does_not_responds_to_financial_year' do
-    validator = @validator = FinancialYearWriteableValidator.new({:attributes => {:printed_on => true}})
+  test 'query database if record does not responds to financial year' do
+    validator = FinancialYearWriteableValidator.new({:attributes => {:printed_on => true}})
 
     assert_equal 'EX1992-93', validator.financial_year(Class.new, Date.new(1993, 04, 30)).code
+  end
+
+  test 'fails if no financial year is found' do
+    @record.printed_on = Date.new(1990, 04, 30)
+
+    refute_empty @record.tap(&:valid?).errors
   end
 
 end

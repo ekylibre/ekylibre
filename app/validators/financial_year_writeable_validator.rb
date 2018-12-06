@@ -1,8 +1,8 @@
 class FinancialYearWriteableValidator < ActiveModel::EachValidator
   def validate_each(record, attribute, value)
-    return unless value
-
     financial_year = financial_year(record, value)
+
+    return record.errors.add(attribute, :financial_year_not_found) unless financial_year
 
     if financial_year.closing?
       record.errors.add(attribute, :financial_year_matching_this_date_is_closing)
