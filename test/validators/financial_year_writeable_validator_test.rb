@@ -52,6 +52,10 @@ class FinancialYearWriteableValidatorTest < ActiveSupport::TestCase
       false
     end
 
+    def @financial_year.opened?
+      false
+    end
+
     def @financial_year.closer
       m = Minitest::Mock.new
 
@@ -90,6 +94,14 @@ class FinancialYearWriteableValidatorTest < ActiveSupport::TestCase
     @record.creator_id = 10
 
     refute_empty @record.tap(&:valid?).errors
+  end
+
+  test 'succeed_when_financial_year_opened' do
+    def @financial_year.opened?
+      true
+    end
+
+    assert_empty @record.tap(&:valid?).errors
   end
 
   test 'succeed_when_financial_year_is_closure_preparation_and_closer' do
