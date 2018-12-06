@@ -20,6 +20,7 @@ class GeneralFixedAssetPrinter
         amount = fixed_asset.purchase_items.any? ? fixed_asset.purchase_items.pluck(:amount).sum : fixed_asset.depreciable_amount
         depreciated_amount = fixed_asset.already_depreciated_value(to) || 0.0
         current_depreciation_amount = fixed_asset.depreciations.where('? BETWEEN started_on AND stopped_on', to).reorder(:position).last&.amount || 0.0
+        cumulated_depreciated_amount = depreciated_amount + current_depreciation_amount
 
         { label: fixed_asset.name,
           started_on: fixed_asset.started_on,
@@ -31,8 +32,8 @@ class GeneralFixedAssetPrinter
           depreciation_method: fixed_asset.depreciation_method,
           depreciated_amount: depreciated_amount,
           current_depreciation_amount: current_depreciation_amount,
-          cumulated_depreciated_amount: depreciated_amount + current_depreciation_amount,
-          net_book_value: fixed_asset.net_book_value(to) || 0.0 }
+          cumulated_depreciated_amount: cumulated_depreciated_amount,
+          net_book_value: fixed_asset.depreciable_amount - cumulated_depreciated_amount }
       end
 
       { account_label: account_label,
@@ -57,7 +58,6 @@ class GeneralFixedAssetPrinter
 
   def run_pdf
     dataset = compute_dataset
-    pp dataset
 
     report = generate_document(@document_nature, @key, @template_path) do |r|
 
@@ -86,12 +86,12 @@ class GeneralFixedAssetPrinter
 
         s.add_table('Table2', :assets) do |t|
           t.add_column(:label) { |asset| asset[:label] }
-          t.add_column(:started_on) { |asset| asset[:started_on] }
+          t.add_column(:started_on) { |asset| asset[:started_on].strftime('%d/%m/%Y') }
           t.add_column(:amount) { |asset| asset[:amount] }
           t.add_column(:tax_amount) { |asset| asset[:tax_amount] }
           t.add_column(:depreciable_amount) { |asset| asset[:depreciable_amount] }
           t.add_column(:depreciation_percentage) { |asset| asset[:depreciation_percentage] }
-          t.add_column(:depreciation_method) { |asset| asset[:depreciation_method] }
+          t.add_column(:depreciation_method) { |asset| I18n.translate("enumerize.fixed_asset.depreciation_method.#{asset[:depreciation_method]}") }
           t.add_column(:depreciated_amount) { |asset| asset[:depreciated_amount] }
           t.add_column(:current_depreciation_amount) { |asset| asset[:current_depreciation_amount] }
           t.add_column(:cumulated_depreciated_amount) { |asset| asset[:cumulated_depreciated_amount] }
