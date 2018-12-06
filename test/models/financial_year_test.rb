@@ -149,20 +149,24 @@ class FinancialYearTest < ActiveSupport::TestCase
       result_journal: Journal.find_by(nature: :result, currency: f.currency) ||
                       Journal.create_one!(:result, f.currency)
     }
-    assert f.close(User.first, nil, options), "Financial year #{f.code} should be closed"
+    begin
+      assert f.close(User.first, nil, options), "Financial year #{f.code} should be closed"
 
-    assert f.prior_to_closure_archive.present?
-    assert f.post_closure_archive.present?
+      assert f.prior_to_closure_archive.present?
+      assert f.post_closure_archive.present?
 
-    assert File.exist? f.prior_to_closure_archive.path
-    assert File.exist? f.post_closure_archive.path
+      assert File.exist? f.prior_to_closure_archive.path
+      assert File.exist? f.post_closure_archive.path
 
-    assert File.exist? f.prior_to_closure_archive.path.gsub(/zip/, 'asc')
-    assert File.exist? f.post_closure_archive.path.gsub(/zip/, 'asc')
+      assert File.exist? f.prior_to_closure_archive.path.gsub(/zip/, 'asc')
+      assert File.exist? f.post_closure_archive.path.gsub(/zip/, 'asc')
 
-    crypto = GPGME::Crypto.new
-    assert_equal crypto.verify(f.prior_to_closure_archive.signature) { |s| s.valid? }.class, GPGME::Data
-    assert_equal crypto.verify(f.post_closure_archive.signature) { |s| s.valid? }.class, GPGME::Data
+      crypto = GPGME::Crypto.new
+      assert_equal crypto.verify(f.prior_to_closure_archive.signature) { |s| s.valid? }.class, GPGME::Data
+      assert_equal crypto.verify(f.post_closure_archive.signature) { |s| s.valid? }.class, GPGME::Data
+    ensure
+      FileUtils.rm_rf Ekylibre::Tenant.private_directory.join('attachments', 'documents', 'financial_year_closures', "#{f.id}")
+    end
   end
 
   test 'compute periods given a specific interval' do

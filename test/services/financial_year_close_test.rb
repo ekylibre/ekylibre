@@ -75,6 +75,10 @@ class FinancialYearCloseTest < ActiveSupport::TestCase
     @close = Account.create!(number: '891', name: 'Closing account')
   end
 
+  teardown do
+    FileUtils.rm_rf Ekylibre::Tenant.private_directory.join('attachments', 'documents', 'financial_year_closures', "#{@year.id}")
+  end
+
   test 'products & expenses balance' do
     result = Journal.create!(name: 'Results TEST', code: 'RSTST', nature: :result)
     test_accounts = {
@@ -146,8 +150,8 @@ class FinancialYearCloseTest < ActiveSupport::TestCase
       nil,
       nil,
       nil,
-      Account.create!(name: 'Test4x', number: '123'),
-      Account.create!(name: 'Test4x', number: '512'),
+      Account.create!(name: 'Test4x', number: '423'),
+      Account.create!(name: 'Test5x', number: '512'),
       nil,
       Account.create!(name: 'Test7x', number: '707')
     ]
