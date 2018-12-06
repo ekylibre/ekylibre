@@ -100,7 +100,7 @@ class Parcel < Ekylibre::Record::Base
   validates :sender, presence: { if: :incoming? }
   validates :transporter, presence: { if: :delivery_mode_transporter? }
   validates :storage, presence: { unless: :outgoing? }
-
+  validates :given_at, financial_year_writeable: true, allow_blank: true
   validates :transporter, match: { with: :delivery, if: ->(p) { p.delivery&.transporter } }, allow_blank: true
 
   scope :without_transporter, -> { with_delivery_mode(:transporter).where(transporter_id: nil) }
@@ -171,11 +171,6 @@ class Parcel < Ekylibre::Record::Base
   validate do
     if given_at
       errors.add(:given_at, :financial_year_exchange_on_this_period) if given_during_financial_year_exchange?
-      if given_during_financial_year_closure_preparation?
-        errors.add(:given_at, :financial_year_matching_this_date_is_in_closure_preparation) if FinancialYear.on(given_at).closer.id != creator_id
-      else
-        errors.add(:given_at, :not_opened_financial_year) unless opened_financial_year?
-      end
     end
   end
 
