@@ -1170,6 +1170,7 @@ eng:
     budget: "Budget"
     budget_per_working_indicator: "Budget per working indicator"
     budgets: "Budgets" #?
+    by_account_fixed_assets: "Fixed assets by account on %{to}"
     by_year: "By year"
     calculate: "Calculate" #?
     calculated_hours: "Calculated hours"
@@ -1489,8 +1490,10 @@ eng:
     function: "Function"
     fungi: "Fungi" #?
     future_events: "Future events"
+    gain_and_loss_fixed_assets: "Gains and losses on %{to}"
     genealogy: "Genealogy"
     general: "General" #?
+    general_fixed_assets: "Fixed assets on %{to}"
     general_informations: "General informations"
     general_ledger: "General ledger"
     general_total: "General total"

@@ -109,6 +109,7 @@ class FixedAsset < Ekylibre::Record::Base
 
   scope :drafts, -> { where(state: %w[draft]) }
   scope :used, -> { where(state: %w[in_use]) }
+  scope :sold_or_scrapped, -> { where(state: %w[sold scrapped]) }
   scope :start_before, ->(date) { where('fixed_assets.started_on <= ?', date) }
 
   # [DEPRECATIONS[

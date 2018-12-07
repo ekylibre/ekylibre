@@ -9,16 +9,13 @@ class ByAccountFixedAssetPrinter < GeneralFixedAssetPrinter
       company_name = e.full_name
       company_address = e.default_mail_address&.coordinate
 
-      data_filters = []
-
       stopped_on = @period == 'all' ? FinancialYear.current.stopped_on : Date.parse(@period.split('_').last)
 
       r.add_field 'COMPANY_ADDRESS', company_address
-      r.add_field 'DOCUMENT_NAME', @document_nature.human_name
+      r.add_field 'DOCUMENT_NAME', I18n.translate("labels.#{@state}_fixed_assets", to: stopped_on.l)
       r.add_field 'FILE_NAME', @key
       r.add_field 'STOPPED_ON', stopped_on.to_date.l
       r.add_field 'PRINTED_AT', Time.zone.now.l(format: '%d/%m/%Y %T')
-      r.add_field 'DATA_FILTERS', data_filters * ' | '
       r.add_field 'TOTAL_AMOUNT', dataset.last[:total_amount]
       r.add_field 'TOTAL_DEPRECIABLE_AMOUNT', dataset.last[:total_depreciable_amount]
       r.add_field 'TOTAL_DEPRECIATED_AMOUNT', dataset.last[:total_depreciated_amount]
