@@ -50,13 +50,13 @@ module Backend
     end
 
     list(:exchanges, model: :financial_year_exchanges, conditions: { financial_year_id: 'params[:id]'.c }) do |t|
-      t.action :journal_entries_export, format: :csv, label: :journal_entries_csv_export.ta
-      t.action :journal_entries_import, label: :journal_entries_import.ta, if: :opened?
-      t.action :notify_accountant, if: :opened?
+      t.action :journal_entries_export, format: :csv, label: :journal_entries_export.ta, class: 'export-action'
+      t.action :journal_entries_import, label: :journal_entries_import.ta, if: :opened?, class: 'import-action'
+      t.action :notify_accountant, if: :opened?, class: 'email-action'
       t.action :close, if: :opened?
-      t.column :started_on, url: true
-      t.column :stopped_on, url: true
-      t.column :closed_at
+      t.column :started_on, url: true, class: 'center-align'
+      t.column :stopped_on, url: true, class: 'center-align'
+      t.column :closed_at, class: 'center-align'
     end
 
     # Displays details of one financial year selected with +params[:id]+
@@ -66,6 +66,10 @@ module Backend
         format.html do
           if @financial_year.closed? && @financial_year.account_balances.empty?
             @financial_year.compute_balances!
+          end
+          if @financial_year.closure_in_preparation?
+            @closer = @financial_year.closer
+            @closer == current_user ? notify_now(:financial_year_closure_in_preparation_initiated_by_you.tl(code: @financial_year.code)) : notify_now(:financial_year_closure_in_preparation_initiated_by_someone_else.tl(code: @financial_year.code))
           end
           notify_now(:locked_exercice_info) if @financial_year.locked?
           t3e @financial_year.attributes
@@ -89,14 +93,20 @@ module Backend
 
     def new
       @financial_year = FinancialYear.new
-      f = FinancialYear.last
-      @financial_year.started_on = f.stopped_on + 1 unless f.nil?
+
+      f = FinancialYear.order(:stopped_on).last
+      if f.present?
+        @financial_year.started_on = f.stopped_on + 1
+      else
+        @financial_year.started_on = Entity.of_company&.born_at
+        @financial_year.stopped_on = Entity.of_company&.first_financial_year_ends_on
+      end
       @financial_year.started_on ||= Time.zone.today
-      @financial_year.stopped_on = ((@financial_year.started_on - 1) >> 12).end_of_month
+      @financial_year.stopped_on ||= ((@financial_year.started_on - 1) + 1.year).end_of_month
+
       @financial_year.code = @financial_year.default_code
       @financial_year.currency = @financial_year.previous.currency if @financial_year.previous
       @financial_year.currency ||= Preference[:currency]
-      # render_restfully_form
     end
 
     def compute_balances
@@ -145,6 +155,12 @@ module Backend
     def index
       @opened_financial_years_count = FinancialYear.opened.count
       @fy_to_close = FinancialYear.closable_or_lockable if FinancialYear.closable_or_lockable
+      @fys_in_preparation = FinancialYear.in_preparation
+      if @fys_in_preparation.any?
+        @fy_in_preparation = @fys_in_preparation.first
+        @closer = @fy_in_preparation.closer
+        @closer == current_user ? notify_now(:financial_year_closure_in_preparation_initiated_by_you.tl(code: @fy_in_preparation.code)) : notify_now(:financial_year_closure_in_preparation_initiated_by_someone_else.tl(code: @fy_in_preparation.code))
+      end
       f = FinancialYear.order(stopped_on: :desc).first
       @fy_to_open = FinancialYear.new
       @fy_to_open.started_on = f.present? ? f.stopped_on + 1 : Time.now.to_date

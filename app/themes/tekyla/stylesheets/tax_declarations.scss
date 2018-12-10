@@ -4,26 +4,26 @@
   #tax-declaration-alert {
   border: 1px solid #BC2121;
   border-radius: 3px;
-  height: 170px;
-  position: relative;
-  i {
-    position: absolute;
-    left: 43px;
-    top: 68px;
-    @include is-icon(120px);
-    @include use-icon(warning);
-  }
+  margin: 20px;
+  overflow: hidden;
+  height: 180px;
+    i {
+      @include is-icon(120px);
+      @include use-icon(lock);
+      float: left;
+      margin: 80px 0px 0px 25px;
+    }
     .tax-declaration-alert-message {
-      position: absolute;
-      left: 183px;
-      top: 35px;
+      padding: 10px;
+      width: calc(100% - 150px);
+      float: right;
+      margin-top: 30px;
       .tax-declaration-alert-title b {
         font-size: 20px;
         line-height: 24px;
       }
       .tax-declaration-alert-description {
-        margin-top: 4px;
-        width: 1000px;
+        margin-top: 10px;
         p {
           line-height: 16px;
         }
@@ -34,3 +34,5 @@
     }
   }
 }
+
+

@@ -102,6 +102,7 @@ class JournalEntry < Ekylibre::Record::Base
   validates :number, format: { with: /\A[\dA-Z]+\z/ }
   validates :real_currency_rate, numericality: { greater_than: 0 }
   validates :number, uniqueness: { scope: %i[journal_id financial_year_id] }
+  validates :printed_on, financial_year_writeable: true, allow_blank: true
 
   accepts_nested_attributes_for :items, reject_if: :all_blank, allow_destroy: true
 
@@ -282,7 +283,6 @@ class JournalEntry < Ekylibre::Record::Base
     errors.add(:items, :empty) unless items.any?
     errors.add(:balance, :unbalanced) unless balance.zero?
     errors.add(:real_balance, :unbalanced) unless real_balance.zero?
-    errors.add(:printed_on, :not_opened_financial_year) unless financial_year&.opened?
   end
 
   after_save do
@@ -439,7 +439,7 @@ class JournalEntry < Ekylibre::Record::Base
 
   def in_financial_year_exchange?
     return unless financial_year
-    financial_year.exchanges.any? { |e| (e.started_on..e.stopped_on).cover?(printed_on) }
+    financial_year.exchanges.opened.any? { |e| (e.started_on..e.stopped_on).cover?(printed_on) }
   end
 
   # this method loads the journal ledger for.the given financial year

@@ -3,7 +3,7 @@
 --
 
 -- Dumped from database version 9.6.10
--- Dumped by pg_dump version 9.6.6
+-- Dumped by pg_dump version 9.6.3
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -2354,6 +2354,7 @@ CREATE TABLE entities (
     bank_identifier_code character varying,
     iban character varying,
     supplier_payment_mode_id integer,
+    first_financial_year_ends_on date,
     CONSTRAINT company_born_at_not_null CHECK (((of_company = false) OR ((of_company = true) AND (born_at IS NOT NULL))))
 );
 
@@ -2991,7 +2992,8 @@ CREATE TABLE financial_years (
     tax_declaration_mode character varying NOT NULL,
     accountant_id integer,
     state character varying,
-    already_existing boolean DEFAULT false NOT NULL
+    already_existing boolean DEFAULT false NOT NULL,
+    closer_id integer
 );
 
 
@@ -11537,6 +11539,13 @@ CREATE INDEX index_financial_years_on_accountant_id ON public.financial_years US
 
 
 --
+-- Name: index_financial_years_on_closer_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_financial_years_on_closer_id ON public.financial_years USING btree (closer_id);
+
+
+--
 -- Name: index_financial_years_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -17460,6 +17469,14 @@ ALTER TABLE ONLY financial_year_exchanges
 
 
 --
+-- Name: financial_years fk_rails_fe34e6ff17; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY financial_years
+    ADD CONSTRAINT fk_rails_fe34e6ff17 FOREIGN KEY (closer_id) REFERENCES users(id);
+
+
+--
 -- PostgreSQL database dump complete
 --
 
@@ -18016,4 +18033,8 @@ INSERT INTO schema_migrations (version) VALUES ('20181003092024');
 INSERT INTO schema_migrations (version) VALUES ('20181031091651');
 
 INSERT INTO schema_migrations (version) VALUES ('20181106100439');
+
+INSERT INTO schema_migrations (version) VALUES ('20181123102741');
+
+INSERT INTO schema_migrations (version) VALUES ('20181126152417');
 

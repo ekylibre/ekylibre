@@ -1,27 +1,26 @@
 #financial-year-container {
   border: 1px solid #BC2121;
   border-radius: 3px;
-  height: 190px;
-  position: relative;
-  margin: 9px;
+  margin: 20px;
+  overflow: hidden;
+  height: 180px;
   i {
-    position: absolute;
-    left: 43px;
-    top: 68px;
     @include is-icon(120px);
     @include use-icon(lock);
+    float: left;
+    margin: 60px 0px 0px 25px;
   }
   .financial-year-message {
-    position: absolute;
-    left: 183px;
-    top: 21px;
+    padding: 10px;
+    width: calc(100% - 150px);
+    float: right;
+    margin-top: 15px;
     .financial-year-title b {
       font-size: 20px;
       line-height: 24px;
     }
     .financial-year-description {
-      margin-top: 4px;
-      width: 1000px;
+      margin-top: 10px;
       p {
         line-height: 16px;
       }
@@ -223,4 +222,19 @@
   cursor: not-allowed;
   pointer-events: none;
   opacity: 0.5;
+}
+
+i {
+  #exchanges-list .list .export-action & {
+    @include is-icon();
+    @include use-icon(download);
+  }
+  #exchanges-list .list .import-action & {
+    @include is-icon();
+    @include use-icon(upload);
+  }
+  #exchanges-list .list .email-action & {
+    @include is-icon();
+    @include use-icon(envelope);
+  }
 }

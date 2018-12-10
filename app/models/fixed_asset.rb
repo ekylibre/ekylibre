@@ -102,10 +102,11 @@ class FixedAsset < Ekylibre::Record::Base
   validates :depreciation_method, inclusion: { in: depreciation_method.values }
   validates :asset_account, :expenses_account, presence: true
   validates :currency, match: { with: :journal, to_invalidate: :journal }
+  validates :depreciation_fiscal_coefficient, presence: true, if: -> { depreciation_method_regressive? }
+  validates :started_on, financial_year_writeable: true, allow_blank: true
 
   enumerize :depreciation_period, in: %i[monthly quarterly yearly], default: -> { Preference.get(:default_depreciation_period).value || Preference.set!(:default_depreciation_period, :yearly, :string) }
 
-  validates :depreciation_fiscal_coefficient, presence: true, if: -> { depreciation_method_regressive? }
 
   scope :drafts, -> { where(state: %w[draft]) }
   scope :start_before, ->(date) { where('fixed_assets.started_on <= ?', date) }
@@ -164,9 +165,11 @@ class FixedAsset < Ekylibre::Record::Base
   end
 
   validate do
-    errors.add(:started_on, :not_opened_financial_year) if started_on && !opened_financial_year?
-    if started_on && self.stopped_on && stopped_on < started_on
-      errors.add(:stopped_on, :posterior, to: started_on.l)
+    if started_on
+      errors.add(:started_on, :financial_year_exchange_on_this_period) if started_during_financial_year_exchange?
+      if self.stopped_on && stopped_on < started_on
+        errors.add(:stopped_on, :posterior, to: started_on.l)
+      end
     end
     true
   end
@@ -233,8 +236,16 @@ class FixedAsset < Ekylibre::Record::Base
     end
   end
 
+  def started_during_financial_year_exchange?
+    FinancialYearExchange.opened.where('? BETWEEN started_on AND stopped_on', started_on).any?
+  end
+
   def opened_financial_year?
     FinancialYear.on(started_on)&.opened?
+  end
+
+  def started_during_financial_year_closure_preparation?
+    FinancialYear.on(started_on)&.closure_in_preparation?
   end
 
   # This callback permits to add journal entry corresponding to the fixed asset when entering in use

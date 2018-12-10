@@ -712,7 +712,8 @@ cmn:
   labels:
     access: "访问"
     access_parameters: "访问参数"
-    # account_certification_by_competent_person: "I certify that my accounts have been revised by a competent person."
+    # account_certification_by_competent_person: "I certify that my accounts have been revised outside of the software by a competent person."
+    # account_certification_by_competent_person_close: "I certify that my accounts have been revised by a competent person."
     account_for: "帐户"
     # account_totals: "Account Totals"
     accountancy: "会计"
@@ -1166,6 +1167,8 @@ cmn:
     # financial_year: "Financial year"
     # financial_year_close_message: "<p> The close will definitively validate all entries of the financial year, which may not be modified or deleted. It will not be possible to add new ones too. </p>"
     # financial_year_closing: "Financial year closure in progress"
+    # financial_year_closure_in_preparation_initiated_by_someone_else: "Closure of %{code} in preparation, you can't edit entries related to this financial year anymore."
+    # financial_year_closure_in_preparation_initiated_by_you: "Closure of %{code} in preparation, you're the only person able to edit entries related to this financial year."
     # financial_year_lock_message: "<p> The lock will definitively validate all entries of the financial year, which may not be modified or deleted. It will not be possible to add new ones too. <br/> You will need to get in contact the person who did the close out of the software to get back your year-end documents. </p>"
     # financial_year_needed: "All commercial and financial operations need to be accounted on an opened financial year. Please open a financial year for the current period or ask a manager"
     # financial_year_results: "Financial year results : %{results}"
@@ -1540,6 +1543,7 @@ cmn:
     potential_hydrogen: "潜在的氢"
     precipitation: "沉淀"
     preferences: "优先"
+    # prepare_financial_year_for_closure: "Prepare %{code} for closure"
     # prerequisites_checks_before_closure: "Prerequisites checks before closure"
     prescription: "处方"
     prescriptions: "处方"
@@ -1589,6 +1593,7 @@ cmn:
     quantity: "数量"
     quantity_rest: "剩余数量" #?
     query: "查询："
+    # quit_financial_year_closure_preparation: "Quit preparation mode for %{code}"
     # radical_class_accounts_dont_have_entries: "Radical class accounts does not contain any entry"
     # radical_class_accounts_have_entries: "Radical class accounts contains entries"
     raw_income: "原始收入"
@@ -2269,7 +2274,7 @@ cmn:
       increment: "增量" #?
       index: "指数"
       invoice: "发票"
-      journal_entries_csv_export: "下载CSV"
+      journal_entries_export: "下载CSV"
       journal_entries_import: "导入CSV"
       list: "名单"
       load: "加载"

@@ -164,6 +164,9 @@ eng:
         cash_transfer:
           attributes:
             transfered_at:
+              financial_year_not_found: "Could not find a financial year for this date"
+              financial_year_exchange_on_this_period: "There is a financial year exchange at this period"
+              financial_year_matching_this_date_is_in_closure_preparation: "The financial year matching this date is currently being prepared for closure by another user"
               not_opened_financial_year: "An opened financial year is necessary"
         deposit:
           must_be_a_bank_account: "%{attribute} must be a bank account and not a cash"
@@ -192,6 +195,9 @@ eng:
         fixed_asset:
           attributes:
             started_on:
+              financial_year_not_found: "Could not find a financial year for this date"
+              financial_year_exchange_on_this_period: "There is a financial year exchange at this period"
+              financial_year_matching_this_date_is_in_closure_preparation: "The financial year matching this date is currently being prepared for closure by another user"
               not_opened_financial_year: "An opened financial year is necessary"
         fixed_asset_depreciation:
           attributes:
@@ -213,6 +219,7 @@ eng:
               end_of_month: "%{attribute} must be an end of month (%{closed_on})"
         journal_entry:
           closed_journal: "The journal %{journal} is closed on %{closed_on}. No updates are possible until this date."
+          financial_year_matching_this_date_is_in_closure_preparation: "The financial year matching this date is currently being prepared for closure by another user"
           frozen_by_financial_year_exchange: "The journal entry cannot be recorded in a period corresponding to a financial year exchange."
           not_opened_financial_year: "An opened financial year is necessary"
           out_of_existing_financial_year: "The journal entry must be recorded in a period corresponding to an existing financial year."
@@ -224,14 +231,23 @@ eng:
         outgoing_parcel_item:
           greater_than_undelivered_quantity: "The quantity of %{product} to deliver is greater than the available quantity (%{maximum}%{unit})"
         parcel:
+          financial_year_not_found: "Could not find a financial year for this date"
+          financial_year_exchange_on_this_period: "There is a financial year exchange at this period"
+          financial_year_matching_this_date_is_in_closure_preparation: "The financial year matching this date is currently being prepared for closure by another user"
           not_opened_financial_year: "An opened financial year is necessary"
         purchase:
+          financial_year_not_found: "Could not find a financial year for this date"
+          financial_year_exchange_on_this_period: "There is a financial year exchange at this period"
+          financial_year_matching_this_date_is_in_closure_preparation: "The financial year matching this date is currently being prepared for closure by another user"
           not_opened_financial_year: "An opened financial year is necessary"
           payment_delay_custom_validation_message: "Accepted formats : %{values}"
         purchase_item:
           building_can_not_receive_product: "The building %{building} can not receive %{product}, it already contains %{contained_product}."
           serial_already_used_with_an_other_product: "%{attribute} has been already used for an other product of the same supplier"
         sale:
+          financial_year_not_found: "Could not find a financial year for this date"
+          financial_year_exchange_on_this_period: "There is a financial year exchange at this period"
+          financial_year_matching_this_date_is_in_closure_preparation: "The financial year matching this date is currently being prepared for closure by another user"
           not_opened_financial_year: "An opened financial year is necessary"
         sale_item:
           building_can_not_transfer_product: "%{product} can not be found in %{building}, it only contains %{contained_product}."
@@ -595,6 +611,7 @@ eng:
     closed: "Closed"
     closed_at: "Closed at"
     closed_on: "Closed on"
+    # closer: "Closer"
     closure_journal: "Closure journal" #?
     clusters_work_number: "Clusters work number" #?
     code: "Code"
@@ -836,6 +853,7 @@ eng:
     finish: "Finish"
     finished_at: "Finished at"
     first_calving_on: "First calving on"
+    # first_financial_year_ends_on: "First financial year ends on"
     first_met_at: "First met on"
     first_name: "First name"
     first_number: "First number" #?
@@ -1410,6 +1428,7 @@ eng:
     responses: "Responses"
     responsible: "Responsible"
     restricted: "Restricted"
+    result_journal: "Result journal" #?
     retrieval_message: "Retrieval message"
     retrieval_mode: "Retrieval mode"
     retrieval_status: "Retrieval status"

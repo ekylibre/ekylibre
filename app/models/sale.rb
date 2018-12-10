@@ -103,7 +103,7 @@ class Sale < Ekylibre::Record::Base
   validates :currency, length: { allow_nil: true, maximum: 3 }
   validates :initial_number, :number, :state, length: { allow_nil: true, maximum: 60 }
   validates :client, :currency, :nature, presence: true
-  validates :invoiced_at, presence: { if: :invoice? }
+  validates :invoiced_at, presence: { if: :invoice? }, financial_year_writeable: true, allow_blank: true
   validates_delay_format_of :payment_delay, :expiration_delay
 
   acts_as_numbered :number, readonly: false
@@ -186,8 +186,8 @@ class Sale < Ekylibre::Record::Base
 
   validate do
     if invoiced_at
+      errors.add(:invoiced_at, :financial_year_exchange_on_this_period) if invoiced_during_financial_year_exchange?
       errors.add(:invoiced_at, :before, restriction: Time.zone.now.l) if invoiced_at > Time.zone.now
-      errors.add(:invoiced_at, :not_opened_financial_year) unless opened_financial_year?
     end
     %i[address delivery_address invoice_address].each do |mail_address|
       next unless send(mail_address)
@@ -333,8 +333,16 @@ class Sale < Ekylibre::Record::Base
     items.any?
   end
 
+  def invoiced_during_financial_year_exchange?
+    FinancialYearExchange.opened.where('? BETWEEN started_on AND stopped_on', invoiced_at).any?
+  end
+
   def opened_financial_year?
     FinancialYear.on(invoiced_at)&.opened?
+  end
+
+  def invoiced_during_financial_year_closure_preparation?
+    FinancialYear.on(invoiced_at)&.closure_in_preparation?
   end
 
   # Returns if the sale has been validated and so if it can be

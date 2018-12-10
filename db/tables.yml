@@ -2139,6 +2139,8 @@ entities:
   employee_account_id:
     type: integer
     references: account
+  first_financial_year_ends_on:
+    type: date
   first_met_at:
     type: datetime
   first_name:
@@ -2491,6 +2493,9 @@ financial_years:
     type: boolean
     required: true
     default: false
+  closer_id:
+    type: integer
+    references: user
   code:
     type: string
     required: true

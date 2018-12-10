@@ -778,7 +778,8 @@ jpn:
   labels:
     access: "アクセス"
     access_parameters: "アクセス・パラメータ"
-    # account_certification_by_competent_person: "I certify that my accounts have been revised by a competent person."
+    # account_certification_by_competent_person: "I certify that my accounts have been revised outside of the software by a competent person."
+    # account_certification_by_competent_person_close: "I certify that my accounts have been revised by a competent person."
     account_for: "以下のためのアカウント"
     # account_totals: "Account Totals"
     accountancy: "会計学"
@@ -1234,6 +1235,8 @@ jpn:
     # financial_year: "Financial year"
     # financial_year_close_message: "<p> The close will definitively validate all entries of the financial year, which may not be modified or deleted. It will not be possible to add new ones too. </p>"
     # financial_year_closing: "Financial year closure in progress"
+    # financial_year_closure_in_preparation_initiated_by_someone_else: "Closure of %{code} in preparation, you can't edit entries related to this financial year anymore."
+    # financial_year_closure_in_preparation_initiated_by_you: "Closure of %{code} in preparation, you're the only person able to edit entries related to this financial year."
     # financial_year_lock_message: "<p> The lock will definitively validate all entries of the financial year, which may not be modified or deleted. It will not be possible to add new ones too. <br/> You will need to get in contact the person who did the close out of the software to get back your year-end documents. </p>"
     # financial_year_needed: "All commercial and financial operations need to be accounted on an opened financial year. Please open a financial year for the current period or ask a manager"
     # financial_year_results: "Financial year results : %{results}"
@@ -1611,6 +1614,7 @@ jpn:
     potential_hydrogen: "潜在的な水素"
     precipitation: "降水量"
     preferences: "環境設定"
+    # prepare_financial_year_for_closure: "Prepare %{code} for closure"
     # prerequisites_checks_before_closure: "Prerequisites checks before closure"
     prescription: "処方"
     prescriptions: "処方箋"
@@ -1660,6 +1664,7 @@ jpn:
     quantity: "量"
     quantity_rest: "残量" #?
     query: "クエリ："
+    # quit_financial_year_closure_preparation: "Quit preparation mode for %{code}"
     # radical_class_accounts_dont_have_entries: "Radical class accounts does not contain any entry"
     # radical_class_accounts_have_entries: "Radical class accounts contains entries"
     raw_income: "生収入"
@@ -2344,7 +2349,7 @@ jpn:
       increment: "インクリメント" #?
       index: "インデックス"
       invoice: "請求書"
-      journal_entries_csv_export: "CSVをダウンロード"
+      journal_entries_export: "CSVをダウンロード"
       journal_entries_import: "CSVのインポート"
       list: "リスト"
       load: "負荷"
