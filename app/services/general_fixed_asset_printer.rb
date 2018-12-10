@@ -4,9 +4,9 @@ class GeneralFixedAssetPrinter
   def initialize(options)
     @document_nature = Nomen::DocumentNature.find(options[:document_nature])
     @key             = options[:key]
-    @template_path   = find_open_document_template("#{options[:state]}_#{options[:document_nature]}")
+    @template_path   = find_open_document_template("#{options[:nature]}_#{options[:document_nature]}")
     @period          = options[:period]
-    @state           = options[:state]
+    @nature          = options[:nature]
   end
 
   def compute_dataset
@@ -69,7 +69,7 @@ class GeneralFixedAssetPrinter
       stopped_on = @period == 'all' ? FinancialYear.current.stopped_on : Date.parse(@period.split('_').last)
 
       r.add_field 'COMPANY_ADDRESS', company_address
-      r.add_field 'DOCUMENT_NAME', I18n.translate("labels.#{@state}_fixed_assets", to: stopped_on.l)
+      r.add_field 'DOCUMENT_NAME', I18n.translate("labels.#{@nature}_fixed_assets", to: stopped_on.l)
       r.add_field 'FILE_NAME', @key
       r.add_field 'STOPPED_ON', stopped_on.to_date.l
       r.add_field 'PRINTED_AT', Time.zone.now.l(format: '%d/%m/%Y %T')

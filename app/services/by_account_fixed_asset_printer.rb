@@ -12,7 +12,7 @@ class ByAccountFixedAssetPrinter < GeneralFixedAssetPrinter
       stopped_on = @period == 'all' ? FinancialYear.current.stopped_on : Date.parse(@period.split('_').last)
 
       r.add_field 'COMPANY_ADDRESS', company_address
-      r.add_field 'DOCUMENT_NAME', I18n.translate("labels.#{@state}_fixed_assets", to: stopped_on.l)
+      r.add_field 'DOCUMENT_NAME', I18n.translate("labels.#{@nature}_fixed_assets", to: stopped_on.l)
       r.add_field 'FILE_NAME', @key
       r.add_field 'STOPPED_ON', stopped_on.to_date.l
       r.add_field 'PRINTED_AT', Time.zone.now.l(format: '%d/%m/%Y %T')

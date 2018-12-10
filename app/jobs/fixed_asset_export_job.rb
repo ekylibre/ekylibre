@@ -2,12 +2,11 @@ class FixedAssetExportJob < ActiveJob::Base
   queue_as :default
   include Rails.application.routes.url_helpers
 
-  def perform(document_nature, key, state, period, user)
+  def perform(document_nature, key, nature, period, user)
     begin
-      fixed_asset_printer = "#{state.split('_').map(&:capitalize).join}FixedAssetPrinter".constantize.new(document_nature: document_nature,
-                                                                                                          key: key,
-                                                                                                          state: state,
-                                                                                                          period: period)
+      printer_class_name = "#{nature.split('_').map(&:capitalize).join}FixedAssetPrinter"
+      printer_class = printer_class_name.constantize
+      fixed_asset_printer = printer_class.new(document_nature: document_nature, key: key, nature: nature, period: period)
       file_path = fixed_asset_printer.run_pdf
       document = Document.find_by(key: key)
       notification = user.notifications.build(valid_generation_notification_params(file_path, key, document.id))

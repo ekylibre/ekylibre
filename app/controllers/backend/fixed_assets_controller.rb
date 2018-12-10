@@ -101,7 +101,7 @@ module Backend
         end
 
         format.pdf do
-          FixedAssetExportJob.perform_later('fixed_asset_registry', key, params[:state], params[:period], current_user)
+          FixedAssetExportJob.perform_later('fixed_asset_registry', key, params[:nature], params[:period], current_user)
           notify_success(:document_in_preparation)
           redirect_to :back
         end
