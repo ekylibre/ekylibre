@@ -46,6 +46,7 @@ gem 'therubyracer', platforms: :ruby
 
 # Exception analysis and metrics
 gem 'binding_of_caller'
+gem 'redis-namespace'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'

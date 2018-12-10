@@ -405,6 +405,8 @@ GEM
       ffi (>= 0.5.0, < 2)
     rdoc (4.3.0)
     redis (3.3.5)
+    redis-namespace (1.6.0)
+      redis (>= 3.0.4)
     ref (2.0.0)
     remotipart (1.4.2)
     request_store (1.4.1)
@@ -674,6 +676,7 @@ DEPENDENCIES
   rails (= 4.2.10)
   rails_best_practices
   rake (~> 12.0)
+  redis-namespace
   remotipart (~> 1.2)
   rest-client
   rgeo-geojson
