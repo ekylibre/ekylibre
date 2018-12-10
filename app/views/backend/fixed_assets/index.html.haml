@@ -21,7 +21,8 @@
     %span.add-on= :up_to.tl.downcase
     = date_field_tag(:until, depreciate_until, id: 'depreciate-fixed-assets-until', data: { max_date: Time.zone.today.iso8601 })
   = dropdown_menu_button(:export.ta, icon: :download) do |d|
-    - %i[general by_account gain_and_loss].each do |state|
+    -# %i[general by_account gain_and_loss].each do |state|
+    - %i[general by_account].each do |state|
       - d.item "export_fixed_assets_#{state}".tl, state: state, period: params[:period], format: :pdf
 
 = main_list
