@@ -2428,6 +2428,7 @@ eng:
       financial_years_missing: "You must create every missing financial years since the first registered"
       financial_years_missing_tax_declarations: "You must create every declarations for the following financial years: %{codes}" #?
       implemented_with_dummy_data: "Implemented with dummy data"
+      import_creation_successful_suggest_execute: "Creation successful! You can now import the file with the button \"Run\"."
       import_failed: "Import %{name} failed: %{message}"
       import_finished_successfully: "Import %{name} finished successfully"
       importation_finished: "The import is complete."

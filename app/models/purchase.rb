@@ -86,6 +86,7 @@ class Purchase < Ekylibre::Record::Base
   validates :number, :state, length: { allow_nil: true, maximum: 60 }
   validates :created_at, :state, :nature, presence: true
   validates :number, uniqueness: true
+  validates :invoiced_at, financial_year_writeable: true, allow_blank: true
   validates_associated :items
   validates_delay_format_of :payment_delay
 
@@ -157,11 +158,6 @@ class Purchase < Ekylibre::Record::Base
     if invoiced_at
       errors.add(:invoiced_at, :financial_year_exchange_on_this_period) if invoiced_during_financial_year_exchange?
       errors.add(:invoiced_at, :before, restriction: Time.zone.now.l) if invoiced_at > Time.zone.now
-      if invoiced_during_financial_year_closure_preparation?
-        errors.add(:invoiced_at, :financial_year_matching_this_date_is_in_closure_preparation) if FinancialYear.on(invoiced_at).closer.id != creator_id
-      else
-        errors.add(:invoiced_at, :not_opened_financial_year) unless opened_financial_year?
-      end
     end
   end
 

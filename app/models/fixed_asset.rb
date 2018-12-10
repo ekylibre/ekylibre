@@ -102,10 +102,11 @@ class FixedAsset < Ekylibre::Record::Base
   validates :depreciation_method, inclusion: { in: depreciation_method.values }
   validates :asset_account, :expenses_account, presence: true
   validates :currency, match: { with: :journal, to_invalidate: :journal }
+  validates :depreciation_fiscal_coefficient, presence: true, if: -> { depreciation_method_regressive? }
+  validates :started_on, financial_year_writeable: true, allow_blank: true
 
   enumerize :depreciation_period, in: %i[monthly quarterly yearly], default: -> { Preference.get(:default_depreciation_period).value || Preference.set!(:default_depreciation_period, :yearly, :string) }
 
-  validates :depreciation_fiscal_coefficient, presence: true, if: -> { depreciation_method_regressive? }
 
   scope :drafts, -> { where(state: %w[draft]) }
   scope :used, -> { where(state: %w[in_use]) }
@@ -168,11 +169,6 @@ class FixedAsset < Ekylibre::Record::Base
   validate do
     if started_on
       errors.add(:started_on, :financial_year_exchange_on_this_period) if started_during_financial_year_exchange?
-      if started_during_financial_year_closure_preparation?
-        errors.add(:started_on, :financial_year_matching_this_date_is_in_closure_preparation) if FinancialYear.on(started_on).closer.id != creator_id
-      else
-        errors.add(:started_on, :not_opened_financial_year) unless opened_financial_year?
-      end
       if self.stopped_on && stopped_on < started_on
         errors.add(:stopped_on, :posterior, to: started_on.l)
       end

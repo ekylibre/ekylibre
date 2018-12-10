@@ -11,7 +11,7 @@ fra:
     authentication/sessions:
       destroy: "Se déconnecter"
       new: "Connexion"
-      renew: "Renouveller la session" #?
+      renew: "Renouveler la session" #?
     backend/accounts:
       edit: "Modifier le compte\_: %{label}"
       index: "Plan de comptes"
@@ -2725,6 +2725,7 @@ fra:
       financial_years_missing: "Vous devez créer tous les exercices comptables manquant depuis le premier exercice enregistré"
       financial_years_missing_tax_declarations: "Vous devez créer toutes les déclarations des exercices suivants\_: %{codes}"
       implemented_with_dummy_data: "Charger des données de test"
+      import_creation_successful_suggest_execute: "Création réussie ! Vous pouvez maintenant lancer l'import via le bouton \"Exécuter\"/."
       import_failed: "L’import %{name} a échoué\_: %{message}"
       import_finished_successfully: "L’import %{name} s’est fini correctement"
       import_succeeded: "Vos données ont été correctement importées" #?
@@ -2953,7 +2954,7 @@ fra:
       reflect: "Refléter"
       refresh: "Rafraîchir"
       refuse: "Refuser"
-      renew: "Renouveller"
+      renew: "Renouveler"
       reopen: "Réouvrir"
       repay: "Rembourser"
       reset: "Ré-initialiser"
