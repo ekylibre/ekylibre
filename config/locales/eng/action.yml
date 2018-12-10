@@ -1107,6 +1107,7 @@ eng:
     all_columns: "All columns" #?
     all_conditions: "All conditions" #?!
     all_entries_balanced: "All entries are balanced" #?
+    all_exchanges_closed: "All exchanges are closed"
     all_financial_years_closed_or_locked: "All financial years are closed or locked" #?
     all_financial_years_not_closed_or_locked: "All financial years are not closed or locked" #?
     all_periods: "All financial years"
@@ -1429,6 +1430,7 @@ eng:
     exchange: "Exchange"
     exchange_rate_from_x_to_y: "Exchange rate from %{x} to %{y}"
     exchanges: "Exchanges"
+    exchanges_to_close: "There is at least one exchange to close: "
     exercice_production: "Exercice production"
     exercice_result: "Exercice result" #?
     existing: "Existing" #?
@@ -1500,6 +1502,7 @@ eng:
     geolocation: "Geolocation" #?
     global_preferences: "Global preferences"
     go: "Go" #?
+    go_back_to_financial_year_details: "Go back to financial year details"
     gradings: "Gradings" #?
     grain_yield: "Grain yield" #?
     grains_yield: "Grains yield"

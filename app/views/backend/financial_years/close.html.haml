@@ -16,7 +16,8 @@
                closed_previous_years: @financial_year.all_previous_financial_years_closed_or_locked?,
                drafts_empty: @financial_year.no_draft_entry?,
                entries_balanced: @financial_year.no_entry_to_balance?,
-               no_entries_on_radicals: @financial_year.unbalanced_radical_account_classes_array.empty?)
+               no_entries_on_radicals: @financial_year.unbalanced_radical_account_classes_array.empty?,
+               no_opened_exchange: !@financial_year.opened_exchange?)
 
       .result
         %span.result-icon= 'i'
