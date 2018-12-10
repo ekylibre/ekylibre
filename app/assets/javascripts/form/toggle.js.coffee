@@ -40,11 +40,10 @@
   # Hide/show blocks depending on check boxes
   $(document).behave "load", "input[type='checkbox'][data-show], input[type='checkbox'][data-hide]", toggleCheckboxes
   $(document).behave "load", "input[type='radio'][data-show], input[type='radio'][data-hide]", toggleRadios
-  $(document).ready ->
-    $("input[type='radio'][data-show], input[type='radio'][data-hide]").on "change", toggleRadios
-    $("input[type='checkbox'][data-show], input[type='checkbox'][data-hide]").on "change",  toggleCheckboxes
+  $(document).on "change", "input[type='checkbox'][data-show], input[type='checkbox'][data-hide]", toggleCheckboxes
+  $(document).on "change", "input[type='radio'][data-show], input[type='radio'][data-hide]", toggleRadios
   $(document).behave "load", ".ui-dialog", ->
     $("input[type='radio'][data-show], input[type='radio'][data-hide]").on "change", toggleRadios
-    $("input[type='checkbox'][data-show], input[type='checkbox'][data-hide]").on "change",  toggleCheckboxes
+    $("input[type='checkbox'][data-show], input[type='checkbox'][data-hide]").on "change", toggleCheckboxes
   return
 ) jQuery

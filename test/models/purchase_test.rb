@@ -280,4 +280,20 @@ class PurchaseTest < ActiveSupport::TestCase
     purchase.update(supplier: original_supplier)
     assert_equal replacement_supplier, purchase.affair.third
   end
+
+  test "updating a purchase's pretax amount correctly computes the corresponding fixed asset depreciable amount" do
+    tax = create(:tax)
+    fixed_asset = create(:fixed_asset)
+    purchase_item = create(:purchase_item, pretax_amount: 1000, fixed: true, preexisting_asset: true, fixed_asset_id: fixed_asset.id, tax: tax)
+
+    purchase_item.purchase.invoice
+    fixed_asset.reload
+    assert_equal purchase_item.pretax_amount, fixed_asset.depreciable_amount
+
+    purchase_item.reload
+
+    purchase_item.update!(pretax_amount: 2000)
+    fixed_asset.reload
+    assert_equal purchase_item.pretax_amount, fixed_asset.depreciable_amount
+  end
 end
