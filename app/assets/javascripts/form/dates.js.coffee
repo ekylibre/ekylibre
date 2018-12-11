@@ -10,6 +10,9 @@
     enableTime: true
     altFormat: 'd-m-Y H:i'
     time_24hr: true
+    plugins: [new confirmDatePlugin({
+      showAlways: true
+    })]
   baseDateRangeOptions = ($element) => $.extend {}, baseDateOptions($element),
     mode: 'range'
     dateFormat: 'Y-m-d'

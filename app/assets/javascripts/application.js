@@ -26,6 +26,7 @@
 //= require jquery.remotipart
 //= require jquery.turbolinks
 //= require flatpickr
+//= require flatpickr/plugins/confirmDate/confirmDate
 //= require flatpickr/l10n/ar
 //= require flatpickr/l10n/de
 //= require flatpickr/l10n/es
