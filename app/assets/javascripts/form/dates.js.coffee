@@ -21,21 +21,18 @@
     $element = $(element)
     return if $element.is('[data-flatpickr="false"]')
     options = baseDateOptions $element
-    console.log "date", options
     $element
       .flatpickr options
 
   enableDatetimePicker = (element) =>
     $element = $(element)
     options = baseDateTimeOptions $element
-    console.log "datetime", options
     $element
       .flatpickr options
 
   enableDateRangePicker = (element) =>
     $element = $(element)
     options = baseDateRangeOptions $element
-    console.log "daterange", options
     $element
       .attr 'type', 'text'
       .flatpickr options
