@@ -114,7 +114,6 @@
     bankReconciliation.uiUpdate()
 
   $(document).on "change", "#set_period", (event) ->
-    debugger
     matches = event.target.value.match(/\d+-\d+-\d+/g)
     if matches.length < 2
       return

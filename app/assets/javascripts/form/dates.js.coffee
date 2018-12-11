@@ -3,11 +3,12 @@
 
   baseDateOptions = ($element) => $.extend {},
     locale: getLocale($element)
-    dateFormat: 'Z'
+    dateFormat: 'Y-m-d'
     altInput: true
     altFormat: 'd-m-Y'
   baseDateTimeOptions = ($element) => $.extend {}, baseDateOptions($element),
     enableTime: true
+    dateFormat: 'Z'
     altFormat: 'd-m-Y H:i'
     time_24hr: true
     plugins: [new confirmDatePlugin({
