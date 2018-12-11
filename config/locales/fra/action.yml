@@ -1219,6 +1219,7 @@ fra:
     data_to_extract: "Données à extraire" #?
     date: "Date" #?
     dated_cash: "%{cash}\_: %{on}"
+    date_range: "%{from} au %{to}"
     dates: "Saisissez les dates de début et de fin de la période"
     day: "Jour" #?
     days: "Jours"

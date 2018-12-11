@@ -2,6 +2,7 @@
  * This is a manifest file that'll be compiled into screen.css, which will include all the files
  * listed below.
  *
+ *= require flatpickr
  *= require_self
  */
 
@@ -18,7 +19,6 @@
 @import 'bootstrap-sprockets';
 
 // Plugins
-@import "themes/tekyla/plugins";
 @import "bootstrap-slider";
 
 // Specific
@@ -33,8 +33,6 @@
 @import "beehives";
 @import "calendars";
 @import "charts";
-@import "daterangepicker";
-@import "datetimepickers";
 @import "documents";
 @import "equipments";
 @import "financial_years";
