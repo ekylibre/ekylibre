@@ -1,0 +1,5 @@
+
+.flatpickr-time input.flatpickr-hour, .flatpickr-time input.flatpickr-minute, .flatpickr-time input.flatpickr-second {
+  height: inherit; // Override reset rule
+  padding: 0;
+}

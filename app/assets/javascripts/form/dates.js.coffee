@@ -9,6 +9,7 @@
   baseDateTimeOptions = ($element) => $.extend {}, baseDateOptions($element),
     enableTime: true
     altFormat: 'd-m-Y H:i'
+    time_24hr: true
   baseDateRangeOptions = ($element) => $.extend {}, baseDateOptions($element),
     mode: 'range'
     dateFormat: 'Y-m-d'
