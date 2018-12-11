@@ -140,6 +140,12 @@ jpn:
       nature:
         contact: "連絡先"
         organization: "組織"
+      supplier_payment_delay:
+        # 1 week: "at reception"
+        # 30 days: "30 days"
+        # 30 days, end of month: "30 days end of month"
+        # 60 days: "60 days"
+        # 60 days, end of month: "60 days end of month"
     entity_address:
       canal:
         email: "Eメール"
@@ -455,6 +461,12 @@ jpn:
         point: "ポイント"
         string: "文字列"
     purchase:
+      payment_delay:
+        # 1 week: "at reception"
+        # 30 days: "30 days"
+        # 30 days, end of month: "30 days end of month"
+        # 60 days: "60 days"
+        # 60 days, end of month: "60 days end of month"
       tax_payability:
         at_invoicing: "請求書発行で"
         at_paying: "支払う時"
@@ -462,10 +474,24 @@ jpn:
       nature:
         payslip: "給料明細書"
         purchase: "購入"
+    sale:
+      payment_delay:
+        # 1 week: "at reception"
+        # 30 days: "30 days"
+        # 30 days, end of month: "30 days end of month"
+        # 60 days: "60 days"
+        # 60 days, end of month: "60 days end of month"
     sale_item: #?
       compute_from: #?
         pretax_amount: "税引前金額" #?
         unit_pretax_amount: "ユニット税引前金額" #?
+    sale_nature:
+      payment_delay:
+        # 1 week: "at reception"
+        # 30 days: "30 days"
+        # 30 days, end of month: "30 days end of month"
+        # 60 days: "60 days"
+        # 60 days, end of month: "60 days end of month"
     sensor:
       retrieval_mode:
         integration: "統合"

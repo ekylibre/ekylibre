@@ -447,15 +447,15 @@ eng:
         point: "Point"
         string: "String"
     purchase:
-      tax_payability:
-        at_invoicing: "At invoicing"
-        at_paying: "At paying"
       payment_delay:
         1 week: "at reception"
         30 days: "30 days"
         30 days, end of month: "30 days end of month"
         60 days: "60 days"
         60 days, end of month: "60 days end of month"
+      tax_payability:
+        at_invoicing: "At invoicing"
+        at_paying: "At paying"
     purchase_gap:
       direction:
         # loss: "Loss"
