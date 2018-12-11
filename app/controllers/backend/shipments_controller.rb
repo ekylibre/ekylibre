@@ -105,6 +105,23 @@ module Backend
       end
     end
 
+    # Converts parcel to trade
+    def invoice
+      parcels = find_parcels
+      return unless parcels
+      parcel = parcels.first
+      if parcels.all? { |p| p.incoming? && p.third_id == parcel.third_id && p.invoiceable? }
+        purchase = Parcel.convert_to_purchase(parcels)
+        redirect_to backend_purchase_path(purchase)
+      elsif parcels.all? { |p| p.outgoing? && p.third_id == parcel.third_id && p.invoiceable? }
+        sale = Parcel.convert_to_sale(parcels)
+        redirect_to backend_sale_path(sale)
+      else
+        notify_error(:all_parcels_must_be_invoiceable_and_of_same_nature_and_third)
+        redirect_to(params[:redirect] || { action: :index })
+      end
+    end
+    #
     # Pre-fill delivery form with given parcels. Nothing else.
     # Only a shortcut now.
     def ship
