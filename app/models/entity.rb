@@ -88,6 +88,7 @@ class Entity < Ekylibre::Record::Base
   refers_to :language
   refers_to :country
   enumerize :nature, in: %i[organization contact], default: :organization, predicates: true
+  enumerize :supplier_payment_delay, in: ['1 week', '30 days', '30 days, end of month', '60 days', '60 days, end of month']
   versionize exclude: [:full_name]
   belongs_to :client_account, class_name: 'Account'
   belongs_to :employee_account, class_name: 'Account'

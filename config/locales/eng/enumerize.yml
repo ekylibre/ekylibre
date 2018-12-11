@@ -138,6 +138,12 @@ eng:
       nature:
         contact: "Contact"
         organization: "Organization"
+      supplier_payment_delay:
+        1 week: "at reception"
+        30 days: "30 days"
+        30 days, end of month: "30 days end of month"
+        60 days: "60 days"
+        60 days, end of month: "60 days end of month"
     entity_address:
       canal:
         email: "Email"
@@ -444,6 +450,12 @@ eng:
       tax_payability:
         at_invoicing: "At invoicing"
         at_paying: "At paying"
+      payment_delay:
+        1 week: "at reception"
+        30 days: "30 days"
+        30 days, end of month: "30 days end of month"
+        60 days: "60 days"
+        60 days, end of month: "60 days end of month"
     purchase_gap:
       direction:
         # loss: "Loss"
@@ -452,6 +464,13 @@ eng:
       nature:
         payslip: "Payslip"
         purchase: "Purchase"
+    sale:
+      payment_delay:
+        1 week: "at reception"
+        30 days: "30 days"
+        30 days, end of month: "30 days end of month"
+        60 days: "60 days"
+        60 days, end of month: "60 days end of month"
     sale_gap:
       direction:
         # loss: "Loss"
@@ -461,6 +480,13 @@ eng:
         # amount: "Amount"
         # pretax_amount: "Pretax amount"
         # unit_pretax_amount: "Unit pretax amount"
+    sale_nature:
+      payment_delay:
+        1 week: "at reception"
+        30 days: "30 days"
+        30 days, end of month: "30 days end of month"
+        60 days: "60 days"
+        60 days, end of month: "60 days end of month"
     sensor:
       retrieval_mode:
         integration: "Integration"
