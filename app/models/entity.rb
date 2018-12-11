@@ -161,7 +161,7 @@ class Entity < Ekylibre::Record::Base
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :active, :client, :employee, :locked, :of_company, :prospect, :reminder_submissive, :supplier, :transporter, :vat_subjected, inclusion: { in: [true, false] }
-  validates :activity_code, :bank_account_holder_name, :bank_identifier_code, :deliveries_conditions, :first_name, :iban, :meeting_origin, :number, :picture_content_type, :picture_file_name, :siret_number, :title, :vat_number, length: { maximum: 500 }, allow_blank: true
+  validates :activity_code, :bank_account_holder_name, :bank_identifier_code, :deliveries_conditions, :first_name, :iban, :meeting_origin, :number, :picture_content_type, :picture_file_name, :siret_number, :supplier_payment_delay, :title, :vat_number, length: { maximum: 500 }, allow_blank: true
   validates :born_at, :dead_at, :first_met_at, :picture_updated_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
   validates :currency, :language, :nature, presence: true
   validates :description, length: { maximum: 500_000 }, allow_blank: true

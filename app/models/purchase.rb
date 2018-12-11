@@ -82,7 +82,7 @@ class Purchase < Ekylibre::Record::Base
   validates :currency, :payee, :supplier, :tax_payability, presence: true
   validates :description, length: { maximum: 500_000 }, allow_blank: true
   validates :number, :state, presence: true, length: { maximum: 500 }
-  validates :reference_number, length: { maximum: 500 }, allow_blank: true
+  validates :payment_delay, :reference_number, length: { maximum: 500 }, allow_blank: true
   # ]VALIDATORS]
   validates :number, :state, length: { allow_nil: true, maximum: 60 }
   validates :created_at, :state, :nature, presence: true
