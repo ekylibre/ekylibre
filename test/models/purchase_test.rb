@@ -218,13 +218,13 @@ class PurchaseTest < ActiveSupport::TestCase
     )
     assert_equal Date.civil(2015, 1, 1), purchase.payment_at
 
-    purchase.payment_delay = '1 year'
+    purchase.payment_delay = '1 week'
     purchase.save!
-    assert_equal Date.civil(2016, 1, 1), purchase.payment_at
+    assert_equal Date.civil(2015, 1, 8), purchase.payment_at
 
-    purchase.payment_delay = '2 months'
+    purchase.payment_delay = '60 days'
     purchase.save!
-    assert_equal Date.civil(2015, 3, 1), purchase.payment_at
+    assert_equal Date.civil(2015, 3, 2), purchase.payment_at
   end
 
   test 'updating third updates third in affair if purchase is alone in the deals' do
