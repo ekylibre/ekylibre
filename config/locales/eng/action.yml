@@ -1351,6 +1351,7 @@ eng:
     # date: "Date"
     dated_cash: "%{cash}: %{on}"
     dates: "Select period start date and Period end date" #?
+    date_range: "%{from} to %{to}"
     days: "Days"
     deals: "Deals"
     debit: "Debit" #?
