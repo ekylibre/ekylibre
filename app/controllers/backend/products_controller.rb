@@ -27,7 +27,7 @@ module Backend
     before_action :check_variant_availability, only: :new
     before_action :clean_attachments, only: [:update]
 
-    unroll :name, :number, :work_number, :identification_number, container: :name # , 'population:!', 'unit_name:!'
+    unroll :name, :number, :work_number, :identification_number, container: :name, partial: 'backend/interventions/available_time_or_quantity'
 
     # params:
     #   :q Text search
@@ -274,25 +274,6 @@ module Backend
         redirect_to params[:redirect] || backend_activities_path
       else
         render 'edit_many'
-      end
-    end
-
-    def available_time_or_quantity
-      products = Product.where(id: params[:items])
-      date = Date.parse(params[:date])
-      if products.first.of_variety?(:equipment) || products.first.of_variety?(:worker)
-        @product_quantity = products.order(:name).map do |product|
-          { product_id: product.id, quantity: "#{ product.time_use_in_date(date).to_s.gsub!(/\./,",") } h"}
-        end
-      else
-        @product_quantity = products.includes(:variant).map do |product|
-          quantity = "#{product.population.round(2)} #{product.variant.unit_name.downcase}"
-          { product_id: product.id, quantity: quantity }
-        end
-      end
-
-      respond_to do |format|
-        format.json
       end
     end
 

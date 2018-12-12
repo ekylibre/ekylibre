@@ -883,4 +883,14 @@ class Product < Ekylibre::Record::Base
     duration += (intervention_proposal_parameters.map { |p| p.intervention_proposal.estimated_working_time }.inject(:+) || 0) * 3600
     (duration / 3600.0).round(1) if duration.present?
   end
+
+  def stock_info
+    info = "#{self.population.round(2)} #{self.variant.unit_name.downcase}"
+    info
+  end
+
+  def working_duration_info(date)
+    info = "#{self.time_use_in_date(date).to_s.gsub!(/\./,",")} h"
+    info
+  end
 end

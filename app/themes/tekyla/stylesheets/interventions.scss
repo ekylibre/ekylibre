@@ -86,9 +86,18 @@ $preview-modal-height: 80vh;
 
 #intervention-form {
   .control-group .selector-choices-list li {
-    display: flex;
-    .time-part {
-      margin-left: auto;
+    padding-right: 200px;
+    position: relative;
+
+    .amount-part {
+      position: absolute;
+      right: 0;
+      width: 175px;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      font-weight: bold;
+      text-align: right;
+      padding-right: 2px;
 
     }
   }
@@ -123,7 +132,7 @@ $preview-modal-height: 80vh;
     }
   }
   .controls .selector .items-menu .items-list {
-    max-width: 750px;
+    max-width: 800px;
   }
 }
 
