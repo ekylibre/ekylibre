@@ -14,7 +14,7 @@ class FixedAssetExportJob < ActiveJob::Base
       Rails.logger.error $!
       Rails.logger.error $!.backtrace.join("\n")
       ExceptionNotifier.notify_exception($!, data: { message: error })
-      notification = user.notifications.build(error_generation_notification_params(key, 'vat_register', error.message))
+      notification = user.notifications.build(error_generation_notification_params(key, 'fixed_asset_registry', error.message))
     end
     notification.save
   end
