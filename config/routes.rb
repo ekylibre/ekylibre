@@ -595,6 +595,10 @@ Rails.application.routes.draw do
         post :change_state
         get :change_page
         get :purchase_order_items
+        get :duplicate_interventions
+        get :generate_buttons
+
+        post :create_duplicate_intervention
         get :compare_realised_with_planned
       end
       member do

@@ -832,4 +832,97 @@
       @taskboardModal.getModal().modal 'show'
 
   true
+  
+  $(document).ready ->
+    if window.location.pathname.includes('/backend/interventions/')
+      path = window.location.pathname
+      intervention = path.substring(path.lastIndexOf('/') + 1);
+      $.ajax
+        url: '/backend/interventions/generate_buttons'
+        data: { interventions: [intervention] }
+        success: (data) =>
+          unless data == null
+            $('.main-toolbar').append(data)
+
+    $(document).on 'change', '#interventions-list .list-selector', (e) =>
+      e.stopImmediatePropagation();
+      interventions = $.map( $(".list-data input:checked"), (n, i) ->
+          n.value
+      )
+      $('.duplicate-intervention').remove()
+
+      $.ajax
+        url: '/backend/interventions/generate_buttons'
+        data: { interventions: interventions }
+        success: (data) =>
+          $('.main-toolbar').append(data)
+
+    $(document).on 'change', '.requests #check_nature', (e) =>
+      e.stopImmediatePropagation();
+      $(e.currentTarget).parent('.task')
+      $(e.currentTarget).closest('.taskboard-column').find(".taskboard-header")
+      interventions = $.map($('.requests .tasks input:checked'), (n, i) ->
+        $(n).closest('.task').data().intervention.id
+      )
+      $('.requests .duplicate-intervention').remove()
+      $.ajax
+        url: '/backend/interventions/generate_buttons'
+        data: { interventions: interventions, icon_btn: true }
+        success: (data) =>
+          unless data == null
+            $('.requests .edit-tasks').after("<i class='picto picto-plus duplicate-intervention' title='#{data.translation}'></i>")
+            $('.duplicate-intervention').data('interventions', interventions)
+
+
+    $('#taskboard-modal').on 'show.bs.modal', (e) =>
+      e.stopImmediatePropagation();
+      intervention = $(e.currentTarget).find(".modal-body").data().interventionId
+      $.ajax
+        url: '/backend/interventions/generate_buttons'
+        data: { interventions: [intervention] }
+        success: (data) =>
+          unless data == null
+            $(e.currentTarget).find('.duplicate-intervention').remove()
+            $(e.currentTarget).find('.modal-footer').append(data)
+
+    $(document).on 'click', '.duplicate-intervention', (e) =>
+      e.stopImmediatePropagation();
+      interventions = $(e.currentTarget).data().interventions
+      $.ajax
+        url: '/backend/interventions/duplicate_interventions'
+        data: { interventions: interventions }
+        success: (data) =>
+          if $('#taskboard-modal').length > 0
+            interventionModal = new ekylibre.modal('#taskboard-modal')
+            interventionModal.getModal().modal 'hide'
+          else
+            interventionModal = new ekylibre.modal('#create-intervention-modal')
+            interventionModal.getModal().modal 'hide'
+          $('#wrap').after(data)
+          duplicateModal = new ekylibre.modal('#duplicate-modal')
+          duplicateModal.getModal().modal 'show'
+
+    $(document).on 'click', '#duplicate-modal #validate-duplication', (e) =>
+      e.stopImmediatePropagation();
+      intervention = $(e.currentTarget).data().intervention
+      interventions = $(e.currentTarget).data().interventions
+      duplicateModal = new ekylibre.modal('#duplicate-modal')
+      date = $('#duplicate-modal #duplicate_date').val()
+      $.ajax
+        type: 'post'
+        url: '/backend/interventions/create_duplicate_intervention'
+        data: { intervention: intervention, interventions: interventions, date: date }
+        success: (data) =>
+          if data == null
+            duplicateModal.getModal().modal 'hide'
+            location.reload();
+          else if data.errors != undefined
+            $('#duplicate-modal .modal-header').append("<div class='errors'>#{data.errors}</div>")
+          else
+            duplicateModal.getModal().modal 'hide'
+            $('#duplicate-modal').remove()
+            $('#wrap').after(data)
+            duplicateModal = new ekylibre.modal('#duplicate-modal')
+            duplicateModal.getModal().modal 'show'
+
 ) ekylibre, jQuery

@@ -875,6 +875,11 @@ fra:
       zoomInTitle: "Zoomer"
       zoomOutTitle: "Dézoomer"
   labels:
+    duplicate_x_selected_interventions:
+      one: "Dupliquer l'intervention sélectionnée"
+      other: "Dupliquer les interventions sélectionnées"
+    duplicate_intervention: "Dupliquer l'intervention"
+    planned_again_intervention_in: "Planifier de nouveau cette intervention le"
     abilities: "Compétences" #?
     accepted: "Acceptée"
     accepted_for_paiment: "Acceptée pour paiement"

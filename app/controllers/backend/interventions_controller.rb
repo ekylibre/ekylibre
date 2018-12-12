@@ -515,6 +515,37 @@ module Backend
       end
     end
 
+    def generate_buttons
+      get_interventions
+
+      if interventions_validations
+        render json: nil
+      elsif params[:icon_btn] == 'true'
+        render json: { translation: :duplicate_x_selected_interventions.tl(count: @interventions.count) }
+      else
+        render partial: 'generate_buttons'
+      end
+    end
+
+    def duplicate_interventions
+      get_interventions
+      if interventions_validations
+        render json: nil
+      else
+        render partial: 'duplicate_modal',
+        locals: { intervention: @interventions.first }
+      end
+    end
+
+    def create_duplicate_intervention
+      find_intervention
+      new_intervention
+      if @new_intervention.save
+        params[:interventions].delete(params[:intervention])
+        duplicate_interventions
+      else
+        render json: { errors: @new_intervention.errors.full_messages.join(', ') }
+
     def compare_realised_with_planned
       @intervention = Intervention.find(params[:intervention_id])
       @request_intervention = @intervention.request_intervention
@@ -584,6 +615,76 @@ module Backend
                                 role: item.role }
       end
       order_hash
+    end
+
+
+    def get_interventions
+      @interventions = Intervention.where(id: params[:interventions])
+    end
+
+    def interventions_validations
+      @interventions.empty? || @interventions.select { |i| i.nature == 'record' }.present?
+    end
+
+    def new_intervention
+
+      new_date = params[:date].to_time if params[:date].present?
+
+      @new_intervention = @intervention.dup
+      @new_intervention.started_at = @new_intervention.started_at.change(year: new_date.year, month: new_date.month, day: new_date.day) if new_date
+      @new_intervention.stopped_at = @new_intervention.started_at + @intervention.duration.seconds
+      @new_intervention.parent_id = @intervention.id
+
+      @intervention.working_periods.each do |working_period|
+        duplicate_working_period = working_period.dup
+        duplicate_working_period.intervention = @new_intervention
+        duplicate_working_period.started_at = duplicate_working_period.started_at.change(year: new_date.year, month: new_date.month, day: new_date.day) if new_date
+        duplicate_working_period.stopped_at = duplicate_working_period.started_at + duplicate_working_period.duration.seconds
+        @new_intervention.working_periods << duplicate_working_period
+      end
+
+      @intervention.group_parameters.each do |group_parameter|
+        duplicate_group_parameter = group_parameter.dup
+        duplicate_group_parameter.intervention = @new_intervention
+
+        [:doers, :inputs, :outputs, :targets, :tools].each do |k|
+          group_parameter.send(k).each do |parameter|
+            duplicate_parameter = parameter.dup
+            duplicate_parameter.group = duplicate_group_parameter
+            duplicate_parameter.intervention = @new_intervention
+            duplicate_group_parameter.send(k) << duplicate_parameter
+          end
+        end
+        
+        @new_intervention.group_parameters << duplicate_group_parameter
+      end
+
+      @intervention.product_parameters.where(group_id: nil).each do |parameter|
+        duplicate_parameter = parameter.dup
+        duplicate_parameter.intervention = @new_intervention
+        @new_intervention.product_parameters << duplicate_parameter
+      end
+
+      @intervention.participations.each do |participation|
+        duplicate_participation = participation.dup
+        duplicate_participation.intervention = @new_intervention
+
+        participation.working_periods.each do |working_period|
+          duplicate_working_period = working_period.dup
+          duplicate_working_period.intervention_participation = duplicate_participation
+          duplicate_working_period.started_at = duplicate_working_period.started_at.change(year: new_date.year, month: new_date.month, day: new_date.day) if new_date
+          duplicate_working_period.stopped_at = duplicate_working_period.started_at + duplicate_working_period.duration.seconds
+          duplicate_participation.working_periods << duplicate_working_period
+        end
+
+        @new_intervention.participations << duplicate_participation
+      end
+      @new_intervention.intervention_proposal_id = @intervention.intervention_proposal_id if @intervention.respond_to?(:intervention_proposal_id)
+      @new_intervention
+    end
+
+    def find_intervention
+      @intervention = Intervention.find(params[:intervention])
     end
   end
 end
