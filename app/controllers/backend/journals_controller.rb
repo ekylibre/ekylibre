@@ -92,10 +92,17 @@ module Backend
     def index
       @draft_entries_count = JournalEntry.where(state: :draft).count
       @unbalanced_entries_count = JournalEntry.all.reject(&:balanced?).count
+      @financial_years_with_entries = FinancialYear.with_entries
       respond_to do |format|
         format.html
         format.xml  { render xml:  Journal.all }
         format.json { render json: Journal.all }
+        format.pdf do
+          key = "#{Nomen::DocumentNature.find(:general_journal).name}-#{Time.zone.now.l(format: '%Y-%m-%d-%H:%M:%S')}"
+          CentralizingJournalExportJob.perform_later('general_journal', key, params[:financial_year], current_user)
+          notify_success(:document_in_preparation)
+          redirect_to :back
+        end
       end
     end
 

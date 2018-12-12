@@ -1449,6 +1449,7 @@ eng:
     export_as_odt: "Export as ODT" #?!
     export_as_pdf: "Export as PDF"
     export_as_xcsv: "Export as Excel CSV"
+    export_centralizing_journal: "Export centralizing journal"
     export_fec_all: "Export FEC corporate tax"
     export_fec_ba_bnc_ir_commercial_accountancy: "Export FEC for agriculture and professional operations income taxation commercial accountancy"
     export_fec_ba_ir_cash_accountancy: "Export FEC agriculture income taxation cash accountancy"
