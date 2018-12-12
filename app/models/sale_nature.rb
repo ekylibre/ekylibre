@@ -77,7 +77,7 @@ class SaleNature < Ekylibre::Record::Base
 
   before_validation do
     self.expiration_delay = '0 minutes' if expiration_delay.blank?
-    self.payment_delay    = '0 minutes' if payment_delay.blank?
+    self.payment_delay    = '1 week' if payment_delay.blank?
     self.downpayment_minimum ||= 0
     self.downpayment_percentage ||= 0
   end
@@ -100,7 +100,7 @@ class SaleNature < Ekylibre::Record::Base
           name: tc('default.name'),
           active: true,
           expiration_delay: '30 day',
-          payment_delay: '30 day',
+          payment_delay: '30 days',
           downpayment: false,
           downpayment_minimum: 300,
           downpayment_percentage: 30,
