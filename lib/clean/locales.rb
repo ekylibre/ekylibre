@@ -451,11 +451,19 @@ module Clean
         end
 
         translation = "#{locale}:\n"
+        translation << "  errors:\n"
+        to_translate += Clean::Support.hash_count(::I18n.translate('errors'))
+        translation << "    messages: &error_messages" + Clean::Support.hash_to_yaml(::I18n.translate('errors.messages'), 3) + "\n"
+        translation << "  activemodel:\n"
+        translation << "    errors:\n"
+        translation << "      messages:\n"
+        translation << "        <<: *error_messages\n"
         translation << "  activerecord:\n"
         to_translate += Clean::Support.hash_count(::I18n.translate('activerecord.attributes'))
         translation << '    attributes:' + Clean::Support.hash_to_yaml(::I18n.translate('activerecord.attributes'), 3) + "\n"
-        to_translate += Clean::Support.hash_count(::I18n.translate('activerecord.errors'))
-        translation << '    errors:' + Clean::Support.hash_to_yaml(::I18n.translate('activerecord.errors'), 3) + "\n"
+        translation << "    errors:\n"
+        translation << "      messages:\n"
+        translation << "        <<: *error_messages\n"
         translation << "    models:\n"
         models.sort.each do |model, definition|
           translation << '      '

@@ -3,14 +3,17 @@ eng:
     messages: &error_messages
       accepted: "%{attribute} must be accepted"
       after: "%{attribute} must be after %{restriction}"
+      already_confirmed: "was already confirmed, please try signing in"
       before: "%{attribute} must be before %{restriction}"
       blank: "%{attribute} can't be blank"
       confirmation: "%{attribute} doesn't match confirmation"
+      confirmation_period_expired: "needs to be confirmed within %{period}, please request a new one"
       currency_does_not_match: "The currency of the %{attribute} is different from %{currency}"
       empty: "%{attribute} can't be empty"
       equal_to: "%{attribute} must be equal to %{count}"
       even: "%{attribute} must be even"
       exclusion: "%{attribute} is reserved"
+      expired: "has expired, please request a new one"
       greater_than: "%{attribute} must be greater than %{count}"
       greater_than_or_equal_to: "%{attribute} must be greater than or equal to %{count}"
       included_in: "The value of %{attribute} must be included between %{minimum} and %{maximum}"
@@ -30,6 +33,12 @@ eng:
       not_a_number: "%{attribute} is not a number"
       not_an_end_of_month: "%{attribute} must be an end of month"
       not_an_integer: "%{attribute} must be an integer"
+      not_enough: "not enough %{resource} to complete task"
+      not_found: "not found"
+      not_locked: "was not locked"
+      not_saved:
+        one: "1 error prohibited this %{resource} from being saved:"
+        other: "%{count} errors prohibited this %{resource} from being saved:"
       nothing_to_pay: "Nothing to pay. If you want to register a downpayment, do not forget to note that."
       odd: "%{attribute} must be odd"
       on_or_after: "%{attribute} must be on or after %{restriction}"
@@ -45,8 +54,9 @@ eng:
       unitary_in_parcel: "Unitary items can only be sent one by one"
       wrong_length: "%{attribute} is the wrong length (should be %{count} characters)"
   activemodel:
-    messages:
-      <<: *error_messages
+    errors:
+      messages:
+        <<: *error_messages
   activerecord:
     attributes:
       account:
@@ -143,125 +153,6 @@ eng:
     errors:
       messages:
         <<: *error_messages
-      models:
-        account:
-          cant_start_with_0: "The number can't start with a '0'"
-          centralizing_number: "The number can't start with '401' or '411' which are numbers used for auxiliary accounts"
-          incorrect_length: "The number has not the correct lenght (%{number_length} caracters)"
-          radical_class: "The account can't correpsond to a radical class"
-        activity:
-          checked_off_with_inspections: "Inspections have already been created for this activity"
-          checked_without_measures: "At least, one measure type should be selected when inspections are wanted"
-        bank_statement:
-          no_cash_match_ofx: "No cash found for the bank account number given in the file"
-          ofx_file_has_multiple_bank_accounts: "OFX file with multiple bank accounts is not supported"
-          ofx_file_invalid: "OFX file is invalid"
-        bank_statement_item:
-          unvalid_amounts: "The journal entry must be filled either debit or credit but not at the same time."
-        cash:
-          currency_does_not_match: "The currency of the %{journal} is different from that specified for the cash"
-          different_of_main_account: "%{attribute} must be different of main account (%{account})"
-          unvalid_bban: "Unvalid BBAN. One or more elements are incorrect."
-        cash_transfer:
-          attributes:
-            transfered_at:
-              financial_year_not_found: "Could not find a financial year for this date"
-              financial_year_exchange_on_this_period: "There is a financial year exchange at this period"
-              financial_year_matching_this_date_is_in_closure_preparation: "The financial year matching this date is currently being prepared for closure by another user"
-              not_opened_financial_year: "An opened financial year is necessary"
-        deposit:
-          must_be_a_bank_account: "%{attribute} must be a bank account and not a cash"
-        entity:
-          missing_title: "%{attribute} must contains the title “%{title}”"
-          nature_do_not_allow_a_first_name: "The selectected type “%{nature}” does not allow a first name"
-        financial_year:
-          attributes:
-            accountant:
-              frozen: "%{attribute} cannot be changed while an exchange is opened"
-            started_on:
-              consecutive: "The financial years must be consecutives. It must start after the end of the previous."
-              frozen: "The financial year date cannot be changed when an exchange has been created."
-              on_or_after: "The date selected must be posterior to society's creation date (%{restriction})"
-            stopped_on:
-              end_of_month: "%{attribute} must be an end of month"
-          can_only_have_two_years_opened: "You can only have two financial years opened"
-          can_only_update_code: "You can only update the code of a closed or locked financial year"
-          overlap: "%{attribute} overlaps an existing financial year"
-        financial_year_exchange:
-          csv_file_entry_dates_invalid: "Some entries in the CSV are out of the financial year exchange date range"
-          csv_file_entry_invalid: "Some entries in the CSV are invalid ('%{entry_number}')"
-          csv_file_headers_invalid: "CSV headers are invalid"
-          csv_file_invalid: "CSV file is invalid"
-          csv_file_journals_invalid: "Some journals are present in the CSV but not in Ekylibre : %{codes}"
-        fixed_asset:
-          attributes:
-            started_on:
-              financial_year_not_found: "Could not find a financial year for this date"
-              financial_year_exchange_on_this_period: "There is a financial year exchange at this period"
-              financial_year_matching_this_date_is_in_closure_preparation: "The financial year matching this date is currently being prepared for closure by another user"
-              not_opened_financial_year: "An opened financial year is necessary"
-        fixed_asset_depreciation:
-          attributes:
-            started_on:
-              invalid_date: "The depreciation must start on %{start} or on a beginning of month"
-        incoming_parcel_item:
-          greater_than_undelivered_quantity: "The quantity of product %{product} to deliver is greater than undelivered quantity (%{maximum}%{unit})"
-        integration:
-          attributes:
-            parameters:
-              check_errored: "Connexion check errored. Please ensure the validity of your input or try again later."
-        journal:
-          attributes:
-            accountant:
-              entity_frozen: "Booked journals of this %{attribute} cannot change while an exchange is opened for its financial years"
-              present: "Accountant can only be set for various operations journals"
-              previous_entity_frozen: "Booked journals of the previous %{attribute} cannot change while an exchange is opened for its financial years"
-            closed_on:
-              end_of_month: "%{attribute} must be an end of month (%{closed_on})"
-        journal_entry:
-          closed_journal: "The journal %{journal} is closed on %{closed_on}. No updates are possible until this date."
-          financial_year_matching_this_date_is_in_closure_preparation: "The financial year matching this date is currently being prepared for closure by another user"
-          frozen_by_financial_year_exchange: "The journal entry cannot be recorded in a period corresponding to a financial year exchange."
-          not_opened_financial_year: "An opened financial year is necessary"
-          out_of_existing_financial_year: "The journal entry must be recorded in a period corresponding to an existing financial year."
-          unbalanced: "The journal entry is unbalanced"
-        journal_entry_item:
-          closed_entry: "The journal entry is locked. You can not update it."
-          empty_amounts: "The journal entry must be filled either debit or credit"
-          unvalid_amounts: "The journal entry must be filled either debit or credit but not at the same time."
-        outgoing_parcel_item:
-          greater_than_undelivered_quantity: "The quantity of %{product} to deliver is greater than the available quantity (%{maximum}%{unit})"
-        parcel:
-          financial_year_not_found: "Could not find a financial year for this date"
-          financial_year_exchange_on_this_period: "There is a financial year exchange at this period"
-          financial_year_matching_this_date_is_in_closure_preparation: "The financial year matching this date is currently being prepared for closure by another user"
-          not_opened_financial_year: "An opened financial year is necessary"
-        purchase:
-          financial_year_not_found: "Could not find a financial year for this date"
-          financial_year_exchange_on_this_period: "There is a financial year exchange at this period"
-          financial_year_matching_this_date_is_in_closure_preparation: "The financial year matching this date is currently being prepared for closure by another user"
-          not_opened_financial_year: "An opened financial year is necessary"
-          payment_delay_custom_validation_message: "Accepted formats : %{values}"
-        purchase_item:
-          building_can_not_receive_product: "The building %{building} can not receive %{product}, it already contains %{contained_product}."
-          serial_already_used_with_an_other_product: "%{attribute} has been already used for an other product of the same supplier"
-        sale:
-          financial_year_not_found: "Could not find a financial year for this date"
-          financial_year_exchange_on_this_period: "There is a financial year exchange at this period"
-          financial_year_matching_this_date_is_in_closure_preparation: "The financial year matching this date is currently being prepared for closure by another user"
-          not_opened_financial_year: "An opened financial year is necessary"
-        sale_item:
-          building_can_not_transfer_product: "%{product} can not be found in %{building}, it only contains %{contained_product}."
-          can_not_use_this_tracking: "You can not user the S/N %{tracking}, the quantity is greater than the available quantity"
-          currency_is_not_sale_currency: "Currency is not identical to the sale currency"
-          error_no_found_price: "No found price"
-        subscription:
-          entity_must_be_the_same_as_the_contact_entity: "Person must be the same as the contact person"
-      template:
-        body: "There were problems with the following fields:"
-        header:
-          one: "1 error prohibited this %{model} from being saved"
-          other: "%{count} errors prohibited this %{model} from being saved"
     models:
       account: "Account"
       account_balance: "Account balance"
@@ -635,8 +526,8 @@ eng:
     commission_base_amount: "Base amount of the commission"
     commission_percentage: "Commission percentage"
     commissioned_incoming_payment_modes: "Commissioned incoming payment modes"
-    company_creation_date: "Company creation date"
-    company_name: "Company name"
+    company_creation_date: "Company creation date" #?
+    company_name: "Company name" #?
     component: "Component"
     components: "Components"
     computation_method: "Computation method"
