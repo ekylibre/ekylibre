@@ -1,85 +1,60 @@
 (($) ->
+# Options
 
-  unless Modernizr.touch
+  baseDateOptions = ($element) => $.extend {},
+    locale: getLocale($element)
+    dateFormat: 'Y-m-d'
+    altInput: true
+    altFormat: 'd-m-Y'
+  baseDateTimeOptions = ($element) => $.extend {}, baseDateOptions($element),
+    enableTime: true
+    dateFormat: 'Z'
+    altFormat: 'd-m-Y H:i'
+    time_24hr: true
+    plugins: [new confirmDatePlugin({
+      showAlways: true
+    })]
+  baseDateRangeOptions = ($element) => $.extend {}, baseDateOptions($element),
+    mode: 'range'
+    dateFormat: 'Y-m-d'
+    showMonths: 2
 
-    # Initializes date fields
-    $(document).ready ->
-      $.datepicker.regional['fr'].dateFormat = 'dd-mm-yy'
+  # Utility function
+  getLocale = ($element) => $element.attr("lang") or I18n.locale.slice(0, 2) # until we get corresponding locale codes
 
-      $("input[type='date']").each ->
-        $(this).attr('type', 'text')
-        $(this).addClass('text-datepicker')
+  enableDatePicker = (element) =>
+    $element = $(element)
+    return if $element.is('[data-flatpickr="false"]')
+    options = baseDateOptions $element
+    $element
+      .flatpickr options
 
-      $("input[type='datetime']").each ->
-        $(this).attr('type', 'text')
-        $(this).addClass('text-datetimepicker')
+  enableDatetimePicker = (element) =>
+    $element = $(element)
+    options = baseDateTimeOptions $element
+    $element
+      .flatpickr options
 
-      $("input[type='daterange']").each ->
-        $(this).attr('type', 'text')
-        $(this).addClass('text-daterangepicker')
+  enableDateRangePicker = (element) =>
+    $element = $(element)
+    options = baseDateRangeOptions $element
+    $element
+      .attr 'type', 'text'
+      .flatpickr options
 
-      $(document).on "focusin click keyup change", "input[type='text'].text-datepicker", (event) ->
-        element = $(this)
-        if element.attr("autocomplete") isnt "off"
-          locale = element.attr("lang") or I18n.locale.slice(0, 2) # until we get corresponding locale codes
-          options = { dateFormat: "dd-mm-yy" }
-          $.extend options, $.datepicker.regional[locale],
-            maxDate: element.data('max-date')
-          element.datepicker options
-          element.attr "autocomplete", "off"
-        return
+  # Watch for element insertion via javascript
+  observer = new MutationObserver (mutationList, observer) ->
+    for mutation of mutationList
+      $("input[type='date']", mutation.addedNodes).each -> enableDatePicker @
+      $("input[type='datetime']", mutation.addedNodes).each -> enableDatetimePicker @
+      $("input[type='daterange']", mutation.addedNodes).each -> enableDateRangePicker @
 
-      $(document).on "focusin click keyup change", "input[type='text'].text-daterangepicker", (event) ->
-        element = $(this)
-        if element.attr("autocomplete") isnt "off"
-          element.attr("lang")
-          locale = element.attr("lang") or I18n.locale.slice(0, 2) # until we get corresponding locale codes
-          dateFormat = $.datepicker.regional[locale].dateFormat.toUpperCase().replace("YY", "YYYY")
-          options = {}
-          $.extend options,
-            format: "#{dateFormat}"
-            language: locale
-            showShortcuts: false
-            showTopbar: false
-            separator: ' – '
-          element.dateRangePicker options
-          element.attr "autocomplete", "off"
-        return
+  observer.observe(document, {childList: true, subtree: true})
 
-      # Initializes datetime fields
-      $(document).on "focusin click keyup change", "input[type='text'].text-datetimepicker", (event) ->
-        element = $(this)
-        if element.attr("autocomplete") isnt "off"
-          locale = element.attr("lang") or I18n.locale.slice(0, 2)
-          dateFormat = $.datepicker.regional[locale].dateFormat.toUpperCase().replace("YY", "YYYY")
-          element.datetimepicker
-            format: "#{dateFormat} HH:mm"
-            locale: locale
-            sideBySide: true
-            icons:
-              time: 'icon icon-time'
-              date: 'icon icon-calendar'
-              up: 'icon icon-chevron-up'
-              down: 'icon icon-chevron-down'
-              previous: 'icon icon-chevron-left'
-              next: 'icon icon-chevron-right'
-              today: 'icon icon-screenshot'
-              clear: 'icon icon-trash'
-              close: 'icon icon-remove'
-            tooltips:
-              selectMonth:  I18n.translate('date.dateTooltipFormats.selectMonth')
-              incrementHour: I18n.translate('date.dateTooltipFormats.incrementHour')
-              incrementMinute: I18n.translate('date.dateTooltipFormats.incrementMinute')
-              decrementHour: I18n.translate('date.dateTooltipFormats.decrementHour')
-              decrementMinute: I18n.translate('date.dateTooltipFormats.decrementMinute')
-            showClear: true
-            showClose: true
-            showTodayButton: true
-            widgetPositioning:
-              horizontal: 'auto'
-              vertical: 'bottom'
-          element.attr "autocomplete", "off"
-        return
+  # Initializes date fields
+  $(document).ready =>
+    $("input[type='date']").each -> enableDatePicker @
+    $("input[type='datetime']").each -> enableDatetimePicker @
+    $("input[type='daterange']").each -> enableDateRangePicker @
 
-  return
 ) jQuery
