@@ -146,4 +146,26 @@ class EntityTest < ActiveSupport::TestCase
     create(:financial_year_exchange, :opened, financial_year: financial_year)
     accountant
   end
+
+  test 'is_france true if country fr' do
+    e = Entity.new
+    e.country = 'fr'
+
+    assert e.in_france?
+  end
+
+  test 'is_france false if other country' do
+    e = Entity.new
+    e.country = 'de'
+
+    refute e.in_france?
+  end
+
+  test 'do not validate siret if entity not in france' do
+    e = Entity.new
+    e.country = 'de'
+    e.siret_number=42
+
+    refute e.tap(&:valid?).errors.key? :siret_number
+  end
 end

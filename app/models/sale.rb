@@ -72,6 +72,7 @@ class Sale < Ekylibre::Record::Base
   include Attachable
   include Customizable
   attr_readonly :currency
+  enumerize :payment_delay, in: ['1 week', '30 days', '30 days, end of month', '60 days', '60 days, end of month']
   refers_to :currency
   belongs_to :affair
   belongs_to :client, class_name: 'Entity'
@@ -96,14 +97,14 @@ class Sale < Ekylibre::Record::Base
   validates :amount, :downpayment_amount, :pretax_amount, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
   validates :annotation, :conclusion, :description, :introduction, length: { maximum: 500_000 }, allow_blank: true
   validates :credit, :has_downpayment, :letter_format, inclusion: { in: [true, false] }
-  validates :client, :currency, :payer, presence: true
+  validates :client, :currency, :payer, :payment_delay, presence: true
   validates :expiration_delay, :function_title, :initial_number, :reference_number, :subject, length: { maximum: 500 }, allow_blank: true
-  validates :number, :payment_delay, :state, presence: true, length: { maximum: 500 }
+  validates :number, :state, presence: true, length: { maximum: 500 }
   # ]VALIDATORS]
   validates :currency, length: { allow_nil: true, maximum: 3 }
   validates :initial_number, :number, :state, length: { allow_nil: true, maximum: 60 }
   validates :client, :currency, :nature, presence: true
-  validates :invoiced_at, presence: { if: :invoice? }
+  validates :invoiced_at, presence: { if: :invoice? }, financial_year_writeable: true, allow_blank: true
   validates_delay_format_of :payment_delay, :expiration_delay
 
   acts_as_numbered :number, readonly: false
@@ -188,11 +189,6 @@ class Sale < Ekylibre::Record::Base
     if invoiced_at
       errors.add(:invoiced_at, :financial_year_exchange_on_this_period) if invoiced_during_financial_year_exchange?
       errors.add(:invoiced_at, :before, restriction: Time.zone.now.l) if invoiced_at > Time.zone.now
-      if invoiced_during_financial_year_closure_preparation?
-        errors.add(:invoiced_at, :financial_year_matching_this_date_is_in_closure_preparation) if FinancialYear.on(invoiced_at).closer.id != creator_id
-      else
-        errors.add(:invoiced_at, :not_opened_financial_year) unless opened_financial_year?
-      end
     end
     %i[address delivery_address invoice_address].each do |mail_address|
       next unless send(mail_address)

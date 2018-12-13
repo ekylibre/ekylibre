@@ -113,7 +113,12 @@
   $(document).on "change", "#hide-lettered", ->
     bankReconciliation.uiUpdate()
 
-  $(document).on "datepicker-change", "#set_period", (event, dates) ->
+  $(document).on "change", "#set_period", (event) ->
+    matches = event.target.value.match(/\d+-\d+-\d+/g)
+    if matches.length < 2
+      return
+    dates = {date1: new Date(matches[0]), date2: new Date(matches[1])}
+
     current_params = document.location.search
 
     start = dates.date1

@@ -59,6 +59,7 @@ class Purchase < Ekylibre::Record::Base
   include Customizable
   attr_readonly :currency, :nature_id
   enumerize :tax_payability, in: %i[at_paying at_invoicing], default: :at_invoicing
+  enumerize :payment_delay, in: ['1 week', '30 days', '30 days, end of month', '60 days', '60 days, end of month']
   refers_to :currency
   belongs_to :delivery_address, class_name: 'EntityAddress'
   belongs_to :journal_entry, dependent: :destroy
@@ -81,11 +82,12 @@ class Purchase < Ekylibre::Record::Base
   validates :currency, :payee, :supplier, :tax_payability, presence: true
   validates :description, length: { maximum: 500_000 }, allow_blank: true
   validates :number, :state, presence: true, length: { maximum: 500 }
-  validates :payment_delay, :reference_number, length: { maximum: 500 }, allow_blank: true
+  validates :reference_number, length: { maximum: 500 }, allow_blank: true
   # ]VALIDATORS]
   validates :number, :state, length: { allow_nil: true, maximum: 60 }
   validates :created_at, :state, :nature, presence: true
   validates :number, uniqueness: true
+  validates :invoiced_at, financial_year_writeable: true, allow_blank: true
   validates_associated :items
   validates_delay_format_of :payment_delay
 
@@ -157,11 +159,6 @@ class Purchase < Ekylibre::Record::Base
     if invoiced_at
       errors.add(:invoiced_at, :financial_year_exchange_on_this_period) if invoiced_during_financial_year_exchange?
       errors.add(:invoiced_at, :before, restriction: Time.zone.now.l) if invoiced_at > Time.zone.now
-      if invoiced_during_financial_year_closure_preparation?
-        errors.add(:invoiced_at, :financial_year_matching_this_date_is_in_closure_preparation) if FinancialYear.on(invoiced_at).closer.id != creator_id
-      else
-        errors.add(:invoiced_at, :not_opened_financial_year) unless opened_financial_year?
-      end
     end
   end
 

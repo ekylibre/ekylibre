@@ -1,0 +1,6 @@
+- icon_class = success ? :correct : :wrong
+- message = success ? :all_exchanges_closed : :exchanges_to_close
+%p
+  %i{class: "#{icon_class}-validation"}
+  = message.tl
+  = link_to(:go_back_to_financial_year_details.tl, backend_financial_year_path(id: financial_year.id)) unless success
