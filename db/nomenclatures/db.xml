@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20181025121101">
+<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20181205162401">
   <nomenclature name="abilities" translateable="true">
     <properties>
       <property name="parameters" type="choice_list" choices="variety, issue_nature"/>
@@ -138,6 +138,7 @@
       <item name="catalog_and_print_expenses" fr_pcg82="6236" fr_pcga="6236"/>
       <item name="clients" fr_pcg82="411" pt_snc="21000000" centralizing="true" fr_pcga="411"/>
       <item name="co_ownership_and_locative_expenses" fr_pcga="614" fr_pcg82="614"/>
+      <item name="collected_intra_eu_vat" fr_pcg82="4452" fr_pcga="4452"/>
       <item name="collected_vat" fr_pcg82="44571" pt_snc="24330000" fr_pcga="44571"/>
       <item name="collected_vat_to_resolve" fr_pcg82="44575" fr_pcga="44575"/>
       <item name="compensation_operations" fr_pcg82="472" fr_pcga="472"/>
@@ -156,6 +157,7 @@
       <item name="debit_retained_earnings" fr_pcg82="119" fr_pcga="119"/>
       <item name="debtor_suppliers" fr_pcg82="409" fr_pcga="409"/>
       <item name="deductible_asset_vat" fr_pcg82="44562" pt_snc="24322000" fr_pcga="44562"/>
+      <item name="deductible_intra_eu_vat" fr_pcg82="445662" fr_pcga="445662"/>
       <item name="deductible_vat" fr_pcg82="44566" pt_snc="24320000" fr_pcga="44566"/>
       <item name="deductible_vat_to_resolve" fr_pcg82="44565" fr_pcga="44565"/>
       <item name="deferred_expense_accounts" fr_pcg82="481" fr_pcga="481"/>
@@ -9804,7 +9806,7 @@
       <property name="suffix" type="string"/>
     </properties>
     <items>
-      <item name="eu_vat" computation_method="percentage" deduction_account="deductible_vat" fixed_asset_deduction_account="deductible_asset_vat" collect_account="collected_vat" suffix="2"/>
+      <item name="eu_vat" computation_method="percentage" deduction_account="deductible_intra_eu_vat" fixed_asset_deduction_account="deductible_intra_eu_vat" collect_account="collected_vat" suffix="2"/>
       <item name="import_export_vat" computation_method="percentage" deduction_account="deductible_vat" collect_account="collected_vat" fixed_asset_deduction_account="deductible_asset_vat" suffix="6"/>
       <item name="inflated_vat" computation_method="percentage" deduction_account="deductible_vat" collect_account="collected_vat" suffix="8"/>
       <item name="intermediate_vat" computation_method="percentage" deduction_account="deductible_vat" collect_account="collected_vat" suffix="3"/>
