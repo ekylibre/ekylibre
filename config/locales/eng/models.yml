@@ -157,7 +157,7 @@ eng:
         loan:
           attributes:
             ongoing_at:
-              not_opened_financial_year: "Un exercice comptable ouvert est nécessaire"
+              not_opened_financial_year: "An opened financial year is necessary"
     models:
       account: "Account"
       account_balance: "Account balance"
