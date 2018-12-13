@@ -545,6 +545,8 @@ module Backend
         duplicate_interventions
       else
         render json: { errors: @new_intervention.errors.full_messages.join(', ') }
+      end
+    end
 
     def compare_realised_with_planned
       @intervention = Intervention.find(params[:intervention_id])
