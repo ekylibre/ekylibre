@@ -12,7 +12,7 @@ class CentralizingJournalPrinter
     monthly_data = (@financial_year.started_on..@financial_year.stopped_on).group_by { |d| [Date::MONTHNAMES[d.month], d.year] }.map do |month, dates|
 
       journals_data = Journal.all.map do |journal|
-        entries = journal.entries.where('printed_on BETWEEN ? AND ?', dates.first, dates.last)
+        entries = journal.entries.where('printed_on BETWEEN ? AND ?', dates.first, dates.last).where.not(state: 'draft')
         next unless entries.any?
 
         { journal_code: journal.code,

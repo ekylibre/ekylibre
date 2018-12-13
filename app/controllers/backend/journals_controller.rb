@@ -92,7 +92,7 @@ module Backend
     def index
       @draft_entries_count = JournalEntry.where(state: :draft).count
       @unbalanced_entries_count = JournalEntry.all.reject(&:balanced?).count
-      @financial_years_with_entries = FinancialYear.with_entries
+      @financial_years_with_entries = FinancialYear.with_validated_entries
       respond_to do |format|
         format.html
         format.xml  { render xml:  Journal.all }
