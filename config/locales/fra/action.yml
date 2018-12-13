@@ -1108,6 +1108,7 @@ fra:
     cells_concentration: "Dénombrement des cellules somatiques" #?
     centralize: "Comptes comptables centralisateurs"
     centralized_account: "Compte centralisateur %{name}"
+    centralizing_journal: "Journal centralisateur"
     change: "Changer"
     change_password: "Changer de mot de passe"
     change_price: "Changer le prix unitaire" #?
@@ -1431,6 +1432,7 @@ fra:
     export_as_pdf: "Exporter en PDF"
     export_as_xcsv: "Exporter en CSV pour Excel"
     export_backup: "Export d’un fichier de sauvegarde" #?
+    export_centralizing_journal: "Exporter le journal centralisateur"
     export_fec_all: "Export FEC - Cas général - impôt sur les sociétés"
     export_fec_ba_bnc_ir_commercial_accountancy: "Export FEC - Cas BA BNC IR - comptabilité commerciale"
     export_fec_ba_ir_cash_accountancy: "Export FEC - Cas BA IR - comptabilité de trésorerie"
