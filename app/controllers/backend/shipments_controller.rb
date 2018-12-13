@@ -3,6 +3,10 @@ module Backend
     manage_restfully
     before_action :save_search_preference, only: :index
 
+    before_action only: :new do
+      params[:planned_at] ||= Time.zone.now
+    end
+
     respond_to :csv, :ods, :xlsx, :pdf, :odt, :docx, :html, :xml, :json
 
     unroll
