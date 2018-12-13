@@ -1240,6 +1240,7 @@ eng:
     # cell: "Cell"
     centralize: "Centralize account"
     centralized_account: "Centralized account %{name}"
+    centralizing_journal: "Centralizing journal"
     change: "Change"
     change_password: "Change password"
     change_state: "Change state"
