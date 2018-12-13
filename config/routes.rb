@@ -795,7 +795,7 @@ Rails.application.routes.draw do
         get :list_items
 
         post :ship
-
+        post :invoice
         post :order
         post :prepare
         post :check
