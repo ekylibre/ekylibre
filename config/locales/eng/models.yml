@@ -153,6 +153,11 @@ eng:
     errors:
       messages:
         <<: *error_messages
+      models:
+        loan:
+          attributes:
+            ongoing_at:
+              not_opened_financial_year: "Un exercice comptable ouvert est nécessaire"
     models:
       account: "Account"
       account_balance: "Account balance"
