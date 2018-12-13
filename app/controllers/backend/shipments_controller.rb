@@ -1,6 +1,6 @@
 module Backend
   class ShipmentsController < Backend::ParcelsController
-    manage_restfully
+    manage_restfully continue: true
     before_action :save_search_preference, only: :index
 
     before_action only: :new do
